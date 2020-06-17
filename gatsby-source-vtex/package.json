@@ -1,0 +1,30 @@
+{
+  "name": "gatsby-source-vtex",
+  "version": "0.1.0",
+  "description": "Gatsby source plugin for building websites using VTEX as a data source.",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir .",
+    "prepare": "cross-env NODE_ENV=production npm run build",
+    "develop": "npm run build -- --watch"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-source-plugin",
+    "vtex"
+  ],
+  "author": "Emerson Laurentino <emersonlaurentino@hotmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.23.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "babel-preset-gatsby-package": "^0.4.4"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}
