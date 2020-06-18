@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-vtex",
+  "name": "@vtex/gatsby-vtex",
   "private": true,
   "description": "Store created with gatsby for a POC using VTEX API",
   "version": "0.1.0",
