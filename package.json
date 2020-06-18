@@ -1,0 +1,30 @@
+{
+  "name": "pocs",
+  "version": "1.0.0",
+  "description": "A monorepo for testing new ideas and solutions",
+  "main": "index.js",
+  "repository": "git@github.com:vtex/pocs.git",
+  "author": "Tiago Gimenes <tlgimenes@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "lerna run build",
+    "clean": "lerna clean && lerna run clean",
+    "format": "prettier --write \"packages/**/*.{ts,js,tsx,jsx,json}\"",
+    "lint": "eslint packages/ --ext .js,.ts,.jsx,.tsx"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@vtex/prettier-config": "^0.3.0",
+    "eslint": "^7.2.0",
+    "eslint-config-vtex": "^12.5.0",
+    "eslint-config-vtex-react": "^6.5.0",
+    "husky": "^4.2.5",
+    "lerna": "^3.22.1",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.5"
+  }
+}

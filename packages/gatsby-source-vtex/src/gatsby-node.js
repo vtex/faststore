@@ -1,4 +1,4 @@
-import { ProductSearch } from "./fetch";
+import { ProductSearch } from './fetch'
 
 const PRODUCT_NODE_TYPE = "Product";
 

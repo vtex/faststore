@@ -19,7 +19,9 @@
   },
   "devDependencies": {
     "@types/react-helmet": "^6.0.0",
-    "prettier": "2.0.5"
+    "@types/theme-ui": "^0.3.4",
+    "prettier": "2.0.5",
+    "typescript": "^3.9.5"
   },
   "keywords": [
     "gatsby"
