@@ -7,6 +7,23 @@ import { FC } from 'react'
 import Layout from './layout'
 import SEO from './seo'
 
+const p1: any = {
+  id: '2000034',
+  productName: 'Different Seller',
+  categoriesIds: ['/25/47/48/', '/25/47/', '/25/'],
+  slug: '/asduashduas/p',
+  items: [
+    {
+      images: [
+        {
+          imageUrl:
+            'https://storecomponents.vteximg.com.br/arquivos/ids/155553/download.png?v=637027012534770000',
+        },
+      ],
+    },
+  ],
+}
+
 const Home: FC<RouteComponentProps> = () => {
   const { allProduct } = useStaticQuery(graphql`
     {
@@ -29,7 +46,7 @@ const Home: FC<RouteComponentProps> = () => {
     <Layout>
       <SEO />
       <Grid mt={4} gap={3} columns={[2, null, 4]}>
-        {allProduct.nodes.map((product: any) => (
+        {[...allProduct.nodes, p1].map((product: any) => (
           <Link
             key={product.id}
             to={product.slug}
