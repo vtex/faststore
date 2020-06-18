@@ -12,7 +12,7 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-theme-ui',
     {
-      resolve: require.resolve('../gatsby-source-vtex'),
+      resolve: '@vtex/gatsby-source-vtex',
       options: {
         tenant: process.env.GATSBY_VTEX_TENANT,
         environment: process.env.GATSBY_VTEX_ENVIRONMENT,

@@ -5,6 +5,7 @@
   "version": "0.1.1-alpha.1",
   "author": "Emerson Laurentino <emersonlaurentino@hotmail.com>",
   "dependencies": {
+    "@vtex/gatsby-source-vtex": "^0.1.0-alpha.1",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "gatsby": "^2.23.3",
