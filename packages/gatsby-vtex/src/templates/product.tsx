@@ -39,7 +39,7 @@ interface Props extends RouteComponentProps {
 }
 
 const Product: FC<Props> = ({ slug, data: staticData }) => {
-  const [data, setData] = useState(maybeData)
+  const [data, setData] = useState(staticData)
 
   useEffect(() => {
     if (staticData == null) {
