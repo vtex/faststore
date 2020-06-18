@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: "Store Theme - VTEX Base Store",
@@ -10,10 +14,10 @@ module.exports = {
     {
       resolve: require.resolve("../gatsby-source-vtex"),
       options: {
-        accountName: "storecomponents",
-        environment: "vtexcommercestable",
-        appKey: "7b6a2d3dd59f47a8998daf140fd1a1d0",
-        appToken: "vtexappkey-storecomponents-XMFRVK",
+        accountName: process.env.GATSBY_VTEX_ACCOUNT_NAME,
+        environment: process.env.GATSBY_VTEX_ENVIRONMENT,
+        appKey: process.env.GATSBY_VTEX_APP_KEY,
+        appToken: process.env.GATSBY_VTEX_APP_TOKEN,
       },
     },
     {
