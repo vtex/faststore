@@ -1,11 +1,16 @@
-import { ProductSearch } from "./fetch";
+import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
-const PRODUCT_NODE_TYPE = "Product";
+import { ProductSearch } from './fetch'
 
-export const sourceNodes = async (
-  { actions: { createNode }, createNodeId, createContentDigest },
-  options
+const PRODUCT_NODE_TYPE = "Product"
+
+export const sourceNodes: GatsbyNode['sourceNodes'] = async (
+  { actions: { createNode }, createNodeId, createContentDigest }: SourceNodesArgs,
+  options: PluginOptions
 ) => {
+
+  console.log('gastby-source-vtex working with typescript')
+
   try {
     const productData = await ProductSearch(options);
     productData.forEach((product) => {
