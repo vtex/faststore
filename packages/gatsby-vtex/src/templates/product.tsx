@@ -72,3 +72,5 @@ const Product: FC<Props> = ({ slug, data: staticData }) => {
     </Layout>
   )
 }
+
+export default Product
