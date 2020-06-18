@@ -1,6 +1,7 @@
 import { graphql } from 'gatsby'
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Flex, Heading, Styled } from 'theme-ui'
+import { RouteComponentProps } from '@reach/router'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
