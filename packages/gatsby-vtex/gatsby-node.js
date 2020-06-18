@@ -1,4 +1,4 @@
-const path = require("path")
+const path = require('path')
 
 exports.createPages = async ({ page, graphql, actions }) => {
   const { createPage } = actions
@@ -13,7 +13,7 @@ exports.createPages = async ({ page, graphql, actions }) => {
     }
   `)
 
-  data.allProduct.nodes.forEach(product => {
+  data.allProduct.nodes.forEach((product) => {
     createPage({
       path: product.slug,
       component: path.resolve(`./src/templates/product.tsx`),
@@ -26,8 +26,8 @@ exports.createPages = async ({ page, graphql, actions }) => {
 
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions
-  if (page.path === "/") {
-    page.matchPath = "/*"
+  if (page.path === '/') {
+    page.matchPath = '/*'
     createPage(page)
   }
 }

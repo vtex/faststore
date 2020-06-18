@@ -4,9 +4,9 @@
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir .",
-    "prepare": "cross-env NODE_ENV=production npm run build",
-    "develop": "npm run build -- --watch"
+    "build": "tsc",
+    "prepare": "cross-env NODE_ENV=production yarn run build",
+    "develop": "tsc --watch"
   },
   "keywords": [
     "gatsby",
@@ -22,7 +22,11 @@
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
-    "babel-preset-gatsby-package": "^0.4.4"
+    "@types/axios": "^0.14.0",
+    "babel-preset-gatsby-package": "^0.4.4",
+    "cross-env": "^7.0.2",
+    "gatsby": "^2.23.4",
+    "typescript": "^3.9.5"
   },
   "dependencies": {
     "axios": "^0.19.2"

@@ -1,18 +1,18 @@
-require("dotenv").config({
+require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
 module.exports = {
   siteMetadata: {
-    title: "Store Theme - VTEX Base Store",
-    description: "Store created with gatsby for a POC using VTEX API",
-    author: "Emerson Laurentino",
+    title: 'Store Theme - VTEX Base Store',
+    description: 'Store created with gatsby for a POC using VTEX API',
+    author: 'Emerson Laurentino',
   },
   plugins: [
-    "gatsby-plugin-react-helmet",
-    "gatsby-plugin-theme-ui",
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-theme-ui',
     {
-      resolve: require.resolve("../gatsby-source-vtex"),
+      resolve: require.resolve('../gatsby-source-vtex'),
       options: {
         accountName: process.env.GATSBY_VTEX_ACCOUNT_NAME,
         environment: process.env.GATSBY_VTEX_ENVIRONMENT,
@@ -21,14 +21,14 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-manifest",
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        name: "Store Theme - VTEX Base Store",
-        short_name: "Store Theme",
-        start_url: "/",
-        background_color: "#0a034e",
-        theme_color: "#0a034e",
-        display: "minimal-ui",
+        name: 'Store Theme - VTEX Base Store',
+        short_name: 'Store Theme',
+        start_url: '/',
+        background_color: '#0a034e',
+        theme_color: '#0a034e',
+        display: 'minimal-ui',
       },
     },
   ],
