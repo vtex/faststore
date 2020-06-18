@@ -1,30 +1,25 @@
-import React from 'react'
 import { graphql } from 'gatsby'
-import { Flex, Styled, Box, Button, Heading } from 'theme-ui'
+import React, { useEffect, useState } from 'react'
+import { Box, Button, Flex, Heading, Styled } from 'theme-ui'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 
-export default function Product({ location, data: { product } }: any) {
-  return (
-    <Layout>
-      <SEO title={product.productName} />
-      <Flex sx={{ flexWrap: 'wrap' }} mt={4}>
-        <Box sx={{ maxWidth: '500px' }} mr={[0, 0, 4]} mb={[4, 0, 0]}>
-          <Styled.img src={product.items[0].images[0].imageUrl} />
-        </Box>
-        <Flex sx={{ flexDirection: 'column' }}>
-          <Heading variant="productTitle" as="h1">
-            {product.productName}
-          </Heading>
-          <Button variant="productBuy">Add to Cart</Button>
-        </Flex>
-      </Flex>
-    </Layout>
+const staticQueryOnClient = async (slug: string) => {
+  const data = await fetch(
+    `http://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/api/catalog_system/pub/products/search/${slug}/p`,
+    {
+      method: 'GET',
+      credentials: 'same-origin',
+    }
   )
+  const [product] = await data.json()
+  return {
+    product,
+  }
 }
 
-export const query = graphql`
+export const staticQuery = graphql`
   query($id: String!) {
     product(id: { eq: $id }) {
       productName
@@ -36,3 +31,38 @@ export const query = graphql`
     }
   }
 `
+
+export default function Product({ slug, data: maybeData }: any) {
+  const [data, setData] = useState(maybeData)
+
+  useEffect(() => {
+    if (maybeData == null) {
+      staticQueryOnClient(slug).then(setData)
+    }
+  }, [maybeData, slug])
+
+  if (!data) {
+    return <div>loading!...</div>
+  }
+
+  const {
+    product: { productName, items },
+  } = data
+
+  return (
+    <Layout>
+      <SEO title={productName} />
+      <Flex sx={{ flexWrap: 'wrap' }} mt={4}>
+        <Box sx={{ maxWidth: '500px' }} mr={[0, 0, 4]} mb={[4, 0, 0]}>
+          <Styled.img src={items[0].images[0].imageUrl} />
+        </Box>
+        <Flex sx={{ flexDirection: 'column' }}>
+          <Heading variant="productTitle" as="h1">
+            {productName}
+          </Heading>
+          <Button variant="productBuy">Add to Cart</Button>
+        </Flex>
+      </Flex>
+    </Layout>
+  )
+}
