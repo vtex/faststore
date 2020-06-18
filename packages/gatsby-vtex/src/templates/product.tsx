@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import { Box, Button, Flex, Heading, Styled } from 'theme-ui'
 import { RouteComponentProps } from '@reach/router'
 
