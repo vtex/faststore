@@ -42,10 +42,10 @@ const Product: FC<Props> = ({ slug, data: staticData }) => {
   const [data, setData] = useState(maybeData)
 
   useEffect(() => {
-    if (maybeData == null) {
+    if (staticData == null) {
       staticQueryOnClient(slug).then(setData)
     }
-  }, [maybeData, slug])
+  }, [staticData, slug])
 
   if (!data) {
     return <div>loading!...</div>
