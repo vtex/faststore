@@ -2,7 +2,7 @@
   "name": "@vtex/gatsby-vtex",
   "private": true,
   "description": "Store created with gatsby for a POC using VTEX API",
-  "version": "0.1.0",
+  "version": "0.1.1-alpha.0",
   "author": "Emerson Laurentino <emersonlaurentino@hotmail.com>",
   "dependencies": {
     "axios": "^0.19.2",
