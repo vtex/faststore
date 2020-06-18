@@ -1,6 +1,9 @@
 import { Link } from 'gatsby'
 import React from 'react'
 import { Flex, Input, Styled } from 'theme-ui'
+import loadable from '@loadable/component'
+
+const Minicart = loadable(() => import('./minicart'), { ssr: false })
 
 const Header = () => (
   <Flex
@@ -21,6 +24,7 @@ const Header = () => (
       />
     </Link>
     <Input placeholder="Search" sx={{ maxWidth: 250, marginTop: [3, 0, 0] }} />
+    <Minicart />
   </Flex>
 )
 
