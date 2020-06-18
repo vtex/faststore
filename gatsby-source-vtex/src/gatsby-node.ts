@@ -8,9 +8,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   { actions: { createNode }, createNodeId, createContentDigest }: SourceNodesArgs,
   options: PluginOptions
 ) => {
-
-  console.log('gastby-source-vtex working with typescript')
-
   try {
     const productData = await ProductSearch(options);
     productData.forEach((product) => {
