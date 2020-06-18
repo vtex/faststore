@@ -1,3 +1,5 @@
+import './setup'
+
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { ProductSearch } from './fetch'

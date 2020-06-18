@@ -1,6 +1,10 @@
+require('dotenv').config({
+  path: '.vtex-config',
+})
+
 const path = require('path')
 
-exports.createPages = async ({ page, graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const { data } = await graphql(`
     query {

@@ -4,7 +4,7 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "message": "Release: %v",
+      "message": "chore(release): publish",
       "ignoreChanges": ["./packages/crystillize"]
     }
   },

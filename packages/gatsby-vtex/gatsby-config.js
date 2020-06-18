@@ -1,5 +1,5 @@
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: '.vtex-config',
 })
 
 module.exports = {
@@ -14,10 +14,8 @@ module.exports = {
     {
       resolve: require.resolve('../gatsby-source-vtex'),
       options: {
-        accountName: process.env.GATSBY_VTEX_ACCOUNT_NAME,
+        tenant: process.env.GATSBY_VTEX_TENANT,
         environment: process.env.GATSBY_VTEX_ENVIRONMENT,
-        appKey: process.env.GATSBY_VTEX_APP_KEY,
-        appToken: process.env.GATSBY_VTEX_APP_TOKEN,
       },
     },
     {

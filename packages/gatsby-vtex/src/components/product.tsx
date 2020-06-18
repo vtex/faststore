@@ -8,7 +8,7 @@ import SEO from './seo'
 const fetchData = async (pathname: string) => {
   try {
     const data = await fetch(
-      `https://${process.env.GATSBY_VTEX_ACCOUNT_NAME}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/api/catalog_system/pub/products/search${pathname}`
+      `https://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/api/catalog_system/pub/products/search${pathname}`
     )
     // eslint-disable-next-line no-console
     console.log('data', data.json())

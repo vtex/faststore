@@ -2,7 +2,7 @@
   "name": "crystallize-gatsby-boilerplate",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Crystallize and Gatsby",
-  "version": "0.1.0",
+  "version": "0.1.1-alpha.0",
   "author": "Håkon Krogh <hakon@crystallize.com>",
   "dependencies": {
     "@crystallize/content-transformer": "^5.0.0",
