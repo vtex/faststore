@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { Grid, Box, Styled, jsx, Heading } from "theme-ui"
-import { RouteComponentProps } from "@reach/router"
-import { useStaticQuery, graphql, Link } from "gatsby"
-import Layout from "./layout"
-import SEO from "./seo"
-import { FC } from "react"
+import { Grid, Box, Styled, jsx, Heading } from 'theme-ui'
+import { RouteComponentProps } from '@reach/router'
+import { useStaticQuery, graphql, Link } from 'gatsby'
+import { FC } from 'react'
+
+import Layout from './layout'
+import SEO from './seo'
 
 const Home: FC<RouteComponentProps> = () => {
   const { allProduct } = useStaticQuery(graphql`
@@ -28,13 +29,13 @@ const Home: FC<RouteComponentProps> = () => {
     <Layout>
       <SEO />
       <Grid mt={4} gap={3} columns={[2, null, 4]}>
-        {allProduct.nodes.map(product => (
+        {allProduct.nodes.map((product: any) => (
           <Link
             key={product.id}
             to={product.slug}
             sx={{
-              textDecoration: "none",
-              color: "text",
+              textDecoration: 'none',
+              color: 'text',
             }}
           >
             <Box>

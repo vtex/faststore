@@ -1,6 +1,6 @@
-import { Link } from "gatsby"
-import React from "react"
-import { Flex, Input, Styled } from "theme-ui"
+import { Link } from 'gatsby'
+import React from 'react'
+import { Flex, Input, Styled } from 'theme-ui'
 
 const Header = () => (
   <Flex
@@ -9,9 +9,9 @@ const Header = () => (
     px={[2, 3, 4]}
     py={3}
     sx={{
-      justifyContent: ["center", "space-between", "space-between"],
-      alignItems: "center",
-      flexWrap: "wrap",
+      justifyContent: ['center', 'space-between', 'space-between'],
+      alignItems: 'center',
+      flexWrap: 'wrap',
     }}
   >
     <Link to="/">

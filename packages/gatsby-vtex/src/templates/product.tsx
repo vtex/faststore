@@ -1,18 +1,19 @@
-import React from "react"
-import { graphql } from "gatsby"
-import { Flex, Styled, Box, Button, Heading } from "theme-ui"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import React from 'react'
+import { graphql } from 'gatsby'
+import { Flex, Styled, Box, Button, Heading } from 'theme-ui'
 
-export default function Product({ location, data: { product } }) {
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
+export default function Product({ location, data: { product } }: any) {
   return (
     <Layout>
       <SEO title={product.productName} />
-      <Flex sx={{ flexWrap: "wrap" }} mt={4}>
-        <Box sx={{ maxWidth: "500px" }} mr={[0, 0, 4]} mb={[4, 0, 0]}>
+      <Flex sx={{ flexWrap: 'wrap' }} mt={4}>
+        <Box sx={{ maxWidth: '500px' }} mr={[0, 0, 4]} mb={[4, 0, 0]}>
           <Styled.img src={product.items[0].images[0].imageUrl} />
         </Box>
-        <Flex sx={{ flexDirection: "column" }}>
+        <Flex sx={{ flexDirection: 'column' }}>
           <Heading variant="productTitle" as="h1">
             {product.productName}
           </Heading>

@@ -1,0 +1,12 @@
+{
+  "version": "independent",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "message": "Release: %v",
+      "ignoreChanges": ["./packages/crystillize"]
+    }
+  },
+  "packages": ["packages/*"]
+}
