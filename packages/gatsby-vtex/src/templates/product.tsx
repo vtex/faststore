@@ -33,7 +33,12 @@ export const staticQuery = graphql`
   }
 `
 
-export default function Product({ slug, data: maybeData }: any) {
+interface Props extends RouteComponentProps {
+  data?: any
+  slug?: string
+}
+
+const Product: FC<Props> = ({ slug, data: staticData }) => {
   const [data, setData] = useState(maybeData)
 
   useEffect(() => {
