@@ -11,10 +11,9 @@ module.exports = {
     author: 'Emerson Laurentino',
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-theme-ui',
-    'gatsby-plugin-loadable-components-ssr',
-    'gatsby-plugin-netlify',
+    require.resolve('gatsby-plugin-react-helmet'),
+    require.resolve('gatsby-plugin-theme-ui'),
+    require.resolve('gatsby-plugin-netlify'),
     {
       resolve: require.resolve('@vtex/gatsby-source-vtex'),
       options: {

@@ -15,19 +15,18 @@
     "gatsby-plugin-netlify": "^2.3.5",
     "gatsby-plugin-react-helmet": "^3.3.4",
     "gatsby-plugin-theme-ui": "^0.3.0",
-    "gatsby-plugin-ts-config": "^0.2.3",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "^0.0.0-experimental-7f28234f8",
+    "react-dom": "^0.0.0-experimental-7f28234f8",
     "react-helmet": "^6.1.0",
     "swr": "^0.2.3",
     "theme-ui": "^0.3.1"
   },
   "devDependencies": {
     "@types/loadable__component": "^5.10.0",
+    "@types/react-dom": "^16.9.8",
     "@types/react-helmet": "^6.0.0",
     "@types/theme-ui": "^0.3.4",
-    "gatsby-plugin-loadable-components-ssr": "^2.1.0",
     "prettier": "2.0.5",
     "typescript": "^3.9.5"
   },

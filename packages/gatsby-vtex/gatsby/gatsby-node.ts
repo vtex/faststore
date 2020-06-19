@@ -1,6 +1,6 @@
 import path from 'path'
 
-import { GatsbyNode } from 'gatsby'
+import { CreateWebpackConfigArgs, GatsbyNode } from 'gatsby'
 
 export const createPages: GatsbyNode['createPages'] = async ({
   actions: { createPage },
@@ -40,4 +40,17 @@ export const onCreatePage: GatsbyNode['onCreatePage'] = async ({
 
   page.matchPath = '/*'
   createPage(page)
+}
+
+export const onCreateWebpackConfig = ({
+  actions: { setWebpackConfig },
+}: CreateWebpackConfigArgs) => {
+  setWebpackConfig({
+    resolve: {
+      alias: {
+        react: require.resolve('react'),
+        'react-dom': require.resolve('react-dom'),
+      },
+    },
+  })
 }
