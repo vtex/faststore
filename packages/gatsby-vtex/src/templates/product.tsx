@@ -3,7 +3,6 @@ import React, { FC, Suspense } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import useSWR from 'swr'
 
-import Layout from '../components/Layout'
 import Product from '../components/Product'
 import ErrorBoundary from '../components/ErrorBoundary'
 
