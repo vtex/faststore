@@ -1,23 +1,25 @@
 import { graphql } from 'gatsby'
-import React, { useEffect, useState, FC } from 'react'
-import { Box, Button, Flex, Heading, Styled } from 'theme-ui'
+import React, { FC, Suspense } from 'react'
 import { RouteComponentProps } from '@reach/router'
+import useSWR from 'swr'
 
-import Layout from '../components/layout'
-import SEO from '../components/seo'
+import Layout from '../components/Layout'
+import Product from '../components/Product'
+import ErrorBoundary from '../components/ErrorBoundary'
 
-const staticQueryOnClient = async (slug: string) => {
-  const data = await fetch(
+const ProductData: FC<{ slug?: string }> = ({ slug }) => {
+  const {
+    data,
+  } = useSWR(
     `http://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/api/catalog_system/pub/products/search/${slug}/p`,
-    {
-      method: 'GET',
-      credentials: 'same-origin',
-    }
+    (url: string) => fetch(url).then((r) => r.json()),
+    { suspense: true }
   )
-  const [product] = await data.json()
-  return {
-    product,
-  }
+
+  const [product] = data
+  const result = { product }
+
+  return <Product data={result} />
 }
 
 export const staticQuery = graphql`
@@ -38,39 +40,22 @@ interface Props extends RouteComponentProps {
   slug?: string
 }
 
-const Product: FC<Props> = ({ slug, data: staticData }) => {
-  const [data, setData] = useState(staticData)
-
-  useEffect(() => {
-    if (staticData == null) {
-      staticQueryOnClient(slug).then(setData)
-    }
-  }, [staticData, slug])
-
-  if (!data) {
-    return <div>loading!...</div>
-  }
-
-  const {
-    product: { productName, items },
-  } = data
+const ProductTemplate: FC<Props> = ({ data, slug }) => {
+  const isStatic = !!data
 
   return (
     <Layout>
-      <SEO title={productName} />
-      <Flex sx={{ flexWrap: 'wrap' }} mt={4}>
-        <Box sx={{ maxWidth: '500px' }} mr={[0, 0, 4]} mb={[4, 0, 0]}>
-          <Styled.img src={items[0].images[0].imageUrl} />
-        </Box>
-        <Flex sx={{ flexDirection: 'column' }}>
-          <Heading variant="productTitle" as="h1">
-            {productName}
-          </Heading>
-          <Button variant="productBuy">Add to Cart</Button>
-        </Flex>
-      </Flex>
+      {isStatic ? (
+        <Product data={data} />
+      ) : (
+        <ErrorBoundary fallback={<div>Error!</div>}>
+          <Suspense fallback={<div>loading...</div>}>
+            <ProductData slug={slug} />
+          </Suspense>
+        </ErrorBoundary>
+      )}
     </Layout>
   )
 }
 
-export default Product
+export default ProductTemplate

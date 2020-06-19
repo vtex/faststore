@@ -1,8 +1,9 @@
 import React from 'react'
+import { Button } from 'theme-ui'
 
-const Minicart: React.FC = () => {
+const Minicart = () => {
   return (
-    <button>
+    <Button variant="minicart">
       <svg
         fill="none"
         width="16"
@@ -27,7 +28,7 @@ const Minicart: React.FC = () => {
           </g>
         </use>
       </svg>
-    </button>
+    </Button>
   )
 }
 

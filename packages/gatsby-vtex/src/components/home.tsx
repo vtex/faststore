@@ -4,8 +4,8 @@ import { RouteComponentProps } from '@reach/router'
 import { useStaticQuery, graphql, Link } from 'gatsby'
 import { FC } from 'react'
 
-import Layout from './layout'
-import SEO from './seo'
+import Layout from './Layout'
+import SEO from './Seo'
 
 const p1: any = {
   id: '2000034',
