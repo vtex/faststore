@@ -2,6 +2,7 @@ import { Component, SuspenseProps } from 'react'
 
 class ErrorBoundary extends Component<SuspenseProps> {
   public state = { hasError: false, error: null }
+
   public static getDerivedStateFromError(error: any) {
     return {
       hasError: true,

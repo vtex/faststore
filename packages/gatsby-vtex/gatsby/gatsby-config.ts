@@ -14,6 +14,7 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-theme-ui',
     'gatsby-plugin-loadable-components-ssr',
+    'gatsby-plugin-netlify',
     {
       resolve: require.resolve('@vtex/gatsby-source-vtex'),
       options: {
