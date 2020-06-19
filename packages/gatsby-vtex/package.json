@@ -5,8 +5,8 @@
   "version": "0.1.1-alpha.1",
   "author": "Emerson Laurentino <emersonlaurentino@hotmail.com>",
   "dependencies": {
-    "@vtex/gatsby-source-vtex": "^0.1.0-alpha.1",
     "@loadable/component": "^5.12.0",
+    "@vtex/gatsby-source-vtex": "^0.1.0-alpha.1",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "gatsby": "^2.23.3",
@@ -19,6 +19,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
+    "swr": "^0.2.3",
     "theme-ui": "^0.3.1"
   },
   "devDependencies": {

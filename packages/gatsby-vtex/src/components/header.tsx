@@ -3,7 +3,7 @@ import React from 'react'
 import { Flex, Input, Styled } from 'theme-ui'
 import loadable from '@loadable/component'
 
-const Minicart = loadable(() => import('./minicart'), { ssr: false })
+const Minicart = loadable(() => import('./Minicart'), { ssr: false })
 
 const Header = () => (
   <Flex

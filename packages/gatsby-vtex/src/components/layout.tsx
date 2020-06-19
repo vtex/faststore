@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'theme-ui'
 
-import Header from './header'
+import Header from './Header'
 
 const Layout: React.FC = ({ children }) => {
   return (
