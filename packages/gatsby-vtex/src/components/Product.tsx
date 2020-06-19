@@ -7,6 +7,7 @@ const Product: FC<{ data: any }> = ({ data }) => {
   const {
     product: { productName, items },
   } = data
+
   return (
     <>
       <SEO title={productName} />
