@@ -43,18 +43,16 @@ interface Props extends RouteComponentProps {
 const ProductTemplate: FC<Props> = ({ data, slug }) => {
   const isStatic = !!data
 
+  if (isStatic) {
+    return <Product data={data} />
+  }
+
   return (
-    <Layout>
-      {isStatic ? (
-        <Product data={data} />
-      ) : (
-        <ErrorBoundary fallback={<div>Error!</div>}>
-          <Suspense fallback={<div>loading...</div>}>
-            <ProductData slug={slug} />
-          </Suspense>
-        </ErrorBoundary>
-      )}
-    </Layout>
+    <ErrorBoundary fallback={<div>Error!</div>}>
+      <Suspense fallback={<div>loading...</div>}>
+        <ProductData slug={slug} />
+      </Suspense>
+    </ErrorBoundary>
   )
 }
 
