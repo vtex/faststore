@@ -1,5 +1,5 @@
 {
-  "name": "@vtex/gatsby-source-vtex",
+  "name": "@vtex/gatsby-theme-vtex",
   "version": "0.1.0-alpha.1",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
@@ -14,19 +14,16 @@
     "gatsby-source-plugin",
     "vtex"
   ],
-  "author": "Emerson Laurentino <emersonlaurentino@hotmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "gatsby": "^2.23.3"
+    "@loadable/component": "*",
+    "gatsby": "*",
+    "react": "*",
+    "react-dom": "*"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0",
     "cross-env": "^7.0.2",
-    "gatsby": "^2.23.4",
     "typescript": "^3.9.5"
   },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "pretty-error": "^2.1.1"
-  }
+  "dependencies": {}
 }

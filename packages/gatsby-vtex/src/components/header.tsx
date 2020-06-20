@@ -1,9 +1,8 @@
 import { Link } from 'gatsby'
 import React from 'react'
 import { Flex, Input, Styled } from 'theme-ui'
-import loadable from '@loadable/component'
 
-const Minicart = loadable(() => import('./Minicart'), { ssr: false })
+import Minicart from './Minicart'
 
 const Header = () => (
   <Flex

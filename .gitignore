@@ -69,4 +69,4 @@ yarn-error.log
 .yarn-integrity
 
 # autogen js files
-packages/gatsby-source*/*.js
+packages/gatsby-*/*.js

@@ -161,41 +161,6 @@
         "signature": "89bf2b7a601b73ea4311eda9c41f86a58994fec1bee3b87c4a14d68d9adcdcbd",
         "affectsGlobalScope": true
       },
-      "../../node_modules/@types/react/global.d.ts": {
-        "version": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
-        "signature": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
-        "affectsGlobalScope": true
-      },
-      "../../node_modules/csstype/index.d.ts": {
-        "version": "cd4fba36eeb79a6e2ff14bbe1024cd83ae542c1bd1c2a02ed853ebc251974119",
-        "signature": "cd4fba36eeb79a6e2ff14bbe1024cd83ae542c1bd1c2a02ed853ebc251974119",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/prop-types/index.d.ts": {
-        "version": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
-        "signature": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/react/index.d.ts": {
-        "version": "730b99e073329e2545bd94b68f401baf6cb3b01cd7f9333e3ddaade40abe87fe",
-        "signature": "730b99e073329e2545bd94b68f401baf6cb3b01cd7f9333e3ddaade40abe87fe",
-        "affectsGlobalScope": true
-      },
-      "../../node_modules/@types/loadable__component/index.d.ts": {
-        "version": "340c32ab57b0f5275790b39c7f025690daace475b12586b1c8c28bf975fc3df7",
-        "signature": "340c32ab57b0f5275790b39c7f025690daace475b12586b1c8c28bf975fc3df7",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/react-dom/index.d.ts": {
-        "version": "8483a29c17f7feb768a1f4333cf12ccf1e7341bd89dadcf407e012d5315228d0",
-        "signature": "8483a29c17f7feb768a1f4333cf12ccf1e7341bd89dadcf407e012d5315228d0",
-        "affectsGlobalScope": false
-      },
-      "./gatsby/gatsby-browser.ts": {
-        "version": "9ed67f94b3ec66d25f55cd6052b9ee2c698ea8b609a98cb9e08c9122bb84345f",
-        "signature": "d78da4e3ea29416600da1107efb5c72c75ab3b483f8d3a5db42b4660a1bdccfe",
-        "affectsGlobalScope": false
-      },
       "../../node_modules/@types/node/globals.d.ts": {
         "version": "2dd7dbacbd70cc156185235140b7b6682c002c1ea678dd87d7a20589d4555fc0",
         "signature": "2dd7dbacbd70cc156185235140b7b6682c002c1ea678dd87d7a20589d4555fc0",
@@ -462,8 +427,33 @@
         "affectsGlobalScope": false
       },
       "./gatsby/gatsby-config.ts": {
-        "version": "9cca9e39d7bac377f2d14fe472392e548546ffad62cbe14ca26ed2ecf0db4179",
+        "version": "d82891b360f2c90958f582cdd30bf67c0f2d50ffd1bbf9fc73c59e5eccb20fce",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/react/global.d.ts": {
+        "version": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
+        "signature": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
+        "affectsGlobalScope": true
+      },
+      "../../node_modules/csstype/index.d.ts": {
+        "version": "cd4fba36eeb79a6e2ff14bbe1024cd83ae542c1bd1c2a02ed853ebc251974119",
+        "signature": "cd4fba36eeb79a6e2ff14bbe1024cd83ae542c1bd1c2a02ed853ebc251974119",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/prop-types/index.d.ts": {
+        "version": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
+        "signature": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/react/index.d.ts": {
+        "version": "730b99e073329e2545bd94b68f401baf6cb3b01cd7f9333e3ddaade40abe87fe",
+        "signature": "730b99e073329e2545bd94b68f401baf6cb3b01cd7f9333e3ddaade40abe87fe",
+        "affectsGlobalScope": true
+      },
+      "../../node_modules/@types/react-dom/index.d.ts": {
+        "version": "8483a29c17f7feb768a1f4333cf12ccf1e7341bd89dadcf407e012d5315228d0",
+        "signature": "8483a29c17f7feb768a1f4333cf12ccf1e7341bd89dadcf407e012d5315228d0",
         "affectsGlobalScope": false
       },
       "../../node_modules/@types/history/domutils.d.ts": {
@@ -1292,7 +1282,7 @@
         "affectsGlobalScope": false
       },
       "./gatsby/gatsby-node.ts": {
-        "version": "3c895f67ed9791d72ef722b5c5048b1c4e412783816afd6cb8711dfe177bcb50",
+        "version": "4ef7a60401d0ac785c976e175ebda017fe3a8bbd4364323b5a28e7e1e53bd18a",
         "signature": "53c686c21bef6b807c13ec6d2e42c1b8c057c6ec65a8e7e3d37d5c8351044cf8",
         "affectsGlobalScope": false
       },
@@ -1359,6 +1349,11 @@
       "../../node_modules/@types/json5/index.d.ts": {
         "version": "96d14f21b7652903852eef49379d04dbda28c16ed36468f8c9fa08f7c14c9538",
         "signature": "96d14f21b7652903852eef49379d04dbda28c16ed36468f8c9fa08f7c14c9538",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/loadable__component/index.d.ts": {
+        "version": "340c32ab57b0f5275790b39c7f025690daace475b12586b1c8c28bf975fc3df7",
+        "signature": "340c32ab57b0f5275790b39c7f025690daace475b12586b1c8c28bf975fc3df7",
         "affectsGlobalScope": false
       },
       "../../node_modules/@types/lodash/ts3.1/common/common.d.ts": {
@@ -4264,15 +4259,6 @@
         "../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../node_modules/@types/node/util.d.ts"
       ],
-      "./gatsby/gatsby-browser.ts": [
-        "../../node_modules/@types/loadable__component/index.d.ts",
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../node_modules/@types/node/util.d.ts",
-        "../../node_modules/@types/react-dom/index.d.ts",
-        "../../node_modules/@types/react/index.d.ts"
-      ],
       "./gatsby/gatsby-config.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -6993,9 +6979,6 @@
         "../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../node_modules/@types/node/util.d.ts"
       ],
-      "./gatsby/gatsby-browser.ts": [
-        "../../node_modules/@types/react/index.d.ts"
-      ],
       "./gatsby/gatsby-node.ts": [
         "./node_modules/gatsby/index.d.ts"
       ],
@@ -7331,7 +7314,6 @@
       "../../node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "../../node_modules/typescript/lib/lib.scripthost.d.ts",
       "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
-      "./gatsby/gatsby-browser.ts",
       "./gatsby/gatsby-config.ts",
       "./gatsby/gatsby-node.ts",
       "./node_modules/gatsby-link/index.d.ts",
