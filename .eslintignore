@@ -4,3 +4,6 @@ public/
 coverage/
 .vscode/
 .cache/
+
+# autogen js files
+packages/gatsby-*/*.js

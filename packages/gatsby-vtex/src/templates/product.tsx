@@ -6,7 +6,7 @@ import useSWR from 'swr'
 import Product from '../components/Product'
 import ErrorBoundary from '../components/ErrorBoundary'
 
-const ProductData: FC<{ slug?: string }> = ({ slug }) => {
+const DynamicProductData: FC<{ slug?: string }> = ({ slug }) => {
   const {
     data,
   } = useSWR(
@@ -49,7 +49,7 @@ const ProductTemplate: FC<Props> = ({ data, slug }) => {
   return (
     <ErrorBoundary fallback={<div>Error!</div>}>
       <Suspense fallback={<div>loading...</div>}>
-        <ProductData slug={slug} />
+        <DynamicProductData slug={slug} />
       </Suspense>
     </ErrorBoundary>
   )

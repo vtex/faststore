@@ -44,7 +44,7 @@ const Home: FC<RouteComponentProps> = () => {
 
   return (
     <Layout>
-      <SEO />
+      {/* <SEO /> */}
       <Grid mt={4} gap={3} columns={[2, null, 4]}>
         {[...allProduct.nodes, p1].map((product: any) => (
           <Link
