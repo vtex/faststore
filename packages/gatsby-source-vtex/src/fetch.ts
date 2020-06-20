@@ -1,23 +1,6 @@
-import axios from 'axios'
-import { PluginOptions } from 'gatsby'
+import { Product, Category } from './types'
+import { getCatalogSystem } from './utils'
 
-interface Product {
-  linkText: string
-  productId: string
-}
+export const ProductSearch = getCatalogSystem<Product>('products/search')
 
-export const ProductSearch = async (
-  { tenant, environment }: PluginOptions,
-  search = ''
-): Promise<Product[]> => {
-  try {
-    const { data } = await axios.get(
-      `https://${tenant}.${environment}.com.br/api/catalog_system/pub/products/search/${search}`
-    )
-
-    return data
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
-}
+export const CategoryTree = getCatalogSystem<Category>('category/tree/1')
