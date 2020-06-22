@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react'
+import React, { FC } from 'react'
 import { Box, Button, Flex, Heading, Styled } from 'theme-ui'
 
 import SEO from './Seo'
@@ -13,7 +13,7 @@ const ProductTemplate: FC<Props> = ({ data }) => {
   } = data
 
   return (
-    <Fragment>
+    <>
       <SEO title={productName} />
       <Flex sx={{ flexWrap: 'wrap' }} mt={4}>
         <Box sx={{ maxWidth: '500px' }} mr={[0, 0, 4]} mb={[4, 0, 0]}>
@@ -26,7 +26,7 @@ const ProductTemplate: FC<Props> = ({ data }) => {
           <Button variant="productBuy">Add to Cart</Button>
         </Flex>
       </Flex>
-    </Fragment>
+    </>
   )
 }
 
