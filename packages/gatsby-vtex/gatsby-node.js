@@ -18,6 +18,13 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
           src
         }
       }
+      allCategory {
+        nodes {
+          id
+          slug
+          categoryId
+        }
+      }
     }
   `)
 
@@ -26,7 +33,7 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
     return
   }
 
-  const { allProduct, allCmsPage } = data
+  const { allProduct, allCmsPage, allCategory } = data
 
   // Product Pages
 
@@ -66,6 +73,19 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
     })
   })
   await Promise.all(cmsPages)
+
+  // Category Pages
+
+  allCategory.nodes.forEach((category) => {
+    createPage({
+      path: category.slug,
+      component: path.resolve(`./src/templates/category.tsx`),
+      context: {
+        id: category.id,
+        categoryId: category.categoryId,
+      },
+    })
+  })
 }
 
 exports.onCreateWebpackConfig = ({ actions: { setWebpackConfig } }) => {
