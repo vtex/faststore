@@ -1,4 +1,4 @@
-import { Product } from '@vtex/gatsby-source-vtex'
+import { Product as ProductType } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
 import React, { FC, Suspense } from 'react'
 import { useParams } from '@reach/router'
@@ -36,7 +36,9 @@ export const staticQuery = graphql`
 `
 
 interface Props {
-  data?: any
+  data?: {
+    product: ProductType
+  }
 }
 
 const ProductTemplate: FC<Props> = ({ data }) => {
