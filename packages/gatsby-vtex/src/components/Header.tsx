@@ -4,6 +4,7 @@ import { Flex } from 'theme-ui'
 import Logo from './Logo'
 import Search from './Search'
 import Minicart from './Minicart'
+import Menu from './Menu'
 
 const Header: FC = () => (
   <Flex
@@ -18,6 +19,7 @@ const Header: FC = () => (
     }}
   >
     <Logo />
+    <Menu />
     <Search />
     <Minicart />
   </Flex>
