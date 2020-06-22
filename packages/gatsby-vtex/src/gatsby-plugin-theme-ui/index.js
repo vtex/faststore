@@ -1,24 +1,24 @@
 export default {
   productTitle: {
-   mb: 4 
+    mb: 4,
   },
   forms: {
     input: {
-      background: "#fff",
-      border: "2px solid #e3e4e6",
+      background: '#fff',
+      border: '2px solid #e3e4e6',
       px: 3,
-      "&:hover": {
-        borderColor: "#cacbcc",
+      '&:hover': {
+        borderColor: '#cacbcc',
       },
     },
   },
-  breakpoints: ["40em", "56em", "64em"],
+  breakpoints: ['40em', '56em', '64em'],
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   fonts: {
     body:
       'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
-    heading: "inherit",
-    monospace: "Menlo, monospace",
+    heading: 'inherit',
+    monospace: 'Menlo, monospace',
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
   fontWeights: {
@@ -31,20 +31,20 @@ export default {
     heading: 1.125,
   },
   colors: {
-    text: "#000",
-    textMuted: "#979899",
-    background: "#fff",
-    primary: "#07c",
-    muted: "#f6f6f6",
+    text: '#000',
+    textMuted: '#979899',
+    background: '#fff',
+    primary: '#07c',
+    muted: '#f6f6f6',
   },
   styles: {
     root: {
-      fontFamily: "body",
-      lineHeight: "body",
-      fontWeight: "body",
+      fontFamily: 'body',
+      lineHeight: 'body',
+      fontWeight: 'body',
     },
     img: {
-      maxWidth: "100%",
+      maxWidth: '100%',
     },
   },
 }
