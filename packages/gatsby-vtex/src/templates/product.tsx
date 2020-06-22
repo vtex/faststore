@@ -10,7 +10,7 @@ const DynamicProductData: FC<{ slug?: string }> = ({ slug }) => {
   const {
     data,
   } = useSWR(
-    `http://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/api/catalog_system/pub/products/search/${slug}/p`,
+    `/api/catalog_system/pub/products/search/${slug}/p`,
     (url: string) => fetch(url).then((r) => r.json()),
     { suspense: true }
   )

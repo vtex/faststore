@@ -33,4 +33,10 @@ module.exports = {
       },
     },
   ],
+  proxy: [
+    {
+      prefix: '/api',
+      url: `https://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br`,
+    },
+  ],
 }
