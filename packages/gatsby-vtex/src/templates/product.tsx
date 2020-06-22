@@ -8,9 +8,7 @@ import Product from '../components/Product'
 import ErrorBoundary from '../components/ErrorBoundary'
 
 const DynamicProductData: FC<{ slug?: string }> = ({ slug }) => {
-  const {
-    data,
-  } = useSWR(
+  const { data } = useSWR(
     `/api/catalog_system/pub/products/search/${slug}/p`,
     (url: string) => fetch(url).then((r) => r.json()),
     { suspense: true }
