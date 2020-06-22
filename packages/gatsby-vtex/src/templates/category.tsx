@@ -3,8 +3,8 @@ import { graphql } from 'gatsby'
 import React, { FC } from 'react'
 import { Flex, Heading } from 'theme-ui'
 
-import Layout from '../components/layout'
-import SEO from '../components/seo'
+import Layout from '../components/Layout'
+import SEO from '../components/Seo'
 
 export const staticQuery = graphql`
   query($id: String!) {
