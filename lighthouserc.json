@@ -1,0 +1,64 @@
+{
+  "ci": {
+    "assert": {
+      "preset": "lighthouse:no-pwa",
+      "assertions": {
+        "categories:pwa": "off",
+        "categories:seo": "off",
+        "categories:accessibility": "off",
+        "categories:best-practices": "off",
+        "image-alt": "off",
+        "image-aspect-ratio": "off",
+        "image-size-responsive": "off",
+        "label": "off",
+        "link-name": "off",
+        "unused-javascript": "off",
+        "largest-contentful-paint": "off",
+        "time-to-interactive": "off",
+        "uses-long-cache-ttl": "off",
+        "categories:performance": [
+          "error",
+          {
+            "minScore": 0.8
+          }
+        ],
+        "first-contentful-paint": [
+          "error",
+          {
+            "maxNumericValue": 2000
+          }
+        ],
+        "interactive": [
+          "error",
+          {
+            "maxNumericValue": 4000
+          }
+        ],
+        "max-potential-fid": [
+          "error",
+          {
+            "maxNumericValue": 300
+          }
+        ],
+        "cumulative-layout-shift": [
+          "error",
+          {
+            "maxNumericValue": 0.2
+          }
+        ],
+        "total-blocking-time": [
+          "error",
+          {
+            "maxNumericalValue": 100
+          }
+        ]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    },
+    "collect": {
+      "numberOfRuns": 1
+    }
+  }
+}

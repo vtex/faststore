@@ -70,3 +70,6 @@ yarn-error.log
 
 # autogen js files
 packages/gatsby-*/*.js
+
+# lighthouse CI autogen files
+.lighthouseci

@@ -1,10 +1,11 @@
-import { Grid, Box, Styled, Heading } from 'theme-ui'
 import { RouteComponentProps } from '@reach/router'
-import { useStaticQuery, graphql, Link } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 import React, { FC } from 'react'
+import { Box, Grid, Heading, Styled } from 'theme-ui'
 
 import Layout from '../components/Layout'
 import SEO from '../components/Seo'
+import { scaleImage } from '../utils/img'
 
 const p1: any = {
   id: '2000034',
@@ -55,7 +56,14 @@ const Home: FC<RouteComponentProps> = () => {
             }}
           >
             <Box>
-              <Styled.img src={product.items[0].images[0].imageUrl} />
+              <Styled.img
+                height="300px"
+                src={scaleImage(
+                  product.items[0].images[0].imageUrl,
+                  'auto',
+                  300
+                )}
+              />
               <Heading variant="shellProductName" as="h3">
                 {product.productName}
               </Heading>
