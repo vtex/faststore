@@ -1,7 +1,8 @@
-import { Link } from 'gatsby'
 import React from 'react'
-import { Flex, Input, Styled } from 'theme-ui'
+import { Flex } from 'theme-ui'
 
+import Logo from './Logo'
+import Search from './Search'
 import Minicart from './Minicart'
 
 const Header = () => (
@@ -16,13 +17,8 @@ const Header = () => (
       flexWrap: 'wrap',
     }}
   >
-    <Link to="/">
-      <Styled.img
-        height="12px"
-        src="https://storecomponents.vtexassets.com/arquivos/store-theme-logo.png"
-      />
-    </Link>
-    <Input placeholder="Search" sx={{ maxWidth: 250, marginTop: [3, 0, 0] }} />
+    <Logo />
+    <Search />
     <Minicart />
   </Flex>
 )

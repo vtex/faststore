@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby'
 import React, { FC, Suspense } from 'react'
-import { RouteComponentProps } from '@reach/router'
+import { useParams } from '@reach/router'
 import useSWR from 'swr'
 
 import Product from '../components/Product'
@@ -34,17 +34,22 @@ export const staticQuery = graphql`
   }
 `
 
-interface Props extends RouteComponentProps {
+interface Props {
   data?: any
-  slug?: string
 }
 
-const ProductTemplate: FC<Props> = ({ data, slug }) => {
+const ProductTemplate: FC<Props> = ({ data }) => {
+  const maybeParams = useParams()
   const isStatic = !!data
 
+  // If page was pre-rendered we have pre-rendered data
   if (isStatic) {
     return <Product data={data} />
   }
+
+  // The page was not pre-rendered, we need to use params from
+  // the url
+  const { slug } = maybeParams
 
   return (
     <ErrorBoundary fallback={<div>Error!</div>}>
