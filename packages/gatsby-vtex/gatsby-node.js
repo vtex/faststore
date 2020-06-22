@@ -15,23 +15,18 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
   data.allProduct.nodes.forEach((product) => {
     createPage({
       path: product.slug,
-      component: path.resolve(`./src/templates/product.tsx`),
+      component: path.resolve(`./src/templates/product/server.tsx`),
       context: {
         id: product.id,
       },
     })
   })
-}
 
-exports.onCreatePage = async ({ page, actions }) => {
-  const { createPage } = actions
-
-  if (page.path !== '/') {
-    return
-  }
-
-  page.matchPath = '/*'
-  createPage(page)
+  createPage({
+    path: '/:slug/p',
+    matchPath: '/:slug/p',
+    component: path.resolve(`./src/templates/product/client.tsx`),
+  })
 }
 
 exports.onCreateWebpackConfig = ({ actions: { setWebpackConfig } }) => {

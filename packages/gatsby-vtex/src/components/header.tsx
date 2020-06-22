@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Flex } from 'theme-ui'
 
 import Logo from './Logo'
 import Search from './Search'
 import Minicart from './Minicart'
 
-const Header = () => (
+const Header: FC = () => (
   <Flex
     as="header"
     bg="muted"
