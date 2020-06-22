@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Button } from 'theme-ui'
 
-const Minicart = () => {
+const Minicart: FC = () => {
   return (
     <Button variant="minicart">
       <svg
