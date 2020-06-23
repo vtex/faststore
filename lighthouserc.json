@@ -20,38 +20,39 @@
         "errors-in-console": "warn",
         "html-has-lang": "warn",
         "meta-description": "warn",
+        "document-title": "warn",
         "categories:performance": [
-          "error",
+          "warn",
           {
             "minScore": 0.8
           }
         ],
         "first-contentful-paint": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 2000
           }
         ],
         "interactive": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 4000
           }
         ],
         "max-potential-fid": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 300
           }
         ],
         "cumulative-layout-shift": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 0.2
           }
         ],
         "total-blocking-time": [
-          "error",
+          "warn",
           {
             "maxNumericalValue": 100
           }
