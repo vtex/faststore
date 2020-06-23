@@ -69,7 +69,8 @@ yarn-error.log
 .yarn-integrity
 
 # autogen js files
-packages/gatsby-*/*.js
+packages/gatsby-theme*/*.js
+packages/gatsby-source*/*.js
 
 # lighthouse CI autogen files
 .lighthouseci

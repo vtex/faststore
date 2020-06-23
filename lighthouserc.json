@@ -58,6 +58,7 @@
       "target": "temporary-public-storage"
     },
     "collect": {
+      "staticDistDir": "./packages/gatsby-vtex/public",
       "numberOfRuns": 1
     }
   }

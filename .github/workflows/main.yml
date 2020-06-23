@@ -1,5 +1,5 @@
-name: Lighthouse CI for Netlify
-on: pull_request
+name: Lighthouse CI for Gatsby
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,12 +17,6 @@ jobs:
           yarn install
           yarn build
 
-      - name: Wait for the Netlify Preview
-        uses: jakepartusch/wait-for-netlify-action@v1
-        id: netlify
-        with:
-          site_name: 'faststore'
-
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v3
         with:
@@ -30,4 +24,5 @@ jobs:
           temporaryPublicStorage: true
           configPath: './lighthouserc.json'
           urls: |
-            ${{ steps.netlify.outputs.url }}
+            /
+            /custom-bell/p
