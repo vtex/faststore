@@ -1,7 +1,9 @@
 const path = require('path')
+const { join } = require('path')
+const { ensureDir, outputFile } = require('fs-extra')
 
 exports.createPages = async ({ actions: { createPage }, graphql }) => {
-  const { data } = await graphql(`
+  const { data, errors } = await graphql(`
     query {
       allProduct {
         nodes {
@@ -9,10 +11,27 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
           slug
         }
       }
+      allCmsPage {
+        nodes {
+          name
+          slug
+          src
+        }
+      }
     }
   `)
 
-  data.allProduct.nodes.forEach((product) => {
+  if (errors) {
+    console.log(errors)
+    return
+  }
+
+  const { allProduct, allCmsPage } = data
+
+  // Product Pages
+
+  // Pre generated product pages
+  allProduct.nodes.forEach((product) => {
     createPage({
       path: product.slug,
       component: path.resolve(`./src/templates/product/server.tsx`),
@@ -22,11 +41,31 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
     })
   })
 
+  // Client-side rendered product pages
   createPage({
     path: '/:slug/p',
     matchPath: '/:slug/p',
     component: path.resolve(`./src/templates/product/client.tsx`),
   })
+
+  // CMS Pages
+
+  // ensure dist folder
+  const root = join(__dirname, '.cache/vtex-cms')
+  await ensureDir(root)
+
+  // Create page .tsx files as well as gatsby's node pages
+  const cmsPages = allCmsPage.nodes.map(async (page) => {
+    const { src, slug, name } = page
+    const filepath = join(root, `${name}.tsx`)
+    await outputFile(filepath, src)
+
+    createPage({
+      path: slug,
+      component: filepath,
+    })
+  })
+  await Promise.all(cmsPages)
 }
 
 exports.onCreateWebpackConfig = ({ actions: { setWebpackConfig } }) => {

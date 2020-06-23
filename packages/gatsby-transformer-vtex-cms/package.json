@@ -1,0 +1,30 @@
+{
+  "name": "@vtex/gatsby-transformer-vtex-cms",
+  "version": "0.1.0-alpha.2",
+  "description": "Gatsby transformer plugin for building pages from VTEX CMS.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "cross-env NODE_ENV=production yarn run build",
+    "develop": "tsc --watch"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-source-plugin",
+    "vtex"
+  ],
+  "author": "Emerson Laurentino <emersonlaurentino@hotmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.23.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "gatsby": "^2.23.4",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "pretty-error": "^2.1.1"
+  }
+}
