@@ -3,7 +3,7 @@ import { Button } from 'theme-ui'
 
 const Minicart: FC = () => {
   return (
-    <Button variant="minicart">
+    <Button variant="minicart" aria-label="Open Cart">
       <svg
         fill="none"
         width="16"

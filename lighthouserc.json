@@ -1,0 +1,70 @@
+{
+  "ci": {
+    "assert": {
+      "preset": "lighthouse:no-pwa",
+      "assertions": {
+        "categories:pwa": "off",
+        "categories:seo": "off",
+        "categories:accessibility": "off",
+        "categories:best-practices": "warn",
+        "image-alt": "warn",
+        "image-aspect-ratio": "warn",
+        "image-size-responsive": "warn",
+        "label": "warn",
+        "link-name": "warn",
+        "unused-javascript": "warn",
+        "largest-contentful-paint": "warn",
+        "time-to-interactive": "warn",
+        "uses-long-cache-ttl": "warn",
+        "tap-targets": "warn",
+        "errors-in-console": "warn",
+        "html-has-lang": "warn",
+        "meta-description": "warn",
+        "document-title": "warn",
+        "categories:performance": [
+          "warn",
+          {
+            "minScore": 0.8
+          }
+        ],
+        "first-contentful-paint": [
+          "warn",
+          {
+            "maxNumericValue": 2000
+          }
+        ],
+        "interactive": [
+          "warn",
+          {
+            "maxNumericValue": 4000
+          }
+        ],
+        "max-potential-fid": [
+          "warn",
+          {
+            "maxNumericValue": 300
+          }
+        ],
+        "cumulative-layout-shift": [
+          "warn",
+          {
+            "maxNumericValue": 0.2
+          }
+        ],
+        "total-blocking-time": [
+          "warn",
+          {
+            "maxNumericalValue": 100
+          }
+        ]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    },
+    "collect": {
+      "staticDistDir": "./packages/gatsby-vtex/public",
+      "numberOfRuns": 1
+    }
+  }
+}
