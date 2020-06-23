@@ -16,6 +16,10 @@
         "largest-contentful-paint": "off",
         "time-to-interactive": "off",
         "uses-long-cache-ttl": "off",
+        "tap-targets": "off",
+        "errors-in-console": "off",
+        "html-has-lang": "off",
+        "meta-description": "off",
         "categories:performance": [
           "error",
           {
