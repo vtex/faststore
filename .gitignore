@@ -72,7 +72,6 @@ yarn-error.log
 packages/gatsby-theme*/*.js
 packages/gatsby-source*/*.js
 packages/gatsby-transformer-vtex-cms*/*.js
-**/src/cms/*.auto.tsx
 
 # lighthouse CI autogen files
 .lighthouseci
