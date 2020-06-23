@@ -1,5 +1,3 @@
-import assert from 'assert'
-
 import { Block } from './cms'
 
 interface RenderMetaInfo {
@@ -37,21 +35,21 @@ export class BlockDOM {
     const imports = this.renderImportsToString()
 
     return `
-      import React, { FC, Fragment } from 'react'
+import React, { FC, Fragment } from 'react'
 
-      ${imports}
+${imports}
 
-      const CMSAutogenPage: FC = () => (
-        ${blocksStr}
-      )
+const CMSAutogenPage: FC = () => (
+  ${blocksStr}
+)
 
-      export default CMSAutogenPage
-    `
+export default CMSAutogenPage
+`
   }
 
   protected renderImportsToString = () => {
     let imports = ''
-    for (const [component, dep] of this.meta.imports) {
+    for (const [component, dep] of this.meta.imports.entries()) {
       const statement = `import ${component} from '${dep}'`
       imports = `${imports}\n${statement}`
     }
@@ -59,10 +57,9 @@ export class BlockDOM {
   }
 
   protected renderBlocksToString = (blocks: Block[]) => `
-    <Fragment>
-      ${blocks.map((b) => this.renderBlockToString(b)).join('\n')}
-    </Fragment>
-  `
+<Fragment>
+  ${blocks.map((b) => this.renderBlockToString(b)).join('\n')}
+</Fragment>`
 
   protected renderBlockToString = (block: Block) => {
     const { name, props } = block
