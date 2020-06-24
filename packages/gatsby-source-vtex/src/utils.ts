@@ -46,6 +46,7 @@ export const createProductNode = (
   const data = {
     ...product,
     slug: `/${product.linkText}/p`,
+    categoryId: Number(product.categoryId),
   }
 
   createNode({
@@ -73,7 +74,7 @@ export const createCategoryNode = (
   const data = {
     ...category,
     slug,
-    categoryId: id,
+    categoryId: Number(id),
   }
 
   createNode({
