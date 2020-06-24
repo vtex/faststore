@@ -1,7 +1,7 @@
 import { Product } from '@vtex/gatsby-source-vtex'
 import { Link } from 'gatsby'
 import React, { FC } from 'react'
-import { Box, Grid, Heading, Styled } from 'theme-ui'
+import { Box, Heading, Styled } from 'theme-ui'
 
 import { scaleImage, IMAGE_DEFAULT } from '../utils/img'
 
@@ -11,7 +11,7 @@ interface Props {
 
 export const ProductList: FC<Props> = ({ data }) => {
   return (
-    <Grid mt={4} gap={3} columns={[2, null, 4]}>
+    <>
       {data.map((product) => (
         <Link
           key={product.id}
@@ -36,6 +36,6 @@ export const ProductList: FC<Props> = ({ data }) => {
           </Box>
         </Link>
       ))}
-    </Grid>
+    </>
   )
 }

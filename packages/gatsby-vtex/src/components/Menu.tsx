@@ -1,12 +1,32 @@
-import { Link } from 'gatsby'
+import { Link, useStaticQuery, graphql } from 'gatsby'
 import React, { FC } from 'react'
 
-const Menu: FC = () => (
-  <>
-    <Link to="/apparel---accessories">Apparel & Accessories</Link>
-    <Link to="/home---decor">Home & Decor</Link>
-    <Link to="/about">About us</Link>
-  </>
-)
+interface Menu {
+  name: string
+  slug: string
+}
+
+const Menu: FC = () => {
+  const { allCategory } = useStaticQuery(graphql`
+    {
+      allCategory(limit: 3, sort: { fields: [name], order: DESC }) {
+        nodes {
+          name
+          slug
+        }
+      }
+    }
+  `)
+
+  return (
+    <>
+      {allCategory.nodes.map((menu: Menu) => (
+        <Link to={`/${menu.slug}`} key={menu.slug}>
+          {menu.name}
+        </Link>
+      ))}
+    </>
+  )
+}
 
 export default Menu

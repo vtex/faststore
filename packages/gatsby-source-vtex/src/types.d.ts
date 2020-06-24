@@ -158,7 +158,7 @@ export interface EffectsKBackingField {
 
 export interface Category {
   slug: string
-  categoryId: string
+  categoryId: number
   id: number
   name: string
   hasChildren: boolean

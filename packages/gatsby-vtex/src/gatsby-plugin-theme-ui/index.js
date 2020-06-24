@@ -1,4 +1,12 @@
 export default {
+  loadMore: {
+    cursor: 'pointer',
+    '&:disabled': {
+      cursor: 'default',
+      background: '#fff',
+      color: 'text',
+    },
+  },
   productTitle: {
     mb: 4,
   },
