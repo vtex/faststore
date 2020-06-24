@@ -2,15 +2,10 @@ import './setup'
 
 import { CreateNodeArgs, GatsbyNode } from 'gatsby'
 
-import { Content } from './cms'
+import { isContent } from './cms'
 import { BlockDOM } from './compiler'
 
 const TYPE = 'CMSPage'
-
-const isContent = (c: any): c is Content =>
-  typeof c.meta?.slug === 'string' &&
-  Array.isArray(c.blocks) &&
-  (c.blocks.length === 0 || (c.blocks[0].name && c.blocks[0].props))
 
 export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
   node,

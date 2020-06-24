@@ -1,4 +1,4 @@
-import { Block } from './cms'
+import { Block, isBlock } from './cms'
 
 interface RenderMetaInfo {
   imports: Map<string, string> // components used during rendering
@@ -35,7 +35,7 @@ export class BlockDOM {
     const imports = this.renderImportsToString()
 
     return `
-import React, { FC, Fragment } from 'react'
+import React, { FC } from 'react'
 
 ${imports}
 
@@ -56,12 +56,12 @@ export default CMSAutogenPage
     return imports
   }
 
-  protected renderBlocksToString = (blocks: Block[]) => `
-<Fragment>
-  ${blocks.map((b) => this.renderBlockToString(b)).join('\n')}
-</Fragment>`
+  protected renderBlocksToString = (blocks: Block[]) => {
+    const inner = blocks.map(b => this.renderBlockToString(b)).join('\n')
+    return `<>${inner}</>`
+  }
 
-  protected renderBlockToString = (block: Block) => {
+  protected renderBlockToString = (block: Block): string => {
     const { name, props } = block
     const { component, dependency } = parseBlockName(name)
     const propsStr = this.propsToString(props)
@@ -76,11 +76,22 @@ export default CMSAutogenPage
       this.meta.imports.set(component, name)
     }
 
-    return `<${component} ${propsStr}></${component}>`
+    let inner = ''
+    const { children } = props
+    if (isBlock(children)) {
+      inner = this.renderBlockToString(children)
+    } else if (Array.isArray(children) && children.every(isBlock)) {
+      inner = this.renderBlocksToString(children)
+    }
+
+    return `<${component} ${propsStr}>${inner}</${component}>`
   }
 
   protected propsToString = (props: any = {}): string =>
     Object.keys(props).reduce((acc, propName) => {
+      if (propName === 'children') {
+        return acc
+      }
       const prop = props[propName]
       let propStr = ''
       if (typeof prop === 'string') {
