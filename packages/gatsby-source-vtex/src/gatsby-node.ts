@@ -21,7 +21,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     // GET THE FIRST 10 PRODUCTS BY THIS CATEGORY
     const productsByCategory = await ProductsByCategory({
       ...options,
-      categoryId: category.id,
+      categoryId: Number(category.id),
     })
 
     productsByCategory.forEach((product) => createProductNode(args, product))
