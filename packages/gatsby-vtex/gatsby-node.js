@@ -12,7 +12,7 @@ exports.createPages = async ({
 }) => {
   createRedirect({
     fromPath: '/api/*',
-    toPath: `https://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br`,
+    toPath: `https://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/:path`,
     statusCode: 200,
   })
 
