@@ -2,7 +2,7 @@ import './setup'
 
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
-import { ProductSearch, CategoryTree, ProductsByCategory } from './fetch'
+import { ProductSearch, CategoryTree } from './fetch'
 import { createProductNode, createCategoryNode } from './utils'
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
@@ -15,15 +15,5 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
   // CATEGORY
   const categoryData = await CategoryTree(options)
-  categoryData.forEach(async (category) => {
-    createCategoryNode(args, category)
-
-    // GET THE FIRST 10 PRODUCTS BY THIS CATEGORY
-    const productsByCategory = await ProductsByCategory({
-      ...options,
-      categoryId: Number(category.id),
-    })
-
-    productsByCategory.forEach((product) => createProductNode(args, product))
-  })
+  categoryData.forEach((category) => createCategoryNode(args, category))
 }

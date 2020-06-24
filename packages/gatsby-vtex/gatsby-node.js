@@ -82,7 +82,6 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
       component: path.resolve(`./src/templates/category.tsx`),
       context: {
         id: category.id,
-        categoryId: category.categoryId,
       },
     })
   })

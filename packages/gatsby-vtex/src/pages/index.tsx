@@ -1,6 +1,7 @@
 import { RouteComponentProps } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
 import React, { FC } from 'react'
+import { Grid } from 'theme-ui'
 
 import Layout from '../components/Layout'
 import { ProductList } from '../components/ProductList'
@@ -27,7 +28,9 @@ const Home: FC<RouteComponentProps> = () => {
   return (
     <Layout>
       <SEO />
-      <ProductList data={allProduct.nodes} />
+      <Grid mt={4} gap={3} columns={[2, null, 4]}>
+        <ProductList data={allProduct.nodes} />
+      </Grid>
     </Layout>
   )
 }
