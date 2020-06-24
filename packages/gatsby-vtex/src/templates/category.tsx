@@ -8,7 +8,7 @@ import SEO from '../components/Seo'
 import { ProductList } from '../components/ProductList'
 
 export const staticQuery = graphql`
-  query($id: String!, $categoryId: String!) {
+  query($id: String!, $categoryId: Int!) {
     category(id: { eq: $id }) {
       name
     }
