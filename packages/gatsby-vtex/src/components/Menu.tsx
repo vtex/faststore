@@ -25,6 +25,7 @@ const Menu: FC = () => {
           {menu.name}
         </Link>
       ))}
+      <Link to="/about">About</Link>
     </>
   )
 }
