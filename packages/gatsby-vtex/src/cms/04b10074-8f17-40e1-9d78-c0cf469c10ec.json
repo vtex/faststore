@@ -1,0 +1,15 @@
+{
+  "lastUpdatedAt": "2020-05-19T17:34:56.493Z",
+  "meta": {
+    "title": "Page comming from VTEX CMS",
+    "slug": "/about"
+  },
+  "blocks": [
+    {
+      "name": "img",
+      "props": {
+        "src": "https://content.vtexassets.com/assets/vtex.file-manager-graphql/images/chile-bike-2318___52930c4e532472f5263a0fbfdb067a1e.jpg"
+      }
+    }
+  ]
+}

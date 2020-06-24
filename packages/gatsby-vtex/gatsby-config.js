@@ -13,11 +13,18 @@ module.exports = {
     require.resolve('gatsby-plugin-theme-ui'),
     require.resolve('gatsby-plugin-netlify'),
     require.resolve('@vtex/gatsby-theme-vtex'),
+    require.resolve('@vtex/gatsby-transformer-vtex-cms'),
     {
       resolve: require.resolve('@vtex/gatsby-source-vtex'),
       options: {
         tenant: process.env.GATSBY_VTEX_TENANT,
         environment: process.env.GATSBY_VTEX_ENVIRONMENT,
+      },
+    },
+    {
+      resolve: require.resolve('gatsby-source-filesystem'),
+      options: {
+        path: `./src/cms/`,
       },
     },
     require.resolve('gatsby-plugin-loadable-components-ssr'),
