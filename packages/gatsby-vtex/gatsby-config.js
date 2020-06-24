@@ -6,7 +6,6 @@ module.exports = {
   siteMetadata: {
     title: 'Store Theme - VTEX Base Store',
     description: 'Store created with gatsby for a POC using VTEX API',
-    author: 'Emerson Laurentino',
   },
   plugins: [
     require.resolve('gatsby-plugin-react-helmet'),

@@ -14,7 +14,6 @@
     "gatsby-source-plugin",
     "vtex"
   ],
-  "author": "Emerson Laurentino <emersonlaurentino@hotmail.com>",
   "license": "MIT",
   "peerDependencies": {
     "gatsby": "^2.23.3"

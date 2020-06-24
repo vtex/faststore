@@ -3,7 +3,6 @@
   "private": true,
   "description": "Store created with gatsby for a POC using VTEX API",
   "version": "0.1.1-alpha.2",
-  "author": "Emerson Laurentino <emersonlaurentino@hotmail.com>",
   "dependencies": {
     "@loadable/component": "^5.12.0",
     "@loadable/server": "^5.12.0",
