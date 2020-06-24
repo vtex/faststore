@@ -28,10 +28,11 @@ interface Props {
 
 const CategoryTemplate: FC<Props> = ({ data }) => {
   const [totalItems, setTotalItems] = useState<number>(9)
+  const [isError, setIsError] = useState(false)
   const { pages, isLoadingMore, loadMore } = useSWRPages(
     data.category.slug,
     ({ withSWR, offset }) => {
-      const { data: products } = withSWR(
+      const { data: products, error } = withSWR(
         useSWR(
           urls.productsPageByCategory({
             categoryId: data.category.categoryId,
@@ -41,6 +42,11 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
           (url: string) => fetch(url).then((r) => r.json())
         )
       )
+
+      if (error) {
+        setIsError(true)
+        return null
+      }
 
       if (!products) {
         return null
@@ -74,9 +80,17 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
         <Grid marginY={4} gap={3} columns={[2, null, 4]}>
           {pages}
         </Grid>
-        <Button variant="loadMore" onClick={loadMore} disabled={isLoadingMore}>
-          {isLoadingMore ? 'Carregando...' : 'Carregar mais'}
-        </Button>
+        {isError ? (
+          <p>não foi possível carregar os produtos</p>
+        ) : (
+          <Button
+            variant="loadMore"
+            onClick={loadMore}
+            disabled={isLoadingMore}
+          >
+            {isLoadingMore ? 'Carregando...' : 'Carregar mais'}
+          </Button>
+        )}
       </Flex>
     </Layout>
   )
