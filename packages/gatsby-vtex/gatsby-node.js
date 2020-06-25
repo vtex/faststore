@@ -12,11 +12,8 @@ exports.createPages = async ({
 }) => {
   createRedirect({
     fromPath: '/api/*',
-    toPath: `https://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/:path`,
+    toPath: `https://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/:api`,
     statusCode: 200,
-    headers: JSON.stringify({
-      host: 'storetheme.vtex.com',
-    }),
   })
 
   const { data, errors } = await graphql(`
