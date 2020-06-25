@@ -3,4 +3,3 @@
   to = "https://storecomponents.vtexcommercestable.com.br/api/:splat"
   status = 200
   force = true
-  headers = {Host = "storecomponents.vtexcommercestable.com.br"}
