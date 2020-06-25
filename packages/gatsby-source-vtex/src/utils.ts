@@ -15,14 +15,12 @@ type Sufix = string | SufixVoid
 const getApiUrl = ({ tenant, environment, sufix }: ApiUrl): string =>
   `https://${tenant}.${environment}.com.br/api/catalog_system/pub/${sufix}`
 
-export const getCatalogSystem = <T>(sufix: Sufix) => async ({
-  tenant,
-  environment,
-  ...options
-}: PluginOptions): Promise<T[]> => {
+export const getCatalogSystem = <T>(sufix: Sufix) => async (
+  options: PluginOptions
+): Promise<T[]> => {
   const url = getApiUrl({
-    tenant,
-    environment,
+    tenant: options.tenant,
+    environment: options.environment,
     sufix: typeof sufix === 'string' ? sufix : sufix(options),
   })
   const { data } = await axios.get(url, {
