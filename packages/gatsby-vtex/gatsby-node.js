@@ -1,8 +1,24 @@
+require('dotenv').config({
+  path: '.vtex-config',
+})
+
 const path = require('path')
 const { join } = require('path')
 const { ensureDir, outputFile } = require('fs-extra')
 
-exports.createPages = async ({ actions: { createPage }, graphql }) => {
+exports.createPages = async ({
+  actions: { createPage, createRedirect },
+  graphql,
+}) => {
+  createRedirect({
+    fromPath: '/api/*',
+    toPath: `https://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/:path`,
+    statusCode: 200,
+    headers: JSON.stringify({
+      host: 'storetheme.vtex.com',
+    }),
+  })
+
   const { data, errors } = await graphql(`
     query {
       allProduct {
