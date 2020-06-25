@@ -11,14 +11,7 @@ module.exports = {
   plugins: [
     require.resolve('gatsby-plugin-react-helmet'),
     require.resolve('gatsby-plugin-theme-ui'),
-    {
-      resolve: require.resolve('gatsby-plugin-netlify'),
-      options: {
-        headers: {
-          '/api/*': ['host: storetheme.vtex.com'],
-        },
-      },
-    },
+    require.resolve('gatsby-plugin-netlify'),
     require.resolve('@vtex/gatsby-theme-vtex'),
     require.resolve('@vtex/gatsby-transformer-vtex-cms'),
     {
