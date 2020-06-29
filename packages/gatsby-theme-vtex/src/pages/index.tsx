@@ -18,6 +18,7 @@ const Home: FC<RouteComponentProps> = () => {
           items {
             images {
               imageUrl
+              imageText
             }
           }
         }
@@ -28,7 +29,7 @@ const Home: FC<RouteComponentProps> = () => {
   return (
     <Layout>
       <SEO />
-      <Grid mt={4} gap={3} columns={[2, null, 4]}>
+      <Grid mt={4} gap={3} columns={[1, 2, 3, 4]}>
         <ProductList data={allProduct.nodes} />
       </Grid>
     </Layout>

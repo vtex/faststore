@@ -1,29 +1,27 @@
 import React, { FC } from 'react'
-import { Box, Button, Flex, Heading, Styled } from 'theme-ui'
+import { Box, Button, Flex, Heading } from 'theme-ui'
+import { Product } from '@vtex/gatsby-source-vtex'
 
 import SEO from './Seo'
-import { scaleImage, IMAGE_DEFAULT } from '../utils/img'
+import ProductImage from './ProductImage'
 
 interface Props {
-  data?: any
+  data: {
+    product: Product
+  }
 }
 
 const ProductTemplate: FC<Props> = ({ data }) => {
   const {
-    product: { productName, items },
+    product: { productName },
   } = data
-
-  const image =
-    items.length && items[0].images
-      ? scaleImage(items[0].images[0].imageUrl, 400)
-      : IMAGE_DEFAULT
 
   return (
     <>
       <SEO title={productName} />
       <Flex sx={{ flexWrap: 'wrap' }} mt={4}>
         <Box sx={{ maxWidth: '500px' }} mr={[0, 0, 4]} mb={[4, 0, 0]}>
-          <Styled.img width="400px" src={image} />
+          <ProductImage width={400} product={data.product} />
         </Box>
         <Flex sx={{ flexDirection: 'column' }}>
           <Heading variant="productTitle" as="h1">

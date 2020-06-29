@@ -16,6 +16,7 @@ const Logo: FC = () => (
       enableBackground="new 0 0 660 44"
       xmlSpace="preserve"
     >
+      <title>Store Theme Logo</title>
       <image
         id="image0"
         width="660"

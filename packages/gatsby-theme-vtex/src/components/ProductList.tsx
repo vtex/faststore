@@ -1,9 +1,9 @@
 import { Product } from '@vtex/gatsby-source-vtex'
 import { Link } from 'gatsby'
 import React, { FC } from 'react'
-import { Box, Heading, Styled } from 'theme-ui'
+import { Box, Heading } from 'theme-ui'
 
-import { scaleImage, IMAGE_DEFAULT } from '../utils/img'
+import ProductImage from './ProductImage'
 
 interface Props {
   data: Product[]
@@ -22,14 +22,7 @@ export const ProductList: FC<Props> = ({ data }) => {
           }}
         >
           <Box>
-            <Styled.img
-              height="300px"
-              src={
-                product.items.length && product.items[0].images
-                  ? scaleImage(product.items[0].images[0].imageUrl, 'auto', 300)
-                  : IMAGE_DEFAULT
-              }
-            />
+            <ProductImage height={300} product={product} />
             <Heading variant="shellProductName" as="h3">
               {product.productName}
             </Heading>
