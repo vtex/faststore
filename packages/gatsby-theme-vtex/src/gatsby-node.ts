@@ -1,6 +1,6 @@
-import './setup'
+import './utils/setup'
 
-import { join } from 'path'
+import { join, resolve } from 'path'
 
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs } from 'gatsby'
@@ -55,7 +55,7 @@ export const createPages = async ({
   allProduct.nodes.forEach((product: any) => {
     createPage({
       path: product.slug,
-      component: join(root, `./src/templates/product/server.tsx`),
+      component: resolve(__dirname, './src/templates/product/server.tsx'),
       context: {
         id: product.id,
       },
@@ -66,7 +66,7 @@ export const createPages = async ({
   createPage({
     path: '/:slug/p',
     matchPath: '/:slug/p',
-    component: join(root, `./src/templates/product/client.tsx`),
+    component: resolve(__dirname, './src/templates/product/client.tsx'),
     context: {},
   })
 
@@ -75,7 +75,7 @@ export const createPages = async ({
   allCategory.nodes.forEach((category: any) => {
     createPage({
       path: category.slug,
-      component: join(root, `./src/templates/category.tsx`),
+      component: resolve(__dirname, './src/templates/category.tsx'),
       context: {
         id: category.id,
       },
