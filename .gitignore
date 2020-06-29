@@ -70,10 +70,19 @@ yarn-error.log
 
 # autogen js files
 packages/gatsby-theme*/**/*.js
+packages/gatsby-theme*/**/*.jsx
+packages/gatsby-theme*/**/*.d.ts
 packages/gatsby-source*/**/*.js
+packages/gatsby-source*/**/*.jsx
+packages/gatsby-source*/**/*.d.ts
 packages/gatsby-transformer-vtex-cms*/**/*.js
+packages/gatsby-transformer-vtex-cms*/**/*.jsx
+packages/gatsby-transformer-vtex-cms*/**/*.d.ts
 
 # Specific files
+packages/gatsby-theme-vtex/components
+packages/gatsby-theme-vtex/pages
+packages/gatsby-theme-vtex/templates
 packages/gatsby-theme-vtex/utils
 
 # lighthouse CI autogen files
