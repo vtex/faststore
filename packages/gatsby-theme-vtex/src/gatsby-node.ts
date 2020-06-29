@@ -105,14 +105,3 @@ export const createPages = async ({
 
   await Promise.all(cmsPages)
 }
-
-// export const setWebpackConfig = () => ({
-//   resolve: {
-//     alias: {
-//       react: require.resolve('react'),
-//       'react-dom': require.resolve('react-dom'),
-//       '@loadable/component': require.resolve('@loadable/component'),
-//       '@loadable/server': require.resolve('@loadable/server'),
-//     },
-//   },
-// })

@@ -18,10 +18,14 @@
   "peerDependencies": {
     "@loadable/component": "*",
     "gatsby": "*",
-    "react": "*",
-    "react-dom": "*"
+    "react": "^0.0.0-experimental-7f28234f8",
+    "react-dom": "^0.0.0-experimental-7f28234f8"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "@types/loadable__component": "^5.10.0",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
     "cross-env": "^7.0.2",
     "typescript": "^3.9.5"
   },
@@ -29,6 +33,7 @@
     "@vtex/gatsby-source-vtex": "^0.1.0-alpha.3",
     "@vtex/gatsby-transformer-vtex-cms": "^0.1.0-alpha.3",
     "gatsby-plugin-react-helmet": "^3.3.6",
-    "gatsby-plugin-theme-ui": "^0.3.0"
+    "gatsby-plugin-theme-ui": "^0.3.0",
+    "theme-ui": "^0.3.1"
   }
 }
