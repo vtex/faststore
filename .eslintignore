@@ -6,4 +6,4 @@ coverage/
 .cache/
 
 # autogen js files
-packages/gatsby-*/*.js
+packages/gatsby-*/**/*.js

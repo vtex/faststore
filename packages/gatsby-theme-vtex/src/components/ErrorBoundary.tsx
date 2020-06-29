@@ -14,6 +14,7 @@ class ErrorBoundary extends Component<SuspenseProps> {
     if (this.state.hasError) {
       return this.props.fallback
     }
+
     return this.props.children
   }
 }

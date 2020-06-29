@@ -45,6 +45,7 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
 
       if (error) {
         setIsError(true)
+
         return null
       }
 

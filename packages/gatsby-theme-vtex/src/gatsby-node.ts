@@ -1,19 +1,21 @@
-import './setup'
+import './utils/setup'
 
-import { join } from 'path'
+import { join, resolve } from 'path'
 
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs } from 'gatsby'
 
+import { defaultEnvironment, defaultTenant, Options } from './gatsby-config'
+
 const root = process.cwd()
 
-export const createPages = async ({
-  actions: { createPage, createRedirect },
-  graphql,
-}: CreatePagesArgs) => {
+export const createPages = async (
+  { actions: { createPage, createRedirect }, graphql }: CreatePagesArgs,
+  { tenant = defaultTenant, environment = defaultEnvironment }: Options
+) => {
   createRedirect({
     fromPath: '/api/*',
-    toPath: `https://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/api/:splat`,
+    toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
   })
 
@@ -55,7 +57,7 @@ export const createPages = async ({
   allProduct.nodes.forEach((product: any) => {
     createPage({
       path: product.slug,
-      component: join(root, `./src/templates/product/server.tsx`),
+      component: resolve(__dirname, './src/templates/product/server.tsx'),
       context: {
         id: product.id,
       },
@@ -66,7 +68,7 @@ export const createPages = async ({
   createPage({
     path: '/:slug/p',
     matchPath: '/:slug/p',
-    component: join(root, `./src/templates/product/client.tsx`),
+    component: resolve(__dirname, './src/templates/product/client.tsx'),
     context: {},
   })
 
@@ -75,7 +77,7 @@ export const createPages = async ({
   allCategory.nodes.forEach((category: any) => {
     createPage({
       path: category.slug,
-      component: join(root, `./src/templates/category.tsx`),
+      component: resolve(__dirname, './src/templates/category.tsx'),
       context: {
         id: category.id,
       },
@@ -105,14 +107,3 @@ export const createPages = async ({
 
   await Promise.all(cmsPages)
 }
-
-// export const setWebpackConfig = () => ({
-//   resolve: {
-//     alias: {
-//       react: require.resolve('react'),
-//       'react-dom': require.resolve('react-dom'),
-//       '@loadable/component': require.resolve('@loadable/component'),
-//       '@loadable/server': require.resolve('@loadable/server'),
-//     },
-//   },
-// })

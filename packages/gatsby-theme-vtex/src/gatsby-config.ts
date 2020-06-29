@@ -1,11 +1,24 @@
-interface Options {
+require('dotenv').config({
+  path: `${process.cwd()}/vtex.env`,
+})
+
+export interface Options {
   title: string
   description: string
   tenant: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
 }
 
-module.exports = ({ title, description, tenant, environment }: Options) => ({
+export const defaultTenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
+export const defaultEnvironment =
+  (process.env.GATSBY_VTEX_ENVIRONMENT as any) || 'vtexcommercestable'
+
+module.exports = ({
+  title,
+  description,
+  tenant = defaultTenant,
+  environment = defaultEnvironment,
+}: Options) => ({
   siteMetadata: {
     title,
     description,
