@@ -9,8 +9,8 @@ export interface Options {
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
 }
 
-const defaultTenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
-const defaultEnvironment =
+export const defaultTenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
+export const defaultEnvironment =
   (process.env.GATSBY_VTEX_ENVIRONMENT as any) || 'vtexcommercestable'
 
 module.exports = ({

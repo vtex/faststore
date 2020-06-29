@@ -5,13 +5,13 @@ import { join, resolve } from 'path'
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs } from 'gatsby'
 
-import { Options } from './gatsby-config'
+import { defaultEnvironment, defaultTenant, Options } from './gatsby-config'
 
 const root = process.cwd()
 
 export const createPages = async (
   { actions: { createPage, createRedirect }, graphql }: CreatePagesArgs,
-  { tenant, environment }: Options
+  { tenant = defaultTenant, environment = defaultEnvironment }: Options
 ) => {
   createRedirect({
     fromPath: '/api/*',
