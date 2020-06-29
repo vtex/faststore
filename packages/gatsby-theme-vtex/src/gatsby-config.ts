@@ -2,7 +2,7 @@ require('dotenv').config({
   path: `${process.cwd()}/vtex.env`,
 })
 
-interface Options {
+export interface Options {
   title: string
   description: string
   tenant: string

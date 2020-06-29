@@ -5,15 +5,17 @@ import { join, resolve } from 'path'
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs } from 'gatsby'
 
+import { Options } from './gatsby-config'
+
 const root = process.cwd()
 
-export const createPages = async ({
-  actions: { createPage, createRedirect },
-  graphql,
-}: CreatePagesArgs) => {
+export const createPages = async (
+  { actions: { createPage, createRedirect }, graphql }: CreatePagesArgs,
+  { tenant, environment }: Options
+) => {
   createRedirect({
     fromPath: '/api/*',
-    toPath: `https://${process.env.GATSBY_VTEX_TENANT}.${process.env.GATSBY_VTEX_ENVIRONMENT}.com.br/api/:splat`,
+    toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
   })
 
