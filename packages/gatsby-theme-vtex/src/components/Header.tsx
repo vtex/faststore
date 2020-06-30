@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
-import { Flex } from 'theme-ui'
+/** @jsx jsx */
+import { FC } from 'react'
+import { Flex, jsx } from 'theme-ui'
 
 import Logo from './Logo'
 import Search from './Search'
@@ -10,7 +11,7 @@ const Header: FC = () => (
   <Flex
     as="header"
     bg="muted"
-    px={[2, 3, 4]}
+    px={[0, 2, 4]}
     py={3}
     sx={{
       justifyContent: ['center', 'space-between', 'space-between'],

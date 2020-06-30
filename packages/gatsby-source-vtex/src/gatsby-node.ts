@@ -2,8 +2,8 @@ import './setup'
 
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
-import { ProductSearch, CategoryTree } from './fetch'
-import { createProductNode, createCategoryNode } from './utils'
+import { CategoryTree, ProductSearch } from './fetch'
+import { createCategoryNode, createProductNode } from './utils'
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
@@ -15,5 +15,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
   // CATEGORY
   const categoryData = await CategoryTree(options)
-  categoryData.forEach((category) => createCategoryNode(args, category))
+  categoryData
+    .filter((category) => !category.name.includes('[Inactive]'))
+    .forEach((category) => createCategoryNode(args, category))
 }

@@ -1,9 +1,10 @@
+/** @jsx jsx */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Category, Product } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import useSWR, { useSWRPages } from 'swr'
-import { Button, Flex, Heading, Grid } from 'theme-ui'
+import { Button, Flex, Heading, Grid, jsx } from 'theme-ui'
 
 import Layout from '../components/Layout'
 import { ProductList } from '../components/ProductList'

@@ -8,15 +8,12 @@ export const scaleImage = (
 ) => {
   const separator = '/arquivos/ids/'
   const [host, r1] = path.split(separator)
+  const fixedHost = host.replace('vteximg.com.br', 'vtexassets.com')
 
   if (!r1) {
     return path
   }
 
-  const [id, ...r2] = r1.split('/')
-  const scaledImg = [`${host}${separator}${id}-${width}-${height}`, ...r2].join(
-    '/'
-  )
-
-  return scaledImg
+  const [id] = r1.split('/')
+  return `${fixedHost}${separator}${id}-${width}-${height}`
 }

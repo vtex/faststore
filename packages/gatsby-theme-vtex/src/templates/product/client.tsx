@@ -1,5 +1,6 @@
 import React, { FC, Suspense } from 'react'
 import useSWR from 'swr'
+import { Product as ProductType } from '@vtex/gatsby-source-vtex'
 
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Layout from '../../components/Layout'
@@ -12,13 +13,12 @@ interface Props {
 }
 
 const DynamicView: FC<Props> = ({ slug }) => {
-  const {
-    data: [product],
-  } = useSWR(
+  const { data } = useSWR<ProductType[]>(
     urls.product(slug),
     (url: string) => fetch(url).then((r) => r.json()),
     { suspense: true }
   )
+  const [product] = data!
 
   return <Product data={{ product }} />
 }

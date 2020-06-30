@@ -1,38 +1,39 @@
-import React, { FC } from 'react'
-import { Box, Button, Flex, Heading, Styled } from 'theme-ui'
+/** @jsx jsx */
+import { Product } from '@vtex/gatsby-source-vtex'
+import { FC, Fragment } from 'react'
+import { Button, Grid, Heading, jsx, Card } from 'theme-ui'
 
+import ProductImage from './ProductImage'
 import SEO from './Seo'
-import { scaleImage, IMAGE_DEFAULT } from '../utils/img'
 
 interface Props {
-  data?: any
+  data: {
+    product: Product
+  }
 }
 
 const ProductTemplate: FC<Props> = ({ data }) => {
-  const {
-    product: { productName, items },
-  } = data
-
-  const image =
-    items.length && items[0].images
-      ? scaleImage(items[0].images[0].imageUrl, 400)
-      : IMAGE_DEFAULT
+  const { product } = data
+  const { productName } = product
 
   return (
-    <>
+    <Fragment>
       <SEO title={productName} />
-      <Flex sx={{ flexWrap: 'wrap' }} mt={4}>
-        <Box sx={{ maxWidth: '500px' }} mr={[0, 0, 4]} mb={[4, 0, 0]}>
-          <Styled.img width="400px" src={image} />
-        </Box>
-        <Flex sx={{ flexDirection: 'column' }}>
+      <Grid my={4} gap={3} columns={[1, 2]}>
+        <ProductImage
+          width={500}
+          height={500}
+          product={product}
+          lazyLoad={false} // Never lazy load image in product details
+        />
+        <Card>
           <Heading variant="productTitle" as="h1">
             {productName}
           </Heading>
           <Button variant="productBuy">Add to Cart</Button>
-        </Flex>
-      </Flex>
-    </>
+        </Card>
+      </Grid>
+    </Fragment>
   )
 }
 

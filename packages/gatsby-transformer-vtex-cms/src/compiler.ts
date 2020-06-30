@@ -57,7 +57,7 @@ export default CMSAutogenPage
   }
 
   protected renderBlocksToString = (blocks: Block[]) => {
-    const inner = blocks.map(b => this.renderBlockToString(b)).join('\n')
+    const inner = blocks.map((b) => this.renderBlockToString(b)).join('\n')
     return `<>${inner}</>`
   }
 
