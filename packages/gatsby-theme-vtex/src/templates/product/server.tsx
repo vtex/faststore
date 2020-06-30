@@ -1,3 +1,4 @@
+import { Product as ProductType } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
 import React, { FC } from 'react'
 
@@ -11,6 +12,7 @@ export const staticQuery = graphql`
       items {
         images {
           imageUrl
+          imageText
         }
       }
     }
@@ -18,7 +20,9 @@ export const staticQuery = graphql`
 `
 
 interface Props {
-  data: any // TODO: add proper typings in here
+  data: {
+    product: ProductType
+  }
 }
 
 const ProductPage: FC<Props> = (props) => (

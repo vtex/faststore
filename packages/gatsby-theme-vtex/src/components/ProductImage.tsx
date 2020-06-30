@@ -1,32 +1,41 @@
 import { Product } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
-import { Styled } from 'theme-ui'
+import { AspectImage } from 'theme-ui'
+import { useInView } from 'react-intersection-observer'
 
 import { IMAGE_DEFAULT, scaleImage } from '../utils/img'
 
 interface Props {
-  width?: number | 'auto'
-  height?: number | 'auto'
+  width: number
+  height: number
   product: Product
+  lazyLoad?: boolean
 }
 
 const ProductImage: FC<Props> = ({
-  width = 'auto',
-  height = 'auto',
+  width,
+  height,
   product,
+  lazyLoad = true,
 }) => {
+  const [ref, inView] = useInView({
+    rootMargin: '50px',
+    triggerOnce: true,
+  })
   const image = product.items?.[0]?.images?.[0]
+  const imageAlt = image ? image.imageText : 'Product Image'
   const imageUrl = image
     ? scaleImage(image.imageUrl, width, height)
     : IMAGE_DEFAULT
-  const imageAlt = image ? image.imageText : 'Product Image'
 
   return (
-    <Styled.img
-      width={width === 'auto' ? width : `${width}px`}
-      height={height === 'auto' ? height : `${height}px`}
-      src={imageUrl}
+    <AspectImage
+      ref={ref}
+      ratio={1}
+      src={!inView && lazyLoad ? '' : imageUrl}
       alt={imageAlt}
+      width={`${width}px`}
+      height={`${height}px`}
     />
   )
 }
