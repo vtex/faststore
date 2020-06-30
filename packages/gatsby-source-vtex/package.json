@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-source-vtex",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
   "types": "./src/types.ts",
