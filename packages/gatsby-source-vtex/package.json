@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha.7",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
-  "types": "src/types.d.ts",
+  "types": "./types.d.ts",
   "scripts": {
     "build": "tsc",
     "prepare": "cross-env NODE_ENV=production yarn run build",
