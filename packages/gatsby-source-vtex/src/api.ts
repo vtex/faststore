@@ -19,12 +19,3 @@ export const getVtex = <T>(sufix: Sufix) => async (
   const { data } = await axios.get(url, axiosOptions)
   return data
 }
-
-export const getBiggy = <T>(sufix: Sufix) => async (
-  options: PluginOptions
-): Promise<T[]> => {
-  const sufixStr = typeof sufix === 'string' ? sufix : sufix(options)
-  const url = `https://search.biggylabs.com.br/search-api/v1/${options.tenant}/api/search/${sufixStr}`
-  const { data } = await axios.get(url, axiosOptions)
-  return data
-}
