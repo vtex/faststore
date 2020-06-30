@@ -1,5 +1,5 @@
 {
-  "name": "pocs",
+  "name": "gatsby-vtex",
   "version": "1.0.0",
   "description": "A monorepo for testing new ideas and solutions",
   "main": "index.js",
