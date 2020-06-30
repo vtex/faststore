@@ -16,6 +16,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   // CATEGORY
   const categoryData = await CategoryTree(options)
   categoryData
-    .filter((c) => !c.name.includes('[Inactive]'))
+    .filter((category) => !category.name.includes('[Inactive]'))
     .forEach((category) => createCategoryNode(args, category))
 }
