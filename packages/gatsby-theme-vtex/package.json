@@ -38,6 +38,7 @@
     "gatsby-plugin-react-helmet": "^3.3.6",
     "gatsby-plugin-theme-ui": "^0.3.0",
     "react-helmet": "^6.1.0",
+    "react-intersection-observer": "^8.26.2",
     "swr": "^0.2.3",
     "theme-ui": "^0.3.1"
   }

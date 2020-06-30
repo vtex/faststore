@@ -1,10 +1,11 @@
-import React, { FC } from 'react'
-import { Box } from 'theme-ui'
+/** @jsx jsx */
+import { FC, Fragment } from 'react'
+import { Box, jsx } from 'theme-ui'
 
 import Header from './Header'
 
 const Layout: FC = ({ children }) => (
-  <>
+  <Fragment>
     <Header />
     <Box
       px={[2, 3, 4]}
@@ -17,7 +18,7 @@ const Layout: FC = ({ children }) => (
       <main>{children}</main>
       <footer>© {new Date().getFullYear()}, Built with Gatsby and VTEX</footer>
     </Box>
-  </>
+  </Fragment>
 )
 
 export default Layout

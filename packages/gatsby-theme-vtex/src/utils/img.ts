@@ -14,11 +14,6 @@ export const scaleImage = (
     return path
   }
 
-  const [id, ...r2] = r1.split('/')
-  const scaledImg = [
-    `${fixedHost}${separator}${id}-${width}-${height}`,
-    ...r2,
-  ].join('/')
-
-  return scaledImg
+  const [id] = r1.split('/')
+  return `${fixedHost}${separator}${id}-${width}-${height}`
 }

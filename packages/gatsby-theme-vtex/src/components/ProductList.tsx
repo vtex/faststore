@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import { Product } from '@vtex/gatsby-source-vtex'
 import { Link } from 'gatsby'
-import React, { FC } from 'react'
-import { Box, Heading } from 'theme-ui'
+import { FC, Fragment } from 'react'
+import { Heading, jsx, Card } from 'theme-ui'
 
 import ProductImage from './ProductImage'
 
@@ -11,8 +12,8 @@ interface Props {
 
 export const ProductList: FC<Props> = ({ data }) => {
   return (
-    <>
-      {data.map((product) => (
+    <Fragment>
+      {data.map((product, index) => (
         <Link
           key={product.id}
           to={product.slug}
@@ -21,14 +22,25 @@ export const ProductList: FC<Props> = ({ data }) => {
             color: 'text',
           }}
         >
-          <Box>
-            <ProductImage height={300} product={product} />
+          <Card
+            sx={{
+              m: 'auto',
+              maxWidth: 300,
+              textAlign: 'center',
+            }}
+          >
+            <ProductImage
+              width={300}
+              height={300}
+              product={product}
+              lazyLoad={index > 3} // lazy load after the third image
+            />
             <Heading variant="shellProductName" as="h3">
               {product.productName}
             </Heading>
-          </Box>
+          </Card>
         </Link>
       ))}
-    </>
+    </Fragment>
   )
 }

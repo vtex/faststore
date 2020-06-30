@@ -1,15 +1,36 @@
-import { Link, useStaticQuery, graphql } from 'gatsby'
-import React, { FC } from 'react'
+/** @jsx jsx */
+import { graphql, Link, useStaticQuery } from 'gatsby'
+import { FC } from 'react'
+import { Flex, jsx } from 'theme-ui'
 
-interface Menu {
+interface Item {
   name: string
   slug: string
 }
 
+const MenuLink: FC<Item> = ({ slug, name }) => (
+  <Link
+    to={`/${slug}`}
+    activeClassName="active"
+    sx={{
+      m: 2,
+      p: 2,
+      mx: [1, 1, 2],
+      px: [3, 1, 2],
+      color: 'inherit',
+      '&.active': {
+        color: 'primary',
+      },
+    }}
+  >
+    {name.split(' ')[0]}
+  </Link>
+)
+
 const Menu: FC = () => {
   const { allCategory } = useStaticQuery(graphql`
     {
-      allCategory(limit: 3, sort: { fields: [name], order: DESC }) {
+      allCategory(limit: 2, sort: { fields: [name], order: ASC }) {
         nodes {
           name
           slug
@@ -19,14 +40,12 @@ const Menu: FC = () => {
   `)
 
   return (
-    <>
-      {allCategory.nodes.map((menu: Menu) => (
-        <Link to={`/${menu.slug}`} key={menu.slug}>
-          {menu.name}
-        </Link>
+    <Flex as="nav">
+      {allCategory.nodes.map((item: Item) => (
+        <MenuLink {...item} key={item.slug} />
       ))}
-      <Link to="/about">About</Link>
-    </>
+      <MenuLink slug="about" name="About" />
+    </Flex>
   )
 }
 
