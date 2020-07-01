@@ -5,14 +5,17 @@ import { join, resolve } from 'path'
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs } from 'gatsby'
 
-import { defaultEnvironment, defaultTenant, Options } from './gatsby-config'
+import { Environment } from './gatsby-config'
 
 const root = process.cwd()
+const tenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
+const environment =
+  (process.env.GATSBY_VTEX_ENVIRONMENT as Environment) ?? 'vtexcommercestable'
 
-export const createPages = async (
-  { actions: { createPage, createRedirect }, graphql }: CreatePagesArgs,
-  { tenant = defaultTenant, environment = defaultEnvironment }: Options
-) => {
+export const createPages = async ({
+  actions: { createPage, createRedirect },
+  graphql,
+}: CreatePagesArgs) => {
   createRedirect({
     fromPath: '/api/*',
     toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
@@ -73,7 +76,6 @@ export const createPages = async (
   })
 
   // Category Pages
-
   allCategory.nodes.forEach((category: any) => {
     createPage({
       path: category.slug,
@@ -88,7 +90,6 @@ export const createPages = async (
 
   // ensure dist folder
   const cmsRoot = join(root, '.cache/vtex-cms')
-
   await ensureDir(cmsRoot)
 
   // Create page .tsx files as well as gatsby's node pages
