@@ -17,7 +17,8 @@ const ProductTemplate: FC<Props> = ({ data }) => {
   const { product } = data
   const { productName } = product
 
-  // Inject Product Structured Data so Google Previews this content
+  // Inject StructuredData after rendering so we don't block the
+  // rendering process and harm performance
   useEffect(() => injectProductStructuredData(product), [product])
 
   return (
