@@ -69,15 +69,9 @@ yarn-error.log
 .yarn-integrity
 
 # autogen js files
-packages/gatsby-theme*/**/*.js
-packages/gatsby-theme*/**/*.jsx
-packages/gatsby-theme*/**/*.d.ts
-packages/gatsby-source*/**/*.js
-packages/gatsby-source*/**/*.jsx
-packages/gatsby-source*/**/*.d.ts
-packages/gatsby-transformer-vtex-cms*/**/*.js
-packages/gatsby-transformer-vtex-cms*/**/*.jsx
-packages/gatsby-transformer-vtex-cms*/**/*.d.ts
+packages/gatsby-**/*.js
+packages/gatsby-**/*.jsx
+packages/gatsby-**/*.d.jsx
 
 # Specific files
 packages/gatsby-theme-vtex/components
