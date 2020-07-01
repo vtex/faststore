@@ -62,8 +62,5 @@ export const injectProductStructuredData = (product: VTEXProduct) => {
   if (!structured) {
     return
   }
-
-  console.log('injecting product structured data')
-
   writeJsonLD(structured)
 }
