@@ -1,16 +1,27 @@
 /** @jsx jsx */
+import loadable from '@loadable/component'
 import { Product } from '@vtex/gatsby-source-vtex'
 import { FC, Fragment, useEffect } from 'react'
-import { Button, Grid, Heading, jsx, Card } from 'theme-ui'
+import { Button, Card, Grid, Heading, jsx } from 'theme-ui'
 
 import ProductImage from './ProductImage'
 import SEO from './Seo'
-import { injectProductStructuredData } from './structuredData/product'
+
+// Code-splits structured data injection
+// because it's not critical for rendering the page.
+const structuredData = loadable.lib(() => import('./structuredData'))
 
 interface Props {
   data: {
     product: Product
   }
+}
+
+const injectStructuredDataLazily = async (product: Product) => {
+  const {
+    default: { injectProduct },
+  } = (await structuredData.load()) as any
+  injectProduct(product)
 }
 
 const ProductTemplate: FC<Props> = ({ data }) => {
@@ -19,7 +30,9 @@ const ProductTemplate: FC<Props> = ({ data }) => {
 
   // Inject StructuredData after rendering so we don't block the
   // rendering process and harm performance
-  useEffect(() => injectProductStructuredData(product), [product])
+  useEffect(() => {
+    injectStructuredDataLazily(product)
+  }, [product])
 
   return (
     <Fragment>

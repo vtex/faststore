@@ -57,7 +57,7 @@ const transform = ({
   }
 }
 
-export const injectProductStructuredData = (product: VTEXProduct) => {
+export const inject = (product: VTEXProduct) => {
   const structured = transform(product)
   if (!structured) {
     return
