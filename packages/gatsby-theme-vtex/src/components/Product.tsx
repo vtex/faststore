@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { Product } from '@vtex/gatsby-source-vtex'
-import { FC, Fragment } from 'react'
+import { FC, Fragment, useEffect } from 'react'
 import { Button, Grid, Heading, jsx, Card } from 'theme-ui'
 
 import ProductImage from './ProductImage'
 import SEO from './Seo'
+import { injectProductStructuredData } from './structuredData/product'
 
 interface Props {
   data: {
@@ -15,6 +16,9 @@ interface Props {
 const ProductTemplate: FC<Props> = ({ data }) => {
   const { product } = data
   const { productName } = product
+
+  // Inject Product Structured Data so Google Previews this content
+  useEffect(() => injectProductStructuredData(product), [product])
 
   return (
     <Fragment>

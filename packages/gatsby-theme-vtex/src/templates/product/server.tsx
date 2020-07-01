@@ -14,6 +14,12 @@ export const staticQuery = graphql`
           imageUrl
           imageText
         }
+        sellers {
+          commertialOffer {
+            AvailableQuantity
+            Price
+          }
+        }
       }
     }
   }
