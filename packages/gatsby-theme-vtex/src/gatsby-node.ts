@@ -69,7 +69,7 @@ export const createPages = async ({
 
   // Client-side rendered product pages
   createPage({
-    path: '/:slug/p',
+    path: '/__client-side__/p',
     matchPath: '/:slug/p',
     component: resolve(__dirname, './src/templates/product/client.tsx'),
     context: {},
