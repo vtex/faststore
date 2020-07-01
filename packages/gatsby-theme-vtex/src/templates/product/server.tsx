@@ -9,6 +9,9 @@ export const staticQuery = graphql`
   query($id: String!) {
     product(id: { eq: $id }) {
       productName
+      description
+      brand
+      brandImageUrl
       items {
         images {
           imageUrl
@@ -17,6 +20,7 @@ export const staticQuery = graphql`
         sellers {
           commertialOffer {
             AvailableQuantity
+            PriceValidUntil
             Price
           }
         }
