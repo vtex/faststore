@@ -24,9 +24,7 @@ const ProductImage: FC<Props> = ({
   })
   const image = product.items?.[0]?.images?.[0]
   const imageAlt = image ? image.imageText : 'Product Image'
-  const imageUrl = image
-    ? scaleImage(image.imageUrl, width, height)
-    : IMAGE_DEFAULT
+  const imageUrl = image ? scaleImage(image.imageUrl, 300, 300) : IMAGE_DEFAULT
 
   return (
     <AspectImage
