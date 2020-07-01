@@ -2,16 +2,18 @@ require('dotenv').config({
   path: `${process.cwd()}/vtex.env`,
 })
 
+export type Environment = 'vtexcommercestable' | 'vtexcommercebeta'
+
 export interface Options {
   title: string
   description: string
   tenant: string
-  environment: 'vtexcommercestable' | 'vtexcommercebeta'
+  environment: Environment
 }
 
-export const defaultTenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
-export const defaultEnvironment =
-  (process.env.GATSBY_VTEX_ENVIRONMENT as any) || 'vtexcommercestable'
+const defaultTenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
+const defaultEnvironment =
+  (process.env.GATSBY_VTEX_ENVIRONMENT as Environment) ?? 'vtexcommercestable'
 
 module.exports = ({
   title,
