@@ -13,22 +13,31 @@ import { writeJsonLD } from './jsonld'
 type Product = StructuredProduct & { '@context': string }
 
 const getSkuOffers = (sku: VTEXSku): Offer[] =>
-  sku.sellers.map(({ commertialOffer: { Price, AvailableQuantity } }) => ({
-    '@type': 'Offer',
-    price: Price,
-    priceCurrency: 'TODO',
-    availability:
-      AvailableQuantity > 0
-        ? ItemAvailability.InStock
-        : ItemAvailability.OutOfStock,
-  }))
+  sku.sellers.map(
+    ({ commertialOffer: { Price, AvailableQuantity, PriceValidUntil } }) => ({
+      '@type': 'Offer',
+      price: Price,
+      priceCurrency: 'TODO',
+      priceValidUntil: `${PriceValidUntil}`,
+      availability:
+        AvailableQuantity > 0
+          ? ItemAvailability.InStock
+          : ItemAvailability.OutOfStock,
+    })
+  )
 
-const transform = ({ productName, items }: VTEXProduct): Product | null => {
+const transform = ({
+  productName,
+  items,
+  description,
+  brand,
+  brandImageUrl,
+}: VTEXProduct): Product | null => {
   const [sku] = items
   const images = sku?.images.map((i) => i?.imageUrl)
   const offers = getSkuOffers(sku)
 
-  if (!sku || !images || offers.length === 0) {
+  if (!sku || !images || offers.length === 0 || !brand) {
     return null
   }
 
@@ -38,6 +47,13 @@ const transform = ({ productName, items }: VTEXProduct): Product | null => {
     name: productName,
     image: images,
     offers,
+    sku: sku.itemId,
+    brand: {
+      '@type': 'Brand',
+      name: brand,
+      logo: brandImageUrl,
+    },
+    description,
   }
 }
 
