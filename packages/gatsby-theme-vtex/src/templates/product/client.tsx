@@ -1,11 +1,10 @@
+import { api, Product as ProductType } from '@vtex/gatsby-source-vtex'
 import React, { FC, Suspense } from 'react'
 import useSWR from 'swr'
-import { Product as ProductType } from '@vtex/gatsby-source-vtex'
 
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Layout from '../../components/Layout'
 import Product from '../../components/Product'
-import { urls } from '../../utils/api'
 import { isServer } from '../../utils/env'
 
 interface Props {
@@ -14,7 +13,7 @@ interface Props {
 
 const DynamicView: FC<Props> = ({ slug }) => {
   const { data } = useSWR<ProductType[]>(
-    urls.product(slug),
+    api.search.bySlug(slug),
     (url: string) => fetch(url).then((r) => r.json()),
     { suspense: true }
   )
