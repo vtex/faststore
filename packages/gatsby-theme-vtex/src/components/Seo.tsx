@@ -1,15 +1,50 @@
-import React, { FC } from 'react'
+import loadable from '@loadable/component'
+import { Product } from '@vtex/gatsby-source-vtex'
+import { graphql, useStaticQuery } from 'gatsby'
+import React, { FC, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
+
+import { SiteMetadata } from './openGraph/product'
+
+// Code-splits structured data injection
+// because it's not critical for rendering the page.
+const structuredData = loadable.lib(() => import('./structuredData'))
+const openGraph = loadable.lib(() => import('./openGraph'))
 
 interface Props {
   description?: string
   lang?: string
   meta?: any[]
   title?: string
+  product?: Product
 }
 
-const SEO: FC<Props> = ({ description, lang = 'en', meta = [], title }) => {
+const injectStructuredDataLazily = async (
+  product: Product,
+  siteMetadata: SiteMetadata
+) => {
+  const [structuredImport, openGraphImport] = await Promise.all([
+    structuredData.load(),
+    openGraph.load(),
+  ])
+  const {
+    default: { injectProduct: injectStructuredProduct },
+  } = structuredImport as any
+  const {
+    default: { injectProduct: injectProductOpenGraph },
+  } = openGraphImport as any
+
+  injectStructuredProduct(product)
+  injectProductOpenGraph({ product, siteMetadata })
+}
+
+const SEO: FC<Props> = ({
+  description,
+  lang = 'en',
+  meta = [],
+  title,
+  product,
+}) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -25,6 +60,19 @@ const SEO: FC<Props> = ({ description, lang = 'en', meta = [], title }) => {
   )
 
   const metaDescription = description ?? site.siteMetadata.description
+
+  // Inject StructuredData after rendering so we don't block the
+  // rendering process and harm performance
+  useEffect(() => {
+    if (product) {
+      injectStructuredDataLazily(product, site.siteMetadata)
+    }
+  }, [
+    product,
+    site.siteMetadata,
+    site.siteMetadata.name,
+    site.siteMetadata.title,
+  ])
 
   return (
     <Helmet
