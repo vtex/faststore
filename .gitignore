@@ -71,7 +71,7 @@ yarn-error.log
 # autogen js files
 packages/gatsby-**/*.js
 packages/gatsby-**/*.jsx
-packages/gatsby-**/*.d.jsx
+packages/gatsby-**/*.d.ts
 
 # Specific files
 packages/gatsby-theme-vtex/components

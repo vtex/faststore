@@ -1,6 +1,6 @@
 /** @jsx jsx */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Category, Product } from '@vtex/gatsby-source-vtex'
+import { Category, Product, api } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
 import { FC, useState } from 'react'
 import useSWR, { useSWRPages } from 'swr'
@@ -9,7 +9,6 @@ import { Button, Flex, Heading, Grid, jsx } from 'theme-ui'
 import Layout from '../components/Layout'
 import { ProductList } from '../components/ProductList'
 import SEO from '../components/Seo'
-import { urls } from '../utils/api'
 
 export const staticQuery = graphql`
   query($id: String!) {
@@ -35,8 +34,8 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
     ({ withSWR, offset }) => {
       const { data: products, error } = withSWR(
         useSWR(
-          urls.productsPageByCategory({
-            categoryId: data.category.categoryId,
+          api.search.byFilters({
+            categoryIds: [`${data.category.categoryId}`],
             from: offset?.from ?? 0,
             to: offset?.to ?? 9,
           }),
