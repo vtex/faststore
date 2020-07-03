@@ -3,9 +3,10 @@ interface SearchOptions {
   simulation?: 'true' | 'false'
 }
 
-interface FilterOptions {
+export interface FilterOptions {
   fullText?: string
   categoryIds?: string[]
+  productIds?: string[]
   specification?: {
     id: string
     value: string
@@ -15,7 +16,6 @@ interface FilterOptions {
     to: number
   }
   collectionId?: string
-  productId?: string
   skuId?: string
   referenceId?: string
   sellerId?: string
@@ -32,10 +32,10 @@ const searchByFilters = (
   {
     fullText,
     categoryIds,
+    productIds,
     specification: spec,
     price,
     collectionId,
-    productId,
     skuId,
     referenceId,
     sellerId,
@@ -53,10 +53,10 @@ const searchByFilters = (
         ? `/${categoryIds?.join('/')}/`
         : null,
     ],
+    ...(productIds?.map((pId) => ['fq=productId:', pId]) ?? []),
     ['fq=specificationFilter_', spec && `${spec.id}:${spec.value}`],
     ['fq=P:', price && `[{${price.from}} TO {${price.to}}]`],
     ['fq=productClusterIds:', collectionId],
-    ['fq=productId:', productId],
     ['fq=skuId:', skuId],
     ['fq=alternateIds_RefId:', referenceId],
     ['fq=alternateIds_Ean:', ean13],

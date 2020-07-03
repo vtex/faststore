@@ -10,6 +10,7 @@ export const staticQuery = graphql`
     product(id: { eq: $id }) {
       id
       slug
+      productId
       productName
       description
       linkText

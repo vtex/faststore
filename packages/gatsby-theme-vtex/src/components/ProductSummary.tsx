@@ -31,7 +31,7 @@ export const ProductSummary: FC<Props> = ({
       lazyLoad={lazyLoad} // lazy load after the third image
     />
     <Heading variant="shellProductName" as="h3">
-      {staticProduct.productName}
+      {staticProduct.productName.slice(0, 12)}
     </Heading>
     <Offer product={dynamicProduct} />
   </Card>

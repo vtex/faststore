@@ -5,6 +5,7 @@ export type DynamicProduct = Product
 export interface StaticProduct {
   id: string
   slug: string
+  productId: Product['productId']
   productName: Product['productName']
   description: Product['description']
   linkText: Product['linkText']
