@@ -1,14 +1,21 @@
-import { Product } from '@vtex/gatsby-source-vtex'
+import { Image } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
-import { AspectImage } from 'theme-ui'
 import { useInView } from 'react-intersection-observer'
+import { AspectImage } from 'theme-ui'
 
 import { IMAGE_DEFAULT, scaleImage } from '../utils/img'
 
 interface Props {
   width: number
   height: number
-  product: Product
+  product: {
+    items: Array<{
+      images: Array<{
+        imageUrl: Image['imageUrl']
+        imageText: Image['imageText']
+      }>
+    }>
+  }
   lazyLoad?: boolean
 }
 

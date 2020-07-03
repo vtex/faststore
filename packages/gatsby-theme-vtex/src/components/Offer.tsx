@@ -26,7 +26,7 @@ const Offer: FC<Options> = ({ product }) => {
   const [currency] = useCurrency()
 
   if (!product) {
-    return <div>Loading Price Data</div>
+    return <OfferLoading />
   }
 
   const offer = findBestCommertialOffer(product.items)
@@ -45,5 +45,12 @@ const Offer: FC<Options> = ({ product }) => {
     </>
   )
 }
+
+export const OfferLoading: FC = () => (
+  <>
+    <div>Loading Best Offer Price</div>
+    <div>Loading Best Offer Availability</div>
+  </>
+)
 
 export default Offer

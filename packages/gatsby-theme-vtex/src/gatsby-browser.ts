@@ -1,5 +1,5 @@
 import { loadableReady } from '@loadable/component'
-import { WrapRootElementBrowserArgs, WrapPageElementBrowserArgs } from 'gatsby'
+import { WrapRootElementBrowserArgs } from 'gatsby'
 import { createElement, ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 
@@ -28,13 +28,6 @@ export const replaceHydrateFunction = () => (
 }
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
-  createElement(StrictMode, { children: element })
-
-export const wrapPageElement = ({
-  element,
-  props: { location },
-}: WrapPageElementBrowserArgs) =>
-  createElement(BindingProvider, {
-    children: element,
-    location,
-  } as any)
+  createElement(StrictMode, {
+    children: createElement(BindingProvider, { children: element }),
+  })

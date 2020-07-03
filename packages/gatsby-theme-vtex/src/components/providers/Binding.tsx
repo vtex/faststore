@@ -1,6 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React, { createContext, FC, useContext, useMemo } from 'react'
 
+import { isServer } from '../../utils/env'
+
 interface Binding {
   locale: string
   currency: string
@@ -11,11 +13,7 @@ interface Binding {
 
 const BindingContext = createContext<Binding>(null as any)
 
-interface Props {
-  location: Location
-}
-
-export const BindingProvider: FC<Props> = ({ children, location }) => {
+export const BindingProvider: FC = ({ children }) => {
   const { allBinding } = useStaticQuery(graphql`
     query {
       allBinding(
@@ -43,7 +41,9 @@ export const BindingProvider: FC<Props> = ({ children, location }) => {
   } = allBinding.edges[0].node
 
   const binding = useMemo(() => {
-    const searchParams = new URLSearchParams(location.search)
+    const searchParams = new URLSearchParams(
+      isServer ? '' : window.location.search
+    )
     return {
       locale: searchParams.get('locale') ?? defaultLocale,
       currency: searchParams.get('currency') ?? defaultCurrency,
@@ -52,7 +52,6 @@ export const BindingProvider: FC<Props> = ({ children, location }) => {
       supportedCurrencies,
     }
   }, [
-    location.search,
     defaultLocale,
     defaultCurrency,
     salesChannel,

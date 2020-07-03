@@ -2,16 +2,16 @@ import { api, Product as ProductType } from '@vtex/gatsby-source-vtex'
 import React, { FC, Suspense } from 'react'
 import useSWR from 'swr'
 
+import DynamicProduct from '../../components/DynamicProduct'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Layout from '../../components/Layout'
-import Product from '../../components/Product'
 import { isServer } from '../../utils/env'
 
 interface Props {
   slug: string
 }
 
-const DynamicView: FC<Props> = ({ slug }) => {
+const ClientOnlyView: FC<Props> = ({ slug }) => {
   const { data } = useSWR<ProductType[]>(
     api.search.bySlug(slug),
     (url: string) => fetch(url).then((r) => r.json()),
@@ -19,7 +19,7 @@ const DynamicView: FC<Props> = ({ slug }) => {
   )
   const [product] = data!
 
-  return <Product data={{ product }} />
+  return <DynamicProduct staticProduct={product} />
 }
 
 const ProductPage: FC<Props> = (props) => {
@@ -31,7 +31,7 @@ const ProductPage: FC<Props> = (props) => {
     <Layout>
       <ErrorBoundary fallback={<div>Error!</div>}>
         <Suspense fallback={<div>loading...</div>}>
-          <DynamicView {...props} />
+          <ClientOnlyView {...props} />
         </Suspense>
       </ErrorBoundary>
     </Layout>

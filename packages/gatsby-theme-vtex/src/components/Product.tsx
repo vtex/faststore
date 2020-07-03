@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import loadable from '@loadable/component'
-import { api, Product } from '@vtex/gatsby-source-vtex'
+import { Product } from '@vtex/gatsby-source-vtex'
 import { FC, Fragment, useEffect } from 'react'
-import useSWR from 'swr'
 import { Button, Card, Grid, Heading, jsx } from 'theme-ui'
 
+import { OfferLoading } from './Offer'
 import ProductImage from './ProductImage'
-import { useCurrency, useSalesChannel } from './providers/Binding'
+import { DynamicProduct, StaticProduct } from './Shapes'
+import { useCurrency } from './providers/Binding'
 import SEO from './Seo'
 
 // Price won't show up untill the requests is fulliled, so
@@ -20,9 +21,8 @@ const Offer = loadable(() => import('./Offer'), {
 const structuredData = loadable.lib(() => import('./structuredData'))
 
 interface Props {
-  data: {
-    product: Product
-  }
+  staticProduct: StaticProduct
+  dynamicProduct: DynamicProduct
 }
 
 const injectStructuredDataLazily = async (
@@ -35,22 +35,9 @@ const injectStructuredDataLazily = async (
   injectProduct(product, currency)
 }
 
-const ProductTemplate: FC<Props> = ({ data }) => {
-  // Static Properties
-  const { product } = data
-  const { productName } = product
+const ProductTemplate: FC<Props> = ({ dynamicProduct, staticProduct }) => {
   const [currency] = useCurrency()
-  const [salesChannel] = useSalesChannel()
-
-  // Dynamic Properties
-  const { data: dynamicData } = useSWR<Product[]>(
-    api.search.bySlug(product.linkText, { sc: salesChannel }),
-    (url: string) => fetch(url).then((r) => r.json()),
-    {
-      suspense: false,
-    }
-  )
-  const [dynamicProduct] = dynamicData ?? []
+  const { productName } = staticProduct
 
   // Inject StructuredData after rendering so we don't block the
   // rendering process and harm performance
@@ -67,17 +54,14 @@ const ProductTemplate: FC<Props> = ({ data }) => {
         <ProductImage
           width={500}
           height={500}
-          product={product}
+          product={staticProduct}
           lazyLoad={false} // Never lazy load image in product details
         />
         <Card>
           <Heading variant="productTitle" as="h1">
             {productName}
           </Heading>
-          <Offer
-            product={dynamicProduct}
-            fallback={<div>Loading Price Component</div>}
-          />
+          <Offer product={dynamicProduct} fallback={<OfferLoading />} />
           <Button variant="productBuy" sx={{ width: '100%' }}>
             ADD TO CART
           </Button>
