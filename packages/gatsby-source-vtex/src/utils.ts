@@ -1,6 +1,6 @@
 import { SourceNodesArgs } from 'gatsby'
 
-import { Category, Product } from './types'
+import { Category, Product, Binding } from './types'
 
 export const createProductNode = (
   {
@@ -48,6 +48,31 @@ export const createCategoryNode = (
   createNode({
     ...data,
     id: createNodeId(`${NODE_TYPE}-${data.categoryId}`),
+    internal: {
+      type: NODE_TYPE,
+      content: JSON.stringify(data),
+      contentDigest: createContentDigest(data),
+    },
+  })
+}
+
+export const createBindingNode = (
+  {
+    actions: { createNode },
+    createNodeId,
+    createContentDigest,
+  }: SourceNodesArgs,
+  { extraContext, ...binding }: Binding
+) => {
+  const NODE_TYPE = 'Binding'
+  const data = {
+    salesChannel: extraContext?.portal?.salesChannel,
+    ...binding,
+  }
+
+  createNode({
+    ...data,
+    id: createNodeId(`${NODE_TYPE}-${data.id}`),
     internal: {
       type: NODE_TYPE,
       content: JSON.stringify(data),

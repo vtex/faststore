@@ -12,6 +12,7 @@ export const staticQuery = graphql`
       description
       brand
       brandImageUrl
+      linkText
       items {
         images {
           imageUrl

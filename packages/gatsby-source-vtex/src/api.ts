@@ -1,4 +1,8 @@
 interface SearchOptions {
+  sc?: number
+}
+
+interface FilterOptions {
   fullText?: string
   categoryIds?: string[]
   specification?: {
@@ -17,26 +21,31 @@ interface SearchOptions {
   ean13?: string
   from?: number
   to?: number
-  sc?: number
+}
+
+const DEFAULT_SEARCH_OPTIONS = {
+  sc: 1,
 }
 
 const SEARCH_ROOT = `/api/catalog_system/pub/products/search`
 
-const searchByFilters = ({
-  fullText,
-  categoryIds,
-  specification: spec,
-  price,
-  collectionId,
-  productId,
-  skuId,
-  referenceId,
-  sellerId,
-  ean13,
-  from,
-  to,
-  sc = 1,
-}: SearchOptions) => {
+const searchByFilters = (
+  {
+    fullText,
+    categoryIds,
+    specification: spec,
+    price,
+    collectionId,
+    productId,
+    skuId,
+    referenceId,
+    sellerId,
+    ean13,
+    from,
+    to,
+  }: FilterOptions,
+  { sc = 1 }: SearchOptions = DEFAULT_SEARCH_OPTIONS
+) => {
   const querystring = [
     ['ft=', fullText],
     [
@@ -76,8 +85,14 @@ const searchByFilters = ({
 
 export const api = {
   search: {
-    byTerm: (term: string) => `${SEARCH_ROOT}/${term}`,
-    bySlug: (slug: string) => `${SEARCH_ROOT}/${slug}/p`,
+    byTerm: (
+      term: string,
+      { sc = 1 }: SearchOptions = DEFAULT_SEARCH_OPTIONS
+    ) => `${SEARCH_ROOT}/${term}?sc=${sc}`,
+    bySlug: (
+      slug: string,
+      { sc = 1 }: SearchOptions = DEFAULT_SEARCH_OPTIONS
+    ) => `${SEARCH_ROOT}/${slug}/p?sc=${sc}`,
     byFilters: searchByFilters,
   },
   catalog: {
@@ -87,5 +102,8 @@ export const api = {
   },
   sessions: {
     segment: `/api/segments`,
+  },
+  tenants: {
+    tenant: (tennant: string) => `/api/tenant/tenants?q=${tennant}`,
   },
 }
