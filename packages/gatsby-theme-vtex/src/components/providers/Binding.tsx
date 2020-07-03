@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby'
-import React, { createContext, FC, useContext, useMemo } from 'react'
+import React, { createContext, FC, useContext, useMemo, useEffect } from 'react'
 
 import { isServer } from '../../utils/env'
 
@@ -12,6 +12,55 @@ interface Binding {
 }
 
 const BindingContext = createContext<Binding>(null as any)
+
+const localStorage = {
+  get: (): Binding | null => {
+    const item = window.localStorage.getItem('vtex_binding')
+    return item ? JSON.parse(item) : null
+  },
+  set: (binding: Binding) => {
+    window.localStorage.setItem('vtex_binding', JSON.stringify(binding))
+  },
+}
+
+const useBinding = ({
+  defaultLocale,
+  defaultCurrency,
+  salesChannel,
+  supportedLocales,
+  supportedCurrencies,
+}: Binding & { defaultLocale: string; defaultCurrency: string }) =>
+  useMemo(() => {
+    if (isServer) {
+      return {
+        locale: defaultLocale,
+        currency: defaultCurrency,
+        salesChannel,
+        supportedLocales,
+        supportedCurrencies,
+      }
+    }
+
+    const searchParams = new URLSearchParams(window.location.search)
+    const storage = localStorage.get()
+
+    return {
+      locale: searchParams.get('locale') ?? storage?.locale ?? defaultLocale,
+      currency:
+        searchParams.get('currency') ?? storage?.currency ?? defaultCurrency,
+      salesChannel: Number(
+        searchParams.get('sc') ?? storage?.salesChannel ?? salesChannel
+      ),
+      supportedLocales,
+      supportedCurrencies,
+    }
+  }, [
+    defaultLocale,
+    defaultCurrency,
+    salesChannel,
+    supportedLocales,
+    supportedCurrencies,
+  ])
 
 export const BindingProvider: FC = ({ children }) => {
   const { allBinding } = useStaticQuery(graphql`
@@ -32,32 +81,9 @@ export const BindingProvider: FC = ({ children }) => {
       }
     }
   `)
-  const {
-    defaultLocale,
-    defaultCurrency,
-    salesChannel,
-    supportedLocales,
-    supportedCurrencies,
-  } = allBinding.edges[0].node
+  const binding = useBinding(allBinding.edges[0].node)
 
-  const binding = useMemo(() => {
-    const searchParams = new URLSearchParams(
-      isServer ? '' : window.location.search
-    )
-    return {
-      locale: searchParams.get('locale') ?? defaultLocale,
-      currency: searchParams.get('currency') ?? defaultCurrency,
-      salesChannel: searchParams.get('sc') ?? salesChannel,
-      supportedLocales,
-      supportedCurrencies,
-    }
-  }, [
-    defaultLocale,
-    defaultCurrency,
-    salesChannel,
-    supportedLocales,
-    supportedCurrencies,
-  ])
+  useEffect(() => localStorage.set(binding), [binding])
 
   return (
     <BindingContext.Provider value={binding}>
