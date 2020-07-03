@@ -8,6 +8,8 @@ import { StaticProduct } from '../../components/Shapes'
 export const staticQuery = graphql`
   query($id: String!) {
     product(id: { eq: $id }) {
+      id
+      slug
       productName
       description
       linkText

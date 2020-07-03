@@ -1,37 +1,28 @@
 /** @jsx jsx */
-import loadable from '@loadable/component'
 import { Product } from '@vtex/gatsby-source-vtex'
 import { FC, Fragment, useEffect } from 'react'
 import { Button, Card, Grid, Heading, jsx } from 'theme-ui'
 
-import { OfferLoading } from './Offer'
 import ProductImage from './ProductImage'
 import { DynamicProduct, StaticProduct } from './Shapes'
 import { useCurrency } from './providers/Binding'
 import SEO from './Seo'
-
-// Price won't show up untill the requests is fulliled, so
-// let's load it afterwards to not harm critical performance
-const Offer = loadable(() => import('./Offer'), {
-  ssr: false,
-})
-
-// Code-splits structured data injection
-// because it's not critical for rendering the page.
-const structuredData = loadable.lib(() => import('./structuredData'))
+import { Offer } from './Offer'
 
 interface Props {
   staticProduct: StaticProduct
   dynamicProduct: DynamicProduct
 }
 
+// Code-splits structured data injection
+// because it's not critical for rendering the page.
 const injectStructuredDataLazily = async (
   product: Product,
   currency: string
 ) => {
   const {
     default: { injectProduct },
-  } = (await structuredData.load()) as any
+  } = await import('./structuredData')
   injectProduct(product, currency)
 }
 
@@ -61,7 +52,7 @@ const ProductTemplate: FC<Props> = ({ dynamicProduct, staticProduct }) => {
           <Heading variant="productTitle" as="h1">
             {productName}
           </Heading>
-          <Offer product={dynamicProduct} fallback={<OfferLoading />} />
+          <Offer product={dynamicProduct} />
           <Button variant="productBuy" sx={{ width: '100%' }}>
             ADD TO CART
           </Button>

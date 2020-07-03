@@ -20,8 +20,8 @@ const Home: FC<RouteComponentProps> = () => {
       allProduct {
         nodes {
           id
-          productName
           slug
+          productName
           items {
             images {
               imageUrl
@@ -37,7 +37,7 @@ const Home: FC<RouteComponentProps> = () => {
     <Layout>
       <SEO />
       <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-        <ProductList data={allProduct.nodes} />
+        <ProductList staticProducts={allProduct.nodes} dynamicProducts={[]} />
       </Grid>
     </Layout>
   )

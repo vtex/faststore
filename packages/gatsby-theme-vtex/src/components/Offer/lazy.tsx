@@ -1,10 +1,11 @@
-import { Item, Product } from '@vtex/gatsby-source-vtex'
+import { Item } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
 
-import { useCurrency } from './providers/Binding'
+import { useCurrency } from '../providers/Binding'
+import { DynamicProduct } from '../Shapes'
 
-interface Options {
-  product?: Product
+export interface Options {
+  product: DynamicProduct
 }
 
 const findBestCommertialOffer = (skus: Item[]) => {
@@ -25,10 +26,6 @@ const findBestCommertialOffer = (skus: Item[]) => {
 const Offer: FC<Options> = ({ product }) => {
   const [currency] = useCurrency()
 
-  if (!product) {
-    return <OfferLoading />
-  }
-
   const offer = findBestCommertialOffer(product.items)
 
   if (!offer || offer.AvailableQuantity === 0) {
@@ -45,12 +42,5 @@ const Offer: FC<Options> = ({ product }) => {
     </>
   )
 }
-
-export const OfferLoading: FC = () => (
-  <>
-    <div>Loading Best Offer Price</div>
-    <div>Loading Best Offer Availability</div>
-  </>
-)
 
 export default Offer

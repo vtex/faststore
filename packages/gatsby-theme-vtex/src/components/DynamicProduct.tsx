@@ -15,7 +15,10 @@ const DynamicProduct: FC<Props> = ({ staticProduct }) => {
 
   // Dynamic Properties
   const { data: dynamicData } = useSWR<DynamicProductType[]>(
-    api.search.bySlug(staticProduct.linkText, { sc: salesChannel }),
+    api.search.bySlug(staticProduct.linkText, {
+      sc: salesChannel,
+      simulation: 'true',
+    }),
     (url: string) => fetch(url).then((r) => r.json()),
     { suspense: false }
   )
