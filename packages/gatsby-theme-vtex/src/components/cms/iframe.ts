@@ -14,7 +14,7 @@ export const setupIframeListener = () => {
   window.addEventListener(
     'message',
     (event) => {
-      const { data, origin } = event
+      const { data } = event
       if (isCMSData(data)) {
         const { currentVariant } = data
         localStorage.setItem(CMS_CONTENT, JSON.stringify(currentVariant))
