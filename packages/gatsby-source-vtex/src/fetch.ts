@@ -1,25 +1,27 @@
-import axios from 'axios'
-import { PluginOptions } from 'gatsby'
+import fetch from 'isomorphic-unfetch'
 
-import { Category, Product } from './types'
-import { api } from './api'
-
-const axiosOptions = {
-  headers: {
-    'content-type': 'application/json',
-    accept: 'application/json',
-  },
+export interface VTEXOptions {
+  tenant: string
+  environment: 'vtexcommercestable' | 'vtexcommercebeta'
 }
 
-const getVtex = <T>(path: string) => async (
-  options: PluginOptions
-): Promise<T[]> => {
+const headers = {
+  'content-type': 'application/json',
+  accept: 'application/json',
+}
+
+export const fetchVTEX = async <T>(
+  path: string,
+  options: VTEXOptions,
+  init?: RequestInit
+) => {
   const url = `https://${options.tenant}.${options.environment}.com.br${path}`
-  const { data } = await axios.get(url, axiosOptions)
-  return data
+  const response = await fetch(url, {
+    ...init,
+    headers: {
+      ...headers,
+      ...init?.headers,
+    },
+  })
+  return response.json() as Promise<T>
 }
-
-export const ProductSearch = getVtex<Product>(
-  api.search.byFilters({ from: 0, to: 9 })
-)
-export const CategoryTree = getVtex<Category>(api.catalog.category.tree(1))

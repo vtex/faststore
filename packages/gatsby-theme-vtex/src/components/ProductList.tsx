@@ -1,44 +1,33 @@
 /** @jsx jsx */
-import { Product } from '@vtex/gatsby-source-vtex'
 import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
-import { Heading, jsx, Card } from 'theme-ui'
+import { jsx } from 'theme-ui'
 
-import ProductImage from './ProductImage'
+import { ProductSummary } from './ProductSummary'
+import { StaticProduct, DynamicProduct } from './Shapes'
 
 interface Props {
-  data: Product[]
+  staticProducts: StaticProduct[]
+  dynamicProducts: DynamicProduct[]
 }
 
-export const ProductList: FC<Props> = ({ data }) => {
+export const ProductList: FC<Props> = ({ staticProducts, dynamicProducts }) => {
   return (
     <Fragment>
-      {data.map((product, index) => (
+      {staticProducts.map((staticProduct, index) => (
         <Link
-          key={product.id}
-          to={product.slug}
+          key={staticProduct.id}
+          to={staticProduct.slug}
           sx={{
             textDecoration: 'none',
             color: 'text',
           }}
         >
-          <Card
-            sx={{
-              m: 'auto',
-              maxWidth: 300,
-              textAlign: 'center',
-            }}
-          >
-            <ProductImage
-              width={300}
-              height={300}
-              product={product}
-              lazyLoad={index > 3} // lazy load after the third image
-            />
-            <Heading variant="shellProductName" as="h3">
-              {product.productName}
-            </Heading>
-          </Card>
+          <ProductSummary
+            staticProduct={staticProduct}
+            lazyLoad={index > 3}
+            dynamicProduct={dynamicProducts[index]}
+          />
         </Link>
       ))}
     </Fragment>

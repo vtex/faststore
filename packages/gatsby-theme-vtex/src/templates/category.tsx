@@ -55,11 +55,12 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
 
       return (
         <ProductList
-          data={products.map((product: Product) => ({
+          staticProducts={products.map((product: Product) => ({
             ...product,
             id: product.productId,
             slug: `/${product.linkText}/p`,
           }))}
+          dynamicProducts={[]}
         />
       )
     },

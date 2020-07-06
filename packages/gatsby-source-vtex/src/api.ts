@@ -1,6 +1,12 @@
 interface SearchOptions {
+  sc?: number
+  simulation?: 'true' | 'false'
+}
+
+export interface FilterOptions {
   fullText?: string
   categoryIds?: string[]
+  productIds?: string[]
   specification?: {
     id: string
     value: string
@@ -10,33 +16,35 @@ interface SearchOptions {
     to: number
   }
   collectionId?: string
-  productId?: string
   skuId?: string
   referenceId?: string
   sellerId?: string
   ean13?: string
   from?: number
   to?: number
-  sc?: number
 }
+
+const EMTPY_OBJ = {}
 
 const SEARCH_ROOT = `/api/catalog_system/pub/products/search`
 
-const searchByFilters = ({
-  fullText,
-  categoryIds,
-  specification: spec,
-  price,
-  collectionId,
-  productId,
-  skuId,
-  referenceId,
-  sellerId,
-  ean13,
-  from,
-  to,
-  sc = 1,
-}: SearchOptions) => {
+const searchByFilters = (
+  {
+    fullText,
+    categoryIds,
+    productIds,
+    specification: spec,
+    price,
+    collectionId,
+    skuId,
+    referenceId,
+    sellerId,
+    ean13,
+    from,
+    to,
+  }: FilterOptions,
+  { sc = 1, simulation = 'false' }: SearchOptions = EMTPY_OBJ
+) => {
   const querystring = [
     ['ft=', fullText],
     [
@@ -45,17 +53,18 @@ const searchByFilters = ({
         ? `/${categoryIds?.join('/')}/`
         : null,
     ],
+    ...(productIds?.map((pId) => ['fq=productId:', pId]) ?? []),
     ['fq=specificationFilter_', spec && `${spec.id}:${spec.value}`],
     ['fq=P:', price && `[{${price.from}} TO {${price.to}}]`],
     ['fq=productClusterIds:', collectionId],
-    ['fq=productId:', productId],
     ['fq=skuId:', skuId],
     ['fq=alternateIds_RefId:', referenceId],
     ['fq=alternateIds_Ean:', ean13],
-    ['sc=', sc],
     ['fq=sellerId:', sellerId],
     ['_from=', from],
     ['_to=', to],
+    ['sc=', sc],
+    ['simulation=', simulation],
   ].reduce((acc, [label, val]) => {
     if (val == null) {
       return acc
@@ -76,8 +85,14 @@ const searchByFilters = ({
 
 export const api = {
   search: {
-    byTerm: (term: string) => `${SEARCH_ROOT}/${term}`,
-    bySlug: (slug: string) => `${SEARCH_ROOT}/${slug}/p`,
+    byTerm: (
+      term: string,
+      { sc = 1, simulation = 'false' }: SearchOptions = EMTPY_OBJ
+    ) => `${SEARCH_ROOT}/${term}?sc=${sc}&simulation=${simulation}`,
+    bySlug: (
+      slug: string,
+      { sc = 1, simulation = 'false' }: SearchOptions = EMTPY_OBJ
+    ) => `${SEARCH_ROOT}/${slug}/p?sc=${sc}&simulation=${simulation}`,
     byFilters: searchByFilters,
   },
   catalog: {
@@ -87,5 +102,8 @@ export const api = {
   },
   sessions: {
     segment: `/api/segments`,
+  },
+  tenants: {
+    tenant: (tennant: string) => `/api/tenant/tenants?q=${tennant}`,
   },
 }

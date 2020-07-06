@@ -1,28 +1,23 @@
-import { Product as ProductType } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
 import React, { FC } from 'react'
 
+import DynamicProduct from '../../components/DynamicProduct'
 import Layout from '../../components/Layout'
-import Product from '../../components/Product'
+import { StaticProduct } from '../../components/Shapes'
 
 export const staticQuery = graphql`
   query($id: String!) {
     product(id: { eq: $id }) {
+      id
+      slug
+      productId
       productName
       description
-      brand
-      brandImageUrl
+      linkText
       items {
         images {
           imageUrl
           imageText
-        }
-        sellers {
-          commertialOffer {
-            AvailableQuantity
-            PriceValidUntil
-            Price
-          }
         }
       }
     }
@@ -31,13 +26,13 @@ export const staticQuery = graphql`
 
 interface Props {
   data: {
-    product: ProductType
+    product: StaticProduct
   }
 }
 
-const ProductPage: FC<Props> = (props) => (
+const ProductPage: FC<Props> = ({ data }) => (
   <Layout>
-    <Product {...props} />
+    <DynamicProduct staticProduct={data.product} />
   </Layout>
 )
 

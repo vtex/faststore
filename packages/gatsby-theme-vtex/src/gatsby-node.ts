@@ -3,7 +3,7 @@ import './utils/setup'
 import { join, resolve } from 'path'
 
 import { ensureDir, outputFile } from 'fs-extra'
-import { CreatePagesArgs } from 'gatsby'
+import { CreatePagesArgs, CreateNodeArgs } from 'gatsby'
 
 import { Environment } from './gatsby-config'
 

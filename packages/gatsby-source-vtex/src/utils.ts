@@ -1,6 +1,6 @@
 import { SourceNodesArgs } from 'gatsby'
 
-import { Category, Product } from './types'
+import { Category, Product, Binding } from './types'
 
 export const createProductNode = (
   {
@@ -15,6 +15,15 @@ export const createProductNode = (
     ...product,
     slug: `/${product.linkText}/p`,
     categoryId: Number(product.categoryId),
+  }
+
+  // TODO: Remove this before release 🚢🚢
+  for (const sku of data.items) {
+    for (const image of sku.images) {
+      if (!image.imageText) {
+        image.imageText = 'Default Image Text'
+      }
+    }
   }
 
   createNode({
@@ -48,6 +57,31 @@ export const createCategoryNode = (
   createNode({
     ...data,
     id: createNodeId(`${NODE_TYPE}-${data.categoryId}`),
+    internal: {
+      type: NODE_TYPE,
+      content: JSON.stringify(data),
+      contentDigest: createContentDigest(data),
+    },
+  })
+}
+
+export const createBindingNode = (
+  {
+    actions: { createNode },
+    createNodeId,
+    createContentDigest,
+  }: SourceNodesArgs,
+  { extraContext, ...binding }: Binding
+) => {
+  const NODE_TYPE = 'Binding'
+  const data = {
+    salesChannel: extraContext?.portal?.salesChannel,
+    ...binding,
+  }
+
+  createNode({
+    ...data,
+    id: createNodeId(`${NODE_TYPE}-${data.id}`),
     internal: {
       type: NODE_TYPE,
       content: JSON.stringify(data),
