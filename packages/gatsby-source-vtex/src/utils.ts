@@ -17,15 +17,6 @@ export const createProductNode = (
     categoryId: Number(product.categoryId),
   }
 
-  // TODO: Remove this before release 🚢🚢
-  for (const sku of data.items) {
-    for (const image of sku.images) {
-      if (!image.imageText) {
-        image.imageText = 'Default Image Text'
-      }
-    }
-  }
-
   createNode({
     ...data,
     id: createNodeId(`${NODE_TYPE}-${data.productId}`),
