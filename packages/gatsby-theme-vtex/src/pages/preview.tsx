@@ -6,12 +6,12 @@ import React, { FC, Suspense } from 'react'
 import { Helmet } from 'react-helmet'
 
 import Block from '../components/cms/Block'
-import { CMS_CONTENT, listen } from '../components/cms/iframe'
+import { CMS_CONTENT, setupIframeListener } from '../components/cms/iframe'
 import { useLocalStorage } from '../components/cms/localStorage'
 import { isServer } from '../utils/env'
 
 if (!isServer) {
-  listen()
+  setupIframeListener()
 }
 
 const Preview: FC = () => {
