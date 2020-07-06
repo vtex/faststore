@@ -5,8 +5,8 @@ import {
 import React, { FC, Suspense } from 'react'
 import { Helmet } from 'react-helmet'
 
-import Block from './Block'
-import { useLocalStorage } from './localStorage'
+import Block from '../components/cms/Block'
+import { useLocalStorage } from '../components/cms/localStorage'
 
 export const CMS_CONTENT = 'cms-content'
 
