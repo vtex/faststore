@@ -7,8 +7,21 @@ import { Helmet } from 'react-helmet'
 
 import Block from '../components/cms/Block'
 import { useLocalStorage } from '../components/cms/localStorage'
+import { isServer } from '../utils/env'
 
 export const CMS_CONTENT = 'cms-content'
+
+if (!isServer) {
+  window.addEventListener(
+    'message',
+    (event) => {
+      if (event.origin.endsWith('.myvtex.com')) {
+        localStorage.setItem(CMS_CONTENT, event.data)
+      }
+    },
+    false
+  )
+}
 
 const Preview: FC = () => {
   const content = useLocalStorage<ContentType>(CMS_CONTENT)
