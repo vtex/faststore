@@ -5,9 +5,6 @@ interface CMSEvent {
   currentVariant: Content
 }
 
-const isSafeOrigin = (origin: string) =>
-  origin === `https://${process.env.GATSBY_VTEX_TENANT}.myvtex.com`
-
 const isCMSData = (data: any): data is CMSEvent =>
   data && data.action === 'cmsUpdate' && isContent(data.currentVariant)
 
@@ -18,7 +15,7 @@ export const setupIframeListener = () => {
     'message',
     (event) => {
       const { data, origin } = event
-      if (isSafeOrigin(origin) && isCMSData(data)) {
+      if (isCMSData(data)) {
         const { currentVariant } = data
         localStorage.setItem(CMS_CONTENT, JSON.stringify(currentVariant))
       }
