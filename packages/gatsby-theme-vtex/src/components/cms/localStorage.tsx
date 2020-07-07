@@ -10,7 +10,7 @@ const getItem = (key: string) => {
 // A hook that uses the local storage and updates when a
 // storage updates
 export const useLocalStorage = <T extends any>(key: string) => {
-  const [storage, setStorage] = useState<T | null>(
+  const [storage, setStorage] = useState<T | null>(() =>
     isServer ? null : getItem(key)
   )
 
