@@ -4,19 +4,19 @@ import { Card, Heading, jsx } from 'theme-ui'
 
 import { Offer } from './Offer'
 import ProductImage from './ProductImage'
-import { DynamicProduct, StaticProduct } from './Shapes'
 import { BuyButton } from './BuyButton'
+import { SyncProductItem } from '../types/product'
 
 interface Props {
-  staticProduct: StaticProduct
-  dynamicProduct?: DynamicProduct
+  syncProduct: SyncProductItem
   lazyLoad: boolean
+  index: number
 }
 
 export const ProductSummary: FC<Props> = ({
-  staticProduct,
-  dynamicProduct,
+  syncProduct,
   lazyLoad = true,
+  index,
 }) => (
   <Card
     sx={{
@@ -28,13 +28,13 @@ export const ProductSummary: FC<Props> = ({
     <ProductImage
       width={300}
       height={300}
-      product={staticProduct}
+      product={syncProduct}
       lazyLoad={lazyLoad} // lazy load after the third image
     />
     <Heading variant="shellProductName" as="h3">
-      {staticProduct.productName.slice(0, 12)}
+      {syncProduct.productName.slice(0, 12)}
     </Heading>
-    <Offer product={dynamicProduct} />
-    <BuyButton item={dynamicProduct?.items[0]} />
+    <Offer />
+    <BuyButton skuId={syncProduct.items[0].itemId} />
   </Card>
 )

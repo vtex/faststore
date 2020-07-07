@@ -1,28 +1,33 @@
-import { api, Product as ProductType } from '@vtex/gatsby-source-vtex'
+import { api } from '@vtex/gatsby-source-vtex'
 import React, { FC, Suspense } from 'react'
-import useSWR from 'swr'
+import { useAsyncResource } from 'use-async-resource'
 
 import Container from '../../components/Container'
-import DynamicProduct from '../../components/DynamicProduct'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Layout from '../../components/Layout'
+import ProductDetails from '../../components/ProductDetails'
+import { AsyncProductProvider } from '../../components/providers/AsyncProduct'
+import { SyncProduct } from '../../types/product'
 import { isServer } from '../../utils/env'
 
 interface Props {
   slug: string
 }
 
-const ClientOnlyView: FC<Props> = ({ slug }) => {
-  const { data } = useSWR<ProductType[]>(
-    api.search.bySlug(slug),
-    (url: string) => fetch(url).then((r) => r.json()),
-    { suspense: true }
-  )
-  const [product] = data!
+const fetcher = async (slug: string) => {
+  const responses = await fetch(api.search.bySlug(slug))
+  const [product]: SyncProduct[] = await responses.json()
+  return product
+}
 
+const ClientOnlyView: FC<Props> = ({ slug }) => {
+  const [syncProductReader] = useAsyncResource(fetcher, slug)
+  const syncProduct = syncProductReader()
   return (
     <Container>
-      <DynamicProduct staticProduct={product} />
+      <AsyncProductProvider syncProduct={syncProduct}>
+        <ProductDetails syncProduct={syncProduct} />
+      </AsyncProductProvider>
     </Container>
   )
 }

@@ -7,12 +7,14 @@ import Carousel from '../components/Carousel'
 import Container from '../components/Container'
 import DynamicProductList from '../components/DynamicProductList'
 import Layout from '../components/Layout'
+import { AsyncProductsProvider } from '../components/providers/AsyncProducts'
 import SEO from '../components/Seo'
-import { StaticProduct } from '../components/Shapes'
+import { SyncProductItem } from '../types/product'
+import { ProductList } from '../components/ProductList'
 
 interface Data {
   allProduct: {
-    nodes: StaticProduct[]
+    nodes: SyncProductItem[]
   }
 }
 
@@ -37,6 +39,7 @@ const Home: FC<RouteComponentProps> = () => {
           productId
           productName
           items {
+            itemId
             images {
               imageUrl
               imageText
@@ -46,6 +49,7 @@ const Home: FC<RouteComponentProps> = () => {
       }
     }
   `)
+  const syncProducts = allProduct.nodes
 
   return (
     <Layout>

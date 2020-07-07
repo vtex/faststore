@@ -1,7 +1,6 @@
-import React, { FC, Suspense, lazy } from 'react'
+import React, { FC, lazy, Suspense } from 'react'
 
 import { isServer } from '../../utils/env'
-import { Options } from './lazy'
 
 const AsyncOffer = lazy(() => import('./lazy'))
 
@@ -12,14 +11,14 @@ export const OfferLoading: FC = () => (
   </>
 )
 
-export const Offer: FC<Partial<Options>> = ({ product }) => {
-  if (isServer || !product) {
+export const Offer: FC = () => {
+  if (isServer) {
     return <OfferLoading />
   }
 
   return (
     <Suspense fallback={<OfferLoading />}>
-      <AsyncOffer product={product} />
+      <AsyncOffer />
     </Suspense>
   )
 }
