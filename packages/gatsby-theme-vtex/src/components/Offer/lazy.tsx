@@ -1,12 +1,16 @@
 import React, { FC } from 'react'
 
 import { findBestSeller } from '../../utils/seller'
+import { useAsyncProduct } from '../providers/AsyncProducts/controler'
 import { useCurrency } from '../providers/Binding'
-import { useAsyncProduct } from '../providers/AsyncProduct/controler'
 
-const Offer: FC = () => {
+export interface Props {
+  index: number
+}
+
+const Offer: FC<Props> = ({ index }) => {
   const [currency] = useCurrency()
-  const { items } = useAsyncProduct()
+  const { items } = useAsyncProduct(index)
 
   const seller = findBestSeller(items)
   const offer = seller?.commertialOffer

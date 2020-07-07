@@ -18,7 +18,7 @@ const fetcher = async (
   filterOptions: FilterOptions,
   searchOptions: SearchOptions
 ) => {
-  const url = api.search.byFilters(filterOptions, searchOptions)
+  const url = api.search(filterOptions, searchOptions)
   const response = await fetch(url)
   const products: AsyncProductItem[] = await response.json()
   return products
@@ -30,9 +30,6 @@ const AsyncProductsContext = createContext<DataOrModifiedFn<AsyncProduct[]>>(
 
 const AsyncProductsProvider: FC<Props> = ({ filterOptions, children }) => {
   const [salesChannel] = useSalesChannel()
-  // const productIds = useMemo(() => syncProducts.map((x) => x.productId), [
-  //   syncProducts,
-  // ])
   const [asyncProductReader] = useAsyncResource(fetcher, filterOptions, {
     sc: salesChannel,
     simulation: 'true',
@@ -48,6 +45,12 @@ const AsyncProductsProvider: FC<Props> = ({ filterOptions, children }) => {
 export const useAsyncProducts = () => {
   const asyncProductReader = useContext(AsyncProductsContext)
   return asyncProductReader()
+}
+
+export const useAsyncProduct = (index: number) => {
+  const asyncProductReader = useContext(AsyncProductsContext)
+  const products = asyncProductReader()
+  return products[index]
 }
 
 export default AsyncProductsProvider

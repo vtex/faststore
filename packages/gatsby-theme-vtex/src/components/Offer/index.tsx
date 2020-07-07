@@ -1,6 +1,7 @@
 import React, { FC, lazy, Suspense } from 'react'
 
 import { isServer } from '../../utils/env'
+import { Props } from './lazy'
 
 const AsyncOffer = lazy(() => import('./lazy'))
 
@@ -11,14 +12,14 @@ export const OfferLoading: FC = () => (
   </>
 )
 
-export const Offer: FC = () => {
+export const Offer: FC<Props> = ({ index }) => {
   if (isServer) {
     return <OfferLoading />
   }
 
   return (
     <Suspense fallback={<OfferLoading />}>
-      <AsyncOffer />
+      <AsyncOffer index={index} />
     </Suspense>
   )
 }
