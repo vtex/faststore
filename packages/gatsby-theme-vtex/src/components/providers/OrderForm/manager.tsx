@@ -27,17 +27,17 @@ const addItemFetch = async (id: string, items: any[]) =>
     body: JSON.stringify({ orderItems: items }),
   })
 
-interface OrderFormItem {
-  id: number
+export interface OrderFormItem {
+  id: string
   quantity: number
-  seller: number
+  seller: string
 }
 
 type OrderFormContext = {
   orderForm: OrderFormType | null
   setOrderForm: (of: OrderFormType) => void
   fetchOrderForm: DataOrModifiedFn<OrderFormType>
-  addItems: (item: OrderFormItem[]) => void
+  addItems: (item: OrderFormItem[]) => Promise<void>
 }
 
 const OrderForm = createContext<OrderFormContext | null>(null)
