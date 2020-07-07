@@ -1,6 +1,6 @@
 import { RouteComponentProps } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { Grid } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
@@ -50,6 +50,12 @@ const Home: FC<RouteComponentProps> = () => {
     }
   `)
   const syncProducts = allProduct.nodes
+  const productIds = useMemo(() => syncProducts.map((x) => x.productId), [
+    syncProducts,
+  ])
+  const filterOptions = {
+    productIds,
+  }
 
   return (
     <Layout>

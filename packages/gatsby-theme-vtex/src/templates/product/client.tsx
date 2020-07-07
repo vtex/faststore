@@ -6,7 +6,7 @@ import Container from '../../components/Container'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Layout from '../../components/Layout'
 import ProductDetails from '../../components/ProductDetails'
-import { AsyncProductProvider } from '../../components/providers/AsyncProduct'
+import { AsyncProductsProvider } from '../../components/providers/AsyncProducts'
 import { SyncProduct } from '../../types/product'
 import { isServer } from '../../utils/env'
 
@@ -15,20 +15,28 @@ interface Props {
 }
 
 const fetcher = async (slug: string) => {
-  const responses = await fetch(api.search.bySlug(slug))
-  const [product]: SyncProduct[] = await responses.json()
+  const responses = await fetch(api.search({ slug }))
+  const product: SyncProduct[] = await responses.json()
   return product
 }
 
 const ClientOnlyView: FC<Props> = ({ slug }) => {
   const [syncProductReader] = useAsyncResource(fetcher, slug)
-  const syncProduct = syncProductReader()
+  const syncProducts = syncProductReader()
+  const filterOptions = {
+    slug: syncProducts[0].linkText,
+  }
   return (
-    <Container>
-      <AsyncProductProvider syncProduct={syncProduct}>
-        <ProductDetails syncProduct={syncProduct} />
-      </AsyncProductProvider>
-    </Container>
+    <AsyncProductsProvider
+      filterOptions={filterOptions}
+      syncProducts={syncProducts}
+    >
+      <ProductDetails
+        key="product-details-0"
+        syncProduct={syncProducts[0]}
+        index={0}
+      />
+    </AsyncProductsProvider>
   )
 }
 

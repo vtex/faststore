@@ -11,6 +11,7 @@ import SEO from './Seo'
 
 interface Props {
   syncProduct: SyncProduct
+  index: number
 }
 
 // Code-splits structured data injection
@@ -25,7 +26,7 @@ interface Props {
 //   injectProduct(product, currency)
 // }
 
-const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
+const ProductDetailsTemplate: FC<Props> = ({ syncProduct, index }) => {
   // const [currency] = useCurrency()
   const { productName } = syncProduct
 
@@ -51,8 +52,8 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
           <Heading variant="productTitle" as="h1">
             {productName}
           </Heading>
-          <Offer />
-          <BuyButton skuId={syncProduct?.items[0].itemId} />
+          <Offer index={index} />
+          <BuyButton skuId={syncProduct?.items[0].itemId} index={index} />
         </Card>
       </Grid>
     </Fragment>

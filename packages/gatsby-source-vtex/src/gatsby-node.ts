@@ -29,7 +29,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
   // PRODUCT
   const productData = await fetchVTEX<Product[]>(
-    api.search.byFilters({ from: 0, to: 9 }),
+    api.search({ from: 0, to: 9 }),
     options
   )
   productData.forEach((product) => createProductNode(args, product))

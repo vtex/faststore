@@ -34,7 +34,7 @@ export const ProductSummary: FC<Props> = ({
     <Heading variant="shellProductName" as="h3">
       {syncProduct.productName.slice(0, 12)}
     </Heading>
-    <Offer />
-    <BuyButton skuId={syncProduct.items[0].itemId} />
+    <Offer index={index} />
+    <BuyButton skuId={syncProduct.items[0].itemId} index={index} />
   </Card>
 )
