@@ -40,7 +40,7 @@ type OrderFormContext = {
   addItems: (item: OrderFormItem[]) => void
 }
 
-const OrderForm = createContext<OrderFormContext>(null as any)
+const OrderForm = createContext<OrderFormContext | null>(null)
 
 const createAddItems = (
   ofId: string | undefined,
@@ -53,7 +53,7 @@ const createAddItems = (
   setOrderForm(orderForm)
 }
 
-export const OrderFormProvider: FC = ({ children }) => {
+const OrderFormProvider: FC = ({ children }) => {
   const [orderForm, setOrderForm] = useState<OrderFormType | null>(null)
   const [fetchOrderForm] = useAsyncResource(orderFormFetch, [])
   const ofId = orderForm?.orderFormId
@@ -80,6 +80,11 @@ type FetchedOrderFormContext = OrderFormContext & {
 
 export const useOrderForm = (): FetchedOrderFormContext => {
   const ctx = useContext(OrderForm)
+
+  if (!ctx) {
+    throw new Promise(() => {})
+  }
+
   const { orderForm, fetchOrderForm, setOrderForm } = ctx
 
   // If no orderForm was fetched yet, Suspend
@@ -95,3 +100,5 @@ export const useOrderForm = (): FetchedOrderFormContext => {
 
   return ctx as FetchedOrderFormContext
 }
+
+export default OrderFormProvider
