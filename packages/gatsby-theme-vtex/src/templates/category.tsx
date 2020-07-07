@@ -95,7 +95,7 @@ const mergeItems = (mainArray: Product[], itemsToAdd: Product[], maxItems: numbe
   const itemsNotInList = itemsToAdd.filter(item => !currentItemsIds.has(item.productId))
   const newMainArray = [...mainArray]
   const newItemsQueue = []
-  console.log('teste adding: ', { itemsNotInList, mainArray, itemsToAdd, maxItems })
+
   for (const item of itemsNotInList) {
     if (newMainArray.length < maxItems) {
       newMainArray.push(item)
@@ -108,7 +108,6 @@ const mergeItems = (mainArray: Product[], itemsToAdd: Product[], maxItems: numbe
 }
 
 const reducer = (state: State, action: Actions) => {
-  console.log('teste action: ', action)
   switch (action.type) {
     case 'REFRESH_DATA': {
       const { freshData } = action.args
@@ -229,7 +228,6 @@ const useLoadMore = (category: Category, dispatch: Dispatch<Actions>) => {
 }
 
 // TODO - prefetch next pages when button is seen
-// TODO - Display prices
 
 const CategoryTemplate: FC<Props> = ({ data }) => {
   const staticProducts = data.categorySearchResult.products
