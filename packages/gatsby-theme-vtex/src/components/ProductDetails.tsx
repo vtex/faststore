@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { Product } from '@vtex/gatsby-source-vtex'
 import { FC, Fragment, useEffect } from 'react'
-import { Button, Card, Grid, Heading, jsx } from 'theme-ui'
+import { Card, Grid, Heading, jsx } from 'theme-ui'
 
 import ProductImage from './ProductImage'
 import { DynamicProduct, StaticProduct } from './Shapes'
 import { useCurrency } from './providers/Binding'
 import SEO from './Seo'
 import { Offer } from './Offer'
+import { BuyButton } from './BuyButton'
 
 interface Props {
   staticProduct: StaticProduct
@@ -53,9 +54,7 @@ const ProductTemplate: FC<Props> = ({ dynamicProduct, staticProduct }) => {
             {productName}
           </Heading>
           <Offer product={dynamicProduct} />
-          <Button variant="productBuy" sx={{ width: '100%' }}>
-            ADD TO CART
-          </Button>
+          <BuyButton item={dynamicProduct?.items[0]} />
         </Card>
       </Grid>
     </Fragment>

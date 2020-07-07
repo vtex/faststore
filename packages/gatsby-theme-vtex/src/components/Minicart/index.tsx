@@ -1,5 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC, lazy } from 'react'
 import { Button } from 'theme-ui'
+
+import { SuspenseSSR } from '../SuspenseSSR'
+
+const ItemCount = lazy(() => import('./ItemCount'))
 
 const Minicart: FC = () => {
   return (
@@ -9,7 +13,7 @@ const Minicart: FC = () => {
         width="16"
         height="16"
         viewBox="0 0 16 16"
-        className=" vtex-minicart-2-x-cartIcon"
+        className="vtex-minicart-2-x-cartIcon"
       >
         <use href="#hpa-cart">
           <g id="hpa-cart">
@@ -28,6 +32,9 @@ const Minicart: FC = () => {
           </g>
         </use>
       </svg>
+      <SuspenseSSR fallback={<>0</>}>
+        <ItemCount />
+      </SuspenseSSR>
     </Button>
   )
 }
