@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Product } from '@vtex/gatsby-source-vtex'
 import { FC, Fragment, useEffect } from 'react'
-import { Button, Card, Grid, Heading, jsx } from 'theme-ui'
+import { Card, Grid, Heading, jsx } from 'theme-ui'
 
 import ProductImage from './ProductImage'
 import { DynamicProduct, StaticProduct } from './Shapes'

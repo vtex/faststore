@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Button, jsx } from 'theme-ui'
 import { Item } from '@vtex/gatsby-source-vtex'
 
-import { useOrderForm } from '../providers/OrderForm'
+import { useOrderForm } from '../providers/OrderForm/manager'
 
 export interface Props {
   item?: Item
