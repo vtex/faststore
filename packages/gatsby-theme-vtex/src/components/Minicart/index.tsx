@@ -32,7 +32,7 @@ const Minicart: FC = () => {
           </g>
         </use>
       </svg>
-      <SuspenseSSR fallback={null}>
+      <SuspenseSSR fallback={' '}>
         <ItemCount />
       </SuspenseSSR>
     </Button>
