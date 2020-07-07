@@ -5,11 +5,17 @@
 import React, { FC, lazy } from 'react'
 
 import { SuspenseSSR } from '../../SuspenseSSR'
+import { Props } from './controler'
 
-const AsyncOrderFormProvider = lazy(() => import('./controler'))
+const LazyProductsProvider = lazy(() => import('./controler'))
 
-export const OrderFormProvider: FC = ({ children }) => (
+export const AsyncProductsProvider: FC<Props> = ({
+  children,
+  syncProducts,
+}) => (
   <SuspenseSSR fallback={<>{children}</>}>
-    <AsyncOrderFormProvider>{children}</AsyncOrderFormProvider>
+    <LazyProductsProvider syncProducts={syncProducts}>
+      {children}
+    </LazyProductsProvider>
   </SuspenseSSR>
 )

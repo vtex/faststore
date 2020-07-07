@@ -4,29 +4,28 @@ import { FC, Fragment } from 'react'
 import { jsx } from 'theme-ui'
 
 import { ProductSummary } from './ProductSummary'
-import { StaticProduct, DynamicProduct } from './Shapes'
+import { SyncProductItem } from '../types/product'
 
 interface Props {
-  staticProducts: StaticProduct[]
-  dynamicProducts: DynamicProduct[]
+  syncProducts: SyncProductItem[]
 }
 
-export const ProductList: FC<Props> = ({ staticProducts, dynamicProducts }) => {
+export const ProductList: FC<Props> = ({ syncProducts }) => {
   return (
     <Fragment>
-      {staticProducts.map((staticProduct, index) => (
+      {syncProducts.map((syncProduct, index) => (
         <Link
-          key={staticProduct.id}
-          to={staticProduct.slug}
+          key={syncProduct.id}
+          to={syncProduct.slug}
           sx={{
             textDecoration: 'none',
             color: 'text',
           }}
         >
           <ProductSummary
-            staticProduct={staticProduct}
+            syncProduct={syncProduct}
             lazyLoad={index > 3}
-            dynamicProduct={dynamicProducts[index]}
+            index={index}
           />
         </Link>
       ))}

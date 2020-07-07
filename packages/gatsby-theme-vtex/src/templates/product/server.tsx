@@ -1,9 +1,11 @@
 import { graphql } from 'gatsby'
 import React, { FC } from 'react'
 
-import DynamicProduct from '../../components/DynamicProduct'
 import Layout from '../../components/Layout'
-import { StaticProduct } from '../../components/Shapes'
+import ProductDetails from '../../components/ProductDetails'
+import { AsyncProductProvider } from '../../components/providers/AsyncProduct'
+import { SyncProduct } from '../../types/product'
+import AsyncProductsProvider from '../../components/providers/AsyncProducts/controler'
 
 export const staticQuery = graphql`
   query($id: String!) {
@@ -15,6 +17,7 @@ export const staticQuery = graphql`
       description
       linkText
       items {
+        itemId
         images {
           imageUrl
           imageText
@@ -26,13 +29,15 @@ export const staticQuery = graphql`
 
 interface Props {
   data: {
-    product: StaticProduct
+    product: SyncProduct
   }
 }
 
-const ProductPage: FC<Props> = ({ data }) => (
+const ProductPage: FC<Props> = ({ data: { product } }) => (
   <Layout>
-    <DynamicProduct staticProduct={data.product} />
+    <AsyncProductsProvider syncProducts={[product]}>
+      <ProductDetails syncProduct={product} />
+    </AsyncProductsProvider>
   </Layout>
 )
 

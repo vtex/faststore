@@ -1,32 +1,15 @@
-import { Item } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
 
+import { findBestSeller } from '../../utils/seller'
 import { useCurrency } from '../providers/Binding'
-import { DynamicProduct } from '../Shapes'
+import { useAsyncProduct } from '../providers/AsyncProduct/controler'
 
-export interface Options {
-  product: DynamicProduct
-}
-
-const findBestCommertialOffer = (skus: Item[]) => {
-  let bestSoFar = skus[0].sellers[0].commertialOffer
-  for (const sku of skus) {
-    for (const { commertialOffer } of sku.sellers) {
-      if (
-        commertialOffer.AvailableQuantity > 0 &&
-        commertialOffer.Price < bestSoFar.Price
-      ) {
-        bestSoFar = commertialOffer
-      }
-    }
-  }
-  return bestSoFar
-}
-
-const Offer: FC<Options> = ({ product }) => {
+const Offer: FC = () => {
   const [currency] = useCurrency()
+  const { items } = useAsyncProduct()
 
-  const offer = findBestCommertialOffer(product.items)
+  const seller = findBestSeller(items)
+  const offer = seller?.commertialOffer
 
   if (!offer || offer.AvailableQuantity === 0) {
     return <div>Product Unavailable</div>
