@@ -34,7 +34,7 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
     ({ withSWR, offset }) => {
       const { data: products, error } = withSWR(
         useSWR(
-          api.search.byFilters({
+          api.search({
             categoryIds: [`${data.category.categoryId}`],
             from: offset?.from ?? 0,
             to: offset?.to ?? 9,
@@ -55,12 +55,11 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
 
       return (
         <ProductList
-          staticProducts={products.map((product: Product) => ({
+          syncProducts={products.map((product: Product) => ({
             ...product,
             id: product.productId,
             slug: `/${product.linkText}/p`,
           }))}
-          dynamicProducts={[]}
         />
       )
     },

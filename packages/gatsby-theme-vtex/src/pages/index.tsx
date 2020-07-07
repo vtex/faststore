@@ -1,6 +1,6 @@
 import { RouteComponentProps } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { Grid } from 'theme-ui'
 
 import Layout from '../components/Layout'
@@ -36,11 +36,20 @@ const Home: FC<RouteComponentProps> = () => {
     }
   `)
   const syncProducts = allProduct.nodes
+  const productIds = useMemo(() => syncProducts.map((x) => x.productId), [
+    syncProducts,
+  ])
+  const filterOptions = {
+    productIds,
+  }
 
   return (
     <Layout>
       <SEO />
-      <AsyncProductsProvider syncProducts={syncProducts}>
+      <AsyncProductsProvider
+        filterOptions={filterOptions}
+        syncProducts={syncProducts}
+      >
         <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
           <ProductList syncProducts={syncProducts} />
         </Grid>

@@ -3,9 +3,8 @@ import React, { FC } from 'react'
 
 import Layout from '../../components/Layout'
 import ProductDetails from '../../components/ProductDetails'
-import { AsyncProductProvider } from '../../components/providers/AsyncProduct'
 import { SyncProduct } from '../../types/product'
-import AsyncProductsProvider from '../../components/providers/AsyncProducts/controler'
+import { AsyncProductsProvider } from '../../components/providers/AsyncProducts'
 
 export const staticQuery = graphql`
   query($id: String!) {
@@ -33,12 +32,20 @@ interface Props {
   }
 }
 
-const ProductPage: FC<Props> = ({ data: { product } }) => (
-  <Layout>
-    <AsyncProductsProvider syncProducts={[product]}>
-      <ProductDetails syncProduct={product} />
-    </AsyncProductsProvider>
-  </Layout>
-)
+const ProductPage: FC<Props> = ({ data: { product } }) => {
+  const filterOptions = {
+    slug: product.linkText,
+  }
+  return (
+    <Layout>
+      <AsyncProductsProvider
+        filterOptions={filterOptions}
+        syncProducts={[product]}
+      >
+        <ProductDetails index={0} syncProduct={product} />
+      </AsyncProductsProvider>
+    </Layout>
+  )
+}
 
 export default ProductPage

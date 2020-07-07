@@ -12,9 +12,13 @@ const LazyProductsProvider = lazy(() => import('./controler'))
 export const AsyncProductsProvider: FC<Props> = ({
   children,
   syncProducts,
+  filterOptions,
 }) => (
   <SuspenseSSR fallback={<>{children}</>}>
-    <LazyProductsProvider syncProducts={syncProducts}>
+    <LazyProductsProvider
+      filterOptions={filterOptions}
+      syncProducts={syncProducts}
+    >
       {children}
     </LazyProductsProvider>
   </SuspenseSSR>

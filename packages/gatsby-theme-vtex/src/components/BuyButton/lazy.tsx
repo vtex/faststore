@@ -3,16 +3,17 @@ import { FC } from 'react'
 import { Button, jsx } from 'theme-ui'
 
 import { useOrderForm } from '../providers/OrderForm/controler'
-import { useAsyncProduct } from '../providers/AsyncProduct/controler'
+import { useAsyncProduct } from '../providers/AsyncProducts/controler'
 import { findBestSeller } from '../../utils/seller'
 
 export interface Props {
   skuId: string
+  index: number
 }
 
-const BuyButton: FC<Props> = ({ skuId }) => {
+const BuyButton: FC<Props> = ({ skuId, index }) => {
   const { addItems, orderForm, setOrderForm } = useOrderForm()
-  const asyncProduct = useAsyncProduct()
+  const asyncProduct = useAsyncProduct(index)
   const sku = asyncProduct.items?.find(({ itemId }) => itemId === skuId)
 
   // Optimist add item on click
