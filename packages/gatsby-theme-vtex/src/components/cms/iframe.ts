@@ -15,7 +15,6 @@ export const setupIframeListener = () => {
     'message',
     (event) => {
       const { data } = event
-      console.log({ data })
       if (isCMSData(data)) {
         const { currentVariant } = data
         localStorage.setItem(CMS_CONTENT, JSON.stringify(currentVariant))
