@@ -82,7 +82,7 @@ export const useOrderForm = (): FetchedOrderFormContext => {
   const ctx = useContext(OrderForm)
 
   if (!ctx) {
-    throw new Promise(() => {})
+    throw new Error('Something went wrong')
   }
 
   const { orderForm, fetchOrderForm, setOrderForm } = ctx
