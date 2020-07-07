@@ -2,7 +2,7 @@ import { api } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
 import useSWR from 'swr'
 
-import Product from './Product'
+import Product from './ProductDetails'
 import { useSalesChannel } from './providers/Binding'
 import { DynamicProduct as DynamicProductType, StaticProduct } from './Shapes'
 
