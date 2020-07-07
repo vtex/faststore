@@ -1,29 +1,38 @@
 /** @jsx jsx */
-import { Item } from '@vtex/gatsby-source-vtex'
 import { FC } from 'react'
 import { Button, jsx } from 'theme-ui'
 
-import { useOrderForm } from '../providers/OrderForm/manager'
+import { useOrderForm } from '../providers/OrderForm/controler'
+import { useAsyncProduct } from '../providers/AsyncProduct/controler'
+import { findBestSeller } from '../../utils/seller'
 
 export interface Props {
-  item?: Item
+  skuId: string
 }
 
-const BuyButton: FC<Props> = ({ item }) => {
+const BuyButton: FC<Props> = ({ skuId }) => {
   const { addItems, orderForm, setOrderForm } = useOrderForm()
+  const asyncProduct = useAsyncProduct()
+  const sku = asyncProduct.items?.find(({ itemId }) => itemId === skuId)
 
   // Optimist add item on click
   const addItemOnClick = async (e: any) => {
     e.preventDefault()
-    if (!item) {
+    if (!sku) {
+      return
+    }
+
+    const seller = findBestSeller([sku])
+
+    if (!seller) {
       return
     }
 
     // Item to be updated into the orderForm
     const orderFormItem = {
-      id: item.itemId,
+      id: sku.itemId,
       quantity: 1,
-      seller: item.sellers[0]?.sellerId,
+      seller: seller?.sellerId,
     }
 
     const oldOrderForm = {
@@ -53,7 +62,7 @@ const BuyButton: FC<Props> = ({ item }) => {
   return (
     <Button
       sx={{ width: '100%' }}
-      variant={item ? 'primary' : 'secondary'}
+      variant={sku ? 'primary' : 'secondary'}
       onClick={addItemOnClick}
     >
       ADD TO CART

@@ -1,4 +1,4 @@
-interface SearchOptions {
+export interface SearchOptions {
   sc?: number
   simulation?: 'true' | 'false'
 }

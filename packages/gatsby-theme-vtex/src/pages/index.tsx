@@ -3,14 +3,15 @@ import { graphql, useStaticQuery } from 'gatsby'
 import React, { FC } from 'react'
 import { Grid } from 'theme-ui'
 
-import DynamicProductList from '../components/DynamicProductList'
 import Layout from '../components/Layout'
+import { AsyncProductsProvider } from '../components/providers/AsyncProducts'
 import SEO from '../components/Seo'
-import { StaticProduct } from '../components/Shapes'
+import { SyncProductItem } from '../types/product'
+import { ProductList } from '../components/ProductList'
 
 interface Data {
   allProduct: {
-    nodes: StaticProduct[]
+    nodes: SyncProductItem[]
   }
 }
 
@@ -24,6 +25,7 @@ const Home: FC<RouteComponentProps> = () => {
           productId
           productName
           items {
+            itemId
             images {
               imageUrl
               imageText
@@ -33,13 +35,16 @@ const Home: FC<RouteComponentProps> = () => {
       }
     }
   `)
+  const syncProducts = allProduct.nodes
 
   return (
     <Layout>
       <SEO />
-      <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-        <DynamicProductList staticProducts={allProduct.nodes} />
-      </Grid>
+      <AsyncProductsProvider syncProducts={syncProducts}>
+        <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
+          <ProductList syncProducts={syncProducts} />
+        </Grid>
+      </AsyncProductsProvider>
     </Layout>
   )
 }
