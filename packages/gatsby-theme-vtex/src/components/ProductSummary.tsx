@@ -5,6 +5,7 @@ import { Card, Heading, jsx } from 'theme-ui'
 import { Offer } from './Offer'
 import ProductImage from './ProductImage'
 import { DynamicProduct, StaticProduct } from './Shapes'
+import { BuyButton } from './BuyButton'
 
 interface Props {
   staticProduct: StaticProduct
@@ -34,5 +35,6 @@ export const ProductSummary: FC<Props> = ({
       {staticProduct.productName.slice(0, 12)}
     </Heading>
     <Offer product={dynamicProduct} />
+    <BuyButton item={dynamicProduct?.items[0]} />
   </Card>
 )
