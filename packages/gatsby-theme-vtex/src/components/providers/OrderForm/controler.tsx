@@ -42,13 +42,13 @@ const OrderFormProvider: FC = ({ children }) => {
   console.log('rendering orderFormProvider')
 
   // Fetch orderForm on first render
-  // useEffect(() => {
-  //   ;(async () => {
-  //     const data = await postFetcher<OrderFormType>(api.checkout.orderForm)
-  //     setOrderForm(data)
-  //     queue.start()
-  //   })()
-  // }, [])
+  useEffect(() => {
+    ;(async () => {
+      const data = await postFetcher<OrderFormType>(api.checkout.orderForm)
+      setOrderForm(data)
+      queue.start()
+    })()
+  }, [])
 
   // Add item to cart using the queue
   const addItems = useMemo(
