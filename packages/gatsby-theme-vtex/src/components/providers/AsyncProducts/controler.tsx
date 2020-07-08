@@ -1,6 +1,6 @@
 import { api, FilterOptions } from '@vtex/gatsby-source-vtex'
 import React, { createContext, FC, useContext } from 'react'
-import useSWR, { responseInterface } from 'swr'
+import useSWR from 'swr'
 
 import {
   AsyncProduct,
@@ -8,7 +8,7 @@ import {
   SyncProductItem,
 } from '../../../types/product'
 import { jsonFetcher } from '../../../utils/fetcher'
-import { useSalesChannel } from '../Binding'
+import { useSalesChannel } from '../Binding/controler'
 
 export interface Props {
   syncProducts: SyncProductItem[]

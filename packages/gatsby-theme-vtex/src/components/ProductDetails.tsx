@@ -6,7 +6,7 @@ import { SyncProduct } from '../types/product'
 import { BuyButton } from './BuyButton'
 import { Offer } from './Offer'
 import ProductImage from './ProductImage'
-import { useCurrency } from './providers/Binding'
+import { useCurrency } from './providers/Binding/controler'
 import SEO from './Seo'
 
 interface Props {
