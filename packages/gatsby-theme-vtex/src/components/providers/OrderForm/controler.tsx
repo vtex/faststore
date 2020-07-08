@@ -30,7 +30,7 @@ queue.pause()
 type OrderFormContext = {
   value: OrderFormType | null
   setOrderForm: Dispatch<SetStateAction<OrderFormType | null>>
-  addItems: (item: OrderFormItem[]) => Promise<void>
+  addItems: (items: OrderFormItem[]) => Promise<void>
 }
 
 const OrderForm = createContext<OrderFormContext | null>(null)
@@ -38,8 +38,6 @@ const OrderForm = createContext<OrderFormContext | null>(null)
 const OrderFormProvider: FC = ({ children }) => {
   const [orderForm, setOrderForm] = useState<OrderFormType | null>(null)
   const id = orderForm?.orderFormId
-
-  console.log('rendering orderFormProvider')
 
   // Fetch orderForm on first render
   useEffect(() => {
@@ -52,7 +50,7 @@ const OrderFormProvider: FC = ({ children }) => {
 
   // Add item to cart using the queue
   const addItems = useMemo(
-    () => (items: OrderFormItem[]) => {
+    (): OrderFormContext['addItems'] => (items) => {
       if (!id) {
         throw new Error('This page does not have an orderForm yet')
       }
