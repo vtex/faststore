@@ -2,9 +2,9 @@
 import { FC } from 'react'
 import { Button, jsx } from 'theme-ui'
 
-import { useOrderForm } from '../providers/OrderForm/controler'
-import { useAsyncProduct } from '../providers/AsyncProducts/controler'
 import { findBestSeller } from '../../utils/seller'
+import { useAsyncProduct } from '../providers/AsyncProducts/controler'
+import { useOrderForm } from '../providers/OrderForm/controler'
 
 export interface Props {
   skuId: string
@@ -12,14 +12,14 @@ export interface Props {
 }
 
 const BuyButton: FC<Props> = ({ skuId, index }) => {
-  const { addItems, orderForm, setOrderForm } = useOrderForm()
-  const asyncProduct = useAsyncProduct(index)
-  const sku = asyncProduct.items?.find(({ itemId }) => itemId === skuId)
+  const { addItems, value: orderForm, setOrderForm } = useOrderForm()
+  const maybeProduct = useAsyncProduct(index)
+  const sku = maybeProduct?.items?.find(({ itemId }) => itemId === skuId)
 
   // Optimist add item on click
   const addItemOnClick = async (e: any) => {
     e.preventDefault()
-    if (!sku) {
+    if (!sku || !orderForm) {
       return
     }
 
@@ -36,6 +36,10 @@ const BuyButton: FC<Props> = ({ skuId, index }) => {
       seller: seller?.sellerId,
     }
 
+    const addItemPromise = addItems([orderFormItem])
+
+    /** Now let's update the orderForm optimistically */
+
     const oldOrderForm = {
       ...orderForm,
       items: [...orderForm.items],
@@ -47,13 +51,11 @@ const BuyButton: FC<Props> = ({ skuId, index }) => {
       if (found) {
         return
       }
-      const newOrderForm = {
-        ...orderForm,
-        items: [...orderForm.items, orderFormItem],
-      }
-      orderForm.items.push(orderFormItem)
-      setOrderForm(newOrderForm)
-      await addItems([orderFormItem])
+      setOrderForm((of) => ({
+        ...of!,
+        items: [...of!.items, orderFormItem],
+      }))
+      await addItemPromise
     } catch (err) {
       // Something went wrong, let's restore the orderForm
       setOrderForm(oldOrderForm)

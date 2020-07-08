@@ -1,12 +1,13 @@
-import { api, FilterOptions, SearchOptions } from '@vtex/gatsby-source-vtex'
+import { api, FilterOptions } from '@vtex/gatsby-source-vtex'
 import React, { createContext, FC, useContext } from 'react'
-import { DataOrModifiedFn, useAsyncResource } from 'use-async-resource'
+import useSWR, { responseInterface } from 'swr'
 
 import {
   AsyncProduct,
   AsyncProductItem,
   SyncProductItem,
 } from '../../../types/product'
+import { jsonFetcher } from '../../../utils/fetcher'
 import { useSalesChannel } from '../Binding'
 
 export interface Props {
@@ -14,42 +15,35 @@ export interface Props {
   filterOptions: FilterOptions
 }
 
-const fetcher = async (
-  filterOptions: FilterOptions,
-  searchOptions: SearchOptions
-) => {
-  const url = api.search(filterOptions, searchOptions)
-  const response = await fetch(url)
-  const products: AsyncProductItem[] = await response.json()
-  return products
-}
-
-const AsyncProductsContext = createContext<DataOrModifiedFn<AsyncProduct[]>>(
-  null as any
-)
+const AsyncProductsContext = createContext<AsyncProduct[] | null>(null)
 
 const AsyncProductsProvider: FC<Props> = ({ filterOptions, children }) => {
   const [salesChannel] = useSalesChannel()
-  const [asyncProductReader] = useAsyncResource(fetcher, filterOptions, {
-    sc: salesChannel,
-    simulation: 'true',
-  })
+  const swr = useSWR<AsyncProductItem[]>(
+    api.search(filterOptions, {
+      sc: salesChannel,
+      simulation: 'true',
+    }),
+    {
+      fetcher: jsonFetcher,
+      suspense: false,
+    }
+  )
 
   return (
-    <AsyncProductsContext.Provider value={asyncProductReader}>
+    <AsyncProductsContext.Provider value={swr.data ?? null}>
       {children}
     </AsyncProductsContext.Provider>
   )
 }
 
-export const useAsyncProducts = () => {
-  const asyncProductReader = useContext(AsyncProductsContext)
-  return asyncProductReader()
-}
-
 export const useAsyncProduct = (index: number) => {
-  const asyncProductReader = useContext(AsyncProductsContext)
-  const products = asyncProductReader()
+  const products = useContext(AsyncProductsContext)
+
+  if (!products) {
+    return null
+  }
+
   return products[index]
 }
 

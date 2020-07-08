@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import { findBestSeller } from '../../utils/seller'
 import { useAsyncProduct } from '../providers/AsyncProducts/controler'
 import { useCurrency } from '../providers/Binding'
+import { OfferPreview } from './preview'
 
 export interface Props {
   index: number
@@ -10,8 +11,13 @@ export interface Props {
 
 const Offer: FC<Props> = ({ index }) => {
   const [currency] = useCurrency()
-  const { items } = useAsyncProduct(index)
+  const maybeProduct = useAsyncProduct(index)
 
+  if (!maybeProduct) {
+    return <OfferPreview />
+  }
+
+  const { items } = maybeProduct
   const seller = findBestSeller(items)
   const offer = seller?.commertialOffer
 

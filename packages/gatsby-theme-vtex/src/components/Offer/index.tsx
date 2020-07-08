@@ -1,25 +1,13 @@
-import React, { FC, lazy, Suspense } from 'react'
+import React, { FC, lazy } from 'react'
 
-import { isServer } from '../../utils/env'
+import { SuspenseSSR } from '../SuspenseSSR'
 import { Props } from './lazy'
+import { OfferPreview } from './preview'
 
 const AsyncOffer = lazy(() => import('./lazy'))
 
-export const OfferLoading: FC = () => (
-  <>
-    <div>Loading Best Offer Price</div>
-    <div>Loading Best Offer Availability</div>
-  </>
+export const Offer: FC<Props> = ({ index }) => (
+  <SuspenseSSR fallback={<OfferPreview />}>
+    <AsyncOffer index={index} />
+  </SuspenseSSR>
 )
-
-export const Offer: FC<Props> = ({ index }) => {
-  if (isServer) {
-    return <OfferLoading />
-  }
-
-  return (
-    <Suspense fallback={<OfferLoading />}>
-      <AsyncOffer index={index} />
-    </Suspense>
-  )
-}
