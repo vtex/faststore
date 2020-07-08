@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
-interface Props {
+export interface Props {
   description?: string
   lang?: string
   meta?: any[]

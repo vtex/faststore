@@ -4,10 +4,10 @@ import React, { FC, useMemo } from 'react'
 import { Grid } from 'theme-ui'
 
 import Layout from '../components/Layout'
-import { AsyncProductsProvider } from '../components/providers/AsyncProducts'
-import SEO from '../components/Seo'
-import { SyncProductItem } from '../types/product'
 import { ProductList } from '../components/ProductList'
+import { AsyncProductsProvider } from '../components/providers/AsyncProducts'
+import SEO from '../components/SEO/siteMetadata'
+import { SyncProductItem } from '../types/product'
 
 interface Data {
   allProduct: {
