@@ -1,71 +1,79 @@
-/**
- * This provider starts fetching early and adds a suspendable reader to
- * the context. Use the hooks to interact with the context
- */
 import { api, OrderForm as OrderFormType } from '@vtex/gatsby-source-vtex'
-import React, { createContext, FC, useContext, useState, useMemo } from 'react'
-import { DataOrModifiedFn, useAsyncResource } from 'use-async-resource'
+import React, {
+  createContext,
+  FC,
+  useContext,
+  useState,
+  useMemo,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react'
+import PQueue from 'p-queue'
 
-const fetchJSON = async <T extends any>(url: string, init?: RequestInit) => {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      accept: 'application/json',
-      ...init?.headers,
-    },
-    ...init,
-  })
-  return response.json() as Promise<T>
-}
+import { jsonFetcher } from '../../../utils/fetcher'
+import { OrderFormItem } from './types'
 
-const orderFormFetch = async () =>
-  fetchJSON<OrderFormType>(api.checkout.orderForm)
+const postFetcher = async <T extends any>(
+  input: RequestInfo,
+  init?: RequestInit | undefined
+): Promise<T> => jsonFetcher(input, { method: 'POST', ...init })
 
-const addItemFetch = async (id: string, items: any[]) =>
-  fetchJSON<OrderFormType>(api.checkout.addItem(id), {
-    body: JSON.stringify({ orderItems: items }),
-  })
+// Queue to make changes to the orderForm
+const queue = new PQueue({
+  concurrency: 1,
+})
 
-export interface OrderFormItem {
-  id: string
-  quantity: number
-  seller: string
-}
+// This queue will be unpaused once we have an orderForm
+queue.pause()
 
 type OrderFormContext = {
-  orderForm: OrderFormType | null
-  setOrderForm: (of: OrderFormType) => void
-  fetchOrderForm: DataOrModifiedFn<OrderFormType>
+  value: OrderFormType | null
+  setOrderForm: Dispatch<SetStateAction<OrderFormType | null>>
   addItems: (item: OrderFormItem[]) => Promise<void>
 }
 
 const OrderForm = createContext<OrderFormContext | null>(null)
 
-const createAddItems = (
-  ofId: string | undefined,
-  setOrderForm: (of: OrderFormType) => void
-) => async (items: any[]) => {
-  if (!ofId) {
-    throw new Error('OrderForm Not Found')
-  }
-  const orderForm = await addItemFetch(ofId, items)
-  setOrderForm(orderForm)
-}
-
 const OrderFormProvider: FC = ({ children }) => {
   const [orderForm, setOrderForm] = useState<OrderFormType | null>(null)
-  const [fetchOrderForm] = useAsyncResource(orderFormFetch, [])
-  const ofId = orderForm?.orderFormId
+  const id = orderForm?.orderFormId
 
-  const addItems = useMemo(() => createAddItems(ofId, setOrderForm), [ofId])
+  console.log('rendering orderFormProvider')
+
+  // Fetch orderForm on first render
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const data = await postFetcher<OrderFormType>(api.checkout.orderForm)
+  //     setOrderForm(data)
+  //     queue.start()
+  //   })()
+  // }, [])
+
+  // Add item to cart using the queue
+  const addItems = useMemo(
+    () => (items: OrderFormItem[]) => {
+      if (!id) {
+        throw new Error('This page does not have an orderForm yet')
+      }
+      return queue.add(async () => {
+        const newOrderForm = await postFetcher<OrderFormType>(
+          api.checkout.addItem(id),
+          {
+            body: JSON.stringify({ orderItems: items }),
+          }
+        )
+        setOrderForm(newOrderForm)
+      })
+    },
+    [id]
+  )
 
   return (
     <OrderForm.Provider
       value={{
-        orderForm,
+        value: orderForm,
         setOrderForm,
-        fetchOrderForm,
         addItems,
       }}
     >
@@ -74,31 +82,16 @@ const OrderFormProvider: FC = ({ children }) => {
   )
 }
 
-type FetchedOrderFormContext = OrderFormContext & {
-  orderForm: OrderFormType
-}
-
-export const useOrderForm = (): FetchedOrderFormContext => {
+export const useOrderForm = (): OrderFormContext => {
   const ctx = useContext(OrderForm)
 
   if (!ctx) {
-    throw new Error('Something went wrong')
+    throw new Error(
+      'useOrderForm needs to have an OrderFormProvider previously in the React tree'
+    )
   }
 
-  const { orderForm, fetchOrderForm, setOrderForm } = ctx
-
-  // If no orderForm was fetched yet, Suspend
-  // untill fetched and return the new orderForm
-  if (orderForm == null) {
-    const of = fetchOrderForm()
-    setOrderForm(of)
-    return {
-      ...ctx,
-      orderForm: of,
-    }
-  }
-
-  return ctx as FetchedOrderFormContext
+  return ctx
 }
 
 export default OrderFormProvider
