@@ -37,7 +37,7 @@ const AsyncProductsProvider: FC<Props> = ({ filterOptions, children }) => {
   )
 }
 
-export const useAsyncProduct = (index: number) => {
+export const useAsyncProduct = (index = 0) => {
   const products = useContext(AsyncProductsContext)
 
   if (!products) {

@@ -33,11 +33,7 @@ const ClientOnlyView: FC<Props> = ({ slug }) => {
       filterOptions={filterOptions}
       syncProducts={syncProducts}
     >
-      <ProductDetails
-        key="product-details-0"
-        syncProduct={syncProducts[0]}
-        index={0}
-      />
+      <ProductDetails syncProduct={syncProducts[0]} />
     </AsyncProductsProvider>
   )
 }

@@ -16,7 +16,7 @@ import { Button, Flex, Grid, Heading, jsx } from 'theme-ui'
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 import { ProductList } from '../components/ProductList'
-import SEO from '../components/Seo'
+import SEO from '../components/SEO/siteMetadata'
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 

@@ -6,7 +6,7 @@ import { useCurrency } from '../providers/Binding/controler'
 import { OfferPreview } from './preview'
 
 export interface Props {
-  index: number
+  index?: number
 }
 
 const Offer: FC<Props> = ({ index }) => {

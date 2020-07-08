@@ -42,7 +42,7 @@ const ProductPage: FC<Props> = ({ data: { product } }) => {
         filterOptions={filterOptions}
         syncProducts={[product]}
       >
-        <ProductDetails index={0} syncProduct={product} />
+        <ProductDetails syncProduct={product} />
       </AsyncProductsProvider>
     </Layout>
   )

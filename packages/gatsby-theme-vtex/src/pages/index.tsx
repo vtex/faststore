@@ -7,10 +7,10 @@ import Carousel from '../components/Carousel'
 import Container from '../components/Container'
 import DynamicProductList from '../components/DynamicProductList'
 import Layout from '../components/Layout'
-import { AsyncProductsProvider } from '../components/providers/AsyncProducts'
-import SEO from '../components/Seo'
-import { SyncProductItem } from '../types/product'
 import { ProductList } from '../components/ProductList'
+import { AsyncProductsProvider } from '../components/providers/AsyncProducts'
+import SEO from '../components/SEO/siteMetadata'
+import { SyncProductItem } from '../types/product'
 
 interface Data {
   allProduct: {
