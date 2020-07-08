@@ -11,5 +11,9 @@ export const jsonFetcher = async <T>(
     ...init,
     headers: { ...headers, ...init?.headers },
   })
+  if (response.status < 200 || response.status >= 300) {
+    const message = await response.json()
+    throw new Error(message.toString())
+  }
   return response.json()
 }
