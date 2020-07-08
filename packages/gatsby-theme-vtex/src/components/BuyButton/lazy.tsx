@@ -8,7 +8,7 @@ import { useOrderForm } from '../providers/OrderForm/controler'
 
 export interface Props {
   skuId: string
-  index: number
+  index?: number
 }
 
 const BuyButton: FC<Props> = ({ skuId, index }) => {
