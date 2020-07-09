@@ -82,6 +82,7 @@ export const createPages = async ({
       component: resolve(__dirname, './src/templates/category.tsx'),
       context: {
         id: category.id,
+        categoryId: category.categoryId,
       },
     })
   })
