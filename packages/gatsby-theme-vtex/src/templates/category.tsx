@@ -16,6 +16,7 @@ import { Button, Flex, Heading, Grid, jsx } from 'theme-ui'
 import Layout from '../components/Layout'
 import { ProductList } from '../components/ProductList'
 import SEO from '../components/SEO/siteMetadata'
+import { AsyncProductsProvider } from '../components/providers/AsyncProducts'
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
@@ -256,41 +257,50 @@ const useLoadMore = (category: Category, dispatch: Dispatch<Actions>) => {
 // TODO - prefetch next pages when button is seen
 
 const CategoryTemplate: FC<Props> = ({ data }) => {
-  const staticProducts = data.categorySearchResult.products
+  const syncProducts = data.categorySearchResult.products
   const [state, dispatch] = useReducer(
     reducer,
-    { staticProducts },
+    { staticProducts: syncProducts },
     initializeState
   )
-  useRefreshColdData(staticProducts, dispatch)
+  useRefreshColdData(syncProducts, dispatch)
   useGetFirstPage(data.category, dispatch)
   const { isLoadingMore, loadMore, hasNext } = useLoadMore(
     data.category,
     dispatch
   )
 
+  const filterOptions = {
+    productIds: syncProducts.map((p) => p.productId),
+  }
+
   return (
     <Layout>
       <SEO title={data.category.name} />
-      <Flex sx={{ flexDirection: 'column' }} my={4}>
-        <Heading as="h1">{data.category.name}</Heading>
-        <Grid marginY={4} gap={3} columns={[2, null, 4]}>
-          <ProductList syncProducts={staticProducts} />
-        </Grid>
-        {state.error ? (
-          <p>não foi possível carregar os produtos</p>
-        ) : (
-          hasNext && (
-            <Button
-              variant="loadMore"
-              onClick={() => loadMore(state.currentPage + 1)}
-              disabled={isLoadingMore}
-            >
-              {isLoadingMore ? 'Carregando...' : 'Carregar mais'}
-            </Button>
-          )
-        )}
-      </Flex>
+      <AsyncProductsProvider
+        filterOptions={filterOptions}
+        syncProducts={syncProducts}
+      >
+        <Flex sx={{ flexDirection: 'column' }} my={4}>
+          <Heading as="h1">{data.category.name}</Heading>
+          <Grid marginY={4} gap={3} columns={[2, null, 4]}>
+            <ProductList syncProducts={syncProducts} />
+          </Grid>
+          {state.error ? (
+            <p>não foi possível carregar os produtos</p>
+          ) : (
+            hasNext && (
+              <Button
+                variant="loadMore"
+                onClick={() => loadMore(state.currentPage + 1)}
+                disabled={isLoadingMore}
+              >
+                {isLoadingMore ? 'Carregando...' : 'Carregar mais'}
+              </Button>
+            )
+          )}
+        </Flex>
+      </AsyncProductsProvider>
     </Layout>
   )
 }
