@@ -47,8 +47,10 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   // CATEGORY SEARCH
   const categorySearches = await Promise.all(
     activesCategories.map(async (category) => {
-      const products = await fetchVTEX<Product[]>(api.search.byFilters({ from: 0, to: 9, categoryIds: [`${category.id}`] }),
-        options)
+      const products = await fetchVTEX<Product[]>(
+        api.search({ from: 0, to: 9, categoryIds: [`${category.id}`] }),
+        options
+      )
       return {
         products,
         category,

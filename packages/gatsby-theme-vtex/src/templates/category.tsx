@@ -2,7 +2,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Category, Product, api } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
-import { FC, useState, useEffect, useReducer, useCallback, Dispatch } from 'react'
+import {
+  FC,
+  useState,
+  useEffect,
+  useReducer,
+  useCallback,
+  Dispatch,
+} from 'react'
 import useSWR from 'swr'
 import { Button, Flex, Heading, Grid, jsx } from 'theme-ui'
 
@@ -44,7 +51,10 @@ type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
 
 type Actions =
   | Action<'REFRESH_DATA', { args: { freshData: Product[] } }>
-  | Action<'ADD_NEW_CLIENT_ITEMS', { args: { newItems: Product[], page: number } }>
+  | Action<
+      'ADD_NEW_CLIENT_ITEMS',
+      { args: { newItems: Product[]; page: number } }
+    >
   | Action<'SET_NEXT_PAGE'>
   | Action<'SET_ERROR'>
 
@@ -66,9 +76,12 @@ interface State {
   error: boolean
 }
 
-const useRefreshColdData = (staticProducts: Product[], dispatch: Dispatch<Actions>) => {
+const useRefreshColdData = (
+  staticProducts: Product[],
+  dispatch: Dispatch<Actions>
+) => {
   const { data: freshData } = useSWR(
-    api.search.byFilters({
+    api.search({
       productIds: staticProducts.map(({ productId }) => productId),
     }),
     fetcher
@@ -78,7 +91,7 @@ const useRefreshColdData = (staticProducts: Product[], dispatch: Dispatch<Action
     if (freshData) {
       dispatch({ type: 'REFRESH_DATA', args: { freshData } })
     }
-  }, [freshData])
+  }, [dispatch, freshData])
 }
 
 const initialState: State = {
@@ -90,9 +103,15 @@ const initialState: State = {
   error: false,
 }
 
-const mergeItems = (mainArray: Product[], itemsToAdd: Product[], maxItems: number) => {
-  const currentItemsIds = new Set(mainArray.map(item => item.productId))
-  const itemsNotInList = itemsToAdd.filter(item => !currentItemsIds.has(item.productId))
+const mergeItems = (
+  mainArray: Product[],
+  itemsToAdd: Product[],
+  maxItems: number
+) => {
+  const currentItemsIds = new Set(mainArray.map((item) => item.productId))
+  const itemsNotInList = itemsToAdd.filter(
+    (item) => !currentItemsIds.has(item.productId)
+  )
   const newMainArray = [...mainArray]
   const newItemsQueue = []
 
@@ -112,8 +131,8 @@ const reducer = (state: State, action: Actions) => {
     case 'REFRESH_DATA': {
       const { freshData } = action.args
       const { dynamicProducts, productsQueue } =
-        state.productsQueue.length > 0 ?
-          mergeItems(freshData, state.productsQueue, PAGE_SIZE)
+        state.productsQueue.length > 0
+          ? mergeItems(freshData, state.productsQueue, PAGE_SIZE)
           : { dynamicProducts: freshData, productsQueue: [] }
       return {
         ...state,
@@ -125,10 +144,9 @@ const reducer = (state: State, action: Actions) => {
     case 'ADD_NEW_CLIENT_ITEMS': {
       const { newItems, page } = action.args
       const isRefreshed = state.refreshed
-      const { dynamicProducts, productsQueue } =
-        isRefreshed ?
-          mergeItems(state.dynamicProducts, newItems, PAGE_SIZE * page)
-          : { dynamicProducts: state.dynamicProducts, productsQueue: newItems }
+      const { dynamicProducts, productsQueue } = isRefreshed
+        ? mergeItems(state.dynamicProducts, newItems, PAGE_SIZE * page)
+        : { dynamicProducts: state.dynamicProducts, productsQueue: newItems }
       return {
         ...state,
         dynamicProducts,
@@ -162,64 +180,72 @@ const initializeState = (args: { staticProducts: Product[] }): State => {
 }
 
 const fetchCategory = (id: number, page: number) => {
-  const url = api.search.byFilters({
+  const url = api.search({
     categoryIds: [`${id}`],
     from: (page - 1) * PAGE_SIZE,
-    to: (page * PAGE_SIZE) - 1,
+    to: page * PAGE_SIZE - 1,
   })
-  return fetch(url)
-    .then((r) => {
-      const totalItems = r.headers.get('resources')?.split('/')?.[1]
-      return r.json().then((data: Product[]) => {
-        return {
-          data,
-          totalItems: Number(totalItems ?? 0),
-        }
-      })
+  return fetch(url).then((r) => {
+    const totalItems = r.headers.get('resources')?.split('/')?.[1]
+    return r.json().then((data: Product[]) => {
+      return {
+        data,
+        totalItems: Number(totalItems ?? 0),
+      }
     })
+  })
 }
 
 const isValidData = (data: any) => data && Array.isArray(data)
 
 const useGetFirstPage = (category: Category, dispatch: Dispatch<Actions>) => {
   useEffect(() => {
-    fetchCategory(category.categoryId, 1)
-      .then(data => {
-        if (isValidData(data.data)) {
-          dispatch({ type: 'ADD_NEW_CLIENT_ITEMS', args: { newItems: data.data, page: 1 } })
-        }
-      })
-  }, [category])
+    fetchCategory(category.categoryId, 1).then((data) => {
+      if (isValidData(data.data)) {
+        dispatch({
+          type: 'ADD_NEW_CLIENT_ITEMS',
+          args: { newItems: data.data, page: 1 },
+        })
+      }
+    })
+  }, [category, dispatch])
 }
 
 const useLoadMore = (category: Category, dispatch: Dispatch<Actions>) => {
   const [isLoading, setLoading] = useState(false)
   const [hasNext, setHasNext] = useState(true)
-  const loadMoreFn = useCallback((page: number) => {
-    if (isLoading || !hasNext) {
-      return
-    }
+  const loadMoreFn = useCallback(
+    (page: number) => {
+      if (isLoading || !hasNext) {
+        return
+      }
 
-    setLoading(true)
-    fetchCategory(category.categoryId, page)
-      .then(data => {
-        if (isValidData(data.data)) {
-          dispatch({ type: 'ADD_NEW_CLIENT_ITEMS', args: { newItems: data.data, page } })
+      setLoading(true)
+      fetchCategory(category.categoryId, page)
+        .then((data) => {
+          if (!isValidData(data.data)) {
+            return
+          }
+          dispatch({
+            type: 'ADD_NEW_CLIENT_ITEMS',
+            args: { newItems: data.data, page },
+          })
           dispatch({ type: 'SET_NEXT_PAGE' })
           const nextPageStart = page * PAGE_SIZE
           if (nextPageStart >= data.totalItems) {
             setHasNext(false)
           }
-        }
-      })
-      .catch(() => {
-        console.log('error fetching page: ', page)
-        dispatch({ type: 'SET_ERROR' })
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [category, isLoading, hasNext])
+        })
+        .catch(() => {
+          console.error('error fetching page: ', page)
+          dispatch({ type: 'SET_ERROR' })
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+    },
+    [isLoading, hasNext, category.categoryId, dispatch]
+  )
   return {
     isLoadingMore: isLoading,
     loadMore: loadMoreFn,
@@ -231,10 +257,17 @@ const useLoadMore = (category: Category, dispatch: Dispatch<Actions>) => {
 
 const CategoryTemplate: FC<Props> = ({ data }) => {
   const staticProducts = data.categorySearchResult.products
-  const [state, dispatch] = useReducer(reducer, { staticProducts }, initializeState)
+  const [state, dispatch] = useReducer(
+    reducer,
+    { staticProducts },
+    initializeState
+  )
   useRefreshColdData(staticProducts, dispatch)
   useGetFirstPage(data.category, dispatch)
-  const { isLoadingMore, loadMore, hasNext } = useLoadMore(data.category, dispatch)
+  const { isLoadingMore, loadMore, hasNext } = useLoadMore(
+    data.category,
+    dispatch
+  )
 
   return (
     <Layout>
@@ -242,24 +275,21 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
       <Flex sx={{ flexDirection: 'column' }} my={4}>
         <Heading as="h1">{data.category.name}</Heading>
         <Grid marginY={4} gap={3} columns={[2, null, 4]}>
-          <ProductList
-            staticProducts={staticProducts}
-            dynamicProducts={state.dynamicProducts.map(product =>
-              ({ ...product, id: product.productId, slug: `/${product.linkText}/p` })
-            )}
-          />
+          <ProductList syncProducts={staticProducts} />
         </Grid>
         {state.error ? (
           <p>não foi possível carregar os produtos</p>
         ) : (
-            hasNext && <Button
+          hasNext && (
+            <Button
               variant="loadMore"
               onClick={() => loadMore(state.currentPage + 1)}
               disabled={isLoadingMore}
             >
               {isLoadingMore ? 'Carregando...' : 'Carregar mais'}
             </Button>
-          )}
+          )
+        )}
       </Flex>
     </Layout>
   )
