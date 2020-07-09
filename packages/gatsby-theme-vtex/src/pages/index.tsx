@@ -5,7 +5,7 @@ import { Grid } from 'theme-ui'
 
 import Layout from '../components/Layout'
 import { ProductList } from '../components/ProductList'
-import { AsyncProductsProvider } from '../components/providers/AsyncProducts'
+import { AsyncProductsProvider } from '../providers/AsyncProducts'
 import SEO from '../components/SEO/siteMetadata'
 import { SyncProductItem } from '../types/product'
 

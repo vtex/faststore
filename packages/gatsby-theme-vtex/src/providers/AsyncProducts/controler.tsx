@@ -6,8 +6,8 @@ import {
   AsyncProduct,
   AsyncProductItem,
   SyncProductItem,
-} from '../../../types/product'
-import { jsonFetcher } from '../../../utils/fetcher'
+} from '../../types/product'
+import { jsonFetcher } from '../../utils/fetcher'
 import { useSalesChannel } from '../Binding/controler'
 
 export interface Props {

@@ -3,8 +3,8 @@ import { createElement, ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 
 // Webpack + TS magic to make this work
-const { BindingProvider } = require('./src/components/providers/Binding')
-const { OrderFormProvider } = require('./src/components/providers/OrderForm')
+const { BindingProvider } = require('./src/providers/Binding')
+const { OrderFormProvider } = require('./src/providers/OrderForm')
 
 export const replaceHydrateFunction = () => (
   element: ElementType,

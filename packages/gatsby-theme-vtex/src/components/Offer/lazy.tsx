@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 
 import { findBestSeller } from '../../utils/seller'
-import { useAsyncProduct } from '../providers/AsyncProducts/controler'
-import { useCurrency } from '../providers/Binding/controler'
+import { useAsyncProduct } from '../../providers/AsyncProducts/controler'
+import { useCurrency } from '../../providers/Binding/controler'
 import { OfferPreview } from './preview'
 
 export interface Props {

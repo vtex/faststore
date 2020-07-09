@@ -3,8 +3,8 @@ import { FC } from 'react'
 import { Button, jsx } from 'theme-ui'
 
 import { findBestSeller } from '../../utils/seller'
-import { useAsyncProduct } from '../providers/AsyncProducts/controler'
-import { useOrderForm } from '../providers/OrderForm/controler'
+import { useAsyncProduct } from '../../providers/AsyncProducts/controler'
+import { useOrderForm } from '../../providers/OrderForm/controler'
 
 export interface Props {
   skuId: string

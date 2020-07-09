@@ -4,7 +4,7 @@
  */
 import React, { FC, lazy } from 'react'
 
-import { SuspenseSSR } from '../../SuspenseSSR'
+import { SuspenseSSR } from '../../components/SuspenseSSR'
 
 const AsyncBindingProvider = lazy(() => import('./controler'))
 
