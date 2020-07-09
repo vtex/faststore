@@ -29,23 +29,6 @@ export const ProductList: FC<Props> = ({ syncProducts }) => {
           />
         </Link>
       ))}
-      {dynamicProducts.length > staticProducts.length &&
-        dynamicProducts.slice(staticProducts.length).map((dynamicProduct) => (
-          <Link
-            key={dynamicProduct.id}
-            to={dynamicProduct.slug}
-            sx={{
-              textDecoration: 'none',
-              color: 'text',
-            }}
-          >
-            <ProductSummary
-              staticProduct={dynamicProduct}
-              lazyLoad
-              dynamicProduct={dynamicProduct}
-            />
-          </Link>
-        ))}
     </Fragment>
   )
 }

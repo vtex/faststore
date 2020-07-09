@@ -13,7 +13,6 @@ import {
 import useSWR from 'swr'
 import { Button, Flex, Grid, Heading, jsx } from 'theme-ui'
 
-import Container from '../components/Container'
 import Layout from '../components/Layout'
 import { ProductList } from '../components/ProductList'
 import SEO from '../components/SEO/siteMetadata'
@@ -82,7 +81,7 @@ const useRefreshColdData = (
   dispatch: Dispatch<Actions>
 ) => {
   const { data: freshData } = useSWR(
-    api.search.byFilters({
+    api.search({
       productIds: staticProducts.map(({ productId }) => productId),
     }),
     fetcher
@@ -92,7 +91,7 @@ const useRefreshColdData = (
     if (freshData) {
       dispatch({ type: 'REFRESH_DATA', args: { freshData } })
     }
-  }, [freshData, dispatch])
+  }, [dispatch, freshData])
 }
 
 const initialState: State = {
@@ -181,7 +180,7 @@ const initializeState = (args: { staticProducts: Product[] }): State => {
 }
 
 const fetchCategory = (id: number, page: number) => {
-  const url = api.search.byFilters({
+  const url = api.search({
     categoryIds: [`${id}`],
     from: (page - 1) * PAGE_SIZE,
     to: page * PAGE_SIZE - 1,
@@ -224,24 +223,28 @@ const useLoadMore = (category: Category, dispatch: Dispatch<Actions>) => {
       setLoading(true)
       fetchCategory(category.categoryId, page)
         .then((data) => {
-          if (isValidData(data.data)) {
-            dispatch({
-              type: 'ADD_NEW_CLIENT_ITEMS',
-              args: { newItems: data.data, page },
-            })
-            dispatch({ type: 'SET_NEXT_PAGE' })
-            const nextPageStart = page * PAGE_SIZE
-            if (nextPageStart >= data.totalItems) {
-              setHasNext(false)
-            }
+          if (!isValidData(data.data)) {
+            return
           }
-
-          return null
+          dispatch({
+            type: 'ADD_NEW_CLIENT_ITEMS',
+            args: { newItems: data.data, page },
+          })
+          dispatch({ type: 'SET_NEXT_PAGE' })
+          const nextPageStart = page * PAGE_SIZE
+          if (nextPageStart >= data.totalItems) {
+            setHasNext(false)
+          }
         })
-        .catch(() => dispatch({ type: 'SET_ERROR' }))
-        .finally(() => setLoading(false))
+        .catch(() => {
+          console.error('error fetching page: ', page)
+          dispatch({ type: 'SET_ERROR' })
+        })
+        .finally(() => {
+          setLoading(false)
+        })
     },
-    [category, isLoading, hasNext, dispatch]
+    [isLoading, hasNext, category.categoryId, dispatch]
   )
   return {
     isLoadingMore: isLoading,
@@ -269,34 +272,25 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
   return (
     <Layout>
       <SEO title={data.category.name} />
-      <Container>
-        <Flex sx={{ flexDirection: 'column' }} my={4}>
-          <Heading as="h1">{data.category.name}</Heading>
-          <Grid marginY={4} gap={3} columns={[2, null, 4]}>
-            <ProductList
-              staticProducts={staticProducts}
-              dynamicProducts={state.dynamicProducts.map((product) => ({
-                ...product,
-                id: product.productId,
-                slug: `/${product.linkText}/p`,
-              }))}
-            />
-          </Grid>
-          {state.error ? (
-            <p>não foi possível carregar os produtos</p>
-          ) : (
-            hasNext && (
-              <Button
-                variant="loadMore"
-                onClick={() => loadMore(state.currentPage + 1)}
-                disabled={isLoadingMore}
-              >
-                {isLoadingMore ? 'Carregando...' : 'Carregar mais'}
-              </Button>
-            )
-          )}
-        </Flex>
-      </Container>
+      <Flex sx={{ flexDirection: 'column' }} my={4}>
+        <Heading as="h1">{data.category.name}</Heading>
+        <Grid marginY={4} gap={3} columns={[2, null, 4]}>
+          <ProductList syncProducts={staticProducts} />
+        </Grid>
+        {state.error ? (
+          <p>não foi possível carregar os produtos</p>
+        ) : (
+          hasNext && (
+            <Button
+              variant="loadMore"
+              onClick={() => loadMore(state.currentPage + 1)}
+              disabled={isLoadingMore}
+            >
+              {isLoadingMore ? 'Carregando...' : 'Carregar mais'}
+            </Button>
+          )
+        )}
+      </Flex>
     </Layout>
   )
 }
