@@ -11,7 +11,7 @@ import React, {
 } from 'react'
 import PQueue from 'p-queue'
 
-import { jsonFetcher } from '../../../utils/fetcher'
+import { jsonFetcher } from '../../utils/fetcher'
 import { OrderFormItem } from './types'
 
 const postFetcher = async <T extends any>(

@@ -1,8 +1,8 @@
 import React, { FC, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 
-import { useAsyncProduct } from '../../providers/AsyncProducts/controler'
-import { useCurrency } from '../../providers/Binding/controler'
+import { useAsyncProduct } from '../../../providers/AsyncProducts/controler'
+import { useCurrency } from '../../../providers/Binding/controler'
 import { transform } from './structured'
 
 const SEO: FC = () => {

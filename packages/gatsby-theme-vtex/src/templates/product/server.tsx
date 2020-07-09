@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import Layout from '../../components/Layout'
 import ProductDetails from '../../components/ProductDetails'
 import { SyncProduct } from '../../types/product'
-import { AsyncProductsProvider } from '../../components/providers/AsyncProducts'
+import { AsyncProductsProvider } from '../../providers/AsyncProducts'
 
 export const staticQuery = graphql`
   query($id: String!) {

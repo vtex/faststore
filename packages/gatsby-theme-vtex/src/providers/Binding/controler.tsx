@@ -1,7 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React, { createContext, FC, useContext, useMemo, useEffect } from 'react'
 
-import { isServer } from '../../../utils/env'
+import { isServer } from '../../utils/env'
 
 interface Binding {
   locale: string

@@ -16,7 +16,7 @@ import { Button, Flex, Grid, Heading, jsx } from 'theme-ui'
 import Layout from '../components/Layout'
 import { ProductList } from '../components/ProductList'
 import SEO from '../components/SEO/siteMetadata'
-import { AsyncProductsProvider } from '../components/providers/AsyncProducts'
+import { AsyncProductsProvider } from '../providers/AsyncProducts'
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
