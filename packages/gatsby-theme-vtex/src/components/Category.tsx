@@ -263,19 +263,24 @@ const CategoryTemplate: FC<Props> = ({ categorySearchResult, category }) => {
   useGetFirstPage(category, dispatch)
   const { isLoadingMore, loadMore, hasNext } = useLoadMore(category, dispatch)
 
+  const products =
+    state.dynamicProducts.length > syncProducts.length
+      ? state.dynamicProducts
+      : syncProducts
+
   const filterOptions = {
-    productIds: state.dynamicProducts.map((p) => p.productId),
+    productIds: products.map((p) => p.productId),
   }
 
   return (
     <AsyncProductsProvider
       filterOptions={filterOptions}
-      syncProducts={state.dynamicProducts}
+      syncProducts={products}
     >
       <Flex sx={{ flexDirection: 'column' }} my={4}>
         <Heading as="h1">{category.name}</Heading>
         <Grid marginY={4} gap={3} columns={[2, null, 4]}>
-          <ProductList syncProducts={state.dynamicProducts} />
+          <ProductList syncProducts={products} />
         </Grid>
         {state.error ? (
           <p>não foi possível carregar os produtos</p>
