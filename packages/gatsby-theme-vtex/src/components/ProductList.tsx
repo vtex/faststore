@@ -31,7 +31,7 @@ export const ProductList: FC<Props> = ({ staticProducts, dynamicProducts }) => {
         </Link>
       ))}
       {dynamicProducts.length > staticProducts.length &&
-        dynamicProducts.slice(staticProducts.length).map(dynamicProduct => (
+        dynamicProducts.slice(staticProducts.length).map((dynamicProduct) => (
           <Link
             key={dynamicProduct.id}
             to={dynamicProduct.slug}
@@ -46,8 +46,7 @@ export const ProductList: FC<Props> = ({ staticProducts, dynamicProducts }) => {
               dynamicProduct={dynamicProduct}
             />
           </Link>
-        ))
-      }
+        ))}
     </Fragment>
   )
 }
