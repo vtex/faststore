@@ -5,12 +5,8 @@ import { useOrderForm } from '../../providers/OrderForm/controler'
 
 const ItemCount: FC = () => {
   const { value: orderForm } = useOrderForm()
-
-  if (!orderForm) {
-    return null
-  }
-
-  return <Box variant="minicart-badge">{orderForm.items.length}</Box>
+  const count = orderForm?.items.length ?? 0
+  return <Box variant="minicart-badge">{count}</Box>
 }
 
 export default ItemCount
