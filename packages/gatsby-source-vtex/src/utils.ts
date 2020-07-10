@@ -98,7 +98,10 @@ export const createCategorySearchResultNode = (
   const data = {
     slug,
     categoryId: Number(category.id),
-    products: products.map(parseProductToDataNode).map(product => ({ ...product, id: createNodeId(`${NODE_TYPE}-${product.productId}`) })),
+    products: products.map(parseProductToDataNode).map((product) => ({
+      ...product,
+      id: createNodeId(`${NODE_TYPE}-${product.productId}`),
+    })),
   }
 
   createNode({
