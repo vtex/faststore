@@ -1,13 +1,16 @@
 import './setup'
 
+import { join } from 'path'
+
+import { pathExists, readJSON } from 'fs-extra'
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
 import { Category, Product, Tenant } from './types'
 import {
-  createChannelNode,
   createCategoryNode,
+  createChannelNode,
   createProductNode,
 } from './utils'
 
@@ -41,13 +44,28 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   const activesCategories = categoryData.filter(
     (category) => !category.name.includes('[Inactive]')
   )
+
+  // CATEGORIES with rendered products
+
+  const categoriesJson = join(process.cwd(), '/src/prerender/categories.json')
+  const exists = await pathExists(categoriesJson)
+  const categoryList = exists ? await readJSON(categoriesJson) : []
+  const categoriesToPrerenderProducts = new Set(categoryList)
+
+  console.log(categoryList)
+
   const categoriesWithProducts = await Promise.all(
     activesCategories.map(async (category) => {
       const id = category.id.toString()
-      const products = await fetchVTEX<Product[]>(
-        api.search({ from: 0, to: 9, categoryIds: [id] }),
-        options
-      )
+
+      let products: Product[] = []
+      if (categoriesToPrerenderProducts.has(id)) {
+        products = await fetchVTEX<Product[]>(
+          api.search({ from: 0, to: 9, categoryIds: [id] }),
+          options
+        )
+      }
+
       return {
         ...category,
         products,
