@@ -1,13 +1,14 @@
 /** @jsx jsx */
-import { FC, Fragment, lazy } from 'react'
+import { FC, lazy } from 'react'
 import { Card, Grid, Heading, jsx } from 'theme-ui'
 
 import { SyncProduct } from '../types/product'
 import BuyButtonPreview from './BuyButton/Preview'
+import Container from './Container'
+import OfferPreview from './Offer/Preview'
 import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
 import { SuspenseSSR } from './SuspenseSSR'
-import OfferPreview from './Offer/Preview'
 
 const BuyButton = lazy(() => import('./BuyButton/Async'))
 const AsyncOffer = lazy(() => import('./Offer/Async'))
@@ -20,7 +21,7 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
   const { productName, productId } = syncProduct
 
   return (
-    <Fragment>
+    <Container>
       <SEO title={productName} productId={productId} />
       <Grid my={4} mx="auto" gap={[0, 3]} columns={[1, 2]}>
         <ProductImage
@@ -41,7 +42,7 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
           </SuspenseSSR>
         </Card>
       </Grid>
-    </Fragment>
+    </Container>
   )
 }
 

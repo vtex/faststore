@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /** @jsx jsx */
-import { api, Category, Product } from '@vtex/gatsby-source-vtex'
+import { api, Category } from '@vtex/gatsby-source-vtex'
 import { FC } from 'react'
-import useSWR, { useSWRPages, responseInterface } from 'swr'
+import useSWR, { responseInterface, useSWRPages } from 'swr'
 import { Button, Flex, Grid, Heading, jsx } from 'theme-ui'
 
-import { productListFetcher, FetchedList } from '../utils/fetcher'
+import { FetchedList, productListFetcher } from '../utils/fetcher'
 import { ProductSummary } from './ProductSummary'
+import Container from './Container'
 
 export const PAGE_SIZE = 10
 
@@ -81,17 +82,23 @@ const CategoryTemplate: FC<Props> = ({ category }) => {
   )
 
   return (
-    <Flex sx={{ flexDirection: 'column' }} my={4}>
-      <Heading as="h1">{category.name}</Heading>
-      <Grid marginY={4} gap={3} columns={[1, 2, 3, 4]}>
-        {pages}
-      </Grid>
-      {isReachingEnd ? null : (
-        <Button variant="loadMore" onClick={loadMore} disabled={isLoadingMore}>
-          {isLoadingMore ? 'Loading...' : 'More'}
-        </Button>
-      )}
-    </Flex>
+    <Container>
+      <Flex sx={{ flexDirection: 'column' }} my={4}>
+        <Heading as="h1">{category.name}</Heading>
+        <Grid marginY={4} gap={3} columns={[1, 2, 3, 4]}>
+          {pages}
+        </Grid>
+        {isReachingEnd ? null : (
+          <Button
+            variant="loadMore"
+            onClick={loadMore}
+            disabled={isLoadingMore}
+          >
+            {isLoadingMore ? 'Loading...' : 'More'}
+          </Button>
+        )}
+      </Flex>
+    </Container>
   )
 }
 

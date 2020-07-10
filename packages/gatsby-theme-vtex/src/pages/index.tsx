@@ -5,11 +5,10 @@ import { Grid } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
-import DynamicProductList from '../components/DynamicProductList'
 import Layout from '../components/Layout'
-import { ProductList } from '../components/ProductList'
 import SEO from '../components/SEO/siteMetadata'
 import { SyncProductItem } from '../types/product'
+import { ProductList } from '../components/ProductList'
 
 interface Data {
   allProduct: {
@@ -62,7 +61,7 @@ const Home: FC<RouteComponentProps> = () => {
       <Carousel items={itemsCarousel} />
       <Container>
         <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-          <DynamicProductList staticProducts={allProduct.nodes} />
+          <ProductList syncProducts={syncProducts} />
         </Grid>
       </Container>
     </Layout>
