@@ -1,6 +1,7 @@
 import { graphql } from 'gatsby'
 import React, { FC } from 'react'
 
+import Container from '../../components/Container'
 import DynamicProduct from '../../components/DynamicProduct'
 import Layout from '../../components/Layout'
 import { StaticProduct } from '../../components/Shapes'
@@ -32,7 +33,9 @@ interface Props {
 
 const ProductPage: FC<Props> = ({ data }) => (
   <Layout>
-    <DynamicProduct staticProduct={data.product} />
+    <Container>
+      <DynamicProduct staticProduct={data.product} />
+    </Container>
   </Layout>
 )
 

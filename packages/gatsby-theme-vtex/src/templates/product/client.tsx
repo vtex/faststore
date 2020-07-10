@@ -2,6 +2,7 @@ import { api, Product as ProductType } from '@vtex/gatsby-source-vtex'
 import React, { FC, Suspense } from 'react'
 import useSWR from 'swr'
 
+import Container from '../../components/Container'
 import DynamicProduct from '../../components/DynamicProduct'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Layout from '../../components/Layout'
@@ -19,7 +20,11 @@ const ClientOnlyView: FC<Props> = ({ slug }) => {
   )
   const [product] = data!
 
-  return <DynamicProduct staticProduct={product} />
+  return (
+    <Container>
+      <DynamicProduct staticProduct={product} />
+    </Container>
+  )
 }
 
 const ProductPage: FC<Props> = (props) => {
