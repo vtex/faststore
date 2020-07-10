@@ -1,6 +1,6 @@
 import { Category, Product } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
-import React, { FC } from 'react'
+import React, { FC, Suspense } from 'react'
 
 import CategoryTemplate from '../components/Category'
 import Layout from '../components/Layout'
