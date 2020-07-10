@@ -15,7 +15,7 @@ import {
 } from './utils'
 
 interface Options extends PluginOptions, VTEXOptions {
-  prerender: () => {
+  prerender?: () => {
     categories: string[]
   }
 }
@@ -25,7 +25,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   options: Options
 ) => {
   const { tenant, prerender } = options
-  const { categories } = prerender()
+  const { categories = [] } = typeof prerender === 'function' ? prerender() : {}
 
   // VTEX Context
   const { bindings } = await fetchVTEX<Tenant>(
