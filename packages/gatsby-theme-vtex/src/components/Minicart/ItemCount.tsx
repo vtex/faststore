@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { Box } from 'theme-ui'
 
 import { useOrderForm } from '../../providers/OrderForm/controler'
 
@@ -6,10 +7,10 @@ const ItemCount: FC = () => {
   const { value: orderForm } = useOrderForm()
 
   if (!orderForm) {
-    return <>0</>
+    return null
   }
 
-  return <>{orderForm.items.length}</>
+  return <Box variant="minicart-badge">{orderForm.items.length}</Box>
 }
 
 export default ItemCount

@@ -33,15 +33,9 @@ const Minicart: FC = () => {
           </g>
         </use>
       </svg>
-      <div
-        sx={{
-          bg: '#f71963',
-        }}
-      >
-        <SuspenseSSR fallback={<Fragment>0</Fragment>}>
-          <ItemCount />
-        </SuspenseSSR>
-      </div>
+      <SuspenseSSR fallback={<Fragment />}>
+        <ItemCount />
+      </SuspenseSSR>
     </Button>
   )
 }
