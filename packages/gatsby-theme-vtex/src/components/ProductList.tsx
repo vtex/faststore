@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
 import { jsx } from 'theme-ui'
 
@@ -14,20 +13,11 @@ export const ProductList: FC<Props> = ({ syncProducts }) => {
   return (
     <Fragment>
       {syncProducts.map((syncProduct, index) => (
-        <Link
+        <ProductSummary
           key={syncProduct.id}
-          to={syncProduct.slug}
-          sx={{
-            textDecoration: 'none',
-            color: 'text',
-          }}
-        >
-          <ProductSummary
-            syncProduct={syncProduct}
-            lazyLoad={index > 3}
-            index={index}
-          />
-        </Link>
+          syncProduct={syncProduct}
+          lazyLoad={index > 3}
+        />
       ))}
     </Fragment>
   )

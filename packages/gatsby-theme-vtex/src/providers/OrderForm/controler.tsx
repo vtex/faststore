@@ -11,13 +11,8 @@ import React, {
 } from 'react'
 import PQueue from 'p-queue'
 
-import { jsonFetcher } from '../../utils/fetcher'
+import { postFetcher } from '../../utils/fetcher'
 import { OrderFormItem } from './types'
-
-const postFetcher = async <T extends any>(
-  input: RequestInfo,
-  init?: RequestInit | undefined
-): Promise<T> => jsonFetcher(input, { method: 'POST', ...init })
 
 // Queue to make changes to the orderForm
 const queue = new PQueue({

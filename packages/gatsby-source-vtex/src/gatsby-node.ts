@@ -6,7 +6,7 @@ import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
 import { Category, Product, Tenant } from './types'
 import {
-  createBindingNode,
+  createChannelNode,
   createCategoryNode,
   createCategorySearchResultNode,
   createProductNode,
@@ -25,7 +25,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     api.tenants.tenant(tenant),
     options
   )
-  bindings.forEach((binding) => createBindingNode(args, binding))
+  bindings.forEach((binding) => createChannelNode(args, binding))
 
   // PRODUCT
   const productData = await fetchVTEX<Product[]>(

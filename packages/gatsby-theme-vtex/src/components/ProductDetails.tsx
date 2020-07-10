@@ -1,23 +1,27 @@
 /** @jsx jsx */
-import { FC, Fragment } from 'react'
+import { FC, Fragment, lazy } from 'react'
 import { Card, Grid, Heading, jsx } from 'theme-ui'
 
 import { SyncProduct } from '../types/product'
-import { BuyButton } from './BuyButton'
-import { Offer } from './Offer'
+import BuyButtonPreview from './BuyButton/Preview'
 import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
+import { SuspenseSSR } from './SuspenseSSR'
+import OfferPreview from './Offer/Preview'
+
+const BuyButton = lazy(() => import('./BuyButton/Async'))
+const AsyncOffer = lazy(() => import('./Offer/Async'))
 
 interface Props {
   syncProduct: SyncProduct
 }
 
 const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
-  const { productName } = syncProduct
+  const { productName, productId } = syncProduct
 
   return (
     <Fragment>
-      <SEO title={productName} />
+      <SEO title={productName} productId={productId} />
       <Grid my={4} mx="auto" gap={[0, 3]} columns={[1, 2]}>
         <ProductImage
           width={500}
@@ -29,8 +33,12 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
           <Heading variant="productTitle" as="h1">
             {productName}
           </Heading>
-          <Offer />
-          <BuyButton skuId={syncProduct?.items[0].itemId} />
+          <SuspenseSSR fallback={<OfferPreview />}>
+            <AsyncOffer productId={productId} />
+          </SuspenseSSR>
+          <SuspenseSSR fallback={<BuyButtonPreview />}>
+            <BuyButton productId={productId} />
+          </SuspenseSSR>
         </Card>
       </Grid>
     </Fragment>

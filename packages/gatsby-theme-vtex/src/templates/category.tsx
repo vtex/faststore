@@ -1,10 +1,10 @@
 import { Category, Product } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
-import React, { FC, Suspense } from 'react'
+import React, { FC } from 'react'
 
+import CategoryTemplate from '../components/Category'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
-import CategoryTemplate from '../components/Category'
 
 export const staticQuery = graphql`
   query($id: String!, $categoryId: Int!) {
@@ -22,9 +22,17 @@ export const staticQuery = graphql`
         description
         linkText
         items {
+          itemId
           images {
             imageUrl
             imageText
+          }
+          sellers {
+            sellerId
+            commertialOffer {
+              AvailableQuantity
+              Price
+            }
           }
         }
       }

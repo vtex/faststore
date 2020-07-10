@@ -4,7 +4,6 @@ import React, { FC } from 'react'
 import Layout from '../../components/Layout'
 import ProductDetails from '../../components/ProductDetails'
 import { SyncProduct } from '../../types/product'
-import { AsyncProductsProvider } from '../../providers/AsyncProducts'
 
 export const staticQuery = graphql`
   query($id: String!) {
@@ -32,20 +31,10 @@ interface Props {
   }
 }
 
-const ProductPage: FC<Props> = ({ data: { product } }) => {
-  const filterOptions = {
-    slug: product.linkText,
-  }
-  return (
-    <Layout>
-      <AsyncProductsProvider
-        filterOptions={filterOptions}
-        syncProducts={[product]}
-      >
-        <ProductDetails syncProduct={product} />
-      </AsyncProductsProvider>
-    </Layout>
-  )
-}
+const ProductPage: FC<Props> = ({ data: { product } }) => (
+  <Layout>
+    <ProductDetails syncProduct={product} />
+  </Layout>
+)
 
 export default ProductPage
