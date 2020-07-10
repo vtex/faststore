@@ -8,7 +8,6 @@ import { Category, Product, Tenant } from './types'
 import {
   createChannelNode,
   createCategoryNode,
-  createCategorySearchResultNode,
   createProductNode,
 } from './utils'
 
@@ -42,23 +41,20 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   const activesCategories = categoryData.filter(
     (category) => !category.name.includes('[Inactive]')
   )
-  activesCategories.forEach((category) => createCategoryNode(args, category))
-
-  // CATEGORY SEARCH
-  const categorySearches = await Promise.all(
+  const categoriesWithProducts = await Promise.all(
     activesCategories.map(async (category) => {
+      const id = category.id.toString()
       const products = await fetchVTEX<Product[]>(
-        api.search({ from: 0, to: 9, categoryIds: [`${category.id}`] }),
+        api.search({ from: 0, to: 9, categoryIds: [id] }),
         options
       )
       return {
+        ...category,
         products,
-        category,
       }
     })
   )
-
-  categorySearches.forEach(({ products, category }) =>
-    createCategorySearchResultNode(args, category, products)
+  categoriesWithProducts.forEach((category) =>
+    createCategoryNode(args, category)
   )
 }

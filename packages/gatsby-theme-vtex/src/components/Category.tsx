@@ -12,9 +12,6 @@ export const PAGE_SIZE = 10
 
 interface Props {
   category: Category
-  categorySearchResult: {
-    products: Product[]
-  }
 }
 
 const nextPage = ({ data }: responseInterface<FetchedList, unknown>) => {
@@ -37,7 +34,8 @@ const nextPage = ({ data }: responseInterface<FetchedList, unknown>) => {
   return pages + 1
 }
 
-const CategoryTemplate: FC<Props> = ({ categorySearchResult, category }) => {
+const CategoryTemplate: FC<Props> = ({ category }) => {
+  const { products } = category
   const { pages, isLoadingMore, loadMore, isReachingEnd } = useSWRPages<
     number | null,
     FetchedList,
@@ -51,7 +49,7 @@ const CategoryTemplate: FC<Props> = ({ categorySearchResult, category }) => {
       const page = offset ?? 1
       const from = (page - 1) * PAGE_SIZE
       const to = page * PAGE_SIZE - 1
-      const isSync = page === 1 && categorySearchResult.products
+      const isSync = page === 1 && products
 
       const url = api.search({
         categoryIds: [`${category.categoryId}`],
@@ -61,7 +59,7 @@ const CategoryTemplate: FC<Props> = ({ categorySearchResult, category }) => {
 
       const initialData = isSync
         ? {
-            products: categorySearchResult.products,
+            products,
             total: Infinity,
             range: { from, to },
           }
@@ -82,7 +80,7 @@ const CategoryTemplate: FC<Props> = ({ categorySearchResult, category }) => {
       ))
     },
     nextPage,
-    []
+    [products]
   )
 
   return (

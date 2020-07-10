@@ -258,6 +258,7 @@ export interface EffectsKBackingField {
 }
 
 export interface Category {
+  products: Product[]
   slug: string
   categoryId: number
   id: number
