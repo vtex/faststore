@@ -1,40 +1,48 @@
 /** @jsx jsx */
 import { FC } from 'react'
+import { Link } from 'gatsby'
 import { Card, Heading, jsx } from 'theme-ui'
 
-import { Offer } from './Offer'
+import SyncOffer from './Offer/Sync'
 import ProductImage from './ProductImage'
-import { BuyButton } from './BuyButton'
 import { SyncProductItem } from '../types/product'
+import BuyButton from './BuyButton/Sync'
 
 interface Props {
   syncProduct: SyncProductItem
   lazyLoad: boolean
-  index: number
 }
 
-export const ProductSummary: FC<Props> = ({
-  syncProduct,
-  lazyLoad = true,
-  index,
-}) => (
-  <Card
+export const ProductSummary: FC<Props> = ({ syncProduct, lazyLoad = true }) => (
+  <Link
+    to={
+      syncProduct.slug
+        ? syncProduct.slug
+        : `/${(syncProduct as any).linkText}/p`
+    }
     sx={{
-      m: 'auto',
-      maxWidth: 300,
-      textAlign: 'center',
+      textDecoration: 'none',
+      color: 'text',
     }}
   >
-    <ProductImage
-      width={300}
-      height={300}
-      product={syncProduct}
-      lazyLoad={lazyLoad} // lazy load after the third image
-    />
-    <Heading variant="shellProductName" as="h3">
-      {syncProduct.productName.slice(0, 12)}
-    </Heading>
-    <Offer index={index} />
-    <BuyButton skuId={syncProduct.items[0].itemId} index={index} />
-  </Card>
+    <Card
+      sx={{
+        m: 'auto',
+        maxWidth: 300,
+        textAlign: 'center',
+      }}
+    >
+      <ProductImage
+        width={300}
+        height={300}
+        product={syncProduct}
+        lazyLoad={lazyLoad} // lazy load after the third image
+      />
+      <Heading variant="shellProductName" as="h3">
+        {syncProduct.productName.slice(0, 12)}
+      </Heading>
+      <SyncOffer sku={syncProduct.items[0]} />
+      <BuyButton sku={syncProduct.items[0]} />
+    </Card>
+  </Link>
 )

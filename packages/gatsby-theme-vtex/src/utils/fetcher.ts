@@ -1,3 +1,5 @@
+import { Product } from '@vtex/gatsby-source-vtex'
+
 const headers = {
   'content-type': 'application/json',
   accept: 'application/json',
@@ -32,4 +34,34 @@ export const jsonFetcher = async <T>(
 ): Promise<T> => {
   const response = await rawJsonFetcher(input, init)
   return response.json()
+}
+
+export const postFetcher = async <T extends any>(
+  input: RequestInfo,
+  init?: RequestInit | undefined
+): Promise<T> => jsonFetcher(input, { method: 'POST', ...init })
+
+export interface FetchedList {
+  products: Product[]
+  total: number
+  range: {
+    from: number
+    to: number
+  }
+}
+
+export const productListFetcher = async (url: string): Promise<FetchedList> => {
+  const response = await rawJsonFetcher(url)
+  const products: Product[] = await response.json()
+  const resources = response.headers.get('resources')!
+  const [range, total] = resources.split('/')
+  const [from, to] = range.split('-')
+  return {
+    products,
+    total: Number(total),
+    range: {
+      from: Number(from),
+      to: Number(to),
+    },
+  }
 }

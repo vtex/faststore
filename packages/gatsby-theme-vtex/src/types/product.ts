@@ -1,8 +1,5 @@
 import { Image, Product, Item } from '@vtex/gatsby-source-vtex'
 
-// Product data available in Product Details view AFTER hydration
-export type AsyncProduct = Product
-
 // Product data available in Product Details synchronously
 export type SyncProduct = {
   id: string
@@ -21,7 +18,7 @@ export type SyncProduct = {
 }
 
 // Product data available in Product Lists views AFTER hydration
-export type AsyncProductItem = AsyncProduct
+export type AsyncProductItem = Product
 
 // Product data available in Product Lists views synchronously
 export type SyncProductItem = {
@@ -34,6 +31,13 @@ export type SyncProductItem = {
     images: Array<{
       imageUrl: Image['imageUrl']
       imageText: Image['imageText']
+    }>
+    sellers: Array<{
+      sellerId: string
+      commertialOffer: {
+        AvailableQuantity: number
+        Price: number
+      }
     }>
   }>
 }

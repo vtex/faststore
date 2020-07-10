@@ -2,24 +2,31 @@
 import { FC } from 'react'
 import { Button, jsx } from 'theme-ui'
 
-import { findBestSeller } from '../../utils/seller'
-import { useAsyncProduct } from '../../providers/AsyncProducts/controler'
 import { useOrderForm } from '../../providers/OrderForm/controler'
+import { ArrayItem } from '../../types/array'
+import { findBestSeller, Item as SellerItem } from '../../utils/seller'
 
-export interface Props {
-  skuId: string
-  index?: number
+type Seller = ArrayItem<SellerItem['sellers']> & {
+  sellerId: string
 }
 
-const BuyButton: FC<Props> = ({ skuId, index }) => {
+type Item = SellerItem & {
+  itemId: string
+  sellers: Seller[]
+}
+
+export interface Props {
+  sku?: Item
+}
+
+const BuyButton: FC<Props> = ({ sku }) => {
   const { addItems, value: orderForm } = useOrderForm()
-  const maybeProduct = useAsyncProduct(index)
-  const sku = maybeProduct?.items?.find(({ itemId }) => itemId === skuId)
+  const disabled = !sku || !orderForm
 
   // Optimist add item on click
   const addItemOnClick = async (e: any) => {
     e.preventDefault()
-    const seller = sku && findBestSeller([sku])
+    const seller = sku && (findBestSeller(sku) as Seller)
 
     if (!sku || !orderForm || !seller) {
       return
@@ -38,7 +45,8 @@ const BuyButton: FC<Props> = ({ skuId, index }) => {
   return (
     <Button
       sx={{ width: '100%' }}
-      variant={sku ? 'primary' : 'secondary'}
+      disabled={disabled}
+      variant="primary"
       onClick={addItemOnClick}
     >
       ADD TO CART

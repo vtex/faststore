@@ -6,7 +6,6 @@ import Container from '../../components/Container'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Layout from '../../components/Layout'
 import ProductDetails from '../../components/ProductDetails'
-import { AsyncProductsProvider } from '../../providers/AsyncProducts'
 import { SyncProduct } from '../../types/product'
 import { isServer } from '../../utils/env'
 import { jsonFetcher } from '../../utils/fetcher'
@@ -22,20 +21,9 @@ const ClientOnlyView: FC<Props> = ({ slug }) => {
   })
 
   // Since we suspended in swr, it's safe to read data directly
-  const syncProducts = data!
+  const [syncProduct] = data!
 
-  const filterOptions = {
-    slug: syncProducts[0].linkText,
-  }
-
-  return (
-    <AsyncProductsProvider
-      filterOptions={filterOptions}
-      syncProducts={syncProducts}
-    >
-      <ProductDetails syncProduct={syncProducts[0]} />
-    </AsyncProductsProvider>
-  )
+  return <ProductDetails syncProduct={syncProduct} />
 }
 
 const ProductPage: FC<Props> = (props) => {

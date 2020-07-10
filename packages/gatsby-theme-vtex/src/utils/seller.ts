@@ -1,22 +1,28 @@
-import { Item, Seller } from '@vtex/gatsby-source-vtex'
+export interface Item {
+  sellers: Array<{
+    commertialOffer: {
+      AvailableQuantity: number
+      Price: number
+    }
+  }>
+}
 
-export const findBestSeller = (skus: Item[]): Seller | undefined => {
-  let bestSeller = skus[0]?.sellers?.[0]
+export const findBestSeller = <T extends Item>(sku: T) => {
+  let bestSeller = sku.sellers?.[0]
 
   if (!bestSeller) {
     return
   }
 
-  for (const sku of skus) {
-    for (const seller of sku.sellers) {
-      const { commertialOffer } = seller
-      if (
-        commertialOffer.AvailableQuantity > 0 &&
-        commertialOffer.Price < bestSeller.commertialOffer.Price
-      ) {
-        bestSeller = seller
-      }
+  for (const seller of sku.sellers) {
+    const { commertialOffer } = seller
+    if (
+      commertialOffer.AvailableQuantity > 0 &&
+      commertialOffer.Price < bestSeller.commertialOffer.Price
+    ) {
+      bestSeller = seller
     }
   }
+
   return bestSeller
 }

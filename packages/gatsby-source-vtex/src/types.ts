@@ -73,13 +73,13 @@ export interface Tenant {
   title: string
   edition: string
   infra: string
-  bindings: Binding[]
+  bindings: Channel[]
   defaultCurrency: string
   defaultLocale: string
   metadata: Record<string, unknown>
 }
 
-export interface Binding {
+export interface Channel {
   id: string
   canonicalBaseAddress: string
   alternateBaseAddresses: string[]

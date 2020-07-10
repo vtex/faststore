@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /** @jsx jsx */
 import { api, Category, Product } from '@vtex/gatsby-source-vtex'
-import { Link } from 'gatsby'
 import { FC } from 'react'
 import useSWR, { useSWRPages, responseInterface } from 'swr'
 import { Button, Flex, Grid, Heading, jsx } from 'theme-ui'
 
-import { rawJsonFetcher } from '../utils/fetcher'
+import { productListFetcher, FetchedList } from '../utils/fetcher'
 import { ProductSummary } from './ProductSummary'
 
 export const PAGE_SIZE = 10
@@ -18,32 +17,7 @@ interface Props {
   }
 }
 
-interface FetchedCategory {
-  products: Product[]
-  total: number
-  range: {
-    from: number
-    to: number
-  }
-}
-
-const categoryFetcher = async (url: string): Promise<FetchedCategory> => {
-  const response = await rawJsonFetcher(url)
-  const products: Product[] = await response.json()
-  const resources = response.headers.get('resources')!
-  const [range, total] = resources.split('/')
-  const [from, to] = range.split('-')
-  return {
-    products,
-    total: Number(total),
-    range: {
-      from: Number(from),
-      to: Number(to),
-    },
-  }
-}
-
-const nextPage = ({ data }: responseInterface<FetchedCategory, unknown>) => {
+const nextPage = ({ data }: responseInterface<FetchedList, unknown>) => {
   // no data was fetched, let's fetch the first page
   if (!data) {
     return 1
@@ -66,11 +40,14 @@ const nextPage = ({ data }: responseInterface<FetchedCategory, unknown>) => {
 const CategoryTemplate: FC<Props> = ({ categorySearchResult, category }) => {
   const { pages, isLoadingMore, loadMore, isReachingEnd } = useSWRPages<
     number | null,
-    FetchedCategory,
+    FetchedList,
     unknown
   >(
     category.name,
     ({ offset, withSWR }) => {
+
+      console.log('inside useSwrPages')
+
       const page = offset ?? 1
       const from = (page - 1) * PAGE_SIZE
       const to = page * PAGE_SIZE - 1
@@ -90,32 +67,18 @@ const CategoryTemplate: FC<Props> = ({ categorySearchResult, category }) => {
           }
         : undefined
 
-      const { data } = withSWR(
-        useSWR(url, categoryFetcher, {
-          suspense: false,
-          initialData,
-        })
-      )
+      const { data } = withSWR(useSWR(url, productListFetcher, { initialData }))
 
       if (!data) {
         return null
       }
 
       return data.products.map((product, index) => (
-        <Link
+        <ProductSummary
           key={product.productId}
-          to={`/${product.linkText}/p`}
-          sx={{
-            textDecoration: 'none',
-            color: 'text',
-          }}
-        >
-          <ProductSummary
-            syncProduct={product}
-            lazyLoad={index > 3}
-            index={index}
-          />
-        </Link>
+          syncProduct={product}
+          lazyLoad={index > 3}
+        />
       ))
     },
     nextPage,
