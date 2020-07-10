@@ -7,3 +7,6 @@ coverage/
 
 # autogen js files
 packages/gatsby-*/**/*.js
+
+# declaration files
+packages/gatsby-*/*.d.ts
