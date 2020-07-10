@@ -14,13 +14,18 @@ import {
   createProductNode,
 } from './utils'
 
-type Options = PluginOptions & VTEXOptions
+interface Options extends PluginOptions, VTEXOptions {
+  prerender: () => {
+    categories: string[]
+  }
+}
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
   options: Options
 ) => {
-  const { tenant } = options
+  const { tenant, prerender } = options
+  const { categories } = prerender()
 
   // VTEX Context
   const { bindings } = await fetchVTEX<Tenant>(
@@ -46,20 +51,14 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   )
 
   // CATEGORIES with rendered products
-
-  const categoriesJson = join(process.cwd(), '/src/prerender/categories.json')
-  const exists = await pathExists(categoriesJson)
-  const categoryList = exists ? await readJSON(categoriesJson) : []
-  const categoriesToPrerenderProducts = new Set(categoryList)
-
-  console.log(categoryList)
+  const prerenderCategory = new Set(categories)
 
   const categoriesWithProducts = await Promise.all(
     activesCategories.map(async (category) => {
       const id = category.id.toString()
 
       let products: Product[] = []
-      if (categoriesToPrerenderProducts.has(id)) {
+      if (prerenderCategory.has(id)) {
         products = await fetchVTEX<Product[]>(
           api.search({ from: 0, to: 9, categoryIds: [id] }),
           options
