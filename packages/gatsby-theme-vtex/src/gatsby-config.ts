@@ -9,7 +9,7 @@ export interface Options {
   description: string
   tenant: string
   environment: Environment
-  prerender: () => {
+  prerender?: () => {
     categories: string[]
   }
 }
