@@ -43,13 +43,10 @@ const CategoryTemplate: FC<Props> = ({ category }) => {
   >(
     category.name,
     ({ offset, withSWR }) => {
-
-      console.log('inside useSwrPages')
-
       const page = offset ?? 1
       const from = (page - 1) * PAGE_SIZE
       const to = page * PAGE_SIZE - 1
-      const isSync = page === 1 && products
+      const isSync = page === 1 && products.length > 0
 
       const url = api.search({
         categoryIds: [`${category.categoryId}`],
