@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import React, { FC } from 'react'
 import { Grid } from 'theme-ui'
 
+import Container from '../components/Container'
 import DynamicProductList from '../components/DynamicProductList'
 import Layout from '../components/Layout'
 import SEO from '../components/Seo'
@@ -37,9 +38,11 @@ const Home: FC<RouteComponentProps> = () => {
   return (
     <Layout>
       <SEO />
-      <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-        <DynamicProductList staticProducts={allProduct.nodes} />
-      </Grid>
+      <Container>
+        <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
+          <DynamicProductList staticProducts={allProduct.nodes} />
+        </Grid>
+      </Container>
     </Layout>
   )
 }

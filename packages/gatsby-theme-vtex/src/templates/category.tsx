@@ -1,18 +1,19 @@
 /** @jsx jsx */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Category, Product, api } from '@vtex/gatsby-source-vtex'
+import { api, Category, Product } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
 import {
+  Dispatch,
   FC,
-  useState,
+  useCallback,
   useEffect,
   useReducer,
-  useCallback,
-  Dispatch,
+  useState,
 } from 'react'
 import useSWR from 'swr'
-import { Button, Flex, Heading, Grid, jsx } from 'theme-ui'
+import { Button, Flex, Grid, Heading, jsx } from 'theme-ui'
 
+import Container from '../components/Container'
 import Layout from '../components/Layout'
 import { ProductList } from '../components/ProductList'
 import SEO from '../components/Seo'
@@ -268,32 +269,34 @@ const CategoryTemplate: FC<Props> = ({ data }) => {
   return (
     <Layout>
       <SEO title={data.category.name} />
-      <Flex sx={{ flexDirection: 'column' }} my={4}>
-        <Heading as="h1">{data.category.name}</Heading>
-        <Grid marginY={4} gap={3} columns={[2, null, 4]}>
-          <ProductList
-            staticProducts={staticProducts}
-            dynamicProducts={state.dynamicProducts.map((product) => ({
-              ...product,
-              id: product.productId,
-              slug: `/${product.linkText}/p`,
-            }))}
-          />
-        </Grid>
-        {state.error ? (
-          <p>não foi possível carregar os produtos</p>
-        ) : (
-          hasNext && (
-            <Button
-              variant="loadMore"
-              onClick={() => loadMore(state.currentPage + 1)}
-              disabled={isLoadingMore}
-            >
-              {isLoadingMore ? 'Carregando...' : 'Carregar mais'}
-            </Button>
-          )
-        )}
-      </Flex>
+      <Container>
+        <Flex sx={{ flexDirection: 'column' }} my={4}>
+          <Heading as="h1">{data.category.name}</Heading>
+          <Grid marginY={4} gap={3} columns={[2, null, 4]}>
+            <ProductList
+              staticProducts={staticProducts}
+              dynamicProducts={state.dynamicProducts.map((product) => ({
+                ...product,
+                id: product.productId,
+                slug: `/${product.linkText}/p`,
+              }))}
+            />
+          </Grid>
+          {state.error ? (
+            <p>não foi possível carregar os produtos</p>
+          ) : (
+            hasNext && (
+              <Button
+                variant="loadMore"
+                onClick={() => loadMore(state.currentPage + 1)}
+                disabled={isLoadingMore}
+              >
+                {isLoadingMore ? 'Carregando...' : 'Carregar mais'}
+              </Button>
+            )
+          )}
+        </Flex>
+      </Container>
     </Layout>
   )
 }
