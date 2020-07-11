@@ -1,19 +1,8 @@
-/** @jsx jsx */
-/* eslint-disable react-hooks/rules-of-hooks */
-import { api, Category, Product } from '@vtex/gatsby-source-vtex'
+import { Category } from '@vtex/gatsby-source-vtex'
 import { graphql } from 'gatsby'
-import {
-  Dispatch,
-  FC,
-  useCallback,
-  useEffect,
-  useReducer,
-  useState,
-} from 'react'
-import useSWR from 'swr'
-import { Button, Flex, Grid, Heading, jsx } from 'theme-ui'
+import React, { FC } from 'react'
 
-import Container from '../components/Container'
+import CategoryTemplate from '../components/Category'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 
