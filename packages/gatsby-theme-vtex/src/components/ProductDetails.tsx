@@ -1,64 +1,49 @@
 /** @jsx jsx */
-import { Product } from '@vtex/gatsby-source-vtex'
-import { FC, Fragment, useEffect } from 'react'
+import { FC, lazy } from 'react'
 import { Card, Grid, Heading, jsx } from 'theme-ui'
 
+import { SyncProduct } from '../types/product'
+import BuyButtonPreview from './BuyButton/Preview'
+import Container from './Container'
+import OfferPreview from './Offer/Preview'
 import ProductImage from './ProductImage'
-import { DynamicProduct, StaticProduct } from './Shapes'
-import { useCurrency } from './providers/Binding'
-import SEO from './Seo'
-import { Offer } from './Offer'
-import { BuyButton } from './BuyButton'
+import SEO from './SEO/ProductDetails'
+import { SuspenseSSR } from './SuspenseSSR'
+
+const BuyButton = lazy(() => import('./BuyButton/Async'))
+const AsyncOffer = lazy(() => import('./Offer/Async'))
 
 interface Props {
-  staticProduct: StaticProduct
-  dynamicProduct: DynamicProduct
+  syncProduct: SyncProduct
 }
 
-// Code-splits structured data injection
-// because it's not critical for rendering the page.
-const injectStructuredDataLazily = async (
-  product: Product,
-  currency: string
-) => {
-  const {
-    default: { injectProduct },
-  } = await import('./structuredData')
-  injectProduct(product, currency)
-}
-
-const ProductTemplate: FC<Props> = ({ dynamicProduct, staticProduct }) => {
-  const [currency] = useCurrency()
-  const { productName } = staticProduct
-
-  // Inject StructuredData after rendering so we don't block the
-  // rendering process and harm performance
-  useEffect(() => {
-    if (dynamicProduct) {
-      injectStructuredDataLazily(dynamicProduct, currency)
-    }
-  }, [currency, dynamicProduct])
+const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
+  const { productName, productId } = syncProduct
 
   return (
-    <Fragment>
-      <SEO title={productName} />
+    <Container>
+      <SEO title={productName} productId={productId} />
       <Grid my={4} mx="auto" gap={[0, 3]} columns={[1, 2]}>
         <ProductImage
           width={500}
           height={500}
-          product={staticProduct}
+          product={syncProduct}
           lazyLoad={false} // Never lazy load image in product details
         />
         <Card>
           <Heading variant="productTitle" as="h1">
             {productName}
           </Heading>
-          <Offer product={dynamicProduct} />
-          <BuyButton item={dynamicProduct?.items[0]} />
+          <SuspenseSSR fallback={<OfferPreview />}>
+            <AsyncOffer productId={productId} />
+          </SuspenseSSR>
+          <SuspenseSSR fallback={<BuyButtonPreview />}>
+            <BuyButton productId={productId} />
+          </SuspenseSSR>
         </Card>
       </Grid>
-    </Fragment>
+    </Container>
   )
 }
 
-export default ProductTemplate
+export default ProductDetailsTemplate

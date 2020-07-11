@@ -1,52 +1,24 @@
 /** @jsx jsx */
-import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
 import { jsx } from 'theme-ui'
 
 import { ProductSummary } from './ProductSummary'
-import { StaticProduct, DynamicProduct } from './Shapes'
+import { SyncProductItem } from '../types/product'
 
 interface Props {
-  staticProducts: StaticProduct[]
-  dynamicProducts: DynamicProduct[]
+  syncProducts: SyncProductItem[]
 }
 
-export const ProductList: FC<Props> = ({ staticProducts, dynamicProducts }) => {
+export const ProductList: FC<Props> = ({ syncProducts }) => {
   return (
     <Fragment>
-      {staticProducts.map((staticProduct, index) => (
-        <Link
-          key={staticProduct.id}
-          to={staticProduct.slug}
-          sx={{
-            textDecoration: 'none',
-            color: 'text',
-          }}
-        >
-          <ProductSummary
-            staticProduct={staticProduct}
-            lazyLoad={index > 3}
-            dynamicProduct={dynamicProducts[index]}
-          />
-        </Link>
+      {syncProducts.map((syncProduct, index) => (
+        <ProductSummary
+          key={syncProduct.id}
+          syncProduct={syncProduct}
+          lazyLoad={index > 3}
+        />
       ))}
-      {dynamicProducts.length > staticProducts.length &&
-        dynamicProducts.slice(staticProducts.length).map((dynamicProduct) => (
-          <Link
-            key={dynamicProduct.id}
-            to={dynamicProduct.slug}
-            sx={{
-              textDecoration: 'none',
-              color: 'text',
-            }}
-          >
-            <ProductSummary
-              staticProduct={dynamicProduct}
-              lazyLoad
-              dynamicProduct={dynamicProduct}
-            />
-          </Link>
-        ))}
     </Fragment>
   )
 }
