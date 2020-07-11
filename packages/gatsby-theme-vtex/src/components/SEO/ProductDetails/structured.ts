@@ -1,16 +1,22 @@
 import {
-  Product as VTEXProduct,
   Item as VTEXSku,
+  Product as VTEXProduct,
 } from '@vtex/gatsby-source-vtex'
 import {
-  Product as StructuredProduct,
-  Offer,
   ItemAvailability,
+  Offer,
+  Product as StructuredProduct,
 } from 'schema-dts'
 
-import { writeJsonLD } from './jsonld'
+type TransformedProduct = StructuredProduct & { '@context': string }
 
-type Product = StructuredProduct & { '@context': string }
+interface TransformProduct {
+  brandImageUrl: VTEXProduct['brandImageUrl']
+  productName: VTEXProduct['productName']
+  description: VTEXProduct['description']
+  items: VTEXProduct['items']
+  brand: VTEXProduct['brand']
+}
 
 const getSkuOffers = (sku: VTEXSku, currency: string): Offer[] =>
   sku.sellers.map(
@@ -26,10 +32,10 @@ const getSkuOffers = (sku: VTEXSku, currency: string): Offer[] =>
     })
   )
 
-const transform = (
-  { productName, items, description, brand, brandImageUrl }: VTEXProduct,
+export const transform = (
+  { productName, items, description, brand, brandImageUrl }: TransformProduct,
   currency: string
-): Product | null => {
+): TransformedProduct | null => {
   const [sku] = items
   const images = sku?.images.map((i) => i?.imageUrl)
   const offers = getSkuOffers(sku, currency)
@@ -52,12 +58,4 @@ const transform = (
     },
     description,
   }
-}
-
-export const inject = (product: VTEXProduct, currency: string) => {
-  const structured = transform(product, currency)
-  if (!structured) {
-    return
-  }
-  writeJsonLD(structured)
 }
