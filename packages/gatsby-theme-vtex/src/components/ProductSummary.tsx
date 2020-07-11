@@ -1,40 +1,48 @@
 /** @jsx jsx */
 import { FC } from 'react'
+import { Link } from 'gatsby'
 import { Card, Heading, jsx } from 'theme-ui'
 
-import { Offer } from './Offer'
+import SyncOffer from './Offer/Sync'
 import ProductImage from './ProductImage'
-import { DynamicProduct, StaticProduct } from './Shapes'
-import { BuyButton } from './BuyButton'
+import { SyncProductItem } from '../types/product'
+import BuyButton from './BuyButton/Sync'
 
 interface Props {
-  staticProduct: StaticProduct
-  dynamicProduct?: DynamicProduct
+  syncProduct: SyncProductItem
   lazyLoad: boolean
 }
 
-export const ProductSummary: FC<Props> = ({
-  staticProduct,
-  dynamicProduct,
-  lazyLoad = true,
-}) => (
-  <Card
+export const ProductSummary: FC<Props> = ({ syncProduct, lazyLoad = true }) => (
+  <Link
+    to={
+      syncProduct.slug
+        ? syncProduct.slug
+        : `/${(syncProduct as any).linkText}/p`
+    }
     sx={{
-      m: 'auto',
-      maxWidth: 300,
-      textAlign: 'center',
+      textDecoration: 'none',
+      color: 'text',
     }}
   >
-    <ProductImage
-      width={300}
-      height={300}
-      product={staticProduct}
-      lazyLoad={lazyLoad} // lazy load after the third image
-    />
-    <Heading variant="shellProductName" as="h3">
-      {staticProduct.productName.slice(0, 12)}
-    </Heading>
-    <Offer product={dynamicProduct} />
-    <BuyButton item={dynamicProduct?.items[0]} />
-  </Card>
+    <Card
+      sx={{
+        m: 'auto',
+        maxWidth: 300,
+        textAlign: 'center',
+      }}
+    >
+      <ProductImage
+        width={300}
+        height={300}
+        product={syncProduct}
+        lazyLoad={lazyLoad} // lazy load after the third image
+      />
+      <Heading variant="shellProductName" as="h3">
+        {syncProduct.productName.slice(0, 12)}
+      </Heading>
+      <SyncOffer sku={syncProduct.items[0]} />
+      <BuyButton sku={syncProduct.items[0]} />
+    </Card>
+  </Link>
 )
