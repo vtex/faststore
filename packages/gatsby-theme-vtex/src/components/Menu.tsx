@@ -30,7 +30,7 @@ const MenuLink: FC<Item> = ({ slug, name }) => (
 const Menu: FC = () => {
   const { allCategory } = useStaticQuery(graphql`
     {
-      allCategory(limit: 2, sort: { fields: [name], order: ASC }) {
+      allCategory(sort: { order: ASC, fields: categoryId }, limit: 2) {
         nodes {
           name
           slug
