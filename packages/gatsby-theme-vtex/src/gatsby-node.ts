@@ -3,7 +3,7 @@ import './utils/setup'
 import { join, resolve } from 'path'
 
 import { ensureDir, outputFile } from 'fs-extra'
-import { CreatePagesArgs, CreateNodeArgs } from 'gatsby'
+import { CreatePagesArgs } from 'gatsby'
 
 import { Environment } from './gatsby-config'
 
@@ -82,7 +82,6 @@ export const createPages = async ({
       component: resolve(__dirname, './src/templates/category.tsx'),
       context: {
         id: category.id,
-        categoryId: category.categoryId,
       },
     })
   })

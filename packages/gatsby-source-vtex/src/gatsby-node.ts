@@ -6,30 +6,34 @@ import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
 import { Category, Product, Tenant } from './types'
 import {
-  createBindingNode,
   createCategoryNode,
-  createCategorySearchResultNode,
+  createChannelNode,
   createProductNode,
 } from './utils'
 
-type Options = PluginOptions & VTEXOptions
+interface Options extends PluginOptions, VTEXOptions {
+  prerender?: () => {
+    categories: string[]
+  }
+}
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
   options: Options
 ) => {
-  const { tenant } = options
+  const { tenant, prerender } = options
+  const { categories = [] } = typeof prerender === 'function' ? prerender() : {}
 
   // VTEX Context
   const { bindings } = await fetchVTEX<Tenant>(
     api.tenants.tenant(tenant),
     options
   )
-  bindings.forEach((binding) => createBindingNode(args, binding))
+  bindings.forEach((binding) => createChannelNode(args, binding))
 
   // PRODUCT
   const productData = await fetchVTEX<Product[]>(
-    api.search.byFilters({ from: 0, to: 9 }),
+    api.search({ from: 0, to: 9 }),
     options
   )
   productData.forEach((product) => createProductNode(args, product))
@@ -42,21 +46,29 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   const activesCategories = categoryData.filter(
     (category) => !category.name.includes('[Inactive]')
   )
-  activesCategories.forEach((category) => createCategoryNode(args, category))
 
-  // CATEGORY SEARCH
-  const categorySearches = await Promise.all(
+  // CATEGORIES with rendered products
+  const prerenderCategory = new Set(categories)
+
+  const categoriesWithProducts = await Promise.all(
     activesCategories.map(async (category) => {
-      const products = await fetchVTEX<Product[]>(api.search.byFilters({ from: 0, to: 9, categoryIds: [`${category.id}`] }),
-        options)
+      const id = category.id.toString()
+
+      let products: Product[] = []
+      if (prerenderCategory.has(id)) {
+        products = await fetchVTEX<Product[]>(
+          api.search({ from: 0, to: 9, categoryIds: [id] }),
+          options
+        )
+      }
+
       return {
+        ...category,
         products,
-        category,
       }
     })
   )
-
-  categorySearches.forEach(({ products, category }) =>
-    createCategorySearchResultNode(args, category, products)
+  categoriesWithProducts.forEach((category) =>
+    createCategoryNode(args, category)
   )
 }

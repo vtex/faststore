@@ -1,6 +1,6 @@
 import { SourceNodesArgs } from 'gatsby'
 
-import { Category, Product, Binding } from './types'
+import { Category, Product, Channel } from './types'
 
 const parseProductToDataNode = (product: Product) => ({
   ...product,
@@ -58,52 +58,23 @@ export const createCategoryNode = (
   })
 }
 
-export const createBindingNode = (
+export const createChannelNode = (
   {
     actions: { createNode },
     createNodeId,
     createContentDigest,
   }: SourceNodesArgs,
-  { extraContext, ...binding }: Binding
+  { extraContext, ...channel }: Channel
 ) => {
-  const NODE_TYPE = 'Binding'
+  const NODE_TYPE = 'Channel'
   const data = {
     salesChannel: extraContext?.portal?.salesChannel,
-    ...binding,
+    ...channel,
   }
 
   createNode({
     ...data,
     id: createNodeId(`${NODE_TYPE}-${data.id}`),
-    internal: {
-      type: NODE_TYPE,
-      content: JSON.stringify(data),
-      contentDigest: createContentDigest(data),
-    },
-  })
-}
-
-export const createCategorySearchResultNode = (
-  {
-    actions: { createNode },
-    createNodeId,
-    createContentDigest,
-  }: SourceNodesArgs,
-  category: Category,
-  products: Product[]
-) => {
-  const NODE_TYPE = 'CategorySearchResult'
-  const urlSplited = category.url.split('/')
-  const slug = urlSplited[urlSplited.length - 1]
-  const data = {
-    slug,
-    categoryId: Number(category.id),
-    products: products.map(parseProductToDataNode).map(product => ({ ...product, id: createNodeId(`${NODE_TYPE}-${product.productId}`) })),
-  }
-
-  createNode({
-    ...data,
-    id: createNodeId(`${NODE_TYPE}-${data.categoryId}`),
     internal: {
       type: NODE_TYPE,
       content: JSON.stringify(data),
