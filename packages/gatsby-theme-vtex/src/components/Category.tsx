@@ -1,0 +1,105 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/** @jsx jsx */
+import { api, Category } from '@vtex/gatsby-source-vtex'
+import { FC } from 'react'
+import useSWR, { responseInterface, useSWRPages } from 'swr'
+import { Button, Flex, Grid, Heading, jsx } from 'theme-ui'
+
+import { FetchedList, productListFetcher } from '../utils/fetcher'
+import { ProductSummary } from './ProductSummary'
+import Container from './Container'
+
+export const PAGE_SIZE = 10
+
+interface Props {
+  category: Category
+}
+
+const nextPage = ({ data }: responseInterface<FetchedList, unknown>) => {
+  // no data was fetched, let's fetch the first page
+  if (!data) {
+    return 1
+  }
+
+  const {
+    total,
+    range: { to },
+  } = data
+
+  // No more pages to fetch
+  if (to + 1 === total) {
+    return null
+  }
+
+  const pages = (to + 1) / PAGE_SIZE
+  return pages + 1
+}
+
+const CategoryTemplate: FC<Props> = ({ category }) => {
+  const { products } = category
+  const { pages, isLoadingMore, loadMore, isReachingEnd } = useSWRPages<
+    number | null,
+    FetchedList,
+    unknown
+  >(
+    category.name,
+    ({ offset, withSWR }) => {
+      const page = offset ?? 1
+      const from = (page - 1) * PAGE_SIZE
+      const to = page * PAGE_SIZE - 1
+      const isSync = page === 1 && products.length > 0
+
+      const url = api.search({
+        categoryIds: [`${category.categoryId}`],
+        from,
+        to,
+      })
+
+      const initialData = isSync
+        ? {
+            products,
+            total: Infinity,
+            range: { from, to },
+          }
+        : undefined
+
+      const { data } = withSWR(useSWR(url, productListFetcher, { initialData }))
+
+      if (!data) {
+        return null
+      }
+
+      return data.products.map((product, index) => (
+        <ProductSummary
+          key={product.productId}
+          syncProduct={product}
+          lazyLoad={index > 3}
+        />
+      ))
+    },
+    nextPage,
+    [products]
+  )
+
+  return (
+    <Container>
+      <Flex sx={{ flexDirection: 'column' }} my={4}>
+        <Heading as="h1">{category.name}</Heading>
+        <Grid marginY={4} gap={3} columns={[1, 2, 3, 4]}>
+          {pages}
+        </Grid>
+        {isReachingEnd ? null : (
+          <Button
+            variant="loadMore"
+            onClick={loadMore}
+            disabled={isLoadingMore}
+          >
+            {isLoadingMore ? 'Loading...' : 'More'}
+          </Button>
+        )}
+      </Flex>
+    </Container>
+  )
+}
+
+export default CategoryTemplate
