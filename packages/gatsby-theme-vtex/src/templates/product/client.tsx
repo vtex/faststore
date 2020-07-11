@@ -1,25 +1,28 @@
-import { api, Product as ProductType } from '@vtex/gatsby-source-vtex'
+import { api } from '@vtex/gatsby-source-vtex'
 import React, { FC, Suspense } from 'react'
 import useSWR from 'swr'
 
-import DynamicProduct from '../../components/DynamicProduct'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Layout from '../../components/Layout'
+import ProductDetails from '../../components/ProductDetails'
+import { SyncProduct } from '../../types/product'
 import { isServer } from '../../utils/env'
+import { jsonFetcher } from '../../utils/fetcher'
 
 interface Props {
   slug: string
 }
 
 const ClientOnlyView: FC<Props> = ({ slug }) => {
-  const { data } = useSWR<ProductType[]>(
-    api.search.bySlug(slug),
-    (url: string) => fetch(url).then((r) => r.json()),
-    { suspense: true }
-  )
-  const [product] = data!
+  const { data } = useSWR<SyncProduct[]>(api.search({ slug }), {
+    fetcher: jsonFetcher,
+    suspense: true,
+  })
 
-  return <DynamicProduct staticProduct={product} />
+  // Since we suspended in swr, it's safe to read data directly
+  const [syncProduct] = data!
+
+  return <ProductDetails syncProduct={syncProduct} />
 }
 
 const ProductPage: FC<Props> = (props) => {

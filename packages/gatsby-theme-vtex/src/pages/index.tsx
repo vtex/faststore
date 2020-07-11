@@ -3,16 +3,29 @@ import { graphql, useStaticQuery } from 'gatsby'
 import React, { FC } from 'react'
 import { Grid } from 'theme-ui'
 
-import DynamicProductList from '../components/DynamicProductList'
+import Carousel from '../components/Carousel'
+import Container from '../components/Container'
 import Layout from '../components/Layout'
-import SEO from '../components/Seo'
-import { StaticProduct } from '../components/Shapes'
+import SEO from '../components/SEO/siteMetadata'
+import { SyncProductItem } from '../types/product'
+import { ProductList } from '../components/ProductList'
 
 interface Data {
   allProduct: {
-    nodes: StaticProduct[]
+    nodes: SyncProductItem[]
   }
 }
+
+const itemsCarousel = [
+  {
+    src: 'https://storecomponents.vtexassets.com/arquivos/banner-principal.png',
+    altText: 'Slide 1',
+  },
+  {
+    src: 'https://storecomponents.vtexassets.com/arquivos/banner.jpg',
+    altText: 'Slide 2',
+  },
+]
 
 const Home: FC<RouteComponentProps> = () => {
   const { allProduct } = useStaticQuery<Data>(graphql`
@@ -24,22 +37,33 @@ const Home: FC<RouteComponentProps> = () => {
           productId
           productName
           items {
+            itemId
             images {
               imageUrl
               imageText
+            }
+            sellers {
+              sellerId
+              commertialOffer {
+                AvailableQuantity
+                Price
+              }
             }
           }
         }
       }
     }
   `)
-
+  const syncProducts = allProduct.nodes
   return (
     <Layout>
       <SEO />
-      <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-        <DynamicProductList staticProducts={allProduct.nodes} />
-      </Grid>
+      <Carousel items={itemsCarousel} />
+      <Container>
+        <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
+          <ProductList syncProducts={syncProducts} />
+        </Grid>
+      </Container>
     </Layout>
   )
 }
