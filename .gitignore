@@ -78,6 +78,8 @@ packages/gatsby-theme-vtex/components
 packages/gatsby-theme-vtex/pages
 packages/gatsby-theme-vtex/templates
 packages/gatsby-theme-vtex/utils
+packages/gatsby-theme-vtex/types
+packages/gatsby-theme-vtex/providers
 
 # lighthouse CI autogen files
 .lighthouseci
