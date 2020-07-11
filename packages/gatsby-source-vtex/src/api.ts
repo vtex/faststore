@@ -1,9 +1,11 @@
-interface SearchOptions {
+export interface SearchOptions {
   sc?: number
   simulation?: 'true' | 'false'
 }
 
 export interface FilterOptions {
+  slug?: string
+  term?: string
   fullText?: string
   categoryIds?: string[]
   productIds?: string[]
@@ -28,8 +30,10 @@ const EMTPY_OBJ = {}
 
 const SEARCH_ROOT = `/api/catalog_system/pub/products/search`
 
-const searchByFilters = (
+const search = (
   {
+    slug,
+    term,
     fullText,
     categoryIds,
     productIds,
@@ -45,6 +49,12 @@ const searchByFilters = (
   }: FilterOptions,
   { sc = 1, simulation = 'false' }: SearchOptions = EMTPY_OBJ
 ) => {
+  if (slug) {
+    return `${SEARCH_ROOT}/${slug}/p?sc=${sc}&simulation=${simulation}`
+  }
+  if (term) {
+    return `${SEARCH_ROOT}/${term}?sc=${sc}&simulation=${simulation}`
+  }
   const querystring = [
     ['ft=', fullText],
     [
@@ -84,17 +94,7 @@ const searchByFilters = (
 }
 
 export const api = {
-  search: {
-    byTerm: (
-      term: string,
-      { sc = 1, simulation = 'false' }: SearchOptions = EMTPY_OBJ
-    ) => `${SEARCH_ROOT}/${term}?sc=${sc}&simulation=${simulation}`,
-    bySlug: (
-      slug: string,
-      { sc = 1, simulation = 'false' }: SearchOptions = EMTPY_OBJ
-    ) => `${SEARCH_ROOT}/${slug}/p?sc=${sc}&simulation=${simulation}`,
-    byFilters: searchByFilters,
-  },
+  search,
   catalog: {
     category: {
       tree: (depth: number) => `/api/catalog_system/pub/category/tree/${depth}`,
