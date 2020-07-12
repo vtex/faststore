@@ -2,38 +2,23 @@
 /** @jsx jsx */
 import { api, Category } from '@vtex/gatsby-source-vtex'
 import { FC } from 'react'
-import useSWR, { responseInterface, useSWRPages } from 'swr'
+import useSWR, { mutate, useSWRPages } from 'swr'
 import { Button, Flex, Grid, Heading, jsx } from 'theme-ui'
 
 import { FetchedList, productListFetcher } from '../utils/fetcher'
-import { ProductSummary } from './ProductSummary'
 import Container from './Container'
+import { ProductSummary } from './ProductSummary'
 
-export const PAGE_SIZE = 10
+export const PAGE_SIZE = 5
 
 interface Props {
   category: Category
 }
 
-const nextPage = ({ data }: responseInterface<FetchedList, unknown>) => {
-  // no data was fetched, let's fetch the first page
-  if (!data) {
-    return 1
-  }
-
-  const {
-    total,
-    range: { to },
-  } = data
-
-  // No more pages to fetch
-  if (to + 1 === total) {
-    return null
-  }
-
-  const pages = (to + 1) / PAGE_SIZE
-  return pages + 1
-}
+const ranges = (page: number) => ({
+  from: (page - 1) * PAGE_SIZE,
+  to: page * PAGE_SIZE - 1,
+})
 
 const CategoryTemplate: FC<Props> = ({ category }) => {
   const { products } = category
@@ -45,8 +30,7 @@ const CategoryTemplate: FC<Props> = ({ category }) => {
     category.name,
     ({ offset, withSWR }) => {
       const page = offset ?? 1
-      const from = (page - 1) * PAGE_SIZE
-      const to = page * PAGE_SIZE - 1
+      const { from, to } = ranges(page)
       const isSync = page === 1 && products.length > 0
 
       const url = api.search({
@@ -57,7 +41,7 @@ const CategoryTemplate: FC<Props> = ({ category }) => {
 
       const initialData = isSync
         ? {
-            products,
+            products: products.slice(0, PAGE_SIZE),
             total: Infinity,
             range: { from, to },
           }
@@ -77,7 +61,34 @@ const CategoryTemplate: FC<Props> = ({ category }) => {
         />
       ))
     },
-    nextPage,
+    ({ data }) => {
+      // no data was fetched, let's fetch the first page
+      if (!data) {
+        return 1
+      }
+
+      const {
+        total,
+        range: { to },
+      } = data
+
+      // No more pages to fetch
+      if (to + 1 === total) {
+        return null
+      }
+
+      const next = (to + 1) / PAGE_SIZE + 1
+
+      // Prefetch next page
+      const { from: nextFrom, to: nextTo } = ranges(next)
+      const url = api.search({
+        categoryIds: [`${category.categoryId}`],
+        from: nextFrom,
+        to: nextTo,
+      })
+      mutate(url, productListFetcher(url))
+      return next
+    },
     [products]
   )
 
