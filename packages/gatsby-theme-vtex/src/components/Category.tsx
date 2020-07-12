@@ -9,11 +9,13 @@ import { FetchedList, productListFetcher } from '../utils/fetcher'
 import Container from './Container'
 import { ProductSummary } from './ProductSummary'
 
-export const PAGE_SIZE = 5
+export const PAGE_SIZE = 3
 
 interface Props {
   category: Category
 }
+
+const prefetchMap = new Map<string, Promise<FetchedList>>()
 
 const ranges = (page: number) => ({
   from: (page - 1) * PAGE_SIZE,
@@ -73,7 +75,7 @@ const CategoryTemplate: FC<Props> = ({ category }) => {
       } = data
 
       // No more pages to fetch
-      if (to + 1 === total) {
+      if (to >= total) {
         return null
       }
 
@@ -81,12 +83,24 @@ const CategoryTemplate: FC<Props> = ({ category }) => {
 
       // Prefetch next page
       const { from: nextFrom, to: nextTo } = ranges(next)
-      const url = api.search({
-        categoryIds: [`${category.categoryId}`],
-        from: nextFrom,
-        to: nextTo,
-      })
-      mutate(url, productListFetcher(url))
+      if (nextTo >= total) {
+        const url = api.search({
+          categoryIds: [`${category.categoryId}`],
+          from: nextFrom,
+          to: nextTo,
+        })
+        // Deduplicate requests
+        if (!prefetchMap.has(url)) {
+          const promiseData = productListFetcher(url).catch((e) => {
+            // remove from prefetch map if anything goes wrong
+            prefetchMap.delete(url)
+            throw e
+          })
+          prefetchMap.set(url, promiseData)
+          mutate(url, promiseData)
+        }
+      }
+
       return next
     },
     [products]
