@@ -9,7 +9,7 @@ import { FetchedList, productListFetcher } from '../utils/fetcher'
 import Container from './Container'
 import { ProductSummary } from './ProductSummary'
 
-export const PAGE_SIZE = 3
+export const PAGE_SIZE = 10
 
 interface Props {
   category: Category
