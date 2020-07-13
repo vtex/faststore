@@ -23,9 +23,9 @@ const CategoryTemplate: FC<Props> = ({ category }) => {
         <Heading as="h2">{category.name}</Heading>
         <div sx={{ my: 4 }}>
           {StaticPage}
-          <SuspenseSSR fallback={null}>
+          {/* <SuspenseSSR fallback={null}>
             <ListControler category={category} />
-          </SuspenseSSR>
+          </SuspenseSSR> */}
         </div>
       </Flex>
     </Container>
