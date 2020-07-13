@@ -21,10 +21,12 @@ const CategoryTemplate: FC<Props> = ({ category }) => {
     <Container>
       <Flex sx={{ flexDirection: 'column' }} my={4}>
         <Heading as="h2">{category.name}</Heading>
-        {StaticPage}
-        <SuspenseSSR fallback={null}>
-          <ListControler category={category} />
-        </SuspenseSSR>
+        <div sx={{ my: 4 }}>
+          {StaticPage}
+          <SuspenseSSR fallback={null}>
+            <ListControler category={category} />
+          </SuspenseSSR>
+        </div>
       </Flex>
     </Container>
   )
