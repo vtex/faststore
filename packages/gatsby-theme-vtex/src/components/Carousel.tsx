@@ -16,8 +16,9 @@ interface Props {
 }
 
 const defaultOptions: CarouselProps = {
-  height: '800px',
   dragging: false,
+  initialSlideHeight: 593,
+  heightMode: 'first',
 }
 
 const Image: FC<Item> = ({ src, altText, href }) => {
