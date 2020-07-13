@@ -8,17 +8,7 @@ import Minicart from './Minicart'
 import Menu from './Menu'
 
 const Header: FC = () => (
-  <Flex
-    as="header"
-    bg="muted"
-    px={[0, 2, 4]}
-    py={3}
-    sx={{
-      justifyContent: ['center', 'space-between', 'space-between'],
-      alignItems: 'center',
-      flexWrap: 'wrap',
-    }}
-  >
+  <Flex variant="header" as="header">
     <Logo />
     <Menu />
     <Search />
