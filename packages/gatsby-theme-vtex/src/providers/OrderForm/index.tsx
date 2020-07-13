@@ -8,8 +8,10 @@ import { SuspenseSSR } from '../../components/SuspenseSSR'
 
 const AsyncOrderFormProvider = lazy(() => import('./controler'))
 
-export const OrderFormProvider: FC = ({ children }) => (
+const OrderFormProvider: FC = ({ children }) => (
   <SuspenseSSR fallback={<>{children}</>}>
     <AsyncOrderFormProvider>{children}</AsyncOrderFormProvider>
   </SuspenseSSR>
 )
+
+export default OrderFormProvider
