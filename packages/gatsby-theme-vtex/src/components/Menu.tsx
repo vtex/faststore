@@ -9,20 +9,7 @@ interface Item {
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (
-  <Link
-    to={`/${slug}`}
-    activeClassName="active"
-    sx={{
-      m: 2,
-      p: 2,
-      mx: [1, 1, 2],
-      px: [3, 1, 2],
-      color: 'inherit',
-      '&.active': {
-        color: 'primary',
-      },
-    }}
-  >
+  <Link to={`/${slug}`} activeClassName="active">
     {name.split(' ')[0]}
   </Link>
 )
@@ -40,7 +27,7 @@ const Menu: FC = () => {
   `)
 
   return (
-    <Flex as="nav">
+    <Flex as="nav" variant="header-menu">
       {allCategory.nodes.map((item: Item) => (
         <MenuLink {...item} key={item.slug} />
       ))}
