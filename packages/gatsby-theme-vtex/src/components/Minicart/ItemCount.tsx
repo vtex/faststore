@@ -7,7 +7,7 @@ const ItemCount: FC = () => {
   const orderForm = useOrderForm()
   const count = orderForm?.value?.items.length ?? 0
 
-  return <Box variant="minicart-badge">{count}</Box>
+  return <Box variant="header-minicart-badge">{count}</Box>
 }
 
 export default ItemCount
