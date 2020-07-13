@@ -19,7 +19,6 @@ const Logo: FC = () => (
       <title>Store Theme Logo</title>
       <image
         id="image0"
-        width="660"
         height="44"
         x="0"
         y="0"
