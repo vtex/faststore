@@ -10,7 +10,6 @@ const Logo: FC = () => (
       xmlnsXlink="http://www.w3.org/1999/xlink"
       x="0px"
       y="0px"
-      width="270px"
       height="12px"
       viewBox="0 0 660 44"
       enableBackground="new 0 0 660 44"
