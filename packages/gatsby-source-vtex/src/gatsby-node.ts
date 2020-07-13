@@ -29,6 +29,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     api.tenants.tenant(tenant),
     options
   )
+
   bindings.forEach((binding) => createChannelNode(args, binding))
 
   // PRODUCT
@@ -36,6 +37,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     api.search({ from: 0, to: 9 }),
     options
   )
+
   productData.forEach((product) => createProductNode(args, product))
 
   // CATEGORY
@@ -43,6 +45,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     api.catalog.category.tree(1),
     options
   )
+
   const activesCategories = categoryData.filter(
     (category) => !category.name.includes('[Inactive]')
   )
@@ -55,9 +58,10 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       const id = category.id.toString()
 
       let products: Product[] = []
+
       if (prerenderCategory.has(id)) {
         products = await fetchVTEX<Product[]>(
-          api.search({ from: 0, to: 9, categoryIds: [id] }),
+          api.search({ from: 0, to: 11, categoryIds: [id] }),
           options
         )
       }
@@ -68,6 +72,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       }
     })
   )
+
   categoriesWithProducts.forEach((category) =>
     createCategoryNode(args, category)
   )

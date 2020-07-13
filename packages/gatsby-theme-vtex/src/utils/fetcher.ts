@@ -10,10 +10,13 @@ export const successFetcher = async (
   init?: RequestInit | undefined
 ) => {
   const response = await fetch(input, init)
+
   if (response.status < 200 || response.status >= 300) {
     const message = await response.json()
+
     throw new Error(message.toString())
   }
+
   return response
 }
 
@@ -25,6 +28,7 @@ export const rawJsonFetcher = async (
     ...init,
     headers: { ...headers, ...init?.headers },
   })
+
   return response
 }
 
@@ -33,6 +37,7 @@ export const jsonFetcher = async <T>(
   init?: RequestInit | undefined
 ): Promise<T> => {
   const response = await rawJsonFetcher(input, init)
+
   return response.json()
 }
 
@@ -56,6 +61,7 @@ export const productListFetcher = async (url: string): Promise<FetchedList> => {
   const resources = response.headers.get('resources')!
   const [range, total] = resources.split('/')
   const [from, to] = range.split('-')
+
   return {
     products,
     total: Number(total),
