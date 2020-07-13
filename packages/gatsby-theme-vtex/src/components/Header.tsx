@@ -9,10 +9,14 @@ import Menu from './Menu'
 
 const Header: FC = () => (
   <Flex variant="header" as="header">
-    <Logo />
-    <Menu />
-    <Search />
-    <Minicart />
+    <Flex variant="header-left">
+      <Logo />
+      <Menu />
+    </Flex>
+    <Flex variant="header-right">
+      <Search />
+      <Minicart />
+    </Flex>
   </Flex>
 )
 
