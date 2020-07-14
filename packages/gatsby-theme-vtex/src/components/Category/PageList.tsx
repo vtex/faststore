@@ -39,12 +39,12 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
   }, [])
 
   // load AsyncPageList when idle
-  useEffect(() => {
-    requestIdleCallback(async () => {
-      await loadAsyncPageList()
-      setRenderAsyncList(true)
-    })
-  }, [])
+  // useEffect(() => {
+  //   requestIdleCallback(async () => {
+  //     await loadAsyncPageList()
+  //     setRenderAsyncList(true)
+  //   })
+  // }, [])
 
   return (
     <Fragment>
