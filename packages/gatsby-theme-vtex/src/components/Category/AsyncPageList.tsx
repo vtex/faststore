@@ -1,6 +1,6 @@
 import { api, Product } from '@vtex/gatsby-source-vtex'
 import React, { FC, Fragment } from 'react'
-import { useSWRInfinite } from 'swr'
+import { useSWRInfinite, mutate as mutateSWR } from 'swr'
 
 import { jsonFetcher } from '../../utils/fetcher'
 import FetchMoreBtn from './FetchMore'
@@ -20,6 +20,12 @@ const getUrl = (page: number, categoryId: number) => {
     from,
     to,
   })
+}
+
+export const prefetchPageData = (page: number, categoryId: number) => {
+  const url = getUrl(page, categoryId)
+
+  mutateSWR(url, jsonFetcher(url))
 }
 
 const Page: FC<Props> = ({ categoryId, offset = 2 }) => {
