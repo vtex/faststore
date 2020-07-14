@@ -1,15 +1,19 @@
 import { api, Product } from '@vtex/gatsby-source-vtex'
-import React, { FC, Fragment } from 'react'
-import { useSWRInfinite, mutate as mutateSWR } from 'swr'
+import React, { FC, useEffect } from 'react'
+import { mutate as mutateSWR, useSWRInfinite } from 'swr'
 
 import { jsonFetcher } from '../../utils/fetcher'
-import FetchMoreBtn from './FetchMore'
-import SyncPage, { PAGE_SIZE } from './SyncPage'
+import SyncPage from './SyncPage'
 
 export interface Props {
   categoryId: number
-  offset: number
+  offset: 0 | 1 // Start by page index 0 or 1
+  targetSize: number // Target number of pages to show
+  setLoading: (x: boolean) => void // FetchMore button controler
+  setReachedEnd: (x: boolean) => void // FetchMore button controler
 }
+
+const PAGE_SIZE = 5
 
 const getUrl = (page: number, categoryId: number) => {
   const from = page * PAGE_SIZE
@@ -28,8 +32,14 @@ export const prefetchPageData = (page: number, categoryId: number) => {
   mutateSWR(url, jsonFetcher(url))
 }
 
-const Page: FC<Props> = ({ categoryId, offset }) => {
-  const { data, error, mutate, size, setSize } = useSWRInfinite<Product[]>(
+const PageList: FC<Props> = ({
+  offset,
+  categoryId,
+  targetSize,
+  setLoading,
+  setReachedEnd,
+}) => {
+  const { data, error, size, setSize } = useSWRInfinite<Product[]>(
     (page, previousPageData) => {
       if (previousPageData?.length === 0) {
         return null
@@ -37,8 +47,14 @@ const Page: FC<Props> = ({ categoryId, offset }) => {
 
       return getUrl(page + offset, categoryId)
     },
-    jsonFetcher
+    jsonFetcher,
+    {
+      initialSize: 2, // always preload the next page
+    }
   )
+
+  // If this component is being preloaded or if it should render right now
+  const preloading = size! > targetSize
 
   const isLoadingInitialData = !data && !error
   const isLoadingMore = !!(
@@ -47,25 +63,35 @@ const Page: FC<Props> = ({ categoryId, offset }) => {
   )
 
   const isEmpty = data?.[0]?.length === 0
-  const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE)
+  const isReachingEnd = !!(
+    isEmpty ||
+    (data && data[data.length - 1]?.length < PAGE_SIZE)
+  )
 
-  const products = data ?? []
+  // Toggle FetchMore
+  useEffect(() => {
+    if (size! < targetSize) {
+      setSize?.(targetSize)
+    }
+  }, [setSize, size, targetSize])
+
+  // FetchMore button controlers
+  useEffect(() => {
+    !preloading && setLoading(isLoadingMore)
+  }, [isLoadingMore, preloading, setLoading])
+  useEffect(() => {
+    !preloading && setReachedEnd(isReachingEnd)
+  }, [isReachingEnd, preloading, setReachedEnd])
+
+  const pagesData = !preloading && data ? data.slice(0, size! - 1) : []
 
   return (
-    <Fragment>
-      {products.map((ps, index) => (
+    <>
+      {pagesData.map((ps, index) => (
         <SyncPage key={`summary-page-${index}`} products={ps} />
       ))}
-      {isReachingEnd ? null : (
-        <FetchMoreBtn
-          onClick={() => setSize!(size! + 1)}
-          disabled={isLoadingMore}
-          loading={isLoadingMore}
-        />
-      )}
-    </Fragment>
+    </>
   )
 }
 
-export default Page
+export default PageList
