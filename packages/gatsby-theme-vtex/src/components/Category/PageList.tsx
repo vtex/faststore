@@ -6,17 +6,18 @@ import { SuspenseSSR } from '../SuspenseSSR'
 import Page from './SyncPage'
 import FetchMoreBtn from './FetchMore'
 
-const loadAsyncPageList = () => import('./AsyncPageList')
-const AsyncPageList = lazy(loadAsyncPageList)
-
 interface Props {
   category: Category
 }
 
+const loadAsyncPageList = () => import('./AsyncPageList')
+
+const AsyncPageList = lazy(loadAsyncPageList)
+
 const List: FC<Props> = ({ category: { products, categoryId } }) => {
   const [renderAsyncList, setRenderAsyncList] = useState(products.length === 0)
   const SyncPage = products.length > 0 ? <Page products={products} /> : null
-  const offset = SyncPage ? 2 : 1
+  const offset = SyncPage ? 1 : 0
 
   // Preload when idle
   useEffect(() => {
@@ -37,7 +38,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
         lib.prefetchPageData(offset, categoryId)
       }
     })
-  })
+  }, [categoryId, offset, renderAsyncList])
 
   return (
     <Fragment>

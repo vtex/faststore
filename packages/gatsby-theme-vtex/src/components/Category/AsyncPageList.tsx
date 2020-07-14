@@ -12,8 +12,8 @@ export interface Props {
 }
 
 const getUrl = (page: number, categoryId: number) => {
-  const from = (page - 1) * PAGE_SIZE
-  const to = page * PAGE_SIZE - 1
+  const from = page * PAGE_SIZE
+  const to = (page + 1) * PAGE_SIZE - 1
 
   return api.search({
     categoryIds: [`${categoryId}`],
@@ -28,7 +28,7 @@ export const prefetchPageData = (page: number, categoryId: number) => {
   mutateSWR(url, jsonFetcher(url))
 }
 
-const Page: FC<Props> = ({ categoryId, offset = 2 }) => {
+const Page: FC<Props> = ({ categoryId, offset }) => {
   const { data, error, mutate, size, setSize } = useSWRInfinite<Product[]>(
     (page, previousPageData) => {
       if (previousPageData?.length === 0) {
