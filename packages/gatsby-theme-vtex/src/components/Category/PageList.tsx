@@ -1,17 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /** @jsx jsx */
 import { Category } from '@vtex/gatsby-source-vtex'
-import {
-  FC,
-  Fragment,
-  lazy,
-  Suspense,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { FC, Fragment, lazy, useCallback, useEffect, useState } from 'react'
 import { Button, jsx } from 'theme-ui'
 
+import { SuspenseSSR } from '../SuspenseSSR'
 import { Props as AsyncPageProps } from './AsyncPage'
 import Page from './SyncPage'
 
@@ -22,9 +15,9 @@ interface Props {
 }
 
 const SuspensePage: FC<AsyncPageProps> = (props) => (
-  <Suspense fallback={null}>
+  <SuspenseSSR fallback={null}>
     <AsyncPage {...props} />
-  </Suspense>
+  </SuspenseSSR>
 )
 
 const List: FC<Props> = ({ category: { products, categoryId } }) => {
