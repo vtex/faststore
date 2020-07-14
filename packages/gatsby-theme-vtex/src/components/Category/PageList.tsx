@@ -25,8 +25,8 @@ const AsyncPageList = lazy(loadAsyncPageList)
 const List: FC<Props> = ({ category: { products, categoryId } }) => {
   const [renderAsyncList, setRenderAsyncList] = useState(products.length === 0)
   const [loading, setLoading] = useState(products.length === 0)
-  const [reachedEnd, setReachedEnd] = useState(false)
   const [size, setSize] = useState(1)
+  const [reachedEnd, setReachedEnd] = useState(false)
   const SyncPage = products.length > 0 ? <Page products={products} /> : null
 
   const offset = SyncPage ? 1 : 0

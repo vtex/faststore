@@ -53,8 +53,8 @@ const PageList: FC<Props> = ({
     }
   )
 
-  // If this component is being preloaded or if it should render right now
-  const preloading = size! > targetSize
+  // true if this component is being preloaded
+  const preloading = size! > targetSize && offset > 0
 
   const isLoadingInitialData = !data && !error
   const isLoadingMore = !!(
