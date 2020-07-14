@@ -16,7 +16,7 @@ const COLUMNS = [1, 2, 3, 4]
 export const PAGE_SIZE = 12
 
 const Page: FC<Props> = ({ products }) => (
-  <Grid my={0} gap={3} columns={COLUMNS}>
+  <Grid my={2} gap={3} columns={COLUMNS}>
     {products.map((product, index) => (
       <ProductSummary
         key={product.productId}
