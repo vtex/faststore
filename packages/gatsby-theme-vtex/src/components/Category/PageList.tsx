@@ -22,9 +22,6 @@ const loadAsyncPageList = () => import('./AsyncPageList')
 
 const AsyncPageList = lazy(loadAsyncPageList)
 
-const requestIdleCallback = (cb: () => Promise<void>) =>
-  (window as any).requestIdleCallback?.(cb)
-
 const List: FC<Props> = ({ category: { products, categoryId } }) => {
   const [renderAsyncList, setRenderAsyncList] = useState(products.length === 0)
   const [loading, setLoading] = useState(products.length === 0)
@@ -39,12 +36,12 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
   }, [])
 
   // load AsyncPageList when idle
-  // useEffect(() => {
-  //   requestIdleCallback(async () => {
-  //     await loadAsyncPageList()
-  //     setRenderAsyncList(true)
-  //   })
-  // }, [])
+  useEffect(() => {
+    ;(window as any).requestIdleCallback?.(async () => {
+      await loadAsyncPageList()
+      setRenderAsyncList(true)
+    })
+  }, [])
 
   return (
     <Fragment>
