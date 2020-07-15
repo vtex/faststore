@@ -5,6 +5,7 @@ import React, { FC } from 'react'
 import CategoryTemplate from '../components/Category'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
+import SearchFilterProvider from '../providers/SearchFilter'
 
 export const staticQuery = graphql`
   query($id: String!) {
@@ -33,9 +34,9 @@ export const staticQuery = graphql`
         }
       }
       facets {
-        Brands {
-          Name
-          Link
+        brands {
+          id
+          name
         }
         CategoriesTrees {
           Link
@@ -59,7 +60,9 @@ interface Props {
 const PageTemplate: FC<Props> = ({ data: { category } }) => (
   <Layout>
     <SEO title={category.name} />
-    <CategoryTemplate category={category} />
+    <SearchFilterProvider>
+      <CategoryTemplate category={category} />
+    </SearchFilterProvider>
   </Layout>
 )
 

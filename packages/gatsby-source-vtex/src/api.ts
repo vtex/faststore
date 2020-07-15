@@ -4,12 +4,12 @@ export interface SearchOptions {
 }
 
 export interface FilterOptions {
-  brands?: string[]
   slug?: string
   term?: string
   fullText?: string
   categoryIds?: string[]
   productIds?: string[]
+  brandIds?: number[]
   specification?: {
     id: string
     value: string
@@ -33,12 +33,12 @@ const SEARCH_ROOT = `/api/catalog_system/pub/products/search`
 
 const search = (
   {
-    brands,
     slug,
     term,
     fullText,
     categoryIds,
     productIds,
+    brandIds,
     specification: spec,
     price,
     collectionId,
@@ -68,6 +68,7 @@ const search = (
         : null,
     ],
     ...(productIds?.map((pId) => ['fq=productId:', pId]) ?? []),
+    ...(brandIds?.map((bId) => ['fq=brandId:', bId]) ?? []),
     ['fq=specificationFilter_', spec && `${spec.id}:${spec.value}`],
     ['fq=P:', price && `[{${price.from}} TO {${price.to}}]`],
     ['fq=productClusterIds:', collectionId],
@@ -79,7 +80,6 @@ const search = (
     ['_to=', to],
     ['sc=', sc],
     ['simulation=', simulation],
-    ['map=', ([] as string[]).fill('b', 0, brands?.length).join(',') || null],
   ].reduce((acc, [label, val]) => {
     if (val == null) {
       return acc
@@ -98,12 +98,10 @@ const search = (
     return SEARCH_ROOT
   }
 
-  const terms = brands ? `/${brands.join('/')}` : ''
-
-  return `${SEARCH_ROOT}${terms}?${querystring}`
+  return `${SEARCH_ROOT}?${querystring}`
 }
 
-const nonNull = <T>(x: T | null): x is T => x != null
+const nonNull = <T>(x: T | null): x is T => !!x
 
 const facets = ({
   department,
@@ -121,6 +119,8 @@ const facets = ({
 export const api = {
   search,
   facets,
+  pageType: (query: string) =>
+    `/api/catalog_system/pub/portal/pagetype/${query}`,
   catalog: {
     category: {
       tree: (depth: number) => `/api/catalog_system/pub/category/tree/${depth}`,

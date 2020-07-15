@@ -271,9 +271,22 @@ export interface CategoryTreeFacet extends Facet {
   Children: CategoryTreeFacet[]
 }
 
-export interface Facets {
+export interface RawFacets {
   Departments: Facet[]
   Brands: Facet[]
+  SpecificationFilters: Record<string, Facet[]>
+  CategoriesTrees: CategoryTreeFacet[]
+}
+
+export interface BrandFacet {
+  id: number
+  name: string
+  quantity: number
+}
+
+export interface Facets {
+  Departments: Facet[]
+  brands: BrandFacet[]
   SpecificationFilters: Record<string, Facet[]>
   CategoriesTrees: CategoryTreeFacet[]
 }
@@ -291,4 +304,13 @@ export interface Category {
   Title: null | string
   MetaTagDescription: string
   LinkId: string
+}
+
+export interface PageType {
+  id: string
+  name: string
+  url: string
+  title: string
+  metaTagDescription: string
+  pageType: string
 }

@@ -41,12 +41,9 @@ const CategoryTemplate: FC<Props> = ({ category }) => (
               <hr />
             </Fragment>
           ) : null}
-          {category.facets.Brands ? (
+          {category.facets.brands ? (
             <Fragment>
-              <BrandSelector
-                brands={category.facets.Brands}
-                name={category.name}
-              />
+              <BrandSelector brands={category.facets.brands} />
               <hr />
             </Fragment>
           ) : null}

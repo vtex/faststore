@@ -5,6 +5,7 @@ import { useSWRInfinite } from 'swr'
 import { jsonFetcher } from '../../utils/fetcher'
 import { getUrl, PAGE_SIZE } from './AsyncPage'
 import SyncPage from './SyncPage'
+import { useSearchFilters } from '../../providers/SearchFilter'
 
 export interface Props {
   categoryId: number
@@ -21,13 +22,14 @@ const PageList: FC<Props> = ({
   setReachedEnd,
   resetSize,
 }) => {
+  const [filters] = useSearchFilters()
   const { data, size, setSize } = useSWRInfinite<Product[]>(
     (page, previousPageData) => {
       if (previousPageData?.length === 0) {
         return null
       }
 
-      return getUrl(page + 1, categoryId)
+      return getUrl(page + 1, categoryId, filters)
     },
     jsonFetcher,
     {
@@ -45,7 +47,7 @@ const PageList: FC<Props> = ({
   const isEmpty = data?.[0]?.length === 0
   const isReachingEnd = !!(
     isEmpty ||
-    (data && data[data.length - 1]?.length < PAGE_SIZE)
+    (data && data[data.length - 2]?.length < PAGE_SIZE)
   )
 
   // Toggle FetchMore

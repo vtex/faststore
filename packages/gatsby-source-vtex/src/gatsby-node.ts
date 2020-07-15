@@ -4,7 +4,15 @@ import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
-import { Category, Product, Tenant, Facets } from './types'
+import {
+  Category,
+  Product,
+  Tenant,
+  Facets,
+  Facet,
+  PageType,
+  RawFacets,
+} from './types'
 import {
   createCategoryNode,
   createChannelNode,
@@ -57,6 +65,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     activesCategories.map(async (category) => {
       const id = category.id.toString()
 
+      // Fetch Products in the category
       let products: Product[] = []
 
       if (prerenderCategory.has(id)) {
@@ -66,16 +75,36 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
         )
       }
 
+      // Fatch department's facets
       const url = new URL(category.url)
-      const facets = await fetchVTEX<Facets>(
-        api.facets({ department: url.pathname }),
+      const rawFacets = await fetchVTEX<RawFacets>(
+        api.facets({ department: url.pathname.slice(1, url.pathname.length) }),
         options
+      )
+
+      // Fix facet's brands
+      const brands = await Promise.all(
+        rawFacets.Brands?.map(async ({ Value, Name, Quantity }) => {
+          const { id: brandId } = await fetchVTEX<PageType>(
+            api.pageType(Value),
+            options
+          )
+
+          return {
+            name: Name,
+            id: Number(brandId),
+            quantity: Quantity,
+          }
+        }) ?? []
       )
 
       return {
         ...category,
         products,
-        facets,
+        facets: {
+          ...rawFacets,
+          brands,
+        },
       }
     })
   )
