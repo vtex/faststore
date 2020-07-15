@@ -33,7 +33,7 @@ const CategoryTemplate: FC<Props> = ({ category }) => (
             mr: [0, 0, 5],
           }}
         >
-          <div>Filters</div>
+          <div sx={{ fontSize: 3 }}>Filters</div>
           <hr />
           {category.facets.CategoriesTrees?.[0] ? (
             <Fragment>
