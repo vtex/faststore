@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box } from 'theme-ui'
 
-import { useOrderForm } from '../../providers/OrderForm/controler'
+import { useOrderForm } from '../../providers/OrderForm'
 
 const ItemCount: FC = () => {
   const orderForm = useOrderForm()

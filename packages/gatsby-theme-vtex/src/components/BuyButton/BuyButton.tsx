@@ -2,7 +2,7 @@
 import { FC } from 'react'
 import { Button, jsx } from 'theme-ui'
 
-import { useOrderForm } from '../../providers/OrderForm/controler'
+import { useOrderForm } from '../../providers/OrderForm'
 import { ArrayItem } from '../../types/array'
 import { findBestSeller, Item as SellerItem } from '../../utils/seller'
 
