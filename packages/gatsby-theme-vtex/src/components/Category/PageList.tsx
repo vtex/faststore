@@ -1,13 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Category } from '@vtex/gatsby-source-vtex'
-import React, {
-  FC,
-  Fragment,
-  lazy,
-  useCallback,
-  useState,
-  useEffect,
-} from 'react'
+import React, { FC, Fragment, lazy, useCallback, useState } from 'react'
 import { Grid } from 'theme-ui'
 
 import { SuspenseSSR } from '../SuspenseSSR'
@@ -25,28 +18,12 @@ const loadAsyncPageList = () => import('./AsyncPageList')
 const AsyncPageList = lazy(loadAsyncPageList)
 
 const List: FC<Props> = ({ category: { products, categoryId } }) => {
-  const [renderAsyncList, setRenderAsyncList] = useState(false)
   const [loading, setLoading] = useState(products.length === 0)
   const [reachedEnd, setReachedEnd] = useState(false)
   const [size, setSize] = useState(2)
-  const fetchMore = useCallback(() => {
-    setSize((s) => s + 1)
-    setRenderAsyncList(true)
-  }, [])
+  const fetchMore = useCallback(() => setSize((s) => s + 1), [])
 
   const hasSyncPage = products.length > 0
-
-  // load AsyncPageList when idle
-  useEffect(() => {
-    const onIdle = async () => {
-      await loadAsyncPageList()
-      setRenderAsyncList(true)
-    }
-
-    const handle = (window as any).requestIdleCallback?.(onIdle)
-
-    return () => (window as any).cancelIdleCallback?.(handle)
-  }, [])
 
   return (
     <Fragment>
@@ -58,17 +35,15 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
             <AsyncPage categoryId={categoryId} page={0} />
           </SuspenseSSR>
         )}
-        {renderAsyncList ? (
-          <SuspenseSSR fallback={null}>
-            <AsyncPageList
-              categoryId={categoryId}
-              offset={1}
-              targetSize={size}
-              setLoading={setLoading}
-              setReachedEnd={setReachedEnd}
-            />
-          </SuspenseSSR>
-        ) : null}
+        <SuspenseSSR fallback={null}>
+          <AsyncPageList
+            categoryId={categoryId}
+            offset={1}
+            targetSize={size}
+            setLoading={setLoading}
+            setReachedEnd={setReachedEnd}
+          />
+        </SuspenseSSR>
       </Grid>
       {reachedEnd ? null : (
         <FetchMoreBtn
