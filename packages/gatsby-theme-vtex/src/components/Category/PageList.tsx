@@ -30,7 +30,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
           <Page products={products} />
         ) : (
           <SuspenseSSR fallback={<div>loading...</div>}>
-            <AsyncPage categoryId={categoryId} page={0} />
+            <AsyncPage page={0} categoryId={categoryId} />
           </SuspenseSSR>
         )}
         <SuspenseSSR fallback={null}>
