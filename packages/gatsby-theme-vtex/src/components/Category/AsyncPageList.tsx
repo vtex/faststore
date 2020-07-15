@@ -8,26 +8,26 @@ import SyncPage from './SyncPage'
 
 export interface Props {
   categoryId: number
-  offset: 0 | 1 // Start by page index 0 or 1
   targetSize: number // Target number of pages to show
   setLoading: (x: boolean) => void // FetchMore button controler
   setReachedEnd: (x: boolean) => void // FetchMore button controler
+  resetSize: (x: number) => void // Reset targetsize
 }
 
 const PageList: FC<Props> = ({
-  offset,
   categoryId,
   targetSize,
   setLoading,
   setReachedEnd,
+  resetSize,
 }) => {
-  const { data, error, size, setSize } = useSWRInfinite<Product[]>(
+  const { data, size, setSize } = useSWRInfinite<Product[]>(
     (page, previousPageData) => {
       if (previousPageData?.length === 0) {
         return null
       }
 
-      return getUrl(page + offset, categoryId)
+      return getUrl(page + 1, categoryId)
     },
     jsonFetcher,
     {
@@ -50,10 +50,18 @@ const PageList: FC<Props> = ({
 
   // Toggle FetchMore
   useEffect(() => {
-    if (size && size < targetSize - offset) {
-      setSize?.(targetSize - offset)
+    if (!size) {
+      return
     }
-  }, [offset, setSize, size, targetSize])
+
+    if (size < targetSize - 1) {
+      setSize?.(targetSize - 1)
+    }
+
+    if (size > targetSize - 1) {
+      resetSize(size + 1)
+    }
+  }, [resetSize, setSize, size, targetSize])
 
   // FetchMore button controlers
   useEffect(() => {

@@ -9,13 +9,11 @@ import Page from './SyncPage'
 
 const AsyncPage = lazy(() => import('./AsyncPage'))
 
+const AsyncPageList = lazy(() => import('./AsyncPageList'))
+
 interface Props {
   category: Category
 }
-
-const loadAsyncPageList = () => import('./AsyncPageList')
-
-const AsyncPageList = lazy(loadAsyncPageList)
 
 const List: FC<Props> = ({ category: { products, categoryId } }) => {
   const [loading, setLoading] = useState(products.length === 0)
@@ -38,10 +36,10 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
         <SuspenseSSR fallback={null}>
           <AsyncPageList
             categoryId={categoryId}
-            offset={1}
             targetSize={size}
             setLoading={setLoading}
             setReachedEnd={setReachedEnd}
+            resetSize={setSize}
           />
         </SuspenseSSR>
       </Grid>
