@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Category, FilterOptions } from '@vtex/gatsby-source-vtex'
+import { Category } from '@vtex/gatsby-source-vtex'
 import React, {
   FC,
   Fragment,

@@ -4,15 +4,7 @@ import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
-import {
-  Category,
-  Product,
-  Tenant,
-  Facets,
-  Facet,
-  PageType,
-  RawFacets,
-} from './types'
+import { Category, Product, Tenant, PageType, RawFacets } from './types'
 import {
   createCategoryNode,
   createChannelNode,

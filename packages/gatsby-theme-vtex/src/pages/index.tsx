@@ -60,7 +60,7 @@ const Home: FC<RouteComponentProps> = () => {
   return (
     <Layout>
       <SEO />
-      <Carousel items={itemsCarousel} />
+      {/* <Carousel items={itemsCarousel} /> */}
       <Container>
         <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
           {syncProducts.map((syncProduct, index) => (
