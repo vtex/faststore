@@ -1,41 +1,21 @@
-import { api, Product } from '@vtex/gatsby-source-vtex'
+import { Product } from '@vtex/gatsby-source-vtex'
 import React, { FC, useEffect } from 'react'
-import { mutate as mutateSWR, useSWRInfinite } from 'swr'
+import { useSWRInfinite } from 'swr'
 
 import { jsonFetcher } from '../../utils/fetcher'
+import { getUrl, PAGE_SIZE } from './AsyncPage'
 import SyncPage from './SyncPage'
 
 export interface Props {
   categoryId: number
   offset: 0 | 1 // Start by page index 0 or 1
-  preload: boolean // load in preload mode. Preload mode only fetches content, but doesnt render anything
   targetSize: number // Target number of pages to show
   setLoading: (x: boolean) => void // FetchMore button controler
   setReachedEnd: (x: boolean) => void // FetchMore button controler
 }
 
-const PAGE_SIZE = 12
-
-const getUrl = (page: number, categoryId: number) => {
-  const from = page * PAGE_SIZE
-  const to = (page + 1) * PAGE_SIZE - 1
-
-  return api.search({
-    categoryIds: [`${categoryId}`],
-    from,
-    to,
-  })
-}
-
-export const prefetchPageData = (page: number, categoryId: number) => {
-  const url = getUrl(page, categoryId)
-
-  mutateSWR(url, jsonFetcher(url))
-}
-
 const PageList: FC<Props> = ({
   offset,
-  preload,
   categoryId,
   targetSize,
   setLoading,
@@ -51,14 +31,15 @@ const PageList: FC<Props> = ({
     },
     jsonFetcher,
     {
-      initialSize: 2, // always preload the next page
+      initialSize: 1, // always preload the next page
     }
   )
 
-  const isLoadingInitialData = !data && !error
   const isLoadingMore = !!(
-    isLoadingInitialData ||
-    (data && size && typeof data[size - 2] === 'undefined')
+    data &&
+    size &&
+    size > 1 &&
+    typeof data[size - 2] === 'undefined'
   )
 
   const isEmpty = data?.[0]?.length === 0
@@ -69,20 +50,20 @@ const PageList: FC<Props> = ({
 
   // Toggle FetchMore
   useEffect(() => {
-    if (size! < targetSize) {
-      setSize?.(targetSize)
+    if (size && size < targetSize - offset) {
+      setSize?.(targetSize - offset)
     }
-  }, [setSize, size, targetSize])
+  }, [offset, setSize, size, targetSize])
 
   // FetchMore button controlers
   useEffect(() => {
-    !preload && setLoading(isLoadingMore)
-  }, [isLoadingMore, preload, setLoading])
+    setLoading(isLoadingMore)
+  }, [isLoadingMore, setLoading])
   useEffect(() => {
-    !preload && setReachedEnd(isReachingEnd)
-  }, [isReachingEnd, preload, setReachedEnd])
+    setReachedEnd(isReachingEnd)
+  }, [isReachingEnd, setReachedEnd])
 
-  if (preload || !data || !size) {
+  if (!data || !size) {
     return null
   }
 

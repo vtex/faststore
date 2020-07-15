@@ -14,6 +14,8 @@ import { SuspenseSSR } from '../SuspenseSSR'
 import FetchMoreBtn from './FetchMore'
 import Page from './SyncPage'
 
+const AsyncPage = lazy(() => import('./AsyncPage'))
+
 interface Props {
   category: Category
 }
@@ -32,8 +34,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
     setRenderAsyncList(true)
   }, [])
 
-  const SyncPage = products.length > 0 ? <Page products={products} /> : null
-  const offset = SyncPage ? 1 : 0
+  const hasSyncPage = products.length > 0
 
   // load AsyncPageList when idle
   useEffect(() => {
@@ -48,15 +49,18 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
   }, [])
 
   return (
-    <Fragment>
+    <SuspenseSSR fallback={<div>loading...</div>}>
       <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-        {SyncPage}
+        {hasSyncPage ? (
+          <Page products={products} />
+        ) : (
+          <AsyncPage categoryId={categoryId} page={0} />
+        )}
         {renderAsyncList ? (
           <SuspenseSSR fallback={null}>
             <AsyncPageList
               categoryId={categoryId}
-              preload={size === 2 && SyncPage !== null}
-              offset={offset}
+              offset={1}
               targetSize={size}
               setLoading={setLoading}
               setReachedEnd={setReachedEnd}
@@ -71,7 +75,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
           loading={loading}
         />
       )}
-    </Fragment>
+    </SuspenseSSR>
   )
 }
 
