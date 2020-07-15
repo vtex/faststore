@@ -51,7 +51,7 @@ const CategoryTemplate: FC<Props> = ({ category }) => (
             </Fragment>
           ) : null}
         </aside>
-        <main
+        <div
           sx={{
             flexGrow: 99999,
             flexBasis: 0,
@@ -59,7 +59,7 @@ const CategoryTemplate: FC<Props> = ({ category }) => (
           }}
         >
           <PageList category={category} />
-        </main>
+        </div>
       </div>
     </Flex>
   </Container>

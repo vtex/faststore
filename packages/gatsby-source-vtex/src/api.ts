@@ -4,6 +4,7 @@ export interface SearchOptions {
 }
 
 export interface FilterOptions {
+  brands?: string[]
   slug?: string
   term?: string
   fullText?: string
@@ -32,6 +33,7 @@ const SEARCH_ROOT = `/api/catalog_system/pub/products/search`
 
 const search = (
   {
+    brands,
     slug,
     term,
     fullText,
@@ -77,6 +79,7 @@ const search = (
     ['_to=', to],
     ['sc=', sc],
     ['simulation=', simulation],
+    ['map=', ([] as string[]).fill('b', 0, brands?.length).join(',') || null],
   ].reduce((acc, [label, val]) => {
     if (val == null) {
       return acc
@@ -95,7 +98,9 @@ const search = (
     return SEARCH_ROOT
   }
 
-  return `${SEARCH_ROOT}?${querystring}`
+  const terms = `/${brands?.join('/')}`
+
+  return `${SEARCH_ROOT}${terms}?${querystring}`
 }
 
 const nonNull = <T>(x: T | null): x is T => x != null

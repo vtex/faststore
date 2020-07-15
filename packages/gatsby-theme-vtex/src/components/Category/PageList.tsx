@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Category } from '@vtex/gatsby-source-vtex'
 import React, { FC, Fragment, lazy, useCallback, useState } from 'react'
-import { Grid } from 'theme-ui'
+import { Grid, Spinner } from 'theme-ui'
 
 import { SuspenseSSR } from '../SuspenseSSR'
 import FetchMoreBtn from './FetchMore'
@@ -29,7 +29,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
         {hasSyncPage ? (
           <Page products={products} />
         ) : (
-          <SuspenseSSR fallback={<div>loading...</div>}>
+          <SuspenseSSR fallback={<Spinner />}>
             <AsyncPage page={0} categoryId={categoryId} />
           </SuspenseSSR>
         )}
