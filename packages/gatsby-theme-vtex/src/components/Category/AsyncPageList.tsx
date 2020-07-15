@@ -8,6 +8,7 @@ import SyncPage from './SyncPage'
 export interface Props {
   categoryId: number
   offset: 0 | 1 // Start by page index 0 or 1
+  preload: boolean // load in preload mode. Preload mode only fetches content, but doesnt render anything
   targetSize: number // Target number of pages to show
   setLoading: (x: boolean) => void // FetchMore button controler
   setReachedEnd: (x: boolean) => void // FetchMore button controler
@@ -34,6 +35,7 @@ export const prefetchPageData = (page: number, categoryId: number) => {
 
 const PageList: FC<Props> = ({
   offset,
+  preload,
   categoryId,
   targetSize,
   setLoading,
@@ -53,13 +55,10 @@ const PageList: FC<Props> = ({
     }
   )
 
-  // true if this component is being preloaded
-  const preloading = size! > targetSize && offset > 0
-
   const isLoadingInitialData = !data && !error
   const isLoadingMore = !!(
     isLoadingInitialData ||
-    (data && size && typeof data[size - 1] === 'undefined')
+    (data && size && typeof data[size - 2] === 'undefined')
   )
 
   const isEmpty = data?.[0]?.length === 0
@@ -77,17 +76,19 @@ const PageList: FC<Props> = ({
 
   // FetchMore button controlers
   useEffect(() => {
-    !preloading && setLoading(isLoadingMore)
-  }, [isLoadingMore, preloading, setLoading])
+    !preload && setLoading(isLoadingMore)
+  }, [isLoadingMore, preload, setLoading])
   useEffect(() => {
-    !preloading && setReachedEnd(isReachingEnd)
-  }, [isReachingEnd, preloading, setReachedEnd])
+    !preload && setReachedEnd(isReachingEnd)
+  }, [isReachingEnd, preload, setReachedEnd])
 
-  const pagesData = !preloading && data ? data.slice(0, size! - 1) : []
+  if (preload || !data || !size) {
+    return null
+  }
 
   return (
     <>
-      {pagesData.map((ps, index) => (
+      {data.slice(0, size - 1).map((ps, index) => (
         <SyncPage key={`summary-page-${index}`} products={ps} />
       ))}
     </>

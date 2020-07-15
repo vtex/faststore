@@ -25,31 +25,26 @@ const AsyncPageList = lazy(loadAsyncPageList)
 const List: FC<Props> = ({ category: { products, categoryId } }) => {
   const [renderAsyncList, setRenderAsyncList] = useState(products.length === 0)
   const [loading, setLoading] = useState(products.length === 0)
-  const [size, setSize] = useState(1)
   const [reachedEnd, setReachedEnd] = useState(false)
-  const SyncPage = products.length > 0 ? <Page products={products} /> : null
-
-  const offset = SyncPage ? 1 : 0
+  const [size, setSize] = useState(2)
   const fetchMore = useCallback(() => {
     setSize((s) => s + 1)
     setRenderAsyncList(true)
   }, [])
 
+  const SyncPage = products.length > 0 ? <Page products={products} /> : null
+  const offset = SyncPage ? 1 : 0
+
   // load AsyncPageList when idle
   useEffect(() => {
-    let canceled = false
     const onIdle = async () => {
-      if (!canceled) {
-        await loadAsyncPageList()
-        setRenderAsyncList(true)
-      }
+      await loadAsyncPageList()
+      setRenderAsyncList(true)
     }
 
-    ;(window as any).requestIdleCallback?.(onIdle)
+    const handle = (window as any).requestIdleCallback?.(onIdle)
 
-    return () => {
-      canceled = true
-    }
+    return () => (window as any).cancelIdleCallback?.(handle)
   }, [])
 
   return (
@@ -60,6 +55,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
           <SuspenseSSR fallback={null}>
             <AsyncPageList
               categoryId={categoryId}
+              preload={size === 2 && SyncPage !== null}
               offset={offset}
               targetSize={size}
               setLoading={setLoading}
