@@ -49,12 +49,14 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
   }, [])
 
   return (
-    <SuspenseSSR fallback={<div>loading...</div>}>
+    <Fragment>
       <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
         {hasSyncPage ? (
           <Page products={products} />
         ) : (
-          <AsyncPage categoryId={categoryId} page={0} />
+          <SuspenseSSR fallback={<div>loading...</div>}>
+            <AsyncPage categoryId={categoryId} page={0} />
+          </SuspenseSSR>
         )}
         {renderAsyncList ? (
           <SuspenseSSR fallback={null}>
@@ -75,7 +77,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
           loading={loading}
         />
       )}
-    </SuspenseSSR>
+    </Fragment>
   )
 }
 
