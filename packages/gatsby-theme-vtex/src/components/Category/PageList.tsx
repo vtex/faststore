@@ -25,7 +25,7 @@ const loadAsyncPageList = () => import('./AsyncPageList')
 const AsyncPageList = lazy(loadAsyncPageList)
 
 const List: FC<Props> = ({ category: { products, categoryId } }) => {
-  const [renderAsyncList, setRenderAsyncList] = useState(products.length === 0)
+  const [renderAsyncList, setRenderAsyncList] = useState(false)
   const [loading, setLoading] = useState(products.length === 0)
   const [reachedEnd, setReachedEnd] = useState(false)
   const [size, setSize] = useState(2)
