@@ -5,14 +5,14 @@ import { Grid } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
-import DynamicProductList from '../components/DynamicProductList'
 import Layout from '../components/Layout'
-import SEO from '../components/Seo'
-import { StaticProduct } from '../components/Shapes'
+import { ProductSummary } from '../components/ProductSummary'
+import SEO from '../components/SEO/siteMetadata'
+import { SyncProductItem } from '../types/product'
 
 interface Data {
   allProduct: {
-    nodes: StaticProduct[]
+    nodes: SyncProductItem[]
   }
 }
 
@@ -37,9 +37,17 @@ const Home: FC<RouteComponentProps> = () => {
           productId
           productName
           items {
+            itemId
             images {
               imageUrl
               imageText
+            }
+            sellers {
+              sellerId
+              commertialOffer {
+                AvailableQuantity
+                Price
+              }
             }
           }
         }
@@ -47,13 +55,21 @@ const Home: FC<RouteComponentProps> = () => {
     }
   `)
 
+  const syncProducts = allProduct.nodes
+
   return (
     <Layout>
       <SEO />
-      <Carousel items={itemsCarousel} />
+      {/* <Carousel items={itemsCarousel} /> */}
       <Container>
         <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-          <DynamicProductList staticProducts={allProduct.nodes} />
+          {syncProducts.map((syncProduct, index) => (
+            <ProductSummary
+              key={syncProduct.id}
+              syncProduct={syncProduct}
+              lazyLoad={index > 3}
+            />
+          ))}
         </Grid>
       </Container>
     </Layout>

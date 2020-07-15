@@ -1,12 +1,15 @@
-interface SearchOptions {
+export interface SearchOptions {
   sc?: number
   simulation?: 'true' | 'false'
 }
 
 export interface FilterOptions {
+  slug?: string
+  term?: string
   fullText?: string
   categoryIds?: string[]
   productIds?: string[]
+  brandIds?: number[]
   specification?: {
     id: string
     value: string
@@ -28,11 +31,14 @@ const EMTPY_OBJ = {}
 
 const SEARCH_ROOT = `/api/catalog_system/pub/products/search`
 
-const searchByFilters = (
+const search = (
   {
+    slug,
+    term,
     fullText,
     categoryIds,
     productIds,
+    brandIds,
     specification: spec,
     price,
     collectionId,
@@ -45,6 +51,14 @@ const searchByFilters = (
   }: FilterOptions,
   { sc = 1, simulation = 'false' }: SearchOptions = EMTPY_OBJ
 ) => {
+  if (slug) {
+    return `${SEARCH_ROOT}/${slug}/p?sc=${sc}&simulation=${simulation}`
+  }
+
+  if (term) {
+    return `${SEARCH_ROOT}/${term}?sc=${sc}&simulation=${simulation}`
+  }
+
   const querystring = [
     ['ft=', fullText],
     [
@@ -54,6 +68,7 @@ const searchByFilters = (
         : null,
     ],
     ...(productIds?.map((pId) => ['fq=productId:', pId]) ?? []),
+    ...(brandIds?.map((bId) => ['fq=brandId:', bId]) ?? []),
     ['fq=specificationFilter_', spec && `${spec.id}:${spec.value}`],
     ['fq=P:', price && `[{${price.from}} TO {${price.to}}]`],
     ['fq=productClusterIds:', collectionId],
@@ -69,10 +84,13 @@ const searchByFilters = (
     if (val == null) {
       return acc
     }
+
     const element = `${label}${val}`
+
     if (acc.length === 0) {
       return element
     }
+
     return `${acc}&${element}`
   }, '')
 
@@ -83,18 +101,26 @@ const searchByFilters = (
   return `${SEARCH_ROOT}?${querystring}`
 }
 
+const nonNull = <T>(x: T | null): x is T => !!x
+
+const facets = ({
+  department,
+  category,
+  brand,
+}: Record<string, string | undefined>) => {
+  const query = [department, category, brand].filter(nonNull).join('/')
+  const map = [department && 'c', category && 'c', brand && 'b']
+    .filter(nonNull)
+    .join('/')
+
+  return `/api/catalog_system/pub/facets/search/${query}?map=${map}`
+}
+
 export const api = {
-  search: {
-    byTerm: (
-      term: string,
-      { sc = 1, simulation = 'false' }: SearchOptions = EMTPY_OBJ
-    ) => `${SEARCH_ROOT}/${term}?sc=${sc}&simulation=${simulation}`,
-    bySlug: (
-      slug: string,
-      { sc = 1, simulation = 'false' }: SearchOptions = EMTPY_OBJ
-    ) => `${SEARCH_ROOT}/${slug}/p?sc=${sc}&simulation=${simulation}`,
-    byFilters: searchByFilters,
-  },
+  search,
+  facets,
+  pageType: (query: string) =>
+    `/api/catalog_system/pub/portal/pagetype/${query}`,
   catalog: {
     category: {
       tree: (depth: number) => `/api/catalog_system/pub/category/tree/${depth}`,

@@ -3,8 +3,9 @@ import { createElement, ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 
 // Webpack + TS magic to make this work
-const { BindingProvider } = require('./src/components/providers/Binding')
-const { OrderFormProvider } = require('./src/components/providers/OrderForm')
+const {
+  default: OrderFormProvider,
+} = require('./src/providers/OrderForm/index')
 
 export const replaceHydrateFunction = () => (
   element: ElementType,
@@ -26,7 +27,5 @@ export const replaceHydrateFunction = () => (
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
   createElement(StrictMode, {
-    children: createElement(BindingProvider, {
-      children: createElement(OrderFormProvider, { children: element }),
-    }),
+    children: createElement(OrderFormProvider, { children: element }),
   })

@@ -73,13 +73,13 @@ export interface Tenant {
   title: string
   edition: string
   infra: string
-  bindings: Binding[]
+  bindings: Channel[]
   defaultCurrency: string
   defaultLocale: string
   metadata: Record<string, unknown>
 }
 
-export interface Binding {
+export interface Channel {
   id: string
   canonicalBaseAddress: string
   alternateBaseAddresses: string[]
@@ -257,7 +257,43 @@ export interface EffectsKBackingField {
   '<Parameters>k__BackingField': ParametersKBackingField[]
 }
 
+export interface Facet {
+  Quantity: number
+  Position: null
+  Name: string
+  Link: string
+  LinkEncoded: string
+  Map: string
+  Value: string
+}
+
+export interface CategoryTreeFacet extends Facet {
+  Children: CategoryTreeFacet[]
+}
+
+export interface RawFacets {
+  Departments: Facet[]
+  Brands: Facet[]
+  SpecificationFilters: Record<string, Facet[]>
+  CategoriesTrees: CategoryTreeFacet[]
+}
+
+export interface BrandFacet {
+  id: number
+  name: string
+  quantity: number
+}
+
+export interface Facets {
+  Departments: Facet[]
+  brands: BrandFacet[]
+  SpecificationFilters: Record<string, Facet[]>
+  CategoriesTrees: CategoryTreeFacet[]
+}
+
 export interface Category {
+  products: Product[]
+  facets: Facets
   slug: string
   categoryId: number
   id: number
@@ -267,4 +303,14 @@ export interface Category {
   children: Category[]
   Title: null | string
   MetaTagDescription: string
+  LinkId: string
+}
+
+export interface PageType {
+  id: string
+  name: string
+  url: string
+  title: string
+  metaTagDescription: string
+  pageType: string
 }

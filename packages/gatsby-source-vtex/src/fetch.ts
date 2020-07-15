@@ -14,7 +14,7 @@ export const fetchVTEX = async <T>(
   path: string,
   options: VTEXOptions,
   init?: RequestInit
-) => {
+): Promise<T> => {
   const url = `https://${options.tenant}.${options.environment}.com.br${path}`
   const response = await fetch(url, {
     ...init,
@@ -23,5 +23,11 @@ export const fetchVTEX = async <T>(
       ...init?.headers,
     },
   })
-  return response.json() as Promise<T>
+
+  try {
+    return await response.json()
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
 }

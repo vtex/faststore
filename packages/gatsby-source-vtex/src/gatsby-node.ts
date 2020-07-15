@@ -4,34 +4,40 @@ import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
-import { Category, Product, Tenant } from './types'
+import { Category, Product, Tenant, PageType, RawFacets } from './types'
 import {
-  createBindingNode,
   createCategoryNode,
-  createCategorySearchResultNode,
+  createChannelNode,
   createProductNode,
 } from './utils'
 
-type Options = PluginOptions & VTEXOptions
+interface Options extends PluginOptions, VTEXOptions {
+  prerender?: () => {
+    categories: string[]
+  }
+}
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
   options: Options
 ) => {
-  const { tenant } = options
+  const { tenant, prerender } = options
+  const { categories = [] } = typeof prerender === 'function' ? prerender() : {}
 
   // VTEX Context
   const { bindings } = await fetchVTEX<Tenant>(
     api.tenants.tenant(tenant),
     options
   )
-  bindings.forEach((binding) => createBindingNode(args, binding))
+
+  bindings.forEach((binding) => createChannelNode(args, binding))
 
   // PRODUCT
   const productData = await fetchVTEX<Product[]>(
-    api.search.byFilters({ from: 0, to: 9 }),
+    api.search({ from: 0, to: 9 }),
     options
   )
+
   productData.forEach((product) => createProductNode(args, product))
 
   // CATEGORY
@@ -39,30 +45,63 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     api.catalog.category.tree(1),
     options
   )
+
   const activesCategories = categoryData.filter(
     (category) => !category.name.includes('[Inactive]')
   )
-  activesCategories.forEach((category) => createCategoryNode(args, category))
 
-  // CATEGORY SEARCH
-  const categorySearches = await Promise.all(
+  // CATEGORIES with rendered products
+  const prerenderCategory = new Set(categories)
+
+  const categoriesWithProducts = await Promise.all(
     activesCategories.map(async (category) => {
-      const products = await fetchVTEX<Product[]>(
-        api.search.byFilters({
-          from: 0,
-          to: 9,
-          categoryIds: [`${category.id}`],
-        }),
+      const id = category.id.toString()
+
+      // Fetch Products in the category
+      let products: Product[] = []
+
+      if (prerenderCategory.has(id)) {
+        products = await fetchVTEX<Product[]>(
+          api.search({ from: 0, to: 11, categoryIds: [id] }),
+          options
+        )
+      }
+
+      // Fatch department's facets
+      const url = new URL(category.url)
+      const rawFacets = await fetchVTEX<RawFacets>(
+        api.facets({ department: url.pathname.slice(1, url.pathname.length) }),
         options
       )
+
+      // Fix facet's brands
+      const brands = await Promise.all(
+        rawFacets.Brands?.map(async ({ Value, Name, Quantity }) => {
+          const { id: brandId } = await fetchVTEX<PageType>(
+            api.pageType(Value),
+            options
+          )
+
+          return {
+            name: Name,
+            id: Number(brandId),
+            quantity: Quantity,
+          }
+        }) ?? []
+      )
+
       return {
+        ...category,
         products,
-        category,
+        facets: {
+          ...rawFacets,
+          brands,
+        },
       }
     })
   )
 
-  categorySearches.forEach(({ products, category }) =>
-    createCategorySearchResultNode(args, category, products)
+  categoriesWithProducts.forEach((category) =>
+    createCategoryNode(args, category)
   )
 }
