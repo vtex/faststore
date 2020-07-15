@@ -98,7 +98,7 @@ const search = (
     return SEARCH_ROOT
   }
 
-  const terms = `/${brands?.join('/')}`
+  const terms = brands ? `/${brands.join('/')}` : ''
 
   return `${SEARCH_ROOT}${terms}?${querystring}`
 }
