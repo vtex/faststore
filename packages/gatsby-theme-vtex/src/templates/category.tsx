@@ -32,6 +32,20 @@ export const staticQuery = graphql`
           }
         }
       }
+      facets {
+        Brands {
+          Name
+          Link
+        }
+        CategoriesTrees {
+          Link
+          Name
+          Children {
+            Link
+            Name
+          }
+        }
+      }
     }
   }
 `

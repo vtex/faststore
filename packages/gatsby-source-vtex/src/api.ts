@@ -52,9 +52,11 @@ const search = (
   if (slug) {
     return `${SEARCH_ROOT}/${slug}/p?sc=${sc}&simulation=${simulation}`
   }
+
   if (term) {
     return `${SEARCH_ROOT}/${term}?sc=${sc}&simulation=${simulation}`
   }
+
   const querystring = [
     ['ft=', fullText],
     [
@@ -79,10 +81,13 @@ const search = (
     if (val == null) {
       return acc
     }
+
     const element = `${label}${val}`
+
     if (acc.length === 0) {
       return element
     }
+
     return `${acc}&${element}`
   }, '')
 
@@ -93,8 +98,24 @@ const search = (
   return `${SEARCH_ROOT}?${querystring}`
 }
 
+const nonNull = <T>(x: T | null): x is T => x != null
+
+const facets = ({
+  department,
+  category,
+  brand,
+}: Record<string, string | undefined>) => {
+  const query = [department, category, brand].filter(nonNull).join('/')
+  const map = [department && 'c', category && 'c', brand && 'b']
+    .filter(nonNull)
+    .join('/')
+
+  return `/api/catalog_system/pub/facets/search/${query}?map=${map}`
+}
+
 export const api = {
   search,
+  facets,
   catalog: {
     category: {
       tree: (depth: number) => `/api/catalog_system/pub/category/tree/${depth}`,

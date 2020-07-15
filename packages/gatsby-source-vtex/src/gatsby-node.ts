@@ -4,7 +4,7 @@ import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
-import { Category, Product, Tenant } from './types'
+import { Category, Product, Tenant, Facets } from './types'
 import {
   createCategoryNode,
   createChannelNode,
@@ -66,9 +66,16 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
         )
       }
 
+      const url = new URL(category.url)
+      const facets = await fetchVTEX<Facets>(
+        api.facets({ department: url.pathname }),
+        options
+      )
+
       return {
         ...category,
         products,
+        facets,
       }
     })
   )

@@ -23,5 +23,6 @@ export const fetchVTEX = async <T>(
       ...init?.headers,
     },
   })
+
   return response.json() as Promise<T>
 }

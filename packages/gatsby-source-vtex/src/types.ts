@@ -257,8 +257,30 @@ export interface EffectsKBackingField {
   '<Parameters>k__BackingField': ParametersKBackingField[]
 }
 
+export interface Facet {
+  Quantity: number
+  Position: null
+  Name: string
+  Link: string
+  LinkEncoded: string
+  Map: string
+  Value: string
+}
+
+export interface CategoryTreeFacet extends Facet {
+  Children: CategoryTreeFacet[]
+}
+
+export interface Facets {
+  Departments: Facet[]
+  Brands: Facet[]
+  SpecificationFilters: Record<string, Facet[]>
+  CategoriesTrees: CategoryTreeFacet[]
+}
+
 export interface Category {
   products: Product[]
+  facets: Facets
   slug: string
   categoryId: number
   id: number
@@ -268,4 +290,5 @@ export interface Category {
   children: Category[]
   Title: null | string
   MetaTagDescription: string
+  LinkId: string
 }
