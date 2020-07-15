@@ -20,15 +20,15 @@ export interface Props {
 }
 
 const BuyButton: FC<Props> = ({ sku }) => {
-  const { addItems, value: orderForm } = useOrderForm()
-  const disabled = !sku || !orderForm
+  const orderForm = useOrderForm()
+  const disabled = !sku || !orderForm?.value
 
   // Optimist add item on click
   const addItemOnClick = async (e: any) => {
     e.preventDefault()
     const seller = sku && (findBestSeller(sku) as Seller)
 
-    if (!sku || !orderForm || !seller) {
+    if (!sku || !orderForm?.value || !seller) {
       return
     }
 
@@ -39,7 +39,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
       seller: seller?.sellerId,
     }
 
-    addItems([orderFormItem]).catch(console.error)
+    orderForm.addItems([orderFormItem]).catch(console.error)
   }
 
   return (

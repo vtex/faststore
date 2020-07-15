@@ -6,9 +6,9 @@ import { Grid } from 'theme-ui'
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
 import Layout from '../components/Layout'
+import { ProductSummary } from '../components/ProductSummary'
 import SEO from '../components/SEO/siteMetadata'
 import { SyncProductItem } from '../types/product'
-import { ProductList } from '../components/ProductList'
 
 interface Data {
   allProduct: {
@@ -54,14 +54,22 @@ const Home: FC<RouteComponentProps> = () => {
       }
     }
   `)
+
   const syncProducts = allProduct.nodes
+
   return (
     <Layout>
       <SEO />
       <Carousel items={itemsCarousel} />
       <Container>
         <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-          <ProductList syncProducts={syncProducts} />
+          {syncProducts.map((syncProduct, index) => (
+            <ProductSummary
+              key={syncProduct.id}
+              syncProduct={syncProduct}
+              lazyLoad={index > 3}
+            />
+          ))}
         </Grid>
       </Container>
     </Layout>

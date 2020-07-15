@@ -61,7 +61,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
       if (prerenderCategory.has(id)) {
         products = await fetchVTEX<Product[]>(
-          api.search({ from: 0, to: 4, categoryIds: [id] }),
+          api.search({ from: 0, to: 11, categoryIds: [id] }),
           options
         )
       }

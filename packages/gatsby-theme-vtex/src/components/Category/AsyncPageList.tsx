@@ -13,7 +13,7 @@ export interface Props {
   setReachedEnd: (x: boolean) => void // FetchMore button controler
 }
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 12
 
 const getUrl = (page: number, categoryId: number) => {
   const from = page * PAGE_SIZE

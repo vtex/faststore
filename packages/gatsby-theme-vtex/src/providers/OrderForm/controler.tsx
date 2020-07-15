@@ -38,6 +38,7 @@ const OrderFormProvider: FC = ({ children }) => {
   useEffect(() => {
     ;(async () => {
       const data = await postFetcher<OrderFormType>(api.checkout.orderForm)
+
       setOrderForm(data)
       queue.start()
     })()
@@ -49,6 +50,7 @@ const OrderFormProvider: FC = ({ children }) => {
       if (!id) {
         throw new Error('This page does not have an orderForm yet')
       }
+
       return queue.add(async () => {
         const newOrderForm = await postFetcher<OrderFormType>(
           api.checkout.addItem(id),
@@ -56,6 +58,7 @@ const OrderFormProvider: FC = ({ children }) => {
             body: JSON.stringify({ orderItems: items }),
           }
         )
+
         setOrderForm(newOrderForm)
       })
     },
@@ -75,16 +78,8 @@ const OrderFormProvider: FC = ({ children }) => {
   )
 }
 
-export const useOrderForm = (): OrderFormContext => {
-  const ctx = useContext(OrderForm)
-
-  if (!ctx) {
-    throw new Error(
-      'useOrderForm needs to have an OrderFormProvider previously in the React tree'
-    )
-  }
-
-  return ctx
+export const useOrderForm = (): OrderFormContext | null => {
+  return useContext(OrderForm)
 }
 
 export default OrderFormProvider

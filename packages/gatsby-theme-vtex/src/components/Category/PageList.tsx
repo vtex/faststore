@@ -37,10 +37,19 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
 
   // load AsyncPageList when idle
   useEffect(() => {
-    ;(window as any).requestIdleCallback?.(async () => {
-      await loadAsyncPageList()
-      setRenderAsyncList(true)
-    })
+    let canceled = false
+    const onIdle = async () => {
+      if (!canceled) {
+        await loadAsyncPageList()
+        setRenderAsyncList(true)
+      }
+    }
+
+    ;(window as any).requestIdleCallback?.(onIdle)
+
+    return () => {
+      canceled = true
+    }
   }, [])
 
   return (
