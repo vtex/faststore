@@ -9,9 +9,16 @@ export const onRenderBody = ({
 }: RenderBodyArgs) => {
   setHeadComponents([
     React.createElement('link', {
-      key: 'preconnect-io',
+      key: 'preconnect-io-vtex',
       rel: 'preconnect',
+      crossOrigin: true,
       href: 'https://io.vtex.com.br',
+    }),
+    React.createElement('link', {
+      key: 'preconnect-rc-vtex',
+      rel: 'preconnect',
+      crossOrigin: true,
+      href: 'http://rc.vtex.com.br',
     }),
     script.sync({
       innerHtml:
