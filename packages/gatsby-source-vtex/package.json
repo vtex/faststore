@@ -26,5 +26,6 @@
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
     "pretty-error": "^2.1.1"
-  }
+  },
+  "gitHead": "02ae4bd32bd25e1058f1b1c7c60e894aeff40059"
 }
