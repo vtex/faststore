@@ -1,0 +1,29 @@
+{
+  "name": "@vtex/gatsby-plugin-vtex-nginx",
+  "version": "0.2.1",
+  "description": "Gatsby source plugin for generating an nginx config for deploying in vtex.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "cross-env NODE_ENV=production yarn run build",
+    "develop": "tsc --watch"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "vtex"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.23.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "gatsby": "^2.23.4",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "gatsby-plugin-nginx-redirect": "^0.0.8",
+    "pretty-error": "^2.1.1"
+  }
+}
