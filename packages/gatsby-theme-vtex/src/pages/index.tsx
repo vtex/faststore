@@ -18,11 +18,20 @@ interface Data {
 
 const itemsCarousel = [
   {
-    src: 'https://storecomponents.vtexassets.com/arquivos/banner-principal.png',
+    src: {
+      desktop:
+        'https://storecomponents.vtexassets.com/arquivos/banner-principal.png',
+      mobile:
+        'https://storecomponents.vtexassets.com/arquivos/banner-principal-mobile.jpg',
+    },
     altText: 'Slide 1',
   },
   {
-    src: 'https://storecomponents.vtexassets.com/arquivos/banner.jpg',
+    src: {
+      desktop: 'https://storecomponents.vtexassets.com/arquivos/banner.jpg',
+      mobile:
+        'https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/Tulipan%201___3bdc00f3d6d036bb40ec7cc6a1bc1e71.png',
+    },
     altText: 'Slide 2',
   },
 ]
@@ -60,7 +69,7 @@ const Home: FC<RouteComponentProps> = () => {
   return (
     <Layout>
       <SEO />
-      {/* <Carousel items={itemsCarousel} /> */}
+      <Carousel items={itemsCarousel} />
       <Container>
         <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
           {syncProducts.map((syncProduct, index) => (
