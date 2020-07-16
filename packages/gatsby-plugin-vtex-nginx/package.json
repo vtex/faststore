@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-vtex-nginx",
-  "version": "0.2.2-alpha.1",
+  "version": "0.2.2-alpha.2",
   "description": "Gatsby source plugin for generating an nginx config for deploying in vtex.",
   "main": "index.js",
   "scripts": {
