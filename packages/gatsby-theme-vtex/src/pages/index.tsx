@@ -1,7 +1,7 @@
 import { RouteComponentProps } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
 import React, { FC } from 'react'
-import { Grid } from 'theme-ui'
+import { Grid, Image } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
@@ -22,7 +22,7 @@ const itemsCarousel = [
       desktop:
         'https://storecomponents.vtexassets.com/arquivos/banner-principal.png',
       mobile:
-        'https://storecomponents.vtexassets.com/arquivos/banner-principal-mobile.jpg',
+        'https://storecomponents.vtexassets.com/arquivos/ids/155434-360-400',
     },
     altText: 'Slide 1',
   },

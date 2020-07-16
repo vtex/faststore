@@ -1,8 +1,6 @@
 /** @jsx jsx */
-import { FC } from 'react'
-import { Link } from 'gatsby'
-import { jsx, Button, Box } from 'theme-ui'
-import NukaCarousel, { CarouselProps } from 'nuka-carousel'
+import { FC, useState } from 'react'
+import { Box, Button, jsx, Image } from 'theme-ui'
 
 interface Item {
   src: {
@@ -15,52 +13,42 @@ interface Item {
 
 interface Props {
   items: Item[]
-  options?: CarouselProps
 }
 
-const defaultOptions: CarouselProps = {
-  dragging: false,
-  heightMode: 'first',
-  initialSlideHeight: 300,
-}
-
-const Image: FC<Item> = ({ src, href }) => {
-  if (href) {
-    return <Link to={href}>Hello</Link>
-  }
+const Carousel: FC<Props> = ({ items }) => {
+  const [index, setIndex] = useState(0)
+  const lastIndex = items.length - 1
+  const height = 450
 
   return (
-    <Box
-      sx={{
-        backgroundImage: [`url(${src.mobile})`, `url(${src.desktop})`],
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
-        width: '100%',
-        height: [300, 400, 500],
-      }}
-    />
+    <Box sx={{ position: 'relative' }}>
+      {items.map((item, i) => (
+        <Box
+          key={item.altText}
+          sx={{ display: index === i ? 'block' : 'none', height }}
+        >
+          <Button
+            onClick={() => setIndex(i === 0 ? lastIndex : i - 1)}
+            sx={{ position: 'absolute', top: '50%', left: 0 }}
+          >
+            Previous
+          </Button>
+          <Button
+            onClick={() => setIndex(i === lastIndex ? 0 : i + 1)}
+            sx={{ position: 'absolute', top: '50%', right: 0 }}
+          >
+            Next
+          </Button>
+          <Image
+            src={item.src.mobile}
+            alt={item.altText}
+            loading="lazy"
+            sx={{ height, width: '100%', objectFit: 'cover' }}
+          />
+        </Box>
+      ))}
+    </Box>
   )
 }
-
-const Carousel: FC<Props> = ({ items, options = defaultOptions }) => (
-  <NukaCarousel
-    renderCenterLeftControls={({ previousSlide }) => (
-      <Button variant="carousel-previous" onClick={previousSlide}>
-        Previous
-      </Button>
-    )}
-    renderCenterRightControls={({ nextSlide }) => (
-      <Button variant="carousel-next" onClick={nextSlide}>
-        Next
-      </Button>
-    )}
-    {...options}
-  >
-    {items.map((item) => (
-      <Image key={item.altText} {...item} />
-    ))}
-  </NukaCarousel>
-)
 
 export default Carousel
