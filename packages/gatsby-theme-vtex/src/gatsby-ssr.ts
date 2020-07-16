@@ -5,13 +5,8 @@ const script = require('./src/utils/script')
 
 export const onRenderBody = ({
   setHeadComponents,
-  setPreBodyComponents,
   setPostBodyComponents,
 }: RenderBodyArgs) => {
-  // if (process.env.NODE_ENV !== 'production') {
-  //   return
-  // }
-
   setHeadComponents([
     React.createElement('link', {
       key: 'preconnect-io',
