@@ -1,6 +1,6 @@
 import React, { FC, lazy } from 'react'
 
-import { SuspenseSSR } from '../../SuspenseSSR'
+import { SuspenseIdle } from '../../SuspenseIdle'
 import { Props as SiteMetadataProps } from '../siteMetadata/lazy'
 
 const StructuredData = lazy(() => import('./lazy'))
@@ -11,10 +11,14 @@ interface Props extends SiteMetadataProps {
 }
 
 const ProductDetailSEO: FC<Props> = (props) => (
-  <SuspenseSSR fallback={null}>
-    <SiteMetadataSEO {...props} />
-    <StructuredData productId={props.productId} />
-  </SuspenseSSR>
+  <>
+    <SuspenseIdle fallback={null}>
+      <SiteMetadataSEO {...props} />
+    </SuspenseIdle>
+    <SuspenseIdle fallback={null}>
+      <StructuredData productId={props.productId} />
+    </SuspenseIdle>
+  </>
 )
 
 export default ProductDetailSEO

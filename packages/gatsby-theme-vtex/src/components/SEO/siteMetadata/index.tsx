@@ -1,14 +1,14 @@
 import React, { FC, lazy } from 'react'
 
-import { SuspenseSSR } from '../../SuspenseSSR'
+import { SuspenseIdle } from '../../SuspenseIdle'
 import { Props } from './lazy'
 
-const SEO = lazy(() => import('./lazy'))
+const LazySEO = lazy(() => import('./lazy'))
 
-const ProductDetailSEO: FC<Props> = (props) => (
-  <SuspenseSSR fallback={null}>
-    <SEO {...props} />
-  </SuspenseSSR>
+const SEO: FC<Props> = (props) => (
+  <SuspenseIdle fallback={null}>
+    <LazySEO {...props} />
+  </SuspenseIdle>
 )
 
-export default ProductDetailSEO
+export default SEO
