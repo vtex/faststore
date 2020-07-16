@@ -3,10 +3,7 @@ import { FC, useState } from 'react'
 import { Box, Button, jsx, Image } from 'theme-ui'
 
 interface Item {
-  src: {
-    desktop: string
-    mobile: string
-  }
+  src: string
   altText: string
   href?: string
 }
@@ -40,7 +37,7 @@ const Carousel: FC<Props> = ({ items }) => {
             Next
           </Button>
           <Image
-            src={item.src.mobile}
+            src={item.src}
             alt={item.altText}
             loading="lazy"
             sx={{ height, width: '100%', objectFit: 'cover' }}
