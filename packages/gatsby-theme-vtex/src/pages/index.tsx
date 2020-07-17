@@ -1,7 +1,7 @@
 import { RouteComponentProps } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
-import React, { FC } from 'react'
-import { Grid, Image } from 'theme-ui'
+import React, { FC, useEffect } from 'react'
+import { Grid } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
@@ -56,6 +56,10 @@ const Home: FC<RouteComponentProps> = () => {
   `)
 
   const syncProducts = allProduct.nodes
+
+  useEffect(() => {
+    ;(window as any).vtexrca('sendevent', 'orderPlaced', {})
+  }, [])
 
   return (
     <Layout>
