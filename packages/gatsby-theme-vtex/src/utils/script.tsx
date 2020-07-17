@@ -21,17 +21,19 @@ export const lazy = ({ src, id }: { src: string; id: string }) => {
       dangerouslySetInnerHTML={{
         __html: stripIndent`
           (function () {
-            var once = true;
-            if (!once) { return; }
-            once = false
-            window.requestIdleCallback(() => {
+            function registerScript () {
               script=document.createElement('script');
               script.setAttribute('src', "${src}");
               script.setAttribute('async', true);
               script.setAttribute('id', '${id}');
               script.setAttribute('type', 'application/javascript');
               document.getElementsByTagName('head')[0].appendChild(script);
-            })
+            }
+            if (document.readyState === 'complete') {
+              window.requestIdleCallback(registerScript);
+            } else {
+              window.addEventListener("load", registerScript);
+            }
           })();
         `,
       }}
