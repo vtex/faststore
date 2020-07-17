@@ -11,14 +11,14 @@ export const onRenderBody = ({
     React.createElement('link', {
       key: 'preconnect-io-vtex',
       rel: 'preconnect',
-      crossOrigin: true,
+      crossOrigin: 'true',
       href: 'https://io.vtex.com.br',
     }),
     React.createElement('link', {
       key: 'preconnect-rc-vtex',
       rel: 'preconnect',
-      crossOrigin: true,
-      href: 'http://rc.vtex.com.br',
+      crossOrigin: 'true',
+      href: 'https://rc.vtex.com.br',
     }),
     script.sync({
       innerHtml:
