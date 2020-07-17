@@ -32,11 +32,11 @@ const OrderFormProvider: FC = ({ children }) => {
 
   // Fetch orderForm on first render
   useEffect(() => {
-    ;async () => {
+    ;(async () => {
       const ctl = await controler()
 
       ctl.fetchOrderFormOnce(setOrderForm)
-    }
+    })()
   }, [])
 
   // Add item to cart using the queue
