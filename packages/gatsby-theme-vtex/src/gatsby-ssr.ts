@@ -1,3 +1,4 @@
+import React from 'react'
 import { RenderBodyArgs } from 'gatsby'
 
 const script = require('./src/utils/script')
@@ -7,6 +8,18 @@ export const onRenderBody = ({
   setPostBodyComponents,
 }: RenderBodyArgs) => {
   setHeadComponents([
+    React.createElement('link', {
+      key: 'dns-prefetch-io-vtex',
+      rel: 'dns-prefetch',
+      crossOrigin: 'true',
+      href: 'https://io.vtex.com.br/',
+    }),
+    React.createElement('link', {
+      key: 'dns-prefetch-rc-vtex',
+      rel: 'dns-prefetch',
+      crossOrigin: 'true',
+      href: 'https://rc.vtex.com.br/',
+    }),
     script.sync({
       innerHtml:
         'window.vtexrca=window.vtexrca||function(){(vtexrca.q=vtexrca.q||[]).push(arguments)};vtexrca.l=+new Date;',
