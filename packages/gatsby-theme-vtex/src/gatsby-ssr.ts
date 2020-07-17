@@ -11,13 +11,11 @@ export const onRenderBody = ({
     React.createElement('link', {
       key: 'dns-prefetch-io-vtex',
       rel: 'dns-prefetch',
-      crossOrigin: 'true',
       href: 'https://io.vtex.com.br/',
     }),
     React.createElement('link', {
       key: 'dns-prefetch-rc-vtex',
       rel: 'dns-prefetch',
-      crossOrigin: 'true',
       href: 'https://rc.vtex.com.br/',
     }),
     script.sync({
