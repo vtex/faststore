@@ -17,7 +17,6 @@ const Carousel: FC<Props> = ({ items }) => {
   const lastIndex = items.length - 1
   const height = 450
 
-
   return (
     <Box sx={{ position: 'relative' }}>
       {items.map((item, i) => (
