@@ -28,7 +28,7 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
           width={500}
           height={500}
           product={syncProduct}
-          lazyLoad={false} // Never lazy load image in product details
+          loading="eager" // Never lazy load image in product details
         />
         <Card>
           <Heading variant="productTitle" as="h1">

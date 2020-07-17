@@ -10,10 +10,9 @@ import BuyButton from './BuyButton/Sync'
 
 interface Props {
   syncProduct: SyncProductItem
-  lazyLoad: boolean
 }
 
-export const ProductSummary: FC<Props> = ({ syncProduct, lazyLoad = true }) => (
+export const ProductSummary: FC<Props> = ({ syncProduct }) => (
   <Link
     to={
       syncProduct.slug
@@ -36,7 +35,7 @@ export const ProductSummary: FC<Props> = ({ syncProduct, lazyLoad = true }) => (
         width={300}
         height={300}
         product={syncProduct}
-        lazyLoad={lazyLoad} // lazy load after the third image
+        loading="lazy" // lazy load after the third image
       />
       <Heading variant="shellProductName" as="h3">
         {syncProduct.productName.slice(0, 12)}
