@@ -58,7 +58,7 @@ const Home: FC<RouteComponentProps> = () => {
   const syncProducts = allProduct.nodes
 
   useEffect(() => {
-    ;(window as any).vtexrca('sendevent', 'orderPlaced', {})
+    ;(window as any).vtexrca('sendevent', 'homeView', {})
   }, [])
 
   return (
