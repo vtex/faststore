@@ -35,7 +35,7 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => (
         width={300}
         height={300}
         product={syncProduct}
-        loading="lazy" // lazy load after the third image
+        loading="lazy" // lazy load images
       />
       <Heading variant="shellProductName" as="h3">
         {syncProduct.productName.slice(0, 12)}
