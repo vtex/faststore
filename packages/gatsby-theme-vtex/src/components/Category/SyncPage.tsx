@@ -7,16 +7,10 @@ interface Props {
   products: Product[]
 }
 
-const LAZY_LOAD_INDEX = 3
-
 const Page: FC<Props> = ({ products }) => (
   <>
-    {products.map((product, index) => (
-      <ProductSummary
-        key={product.productId}
-        syncProduct={product}
-        lazyLoad={index > LAZY_LOAD_INDEX}
-      />
+    {products.map((product) => (
+      <ProductSummary key={product.productId} syncProduct={product} />
     ))}
   </>
 )

@@ -68,11 +68,7 @@ const Home: FC<RouteComponentProps> = () => {
       <Container>
         <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
           {syncProducts.map((syncProduct, index) => (
-            <ProductSummary
-              key={syncProduct.id}
-              syncProduct={syncProduct}
-              lazyLoad={index > 3}
-            />
+            <ProductSummary key={syncProduct.id} syncProduct={syncProduct} />
           ))}
         </Grid>
       </Container>
