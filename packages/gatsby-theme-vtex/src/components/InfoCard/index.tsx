@@ -7,9 +7,18 @@ interface Props {
   to: string
   headline?: string
   subhead?: string
+  imgSrc: string
+  imgAlt: string
 }
 
-const InfoCard: FC<Props> = ({ headline, subhead, children, to }) => {
+const InfoCard: FC<Props> = ({
+  headline,
+  subhead,
+  children,
+  to,
+  imgSrc,
+  imgAlt,
+}) => {
   return (
     <div
       sx={{
@@ -43,59 +52,14 @@ const InfoCard: FC<Props> = ({ headline, subhead, children, to }) => {
               maxHeight: '540px',
               width: '100%',
             }}
+            alt={imgAlt}
+            src={imgSrc}
             loading="lazy"
-            src="https://storecomponents.vtexassets.com/arquivos/banner-infocard2.png"
           />
         </Link>
       </Box>
     </div>
   )
 }
-//   imageActionUrl={{ id: imageActionUrl, intl }}
-//   extraCondition={!isFullModeStyle}
-//   linkProps={{ className: 'no-underline' }}
-// >
-//   <div
-//     className={containerClasses}
-//     style={containerStyle}
-//     data-testid="container"
-//     id={htmlId}
-//   >
-//     <div className={textContainerClasses}>
-//       {headline && (
-//         <div
-//           className={headlineClasses}
-//           dangerouslySetInnerHTML={{ __html: sanitizedHeadline }}
-//         />
-//       )}
-//       {subhead && (
-//         <div
-//           className={subheadClasses}
-//           dangerouslySetInnerHTML={{ __html: sanitizedSubhead }}
-//         />
-//       )}
-//       <CallToAction
-//         mode={callToActionMode}
-//         text={{ id: callToActionText, intl }}
-//         url={{ id: callToActionUrl, intl }}
-//       />
-//     </div>
-//     {!isFullModeStyle && (
-//       <div className={`${styles.infoCardImageContainer} w-50-ns`}>
-//         <LinkWrapper
-//           imageActionUrl={{ id: imageActionUrl, intl }}
-//         >
-//           <img
-//             className={styles.infoCardImage}
-//             src={finalImageUrl}
-//             style={{ objectFit: 'cover' }}
-//             alt=""
-//             data-testid="half-image"
-//           />
-//         </LinkWrapper>
-//       </div>
-//     )}
-//   </div>
-// </LinkWrapper>
 
 export default InfoCard

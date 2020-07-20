@@ -12,7 +12,12 @@ const Fold: FC = () => (
   <Fragment>
     <Suspense fallback={null}>
       <Space>
-        <InfoCard headline="New Promotion!" to="/vintage-phone/p">
+        <InfoCard
+          to="/vintage-phone/p"
+          headline="New Promotion!"
+          imgSrc="https://storecomponents.vtexassets.com/arquivos/banner-infocard2.png"
+          imgAlt="infocard-banner"
+        >
           <div sx={{ my: 3 }}>
             <Suspense fallback={null}>
               <Action to="/vintage-phone/p" label="BUY NOW" />
