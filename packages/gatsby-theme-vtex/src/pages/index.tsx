@@ -1,21 +1,18 @@
+/** @jsx jsx */
 import { RouteComponentProps } from '@reach/router'
-import { graphql, useStaticQuery } from 'gatsby'
-import React, { FC, useEffect } from 'react'
-import { Grid } from 'theme-ui'
+import { graphql } from 'gatsby'
+import { FC, useEffect, lazy } from 'react'
+import { Grid, jsx } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 import { ProductSummary } from '../components/ProductSummary'
 import SEO from '../components/SEO/siteMetadata'
+import { SuspenseSSR } from '../components/SuspenseSSR'
 import { SyncProductItem } from '../types/product'
-import { isServer } from '../utils/env'
 
-interface Data {
-  allProduct: {
-    nodes: SyncProductItem[]
-  }
-}
+const RichText = lazy<any>(() => import('@bit/vtex.poc.rich-text'))
 
 const itemsCarousel = [
   {
@@ -28,34 +25,15 @@ const itemsCarousel = [
   },
 ]
 
-const Home: FC<RouteComponentProps> = () => {
-  const { allProduct } = useStaticQuery<Data>(graphql`
-    {
-      allProduct {
-        nodes {
-          id
-          slug
-          productId
-          productName
-          items {
-            itemId
-            images {
-              imageUrl
-              imageText
-            }
-            sellers {
-              sellerId
-              commertialOffer {
-                AvailableQuantity
-                Price
-              }
-            }
-          }
-        }
-      }
+interface Props extends RouteComponentProps {
+  data: {
+    allProduct: {
+      nodes: SyncProductItem[]
     }
-  `)
+  }
+}
 
+const Home: FC<Props> = ({ data: { allProduct } }) => {
   const syncProducts = allProduct.nodes
 
   useEffect(() => {
@@ -72,29 +50,48 @@ const Home: FC<RouteComponentProps> = () => {
             <ProductSummary key={syncProduct.id} syncProduct={syncProduct} />
           ))}
         </Grid>
-        {!isServer ? (
-          <>
-            <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-              {syncProducts.map((syncProduct) => (
-                <ProductSummary
-                  key={syncProduct.id}
-                  syncProduct={syncProduct}
-                />
-              ))}
-            </Grid>
-            <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-              {syncProducts.map((syncProduct) => (
-                <ProductSummary
-                  key={syncProduct.id}
-                  syncProduct={syncProduct}
-                />
-              ))}
-            </Grid>
-          </>
-        ) : null}
+        <SuspenseSSR fallback={null}>
+          <div sx={{ variant: 'rich-text.question' }}>
+            <RichText
+              text={`**This is an example store built using the VTEX platform.\nWant to know more?**`}
+            />
+          </div>
+        </SuspenseSSR>
+        <SuspenseSSR fallback={null}>
+          <div sx={{ variant: 'rich-text.link' }}>
+            <RichText text={`\n**Reach us at**\nwww.vtex.com.br`} />
+          </div>
+        </SuspenseSSR>
       </Container>
     </Layout>
   )
 }
+
+export const query = graphql`
+  {
+    allProduct {
+      nodes {
+        id
+        slug
+        productId
+        productName
+        items {
+          itemId
+          images {
+            imageUrl
+            imageText
+          }
+          sellers {
+            sellerId
+            commertialOffer {
+              AvailableQuantity
+              Price
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 export default Home

@@ -31,6 +31,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@bit/vtex.poc.rich-text": "^0.0.1",
     "@vtex/gatsby-source-vtex": "^0.4.1",
     "@vtex/gatsby-transformer-vtex-cms": "^0.4.1",
     "common-tags": "^1.8.0",
