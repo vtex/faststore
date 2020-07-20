@@ -1,8 +1,7 @@
-/** @jsx jsx */
 import { RouteComponentProps } from '@reach/router'
 import { graphql } from 'gatsby'
-import { FC, useEffect, lazy } from 'react'
-import { Grid, jsx } from 'theme-ui'
+import React, { FC, useEffect, lazy } from 'react'
+import { Grid } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
@@ -12,7 +11,7 @@ import SEO from '../components/SEO/siteMetadata'
 import { SuspenseSSR } from '../components/SuspenseSSR'
 import { SyncProductItem } from '../types/product'
 
-const RichText = lazy<any>(() => import('@bit/vtex.poc.rich-text'))
+const RichText = lazy(() => import('../components/RichText'))
 
 const itemsCarousel = [
   {
@@ -51,16 +50,14 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
           ))}
         </Grid>
         <SuspenseSSR fallback={null}>
-          <div sx={{ variant: 'rich-text.question' }}>
-            <RichText
-              text={`**This is an example store built using the VTEX platform.\nWant to know more?**`}
-            />
-          </div>
-        </SuspenseSSR>
-        <SuspenseSSR fallback={null}>
-          <div sx={{ variant: 'rich-text.link' }}>
-            <RichText text={`\n**Reach us at**\nwww.vtex.com.br`} />
-          </div>
+          <RichText
+            text={`**This is an example store built using the VTEX platform.\nWant to know more?**`}
+            variant="question"
+          />
+          <RichText
+            text={`\n**Reach us at**\nwww.vtex.com.br`}
+            variant="link"
+          />
         </SuspenseSSR>
       </Container>
     </Layout>
