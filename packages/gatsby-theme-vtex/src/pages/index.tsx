@@ -9,6 +9,7 @@ import Layout from '../components/Layout'
 import { ProductSummary } from '../components/ProductSummary'
 import SEO from '../components/SEO/siteMetadata'
 import { SyncProductItem } from '../types/product'
+import { isServer } from '../utils/env'
 
 interface Data {
   allProduct: {
@@ -67,10 +68,30 @@ const Home: FC<RouteComponentProps> = () => {
       <Carousel items={itemsCarousel} />
       <Container>
         <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-          {syncProducts.map((syncProduct, index) => (
+          {syncProducts.map((syncProduct) => (
             <ProductSummary key={syncProduct.id} syncProduct={syncProduct} />
           ))}
         </Grid>
+        {!isServer ? (
+          <>
+            <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
+              {syncProducts.map((syncProduct) => (
+                <ProductSummary
+                  key={syncProduct.id}
+                  syncProduct={syncProduct}
+                />
+              ))}
+            </Grid>
+            <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
+              {syncProducts.map((syncProduct) => (
+                <ProductSummary
+                  key={syncProduct.id}
+                  syncProduct={syncProduct}
+                />
+              ))}
+            </Grid>
+          </>
+        ) : null}
       </Container>
     </Layout>
   )
