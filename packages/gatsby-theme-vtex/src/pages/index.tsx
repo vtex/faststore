@@ -12,7 +12,7 @@ import SEO from '../components/SEO/siteMetadata'
 import { SuspenseSSR } from '../components/SuspenseSSR'
 import { SyncProductItem } from '../types/product'
 
-const BelowTheFold = lazy(() => import('../components/Home/Fold'))
+const Fold = lazy(() => import('../components/Home/Fold'))
 
 const itemsCarousel = [
   {
@@ -37,8 +37,11 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
   const syncProducts = allProduct.nodes
 
   useEffect(() => {
+    console.log((window as any).vtexrca)
     ;(window as any).vtexrca('sendevent', 'homeView', {})
   }, [])
+
+  console.log('ok')
 
   return (
     <Layout>
@@ -51,7 +54,7 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
           ))}
         </Grid>
         <SuspenseSSR fallback={null}>
-          <BelowTheFold />
+          <Fold />
         </SuspenseSSR>
       </Container>
     </Layout>
