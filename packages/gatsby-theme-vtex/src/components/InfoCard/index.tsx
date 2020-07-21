@@ -9,6 +9,7 @@ interface Props {
   subhead?: string
   imgSrc: string
   imgAlt: string
+  maxHeight?: string
 }
 
 const InfoCard: FC<Props> = ({
@@ -18,17 +19,13 @@ const InfoCard: FC<Props> = ({
   to,
   imgSrc,
   imgAlt,
+  maxHeight = '540px',
 }) => {
   return (
     <div
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        px: '10px',
-        background: '#e0efe0',
-        textAlign: 'center',
-        alignItems: 'center',
-        maxHeight: '540px',
+        variant: 'infocard',
+        maxHeight,
       }}
     >
       <Box sx={{ width: ['100%', '30%'] }}>
