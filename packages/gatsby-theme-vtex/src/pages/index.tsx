@@ -16,12 +16,14 @@ const Fold = lazy(() => import('../components/Home/Fold'))
 
 const itemsCarousel = [
   {
-    src: 'https://storecomponents.vtexassets.com/arquivos/ids/155434-360-450',
-    altText: 'Slide 1',
+    src:
+      'https://storecomponents.vtexassets.com/assets/faststore/images/banner___febafa22a7ffc9a7f2fd049f416e7c7b.webp?aspect=true&height=450',
+    altText: 'Slide 2',
   },
   {
-    src: 'https://storecomponents.vtexassets.com/arquivos/banner.jpg',
-    altText: 'Slide 2',
+    src:
+      'https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/main___59700c0e5c56dcd769179d434f514892.webp?aspect=true&height=450',
+    altText: 'Slide 1',
   },
 ]
 
