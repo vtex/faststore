@@ -14,7 +14,7 @@ const Fold: FC = () => (
       <InfoCard
         to="/vintage-phone/p"
         headline="New Promotion!"
-        imgSrc="https://storecomponents.vtexassets.com/arquivos/banner-infocard2.png"
+        imgSrc="https://storecomponents.vtexassets.com/assets/faststore/images/banner-infocard2___3f284742ba9ede3826bc0721f0789694.png?height=300&aspect=true"
         imgAlt="infocard-banner"
       >
         <div sx={{ my: 3 }}>

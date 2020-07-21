@@ -45,7 +45,7 @@ const InfoCard: FC<Props> = ({
         {subhead && <div>{subhead}</div>}
         {children}
       </Box>
-      <Box sx={{ width: ['0%', '70%'] }}>
+      <Box sx={{ width: ['0%', '70%'], display: ['none', 'inline'] }}>
         <Link to={to}>
           <Image
             sx={{

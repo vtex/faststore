@@ -37,11 +37,8 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
   const syncProducts = allProduct.nodes
 
   useEffect(() => {
-    console.log((window as any).vtexrca)
     ;(window as any).vtexrca('sendevent', 'homeView', {})
   }, [])
-
-  console.log('ok')
 
   return (
     <Layout>
