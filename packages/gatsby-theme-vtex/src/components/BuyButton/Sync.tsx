@@ -1,15 +1,15 @@
 import React, { FC, lazy } from 'react'
 
+import SuspenseSSR from '../SuspenseSSR'
 import { Props } from './BuyButton'
 import BuyButtonPreview from './Preview'
-import SuspenseDelay from '../SuspenseDelay'
 
 const BuyButtonImpl = lazy(() => import('./BuyButton'))
 
 const BuyButton: FC<Props> = (props) => (
-  <SuspenseDelay fallback={<BuyButtonPreview />}>
+  <SuspenseSSR fallback={<BuyButtonPreview />}>
     <BuyButtonImpl {...props} />
-  </SuspenseDelay>
+  </SuspenseSSR>
 )
 
 export default BuyButton

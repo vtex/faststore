@@ -1,9 +1,8 @@
-import React, { FC, lazy } from 'react'
+import React, { FC } from 'react'
 
 import { useAsyncProduct, useSku } from '../../providers/Product'
 import BuyButtonPreview from './Preview'
-
-const BuyButtonImp = lazy(() => import('./BuyButton'))
+import BuyButtonImp from './BuyButton'
 
 export interface Props {
   productId: string
