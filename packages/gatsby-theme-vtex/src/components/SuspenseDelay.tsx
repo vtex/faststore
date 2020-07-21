@@ -8,7 +8,7 @@ const SuspenseDelay: FC<SuspenseProps> = ({ fallback, children }) => {
   }, [])
 
   if (!shouldRender || !children) {
-    return null
+    return fallback as any
   }
 
   return <Suspense fallback={fallback}>{children}</Suspense>
