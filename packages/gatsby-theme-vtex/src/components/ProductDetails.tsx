@@ -20,6 +20,7 @@ interface Props {
 
 const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
   const { productName, productId } = syncProduct
+  const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
 
   return (
     <Container>
@@ -28,7 +29,8 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
         <ProductImage
           width={500}
           height={500}
-          product={syncProduct}
+          src={imageUrl}
+          alt={imageText}
           loading="eager" // Never lazy load image in product details
         />
         <Card>
