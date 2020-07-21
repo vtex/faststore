@@ -1,6 +1,6 @@
 import { Image } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
-import { AspectImage } from 'theme-ui'
+import { Image as ImageUI } from 'theme-ui'
 
 import { IMAGE_DEFAULT, scaleImage } from '../utils/img'
 
@@ -13,16 +13,15 @@ interface Props {
 }
 
 const ProductImage: FC<Props> = ({
-  width,
-  height,
+  width = 300,
+  height = 300,
   src = IMAGE_DEFAULT,
   alt = 'Product Image',
   loading = 'lazy',
 }) => (
-  <AspectImage
+  <ImageUI
     loading={loading}
-    ratio={1}
-    src={scaleImage(src, 300, 300)}
+    src={scaleImage(src, width, height)}
     alt={alt}
     width={`${width}px`}
     height={`${height}px`}
