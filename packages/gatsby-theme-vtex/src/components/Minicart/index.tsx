@@ -2,7 +2,7 @@
 import { FC, lazy } from 'react'
 import { Button, jsx, Box } from 'theme-ui'
 
-import { SuspenseSSR } from '../SuspenseSSR'
+import SuspenseDelay from '../SuspenseDelay'
 
 const ItemCount = lazy(() => import('./ItemCount'))
 
@@ -27,9 +27,9 @@ const Minicart: FC = () => {
           </g>
         </use>
       </svg>
-      <SuspenseSSR fallback={<Box variant="header-minicart-badge">0</Box>}>
+      <SuspenseDelay fallback={<Box variant="header-minicart-badge">0</Box>}>
         <ItemCount />
-      </SuspenseSSR>
+      </SuspenseDelay>
     </Button>
   )
 }

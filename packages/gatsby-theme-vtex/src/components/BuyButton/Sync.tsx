@@ -1,8 +1,8 @@
 import React, { FC, lazy } from 'react'
 
+import SuspenseSSR from '../SuspenseSSR'
 import { Props } from './BuyButton'
 import BuyButtonPreview from './Preview'
-import { SuspenseSSR } from '../SuspenseSSR'
 
 const BuyButtonImpl = lazy(() => import('./BuyButton'))
 
