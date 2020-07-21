@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { FC, Fragment } from 'react'
-import { jsx, Box } from 'theme-ui'
+import React, { FC, Fragment } from 'react'
+import { Box } from 'theme-ui'
 import { Link } from 'gatsby'
 
 import Header from './Header'

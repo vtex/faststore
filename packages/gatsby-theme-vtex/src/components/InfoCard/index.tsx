@@ -1,7 +1,6 @@
-/** @jsx jsx */
-import { jsx, Box, Image } from 'theme-ui'
-import { FC } from 'react'
 import { Link } from 'gatsby'
+import React, { FC } from 'react'
+import { Box, Image } from 'theme-ui'
 
 interface Props {
   to: string
