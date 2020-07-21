@@ -5,16 +5,17 @@ import React, {
   Fragment,
   lazy,
   useCallback,
-  useState,
   useMemo,
+  useState,
 } from 'react'
 import { Grid } from 'theme-ui'
 
-import { SuspenseSSR } from '../SuspenseSSR'
-import FetchMoreBtn from './FetchMore'
-import Page from './SyncPage'
-import OverlaySpinner from './OverlaySpinner'
 import { useSearchFilters } from '../../providers/SearchFilter'
+import SuspenseDelay from '../SuspenseDelay'
+import SuspenseSSR from '../SuspenseSSR'
+import FetchMoreBtn from './FetchMore'
+import OverlaySpinner from './OverlaySpinner'
+import Page from './SyncPage'
 
 const AsyncPage = lazy(() => import('./AsyncPage'))
 
@@ -46,7 +47,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
             <AsyncPage page={0} categoryId={categoryId} />
           </SuspenseSSR>
         )}
-        <SuspenseSSR fallback={null}>
+        <SuspenseDelay fallback={null}>
           <AsyncPageList
             categoryId={categoryId}
             targetSize={size}
@@ -54,7 +55,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
             setReachedEnd={setReachedEnd}
             resetSize={setSize}
           />
-        </SuspenseSSR>
+        </SuspenseDelay>
       </Grid>
       {reachedEnd ? null : (
         <FetchMoreBtn

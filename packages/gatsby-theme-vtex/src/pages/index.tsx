@@ -10,7 +10,7 @@ import Layout from '../components/Layout'
 import { ProductSummary } from '../components/ProductSummary'
 import SEO from '../components/SEO/siteMetadata'
 import { SyncProductItem } from '../types/product'
-import Delay from '../components/Delay'
+import SuspenseDelay from '../components/SuspenseDelay'
 
 const Fold = lazy(() => import('../components/Home/Fold'))
 
@@ -52,11 +52,9 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
             <ProductSummary key={syncProduct.id} syncProduct={syncProduct} />
           ))}
         </Grid>
-        <Delay>
-          <Suspense fallback={null}>
-            <Fold />
-          </Suspense>
-        </Delay>
+        <SuspenseDelay fallback={null}>
+          <Fold />
+        </SuspenseDelay>
       </Container>
     </Layout>
   )

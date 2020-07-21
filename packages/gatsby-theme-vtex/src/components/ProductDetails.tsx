@@ -8,7 +8,7 @@ import Container from './Container'
 import OfferPreview from './Offer/Preview'
 import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
-import { SuspenseSSR } from './SuspenseSSR'
+import SuspenseDelay from './SuspenseDelay'
 
 const BuyButton = lazy(() => import('./BuyButton/Async'))
 const AsyncOffer = lazy(() => import('./Offer/Async'))
@@ -34,12 +34,12 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
           <Heading variant="productTitle" as="h1">
             {productName}
           </Heading>
-          <SuspenseSSR fallback={<OfferPreview />}>
+          <SuspenseDelay fallback={<OfferPreview />}>
             <AsyncOffer productId={productId} />
-          </SuspenseSSR>
-          <SuspenseSSR fallback={<BuyButtonPreview />}>
+          </SuspenseDelay>
+          <SuspenseDelay fallback={<BuyButtonPreview />}>
             <BuyButton productId={productId} />
-          </SuspenseSSR>
+          </SuspenseDelay>
         </Card>
       </Grid>
     </Container>
