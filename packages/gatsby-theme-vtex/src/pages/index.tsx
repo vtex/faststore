@@ -11,8 +11,8 @@ import { ProductSummary } from '../components/ProductSummary'
 import SEO from '../components/SEO/siteMetadata'
 import { SuspenseSSR } from '../components/SuspenseSSR'
 import { SyncProductItem } from '../types/product'
-
-const Fold = lazy(() => import('../components/Home/Fold'))
+import Fold from '../components/Home/Fold'
+// const Fold = lazy(() => import('../components/Home/Fold'))
 
 const itemsCarousel = [
   {
