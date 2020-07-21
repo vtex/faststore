@@ -54,9 +54,6 @@ const Footer: FC<FooterProps> = ({ currency, total = 0, subtotal = 0 }) => (
 const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
   const orderForm = useOrderForm()
   const [currency] = useCurrency()
-
-  console.log('orderForm', orderForm)
-
   const count = orderForm?.value?.items.length ?? 0
 
   return (
