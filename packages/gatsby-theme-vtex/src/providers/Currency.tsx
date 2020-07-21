@@ -21,6 +21,8 @@ export const useCurrency = () => {
       }
     }
   `)
-  const defaultCurrency = edges[0].node.defaultCurrency as string
+
+  const { defaultCurrency } = edges[0].node
+
   return usePersisted(defaultCurrency, key)
 }
