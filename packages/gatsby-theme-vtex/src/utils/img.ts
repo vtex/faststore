@@ -15,5 +15,8 @@ export const scaleImage = (
   }
 
   const [id] = r1.split('/')
-  return `${fixedHost}${separator}${id}-${width}-${height}`
+  const idSplited = id.split('-')
+  const imageId = idSplited.length ? idSplited[0] : id
+
+  return `${fixedHost}${separator}${imageId}-${width}-${height}`
 }
