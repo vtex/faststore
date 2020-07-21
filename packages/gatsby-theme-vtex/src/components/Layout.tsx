@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
-import { jsx } from 'theme-ui'
+import { jsx, Box } from 'theme-ui'
 import { Link } from 'gatsby'
 
 import Header from './Header'
 import NotificationBar from './NotificationBar'
 
 const OverMenu = () => (
-  <div sx={{ variant: 'overmenu' }}>
+  <Box variant="overmenu">
     <div>
       <Link to="/">Shop</Link>
     </div>
@@ -18,7 +18,7 @@ const OverMenu = () => (
     <div>
       <a href="https://vtex.com">visit vtex.com</a>
     </div>
-  </div>
+  </Box>
 )
 
 const Layout: FC = ({ children }) => (

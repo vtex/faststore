@@ -4,10 +4,11 @@ import { jsx, Box } from 'theme-ui'
 
 interface Props {
   text: string
+  variant?: string
 }
 
-const NotificationBar: FC<Props> = ({ text }) => (
-  <Box sx={{ variant: 'notification-bar' }}>{text}</Box>
+const NotificationBar: FC<Props> = ({ text, variant = 'notification-bar' }) => (
+  <Box variant={variant}>{text}</Box>
 )
 
 export default NotificationBar

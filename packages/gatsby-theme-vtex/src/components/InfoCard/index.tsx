@@ -9,7 +9,7 @@ interface Props {
   subhead?: string
   imgSrc: string
   imgAlt: string
-  maxHeight?: string
+  variant?: string
 }
 
 const InfoCard: FC<Props> = ({
@@ -19,15 +19,10 @@ const InfoCard: FC<Props> = ({
   to,
   imgSrc,
   imgAlt,
-  maxHeight = '540px',
+  variant,
 }) => {
   return (
-    <div
-      sx={{
-        variant: 'infocard',
-        maxHeight,
-      }}
-    >
+    <Box variant={`infocard${variant ? `.${variant}` : ''}`}>
       <Box sx={{ width: ['100%', '30%'] }}>
         {headline && (
           <div
@@ -55,7 +50,7 @@ const InfoCard: FC<Props> = ({
           />
         </Link>
       </Box>
-    </div>
+    </Box>
   )
 }
 
