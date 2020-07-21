@@ -1,7 +1,6 @@
-/** @jsx jsx */
-import { jsx, Box, Image } from 'theme-ui'
-import { FC } from 'react'
 import { Link } from 'gatsby'
+import React, { FC } from 'react'
+import { Box, Image } from 'theme-ui'
 
 interface Props {
   to: string
@@ -9,6 +8,7 @@ interface Props {
   subhead?: string
   imgSrc: string
   imgAlt: string
+  variant?: string
 }
 
 const InfoCard: FC<Props> = ({
@@ -18,19 +18,10 @@ const InfoCard: FC<Props> = ({
   to,
   imgSrc,
   imgAlt,
+  variant,
 }) => {
   return (
-    <div
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        px: '10px',
-        background: '#e0efe0',
-        textAlign: 'center',
-        alignItems: 'center',
-        maxHeight: '540px',
-      }}
-    >
+    <Box variant={`infocard${variant ? `.${variant}` : ''}`}>
       <Box sx={{ width: ['100%', '30%'] }}>
         {headline && (
           <div
@@ -58,7 +49,7 @@ const InfoCard: FC<Props> = ({
           />
         </Link>
       </Box>
-    </div>
+    </Box>
   )
 }
 
