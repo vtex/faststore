@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { RouteComponentProps } from '@reach/router'
 import { graphql } from 'gatsby'
-import { FC, useEffect, lazy } from 'react'
+import { FC, useEffect, lazy, Suspense } from 'react'
 import { Grid, jsx } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
@@ -9,10 +9,10 @@ import Container from '../components/Container'
 import Layout from '../components/Layout'
 import { ProductSummary } from '../components/ProductSummary'
 import SEO from '../components/SEO/siteMetadata'
-import { SuspenseSSR } from '../components/SuspenseSSR'
 import { SyncProductItem } from '../types/product'
-import Fold from '../components/Home/Fold'
-// const Fold = lazy(() => import('../components/Home/Fold'))
+import Delay from '../components/Delay'
+
+const Fold = lazy(() => import('../components/Home/Fold'))
 
 const itemsCarousel = [
   {
@@ -22,7 +22,7 @@ const itemsCarousel = [
   },
   {
     src:
-      'https://storecomponents.vtexassets.com/assets/faststore/images/banner-principal___79cc1c729926b4bd73092aa972d435c9.webp?aspect=true&height=450',
+      'https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/main___59700c0e5c56dcd769179d434f514892.webp?aspect=true&height=450',
     altText: 'Slide 1',
   },
 ]
@@ -52,9 +52,11 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
             <ProductSummary key={syncProduct.id} syncProduct={syncProduct} />
           ))}
         </Grid>
-        <SuspenseSSR fallback={null}>
-          <Fold />
-        </SuspenseSSR>
+        <Delay>
+          <Suspense fallback={null}>
+            <Fold />
+          </Suspense>
+        </Delay>
       </Container>
     </Layout>
   )
