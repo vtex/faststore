@@ -4,7 +4,7 @@ const Delay: FC = ({ children }) => {
   const [shouldRender, render] = useState(false)
 
   useEffect(() => {
-    render(true)
+    // render(true)
   }, [])
 
   if (!shouldRender || !children) {
