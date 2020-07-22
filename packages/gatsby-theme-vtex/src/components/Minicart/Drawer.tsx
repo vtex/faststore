@@ -79,13 +79,15 @@ const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
                 },
               }}
             >
-              <ProductImage
-                width={96}
-                height={96}
-                src={item.imageUrl}
-                alt={item.name}
-                loading="lazy"
-              />
+              <Box sx={{ height: 96, width: 96 }}>
+                <ProductImage
+                  width={96}
+                  height={96}
+                  src={item.imageUrl}
+                  alt={item.name}
+                  loading="lazy"
+                />
+              </Box>
               <Flex sx={{ flexDirection: 'column' }} ml={3}>
                 <Text>{item.name}</Text>
                 <Text mt={3}>{`${currency} ${item.price}`}</Text>
