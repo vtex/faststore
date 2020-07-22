@@ -2,7 +2,7 @@
 import { FC, Fragment, lazy, Suspense, useState, useEffect } from 'react'
 import { Box, Button, jsx } from 'theme-ui'
 
-import SuspenseDelay from '../SuspenseDelay'
+import SuspenseSSR from '../SuspenseSSR'
 import MinicartSvg from './Svg'
 
 const preloadDrawer = () => import('./Drawer')
@@ -31,9 +31,9 @@ const Minicart: FC = () => {
     <Fragment>
       <Button variant="header-minicart" aria-label="Open Cart" onClick={toggle}>
         <MinicartSvg />
-        <SuspenseDelay fallback={<Box variant="header-minicart-badge">0</Box>}>
+        <SuspenseSSR fallback={<Box variant="header-minicart-badge">0</Box>}>
           <ItemCount />
-        </SuspenseDelay>
+        </SuspenseSSR>
       </Button>
       {isOpen ? (
         <Suspense fallback={null}>
