@@ -30,6 +30,7 @@ export const staticQuery = graphql`
             # commertialOffer {
             #   AvailableQuantity
             #   Price
+            #   ListPrice
             # }
           }
         }

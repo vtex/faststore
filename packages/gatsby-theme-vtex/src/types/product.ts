@@ -34,10 +34,13 @@ export type SyncProductItem = {
     }>
     sellers: Array<{
       sellerId: string
-      commertialOffer: {
-        AvailableQuantity: number
-        Price: number
-      }
+      commertialOffer: SyncProductCommertialOffer
     }>
   }>
+}
+
+export type SyncProductCommertialOffer = {
+  AvailableQuantity: number
+  Price: number
+  ListPrice: number
 }
