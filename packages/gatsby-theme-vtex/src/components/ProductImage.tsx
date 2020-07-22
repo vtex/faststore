@@ -1,6 +1,6 @@
 import { Image } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
-import { Image as ImageUI } from 'theme-ui'
+import { AspectImage } from 'theme-ui'
 
 import { IMAGE_DEFAULT, scaleImage } from '../utils/img'
 
@@ -19,7 +19,8 @@ const ProductImage: FC<Props> = ({
   alt = 'Product Image',
   loading = 'lazy',
 }) => (
-  <ImageUI
+  <AspectImage
+    ratio={1}
     loading={loading}
     src={scaleImage(src, width, height)}
     alt={alt}
