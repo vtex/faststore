@@ -46,9 +46,11 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
   const initialData = useMemo(() => {
     const hasFilters = Object.values(filters).some((v) => !!v)
     const hasProducts = products.length > 0
+
     if (!hasFilters && hasProducts) {
       return [products]
     }
+
     return undefined
   }, [filters, products])
 
@@ -72,7 +74,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
 
   // Since we prefetch the next page, we always render one page less from
   // what we have in memory
-  const viewSize = Math.max(1, size!-1)
+  const viewSize = Math.max(1, size! - 1)
 
   // The code below was copied from SWR's own repo example
   // https://codesandbox.io/s/swr-infinite-z6r0r?file=/src/App.js
@@ -92,12 +94,9 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
   return (
     <Fragment>
       <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-        {data
-          .slice(0, viewSize)
-          .map((ps, index) => (
-            <Page key={`summary-page-${index}`} products={ps} />
-          ))
-        }
+        {data.slice(0, viewSize).map((ps, index) => (
+          <Page key={`summary-page-${index}`} products={ps} />
+        ))}
       </Grid>
       {isReachingEnd ? null : (
         <Button

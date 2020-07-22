@@ -1,12 +1,14 @@
 /** @jsx jsx */
-import { FC } from 'react'
 import { Link } from 'gatsby'
+import { FC, Fragment } from 'react'
 import { Card, Heading, jsx } from 'theme-ui'
 
+import { SyncProductItem } from '../types/product'
+import BuyButtonPreview from './BuyButton/Preview'
+import BuyButton from './BuyButton/Sync'
+import OfferPreview from './Offer/Preview'
 import SyncOffer from './Offer/Sync'
 import ProductImage from './ProductImage'
-import { SyncProductItem } from '../types/product'
-import BuyButton from './BuyButton/Sync'
 
 interface Props {
   syncProduct: SyncProductItem
@@ -14,6 +16,7 @@ interface Props {
 
 export const ProductSummary: FC<Props> = ({ syncProduct }) => {
   const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
+  const offer = syncProduct.items?.[0]?.sellers?.[0]?.commertialOffer
 
   return (
     <Link
@@ -44,8 +47,17 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
         <Heading variant="shellProductName" as="h3">
           {syncProduct.productName.slice(0, 12)}
         </Heading>
-        <SyncOffer sku={syncProduct.items[0]} />
-        <BuyButton sku={syncProduct.items[0]} />
+        {!offer ? (
+          <Fragment>
+            <OfferPreview />
+            <BuyButtonPreview />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <SyncOffer sku={syncProduct.items[0]} />
+            <BuyButton sku={syncProduct.items[0]} />
+          </Fragment>
+        )}
       </Card>
     </Link>
   )
