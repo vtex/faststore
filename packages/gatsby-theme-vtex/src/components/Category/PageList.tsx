@@ -83,18 +83,19 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
   const isReachingEnd =
     isEmpty || !!(data && data[viewSize - 1]?.length < PAGE_SIZE)
 
+  if (!data) {
+    return <OverlaySpinner />
+  }
+
   return (
     <Fragment>
       <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-        {data ? (
-          data
-            .slice(0, viewSize)
-            .map((ps, index) => (
-              <Page key={`summary-page-${index}`} products={ps} />
-            ))
-        ) : (
-          <OverlaySpinner />
-        )}
+        {data
+          .slice(0, viewSize)
+          .map((ps, index) => (
+            <Page key={`summary-page-${index}`} products={ps} />
+          ))
+        }
       </Grid>
       {isReachingEnd ? null : (
         <Button
