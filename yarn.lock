@@ -2646,10 +2646,10 @@
   dependencies:
     wonka "^4.0.14"
 
-"@vtex-components/drawer@0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.1.2.tgz#e6532cce97d7f4773f059fff185069018016111d"
-  integrity sha512-BHrpgqySMkfDXgco+RQTmTYRxcBn2Ye4EnuAOBxUTOLld8b/5gZwWwmjrRxJtUd3038bf79IcjUOEFYm6MFyEQ==
+"@vtex-components/drawer@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.1.3.tgz#fbe460bc02169ec3f164646818ae959b4cecb275"
+  integrity sha512-sxvJ7DbanPrlb64sziThUKz9OpEUMXR8yJUS6nSElXAR2KZPW+wYYSiyEFRHwzTmen3Bu717nI2LGDUSfFLp1w==
 
 "@vtex/prettier-config@^0.3.0":
   version "0.3.1"
