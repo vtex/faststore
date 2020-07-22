@@ -8,6 +8,8 @@ import { useSearchFilters } from '../../providers/SearchFilter'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
 
+const loadFetcher = () => import('./fetcher')
+
 const PAGE_SIZE = 12
 
 const searchContext = (
@@ -27,7 +29,7 @@ const searchContext = (
 }
 
 const searchFetcher = async (options: string) => {
-  const { fetcher } = await import('./fetcher')
+  const { fetcher } = await loadFetcher()
   const context = JSON.parse(options)
 
   return fetcher(context)
