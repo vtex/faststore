@@ -39,11 +39,13 @@ interface Props {
 
 const List: FC<Props> = ({ category: { products, categoryId } }) => {
   const [filters] = useSearchFilters()
-  const hasFilters = useMemo(() => Object.values(filters).some((v) => !!v), [
-    filters,
-  ])
 
-  const useSyncData = products.length > 0 && !hasFilters
+  // Initial data to start swr
+  const initialData = useMemo(() => {
+    const hasFilters = Object.values(filters).some((v) => !!v)
+    const hasProducts = products.length > 0
+    return !hasFilters && hasProducts ? [products] : undefined
+  }, [filters, products])
 
   const { data, error, size, setSize } = useSWRInfinite<Product[]>(
     (page, previousPageData) => {
@@ -56,7 +58,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
     searchFetcher,
     {
       revalidateOnMount: true,
-      initialData: useSyncData ? [products] : undefined,
+      initialData,
       initialSize: 1,
     }
   )
