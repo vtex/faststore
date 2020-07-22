@@ -14,9 +14,7 @@ interface Props {
 const ARROW_SIZES = [25, 50]
 const MAX_ITEMS = [1, 4]
 
-const hasPrevArrow = (page: number) => {
-  return page > 0
-}
+const hasPrevArrow = (page: number) => page > 0
 
 const hasNextArrow = (
   page: number,
@@ -28,9 +26,9 @@ const hasNextArrow = (
   return lastItemIndex < itemCount - 1
 }
 
-const FullWidthContainer: FC = ({ children }) => {
-  return <Box sx={{ width: '100%' }}>{children}</Box>
-}
+const FullWidthContainer: FC = ({ children }) => (
+  <Box sx={{ width: '100%' }}>{children}</Box>
+)
 
 const Shelf: FC<Props> = ({ syncProducts }) => {
   const [page, setPage] = useState(0)
