@@ -1,16 +1,31 @@
 /** @jsx jsx */
-import { FC, Fragment, lazy, useState } from 'react'
+import { FC, Fragment, lazy, Suspense, useState, useEffect } from 'react'
 import { Box, Button, jsx } from 'theme-ui'
 
 import SuspenseDelay from '../SuspenseDelay'
 import MinicartSvg from './Svg'
 
+const preloadDrawer = () => import('./Drawer')
 const ItemCount = lazy(() => import('./ItemCount'))
-const MinicartDrawer = lazy(() => import('./Drawer'))
+
+const MinicartDrawer = lazy(preloadDrawer)
+
+declare global {
+  interface Window {
+    requestIdleCallback: any
+    cancelIdleCallback: any
+  }
+}
 
 const Minicart: FC = () => {
   const [isOpen, setOpen] = useState(false)
   const toggle = () => setOpen(!isOpen)
+
+  useEffect(() => {
+    const handler = window.requestIdleCallback(preloadDrawer)
+
+    return () => window.cancelIdleCallback(handler)
+  }, [])
 
   return (
     <Fragment>
@@ -20,9 +35,11 @@ const Minicart: FC = () => {
           <ItemCount />
         </SuspenseDelay>
       </Button>
-      <SuspenseDelay fallback={null}>
-        <MinicartDrawer isOpen={isOpen} onClose={toggle} />
-      </SuspenseDelay>
+      {isOpen ? (
+        <Suspense fallback={null}>
+          <MinicartDrawer isOpen onClose={toggle} />
+        </Suspense>
+      ) : null}
     </Fragment>
   )
 }
