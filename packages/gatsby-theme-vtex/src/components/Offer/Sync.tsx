@@ -8,10 +8,10 @@ import ListPrice from './ListPrice'
 
 export interface Props {
   sku?: Item
-  variant: string
+  variant?: string
 }
 
-const SyncOffer: FC<Props> = ({ sku, variant }) => {
+const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   const seller = useMemo(() => sku && findBestSeller(sku), [sku])
   const offer = seller?.commertialOffer
   const numberFormat = useNumberFormat()
@@ -22,7 +22,7 @@ const SyncOffer: FC<Props> = ({ sku, variant }) => {
 
   return (
     <>
-      <div>
+      <Box>
         <ListPrice variant={variant} offer={offer} />
         <Flex sx={{ alignItems: 'center' }}>
           <Box variant={`${variant}-price`}>
@@ -30,7 +30,7 @@ const SyncOffer: FC<Props> = ({ sku, variant }) => {
           </Box>
           <DiscountPercentage variant={variant} offer={offer} />
         </Flex>
-      </div>
+      </Box>
       <Box variant={`${variant}-availability`}>
         {offer.AvailableQuantity} units left!
       </Box>
