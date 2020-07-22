@@ -4,9 +4,9 @@ import { Box, Button, jsx } from 'theme-ui'
 
 import SuspenseDelay from '../SuspenseDelay'
 import MinicartSvg from './Svg'
-import MinicartDrawer from './Drawer'
 
 const ItemCount = lazy(() => import('./ItemCount'))
+const MinicartDrawer = lazy(() => import('./Drawer'))
 
 const Minicart: FC = () => {
   const [isOpen, setOpen] = useState(false)
@@ -20,7 +20,9 @@ const Minicart: FC = () => {
           <ItemCount />
         </SuspenseDelay>
       </Button>
-      <MinicartDrawer isOpen={isOpen} onClose={toggle} />
+      <SuspenseDelay fallback={null}>
+        <MinicartDrawer isOpen={isOpen} onClose={toggle} />
+      </SuspenseDelay>
     </Fragment>
   )
 }

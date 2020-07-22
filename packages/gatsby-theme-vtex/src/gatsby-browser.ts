@@ -15,6 +15,7 @@ export const replaceHydrateFunction = () => (
   const development = (process.env.GATSBY_BUILD_STAGE as any).includes(
     'develop'
   )
+
   const { unstable_createRoot: createRoot }: any = ReactDOM
   const root = createRoot(container, {
     hydrate: !development,
@@ -22,6 +23,7 @@ export const replaceHydrateFunction = () => (
       onHydrated: callback,
     },
   })
+
   root.render(element)
 }
 
