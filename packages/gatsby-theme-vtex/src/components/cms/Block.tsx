@@ -10,6 +10,7 @@ interface Props {
 const Block: FC<Props> = ({ block }) => {
   const { name, props } = block
   const Component = components[name]
+
   return <Component {...props} />
 }
 

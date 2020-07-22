@@ -22,6 +22,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
   // We should only check for CMS typed JSON nodes
   const contentStr = await loadNodeContent(node)
   const content = JSON.parse(contentStr)
+
   if (!isContent(content)) {
     return
   }
@@ -45,6 +46,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
       mediaType: 'text/plain',
     },
   }
+
   createNode(compiled)
   createParentChildLink({ parent: node, child: compiled as any })
 }

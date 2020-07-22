@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react'
 import { Flex, Grid, Button, Box, Heading } from 'theme-ui'
 import { useResponsiveValue } from '@theme-ui/match-media'
+
 import { ProductSummary } from '../ProductSummary'
 import { SyncProductItem } from '../../types/product'
 import ArrowLeft from './ArrowLeft'
@@ -17,17 +18,18 @@ const hasPrevArrow = (page: number) => {
   return page > 0
 }
 
-const hasNextArrow = (page: number, itemCount: number, itemsPerPage: number) => {
+const hasNextArrow = (
+  page: number,
+  itemCount: number,
+  itemsPerPage: number
+) => {
   const lastItemIndex = (page + 1) * itemsPerPage - 1
+
   return lastItemIndex < itemCount - 1
 }
 
 const FullWidthContainer: FC = ({ children }) => {
-  return (
-    <Box sx={{ width: '100%' }}>
-      {children}
-    </Box>
-  )
+  return <Box sx={{ width: '100%' }}>{children}</Box>
 }
 
 const Shelf: FC<Props> = ({ syncProducts }) => {
@@ -35,42 +37,53 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
   const maxItems = useResponsiveValue(MAX_ITEMS)
   const arrowSize = useResponsiveValue(ARROW_SIZES)
 
-  const items = maxItems > 1 ? syncProducts.slice(page * maxItems, (page + 1) * maxItems) : [syncProducts[page]]
+  const items =
+    maxItems > 1
+      ? syncProducts.slice(page * maxItems, (page + 1) * maxItems)
+      : [syncProducts[page]]
 
   return (
     <Box>
       <Flex p={2} sx={{ justifyContent: 'center' }} marginY={[16, 30]}>
         <Heading variant="shelfTitle" as="h2">
           summer
-      </Heading>
+        </Heading>
       </Flex>
       <Flex>
         <Flex sx={{ alignItems: 'center' }}>
-          {hasPrevArrow(page) &&
-            <Button backgroundColor="transparent" onClick={() => setPage(page - 1)}>
+          {hasPrevArrow(page) && (
+            <Button
+              backgroundColor="transparent"
+              onClick={() => setPage(page - 1)}
+            >
               <ArrowLeft size={arrowSize} />
-            </Button>}
+            </Button>
+          )}
         </Flex>
         <FullWidthContainer>
           <Flex sx={{ justifyContent: 'center' }}>
             <FullWidthContainer>
               <Grid gap={2} columns={MAX_ITEMS}>
-                {items.map(item => {
+                {items.map((item) => {
                   return (
-                    <Flex sx={{ flexGrow: 1 }}>
-                      <ProductSummary key={item.id} syncProduct={item} />
+                    <Flex key={item.id} sx={{ flexGrow: 1 }}>
+                      <ProductSummary syncProduct={item} />
                     </Flex>
                   )
                 })}
               </Grid>
             </FullWidthContainer>
             <Flex sx={{ alignItems: 'center' }}>
-              {hasNextArrow(page, syncProducts.length, maxItems) &&
-                <Button backgroundColor="transparent" onClick={() => {
-                  setPage(page + 1)
-                }}>
+              {hasNextArrow(page, syncProducts.length, maxItems) && (
+                <Button
+                  backgroundColor="transparent"
+                  onClick={() => {
+                    setPage(page + 1)
+                  }}
+                >
                   <ArrowRight size={arrowSize} />
-                </Button>}
+                </Button>
+              )}
             </Flex>
           </Flex>
         </FullWidthContainer>
@@ -80,4 +93,3 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
 }
 
 export default Shelf
-

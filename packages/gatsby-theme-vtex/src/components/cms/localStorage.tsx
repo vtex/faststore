@@ -4,6 +4,7 @@ import { isServer } from '../../utils/env'
 
 const getItem = (key: string) => {
   const item = localStorage.getItem(key)
+
   return item ? JSON.parse(item) : item
 }
 
@@ -18,8 +19,10 @@ export const useLocalStorage = <T extends any>(key: string) => {
     window.addEventListener('storage', () => {
       const oldStorage = JSON.stringify(storage)
       const newStorage = localStorage.getItem(key)
+
       if (oldStorage !== newStorage) {
         const element = newStorage && JSON.parse(newStorage)
+
         setStorage(element)
       }
     })

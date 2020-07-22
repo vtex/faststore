@@ -47,7 +47,7 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
       <SEO />
       <Carousel items={itemsCarousel} />
       <Container>
-        <Shelf syncProducts={syncProducts}/>
+        <Shelf syncProducts={syncProducts} />
         <SuspenseDelay fallback={null}>
           <Fold />
         </SuspenseDelay>
