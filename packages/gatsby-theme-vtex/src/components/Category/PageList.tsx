@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Category, FilterOptions, Product } from '@vtex/gatsby-source-vtex'
-import React, { FC, Fragment, useCallback, useMemo } from 'react'
+import React, { FC, Fragment, useCallback, useMemo, useEffect } from 'react'
 import { useSWRInfinite } from 'swr'
 import { Button, Grid } from 'theme-ui'
 
@@ -44,7 +44,10 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
   const initialData = useMemo(() => {
     const hasFilters = Object.values(filters).some((v) => !!v)
     const hasProducts = products.length > 0
-    return !hasFilters && hasProducts ? [products] : undefined
+    if (!hasFilters && hasProducts) {
+      return [products]
+    }
+    return undefined
   }, [filters, products])
 
   const { data, error, size, setSize } = useSWRInfinite<Product[]>(
@@ -59,27 +62,33 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
     {
       revalidateOnMount: true,
       initialData,
-      initialSize: 1,
+      initialSize: 2, // 2 will always prefetch the next page
     }
   )
 
   const fetchMore = useCallback(() => setSize!((s) => s + 1), [setSize])
 
+  // Since we prefetch the next page, we always render one page less from
+  // what we have in memory
+  const viewSize = Math.max(1, size!-1)
+
+  // The code below was copied from SWR's own repo example
+  // https://codesandbox.io/s/swr-infinite-z6r0r?file=/src/App.js
   const isLoadingInitialData = !data && !error
   const isLoadingMore =
     isLoadingInitialData ||
-    !!(data && size && typeof data[size - 1] === 'undefined')
+    !!(data && typeof data[viewSize - 1] === 'undefined')
 
   const isEmpty = data?.[0]?.length === 0
   const isReachingEnd =
-    isEmpty || !!(data && data[data.length - 1]?.length < PAGE_SIZE)
+    isEmpty || !!(data && data[viewSize - 1]?.length < PAGE_SIZE)
 
   return (
     <Fragment>
       <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
         {data ? (
           data
-            .slice(0, size!)
+            .slice(0, viewSize)
             .map((ps, index) => (
               <Page key={`summary-page-${index}`} products={ps} />
             ))
