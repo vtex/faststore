@@ -31,6 +31,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@theme-ui/match-media": "^0.3.1",
     "@vtex-components/drawer": "^0.1.3",
     "@vtex/gatsby-source-vtex": "^0.7.3",
     "@vtex/gatsby-transformer-vtex-cms": "^0.7.3",
@@ -38,6 +39,7 @@
     "dotenv": "^8.2.0",
     "gatsby-plugin-react-helmet": "^3.3.6",
     "gatsby-plugin-theme-ui": "^0.3.0",
+    "intl-format-cache": "^4.3.0",
     "p-queue": "^6.5.0",
     "react-helmet": "^6.1.0",
     "schema-dts": "^0.6.0",
