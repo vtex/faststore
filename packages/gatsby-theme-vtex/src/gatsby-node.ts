@@ -47,6 +47,7 @@ export const createPages = async ({
 
   if (errors) {
     console.error(errors)
+
     return
   }
 
@@ -88,6 +89,7 @@ export const createPages = async ({
 
   // ensure dist folder
   const cmsRoot = join(root, '.cache/vtex-cms')
+
   await ensureDir(cmsRoot)
 
   // Create page .tsx files as well as gatsby's node pages

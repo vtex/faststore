@@ -21,7 +21,9 @@ export const useSalesChannel = (): [number, typeof setSalesChannel] => {
       }
     }
   `)
+
   const defaultSalesChannel = edges[0].node.salesChannel as string
   const [salesChannel, setSalesChannel] = usePersisted(defaultSalesChannel, key)
+
   return [Number(salesChannel), setSalesChannel]
 }

@@ -12,5 +12,6 @@ export const setSearchParams = (qs: string) => {
 export const useQuerystring = (): [URLSearchParams, typeof setSearchParams] => {
   const search = !isServer ? window.location.search : ''
   const searchParams = useMemo(() => new URLSearchParams(search), [search])
+
   return [searchParams, setSearchParams]
 }

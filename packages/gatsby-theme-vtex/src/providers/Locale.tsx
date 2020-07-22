@@ -21,6 +21,8 @@ export const useLocale = () => {
       }
     }
   `)
+
   const defaultLocale = edges[0].node.defaultLocale as string
+
   return usePersisted(defaultLocale, key)
 }

@@ -17,7 +17,7 @@ const TreeSelector: FC<Props> = ({ tree }) => (
     <div sx={{ fontSize: 0 }}>Departments</div>
     <div>{tree.Name}</div>
     <ul sx={{ mt: 1, px: 2, listStyleType: 'none' }}>
-      {tree.Children.map(({ Name, Link }, index) => (
+      {tree.Children.map(({ Name }, index) => (
         <li key={`tree-selector-${index}`}>{Name}</li>
       ))}
     </ul>

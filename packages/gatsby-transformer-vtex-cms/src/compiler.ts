@@ -15,6 +15,7 @@ const parseBlockName = (name: string) => {
 
   const dependency = splitted.slice(0, splitted.length - 1).join('/')
   const component = splitted[splitted.length - 1]
+
   return {
     dependency,
     component,
@@ -49,15 +50,19 @@ export default CMSAutogenPage
 
   protected renderImportsToString = () => {
     let imports = ''
+
     for (const [component, dep] of this.meta.imports.entries()) {
       const statement = `import ${component} from '${dep}'`
+
       imports = `${imports}\n${statement}`
     }
+
     return imports
   }
 
   protected renderBlocksToString = (blocks: Block[]) => {
     const inner = blocks.map((b) => this.renderBlockToString(b)).join('\n')
+
     return `<>${inner}</>`
   }
 
@@ -78,6 +83,7 @@ export default CMSAutogenPage
 
     let inner = ''
     const { children } = props
+
     if (isBlock(children)) {
       inner = this.renderBlockToString(children)
     } else if (Array.isArray(children) && children.every(isBlock)) {
@@ -92,8 +98,10 @@ export default CMSAutogenPage
       if (propName === 'children') {
         return acc
       }
+
       const prop = props[propName]
       let propStr = ''
+
       if (typeof prop === 'string') {
         propStr = `"${prop}"`
       } else if (typeof prop === 'number' || typeof prop === 'boolean') {
@@ -105,6 +113,7 @@ export default CMSAutogenPage
           `Unknown type ${typeof prop} while generating code for prop ${propName}`
         )
       }
+
       return `${acc} ${propName}=${propStr}`
     }, '')
 }
