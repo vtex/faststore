@@ -21,8 +21,10 @@ export const useAsyncProduct = (filterOptions: FilterOptions) => {
       suspense: false,
     }
   )
+
   const isLoading = !data && isValidating
   const [product] = data ?? NULL_PRODUCT
+
   return { product, isLoading }
 }
 
@@ -31,6 +33,7 @@ export const useSku = (product: AsyncProduct | null, skuId?: string) => {
     if (!product) {
       return
     }
+
     return (
       product.items.find(({ itemId }) => itemId === skuId) ?? product.items[0]
     )

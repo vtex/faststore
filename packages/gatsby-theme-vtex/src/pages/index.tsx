@@ -2,13 +2,13 @@
 import { RouteComponentProps } from '@reach/router'
 import { graphql } from 'gatsby'
 import { FC, useEffect, lazy } from 'react'
-import { Grid, jsx } from 'theme-ui'
+import { jsx } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
 import Layout from '../components/Layout'
-import { ProductSummary } from '../components/ProductSummary'
 import SEO from '../components/SEO/siteMetadata'
+import Shelf from '../components/Shelf'
 import { SyncProductItem } from '../types/product'
 import SuspenseDelay from '../components/SuspenseDelay'
 
@@ -47,11 +47,7 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
       <SEO />
       <Carousel items={itemsCarousel} />
       <Container>
-        <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-          {syncProducts.map((syncProduct) => (
-            <ProductSummary key={syncProduct.id} syncProduct={syncProduct} />
-          ))}
-        </Grid>
+        <Shelf syncProducts={syncProducts} />
         <SuspenseDelay fallback={null}>
           <Fold />
         </SuspenseDelay>
@@ -79,6 +75,7 @@ export const query = graphql`
             commertialOffer {
               AvailableQuantity
               Price
+              ListPrice
             }
           }
         }

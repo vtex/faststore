@@ -28,13 +28,13 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
       sx={{
         textDecoration: 'none',
         color: 'text',
+        flexGrow: 1,
       }}
     >
       <Card
         sx={{
           m: 'auto',
           maxWidth: 300,
-          textAlign: 'center',
         }}
       >
         <ProductImage
@@ -44,7 +44,11 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
           alt={imageText}
           loading="lazy" // lazy load images
         />
-        <Heading variant="shellProductName" as="h3">
+        <Heading
+          variant="shellProductName"
+          as="h3"
+          sx={{ marginY: ['0.5rem', '1rem'] }}
+        >
           {syncProduct.productName.slice(0, 12)}
         </Heading>
         {!offer ? (
@@ -54,7 +58,7 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
           </Fragment>
         ) : (
           <Fragment>
-            <SyncOffer sku={syncProduct.items[0]} />
+            <SyncOffer sku={syncProduct.items[0]} variant="summary" />
             <BuyButton sku={syncProduct.items[0]} />
           </Fragment>
         )}

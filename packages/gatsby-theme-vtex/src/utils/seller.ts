@@ -1,9 +1,8 @@
+import { SyncProductCommertialOffer } from '../types/product'
+
 export interface Item {
   sellers: Array<{
-    commertialOffer: {
-      AvailableQuantity: number
-      Price: number
-    }
+    commertialOffer: SyncProductCommertialOffer
   }>
 }
 
@@ -16,6 +15,7 @@ export const findBestSeller = <T extends Item>(sku: T) => {
 
   for (const seller of sku.sellers) {
     const { commertialOffer } = seller
+
     if (
       commertialOffer.AvailableQuantity > 0 &&
       commertialOffer.Price < bestSeller.commertialOffer.Price
