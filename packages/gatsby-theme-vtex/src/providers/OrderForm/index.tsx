@@ -5,39 +5,52 @@
 import { OrderForm as OrderFormType } from '@vtex/gatsby-source-vtex'
 import React, {
   createContext,
-  Dispatch,
   FC,
-  SetStateAction,
+  useCallback,
   useContext,
   useEffect,
   useState,
-  useCallback,
 } from 'react'
 
+import { storage } from './storage'
 import { OrderFormItem } from './types'
+
+const controler = () => import('./controler')
 
 type OrderFormContext = {
   value: OrderFormType | null
-  setOrderForm: Dispatch<SetStateAction<OrderFormType | null>>
   addItems: (items: OrderFormItem[]) => Promise<void>
 }
-
-const controler = () => import('./controler')
 
 const OrderForm = createContext<OrderFormContext | null>(null)
 
 const OrderFormProvider: FC = ({ children }) => {
-  const [orderForm, setOrderForm] = useState<OrderFormType | null>(null)
+  const [orderForm, setOrderForm] = useState<OrderFormType | null>(() =>
+    storage.get()
+  )
+
   const id = orderForm?.orderFormId
 
   // Fetch orderForm on first render
   useEffect(() => {
-    ;(async () => {
-      const ctl = await controler()
+    let cancel = false
 
-      ctl.fetchOrderFormOnce(setOrderForm)
-    })()
-  }, [])
+    const fetchAndDispatch = async () => {
+      const { fetchOrderForm, startOrderForm } = await controler()
+
+      const data = await fetchOrderForm(orderForm)
+
+      if (!cancel) {
+        startOrderForm(data, setOrderForm)
+      }
+    }
+
+    fetchAndDispatch()
+
+    return () => {
+      cancel = true
+    }
+  }, [orderForm])
 
   // Add item to cart using the queue
   const addItems = useCallback(
@@ -53,7 +66,6 @@ const OrderFormProvider: FC = ({ children }) => {
     <OrderForm.Provider
       value={{
         value: orderForm,
-        setOrderForm,
         addItems,
       }}
     >
