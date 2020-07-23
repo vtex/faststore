@@ -53,6 +53,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
             <Button
               backgroundColor="transparent"
               onClick={() => setPage(page - 1)}
+              aria-label={'See shelf previous page'}
             >
               <ArrowLeft size={arrowSize} />
             </Button>
@@ -78,6 +79,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
                   onClick={() => {
                     setPage(page + 1)
                   }}
+                  aria-label={'See shelf next page'}
                 >
                   <ArrowRight size={arrowSize} />
                 </Button>
