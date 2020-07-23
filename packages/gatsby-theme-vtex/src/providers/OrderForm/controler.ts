@@ -3,45 +3,40 @@ import PQueue from 'p-queue'
 
 import { postFetcher } from '../../utils/fetcher'
 import { OrderFormItem } from './types'
+import { storage } from './storage'
 
-const ORDER_FORM_STORAGE_KEY = 'vtex_order_form'
-
-const storage = {
-  get: () => {
-    const serialized = localStorage.getItem(ORDER_FORM_STORAGE_KEY)
-
-    return serialized ? (JSON.parse(serialized) as OrderFormType) : null
-  },
-  set: (data: OrderFormType) => {
-    localStorage.setItem(ORDER_FORM_STORAGE_KEY, JSON.stringify(data))
-  },
-}
+type ReactOrderFormStateSetter = (of: OrderFormType) => void
 
 // Queue to make changes to the orderForm
-const queue = new PQueue({
+export const queue = new PQueue({
   concurrency: 1,
 })
 
 // This queue will be unpaused once we have an orderForm
 queue.pause()
 
-export const fetchOrderFormOnce = async (
-  setOrderForm: (of: OrderFormType) => void
+export const fetchOrderForm = async (initialOrderForm: OrderFormType | null) =>
+  initialOrderForm ?? postFetcher<OrderFormType>(api.checkout.orderForm)
+
+export const setOrderFormState = (
+  setReactState: ReactOrderFormStateSetter,
+  orderForm: OrderFormType
 ) => {
-  let data = storage.get()
+  setReactState(orderForm)
+  storage.set(orderForm)
+}
 
-  if (!data) {
-    data = await postFetcher<OrderFormType>(api.checkout.orderForm)
-    storage.set(data)
-  }
-
-  setOrderForm(data)
+export const startOrderForm = async (
+  orderForm: OrderFormType,
+  setReactState: ReactOrderFormStateSetter
+) => {
+  setOrderFormState(setReactState, orderForm)
   queue.start()
 }
 
 export const addItems = async (
   id: string | undefined,
-  setOrderForm: (of: OrderFormType) => void,
+  setOrderForm: ReactOrderFormStateSetter,
   items: OrderFormItem[]
 ) => {
   if (!id) {
@@ -56,7 +51,6 @@ export const addItems = async (
       }
     )
 
-    storage.set(newOrderForm)
-    setOrderForm(newOrderForm)
+    setOrderFormState(setOrderForm, newOrderForm)
   })
 }
