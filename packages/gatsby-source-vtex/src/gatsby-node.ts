@@ -1,5 +1,3 @@
-import './setup'
-
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { api } from './api'
