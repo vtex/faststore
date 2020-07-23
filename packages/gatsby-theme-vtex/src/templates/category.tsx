@@ -26,10 +26,11 @@ export const staticQuery = graphql`
           }
           sellers {
             sellerId
-            commertialOffer {
-              AvailableQuantity
-              Price
-            }
+            # Uncomment the code below pre-render the commercial offer
+            # commertialOffer {
+            #   AvailableQuantity
+            #   Price
+            # }
           }
         }
       }
