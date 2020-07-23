@@ -1,5 +1,3 @@
-import './utils/setup'
-
 import { join, resolve } from 'path'
 
 import { ensureDir, outputFile } from 'fs-extra'
