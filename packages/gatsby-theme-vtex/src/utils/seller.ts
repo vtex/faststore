@@ -17,6 +17,7 @@ export const findBestSeller = <T extends Item>(sku: T) => {
     const { commertialOffer } = seller
 
     if (
+      commertialOffer &&
       commertialOffer.AvailableQuantity > 0 &&
       commertialOffer.Price < bestSeller.commertialOffer.Price
     ) {

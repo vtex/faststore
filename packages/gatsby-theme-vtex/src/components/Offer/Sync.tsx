@@ -1,22 +1,19 @@
-import React, { FC, useMemo } from 'react'
+import React, { FC } from 'react'
 import { Box, Flex } from 'theme-ui'
 
-import { useNumberFormat } from '../../providers/NumberFormat'
-import { findBestSeller, Item } from '../../utils/seller'
+import { SyncProductCommertialOffer } from '../../types/product'
 import DiscountPercentage from './DiscountPercentage'
+import ItemAvailability from './ItemAvailability'
 import ListPrice from './ListPrice'
+import Price from './Price'
 
 export interface Props {
-  sku?: Item
+  offer?: SyncProductCommertialOffer
   variant?: string
 }
 
-const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
-  const seller = useMemo(() => sku && findBestSeller(sku), [sku])
-  const offer = seller?.commertialOffer
-  const numberFormat = useNumberFormat()
-
-  if (!offer || offer.AvailableQuantity === 0) {
+const SyncOffer: FC<Props> = ({ offer, variant = '' }) => {
+  if (offer?.AvailableQuantity === 0) {
     return <div>Product Unavailable</div>
   }
 
@@ -24,16 +21,12 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
     <>
       <Box>
         <ListPrice variant={variant} offer={offer} />
-        <Flex sx={{ alignItems: 'center' }}>
-          <Box variant={`${variant}-price`}>
-            {numberFormat.format(offer.Price)}
-          </Box>
-          <DiscountPercentage variant={variant} offer={offer} />
+        <Flex>
+          <Price offer={offer} />
+          <DiscountPercentage offer={offer} variant={variant} />
         </Flex>
       </Box>
-      <Box variant={`${variant}-availability`}>
-        {offer.AvailableQuantity} units left!
-      </Box>
+      <ItemAvailability offer={offer} />
     </>
   )
 }

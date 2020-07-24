@@ -5,7 +5,6 @@ import { Card, Grid, Heading, jsx } from 'theme-ui'
 import { SyncProduct } from '../types/product'
 import BuyButtonPreview from './BuyButton/Preview'
 import Container from './Container'
-import OfferPreview from './Offer/Preview'
 import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
 import SuspenseDelay from './SuspenseDelay'
@@ -37,7 +36,7 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
           <Heading variant="productTitle" as="h1">
             {productName}
           </Heading>
-          <SuspenseDelay fallback={<OfferPreview />}>
+          <SuspenseDelay fallback={null}>
             <AsyncOffer productId={productId} />
           </SuspenseDelay>
           <SuspenseSSR fallback={<BuyButtonPreview />}>

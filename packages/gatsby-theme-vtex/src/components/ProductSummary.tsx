@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
-import { FC, Fragment } from 'react'
+import { FC, useMemo } from 'react'
 import { Card, Heading, jsx } from 'theme-ui'
 
 import { SyncProductItem } from '../types/product'
-import BuyButtonPreview from './BuyButton/Preview'
+import { findBestSeller } from '../utils/seller'
 import BuyButton from './BuyButton/Sync'
-import OfferPreview from './Offer/Preview'
 import SyncOffer from './Offer/Sync'
 import ProductImage from './ProductImage'
 
@@ -15,8 +14,10 @@ interface Props {
 }
 
 export const ProductSummary: FC<Props> = ({ syncProduct }) => {
-  const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
-  const offer = syncProduct.items?.[0]?.sellers?.[0]?.commertialOffer
+  const sku = syncProduct.items?.[0]
+  const { imageUrl, imageText } = sku?.images?.[0]
+  const seller = useMemo(() => sku && findBestSeller(sku), [sku])
+  const offer = seller?.commertialOffer
 
   return (
     <Link
@@ -47,17 +48,8 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
         <Heading variant="summary-name" as="h3">
           {syncProduct.productName.slice(0, 12)}
         </Heading>
-        {!offer ? (
-          <Fragment>
-            <OfferPreview />
-            <BuyButtonPreview />
-          </Fragment>
-        ) : (
-          <Fragment>
-            <SyncOffer sku={syncProduct.items[0]} variant="summary" />
-            <BuyButton sku={syncProduct.items[0]} />
-          </Fragment>
-        )}
+        <SyncOffer offer={offer} variant="summary" />
+        <BuyButton sku={sku} />
       </Card>
     </Link>
   )
