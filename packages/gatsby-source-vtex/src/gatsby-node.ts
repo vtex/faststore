@@ -11,16 +11,18 @@ import {
 } from './utils'
 
 interface Options extends PluginOptions, VTEXOptions {
-  prerender?: () => Promise<string[]>
+  getStaticPaths?: () => Promise<string[]>
 }
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
   options: Options
 ) => {
-  const { tenant, prerender } = options
-  const pathsToRender = typeof prerender === 'function' ? await prerender() : []
-  const pathsSet = new Set(pathsToRender)
+  const { tenant, getStaticPaths } = options
+  const staticPaths =
+    typeof getStaticPaths === 'function' ? await getStaticPaths() : []
+
+  const staticPathsSet = new Set(staticPaths)
 
   // VTEX Context
   const { bindings } = await fetchVTEX<Tenant>(
@@ -32,7 +34,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
   // Create all PRODUCT Nodes
   await map(
-    pathsToRender,
+    staticPaths,
     async (path) => {
       const splitted = path.split('/')
 
@@ -66,7 +68,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       // Fetch Products in the category
       let products: Product[] = []
 
-      if (pathsSet.has(url.pathname)) {
+      if (staticPathsSet.has(url.pathname)) {
         products = await fetchVTEX<Product[]>(
           api.search({ from: 0, to: 7, categoryIds: [id] }),
           options
