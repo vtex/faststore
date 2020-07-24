@@ -1,4 +1,4 @@
-import { map } from 'bluebird'
+import pMap from 'p-map'
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { api } from './api'
@@ -33,7 +33,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   bindings.forEach((binding) => createChannelNode(args, binding))
 
   // Create all PRODUCT Nodes
-  await map(
+  await pMap(
     staticPaths,
     async (path) => {
       const splitted = path.split('/')
