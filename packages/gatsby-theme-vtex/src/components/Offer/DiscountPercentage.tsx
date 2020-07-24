@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { Flex } from 'theme-ui'
-import Skeleton from 'react-loading-skeleton'
 
 import { SyncProductCommertialOffer } from '../../types/product'
 
