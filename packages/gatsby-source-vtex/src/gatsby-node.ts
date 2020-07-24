@@ -1,8 +1,9 @@
+import { map } from 'bluebird'
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
-import { Category, Product, Tenant, PageType, RawFacets } from './types'
+import { Category, PageType, Product, RawFacets, Tenant } from './types'
 import {
   createCategoryNode,
   createChannelNode,
@@ -10,9 +11,7 @@ import {
 } from './utils'
 
 interface Options extends PluginOptions, VTEXOptions {
-  prerender?: () => {
-    categories: string[]
-  }
+  prerender?: () => Promise<string[]>
 }
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
@@ -20,7 +19,8 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   options: Options
 ) => {
   const { tenant, prerender } = options
-  const { categories = [] } = typeof prerender === 'function' ? prerender() : {}
+  const pathsToRender = typeof prerender === 'function' ? await prerender() : []
+  const pathsSet = new Set(pathsToRender)
 
   // VTEX Context
   const { bindings } = await fetchVTEX<Tenant>(
@@ -30,13 +30,23 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
   bindings.forEach((binding) => createChannelNode(args, binding))
 
-  // PRODUCT
-  const productData = await fetchVTEX<Product[]>(
-    api.search({ from: 0, to: 9 }),
-    options
-  )
+  // Create all PRODUCT Nodes
+  await map(
+    pathsToRender,
+    async (path) => {
+      const splitted = path.split('/')
 
-  productData.forEach((product) => createProductNode(args, product))
+      if (path.endsWith('/p') && splitted.length === 3) {
+        const [product] = await fetchVTEX<Product[]>(
+          api.search({ slug: splitted[1] }),
+          options
+        )
+
+        createProductNode(args, product)
+      }
+    },
+    { concurrency: 20 }
+  )
 
   // CATEGORY
   const categoryData = await fetchVTEX<Category[]>(
@@ -48,25 +58,22 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     (category) => !category.name.includes('[Inactive]')
   )
 
-  // CATEGORIES with rendered products
-  const prerenderCategory = new Set(categories)
-
   const categoriesWithProducts = await Promise.all(
     activesCategories.map(async (category) => {
       const id = category.id.toString()
+      const url = new URL(category.url)
 
       // Fetch Products in the category
       let products: Product[] = []
 
-      if (prerenderCategory.has(id)) {
+      if (pathsSet.has(url.pathname)) {
         products = await fetchVTEX<Product[]>(
-          api.search({ from: 0, to: 11, categoryIds: [id] }),
+          api.search({ from: 0, to: 7, categoryIds: [id] }),
           options
         )
       }
 
       // Fatch department's facets
-      const url = new URL(category.url)
       const rawFacets = await fetchVTEX<RawFacets>(
         api.facets({ department: url.pathname.slice(1, url.pathname.length) }),
         options

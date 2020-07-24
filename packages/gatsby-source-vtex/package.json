@@ -19,11 +19,13 @@
     "gatsby": "^2.23.3"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.32",
     "cross-env": "^7.0.2",
     "gatsby": "^2.23.4",
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "bluebird": "^3.7.2",
     "isomorphic-unfetch": "^3.0.0"
   },
   "gitHead": "0dacb076e03816455b4c6bf0e072ec51bd6abf36"

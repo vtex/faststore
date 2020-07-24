@@ -9,9 +9,7 @@ export interface Options {
   description: string
   tenant: string
   environment: Environment
-  prerender?: () => {
-    categories: string[]
-  }
+  prerender?: () => Promise<string[]>
 }
 
 const defaultTenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'

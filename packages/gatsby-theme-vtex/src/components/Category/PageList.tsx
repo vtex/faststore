@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Category, FilterOptions, Product } from '@vtex/gatsby-source-vtex'
-import React, { FC, Fragment, useCallback, useMemo, useEffect } from 'react'
+import React, { FC, Fragment, useCallback, useMemo } from 'react'
 import { useSWRInfinite } from 'swr'
 import { Button, Grid } from 'theme-ui'
 
@@ -10,7 +10,7 @@ import Page from './Page'
 
 const loadFetcher = () => import('./fetcher')
 
-const PAGE_SIZE = 12
+const PAGE_SIZE = 8
 
 const searchContext = (
   page: number,
