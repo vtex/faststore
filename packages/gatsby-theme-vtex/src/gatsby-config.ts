@@ -9,9 +9,7 @@ export interface Options {
   description: string
   tenant: string
   environment: Environment
-  prerender?: () => {
-    categories: string[]
-  }
+  getStaticPaths?: () => Promise<string[]>
 }
 
 const defaultTenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
@@ -23,7 +21,7 @@ module.exports = ({
   description,
   tenant = defaultTenant,
   environment = defaultEnvironment,
-  prerender,
+  getStaticPaths,
 }: Options) => ({
   siteMetadata: {
     title,
@@ -52,7 +50,7 @@ module.exports = ({
       options: {
         tenant,
         environment,
-        prerender,
+        getStaticPaths,
       },
     },
   ],

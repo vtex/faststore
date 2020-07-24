@@ -312,5 +312,5 @@ export interface PageType {
   url: string
   title: string
   metaTagDescription: string
-  pageType: string
+  pageType: 'Product' | 'Department' | 'Brand'
 }
