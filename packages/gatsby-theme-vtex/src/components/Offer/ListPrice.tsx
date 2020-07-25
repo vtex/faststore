@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box } from 'theme-ui'
-import Skeleton from 'react-loading-skeleton'
+// import Skeleton from 'react-loading-skeleton'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 import { SyncProductCommertialOffer } from '../../types/product'
@@ -19,7 +19,7 @@ const ListPrice: FC<Props> = ({ offer, variant }) => {
       : numberFormat.format(offer.ListPrice)
 
   return (
-    <Box variant={`${variant}-listPrice`}>{loading ? <Skeleton /> : price}</Box>
+    <Box variant={`${variant}-listPrice`}>{loading ? null : price}</Box>
   )
 }
 

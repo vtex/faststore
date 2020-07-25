@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Skeleton from 'react-loading-skeleton'
+// import Skeleton from 'react-loading-skeleton'
 import { Box } from 'theme-ui'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
@@ -15,7 +15,7 @@ const Price: FC<Props> = ({ offer, variant }) => {
 
   return (
     <Box variant={`${variant}-price`}>
-      {!offer ? <Skeleton width={70} /> : numberFormat.format(offer.Price)}
+      {!offer ? null : numberFormat.format(offer.Price)}
     </Box>
   )
 }
