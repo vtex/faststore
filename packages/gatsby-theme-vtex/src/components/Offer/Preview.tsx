@@ -1,10 +1,6 @@
 import React, { FC } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
-const OfferPreview: FC = () => (
-  <>
-    <div>Loading Best Offer Price</div>
-    <div>Loading Best Offer Availability</div>
-  </>
-)
+const OfferPreview: FC = () => <Skeleton height={79} />
 
 export default OfferPreview
