@@ -21,15 +21,15 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   }
 
   return (
-    <Box variant={`${variant}-offer`}>
+    <Box variant={`${variant}.offer`}>
       <ListPrice variant={variant} offer={offer} />
       <Flex sx={{ alignItems: 'center' }}>
-        <Box variant={`${variant}-price`}>
+        <Box variant={`${variant}.price`}>
           {numberFormat.format(offer.Price)}
         </Box>
         <DiscountPercentage variant={variant} offer={offer} />
       </Flex>
-      <Box variant={`${variant}-availability`}>
+      <Box variant={`${variant}.availability`}>
         {offer.AvailableQuantity} units left!
       </Box>
     </Box>

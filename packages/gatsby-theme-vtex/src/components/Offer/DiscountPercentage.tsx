@@ -16,7 +16,7 @@ const DiscountPercentage: FC<Props> = ({ offer, variant }) => {
   const relation = Math.round((offer.Price / offer.ListPrice) * 100)
   const discount = 100 - relation
 
-  return <Flex variant={`${variant}-discountBadge`}>-{discount}%</Flex>
+  return <Flex variant={`${variant}.discountBadge`}>-{discount}%</Flex>
 }
 
 export default DiscountPercentage

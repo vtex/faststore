@@ -7,7 +7,7 @@ interface Props {
 }
 
 const OfferPreview: FC<Props> = ({ variant = '' }) => (
-  <Box variant={`${variant}-offer`}>
+  <Box variant={`${variant}.offer`}>
     <Skeleton height={20} />
     <Skeleton height={23} />
     <Skeleton height={20} />

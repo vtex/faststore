@@ -16,7 +16,7 @@ const ListPrice: FC<Props> = ({ offer, variant }) => {
       ? null
       : numberFormat.format(offer.ListPrice)
 
-  return <Box variant={`${variant}-listPrice`}>{price}</Box>
+  return <Box variant={`${variant}.listPrice`}>{price}</Box>
 }
 
 export default ListPrice

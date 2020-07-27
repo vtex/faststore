@@ -44,7 +44,7 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
           alt={imageText}
           loading="lazy" // lazy load images
         />
-        <Heading variant="summary-name" as="h3">
+        <Heading variant="summary.name" as="h3">
           {syncProduct.productName.slice(0, 12)}
         </Heading>
         {!offer ? (
