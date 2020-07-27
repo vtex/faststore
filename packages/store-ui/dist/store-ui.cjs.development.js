@@ -9,16 +9,16 @@ var themeUi = require('theme-ui');
 var Link = _interopDefault(require('gatsby-link'));
 var base = _interopDefault(require('@theme-ui/preset-base'));
 
-function Card(_ref) {
+var Card = function Card(_ref) {
   var children = _ref.children,
       variant = _ref.variant;
   var variantStr = "card" + (variant ? "." + variant : '');
   return React.createElement(themeUi.Flex, {
     variant: variantStr
   }, children);
-}
+};
 
-function CardImage(_ref) {
+var CardImage = function CardImage(_ref) {
   var alt = _ref.alt,
       src = _ref.src,
       href = _ref.href;
@@ -35,9 +35,9 @@ function CardImage(_ref) {
     src: src,
     loading: "lazy"
   })));
-}
+};
 
-function CardInfo(_ref) {
+var CardInfo = function CardInfo(_ref) {
   var title = _ref.title,
       description = _ref.description,
       children = _ref.children;
@@ -50,9 +50,9 @@ function CardInfo(_ref) {
   }, description), children && React.createElement(themeUi.Flex, {
     variant: "card.info.children"
   }, children));
-}
+};
 
-function CardInfoAction(_ref) {
+var CardInfoAction = function CardInfoAction(_ref) {
   var href = _ref.href,
       label = _ref.label;
   var props = {
@@ -61,7 +61,7 @@ function CardInfoAction(_ref) {
     variant: 'card.info.action'
   };
   return React.createElement(themeUi.Button, Object.assign({}, props), label);
-}
+};
 
 var CardTheme = {
   card: {

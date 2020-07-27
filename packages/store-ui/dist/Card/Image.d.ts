@@ -1,8 +1,8 @@
-import { PropsWithChildren } from 'react';
+import { FC } from 'react';
 interface Props {
     href: string;
     alt: string;
     src: string;
 }
-declare function CardImage({ alt, src, href }: PropsWithChildren<Props>): JSX.Element;
+declare const CardImage: FC<Props>;
 export default CardImage;
