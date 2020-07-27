@@ -49,7 +49,7 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
         </Heading>
         {!offer ? (
           <Fragment>
-            <OfferPreview />
+            <OfferPreview variant="summary" />
             <BuyButtonPreview />
           </Fragment>
         ) : (

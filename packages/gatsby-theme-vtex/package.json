@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-vtex",
-  "version": "0.8.1-alpha.1",
+  "version": "0.8.1-alpha.5",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
   "scripts": {
@@ -33,8 +33,8 @@
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
     "@vtex-components/drawer": "^0.1.3",
-    "@vtex/gatsby-source-vtex": "^0.8.1-alpha.1",
-    "@vtex/gatsby-transformer-vtex-cms": "^0.8.1-alpha.0",
+    "@vtex/gatsby-source-vtex": "^0.8.1-alpha.4",
+    "@vtex/gatsby-transformer-vtex-cms": "^0.8.1-alpha.4",
     "common-tags": "^1.8.0",
     "dotenv": "^8.2.0",
     "gatsby-plugin-react-helmet": "^3.3.6",
@@ -42,10 +42,10 @@
     "intl-format-cache": "^4.3.0",
     "p-queue": "^6.5.0",
     "react-helmet": "^6.1.0",
+    "react-loading-skeleton": "^2.1.1",
     "schema-dts": "^0.6.0",
     "swr": "^0.3.0-beta.10",
     "theme-ui": "^0.3.1",
     "use-async-resource": "^2.1.0"
-  },
-  "gitHead": "0dacb076e03816455b4c6bf0e072ec51bd6abf36"
+  }
 }
