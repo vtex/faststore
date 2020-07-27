@@ -1,0 +1,5 @@
+{
+    "extends": "@vtex/tsconfig",
+    "include": ["src", "stories"],
+    "exclude": ["node_modules", "dist"]
+  }

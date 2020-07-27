@@ -1,0 +1,21 @@
+import React, { PropsWithChildren } from 'react'
+import { Flex, Heading, Text } from 'theme-ui'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+function CardInfo({ title, description, children }: PropsWithChildren<Props>) {
+  return (
+    <Flex variant="card.info">
+      {title && <Heading variant="card.info.title">{title}</Heading>}
+      {description && (
+        <Text variant="card.info.description">{description}</Text>
+      )}
+      {children && <Flex variant="card.info.children">{children}</Flex>}
+    </Flex>
+  )
+}
+
+export default CardInfo

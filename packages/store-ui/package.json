@@ -1,0 +1,57 @@
+{
+  "name": "@vtex/store-ui",
+  "version": "0.2.0",
+  "description": "Next store component library",
+  "author": "emersonlaurentino",
+  "license": "MIT",
+  "repository": "vtex/gatsby-vtex",
+  "main": "dist/index.js",
+  "module": "dist/store-ui.esm.js",
+  "typings": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "develop": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "eslint src/ --ext .tsx,.ts",
+    "prepare": "tsdx build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@theme-ui/preset-base": "^0.3.0",
+    "gatsby-link": "^2.4.13"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "theme-ui": "^0.3.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^5.3.19",
+    "@types/react": "^16.9.27",
+    "@types/react-dom": "^16.9.7",
+    "@types/theme-ui": "^0.3.5",
+    "@vtex/prettier-config": "^0.3.1",
+    "@vtex/tsconfig": "^0.5.0",
+    "eslint-config-vtex-react": "^6.7.0",
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^3.4.1",
+    "theme-ui": "^0.3.1",
+    "ts-loader": "^8.0.1",
+    "tsdx": "^0.13.2",
+    "typescript": "^3.9.6"
+  }
+}
