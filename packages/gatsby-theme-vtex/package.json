@@ -16,7 +16,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@vtex/store-ui": "^0.1.1",
+    "@vtex/store-ui": "^0.2.0",
     "gatsby": "*",
     "react": "^0.0.0-experimental-7f28234f8",
     "react-dom": "^0.0.0-experimental-7f28234f8"
