@@ -1,7 +1,7 @@
-import { PropsWithChildren } from 'react';
+import { FC } from 'react';
 interface Props {
     href: string;
     label: string;
 }
-declare function CardInfoAction({ href, label }: PropsWithChildren<Props>): JSX.Element;
+declare const CardInfoAction: FC<Props>;
 export default CardInfoAction;

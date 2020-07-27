@@ -1,6 +1,6 @@
-import { PropsWithChildren } from 'react';
+import { FC } from 'react';
 interface Props {
     variant?: string;
 }
-declare function Card({ children, variant }: PropsWithChildren<Props>): JSX.Element;
+declare const Card: FC<Props>;
 export default Card;

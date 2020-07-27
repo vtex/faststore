@@ -1,5 +1,5 @@
 import Link from 'gatsby-link'
-import React, { PropsWithChildren } from 'react'
+import React, { FC } from 'react'
 import { Flex, Image } from 'theme-ui'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   src: string
 }
 
-function CardImage({ alt, src, href }: PropsWithChildren<Props>) {
+const CardImage: FC<Props> = ({ alt, src, href }) => {
   const linkProps = {
     as: Link,
     to: href,

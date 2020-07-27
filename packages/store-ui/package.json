@@ -27,11 +27,12 @@
   "sideEffects": false,
   "dependencies": {
     "@theme-ui/preset-base": "^0.3.0",
-    "gatsby-link": "^2.4.13"
+    "gatsby-link": "^2.4.13",
+    "reakit": "^1.1.2",
+    "theme-ui": "^0.3.1"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "theme-ui": "^0.3.1"
+    "react": "^16.0.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.19",
@@ -53,6 +54,5 @@
     "ts-loader": "^8.0.1",
     "tsdx": "^0.13.2",
     "typescript": "^3.9.6"
-  },
-  "gitHead": "5c5943e367ced44065d519782158ad1a2204fb91"
+  }
 }

@@ -1,5 +1,5 @@
 import Link from 'gatsby-link'
-import React, { PropsWithChildren } from 'react'
+import React, { FC } from 'react'
 import { Button } from 'theme-ui'
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   label: string
 }
 
-function CardInfoAction({ href, label }: PropsWithChildren<Props>) {
+const CardInfoAction: FC<Props> = ({ href, label }) => {
   const props = {
     as: Link,
     to: href,
