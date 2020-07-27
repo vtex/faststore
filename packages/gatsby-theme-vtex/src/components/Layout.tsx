@@ -1,8 +1,9 @@
 /** @jsx jsx */
+import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
 import { Box, jsx } from 'theme-ui'
-import { Link } from 'gatsby'
 
+import Footer from './Footer'
 import Header from './Header'
 import NotificationBar from './NotificationBar'
 
@@ -27,7 +28,7 @@ const Layout: FC = ({ children }) => (
     <OverMenu />
     <Header />
     {children}
-    <footer>© {new Date().getFullYear()}, Built with Gatsby and VTEX</footer>
+    <Footer />
   </Fragment>
 )
 
