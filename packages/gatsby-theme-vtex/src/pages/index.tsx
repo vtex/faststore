@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { RouteComponentProps } from '@reach/router'
 import { graphql } from 'gatsby'
-import { FC, useEffect, lazy } from 'react'
+import { FC, lazy, useEffect } from 'react'
 import { jsx } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
@@ -9,8 +9,8 @@ import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
-import { SyncProductItem } from '../types/product'
 import SuspenseDelay from '../components/SuspenseDelay'
+import { SyncProductItem } from '../types/product'
 
 const Fold = lazy(() => import('../components/Home/Fold'))
 
@@ -48,10 +48,10 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
       <Carousel items={itemsCarousel} />
       <Container>
         <Shelf syncProducts={syncProducts} />
-        <SuspenseDelay fallback={null}>
-          <Fold />
-        </SuspenseDelay>
       </Container>
+      <SuspenseDelay fallback={null}>
+        <Fold />
+      </SuspenseDelay>
     </Layout>
   )
 }
