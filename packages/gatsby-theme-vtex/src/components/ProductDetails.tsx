@@ -37,8 +37,8 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
           <Heading variant="productTitle" as="h1">
             {productName}
           </Heading>
-          <SuspenseDelay fallback={<OfferPreview />}>
-            <AsyncOffer productId={productId} />
+          <SuspenseDelay fallback={<OfferPreview variant="detail" />}>
+            <AsyncOffer productId={productId} variant="detail" />
           </SuspenseDelay>
           <SuspenseSSR fallback={<BuyButtonPreview />}>
             <BuyButton productId={productId} />
