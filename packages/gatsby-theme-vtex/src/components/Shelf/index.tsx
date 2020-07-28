@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react'
-import { Flex, Grid, Button, Box, Heading } from 'theme-ui'
+import { Flex, Grid, Box, Heading } from 'theme-ui'
 import { useResponsiveValue } from '@theme-ui/match-media'
 
 import { ProductSummary } from '../ProductSummary'
 import { SyncProductItem } from '../../types/product'
 import ArrowLeft from './ArrowLeft'
 import ArrowRight from './ArrowRight'
+import Button from '../material-ui-components/Button'
 
 interface Props {
   syncProducts: SyncProductItem[]
@@ -51,9 +52,11 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
         <Flex sx={{ alignItems: 'center' }}>
           {hasPrevArrow(page) && (
             <Button
-              backgroundColor="transparent"
+              style={{
+                backgroundColor: 'transparent',
+              }}
               onClick={() => setPage(page - 1)}
-              aria-label={'See shelf previous page'}
+              aria-label="See shelf previous page"
             >
               <ArrowLeft size={arrowSize} />
             </Button>
@@ -75,11 +78,13 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
             <Flex sx={{ alignItems: 'center' }}>
               {hasNextArrow(page, syncProducts.length, maxItems) && (
                 <Button
-                  backgroundColor="transparent"
+                  style={{
+                    backgroundColor: 'transparent',
+                  }}
                   onClick={() => {
                     setPage(page + 1)
                   }}
-                  aria-label={'See shelf next page'}
+                  aria-label="See shelf next page"
                 >
                   <ArrowRight size={arrowSize} />
                 </Button>

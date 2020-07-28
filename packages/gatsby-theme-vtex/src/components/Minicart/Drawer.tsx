@@ -1,7 +1,8 @@
 import Drawer from '@vtex-components/drawer'
 import React, { FC } from 'react'
-import { Box, Button, Flex, Heading, Text } from 'theme-ui'
+import { Box, Flex, Heading, Text } from 'theme-ui'
 
+import Button from '../material-ui-components/Button'
 import { useOrderForm } from '../../providers/OrderForm'
 import { useCurrency } from '../../providers/Currency'
 import ProductImage from '../ProductImage'

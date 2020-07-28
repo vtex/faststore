@@ -2,11 +2,12 @@
 import { Category, FilterOptions, Product } from '@vtex/gatsby-source-vtex'
 import React, { FC, Fragment, useCallback, useMemo } from 'react'
 import { useSWRInfinite } from 'swr'
-import { Button, Grid } from 'theme-ui'
+import { Grid } from 'theme-ui'
 
 import { useSearchFilters } from '../../providers/SearchFilter'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
+import Button from '../material-ui-components/Button'
 
 const loadFetcher = () => import('./fetcher')
 
@@ -100,7 +101,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
       </Grid>
       {isReachingEnd ? null : (
         <Button
-          variant="loadMore"
+          fullWidth
           onClick={fetchMore}
           disabled={isReachingEnd || isLoadingMore}
         >

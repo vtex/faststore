@@ -1,6 +1,7 @@
-import { Button } from 'theme-ui'
 import React, { FC } from 'react'
 import { Link } from 'gatsby'
+
+import Button from '../material-ui-components/Button'
 
 interface Props {
   to: string

@@ -7,7 +7,7 @@ interface Props {
 }
 
 const BuyButtonPreview: FC<Props> = ({ disabled = true }) => (
-  <Button disabled={disabled}>
+  <Button fullWidth disabled={disabled}>
     ADD TO CART
   </Button>
 )

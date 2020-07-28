@@ -42,10 +42,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
   }
 
   return (
-    <Button
-      disabled={disabled}
-      onClick={addItemOnClick}
-    >
+    <Button fullWidth disabled={disabled} onClick={addItemOnClick}>
       ADD TO CART
     </Button>
   )

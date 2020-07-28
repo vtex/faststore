@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { FC, Fragment, lazy, Suspense, useState, useEffect } from 'react'
-import { Box, Button, jsx } from 'theme-ui'
+import { Box, jsx } from 'theme-ui'
 
+import Button from '../material-ui-components/Button'
 import SuspenseSSR from '../SuspenseSSR'
 import MinicartSvg from './Svg'
 
@@ -27,9 +28,20 @@ const Minicart: FC = () => {
     return () => window.cancelIdleCallback(handler)
   }, [])
 
+  // FIXME: Minicart Button style/theme
   return (
     <Fragment>
-      <Button variant="header-minicart" aria-label="Open Cart" onClick={toggle}>
+      <Button
+        style={{
+          color: 'white',
+          background: '#f0f0f0',
+          position: 'relative',
+          marginLeft: 2,
+          cursor: 'pointer',
+        }}
+        aria-label="Open Cart"
+        onClick={toggle}
+      >
         <MinicartSvg />
         <SuspenseSSR fallback={<Box variant="header-minicart-badge">0</Box>}>
           <ItemCount />
