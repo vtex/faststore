@@ -1,6 +1,8 @@
+import { graphql, useStaticQuery } from 'gatsby'
 import React, { FC } from 'react'
 import { Helmet } from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
+
+import { SiteMetadataQueryQuery } from './__generated__/SiteMetadataQuery.graphql'
 
 export interface Props {
   description?: string
@@ -10,9 +12,9 @@ export interface Props {
 }
 
 const SEO: FC<Props> = ({ description, lang = 'en', meta = [], title }) => {
-  const { site } = useStaticQuery(
+  const { site } = useStaticQuery<SiteMetadataQueryQuery>(
     graphql`
-      query {
+      query SiteMetadataQuery {
         site {
           siteMetadata {
             title
@@ -24,15 +26,16 @@ const SEO: FC<Props> = ({ description, lang = 'en', meta = [], title }) => {
     `
   )
 
-  const metaDescription = description ?? site.siteMetadata.description
+  const { siteMetadata } = site as any
+  const metaDescription = description ?? siteMetadata.description
 
   return (
     <Helmet
       htmlAttributes={{
         lang,
       }}
-      title={title ?? site.siteMetadata.title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={title ?? siteMetadata.title}
+      titleTemplate={`%s | ${siteMetadata.title}`}
       meta={[
         {
           name: 'description',
@@ -56,7 +59,7 @@ const SEO: FC<Props> = ({ description, lang = 'en', meta = [], title }) => {
         },
         {
           name: 'twitter:creator',
-          content: site.siteMetadata.author,
+          content: siteMetadata.author,
         },
         {
           name: 'twitter:title',

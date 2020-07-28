@@ -8,7 +8,7 @@ export const useLocale = () => {
   const {
     allChannel: { edges },
   } = useStaticQuery(graphql`
-    query {
+    query DefaultLocaleQuery {
       allChannel(
         filter: { targetProduct: { eq: "vtex-storefront" } }
         limit: 1

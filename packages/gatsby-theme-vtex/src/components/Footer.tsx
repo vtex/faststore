@@ -3,19 +3,22 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { FC } from 'react'
 import { Flex, Grid, Image, jsx, Link } from 'theme-ui'
 
+import { FooterQueryQuery } from './__generated__/FooterQuery.graphql'
+import { Maybe } from '../typings'
+
 interface Item {
-  name: string
-  slug: string
+  name: Maybe<string>
+  slug: Maybe<string>
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (
-  <Link href={`/${slug}`}>{name.split(' ')[0]}</Link>
+  <Link href={`/${slug}`}>{name!.split(' ')[0]}</Link>
 )
 
 const Footer: FC = () => {
-  const { allCategory } = useStaticQuery(graphql`
-    {
-      allCategory(sort: { order: ASC, fields: categoryId }) {
+  const { allDepartment } = useStaticQuery<FooterQueryQuery>(graphql`
+    query FooterQuery {
+      allDepartment(sort: { order: ASC, fields: name }) {
         nodes {
           name
           slug
@@ -28,8 +31,8 @@ const Footer: FC = () => {
     <Flex variant="footer" as="footer" sx={{ flexDirection: 'column' }}>
       <Flex sx={{ flexDirection: ['column', 'row'] }}>
         <Grid gap={2} columns={[2, 4]} my={3} sx={{ flex: 1 }}>
-          {allCategory.nodes.map((item: Item) => (
-            <MenuLink {...item} key={item.slug} />
+          {allDepartment.nodes.map((item: Item) => (
+            <MenuLink {...item} key={item.slug!} />
           ))}
         </Grid>
         <Flex>

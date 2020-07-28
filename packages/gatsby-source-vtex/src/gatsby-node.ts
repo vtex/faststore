@@ -1,30 +1,59 @@
-import pMap from 'p-map'
+import { AsyncExecutor } from '@graphql-tools/delegate'
+import { introspectSchema, wrapSchema } from '@graphql-tools/wrap'
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
+import { print } from 'graphql'
 
 import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
-import { Category, PageType, Product, RawFacets, Tenant } from './types'
-import {
-  createCategoryNode,
-  createChannelNode,
-  createProductNode,
-} from './utils'
+import { Category, Tenant } from './types'
+import { createDepartmentNode, createChannelNode } from './utils'
 
-interface Options extends PluginOptions, VTEXOptions {
-  getStaticPaths?: () => Promise<string[]>
-}
+const getGraphQLUrl = (tenant: string) => `http://${tenant}.myvtex.com/graphql`
+
+interface Options extends PluginOptions, VTEXOptions {}
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
   options: Options
 ) => {
-  const { tenant, getStaticPaths } = options
-  const staticPaths =
-    typeof getStaticPaths === 'function' ? await getStaticPaths() : []
+  const { tenant } = options
+  const {
+    actions: { addThirdPartySchema },
+  } = args
 
-  const staticPathsSet = new Set(staticPaths)
+  /**
+   * VTEX GraphQL API
+   * */
 
-  // VTEX Context
+  // Create executor to run queries against schema
+  const url = getGraphQLUrl(tenant)
+
+  const executor: AsyncExecutor = async ({ document, variables }) => {
+    const query = print(document)
+    const fetchResult = await fetch(url, {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query, variables }),
+    })
+
+    return fetchResult.json()
+  }
+
+  const schema = wrapSchema({
+    schema: await introspectSchema(executor),
+    executor,
+  })
+
+  addThirdPartySchema({ schema })
+
+  /**
+   * VTEX HTTP API fetches
+   * */
+
+  // Bindings
   const { bindings } = await fetchVTEX<Tenant>(
     api.tenants.tenant(tenant),
     options
@@ -32,83 +61,11 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
   bindings.forEach((binding) => createChannelNode(args, binding))
 
-  // Create all PRODUCT Nodes
-  await pMap(
-    staticPaths,
-    async (path) => {
-      const splitted = path.split('/')
-
-      if (path.endsWith('/p') && splitted.length === 3) {
-        const [product] = await fetchVTEX<Product[]>(
-          api.search({ slug: splitted[1] }),
-          options
-        )
-
-        createProductNode(args, product)
-      }
-    },
-    { concurrency: 20 }
-  )
-
-  // CATEGORY
-  const categoryData = await fetchVTEX<Category[]>(
+  // Catetgories
+  const departments = await fetchVTEX<Category[]>(
     api.catalog.category.tree(1),
     options
   )
 
-  const activesCategories = categoryData.filter(
-    (category) => !category.name.includes('[Inactive]')
-  )
-
-  const categoriesWithProducts = await Promise.all(
-    activesCategories.map(async (category) => {
-      const id = category.id.toString()
-      const url = new URL(category.url)
-
-      // Fetch Products in the category
-      let products: Product[] = []
-
-      if (staticPathsSet.has(url.pathname)) {
-        products = await fetchVTEX<Product[]>(
-          api.search({ from: 0, to: 7, categoryIds: [id] }),
-          options
-        )
-      }
-
-      // Fatch department's facets
-      const rawFacets = await fetchVTEX<RawFacets>(
-        api.facets({ department: url.pathname.slice(1, url.pathname.length) }),
-        options
-      )
-
-      // Fix facet's brands
-      const brands = await Promise.all(
-        rawFacets.Brands?.map(async ({ Value, Name, Quantity }) => {
-          const { id: brandId } = await fetchVTEX<PageType>(
-            api.pageType(Value),
-            options
-          )
-
-          return {
-            name: Name,
-            id: Number(brandId),
-            quantity: Quantity,
-          }
-        }) ?? []
-      )
-
-      return {
-        ...category,
-        products,
-        facets: {
-          ...rawFacets,
-          brands,
-        },
-      }
-    })
-  )
-
-  categoriesWithProducts.forEach((category) =>
-    createCategoryNode(args, category)
-  )
+  departments.forEach((department) => createDepartmentNode(args, department))
 }

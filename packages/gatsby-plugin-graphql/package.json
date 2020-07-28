@@ -1,0 +1,36 @@
+{
+  "name": "@vtex/gatsby-plugin-graphql",
+  "version": "0.13.1-alpha.15",
+  "description": "Gatsby plugin for unsing gatsby's grahpql on the client.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "cross-env NODE_ENV=production yarn run build",
+    "develop": "tsc --watch"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-plugin-graphql",
+    "vtex"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.23.3",
+    "graphql": "^14.0.0 || ^15.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "cross-env": "^7.0.2",
+    "gatsby": "^2.23.4",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "@graphql-codegen/core": "^1.17.7",
+    "@graphql-codegen/plugin-helpers": "^1.17.7",
+    "@graphql-codegen/typescript": "^1.17.7",
+    "@graphql-codegen/typescript-operations": "^1.17.7",
+    "@graphql-tools/relay-operation-optimizer": "^6.0.15",
+    "fs-extra": "^9.0.1"
+  }
+}

@@ -2,7 +2,7 @@ import Drawer from '@vtex-components/drawer'
 import React, { FC } from 'react'
 import { Box, Button, Flex, Heading, Text } from 'theme-ui'
 
-import { useOrderForm } from '../../providers/OrderForm'
+import { useOrderForm } from '../../hooks/useOrderForm'
 import { useCurrency } from '../../providers/Currency'
 import ProductImage from '../ProductImage'
 

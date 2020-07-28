@@ -1,20 +1,32 @@
-import React, { FC, useMemo } from 'react'
+import React, { FC } from 'react'
 import { Box, Flex } from 'theme-ui'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
-import { findBestSeller, Item } from '../../utils/seller'
 import DiscountPercentage from './DiscountPercentage'
 import ListPrice from './ListPrice'
+import { useBestSeller } from '../../hooks/useBestSeller'
+
+interface Seller {
+  commertialOffer: {
+    AvailableQuantity: number
+    ListPrice: number
+    Price: number
+  }
+}
+
+interface SKU {
+  sellers: Seller[]
+}
 
 export interface Props {
-  sku?: Item
+  sku: SKU
   variant?: string
 }
 
 const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
-  const seller = useMemo(() => sku && findBestSeller(sku), [sku])
+  const seller = useBestSeller(sku)
+  const numberFormat = useNumberFormat() // TODO: Can we do it on the server ?
   const offer = seller?.commertialOffer
-  const numberFormat = useNumberFormat()
 
   if (!offer || offer.AvailableQuantity === 0) {
     return <div>Product Unavailable</div>
