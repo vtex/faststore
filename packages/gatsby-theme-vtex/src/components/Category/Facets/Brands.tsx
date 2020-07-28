@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { FC, Fragment } from 'react'
-import { Label, jsx } from 'theme-ui'
+import React, { FC, Fragment } from 'react'
 import { FilterOptions } from '@vtex/gatsby-source-vtex'
 
 import Checkbox from '../../material-ui-components/Checkbox'
@@ -52,17 +50,13 @@ const BrandSelector: FC<Props> = ({ brands }) => {
     <Fragment>
       <div>Brands</div>
 
-      <ul sx={{ listStyleType: 'none', mx: 0, px: 0 }}>
+      <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
         {brands.map(({ name, id }, index) => (
           <li key={`brands-selector-${index}`}>
-            <Label>
-              <Checkbox
-                onClick={() =>
-                  setFilters((filters) => toggleFilter(id, filters))
-                }
-                label={name}
-              />
-            </Label>
+            <Checkbox
+              onClick={() => setFilters((filters) => toggleFilter(id, filters))}
+              label={name}
+            />
           </li>
         ))}
       </ul>

@@ -2,12 +2,12 @@
 import { Category, FilterOptions, Product } from '@vtex/gatsby-source-vtex'
 import React, { FC, Fragment, useCallback, useMemo } from 'react'
 import { useSWRInfinite } from 'swr'
-import { Grid } from 'theme-ui'
 
 import { useSearchFilters } from '../../providers/SearchFilter'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
 import Button from '../material-ui-components/Button'
+import Grid from '../material-ui-components/Grid'
 
 const loadFetcher = () => import('./fetcher')
 
@@ -94,7 +94,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
 
   return (
     <Fragment>
-      <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
+      <Grid container spacing={2}>
         {data.slice(0, viewSize).map((ps, index) => (
           <Page key={`summary-page-${index}`} products={ps} />
         ))}

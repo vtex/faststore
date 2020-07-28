@@ -1,6 +1,6 @@
 import Drawer from '@vtex-components/drawer'
 import React, { FC } from 'react'
-import { Box, Text } from 'theme-ui'
+import { Box } from 'theme-ui'
 
 import Button from '../material-ui-components/Button'
 import Typography from '../material-ui-components/Typography'
@@ -42,14 +42,14 @@ const Footer: FC<FooterProps> = ({ currency, total = 0, subtotal = 0 }) => (
     }}
   >
     <Grid justify="space-between" container>
-      <Text>Subtotal</Text>
-      <Text>{`${currency} ${subtotal}`}</Text>
+      <Typography>Subtotal</Typography>
+      <Typography>{`${currency} ${subtotal}`}</Typography>
     </Grid>
     <Grid justify="space-between" container>
-      <Text sx={{ fontSize: 4 }}>Total</Text>
-      <Text sx={{ fontSize: 4 }}>{`${currency} ${total}`}</Text>
+      <Typography sx={{ fontSize: 4 }}>Total</Typography>
+      <Typography sx={{ fontSize: 4 }}>{`${currency} ${total}`}</Typography>
     </Grid>
-    <Text my={3}>Shipping and taxes calculated at checkout.</Text>
+    <Typography>Shipping and taxes calculated at checkout.</Typography>
     <Button>GO TO CHECKOUT</Button>
   </Grid>
 )
@@ -89,8 +89,8 @@ const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
                 />
               </Box>
               <Grid direction="column" container xs>
-                <Text>{item.name}</Text>
-                <Text mt={3}>{`${currency} ${item.price}`}</Text>
+                <Typography>{item.name}</Typography>
+                <Typography>{`${currency} ${item.price}`}</Typography>
               </Grid>
             </Grid>
           ))}
