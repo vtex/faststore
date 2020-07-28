@@ -3,38 +3,95 @@ import { join, resolve } from 'path'
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs } from 'gatsby'
 
-import { Environment } from './gatsby-config'
+import { Environment, Options } from './gatsby-config'
 
 const root = process.cwd()
 const tenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
 const environment =
   (process.env.GATSBY_VTEX_ENVIRONMENT as Environment) ?? 'vtexcommercestable'
 
-export const createPages = async ({
-  actions: { createPage, createRedirect },
-  graphql,
-}: CreatePagesArgs) => {
+const getRoute = (path: string) => {
+  const splitted = path.split('/')
+
+  if (path === '/') {
+    return null
+  }
+
+  if (splitted.length === 3 && path.endsWith('/p')) {
+    return 'product'
+  }
+
+  if (splitted.length >= 2) {
+    return 'search'
+  }
+
+  throw new Error(`Unroutable route: ${path}`)
+}
+
+export const createPages = async (
+  { actions: { createPage, createRedirect }, graphql }: CreatePagesArgs,
+  { getStaticPaths }: Options
+) => {
   createRedirect({
     fromPath: '/api/*',
     toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
   })
 
-  const { data, errors } = await graphql<any>(`
+  /**
+   * STATIC PATHS
+   */
+
+  const staticPaths =
+    typeof getStaticPaths === 'function' ? await getStaticPaths() : []
+
+  staticPaths.map(async (path) => {
+    const route = getRoute(path)
+    const splitted = path.split('/')
+
+    // Product Pages
+    if (route === 'product') {
+      const [, slug] = splitted
+
+      createPage({
+        path,
+        component: resolve(__dirname, './src/templates/product/server.tsx'),
+        context: {
+          slug,
+        },
+      })
+    }
+
+    if (route === 'search') {
+      createPage({
+        path,
+        component: resolve(__dirname, './src/templates/search.tsx'),
+        context: {
+          query: splitted.slice(1, splitted.length).join('/'),
+          map: new Array(splitted.length - 1).fill('c').join(','),
+        },
+      })
+    }
+  })
+
+  /**
+   * CLIENT ONLY PATHS
+   */
+
+  // Client-side rendered product pages
+  createPage({
+    path: '/__client-side__/p',
+    matchPath: '/:slug/p',
+    component: resolve(__dirname, './src/templates/product/client.tsx'),
+    context: {},
+  })
+
+  /**
+   * CMS PAGES
+   */
+
+  const { data: cmsPageData, errors: cmsPageError } = await graphql<any>(`
     query {
-      allProduct {
-        nodes {
-          id
-          slug
-        }
-      }
-      allCategory {
-        nodes {
-          id
-          slug
-          categoryId
-        }
-      }
       allCmsPage {
         nodes {
           name
@@ -45,47 +102,13 @@ export const createPages = async ({
     }
   `)
 
-  if (errors) {
-    console.error(errors)
+  if (cmsPageError) {
+    console.error(cmsPageError)
 
     return
   }
 
-  const { allProduct, allCmsPage, allCategory } = data
-
-  // Product Pages
-
-  // Pre generated product pages
-  allProduct.nodes.forEach((product: any) => {
-    createPage({
-      path: product.slug,
-      component: resolve(__dirname, './src/templates/product/server.tsx'),
-      context: {
-        id: product.id,
-      },
-    })
-  })
-
-  // Client-side rendered product pages
-  createPage({
-    path: '/__client-side__/p',
-    matchPath: '/:slug/p',
-    component: resolve(__dirname, './src/templates/product/client.tsx'),
-    context: {},
-  })
-
-  // Category Pages
-  allCategory.nodes.forEach((category: any) => {
-    createPage({
-      path: category.slug,
-      component: resolve(__dirname, './src/templates/category.tsx'),
-      context: {
-        id: category.id,
-      },
-    })
-  })
-
-  // CMS Pages
+  const { allCmsPage } = cmsPageData
 
   // ensure dist folder
   const cmsRoot = join(root, '.cache/vtex-cms')

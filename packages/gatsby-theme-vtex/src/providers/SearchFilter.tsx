@@ -10,8 +10,12 @@ const SearchFilterContext = createContext<Context>(null as any)
 
 SearchFilterContext.displayName = 'SearchFilterContext'
 
-const SearchFilterProvider: FC = ({ children }) => {
-  const [filters, setFilters] = useState<FilterOptions>({})
+interface Props {
+  initialOptions?: FilterOptions
+}
+
+const SearchFilterProvider: FC<Props> = ({ children, initialOptions }) => {
+  const [filters, setFilters] = useState<FilterOptions>(initialOptions ?? {})
 
   return (
     <SearchFilterContext.Provider value={[filters, setFilters]}>
