@@ -38,6 +38,12 @@ export const createPages = async (
     statusCode: 200,
   })
 
+  createRedirect({
+    fromPath: '/graphql/*',
+    toPath: `https://gimenes--${tenant}.myvtex.com/graphql/:splat`,
+    statusCode: 200,
+  })
+
   /**
    * STATIC PATHS
    */

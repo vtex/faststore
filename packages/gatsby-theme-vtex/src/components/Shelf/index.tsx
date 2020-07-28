@@ -65,7 +65,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
               <Grid gap={2} columns={MAX_ITEMS}>
                 {items.map((item) => {
                   return (
-                    <Flex key={item.id} sx={{ flexGrow: 1 }}>
+                    <Flex key={item.productId} sx={{ flexGrow: 1 }}>
                       <ProductSummary syncProduct={item} />
                     </Flex>
                   )
