@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
 import { Checkbox, Label, jsx } from 'theme-ui'
-import { FilterOptions } from '@vtex/gatsby-source-vtex'
 
-import { useSearchFilters } from '../../../providers/SearchFilter'
+import {
+  useSearchFilters,
+  SearchOptions,
+} from '../../../providers/SearchFilter'
 
 interface BrandFacet {
   id: number
@@ -14,34 +16,35 @@ interface Props {
   brands: BrandFacet[]
 }
 
-const toggleFilter = (id: number, filters: FilterOptions) => {
-  // First time adding a brand, just append it
-  if (!filters.brandIds) {
-    return {
-      ...filters,
-      brandIds: [id],
-    }
-  }
+const toggleFilter = (id: number, filters: SearchOptions) => {
+  // // First time adding a brand, just append it
+  // if (!filters.brandIds) {
+  //   return {
+  //     ...filters,
+  //     brandIds: [id],
+  //   }
+  // }
 
-  const { brandIds } = filters
+  // const { brandIds } = filters
 
-  const index = brandIds.findIndex((i) => i === id)
+  // const index = brandIds.findIndex((i) => i === id)
 
-  // item already filtering result, let's remove it
-  if (index > -1) {
-    brandIds.splice(index, 1)
+  // // item already filtering result, let's remove it
+  // if (index > -1) {
+  //   brandIds.splice(index, 1)
 
-    return {
-      ...filters,
-      brandIds: brandIds.length === 0 ? undefined : brandIds,
-    }
-  }
+  //   return {
+  //     ...filters,
+  //     brandIds: brandIds.length === 0 ? undefined : brandIds,
+  //   }
+  // }
 
-  // filter not found on array, let's add it
-  return {
-    ...filters,
-    brandIds: [...brandIds, id],
-  }
+  // // filter not found on array, let's add it
+  // return {
+  //   ...filters,
+  //   brandIds: [...brandIds, id],
+  // }
+  return filters
 }
 
 const BrandSelector: FC<Props> = ({ brands }) => {

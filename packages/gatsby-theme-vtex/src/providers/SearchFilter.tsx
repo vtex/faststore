@@ -1,9 +1,13 @@
-import { FilterOptions } from '@vtex/gatsby-source-vtex'
 import React, { createContext, FC, useContext, useState } from 'react'
 
+export interface SearchOptions {
+  query?: string
+  map?: string
+}
+
 type Context = [
-  FilterOptions,
-  React.Dispatch<React.SetStateAction<FilterOptions>>
+  SearchOptions,
+  React.Dispatch<React.SetStateAction<SearchOptions>>
 ]
 
 const SearchFilterContext = createContext<Context>(null as any)
@@ -11,11 +15,11 @@ const SearchFilterContext = createContext<Context>(null as any)
 SearchFilterContext.displayName = 'SearchFilterContext'
 
 interface Props {
-  initialOptions?: FilterOptions
+  initialOptions?: SearchOptions
 }
 
 const SearchFilterProvider: FC<Props> = ({ children, initialOptions }) => {
-  const [filters, setFilters] = useState<FilterOptions>(initialOptions ?? {})
+  const [filters, setFilters] = useState<SearchOptions>(initialOptions ?? {})
 
   return (
     <SearchFilterContext.Provider value={[filters, setFilters]}>
