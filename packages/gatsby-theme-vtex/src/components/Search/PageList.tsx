@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Category, FilterOptions, Product } from '@vtex/gatsby-source-vtex'
+import { FilterOptions, Product } from '@vtex/gatsby-source-vtex'
 import React, { FC, Fragment, useCallback, useMemo } from 'react'
 import { useSWRInfinite } from 'swr'
 import { Button, Grid } from 'theme-ui'
@@ -12,17 +12,12 @@ const loadFetcher = () => import('./fetcher')
 
 const PAGE_SIZE = 8
 
-const searchContext = (
-  page: number,
-  categoryId: number,
-  filters: FilterOptions
-) => {
+const searchContext = (page: number, filters: FilterOptions) => {
   const from = page * PAGE_SIZE
   const to = (page + 1) * PAGE_SIZE - 1
 
   return JSON.stringify({
     ...filters,
-    categoryIds: [`${categoryId}`],
     from,
     to,
   })
@@ -36,23 +31,26 @@ const searchFetcher = async (options: string) => {
 }
 
 interface Props {
-  category: Category
+  search: any
 }
 
-const List: FC<Props> = ({ category: { products, categoryId } }) => {
+const List: FC<Props> = ({
+  search: {
+    productSearch: { products },
+  },
+}) => {
   const [filters] = useSearchFilters()
 
   // Initial data to start swr
   const initialData = useMemo(() => {
-    const hasFilters = Object.values(filters).some((v) => !!v)
     const hasProducts = products.length > 0
 
-    if (!hasFilters && hasProducts) {
+    if (hasProducts) {
       return [products]
     }
 
     return undefined
-  }, [filters, products])
+  }, [products])
 
   const { data, error, size, setSize } = useSWRInfinite<Product[]>(
     (page, previousPageData) => {
@@ -60,7 +58,7 @@ const List: FC<Props> = ({ category: { products, categoryId } }) => {
         return null
       }
 
-      return searchContext(page, categoryId, filters)
+      return searchContext(page, filters)
     },
     searchFetcher,
     {

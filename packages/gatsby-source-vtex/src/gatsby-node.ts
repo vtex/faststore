@@ -1,14 +1,9 @@
-import pMap from 'p-map'
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
 
 import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
 import { Category, PageType, Product, RawFacets, Tenant } from './types'
-import {
-  createCategoryNode,
-  createChannelNode,
-  createProductNode,
-} from './utils'
+import { createCategoryNode, createChannelNode } from './utils'
 
 interface Options extends PluginOptions, VTEXOptions {
   getStaticPaths?: () => Promise<string[]>
@@ -31,24 +26,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   )
 
   bindings.forEach((binding) => createChannelNode(args, binding))
-
-  // Create all PRODUCT Nodes
-  await pMap(
-    staticPaths,
-    async (path) => {
-      const splitted = path.split('/')
-
-      if (path.endsWith('/p') && splitted.length === 3) {
-        const [product] = await fetchVTEX<Product[]>(
-          api.search({ slug: splitted[1] }),
-          options
-        )
-
-        createProductNode(args, product)
-      }
-    },
-    { concurrency: 20 }
-  )
 
   // CATEGORY
   const categoryData = await fetchVTEX<Category[]>(

@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Flex, jsx } from 'theme-ui'
 
 import Logo from './Logo'
-import Search from './Search'
+import Search from './SearchBar'
 import Minicart from './Minicart'
 import Menu from './Menu'
 
