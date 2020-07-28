@@ -1,8 +1,9 @@
 import Drawer from '@vtex-components/drawer'
 import React, { FC } from 'react'
-import { Box, Flex, Heading, Text } from 'theme-ui'
+import { Box, Flex, Text } from 'theme-ui'
 
 import Button from '../material-ui-components/Button'
+import Typography from '../material-ui-components/Typography'
 import { useOrderForm } from '../../providers/OrderForm'
 import { useCurrency } from '../../providers/Currency'
 import ProductImage from '../ProductImage'
@@ -22,12 +23,11 @@ interface Props extends HeaderProps {
   isOpen: boolean
 }
 
+// TODO: Style
 const Header: FC<HeaderProps> = ({ onClose, count }) => (
   <Box sx={{ p: 3 }}>
     <Button onClick={onClose}>Close</Button>
-    <Heading as="h1" pt={3}>
-      {`Cart (${count})`}
-    </Heading>
+    <Typography component="h1">{`Cart (${count})`}</Typography>
   </Box>
 )
 
