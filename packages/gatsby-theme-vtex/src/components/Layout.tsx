@@ -7,16 +7,16 @@ import NotificationBar from './NotificationBar'
 
 const OverMenu = () => (
   <Box
+    p={2}
+    display="flex"
+    alignItems="center"
+    justifyContent="center"
+    bgcolor="#02003d"
+    minHeight="48px"
     style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
       textDecoration: 'none',
-      background: '#02003d',
-      minHeight: '48px',
       color: 'muted',
-      fontSize: 1,
-      padding: '16px',
+      fontSize: 16,
     }}
   >
     <div>

@@ -19,11 +19,12 @@ const Carousel: FC<Props> = ({ items }) => {
   const height = 450
 
   return (
-    <Box style={{ position: 'relative' }}>
+    <Box position="relative">
       {items.map((item, i) => (
         <Box
+          height={height}
           key={item.altText}
-          style={{ display: index === i ? 'block' : 'none', height }}
+          display={index === i ? 'block' : 'none'}
         >
           <Button
             onClick={() => setIndex(i === 0 ? lastIndex : i - 1)}
