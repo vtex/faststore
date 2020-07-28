@@ -1,13 +1,13 @@
-/** @jsx jsx */
-import { FC } from 'react'
-import { Button, jsx } from 'theme-ui'
+import React, { FC } from 'react'
+
+import Button from '../material-ui-components/Button'
 
 interface Props {
   disabled?: boolean
 }
 
 const BuyButtonPreview: FC<Props> = ({ disabled = true }) => (
-  <Button sx={{ width: '100%' }} disabled={disabled} variant="primary">
+  <Button disabled={disabled}>
     ADD TO CART
   </Button>
 )

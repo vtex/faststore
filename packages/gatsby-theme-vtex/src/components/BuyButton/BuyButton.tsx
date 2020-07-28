@@ -1,10 +1,9 @@
-/** @jsx jsx */
-import { FC } from 'react'
-import { Button, jsx } from 'theme-ui'
+import React, { FC } from 'react'
 
 import { useOrderForm } from '../../providers/OrderForm'
 import { ArrayItem } from '../../types/array'
 import { findBestSeller, Item as SellerItem } from '../../utils/seller'
+import Button from '../material-ui-components/Button'
 
 type Seller = ArrayItem<SellerItem['sellers']> & {
   sellerId: string
@@ -44,9 +43,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
 
   return (
     <Button
-      sx={{ width: '100%' }}
       disabled={disabled}
-      variant="primary"
       onClick={addItemOnClick}
     >
       ADD TO CART
