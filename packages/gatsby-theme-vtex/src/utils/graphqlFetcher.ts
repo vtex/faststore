@@ -1,7 +1,5 @@
-const url = `https://gimenes--storecomponents.myvtex.com/graphql`
-
 const graphqlFetcher = async (query: string, variables?: any) => {
-  const response = await fetch(url, {
+  const response = await fetch(`/graphql/`, {
     method: 'POST',
     body: JSON.stringify({
       query,

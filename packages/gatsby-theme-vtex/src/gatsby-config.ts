@@ -59,5 +59,9 @@ module.exports = ({
       prefix: '/api',
       url: `https://${tenant}.${environment}.com.br`,
     },
+    {
+      prefix: '/graphql',
+      url: `https://gimenes--${tenant}.myvtex.com`,
+    },
   ],
 })
