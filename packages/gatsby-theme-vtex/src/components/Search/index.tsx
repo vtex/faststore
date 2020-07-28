@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { Category } from '@vtex/gatsby-source-vtex'
 import { FC, Fragment } from 'react'
 import { Flex, Heading, jsx } from 'theme-ui'
 
@@ -9,14 +8,14 @@ import CategoryTreeSelector from './Facets/CategoryTree'
 import PageList from './PageList'
 
 interface Props {
-  category: Category
+  search: any
 }
 
-const CategoryTemplate: FC<Props> = ({ category }) => (
+const SearchTemplate: FC<Props> = ({ search }) => (
   <Container>
     <Flex sx={{ flexDirection: 'column' }} my={4}>
       <Heading sx={{ fontSize: 6 }} as="h2">
-        {category.name}
+        {search.productSearch.titleTag}
       </Heading>
       <div
         sx={{
@@ -35,15 +34,15 @@ const CategoryTemplate: FC<Props> = ({ category }) => (
         >
           <div sx={{ fontSize: 3 }}>Filters</div>
           <hr />
-          {category.facets.CategoriesTrees?.[0] ? (
+          {search.facets.categoriesTrees?.[0] ? (
             <Fragment>
-              <CategoryTreeSelector tree={category.facets.CategoriesTrees[0]} />
+              <CategoryTreeSelector tree={search.facets.categoriesTrees[0]} />
               <hr />
             </Fragment>
           ) : null}
-          {category.facets.brands ? (
+          {search.facets.brands ? (
             <Fragment>
-              <BrandSelector brands={category.facets.brands} />
+              <BrandSelector brands={search.facets.brands} />
               <hr />
             </Fragment>
           ) : null}
@@ -55,11 +54,11 @@ const CategoryTemplate: FC<Props> = ({ category }) => (
             minWidth: 300,
           }}
         >
-          <PageList category={category} />
+          <PageList search={search} />
         </div>
       </div>
     </Flex>
   </Container>
 )
 
-export default CategoryTemplate
+export default SearchTemplate
