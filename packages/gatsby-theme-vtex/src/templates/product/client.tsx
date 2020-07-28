@@ -1,4 +1,3 @@
-import { api } from '@vtex/gatsby-source-vtex'
 import React, { FC, Suspense } from 'react'
 import useSWR from 'swr'
 
@@ -8,24 +7,45 @@ import Layout from '../../components/Layout'
 import ProductDetails from '../../components/ProductDetails'
 import { SyncProduct } from '../../types/product'
 import { isServer } from '../../utils/env'
-import { jsonFetcher } from '../../utils/fetcher'
+import graphqlFetcher from '../../utils/graphqlFetcher'
+
+const query = `
+query GetProduct($slug: String) {
+  product(slug: $slug) {
+    productId
+    productName
+    description
+    linkText
+    items {
+      itemId
+      images {
+        imageUrl
+        imageText
+      }
+    }
+  }
+}
+`
+
+const fetcher = async (slug: string) => {
+  const { data } = await graphqlFetcher(query, { slug })
+
+  return data.product
+}
 
 interface Props {
   slug: string
 }
 
 const ClientOnlyView: FC<Props> = ({ slug }) => {
-  const { data } = useSWR<SyncProduct[]>(api.search({ slug }), {
-    fetcher: jsonFetcher,
+  const { data: syncProduct } = useSWR<SyncProduct>(slug, {
+    fetcher,
     suspense: true,
   })
 
-  // Since we suspended in swr, it's safe to read data directly
-  const [syncProduct] = data!
-
   return (
     <Container>
-      <ProductDetails syncProduct={syncProduct} />
+      <ProductDetails syncProduct={syncProduct!} />
     </Container>
   )
 }

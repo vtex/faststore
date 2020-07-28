@@ -72,13 +72,13 @@ type Props = PageProps<
 const PageTemplate: FC<Props> = (props) => {
   const {
     data: { vtex },
-    pageContext: { query },
+    pageContext: { query, map },
   } = props
 
   return (
     <Layout>
       <SEO title={vtex.productSearch.titleTag} />
-      <SearchFilterProvider initialOptions={{ term: query }}>
+      <SearchFilterProvider initialOptions={{ query, map }}>
         <SearchTemplate search={vtex} />
       </SearchFilterProvider>
     </Layout>
