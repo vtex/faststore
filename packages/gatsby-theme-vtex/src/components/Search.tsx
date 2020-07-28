@@ -1,9 +1,7 @@
-/** @jsx jsx */
-import { FC } from 'react'
-import { Input, jsx } from 'theme-ui'
+import React, { FC } from 'react'
 
-const Search: FC = () => (
-  <Input variant="header-search" placeholder="Search" aria-label="Search" />
-)
+import Input from './material-ui-components/Input'
+
+const Search: FC = () => <Input placeholder="Search" aria-label="Search" />
 
 export default Search
