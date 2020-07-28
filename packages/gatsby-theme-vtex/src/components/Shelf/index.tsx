@@ -46,7 +46,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
         <Typography component="h2">summer</Typography>
       </Grid>
       <Grid container>
-        <Grid item alignItems="center">
+        <Grid container alignItems="center" xs={1}>
           {hasPrevArrow(page) && (
             <Button
               style={{
@@ -68,7 +68,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
             )
           })}
         </Grid>
-        <Grid alignItems="center" item>
+        <Grid container alignItems="center" xs={1}>
           {hasNextArrow(page, syncProducts.length, maxItems) && (
             <Button
               style={{
