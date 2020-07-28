@@ -1,6 +1,5 @@
 import { Image } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
-import { AspectImage } from 'theme-ui'
 
 import { IMAGE_DEFAULT, scaleImage } from '../utils/img'
 
@@ -12,6 +11,7 @@ interface Props {
   loading?: 'lazy' | 'eager'
 }
 
+// TODO: ratio?
 const ProductImage: FC<Props> = ({
   width = 300,
   height = 300,
@@ -19,8 +19,7 @@ const ProductImage: FC<Props> = ({
   alt = 'Product Image',
   loading = 'lazy',
 }) => (
-  <AspectImage
-    ratio={1}
+  <img
     loading={loading}
     src={scaleImage(src, width, height)}
     alt={alt}

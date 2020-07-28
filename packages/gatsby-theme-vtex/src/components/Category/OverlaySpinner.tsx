@@ -1,10 +1,10 @@
-/** @jsx jsx */
-import { FC } from 'react'
-import { Spinner, jsx } from 'theme-ui'
+import React, { FC } from 'react'
+
+import Spinner from '../material-ui-components/Spinner'
 
 const OverlaySpinner: FC = () => (
   <div
-    sx={{
+    style={{
       position: 'fixed' /* Sit on top of the page content */,
       width: '100%' /* Full width (cover the whole page) */,
       height: '100%' /* Full height (cover the whole page) */,
@@ -17,7 +17,8 @@ const OverlaySpinner: FC = () => (
       cursor: 'pointer' /* Add a pointer on hover */,
       justifyContent: 'center',
       alignItems: 'center',
-      display: ['-webkit-box', '-ms-flexbox', '-webkit-flex', 'flex'],
+      // display: ['-webkit-box', '-ms-flexbox', '-webkit-flex', 'flex'],
+      display: 'flex',
     }}
   >
     <Spinner />

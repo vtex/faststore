@@ -1,7 +1,5 @@
-/** @jsx jsx */
 import { Link } from 'gatsby'
-import { FC, Fragment } from 'react'
-import { Heading, jsx } from 'theme-ui'
+import React, { FC, Fragment } from 'react'
 
 import { SyncProductItem } from '../types/product'
 import BuyButtonPreview from './BuyButton/Preview'
@@ -10,6 +8,7 @@ import OfferPreview from './Offer/Preview'
 import SyncOffer from './Offer/Sync'
 import ProductImage from './ProductImage'
 import Card from './material-ui-components/Card'
+import Typography from './material-ui-components/Typography'
 
 interface Props {
   syncProduct: SyncProductItem
@@ -43,11 +42,11 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
           height={300}
           src={imageUrl}
           alt={imageText}
-          loading="lazy" // lazy load images
+          loading="lazy"
         />
-        <Heading variant="summary.name" as="h3">
+        <Typography component="h3">
           {syncProduct.productName.slice(0, 12)}
-        </Heading>
+        </Typography>
         {!offer ? (
           <Fragment>
             <OfferPreview variant="summary" />

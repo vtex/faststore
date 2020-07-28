@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC, lazy } from 'react'
-import { Grid, Heading, jsx } from 'theme-ui'
+import { Grid, jsx } from 'theme-ui'
 
 import { SyncProduct } from '../types/product'
 import BuyButtonPreview from './BuyButton/Preview'
@@ -11,6 +11,7 @@ import SEO from './SEO/ProductDetails'
 import SuspenseDelay from './SuspenseDelay'
 import SuspenseSSR from './SuspenseSSR'
 import Card from './material-ui-components/Card'
+import Typography from './material-ui-components/Typography'
 
 const BuyButton = lazy(() => import('./BuyButton/Async'))
 const AsyncOffer = lazy(() => import('./Offer/Async'))
@@ -19,6 +20,7 @@ interface Props {
   syncProduct: SyncProduct
 }
 
+// TODO: Style Typography
 const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
   const { productName, productId } = syncProduct
   const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
@@ -35,9 +37,7 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
           loading="eager" // Never lazy load image in product details
         />
         <Card>
-          <Heading variant="productTitle" as="h1">
-            {productName}
-          </Heading>
+          <Typography component="h1">{productName}</Typography>
           <SuspenseDelay fallback={<OfferPreview variant="detail" />}>
             <AsyncOffer productId={productId} variant="detail" />
           </SuspenseDelay>

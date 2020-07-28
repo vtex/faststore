@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
-import { Checkbox, Label, jsx } from 'theme-ui'
+import { Label, jsx } from 'theme-ui'
 import { FilterOptions } from '@vtex/gatsby-source-vtex'
 
+import Checkbox from '../../material-ui-components/Checkbox'
 import { useSearchFilters } from '../../../providers/SearchFilter'
 
 interface BrandFacet {
@@ -59,8 +60,8 @@ const BrandSelector: FC<Props> = ({ brands }) => {
                 onClick={() =>
                   setFilters((filters) => toggleFilter(id, filters))
                 }
+                label={name}
               />
-              {name}
             </Label>
           </li>
         ))}

@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Flex, Grid, Box, Heading } from 'theme-ui'
+import { Flex, Grid, Box } from 'theme-ui'
 import { useResponsiveValue } from '@theme-ui/match-media'
 
 import { ProductSummary } from '../ProductSummary'
@@ -7,6 +7,7 @@ import { SyncProductItem } from '../../types/product'
 import ArrowLeft from './ArrowLeft'
 import ArrowRight from './ArrowRight'
 import Button from '../material-ui-components/Button'
+import Typography from '../material-ui-components/Typography'
 
 interface Props {
   syncProducts: SyncProductItem[]
@@ -31,6 +32,7 @@ const FullWidthContainer: FC = ({ children }) => (
   <Box sx={{ width: '100%' }}>{children}</Box>
 )
 
+// TOOD: Style typography
 const Shelf: FC<Props> = ({ syncProducts }) => {
   const [page, setPage] = useState(0)
   const maxItems = useResponsiveValue(MAX_ITEMS)
@@ -44,9 +46,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
   return (
     <Box>
       <Flex p={2} sx={{ justifyContent: 'center' }} marginY={[16, 30]}>
-        <Heading variant="shelfTitle" as="h2">
-          summer
-        </Heading>
+        <Typography component="h2">summer</Typography>
       </Flex>
       <Flex>
         <Flex sx={{ alignItems: 'center' }}>
