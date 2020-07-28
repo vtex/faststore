@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC, lazy } from 'react'
-import { Card, Grid, Heading, jsx } from 'theme-ui'
+import { Grid, Heading, jsx } from 'theme-ui'
 
 import { SyncProduct } from '../types/product'
 import BuyButtonPreview from './BuyButton/Preview'
@@ -10,6 +10,7 @@ import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
 import SuspenseDelay from './SuspenseDelay'
 import SuspenseSSR from './SuspenseSSR'
+import Card from './material-ui-components/Card'
 
 const BuyButton = lazy(() => import('./BuyButton/Async'))
 const AsyncOffer = lazy(() => import('./Offer/Async'))

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
-import { Card, Heading, jsx } from 'theme-ui'
+import { Heading, jsx } from 'theme-ui'
 
 import { SyncProductItem } from '../types/product'
 import BuyButtonPreview from './BuyButton/Preview'
@@ -9,6 +9,7 @@ import BuyButton from './BuyButton/Sync'
 import OfferPreview from './Offer/Preview'
 import SyncOffer from './Offer/Sync'
 import ProductImage from './ProductImage'
+import Card from './material-ui-components/Card'
 
 interface Props {
   syncProduct: SyncProductItem
@@ -32,8 +33,8 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
       }}
     >
       <Card
-        sx={{
-          m: 'auto',
+        style={{
+          margin: 'auto',
           maxWidth: 300,
         }}
       >
