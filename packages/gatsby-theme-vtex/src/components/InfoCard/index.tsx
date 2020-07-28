@@ -1,6 +1,7 @@
 import { Link } from 'gatsby'
 import React, { FC } from 'react'
 import Box from '@material-ui/core/Box'
+import { Typography } from '@material-ui/core'
 
 interface Props {
   to: string
@@ -21,22 +22,29 @@ const InfoCard: FC<Props> = ({
   variant,
 }) => {
   return (
-    <Box>
-      <Box sx={{ width: ['100%', '30%'] }}>
+    <Box
+      display="flex"
+      bgcolor="palevioletred"
+      alignItems="center"
+      justifyContent="center"
+      flexDirection={['column', 'row']}
+    >
+      <Box
+        display="flex"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="center"
+        width={['100%', '30%']}
+      >
         {headline && (
-          <div
-            sx={{
-              fontSize: 5,
-              fontWeight: 'bold',
-            }}
-          >
+          <Typography variant="h5" component="h2">
             {headline}
-          </div>
+          </Typography>
         )}
-        {subhead && <div>{subhead}</div>}
+        {subhead && <Box m={2}>{subhead}</Box>}
         {children}
       </Box>
-      <Box sx={{ width: ['0%', '70%'], display: ['none', 'inline'] }}>
+      <Box width={['100%', '70%']} display="inline">
         <Link to={to}>
           <img
             style={{
