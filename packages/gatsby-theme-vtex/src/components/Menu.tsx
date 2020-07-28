@@ -1,7 +1,7 @@
-/** @jsx jsx */
+import React, { FC } from 'react'
 import { graphql, Link, useStaticQuery } from 'gatsby'
-import { FC } from 'react'
-import { Flex, jsx } from 'theme-ui'
+
+import Grid from './material-ui-components/Grid'
 
 interface Item {
   name: string
@@ -14,6 +14,7 @@ const MenuLink: FC<Item> = ({ slug, name }) => (
   </Link>
 )
 
+// TODO: Style nav
 const Menu: FC = () => {
   const { allCategory } = useStaticQuery(graphql`
     {
@@ -27,12 +28,12 @@ const Menu: FC = () => {
   `)
 
   return (
-    <Flex as="nav" variant="header-menu">
+    <Grid component="nav" item>
       {allCategory.nodes.map((item: Item) => (
         <MenuLink {...item} key={item.slug} />
       ))}
       <MenuLink slug="about" name="About" />
-    </Flex>
+    </Grid>
   )
 }
 

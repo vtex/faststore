@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Flex, Grid, Box } from 'theme-ui'
+import { Grid as ThemeUIGrid, Box } from 'theme-ui'
 import { useResponsiveValue } from '@theme-ui/match-media'
 
 import { ProductSummary } from '../ProductSummary'
@@ -8,6 +8,7 @@ import ArrowLeft from './ArrowLeft'
 import ArrowRight from './ArrowRight'
 import Button from '../material-ui-components/Button'
 import Typography from '../material-ui-components/Typography'
+import Grid from '../material-ui-components/Grid'
 
 interface Props {
   syncProducts: SyncProductItem[]
@@ -28,10 +29,6 @@ const hasNextArrow = (
   return lastItemIndex < itemCount - 1
 }
 
-const FullWidthContainer: FC = ({ children }) => (
-  <Box sx={{ width: '100%' }}>{children}</Box>
-)
-
 // TOOD: Style typography
 const Shelf: FC<Props> = ({ syncProducts }) => {
   const [page, setPage] = useState(0)
@@ -45,11 +42,11 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
 
   return (
     <Box>
-      <Flex p={2} sx={{ justifyContent: 'center' }} marginY={[16, 30]}>
+      <Grid justify="center" container>
         <Typography component="h2">summer</Typography>
-      </Flex>
-      <Flex>
-        <Flex sx={{ alignItems: 'center' }}>
+      </Grid>
+      <Grid container>
+        <Grid item alignItems="center">
           {hasPrevArrow(page) && (
             <Button
               style={{
@@ -61,38 +58,32 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
               <ArrowLeft size={arrowSize} />
             </Button>
           )}
-        </Flex>
-        <FullWidthContainer>
-          <Flex sx={{ justifyContent: 'center' }}>
-            <FullWidthContainer>
-              <Grid gap={2} columns={MAX_ITEMS}>
-                {items.map((item) => {
-                  return (
-                    <Flex key={item.id} sx={{ flexGrow: 1 }}>
-                      <ProductSummary syncProduct={item} />
-                    </Flex>
-                  )
-                })}
+        </Grid>
+        <Grid item container xs spacing={2}>
+          {items.map((item) => {
+            return (
+              <Grid key={item.id} item xs={maxItems > 1 ? 3 : 1}>
+                <ProductSummary syncProduct={item} />
               </Grid>
-            </FullWidthContainer>
-            <Flex sx={{ alignItems: 'center' }}>
-              {hasNextArrow(page, syncProducts.length, maxItems) && (
-                <Button
-                  style={{
-                    backgroundColor: 'transparent',
-                  }}
-                  onClick={() => {
-                    setPage(page + 1)
-                  }}
-                  aria-label="See shelf next page"
-                >
-                  <ArrowRight size={arrowSize} />
-                </Button>
-              )}
-            </Flex>
-          </Flex>
-        </FullWidthContainer>
-      </Flex>
+            )
+          })}
+        </Grid>
+        <Grid alignItems="center" item>
+          {hasNextArrow(page, syncProducts.length, maxItems) && (
+            <Button
+              style={{
+                backgroundColor: 'transparent',
+              }}
+              onClick={() => {
+                setPage(page + 1)
+              }}
+              aria-label="See shelf next page"
+            >
+              <ArrowRight size={arrowSize} />
+            </Button>
+          )}
+        </Grid>
+      </Grid>
     </Box>
   )
 }

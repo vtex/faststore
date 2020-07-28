@@ -1,23 +1,23 @@
-/** @jsx jsx */
-import { FC } from 'react'
-import { Flex, jsx } from 'theme-ui'
+import React, { FC } from 'react'
 
 import Logo from './Logo'
 import Search from './Search'
 import Minicart from './Minicart'
 import Menu from './Menu'
+import Grid from './material-ui-components/Grid'
 
+// TODO: Style
 const Header: FC = () => (
-  <Flex variant="header" as="header">
-    <Flex variant="header-left">
+  <Grid component="header" container justify="space-between">
+    <Grid item container sm>
       <Logo />
       <Menu />
-    </Flex>
-    <Flex variant="header-right">
+    </Grid>
+    <Grid item>
       <Search />
       <Minicart />
-    </Flex>
-  </Flex>
+    </Grid>
+  </Grid>
 )
 
 export default Header

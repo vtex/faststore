@@ -23,6 +23,10 @@ const ProductImage: FC<Props> = ({
     loading={loading}
     src={scaleImage(src, width, height)}
     alt={alt}
+    style={{
+      objectFit: 'cover',
+      maxWidth: '100%',
+    }}
     width={`${width}px`}
     height={`${height}px`}
   />

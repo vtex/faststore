@@ -1,12 +1,13 @@
 import Drawer from '@vtex-components/drawer'
 import React, { FC } from 'react'
-import { Box, Flex, Text } from 'theme-ui'
+import { Box, Text } from 'theme-ui'
 
 import Button from '../material-ui-components/Button'
 import Typography from '../material-ui-components/Typography'
 import { useOrderForm } from '../../providers/OrderForm'
 import { useCurrency } from '../../providers/Currency'
 import ProductImage from '../ProductImage'
+import Grid from '../material-ui-components/Grid'
 
 interface HeaderProps {
   onClose: () => void
@@ -31,27 +32,29 @@ const Header: FC<HeaderProps> = ({ onClose, count }) => (
   </Box>
 )
 
+// TODO: Style everything
 const Footer: FC<FooterProps> = ({ currency, total = 0, subtotal = 0 }) => (
-  <Flex
-    sx={{
-      p: 3,
-      flexDirection: 'column',
+  <Grid
+    direction="column"
+    container
+    style={{
       boxShadow: '0 0 12px rgba(0,0,0,.15)',
     }}
   >
-    <Flex sx={{ justifyContent: 'space-between' }}>
+    <Grid justify="space-between" container>
       <Text>Subtotal</Text>
       <Text>{`${currency} ${subtotal}`}</Text>
-    </Flex>
-    <Flex sx={{ justifyContent: 'space-between' }}>
+    </Grid>
+    <Grid justify="space-between" container>
       <Text sx={{ fontSize: 4 }}>Total</Text>
       <Text sx={{ fontSize: 4 }}>{`${currency} ${total}`}</Text>
-    </Flex>
+    </Grid>
     <Text my={3}>Shipping and taxes calculated at checkout.</Text>
     <Button>GO TO CHECKOUT</Button>
-  </Flex>
+  </Grid>
 )
 
+// TODO: Style everything
 const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
   const orderForm = useOrderForm()
   const [currency] = useCurrency()
@@ -59,25 +62,21 @@ const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
 
   return (
     <Drawer isOpen={isOpen} placement="right" onClose={onClose} width={400}>
-      <Flex
-        sx={{ height: '100%', flexDirection: 'column', overflow: 'hidden' }}
+      <Grid
+        direction="column"
+        container
+        style={{ height: '100%', overflow: 'hidden' }}
       >
         <Header onClose={onClose} count={count} />
-        <Flex
-          sx={{ flexDirection: 'column', flex: 1, overflow: 'auto' }}
-          px={3}
-        >
+        <Grid direction="column" xs style={{ overflow: 'auto' }}>
           {orderForm.value?.items.map((item) => (
-            <Flex
+            <Grid
               key={item.uniqueId}
-              sx={{
-                py: 3,
+              container
+              style={{
                 borderBottomWidth: 1,
                 borderBottomStyle: 'solid',
                 borderBottomColor: 'muted',
-                '&:last-child': {
-                  borderWidth: 0,
-                },
               }}
             >
               <Box sx={{ height: 96, width: 96 }}>
@@ -89,19 +88,19 @@ const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
                   loading="lazy"
                 />
               </Box>
-              <Flex sx={{ flexDirection: 'column' }} ml={3}>
+              <Grid direction="column" container xs>
                 <Text>{item.name}</Text>
                 <Text mt={3}>{`${currency} ${item.price}`}</Text>
-              </Flex>
-            </Flex>
+              </Grid>
+            </Grid>
           ))}
-        </Flex>
+        </Grid>
         <Footer
           currency={currency}
           total={orderForm.value?.value}
           subtotal={orderForm.value?.value}
         />
-      </Flex>
+      </Grid>
     </Drawer>
   )
 }

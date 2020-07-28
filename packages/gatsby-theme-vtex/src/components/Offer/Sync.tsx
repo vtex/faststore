@@ -1,10 +1,11 @@
 import React, { FC, useMemo } from 'react'
-import { Box, Flex } from 'theme-ui'
+import { Box } from 'theme-ui'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 import { findBestSeller, Item } from '../../utils/seller'
 import DiscountPercentage from './DiscountPercentage'
 import ListPrice from './ListPrice'
+import Grid from '../material-ui-components/Grid'
 
 export interface Props {
   sku?: Item
@@ -23,12 +24,12 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   return (
     <Box variant={`${variant}.offer`}>
       <ListPrice variant={variant} offer={offer} />
-      <Flex sx={{ alignItems: 'center' }}>
+      <Grid container xs alignItems="center">
         <Box variant={`${variant}.price`}>
           {numberFormat.format(offer.Price)}
         </Box>
         <DiscountPercentage variant={variant} offer={offer} />
-      </Flex>
+      </Grid>
       <Box variant={`${variant}.availability`}>
         {offer.AvailableQuantity} units left!
       </Box>

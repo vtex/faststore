@@ -1,25 +1,26 @@
 /** @jsx jsx */
 import { Category } from '@vtex/gatsby-source-vtex'
 import { FC, Fragment } from 'react'
-import { Flex, jsx } from 'theme-ui'
+import { jsx } from 'theme-ui'
 
 import Container from '../Container'
 import BrandSelector from './Facets/Brands'
 import CategoryTreeSelector from './Facets/CategoryTree'
 import PageList from './PageList'
 import Typography from '../material-ui-components/Typography'
+import Grid from '../material-ui-components/Grid'
 
 interface Props {
   category: Category
 }
 
-// TODO: Style Typography
+// TODO: Style Typography, Grid
 const CategoryTemplate: FC<Props> = ({ category }) => (
   <Container>
-    <Flex sx={{ flexDirection: 'column' }} my={4}>
+    <Grid direction="column" item>
       <Typography component="h2">{category.name}</Typography>
       <div
-        sx={{
+        style={{
           display: 'flex',
           flexWrap: 'wrap',
         }}
@@ -58,7 +59,7 @@ const CategoryTemplate: FC<Props> = ({ category }) => (
           <PageList category={category} />
         </div>
       </div>
-    </Flex>
+    </Grid>
   </Container>
 )
 
