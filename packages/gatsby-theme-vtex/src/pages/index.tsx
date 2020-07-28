@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { RouteComponentProps } from '@reach/router'
-import { graphql } from 'gatsby'
-import { FC, lazy, useEffect } from 'react'
+import { graphql, PageProps } from 'gatsby'
+import { FC, useEffect, lazy } from 'react'
 import { jsx } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
@@ -10,7 +9,6 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
 import SuspenseDelay from '../components/SuspenseDelay'
-import { SyncProductItem } from '../types/product'
 
 const Fold = lazy(() => import('../components/Home/Fold'))
 
@@ -27,16 +25,12 @@ const itemsCarousel = [
   },
 ]
 
-interface Props extends RouteComponentProps {
-  data: {
-    allProduct: {
-      nodes: SyncProductItem[]
-    }
-  }
-}
+type Props = PageProps<{
+  vtex: any
+}>
 
-const Home: FC<Props> = ({ data: { allProduct } }) => {
-  const syncProducts = allProduct.nodes
+const Home: FC<Props> = ({ data }) => {
+  const syncProducts = data.vtex.productSearch.products
 
   useEffect(() => {
     ;(window as any).vtexrca('sendevent', 'homeView', {})
@@ -58,24 +52,25 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
 
 export const query = graphql`
   {
-    allProduct {
-      nodes {
-        id
-        slug
-        productId
-        productName
-        items {
-          itemId
-          images {
-            imageUrl
-            imageText
-          }
-          sellers {
-            sellerId
-            commertialOffer {
-              AvailableQuantity
-              Price
-              ListPrice
+    vtex {
+      productSearch(from: 0, to: 10) {
+        products {
+          productId
+          productName
+          linkText
+          items {
+            itemId
+            images {
+              imageUrl
+              imageText
+            }
+            sellers {
+              sellerId
+              commertialOffer {
+                AvailableQuantity
+                Price
+                ListPrice
+              }
             }
           }
         }
