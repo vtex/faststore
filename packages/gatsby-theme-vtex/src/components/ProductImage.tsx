@@ -1,6 +1,7 @@
 import { Image } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
 import { AspectImage } from 'theme-ui'
+import ProgressiveImage from 'react-progressive-image'
 
 import { IMAGE_DEFAULT, scaleImage } from '../utils/img'
 
@@ -19,14 +20,21 @@ const ProductImage: FC<Props> = ({
   alt = 'Product Image',
   loading = 'lazy',
 }) => (
-  <AspectImage
-    ratio={1}
-    loading={loading}
+  <ProgressiveImage
+    placeholder={scaleImage(src, 300, 300)}
     src={scaleImage(src, width, height)}
-    alt={alt}
-    width={`${width}px`}
-    height={`${height}px`}
-  />
+  >
+    {(imageSrc: string) => (
+      <AspectImage
+        ratio={1}
+        loading={loading}
+        src={imageSrc}
+        alt={alt}
+        width={`${width}px`}
+        height={`${height}px`}
+      />
+    )}
+  </ProgressiveImage>
 )
 
 export default ProductImage
