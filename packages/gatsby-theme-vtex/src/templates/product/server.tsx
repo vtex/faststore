@@ -7,19 +7,19 @@ import ProductDetails from '../../components/ProductDetails'
 import { SyncProduct } from '../../types/product'
 
 export const staticQuery = graphql`
-  query($id: String!) {
-    product(id: { eq: $id }) {
-      id
-      slug
-      productId
-      productName
-      description
-      linkText
-      items {
-        itemId
-        images {
-          imageUrl
-          imageText
+  query GetProduct($slug: String) {
+    vtex {
+      product(slug: $slug) {
+        productId
+        productName
+        description
+        linkText
+        items {
+          itemId
+          images {
+            imageUrl
+            imageText
+          }
         }
       }
     }
@@ -28,16 +28,26 @@ export const staticQuery = graphql`
 
 interface Props {
   data: {
-    product: SyncProduct
+    vtex: {
+      product: SyncProduct
+    }
   }
 }
 
-const ProductPage: FC<Props> = ({ data: { product } }) => (
-  <Layout>
-    <Container>
-      <ProductDetails syncProduct={product} />
-    </Container>
-  </Layout>
-)
+const ProductPage: FC<Props> = (props) => {
+  const {
+    data: {
+      vtex: { product },
+    },
+  } = props
+
+  return (
+    <Layout>
+      <Container>
+        <ProductDetails syncProduct={product} />
+      </Container>
+    </Layout>
+  )
+}
 
 export default ProductPage
