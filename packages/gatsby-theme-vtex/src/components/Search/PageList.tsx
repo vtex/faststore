@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { FilterOptions, Product } from '@vtex/gatsby-source-vtex'
+import { Product } from '@vtex/gatsby-source-vtex'
 import React, { FC, Fragment, useCallback, useMemo } from 'react'
 import { useSWRInfinite } from 'swr'
 import { Button, Grid } from 'theme-ui'
@@ -7,27 +7,16 @@ import { Button, Grid } from 'theme-ui'
 import { useSearchFilters } from '../../providers/SearchFilter'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
-
-const loadFetcher = () => import('./fetcher')
+import query from './query'
+import graphqlFetcher from '../../utils/graphqlFetcher'
 
 const PAGE_SIZE = 8
 
-const searchContext = (page: number, filters: FilterOptions) => {
-  const from = page * PAGE_SIZE
-  const to = (page + 1) * PAGE_SIZE - 1
+const fetcher = async (options: string) => {
+  const variables = JSON.parse(options)
+  const { data } = await graphqlFetcher(query, variables)
 
-  return JSON.stringify({
-    ...filters,
-    from,
-    to,
-  })
-}
-
-const searchFetcher = async (options: string) => {
-  const { fetcher } = await loadFetcher()
-  const context = JSON.parse(options)
-
-  return fetcher(context)
+  return data.productSearch.products
 }
 
 interface Props {
@@ -58,9 +47,16 @@ const List: FC<Props> = ({
         return null
       }
 
-      return searchContext(page, filters)
+      const from = page * PAGE_SIZE
+      const to = (page + 1) * PAGE_SIZE - 1
+
+      return JSON.stringify({
+        ...filters,
+        from,
+        to,
+      })
     },
-    searchFetcher,
+    fetcher,
     {
       revalidateOnMount: true,
       initialData,
