@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC, useState } from 'react'
-import { Box, jsx, Image } from 'theme-ui'
+import { Box, jsx } from 'theme-ui'
 
 import Button from './material-ui-components/Button'
 
@@ -38,11 +38,11 @@ const Carousel: FC<Props> = ({ items }) => {
           >
             Next
           </Button>
-          <Image
+          <img
             src={item.src}
             alt={item.altText}
             loading="lazy"
-            sx={{ height, width: '100%', objectFit: 'cover' }}
+            style={{ height, width: '100%', objectFit: 'cover' }}
           />
         </Box>
       ))}

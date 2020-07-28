@@ -1,6 +1,6 @@
 import { Link } from 'gatsby'
 import React, { FC } from 'react'
-import { Box, Image } from 'theme-ui'
+import { Box } from 'theme-ui'
 
 interface Props {
   to: string
@@ -38,8 +38,8 @@ const InfoCard: FC<Props> = ({
       </Box>
       <Box sx={{ width: ['0%', '70%'], display: ['none', 'inline'] }}>
         <Link to={to}>
-          <Image
-            sx={{
+          <img
+            style={{
               maxHeight: '540px',
               width: '100%',
             }}
