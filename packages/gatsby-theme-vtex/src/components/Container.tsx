@@ -1,14 +1,12 @@
-/** @jsx jsx */
-import { FC } from 'react'
-import { Box, jsx } from 'theme-ui'
+import React, { FC } from 'react'
+import Box from '@material-ui/core/Box'
 
 const Container: FC = ({ children }) => (
   <Box
-    px={[2, 3, 4]}
-    sx={{
+    style={{
       margin: '0 auto',
       width: '100%',
-      maxWidth: ['100%', '100%', '96rem'],
+      maxWidth: '100%',
     }}
   >
     <main>{children}</main>

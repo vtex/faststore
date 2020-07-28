@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { FC, useState } from 'react'
-import { Box, jsx, Image } from 'theme-ui'
+import { jsx, Image } from 'theme-ui'
+import Box from '@material-ui/core/Box'
 
 import Button from './material-ui-components/Button'
 
@@ -20,11 +21,11 @@ const Carousel: FC<Props> = ({ items }) => {
   const height = 450
 
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Box style={{ position: 'relative' }}>
       {items.map((item, i) => (
         <Box
           key={item.altText}
-          sx={{ display: index === i ? 'block' : 'none', height }}
+          style={{ display: index === i ? 'block' : 'none', height }}
         >
           <Button
             onClick={() => setIndex(i === 0 ? lastIndex : i - 1)}

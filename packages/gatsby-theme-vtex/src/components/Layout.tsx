@@ -1,13 +1,24 @@
-/** @jsx jsx */
-import { FC, Fragment } from 'react'
-import { Box, jsx } from 'theme-ui'
+import React, { FC, Fragment } from 'react'
 import { Link } from 'gatsby'
+import Box from '@material-ui/core/Box'
 
 import Header from './Header'
 import NotificationBar from './NotificationBar'
 
 const OverMenu = () => (
-  <Box variant="overmenu">
+  <Box
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textDecoration: 'none',
+      background: '#02003d',
+      minHeight: '48px',
+      color: 'muted',
+      fontSize: 1,
+      padding: '16px',
+    }}
+  >
     <div>
       <Link to="/">Shop</Link>
     </div>

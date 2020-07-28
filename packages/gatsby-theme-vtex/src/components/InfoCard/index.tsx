@@ -1,6 +1,7 @@
 import { Link } from 'gatsby'
 import React, { FC } from 'react'
-import { Box, Image } from 'theme-ui'
+import { Image } from 'theme-ui'
+import Box from '@material-ui/core/Box'
 
 interface Props {
   to: string
@@ -21,7 +22,7 @@ const InfoCard: FC<Props> = ({
   variant,
 }) => {
   return (
-    <Box variant={`infocard${variant ? `.${variant}` : ''}`}>
+    <Box>
       <Box sx={{ width: ['100%', '30%'] }}>
         {headline && (
           <div
