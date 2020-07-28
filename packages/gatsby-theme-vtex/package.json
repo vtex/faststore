@@ -48,6 +48,7 @@
     "p-queue": "^6.5.0",
     "react-helmet": "^6.1.0",
     "react-loading-skeleton": "^2.1.1",
+    "react-progressive-image": "^0.6.0",
     "schema-dts": "^0.6.0",
     "swr": "^0.3.0"
   }
