@@ -22,6 +22,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
   const orderForm = useOrderForm()
   const disabled = !sku || !orderForm?.value
 
+  console.log('Buy Button disabled', sku, orderForm?.value)
   // Optimist add item on click
   const addItemOnClick = async (e: any) => {
     e.preventDefault()
