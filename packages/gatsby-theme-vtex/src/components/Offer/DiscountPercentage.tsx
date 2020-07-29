@@ -1,20 +1,27 @@
 import React, { FC } from 'react'
-// import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
+import type { Theme } from '@material-ui/core'
 
-import { SyncProductCommertialOffer } from '../../types/product'
-import Grid from '../material-ui-components/Grid'
 import Typography from '../material-ui-components/Typography'
+import { SyncProductCommertialOffer } from '../../types/product'
 
 interface Props {
   offer: SyncProductCommertialOffer
   variant: string
 }
 
-// const useStyles = makeStyles(() => ({}))
+const useStyles = makeStyles((theme: Theme) => ({
+  discountBadge: {
+    borderRadius: '1000px',
+    color: theme.palette.grey[50],
+    padding: `0 ${theme.spacing(1)}px`,
+    backgroundColor: theme.palette.success.dark,
+  },
+}))
 
 // TODO: Style variant
 const DiscountPercentage: FC<Props> = ({ offer }) => {
-  // const classes = useStyles()
+  const classes = useStyles()
 
   if (offer.Price === offer.ListPrice) {
     return null
@@ -24,9 +31,15 @@ const DiscountPercentage: FC<Props> = ({ offer }) => {
   const discount = 100 - relation
 
   return (
-    <Grid item>
-      <Typography>-{discount}%</Typography>
-    </Grid>
+    <Typography
+      classes={{
+        root: classes.discountBadge,
+      }}
+      component="span"
+      variant="body2"
+    >
+      -{discount}%
+    </Typography>
   )
 }
 

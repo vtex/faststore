@@ -1,4 +1,6 @@
 import React, { FC, lazy } from 'react'
+import { makeStyles } from '@material-ui/styles'
+import type { Theme } from '@material-ui/core'
 
 import { SyncProduct } from '../types/product'
 import BuyButtonPreview from './BuyButton/Preview'
@@ -19,16 +21,35 @@ interface Props {
   syncProduct: SyncProduct
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+  productName: {
+    fontWeight: theme.typography.fontWeightBold,
+    marginBottom: theme.spacing(4),
+  },
+  gridContainer: {
+    margin: `${theme.spacing(3)}px auto`,
+    maxWidth: '100%',
+  },
+}))
+
 // TODO: Style Typography, Grid
 const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
   const { productName, productId } = syncProduct
   const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
+  const classes = useStyles()
 
   return (
     <Container>
       <SEO title={productName} productId={productId} />
-      <Grid container>
-        <Grid item xs={12} sm={6}>
+      <Grid className={classes.gridContainer} container spacing={5}>
+        <Grid
+          container
+          item
+          xs={12}
+          sm={6}
+          justify="center"
+          alignItems="center"
+        >
           <ProductImage
             width={500}
             height={500}
@@ -38,15 +59,21 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Card>
-            <Typography component="h1">{productName}</Typography>
-            <SuspenseDelay fallback={<OfferPreview variant="detail" />}>
-              <AsyncOffer productId={productId} variant="detail" />
-            </SuspenseDelay>
-            <SuspenseSSR fallback={<BuyButtonPreview />}>
-              <BuyButton productId={productId} />
-            </SuspenseSSR>
-          </Card>
+          <Typography
+            classes={{
+              root: classes.productName,
+            }}
+            variant="h4"
+            component="h1"
+          >
+            {productName}
+          </Typography>
+          <SuspenseDelay fallback={<OfferPreview variant="detail" />}>
+            <AsyncOffer productId={productId} variant="detail" />
+          </SuspenseDelay>
+          <SuspenseSSR fallback={<BuyButtonPreview />}>
+            <BuyButton productId={productId} />
+          </SuspenseSSR>
         </Grid>
       </Grid>
     </Container>

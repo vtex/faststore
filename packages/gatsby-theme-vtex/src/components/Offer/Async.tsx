@@ -14,6 +14,7 @@ const AsyncOffer: FC<Props> = ({ productId, skuId, variant = '' }) => {
   const { product, isLoading } = useAsyncProduct({ productIds: [productId] })
   const sku = useSku(product, skuId)
 
+  // return <OfferPreview variant={variant} />
   if (isLoading) {
     return <OfferPreview variant={variant} />
   }
