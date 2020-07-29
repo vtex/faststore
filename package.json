@@ -11,7 +11,6 @@
     "clean": "lerna clean && lerna run clean",
     "format": "prettier --write \"packages/**/*.{ts,js,tsx,jsx,json}\"",
     "lint": "eslint packages/ --ext .js,.ts,.jsx,.tsx",
-    "lint:theme": "eslint packages/gatsby-theme-vtex/ --ext .js,.ts,.jsx,.tsx",
     "test:lhci": "lhci autorun --collect.url=/index.html"
   },
   "workspaces": [
