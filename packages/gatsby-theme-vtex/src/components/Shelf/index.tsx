@@ -2,7 +2,9 @@ import React, { FC, useState } from 'react'
 import Box from '@material-ui/core/Box'
 import type { Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { useTheme } from '@material-ui/core/styles'
 import ButtonBase from '@material-ui/core/ButtonBase'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import { ProductSummary } from '../ProductSummary'
 import { SyncProductItem } from '../../types/product'
@@ -47,8 +49,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Shelf: FC<Props> = ({ syncProducts }) => {
   const [page, setPage] = useState(0)
   const classes = useStyles()
-  const maxItems = 4
-  const arrowSize = 50
+  const theme = useTheme()
+  const upSm = useMediaQuery(theme.breakpoints.up('sm'))
+  const maxItems = upSm ? 4 : 1
+  const arrowSize = upSm ? 50 : 25
 
   const items =
     maxItems > 1
@@ -76,7 +80,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
         <Grid item container xs spacing={2}>
           {items.map((item) => {
             return (
-              <Grid key={item.id} item xs={maxItems > 1 ? 3 : 1}>
+              <Grid key={item.id} item xs={maxItems > 1 ? 3 : 'auto'}>
                 <ProductSummary syncProduct={item} />
               </Grid>
             )
