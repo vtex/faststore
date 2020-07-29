@@ -30,7 +30,7 @@ const Carousel: FC<Props> = ({ items }) => {
           <Button
             onClick={() => {
               console.log('carousel prev button clicked')
-              setIndex((i + items.length - 1) % items.length)
+              setIndex((index + items.length - 1) % items.length)
             }}
             style={{ position: 'absolute', top: '50%', left: 0 }}
           >
@@ -39,7 +39,7 @@ const Carousel: FC<Props> = ({ items }) => {
           <Button
             onClick={() => {
               console.log('carousel next button clicked')
-              setIndex((i + 1) % items.length)
+              setIndex((index + 1) % items.length)
             }}
             style={{ position: 'absolute', top: '50%', right: 0 }}
           >
