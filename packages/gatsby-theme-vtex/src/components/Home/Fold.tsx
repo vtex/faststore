@@ -4,7 +4,6 @@ import { Box, Flex } from 'theme-ui'
 
 import reachUsMd from '../../markdowns/reach-us.md'
 import exampleStoreMd from '../../markdowns/example-store.md'
-
 import RichMarkdown from '../RichText/RichMarkdown'
 
 const Block: FC = ({ children }) => <Box sx={{ my: 5 }}>{children}</Box>
@@ -25,7 +24,7 @@ const Fold: FC = () => {
         </Card>
       </Block>
 
-      <Flex sx={{justifyContent:'center'}}>
+      <Flex sx={{ justifyContent: 'center' }}>
         <RichMarkdown text={exampleStoreMd} variant="question" />
       </Flex>
       <Block>
