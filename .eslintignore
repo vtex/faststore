@@ -1,6 +1,7 @@
 package.json
 node_modules/
 public/
+dist/
 coverage/
 .vscode/
 .cache/
