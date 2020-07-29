@@ -8,7 +8,10 @@ interface Props {
 
 const RichMarkdown: React.FC<Props> = ({ text, variant = 'default' }) => {
   return (
-    <Box variant={`rich-text.${variant}`} dangerouslySetInnerHTML={{ __html: text }} />
+    <Box
+      variant={`rich-text.${variant}`}
+      dangerouslySetInnerHTML={{ __html: text }}
+    />
   )
 }
 
