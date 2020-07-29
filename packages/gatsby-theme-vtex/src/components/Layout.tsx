@@ -34,7 +34,6 @@ const OverMenu = () => {
       style={{
         textDecoration: 'none',
         color: 'muted',
-        fontSize: 16,
       }}
     >
       <Grid item container alignItems="center" justify="center" spacing={5}>
