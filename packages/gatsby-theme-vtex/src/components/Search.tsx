@@ -8,16 +8,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   searchInput: {
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     backgroundColor: theme.palette.background.paper,
-  },
-  notchedOutline: {
-    borderWidth: '2px',
-  },
-  searchRoot: {
     borderColor: theme.palette.grey[300],
-    '&:hover:not(:focus-within) $notchedOutline': {
+    borderWidth: '2px',
+    borderStyle: 'solid',
+    borderRadius: theme.shape.borderRadius,
+    '&:hover:not(:focus-within)': {
       borderColor: theme.palette.grey[500],
     },
-    '&:focus-within $notchedOutline': {
+    '&:focus-within': {
       borderColor: theme.palette.grey[600],
     },
   },
@@ -44,12 +42,9 @@ const Search: FC = () => {
         }}
         startAdornment={null}
         classes={{
-          root: classes.searchRoot,
           input: classes.searchInput,
-          notchedOutline: classes.notchedOutline,
         }}
         placeholder="Search"
-        label="Search"
       />
     </>
   )

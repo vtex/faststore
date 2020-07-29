@@ -1,8 +1,6 @@
 import React from 'react'
-import MuiOutlinedInput, {
-  OutlinedInputProps,
-} from '@material-ui/core/OutlinedInput'
+import MuiInputBase, { InputBaseProps } from '@material-ui/core/InputBase'
 
-export default function Input(props: OutlinedInputProps) {
-  return <MuiOutlinedInput {...props} />
+export default function Input(props: InputBaseProps) {
+  return <MuiInputBase {...props} />
 }
