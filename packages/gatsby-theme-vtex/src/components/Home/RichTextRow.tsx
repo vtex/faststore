@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, Flex, Grid } from 'theme-ui'
+import { Box, Flex, Grid, Image } from 'theme-ui'
 import { RichMarkdown } from '@vtex/store-ui'
 
 import freeShippingHtml from '../../markdowns/free-shipping.md'
@@ -27,7 +27,7 @@ const RichTextRow: FC = () => {
               paddingY: '0.5rem',
             }}
           >
-            <img
+            <Image
               src={scaleImage(
                 'https://storecomponents.vtexassets.com/arquivos/box.png',
                 24,
@@ -35,6 +35,7 @@ const RichTextRow: FC = () => {
               )}
               width="24px"
               height="24px"
+              loading="lazy"
               alt="shipping box"
             />
             <RichMarkdown text={freeShippingHtml} variant="deals-row" />
@@ -47,7 +48,7 @@ const RichTextRow: FC = () => {
               paddingY: '0.5rem',
             }}
           >
-            <img
+            <Image
               src={scaleImage(
                 'https://storecomponents.vtexassets.com/arquivos/delivery-fast.png',
                 24,
@@ -55,6 +56,7 @@ const RichTextRow: FC = () => {
               )}
               width="24px"
               height="24px"
+              loading="lazy"
               alt="delivery"
             />
             <RichMarkdown text={deliveryHtml} variant="deals-row" />
@@ -67,7 +69,7 @@ const RichTextRow: FC = () => {
               paddingY: '0.5rem',
             }}
           >
-            <img
+            <Image
               src={scaleImage(
                 'https://storecomponents.vtexassets.com/arquivos/store.png',
                 24,
@@ -76,6 +78,7 @@ const RichTextRow: FC = () => {
               width="24px"
               height="24px"
               alt="store"
+              loading="lazy"
             />
             <RichMarkdown text={pickupHtml} variant="deals-row" />
           </Flex>
@@ -87,7 +90,7 @@ const RichTextRow: FC = () => {
               paddingY: '0.5rem',
             }}
           >
-            <img
+            <Image
               src={scaleImage(
                 'https://storecomponents.vtexassets.com/arquivos/coupon.png',
                 24,
@@ -96,6 +99,7 @@ const RichTextRow: FC = () => {
               width="24px"
               height="24px"
               alt="coupon"
+              loading="lazy"
             />
             <RichMarkdown text={dealHtml} variant="deals-row" />
           </Flex>
