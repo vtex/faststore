@@ -1,7 +1,9 @@
 import React, { FC, Fragment } from 'react'
 import { FilterOptions } from '@vtex/gatsby-source-vtex'
+import { Box } from '@material-ui/core'
 
 import Checkbox from '../../material-ui-components/Checkbox'
+import Typography from '../../material-ui-components/Typography'
 import { useSearchFilters } from '../../../providers/SearchFilter'
 
 interface BrandFacet {
@@ -48,18 +50,22 @@ const BrandSelector: FC<Props> = ({ brands }) => {
 
   return (
     <Fragment>
-      <div>Brands</div>
+      <Typography>Brands</Typography>
 
-      <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
-        {brands.map(({ name, id }, index) => (
-          <li key={`brands-selector-${index}`}>
-            <Checkbox
-              onClick={() => setFilters((filters) => toggleFilter(id, filters))}
-              label={name}
-            />
-          </li>
-        ))}
-      </ul>
+      <Box py={2}>
+        <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
+          {brands.map(({ name, id }, index) => (
+            <li key={`brands-selector-${index}`}>
+              <Checkbox
+                onClick={() =>
+                  setFilters((filters) => toggleFilter(id, filters))
+                }
+                label={name}
+              />
+            </li>
+          ))}
+        </ul>
+      </Box>
     </Fragment>
   )
 }
