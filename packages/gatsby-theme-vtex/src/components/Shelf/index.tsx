@@ -1,11 +1,13 @@
 import React, { FC, useState } from 'react'
 import Box from '@material-ui/core/Box'
+import type { Theme } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
+import ButtonBase from '@material-ui/core/ButtonBase'
 
 import { ProductSummary } from '../ProductSummary'
 import { SyncProductItem } from '../../types/product'
 import ArrowLeft from './ArrowLeft'
 import ArrowRight from './ArrowRight'
-import Button from '../material-ui-components/Button'
 import Typography from '../material-ui-components/Typography'
 import Grid from '../material-ui-components/Grid'
 
@@ -29,9 +31,22 @@ const hasNextArrow = (
   return lastItemIndex < itemCount - 1
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  title: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+  },
+}))
+
 // TOOD: Style typography
 const Shelf: FC<Props> = ({ syncProducts }) => {
   const [page, setPage] = useState(0)
+  const classes = useStyles()
   const maxItems = 4
   const arrowSize = 50
 
@@ -41,13 +56,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
       : [syncProducts[page]]
 
   return (
-    <Box
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
+    <Box className={classes.root}>
       <Grid justify="center" container>
         <Typography variant="h2" component="h2">
           summer
@@ -56,15 +65,12 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
       <Grid container>
         <Grid container alignItems="center" xs={1}>
           {hasPrevArrow(page) && (
-            <Button
-              style={{
-                backgroundColor: 'transparent',
-              }}
+            <ButtonBase
               onClick={() => setPage(page - 1)}
               aria-label="See shelf previous page"
             >
               <ArrowLeft size={arrowSize} />
-            </Button>
+            </ButtonBase>
           )}
         </Grid>
         <Grid item container xs spacing={2}>
@@ -78,17 +84,14 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
         </Grid>
         <Grid container alignItems="center" xs={1}>
           {hasNextArrow(page, syncProducts.length, maxItems) && (
-            <Button
-              style={{
-                backgroundColor: 'transparent',
-              }}
+            <ButtonBase
               onClick={() => {
                 setPage(page + 1)
               }}
               aria-label="See shelf next page"
             >
               <ArrowRight size={arrowSize} />
-            </Button>
+            </ButtonBase>
           )}
         </Grid>
       </Grid>

@@ -1,4 +1,6 @@
 import React, { FC, Fragment } from 'react'
+import type { Theme } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 
 import { SyncProductItem } from '../types/product'
 import BuyButtonPreview from './BuyButton/Preview'
@@ -14,7 +16,15 @@ interface Props {
   syncProduct: SyncProductItem
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+  productNameRoot: {
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+}))
+
 export const ProductSummary: FC<Props> = ({ syncProduct }) => {
+  const classes = useStyles()
+
   const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
   const offer = syncProduct.items?.[0]?.sellers?.[0]?.commertialOffer
 
@@ -44,7 +54,11 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
           alt={imageText}
           loading="lazy"
         />
-        <Typography component="h3">
+        <Typography
+          classes={{ root: classes.productNameRoot }}
+          variant="h5"
+          component="h3"
+        >
           {syncProduct.productName.slice(0, 12)}
         </Typography>
         {!offer ? (
