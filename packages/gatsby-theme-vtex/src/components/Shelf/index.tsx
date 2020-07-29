@@ -1,11 +1,18 @@
 import React, { FC, useState } from 'react'
 import { Flex, Grid, Button, Box, Heading } from 'theme-ui'
 import { useResponsiveValue } from '@theme-ui/match-media'
+import freeShippingHtml from '../../markdowns/free-shipping.md'
+import deliveryHtml from '../../markdowns/delivery.md'
+import pickupHtml from '../../markdowns/pickup.md'
+import dealHtml from '../../markdowns/deal.md'
 
 import { ProductSummary } from '../ProductSummary'
+import RichMarkdown from '../RichText/RichMarkdown'
 import { SyncProductItem } from '../../types/product'
 import ArrowLeft from './ArrowLeft'
 import ArrowRight from './ArrowRight'
+
+import { scaleImage } from '../../utils/img'
 
 interface Props {
   syncProducts: SyncProductItem[]
@@ -42,9 +49,48 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
 
   return (
     <Box>
+      {/* <FullWidthContainer>
+        <Box backgroundColor="#a7afbd" >
+          <Grid gap={2} columns={MAX_ITEMS}>
+            <Flex variant="testeVariant" sx={{ alignItems: 'center', flexDirection: 'column', paddingY: '0.5rem' }}>
+              <img
+                src={scaleImage('https://storecomponents.vtexassets.com/arquivos/box.png', 24, 24)}
+                width={`24px`}
+                height={`24px`}
+              />
+              <RichMarkdown text={freeShippingHtml} />
+            </Flex>
+            <Flex variant="testeVariant" sx={{ alignItems: 'center', flexDirection: 'column', paddingY: '0.5rem' }}>
+              <img
+                src={scaleImage('https://storecomponents.vtexassets.com/arquivos/delivery-fast.png', 24, 24)}
+                width={`24px`}
+                height={`24px`}
+              />
+              <RichMarkdown text={deliveryHtml} />
+            </Flex>
+            <Flex variant="testeVariant" sx={{ alignItems: 'center', flexDirection: 'column', paddingY: '0.5rem' }}>
+              <img
+                src={scaleImage('https://storecomponents.vtexassets.com/arquivos/store.png', 24, 24)}
+                width={`24px`}
+                height={`24px`}
+              />
+              <RichMarkdown text={pickupHtml} />
+            </Flex>
+            <Flex variant="testeVariant" sx={{ alignItems: 'center', flexDirection: 'column', paddingY: '0.5rem' }}>
+              <img
+                src={scaleImage('https://storecomponents.vtexassets.com/arquivos/coupon.png', 24, 24)}
+                width={`24px`}
+                height={`24px`}
+              />
+              <RichMarkdown text={dealHtml} />
+            </Flex>
+          </Grid>
+        </Box>
+      </FullWidthContainer> */}
+      {/* <RichMarkdown text={helloText} /> */}
       <Flex p={2} sx={{ justifyContent: 'center' }} marginY={[16, 30]}>
         <Heading variant="shelfTitle" as="h2">
-          summer
+          summer1
         </Heading>
       </Flex>
       <Flex>
