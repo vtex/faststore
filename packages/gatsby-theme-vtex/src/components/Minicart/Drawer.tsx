@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 import Box from '@material-ui/core/Box'
+import makeStyles from '@material-ui/styles/makeStyles'
+import type { Theme } from '@material-ui/core'
 
 import Button from '../material-ui-components/Button'
 import Typography from '../material-ui-components/Typography'
@@ -24,35 +26,76 @@ interface Props extends HeaderProps {
   isOpen: boolean
 }
 
-// TODO: Style
-const Header: FC<HeaderProps> = ({ onClose, count }) => (
-  <Box p={1}>
-    <Button onClick={onClose}>Close</Button>
-    <Typography component="h1">{`Cart (${count})`}</Typography>
-  </Box>
-)
+const useHeaderStyles = makeStyles((theme: Theme) => ({
+  root: {
+    fontWeight: theme.typography.fontWeightBold,
+  },
+}))
 
-// TODO: Style everything
-const Footer: FC<FooterProps> = ({ currency, total = 0, subtotal = 0 }) => (
-  <Grid
-    direction="column"
-    container
-    style={{
-      boxShadow: '0 0 12px rgba(0,0,0,.15)',
-    }}
-  >
-    <Grid justify="space-between" container>
-      <Typography>Subtotal</Typography>
-      <Typography>{`${currency} ${subtotal}`}</Typography>
+const Header: FC<HeaderProps> = ({ onClose, count }) => {
+  const classes = useHeaderStyles()
+
+  return (
+    <Box p={2}>
+      <Button onClick={onClose}>Close</Button>
+      <Box pt={2}>
+        <Typography
+          classes={classes}
+          component="h1"
+          variant="h4"
+        >{`Cart (${count})`}</Typography>
+      </Box>
+    </Box>
+  )
+}
+
+const useGridStyles = makeStyles((theme: Theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))
+
+const Footer: FC<FooterProps> = ({ currency, total = 0, subtotal = 0 }) => {
+  const classes = useGridStyles()
+
+  return (
+    <Grid
+      classes={classes}
+      direction="column"
+      container
+      style={{
+        boxShadow: '0 0 12px rgba(0,0,0,.15)',
+      }}
+    >
+      <Grid justify="space-between" container>
+        <Typography>Subtotal</Typography>
+        <Typography>{`${currency} ${subtotal}`}</Typography>
+      </Grid>
+      <Grid justify="space-between" container>
+        <Typography variant="h5">Total</Typography>
+        <Typography variant="h5">{`${currency} ${total}`}</Typography>
+      </Grid>
+      <Box py={2}>
+        <Typography>Shipping and taxes calculated at checkout.</Typography>
+      </Box>
+      <Button>GO TO CHECKOUT</Button>
     </Grid>
-    <Grid justify="space-between" container>
-      <Typography variant="h5">Total</Typography>
-      <Typography variant="h5">{`${currency} ${total}`}</Typography>
-    </Grid>
-    <Typography>Shipping and taxes calculated at checkout.</Typography>
-    <Button>GO TO CHECKOUT</Button>
-  </Grid>
-)
+  )
+}
+
+const useMinicartStyles = makeStyles((theme: Theme) => ({
+  root: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  item: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
+    borderBottomColor: theme.palette.grey['200'],
+  },
+}))
 
 // TODO: Style everything
 const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
@@ -60,39 +103,39 @@ const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
   const [currency] = useCurrency()
   const count = orderForm?.value?.items.length ?? 0
 
+  const minicartClasses = useMinicartStyles()
+
   return (
-    <Drawer
-      open={isOpen}
-      anchor="right"
-      onClose={onClose}
-      style={{ width: 400 }}
-    >
+    <Drawer open={isOpen} anchor="right" onClose={onClose}>
       <Grid
         direction="column"
         container
-        style={{ height: '100%', overflow: 'hidden' }}
+        style={{ width: 400, height: '100%', overflow: 'hidden' }}
       >
         <Header onClose={onClose} count={count} />
-        <Grid direction="column" xs style={{ overflow: 'auto' }}>
+        <Grid
+          classes={minicartClasses}
+          direction="column"
+          xs
+          style={{ overflow: 'auto' }}
+        >
           {orderForm.value?.items.map((item) => (
             <Grid
               key={item.uniqueId}
-              container
-              style={{
-                borderBottomWidth: 1,
-                borderBottomStyle: 'solid',
-                borderBottomColor: 'muted',
+              classes={{
+                root: minicartClasses.item,
               }}
+              item
+              container
+              xs
             >
-              <Box height="96px" width="96px">
-                <ProductImage
-                  width={96}
-                  height={96}
-                  src={item.imageUrl}
-                  alt={item.name}
-                  loading="lazy"
-                />
-              </Box>
+              <ProductImage
+                width={96}
+                height={96}
+                src={item.imageUrl}
+                alt={item.name}
+                loading="lazy"
+              />
               <Grid direction="column" container xs>
                 <Typography>{item.name}</Typography>
                 <Typography>{`${currency} ${item.price}`}</Typography>
