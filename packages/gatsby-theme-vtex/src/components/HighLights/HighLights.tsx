@@ -39,19 +39,19 @@ const HighLigths: FC = () => {
         <div className={classes.cardContainersBlock}>
           <HighLight
             message="Free Shipping!!"
-            imageUrl="https://storecomponents.vtexassets.com/arquivos/box.png"
+            imageUrl="https://storecomponents.vtexassets.com/arquivos/box.png?width=24&height=24&aspect=true"
           />
           <HighLight
             message="One day delivery"
-            imageUrl="https://storecomponents.vtexassets.com/arquivos/delivery-fast.png"
+            imageUrl="https://storecomponents.vtexassets.com/arquivos/delivery-fast.png?width=24&height=24&aspect=true"
           />
           <HighLight
             message="Pick up in store"
-            imageUrl="https://storecomponents.vtexassets.com/arquivos/store.png"
+            imageUrl="https://storecomponents.vtexassets.com/arquivos/store.png?width=24&height=24&aspect=true"
           />
           <HighLight
             message="Exclusive deals"
-            imageUrl="https://storecomponents.vtexassets.com/arquivos/coupon.png"
+            imageUrl="https://storecomponents.vtexassets.com/arquivos/coupon.png?width=24&height=24&aspect=true"
           />
         </div>
       </section>
