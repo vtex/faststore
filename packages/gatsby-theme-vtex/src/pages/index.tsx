@@ -9,6 +9,7 @@ import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
 import { SyncProductItem } from '../types/product'
 import SuspenseDelay from '../components/SuspenseDelay'
+import HighLigths from '../components/HighLights'
 
 const Fold = lazy(() => import('../components/Home/Fold'))
 
@@ -44,6 +45,7 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
     <Layout>
       <SEO />
       <Carousel items={itemsCarousel} />
+      <HighLigths />
       <Container>
         <Shelf syncProducts={syncProducts} />
         <SuspenseDelay fallback={null}>

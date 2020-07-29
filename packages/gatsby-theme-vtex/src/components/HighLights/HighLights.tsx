@@ -11,7 +11,6 @@ const useStyles = makeStyles(
       backgroundColor: '#a7afbd',
       paddingBottom: theme.spacing(1.75),
       paddingTop: theme.spacing(1.75),
-      width: '100%',
     },
     cardContainersSection: {
       display: 'block',

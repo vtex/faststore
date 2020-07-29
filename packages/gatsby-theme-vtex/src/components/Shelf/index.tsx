@@ -10,7 +10,6 @@ import ArrowLeft from './ArrowLeft'
 import ArrowRight from './ArrowRight'
 import Typography from '../material-ui-components/Typography'
 import Grid from '../material-ui-components/Grid'
-import HighLigths from '../HighLights'
 
 interface Props {
   syncProducts: SyncProductItem[]
@@ -58,7 +57,6 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
 
   return (
     <Box className={classes.root}>
-      <HighLigths />
       <Grid justify="center" container>
         <Typography variant="h2" component="h2">
           summer
