@@ -29,12 +29,12 @@ const Fold: FC = () => {
         </Card>
       </Block>
 
-      <Flex sx={{ justifyContent: 'center' }}>
+      {/* <Flex sx={{ justifyContent: 'center' }}>
         <RichMarkdown text={exampleStoreMd} variant="question" />
       </Flex>
       <Block>
         <RichMarkdown text={reachUsMd} variant="link" />
-      </Block>
+      </Block> */}
     </Fragment>
   )
 }
