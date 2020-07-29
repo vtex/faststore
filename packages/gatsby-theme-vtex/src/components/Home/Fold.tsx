@@ -1,10 +1,9 @@
-import { Card, CardImage, CardInfo, CardInfoAction } from '@vtex/store-ui'
+import { Card, CardImage, CardInfo, CardInfoAction, RichMarkdown } from '@vtex/store-ui'
 import React, { FC, Fragment } from 'react'
 import { Box, Flex } from 'theme-ui'
 
 import reachUsMd from '../../markdowns/reach-us.md'
 import exampleStoreMd from '../../markdowns/example-store.md'
-import RichMarkdown from '../RichText/RichMarkdown'
 
 const Block: FC = ({ children }) => <Box sx={{ my: 5 }}>{children}</Box>
 

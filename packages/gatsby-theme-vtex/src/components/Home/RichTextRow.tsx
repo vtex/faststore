@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Flex, Grid } from 'theme-ui'
+import { RichMarkdown } from '@vtex/store-ui'
 
-import RichMarkdown from '../RichText/RichMarkdown'
 import freeShippingHtml from '../../markdowns/free-shipping.md'
 import deliveryHtml from '../../markdowns/delivery.md'
 import pickupHtml from '../../markdowns/pickup.md'
