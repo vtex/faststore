@@ -7,11 +7,10 @@ import HighLight from './HighLight'
 
 const useStyles = makeStyles(
   (theme: Theme) => ({
-    root: {
-      backgroundColor: '#a7afbd',
-      paddingBottom: theme.spacing(1.75),
-      paddingTop: theme.spacing(1.75),
-    },
+    // Example using the theme definition jss
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    root: theme.HighlightsRoot,
     cardContainersSection: {
       display: 'block',
       marginLeft: 'auto',
