@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Box } from 'theme-ui'
 
 interface Props {
@@ -15,4 +15,4 @@ const RichMarkdown: React.FC<Props> = ({ text, variant = 'default' }) => {
   )
 }
 
-export default RichMarkdown
+export default memo(RichMarkdown)

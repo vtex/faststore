@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import { Box, Flex, Grid, Image } from 'theme-ui'
 import { RichMarkdown } from '@vtex/store-ui'
 
@@ -109,4 +109,4 @@ const RichTextRow: FC = () => {
   )
 }
 
-export default RichTextRow
+export default memo(RichTextRow)
