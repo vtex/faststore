@@ -101,6 +101,34 @@ const search = (
   return `${SEARCH_ROOT}?${querystring}`
 }
 
+const slugifySpecialCharacters = (str: string) => {
+  return str.replace(/[·/_,:]/, '-')
+}
+
+const from =
+  'ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa'
+
+const to =
+  'AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa'
+
+const removeAccents = (str: string) => {
+  let newStr = str.slice(0)
+
+  for (let i = 0; i < from.length; i++) {
+    newStr = newStr.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
+  }
+
+  return newStr
+}
+
+const slugify = (str: string) => {
+  const noCommas = str.replace(/,/g, '')
+  // eslint-disable-next-line no-useless-escape
+  const replaced = noCommas.replace(/[*+~.()'"!:@&\[\]`/ %$#?{}|><=_^]/g, '-')
+
+  return slugifySpecialCharacters(removeAccents(replaced)).toLowerCase()
+}
+
 const nonNull = <T>(x: T | null): x is T => !!x
 
 const facets = ({
@@ -120,7 +148,7 @@ export const api = {
   search,
   facets,
   pageType: (query: string) =>
-    `/api/catalog_system/pub/portal/pagetype/${query}`,
+    `/api/catalog_system/pub/portal/pagetype/${slugify(query)}`,
   catalog: {
     category: {
       tree: (depth: number) => `/api/catalog_system/pub/category/tree/${depth}`,
