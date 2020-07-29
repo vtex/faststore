@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react'
 import Box from '@material-ui/core/Box'
-import { useResponsiveValue } from '@theme-ui/match-media'
 
 import { ProductSummary } from '../ProductSummary'
 import { SyncProductItem } from '../../types/product'
@@ -14,8 +13,9 @@ interface Props {
   syncProducts: SyncProductItem[]
 }
 
-const ARROW_SIZES = [25, 50]
-const MAX_ITEMS = [1, 4]
+// TODO useMediaQuery https://material-ui.com/components/use-media-query/#usemediaquery
+// const ARROW_SIZES = [25, 50]
+// const MAX_ITEMS = [1, 4]
 
 const hasPrevArrow = (page: number) => page > 0
 
@@ -32,8 +32,8 @@ const hasNextArrow = (
 // TOOD: Style typography
 const Shelf: FC<Props> = ({ syncProducts }) => {
   const [page, setPage] = useState(0)
-  const maxItems = useResponsiveValue(MAX_ITEMS)
-  const arrowSize = useResponsiveValue(ARROW_SIZES)
+  const maxItems = 4
+  const arrowSize = 50
 
   const items =
     maxItems > 1
@@ -41,9 +41,17 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
       : [syncProducts[page]]
 
   return (
-    <Box display="flex">
+    <Box
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <Grid justify="center" container>
-        <Typography component="h2">summer</Typography>
+        <Typography variant="h2" component="h2">
+          summer
+        </Typography>
       </Grid>
       <Grid container>
         <Grid container alignItems="center" xs={1}>
