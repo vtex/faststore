@@ -28,6 +28,8 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
   const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
   const offer = syncProduct.items?.[0]?.sellers?.[0]?.commertialOffer
 
+  console.log('product summary offer', { offer })
+
   return (
     <Link
       to={

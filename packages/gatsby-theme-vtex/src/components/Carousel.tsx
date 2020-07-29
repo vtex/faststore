@@ -27,13 +27,19 @@ const Carousel: FC<Props> = ({ items }) => {
           display={index === i ? 'block' : 'none'}
         >
           <Button
-            onClick={() => setIndex(i === 0 ? lastIndex : i - 1)}
+            onClick={() => {
+              console.log('carousel prev button clicked')
+              setIndex(i === 0 ? lastIndex : i - 1)
+            }}
             style={{ position: 'absolute', top: '50%', left: 0 }}
           >
             Previous
           </Button>
           <Button
-            onClick={() => setIndex(i === lastIndex ? 0 : i + 1)}
+            onClick={() => {
+              console.log('carousel next button clicked')
+              setIndex(i === lastIndex ? 0 : i + 1)
+            }}
             style={{ position: 'absolute', top: '50%', right: 0 }}
           >
             Next
