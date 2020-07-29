@@ -10,7 +10,9 @@ const tenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
 const environment =
   (process.env.GATSBY_VTEX_ENVIRONMENT as Environment) ?? 'vtexcommercestable'
 
-export const onCreateWebpackConfig = ({ actions: { setWebpackConfig } }: CreateWebpackConfigArgs) => {
+export const onCreateWebpackConfig = ({
+  actions: { setWebpackConfig },
+}: CreateWebpackConfigArgs) => {
   setWebpackConfig({
     module: {
       rules: [
@@ -25,7 +27,6 @@ export const onCreateWebpackConfig = ({ actions: { setWebpackConfig } }: CreateW
     },
   })
 }
-
 
 export const createPages = async ({
   actions: { createPage, createRedirect },
