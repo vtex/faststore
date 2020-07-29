@@ -18,6 +18,7 @@ export interface Props {
 const useStyles = makeStyles((theme: Theme) => ({
   priceRoot: {
     color: theme.palette.text.primary,
+    marginRight: theme.spacing(1),
   },
   typographyh6: {
     fontWeight: theme.typography.fontWeightMedium,
@@ -26,8 +27,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.text.secondary,
   },
   box: {
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
   },
 }))
 
