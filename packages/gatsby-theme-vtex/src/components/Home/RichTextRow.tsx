@@ -27,7 +27,7 @@ const RichTextRow: FC = () => {
               paddingY: '0.5rem',
             }}
           >
-            <Image
+            {/* <Image
               src={scaleImage(
                 'https://storecomponents.vtexassets.com/arquivos/box.png',
                 24,
@@ -37,7 +37,7 @@ const RichTextRow: FC = () => {
               height="24px"
               loading="lazy"
               alt="shipping box"
-            />
+            /> */}
             <RichMarkdown text={freeShippingHtml} variant="deals-row" />
           </Flex>
           <Flex
@@ -48,7 +48,7 @@ const RichTextRow: FC = () => {
               paddingY: '0.5rem',
             }}
           >
-            <Image
+            {/* <Image
               src={scaleImage(
                 'https://storecomponents.vtexassets.com/arquivos/delivery-fast.png',
                 24,
@@ -58,7 +58,7 @@ const RichTextRow: FC = () => {
               height="24px"
               loading="lazy"
               alt="delivery"
-            />
+            /> */}
             <RichMarkdown text={deliveryHtml} variant="deals-row" />
           </Flex>
           <Flex
@@ -69,7 +69,7 @@ const RichTextRow: FC = () => {
               paddingY: '0.5rem',
             }}
           >
-            <Image
+            {/* <Image
               src={scaleImage(
                 'https://storecomponents.vtexassets.com/arquivos/store.png',
                 24,
@@ -79,7 +79,7 @@ const RichTextRow: FC = () => {
               height="24px"
               alt="store"
               loading="lazy"
-            />
+            /> */}
             <RichMarkdown text={pickupHtml} variant="deals-row" />
           </Flex>
           <Flex
@@ -90,7 +90,7 @@ const RichTextRow: FC = () => {
               paddingY: '0.5rem',
             }}
           >
-            <Image
+            {/* <Image
               src={scaleImage(
                 'https://storecomponents.vtexassets.com/arquivos/coupon.png',
                 24,
@@ -100,7 +100,7 @@ const RichTextRow: FC = () => {
               height="24px"
               alt="coupon"
               loading="lazy"
-            />
+            /> */}
             <RichMarkdown text={dealHtml} variant="deals-row" />
           </Flex>
         </Grid>
