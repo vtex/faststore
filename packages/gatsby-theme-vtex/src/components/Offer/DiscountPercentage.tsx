@@ -13,9 +13,9 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) => ({
   discountBadge: {
     borderRadius: '1000px',
-    color: theme.palette.grey[50],
+    color: 'white',
     padding: `0 ${theme.spacing(1)}px`,
-    backgroundColor: theme.palette.success.dark,
+    backgroundColor: 'rgb(7, 123, 11)',
   },
 }))
 
