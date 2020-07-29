@@ -23,7 +23,7 @@ const InfoCard: FC<Props> = ({
   return (
     <Box
       display="flex"
-      bgcolor="palevioletred"
+      bgcolor="rgb(224, 239, 224)"
       alignItems="center"
       justifyContent="center"
       flexDirection={['column', 'row']}
