@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
 
@@ -6,7 +7,7 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import SearchFilterProvider from '../providers/SearchFilter'
 
-export const staticQuery = graphql`
+export const query = graphql`
   query Search($query: String, $map: String) {
     vtex {
       productSearch(query: $query, map: $map, from: 0, to: 9) {
@@ -24,11 +25,11 @@ export const staticQuery = graphql`
             sellers {
               sellerId
               # Uncomment the code below pre-render the commercial offer
-              # commertialOffer {
-              #   AvailableQuantity
-              #   Price
-              #   ListPrice
-              # }
+              commertialOffer {
+                AvailableQuantity
+                Price
+                ListPrice
+              }
             }
           }
         }
@@ -69,20 +70,16 @@ type Props = PageProps<
   }
 >
 
-const PageTemplate: FC<Props> = (props) => {
-  const {
-    data: { vtex },
-    pageContext: { query, map },
-  } = props
-
-  return (
-    <Layout>
-      <SEO title={vtex.productSearch.titleTag} />
-      <SearchFilterProvider initialOptions={{ query, map }}>
-        <SearchTemplate search={vtex} />
-      </SearchFilterProvider>
-    </Layout>
-  )
-}
+const PageTemplate: FC<Props> = ({
+  data: { vtex },
+  pageContext: { query, map },
+}) => (
+  <Layout>
+    <SEO title={vtex.productSearch.titleTag} />
+    <SearchFilterProvider initialOptions={{ query, map }}>
+      <SearchTemplate search={vtex} />
+    </SearchFilterProvider>
+  </Layout>
+)
 
 export default PageTemplate

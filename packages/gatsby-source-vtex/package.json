@@ -24,7 +24,6 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "gatsby-source-graphql": "^2.6.2",
     "isomorphic-unfetch": "^3.0.0",
     "p-map": "^4.0.0"
   }

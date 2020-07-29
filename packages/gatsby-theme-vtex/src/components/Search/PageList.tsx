@@ -7,17 +7,9 @@ import { Button, Grid } from 'theme-ui'
 import { useSearchFilters } from '../../providers/SearchFilter'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
-import query from './query'
-import graphqlFetcher from '../../utils/graphqlFetcher'
+import fetcher from '../../graphql/fetcher'
 
 const PAGE_SIZE = 8
-
-const fetcher = async (options: string) => {
-  const variables = JSON.parse(options)
-  const { data } = await graphqlFetcher(query, variables)
-
-  return data.productSearch.products
-}
 
 interface Props {
   search: any
@@ -56,7 +48,10 @@ const List: FC<Props> = ({
         to,
       })
     },
-    fetcher,
+    (options: string) =>
+      fetcher<any>(pageQuery, JSON.parse(options)).then(
+        (res) => res.data.productSearch.products
+      ),
     {
       revalidateOnMount: true,
       initialData,

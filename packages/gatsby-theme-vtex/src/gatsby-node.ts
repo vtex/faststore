@@ -1,7 +1,7 @@
 import { join, resolve } from 'path'
 
 import { ensureDir, outputFile } from 'fs-extra'
-import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
+import { CreatePagesArgs, CreateWebpackConfigArgs, ParentSpanPluginArgs } from 'gatsby'
 
 import { Environment, Options } from './gatsby-config'
 
@@ -61,14 +61,16 @@ export const createPages = async (
 
       createPage({
         path,
-        component: resolve(__dirname, './src/templates/product/server.tsx'),
+        component: resolve(__dirname, './src/templates/product.tsx'),
         context: {
           slug,
+          withProduct: true,
         },
       })
     }
 
-    if (route === 'search') {
+    // Search Pages
+    else if (route === 'search') {
       createPage({
         path,
         component: resolve(__dirname, './src/templates/search.tsx'),
@@ -88,8 +90,10 @@ export const createPages = async (
   createPage({
     path: '/__client-side__/p',
     matchPath: '/:slug/p',
-    component: resolve(__dirname, './src/templates/product/client.tsx'),
-    context: {},
+    component: resolve(__dirname, './src/templates/product.tsx'),
+    context: {
+      withProduct: false,
+    },
   })
 
   /**
@@ -136,4 +140,31 @@ export const createPages = async (
   })
 
   await Promise.all(cmsPages)
+}
+
+export const onPreExtractQueries = ({ store }: ParentSpanPluginArgs) => {
+  store.subscribe(async () => {
+    const {
+      lastAction: { type, payload },
+      components,
+      pages: allPages,
+    } = store.getState()
+
+    if (type !== 'QUERY_EXTRACTED') {
+      return
+    }
+
+    const { componentPath } = payload
+    const { query, pages } = components.get(componentPath)
+
+    if (!query) {
+      return
+    }
+
+    pages.forEach((pagePath: string) => {
+      const page = allPages.get(pagePath)
+
+      page.context = { ...page.context, pageQuery: query }
+    })
+  })
 }
