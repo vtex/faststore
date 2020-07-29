@@ -25,7 +25,7 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
           ? syncProduct.slug
           : `/${(syncProduct as any).linkText}/p`
       }
-      sx={{
+      style={{
         textDecoration: 'none',
         color: 'text',
         flexGrow: 1,

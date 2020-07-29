@@ -46,8 +46,8 @@ const Footer: FC<FooterProps> = ({ currency, total = 0, subtotal = 0 }) => (
       <Typography>{`${currency} ${subtotal}`}</Typography>
     </Grid>
     <Grid justify="space-between" container>
-      <Typography sx={{ fontSize: 4 }}>Total</Typography>
-      <Typography sx={{ fontSize: 4 }}>{`${currency} ${total}`}</Typography>
+      <Typography variant="h5">Total</Typography>
+      <Typography variant="h5">{`${currency} ${total}`}</Typography>
     </Grid>
     <Typography>Shipping and taxes calculated at checkout.</Typography>
     <Button>GO TO CHECKOUT</Button>

@@ -1,7 +1,6 @@
-/** @jsx jsx */
+import React, { FC, Fragment } from 'react'
+import Box from '@material-ui/core/Box'
 import { Category } from '@vtex/gatsby-source-vtex'
-import { FC, Fragment } from 'react'
-import { jsx } from 'theme-ui'
 
 import Container from '../Container'
 import BrandSelector from './Facets/Brands'
@@ -18,23 +17,28 @@ interface Props {
 const CategoryTemplate: FC<Props> = ({ category }) => (
   <Container>
     <Grid direction="column" item>
-      <Typography component="h2">{category.name}</Typography>
+      <Typography variant="h2" component="h2">
+        {category.name}
+      </Typography>
       <div
         style={{
           display: 'flex',
           flexWrap: 'wrap',
         }}
       >
-        <aside
-          sx={{
-            my: [0, 4],
+        <Box
+          component="aside"
+          marginY={['0', '32px']}
+          marginRight={['0', '0', '64px']}
+          style={{
+            display: 'flex',
             flexGrow: 1,
+            flexDirection: 'column',
             flexBasis: 'sidebar',
             minWidth: 250,
-            mr: [0, 0, 5],
           }}
         >
-          <div sx={{ fontSize: 3 }}>Filters</div>
+          <div style={{ fontSize: 20 }}>Filters</div>
           <hr />
           {category.facets.CategoriesTrees?.[0] ? (
             <Fragment>
@@ -48,9 +52,9 @@ const CategoryTemplate: FC<Props> = ({ category }) => (
               <hr />
             </Fragment>
           ) : null}
-        </aside>
+        </Box>
         <div
-          sx={{
+          style={{
             flexGrow: 99999,
             flexBasis: 0,
             minWidth: 300,

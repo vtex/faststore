@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { FC } from 'react'
-import { jsx } from 'theme-ui'
+import React, { FC } from 'react'
 
 interface Props {
   text: string

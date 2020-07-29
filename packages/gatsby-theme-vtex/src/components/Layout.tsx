@@ -25,7 +25,7 @@ const OverMenu = () => (
     <div>
       <Link to="/about">About us</Link>
     </div>
-    <div sx={{ flexGrow: 1 }} />
+    <div style={{ flexGrow: 1 }} />
     <div>
       <a href="https://vtex.com">visit vtex.com</a>
     </div>

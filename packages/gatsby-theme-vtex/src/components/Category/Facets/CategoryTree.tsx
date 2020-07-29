@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { FC, Fragment } from 'react'
-import { jsx } from 'theme-ui'
+import React, { FC, Fragment } from 'react'
+import Box from '@material-ui/core/Box'
 
 interface CategoryTreeFacet {
   Name: string
@@ -14,13 +13,17 @@ interface Props {
 
 const TreeSelector: FC<Props> = ({ tree }) => (
   <Fragment>
-    <div sx={{ fontSize: 0 }}>Departments</div>
+    <div style={{ fontSize: 12 }}>Departments</div>
     <div>{tree.Name}</div>
-    <ul sx={{ mt: 1, px: 2, listStyleType: 'none' }}>
+    <Box
+      component="ul"
+      paddingX="8px"
+      style={{ marginTop: '4px', listStyleType: 'none' }}
+    >
       {tree.Children.map(({ Name }, index) => (
         <li key={`tree-selector-${index}`}>{Name}</li>
       ))}
-    </ul>
+    </Box>
   </Fragment>
 )
 
