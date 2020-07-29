@@ -4,11 +4,13 @@ import Box from '@material-ui/core/Box'
 import Action from '../InfoCard/ButtonAction'
 import RichText from '../RichText'
 import InfoCard from '../InfoCard'
+import HighLigths from '../HighLights'
 
 const Block: FC = ({ children }) => <Box marginY="64px">{children}</Box>
 
 const Fold: FC = () => (
   <Fragment>
+    <HighLigths />
     <Block>
       <InfoCard
         to="/vintage-phone/p"

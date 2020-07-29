@@ -35,6 +35,7 @@ const Search: FC = () => {
       }}
       placeholder="Search"
       aria-label="Search"
+      label="Search"
     />
   )
 }
