@@ -27,16 +27,31 @@ const Search: FC = () => {
   const classes = useStyles()
 
   return (
-    <Input
-      classes={{
-        root: classes.searchRoot,
-        input: classes.searchInput,
-        notchedOutline: classes.notchedOutline,
-      }}
-      placeholder="Search"
-      aria-label="Search"
-      label="Search"
-    />
+    <>
+      <label
+        id="search-input-label"
+        htmlFor="search-input"
+        style={{ display: 'none' }}
+      >
+        Search
+      </label>
+      <Input
+        id="search-input"
+        inputProps={{
+          'aria-label': 'Search',
+          'aria-labelledby': 'search-input-label',
+          name: 'search-input',
+        }}
+        startAdornment={null}
+        classes={{
+          root: classes.searchRoot,
+          input: classes.searchInput,
+          notchedOutline: classes.notchedOutline,
+        }}
+        placeholder="Search"
+        label="Search"
+      />
+    </>
   )
 }
 
