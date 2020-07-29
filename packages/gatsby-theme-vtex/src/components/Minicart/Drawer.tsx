@@ -97,7 +97,6 @@ const useMinicartStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-// TODO: Style everything
 const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
   const orderForm = useOrderForm()
   const [currency] = useCurrency()
@@ -116,6 +115,7 @@ const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
         <Grid
           classes={minicartClasses}
           direction="column"
+          container
           xs
           style={{ overflow: 'auto' }}
         >
