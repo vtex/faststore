@@ -10,7 +10,6 @@ import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
 import SuspenseDelay from './SuspenseDelay'
 import SuspenseSSR from './SuspenseSSR'
-import Card from './material-ui-components/Card'
 import Typography from './material-ui-components/Typography'
 import Grid from './material-ui-components/Grid'
 
