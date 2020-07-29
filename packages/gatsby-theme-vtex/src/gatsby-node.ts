@@ -1,7 +1,16 @@
 import { join, resolve } from 'path'
+import { createHash } from 'crypto'
 
-import { ensureDir, outputFile } from 'fs-extra'
+import {
+  ensureDir,
+  outputFile,
+  readJSON,
+  readJSONSync,
+  outputJSONSync,
+  ensureFileSync,
+} from 'fs-extra'
 import { CreatePagesArgs, ParentSpanPluginArgs } from 'gatsby'
+import { parse, print } from 'graphql'
 
 import { Environment, Options } from './gatsby-config'
 
@@ -64,7 +73,7 @@ export const createPages = async (
         component: resolve(__dirname, './src/templates/product.tsx'),
         context: {
           slug,
-          withProduct: true,
+          staticPath: true,
         },
       })
     }
@@ -92,7 +101,7 @@ export const createPages = async (
     matchPath: '/:slug/p',
     component: resolve(__dirname, './src/templates/product.tsx'),
     context: {
-      withProduct: false,
+      staticPath: false,
     },
   })
 
@@ -142,7 +151,42 @@ export const createPages = async (
   await Promise.all(cmsPages)
 }
 
+const getIsolatedQuery = (query: string, fieldName: string) => {
+  const document = parse(query)
+
+  const updatedRoot = (document
+    .definitions[0] as any).selectionSet.selections.find(
+    (selection: any) =>
+      selection.name &&
+      selection.name.kind === 'Name' &&
+      selection.name.value === fieldName
+  )
+
+  if (!updatedRoot) {
+    return null
+  }
+
+  ;(document.definitions[0] as any).selectionSet.selections =
+    updatedRoot.selectionSet.selections
+
+  return print(document)
+}
+
+const sha256 = (data: string) => createHash('sha256').update(data).digest('hex')
+
+const updateStorageSync = (key: string, value: string, filepath: string) => {
+  const data = readJSONSync(filepath)
+
+  data[key] = value
+
+  outputJSONSync(filepath, data)
+}
+
 export const onPreExtractQueries = ({ store }: ParentSpanPluginArgs) => {
+  const filepath = join(root, 'public/persisted.graphql.json')
+
+  outputJSONSync(filepath, {})
+
   store.subscribe(async () => {
     const {
       lastAction: { type, payload },
@@ -161,10 +205,20 @@ export const onPreExtractQueries = ({ store }: ParentSpanPluginArgs) => {
       return
     }
 
+    const processedQuery = getIsolatedQuery(query, 'vtex')
+
+    if (!processedQuery) {
+      return
+    }
+
+    const hash = sha256(processedQuery)
+
+    updateStorageSync(hash, processedQuery, filepath)
+
     pages.forEach((pagePath: string) => {
       const page = allPages.get(pagePath)
 
-      page.context = { ...page.context, pageQuery: query }
+      page.context = { ...page.context, pageQuery: processedQuery }
     })
   })
 }

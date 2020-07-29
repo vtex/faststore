@@ -5,14 +5,14 @@ import useSWR from 'swr'
 import Layout from '../components/Layout'
 import ProductDetails from '../components/ProductDetails'
 import { SyncProduct } from '../types/product'
-import { isServer } from '../utils/env'
 import fetcher from '../graphql/fetcher'
 import ErrorBoundary from '../components/ErrorBoundary'
+import HybridWrapper from '../components/HybridWrapper'
 
 export const query = graphql`
-  query GetProduct($slug: String, $withProduct: Boolean = true) {
+  query GetProduct($slug: String, $staticPath: Boolean = true) {
     vtex {
-      product(slug: $slug) @include(if: $withProduct) {
+      product(slug: $slug) @include(if: $staticPath) {
         productId
         productName
         description
@@ -30,16 +30,16 @@ export const query = graphql`
 `
 
 const ProductPage: FC<Props> = ({ data, pageContext, slug: routeSlug }) => {
-  const { withProduct, pageQuery } = pageContext
+  const { staticPath, pageQuery } = pageContext
   const slug = (pageContext.slug ?? routeSlug)!
 
   const { data: product } = useSWR<SyncProduct | null>(slug, {
     fetcher: (s: string) =>
-      fetcher(pageQuery, { slug: s, withProduct: true }).then(
+      fetcher(pageQuery, { slug: s, staticPath: true }).then(
         (x: any) => x.data.product
       ),
     suspense: true,
-    initialData: withProduct ? data.vtex.product : undefined,
+    initialData: staticPath ? data.vtex.product : undefined,
   })
 
   return <ProductDetails syncProduct={product!} />
@@ -53,7 +53,7 @@ type Props = PageProps<
   },
   {
     slug?: string
-    withProduct: boolean
+    staticPath: boolean
     pageQuery: string
   }
 > & {
@@ -62,18 +62,19 @@ type Props = PageProps<
 
 const ProductPageSSR: FC<Props> = (props) => {
   const {
-    pageContext: { withProduct },
+    pageContext: { staticPath },
   } = props
-
-  if (isServer && !withProduct) {
-    return <Layout />
-  }
 
   return (
     <Layout>
-      <ErrorBoundary fallback={<div>Error!</div>}>
-        <ProductPage {...props} />
-      </ErrorBoundary>
+      <HybridWrapper
+        isPrerendered={staticPath}
+        fallback={<div>loading...</div>}
+      >
+        <ErrorBoundary fallback={<div>Error !!</div>}>
+          <ProductPage {...props} />
+        </ErrorBoundary>
+      </HybridWrapper>
     </Layout>
   )
 }
