@@ -1,4 +1,3 @@
-import Drawer from '@vtex-components/drawer'
 import React, { FC } from 'react'
 import Box from '@material-ui/core/Box'
 
@@ -8,6 +7,7 @@ import { useOrderForm } from '../../providers/OrderForm'
 import { useCurrency } from '../../providers/Currency'
 import ProductImage from '../ProductImage'
 import Grid from '../material-ui-components/Grid'
+import Drawer from '../material-ui-components/Drawer'
 
 interface HeaderProps {
   onClose: () => void
@@ -61,7 +61,12 @@ const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
   const count = orderForm?.value?.items.length ?? 0
 
   return (
-    <Drawer isOpen={isOpen} placement="right" onClose={onClose} width={400}>
+    <Drawer
+      open={isOpen}
+      anchor="right"
+      onClose={onClose}
+      style={{ width: 400 }}
+    >
       <Grid
         direction="column"
         container

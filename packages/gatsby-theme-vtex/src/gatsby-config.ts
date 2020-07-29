@@ -32,9 +32,6 @@ module.exports = ({
   },
   plugins: [
     {
-      resolve: require.resolve('gatsby-plugin-theme-ui'),
-    },
-    {
       resolve: require.resolve('gatsby-theme-material-ui'),
       options: {},
     },
