@@ -24,7 +24,6 @@ const Page: FC<Props> = ({ products }) => {
       {products.map((product) => (
         <Grid
           className={classes.summary}
-          style={{ padding: '8px' }}
           key={product.productId}
           xs={12}
           sm={6}
