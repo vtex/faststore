@@ -1,12 +1,14 @@
 import React, { FC } from 'react'
+import { Box } from 'theme-ui'
 
-type Props = { offer::  }
-const Availability: FC<Props> = ({ offer: }) => {
-    return (
-      <Box variant={`${variant}.availability`}>
+import { OfferBlocksProps } from './OfferBlocks'
+
+const Availability: FC<OfferBlocksProps> = ({ variant, offer }) => {
+  return (
+    <Box variant={`${variant}.availability`}>
       {offer.AvailableQuantity} units left!
     </Box>
-    )
-};
+  )
+}
 
 export default Availability

@@ -17,14 +17,15 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
 
   const formattedListPrice = useMemo(
     () =>
-      offer?.ListPrice &&
-      offer?.Price === offer?.ListPrice &&
-      numberFormat.format(offer?.ListPrice),
+      (offer?.ListPrice &&
+        offer?.Price === offer?.ListPrice &&
+        numberFormat.format(offer?.ListPrice)) ||
+      undefined,
     [offer, numberFormat]
   )
 
-  const formattedPrice = useMemo(
-    () => offer && numberFormat.format(offer.Price),
+  const formattedSellingPrice = useMemo(
+    () => (offer ? numberFormat.format(offer.Price) : undefined),
     [offer, numberFormat]
   )
 
@@ -35,9 +36,10 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   return (
     <Box variant={`${variant}.offer`}>
       <OfferBlocks
+        variant={variant}
         offer={{
           ...offer,
-          formattedPrice,
+          formattedSellingPrice,
           formattedListPrice,
         }}
       />
