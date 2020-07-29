@@ -47,6 +47,7 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
       <ListPrice variant={variant} offer={offer} />
       <Grid container xs alignItems="center">
         <Typography
+          component="div"
           variant="h6"
           classes={{
             root: classes.priceRoot,
