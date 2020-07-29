@@ -1,6 +1,8 @@
 import React from 'react'
-import TextField, { TextFieldProps } from '@material-ui/core/TextField'
+import MuiOutlinedInput, {
+  OutlinedInputProps,
+} from '@material-ui/core/OutlinedInput'
 
-export default function Input(props: TextFieldProps) {
-  return <TextField {...props} />
+export default function Input(props: OutlinedInputProps) {
+  return <MuiOutlinedInput {...props} />
 }
