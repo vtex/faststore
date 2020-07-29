@@ -26,14 +26,28 @@ interface Props extends HeaderProps {
   isOpen: boolean
 }
 
-const Header: FC<HeaderProps> = ({ onClose, count }) => (
-  <Box p={2}>
-    <Button onClick={onClose}>Close</Button>
-    <Box pt={2}>
-      <Typography component="h1" variant="h4">{`Cart (${count})`}</Typography>
+const useHeaderStyles = makeStyles((theme: Theme) => ({
+  root: {
+    fontWeight: theme.typography.fontWeightBold,
+  },
+}))
+
+const Header: FC<HeaderProps> = ({ onClose, count }) => {
+  const classes = useHeaderStyles()
+
+  return (
+    <Box p={2}>
+      <Button onClick={onClose}>Close</Button>
+      <Box pt={2}>
+        <Typography
+          classes={classes}
+          component="h1"
+          variant="h4"
+        >{`Cart (${count})`}</Typography>
+      </Box>
     </Box>
-  </Box>
-)
+  )
+}
 
 const useGridStyles = makeStyles((theme: Theme) => ({
   root: {
