@@ -9,6 +9,7 @@ import Availability from './Availability'
 interface OfferWithFormattedPrices extends SyncProductCommertialOffer {
   formattedSellingPrice?: string
   formattedListPrice?: string
+  discount?: number
 }
 
 export type OfferBlocksProps = {

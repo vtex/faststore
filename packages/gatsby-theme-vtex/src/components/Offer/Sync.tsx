@@ -18,7 +18,7 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   const formattedListPrice = useMemo(
     () =>
       (offer?.ListPrice &&
-        offer?.Price === offer?.ListPrice &&
+        offer?.Price !== offer?.ListPrice &&
         numberFormat.format(offer?.ListPrice)) ||
       undefined,
     [offer, numberFormat]
@@ -28,6 +28,13 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
     () => (offer ? numberFormat.format(offer.Price) : undefined),
     [offer, numberFormat]
   )
+
+  const discount = useMemo(() => {
+    if (!offer?.ListPrice || !offer?.Price) return
+    const relation = Math.round((offer.Price / offer.ListPrice) * 100)
+
+    return 100 - relation
+  }, [offer])
 
   if (!offer || offer.AvailableQuantity === 0) {
     return <div>Product Unavailable</div>
@@ -41,6 +48,7 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
           ...offer,
           formattedSellingPrice,
           formattedListPrice,
+          discount,
         }}
       />
     </Box>

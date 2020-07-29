@@ -1,22 +1,14 @@
 import React, { FC } from 'react'
-import { Flex } from 'theme-ui'
+import { Box } from 'theme-ui'
 
-import { SyncProductCommertialOffer } from '../../types/product'
+import { OfferBlocksProps } from './OfferBlocks'
 
-interface Props {
-  offer: SyncProductCommertialOffer
-  variant: string
-}
-
-const DiscountPercentage: FC<Props> = ({ offer, variant }) => {
-  if (offer.Price === offer.ListPrice) {
+const DiscountPercentage: FC<OfferBlocksProps> = ({ offer, variant }) => {
+  if (!offer.discount) {
     return null
   }
 
-  const relation = Math.round((offer.Price / offer.ListPrice) * 100)
-  const discount = 100 - relation
-
-  return <Flex variant={`${variant}.discountBadge`}>-{discount}%</Flex>
+  return <Box variant={`${variant}.discountBadge`}>-{offer.discount}%</Box>
 }
 
 export default DiscountPercentage
