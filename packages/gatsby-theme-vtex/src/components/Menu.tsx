@@ -14,6 +14,12 @@ interface Item {
 const useGridStyles = makeStyles((theme: Theme) => ({
   root: {
     marginLeft: theme.spacing(4),
+    [theme.breakpoints.down('xs')]: {
+      margin: 0,
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      justifyContent: 'center',
+    },
   },
 }))
 
@@ -41,7 +47,6 @@ const MenuLink: FC<Item> = ({ slug, name }) => {
   )
 }
 
-// TODO: Style nav
 const Menu: FC = () => {
   const { allCategory } = useStaticQuery(graphql`
     {
@@ -57,7 +62,15 @@ const Menu: FC = () => {
   const classes = useGridStyles()
 
   return (
-    <Grid component="nav" item container xs classes={classes} spacing={3}>
+    <Grid
+      component="nav"
+      item
+      container
+      xs={12}
+      sm
+      classes={classes}
+      spacing={3}
+    >
       {allCategory.nodes.map((item: Item) => (
         <Grid item key={item.slug}>
           <MenuLink {...item} />
