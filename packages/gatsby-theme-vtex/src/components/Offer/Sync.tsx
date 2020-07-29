@@ -1,10 +1,9 @@
 import React, { FC, useMemo } from 'react'
-import { Box, Flex } from 'theme-ui'
+import { Box } from 'theme-ui'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 import { findBestSeller, Item } from '../../utils/seller'
-import DiscountPercentage from './DiscountPercentage'
-import ListPrice from './ListPrice'
+import OfferBlocks from './OfferBlocks'
 
 export interface Props {
   sku?: Item
@@ -16,22 +15,32 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   const offer = seller?.commertialOffer
   const numberFormat = useNumberFormat()
 
+  const formattedListPrice = useMemo(
+    () =>
+      offer?.ListPrice &&
+      offer?.Price === offer?.ListPrice &&
+      numberFormat.format(offer?.ListPrice),
+    [offer, numberFormat]
+  )
+
+  const formattedPrice = useMemo(
+    () => offer && numberFormat.format(offer.Price),
+    [offer, numberFormat]
+  )
+
   if (!offer || offer.AvailableQuantity === 0) {
     return <div>Product Unavailable</div>
   }
 
   return (
     <Box variant={`${variant}.offer`}>
-      <ListPrice variant={variant} offer={offer} />
-      <Flex sx={{ alignItems: 'center' }}>
-        <Box variant={`${variant}.price`}>
-          {numberFormat.format(offer.Price)}
-        </Box>
-        <DiscountPercentage variant={variant} offer={offer} />
-      </Flex>
-      <Box variant={`${variant}.availability`}>
-        {offer.AvailableQuantity} units left!
-      </Box>
+      <OfferBlocks
+        offer={{
+          ...offer,
+          formattedPrice,
+          formattedListPrice,
+        }}
+      />
     </Box>
   )
 }

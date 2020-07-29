@@ -10,11 +10,6 @@ interface Props {
 }
 
 const ListPrice: FC<Props> = ({ offer, variant }) => {
-  const numberFormat = useNumberFormat()
-  const price =
-    offer.Price === offer.ListPrice
-      ? null
-      : numberFormat.format(offer.ListPrice)
 
   return <Box variant={`${variant}.listPrice`}>{price}</Box>
 }
