@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Grid as ThemeUIGrid, Box } from 'theme-ui'
+import Box from '@material-ui/core/Box'
 import { useResponsiveValue } from '@theme-ui/match-media'
 
 import { ProductSummary } from '../ProductSummary'
@@ -41,7 +41,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
       : [syncProducts[page]]
 
   return (
-    <Box>
+    <Box display="flex">
       <Grid justify="center" container>
         <Typography component="h2">summer</Typography>
       </Grid>

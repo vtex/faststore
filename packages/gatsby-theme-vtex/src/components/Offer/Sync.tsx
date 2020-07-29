@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react'
-import { Box } from 'theme-ui'
+import Box from '@material-ui/core/Box'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 import { findBestSeller, Item } from '../../utils/seller'
@@ -22,15 +22,27 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   }
 
   return (
-    <Box variant={`${variant}.offer`}>
+    <Box style={{ marginBottom: '32px' }}>
       <ListPrice variant={variant} offer={offer} />
       <Grid container xs alignItems="center">
-        <Box variant={`${variant}.price`}>
+        <Box
+          style={{
+            fontSize: '1.25rem',
+            fontWeight: 600,
+            color: '#2e2e2e',
+          }}
+        >
           {numberFormat.format(offer.Price)}
         </Box>
         <DiscountPercentage variant={variant} offer={offer} />
       </Grid>
-      <Box variant={`${variant}.availability`}>
+      <Box
+        style={{
+          fontSize: '0.875',
+          marginBottom: '0.5rem',
+          color: '#727273',
+        }}
+      >
         {offer.AvailableQuantity} units left!
       </Box>
     </Box>

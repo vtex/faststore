@@ -19,7 +19,6 @@ const InfoCard: FC<Props> = ({
   to,
   imgSrc,
   imgAlt,
-  variant,
 }) => {
   return (
     <Box

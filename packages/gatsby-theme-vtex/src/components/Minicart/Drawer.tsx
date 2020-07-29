@@ -1,6 +1,6 @@
 import Drawer from '@vtex-components/drawer'
 import React, { FC } from 'react'
-import { Box } from 'theme-ui'
+import Box from '@material-ui/core/Box'
 
 import Button from '../material-ui-components/Button'
 import Typography from '../material-ui-components/Typography'
@@ -26,7 +26,7 @@ interface Props extends HeaderProps {
 
 // TODO: Style
 const Header: FC<HeaderProps> = ({ onClose, count }) => (
-  <Box sx={{ p: 3 }}>
+  <Box p={1}>
     <Button onClick={onClose}>Close</Button>
     <Typography component="h1">{`Cart (${count})`}</Typography>
   </Box>
@@ -79,7 +79,7 @@ const MinicartDrawer: FC<Props> = ({ isOpen, onClose }) => {
                 borderBottomColor: 'muted',
               }}
             >
-              <Box sx={{ height: 96, width: 96 }}>
+              <Box height="96px" width="96px">
                 <ProductImage
                   width={96}
                   height={96}

@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { FC, Fragment, lazy, Suspense, useState, useEffect } from 'react'
-import { Box, jsx } from 'theme-ui'
+import React, { FC, Fragment, lazy, Suspense, useState, useEffect } from 'react'
+import Box from '@material-ui/core/Box'
 
 import Button from '../material-ui-components/Button'
 import SuspenseSSR from '../SuspenseSSR'
@@ -43,7 +42,24 @@ const Minicart: FC = () => {
         onClick={toggle}
       >
         <MinicartSvg />
-        <SuspenseSSR fallback={<Box variant="header-minicart-badge">0</Box>}>
+        <SuspenseSSR
+          fallback={
+            <Box
+              style={{
+                background: '#f71963',
+                borderRadius: '100%',
+                height: 16,
+                position: 'absolute',
+                width: 16,
+                top: 0,
+                right: 0,
+                fontSize: 10,
+              }}
+            >
+              0
+            </Box>
+          }
+        >
           <ItemCount />
         </SuspenseSSR>
       </Button>

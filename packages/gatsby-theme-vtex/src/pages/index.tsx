@@ -1,8 +1,6 @@
-/** @jsx jsx */
-import { RouteComponentProps } from '@reach/router'
+import React, { FC, useEffect, lazy } from 'react'
 import { graphql } from 'gatsby'
-import { FC, useEffect, lazy } from 'react'
-import { jsx } from 'theme-ui'
+import { RouteComponentProps } from '@reach/router'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box } from 'theme-ui'
+import Box from '@material-ui/core/Box'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 import { SyncProductCommertialOffer } from '../../types/product'
@@ -9,14 +9,25 @@ interface Props {
   variant: string
 }
 
-const ListPrice: FC<Props> = ({ offer, variant }) => {
+const ListPrice: FC<Props> = ({ offer }) => {
   const numberFormat = useNumberFormat()
   const price =
     offer.Price === offer.ListPrice
       ? null
       : numberFormat.format(offer.ListPrice)
 
-  return <Box variant={`${variant}.listPrice`}>{price}</Box>
+  return (
+    <Box
+      style={{
+        textDecoration: 'line-through',
+        fontSize: '.875rem',
+        minHeight: '21px',
+        color: '#727273',
+      }}
+    >
+      {price}
+    </Box>
+  )
 }
 
 export default ListPrice
