@@ -1,7 +1,7 @@
 import { join, resolve } from 'path'
 
 import { ensureDir, outputFile } from 'fs-extra'
-import { CreatePagesArgs } from 'gatsby'
+import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
 
 import { Environment } from './gatsby-config'
 
@@ -9,6 +9,23 @@ const root = process.cwd()
 const tenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
 const environment =
   (process.env.GATSBY_VTEX_ENVIRONMENT as Environment) ?? 'vtexcommercestable'
+
+export const onCreateWebpackConfig = ({ actions: { setWebpackConfig } }: CreateWebpackConfigArgs) => {
+  setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.md$/,
+          use: [
+            { loader: require.resolve('html-loader') },
+            { loader: require.resolve('markdown-loader') },
+          ],
+        },
+      ],
+    },
+  })
+}
+
 
 export const createPages = async ({
   actions: { createPage, createRedirect },
