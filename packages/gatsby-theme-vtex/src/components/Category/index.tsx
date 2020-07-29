@@ -13,10 +13,9 @@ interface Props {
   category: Category
 }
 
-// TODO: Style Typography, Grid
 const CategoryTemplate: FC<Props> = ({ category }) => (
   <Container>
-    <Box pt={4}>
+    <Box>
       <Typography variant="h3" component="h2">
         <Box fontWeight="fontWeightBold">{category.name}</Box>
       </Typography>

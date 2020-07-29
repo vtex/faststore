@@ -13,7 +13,12 @@ const Container: FC = ({ children }) => {
   const classes = useStyles()
 
   return (
-    <Box margin="0 auto" width="100%" maxWidth={['100%', '100%', '96rem']}>
+    <Box
+      margin="0 auto"
+      width="100%"
+      maxWidth={['100%', '100%', '96rem']}
+      px={4}
+    >
       <main className={classes.main}>{children}</main>
     </Box>
   )
