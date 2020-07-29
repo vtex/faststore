@@ -8277,16 +8277,6 @@ eslint-config-vtex-react@^6.5.0:
     eslint-plugin-react "^7.18.0"
     eslint-plugin-react-hooks "^2.3.0"
 
-eslint-config-vtex-react@^6.7.0:
-  version "6.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.7.1.tgz#21633a61f0bafdbf14277985d957d0f198331d0c"
-  integrity sha512-bLafJrDe9rmJeNMAG3PIdf0BWZe93qLYkMVmNPsNFx45SfK5vo6wS4n4/en3lHXhs4eBGungisP8oklHAyE8Wg==
-  dependencies:
-    eslint-config-vtex "^12.7.1"
-    eslint-plugin-jsx-a11y "^6.2.3"
-    eslint-plugin-react "^7.18.0"
-    eslint-plugin-react-hooks "^2.3.0"
-
 eslint-config-vtex@^12.5.0, eslint-config-vtex@^12.7.0:
   version "12.7.0"
   resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.7.0.tgz#8a128012bcfffc1d0ca255bb3049950578d5c36b"
@@ -8301,21 +8291,6 @@ eslint-config-vtex@^12.5.0, eslint-config-vtex@^12.7.0:
     eslint-plugin-jest "^23.7.0"
     eslint-plugin-prettier "^3.1.2"
     eslint-plugin-vtex "^1.2.0"
-
-eslint-config-vtex@^12.7.1:
-  version "12.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.7.1.tgz#0110e85207b81aacd253cacd9b5574657605c4b7"
-  integrity sha512-rvGOYXhCXoGwBcRmZZueB9VIo1AaxY6ICMqz4DYIHD/Yl/iA4GRetKY9ld4R6eW2TURlWE8OxkcC4FGteUlIYQ==
-  dependencies:
-    "@typescript-eslint/eslint-plugin" "^2.17.0"
-    "@typescript-eslint/parser" "^2.17.0"
-    confusing-browser-globals "^1.0.9"
-    eslint-config-prettier "^6.9.0"
-    eslint-plugin-cypress "^2.9.0"
-    eslint-plugin-import "^2.20.0"
-    eslint-plugin-jest "^23.7.0"
-    eslint-plugin-prettier "^3.1.2"
-    eslint-plugin-vtex "^1.2.1"
 
 eslint-import-resolver-node@^0.3.2, eslint-import-resolver-node@^0.3.3:
   version "0.3.4"
@@ -8533,11 +8508,6 @@ eslint-plugin-vtex@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vtex/-/eslint-plugin-vtex-1.2.0.tgz#c2423800960ff4c6c610e6189dcb7d8177c9f4cc"
   integrity sha512-bDUCan8fC1Q81XOUOnLJwGupHZjDQM98CMn9cRvHpdDuzpQrdbaat38RgoQk1DaAlBrt0tLymHlNndY7BHpgew==
-
-eslint-plugin-vtex@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vtex/-/eslint-plugin-vtex-1.2.1.tgz#4cb26d5844a50250c0d65f1d1444db85fdf1c406"
-  integrity sha512-YJ07HC0vXtl2VXn0gRIutNww1uuMWmyV/8ERsLfB6AqLRwWF8+6vran84RuPXtV5u4aqhtOejw2XAn2Omtk7IA==
 
 eslint-scope@^4.0.3:
   version "4.0.3"

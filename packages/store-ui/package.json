@@ -19,7 +19,6 @@
     "develop": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
-    "lint": "eslint src/ --ext .tsx,.ts",
     "prepare": "tsdx build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -45,8 +44,6 @@
     "@types/theme-ui": "^0.3.5",
     "@vtex/prettier-config": "^0.3.1",
     "@vtex/tsconfig": "^0.5.0",
-    "eslint-config-vtex-react": "^6.7.0",
-    "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
