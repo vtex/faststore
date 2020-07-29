@@ -1,4 +1,3 @@
-import { Link } from 'gatsby'
 import React, { FC, Fragment } from 'react'
 
 import { SyncProductItem } from '../types/product'
@@ -9,6 +8,7 @@ import SyncOffer from './Offer/Sync'
 import ProductImage from './ProductImage'
 import Card from './material-ui-components/Card'
 import Typography from './material-ui-components/Typography'
+import Link from './material-ui-components/Link'
 
 interface Props {
   syncProduct: SyncProductItem

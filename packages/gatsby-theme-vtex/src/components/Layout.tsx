@@ -1,5 +1,4 @@
 import React, { FC, Fragment } from 'react'
-import { Link } from 'gatsby'
 import Box from '@material-ui/core/Box'
 import makeStyles from '@material-ui/styles/makeStyles'
 import type { Theme } from '@material-ui/core'
@@ -7,6 +6,7 @@ import type { Theme } from '@material-ui/core'
 import Header from './Header'
 import NotificationBar from './NotificationBar'
 import Grid from './material-ui-components/Grid'
+import Link from './material-ui-components/Link'
 
 const useStyles = makeStyles((theme: Theme) => ({
   link: {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import { Link } from 'gatsby'
 
 import Button from '../material-ui-components/Button'
+import Link from '../material-ui-components/Link'
 
 interface Props {
   to: string

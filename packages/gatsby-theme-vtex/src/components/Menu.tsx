@@ -1,24 +1,29 @@
 import React, { FC } from 'react'
-import { graphql, Link, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import makeStyles from '@material-ui/styles/makeStyles'
 import type { Theme } from '@material-ui/core'
 
 import Grid from './material-ui-components/Grid'
+import Link from './material-ui-components/Link'
 
 interface Item {
   name: string
   slug: string
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useGridStyles = makeStyles((theme: Theme) => ({
   root: {
     marginLeft: theme.spacing(4),
   },
-  item: {
+}))
+
+const useLinkStyles = makeStyles((theme: Theme) => ({
+  root: {
     textDecoration: 'none',
     fontSize: theme.typography.body1.fontSize,
     '&:hover': {
       color: theme.palette.primary.main,
+      textDecoration: 'none',
     },
     '&.active': {
       color: theme.palette.primary.main,
@@ -26,15 +31,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const MenuLink: FC<Item & { className: string }> = ({
-  slug,
-  name,
-  className,
-}) => (
-  <Link className={className} to={`/${slug}`} activeClassName="active">
-    {name.split(' ')[0]}
-  </Link>
-)
+const MenuLink: FC<Item> = ({ slug, name }) => {
+  const classes = useLinkStyles()
+
+  return (
+    <Link classes={classes} to={`/${slug}`} activeClassName="active">
+      {name.split(' ')[0]}
+    </Link>
+  )
+}
 
 // TODO: Style nav
 const Menu: FC = () => {
@@ -49,17 +54,17 @@ const Menu: FC = () => {
     }
   `)
 
-  const classes = useStyles()
+  const classes = useGridStyles()
 
   return (
     <Grid component="nav" item container xs classes={classes} spacing={3}>
       {allCategory.nodes.map((item: Item) => (
         <Grid item key={item.slug}>
-          <MenuLink className={classes.item} {...item} />
+          <MenuLink {...item} />
         </Grid>
       ))}
       <Grid item>
-        <MenuLink className={classes.item} slug="about" name="About" />
+        <MenuLink slug="about" name="About" />
       </Grid>
     </Grid>
   )

@@ -1,5 +1,6 @@
-import { Link } from 'gatsby'
 import React, { FC } from 'react'
+
+import Link from './material-ui-components/Link'
 
 const Logo: FC = () => (
   <Link to="/">
