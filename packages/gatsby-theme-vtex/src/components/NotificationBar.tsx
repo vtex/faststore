@@ -14,9 +14,17 @@ const NotificationBar: FC<Props> = ({ text }) => (
     alignItems="center"
     justifyContent="center"
     fontSize={0}
-    display={['none', 'none', 'none', 'flex']}
+    display={['none', 'none', 'flex']}
   >
-    <Typography color="primary">{text}</Typography>
+    <Typography
+      color="primary"
+      variant="button"
+      style={{
+        textDecoration: 'underline',
+      }}
+    >
+      {text}
+    </Typography>
   </Box>
 )
 
