@@ -18,6 +18,8 @@ const Carousel: FC<Props> = ({ items }) => {
   const lastIndex = items.length - 1
   const height = 450
 
+  console.log('Tab index', index)
+
   return (
     <Box position="relative">
       {items.map((item, i) => (
