@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import type { Theme } from '@material-ui/core'
-import { Box, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 import Logo from './Logo'
 import Search from './Search'
@@ -20,11 +20,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
   },
-}))
-
-const useRightMenuStyles = makeStyles((theme: Theme) => ({
-  root: {
+  logo: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      justifyContent: 'center',
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 'auto',
+      justifyContent: 'start',
+    },
+  },
+  rootRightMenu: {
     display: 'flex',
+    padding: theme.spacing(1),
     [theme.breakpoints.down('xs')]: {
       width: '100%',
     },
@@ -32,28 +40,31 @@ const useRightMenuStyles = makeStyles((theme: Theme) => ({
 }))
 
 const Header: FC = () => {
-  const containerClasses = useStyles()
-  const rightMenuStyles = useRightMenuStyles()
+  const classes = useStyles()
 
   return (
     <Grid
-      classes={containerClasses}
+      classes={{
+        root: classes.rootRightMenu,
+      }}
       component="header"
       container
       alignItems="center"
       justify="space-between"
     >
       <Grid item container xs={12} sm>
-        <Box
-          display="flex"
-          width={{ xs: '100%', sm: 'auto' }}
-          justifyContent={{ xs: 'center', sm: 'start' }}
-        >
+        <div className={classes.logo}>
           <Logo />
-        </Box>
+        </div>
         <Menu />
       </Grid>
-      <Grid classes={rightMenuStyles} item justify="center">
+      <Grid
+        classes={{
+          root: classes.rootRightMenu,
+        }}
+        item
+        justify="center"
+      >
         <Search />
         <Minicart />
       </Grid>

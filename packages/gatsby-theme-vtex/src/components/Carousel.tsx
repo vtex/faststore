@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import { Box } from '@material-ui/core'
 
 import Button from './material-ui-components/Button'
 
@@ -18,11 +17,10 @@ const Carousel: FC<Props> = ({ items }) => {
   const height = 450
 
   return (
-    <Box position="relative">
+    <div style={{ position: 'relative' }}>
       <Button
         key="prevClickCarousel"
         onClick={() => {
-          console.log('carousel prev button clicked')
           setIndex((index + items.length - 1) % items.length)
         }}
         style={{ position: 'absolute', top: '50%', left: 0 }}
@@ -32,7 +30,6 @@ const Carousel: FC<Props> = ({ items }) => {
       <Button
         key="nextClickCarousel"
         onClick={() => {
-          console.log('carousel next button clicked')
           setIndex((index + 1) % items.length)
         }}
         style={{ position: 'absolute', top: '50%', right: 0 }}
@@ -40,10 +37,9 @@ const Carousel: FC<Props> = ({ items }) => {
         Next
       </Button>
       {items.map((item, i) => (
-        <Box
-          height={height}
+        <div
           key={item.altText}
-          display={index === i ? 'block' : 'none'}
+          style={{ height, display: index === i ? 'block' : 'none' }}
         >
           <img
             src={item.src}
@@ -51,9 +47,9 @@ const Carousel: FC<Props> = ({ items }) => {
             loading="lazy"
             style={{ height, width: '100%', objectFit: 'cover' }}
           />
-        </Box>
+        </div>
       ))}
-    </Box>
+    </div>
   )
 }
 

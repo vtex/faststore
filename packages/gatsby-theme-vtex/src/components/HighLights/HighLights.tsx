@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import type { Theme } from '@material-ui/core'
-import { Box, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 import HighLight from './HighLight'
 
@@ -33,7 +33,7 @@ const HighLigths: FC = () => {
   const classes = useStyles()
 
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <section className={classes.cardContainersSection}>
         <div className={classes.cardContainersBlock}>
           <HighLight
@@ -54,7 +54,7 @@ const HighLigths: FC = () => {
           />
         </div>
       </section>
-    </Box>
+    </div>
   )
 }
 

@@ -1,5 +1,4 @@
 import React, { FC, Fragment, lazy, Suspense, useState, useEffect } from 'react'
-import { Box } from '@material-ui/core'
 
 import Button from '../material-ui-components/Button'
 import SuspenseSSR from '../SuspenseSSR'
@@ -44,7 +43,7 @@ const Minicart: FC = () => {
         <MinicartSvg />
         <SuspenseSSR
           fallback={
-            <Box
+            <div
               style={{
                 background: '#f71963',
                 borderRadius: '100%',
@@ -57,7 +56,7 @@ const Minicart: FC = () => {
               }}
             >
               0
-            </Box>
+            </div>
           }
         >
           <ItemCount />

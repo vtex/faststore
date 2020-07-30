@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react'
 import type { Theme } from '@material-ui/core'
 import {
-  Box,
   useTheme,
   ButtonBase,
   makeStyles,
@@ -65,7 +64,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
       : [syncProducts[page]]
 
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <Grid justify="center" container>
         <Typography variant="h2" component="h2">
           summer
@@ -106,7 +105,7 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
           )}
         </Grid>
       </Grid>
-    </Box>
+    </div>
   )
 }
 

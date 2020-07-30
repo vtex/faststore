@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 import Typography from '../material-ui-components/Typography'
 
@@ -27,7 +27,7 @@ const HighLight: FC<HighLight> = (props) => {
   const classes = useStyles()
 
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <img
         alt=""
         loading="lazy"
@@ -36,7 +36,7 @@ const HighLight: FC<HighLight> = (props) => {
         height="24px"
       />
       <Typography className={classes.message}>{props.message}</Typography>
-    </Box>
+    </div>
   )
 }
 

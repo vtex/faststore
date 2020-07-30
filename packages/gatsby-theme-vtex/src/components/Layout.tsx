@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react'
 import type { Theme } from '@material-ui/core'
-import { Box, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 import Header from './Header'
 import NotificationBar from './NotificationBar'
@@ -18,23 +18,26 @@ const useStyles = makeStyles((theme: Theme) => ({
   rightMenu: {
     display: 'flex',
   },
+  root: {
+    backgroundColor: '#02003d',
+    minHeight: '48px',
+    textDecoration: 'none',
+    color: theme.palette.grey[300],
+    padding: `${theme.spacing(2)}px ${theme.spacing(4)}px`,
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
 }))
 
 const OverMenu = () => {
   const classes = useStyles()
 
   return (
-    <Box
-      p={2}
-      px={4}
-      bgcolor="#02003d"
-      minHeight="48px"
-      display={['none', 'none', 'flex']}
-      style={{
-        textDecoration: 'none',
-        color: 'muted',
-      }}
-    >
+    <div className={classes.root}>
       <Grid item container alignItems="center" justify="center" spacing={5}>
         <Grid item>
           <Link className={classes.link} to="/">
@@ -53,7 +56,7 @@ const OverMenu = () => {
           </a>
         </Grid>
       </Grid>
-    </Box>
+    </div>
   )
 }
 

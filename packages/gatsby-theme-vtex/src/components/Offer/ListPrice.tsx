@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { Box } from '@material-ui/core'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 import { SyncProductCommertialOffer } from '../../types/product'
@@ -17,7 +16,7 @@ const ListPrice: FC<Props> = ({ offer }) => {
       : numberFormat.format(offer.ListPrice)
 
   return (
-    <Box
+    <div
       style={{
         textDecoration: 'line-through',
         fontSize: '.875rem',
@@ -26,7 +25,7 @@ const ListPrice: FC<Props> = ({ offer }) => {
       }}
     >
       {price}
-    </Box>
+    </div>
   )
 }
 

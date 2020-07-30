@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import type { Theme } from '@material-ui/core'
-import { Box, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 interface Props {
   variant?: string
@@ -17,11 +17,11 @@ const OfferPreview: FC<Props> = () => {
   const classes = useStyles()
 
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <Skeleton height={20} />
       <Skeleton height={23} />
       <Skeleton height={20} />
-    </Box>
+    </div>
   )
 }
 

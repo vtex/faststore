@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import type { Theme } from '@material-ui/core'
-import { Box, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 import Button from '../material-ui-components/Button'
 import Typography from '../material-ui-components/Typography'
@@ -25,32 +25,44 @@ interface Props extends HeaderProps {
   isOpen: boolean
 }
 
-const useHeaderStyles = makeStyles((theme: Theme) => ({
-  root: {
+const useStyles = makeStyles((theme: Theme) => ({
+  rootTypo: {
     fontWeight: theme.typography.fontWeightBold,
+  },
+  root: {
+    padding: theme.spacing(2),
+  },
+  boxTypo: {
+    paddingTop: theme.spacing(2),
   },
 }))
 
 const Header: FC<HeaderProps> = ({ onClose, count }) => {
-  const classes = useHeaderStyles()
+  const classes = useStyles()
 
   return (
-    <Box p={2}>
+    <div className={classes.root}>
       <Button onClick={onClose}>Close</Button>
-      <Box pt={2}>
+      <div className={classes.boxTypo}>
         <Typography
-          classes={classes}
+          classes={{
+            root: classes.rootTypo,
+          }}
           component="h1"
           variant="h4"
         >{`Cart (${count})`}</Typography>
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 
 const useGridStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(2),
+  },
+  shippingBox: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }))
 
@@ -74,9 +86,9 @@ const Footer: FC<FooterProps> = ({ currency, total = 0, subtotal = 0 }) => {
         <Typography variant="h5">Total</Typography>
         <Typography variant="h5">{`${currency} ${total}`}</Typography>
       </Grid>
-      <Box py={2}>
+      <div className={classes.shippingBox}>
         <Typography>Shipping and taxes calculated at checkout.</Typography>
-      </Box>
+      </div>
       <Button>GO TO CHECKOUT</Button>
     </Grid>
   )

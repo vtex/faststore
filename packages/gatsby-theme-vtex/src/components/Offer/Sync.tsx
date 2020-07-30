@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react'
 import type { Theme } from '@material-ui/core'
-import { Box, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 import { findBestSeller, Item } from '../../utils/seller'
@@ -42,7 +42,7 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   }
 
   return (
-    <Box className={classes.box}>
+    <div className={classes.box}>
       <ListPrice variant={variant} offer={offer} />
       <Grid container xs alignItems="center">
         <Typography
@@ -65,7 +65,7 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
       >
         {offer.AvailableQuantity} units left!
       </Typography>
-    </Box>
+    </div>
   )
 }
 

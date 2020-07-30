@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
-import { Box } from '@material-ui/core'
+import type { Theme } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 import Typography from './material-ui-components/Typography'
 
@@ -7,25 +8,34 @@ interface Props {
   text: string
 }
 
-const NotificationBar: FC<Props> = ({ text }) => (
-  <Box
-    minHeight="48px"
-    bgcolor="#e0efe0"
-    alignItems="center"
-    justifyContent="center"
-    fontSize={0}
-    display={['none', 'none', 'flex']}
-  >
-    <Typography
-      color="primary"
-      variant="button"
-      style={{
-        textDecoration: 'underline',
-      }}
-    >
-      {text}
-    </Typography>
-  </Box>
-)
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    minHeight: theme.spacing(6),
+    backgroundColor: '#e0efe0',
+    alignItems: 'center',
+    justifyContent: 'center',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  typo: {
+    textDecoration: 'underline',
+  },
+}))
+
+const NotificationBar: FC<Props> = ({ text }) => {
+  const classes = useStyles()
+
+  return (
+    <div className={classes.root}>
+      <Typography className={classes.typo} color="primary" variant="button">
+        {text}
+      </Typography>
+    </div>
+  )
+}
 
 export default NotificationBar

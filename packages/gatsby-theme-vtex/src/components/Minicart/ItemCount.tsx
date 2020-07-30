@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { Box } from '@material-ui/core'
 
 import { useOrderForm } from '../../providers/OrderForm'
 
@@ -8,7 +7,7 @@ const ItemCount: FC = () => {
   const count = orderForm?.value?.items.length ?? 0
 
   return (
-    <Box
+    <div
       style={{
         background: '#f71963',
         borderRadius: '100%',
@@ -21,7 +20,7 @@ const ItemCount: FC = () => {
       }}
     >
       {count}
-    </Box>
+    </div>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { FC, Fragment } from 'react'
 import { FilterOptions } from '@vtex/gatsby-source-vtex'
-import { Box } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
+import type { Theme } from '@material-ui/core'
 
 import Checkbox from '../../material-ui-components/Checkbox'
 import Typography from '../../material-ui-components/Typography'
@@ -45,14 +46,22 @@ const toggleFilter = (id: number, filters: FilterOptions) => {
   }
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+}))
+
 const BrandSelector: FC<Props> = ({ brands }) => {
   const [, setFilters] = useSearchFilters()
+  const classes = useStyles()
 
   return (
     <Fragment>
       <Typography>Brands</Typography>
 
-      <Box py={2}>
+      <div className={classes.container}>
         <ul style={{ listStyleType: 'none', margin: 0, padding: 0 }}>
           {brands.map(({ name, id }, index) => (
             <li key={`brands-selector-${index}`}>
@@ -65,7 +74,7 @@ const BrandSelector: FC<Props> = ({ brands }) => {
             </li>
           ))}
         </ul>
-      </Box>
+      </div>
     </Fragment>
   )
 }
