@@ -4,37 +4,43 @@ import React, { FC, Fragment, useCallback, useMemo } from 'react'
 import { useSWRInfinite } from 'swr'
 import { Button, Grid } from 'theme-ui'
 
-import { useSearchFilters } from '../../providers/SearchFilter'
+import { useSearchFilters } from '../../providers/Search'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
 import fetcher from '../../graphql/fetcher'
 
-const PAGE_SIZE = 8
+const PAGE_SIZE = 10
 
-interface Props {
-  search: any
-}
-
-const pageQuery = ''
-
-const List: FC<Props> = ({
-  search: {
-    productSearch: { products },
-  },
-}) => {
-  const [filters] = useSearchFilters()
-
-  // Initial data to start swr
-  const initialData = useMemo(() => {
-    const hasProducts = products.length > 0
-
-    if (hasProducts) {
-      return [products]
+const pageQuery = `
+query Search($query: String, $map: String, $from: Int, $to: Int) {
+  productSearch(query: $query, map: $map, from: $from, to: $to) {
+    products {
+      productId
+      productName
+      description
+      linkText
+      items {
+        itemId
+        images {
+          imageUrl
+          imageText
+        }
+        sellers {
+          sellerId
+          commertialOffer {
+            AvailableQuantity
+            Price
+            ListPrice
+          }
+        }
+      }
     }
+  }
+}
+`
 
-    return undefined
-  }, [products])
-
+const List: FC = () => {
+  const { filters, initialData } = useSearchFilters()
   const { data, error, size, setSize } = useSWRInfinite<Product[]>(
     (page, previousPageData) => {
       if (page !== 0 && previousPageData?.length === 0) {
@@ -56,7 +62,7 @@ const List: FC<Props> = ({
       ),
     {
       revalidateOnMount: true,
-      initialData,
+      initialData: initialData && [initialData],
       initialSize: 2, // 2 will always prefetch the next page
     }
   )

@@ -5,7 +5,7 @@ import React, { FC } from 'react'
 import SearchTemplate from '../components/Search/index'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
-import SearchFilterProvider from '../providers/SearchFilter'
+import SearchProvider from '../providers/Search'
 
 export const query = graphql`
   query Search($query: String, $map: String, $staticPath: Boolean = true) {
@@ -25,11 +25,11 @@ export const query = graphql`
             sellers {
               sellerId
               # Uncomment the code below pre-render the commercial offer
-              commertialOffer {
-                AvailableQuantity
-                Price
-                ListPrice
-              }
+              # commertialOffer {
+              #   AvailableQuantity
+              #   Price
+              #   ListPrice
+              # }
             }
           }
         }
@@ -41,8 +41,8 @@ export const query = graphql`
       }
       facets(query: $query, map: $map) {
         brands {
-          link
           name
+          value
           quantity
         }
         categoriesTrees {
@@ -77,9 +77,12 @@ const PageTemplate: FC<Props> = ({
 }) => (
   <Layout>
     <SEO title={vtex.productSearch.titleTag} />
-    <SearchFilterProvider initialOptions={{ query, map }}>
+    <SearchProvider
+      initialOptions={{ query, map }}
+      initialData={vtex.productSearch.products}
+    >
       <SearchTemplate search={vtex} />
-    </SearchFilterProvider>
+    </SearchProvider>
   </Layout>
 )
 
