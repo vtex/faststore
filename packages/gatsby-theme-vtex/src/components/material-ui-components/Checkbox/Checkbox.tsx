@@ -9,13 +9,7 @@ const Checkbox: FC<CheckboxProps & { label: string }> = ({
 }) => (
   <Box ml={1}>
     <FormControlLabel
-      control={
-        <MaterialCheckbox
-          color={props.color ?? 'primary'}
-          style={props.style ?? { width: 24, height: 24 }}
-          {...props}
-        />
-      }
+      control={<MaterialCheckbox color={props.color ?? 'primary'} {...props} />}
       label={label}
     />
   </Box>
