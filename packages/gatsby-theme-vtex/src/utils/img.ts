@@ -18,5 +18,5 @@ export const scaleImage = (
   const idSplited = id.split('-')
   const imageId = idSplited.length ? idSplited[0] : id
 
-  return `${fixedHost}${separator}${imageId}-${width}-${height}`
+  return `${fixedHost}${separator}${imageId}-${width}-${height}.png`
 }

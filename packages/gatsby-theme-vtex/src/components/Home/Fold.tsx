@@ -1,8 +1,15 @@
-import { Card, CardImage, CardInfo, CardInfoAction } from '@vtex/store-ui'
+import {
+  Card,
+  CardImage,
+  CardInfo,
+  CardInfoAction,
+  RichMarkdown,
+} from '@vtex/store-ui'
 import React, { FC, Fragment } from 'react'
-import { Box } from 'theme-ui'
+import { Box, Flex } from 'theme-ui'
 
-import RichText from '../RichText'
+import reachUsMd from '../../markdowns/reach-us.md'
+import exampleStoreMd from '../../markdowns/example-store.md'
 
 const Block: FC = ({ children }) => <Box sx={{ my: 5 }}>{children}</Box>
 
@@ -22,21 +29,11 @@ const Fold: FC = () => {
         </Card>
       </Block>
 
+      <Flex sx={{ justifyContent: 'center' }}>
+        <RichMarkdown text={exampleStoreMd} variant="question" />
+      </Flex>
       <Block>
-        <RichText
-          text="This is an example store built using the VTEX platform."
-          variant="question"
-        />
-        <RichText text="Want to know more?" variant="question" />
-      </Block>
-
-      <Block>
-        <div sx={{ mb: 3 }}>
-          <RichText text="Reach us at" />
-        </div>
-        <a href="www.vtex.com.br">
-          <RichText text="www.vtex.com.br" variant="link" />
-        </a>
+        <RichMarkdown text={reachUsMd} variant="link" />
       </Block>
     </Fragment>
   )
