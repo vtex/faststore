@@ -33,8 +33,6 @@ const ProductPage: FC<Props> = ({ data, pageContext, slug: routeSlug }) => {
   const { staticPath, pageQuery } = pageContext
   const slug = (pageContext.slug ?? routeSlug)!
 
-  console.log({ pageQuery, slug })
-
   const { data: product } = useSWR<SyncProduct | null>(slug, {
     fetcher: (s: string) =>
       fetcher(pageQuery, { slug: s, staticPath: true }).then(

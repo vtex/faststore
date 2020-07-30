@@ -1,14 +1,7 @@
 import { join, resolve } from 'path'
 import { createHash } from 'crypto'
 
-import {
-  ensureDir,
-  outputFile,
-  readJSON,
-  readJSONSync,
-  outputJSONSync,
-  ensureFileSync,
-} from 'fs-extra'
+import { ensureDir, outputFile, readJSONSync, outputJSONSync } from 'fs-extra'
 import { CreatePagesArgs, ParentSpanPluginArgs } from 'gatsby'
 import { parse, print } from 'graphql'
 
@@ -86,6 +79,7 @@ export const createPages = async (
         context: {
           query: splitted.slice(1, splitted.length).join('/'),
           map: new Array(splitted.length - 1).fill('c').join(','),
+          staticPath: true,
         },
       })
     }

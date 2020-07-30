@@ -8,10 +8,10 @@ import SEO from '../components/SEO/siteMetadata'
 import SearchFilterProvider from '../providers/SearchFilter'
 
 export const query = graphql`
-  query Search($query: String, $map: String) {
+  query Search($query: String, $map: String, $staticPath: Boolean = true) {
     vtex {
       productSearch(query: $query, map: $map, from: 0, to: 9) {
-        products {
+        products @include(if: $staticPath) {
           productId
           productName
           description
@@ -67,6 +67,7 @@ type Props = PageProps<
   {
     query: string
     map: string
+    staticPath: boolean
   }
 >
 
