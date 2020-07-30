@@ -15,7 +15,7 @@ interface Props {
   search: any
 }
 
-const pageQuery = 'null'
+const pageQuery = ''
 
 const List: FC<Props> = ({
   search: {
