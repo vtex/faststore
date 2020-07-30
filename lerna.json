@@ -1,5 +1,5 @@
 {
-  "version": "0.9.1-alpha.26",
+  "version": "0.9.1-alpha.27",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -7,5 +7,7 @@
       "message": "Release: %v"
     }
   },
-  "packages": ["packages/*"]
+  "packages": [
+    "packages/*"
+  ]
 }
