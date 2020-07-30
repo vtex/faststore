@@ -43,7 +43,7 @@ export type SyncProductCommertialOffer = {
   AvailableQuantity: number
   Price: number
   ListPrice: number
-  Installments: Installment[]
+  Installments?: Installment[]
 }
 
 export type Installment = {

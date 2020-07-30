@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from 'react'
-import { Box, Flex } from 'theme-ui'
+import { Box, Flex, Divider } from 'theme-ui'
 
 import { SyncProductCommertialOffer } from '../../types/product'
 import DiscountPercentage from './DiscountPercentage'
@@ -25,6 +25,7 @@ const OfferBlocks: FC<OfferBlocksProps> = ({ offer, variant }) => {
       </Flex>
       <Availability variant={variant} offer={offer} />
       <Installments variant={variant} offer={offer} />
+      <Divider sx={{ opacity: 0.3 }} />
     </Fragment>
   )
 }
