@@ -1,4 +1,4 @@
 declare module '*.md' {
-  const md: any
+  const md: string
   export default md
 }
