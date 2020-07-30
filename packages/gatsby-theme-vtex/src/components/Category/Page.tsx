@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import type { Theme } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import makeStyles from '@material-ui/styles/makeStyles'
 import { Product } from '@vtex/gatsby-source-vtex'
 
 import Grid from '../material-ui-components/Grid'

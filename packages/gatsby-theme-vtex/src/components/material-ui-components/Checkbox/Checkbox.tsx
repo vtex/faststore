@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import MaterialCheckbox, { CheckboxProps } from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-import { Box } from '@material-ui/core'
+import Box from '@material-ui/core/Box'
 
 const Checkbox: FC<CheckboxProps & { label: string }> = ({
   label,

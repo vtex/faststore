@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react'
 import { FilterOptions } from '@vtex/gatsby-source-vtex'
-import { Box } from '@material-ui/core'
+import Box from '@material-ui/core/Box'
 
 import Checkbox from '../../material-ui-components/Checkbox'
 import Typography from '../../material-ui-components/Typography'

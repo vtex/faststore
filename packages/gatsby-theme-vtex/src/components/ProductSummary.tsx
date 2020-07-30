@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react'
 import type { Theme } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import makeStyles from '@material-ui/styles/makeStyles'
 
 import { SyncProductItem } from '../types/product'
 import BuyButtonPreview from './BuyButton/Preview'

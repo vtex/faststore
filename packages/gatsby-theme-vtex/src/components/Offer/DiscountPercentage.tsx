@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import type { Theme } from '@material-ui/core'
+import makeStyles from '@material-ui/core/styles/makeStyles'
 
 import Typography from '../material-ui-components/Typography'
 import { SyncProductCommertialOffer } from '../../types/product'
