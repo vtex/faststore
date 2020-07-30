@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Product } from '@vtex/gatsby-source-vtex'
-import React, { FC, Fragment, useCallback, useMemo } from 'react'
+import React, { FC, Fragment, useCallback } from 'react'
 import { useSWRInfinite } from 'swr'
 import { Button, Grid } from 'theme-ui'
 
