@@ -20,6 +20,7 @@ const Carousel: FC<Props> = ({ items }) => {
   return (
     <Box position="relative">
       <Button
+        key="prevClickCarousel"
         onClick={() => {
           console.log('carousel prev button clicked')
           setIndex((index + items.length - 1) % items.length)
@@ -29,6 +30,7 @@ const Carousel: FC<Props> = ({ items }) => {
         Previous
       </Button>
       <Button
+        key="nextClickCarousel"
         onClick={() => {
           console.log('carousel next button clicked')
           setIndex((index + 1) % items.length)

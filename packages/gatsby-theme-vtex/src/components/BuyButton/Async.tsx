@@ -14,10 +14,10 @@ const BuyButton: FC<Props> = ({ productId, skuId }) => {
   const sku = useSku(product, skuId)
 
   if (isLoading || !sku) {
-    return <BuyButtonPreview disabled={!product} />
+    return <BuyButtonPreview key="BuyButtonPreviewAsync" disabled={!product} />
   }
 
-  return <BuyButtonImp sku={sku} />
+  return <BuyButtonImp key="BuyButtonImplAsync" sku={sku} />
 }
 
 export default BuyButton

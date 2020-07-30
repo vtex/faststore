@@ -46,11 +46,12 @@ const BuyButton: FC<Props> = ({ sku }) => {
     <Button
       fullWidth
       variant="contained"
+      key="BuyButton"
       color="primary"
       disabled={disabled}
       onClick={addItemOnClick}
     >
-      ADD TO CART (for real)
+      ADD TO CART
     </Button>
   )
 }

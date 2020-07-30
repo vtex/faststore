@@ -7,8 +7,8 @@ import BuyButtonPreview from './Preview'
 const BuyButtonImpl = lazy(() => import('./BuyButton'))
 
 const BuyButton: FC<Props> = (props) => (
-  <SuspenseSSR fallback={<BuyButtonPreview />}>
-    <BuyButtonImpl {...props} />
+  <SuspenseSSR key="BuyButtonSuspenseSSR" fallback={<BuyButtonPreview />}>
+    <BuyButtonImpl key="BuyButtonImpl" {...props} />
   </SuspenseSSR>
 )
 
