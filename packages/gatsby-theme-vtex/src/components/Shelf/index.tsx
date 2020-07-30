@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
   },
+  arrow: {
+    padding: theme.spacing(1),
+  },
 }))
 
 // TOOD: Style typography
@@ -66,10 +69,11 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
           summer
         </Typography>
       </Grid>
-      <Grid container>
-        <Grid container alignItems="center" xs={1}>
+      <Grid container spacing={1}>
+        <Grid container alignItems="center" justify="center" xs={1}>
           {hasPrevArrow(page) && (
             <ButtonBase
+              className={classes.arrow}
               onClick={() => setPage(page - 1)}
               aria-label="See shelf previous page"
             >
@@ -86,9 +90,10 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
             )
           })}
         </Grid>
-        <Grid container alignItems="center" xs={1}>
+        <Grid container alignItems="center" justify="center" xs={1}>
           {hasNextArrow(page, syncProducts.length, maxItems) && (
             <ButtonBase
+              className={classes.arrow}
               onClick={() => {
                 setPage(page + 1)
               }}
