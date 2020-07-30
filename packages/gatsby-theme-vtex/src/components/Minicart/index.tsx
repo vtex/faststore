@@ -1,5 +1,5 @@
 import React, { FC, Fragment, lazy, Suspense, useState, useEffect } from 'react'
-import Box from '@material-ui/core/Box'
+import { Box } from '@material-ui/core'
 
 import Button from '../material-ui-components/Button'
 import SuspenseSSR from '../SuspenseSSR'

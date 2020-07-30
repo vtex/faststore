@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import type { Theme } from '@material-ui/core'
-import makeStyles from '@material-ui/styles/makeStyles'
+import { makeStyles } from '@material-ui/core'
 import { Product } from '@vtex/gatsby-source-vtex'
 
 import Grid from '../material-ui-components/Grid'
@@ -13,7 +13,7 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) => ({
   summary: {
     padding: theme.spacing(1),
-  }
+  },
 }))
 
 const Page: FC<Props> = ({ products }) => {

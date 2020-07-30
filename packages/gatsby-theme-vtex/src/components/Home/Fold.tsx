@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from 'react'
-import Box from '@material-ui/core/Box'
+import { Box } from '@material-ui/core'
 
 import Action from '../InfoCard/ButtonAction'
 import RichText from '../RichText'

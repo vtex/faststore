@@ -1,1 +1,1 @@
-export { default } from './Input'
+export { InputBase as default } from '@material-ui/core'

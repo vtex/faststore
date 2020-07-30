@@ -1,5 +1,5 @@
 import React from 'react'
-import MaterialGrid, { GridProps } from '@material-ui/core/Grid'
+import { Grid as MaterialGrid, GridProps } from '@material-ui/core'
 
 // FIXME: component?
 export default function Grid(

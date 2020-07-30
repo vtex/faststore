@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Button, { ButtonProps } from '@material-ui/core/Button'
+import { Button, ButtonProps } from '@material-ui/core'
 
 const CustomButton: FC<ButtonProps> = (props) => {
   return <Button disableRipple disableTouchRipple {...props} />

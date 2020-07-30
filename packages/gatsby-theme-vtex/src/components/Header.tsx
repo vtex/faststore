@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
-import makeStyles from '@material-ui/styles/makeStyles'
 import type { Theme } from '@material-ui/core'
-import Box from '@material-ui/core/Box'
+import { Box, makeStyles } from '@material-ui/core'
 
 import Logo from './Logo'
 import Search from './Search'

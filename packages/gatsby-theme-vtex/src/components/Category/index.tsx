@@ -1,7 +1,6 @@
 import React, { FC, Fragment } from 'react'
-import Box from '@material-ui/core/Box'
+import { Box, Divider } from '@material-ui/core'
 import { Category } from '@vtex/gatsby-source-vtex'
-import Divider from '@material-ui/core/Divider'
 
 import Container from '../Container'
 import BrandSelector from './Facets/Brands'

@@ -1,10 +1,12 @@
 import React, { FC, useState } from 'react'
-import Box from '@material-ui/core/Box'
 import type { Theme } from '@material-ui/core'
-import ButtonBase from '@material-ui/core/ButtonBase'
-import makeStyles from '@material-ui/styles/makeStyles'
-import useTheme from '@material-ui/core/styles/useTheme'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import {
+  Box,
+  useTheme,
+  ButtonBase,
+  makeStyles,
+  useMediaQuery,
+} from '@material-ui/core'
 
 import { ProductSummary } from '../ProductSummary'
 import { SyncProductItem } from '../../types/product'

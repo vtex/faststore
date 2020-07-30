@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import Box from '@material-ui/core/Box'
+import { Box } from '@material-ui/core'
 
 import Button from './material-ui-components/Button'
 

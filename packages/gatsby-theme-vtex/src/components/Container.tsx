@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
-import Box from '@material-ui/core/Box'
-import makeStyles from '@material-ui/styles/makeStyles'
 import type { Theme } from '@material-ui/core'
+import { Box, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {

@@ -1,7 +1,6 @@
 import React, { FC, useMemo } from 'react'
-import Box from '@material-ui/core/Box'
 import type { Theme } from '@material-ui/core'
-import makeStyles from '@material-ui/styles/makeStyles'
+import { Box, makeStyles } from '@material-ui/core'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 import { findBestSeller, Item } from '../../utils/seller'
