@@ -15,7 +15,6 @@
     "vtex"
   ],
   "license": "MIT",
-  "peerDependencies": {},
   "devDependencies": {
     "@types/uuid": "^8.0.0",
     "cross-env": "^7.0.2",
