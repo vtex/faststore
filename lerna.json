@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "version": "0.11.0",
+=======
+  "version": "0.9.1-alpha.2",
+>>>>>>> 9c60d14... Release: 0.9.1-alpha.2
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -7,5 +11,7 @@
       "message": "Release: %v"
     }
   },
-  "packages": ["packages/*"]
+  "packages": [
+    "packages/*"
+  ]
 }

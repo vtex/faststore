@@ -1,6 +1,10 @@
 {
   "name": "@vtex/gatsby-source-vtex",
+<<<<<<< HEAD
   "version": "0.11.0",
+=======
+  "version": "0.9.1-alpha.2",
+>>>>>>> 9c60d14... Release: 0.9.1-alpha.2
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
   "scripts": {
@@ -15,7 +19,6 @@
     "vtex"
   ],
   "license": "MIT",
-  "peerDependencies": {},
   "devDependencies": {
     "@types/uuid": "^8.0.0",
     "cross-env": "^7.0.2",
