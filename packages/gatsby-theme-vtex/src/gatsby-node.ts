@@ -1,15 +1,7 @@
-import { createHash } from 'crypto'
 import { join, resolve } from 'path'
 
-import { BabelGQLWebpackPlugin } from 'babel-gql/plugin'
-import { ensureDir, outputFile, outputJSONSync, readJSONSync } from 'fs-extra'
-import {
-  CreatePagesArgs,
-  CreateWebpackConfigArgs,
-  ParentSpanPluginArgs,
-  CreateBabelConfigArgs,
-} from 'gatsby'
-import { parse, print } from 'graphql'
+import { ensureDir, outputFile } from 'fs-extra'
+import { CreatePagesArgs } from 'gatsby'
 
 import { Environment, Options } from './gatsby-config'
 
@@ -149,103 +141,4 @@ export const createPages = async (
   })
 
   await Promise.all(cmsPages)
-}
-
-const getIsolatedQuery = (query: string, fieldName: string) => {
-  const document = parse(query)
-
-  const updatedRoot = (document
-    .definitions[0] as any).selectionSet.selections.find(
-    (selection: any) =>
-      selection.name &&
-      selection.name.kind === 'Name' &&
-      selection.name.value === fieldName
-  )
-
-  if (!updatedRoot) {
-    return null
-  }
-
-  ;(document.definitions[0] as any).selectionSet.selections =
-    updatedRoot.selectionSet.selections
-
-  return print(document)
-}
-
-const sha256 = (data: string) => createHash('sha256').update(data).digest('hex')
-
-const updateStorageSync = (key: string, value: string, filepath: string) => {
-  const data = readJSONSync(filepath)
-
-  data[key] = value
-
-  outputJSONSync(filepath, data)
-}
-
-export const onPreExtractQueries = ({ store }: ParentSpanPluginArgs) => {
-  const filepath = join(root, 'public/persisted.graphql.json')
-
-  outputJSONSync(filepath, {})
-
-  store.subscribe(async () => {
-    const {
-      lastAction: { type, payload },
-      components,
-      pages: allPages,
-    } = store.getState()
-
-    if (type !== 'QUERY_EXTRACTED') {
-      return
-    }
-
-    const { componentPath } = payload
-    const { query, pages } = components.get(componentPath)
-
-    if (!query) {
-      return
-    }
-
-    const processedQuery = getIsolatedQuery(query, 'vtex')
-
-    if (!processedQuery) {
-      return
-    }
-
-    const hash = sha256(processedQuery)
-
-    updateStorageSync(hash, processedQuery, filepath)
-
-    pages.forEach((pagePath: string) => {
-      const page = allPages.get(pagePath)
-
-      page.context = { ...page.context, pageQuery: processedQuery }
-    })
-  })
-}
-
-export const onCreateBabelConfig = ({
-  actions: { setBabelPlugin },
-}: CreateBabelConfigArgs) => {
-  setBabelPlugin({
-    name: require.resolve('babel-gql/plugin'),
-    options: {},
-  })
-}
-
-export const onCreateWebpackConfig = ({
-  actions: { setWebpackConfig },
-}: CreateWebpackConfigArgs) => {
-  // Clean global variables, otherwise 'babel-gql' complains
-  if ((global as any)?.babelGQLQueryManager) {
-    delete (global as any).babelGQLQueryManager
-  }
-
-  setWebpackConfig({
-    plugins: [
-      new BabelGQLWebpackPlugin({
-        // the directory where persisted query files will be written to
-        target: join(root, 'public/queries'),
-      }),
-    ],
-  })
 }
