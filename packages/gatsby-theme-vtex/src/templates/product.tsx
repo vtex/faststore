@@ -5,7 +5,7 @@ import useSWR from 'swr'
 import Layout from '../components/Layout'
 import ProductDetails from '../components/ProductDetails'
 import { SyncProduct } from '../types/product'
-import fetcher from '../graphql/fetcher'
+import { graphqlFetcher } from '../graphql/fetcher'
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 
@@ -35,7 +35,7 @@ const ProductPage: FC<Props> = ({ data, pageContext, slug: routeSlug }) => {
 
   const { data: product } = useSWR<SyncProduct | null>(slug, {
     fetcher: (s: string) =>
-      fetcher(pageQuery, { slug: s, staticPath: true }).then(
+      graphqlFetcher(pageQuery, { slug: s, staticPath: true }).then(
         (x: any) => x.data.product
       ),
     suspense: true,
