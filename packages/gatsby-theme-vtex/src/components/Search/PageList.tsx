@@ -85,6 +85,11 @@ const List: FC = () => {
       request('/graphql/', {
         query,
         variables: JSON.parse(varStr),
+        fetchOptions: {
+          headers: {
+            'x-vtex-graphql-referer': window.location.host,
+          },
+        },
       }).then((res) => res.data.productSearch.products),
     {
       revalidateOnMount: true,
