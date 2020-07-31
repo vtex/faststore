@@ -222,3 +222,30 @@ export const onPreExtractQueries = ({ store }: ParentSpanPluginArgs) => {
     })
   })
 }
+
+export const onCreateBabelConfig = ({
+  actions: { setBabelPlugin },
+}: CreateBabelConfigArgs) => {
+  setBabelPlugin({
+    name: require.resolve('babel-gql/plugin'),
+    options: {},
+  } as any)
+}
+
+export const onCreateWebpackConfig = ({
+  actions: { setWebpackConfig },
+}: CreateWebpackConfigArgs) => {
+  // Clean global variables, otherwise 'babel-gql' complains
+  if ((global as any)?.babelGQLQueryManager) {
+    delete (global as any).babelGQLQueryManager
+  }
+
+  setWebpackConfig({
+    plugins: [
+      new BabelGQLWebpackPlugin({
+        // the directory where persisted query files will be written to
+        target: join(root, 'public/queries'),
+      }),
+    ],
+  })
+}

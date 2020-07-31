@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Product } from '@vtex/gatsby-source-vtex'
+import { gql, request } from 'babel-gql'
+import { graphql } from 'gatsby'
 import React, { FC, Fragment, useCallback } from 'react'
 import { useSWRInfinite } from 'swr'
 import { Button, Grid } from 'theme-ui'
@@ -7,36 +9,41 @@ import { Button, Grid } from 'theme-ui'
 import { useSearchFilters } from '../../providers/Search'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
-import fetcher from '../../graphql/fetcher'
 
 const PAGE_SIZE = 10
 
-const pageQuery = `
-query Search($query: String, $map: String, $from: Int, $to: Int) {
-  productSearch(query: $query, map: $map, from: $from, to: $to) {
-    products {
-      productId
-      productName
-      description
-      linkText
-      items {
-        itemId
-        images {
-          imageUrl
-          imageText
-        }
-        sellers {
-          sellerId
-          commertialOffer {
-            AvailableQuantity
-            Price
-            ListPrice
-          }
+export const fragment = graphql`
+  fragment PageList_product on VTEX_Product {
+    productId
+    productName
+    description
+    linkText
+    items {
+      itemId
+      images {
+        imageUrl
+        imageText
+      }
+      sellers {
+        sellerId
+        commertialOffer {
+          AvailableQuantity
+          Price
+          ListPrice
         }
       }
     }
   }
-}
+`
+
+const query = gql`
+  query ClientOnlySearch($query: String, $map: String, $from: Int, $to: Int) {
+    productSearch(query: $query, map: $map, from: $from, to: $to) {
+      products {
+        ...PageList_product
+      }
+    }
+  }
 `
 
 const List: FC = () => {
@@ -56,10 +63,11 @@ const List: FC = () => {
         to,
       })
     },
-    (options: string) =>
-      fetcher<any>(pageQuery, JSON.parse(options)).then(
-        (res) => res.data.productSearch.products
-      ),
+    (varStr: string) =>
+      request('/graphql', {
+        query,
+        variables: JSON.parse(varStr),
+      }).then((res) => res.data.productSearch.products),
     {
       revalidateOnMount: true,
       initialData: initialData && [initialData],
