@@ -40,7 +40,25 @@ const query = gql`
   query ClientOnlySearch($query: String, $map: String, $from: Int, $to: Int) {
     productSearch(query: $query, map: $map, from: $from, to: $to) {
       products {
-        ...PageList_product
+        productId
+        productName
+        description
+        linkText
+        items {
+          itemId
+          images {
+            imageUrl
+            imageText
+          }
+          sellers {
+            sellerId
+            commertialOffer {
+              AvailableQuantity
+              Price
+              ListPrice
+            }
+          }
+        }
       }
     }
   }
@@ -64,7 +82,7 @@ const List: FC = () => {
       })
     },
     (varStr: string) =>
-      request('/graphql', {
+      request('/graphql/', {
         query,
         variables: JSON.parse(varStr),
       }).then((res) => res.data.productSearch.products),
