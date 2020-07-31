@@ -229,7 +229,7 @@ export const onCreateBabelConfig = ({
   setBabelPlugin({
     name: require.resolve('babel-gql/plugin'),
     options: {},
-  } as any)
+  })
 }
 
 export const onCreateWebpackConfig = ({
