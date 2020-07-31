@@ -1,8 +1,14 @@
-import { join, resolve } from 'path'
 import { createHash } from 'crypto'
+import { join, resolve } from 'path'
 
-import { ensureDir, outputFile, readJSONSync, outputJSONSync } from 'fs-extra'
-import { CreatePagesArgs, ParentSpanPluginArgs } from 'gatsby'
+import { BabelGQLWebpackPlugin } from 'babel-gql/plugin'
+import { ensureDir, outputFile, outputJSONSync, readJSONSync } from 'fs-extra'
+import {
+  CreatePagesArgs,
+  CreateWebpackConfigArgs,
+  ParentSpanPluginArgs,
+  CreateBabelConfigArgs,
+} from 'gatsby'
 import { parse, print } from 'graphql'
 
 import { Environment, Options } from './gatsby-config'
@@ -214,5 +220,32 @@ export const onPreExtractQueries = ({ store }: ParentSpanPluginArgs) => {
 
       page.context = { ...page.context, pageQuery: processedQuery }
     })
+  })
+}
+
+export const onCreateBabelConfig = ({
+  actions: { setBabelPlugin },
+}: CreateBabelConfigArgs) => {
+  setBabelPlugin({
+    name: require.resolve('babel-gql/plugin'),
+    options: {},
+  } as any)
+}
+
+export const onCreateWebpackConfig = ({
+  actions: { setWebpackConfig },
+}: CreateWebpackConfigArgs) => {
+  // Clean global variables, otherwise 'babel-gql' complains
+  if ((global as any)?.babelGQLQueryManager) {
+    delete (global as any).babelGQLQueryManager
+  }
+
+  setWebpackConfig({
+    plugins: [
+      new BabelGQLWebpackPlugin({
+        // the directory where persisted query files will be written to
+        target: join(root, 'public/queries'),
+      }),
+    ],
   })
 }

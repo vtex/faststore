@@ -12,26 +12,7 @@ export const query = graphql`
     vtex {
       productSearch(query: $query, map: $map, from: 0, to: 9) {
         products @include(if: $staticPath) {
-          productId
-          productName
-          description
-          linkText
-          items {
-            itemId
-            images {
-              imageUrl
-              imageText
-            }
-            sellers {
-              sellerId
-              # Uncomment the code below pre-render the commercial offer
-              # commertialOffer {
-              #   AvailableQuantity
-              #   Price
-              #   ListPrice
-              # }
-            }
-          }
+          ...PageList_product
         }
         breadcrumb {
           href
