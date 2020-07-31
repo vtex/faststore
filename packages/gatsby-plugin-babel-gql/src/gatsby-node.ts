@@ -1,5 +1,6 @@
-import { readdir } from 'fs/promises'
+import { readdir } from 'fs'
 import { basename, join } from 'path'
+import { promisify } from 'util'
 
 import { BabelGQLWebpackPlugin } from 'babel-gql/plugin'
 import { readFile } from 'fs-extra'
@@ -106,8 +107,10 @@ export const onCreateWebpackConfig = ({
   })
 }
 
+const listDir = promisify(readdir)
+
 export const onPostBuild = async () => {
-  const entries = await readdir(babelGQLFolderPath)
+  const entries = await listDir(babelGQLFolderPath)
 
   await Promise.all(
     entries.map(async (entry) => {
