@@ -7,6 +7,7 @@ import { jsx } from 'theme-ui'
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
 import Layout from '../components/Layout'
+import Newsletter from '../components/Newsletter'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
 import SuspenseDelay from '../components/SuspenseDelay'
@@ -51,6 +52,7 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
       </Container>
       <SuspenseDelay fallback={null}>
         <Fold />
+        <Newsletter />
       </SuspenseDelay>
     </Layout>
   )
