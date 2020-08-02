@@ -6,7 +6,6 @@ import { jsx } from 'theme-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
-import RichTextRow from '../components/Home/RichTextRow'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
@@ -47,7 +46,6 @@ const Home: FC<Props> = ({ data: { allProduct } }) => {
     <Layout>
       <SEO />
       <Carousel items={itemsCarousel} />
-      <RichTextRow />
       <Container>
         <Shelf syncProducts={syncProducts} />
       </Container>
