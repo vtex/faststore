@@ -13,15 +13,17 @@ interface Props {
   loading?: 'lazy' | 'eager'
 }
 
+const SIZE = 96
+
 const ProductImage: FC<Props> = ({
-  width = 300,
-  height = 300,
+  width = SIZE,
+  height = SIZE,
   src = IMAGE_DEFAULT,
   alt = 'Product Image',
   loading = 'lazy',
 }) => (
   <ProgressiveImage
-    placeholder={scaleImage(src, 300, 300)}
+    placeholder={scaleImage(src, SIZE, SIZE)}
     src={scaleImage(src, width, height)}
   >
     {(imageSrc: string) => (
