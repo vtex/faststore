@@ -1,11 +1,113 @@
 /** @jsx jsx */
+import { graphql, Link, useStaticQuery } from 'gatsby'
 import { FC } from 'react'
-import { Flex, jsx } from 'theme-ui'
+import { Flex, Grid, Image, jsx } from 'theme-ui'
 
-const Footer: FC = () => (
-  <Flex variant="footer" as="footer" sx={{ flexDirection: 'column' }}>
-    © {new Date().getFullYear()}, Built with Gatsby and VTEX
-  </Flex>
+interface Item {
+  name: string
+  slug: string
+}
+
+const MenuLink: FC<Item> = ({ slug, name }) => (
+  <Link to={`/${slug}`} activeClassName="active">
+    {name.split(' ')[0]}
+  </Link>
 )
+
+const Footer: FC = () => {
+  const { allCategory } = useStaticQuery(graphql`
+    {
+      allCategory(sort: { order: ASC, fields: categoryId }) {
+        nodes {
+          name
+          slug
+        }
+      }
+    }
+  `)
+
+  return (
+    <Flex variant="footer" as="footer" sx={{ flexDirection: 'column' }}>
+      <Flex sx={{ flexDirection: ['column', 'row'] }}>
+        <Grid gap={2} columns={[2, 4]} my={3} sx={{ flex: 1 }}>
+          {allCategory.nodes.map((item: Item) => (
+            <MenuLink {...item} key={item.slug} />
+          ))}
+        </Grid>
+        <Flex>
+          <Link
+            to="https://www.facebook.com/vtexonline/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Image
+              sx={{ height: 32, width: 32, mr: 1 }}
+              loading="lazy"
+              alt="Facebook"
+              src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/ebd4bd10e66138168eb6a582e00790ea.svg"
+            />
+          </Link>
+          <Link
+            to="https://www.instagram.com/vtextruecloud/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Image
+              sx={{ height: 32, width: 32, mr: 1 }}
+              loading="lazy"
+              alt="Instagram"
+              src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/6a61a302319c062aceb9562a66381a63.svg"
+            />
+          </Link>
+          <Link
+            to="https://twitter.com/vtexonline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Image
+              sx={{ height: 32, width: 32, mr: 1 }}
+              loading="lazy"
+              alt="Twitter"
+              src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/5f12d2a63f43d3a243550ff6400b4870.svg"
+            />
+          </Link>
+
+          <Link
+            to="https://www.youtube.com/user/VTEXTV"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Image
+              sx={{ height: 32, width: 32 }}
+              loading="lazy"
+              alt="Youtube"
+              src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/20a214b4866fd6d42a6dfed070c0057b.svg"
+            />
+          </Link>
+        </Flex>
+      </Flex>
+      <Flex>
+        <Image
+          sx={{ height: 32, width: 32 }}
+          loading="lazy"
+          src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/a8a977f569877c2df3a46c5a7b0d4dec.svg"
+        />
+        <Image
+          sx={{ height: 32, width: 32, mx: 1 }}
+          loading="lazy"
+          src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/69f24958103909c9e64057b9956d886f.svg"
+        />
+        <Image
+          sx={{ height: 32, width: 32 }}
+          loading="lazy"
+          src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/d48ef71514c2996f778851c1df9cc5d0.svg"
+        />
+      </Flex>
+      <Flex my={3}>
+        All stock and product photos are from photos.icons8.com
+      </Flex>
+    </Flex>
+  )
+}
 
 export default Footer
