@@ -3,9 +3,11 @@ import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
 import { Box, jsx } from 'theme-ui'
 
+import Container from './Container'
 import Footer from './Footer'
 import Header from './Header'
 import NotificationBar from './NotificationBar'
+import SuspenseDelay from './SuspenseDelay'
 
 const OverMenu = () => (
   <Box variant="overmenu">
@@ -28,7 +30,11 @@ const Layout: FC = ({ children }) => (
     <OverMenu />
     <Header />
     {children}
-    <Footer />
+    <SuspenseDelay fallback={null}>
+      <Container>
+        <Footer />
+      </Container>
+    </SuspenseDelay>
   </Fragment>
 )
 
