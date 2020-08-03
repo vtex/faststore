@@ -2,16 +2,12 @@ import { readdir } from 'fs'
 import { basename, join } from 'path'
 import { promisify } from 'util'
 
-import { BabelGQLWebpackPlugin } from 'babel-gql/plugin'
 import { readFile } from 'fs-extra'
-import {
-  CreateBabelConfigArgs,
-  CreateWebpackConfigArgs,
-  ParentSpanPluginArgs,
-} from 'gatsby'
+import { CreateWebpackConfigArgs, ParentSpanPluginArgs } from 'gatsby'
 import { parse, print } from 'graphql'
 
 import { Storage } from './storage'
+import { BabelGQLWebpackPlugin } from './webpack'
 
 const root = process.cwd()
 const storage = new Storage(join(root, 'public/persisted.graphql.json'))
@@ -80,14 +76,14 @@ export const onPreExtractQueries = ({ store }: ParentSpanPluginArgs) => {
   })
 }
 
-export const onCreateBabelConfig = ({
-  actions: { setBabelPlugin },
-}: CreateBabelConfigArgs) => {
-  setBabelPlugin({
-    name: require.resolve('babel-gql/plugin'),
-    options: {},
-  })
-}
+// export const onCreateBabelConfig = ({
+//   actions: { setBabelPlugin },
+// }: CreateBabelConfigArgs) => {
+//   setBabelPlugin({
+//     name: require.resolve('babel-gql/plugin'),
+//     options: {},
+//   })
+// }
 
 export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
