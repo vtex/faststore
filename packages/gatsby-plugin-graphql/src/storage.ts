@@ -1,23 +1,17 @@
-import { createHash } from 'crypto'
-
 import { outputJSONSync, readJSONSync } from 'fs-extra'
 
-const sha256 = (data: string) => createHash('sha256').update(data).digest('hex')
-
-export class Storage {
+export class Storage<T = string> {
   constructor(public filePath: string) {}
 
   public clear = () => outputJSONSync(this.filePath, {})
 
-  public add = (query: string) => {
-    this.set(sha256(query), query)
-  }
-
-  public set = (hash: string, query: string) => {
+  public set = (key: string, value: T) => {
     const data = readJSONSync(this.filePath)
 
-    data[hash] = query
+    data[key] = value
 
     outputJSONSync(this.filePath, data)
   }
+
+  public getAll = (): T => readJSONSync(this.filePath)
 }

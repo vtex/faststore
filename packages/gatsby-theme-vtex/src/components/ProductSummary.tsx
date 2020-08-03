@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Link } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import { FC, Fragment } from 'react'
 import { Card, Heading, jsx } from 'theme-ui'
 
@@ -13,6 +13,30 @@ import ProductImage from './ProductImage'
 interface Props {
   syncProduct: SyncProductItem
 }
+
+export const fragment = graphql`
+  fragment ProductSummary_syncProduct on VTEX_Product {
+    productId
+    productName
+    description
+    linkText
+    items {
+      itemId
+      images {
+        imageUrl
+        imageText
+      }
+      sellers {
+        sellerId
+        commertialOffer {
+          AvailableQuantity
+          Price
+          ListPrice
+        }
+      }
+    }
+  }
+`
 
 export const ProductSummary: FC<Props> = ({ syncProduct }) => {
   const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]

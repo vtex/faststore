@@ -8,7 +8,7 @@ export const useSalesChannel = (): [number, typeof setSalesChannel] => {
   const {
     allChannel: { edges },
   } = useStaticQuery(graphql`
-    query {
+    query DefaultSalesChannelQuery {
       allChannel(
         filter: { targetProduct: { eq: "vtex-storefront" } }
         limit: 1
