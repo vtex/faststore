@@ -1,4 +1,6 @@
-import { Product } from '@vtex/gatsby-source-vtex'
+import { request, RequestOptions } from '@vtex/gatsby-plugin-graphql'
+
+import { GRAPHQL_ENDPOINT } from './constants'
 
 const headers = {
   'content-type': 'application/json',
@@ -46,28 +48,16 @@ export const postFetcher = async <T extends any>(
   init?: RequestInit | undefined
 ): Promise<T> => jsonFetcher(input, { method: 'POST', ...init })
 
-export interface FetchedList {
-  products: Product[]
-  total: number
-  range: {
-    from: number
-    to: number
-  }
-}
-
-export const productListFetcher = async (url: string): Promise<FetchedList> => {
-  const response = await rawJsonFetcher(url)
-  const products: Product[] = await response.json()
-  const resources = response.headers.get('resources')!
-  const [range, total] = resources.split('/')
-  const [from, to] = range.split('-')
-
-  return {
-    products,
-    total: Number(total),
-    range: {
-      from: Number(from),
-      to: Number(to),
+export const graphqlFetcher = async <V extends any>(
+  options: RequestOptions<V>
+) =>
+  request(GRAPHQL_ENDPOINT, {
+    ...options,
+    fetchOptions: {
+      ...options.fetchOptions,
+      headers: {
+        'x-vtex-graphql-referer': window.location.host,
+        ...options.fetchOptions?.headers,
+      },
     },
-  }
-}
+  })

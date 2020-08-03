@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Product } from '@vtex/gatsby-source-vtex'
-import { gql, request } from '@vtex/gatsby-plugin-graphql/graphql'
-import { graphql } from 'gatsby'
+import { gql, request } from '@vtex/gatsby-plugin-graphql'
 import React, { FC, Fragment, useCallback } from 'react'
 import { useSWRInfinite } from 'swr'
 import { Button, Grid } from 'theme-ui'
@@ -9,56 +8,15 @@ import { Button, Grid } from 'theme-ui'
 import { useSearchFilters } from '../../providers/Search'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
+import { GRAPHQL_ENDPOINT } from '../../utils/constants'
 
 const PAGE_SIZE = 10
 
-export const fragment = graphql`
-  fragment PageList_product on VTEX_Product {
-    productId
-    productName
-    description
-    linkText
-    items {
-      itemId
-      images {
-        imageUrl
-        imageText
-      }
-      sellers {
-        sellerId
-        commertialOffer {
-          AvailableQuantity
-          Price
-          ListPrice
-        }
-      }
-    }
-  }
-`
-
 const query = gql`
-  query ClientOnlySearch($query: String, $map: String, $from: Int, $to: Int) {
+  query SearchQuery($query: String, $map: String, $from: Int, $to: Int) {
     productSearch(query: $query, map: $map, from: $from, to: $to) {
       products {
-        productId
-        productName
-        description
-        linkText
-        items {
-          itemId
-          images {
-            imageUrl
-            imageText
-          }
-          sellers {
-            sellerId
-            commertialOffer {
-              AvailableQuantity
-              Price
-              ListPrice
-            }
-          }
-        }
+        ...ProductSummary_syncProduct
       }
     }
   }
@@ -82,14 +40,9 @@ const List: FC = () => {
       })
     },
     (varStr: string) =>
-      request('/graphql/', {
-        query,
+      request(GRAPHQL_ENDPOINT, {
+        operationName: 'SearchQuery',
         variables: JSON.parse(varStr),
-        fetchOptions: {
-          headers: {
-            'x-vtex-graphql-referer': window.location.host,
-          },
-        },
       }).then((res) => res.data.productSearch.products),
     {
       revalidateOnMount: true,

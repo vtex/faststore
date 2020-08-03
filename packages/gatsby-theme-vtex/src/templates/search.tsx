@@ -8,11 +8,15 @@ import SEO from '../components/SEO/siteMetadata'
 import SearchProvider from '../providers/Search'
 
 export const query = graphql`
-  query Search($query: String, $map: String, $staticPath: Boolean = true) {
+  query SearchPageQuery(
+    $query: String
+    $map: String
+    $staticPath: Boolean = true
+  ) {
     vtex {
       productSearch(query: $query, map: $map, from: 0, to: 9) {
         products @include(if: $staticPath) {
-          ...PageList_product
+          ...ProductSummary_syncProduct
         }
         breadcrumb {
           href
