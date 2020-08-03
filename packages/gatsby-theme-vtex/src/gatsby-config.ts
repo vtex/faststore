@@ -38,7 +38,7 @@ module.exports = ({
       resolve: require.resolve('gatsby-plugin-react-helmet'),
     },
     {
-      resolve: require.resolve('@vtex/gatsby-theme-graphql-unified'),
+      resolve: require.resolve('@vtex/gatsby-plugin-graphql'),
     },
     {
       // Transform cms's json files into .tsx nodes so other

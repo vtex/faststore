@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Product } from '@vtex/gatsby-source-vtex'
-import { gql, request } from 'babel-gql'
+import { gql, request } from '@vtex/gatsby-plugin-graphql/graphql'
 import { graphql } from 'gatsby'
 import React, { FC, Fragment, useCallback } from 'react'
 import { useSWRInfinite } from 'swr'
