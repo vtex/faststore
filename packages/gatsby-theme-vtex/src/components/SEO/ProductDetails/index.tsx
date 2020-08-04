@@ -7,13 +7,13 @@ const StructuredData = lazy(() => import('./lazy'))
 const SiteMetadataSEO = lazy(() => import('../siteMetadata/lazy'))
 
 interface Props extends SiteMetadataProps {
-  productId: string
+  slug: string
 }
 
 const ProductDetailSEO: FC<Props> = (props) => (
   <SuspenseSSR fallback={null}>
     <SiteMetadataSEO {...props} />
-    <StructuredData productId={props.productId} />
+    <StructuredData slug={props.slug} />
   </SuspenseSSR>
 )
 

@@ -5,12 +5,12 @@ import BuyButtonPreview from './Preview'
 import BuyButtonImp from './BuyButton'
 
 export interface Props {
-  productId: string
+  slug: string
   skuId?: string
 }
 
-const BuyButton: FC<Props> = ({ productId, skuId }) => {
-  const { product, isLoading } = useAsyncProduct({ productIds: [productId] })
+const BuyButton: FC<Props> = ({ slug, skuId }) => {
+  const { product, isLoading } = useAsyncProduct(slug)
   const sku = useSku(product, skuId)
 
   if (isLoading || !sku) {
