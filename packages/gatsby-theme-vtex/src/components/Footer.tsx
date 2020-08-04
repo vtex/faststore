@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { graphql, Link, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import { FC } from 'react'
-import { Flex, Grid, Image, jsx } from 'theme-ui'
+import { Flex, Grid, Image, jsx, Link } from 'theme-ui'
 
 interface Item {
   name: string
@@ -9,9 +9,7 @@ interface Item {
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (
-  <Link to={`/${slug}`} activeClassName="active">
-    {name.split(' ')[0]}
-  </Link>
+  <Link href={`/${slug}`}>{name.split(' ')[0]}</Link>
 )
 
 const Footer: FC = () => {
@@ -36,7 +34,7 @@ const Footer: FC = () => {
         </Grid>
         <Flex>
           <Link
-            to="https://www.facebook.com/vtexonline/"
+            href="https://www.facebook.com/vtexonline/"
             target="_blank"
             rel="noreferrer"
             sx={{
@@ -54,7 +52,7 @@ const Footer: FC = () => {
             />
           </Link>
           <Link
-            to="https://www.instagram.com/vtextruecloud/"
+            href="https://www.instagram.com/vtextruecloud/"
             target="_blank"
             rel="noreferrer"
             sx={{
@@ -72,7 +70,7 @@ const Footer: FC = () => {
             />
           </Link>
           <Link
-            to="https://twitter.com/vtexonline"
+            href="https://twitter.com/vtexonline"
             target="_blank"
             rel="noreferrer"
             sx={{
@@ -90,7 +88,7 @@ const Footer: FC = () => {
             />
           </Link>
           <Link
-            to="https://www.youtube.com/user/VTEXTV"
+            href="https://www.youtube.com/user/VTEXTV"
             target="_blank"
             rel="noreferrer"
             sx={{
