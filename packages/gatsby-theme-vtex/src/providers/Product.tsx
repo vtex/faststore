@@ -35,7 +35,7 @@ const query = gql`
 `
 
 export const useAsyncProduct = (slug: string) => {
-  const { data, isValidating } = useSWR<AsyncProduct[]>(
+  const { data, isValidating } = useSWR<AsyncProduct>(
     `${slug}?AsyncProductQuery`,
     {
       fetcher: (s: string) =>
