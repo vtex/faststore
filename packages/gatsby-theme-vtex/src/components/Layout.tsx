@@ -7,7 +7,6 @@ import Container from './Container'
 import Footer from './Footer'
 import Header from './Header'
 import NotificationBar from './NotificationBar'
-import SuspenseDelay from './SuspenseDelay'
 
 const OverMenu = () => (
   <Box variant="overmenu">
@@ -30,11 +29,9 @@ const Layout: FC = ({ children }) => (
     <OverMenu />
     <Header />
     {children}
-    <SuspenseDelay fallback={null}>
-      <Container>
-        <Footer />
-      </Container>
-    </SuspenseDelay>
+    <Container>
+      <Footer />
+    </Container>
   </Fragment>
 )
 
