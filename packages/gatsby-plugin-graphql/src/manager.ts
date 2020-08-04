@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 /* eslint-disable @typescript-eslint/naming-convention */
 import assert from 'assert'
 import { createHash } from 'crypto'
@@ -71,6 +72,7 @@ export class QueryManager {
         )
 
         const query = print(def).trim()
+
         this.queries.set(queryName, query)
         this.fragmentsUsedByQuery.set(queryName, new Set())
       },
@@ -173,7 +175,7 @@ export class QueryManager {
     fragmentName: string,
     _fragments?: Set<string>
   ) {
-    const fragments = _fragments || new Set()
+    const fragments = _fragments ?? new Set()
     const usedFragments = this.fragmentsUsedByFragment.get(fragmentName)
 
     if (usedFragments) {

@@ -39,6 +39,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       },
       body: JSON.stringify({ query, variables }),
     })
+
     return fetchResult.json()
   }
 
@@ -58,6 +59,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     api.tenants.tenant(tenant),
     options
   )
+
   bindings.forEach((binding) => createChannelNode(args, binding))
 
   // Catetgories
@@ -65,5 +67,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     api.catalog.category.tree(1),
     options
   )
+
   departments.forEach((department) => createDepartmentNode(args, department))
 }
