@@ -14,9 +14,11 @@ const PAGE_SIZE = 10
 
 const query = gql`
   query SearchQuery($query: String, $map: String, $from: Int, $to: Int) {
-    productSearch(query: $query, map: $map, from: $from, to: $to) {
-      products {
-        ...ProductSummary_syncProduct
+    vtex {
+      productSearch(query: $query, map: $map, from: $from, to: $to) {
+        products {
+          ...ProductSummary_syncProduct
+        }
       }
     }
   }
@@ -43,7 +45,7 @@ const List: FC = () => {
       request(GRAPHQL_ENDPOINT, {
         operationName: 'SearchQuery',
         variables: JSON.parse(varStr),
-      }).then((res) => res.data.productSearch.products),
+      }).then((res) => res.data.vtex.productSearch.products),
     {
       revalidateOnMount: true,
       initialData: initialData && [initialData],

@@ -38,7 +38,7 @@ const ProductPage: FC<Props> = ({ data, pageContext, slug: routeSlug }) => {
       graphqlFetcher({
         operationName: 'ProductQuery',
         variables: { slug: s, staticPath: true },
-      }).then((x) => x.data),
+      }).then((x) => x.data.vtex.product),
     suspense: true,
     initialData: staticPath ? data.vtex.product : undefined,
   })

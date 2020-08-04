@@ -35,7 +35,7 @@ export class WebpackPlugin {
     const document = parse(query)
 
     const optimized = optimizeDocuments(this.schema, [document], {
-      includeFragments: true,
+      includeFragments: false,
     })
 
     return print(optimized[0])
