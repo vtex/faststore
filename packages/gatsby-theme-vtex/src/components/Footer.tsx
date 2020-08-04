@@ -13,9 +13,9 @@ const MenuLink: FC<Item> = ({ slug, name }) => (
 )
 
 const Footer: FC = () => {
-  const { allCategory } = useStaticQuery(graphql`
-    {
-      allCategory(sort: { order: ASC, fields: categoryId }) {
+  const { allDepartment } = useStaticQuery(graphql`
+    query GetDepartmentsQuery {
+      allDepartment(sort: { order: ASC, fields: name }) {
         nodes {
           name
           slug
@@ -28,7 +28,7 @@ const Footer: FC = () => {
     <Flex variant="footer" as="footer" sx={{ flexDirection: 'column' }}>
       <Flex sx={{ flexDirection: ['column', 'row'] }}>
         <Grid gap={2} columns={[2, 4]} my={3} sx={{ flex: 1 }}>
-          {allCategory.nodes.map((item: Item) => (
+          {allDepartment.nodes.map((item: Item) => (
             <MenuLink {...item} key={item.slug} />
           ))}
         </Grid>

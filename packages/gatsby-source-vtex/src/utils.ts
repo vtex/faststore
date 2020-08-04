@@ -1,6 +1,6 @@
 import { SourceNodesArgs } from 'gatsby'
 
-import { Category, Product, Channel } from './types'
+import { Category, Channel } from './types'
 export const createChannelNode = (
   {
     actions: { createNode },
@@ -18,6 +18,33 @@ export const createChannelNode = (
   createNode({
     ...data,
     id: createNodeId(`${NODE_TYPE}-${data.id}`),
+    internal: {
+      type: NODE_TYPE,
+      content: JSON.stringify(data),
+      contentDigest: createContentDigest(data),
+    },
+  })
+}
+
+export const createDepartmentNode = (
+  {
+    actions: { createNode },
+    createNodeId,
+    createContentDigest,
+  }: SourceNodesArgs,
+  { id, children, ...department }: Category
+) => {
+  const NODE_TYPE = 'Department'
+  const urlSplited = department.url.split('/')
+  const slug = urlSplited[urlSplited.length - 1]
+  const data = {
+    ...department,
+    slug,
+  }
+
+  createNode({
+    ...data,
+    id: createNodeId(`${NODE_TYPE}-${id}`),
     internal: {
       type: NODE_TYPE,
       content: JSON.stringify(data),

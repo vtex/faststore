@@ -17,13 +17,12 @@
   "license": "MIT",
   "devDependencies": {
     "@types/pluralize": "^0.0.29",
-    "@types/uuid": "^8.0.0",
     "cross-env": "^7.0.2",
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@graphql-tools/delegate": "^6.0.15",
     "@graphql-tools/wrap": "^6.0.15",
-    "gatsby-graphql-source-toolkit": "^0.2.2",
     "isomorphic-unfetch": "^3.0.0",
     "p-map": "^4.0.0",
     "uuid": "^8.3.0"
