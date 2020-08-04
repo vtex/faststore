@@ -38,6 +38,8 @@ module.exports = ({
       resolve: require.resolve('gatsby-plugin-react-helmet'),
     },
     {
+      // Makes it possible to share graphql queries between
+      // client/server side queries
       resolve: '@vtex/gatsby-plugin-graphql',
     },
     {
@@ -49,11 +51,10 @@ module.exports = ({
       // Adds search info into the Gatsby's source graph. This is
       // the plugin responsible for adding Product/Category/Brand
       // info into the gatsby's source graph
-      resolve: require.resolve('@vtex/gatsby-source-vtex'),
+      resolve: '@vtex/gatsby-source-vtex',
       options: {
         tenant,
         environment,
-        getStaticPaths,
       },
     },
   ],
