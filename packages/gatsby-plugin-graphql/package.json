@@ -16,7 +16,8 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "gatsby": "^2.23.3"
+    "gatsby": "^2.23.3",
+    "graphql": "^14.0.0 || ^15.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.1",
@@ -26,7 +27,6 @@
   },
   "dependencies": {
     "@graphql-tools/relay-operation-optimizer": "^6.0.15",
-    "fs-extra": "^9.0.1",
-    "graphql": "^14.0.0"
+    "fs-extra": "^9.0.1"
   }
 }

@@ -23,7 +23,7 @@
   },
   "lint-staged": {
     "*.{ts,js}": [
-      "eslint --fix",
+
       "prettier --write"
     ],
     "*.json": [
@@ -34,7 +34,8 @@
     "@typescript-eslint/eslint-plugin": "^3.3.0",
     "@vtex/prettier-config": "^0.3.0",
     "eslint": "^7.2.0",
-    "eslint-config-vtex-react": "^6.7.1",
+    "eslint-config-vtex": "^12.8.1",
+    "eslint-config-vtex-react": "^6.7.3",
     "husky": "^4.2.5",
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
