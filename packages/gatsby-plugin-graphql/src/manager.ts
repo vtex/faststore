@@ -1,5 +1,6 @@
-import { createHash } from 'crypto'
+/* eslint-disable @typescript-eslint/naming-convention */
 import assert from 'assert'
+import { createHash } from 'crypto'
 
 import {
   FragmentDefinitionNode,

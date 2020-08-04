@@ -31,6 +31,16 @@ export class WebpackPlugin {
     mkdirSync(target, { recursive: true })
   }
 
+  public optimizeQuery = (query: string) => {
+    const document = parse(query)
+
+    const optimized = optimizeDocuments(this.schema, [document], {
+      includeFragments: true,
+    })
+
+    return print(optimized[0])
+  }
+
   public apply(compiler: any) {
     compiler.hooks.done.tapPromise('gatsby-plugin-graphql', async () => {
       try {
@@ -45,22 +55,14 @@ export class WebpackPlugin {
 
         debug(`Optimizing queries`)
 
-        const documents = optimizeDocuments(
-          this.schema,
-          allQueries.map((x) => parse(x.query)),
-          { includeFragments: true }
-        )
-
-        const queries = documents.map(print)
-
         await Promise.all(
-          allQueries.map(async ({ operationName, sha256Hash }, index) => {
+          allQueries.map(async ({ operationName, sha256Hash, query }) => {
             const path = join(target, `${operationName}-${sha256Hash}.graphql`)
-            const query = queries[index]
+            const optimized = this.optimizeQuery(query)
 
-            this.persistedStorage.set(sha256Hash, query)
+            this.persistedStorage.set(sha256Hash, optimized)
             this.queryInfoStorage.set(operationName, {
-              query,
+              query: optimized,
               sha256Hash,
             })
 
