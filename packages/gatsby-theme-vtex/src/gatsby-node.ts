@@ -1,6 +1,7 @@
+import { join, resolve } from 'path'
+
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
-import { join, resolve } from 'path'
 
 import { Environment, Options } from './gatsby-config'
 
