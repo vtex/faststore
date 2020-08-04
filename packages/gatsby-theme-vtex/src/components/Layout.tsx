@@ -7,6 +7,7 @@ import Container from './Container'
 import Footer from './Footer'
 import Header from './Header'
 import NotificationBar from './NotificationBar'
+import SuspenseSSR from './SuspenseSSR'
 
 const OverMenu = () => (
   <Box variant="overmenu">
@@ -29,9 +30,11 @@ const Layout: FC = ({ children }) => (
     <OverMenu />
     <Header />
     {children}
-    <Container>
-      <Footer />
-    </Container>
+    <SuspenseSSR fallback={null}>
+      <Container>
+        <Footer />
+      </Container>
+    </SuspenseSSR>
   </Fragment>
 )
 
