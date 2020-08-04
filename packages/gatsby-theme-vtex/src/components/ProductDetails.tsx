@@ -19,12 +19,12 @@ interface Props {
 }
 
 const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
-  const { productName, productId } = syncProduct
+  const { productName, linkText } = syncProduct
   const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
 
   return (
     <Container>
-      <SEO title={productName} productId={productId} />
+      <SEO title={productName} slug={linkText} />
       <Grid my={4} mx="auto" gap={[0, 3]} columns={[1, 2]}>
         <ProductImage
           width={500}
@@ -38,10 +38,10 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
             {productName}
           </Heading>
           <SuspenseDelay fallback={<OfferPreview variant="detail" />}>
-            <AsyncOffer productId={productId} variant="detail" />
+            <AsyncOffer slug={linkText} variant="detail" />
           </SuspenseDelay>
           <SuspenseSSR fallback={<BuyButtonPreview />}>
-            <BuyButton productId={productId} />
+            <BuyButton slug={linkText} />
           </SuspenseSSR>
         </Card>
       </Grid>
