@@ -1,12 +1,12 @@
-import { wrapSchema, introspectSchema } from '@graphql-tools/wrap'
 import { AsyncExecutor } from '@graphql-tools/delegate'
-import { print, printSchema } from 'graphql'
+import { introspectSchema, wrapSchema } from '@graphql-tools/wrap'
 import { GatsbyNode, PluginOptions, SourceNodesArgs } from 'gatsby'
+import { print } from 'graphql'
 
 import { api } from './api'
 import { fetchVTEX, VTEXOptions } from './fetch'
-import { Tenant } from './types'
-import { createChannelNode } from './utils'
+import { Category, Tenant } from './types'
+import { createDepartmentNode, createChannelNode } from './utils'
 
 const getGraphQLUrl = (tenant: string) =>
   `http://gimenes--${tenant}.myvtex.com/graphql`
@@ -53,10 +53,17 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    * VTEX HTTP API fetches
    * */
 
+  // Bindings
   const { bindings } = await fetchVTEX<Tenant>(
     api.tenants.tenant(tenant),
     options
   )
-
   bindings.forEach((binding) => createChannelNode(args, binding))
+
+  // Catetgories
+  const departments = await fetchVTEX<Category[]>(
+    api.catalog.category.tree(1),
+    options
+  )
+  departments.forEach((department) => createDepartmentNode(args, department))
 }

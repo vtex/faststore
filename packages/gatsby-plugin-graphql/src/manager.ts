@@ -71,13 +71,6 @@ export class QueryManager {
         )
 
         const query = print(def).trim()
-
-        // if (this.queries.get(queryName) === query) {
-        //   throw new Error(
-        //     `Query ${queryName} already defined. Please use a different name`
-        //   )
-        // }
-
         this.queries.set(queryName, query)
         this.fragmentsUsedByQuery.set(queryName, new Set())
       },

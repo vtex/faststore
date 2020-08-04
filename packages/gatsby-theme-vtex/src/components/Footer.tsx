@@ -15,9 +15,9 @@ const MenuLink: FC<Item> = ({ slug, name }) => (
 )
 
 const Footer: FC = () => {
-  const { allCategory } = useStaticQuery(graphql`
-    {
-      allCategory(sort: { order: ASC, fields: categoryId }) {
+  const { allDepartment } = useStaticQuery(graphql`
+    query GetDepartmentsQuery {
+      allDepartment(sort: {order: ASC, fields: name}) {
         nodes {
           name
           slug
@@ -30,13 +30,13 @@ const Footer: FC = () => {
     <Flex variant="footer" as="footer" sx={{ flexDirection: 'column' }}>
       <Flex sx={{ flexDirection: ['column', 'row'] }}>
         <Grid gap={2} columns={[2, 4]} my={3} sx={{ flex: 1 }}>
-          {allCategory.nodes.map((item: Item) => (
+          {allDepartment.nodes.map((item: Item) => (
             <MenuLink {...item} key={item.slug} />
           ))}
         </Grid>
         <Flex>
-          <Link
-            to="https://www.facebook.com/vtexonline/"
+          <a
+            href="https://www.facebook.com/vtexonline/"
             target="_blank"
             rel="noreferrer"
             sx={{
@@ -52,9 +52,9 @@ const Footer: FC = () => {
               alt="Facebook"
               src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/ebd4bd10e66138168eb6a582e00790ea.svg"
             />
-          </Link>
-          <Link
-            to="https://www.instagram.com/vtextruecloud/"
+          </a>
+          <a
+            href="https://www.instagram.com/vtextruecloud/"
             target="_blank"
             rel="noreferrer"
             sx={{
@@ -70,9 +70,9 @@ const Footer: FC = () => {
               alt="Instagram"
               src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/6a61a302319c062aceb9562a66381a63.svg"
             />
-          </Link>
-          <Link
-            to="https://twitter.com/vtexonline"
+          </a>
+          <a
+            href="https://twitter.com/vtexonline"
             target="_blank"
             rel="noreferrer"
             sx={{
@@ -88,9 +88,9 @@ const Footer: FC = () => {
               alt="Twitter"
               src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/5f12d2a63f43d3a243550ff6400b4870.svg"
             />
-          </Link>
-          <Link
-            to="https://www.youtube.com/user/VTEXTV"
+          </a>
+          <a
+            href="https://www.youtube.com/user/VTEXTV"
             target="_blank"
             rel="noreferrer"
             sx={{
@@ -106,7 +106,7 @@ const Footer: FC = () => {
               alt="Youtube"
               src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/20a214b4866fd6d42a6dfed070c0057b.svg"
             />
-          </Link>
+          </a>
         </Flex>
       </Flex>
       <Flex>

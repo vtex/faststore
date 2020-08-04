@@ -1,15 +1,6 @@
+import { ensureDir, outputFile } from 'fs-extra'
+import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
 import { join, resolve } from 'path'
-
-import {
-  ensureDir,
-  outputFile,
-  readJSONSync,
-  outputJSONSync,
-} from 'fs-extra'
-import { CreatePagesArgs, ParentSpanPluginArgs } from 'gatsby'
-import { createHash } from 'crypto'
-
-import { parse, print } from 'graphql'
 
 import { Environment, Options } from './gatsby-config'
 
@@ -149,4 +140,22 @@ export const createPages = async (
   })
 
   await Promise.all(cmsPages)
+}
+
+export const onCreateWebpackConfig = ({
+  actions: { setWebpackConfig },
+}: CreateWebpackConfigArgs) => {
+  setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.md$/,
+          use: [
+            { loader: require.resolve('html-loader') },
+            { loader: require.resolve('markdown-loader') },
+          ],
+        },
+      ],
+    },
+  })
 }
