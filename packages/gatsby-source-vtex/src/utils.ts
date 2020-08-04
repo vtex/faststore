@@ -1,6 +1,7 @@
 import { SourceNodesArgs } from 'gatsby'
 
 import { Category, Channel } from './types'
+
 export const createChannelNode = (
   {
     actions: { createNode },
