@@ -11,6 +11,18 @@ import {
   visit,
 } from 'graphql'
 
+export interface CompiledQuery {
+  operationName: string
+  sha256Hash: string
+  filename: string
+  value: string
+}
+
+export interface Node {
+  filename: string
+  value: string
+}
+
 function hash(s: string) {
   return createHash('sha256').update(s, 'utf8').digest().toString('hex')
 }
@@ -30,12 +42,12 @@ export class QueryManager {
   /**
    * Queries by name
    */
-  public queries = new Map<string, string | undefined>()
+  public queries = new Map<string, Node | undefined>()
 
   /**
    * Fragments by name
    */
-  public fragments = new Map<string, string | undefined>()
+  public fragments = new Map<string, Node | undefined>()
 
   /**
    * Fragments by query name
@@ -55,8 +67,14 @@ export class QueryManager {
     return (global as any).QueryManager
   }
 
-  public addQuery(graphql: string) {
-    const doc = parse(graphql)
+  public addQuery({
+    query: queryStr,
+    filename,
+  }: {
+    query: string
+    filename: string
+  }) {
+    const doc = parse(queryStr)
 
     visit(doc, {
       OperationDefinition: (def) => {
@@ -73,7 +91,7 @@ export class QueryManager {
 
         const query = print(def).trim()
 
-        this.queries.set(queryName, query)
+        this.queries.set(queryName, { value: query, filename })
         this.fragmentsUsedByQuery.set(queryName, new Set())
       },
       FragmentDefinition: (def) => {
@@ -85,12 +103,12 @@ export class QueryManager {
           'GraphQL Fragment should be named following the template <ComponentName>_<PropName>'
         )
 
-        if (this.fragments.get(fragmentName) === fragment) {
+        if (this.fragments.get(fragmentName)?.value === fragment) {
           // no changes
           return
         }
 
-        this.fragments.set(fragmentName, fragment)
+        this.fragments.set(fragmentName, { value: fragment, filename })
         this.fragmentsUsedByFragment.set(fragmentName, new Set())
       },
       FragmentSpread: (node, key, parent, path, ancestors) => {
@@ -155,6 +173,16 @@ export class QueryManager {
     })
   }
 
+  public getFragments() {
+    return Array.from(this.fragments.values()).reduce((acc, fragment) => {
+      if (fragment) {
+        return acc.concat(fragment)
+      }
+
+      return acc
+    }, [] as Node[])
+  }
+
   public getUsedFragmentNamesForQuery(queryName: string) {
     const fragmentNames = new Set<string>()
     const usedFragments = this.fragmentsUsedByQuery.get(queryName)
@@ -188,24 +216,26 @@ export class QueryManager {
     return fragments
   }
 
-  public exportQuery(operationName: string) {
-    const query = this.queries.get(operationName)
+  public exportQuery(operationName: string): CompiledQuery {
+    const queryNode = this.queries.get(operationName)
 
-    if (!query) {
+    if (!queryNode) {
       throw new Error(`Unknown query ${operationName}`)
     }
 
+    const { value, filename } = queryNode
     const fragments = Array.from(
       this.getUsedFragmentNamesForQuery(operationName)
     )
-      .map(this.fragments.get.bind(this.fragments))
+      .map((f) => this.fragments.get(f)?.value)
       .join('\n')
 
-    const fullQuery = `${query}\n${fragments}`.trim()
+    const fullQuery = `${value}\n${fragments}`.trim()
 
     return {
+      filename,
       sha256Hash: hash(fullQuery),
-      query: fullQuery,
+      value: fullQuery,
       operationName,
     }
   }

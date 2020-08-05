@@ -2,7 +2,6 @@
 import { NodePath, Visitor } from '@babel/traverse'
 import BabelTypes from '@babel/types'
 
-import { debug } from './console'
 import { QueryManager } from './manager'
 
 const GQL_TAG = 'gql'
@@ -23,14 +22,18 @@ const getGraphqlQuery = (path: NodePath<BabelTypes.TaggedTemplateExpression>) =>
     .trim()
 
 export default function babelGQLPlugin(babel: Babel): BabelPlugin {
-  debug('Initializing Babel plugin')
-
   const qm = QueryManager.getSingleton()
   const t = babel.types
 
   return {
     visitor: {
-      Program: (p) => {
+      Program: (p, state: any) => {
+        const {
+          file: {
+            opts: { filename },
+          },
+        } = state
+
         p.traverse({
           TaggedTemplateExpression: (path) => {
             if (!path.node.loc) {
@@ -52,10 +55,10 @@ export default function babelGQLPlugin(babel: Babel): BabelPlugin {
             }
 
             try {
-              const gqlString = getGraphqlQuery(path)
+              const query = getGraphqlQuery(path)
 
               // add graphql query to query manager for later extraction
-              qm.addQuery(gqlString)
+              qm.addQuery({ query, filename })
 
               // If the tag is a gql tag, remove if from final code
               if (tag.name === GQL_TAG) {

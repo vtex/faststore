@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import { CreateWebpackConfigArgs } from 'gatsby'
-import { printSchema } from 'graphql'
+import { parse, printSchema } from 'graphql'
 
 import { WebpackPlugin } from './webpack'
 
@@ -25,7 +25,7 @@ export const onCreateWebpackConfig = async ({
    * it works well with graphql-tools
    */
   const { schema: dirtySchema } = store.getState()
-  const typeDefs = printSchema(dirtySchema)
+  const typeDefs = parse(printSchema(dirtySchema))
   const schema = makeExecutableSchema({ typeDefs })
 
   setWebpackConfig({
