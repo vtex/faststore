@@ -1,8 +1,4 @@
 import {
-  Item as VTEXSku,
-  Product as VTEXProduct,
-} from '@vtex/gatsby-source-vtex'
-import {
   ItemAvailability,
   Offer,
   Product as StructuredProduct,
@@ -10,35 +6,55 @@ import {
 
 type TransformedProduct = StructuredProduct & { '@context': string }
 
-interface TransformProduct {
-  brandImageUrl: VTEXProduct['brandImageUrl']
-  productName: VTEXProduct['productName']
-  description: VTEXProduct['description']
-  items: VTEXProduct['items']
-  brand: VTEXProduct['brand']
-}
+type TransformProduct = Partial<{
+  brandImageUrl: string | null
+  productName: string | null
+  description: string | null
+  brand: string | null
+  items: Array<Sku | null | undefined> | null
+}>
 
-const getSkuOffers = (sku: VTEXSku, currency: string): Offer[] =>
-  sku.sellers.map(
-    ({ commertialOffer: { Price, AvailableQuantity, PriceValidUntil } }) => ({
-      '@type': 'Offer',
-      price: Price,
-      priceCurrency: currency,
-      priceValidUntil: `${PriceValidUntil}`,
-      availability:
-        AvailableQuantity > 0
-          ? ItemAvailability.InStock
-          : ItemAvailability.OutOfStock,
-    })
-  )
+type Sku = Partial<{
+  itemId: string | null
+  images: Array<
+    | Partial<{
+        imageUrl: string | null
+      }>
+    | undefined
+    | null
+  > | null
+  sellers: Array<
+    | Partial<{
+        commertialOffer: Partial<{
+          AvailableQuantity: number | null
+          PriceValidUntil: string | null
+          Price: number | null
+        }> | null
+      }>
+    | undefined
+    | null
+  > | null
+}>
+
+const getSkuOffers = (sku: Sku, currency: string): Offer[] =>
+  sku.sellers!.map((seller) => ({
+    '@type': 'Offer',
+    price: seller!.commertialOffer!.Price!,
+    priceCurrency: currency,
+    priceValidUntil: `${seller!.commertialOffer!.PriceValidUntil}`,
+    availability:
+      seller!.commertialOffer!.AvailableQuantity! > 0
+        ? ItemAvailability.InStock
+        : ItemAvailability.OutOfStock,
+  }))
 
 export const transform = (
   { productName, items, description, brand, brandImageUrl }: TransformProduct,
   currency: string
 ): TransformedProduct | null => {
-  const [sku] = items
-  const images = sku?.images.map((i) => i?.imageUrl)
-  const offers = getSkuOffers(sku, currency)
+  const [sku] = items!
+  const images = sku?.images?.map((i) => i?.imageUrl)
+  const offers = getSkuOffers(sku!, currency)
 
   if (!sku || !images || offers.length === 0 || !brand) {
     return null
@@ -47,15 +63,15 @@ export const transform = (
   return {
     '@context': 'https://schema.org/',
     '@type': 'Product',
-    name: productName,
-    image: images,
+    name: productName!,
+    image: images as any,
     offers,
-    sku: sku.itemId,
+    sku: sku.itemId!,
     brand: {
       '@type': 'Brand',
       name: brand,
-      logo: brandImageUrl,
+      logo: brandImageUrl!,
     },
-    description,
+    description: description!,
   }
 }

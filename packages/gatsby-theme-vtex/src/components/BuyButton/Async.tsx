@@ -11,7 +11,7 @@ export interface Props {
 
 const BuyButton: FC<Props> = ({ slug, skuId }) => {
   const { product, isLoading } = useAsyncProduct(slug)
-  const sku = useSku(product, skuId)
+  const sku = useSku(product as any, skuId)
 
   if (isLoading || !sku) {
     return <BuyButtonPreview disabled={!product} />

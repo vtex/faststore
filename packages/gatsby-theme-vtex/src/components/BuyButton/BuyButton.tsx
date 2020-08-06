@@ -2,31 +2,21 @@
 import { FC } from 'react'
 import { Button, jsx } from 'theme-ui'
 
+import { useBestSeller } from '../../hooks/useBestSeller'
 import { useOrderForm } from '../../providers/OrderForm'
-import { ArrayItem } from '../../types/array'
-import { findBestSeller, Item as SellerItem } from '../../utils/seller'
-
-type Seller = ArrayItem<SellerItem['sellers']> & {
-  sellerId: string
-}
-
-type Item = SellerItem & {
-  itemId: string
-  sellers: Seller[]
-}
 
 export interface Props {
-  sku?: Item
+  sku?: any
 }
 
 const BuyButton: FC<Props> = ({ sku }) => {
+  const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
   const disabled = !sku || !orderForm?.value
 
   // Optimist add item on click
   const addItemOnClick = async (e: any) => {
     e.preventDefault()
-    const seller = sku && (findBestSeller(sku) as Seller)
 
     if (!sku || !orderForm?.value || !seller) {
       return
@@ -36,7 +26,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
     const orderFormItem = {
       id: sku.itemId,
       quantity: 1,
-      seller: seller?.sellerId,
+      seller: (seller as any).sellerId,
     }
 
     orderForm.addItems([orderFormItem]).catch(console.error)

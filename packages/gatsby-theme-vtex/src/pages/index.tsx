@@ -9,6 +9,7 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
 import SuspenseDelay from '../components/SuspenseDelay'
+import { HomePageQueryQuery } from './__generated__/HomePageQuery.graphql'
 
 const Fold = lazy(() => import('../components/Home/Fold'))
 
@@ -25,13 +26,9 @@ const itemsCarousel = [
   },
 ]
 
-type Props = PageProps<{
-  vtex: any
-}>
+type Props = PageProps<HomePageQueryQuery>
 
 const Home: FC<Props> = ({ data }) => {
-  const syncProducts = data.vtex.productSearch.products
-
   useEffect(() => {
     ;(window as any).vtexrca('sendevent', 'homeView', {})
   }, [])
@@ -41,7 +38,7 @@ const Home: FC<Props> = ({ data }) => {
       <SEO />
       <Carousel items={itemsCarousel} />
       <Container>
-        <Shelf syncProducts={syncProducts} />
+        <Shelf products={data.vtex.productSearch!.products!} />
       </Container>
       <SuspenseDelay fallback={null}>
         <Fold />
@@ -55,24 +52,7 @@ export const query = graphql`
     vtex {
       productSearch(from: 0, to: 10) {
         products {
-          productId
-          productName
-          linkText
-          items {
-            itemId
-            images {
-              imageUrl
-              imageText
-            }
-            sellers {
-              sellerId
-              commertialOffer {
-                AvailableQuantity
-                Price
-                ListPrice
-              }
-            }
-          }
+          ...ProductSummary_syncProduct
         }
       }
     }

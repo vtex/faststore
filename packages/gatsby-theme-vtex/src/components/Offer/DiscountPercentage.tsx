@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 import { Flex } from 'theme-ui'
 
-import { SyncProductCommertialOffer } from '../../types/product'
-
 interface Props {
-  offer: SyncProductCommertialOffer
+  offer: {
+    Price: number
+    ListPrice: number
+  }
   variant: string
 }
 

@@ -7,19 +7,7 @@ export interface QueryInfoByOperationName {
   [x: string]: QueryInfo
 }
 
-const isProduction = process.env.NODE_ENV === 'production'
-
-export const PLUGIN_GLOBAL_VARIABLE = '__GATSBY_PLUGIN_GRAPHQL__'
-
-export const getQueryInfo = async (
-  operationName: string
-): Promise<QueryInfo> => {
-  const operationNames: QueryInfoByOperationName = await (window as any)[
-    PLUGIN_GLOBAL_VARIABLE
-  ]
-
-  return operationNames[operationName]
-}
+export const isProduction = process.env.NODE_ENV === 'production'
 
 export const gql = (_: TemplateStringsArray) => {
   throw new Error('This Should be removed by the babel plugin')
@@ -31,6 +19,8 @@ export interface GraphQLResponse<D extends any = any> {
 }
 
 export interface RequestOptions<V extends any = any> {
+  query: string
+  sha256Hash: string
   operationName: string
   variables: V
   fetchOptions?: RequestInit
@@ -38,10 +28,14 @@ export interface RequestOptions<V extends any = any> {
 
 export const request = async <V extends any = any, D extends any = any>(
   endpoint: string,
-  { operationName, variables, fetchOptions }: RequestOptions<V>
+  {
+    query,
+    sha256Hash,
+    operationName,
+    variables,
+    fetchOptions,
+  }: RequestOptions<V>
 ): Promise<GraphQLResponse<D>> => {
-  const { query, sha256Hash } = await getQueryInfo(operationName)
-
   const method =
     isProduction && operationName.endsWith('Query') ? 'GET' : 'POST'
 
@@ -75,11 +69,6 @@ export const request = async <V extends any = any, D extends any = any>(
     method,
     body,
     ...fetchOptions,
-    headers: {
-      'content-type': 'application/json',
-      accept: 'application/json',
-      ...fetchOptions?.headers,
-    },
   })
 
   return response.json()

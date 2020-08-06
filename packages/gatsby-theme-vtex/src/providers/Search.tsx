@@ -1,9 +1,10 @@
 import React, { createContext, FC, useContext, useState } from 'react'
-import { Product } from '@vtex/gatsby-source-vtex'
+
+import { SearchQueryQuery } from '../components/Search/__generated__/SearchQuery.graphql'
 
 export interface SearchOptions {
-  query?: string
-  map?: string
+  query: string | null | undefined
+  map: string | null | undefined
 }
 
 type SetFilterFn = (opts: SearchOptions) => SearchOptions
@@ -11,7 +12,7 @@ type SetFilterFn = (opts: SearchOptions) => SearchOptions
 interface Context {
   filters: SearchOptions
   setFilters: (opts: SearchOptions | SetFilterFn) => void
-  initialData: Product[] | undefined
+  initialData?: SearchQueryQuery
 }
 
 const SearchFilterContext = createContext<Context>(null as any)
@@ -20,7 +21,7 @@ SearchFilterContext.displayName = 'SearchFilterContext'
 
 interface Props {
   initialOptions?: SearchOptions
-  initialData?: Product[]
+  initialData?: SearchQueryQuery
 }
 
 const SearchProvider: FC<Props> = ({
@@ -29,7 +30,7 @@ const SearchProvider: FC<Props> = ({
   initialData: staticInitialData,
 }) => {
   const [filters, setFiltersState] = useState<SearchOptions>(
-    initialOptions ?? {}
+    initialOptions ?? { query: undefined, map: undefined }
   )
 
   const [initialData, setInitialData] = useState(staticInitialData)

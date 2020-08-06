@@ -1,7 +1,3 @@
-import { request, RequestOptions } from '@vtex/gatsby-plugin-graphql'
-
-import { GRAPHQL_ENDPOINT } from './constants'
-
 const headers = {
   'content-type': 'application/json',
   accept: 'application/json',
@@ -47,17 +43,3 @@ export const postFetcher = async <T extends any>(
   input: RequestInfo,
   init?: RequestInit | undefined
 ): Promise<T> => jsonFetcher(input, { method: 'POST', ...init })
-
-export const graphqlFetcher = async <V extends any>(
-  options: RequestOptions<V>
-) =>
-  request(GRAPHQL_ENDPOINT, {
-    ...options,
-    fetchOptions: {
-      ...options.fetchOptions,
-      headers: {
-        'x-vtex-graphql-referer': window.location.host,
-        ...options.fetchOptions?.headers,
-      },
-    },
-  })

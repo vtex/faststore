@@ -3,12 +3,12 @@ import { Flex, Grid, Button, Box, Heading } from 'theme-ui'
 import { useResponsiveValue } from '@theme-ui/match-media'
 
 import { ProductSummary } from '../ProductSummary'
-import { SyncProductItem } from '../../types/product'
 import ArrowLeft from './ArrowLeft'
 import ArrowRight from './ArrowRight'
+import { ProductSummary_SyncProductFragment } from '../__generated__/ProductSummary_syncProduct.graphql'
 
 interface Props {
-  syncProducts: SyncProductItem[]
+  products: Array<ProductSummary_SyncProductFragment | undefined | null>
 }
 
 const ARROW_SIZES = [25, 50]
@@ -30,15 +30,15 @@ const FullWidthContainer: FC = ({ children }) => (
   <Box sx={{ width: '100%' }}>{children}</Box>
 )
 
-const Shelf: FC<Props> = ({ syncProducts }) => {
+const Shelf: FC<Props> = ({ products }) => {
   const [page, setPage] = useState(0)
   const maxItems = useResponsiveValue(MAX_ITEMS)
   const arrowSize = useResponsiveValue(ARROW_SIZES)
 
   const items =
     maxItems > 1
-      ? syncProducts.slice(page * maxItems, (page + 1) * maxItems)
-      : [syncProducts[page]]
+      ? products.slice(page * maxItems, (page + 1) * maxItems)
+      : [products[page]]
 
   return (
     <Box>
@@ -65,15 +65,15 @@ const Shelf: FC<Props> = ({ syncProducts }) => {
               <Grid gap={2} columns={MAX_ITEMS}>
                 {items.map((item) => {
                   return (
-                    <Flex key={item.productId} sx={{ flexGrow: 1 }}>
-                      <ProductSummary syncProduct={item} />
+                    <Flex key={item!.productId!} sx={{ flexGrow: 1 }}>
+                      <ProductSummary product={item!} />
                     </Flex>
                   )
                 })}
               </Grid>
             </FullWidthContainer>
             <Flex sx={{ alignItems: 'center' }}>
-              {hasNextArrow(page, syncProducts.length, maxItems) && (
+              {hasNextArrow(page, products.length, maxItems) && (
                 <Button
                   backgroundColor="transparent"
                   onClick={() => {

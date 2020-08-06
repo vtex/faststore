@@ -1,17 +1,13 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
 import { Checkbox, Label, jsx } from 'theme-ui'
+import { graphql } from 'gatsby'
 
 import { useSearchFilters, SearchOptions } from '../../../providers/Search'
+import { BrandSelector_BrandsFragment } from './__generated__/BrandSelector_brands.graphql'
 
-interface BrandFacet {
-  name: string
-  value: string
-  quantity: number
-}
-
-interface Props {
-  brands: BrandFacet[]
+type Props = {
+  brands: Array<BrandSelector_BrandsFragment | undefined | null>
 }
 
 const toggleFilter = (value: string, filters: SearchOptions) => {
@@ -42,15 +38,15 @@ const BrandSelector: FC<Props> = ({ brands }) => {
       <div>Brands</div>
 
       <ul sx={{ listStyleType: 'none', mx: 0, px: 0 }}>
-        {brands.map(({ name, value }, index) => (
+        {brands?.map((brand, index) => (
           <li key={`brands-selector-${index}`}>
             <Label>
               <Checkbox
                 onClick={() =>
-                  setFilters((filters) => toggleFilter(value, filters))
+                  setFilters((filters) => toggleFilter(brand!.value, filters))
                 }
               />
-              {name}
+              {brand!.name}
             </Label>
           </li>
         ))}
@@ -58,5 +54,13 @@ const BrandSelector: FC<Props> = ({ brands }) => {
     </Fragment>
   )
 }
+
+export const fragment = graphql`
+  fragment BrandSelector_brands on VTEX_BrandFacet {
+    name
+    value
+    quantity
+  }
+`
 
 export default BrandSelector

@@ -1,13 +1,17 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 import { Product } from '@vtex/gatsby-source-vtex'
 import { useMemo } from 'react'
-import useSWR from 'swr'
 
-import { graphqlFetcher } from '../utils/fetcher'
+import { useQuery } from '../hooks/useQuery'
+import {
+  AsyncProductQuery,
+  AsyncProductQueryQuery,
+  AsyncProductQueryQueryVariables,
+} from './__generated__/AsyncProductQuery.graphql'
 
 export type AsyncProduct = Product
 
-const query = gql`
+export const query = gql`
   query AsyncProductQuery($slug: String) {
     vtex {
       product(slug: $slug) {
@@ -35,22 +39,17 @@ const query = gql`
 `
 
 export const useAsyncProduct = (slug: string) => {
-  const { data, isValidating } = useSWR<AsyncProduct>(
-    `${slug}?AsyncProductQuery`,
-    {
-      fetcher: (s: string) =>
-        graphqlFetcher({
-          operationName: 'AsyncProductQuery',
-          variables: {
-            slug: s,
-          },
-        }).then((r) => r.data.vtex.product),
-      suspense: false,
-    }
-  )
+  const { data, isValidating } = useQuery<
+    AsyncProductQueryQuery,
+    AsyncProductQueryQueryVariables
+  >({
+    ...AsyncProductQuery,
+    variables: { slug },
+    suspense: false,
+  })
 
   const isLoading = !data && isValidating
-  const product = data ?? null
+  const product = data?.vtex.product ?? null
 
   return { product, isLoading }
 }

@@ -1,57 +1,59 @@
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
-import useSWR from 'swr'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import ProductDetails from '../components/ProductDetails'
-import { SyncProduct } from '../types/product'
-import { graphqlFetcher } from '../utils/fetcher'
+import { useQuery } from '../hooks/useQuery'
+import {
+  ProductPageQuery,
+  ProductPageQueryQuery,
+  ProductPageQueryQueryVariables,
+} from './__generated__/ProductPageQuery.graphql'
 
 export const query = graphql`
-  query ProductQuery($slug: String, $staticPath: Boolean = true) {
+  query ProductPageQuery($slug: String, $staticPath: Boolean = true) {
     vtex {
       product(slug: $slug) @include(if: $staticPath) {
+        ...ProductDetailsTemplate_product
         productId
-        productName
         description
-        linkText
         items {
           itemId
-          images {
-            imageUrl
-            imageText
-          }
         }
       }
     }
   }
 `
 
-const ProductPage: FC<Props> = ({ data, pageContext, slug: routeSlug }) => {
+const ProductPage: FC<Props> = ({
+  data: initialData,
+  pageContext,
+  slug: routeSlug,
+}) => {
   const { staticPath } = pageContext
   const slug = (pageContext.slug ?? routeSlug)!
 
-  const { data: product } = useSWR<SyncProduct | null>(slug, {
-    fetcher: (s: string) =>
-      graphqlFetcher({
-        operationName: 'ProductQuery',
-        variables: { slug: s, staticPath: true },
-      }).then((x) => x.data.vtex.product),
+  const { data } = useQuery<
+    ProductPageQueryQuery,
+    ProductPageQueryQueryVariables
+  >({
+    ...ProductPageQuery,
+    variables: { slug, staticPath: true },
     suspense: true,
-    initialData: staticPath ? data.vtex.product : undefined,
+    initialData: staticPath ? initialData : undefined,
   })
 
-  return <ProductDetails syncProduct={product!} />
+  if (!data?.vtex.product) {
+    return <div>Product Not Found</div>
+  }
+
+  return <ProductDetails product={data?.vtex.product} />
 }
 
 type Props = PageProps<
-  {
-    vtex: {
-      product: SyncProduct
-    }
-  },
+  ProductPageQueryQuery,
   {
     slug?: string
     staticPath: boolean

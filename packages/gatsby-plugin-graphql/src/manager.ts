@@ -11,16 +11,14 @@ import {
   visit,
 } from 'graphql'
 
-export interface CompiledQuery {
-  operationName: string
+export interface CompiledQuery extends Node {
   sha256Hash: string
-  filename: string
-  value: string
 }
 
 export interface Node {
   filename: string
   value: string
+  name: string
 }
 
 function hash(s: string) {
@@ -91,7 +89,12 @@ export class QueryManager {
 
         const query = print(def).trim()
 
-        this.queries.set(queryName, { value: query, filename })
+        if (this.queries.get(queryName)?.value === query) {
+          // no changes
+          return
+        }
+
+        this.queries.set(queryName, { value: query, filename, name: queryName })
         this.fragmentsUsedByQuery.set(queryName, new Set())
       },
       FragmentDefinition: (def) => {
@@ -108,7 +111,11 @@ export class QueryManager {
           return
         }
 
-        this.fragments.set(fragmentName, { value: fragment, filename })
+        this.fragments.set(fragmentName, {
+          value: fragment,
+          filename,
+          name: fragmentName,
+        })
         this.fragmentsUsedByFragment.set(fragmentName, new Set())
       },
       FragmentSpread: (node, key, parent, path, ancestors) => {
@@ -174,13 +181,13 @@ export class QueryManager {
   }
 
   public getFragments() {
-    return Array.from(this.fragments.values()).reduce((acc, fragment) => {
-      if (fragment) {
-        return acc.concat(fragment)
-      }
+    const fragments = Array.from(this.fragments.keys())
 
-      return acc
-    }, [] as Node[])
+    return fragments.map((fragmentName) => {
+      // TODO: Do something like ensureRequiredFragments in here
+
+      return this.exportFragment(fragmentName)
+    })
   }
 
   public getUsedFragmentNamesForQuery(queryName: string) {
@@ -233,10 +240,33 @@ export class QueryManager {
     const fullQuery = `${value}\n${fragments}`.trim()
 
     return {
-      filename,
+      name: operationName,
       sha256Hash: hash(fullQuery),
       value: fullQuery,
-      operationName,
+      filename,
+    }
+  }
+
+  public exportFragment(fragmentName: string): Node {
+    const fragmentNode = this.fragments.get(fragmentName)
+
+    if (!fragmentNode) {
+      throw new Error(`Unknown fragment ${fragmentName}`)
+    }
+
+    const { value, filename } = fragmentNode
+    const fragments = Array.from(
+      this.getNestedFragmentNamesForFragment(fragmentName)
+    )
+      .map((f) => this.fragments.get(f)?.value)
+      .join('\n')
+
+    const resolvedFragment = `${value}\n${fragments}`.trim()
+
+    return {
+      name: fragmentName,
+      value: resolvedFragment,
+      filename,
     }
   }
 }

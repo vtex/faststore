@@ -2,10 +2,11 @@
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
 
-import SearchTemplate from '../components/Search/index'
 import Layout from '../components/Layout'
+import SearchTemplate from '../components/Search'
 import SEO from '../components/SEO/siteMetadata'
 import SearchProvider from '../providers/Search'
+import { SearchPageQueryQuery } from './__generated__/SearchPageQuery.graphql'
 
 export const query = graphql`
   query SearchPageQuery(
@@ -26,19 +27,10 @@ export const query = graphql`
       }
       facets(query: $query, map: $map) {
         brands {
-          name
-          value
-          quantity
+          ...BrandSelector_brands
         }
         categoriesTrees {
-          link
-          name
-          quantity
-          children {
-            link
-            name
-            quantity
-          }
+          ...TreeSelector_tree
         }
       }
     }
@@ -46,9 +38,7 @@ export const query = graphql`
 `
 
 type Props = PageProps<
-  {
-    vtex: any
-  },
+  SearchPageQueryQuery,
   {
     query: string
     map: string
@@ -56,17 +46,11 @@ type Props = PageProps<
   }
 >
 
-const PageTemplate: FC<Props> = ({
-  data: { vtex },
-  pageContext: { query, map },
-}) => (
+const PageTemplate: FC<Props> = ({ data, pageContext: { query, map } }) => (
   <Layout>
-    <SEO title={vtex.productSearch.titleTag} />
-    <SearchProvider
-      initialOptions={{ query, map }}
-      initialData={vtex.productSearch.products}
-    >
-      <SearchTemplate search={vtex} />
+    <SEO title={data.vtex.productSearch!.titleTag!} />
+    <SearchProvider initialOptions={{ query, map }} initialData={data}>
+      <SearchTemplate search={data} />
     </SearchProvider>
   </Layout>
 )

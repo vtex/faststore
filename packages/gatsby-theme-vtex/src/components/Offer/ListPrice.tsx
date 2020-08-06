@@ -2,10 +2,12 @@ import React, { FC } from 'react'
 import { Box } from 'theme-ui'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
-import { SyncProductCommertialOffer } from '../../types/product'
 
 interface Props {
-  offer: SyncProductCommertialOffer
+  offer: {
+    Price: number
+    ListPrice: number
+  }
   variant: string
 }
 

@@ -12,7 +12,7 @@ export interface Props {
 
 const AsyncOffer: FC<Props> = ({ slug, skuId, variant = '' }) => {
   const { product, isLoading } = useAsyncProduct(slug)
-  const sku = useSku(product, skuId)
+  const sku = useSku(product as any, skuId)
 
   if (isLoading) {
     return <OfferPreview variant={variant} />

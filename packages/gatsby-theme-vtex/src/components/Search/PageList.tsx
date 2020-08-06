@@ -1,18 +1,21 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Product } from '@vtex/gatsby-source-vtex'
-import { gql, request } from '@vtex/gatsby-plugin-graphql'
+import { gql } from '@vtex/gatsby-plugin-graphql'
 import React, { FC, Fragment, useCallback } from 'react'
-import { useSWRInfinite } from 'swr'
 import { Button, Grid } from 'theme-ui'
 
+import { useQueryInfinite } from '../../hooks/useQueryInfinite'
 import { useSearchFilters } from '../../providers/Search'
+import {
+  SearchQuery,
+  SearchQueryQuery,
+  SearchQueryQueryVariables,
+} from './__generated__/SearchQuery.graphql'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
-import { GRAPHQL_ENDPOINT } from '../../utils/constants'
 
 const PAGE_SIZE = 10
 
-const query = gql`
+export const query = gql`
   query SearchQuery($query: String, $map: String, $from: Int, $to: Int) {
     vtex {
       productSearch(query: $query, map: $map, from: $from, to: $to) {
@@ -26,26 +29,28 @@ const query = gql`
 
 const List: FC = () => {
   const { filters, initialData } = useSearchFilters()
-  const { data, error, size, setSize } = useSWRInfinite<Product[]>(
+  const { data, error, size, setSize } = useQueryInfinite<
+    SearchQueryQuery,
+    SearchQueryQueryVariables
+  >(
+    SearchQuery,
     (page, previousPageData) => {
-      if (page !== 0 && previousPageData?.length === 0) {
+      if (
+        page !== 0 &&
+        previousPageData?.vtex.productSearch?.products?.length === 0
+      ) {
         return null
       }
 
       const from = page * PAGE_SIZE
       const to = (page + 1) * PAGE_SIZE - 1
 
-      return JSON.stringify({
+      return {
         ...filters,
         from,
         to,
-      })
+      }
     },
-    (varStr: string) =>
-      request(GRAPHQL_ENDPOINT, {
-        operationName: 'SearchQuery',
-        variables: JSON.parse(varStr),
-      }).then((res) => res.data.vtex.productSearch.products),
     {
       revalidateOnMount: true,
       initialData: initialData && [initialData],
@@ -66,9 +71,13 @@ const List: FC = () => {
     isLoadingInitialData ||
     !!(data && typeof data[viewSize - 1] === 'undefined')
 
-  const isEmpty = data?.[0]?.length === 0
+  const isEmpty = data?.[0]?.vtex.productSearch!.products!.length === 0
   const isReachingEnd =
-    isEmpty || !!(data && data[viewSize - 1]?.length < PAGE_SIZE)
+    isEmpty ||
+    !!(
+      data &&
+      data[viewSize - 1]?.vtex.productSearch!.products!.length < PAGE_SIZE
+    )
 
   if (!data) {
     return <OverlaySpinner />
@@ -77,8 +86,11 @@ const List: FC = () => {
   return (
     <Fragment>
       <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
-        {data.slice(0, viewSize).map((ps, index) => (
-          <Page key={`summary-page-${index}`} products={ps} />
+        {data.slice(0, viewSize).map((searchQuery, index) => (
+          <Page
+            key={`summary-page-${index}`}
+            products={searchQuery.vtex.productSearch!.products!}
+          />
         ))}
       </Grid>
       {isReachingEnd ? null : (
