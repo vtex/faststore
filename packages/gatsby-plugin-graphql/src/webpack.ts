@@ -178,7 +178,7 @@ export class WebpackPlugin {
               dirname(filepath),
               '__generated__',
               `${name}.graphql.ts`
-            )
+            ).replace('src/pages', 'src')
 
             return outputFile(filename, value)
           })

@@ -9,7 +9,7 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
 import SuspenseDelay from '../components/SuspenseDelay'
-import { HomePageQueryQuery } from './__generated__/HomePageQuery.graphql'
+import { HomePageQueryQuery } from '../__generated__/HomePageQuery.graphql'
 
 const Fold = lazy(() => import('../components/Home/Fold'))
 
