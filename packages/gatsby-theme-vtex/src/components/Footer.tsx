@@ -3,18 +3,20 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { FC } from 'react'
 import { Flex, Grid, Image, jsx, Link } from 'theme-ui'
 
+import { FooterQueryQuery } from './__generated__/FooterQuery.graphql'
+
 interface Item {
-  name: string
-  slug: string
+  name: string | null | undefined
+  slug: string | null | undefined
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (
-  <Link href={`/${slug}`}>{name.split(' ')[0]}</Link>
+  <Link href={`/${slug}`}>{name!.split(' ')[0]}</Link>
 )
 
 const Footer: FC = () => {
-  const { allDepartment } = useStaticQuery(graphql`
-    query GetDepartmentsQuery {
+  const { allDepartment } = useStaticQuery<FooterQueryQuery>(graphql`
+    query FooterQuery {
       allDepartment(sort: { order: ASC, fields: name }) {
         nodes {
           name
@@ -29,7 +31,7 @@ const Footer: FC = () => {
       <Flex sx={{ flexDirection: ['column', 'row'] }}>
         <Grid gap={2} columns={[2, 4]} my={3} sx={{ flex: 1 }}>
           {allDepartment.nodes.map((item: Item) => (
-            <MenuLink {...item} key={item.slug} />
+            <MenuLink {...item} key={item.slug!} />
           ))}
         </Grid>
         <Flex>

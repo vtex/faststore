@@ -15,18 +15,18 @@ type Scalars = {
 }
 
 // Operation related types
-export type GetDepartmentsQueryQueryVariables = Exact<{ [key: string]: never }>
+export type FooterQueryQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetDepartmentsQueryQuery = {
+export type FooterQueryQuery = {
   allDepartment: { nodes: Array<{ name: Maybe<string>; slug: Maybe<string> }> }
 }
 
 // Query Related Code
 
-export const GetDepartmentsQuery = {
+export const FooterQuery = {
   query:
-    'query GetDepartmentsQuery {\n  allDepartment(sort: {order: ASC, fields: name}) {\n    nodes {\n      name\n      slug\n    }\n  }\n}\n',
+    'query FooterQuery {\n  allDepartment(sort: {order: ASC, fields: name}) {\n    nodes {\n      name\n      slug\n    }\n  }\n}\n',
   sha256Hash:
-    '723457d642dc7bb9e87df32e46438eb35fc84cd67d41006f4f35dda5129de79e',
-  operationName: 'GetDepartmentsQuery',
+    '710a5955f8eb20fb4d3015e76d050b41fac29fcf45c9edcbae750ecde0e51bf2',
+  operationName: 'FooterQuery',
 }

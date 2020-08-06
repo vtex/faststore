@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 
 import { useCurrency } from '../../../providers/Currency'
 import { transform } from './structured'
-import { useAsyncProduct } from '../../../providers/Product'
+import { useAsyncProduct } from '../../../hooks/useAsyncProduct'
 
 interface Props {
   slug: string

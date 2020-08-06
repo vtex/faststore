@@ -15,11 +15,11 @@ type Scalars = {
 }
 
 // Operation related types
-export type AsyncProductQueryQueryVariables = Exact<{
+export type UseAsyncProductQueryQueryVariables = Exact<{
   slug: Maybe<Scalars['String']>
 }>
 
-export type AsyncProductQueryQuery = {
+export type UseAsyncProductQueryQuery = {
   vtex: {
     product: Maybe<{
       productId: Maybe<string>
@@ -55,10 +55,10 @@ export type AsyncProductQueryQuery = {
 
 // Query Related Code
 
-export const AsyncProductQuery = {
+export const useAsyncProductQuery = {
   query:
-    'query AsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          commertialOffer {\n            AvailableQuantity\n            ListPrice\n            Price\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query useAsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          commertialOffer {\n            AvailableQuantity\n            ListPrice\n            Price\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '5a74a12e9e2f78e4d7c08cf03c7a9f57e283ad555cf23eb8d3bc7641cb1f8cc0',
-  operationName: 'AsyncProductQuery',
+    'ee5bffe7a8504361512c12f21f5f8017bd7341c2f54215c0f72eafad10ae7ebf',
+  operationName: 'useAsyncProductQuery',
 }
