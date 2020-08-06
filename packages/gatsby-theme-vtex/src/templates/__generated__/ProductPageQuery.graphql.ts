@@ -57,7 +57,8 @@ export type ProductPageQueryQuery = {
 // Query Related Code
 
 export const ProductPageQuery = {
-  query: undefined,
+  query:
+    'query ProductPageQuery($slug: String, $staticPath: Boolean = true) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        itemId\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n          }\n        }\n      }\n      productId\n      description\n    }\n  }\n}\n',
   sha256Hash:
     'd45b9ead779004ef34c863176260fcd9a7e99517cf98d0f987d41657e82b9868',
   operationName: 'ProductPageQuery',
