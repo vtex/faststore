@@ -20,7 +20,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
   const addItemOnClick = async (e: any) => {
     e.preventDefault()
 
-    if (!sku || !orderForm?.value || !seller) {
+    if (!sku || !seller) {
       return
     }
 

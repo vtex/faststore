@@ -19,7 +19,7 @@ export interface GraphQLResponse<D extends any = any> {
 }
 
 export interface RequestOptions<V extends any = any> {
-  query: string
+  query?: string
   sha256Hash: string
   operationName: string
   variables: V

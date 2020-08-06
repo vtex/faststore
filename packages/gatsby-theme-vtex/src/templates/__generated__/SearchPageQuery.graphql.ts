@@ -91,8 +91,7 @@ export type SearchPageQueryQuery = {
 // Query Related Code
 
 export const SearchPageQuery = {
-  query:
-    'query SearchPageQuery($query: String, $map: String, $staticPath: Boolean = true) {\n  vtex {\n    productSearch(query: $query, map: $map, from: 0, to: 9) {\n      breadcrumb {\n        href\n        name\n      }\n      titleTag\n      products @include(if: $staticPath) {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n    facets(query: $query, map: $map) {\n      brands {\n        name\n        value\n        quantity\n      }\n      categoriesTrees {\n        link\n        name\n        quantity\n        children {\n          link\n          name\n          quantity\n        }\n      }\n    }\n  }\n}\n',
+  query: undefined,
   sha256Hash:
     'f6c02b1b61ac861ccce50d683effbe88a5076965c524d84ca2aeea7cab75889e',
   operationName: 'SearchPageQuery',

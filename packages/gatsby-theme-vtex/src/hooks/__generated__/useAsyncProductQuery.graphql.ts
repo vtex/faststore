@@ -56,8 +56,7 @@ export type UseAsyncProductQueryQuery = {
 // Query Related Code
 
 export const useAsyncProductQuery = {
-  query:
-    'query useAsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          commertialOffer {\n            AvailableQuantity\n            ListPrice\n            Price\n          }\n        }\n      }\n    }\n  }\n}\n',
+  query: undefined,
   sha256Hash:
     'ee5bffe7a8504361512c12f21f5f8017bd7341c2f54215c0f72eafad10ae7ebf',
   operationName: 'useAsyncProductQuery',
