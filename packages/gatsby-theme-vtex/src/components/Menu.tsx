@@ -2,11 +2,6 @@ import { Link } from 'gatsby'
 import React, { FC } from 'react'
 import { Flex } from 'theme-ui'
 
-interface Item {
-  name: string
-  slug: string
-}
-
 const Menu: FC = () => (
   <Flex as="nav" variant="header-menu">
     <Link to="/apparel---accessories" activeClassName="active">

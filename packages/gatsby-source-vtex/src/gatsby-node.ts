@@ -8,8 +8,7 @@ import { fetchVTEX, VTEXOptions } from './fetch'
 import { Category, Tenant } from './types'
 import { createDepartmentNode, createChannelNode } from './utils'
 
-const getGraphQLUrl = (tenant: string) =>
-  `http://gimenes--${tenant}.myvtex.com/graphql`
+const getGraphQLUrl = (tenant: string) => `http://${tenant}.myvtex.com/graphql`
 
 interface Options extends PluginOptions, VTEXOptions {}
 

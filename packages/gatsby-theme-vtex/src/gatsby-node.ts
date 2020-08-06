@@ -6,9 +6,9 @@ import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
 import { Environment, Options } from './gatsby-config'
 
 const root = process.cwd()
-const tenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
-const environment =
-  (process.env.GATSBY_VTEX_ENVIRONMENT as Environment) ?? 'vtexcommercestable'
+
+const tenant = process.env.GATSBY_VTEX_TENANT as string
+const environment = process.env.GATSBY_VTEX_ENVIRONMENT as Environment
 
 const getRoute = (path: string) => {
   const splitted = path.split('/')
@@ -40,7 +40,7 @@ export const createPages = async (
 
   createRedirect({
     fromPath: '/graphql/*',
-    toPath: `https://gimenes--${tenant}.myvtex.com/graphql/:splat`,
+    toPath: `https://${tenant}.myvtex.com/graphql/:splat`,
     statusCode: 200,
   })
 
