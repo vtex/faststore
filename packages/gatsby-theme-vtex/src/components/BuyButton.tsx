@@ -4,7 +4,7 @@ import { Button, jsx } from 'theme-ui'
 import { graphql } from 'gatsby'
 
 import { useBestSeller } from '../hooks/useBestSeller'
-import { useOrderForm } from '../providers/OrderForm'
+import { useOrderForm } from '../hooks/useOrderForm'
 import { BuyButton_SkuFragment } from './__generated__/BuyButton_sku.graphql'
 
 export interface Props {
