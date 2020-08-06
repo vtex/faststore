@@ -41,7 +41,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "eslint-config-vtex": "^12.8.1",
-    "eslint-config-vtex-react": "^6.7.3"
+    "eslint-config-vtex": "^12.8.2",
+    "eslint-config-vtex-react": "^6.7.4"
   }
 }

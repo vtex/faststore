@@ -8539,20 +8539,20 @@ eslint-config-react-app@^5.0.2, eslint-config-react-app@^5.2.1:
   dependencies:
     confusing-browser-globals "^1.0.9"
 
-eslint-config-vtex-react@^6.7.3:
-  version "6.7.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.7.3.tgz#b9475dfda969a16e11b0fb56be8f75cbe9952b46"
-  integrity sha512-tRsq52xsWgCwdiOBFM6X5jPhdKB39eQg9DgJ1inloXUyc0D1im7nw6ZMLLJFGBs8OwhK/2CdYuW6MBNqWFFXAA==
+eslint-config-vtex-react@^6.7.4:
+  version "6.7.4"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.7.4.tgz#84c59c632ebd965eac6f04c60e0286afadbac164"
+  integrity sha512-MHHw2Qey7RYizCYp3vINdKBa+Fno3M0KBVnqhA3lyLFOBNj8fmEyq6J/Yi7q6WBmxbMEbzeS3t45FVwI8wOU1w==
   dependencies:
-    eslint-config-vtex "^12.8.1"
+    eslint-config-vtex "^12.8.2"
     eslint-plugin-jsx-a11y "^6.2.3"
     eslint-plugin-react "^7.18.0"
     eslint-plugin-react-hooks "^2.3.0"
 
-eslint-config-vtex@^12.8.1:
-  version "12.8.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.8.1.tgz#65ed2e9676cb69b086c5cc872f9414884c57dff6"
-  integrity sha512-KZLJYdKxIV+8HsM88aojXhmj6iWi/inTz++xfqmHFuPxEtFNiSZYCtH+XU6FU94KkUTmeqXr8YPcz9cy06TXjw==
+eslint-config-vtex@^12.8.2:
+  version "12.8.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.8.2.tgz#05b4a13c3fd15adfe6034e85a57f5979ba7bdd71"
+  integrity sha512-WcUe+m+hRxs5PuXRHRHlgA3cfCX63SayscMINtZudODYWtxMTJJ2FajIP3mEQh6bwOsuLFlyjr+NmS5kgr1HXw==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^3.8.0"
     "@typescript-eslint/parser" "^3.8.0"
@@ -19368,7 +19368,7 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swr@^0.3.0-beta.10:
+swr@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/swr/-/swr-0.3.0.tgz#69602953dd50ab07fe60c920fd63199256645675"
   integrity sha512-3p0p5TWH0qiaKAph5wBkMwqe2WjNseITfjmdVoNzjqRZGn/gnpRi6whMDjhMVb/vp/yyDtKWPlyjid8QZH+UhA==
