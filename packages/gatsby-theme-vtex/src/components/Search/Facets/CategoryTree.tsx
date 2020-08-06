@@ -1,12 +1,17 @@
 /** @jsx jsx */
-import { Link, graphql } from 'gatsby'
+import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
 import { jsx } from 'theme-ui'
 
-import { TreeSelector_TreeFragment } from './__generated__/TreeSelector_tree.graphql'
+interface Node {
+  link: string
+  name: string
+  quantity: number
+  children: Node[]
+}
 
 type Props = {
-  tree: TreeSelector_TreeFragment
+  tree: Node
 }
 
 const TreeSelector: FC<Props> = ({ tree }) => (
@@ -20,26 +25,13 @@ const TreeSelector: FC<Props> = ({ tree }) => (
         listStyleType: 'none',
       }}
     >
-      {tree?.children?.map((child, index) => (
+      {tree.children.map((child, index) => (
         <li key={`tree-selector-${index}`}>
-          <Link to={child!.link}>{child!.name}</Link>
+          <Link to={child.link}>{child.name}</Link>
         </li>
       ))}
     </ul>
   </Fragment>
 )
-
-export const fragment = graphql`
-  fragment TreeSelector_tree on VTEX_CategoriesTreeFacet {
-    link
-    name
-    quantity
-    children {
-      link
-      name
-      quantity
-    }
-  }
-`
 
 export default TreeSelector

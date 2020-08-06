@@ -18,7 +18,7 @@ const AsyncOffer: FC<Props> = ({ slug, skuId, variant = '' }) => {
     return <OfferPreview variant={variant} />
   }
 
-  return <SyncOffer sku={sku!} variant={variant} />
+  return <SyncOffer sku={sku as any} variant={variant} />
 }
 
 export default AsyncOffer

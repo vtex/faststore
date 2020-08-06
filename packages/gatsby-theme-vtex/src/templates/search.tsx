@@ -27,10 +27,19 @@ export const query = graphql`
       }
       facets(query: $query, map: $map) {
         brands {
-          ...BrandSelector_brands
+          name
+          value
+          quantity
         }
         categoriesTrees {
-          ...TreeSelector_tree
+          link
+          name
+          quantity
+          children {
+            link
+            name
+            quantity
+          }
         }
       }
     }

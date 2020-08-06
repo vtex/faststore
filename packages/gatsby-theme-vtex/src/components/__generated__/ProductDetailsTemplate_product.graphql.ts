@@ -20,27 +20,21 @@ export type ProductDetailsTemplate_ProductFragment = {
   linkText: Maybe<string>
   items: Maybe<
     Array<
-      Maybe<
-        {
-          images: Maybe<
-            Array<Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>>
-          >
-        } & BuyButton_SkuFragment
-      >
-    >
-  >
-}
-
-export type BuyButton_SkuFragment = {
-  itemId: Maybe<string>
-  sellers: Maybe<
-    Array<
       Maybe<{
-        sellerId: Maybe<string>
-        commertialOffer: Maybe<{
-          AvailableQuantity: Maybe<number>
-          Price: Maybe<number>
-        }>
+        images: Maybe<
+          Array<Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>>
+        >
+        sellers: Maybe<
+          Array<
+            Maybe<{
+              sellerId: Maybe<string>
+              commertialOffer: Maybe<{
+                AvailableQuantity: Maybe<number>
+                Price: Maybe<number>
+              }>
+            }>
+          >
+        >
       }>
     >
   >

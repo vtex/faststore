@@ -69,9 +69,9 @@ export const ProductSummary: FC<Props> = ({ product }) => {
         {!offer ? (
           <OfferPreview variant="summary" />
         ) : (
-          <SyncOffer sku={product.items![0]!} variant="summary" />
+          <SyncOffer sku={product.items![0] as any} variant="summary" />
         )}
-        <BuyButton sku={product.items![0]!} />
+        <BuyButton sku={product.items![0] as any} />
       </Card>
     </Link>
   )

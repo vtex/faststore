@@ -38,14 +38,14 @@ const SearchTemplate: FC<Props> = ({ search }) => (
           {search.vtex.facets!.categoriesTrees?.[0] ? (
             <Fragment>
               <CategoryTreeSelector
-                tree={search.vtex.facets!.categoriesTrees[0]}
+                tree={search.vtex.facets!.categoriesTrees[0] as any}
               />
               <hr />
             </Fragment>
           ) : null}
           {search.vtex.facets!.brands ? (
             <Fragment>
-              <BrandSelector brands={search.vtex.facets!.brands} />
+              <BrandSelector brands={search.vtex.facets!.brands as any} />
               <hr />
             </Fragment>
           ) : null}

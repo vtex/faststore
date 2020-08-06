@@ -1,19 +1,21 @@
 import { useMemo } from 'react'
 
-type ArrayItem<A> = A extends ReadonlyArray<infer T> ? T : never
+import { ArrayItem, Maybe } from '../typings'
 
-type Sku = {
-  sellers: Array<{
-    commertialOffer: {
-      AvailableQuantity: number
-      Price: number
-    }
-  }>
+interface Seller {
+  commertialOffer: {
+    AvailableQuantity: number
+    Price: number
+  }
+}
+
+interface SKU {
+  sellers: Seller[]
 }
 
 // TODO: This could be sent to the backend since only marketplaces
 // require this feature
-export const useBestSeller = <T extends Sku>(sku?: T) =>
+export const useBestSeller = <T extends SKU>(sku: Maybe<T>) =>
   useMemo(() => {
     let bestSeller = sku?.sellers?.[0]
 

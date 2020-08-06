@@ -22,7 +22,13 @@ export const query = graphql`
         imageUrl
         imageText
       }
-      ...BuyButton_sku
+      sellers {
+        sellerId
+        commertialOffer {
+          AvailableQuantity
+          Price
+        }
+      }
     }
   }
 `
@@ -53,7 +59,7 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
           <SuspenseDelay fallback={<OfferPreview variant="detail" />}>
             <AsyncOffer slug={linkText!} variant="detail" />
           </SuspenseDelay>
-          <BuyButton sku={product.items![0]!} />
+          <BuyButton sku={product.items![0] as any} />
         </Card>
       </Grid>
     </Container>
