@@ -178,7 +178,7 @@ export class WebpackPlugin {
               dirname(filepath),
               '__generated__',
               `${name}.graphql.ts`
-            ).replace('src/pages', 'src')
+            ).replace('src/pages', 'src') // Do not generate a folder inside src/pages otherwise gatsby's build breaks
 
             return outputFile(filename, value)
           })

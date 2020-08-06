@@ -22,7 +22,7 @@ type OrderFormContext = {
   addItems: (items: OrderFormItem[]) => Promise<void>
 }
 
-const OrderForm = createContext<OrderFormContext>(undefined as any)
+export const OrderForm = createContext<OrderFormContext>(undefined as any)
 
 const OrderFormProvider: FC = ({ children }) => {
   const [orderForm, setOrderForm] = useState<OrderFormType | null>(() =>
@@ -73,7 +73,5 @@ const OrderFormProvider: FC = ({ children }) => {
     </OrderForm.Provider>
   )
 }
-
-export const useOrderForm = () => useContext(OrderForm)
 
 export default OrderFormProvider
