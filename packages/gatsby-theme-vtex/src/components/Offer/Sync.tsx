@@ -14,7 +14,7 @@ export interface Props {
 }
 
 const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
-  const seller = useBestSeller(sku!)
+  const seller: any = useBestSeller(sku as any)
   const offer = seller?.commertialOffer
   const numberFormat = useNumberFormat()
 
@@ -40,7 +40,12 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
 
 export const fragment = graphql`
   fragment SyncOffer_sku on VTEX_SKU {
-    ...UseBestSeller_sku
+    sellers {
+      commertialOffer {
+        AvailableQuantity
+        Price
+      }
+    }
   }
 `
 

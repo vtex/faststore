@@ -1,16 +1,18 @@
 /** @jsx jsx */
 import { FC } from 'react'
 import { Button, jsx } from 'theme-ui'
+import { graphql } from 'gatsby'
 
-import { useBestSeller } from '../../hooks/useBestSeller'
-import { useOrderForm } from '../../providers/OrderForm'
+import { useBestSeller } from '../hooks/useBestSeller'
+import { useOrderForm } from '../providers/OrderForm'
+import { BuyButton_SkuFragment } from './__generated__/BuyButton_sku.graphql'
 
 export interface Props {
-  sku?: any
+  sku?: BuyButton_SkuFragment
 }
 
 const BuyButton: FC<Props> = ({ sku }) => {
-  const seller = useBestSeller(sku)
+  const seller: any = useBestSeller(sku as any)
   const orderForm = useOrderForm()
   const disabled = !sku || !orderForm?.value
 
@@ -24,9 +26,9 @@ const BuyButton: FC<Props> = ({ sku }) => {
 
     // Item to be updated into the orderForm
     const orderFormItem = {
-      id: sku.itemId,
+      id: sku.itemId!,
       quantity: 1,
-      seller: (seller as any).sellerId,
+      seller: seller.sellerId!,
     }
 
     orderForm.addItems([orderFormItem]).catch(console.error)
@@ -43,5 +45,18 @@ const BuyButton: FC<Props> = ({ sku }) => {
     </Button>
   )
 }
+
+export const fragment = graphql`
+  fragment BuyButton_sku on VTEX_SKU {
+    itemId
+    sellers {
+      sellerId
+      commertialOffer {
+        AvailableQuantity
+        Price
+      }
+    }
+  }
+`
 
 export default BuyButton

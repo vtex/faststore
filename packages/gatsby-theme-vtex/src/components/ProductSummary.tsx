@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import { graphql, Link } from 'gatsby'
-import { FC, Fragment } from 'react'
+import { FC } from 'react'
 import { Card, Heading, jsx } from 'theme-ui'
 
 import { ProductSummary_SyncProductFragment } from './__generated__/ProductSummary_syncProduct.graphql'
-import BuyButtonPreview from './BuyButton/Preview'
-import BuyButton from './BuyButton/Sync'
+import BuyButton from './BuyButton'
 import OfferPreview from './Offer/Preview'
 import SyncOffer from './Offer/Sync'
 import ProductImage from './ProductImage'
@@ -68,16 +67,11 @@ export const ProductSummary: FC<Props> = ({ product }) => {
           {product.productName!.slice(0, 12)}
         </Heading>
         {!offer ? (
-          <Fragment>
-            <OfferPreview variant="summary" />
-            <BuyButtonPreview />
-          </Fragment>
+          <OfferPreview variant="summary" />
         ) : (
-          <Fragment>
-            <SyncOffer sku={product.items![0]!} variant="summary" />
-            <BuyButton sku={product.items![0]} />
-          </Fragment>
+          <SyncOffer sku={product.items![0]!} variant="summary" />
         )}
+        <BuyButton sku={product.items![0]!} />
       </Card>
     </Link>
   )

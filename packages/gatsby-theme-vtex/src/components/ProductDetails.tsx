@@ -4,15 +4,13 @@ import { FC, lazy } from 'react'
 import { Card, Grid, Heading, jsx } from 'theme-ui'
 
 import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductDetailsTemplate_product.graphql'
-import BuyButtonPreview from './BuyButton/Preview'
 import Container from './Container'
 import OfferPreview from './Offer/Preview'
 import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
 import SuspenseDelay from './SuspenseDelay'
-import SuspenseSSR from './SuspenseSSR'
+import BuyButton from './BuyButton'
 
-const BuyButton = lazy(() => import('./BuyButton/Async'))
 const AsyncOffer = lazy(() => import('./Offer/Async'))
 
 export const query = graphql`
@@ -24,6 +22,7 @@ export const query = graphql`
         imageUrl
         imageText
       }
+      ...BuyButton_sku
     }
   }
 `
@@ -54,9 +53,7 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
           <SuspenseDelay fallback={<OfferPreview variant="detail" />}>
             <AsyncOffer slug={linkText!} variant="detail" />
           </SuspenseDelay>
-          <SuspenseSSR fallback={<BuyButtonPreview />}>
-            <BuyButton slug={linkText!} />
-          </SuspenseSSR>
+          <BuyButton sku={product.items![0]!} />
         </Card>
       </Grid>
     </Container>

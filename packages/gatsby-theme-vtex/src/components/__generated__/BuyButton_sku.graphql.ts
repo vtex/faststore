@@ -15,10 +15,12 @@ type Scalars = {
 }
 
 // Operation related types
-export type UseBestSeller_SkuFragment = {
+export type BuyButton_SkuFragment = {
+  itemId: Maybe<string>
   sellers: Maybe<
     Array<
       Maybe<{
+        sellerId: Maybe<string>
         commertialOffer: Maybe<{
           AvailableQuantity: Maybe<number>
           Price: Maybe<number>

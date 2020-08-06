@@ -15,9 +15,7 @@ type Scalars = {
 }
 
 // Operation related types
-export type SyncOffer_SkuFragment = UseBestSeller_SkuFragment
-
-export type UseBestSeller_SkuFragment = {
+export type SyncOffer_SkuFragment = {
   sellers: Maybe<
     Array<
       Maybe<{
