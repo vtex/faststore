@@ -25,6 +25,13 @@ export const useQueryInfinite = <
     async (varStr: string) => {
       const { data, errors } = await request<Variables, Query>('/graphql/', {
         ...queryOptions,
+        fetchOptions: {
+          ...queryOptions.fetchOptions,
+          headers: {
+            'x-vtex-graphql-referer': window.location.host,
+            ...queryOptions.fetchOptions?.headers,
+          },
+        },
         variables: JSON.parse(varStr),
       })
 
