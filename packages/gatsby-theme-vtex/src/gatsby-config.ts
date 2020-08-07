@@ -1,7 +1,9 @@
 import assert from 'assert'
 
+const root = process.cwd()
+
 require('dotenv').config({
-  path: `${process.cwd()}/vtex.env`,
+  path: `${root}/vtex.env`,
 })
 
 export type Environment = 'vtexcommercestable' | 'vtexcommercebeta'
@@ -43,7 +45,14 @@ module.exports = ({ title, description }: Options) => {
       {
         // Makes it possible to share graphql queries between
         // client/server side queries
-        resolve: '@vtex/gatsby-plugin-graphql',
+        //
+        // Since graphql-js library must be a singleton, we resolve
+        // this path not relative to this folder but to the app
+        // using this theme, that's why this odd way of requiring the
+        // plugin
+        resolve: require.resolve(
+          `${root}/node_modules/@vtex/gatsby-plugin-graphql`
+        ),
       },
       {
         // Transform cms's json files into .tsx nodes so other
@@ -54,7 +63,14 @@ module.exports = ({ title, description }: Options) => {
         // Adds search info into the Gatsby's source graph. This is
         // the plugin responsible for adding Product/Category/Brand
         // info into the gatsby's source graph
-        resolve: '@vtex/gatsby-source-vtex',
+        //
+        // Since graphql-js library must be a singleton, we resolve
+        // this path not relative to this folder but to the app
+        // using this theme, that's why this odd way of requiring the
+        // plugin
+        resolve: require.resolve(
+          `${root}/node_modules/@vtex/gatsby-source-vtex`
+        ),
         options: {
           tenant,
           environment,
