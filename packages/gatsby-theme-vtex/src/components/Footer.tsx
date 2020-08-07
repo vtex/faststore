@@ -12,9 +12,7 @@ interface Item {
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (
-  <Link sx={{ minHeight: '48px', minWidth: '48px' }} href={`/${slug}`}>
-    {name!.split(' ')[0]}
-  </Link>
+  <Link href={`/${slug}`}>{name!.split(' ')[0]}</Link>
 )
 
 const Footer: FC = () => {

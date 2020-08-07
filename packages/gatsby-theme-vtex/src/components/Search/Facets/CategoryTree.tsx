@@ -26,9 +26,9 @@ const TreeSelector: FC<Props> = ({ tree }) => (
       }}
     >
       {tree.children.map((child, index) => (
-        <li key={`tree-selector-${index}`}>
-          <Link to={child.link}>{child.name}</Link>
-        </li>
+        <Link to={child.link} key={`tree-selector-${index}`}>
+          <li sx={{ minHeight: '48px', minWidth: '48px' }}>{child.name}</li>
+        </Link>
       ))}
     </ul>
   </Fragment>
