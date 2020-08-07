@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
-import { jsx } from 'theme-ui'
+import { jsx, Box } from 'theme-ui'
 
 interface Node {
   link: string
@@ -26,9 +26,11 @@ const TreeSelector: FC<Props> = ({ tree }) => (
       }}
     >
       {tree.children.map((child, index) => (
-        <Link to={child.link} key={`tree-selector-${index}`}>
-          <li sx={{ minHeight: '48px', minWidth: '48px' }}>{child.name}</li>
-        </Link>
+        <li key={`tree-selector-${index}`}>
+          <Link to={child.link}>
+            <Box sx={{ minHeight: '48px', minWidth: '48px' }}>{child.name}</Box>
+          </Link>
+        </li>
       ))}
     </ul>
   </Fragment>
