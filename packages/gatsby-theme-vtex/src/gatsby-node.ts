@@ -38,12 +38,6 @@ export const createPages = async ({
     statusCode: 200,
   })
 
-  createRedirect({
-    fromPath: '/account/*',
-    toPath: `https://${tenant}.${environment}.com.br/account/:splat`,
-    statusCode: 200,
-  })
-
   const { data, errors } = await graphql<any>(`
     query {
       allProduct {
