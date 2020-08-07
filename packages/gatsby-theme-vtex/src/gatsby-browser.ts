@@ -16,15 +16,17 @@ export const replaceHydrateFunction = () => (
     'develop'
   )
 
-  const { unstable_createRoot: createRoot }: any = ReactDOM
-  const root = createRoot(container, {
-    hydrate: !development,
-    hydrationOptions: {
-      onHydrated: callback,
-    },
-  })
+  setTimeout(() => {
+    const { unstable_createRoot: createRoot }: any = ReactDOM
+    const root = createRoot(container, {
+      hydrate: !development,
+      hydrationOptions: {
+        onHydrated: callback,
+      },
+    })
 
-  root.render(element)
+    root.render(element)
+  }, 0)
 }
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
