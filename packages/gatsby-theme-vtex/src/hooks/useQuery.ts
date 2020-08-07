@@ -4,7 +4,7 @@ import useSWR, { ConfigInterface } from 'swr'
 type QueryOptions = ConfigInterface & RequestOptions
 
 const getKey = (options: QueryOptions) =>
-  `${options.operationName}::${JSON.stringify(options.variables)}`
+  `${options.sha256Hash}::${JSON.stringify(options.variables)}`
 
 export const useQuery = <Query extends any = any, Variables extends any = any>(
   options: QueryOptions
