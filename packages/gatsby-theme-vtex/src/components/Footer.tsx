@@ -4,10 +4,11 @@ import { FC } from 'react'
 import { Flex, Grid, Image, jsx, Link } from 'theme-ui'
 
 import { FooterQueryQuery } from './__generated__/FooterQuery.graphql'
+import { Maybe } from '../typings'
 
 interface Item {
-  name: string | null | undefined
-  slug: string | null | undefined
+  name: Maybe<string>
+  slug: Maybe<string>
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (

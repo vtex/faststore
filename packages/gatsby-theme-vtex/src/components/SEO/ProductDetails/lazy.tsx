@@ -13,7 +13,7 @@ const SEO: FC<Props> = ({ slug }) => {
   const [currency] = useCurrency()
   const { product } = useAsyncProduct(slug)
   const structuredProduct = useMemo(
-    () => (product ? transform(product, currency) : ''),
+    () => (product ? transform(product as any, currency) : ''),
     [product, currency]
   )
 

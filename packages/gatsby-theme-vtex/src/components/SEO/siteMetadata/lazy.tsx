@@ -26,15 +26,16 @@ const SEO: FC<Props> = ({ description, lang = 'en', meta = [], title }) => {
     `
   )
 
-  const metaDescription = description ?? site!.siteMetadata!.description!
+  const { siteMetadata } = site as any
+  const metaDescription = description ?? siteMetadata.description
 
   return (
     <Helmet
       htmlAttributes={{
         lang,
       }}
-      title={title ?? site!.siteMetadata!.title!}
-      titleTemplate={`%s | ${site!.siteMetadata!.title}`}
+      title={title ?? siteMetadata.title}
+      titleTemplate={`%s | ${siteMetadata.title}`}
       meta={[
         {
           name: 'description',
@@ -42,7 +43,7 @@ const SEO: FC<Props> = ({ description, lang = 'en', meta = [], title }) => {
         },
         {
           property: 'og:title',
-          content: title!,
+          content: title,
         },
         {
           property: 'og:description',
@@ -58,7 +59,7 @@ const SEO: FC<Props> = ({ description, lang = 'en', meta = [], title }) => {
         },
         {
           name: 'twitter:creator',
-          content: site!.siteMetadata!.author!,
+          content: siteMetadata.author,
         },
         {
           name: 'twitter:title',

@@ -17,6 +17,9 @@ interface SKU {
 // require this feature
 export const useBestSeller = <T extends SKU>(sku: Maybe<T>) =>
   sku?.sellers[0] as ArrayItem<T['sellers']>
+
+// The logic bellow is how it was originally implemented. We should
+// move this logic to the backend
 // useMemo(() => {
 //   let bestSeller = sku?.sellers?.[0]
 

@@ -15,18 +15,6 @@ import Page from './Page'
 
 const PAGE_SIZE = 10
 
-export const query = gql`
-  query SearchQuery($query: String, $map: String, $from: Int, $to: Int) {
-    vtex {
-      productSearch(query: $query, map: $map, from: $from, to: $to) {
-        products {
-          ...ProductSummary_syncProduct
-        }
-      }
-    }
-  }
-`
-
 const List: FC = () => {
   const { filters, initialData } = useSearchFilters()
   const { data, error, size, setSize } = useQueryInfinite<
@@ -105,5 +93,17 @@ const List: FC = () => {
     </Fragment>
   )
 }
+
+export const query = gql`
+  query SearchQuery($query: String, $map: String, $from: Int, $to: Int) {
+    vtex {
+      productSearch(query: $query, map: $map, from: $from, to: $to) {
+        products {
+          ...ProductSummary_syncProduct
+        }
+      }
+    }
+  }
+`
 
 export default List

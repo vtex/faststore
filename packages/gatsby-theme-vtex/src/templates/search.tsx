@@ -8,6 +8,24 @@ import SEO from '../components/SEO/siteMetadata'
 import SearchProvider from '../providers/Search'
 import { SearchPageQueryQuery } from './__generated__/SearchPageQuery.graphql'
 
+type Props = PageProps<
+  SearchPageQueryQuery,
+  {
+    query: string
+    map: string
+    staticPath: boolean
+  }
+>
+
+const PageTemplate: FC<Props> = ({ data, pageContext: { query, map } }) => (
+  <Layout>
+    <SEO title={data.vtex.productSearch!.titleTag!} />
+    <SearchProvider initialOptions={{ query, map }} initialData={data}>
+      <SearchTemplate search={data} />
+    </SearchProvider>
+  </Layout>
+)
+
 export const query = graphql`
   query SearchPageQuery(
     $query: String
@@ -45,23 +63,5 @@ export const query = graphql`
     }
   }
 `
-
-type Props = PageProps<
-  SearchPageQueryQuery,
-  {
-    query: string
-    map: string
-    staticPath: boolean
-  }
->
-
-const PageTemplate: FC<Props> = ({ data, pageContext: { query, map } }) => (
-  <Layout>
-    <SEO title={data.vtex.productSearch!.titleTag!} />
-    <SearchProvider initialOptions={{ query, map }} initialData={data}>
-      <SearchTemplate search={data} />
-    </SearchProvider>
-  </Layout>
-)
 
 export default PageTemplate
