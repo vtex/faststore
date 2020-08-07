@@ -15,7 +15,8 @@ interface SKU {
 
 // TODO: This could be sent to the backend since only marketplaces
 // require this feature
-export const useBestSeller = <T extends SKU>(sku: Maybe<T>) => sku?.sellers[0]
+export const useBestSeller = <T extends SKU>(sku: Maybe<T>) =>
+  sku?.sellers[0] as ArrayItem<T['sellers']>
 // useMemo(() => {
 //   let bestSeller = sku?.sellers?.[0]
 
