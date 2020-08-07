@@ -11,11 +11,12 @@ import ProductImage from './ProductImage'
 
 interface Props {
   product: ProductSummary_SyncProductFragment
+  loading?: 'lazy' | 'eager' // lazy load images
 }
 
-export const ProductSummary: FC<Props> = ({ product }) => {
+export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
   const { linkText, items, productName } = product as any
-  const { imageUrl, imageText } = items[0].images[0]
+  const [{ imageUrl, imageText }] = items[0].images
   const offer = items[0].sellers?.[0].commertialOffer
 
   return (
@@ -38,7 +39,7 @@ export const ProductSummary: FC<Props> = ({ product }) => {
           height={300}
           src={imageUrl}
           alt={imageText}
-          loading="lazy" // lazy load images
+          loading={loading}
         />
         <Heading variant="summary.name" as="h3">
           {productName.slice(0, 12)}

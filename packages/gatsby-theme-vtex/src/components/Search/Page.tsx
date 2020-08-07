@@ -9,8 +9,12 @@ interface Props {
 
 const Page: FC<Props> = ({ products }) => (
   <>
-    {products.map((product) => (
-      <ProductSummary key={product!.productId!} product={product!} />
+    {products.map((product, index) => (
+      <ProductSummary
+        loading={index === 0 ? 'eager' : 'lazy'}
+        key={product!.productId!}
+        product={product!}
+      />
     ))}
   </>
 )
