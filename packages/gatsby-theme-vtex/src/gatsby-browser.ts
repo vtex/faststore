@@ -12,11 +12,11 @@ export const replaceHydrateFunction = () => (
   container: Element,
   callback: any
 ) => {
-  const development = (process.env.GATSBY_BUILD_STAGE as any).includes(
-    'develop'
-  )
+  const render = () => {
+    const development = (process.env.GATSBY_BUILD_STAGE as any).includes(
+      'develop'
+    )
 
-  setTimeout(() => {
     const { unstable_createRoot: createRoot }: any = ReactDOM
     const root = createRoot(container, {
       hydrate: !development,
@@ -26,7 +26,9 @@ export const replaceHydrateFunction = () => (
     })
 
     root.render(element)
-  }, 0)
+  }
+
+  ;(window as any).requestIdleCallback(render)
 }
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
