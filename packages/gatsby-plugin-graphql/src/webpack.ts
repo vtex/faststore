@@ -7,9 +7,14 @@ import { optimizeDocuments } from '@graphql-tools/relay-operation-optimizer'
 import { mkdirSync, outputJson } from 'fs-extra'
 import { GraphQLSchema, parse, print, printSchema } from 'graphql'
 
-import { QueryInfo, isProduction } from '.'
+import { isProduction } from '.'
 import { outputFile } from './filesystem'
 import { Node, QueryManager } from './manager'
+
+export interface QueryInfo {
+  query?: string
+  sha256Hash: string
+}
 
 const root = process.cwd()
 
