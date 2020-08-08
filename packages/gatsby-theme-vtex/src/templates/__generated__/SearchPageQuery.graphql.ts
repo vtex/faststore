@@ -18,16 +18,13 @@ type Scalars = {
 export type SearchPageQueryQueryVariables = Exact<{
   query: Maybe<Scalars['String']>
   map: Maybe<Scalars['String']>
-  staticPath?: Maybe<Scalars['Boolean']>
+  staticPath: Scalars['Boolean']
 }>
 
 export type SearchPageQueryQuery = {
   vtex: {
     productSearch: Maybe<{
       titleTag: Maybe<string>
-      breadcrumb: Maybe<
-        Array<Maybe<{ href: Maybe<string>; name: Maybe<string> }>>
-      >
       products: Maybe<
         Array<
           Maybe<{
@@ -65,10 +62,20 @@ export type SearchPageQueryQuery = {
           }>
         >
       >
+      breadcrumb: Maybe<
+        Array<Maybe<{ href: Maybe<string>; name: Maybe<string> }>>
+      >
     }>
     facets: Maybe<{
       brands: Maybe<
-        Array<Maybe<{ name: string; value: string; quantity: number }>>
+        Array<
+          Maybe<{
+            value: string
+            quantity: number
+            selected: boolean
+            linkEncoded: string
+          }>
+        >
       >
       categoriesTrees: Maybe<
         Array<
@@ -91,8 +98,9 @@ export type SearchPageQueryQuery = {
 // Query Related Code
 
 export const SearchPageQuery = {
-  query: undefined,
+  query:
+    'query SearchPageQuery($query: String, $map: String, $staticPath: Boolean!) {\n  vtex {\n    productSearch(query: $query, map: $map, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      breadcrumb {\n        href\n        name\n      }\n      titleTag\n    }\n    facets(query: $query, map: $map) @include(if: $staticPath) {\n      brands {\n        value\n        quantity\n        selected\n        linkEncoded\n      }\n      categoriesTrees {\n        link\n        name\n        quantity\n        children {\n          link\n          name\n          quantity\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '379b53aab4e983247d48127f96777ed3fd13f3e90cf1e77b0a67314ea576045e',
+    'c64a8a6e000dc5a2fd15c99c83255701add4eeed59881347f58dd40589b59641',
   operationName: 'SearchPageQuery',
 }

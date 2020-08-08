@@ -14,7 +14,7 @@ export const useQueryInfinite = <
 >(
   queryOptions: QueryOptions,
   getVariablesForPage: GetVariablesForPageFn<Query, Variables>,
-  config?: SWRInfiniteConfigInterface | undefined
+  config?: SWRInfiniteConfigInterface<Query> | undefined
 ) =>
   useSWRInfinite<Query>(
     (index, previousPageData) => {

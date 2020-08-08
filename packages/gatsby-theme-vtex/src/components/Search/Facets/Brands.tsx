@@ -1,57 +1,33 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
 import { Checkbox, Label, jsx } from 'theme-ui'
-
-import { useSearchFilters, SearchOptions } from '../../../providers/Search'
+import { Link } from 'gatsby'
 
 interface Brands {
-  name: string
   value: string
   quantity: number
+  selected: boolean
+  linkEncoded: string
 }
 
 type Props = {
   brands: Brands[]
 }
 
-const toggleFilter = (value: string, filters: SearchOptions) => {
-  const { query, map } = filters
-  const lowered = value.toLowerCase()
-  const withSlash = lowered
-
-  if (query?.includes(withSlash) && map?.includes(',b')) {
-    return {
-      ...filters,
-      query: query.replace(withSlash, ''),
-      map: map.replace(',b', ''),
-    }
-  }
-
-  return {
-    ...filters,
-    query: `${query}/${lowered}`,
-    map: `${map},b`,
-  }
-}
-
 const BrandSelector: FC<Props> = ({ brands }) => {
-  const { setFilters } = useSearchFilters()
-
   return (
     <Fragment>
       <div>Brands</div>
 
       <ul sx={{ listStyleType: 'none', mx: 0, px: 0 }}>
-        {brands.map((brand, index) => (
+        {brands.map(({ linkEncoded, value, selected, quantity }, index) => (
           <li key={`brands-selector-${index}`}>
-            <Label>
-              <Checkbox
-                onClick={() =>
-                  setFilters((filters) => toggleFilter(brand.value, filters))
-                }
-              />
-              {brand.name}
-            </Label>
+            <Link to={linkEncoded}>
+              <Label>
+                <Checkbox defaultChecked={selected} />
+                {value} ({quantity})
+              </Label>
+            </Link>
           </li>
         ))}
       </ul>
