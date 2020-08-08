@@ -4,7 +4,7 @@ import React, { FC, Fragment, useCallback } from 'react'
 import { Button, Grid } from 'theme-ui'
 
 import { useQueryInfinite } from '../../hooks/useQueryInfinite'
-import { useSearchFilters } from '../../providers/Search'
+import { useSearchFilters } from '../../hooks/useSearchFilters'
 import {
   SearchQuery,
   SearchQueryQuery,
@@ -15,8 +15,12 @@ import Page from './Page'
 
 const PAGE_SIZE = 10
 
-const List: FC = () => {
-  const { filters, initialData } = useSearchFilters()
+interface Props {
+  initialData: SearchQueryQuery | undefined
+}
+
+const List: FC<Props> = ({ initialData }) => {
+  const filters = useSearchFilters()
   const { data, error, size, setSize } = useQueryInfinite<
     SearchQueryQuery,
     SearchQueryQueryVariables

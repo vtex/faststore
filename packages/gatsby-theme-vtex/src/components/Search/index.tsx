@@ -57,7 +57,7 @@ const SearchTemplate: FC<Props> = ({ search }) => (
             minWidth: 300,
           }}
         >
-          <PageList />
+          <PageList initialData={search} />
         </div>
       </div>
     </Flex>

@@ -2,39 +2,77 @@
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
 
+import ErrorBoundary from '../components/ErrorBoundary'
+import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
 import SEO from '../components/SEO/siteMetadata'
+import { useQuery } from '../hooks/useQuery'
 import SearchProvider from '../providers/Search'
-import { SearchPageQueryQuery } from './__generated__/SearchPageQuery.graphql'
-
-type Props = PageProps<
+import {
+  SearchPageQuery,
   SearchPageQueryQuery,
-  {
-    query: string
-    map: string
-    staticPath: boolean
-  }
->
+  SearchPageQueryQueryVariables,
+} from './__generated__/SearchPageQuery.graphql'
+import { useSearchFilters } from '../hooks/useSearchFilters'
 
-const PageTemplate: FC<Props> = ({ data, pageContext: { query, map } }) => (
-  <Layout>
-    <SEO title={data.vtex.productSearch!.titleTag!} />
-    <SearchProvider initialOptions={{ query, map }} initialData={data}>
+type Props = PageProps<SearchPageQueryQuery, SearchPageQueryQueryVariables>
+
+const SearchPage: FC<Props> = ({
+  data: initialData,
+  pageContext: { staticPath },
+}) => {
+  const filters = useSearchFilters()
+
+  const { data } = useQuery<
+    SearchPageQueryQuery,
+    SearchPageQueryQueryVariables
+  >({
+    ...SearchPageQuery,
+    variables: { ...filters, staticPath: true },
+    suspense: true,
+    initialData: staticPath ? initialData : undefined,
+  })
+
+  if (!data) {
+    return <div>Not Found</div>
+  }
+
+  return (
+    <>
+      <SEO title={data.vtex.productSearch!.titleTag!} />
       <SearchTemplate search={data} />
-    </SearchProvider>
-  </Layout>
-)
+    </>
+  )
+}
+
+const SearchPageContainer: FC<Props> = (props) => {
+  const {
+    pageContext: { query, map, staticPath },
+  } = props
+
+  return (
+    <Layout>
+      <SearchProvider filters={{ query, map }}>
+        <HybridWrapper
+          isPrerendered={staticPath}
+          fallback={<div>loading...</div>}
+        >
+          <ErrorBoundary fallback={<div>Error !!</div>}>
+            <SearchPage {...props} />
+          </ErrorBoundary>
+        </HybridWrapper>
+      </SearchProvider>
+    </Layout>
+  )
+}
 
 export const query = graphql`
-  query SearchPageQuery(
-    $query: String
-    $map: String
-    $staticPath: Boolean = true
-  ) {
+  query SearchPageQuery($query: String, $map: String, $staticPath: Boolean!) {
     vtex {
-      productSearch(query: $query, map: $map, from: 0, to: 9) {
-        products @include(if: $staticPath) {
+      productSearch(query: $query, map: $map, from: 0, to: 9)
+        @include(if: $staticPath) {
+        products {
           ...ProductSummary_syncProduct
         }
         breadcrumb {
@@ -43,11 +81,12 @@ export const query = graphql`
         }
         titleTag
       }
-      facets(query: $query, map: $map) {
+      facets(query: $query, map: $map) @include(if: $staticPath) {
         brands {
-          name
           value
           quantity
+          selected
+          linkEncoded
         }
         categoriesTrees {
           link
@@ -64,4 +103,4 @@ export const query = graphql`
   }
 `
 
-export default PageTemplate
+export default SearchPageContainer

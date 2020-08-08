@@ -12,6 +12,13 @@ import {
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
 
+type Props = PageProps<
+  ProductPageQueryQuery,
+  ProductPageQueryQueryVariables
+> & {
+  slug?: string
+}
+
 const ProductPage: FC<Props> = ({
   data: initialData,
   pageContext,
@@ -34,20 +41,10 @@ const ProductPage: FC<Props> = ({
     return <div>Product Not Found</div>
   }
 
-  return <ProductDetails product={data?.vtex.product} />
+  return <ProductDetails product={data.vtex.product} />
 }
 
-type Props = PageProps<
-  ProductPageQueryQuery,
-  {
-    slug?: string
-    staticPath: boolean
-  }
-> & {
-  slug?: string
-}
-
-const ProductPageSSR: FC<Props> = (props) => {
+const ProductPageContainer: FC<Props> = (props) => {
   const {
     pageContext: { staticPath },
   } = props
@@ -67,7 +64,7 @@ const ProductPageSSR: FC<Props> = (props) => {
 }
 
 export const query = graphql`
-  query ProductPageQuery($slug: String, $staticPath: Boolean = true) {
+  query ProductPageQuery($slug: String, $staticPath: Boolean!) {
     vtex {
       product(slug: $slug) @include(if: $staticPath) {
         ...ProductDetailsTemplate_product
@@ -81,4 +78,4 @@ export const query = graphql`
   }
 `
 
-export default ProductPageSSR
+export default ProductPageContainer

@@ -17,7 +17,7 @@ type Scalars = {
 // Operation related types
 export type ProductPageQueryQueryVariables = Exact<{
   slug: Maybe<Scalars['String']>
-  staticPath?: Maybe<Scalars['Boolean']>
+  staticPath: Scalars['Boolean']
 }>
 
 export type ProductPageQueryQuery = {
@@ -57,8 +57,9 @@ export type ProductPageQueryQuery = {
 // Query Related Code
 
 export const ProductPageQuery = {
-  query: undefined,
+  query:
+    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n          }\n        }\n        itemId\n      }\n      productId\n      description\n    }\n  }\n}\n',
   sha256Hash:
-    '4fd96b56ac02e4f2578b292c7ba9b7b42b4923589a3ed76c14283643b799435d',
+    '74ddc4a76d3d889619d2297732906aaed52317aa2ea5db935ce472a503621194',
   operationName: 'ProductPageQuery',
 }
