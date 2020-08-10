@@ -3,17 +3,17 @@ import { Helmet } from 'react-helmet'
 
 import { useCurrency } from '../../../providers/Currency'
 import { transform } from './structured'
-import { useAsyncProduct } from '../../../providers/Product'
+import { useAsyncProduct } from '../../../hooks/useAsyncProduct'
 
 interface Props {
-  productId: string
+  slug: string
 }
 
-const SEO: FC<Props> = ({ productId }) => {
+const SEO: FC<Props> = ({ slug }) => {
   const [currency] = useCurrency()
-  const { product } = useAsyncProduct({ productIds: [productId] })
+  const { product } = useAsyncProduct(slug)
   const structuredProduct = useMemo(
-    () => (product ? transform(product, currency) : ''),
+    () => (product ? transform(product as any, currency) : ''),
     [product, currency]
   )
 

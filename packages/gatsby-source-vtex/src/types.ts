@@ -284,16 +284,7 @@ export interface BrandFacet {
   quantity: number
 }
 
-export interface Facets {
-  Departments: Facet[]
-  brands: BrandFacet[]
-  SpecificationFilters: Record<string, Facet[]>
-  CategoriesTrees: CategoryTreeFacet[]
-}
-
 export interface Category {
-  products: Product[]
-  facets: Facets
   slug: string
   categoryId: number
   id: number

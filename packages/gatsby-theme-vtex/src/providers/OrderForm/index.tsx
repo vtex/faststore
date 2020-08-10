@@ -22,7 +22,7 @@ type OrderFormContext = {
   addItems: (items: OrderFormItem[]) => Promise<void>
 }
 
-const OrderForm = createContext<OrderFormContext | null>(null)
+export const OrderForm = createContext<OrderFormContext>(undefined as any)
 
 const OrderFormProvider: FC = ({ children }) => {
   const [orderForm, setOrderForm] = useState<OrderFormType | null>(() =>
@@ -72,18 +72,6 @@ const OrderFormProvider: FC = ({ children }) => {
       {children}
     </OrderForm.Provider>
   )
-}
-
-export const useOrderForm = (): OrderFormContext => {
-  const ctx = useContext(OrderForm)
-
-  if (!ctx) {
-    throw new Error(
-      'useOrderForm needs to have an OrderFormProvider previously in the React tree'
-    )
-  }
-
-  return ctx
 }
 
 export default OrderFormProvider

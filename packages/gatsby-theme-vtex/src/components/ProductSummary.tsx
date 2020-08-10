@@ -1,30 +1,27 @@
 /** @jsx jsx */
-import { Link } from 'gatsby'
-import { FC, Fragment } from 'react'
+import { graphql, Link } from 'gatsby'
+import { FC } from 'react'
 import { Card, Heading, jsx } from 'theme-ui'
 
-import { SyncProductItem } from '../types/product'
-import BuyButtonPreview from './BuyButton/Preview'
-import BuyButton from './BuyButton/Sync'
+import { ProductSummary_SyncProductFragment } from './__generated__/ProductSummary_syncProduct.graphql'
+import BuyButton from './BuyButton'
 import OfferPreview from './Offer/Preview'
 import SyncOffer from './Offer/Sync'
 import ProductImage from './ProductImage'
 
 interface Props {
-  syncProduct: SyncProductItem
+  product: ProductSummary_SyncProductFragment
+  loading?: 'lazy' | 'eager'
 }
 
-export const ProductSummary: FC<Props> = ({ syncProduct }) => {
-  const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
-  const offer = syncProduct.items?.[0]?.sellers?.[0]?.commertialOffer
+export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
+  const { linkText, items, productName } = product as any
+  const [{ imageUrl, imageText }] = items[0].images
+  const offer = items[0].sellers?.[0].commertialOffer
 
   return (
     <Link
-      to={
-        syncProduct.slug
-          ? syncProduct.slug
-          : `/${(syncProduct as any).linkText}/p`
-      }
+      to={`/${linkText}/p`}
       sx={{
         textDecoration: 'none',
         color: 'text',
@@ -42,23 +39,42 @@ export const ProductSummary: FC<Props> = ({ syncProduct }) => {
           height={300}
           src={imageUrl}
           alt={imageText}
-          loading="lazy" // lazy load images
+          loading={loading}
         />
         <Heading variant="summary.name" as="h3">
-          {syncProduct.productName.slice(0, 12)}
+          {productName.slice(0, 12)}
         </Heading>
         {!offer ? (
-          <Fragment>
-            <OfferPreview variant="summary" />
-            <BuyButtonPreview />
-          </Fragment>
+          <OfferPreview variant="summary" />
         ) : (
-          <Fragment>
-            <SyncOffer sku={syncProduct.items[0]} variant="summary" />
-            <BuyButton sku={syncProduct.items[0]} />
-          </Fragment>
+          <SyncOffer sku={items[0]} variant="summary" />
         )}
+        <BuyButton sku={items[0]} />
       </Card>
     </Link>
   )
 }
+
+export const fragment = graphql`
+  fragment ProductSummary_syncProduct on VTEX_Product {
+    productId
+    productName
+    description
+    linkText
+    items {
+      itemId
+      images {
+        imageUrl
+        imageText
+      }
+      sellers {
+        sellerId
+        commertialOffer {
+          AvailableQuantity
+          Price
+          ListPrice
+        }
+      }
+    }
+  }
+`

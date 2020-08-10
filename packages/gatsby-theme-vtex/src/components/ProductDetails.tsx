@@ -1,30 +1,29 @@
 /** @jsx jsx */
+import { graphql } from 'gatsby'
 import { FC, lazy } from 'react'
 import { Card, Grid, Heading, jsx } from 'theme-ui'
 
-import { SyncProduct } from '../types/product'
-import BuyButtonPreview from './BuyButton/Preview'
+import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductDetailsTemplate_product.graphql'
 import Container from './Container'
 import OfferPreview from './Offer/Preview'
 import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
 import SuspenseDelay from './SuspenseDelay'
-import SuspenseSSR from './SuspenseSSR'
+import BuyButton from './BuyButton'
 
-const BuyButton = lazy(() => import('./BuyButton/Async'))
 const AsyncOffer = lazy(() => import('./Offer/Async'))
 
 interface Props {
-  syncProduct: SyncProduct
+  product: ProductDetailsTemplate_ProductFragment
 }
 
-const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
-  const { productName, productId } = syncProduct
-  const { imageUrl, imageText } = syncProduct.items?.[0]?.images?.[0]
+const ProductDetailsTemplate: FC<Props> = ({ product }) => {
+  const { productName, linkText, items } = product as any
+  const { imageUrl, imageText } = items[0].images[0]
 
   return (
     <Container>
-      <SEO title={productName} productId={productId} />
+      <SEO title={productName} slug={linkText} />
       <Grid my={4} mx="auto" gap={[0, 3]} columns={[1, 2]}>
         <ProductImage
           width={500}
@@ -38,15 +37,33 @@ const ProductDetailsTemplate: FC<Props> = ({ syncProduct }) => {
             {productName}
           </Heading>
           <SuspenseDelay fallback={<OfferPreview variant="detail" />}>
-            <AsyncOffer productId={productId} variant="detail" />
+            <AsyncOffer slug={linkText} variant="detail" />
           </SuspenseDelay>
-          <SuspenseSSR fallback={<BuyButtonPreview />}>
-            <BuyButton productId={productId} />
-          </SuspenseSSR>
+          <BuyButton sku={items[0] as any} />
         </Card>
       </Grid>
     </Container>
   )
 }
+
+export const query = graphql`
+  fragment ProductDetailsTemplate_product on VTEX_Product {
+    productName
+    linkText
+    items {
+      images {
+        imageUrl
+        imageText
+      }
+      sellers {
+        sellerId
+        commertialOffer {
+          AvailableQuantity
+          Price
+        }
+      }
+    }
+  }
+`
 
 export default ProductDetailsTemplate
