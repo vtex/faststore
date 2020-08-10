@@ -12,6 +12,3 @@ packages/gatsby-*/**/*.jsx
 
 # declaration files
 packages/gatsby-*/**/*.d.ts
-
-# Autogen .graphql.ts files
-**/*.graphql.ts
