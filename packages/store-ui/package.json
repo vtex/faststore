@@ -27,11 +27,11 @@
   "dependencies": {
     "@theme-ui/preset-base": "^0.3.0",
     "gatsby-link": "^2.4.13",
-    "reakit": "^1.1.2",
-    "theme-ui": "^0.3.1"
+    "reakit": "^1.1.2"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.0.0",
+    "theme-ui": "^0.3.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.19",
@@ -46,7 +46,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "theme-ui": "^0.3.1",
     "ts-loader": "^8.0.1",
     "tsdx": "^0.13.2",
     "typescript": "^3.9.6"

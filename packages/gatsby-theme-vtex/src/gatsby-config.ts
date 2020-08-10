@@ -37,7 +37,7 @@ module.exports = ({ title, description }: Options) => {
     },
     plugins: [
       {
-        resolve: require.resolve('gatsby-plugin-theme-ui'),
+        resolve: require.resolve(`gatsby-plugin-theme-ui`),
       },
       {
         resolve: require.resolve('gatsby-plugin-react-helmet'),
