@@ -11,7 +11,7 @@ import ProductImage from './ProductImage'
 
 interface Props {
   product: ProductSummary_SyncProductFragment
-  loading?: 'lazy' | 'eager' // lazy load images
+  loading?: 'lazy' | 'eager'
 }
 
 export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {

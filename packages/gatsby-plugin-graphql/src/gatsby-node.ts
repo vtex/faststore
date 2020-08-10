@@ -4,18 +4,6 @@ import { parse, printSchema } from 'graphql'
 
 import { WebpackPlugin } from './webpack'
 
-// TODO: We should uncomment this when gatsby allows
-// plugins to hook into the babel step before it
-// removes all queries
-// export const onCreateBabelConfig = ({
-//   actions: { setBabelPlugin },
-// }: CreateBabelConfigArgs) => {
-//   setBabelPlugin({
-//     name: require.resolve('./babel'),
-//     options: {},
-//   })
-// }
-
 export const onCreateWebpackConfig = async ({
   actions: { setWebpackConfig },
   store,

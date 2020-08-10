@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { NodePath, Visitor } from '@babel/traverse'
 import BabelTypes from '@babel/types'
 

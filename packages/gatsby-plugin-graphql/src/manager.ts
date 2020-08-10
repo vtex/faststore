@@ -1,5 +1,4 @@
 /* eslint-disable max-params */
-/* eslint-disable @typescript-eslint/naming-convention */
 import assert from 'assert'
 import { createHash } from 'crypto'
 
