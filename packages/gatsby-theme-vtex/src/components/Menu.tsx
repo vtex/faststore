@@ -1,6 +1,6 @@
 import { Link } from 'gatsby'
 import React, { FC } from 'react'
-import { Flex } from 'theme-ui'
+import { Flex } from '@vtex/store-ui'
 
 const Menu: FC = () => (
   <Flex as="nav" variant="header-menu">

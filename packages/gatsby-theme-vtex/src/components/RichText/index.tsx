@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { jsx } from 'theme-ui'
+import { jsx } from '@vtex/store-ui'
 
 interface Props {
   text: string

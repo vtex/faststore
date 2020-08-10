@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { graphql, Link } from 'gatsby'
 import { FC } from 'react'
-import { Card, Heading, jsx } from 'theme-ui'
+import { Card, Heading, jsx } from '@vtex/store-ui'
 
 import { ProductSummary_SyncProductFragment } from './__generated__/ProductSummary_syncProduct.graphql'
 import BuyButton from './BuyButton'

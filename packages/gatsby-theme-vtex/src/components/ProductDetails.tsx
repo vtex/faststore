@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { graphql } from 'gatsby'
 import { FC, lazy } from 'react'
-import { Card, Grid, Heading, jsx } from 'theme-ui'
+import { Card, Grid, Heading, jsx } from '@vtex/store-ui'
 
 import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductDetailsTemplate_product.graphql'
 import Container from './Container'

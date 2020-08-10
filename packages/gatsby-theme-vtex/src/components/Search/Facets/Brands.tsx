@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
-import { Checkbox, Label, jsx } from 'theme-ui'
+import { Checkbox, Label, jsx } from '@vtex/store-ui'
 import { Link } from 'gatsby'
 
 interface Brands {

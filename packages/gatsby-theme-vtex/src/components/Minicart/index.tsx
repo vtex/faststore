@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC, Fragment, lazy, Suspense, useState, useEffect } from 'react'
-import { Box, Button, jsx } from 'theme-ui'
+import { Box, Button, jsx } from '@vtex/store-ui'
 
 import SuspenseSSR from '../SuspenseSSR'
 import MinicartSvg from './Svg'
