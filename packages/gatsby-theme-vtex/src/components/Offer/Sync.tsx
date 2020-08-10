@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, Flex } from 'theme-ui'
+import { Box, Flex } from '@vtex/store-ui'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 import DiscountPercentage from './DiscountPercentage'

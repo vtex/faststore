@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box } from 'theme-ui'
+import { Box } from '@vtex/store-ui'
 
 import { useNumberFormat } from '../../providers/NumberFormat'
 

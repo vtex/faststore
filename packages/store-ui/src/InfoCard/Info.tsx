@@ -6,7 +6,7 @@ interface Props {
   description?: string
 }
 
-const CardInfo: FC<Props> = ({ title, description, children }) => (
+const InfoCardInfo: FC<Props> = ({ title, description, children }) => (
   <Flex variant="card.info">
     {title && <Heading variant="card.info.title">{title}</Heading>}
     {description && <Text variant="card.info.description">{description}</Text>}
@@ -14,4 +14,4 @@ const CardInfo: FC<Props> = ({ title, description, children }) => (
   </Flex>
 )
 
-export default CardInfo
+export default InfoCardInfo

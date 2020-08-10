@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { Box, jsx } from 'theme-ui'
+import { Box, jsx } from '@vtex/store-ui'
 
 const Container: FC = ({ children }) => (
   <Box

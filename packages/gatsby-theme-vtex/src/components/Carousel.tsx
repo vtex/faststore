@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC, useState } from 'react'
-import { Box, Button, jsx, Image } from 'theme-ui'
+import { Box, Button, jsx, Image } from '@vtex/store-ui'
 
 interface Item {
   src: string

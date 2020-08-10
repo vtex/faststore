@@ -7,7 +7,7 @@ interface Props {
   label: string
 }
 
-const CardInfoAction: FC<Props> = ({ href, label }) => {
+const InfoCardInfoAction: FC<Props> = ({ href, label }) => {
   const props = {
     as: Link,
     to: href,
@@ -17,4 +17,4 @@ const CardInfoAction: FC<Props> = ({ href, label }) => {
   return <Button {...props}>{label}</Button>
 }
 
-export default CardInfoAction
+export default InfoCardInfoAction

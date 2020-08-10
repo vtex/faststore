@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { graphql, PageProps } from 'gatsby'
 import { FC, useEffect, lazy } from 'react'
-import { jsx } from 'theme-ui'
+import { jsx } from '@vtex/store-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'

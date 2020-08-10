@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Flex, Grid, Button, Box, Heading } from 'theme-ui'
+import { Flex, Grid, Button, Box, Heading } from '@vtex/store-ui'
 import { useResponsiveValue } from '@theme-ui/match-media'
 
 import { ProductSummary } from '../ProductSummary'

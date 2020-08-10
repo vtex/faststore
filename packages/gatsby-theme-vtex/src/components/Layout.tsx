@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
-import { Box, jsx } from 'theme-ui'
+import { Box, jsx } from '@vtex/store-ui'
 
 import Container from './Container'
 import Footer from './Footer'

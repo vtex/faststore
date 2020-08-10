@@ -27,11 +27,11 @@
   "dependencies": {
     "@theme-ui/preset-base": "^0.3.0",
     "gatsby-link": "^2.4.13",
-    "reakit": "^1.1.2"
+    "reakit": "^1.1.2",
+    "theme-ui": "^0.3.1"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "theme-ui": "^0.3.1"
+    "react": "^16.0.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.19",

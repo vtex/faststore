@@ -8,7 +8,7 @@ interface Props {
   src: string
 }
 
-const CardImage: FC<Props> = ({ alt, src, href }) => {
+const InfoCardImage: FC<Props> = ({ alt, src, href }) => {
   const linkProps = {
     as: Link,
     to: href,
@@ -29,4 +29,4 @@ const CardImage: FC<Props> = ({ alt, src, href }) => {
   )
 }
 
-export default CardImage
+export default InfoCardImage
