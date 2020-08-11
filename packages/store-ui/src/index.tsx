@@ -8,6 +8,9 @@
 export * from 'theme-ui'
 // Merge Theme
 export * from './createTheme'
+// Header
+export * from './Header'
+export * from './Header/Logo'
 export { default as headerTheme } from './Header/theme'
 // InfoCard
 export { default as InfoCard } from './InfoCard'

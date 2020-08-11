@@ -6,8 +6,8 @@ interface Props {
   variant?: string
 }
 
-const NotificationBar: FC<Props> = ({ text, variant = 'notification-bar' }) => (
+const StoreHeaderNotificationBar: FC<Props> = ({ text, variant }) => (
   <Box variant={variant}>{text}</Box>
 )
 
-export default NotificationBar
+export default StoreHeaderNotificationBar
