@@ -1,6 +1,6 @@
 import { Image } from '@vtex/gatsby-source-vtex'
 import React, { FC } from 'react'
-import { AspectImage } from 'theme-ui'
+import { AspectImage } from '@vtex/store-ui'
 
 import { IMAGE_DEFAULT, scaleImage } from '../utils/img'
 

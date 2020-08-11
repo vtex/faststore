@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
-import { Flex, Heading, jsx } from 'theme-ui'
+import { Flex, Heading, jsx } from '@vtex/store-ui'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import Container from '../Container'
@@ -57,7 +57,7 @@ const SearchTemplate: FC<Props> = ({ search }) => (
             minWidth: 300,
           }}
         >
-          <PageList />
+          <PageList initialData={search} />
         </div>
       </div>
     </Flex>

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { Button, jsx } from 'theme-ui'
+import { Button, jsx } from '@vtex/store-ui'
 
 import { useBestSeller } from '../hooks/useBestSeller'
 import { useOrderForm } from '../hooks/useOrderForm'

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
-import { jsx, Box } from 'theme-ui'
+import { jsx, Box } from '@vtex/store-ui'
 
 interface Node {
   link: string

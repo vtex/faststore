@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { Flex, jsx } from 'theme-ui'
+import { Flex, jsx } from '@vtex/store-ui'
 
 import Logo from './Logo'
 import Search from './SearchBar'

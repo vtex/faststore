@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Flex } from 'theme-ui'
+import { Flex } from '@vtex/store-ui'
 
 interface Props {
   offer: {

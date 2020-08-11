@@ -1,6 +1,6 @@
 import Drawer from '@vtex-components/drawer'
 import React, { FC } from 'react'
-import { Box, Button, Flex, Heading, Text } from 'theme-ui'
+import { Box, Button, Flex, Heading, Text } from '@vtex/store-ui'
 
 import { useOrderForm } from '../../hooks/useOrderForm'
 import { useCurrency } from '../../providers/Currency'
