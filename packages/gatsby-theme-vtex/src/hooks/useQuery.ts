@@ -23,7 +23,7 @@ export const useQuery = <Query extends any = any, Variables extends any = any>(
       })
 
       if (errors?.length > 0) {
-        throw errors
+        throw errors[0]
       }
 
       return data

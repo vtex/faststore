@@ -36,7 +36,7 @@ export const useQueryInfinite = <
       })
 
       if (errors?.length) {
-        throw errors
+        throw errors[0]
       }
 
       return data

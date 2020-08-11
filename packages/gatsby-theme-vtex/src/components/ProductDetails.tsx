@@ -19,7 +19,8 @@ interface Props {
 
 const ProductDetailsTemplate: FC<Props> = ({ product }) => {
   const { productName, linkText, items } = product as any
-  const { imageUrl, imageText } = items[0].images[0]
+  const [{ images }] = items
+  const [{ imageUrl, imageText }] = images
 
   return (
     <Container>
