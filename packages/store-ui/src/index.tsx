@@ -1,9 +1,21 @@
+/**
+ * VTEX Store Components
+ *
+ * Components to create a store with default layout
+ */
+
+// All components and styles from Theme UI
+export * from 'theme-ui'
+// Merge Theme
+export * from './createTheme'
+export { default as headerTheme } from './Header/theme'
+// InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'
 export { default as InfoCardInfo } from './InfoCard/Info'
 export { default as InfoCardInfoAction } from './InfoCard/InfoAction'
 export { default as infoCardTheme } from './InfoCard/theme'
-export { default as baseTheme } from './theme'
+// RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
-export * from '@theme-ui/components'
-export * from 'theme-ui'
+// Base Theme
+export { default as baseTheme } from './theme'
