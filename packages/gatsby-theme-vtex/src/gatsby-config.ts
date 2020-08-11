@@ -16,6 +16,7 @@ export interface Options {
 
 const tenant = process.env.GATSBY_VTEX_TENANT as string
 const environment = process.env.GATSBY_VTEX_ENVIRONMENT as Environment
+const workspace = process.env.GATSBY_VTEX_IO_WORKSPACE as string
 
 module.exports = ({ title, description }: Options) => {
   assert(
@@ -25,6 +26,10 @@ module.exports = ({ title, description }: Options) => {
   assert(
     environment,
     `Environment not found in gatsby-theme-vtex. Do you have a vtex.env configuration file ?`
+  )
+  assert(
+    workspace,
+    `Workspace not found in gatsby-theme-vtex. Do you have a vtex.env configuration file ?`
   )
 
   return {
@@ -84,7 +89,7 @@ module.exports = ({ title, description }: Options) => {
       },
       {
         prefix: '/graphql',
-        url: `https://${tenant}.myvtex.com`,
+        url: `https://${workspace}--${tenant}.myvtex.com`,
       },
     ],
   }

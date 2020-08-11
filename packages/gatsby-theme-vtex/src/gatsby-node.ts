@@ -9,6 +9,7 @@ const root = process.cwd()
 
 const tenant = process.env.GATSBY_VTEX_TENANT as string
 const environment = process.env.GATSBY_VTEX_ENVIRONMENT as Environment
+const workspace = process.env.GATSBY_VTEX_IO_WORKSPACE as string
 
 const getRoute = (path: string) => {
   const splitted = path.split('/')
@@ -40,7 +41,7 @@ export const createPages = async (
 
   createRedirect({
     fromPath: '/graphql/*',
-    toPath: `https://${tenant}.myvtex.com/graphql/:splat`,
+    toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
     statusCode: 200,
   })
 
