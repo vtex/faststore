@@ -4,7 +4,6 @@ import { Flex, Heading, jsx } from '@vtex/store-ui'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import Container from '../Container'
-import BrandSelector from './Facets/Brands'
 import CategoryTreeSelector from './Facets/CategoryTree'
 import PageList from './PageList'
 
@@ -40,12 +39,6 @@ const SearchTemplate: FC<Props> = ({ search }) => (
               <CategoryTreeSelector
                 tree={search.vtex.facets!.categoriesTrees[0] as any}
               />
-              <hr />
-            </Fragment>
-          ) : null}
-          {search.vtex.facets!.brands ? (
-            <Fragment>
-              <BrandSelector brands={search.vtex.facets!.brands as any} />
               <hr />
             </Fragment>
           ) : null}
