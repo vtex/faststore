@@ -5,6 +5,7 @@
  * This is necessary to avoid webpack to enter in an infinite loop
  */
 import { createHash } from 'crypto'
+
 import { outputFile as fsExtraOutputFile } from 'fs-extra'
 
 const filesMap = new Map<string, string>()

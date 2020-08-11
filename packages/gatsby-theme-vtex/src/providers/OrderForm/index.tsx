@@ -7,7 +7,6 @@ import React, {
   createContext,
   FC,
   useCallback,
-  useContext,
   useEffect,
   useState,
 } from 'react'

@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import { ArrayItem, Maybe } from '../typings'
 
 interface Seller {
