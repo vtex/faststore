@@ -8,7 +8,7 @@ export const overmenuTheme = {
     minHeight: '48px',
     color: 'muted',
     fontSize: 1,
-    px: [0, 2, 4],
+    px: [1, 2, 3],
 
     a: {
       mx: '24px',

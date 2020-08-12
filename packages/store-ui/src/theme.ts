@@ -1,7 +1,8 @@
 import base from '@theme-ui/preset-base'
 
-const theme = {
-  ...base,
+import { createTheme } from './createTheme'
+
+const customBase = {
   colors: {
     text: '#3f3f40',
     textMuted: '#979899',
@@ -10,6 +11,14 @@ const theme = {
     primary: '#0f3e99',
     muted: '#f0f0f0',
   },
+  sizes: {
+    container: '96rem',
+  },
+  layout: {
+    container: {
+      px: [1, 2, 3],
+    },
+  },
 }
 
-export default theme
+export const baseTheme = createTheme(base, customBase)
