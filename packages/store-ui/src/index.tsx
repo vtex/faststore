@@ -26,7 +26,13 @@ export * from './Minicart/Content'
 export * from './Minicart/Drawer'
 export * from './Minicart/Svg'
 export * from './Minicart/theme'
+// Search Filters
+export { default as FilterGroup } from './Filter/Group'
+export { default as FilterSelector } from './Filter/Selector'
+export { default as FilterSelectorItem } from './Filter/Selector/Item'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
 // Base Theme
 export * from './theme'
+export * from '@theme-ui/components'
+export * from 'theme-ui'

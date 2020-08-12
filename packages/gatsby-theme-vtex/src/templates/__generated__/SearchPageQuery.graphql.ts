@@ -67,25 +67,18 @@ export type SearchPageQueryQuery = {
       >
     }>
     facets: Maybe<{
-      brands: Maybe<
+      facets: Maybe<
         Array<
           Maybe<{
-            value: string
-            quantity: number
-            selected: boolean
-            linkEncoded: string
-          }>
-        >
-      >
-      categoriesTrees: Maybe<
-        Array<
-          Maybe<{
-            link: string
             name: Maybe<string>
-            quantity: number
-            children: Maybe<
+            values: Maybe<
               Array<
-                Maybe<{ link: string; name: Maybe<string>; quantity: number }>
+                Maybe<{
+                  name: Maybe<string>
+                  selected: Maybe<boolean>
+                  quantity: number
+                  to: Maybe<string>
+                }>
               >
             >
           }>
@@ -99,8 +92,8 @@ export type SearchPageQueryQuery = {
 
 export const SearchPageQuery = {
   query:
-    'query SearchPageQuery($query: String, $map: String, $staticPath: Boolean!) {\n  vtex {\n    productSearch(query: $query, map: $map, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      breadcrumb {\n        href\n        name\n      }\n      titleTag\n    }\n    facets(query: $query, map: $map) @include(if: $staticPath) {\n      brands {\n        value\n        quantity\n        selected\n        linkEncoded\n      }\n      categoriesTrees {\n        link\n        name\n        quantity\n        children {\n          link\n          name\n          quantity\n        }\n      }\n    }\n  }\n}\n',
+    'query SearchPageQuery($query: String, $map: String, $staticPath: Boolean!) {\n  vtex {\n    productSearch(query: $query, map: $map, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      breadcrumb {\n        href\n        name\n      }\n      titleTag\n    }\n    facets(query: $query, map: $map) @include(if: $staticPath) {\n      facets {\n        name\n        values {\n          to: linkEncoded\n          name\n          selected\n          quantity\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'c64a8a6e000dc5a2fd15c99c83255701add4eeed59881347f58dd40589b59641',
+    '6d291ea9fee74116fc07d143e31ced53ad4a5fe4aeb11aae5410e0e875888a2e',
   operationName: 'SearchPageQuery',
 }
