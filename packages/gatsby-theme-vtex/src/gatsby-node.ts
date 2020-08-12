@@ -45,6 +45,12 @@ export const createPages = async ({
   })
 
   createRedirect({
+    fromPath: '/_secure/account/*',
+    toPath: `https://${tenant}.${environment}.com.br/_secure/account/:splat`,
+    statusCode: 200,
+  })
+
+  createRedirect({
     fromPath: '/admin/login/*',
     toPath: `https://${tenant}.${environment}.com.br/admin/login/?portal=true&ReturnUrl=/admin/site/Login.aspx?ReturnUrl=%2f_secure%2faccount%2f`,
     statusCode: 200,
