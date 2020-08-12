@@ -4,12 +4,12 @@ import { FC, lazy } from 'react'
 import { Card, Grid, Heading, jsx } from '@vtex/store-ui'
 
 import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductDetailsTemplate_product.graphql'
-import Container from './Container'
 import OfferPreview from './Offer/Preview'
 import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
 import SuspenseDelay from './SuspenseDelay'
 import BuyButton from './BuyButton'
+import Container from './Container'
 
 const AsyncOffer = lazy(() => import('./Offer/Async'))
 
