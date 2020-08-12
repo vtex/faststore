@@ -82,19 +82,12 @@ export const query = graphql`
         titleTag
       }
       facets(query: $query, map: $map) @include(if: $staticPath) {
-        brands {
-          value
-          quantity
-          selected
-          linkEncoded
-        }
-        categoriesTrees {
-          link
+        facets {
           name
-          quantity
-          children {
-            link
+          values {
+            to: linkEncoded
             name
+            selected
             quantity
           }
         }

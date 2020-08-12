@@ -22,3 +22,8 @@ export { default as infoCardTheme } from './InfoCard/theme'
 export { default as RichMarkdown } from './RichMarkdown'
 // Base Theme
 export { default as baseTheme } from './theme'
+export { default as FilterGroup } from './Filter/Group'
+export { default as FilterSelector } from './Filter/Selector'
+export { default as FilterSelectorItem } from './Filter/Selector/Item'
+export * from '@theme-ui/components'
+export * from 'theme-ui'
