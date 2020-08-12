@@ -67,7 +67,7 @@ export type SearchPageQueryQuery = {
       >
     }>
     facets: Maybe<{
-      facets: Maybe<
+      specificationFilters: Maybe<
         Array<
           Maybe<{
             name: Maybe<string>
@@ -75,9 +75,39 @@ export type SearchPageQueryQuery = {
               Array<
                 Maybe<{
                   name: Maybe<string>
-                  selected: Maybe<boolean>
+                  selected: boolean
                   quantity: number
-                  to: Maybe<string>
+                  to: string
+                }>
+              >
+            >
+          }>
+        >
+      >
+      brands: Maybe<
+        Array<
+          Maybe<{
+            name: string
+            selected: boolean
+            quantity: number
+            to: string
+          }>
+        >
+      >
+      categoriesTrees: Maybe<
+        Array<
+          Maybe<{
+            name: Maybe<string>
+            quantity: number
+            selected: boolean
+            to: string
+            values: Maybe<
+              Array<
+                Maybe<{
+                  name: Maybe<string>
+                  quantity: number
+                  selected: boolean
+                  to: string
                 }>
               >
             >
@@ -92,8 +122,8 @@ export type SearchPageQueryQuery = {
 
 export const SearchPageQuery = {
   query:
-    'query SearchPageQuery($query: String, $map: String, $staticPath: Boolean!) {\n  vtex {\n    productSearch(query: $query, map: $map, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      breadcrumb {\n        href\n        name\n      }\n      titleTag\n    }\n    facets(query: $query, map: $map) @include(if: $staticPath) {\n      facets {\n        name\n        values {\n          to: linkEncoded\n          name\n          selected\n          quantity\n        }\n      }\n    }\n  }\n}\n',
+    'query SearchPageQuery($query: String, $map: String, $staticPath: Boolean!) {\n  vtex {\n    productSearch(query: $query, map: $map, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      breadcrumb {\n        href\n        name\n      }\n      titleTag\n    }\n    facets(query: $query, map: $map) @include(if: $staticPath) {\n      specificationFilters {\n        name\n        values: facets {\n          to: linkEncoded\n          name\n          selected\n          quantity\n        }\n      }\n      brands {\n        to: linkEncoded\n        name\n        selected\n        quantity\n      }\n      categoriesTrees {\n        name\n        quantity\n        selected\n        to: linkEncoded\n        values: children {\n          name\n          quantity\n          selected\n          to: linkEncoded\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '6d291ea9fee74116fc07d143e31ced53ad4a5fe4aeb11aae5410e0e875888a2e',
+    '585b7246ca0a1f8a6e5b79c3fafaf337ea781a66538b330f2d1392e337d59837',
   operationName: 'SearchPageQuery',
 }

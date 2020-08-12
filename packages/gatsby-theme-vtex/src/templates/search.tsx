@@ -82,13 +82,31 @@ export const query = graphql`
         titleTag
       }
       facets(query: $query, map: $map) @include(if: $staticPath) {
-        facets {
+        specificationFilters {
           name
-          values {
+          values: facets {
             to: linkEncoded
             name
             selected
             quantity
+          }
+        }
+        brands {
+          to: linkEncoded
+          name
+          selected
+          quantity
+        }
+        categoriesTrees {
+          name
+          quantity
+          selected
+          to: linkEncoded
+          values: children {
+            name
+            quantity
+            selected
+            to: linkEncoded
           }
         }
       }
