@@ -1,10 +1,12 @@
-const CardTheme = {
+import { SxStyleProp } from 'theme-ui'
+
+const CardTheme: SxStyleProp = {
   card: {
     margin: '0 auto',
     width: '100%',
     maxWidth: ['100%', '100%', '96rem'],
     maxHeight: '540px',
-    background: '#e0efe0',
+    bg: '#e0efe0',
     flexWrap: 'wrap',
 
     image: {

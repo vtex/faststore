@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import { HeaderLogo } from '@vtex/store-ui'
+import { Logo } from '@vtex/store-ui'
 
-const StoreHeaderLogo: FC<{ variant?: string }> = ({ variant }) => (
-  <HeaderLogo
+const CustomLogo: FC<{ variant?: string }> = ({ variant }) => (
+  <Logo
     variant={variant}
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApQAAAAsCAMAAADsF9g/AAAABGdBTUEAALGPC/xhBQAAACBjSFJN
   AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAZlBMVEUAAAA4OEA8PEA9PUA9
@@ -51,4 +51,4 @@ const StoreHeaderLogo: FC<{ variant?: string }> = ({ variant }) => (
   />
 )
 
-export default StoreHeaderLogo
+export default CustomLogo

@@ -4,7 +4,7 @@ export const overmenuTheme = {
     alignItems: 'center',
     justifyContent: 'space-between',
     textDecoration: 'none',
-    background: '#02003d',
+    bg: '#02003d',
     minHeight: '48px',
     color: 'muted',
     fontSize: 1,

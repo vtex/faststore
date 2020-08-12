@@ -4084,6 +4084,11 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.1.3.tgz#fbe460bc02169ec3f164646818ae959b4cecb275"
   integrity sha512-sxvJ7DbanPrlb64sziThUKz9OpEUMXR8yJUS6nSElXAR2KZPW+wYYSiyEFRHwzTmen3Bu717nI2LGDUSfFLp1w==
 
+"@vtex-components/drawer@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.1.tgz#90ad5ca2327434c0855cebb76ccd4991a3b877a1"
+  integrity sha512-q6CpbzuPKg8fJN6BmrmSlBiR/W0M9+7lj416+lQDZVsIgBuveAn6gBvIRbyOrdD/bnDg1h4ErHQGUmHCb1inUg==
+
 "@vtex/prettier-config@^0.3.0":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.1.tgz#c376999e826827aa11f4b0e08af9cf59ae9ee476"

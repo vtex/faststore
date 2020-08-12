@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
-
-import { Flex } from '../index'
+import { Flex } from 'theme-ui'
 
 export interface HeaderProps {
   variant?: string

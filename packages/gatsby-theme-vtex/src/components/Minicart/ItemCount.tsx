@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box } from '@vtex/store-ui'
 
-import { useOrderForm } from '../../../hooks/useOrderForm'
+import { useOrderForm } from '../../hooks/useOrderForm'
 
 const ItemCount: FC<{ variant?: string }> = ({ variant }) => {
   const orderForm = useOrderForm()

@@ -1,9 +1,8 @@
 import { Link } from 'gatsby'
 import React, { FC } from 'react'
+import { Flex } from 'theme-ui'
 
-import { Flex } from '../index'
-
-export interface HeaderLogoProps {
+export interface LogoProps {
   variant?: string
   href?: string
   src: string
@@ -12,7 +11,7 @@ export interface HeaderLogoProps {
   viewBox?: string
 }
 
-export const HeaderLogo: FC<HeaderLogoProps> = ({
+export const Logo: FC<LogoProps> = ({
   variant,
   href = '/',
   src,
