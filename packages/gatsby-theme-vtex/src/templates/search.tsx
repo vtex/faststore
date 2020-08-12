@@ -6,8 +6,9 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
-import SEO from '../components/SEO/siteMetadata'
-import { useQuery, useSearchFilters, SearchFiltersProvider } from '../sdk'
+import { useQuery } from '../sdk/graphql/useQuery'
+import { useSearchFilters } from '../sdk/search/useSearchFilters'
+import { SearchFiltersProvider } from '../sdk/search/FiltersProvider'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
@@ -21,7 +22,6 @@ const SearchPage: FC<Props> = ({
   pageContext: { staticPath },
 }) => {
   const filters = useSearchFilters()
-
   const { data } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
@@ -36,22 +36,17 @@ const SearchPage: FC<Props> = ({
     return <div>Not Found</div>
   }
 
-  return (
-    <>
-      <SEO title={data.vtex.productSearch!.titleTag!} />
-      <SearchTemplate search={data} />
-    </>
-  )
+  return <SearchTemplate data={data} />
 }
 
 const SearchPageContainer: FC<Props> = (props) => {
   const {
-    pageContext: { query, map, staticPath },
+    pageContext: { query, map, orderBy, staticPath },
   } = props
 
   return (
     <Layout>
-      <SearchFiltersProvider filters={{ query, map }}>
+      <SearchFiltersProvider filters={{ query, map, orderBy }}>
         <HybridWrapper
           isPrerendered={staticPath}
           fallback={<div>loading...</div>}
@@ -66,10 +61,20 @@ const SearchPageContainer: FC<Props> = (props) => {
 }
 
 export const query = graphql`
-  query SearchPageQuery($query: String, $map: String, $staticPath: Boolean!) {
+  query SearchPageQuery(
+    $query: String
+    $map: String
+    $staticPath: Boolean!
+    $orderBy: String = "OrderByScoreDESC"
+  ) {
     vtex {
-      productSearch(query: $query, map: $map, from: 0, to: 9)
-        @include(if: $staticPath) {
+      productSearch(
+        orderBy: $orderBy
+        query: $query
+        map: $map
+        from: 0
+        to: 9
+      ) @include(if: $staticPath) {
         products {
           ...ProductSummary_syncProduct
         }
@@ -78,22 +83,35 @@ export const query = graphql`
           name
         }
         titleTag
+        recordsFiltered
       }
-      facets(query: $query, map: $map) @include(if: $staticPath) {
+      facets(query: $query, map: $map, operator: or, behavior: "Dynamic")
+        @include(if: $staticPath) {
+        specificationFilters {
+          name
+          values: facets {
+            to: linkEncoded
+            name
+            selected
+            quantity
+          }
+        }
         brands {
-          value
-          quantity
+          to: linkEncoded
+          name
           selected
-          linkEncoded
+          quantity
         }
         categoriesTrees {
-          link
           name
           quantity
-          children {
-            link
+          selected
+          to: linkEncoded
+          values: children {
             name
             quantity
+            selected
+            to: linkEncoded
           }
         }
       }

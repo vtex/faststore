@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import 'requestidlecallback-polyfill'
 
 // Webpack + TS magic to make this work
-const { OrderFormProvider } = require('./src/sdk')
+const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
 
 export const replaceHydrateFunction = () => (
   element: ElementType,

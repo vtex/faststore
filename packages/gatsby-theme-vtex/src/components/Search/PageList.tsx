@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { gql } from '@vtex/gatsby-plugin-graphql'
-import React, { FC, Fragment, useCallback } from 'react'
 import { Button, Grid } from '@vtex/store-ui'
+import React, { FC, Fragment, useCallback } from 'react'
 
-import { useQueryInfinite, useSearchFilters } from '../../sdk'
+import { useQueryInfinite } from '../../sdk/graphql/useQueryInfinite'
+import { useSearchFilters } from '../../sdk/search/useSearchFilters'
 import {
   SearchQuery,
   SearchQueryQuery,
@@ -76,7 +77,7 @@ const List: FC<Props> = ({ initialData }) => {
 
   return (
     <Fragment>
-      <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
+      <Grid my={4} gap={3} columns={[2, 2, 3, 5]}>
         {data.slice(0, viewSize).map((searchQuery, index) => (
           <Page
             key={`summary-page-${index}`}
@@ -98,9 +99,21 @@ const List: FC<Props> = ({ initialData }) => {
 }
 
 export const query = gql`
-  query SearchQuery($query: String, $map: String, $from: Int, $to: Int) {
+  query SearchQuery(
+    $query: String
+    $map: String
+    $from: Int
+    $to: Int
+    $orderBy: String
+  ) {
     vtex {
-      productSearch(query: $query, map: $map, from: $from, to: $to) {
+      productSearch(
+        query: $query
+        map: $map
+        from: $from
+        to: $to
+        orderBy: $orderBy
+      ) {
         products {
           ...ProductSummary_syncProduct
         }
