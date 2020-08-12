@@ -21,13 +21,13 @@ const FilterGroup: FC<Props> = ({
   renderIcon = (isActive) => <GroupCollapsibleIcon isActive={isActive} />,
 }) => {
   return (
-    <Accordion prefix={variant} mode="multiOpen" renderIcon={renderIcon as any}>
+    <Accordion
+      variant={variant}
+      mode="multiOpen"
+      renderIcon={renderIcon as any}
+    >
       {filters.map((filter) => (
-        <Accordion.Section
-          key={filter.name}
-          header={filter.name}
-          prefix={variant}
-        >
+        <Accordion.Section key={filter.name} header={filter.name} isActive>
           <FilterSelector
             name={filter.name}
             values={filter.values}
