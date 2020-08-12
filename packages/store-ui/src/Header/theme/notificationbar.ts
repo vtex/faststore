@@ -4,7 +4,7 @@ export const notificationbarTheme = {
     alignItems: 'center',
     textDecoration: 'underline',
     justifyContent: 'center',
-    background: '#e0efe0',
+    bg: '#e0efe0',
     color: 'textBold',
     minHeight: '48px',
     fontWeight: 'bold',

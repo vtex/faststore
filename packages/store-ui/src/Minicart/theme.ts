@@ -1,12 +1,14 @@
-export const minicartTheme = {
+import { SxStyleProp } from 'theme-ui'
+
+export const minicartTheme: SxStyleProp = {
   minicart: {
-    background: '#f0f0f0',
+    bg: '#f0f0f0',
     position: 'relative',
     marginLeft: 2,
     cursor: 'pointer',
 
     badge: {
-      background: '#f71963',
+      bg: '#f71963',
       borderRadius: '100%',
       height: 16,
       position: 'absolute',
@@ -17,9 +19,13 @@ export const minicartTheme = {
     },
 
     drawer: {
-      height: '100%',
-      flexDirection: 'column',
-      overflow: 'hidden',
+      container: {
+        display: 'flex',
+        bg: 'background',
+        height: '100%',
+        flexDirection: 'column',
+        overflow: 'hidden',
+      },
 
       header: {
         p: 3,
@@ -34,29 +40,29 @@ export const minicartTheme = {
         flex: 1,
         overflow: 'auto',
         px: 3,
-      },
 
-      product: {
-        py: 3,
-        borderBottomWidth: 1,
-        borderBottomStyle: 'solid',
-        borderBottomColor: 'muted',
+        product: {
+          py: 3,
+          borderBottomWidth: 1,
+          borderBottomStyle: 'solid',
+          borderBottomColor: 'muted',
 
-        '&:last-child': {
-          borderWidth: 0,
-        },
+          '&:last-child': {
+            borderWidth: 0,
+          },
 
-        image: {
-          height: 96,
-          width: 96,
-        },
+          image: {
+            height: 96,
+            width: 96,
+          },
 
-        name: {
-          flexDirection: 'column',
-          ml: 3,
+          name: {
+            flexDirection: 'column',
+            ml: 3,
 
-          value: {
-            mt: 3,
+            value: {
+              mt: 3,
+            },
           },
         },
       },

@@ -1,12 +1,11 @@
-import { Flex, Header } from '@vtex/store-ui'
+import { Flex, Header, Input } from '@vtex/store-ui'
 import React, { Fragment } from 'react'
 
-import StoreHeaderLogo from './Logo'
-import StoreHeaderMenu from './Menu'
+import Logo from './Logo'
+import Menu from './Menu'
+import Minicart from './Minicart'
 import NotificationBar from './NotificationBar'
 import OverMenu from './OverMenu'
-import StoreHeaderSearch from './Search'
-import Minicart from './Minicart'
 
 const StoreHeader = () => {
   const variant = 'header'
@@ -20,12 +19,16 @@ const StoreHeader = () => {
       <OverMenu variant={`${variant}.overmenu`} />
       <Header variant={variant}>
         <Flex variant={`${variant}.left`}>
-          <StoreHeaderLogo variant={`${variant}.logo`} />
-          <StoreHeaderMenu variant={`${variant}.menu`} />
+          <Logo variant={`${variant}.logo`} />
+          <Menu variant={`${variant}.menu`} />
         </Flex>
         <Flex variant={`${variant}.right`}>
-          <StoreHeaderSearch variant={`${variant}.search`} />
-          <Minicart variant={variant} />
+          <Input
+            variant={`${variant}.search`}
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <Minicart />
         </Flex>
       </Header>
     </Fragment>

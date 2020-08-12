@@ -2,7 +2,7 @@ import { Link } from 'gatsby'
 import React, { FC } from 'react'
 import { Flex } from '@vtex/store-ui'
 
-const StoreHeaderMenu: FC<{ variant?: string }> = ({ variant }) => (
+const CustomMenu: FC<{ variant?: string }> = ({ variant }) => (
   <Flex as="nav" variant={variant}>
     <Link to="/apparel---accessories" activeClassName="active">
       Apparel
@@ -16,4 +16,4 @@ const StoreHeaderMenu: FC<{ variant?: string }> = ({ variant }) => (
   </Flex>
 )
 
-export default StoreHeaderMenu
+export default CustomMenu

@@ -1,12 +1,13 @@
 import React from 'react'
 import { ThemeProvider } from 'theme-ui'
 
-import baseTheme from '../theme'
+import { baseTheme } from '../theme'
 import InfoCardImage from './Image'
 import InfoCard from './index'
 import InfoCardInfo from './Info'
 import InfoCardInfoAction from './InfoAction'
 import infoCardTheme from './theme'
+import { createTheme } from '../createTheme'
 
 export default {
   title: 'Card',
@@ -14,7 +15,7 @@ export default {
 }
 
 export const Fold = () => (
-  <ThemeProvider theme={{ ...baseTheme, ...infoCardTheme }}>
+  <ThemeProvider theme={createTheme(baseTheme, infoCardTheme)}>
     <InfoCard>
       <InfoCardInfo title="New Promotion!">
         <InfoCardInfoAction href="/vintage-phone/p" label="BUY NOW" />

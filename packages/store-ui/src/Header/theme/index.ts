@@ -1,11 +1,12 @@
+import { SxStyleProp } from 'theme-ui'
+
 import { createTheme } from '../../createTheme'
 import { menuTheme } from './menu'
-import { minicartTheme } from './minicart'
 import { notificationbarTheme } from './notificationbar'
 import { overmenuTheme } from './overmenu'
 import { searchTheme } from './search'
 
-export const headerTheme = {
+export const headerTheme: SxStyleProp = {
   header: createTheme(
     {
       bg: 'muted',
@@ -19,7 +20,6 @@ export const headerTheme = {
     menuTheme,
     notificationbarTheme,
     searchTheme,
-    minicartTheme,
     {
       left: {
         alignItems: 'center',
@@ -32,5 +32,3 @@ export const headerTheme = {
     }
   ),
 }
-
-export default headerTheme
