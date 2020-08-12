@@ -11,9 +11,6 @@ interface Props {
   search: SearchPageQueryQuery
 }
 
-const convert = (facets: SearchPageQueryQuery['vtex']['facets']) =>
-  facets?.facets?.filter((f) => !!f?.name) ?? []
-
 const SearchTemplate: FC<Props> = ({ search }) => (
   <Container>
     <Flex sx={{ flexDirection: 'column' }} my={4}>
@@ -26,10 +23,7 @@ const SearchTemplate: FC<Props> = ({ search }) => (
           flexWrap: 'wrap',
         }}
       >
-        <Facets
-          allFacets={convert(search.vtex.facets) as any}
-          variant="facet"
-        />
+        <Facets {...(search.vtex.facets as any)} variant="facet" />
         <div
           sx={{
             flexGrow: 99999,

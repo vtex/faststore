@@ -10,7 +10,6 @@ const ArrowUp = (
     <svg
       height="38px"
       width="38px"
-      transform="translate(50%, 50%)"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
@@ -29,7 +28,6 @@ const ArrowDown = (
     <svg
       height="38px"
       width="38px"
-      transform="translate(50%, 50%)"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
@@ -43,7 +41,7 @@ const ArrowDown = (
   </Box>
 )
 
-const CollapsibleHeaderIcon: FC<Props> = ({ isActive }) =>
+const GroupCollapsibleIcon: FC<Props> = ({ isActive }) =>
   isActive ? ArrowUp : ArrowDown
 
-export default CollapsibleHeaderIcon
+export default GroupCollapsibleIcon
