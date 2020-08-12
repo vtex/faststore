@@ -1,12 +1,12 @@
-import { Box } from '@vtex/store-ui'
 import React, { FC } from 'react'
+import { Box } from 'theme-ui'
 
 interface Props {
   isActive: boolean
 }
 
 const ArrowUp = (
-  <Box variant="facet-collapsible-header.icon">
+  <Box variant="facet.collapsible.header.icon">
     <svg
       height="38px"
       width="38px"
@@ -24,7 +24,7 @@ const ArrowUp = (
 )
 
 const ArrowDown = (
-  <Box variant="facet-collapsible-header.icon">
+  <Box variant="facet.collapsible.header.icon">
     <svg
       height="38px"
       width="38px"

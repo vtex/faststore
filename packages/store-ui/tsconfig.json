@@ -2,7 +2,7 @@
   "extends": "@vtex/tsconfig",
   "include": [
     "src",
-    "../gatsby-theme-vtex/src/components/Search/Facet/GroupIcon.tsx"
+    "../gatsby-theme-vtex/src/components/Search/Filters/GroupIcon.tsx"
   ],
   "exclude": ["node_modules", "dist"]
 }
