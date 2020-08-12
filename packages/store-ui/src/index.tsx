@@ -6,8 +6,19 @@
 
 // All components and styles from Theme UI
 export * from 'theme-ui'
+export * from '@theme-ui/components'
+
+// Base components from @vtex-components
+// Drawer
+export { default as Drawer } from '@vtex-components/drawer'
+
+// Utils
 // Merge Theme
 export * from './createTheme'
+// Base Theme
+export * from './theme'
+
+// Local Components
 // Header
 export * from './Header'
 export * from './Header/theme'
@@ -28,5 +39,13 @@ export * from './Minicart/Svg'
 export * from './Minicart/theme'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
-// Base Theme
-export * from './theme'
+// Search Filters
+export * from './SearchFilter/Accordion'
+export * from './SearchFilter/AccordionItemCheckbox'
+export * from './SearchFilter/theme'
+// Search Controls
+export * from './SearchControls'
+export * from './SearchControls/FiltersButton'
+export * from './SearchControls/totalCount'
+export * from './SearchControls/Select'
+export * from './SearchControls/theme'
