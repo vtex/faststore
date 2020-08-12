@@ -4,7 +4,7 @@ import { FC } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import Container from '../Container'
-import Facets from './Facet'
+import SearchFilters from './Filters'
 import PageList from './PageList'
 
 interface Props {
@@ -23,7 +23,7 @@ const SearchTemplate: FC<Props> = ({ search }) => (
           flexWrap: 'wrap',
         }}
       >
-        <Facets {...(search.vtex.facets as any)} variant="facet" />
+        <SearchFilters {...(search.vtex.facets as any)} variant="facet" />
         <div
           sx={{
             flexGrow: 99999,

@@ -24,7 +24,7 @@ interface Props {
   categoriesTrees: TreeValue[]
 }
 
-const Facets: FC<Props> = ({
+const SearchFilters: FC<Props> = ({
   variant,
   specificationFilters,
   brands,
@@ -69,4 +69,4 @@ const Facets: FC<Props> = ({
   )
 }
 
-export default Facets
+export default SearchFilters
