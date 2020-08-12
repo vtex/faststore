@@ -9,7 +9,7 @@ export const headerTheme = {
   header: createTheme(
     {
       bg: 'muted',
-      px: [0, 2, 4],
+      px: [1, 2, 3],
       py: 3,
       justifyContent: ['center', 'space-between', 'space-between'],
       alignItems: 'center',

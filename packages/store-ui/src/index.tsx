@@ -21,4 +21,4 @@ export { default as infoCardTheme } from './InfoCard/theme'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
 // Base Theme
-export { default as baseTheme } from './theme'
+export * from './theme'
