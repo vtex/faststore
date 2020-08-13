@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box } from '@vtex/store-ui'
 
-import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
+import { useNumberFormat } from '../../sdk'
 
 interface Props {
   offer: {

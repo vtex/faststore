@@ -3,7 +3,7 @@ import { createElement, ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 
 // Webpack + TS magic to make this work
-const { default: OrderFormProvider } = require('./src/sdk/orderForm/Provider')
+const { OrderFormProvider } = require('./src/sdk')
 
 export const replaceHydrateFunction = () => (
   element: ElementType,

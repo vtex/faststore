@@ -7,14 +7,12 @@ import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
 import SEO from '../components/SEO/siteMetadata'
-import { useQuery } from '../sdk/graphql/useQuery'
-import SearchProvider from '../sdk/search/FiltersProvider'
+import { useQuery, useSearchFilters, SearchFiltersProvider } from '../sdk'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
-import { useSearchFilters } from '../sdk/search/useSearchFilters'
 
 type Props = PageProps<SearchPageQueryQuery, SearchPageQueryQueryVariables>
 
@@ -53,7 +51,7 @@ const SearchPageContainer: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <SearchProvider filters={{ query, map }}>
+      <SearchFiltersProvider filters={{ query, map }}>
         <HybridWrapper
           isPrerendered={staticPath}
           fallback={<div>loading...</div>}
@@ -62,7 +60,7 @@ const SearchPageContainer: FC<Props> = (props) => {
             <SearchPage {...props} />
           </ErrorBoundary>
         </HybridWrapper>
-      </SearchProvider>
+      </SearchFiltersProvider>
     </Layout>
   )
 }

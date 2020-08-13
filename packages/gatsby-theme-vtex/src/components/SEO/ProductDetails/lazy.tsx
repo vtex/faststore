@@ -1,9 +1,8 @@
 import React, { FC, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 
-import { useCurrency } from '../../../sdk/localization/useCurrency'
+import { useCurrency, useAsyncProduct } from '../../../sdk'
 import { transform } from './structured'
-import { useAsyncProduct } from '../../../sdk/product/useAsyncProduct'
 
 interface Props {
   slug: string

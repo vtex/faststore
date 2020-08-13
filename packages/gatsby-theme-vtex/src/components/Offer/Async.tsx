@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { useAsyncProduct, useSku } from '../../sdk/product/useAsyncProduct'
+import { useAsyncProduct, useSku } from '../../sdk'
 import SyncOffer from './Sync'
 import OfferPreview from './Preview'
 

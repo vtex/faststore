@@ -26,7 +26,7 @@ interface Props {
 const createMap = (pathname: string) =>
   new Array(pathname.split('/').length).fill('c').join(',')
 
-const SearchProvider: FC<Props> = ({ children, filters }) => {
+export const SearchFiltersProvider: FC<Props> = ({ children, filters }) => {
   const { params, pathname } = useLocationSearch()
   const value = {
     query: filters?.query ?? pathname.slice(1, pathname.length),
@@ -39,5 +39,3 @@ const SearchProvider: FC<Props> = ({ children, filters }) => {
     </SearchFilterContext.Provider>
   )
 }
-
-export default SearchProvider
