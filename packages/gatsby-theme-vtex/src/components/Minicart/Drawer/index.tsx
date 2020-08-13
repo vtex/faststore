@@ -1,8 +1,7 @@
 import { MinicartDrawer, MinicartDrawerProps } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
-import { useOrderForm } from '../../../hooks/useOrderForm'
-import { useCurrency } from '../../../providers/Currency'
+import { useOrderForm, useCurrency } from '../../../sdk'
 import { HeaderMinicartDrawerContent } from './Content'
 import { HeaderMinicartDrawerFooter } from './Footer'
 import { HeaderMinicartDrawerHeader } from './Header'

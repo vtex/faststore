@@ -23,7 +23,7 @@ type OrderFormContext = {
 
 export const OrderForm = createContext<OrderFormContext>(undefined as any)
 
-const OrderFormProvider: FC = ({ children }) => {
+export const OrderFormProvider: FC = ({ children }) => {
   const [orderForm, setOrderForm] = useState<OrderFormType | null>(() =>
     storage.get()
   )
@@ -72,5 +72,3 @@ const OrderFormProvider: FC = ({ children }) => {
     </OrderForm.Provider>
   )
 }
-
-export default OrderFormProvider

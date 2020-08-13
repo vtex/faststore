@@ -3,8 +3,7 @@ import { gql } from '@vtex/gatsby-plugin-graphql'
 import React, { FC, Fragment, useCallback } from 'react'
 import { Button, Grid } from '@vtex/store-ui'
 
-import { useQueryInfinite } from '../../hooks/useQueryInfinite'
-import { useSearchFilters } from '../../hooks/useSearchFilters'
+import { useQueryInfinite, useSearchFilters } from '../../sdk'
 import {
   SearchQuery,
   SearchQueryQuery,

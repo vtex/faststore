@@ -1,5 +1,5 @@
 import { useContext } from 'react'
 
-import { OrderForm } from '../providers/OrderForm'
+import { OrderForm } from './Provider'
 
 export const useOrderForm = () => useContext(OrderForm)

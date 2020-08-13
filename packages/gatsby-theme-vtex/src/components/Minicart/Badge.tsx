@@ -1,7 +1,7 @@
 import { MinicartBadge } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
-import { useOrderForm } from '../../hooks/useOrderForm'
+import { useOrderForm } from '../../sdk'
 
 const CustomMinicartBadge: FC<{ variant?: string }> = ({ variant }) => {
   const orderForm = useOrderForm()

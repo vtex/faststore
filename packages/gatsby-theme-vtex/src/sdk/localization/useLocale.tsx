@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { usePersisted } from '../utils/persisted'
+import { usePersistedSearchParams } from '../state/usePersistedSearchParams'
 
 const key = 'locale'
 
@@ -24,5 +24,5 @@ export const useLocale = () => {
 
   const defaultLocale = edges[0].node.defaultLocale as string
 
-  return usePersisted(defaultLocale, key)
+  return usePersistedSearchParams(defaultLocale, key)
 }

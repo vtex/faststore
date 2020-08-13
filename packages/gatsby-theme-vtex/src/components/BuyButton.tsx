@@ -2,8 +2,7 @@
 import { FC } from 'react'
 import { Button, jsx } from '@vtex/store-ui'
 
-import { useBestSeller } from '../hooks/useBestSeller'
-import { useOrderForm } from '../hooks/useOrderForm'
+import { useBestSeller, useOrderForm } from '../sdk'
 import { Maybe } from '../typings'
 
 interface Seller {

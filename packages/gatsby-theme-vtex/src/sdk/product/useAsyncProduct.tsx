@@ -6,7 +6,7 @@ import {
   UseAsyncProductQueryQuery,
   UseAsyncProductQueryQueryVariables,
 } from './__generated__/useAsyncProductQuery.graphql'
-import { useQuery } from './useQuery'
+import { useQuery } from '../graphql/useQuery'
 
 export const useAsyncProduct = (slug: string) => {
   const { data, isValidating } = useQuery<
