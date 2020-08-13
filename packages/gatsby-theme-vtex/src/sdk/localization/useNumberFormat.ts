@@ -1,7 +1,7 @@
 import memoizeFormatConstructor from 'intl-format-cache'
 
-import { useCurrency } from './Currency'
-import { useLocale } from './Locale'
+import { useCurrency } from './useCurrency'
+import { useLocale } from './useLocale'
 
 const memoizedConstructor = memoizeFormatConstructor(Intl.NumberFormat)
 

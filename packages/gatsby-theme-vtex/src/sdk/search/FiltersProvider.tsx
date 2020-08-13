@@ -1,21 +1,21 @@
 import React, { createContext, FC } from 'react'
 
-import { useLocationSearch } from '../hooks/useLocationSearch'
-import { Maybe } from '../typings'
+import { useLocationSearch } from './useLocationSearch'
+import { Maybe } from '../../typings'
 
-export interface SearchOptions {
+export interface SearchFilters {
   query: Maybe<string>
   map: Maybe<string>
 }
 
-export const SearchFilterContext = createContext<SearchOptions>(
+export const SearchFilterContext = createContext<SearchFilters>(
   undefined as any
 )
 
 SearchFilterContext.displayName = 'SearchFilterContext'
 
 interface Props {
-  filters?: SearchOptions
+  filters?: SearchFilters
 }
 
 // Creates a string with as many `c,c` as pathname has

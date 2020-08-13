@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { usePersisted } from '../utils/persisted'
+import { usePersistedSearchParams } from '../state/usePersistedSearchParams'
 
 const key = 'currency'
 
@@ -24,5 +24,5 @@ export const useCurrency = () => {
 
   const { defaultCurrency } = edges[0].node
 
-  return usePersisted(defaultCurrency, key)
+  return usePersistedSearchParams(defaultCurrency, key)
 }

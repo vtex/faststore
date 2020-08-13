@@ -1,4 +1,4 @@
-import { ArrayItem, Maybe } from '../typings'
+import { ArrayItem, Maybe } from '../../typings'
 
 interface Seller {
   commertialOffer: {

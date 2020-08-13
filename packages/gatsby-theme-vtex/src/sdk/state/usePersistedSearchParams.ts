@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 
-import { isServer } from './env'
-import { useQuerystring } from './querystring'
+import { isServer } from '../../utils/env'
+import { useSearchParams } from './useSearchParams'
 
-export const usePersisted = (
+export const usePersistedSearchParams = (
   valueDefault: string,
   key: string
 ): [string, typeof setSearchParams] => {
-  const [searchParams, setSearchParams] = useQuerystring()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const value = isServer
     ? valueDefault

@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { usePersisted } from '../utils/persisted'
+import { usePersistedSearchParams } from '../state/usePersistedSearchParams'
 
 const key = 'sc'
 
@@ -23,7 +23,10 @@ export const useSalesChannel = (): [number, typeof setSalesChannel] => {
   `)
 
   const defaultSalesChannel = edges[0].node.salesChannel as string
-  const [salesChannel, setSalesChannel] = usePersisted(defaultSalesChannel, key)
+  const [salesChannel, setSalesChannel] = usePersistedSearchParams(
+    defaultSalesChannel,
+    key
+  )
 
   return [Number(salesChannel), setSalesChannel]
 }

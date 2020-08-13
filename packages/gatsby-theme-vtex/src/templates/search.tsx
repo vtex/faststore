@@ -7,14 +7,14 @@ import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
 import SEO from '../components/SEO/siteMetadata'
-import { useQuery } from '../hooks/useQuery'
-import SearchProvider from '../providers/Search'
+import { useQuery } from '../sdk/graphql/useQuery'
+import SearchProvider from '../sdk/search/FiltersProvider'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
-import { useSearchFilters } from '../hooks/useSearchFilters'
+import { useSearchFilters } from '../sdk/search/useSearchFilters'
 
 type Props = PageProps<SearchPageQueryQuery, SearchPageQueryQueryVariables>
 

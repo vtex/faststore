@@ -5,7 +5,7 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import ProductDetails from '../components/ProductDetails'
-import { useQuery } from '../hooks/useQuery'
+import { useQuery } from '../sdk/graphql/useQuery'
 import {
   ProductPageQuery,
   ProductPageQueryQuery,
