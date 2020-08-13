@@ -10,6 +10,7 @@ const customBase = {
     background: '#fff',
     primary: '#0f3e99',
     muted: '#f0f0f0',
+    gray: '#e3e4e6',
   },
   sizes: {
     container: '96rem',
