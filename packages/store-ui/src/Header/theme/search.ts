@@ -1,12 +1,12 @@
-export const searchTheme = {
+import { SxStyleProp } from 'theme-ui'
+
+export const searchTheme: SxStyleProp = {
   search: {
     maxWidth: 250,
-    bg: '#fff',
-    border: '2px solid #e3e4e6',
+    bg: 'background',
+    borderWidth: '2px',
+    borderStyle: 'solid',
+    borderColor: 'gray',
     px: 3,
-
-    '&:hover': {
-      borderColor: '#cacbcc',
-    },
   },
 }
