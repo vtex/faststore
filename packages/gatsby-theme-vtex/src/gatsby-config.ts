@@ -79,6 +79,7 @@ module.exports = ({ title, description }: Options) => {
         options: {
           tenant,
           environment,
+          workspace,
         },
       },
     ],

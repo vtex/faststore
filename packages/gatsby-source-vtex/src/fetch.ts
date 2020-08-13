@@ -2,6 +2,7 @@ import fetch from 'isomorphic-unfetch'
 
 export interface VTEXOptions {
   tenant: string
+  workspace: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
 }
 
