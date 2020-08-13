@@ -8,7 +8,8 @@ import { fetchVTEX, VTEXOptions } from './fetch'
 import { Category, Tenant } from './types'
 import { createDepartmentNode, createChannelNode } from './utils'
 
-const getGraphQLUrl = (tenant: string) => `http://${tenant}.myvtex.com/graphql`
+const getGraphQLUrl = (tenant: string, workspace: string) =>
+  `http://${workspace}--${tenant}.myvtex.com/graphql`
 
 interface Options extends PluginOptions, VTEXOptions {}
 
@@ -16,7 +17,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
   options: Options
 ) => {
-  const { tenant } = options
+  const { tenant, workspace } = options
   const {
     actions: { addThirdPartySchema },
   } = args
@@ -26,7 +27,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    * */
 
   // Create executor to run queries against schema
-  const url = getGraphQLUrl(tenant)
+  const url = getGraphQLUrl(tenant, workspace)
 
   const executor: AsyncExecutor = async ({ document, variables }) => {
     const query = print(document)
