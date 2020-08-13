@@ -2,8 +2,9 @@
 import { jsx } from '@vtex/store-ui'
 import { FC, Fragment, lazy, Suspense, useEffect, useState } from 'react'
 
+import CustomMinicartButton from './Button'
+
 const preloadDrawer = () => import('./Drawer')
-const MinicartButton = lazy(() => import('./Button'))
 
 const MinicartDrawer = lazy(preloadDrawer)
 
@@ -28,7 +29,7 @@ const Minicart: FC = () => {
 
   return (
     <Fragment>
-      <MinicartButton variant={customVariant} onClick={toggle} />
+      <CustomMinicartButton variant={customVariant} onClick={toggle} />
       {isOpen ? (
         <Suspense fallback={null}>
           <MinicartDrawer variant={customVariant} isOpen onClose={toggle} />

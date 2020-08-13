@@ -3,11 +3,12 @@ import {
   MinicartButton,
   MinicartButtonProps,
 } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React, { FC, lazy } from 'react'
 
 import SuspenseSSR from '../SuspenseSSR'
-import CustomMinicartBadge from './Badge'
 import CustomMinicartButtonSvg from './ButtonSvg'
+
+const CustomMinicartBadge = lazy(() => import('./Badge'))
 
 const CustomMinicartButton: FC<MinicartButtonProps> = ({
   variant,
