@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Flex, Heading, jsx } from '@vtex/store-ui'
+import { Flex, Heading, jsx, Box } from '@vtex/store-ui'
 import { FC } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
@@ -23,12 +23,17 @@ const SearchTemplate: FC<Props> = ({ search }) => (
           flexWrap: 'wrap',
         }}
       >
-        <SearchFilters {...(search.vtex.facets as any)} variant="filters" />
+        <Box variant="filters">
+          <aside>
+            <SearchFilters {...(search.vtex.facets as any)} variant="filters" />
+          </aside>
+        </Box>
         <div
           sx={{
             flexGrow: 99999,
             flexBasis: 0,
             minWidth: 300,
+            ml: '1rem',
           }}
         >
           <PageList initialData={search} />
