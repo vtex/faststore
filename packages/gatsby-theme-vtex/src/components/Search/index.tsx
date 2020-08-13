@@ -23,7 +23,7 @@ const SearchTemplate: FC<Props> = ({ search }) => (
           flexWrap: 'wrap',
         }}
       >
-        <SearchFilters {...(search.vtex.facets as any)} variant="facet" />
+        <SearchFilters {...(search.vtex.facets as any)} variant="filters" />
         <div
           sx={{
             flexGrow: 99999,
