@@ -39,7 +39,7 @@ const SearchFilters: FC<Props> = ({
           filters={categoriesTrees}
           variant={variant}
           renderItem={(item, v) => (
-            <Link to={item.to.toLowerCase()}>
+            <Link to={item.to}>
               <FilterSelectorItem {...item} variant={v} />
             </Link>
           )}
@@ -49,7 +49,7 @@ const SearchFilters: FC<Props> = ({
           filters={[{ name: 'Brands', values: brands }]}
           variant={variant}
           renderItem={(item, v) => (
-            <Link to={item.to.toLowerCase()}>
+            <Link to={item.to}>
               <FilterSelectorItem {...item} variant={v} />
             </Link>
           )}
@@ -59,7 +59,7 @@ const SearchFilters: FC<Props> = ({
           filters={specificationFilters}
           variant={variant}
           renderItem={(item, v) => (
-            <Link to={item.to.toLowerCase()}>
+            <Link to={item.to}>
               <FilterSelectorItem {...item} variant={v} />
             </Link>
           )}

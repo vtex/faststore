@@ -13,6 +13,8 @@ export * from './Header'
 export * from './Header/theme'
 // Logo
 export * from './Logo'
+// Search's sort combo box selector
+export * from './SortSelect'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'

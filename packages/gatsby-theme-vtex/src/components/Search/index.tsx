@@ -6,41 +6,59 @@ import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQu
 import Container from '../Container'
 import SearchFilters from './Filters'
 import PageList from './PageList'
+import SortSelect from './SortSelect'
 
 interface Props {
   search: SearchPageQueryQuery
 }
 
-const SearchTemplate: FC<Props> = ({ search }) => (
-  <Container>
-    <Flex sx={{ flexDirection: 'column' }} my={4}>
-      <Heading sx={{ fontSize: 6 }} as="h2">
-        {search.vtex.productSearch?.titleTag}
-      </Heading>
-      <div
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-        }}
-      >
-        <Box variant="filters">
-          <aside>
-            <SearchFilters {...(search.vtex.facets as any)} variant="filters" />
-          </aside>
-        </Box>
+const SearchTemplate: FC<Props> = ({ search }) => {
+  return (
+    <Container>
+      <Flex sx={{ flexDirection: 'column' }} my={4}>
+        <Heading sx={{ fontSize: 6 }} as="h2">
+          {search.vtex.productSearch!.titleTag}
+        </Heading>
         <div
           sx={{
-            flexGrow: 99999,
-            flexBasis: 0,
-            minWidth: 300,
-            ml: '1rem',
+            display: 'flex',
+            flexWrap: 'wrap',
           }}
         >
-          <PageList initialData={search} />
+          <Box variant="filters">
+            <aside>
+              <SearchFilters
+                {...(search.vtex.facets as any)}
+                variant="filters"
+              />
+            </aside>
+          </Box>
+          <div
+            sx={{
+              flexGrow: 99999,
+              flexBasis: 0,
+              minWidth: 300,
+              ml: '1rem',
+            }}
+          >
+            <Flex
+              sx={{
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Box>
+                <span>{search.vtex.productSearch!.recordsFiltered}</span>{' '}
+                PRODUCTS
+              </Box>
+              <SortSelect variant="sortSelect" />
+            </Flex>
+            <PageList initialData={search} />
+          </div>
         </div>
-      </div>
-    </Flex>
-  </Container>
-)
+      </Flex>
+    </Container>
+  )
+}
 
 export default SearchTemplate
