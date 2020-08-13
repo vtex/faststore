@@ -1,26 +1,24 @@
-import { MinicartButton, MinicartButtonProps } from '@vtex/store-ui'
+import {
+  MinicartBadge,
+  MinicartButton,
+  MinicartButtonProps,
+} from '@vtex/store-ui'
 import React, { FC } from 'react'
 
-import { useOrderForm } from '../../hooks/useOrderForm'
-import MinicartButtonSvg from './ButtonSvg'
+import SuspenseSSR from '../SuspenseSSR'
+import CustomMinicartBadge from './Badge'
+import CustomMinicartButtonSvg from './ButtonSvg'
 
-const useMinicartButtonData = () => {
-  const orderForm = useOrderForm()
-  const badgeValue = orderForm?.value?.items.length ?? 0
+const CustomMinicartButton: FC<MinicartButtonProps> = ({
+  variant,
+  onClick,
+}) => (
+  <MinicartButton variant={variant} onClick={onClick} aria-label="Open Cart">
+    <CustomMinicartButtonSvg />
+    <SuspenseSSR fallback={<MinicartBadge variant={variant} value={0} />}>
+      <CustomMinicartBadge variant={variant} />
+    </SuspenseSSR>
+  </MinicartButton>
+)
 
-  return {
-    badgeValue,
-  }
-}
-
-const ItemCount: FC<MinicartButtonProps> = (props) => {
-  const minicartButtonData = useMinicartButtonData()
-
-  return (
-    <MinicartButton {...minicartButtonData} {...props} aria-label="Open Cart">
-      <MinicartButtonSvg />
-    </MinicartButton>
-  )
-}
-
-export default ItemCount
+export default CustomMinicartButton
