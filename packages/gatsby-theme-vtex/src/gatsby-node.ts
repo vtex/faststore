@@ -11,6 +11,19 @@ const tenant = process.env.GATSBY_VTEX_TENANT as string
 const environment = process.env.GATSBY_VTEX_ENVIRONMENT as Environment
 const workspace = process.env.GATSBY_VTEX_IO_WORKSPACE as string
 
+interface ThemeQuery {
+  themeI18N: {
+    defaultLang: string
+  }
+  allThemeI18N: {
+    nodes: {
+      config: {
+        code: string
+      }[]
+    }[]
+  }
+}
+
 const getRoute = (path: string) => {
   const splitted = path.split('/')
 
@@ -97,6 +110,62 @@ export const createPages = async (
       staticPath: false,
     },
   })
+  console.log('teste OIEEE')
+  const { data: i18nTheme } = await graphql<ThemeQuery>(
+    `query {
+      themeI18N {
+        defaultLang
+      }
+      allThemeI18N {
+        nodes {
+          config {
+            code
+          }
+        }
+      }
+    }`
+  )
+
+  // createPage({
+  //   path: `/en/__client-side-product__/p`,
+  //   matchPath: `/en/:slug/p`,
+  //   component: resolve(__dirname, './src/templates/product.tsx'),
+  //   context: {
+  //     staticPath: false,
+  //   },
+  // })
+
+  // createPage({
+  //   path: `/pt/__client-side-product__/p`,
+  //   matchPath: `/pt/:slug/p`,
+  //   component: resolve(__dirname, './src/templates/product.tsx'),
+  //   context: {
+  //     staticPath: false,
+  //   },
+  // })
+
+  // console.log('teste i18nTheme:', i18nTheme)
+  // console.log('teste i18nTheme2:', i18nTheme?.themeI18N)
+  // const defaultLang = i18nTheme?.themeI18N.defaultLang ?? 'en'
+  // const extraLangs = i18nTheme?.allThemeI18N.nodes[0]?.config.filter(config => config.code !== defaultLang).map(({ code }) => code) ?? []
+
+  // console.log('teste defaultLang: ', defaultLang)
+  // console.log('teste extraLangs: ', extraLangs)
+  // extraLangs.forEach(langCode => {
+  //     console.log('teste creating: ', {defaultLang, langCode})
+  //     console.log('teste creating: ', {
+  //       path: `/${langCode}/__client-side-product__/p`,
+  //       matchPath: `/${langCode}/:slug/p`,
+  //     })
+  //     createPage({
+  //       path: `/${langCode}/__client-side-product__/p`,
+  //       matchPath: `/${langCode}/:slug/p`,
+  //       component: resolve(__dirname, './src/templates/product.tsx'),
+  //       context: {
+  //         staticPath: false,
+  //       },
+  //     })
+  // })
 
   createPage({
     path: '/__client-side-search__',
@@ -142,7 +211,7 @@ export const createPages = async (
     const filepath = join(cmsRoot, `${name}.tsx`)
 
     await outputFile(filepath, src)
-
+    console.log('teste path: slug: ', slug)
     createPage({
       path: slug,
       component: filepath,

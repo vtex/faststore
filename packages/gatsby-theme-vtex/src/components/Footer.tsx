@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { graphql, useStaticQuery } from 'gatsby'
 import { FC } from 'react'
-import { Flex, Grid, Image, jsx, Link } from '@vtex/store-ui'
+import { Flex, Grid, Image, jsx, Link, LocalizedLink } from '@vtex/store-ui'
 
 import Container from './Container'
 import { FooterQueryQuery } from './__generated__/FooterQuery.graphql'
@@ -13,7 +13,7 @@ interface Item {
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (
-  <Link href={`/${slug}`}>{name!.split(' ')[0]}</Link>
+  <LocalizedLink to={`/${slug}`}>{name!.split(' ')[0]}</LocalizedLink>
 )
 
 const Footer: FC = () => {

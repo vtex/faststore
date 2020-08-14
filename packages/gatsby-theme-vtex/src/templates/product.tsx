@@ -1,5 +1,6 @@
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
@@ -38,7 +39,7 @@ const ProductPage: FC<Props> = ({
   })
 
   if (!data?.vtex.product) {
-    return <div>Product Not Found</div>
+    return <FormattedMessage id="product-not-found" />
   }
 
   return <ProductDetails product={data.vtex.product} />
@@ -53,9 +54,9 @@ const ProductPageContainer: FC<Props> = (props) => {
     <Layout>
       <HybridWrapper
         isPrerendered={staticPath}
-        fallback={<div>loading...</div>}
+        fallback={<FormattedMessage id="loading" />}
       >
-        <ErrorBoundary fallback={<div>Error !!</div>}>
+        <ErrorBoundary fallback={<FormattedMessage id="error-generic" />}>
           <ProductPage {...props} />
         </ErrorBoundary>
       </HybridWrapper>

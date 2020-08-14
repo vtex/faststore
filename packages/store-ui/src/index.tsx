@@ -49,3 +49,5 @@ export * from './SearchControls/FiltersButton'
 export * from './SearchControls/totalCount'
 export * from './SearchControls/Select'
 export * from './SearchControls/theme'
+
+export { default as LocalizedLink } from './LocalizedLink'

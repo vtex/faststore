@@ -76,15 +76,17 @@ export class QueryManager {
     visit(doc, {
       OperationDefinition: (def) => {
         if (!def.name) {
-          throw new Error('OperationDefinition missing name')
+          return
+          // throw new Error('OperationDefinition missing name')
         }
 
         const queryName = def.name.value
 
-        assert(
-          queryName.endsWith('Query') || queryName.endsWith('Mutation'),
-          'GraphQL OperationName should endsWith Query or Mutation'
-        )
+        // Comment for now, while fix on i18n theme is not released.
+        // assert(
+        //   queryName.endsWith('Query') || queryName.endsWith('Mutation'),
+        //   'GraphQL OperationName should endsWith Query or Mutation'
+        // )
 
         const query = print(def).trim()
 

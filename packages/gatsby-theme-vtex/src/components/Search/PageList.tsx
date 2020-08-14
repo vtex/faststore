@@ -12,6 +12,7 @@ import {
 } from './__generated__/SearchQuery.graphql'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
+import { FormattedMessage } from 'react-intl'
 
 const PAGE_SIZE = 10
 
@@ -91,7 +92,7 @@ const List: FC<Props> = ({ initialData }) => {
           onClick={fetchMore}
           disabled={isReachingEnd || isLoadingMore}
         >
-          {isLoadingMore ? 'Loading...' : 'More'}
+          {isLoadingMore ? <FormattedMessage id="loading" /> : <FormattedMessage id="search.page-list.more" />}
         </Button>
       )}
     </Fragment>
