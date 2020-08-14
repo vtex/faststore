@@ -1,8 +1,8 @@
 import Accordion from '@vtex-components/accordion'
 import React, { FC } from 'react'
 
-import FilterSelector, { Value } from './Selector'
-import GroupCollapsibleIcon from './GroupCollapsibleIcon'
+import { FilterSelector, Value } from './Selector'
+import { GroupCollapsibleIcon } from './GroupCollapsibleIcon'
 
 interface Props {
   filters: Array<{
@@ -10,18 +10,23 @@ interface Props {
     values: Value[]
   }>
   variant: string
+  isActive: boolean
   renderItem: (facet: Value, variant: string) => JSX.Element
   renderIcon?: ((isActive: boolean) => React.ReactNode) | null
 }
 
-const FilterGroup: FC<Props> = ({
+export const FilterGroup: FC<Props> = ({
   filters,
   variant,
+  isActive,
   renderItem,
   renderIcon,
 }) => {
   const defaultRenderIcon = (active: boolean) => (
-    <GroupCollapsibleIcon isActive={active} variant={variant} />
+    <GroupCollapsibleIcon
+      isActive={active}
+      variant={`${variant}.accordion.collapsible.header.icon`}
+    />
   )
 
   return (
@@ -31,11 +36,15 @@ const FilterGroup: FC<Props> = ({
       renderIcon={renderIcon ?? defaultRenderIcon}
     >
       {filters.map((filter) => (
-        <Accordion.Section key={filter.name} header={filter.name} isActive>
+        <Accordion.Section
+          key={filter.name}
+          header={filter.name}
+          isActive={isActive}
+        >
           <FilterSelector
             name={filter.name}
             values={filter.values}
-            variant={variant}
+            variant={`${variant}.accordion.collapsible`}
             renderItem={renderItem}
           />
         </Accordion.Section>
@@ -43,5 +52,3 @@ const FilterGroup: FC<Props> = ({
     </Accordion>
   )
 }
-
-export default FilterGroup

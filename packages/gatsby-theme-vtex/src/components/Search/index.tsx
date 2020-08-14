@@ -72,7 +72,7 @@ const SearchTemplate: FC<Props> = ({ search }) => {
                 display: ['none', 'flex'],
               }}
             >
-              <Box variant="totalCount">
+              <Box variant="totalCount.desktop">
                 <span>{search.vtex.productSearch!.recordsFiltered}</span>{' '}
                 PRODUCTS
               </Box>

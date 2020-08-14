@@ -21,7 +21,7 @@ const SearchFiltersDrawer: FC<Props> = ({
     width={300}
     placement="right"
   >
-    <DesktopSearchFilters {...props} variant={variant} />
+    <DesktopSearchFilters {...props} variant={variant} isActive={false} />
   </Drawer>
 )
 

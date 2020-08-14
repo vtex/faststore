@@ -14,7 +14,7 @@ type Props = {
   renderItem: (facet: Value, variant: string) => JSX.Element
 }
 
-const FilterSelector: FC<Props> = ({
+export const FilterSelector: FC<Props> = ({
   variant: v,
   values,
   name,
@@ -30,5 +30,3 @@ const FilterSelector: FC<Props> = ({
     </ul>
   )
 }
-
-export default FilterSelector

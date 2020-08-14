@@ -8,7 +8,7 @@ interface Props {
   variant: string
 }
 
-const FilterSelectorItem: FC<Props> = ({
+export const FilterSelectorItem: FC<Props> = ({
   variant: v,
   name,
   quantity,
@@ -24,5 +24,3 @@ const FilterSelectorItem: FC<Props> = ({
     </Label>
   )
 }
-
-export default FilterSelectorItem

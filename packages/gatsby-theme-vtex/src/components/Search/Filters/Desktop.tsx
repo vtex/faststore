@@ -16,6 +16,7 @@ interface TreeValue extends Value {
 
 export interface Props {
   variant: string
+  isActive?: boolean
   specificationFilters: Array<{
     name: string
     values: Value[]
@@ -29,6 +30,7 @@ const SearchFilters: FC<Props> = ({
   specificationFilters,
   brands,
   categoriesTrees,
+  isActive = true,
 }) => {
   return (
     <>
@@ -36,6 +38,7 @@ const SearchFilters: FC<Props> = ({
 
       <FilterGroup
         filters={categoriesTrees}
+        isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
           <Link to={item.to}>
@@ -46,6 +49,7 @@ const SearchFilters: FC<Props> = ({
 
       <FilterGroup
         filters={[{ name: 'Brands', values: brands }]}
+        isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
           <Link to={item.to}>
@@ -56,6 +60,7 @@ const SearchFilters: FC<Props> = ({
 
       <FilterGroup
         filters={specificationFilters}
+        isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
           <Link to={item.to}>

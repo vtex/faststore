@@ -19,7 +19,7 @@ type Scalars = {
 export type DefaultSalesChannelQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DefaultSalesChannelQueryQuery = { allChannel: { edges: Array<{ node: { salesChannel: Maybe<number> } }> } };
+export type DefaultSalesChannelQueryQuery = { allChannel: { edges: Array<{ node: { salesChannel: Maybe<string> } }> } };
 
 
 // Query Related Code
