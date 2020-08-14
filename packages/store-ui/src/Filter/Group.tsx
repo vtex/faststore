@@ -18,13 +18,17 @@ const FilterGroup: FC<Props> = ({
   filters,
   variant,
   renderItem,
-  renderIcon = (isActive) => <GroupCollapsibleIcon isActive={isActive} />,
+  renderIcon,
 }) => {
+  const defaultRenderIcon = (active: boolean) => (
+    <GroupCollapsibleIcon isActive={active} variant={variant} />
+  )
+
   return (
     <Accordion
       variant={variant}
       mode="multiOpen"
-      renderIcon={renderIcon as any}
+      renderIcon={renderIcon ?? defaultRenderIcon}
     >
       {filters.map((filter) => (
         <Accordion.Section key={filter.name} header={filter.name} isActive>

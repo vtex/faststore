@@ -18,7 +18,7 @@ const SearchFiltersDrawer: FC<Props> = ({
     isOpen={isOpen}
     onClose={toggle}
     variant={variant}
-    width={288}
+    width={300}
     placement="right"
   >
     <DesktopSearchFilters {...props} variant={variant} />

@@ -27,7 +27,7 @@ interface Props {
 // generate the string c,c
 // TODO: this function may have to change in the future
 const createMap = (pathname: string) =>
-  new Array(pathname.split('/').length).fill('c').join(',')
+  new Array(pathname.split('/').filter((x) => !!x).length).fill('c').join(',')
 
 export const SearchFiltersProvider: FC<Props> = ({ children, filters }) => {
   const { search, pathname } = useLocation()
