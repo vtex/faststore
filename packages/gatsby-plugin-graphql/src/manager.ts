@@ -72,21 +72,23 @@ export class QueryManager {
     filename: string
   }) {
     const doc = parse(queryStr)
+    if (filename.includes('node_modules')) {
+      // Do not parse queries that are from third-party packages.
+      return
+    }
 
     visit(doc, {
       OperationDefinition: (def) => {
         if (!def.name) {
-          return
-          // throw new Error('OperationDefinition missing name')
+          throw new Error('OperationDefinition missing name')
         }
 
         const queryName = def.name.value
 
-        // Comment for now, while fix on i18n theme is not released.
-        // assert(
-        //   queryName.endsWith('Query') || queryName.endsWith('Mutation'),
-        //   'GraphQL OperationName should endsWith Query or Mutation'
-        // )
+        assert(
+          queryName.endsWith('Query') || queryName.endsWith('Mutation'),
+          'GraphQL OperationName should endsWith Query or Mutation'
+        )
 
         const query = print(def).trim()
 
