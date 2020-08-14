@@ -49,3 +49,6 @@ export * from './SearchControls/FiltersButton'
 export * from './SearchControls/totalCount'
 export * from './SearchControls/Select'
 export * from './SearchControls/theme'
+// Breadcrumb
+export * from './Breadcrumb'
+export { default as breadcrumbTheme } from './Breadcrumb/theme'
