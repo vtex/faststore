@@ -4,6 +4,7 @@ import {
 } from '@vtex/gatsby-transformer-vtex-cms'
 import React, { FC, Suspense } from 'react'
 import { Helmet } from 'react-helmet'
+import { FormattedMessage } from 'react-intl'
 
 import Block from '../components/cms/Block'
 import { CMS_CONTENT, setupIframeListener } from '../components/cms/iframe'
@@ -19,7 +20,7 @@ const Preview: FC = () => {
   const isContent = isContentType(content)
 
   if (!isContent || !content) {
-    return <div>No Preview found. Waiting for input</div>
+    return <FormattedMessage id="preview.not-found" />
   }
 
   const {
@@ -34,7 +35,7 @@ const Preview: FC = () => {
       </Helmet>
       <div>slug: {slug}</div>
       {blocks.map((block, index) => (
-        <Suspense key={`block-${index}`} fallback={<div>Loading...</div>}>
+        <Suspense key={`block-${index}`} fallback={<FormattedMessage id="loading" />}>
           <Block block={block} />
         </Suspense>
       ))}

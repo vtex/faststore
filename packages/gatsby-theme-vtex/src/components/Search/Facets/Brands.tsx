@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
-import { Checkbox, Label, jsx } from '@vtex/store-ui'
-import { Link } from 'gatsby'
+import { Checkbox, Label, jsx, LocalizedLink } from '@vtex/store-ui'
+import { FormattedMessage } from 'react-intl'
 
 interface Brands {
   value: string
@@ -16,16 +16,16 @@ type Props = {
 
 const BrandSelector: FC<Props> = ({ brands }) => (
   <Fragment>
-    <div>Brands</div>
+    <FormattedMessage id="facets.brand-selector.title" />
     <ul sx={{ listStyleType: 'none', mx: 0, px: 0 }}>
       {brands.map(({ linkEncoded, value, selected, quantity }, index) => (
         <li key={`brands-selector-${index}`}>
-          <Link to={linkEncoded}>
+          <LocalizedLink to={linkEncoded}>
             <Label>
               <Checkbox checked={selected} readOnly />
               {value} ({quantity})
             </Label>
-          </Link>
+          </LocalizedLink>
         </li>
       ))}
     </ul>

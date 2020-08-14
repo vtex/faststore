@@ -30,3 +30,5 @@ export * from './Minicart/theme'
 export { default as RichMarkdown } from './RichMarkdown'
 // Base Theme
 export * from './theme'
+// LocalizedLink
+export { default as LocalizedLink } from './LocalizedLink'

@@ -8,9 +8,21 @@ require('dotenv').config({
 
 export type Environment = 'vtexcommercestable' | 'vtexcommercebeta'
 
+const defaultLocalizationThemeOptions = {
+  defaultLang: `en`,
+  // configPath: require.resolve(`${root}/i18n/config.json`),
+  configPath: require.resolve(`./i18n/config.json`),
+}
+
+const defaultReactIntlOptions = {
+  defaultLocale: `./i18n/messages/en.json`,
+}
+
 export interface Options {
   title: string
   description: string
+  localizationThemeOptions?: any
+  messagesOptions?: any
   getStaticPaths?: () => Promise<string[]>
 }
 
@@ -18,7 +30,7 @@ const tenant = process.env.GATSBY_VTEX_TENANT as string
 const environment = process.env.GATSBY_VTEX_ENVIRONMENT as Environment
 const workspace = process.env.GATSBY_VTEX_IO_WORKSPACE as string
 
-module.exports = ({ title, description }: Options) => {
+module.exports = ({ title, description, localizationThemeOptions, messagesOptions }: Options) => {
   assert(
     tenant,
     `Tenant not found in gatsby-theme-vtex. Do you have a vtex.env configuration file ?`
@@ -82,6 +94,14 @@ module.exports = ({ title, description }: Options) => {
           workspace,
         },
       },
+      {
+        resolve: require.resolve('gatsby-theme-i18n'),
+        options: localizationThemeOptions || defaultLocalizationThemeOptions,
+      },
+      {
+        resolve: require.resolve('gatsby-theme-i18n-react-intl'),
+        options: messagesOptions || defaultReactIntlOptions
+      }
     ],
     proxy: [
       {

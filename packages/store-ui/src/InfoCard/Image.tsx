@@ -1,6 +1,6 @@
-import Link from 'gatsby-link'
 import React, { FC } from 'react'
-import { Flex, Image } from 'theme-ui'
+import { Flex, Image, } from 'theme-ui'
+import LocalizedLink from '../LocalizedLink'
 
 interface Props {
   href: string
@@ -10,7 +10,7 @@ interface Props {
 
 const InfoCardImage: FC<Props> = ({ alt, src, href }) => {
   const linkProps = {
-    as: Link,
+    as: LocalizedLink,
     to: href,
     variant: 'card.image.link',
   }
