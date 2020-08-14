@@ -1,5 +1,6 @@
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
+import { Breadcrumb } from '@vtex/store-ui'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
@@ -41,7 +42,12 @@ const ProductPage: FC<Props> = ({
     return <div>Product Not Found</div>
   }
 
-  return <ProductDetails product={data.vtex.product} />
+  return (
+    <div>
+      <Breadcrumb categoryTree={data?.vtex.product?.categoryTree} />
+      <ProductDetails product={data.vtex.product} />
+    </div>
+  )
 }
 
 const ProductPageContainer: FC<Props> = (props) => {
@@ -70,6 +76,10 @@ export const query = graphql`
         ...ProductDetailsTemplate_product
         productId
         description
+        categoryTree {
+          href
+          name
+        }
         items {
           itemId
         }

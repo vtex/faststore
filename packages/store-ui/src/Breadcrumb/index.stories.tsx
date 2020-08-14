@@ -1,8 +1,8 @@
 import React from 'react'
 import { ThemeProvider } from 'theme-ui'
 
-import baseTheme from '../theme'
-import Breadcrumb from './index'
+import { baseTheme } from '../theme'
+import { Breadcrumb } from './index'
 
 export default {
   title: 'product|Breadcrumb',
