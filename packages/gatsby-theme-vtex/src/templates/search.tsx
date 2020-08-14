@@ -21,7 +21,6 @@ const SearchPage: FC<Props> = ({
   pageContext: { staticPath },
 }) => {
   const filters = useSearchFilters()
-
   const { data } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
@@ -46,12 +45,12 @@ const SearchPage: FC<Props> = ({
 
 const SearchPageContainer: FC<Props> = (props) => {
   const {
-    pageContext: { query, map, staticPath },
+    pageContext: { query, map, orderBy, staticPath },
   } = props
 
   return (
     <Layout>
-      <SearchFiltersProvider filters={{ query, map }}>
+      <SearchFiltersProvider filters={{ query, map, orderBy }}>
         <HybridWrapper
           isPrerendered={staticPath}
           fallback={<div>loading...</div>}
@@ -66,10 +65,20 @@ const SearchPageContainer: FC<Props> = (props) => {
 }
 
 export const query = graphql`
-  query SearchPageQuery($query: String, $map: String, $staticPath: Boolean!) {
+  query SearchPageQuery(
+    $query: String
+    $map: String
+    $staticPath: Boolean!
+    $orderBy: String = "OrderByScoreDESC"
+  ) {
     vtex {
-      productSearch(query: $query, map: $map, from: 0, to: 9)
-        @include(if: $staticPath) {
+      productSearch(
+        orderBy: $orderBy
+        query: $query
+        map: $map
+        from: 0
+        to: 9
+      ) @include(if: $staticPath) {
         products {
           ...ProductSummary_syncProduct
         }

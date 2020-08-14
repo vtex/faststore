@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { gql } from '@vtex/gatsby-plugin-graphql'
-import React, { FC, Fragment, useCallback } from 'react'
 import { Button, Grid } from '@vtex/store-ui'
+import React, { FC, Fragment, useCallback } from 'react'
 
 import { useQueryInfinite, useSearchFilters } from '../../sdk'
 import {
@@ -98,9 +98,21 @@ const List: FC<Props> = ({ initialData }) => {
 }
 
 export const query = gql`
-  query SearchQuery($query: String, $map: String, $from: Int, $to: Int) {
+  query SearchQuery(
+    $query: String
+    $map: String
+    $from: Int
+    $to: Int
+    $orderBy: String
+  ) {
     vtex {
-      productSearch(query: $query, map: $map, from: $from, to: $to) {
+      productSearch(
+        query: $query
+        map: $map
+        from: $from
+        to: $to
+        orderBy: $orderBy
+      ) {
         products {
           ...ProductSummary_syncProduct
         }

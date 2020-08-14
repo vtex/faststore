@@ -4,7 +4,8 @@ import { FC } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import Container from '../Container'
-import SearchFilters from './Filters'
+import DesktopSearchFilters from './Filters/Desktop'
+import MobileSearchFilters from './Filters/Mobile'
 import PageList from './PageList'
 import SortSelect from './SortSelect'
 
@@ -19,40 +20,66 @@ const SearchTemplate: FC<Props> = ({ search }) => {
         <Heading sx={{ fontSize: 6 }} as="h2">
           {search.vtex.productSearch!.titleTag}
         </Heading>
+
         <div
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
           }}
         >
-          <Box variant="filters">
+          {/* Desktop Filters */}
+          <Box variant="filters.desktop">
             <aside>
-              <SearchFilters
+              <DesktopSearchFilters
                 {...(search.vtex.facets as any)}
-                variant="filters"
+                variant="filters.desktop"
               />
             </aside>
           </Box>
+
           <div
             sx={{
               flexGrow: 99999,
               flexBasis: 0,
               minWidth: 300,
-              ml: '1rem',
+              ml: [0, '1rem'],
             }}
           >
+            {/* Mobile Controls */}
+            <Box
+              sx={{
+                display: ['block', 'none'],
+              }}
+            >
+              <Flex variant="controls.mobile">
+                <SortSelect variant="sortSelect.mobile" />
+                <MobileSearchFilters
+                  {...(search.vtex.facets as any)}
+                  variant="filters.mobile"
+                />
+              </Flex>
+              <Box variant="totalCount.mobile">
+                <span>{search.vtex.productSearch!.recordsFiltered}</span>{' '}
+                PRODUCTS
+              </Box>
+            </Box>
+
+            {/* Desktop Controls */}
             <Flex
               sx={{
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                display: ['none', 'flex'],
               }}
             >
-              <Box>
+              <Box variant="totalCount">
                 <span>{search.vtex.productSearch!.recordsFiltered}</span>{' '}
                 PRODUCTS
               </Box>
-              <SortSelect variant="sortSelect" />
+              <SortSelect variant="sortSelect.desktop" />
             </Flex>
+
+            {/* Product List  */}
             <PageList initialData={search} />
           </div>
         </div>

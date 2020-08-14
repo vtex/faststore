@@ -6,8 +6,19 @@
 
 // All components and styles from Theme UI
 export * from 'theme-ui'
+export * from '@theme-ui/components'
+
+// Base components from @vtex-components
+// Drawer
+export { default as Drawer } from '@vtex-components/drawer'
+
+// Utils
 // Merge Theme
 export * from './createTheme'
+// Base Theme
+export * from './theme'
+
+// Local Components
 // Header
 export * from './Header'
 export * from './Header/theme'
@@ -34,7 +45,3 @@ export { default as FilterSelector } from './Filter/Selector'
 export { default as FilterSelectorItem } from './Filter/Selector/Item'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
-// Base Theme
-export * from './theme'
-export * from '@theme-ui/components'
-export * from 'theme-ui'

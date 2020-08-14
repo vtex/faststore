@@ -1,31 +1,34 @@
 import React, { FC } from 'react'
-import { Select } from '@vtex/store-ui'
+import { Select } from 'theme-ui'
 
-const options = [
-  ['Relevance', 'OrderByScoreDESC'],
-  ['Price: High to Low', 'OrderByPriceDESC'],
-  ['Price: Low to High', 'OrderByPriceASC'],
-  ['Sales', 'OrderByTopSaleDESC'],
-  ['Reviews', 'OrderByReviewRateDESC'],
-  ['Name, ascending', 'OrderByNameDESC'],
-  ['Name, descending', 'OrderByNameASC'],
-  ['Release date', 'OrderByReleaseDateDESC'],
-  ['Discount', 'OrderByBestDiscountDESC'],
-]
+const options = {
+  OrderByScoreDESC: 'Relevance',
+  OrderByPriceDESC: 'Price: High to Low',
+  OrderByPriceASC: 'Price: Low to High',
+  OrderByTopSaleDESC: 'Sales',
+  OrderByReviewRateDESC: 'Reviews',
+  OrderByNameDESC: 'Name, ascending',
+  OrderByNameASC: 'Name, descending',
+  OrderByReleaseDateDESC: 'Release date',
+  OrderByBestDiscountDESC: 'Discount',
+}
+
+const entries = Object.entries(options)
 
 interface Props {
   onChange: (value: string) => void
   variant?: string
+  defaultValue: keyof typeof options
 }
 
-export const SortSelect: FC<Props> = ({ onChange, variant }) => (
+export const SortSelect: FC<Props> = ({ onChange, variant, defaultValue }) => (
   <Select
     variant={variant}
-    defaultValue="Relevance"
+    defaultValue={options[defaultValue]}
     onChange={(event) => onChange(event.target.selectedOptions[0].value)}
   >
-    {options.map(([label, value]) => (
-      <option key={label} value={value}>
+    {entries.map(([value, label]) => (
+      <option key={value} value={value}>
         {label}
       </option>
     ))}

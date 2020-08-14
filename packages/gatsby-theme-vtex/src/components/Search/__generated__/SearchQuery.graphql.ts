@@ -21,6 +21,7 @@ export type SearchQueryQueryVariables = Exact<{
   map: Maybe<Scalars['String']>;
   from: Maybe<Scalars['Int']>;
   to: Maybe<Scalars['Int']>;
+  orderBy: Maybe<Scalars['String']>;
 }>;
 
 
@@ -30,8 +31,8 @@ export type SearchQueryQuery = { vtex: { productSearch: Maybe<{ products: Maybe<
 // Query Related Code
 
 export const SearchQuery = {
-  query: "query SearchQuery($query: String, $map: String, $from: Int, $to: Int) {\n  vtex {\n    productSearch(query: $query, map: $map, from: $from, to: $to) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
-  sha256Hash: "f357478ca618fe791e1dcfa5b7526a475cfaf749a3badf1be62b43d5ffd3f8ad",
+  query: "query SearchQuery($query: String, $map: String, $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  sha256Hash: "1e6ca111535dba403643f71ac6b020f37d24344ca23f9e8e87e39868f40042a2",
   operationName: "SearchQuery",
 }
 
