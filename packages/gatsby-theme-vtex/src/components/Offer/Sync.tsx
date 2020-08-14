@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Box, Flex } from '@vtex/store-ui'
+import { FormattedMessage } from 'react-intl'
 
 import { useNumberFormat, useBestSeller } from '../../sdk'
 import DiscountPercentage from './DiscountPercentage'
@@ -28,7 +29,7 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   const offer = seller?.commertialOffer
 
   if (!offer || offer.AvailableQuantity === 0) {
-    return <div>Product Unavailable</div>
+    return <FormattedMessage id="offer.product-unavailable" />
   }
 
   return (
@@ -41,7 +42,7 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
         <DiscountPercentage variant={variant} offer={offer} />
       </Flex>
       <Box variant={`${variant}.availability`}>
-        {offer.AvailableQuantity} units left!
+        <FormattedMessage id="offer.units-left" values={{ quantity: offer.AvailableQuantity }}/>
       </Box>
     </Box>
   )

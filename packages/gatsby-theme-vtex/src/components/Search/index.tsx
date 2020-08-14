@@ -6,6 +6,7 @@ import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQu
 import Container from '../Container'
 import CategoryTreeSelector from './Facets/CategoryTree'
 import PageList from './PageList'
+import { FormattedMessage } from 'react-intl'
 
 interface Props {
   search: SearchPageQueryQuery
@@ -32,7 +33,9 @@ const SearchTemplate: FC<Props> = ({ search }) => (
             mr: [0, 0, 5],
           }}
         >
-          <div sx={{ fontSize: 3 }}>Filters</div>
+          <div sx={{ fontSize: 3 }}>
+            <FormattedMessage id="facets.filters" />
+          </div>
           <hr />
           {search.vtex.facets!.categoriesTrees?.[0] ? (
             <Fragment>

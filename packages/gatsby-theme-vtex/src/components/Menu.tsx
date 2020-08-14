@@ -1,18 +1,17 @@
-import { Link } from 'gatsby'
 import React, { FC } from 'react'
-import { Flex } from '@vtex/store-ui'
+import { Flex, LocalizedLink } from '@vtex/store-ui'
 
 const CustomMenu: FC<{ variant?: string }> = ({ variant }) => (
   <Flex as="nav" variant={variant}>
-    <Link to="/apparel---accessories" activeClassName="active">
+    <LocalizedLink to="/apparel---accessories" activeClassName="active">
       Apparel
-    </Link>
-    <Link to="/electronics" activeClassName="active">
+    </LocalizedLink>
+    <LocalizedLink to="/electronics" activeClassName="active">
       Electronics
-    </Link>
-    <Link to="/about" activeClassName="active">
+    </LocalizedLink>
+    <LocalizedLink to="/about" activeClassName="active">
       About
-    </Link>
+    </LocalizedLink>
   </Flex>
 )
 

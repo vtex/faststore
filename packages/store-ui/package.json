@@ -29,6 +29,7 @@
     "@vtex-components/drawer": "^0.2.1",
     "deepmerge": "^4.2.2",
     "gatsby-link": "^2.4.13",
+    "gatsby-theme-i18n": "^1.0.2",
     "reakit": "^1.1.2",
     "theme-ui": "^0.3.1"
   },

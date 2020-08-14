@@ -1,0 +1,21 @@
+{
+  "buy-button.add-to-cart": "ADICIONAR AO CARRINHO",
+  "carousel.previous": "Anterior",
+  "carousel.next": "Próximo",
+  "minicart.drawer.close": "Fechar",
+  "minicart.drawer.count": "Contagem ({count})",
+  "minicart.drawer.subtotal": "Subtotal",
+  "minicart.drawer.total": "Total",
+  "minicart.drawer.shipping-disclaimer": "Frete e impostos são calculados no checkout.",
+  "minicart.drawer.go-checkout": "IR AO CHECKOUT",
+  "offer.product-unavailable": "Produto Indisponível",
+  "offer.units-left": "{quantity} items sobrando!",
+  "facets.brand-selector.title": "Marcas",
+  "facets.tree-selector.title": "Departamentos",
+  "facets.filters": "Filtros",
+  "search.page-list.more": "Mais",
+  "product-not-found": "Produto não encontrado",
+  "loading": "Carregando...",
+  "error-generic": "Erro",
+  "preview.not-found": "Nenhuma prévia encontrada. Esperando conteúdo"
+}

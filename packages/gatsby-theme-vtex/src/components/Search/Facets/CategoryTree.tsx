@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
-import { jsx, Box } from '@vtex/store-ui'
+import { jsx, Box, LocalizedLink } from '@vtex/store-ui'
+import { FormattedMessage } from 'react-intl'
 
 interface Node {
   link: string
@@ -16,7 +16,7 @@ type Props = {
 
 const TreeSelector: FC<Props> = ({ tree }) => (
   <Fragment>
-    <div sx={{ fontSize: 0 }}>Departments</div>
+    <FormattedMessage id="facets.tree-selector.title" />
     <div>{tree.name}</div>
     <ul
       sx={{
@@ -27,9 +27,9 @@ const TreeSelector: FC<Props> = ({ tree }) => (
     >
       {tree.children.map((child, index) => (
         <li key={`tree-selector-${index}`}>
-          <Link to={child.link}>
+          <LocalizedLink to={child.link}>
             <Box sx={{ minHeight: '48px', minWidth: '48px' }}>{child.name}</Box>
-          </Link>
+          </LocalizedLink>
         </li>
       ))}
     </ul>
