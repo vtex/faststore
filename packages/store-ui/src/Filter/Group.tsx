@@ -25,7 +25,7 @@ export const FilterGroup: FC<Props> = ({
   const defaultRenderIcon = (active: boolean) => (
     <GroupCollapsibleIcon
       isActive={active}
-      variant={`${variant}.accordion.collapsible.header.icon`}
+      variant={`${variant}.accordion.collapsible.header`}
     />
   )
 

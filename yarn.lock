@@ -4079,10 +4079,10 @@
   dependencies:
     wonka "^4.0.14"
 
-"@vtex-components/accordion@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@vtex-components/accordion/-/accordion-0.2.0.tgz#0511146ab441b0ba1283bc6eabb045c5bd43bf2a"
-  integrity sha512-g1EcYxJM4skg2rqwqoDRX0Rqp9m9pWa5iNnwsLGdCjqvtjzM6tHD+JOhG4QrE5GdRNQMo3Moguv55mwVQRX0LQ==
+"@vtex-components/accordion@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@vtex-components/accordion/-/accordion-0.2.1.tgz#f5cc1ef5d08c36e181a7c3bf3b4a5706a03d0c0d"
+  integrity sha512-sD13IV36CIScVRzl5BPDnX8QPJU2SDC7PHgOenCOUBzdCTurEJEfu942ZPyy+6AOzqbWwMuu970aauvt1SegIQ==
 
 "@vtex-components/drawer@^0.1.3":
   version "0.1.3"

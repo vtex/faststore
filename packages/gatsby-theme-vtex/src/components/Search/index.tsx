@@ -42,7 +42,7 @@ const SearchTemplate: FC<Props> = ({ search }) => {
               flexGrow: 99999,
               flexBasis: 0,
               minWidth: 300,
-              ml: [0, '1rem'],
+              ml: [0, '3rem'],
             }}
           >
             {/* Mobile Controls */}
@@ -65,19 +65,13 @@ const SearchTemplate: FC<Props> = ({ search }) => {
             </Box>
 
             {/* Desktop Controls */}
-            <Flex
-              sx={{
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                display: ['none', 'flex'],
-              }}
-            >
+            <Box variant="controls.desktop">
               <Box variant="totalCount.desktop">
                 <span>{search.vtex.productSearch!.recordsFiltered}</span>{' '}
                 PRODUCTS
               </Box>
               <SortSelect variant="sortSelect.desktop" />
-            </Flex>
+            </Box>
 
             {/* Product List  */}
             <PageList initialData={search} />

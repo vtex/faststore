@@ -76,7 +76,7 @@ const List: FC<Props> = ({ initialData }) => {
 
   return (
     <Fragment>
-      <Grid my={4} gap={3} columns={[1, 2, 3, 4]}>
+      <Grid my={4} gap={3} columns={[2, 2, 3, 5]}>
         {data.slice(0, viewSize).map((searchQuery, index) => (
           <Page
             key={`summary-page-${index}`}
