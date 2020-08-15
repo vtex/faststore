@@ -89,7 +89,8 @@ export const query = graphql`
         titleTag
         recordsFiltered
       }
-      facets(query: $query, map: $map, operator: or) @include(if: $staticPath) {
+      facets(query: $query, map: $map, operator: or, behavior: "Dynamic")
+        @include(if: $staticPath) {
         specificationFilters {
           name
           values: facets {
