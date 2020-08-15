@@ -9,7 +9,7 @@ export const setSearchFilters = (filters: SearchFilters) => {
   Object.keys(filters).forEach((key: string) => {
     const value = filters[key as keyof SearchFilters]
 
-    if (value) {
+    if (value && key !== 'query') {
       params.set(key, value)
     }
   })

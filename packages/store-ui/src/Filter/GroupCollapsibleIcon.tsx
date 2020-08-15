@@ -23,12 +23,12 @@ const ArrowDown = (
 export const GroupCollapsibleIcon: FC<Props> = ({ isActive, variant }) => (
   <Box variant={`${variant}.icon`}>
     <svg
-      height="38px"
-      width="38px"
+      width="100%"
+      height="100%"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <g transform="translate(11, 11)">{isActive ? ArrowUp : ArrowDown}</g>
+      <g>{isActive ? ArrowUp : ArrowDown}</g>
     </svg>
   </Box>
 )
