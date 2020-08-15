@@ -2,14 +2,13 @@ import React, { createContext, FC, useMemo } from 'react'
 import { useLocation } from '@reach/router'
 
 import { Maybe } from '../../typings'
+import { SearchFilterDefaults } from './defaults'
 
 export interface SearchFilters {
   query: Maybe<string>
   map: Maybe<string>
   orderBy: Maybe<string>
 }
-
-export const DEFAULT_ORDER_BY = 'OrderByScoreDESC'
 
 export const SearchFilterContext = createContext<SearchFilters>(
   undefined as any
@@ -51,7 +50,8 @@ export const SearchFiltersProvider: FC<Props> = ({ children, filters }) => {
   const value = {
     query,
     map: filters?.map ?? params.get('map') ?? createMap(query),
-    orderBy: filters?.orderBy ?? params.get('orderBy') ?? DEFAULT_ORDER_BY,
+    orderBy:
+      filters?.orderBy ?? params.get('orderBy') ?? SearchFilterDefaults.orderBy,
   }
 
   return (

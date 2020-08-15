@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import { SortSelect as StoreUISearchSelect } from '@vtex/store-ui'
+import { SortSelect as StoreUISortSelect } from '@vtex/store-ui'
 
-import { useSearchFilters, DEFAULT_ORDER_BY } from '../../sdk'
+import { useSearchFilters } from '../../sdk'
 
 const searchFilterControler = () => import('../../sdk')
 
@@ -13,9 +13,9 @@ const SortSelect: FC<Props> = ({ variant }) => {
   const filters = useSearchFilters()
 
   return (
-    <StoreUISearchSelect
+    <StoreUISortSelect
       variant={variant}
-      defaultValue={DEFAULT_ORDER_BY}
+      defaultValue={filters.orderBy as any}
       onChange={async (orderBy: string) => {
         const { setSearchFilters } = await searchFilterControler()
 
