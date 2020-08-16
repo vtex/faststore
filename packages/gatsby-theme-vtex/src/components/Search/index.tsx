@@ -1,19 +1,23 @@
 /** @jsx jsx */
 import { Flex, Heading, jsx, Box } from '@vtex/store-ui'
-import { FC } from 'react'
+import { FC, lazy } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import Container from '../Container'
-import DesktopSearchFilters from './Filters/Desktop'
 import MobileSearchFilters from './Filters/Mobile'
 import PageList from './PageList'
 import SortSelect from './SortSelect'
+import { useDevice } from '../../sdk/media/useDevice'
+
+const DesktopSearchFilters = lazy(() => import('./Filters/Desktop'))
 
 interface Props {
   search: SearchPageQueryQuery
 }
 
 const SearchTemplate: FC<Props> = ({ search }) => {
+  const device = useDevice()
+
   return (
     <Container>
       <Flex sx={{ flexDirection: 'column' }} my={4}>
@@ -28,14 +32,16 @@ const SearchTemplate: FC<Props> = ({ search }) => {
           }}
         >
           {/* Desktop Filters */}
-          <Box variant="filters.desktop">
-            <aside>
-              <DesktopSearchFilters
-                {...(search.vtex.facets as any)}
-                variant="filters.desktop"
-              />
-            </aside>
-          </Box>
+          {device === 'desktop' ? (
+            <Box variant="filters.desktop">
+              <aside>
+                <DesktopSearchFilters
+                  {...(search.vtex.facets as any)}
+                  variant="filters.desktop"
+                />
+              </aside>
+            </Box>
+          ) : null}
 
           <div
             sx={{

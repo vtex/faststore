@@ -20,7 +20,7 @@ export type DefaultSalesChannelQueryQueryVariables = Exact<{
 }>
 
 export type DefaultSalesChannelQueryQuery = {
-  allChannel: { edges: Array<{ node: { salesChannel: Maybe<number> } }> }
+  allChannel: { edges: Array<{ node: { salesChannel: Maybe<string> } }> }
 }
 
 // Query Related Code
