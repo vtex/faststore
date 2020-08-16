@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Flex, Heading, jsx, Box } from '@vtex/store-ui'
-import { FC, lazy } from 'react'
+import { FC, lazy, Suspense } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import Container from '../Container'
@@ -32,16 +32,18 @@ const SearchTemplate: FC<Props> = ({ search }) => {
           }}
         >
           {/* Desktop Filters */}
-          {device === 'desktop' ? (
-            <Box variant="filters.desktop">
-              <aside>
-                <DesktopSearchFilters
-                  {...(search.vtex.facets as any)}
-                  variant="filters.desktop"
-                />
-              </aside>
-            </Box>
-          ) : null}
+          <Box variant="filters.desktop">
+            <aside>
+              {device === 'desktop' ? (
+                <Suspense fallback={null}>
+                  <DesktopSearchFilters
+                    {...(search.vtex.facets as any)}
+                    variant="filters.desktop"
+                  />
+                </Suspense>
+              ) : null}
+            </aside>
+          </Box>
 
           <div
             sx={{
