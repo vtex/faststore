@@ -31,9 +31,15 @@ const SearchTemplate: FC<Props> = ({ search }) => {
             flexWrap: 'wrap',
           }}
         >
-          {/* Desktop Filters */}
-          <Box variant="filters.desktop">
-            <aside>
+          <aside
+            sx={{
+              flexGrow: 1,
+              flexBasis: 'sidebar',
+              width: 230,
+            }}
+          >
+            {/* Desktop Filters */}
+            <Box variant="filters.desktop">
               {device === 'desktop' ? (
                 <Suspense fallback={null}>
                   <DesktopSearchFilters
@@ -42,8 +48,8 @@ const SearchTemplate: FC<Props> = ({ search }) => {
                   />
                 </Suspense>
               ) : null}
-            </aside>
-          </Box>
+            </Box>
+          </aside>
 
           <div
             sx={{
@@ -53,32 +59,17 @@ const SearchTemplate: FC<Props> = ({ search }) => {
               ml: [0, '3rem'],
             }}
           >
-            {/* Mobile Controls */}
-            <Box
-              sx={{
-                display: ['block', 'none'],
-              }}
-            >
-              <Flex variant="controls.mobile">
-                <SortSelect variant="sortSelect.mobile" />
-                <MobileSearchFilters
-                  {...(search.vtex.facets as any)}
-                  variant="filters.mobile"
-                />
-              </Flex>
-              <Box variant="totalCount.mobile">
+            {/* Controls */}
+            <Box variant="controls">
+              <MobileSearchFilters
+                {...(search.vtex.facets as any)}
+                variant="controls.filters"
+              />
+              <SortSelect variant="controls.sortSelect" />
+              <Box variant="controls.totalCount">
                 <span>{search.vtex.productSearch!.recordsFiltered}</span>{' '}
                 PRODUCTS
               </Box>
-            </Box>
-
-            {/* Desktop Controls */}
-            <Box variant="controls.desktop">
-              <Box variant="totalCount.desktop">
-                <span>{search.vtex.productSearch!.recordsFiltered}</span>{' '}
-                PRODUCTS
-              </Box>
-              <SortSelect variant="sortSelect.desktop" />
             </Box>
 
             {/* Product List  */}

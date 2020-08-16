@@ -1,18 +1,8 @@
-import { Box, FilterGroup, FilterSelectorItem } from '@vtex/store-ui'
+import { Box, FilterGroup, FilterSelectorItem, Value } from '@vtex/store-ui'
 import { Link } from 'gatsby'
 import React, { FC } from 'react'
 
-interface Value {
-  name: string
-  selected: boolean
-  quantity: number
-  to: string
-}
-
-interface TreeValue extends Value {
-  pathname: string
-  values: TreeValue[]
-}
+import { TreeValue } from './types'
 
 export interface Props {
   variant: string
