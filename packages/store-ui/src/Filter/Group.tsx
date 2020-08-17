@@ -1,5 +1,5 @@
 import Accordion from '@vtex-components/accordion'
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 
 import { FilterSelector, Value } from './Selector'
 import { GroupCollapsibleIcon } from './GroupCollapsibleIcon'
@@ -22,11 +22,14 @@ export const FilterGroup: FC<Props> = ({
   renderItem,
   renderIcon,
 }) => {
-  const defaultRenderIcon = (active: boolean) => (
-    <GroupCollapsibleIcon
-      isActive={active}
-      variant={`${variant}.accordion.collapsible.header`}
-    />
+  const defaultRenderIcon = useCallback(
+    (active: boolean) => (
+      <GroupCollapsibleIcon
+        isActive={active}
+        variant={`${variant}.accordion.collapsible.header`}
+      />
+    ),
+    [variant]
   )
 
   return (

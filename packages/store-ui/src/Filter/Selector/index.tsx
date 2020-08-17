@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { Box } from 'theme-ui'
 
 export interface Value {
   to: string
@@ -23,10 +24,10 @@ export const FilterSelector: FC<Props> = ({
   const variant = `${v}.selector`
 
   return (
-    <ul>
+    <Box as="ul" variant={`${variant}.ul`}>
       {values.map((item, index) => (
         <li key={`${name}:${index}`}>{renderItem(item, variant)}</li>
       ))}
-    </ul>
+    </Box>
   )
 }

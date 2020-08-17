@@ -1,6 +1,13 @@
-import { Box, FilterGroup, FilterSelectorItem, Value } from '@vtex/store-ui'
+/** @jsx jsx */
+import {
+  Box,
+  FilterGroup,
+  FilterSelectorItem,
+  Value,
+  jsx,
+} from '@vtex/store-ui'
 import { Link } from 'gatsby'
-import React, { FC } from 'react'
+import { FC, Fragment } from 'react'
 
 import { TreeValue } from './types'
 
@@ -23,7 +30,7 @@ const SearchFilters: FC<Props> = ({
   isActive = true,
 }) => {
   return (
-    <>
+    <Fragment>
       <Box variant={`${variant}.title`}>Filters</Box>
 
       <FilterGroup
@@ -31,7 +38,7 @@ const SearchFilters: FC<Props> = ({
         isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
-          <Link to={item.to}>
+          <Link to={item.to} sx={{ variant: `${v}.a` }}>
             <FilterSelectorItem {...item} variant={v} />
           </Link>
         )}
@@ -42,7 +49,7 @@ const SearchFilters: FC<Props> = ({
         isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
-          <Link to={item.to}>
+          <Link to={item.to} sx={{ variant: `${v}.a` }}>
             <FilterSelectorItem {...item} variant={v} />
           </Link>
         )}
@@ -53,12 +60,12 @@ const SearchFilters: FC<Props> = ({
         isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
-          <Link to={item.to}>
+          <Link to={item.to} sx={{ variant: `${v}.a` }}>
             <FilterSelectorItem {...item} variant={v} />
           </Link>
         )}
       />
-    </>
+    </Fragment>
   )
 }
 

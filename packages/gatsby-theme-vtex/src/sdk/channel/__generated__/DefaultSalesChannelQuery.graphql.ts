@@ -26,7 +26,8 @@ export type DefaultSalesChannelQueryQuery = {
 // Query Related Code
 
 export const DefaultSalesChannelQuery = {
-  query: undefined,
+  query:
+    'query DefaultSalesChannelQuery {\n  allChannel(filter: {targetProduct: {eq: "vtex-storefront"}}, limit: 1) {\n    edges {\n      node {\n        salesChannel\n      }\n    }\n  }\n}\n',
   sha256Hash:
     '18f145e4e0328acb654db7db826c7ff6072a4fad16c8951a10c084d733c2ca0d',
   operationName: 'DefaultSalesChannelQuery',
