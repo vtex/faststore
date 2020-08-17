@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Select } from 'theme-ui'
+import { Select, SelectProps } from 'theme-ui'
 
 const options = [
   ['OrderByScoreDESC', 'Relevance'],
@@ -13,21 +13,26 @@ const options = [
   ['OrderByBestDiscountDESC', 'Discount'],
 ]
 
-interface Props {
+interface Props extends Omit<SelectProps, 'onChange' | 'ref'> {
   onChange: (value: string) => void
-  variant?: string
-  defaultValue: string // OrderByScoreDESC for example
 }
 
-export const SortSelect: FC<Props> = ({ onChange, variant, defaultValue }) => (
+export const SortSelect: FC<Props> = ({
+  onChange,
+  variant,
+  defaultValue,
+  'aria-label': ariaLabel = 'Refine Search',
+  ...props
+}) => (
   <Select
-    id="sortSelect"
     variant={variant}
     defaultValue={defaultValue}
+    aria-label={ariaLabel}
     onChange={(event) => onChange(event.target.selectedOptions[0].value)}
+    {...props}
   >
     {options.map(([value, label]) => (
-      <option key={value} value={value} label={label} />
+      <option key={value} value={value} label={label} aria-label={label} />
     ))}
   </Select>
 )
