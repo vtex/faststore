@@ -19,14 +19,10 @@ interface Props extends Omit<SelectProps, 'onChange' | 'ref'> {
 
 export const SortSelect: FC<Props> = ({
   onChange,
-  variant,
-  defaultValue,
   'aria-label': ariaLabel = 'Refine Search',
   ...props
 }) => (
   <Select
-    variant={variant}
-    defaultValue={defaultValue}
     aria-label={ariaLabel}
     onChange={(event) => onChange(event.target.selectedOptions[0].value)}
     {...props}
