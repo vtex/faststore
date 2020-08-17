@@ -1,7 +1,6 @@
 import { Image } from '@vtex/gatsby-source-vtex'
-import { ProgressiveImage } from '@vtex/store-ui'
+import { ProgressiveImage, AspectImage } from '@vtex/store-ui'
 import React, { FC } from 'react'
-import { AspectImage } from 'theme-ui'
 
 import { IMAGE_DEFAULT, scaleImage } from '../utils/img'
 
