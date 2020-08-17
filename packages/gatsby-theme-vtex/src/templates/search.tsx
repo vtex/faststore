@@ -38,10 +38,10 @@ const SearchPage: FC<Props> = ({
   }
 
   return (
-    <Box>
+    <>
       <SEO title={data.vtex.productSearch!.titleTag!} />
       <SearchTemplate search={data} />
-    </Box>
+    </>
   )
 }
 
@@ -52,18 +52,16 @@ const SearchPageContainer: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <Container>
-        <SearchFiltersProvider filters={{ query, map, orderBy }}>
-          <HybridWrapper
-            isPrerendered={staticPath}
-            fallback={<div>loading...</div>}
-          >
-            <ErrorBoundary fallback={<div>Error !!</div>}>
-              <SearchPage {...props} />
-            </ErrorBoundary>
-          </HybridWrapper>
-        </SearchFiltersProvider>
-      </Container>
+      <SearchFiltersProvider filters={{ query, map, orderBy }}>
+        <HybridWrapper
+          isPrerendered={staticPath}
+          fallback={<div>loading...</div>}
+        >
+          <ErrorBoundary fallback={<div>Error !!</div>}>
+            <SearchPage {...props} />
+          </ErrorBoundary>
+        </HybridWrapper>
+      </SearchFiltersProvider>
     </Layout>
   )
 }

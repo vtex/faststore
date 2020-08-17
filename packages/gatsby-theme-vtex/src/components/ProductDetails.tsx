@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { graphql } from 'gatsby'
-import { FC, lazy, Fragment } from 'react'
+import { FC, lazy } from 'react'
 import { Card, Grid, Heading, jsx } from '@vtex/store-ui'
 
 import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductDetailsTemplate_product.graphql'
@@ -9,6 +9,7 @@ import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
 import SuspenseDelay from './SuspenseDelay'
 import BuyButton from './BuyButton'
+import Container from './Container'
 
 const AsyncOffer = lazy(() => import('./Offer/Async'))
 
@@ -22,7 +23,7 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
   const [{ imageUrl, imageText }] = images
 
   return (
-    <Fragment>
+    <Container>
       <SEO title={productName} slug={linkText} />
       <Grid my={4} mx="auto" gap={[0, 3]} columns={[1, 2]}>
         <ProductImage
@@ -42,7 +43,7 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
           <BuyButton sku={items[0] as any} />
         </Card>
       </Grid>
-    </Fragment>
+    </Container>
   )
 }
 

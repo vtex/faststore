@@ -6,7 +6,8 @@ import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQu
 import MobileSearchFilters from './Filters/Mobile'
 import PageList from './PageList'
 import SortSelect from './SortSelect'
-import { useDevice } from '../../sdk/media/useDevice'
+import Container from '../Container'
+import SuspenseDevice from '../SuspenseDevice'
 
 const DesktopSearchFilters = lazy(() => import('./Filters/Desktop'))
 
@@ -14,10 +15,8 @@ interface Props {
   search: SearchPageQueryQuery
 }
 
-const SearchTemplate: FC<Props> = ({ search }) => {
-  const device = useDevice()
-
-  return (
+const SearchTemplate: FC<Props> = ({ search }) => (
+  <Container>
     <Flex sx={{ flexDirection: 'column' }} my={4}>
       <Heading sx={{ fontSize: 6 }} as="h2">
         {search.vtex.productSearch!.titleTag}
@@ -38,14 +37,12 @@ const SearchTemplate: FC<Props> = ({ search }) => {
         >
           {/* Desktop Filters */}
           <Box variant="filters.desktop">
-            {device === 'desktop' ? (
-              <Suspense fallback={null}>
-                <DesktopSearchFilters
-                  {...(search.vtex.facets as any)}
-                  variant="filters.desktop"
-                />
-              </Suspense>
-            ) : null}
+            <SuspenseDevice device="desktop" fallback={null}>
+              <DesktopSearchFilters
+                {...(search.vtex.facets as any)}
+                variant="filters.desktop"
+              />
+            </SuspenseDevice>
           </Box>
         </aside>
 
@@ -74,7 +71,7 @@ const SearchTemplate: FC<Props> = ({ search }) => {
         </div>
       </div>
     </Flex>
-  )
-}
+  </Container>
+)
 
 export default SearchTemplate

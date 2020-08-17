@@ -11,7 +11,6 @@ import {
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
-import Container from '../components/Container'
 
 type Props = PageProps<
   ProductPageQueryQuery,
@@ -52,16 +51,14 @@ const ProductPageContainer: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <Container>
-        <HybridWrapper
-          isPrerendered={staticPath}
-          fallback={<div>loading...</div>}
-        >
-          <ErrorBoundary fallback={<div>Error !!</div>}>
-            <ProductPage {...props} />
-          </ErrorBoundary>
-        </HybridWrapper>
-      </Container>
+      <HybridWrapper
+        isPrerendered={staticPath}
+        fallback={<div>loading...</div>}
+      >
+        <ErrorBoundary fallback={<div>Error !!</div>}>
+          <ProductPage {...props} />
+        </ErrorBoundary>
+      </HybridWrapper>
     </Layout>
   )
 }
