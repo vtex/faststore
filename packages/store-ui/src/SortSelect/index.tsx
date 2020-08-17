@@ -21,14 +21,13 @@ interface Props {
 
 export const SortSelect: FC<Props> = ({ onChange, variant, defaultValue }) => (
   <Select
+    id="sortSelect"
     variant={variant}
     defaultValue={defaultValue}
     onChange={(event) => onChange(event.target.selectedOptions[0].value)}
   >
     {options.map(([value, label]) => (
-      <option key={value} value={value}>
-        {label}
-      </option>
+      <option key={value} value={value} label={label} />
     ))}
   </Select>
 )
