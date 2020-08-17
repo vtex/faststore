@@ -1,20 +1,17 @@
 /* eslint-disable no-shadow */
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
-import { Box } from '@vtex/store-ui'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
-import SEO from '../components/SEO/siteMetadata'
 import { useQuery, useSearchFilters, SearchFiltersProvider } from '../sdk'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
-import Container from '../components/Container'
 
 type Props = PageProps<SearchPageQueryQuery, SearchPageQueryQueryVariables>
 
@@ -37,12 +34,7 @@ const SearchPage: FC<Props> = ({
     return <div>Not Found</div>
   }
 
-  return (
-    <>
-      <SEO title={data.vtex.productSearch!.titleTag!} />
-      <SearchTemplate search={data} />
-    </>
-  )
+  return <SearchTemplate search={data} />
 }
 
 const SearchPageContainer: FC<Props> = (props) => {

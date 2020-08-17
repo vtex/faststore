@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Flex, Heading, jsx, Box } from '@vtex/store-ui'
-import { FC, lazy, Suspense } from 'react'
+import { FC, lazy } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import MobileSearchFilters from './Filters/Mobile'
@@ -8,6 +8,7 @@ import PageList from './PageList'
 import SortSelect from './SortSelect'
 import Container from '../Container'
 import SuspenseDevice from '../SuspenseDevice'
+import SEO from '../SEO/siteMetadata'
 
 const DesktopSearchFilters = lazy(() => import('./Filters/Desktop'))
 
@@ -17,6 +18,7 @@ interface Props {
 
 const SearchTemplate: FC<Props> = ({ search }) => (
   <Container>
+    <SEO title={search.vtex.productSearch!.titleTag!} />
     <Flex sx={{ flexDirection: 'column' }} my={4}>
       <Heading sx={{ fontSize: 6 }} as="h2">
         {search.vtex.productSearch!.titleTag}
