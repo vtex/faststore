@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
+import { Box } from '@vtex/store-ui'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
@@ -37,10 +38,10 @@ const SearchPage: FC<Props> = ({
   }
 
   return (
-    <>
+    <Box>
       <SEO title={data.vtex.productSearch!.titleTag!} />
       <SearchTemplate search={data} />
-    </>
+    </Box>
   )
 }
 
