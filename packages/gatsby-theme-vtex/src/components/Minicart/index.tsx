@@ -8,6 +8,9 @@ const preloadDrawer = () => import('./Drawer')
 
 const MinicartDrawer = lazy(preloadDrawer)
 
+const isChrome =
+  /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)
+
 declare global {
   interface Window {
     requestIdleCallback: any
@@ -20,9 +23,13 @@ const Minicart: FC = () => {
   const toggle = () => setOpen(!isOpen)
 
   useEffect(() => {
-    const handler = window.requestIdleCallback(preloadDrawer)
+    if (isChrome) {
+      const handler = window.requestIdleCallback(preloadDrawer)
 
-    return () => window.cancelIdleCallback(handler)
+      return () => window.cancelIdleCallback(handler)
+    }
+
+    preloadDrawer()
   }, [])
 
   const customVariant = 'minicart'
