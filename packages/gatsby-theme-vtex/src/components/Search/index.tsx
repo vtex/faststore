@@ -3,7 +3,6 @@ import { Flex, Heading, jsx, Box } from '@vtex/store-ui'
 import { FC, lazy, Suspense } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
-import Container from '../Container'
 import MobileSearchFilters from './Filters/Mobile'
 import PageList from './PageList'
 import SortSelect from './SortSelect'
@@ -19,65 +18,62 @@ const SearchTemplate: FC<Props> = ({ search }) => {
   const device = useDevice()
 
   return (
-    <Container>
-      <Flex sx={{ flexDirection: 'column' }} my={4}>
-        <Heading sx={{ fontSize: 6 }} as="h2">
-          {search.vtex.productSearch!.titleTag}
-        </Heading>
+    <Flex sx={{ flexDirection: 'column' }} my={4}>
+      <Heading sx={{ fontSize: 6 }} as="h2">
+        {search.vtex.productSearch!.titleTag}
+      </Heading>
+
+      <div
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+        }}
+      >
+        <aside
+          sx={{
+            flexGrow: 1,
+            flexBasis: 'sidebar',
+            width: 230,
+          }}
+        >
+          {/* Desktop Filters */}
+          <Box variant="filters.desktop">
+            {device === 'desktop' ? (
+              <Suspense fallback={null}>
+                <DesktopSearchFilters
+                  {...(search.vtex.facets as any)}
+                  variant="filters.desktop"
+                />
+              </Suspense>
+            ) : null}
+          </Box>
+        </aside>
 
         <div
           sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
+            flexGrow: 99999,
+            flexBasis: 0,
+            minWidth: 300,
+            ml: [0, '3rem'],
           }}
         >
-          <aside
-            sx={{
-              flexGrow: 1,
-              flexBasis: 'sidebar',
-              width: 230,
-            }}
-          >
-            {/* Desktop Filters */}
-            <Box variant="filters.desktop">
-              {device === 'desktop' ? (
-                <Suspense fallback={null}>
-                  <DesktopSearchFilters
-                    {...(search.vtex.facets as any)}
-                    variant="filters.desktop"
-                  />
-                </Suspense>
-              ) : null}
+          {/* Controls */}
+          <Box variant="controls">
+            <MobileSearchFilters
+              {...(search.vtex.facets as any)}
+              variant="controls.filters"
+            />
+            <SortSelect variant="controls.sortSelect" />
+            <Box variant="controls.totalCount">
+              <span>{search.vtex.productSearch!.recordsFiltered}</span> PRODUCTS
             </Box>
-          </aside>
+          </Box>
 
-          <div
-            sx={{
-              flexGrow: 99999,
-              flexBasis: 0,
-              minWidth: 300,
-              ml: [0, '3rem'],
-            }}
-          >
-            {/* Controls */}
-            <Box variant="controls">
-              <MobileSearchFilters
-                {...(search.vtex.facets as any)}
-                variant="controls.filters"
-              />
-              <SortSelect variant="controls.sortSelect" />
-              <Box variant="controls.totalCount">
-                <span>{search.vtex.productSearch!.recordsFiltered}</span>{' '}
-                PRODUCTS
-              </Box>
-            </Box>
-
-            {/* Product List  */}
-            <PageList initialData={search} />
-          </div>
+          {/* Product List  */}
+          <PageList initialData={search} />
         </div>
-      </Flex>
-    </Container>
+      </div>
+    </Flex>
   )
 }
 

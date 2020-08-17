@@ -13,6 +13,7 @@ import {
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
+import Container from '../components/Container'
 
 type Props = PageProps<SearchPageQueryQuery, SearchPageQueryQueryVariables>
 
@@ -50,16 +51,18 @@ const SearchPageContainer: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <SearchFiltersProvider filters={{ query, map, orderBy }}>
-        <HybridWrapper
-          isPrerendered={staticPath}
-          fallback={<div>loading...</div>}
-        >
-          <ErrorBoundary fallback={<div>Error !!</div>}>
-            <SearchPage {...props} />
-          </ErrorBoundary>
-        </HybridWrapper>
-      </SearchFiltersProvider>
+      <Container>
+        <SearchFiltersProvider filters={{ query, map, orderBy }}>
+          <HybridWrapper
+            isPrerendered={staticPath}
+            fallback={<div>loading...</div>}
+          >
+            <ErrorBoundary fallback={<div>Error !!</div>}>
+              <SearchPage {...props} />
+            </ErrorBoundary>
+          </HybridWrapper>
+        </SearchFiltersProvider>
+      </Container>
     </Layout>
   )
 }
