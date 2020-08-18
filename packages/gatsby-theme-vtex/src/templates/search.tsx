@@ -6,7 +6,9 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
-import { useQuery, useSearchFilters, SearchFiltersProvider } from '../sdk'
+import { useQuery } from '../sdk/graphql/useQuery'
+import { useSearchFilters } from '../sdk/search/useSearchFilters'
+import { SearchFiltersProvider } from '../sdk/search/FiltersProvider'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
