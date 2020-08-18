@@ -1,7 +1,8 @@
 /* eslint-disable no-shadow */
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
-import { FormattedMessage } from 'react-intl'
+// import { FormattedMessage } from 'react-intl'
+import { t } from 'frenchkiss'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
@@ -50,9 +51,9 @@ const SearchPageContainer: FC<Props> = (props) => {
       <SearchFiltersProvider filters={{ query, map, orderBy }}>
         <HybridWrapper
           isPrerendered={staticPath}
-          fallback={<FormattedMessage id="loading" />}
+          fallback={<div>{t('loading')}</div>}
         >
-          <ErrorBoundary fallback={<FormattedMessage id="error" />}>
+          <ErrorBoundary fallback={<div>{t('loading')}</div>}>
             <SearchPage {...props} />
           </ErrorBoundary>
         </HybridWrapper>
