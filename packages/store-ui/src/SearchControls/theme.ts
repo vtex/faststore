@@ -23,7 +23,7 @@ export const searchControlsTheme: SxStyleProp = {
     select: {
       px: '8px',
       py: ['6px', '2px'],
-      color: 'grey',
+      color: 'text',
       minWidth: '170px',
       textTransform: 'capitalize',
       borderColor: 'transparent',
@@ -32,7 +32,7 @@ export const searchControlsTheme: SxStyleProp = {
     filtersButton: {
       display: ['block', 'none'],
       backgroundColor: 'white',
-      color: 'grey',
+      color: 'text',
     },
   },
 }
