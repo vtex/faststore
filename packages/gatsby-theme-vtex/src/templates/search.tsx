@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'

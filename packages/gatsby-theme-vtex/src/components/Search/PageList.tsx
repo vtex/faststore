@@ -11,7 +11,7 @@ import {
 } from './__generated__/SearchQuery.graphql'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
 
 const PAGE_SIZE = 10
 

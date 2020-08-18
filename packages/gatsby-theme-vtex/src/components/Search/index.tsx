@@ -6,7 +6,7 @@ import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQu
 import Container from '../Container'
 import CategoryTreeSelector from './Facets/CategoryTree'
 import PageList from './PageList'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
 
 interface Props {
   search: SearchPageQueryQuery

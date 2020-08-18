@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
 import { jsx, Box, LocalizedLink } from '@vtex/store-ui'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
 
 interface Node {
   link: string
