@@ -5,10 +5,6 @@
     "alwaysStrict": false,
     "jsx": "preserve"
   },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "../store-ui/src/Filters/Facet/index.tsx"
-  ],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["./node_modules/**/*"]
 }
