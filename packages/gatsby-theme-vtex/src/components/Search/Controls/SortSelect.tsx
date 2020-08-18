@@ -3,7 +3,7 @@ import { SearchControlsSelect as StoreUISortSelect } from '@vtex/store-ui'
 
 import { useSearchFilters } from '../../../sdk'
 
-const searchFilterControler = () => import('../../../sdk')
+const searchFilterControler = () => import('../../../sdk/search/controler')
 
 interface Props {
   variant?: string
