@@ -13,8 +13,9 @@ const Minicart: FC = () => {
   const toggle = () => setOpen(!isOpen)
 
   useEffect(() => {
+    //@ts-ignore
     const handler = window.requestIdleCallback(preloadDrawer)
-
+    //@ts-ignore
     return () => window.cancelIdleCallback(handler)
   }, [])
 
