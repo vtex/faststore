@@ -3,6 +3,9 @@ import { join, resolve } from 'path'
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
 
+//@ts-ignore
+// import ModuleReplaceWebpackPlugin from 'module-replace-webpack-plugin'
+
 import { Environment, Options } from './gatsby-config'
 
 const root = process.cwd()
@@ -156,6 +159,11 @@ export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
 }: CreateWebpackConfigArgs) => {
   setWebpackConfig({
+    resolve: {
+      alias: {
+        'react-intl$': 'react-intl/react-intl-no-parser.umd',
+      }
+    },
     module: {
       rules: [
         {
@@ -167,5 +175,13 @@ export const onCreateWebpackConfig = ({
         },
       ],
     },
+    // plugins: [
+    //   new ModuleReplaceWebpackPlugin({
+    //     modules: [{
+    //       test: /^react-intl$/,
+    //       replace: 'react-intl/react-intl-no-parser.umd'
+    //     }]
+    //   })
+    // ]
   })
 }

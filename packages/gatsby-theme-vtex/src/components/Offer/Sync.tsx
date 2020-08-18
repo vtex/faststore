@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box, Flex } from '@vtex/store-ui'
-import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
+import { FormattedMessage } from 'react-intl'
 
 import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 import { useBestSeller } from '../../sdk/product/useBestSeller'

@@ -4,7 +4,7 @@ import {
 } from '@vtex/gatsby-transformer-vtex-cms'
 import React, { FC, Suspense } from 'react'
 import { Helmet } from 'react-helmet'
-import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
+import { FormattedMessage } from 'react-intl'
 
 import Block from '../components/cms/Block'
 import { CMS_CONTENT, setupIframeListener } from '../components/cms/iframe'
