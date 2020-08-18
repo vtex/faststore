@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-vtex-react-intl",
-  "version": "0.20.4",
+  "version": "0.20.5-alpha.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
