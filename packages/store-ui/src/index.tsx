@@ -55,3 +55,5 @@ export * from './SearchControls/theme'
 // Breadcrumb
 export * from './Breadcrumb'
 export { default as breadcrumbTheme } from './Breadcrumb/theme'
+// Slider
+export * from './Slider/PaginationDots'

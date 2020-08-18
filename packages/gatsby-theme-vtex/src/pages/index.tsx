@@ -3,7 +3,7 @@ import { graphql, PageProps } from 'gatsby'
 import { FC, useEffect, lazy } from 'react'
 import { jsx } from '@vtex/store-ui'
 
-import Carousel from '../components/Carousel'
+import HomeBlocks from '../components/Home'
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
@@ -15,23 +15,6 @@ const loader = () => import('../components/Home/Fold')
 
 const Fold = lazy(loader)
 
-const itemsCarousel = [
-  {
-    src:
-      'https://storecomponents.vtexassets.com/assets/faststore/images/banner___febafa22a7ffc9a7f2fd049f416e7c7b.webp?aspect=true&height=450',
-    altText: 'Slide 2',
-    width: 940,
-    height: 450,
-  },
-  {
-    src:
-      'https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/main___59700c0e5c56dcd769179d434f514892.webp?aspect=true&height=450',
-    altText: 'Slide 1',
-    width: 940,
-    height: 450,
-  },
-]
-
 type Props = PageProps<HomePageQueryQuery>
 
 const Home: FC<Props> = ({ data }) => {
@@ -42,8 +25,8 @@ const Home: FC<Props> = ({ data }) => {
   return (
     <Layout>
       <SEO />
-      <Carousel items={itemsCarousel} />
       <Container>
+        <HomeBlocks pageData={data} />
         <Shelf products={data.vtex.productSearch!.products!} />
       </Container>
       <SuspenseViewport fallback={null} preloader={loader}>
