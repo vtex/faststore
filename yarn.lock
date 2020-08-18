@@ -9616,6 +9616,11 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+frenchkiss@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/frenchkiss/-/frenchkiss-0.2.1.tgz#409d38d127114ba4c55a2d457f127ef6edfad646"
+  integrity sha512-CQ4hOuPJ9EExmYcv4z9CEuIFAxny672NU2xRk9rJ5Y6XqJknYaRHRKZ/zVLlLPcSNnRttriIOR1UYaVSVAbrlg==
+
 fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
