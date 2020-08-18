@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Flex, Heading, jsx, Box } from '@vtex/store-ui'
 import { FC, lazy } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import PageList from './PageList'
