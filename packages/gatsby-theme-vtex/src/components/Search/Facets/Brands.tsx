@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
 import { Checkbox, Label, jsx, LocalizedLink } from '@vtex/store-ui'
-import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
+import { FormattedMessage } from 'react-intl'
 
 interface Brands {
   value: string

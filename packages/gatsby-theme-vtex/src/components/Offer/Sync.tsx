@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box, Flex } from '@vtex/store-ui'
-import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
+import { FormattedMessage } from 'react-intl'
 
 import { useNumberFormat, useBestSeller } from '../../sdk'
 import DiscountPercentage from './DiscountPercentage'

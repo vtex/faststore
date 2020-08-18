@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, useState } from 'react'
 import { Box, Button, jsx, Image } from '@vtex/store-ui'
-import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
+import { FormattedMessage } from 'react-intl'
 
 interface Item {
   src: string

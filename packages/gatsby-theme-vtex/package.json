@@ -44,6 +44,7 @@
     "gatsby-plugin-react-helmet": "^3.3.6",
     "gatsby-plugin-theme-ui": "^0.3.0",
     "gatsby-theme-i18n": "^1.0.2",
+    "gatsby-theme-i18n-react-intl": "^1.0.2",
     "html-loader": "^1.1.0",
     "intl-format-cache": "^4.3.0",
     "markdown-loader": "^5.1.0",
@@ -55,5 +56,5 @@
     "schema-dts": "^0.6.0",
     "swr": "^0.3.0"
   },
-  "gitHead": "bce5338f5096fe75aab8e5bb1c35bed8c472cadf"
+  "gitHead": "e46a9b0609c68ce3bd8b1b1347a902b00e59c7d2"
 }

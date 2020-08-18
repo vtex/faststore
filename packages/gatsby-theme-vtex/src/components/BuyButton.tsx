@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC } from 'react'
 import { Button, jsx } from '@vtex/store-ui'
-import { FormattedMessage } from "react-intl/react-intl-no-parser.umd"
+import { FormattedMessage } from "react-intl"
 
 import { useBestSeller, useOrderForm } from '../sdk'
 import { Maybe } from '../typings'
