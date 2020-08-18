@@ -1,6 +1,6 @@
 # Component
 
-Some people think React is the V of MVC, which is a good argument; however, it doesn't make sense to us, as we don't want to have components attached, but we still want to have access to the data. So React is the MVC's C, and V. [Dan Abramov describes the division as intelligent, silent components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)..
+Some people think React is the V of MVC, which is a good argument; however, it doesn't make sense to us, as we don't want to have components attached, but we still want to have access to the data. So React is the MVC's C, and V. [Dan Abramov describes the division as smart, dumb components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)..
 
 Such a component would be rejected in the code review for having a concern for presentation and data:
 
@@ -54,10 +54,10 @@ export const ProductList = () => {
 
 ## Refactoring
 
-Components must be combinable and should have only a single responsibility ([SRP](https://en.wikipedia.org/wiki/Single-responsibility_principle)) to help achieve separation of interests ([SOC](https://en.wikipedia.org/wiki/Separation_of_concerns)). In our example, there are several responsibilities / concerns: searching for data and rendering different UI states. Our component should be divided into parts:
+Components must be composable and should have a single responsibility ([SRP](https://en.wikipedia.org/wiki/Single-responsibility_principle)) to help achieve separation ([SOC](https://en.wikipedia.org/wiki/Separation_of_concerns)). In our example, there are several responsibilities/concerns: searching for data and rendering different UI states. Our component should be divided into parts:
 
 - The first is like a traditional component, concerned only with the presentation;
-- The second is responsible of data fetching and state control;
+- The second is responsible for data fetching and state control;
 - And finally the third one, which is responsible for rendering the related display component.
 
 ```tsx
@@ -137,14 +137,18 @@ export const useProductList = () => {
 
 ```tsx
 // ProductListContainer.tsx
-import React from 'react'
+import React, { FC } from 'react'
 import ProductList from './ProductList'
 import useProductList from './useProductList'
 
-const ProductListContainer = () => {
+interface Props {
+  variant?: string
+}
+
+const ProductListContainer: FC<Props> = ({ variant }) => {
   const productList = useProductList()
 
-  return <ProductList {...productList} />
+  return <ProductList {...productList} variant={variant} />
 }
 
 export default ProductListContainer
