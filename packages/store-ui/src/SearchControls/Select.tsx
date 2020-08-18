@@ -17,18 +17,24 @@ interface Props extends Omit<SelectProps, 'onChange' | 'ref'> {
   onChange: (value: string) => void
 }
 
-export const SortSelect: FC<Props> = ({
+export const SearchControlsSelect: FC<Props> = ({
   onChange,
   'aria-label': ariaLabel = 'Refine Search',
+  variant: v,
   ...props
-}) => (
-  <Select
-    aria-label={ariaLabel}
-    onChange={(event) => onChange(event.target.selectedOptions[0].value)}
-    {...props}
-  >
-    {options.map(([value, label]) => (
-      <option key={value} value={value} label={label} aria-label={label} />
-    ))}
-  </Select>
-)
+}) => {
+  const variant = `searchControls${v ? `.${v}` : ''}.select`
+
+  return (
+    <Select
+      aria-label={ariaLabel}
+      onChange={(event) => onChange(event.target.selectedOptions[0].value)}
+      variant={variant}
+      {...props}
+    >
+      {options.map(([value, label]) => (
+        <option key={value} value={value} label={label} aria-label={label} />
+      ))}
+    </Select>
+  )
+}

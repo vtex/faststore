@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import {
   Box,
-  FilterGroup,
-  FilterSelectorItem,
-  Value,
+  SearchFilterAccordion,
+  SearchFilterAccordionItemCheckbox,
+  SearchFilterValue,
   jsx,
 } from '@vtex/store-ui'
 import { Link } from 'gatsby'
@@ -12,18 +12,18 @@ import { FC, Fragment } from 'react'
 import { TreeValue } from './types'
 
 export interface Props {
-  variant: string
+  variant?: string
   isActive?: boolean
   specificationFilters: Array<{
     name: string
-    values: Value[]
+    values: SearchFilterValue[]
   }>
-  brands: Value[]
+  brands: SearchFilterValue[]
   categoriesTrees: TreeValue[]
 }
 
 const SearchFilters: FC<Props> = ({
-  variant,
+  variant = 'desktop',
   specificationFilters,
   brands,
   categoriesTrees,
@@ -31,37 +31,37 @@ const SearchFilters: FC<Props> = ({
 }) => {
   return (
     <Fragment>
-      <Box variant={`${variant}.title`}>Filters</Box>
+      <Box variant={`filters.${variant}.title`}>Filters</Box>
 
-      <FilterGroup
+      <SearchFilterAccordion
         filters={categoriesTrees}
         isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
           <Link to={item.to} sx={{ variant: `${v}.a` }}>
-            <FilterSelectorItem {...item} variant={v} />
+            <SearchFilterAccordionItemCheckbox {...item} variant={v} />
           </Link>
         )}
       />
 
-      <FilterGroup
+      <SearchFilterAccordion
         filters={[{ name: 'Brands', values: brands }]}
         isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
           <Link to={item.to} sx={{ variant: `${v}.a` }}>
-            <FilterSelectorItem {...item} variant={v} />
+            <SearchFilterAccordionItemCheckbox {...item} variant={v} />
           </Link>
         )}
       />
 
-      <FilterGroup
+      <SearchFilterAccordion
         filters={specificationFilters}
         isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
           <Link to={item.to} sx={{ variant: `${v}.a` }}>
-            <FilterSelectorItem {...item} variant={v} />
+            <SearchFilterAccordionItemCheckbox {...item} variant={v} />
           </Link>
         )}
       />

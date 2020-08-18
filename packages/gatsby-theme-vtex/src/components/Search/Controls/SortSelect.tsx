@@ -1,15 +1,15 @@
 import React, { FC } from 'react'
-import { SortSelect as StoreUISortSelect } from '@vtex/store-ui'
+import { SearchControlsSelect as StoreUISortSelect } from '@vtex/store-ui'
 
-import { useSearchFilters } from '../../sdk'
+import { useSearchFilters } from '../../../sdk'
 
-const searchFilterControler = () => import('../../sdk')
+const searchFilterControler = () => import('../../../sdk')
 
 interface Props {
-  variant: string
+  variant?: string
 }
 
-const SortSelect: FC<Props> = ({ variant }) => {
+const SearchControlsSelect: FC<Props> = ({ variant }) => {
   const filters = useSearchFilters()
 
   return (
@@ -28,4 +28,4 @@ const SortSelect: FC<Props> = ({ variant }) => {
   )
 }
 
-export default SortSelect
+export default SearchControlsSelect

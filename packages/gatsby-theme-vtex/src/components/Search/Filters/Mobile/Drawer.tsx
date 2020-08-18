@@ -8,20 +8,15 @@ interface Props extends DesktopProps {
   isOpen: boolean
 }
 
-const SearchFiltersDrawer: FC<Props> = ({
-  variant,
-  toggle,
-  isOpen,
-  ...props
-}) => (
+const SearchFiltersDrawer: FC<Props> = ({ toggle, isOpen, ...props }) => (
   <Drawer
     isOpen={isOpen}
     onClose={toggle}
-    variant={variant}
+    variant="filters.mobile"
     width={300}
     placement="right"
   >
-    <DesktopSearchFilters {...props} variant={variant} isActive={false} />
+    <DesktopSearchFilters {...props} variant="mobile" isActive={false} />
   </Drawer>
 )
 

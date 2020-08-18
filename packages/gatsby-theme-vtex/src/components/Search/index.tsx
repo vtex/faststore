@@ -5,10 +5,10 @@ import { FC, lazy } from 'react'
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import MobileSearchFilters from './Filters/Mobile'
 import PageList from './PageList'
-import SortSelect from './SortSelect'
 import Container from '../Container'
 import SuspenseDevice from '../SuspenseDevice'
 import SEO from '../SEO/siteMetadata'
+import Controls from './Controls'
 
 const DesktopSearchFilters = lazy(() => import('./Filters/Desktop'))
 
@@ -42,7 +42,7 @@ const SearchTemplate: FC<Props> = ({ search }) => (
             <SuspenseDevice device="desktop" fallback={null}>
               <DesktopSearchFilters
                 {...(search.vtex.facets as any)}
-                variant="filters.desktop"
+                variant="desktop"
               />
             </SuspenseDevice>
           </Box>
@@ -57,16 +57,7 @@ const SearchTemplate: FC<Props> = ({ search }) => (
           }}
         >
           {/* Controls */}
-          <Box variant="controls">
-            <MobileSearchFilters
-              {...(search.vtex.facets as any)}
-              variant="controls.filters"
-            />
-            <SortSelect variant="controls.sortSelect" />
-            <Box variant="controls.totalCount">
-              <span>{search.vtex.productSearch!.recordsFiltered}</span> PRODUCTS
-            </Box>
-          </Box>
+          <Controls data={search} />
 
           {/* Product List  */}
           <PageList initialData={search} />

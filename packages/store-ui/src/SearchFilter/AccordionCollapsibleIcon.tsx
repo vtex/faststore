@@ -20,7 +20,10 @@ const ArrowDown = (
   />
 )
 
-export const GroupCollapsibleIcon: FC<Props> = ({ isActive, variant }) => (
+export const SearchFilterAccordionCollaipsibleIcon: FC<Props> = ({
+  isActive,
+  variant,
+}) => (
   <Box variant={`${variant}.icon`}>
     <svg
       width="100%"

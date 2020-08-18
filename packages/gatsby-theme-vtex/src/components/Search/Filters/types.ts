@@ -1,6 +1,6 @@
-import { Value } from '@vtex/store-ui'
+import { SearchFilterValue } from '@vtex/store-ui'
 
-export interface TreeValue extends Value {
+export interface TreeValue extends SearchFilterValue {
   pathname: string
   values: TreeValue[]
 }

@@ -1,4 +1,4 @@
-import { Value, Button } from '@vtex/store-ui'
+import { SearchFilterValue, Button } from '@vtex/store-ui'
 import React, { FC, lazy, Suspense, useState, useCallback } from 'react'
 
 import { TreeValue } from '../types'
@@ -11,9 +11,9 @@ interface Props {
   isActive?: boolean
   specificationFilters: Array<{
     name: string
-    values: Value[]
+    values: SearchFilterValue[]
   }>
-  brands: Value[]
+  brands: SearchFilterValue[]
   categoriesTrees: TreeValue[]
 }
 
@@ -23,17 +23,12 @@ const SearchFilters: FC<Props> = ({ variant, ...props }) => {
 
   return (
     <>
-      <Button variant={`${variant}.action`} onClick={toggle}>
+      <Button variant="controls.filterAction" onClick={toggle}>
         Filters <Icon />
       </Button>
       {active ? (
         <Suspense fallback={null}>
-          <SearchFiltersDrawer
-            {...props}
-            toggle={toggle}
-            isOpen={active}
-            variant={variant}
-          />
+          <SearchFiltersDrawer {...props} toggle={toggle} isOpen={active} />
         </Suspense>
       ) : null}
     </>

@@ -24,8 +24,6 @@ export * from './Header'
 export * from './Header/theme'
 // Logo
 export * from './Logo'
-// Search's sort combo box selector
-export * from './SortSelect'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'
@@ -42,6 +40,10 @@ export * from './Minicart/theme'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
 // Search Filters
-export * from './Filter/Group'
-export * from './Filter/Selector'
-export * from './Filter/Selector/Item'
+export * from './SearchFilter/Accordion'
+export * from './SearchFilter/AccordionItemCheckbox'
+// Search Controls
+export * from './SearchControls'
+export * from './SearchControls/FiltersButton'
+export * from './SearchControls/totalCount'
+export * from './SearchControls/Select'
