@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
 import { jsx, Box, LocalizedLink } from '@vtex/store-ui'
-import { FormattedMessage } from 'react-intl'
+// import { FormattedMessage } from 'react-intl'
+import { t } from 'frenchkiss'
 
 interface Node {
   link: string
@@ -16,7 +17,8 @@ type Props = {
 
 const TreeSelector: FC<Props> = ({ tree }) => (
   <Fragment>
-    <FormattedMessage id="facets.tree-selector.title" />
+    {/* <FormattedMessage id="facets.tree-selector.title" /> */}
+    <div>{t('facets.tree-selector.title')}</div>
     <div>{tree.name}</div>
     <ul
       sx={{
