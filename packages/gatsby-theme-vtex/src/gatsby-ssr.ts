@@ -3,6 +3,8 @@ import { RenderBodyArgs } from 'gatsby'
 
 const script = require('./src/utils/script')
 
+const { wrapPageElement: wrapPageComponent } = require('./src/wrapPage')
+
 export const onRenderBody = ({
   setHeadComponents,
   setPostBodyComponents,
@@ -31,3 +33,5 @@ export const onRenderBody = ({
     }),
   ])
 }
+
+export const wrapPageElement = wrapPageComponent

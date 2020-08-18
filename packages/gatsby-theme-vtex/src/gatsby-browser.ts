@@ -6,6 +6,8 @@ import 'requestidlecallback-polyfill'
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk')
 
+const { wrapPageElement: wrapPageComponent } = require('./src/wrapPage')
+
 export const replaceHydrateFunction = () => (
   element: ElementType,
   container: Element,
@@ -30,3 +32,5 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
   createElement(StrictMode, {
     children: createElement(OrderFormProvider, { children: element }),
   })
+
+export const wrapPageElement = wrapPageComponent
