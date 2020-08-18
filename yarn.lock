@@ -4133,15 +4133,10 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/accordion/-/accordion-0.2.2.tgz#6233ed64542fa0331128eb2d7b8075eea14e537e"
   integrity sha512-gSOSyJB5k6Veux9+kfHydIiwWc1IUEcTkbC4On9IdS5mIxV9INjcnFfKfFiy6zEGq4qc3UWdGituHtg3BWuCyg==
 
-"@vtex-components/drawer@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.1.3.tgz#fbe460bc02169ec3f164646818ae959b4cecb275"
-  integrity sha512-sxvJ7DbanPrlb64sziThUKz9OpEUMXR8yJUS6nSElXAR2KZPW+wYYSiyEFRHwzTmen3Bu717nI2LGDUSfFLp1w==
-
-"@vtex-components/drawer@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.1.tgz#90ad5ca2327434c0855cebb76ccd4991a3b877a1"
-  integrity sha512-q6CpbzuPKg8fJN6BmrmSlBiR/W0M9+7lj416+lQDZVsIgBuveAn6gBvIRbyOrdD/bnDg1h4ErHQGUmHCb1inUg==
+"@vtex-components/drawer@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.2.tgz#df18c2311e0b10b6841764fee0cf492b732731e0"
+  integrity sha512-8wt/aVM9NsLb8NAT+6wVpAB23NfXHBmQynhSONkL3C33ruDFtQgkBy9wpw1unZfRTHjD/zYk8ffmJ+lw+OZGAw==
 
 "@vtex/prettier-config@^0.3.0":
   version "0.3.1"
