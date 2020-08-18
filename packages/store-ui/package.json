@@ -1,6 +1,10 @@
 {
   "name": "@vtex/store-ui",
+<<<<<<< HEAD
   "version": "0.22.2-alpha.6",
+=======
+  "version": "0.20.5-alpha.0",
+>>>>>>> Release: 0.20.5-alpha.0
   "description": "Next store component library",
   "author": "emersonlaurentino",
   "license": "MIT",

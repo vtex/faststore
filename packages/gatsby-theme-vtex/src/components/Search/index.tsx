@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { Flex, Heading, jsx, Box } from '@vtex/store-ui'
 import { FC, lazy } from 'react'
-import { FormattedMessage } from 'react-intl/react-intl-no-parser.umd'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import PageList from './PageList'
@@ -38,23 +37,12 @@ const SearchTemplate: FC<Props> = ({ data }) => (
             width: 230,
           }}
         >
-<<<<<<< HEAD
           {/* Desktop Filters */}
           <Box variant="searchFilter.desktop">
             <SuspenseDevice device="desktop" fallback={null}>
               <DesktopSearchFilters
                 {...(data.vtex.facets as any)}
                 variant="desktop"
-=======
-          <div sx={{ fontSize: 3 }}>
-            <FormattedMessage id="facets.filters" />
-          </div>
-          <hr />
-          {search.vtex.facets!.categoriesTrees?.[0] ? (
-            <Fragment>
-              <CategoryTreeSelector
-                tree={search.vtex.facets!.categoriesTrees[0] as any}
->>>>>>> use gatsby-theme-i18n
               />
             </SuspenseDevice>
           </Box>
