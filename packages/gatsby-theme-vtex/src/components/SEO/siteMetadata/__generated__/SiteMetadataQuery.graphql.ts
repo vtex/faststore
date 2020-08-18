@@ -30,8 +30,7 @@ export type SiteMetadataQueryQuery = {
 // Query Related Code
 
 export const SiteMetadataQuery = {
-  query:
-    'query SiteMetadataQuery {\n  site {\n    siteMetadata {\n      title\n      description\n      author\n    }\n  }\n}\n',
+  query: undefined,
   sha256Hash:
     '38817674a7094b82cd30fd470268fe7e22c99de447b81ed2bf32f6c4fe65cc80',
   operationName: 'SiteMetadataQuery',
