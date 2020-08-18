@@ -50,3 +50,5 @@ export * from './SearchControls/FiltersButton'
 export * from './SearchControls/totalCount'
 export * from './SearchControls/Select'
 export * from './SearchControls/theme'
+// Slider
+export * from './Slider/PaginationDots'
