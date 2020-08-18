@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
 import { Box, Flex } from '@vtex/store-ui'
 
-import { useNumberFormat, useBestSeller } from '../../sdk'
+import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
+import { useBestSeller } from '../../sdk/product/useBestSeller'
 import DiscountPercentage from './DiscountPercentage'
 import ListPrice from './ListPrice'
 
