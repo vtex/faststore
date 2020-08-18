@@ -31,6 +31,7 @@ const SearchTemplate: FC<Props> = ({ data }) => (
       >
         <aside
           sx={{
+            display: ['none', 'block'],
             flexGrow: 1,
             flexBasis: 'sidebar',
             width: 230,
