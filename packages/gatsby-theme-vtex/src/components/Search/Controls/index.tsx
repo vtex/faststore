@@ -14,7 +14,7 @@ const Controls: FC<Props> = ({ data }) => (
     <SearchControlsFiltersButton {...(data.vtex.facets as any)} />
     <SearchControlsSelect />
     <SearchControlsTotalCount
-      label="PRODUCTS"
+      label=" PRODUCTS"
       totalCount={data.vtex.productSearch!.recordsFiltered!}
     />
   </SearchControls>

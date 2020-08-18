@@ -34,7 +34,7 @@ const SearchPage: FC<Props> = ({
     return <div>Not Found</div>
   }
 
-  return <SearchTemplate search={data} />
+  return <SearchTemplate data={data} />
 }
 
 const SearchPageContainer: FC<Props> = (props) => {

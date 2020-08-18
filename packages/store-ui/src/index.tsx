@@ -42,8 +42,10 @@ export { default as RichMarkdown } from './RichMarkdown'
 // Search Filters
 export * from './SearchFilter/Accordion'
 export * from './SearchFilter/AccordionItemCheckbox'
+export * from './SearchFilter/theme'
 // Search Controls
 export * from './SearchControls'
 export * from './SearchControls/FiltersButton'
 export * from './SearchControls/totalCount'
 export * from './SearchControls/Select'
+export * from './SearchControls/theme'

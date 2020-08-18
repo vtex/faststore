@@ -31,7 +31,7 @@ const SearchFilters: FC<Props> = ({
 }) => {
   return (
     <Fragment>
-      <Box variant={`filters.${variant}.title`}>Filters</Box>
+      <Box variant={`searchFilter.${variant}.title`}>Filters</Box>
 
       <SearchFilterAccordion
         filters={categoriesTrees}

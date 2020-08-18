@@ -1,38 +1,23 @@
-import { SearchFilterValue, Button } from '@vtex/store-ui'
-import React, { FC, lazy, Suspense, useState, useCallback } from 'react'
+import { Drawer } from '@vtex/store-ui'
+import React, { FC } from 'react'
 
-import { TreeValue } from '../types'
-import Icon from './Icon'
+import DesktopSearchFilters, { Props as DesktopProps } from '../Desktop'
 
-const SearchFiltersDrawer = lazy(() => import('./Drawer'))
-
-interface Props {
-  variant: string
-  isActive?: boolean
-  specificationFilters: Array<{
-    name: string
-    values: SearchFilterValue[]
-  }>
-  brands: SearchFilterValue[]
-  categoriesTrees: TreeValue[]
+interface Props extends DesktopProps {
+  toggle: () => void
+  isOpen: boolean
 }
 
-const SearchFilters: FC<Props> = ({ variant, ...props }) => {
-  const [active, setActive] = useState(false)
-  const toggle = useCallback(() => setActive(!active), [active])
-
-  return (
-    <>
-      <Button variant="controls.filterAction" onClick={toggle}>
-        Filters <Icon />
-      </Button>
-      {active ? (
-        <Suspense fallback={null}>
-          <SearchFiltersDrawer {...props} toggle={toggle} isOpen={active} />
-        </Suspense>
-      ) : null}
-    </>
-  )
-}
+const SearchFilters: FC<Props> = ({ toggle, isOpen, ...props }) => (
+  <Drawer
+    isOpen={isOpen}
+    onClose={toggle}
+    variant="searchFilter.mobile"
+    width={300}
+    placement="right"
+  >
+    <DesktopSearchFilters {...props} variant="mobile" isActive={false} />
+  </Drawer>
+)
 
 export default SearchFilters

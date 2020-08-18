@@ -3,7 +3,6 @@ import { Flex, Heading, jsx, Box } from '@vtex/store-ui'
 import { FC, lazy } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
-import MobileSearchFilters from './Filters/Mobile'
 import PageList from './PageList'
 import Container from '../Container'
 import SuspenseDevice from '../SuspenseDevice'
@@ -13,15 +12,15 @@ import Controls from './Controls'
 const DesktopSearchFilters = lazy(() => import('./Filters/Desktop'))
 
 interface Props {
-  search: SearchPageQueryQuery
+  data: SearchPageQueryQuery
 }
 
-const SearchTemplate: FC<Props> = ({ search }) => (
+const SearchTemplate: FC<Props> = ({ data }) => (
   <Container>
-    <SEO title={search.vtex.productSearch!.titleTag!} />
+    <SEO title={data.vtex.productSearch!.titleTag!} />
     <Flex sx={{ flexDirection: 'column' }} my={4}>
       <Heading sx={{ fontSize: 6 }} as="h2">
-        {search.vtex.productSearch!.titleTag}
+        {data.vtex.productSearch!.titleTag}
       </Heading>
 
       <div
@@ -38,10 +37,10 @@ const SearchTemplate: FC<Props> = ({ search }) => (
           }}
         >
           {/* Desktop Filters */}
-          <Box variant="filters.desktop">
+          <Box variant="searchFilter.desktop">
             <SuspenseDevice device="desktop" fallback={null}>
               <DesktopSearchFilters
-                {...(search.vtex.facets as any)}
+                {...(data.vtex.facets as any)}
                 variant="desktop"
               />
             </SuspenseDevice>
@@ -57,10 +56,10 @@ const SearchTemplate: FC<Props> = ({ search }) => (
           }}
         >
           {/* Controls */}
-          <Controls data={search} />
+          <Controls data={data} />
 
           {/* Product List  */}
-          <PageList initialData={search} />
+          <PageList initialData={data} />
         </div>
       </div>
     </Flex>

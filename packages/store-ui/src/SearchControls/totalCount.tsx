@@ -16,7 +16,8 @@ export const SearchControlsTotalCount: FC<Props> = ({
 
   return (
     <Box variant={variant}>
-      <span>{totalCount}</span> {label}
+      <span>{totalCount}</span>
+      {label}
     </Box>
   )
 }

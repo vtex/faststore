@@ -6,7 +6,7 @@ import React, { FC, useState, useCallback, Suspense, lazy } from 'react'
 
 import { TreeValue } from '../Filters/types'
 
-const SearchFiltersDrawer = lazy(() => import('../Filters/Mobile/Drawer'))
+const SearchFiltersDrawer = lazy(() => import('../Filters/Mobile'))
 
 interface Props {
   variant: string
@@ -29,8 +29,8 @@ export const SearchControlsFiltersButton: FC<Props> = ({
   return (
     <>
       <StoreUISearchControlsFiltersButton
-        // variant={variant}
-        label="FILTERS"
+        variant={variant}
+        label="FILTERS "
         onClick={toggle}
       />
       {active ? (

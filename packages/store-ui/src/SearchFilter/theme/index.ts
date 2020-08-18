@@ -1,6 +1,6 @@
 import { SxStyleProp } from 'theme-ui'
 
 import { createTheme } from '../../createTheme'
-import { groupTheme } from './group'
+import { accordionTheme } from './accordion'
 
-export const filterTheme: SxStyleProp = createTheme(groupTheme)
+export const searchFilterTheme: SxStyleProp = createTheme(accordionTheme)

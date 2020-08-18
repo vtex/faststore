@@ -29,7 +29,7 @@ export const SearchFilterAccordion: FC<Props> = ({
   renderItem,
   renderIcon,
 }) => {
-  const variant = `filters.${v}`
+  const variant = `searchFilter.${v}`
   const defaultRenderIcon = useCallback(
     (active: boolean) => (
       <SearchFilterAccordionCollaipsibleIcon

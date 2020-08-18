@@ -1,14 +1,13 @@
 import { SxStyleProp } from 'theme-ui'
 
-export const groupTheme: SxStyleProp = {
+export const accordionTheme: SxStyleProp = {
   accordion: {
     collapsible: {
       paddingBottom: '16px',
       borderBottom: '1px solid #e3e4e6',
 
       header: {
-        backgroundColor: '#fff',
-        fontSize: '16px',
+        fontSize: '1rem',
         height: '50px',
         width: '100%',
         textAlign: 'left',
@@ -19,7 +18,7 @@ export const groupTheme: SxStyleProp = {
         icon: {
           width: '50px',
           height: '50px',
-          color: '#cacbcc',
+          color: 'muted',
           alignItems: 'center',
 
           g: {
@@ -48,7 +47,7 @@ export const groupTheme: SxStyleProp = {
         minHeight: '24px',
 
         checkbox: {
-          color: '#d2d2d2',
+          color: 'muted',
           my: 'auto',
         },
 
@@ -56,12 +55,12 @@ export const groupTheme: SxStyleProp = {
           fontSize: '14px',
           my: 'auto',
           '&:hover': {
-            opacity: '.5',
+            color: 'textMuted',
           },
         },
 
         quantity: {
-          color: '#a5a5a5',
+          color: 'textMuted',
           ml: '12px',
           marginTop: '1px',
           fontSize: '1rem',
