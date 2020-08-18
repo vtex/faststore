@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { SearchControlsSelect as StoreUISortSelect } from '@vtex/store-ui'
 
-import { useSearchFilters } from '../../../sdk'
+import { useSearchFilters } from '../../../sdk/search/useSearchFilters'
 
 const searchFilterControler = () => import('../../../sdk/search/controler')
 
