@@ -4,6 +4,8 @@ class ErrorBoundary extends Component<SuspenseProps> {
   public state = { hasError: false, error: null }
 
   public static getDerivedStateFromError(error: any) {
+    console.error(error)
+
     return {
       hasError: true,
       error,

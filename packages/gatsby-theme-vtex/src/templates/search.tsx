@@ -7,8 +7,9 @@ import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
 import { useQuery } from '../sdk/graphql/useQuery'
+import { SearchProvider } from '../sdk/search/Provider'
 import { useSearchFilters } from '../sdk/search/useSearchFilters'
-import { SearchFiltersProvider } from '../sdk/search/FiltersProvider'
+import { useSearchStaticData } from '../sdk/search/useSearchStaticData'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
@@ -17,10 +18,8 @@ import {
 
 type Props = PageProps<SearchPageQueryQuery, SearchPageQueryQueryVariables>
 
-const SearchPage: FC<Props> = ({
-  data: initialData,
-  pageContext: { staticPath },
-}) => {
+const SearchPage: FC = () => {
+  const staticData = useSearchStaticData()
   const filters = useSearchFilters()
   const { data } = useQuery<
     SearchPageQueryQuery,
@@ -29,7 +28,7 @@ const SearchPage: FC<Props> = ({
     ...SearchPageQuery,
     variables: { ...filters, staticPath: true },
     suspense: true,
-    initialData: staticPath ? initialData : undefined,
+    initialData: staticData,
   })
 
   if (!data) {
@@ -41,21 +40,23 @@ const SearchPage: FC<Props> = ({
 
 const SearchPageContainer: FC<Props> = (props) => {
   const {
-    pageContext: { query, map, orderBy, staticPath },
+    pageContext: { staticPath },
+    pageContext,
+    data,
   } = props
 
   return (
     <Layout>
-      <SearchFiltersProvider filters={{ query, map, orderBy }}>
+      <SearchProvider pageContext={pageContext} pageData={data}>
         <HybridWrapper
           isPrerendered={staticPath}
           fallback={<div>loading...</div>}
         >
           <ErrorBoundary fallback={<div>Error !!</div>}>
-            <SearchPage {...props} />
+            <SearchPage />
           </ErrorBoundary>
         </HybridWrapper>
-      </SearchFiltersProvider>
+      </SearchProvider>
     </Layout>
   )
 }

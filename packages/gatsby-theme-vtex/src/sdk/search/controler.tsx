@@ -1,6 +1,6 @@
 import { navigate } from '@reach/router'
 
-import { SearchFilters } from './FiltersProvider'
+import { SearchFilters } from './Provider'
 
 export const setSearchFilters = (filters: SearchFilters) => {
   const { search, pathname } = window.location
