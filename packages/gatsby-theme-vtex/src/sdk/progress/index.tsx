@@ -9,6 +9,8 @@ let progress: NProgress | null = null
 
 const timeouts: NodeJS.Timeout[] = []
 
+const TRANSITION_AFTER_MS = 300
+
 interface Props {
   location: Location
 }
@@ -23,11 +25,12 @@ export const Progress: FC<Props> = ({ children, location }) => {
     const handler = window.requestIdleCallback(async () => {
       const controller = await loadController()
 
+      // nprogress default options
       progress = controller.setup({
         color: (colors as any).primary,
         showSpinner: false,
         trickleSpeed: 100,
-      } as any)
+      })
     })
 
     return () => window.cancelIdleCallback(handler)
@@ -36,7 +39,7 @@ export const Progress: FC<Props> = ({ children, location }) => {
   // Starts progress bar after milliseconds
   useMemo(() => {
     if (progress && location.pathname) {
-      const id = setTimeout(() => progress?.start(), 300)
+      const id = setTimeout(() => progress?.start(), TRANSITION_AFTER_MS)
 
       timeouts.push(id)
     }

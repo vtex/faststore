@@ -1,6 +1,6 @@
 import progress, { NProgressOptions } from 'nprogress'
 
-interface SetupOptions extends NProgressOptions {
+interface SetupOptions extends Partial<NProgressOptions> {
   color: string
 }
 
