@@ -43,7 +43,7 @@ export const Progress: FC<Props> = ({ children, location }) => {
     }
   }, [location.pathname])
 
-  return children
+  return children as any
 }
 
 export const onRouteUpdate = () => {
