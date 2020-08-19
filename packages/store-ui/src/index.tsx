@@ -37,7 +37,11 @@ export * from './Minicart/Content'
 export * from './Minicart/Drawer'
 export * from './Minicart/Svg'
 export * from './Minicart/theme'
+// Slider
 export * from './Slider/PaginationDots'
+export * from './Slider/hooks/useInterval'
+// Banner
+export * from './Banner'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
 // Search Filters

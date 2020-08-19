@@ -1,6 +1,13 @@
 /** @jsx jsx */
-import { FC, useState } from 'react'
-import { Box, Button, jsx, Image, PaginationDots } from '@vtex/store-ui'
+import { FC, useState, useMemo } from 'react'
+import {
+  Box,
+  Button,
+  jsx,
+  Image,
+  PaginationDots,
+  useInterval,
+} from '@vtex/store-ui'
 
 interface Item {
   src: string
@@ -12,19 +19,36 @@ interface Props {
   items: Item[]
   showArrows?: boolean
   showDots?: boolean
+  autoplay?: boolean
+  autoplayTimeout?: number
 }
 
-const Carousel: FC<Props> = ({ items, showArrows = true, showDots = true }) => {
+const Carousel: FC<Props> = ({
+  items,
+  showArrows = true,
+  showDots = true,
+  autoplayTimeout = 1000,
+  autoplay = false,
+}) => {
   const [index, setIndex] = useState(0)
-  const lastIndex = items.length - 1
-  const height = 450
+  const lastIndex = useMemo(() => items.length - 1, [items])
+
+  useInterval(() => {
+    if (!autoplay) {
+      return
+    }
+
+    setIndex((currentIndex) =>
+      currentIndex === lastIndex ? 0 : currentIndex + 1
+    )
+  }, autoplayTimeout)
 
   return (
     <Box sx={{ position: 'relative' }}>
       {items.map((item, i) => (
         <Box
           key={item.altText}
-          sx={{ display: index === i ? 'block' : 'none', height }}
+          sx={{ display: index === i ? 'block' : 'none' }}
         >
           {showArrows && (
             <Button
@@ -46,7 +70,7 @@ const Carousel: FC<Props> = ({ items, showArrows = true, showDots = true }) => {
             src={item.src}
             alt={item.altText}
             loading="lazy"
-            sx={{ height, width: '100%', objectFit: 'cover' }}
+            sx={{ width: '100%', objectFit: 'cover' }}
           />
         </Box>
       ))}
