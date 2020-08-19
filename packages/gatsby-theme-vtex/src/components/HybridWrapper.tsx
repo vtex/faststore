@@ -1,26 +1,25 @@
-import React, { FC, Suspense, SuspenseProps, useState, useEffect } from 'react'
+import React, { FC, Suspense, SuspenseProps } from 'react'
+import { Box } from '@vtex/store-ui'
+
+import { isServer } from '../utils/env'
 
 interface Props extends SuspenseProps {
   isPrerendered: boolean
 }
 
 const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
-  const [hydrated, setHydrated] = useState(false)
-
-  useEffect(() => {
-    if (!isPrerendered) {
-      setHydrated(true)
+  if (isServer) {
+    if (isPrerendered) {
+      return <Box>{children}</Box>
     }
-  }, [isPrerendered])
 
-  if (isPrerendered) {
-    return <>{children}</>
+    return <Box>{fallback}</Box>
   }
 
-  return hydrated ? (
-    <Suspense fallback={fallback}>{children}</Suspense>
-  ) : (
-    <>{fallback}</>
+  return (
+    <Suspense fallback={fallback}>
+      <Box>{children}</Box>
+    </Suspense>
   )
 }
 
