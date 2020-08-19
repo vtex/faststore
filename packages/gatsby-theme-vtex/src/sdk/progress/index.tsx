@@ -18,6 +18,7 @@ export const Progress: FC<Props> = ({ children, location }) => {
     theme: { colors },
   } = useThemeUI()
 
+  // Load and Setup nprogress once the browser is idle
   useEffect(() => {
     const handler = window.requestIdleCallback(async () => {
       const controller = await loadController()
@@ -32,12 +33,10 @@ export const Progress: FC<Props> = ({ children, location }) => {
     return () => window.cancelIdleCallback(handler)
   }, [colors])
 
+  // Starts progress bar after milliseconds
   useMemo(() => {
     if (progress && location.pathname) {
-      const id = setTimeout(() => {
-        console.log('progress.start')
-        progress?.start()
-      }, 300)
+      const id = setTimeout(() => progress?.start(), 300)
 
       timeouts.push(id)
     }
@@ -46,12 +45,13 @@ export const Progress: FC<Props> = ({ children, location }) => {
   return children as any
 }
 
+// Once the route is updated, clean scheduled timeouts
+// and eventual progress bar being displayed
 export const onRouteUpdate = () => {
   if (!progress) {
     return
   }
 
   timeouts.forEach(clearTimeout)
-  console.log('progress.done')
   progress.done()
 }

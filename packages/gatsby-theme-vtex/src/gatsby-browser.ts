@@ -8,7 +8,6 @@ const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
 const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
-  onPreRouteUpdate: progressOnPreRouteUpdate
 } = require('./src/sdk/progress')
 
 export const replaceHydrateFunction = () => (
