@@ -94,10 +94,10 @@ module.exports = ({ title, description, localizationThemeOptions, messagesOption
           workspace,
         },
       },
-      {
-        resolve: require.resolve('gatsby-theme-i18n'),
-        options: localizationThemeOptions || defaultLocalizationThemeOptions,
-      },
+      // {
+      //   resolve: require.resolve('gatsby-theme-i18n'),
+      //   options: localizationThemeOptions || defaultLocalizationThemeOptions,
+      // },
       // {
       //   resolve: require.resolve('gatsby-theme-i18n-react-intl'),
       //   // resolve: require.resolve('@vtex/gatsby-vtex-react-intl'),
