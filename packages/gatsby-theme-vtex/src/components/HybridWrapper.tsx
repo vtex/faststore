@@ -17,9 +17,9 @@ const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
   }
 
   return (
-    <Suspense fallback={fallback}>
-      <div>{children}</div>
-    </Suspense>
+    <Box>
+      <Suspense fallback={fallback}>{children}</Suspense>
+    </Box>
   )
 }
 
