@@ -37,6 +37,7 @@ const Carousel: FC<Props> = ({
   const [index, setIndex] = useState(0)
   const lastIndex = items.length - 1
 
+  // TODO: When implementing the Slider, use a timeout instead to improve UX
   useInterval(() => {
     if (!autoplay) {
       return
