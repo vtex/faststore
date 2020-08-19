@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { FC } from 'react'
 import { Button, jsx } from '@vtex/store-ui'
-// import { FormattedMessage } from "react-intl"
-import { t } from 'frenchkiss'
+import { FormattedMessage } from "react-intl"
+// import { t } from 'frenchkiss'
 
 import { useBestSeller, useOrderForm } from '../sdk'
 import { Maybe } from '../typings'
@@ -54,8 +54,8 @@ const BuyButton: FC<Props> = ({ sku }) => {
       variant="primary"
       onClick={addItemOnClick}
     >
-      {/* <FormattedMessage id="buy-button.add-to-cart" /> */}
-  <div>{t('buy-button.add-to-cart')}</div>
+      <FormattedMessage id="buy-button.add-to-cart" />
+      {/* <div>{t('buy-button.add-to-cart')}</div> */}
     </Button>
   )
 }

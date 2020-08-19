@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Flex } from '@vtex/store-ui'
-// import { FormattedMessage } from 'react-intl'
-import { t } from 'frenchkiss'
+import { FormattedMessage } from 'react-intl'
+// import { t } from 'frenchkiss'
 
 import { useNumberFormat, useBestSeller } from '../../sdk'
 import DiscountPercentage from './DiscountPercentage'
@@ -30,8 +30,8 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   const offer = seller?.commertialOffer
 
   if (!offer || offer.AvailableQuantity === 0) {
-    // return <FormattedMessage id="offer.product-unavailable" />
-    return <div>{t('offer.product-unavailable')}</div>
+    return <FormattedMessage id="offer.product-unavailable" />
+    // return <div>{t('offer.product-unavailable')}</div>
   }
 
   return (
@@ -44,8 +44,8 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
         <DiscountPercentage variant={variant} offer={offer} />
       </Flex>
       <Box variant={`${variant}.availability`}>
-        {/* <FormattedMessage id="offer.units-left" values={{ quantity: offer.AvailableQuantity }}/> */}
-        <div>{t('offer.units-left', { quantity: offer.AvailableQuantity })}</div>
+        <FormattedMessage id="offer.units-left" values={{ quantity: offer.AvailableQuantity }}/>
+        {/* <div>{t('offer.units-left', { quantity: offer.AvailableQuantity })}</div> */}
       </Box>
     </Box>
   )
