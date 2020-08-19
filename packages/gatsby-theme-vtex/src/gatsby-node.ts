@@ -38,48 +38,6 @@ export const createPages = async ({
     statusCode: 200,
   })
 
-  createRedirect({
-    fromPath: '/account/*',
-    toPath: `https://${tenant}.${environment}.com.br/_secure/account/:splat`,
-    statusCode: 200,
-  })
-
-  createRedirect({
-    fromPath: '/_secure/account/*',
-    toPath: `https://${tenant}.${environment}.com.br/_secure/account/:splat`,
-    statusCode: 200,
-  })
-
-  createRedirect({
-    fromPath: '/admin/login/*',
-    toPath: `https://${tenant}.${environment}.com.br/admin/login/?portal=true&ReturnUrl=/admin/site/Login.aspx?ReturnUrl=%2f_secure%2faccount%2f`,
-    statusCode: 200,
-  })
-
-  createRedirect({
-    fromPath: '/login/*',
-    toPath: `https://${tenant}.${environment}.com.br/Admin/Site/Login.aspx/:splat`,
-    statusCode: 200,
-  })
-
-  createRedirect({
-    fromPath: '/arquivos/*',
-    toPath: `https://${tenant}.${environment}.com.br/arquivos/:splat`,
-    statusCode: 200,
-  })
-
-  createRedirect({
-    fromPath: '/Site/*',
-    toPath: `https://${tenant}.${environment}.com.br/Site/:splat`,
-    statusCode: 200,
-  })
-
-  createRedirect({
-    fromPath: '/no-cache/*',
-    toPath: `https://${tenant}.${environment}.com.br/no-cache/:splat`,
-    statusCode: 200,
-  })
-
   const { data, errors } = await graphql<any>(`
     query {
       allProduct {

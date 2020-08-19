@@ -59,9 +59,5 @@ module.exports = ({
       prefix: '/api',
       url: `https://${tenant}.${environment}.com.br`,
     },
-    {
-      prefix: '/account',
-      url: `https://${tenant}.${environment}.com.br`,
-    },
   ],
 })
