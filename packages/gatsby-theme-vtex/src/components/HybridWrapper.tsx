@@ -1,4 +1,5 @@
 import React, { FC, Suspense, SuspenseProps } from 'react'
+import { Box } from '@vtex/store-ui'
 
 import { isServer } from '../utils/env'
 
@@ -15,7 +16,11 @@ const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
     return <>{fallback}</>
   }
 
-  return <Suspense fallback={fallback}>{children}</Suspense>
+  return (
+    <Suspense fallback={fallback}>
+      <Box>{children}</Box>
+    </Suspense>
+  )
 }
 
 export default HybridWrapper

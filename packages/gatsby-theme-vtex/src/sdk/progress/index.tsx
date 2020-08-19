@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useMemo } from 'react'
+import { FC, useEffect, useMemo } from 'react'
 import { useThemeUI } from '@vtex/store-ui'
 
 import { NProgress } from './controller'
