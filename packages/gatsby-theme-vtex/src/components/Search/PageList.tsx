@@ -12,8 +12,8 @@ import {
 } from './__generated__/SearchQuery.graphql'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
-// import { FormattedMessage } from 'react-intl'
-import { t } from 'frenchkiss'
+import { FormattedMessage } from 'react-intl'
+// import { t } from 'frenchkiss'
 
 const PAGE_SIZE = 10
 
@@ -93,8 +93,8 @@ const List: FC<Props> = ({ initialData }) => {
           onClick={fetchMore}
           disabled={isReachingEnd || isLoadingMore}
         >
-          {/* {isLoadingMore ? <FormattedMessage id="loading" /> : <FormattedMessage id="search.page-list.more" />} */}
-          {isLoadingMore ? <div>{t('loading')}</div> : <div>{t('search.page-list.more')}</div>}
+          {isLoadingMore ? <FormattedMessage id="loading" /> : <FormattedMessage id="search.page-list.more" />}
+          {/* {isLoadingMore ? <div>{t('loading')}</div> : <div>{t('search.page-list.more')}</div>} */}
         </Button>
       )}
     </Fragment>

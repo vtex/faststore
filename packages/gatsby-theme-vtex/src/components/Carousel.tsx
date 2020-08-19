@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { FC, useState } from 'react'
 import { Box, Button, jsx, Image } from '@vtex/store-ui'
-// import { FormattedMessage } from 'react-intl'
-import { t, store, cache } from 'frenchkiss'
+import { FormattedMessage } from 'react-intl'
+// import { t, store, cache } from 'frenchkiss'
 
 interface Item {
   src: string
@@ -18,10 +18,6 @@ const Carousel: FC<Props> = ({ items }) => {
   const [index, setIndex] = useState(0)
   const lastIndex = items.length - 1
   const height = 450
-  console.log('teste store: ', {
-    store,
-    cache
-  })
   return (
     <Box sx={{ position: 'relative' }}>
       {items.map((item, i) => (
@@ -33,15 +29,15 @@ const Carousel: FC<Props> = ({ items }) => {
             onClick={() => setIndex(i === 0 ? lastIndex : i - 1)}
             sx={{ position: 'absolute', top: '50%', left: 0 }}
           >
-            {/* <FormattedMessage id="carousel.previous" /> */}
-            <div>{t('carousel.previous')}</div>
+            <FormattedMessage id="carousel.previous" />
+            {/* <div>{t('carousel.previous')}</div> */}
           </Button>
           <Button
             onClick={() => setIndex(i === lastIndex ? 0 : i + 1)}
             sx={{ position: 'absolute', top: '50%', right: 0 }}
           >
-            {/* <FormattedMessage id="carousel.next" /> */}
-            <div>{t('carousel.next')}</div>
+            <FormattedMessage id="carousel.next" />
+            {/* <div>{t('carousel.next')}</div> */}
           </Button>
           <Image
             src={item.src}
