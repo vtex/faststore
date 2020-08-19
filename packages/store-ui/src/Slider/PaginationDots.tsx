@@ -25,14 +25,9 @@ export const PaginationDots: FC<Props> = ({
     <Box
       variant={`${variant}.paginationDots.container`}
       sx={{
-        marginTop: '0.5rem',
-        marginBottom: '0.5rem',
         position: 'absolute',
         justifyContent: 'center',
         display: 'flex',
-        left: 0,
-        bottom: 0,
-        right: 0,
         margin: 0,
         padding: 0,
       }}

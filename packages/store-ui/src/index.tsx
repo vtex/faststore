@@ -38,6 +38,8 @@ export * from './Minicart/Svg'
 export * from './Minicart/theme'
 // LocalizedLink
 export { default as LocalizedLink } from './LocalizedLink'
+// Banner
+export * from './Banner'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
 // Search Filters
@@ -52,3 +54,4 @@ export * from './SearchControls/Select'
 export * from './SearchControls/theme'
 // Slider
 export * from './Slider/PaginationDots'
+export * from './Slider/hooks/useInterval'

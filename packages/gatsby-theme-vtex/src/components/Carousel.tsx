@@ -1,7 +1,14 @@
 /** @jsx jsx */
-import { FC, useState } from 'react'
+import { FC, useState, useMemo } from 'react'
 import { useLocalizationIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box, Button, jsx, Image, PaginationDots } from '@vtex/store-ui'
+import {
+  Box,
+  Button,
+  jsx,
+  Image,
+  PaginationDots,
+  useInterval,
+} from '@vtex/store-ui'
 
 interface Item {
   src: string
@@ -15,20 +22,37 @@ interface Props {
   items: Item[]
   showArrows?: boolean
   showDots?: boolean
+  autoplay?: boolean
+  autoplayTimeout?: number
 }
 
-const Carousel: FC<Props> = ({ items, showArrows = true, showDots = true }) => {
-  const [index, setIndex] = useState(0)
-  const lastIndex = items.length - 1
-  const height = 450
+const Carousel: FC<Props> = ({
+  items,
+  showArrows = true,
+  showDots = true,
+  autoplayTimeout = 1000,
+  autoplay = false,
+}) => {
   const { formatMessage } = useLocalizationIntl()
+  const [index, setIndex] = useState(0)
+  const lastIndex = useMemo(() => items.length - 1, [items])
+
+  useInterval(() => {
+    if (!autoplay) {
+      return
+    }
+
+    setIndex((currentIndex) =>
+      currentIndex === lastIndex ? 0 : currentIndex + 1
+    )
+  }, autoplayTimeout)
 
   return (
     <Box sx={{ position: 'relative' }}>
       {items.map((item, i) => (
         <Box
           key={item.altText}
-          sx={{ display: index === i ? 'block' : 'none', height }}
+          sx={{ display: index === i ? 'block' : 'none' }}
         >
           {showArrows && (
             <Button
@@ -53,7 +77,7 @@ const Carousel: FC<Props> = ({ items, showArrows = true, showDots = true }) => {
             height={item.height}
             alt={item.altText}
             loading={i === 0 ? 'eager' : 'lazy'}
-            sx={{ height, width: '100%', objectFit: 'cover' }}
+            sx={{ width: '100%', objectFit: 'cover' }}
           />
         </Box>
       ))}
