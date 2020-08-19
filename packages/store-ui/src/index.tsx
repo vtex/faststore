@@ -40,6 +40,8 @@ export * from './Minicart/Svg'
 export * from './Minicart/theme'
 // LocalizedLink
 export { default as LocalizedLink } from './LocalizedLink'
+// Banner
+export * from './Banner'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
 // Search Filters
@@ -57,3 +59,4 @@ export * from './Breadcrumb'
 export { default as breadcrumbTheme } from './Breadcrumb/theme'
 // Slider
 export * from './Slider/PaginationDots'
+export * from './Slider/hooks/useInterval'
