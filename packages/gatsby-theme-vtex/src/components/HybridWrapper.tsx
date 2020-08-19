@@ -1,27 +1,21 @@
-import React, { FC, Suspense, SuspenseProps, useState, useEffect } from 'react'
+import React, { FC, Suspense, SuspenseProps } from 'react'
+
+import { isServer } from '../utils/env'
 
 interface Props extends SuspenseProps {
   isPrerendered: boolean
 }
 
 const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
-  const [hydrated, setHydrated] = useState(false)
-
-  useEffect(() => {
-    if (!isPrerendered) {
-      setHydrated(true)
+  if (isServer) {
+    if (isPrerendered) {
+      return <>{children}</>
     }
-  }, [isPrerendered])
 
-  if (isPrerendered) {
-    return <>{children}</>
+    return <>{fallback}</>
   }
 
-  return hydrated ? (
-    <Suspense fallback={fallback}>{children}</Suspense>
-  ) : (
-    <>{fallback}</>
-  )
+  return <Suspense fallback={fallback}>{children}</Suspense>
 }
 
 export default HybridWrapper
