@@ -1,4 +1,8 @@
-import { WrapRootElementBrowserArgs, WrapPageElementBrowserArgs } from 'gatsby'
+import {
+  WrapRootElementBrowserArgs,
+  WrapPageElementBrowserArgs,
+  ShouldUpdateScrollArgs,
+} from 'gatsby'
 import { createElement, ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import 'requestidlecallback-polyfill'
@@ -44,3 +48,5 @@ export const wrapPageElement = ({
 export const onRouteUpdate = () => {
   progressOnRouteUpdate()
 }
+
+export const shouldUpdateScroll = () => true
