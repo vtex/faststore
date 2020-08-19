@@ -19,6 +19,8 @@ const SearchControlsSelect: FC<Props> = ({ variant }) => {
       onChange={async (orderBy: string) => {
         const { setSearchFilters } = await searchFilterControler()
 
+        ;(window as any).NProgress.start()
+
         setSearchFilters({
           ...filters,
           orderBy,

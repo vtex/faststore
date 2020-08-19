@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import { graphql, PageProps } from 'gatsby'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
@@ -29,6 +29,10 @@ const SearchPage: FC = () => {
     variables: { ...filters, staticPath: true },
     suspense: true,
     initialData: staticData,
+  })
+
+  useEffect(() => {
+    (window as any).NProgress.done()
   })
 
   if (!data) {
