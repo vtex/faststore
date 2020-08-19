@@ -4,8 +4,6 @@ interface SetupOptions extends NProgressOptions {
   color: string
 }
 
-let set = false
-
 const getStyles = (color: string) => `
 #nprogress {
  pointer-events: none;
@@ -75,8 +73,10 @@ const getStyles = (color: string) => `
 }
 `
 
+let once = true
+
 export const setup = (options: SetupOptions) => {
-  if (!set) {
+  if (once) {
     const styles = getStyles(options.color)
     const node = document.createElement(`style`)
 
@@ -85,9 +85,7 @@ export const setup = (options: SetupOptions) => {
     document.head.appendChild(node)
 
     progress.configure(options)
-    set = true
-  } else {
-    window.alert('something went wrong ! progress bar was set twice')
+    once = false
   }
 
   return progress
