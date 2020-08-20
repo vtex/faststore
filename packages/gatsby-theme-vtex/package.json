@@ -34,9 +34,9 @@
   },
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
-    "@vtex/gatsby-plugin-graphql": "^0.20.6",
-    "@vtex/gatsby-source-vtex": "^0.20.6",
-    "@vtex/gatsby-transformer-vtex-cms": "^0.20.6",
+    "@vtex/gatsby-plugin-graphql": "^0.21.1-alpha.breac.0",
+    "@vtex/gatsby-source-vtex": "^0.21.1-alpha.breac.0",
+    "@vtex/gatsby-transformer-vtex-cms": "^0.21.1-alpha.breac.0",
     "babel-gql": "^0.1.3",
     "common-tags": "^1.8.0",
     "dotenv": "^8.2.0",
@@ -53,5 +53,5 @@
     "schema-dts": "^0.6.0",
     "swr": "^0.3.0"
   },
-  "gitHead": "d6dca96f4f675d05c7a778c7d45906cf0a547b27"
+  "gitHead": "d18134e055ad6ec67ef7a1f05a1002557c369473"
 }
