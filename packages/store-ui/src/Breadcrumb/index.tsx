@@ -1,5 +1,6 @@
 import React, { Fragment, useMemo } from 'react'
 import unorm from 'unorm'
+import { Flex } from '@vtex/store-ui'
 import Link from 'gatsby-link'
 
 export interface NavigationItem {
@@ -57,8 +58,12 @@ const Breadcrumb: React.FC<Props> = ({
   )
 
   return (
-    <div data-testid="breadcrumb">
-      <Link to="/">Home</Link>
+    <Flex data-testid="breadcrumb" variant="breadcrumb.container">
+      <Link to="/" aria-label="Home">
+        <Flex as="svg" variant="breadcrumb.homeIcon" {...homeSvgProps}>
+          <path d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z" />
+        </Flex>
+      </Link>
       {navigationList.map(({ name, href }, i) => (
         <span key={`navigation-item-${i}`} className={` ph2 c-muted-2`}>
           <span>Caret</span>
@@ -72,7 +77,7 @@ const Breadcrumb: React.FC<Props> = ({
           <span>{term}</span>
         </Fragment>
       )}
-    </div>
+    </Flex>
   )
 }
 
