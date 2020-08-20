@@ -3,6 +3,7 @@ import base from '@theme-ui/preset-base'
 import { createTheme } from './createTheme'
 
 const customBase = {
+  useLocalStorage: false,
   colors: {
     text: '#3f3f40',
     textMuted: '#979899',
