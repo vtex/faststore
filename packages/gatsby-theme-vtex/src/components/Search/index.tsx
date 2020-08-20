@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Flex, Heading, jsx, Box } from '@vtex/store-ui'
+import { Flex, Breadcrumb, jsx, Box } from '@vtex/store-ui'
 import { FC, lazy } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
@@ -19,9 +19,7 @@ const SearchTemplate: FC<Props> = ({ data }) => (
   <Container>
     <SEO title={data.vtex.productSearch!.titleTag!} />
     <Flex sx={{ flexDirection: 'column' }} my={4}>
-      <Heading sx={{ fontSize: 6 }} as="h2">
-        {data.vtex.productSearch!.titleTag}
-      </Heading>
+      <Breadcrumb breadcrumb={data.vtex.productSearch!.breadcrumb} />
 
       <div
         sx={{
