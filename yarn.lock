@@ -4133,10 +4133,10 @@
   dependencies:
     wonka "^4.0.14"
 
-"@vtex-components/accordion@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@vtex-components/accordion/-/accordion-0.2.2.tgz#6233ed64542fa0331128eb2d7b8075eea14e537e"
-  integrity sha512-gSOSyJB5k6Veux9+kfHydIiwWc1IUEcTkbC4On9IdS5mIxV9INjcnFfKfFiy6zEGq4qc3UWdGituHtg3BWuCyg==
+"@vtex-components/accordion@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@vtex-components/accordion/-/accordion-0.2.3.tgz#d300548777b0c69941672def4b1f5f8ddef286d2"
+  integrity sha512-eBHg0p1iiOT1toSzrPxJz+9sSFlm/BY4VKOgopTFVI+CxW4fm4Wfk4nI0b+zq3w5nEPewu1RMgIBKsJtuTHrRw==
 
 "@vtex-components/drawer@^0.2.2":
   version "0.2.2"
@@ -8578,20 +8578,20 @@ eslint-config-react-app@^5.0.2, eslint-config-react-app@^5.2.1:
   dependencies:
     confusing-browser-globals "^1.0.9"
 
-eslint-config-vtex-react@^6.7.4:
-  version "6.7.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.7.4.tgz#84c59c632ebd965eac6f04c60e0286afadbac164"
-  integrity sha512-MHHw2Qey7RYizCYp3vINdKBa+Fno3M0KBVnqhA3lyLFOBNj8fmEyq6J/Yi7q6WBmxbMEbzeS3t45FVwI8wOU1w==
+eslint-config-vtex-react@^6.7.6:
+  version "6.7.6"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.7.6.tgz#08c4fe5ce347ddc9a7c8676111586e6acf84120f"
+  integrity sha512-bbBPdfHEzQlQ9h8nEtbiOVwVSpd3p0PzwKBEfzK+FigNQUdWrY9kV/ws7kDhO98jr46dJj3qqgREAfZjoj3n2w==
   dependencies:
-    eslint-config-vtex "^12.8.2"
+    eslint-config-vtex "^12.8.4"
     eslint-plugin-jsx-a11y "^6.2.3"
     eslint-plugin-react "^7.18.0"
     eslint-plugin-react-hooks "^2.3.0"
 
-eslint-config-vtex@^12.8.2:
-  version "12.8.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.8.2.tgz#05b4a13c3fd15adfe6034e85a57f5979ba7bdd71"
-  integrity sha512-WcUe+m+hRxs5PuXRHRHlgA3cfCX63SayscMINtZudODYWtxMTJJ2FajIP3mEQh6bwOsuLFlyjr+NmS5kgr1HXw==
+eslint-config-vtex@^12.8.4:
+  version "12.8.4"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.8.4.tgz#ec7e2482101ef963af102042c91eec3db5c58bbd"
+  integrity sha512-rO0SGDD7XEJsZEsDaCKnLexnc0G55IQyVTz5g2rBoiXRUIKS8VBoFI1Ul8fSnbvRZq85H7Gcq39GFr4IJIABow==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^3.8.0"
     "@typescript-eslint/parser" "^3.8.0"
