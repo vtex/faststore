@@ -1,6 +1,6 @@
 import { graphql, PageProps } from 'gatsby'
 import React, { FC, useMemo } from 'react'
-import { Breadcrumb, Container, NavigationItem } from '@vtex/store-ui'
+import { Breadcrumb, Container, NavigationItem, Flex } from '@vtex/store-ui'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
@@ -49,8 +49,10 @@ const ProductPage: FC<Props> = ({
 
   return (
     <Container>
-      <Breadcrumb categoryTree={categoryTree} />
-      <ProductDetails product={data.vtex.product} />
+      <Flex variant="productPage.container">
+        <Breadcrumb categoryTree={categoryTree} />
+        <ProductDetails product={data.vtex.product} />
+      </Flex>
     </Container>
   )
 }
