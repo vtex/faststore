@@ -19,7 +19,7 @@ const SearchTemplate: FC<Props> = ({ data }) => (
   <Container>
     <SEO title={data.vtex.productSearch!.titleTag!} />
     <Flex sx={{ flexDirection: 'column' }} my={4}>
-      <Breadcrumb breadcrumb={data.vtex.productSearch!.breadcrumb} />
+      <Breadcrumb breadcrumb={data.vtex.productSearch!.breadcrumb!} />
 
       <div
         sx={{

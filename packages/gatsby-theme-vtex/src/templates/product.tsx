@@ -44,7 +44,7 @@ const ProductPage: FC<Props> = ({
 
   return (
     <Container>
-      <Breadcrumb categoryTree={data?.vtex.product?.categoryTree} />
+      <Breadcrumb categoryTree={data.vtex.product.categoryTree!} />
       <ProductDetails product={data.vtex.product} />
     </Container>
   )
