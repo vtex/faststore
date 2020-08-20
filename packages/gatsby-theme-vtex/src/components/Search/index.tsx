@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { Flex, jsx, Box, Breadcrumb } from '@vtex/store-ui'
-import { FC, lazy } from 'react'
+import { Flex, Breadcrumb, jsx, Box, NavigationItem } from '@vtex/store-ui'
+import { FC, lazy, useMemo } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import PageList from './PageList'
@@ -15,54 +15,61 @@ interface Props {
   data: SearchPageQueryQuery
 }
 
-const SearchTemplate: FC<Props> = ({ data }) => (
-  <Container>
-    <SEO title={data.vtex.productSearch!.titleTag!} />
-    <Flex sx={{ flexDirection: 'column' }} my={4}>
-      <Breadcrumb breadcrumb={data.vtex.productSearch!.breadcrumb!} />
+const SearchTemplate: FC<Props> = ({ data }) => {
+  const breadcrumb = useMemo(
+    () => (data.vtex.productSearch!.breadcrumb! || []) as NavigationItem[],
+    [data]
+  )
 
-      <div
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-        }}
-      >
-        <aside
-          sx={{
-            display: ['none', 'block'],
-            flexGrow: 1,
-            flexBasis: 'sidebar',
-            width: 230,
-          }}
-        >
-          {/* Desktop Filters */}
-          <Box variant="searchFilter.desktop">
-            <SuspenseDevice device="desktop" fallback={null}>
-              <DesktopSearchFilters
-                {...(data.vtex.facets as any)}
-                variant="desktop"
-              />
-            </SuspenseDevice>
-          </Box>
-        </aside>
+  return (
+    <Container>
+      <SEO title={data.vtex.productSearch!.titleTag!} />
+      <Flex sx={{ flexDirection: 'column' }} my={4}>
+        <Breadcrumb breadcrumb={breadcrumb} />
 
         <div
           sx={{
-            flexGrow: 99999,
-            flexBasis: 0,
-            minWidth: 300,
-            ml: [0, '3rem'],
+            display: 'flex',
+            flexWrap: 'wrap',
           }}
         >
-          {/* Controls */}
-          <Controls data={data} />
+          <aside
+            sx={{
+              display: ['none', 'block'],
+              flexGrow: 1,
+              flexBasis: 'sidebar',
+              width: 230,
+            }}
+          >
+            {/* Desktop Filters */}
+            <Box variant="searchFilter.desktop">
+              <SuspenseDevice device="desktop" fallback={null}>
+                <DesktopSearchFilters
+                  {...(data.vtex.facets as any)}
+                  variant="desktop"
+                />
+              </SuspenseDevice>
+            </Box>
+          </aside>
 
-          {/* Product List  */}
-          <PageList initialData={data} />
+          <div
+            sx={{
+              flexGrow: 99999,
+              flexBasis: 0,
+              minWidth: 300,
+              ml: [0, '3rem'],
+            }}
+          >
+            {/* Controls */}
+            <Controls data={data} />
+
+            {/* Product List  */}
+            <PageList initialData={data} />
+          </div>
         </div>
-      </div>
-    </Flex>
-  </Container>
-)
+      </Flex>
+    </Container>
+  )
+}
 
 export default SearchTemplate
