@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { HashRouter, Switch } from 'react-router-dom'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
@@ -35,7 +36,13 @@ const Account = () => {
       <Container>
         <h1>My account</h1>
 
-        <div id="my-account" />
+        <HashRouter>
+          <Switch>
+            <>
+              <div id="my-account" />
+            </>
+          </Switch>
+        </HashRouter>
       </Container>
     </Layout>
   )
