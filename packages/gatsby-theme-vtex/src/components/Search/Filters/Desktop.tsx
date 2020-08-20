@@ -3,68 +3,39 @@ import {
   Box,
   SearchFilterAccordion,
   SearchFilterAccordionItemCheckbox,
-  SearchFilterValue,
   jsx,
 } from '@vtex/store-ui'
-import { Link } from 'gatsby'
 import { FC, Fragment } from 'react'
-
-import { TreeValue } from './types'
+import { useFacets } from '../../../sdk/search/useFacets'
 
 export interface Props {
   variant?: string
   isActive?: boolean
-  specificationFilters: Array<{
-    name: string
-    values: SearchFilterValue[]
-  }>
-  brands: SearchFilterValue[]
-  categoriesTrees: TreeValue[]
 }
 
 const SearchFilters: FC<Props> = ({
   variant = 'desktop',
-  specificationFilters,
-  brands,
-  categoriesTrees,
   isActive = true,
 }) => {
+  const { facets, toggleItem } = useFacets()
+
   return (
     <Fragment>
       <Box variant={`searchFilter.${variant}.title`}>Filters</Box>
 
       <SearchFilterAccordion
-        filters={categoriesTrees}
+        filters={facets}
         isActive={isActive}
         variant={variant}
         renderItem={(item, v) => (
-          <Link to={item.to} sx={{ variant: `${v}.a` }}>
-            <SearchFilterAccordionItemCheckbox {...item} variant={v} />
-          </Link>
+          <SearchFilterAccordionItemCheckbox
+            onClick={toggleItem}
+            item={item}
+            variant={v}
+          />
         )}
       />
 
-      <SearchFilterAccordion
-        filters={[{ name: 'Brands', values: brands }]}
-        isActive={isActive}
-        variant={variant}
-        renderItem={(item, v) => (
-          <Link to={item.to} sx={{ variant: `${v}.a` }}>
-            <SearchFilterAccordionItemCheckbox {...item} variant={v} />
-          </Link>
-        )}
-      />
-
-      <SearchFilterAccordion
-        filters={specificationFilters}
-        isActive={isActive}
-        variant={variant}
-        renderItem={(item, v) => (
-          <Link to={item.to} sx={{ variant: `${v}.a` }}>
-            <SearchFilterAccordionItemCheckbox {...item} variant={v} />
-          </Link>
-        )}
-      />
     </Fragment>
   )
 }

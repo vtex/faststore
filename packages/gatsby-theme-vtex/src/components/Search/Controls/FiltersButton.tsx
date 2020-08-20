@@ -1,22 +1,13 @@
 import {
   SearchControlsFiltersButton as StoreUISearchControlsFiltersButton,
-  SearchFilterValue,
 } from '@vtex/store-ui'
 import React, { FC, useState, useCallback, Suspense, lazy } from 'react'
-
-import { TreeValue } from '../Filters/types'
 
 const SearchFiltersDrawer = lazy(() => import('../Filters/Mobile'))
 
 interface Props {
   variant: string
   isActive?: boolean
-  specificationFilters: Array<{
-    name: string
-    values: SearchFilterValue[]
-  }>
-  brands: SearchFilterValue[]
-  categoriesTrees: TreeValue[]
 }
 
 export const SearchControlsFiltersButton: FC<Props> = ({

@@ -2,23 +2,21 @@ import BaseAccordion from '@vtex-components/accordion'
 import React, { FC, useCallback } from 'react'
 import { Box } from 'theme-ui'
 
-import { Props as V } from './AccordionItemCheckbox'
+import { Item } from './AccordionItemCheckbox'
 import { SearchFilterAccordionCollaipsibleIcon } from './AccordionCollapsibleIcon'
 
-export interface SearchFilterValue extends V {
-  to: string
-}
+export type SearchFilterItem = Item
 
 interface Filter {
   name: string
-  values: SearchFilterValue[]
+  values: SearchFilterItem[]
 }
 
 interface Props {
   filters: Filter[]
   variant: string
   isActive: boolean
-  renderItem: (facet: SearchFilterValue, variant: string) => JSX.Element
+  renderItem: (facet: SearchFilterItem, variant: string) => JSX.Element
   renderIcon?: ((isActive: boolean) => React.ReactNode) | null
 }
 
@@ -51,6 +49,7 @@ export const SearchFilterAccordion: FC<Props> = ({
           key={filter.name}
           header={filter.name}
           isActive={isActive}
+          onClick={() => {debugger; console.log('accordion clicked')}}
         >
           <Box as="ul" variant={`${variant}.accordion.collapsible.ul`}>
             {filter.values.map((item, index) => (

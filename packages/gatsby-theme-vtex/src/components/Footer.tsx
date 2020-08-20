@@ -5,7 +5,6 @@ import { Flex, Grid, Image, jsx, Link } from '@vtex/store-ui'
 
 import Container from './Container'
 import { FooterQueryQuery } from './__generated__/FooterQuery.graphql'
-import { Maybe } from '../typings'
 
 interface Item {
   name: Maybe<string>

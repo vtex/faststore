@@ -7,8 +7,8 @@ import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
 import { useQuery } from '../sdk/graphql/useQuery'
-import { useSearchFilters } from '../sdk/search/useSearchFilters'
-import { SearchFiltersProvider } from '../sdk/search/FiltersProvider'
+import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
+import { SearchProvider as SearchProvider } from '../sdk/search/Provider'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
@@ -17,11 +17,9 @@ import {
 
 type Props = PageProps<SearchPageQueryQuery, SearchPageQueryQueryVariables>
 
-const SearchPage: FC<Props> = ({
-  data: initialData,
-  pageContext: { staticPath },
-}) => {
-  const filters = useSearchFilters()
+const SearchPage: FC<Props> = ({ pageContext, data: staticData }) => {
+  const { staticPath } = pageContext
+  const filters = useSearchFiltersFromPageContext(pageContext)
   const { data } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
@@ -29,33 +27,33 @@ const SearchPage: FC<Props> = ({
     ...SearchPageQuery,
     variables: { ...filters, staticPath: true },
     suspense: true,
-    initialData: staticPath ? initialData : undefined,
+    initialData: staticPath ? staticData : undefined,
   })
 
   if (!data) {
     return <div>Not Found</div>
   }
 
-  return <SearchTemplate data={data} />
+  return (
+    <SearchProvider filters={filters} data={data}>
+      <SearchTemplate data={data} />
+    </SearchProvider>
+  )
 }
 
 const SearchPageContainer: FC<Props> = (props) => {
-  const {
-    pageContext: { query, map, orderBy, staticPath },
-  } = props
+  const { pageContext: { staticPath } } = props
 
   return (
     <Layout>
-      <SearchFiltersProvider filters={{ query, map, orderBy }}>
-        <HybridWrapper
-          isPrerendered={staticPath}
-          fallback={<div>loading...</div>}
-        >
-          <ErrorBoundary fallback={<div>Error !!</div>}>
-            <SearchPage {...props} />
-          </ErrorBoundary>
-        </HybridWrapper>
-      </SearchFiltersProvider>
+      <HybridWrapper
+        isPrerendered={staticPath}
+        fallback={<div>loading...</div>}
+      >
+        <ErrorBoundary fallback={<div>Error !!</div>}>
+          <SearchPage {...props} />
+        </ErrorBoundary>
+      </HybridWrapper>
     </Layout>
   )
 }
@@ -85,33 +83,31 @@ export const query = graphql`
         titleTag
         recordsFiltered
       }
-      facets(query: $query, map: $map, operator: or, behavior: "Dynamic")
+      facets(query: $query, map: $map, operator: or, behavior: "Static")
         @include(if: $staticPath) {
-        specificationFilters {
+        facets {
           name
-          values: facets {
-            to: linkEncoded
+          type
+          values {
+            key
             name
+            value
             selected
             quantity
-          }
-        }
-        brands {
-          to: linkEncoded
-          name
-          selected
-          quantity
-        }
-        categoriesTrees {
-          name
-          quantity
-          selected
-          to: linkEncoded
-          values: children {
-            name
-            quantity
-            selected
-            to: linkEncoded
+            values: children {
+              key
+              name
+              value
+              selected
+              quantity
+              values: children {
+                key
+                name
+                value
+                selected
+                quantity
+              }
+            }
           }
         }
       }
