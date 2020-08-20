@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Flex, Text } from 'theme-ui'
 import unorm from 'unorm'
 import Link from 'gatsby-link'
@@ -9,7 +9,6 @@ export interface NavigationItem {
 }
 
 export interface BreadcrumbProps {
-  term?: string
   /** Shape [ '/Department' ,'/Department/Category'] */
   categories?: string[]
   categoryTree?: NavigationItem[]
@@ -59,7 +58,6 @@ const caretSvgProps = {
 }
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({
-  term,
   categories,
   categoryTree,
   breadcrumb,
@@ -77,7 +75,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
         </Flex>
       </Link>
       {navigationList.map(({ name, href }, i) => (
-        <Flex key={`navigation-item-${i}`}>
+        <Flex key={`navigation-item-${i}`} variant="breadcrumb.pair">
           <Flex as="svg" variant="breadcrumb.caretIcon" {...caretSvgProps}>
             <path
               d="M51.707,185.343c-2.741,0-5.493-1.044-7.593-3.149c-4.194-4.194-4.194-10.981,0-15.175
@@ -86,17 +84,19 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
             />
           </Flex>
           <Link to={href} style={{ textDecoration: 'none ' }}>
-            <Text variant="breadcrumb.middle">{name}</Text>
+            {/** We only what to apply a different style to the last item on Search pages */}
+            <Text
+              variant={`breadcrumb.${
+                i === navigationList.length - 1 && breadcrumb
+                  ? 'last'
+                  : 'middle'
+              }`}
+            >
+              {name}
+            </Text>
           </Link>
         </Flex>
       ))}
-
-      {term && (
-        <Fragment>
-          <span>Caret</span>
-          <span>{term}</span>
-        </Fragment>
-      )}
     </Flex>
   )
 }
