@@ -1,9 +1,7 @@
-import React from 'react'
+import * as React from 'react'
 import { RenderBodyArgs } from 'gatsby'
 
 const script = require('./src/utils/script')
-
-const { wrapPageElement: wrapPageComponent } = require('./src/wrapPage')
 
 export const onRenderBody = ({
   setHeadComponents,
@@ -33,5 +31,3 @@ export const onRenderBody = ({
     }),
   ])
 }
-
-export const wrapPageElement = wrapPageComponent

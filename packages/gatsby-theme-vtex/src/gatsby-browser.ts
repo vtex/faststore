@@ -10,8 +10,6 @@ const {
   onRouteUpdate: progressOnRouteUpdate,
 } = require('./src/sdk/progress')
 
-const { wrapPageElement: wrapPageComponent } = require('./src/wrapPage')
-
 export const replaceHydrateFunction = () => (
   element: ElementType,
   container: Element,

@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Flex, MinicartDrawerPrice, Text, Button } from '@vtex/store-ui'
+import { FormattedMessage } from 'react-intl'
 
 export interface HeaderMinicartDrawerFooterProps {
   variant?: string
@@ -31,9 +32,11 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
         value={subtotal}
       />
       <Text variant={`${customVariant}.message`}>
-        Shipping and taxes calculated at checkout.
+        <FormattedMessage id="minicart.drawer.shipping-disclaimer" />
       </Text>
-      <Button>GO TO CHECKOUT</Button>
+      <Button>
+        <FormattedMessage id="minicart.drawer.go-checkout" />
+      </Button>
     </Flex>
   )
 }

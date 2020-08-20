@@ -28,9 +28,9 @@
     "@theme-ui/preset-base": "^0.3.0",
     "@vtex-components/accordion": "^0.2.2",
     "@vtex-components/drawer": "^0.2.2",
+    "@vtex/gatsby-vtex-localization": "^0.20.6",
     "deepmerge": "^4.2.2",
     "gatsby-link": "^2.4.13",
-    "gatsby-theme-i18n": "^1.0.2",
     "reakit": "^1.1.2",
     "theme-ui": "^0.3.1"
   },

@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Box, Button, Heading } from '@vtex/store-ui'
+import { FormattedMessage } from 'react-intl'
 
 interface HeaderMinicartDrawerHeaderProps {
   variant?: string
@@ -17,10 +18,10 @@ export const HeaderMinicartDrawerHeader: FC<HeaderMinicartDrawerHeaderProps> = (
   return (
     <Box variant={headerVariant}>
       <Button onClick={onClose} variant={`${headerVariant}.close`}>
-        Close
+        <FormattedMessage id="minicart.drawer.close" />
       </Button>
       <Heading as="h1" variant={`${headerVariant}.title`}>
-        {`Cart (${count})`}
+        <FormattedMessage id="minicart.drawer.count" values={{ count }} />
       </Heading>
     </Box>
   )
