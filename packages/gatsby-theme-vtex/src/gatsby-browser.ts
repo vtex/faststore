@@ -2,6 +2,7 @@ import { WrapRootElementBrowserArgs, WrapPageElementBrowserArgs } from 'gatsby'
 import { createElement, ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import 'requestidlecallback-polyfill'
+import NProgress from 'nprogress'
 
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
