@@ -1,5 +1,5 @@
 {
-  "version": "0.21.1-alpha.bcr.0",
+  "version": "0.21.1-alpha.breac.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
