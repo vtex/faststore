@@ -42,6 +42,19 @@ module.exports = ({ title, description }: Options) => {
     },
     plugins: [
       {
+        resolve: require.resolve('gatsby-plugin-bundle-stats'),
+        options: {
+          compare: true,
+          baseline: true,
+          html: true,
+          json: true,
+          outDir: `.`,
+          stats: {
+            context: `${root}/src`,
+          },
+        },
+      },
+      {
         resolve: require.resolve('gatsby-plugin-theme-ui'),
       },
       {
