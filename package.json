@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A monorepo for testing new ideas and solutions",
   "main": "index.js",
-  "repository": "git@github.com:vtex/pocs.git",
+  "repository": "git@github.com:vtex/faststore.git",
   "license": "MIT",
   "private": true,
   "scripts": {
