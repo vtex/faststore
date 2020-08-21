@@ -1,14 +1,21 @@
-import { WrapRootElementBrowserArgs, WrapPageElementBrowserArgs } from 'gatsby'
+import { ThemeProvider } from '@vtex/store-ui'
+import { WrapPageElementBrowserArgs, WrapRootElementBrowserArgs } from 'gatsby'
 import { createElement, ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
+
 import 'requestidlecallback-polyfill'
 
+// import { theme } from './theme'
+
 // Webpack + TS magic to make this work
+const { default: theme } = require('./theme')
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
 const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
 } = require('./src/sdk/progress')
+
+console.log('theme', theme)
 
 export const replaceHydrateFunction = () => (
   element: ElementType,
@@ -30,9 +37,14 @@ export const replaceHydrateFunction = () => (
   root.render(element)
 }
 
-export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
+export const wrapRootElement = ({
+  element: children,
+}: WrapRootElementBrowserArgs) =>
   createElement(StrictMode, {
-    children: createElement(OrderFormProvider, { children: element }),
+    children: createElement(ThemeProvider, {
+      theme,
+      children: createElement(OrderFormProvider, { children }),
+    }),
   })
 
 export const wrapPageElement = ({

@@ -1,5 +1,8 @@
-import React from 'react'
-import { RenderBodyArgs } from 'gatsby'
+import { ThemeProvider } from '@vtex/store-ui'
+import { RenderBodyArgs, WrapRootElementBrowserArgs } from 'gatsby'
+import React, { createElement } from 'react'
+
+import theme from './theme'
 
 const script = require('./src/utils/script')
 
@@ -31,3 +34,8 @@ export const onRenderBody = ({
     }),
   ])
 }
+
+export const wrapRootElement = ({
+  element: children,
+}: WrapRootElementBrowserArgs) =>
+  createElement(ThemeProvider, { theme, children })
