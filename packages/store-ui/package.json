@@ -6,6 +6,7 @@
   "license": "MIT",
   "repository": "vtex/gatsby-vtex",
   "main": "dist/index.js",
+  "browser": "src/index.tsx",
   "module": "dist/store-ui.esm.js",
   "typings": "dist/index.d.ts",
   "engines": {
