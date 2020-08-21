@@ -48,7 +48,7 @@ module.exports = ({ title, description }: Options) => {
           baseline: true,
           html: true,
           json: true,
-          outDir: `../artifacts`,
+          outDir: `__bundle_stats`,
           stats: {
             context: `${root}/src`,
           },
