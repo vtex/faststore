@@ -6,7 +6,6 @@
 
 // All components and styles from Theme UI
 export * from 'theme-ui'
-export * from '@theme-ui/components'
 
 // Base components from @vtex-components
 // Drawer

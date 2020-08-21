@@ -4,7 +4,7 @@ import { Button, Grid } from '@vtex/store-ui'
 import React, { FC, Fragment, useCallback } from 'react'
 
 import { useQueryInfinite } from '../../sdk/graphql/useQueryInfinite'
-import { useSearchFilters } from '../../sdk/search/useSearchFilters'
+import { useFilters } from '../../sdk/search/useFilters'
 import {
   SearchQuery,
   SearchQueryQuery,
@@ -20,7 +20,7 @@ interface Props {
 }
 
 const List: FC<Props> = ({ initialData }) => {
-  const filters = useSearchFilters()
+  const filters = useFilters()
   const { data, error, size, setSize } = useQueryInfinite<
     SearchQueryQuery,
     SearchQueryQueryVariables
