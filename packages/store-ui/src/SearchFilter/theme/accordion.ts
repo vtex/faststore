@@ -47,11 +47,13 @@ export const accordionTheme: SxStyleProp = {
         minHeight: '24px',
 
         checkbox: {
+          cursor: 'pointer',
           color: 'muted',
           my: 'auto',
         },
 
         value: {
+          cursor: 'pointer',
           fontSize: '14px',
           my: 'auto',
           '&:hover': {
