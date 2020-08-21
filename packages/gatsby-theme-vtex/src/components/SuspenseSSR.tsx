@@ -1,13 +1,17 @@
-import React, { FC, Suspense, SuspenseProps } from 'react'
-
-import { isServer } from '../utils/env'
+import React, { FC, Suspense, SuspenseProps, useState, useEffect } from 'react'
 
 const SuspenseSSR: FC<SuspenseProps> = ({ fallback, children }) => {
-  if (isServer) {
-    return fallback as any
+  const [browser, isBrowser] = useState(false)
+
+  useEffect(() => {
+    isBrowser(true)
+  }, [browser])
+
+  if (browser) {
+    return <Suspense fallback={fallback}>{children}</Suspense>
   }
 
-  return <Suspense fallback={fallback}>{children}</Suspense>
+  return <>{fallback}</>
 }
 
 export default SuspenseSSR
