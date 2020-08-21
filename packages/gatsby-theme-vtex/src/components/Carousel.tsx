@@ -39,7 +39,7 @@ const Carousel: FC<Props> = ({ items }) => {
           <Image
             src={item.src}
             alt={item.altText}
-            loading="lazy"
+            loading={i === 0 ? 'eager' : 'lazy'}
             sx={{ height, width: '100%', objectFit: 'cover' }}
           />
         </Box>
