@@ -104,6 +104,12 @@ export const createPages = async ({
   })
 
   // CMS Pages
+  createPage({
+    path: '/account',
+    matchPath: '/account/*',
+    component: resolve(__dirname, './src/templates/account.tsx'),
+    context: {},
+  })
 
   // ensure dist folder
   const cmsRoot = join(root, '.cache/vtex-cms')
