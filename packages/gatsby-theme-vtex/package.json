@@ -48,6 +48,7 @@
     "markdown-loader": "^5.1.0",
     "nprogress": "^0.2.0",
     "p-queue": "^6.5.0",
+    "react-intl": "^5.6.4",
     "react-helmet": "^6.1.0",
     "react-loading-skeleton": "^2.1.1",
     "requestidlecallback-polyfill": "^1.0.2",

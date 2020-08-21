@@ -1,6 +1,6 @@
-import { Link } from 'gatsby'
 import React, { FC } from 'react'
 import { Flex } from 'theme-ui'
+import LocalizedLink from '../LocalizedLink'
 
 export interface LogoProps {
   variant?: string
@@ -20,7 +20,7 @@ export const Logo: FC<LogoProps> = ({
   viewBox = '0 0 660 44',
 }) => {
   const props = {
-    as: Link,
+    as: LocalizedLink,
     to: href,
     variant,
   }
