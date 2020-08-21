@@ -14,9 +14,10 @@ export const scaleImage = (
     return path
   }
 
-  const [id] = r1.split('/')
+  const [r2, query] = r1.split('?')
+  const [id] = r2.split('/')
   const idSplited = id.split('-')
   const imageId = idSplited.length ? idSplited[0] : id
 
-  return `${fixedHost}${separator}${imageId}-${width}-${height}.png`
+  return `${fixedHost}${separator}${imageId}-${width}-${height}?${query || ''}`
 }
