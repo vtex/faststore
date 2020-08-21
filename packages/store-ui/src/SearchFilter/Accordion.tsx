@@ -49,7 +49,6 @@ export const SearchFilterAccordion: FC<Props> = ({
           key={filter.name}
           header={filter.name}
           isActive={isActive}
-          onClick={() => {debugger; console.log('accordion clicked')}}
         >
           <Box as="ul" variant={`${variant}.accordion.collapsible.ul`}>
             {filter.values.map((item, index) => (
