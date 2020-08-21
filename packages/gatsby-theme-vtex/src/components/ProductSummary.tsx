@@ -35,8 +35,8 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
         }}
       >
         <ProductImage
-          width={96}
-          height={96}
+          width={300}
+          height={300}
           src={imageUrl}
           alt={imageText}
           loading={loading}
