@@ -44,7 +44,7 @@ module.exports = ({ title, description }: Options) => {
       {
         resolve: require.resolve('gatsby-plugin-bundle-stats'),
         options: {
-          compare: true,
+          compare: false,
           baseline: true,
           html: true,
           json: true,
@@ -54,12 +54,6 @@ module.exports = ({ title, description }: Options) => {
           },
         },
       },
-      {
-        resolve: require.resolve('gatsby-plugin-theme-ui'),
-      },
-      // {
-      //   resolve: require.resolve('gatsby-plugin-theme-ui'),
-      // },
       {
         resolve: require.resolve('gatsby-plugin-react-helmet'),
       },
@@ -97,6 +91,9 @@ module.exports = ({ title, description }: Options) => {
           environment,
           workspace,
         },
+      },
+      {
+        resolve: require.resolve('@vtex/gatsby-plugin-theme-ui'),
       },
     ],
     proxy: [

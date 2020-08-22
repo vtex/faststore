@@ -1,7 +1,9 @@
 {
-  "name": "@vtex/gatsby-plugin-theme-ui-vtex",
+  "name": "@vtex/gatsby-plugin-theme-ui",
   "version": "0.20.6",
   "main": "index.js",
+  "browser": "src/index.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "tsc",
     "prepare": "cross-env NODE_ENV=production yarn run build",
@@ -26,6 +28,7 @@
   "dependencies": {
     "@babel/core": "^7.11.4",
     "@babel/preset-typescript": "^7.10.4",
-    "@babel/register": "^7.10.5"
+    "@babel/register": "^7.10.5",
+    "@vtex/store-ui": "^0.27.0"
   }
 }
