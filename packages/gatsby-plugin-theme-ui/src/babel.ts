@@ -27,8 +27,9 @@ const plugin = (babel: Babel, options: any) => {
 
       try {
         if (filename === inFile) {
-          // const parsed = parse(`export default ${JSON.stringify(theme)};`, { sourceType: 'module' })
-          const parsed = parse(`export default {};`, { sourceType: 'module' })
+          const parsed = parse(`export default ${JSON.stringify(theme)};`, {
+            sourceType: 'module',
+          })
 
           path.replaceWith(parsed.program)
           path.skip()
