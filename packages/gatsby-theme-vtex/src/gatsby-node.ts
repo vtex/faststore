@@ -156,7 +156,14 @@ export const createPages = async (
 export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
 }: CreateWebpackConfigArgs) => {
+  const optimization = {
+    splitChunks: {
+      maxSize: 50e3,
+    },
+  }
+
   setWebpackConfig({
+    optimization,
     module: {
       rules: [
         {
