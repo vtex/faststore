@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { WrapRootElementBrowserArgs } from 'gatsby'
-import { jsx, ThemeProvider } from '@vtex/store-ui'
+import { jsx, ThemeProvider } from 'theme-ui'
 
 import theme from './index'
 

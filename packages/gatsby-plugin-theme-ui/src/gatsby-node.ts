@@ -9,8 +9,6 @@ const inPath = join(root, 'src', name)
 const inFile = join(inPath, 'index.ts')
 
 export const onPostBootstrap = () => {
-  console.log('onPostBootstrap')
-
   require('@babel/register')({
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],
@@ -23,8 +21,6 @@ export const onPostBootstrap = () => {
 export const onCreateBabelConfig = ({
   actions: { setBabelPlugin },
 }: CreateBabelConfigArgs) => {
-  console.log('onCreateBabelConfig')
-
   setBabelPlugin({
     name: require.resolve('./babel'),
     options: {

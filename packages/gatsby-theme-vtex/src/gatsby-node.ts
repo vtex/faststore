@@ -174,7 +174,7 @@ export const onCreateWebpackConfig = ({
 
   const splitChunks = {
     chunks: 'async',
-    maxSize: 50e3,
+    maxSize: 100e3,
   }
 
   const optimization =

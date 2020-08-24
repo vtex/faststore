@@ -6,14 +6,8 @@ interface Babel {
   types: typeof BabelTypes
 }
 
-const plugin = (babel: Babel, options: any) => {
-  const {
-    inFile,
-    inPath,
-    // theme,
-  } = options
-
-  const t = babel.types
+const plugin = (_: Babel, options: any) => {
+  const { inFile, inPath } = options
 
   const { theme } = global as any
 
