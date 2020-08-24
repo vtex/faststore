@@ -159,7 +159,7 @@ export const onCreateWebpackConfig = ({
 }: CreateWebpackConfigArgs) => {
   const optimization = {
     splitChunks: {
-      maxSize: 50e3,
+      maxSize: 100e3,
     },
   }
 
