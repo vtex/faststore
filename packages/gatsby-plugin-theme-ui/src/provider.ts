@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, ThemeProvider } from 'theme-ui'
+import { jsx, ThemeProvider } from '@theme-ui/core'
 import { WrapRootElementBrowserArgs } from 'gatsby'
 
 import theme from './index'
