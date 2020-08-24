@@ -1,5 +1,6 @@
 import { join, resolve } from 'path'
 
+import { StatsWriterPlugin } from 'webpack-stats-plugin'
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
 
@@ -155,8 +156,35 @@ export const createPages = async (
 
 export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
+  stage,
 }: CreateWebpackConfigArgs) => {
+  const statsPlugin = new StatsWriterPlugin({
+    filename: 'webpack.stats.vtex.json',
+    stats: {
+      hash: true,
+      publicPath: true,
+      assets: true,
+      chunks: true,
+      modules: true,
+      source: false,
+      errorDetails: false,
+      timings: false,
+    },
+  })
+
+  const splitChunks = {
+    chunks: 'async',
+    maxSize: 100e3,
+  }
+
+  const optimization =
+    stage === 'build-javascript' ? { splitChunks } : undefined
+
+  const plugins = stage === 'build-javascript' ? [statsPlugin] : []
+
   setWebpackConfig({
+    optimization,
+    plugins,
     module: {
       rules: [
         {
