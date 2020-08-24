@@ -21,6 +21,8 @@ export const onPostBootstrap = () => {
 export const onCreateBabelConfig = ({
   actions: { setBabelPlugin },
 }: CreateBabelConfigArgs) => {
+  console.log('onCreateBabelConfig')
+
   setBabelPlugin({
     name: require.resolve('./babel'),
     options: {
