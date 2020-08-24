@@ -24,7 +24,8 @@ export type DefaultLocaleQueryQuery = {
 // Query Related Code
 
 export const DefaultLocaleQuery = {
-  query: undefined,
+  query:
+    'query DefaultLocaleQuery {\n  allChannel(filter: {targetProduct: {eq: "vtex-storefront"}}, limit: 1) {\n    edges {\n      node {\n        defaultLocale\n      }\n    }\n  }\n}\n',
   sha256Hash:
     'cb84c3c12f58a1edff9e6c5f50536b8052773521ea9bf41ffb4d99deb9d8d4c0',
   operationName: 'DefaultLocaleQuery',
