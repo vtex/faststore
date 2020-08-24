@@ -4016,7 +4016,14 @@
     "@types/source-list-map" "*"
     source-map "^0.7.3"
 
-"@types/webpack@^4.41.13", "@types/webpack@^4.41.8":
+"@types/webpack-stats-plugin@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@types/webpack-stats-plugin/-/webpack-stats-plugin-0.3.0.tgz#1619532c58433a21efaf2be88528bf9fcdab0b16"
+  integrity sha512-1fNz9+WdwSePaseMaNp57ba6ObgCmMT2nCIvFjvHj1a3UwRvTN2omUway5jChvHBnYSB6m8nxfcLc7Ol+GcFAA==
+  dependencies:
+    "@types/webpack" "*"
+
+"@types/webpack@*", "@types/webpack@^4.41.13", "@types/webpack@^4.41.8":
   version "4.41.21"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.41.21.tgz#cc685b332c33f153bb2f5fc1fa3ac8adeb592dee"
   integrity sha512-2j9WVnNrr/8PLAB5csW44xzQSJwS26aOnICsP3pSGCEdsu6KYtfQ6QJsVUKHWRnm1bL7HziJsfh5fHqth87yKA==
