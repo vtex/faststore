@@ -8,7 +8,7 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
   jsx(
     ThemeProvider,
     {
-      theme,
+      theme: () => theme,
     },
     element
   )
