@@ -4221,16 +4221,6 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.2.tgz#df18c2311e0b10b6841764fee0cf492b732731e0"
   integrity sha512-8wt/aVM9NsLb8NAT+6wVpAB23NfXHBmQynhSONkL3C33ruDFtQgkBy9wpw1unZfRTHjD/zYk8ffmJ+lw+OZGAw==
 
-"@vtex/gatsby-plugin-theme-ui@^0.28.0-alpha.3":
-  version "0.28.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@vtex/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.28.0-alpha.3.tgz#493be0df20829722c189d8460c23d94bcbc5a1f7"
-  integrity sha512-YwRfIQXogPNRfH6Tyjddd29B+fQrIGbF1c4fCHav6e4un8UOyS3ZADH4F4zpLHUzWLiN40j7URqSIasNWkCIKw==
-  dependencies:
-    "@babel/core" "^7.11.4"
-    "@babel/preset-typescript" "^7.10.4"
-    "@babel/register" "^7.10.5"
-    "@vtex/store-ui" "^0.27.0"
-
 "@vtex/prettier-config@^0.3.0":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.1.tgz#c376999e826827aa11f4b0e08af9cf59ae9ee476"
