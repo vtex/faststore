@@ -6,7 +6,7 @@
     "declaration": true,
     "strict": true,
     "moduleResolution": "node",
-    "typeRoots": ["./typings"],
+    "typeRoots": ["./typings", "node_modules/@types"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true

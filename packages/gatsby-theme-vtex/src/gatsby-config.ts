@@ -55,7 +55,7 @@ module.exports = ({ title, description }: Options) => {
         },
       },
       {
-        resolve: require.resolve('gatsby-plugin-theme-ui'),
+        resolve: require.resolve('@vtex/gatsby-plugin-theme-ui'),
       },
       {
         resolve: require.resolve('gatsby-plugin-react-helmet'),
