@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { graphql } from 'gatsby'
 import { FC } from 'react'
-import { Card, Heading, jsx, LocalizedLink } from '@vtex/store-ui'
+import { Card, Heading, jsx } from '@vtex/store-ui'
+import LocalizedLink from '../LocalizedLink'
 
 import { ProductSummary_SyncProductFragment } from './__generated__/ProductSummary_syncProduct.graphql'
 import BuyButton from './BuyButton'

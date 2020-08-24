@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
-import { Flex, LocalizedLink } from '@vtex/store-ui'
+import { Flex } from '@vtex/store-ui'
+
+import LocalizedLink from '../LocalizedLink'
 
 const CustomMenu: FC<{ variant?: string }> = ({ variant }) => (
   <Flex as="nav" variant={variant}>

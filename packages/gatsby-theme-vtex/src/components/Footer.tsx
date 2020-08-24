@@ -1,14 +1,15 @@
 /** @jsx jsx */
 import { graphql, useStaticQuery } from 'gatsby'
 import { FC } from 'react'
-import { Flex, Grid, Image, jsx, LocalizedLink, Link } from '@vtex/store-ui'
+import { Flex, Grid, Image, jsx, Link } from '@vtex/store-ui'
 
+import LocalizedLink from '../LocalizedLink'
 import Container from './Container'
 import { FooterQueryQuery } from './__generated__/FooterQuery.graphql'
 
 interface Item {
-  name: Maybe<string>
-  slug: Maybe<string>
+  name: any
+  slug: any
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (

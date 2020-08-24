@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Flex, MinicartDrawerPrice, Text, Button } from '@vtex/store-ui'
-import { useLocalizationIntl } from '@vtex/gatsby-vtex-localization'
+import {useIntl} from 'react-intl'
 
 export interface HeaderMinicartDrawerFooterProps {
   variant?: string
@@ -16,7 +16,7 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
   variant,
 }) => {
   const customVariant = `${variant}.footer`
-  const { formatMessage } = useLocalizationIntl()
+  const { formatMessage } = useIntl()
   return (
     <Flex variant={customVariant}>
       <MinicartDrawerPrice

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, useState } from 'react'
 import { Box, Button, jsx, Image } from '@vtex/store-ui'
-import { useLocalizationIntl } from '@vtex/gatsby-vtex-localization'
+import {useIntl} from 'react-intl'
 
 interface Item {
   src: string
@@ -17,7 +17,7 @@ const Carousel: FC<Props> = ({ items }) => {
   const [index, setIndex] = useState(0)
   const lastIndex = items.length - 1
   const height = 450
-  const { formatMessage } = useLocalizationIntl()
+  const { formatMessage } = useIntl()
 
   return (
     <Box sx={{ position: 'relative' }}>

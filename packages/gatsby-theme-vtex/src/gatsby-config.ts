@@ -105,11 +105,7 @@ module.exports = ({
           environment,
           workspace,
         },
-      },
-      {
-        resolve: require.resolve('@vtex/gatsby-vtex-localization'),
-        options: localizationThemeOptions || {},
-      },
+      }
     ],
     proxy: [
       {

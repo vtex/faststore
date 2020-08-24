@@ -1,5 +1,6 @@
-import { Box, Flex, Link as LinkUI, LocalizedLink } from '@vtex/store-ui'
+import { Box, Flex, Link as LinkUI } from '@vtex/store-ui'
 import React, { FC } from 'react'
+import LocalizedLink from '../LocalizedLink'
 
 const StoreHeaderOverMenu: FC<{ variant?: string }> = ({ variant }) => (
   <Box variant={variant}>
