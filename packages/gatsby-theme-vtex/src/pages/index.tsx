@@ -16,7 +16,7 @@ const Fold = lazy(() => import('../components/Home/Fold'))
 const itemsCarousel = [
   {
     src:
-      'https://storecomponents.vtexassets.com/assets/faststore/images/banner___febafa22a7ffc9a7f2fd049f416e7c7b.webp?aspect=true&width=360',
+      'https://storecomponents.vtexassets.com/assets/faststore/images/banner___febafa22a7ffc9a7f2fd049f416e7c7b.webp?aspect=true&height=450',
     altText: 'Slide 1',
   },
   {
