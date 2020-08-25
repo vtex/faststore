@@ -1,10 +1,9 @@
+import { jsx, ThemeProvider } from 'theme-ui'
 import { WrapRootElementBrowserArgs } from 'gatsby'
 
 import theme from './index'
 
 export const wrap = ({ element }: WrapRootElementBrowserArgs) => {
-  const { jsx, ThemeProvider } = require('theme-ui')
-
   return jsx(
     ThemeProvider,
     {
