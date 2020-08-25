@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-import { CreateBabelConfigArgs } from 'gatsby'
+import { CreateBabelConfigArgs, CreateWebpackConfigArgs } from 'gatsby'
 
 const root = process.cwd()
 const name = '@vtex/gatsby-plugin-theme-ui'
@@ -28,4 +28,30 @@ export const onCreateBabelConfig = ({
       inPath: base,
     },
   })
+}
+
+export const onCreateWebpackConfig = ({
+  actions: { setWebpackConfig },
+  stage
+}: CreateWebpackConfigArgs) => {
+  if (stage === 'build-javascript' || stage === 'develop') {
+    setWebpackConfig({
+      optimization: {
+        splitChunks: {
+          cacheGroups: {
+            'theme-ui': {
+              maxSize: 1e6,
+              name: 'theme-ui',
+              test: /(.*)theme-ui(.*)/,
+            },
+            'emotion': {
+              maxSize: 1e6,
+              name: 'emotion',
+              test: /(.*)emotion(.*)/,
+            }
+          }
+        }
+      }
+    })
+  }
 }

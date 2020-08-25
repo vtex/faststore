@@ -4,6 +4,12 @@ import ReactDOM from 'react-dom'
 import 'requestidlecallback-polyfill'
 
 // Webpack + TS magic to make this work
+const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
+const {
+  Progress,
+  onRouteUpdate: progressOnRouteUpdate,
+} = require('./src/sdk/progress')
+
 export const replaceHydrateFunction = () => (
   element: ElementType,
   container: Element,
@@ -24,22 +30,17 @@ export const replaceHydrateFunction = () => (
   root.render(element)
 }
 
-export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>  {
-  const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
-  return createElement(StrictMode, {
+export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
+  createElement(StrictMode, {
     children: createElement(OrderFormProvider, { children: element }),
   })
-}
 
 export const wrapPageElement = ({
   element,
   props: { location },
-}: WrapPageElementBrowserArgs) =>  {
-  const { Progress } = require('./src/sdk/progress')
-  return createElement(Progress, { children: element, location })
-}
+}: WrapPageElementBrowserArgs) =>
+  createElement(Progress, { children: element, location })
 
 export const onRouteUpdate = () => {
-  const { onRouteUpdate: progressOnRouteUpdate } = require('./src/sdk/progress')
   progressOnRouteUpdate()
 }

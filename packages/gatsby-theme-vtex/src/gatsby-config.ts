@@ -44,7 +44,7 @@ module.exports = ({ title, description }: Options) => {
       {
         resolve: require.resolve('gatsby-plugin-bundle-stats'),
         options: {
-          compare: true,
+          compare: false,
           baseline: true,
           html: true,
           json: true,
