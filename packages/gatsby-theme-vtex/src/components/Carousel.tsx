@@ -5,6 +5,8 @@ import { Box, Button, jsx, Image } from '@vtex/store-ui'
 interface Item {
   src: string
   altText: string
+  width: number
+  height: number
   href?: string
 }
 
@@ -38,6 +40,8 @@ const Carousel: FC<Props> = ({ items }) => {
           </Button>
           <Image
             src={item.src}
+            width={item.width}
+            height={item.height}
             alt={item.altText}
             loading={i === 0 ? 'eager' : 'lazy'}
             sx={{ height, width: '100%', objectFit: 'cover' }}

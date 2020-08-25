@@ -6,9 +6,11 @@ interface Props {
   href: string
   alt: string
   src: string
+  height: string
+  width: string
 }
 
-const InfoCardImage: FC<Props> = ({ alt, src, href }) => {
+const InfoCardImage: FC<Props> = ({ alt, src, href, height, width }) => {
   const linkProps = {
     as: Link,
     to: href,
@@ -20,6 +22,8 @@ const InfoCardImage: FC<Props> = ({ alt, src, href }) => {
       <Flex {...linkProps}>
         <Image
           variant="card.image.content"
+          height={height}
+          width={width}
           alt={alt}
           src={src}
           loading="lazy"
