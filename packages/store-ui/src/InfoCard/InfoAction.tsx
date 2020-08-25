@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
-import { Button, Link } from 'theme-ui'
+import { Button } from 'theme-ui'
+
+import LocalizedLink from '../LocalizedLink'
 
 interface Props {
   href: string
@@ -8,7 +10,7 @@ interface Props {
 
 const InfoCardInfoAction: FC<Props> = ({ href, label }) => {
   const props = {
-    as: Link,
+    as: LocalizedLink,
     to: href,
     variant: 'card.info.action',
   }

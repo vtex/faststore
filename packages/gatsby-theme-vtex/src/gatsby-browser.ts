@@ -5,8 +5,6 @@ import 'requestidlecallback-polyfill'
 
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
-const {Wrapper} = require('./components/wrapper')
-
 const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
@@ -39,9 +37,9 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
 
 export const wrapPageElement = ({
   element,
-  props: { location, pageContext },
+  props: { location },
 }: WrapPageElementBrowserArgs) =>
-  createElement(Progress, { children: createElement(Wrapper, { children: element, pageContext }), location })
+  createElement(Progress, { children: element, location })
 
 export const onRouteUpdate = () => {
   progressOnRouteUpdate()

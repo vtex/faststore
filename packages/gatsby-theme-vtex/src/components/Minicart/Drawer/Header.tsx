@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box, Button, Heading } from '@vtex/store-ui'
-import {useIntl} from 'react-intl'
+import { useLocalizationIntl } from '@vtex/gatsby-plugin-i18n'
 
 interface HeaderMinicartDrawerHeaderProps {
   variant?: string
@@ -14,7 +14,7 @@ export const HeaderMinicartDrawerHeader: FC<HeaderMinicartDrawerHeaderProps> = (
   variant,
 }) => {
   const headerVariant = `${variant}.header`
-  const { formatMessage } = useIntl()
+  const { formatMessage } = useLocalizationIntl()
   return (
     <Box variant={headerVariant}>
       <Button onClick={onClose} variant={`${headerVariant}.close`}>

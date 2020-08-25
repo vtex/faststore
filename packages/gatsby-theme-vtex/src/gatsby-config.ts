@@ -105,7 +105,11 @@ module.exports = ({
           environment,
           workspace,
         },
-      }
+      },
+      {
+        resolve: require.resolve('@vtex/gatsby-plugin-i18n'),
+        options: localizationThemeOptions || {},
+      },
     ],
     proxy: [
       {

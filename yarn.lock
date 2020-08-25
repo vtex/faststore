@@ -1507,12 +1507,12 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@formatjs/cli@^2.7.11":
-  version "2.7.11"
-  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-2.7.11.tgz#62a8aa311f9d57d654d1e95a8e829014d1c750b6"
-  integrity sha512-BW/d9H3nAXzB9Gx9DLh3i7ePaBsQujw6djIflh6u9YFx4+C/ashrgqwu/enohkVvoMPEVKXb0L9BoyBUgwgmnw==
+"@formatjs/cli@^2.7.7":
+  version "2.7.12"
+  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-2.7.12.tgz#b2130f356652f41ecd538e801bcdbd032dded2e7"
+  integrity sha512-qkYsFQCJ1qkSnW8Yylgu55aR7Eyl8tz+EixZOy5t1SKaSWBN8EsYsoKoQA2EuNmmtcaVLEkd8Bk67fxPScX0yQ==
   dependencies:
-    "@formatjs/ts-transformer" "^2.7.8"
+    "@formatjs/ts-transformer" "^2.7.9"
     "@types/json-stable-stringify" "^1.0.32"
     "@types/lodash" "^4.14.150"
     "@types/loud-rejection" "^2.0.0"
@@ -1521,7 +1521,7 @@
     commander "5.1.0"
     fast-glob "^3.2.4"
     fs-extra "^9.0.0"
-    intl-messageformat-parser "^6.0.3"
+    intl-messageformat-parser "^6.0.4"
     json-stable-stringify "^1.0.1"
     lodash "^4.17.15"
     loud-rejection "^2.2.0"
@@ -1535,13 +1535,10 @@
     "@types/es-abstract" "^1.17.1"
     es-abstract "^1.17.6"
 
-"@formatjs/ecma402-abstract@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@formatjs/ecma402-abstract/-/ecma402-abstract-1.0.3.tgz#26c77b2c33512f4c59dd03bbd1e10f5d400e0042"
-  integrity sha512-ZT5ZwqT9o+5pqDSI840s+CaAmUcyfA8KjbPrxUD2maCh99K5Iwu0L8tGmF20aZ6NAd8mBasrB999bV12kasQJA==
-  dependencies:
-    "@types/es-abstract" "^1.17.1"
-    es-abstract "^1.17.6"
+"@formatjs/ecma402-abstract@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@formatjs/ecma402-abstract/-/ecma402-abstract-1.1.0.tgz#a109d2cc963953ba7cb22ffb998abd6a4e9b7e18"
+  integrity sha512-t5wDT1bIF5v5O9mk/reI0TvhqBKs0WiLf2ihVQcUvVCc0qb7poP/KFXWPehooaARDNRJ66LGFLVOHPPsJ+W2Xg==
 
 "@formatjs/intl-datetimeformat@^2.6.2":
   version "2.6.2"
@@ -1587,15 +1584,6 @@
     "@types/es-abstract" "^1.17.1"
     es-abstract "^1.17.6"
 
-"@formatjs/intl-numberformat@^5.5.4":
-  version "5.5.4"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl-numberformat/-/intl-numberformat-5.5.4.tgz#6bbe9b5530e7d5eb9a0aeda0d5048c70e7251543"
-  integrity sha512-YiAVYSDvIkgQ+BssPNVlNYceqygApeatYJnlUBrF4fj7qDyAHN8NX1JZkJNVQC+/nRpBVgha1bqar/NB7Ayyig==
-  dependencies:
-    "@formatjs/ecma402-abstract" "^1.0.3"
-    "@types/es-abstract" "^1.17.1"
-    es-abstract "^1.17.6"
-
 "@formatjs/intl-relativetimeformat@^7.2.2":
   version "7.2.2"
   resolved "https://registry.yarnpkg.com/@formatjs/intl-relativetimeformat/-/intl-relativetimeformat-7.2.2.tgz#02743044cb3bbad03aba84578d5ee052ea9613ff"
@@ -1605,12 +1593,12 @@
     "@types/es-abstract" "^1.17.1"
     es-abstract "^1.17.6"
 
-"@formatjs/ts-transformer@^2.7.8":
-  version "2.7.8"
-  resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-2.7.8.tgz#6a3746361341cbe3aa0f321a74ee2d6c8838e8e2"
-  integrity sha512-HDCfK3X90qFq65gab1Qv33EGWPwGLGKAYmThBd59INw+N4nQOffPW5QWsv02ujCQSUJzsq9V133G9PWOPMZwRg==
+"@formatjs/ts-transformer@^2.7.9":
+  version "2.7.9"
+  resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-2.7.9.tgz#5c483dfbd4ba8835f94b8a4e607934d7c62b2324"
+  integrity sha512-NPcsi86KO95idHsgAqV4sud3RqFVzpEqUyowlH4KeoRjpWVDKJgd3ICorY5UjycsduXL4/TK1JtBPgskFwiutQ==
   dependencies:
-    intl-messageformat-parser "^6.0.3"
+    intl-messageformat-parser "^6.0.4"
     typescript "^3.8"
 
 "@graphql-codegen/core@^1.17.7":
@@ -12010,12 +11998,12 @@ intl-messageformat-parser@^6.0.1:
   dependencies:
     "@formatjs/intl-numberformat" "^5.5.2"
 
-intl-messageformat-parser@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/intl-messageformat-parser/-/intl-messageformat-parser-6.0.3.tgz#84b4fb000dcb546e5722892ad8490df66987ede8"
-  integrity sha512-8+OKjj2joWTnLHQhYkuxHrA8d+A30OKt9ykdPettUEzR9VWIq8u++NpK9VSL0CU5MBCfWw1hvM8+6a5CAOaprQ==
+intl-messageformat-parser@^6.0.4:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/intl-messageformat-parser/-/intl-messageformat-parser-6.0.4.tgz#487a16ad58ee681ae67a3e86bae76ae7b7e7e03c"
+  integrity sha512-jdD/LbP0xI9N0/ce/U3yzxvKIlXTQHOj1bvj56K7+hnJD3hoD1pOuvMf3393wmze952RVD5poRfQpoTjy4CajA==
   dependencies:
-    "@formatjs/intl-numberformat" "^5.5.4"
+    "@formatjs/ecma402-abstract" "^1.1.0"
 
 intl-messageformat@^9.3.2:
   version "9.3.2"

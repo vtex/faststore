@@ -36,6 +36,8 @@ export * from './Minicart/Content'
 export * from './Minicart/Drawer'
 export * from './Minicart/Svg'
 export * from './Minicart/theme'
+// LocalizedLink
+export { default as LocalizedLink } from './LocalizedLink'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
 // Search Filters

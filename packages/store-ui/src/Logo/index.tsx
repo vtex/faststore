@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
-import { Flex, Link } from 'theme-ui'
+import { Flex } from 'theme-ui'
+
+import LocalizedLink from '../LocalizedLink'
 
 
 export interface LogoProps {
@@ -20,7 +22,7 @@ export const Logo: FC<LogoProps> = ({
   viewBox = '0 0 660 44',
 }) => {
   const props = {
-    as: Link,
+    as: LocalizedLink,
     to: href,
     variant,
   }

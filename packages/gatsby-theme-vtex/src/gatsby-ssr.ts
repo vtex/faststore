@@ -1,8 +1,7 @@
-import React, { createElement } from 'react'
-import { RenderBodyArgs, WrapPageElementBrowserArgs } from 'gatsby'
+import React from 'react'
+import { RenderBodyArgs } from 'gatsby'
 
 const script = require('./src/utils/script')
-const { Wrapper } = require('./components/wrapper')
 
 export const onRenderBody = ({
   setHeadComponents,
@@ -32,8 +31,3 @@ export const onRenderBody = ({
     }),
   ])
 }
-
-export const wrapPageElement = ({
-  element,
-  props: { pageContext },
-}: WrapPageElementBrowserArgs) => createElement(Wrapper, { children: element, pageContext })

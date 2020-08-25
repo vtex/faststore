@@ -1,19 +1,11 @@
 import * as React from 'react'
-import { FC, useMemo, useContext, createContext } from 'react'
-
-interface LocalizationContextType {
-  defaultLocale: string
-  locale: string
-}
+import { FC, useMemo } from 'react'
+import { LocalizationContext } from '../helpers/context'
 
 interface Props {
   defaultLocale: string
   locale: string
 }
-
-const LocalizationContext = createContext<LocalizationContextType>({ defaultLocale: 'en', locale: 'en' })
-
-export const useLocalizationContext = () => useContext(LocalizationContext)
 
 const LocalizationContextProvider: FC<Props> = ({ children, defaultLocale, locale }) => {
   const value = useMemo(() => {
@@ -22,7 +14,6 @@ const LocalizationContextProvider: FC<Props> = ({ children, defaultLocale, local
       locale
     }
   }, [defaultLocale, locale])
-
   return (
     <LocalizationContext.Provider value={value}>
       {children}
