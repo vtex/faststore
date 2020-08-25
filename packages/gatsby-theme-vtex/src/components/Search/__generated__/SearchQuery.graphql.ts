@@ -31,7 +31,7 @@ export type SearchQueryQuery = { vtex: { productSearch: Maybe<{ products: Maybe<
 // Query Related Code
 
 export const SearchQuery = {
-  query: "query SearchQuery($query: String, $map: String, $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  query: undefined,
   sha256Hash: "1e6ca111535dba403643f71ac6b020f37d24344ca23f9e8e87e39868f40042a2",
   operationName: "SearchQuery",
 }

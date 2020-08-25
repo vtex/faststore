@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { jsx, ThemeProvider } from '@theme-ui/core'
 import { WrapRootElementBrowserArgs } from 'gatsby'
 

@@ -161,6 +161,7 @@ export const onCreateWebpackConfig = ({
     splitChunks: {
       maxSize: 100e3,
     },
+    // minimize: false,
   }
 
   setWebpackConfig({
