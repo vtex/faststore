@@ -3,7 +3,7 @@ import { WrapRootElementBrowserArgs } from 'gatsby'
 
 import theme from './index'
 
-export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
+export const wrap = ({ element }: WrapRootElementBrowserArgs) =>
   jsx(
     ThemeProvider,
     {
