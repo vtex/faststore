@@ -32,7 +32,7 @@ export const onCreateBabelConfig = ({
 
 export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
-  stage
+  stage,
 }: CreateWebpackConfigArgs) => {
   if (stage === 'build-javascript' || stage === 'develop') {
     setWebpackConfig({
@@ -44,14 +44,14 @@ export const onCreateWebpackConfig = ({
               name: 'theme-ui',
               test: /(.*)theme-ui(.*)/,
             },
-            'emotion': {
+            emotion: {
               maxSize: 1e6,
               name: 'emotion',
               test: /(.*)emotion(.*)/,
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     })
   }
 }
