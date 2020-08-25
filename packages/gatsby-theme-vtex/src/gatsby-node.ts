@@ -159,7 +159,7 @@ export const onCreateWebpackConfig = ({
 }: CreateWebpackConfigArgs) => {
   const optimization = {
     splitChunks: {
-      maxSize: 100e3,
+      maxSize: 100e3, // Hard threshold so file sizes don't harm tbt
     },
   }
 
