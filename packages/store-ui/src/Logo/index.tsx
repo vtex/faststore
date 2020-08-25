@@ -1,6 +1,6 @@
-import { Link } from 'gatsby'
 import React, { FC } from 'react'
-import { Flex } from 'theme-ui'
+import { Flex, Link } from 'theme-ui'
+
 
 export interface LogoProps {
   variant?: string

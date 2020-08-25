@@ -73,6 +73,11 @@ export class QueryManager {
   }) {
     const doc = parse(queryStr)
 
+    if (filename.includes('node_modules')) {
+      // Do not parse queries that are from third-party packages.
+      return
+    }
+
     visit(doc, {
       OperationDefinition: (def) => {
         if (!def.name) {

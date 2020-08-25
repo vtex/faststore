@@ -1,9 +1,37 @@
 import { join, resolve } from 'path'
 
-import { ensureDir, outputFile } from 'fs-extra'
-import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
+import { ensureDir, outputFile, readJSON, unlink } from 'fs-extra'
+import { CreatePageArgs, CreatePagesArgs, CreateWebpackConfigArgs, SourceNodesArgs } from 'gatsby'
+import { compile } from '@formatjs/cli'
 
 import { Environment, Options } from './gatsby-config'
+
+function isDefaultLang(locale: string, defaultLocale: string) {
+  return locale === defaultLocale
+}
+
+function localizedPath(
+  defaultLocale: string,
+  locale: string,
+  path: string
+) {
+  // The default language isn't prefixed
+  if (isDefaultLang(locale, defaultLocale)) {
+    return path
+  }
+
+  const [, base] = path.split(`/`)
+
+  // If for whatever reason we receive an already localized path
+  // (e.g. if the path was made with location.pathname)
+  // just return it as-is.
+  if (base === locale) {
+    return path
+  }
+
+  // If it's another language, prefix with the locale
+  return `/${locale}${path}`
+}
 
 const root = process.cwd()
 
@@ -165,6 +193,11 @@ export const onCreateWebpackConfig = ({
 
   setWebpackConfig({
     optimization: stage === 'build-javascript' ? optimization : {},
+    resolve: {
+      alias: {
+        'react-intl$': 'react-intl/react-intl-no-parser.umd',
+      },
+    },
     module: {
       rules: [
         {
@@ -177,4 +210,148 @@ export const onCreateWebpackConfig = ({
       ],
     },
   })
+}
+
+export const sourceNodes = async (
+  args: SourceNodesArgs,
+  { localizationThemeOptions }: any
+) => {
+  console.log('teste sourceNodes!!!')
+  const {
+    actions: { createNode },
+    createNodeId,
+    createContentDigest,
+    reporter,
+  } = args
+
+  const {
+    messagesPath,
+    locales,
+    defaultLocale = 'en',
+  } = localizationThemeOptions
+
+  if (!locales.includes(defaultLocale)) {
+    reporter.panicOnBuild(
+      'Please provide a default locale that is contained in your provided locales array'
+    )
+
+    return
+  }
+
+  for (const locale of locales) {
+    let languageJson = null as Record<string, string> | null
+
+    try {
+      languageJson = await readJSON(`${messagesPath}/${locale}.json`, {
+        encoding: 'utf-8',
+      })
+    } catch (e) {
+      languageJson = null
+    }
+
+    if (languageJson == null && locale === defaultLocale) {
+      reporter.panicOnBuild(`Error reading strings for default locale`)
+
+      return
+    }
+
+    if (languageJson == null) {
+      reporter.info(`Error reading strings for locale ${locale}`)
+      continue
+    }
+
+    const withDefaultMessage = Object.entries(languageJson).reduce(
+      (acc, [key, val]) => {
+        acc[key] = { defaultMessage: val }
+
+        return acc
+      },
+      {} as Record<string, { defaultMessage: string }>
+    )
+
+    await outputFile(
+      `${messagesPath}/${locale}-temp.json`,
+      JSON.stringify(withDefaultMessage)
+    )
+
+    const resultAsString = await compile(
+      [`${messagesPath}/${locale}-temp.json`],
+      { ast: true }
+    )
+
+    await unlink(`${messagesPath}/${locale}-temp.json`)
+    const data = { messages: resultAsString, locale }
+
+    createNode({
+      ...data,
+      id: createNodeId(`LanguageData-${locale}`),
+      internal: {
+        type: 'LanguageData',
+        content: JSON.stringify(data),
+        contentDigest: createContentDigest(data),
+      },
+    })
+  }
+
+  const languageDataConfig = {
+    locales,
+    defaultLocale,
+  }
+
+  createNode({
+    ...languageDataConfig,
+    id: createNodeId(`LanguageDataConfig`),
+    internal: {
+      type: 'LanguageDataConfig',
+      content: JSON.stringify(languageDataConfig),
+      contentDigest: createContentDigest(languageDataConfig),
+    },
+  })
+}
+
+export const onCreatePage = async ({
+  page,
+  actions,
+  getNodesByType,
+}: CreatePageArgs) => {
+  const { createPage, deletePage } = actions
+
+  console.log('teste ON CREATE PAGE!')
+
+  // Check if originalPath was already set and bail early as otherwise an infinite loop could occur
+  // as other plugins like gatsby-plugin-mdx could modify this
+  if (page.context.originalPath) {
+    return
+  }
+
+  const originalPath = page.path
+
+  deletePage(page)
+
+  const languageNodes = getNodesByType('LanguageData') as any
+  const languageConfig = getNodesByType(
+    'LanguageDataConfig'
+  )[0]
+
+  const { defaultLocale } = languageConfig
+
+  for (const languageData of languageNodes) {
+    const { locale, messages } = languageData
+
+    console.log('teste ON CREATE PAGE!: ', messages)
+    createPage({
+      ...page,
+      path: localizedPath(defaultLocale as any, locale, page.path),
+      matchPath: page.matchPath
+        ? localizedPath(defaultLocale as any, locale, page.matchPath)
+        : page.matchPath,
+      context: {
+        ...page.context,
+        messages: JSON.parse(messages || ''),
+        locale,
+        defaultLocale,
+        originalPath,
+      },
+    })
+  }
 }

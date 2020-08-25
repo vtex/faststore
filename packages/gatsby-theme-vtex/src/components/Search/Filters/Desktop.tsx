@@ -5,6 +5,7 @@ import {
   SearchFilterAccordionItemCheckbox,
   jsx,
 } from '@vtex/store-ui'
+import {useIntl} from 'react-intl'
 import { FC, Fragment } from 'react'
 import { useFacets } from '../../../sdk/search/useFacets'
 
@@ -17,11 +18,11 @@ const SearchFilters: FC<Props> = ({
   variant = 'desktop',
   isActive = true,
 }) => {
-  const { facets, toggleItem } = useFacets()
-
+  const { facets, toggleItem } = useFacets()
+  const { formatMessage } = useIntl()
   return (
     <Fragment>
-      <Box variant={`searchFilter.${variant}.title`}>Filters</Box>
+      <Box variant={`searchFilter.${variant}.title`}>{formatMessage({ id: 'facets.filters' })}</Box>
 
       <SearchFilterAccordion
         filters={facets}

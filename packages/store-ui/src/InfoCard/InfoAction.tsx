@@ -1,6 +1,5 @@
-import Link from 'gatsby-link'
 import React, { FC } from 'react'
-import { Button } from 'theme-ui'
+import { Button, Link } from 'theme-ui'
 
 interface Props {
   href: string

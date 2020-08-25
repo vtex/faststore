@@ -1,6 +1,6 @@
-import Link from 'gatsby-link'
 import React, { FC } from 'react'
-import { Flex, Image } from 'theme-ui'
+import { Flex, Image, Link } from 'theme-ui'
+// import LocalizedLink from '../LocalizedLink'
 
 interface Props {
   href: string

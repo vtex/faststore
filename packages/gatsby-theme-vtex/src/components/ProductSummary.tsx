@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import { FC } from 'react'
 import { Card, Heading, jsx } from '@vtex/store-ui'
+import LocalizedLink from '../LocalizedLink'
 
 import { ProductSummary_SyncProductFragment } from './__generated__/ProductSummary_syncProduct.graphql'
 import BuyButton from './BuyButton'
@@ -20,7 +21,7 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
   const offer = items[0].sellers?.[0].commertialOffer
 
   return (
-    <Link
+    <LocalizedLink
       to={`/${linkText}/p`}
       sx={{
         textDecoration: 'none',
@@ -51,7 +52,7 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
         )}
         <BuyButton sku={items[0]} />
       </Card>
-    </Link>
+    </LocalizedLink>
   )
 }
 

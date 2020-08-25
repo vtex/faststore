@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { FC } from 'react'
 import { Button, jsx } from '@vtex/store-ui'
+import {useIntl} from 'react-intl'
 
 import { useBestSeller } from '../sdk/product/useBestSeller'
 import { useOrderForm } from '../sdk/orderForm/useOrderForm'
@@ -26,6 +27,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
   const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
   const disabled = !sku || !orderForm?.value
+  const { formatMessage } = useIntl()
 
   // Optimist add item on click
   const addItemOnClick = async (e: any) => {
@@ -52,7 +54,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
       variant="primary"
       onClick={addItemOnClick}
     >
-      ADD TO CART
+      {formatMessage({ id: 'buy-button.add-to-cart' })}
     </Button>
   )
 }
