@@ -1,3 +1,1 @@
-const { wrap } = require('./src/provider')
-
-export const wrapRootElement = wrap
+export { wrap as wrapRootElement } from './provider'

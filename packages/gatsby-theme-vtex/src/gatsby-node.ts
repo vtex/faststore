@@ -154,7 +154,7 @@ export const createPages = async (
 }
 
 export const onCreateWebpackConfig = ({
-  actions: { setWebpackConfig }
+  actions: { setWebpackConfig },
 }: CreateWebpackConfigArgs) => {
   setWebpackConfig({
     module: {
