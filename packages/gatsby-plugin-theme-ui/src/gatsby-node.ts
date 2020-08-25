@@ -3,17 +3,17 @@ import { join } from 'path'
 import { CreateBabelConfigArgs } from 'gatsby'
 
 const root = process.cwd()
-
 const name = '@vtex/gatsby-plugin-theme-ui'
-const inPath = join(root, 'src', name)
-const inFile = join(inPath, 'index.ts')
+
+const base = join(root, 'src', name)
+const filepath = join(base, 'index.ts')
 
 export const onPostBootstrap = () => {
   require('@babel/register')({
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],
   })
-  const { default: theme } = require(inFile)
+  const { default: theme } = require(filepath)
 
   ;(global as any).theme = theme
 }
@@ -24,8 +24,8 @@ export const onCreateBabelConfig = ({
   setBabelPlugin({
     name: require.resolve('./babel'),
     options: {
-      inFile,
-      inPath,
+      inFile: filepath,
+      inPath: base,
     },
   })
 }
