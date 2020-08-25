@@ -50,6 +50,8 @@ const Footer: FC = () => {
             >
               <Image
                 sx={{ height: 32, width: 32, mr: 1 }}
+                height="32px"
+                width="32px"
                 loading="lazy"
                 alt="Facebook"
                 src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/ebd4bd10e66138168eb6a582e00790ea.svg"
@@ -68,6 +70,8 @@ const Footer: FC = () => {
             >
               <Image
                 sx={{ height: 32, width: 32, mr: 1 }}
+                height="32px"
+                width="32px"
                 loading="lazy"
                 alt="Instagram"
                 src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/6a61a302319c062aceb9562a66381a63.svg"
@@ -86,6 +90,8 @@ const Footer: FC = () => {
             >
               <Image
                 sx={{ height: 32, width: 32, mr: 1 }}
+                height="32px"
+                width="32px"
                 loading="lazy"
                 alt="Twitter"
                 src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/5f12d2a63f43d3a243550ff6400b4870.svg"
@@ -104,6 +110,8 @@ const Footer: FC = () => {
             >
               <Image
                 sx={{ height: 32, width: 32 }}
+                height="32px"
+                width="32px"
                 loading="lazy"
                 alt="Youtube"
                 src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/20a214b4866fd6d42a6dfed070c0057b.svg"
@@ -114,18 +122,24 @@ const Footer: FC = () => {
         <Flex>
           <Image
             sx={{ height: 32, width: 32 }}
+            height="32px"
+            width="32px"
             loading="lazy"
             alt="Mastercard"
             src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/a8a977f569877c2df3a46c5a7b0d4dec.svg"
           />
           <Image
             sx={{ height: 32, width: 32, mx: 1 }}
+            height="32px"
+            width="32px"
             loading="lazy"
             alt="Visa"
             src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/69f24958103909c9e64057b9956d886f.svg"
           />
           <Image
             sx={{ height: 32, width: 32 }}
+            height="32px"
+            width="32px"
             loading="lazy"
             alt="Credit Card"
             src="https://storecomponents.vtexassets.com/_v/public/assets/v1/published/vtex.store-footer@2.20.1/public/react/d48ef71514c2996f778851c1df9cc5d0.svg"
