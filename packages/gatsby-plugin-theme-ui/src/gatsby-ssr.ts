@@ -1,3 +1,3 @@
-// const { wrapRootElement: wrapper } = require('./src/provider')
+const { wrapRootElement: wrapper } = require('./src/provider')
 
-// export const wrapRootElement = wrapper
+export const wrapRootElement = wrapper

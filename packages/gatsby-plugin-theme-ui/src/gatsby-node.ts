@@ -5,7 +5,6 @@ import { CreateBabelConfigArgs } from 'gatsby'
 const root = process.cwd()
 
 const name = '@vtex/gatsby-plugin-theme-ui'
-// const name = '@vtex/gatsby-theme-vtex'
 const inPath = join(root, 'src', name)
 const inFile = join(inPath, 'index.ts')
 
