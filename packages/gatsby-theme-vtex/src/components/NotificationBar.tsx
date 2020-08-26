@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box } from '@vtex/store-ui'
-import { useLocalizationIntl } from '@vtex/gatsby-plugin-i18n'
+// import { useLocalizationIntl } from '@vtex/gatsby-plugin-i18n'
 
 interface Props {
   // text: string
@@ -8,9 +8,9 @@ interface Props {
 }
 
 const StoreHeaderNotificationBar: FC<Props> = ({ variant }) => {
-  const { formatMessage } = useLocalizationIntl()
+  // const { formatMessage } = useLocalizationIntl()
   return (
-    <Box variant={variant}>{formatMessage({ id: 'signin' })}</Box>
+    <Box variant={variant}>OLA</Box>
   )
 }
 
