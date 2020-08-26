@@ -1,0 +1,27 @@
+{
+  "name": "@vtex/gatsby-plugin-i18n",
+  "version": "0.32.1-alpha.20",
+  "main": "index.js",
+  "license": "MIT",
+  "typings": "index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "cross-env NODE_ENV=production yarn run build",
+    "develop": "tsc --watch"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "react": "^0.0.0-experimental-7f28234f8",
+    "react-dom": "^0.0.0-experimental-7f28234f8",
+    "typescript": "^3.9.5"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.21.26",
+    "react": "^0.0.0-experimental-7f28234f8",
+    "react-dom": "^0.0.0-experimental-7f28234f8"
+  },
+  "dependencies": {
+    "@formatjs/cli": "^2.7.7",
+    "react-intl": "^5.7.1"
+  }
+}

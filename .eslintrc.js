@@ -22,6 +22,7 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/camelcase': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'no-await-in-loop': 'off',
       },
     },
     // Override for .ts components only
