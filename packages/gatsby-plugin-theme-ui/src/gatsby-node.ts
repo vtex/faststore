@@ -29,31 +29,3 @@ export const onCreateBabelConfig = ({
     },
   })
 }
-
-export const onCreateWebpackConfig = ({
-  actions: { setWebpackConfig },
-  stage,
-}: CreateWebpackConfigArgs) => {
-  if (stage === 'build-javascript' || stage === 'develop') {
-    setWebpackConfig({
-      optimization: {
-        // minimize: false,
-        // nodeEnv: 'development',
-        // splitChunks: {
-        //   cacheGroups: {
-        //     'theme-ui': {
-        //       maxSize: 1e6,
-        //       name: 'theme-ui',
-        //       test: /(.*)theme-ui(.*)/,
-        //     },
-        //     emotion: {
-        //       maxSize: 1e6,
-        //       name: 'emotion',
-        //       test: /(.*)emotion(.*)/,
-        //     },
-        //   },
-        // },
-      },
-    })
-  }
-}
