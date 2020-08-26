@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-i18n",
-  "version": "0.32.1-alpha.4",
+  "version": "0.32.1-alpha.5",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -21,5 +21,5 @@
     "@formatjs/cli": "^2.7.7",
     "react-intl": "^5.6.4"
   },
-  "gitHead": "6c2dc6e81a534c06665f0178892bf47079e087e1"
+  "gitHead": "51a8911df6b6ce2eaec876ffa75ac74bf891b5f8"
 }
