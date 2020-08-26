@@ -8,8 +8,6 @@ import theme from '../index'
 
 const getTheme = () => theme
 
-const ThemeProvider: FC = ({ children }) => (
+export const ThemeProvider: FC = ({ children }) => (
   <ThemeUIProvider theme={getTheme}>{children}</ThemeUIProvider>
 )
-
-export default ThemeProvider
