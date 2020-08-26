@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 import { WrapRootElementBrowserArgs } from 'gatsby'
 
-const { ThemeProvider } = require('./src/provider')
+const { ThemeProvider } = require('./src/components/ssr')
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
   createElement(ThemeProvider, { children: element })
