@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-i18n",
-  "version": "0.32.1-alpha.3",
+  "version": "0.32.1-alpha.4",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -9,6 +9,7 @@
     "develop": "tsc --watch"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
@@ -20,5 +21,5 @@
     "@formatjs/cli": "^2.7.7",
     "react-intl": "^5.6.4"
   },
-  "gitHead": "d4eca5bc2b2ea15ca18679063503a0d3d43fc356"
+  "gitHead": "6c2dc6e81a534c06665f0178892bf47079e087e1"
 }
