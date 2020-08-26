@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Flex } from 'theme-ui'
 
-import LocalizedLink from '../LocalizedLink'
+import {LocalizedLink} from '../LocalizedLink'
 
 
 export interface LogoProps {
