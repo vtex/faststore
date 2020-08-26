@@ -1,0 +1,23 @@
+{
+  "buy-button.add-to-cart": "ADD TO CART",
+  "carousel.previous": "Previous",
+  "carousel.next": "Next",
+  "minicart.drawer.close": "Close",
+  "minicart.drawer.count": "Count ({count})",
+  "minicart.drawer.subtotal": "Subtotal",
+  "minicart.drawer.total": "Total",
+  "minicart.drawer.shipping-disclaimer": "Shipping and taxes calculated at checkout.",
+  "minicart.drawer.go-checkout": "GO TO CHECKOUT",
+  "offer.product-unavailable": "Product Unavailable",
+  "offer.units-left": "{quantity} units left!",
+  "facets.brand-selector.title": "Brands",
+  "facets.tree-selector.title": "Departments",
+  "facets.filters": "Filters",
+  "search.page-list.more": "More",
+  "product-not-found": "Product not found",
+  "loading": "Loading...",
+  "error-generic": "Error",
+  "preview.not-found": "No Preview found. Waiting for input",
+  "notification-bar.sale": "SELECTED ITEMS ON SALE! CHECK IT OUT!",
+  "signin": "Sign in"
+}

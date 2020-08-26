@@ -1,27 +1,26 @@
 {
-  "name": "@vtex/gatsby-transformer-vtex-cms",
+  "name": "@vtex/gatsby-plugin-i18n",
   "version": "0.32.1-alpha.15",
-  "description": "Gatsby transformer plugin for building pages from VTEX CMS.",
   "main": "index.js",
+  "license": "MIT",
+  "typings": "index.d.ts",
   "scripts": {
     "build": "tsc",
     "prepare": "cross-env NODE_ENV=production yarn run build",
     "develop": "tsc --watch"
   },
-  "keywords": [
-    "gatsby",
-    "gatsby-plugin",
-    "gatsby-source-plugin",
-    "vtex"
-  ],
-  "license": "MIT",
-  "peerDependencies": {
-    "gatsby": "^2.24.37"
-  },
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "gatsby": "^2.24.37",
     "typescript": "^3.9.5"
+  },
+  "peerDependencies": {
+    "gatsby": ">=2.21.26",
+    "react": "^0.0.0-experimental-7f28234f8",
+    "react-dom": "^0.0.0-experimental-7f28234f8"
+  },
+  "dependencies": {
+    "@formatjs/cli": "^2.7.7",
+    "react-intl": "^5.6.4"
   },
   "gitHead": "faf02eac5d98ba0f0c4616540e614cb05ea36d03"
 }
