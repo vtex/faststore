@@ -1,8 +1,9 @@
 {
   "name": "@vtex/gatsby-plugin-i18n",
-  "version": "0.32.1-alpha.5",
+  "version": "0.32.1-alpha.6",
   "main": "index.js",
   "license": "MIT",
+  "typings": "index.d.ts",
   "scripts": {
     "build": "tsc",
     "prepare": "cross-env NODE_ENV=production yarn run build",
