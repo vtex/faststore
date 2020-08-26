@@ -12,11 +12,10 @@ interface Item {
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (
-  <Link href={`/${slug}`}>{name!.split(' ')[0]}</Link>
+  <LocalizedLink to={`/${slug}`}>{name!.split(' ')[0]}</LocalizedLink>
 )
 
 const Footer: FC = () => {
-  console.log('teste LocalizedLink: ', LocalizedLink)
   const { allDepartment } = useStaticQuery<FooterQueryQuery>(graphql`
     query FooterQuery {
       allDepartment(sort: { order: ASC, fields: name }) {

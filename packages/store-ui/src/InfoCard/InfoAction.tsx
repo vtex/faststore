@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Button } from 'theme-ui'
 
-import {LocalizedLink} from '../LocalizedLink'
+import LocalizedLink from '../LocalizedLink'
 
 interface Props {
   href: string

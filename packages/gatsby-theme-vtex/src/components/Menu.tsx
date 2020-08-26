@@ -1,31 +1,17 @@
 import React, { FC } from 'react'
-import { Flex } from '@vtex/store-ui'
-
-// const CustomMenu: FC<{ variant?: string }> = ({ variant }) => (
-//   <Flex as="nav" variant={variant}>
-//     <LocalizedLink to="/apparel---accessories" activeClassName="active">
-//       Apparel
-//     </LocalizedLink>
-//     <LocalizedLink to="/electronics" activeClassName="active">
-//       Electronics
-//     </LocalizedLink>
-//     <LocalizedLink to="/about" activeClassName="active">
-//       About
-//     </LocalizedLink>
-//   </Flex>
-// )
+import { Flex, LocalizedLink } from '@vtex/store-ui'
 
 const CustomMenu: FC<{ variant?: string }> = ({ variant }) => (
   <Flex as="nav" variant={variant}>
-    <div>
+    <LocalizedLink to="/apparel---accessories" activeClassName="active">
       Apparel
-      </div>
-    <div>
+    </LocalizedLink>
+    <LocalizedLink to="/electronics" activeClassName="active">
       Electronics
-      </div>
-    <div>
+    </LocalizedLink>
+    <LocalizedLink to="/about" activeClassName="active">
       About
-      </div>
+    </LocalizedLink>
   </Flex>
 )
 
