@@ -1,1 +1,1 @@
-export { wrapPageElement } from './components/LocalizationWrapper'
+export { wrapRootElement } from './components/LocalizationWrapper'
