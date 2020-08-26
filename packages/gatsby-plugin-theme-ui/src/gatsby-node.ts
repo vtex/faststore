@@ -37,20 +37,22 @@ export const onCreateWebpackConfig = ({
   if (stage === 'build-javascript' || stage === 'develop') {
     setWebpackConfig({
       optimization: {
-        splitChunks: {
-          cacheGroups: {
-            'theme-ui': {
-              maxSize: 1e6,
-              name: 'theme-ui',
-              test: /(.*)theme-ui(.*)/,
-            },
-            emotion: {
-              maxSize: 1e6,
-              name: 'emotion',
-              test: /(.*)emotion(.*)/,
-            },
-          },
-        },
+        // minimize: false,
+        // nodeEnv: 'development',
+        // splitChunks: {
+        //   cacheGroups: {
+        //     'theme-ui': {
+        //       maxSize: 1e6,
+        //       name: 'theme-ui',
+        //       test: /(.*)theme-ui(.*)/,
+        //     },
+        //     emotion: {
+        //       maxSize: 1e6,
+        //       name: 'emotion',
+        //       test: /(.*)emotion(.*)/,
+        //     },
+        //   },
+        // },
       },
     })
   }
