@@ -1,3 +1,7 @@
-const { wrap } = require('./src/provider')
+import { createElement } from 'react'
+import { WrapRootElementBrowserArgs } from 'gatsby'
 
-export const wrapRootElement = wrap
+const { ThemeProvider } = require('./src/provider')
+
+export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
+  createElement(ThemeProvider, { children: element })
