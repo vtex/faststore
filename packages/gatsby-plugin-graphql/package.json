@@ -1,8 +1,9 @@
 {
   "name": "@vtex/gatsby-plugin-graphql",
-  "version": "0.32.0",
+  "version": "0.33.0-alpha.14",
   "description": "Gatsby plugin for unsing gatsby's grahpql on the client.",
   "main": "index.js",
+  "browser": "src/index.ts",
   "scripts": {
     "build": "tsc",
     "prepare": "cross-env NODE_ENV=production yarn run build",

@@ -158,13 +158,11 @@ export const onCreateWebpackConfig = ({
   stage,
 }: CreateWebpackConfigArgs) => {
   const optimization = {
-    splitChunks: {
-      maxSize: 100e3, // Hard threshold so file sizes don't harm tbt
-    },
+    splitChunks: { maxSize: 100e3 }, // Hard threshold so file sizes don't harm tbt
   }
 
   setWebpackConfig({
-    optimization: stage === 'build-javascript' ? optimization : {},
+    optimization: stage === 'build-javascript' ? optimization : undefined,
     module: {
       rules: [
         {
