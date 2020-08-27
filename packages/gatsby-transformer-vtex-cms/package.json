@@ -22,5 +22,6 @@
     "cross-env": "^7.0.2",
     "gatsby": "^2.24.37",
     "typescript": "^3.9.5"
-  }
+  },
+  "gitHead": "cb8f8edf3f2b4ac6b38787a1189fa9b74af8b085"
 }
