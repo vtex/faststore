@@ -4,7 +4,9 @@ const SuspenseDelay: FC<SuspenseProps> = ({ fallback, children }) => {
   const [shouldRender, render] = useState(false)
 
   useEffect(() => {
-    render(true)
+    const handler = window.requestIdleCallback(() => render(true))
+
+    return () => window.cancelIdleCallback(handler)
   }, [])
 
   if (!shouldRender || !children) {
