@@ -6,7 +6,7 @@ type Props =
   | WrapPageElementBrowserArgs<any, any>
   | WrapPageElementNodeArgs<any, any>
 
-const wrapPageElement = ({
+export const wrapPageElement = ({
   props: {
     pageContext: { messages, locale, defaultLocale },
   },
@@ -20,5 +20,3 @@ const wrapPageElement = ({
     {children}
   </IntlProvider>
 )
-
-export default wrapPageElement

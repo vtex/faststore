@@ -25,10 +25,10 @@ export interface Props {
 }
 
 const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
-  const seller = useBestSeller(sku)
-  const numberFormat = useNumberFormat() // TODO: Can we do it on the server ?
-  const offer = seller?.commertialOffer
   const { formatMessage } = useIntl()
+  const numberFormat = useNumberFormat() // TODO: Can we do it on the server ?
+  const seller = useBestSeller(sku)
+  const offer = seller?.commertialOffer
 
   if (!offer || offer.AvailableQuantity === 0) {
     return <div>{formatMessage({ id: 'offer.product-unavailable' })}</div>
@@ -44,7 +44,10 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
         <DiscountPercentage variant={variant} offer={offer} />
       </Flex>
       <Box variant={`${variant}.availability`}>
-        {formatMessage({ id: 'offer.units-left' }, { quantity: offer.AvailableQuantity })}
+        {formatMessage(
+          { id: 'offer.units-left' },
+          { quantity: offer.AvailableQuantity }
+        )}
       </Box>
     </Box>
   )
