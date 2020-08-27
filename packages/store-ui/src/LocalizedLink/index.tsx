@@ -1,20 +1,19 @@
 import React, { FC } from 'react'
 import Link, { GatsbyLinkProps } from 'gatsby-link'
-import { useLocalizationContext, localizedPath } from '@vtex/gatsby-plugin-i18n'
+import { useLocalizedPath } from '@vtex/gatsby-plugin-i18n'
 
-interface Props extends GatsbyLinkProps<any> { }
+type Props = GatsbyLinkProps<any>
 
 const LocalizedLink: FC<Props> = (props) => {
-  const { children, ...rest } = props
-  const { defaultLocale, locale } = useLocalizationContext()
-  const linkProps = rest as GatsbyLinkProps<any>
-  const href = localizedPath(defaultLocale, locale, linkProps.to)
+  const { children, ...linkProps } = props
+  const href = useLocalizedPath(props.to)
+
   return (
-    //@ts-ignore
+    // @ts-ignore
     <Link {...linkProps} to={href}>
       {children}
     </Link>
   )
 }
 
-export default LocalizedLink 
+export default LocalizedLink

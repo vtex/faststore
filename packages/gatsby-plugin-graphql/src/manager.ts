@@ -32,6 +32,9 @@ function isFragmentDefinition(ob: any): ob is FragmentDefinitionNode {
   return Boolean(ob && ob.kind === 'FragmentDefinition')
 }
 
+const isThirdPartyScript = (filename: string) =>
+  filename.includes('node_modules')
+
 /**
  * In memory presentation of GraphQL queries that appear in the code
  */
@@ -73,14 +76,15 @@ export class QueryManager {
   }) {
     const doc = parse(queryStr)
 
-    if (filename.includes('node_modules')) {
-      // Do not parse queries that are from third-party packages.
-      return
-    }
-
     visit(doc, {
       OperationDefinition: (def) => {
         if (!def.name) {
+          // We allow third party queries not to be named. This is ok
+          // since we don't support using them
+          if (isThirdPartyScript(filename)) {
+            return
+          }
+
           throw new Error('OperationDefinition missing name')
         }
 
