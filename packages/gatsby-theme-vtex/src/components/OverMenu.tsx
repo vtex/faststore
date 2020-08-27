@@ -1,14 +1,13 @@
-import { Box, Flex, Link as LinkUI } from '@vtex/store-ui'
-import { Link } from 'gatsby'
+import { Box, Flex, Link as LinkUI, LocalizedLink } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
 const StoreHeaderOverMenu: FC<{ variant?: string }> = ({ variant }) => (
   <Box variant={variant}>
     <Flex>
-      <Link className="first" to="/">
+      <LocalizedLink className="first" to="/">
         Shop
-      </Link>
-      <Link to="/about">About us</Link>
+      </LocalizedLink>
+      <LocalizedLink to="/about">About us</LocalizedLink>
     </Flex>
     <Flex>
       <LinkUI className="last" target="blank" href="https://vtex.com">

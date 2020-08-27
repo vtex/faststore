@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { FC, useState } from 'react'
 import { Box, Button, jsx, Image } from '@vtex/store-ui'
+import { useLocalizationIntl } from '@vtex/gatsby-plugin-i18n'
 
 interface Item {
   src: string
@@ -18,6 +19,8 @@ const Carousel: FC<Props> = ({ items = [] }) => {
   const [index, setIndex] = useState(0)
   const lastIndex = items.length - 1
   const height = 450
+  const { formatMessage } = useLocalizationIntl()
+
 
   return (
     <Box sx={{ position: 'relative' }}>
@@ -30,13 +33,13 @@ const Carousel: FC<Props> = ({ items = [] }) => {
             onClick={() => setIndex(i === 0 ? lastIndex : i - 1)}
             sx={{ position: 'absolute', top: '50%', left: 0 }}
           >
-            Previous
+            {formatMessage({id: 'carousel.previous'})}
           </Button>
           <Button
             onClick={() => setIndex(i === lastIndex ? 0 : i + 1)}
             sx={{ position: 'absolute', top: '50%', right: 0 }}
           >
-            Next
+            {formatMessage({id: 'carousel.next'})}
           </Button>
           <Image
             src={item.src}
