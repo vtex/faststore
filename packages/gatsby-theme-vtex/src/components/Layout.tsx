@@ -3,7 +3,7 @@ import { jsx } from '@vtex/store-ui'
 import { FC, Fragment, lazy } from 'react'
 
 import Header from './Header'
-import SuspenseDelay from './SuspenseDelay'
+// import SuspenseDelay from './SuspenseDelay'
 
 const Footer = lazy(() => import('./Footer'))
 
@@ -11,9 +11,9 @@ const Layout: FC = ({ children }) => (
   <Fragment>
     <Header />
     {children}
-    <SuspenseDelay fallback={null}>
+    {/* <SuspenseDelay fallback={null}> */}
       <Footer />
-    </SuspenseDelay>
+    {/* </SuspenseDelay> */}
   </Fragment>
 )
 
