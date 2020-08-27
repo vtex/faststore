@@ -1,14 +1,10 @@
-function isDefaultLang(locale: string, defaultLocale: string) {
-  return locale === defaultLocale
-}
-
-export function localizedPath(
+export const localizedPath = (
   defaultLocale: string,
   locale: string,
   path: string
-) {
+) => {
   // The default language isn't prefixed
-  if (isDefaultLang(locale, defaultLocale)) {
+  if (locale === defaultLocale) {
     return path
   }
 

@@ -7,7 +7,7 @@ import {
 import { readJSON, outputFile, unlink } from 'fs-extra'
 import { compile } from '@formatjs/cli'
 
-import { localizedPath } from './helpers'
+import { localizedPath } from './helpers/path'
 
 interface LanguageDataNode extends Node {
   messages: string

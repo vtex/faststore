@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box, Flex } from '@vtex/store-ui'
-import { useLocalizationIntl } from '@vtex/gatsby-plugin-i18n'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 import { useBestSeller } from '../../sdk/product/useBestSeller'
@@ -28,7 +28,7 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   const seller = useBestSeller(sku)
   const numberFormat = useNumberFormat() // TODO: Can we do it on the server ?
   const offer = seller?.commertialOffer
-  const { formatMessage } = useLocalizationIntl()
+  const { formatMessage } = useIntl()
 
   if (!offer || offer.AvailableQuantity === 0) {
     return <div>{formatMessage({ id: 'offer.product-unavailable' })}</div>
