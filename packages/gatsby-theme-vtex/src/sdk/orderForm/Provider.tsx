@@ -14,10 +14,10 @@ import React, {
 import { storage } from './storage'
 import { OrderFormItem } from './types'
 
-const controler = () => import('./controler')
+const controller = () => import('./controller')
 
 type OrderFormContext = {
-  value: OrderFormType | null
+  orderForm: OrderFormType | null
   addItems: (items: OrderFormItem[]) => Promise<void>
 }
 
@@ -35,7 +35,7 @@ export const OrderFormProvider: FC = ({ children }) => {
     let cancel = false
 
     const fetchAndDispatch = async () => {
-      const { fetchOrderForm, startOrderForm } = await controler()
+      const { fetchOrderForm, startOrderForm } = await controller()
 
       const data = await fetchOrderForm(orderForm)
 
@@ -54,7 +54,7 @@ export const OrderFormProvider: FC = ({ children }) => {
   // Add item to cart using the queue
   const addItems = useCallback(
     async (items) => {
-      const ctl = await controler()
+      const ctl = await controller()
 
       ctl.addItems(id, setOrderForm, items)
     },
@@ -64,7 +64,7 @@ export const OrderFormProvider: FC = ({ children }) => {
   return (
     <OrderForm.Provider
       value={{
-        value: orderForm,
+        orderForm,
         addItems,
       }}
     >

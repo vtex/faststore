@@ -1,18 +1,18 @@
 import React, { FC } from 'react'
-import { Flex, MinicartDrawerPrice, Text, Button } from '@vtex/store-ui'
+import { Flex, Button } from '@vtex/store-ui'
+import { Link } from 'gatsby'
+import { SummarySmall, SummaryTotalizers } from '@vtex/checkout-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 export interface HeaderMinicartDrawerFooterProps {
   variant?: string
-  currency: string
-  subtotal?: number
-  total?: number
+  totalizers?: any[]
+  value?: number
 }
 
 export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = ({
-  currency,
-  total = 0,
-  subtotal = 0,
+  totalizers = [],
+  value = 0,
   variant,
 }) => {
   const customVariant = `${variant}.footer`
@@ -20,22 +20,20 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
 
   return (
     <Flex variant={customVariant}>
-      <MinicartDrawerPrice
-        variant={`${customVariant}.total`}
-        currency={currency}
-        text="Total"
-        value={total}
-      />
-      <MinicartDrawerPrice
-        variant={`${customVariant}.subtotal`}
-        currency={currency}
-        text="Subtotal"
-        value={subtotal}
-      />
-      <Text variant={`${customVariant}.message`}>
-        {formatMessage({ id: 'minicart.drawer.shipping-disclaimer' })}
-      </Text>
-      <Button>{formatMessage({ id: 'minicart.drawer.go-checkout' })}</Button>
+      <SummarySmall
+        total={value}
+        totalizers={totalizers}
+        totalizersToShow={['Items', 'Discounts']}
+      >
+        <SummaryTotalizers />
+      </SummarySmall>
+      <Button
+        as={Link}
+        // @ts-ignore
+        to="/cart"
+      >
+        {formatMessage({ id: 'minicart.drawer.go-checkout' })}
+      </Button>
     </Flex>
   )
 }

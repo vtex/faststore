@@ -25,7 +25,7 @@ export interface Props {
 
 const BuyButton: FC<Props> = ({ sku }) => {
   const seller = useBestSeller(sku)
-  const orderForm = useOrderForm()
+  const { orderForm, addItems } = useOrderForm()
   const disabled = !sku || !orderForm?.value
   const { formatMessage } = useIntl()
 
@@ -44,7 +44,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
       seller: seller.sellerId,
     }
 
-    orderForm.addItems([orderFormItem]).catch(console.error)
+    addItems([orderFormItem]).catch(console.error)
   }
 
   return (

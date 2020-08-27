@@ -9,7 +9,7 @@ import { HeaderMinicartDrawerHeader } from './Header'
 import ProductSummaryImage from '../../ProductSummaryImage'
 
 const useHeaderMinicartDrawerContentData = (orderForm: any) => {
-  const data = orderForm.value?.items.map((item: any) => ({
+  const data = orderForm?.items.map((item: any) => ({
     id: item.uniqueId,
     image: {
       alt: item.name,
@@ -29,9 +29,9 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
   onClose,
   variant,
 }) => {
-  const orderForm = useOrderForm()
+  const { orderForm } = useOrderForm()
   const [currency] = useCurrency()
-  const count = orderForm?.value?.items.length ?? 0
+  const count = orderForm?.items.length ?? 0
   const contentData = useHeaderMinicartDrawerContentData(orderForm)
 
   const customVariant = `${variant}.drawer`
@@ -56,10 +56,9 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
         currency={currency}
       />
       <HeaderMinicartDrawerFooter
-        currency={currency}
         variant={customVariant}
-        total={orderForm.value?.value}
-        subtotal={orderForm.value?.value}
+        totalizers={orderForm?.totalizers}
+        value={orderForm?.value}
       />
     </MinicartDrawer>
   )

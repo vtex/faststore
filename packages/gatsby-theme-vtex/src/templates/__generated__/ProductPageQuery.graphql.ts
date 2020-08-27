@@ -4,17 +4,4757 @@
  * Changes in this file won't take effect and will be overwritten
  */
 
-// Base Types
-type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
-type Maybe<T> = T | null | undefined
-type Scalars = {
-  Boolean: boolean
-  String: string
-  Float: number
-  Int: number
-}
-
 // Operation related types
+export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  /**
+   * A date string, such as 2007-12-03, compliant with the ISO 8601 standard for
+   * representation of dates and times using the Gregorian calendar.
+   */
+  Date: any;
+  VTEX_StringOrBoolean: any;
+  VTEX_InputValues: any;
+  VTEX_productCategoriesObject: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSON: any;
+  VTEX_IOSanitizedString: any;
+  /** The `IOUpload` scalar type represents a file upload. */
+  VTEX_IOUpload: any;
+  /** The `Upload` scalar type represents a file upload. */
+  VTEX_Upload: any;
+};
+
+
+
+
+
+
+
+
+
+
+
+export type BooleanQueryOperatorInput = {
+  eq: Maybe<Scalars['Boolean']>;
+  ne: Maybe<Scalars['Boolean']>;
+  in: Maybe<Array<Maybe<Scalars['Boolean']>>>;
+  nin: Maybe<Array<Maybe<Scalars['Boolean']>>>;
+};
+
+export type Channel = Node & {
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  salesChannel: Maybe<Scalars['String']>;
+  canonicalBaseAddress: Maybe<Scalars['String']>;
+  alternateBaseAddresses: Maybe<Array<Maybe<Scalars['String']>>>;
+  defaultLocale: Maybe<Scalars['String']>;
+  supportedLocales: Maybe<Array<Maybe<Scalars['String']>>>;
+  defaultCurrency: Maybe<Scalars['String']>;
+  supportedCurrencies: Maybe<Array<Maybe<Scalars['String']>>>;
+  targetProduct: Maybe<Scalars['String']>;
+};
+
+export type ChannelConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<ChannelEdge>;
+  nodes: Array<Channel>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<ChannelGroupConnection>;
+};
+
+
+export type ChannelConnectiondistinctArgs = {
+  field: ChannelFieldsEnum;
+};
+
+
+export type ChannelConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: ChannelFieldsEnum;
+};
+
+export type ChannelEdge = {
+  next: Maybe<Channel>;
+  node: Channel;
+  previous: Maybe<Channel>;
+};
+
+export type ChannelFieldsEnum = 
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'salesChannel'
+  | 'canonicalBaseAddress'
+  | 'alternateBaseAddresses'
+  | 'defaultLocale'
+  | 'supportedLocales'
+  | 'defaultCurrency'
+  | 'supportedCurrencies'
+  | 'targetProduct';
+
+export type ChannelFilterInput = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  salesChannel: Maybe<StringQueryOperatorInput>;
+  canonicalBaseAddress: Maybe<StringQueryOperatorInput>;
+  alternateBaseAddresses: Maybe<StringQueryOperatorInput>;
+  defaultLocale: Maybe<StringQueryOperatorInput>;
+  supportedLocales: Maybe<StringQueryOperatorInput>;
+  defaultCurrency: Maybe<StringQueryOperatorInput>;
+  supportedCurrencies: Maybe<StringQueryOperatorInput>;
+  targetProduct: Maybe<StringQueryOperatorInput>;
+};
+
+export type ChannelGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<ChannelEdge>;
+  nodes: Array<Channel>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type ChannelSortInput = {
+  fields: Maybe<Array<Maybe<ChannelFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type CMSPage = Node & {
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  src: Maybe<Scalars['String']>;
+  slug: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+};
+
+export type CMSPageConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<CMSPageEdge>;
+  nodes: Array<CMSPage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<CMSPageGroupConnection>;
+};
+
+
+export type CMSPageConnectiondistinctArgs = {
+  field: CMSPageFieldsEnum;
+};
+
+
+export type CMSPageConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: CMSPageFieldsEnum;
+};
+
+export type CMSPageEdge = {
+  next: Maybe<CMSPage>;
+  node: CMSPage;
+  previous: Maybe<CMSPage>;
+};
+
+export type CMSPageFieldsEnum = 
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'src'
+  | 'slug'
+  | 'name';
+
+export type CMSPageFilterInput = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  src: Maybe<StringQueryOperatorInput>;
+  slug: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+};
+
+export type CMSPageGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<CMSPageEdge>;
+  nodes: Array<CMSPage>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type CMSPageSortInput = {
+  fields: Maybe<Array<Maybe<CMSPageFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+
+export type DateQueryOperatorInput = {
+  eq: Maybe<Scalars['Date']>;
+  ne: Maybe<Scalars['Date']>;
+  gt: Maybe<Scalars['Date']>;
+  gte: Maybe<Scalars['Date']>;
+  lt: Maybe<Scalars['Date']>;
+  lte: Maybe<Scalars['Date']>;
+  in: Maybe<Array<Maybe<Scalars['Date']>>>;
+  nin: Maybe<Array<Maybe<Scalars['Date']>>>;
+};
+
+export type Department = Node & {
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  name: Maybe<Scalars['String']>;
+  hasChildren: Maybe<Scalars['Boolean']>;
+  url: Maybe<Scalars['String']>;
+  Title: Maybe<Scalars['String']>;
+  MetaTagDescription: Maybe<Scalars['String']>;
+  slug: Maybe<Scalars['String']>;
+};
+
+export type DepartmentConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<DepartmentEdge>;
+  nodes: Array<Department>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<DepartmentGroupConnection>;
+};
+
+
+export type DepartmentConnectiondistinctArgs = {
+  field: DepartmentFieldsEnum;
+};
+
+
+export type DepartmentConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: DepartmentFieldsEnum;
+};
+
+export type DepartmentEdge = {
+  next: Maybe<Department>;
+  node: Department;
+  previous: Maybe<Department>;
+};
+
+export type DepartmentFieldsEnum = 
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'name'
+  | 'hasChildren'
+  | 'url'
+  | 'Title'
+  | 'MetaTagDescription'
+  | 'slug';
+
+export type DepartmentFilterInput = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  hasChildren: Maybe<BooleanQueryOperatorInput>;
+  url: Maybe<StringQueryOperatorInput>;
+  Title: Maybe<StringQueryOperatorInput>;
+  MetaTagDescription: Maybe<StringQueryOperatorInput>;
+  slug: Maybe<StringQueryOperatorInput>;
+};
+
+export type DepartmentGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<DepartmentEdge>;
+  nodes: Array<Department>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type DepartmentSortInput = {
+  fields: Maybe<Array<Maybe<DepartmentFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type Directory = Node & {
+  sourceInstanceName: Scalars['String'];
+  absolutePath: Scalars['String'];
+  relativePath: Scalars['String'];
+  extension: Scalars['String'];
+  size: Scalars['Int'];
+  prettySize: Scalars['String'];
+  modifiedTime: Scalars['Date'];
+  accessTime: Scalars['Date'];
+  changeTime: Scalars['Date'];
+  birthTime: Scalars['Date'];
+  root: Scalars['String'];
+  dir: Scalars['String'];
+  base: Scalars['String'];
+  ext: Scalars['String'];
+  name: Scalars['String'];
+  relativeDirectory: Scalars['String'];
+  dev: Scalars['Int'];
+  mode: Scalars['Int'];
+  nlink: Scalars['Int'];
+  uid: Scalars['Int'];
+  gid: Scalars['Int'];
+  rdev: Scalars['Int'];
+  ino: Scalars['Float'];
+  atimeMs: Scalars['Float'];
+  mtimeMs: Scalars['Float'];
+  ctimeMs: Scalars['Float'];
+  atime: Scalars['Date'];
+  mtime: Scalars['Date'];
+  ctime: Scalars['Date'];
+  /** @deprecated Use `birthTime` instead */
+  birthtime: Maybe<Scalars['Date']>;
+  /** @deprecated Use `birthTime` instead */
+  birthtimeMs: Maybe<Scalars['Float']>;
+  blksize: Maybe<Scalars['Int']>;
+  blocks: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+export type DirectorymodifiedTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type DirectoryaccessTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type DirectorychangeTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type DirectorybirthTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type DirectoryatimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type DirectorymtimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type DirectoryctimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+export type DirectoryConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<DirectoryEdge>;
+  nodes: Array<Directory>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<DirectoryGroupConnection>;
+};
+
+
+export type DirectoryConnectiondistinctArgs = {
+  field: DirectoryFieldsEnum;
+};
+
+
+export type DirectoryConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: DirectoryFieldsEnum;
+};
+
+export type DirectoryEdge = {
+  next: Maybe<Directory>;
+  node: Directory;
+  previous: Maybe<Directory>;
+};
+
+export type DirectoryFieldsEnum = 
+  | 'sourceInstanceName'
+  | 'absolutePath'
+  | 'relativePath'
+  | 'extension'
+  | 'size'
+  | 'prettySize'
+  | 'modifiedTime'
+  | 'accessTime'
+  | 'changeTime'
+  | 'birthTime'
+  | 'root'
+  | 'dir'
+  | 'base'
+  | 'ext'
+  | 'name'
+  | 'relativeDirectory'
+  | 'dev'
+  | 'mode'
+  | 'nlink'
+  | 'uid'
+  | 'gid'
+  | 'rdev'
+  | 'ino'
+  | 'atimeMs'
+  | 'mtimeMs'
+  | 'ctimeMs'
+  | 'atime'
+  | 'mtime'
+  | 'ctime'
+  | 'birthtime'
+  | 'birthtimeMs'
+  | 'blksize'
+  | 'blocks'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type DirectoryFilterInput = {
+  sourceInstanceName: Maybe<StringQueryOperatorInput>;
+  absolutePath: Maybe<StringQueryOperatorInput>;
+  relativePath: Maybe<StringQueryOperatorInput>;
+  extension: Maybe<StringQueryOperatorInput>;
+  size: Maybe<IntQueryOperatorInput>;
+  prettySize: Maybe<StringQueryOperatorInput>;
+  modifiedTime: Maybe<DateQueryOperatorInput>;
+  accessTime: Maybe<DateQueryOperatorInput>;
+  changeTime: Maybe<DateQueryOperatorInput>;
+  birthTime: Maybe<DateQueryOperatorInput>;
+  root: Maybe<StringQueryOperatorInput>;
+  dir: Maybe<StringQueryOperatorInput>;
+  base: Maybe<StringQueryOperatorInput>;
+  ext: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  relativeDirectory: Maybe<StringQueryOperatorInput>;
+  dev: Maybe<IntQueryOperatorInput>;
+  mode: Maybe<IntQueryOperatorInput>;
+  nlink: Maybe<IntQueryOperatorInput>;
+  uid: Maybe<IntQueryOperatorInput>;
+  gid: Maybe<IntQueryOperatorInput>;
+  rdev: Maybe<IntQueryOperatorInput>;
+  ino: Maybe<FloatQueryOperatorInput>;
+  atimeMs: Maybe<FloatQueryOperatorInput>;
+  mtimeMs: Maybe<FloatQueryOperatorInput>;
+  ctimeMs: Maybe<FloatQueryOperatorInput>;
+  atime: Maybe<DateQueryOperatorInput>;
+  mtime: Maybe<DateQueryOperatorInput>;
+  ctime: Maybe<DateQueryOperatorInput>;
+  birthtime: Maybe<DateQueryOperatorInput>;
+  birthtimeMs: Maybe<FloatQueryOperatorInput>;
+  blksize: Maybe<IntQueryOperatorInput>;
+  blocks: Maybe<IntQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+export type DirectoryGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<DirectoryEdge>;
+  nodes: Array<Directory>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type DirectorySortInput = {
+  fields: Maybe<Array<Maybe<DirectoryFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type File = Node & {
+  sourceInstanceName: Scalars['String'];
+  absolutePath: Scalars['String'];
+  relativePath: Scalars['String'];
+  extension: Scalars['String'];
+  size: Scalars['Int'];
+  prettySize: Scalars['String'];
+  modifiedTime: Scalars['Date'];
+  accessTime: Scalars['Date'];
+  changeTime: Scalars['Date'];
+  birthTime: Scalars['Date'];
+  root: Scalars['String'];
+  dir: Scalars['String'];
+  base: Scalars['String'];
+  ext: Scalars['String'];
+  name: Scalars['String'];
+  relativeDirectory: Scalars['String'];
+  dev: Scalars['Int'];
+  mode: Scalars['Int'];
+  nlink: Scalars['Int'];
+  uid: Scalars['Int'];
+  gid: Scalars['Int'];
+  rdev: Scalars['Int'];
+  ino: Scalars['Float'];
+  atimeMs: Scalars['Float'];
+  mtimeMs: Scalars['Float'];
+  ctimeMs: Scalars['Float'];
+  atime: Scalars['Date'];
+  mtime: Scalars['Date'];
+  ctime: Scalars['Date'];
+  /** @deprecated Use `birthTime` instead */
+  birthtime: Maybe<Scalars['Date']>;
+  /** @deprecated Use `birthTime` instead */
+  birthtimeMs: Maybe<Scalars['Float']>;
+  blksize: Maybe<Scalars['Int']>;
+  blocks: Maybe<Scalars['Int']>;
+  /** Copy file to static directory and return public url to it */
+  publicURL: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  childCmsPage: Maybe<CMSPage>;
+};
+
+
+export type FilemodifiedTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type FileaccessTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type FilechangeTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type FilebirthTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type FileatimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type FilemtimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+export type FilectimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+export type FileConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<FileEdge>;
+  nodes: Array<File>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<FileGroupConnection>;
+};
+
+
+export type FileConnectiondistinctArgs = {
+  field: FileFieldsEnum;
+};
+
+
+export type FileConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: FileFieldsEnum;
+};
+
+export type FileEdge = {
+  next: Maybe<File>;
+  node: File;
+  previous: Maybe<File>;
+};
+
+export type FileFieldsEnum = 
+  | 'sourceInstanceName'
+  | 'absolutePath'
+  | 'relativePath'
+  | 'extension'
+  | 'size'
+  | 'prettySize'
+  | 'modifiedTime'
+  | 'accessTime'
+  | 'changeTime'
+  | 'birthTime'
+  | 'root'
+  | 'dir'
+  | 'base'
+  | 'ext'
+  | 'name'
+  | 'relativeDirectory'
+  | 'dev'
+  | 'mode'
+  | 'nlink'
+  | 'uid'
+  | 'gid'
+  | 'rdev'
+  | 'ino'
+  | 'atimeMs'
+  | 'mtimeMs'
+  | 'ctimeMs'
+  | 'atime'
+  | 'mtime'
+  | 'ctime'
+  | 'birthtime'
+  | 'birthtimeMs'
+  | 'blksize'
+  | 'blocks'
+  | 'publicURL'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'childCmsPage___id'
+  | 'childCmsPage___parent___id'
+  | 'childCmsPage___parent___parent___id'
+  | 'childCmsPage___parent___parent___children'
+  | 'childCmsPage___parent___children'
+  | 'childCmsPage___parent___children___id'
+  | 'childCmsPage___parent___children___children'
+  | 'childCmsPage___parent___internal___content'
+  | 'childCmsPage___parent___internal___contentDigest'
+  | 'childCmsPage___parent___internal___description'
+  | 'childCmsPage___parent___internal___fieldOwners'
+  | 'childCmsPage___parent___internal___ignoreType'
+  | 'childCmsPage___parent___internal___mediaType'
+  | 'childCmsPage___parent___internal___owner'
+  | 'childCmsPage___parent___internal___type'
+  | 'childCmsPage___children'
+  | 'childCmsPage___children___id'
+  | 'childCmsPage___children___parent___id'
+  | 'childCmsPage___children___parent___children'
+  | 'childCmsPage___children___children'
+  | 'childCmsPage___children___children___id'
+  | 'childCmsPage___children___children___children'
+  | 'childCmsPage___children___internal___content'
+  | 'childCmsPage___children___internal___contentDigest'
+  | 'childCmsPage___children___internal___description'
+  | 'childCmsPage___children___internal___fieldOwners'
+  | 'childCmsPage___children___internal___ignoreType'
+  | 'childCmsPage___children___internal___mediaType'
+  | 'childCmsPage___children___internal___owner'
+  | 'childCmsPage___children___internal___type'
+  | 'childCmsPage___internal___content'
+  | 'childCmsPage___internal___contentDigest'
+  | 'childCmsPage___internal___description'
+  | 'childCmsPage___internal___fieldOwners'
+  | 'childCmsPage___internal___ignoreType'
+  | 'childCmsPage___internal___mediaType'
+  | 'childCmsPage___internal___owner'
+  | 'childCmsPage___internal___type'
+  | 'childCmsPage___src'
+  | 'childCmsPage___slug'
+  | 'childCmsPage___name';
+
+export type FileFilterInput = {
+  sourceInstanceName: Maybe<StringQueryOperatorInput>;
+  absolutePath: Maybe<StringQueryOperatorInput>;
+  relativePath: Maybe<StringQueryOperatorInput>;
+  extension: Maybe<StringQueryOperatorInput>;
+  size: Maybe<IntQueryOperatorInput>;
+  prettySize: Maybe<StringQueryOperatorInput>;
+  modifiedTime: Maybe<DateQueryOperatorInput>;
+  accessTime: Maybe<DateQueryOperatorInput>;
+  changeTime: Maybe<DateQueryOperatorInput>;
+  birthTime: Maybe<DateQueryOperatorInput>;
+  root: Maybe<StringQueryOperatorInput>;
+  dir: Maybe<StringQueryOperatorInput>;
+  base: Maybe<StringQueryOperatorInput>;
+  ext: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  relativeDirectory: Maybe<StringQueryOperatorInput>;
+  dev: Maybe<IntQueryOperatorInput>;
+  mode: Maybe<IntQueryOperatorInput>;
+  nlink: Maybe<IntQueryOperatorInput>;
+  uid: Maybe<IntQueryOperatorInput>;
+  gid: Maybe<IntQueryOperatorInput>;
+  rdev: Maybe<IntQueryOperatorInput>;
+  ino: Maybe<FloatQueryOperatorInput>;
+  atimeMs: Maybe<FloatQueryOperatorInput>;
+  mtimeMs: Maybe<FloatQueryOperatorInput>;
+  ctimeMs: Maybe<FloatQueryOperatorInput>;
+  atime: Maybe<DateQueryOperatorInput>;
+  mtime: Maybe<DateQueryOperatorInput>;
+  ctime: Maybe<DateQueryOperatorInput>;
+  birthtime: Maybe<DateQueryOperatorInput>;
+  birthtimeMs: Maybe<FloatQueryOperatorInput>;
+  blksize: Maybe<IntQueryOperatorInput>;
+  blocks: Maybe<IntQueryOperatorInput>;
+  publicURL: Maybe<StringQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  childCmsPage: Maybe<CMSPageFilterInput>;
+};
+
+export type FileGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<FileEdge>;
+  nodes: Array<File>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type FileSortInput = {
+  fields: Maybe<Array<Maybe<FileFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type FloatQueryOperatorInput = {
+  eq: Maybe<Scalars['Float']>;
+  ne: Maybe<Scalars['Float']>;
+  gt: Maybe<Scalars['Float']>;
+  gte: Maybe<Scalars['Float']>;
+  lt: Maybe<Scalars['Float']>;
+  lte: Maybe<Scalars['Float']>;
+  in: Maybe<Array<Maybe<Scalars['Float']>>>;
+  nin: Maybe<Array<Maybe<Scalars['Float']>>>;
+};
+
+export type Internal = {
+  content: Maybe<Scalars['String']>;
+  contentDigest: Scalars['String'];
+  description: Maybe<Scalars['String']>;
+  fieldOwners: Maybe<Array<Maybe<Scalars['String']>>>;
+  ignoreType: Maybe<Scalars['Boolean']>;
+  mediaType: Maybe<Scalars['String']>;
+  owner: Scalars['String'];
+  type: Scalars['String'];
+};
+
+export type InternalFilterInput = {
+  content: Maybe<StringQueryOperatorInput>;
+  contentDigest: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  fieldOwners: Maybe<StringQueryOperatorInput>;
+  ignoreType: Maybe<BooleanQueryOperatorInput>;
+  mediaType: Maybe<StringQueryOperatorInput>;
+  owner: Maybe<StringQueryOperatorInput>;
+  type: Maybe<StringQueryOperatorInput>;
+};
+
+export type IntQueryOperatorInput = {
+  eq: Maybe<Scalars['Int']>;
+  ne: Maybe<Scalars['Int']>;
+  gt: Maybe<Scalars['Int']>;
+  gte: Maybe<Scalars['Int']>;
+  lt: Maybe<Scalars['Int']>;
+  lte: Maybe<Scalars['Int']>;
+  in: Maybe<Array<Maybe<Scalars['Int']>>>;
+  nin: Maybe<Array<Maybe<Scalars['Int']>>>;
+};
+
+
+export type LanguageData = Node & {
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  messages: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+export type LanguageDataConfig = Node & {
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  locales: Maybe<Array<Maybe<Scalars['String']>>>;
+  defaultLocale: Maybe<Scalars['String']>;
+};
+
+export type LanguageDataConfigConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LanguageDataConfigEdge>;
+  nodes: Array<LanguageDataConfig>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<LanguageDataConfigGroupConnection>;
+};
+
+
+export type LanguageDataConfigConnectiondistinctArgs = {
+  field: LanguageDataConfigFieldsEnum;
+};
+
+
+export type LanguageDataConfigConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: LanguageDataConfigFieldsEnum;
+};
+
+export type LanguageDataConfigEdge = {
+  next: Maybe<LanguageDataConfig>;
+  node: LanguageDataConfig;
+  previous: Maybe<LanguageDataConfig>;
+};
+
+export type LanguageDataConfigFieldsEnum = 
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'locales'
+  | 'defaultLocale';
+
+export type LanguageDataConfigFilterInput = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  locales: Maybe<StringQueryOperatorInput>;
+  defaultLocale: Maybe<StringQueryOperatorInput>;
+};
+
+export type LanguageDataConfigGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LanguageDataConfigEdge>;
+  nodes: Array<LanguageDataConfig>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type LanguageDataConfigSortInput = {
+  fields: Maybe<Array<Maybe<LanguageDataConfigFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type LanguageDataConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LanguageDataEdge>;
+  nodes: Array<LanguageData>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<LanguageDataGroupConnection>;
+};
+
+
+export type LanguageDataConnectiondistinctArgs = {
+  field: LanguageDataFieldsEnum;
+};
+
+
+export type LanguageDataConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: LanguageDataFieldsEnum;
+};
+
+export type LanguageDataEdge = {
+  next: Maybe<LanguageData>;
+  node: LanguageData;
+  previous: Maybe<LanguageData>;
+};
+
+export type LanguageDataFieldsEnum = 
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'messages'
+  | 'locale';
+
+export type LanguageDataFilterInput = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  messages: Maybe<StringQueryOperatorInput>;
+  locale: Maybe<StringQueryOperatorInput>;
+};
+
+export type LanguageDataGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LanguageDataEdge>;
+  nodes: Array<LanguageData>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type LanguageDataSortInput = {
+  fields: Maybe<Array<Maybe<LanguageDataFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type Mutation = {
+  addToCart: Maybe<VTEX_OrderForm>;
+  updateItems: Maybe<VTEX_OrderForm>;
+  insertCoupon: Maybe<VTEX_OrderForm>;
+  estimateShipping: Maybe<VTEX_OrderForm>;
+  selectDeliveryOption: Maybe<VTEX_OrderForm>;
+  /**
+   * Changes the currently selected address in the shipping data
+   * of the OrderForm
+   */
+  updateSelectedAddress: Maybe<VTEX_OrderForm>;
+  savePaymentToken: Maybe<VTEX_SavePaymentTokenPayload>;
+  updateOrderFormProfile: VTEX_OrderForm;
+  updateClientPreferencesData: VTEX_OrderForm;
+  updateOrderFormPayment: VTEX_OrderForm;
+};
+
+
+export type MutationaddToCartArgs = {
+  items: Maybe<Array<Maybe<VTEX_ItemInput>>>;
+  marketingData: Maybe<VTEX_MarketingDataInput>;
+};
+
+
+export type MutationupdateItemsArgs = {
+  orderItems: Maybe<Array<Maybe<VTEX_ItemInput>>>;
+};
+
+
+export type MutationinsertCouponArgs = {
+  text: Maybe<Scalars['String']>;
+};
+
+
+export type MutationestimateShippingArgs = {
+  address: Maybe<VTEX_AddressInput>;
+};
+
+
+export type MutationselectDeliveryOptionArgs = {
+  deliveryOptionId: Maybe<Scalars['String']>;
+};
+
+
+export type MutationupdateSelectedAddressArgs = {
+  input: VTEX_AddressInput;
+};
+
+
+export type MutationsavePaymentTokenArgs = {
+  paymentTokens: Maybe<Array<Maybe<VTEX_PaymentToken>>>;
+};
+
+
+export type MutationupdateOrderFormProfileArgs = {
+  input: VTEX_UserProfileInput;
+};
+
+
+export type MutationupdateClientPreferencesDataArgs = {
+  input: VTEX_ClientPreferencesDataInput;
+};
+
+
+export type MutationupdateOrderFormPaymentArgs = {
+  input: VTEX_PaymentDataInput;
+};
+
+/** Node Interface */
+export type Node = {
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+export type NodeFilterInput = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+export type NodeFilterListInput = {
+  elemMatch: Maybe<NodeFilterInput>;
+};
+
+export type PageInfo = {
+  currentPage: Scalars['Int'];
+  hasPreviousPage: Scalars['Boolean'];
+  hasNextPage: Scalars['Boolean'];
+  itemCount: Scalars['Int'];
+  pageCount: Scalars['Int'];
+  perPage: Maybe<Scalars['Int']>;
+  totalCount: Scalars['Int'];
+};
+
+export type Query = {
+  file: Maybe<File>;
+  allFile: FileConnection;
+  directory: Maybe<Directory>;
+  allDirectory: DirectoryConnection;
+  sitePage: Maybe<SitePage>;
+  allSitePage: SitePageConnection;
+  site: Maybe<Site>;
+  allSite: SiteConnection;
+  cmsPage: Maybe<CMSPage>;
+  allCmsPage: CMSPageConnection;
+  languageDataConfig: Maybe<LanguageDataConfig>;
+  allLanguageDataConfig: LanguageDataConfigConnection;
+  languageData: Maybe<LanguageData>;
+  allLanguageData: LanguageDataConnection;
+  department: Maybe<Department>;
+  allDepartment: DepartmentConnection;
+  channel: Maybe<Channel>;
+  allChannel: ChannelConnection;
+  siteBuildMetadata: Maybe<SiteBuildMetadata>;
+  allSiteBuildMetadata: SiteBuildMetadataConnection;
+  sitePlugin: Maybe<SitePlugin>;
+  allSitePlugin: SitePluginConnection;
+  vtex: VTEX;
+};
+
+
+export type QueryfileArgs = {
+  sourceInstanceName: Maybe<StringQueryOperatorInput>;
+  absolutePath: Maybe<StringQueryOperatorInput>;
+  relativePath: Maybe<StringQueryOperatorInput>;
+  extension: Maybe<StringQueryOperatorInput>;
+  size: Maybe<IntQueryOperatorInput>;
+  prettySize: Maybe<StringQueryOperatorInput>;
+  modifiedTime: Maybe<DateQueryOperatorInput>;
+  accessTime: Maybe<DateQueryOperatorInput>;
+  changeTime: Maybe<DateQueryOperatorInput>;
+  birthTime: Maybe<DateQueryOperatorInput>;
+  root: Maybe<StringQueryOperatorInput>;
+  dir: Maybe<StringQueryOperatorInput>;
+  base: Maybe<StringQueryOperatorInput>;
+  ext: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  relativeDirectory: Maybe<StringQueryOperatorInput>;
+  dev: Maybe<IntQueryOperatorInput>;
+  mode: Maybe<IntQueryOperatorInput>;
+  nlink: Maybe<IntQueryOperatorInput>;
+  uid: Maybe<IntQueryOperatorInput>;
+  gid: Maybe<IntQueryOperatorInput>;
+  rdev: Maybe<IntQueryOperatorInput>;
+  ino: Maybe<FloatQueryOperatorInput>;
+  atimeMs: Maybe<FloatQueryOperatorInput>;
+  mtimeMs: Maybe<FloatQueryOperatorInput>;
+  ctimeMs: Maybe<FloatQueryOperatorInput>;
+  atime: Maybe<DateQueryOperatorInput>;
+  mtime: Maybe<DateQueryOperatorInput>;
+  ctime: Maybe<DateQueryOperatorInput>;
+  birthtime: Maybe<DateQueryOperatorInput>;
+  birthtimeMs: Maybe<FloatQueryOperatorInput>;
+  blksize: Maybe<IntQueryOperatorInput>;
+  blocks: Maybe<IntQueryOperatorInput>;
+  publicURL: Maybe<StringQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  childCmsPage: Maybe<CMSPageFilterInput>;
+};
+
+
+export type QueryallFileArgs = {
+  filter: Maybe<FileFilterInput>;
+  sort: Maybe<FileSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerydirectoryArgs = {
+  sourceInstanceName: Maybe<StringQueryOperatorInput>;
+  absolutePath: Maybe<StringQueryOperatorInput>;
+  relativePath: Maybe<StringQueryOperatorInput>;
+  extension: Maybe<StringQueryOperatorInput>;
+  size: Maybe<IntQueryOperatorInput>;
+  prettySize: Maybe<StringQueryOperatorInput>;
+  modifiedTime: Maybe<DateQueryOperatorInput>;
+  accessTime: Maybe<DateQueryOperatorInput>;
+  changeTime: Maybe<DateQueryOperatorInput>;
+  birthTime: Maybe<DateQueryOperatorInput>;
+  root: Maybe<StringQueryOperatorInput>;
+  dir: Maybe<StringQueryOperatorInput>;
+  base: Maybe<StringQueryOperatorInput>;
+  ext: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  relativeDirectory: Maybe<StringQueryOperatorInput>;
+  dev: Maybe<IntQueryOperatorInput>;
+  mode: Maybe<IntQueryOperatorInput>;
+  nlink: Maybe<IntQueryOperatorInput>;
+  uid: Maybe<IntQueryOperatorInput>;
+  gid: Maybe<IntQueryOperatorInput>;
+  rdev: Maybe<IntQueryOperatorInput>;
+  ino: Maybe<FloatQueryOperatorInput>;
+  atimeMs: Maybe<FloatQueryOperatorInput>;
+  mtimeMs: Maybe<FloatQueryOperatorInput>;
+  ctimeMs: Maybe<FloatQueryOperatorInput>;
+  atime: Maybe<DateQueryOperatorInput>;
+  mtime: Maybe<DateQueryOperatorInput>;
+  ctime: Maybe<DateQueryOperatorInput>;
+  birthtime: Maybe<DateQueryOperatorInput>;
+  birthtimeMs: Maybe<FloatQueryOperatorInput>;
+  blksize: Maybe<IntQueryOperatorInput>;
+  blocks: Maybe<IntQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryallDirectoryArgs = {
+  filter: Maybe<DirectoryFilterInput>;
+  sort: Maybe<DirectorySortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerysitePageArgs = {
+  path: Maybe<StringQueryOperatorInput>;
+  component: Maybe<StringQueryOperatorInput>;
+  internalComponentName: Maybe<StringQueryOperatorInput>;
+  componentChunkName: Maybe<StringQueryOperatorInput>;
+  matchPath: Maybe<StringQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  isCreatedByStatefulCreatePages: Maybe<BooleanQueryOperatorInput>;
+  context: Maybe<SitePageContextFilterInput>;
+  pluginCreator: Maybe<SitePluginFilterInput>;
+  pluginCreatorId: Maybe<StringQueryOperatorInput>;
+  componentPath: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryallSitePageArgs = {
+  filter: Maybe<SitePageFilterInput>;
+  sort: Maybe<SitePageSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerysiteArgs = {
+  buildTime: Maybe<DateQueryOperatorInput>;
+  siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  port: Maybe<IntQueryOperatorInput>;
+  host: Maybe<StringQueryOperatorInput>;
+  proxy: Maybe<SiteProxyFilterListInput>;
+  polyfill: Maybe<BooleanQueryOperatorInput>;
+  pathPrefix: Maybe<StringQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryallSiteArgs = {
+  filter: Maybe<SiteFilterInput>;
+  sort: Maybe<SiteSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerycmsPageArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  src: Maybe<StringQueryOperatorInput>;
+  slug: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryallCmsPageArgs = {
+  filter: Maybe<CMSPageFilterInput>;
+  sort: Maybe<CMSPageSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerylanguageDataConfigArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  locales: Maybe<StringQueryOperatorInput>;
+  defaultLocale: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryallLanguageDataConfigArgs = {
+  filter: Maybe<LanguageDataConfigFilterInput>;
+  sort: Maybe<LanguageDataConfigSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerylanguageDataArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  messages: Maybe<StringQueryOperatorInput>;
+  locale: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryallLanguageDataArgs = {
+  filter: Maybe<LanguageDataFilterInput>;
+  sort: Maybe<LanguageDataSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerydepartmentArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  hasChildren: Maybe<BooleanQueryOperatorInput>;
+  url: Maybe<StringQueryOperatorInput>;
+  Title: Maybe<StringQueryOperatorInput>;
+  MetaTagDescription: Maybe<StringQueryOperatorInput>;
+  slug: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryallDepartmentArgs = {
+  filter: Maybe<DepartmentFilterInput>;
+  sort: Maybe<DepartmentSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerychannelArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  salesChannel: Maybe<StringQueryOperatorInput>;
+  canonicalBaseAddress: Maybe<StringQueryOperatorInput>;
+  alternateBaseAddresses: Maybe<StringQueryOperatorInput>;
+  defaultLocale: Maybe<StringQueryOperatorInput>;
+  supportedLocales: Maybe<StringQueryOperatorInput>;
+  defaultCurrency: Maybe<StringQueryOperatorInput>;
+  supportedCurrencies: Maybe<StringQueryOperatorInput>;
+  targetProduct: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryallChannelArgs = {
+  filter: Maybe<ChannelFilterInput>;
+  sort: Maybe<ChannelSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerysiteBuildMetadataArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  buildTime: Maybe<DateQueryOperatorInput>;
+};
+
+
+export type QueryallSiteBuildMetadataArgs = {
+  filter: Maybe<SiteBuildMetadataFilterInput>;
+  sort: Maybe<SiteBuildMetadataSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerysitePluginArgs = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  resolve: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  version: Maybe<StringQueryOperatorInput>;
+  pluginOptions: Maybe<SitePluginPluginOptionsFilterInput>;
+  nodeAPIs: Maybe<StringQueryOperatorInput>;
+  browserAPIs: Maybe<StringQueryOperatorInput>;
+  ssrAPIs: Maybe<StringQueryOperatorInput>;
+  pluginFilepath: Maybe<StringQueryOperatorInput>;
+  packageJson: Maybe<SitePluginPackageJsonFilterInput>;
+};
+
+
+export type QueryallSitePluginArgs = {
+  filter: Maybe<SitePluginFilterInput>;
+  sort: Maybe<SitePluginSortInput>;
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+};
+
+export type Site = Node & {
+  buildTime: Maybe<Scalars['Date']>;
+  siteMetadata: Maybe<SiteSiteMetadata>;
+  port: Maybe<Scalars['Int']>;
+  host: Maybe<Scalars['String']>;
+  proxy: Maybe<Array<Maybe<SiteProxy>>>;
+  polyfill: Maybe<Scalars['Boolean']>;
+  pathPrefix: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+export type SitebuildTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+export type SiteBuildMetadata = Node & {
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  buildTime: Maybe<Scalars['Date']>;
+};
+
+
+export type SiteBuildMetadatabuildTimeArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+export type SiteBuildMetadataConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SiteBuildMetadataEdge>;
+  nodes: Array<SiteBuildMetadata>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<SiteBuildMetadataGroupConnection>;
+};
+
+
+export type SiteBuildMetadataConnectiondistinctArgs = {
+  field: SiteBuildMetadataFieldsEnum;
+};
+
+
+export type SiteBuildMetadataConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: SiteBuildMetadataFieldsEnum;
+};
+
+export type SiteBuildMetadataEdge = {
+  next: Maybe<SiteBuildMetadata>;
+  node: SiteBuildMetadata;
+  previous: Maybe<SiteBuildMetadata>;
+};
+
+export type SiteBuildMetadataFieldsEnum = 
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'buildTime';
+
+export type SiteBuildMetadataFilterInput = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  buildTime: Maybe<DateQueryOperatorInput>;
+};
+
+export type SiteBuildMetadataGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SiteBuildMetadataEdge>;
+  nodes: Array<SiteBuildMetadata>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type SiteBuildMetadataSortInput = {
+  fields: Maybe<Array<Maybe<SiteBuildMetadataFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type SiteConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SiteEdge>;
+  nodes: Array<Site>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<SiteGroupConnection>;
+};
+
+
+export type SiteConnectiondistinctArgs = {
+  field: SiteFieldsEnum;
+};
+
+
+export type SiteConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: SiteFieldsEnum;
+};
+
+export type SiteEdge = {
+  next: Maybe<Site>;
+  node: Site;
+  previous: Maybe<Site>;
+};
+
+export type SiteFieldsEnum = 
+  | 'buildTime'
+  | 'siteMetadata___title'
+  | 'siteMetadata___description'
+  | 'siteMetadata___vtex___tenant'
+  | 'siteMetadata___author'
+  | 'siteMetadata___siteUrl'
+  | 'port'
+  | 'host'
+  | 'proxy'
+  | 'proxy___prefix'
+  | 'proxy___url'
+  | 'polyfill'
+  | 'pathPrefix'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type SiteFilterInput = {
+  buildTime: Maybe<DateQueryOperatorInput>;
+  siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
+  port: Maybe<IntQueryOperatorInput>;
+  host: Maybe<StringQueryOperatorInput>;
+  proxy: Maybe<SiteProxyFilterListInput>;
+  polyfill: Maybe<BooleanQueryOperatorInput>;
+  pathPrefix: Maybe<StringQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+};
+
+export type SiteGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SiteEdge>;
+  nodes: Array<Site>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type SitePage = Node & {
+  path: Scalars['String'];
+  component: Scalars['String'];
+  internalComponentName: Scalars['String'];
+  componentChunkName: Scalars['String'];
+  matchPath: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  isCreatedByStatefulCreatePages: Maybe<Scalars['Boolean']>;
+  context: Maybe<SitePageContext>;
+  pluginCreator: Maybe<SitePlugin>;
+  pluginCreatorId: Maybe<Scalars['String']>;
+  componentPath: Maybe<Scalars['String']>;
+};
+
+export type SitePageConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SitePageEdge>;
+  nodes: Array<SitePage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<SitePageGroupConnection>;
+};
+
+
+export type SitePageConnectiondistinctArgs = {
+  field: SitePageFieldsEnum;
+};
+
+
+export type SitePageConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: SitePageFieldsEnum;
+};
+
+export type SitePageContext = {
+  slug: Maybe<Scalars['String']>;
+  staticPath: Maybe<Scalars['Boolean']>;
+  messages: Maybe<SitePageContextMessages>;
+  locale: Maybe<Scalars['String']>;
+  defaultLocale: Maybe<Scalars['String']>;
+  originalPath: Maybe<Scalars['String']>;
+  query: Maybe<Scalars['String']>;
+  map: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextFilterInput = {
+  slug: Maybe<StringQueryOperatorInput>;
+  staticPath: Maybe<BooleanQueryOperatorInput>;
+  messages: Maybe<SitePageContextMessagesFilterInput>;
+  locale: Maybe<StringQueryOperatorInput>;
+  defaultLocale: Maybe<StringQueryOperatorInput>;
+  originalPath: Maybe<StringQueryOperatorInput>;
+  query: Maybe<StringQueryOperatorInput>;
+  map: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessages = {
+  buy_button_add_to_cart: Maybe<Array<Maybe<SitePageContextMessagesBuy_button_add_to_cart>>>;
+  carousel_next: Maybe<Array<Maybe<SitePageContextMessagesCarousel_next>>>;
+  carousel_previous: Maybe<Array<Maybe<SitePageContextMessagesCarousel_previous>>>;
+  error_generic: Maybe<Array<Maybe<SitePageContextMessagesError_generic>>>;
+  facets_brand_selector_title: Maybe<Array<Maybe<SitePageContextMessagesFacets_brand_selector_title>>>;
+  facets_filters: Maybe<Array<Maybe<SitePageContextMessagesFacets_filters>>>;
+  facets_tree_selector_title: Maybe<Array<Maybe<SitePageContextMessagesFacets_tree_selector_title>>>;
+  loading: Maybe<Array<Maybe<SitePageContextMessagesLoading>>>;
+  minicart_drawer_close: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_close>>>;
+  minicart_drawer_count: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_count>>>;
+  minicart_drawer_go_checkout: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_go_checkout>>>;
+  minicart_drawer_shipping_disclaimer: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_shipping_disclaimer>>>;
+  minicart_drawer_subtotal: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_subtotal>>>;
+  minicart_drawer_total: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_total>>>;
+  notification_bar_sale: Maybe<Array<Maybe<SitePageContextMessagesNotification_bar_sale>>>;
+  offer_product_unavailable: Maybe<Array<Maybe<SitePageContextMessagesOffer_product_unavailable>>>;
+  offer_units_left: Maybe<Array<Maybe<SitePageContextMessagesOffer_units_left>>>;
+  preview_not_found: Maybe<Array<Maybe<SitePageContextMessagesPreview_not_found>>>;
+  product_not_found: Maybe<Array<Maybe<SitePageContextMessagesProduct_not_found>>>;
+  search_page_list_more: Maybe<Array<Maybe<SitePageContextMessagesSearch_page_list_more>>>;
+  signin: Maybe<Array<Maybe<SitePageContextMessagesSignin>>>;
+};
+
+export type SitePageContextMessagesBuy_button_add_to_cart = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesBuy_button_add_to_cartFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesBuy_button_add_to_cartFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesBuy_button_add_to_cartFilterInput>;
+};
+
+export type SitePageContextMessagesCarousel_next = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesCarousel_nextFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesCarousel_nextFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesCarousel_nextFilterInput>;
+};
+
+export type SitePageContextMessagesCarousel_previous = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesCarousel_previousFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesCarousel_previousFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesCarousel_previousFilterInput>;
+};
+
+export type SitePageContextMessagesError_generic = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesError_genericFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesError_genericFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesError_genericFilterInput>;
+};
+
+export type SitePageContextMessagesFacets_brand_selector_title = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesFacets_brand_selector_titleFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesFacets_brand_selector_titleFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesFacets_brand_selector_titleFilterInput>;
+};
+
+export type SitePageContextMessagesFacets_filters = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesFacets_filtersFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesFacets_filtersFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesFacets_filtersFilterInput>;
+};
+
+export type SitePageContextMessagesFacets_tree_selector_title = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesFacets_tree_selector_titleFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesFacets_tree_selector_titleFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesFacets_tree_selector_titleFilterInput>;
+};
+
+export type SitePageContextMessagesFilterInput = {
+  buy_button_add_to_cart: Maybe<SitePageContextMessagesBuy_button_add_to_cartFilterListInput>;
+  carousel_next: Maybe<SitePageContextMessagesCarousel_nextFilterListInput>;
+  carousel_previous: Maybe<SitePageContextMessagesCarousel_previousFilterListInput>;
+  error_generic: Maybe<SitePageContextMessagesError_genericFilterListInput>;
+  facets_brand_selector_title: Maybe<SitePageContextMessagesFacets_brand_selector_titleFilterListInput>;
+  facets_filters: Maybe<SitePageContextMessagesFacets_filtersFilterListInput>;
+  facets_tree_selector_title: Maybe<SitePageContextMessagesFacets_tree_selector_titleFilterListInput>;
+  loading: Maybe<SitePageContextMessagesLoadingFilterListInput>;
+  minicart_drawer_close: Maybe<SitePageContextMessagesMinicart_drawer_closeFilterListInput>;
+  minicart_drawer_count: Maybe<SitePageContextMessagesMinicart_drawer_countFilterListInput>;
+  minicart_drawer_go_checkout: Maybe<SitePageContextMessagesMinicart_drawer_go_checkoutFilterListInput>;
+  minicart_drawer_shipping_disclaimer: Maybe<SitePageContextMessagesMinicart_drawer_shipping_disclaimerFilterListInput>;
+  minicart_drawer_subtotal: Maybe<SitePageContextMessagesMinicart_drawer_subtotalFilterListInput>;
+  minicart_drawer_total: Maybe<SitePageContextMessagesMinicart_drawer_totalFilterListInput>;
+  notification_bar_sale: Maybe<SitePageContextMessagesNotification_bar_saleFilterListInput>;
+  offer_product_unavailable: Maybe<SitePageContextMessagesOffer_product_unavailableFilterListInput>;
+  offer_units_left: Maybe<SitePageContextMessagesOffer_units_leftFilterListInput>;
+  preview_not_found: Maybe<SitePageContextMessagesPreview_not_foundFilterListInput>;
+  product_not_found: Maybe<SitePageContextMessagesProduct_not_foundFilterListInput>;
+  search_page_list_more: Maybe<SitePageContextMessagesSearch_page_list_moreFilterListInput>;
+  signin: Maybe<SitePageContextMessagesSigninFilterListInput>;
+};
+
+export type SitePageContextMessagesLoading = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesLoadingFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesLoadingFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesLoadingFilterInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_close = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_closeFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_closeFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_closeFilterInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_count = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_countFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_countFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_countFilterInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_go_checkout = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_go_checkoutFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_go_checkoutFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_go_checkoutFilterInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_shipping_disclaimer = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_shipping_disclaimerFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_shipping_disclaimerFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_shipping_disclaimerFilterInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_subtotal = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_subtotalFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_subtotalFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_subtotalFilterInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_total = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_totalFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesMinicart_drawer_totalFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_totalFilterInput>;
+};
+
+export type SitePageContextMessagesNotification_bar_sale = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesNotification_bar_saleFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesNotification_bar_saleFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesNotification_bar_saleFilterInput>;
+};
+
+export type SitePageContextMessagesOffer_product_unavailable = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesOffer_product_unavailableFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesOffer_product_unavailableFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesOffer_product_unavailableFilterInput>;
+};
+
+export type SitePageContextMessagesOffer_units_left = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesOffer_units_leftFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesOffer_units_leftFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesOffer_units_leftFilterInput>;
+};
+
+export type SitePageContextMessagesPreview_not_found = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesPreview_not_foundFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesPreview_not_foundFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesPreview_not_foundFilterInput>;
+};
+
+export type SitePageContextMessagesProduct_not_found = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesProduct_not_foundFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesProduct_not_foundFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesProduct_not_foundFilterInput>;
+};
+
+export type SitePageContextMessagesSearch_page_list_more = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesSearch_page_list_moreFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesSearch_page_list_moreFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesSearch_page_list_moreFilterInput>;
+};
+
+export type SitePageContextMessagesSignin = {
+  type: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextMessagesSigninFilterInput = {
+  type: Maybe<IntQueryOperatorInput>;
+  value: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextMessagesSigninFilterListInput = {
+  elemMatch: Maybe<SitePageContextMessagesSigninFilterInput>;
+};
+
+export type SitePageEdge = {
+  next: Maybe<SitePage>;
+  node: SitePage;
+  previous: Maybe<SitePage>;
+};
+
+export type SitePageFieldsEnum = 
+  | 'path'
+  | 'component'
+  | 'internalComponentName'
+  | 'componentChunkName'
+  | 'matchPath'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'isCreatedByStatefulCreatePages'
+  | 'context___slug'
+  | 'context___staticPath'
+  | 'context___messages___buy_button_add_to_cart'
+  | 'context___messages___buy_button_add_to_cart___type'
+  | 'context___messages___buy_button_add_to_cart___value'
+  | 'context___messages___carousel_next'
+  | 'context___messages___carousel_next___type'
+  | 'context___messages___carousel_next___value'
+  | 'context___messages___carousel_previous'
+  | 'context___messages___carousel_previous___type'
+  | 'context___messages___carousel_previous___value'
+  | 'context___messages___error_generic'
+  | 'context___messages___error_generic___type'
+  | 'context___messages___error_generic___value'
+  | 'context___messages___facets_brand_selector_title'
+  | 'context___messages___facets_brand_selector_title___type'
+  | 'context___messages___facets_brand_selector_title___value'
+  | 'context___messages___facets_filters'
+  | 'context___messages___facets_filters___type'
+  | 'context___messages___facets_filters___value'
+  | 'context___messages___facets_tree_selector_title'
+  | 'context___messages___facets_tree_selector_title___type'
+  | 'context___messages___facets_tree_selector_title___value'
+  | 'context___messages___loading'
+  | 'context___messages___loading___type'
+  | 'context___messages___loading___value'
+  | 'context___messages___minicart_drawer_close'
+  | 'context___messages___minicart_drawer_close___type'
+  | 'context___messages___minicart_drawer_close___value'
+  | 'context___messages___minicart_drawer_count'
+  | 'context___messages___minicart_drawer_count___type'
+  | 'context___messages___minicart_drawer_count___value'
+  | 'context___messages___minicart_drawer_go_checkout'
+  | 'context___messages___minicart_drawer_go_checkout___type'
+  | 'context___messages___minicart_drawer_go_checkout___value'
+  | 'context___messages___minicart_drawer_shipping_disclaimer'
+  | 'context___messages___minicart_drawer_shipping_disclaimer___type'
+  | 'context___messages___minicart_drawer_shipping_disclaimer___value'
+  | 'context___messages___minicart_drawer_subtotal'
+  | 'context___messages___minicart_drawer_subtotal___type'
+  | 'context___messages___minicart_drawer_subtotal___value'
+  | 'context___messages___minicart_drawer_total'
+  | 'context___messages___minicart_drawer_total___type'
+  | 'context___messages___minicart_drawer_total___value'
+  | 'context___messages___notification_bar_sale'
+  | 'context___messages___notification_bar_sale___type'
+  | 'context___messages___notification_bar_sale___value'
+  | 'context___messages___offer_product_unavailable'
+  | 'context___messages___offer_product_unavailable___type'
+  | 'context___messages___offer_product_unavailable___value'
+  | 'context___messages___offer_units_left'
+  | 'context___messages___offer_units_left___type'
+  | 'context___messages___offer_units_left___value'
+  | 'context___messages___preview_not_found'
+  | 'context___messages___preview_not_found___type'
+  | 'context___messages___preview_not_found___value'
+  | 'context___messages___product_not_found'
+  | 'context___messages___product_not_found___type'
+  | 'context___messages___product_not_found___value'
+  | 'context___messages___search_page_list_more'
+  | 'context___messages___search_page_list_more___type'
+  | 'context___messages___search_page_list_more___value'
+  | 'context___messages___signin'
+  | 'context___messages___signin___type'
+  | 'context___messages___signin___value'
+  | 'context___locale'
+  | 'context___defaultLocale'
+  | 'context___originalPath'
+  | 'context___query'
+  | 'context___map'
+  | 'pluginCreator___id'
+  | 'pluginCreator___parent___id'
+  | 'pluginCreator___parent___parent___id'
+  | 'pluginCreator___parent___parent___children'
+  | 'pluginCreator___parent___children'
+  | 'pluginCreator___parent___children___id'
+  | 'pluginCreator___parent___children___children'
+  | 'pluginCreator___parent___internal___content'
+  | 'pluginCreator___parent___internal___contentDigest'
+  | 'pluginCreator___parent___internal___description'
+  | 'pluginCreator___parent___internal___fieldOwners'
+  | 'pluginCreator___parent___internal___ignoreType'
+  | 'pluginCreator___parent___internal___mediaType'
+  | 'pluginCreator___parent___internal___owner'
+  | 'pluginCreator___parent___internal___type'
+  | 'pluginCreator___children'
+  | 'pluginCreator___children___id'
+  | 'pluginCreator___children___parent___id'
+  | 'pluginCreator___children___parent___children'
+  | 'pluginCreator___children___children'
+  | 'pluginCreator___children___children___id'
+  | 'pluginCreator___children___children___children'
+  | 'pluginCreator___children___internal___content'
+  | 'pluginCreator___children___internal___contentDigest'
+  | 'pluginCreator___children___internal___description'
+  | 'pluginCreator___children___internal___fieldOwners'
+  | 'pluginCreator___children___internal___ignoreType'
+  | 'pluginCreator___children___internal___mediaType'
+  | 'pluginCreator___children___internal___owner'
+  | 'pluginCreator___children___internal___type'
+  | 'pluginCreator___internal___content'
+  | 'pluginCreator___internal___contentDigest'
+  | 'pluginCreator___internal___description'
+  | 'pluginCreator___internal___fieldOwners'
+  | 'pluginCreator___internal___ignoreType'
+  | 'pluginCreator___internal___mediaType'
+  | 'pluginCreator___internal___owner'
+  | 'pluginCreator___internal___type'
+  | 'pluginCreator___resolve'
+  | 'pluginCreator___name'
+  | 'pluginCreator___version'
+  | 'pluginCreator___pluginOptions___compare'
+  | 'pluginCreator___pluginOptions___baseline'
+  | 'pluginCreator___pluginOptions___html'
+  | 'pluginCreator___pluginOptions___json'
+  | 'pluginCreator___pluginOptions___outDir'
+  | 'pluginCreator___pluginOptions___stats___context'
+  | 'pluginCreator___pluginOptions___tenant'
+  | 'pluginCreator___pluginOptions___environment'
+  | 'pluginCreator___pluginOptions___workspace'
+  | 'pluginCreator___pluginOptions___messagesPath'
+  | 'pluginCreator___pluginOptions___locales'
+  | 'pluginCreator___pluginOptions___defaultLocale'
+  | 'pluginCreator___pluginOptions___title'
+  | 'pluginCreator___pluginOptions___description'
+  | 'pluginCreator___pluginOptions___localizationThemeOptions___messagesPath'
+  | 'pluginCreator___pluginOptions___localizationThemeOptions___locales'
+  | 'pluginCreator___pluginOptions___localizationThemeOptions___defaultLocale'
+  | 'pluginCreator___pluginOptions___name'
+  | 'pluginCreator___pluginOptions___short_name'
+  | 'pluginCreator___pluginOptions___start_url'
+  | 'pluginCreator___pluginOptions___icon'
+  | 'pluginCreator___pluginOptions___background_color'
+  | 'pluginCreator___pluginOptions___theme_color'
+  | 'pluginCreator___pluginOptions___display'
+  | 'pluginCreator___pluginOptions___cache_busting_mode'
+  | 'pluginCreator___pluginOptions___include_favicon'
+  | 'pluginCreator___pluginOptions___legacy'
+  | 'pluginCreator___pluginOptions___theme_color_in_head'
+  | 'pluginCreator___pluginOptions___cacheDigest'
+  | 'pluginCreator___pluginOptions___path'
+  | 'pluginCreator___pluginOptions___headers____preview'
+  | 'pluginCreator___pluginOptions___mergeSecurityHeaders'
+  | 'pluginCreator___pluginOptions___generateMatchPathRewrites'
+  | 'pluginCreator___pluginOptions___pathCheck'
+  | 'pluginCreator___nodeAPIs'
+  | 'pluginCreator___browserAPIs'
+  | 'pluginCreator___ssrAPIs'
+  | 'pluginCreator___pluginFilepath'
+  | 'pluginCreator___packageJson___name'
+  | 'pluginCreator___packageJson___description'
+  | 'pluginCreator___packageJson___version'
+  | 'pluginCreator___packageJson___main'
+  | 'pluginCreator___packageJson___license'
+  | 'pluginCreator___packageJson___dependencies'
+  | 'pluginCreator___packageJson___dependencies___name'
+  | 'pluginCreator___packageJson___dependencies___version'
+  | 'pluginCreator___packageJson___devDependencies'
+  | 'pluginCreator___packageJson___devDependencies___name'
+  | 'pluginCreator___packageJson___devDependencies___version'
+  | 'pluginCreator___packageJson___peerDependencies'
+  | 'pluginCreator___packageJson___peerDependencies___name'
+  | 'pluginCreator___packageJson___peerDependencies___version'
+  | 'pluginCreator___packageJson___keywords'
+  | 'pluginCreatorId'
+  | 'componentPath';
+
+export type SitePageFilterInput = {
+  path: Maybe<StringQueryOperatorInput>;
+  component: Maybe<StringQueryOperatorInput>;
+  internalComponentName: Maybe<StringQueryOperatorInput>;
+  componentChunkName: Maybe<StringQueryOperatorInput>;
+  matchPath: Maybe<StringQueryOperatorInput>;
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  isCreatedByStatefulCreatePages: Maybe<BooleanQueryOperatorInput>;
+  context: Maybe<SitePageContextFilterInput>;
+  pluginCreator: Maybe<SitePluginFilterInput>;
+  pluginCreatorId: Maybe<StringQueryOperatorInput>;
+  componentPath: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SitePageEdge>;
+  nodes: Array<SitePage>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type SitePageSortInput = {
+  fields: Maybe<Array<Maybe<SitePageFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type SitePlugin = Node & {
+  id: Scalars['ID'];
+  parent: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  resolve: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+  version: Maybe<Scalars['String']>;
+  pluginOptions: Maybe<SitePluginPluginOptions>;
+  nodeAPIs: Maybe<Array<Maybe<Scalars['String']>>>;
+  browserAPIs: Maybe<Array<Maybe<Scalars['String']>>>;
+  ssrAPIs: Maybe<Array<Maybe<Scalars['String']>>>;
+  pluginFilepath: Maybe<Scalars['String']>;
+  packageJson: Maybe<SitePluginPackageJson>;
+};
+
+export type SitePluginConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SitePluginEdge>;
+  nodes: Array<SitePlugin>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<SitePluginGroupConnection>;
+};
+
+
+export type SitePluginConnectiondistinctArgs = {
+  field: SitePluginFieldsEnum;
+};
+
+
+export type SitePluginConnectiongroupArgs = {
+  skip: Maybe<Scalars['Int']>;
+  limit: Maybe<Scalars['Int']>;
+  field: SitePluginFieldsEnum;
+};
+
+export type SitePluginEdge = {
+  next: Maybe<SitePlugin>;
+  node: SitePlugin;
+  previous: Maybe<SitePlugin>;
+};
+
+export type SitePluginFieldsEnum = 
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'resolve'
+  | 'name'
+  | 'version'
+  | 'pluginOptions___compare'
+  | 'pluginOptions___baseline'
+  | 'pluginOptions___html'
+  | 'pluginOptions___json'
+  | 'pluginOptions___outDir'
+  | 'pluginOptions___stats___context'
+  | 'pluginOptions___tenant'
+  | 'pluginOptions___environment'
+  | 'pluginOptions___workspace'
+  | 'pluginOptions___messagesPath'
+  | 'pluginOptions___locales'
+  | 'pluginOptions___defaultLocale'
+  | 'pluginOptions___title'
+  | 'pluginOptions___description'
+  | 'pluginOptions___localizationThemeOptions___messagesPath'
+  | 'pluginOptions___localizationThemeOptions___locales'
+  | 'pluginOptions___localizationThemeOptions___defaultLocale'
+  | 'pluginOptions___name'
+  | 'pluginOptions___short_name'
+  | 'pluginOptions___start_url'
+  | 'pluginOptions___icon'
+  | 'pluginOptions___background_color'
+  | 'pluginOptions___theme_color'
+  | 'pluginOptions___display'
+  | 'pluginOptions___cache_busting_mode'
+  | 'pluginOptions___include_favicon'
+  | 'pluginOptions___legacy'
+  | 'pluginOptions___theme_color_in_head'
+  | 'pluginOptions___cacheDigest'
+  | 'pluginOptions___path'
+  | 'pluginOptions___env___production___policy'
+  | 'pluginOptions___env___branch_deploy___policy'
+  | 'pluginOptions___env___deploy_preview___policy'
+  | 'pluginOptions___headers____preview'
+  | 'pluginOptions___mergeSecurityHeaders'
+  | 'pluginOptions___generateMatchPathRewrites'
+  | 'pluginOptions___pathCheck'
+  | 'nodeAPIs'
+  | 'browserAPIs'
+  | 'ssrAPIs'
+  | 'pluginFilepath'
+  | 'packageJson___name'
+  | 'packageJson___description'
+  | 'packageJson___version'
+  | 'packageJson___main'
+  | 'packageJson___license'
+  | 'packageJson___dependencies'
+  | 'packageJson___dependencies___name'
+  | 'packageJson___dependencies___version'
+  | 'packageJson___devDependencies'
+  | 'packageJson___devDependencies___name'
+  | 'packageJson___devDependencies___version'
+  | 'packageJson___peerDependencies'
+  | 'packageJson___peerDependencies___name'
+  | 'packageJson___peerDependencies___version'
+  | 'packageJson___keywords';
+
+export type SitePluginFilterInput = {
+  id: Maybe<StringQueryOperatorInput>;
+  parent: Maybe<NodeFilterInput>;
+  children: Maybe<NodeFilterListInput>;
+  internal: Maybe<InternalFilterInput>;
+  resolve: Maybe<StringQueryOperatorInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  version: Maybe<StringQueryOperatorInput>;
+  pluginOptions: Maybe<SitePluginPluginOptionsFilterInput>;
+  nodeAPIs: Maybe<StringQueryOperatorInput>;
+  browserAPIs: Maybe<StringQueryOperatorInput>;
+  ssrAPIs: Maybe<StringQueryOperatorInput>;
+  pluginFilepath: Maybe<StringQueryOperatorInput>;
+  packageJson: Maybe<SitePluginPackageJsonFilterInput>;
+};
+
+export type SitePluginGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SitePluginEdge>;
+  nodes: Array<SitePlugin>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPackageJson = {
+  name: Maybe<Scalars['String']>;
+  description: Maybe<Scalars['String']>;
+  version: Maybe<Scalars['String']>;
+  main: Maybe<Scalars['String']>;
+  license: Maybe<Scalars['String']>;
+  dependencies: Maybe<Array<Maybe<SitePluginPackageJsonDependencies>>>;
+  devDependencies: Maybe<Array<Maybe<SitePluginPackageJsonDevDependencies>>>;
+  peerDependencies: Maybe<Array<Maybe<SitePluginPackageJsonPeerDependencies>>>;
+  keywords: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type SitePluginPackageJsonDependencies = {
+  name: Maybe<Scalars['String']>;
+  version: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPackageJsonDependenciesFilterInput = {
+  name: Maybe<StringQueryOperatorInput>;
+  version: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPackageJsonDependenciesFilterListInput = {
+  elemMatch: Maybe<SitePluginPackageJsonDependenciesFilterInput>;
+};
+
+export type SitePluginPackageJsonDevDependencies = {
+  name: Maybe<Scalars['String']>;
+  version: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPackageJsonDevDependenciesFilterInput = {
+  name: Maybe<StringQueryOperatorInput>;
+  version: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPackageJsonDevDependenciesFilterListInput = {
+  elemMatch: Maybe<SitePluginPackageJsonDevDependenciesFilterInput>;
+};
+
+export type SitePluginPackageJsonFilterInput = {
+  name: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  version: Maybe<StringQueryOperatorInput>;
+  main: Maybe<StringQueryOperatorInput>;
+  license: Maybe<StringQueryOperatorInput>;
+  dependencies: Maybe<SitePluginPackageJsonDependenciesFilterListInput>;
+  devDependencies: Maybe<SitePluginPackageJsonDevDependenciesFilterListInput>;
+  peerDependencies: Maybe<SitePluginPackageJsonPeerDependenciesFilterListInput>;
+  keywords: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPackageJsonPeerDependencies = {
+  name: Maybe<Scalars['String']>;
+  version: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPackageJsonPeerDependenciesFilterInput = {
+  name: Maybe<StringQueryOperatorInput>;
+  version: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPackageJsonPeerDependenciesFilterListInput = {
+  elemMatch: Maybe<SitePluginPackageJsonPeerDependenciesFilterInput>;
+};
+
+export type SitePluginPluginOptions = {
+  compare: Maybe<Scalars['Boolean']>;
+  baseline: Maybe<Scalars['Boolean']>;
+  html: Maybe<Scalars['Boolean']>;
+  json: Maybe<Scalars['Boolean']>;
+  outDir: Maybe<Scalars['String']>;
+  stats: Maybe<SitePluginPluginOptionsStats>;
+  tenant: Maybe<Scalars['String']>;
+  environment: Maybe<Scalars['String']>;
+  workspace: Maybe<Scalars['String']>;
+  messagesPath: Maybe<Scalars['String']>;
+  locales: Maybe<Array<Maybe<Scalars['String']>>>;
+  defaultLocale: Maybe<Scalars['String']>;
+  title: Maybe<Scalars['String']>;
+  description: Maybe<Scalars['String']>;
+  localizationThemeOptions: Maybe<SitePluginPluginOptionsLocalizationThemeOptions>;
+  name: Maybe<Scalars['String']>;
+  short_name: Maybe<Scalars['String']>;
+  start_url: Maybe<Scalars['String']>;
+  icon: Maybe<Scalars['String']>;
+  background_color: Maybe<Scalars['String']>;
+  theme_color: Maybe<Scalars['String']>;
+  display: Maybe<Scalars['String']>;
+  cache_busting_mode: Maybe<Scalars['String']>;
+  include_favicon: Maybe<Scalars['Boolean']>;
+  legacy: Maybe<Scalars['Boolean']>;
+  theme_color_in_head: Maybe<Scalars['Boolean']>;
+  cacheDigest: Maybe<Scalars['String']>;
+  path: Maybe<Scalars['String']>;
+  env: Maybe<SitePluginPluginOptionsEnv>;
+  headers: Maybe<SitePluginPluginOptionsHeaders>;
+  mergeSecurityHeaders: Maybe<Scalars['Boolean']>;
+  generateMatchPathRewrites: Maybe<Scalars['Boolean']>;
+  pathCheck: Maybe<Scalars['Boolean']>;
+};
+
+export type SitePluginPluginOptionsEnv = {
+  production: Maybe<SitePluginPluginOptionsEnvProduction>;
+  branch_deploy: Maybe<SitePluginPluginOptionsEnvBranch_deploy>;
+  deploy_preview: Maybe<SitePluginPluginOptionsEnvDeploy_preview>;
+};
+
+export type SitePluginPluginOptionsEnvBranch_deploy = {
+  policy: Maybe<Array<Maybe<SitePluginPluginOptionsEnvBranch_deployPolicy>>>;
+};
+
+export type SitePluginPluginOptionsEnvBranch_deployFilterInput = {
+  policy: Maybe<SitePluginPluginOptionsEnvBranch_deployPolicyFilterListInput>;
+};
+
+export type SitePluginPluginOptionsEnvBranch_deployPolicy = {
+  userAgent: Maybe<Scalars['String']>;
+  disallow: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type SitePluginPluginOptionsEnvBranch_deployPolicyFilterInput = {
+  userAgent: Maybe<StringQueryOperatorInput>;
+  disallow: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsEnvBranch_deployPolicyFilterListInput = {
+  elemMatch: Maybe<SitePluginPluginOptionsEnvBranch_deployPolicyFilterInput>;
+};
+
+export type SitePluginPluginOptionsEnvDeploy_preview = {
+  policy: Maybe<Array<Maybe<SitePluginPluginOptionsEnvDeploy_previewPolicy>>>;
+};
+
+export type SitePluginPluginOptionsEnvDeploy_previewFilterInput = {
+  policy: Maybe<SitePluginPluginOptionsEnvDeploy_previewPolicyFilterListInput>;
+};
+
+export type SitePluginPluginOptionsEnvDeploy_previewPolicy = {
+  userAgent: Maybe<Scalars['String']>;
+  disallow: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type SitePluginPluginOptionsEnvDeploy_previewPolicyFilterInput = {
+  userAgent: Maybe<StringQueryOperatorInput>;
+  disallow: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsEnvDeploy_previewPolicyFilterListInput = {
+  elemMatch: Maybe<SitePluginPluginOptionsEnvDeploy_previewPolicyFilterInput>;
+};
+
+export type SitePluginPluginOptionsEnvFilterInput = {
+  production: Maybe<SitePluginPluginOptionsEnvProductionFilterInput>;
+  branch_deploy: Maybe<SitePluginPluginOptionsEnvBranch_deployFilterInput>;
+  deploy_preview: Maybe<SitePluginPluginOptionsEnvDeploy_previewFilterInput>;
+};
+
+export type SitePluginPluginOptionsEnvProduction = {
+  policy: Maybe<Array<Maybe<SitePluginPluginOptionsEnvProductionPolicy>>>;
+};
+
+export type SitePluginPluginOptionsEnvProductionFilterInput = {
+  policy: Maybe<SitePluginPluginOptionsEnvProductionPolicyFilterListInput>;
+};
+
+export type SitePluginPluginOptionsEnvProductionPolicy = {
+  userAgent: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsEnvProductionPolicyFilterInput = {
+  userAgent: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsEnvProductionPolicyFilterListInput = {
+  elemMatch: Maybe<SitePluginPluginOptionsEnvProductionPolicyFilterInput>;
+};
+
+export type SitePluginPluginOptionsFilterInput = {
+  compare: Maybe<BooleanQueryOperatorInput>;
+  baseline: Maybe<BooleanQueryOperatorInput>;
+  html: Maybe<BooleanQueryOperatorInput>;
+  json: Maybe<BooleanQueryOperatorInput>;
+  outDir: Maybe<StringQueryOperatorInput>;
+  stats: Maybe<SitePluginPluginOptionsStatsFilterInput>;
+  tenant: Maybe<StringQueryOperatorInput>;
+  environment: Maybe<StringQueryOperatorInput>;
+  workspace: Maybe<StringQueryOperatorInput>;
+  messagesPath: Maybe<StringQueryOperatorInput>;
+  locales: Maybe<StringQueryOperatorInput>;
+  defaultLocale: Maybe<StringQueryOperatorInput>;
+  title: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  localizationThemeOptions: Maybe<SitePluginPluginOptionsLocalizationThemeOptionsFilterInput>;
+  name: Maybe<StringQueryOperatorInput>;
+  short_name: Maybe<StringQueryOperatorInput>;
+  start_url: Maybe<StringQueryOperatorInput>;
+  icon: Maybe<StringQueryOperatorInput>;
+  background_color: Maybe<StringQueryOperatorInput>;
+  theme_color: Maybe<StringQueryOperatorInput>;
+  display: Maybe<StringQueryOperatorInput>;
+  cache_busting_mode: Maybe<StringQueryOperatorInput>;
+  include_favicon: Maybe<BooleanQueryOperatorInput>;
+  legacy: Maybe<BooleanQueryOperatorInput>;
+  theme_color_in_head: Maybe<BooleanQueryOperatorInput>;
+  cacheDigest: Maybe<StringQueryOperatorInput>;
+  path: Maybe<StringQueryOperatorInput>;
+  env: Maybe<SitePluginPluginOptionsEnvFilterInput>;
+  headers: Maybe<SitePluginPluginOptionsHeadersFilterInput>;
+  mergeSecurityHeaders: Maybe<BooleanQueryOperatorInput>;
+  generateMatchPathRewrites: Maybe<BooleanQueryOperatorInput>;
+  pathCheck: Maybe<BooleanQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsHeaders = {
+  _preview: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type SitePluginPluginOptionsHeadersFilterInput = {
+  _preview: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsLocalizationThemeOptions = {
+  messagesPath: Maybe<Scalars['String']>;
+  locales: Maybe<Array<Maybe<Scalars['String']>>>;
+  defaultLocale: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsLocalizationThemeOptionsFilterInput = {
+  messagesPath: Maybe<StringQueryOperatorInput>;
+  locales: Maybe<StringQueryOperatorInput>;
+  defaultLocale: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsStats = {
+  context: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsStatsFilterInput = {
+  context: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginSortInput = {
+  fields: Maybe<Array<Maybe<SitePluginFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type SiteProxy = {
+  prefix: Maybe<Scalars['String']>;
+  url: Maybe<Scalars['String']>;
+};
+
+export type SiteProxyFilterInput = {
+  prefix: Maybe<StringQueryOperatorInput>;
+  url: Maybe<StringQueryOperatorInput>;
+};
+
+export type SiteProxyFilterListInput = {
+  elemMatch: Maybe<SiteProxyFilterInput>;
+};
+
+export type SiteSiteMetadata = {
+  title: Maybe<Scalars['String']>;
+  description: Maybe<Scalars['String']>;
+  vtex: Maybe<SiteSiteMetadataVtex>;
+  author: Maybe<Scalars['String']>;
+  siteUrl: Maybe<Scalars['String']>;
+};
+
+export type SiteSiteMetadataFilterInput = {
+  title: Maybe<StringQueryOperatorInput>;
+  description: Maybe<StringQueryOperatorInput>;
+  vtex: Maybe<SiteSiteMetadataVtexFilterInput>;
+  author: Maybe<StringQueryOperatorInput>;
+  siteUrl: Maybe<StringQueryOperatorInput>;
+};
+
+export type SiteSiteMetadataVtex = {
+  tenant: Maybe<Scalars['String']>;
+};
+
+export type SiteSiteMetadataVtexFilterInput = {
+  tenant: Maybe<StringQueryOperatorInput>;
+};
+
+export type SiteSortInput = {
+  fields: Maybe<Array<Maybe<SiteFieldsEnum>>>;
+  order: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type SortOrderEnum = 
+  | 'ASC'
+  | 'DESC';
+
+export type StringQueryOperatorInput = {
+  eq: Maybe<Scalars['String']>;
+  ne: Maybe<Scalars['String']>;
+  in: Maybe<Array<Maybe<Scalars['String']>>>;
+  nin: Maybe<Array<Maybe<Scalars['String']>>>;
+  regex: Maybe<Scalars['String']>;
+  glob: Maybe<Scalars['String']>;
+};
+
+export type VTEX = {
+  /** Returns a specified product */
+  product: Maybe<VTEX_Product>;
+  /** Return the banners for a given query */
+  banners: Maybe<VTEX_Banners>;
+  /** Correct a misspeled term */
+  correction: Maybe<VTEX_Correction>;
+  /** Get search suggestions */
+  searchSuggestions: Maybe<VTEX_SearchSuggestions>;
+  /** Returns products list filtered and ordered */
+  productSearch: Maybe<VTEX_ProductSearch>;
+  searchMetadata: Maybe<VTEX_SearchMetadata>;
+  /** Returns products list filtered and ordered */
+  products: Maybe<Array<Maybe<VTEX_Product>>>;
+  productRecommendations: Maybe<Array<Maybe<VTEX_Product>>>;
+  productsByIdentifier: Maybe<Array<Maybe<VTEX_Product>>>;
+  /** Returns facets category */
+  facets: Maybe<VTEX_Facets>;
+  /** Get auto complete suggestions in search */
+  autocomplete: Maybe<VTEX_Suggestions>;
+  /** Get top searches from store */
+  topSearches: Maybe<VTEX_SearchSuggestions>;
+  /** Get autocomplete search suggestions */
+  autocompleteSearchSuggestions: Maybe<VTEX_SearchSuggestions>;
+  /** Get product suggestions */
+  productSuggestions: Maybe<VTEX_ProductSuggestions>;
+  /** Get search urls access stats count */
+  searchURLsCount: Maybe<Array<Maybe<VTEX_SearchURLStats>>>;
+  getCardSessionId: Maybe<Scalars['String']>;
+  orderForm: Maybe<VTEX_OrderForm>;
+  checkoutProfile: Maybe<VTEX_CheckoutProfile>;
+};
+
+
+export type VTEXproductArgs = {
+  slug: Maybe<Scalars['String']>;
+  identifier: Maybe<VTEX_ProductUniqueIdentifier>;
+};
+
+
+export type VTEXbannersArgs = {
+  fullText?: Maybe<Scalars['String']>;
+  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacetInput>>>;
+};
+
+
+export type VTEXcorrectionArgs = {
+  fullText?: Maybe<Scalars['String']>;
+};
+
+
+export type VTEXsearchSuggestionsArgs = {
+  fullText: Scalars['String'];
+};
+
+
+export type VTEXproductSearchArgs = {
+  query?: Maybe<Scalars['String']>;
+  fullText?: Maybe<Scalars['String']>;
+  map?: Maybe<Scalars['String']>;
+  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacetInput>>>;
+  category?: Maybe<Scalars['String']>;
+  specificationFilters: Maybe<Array<Maybe<Scalars['String']>>>;
+  priceRange?: Maybe<Scalars['String']>;
+  collection?: Maybe<Scalars['String']>;
+  salesChannel?: Maybe<Scalars['String']>;
+  orderBy?: Maybe<Scalars['String']>;
+  from?: Maybe<Scalars['Int']>;
+  to?: Maybe<Scalars['Int']>;
+  hideUnavailableItems?: Maybe<Scalars['Boolean']>;
+  simulationBehavior?: Maybe<VTEX_SimulationBehavior>;
+  productOriginVtex?: Maybe<Scalars['Boolean']>;
+  operator: Maybe<VTEX_Operator>;
+  fuzzy: Maybe<Scalars['String']>;
+  searchState: Maybe<Scalars['String']>;
+};
+
+
+export type VTEXsearchMetadataArgs = {
+  query?: Maybe<Scalars['String']>;
+  fullText?: Maybe<Scalars['String']>;
+  map?: Maybe<Scalars['String']>;
+  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacetInput>>>;
+};
+
+
+export type VTEXproductsArgs = {
+  query?: Maybe<Scalars['String']>;
+  map?: Maybe<Scalars['String']>;
+  category?: Maybe<Scalars['String']>;
+  specificationFilters: Maybe<Array<Maybe<Scalars['String']>>>;
+  priceRange?: Maybe<Scalars['String']>;
+  collection?: Maybe<Scalars['String']>;
+  salesChannel?: Maybe<Scalars['String']>;
+  orderBy?: Maybe<Scalars['String']>;
+  from?: Maybe<Scalars['Int']>;
+  to?: Maybe<Scalars['Int']>;
+  hideUnavailableItems?: Maybe<Scalars['Boolean']>;
+  simulationBehavior?: Maybe<VTEX_SimulationBehavior>;
+};
+
+
+export type VTEXproductRecommendationsArgs = {
+  identifier: Maybe<VTEX_ProductUniqueIdentifier>;
+  type: Maybe<VTEX_CrossSelingInputEnum>;
+};
+
+
+export type VTEXproductsByIdentifierArgs = {
+  field: VTEX_ProductUniqueIdentifierField;
+  values: Maybe<Array<Scalars['ID']>>;
+};
+
+
+export type VTEXfacetsArgs = {
+  query?: Maybe<Scalars['String']>;
+  fullText?: Maybe<Scalars['String']>;
+  map?: Maybe<Scalars['String']>;
+  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacetInput>>>;
+  hideUnavailableItems?: Maybe<Scalars['Boolean']>;
+  behavior?: Maybe<Scalars['String']>;
+  operator: Maybe<VTEX_Operator>;
+  fuzzy: Maybe<Scalars['String']>;
+  searchState: Maybe<Scalars['String']>;
+};
+
+
+export type VTEXautocompleteArgs = {
+  maxRows?: Maybe<Scalars['Int']>;
+  searchTerm: Maybe<Scalars['String']>;
+};
+
+
+export type VTEXautocompleteSearchSuggestionsArgs = {
+  fullText: Scalars['String'];
+};
+
+
+export type VTEXproductSuggestionsArgs = {
+  fullText: Scalars['String'];
+  facetKey: Maybe<Scalars['String']>;
+  facetValue: Maybe<Scalars['String']>;
+  productOriginVtex?: Maybe<Scalars['Boolean']>;
+  simulationBehavior?: Maybe<VTEX_SimulationBehavior>;
+};
+
+
+export type VTEXsearchURLsCountArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  sort: Maybe<VTEX_SORT>;
+};
+
+
+export type VTEXcheckoutProfileArgs = {
+  email: Scalars['String'];
+};
+
+export type VTEX_AddedOptionItem = {
+  item: Maybe<VTEX_Item>;
+  compositionItem: Maybe<VTEX_CompositionItem>;
+  normalizedQuantity: Maybe<Scalars['Int']>;
+  choiceType: Maybe<Scalars['String']>;
+  extraQuantity: Maybe<Scalars['Int']>;
+};
+
+export type VTEX_Address = {
+  addressId: Maybe<Scalars['ID']>;
+  addressType: Maybe<VTEX_AddressType>;
+  city: Maybe<Scalars['String']>;
+  complement: Maybe<Scalars['String']>;
+  country: Maybe<Scalars['String']>;
+  geoCoordinates: Maybe<Array<Maybe<Scalars['Float']>>>;
+  neighborhood: Maybe<Scalars['String']>;
+  number: Maybe<Scalars['String']>;
+  postalCode: Maybe<Scalars['String']>;
+  receiverName: Maybe<Scalars['String']>;
+  reference: Maybe<Scalars['String']>;
+  state: Maybe<Scalars['String']>;
+  street: Maybe<Scalars['String']>;
+  isDisposable: Maybe<Scalars['Boolean']>;
+};
+
+export type VTEX_AddressInput = {
+  addressId: Maybe<Scalars['ID']>;
+  addressType: Maybe<VTEX_AddressType>;
+  addressQuery: Maybe<Scalars['String']>;
+  city: Maybe<Scalars['String']>;
+  complement: Maybe<Scalars['String']>;
+  country: Maybe<Scalars['String']>;
+  geoCoordinates: Maybe<Array<Maybe<Scalars['Float']>>>;
+  neighborhood: Maybe<Scalars['String']>;
+  number: Maybe<Scalars['String']>;
+  postalCode: Maybe<Scalars['String']>;
+  receiverName: Maybe<Scalars['String']>;
+  reference: Maybe<Scalars['String']>;
+  state: Maybe<Scalars['String']>;
+  street: Maybe<Scalars['String']>;
+  isDisposable: Maybe<Scalars['Boolean']>;
+};
+
+export type VTEX_AddressType = 
+  | 'residential'
+  | 'commercial'
+  | 'inStore'
+  | 'giftRegistry'
+  | 'pickup'
+  | 'search';
+
+export type VTEX_AssemblyOption = {
+  id: Maybe<Scalars['ID']>;
+  name: Maybe<Scalars['String']>;
+  required: Maybe<Scalars['Boolean']>;
+  composition: Maybe<VTEX_CompositionType>;
+  inputValues: Maybe<Array<Maybe<VTEX_InputValue>>>;
+};
+
+export type VTEX_AssemblyOptionInput = {
+  id: Scalars['ID'];
+  quantity: Scalars['Int'];
+  assemblyId: Scalars['String'];
+  seller: Scalars['String'];
+  options: Maybe<Array<VTEX_AssemblyOptionInput>>;
+  inputValues: Maybe<Scalars['VTEX_InputValues']>;
+};
+
+export type VTEX_AssemblyOptionItem = {
+  added: Array<Maybe<VTEX_AddedOptionItem>>;
+  removed: Array<Maybe<VTEX_RemovedOptionItem>>;
+  parentPrice: Maybe<Scalars['Float']>;
+};
+
+export type VTEX_AssemblyOptionType = {
+  assemblyId: Scalars['String'];
+  id: Maybe<Scalars['ID']>;
+  quantity: Maybe<Scalars['Int']>;
+  seller: Maybe<Scalars['String']>;
+  inputValues: Maybe<Scalars['VTEX_InputValues']>;
+  options: Maybe<Array<VTEX_AssemblyOptionType>>;
+};
+
+export type VTEX_Attachment = {
+  id: Maybe<Scalars['ID']>;
+  name: Maybe<Scalars['String']>;
+  required: Maybe<Scalars['Boolean']>;
+  domainValues: Maybe<Array<Maybe<VTEX_DomainValues>>>;
+};
+
+export type VTEX_AvailableAccount = {
+  accountId: Scalars['String'];
+  paymentSystem: Scalars['String'];
+  paymentSystemName: Scalars['String'];
+  cardNumber: Scalars['String'];
+  bin: Scalars['String'];
+};
+
+export type VTEX_Banners = {
+  banners: Maybe<Array<Maybe<VTEX_SearchBanner>>>;
+};
+
+/**  Benefit of a Product  */
+export type VTEX_Benefit = {
+  /**  Flag which indicates if the benefit is featured or not  */
+  featured: Maybe<Scalars['Boolean']>;
+  /**  Id of the product which the benefit is associated  */
+  id: Maybe<Scalars['String']>;
+  /**  Name of the benefit  */
+  name: Maybe<Scalars['String']>;
+  /**  Items of the benefit  */
+  items: Maybe<Array<Maybe<VTEX_BenefitItem>>>;
+  /**  Type of benefit  */
+  teaserType: Maybe<Scalars['String']>;
+};
+
+export type VTEX_BenefitItem = {
+  /**  Product itself  */
+  benefitProduct: Maybe<VTEX_Product>;
+  /**  IDs of the SKU Items that are taking part in the benefit  */
+  benefitSKUIds: Maybe<Array<Maybe<Scalars['String']>>>;
+  /**  Discount applied to the benefit product  */
+  discount: Maybe<Scalars['Float']>;
+  /**  Minimum quantity of the benefit product that is required to validate the benefit  */
+  minQuantity: Maybe<Scalars['Int']>;
+};
+
+export type VTEX_Brand = {
+  /** slug is used as cacheId */
+  cacheId: Maybe<Scalars['ID']>;
+  /** Brand id */
+  id: Maybe<Scalars['Int']>;
+  /** Brand logo */
+  imageUrl: Maybe<Scalars['String']>;
+  /** Text link */
+  slug: Maybe<Scalars['String']>;
+  /** Name of brand */
+  name: Maybe<Scalars['String']>;
+  /** Title used by html tag */
+  titleTag: Maybe<Scalars['String']>;
+  /** Description used by html tag */
+  metaTagDescription: Maybe<Scalars['String']>;
+  /** Brand is active */
+  active: Maybe<Scalars['Boolean']>;
+};
+
+export type VTEX_BrandFacet = {
+  id: Scalars['ID'];
+  quantity: Scalars['Int'];
+  name: Scalars['String'];
+  link: Scalars['String'];
+  linkEncoded: Scalars['String'];
+  map: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+  selected: Scalars['Boolean'];
+};
+
+export type VTEX_CategoriesTreeFacet = {
+  id: Scalars['ID'];
+  quantity: Scalars['Int'];
+  name: Maybe<Scalars['String']>;
+  link: Scalars['String'];
+  linkEncoded: Scalars['String'];
+  /** Contains slugified links according to the store structure. /:department/d, /:category/:subcategory, etc */
+  href: Scalars['String'];
+  map: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+  children: Maybe<Array<Maybe<VTEX_CategoriesTreeFacet>>>;
+  selected: Scalars['Boolean'];
+};
+
+export type VTEX_Category = {
+  /**  id is used as cacheId  */
+  cacheId: Maybe<Scalars['ID']>;
+  /**  URI of category  */
+  href: Maybe<Scalars['String']>;
+  /**  Category text link  */
+  slug: Maybe<Scalars['String']>;
+  /**  Category ID  */
+  id: Maybe<Scalars['Int']>;
+  /**  Category name  */
+  name: Maybe<Scalars['String']>;
+  /**  Title used by html tag */
+  titleTag: Maybe<Scalars['String']>;
+  /**  Description used by html tag */
+  hasChildren: Maybe<Scalars['Boolean']>;
+  /**  Has children categories  */
+  metaTagDescription: Maybe<Scalars['String']>;
+  /**  Categories children  */
+  children: Maybe<Array<Maybe<VTEX_Category>>>;
+};
+
+export type VTEX_CheckoutProfile = {
+  userProfileId: Maybe<Scalars['String']>;
+  profileProvider: Maybe<Scalars['String']>;
+  availableAccounts: Array<VTEX_AvailableAccount>;
+  availableAddresses: Array<VTEX_Address>;
+  userProfile: Maybe<VTEX_UserProfile>;
+};
+
+export type VTEX_ClientData = {
+  email: Maybe<Scalars['String']>;
+  firstName: Maybe<Scalars['String']>;
+  lastName: Maybe<Scalars['String']>;
+  document: Maybe<Scalars['String']>;
+  documentType: Maybe<Scalars['String']>;
+  phone: Maybe<Scalars['String']>;
+  corporateName: Maybe<Scalars['String']>;
+  tradeName: Maybe<Scalars['String']>;
+  corporateDocument: Maybe<Scalars['String']>;
+  stateInscription: Maybe<Scalars['String']>;
+  corporatePhone: Maybe<Scalars['String']>;
+  isCorporate: Maybe<Scalars['Boolean']>;
+  profileCompleteOnLoading: Maybe<Scalars['Boolean']>;
+  profileErrorOnLoading: Maybe<Scalars['Boolean']>;
+  customerClass: Maybe<Scalars['String']>;
+  isValid: Scalars['Boolean'];
+};
+
+export type VTEX_ClientPreferencesData = {
+  locale: Maybe<Scalars['String']>;
+  optInNewsletter: Maybe<Scalars['Boolean']>;
+};
+
+export type VTEX_ClientPreferencesDataInput = {
+  optInNewsletter: Maybe<Scalars['Boolean']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+export type VTEX_ClusterHighlight = {
+  id: Maybe<Scalars['ID']>;
+  name: Maybe<Scalars['String']>;
+};
+
+export type VTEX_CompositionItem = {
+  id: Maybe<Scalars['ID']>;
+  minQuantity: Maybe<Scalars['Int']>;
+  maxQuantity: Maybe<Scalars['Int']>;
+  initialQuantity: Maybe<Scalars['Int']>;
+  priceTable: Maybe<Scalars['String']>;
+  seller: Maybe<Scalars['String']>;
+};
+
+export type VTEX_CompositionType = {
+  minQuantity: Maybe<Scalars['Int']>;
+  maxQuantity: Maybe<Scalars['Int']>;
+  items: Maybe<Array<Maybe<VTEX_CompositionItem>>>;
+};
+
+export type VTEX_Correction = {
+  correction: Maybe<VTEX_SearchCorrection>;
+};
+
+export type VTEX_Coupon = {
+  code: Maybe<Scalars['String']>;
+};
+
+export type VTEX_CrossSelingInputEnum = 
+  | 'buy'
+  | 'similars'
+  | 'view'
+  | 'viewAndBought'
+  | 'accessories'
+  | 'suggestions';
+
+export type VTEX_DeliveryOption = {
+  id: Maybe<Scalars['String']>;
+  price: Maybe<Scalars['Int']>;
+  estimate: Maybe<Scalars['String']>;
+  isSelected: Maybe<Scalars['Boolean']>;
+};
+
+export type VTEX_DeliverySlaPerTypes = {
+  TypeName: Maybe<Scalars['String']>;
+  Price: Maybe<Scalars['Float']>;
+  EstimatedTimeSpanToDelivery: Maybe<Scalars['String']>;
+};
+
+export type VTEX_DeliverySlaSamples = {
+  DeliverySlaPerTypes: Maybe<Array<Maybe<VTEX_DeliverySlaPerTypes>>>;
+  Region: Maybe<VTEX_Region>;
+};
+
+export type VTEX_DepartmentFacet = {
+  id: Scalars['ID'];
+  quantity: Scalars['Int'];
+  name: Maybe<Scalars['String']>;
+  link: Scalars['String'];
+  linkEncoded: Scalars['String'];
+  map: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+  selected: Scalars['Boolean'];
+};
+
+/** Discount object */
+export type VTEX_Discount = {
+  /** Discount name */
+  name: Maybe<Scalars['String']>;
+};
+
+export type VTEX_DomainValues = {
+  FieldName: Maybe<Scalars['String']>;
+  MaxCaracters: Maybe<Scalars['String']>;
+  DomainValues: Maybe<Scalars['String']>;
+};
+
+export type VTEX_Facet = {
+  name: Maybe<Scalars['String']>;
+  values: Maybe<Array<Maybe<VTEX_FacetValue>>>;
+  type: Maybe<VTEX_FilterType>;
+  hidden: Maybe<Scalars['Boolean']>;
+};
+
+export type VTEX_Facets = {
+  departments: Maybe<Array<Maybe<VTEX_DepartmentFacet>>>;
+  brands: Maybe<Array<Maybe<VTEX_BrandFacet>>>;
+  specificationFilters: Maybe<Array<Maybe<VTEX_FilterFacets>>>;
+  categoriesTrees: Maybe<Array<Maybe<VTEX_CategoriesTreeFacet>>>;
+  priceRanges: Maybe<Array<Maybe<VTEX_PriceRangesFacet>>>;
+  recordsFiltered: Maybe<Scalars['Int']>;
+  queryArgs: Maybe<VTEX_QueryArgs>;
+  facets: Maybe<Array<Maybe<VTEX_Facet>>>;
+  breadcrumb: Maybe<Array<Maybe<VTEX_SearchBreadcrumb>>>;
+};
+
+export type VTEX_FacetValue = {
+  id: Maybe<Scalars['ID']>;
+  quantity: Scalars['Int'];
+  name: Maybe<Scalars['String']>;
+  key: Maybe<Scalars['String']>;
+  value: Maybe<Scalars['String']>;
+  selected: Maybe<Scalars['Boolean']>;
+  children: Maybe<Array<Maybe<VTEX_FacetValue>>>;
+  range: Maybe<VTEX_Range>;
+  link: Maybe<Scalars['String']>;
+  linkEncoded: Maybe<Scalars['String']>;
+  href: Maybe<Scalars['String']>;
+};
+
+export type VTEX_FilterFacet = {
+  quantity: Scalars['Int'];
+  name: Maybe<Scalars['String']>;
+  link: Scalars['String'];
+  linkEncoded: Scalars['String'];
+  map: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+  selected: Scalars['Boolean'];
+};
+
+export type VTEX_FilterFacets = {
+  name: Maybe<Scalars['String']>;
+  facets: Maybe<Array<Maybe<VTEX_FilterFacet>>>;
+};
+
+export type VTEX_FilterType = 
+  | 'TEXT'
+  | 'NUMBER'
+  | 'CATEGORYTREE'
+  | 'BRAND'
+  | 'PRICERANGE';
+
+export type VTEX_Gift = {
+  productName: Maybe<Scalars['String']>;
+  skuName: Maybe<Scalars['String']>;
+  brand: Maybe<Scalars['String']>;
+  linkText: Maybe<Scalars['String']>;
+  description: Maybe<Scalars['String']>;
+  images: Maybe<Array<Maybe<VTEX_GiftImage>>>;
+};
+
+export type VTEX_GiftImage = {
+  imageUrl: Maybe<Scalars['String']>;
+  imageLabel: Maybe<Scalars['String']>;
+  imageText: Maybe<Scalars['String']>;
+};
+
+export type VTEX_Image = {
+  cacheId: Maybe<Scalars['ID']>;
+  imageId: Maybe<Scalars['ID']>;
+  imageLabel: Maybe<Scalars['String']>;
+  imageTag: Maybe<Scalars['String']>;
+  imageUrl: Maybe<Scalars['String']>;
+  imageText: Maybe<Scalars['String']>;
+};
+
+export type VTEX_ImageUrls = {
+  at1x: Scalars['String'];
+  at2x: Scalars['String'];
+  at3x: Scalars['String'];
+};
+
+export type VTEX_InputValue = {
+  label: Maybe<Scalars['String']>;
+  maxLength: Maybe<Scalars['Int']>;
+  type: Maybe<VTEX_InputValueType>;
+  defaultValue: Maybe<Scalars['VTEX_StringOrBoolean']>;
+  domain: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+export type VTEX_InputValueType = 
+  | 'TEXT'
+  | 'BOOLEAN'
+  | 'OPTIONS';
+
+export type VTEX_Installment = {
+  Value: Maybe<Scalars['Float']>;
+  InterestRate: Maybe<Scalars['Float']>;
+  TotalValuePlusInterestRate: Maybe<Scalars['Float']>;
+  NumberOfInstallments: Maybe<Scalars['Int']>;
+  PaymentSystemName: Maybe<Scalars['String']>;
+  PaymentSystemGroupName: Maybe<Scalars['String']>;
+  Name: Maybe<Scalars['String']>;
+  count: Scalars['Int'];
+  hasInterestRate: Maybe<Scalars['Boolean']>;
+  interestRate: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['Float']>;
+  total: Scalars['Float'];
+};
+
+export type VTEX_InstallmentOption = {
+  paymentSystem: Scalars['String'];
+  bin: Maybe<Scalars['String']>;
+  paymentName: Maybe<Scalars['String']>;
+  paymentGroupName: Maybe<Scalars['String']>;
+  value: Scalars['Float'];
+  installments: Array<VTEX_Installment>;
+};
+
+export type VTEX_InstallmentsCriteria = 
+  | 'MAX_WITHOUT_INTEREST'
+  | 'MAX_WITH_INTEREST'
+  | 'MAX'
+  | 'MIN'
+  | 'ALL';
+
+export type VTEX_IOCacheControlScope = 
+  | 'SEGMENT'
+  | 'PUBLIC'
+  | 'PRIVATE';
+
+
+
+export type VTEX_Item = {
+  additionalInfo: Maybe<VTEX_ItemAdditionalInfo>;
+  assemblyOptions: Maybe<VTEX_AssemblyOptionItem>;
+  availability: Maybe<Scalars['String']>;
+  detailUrl: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  imageUrls: Maybe<VTEX_ImageUrls>;
+  listPrice: Maybe<Scalars['Float']>;
+  measurementUnit: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+  parentAssemblyBinding: Maybe<Scalars['String']>;
+  options: Maybe<Array<Maybe<VTEX_AssemblyOptionType>>>;
+  price: Maybe<Scalars['Float']>;
+  productCategories: Maybe<Scalars['VTEX_productCategoriesObject']>;
+  productCategoryIds: Maybe<Scalars['String']>;
+  productId: Scalars['String'];
+  productRefId: Maybe<Scalars['String']>;
+  quantity: Scalars['Float'];
+  sellingPrice: Maybe<Scalars['Float']>;
+  sellingPriceWithAssemblies: Maybe<Scalars['Float']>;
+  skuName: Maybe<Scalars['String']>;
+  skuSpecifications: Array<VTEX_SKUSpecification>;
+  uniqueId: Scalars['String'];
+  unitMultiplier: Maybe<Scalars['Float']>;
+  refId: Maybe<Scalars['String']>;
+};
+
+export type VTEX_ItemAdditionalInfo = {
+  brandName: Maybe<Scalars['String']>;
+};
+
+export type VTEX_ItemInput = {
+  id: Maybe<Scalars['Int']>;
+  index: Maybe<Scalars['Int']>;
+  quantity: Maybe<Scalars['Float']>;
+  seller: Maybe<Scalars['ID']>;
+  uniqueId: Maybe<Scalars['String']>;
+  inputValues: Maybe<Scalars['VTEX_InputValues']>;
+  options: Maybe<Array<Maybe<VTEX_AssemblyOptionInput>>>;
+};
+
+export type VTEX_ItemMetadata = {
+  items: Maybe<Array<Maybe<VTEX_ItemMetadataUnit>>>;
+  priceTable: Maybe<Array<Maybe<VTEX_ItemPriceTable>>>;
+};
+
+export type VTEX_ItemMetadataUnit = {
+  id: Maybe<Scalars['ID']>;
+  name: Maybe<Scalars['String']>;
+  skuName: Maybe<Scalars['String']>;
+  productId: Maybe<Scalars['String']>;
+  refId: Maybe<Scalars['String']>;
+  ean: Maybe<Scalars['String']>;
+  imageUrl: Maybe<Scalars['String']>;
+  detailUrl: Maybe<Scalars['String']>;
+  seller: Maybe<Scalars['String']>;
+  assemblyOptions: Maybe<Array<Maybe<VTEX_AssemblyOption>>>;
+};
+
+export type VTEX_ItemPriceTable = {
+  type: Maybe<Scalars['String']>;
+  values: Maybe<Array<Maybe<VTEX_PriceTableItem>>>;
+};
+
+export type VTEX_Items = {
+  thumb: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+  href: Maybe<Scalars['String']>;
+  criteria: Maybe<Scalars['String']>;
+  slug: Maybe<Scalars['String']>;
+  productId: Maybe<Scalars['String']>;
+};
+
+export type VTEX_ItemsFilter = 
+  /** Returns all items, same as no filter. */
+  | 'ALL'
+  /** Returns only the first available item. Returns first if no item is available. */
+  | 'FIRST_AVAILABLE'
+  /** Returns all available items. Returns first if no item is available. */
+  | 'ALL_AVAILABLE';
+
+export type VTEX_KitItem = {
+  itemId: Maybe<Scalars['ID']>;
+  amount: Maybe<Scalars['Int']>;
+  product: Maybe<VTEX_OnlyProduct>;
+  sku: Maybe<VTEX_SKU>;
+};
+
+export type VTEX_MarketingData = {
+  utmCampaign: Maybe<Scalars['String']>;
+  utmMedium: Maybe<Scalars['String']>;
+  utmSource: Maybe<Scalars['String']>;
+  utmiCampaign: Maybe<Scalars['String']>;
+  utmiPart: Maybe<Scalars['String']>;
+  utmiPage: Maybe<Scalars['String']>;
+  coupon: Maybe<Scalars['String']>;
+};
+
+export type VTEX_MarketingDataInput = {
+  utmCampaign: Maybe<Scalars['String']>;
+  utmMedium: Maybe<Scalars['String']>;
+  utmSource: Maybe<Scalars['String']>;
+  utmiCampaign: Maybe<Scalars['String']>;
+  utmiPart: Maybe<Scalars['String']>;
+  utmiPage: Maybe<Scalars['String']>;
+};
+
+export type VTEX_Message = {
+  code: Maybe<Scalars['String']>;
+  status: Maybe<Scalars['String']>;
+  text: Maybe<Scalars['String']>;
+};
+
+export type VTEX_Offer = {
+  Installments: Maybe<Array<Maybe<VTEX_Installment>>>;
+  Price: Maybe<Scalars['Float']>;
+  ListPrice: Maybe<Scalars['Float']>;
+  spotPrice: Maybe<Scalars['Float']>;
+  PriceWithoutDiscount: Maybe<Scalars['Float']>;
+  RewardValue: Maybe<Scalars['Float']>;
+  PriceValidUntil: Maybe<Scalars['String']>;
+  AvailableQuantity: Maybe<Scalars['Float']>;
+  Tax: Maybe<Scalars['Float']>;
+  taxPercentage: Maybe<Scalars['Float']>;
+  CacheVersionUsedToCallCheckout: Maybe<Scalars['String']>;
+  DeliverySlaSamples: Maybe<Array<Maybe<VTEX_DeliverySlaSamples>>>;
+  /** List of discount highlights */
+  discountHighlights: Maybe<Array<VTEX_Discount>>;
+  teasers: Maybe<Array<VTEX_Teaser>>;
+  /** List of SKUs for gifts associated with the product */
+  giftSkuIds: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** List of gifts associated with the product */
+  gifts: Maybe<Array<Maybe<VTEX_Gift>>>;
+};
+
+
+export type VTEX_OfferInstallmentsArgs = {
+  criteria?: Maybe<VTEX_InstallmentsCriteria>;
+  rates?: Maybe<Scalars['Boolean']>;
+};
+
+export type VTEX_OnlyProduct = {
+  brand: Maybe<Scalars['String']>;
+  categoryId: Maybe<Scalars['ID']>;
+  categoryTree: Maybe<Array<Maybe<VTEX_Category>>>;
+  clusterHighlights: Maybe<Array<Maybe<VTEX_ClusterHighlight>>>;
+  productClusters: Maybe<Array<Maybe<VTEX_ProductClusters>>>;
+  description: Maybe<Scalars['String']>;
+  link: Maybe<Scalars['String']>;
+  linkText: Maybe<Scalars['String']>;
+  productId: Maybe<Scalars['ID']>;
+  productName: Maybe<Scalars['String']>;
+  properties: Maybe<Array<Maybe<VTEX_Property>>>;
+  propertyGroups: Maybe<Array<Maybe<VTEX_PropertyGroup>>>;
+  productReference: Maybe<Scalars['String']>;
+  recommendations: Maybe<VTEX_Recommendation>;
+  jsonSpecifications: Maybe<Scalars['String']>;
+};
+
+export type VTEX_Operator = 
+  | 'and'
+  | 'or';
+
+export type VTEX_OrderForm = {
+  id: Scalars['ID'];
+  items: Array<VTEX_Item>;
+  canEditData: Scalars['Boolean'];
+  loggedIn: Scalars['Boolean'];
+  userProfileId: Maybe<Scalars['String']>;
+  userType: Maybe<VTEX_UserType>;
+  shipping: VTEX_Shipping;
+  marketingData: VTEX_MarketingData;
+  totalizers: Array<Maybe<VTEX_Totalizer>>;
+  value: Scalars['Float'];
+  messages: VTEX_OrderFormMessages;
+  paymentData: VTEX_PaymentData;
+  clientProfileData: Maybe<VTEX_ClientData>;
+  clientPreferencesData: Maybe<VTEX_ClientPreferencesData>;
+};
+
+export type VTEX_OrderFormMessages = {
+  couponMessages: Array<Maybe<VTEX_Message>>;
+  generalMessages: Array<Maybe<VTEX_Message>>;
+};
+
+export type VTEX_PageEntityIdentifier = 
+  | 'brand'
+  | 'department'
+  | 'category'
+  | 'subcategory'
+  | 'search';
+
+export type VTEX_PageType = {
+  id: Maybe<Scalars['String']>;
+  type: Maybe<VTEX_PageEntityIdentifier>;
+};
+
+export type VTEX_Payment = {
+  paymentSystem: Maybe<Scalars['String']>;
+  bin: Maybe<Scalars['String']>;
+  accountId: Maybe<Scalars['String']>;
+  tokenId: Maybe<Scalars['String']>;
+  installments: Maybe<Scalars['Int']>;
+  referenceValue: Maybe<Scalars['Float']>;
+  value: Maybe<Scalars['Float']>;
+};
+
+export type VTEX_PaymentData = {
+  installmentOptions: Array<VTEX_InstallmentOption>;
+  paymentSystems: Array<VTEX_PaymentSystem>;
+  payments: Array<VTEX_Payment>;
+  availableAccounts: Array<VTEX_AvailableAccount>;
+  isValid: Scalars['Boolean'];
+};
+
+export type VTEX_PaymentDataInput = {
+  payments: Array<VTEX_PaymentInput>;
+};
+
+export type VTEX_PaymentInput = {
+  hasDefaultBillingAddress: Maybe<Scalars['Boolean']>;
+  installmentsInterestRate: Maybe<Scalars['Int']>;
+  paymentSystem: Maybe<Scalars['String']>;
+  bin: Maybe<Scalars['String']>;
+  accountId: Maybe<Scalars['String']>;
+  tokenId: Maybe<Scalars['String']>;
+  installments: Maybe<Scalars['Int']>;
+  referenceValue: Maybe<Scalars['Int']>;
+  value: Maybe<Scalars['Int']>;
+};
+
+export type VTEX_PaymentSystem = {
+  id: Scalars['String'];
+  name: Scalars['String'];
+  groupName: Scalars['String'];
+  validator: Maybe<VTEX_Validator>;
+  stringId: Scalars['String'];
+  requiresDocument: Scalars['Boolean'];
+  isCustom: Scalars['Boolean'];
+  description: Maybe<Scalars['String']>;
+  requiresAuthentication: Maybe<Scalars['Boolean']>;
+  dueDate: Maybe<Scalars['String']>;
+};
+
+export type VTEX_PaymentToken = {
+  creditCardToken: Scalars['String'];
+  paymentSystem: Scalars['String'];
+};
+
+export type VTEX_PriceRange = {
+  highPrice: Maybe<Scalars['Float']>;
+  lowPrice: Maybe<Scalars['Float']>;
+};
+
+export type VTEX_PriceRangesFacet = {
+  quantity: Scalars['Int'];
+  name: Maybe<Scalars['String']>;
+  link: Scalars['String'];
+  linkEncoded: Scalars['String'];
+  map: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+  selected: Scalars['Boolean'];
+  slug: Maybe<Scalars['String']>;
+};
+
+export type VTEX_PriceTableItem = {
+  id: Maybe<Scalars['String']>;
+  assemblyId: Maybe<Scalars['String']>;
+  price: Maybe<Scalars['Int']>;
+};
+
+export type VTEX_Product = {
+  /** Brand of the product */
+  brand: Maybe<Scalars['String']>;
+  /** Id of the brand of the product */
+  brandId: Maybe<Scalars['Int']>;
+  /** linkText is used as cacheId */
+  cacheId: Maybe<Scalars['ID']>;
+  categoryId: Maybe<Scalars['ID']>;
+  /**
+   * Categories of the product
+   * @deprecated Use 'categoryTree' field for internationalization support
+   */
+  categories: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** Product's categories */
+  categoryTree: Maybe<Array<Maybe<VTEX_Category>>>;
+  /** List of related products */
+  clusterHighlights: Maybe<Array<Maybe<VTEX_ClusterHighlight>>>;
+  productClusters: Maybe<Array<Maybe<VTEX_ProductClusters>>>;
+  /** Product description */
+  description: Maybe<Scalars['String']>;
+  /** SKU objects of the product */
+  items: Maybe<Array<Maybe<VTEX_SKU>>>;
+  /** List of SKU Specifications */
+  skuSpecifications: Maybe<Array<Maybe<VTEX_SkuSpecification>>>;
+  /** Product URL */
+  link: Maybe<Scalars['String']>;
+  /** Product slug */
+  linkText: Maybe<Scalars['String']>;
+  /** Product ID */
+  productId: Maybe<Scalars['ID']>;
+  /** Product name */
+  productName: Maybe<Scalars['String']>;
+  /** Array of product properties */
+  properties: Maybe<Array<Maybe<VTEX_Property>>>;
+  /** Array of product properties */
+  propertyGroups: Maybe<Array<Maybe<VTEX_PropertyGroup>>>;
+  /** Product reference */
+  productReference: Maybe<Scalars['String']>;
+  /** Title used by html tag */
+  titleTag: Maybe<Scalars['String']>;
+  /** Description used by html tag */
+  metaTagDescription: Maybe<Scalars['String']>;
+  /** Related Products */
+  recommendations: Maybe<VTEX_Recommendation>;
+  /** JSON specification of the product */
+  jsonSpecifications: Maybe<Scalars['String']>;
+  /** List of benefits associated with this product */
+  benefits: Maybe<Array<Maybe<VTEX_Benefit>>>;
+  itemMetadata: Maybe<VTEX_ItemMetadata>;
+  /** Array of product SpecificationGroup */
+  specificationGroups: Maybe<Array<Maybe<VTEX_SpecificationGroup>>>;
+  /** Returns highest and lowest prices for available SKUs in product. */
+  priceRange: Maybe<VTEX_ProductPriceRange>;
+  /** Product Release Date, for list ordering and product cluster highlight */
+  releaseDate: Maybe<Scalars['String']>;
+  /** Product properties that will be selected by default. e.g: {key: "Color", value: "Blue"} */
+  selectedProperties: Maybe<Array<Maybe<VTEX_SelectedProperty>>>;
+};
+
+
+export type VTEX_ProductitemsArgs = {
+  filter: Maybe<VTEX_ItemsFilter>;
+};
+
+
+export type VTEX_ProductClusters = {
+  id: Maybe<Scalars['ID']>;
+  name: Maybe<Scalars['String']>;
+};
+
+export type VTEX_ProductPriceRange = {
+  sellingPrice: Maybe<VTEX_PriceRange>;
+  listPrice: Maybe<VTEX_PriceRange>;
+};
+
+export type VTEX_ProductSearch = {
+  products: Maybe<Array<Maybe<VTEX_Product>>>;
+  recordsFiltered: Maybe<Scalars['Int']>;
+  titleTag: Maybe<Scalars['String']>;
+  metaTagDescription: Maybe<Scalars['String']>;
+  breadcrumb: Maybe<Array<Maybe<VTEX_SearchBreadcrumb>>>;
+  canonical: Maybe<Scalars['String']>;
+  suggestion: Maybe<VTEX_SearchSuggestions>;
+  correction: Maybe<VTEX_SearchCorrection>;
+  operator: Maybe<VTEX_Operator>;
+  fuzzy: Maybe<Scalars['String']>;
+  searchState: Maybe<Scalars['String']>;
+  banners: Maybe<Array<Maybe<VTEX_SearchBanner>>>;
+  redirect: Maybe<Scalars['String']>;
+};
+
+export type VTEX_productSpecification = {
+  fieldName: Maybe<Scalars['String']>;
+  fieldValues: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type VTEX_ProductSuggestions = {
+  /** Number of suggested products */
+  count: Scalars['Int'];
+  /** Suggested products */
+  products: Array<Maybe<VTEX_Product>>;
+};
+
+export type VTEX_ProductUniqueIdentifier = {
+  field: VTEX_ProductUniqueIdentifierField;
+  value: Scalars['ID'];
+};
+
+export type VTEX_ProductUniqueIdentifierField = 
+  | 'id'
+  | 'slug'
+  | 'ean'
+  | 'reference'
+  | 'sku';
+
+export type VTEX_Property = {
+  name: Maybe<Scalars['String']>;
+  values: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type VTEX_PropertyGroup = {
+  name: Maybe<Scalars['String']>;
+  properties: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type VTEX_QueryArgs = {
+  map: Maybe<Scalars['String']>;
+  query: Maybe<Scalars['String']>;
+  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacet>>>;
+};
+
+export type VTEX_Range = {
+  from: Maybe<Scalars['Float']>;
+  to: Maybe<Scalars['Float']>;
+};
+
+export type VTEX_Recommendation = {
+  buy: Maybe<Array<Maybe<VTEX_Product>>>;
+  view: Maybe<Array<Maybe<VTEX_Product>>>;
+  similars: Maybe<Array<Maybe<VTEX_Product>>>;
+};
+
+export type VTEX_Reference = {
+  Key: Maybe<Scalars['String']>;
+  Value: Maybe<Scalars['String']>;
+};
+
+export type VTEX_Region = {
+  IsPersisted: Maybe<Scalars['Boolean']>;
+  IsRemoved: Maybe<Scalars['Boolean']>;
+  Id: Maybe<Scalars['ID']>;
+  Name: Maybe<Scalars['String']>;
+  CountryCode: Maybe<Scalars['String']>;
+  ZipCode: Maybe<Scalars['String']>;
+  CultureInfoName: Maybe<Scalars['String']>;
+};
+
+export type VTEX_RemovedOptionItem = {
+  initialQuantity: Maybe<Scalars['Int']>;
+  removedQuantity: Maybe<Scalars['Int']>;
+  name: Maybe<Scalars['String']>;
+};
+
+export type VTEX_SavePaymentTokenPayload = {
+  status: Maybe<Scalars['String']>;
+};
+
+export type VTEX_SearchBanner = {
+  id: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+  area: Maybe<Scalars['String']>;
+  html: Maybe<Scalars['String']>;
+};
+
+export type VTEX_SearchBreadcrumb = {
+  name: Maybe<Scalars['String']>;
+  href: Maybe<Scalars['String']>;
+};
+
+export type VTEX_SearchCorrection = {
+  text: Maybe<Scalars['String']>;
+  highlighted: Maybe<Scalars['String']>;
+  misspelled: Maybe<Scalars['Boolean']>;
+  correction: Maybe<Scalars['Boolean']>;
+};
+
+export type VTEX_SearchMetadata = {
+  titleTag: Maybe<Scalars['String']>;
+  metaTagDescription: Maybe<Scalars['String']>;
+};
+
+export type VTEX_SearchSuggestion = {
+  term: Scalars['String'];
+  count: Scalars['Int'];
+  attributes: Maybe<Array<Maybe<VTEX_SearchSuggestionAttribute>>>;
+};
+
+export type VTEX_SearchSuggestionAttribute = {
+  key: Scalars['String'];
+  value: Scalars['String'];
+  labelValue: Scalars['String'];
+};
+
+export type VTEX_SearchSuggestions = {
+  searches: Maybe<Array<Maybe<VTEX_SearchSuggestion>>>;
+};
+
+export type VTEX_SearchURLStats = {
+  path: Scalars['String'];
+  count: Scalars['Int'];
+};
+
+export type VTEX_SelectedFacet = {
+  key: Maybe<Scalars['String']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type VTEX_SelectedFacetInput = {
+  key: Maybe<Scalars['String']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type VTEX_SelectedProperty = {
+  key: Maybe<Scalars['String']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type VTEX_Seller = {
+  sellerId: Maybe<Scalars['ID']>;
+  sellerName: Maybe<Scalars['String']>;
+  addToCartLink: Maybe<Scalars['String']>;
+  sellerDefault: Maybe<Scalars['Boolean']>;
+  commertialOffer: Maybe<VTEX_Offer>;
+};
+
+export type VTEX_Shipping = {
+  countries: Maybe<Array<Maybe<Scalars['String']>>>;
+  deliveryOptions: Maybe<Array<Maybe<VTEX_DeliveryOption>>>;
+  selectedAddress: Maybe<VTEX_Address>;
+  availableAddresses: Maybe<Array<Maybe<VTEX_Address>>>;
+  isValid: Scalars['Boolean'];
+};
+
+export type VTEX_SimulationBehavior = 
+  /** Does simulation on catalog as usual */
+  | 'default'
+  /** Calls catalog passing a parameter to not simulate each SKU and get its most up to date price. */
+  | 'skip';
+
+export type VTEX_SKU = {
+  itemId: Maybe<Scalars['ID']>;
+  name: Maybe<Scalars['String']>;
+  nameComplete: Maybe<Scalars['String']>;
+  complementName: Maybe<Scalars['String']>;
+  ean: Maybe<Scalars['String']>;
+  referenceId: Maybe<Array<Maybe<VTEX_Reference>>>;
+  measurementUnit: Maybe<Scalars['String']>;
+  unitMultiplier: Maybe<Scalars['Float']>;
+  kitItems: Maybe<Array<Maybe<VTEX_KitItem>>>;
+  images: Maybe<Array<Maybe<VTEX_Image>>>;
+  videos: Maybe<Array<Maybe<VTEX_Video>>>;
+  sellers: Maybe<Array<Maybe<VTEX_Seller>>>;
+  variations: Maybe<Array<Maybe<VTEX_Property>>>;
+  /** @deprecated Use itemMetaData instead */
+  attachments: Maybe<Array<Maybe<VTEX_Attachment>>>;
+  estimatedDateArrival: Maybe<Scalars['String']>;
+};
+
+
+export type VTEX_SKUimagesArgs = {
+  quantity: Maybe<Scalars['Int']>;
+};
+
+export type VTEX_SkuSpecification = {
+  field: Maybe<VTEX_SKUSpecificationField>;
+  values: Maybe<Array<Maybe<VTEX_SKUSpecificationValue>>>;
+};
+
+export type VTEX_SKUSpecification = {
+  fieldName: Maybe<Scalars['String']>;
+  fieldValues: Array<Maybe<Scalars['String']>>;
+};
+
+export type VTEX_SKUSpecificationField = {
+  originalName: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+};
+
+export type VTEX_SKUSpecificationValue = {
+  originalName: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+};
+
+export type VTEX_SORT = 
+  | 'ASC'
+  | 'DESC';
+
+export type VTEX_SpecificationGroup = {
+  originalName: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+  specifications: Maybe<Array<Maybe<VTEX_SpecificationGroupProperty>>>;
+};
+
+export type VTEX_SpecificationGroupProperty = {
+  originalName: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+  values: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+export type VTEX_Suggestions = {
+  /**  searchTerm from Query autocomplete is used as cacheId  */
+  cacheId: Maybe<Scalars['ID']>;
+  itemsReturned: Maybe<Array<Maybe<VTEX_Items>>>;
+};
+
+export type VTEX_Teaser = {
+  name: Maybe<Scalars['String']>;
+  conditions: Maybe<VTEX_TeaserCondition>;
+  effects: Maybe<VTEX_TeaserEffects>;
+};
+
+export type VTEX_TeaserCondition = {
+  minimumQuantity: Maybe<Scalars['Int']>;
+  parameters: Maybe<Array<Maybe<VTEX_TeaserValue>>>;
+};
+
+export type VTEX_TeaserEffects = {
+  parameters: Maybe<Array<Maybe<VTEX_TeaserValue>>>;
+};
+
+export type VTEX_TeaserValue = {
+  name: Maybe<Scalars['String']>;
+  value: Maybe<Scalars['String']>;
+};
+
+export type VTEX_Totalizer = {
+  id: Scalars['String'];
+  name: Maybe<Scalars['String']>;
+  value: Scalars['Float'];
+};
+
+
+export type VTEX_UserProfile = {
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  document: Maybe<Scalars['String']>;
+  documentType: Maybe<Scalars['String']>;
+  phone: Maybe<Scalars['String']>;
+  corporateName: Maybe<Scalars['String']>;
+  tradeName: Maybe<Scalars['String']>;
+  corporateDocument: Maybe<Scalars['String']>;
+  stateInscription: Maybe<Scalars['String']>;
+  corporatePhone: Maybe<Scalars['String']>;
+  isCorporate: Scalars['Boolean'];
+  profileCompleteOnLoading: Maybe<Scalars['String']>;
+  profileErrorOnLoading: Maybe<Scalars['String']>;
+  customerClass: Maybe<Scalars['String']>;
+};
+
+export type VTEX_UserProfileInput = {
+  email: Maybe<Scalars['String']>;
+  firstName: Maybe<Scalars['String']>;
+  lastName: Maybe<Scalars['String']>;
+  document: Maybe<Scalars['String']>;
+  phone: Maybe<Scalars['String']>;
+  documentType: Maybe<Scalars['String']>;
+  isCorporate: Maybe<Scalars['Boolean']>;
+  corporateName: Maybe<Scalars['String']>;
+  tradeName: Maybe<Scalars['String']>;
+  corporateDocument: Maybe<Scalars['String']>;
+  stateInscription: Maybe<Scalars['String']>;
+};
+
+export type VTEX_UserType = 
+  | 'CALL_CENTER_OPERATOR'
+  | 'STORE_USER';
+
+export type VTEX_Validator = {
+  regex: Maybe<Scalars['String']>;
+  mask: Maybe<Scalars['String']>;
+  cardCodeRegex: Maybe<Scalars['String']>;
+  cardCodeMask: Maybe<Scalars['String']>;
+  weights: Maybe<Array<Maybe<Scalars['Int']>>>;
+  useCvv: Maybe<Scalars['Boolean']>;
+  useExpirationDate: Maybe<Scalars['Boolean']>;
+  useCardHolderName: Maybe<Scalars['Boolean']>;
+  useBillingAddress: Maybe<Scalars['Boolean']>;
+};
+
+export type VTEX_Video = {
+  videoUrl: Maybe<Scalars['String']>;
+};
+
 export type ProductPageQueryQueryVariables = Exact<{
   slug: Maybe<Scalars['String']>
   staticPath: Scalars['Boolean']

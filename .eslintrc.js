@@ -23,6 +23,7 @@ module.exports = {
         '@typescript-eslint/camelcase': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         'no-await-in-loop': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
       },
     },
     // Override for .ts components only

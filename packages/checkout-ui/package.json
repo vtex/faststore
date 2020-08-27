@@ -1,0 +1,37 @@
+{
+  "name": "@vtex/checkout-ui",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/vtex/faststore.git",
+  "license": "MIT",
+  "scripts": {
+    "develop": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "prepare": "tsdx build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@vtex/store-ui": "^0.37.0",
+    "react": "^16.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^5.3.19",
+    "@types/react": "^16.9.27",
+    "@types/react-dom": "^16.9.7",
+    "@vtex/store-ui": "^0.37.0",
+    "@vtex/tsconfig": "^0.5.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^3.4.1",
+    "ts-loader": "^8.0.1",
+    "tsdx": "^0.13.2",
+    "typescript": "^3.9.6"
+  }
+}
