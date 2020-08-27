@@ -11,10 +11,10 @@ interface Item {
 }
 
 interface Props {
-  items: Item[]
+  items?: Item[]
 }
 
-const Carousel: FC<Props> = ({ items }) => {
+const Carousel: FC<Props> = ({ items = [] }) => {
   const [index, setIndex] = useState(0)
   const lastIndex = items.length - 1
   const height = 450
