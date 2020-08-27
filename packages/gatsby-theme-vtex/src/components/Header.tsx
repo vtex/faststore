@@ -1,6 +1,6 @@
 import { Flex, Header, Input } from '@vtex/store-ui'
 import React, { Fragment } from 'react'
-// import { useLocalizationIntl } from '@vtex/gatsby-plugin-i18n'
+import { useLocalizationIntl } from '@vtex/gatsby-plugin-i18n'
 
 import Logo from './Logo'
 import Menu from './Menu'
@@ -10,12 +10,12 @@ import OverMenu from './OverMenu'
 
 const StoreHeader = () => {
   const variant = 'header'
-  // const { formatMessage } = useLocalizationIntl()
+  const { formatMessage } = useLocalizationIntl()
 
   return (
     <Fragment>
       <NotificationBar
-        // text={formatMessage({ id: 'notification-bar.sale' })}
+        text={formatMessage({ id: 'notification-bar.sale' })}
         variant={`${variant}.notificationbar`}
       />
       <OverMenu variant={`${variant}.overmenu`} />
