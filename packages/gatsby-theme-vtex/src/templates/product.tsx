@@ -83,6 +83,10 @@ export const query = graphql`
         ...ProductDetailsTemplate_product
         productId
         description
+        categoryTree {
+          name
+          href
+        }
         items {
           itemId
         }
