@@ -7,7 +7,7 @@ const memoizedConstructor = memoizeFormatConstructor(Intl.NumberFormat)
 
 export const useNumberFormat = () => {
   const [currency] = useCurrency()
-  const [locale] = useLocale()
+  const locale = useLocale()
   const numberFormat = memoizedConstructor(locale, {
     currency,
     style: 'currency',
