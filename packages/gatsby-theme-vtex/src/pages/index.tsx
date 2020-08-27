@@ -44,9 +44,9 @@ const Home: FC<Props> = ({ data }) => {
       <Container>
         <Shelf products={data.vtex.productSearch!.products!} />
       </Container>
-      <SuspenseDelay fallback={null}>
+      {/* <SuspenseDelay fallback={null}>
         <Fold />
-      </SuspenseDelay>
+      </SuspenseDelay> */}
     </Layout>
   )
 }
