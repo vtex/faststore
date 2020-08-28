@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { Link } from 'gatsby'
 import {
   Container,
   Heading,
@@ -7,7 +8,6 @@ import {
   Flex,
   Box,
   Button,
-  Link,
 } from '@vtex/store-ui'
 import {
   ProductList,
@@ -84,7 +84,7 @@ const CartPage: FC = () => {
                   variant="secondary"
                   as={Link}
                   // @ts-ignore
-                  href="/"
+                  to="/"
                 >
                   Choose Products
                 </Button>
@@ -173,6 +173,9 @@ const CartPage: FC = () => {
                 variant="secondary"
                 ml="auto"
                 sx={{ textTransform: 'uppercase' }}
+                as={Link}
+                // @ts-ignore
+                to="/"
               >
                 Continue Shopping
               </Button>

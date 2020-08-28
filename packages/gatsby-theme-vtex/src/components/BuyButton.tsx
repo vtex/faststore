@@ -26,11 +26,11 @@ export interface Props {
 const BuyButton: FC<Props> = ({ sku }) => {
   const seller = useBestSeller(sku)
   const { orderForm, addItems } = useOrderForm()
-  const disabled = !sku || !orderForm?.value
+  const disabled = !sku || !orderForm
   const { formatMessage } = useIntl()
 
   // Optimist add item on click
-  const addItemOnClick = async (e: any) => {
+  const handleButtonClick = async (e: any) => {
     e.preventDefault()
 
     if (!sku || !seller) {
@@ -52,7 +52,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
       sx={{ width: '100%' }}
       disabled={disabled}
       variant="primary"
-      onClick={addItemOnClick}
+      onClick={handleButtonClick}
     >
       {formatMessage({ id: 'buy-button.add-to-cart' })}
     </Button>
