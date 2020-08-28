@@ -13,14 +13,11 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "react": "^0.0.0-experimental-7f28234f8",
-    "react-dom": "^0.0.0-experimental-7f28234f8",
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
     "gatsby": "^2.21.26",
-    "react": "^0.0.0-experimental-7f28234f8",
-    "react-dom": "^0.0.0-experimental-7f28234f8"
+    "react": "*"
   },
   "dependencies": {
     "@formatjs/cli": "^2.7.7",
