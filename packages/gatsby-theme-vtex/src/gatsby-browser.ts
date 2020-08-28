@@ -1,4 +1,4 @@
-import { WrapRootElementBrowserArgs, WrapPageElementBrowserArgs } from 'gatsby'
+import { WrapRootElementBrowserArgs } from 'gatsby'
 import { createElement, ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import 'requestidlecallback-polyfill'
@@ -38,7 +38,7 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
 export const wrapPageElement = ({
   element,
   props: { location },
-}: WrapPageElementBrowserArgs) =>
+}: WrapRootElementBrowserArgs) =>
   createElement(Progress, { children: element, location })
 
 export const onRouteUpdate = () => {
