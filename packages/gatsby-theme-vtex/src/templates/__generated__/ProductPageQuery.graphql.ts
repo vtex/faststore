@@ -22,14 +22,14 @@ export type ProductPageQueryQueryVariables = Exact<{
 }>;
 
 
-export type ProductPageQueryQuery = { vtex: { product: Maybe<{ productName: Maybe<string>, linkText: Maybe<string>, productId: Maybe<string>, description: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ sellerId: Maybe<string>, commertialOffer: Maybe<{ AvailableQuantity: Maybe<number>, Price: Maybe<number> }> }>>> }>>> }> } };
+export type ProductPageQueryQuery = { vtex: { product: Maybe<{ productName: Maybe<string>, linkText: Maybe<string>, productId: Maybe<string>, description: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ sellerId: Maybe<string>, commertialOffer: Maybe<{ AvailableQuantity: Maybe<number>, Price: Maybe<number> }> }>>> }>>>, categoryTree: Maybe<Array<Maybe<{ name: Maybe<string>, href: Maybe<string> }>>> }> } };
 
 
 // Query Related Code
 
 export const ProductPageQuery = {
-  query: "query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n          }\n        }\n        itemId\n      }\n      productId\n      description\n    }\n  }\n}\n",
-  sha256Hash: "74ddc4a76d3d889619d2297732906aaed52317aa2ea5db935ce472a503621194",
+  query: undefined,
+  sha256Hash: "56c9480dc8bf20f79bcf3f6bee72acd67d2b89d8246275db0d8b7e04e36ad40e",
   operationName: "ProductPageQuery",
 }
 
