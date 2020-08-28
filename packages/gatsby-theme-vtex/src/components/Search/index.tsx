@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { Flex, Breadcrumb, jsx, Box, NavigationItem } from '@vtex/store-ui'
-import { FC, lazy, useMemo } from 'react'
+import { Flex, Breadcrumb, BreadcrumbItem, jsx, Box } from '@vtex/store-ui'
+import { FC, lazy } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import PageList from './PageList'
@@ -16,16 +16,14 @@ interface Props {
 }
 
 const SearchTemplate: FC<Props> = ({ data }) => {
-  const breadcrumb = useMemo(
-    () => (data.vtex.productSearch!.breadcrumb! || []) as NavigationItem[],
-    [data]
-  )
+  const breadcrumb = (data.vtex.productSearch?.breadcrumb ??
+    []) as BreadcrumbItem[]
 
   return (
     <Container>
       <SEO title={data.vtex.productSearch!.titleTag!} />
       <Flex sx={{ flexDirection: 'column' }} my={4}>
-        <Breadcrumb breadcrumb={breadcrumb} />
+        <Breadcrumb breadcrumb={breadcrumb} type="SEARCH" />
 
         <div
           sx={{
