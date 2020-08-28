@@ -5,10 +5,10 @@ import { useResponsiveValue } from '@theme-ui/match-media'
 import { ProductSummary } from '../ProductSummary'
 import ArrowLeft from './ArrowLeft'
 import ArrowRight from './ArrowRight'
-import { ProductSummary_SyncProductFragment } from '../__generated__/ProductSummary_syncProduct.graphql'
+import { ProductSummary_syncProductFragment } from '../__generated__/ProductSummary_syncProduct.graphql'
 
 interface Props {
-  products: Array<ProductSummary_SyncProductFragment | undefined | null>
+  products: Array<ProductSummary_syncProductFragment | undefined | null>
 }
 
 const ARROW_SIZES = [25, 50]

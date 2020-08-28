@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import { FC, lazy } from 'react'
 import { Card, Grid, Heading, Breadcrumb, Flex, jsx } from '@vtex/store-ui'
 
-import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductDetailsTemplate_product.graphql'
+import { ProductDetailsTemplate_productFragment } from './__generated__/ProductDetailsTemplate_product.graphql'
 import OfferPreview from '../Offer/Preview'
 import ProductDetailsImage from '../ProductDetailsImage'
 import SEO from '../SEO/ProductDetails'
@@ -14,7 +14,7 @@ import Container from '../Container'
 const AsyncOffer = lazy(() => import('../Offer/Async'))
 
 interface Props {
-  product: ProductDetailsTemplate_ProductFragment
+  product: ProductDetailsTemplate_productFragment
 }
 
 const ProductDetailsTemplate: FC<Props> = ({ product }) => {

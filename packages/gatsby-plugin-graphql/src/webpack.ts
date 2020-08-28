@@ -40,16 +40,6 @@ const wrapTypes = (types: string, node: QueryNode | null) => `
  * Changes in this file won't take effect and will be overwritten
  */
 
-// Base Types
-${typeScriptPlugin.EXACT_SIGNATURE}
-type Maybe<T> = T | null | undefined
-type Scalars = {
-  Boolean: boolean
-  String: string
-  Float: number
-  Int: number
-}
-
 // Operation related types
 ${types}
 
@@ -91,10 +81,12 @@ export class WebpackPlugin {
         const types = await codegen({
           config: {
             preResolveTypes: true,
+            onlyOperationTypes: true,
             avoidOptionals: true,
             enumsAsTypes: true,
             skipTypeNameForRoot: true,
             skipTypename: true,
+            namingConvention: 'keep',
           },
           documents: [{ document: parse(value) }],
           // used by a plugin internally, although the 'typescript' plugin currently
@@ -105,9 +97,13 @@ export class WebpackPlugin {
           // Plugins to use
           pluginMap: {
             typeScriptOperations: typeScriptOperationsPlugin,
+            typeScript: typeScriptPlugin,
           },
           // Plugins configurations
           plugins: [
+            {
+              typeScript: {},
+            },
             {
               typeScriptOperations: {},
             },

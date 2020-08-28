@@ -37,10 +37,10 @@ export const toggleItem = (item: SearchFilterItem, filters: SearchFilters) => {
     )
 
     splittedQuery?.splice(index!, 1)
-    query = splittedQuery?.join('/')
+    query = splittedQuery?.join('/') ?? null
 
     splittedMap?.splice(index!, 1)
-    map = splittedMap?.join(',')
+    map = splittedMap?.join(',') ?? null
   } else {
     query = `${query!}/${value}`
     map = `${map},${key}`

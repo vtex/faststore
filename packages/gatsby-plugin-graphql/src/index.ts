@@ -13,7 +13,7 @@ export interface RequestOptions<V extends any = any> {
   query?: string
   sha256Hash: string
   operationName: string
-  variables: V
+  variables?: V
   fetchOptions?: RequestInit
 }
 
@@ -59,6 +59,7 @@ export const request = async <V extends any = any, D extends any = any>(
   const response = await fetch(url, {
     method,
     body,
+    credentials: 'include',
     ...fetchOptions,
   })
 

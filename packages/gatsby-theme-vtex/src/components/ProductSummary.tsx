@@ -3,14 +3,14 @@ import { graphql } from 'gatsby'
 import { FC } from 'react'
 import { Card, Heading, jsx, LocalizedLink } from '@vtex/store-ui'
 
-import { ProductSummary_SyncProductFragment } from './__generated__/ProductSummary_syncProduct.graphql'
+import { ProductSummary_syncProductFragment } from './__generated__/ProductSummary_syncProduct.graphql'
 import BuyButton from './BuyButton'
 import OfferPreview from './Offer/Preview'
 import SyncOffer from './Offer/Sync'
 import ProductSummaryImage from './ProductSummaryImage'
 
 interface Props {
-  product: ProductSummary_SyncProductFragment
+  product: ProductSummary_syncProductFragment
   loading?: 'lazy' | 'eager'
 }
 

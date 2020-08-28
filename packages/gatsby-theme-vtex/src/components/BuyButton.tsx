@@ -44,7 +44,7 @@ const BuyButton: FC<Props> = ({ sku }) => {
       seller: seller.sellerId,
     }
 
-    addItems([orderFormItem]).catch(console.error)
+    addItems?.([orderFormItem]).catch(console.error)
   }
 
   return (

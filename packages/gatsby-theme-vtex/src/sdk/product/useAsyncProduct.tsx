@@ -3,15 +3,15 @@ import { useMemo } from 'react'
 
 import {
   useAsyncProductQuery,
-  UseAsyncProductQueryQuery,
-  UseAsyncProductQueryQueryVariables,
+  useAsyncProductQueryQuery,
+  useAsyncProductQueryQueryVariables,
 } from './__generated__/useAsyncProductQuery.graphql'
 import { useQuery } from '../graphql/useQuery'
 
 export const useAsyncProduct = (slug: string) => {
   const { data, isValidating } = useQuery<
-    UseAsyncProductQueryQuery,
-    UseAsyncProductQueryQueryVariables
+    useAsyncProductQueryQuery,
+    useAsyncProductQueryQueryVariables
   >({
     ...useAsyncProductQuery,
     variables: { slug },
@@ -25,7 +25,7 @@ export const useAsyncProduct = (slug: string) => {
 }
 
 export const useSku = (
-  product: UseAsyncProductQueryQuery['vtex']['product'] | null,
+  product: useAsyncProductQueryQuery['vtex']['product'] | null,
   skuId?: string
 ) =>
   useMemo(() => {

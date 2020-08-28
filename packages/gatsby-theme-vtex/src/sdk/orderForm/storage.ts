@@ -1,4 +1,6 @@
-import { OrderForm as OrderFormType } from '@vtex/gatsby-source-vtex'
+import { OrderFormQueryQuery } from './__generated__/OrderFormQuery.graphql'
+
+type OrderForm = OrderFormQueryQuery['vtex']['orderForm']
 
 const ORDER_FORM_STORAGE_KEY = 'vtex:orderForm'
 
@@ -6,9 +8,9 @@ export const storage = {
   get: () => {
     const serialized = localStorage.getItem(ORDER_FORM_STORAGE_KEY)
 
-    return serialized ? (JSON.parse(serialized) as OrderFormType) : null
+    return serialized ? (JSON.parse(serialized) as OrderForm) : null
   },
-  set: (data: OrderFormType) => {
+  set: (data: OrderForm | null) => {
     localStorage.setItem(ORDER_FORM_STORAGE_KEY, JSON.stringify(data))
   },
 }
