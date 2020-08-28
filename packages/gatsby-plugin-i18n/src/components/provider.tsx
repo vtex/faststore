@@ -2,9 +2,7 @@ import React from 'react'
 import { IntlProvider } from 'react-intl'
 import { WrapRootElementBrowserArgs, WrapRootElementNodeArgs } from 'gatsby'
 
-type Props =
-  | WrapRootElementBrowserArgs<any, any>
-  | WrapRootElementNodeArgs<any, any>
+type Props = WrapRootElementBrowserArgs | WrapRootElementNodeArgs | any
 
 export const wrapPageElement = ({
   props: {
