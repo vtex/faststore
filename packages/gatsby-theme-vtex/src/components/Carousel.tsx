@@ -21,7 +21,6 @@ const Carousel: FC<Props> = ({ items = [] }) => {
   const height = 450
   const { formatMessage } = useIntl()
 
-
   return (
     <Box sx={{ position: 'relative' }}>
       {items.map((item, i) => (
@@ -33,13 +32,13 @@ const Carousel: FC<Props> = ({ items = [] }) => {
             onClick={() => setIndex(i === 0 ? lastIndex : i - 1)}
             sx={{ position: 'absolute', top: '50%', left: 0 }}
           >
-            {formatMessage({id: 'carousel.previous'})}
+            {formatMessage({ id: 'carousel.previous' })}
           </Button>
           <Button
             onClick={() => setIndex(i === lastIndex ? 0 : i + 1)}
             sx={{ position: 'absolute', top: '50%', right: 0 }}
           >
-            {formatMessage({id: 'carousel.next'})}
+            {formatMessage({ id: 'carousel.next' })}
           </Button>
           <Image
             src={item.src}
