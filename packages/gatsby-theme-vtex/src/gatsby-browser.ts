@@ -38,7 +38,7 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
 export const wrapPageElement = ({
   element,
   props: { location },
-}: WrapRootElementBrowserArgs) =>
+}: WrapRootElementBrowserArgs | any) =>
   createElement(Progress, { children: element, location })
 
 export const onRouteUpdate = () => {
