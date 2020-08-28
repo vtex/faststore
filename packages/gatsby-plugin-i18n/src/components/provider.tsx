@@ -1,10 +1,10 @@
 import React from 'react'
 import { IntlProvider } from 'react-intl'
-import { WrapPageElementBrowserArgs, WrapPageElementNodeArgs } from 'gatsby'
+import { WrapRootElementBrowserArgs, WrapRootElementNodeArgs } from 'gatsby'
 
 type Props =
-  | WrapPageElementBrowserArgs<any, any>
-  | WrapPageElementNodeArgs<any, any>
+  | WrapRootElementBrowserArgs<any, any>
+  | WrapRootElementNodeArgs<any, any>
 
 export const wrapPageElement = ({
   props: {

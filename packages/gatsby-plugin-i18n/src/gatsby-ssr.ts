@@ -1,3 +1,3 @@
-const { wrapPageElement: wrapper } = require('./src/components/wrapPageElement')
+const { wrapPageElement: wrapper } = require('./src/components/provider')
 
 export const wrapPageElement = wrapper
