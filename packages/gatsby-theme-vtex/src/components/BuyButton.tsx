@@ -39,9 +39,10 @@ const BuyButton: FC<Props> = ({ sku }) => {
 
     // Item to be updated into the orderForm
     const orderFormItem = {
-      id: sku.itemId,
+      id: parseInt(sku.itemId, 10),
       quantity: 1,
       seller: seller.sellerId,
+      index: 0,
     }
 
     addItems?.([orderFormItem]).catch(console.error)

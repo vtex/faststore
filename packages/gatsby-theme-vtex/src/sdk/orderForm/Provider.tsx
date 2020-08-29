@@ -8,19 +8,22 @@ import React, {
   useCallback,
   useEffect,
   useState,
+  useMemo,
 } from 'react'
 
 import { storage } from './storage'
-import { OrderFormItem } from './types'
 import { OrderFormQueryQuery } from './__generated__/OrderFormQuery.graphql'
+import { VTEX_ItemInput } from './__generated__/AddToCartMutation.graphql'
 
 type OrderForm = OrderFormQueryQuery['vtex']['orderForm']
 
 const controller = () => import('./controller')
 
+type AddItemInput = Pick<VTEX_ItemInput, 'id' | 'index' | 'quantity' | 'seller'>
+
 export type OrderFormContext = {
   orderForm: OrderForm | null
-  addItems: (items: OrderFormItem[]) => Promise<void>
+  addItems: (items: AddItemInput[]) => Promise<void>
 }
 
 export const OrderForm = createContext<OrderFormContext | undefined>(undefined)
@@ -55,22 +58,30 @@ export const OrderFormProvider: FC = ({ children }) => {
 
   // Add item to cart using the queue
   const addItems = useCallback(
-    async (items) => {
+    async (items: AddItemInput[]) => {
       const ctl = await controller()
 
-      ctl.addItems(id, setOrderForm, items)
+      ctl.addItems(
+        id,
+        setOrderForm,
+        items.map((item) => ({
+          ...item,
+          uniqueId: null,
+          inputValues: null,
+          options: null,
+        }))
+      )
     },
     [id]
   )
 
-  return (
-    <OrderForm.Provider
-      value={{
-        orderForm,
-        addItems,
-      }}
-    >
-      {children}
-    </OrderForm.Provider>
+  const ctx: OrderFormContext = useMemo(
+    () => ({
+      orderForm,
+      addItems,
+    }),
+    [orderForm, addItems]
   )
+
+  return <OrderForm.Provider value={ctx}>{children}</OrderForm.Provider>
 }

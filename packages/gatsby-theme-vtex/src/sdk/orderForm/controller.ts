@@ -1,16 +1,19 @@
 import { Dispatch, SetStateAction } from 'react'
-import { api } from '@vtex/gatsby-source-vtex'
 import PQueue from 'p-queue'
 import { gql, request } from '@vtex/gatsby-plugin-graphql'
 
-import { postFetcher } from '../../utils/fetcher'
-import { OrderFormItem } from './types'
 import { storage } from './storage'
 import {
   OrderFormQuery,
   OrderFormQueryQuery,
   OrderFormQueryQueryVariables,
 } from './__generated__/OrderFormQuery.graphql'
+import {
+  AddToCartMutation,
+  AddToCartMutationMutation,
+  AddToCartMutationMutationVariables,
+} from './__generated__/AddToCartMutation.graphql'
+import { VTEX_ItemInput } from '../../__generated__/HomePageQuery.graphql'
 
 type OrderForm = OrderFormQueryQuery['vtex']['orderForm']
 
@@ -33,8 +36,8 @@ export const fetchOrderForm = async (
     OrderFormQuery
   ).then((result) => result.data.vtex.orderForm as OrderForm)
 
-export const orderFormQuery = gql`
-  fragment Address_OrderForm on VTEX_Address {
+export const orderFormFragment = gql`
+  fragment Address_orderForm on VTEX_Address {
     addressId
     addressType
     city
@@ -49,137 +52,158 @@ export const orderFormQuery = gql`
     street
   }
 
-  query OrderFormQuery {
-    vtex {
-      orderForm {
+  fragment OrderForm_orderForm on VTEX_OrderForm {
+    id
+    items {
+      additionalInfo {
+        brandName
+      }
+      parentAssemblyBinding
+      sellingPriceWithAssemblies
+      options {
+        assemblyId
         id
-        items {
-          additionalInfo {
-            brandName
-          }
-          parentAssemblyBinding
-          sellingPriceWithAssemblies
+        quantity
+        seller
+        inputValues
+        options {
+          assemblyId
+          id
+          quantity
+          seller
+          inputValues
           options {
             assemblyId
             id
             quantity
             seller
             inputValues
-            options {
-              assemblyId
-              id
-              quantity
-              seller
-              inputValues
-              options {
-                assemblyId
-                id
-                quantity
-                seller
-                inputValues
-              }
-            }
-          }
-          availability
-          detailUrl
-          id
-          imageUrls {
-            at1x
-            at2x
-            at3x
-          }
-          listPrice
-          measurementUnit
-          name
-          price
-          productCategories
-          productCategoryIds
-          productRefId
-          productId
-          quantity
-          sellingPrice
-          skuName
-          skuSpecifications {
-            fieldName
-            fieldValues
-          }
-          uniqueId
-        }
-        canEditData
-        userProfileId
-        marketingData {
-          coupon
-          utmCampaign
-          utmMedium
-          utmSource
-          utmiCampaign
-          utmiPart
-          utmiPage
-        }
-        totalizers {
-          id
-          name
-          value
-        }
-        shipping {
-          countries
-          availableAddresses {
-            ...Address_OrderForm
-          }
-          selectedAddress {
-            ...Address_OrderForm
-          }
-          deliveryOptions {
-            id
-            price
-            estimate
-            isSelected
           }
         }
-        paymentData {
-          paymentSystems {
-            id
-            name
-            groupName
-            validator {
-              regex
-              mask
-              cardCodeRegex
-              cardCodeMask
-              weights
-              useCvv
-              useExpirationDate
-              useCardHolderName
-              useBillingAddress
-            }
-            stringId
-            requiresDocument
-            isCustom
-            description
-            requiresAuthentication
-            dueDate
-          }
-        }
-        clientProfileData {
-          email
-          firstName
-          lastName
-          document
-          documentType
-          phone
-        }
-        messages {
-          couponMessages {
-            code
-          }
-          generalMessages {
-            code
-            text
-            status
-          }
-        }
-        value
       }
+      availability
+      detailUrl
+      id
+      imageUrls {
+        at1x
+        at2x
+        at3x
+      }
+      listPrice
+      measurementUnit
+      name
+      price
+      productCategories
+      productCategoryIds
+      productRefId
+      productId
+      quantity
+      sellingPrice
+      skuName
+      skuSpecifications {
+        fieldName
+        fieldValues
+      }
+      uniqueId
+    }
+    canEditData
+    userProfileId
+    marketingData {
+      coupon
+      utmCampaign
+      utmMedium
+      utmSource
+      utmiCampaign
+      utmiPart
+      utmiPage
+    }
+    totalizers {
+      id
+      name
+      value
+    }
+    shipping {
+      countries
+      availableAddresses {
+        ...Address_orderForm
+      }
+      selectedAddress {
+        ...Address_orderForm
+      }
+      deliveryOptions {
+        id
+        price
+        estimate
+        isSelected
+      }
+    }
+    paymentData {
+      paymentSystems {
+        id
+        name
+        groupName
+        validator {
+          regex
+          mask
+          cardCodeRegex
+          cardCodeMask
+          weights
+          useCvv
+          useExpirationDate
+          useCardHolderName
+          useBillingAddress
+        }
+        stringId
+        requiresDocument
+        isCustom
+        description
+        requiresAuthentication
+        dueDate
+      }
+    }
+    clientProfileData {
+      email
+      firstName
+      lastName
+      document
+      documentType
+      phone
+    }
+    messages {
+      couponMessages {
+        code
+      }
+      generalMessages {
+        code
+        text
+        status
+      }
+    }
+    value
+  }
+`
+
+export const orderFormQuery = gql`
+  ${orderFormFragment}
+
+  query OrderFormQuery {
+    vtex {
+      orderForm {
+        ...OrderForm_orderForm
+      }
+    }
+  }
+`
+
+export const addToCartMutation = gql`
+  ${orderFormFragment}
+
+  mutation AddToCartMutation(
+    $items: [VTEX_ItemInput!]!
+    $marketingData: VTEX_MarketingDataInput
+  ) {
+    addToCart(items: $items, marketingData: $marketingData) {
+      ...OrderForm_orderForm
     }
   }
 `
@@ -203,19 +227,22 @@ export const startOrderForm = async (
 export const addItems = async (
   id: string | undefined,
   setOrderForm: ReactOrderFormStateSetter,
-  items: OrderFormItem[]
+  items: VTEX_ItemInput[]
 ) => {
   if (!id) {
     throw new Error('This page does not have an orderForm yet')
   }
 
   return queue.add(async () => {
-    const newOrderForm = await postFetcher<OrderForm>(
-      api.checkout.addItem(id),
-      {
-        body: JSON.stringify({ orderItems: items }),
-      }
-    )
+    const {
+      data: { addToCart: newOrderForm },
+    } = await request<
+      AddToCartMutationMutationVariables,
+      AddToCartMutationMutation
+    >('graphql', {
+      ...AddToCartMutation,
+      variables: { items, marketingData: null },
+    })
 
     setOrderFormState(setOrderForm, newOrderForm)
   })
