@@ -239,7 +239,7 @@ export const addItems = async (
     } = await request<
       AddToCartMutationMutationVariables,
       AddToCartMutationMutation
-    >('graphql', {
+    >('/graphql/', {
       ...AddToCartMutation,
       variables: { items, marketingData: null },
     })
