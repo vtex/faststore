@@ -7,7 +7,7 @@ import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductD
 import OfferPreview from './Offer/Preview'
 import ProductImage from './ProductImage'
 import SEO from './SEO/ProductDetails'
-import SuspenseDelay from './SuspenseDelay'
+import SuspenseDelay from './Suspense/Delay'
 import BuyButton from './BuyButton'
 import Container from './Container'
 

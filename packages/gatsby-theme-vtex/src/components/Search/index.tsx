@@ -5,7 +5,7 @@ import { FC, lazy } from 'react'
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
 import PageList from './PageList'
 import Container from '../Container'
-import SuspenseDevice from '../SuspenseDevice'
+import SuspenseDevice from '../Suspense/Device'
 import SEO from '../SEO/siteMetadata'
 import Controls from './Controls'
 

@@ -1,7 +1,7 @@
 import React, { FC, lazy } from 'react'
 
 import { Props } from './lazy'
-import SuspenseSSR from '../../SuspenseSSR'
+import SuspenseSSR from '../../Suspense/SSR'
 
 const SEO = lazy(() => import('./lazy'))
 

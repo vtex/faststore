@@ -1,6 +1,6 @@
 import React, { FC, Suspense, SuspenseProps } from 'react'
 
-import { useDevice } from '../sdk/media/useDevice'
+import { useDevice } from '../../sdk/media/useDevice'
 
 interface Props extends SuspenseProps {
   device: 'mobile' | 'desktop'

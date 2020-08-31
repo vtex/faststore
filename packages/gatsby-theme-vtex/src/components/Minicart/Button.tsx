@@ -5,7 +5,7 @@ import {
 } from '@vtex/store-ui'
 import React, { FC, lazy } from 'react'
 
-import SuspenseSSR from '../SuspenseSSR'
+import SuspenseSSR from '../Suspense/SSR'
 import CustomMinicartButtonSvg from './ButtonSvg'
 
 const CustomMinicartBadge = lazy(() => import('./Badge'))

@@ -8,7 +8,7 @@ import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
-import SuspenseScroll from '../components/SuspenseScroll'
+import SuspenseViewport from '../components/Suspense/Viewport'
 import { HomePageQueryQuery } from '../__generated__/HomePageQuery.graphql'
 
 const loader = () => import('../components/Home/Fold')
@@ -46,9 +46,9 @@ const Home: FC<Props> = ({ data }) => {
       <Container>
         <Shelf products={data.vtex.productSearch!.products!} />
       </Container>
-      <SuspenseScroll fallback={null} preloader={loader}>
+      <SuspenseViewport fallback={null} preloader={loader}>
         <Fold />
-      </SuspenseScroll>
+      </SuspenseViewport>
     </Layout>
   )
 }
