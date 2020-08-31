@@ -20,9 +20,9 @@ const SuspenseViewport: FC<Props> = ({
     threshold,
   })
 
-  // useEffect(() => {
-  //   preloader()
-  // }, [preloader])
+  useEffect(() => {
+    preloader()
+  }, [preloader])
 
   if (!isInView) {
     return <div ref={ref}>{fallback}</div>
