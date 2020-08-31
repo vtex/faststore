@@ -17,6 +17,7 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
 }) => {
   const customVariant = `${variant}.footer`
   const { formatMessage } = useIntl()
+
   return (
     <Flex variant={customVariant}>
       <MinicartDrawerPrice
