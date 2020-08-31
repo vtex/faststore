@@ -8,10 +8,12 @@ import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
-import SuspenseDelay from '../components/SuspenseDelay'
+import SuspenseViewport from '../components/Suspense/Viewport'
 import { HomePageQueryQuery } from '../__generated__/HomePageQuery.graphql'
 
-const Fold = lazy(() => import('../components/Home/Fold'))
+const loader = () => import('../components/Home/Fold')
+
+const Fold = lazy(loader)
 
 const itemsCarousel = [
   {
@@ -44,9 +46,9 @@ const Home: FC<Props> = ({ data }) => {
       <Container>
         <Shelf products={data.vtex.productSearch!.products!} />
       </Container>
-      <SuspenseDelay fallback={null}>
+      <SuspenseViewport fallback={null} preloader={loader}>
         <Fold />
-      </SuspenseDelay>
+      </SuspenseViewport>
     </Layout>
   )
 }
