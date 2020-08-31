@@ -5,7 +5,7 @@ import { Card, Grid, Heading, jsx } from '@vtex/store-ui'
 
 import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductDetailsTemplate_product.graphql'
 import OfferPreview from './Offer/Preview'
-import ProductImage from './ProductImage'
+import ProductDetailsImage from './ProductDetailsImage'
 import SEO from './SEO/ProductDetails'
 import SuspenseDelay from './Suspense/Delay'
 import BuyButton from './BuyButton'
@@ -26,9 +26,7 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
     <Container>
       <SEO title={productName} slug={linkText} />
       <Grid my={4} mx="auto" gap={[0, 3]} columns={[1, 2]}>
-        <ProductImage
-          width={500}
-          height={500}
+        <ProductDetailsImage
           src={imageUrl}
           alt={imageText}
           loading="eager" // Never lazy load image in product details
