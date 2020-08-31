@@ -1,7 +1,8 @@
-import React from 'react'
-import { RenderBodyArgs } from 'gatsby'
+import React, { createElement } from 'react'
+import { RenderBodyArgs, WrapRootElementNodeArgs } from 'gatsby'
 
 const script = require('./src/utils/script')
+const { default: Layout } = require('./src/components/Layout')
 
 export const onRenderBody = ({
   setHeadComponents,
@@ -31,3 +32,6 @@ export const onRenderBody = ({
     }),
   ])
 }
+
+export const wrapPageElement = ({ element }: WrapRootElementNodeArgs | any) =>
+  createElement(Layout, { children: element })
