@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-vtex",
-  "version": "0.38.0-alpha.0",
+  "version": "0.38.0-alpha.1",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
   "scripts": {
@@ -15,8 +15,8 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@vtex/store-ui": "^0.8.2-alpha.2",
     "@vtex/gatsby-plugin-i18n": "^0.36.0",
+    "@vtex/store-ui": "^0.8.2-alpha.2",
     "gatsby": "^2.24.43",
     "react": "^0.0.0-experimental-7f28234f8",
     "react-dom": "^0.0.0-experimental-7f28234f8"
