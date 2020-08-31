@@ -4,7 +4,6 @@ import { Breadcrumb, Container, Flex, BreadcrumbItem } from '@vtex/store-ui'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
-import Layout from '../components/Layout'
 import ProductDetails from '../components/ProductDetails'
 import { useQuery } from '../sdk/graphql/useQuery'
 import {
@@ -61,16 +60,11 @@ const ProductPageContainer: FC<Props> = (props) => {
   } = props
 
   return (
-    <Layout>
-      <HybridWrapper
-        isPrerendered={staticPath}
-        fallback={<div>loading...</div>}
-      >
-        <ErrorBoundary fallback={<div>Error !!</div>}>
-          <ProductPage {...props} />
-        </ErrorBoundary>
-      </HybridWrapper>
-    </Layout>
+    <HybridWrapper isPrerendered={staticPath} fallback={<div>loading...</div>}>
+      <ErrorBoundary fallback={<div>Error !!</div>}>
+        <ProductPage {...props} />
+      </ErrorBoundary>
+    </HybridWrapper>
   )
 }
 

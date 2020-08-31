@@ -4,7 +4,6 @@ import React, { FC } from 'react'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
-import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
 import { useQuery } from '../sdk/graphql/useQuery'
 import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
@@ -47,16 +46,11 @@ const SearchPageContainer: FC<Props> = (props) => {
   } = props
 
   return (
-    <Layout>
-      <HybridWrapper
-        isPrerendered={staticPath}
-        fallback={<div>loading...</div>}
-      >
-        <ErrorBoundary fallback={<div>Error !!</div>}>
-          <SearchPage {...props} />
-        </ErrorBoundary>
-      </HybridWrapper>
-    </Layout>
+    <HybridWrapper isPrerendered={staticPath} fallback={<div>loading...</div>}>
+      <ErrorBoundary fallback={<div>Error !!</div>}>
+        <SearchPage {...props} />
+      </ErrorBoundary>
+    </HybridWrapper>
   )
 }
 

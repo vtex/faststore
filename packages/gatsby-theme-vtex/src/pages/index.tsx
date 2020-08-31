@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import { graphql, PageProps } from 'gatsby'
-import { FC, useEffect, lazy } from 'react'
+import { FC, useEffect, lazy, Fragment } from 'react'
 import { jsx } from '@vtex/store-ui'
 
 import Carousel from '../components/Carousel'
 import Container from '../components/Container'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
 import SuspenseViewport from '../components/Suspense/Viewport'
@@ -40,7 +39,7 @@ const Home: FC<Props> = ({ data }) => {
   }, [])
 
   return (
-    <Layout>
+    <Fragment>
       <SEO />
       <Carousel items={itemsCarousel} />
       <Container>
@@ -49,7 +48,7 @@ const Home: FC<Props> = ({ data }) => {
       <SuspenseViewport fallback={null} preloader={loader}>
         <Fold />
       </SuspenseViewport>
-    </Layout>
+    </Fragment>
   )
 }
 
