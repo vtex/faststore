@@ -27,8 +27,8 @@ export const MinicartContent: FC<MinicartContentProps> = ({
   const customVariant = `${variant}.content`
   const imageProps = (item: DataItem) => ({
     as: imageElement,
-    width: 96,
-    height: 96,
+    width: 300,
+    height: 300,
     src: item.image.src,
     alt: item.image.alt,
     loading: 'lazy',

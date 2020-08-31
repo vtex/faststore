@@ -1,12 +1,10 @@
-export const IMAGE_DEFAULT =
-  'https://tudoparasuaempresa.com.br/assets/img/!product-image.jpg'
+const separator = '/arquivos/ids/'
 
-export const scaleImage = (
+export const scaleFileManagerImage = (
   path: string,
   width: number | 'auto' = 'auto',
   height: number | 'auto' = 'auto'
 ) => {
-  const separator = '/arquivos/ids/'
   const [host, r1] = path.split(separator)
   const fixedHost = host.replace('vteximg.com.br', 'vtexassets.com')
 

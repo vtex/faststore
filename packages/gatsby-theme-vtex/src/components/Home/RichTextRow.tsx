@@ -5,7 +5,7 @@ import freeShippingHtml from '../../markdowns/free-shipping.md'
 import deliveryHtml from '../../markdowns/delivery.md'
 import pickupHtml from '../../markdowns/pickup.md'
 import dealHtml from '../../markdowns/deal.md'
-import { scaleImage } from '../../utils/img'
+import { scaleFileManagerImage } from '../../sdk/img/fileManager'
 
 const FullWidthContainer: FC = ({ children }) => (
   <Box sx={{ width: '100%' }}>{children}</Box>
@@ -27,7 +27,7 @@ const RichTextRow: FC = () => {
             }}
           >
             <img
-              src={scaleImage(
+              src={scaleFileManagerImage(
                 'https://storecomponents.vtexassets.com/arquivos/box.png',
                 24,
                 24
@@ -47,7 +47,7 @@ const RichTextRow: FC = () => {
             }}
           >
             <img
-              src={scaleImage(
+              src={scaleFileManagerImage(
                 'https://storecomponents.vtexassets.com/arquivos/delivery-fast.png',
                 24,
                 24
@@ -67,7 +67,7 @@ const RichTextRow: FC = () => {
             }}
           >
             <img
-              src={scaleImage(
+              src={scaleFileManagerImage(
                 'https://storecomponents.vtexassets.com/arquivos/store.png',
                 24,
                 24
@@ -87,7 +87,7 @@ const RichTextRow: FC = () => {
             }}
           >
             <img
-              src={scaleImage(
+              src={scaleFileManagerImage(
                 'https://storecomponents.vtexassets.com/arquivos/coupon.png',
                 24,
                 24

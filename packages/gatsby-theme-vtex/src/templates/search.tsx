@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
 import { useQuery } from '../sdk/graphql/useQuery'
 import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
-import { SearchProvider as SearchProvider } from '../sdk/search/Provider'
+import { SearchProvider } from '../sdk/search/Provider'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
@@ -42,7 +42,9 @@ const SearchPage: FC<Props> = ({ pageContext, data: staticData }) => {
 }
 
 const SearchPageContainer: FC<Props> = (props) => {
-  const { pageContext: { staticPath } } = props
+  const {
+    pageContext: { staticPath },
+  } = props
 
   return (
     <Layout>

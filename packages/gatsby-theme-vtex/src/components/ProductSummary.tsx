@@ -7,7 +7,7 @@ import { ProductSummary_SyncProductFragment } from './__generated__/ProductSumma
 import BuyButton from './BuyButton'
 import OfferPreview from './Offer/Preview'
 import SyncOffer from './Offer/Sync'
-import ProductImage from './ProductImage'
+import ProductSummaryImage from './ProductSummaryImage'
 
 interface Props {
   product: ProductSummary_SyncProductFragment
@@ -21,6 +21,7 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
 
   return (
     <LocalizedLink
+      state={{ fromSummary: true }}
       to={`/${linkText}/p`}
       sx={{
         textDecoration: 'none',
@@ -34,13 +35,7 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
           maxWidth: 300,
         }}
       >
-        <ProductImage
-          width={300}
-          height={300}
-          src={imageUrl}
-          alt={imageText}
-          loading={loading}
-        />
+        <ProductSummaryImage src={imageUrl} alt={imageText} loading={loading} />
         <Heading variant="summary.name" as="h3">
           {productName.slice(0, 12)}
         </Heading>
