@@ -13,7 +13,7 @@ interface Props {
   loading?: 'lazy' | 'eager'
 }
 
-export const SIZE = 300
+export const SIZE = 200
 
 const ProductSummaryImage: FC<Props> = ({
   width = SIZE,
