@@ -46,7 +46,13 @@ const EmptyStateIcon: React.FC = () => {
 }
 
 const CartPage: FC = () => {
-  const { orderForm } = useOrderForm()
+  const { orderForm, updateItems } = useOrderForm()
+
+  const handleQuantityChange = (uniqueId: string, quantity: number) =>
+    updateItems?.([{ uniqueId, quantity }])
+
+  const handleRemove = (uniqueId: string) =>
+    updateItems?.([{ uniqueId, quantity: 0 }])
 
   if (!orderForm) {
     return <>loading...</>
@@ -129,8 +135,8 @@ const CartPage: FC = () => {
               <ProductList
                 items={orderForm.items}
                 loading={false}
-                onRemove={() => {}}
-                onQuantityChange={() => {}}
+                onRemove={handleRemove}
+                onQuantityChange={handleQuantityChange}
               >
                 <Flex>
                   <ProductItemImage />
@@ -156,7 +162,9 @@ const CartPage: FC = () => {
                       }}
                     >
                       <ProductItemQuantitySelector />
-                      <ProductItemUnitPrice />
+                      <Box mt={2}>
+                        <ProductItemUnitPrice />
+                      </Box>
                     </Flex>
                     <Flex ml="1.5rem">
                       <ProductItemPrice textAlign="right" />

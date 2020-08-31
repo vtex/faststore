@@ -7,7 +7,7 @@ export const ProductQuantityLabel: React.FC = () => {
   const { item } = useItemContext()
 
   return (
-    <Text as="span" sx={{ color: 'muted1', fontSize: '1rem', fontWeight: 400 }}>
+    <Text as="span" sx={{ color: 'muted1', fontSize: 2, fontWeight: 400 }}>
       {item.quantity} un.
     </Text>
   )

@@ -19,11 +19,27 @@ type OrderForm = OrderFormQueryQuery['vtex']['orderForm']
 
 const controller = () => import('./controller')
 
-type AddItemInput = Pick<VTEX_ItemInput, 'id' | 'index' | 'quantity' | 'seller'>
+type AddItemInput = Partial<
+  Pick<VTEX_ItemInput, 'id' | 'index' | 'quantity' | 'seller'>
+>
+type UpdateItemInput = Partial<
+  Pick<VTEX_ItemInput, 'id' | 'index' | 'uniqueId' | 'quantity' | 'seller'>
+>
+
+const defaultItem = {
+  id: null,
+  index: null,
+  seller: null,
+  quantity: null,
+  uniqueId: null,
+  inputValues: null,
+  options: null,
+}
 
 export type OrderFormContext = {
   orderForm: OrderForm | null
   addItems: (items: AddItemInput[]) => Promise<void>
+  updateItems: (items: UpdateItemInput[]) => Promise<void>
 }
 
 export const OrderForm = createContext<OrderFormContext | undefined>(undefined)
@@ -65,10 +81,24 @@ export const OrderFormProvider: FC = ({ children }) => {
         id,
         setOrderForm,
         items.map((item) => ({
+          ...defaultItem,
           ...item,
-          uniqueId: null,
-          inputValues: null,
-          options: null,
+        }))
+      )
+    },
+    [id]
+  )
+
+  const updateItems = useCallback(
+    async (items: UpdateItemInput[]) => {
+      const ctl = await controller()
+
+      ctl.updateItems(
+        id,
+        setOrderForm,
+        items.map((item) => ({
+          ...defaultItem,
+          ...item,
         }))
       )
     },
@@ -79,8 +109,9 @@ export const OrderFormProvider: FC = ({ children }) => {
     () => ({
       orderForm,
       addItems,
+      updateItems,
     }),
-    [orderForm, addItems]
+    [orderForm, addItems, updateItems]
   )
 
   return <OrderForm.Provider value={ctx}>{children}</OrderForm.Provider>

@@ -11,9 +11,9 @@ export const ProductVariations: FC = () => {
     <Box
       sx={{
         ...opaque(item.availability),
-        color: '#727273',
+        color: 'muted1',
         lineHeight: 'copy',
-        fontSize: '.875rem',
+        fontSize: 0,
       }}
     >
       {item.skuSpecifications.map((spec: any) => {

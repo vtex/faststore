@@ -23,7 +23,7 @@ export const SummaryItem: FC<Props> = ({ label, name, large, value }) => {
         alignItems: 'center',
         marginTop: large ? '.5rem' : '.75rem',
         paddingBottom: large ? '1rem' : undefined,
-        fontSize: large ? '1.25rem' : '1rem',
+        fontSize: large ? 3 : 2,
       }}
     >
       <Box

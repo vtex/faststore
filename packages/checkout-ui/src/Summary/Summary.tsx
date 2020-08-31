@@ -34,7 +34,7 @@ export const Summary: FC<SummaryProps & { title: string }> = ({
       total={total}
     >
       <Flex sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Heading mt={0} mb={3} sx={{ fontSize: '1.25rem', fontWeight: 400 }}>
+        <Heading mt={0} mb={3} sx={{ fontSize: 3, fontWeight: 400 }}>
           {title}
         </Heading>
       </Flex>

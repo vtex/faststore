@@ -27,16 +27,22 @@ export const ProductItemUnitPrice: FC<UnitPriceProps> = ({
     return null
   }
 
-  return (item.quantity > 1 || unitPriceDisplay === 'always') &&
-    item.price &&
-    item.price > 0 ? (
+  if (
+    (item.quantity === 0 && unitPriceDisplay !== 'always') ||
+    !item.price ||
+    item.price === 0
+  ) {
+    return null
+  }
+
+  return (
     <Box
       id={`unit-price-${item.id}`}
       sx={{
         ...opaque(item.availability),
         textAlign,
         color: '#727273',
-        fontSize: 1,
+        fontSize: 0,
         fontWeight: 400,
         lineHeight: 'title',
       }}
@@ -51,9 +57,9 @@ export const ProductItemUnitPrice: FC<UnitPriceProps> = ({
       <Fragment>
         <div sx={{ display: 'inline-block' }}>
           <FormattedCurrency value={item.price / 100} />
-        </div>
+        </div>{' '}
         <div sx={{ display: 'inline-block' }}>per {item.measurementUnit}</div>
       </Fragment>
     </Box>
-  ) : null
+  )
 }

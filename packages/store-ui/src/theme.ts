@@ -63,7 +63,21 @@ const customBase = {
       bg: 'secondary',
     },
   },
-  breakpoints: [20, 40, 64, 80],
+  forms: {
+    select: {
+      borderWidth: 2,
+      borderColor: 'muted4',
+      paddingLeft: 3,
+      paddingRight: 2,
+      '&:hover': {
+        borderColor: 'muted3',
+      },
+      '&:focus': {
+        borderColor: 'muted2',
+        outline: 'none',
+      },
+    },
+  },
 }
 
 export const baseTheme = createTheme(base, customBase as any)

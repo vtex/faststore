@@ -13,6 +13,11 @@ import {
   AddToCartMutationMutation,
   AddToCartMutationMutationVariables,
 } from './__generated__/AddToCartMutation.graphql'
+import {
+  UpdateItemsMutation,
+  UpdateItemsMutationMutation,
+  UpdateItemsMutationMutationVariables,
+} from './__generated__/UpdateItemsMutation.graphql'
 import { VTEX_ItemInput } from '../../__generated__/HomePageQuery.graphql'
 
 type OrderForm = OrderFormQueryQuery['vtex']['orderForm']
@@ -208,6 +213,16 @@ export const addToCartMutation = gql`
   }
 `
 
+export const updateItemsMutation = gql`
+  ${orderFormFragment}
+
+  mutation UpdateItemsMutation($items: [VTEX_ItemInput!]!) {
+    updateItems(orderItems: $items) {
+      ...OrderForm_orderForm
+    }
+  }
+`
+
 export const setOrderFormState = (
   setReactState: ReactOrderFormStateSetter,
   orderForm: OrderForm | null
@@ -242,6 +257,30 @@ export const addItems = async (
     >('/graphql/', {
       ...AddToCartMutation,
       variables: { items, marketingData: null },
+    })
+
+    setOrderFormState(setOrderForm, newOrderForm)
+  })
+}
+
+export const updateItems = async (
+  id: string | undefined,
+  setOrderForm: ReactOrderFormStateSetter,
+  items: VTEX_ItemInput[]
+) => {
+  if (!id) {
+    throw new Error('This page does not have an orderForm yet')
+  }
+
+  return queue.add(async () => {
+    const {
+      data: { updateItems: newOrderForm },
+    } = await request<
+      UpdateItemsMutationMutationVariables,
+      UpdateItemsMutationMutation
+    >('/graphql/', {
+      ...UpdateItemsMutation,
+      variables: { items },
     })
 
     setOrderFormState(setOrderForm, newOrderForm)

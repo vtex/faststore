@@ -60,14 +60,8 @@ export const ProductList: React.FC<Props> = ({
             borderColor: 'muted4',
             borderBottom: '1px solid',
             fontWeight: 500,
-            paddingLeft: '1rem',
-            fontSize: '1.25rem',
-            '@media screen and (min-width: 40em)': {
-              paddingLeft: '1.5rem',
-            },
-            '@media screen and (min-width: 64em)': {
-              paddingLeft: 0,
-            },
+            paddingLeft: ['1rem', '1.5rem', 0],
+            fontSize: 3,
           }}
         >
           {unavailableItems.length} unavailable products
@@ -83,14 +77,8 @@ export const ProductList: React.FC<Props> = ({
             borderColor: 'muted4',
             borderBottom: '1px solid',
             fontWeight: 500,
-            paddingLeft: '1rem',
-            fontSize: '1.25rem',
-            '@media screen and (min-width: 40em)': {
-              paddingLeft: '1.5rem',
-            },
-            '@media screen and (min-width: 64em)': {
-              paddingLeft: 0,
-            },
+            paddingLeft: ['1rem', '1.5rem', 0],
+            fontSize: 3,
           }}
         >
           {availableItems.length} available products

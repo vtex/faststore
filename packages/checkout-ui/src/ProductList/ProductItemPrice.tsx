@@ -39,7 +39,7 @@ export const ProductItemPrice: FC<PriceProps> = ({
             textDecoration: 'line-through',
             marginBottom: '.25rem',
             fontWeight: 400,
-            fontSize: '.75rem',
+            fontSize: 0,
           }}
         >
           <FormattedCurrency

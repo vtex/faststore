@@ -55,7 +55,7 @@ export const ProductItemImage: FunctionComponent<ImageProps> = ({
       <a href={item.detailUrl || undefined}>
         {imageUrl ? (
           <Image
-            sx={{ borderRadius: '.75rem' }}
+            sx={{ borderRadius: '.25rem' }}
             alt={item.name || undefined}
             src={imageUrl}
             width="100%"
