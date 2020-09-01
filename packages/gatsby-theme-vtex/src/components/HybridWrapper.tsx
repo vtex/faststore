@@ -6,13 +6,15 @@ interface Props extends SuspenseProps {
   isPrerendered: boolean
 }
 
-let hydrated = false
+;(window as any).__REACT_HYDRATED__ = false
 
 const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
-  const [isHydrated, setIsHydrated] = useState(hydrated)
+  const [isHydrated, setIsHydrated] = useState(
+    (window as any).__REACT_HYDRATED__
+  )
 
   useEffect(() => {
-    hydrated = true
+    ;(window as any).__REACT_HYDRATED__ = true
     setIsHydrated(true)
   }, [])
 
