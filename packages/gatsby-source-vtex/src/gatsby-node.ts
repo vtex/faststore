@@ -40,7 +40,17 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       body: JSON.stringify({ query, variables }),
     })
 
-    return fetchResult.json()
+    const result = await fetchResult.json()
+
+    if (result.errors && result.errors.length > 0) {
+      result.errors.forEach((error: any) => {
+        console.warn(error)
+      })
+    }
+    
+    delete result.errors
+
+    return result
   }
 
   const schema = wrapSchema({
