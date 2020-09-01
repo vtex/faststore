@@ -5,12 +5,13 @@ import {
   Box,
   Button,
   jsx,
-  Image,
   PaginationDots,
   useInterval,
+  LocalizedLink,
 } from '@vtex/store-ui'
 
 interface Item {
+  mobileSrc: string
   src: string
   altText: string
   width: number
@@ -53,7 +54,10 @@ const Carousel: FC<Props> = ({
       {items.map((item, i) => (
         <Box
           key={item.altText}
-          sx={{ display: index === i ? 'block' : 'none' }}
+          sx={{
+            display: index === i ? 'block' : 'none',
+            height: '100%',
+          }}
         >
           {showArrows && (
             <Button
@@ -71,14 +75,20 @@ const Carousel: FC<Props> = ({
               {formatMessage({ id: 'carousel.next' })}
             </Button>
           )}
-          <Image
-            src={item.src}
-            width={item.width}
-            height={item.height}
-            alt={item.altText}
-            loading={i === 0 ? 'eager' : 'lazy'}
-            sx={{ width: '100%', objectFit: 'cover' }}
-          />
+          <LocalizedLink to={item.href ?? '/'}>
+            <picture>
+              <source media="(max-width: 500px)" srcSet={item.mobileSrc} />
+              <source media="(min-width: 501px)" srcSet={item.src} />
+              <img
+                src={item.src}
+                width={item.width}
+                height={item.height}
+                alt={item.altText}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </picture>
+          </LocalizedLink>
         </Box>
       ))}
       {showDots && (
