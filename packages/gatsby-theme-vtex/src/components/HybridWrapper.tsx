@@ -10,17 +10,13 @@ interface Props extends SuspenseProps {
 const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
   if (isServer) {
     if (isPrerendered) {
-      return <Box>{children}</Box>
+      return <>{children}</>
     }
 
-    return <Box>{fallback}</Box>
+    return <>{fallback}</>
   }
 
-  return (
-    <Suspense fallback={fallback}>
-      <Box>{children}</Box>
-    </Suspense>
-  )
+  return <Suspense fallback={fallback}>{children}</Suspense>
 }
 
 export default HybridWrapper
