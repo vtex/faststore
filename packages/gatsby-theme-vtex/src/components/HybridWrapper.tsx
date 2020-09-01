@@ -6,15 +6,13 @@ interface Props extends SuspenseProps {
   isPrerendered: boolean
 }
 
-;(globalThis as any).__REACT_HYDRATED__ = false
+globalThis.__REACT_HYDRATED__ = false
 
 const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
-  const [isHydrated, setIsHydrated] = useState(
-    (globalThis as any).__REACT_HYDRATED__
-  )
+  const [isHydrated, setIsHydrated] = useState(globalThis.__REACT_HYDRATED__)
 
   useEffect(() => {
-    ;(globalThis as any).__REACT_HYDRATED__ = true
+    globalThis.__REACT_HYDRATED__ = true
 
     // we only need to change  this component's state when this
     // page is dynamic. Pre-rendered pages are already ok
