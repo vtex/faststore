@@ -1,5 +1,4 @@
-import React, { FC, Suspense, SuspenseProps } from 'react'
-import { Box } from '@vtex/store-ui'
+import React, { FC, Suspense, SuspenseProps, useEffect, useState } from 'react'
 
 import { isServer } from '../utils/env'
 
@@ -7,20 +6,36 @@ interface Props extends SuspenseProps {
   isPrerendered: boolean
 }
 
+;(globalThis as any).__REACT_HYDRATED__ = false
+
 const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
-  if (isServer) {
-    if (isPrerendered) {
-      return <Box>{children}</Box>
+  const [isHydrated, setIsHydrated] = useState(
+    (globalThis as any).__REACT_HYDRATED__
+  )
+
+  useEffect(() => {
+    ;(globalThis as any).__REACT_HYDRATED__ = true
+
+    // we only need to change  this component's state when this
+    // page is dynamic. Pre-rendered pages are already ok
+    if (!isPrerendered) {
+      setIsHydrated(true)
+    }
+  }, [isPrerendered])
+
+  if (isPrerendered) {
+    if (isServer) {
+      return <>{children}</>
     }
 
-    return <Box>{fallback}</Box>
+    return <Suspense fallback={fallback}>{children}</Suspense>
   }
 
-  return (
-    <Suspense fallback={fallback}>
-      <Box>{children}</Box>
-    </Suspense>
-  )
+  if (isHydrated) {
+    return <Suspense fallback={fallback}>{children}</Suspense>
+  }
+
+  return <>{fallback}</>
 }
 
 export default HybridWrapper
