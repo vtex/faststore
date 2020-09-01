@@ -1,7 +1,7 @@
 export * from './ProductList/theme'
 
 // Local Components
-// ProductList
+// Product list
 export * from './ProductList/ProductList'
 export * from './ProductList/ProductItemPrice'
 export * from './ProductList/ProductItemUnitPrice'
@@ -20,3 +20,8 @@ export * from './Summary/Summary'
 export * from './Summary/SummaryItem'
 export * from './Summary/SummarySmall'
 export * from './Summary/SummaryTotalizers'
+// Translate estimate
+export * from './TranslateEstimate/TranslateEstimate'
+// Shipping calculator
+export * from './ShippingCalculator/ShippingCalculatorContainer'
+export * from './ShippingCalculator/ShippingCalculator'
