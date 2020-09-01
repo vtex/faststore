@@ -14,6 +14,7 @@ import React, {
 import { storage } from './storage'
 import { OrderFormQueryQuery } from './__generated__/OrderFormQuery.graphql'
 import { VTEX_ItemInput } from './__generated__/AddToCartMutation.graphql'
+import { VTEX_AddressInput } from './__generated__/EstimateShippingMutation.graphql'
 
 type OrderForm = OrderFormQueryQuery['vtex']['orderForm']
 
@@ -40,6 +41,9 @@ export type OrderFormContext = {
   orderForm: OrderForm | null
   addItems: (items: AddItemInput[]) => Promise<void>
   updateItems: (items: UpdateItemInput[]) => Promise<void>
+  insertAddress: (address: VTEX_AddressInput) => Promise<void>
+  updateSelectedAddress: (address: VTEX_AddressInput) => Promise<void>
+  updateSelectedDeliveryOption: (deliveryOption: string) => Promise<void>
 }
 
 export const OrderForm = createContext<OrderFormContext | undefined>(undefined)
@@ -77,7 +81,7 @@ export const OrderFormProvider: FC = ({ children }) => {
     async (items: AddItemInput[]) => {
       const ctl = await controller()
 
-      ctl.addItems(
+      await ctl.addItems(
         id,
         setOrderForm,
         items.map((item) => ({
@@ -93,7 +97,7 @@ export const OrderFormProvider: FC = ({ children }) => {
     async (items: UpdateItemInput[]) => {
       const ctl = await controller()
 
-      ctl.updateItems(
+      await ctl.updateItems(
         id,
         setOrderForm,
         items.map((item) => ({
@@ -105,13 +109,50 @@ export const OrderFormProvider: FC = ({ children }) => {
     [id]
   )
 
+  const insertAddress = useCallback(
+    async (address: VTEX_AddressInput) => {
+      const ctl = await controller()
+
+      await ctl.insertAddress(id, setOrderForm, address)
+    },
+    [id]
+  )
+
+  const updateSelectedAddress = useCallback(
+    async (address: VTEX_AddressInput) => {
+      const ctl = await controller()
+
+      await ctl.updateSelectedAddress(id, setOrderForm, address)
+    },
+    [id]
+  )
+
+  const updateSelectedDeliveryOption = useCallback(
+    async (deliveryOption: string) => {
+      const ctl = await controller()
+
+      await ctl.selectDeliveryOption(id, setOrderForm, deliveryOption)
+    },
+    [id]
+  )
+
   const ctx: OrderFormContext = useMemo(
     () => ({
       orderForm,
       addItems,
       updateItems,
+      insertAddress,
+      updateSelectedAddress,
+      updateSelectedDeliveryOption,
     }),
-    [orderForm, addItems, updateItems]
+    [
+      orderForm,
+      addItems,
+      updateItems,
+      insertAddress,
+      updateSelectedAddress,
+      updateSelectedDeliveryOption,
+    ]
   )
 
   return <OrderForm.Provider value={ctx}>{children}</OrderForm.Provider>

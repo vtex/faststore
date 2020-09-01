@@ -19,6 +19,22 @@ import {
   UpdateItemsMutationMutationVariables,
 } from './__generated__/UpdateItemsMutation.graphql'
 import { VTEX_ItemInput } from '../../__generated__/HomePageQuery.graphql'
+import {
+  VTEX_AddressInput,
+  EstimateShippingMutationMutationVariables,
+  EstimateShippingMutationMutation,
+  EstimateShippingMutation,
+} from './__generated__/EstimateShippingMutation.graphql'
+import {
+  SelectDeliveryOptionMutationMutationVariables,
+  SelectDeliveryOptionMutationMutation,
+  SelectDeliveryOptionMutation,
+} from './__generated__/SelectDeliveryOptionMutation.graphql'
+import {
+  UpdateSelectedAddressMutationMutationVariables,
+  UpdateSelectedAddressMutationMutation,
+  UpdateSelectedAddressMutation,
+} from './__generated__/UpdateSelectedAddressMutation.graphql'
 
 type OrderForm = OrderFormQueryQuery['vtex']['orderForm']
 
@@ -223,6 +239,36 @@ export const updateItemsMutation = gql`
   }
 `
 
+export const estimateShippingMutation = gql`
+  ${orderFormFragment}
+
+  mutation EstimateShippingMutation($address: VTEX_AddressInput!) {
+    estimateShipping(address: $address) {
+      ...OrderForm_orderForm
+    }
+  }
+`
+
+export const selectDeliveryOptionMutation = gql`
+  ${orderFormFragment}
+
+  mutation SelectDeliveryOptionMutation($deliveryOptionId: String!) {
+    selectDeliveryOption(deliveryOptionId: $deliveryOptionId) {
+      ...OrderForm_orderForm
+    }
+  }
+`
+
+export const updateSelectedAddressMutation = gql`
+  ${orderFormFragment}
+
+  mutation UpdateSelectedAddressMutation($address: VTEX_AddressInput!) {
+    updateSelectedAddress(input: $address) {
+      ...OrderForm_orderForm
+    }
+  }
+`
+
 export const setOrderFormState = (
   setReactState: ReactOrderFormStateSetter,
   orderForm: OrderForm | null
@@ -281,6 +327,78 @@ export const updateItems = async (
     >('/graphql/', {
       ...UpdateItemsMutation,
       variables: { items },
+    })
+
+    setOrderFormState(setOrderForm, newOrderForm)
+  })
+}
+
+export const insertAddress = async (
+  id: string | undefined,
+  setOrderForm: ReactOrderFormStateSetter,
+  address: VTEX_AddressInput
+) => {
+  if (!id) {
+    throw new Error('This page does not have an orderForm yet')
+  }
+
+  return queue.add(async () => {
+    const {
+      data: { estimateShipping: newOrderForm },
+    } = await request<
+      EstimateShippingMutationMutationVariables,
+      EstimateShippingMutationMutation
+    >('/graphql/', {
+      ...EstimateShippingMutation,
+      variables: { address },
+    })
+
+    setOrderFormState(setOrderForm, newOrderForm)
+  })
+}
+
+export const selectDeliveryOption = async (
+  id: string | undefined,
+  setOrderForm: ReactOrderFormStateSetter,
+  deliveryOption: string
+) => {
+  if (!id) {
+    throw new Error('This page does not have an orderForm yet')
+  }
+
+  return queue.add(async () => {
+    const {
+      data: { selectDeliveryOption: newOrderForm },
+    } = await request<
+      SelectDeliveryOptionMutationMutationVariables,
+      SelectDeliveryOptionMutationMutation
+    >('/graphql/', {
+      ...SelectDeliveryOptionMutation,
+      variables: { deliveryOptionId: deliveryOption },
+    })
+
+    setOrderFormState(setOrderForm, newOrderForm)
+  })
+}
+
+export const updateSelectedAddress = async (
+  id: string | undefined,
+  setOrderForm: ReactOrderFormStateSetter,
+  address: VTEX_AddressInput
+) => {
+  if (!id) {
+    throw new Error('This page does not have an orderForm yet')
+  }
+
+  return queue.add(async () => {
+    const {
+      data: { updateSelectedAddress: newOrderForm },
+    } = await request<
+      UpdateSelectedAddressMutationMutationVariables,
+      UpdateSelectedAddressMutationMutation
+    >('/graphql/', {
+      ...UpdateSelectedAddressMutation,
+      variables: { address },
     })
 
     setOrderFormState(setOrderForm, newOrderForm)

@@ -21,6 +21,8 @@ import {
   ProductItemPrice,
   Summary,
   SummaryTotalizers,
+  ShippingCalculatorContainer,
+  ShippingCalculator,
 } from '@vtex/checkout-ui'
 
 import Layout from '../components/Layout'
@@ -46,7 +48,12 @@ const EmptyStateIcon: React.FC = () => {
 }
 
 const CartPage: FC = () => {
-  const { orderForm, updateItems } = useOrderForm()
+  const {
+    orderForm,
+    updateItems,
+    updateSelectedDeliveryOption,
+    insertAddress,
+  } = useOrderForm()
 
   const handleQuantityChange = (uniqueId: string, quantity: number) =>
     updateItems?.([{ uniqueId, quantity }])
@@ -76,7 +83,7 @@ const CartPage: FC = () => {
             <Text
               as="span"
               mt={4}
-              sx={{ fontWeight: 400, fontSize: '1.5rem', color: '#979899' }}
+              sx={{ fontWeight: 400, fontSize: 4, color: 'muted2' }}
             >
               Your cart is empty
             </Text>
@@ -116,14 +123,12 @@ const CartPage: FC = () => {
             sx={{ flexDirection: 'column', flexGrow: 1, marginRight: '3rem' }}
           >
             <Heading variant="cartTitle" as="h3" mt={4} mb={3}>
-              <Text sx={{ fontSize: '2.25rem', display: 'inline-block' }}>
-                Cart
-              </Text>
+              <Text sx={{ fontSize: 6, display: 'inline-block' }}>Cart</Text>
               <Text
                 ml={2}
                 sx={{
                   fontWeight: 400,
-                  fontSize: '1.5rem',
+                  fontSize: 4,
                   color: 'textMuted',
                   display: 'inline-block',
                 }}
@@ -192,10 +197,21 @@ const CartPage: FC = () => {
           <Box sx={{ width: 1, backgroundColor: 'muted' }} />
           <Box pt="7rem" pl={5} pb={4}>
             <Box mb={5}>
-              <Heading as="h5" sx={{ fontSize: '1.25rem', fontWeight: 400 }}>
-                Delivery
-              </Heading>
-              <div style={{ width: 384 }} />
+              <ShippingCalculatorContainer
+                canEditData={orderForm.canEditData}
+                countries={['BRA']}
+                deliveryOptions={orderForm.shipping.deliveryOptions as any}
+                insertAddress={(address) => insertAddress!(address)}
+                loading={false}
+                numberOfItems={orderForm.items.length}
+                selectDeliveryOption={(deliveryOption) =>
+                  updateSelectedDeliveryOption!(deliveryOption)
+                }
+                selectedAddress={orderForm.shipping.selectedAddress as any}
+                title="Delivery"
+              >
+                <ShippingCalculator />
+              </ShippingCalculatorContainer>
             </Box>
             <Summary
               title="Summary"

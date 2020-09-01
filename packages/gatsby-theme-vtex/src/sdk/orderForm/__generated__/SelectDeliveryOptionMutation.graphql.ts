@@ -49,47 +49,8 @@ export type BooleanQueryOperatorInput = {
   nin: Maybe<Array<Maybe<Scalars['Boolean']>>>;
 };
 
-export type Channel = Node & {
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  salesChannel: Maybe<Scalars['String']>;
-  canonicalBaseAddress: Maybe<Scalars['String']>;
-  alternateBaseAddresses: Maybe<Array<Maybe<Scalars['String']>>>;
-  defaultLocale: Maybe<Scalars['String']>;
-  supportedLocales: Maybe<Array<Maybe<Scalars['String']>>>;
-  defaultCurrency: Maybe<Scalars['String']>;
-  supportedCurrencies: Maybe<Array<Maybe<Scalars['String']>>>;
-  targetProduct: Maybe<Scalars['String']>;
-};
-
-export type ChannelConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<ChannelEdge>;
-  nodes: Array<Channel>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<ChannelGroupConnection>;
-};
 
 
-export type ChannelConnectiondistinctArgs = {
-  field: ChannelFieldsEnum;
-};
-
-
-export type ChannelConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: ChannelFieldsEnum;
-};
-
-export type ChannelEdge = {
-  next: Maybe<Channel>;
-  node: Channel;
-  previous: Maybe<Channel>;
-};
 
 export type ChannelFieldsEnum = 
   | 'id'
@@ -202,56 +163,14 @@ export type ChannelFilterInput = {
   targetProduct: Maybe<StringQueryOperatorInput>;
 };
 
-export type ChannelGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<ChannelEdge>;
-  nodes: Array<Channel>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
 export type ChannelSortInput = {
   fields: Maybe<Array<Maybe<ChannelFieldsEnum>>>;
   order: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type CMSPage = Node & {
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  src: Maybe<Scalars['String']>;
-  slug: Maybe<Scalars['String']>;
-  name: Maybe<Scalars['String']>;
-};
-
-export type CMSPageConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<CMSPageEdge>;
-  nodes: Array<CMSPage>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<CMSPageGroupConnection>;
-};
 
 
-export type CMSPageConnectiondistinctArgs = {
-  field: CMSPageFieldsEnum;
-};
-
-
-export type CMSPageConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: CMSPageFieldsEnum;
-};
-
-export type CMSPageEdge = {
-  next: Maybe<CMSPage>;
-  node: CMSPage;
-  previous: Maybe<CMSPage>;
-};
 
 export type CMSPageFieldsEnum = 
   | 'id'
@@ -354,14 +273,6 @@ export type CMSPageFilterInput = {
   name: Maybe<StringQueryOperatorInput>;
 };
 
-export type CMSPageGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<CMSPageEdge>;
-  nodes: Array<CMSPage>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
 export type CMSPageSortInput = {
   fields: Maybe<Array<Maybe<CMSPageFieldsEnum>>>;
@@ -380,45 +291,8 @@ export type DateQueryOperatorInput = {
   nin: Maybe<Array<Maybe<Scalars['Date']>>>;
 };
 
-export type Department = Node & {
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  name: Maybe<Scalars['String']>;
-  hasChildren: Maybe<Scalars['Boolean']>;
-  url: Maybe<Scalars['String']>;
-  Title: Maybe<Scalars['String']>;
-  MetaTagDescription: Maybe<Scalars['String']>;
-  slug: Maybe<Scalars['String']>;
-};
-
-export type DepartmentConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<DepartmentEdge>;
-  nodes: Array<Department>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<DepartmentGroupConnection>;
-};
 
 
-export type DepartmentConnectiondistinctArgs = {
-  field: DepartmentFieldsEnum;
-};
-
-
-export type DepartmentConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: DepartmentFieldsEnum;
-};
-
-export type DepartmentEdge = {
-  next: Maybe<Department>;
-  node: Department;
-  previous: Maybe<Department>;
-};
 
 export type DepartmentFieldsEnum = 
   | 'id'
@@ -527,144 +401,14 @@ export type DepartmentFilterInput = {
   slug: Maybe<StringQueryOperatorInput>;
 };
 
-export type DepartmentGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<DepartmentEdge>;
-  nodes: Array<Department>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
 export type DepartmentSortInput = {
   fields: Maybe<Array<Maybe<DepartmentFieldsEnum>>>;
   order: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type Directory = Node & {
-  sourceInstanceName: Scalars['String'];
-  absolutePath: Scalars['String'];
-  relativePath: Scalars['String'];
-  extension: Scalars['String'];
-  size: Scalars['Int'];
-  prettySize: Scalars['String'];
-  modifiedTime: Scalars['Date'];
-  accessTime: Scalars['Date'];
-  changeTime: Scalars['Date'];
-  birthTime: Scalars['Date'];
-  root: Scalars['String'];
-  dir: Scalars['String'];
-  base: Scalars['String'];
-  ext: Scalars['String'];
-  name: Scalars['String'];
-  relativeDirectory: Scalars['String'];
-  dev: Scalars['Int'];
-  mode: Scalars['Int'];
-  nlink: Scalars['Int'];
-  uid: Scalars['Int'];
-  gid: Scalars['Int'];
-  rdev: Scalars['Int'];
-  ino: Scalars['Float'];
-  atimeMs: Scalars['Float'];
-  mtimeMs: Scalars['Float'];
-  ctimeMs: Scalars['Float'];
-  atime: Scalars['Date'];
-  mtime: Scalars['Date'];
-  ctime: Scalars['Date'];
-  /** @deprecated Use `birthTime` instead */
-  birthtime: Maybe<Scalars['Date']>;
-  /** @deprecated Use `birthTime` instead */
-  birthtimeMs: Maybe<Scalars['Float']>;
-  blksize: Maybe<Scalars['Int']>;
-  blocks: Maybe<Scalars['Int']>;
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-};
 
 
-export type DirectorymodifiedTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type DirectoryaccessTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type DirectorychangeTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type DirectorybirthTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type DirectoryatimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type DirectorymtimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type DirectoryctimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-export type DirectoryConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<DirectoryEdge>;
-  nodes: Array<Directory>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<DirectoryGroupConnection>;
-};
-
-
-export type DirectoryConnectiondistinctArgs = {
-  field: DirectoryFieldsEnum;
-};
-
-
-export type DirectoryConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: DirectoryFieldsEnum;
-};
-
-export type DirectoryEdge = {
-  next: Maybe<Directory>;
-  node: Directory;
-  previous: Maybe<Directory>;
-};
 
 export type DirectoryFieldsEnum = 
   | 'sourceInstanceName'
@@ -827,147 +571,14 @@ export type DirectoryFilterInput = {
   internal: Maybe<InternalFilterInput>;
 };
 
-export type DirectoryGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<DirectoryEdge>;
-  nodes: Array<Directory>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
 export type DirectorySortInput = {
   fields: Maybe<Array<Maybe<DirectoryFieldsEnum>>>;
   order: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type File = Node & {
-  sourceInstanceName: Scalars['String'];
-  absolutePath: Scalars['String'];
-  relativePath: Scalars['String'];
-  extension: Scalars['String'];
-  size: Scalars['Int'];
-  prettySize: Scalars['String'];
-  modifiedTime: Scalars['Date'];
-  accessTime: Scalars['Date'];
-  changeTime: Scalars['Date'];
-  birthTime: Scalars['Date'];
-  root: Scalars['String'];
-  dir: Scalars['String'];
-  base: Scalars['String'];
-  ext: Scalars['String'];
-  name: Scalars['String'];
-  relativeDirectory: Scalars['String'];
-  dev: Scalars['Int'];
-  mode: Scalars['Int'];
-  nlink: Scalars['Int'];
-  uid: Scalars['Int'];
-  gid: Scalars['Int'];
-  rdev: Scalars['Int'];
-  ino: Scalars['Float'];
-  atimeMs: Scalars['Float'];
-  mtimeMs: Scalars['Float'];
-  ctimeMs: Scalars['Float'];
-  atime: Scalars['Date'];
-  mtime: Scalars['Date'];
-  ctime: Scalars['Date'];
-  /** @deprecated Use `birthTime` instead */
-  birthtime: Maybe<Scalars['Date']>;
-  /** @deprecated Use `birthTime` instead */
-  birthtimeMs: Maybe<Scalars['Float']>;
-  blksize: Maybe<Scalars['Int']>;
-  blocks: Maybe<Scalars['Int']>;
-  /** Copy file to static directory and return public url to it */
-  publicURL: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  childCmsPage: Maybe<CMSPage>;
-};
 
 
-export type FilemodifiedTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type FileaccessTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type FilechangeTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type FilebirthTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type FileatimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type FilemtimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-
-export type FilectimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-export type FileConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<FileEdge>;
-  nodes: Array<File>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<FileGroupConnection>;
-};
-
-
-export type FileConnectiondistinctArgs = {
-  field: FileFieldsEnum;
-};
-
-
-export type FileConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: FileFieldsEnum;
-};
-
-export type FileEdge = {
-  next: Maybe<File>;
-  node: File;
-  previous: Maybe<File>;
-};
 
 export type FileFieldsEnum = 
   | 'sourceInstanceName'
@@ -1174,14 +785,6 @@ export type FileFilterInput = {
   childCmsPage: Maybe<CMSPageFilterInput>;
 };
 
-export type FileGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<FileEdge>;
-  nodes: Array<File>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
 export type FileSortInput = {
   fields: Maybe<Array<Maybe<FileFieldsEnum>>>;
@@ -1199,16 +802,6 @@ export type FloatQueryOperatorInput = {
   nin: Maybe<Array<Maybe<Scalars['Float']>>>;
 };
 
-export type Internal = {
-  content: Maybe<Scalars['String']>;
-  contentDigest: Scalars['String'];
-  description: Maybe<Scalars['String']>;
-  fieldOwners: Maybe<Array<Maybe<Scalars['String']>>>;
-  ignoreType: Maybe<Scalars['Boolean']>;
-  mediaType: Maybe<Scalars['String']>;
-  owner: Scalars['String'];
-  type: Scalars['String'];
-};
 
 export type InternalFilterInput = {
   content: Maybe<StringQueryOperatorInput>;
@@ -1233,50 +826,9 @@ export type IntQueryOperatorInput = {
 };
 
 
-export type LanguageData = Node & {
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  messages: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-export type LanguageDataConfig = Node & {
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  locales: Maybe<Array<Maybe<Scalars['String']>>>;
-  defaultLocale: Maybe<Scalars['String']>;
-};
-
-export type LanguageDataConfigConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<LanguageDataConfigEdge>;
-  nodes: Array<LanguageDataConfig>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<LanguageDataConfigGroupConnection>;
-};
 
 
-export type LanguageDataConfigConnectiondistinctArgs = {
-  field: LanguageDataConfigFieldsEnum;
-};
 
-
-export type LanguageDataConfigConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: LanguageDataConfigFieldsEnum;
-};
-
-export type LanguageDataConfigEdge = {
-  next: Maybe<LanguageDataConfig>;
-  node: LanguageDataConfig;
-  previous: Maybe<LanguageDataConfig>;
-};
 
 export type LanguageDataConfigFieldsEnum = 
   | 'id'
@@ -1377,46 +929,13 @@ export type LanguageDataConfigFilterInput = {
   defaultLocale: Maybe<StringQueryOperatorInput>;
 };
 
-export type LanguageDataConfigGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<LanguageDataConfigEdge>;
-  nodes: Array<LanguageDataConfig>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
 export type LanguageDataConfigSortInput = {
   fields: Maybe<Array<Maybe<LanguageDataConfigFieldsEnum>>>;
   order: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type LanguageDataConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<LanguageDataEdge>;
-  nodes: Array<LanguageData>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<LanguageDataGroupConnection>;
-};
 
-
-export type LanguageDataConnectiondistinctArgs = {
-  field: LanguageDataFieldsEnum;
-};
-
-
-export type LanguageDataConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: LanguageDataFieldsEnum;
-};
-
-export type LanguageDataEdge = {
-  next: Maybe<LanguageData>;
-  node: LanguageData;
-  previous: Maybe<LanguageData>;
-};
 
 export type LanguageDataFieldsEnum = 
   | 'id'
@@ -1517,95 +1036,13 @@ export type LanguageDataFilterInput = {
   locale: Maybe<StringQueryOperatorInput>;
 };
 
-export type LanguageDataGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<LanguageDataEdge>;
-  nodes: Array<LanguageData>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
 export type LanguageDataSortInput = {
   fields: Maybe<Array<Maybe<LanguageDataFieldsEnum>>>;
   order: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type Mutation = {
-  addToCart: Maybe<VTEX_OrderForm>;
-  updateItems: Maybe<VTEX_OrderForm>;
-  insertCoupon: Maybe<VTEX_OrderForm>;
-  estimateShipping: Maybe<VTEX_OrderForm>;
-  selectDeliveryOption: Maybe<VTEX_OrderForm>;
-  /**
-   * Changes the currently selected address in the shipping data
-   * of the OrderForm
-   */
-  updateSelectedAddress: Maybe<VTEX_OrderForm>;
-  savePaymentToken: Maybe<VTEX_SavePaymentTokenPayload>;
-  updateOrderFormProfile: VTEX_OrderForm;
-  updateClientPreferencesData: VTEX_OrderForm;
-  updateOrderFormPayment: VTEX_OrderForm;
-};
 
-
-export type MutationaddToCartArgs = {
-  items: Maybe<Array<Maybe<VTEX_ItemInput>>>;
-  marketingData: Maybe<VTEX_MarketingDataInput>;
-};
-
-
-export type MutationupdateItemsArgs = {
-  orderItems: Maybe<Array<Maybe<VTEX_ItemInput>>>;
-};
-
-
-export type MutationinsertCouponArgs = {
-  text: Maybe<Scalars['String']>;
-};
-
-
-export type MutationestimateShippingArgs = {
-  address: Maybe<VTEX_AddressInput>;
-};
-
-
-export type MutationselectDeliveryOptionArgs = {
-  deliveryOptionId: Maybe<Scalars['String']>;
-};
-
-
-export type MutationupdateSelectedAddressArgs = {
-  input: VTEX_AddressInput;
-};
-
-
-export type MutationsavePaymentTokenArgs = {
-  paymentTokens: Maybe<Array<Maybe<VTEX_PaymentToken>>>;
-};
-
-
-export type MutationupdateOrderFormProfileArgs = {
-  input: VTEX_UserProfileInput;
-};
-
-
-export type MutationupdateClientPreferencesDataArgs = {
-  input: VTEX_ClientPreferencesDataInput;
-};
-
-
-export type MutationupdateOrderFormPaymentArgs = {
-  input: VTEX_PaymentDataInput;
-};
-
-/** Node Interface */
-export type Node = {
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-};
 
 export type NodeFilterInput = {
   id: Maybe<StringQueryOperatorInput>;
@@ -1618,398 +1055,11 @@ export type NodeFilterListInput = {
   elemMatch: Maybe<NodeFilterInput>;
 };
 
-export type PageInfo = {
-  currentPage: Scalars['Int'];
-  hasPreviousPage: Scalars['Boolean'];
-  hasNextPage: Scalars['Boolean'];
-  itemCount: Scalars['Int'];
-  pageCount: Scalars['Int'];
-  perPage: Maybe<Scalars['Int']>;
-  totalCount: Scalars['Int'];
-};
-
-export type Query = {
-  file: Maybe<File>;
-  allFile: FileConnection;
-  directory: Maybe<Directory>;
-  allDirectory: DirectoryConnection;
-  sitePage: Maybe<SitePage>;
-  allSitePage: SitePageConnection;
-  site: Maybe<Site>;
-  allSite: SiteConnection;
-  cmsPage: Maybe<CMSPage>;
-  allCmsPage: CMSPageConnection;
-  languageDataConfig: Maybe<LanguageDataConfig>;
-  allLanguageDataConfig: LanguageDataConfigConnection;
-  languageData: Maybe<LanguageData>;
-  allLanguageData: LanguageDataConnection;
-  department: Maybe<Department>;
-  allDepartment: DepartmentConnection;
-  channel: Maybe<Channel>;
-  allChannel: ChannelConnection;
-  siteBuildMetadata: Maybe<SiteBuildMetadata>;
-  allSiteBuildMetadata: SiteBuildMetadataConnection;
-  sitePlugin: Maybe<SitePlugin>;
-  allSitePlugin: SitePluginConnection;
-  vtex: VTEX;
-};
 
 
-export type QueryfileArgs = {
-  sourceInstanceName: Maybe<StringQueryOperatorInput>;
-  absolutePath: Maybe<StringQueryOperatorInput>;
-  relativePath: Maybe<StringQueryOperatorInput>;
-  extension: Maybe<StringQueryOperatorInput>;
-  size: Maybe<IntQueryOperatorInput>;
-  prettySize: Maybe<StringQueryOperatorInput>;
-  modifiedTime: Maybe<DateQueryOperatorInput>;
-  accessTime: Maybe<DateQueryOperatorInput>;
-  changeTime: Maybe<DateQueryOperatorInput>;
-  birthTime: Maybe<DateQueryOperatorInput>;
-  root: Maybe<StringQueryOperatorInput>;
-  dir: Maybe<StringQueryOperatorInput>;
-  base: Maybe<StringQueryOperatorInput>;
-  ext: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  relativeDirectory: Maybe<StringQueryOperatorInput>;
-  dev: Maybe<IntQueryOperatorInput>;
-  mode: Maybe<IntQueryOperatorInput>;
-  nlink: Maybe<IntQueryOperatorInput>;
-  uid: Maybe<IntQueryOperatorInput>;
-  gid: Maybe<IntQueryOperatorInput>;
-  rdev: Maybe<IntQueryOperatorInput>;
-  ino: Maybe<FloatQueryOperatorInput>;
-  atimeMs: Maybe<FloatQueryOperatorInput>;
-  mtimeMs: Maybe<FloatQueryOperatorInput>;
-  ctimeMs: Maybe<FloatQueryOperatorInput>;
-  atime: Maybe<DateQueryOperatorInput>;
-  mtime: Maybe<DateQueryOperatorInput>;
-  ctime: Maybe<DateQueryOperatorInput>;
-  birthtime: Maybe<DateQueryOperatorInput>;
-  birthtimeMs: Maybe<FloatQueryOperatorInput>;
-  blksize: Maybe<IntQueryOperatorInput>;
-  blocks: Maybe<IntQueryOperatorInput>;
-  publicURL: Maybe<StringQueryOperatorInput>;
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  childCmsPage: Maybe<CMSPageFilterInput>;
-};
 
 
-export type QueryallFileArgs = {
-  filter: Maybe<FileFilterInput>;
-  sort: Maybe<FileSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
 
-
-export type QuerydirectoryArgs = {
-  sourceInstanceName: Maybe<StringQueryOperatorInput>;
-  absolutePath: Maybe<StringQueryOperatorInput>;
-  relativePath: Maybe<StringQueryOperatorInput>;
-  extension: Maybe<StringQueryOperatorInput>;
-  size: Maybe<IntQueryOperatorInput>;
-  prettySize: Maybe<StringQueryOperatorInput>;
-  modifiedTime: Maybe<DateQueryOperatorInput>;
-  accessTime: Maybe<DateQueryOperatorInput>;
-  changeTime: Maybe<DateQueryOperatorInput>;
-  birthTime: Maybe<DateQueryOperatorInput>;
-  root: Maybe<StringQueryOperatorInput>;
-  dir: Maybe<StringQueryOperatorInput>;
-  base: Maybe<StringQueryOperatorInput>;
-  ext: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  relativeDirectory: Maybe<StringQueryOperatorInput>;
-  dev: Maybe<IntQueryOperatorInput>;
-  mode: Maybe<IntQueryOperatorInput>;
-  nlink: Maybe<IntQueryOperatorInput>;
-  uid: Maybe<IntQueryOperatorInput>;
-  gid: Maybe<IntQueryOperatorInput>;
-  rdev: Maybe<IntQueryOperatorInput>;
-  ino: Maybe<FloatQueryOperatorInput>;
-  atimeMs: Maybe<FloatQueryOperatorInput>;
-  mtimeMs: Maybe<FloatQueryOperatorInput>;
-  ctimeMs: Maybe<FloatQueryOperatorInput>;
-  atime: Maybe<DateQueryOperatorInput>;
-  mtime: Maybe<DateQueryOperatorInput>;
-  ctime: Maybe<DateQueryOperatorInput>;
-  birthtime: Maybe<DateQueryOperatorInput>;
-  birthtimeMs: Maybe<FloatQueryOperatorInput>;
-  blksize: Maybe<IntQueryOperatorInput>;
-  blocks: Maybe<IntQueryOperatorInput>;
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-};
-
-
-export type QueryallDirectoryArgs = {
-  filter: Maybe<DirectoryFilterInput>;
-  sort: Maybe<DirectorySortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerysitePageArgs = {
-  path: Maybe<StringQueryOperatorInput>;
-  component: Maybe<StringQueryOperatorInput>;
-  internalComponentName: Maybe<StringQueryOperatorInput>;
-  componentChunkName: Maybe<StringQueryOperatorInput>;
-  matchPath: Maybe<StringQueryOperatorInput>;
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  isCreatedByStatefulCreatePages: Maybe<BooleanQueryOperatorInput>;
-  context: Maybe<SitePageContextFilterInput>;
-  pluginCreator: Maybe<SitePluginFilterInput>;
-  pluginCreatorId: Maybe<StringQueryOperatorInput>;
-  componentPath: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryallSitePageArgs = {
-  filter: Maybe<SitePageFilterInput>;
-  sort: Maybe<SitePageSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerysiteArgs = {
-  buildTime: Maybe<DateQueryOperatorInput>;
-  siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
-  port: Maybe<IntQueryOperatorInput>;
-  host: Maybe<StringQueryOperatorInput>;
-  proxy: Maybe<SiteProxyFilterListInput>;
-  polyfill: Maybe<BooleanQueryOperatorInput>;
-  pathPrefix: Maybe<StringQueryOperatorInput>;
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-};
-
-
-export type QueryallSiteArgs = {
-  filter: Maybe<SiteFilterInput>;
-  sort: Maybe<SiteSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerycmsPageArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  src: Maybe<StringQueryOperatorInput>;
-  slug: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryallCmsPageArgs = {
-  filter: Maybe<CMSPageFilterInput>;
-  sort: Maybe<CMSPageSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerylanguageDataConfigArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  locales: Maybe<StringQueryOperatorInput>;
-  defaultLocale: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryallLanguageDataConfigArgs = {
-  filter: Maybe<LanguageDataConfigFilterInput>;
-  sort: Maybe<LanguageDataConfigSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerylanguageDataArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  messages: Maybe<StringQueryOperatorInput>;
-  locale: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryallLanguageDataArgs = {
-  filter: Maybe<LanguageDataFilterInput>;
-  sort: Maybe<LanguageDataSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerydepartmentArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  hasChildren: Maybe<BooleanQueryOperatorInput>;
-  url: Maybe<StringQueryOperatorInput>;
-  Title: Maybe<StringQueryOperatorInput>;
-  MetaTagDescription: Maybe<StringQueryOperatorInput>;
-  slug: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryallDepartmentArgs = {
-  filter: Maybe<DepartmentFilterInput>;
-  sort: Maybe<DepartmentSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerychannelArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  salesChannel: Maybe<StringQueryOperatorInput>;
-  canonicalBaseAddress: Maybe<StringQueryOperatorInput>;
-  alternateBaseAddresses: Maybe<StringQueryOperatorInput>;
-  defaultLocale: Maybe<StringQueryOperatorInput>;
-  supportedLocales: Maybe<StringQueryOperatorInput>;
-  defaultCurrency: Maybe<StringQueryOperatorInput>;
-  supportedCurrencies: Maybe<StringQueryOperatorInput>;
-  targetProduct: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryallChannelArgs = {
-  filter: Maybe<ChannelFilterInput>;
-  sort: Maybe<ChannelSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerysiteBuildMetadataArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  buildTime: Maybe<DateQueryOperatorInput>;
-};
-
-
-export type QueryallSiteBuildMetadataArgs = {
-  filter: Maybe<SiteBuildMetadataFilterInput>;
-  sort: Maybe<SiteBuildMetadataSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerysitePluginArgs = {
-  id: Maybe<StringQueryOperatorInput>;
-  parent: Maybe<NodeFilterInput>;
-  children: Maybe<NodeFilterListInput>;
-  internal: Maybe<InternalFilterInput>;
-  resolve: Maybe<StringQueryOperatorInput>;
-  name: Maybe<StringQueryOperatorInput>;
-  version: Maybe<StringQueryOperatorInput>;
-  pluginOptions: Maybe<SitePluginPluginOptionsFilterInput>;
-  nodeAPIs: Maybe<StringQueryOperatorInput>;
-  browserAPIs: Maybe<StringQueryOperatorInput>;
-  ssrAPIs: Maybe<StringQueryOperatorInput>;
-  pluginFilepath: Maybe<StringQueryOperatorInput>;
-  packageJson: Maybe<SitePluginPackageJsonFilterInput>;
-};
-
-
-export type QueryallSitePluginArgs = {
-  filter: Maybe<SitePluginFilterInput>;
-  sort: Maybe<SitePluginSortInput>;
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-};
-
-export type Site = Node & {
-  buildTime: Maybe<Scalars['Date']>;
-  siteMetadata: Maybe<SiteSiteMetadata>;
-  port: Maybe<Scalars['Int']>;
-  host: Maybe<Scalars['String']>;
-  proxy: Maybe<Array<Maybe<SiteProxy>>>;
-  polyfill: Maybe<Scalars['Boolean']>;
-  pathPrefix: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-};
-
-
-export type SitebuildTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-export type SiteBuildMetadata = Node & {
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  buildTime: Maybe<Scalars['Date']>;
-};
-
-
-export type SiteBuildMetadatabuildTimeArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
-};
-
-export type SiteBuildMetadataConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<SiteBuildMetadataEdge>;
-  nodes: Array<SiteBuildMetadata>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<SiteBuildMetadataGroupConnection>;
-};
-
-
-export type SiteBuildMetadataConnectiondistinctArgs = {
-  field: SiteBuildMetadataFieldsEnum;
-};
-
-
-export type SiteBuildMetadataConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: SiteBuildMetadataFieldsEnum;
-};
-
-export type SiteBuildMetadataEdge = {
-  next: Maybe<SiteBuildMetadata>;
-  node: SiteBuildMetadata;
-  previous: Maybe<SiteBuildMetadata>;
-};
 
 export type SiteBuildMetadataFieldsEnum = 
   | 'id'
@@ -2108,46 +1158,13 @@ export type SiteBuildMetadataFilterInput = {
   buildTime: Maybe<DateQueryOperatorInput>;
 };
 
-export type SiteBuildMetadataGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<SiteBuildMetadataEdge>;
-  nodes: Array<SiteBuildMetadata>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
 export type SiteBuildMetadataSortInput = {
   fields: Maybe<Array<Maybe<SiteBuildMetadataFieldsEnum>>>;
   order: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type SiteConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<SiteEdge>;
-  nodes: Array<Site>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<SiteGroupConnection>;
-};
 
-
-export type SiteConnectiondistinctArgs = {
-  field: SiteFieldsEnum;
-};
-
-
-export type SiteConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: SiteFieldsEnum;
-};
-
-export type SiteEdge = {
-  next: Maybe<Site>;
-  node: Site;
-  previous: Maybe<Site>;
-};
 
 export type SiteFieldsEnum = 
   | 'buildTime'
@@ -2264,63 +1281,9 @@ export type SiteFilterInput = {
   internal: Maybe<InternalFilterInput>;
 };
 
-export type SiteGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<SiteEdge>;
-  nodes: Array<Site>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
-
-export type SitePage = Node & {
-  path: Scalars['String'];
-  component: Scalars['String'];
-  internalComponentName: Scalars['String'];
-  componentChunkName: Scalars['String'];
-  matchPath: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  isCreatedByStatefulCreatePages: Maybe<Scalars['Boolean']>;
-  context: Maybe<SitePageContext>;
-  pluginCreator: Maybe<SitePlugin>;
-  pluginCreatorId: Maybe<Scalars['String']>;
-  componentPath: Maybe<Scalars['String']>;
-};
-
-export type SitePageConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<SitePageEdge>;
-  nodes: Array<SitePage>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<SitePageGroupConnection>;
-};
 
 
-export type SitePageConnectiondistinctArgs = {
-  field: SitePageFieldsEnum;
-};
 
-
-export type SitePageConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: SitePageFieldsEnum;
-};
-
-export type SitePageContext = {
-  slug: Maybe<Scalars['String']>;
-  staticPath: Maybe<Scalars['Boolean']>;
-  messages: Maybe<SitePageContextMessages>;
-  locale: Maybe<Scalars['String']>;
-  defaultLocale: Maybe<Scalars['String']>;
-  originalPath: Maybe<Scalars['String']>;
-  query: Maybe<Scalars['String']>;
-  map: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextFilterInput = {
   slug: Maybe<StringQueryOperatorInput>;
@@ -2333,110 +1296,7 @@ export type SitePageContextFilterInput = {
   map: Maybe<StringQueryOperatorInput>;
 };
 
-export type SitePageContextMessages = {
-  address_form_dontKnowPostalCode: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_dontKnowPostalCode>>>;
-  address_form_edit: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_edit>>>;
-  address_form_error_ERROR_EMPTY_FIELD: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_error_ERROR_EMPTY_FIELD>>>;
-  address_form_error_ERROR_GOOGLE_ADDRESS: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_error_ERROR_GOOGLE_ADDRESS>>>;
-  address_form_error_ERROR_POSTAL_CODE: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_error_ERROR_POSTAL_CODE>>>;
-  address_form_error_generic: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_error_generic>>>;
-  address_form_field_addressLine1: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_addressLine1>>>;
-  address_form_field_addressLine2: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_addressLine2>>>;
-  address_form_field_addressQuery: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_addressQuery>>>;
-  address_form_field_city: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_city>>>;
-  address_form_field_colony: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_colony>>>;
-  address_form_field_commercial: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_commercial>>>;
-  address_form_field_community: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_community>>>;
-  address_form_field_complement: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_complement>>>;
-  address_form_field_country: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_country>>>;
-  address_form_field_county: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_county>>>;
-  address_form_field_delegation: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_delegation>>>;
-  address_form_field_department: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_department>>>;
-  address_form_field_direction: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_direction>>>;
-  address_form_field_district: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_district>>>;
-  address_form_field_exteriorNumber: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_exteriorNumber>>>;
-  address_form_field_floorAndLetter: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_floorAndLetter>>>;
-  address_form_field_interiorNumber: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_interiorNumber>>>;
-  address_form_field_locality: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_locality>>>;
-  address_form_field_municipality: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_municipality>>>;
-  address_form_field_municipalityDelegation: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_municipalityDelegation>>>;
-  address_form_field_neighborhood: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_neighborhood>>>;
-  address_form_field_noNumber: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_noNumber>>>;
-  address_form_field_notApplicable: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_notApplicable>>>;
-  address_form_field_number: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_number>>>;
-  address_form_field_postalCode: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_postalCode>>>;
-  address_form_field_province: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_province>>>;
-  address_form_field_receiverName: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_receiverName>>>;
-  address_form_field_reference: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_reference>>>;
-  address_form_field_region: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_region>>>;
-  address_form_field_state: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_state>>>;
-  address_form_field_street: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_street>>>;
-  address_form_field_town: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_field_town>>>;
-  address_form_geolocation_example_ARG: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_ARG>>>;
-  address_form_geolocation_example_BGR: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_BGR>>>;
-  address_form_geolocation_example_BOL: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_BOL>>>;
-  address_form_geolocation_example_BRA: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_BRA>>>;
-  address_form_geolocation_example_CAN: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_CAN>>>;
-  address_form_geolocation_example_CHL: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_CHL>>>;
-  address_form_geolocation_example_COL: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_COL>>>;
-  address_form_geolocation_example_DEU: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_DEU>>>;
-  address_form_geolocation_example_ECU: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_ECU>>>;
-  address_form_geolocation_example_ESP: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_ESP>>>;
-  address_form_geolocation_example_FRA: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_FRA>>>;
-  address_form_geolocation_example_GBR: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_GBR>>>;
-  address_form_geolocation_example_GTM: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_GTM>>>;
-  address_form_geolocation_example_ITA: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_ITA>>>;
-  address_form_geolocation_example_MEX: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_MEX>>>;
-  address_form_geolocation_example_NLD: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_NLD>>>;
-  address_form_geolocation_example_PER: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_PER>>>;
-  address_form_geolocation_example_POL: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_POL>>>;
-  address_form_geolocation_example_PRT: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_PRT>>>;
-  address_form_geolocation_example_PRY: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_PRY>>>;
-  address_form_geolocation_example_ROU: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_ROU>>>;
-  address_form_geolocation_example_UNI: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_UNI>>>;
-  address_form_geolocation_example_URY: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_URY>>>;
-  address_form_geolocation_example_USA: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_USA>>>;
-  address_form_geolocation_example_VEN: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_geolocation_example_VEN>>>;
-  address_form_loading: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_loading>>>;
-  address_form_optional: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_optional>>>;
-  address_form_search: Maybe<Array<Maybe<SitePageContextMessagesAddress_form_search>>>;
-  buy_button_add_to_cart: Maybe<Array<Maybe<SitePageContextMessagesBuy_button_add_to_cart>>>;
-  carousel_next: Maybe<Array<Maybe<SitePageContextMessagesCarousel_next>>>;
-  carousel_previous: Maybe<Array<Maybe<SitePageContextMessagesCarousel_previous>>>;
-  error_generic: Maybe<Array<Maybe<SitePageContextMessagesError_generic>>>;
-  facets_brand_selector_title: Maybe<Array<Maybe<SitePageContextMessagesFacets_brand_selector_title>>>;
-  facets_filters: Maybe<Array<Maybe<SitePageContextMessagesFacets_filters>>>;
-  facets_tree_selector_title: Maybe<Array<Maybe<SitePageContextMessagesFacets_tree_selector_title>>>;
-  loading: Maybe<Array<Maybe<SitePageContextMessagesLoading>>>;
-  minicart_drawer_close: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_close>>>;
-  minicart_drawer_count: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_count>>>;
-  minicart_drawer_go_checkout: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_go_checkout>>>;
-  minicart_drawer_shipping_disclaimer: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_shipping_disclaimer>>>;
-  minicart_drawer_subtotal: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_subtotal>>>;
-  minicart_drawer_total: Maybe<Array<Maybe<SitePageContextMessagesMinicart_drawer_total>>>;
-  notification_bar_sale: Maybe<Array<Maybe<SitePageContextMessagesNotification_bar_sale>>>;
-  offer_product_unavailable: Maybe<Array<Maybe<SitePageContextMessagesOffer_product_unavailable>>>;
-  offer_units_left: Maybe<Array<Maybe<SitePageContextMessagesOffer_units_left>>>;
-  preview_not_found: Maybe<Array<Maybe<SitePageContextMessagesPreview_not_found>>>;
-  product_not_found: Maybe<Array<Maybe<SitePageContextMessagesProduct_not_found>>>;
-  search_page_list_more: Maybe<Array<Maybe<SitePageContextMessagesSearch_page_list_more>>>;
-  shippingEstimate_bd: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_bd>>>;
-  shippingEstimate_d: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_d>>>;
-  shippingEstimate_h: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_h>>>;
-  shippingEstimate_m: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_m>>>;
-  shippingEstimate_scheduled: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_scheduled>>>;
-  shippingEstimate_scheduled_no_dates: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_scheduled_no_dates>>>;
-  shippingEstimatePickup_bd: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_bd>>>;
-  shippingEstimatePickup_d: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_d>>>;
-  shippingEstimatePickup_h: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_h>>>;
-  shippingEstimatePickup_m: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_m>>>;
-  signin: Maybe<Array<Maybe<SitePageContextMessagesSignin>>>;
-};
 
-export type SitePageContextMessagesAddress_form_dontKnowPostalCode = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_dontKnowPostalCodeFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2447,10 +1307,6 @@ export type SitePageContextMessagesAddress_form_dontKnowPostalCodeFilterListInpu
   elemMatch: Maybe<SitePageContextMessagesAddress_form_dontKnowPostalCodeFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_edit = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_editFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2461,10 +1317,6 @@ export type SitePageContextMessagesAddress_form_editFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_editFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_error_ERROR_EMPTY_FIELD = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_error_ERROR_EMPTY_FIELDFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2475,10 +1327,6 @@ export type SitePageContextMessagesAddress_form_error_ERROR_EMPTY_FIELDFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_error_ERROR_EMPTY_FIELDFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_error_ERROR_GOOGLE_ADDRESS = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_error_ERROR_GOOGLE_ADDRESSFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2489,10 +1337,6 @@ export type SitePageContextMessagesAddress_form_error_ERROR_GOOGLE_ADDRESSFilter
   elemMatch: Maybe<SitePageContextMessagesAddress_form_error_ERROR_GOOGLE_ADDRESSFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_error_ERROR_POSTAL_CODE = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_error_ERROR_POSTAL_CODEFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2503,10 +1347,6 @@ export type SitePageContextMessagesAddress_form_error_ERROR_POSTAL_CODEFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_error_ERROR_POSTAL_CODEFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_error_generic = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_error_genericFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2517,10 +1357,6 @@ export type SitePageContextMessagesAddress_form_error_genericFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_error_genericFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_addressLine1 = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_addressLine1FilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2531,10 +1367,6 @@ export type SitePageContextMessagesAddress_form_field_addressLine1FilterListInpu
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_addressLine1FilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_addressLine2 = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_addressLine2FilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2545,10 +1377,6 @@ export type SitePageContextMessagesAddress_form_field_addressLine2FilterListInpu
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_addressLine2FilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_addressQuery = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_addressQueryFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2559,10 +1387,6 @@ export type SitePageContextMessagesAddress_form_field_addressQueryFilterListInpu
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_addressQueryFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_city = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_cityFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2573,10 +1397,6 @@ export type SitePageContextMessagesAddress_form_field_cityFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_cityFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_colony = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_colonyFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2587,10 +1407,6 @@ export type SitePageContextMessagesAddress_form_field_colonyFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_colonyFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_commercial = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_commercialFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2601,10 +1417,6 @@ export type SitePageContextMessagesAddress_form_field_commercialFilterListInput 
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_commercialFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_community = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_communityFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2615,10 +1427,6 @@ export type SitePageContextMessagesAddress_form_field_communityFilterListInput =
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_communityFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_complement = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_complementFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2629,10 +1437,6 @@ export type SitePageContextMessagesAddress_form_field_complementFilterListInput 
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_complementFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_country = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_countryFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2643,10 +1447,6 @@ export type SitePageContextMessagesAddress_form_field_countryFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_countryFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_county = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_countyFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2657,10 +1457,6 @@ export type SitePageContextMessagesAddress_form_field_countyFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_countyFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_delegation = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_delegationFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2671,10 +1467,6 @@ export type SitePageContextMessagesAddress_form_field_delegationFilterListInput 
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_delegationFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_department = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_departmentFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2685,10 +1477,6 @@ export type SitePageContextMessagesAddress_form_field_departmentFilterListInput 
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_departmentFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_direction = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_directionFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2699,10 +1487,6 @@ export type SitePageContextMessagesAddress_form_field_directionFilterListInput =
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_directionFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_district = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_districtFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2713,10 +1497,6 @@ export type SitePageContextMessagesAddress_form_field_districtFilterListInput = 
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_districtFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_exteriorNumber = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_exteriorNumberFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2727,10 +1507,6 @@ export type SitePageContextMessagesAddress_form_field_exteriorNumberFilterListIn
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_exteriorNumberFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_floorAndLetter = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_floorAndLetterFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2741,10 +1517,6 @@ export type SitePageContextMessagesAddress_form_field_floorAndLetterFilterListIn
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_floorAndLetterFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_interiorNumber = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_interiorNumberFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2755,10 +1527,6 @@ export type SitePageContextMessagesAddress_form_field_interiorNumberFilterListIn
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_interiorNumberFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_locality = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_localityFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2769,15 +1537,7 @@ export type SitePageContextMessagesAddress_form_field_localityFilterListInput = 
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_localityFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_municipality = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
-export type SitePageContextMessagesAddress_form_field_municipalityDelegation = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_municipalityDelegationFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2797,10 +1557,6 @@ export type SitePageContextMessagesAddress_form_field_municipalityFilterListInpu
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_municipalityFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_neighborhood = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_neighborhoodFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2811,10 +1567,6 @@ export type SitePageContextMessagesAddress_form_field_neighborhoodFilterListInpu
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_neighborhoodFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_noNumber = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_noNumberFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2825,10 +1577,6 @@ export type SitePageContextMessagesAddress_form_field_noNumberFilterListInput = 
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_noNumberFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_notApplicable = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_notApplicableFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2839,10 +1587,6 @@ export type SitePageContextMessagesAddress_form_field_notApplicableFilterListInp
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_notApplicableFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_number = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_numberFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2853,10 +1597,6 @@ export type SitePageContextMessagesAddress_form_field_numberFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_numberFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_postalCode = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_postalCodeFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2867,10 +1607,6 @@ export type SitePageContextMessagesAddress_form_field_postalCodeFilterListInput 
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_postalCodeFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_province = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_provinceFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2881,10 +1617,6 @@ export type SitePageContextMessagesAddress_form_field_provinceFilterListInput = 
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_provinceFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_receiverName = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_receiverNameFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2895,10 +1627,6 @@ export type SitePageContextMessagesAddress_form_field_receiverNameFilterListInpu
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_receiverNameFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_reference = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_referenceFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2909,10 +1637,6 @@ export type SitePageContextMessagesAddress_form_field_referenceFilterListInput =
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_referenceFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_region = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_regionFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2923,10 +1647,6 @@ export type SitePageContextMessagesAddress_form_field_regionFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_regionFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_state = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_stateFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2937,10 +1657,6 @@ export type SitePageContextMessagesAddress_form_field_stateFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_stateFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_street = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_streetFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2951,10 +1667,6 @@ export type SitePageContextMessagesAddress_form_field_streetFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_streetFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_field_town = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_field_townFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2965,10 +1677,6 @@ export type SitePageContextMessagesAddress_form_field_townFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_field_townFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_ARG = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_ARGFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2979,10 +1687,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_ARGFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_ARGFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_BGR = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_BGRFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -2993,10 +1697,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_BGRFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_BGRFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_BOL = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_BOLFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3007,10 +1707,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_BOLFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_BOLFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_BRA = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_BRAFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3021,10 +1717,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_BRAFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_BRAFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_CAN = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_CANFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3035,10 +1727,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_CANFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_CANFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_CHL = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_CHLFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3049,10 +1737,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_CHLFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_CHLFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_COL = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_COLFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3063,10 +1747,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_COLFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_COLFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_DEU = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_DEUFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3077,10 +1757,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_DEUFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_DEUFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_ECU = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_ECUFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3091,10 +1767,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_ECUFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_ECUFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_ESP = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_ESPFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3105,10 +1777,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_ESPFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_ESPFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_FRA = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_FRAFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3119,10 +1787,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_FRAFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_FRAFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_GBR = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_GBRFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3133,10 +1797,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_GBRFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_GBRFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_GTM = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_GTMFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3147,10 +1807,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_GTMFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_GTMFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_ITA = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_ITAFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3161,10 +1817,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_ITAFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_ITAFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_MEX = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_MEXFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3175,10 +1827,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_MEXFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_MEXFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_NLD = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_NLDFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3189,10 +1837,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_NLDFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_NLDFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_PER = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_PERFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3203,10 +1847,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_PERFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_PERFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_POL = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_POLFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3217,10 +1857,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_POLFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_POLFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_PRT = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_PRTFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3231,10 +1867,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_PRTFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_PRTFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_PRY = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_PRYFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3245,10 +1877,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_PRYFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_PRYFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_ROU = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_ROUFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3259,10 +1887,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_ROUFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_ROUFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_UNI = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_UNIFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3273,10 +1897,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_UNIFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_UNIFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_URY = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_URYFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3287,10 +1907,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_URYFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_URYFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_USA = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_USAFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3301,10 +1917,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_USAFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_USAFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_geolocation_example_VEN = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_geolocation_example_VENFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3315,10 +1927,6 @@ export type SitePageContextMessagesAddress_form_geolocation_example_VENFilterLis
   elemMatch: Maybe<SitePageContextMessagesAddress_form_geolocation_example_VENFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_loading = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_loadingFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3329,10 +1937,6 @@ export type SitePageContextMessagesAddress_form_loadingFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_loadingFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_optional = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_optionalFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3343,10 +1947,6 @@ export type SitePageContextMessagesAddress_form_optionalFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_optionalFilterInput>;
 };
 
-export type SitePageContextMessagesAddress_form_search = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesAddress_form_searchFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3357,10 +1957,6 @@ export type SitePageContextMessagesAddress_form_searchFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesAddress_form_searchFilterInput>;
 };
 
-export type SitePageContextMessagesBuy_button_add_to_cart = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesBuy_button_add_to_cartFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3371,10 +1967,6 @@ export type SitePageContextMessagesBuy_button_add_to_cartFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesBuy_button_add_to_cartFilterInput>;
 };
 
-export type SitePageContextMessagesCarousel_next = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesCarousel_nextFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3385,10 +1977,6 @@ export type SitePageContextMessagesCarousel_nextFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesCarousel_nextFilterInput>;
 };
 
-export type SitePageContextMessagesCarousel_previous = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesCarousel_previousFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3399,10 +1987,6 @@ export type SitePageContextMessagesCarousel_previousFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesCarousel_previousFilterInput>;
 };
 
-export type SitePageContextMessagesError_generic = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesError_genericFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3413,10 +1997,6 @@ export type SitePageContextMessagesError_genericFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesError_genericFilterInput>;
 };
 
-export type SitePageContextMessagesFacets_brand_selector_title = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesFacets_brand_selector_titleFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3427,10 +2007,6 @@ export type SitePageContextMessagesFacets_brand_selector_titleFilterListInput = 
   elemMatch: Maybe<SitePageContextMessagesFacets_brand_selector_titleFilterInput>;
 };
 
-export type SitePageContextMessagesFacets_filters = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesFacets_filtersFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3441,10 +2017,6 @@ export type SitePageContextMessagesFacets_filtersFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesFacets_filtersFilterInput>;
 };
 
-export type SitePageContextMessagesFacets_tree_selector_title = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesFacets_tree_selector_titleFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3555,10 +2127,6 @@ export type SitePageContextMessagesFilterInput = {
   signin: Maybe<SitePageContextMessagesSigninFilterListInput>;
 };
 
-export type SitePageContextMessagesLoading = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesLoadingFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3569,10 +2137,6 @@ export type SitePageContextMessagesLoadingFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesLoadingFilterInput>;
 };
 
-export type SitePageContextMessagesMinicart_drawer_close = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesMinicart_drawer_closeFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3583,10 +2147,6 @@ export type SitePageContextMessagesMinicart_drawer_closeFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_closeFilterInput>;
 };
 
-export type SitePageContextMessagesMinicart_drawer_count = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesMinicart_drawer_countFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3597,10 +2157,6 @@ export type SitePageContextMessagesMinicart_drawer_countFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_countFilterInput>;
 };
 
-export type SitePageContextMessagesMinicart_drawer_go_checkout = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesMinicart_drawer_go_checkoutFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3611,10 +2167,6 @@ export type SitePageContextMessagesMinicart_drawer_go_checkoutFilterListInput = 
   elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_go_checkoutFilterInput>;
 };
 
-export type SitePageContextMessagesMinicart_drawer_shipping_disclaimer = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesMinicart_drawer_shipping_disclaimerFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3625,10 +2177,6 @@ export type SitePageContextMessagesMinicart_drawer_shipping_disclaimerFilterList
   elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_shipping_disclaimerFilterInput>;
 };
 
-export type SitePageContextMessagesMinicart_drawer_subtotal = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesMinicart_drawer_subtotalFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3639,10 +2187,6 @@ export type SitePageContextMessagesMinicart_drawer_subtotalFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_subtotalFilterInput>;
 };
 
-export type SitePageContextMessagesMinicart_drawer_total = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesMinicart_drawer_totalFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3653,10 +2197,6 @@ export type SitePageContextMessagesMinicart_drawer_totalFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesMinicart_drawer_totalFilterInput>;
 };
 
-export type SitePageContextMessagesNotification_bar_sale = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesNotification_bar_saleFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3667,10 +2207,6 @@ export type SitePageContextMessagesNotification_bar_saleFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesNotification_bar_saleFilterInput>;
 };
 
-export type SitePageContextMessagesOffer_product_unavailable = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesOffer_product_unavailableFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3681,10 +2217,6 @@ export type SitePageContextMessagesOffer_product_unavailableFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesOffer_product_unavailableFilterInput>;
 };
 
-export type SitePageContextMessagesOffer_units_left = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesOffer_units_leftFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3695,10 +2227,6 @@ export type SitePageContextMessagesOffer_units_leftFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesOffer_units_leftFilterInput>;
 };
 
-export type SitePageContextMessagesPreview_not_found = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesPreview_not_foundFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3709,10 +2237,6 @@ export type SitePageContextMessagesPreview_not_foundFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesPreview_not_foundFilterInput>;
 };
 
-export type SitePageContextMessagesProduct_not_found = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesProduct_not_foundFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3723,10 +2247,6 @@ export type SitePageContextMessagesProduct_not_foundFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesProduct_not_foundFilterInput>;
 };
 
-export type SitePageContextMessagesSearch_page_list_more = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesSearch_page_list_moreFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3737,13 +2257,6 @@ export type SitePageContextMessagesSearch_page_list_moreFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesSearch_page_list_moreFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_bd = {
-  offset: Maybe<Scalars['Int']>;
-  options: Maybe<SitePageContextMessagesShippingEstimate_bdOptions>;
-  pluralType: Maybe<Scalars['String']>;
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_bdFilterInput = {
   offset: Maybe<IntQueryOperatorInput>;
@@ -3757,24 +2270,12 @@ export type SitePageContextMessagesShippingEstimate_bdFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_bdFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_bdOptions = {
-  _0: Maybe<SitePageContextMessagesShippingEstimate_bdOptions_0>;
-  one: Maybe<SitePageContextMessagesShippingEstimate_bdOptionsOne>;
-  other: Maybe<SitePageContextMessagesShippingEstimate_bdOptionsOther>;
-};
 
-export type SitePageContextMessagesShippingEstimate_bdOptions_0 = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_bdOptions_0Value>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_bdOptions_0FilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_bdOptions_0ValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_bdOptions_0Value = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_bdOptions_0ValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3791,18 +2292,11 @@ export type SitePageContextMessagesShippingEstimate_bdOptionsFilterInput = {
   other: Maybe<SitePageContextMessagesShippingEstimate_bdOptionsOtherFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_bdOptionsOne = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_bdOptionsOneValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_bdOptionsOneFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_bdOptionsOneValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_bdOptionsOneValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_bdOptionsOneValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3813,18 +2307,11 @@ export type SitePageContextMessagesShippingEstimate_bdOptionsOneValueFilterListI
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_bdOptionsOneValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_bdOptionsOther = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_bdOptionsOtherValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_bdOptionsOtherFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_bdOptionsOtherValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_bdOptionsOtherValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_bdOptionsOtherValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3835,13 +2322,6 @@ export type SitePageContextMessagesShippingEstimate_bdOptionsOtherValueFilterLis
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_bdOptionsOtherValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_d = {
-  offset: Maybe<Scalars['Int']>;
-  options: Maybe<SitePageContextMessagesShippingEstimate_dOptions>;
-  pluralType: Maybe<Scalars['String']>;
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_dFilterInput = {
   offset: Maybe<IntQueryOperatorInput>;
@@ -3855,24 +2335,12 @@ export type SitePageContextMessagesShippingEstimate_dFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_dFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_dOptions = {
-  _0: Maybe<SitePageContextMessagesShippingEstimate_dOptions_0>;
-  one: Maybe<SitePageContextMessagesShippingEstimate_dOptionsOne>;
-  other: Maybe<SitePageContextMessagesShippingEstimate_dOptionsOther>;
-};
 
-export type SitePageContextMessagesShippingEstimate_dOptions_0 = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_dOptions_0Value>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_dOptions_0FilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_dOptions_0ValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_dOptions_0Value = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_dOptions_0ValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3889,18 +2357,11 @@ export type SitePageContextMessagesShippingEstimate_dOptionsFilterInput = {
   other: Maybe<SitePageContextMessagesShippingEstimate_dOptionsOtherFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_dOptionsOne = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_dOptionsOneValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_dOptionsOneFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_dOptionsOneValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_dOptionsOneValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_dOptionsOneValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3911,18 +2372,11 @@ export type SitePageContextMessagesShippingEstimate_dOptionsOneValueFilterListIn
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_dOptionsOneValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_dOptionsOther = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_dOptionsOtherValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_dOptionsOtherFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_dOptionsOtherValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_dOptionsOtherValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_dOptionsOtherValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3933,13 +2387,6 @@ export type SitePageContextMessagesShippingEstimate_dOptionsOtherValueFilterList
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_dOptionsOtherValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_h = {
-  offset: Maybe<Scalars['Int']>;
-  options: Maybe<SitePageContextMessagesShippingEstimate_hOptions>;
-  pluralType: Maybe<Scalars['String']>;
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_hFilterInput = {
   offset: Maybe<IntQueryOperatorInput>;
@@ -3953,24 +2400,12 @@ export type SitePageContextMessagesShippingEstimate_hFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_hFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_hOptions = {
-  _0: Maybe<SitePageContextMessagesShippingEstimate_hOptions_0>;
-  one: Maybe<SitePageContextMessagesShippingEstimate_hOptionsOne>;
-  other: Maybe<SitePageContextMessagesShippingEstimate_hOptionsOther>;
-};
 
-export type SitePageContextMessagesShippingEstimate_hOptions_0 = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_hOptions_0Value>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_hOptions_0FilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_hOptions_0ValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_hOptions_0Value = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_hOptions_0ValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -3987,18 +2422,11 @@ export type SitePageContextMessagesShippingEstimate_hOptionsFilterInput = {
   other: Maybe<SitePageContextMessagesShippingEstimate_hOptionsOtherFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_hOptionsOne = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_hOptionsOneValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_hOptionsOneFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_hOptionsOneValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_hOptionsOneValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_hOptionsOneValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4009,18 +2437,11 @@ export type SitePageContextMessagesShippingEstimate_hOptionsOneValueFilterListIn
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_hOptionsOneValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_hOptionsOther = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_hOptionsOtherValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_hOptionsOtherFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_hOptionsOtherValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_hOptionsOtherValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_hOptionsOtherValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4031,13 +2452,6 @@ export type SitePageContextMessagesShippingEstimate_hOptionsOtherValueFilterList
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_hOptionsOtherValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_m = {
-  offset: Maybe<Scalars['Int']>;
-  options: Maybe<SitePageContextMessagesShippingEstimate_mOptions>;
-  pluralType: Maybe<Scalars['String']>;
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_mFilterInput = {
   offset: Maybe<IntQueryOperatorInput>;
@@ -4051,24 +2465,12 @@ export type SitePageContextMessagesShippingEstimate_mFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_mFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_mOptions = {
-  _0: Maybe<SitePageContextMessagesShippingEstimate_mOptions_0>;
-  one: Maybe<SitePageContextMessagesShippingEstimate_mOptionsOne>;
-  other: Maybe<SitePageContextMessagesShippingEstimate_mOptionsOther>;
-};
 
-export type SitePageContextMessagesShippingEstimate_mOptions_0 = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_mOptions_0Value>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_mOptions_0FilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_mOptions_0ValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_mOptions_0Value = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_mOptions_0ValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4085,18 +2487,11 @@ export type SitePageContextMessagesShippingEstimate_mOptionsFilterInput = {
   other: Maybe<SitePageContextMessagesShippingEstimate_mOptionsOtherFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_mOptionsOne = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_mOptionsOneValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_mOptionsOneFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_mOptionsOneValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_mOptionsOneValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_mOptionsOneValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4107,18 +2502,11 @@ export type SitePageContextMessagesShippingEstimate_mOptionsOneValueFilterListIn
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_mOptionsOneValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_mOptionsOther = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimate_mOptionsOtherValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimate_mOptionsOtherFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimate_mOptionsOtherValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_mOptionsOtherValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_mOptionsOtherValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4129,15 +2517,7 @@ export type SitePageContextMessagesShippingEstimate_mOptionsOtherValueFilterList
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_mOptionsOtherValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimate_scheduled = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
-export type SitePageContextMessagesShippingEstimate_scheduled_no_dates = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimate_scheduled_no_datesFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4157,13 +2537,6 @@ export type SitePageContextMessagesShippingEstimate_scheduledFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesShippingEstimate_scheduledFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_bd = {
-  offset: Maybe<Scalars['Int']>;
-  options: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptions>;
-  pluralType: Maybe<Scalars['String']>;
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_bdFilterInput = {
   offset: Maybe<IntQueryOperatorInput>;
@@ -4177,24 +2550,12 @@ export type SitePageContextMessagesShippingEstimatePickup_bdFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_bdFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_bdOptions = {
-  _0: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptions_0>;
-  one: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptionsOne>;
-  other: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptionsOther>;
-};
 
-export type SitePageContextMessagesShippingEstimatePickup_bdOptions_0 = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptions_0Value>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_bdOptions_0FilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptions_0ValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_bdOptions_0Value = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_bdOptions_0ValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4211,18 +2572,11 @@ export type SitePageContextMessagesShippingEstimatePickup_bdOptionsFilterInput =
   other: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptionsOtherFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOne = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptionsOneValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOneFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptionsOneValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOneValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOneValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4233,18 +2587,11 @@ export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOneValueFilte
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptionsOneValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOther = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptionsOtherValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOtherFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptionsOtherValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOtherValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOtherValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4255,13 +2602,6 @@ export type SitePageContextMessagesShippingEstimatePickup_bdOptionsOtherValueFil
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_bdOptionsOtherValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_d = {
-  offset: Maybe<Scalars['Int']>;
-  options: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptions>;
-  pluralType: Maybe<Scalars['String']>;
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_dFilterInput = {
   offset: Maybe<IntQueryOperatorInput>;
@@ -4275,24 +2615,12 @@ export type SitePageContextMessagesShippingEstimatePickup_dFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_dFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_dOptions = {
-  _0: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptions_0>;
-  one: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptionsOne>;
-  other: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptionsOther>;
-};
 
-export type SitePageContextMessagesShippingEstimatePickup_dOptions_0 = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_dOptions_0Value>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_dOptions_0FilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptions_0ValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_dOptions_0Value = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_dOptions_0ValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4309,18 +2637,11 @@ export type SitePageContextMessagesShippingEstimatePickup_dOptionsFilterInput = 
   other: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptionsOtherFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_dOptionsOne = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_dOptionsOneValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_dOptionsOneFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptionsOneValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_dOptionsOneValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_dOptionsOneValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4331,18 +2652,11 @@ export type SitePageContextMessagesShippingEstimatePickup_dOptionsOneValueFilter
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptionsOneValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_dOptionsOther = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_dOptionsOtherValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_dOptionsOtherFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptionsOtherValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_dOptionsOtherValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_dOptionsOtherValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4353,13 +2667,6 @@ export type SitePageContextMessagesShippingEstimatePickup_dOptionsOtherValueFilt
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_dOptionsOtherValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_h = {
-  offset: Maybe<Scalars['Int']>;
-  options: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptions>;
-  pluralType: Maybe<Scalars['String']>;
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_hFilterInput = {
   offset: Maybe<IntQueryOperatorInput>;
@@ -4373,24 +2680,12 @@ export type SitePageContextMessagesShippingEstimatePickup_hFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_hFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_hOptions = {
-  _0: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptions_0>;
-  one: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptionsOne>;
-  other: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptionsOther>;
-};
 
-export type SitePageContextMessagesShippingEstimatePickup_hOptions_0 = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_hOptions_0Value>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_hOptions_0FilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptions_0ValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_hOptions_0Value = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_hOptions_0ValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4407,18 +2702,11 @@ export type SitePageContextMessagesShippingEstimatePickup_hOptionsFilterInput = 
   other: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptionsOtherFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_hOptionsOne = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_hOptionsOneValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_hOptionsOneFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptionsOneValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_hOptionsOneValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_hOptionsOneValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4429,18 +2717,11 @@ export type SitePageContextMessagesShippingEstimatePickup_hOptionsOneValueFilter
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptionsOneValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_hOptionsOther = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_hOptionsOtherValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_hOptionsOtherFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptionsOtherValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_hOptionsOtherValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_hOptionsOtherValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4451,13 +2732,6 @@ export type SitePageContextMessagesShippingEstimatePickup_hOptionsOtherValueFilt
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_hOptionsOtherValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_m = {
-  offset: Maybe<Scalars['Int']>;
-  options: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptions>;
-  pluralType: Maybe<Scalars['String']>;
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_mFilterInput = {
   offset: Maybe<IntQueryOperatorInput>;
@@ -4471,24 +2745,12 @@ export type SitePageContextMessagesShippingEstimatePickup_mFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_mFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_mOptions = {
-  _0: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptions_0>;
-  one: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptionsOne>;
-  other: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptionsOther>;
-};
 
-export type SitePageContextMessagesShippingEstimatePickup_mOptions_0 = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_mOptions_0Value>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_mOptions_0FilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptions_0ValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_mOptions_0Value = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_mOptions_0ValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4505,18 +2767,11 @@ export type SitePageContextMessagesShippingEstimatePickup_mOptionsFilterInput = 
   other: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptionsOtherFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_mOptionsOne = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_mOptionsOneValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_mOptionsOneFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptionsOneValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_mOptionsOneValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_mOptionsOneValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4527,18 +2782,11 @@ export type SitePageContextMessagesShippingEstimatePickup_mOptionsOneValueFilter
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptionsOneValueFilterInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_mOptionsOther = {
-  value: Maybe<Array<Maybe<SitePageContextMessagesShippingEstimatePickup_mOptionsOtherValue>>>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_mOptionsOtherFilterInput = {
   value: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptionsOtherValueFilterListInput>;
 };
 
-export type SitePageContextMessagesShippingEstimatePickup_mOptionsOtherValue = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesShippingEstimatePickup_mOptionsOtherValueFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4549,10 +2797,6 @@ export type SitePageContextMessagesShippingEstimatePickup_mOptionsOtherValueFilt
   elemMatch: Maybe<SitePageContextMessagesShippingEstimatePickup_mOptionsOtherValueFilterInput>;
 };
 
-export type SitePageContextMessagesSignin = {
-  type: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type SitePageContextMessagesSigninFilterInput = {
   type: Maybe<IntQueryOperatorInput>;
@@ -4563,11 +2807,6 @@ export type SitePageContextMessagesSigninFilterListInput = {
   elemMatch: Maybe<SitePageContextMessagesSigninFilterInput>;
 };
 
-export type SitePageEdge = {
-  next: Maybe<SitePage>;
-  node: SitePage;
-  previous: Maybe<SitePage>;
-};
 
 export type SitePageFieldsEnum = 
   | 'path'
@@ -5090,62 +3329,14 @@ export type SitePageFilterInput = {
   componentPath: Maybe<StringQueryOperatorInput>;
 };
 
-export type SitePageGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<SitePageEdge>;
-  nodes: Array<SitePage>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
 export type SitePageSortInput = {
   fields: Maybe<Array<Maybe<SitePageFieldsEnum>>>;
   order: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type SitePlugin = Node & {
-  id: Scalars['ID'];
-  parent: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  resolve: Maybe<Scalars['String']>;
-  name: Maybe<Scalars['String']>;
-  version: Maybe<Scalars['String']>;
-  pluginOptions: Maybe<SitePluginPluginOptions>;
-  nodeAPIs: Maybe<Array<Maybe<Scalars['String']>>>;
-  browserAPIs: Maybe<Array<Maybe<Scalars['String']>>>;
-  ssrAPIs: Maybe<Array<Maybe<Scalars['String']>>>;
-  pluginFilepath: Maybe<Scalars['String']>;
-  packageJson: Maybe<SitePluginPackageJson>;
-};
-
-export type SitePluginConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<SitePluginEdge>;
-  nodes: Array<SitePlugin>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  group: Array<SitePluginGroupConnection>;
-};
 
 
-export type SitePluginConnectiondistinctArgs = {
-  field: SitePluginFieldsEnum;
-};
-
-
-export type SitePluginConnectiongroupArgs = {
-  skip: Maybe<Scalars['Int']>;
-  limit: Maybe<Scalars['Int']>;
-  field: SitePluginFieldsEnum;
-};
-
-export type SitePluginEdge = {
-  next: Maybe<SitePlugin>;
-  node: SitePlugin;
-  previous: Maybe<SitePlugin>;
-};
 
 export type SitePluginFieldsEnum = 
   | 'id'
@@ -5310,31 +3501,8 @@ export type SitePluginFilterInput = {
   packageJson: Maybe<SitePluginPackageJsonFilterInput>;
 };
 
-export type SitePluginGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<SitePluginEdge>;
-  nodes: Array<SitePlugin>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue: Maybe<Scalars['String']>;
-};
 
-export type SitePluginPackageJson = {
-  name: Maybe<Scalars['String']>;
-  description: Maybe<Scalars['String']>;
-  version: Maybe<Scalars['String']>;
-  main: Maybe<Scalars['String']>;
-  license: Maybe<Scalars['String']>;
-  dependencies: Maybe<Array<Maybe<SitePluginPackageJsonDependencies>>>;
-  devDependencies: Maybe<Array<Maybe<SitePluginPackageJsonDevDependencies>>>;
-  peerDependencies: Maybe<Array<Maybe<SitePluginPackageJsonPeerDependencies>>>;
-  keywords: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
-export type SitePluginPackageJsonDependencies = {
-  name: Maybe<Scalars['String']>;
-  version: Maybe<Scalars['String']>;
-};
 
 export type SitePluginPackageJsonDependenciesFilterInput = {
   name: Maybe<StringQueryOperatorInput>;
@@ -5345,10 +3513,6 @@ export type SitePluginPackageJsonDependenciesFilterListInput = {
   elemMatch: Maybe<SitePluginPackageJsonDependenciesFilterInput>;
 };
 
-export type SitePluginPackageJsonDevDependencies = {
-  name: Maybe<Scalars['String']>;
-  version: Maybe<Scalars['String']>;
-};
 
 export type SitePluginPackageJsonDevDependenciesFilterInput = {
   name: Maybe<StringQueryOperatorInput>;
@@ -5371,10 +3535,6 @@ export type SitePluginPackageJsonFilterInput = {
   keywords: Maybe<StringQueryOperatorInput>;
 };
 
-export type SitePluginPackageJsonPeerDependencies = {
-  name: Maybe<Scalars['String']>;
-  version: Maybe<Scalars['String']>;
-};
 
 export type SitePluginPackageJsonPeerDependenciesFilterInput = {
   name: Maybe<StringQueryOperatorInput>;
@@ -5385,60 +3545,13 @@ export type SitePluginPackageJsonPeerDependenciesFilterListInput = {
   elemMatch: Maybe<SitePluginPackageJsonPeerDependenciesFilterInput>;
 };
 
-export type SitePluginPluginOptions = {
-  compare: Maybe<Scalars['Boolean']>;
-  baseline: Maybe<Scalars['Boolean']>;
-  html: Maybe<Scalars['Boolean']>;
-  json: Maybe<Scalars['Boolean']>;
-  outDir: Maybe<Scalars['String']>;
-  stats: Maybe<SitePluginPluginOptionsStats>;
-  tenant: Maybe<Scalars['String']>;
-  environment: Maybe<Scalars['String']>;
-  workspace: Maybe<Scalars['String']>;
-  messagesPath: Maybe<Scalars['String']>;
-  locales: Maybe<Array<Maybe<Scalars['String']>>>;
-  defaultLocale: Maybe<Scalars['String']>;
-  title: Maybe<Scalars['String']>;
-  description: Maybe<Scalars['String']>;
-  localizationThemeOptions: Maybe<SitePluginPluginOptionsLocalizationThemeOptions>;
-  name: Maybe<Scalars['String']>;
-  short_name: Maybe<Scalars['String']>;
-  start_url: Maybe<Scalars['String']>;
-  icon: Maybe<Scalars['String']>;
-  background_color: Maybe<Scalars['String']>;
-  theme_color: Maybe<Scalars['String']>;
-  display: Maybe<Scalars['String']>;
-  cache_busting_mode: Maybe<Scalars['String']>;
-  include_favicon: Maybe<Scalars['Boolean']>;
-  legacy: Maybe<Scalars['Boolean']>;
-  theme_color_in_head: Maybe<Scalars['Boolean']>;
-  cacheDigest: Maybe<Scalars['String']>;
-  path: Maybe<Scalars['String']>;
-  env: Maybe<SitePluginPluginOptionsEnv>;
-  headers: Maybe<SitePluginPluginOptionsHeaders>;
-  mergeSecurityHeaders: Maybe<Scalars['Boolean']>;
-  generateMatchPathRewrites: Maybe<Scalars['Boolean']>;
-  pathCheck: Maybe<Scalars['Boolean']>;
-};
 
-export type SitePluginPluginOptionsEnv = {
-  production: Maybe<SitePluginPluginOptionsEnvProduction>;
-  branch_deploy: Maybe<SitePluginPluginOptionsEnvBranch_deploy>;
-  deploy_preview: Maybe<SitePluginPluginOptionsEnvDeploy_preview>;
-};
 
-export type SitePluginPluginOptionsEnvBranch_deploy = {
-  policy: Maybe<Array<Maybe<SitePluginPluginOptionsEnvBranch_deployPolicy>>>;
-};
 
 export type SitePluginPluginOptionsEnvBranch_deployFilterInput = {
   policy: Maybe<SitePluginPluginOptionsEnvBranch_deployPolicyFilterListInput>;
 };
 
-export type SitePluginPluginOptionsEnvBranch_deployPolicy = {
-  userAgent: Maybe<Scalars['String']>;
-  disallow: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
 export type SitePluginPluginOptionsEnvBranch_deployPolicyFilterInput = {
   userAgent: Maybe<StringQueryOperatorInput>;
@@ -5449,18 +3562,11 @@ export type SitePluginPluginOptionsEnvBranch_deployPolicyFilterListInput = {
   elemMatch: Maybe<SitePluginPluginOptionsEnvBranch_deployPolicyFilterInput>;
 };
 
-export type SitePluginPluginOptionsEnvDeploy_preview = {
-  policy: Maybe<Array<Maybe<SitePluginPluginOptionsEnvDeploy_previewPolicy>>>;
-};
 
 export type SitePluginPluginOptionsEnvDeploy_previewFilterInput = {
   policy: Maybe<SitePluginPluginOptionsEnvDeploy_previewPolicyFilterListInput>;
 };
 
-export type SitePluginPluginOptionsEnvDeploy_previewPolicy = {
-  userAgent: Maybe<Scalars['String']>;
-  disallow: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
 export type SitePluginPluginOptionsEnvDeploy_previewPolicyFilterInput = {
   userAgent: Maybe<StringQueryOperatorInput>;
@@ -5477,17 +3583,11 @@ export type SitePluginPluginOptionsEnvFilterInput = {
   deploy_preview: Maybe<SitePluginPluginOptionsEnvDeploy_previewFilterInput>;
 };
 
-export type SitePluginPluginOptionsEnvProduction = {
-  policy: Maybe<Array<Maybe<SitePluginPluginOptionsEnvProductionPolicy>>>;
-};
 
 export type SitePluginPluginOptionsEnvProductionFilterInput = {
   policy: Maybe<SitePluginPluginOptionsEnvProductionPolicyFilterListInput>;
 };
 
-export type SitePluginPluginOptionsEnvProductionPolicy = {
-  userAgent: Maybe<Scalars['String']>;
-};
 
 export type SitePluginPluginOptionsEnvProductionPolicyFilterInput = {
   userAgent: Maybe<StringQueryOperatorInput>;
@@ -5533,19 +3633,11 @@ export type SitePluginPluginOptionsFilterInput = {
   pathCheck: Maybe<BooleanQueryOperatorInput>;
 };
 
-export type SitePluginPluginOptionsHeaders = {
-  _preview: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
 export type SitePluginPluginOptionsHeadersFilterInput = {
   _preview: Maybe<StringQueryOperatorInput>;
 };
 
-export type SitePluginPluginOptionsLocalizationThemeOptions = {
-  messagesPath: Maybe<Scalars['String']>;
-  locales: Maybe<Array<Maybe<Scalars['String']>>>;
-  defaultLocale: Maybe<Scalars['String']>;
-};
 
 export type SitePluginPluginOptionsLocalizationThemeOptionsFilterInput = {
   messagesPath: Maybe<StringQueryOperatorInput>;
@@ -5553,9 +3645,6 @@ export type SitePluginPluginOptionsLocalizationThemeOptionsFilterInput = {
   defaultLocale: Maybe<StringQueryOperatorInput>;
 };
 
-export type SitePluginPluginOptionsStats = {
-  context: Maybe<Scalars['String']>;
-};
 
 export type SitePluginPluginOptionsStatsFilterInput = {
   context: Maybe<StringQueryOperatorInput>;
@@ -5566,10 +3655,6 @@ export type SitePluginSortInput = {
   order: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type SiteProxy = {
-  prefix: Maybe<Scalars['String']>;
-  url: Maybe<Scalars['String']>;
-};
 
 export type SiteProxyFilterInput = {
   prefix: Maybe<StringQueryOperatorInput>;
@@ -5580,13 +3665,6 @@ export type SiteProxyFilterListInput = {
   elemMatch: Maybe<SiteProxyFilterInput>;
 };
 
-export type SiteSiteMetadata = {
-  title: Maybe<Scalars['String']>;
-  description: Maybe<Scalars['String']>;
-  vtex: Maybe<SiteSiteMetadataVtex>;
-  author: Maybe<Scalars['String']>;
-  siteUrl: Maybe<Scalars['String']>;
-};
 
 export type SiteSiteMetadataFilterInput = {
   title: Maybe<StringQueryOperatorInput>;
@@ -5596,9 +3674,6 @@ export type SiteSiteMetadataFilterInput = {
   siteUrl: Maybe<StringQueryOperatorInput>;
 };
 
-export type SiteSiteMetadataVtex = {
-  tenant: Maybe<Scalars['String']>;
-};
 
 export type SiteSiteMetadataVtexFilterInput = {
   tenant: Maybe<StringQueryOperatorInput>;
@@ -5622,187 +3697,8 @@ export type StringQueryOperatorInput = {
   glob: Maybe<Scalars['String']>;
 };
 
-export type VTEX = {
-  /** Returns a specified product */
-  product: Maybe<VTEX_Product>;
-  /** Return the banners for a given query */
-  banners: Maybe<VTEX_Banners>;
-  /** Correct a misspeled term */
-  correction: Maybe<VTEX_Correction>;
-  /** Get search suggestions */
-  searchSuggestions: Maybe<VTEX_SearchSuggestions>;
-  /** Returns products list filtered and ordered */
-  productSearch: Maybe<VTEX_ProductSearch>;
-  searchMetadata: Maybe<VTEX_SearchMetadata>;
-  /** Returns products list filtered and ordered */
-  products: Maybe<Array<Maybe<VTEX_Product>>>;
-  productRecommendations: Maybe<Array<Maybe<VTEX_Product>>>;
-  productsByIdentifier: Maybe<Array<Maybe<VTEX_Product>>>;
-  /** Returns facets category */
-  facets: Maybe<VTEX_Facets>;
-  /** Get auto complete suggestions in search */
-  autocomplete: Maybe<VTEX_Suggestions>;
-  /** Get top searches from store */
-  topSearches: Maybe<VTEX_SearchSuggestions>;
-  /** Get autocomplete search suggestions */
-  autocompleteSearchSuggestions: Maybe<VTEX_SearchSuggestions>;
-  /** Get product suggestions */
-  productSuggestions: Maybe<VTEX_ProductSuggestions>;
-  /** Get search urls access stats count */
-  searchURLsCount: Maybe<Array<Maybe<VTEX_SearchURLStats>>>;
-  getCardSessionId: Maybe<Scalars['String']>;
-  orderForm: Maybe<VTEX_OrderForm>;
-  checkoutProfile: Maybe<VTEX_CheckoutProfile>;
-};
 
 
-export type VTEXproductArgs = {
-  slug: Maybe<Scalars['String']>;
-  identifier: Maybe<VTEX_ProductUniqueIdentifier>;
-};
-
-
-export type VTEXbannersArgs = {
-  fullText?: Maybe<Scalars['String']>;
-  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacetInput>>>;
-};
-
-
-export type VTEXcorrectionArgs = {
-  fullText?: Maybe<Scalars['String']>;
-};
-
-
-export type VTEXsearchSuggestionsArgs = {
-  fullText: Scalars['String'];
-};
-
-
-export type VTEXproductSearchArgs = {
-  query?: Maybe<Scalars['String']>;
-  fullText?: Maybe<Scalars['String']>;
-  map?: Maybe<Scalars['String']>;
-  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacetInput>>>;
-  category?: Maybe<Scalars['String']>;
-  specificationFilters: Maybe<Array<Maybe<Scalars['String']>>>;
-  priceRange?: Maybe<Scalars['String']>;
-  collection?: Maybe<Scalars['String']>;
-  salesChannel?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<Scalars['String']>;
-  from?: Maybe<Scalars['Int']>;
-  to?: Maybe<Scalars['Int']>;
-  hideUnavailableItems?: Maybe<Scalars['Boolean']>;
-  simulationBehavior?: Maybe<VTEX_SimulationBehavior>;
-  productOriginVtex?: Maybe<Scalars['Boolean']>;
-  operator: Maybe<VTEX_Operator>;
-  fuzzy: Maybe<Scalars['String']>;
-  searchState: Maybe<Scalars['String']>;
-};
-
-
-export type VTEXsearchMetadataArgs = {
-  query?: Maybe<Scalars['String']>;
-  fullText?: Maybe<Scalars['String']>;
-  map?: Maybe<Scalars['String']>;
-  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacetInput>>>;
-};
-
-
-export type VTEXproductsArgs = {
-  query?: Maybe<Scalars['String']>;
-  map?: Maybe<Scalars['String']>;
-  category?: Maybe<Scalars['String']>;
-  specificationFilters: Maybe<Array<Maybe<Scalars['String']>>>;
-  priceRange?: Maybe<Scalars['String']>;
-  collection?: Maybe<Scalars['String']>;
-  salesChannel?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<Scalars['String']>;
-  from?: Maybe<Scalars['Int']>;
-  to?: Maybe<Scalars['Int']>;
-  hideUnavailableItems?: Maybe<Scalars['Boolean']>;
-  simulationBehavior?: Maybe<VTEX_SimulationBehavior>;
-};
-
-
-export type VTEXproductRecommendationsArgs = {
-  identifier: Maybe<VTEX_ProductUniqueIdentifier>;
-  type: Maybe<VTEX_CrossSelingInputEnum>;
-};
-
-
-export type VTEXproductsByIdentifierArgs = {
-  field: VTEX_ProductUniqueIdentifierField;
-  values: Maybe<Array<Scalars['ID']>>;
-};
-
-
-export type VTEXfacetsArgs = {
-  query?: Maybe<Scalars['String']>;
-  fullText?: Maybe<Scalars['String']>;
-  map?: Maybe<Scalars['String']>;
-  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacetInput>>>;
-  hideUnavailableItems?: Maybe<Scalars['Boolean']>;
-  behavior?: Maybe<Scalars['String']>;
-  operator: Maybe<VTEX_Operator>;
-  fuzzy: Maybe<Scalars['String']>;
-  searchState: Maybe<Scalars['String']>;
-};
-
-
-export type VTEXautocompleteArgs = {
-  maxRows?: Maybe<Scalars['Int']>;
-  searchTerm: Maybe<Scalars['String']>;
-};
-
-
-export type VTEXautocompleteSearchSuggestionsArgs = {
-  fullText: Scalars['String'];
-};
-
-
-export type VTEXproductSuggestionsArgs = {
-  fullText: Scalars['String'];
-  facetKey: Maybe<Scalars['String']>;
-  facetValue: Maybe<Scalars['String']>;
-  productOriginVtex?: Maybe<Scalars['Boolean']>;
-  simulationBehavior?: Maybe<VTEX_SimulationBehavior>;
-};
-
-
-export type VTEXsearchURLsCountArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  sort: Maybe<VTEX_SORT>;
-};
-
-
-export type VTEXcheckoutProfileArgs = {
-  email: Scalars['String'];
-};
-
-export type VTEX_AddedOptionItem = {
-  item: Maybe<VTEX_Item>;
-  compositionItem: Maybe<VTEX_CompositionItem>;
-  normalizedQuantity: Maybe<Scalars['Int']>;
-  choiceType: Maybe<Scalars['String']>;
-  extraQuantity: Maybe<Scalars['Int']>;
-};
-
-export type VTEX_Address = {
-  addressId: Maybe<Scalars['ID']>;
-  addressType: Maybe<VTEX_AddressType>;
-  city: Maybe<Scalars['String']>;
-  complement: Maybe<Scalars['String']>;
-  country: Maybe<Scalars['String']>;
-  geoCoordinates: Maybe<Array<Maybe<Scalars['Float']>>>;
-  neighborhood: Maybe<Scalars['String']>;
-  number: Maybe<Scalars['String']>;
-  postalCode: Maybe<Scalars['String']>;
-  receiverName: Maybe<Scalars['String']>;
-  reference: Maybe<Scalars['String']>;
-  state: Maybe<Scalars['String']>;
-  street: Maybe<Scalars['String']>;
-  isDisposable: Maybe<Scalars['Boolean']>;
-};
 
 export type VTEX_AddressInput = {
   addressId: Maybe<Scalars['ID']>;
@@ -5830,13 +3726,6 @@ export type VTEX_AddressType =
   | 'pickup'
   | 'search';
 
-export type VTEX_AssemblyOption = {
-  id: Maybe<Scalars['ID']>;
-  name: Maybe<Scalars['String']>;
-  required: Maybe<Scalars['Boolean']>;
-  composition: Maybe<VTEX_CompositionType>;
-  inputValues: Maybe<Array<Maybe<VTEX_InputValue>>>;
-};
 
 export type VTEX_AssemblyOptionInput = {
   id: Scalars['ID'];
@@ -5847,194 +3736,29 @@ export type VTEX_AssemblyOptionInput = {
   inputValues: Maybe<Scalars['VTEX_InputValues']>;
 };
 
-export type VTEX_AssemblyOptionItem = {
-  added: Array<Maybe<VTEX_AddedOptionItem>>;
-  removed: Array<Maybe<VTEX_RemovedOptionItem>>;
-  parentPrice: Maybe<Scalars['Float']>;
-};
 
-export type VTEX_AssemblyOptionType = {
-  assemblyId: Scalars['String'];
-  id: Maybe<Scalars['ID']>;
-  quantity: Maybe<Scalars['Int']>;
-  seller: Maybe<Scalars['String']>;
-  inputValues: Maybe<Scalars['VTEX_InputValues']>;
-  options: Maybe<Array<VTEX_AssemblyOptionType>>;
-};
 
-export type VTEX_Attachment = {
-  id: Maybe<Scalars['ID']>;
-  name: Maybe<Scalars['String']>;
-  required: Maybe<Scalars['Boolean']>;
-  domainValues: Maybe<Array<Maybe<VTEX_DomainValues>>>;
-};
 
-export type VTEX_AvailableAccount = {
-  accountId: Scalars['String'];
-  paymentSystem: Scalars['String'];
-  paymentSystemName: Scalars['String'];
-  cardNumber: Scalars['String'];
-  bin: Scalars['String'];
-};
 
-export type VTEX_Banners = {
-  banners: Maybe<Array<Maybe<VTEX_SearchBanner>>>;
-};
 
-/**  Benefit of a Product  */
-export type VTEX_Benefit = {
-  /**  Flag which indicates if the benefit is featured or not  */
-  featured: Maybe<Scalars['Boolean']>;
-  /**  Id of the product which the benefit is associated  */
-  id: Maybe<Scalars['String']>;
-  /**  Name of the benefit  */
-  name: Maybe<Scalars['String']>;
-  /**  Items of the benefit  */
-  items: Maybe<Array<Maybe<VTEX_BenefitItem>>>;
-  /**  Type of benefit  */
-  teaserType: Maybe<Scalars['String']>;
-};
 
-export type VTEX_BenefitItem = {
-  /**  Product itself  */
-  benefitProduct: Maybe<VTEX_Product>;
-  /**  IDs of the SKU Items that are taking part in the benefit  */
-  benefitSKUIds: Maybe<Array<Maybe<Scalars['String']>>>;
-  /**  Discount applied to the benefit product  */
-  discount: Maybe<Scalars['Float']>;
-  /**  Minimum quantity of the benefit product that is required to validate the benefit  */
-  minQuantity: Maybe<Scalars['Int']>;
-};
 
-export type VTEX_Brand = {
-  /** slug is used as cacheId */
-  cacheId: Maybe<Scalars['ID']>;
-  /** Brand id */
-  id: Maybe<Scalars['Int']>;
-  /** Brand logo */
-  imageUrl: Maybe<Scalars['String']>;
-  /** Text link */
-  slug: Maybe<Scalars['String']>;
-  /** Name of brand */
-  name: Maybe<Scalars['String']>;
-  /** Title used by html tag */
-  titleTag: Maybe<Scalars['String']>;
-  /** Description used by html tag */
-  metaTagDescription: Maybe<Scalars['String']>;
-  /** Brand is active */
-  active: Maybe<Scalars['Boolean']>;
-};
 
-export type VTEX_BrandFacet = {
-  id: Scalars['ID'];
-  quantity: Scalars['Int'];
-  name: Scalars['String'];
-  link: Scalars['String'];
-  linkEncoded: Scalars['String'];
-  map: Maybe<Scalars['String']>;
-  value: Scalars['String'];
-  selected: Scalars['Boolean'];
-};
 
-export type VTEX_CategoriesTreeFacet = {
-  id: Scalars['ID'];
-  quantity: Scalars['Int'];
-  name: Maybe<Scalars['String']>;
-  link: Scalars['String'];
-  linkEncoded: Scalars['String'];
-  /** Contains slugified links according to the store structure. /:department/d, /:category/:subcategory, etc */
-  href: Scalars['String'];
-  map: Maybe<Scalars['String']>;
-  value: Scalars['String'];
-  children: Maybe<Array<Maybe<VTEX_CategoriesTreeFacet>>>;
-  selected: Scalars['Boolean'];
-};
 
-export type VTEX_Category = {
-  /**  id is used as cacheId  */
-  cacheId: Maybe<Scalars['ID']>;
-  /**  URI of category  */
-  href: Maybe<Scalars['String']>;
-  /**  Category text link  */
-  slug: Maybe<Scalars['String']>;
-  /**  Category ID  */
-  id: Maybe<Scalars['Int']>;
-  /**  Category name  */
-  name: Maybe<Scalars['String']>;
-  /**  Title used by html tag */
-  titleTag: Maybe<Scalars['String']>;
-  /**  Description used by html tag */
-  hasChildren: Maybe<Scalars['Boolean']>;
-  /**  Has children categories  */
-  metaTagDescription: Maybe<Scalars['String']>;
-  /**  Categories children  */
-  children: Maybe<Array<Maybe<VTEX_Category>>>;
-};
 
-export type VTEX_CheckoutProfile = {
-  userProfileId: Maybe<Scalars['String']>;
-  profileProvider: Maybe<Scalars['String']>;
-  availableAccounts: Array<VTEX_AvailableAccount>;
-  availableAddresses: Array<VTEX_Address>;
-  userProfile: Maybe<VTEX_UserProfile>;
-};
 
-export type VTEX_ClientData = {
-  email: Maybe<Scalars['String']>;
-  firstName: Maybe<Scalars['String']>;
-  lastName: Maybe<Scalars['String']>;
-  document: Maybe<Scalars['String']>;
-  documentType: Maybe<Scalars['String']>;
-  phone: Maybe<Scalars['String']>;
-  corporateName: Maybe<Scalars['String']>;
-  tradeName: Maybe<Scalars['String']>;
-  corporateDocument: Maybe<Scalars['String']>;
-  stateInscription: Maybe<Scalars['String']>;
-  corporatePhone: Maybe<Scalars['String']>;
-  isCorporate: Maybe<Scalars['Boolean']>;
-  profileCompleteOnLoading: Maybe<Scalars['Boolean']>;
-  profileErrorOnLoading: Maybe<Scalars['Boolean']>;
-  customerClass: Maybe<Scalars['String']>;
-  isValid: Scalars['Boolean'];
-};
 
-export type VTEX_ClientPreferencesData = {
-  locale: Maybe<Scalars['String']>;
-  optInNewsletter: Maybe<Scalars['Boolean']>;
-};
 
 export type VTEX_ClientPreferencesDataInput = {
   optInNewsletter: Maybe<Scalars['Boolean']>;
   locale: Maybe<Scalars['String']>;
 };
 
-export type VTEX_ClusterHighlight = {
-  id: Maybe<Scalars['ID']>;
-  name: Maybe<Scalars['String']>;
-};
 
-export type VTEX_CompositionItem = {
-  id: Maybe<Scalars['ID']>;
-  minQuantity: Maybe<Scalars['Int']>;
-  maxQuantity: Maybe<Scalars['Int']>;
-  initialQuantity: Maybe<Scalars['Int']>;
-  priceTable: Maybe<Scalars['String']>;
-  seller: Maybe<Scalars['String']>;
-};
 
-export type VTEX_CompositionType = {
-  minQuantity: Maybe<Scalars['Int']>;
-  maxQuantity: Maybe<Scalars['Int']>;
-  items: Maybe<Array<Maybe<VTEX_CompositionItem>>>;
-};
 
-export type VTEX_Correction = {
-  correction: Maybe<VTEX_SearchCorrection>;
-};
 
-export type VTEX_Coupon = {
-  code: Maybe<Scalars['String']>;
-};
 
 export type VTEX_CrossSelingInputEnum = 
   | 'buy'
@@ -6044,94 +3768,16 @@ export type VTEX_CrossSelingInputEnum =
   | 'accessories'
   | 'suggestions';
 
-export type VTEX_DeliveryOption = {
-  id: Maybe<Scalars['String']>;
-  price: Maybe<Scalars['Int']>;
-  estimate: Maybe<Scalars['String']>;
-  isSelected: Maybe<Scalars['Boolean']>;
-};
 
-export type VTEX_DeliverySlaPerTypes = {
-  TypeName: Maybe<Scalars['String']>;
-  Price: Maybe<Scalars['Float']>;
-  EstimatedTimeSpanToDelivery: Maybe<Scalars['String']>;
-};
 
-export type VTEX_DeliverySlaSamples = {
-  DeliverySlaPerTypes: Maybe<Array<Maybe<VTEX_DeliverySlaPerTypes>>>;
-  Region: Maybe<VTEX_Region>;
-};
 
-export type VTEX_DepartmentFacet = {
-  id: Scalars['ID'];
-  quantity: Scalars['Int'];
-  name: Maybe<Scalars['String']>;
-  link: Scalars['String'];
-  linkEncoded: Scalars['String'];
-  map: Maybe<Scalars['String']>;
-  value: Scalars['String'];
-  selected: Scalars['Boolean'];
-};
 
-/** Discount object */
-export type VTEX_Discount = {
-  /** Discount name */
-  name: Maybe<Scalars['String']>;
-};
 
-export type VTEX_DomainValues = {
-  FieldName: Maybe<Scalars['String']>;
-  MaxCaracters: Maybe<Scalars['String']>;
-  DomainValues: Maybe<Scalars['String']>;
-};
 
-export type VTEX_Facet = {
-  name: Maybe<Scalars['String']>;
-  values: Maybe<Array<Maybe<VTEX_FacetValue>>>;
-  type: Maybe<VTEX_FilterType>;
-  hidden: Maybe<Scalars['Boolean']>;
-};
 
-export type VTEX_Facets = {
-  departments: Maybe<Array<Maybe<VTEX_DepartmentFacet>>>;
-  brands: Maybe<Array<Maybe<VTEX_BrandFacet>>>;
-  specificationFilters: Maybe<Array<Maybe<VTEX_FilterFacets>>>;
-  categoriesTrees: Maybe<Array<Maybe<VTEX_CategoriesTreeFacet>>>;
-  priceRanges: Maybe<Array<Maybe<VTEX_PriceRangesFacet>>>;
-  recordsFiltered: Maybe<Scalars['Int']>;
-  queryArgs: Maybe<VTEX_QueryArgs>;
-  facets: Maybe<Array<Maybe<VTEX_Facet>>>;
-  breadcrumb: Maybe<Array<Maybe<VTEX_SearchBreadcrumb>>>;
-};
 
-export type VTEX_FacetValue = {
-  id: Maybe<Scalars['ID']>;
-  quantity: Scalars['Int'];
-  name: Maybe<Scalars['String']>;
-  key: Maybe<Scalars['String']>;
-  value: Maybe<Scalars['String']>;
-  selected: Maybe<Scalars['Boolean']>;
-  children: Maybe<Array<Maybe<VTEX_FacetValue>>>;
-  range: Maybe<VTEX_Range>;
-  link: Maybe<Scalars['String']>;
-  linkEncoded: Maybe<Scalars['String']>;
-  href: Maybe<Scalars['String']>;
-};
 
-export type VTEX_FilterFacet = {
-  quantity: Scalars['Int'];
-  name: Maybe<Scalars['String']>;
-  link: Scalars['String'];
-  linkEncoded: Scalars['String'];
-  map: Maybe<Scalars['String']>;
-  value: Scalars['String'];
-  selected: Scalars['Boolean'];
-};
 
-export type VTEX_FilterFacets = {
-  name: Maybe<Scalars['String']>;
-  facets: Maybe<Array<Maybe<VTEX_FilterFacet>>>;
-};
 
 export type VTEX_FilterType = 
   | 'TEXT'
@@ -6140,43 +3786,10 @@ export type VTEX_FilterType =
   | 'BRAND'
   | 'PRICERANGE';
 
-export type VTEX_Gift = {
-  productName: Maybe<Scalars['String']>;
-  skuName: Maybe<Scalars['String']>;
-  brand: Maybe<Scalars['String']>;
-  linkText: Maybe<Scalars['String']>;
-  description: Maybe<Scalars['String']>;
-  images: Maybe<Array<Maybe<VTEX_GiftImage>>>;
-};
 
-export type VTEX_GiftImage = {
-  imageUrl: Maybe<Scalars['String']>;
-  imageLabel: Maybe<Scalars['String']>;
-  imageText: Maybe<Scalars['String']>;
-};
 
-export type VTEX_Image = {
-  cacheId: Maybe<Scalars['ID']>;
-  imageId: Maybe<Scalars['ID']>;
-  imageLabel: Maybe<Scalars['String']>;
-  imageTag: Maybe<Scalars['String']>;
-  imageUrl: Maybe<Scalars['String']>;
-  imageText: Maybe<Scalars['String']>;
-};
 
-export type VTEX_ImageUrls = {
-  at1x: Scalars['String'];
-  at2x: Scalars['String'];
-  at3x: Scalars['String'];
-};
 
-export type VTEX_InputValue = {
-  label: Maybe<Scalars['String']>;
-  maxLength: Maybe<Scalars['Int']>;
-  type: Maybe<VTEX_InputValueType>;
-  defaultValue: Maybe<Scalars['VTEX_StringOrBoolean']>;
-  domain: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
 
 export type VTEX_InputValueType = 
@@ -6184,29 +3797,7 @@ export type VTEX_InputValueType =
   | 'BOOLEAN'
   | 'OPTIONS';
 
-export type VTEX_Installment = {
-  Value: Maybe<Scalars['Float']>;
-  InterestRate: Maybe<Scalars['Float']>;
-  TotalValuePlusInterestRate: Maybe<Scalars['Float']>;
-  NumberOfInstallments: Maybe<Scalars['Int']>;
-  PaymentSystemName: Maybe<Scalars['String']>;
-  PaymentSystemGroupName: Maybe<Scalars['String']>;
-  Name: Maybe<Scalars['String']>;
-  count: Scalars['Int'];
-  hasInterestRate: Maybe<Scalars['Boolean']>;
-  interestRate: Maybe<Scalars['Int']>;
-  value: Maybe<Scalars['Float']>;
-  total: Scalars['Float'];
-};
 
-export type VTEX_InstallmentOption = {
-  paymentSystem: Scalars['String'];
-  bin: Maybe<Scalars['String']>;
-  paymentName: Maybe<Scalars['String']>;
-  paymentGroupName: Maybe<Scalars['String']>;
-  value: Scalars['Float'];
-  installments: Array<VTEX_Installment>;
-};
 
 export type VTEX_InstallmentsCriteria = 
   | 'MAX_WITHOUT_INTEREST'
@@ -6222,36 +3813,7 @@ export type VTEX_IOCacheControlScope =
 
 
 
-export type VTEX_Item = {
-  additionalInfo: Maybe<VTEX_ItemAdditionalInfo>;
-  assemblyOptions: Maybe<VTEX_AssemblyOptionItem>;
-  availability: Maybe<Scalars['String']>;
-  detailUrl: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  imageUrls: Maybe<VTEX_ImageUrls>;
-  listPrice: Maybe<Scalars['Float']>;
-  measurementUnit: Maybe<Scalars['String']>;
-  name: Maybe<Scalars['String']>;
-  parentAssemblyBinding: Maybe<Scalars['String']>;
-  options: Maybe<Array<Maybe<VTEX_AssemblyOptionType>>>;
-  price: Maybe<Scalars['Float']>;
-  productCategories: Maybe<Scalars['VTEX_productCategoriesObject']>;
-  productCategoryIds: Maybe<Scalars['String']>;
-  productId: Scalars['String'];
-  productRefId: Maybe<Scalars['String']>;
-  quantity: Scalars['Float'];
-  sellingPrice: Maybe<Scalars['Float']>;
-  sellingPriceWithAssemblies: Maybe<Scalars['Float']>;
-  skuName: Maybe<Scalars['String']>;
-  skuSpecifications: Array<VTEX_SKUSpecification>;
-  uniqueId: Scalars['String'];
-  unitMultiplier: Maybe<Scalars['Float']>;
-  refId: Maybe<Scalars['String']>;
-};
 
-export type VTEX_ItemAdditionalInfo = {
-  brandName: Maybe<Scalars['String']>;
-};
 
 export type VTEX_ItemInput = {
   id: Maybe<Scalars['Int']>;
@@ -6263,37 +3825,9 @@ export type VTEX_ItemInput = {
   options: Maybe<Array<Maybe<VTEX_AssemblyOptionInput>>>;
 };
 
-export type VTEX_ItemMetadata = {
-  items: Maybe<Array<Maybe<VTEX_ItemMetadataUnit>>>;
-  priceTable: Maybe<Array<Maybe<VTEX_ItemPriceTable>>>;
-};
 
-export type VTEX_ItemMetadataUnit = {
-  id: Maybe<Scalars['ID']>;
-  name: Maybe<Scalars['String']>;
-  skuName: Maybe<Scalars['String']>;
-  productId: Maybe<Scalars['String']>;
-  refId: Maybe<Scalars['String']>;
-  ean: Maybe<Scalars['String']>;
-  imageUrl: Maybe<Scalars['String']>;
-  detailUrl: Maybe<Scalars['String']>;
-  seller: Maybe<Scalars['String']>;
-  assemblyOptions: Maybe<Array<Maybe<VTEX_AssemblyOption>>>;
-};
 
-export type VTEX_ItemPriceTable = {
-  type: Maybe<Scalars['String']>;
-  values: Maybe<Array<Maybe<VTEX_PriceTableItem>>>;
-};
 
-export type VTEX_Items = {
-  thumb: Maybe<Scalars['String']>;
-  name: Maybe<Scalars['String']>;
-  href: Maybe<Scalars['String']>;
-  criteria: Maybe<Scalars['String']>;
-  slug: Maybe<Scalars['String']>;
-  productId: Maybe<Scalars['String']>;
-};
 
 export type VTEX_ItemsFilter = 
   /** Returns all items, same as no filter. */
@@ -6303,22 +3837,7 @@ export type VTEX_ItemsFilter =
   /** Returns all available items. Returns first if no item is available. */
   | 'ALL_AVAILABLE';
 
-export type VTEX_KitItem = {
-  itemId: Maybe<Scalars['ID']>;
-  amount: Maybe<Scalars['Int']>;
-  product: Maybe<VTEX_OnlyProduct>;
-  sku: Maybe<VTEX_SKU>;
-};
 
-export type VTEX_MarketingData = {
-  utmCampaign: Maybe<Scalars['String']>;
-  utmMedium: Maybe<Scalars['String']>;
-  utmSource: Maybe<Scalars['String']>;
-  utmiCampaign: Maybe<Scalars['String']>;
-  utmiPart: Maybe<Scalars['String']>;
-  utmiPage: Maybe<Scalars['String']>;
-  coupon: Maybe<Scalars['String']>;
-};
 
 export type VTEX_MarketingDataInput = {
   utmCampaign: Maybe<Scalars['String']>;
@@ -6329,83 +3848,14 @@ export type VTEX_MarketingDataInput = {
   utmiPage: Maybe<Scalars['String']>;
 };
 
-export type VTEX_Message = {
-  code: Maybe<Scalars['String']>;
-  status: Maybe<Scalars['String']>;
-  text: Maybe<Scalars['String']>;
-};
-
-export type VTEX_Offer = {
-  Installments: Maybe<Array<Maybe<VTEX_Installment>>>;
-  Price: Maybe<Scalars['Float']>;
-  ListPrice: Maybe<Scalars['Float']>;
-  spotPrice: Maybe<Scalars['Float']>;
-  PriceWithoutDiscount: Maybe<Scalars['Float']>;
-  RewardValue: Maybe<Scalars['Float']>;
-  PriceValidUntil: Maybe<Scalars['String']>;
-  AvailableQuantity: Maybe<Scalars['Float']>;
-  Tax: Maybe<Scalars['Float']>;
-  taxPercentage: Maybe<Scalars['Float']>;
-  CacheVersionUsedToCallCheckout: Maybe<Scalars['String']>;
-  DeliverySlaSamples: Maybe<Array<Maybe<VTEX_DeliverySlaSamples>>>;
-  /** List of discount highlights */
-  discountHighlights: Maybe<Array<VTEX_Discount>>;
-  teasers: Maybe<Array<VTEX_Teaser>>;
-  /** List of SKUs for gifts associated with the product */
-  giftSkuIds: Maybe<Array<Maybe<Scalars['String']>>>;
-  /** List of gifts associated with the product */
-  gifts: Maybe<Array<Maybe<VTEX_Gift>>>;
-};
 
 
-export type VTEX_OfferInstallmentsArgs = {
-  criteria?: Maybe<VTEX_InstallmentsCriteria>;
-  rates?: Maybe<Scalars['Boolean']>;
-};
-
-export type VTEX_OnlyProduct = {
-  brand: Maybe<Scalars['String']>;
-  categoryId: Maybe<Scalars['ID']>;
-  categoryTree: Maybe<Array<Maybe<VTEX_Category>>>;
-  clusterHighlights: Maybe<Array<Maybe<VTEX_ClusterHighlight>>>;
-  productClusters: Maybe<Array<Maybe<VTEX_ProductClusters>>>;
-  description: Maybe<Scalars['String']>;
-  link: Maybe<Scalars['String']>;
-  linkText: Maybe<Scalars['String']>;
-  productId: Maybe<Scalars['ID']>;
-  productName: Maybe<Scalars['String']>;
-  properties: Maybe<Array<Maybe<VTEX_Property>>>;
-  propertyGroups: Maybe<Array<Maybe<VTEX_PropertyGroup>>>;
-  productReference: Maybe<Scalars['String']>;
-  recommendations: Maybe<VTEX_Recommendation>;
-  jsonSpecifications: Maybe<Scalars['String']>;
-};
 
 export type VTEX_Operator = 
   | 'and'
   | 'or';
 
-export type VTEX_OrderForm = {
-  id: Scalars['ID'];
-  items: Array<VTEX_Item>;
-  canEditData: Scalars['Boolean'];
-  loggedIn: Scalars['Boolean'];
-  userProfileId: Maybe<Scalars['String']>;
-  userType: Maybe<VTEX_UserType>;
-  shipping: VTEX_Shipping;
-  marketingData: VTEX_MarketingData;
-  totalizers: Array<Maybe<VTEX_Totalizer>>;
-  value: Scalars['Float'];
-  messages: VTEX_OrderFormMessages;
-  paymentData: VTEX_PaymentData;
-  clientProfileData: Maybe<VTEX_ClientData>;
-  clientPreferencesData: Maybe<VTEX_ClientPreferencesData>;
-};
 
-export type VTEX_OrderFormMessages = {
-  couponMessages: Array<Maybe<VTEX_Message>>;
-  generalMessages: Array<Maybe<VTEX_Message>>;
-};
 
 export type VTEX_PageEntityIdentifier = 
   | 'brand'
@@ -6414,28 +3864,8 @@ export type VTEX_PageEntityIdentifier =
   | 'subcategory'
   | 'search';
 
-export type VTEX_PageType = {
-  id: Maybe<Scalars['String']>;
-  type: Maybe<VTEX_PageEntityIdentifier>;
-};
 
-export type VTEX_Payment = {
-  paymentSystem: Maybe<Scalars['String']>;
-  bin: Maybe<Scalars['String']>;
-  accountId: Maybe<Scalars['String']>;
-  tokenId: Maybe<Scalars['String']>;
-  installments: Maybe<Scalars['Int']>;
-  referenceValue: Maybe<Scalars['Float']>;
-  value: Maybe<Scalars['Float']>;
-};
 
-export type VTEX_PaymentData = {
-  installmentOptions: Array<VTEX_InstallmentOption>;
-  paymentSystems: Array<VTEX_PaymentSystem>;
-  payments: Array<VTEX_Payment>;
-  availableAccounts: Array<VTEX_AvailableAccount>;
-  isValid: Scalars['Boolean'];
-};
 
 export type VTEX_PaymentDataInput = {
   payments: Array<VTEX_PaymentInput>;
@@ -6453,148 +3883,21 @@ export type VTEX_PaymentInput = {
   value: Maybe<Scalars['Int']>;
 };
 
-export type VTEX_PaymentSystem = {
-  id: Scalars['String'];
-  name: Scalars['String'];
-  groupName: Scalars['String'];
-  validator: Maybe<VTEX_Validator>;
-  stringId: Scalars['String'];
-  requiresDocument: Scalars['Boolean'];
-  isCustom: Scalars['Boolean'];
-  description: Maybe<Scalars['String']>;
-  requiresAuthentication: Maybe<Scalars['Boolean']>;
-  dueDate: Maybe<Scalars['String']>;
-};
 
 export type VTEX_PaymentToken = {
   creditCardToken: Scalars['String'];
   paymentSystem: Scalars['String'];
 };
 
-export type VTEX_PriceRange = {
-  highPrice: Maybe<Scalars['Float']>;
-  lowPrice: Maybe<Scalars['Float']>;
-};
-
-export type VTEX_PriceRangesFacet = {
-  quantity: Scalars['Int'];
-  name: Maybe<Scalars['String']>;
-  link: Scalars['String'];
-  linkEncoded: Scalars['String'];
-  map: Maybe<Scalars['String']>;
-  value: Scalars['String'];
-  selected: Scalars['Boolean'];
-  slug: Maybe<Scalars['String']>;
-};
-
-export type VTEX_PriceTableItem = {
-  id: Maybe<Scalars['String']>;
-  assemblyId: Maybe<Scalars['String']>;
-  price: Maybe<Scalars['Int']>;
-};
-
-export type VTEX_Product = {
-  /** Brand of the product */
-  brand: Maybe<Scalars['String']>;
-  /** Id of the brand of the product */
-  brandId: Maybe<Scalars['Int']>;
-  /** linkText is used as cacheId */
-  cacheId: Maybe<Scalars['ID']>;
-  categoryId: Maybe<Scalars['ID']>;
-  /**
-   * Categories of the product
-   * @deprecated Use 'categoryTree' field for internationalization support
-   */
-  categories: Maybe<Array<Maybe<Scalars['String']>>>;
-  /** Product's categories */
-  categoryTree: Maybe<Array<Maybe<VTEX_Category>>>;
-  /** List of related products */
-  clusterHighlights: Maybe<Array<Maybe<VTEX_ClusterHighlight>>>;
-  productClusters: Maybe<Array<Maybe<VTEX_ProductClusters>>>;
-  /** Product description */
-  description: Maybe<Scalars['String']>;
-  /** SKU objects of the product */
-  items: Maybe<Array<Maybe<VTEX_SKU>>>;
-  /** List of SKU Specifications */
-  skuSpecifications: Maybe<Array<Maybe<VTEX_SkuSpecification>>>;
-  /** Product URL */
-  link: Maybe<Scalars['String']>;
-  /** Product slug */
-  linkText: Maybe<Scalars['String']>;
-  /** Product ID */
-  productId: Maybe<Scalars['ID']>;
-  /** Product name */
-  productName: Maybe<Scalars['String']>;
-  /** Array of product properties */
-  properties: Maybe<Array<Maybe<VTEX_Property>>>;
-  /** Array of product properties */
-  propertyGroups: Maybe<Array<Maybe<VTEX_PropertyGroup>>>;
-  /** Product reference */
-  productReference: Maybe<Scalars['String']>;
-  /** Title used by html tag */
-  titleTag: Maybe<Scalars['String']>;
-  /** Description used by html tag */
-  metaTagDescription: Maybe<Scalars['String']>;
-  /** Related Products */
-  recommendations: Maybe<VTEX_Recommendation>;
-  /** JSON specification of the product */
-  jsonSpecifications: Maybe<Scalars['String']>;
-  /** List of benefits associated with this product */
-  benefits: Maybe<Array<Maybe<VTEX_Benefit>>>;
-  itemMetadata: Maybe<VTEX_ItemMetadata>;
-  /** Array of product SpecificationGroup */
-  specificationGroups: Maybe<Array<Maybe<VTEX_SpecificationGroup>>>;
-  /** Returns highest and lowest prices for available SKUs in product. */
-  priceRange: Maybe<VTEX_ProductPriceRange>;
-  /** Product Release Date, for list ordering and product cluster highlight */
-  releaseDate: Maybe<Scalars['String']>;
-  /** Product properties that will be selected by default. e.g: {key: "Color", value: "Blue"} */
-  selectedProperties: Maybe<Array<Maybe<VTEX_SelectedProperty>>>;
-};
 
 
-export type VTEX_ProductitemsArgs = {
-  filter: Maybe<VTEX_ItemsFilter>;
-};
 
 
-export type VTEX_ProductClusters = {
-  id: Maybe<Scalars['ID']>;
-  name: Maybe<Scalars['String']>;
-};
 
-export type VTEX_ProductPriceRange = {
-  sellingPrice: Maybe<VTEX_PriceRange>;
-  listPrice: Maybe<VTEX_PriceRange>;
-};
 
-export type VTEX_ProductSearch = {
-  products: Maybe<Array<Maybe<VTEX_Product>>>;
-  recordsFiltered: Maybe<Scalars['Int']>;
-  titleTag: Maybe<Scalars['String']>;
-  metaTagDescription: Maybe<Scalars['String']>;
-  breadcrumb: Maybe<Array<Maybe<VTEX_SearchBreadcrumb>>>;
-  canonical: Maybe<Scalars['String']>;
-  suggestion: Maybe<VTEX_SearchSuggestions>;
-  correction: Maybe<VTEX_SearchCorrection>;
-  operator: Maybe<VTEX_Operator>;
-  fuzzy: Maybe<Scalars['String']>;
-  searchState: Maybe<Scalars['String']>;
-  banners: Maybe<Array<Maybe<VTEX_SearchBanner>>>;
-  redirect: Maybe<Scalars['String']>;
-};
 
-export type VTEX_productSpecification = {
-  fieldName: Maybe<Scalars['String']>;
-  fieldValues: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
-export type VTEX_ProductSuggestions = {
-  /** Number of suggested products */
-  count: Scalars['Int'];
-  /** Suggested products */
-  products: Array<Maybe<VTEX_Product>>;
-};
+
 
 export type VTEX_ProductUniqueIdentifier = {
   field: VTEX_ProductUniqueIdentifierField;
@@ -6608,133 +3911,31 @@ export type VTEX_ProductUniqueIdentifierField =
   | 'reference'
   | 'sku';
 
-export type VTEX_Property = {
-  name: Maybe<Scalars['String']>;
-  values: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
-export type VTEX_PropertyGroup = {
-  name: Maybe<Scalars['String']>;
-  properties: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
-export type VTEX_QueryArgs = {
-  map: Maybe<Scalars['String']>;
-  query: Maybe<Scalars['String']>;
-  selectedFacets: Maybe<Array<Maybe<VTEX_SelectedFacet>>>;
-};
 
-export type VTEX_Range = {
-  from: Maybe<Scalars['Float']>;
-  to: Maybe<Scalars['Float']>;
-};
 
-export type VTEX_Recommendation = {
-  buy: Maybe<Array<Maybe<VTEX_Product>>>;
-  view: Maybe<Array<Maybe<VTEX_Product>>>;
-  similars: Maybe<Array<Maybe<VTEX_Product>>>;
-};
 
-export type VTEX_Reference = {
-  Key: Maybe<Scalars['String']>;
-  Value: Maybe<Scalars['String']>;
-};
 
-export type VTEX_Region = {
-  IsPersisted: Maybe<Scalars['Boolean']>;
-  IsRemoved: Maybe<Scalars['Boolean']>;
-  Id: Maybe<Scalars['ID']>;
-  Name: Maybe<Scalars['String']>;
-  CountryCode: Maybe<Scalars['String']>;
-  ZipCode: Maybe<Scalars['String']>;
-  CultureInfoName: Maybe<Scalars['String']>;
-};
 
-export type VTEX_RemovedOptionItem = {
-  initialQuantity: Maybe<Scalars['Int']>;
-  removedQuantity: Maybe<Scalars['Int']>;
-  name: Maybe<Scalars['String']>;
-};
 
-export type VTEX_SavePaymentTokenPayload = {
-  status: Maybe<Scalars['String']>;
-};
 
-export type VTEX_SearchBanner = {
-  id: Maybe<Scalars['String']>;
-  name: Maybe<Scalars['String']>;
-  area: Maybe<Scalars['String']>;
-  html: Maybe<Scalars['String']>;
-};
 
-export type VTEX_SearchBreadcrumb = {
-  name: Maybe<Scalars['String']>;
-  href: Maybe<Scalars['String']>;
-};
 
-export type VTEX_SearchCorrection = {
-  text: Maybe<Scalars['String']>;
-  highlighted: Maybe<Scalars['String']>;
-  misspelled: Maybe<Scalars['Boolean']>;
-  correction: Maybe<Scalars['Boolean']>;
-};
 
-export type VTEX_SearchMetadata = {
-  titleTag: Maybe<Scalars['String']>;
-  metaTagDescription: Maybe<Scalars['String']>;
-};
 
-export type VTEX_SearchSuggestion = {
-  term: Scalars['String'];
-  count: Scalars['Int'];
-  attributes: Maybe<Array<Maybe<VTEX_SearchSuggestionAttribute>>>;
-};
 
-export type VTEX_SearchSuggestionAttribute = {
-  key: Scalars['String'];
-  value: Scalars['String'];
-  labelValue: Scalars['String'];
-};
 
-export type VTEX_SearchSuggestions = {
-  searches: Maybe<Array<Maybe<VTEX_SearchSuggestion>>>;
-};
 
-export type VTEX_SearchURLStats = {
-  path: Scalars['String'];
-  count: Scalars['Int'];
-};
 
-export type VTEX_SelectedFacet = {
-  key: Maybe<Scalars['String']>;
-  value: Maybe<Scalars['String']>;
-};
 
 export type VTEX_SelectedFacetInput = {
   key: Maybe<Scalars['String']>;
   value: Maybe<Scalars['String']>;
 };
 
-export type VTEX_SelectedProperty = {
-  key: Maybe<Scalars['String']>;
-  value: Maybe<Scalars['String']>;
-};
 
-export type VTEX_Seller = {
-  sellerId: Maybe<Scalars['ID']>;
-  sellerName: Maybe<Scalars['String']>;
-  addToCartLink: Maybe<Scalars['String']>;
-  sellerDefault: Maybe<Scalars['Boolean']>;
-  commertialOffer: Maybe<VTEX_Offer>;
-};
 
-export type VTEX_Shipping = {
-  countries: Maybe<Array<Maybe<Scalars['String']>>>;
-  deliveryOptions: Maybe<Array<Maybe<VTEX_DeliveryOption>>>;
-  selectedAddress: Maybe<VTEX_Address>;
-  availableAddresses: Maybe<Array<Maybe<VTEX_Address>>>;
-  isValid: Scalars['Boolean'];
-};
 
 export type VTEX_SimulationBehavior = 
   /** Does simulation on catalog as usual */
@@ -6742,117 +3943,25 @@ export type VTEX_SimulationBehavior =
   /** Calls catalog passing a parameter to not simulate each SKU and get its most up to date price. */
   | 'skip';
 
-export type VTEX_SKU = {
-  itemId: Maybe<Scalars['ID']>;
-  name: Maybe<Scalars['String']>;
-  nameComplete: Maybe<Scalars['String']>;
-  complementName: Maybe<Scalars['String']>;
-  ean: Maybe<Scalars['String']>;
-  referenceId: Maybe<Array<Maybe<VTEX_Reference>>>;
-  measurementUnit: Maybe<Scalars['String']>;
-  unitMultiplier: Maybe<Scalars['Float']>;
-  kitItems: Maybe<Array<Maybe<VTEX_KitItem>>>;
-  images: Maybe<Array<Maybe<VTEX_Image>>>;
-  videos: Maybe<Array<Maybe<VTEX_Video>>>;
-  sellers: Maybe<Array<Maybe<VTEX_Seller>>>;
-  variations: Maybe<Array<Maybe<VTEX_Property>>>;
-  /** @deprecated Use itemMetaData instead */
-  attachments: Maybe<Array<Maybe<VTEX_Attachment>>>;
-  estimatedDateArrival: Maybe<Scalars['String']>;
-};
 
 
-export type VTEX_SKUimagesArgs = {
-  quantity: Maybe<Scalars['Int']>;
-};
 
-export type VTEX_SkuSpecification = {
-  field: Maybe<VTEX_SKUSpecificationField>;
-  values: Maybe<Array<Maybe<VTEX_SKUSpecificationValue>>>;
-};
 
-export type VTEX_SKUSpecification = {
-  fieldName: Maybe<Scalars['String']>;
-  fieldValues: Array<Maybe<Scalars['String']>>;
-};
-
-export type VTEX_SKUSpecificationField = {
-  originalName: Maybe<Scalars['String']>;
-  name: Maybe<Scalars['String']>;
-};
-
-export type VTEX_SKUSpecificationValue = {
-  originalName: Maybe<Scalars['String']>;
-  name: Maybe<Scalars['String']>;
-};
 
 export type VTEX_SORT = 
   | 'ASC'
   | 'DESC';
 
-export type VTEX_SpecificationGroup = {
-  originalName: Maybe<Scalars['String']>;
-  name: Maybe<Scalars['String']>;
-  specifications: Maybe<Array<Maybe<VTEX_SpecificationGroupProperty>>>;
-};
-
-export type VTEX_SpecificationGroupProperty = {
-  originalName: Maybe<Scalars['String']>;
-  name: Maybe<Scalars['String']>;
-  values: Maybe<Array<Maybe<Scalars['String']>>>;
-};
 
 
-export type VTEX_Suggestions = {
-  /**  searchTerm from Query autocomplete is used as cacheId  */
-  cacheId: Maybe<Scalars['ID']>;
-  itemsReturned: Maybe<Array<Maybe<VTEX_Items>>>;
-};
-
-export type VTEX_Teaser = {
-  name: Maybe<Scalars['String']>;
-  conditions: Maybe<VTEX_TeaserCondition>;
-  effects: Maybe<VTEX_TeaserEffects>;
-};
-
-export type VTEX_TeaserCondition = {
-  minimumQuantity: Maybe<Scalars['Int']>;
-  parameters: Maybe<Array<Maybe<VTEX_TeaserValue>>>;
-};
-
-export type VTEX_TeaserEffects = {
-  parameters: Maybe<Array<Maybe<VTEX_TeaserValue>>>;
-};
-
-export type VTEX_TeaserValue = {
-  name: Maybe<Scalars['String']>;
-  value: Maybe<Scalars['String']>;
-};
-
-export type VTEX_Totalizer = {
-  id: Scalars['String'];
-  name: Maybe<Scalars['String']>;
-  value: Scalars['Float'];
-};
 
 
-export type VTEX_UserProfile = {
-  email: Scalars['String'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  document: Maybe<Scalars['String']>;
-  documentType: Maybe<Scalars['String']>;
-  phone: Maybe<Scalars['String']>;
-  corporateName: Maybe<Scalars['String']>;
-  tradeName: Maybe<Scalars['String']>;
-  corporateDocument: Maybe<Scalars['String']>;
-  stateInscription: Maybe<Scalars['String']>;
-  corporatePhone: Maybe<Scalars['String']>;
-  isCorporate: Scalars['Boolean'];
-  profileCompleteOnLoading: Maybe<Scalars['String']>;
-  profileErrorOnLoading: Maybe<Scalars['String']>;
-  customerClass: Maybe<Scalars['String']>;
-};
+
+
+
+
+
+
 
 export type VTEX_UserProfileInput = {
   email: Maybe<Scalars['String']>;
@@ -6872,24 +3981,21 @@ export type VTEX_UserType =
   | 'CALL_CENTER_OPERATOR'
   | 'STORE_USER';
 
-export type VTEX_Validator = {
-  regex: Maybe<Scalars['String']>;
-  mask: Maybe<Scalars['String']>;
-  cardCodeRegex: Maybe<Scalars['String']>;
-  cardCodeMask: Maybe<Scalars['String']>;
-  weights: Maybe<Array<Maybe<Scalars['Int']>>>;
-  useCvv: Maybe<Scalars['Boolean']>;
-  useExpirationDate: Maybe<Scalars['Boolean']>;
-  useCardHolderName: Maybe<Scalars['Boolean']>;
-  useBillingAddress: Maybe<Scalars['Boolean']>;
-};
 
-export type VTEX_Video = {
-  videoUrl: Maybe<Scalars['String']>;
-};
 
-export type ProductDetailsTemplate_productFragment = { productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ sellerId: Maybe<string>, commertialOffer: Maybe<{ AvailableQuantity: Maybe<number>, Price: Maybe<number> }> }>>> }>>> };
+export type SelectDeliveryOptionMutationMutationVariables = Exact<{
+  deliveryOptionId: Scalars['String'];
+}>;
+
+
+export type SelectDeliveryOptionMutationMutation = { selectDeliveryOption: Maybe<{ id: string, canEditData: boolean, userProfileId: Maybe<string>, value: number, items: Array<{ parentAssemblyBinding: Maybe<string>, sellingPriceWithAssemblies: Maybe<number>, availability: Maybe<string>, detailUrl: Maybe<string>, id: string, listPrice: Maybe<number>, measurementUnit: Maybe<string>, name: Maybe<string>, price: Maybe<number>, productCategories: Maybe<any>, productCategoryIds: Maybe<string>, productRefId: Maybe<string>, productId: string, quantity: number, sellingPrice: Maybe<number>, skuName: Maybe<string>, uniqueId: string, additionalInfo: Maybe<{ brandName: Maybe<string> }>, options: Maybe<Array<Maybe<{ assemblyId: string, id: Maybe<string>, quantity: Maybe<number>, seller: Maybe<string>, inputValues: Maybe<any>, options: Maybe<Array<{ assemblyId: string, id: Maybe<string>, quantity: Maybe<number>, seller: Maybe<string>, inputValues: Maybe<any>, options: Maybe<Array<{ assemblyId: string, id: Maybe<string>, quantity: Maybe<number>, seller: Maybe<string>, inputValues: Maybe<any> }>> }>> }>>>, imageUrls: Maybe<{ at1x: string, at2x: string, at3x: string }>, skuSpecifications: Array<{ fieldName: Maybe<string>, fieldValues: Array<Maybe<string>> }> }>, marketingData: { coupon: Maybe<string>, utmCampaign: Maybe<string>, utmMedium: Maybe<string>, utmSource: Maybe<string>, utmiCampaign: Maybe<string>, utmiPart: Maybe<string>, utmiPage: Maybe<string> }, totalizers: Array<Maybe<{ id: string, name: Maybe<string>, value: number }>>, shipping: { countries: Maybe<Array<Maybe<string>>>, availableAddresses: Maybe<Array<Maybe<{ addressId: Maybe<string>, addressType: Maybe<VTEX_AddressType>, city: Maybe<string>, complement: Maybe<string>, country: Maybe<string>, neighborhood: Maybe<string>, number: Maybe<string>, postalCode: Maybe<string>, receiverName: Maybe<string>, reference: Maybe<string>, state: Maybe<string>, street: Maybe<string> }>>>, selectedAddress: Maybe<{ addressId: Maybe<string>, addressType: Maybe<VTEX_AddressType>, city: Maybe<string>, complement: Maybe<string>, country: Maybe<string>, neighborhood: Maybe<string>, number: Maybe<string>, postalCode: Maybe<string>, receiverName: Maybe<string>, reference: Maybe<string>, state: Maybe<string>, street: Maybe<string> }>, deliveryOptions: Maybe<Array<Maybe<{ id: Maybe<string>, price: Maybe<number>, estimate: Maybe<string>, isSelected: Maybe<boolean> }>>> }, paymentData: { paymentSystems: Array<{ id: string, name: string, groupName: string, stringId: string, requiresDocument: boolean, isCustom: boolean, description: Maybe<string>, requiresAuthentication: Maybe<boolean>, dueDate: Maybe<string>, validator: Maybe<{ regex: Maybe<string>, mask: Maybe<string>, cardCodeRegex: Maybe<string>, cardCodeMask: Maybe<string>, weights: Maybe<Array<Maybe<number>>>, useCvv: Maybe<boolean>, useExpirationDate: Maybe<boolean>, useCardHolderName: Maybe<boolean>, useBillingAddress: Maybe<boolean> }> }> }, clientProfileData: Maybe<{ email: Maybe<string>, firstName: Maybe<string>, lastName: Maybe<string>, document: Maybe<string>, documentType: Maybe<string>, phone: Maybe<string> }>, messages: { couponMessages: Array<Maybe<{ code: Maybe<string> }>>, generalMessages: Array<Maybe<{ code: Maybe<string>, text: Maybe<string>, status: Maybe<string> }>> } }> };
 
 
 // Query Related Code
+
+export const SelectDeliveryOptionMutation = {
+  query: "mutation SelectDeliveryOptionMutation($deliveryOptionId: String!) {\n  selectDeliveryOption(deliveryOptionId: $deliveryOptionId) {\n    id\n    items {\n      additionalInfo {\n        brandName\n      }\n      parentAssemblyBinding\n      sellingPriceWithAssemblies\n      options {\n        assemblyId\n        id\n        quantity\n        seller\n        inputValues\n        options {\n          assemblyId\n          id\n          quantity\n          seller\n          inputValues\n          options {\n            assemblyId\n            id\n            quantity\n            seller\n            inputValues\n          }\n        }\n      }\n      availability\n      detailUrl\n      id\n      imageUrls {\n        at1x\n        at2x\n        at3x\n      }\n      listPrice\n      measurementUnit\n      name\n      price\n      productCategories\n      productCategoryIds\n      productRefId\n      productId\n      quantity\n      sellingPrice\n      skuName\n      skuSpecifications {\n        fieldName\n        fieldValues\n      }\n      uniqueId\n    }\n    canEditData\n    userProfileId\n    marketingData {\n      coupon\n      utmCampaign\n      utmMedium\n      utmSource\n      utmiCampaign\n      utmiPart\n      utmiPage\n    }\n    totalizers {\n      id\n      name\n      value\n    }\n    shipping {\n      countries\n      availableAddresses {\n        addressId\n        addressType\n        city\n        complement\n        country\n        neighborhood\n        number\n        postalCode\n        receiverName\n        reference\n        state\n        street\n      }\n      selectedAddress {\n        addressId\n        addressType\n        city\n        complement\n        country\n        neighborhood\n        number\n        postalCode\n        receiverName\n        reference\n        state\n        street\n      }\n      deliveryOptions {\n        id\n        price\n        estimate\n        isSelected\n      }\n    }\n    paymentData {\n      paymentSystems {\n        id\n        name\n        groupName\n        validator {\n          regex\n          mask\n          cardCodeRegex\n          cardCodeMask\n          weights\n          useCvv\n          useExpirationDate\n          useCardHolderName\n          useBillingAddress\n        }\n        stringId\n        requiresDocument\n        isCustom\n        description\n        requiresAuthentication\n        dueDate\n      }\n    }\n    clientProfileData {\n      email\n      firstName\n      lastName\n      document\n      documentType\n      phone\n    }\n    messages {\n      couponMessages {\n        code\n      }\n      generalMessages {\n        code\n        text\n        status\n      }\n    }\n    value\n  }\n}\n",
+  sha256Hash: "030d371c57add37650a70dae4108f491568bc6edd660885d928d8861d8f13a29",
+  operationName: "SelectDeliveryOptionMutation",
+}
 
