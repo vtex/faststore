@@ -1,17 +1,17 @@
 import { graphql, PageProps } from 'gatsby'
 import React, { FC } from 'react'
-import { Breadcrumb, Container, Flex, BreadcrumbItem } from '@vtex/store-ui'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
-import ProductDetails from '../components/ProductDetails'
+import ProductDetails from '../components/Product'
 import { useQuery } from '../sdk/graphql/useQuery'
 import {
   ProductPageQuery,
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
+import Preview from '../components/Product/Preview'
 
 type Props = PageProps<
   ProductPageQueryQuery,
@@ -38,21 +38,11 @@ const ProductPage: FC<Props> = ({
     initialData: staticPath ? initialData : undefined,
   })
 
-  const breadcrumb = (data?.vtex?.product?.categoryTree ??
-    []) as BreadcrumbItem[]
-
   if (!data?.vtex.product) {
     return <div>Product Not Found</div>
   }
 
-  return (
-    <Container>
-      <Flex variant="productPage.container">
-        <Breadcrumb breadcrumb={breadcrumb} type="PRODUCT" />
-        <ProductDetails product={data.vtex.product} />
-      </Flex>
-    </Container>
-  )
+  return <ProductDetails product={data.vtex.product} />
 }
 
 const ProductPageContainer: FC<Props> = (props) => {
@@ -62,10 +52,7 @@ const ProductPageContainer: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <HybridWrapper
-        isPrerendered={staticPath}
-        fallback={<div>loading...</div>}
-      >
+      <HybridWrapper isPrerendered={staticPath} fallback={<Preview />}>
         <ErrorBoundary fallback={<div>Error !!</div>}>
           <ProductPage {...props} />
         </ErrorBoundary>
