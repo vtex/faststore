@@ -24,13 +24,6 @@ export const PaginationDots: FC<Props> = ({
   return (
     <Box
       variant={`${variant}.paginationDots.container`}
-      sx={{
-        position: 'absolute',
-        justifyContent: 'center',
-        display: 'flex',
-        margin: 0,
-        padding: 0,
-      }}
       role="group"
       aria-label="Slider pagination dots"
     >
@@ -42,17 +35,6 @@ export const PaginationDots: FC<Props> = ({
             variant={`${variant}.paginationDots.${
               isActive ? 'activeDot' : 'dot'
             }`}
-            sx={{
-              cursor: 'pointer',
-              display: 'inline-block',
-              borderRadius: '100%',
-              margin: '0 0.25rem',
-              padding: '0.25rem',
-              borderWidth: 0,
-              outline: '0',
-              height: `${DOTS_DEFAULT_SIZE}rem`,
-              width: `${DOTS_DEFAULT_SIZE}rem`,
-            }}
             key={index}
             tabIndex={index}
             onKeyDown={() => onSelect(index)}
