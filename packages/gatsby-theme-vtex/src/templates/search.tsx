@@ -49,7 +49,6 @@ const SearchPageContainer: FC<Props> = (props) => {
 
   return (
     <Layout>
-      {/* <Preview /> */}
       <HybridWrapper isPrerendered={staticPath} fallback={<Preview />}>
         <ErrorBoundary fallback={<div>Error !!</div>}>
           <SearchPage {...props} />

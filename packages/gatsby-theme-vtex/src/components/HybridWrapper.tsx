@@ -18,15 +18,19 @@ const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
     setIsHydrated(true)
   }, [])
 
-  if (isServer || !isHydrated) {
-    if (isPrerendered) {
+  if (isPrerendered) {
+    if (isServer) {
       return <>{children}</>
     }
 
-    return <>{fallback}</>
+    return <Suspense fallback={fallback}>{children}</Suspense>
   }
 
-  return <Suspense fallback={fallback}>{children}</Suspense>
+  if (isHydrated) {
+    return <Suspense fallback={fallback}>{children}</Suspense>
+  }
+
+  return <>{fallback}</>
 }
 
 export default HybridWrapper
