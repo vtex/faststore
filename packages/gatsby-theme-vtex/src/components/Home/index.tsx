@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 
 import Carousel from '../Carousel'
 import Container from '../Container'
@@ -30,12 +30,12 @@ const itemsCarousel = [
 
 const HomeBlocks: FC<Props> = ({ pageData }) => {
   return (
-    <div>
+    <Fragment>
       <Carousel items={itemsCarousel} />
       <Container>
         <Shelf products={pageData.vtex.productSearch!.products!} />
       </Container>
-    </div>
+    </Fragment>
   )
 }
 
