@@ -1,4 +1,6 @@
-import React, { FC } from 'react'
+/** @jsx jsx */
+import { FC } from 'react'
+import { jsx } from 'theme-ui'
 
 import LocalizedLink from '../LocalizedLink'
 
@@ -22,6 +24,7 @@ export const Banner: FC<Props> = ({
   return (
     <LocalizedLink to={href}>
       <img
+        sx={{ width: '100%', height: '100%' }}
         src={imgSrc}
         alt={alt}
         width={width}
