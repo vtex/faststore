@@ -6,9 +6,10 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import SearchTemplate from '../components/Search'
+import Preview from '../components/Search/Preview'
 import { useQuery } from '../sdk/graphql/useQuery'
-import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
 import { SearchProvider } from '../sdk/search/Provider'
+import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
@@ -48,14 +49,12 @@ const SearchPageContainer: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <HybridWrapper
-        isPrerendered={staticPath}
-        fallback={<div>loading...</div>}
-      >
+      <Preview />
+      {/* <HybridWrapper isPrerendered={staticPath} fallback={<Preview />}>
         <ErrorBoundary fallback={<div>Error !!</div>}>
           <SearchPage {...props} />
         </ErrorBoundary>
-      </HybridWrapper>
+      </HybridWrapper> */}
     </Layout>
   )
 }
