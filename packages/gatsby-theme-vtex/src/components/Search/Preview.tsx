@@ -31,7 +31,7 @@ const Preview: FC = () => (
           <Box variant="searchFilter.desktop">
             <SuspenseDevice device="desktop" fallback={null}>
               <Box variant="searchFilter.desktop.title">
-                <Skeleton width="230px" height="1950px" />
+                <Skeleton width="230px" height="1000px" />
               </Box>
             </SuspenseDevice>
           </Box>
