@@ -29,9 +29,9 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
   const [{ imageUrl, imageText }] = images
 
   return (
-    <Container>
-      <SEO title={productName} slug={linkText} />
-      <Flex variant="productPage.container">
+    <Flex variant="productPage.container">
+      <Container>
+        <SEO title={productName} slug={linkText} />
         <Breadcrumb breadcrumb={breadcrumb} type="PRODUCT" />
         <Grid my={4} mx="auto" gap={[0, 3]} columns={[1, 2]}>
           <ProductDetailsImage
@@ -49,8 +49,8 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
             <BuyButton sku={items[0] as any} />
           </Card>
         </Grid>
-      </Flex>
-    </Container>
+      </Container>
+    </Flex>
   )
 }
 
