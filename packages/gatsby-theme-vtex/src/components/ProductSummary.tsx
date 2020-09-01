@@ -37,7 +37,7 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
         <ProductImage
           width={300}
           height={300}
-          src={imageUrl}
+          src="https://res.cloudinary.com/di7nv2wht/image/upload/v1598972172/163176-500-500.webp"
           alt={imageText}
           loading={loading}
         />
