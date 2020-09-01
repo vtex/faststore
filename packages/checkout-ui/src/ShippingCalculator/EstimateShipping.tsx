@@ -93,7 +93,7 @@ export const EstimateShipping: FC<CustomProps> = ({
         ) : (
           <PostalCode
             loading={loading}
-            handleSubmit={handleSubmit}
+            onSubmit={handleSubmit}
             countries={countries}
           />
         )}

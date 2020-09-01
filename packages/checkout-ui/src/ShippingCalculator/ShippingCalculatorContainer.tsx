@@ -50,7 +50,7 @@ export const ShippingCalculatorContainer: FC<ContainerProps> = ({
       selectedAddress={selectedAddress}
     >
       <Flex sx={{ flexDirection: 'column', color: 'text' }}>
-        <Heading as="h5" sx={{ fontSize: 3, fontWeight: 400 }}>
+        <Heading as="h5" sx={{ fontSize: 3, fontWeight: 400 }} mb={3}>
           {title}
         </Heading>
         {children}

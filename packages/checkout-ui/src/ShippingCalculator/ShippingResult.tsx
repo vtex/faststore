@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react'
 import { helpers } from '@vtex/address-form'
-import { Button } from '@vtex/store-ui'
+import { Text, Button, Flex, Box } from '@vtex/store-ui'
 
 import { AddressWithValidation, DeliveryOption } from './types'
 import { ShippingOptions } from './ShippingOptions'
@@ -30,18 +30,21 @@ export const ShippingResult: FC<CustomProps> = ({
 
   return (
     <Fragment>
-      <div className="mb4 flex items-center">
-        <div id="postal-code" className="flex-auto">
-          <span className="fw5">Options for</span> {postalCode}
-        </div>
+      <Flex mb=".75rem" sx={{ alignItems: 'center' }}>
+        <Box id="postal-code" sx={{ flex: '1 1 auto' }}>
+          <Text as="span" sx={{ fontWeight: 500 }}>
+            Options for
+          </Text>{' '}
+          {postalCode}
+        </Box>
         {canEditData && (
-          <div className="flex-none">
+          <Box sx={{ flex: 'none' }}>
             <Button id="edit-shipping" onClick={() => setShowResult(false)}>
               edit
             </Button>
-          </div>
+          </Box>
         )}
-      </div>
+      </Flex>
       <ShippingOptions
         numberOfItems={numberOfItems}
         numberOfUnavailableItems={numberOfUnavailableItems}

@@ -14,9 +14,9 @@ export const ShippingInfo: FC<Props> = ({ option }) => {
   const optionId = slugify(option.id)
 
   return (
-    <Flex sx={{ width: '100%' }}>
+    <Flex sx={{ width: '100%', lineHeight: 1.15 }}>
       <Box sx={{ flex: '1 1 auto' }}>
-        <Box id={optionId} mb={3}>
+        <Box id={optionId} mb={2}>
           {option.id}
         </Box>
         <Text id={`estimate-${optionId}`} sx={{ color: 'textMuted' }}>

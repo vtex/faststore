@@ -195,7 +195,7 @@ const CartPage: FC = () => {
             </Flex>
           </Flex>
           <Box sx={{ width: 1, backgroundColor: 'muted' }} />
-          <Box pt="7rem" pl={5} pb={4}>
+          <Box mt="7rem" ml={5} mb={4} sx={{ width: '24rem' }}>
             <Box mb={5}>
               <ShippingCalculatorContainer
                 canEditData={orderForm.canEditData}

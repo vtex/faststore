@@ -1,5 +1,6 @@
-import React, { FC, Fragment } from 'react'
-import { Radio } from '@vtex/store-ui'
+/** @jsx jsx */
+import { FC, Fragment } from 'react'
+import { Radio, Box, jsx } from '@vtex/store-ui'
 
 import { ShippingInfo } from './ShippingInfo'
 import { DeliveryOptionsAvailability } from './DeliveryOptionsAvailability'
@@ -32,10 +33,10 @@ export const ShippingOptions: FC<CustomProps> = ({
         numberOfUnavailableItems={numberOfUnavailableItems}
       />
       {numberOfUnavailableItems > 0 && !allItemsUnavailable && (
-        <div className="fw5 mt6 mb6">
+        <Box sx={{ fontWeight: 500 }} mt="1.5rem" mb="1.5rem">
           Options for remaining {numberOfItems - numberOfUnavailableItems}{' '}
           products
-        </div>
+        </Box>
       )}
 
       {options &&
@@ -46,8 +47,18 @@ export const ShippingOptions: FC<CustomProps> = ({
           const isLast = i + 1 >= options.length
 
           return (
-            <div key={optionId} className={isLast ? '' : 'mb5'}>
-              <label htmlFor={optionId}>
+            <Box
+              key={optionId}
+              sx={{ ...(!isLast ? { marginBottom: '1rem' } : null) }}
+            >
+              <label
+                sx={{
+                  display: 'flex',
+                  position: 'relative',
+                  alignItems: 'start',
+                }}
+                htmlFor={optionId}
+              >
                 <Radio
                   key={optionId}
                   name={optionId}
@@ -58,7 +69,7 @@ export const ShippingOptions: FC<CustomProps> = ({
                 />
                 <ShippingInfo option={option} />
               </label>
-            </div>
+            </Box>
           )
         })}
     </Fragment>
