@@ -15,8 +15,13 @@ const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
 
   useEffect(() => {
     ;(globalThis as any).__REACT_HYDRATED__ = true
-    setIsHydrated(true)
-  }, [])
+
+    // we only need to change  this component's state when this
+    // page is dynamic. Pre-rendered pages are already ok
+    if (!isPrerendered) {
+      setIsHydrated(true)
+    }
+  }, [isPrerendered])
 
   if (isPrerendered) {
     if (isServer) {
