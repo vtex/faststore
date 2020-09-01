@@ -1,5 +1,4 @@
-import React, { FC, Suspense, SuspenseProps } from 'react'
-import { Box } from '@vtex/store-ui'
+import React, { FC, Suspense, SuspenseProps, useEffect } from 'react'
 
 import { isServer } from '../utils/env'
 
@@ -7,8 +6,14 @@ interface Props extends SuspenseProps {
   isPrerendered: boolean
 }
 
+let hydrated = false
+
 const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
-  if (isServer) {
+  useEffect(() => {
+    hydrated = true
+  })
+
+  if (isServer || !hydrated) {
     if (isPrerendered) {
       return <>{children}</>
     }
