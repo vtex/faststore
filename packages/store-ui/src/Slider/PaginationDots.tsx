@@ -2,8 +2,6 @@
 import { FC, useMemo } from 'react'
 import { jsx, Box } from 'theme-ui'
 
-const DOTS_DEFAULT_SIZE = 0.625
-
 interface Props {
   totalItems: number
   selectedIndex: number
