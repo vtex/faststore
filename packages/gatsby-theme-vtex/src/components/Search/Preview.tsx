@@ -1,6 +1,7 @@
-import React, { FC } from 'react'
+/** @jsx jsx */
+import { FC } from 'react'
 import Skeleton from 'react-loading-skeleton'
-import { Grid, Flex, Box } from '@vtex/store-ui'
+import { jsx, Grid, Flex, Box } from '@vtex/store-ui'
 
 import Container from '../Container'
 import SuspenseDevice from '../Suspense/Device'
@@ -10,7 +11,7 @@ const array = new Array(10).fill(true)
 const Preview: FC = () => (
   <Container>
     <Flex sx={{ flexDirection: 'column' }} my={4}>
-      <Skeleton width="500px" height="61px" />
+      <Skeleton width="500px" height="45px" />
 
       <div
         sx={{
@@ -29,7 +30,9 @@ const Preview: FC = () => (
           {/* Desktop Filters */}
           <Box variant="searchFilter.desktop">
             <SuspenseDevice device="desktop" fallback={null}>
-              <Skeleton width="230px" />
+              <Box variant="searchFilter.desktop.title">
+                <Skeleton width="230px" height="1950px" />
+              </Box>
             </SuspenseDevice>
           </Box>
         </aside>
@@ -43,7 +46,9 @@ const Preview: FC = () => (
           }}
         >
           {/* Controls */}
-          {/* <Skeleton /> */}
+          <Box sx={{ my: '32px' }}>
+            <Skeleton height="33px" />
+          </Box>
 
           {/* Product List  */}
           <Grid my={4} gap={3} columns={[2, 2, 3, 5]}>
