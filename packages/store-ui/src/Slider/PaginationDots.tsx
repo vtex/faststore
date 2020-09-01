@@ -34,7 +34,7 @@ export const PaginationDots: FC<Props> = ({
               isActive ? 'activeDot' : 'dot'
             }`}
             key={index}
-            tabIndex={index}
+            tabIndex={0}
             onKeyDown={() => onSelect(index)}
             onClick={() => onSelect(index)}
             role="button"
