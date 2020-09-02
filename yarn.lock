@@ -4370,10 +4370,10 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.2.tgz#df18c2311e0b10b6841764fee0cf492b732731e0"
   integrity sha512-8wt/aVM9NsLb8NAT+6wVpAB23NfXHBmQynhSONkL3C33ruDFtQgkBy9wpw1unZfRTHjD/zYk8ffmJ+lw+OZGAw==
 
-"@vtex/address-form@^3.12.12-beta.1":
-  version "3.12.12-beta.1"
-  resolved "https://registry.yarnpkg.com/@vtex/address-form/-/address-form-3.12.12-beta.1.tgz#6dbfd2aa0f17c09e8f43c335a23cfea1a16702ba"
-  integrity sha512-5jZY98CQ+tPA8W23XOXnwaW468D4biNRKzlQAsT0yDmJd6SORgkCnghNgBfO/kMbK2afcUjH5qFsPEElBjzTRA==
+"@vtex/address-form@^3.12.12-beta.2":
+  version "3.12.12-beta.2"
+  resolved "https://registry.yarnpkg.com/@vtex/address-form/-/address-form-3.12.12-beta.2.tgz#723dc720c58c3060b5c9a90463e753719f900517"
+  integrity sha512-4NlX7s8QBFSwQg1sUsmQvo0VnDCSzmvyBPAiC04Orr5s99e1Wot6c+2YKw6Izw2cp50nX6mds5mdXdE3pc9D7w==
   dependencies:
     "@vtex/styleguide" "^9.112.28"
     axios "^0.16.2"
