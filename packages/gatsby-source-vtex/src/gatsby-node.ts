@@ -43,12 +43,16 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     const result = await fetchResult.json()
 
     if (result.errors && result.errors.length > 0) {
-      result.errors.forEach((error: any) => {
+      result.errors = result.errors.filter((error: any) => {
         console.warn(error)
+        const status = error.extensions?.exception?.status
+        return status && status !== 404
       })
+
+      if (result.errors.length === 0) {
+        delete result.errors
+      }
     }
-    
-    delete result.errors
 
     return result
   }
