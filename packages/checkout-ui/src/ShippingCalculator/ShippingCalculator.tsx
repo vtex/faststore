@@ -1,5 +1,6 @@
 import React, { useState, FC } from 'react'
 import { Button } from '@vtex/store-ui'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { EstimateShipping } from './EstimateShipping'
 import { useShipping } from './ShippingContext'
@@ -16,6 +17,8 @@ export const ShippingCalculator: FC = () => {
     selectDeliveryOption,
     selectedAddress,
   } = useShipping()
+
+  const intl = useIntl()
 
   const shouldShowShippingEstimate =
     selectedAddress && !!selectedAddress.postalCode
@@ -44,9 +47,12 @@ export const ShippingCalculator: FC = () => {
       ) : (
         <Button
           id="view-delivery-options"
+          variant="plain"
           onClick={() => setShowEstimateShipping(true)}
         >
-          View delivery options
+          {intl.formatMessage({
+            id: 'shipping-calculator.view-delivery-options',
+          })}
         </Button>
       )}
     </div>

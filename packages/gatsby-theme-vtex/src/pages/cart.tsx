@@ -24,6 +24,7 @@ import {
   ShippingCalculatorContainer,
   ShippingCalculator,
 } from '@vtex/checkout-ui'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import Layout from '../components/Layout'
 import { useOrderForm } from '../sdk/orderForm/useOrderForm'
@@ -55,6 +56,8 @@ const CartPage: FC = () => {
     insertAddress,
   } = useOrderForm()
 
+  const intl = useIntl()
+
   const handleQuantityChange = (uniqueId: string, quantity: number) =>
     updateItems?.([{ uniqueId, quantity }])
 
@@ -85,13 +88,10 @@ const CartPage: FC = () => {
               mt={4}
               sx={{ fontWeight: 400, fontSize: 4, color: 'muted2' }}
             >
-              Your cart is empty
+              {intl.formatMessage({ id: 'cart.empty-state.title' })}
             </Text>
             <Box sx={{ color: 'textMuted' }}>
-              <p>
-                Add products by navigating through categories or by searching
-                for them.
-              </p>
+              <p>{intl.formatMessage({ id: 'cart.empty-state.message' })}</p>
               <Box mt="1.5rem">
                 <Button
                   variant="secondary"
@@ -99,7 +99,7 @@ const CartPage: FC = () => {
                   // @ts-ignore
                   to="/"
                 >
-                  Choose Products
+                  {intl.formatMessage({ id: 'cart.empty-state.button' })}
                 </Button>
               </Box>
             </Box>
@@ -123,7 +123,9 @@ const CartPage: FC = () => {
             sx={{ flexDirection: 'column', flexGrow: 1, marginRight: '3rem' }}
           >
             <Heading variant="cartTitle" as="h3" mt={4} mb={3}>
-              <Text sx={{ fontSize: 6, display: 'inline-block' }}>Cart</Text>
+              <Text sx={{ fontSize: 6, display: 'inline-block' }}>
+                {intl.formatMessage({ id: 'cart.title' })}
+              </Text>
               <Text
                 ml={2}
                 sx={{
@@ -133,7 +135,10 @@ const CartPage: FC = () => {
                   display: 'inline-block',
                 }}
               >
-                ({orderForm?.items.length} products)
+                {intl.formatMessage(
+                  { id: 'cart.items' },
+                  { itemsQuantity: orderForm.items.length }
+                )}
               </Text>
             </Heading>
             <Box mb={4}>
@@ -190,7 +195,7 @@ const CartPage: FC = () => {
                 // @ts-ignore
                 to="/"
               >
-                Continue Shopping
+                {intl.formatMessage({ id: 'cart.continue-shopping' })}
               </Button>
             </Flex>
           </Flex>
@@ -208,7 +213,9 @@ const CartPage: FC = () => {
                   updateSelectedDeliveryOption!(deliveryOption)
                 }
                 selectedAddress={orderForm.shipping.selectedAddress as any}
-                title="Delivery"
+                title={intl.formatMessage({
+                  id: 'shipping-calculator.delivery',
+                })}
               >
                 <ShippingCalculator />
               </ShippingCalculatorContainer>
@@ -222,7 +229,7 @@ const CartPage: FC = () => {
             </Summary>
             <Box mt=".75rem" mb=".75rem" sx={{ width: '100%' }}>
               <Button sx={{ width: '100%', textTransform: 'uppercase' }}>
-                Checkout
+                {intl.formatMessage({ id: 'cart.checkout' })}
               </Button>
             </Box>
           </Box>

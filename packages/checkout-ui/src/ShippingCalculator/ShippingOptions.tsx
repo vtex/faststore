@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
-import { Radio, Box, jsx } from '@vtex/store-ui'
+import { Label, Radio, Box, jsx } from '@vtex/store-ui'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { ShippingInfo } from './ShippingInfo'
 import { DeliveryOptionsAvailability } from './DeliveryOptionsAvailability'
@@ -20,6 +21,8 @@ export const ShippingOptions: FC<CustomProps> = ({
   options = [],
   selectDeliveryOption,
 }) => {
+  const intl = useIntl()
+
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     selectDeliveryOption(event.currentTarget.value)
   }
@@ -34,8 +37,13 @@ export const ShippingOptions: FC<CustomProps> = ({
       />
       {numberOfUnavailableItems > 0 && !allItemsUnavailable && (
         <Box sx={{ fontWeight: 500 }} mt="1.5rem" mb="1.5rem">
-          Options for remaining {numberOfItems - numberOfUnavailableItems}{' '}
-          products
+          {intl.formatMessage(
+            { id: 'shipping-calculator.options-for-remaining-products' },
+            {
+              numberOfOptions: options.length,
+              numberOfItems: numberOfItems - numberOfUnavailableItems,
+            }
+          )}
         </Box>
       )}
 
@@ -51,7 +59,7 @@ export const ShippingOptions: FC<CustomProps> = ({
               key={optionId}
               sx={{ ...(!isLast ? { marginBottom: '1rem' } : null) }}
             >
-              <label
+              <Label
                 sx={{
                   display: 'flex',
                   position: 'relative',
@@ -60,6 +68,7 @@ export const ShippingOptions: FC<CustomProps> = ({
                 htmlFor={optionId}
               >
                 <Radio
+                  size={20}
                   key={optionId}
                   name={optionId}
                   id={optionId}
@@ -68,7 +77,7 @@ export const ShippingOptions: FC<CustomProps> = ({
                   value={option.id}
                 />
                 <ShippingInfo option={option} />
-              </label>
+              </Label>
             </Box>
           )
         })}

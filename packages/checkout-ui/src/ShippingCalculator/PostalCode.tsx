@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { FC, Fragment } from 'react'
 import { components } from '@vtex/address-form'
-import { jsx, Button, Input } from '@vtex/store-ui'
+import { jsx, Button, Input, Link, Spinner } from '@vtex/store-ui'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 const { CountrySelector, PostalCodeGetter } = components
 
@@ -12,6 +13,7 @@ interface FieldInfo {
   name: string
   postalCodeAPI: boolean
   size: string
+  forgottenURL?: string
 }
 
 interface PostalCodeInputProps {
@@ -38,6 +40,8 @@ const PostalCodeInput: FC<PostalCodeInputProps> = ({
   onChange,
   ...props
 }) => {
+  const intl = useIntl()
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     onChange(evt.target.value)
   }
@@ -60,10 +64,11 @@ const PostalCodeInput: FC<PostalCodeInputProps> = ({
             lineHeight: 1,
           }}
         >
-          {field.label}
+          {intl.formatMessage({ id: `address-form.field.${field.label}` })}
         </span>
         <Input
           {...props}
+          value={address[field.name].value ?? ''}
           name={field.name}
           onChange={handleChange}
           disabled={loading}
@@ -73,11 +78,27 @@ const PostalCodeInput: FC<PostalCodeInputProps> = ({
       <SubmitButton
         variant="secondary"
         disabled={loading}
-        sx={{ flexShrink: 0, alignSelf: 'flex-end', marginBottom: '1px' }}
+        sx={{
+          flexShrink: 0,
+          alignSelf: 'flex-end',
+          textTransform: 'uppercase',
+          display: 'flex',
+          alignItems: 'center',
+        }}
         ml={2}
       >
-        {submitLabel}
+        {loading ? <Spinner size={24} /> : submitLabel}
       </SubmitButton>
+
+      {field.forgottenURL && (
+        <Link
+          href={field.forgottenURL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {intl.formatMessage({ id: 'address-form.dontKnowPostalCode' })}
+        </Link>
+      )}
     </form>
   )
 }
@@ -89,8 +110,10 @@ interface Props {
 }
 
 export const PostalCode: FC<Props> = ({ countries, loading, onSubmit }) => {
+  const intl = useIntl()
+
   const translatedCountries = countries.map((countryCode: string) => ({
-    label: countryCode,
+    label: intl.formatMessage({ id: `country.${countryCode}` }),
     value: countryCode,
   }))
 
@@ -103,7 +126,7 @@ export const PostalCode: FC<Props> = ({ countries, loading, onSubmit }) => {
         id="postal-code-getter"
         Input={PostalCodeInput}
         Button={Button}
-        submitLabel="estimate"
+        submitLabel={intl.formatMessage({ id: 'shipping-calculator.estimate' })}
         onSubmit={onSubmit}
         loading={loading}
         // eslint-disable-next-line jsx-a11y/no-autofocus

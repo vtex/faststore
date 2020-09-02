@@ -16,6 +16,7 @@ const customBase = {
     background: '#fff',
     primary: '#0f3e99',
     secondary: '#eef3f7',
+    secondaryHover: '#dbe9fd',
     emphasis: '#f71963',
     disabled: '#f2f4f5',
     muted: '#f0f0f0',
@@ -57,13 +58,60 @@ const customBase = {
     primary: {
       bg: 'primary',
       color: 'textOnPrimary',
+      cursor: 'pointer',
+      '&:disabled': {
+        cursor: 'default',
+        bg: 'disabled',
+        color: 'muted2',
+      },
     },
     secondary: {
       color: 'textOnSecondary',
       bg: 'secondary',
+      cursor: 'pointer',
+      '&:disabled': {
+        cursor: 'default',
+        bg: 'disabled',
+        color: 'muted2',
+      },
+    },
+    plain: {
+      padding: '.125rem .25rem',
+      bg: 'background',
+      color: 'primary',
+      cursor: 'pointer',
+      borderRadius: '.25rem',
+      '&:hover': {
+        bg: 'secondaryHover',
+      },
+      '&:disabled': {
+        cursor: 'default',
+        color: 'muted2',
+      },
     },
   },
   forms: {
+    input: {
+      paddingTop: 1,
+      paddingBottom: 1,
+      paddingLeft: 3,
+      paddingRight: 3,
+      height: '2.5rem',
+      borderWidth: 2,
+      borderColor: 'muted4',
+      '&:hover': {
+        borderColor: 'muted3',
+      },
+      '&:focus': {
+        borderColor: 'muted2',
+        outline: 'none',
+      },
+      '&:disabled': {
+        bg: 'disabled',
+        color: 'muted2',
+        borderColor: 'muted4',
+      },
+    },
     select: {
       borderWidth: 2,
       borderColor: 'muted4',
