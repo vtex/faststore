@@ -42,6 +42,12 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
     const result = await fetchResult.json()
 
+    /**
+     * We've chosen to ignore the 404 errors on build time.
+     * This allows us to complete builds with slightly old slugs and 
+     * to handle this type of error on the client, where we will make 
+     * some redirects.
+     */
     if (result.errors && result.errors.length > 0) {
       result.errors = result.errors.filter((error: any) => {
         console.warn(error)
