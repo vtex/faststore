@@ -1,5 +1,6 @@
 import React, { FunctionComponent, Fragment } from 'react'
 import { Box, Text } from '@vtex/store-ui'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 interface Props {
   numberOfItems: number
@@ -10,6 +11,7 @@ export const DeliveryOptionsAvailability: FunctionComponent<Props> = ({
   numberOfItems,
   numberOfUnavailableItems,
 }) => {
+  const intl = useIntl()
   const allItemsUnavailable = numberOfUnavailableItems === numberOfItems
 
   return (
@@ -17,10 +19,18 @@ export const DeliveryOptionsAvailability: FunctionComponent<Props> = ({
       {numberOfUnavailableItems > 0 && (
         <Box>
           {allItemsUnavailable ? (
-            <Text>Products cannot be delivered to this address</Text>
+            <Text>
+              {intl.formatMessage(
+                { id: 'shipping-calculator.all-items-unavailable' },
+                { numberOfUnavailableItems }
+              )}
+            </Text>
           ) : (
             <Text>
-              Products that cannot be delivered to this address were highlighted
+              {intl.formatMessage(
+                { id: 'shipping-calculator.unavailable-items' },
+                { numberOfUnavailableItems }
+              )}
             </Text>
           )}
         </Box>
