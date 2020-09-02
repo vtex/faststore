@@ -56,6 +56,7 @@ const Carousel: FC<Props> = ({
           key={item.altText}
           sx={{
             display: index === i ? 'block' : 'none',
+            minHeight: '226px',
             height: '100%',
           }}
         >
