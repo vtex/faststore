@@ -46,7 +46,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       result.errors = result.errors.filter((error: any) => {
         console.warn(error)
         const status = error.extensions?.exception?.status
-        return status && status !== 404
+        return !status || status !== 404
       })
 
       if (result.errors.length === 0) {
