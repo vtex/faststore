@@ -49,48 +49,48 @@ const Carousel: FC<Props> = ({
     )
   }, autoplayTimeout)
 
-  const item = items[index]
-
   return (
     <Box sx={{ position: 'relative' }}>
-      <Box
-        key={item.altText}
-        sx={{
-          minHeight: '226 px',
-          height: '100%',
-        }}
-      >
-        {showArrows && (
-          <Button
-            onClick={() => setIndex(index === 0 ? lastIndex : index - 1)}
-            sx={{ position: 'absolute', top: '50%', left: 0 }}
-          >
-            {formatMessage({ id: 'carousel.previous' })}
-          </Button>
-        )}
-        {showArrows && (
-          <Button
-            onClick={() => setIndex(index === lastIndex ? 0 : index + 1)}
-            sx={{ position: 'absolute', top: '50%', right: 0 }}
-          >
-            {formatMessage({ id: 'carousel.next' })}
-          </Button>
-        )}
-        <LocalizedLink to={item.href ?? '/'}>
-          <picture>
-            <source media="(max-width: 500px)" srcSet={item.mobileSrc} />
-            <source media="(min-width: 501px)" srcSet={item.src} />
-            <img
-              src={item.src}
-              width={item.width}
-              height={item.height}
-              alt={item.altText}
-              loading="eager"
-              sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          </picture>
-        </LocalizedLink>
-      </Box>
+      {items.map((item, i) => (
+        <Box
+          key={item.altText}
+          sx={{
+            display: index === i ? 'block' : 'none',
+            height: '100%',
+          }}
+        >
+          {showArrows && (
+            <Button
+              onClick={() => setIndex(i === 0 ? lastIndex : i - 1)}
+              sx={{ position: 'absolute', top: '50%', left: 0 }}
+            >
+              {formatMessage({ id: 'carousel.previous' })}
+            </Button>
+          )}
+          {showArrows && (
+            <Button
+              onClick={() => setIndex(i === lastIndex ? 0 : i + 1)}
+              sx={{ position: 'absolute', top: '50%', right: 0 }}
+            >
+              {formatMessage({ id: 'carousel.next' })}
+            </Button>
+          )}
+          <LocalizedLink to={item.href ?? '/'}>
+            <picture>
+              <source media="(max-width: 420px)" srcSet={item.mobileSrc} />
+              <source media="(min-width: 421px)" srcSet={item.src} />
+              <img
+                src={item.src}
+                width={item.width}
+                height={item.height}
+                alt={item.altText}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </picture>
+          </LocalizedLink>
+        </Box>
+      ))}
       {showDots && (
         <PaginationDots
           variant="carousel"
