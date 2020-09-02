@@ -1,6 +1,6 @@
 export const isProduction = process.env.NODE_ENV === 'production'
 
-export const gql = (_: TemplateStringsArray, ...__: any[]) => {
+export const gql = (_: TemplateStringsArray) => {
   throw new Error('This should have been removed by the babel plugin')
 }
 

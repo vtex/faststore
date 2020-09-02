@@ -205,8 +205,6 @@ export const orderFormFragment = gql`
 `
 
 export const orderFormQuery = gql`
-  ${orderFormFragment}
-
   query OrderFormQuery {
     vtex {
       orderForm {
@@ -217,8 +215,6 @@ export const orderFormQuery = gql`
 `
 
 export const addToCartMutation = gql`
-  ${orderFormFragment}
-
   mutation AddToCartMutation(
     $items: [VTEX_ItemInput!]!
     $marketingData: VTEX_MarketingDataInput
@@ -230,8 +226,6 @@ export const addToCartMutation = gql`
 `
 
 export const updateItemsMutation = gql`
-  ${orderFormFragment}
-
   mutation UpdateItemsMutation($items: [VTEX_ItemInput!]!) {
     updateItems(orderItems: $items) {
       ...OrderForm_orderForm
@@ -240,8 +234,6 @@ export const updateItemsMutation = gql`
 `
 
 export const estimateShippingMutation = gql`
-  ${orderFormFragment}
-
   mutation EstimateShippingMutation($address: VTEX_AddressInput!) {
     estimateShipping(address: $address) {
       ...OrderForm_orderForm
@@ -250,8 +242,6 @@ export const estimateShippingMutation = gql`
 `
 
 export const selectDeliveryOptionMutation = gql`
-  ${orderFormFragment}
-
   mutation SelectDeliveryOptionMutation($deliveryOptionId: String!) {
     selectDeliveryOption(deliveryOptionId: $deliveryOptionId) {
       ...OrderForm_orderForm
@@ -260,8 +250,6 @@ export const selectDeliveryOptionMutation = gql`
 `
 
 export const updateSelectedAddressMutation = gql`
-  ${orderFormFragment}
-
   mutation UpdateSelectedAddressMutation($address: VTEX_AddressInput!) {
     updateSelectedAddress(input: $address) {
       ...OrderForm_orderForm
