@@ -35,5 +35,8 @@
   },
   "dependencies": {
     "@vtex/address-form": "^3.12.12-beta.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
