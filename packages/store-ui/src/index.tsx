@@ -25,6 +25,8 @@ export * from './Header/theme'
 export * from './Logo'
 // ProgressiveImage
 export * from './ProgressiveImage'
+// ResponsiveImage
+export * from './ResponsiveImage'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'

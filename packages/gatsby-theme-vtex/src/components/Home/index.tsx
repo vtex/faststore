@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react'
 
-import Carousel, { Picture } from '../Carousel'
+import Carousel, { Item } from '../Carousel'
 import Container from '../Container'
 import Shelf from '../Shelf'
 import { HomePageQueryQuery } from '../../__generated__/HomePageQuery.graphql'
@@ -9,7 +9,7 @@ interface Props {
   data: HomePageQueryQuery
 }
 
-const itemsCarousel: Picture[] = [
+const itemsCarousel: Item[] = [
   {
     sources: [
       {
@@ -22,7 +22,10 @@ const itemsCarousel: Picture[] = [
       },
     ],
     heights: ['238px', '307px'],
+    width: '100%',
+    height: '450px',
     alt: 'Slide 2',
+    href: '/',
   },
   {
     sources: [
@@ -36,7 +39,10 @@ const itemsCarousel: Picture[] = [
       },
     ],
     heights: ['238px', '307px'],
+    width: '100%',
+    height: '450px',
     alt: 'Slide 1',
+    href: '/',
   },
 ]
 
