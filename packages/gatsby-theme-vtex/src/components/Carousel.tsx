@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import {
   Box,
   Button,
   jsx,
-  PaginationDots,
-  useInterval,
+  SliderPaginationDots,
+  useSlider,
   LocalizedLink,
   ResponsiveImage,
   IResponsiveImage,
@@ -17,7 +17,7 @@ export interface Item extends IResponsiveImage {
 }
 
 interface Props {
-  items: Item[]
+  allItems: Item[]
   loading?: 'lazy' | 'eager'
   showArrows?: boolean
   showDots?: boolean
@@ -25,67 +25,57 @@ interface Props {
   autoplayTimeout?: number
 }
 
-// "next()" function makes the index value be always smaller than total,
-// so the naive "previous()" implementation will always return a value
-// within the array ranges
-const next = (index: number, total: number) => (index + 1) % total
-const previous = (index: number, total: number) => total - index
-
 const Carousel: FC<Props> = ({
-  items,
+  allItems,
   loading = 'eager',
   showArrows = true,
   showDots = true,
-  autoplayTimeout = 1000,
-  autoplay = false,
+  autoplay,
+  autoplayTimeout,
 }) => {
   const { formatMessage } = useIntl()
-  const [index, setIndex] = useState(0)
-  const item = items[index]
-
-  // TODO: When implementing the Slider, use a timeout instead to improve UX
-  useInterval(() => {
-    if (!autoplay) {
-      return
-    }
-
-    setIndex((it) => next(it, items.length))
-  }, autoplayTimeout)
+  const {
+    page,
+    items,
+    totalPages,
+    setPage,
+    setNextPage,
+    setPreviousPage,
+  } = useSlider({
+    allItems,
+    autoplay,
+    autoplayTimeout,
+  })
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <Box
-        key={item.alt}
-        sx={{
-          height: '100%',
-        }}
-      >
-        {showArrows && (
-          <Button
-            onClick={() => setIndex(previous(index, items.length))}
-            sx={{ position: 'absolute', top: '50%', left: 0 }}
-          >
-            {formatMessage({ id: 'carousel.previous' })}
-          </Button>
-        )}
-        {showArrows && (
-          <Button
-            onClick={() => setIndex(next(index, items.length))}
-            sx={{ position: 'absolute', top: '50%', right: 0 }}
-          >
-            {formatMessage({ id: 'carousel.next' })}
-          </Button>
-        )}
-        <LocalizedLink to={item.href}>
+      {showArrows && (
+        <Button
+          onClick={() => setPreviousPage()}
+          sx={{ position: 'absolute', top: '50%', left: 0 }}
+        >
+          {formatMessage({ id: 'carousel.previous' })}
+        </Button>
+      )}
+      {showArrows && (
+        <Button
+          onClick={() => setNextPage()}
+          sx={{ position: 'absolute', top: '50%', right: 0 }}
+        >
+          {formatMessage({ id: 'carousel.next' })}
+        </Button>
+      )}
+      {items.map((item) => (
+        <LocalizedLink key={item.href} to={item.href}>
           <ResponsiveImage {...item} loading={loading} />
         </LocalizedLink>
-      </Box>
+      ))}
       {showDots && (
-        <PaginationDots
+        <SliderPaginationDots
           variant="carousel"
-          totalItems={items.length}
-          selectedIndex={index}
-          onSelect={setIndex}
+          onSelect={setPage}
+          selectedPage={page}
+          totalPages={totalPages}
         />
       )}
     </Box>

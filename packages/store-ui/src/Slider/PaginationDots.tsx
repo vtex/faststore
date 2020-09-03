@@ -3,20 +3,20 @@ import { FC, useMemo } from 'react'
 import { jsx, Box } from 'theme-ui'
 
 interface Props {
-  totalItems: number
-  selectedIndex: number
+  totalPages: number
+  selectedPage: number
   onSelect: (index: number) => void
   variant?: string
 }
 
-export const PaginationDots: FC<Props> = ({
+export const SliderPaginationDots: FC<Props> = ({
   variant,
-  selectedIndex,
-  totalItems,
   onSelect,
+  totalPages,
+  selectedPage,
 }) => {
-  const indexes = useMemo(() => Array.from(Array(totalItems).keys()), [
-    totalItems,
+  const indexes = useMemo(() => Array.from(Array(totalPages).keys()), [
+    totalPages,
   ])
 
   return (
@@ -26,7 +26,7 @@ export const PaginationDots: FC<Props> = ({
       aria-label="Slider pagination dots"
     >
       {indexes.map((index) => {
-        const isActive = index === selectedIndex
+        const isActive = index === selectedPage
 
         return (
           <Box
@@ -38,7 +38,7 @@ export const PaginationDots: FC<Props> = ({
             onKeyDown={() => onSelect(index)}
             onClick={() => onSelect(index)}
             role="button"
-            aria-label={`Dot ${index + 1} of ${totalItems}`}
+            aria-label={`Dot ${index + 1} of ${totalPages}`}
             data-testid="paginationDot"
           />
         )

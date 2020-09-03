@@ -4,18 +4,18 @@ import { ThemeProvider } from 'theme-ui'
 
 import { baseTheme } from '../theme'
 import { createTheme } from '../createTheme'
-import { PaginationDots } from './PaginationDots'
+import { SliderPaginationDots } from './PaginationDots'
 
 export default {
   title: 'slider|PaginationDots',
-  component: PaginationDots,
+  component: SliderPaginationDots,
 }
 
 export const Default = () => (
   <ThemeProvider theme={createTheme(baseTheme)}>
-    <PaginationDots
-      totalItems={3}
-      selectedIndex={0}
+    <SliderPaginationDots
+      totalPages={3}
+      selectedPage={0}
       onSelect={(index) => console.log(index)}
     />
   </ThemeProvider>

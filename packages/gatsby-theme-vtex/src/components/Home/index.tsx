@@ -46,15 +46,13 @@ const itemsCarousel: Item[] = [
   },
 ]
 
-const HomeBlocks: FC<Props> = ({ data }) => {
-  return (
-    <Fragment>
-      <Carousel items={itemsCarousel} />
-      <Container>
-        <Shelf products={data.vtex.productSearch!.products!} />
-      </Container>
-    </Fragment>
-  )
-}
+const HomeBlocks: FC<Props> = ({ data }) => (
+  <Fragment>
+    <Carousel allItems={itemsCarousel} />
+    <Container>
+      <Shelf products={data.vtex.productSearch!.products!} />
+    </Container>
+  </Fragment>
+)
 
 export default HomeBlocks

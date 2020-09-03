@@ -62,3 +62,4 @@ export { default as breadcrumbTheme } from './Breadcrumb/theme'
 // Slider
 export * from './Slider/PaginationDots'
 export * from './Slider/hooks/useInterval'
+export * from './Slider/hooks/useSlider'
