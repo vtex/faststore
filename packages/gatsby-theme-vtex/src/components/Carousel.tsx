@@ -12,10 +12,10 @@ import {
 
 interface Source {
   srcSet: string
-  sizes: string
+  sizes?: string
 }
 
-interface Picture {
+export interface Picture {
   sources: [Source, Source]
   heights: [string, string]
   alt: string

@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react'
 
-import Carousel from '../Carousel'
+import Carousel, { Picture } from '../Carousel'
 import Container from '../Container'
 import Shelf from '../Shelf'
 import { HomePageQueryQuery } from '../../__generated__/HomePageQuery.graphql'
@@ -9,7 +9,7 @@ interface Props {
   data: HomePageQueryQuery
 }
 
-const itemsCarousel = [
+const itemsCarousel: Picture[] = [
   {
     sources: [
       {
