@@ -4,7 +4,6 @@ import { FC, useEffect, lazy } from 'react'
 import { jsx } from '@vtex/store-ui'
 
 import HomeBlocks from '../components/Home'
-import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
 import Shelf from '../components/Shelf'
@@ -25,10 +24,8 @@ const Home: FC<Props> = ({ data }) => {
   return (
     <Layout>
       <SEO />
-      <Container>
-        <HomeBlocks pageData={data} />
-        <Shelf products={data.vtex.productSearch!.products!} />
-      </Container>
+      <HomeBlocks data={data} />
+      <Shelf products={data.vtex.productSearch!.products!} />
       <SuspenseViewport fallback={null} preloader={loader}>
         <Fold />
       </SuspenseViewport>

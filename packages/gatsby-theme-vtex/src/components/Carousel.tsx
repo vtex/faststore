@@ -10,17 +10,21 @@ import {
   LocalizedLink,
 } from '@vtex/store-ui'
 
-interface Item {
-  mobileSrc: string
-  src: string
-  altText: string
-  width: number
-  height: number
+interface Source {
+  srcSet: string
+  sizes: string
+}
+
+interface Picture {
+  sources: [Source, Source]
+  heights: [string, string]
+  alt: string
+  src?: string
   href?: string
 }
 
 interface Props {
-  items: Item[]
+  items: Picture[]
   showArrows?: boolean
   showDots?: boolean
   autoplay?: boolean
@@ -53,7 +57,7 @@ const Carousel: FC<Props> = ({
     <Box sx={{ position: 'relative' }}>
       {items.map((item, i) => (
         <Box
-          key={item.altText}
+          key={item.alt}
           sx={{
             display: index === i ? 'block' : 'none',
             height: '100%',
@@ -77,15 +81,17 @@ const Carousel: FC<Props> = ({
           )}
           <LocalizedLink to={item.href ?? '/'}>
             <picture>
-              <source media="(max-width: 420px)" srcSet={item.mobileSrc} />
-              <source media="(min-width: 421px)" srcSet={item.src} />
+              <source media="(max-width: 500px)" {...item.sources[0]} />
+              <source media="(min-width: 501px)" {...item.sources[1]} />
               <img
                 src={item.src}
-                width={item.width}
-                height={item.height}
-                alt={item.altText}
+                alt={item.alt}
+                sx={{
+                  height: item.heights,
+                  objectFit: 'cover',
+                  width: '100%',
+                }}
                 loading={i === 0 ? 'eager' : 'lazy'}
-                sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </picture>
           </LocalizedLink>
