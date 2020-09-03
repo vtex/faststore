@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-vtex",
-  "version": "0.42.0-alpha.3",
+  "version": "0.42.0-alpha.home.1",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "@theme-ui/match-media": "^0.3.1",
     "@vtex/gatsby-plugin-graphql": "^0.42.0-alpha.carousel.0",
     "@vtex/gatsby-plugin-i18n": "^0.42.0-alpha.carousel.0",
-    "@vtex/gatsby-plugin-theme-ui": "^0.42.0-alpha.3",
+    "@vtex/gatsby-plugin-theme-ui": "^0.42.0-alpha.home.1",
     "@vtex/gatsby-source-vtex": "^0.42.0-alpha.carousel.0",
     "@vtex/gatsby-transformer-vtex-cms": "^0.42.0-alpha.carousel.0",
     "babel-gql": "^0.1.3",
