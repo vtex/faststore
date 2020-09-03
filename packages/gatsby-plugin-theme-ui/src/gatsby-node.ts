@@ -9,6 +9,7 @@ const base = join(root, 'src', name)
 const filepath = join(base, 'index.ts')
 
 export const onPostBootstrap = () => {
+  console.log('onPostBootstrap')
   require('@babel/register')({
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],

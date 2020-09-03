@@ -29,12 +29,7 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
         flexGrow: 1,
       }}
     >
-      <Card
-        sx={{
-          m: 'auto',
-          maxWidth: 300,
-        }}
-      >
+      <Card variant="summary.container">
         <ProductSummaryImage src={imageUrl} alt={imageText} loading={loading} />
         <Heading variant="summary.name" as="h3">
           {productName.slice(0, 12)}

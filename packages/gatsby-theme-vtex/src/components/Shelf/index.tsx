@@ -41,12 +41,7 @@ const Shelf: FC<Props> = ({ products }) => {
       : [products[page]]
 
   return (
-    <Box>
-      <Flex p={2} sx={{ justifyContent: 'center' }} marginY={[16, 30]}>
-        <Heading variant="shelfTitle" as="h2">
-          summer
-        </Heading>
-      </Flex>
+    <Box variant="shelfContainer">
       <Flex>
         <Flex sx={{ alignItems: 'center' }}>
           {hasPrevArrow(page) && (
