@@ -52,10 +52,12 @@ export const fetchOrderForm = async (
   initialOrderForm: OrderForm | null
 ): Promise<OrderForm | null> =>
   initialOrderForm ??
-  request<OrderFormQueryQueryVariables, OrderFormQueryQuery>(
-    '/graphql/',
-    OrderFormQuery
-  ).then((result) => result.data.vtex.orderForm as OrderForm)
+  request<OrderFormQueryQueryVariables, OrderFormQueryQuery>('/graphql/', {
+    ...OrderFormQuery,
+    fetchOptions: {
+      headers: { 'x-vtex-graphql-referer': window.location.host },
+    },
+  }).then((result) => result.data.vtex.orderForm as OrderForm)
 
 export const orderFormFragment = gql`
   fragment Address_orderForm on VTEX_Address {
@@ -291,6 +293,9 @@ export const addItems = async (
     >('/graphql/', {
       ...AddToCartMutation,
       variables: { items, marketingData: null },
+      fetchOptions: {
+        headers: { 'x-vtex-graphql-referer': window.location.host },
+      },
     })
 
     setOrderFormState(setOrderForm, newOrderForm)
@@ -315,6 +320,9 @@ export const updateItems = async (
     >('/graphql/', {
       ...UpdateItemsMutation,
       variables: { items },
+      fetchOptions: {
+        headers: { 'x-vtex-graphql-referer': window.location.host },
+      },
     })
 
     setOrderFormState(setOrderForm, newOrderForm)
@@ -339,6 +347,9 @@ export const insertAddress = async (
     >('/graphql/', {
       ...EstimateShippingMutation,
       variables: { address },
+      fetchOptions: {
+        headers: { 'x-vtex-graphql-referer': window.location.host },
+      },
     })
 
     setOrderFormState(setOrderForm, newOrderForm)
@@ -363,6 +374,9 @@ export const selectDeliveryOption = async (
     >('/graphql/', {
       ...SelectDeliveryOptionMutation,
       variables: { deliveryOptionId: deliveryOption },
+      fetchOptions: {
+        headers: { 'x-vtex-graphql-referer': window.location.host },
+      },
     })
 
     setOrderFormState(setOrderForm, newOrderForm)
@@ -387,6 +401,9 @@ export const updateSelectedAddress = async (
     >('/graphql/', {
       ...UpdateSelectedAddressMutation,
       variables: { address },
+      fetchOptions: {
+        headers: { 'x-vtex-graphql-referer': window.location.host },
+      },
     })
 
     setOrderFormState(setOrderForm, newOrderForm)
