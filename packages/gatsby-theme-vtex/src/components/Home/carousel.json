@@ -2,7 +2,7 @@
   {
     "sources": [
       {
-        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/db64dc83-dd58-49ff-8093-b9bd710d4600___3be6fb3cbcef0db2be3ad13631f2f356.jpg?width=360&aspect=true",
+        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/db64dc83-dd58-49ff-8093-b9bd710d4600___3be6fb3cbcef0db2be3ad13631f2f356.jpg?quality=5",
         "sizes": "360px",
         "media": "(max-width: 500px)"
       },
