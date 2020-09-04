@@ -34,7 +34,7 @@
     "typescript": "^3.9.6"
   },
   "dependencies": {
-    "@vtex/address-form": "^3.12.12-beta.3"
+    "@vtex/address-form": "^3.12.12"
   },
   "publishConfig": {
     "access": "public"
