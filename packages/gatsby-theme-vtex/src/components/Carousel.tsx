@@ -54,20 +54,23 @@ const Carousel: FC<Props> = ({
 
   return (
     <Box sx={{ position: 'relative' }}>
-      {loading === 'eager'
-        ? item.sources.map((source) => (
-            <Helmet
-              key={source.srcSet}
-              link={[
-                {
-                  rel: 'preload',
-                  href: source.srcSet,
-                  media: source.media,
-                },
-              ]}
-            />
-          ))
-        : null}
+      {
+        // Adds a <link rel="preload"/> to decrease LCP metric
+        loading === 'eager'
+          ? item.sources.map((source) => (
+              <Helmet
+                key={source.srcSet}
+                link={[
+                  {
+                    rel: 'preload',
+                    href: source.srcSet,
+                    media: source.media,
+                  },
+                ]}
+              />
+            ))
+          : null
+      }
       {showArrows && (
         <Button
           onClick={() => setPreviousPage()}
