@@ -23,7 +23,11 @@ export const useSlider = <T>({
 }: Options<T>) => {
   const totalPages = Math.ceil(allItems.length / pageSize)
   const totalItems = allItems.length
+
+  // Page State pagination
   const [page, setPage] = useState(0)
+
+  // Items on current page
   const items = useMemo(
     () => allItems.slice(page * pageSize, (page + 1) * pageSize),
     [allItems, page]

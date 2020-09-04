@@ -29,14 +29,19 @@ export const ResponsiveImage: FC<Props> = ({
   variant,
   ...imgProps
 }) => (
-  <picture>
+  <picture
+    sx={{
+      display: 'block',
+      overflow: 'hidden',
+      variant: variant ? `${variant}.picture` : 'picture',
+    }}
+  >
     <source {...sources[0]} media={sources[0].media ?? '(max-width: 500px)'} />
     <source {...sources[1]} media={sources[1].media ?? '(min-width: 501px)'} />
     <img
       {...imgProps}
       sx={{
         variant: variant ? `${variant}.img` : 'img',
-        display: 'block',
         minHeight: heights,
         minWidth: '100%',
         marginLeft: '50%',
