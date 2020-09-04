@@ -22,7 +22,7 @@ export const onCreateBabelConfig = ({
   actions: { setBabelPlugin },
   stage,
 }: CreateBabelConfigArgs) => {
-  if (stage === 'build-javascript' || stage === 'build-html') {
+  if (stage === 'build-javascript') {
     setBabelPlugin({
       name: require.resolve('./babel'),
       options: {
