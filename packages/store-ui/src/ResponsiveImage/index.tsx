@@ -4,14 +4,14 @@ import { FC } from 'react'
 import { jsx } from 'theme-ui'
 
 export interface IResponsiveImageSource {
+  media: string
   srcSet: string
   sizes?: string
-  media?: string
 }
 
 export interface IResponsiveImage {
-  sources: [IResponsiveImageSource, IResponsiveImageSource]
-  heights: [string, string]
+  sources: IResponsiveImageSource[]
+  heights: string[]
   src?: string
   alt: string
   height?: string
@@ -36,8 +36,9 @@ export const ResponsiveImage: FC<Props> = ({
       variant: variant ? `${variant}.picture` : 'picture',
     }}
   >
-    <source {...sources[0]} media={sources[0].media ?? '(max-width: 500px)'} />
-    <source {...sources[1]} media={sources[1].media ?? '(min-width: 501px)'} />
+    {sources.map((source) => (
+      <source key={source.srcSet} {...source} />
+    ))}
     <img
       {...imgProps}
       sx={{

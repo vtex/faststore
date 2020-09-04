@@ -11,6 +11,7 @@ import {
   ResponsiveImage,
   IResponsiveImage,
 } from '@vtex/store-ui'
+import { Helmet } from 'react-helmet'
 
 export interface Item extends IResponsiveImage {
   href: string
@@ -43,12 +44,30 @@ const Carousel: FC<Props> = ({
     setPreviousPage,
   } = useSlider({
     allItems,
+    pageSize: 1,
     autoplay,
     autoplayTimeout,
   })
 
+  // this is safe, since there is only one item per page
+  const [item] = items
+
   return (
     <Box sx={{ position: 'relative' }}>
+      {loading === 'eager'
+        ? item.sources.map((source) => (
+            <Helmet
+              key={source.srcSet}
+              link={[
+                {
+                  rel: 'preload',
+                  href: source.srcSet,
+                  media: source.media,
+                },
+              ]}
+            />
+          ))
+        : null}
       {showArrows && (
         <Button
           onClick={() => setPreviousPage()}
@@ -65,11 +84,9 @@ const Carousel: FC<Props> = ({
           {formatMessage({ id: 'carousel.next' })}
         </Button>
       )}
-      {items.map((item) => (
-        <LocalizedLink key={item.href} to={item.href}>
-          <ResponsiveImage {...item} loading={loading} />
-        </LocalizedLink>
-      ))}
+      <LocalizedLink key={item.href} to={item.href}>
+        <ResponsiveImage {...item} loading={loading} />
+      </LocalizedLink>
       {showDots && (
         <SliderPaginationDots
           variant="carousel"
