@@ -62,6 +62,7 @@ const Carousel: FC<Props> = ({
                 key={source.srcSet}
                 link={[
                   {
+                    as: 'image',
                     rel: 'preload',
                     href: source.srcSet,
                     media: source.media,

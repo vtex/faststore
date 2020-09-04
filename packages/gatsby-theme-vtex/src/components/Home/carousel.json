@@ -2,12 +2,12 @@
   {
     "sources": [
       {
-        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/db64dc83-dd58-49ff-8093-b9bd710d4600___3be6fb3cbcef0db2be3ad13631f2f356.jpg?width=360&aspect=true 360w",
+        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/db64dc83-dd58-49ff-8093-b9bd710d4600___3be6fb3cbcef0db2be3ad13631f2f356.jpg?width=360&aspect=true",
         "sizes": "360px",
         "media": "(max-width: 500px)"
       },
       {
-        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/bd025904-c013-472a-99fc-dc26ccc7238c___f9dfe8885768021f405cc624eb6c20cd.jpg?width=1680&aspect=true&quality=9 1680w",
+        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/bd025904-c013-472a-99fc-dc26ccc7238c___f9dfe8885768021f405cc624eb6c20cd.jpg?width=1680&aspect=true&quality=9",
         "sizes": "1680px",
         "media": "(min-width: 501px)"
       }
