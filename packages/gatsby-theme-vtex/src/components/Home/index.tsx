@@ -14,18 +14,18 @@ const itemsCarousel: Item[] = [
     sources: [
       {
         srcSet:
-          'https://storecomponents.vtexassets.com/assets/faststore/images/banner___febafa22a7ffc9a7f2fd049f416e7c7b.webp?aspect=true&height=450',
+          'https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/db64dc83-dd58-49ff-8093-b9bd710d4600___3be6fb3cbcef0db2be3ad13631f2f356.jpg?width=360&aspect=true 360w',
+        sizes: '360px',
       },
       {
         srcSet:
-          'https://storecomponents.vtexassets.com/assets/faststore/images/banner___febafa22a7ffc9a7f2fd049f416e7c7b.webp?aspect=true&height=450',
+          'https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/bd025904-c013-472a-99fc-dc26ccc7238c___f9dfe8885768021f405cc624eb6c20cd.jpg?width=1680&aspect=true&quality=9 1680w',
+        sizes: '1680px',
       },
     ],
-    heights: ['238px', '307px'],
-    width: '100%',
-    height: '450px',
-    alt: 'Slide 2',
-    href: '/',
+    heights: ['540px', '806px'],
+    alt: 'Slide 1',
+    href: '/apparel---accessories',
   },
   {
     sources: [
@@ -35,20 +35,18 @@ const itemsCarousel: Item[] = [
       },
       {
         srcSet:
-          'https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/main___59700c0e5c56dcd769179d434f514892.webp?aspect=true&height=450',
+          'https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/banner___ce945adede22a8fb5751cea8f2918859.png?width=1680&quality=2',
       },
     ],
-    heights: ['238px', '307px'],
-    width: '100%',
-    height: '450px',
-    alt: 'Slide 1',
+    heights: ['540px', '806px'],
+    alt: 'Slide 2',
     href: '/',
   },
 ]
 
 const HomeBlocks: FC<Props> = ({ data }) => (
   <Fragment>
-    <Carousel allItems={itemsCarousel} />
+    <Carousel allItems={itemsCarousel} autoplay autoplayTimeout={3e3} />
     <Container>
       <Shelf products={data.vtex.productSearch!.products!} />
     </Container>

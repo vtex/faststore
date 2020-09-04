@@ -14,8 +14,8 @@ export interface IResponsiveImage {
   heights: [string, string]
   src?: string
   alt: string
-  height: string
-  width: string
+  height?: string
+  width?: string
 }
 
 interface Props extends IResponsiveImage {
@@ -30,14 +30,18 @@ export const ResponsiveImage: FC<Props> = ({
   ...imgProps
 }) => (
   <picture>
-    <source {...sources[0]} media={sources[0].media || '(max-width: 500px)'} />
-    <source {...sources[1]} media={sources[1].media || '(min-width: 501px)'} />
+    <source {...sources[0]} media={sources[0].media ?? '(max-width: 500px)'} />
+    <source {...sources[1]} media={sources[1].media ?? '(min-width: 501px)'} />
     <img
       {...imgProps}
       sx={{
         variant: variant ? `${variant}.img` : 'img',
-        height: heights,
-        width: '100%',
+        display: 'block',
+        minHeight: heights,
+        minWidth: '100%',
+        marginLeft: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: -2,
       }}
     />
   </picture>

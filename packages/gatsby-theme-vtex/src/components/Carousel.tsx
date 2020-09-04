@@ -52,7 +52,7 @@ const Carousel: FC<Props> = ({
       {showArrows && (
         <Button
           onClick={() => setPreviousPage()}
-          sx={{ position: 'absolute', top: '50%', left: 0 }}
+          sx={{ position: 'absolute', top: '50%', left: 0, zIndex: 1 }}
         >
           {formatMessage({ id: 'carousel.previous' })}
         </Button>
@@ -60,7 +60,7 @@ const Carousel: FC<Props> = ({
       {showArrows && (
         <Button
           onClick={() => setNextPage()}
-          sx={{ position: 'absolute', top: '50%', right: 0 }}
+          sx={{ position: 'absolute', top: '50%', right: 0, zIndex: 1 }}
         >
           {formatMessage({ id: 'carousel.next' })}
         </Button>
