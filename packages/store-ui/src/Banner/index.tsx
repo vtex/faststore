@@ -9,8 +9,8 @@ type Props = {
   loading?: 'eager' | 'lazy'
   alt: string
   href: string
-  width?: number | string
-  height?: number | string
+  width: number | string
+  height: number | string
 }
 
 export const Banner: FC<Props> = ({
@@ -19,7 +19,7 @@ export const Banner: FC<Props> = ({
   alt,
   width,
   height,
-  loading,
+  loading = 'lazy',
 }) => {
   return (
     <LocalizedLink to={href}>
