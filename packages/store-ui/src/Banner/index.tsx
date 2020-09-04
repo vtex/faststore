@@ -1,36 +1,33 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { jsx } from 'theme-ui'
+import { jsx, Image } from 'theme-ui'
 
 import LocalizedLink from '../LocalizedLink'
 
 type Props = {
-  imgSrc: string
-  loading?: 'eager' | 'lazy'
+  src: string
   alt: string
   href: string
   width: number | string
   height: number | string
+  loading?: 'eager' | 'lazy'
 }
 
 export const Banner: FC<Props> = ({
-  imgSrc,
+  src,
   href,
   alt,
   width,
   height,
   loading = 'lazy',
-}) => {
-  return (
-    <LocalizedLink to={href}>
-      <img
-        sx={{ width: '100%', height: '100%' }}
-        src={imgSrc}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={loading}
-      />
-    </LocalizedLink>
-  )
-}
+}) => (
+  <LocalizedLink to={href}>
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+    />
+  </LocalizedLink>
+)

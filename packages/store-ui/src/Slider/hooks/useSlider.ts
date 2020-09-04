@@ -51,11 +51,11 @@ export const useSlider = <T>({
   }, autoplayTimeout)
 
   return {
+    totalPages,
+    items,
     page,
     setPage,
     setNextPage,
     setPreviousPage,
-    items,
-    totalPages,
   }
 }
