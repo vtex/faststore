@@ -14,7 +14,7 @@
     ],
     "heights": ["540px", "806px"],
     "height": "540px",
-    "width": "auto",
+    "width": "360px",
     "alt": "Slide 1",
     "href": "/apparel---accessories"
   },
@@ -31,7 +31,7 @@
     ],
     "heights": ["540px", "806px"],
     "height": "540px",
-    "width": "auto",
+    "width": "360px",
     "alt": "Slide 2",
     "href": "/"
   }

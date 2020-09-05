@@ -45,6 +45,7 @@ export const ResponsiveImage: FC<Props> = ({
         variant: variant ? `${variant}.img` : 'img',
         minHeight: heights,
         minWidth: '100%',
+        width: 'auto',
         marginLeft: '50%',
         transform: 'translateX(-50%)',
         zIndex: -2,
