@@ -33,6 +33,5 @@
     "@babel/traverse": "^7.11.0",
     "@babel/types": "^7.11.0",
     "theme-ui": "^0.3.1"
-  },
-  "gitHead": "ed550c69ab4e7b3d3b188265932f8131a2233ccf"
+  }
 }

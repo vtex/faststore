@@ -33,6 +33,5 @@
     "@graphql-codegen/typescript-operations": "^1.17.7",
     "@graphql-tools/relay-operation-optimizer": "^6.0.15",
     "fs-extra": "^9.0.1"
-  },
-  "gitHead": "ed550c69ab4e7b3d3b188265932f8131a2233ccf"
+  }
 }
