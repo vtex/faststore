@@ -1,0 +1,38 @@
+[
+  {
+    "sources": [
+      {
+        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/db64dc83-dd58-49ff-8093-b9bd710d4600___3be6fb3cbcef0db2be3ad13631f2f356.jpg?quality=5",
+        "sizes": "360px",
+        "media": "(max-width: 500px)"
+      },
+      {
+        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/bd025904-c013-472a-99fc-dc26ccc7238c___f9dfe8885768021f405cc624eb6c20cd.jpg?width=1680&aspect=true&quality=9",
+        "sizes": "1680px",
+        "media": "(min-width: 501px)"
+      }
+    ],
+    "heights": ["540px", "806px"],
+    "height": "540px",
+    "width": "360px",
+    "alt": "Slide 1",
+    "href": "/apparel---accessories"
+  },
+  {
+    "sources": [
+      {
+        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/main___59700c0e5c56dcd769179d434f514892.webp?aspect=true&height=450",
+        "media": "(max-width: 500px)"
+      },
+      {
+        "srcSet": "https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/banner___ce945adede22a8fb5751cea8f2918859.png?width=1680&quality=2",
+        "media": "(min-width: 501px)"
+      }
+    ],
+    "heights": ["540px", "806px"],
+    "height": "540px",
+    "width": "360px",
+    "alt": "Slide 2",
+    "href": "/"
+  }
+]

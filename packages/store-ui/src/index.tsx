@@ -25,6 +25,8 @@ export * from './Header/theme'
 export * from './Logo'
 // ProgressiveImage
 export * from './ProgressiveImage'
+// ResponsiveImage
+export * from './ResponsiveImage'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'
@@ -40,6 +42,8 @@ export * from './Minicart/Svg'
 export * from './Minicart/theme'
 // LocalizedLink
 export { default as LocalizedLink } from './LocalizedLink'
+// Banner
+export * from './Banner'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
 // Search Filters
@@ -55,3 +59,7 @@ export * from './SearchControls/theme'
 // Breadcrumb
 export * from './Breadcrumb'
 export { default as breadcrumbTheme } from './Breadcrumb/theme'
+// Slider
+export * from './Slider/PaginationDots'
+export * from './Slider/hooks/useInterval'
+export * from './Slider/hooks/useSlider'
