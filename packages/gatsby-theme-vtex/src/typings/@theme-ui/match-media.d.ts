@@ -3,5 +3,5 @@ declare module '@theme-ui/match-media' {
     defaultIndex: number
   }
 
-  export const useResponsiveValue: <T = any>(args: T[], options: Options) => T
+  export const useResponsiveValue: <T = any>(args: T[], options?: Options) => T
 }
