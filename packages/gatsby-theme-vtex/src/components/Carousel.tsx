@@ -11,7 +11,6 @@ import {
   ResponsiveImage,
   IResponsiveImage,
 } from '@vtex/store-ui'
-import { Helmet } from 'react-helmet'
 
 export interface Item extends IResponsiveImage {
   href: string
@@ -54,24 +53,6 @@ const Carousel: FC<Props> = ({
 
   return (
     <Box sx={{ position: 'relative' }}>
-      {
-        // Adds a <link rel="preload"/> to decrease LCP metric
-        loading === 'eager'
-          ? item.sources.map((source) => (
-              <Helmet
-                key={source.srcSet}
-                link={[
-                  {
-                    as: 'image',
-                    rel: 'preload',
-                    href: source.srcSet,
-                    media: source.media,
-                  },
-                ]}
-              />
-            ))
-          : null
-      }
       {showArrows && (
         <Button
           onClick={() => setPreviousPage()}
