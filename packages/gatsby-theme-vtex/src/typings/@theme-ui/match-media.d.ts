@@ -1,3 +1,7 @@
 declare module '@theme-ui/match-media' {
-  export const useResponsiveValue: <T = any>(args: T[]) => T
+  interface Options {
+    defaultIndex: number
+  }
+
+  export const useResponsiveValue: <T = any>(args: T[], options: Options) => T
 }

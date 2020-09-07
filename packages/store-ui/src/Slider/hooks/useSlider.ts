@@ -13,7 +13,8 @@ interface Options<T> {
 // so the naive "previous()" implementation will always return a value
 // within the array ranges
 const next = (index: number, total: number) => (index + 1) % total
-const previous = (index: number, total: number) => total - index
+const previous = (index: number, total: number) =>
+  (total - ((total - index + 1) % total)) % total
 
 export const useSlider = <T>({
   allItems,
@@ -22,7 +23,6 @@ export const useSlider = <T>({
   autoplayTimeout = 1e6,
 }: Options<T>) => {
   const totalPages = Math.ceil(allItems.length / pageSize)
-  const totalItems = allItems.length
 
   // Page State pagination
   const [page, setPage] = useState(0)
@@ -33,13 +33,13 @@ export const useSlider = <T>({
     [allItems, page]
   )
 
-  const setNextPage = useCallback(() => setPage((p) => next(p, totalItems)), [
-    totalItems,
+  const setNextPage = useCallback(() => setPage((p) => next(p, totalPages)), [
+    totalPages,
   ])
 
   const setPreviousPage = useCallback(
-    () => setPage((p) => previous(p, totalItems)),
-    [totalItems]
+    () => setPage((p) => previous(p, totalPages)),
+    [totalPages]
   )
 
   useInterval(() => {

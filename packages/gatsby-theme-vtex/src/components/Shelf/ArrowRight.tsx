@@ -1,23 +1,39 @@
 import React, { FC } from 'react'
+import { Button } from '@vtex/store-ui'
 
-const ArrowRight: FC<{ size: number }> = ({ size }) => (
-  <svg
-    version="1.1"
-    id="Layer_1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-    x="0px"
-    y="0px"
-    height={`${size}px`}
-    viewBox={`0 0 ${size} ${size}`}
+interface Props {
+  onClick: () => void
+}
+
+const ArrowRight: FC<Props> = ({ onClick }) => (
+  <Button
+    onClick={onClick}
+    aria-label="See shelf next page"
+    backgroundColor="transparent"
+    color="black"
   >
-    <image
-      height={size.toString()}
-      x="0"
-      y="0"
-      href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmVyc2lvbj0iMS4xIj4KICA8cGF0aCBkPSJNNSAxNUwxMiA4TDUgMSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+"
-    />
-  </svg>
+    <svg
+      fill="none"
+      width="25"
+      height="25"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <use href="#nav-thin-caret--right" xlinkHref="#nav-thin-caret--right">
+        <g id="nav-thin-caret--right">
+          <path
+            d="M5 15L12 8L5 1"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeMiterlimit="10"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+      </use>
+    </svg>
+  </Button>
 )
 
 export default ArrowRight
