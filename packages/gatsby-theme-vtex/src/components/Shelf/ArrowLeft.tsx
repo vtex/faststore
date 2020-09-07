@@ -5,7 +5,7 @@ interface Props {
   onClick: () => void
 }
 
-const ArrowLeft: FC<Props> = ({ onClick }) => (
+const ShelfArrowLeft: FC<Props> = ({ onClick }) => (
   <Button
     onClick={onClick}
     aria-label="See shelf previous page"
@@ -36,4 +36,4 @@ const ArrowLeft: FC<Props> = ({ onClick }) => (
   </Button>
 )
 
-export default ArrowLeft
+export default ShelfArrowLeft

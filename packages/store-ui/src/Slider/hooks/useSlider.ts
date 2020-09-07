@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from 'react'
 
 import { useInterval } from './useInterval'
 
-interface Options<T> {
+export interface UseSliderOptions<T> {
   allItems: T[]
   pageSize?: number
   autoplay?: boolean
@@ -21,7 +21,7 @@ export const useSlider = <T>({
   pageSize = 1,
   autoplay = false,
   autoplayTimeout = 1e6,
-}: Options<T>) => {
+}: UseSliderOptions<T>) => {
   const totalPages = Math.ceil(allItems.length / pageSize)
 
   // Page State pagination
@@ -30,7 +30,7 @@ export const useSlider = <T>({
   // Items on current page
   const items = useMemo(
     () => allItems.slice(page * pageSize, (page + 1) * pageSize),
-    [allItems, page]
+    [allItems, page, pageSize]
   )
 
   const setNextPage = useCallback(() => setPage((p) => next(p, totalPages)), [

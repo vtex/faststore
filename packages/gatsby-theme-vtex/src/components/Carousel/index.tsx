@@ -1,22 +1,11 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import {
-  Box,
-  jsx,
-  useSlider,
-  LocalizedLink,
-  ResponsiveImage,
-  IResponsiveImage,
-} from '@vtex/store-ui'
+import { Box, jsx, useSlider } from '@vtex/store-ui'
 
-import ArrowLeft from './ArrowLeft'
-import ArrowRight from './ArrowRight'
-import PaginationDots from './PaginationDots'
-
-export interface Item extends IResponsiveImage {
-  href: string
-}
+import CarouselArrowLeft from './ArrowLeft'
+import CarouselArrowRight from './ArrowRight'
+import CarouselPaginationDots from './PaginationDots'
+import CarouselPage, { Item } from './Page'
 
 interface Props {
   allItems: Item[]
@@ -35,7 +24,6 @@ const Carousel: FC<Props> = ({
   autoplay,
   autoplayTimeout,
 }) => {
-  const { formatMessage } = useIntl()
   const {
     page,
     items,
@@ -55,27 +43,19 @@ const Carousel: FC<Props> = ({
 
   return (
     <Box sx={{ position: 'relative' }}>
-      {showArrows && (
-        <ArrowLeft onClick={() => setPreviousPage()}>
-          {formatMessage({ id: 'carousel.previous' })}
-        </ArrowLeft>
-      )}
-      {showArrows && (
-        <ArrowRight onClick={() => setNextPage()}>
-          {formatMessage({ id: 'carousel.next' })}
-        </ArrowRight>
-      )}
-      <LocalizedLink key={item.href} to={item.href}>
-        <ResponsiveImage {...item} loading={loading} />
-      </LocalizedLink>
-      {showDots && (
-        <PaginationDots
+      {showArrows ? (
+        <CarouselArrowLeft onClick={() => setPreviousPage()} />
+      ) : null}
+      <CarouselPage item={item} loading={loading} />
+      {showArrows ? <CarouselArrowRight onClick={() => setNextPage()} /> : null}
+      {showDots ? (
+        <CarouselPaginationDots
           variant="carousel"
           onSelect={setPage}
           selectedPage={page}
           totalPages={totalPages}
         />
-      )}
+      ) : null}
     </Box>
   )
 }

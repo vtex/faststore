@@ -26,6 +26,7 @@
   },
   "sideEffects": false,
   "dependencies": {
+    "@theme-ui/match-media": "^0.3.1",
     "@theme-ui/preset-base": "^0.3.0",
     "@vtex-components/accordion": "^0.2.3",
     "@vtex-components/drawer": "^0.2.2",
