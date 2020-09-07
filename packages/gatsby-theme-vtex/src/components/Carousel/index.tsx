@@ -3,14 +3,16 @@ import { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import {
   Box,
-  Button,
   jsx,
-  SliderPaginationDots,
   useSlider,
   LocalizedLink,
   ResponsiveImage,
   IResponsiveImage,
 } from '@vtex/store-ui'
+
+import ArrowLeft from './ArrowLeft'
+import ArrowRight from './ArrowRight'
+import PaginationDots from './PaginationDots'
 
 export interface Item extends IResponsiveImage {
   href: string
@@ -54,26 +56,20 @@ const Carousel: FC<Props> = ({
   return (
     <Box sx={{ position: 'relative' }}>
       {showArrows && (
-        <Button
-          onClick={() => setPreviousPage()}
-          sx={{ position: 'absolute', top: '50%', left: 0, zIndex: 1 }}
-        >
+        <ArrowLeft onClick={() => setPreviousPage()}>
           {formatMessage({ id: 'carousel.previous' })}
-        </Button>
+        </ArrowLeft>
       )}
       {showArrows && (
-        <Button
-          onClick={() => setNextPage()}
-          sx={{ position: 'absolute', top: '50%', right: 0, zIndex: 1 }}
-        >
+        <ArrowRight onClick={() => setNextPage()}>
           {formatMessage({ id: 'carousel.next' })}
-        </Button>
+        </ArrowRight>
       )}
       <LocalizedLink key={item.href} to={item.href}>
         <ResponsiveImage {...item} loading={loading} />
       </LocalizedLink>
       {showDots && (
-        <SliderPaginationDots
+        <PaginationDots
           variant="carousel"
           onSelect={setPage}
           selectedPage={page}
