@@ -12,6 +12,7 @@ const CarouselArrowLeft: FC<Props> = ({ onClick }) => (
     sx={{ position: 'absolute', top: '50%', left: 0, zIndex: 1 }}
     backgroundColor="transparent"
     color="black"
+    aria-label="Previous Carousel Image"
   >
     <svg
       fill="none"
