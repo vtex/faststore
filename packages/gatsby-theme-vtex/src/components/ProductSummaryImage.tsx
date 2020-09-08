@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import { Image } from '@vtex/gatsby-source-vtex'
-import { AspectImage } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import { AspectImage, jsx } from '@vtex/store-ui'
+import { FC } from 'react'
 
 import { IMAGE_DEFAULT } from '../sdk/img/constants'
 import { useScaledImage } from '../sdk/img/useScaledImage'
@@ -26,6 +27,7 @@ const ProductSummaryImage: FC<Props> = ({
 
   return (
     <AspectImage
+      sx={{ width: '100%' }}
       src={src}
       ratio={1}
       loading={loading}

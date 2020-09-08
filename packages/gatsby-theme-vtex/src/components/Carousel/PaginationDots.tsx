@@ -1,3 +1,3 @@
-import { SliderPaginationDots as PaginationDots } from '@vtex/store-ui'
+import { SliderPaginationDots as CarouselPaginationDots } from '@vtex/store-ui'
 
-export default PaginationDots
+export default CarouselPaginationDots

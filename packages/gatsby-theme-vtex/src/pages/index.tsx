@@ -6,7 +6,6 @@ import { jsx } from '@vtex/store-ui'
 import HomeBlocks from '../components/Home'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
-import Shelf from '../components/Shelf'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import { HomePageQueryQuery } from '../__generated__/HomePageQuery.graphql'
 
@@ -25,7 +24,6 @@ const Home: FC<Props> = ({ data }) => {
     <Layout>
       <SEO />
       <HomeBlocks data={data} />
-      <Shelf products={data.vtex.productSearch!.products!} />
       <SuspenseViewport fallback={null} preloader={loader}>
         <Fold />
       </SuspenseViewport>
@@ -36,7 +34,7 @@ const Home: FC<Props> = ({ data }) => {
 export const query = graphql`
   query HomePageQuery {
     vtex {
-      productSearch(from: 0, to: 10) {
+      productSearch(from: 0, to: 9) {
         products {
           ...ProductSummary_syncProduct
         }
