@@ -19,7 +19,7 @@ interface Props {
   autoplayTimeout?: number
 }
 
-const PAGE_SIZES = [1, 3, 4, 5]
+const PAGE_SIZES = [1, 3, 5]
 
 const Shelf: FC<Props> = ({
   products,
