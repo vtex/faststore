@@ -24,7 +24,7 @@ const HomeBlocks: FC<Props> = ({ data }) => {
           showArrows
           showDots
           autoplay={false}
-          pageSizes={[1, 3, 4, 5]}
+          pageSizes={[1, 3, 5]}
         />
       </Container>
     </Fragment>
