@@ -14,11 +14,16 @@ const DesktopSearchFilters = lazy(() => import('./Filters/Desktop'))
 export interface Props {
   data: SearchPageQueryQuery
   columns?: number[]
+  pageSize?: number
 }
 
 const DEFAULT_COLUMNS = [2, 3, 5]
 
-const SearchTemplate: FC<Props> = ({ data, columns = DEFAULT_COLUMNS }) => {
+const SearchTemplate: FC<Props> = ({
+  data,
+  pageSize,
+  columns = DEFAULT_COLUMNS,
+}) => {
   const breadcrumb = (data.vtex.productSearch?.breadcrumb ??
     []) as BreadcrumbItem[]
 
@@ -65,7 +70,11 @@ const SearchTemplate: FC<Props> = ({ data, columns = DEFAULT_COLUMNS }) => {
             <Controls data={data} />
 
             {/* Product List  */}
-            <PageList initialData={data} columns={columns} />
+            <PageList
+              pageSize={pageSize}
+              initialData={data}
+              columns={columns}
+            />
           </div>
         </div>
       </Flex>

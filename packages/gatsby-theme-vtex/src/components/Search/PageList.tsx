@@ -14,12 +14,14 @@ import { useSearch } from '../../sdk/search/useSearch'
 interface Props {
   initialData: SearchQueryQuery | undefined
   columns: number[]
+  pageSize?: number
 }
 
-const List: FC<Props> = ({ initialData, columns }) => {
+const List: FC<Props> = ({ initialData, columns, pageSize }) => {
   const { data, fetchMore, isLoadingMore, isReachingEnd } = useSearch({
     query: SearchQuery,
     initialData,
+    pageSize,
   })
 
   if (!data) {
