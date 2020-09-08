@@ -34,7 +34,7 @@ const Home: FC<Props> = ({ data }) => {
 export const query = graphql`
   query HomePageQuery {
     vtex {
-      productSearch(from: 0, to: 10) {
+      productSearch(from: 0, to: 9) {
         products {
           ...ProductSummary_syncProduct
         }
