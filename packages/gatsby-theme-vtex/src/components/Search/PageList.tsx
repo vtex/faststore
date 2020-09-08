@@ -30,7 +30,7 @@ const List: FC<Props> = ({ initialData, columns, pageSize }) => {
 
   return (
     <Fragment>
-      <Grid my={4} gap={3} columns={columns}>
+      <Grid variant="search" columns={columns}>
         {data.map((searchQuery, index) => (
           <Page
             key={`summary-page-${index}`}
