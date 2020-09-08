@@ -1,7 +1,7 @@
 import { useSWRInfinite, SWRInfiniteConfigInterface } from 'swr'
 import { request, RequestOptions } from '@vtex/gatsby-plugin-graphql'
 
-type QueryOptions = Omit<RequestOptions, 'variables'>
+export type QueryOptions = Omit<RequestOptions, 'variables'>
 
 type GetVariablesForPageFn<D, V> = (
   index: number,
