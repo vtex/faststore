@@ -15,19 +15,20 @@ const HomeBlocks: FC<Props> = ({ data }) => {
   const { formatMessage } = useIntl()
 
   return (
-  <Fragment>
-    <Carousel allItems={CAROUSEL_ITEMS} autoplayTimeout={5e3} autoplay />
-    <Container>
-      <Shelf
-        products={data.vtex.productSearch!.products!}
-        title={formatMessage({ id: 'shelf.title.0' })}
-        showArrows
-        showDots
-        autoplay={false}
-        pageSizes={[1, 3, 4, 5]}
-      />
-    </Container>
-  </Fragment>
-)}
+    <Fragment>
+      <Carousel allItems={CAROUSEL_ITEMS} autoplayTimeout={5e3} autoplay />
+      <Container>
+        <Shelf
+          products={data.vtex.productSearch!.products!}
+          title={formatMessage({ id: 'shelf.title.0' })}
+          showArrows
+          showDots
+          autoplay={false}
+          pageSizes={[1, 3, 4, 5]}
+        />
+      </Container>
+    </Fragment>
+  )
+}
 
 export default HomeBlocks
