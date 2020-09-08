@@ -88,7 +88,10 @@ const List: FC<Props> = ({ initialData }) => {
       {isReachingEnd ? null : (
         <Button
           variant="loadMore"
-          onClick={fetchMore}
+          onClick={(e) => {
+            ;(e.target as any).blur?.()
+            fetchMore()
+          }}
           disabled={isReachingEnd || isLoadingMore}
         >
           {isLoadingMore ? 'Loading...' : 'More'}
