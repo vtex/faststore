@@ -39,7 +39,7 @@ const Shelf: FC<Props> = ({
     setPreviousPage,
   } = useResponsiveSlider({
     pageSizes,
-    defaultIndex: 1,
+    defaultIndex: PAGE_SIZES.length,
     allItems: products,
     autoplayTimeout,
     autoplay,
