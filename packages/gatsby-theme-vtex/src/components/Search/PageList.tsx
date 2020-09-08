@@ -13,9 +13,10 @@ import { useSearch } from '../../sdk/search/useSearch'
 
 interface Props {
   initialData: SearchQueryQuery | undefined
+  columns: number[]
 }
 
-const List: FC<Props> = ({ initialData }) => {
+const List: FC<Props> = ({ initialData, columns }) => {
   const { data, fetchMore, isLoadingMore, isReachingEnd } = useSearch({
     query: SearchQuery,
     initialData,
@@ -27,7 +28,7 @@ const List: FC<Props> = ({ initialData }) => {
 
   return (
     <Fragment>
-      <Grid my={4} gap={3} columns={[2, 2, 3, 5]}>
+      <Grid my={4} gap={3} columns={columns}>
         {data.map((searchQuery, index) => (
           <Page
             key={`summary-page-${index}`}
@@ -43,7 +44,7 @@ const List: FC<Props> = ({ initialData }) => {
         }}
         disabled={isReachingEnd || isLoadingMore}
       >
-        {isLoadingMore ? 'Loading...' : 'More'}
+        {isReachingEnd ? '' : isLoadingMore ? 'Loading...' : 'More'}
       </Button>
     </Fragment>
   )
