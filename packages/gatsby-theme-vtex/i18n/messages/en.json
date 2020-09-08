@@ -1,6 +1,6 @@
 {
   "buy-button.add-to-cart": "ADD TO CART",
-  "shelf.title.0": "New Offers",
+  "shelf.0.title": "New Offers",
   "minicart.drawer.close": "Close",
   "minicart.drawer.count": "Count ({count})",
   "minicart.drawer.subtotal": "Subtotal",
