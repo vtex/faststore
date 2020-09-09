@@ -4,14 +4,14 @@ import React, { FC } from 'react'
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
-import ProductDetails from '../components/Product'
+import ProductDetails from '../components/ProductPage'
 import { useQuery } from '../sdk/graphql/useQuery'
 import {
   ProductPageQuery,
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
-import Preview from '../components/Product/Preview'
+import Preview from '../components/ProductPage/Preview'
 
 type Props = PageProps<
   ProductPageQueryQuery,
