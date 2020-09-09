@@ -64,8 +64,7 @@ export type HomePageQueryQuery = {
 // Query Related Code
 
 export const HomePageQuery = {
-  query:
-    'query HomePageQuery {\n  vtex {\n    productSearch(from: 0, to: 9) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+  query: undefined,
   sha256Hash:
     'bd1ad9ce1de713964d6ffe86edac2990873a87c5c621b94db0a93d9a16dca9f0',
   operationName: 'HomePageQuery',
