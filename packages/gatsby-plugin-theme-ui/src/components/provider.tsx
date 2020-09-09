@@ -1,8 +1,5 @@
-/**
- * @jsx jsx
- * */
-import { FC } from 'react'
-import { jsx, ThemeProvider as ThemeUIProvider } from 'theme-ui'
+import React, { FC } from 'react'
+import { ThemeProvider as ThemeUIProvider } from 'theme-ui'
 
 import theme from '../index'
 

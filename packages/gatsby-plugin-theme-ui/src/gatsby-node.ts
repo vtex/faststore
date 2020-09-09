@@ -20,15 +20,16 @@ export const onPostBootstrap = () => {
 
 export const onCreateBabelConfig = ({
   actions: { setBabelPlugin },
-  stage,
 }: CreateBabelConfigArgs) => {
-  if (stage === 'build-javascript') {
-    setBabelPlugin({
-      name: require.resolve('./babel'),
-      options: {
-        inFile: filepath,
-        inPath: base,
-      },
-    })
+  if (process.env.NODE_ENV !== 'production') {
+    return
   }
+
+  setBabelPlugin({
+    name: require.resolve('./babel'),
+    options: {
+      inFile: filepath,
+      inPath: base,
+    },
+  })
 }
