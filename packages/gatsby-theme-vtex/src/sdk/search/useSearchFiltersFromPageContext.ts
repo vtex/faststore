@@ -10,8 +10,18 @@ import { SearchFilterDefaults } from './defaults'
 // generate the string c,c
 //
 // TODO: this function may have to change in the future
-const createMap = (pathname: string) =>
-  new Array(pathname.split('/').length).fill('c').join(',')
+const createMap = (pathname: string) => {
+  const splitted = pathname.split('/')
+
+  // We have generated all departments/brands statically, so it's safe
+  // to assume that, if the process reach this code, the path
+  // is a full text search
+  if (splitted.length === 1) {
+    return 'ft'
+  }
+
+  return new Array(splitted.length).fill('c').join(',')
+}
 
 // Removes starting/ending slashes
 // ex: trimQuery('/p0/p1/') -> 'p0/p1'
