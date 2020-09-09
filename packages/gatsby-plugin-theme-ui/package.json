@@ -29,7 +29,7 @@
     "@babel/core": "^7.11.4",
     "@babel/parser": "^7.11.4",
     "@babel/preset-typescript": "^7.10.4",
-    "@babel/register": "^7.10.5",
+    "@babel/register": "^7.11.5",
     "@babel/traverse": "^7.11.0",
     "@babel/types": "^7.11.0",
     "theme-ui": "^0.3.1"
