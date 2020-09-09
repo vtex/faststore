@@ -8,18 +8,20 @@ export interface SearchFilters {
   orderBy: Maybe<string>
 }
 
-interface SearchContext {
+interface SearchContextType {
   data: SearchPageQueryQuery
   filters: SearchFilters
 }
 
-export const SearchContext = createContext<SearchContext>(undefined as any)
+export const SearchContext = createContext<SearchContextType>(undefined as any)
 
 SearchContext.displayName = 'SearchContext'
 
-type Props = SearchContext
-
-export const SearchProvider: FC<Props> = ({ children, filters, data }) => (
+export const SearchProvider: FC<SearchContextType> = ({
+  children,
+  filters,
+  data,
+}) => (
   <SearchContext.Provider value={{ filters, data }}>
     {children}
   </SearchContext.Provider>
