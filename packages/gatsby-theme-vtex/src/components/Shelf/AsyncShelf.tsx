@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
-import OverlaySpinner from '../SearchPage/OverlaySpinner'
 import Shelf, { Props as ShelfProps } from '.'
 import {
   ShelfQuery,
@@ -11,14 +10,7 @@ import {
 import { useQuery } from '../../sdk/graphql/useQuery'
 
 interface Props extends Omit<ShelfProps, 'products'> {
-  searchParams: {
-    map: string
-    query: string
-    from: number
-    to: number
-    orderBy: string
-  }
-  // Get this from types
+  searchParams: ShelfQueryQueryVariables
 }
 
 const AsyncShelf: FC<Props> = ({ searchParams, ...props }) => {
@@ -29,11 +21,9 @@ const AsyncShelf: FC<Props> = ({ searchParams, ...props }) => {
     variables: searchParams,
   })
 
-  if (!data) {
-    return <OverlaySpinner />
-  }
-
-  return <Shelf products={data.vtex.productSearch?.products ?? []} {...props} />
+  return (
+    <Shelf products={data?.vtex.productSearch?.products ?? []} {...props} />
+  )
 }
 
 export const query = gql`
