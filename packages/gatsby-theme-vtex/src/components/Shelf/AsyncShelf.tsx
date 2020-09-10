@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { gql } from '@vtex/gatsby-plugin-graphql'
+import { Box } from '@vtex/store-ui'
 
 import Shelf, { Props as ShelfProps } from '.'
 import {
@@ -9,17 +10,19 @@ import {
 } from './__generated__/ShelfQuery.graphql'
 import { useQuery } from '../../sdk/graphql/useQuery'
 
-interface Props extends Omit<ShelfProps, 'products'> {
+export interface Props extends Omit<ShelfProps, 'products'> {
   searchParams: ShelfQueryQueryVariables
 }
 
 const AsyncShelf: FC<Props> = ({ searchParams, ...props }) => {
-  // Maybe adapt useSearch to be used here
-
   const { data } = useQuery<ShelfQueryQuery, ShelfQueryQueryVariables>({
     ...ShelfQuery,
     variables: searchParams,
   })
+
+  if (!data) {
+    return <Box variant="asyncShelfPlaceholder" />
+  }
 
   return (
     <Shelf products={data?.vtex.productSearch?.products ?? []} {...props} />
