@@ -30,6 +30,7 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
       }}
     >
       <Card
+        variant="summary.container"
         sx={{
           m: 'auto',
           maxWidth: 300,

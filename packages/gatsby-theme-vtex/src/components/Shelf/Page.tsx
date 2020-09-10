@@ -11,7 +11,12 @@ interface Props {
 }
 
 const ShelfPage: FC<Props> = ({ items, pageSizes }) => (
-  <Grid gap={2} columns={pageSizes} sx={{ width: '100%' }}>
+  <Grid
+    variant="shelfContainer"
+    gap={2}
+    columns={pageSizes}
+    sx={{ width: '100%' }}
+  >
     {items.map((item) => (
       <ProductSummary key={item!.productId!} product={item!} />
     ))}
