@@ -40,6 +40,7 @@ export const createDepartmentNode = (
   const slug = urlSplited[urlSplited.length - 1]
   const data = {
     ...department,
+    subCategories: children,
     slug,
   }
 
