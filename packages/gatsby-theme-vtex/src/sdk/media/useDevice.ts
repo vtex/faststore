@@ -4,9 +4,4 @@ type Device = 'mobile' | 'desktop'
 
 const devices: Device[] = ['mobile', 'desktop']
 
-export const useDevice = () => {
-  const currentDevice = useResponsiveValue(devices)
-  const defaultDevice = 'mobile'
-
-  return [defaultDevice, currentDevice]
-}
+export const useDevice = () => useResponsiveValue(devices)

@@ -2,8 +2,10 @@ import React, { FC, Suspense, SuspenseProps, useState, useEffect } from 'react'
 
 import { useDevice } from '../../sdk/media/useDevice'
 
+type Device = ReturnType<typeof useDevice>
+
 interface Props extends SuspenseProps {
-  device: 'mobile' | 'desktop'
+  device: Device
 }
 
 const SuspenseDevice: FC<Props> = ({
@@ -11,14 +13,12 @@ const SuspenseDevice: FC<Props> = ({
   fallback,
   children,
 }) => {
-  const [defaultDevice, currentDevice] = useDevice()
-  const [device, setDevice] = useState(defaultDevice)
+  const currentDevice = useDevice()
+  const [device, setDevice] = useState<Device | null>(null)
 
   useEffect(() => {
-    if (currentDevice !== defaultDevice) {
-      setDevice(currentDevice)
-    }
-  }, [currentDevice, defaultDevice])
+    setDevice(currentDevice)
+  }, [currentDevice])
 
   if (targetDevice !== device) {
     return <>{fallback}</>
