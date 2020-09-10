@@ -26,7 +26,7 @@ const StoreHeader = () => {
           <Menu variant={`${variant}.menu`} />
         </Flex>
         <Flex variant={`${variant}.right`}>
-          <SearchBar placeholder="Search" aria-label="Search Placeholder" />
+          <SearchBar placeholder="Search" aria-label="Search" />
           <Minicart />
         </Flex>
       </Header>

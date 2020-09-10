@@ -1,13 +1,15 @@
 import React, { FC } from 'react'
-import { SearchBar as SearchBarContainer, InputProps } from '@vtex/store-ui'
+import { SearchBar as SearchBarContainer } from '@vtex/store-ui'
 
 import SearchBarButton from './Button'
 import SearchBarInput from './Input'
 
 const loadController = () => import('../../sdk/search/controller')
 
-interface Props extends InputProps {
+interface Props {
   variant?: string
+  placeholder: string
+  'aria-label': string
 }
 
 const search = async (term: string) => {
@@ -16,10 +18,23 @@ const search = async (term: string) => {
   controller.search(term)
 }
 
-const SearchBar: FC<Props> = ({ variant = 'searchbar', ...forward }) => (
+const SearchBar: FC<Props> = ({
+  variant = 'searchbar',
+  placeholder,
+  'aria-label': label,
+}) => (
   <SearchBarContainer variant={variant}>
-    <SearchBarInput variant={variant} onSearch={search} {...forward} />
-    <SearchBarButton variant={variant} onSearch={search} />
+    <SearchBarInput
+      variant={variant}
+      onSearch={search}
+      aria-label={`${label} input`}
+      placeholder={placeholder}
+    />
+    <SearchBarButton
+      variant={variant}
+      onSearch={search}
+      aria-label={`${label} button`}
+    />
   </SearchBarContainer>
 )
 
