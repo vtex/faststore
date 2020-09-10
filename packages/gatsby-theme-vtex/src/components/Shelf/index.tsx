@@ -9,7 +9,7 @@ import ShelfPaginationDots from './PaginationDots'
 import ShelfPage from './Page'
 import ShelfTitle from './Title'
 
-interface Props {
+export interface Props {
   products: Array<ProductSummary_SyncProductFragment | undefined | null>
   pageSizes?: number[]
   title?: string
