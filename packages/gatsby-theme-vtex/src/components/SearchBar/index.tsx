@@ -1,37 +1,21 @@
-import React, { FC, useState } from 'react'
-import { Input } from '@vtex/store-ui'
+import React, { FC } from 'react'
 import { navigate } from '@reach/router'
+import { SearchBar as SearchBarContainer, InputProps } from '@vtex/store-ui'
 
-interface Props {
-  variant: string
-  placeholder: string
-  'aria-label': string
+import SearchBarButton from './Button'
+import SearchBarInput from './Input'
+
+interface Props extends InputProps {
+  variant?: string
 }
 
 const search = (term: string) => navigate(`/${encodeURIComponent(term)}`)
 
-const SearchBar: FC<Props> = ({
-  variant,
-  placeholder,
-  'aria-label': ariaLabel,
-}) => {
-  const [term, setTerm] = useState('')
-
-  return (
-    <>
-      <Input
-        onChange={(e) => setTerm(e.target.value)}
-        onKeyUp={(e) => {
-          if (e.key === 'Enter' || e.keyCode === 13) {
-            search(term)
-          }
-        }}
-        variant={`${variant}.search`}
-        placeholder={placeholder}
-        aria-label={ariaLabel}
-      />
-    </>
-  )
-}
+const SearchBar: FC<Props> = ({ variant = 'searchbar', ...forward }) => (
+  <SearchBarContainer variant={variant}>
+    <SearchBarInput variant={variant} onSearch={search} {...forward} />
+    <SearchBarButton variant={variant} onSearch={search} />
+  </SearchBarContainer>
+)
 
 export default SearchBar
