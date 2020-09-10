@@ -24,7 +24,8 @@ export type DefaultCurrencyQueryQuery = {
 // Query Related Code
 
 export const DefaultCurrencyQuery = {
-  query: undefined,
+  query:
+    'query DefaultCurrencyQuery {\n  allChannel(filter: {targetProduct: {eq: "vtex-storefront"}}, limit: 1) {\n    edges {\n      node {\n        defaultCurrency\n      }\n    }\n  }\n}\n',
   sha256Hash:
     '7adae2e23aae06db92fa039faf12eaf1fefd6584dc1940be89c2663a7a634133',
   operationName: 'DefaultCurrencyQuery',
