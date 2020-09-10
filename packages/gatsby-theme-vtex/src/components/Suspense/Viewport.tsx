@@ -11,7 +11,7 @@ const SuspenseViewport: FC<Props> = ({
   fallback,
   children,
   preloader,
-  rootMargin = '50px',
+  rootMargin = '150px',
   threshold = 0,
 }) => {
   const [ref, isInView] = useInView({
