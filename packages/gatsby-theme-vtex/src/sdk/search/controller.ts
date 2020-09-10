@@ -3,9 +3,15 @@ import { SearchFilterItem } from '@vtex/store-ui'
 
 import { SearchFilters } from './Provider'
 
+export const search = (term: string) => {
+  const encoded = encodeURI(term)
+
+  navigate(`/${encoded}`)
+}
+
 export const setSearchFilters = (filters: SearchFilters) => {
-  const { search } = window.location
-  const params = new URLSearchParams(search)
+  const { search: searchParams } = window.location
+  const params = new URLSearchParams(searchParams)
 
   Object.keys(filters).forEach((key: string) => {
     const value = filters[key as keyof SearchFilters]
