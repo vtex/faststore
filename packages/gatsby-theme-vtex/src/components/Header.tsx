@@ -1,4 +1,4 @@
-import { Flex, Header, Input } from '@vtex/store-ui'
+import { Flex, Header } from '@vtex/store-ui'
 import React, { Fragment } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
@@ -7,6 +7,7 @@ import Menu from './Menu'
 import Minicart from './Minicart'
 import NotificationBar from './NotificationBar'
 import OverMenu from './OverMenu'
+import SearchBar from './SearchBar'
 
 const StoreHeader = () => {
   const variant = 'header'
@@ -25,11 +26,7 @@ const StoreHeader = () => {
           <Menu variant={`${variant}.menu`} />
         </Flex>
         <Flex variant={`${variant}.right`}>
-          <Input
-            variant={`${variant}.search`}
-            placeholder="Search"
-            aria-label="Search"
-          />
+          <SearchBar placeholder="Search" aria-label="Search" />
           <Minicart />
         </Flex>
       </Header>
