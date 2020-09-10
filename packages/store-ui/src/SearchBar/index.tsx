@@ -1,4 +1,4 @@
-import { Flex } from '@vtex/store-ui'
+import { Flex } from 'theme-ui'
 import React, { FC, useState } from 'react'
 
 import { SearchBarContext } from './hooks'
