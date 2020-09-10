@@ -7,7 +7,7 @@ import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductD
 import OfferPreview from '../Offer/Preview'
 import ProductDetailsImage from '../ProductDetailsImage'
 import SEO from '../SEO/ProductDetails'
-import SuspenseDelay from '../Suspense/Delay'
+import SuspenseSSR from '../Suspense/SSR'
 import BuyButton from '../BuyButton'
 import Container from '../Container'
 
@@ -43,9 +43,9 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
             <Heading variant="productTitle" as="h1">
               {productName}
             </Heading>
-            <SuspenseDelay fallback={<OfferPreview variant="detail" />}>
+            <SuspenseSSR fallback={<OfferPreview variant="detail" />}>
               <AsyncOffer slug={linkText} variant="detail" />
-            </SuspenseDelay>
+            </SuspenseSSR>
             <BuyButton sku={items[0] as any} />
           </Card>
         </Grid>

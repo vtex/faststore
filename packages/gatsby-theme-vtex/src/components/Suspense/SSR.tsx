@@ -1,10 +1,12 @@
-import React, { FC, Suspense, SuspenseProps } from 'react'
-
-import { isServer } from '../../utils/env'
+import React, { FC, Suspense, SuspenseProps, useEffect, useState } from 'react'
 
 const SuspenseSSR: FC<SuspenseProps> = ({ fallback, children }) => {
-  if (isServer) {
-    return fallback as any
+  const [hydrating, setHydrating] = useState(true)
+
+  useEffect(() => setHydrating(false), [])
+
+  if (hydrating) {
+    return <>{fallback}</>
   }
 
   return <Suspense fallback={fallback}>{children}</Suspense>
