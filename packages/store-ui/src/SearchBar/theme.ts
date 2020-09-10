@@ -4,7 +4,8 @@ export const searchBarTheme: SxStyleProp = {
   searchbar: {
     input: {
       border: 'none',
-      px: 3,
+      pl: 3,
+      pr: 48,
     },
 
     container: {
@@ -14,12 +15,21 @@ export const searchBarTheme: SxStyleProp = {
       borderStyle: 'solid',
       borderColor: 'gray',
       alignItems: 'center',
+      position: 'relative',
     },
 
     button: {
       backgroundColor: 'transparent',
       color: 'black',
       px: 3,
+      position: 'absolute',
+      right: 0,
+      height: 40,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+
       '&:disabled': {
         color: 'gray',
       },
