@@ -11,7 +11,7 @@ import {
 import { useQuery } from '../../sdk/graphql/useQuery'
 
 export interface Props extends Omit<ShelfProps, 'products'> {
-  searchParams: ShelfQueryQueryVariables
+  searchParams: Partial<ShelfQueryQueryVariables>
 }
 
 const AsyncShelf: FC<Props> = ({ searchParams, ...props }) => {
@@ -33,6 +33,8 @@ export const query = gql`
   query ShelfQuery(
     $query: String
     $map: String
+    $selectedFacets: [VTEX_SelectedFacetInput!]
+    $fullText: String
     $from: Int
     $to: Int
     $orderBy: String
@@ -41,6 +43,8 @@ export const query = gql`
       productSearch(
         query: $query
         map: $map
+        selectedFacets: $selectedFacets
+        fullText: $fullText
         from: $from
         to: $to
         orderBy: $orderBy

@@ -16,7 +16,7 @@ export const setSearchFilters = (filters: SearchFilters) => {
   Object.keys(filters).forEach((key: string) => {
     const value = filters[key as keyof SearchFilters]
 
-    if (value && key !== 'query') {
+    if (value && key !== 'query' && key !== 'selectedFacets') {
       params.set(key, value)
     }
   })

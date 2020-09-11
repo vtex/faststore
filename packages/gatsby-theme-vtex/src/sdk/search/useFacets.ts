@@ -77,8 +77,8 @@ export const useFacets = () => {
             ? focusCategoryFacet(rawFacet as any, filters)
             : rawFacet
 
-        // Skip empty or trivial facets
-        if (!facet || facet.values!.length <= 1) {
+        // Skip empty facets
+        if (!facet) {
           return acc
         }
 
