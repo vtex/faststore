@@ -18,7 +18,9 @@ type Scalars = {
 export type SearchPageQueryQueryVariables = Exact<{
   query: Maybe<Scalars['String']>
   map: Maybe<Scalars['String']>
+  fullText: Maybe<Scalars['String']>
   staticPath: Scalars['Boolean']
+  selectedFacets: Maybe<Vtex_SelectedFacetInput[]>
   orderBy?: Maybe<Scalars['String']>
 }>
 
@@ -117,8 +119,9 @@ export type SearchPageQueryQuery = {
 // Query Related Code
 
 export const SearchPageQuery = {
-  query: undefined,
+  query:
+    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, simulationBehavior: skip, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      breadcrumb {\n        href\n        name\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'b63c88d7384510ae8583c156b0bb83b4ce6a4451e2f6571d42011a511612520f',
+    '404a00d574d55562ac746e0aab10b4cfacff9376f499a698832097b928f6c1fd',
   operationName: 'SearchPageQuery',
 }

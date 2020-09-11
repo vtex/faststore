@@ -18,6 +18,8 @@ type Scalars = {
 export type SearchQueryQueryVariables = Exact<{
   query: Maybe<Scalars['String']>
   map: Maybe<Scalars['String']>
+  fullText: Maybe<Scalars['String']>
+  selectedFacets: Maybe<Vtex_SelectedFacetInput[]>
   from: Maybe<Scalars['Int']>
   to: Maybe<Scalars['Int']>
   orderBy: Maybe<Scalars['String']>
@@ -70,8 +72,9 @@ export type SearchQueryQuery = {
 // Query Related Code
 
 export const SearchQuery = {
-  query: undefined,
+  query:
+    'query SearchQuery($query: String, $map: String, $fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(fullText: $fullText, query: $query, map: $map, selectedFacets: $selectedFacets, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '1e6ca111535dba403643f71ac6b020f37d24344ca23f9e8e87e39868f40042a2',
+    '9535a4d5e292a84c3ee7a32e965e02d6fd34a36f6914ec31b12093a5b6939a1c',
   operationName: 'SearchQuery',
 }
