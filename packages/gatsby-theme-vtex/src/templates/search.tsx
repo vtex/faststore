@@ -74,6 +74,7 @@ export const query = graphql`
         map: $map
         fullText: $fullText
         selectedFacets: $selectedFacets
+        hideUnavailableItems: true
         simulationBehavior: skip
         from: 0
         to: 9

@@ -26,7 +26,13 @@ const Home: FC<Props> = ({ data }) => {
 export const query = graphql`
   query HomePageQuery {
     vtex {
-      productSearch(from: 0, to: 9) {
+      productSearch(
+        from: 0
+        to: 9
+        orderBy: "OrderByScoreDESC"
+        selectedFacets: [{ key: "c", value: "apparel---accessories" }]
+        hideUnavailableItems: true
+      ) {
         products {
           ...ProductSummary_syncProduct
         }

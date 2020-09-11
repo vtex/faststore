@@ -64,10 +64,11 @@ export const query = gql`
   ) {
     vtex {
       productSearch(
+        hideUnavailableItems: true
+        selectedFacets: $selectedFacets
         fullText: $fullText
         query: $query
         map: $map
-        selectedFacets: $selectedFacets
         from: $from
         to: $to
         orderBy: $orderBy
