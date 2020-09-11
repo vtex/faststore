@@ -36,7 +36,11 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
           maxWidth: 300,
         }}
       >
-        <ProductSummaryImage src={imageUrl} alt={imageText} loading={loading} />
+        <ProductSummaryImage
+          src={imageUrl}
+          alt={imageText ?? 'Product Image'}
+          loading={loading}
+        />
         <Heading variant="summary.name" as="h3">
           {productName.slice(0, 12)}
         </Heading>
