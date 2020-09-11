@@ -12,7 +12,7 @@ import { useFacets } from '../../../sdk/search/useFacets'
 
 export interface Props {
   variant?: string
-  isActive?: boolean
+  isActive?: boolean | ((index: number) => boolean)
 }
 
 const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {

@@ -50,7 +50,7 @@ const SearchTemplate: FC<Props> = ({
             <Box variant="searchFilter.desktop">
               <SuspenseDevice device="desktop" fallback={null}>
                 <DesktopSearchFilters
-                  {...(data.vtex.facets as any)}
+                  isActive={(index) => index < 5}
                   variant="desktop"
                 />
               </SuspenseDevice>
