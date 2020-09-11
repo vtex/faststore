@@ -72,12 +72,18 @@ export const createPages = async (
 
     // Search Pages
     else if (route === 'search') {
+      const segments = splitted.filter((x) => !!x)
+
       createPage({
         path,
         component: resolve(__dirname, './src/templates/search.tsx'),
         context: {
-          query: splitted.slice(1, splitted.length).join('/'),
-          map: new Array(splitted.length - 1).fill('c').join(','),
+          query: segments.join('/'),
+          map: new Array(segments.length).fill('c').join(','),
+          selectedFacets: segments.map((segment) => ({
+            key: 'c',
+            value: segment,
+          })),
           staticPath: true,
         },
       })

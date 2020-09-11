@@ -36,7 +36,7 @@ const SearchPage: FC<Props> = ({ pageContext, data: staticData }) => {
   }
 
   return (
-    <SearchProvider filters={filters} data={data}>
+    <SearchProvider filters={filters as any} data={data}>
       <SearchTemplate data={data} />
     </SearchProvider>
   )
@@ -62,7 +62,9 @@ export const query = graphql`
   query SearchPageQuery(
     $query: String
     $map: String
+    $fullText: String
     $staticPath: Boolean!
+    $selectedFacets: [VTEX_SelectedFacetInput!]
     $orderBy: String = "OrderByScoreDESC"
   ) {
     vtex {
@@ -70,6 +72,9 @@ export const query = graphql`
         orderBy: $orderBy
         query: $query
         map: $map
+        fullText: $fullText
+        selectedFacets: $selectedFacets
+        simulationBehavior: skip
         from: 0
         to: 9
       ) @include(if: $staticPath) {
@@ -83,8 +88,14 @@ export const query = graphql`
         titleTag
         recordsFiltered
       }
-      facets(query: $query, map: $map, operator: or, behavior: "Static")
-        @include(if: $staticPath) {
+      facets(
+        query: $query
+        map: $map
+        fullText: $fullText
+        selectedFacets: $selectedFacets
+        operator: or
+        behavior: "Static"
+      ) @include(if: $staticPath) {
         facets {
           name
           type

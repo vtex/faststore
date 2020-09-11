@@ -17,7 +17,7 @@ interface Props {
 export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
   const { linkText, items, productName } = product as any
   const [{ imageUrl, imageText }] = items[0].images
-  const offer = items[0].sellers?.[0].commertialOffer
+  const offer = items[0].sellers?.[0]?.commertialOffer
 
   return (
     <LocalizedLink

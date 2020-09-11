@@ -10,8 +10,8 @@ import { SearchFilterDefaults } from './defaults'
 // generate the string c,c
 //
 // TODO: this function may have to change in the future
-const createMap = (pathname: string) => {
-  const splitted = pathname.split('/')
+const createMap = (query: string) => {
+  const splitted = query.split('/')
 
   // We have generated all departments/brands statically, so it's safe
   // to assume that, if the process reach this code, the path
@@ -21,6 +21,20 @@ const createMap = (pathname: string) => {
   }
 
   return new Array(splitted.length).fill('c').join(',')
+}
+
+// I think this function should change to a more simpler version.
+const selectedFacetsAfterQueryAndMap = (query: string, map: string) => {
+  const smap = map.split(',')
+  const squery = query.split('/')
+
+  const selectedFacets: Array<{ key: string; value: string }> = []
+
+  for (let it = 0; it < smap.length; it++) {
+    selectedFacets.push({ key: smap[it], value: squery[it] })
+  }
+
+  return selectedFacets
 }
 
 // Removes starting/ending slashes
@@ -45,14 +59,23 @@ export const useSearchFiltersFromPageContext = (
     const { search, pathname } = location
     const params = new URLSearchParams(search)
     const query = pageContext?.query ?? trimQuery(pathname)
+    const map = pageContext?.map ?? params.get('map') ?? createMap(query)
+    const selectedFacets =
+      pageContext?.selectedFacets ?? selectedFacetsAfterQueryAndMap(query, map)
+
+    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
+
+    const orderBy =
+      pageContext?.orderBy ??
+      params.get('orderBy') ??
+      SearchFilterDefaults.orderBy
 
     return {
+      orderBy,
+      selectedFacets,
+      fullText,
       query,
-      map: pageContext?.map ?? params.get('map') ?? createMap(query),
-      orderBy:
-        pageContext?.orderBy ??
-        params.get('orderBy') ??
-        SearchFilterDefaults.orderBy,
+      map,
     }
   }, [pageContext, location])
 }
