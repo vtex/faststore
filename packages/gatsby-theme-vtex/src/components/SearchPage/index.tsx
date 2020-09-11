@@ -24,8 +24,7 @@ const SearchTemplate: FC<Props> = ({
   pageSize,
   columns = DEFAULT_COLUMNS,
 }) => {
-  const breadcrumb = (data.vtex.productSearch?.breadcrumb ??
-    []) as BreadcrumbItem[]
+  const breadcrumb = (data.vtex.facets?.breadcrumb ?? []) as BreadcrumbItem[]
 
   return (
     <Container>

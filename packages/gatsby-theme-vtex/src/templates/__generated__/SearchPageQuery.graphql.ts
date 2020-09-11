@@ -18,7 +18,9 @@ type Scalars = {
 export type SearchPageQueryQueryVariables = Exact<{
   query: Maybe<Scalars['String']>
   map: Maybe<Scalars['String']>
+  fullText: Maybe<Scalars['String']>
   staticPath: Scalars['Boolean']
+  selectedFacets: Maybe<Vtex_SelectedFacetInput[]>
   orderBy?: Maybe<Scalars['String']>
 }>
 
@@ -64,11 +66,11 @@ export type SearchPageQueryQuery = {
           }>
         >
       >
+    }>
+    facets: Maybe<{
       breadcrumb: Maybe<
         Array<Maybe<{ href: Maybe<string>; name: Maybe<string> }>>
       >
-    }>
-    facets: Maybe<{
       facets: Maybe<
         Array<
           Maybe<{
@@ -118,8 +120,8 @@ export type SearchPageQueryQuery = {
 
 export const SearchPageQuery = {
   query:
-    'query SearchPageQuery($query: String, $map: String, $staticPath: Boolean!, $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(orderBy: $orderBy, query: $query, map: $map, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      breadcrumb {\n        href\n        name\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, operator: or, behavior: "Static") @include(if: $staticPath) {\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, hideUnavailableItems: true, simulationBehavior: skip, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'b63c88d7384510ae8583c156b0bb83b4ce6a4451e2f6571d42011a511612520f',
+    'd3b29cae645d60ee462b800f7e0de1d9801af4e808dc50cb253703075f5438bc',
   operationName: 'SearchPageQuery',
 }

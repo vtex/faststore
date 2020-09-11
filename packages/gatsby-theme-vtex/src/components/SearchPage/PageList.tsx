@@ -56,12 +56,17 @@ export const query = gql`
   query SearchQuery(
     $query: String
     $map: String
+    $fullText: String
+    $selectedFacets: [VTEX_SelectedFacetInput!]
     $from: Int
     $to: Int
     $orderBy: String
   ) {
     vtex {
       productSearch(
+        hideUnavailableItems: true
+        selectedFacets: $selectedFacets
+        fullText: $fullText
         query: $query
         map: $map
         from: $from

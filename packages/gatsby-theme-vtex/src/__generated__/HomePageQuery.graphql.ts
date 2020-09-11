@@ -65,8 +65,8 @@ export type HomePageQueryQuery = {
 
 export const HomePageQuery = {
   query:
-    'query HomePageQuery {\n  vtex {\n    productSearch(from: 0, to: 9) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query HomePageQuery {\n  vtex {\n    productSearch(from: 0, to: 9, orderBy: "OrderByScoreDESC", selectedFacets: [{key: "c", value: "apparel---accessories"}], hideUnavailableItems: true) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'bd1ad9ce1de713964d6ffe86edac2990873a87c5c621b94db0a93d9a16dca9f0',
+    '50edb0fc8c72ac8e0a9d4c49aca90e023e2badd143537c586d6c92c740500fd6',
   operationName: 'HomePageQuery',
 }

@@ -17,7 +17,7 @@ interface Props {
 export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
   const { linkText, items, productName } = product as any
   const [{ imageUrl, imageText }] = items[0].images
-  const offer = items[0].sellers?.[0].commertialOffer
+  const offer = items[0].sellers?.[0]?.commertialOffer
 
   return (
     <LocalizedLink
@@ -36,7 +36,11 @@ export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
           maxWidth: 300,
         }}
       >
-        <ProductSummaryImage src={imageUrl} alt={imageText} loading={loading} />
+        <ProductSummaryImage
+          src={imageUrl}
+          alt={imageText ?? 'Product Image'}
+          loading={loading}
+        />
         <Heading variant="summary.name" as="h3">
           {productName.slice(0, 12)}
         </Heading>

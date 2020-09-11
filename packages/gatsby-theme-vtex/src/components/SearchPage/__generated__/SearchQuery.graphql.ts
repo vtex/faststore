@@ -18,6 +18,8 @@ type Scalars = {
 export type SearchQueryQueryVariables = Exact<{
   query: Maybe<Scalars['String']>
   map: Maybe<Scalars['String']>
+  fullText: Maybe<Scalars['String']>
+  selectedFacets: Maybe<Vtex_SelectedFacetInput[]>
   from: Maybe<Scalars['Int']>
   to: Maybe<Scalars['Int']>
   orderBy: Maybe<Scalars['String']>
@@ -71,8 +73,8 @@ export type SearchQueryQuery = {
 
 export const SearchQuery = {
   query:
-    'query SearchQuery($query: String, $map: String, $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query SearchQuery($query: String, $map: String, $fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(hideUnavailableItems: true, selectedFacets: $selectedFacets, fullText: $fullText, query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '1e6ca111535dba403643f71ac6b020f37d24344ca23f9e8e87e39868f40042a2',
+    '63e45c5af79bf734db4fee4e7d55b7a6f17e9f5267be0e95bf49e53d13061942',
   operationName: 'SearchQuery',
 }
