@@ -68,3 +68,6 @@ export * from './Slider/hooks/useResponsiveSlider'
 export * from './Popover'
 // Centered
 export * from './Center'
+// Product Specification
+export * from './ProductSpecification'
+export * from './ProductSpecification/theme'
