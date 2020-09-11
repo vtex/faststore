@@ -72,7 +72,7 @@ export const createPages = async (
 
     // Search Pages
     else if (route === 'search') {
-      const segments = splitted.filter((x) => !!x)
+      const segments = splitted.filter((segment) => !!segment)
 
       createPage({
         path,
