@@ -82,10 +82,6 @@ export const query = graphql`
         products {
           ...ProductSummary_syncProduct
         }
-        breadcrumb {
-          href
-          name
-        }
         titleTag
         recordsFiltered
       }
@@ -97,6 +93,10 @@ export const query = graphql`
         operator: or
         behavior: "Static"
       ) @include(if: $staticPath) {
+        breadcrumb {
+          href
+          name
+        }
         facets {
           name
           type
