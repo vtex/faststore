@@ -3,7 +3,6 @@ import { Flex } from 'theme-ui'
 
 import LocalizedLink from '../LocalizedLink'
 
-
 export interface LogoProps {
   variant?: string
   href?: string

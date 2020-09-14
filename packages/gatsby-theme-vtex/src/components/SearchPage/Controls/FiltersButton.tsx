@@ -1,6 +1,4 @@
-import {
-  SearchControlsFiltersButton as StoreUISearchControlsFiltersButton,
-} from '@vtex/store-ui'
+import { SearchControlsFiltersButton as StoreUISearchControlsFiltersButton } from '@vtex/store-ui'
 import React, { FC, useState, useCallback, Suspense, lazy } from 'react'
 
 const SearchFiltersDrawer = lazy(() => import('../Filters/Mobile'))
