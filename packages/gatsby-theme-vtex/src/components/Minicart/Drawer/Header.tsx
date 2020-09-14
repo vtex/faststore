@@ -15,6 +15,7 @@ export const HeaderMinicartDrawerHeader: FC<HeaderMinicartDrawerHeaderProps> = (
 }) => {
   const headerVariant = `${variant}.header`
   const { formatMessage } = useIntl()
+
   return (
     <Box variant={headerVariant}>
       <Button onClick={onClose} variant={`${headerVariant}.close`}>

@@ -9,4 +9,5 @@ interface Props {
 const StoreHeaderNotificationBar: FC<Props> = ({ text, variant }) => (
   <Box variant={variant}>{text}</Box>
 )
+
 export default StoreHeaderNotificationBar
