@@ -20,11 +20,18 @@ export const minicartTheme: SxStyleProp = {
 
     drawer: {
       container: {
+        zIndex: 99999,
         display: 'flex',
         bg: 'background',
         height: '100%',
         flexDirection: 'column',
         overflow: 'hidden',
+      },
+
+      mask: {
+        bg: 'primary',
+        opacity: 0.5,
+        zIndex: 9999,
       },
 
       header: {
