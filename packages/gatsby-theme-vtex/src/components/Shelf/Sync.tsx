@@ -17,6 +17,7 @@ export interface Props {
   showDots?: boolean
   autoplay?: boolean
   autoplayTimeout?: number
+  variant?: string
 }
 
 const PAGE_SIZES = [1, 3, 5]
@@ -29,6 +30,7 @@ const Shelf: FC<Props> = ({
   autoplay,
   pageSizes = PAGE_SIZES,
   autoplayTimeout,
+  variant = 'shelf',
 }) => {
   const {
     page,
@@ -47,17 +49,19 @@ const Shelf: FC<Props> = ({
 
   return (
     <Fragment>
-      {title ? <ShelfTitle title={title} /> : null}
+      {title ? <ShelfTitle title={title} variant={variant} /> : null}
       <Flex>
         {showArrows ? (
-          <ShelfArrowLeft onClick={() => setPreviousPage()} />
+          <ShelfArrowLeft onClick={() => setPreviousPage()} variant={variant} />
         ) : null}
-        <ShelfPage items={items} pageSizes={pageSizes} />
-        {showArrows ? <ShelfArrowRight onClick={() => setNextPage()} /> : null}
+        <ShelfPage items={items} pageSizes={pageSizes} variant={variant} />
+        {showArrows ? (
+          <ShelfArrowRight onClick={() => setNextPage()} variant={variant} />
+        ) : null}
       </Flex>
       {showDots ? (
         <ShelfPaginationDots
-          variant="shelf"
+          variant={variant}
           onSelect={setPage}
           selectedPage={page}
           totalPages={totalPages}
