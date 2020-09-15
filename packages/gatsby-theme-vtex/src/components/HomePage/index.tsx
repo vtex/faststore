@@ -4,7 +4,7 @@ import React, { FC, Fragment } from 'react'
 import { HomePageQueryQuery } from '../../__generated__/HomePageQuery.graphql'
 import Carousel from '../Carousel'
 import Container from '../Container'
-import Shelf from '../Shelf'
+import Shelf from '../Shelf/Sync'
 import CAROUSEL_ITEMS from './carousel.json'
 
 interface Props {

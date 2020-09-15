@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { gql } from '@vtex/gatsby-plugin-graphql'
 import { Box } from '@vtex/store-ui'
 
-import Shelf, { Props as ShelfProps } from '.'
+import Shelf, { Props as ShelfProps } from './Sync'
 import {
   ShelfQuery,
   ShelfQueryQuery,
