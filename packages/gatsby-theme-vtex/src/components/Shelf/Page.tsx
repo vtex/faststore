@@ -8,11 +8,12 @@ import { ProductSummary } from '../ProductSummary'
 interface Props {
   items: Array<ProductSummary_SyncProductFragment | undefined | null>
   pageSizes?: number[]
+  variant: string
 }
 
-const ShelfPage: FC<Props> = ({ items, pageSizes }) => (
+const ShelfPage: FC<Props> = ({ items, pageSizes, variant }) => (
   <Grid
-    variant="shelfContainer"
+    variant={`${variant}.container`}
     gap={2}
     columns={pageSizes}
     sx={{ width: '100%' }}
