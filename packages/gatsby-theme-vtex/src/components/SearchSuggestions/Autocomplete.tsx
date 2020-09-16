@@ -33,6 +33,7 @@ const SearchSuggestionsAutocomplete: FC<Props> = ({
             variant={v}
             onClick={() => onSearch(item!.term)}
             onMouseEnter={() => setTerm(item!.term)}
+            onMouseLeave={() => setTerm(searchbarTerm)}
           >
             {item!.term}
           </Box>
