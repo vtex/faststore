@@ -3,9 +3,7 @@ import { Button, ButtonProps } from 'theme-ui'
 
 import { useSearchBarContext } from './hooks'
 
-interface Props extends Omit<ButtonProps, 'ref'> {
-  onSearch: (term: string) => unknown
-}
+type Props = Omit<ButtonProps, 'ref'>
 
 const MagGlass = () => (
   <svg
@@ -27,16 +25,12 @@ const MagGlass = () => (
   </svg>
 )
 
-export const SearchBarButton: FC<Props> = ({
-  variant,
-  onSearch,
-  ...forward
-}) => {
-  const { term } = useSearchBarContext()
+export const SearchBarButton: FC<Props> = ({ variant, ...forward }) => {
+  const { onSearch, term } = useSearchBarContext()
 
   return (
     <Button
-      onClick={() => onSearch(term)}
+      onClick={() => term && onSearch(term)}
       variant={`${variant}.button`}
       {...forward}
     >

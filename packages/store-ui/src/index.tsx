@@ -60,7 +60,12 @@ export * from './SearchControls/theme'
 export * from './SearchBar'
 export * from './SearchBar/Button'
 export * from './SearchBar/Input'
+export * from './SearchBar/hooks'
 export * from './SearchBar/theme'
+// Search Suggestions
+export * from './SearchSuggestions/List'
+export * from './SearchSuggestions/hooks'
+export * from './SearchSuggestions'
 // Breadcrumb
 export * from './Breadcrumb'
 export { default as breadcrumbTheme } from './Breadcrumb/theme'

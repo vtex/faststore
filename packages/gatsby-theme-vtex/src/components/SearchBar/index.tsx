@@ -1,8 +1,10 @@
-import React, { FC } from 'react'
-import { SearchBar as SearchBarContainer } from '@vtex/store-ui'
+import React, { FC, lazy, Suspense } from 'react'
+import { SearchBar as SearchBarProvider } from '@vtex/store-ui'
 
 import SearchBarButton from './Button'
 import SearchBarInput from './Input'
+
+const SearchSuggestion = lazy(() => import('../SearchSuggestions/index'))
 
 const loadController = () => import('../../sdk/search/controller')
 
@@ -23,19 +25,18 @@ const SearchBar: FC<Props> = ({
   placeholder,
   'aria-label': label,
 }) => (
-  <SearchBarContainer variant={variant}>
+  <SearchBarProvider variant={variant} onSearch={search}>
     <SearchBarInput
       variant={variant}
-      onSearch={search}
       aria-label={`${label} input`}
       placeholder={placeholder}
-    />
-    <SearchBarButton
-      variant={variant}
-      onSearch={search}
-      aria-label={`${label} button`}
-    />
-  </SearchBarContainer>
+    >
+      <Suspense fallback={null}>
+        <SearchSuggestion />
+      </Suspense>
+    </SearchBarInput>
+    <SearchBarButton variant={variant} aria-label={`${label} button`} />
+  </SearchBarProvider>
 )
 
 export default SearchBar
