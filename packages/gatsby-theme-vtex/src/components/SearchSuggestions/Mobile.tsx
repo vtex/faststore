@@ -5,7 +5,7 @@ import {
 import React, { FC } from 'react'
 
 import SearchSuggestionsProduct from './Products'
-import SearchSuggestionsTopSearches from '../TopSearches'
+import SearchSuggestionsTopSearches from './TopSearches'
 
 const SearchSuggestions: FC = () => {
   const { term } = useSearchBarContext()
@@ -16,7 +16,7 @@ const SearchSuggestions: FC = () => {
         <SearchSuggestionsProduct
           title="Products For"
           countDesc={(count: number) => `See all ${count} items`}
-          maxItems={3}
+          maxItems={2}
         />
       ) : (
         <SearchSuggestionsTopSearches title="Top Searches" />
