@@ -1,15 +1,30 @@
 import { SxStyleProp } from 'theme-ui'
 
-export const searchBarTheme: SxStyleProp = {
+const theme: SxStyleProp = {
   searchbar: {
-    input: {
-      border: 'none',
-      pl: 3,
-      pr: 48,
+    textInput: {
+      width: '100%',
+
+      input: {
+        pl: 3,
+        pr: 48,
+        border: 'none',
+        width: '100%',
+        minHeight: '40px',
+      },
+
+      button: {
+        width: '100%',
+        padding: 0,
+        border: 'none',
+        backgroundColor: 'transparent',
+      },
     },
 
     container: {
       maxWidth: 250,
+      marginTop: '8px',
+      minHeight: '40px',
       bg: 'background',
       borderWidth: '2px',
       borderStyle: 'solid',
@@ -36,3 +51,5 @@ export const searchBarTheme: SxStyleProp = {
     },
   },
 }
+
+export default theme

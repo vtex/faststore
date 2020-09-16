@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { jsx, Grid } from '@vtex/store-ui'
 
 import { ProductSummary_SyncProductFragment } from '../__generated__/ProductSummary_syncProduct.graphql'
-import { ProductSummary } from '../ProductSummary'
+import ProductSummary from '../ProductSummary'
 
 interface Props {
   items: Array<ProductSummary_SyncProductFragment | undefined | null>

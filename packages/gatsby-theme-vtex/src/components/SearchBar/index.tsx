@@ -1,40 +1,16 @@
-import React, { FC } from 'react'
-import { SearchBar as SearchBarContainer } from '@vtex/store-ui'
+import React, { FC, lazy } from 'react'
 
-import SearchBarButton from './Button'
-import SearchBarInput from './Input'
+import SearchBarContainer from './Container'
+import SuspenseSSR from '../Suspense/SSR'
+import { Props } from './SearchBar'
 
-const loadController = () => import('../../sdk/search/controller')
+const SearchBarComponent = lazy(() => import('./SearchBar'))
 
-interface Props {
-  variant?: string
-  placeholder: string
-  'aria-label': string
-}
-
-const search = async (term: string) => {
-  const controller = await loadController()
-
-  controller.search(term)
-}
-
-const SearchBar: FC<Props> = ({
-  variant = 'searchbar',
-  placeholder,
-  'aria-label': label,
-}) => (
-  <SearchBarContainer variant={variant}>
-    <SearchBarInput
-      variant={variant}
-      onSearch={search}
-      aria-label={`${label} input`}
-      placeholder={placeholder}
-    />
-    <SearchBarButton
-      variant={variant}
-      onSearch={search}
-      aria-label={`${label} button`}
-    />
+const SearchBar: FC<Props> = (props) => (
+  <SearchBarContainer>
+    <SuspenseSSR fallback={null}>
+      <SearchBarComponent {...props} />
+    </SuspenseSSR>
   </SearchBarContainer>
 )
 

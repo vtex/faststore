@@ -18,5 +18,12 @@
   "error-generic": "Error",
   "preview.not-found": "No Preview found. Waiting for input",
   "notification-bar.sale": "SELECTED ITEMS ON SALE! CHECK IT OUT!",
-  "signin": "Sign in"
+  "signin": "Sign in",
+  "suggestions.autocomplete.title": "Suggestions",
+  "suggestions.autocomplete.notFound": "No Suggestions",
+  "suggestions.products.title": "Producst for: {term}",
+  "suggestions.products.total": "Check all {count} items",
+  "suggestions.products.notFound": "No product found",
+  "suggestions.history.title": "History",
+  "suggestions.topSearches.title": "Top Searches"
 }
