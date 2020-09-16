@@ -8,8 +8,8 @@ import {
 } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
-import { useProductsSuggestions } from '../../sdk/searchSuggestions/useProducts'
-import { ProductSummary } from '../ProductSummary'
+import { useProductsSuggestions } from '../../../sdk/searchSuggestions/useProducts'
+import { ProductSummary } from '../../ProductSummary'
 
 interface Props {
   title: string

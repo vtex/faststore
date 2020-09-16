@@ -1,10 +1,14 @@
-import React, { FC, lazy, Suspense } from 'react'
+import React, { FC, lazy } from 'react'
 import { SearchBar as SearchBarProvider } from '@vtex/store-ui'
 
 import SearchBarButton from './Button'
 import SearchBarInput from './Input'
+import SuspenseDevice from '../Suspense/Device'
 
-const SearchSuggestion = lazy(() => import('../SearchSuggestions/index'))
+const SearchSuggestionMobile = lazy(() => import('../SearchSuggestions/Mobile'))
+const SearchSuggestionDesktop = lazy(() =>
+  import('../SearchSuggestions/Desktop')
+)
 
 const loadController = () => import('../../sdk/search/controller')
 
@@ -31,9 +35,14 @@ const SearchBar: FC<Props> = ({
       aria-label={`${label} input`}
       placeholder={placeholder}
     >
-      <Suspense fallback={null}>
-        <SearchSuggestion />
-      </Suspense>
+      <>
+        <SuspenseDevice device="mobile" fallback={null}>
+          <SearchSuggestionMobile />
+        </SuspenseDevice>
+        <SuspenseDevice device="desktop" fallback={null}>
+          <SearchSuggestionDesktop />
+        </SuspenseDevice>
+      </>
     </SearchBarInput>
     <SearchBarButton variant={variant} aria-label={`${label} button`} />
   </SearchBarProvider>
