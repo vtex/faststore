@@ -7,7 +7,9 @@ import Menu from './Menu'
 import Minicart from './Minicart'
 import NotificationBar from './NotificationBar'
 import OverMenu from './OverMenu'
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar/index'
+import SearchBarContainer from './SearchBar/Container'
+import SuspenseSSR from './Suspense/SSR'
 
 const StoreHeader = () => {
   const variant = 'header'
@@ -26,7 +28,11 @@ const StoreHeader = () => {
           <Menu variant={`${variant}.menu`} />
         </Flex>
         <Flex variant={`${variant}.right`}>
-          <SearchBar placeholder="Search" aria-label="Search" />
+          <SearchBarContainer>
+            <SuspenseSSR fallback={null}>
+              <SearchBar placeholder="Search" aria-label="Search" />
+            </SuspenseSSR>
+          </SearchBarContainer>
           <Minicart />
         </Flex>
       </Header>

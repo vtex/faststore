@@ -1,40 +1,41 @@
-import React, { FC } from 'react'
-import { SearchBar as SearchBarContainer } from '@vtex/store-ui'
+/** @jsx jsx */
+import { FC, Suspense, lazy } from 'react'
+import { PopoverInitialState, jsx } from '@vtex/store-ui'
 
 import SearchBarButton from './Button'
 import SearchBarInput from './Input'
+import SearchBarProvider from './Provider'
+import SearchBarContainer from './Container'
 
-const loadController = () => import('../../sdk/search/controller')
+const SearchSuggestions = lazy(() => import('../SearchSuggestions'))
 
-interface Props {
+export interface Props {
   variant?: string
   placeholder: string
   'aria-label': string
-}
-
-const search = async (term: string) => {
-  const controller = await loadController()
-
-  controller.search(term)
+  popoverState?: PopoverInitialState
 }
 
 const SearchBar: FC<Props> = ({
+  popoverState = { placement: 'bottom-start', unstable_flip: true },
   variant = 'searchbar',
-  placeholder,
   'aria-label': label,
+  placeholder,
 }) => (
-  <SearchBarContainer variant={variant}>
-    <SearchBarInput
-      variant={variant}
-      onSearch={search}
-      aria-label={`${label} input`}
-      placeholder={placeholder}
-    />
-    <SearchBarButton
-      variant={variant}
-      onSearch={search}
-      aria-label={`${label} button`}
-    />
+  <SearchBarContainer>
+    <SearchBarProvider>
+      <SearchBarInput
+        variant={variant}
+        aria-label={label}
+        placeholder={placeholder}
+        popoverState={popoverState}
+      >
+        <Suspense fallback={null}>
+          <SearchSuggestions />
+        </Suspense>
+      </SearchBarInput>
+      <SearchBarButton variant={variant} aria-label={`${label} button`} />
+    </SearchBarProvider>
   </SearchBarContainer>
 )
 
