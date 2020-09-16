@@ -5,7 +5,7 @@ import {
 } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
-import { useSearchHistorySuggestions } from '../../sdk/searchSuggestions/useSearchHistory'
+import { useSearchHistory } from '../../sdk/search/useSearchHistory'
 
 interface Props {
   variant?: string
@@ -39,8 +39,8 @@ const SearchSuggestionsHistory: FC<Props> = ({
   variant = 'history',
 }) => {
   const { onSearch } = useSearchSuggestionsContext()
-  const history = useSearchHistorySuggestions()
-  const searches = history.get()
+  const history = useSearchHistory()
+  const searches = history?.get()
 
   return (
     <SearchSuggestionsList items={searches} variant={variant} title={title}>
