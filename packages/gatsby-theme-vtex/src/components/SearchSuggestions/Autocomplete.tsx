@@ -21,7 +21,7 @@ const SearchSuggestionsAutocomplete: FC<Props> = ({
   const searches = data?.vtex.autocompleteSearchSuggestions?.searches
 
   if (error) {
-    return null
+    return <Box variant={`suggestions.${variant}`} />
   }
 
   return (

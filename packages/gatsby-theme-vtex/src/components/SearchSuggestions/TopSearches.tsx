@@ -21,7 +21,7 @@ const SearchSuggestionsTopSearches: FC<Props> = ({
   const searches = data?.vtex.topSearches?.searches
 
   if (error || !searches || (searches.length === 0 && isValidating)) {
-    return null
+    return <Box variant={`suggestions.${variant}`} />
   }
 
   return (
