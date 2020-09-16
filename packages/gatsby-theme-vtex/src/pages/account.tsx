@@ -20,10 +20,14 @@ const MyAccountFetcher = () => {
       id="my-account"
       frameBorder={0}
       allowFullScreen
-      width={1000}
-      height={1000}
       src="/my-account"
-      style={{ border: 'none', visibility: 'visible' }}
+      style={{
+        border: 'none',
+        visibility: 'visible',
+        overflow: 'hidden',
+        height: 750,
+        width: '100%',
+      }}
     />
   )
 }

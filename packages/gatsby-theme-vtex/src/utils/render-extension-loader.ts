@@ -81,6 +81,9 @@ class RenderExtensionLoader {
     if (!window.__RUNTIME__) {
       // This is the minimum necessary information for HMR to work and needs to be global.
       window.__RUNTIME__ = { account, workspace, publicEndpoint }
+    } else {
+      this.runtime = window.__RUNTIME__
+      this.renderMajor = 7
     }
 
     if (!this.get) {
