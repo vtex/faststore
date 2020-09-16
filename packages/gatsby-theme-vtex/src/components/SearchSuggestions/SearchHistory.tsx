@@ -5,7 +5,7 @@ import {
 } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
-import { useSearchHistorySuggestions } from '../../../sdk/searchSuggestions/useSearchHistory'
+import { useSearchHistorySuggestions } from '../../sdk/searchSuggestions/useSearchHistory'
 
 interface Props {
   variant?: string
