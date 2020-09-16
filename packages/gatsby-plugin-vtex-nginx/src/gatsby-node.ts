@@ -74,7 +74,7 @@ const Node: GatsbyNode = {
     }
 
     writeFileSync(
-      join(program.directory, VTEX_NGINX_CONF_FILENAME),
+      join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
       generateNginxConfiguration(rewrites, redirects, headers)
     )
 
