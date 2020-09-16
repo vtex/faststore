@@ -101,10 +101,10 @@ Additionally, pages include `Link` headers to its dependencies, and static asset
 Gatsby's *createRedirect* calls which *toPath* is an absolute URI become a regex location that proxies the request to that URL:
 
 ```nginx
-    location ~* ^/api/.* {
-      proxy_pass https://storecomponents.vtexcommercestable.com.br$uri$is_args$args;
-      proxy_ssl_server_name on;
-    }
+location ~* ^/api/.* {
+    proxy_pass https://storecomponents.vtexcommercestable.com.br$uri$is_args$args;
+    proxy_ssl_server_name on;
+}
 ```
 
 Note that the `proxy_pass` call uses the original request path (the *nginx* variable `$uri` above), so any *createRedirect* call with mistmatching *paths* will cause this plugin to throw an error for now. Let me (@cezar) know if we want/need to support this scenario.
