@@ -12,6 +12,3 @@ export const uniqBy = <T>(array: T[], fn: (a: T) => string) => {
     return acc
   }, [] as T[])
 }
-
-export const uniq = <T extends string | number>(array: T[]) =>
-  uniqBy(array, (x) => x.toString())

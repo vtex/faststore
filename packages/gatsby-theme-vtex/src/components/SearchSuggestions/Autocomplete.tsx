@@ -20,7 +20,7 @@ const SearchSuggestionsAutocomplete: FC<Props> = ({
   const { data, error } = useAutocompleteSearchSeggestions(searchbarTerm!)
   const searches = data?.vtex.autocompleteSearchSuggestions?.searches
 
-  if (error) {
+  if (error || !searches) {
     return <Box variant={`suggestions.${variant}`} />
   }
 
@@ -37,20 +37,6 @@ const SearchSuggestionsAutocomplete: FC<Props> = ({
           >
             {item!.term}
           </Box>
-          <ul>
-            {item?.attributes?.map((attribute) => (
-              <li key={attribute!.key}>
-                <Box
-                  as="span"
-                  variant={v}
-                  onClick={() => onSearch(attribute!.value)}
-                  onMouseEnter={() => setTerm(attribute!.value)}
-                >
-                  {attribute!.labelValue}
-                </Box>
-              </li>
-            ))}
-          </ul>
         </li>
       )}
     </SearchSuggestionsList>

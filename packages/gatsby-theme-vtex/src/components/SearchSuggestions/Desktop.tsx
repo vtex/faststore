@@ -25,8 +25,8 @@ const SearchSuggestions: FC = () => {
         </>
       ) : (
         <>
-          <SearchSuggestionsTopSearches title="Top Searches" />
           <SearchSuggestionsHistory title="History" />
+          <SearchSuggestionsTopSearches title="Top Searches" />
         </>
       )}
     </SearchSuggestionsProvider>

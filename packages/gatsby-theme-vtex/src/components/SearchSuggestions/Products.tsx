@@ -70,12 +70,13 @@ const SearchSuggestionsProduct: FC<Props> = ({
           </Box>
         )}
       </SearchSuggestionsList>
-      <Button
+      <Box
+        as="button"
         variant={`suggestions.${variant}.count`}
         onClick={() => onSearch(term!)}
       >
         {countDesc(count!)}
-      </Button>
+      </Box>
     </Container>
   )
 }

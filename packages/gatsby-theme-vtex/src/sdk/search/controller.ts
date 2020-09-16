@@ -1,7 +1,7 @@
 import { navigate } from '@reach/router'
 import { SearchFilterItem } from '@vtex/store-ui'
 
-import { uniq } from '../../utils/uniq'
+import { uniqBy } from '../../utils/uniq'
 import { SearchFilters } from './Provider'
 
 const HISTORY_KEY = 'vtex-search-history'
@@ -12,18 +12,18 @@ export const history = {
   add: (term: string) => {
     const h = history.get()
 
-    const updatedHistory = uniq([term, ...h].slice(0, MAX_ITEMS))
+    const updatedHistory = uniqBy([term, ...h].slice(0, MAX_ITEMS), (t) => t)
 
     localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory))
   },
 }
 
-export const search = (term: string) => {
-  const encoded = encodeURI(term)
+export type SearchHistory = typeof history
 
+export const search = (term: string) => {
   history.add(term)
 
-  navigate(`/${encoded}`)
+  navigate(`/${encodeURI(term)}`)
 }
 
 export const setSearchFilters = (filters: SearchFilters) => {
