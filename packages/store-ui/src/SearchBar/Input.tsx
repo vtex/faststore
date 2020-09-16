@@ -1,29 +1,47 @@
-import React, { FC } from 'react'
-import { Input, InputProps } from 'theme-ui'
+import React, { FC, useEffect, useRef } from 'react'
+import { Box, Input, InputProps } from 'theme-ui'
+import { usePopoverState, Popover, PopoverDisclosure } from 'reakit/Popover'
 
 import { useSearchBarContext } from './hooks'
 
-interface Props extends Omit<InputProps, 'ref'> {
-  onSearch: (term: string) => unknown
-}
+type Props = Omit<InputProps, 'ref'>
 
 export const SearchBarInput: FC<Props> = ({
   variant,
-  onSearch,
+  children,
   ...forward
 }) => {
-  const { term, setTerm } = useSearchBarContext()
+  const popover = usePopoverState()
+  const ref = useRef<HTMLInputElement>(null)
+  const { term, setTerm, onSearch } = useSearchBarContext()
+
+  useEffect(() => {
+    if (popover.visible) {
+      ref.current?.focus()
+    }
+  }, [popover.visible])
 
   return (
-    <Input
-      variant={`${variant}.input`}
-      onChange={(e) => setTerm(e.target.value)}
-      onKeyUp={(e) => {
-        if (e.key === 'Enter' || e.keyCode === 13) {
-          onSearch(term)
-        }
-      }}
-      {...forward}
-    />
+    <>
+      <Box variant={`${variant}.textInput`}>
+        <PopoverDisclosure {...popover}>
+          <Input
+            ref={ref}
+            onChange={(e) => {
+              setTerm(e.target.value)
+            }}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter' && term) {
+                onSearch(term)
+              }
+            }}
+            {...forward}
+          />
+        </PopoverDisclosure>
+      </Box>
+      <Popover tabIndex={0} {...popover}>
+        {popover.visible ? children : null}
+      </Popover>
+    </>
   )
 }

@@ -3,8 +3,31 @@ import { SearchFilterItem } from '@vtex/store-ui'
 
 import { SearchFilters } from './Provider'
 
+const HISTORY_KEY = 'vtex-search-history'
+const MAX_ITEMS = 10
+
+export const history = {
+  get: (): string[] => JSON.parse(localStorage.getItem(HISTORY_KEY) ?? '[]'),
+  add: (term: string) => {
+    const h = history.get()
+
+    // deduplicate term
+    for (let it = 0; it < h.length; it++) {
+      if (h[it] === term) {
+        return
+      }
+    }
+
+    const updatedHistory = [term, ...h].slice(0, MAX_ITEMS)
+
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory))
+  },
+}
+
 export const search = (term: string) => {
   const encoded = encodeURI(term)
+
+  history.add(term)
 
   navigate(`/${encoded}`)
 }

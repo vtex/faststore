@@ -2,10 +2,21 @@ import { SxStyleProp } from 'theme-ui'
 
 export const searchBarTheme: SxStyleProp = {
   searchbar: {
-    input: {
-      border: 'none',
-      pl: 3,
-      pr: 48,
+    textInput: {
+      width: '100%',
+
+      input: {
+        pl: 3,
+        pr: 48,
+        border: 'none',
+      },
+
+      button: {
+        width: '100%',
+        padding: 0,
+        border: 'none',
+        backgroundColor: 'transparent',
+      },
     },
 
     container: {

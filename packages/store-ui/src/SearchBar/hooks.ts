@@ -1,10 +1,19 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 
-interface ISearchContext {
-  term: string
-  setTerm: (t: string) => unknown
+export interface ISearchContext {
+  term: string | null
+  setTerm: ((t: string) => unknown) & { clear: () => void }
+  onSearch: (term: string) => unknown
 }
 
 export const SearchBarContext = createContext<ISearchContext>(undefined as any)
 
-export const useSearchBarContext = () => useContext(SearchBarContext)
+export const useSearchBarContext = () => {
+  const context = useContext(SearchBarContext)
+
+  useEffect(() => {
+    return () => context.setTerm.clear()
+  }, [])
+
+  return context
+}
