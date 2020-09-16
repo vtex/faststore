@@ -11,7 +11,7 @@ export const SearchBarInput: FC<Props> = ({
   children,
   ...forward
 }) => {
-  const popover = usePopoverState()
+  const popover = usePopoverState({ placement: 'bottom-start' })
   const ref = useRef<HTMLInputElement>(null)
   const { term, setTerm, onSearch } = useSearchBarContext()
 
@@ -38,10 +38,10 @@ export const SearchBarInput: FC<Props> = ({
             {...forward}
           />
         </PopoverDisclosure>
+        <Popover tabIndex={0} {...popover} style={{ width: 'inherit' }}>
+          {popover.visible ? children : null}
+        </Popover>
       </Box>
-      <Popover tabIndex={0} {...popover}>
-        {popover.visible ? children : null}
-      </Popover>
     </>
   )
 }

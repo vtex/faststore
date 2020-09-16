@@ -7,7 +7,7 @@ import React, { FC } from 'react'
 import SearchSuggestionsAutocomplete from './Autocomplete'
 import SearchSuggestionsProduct from './Products'
 import SearchSuggestionsHistory from './SearchHistory'
-import SearchSuggestionsTopSearches from './TopSearches'
+import SearchSuggestionsTopSearches from '../TopSearches'
 
 const SearchSuggestions: FC = () => {
   const { term } = useSearchBarContext()

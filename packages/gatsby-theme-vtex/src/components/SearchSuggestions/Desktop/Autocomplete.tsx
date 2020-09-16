@@ -5,7 +5,7 @@ import {
   useSearchSuggestionsContext,
 } from '@vtex/store-ui'
 
-import { useAutocompleteSearchSeggestions } from '../../sdk/searchSuggestions/useAutocomplete'
+import { useAutocompleteSearchSeggestions } from '../../../sdk/searchSuggestions/useAutocomplete'
 
 interface Props {
   variant?: string
