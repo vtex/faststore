@@ -1,0 +1,1162 @@
+## Created with gatsby-plugin-netlify
+
+/commons~253ae210-6f947986d9c5bc2d04a1.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/component---cache-vtex-cms-04-b-10074-8-f-17-40-e-1-9-d-78-c-0-cf-469-c-10-ec-tsx~1b5b593c-569386b54d153741ed52.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/7dae4f3f8dee19401a71fd314dd55020b017ae78~253ae210-ce3350f595c3b0d93ce7.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/component---node-modules-vtex-gatsby-theme-vtex-src-pages-index-tsx~07745810-133e2353d16582f7fbb7.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/e6ac290685e6d00ed3cb4de2f54c6ba7e36f15ef~62bec46e-d0916d6f003d2f3b92cd.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/component---node-modules-vtex-gatsby-theme-vtex-src-pages-preview-tsx~ce27b399-d0b49d688d9a70740bed.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/webpack-runtime-48394a1f7efb90a34c3b.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/framework~f9ca8911-5139161e70709a742c0e.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/app~24120820-dec14f5a80177fbac8f7.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/static/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+/sw.js
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Cache-Control: no-cache
+/gorgeous-watch/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/gorgeous-watch/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/gorgeous-watch/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/gorgeous-watch/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/wood-clock/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/wood-clock/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/wood-clock/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/wood-clock/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/vintage-phone/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/vintage-phone/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/vintage-phone/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/vintage-phone/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/blouse/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/blouse/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/blouse/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/blouse/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/blouse-with-knot/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/blouse-with-knot/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/blouse-with-knot/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/blouse-with-knot/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/hoodie-blackdope/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/hoodie-blackdope/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/hoodie-blackdope/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/hoodie-blackdope/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/classic-shoes/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/classic-shoes/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/classic-shoes/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/classic-shoes/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/trendy-sweatshirt/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/trendy-sweatshirt/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/trendy-sweatshirt/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/trendy-sweatshirt/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/fashion-eyeglasses/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/fashion-eyeglasses/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/fashion-eyeglasses/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/fashion-eyeglasses/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/ten-top-shirts/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/ten-top-shirts/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/ten-top-shirts/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/ten-top-shirts/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/electronics
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/electronics/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/electronics
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/electronics/page-data.json>; rel=preload; as=fetch; crossorigin
+/apparel---accessories
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/apparel---accessories/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/apparel---accessories
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/apparel---accessories/page-data.json>; rel=preload; as=fetch; crossorigin
+/apparel---accessories/hats
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/apparel---accessories/hats/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/apparel---accessories/hats
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/apparel---accessories/hats/page-data.json>; rel=preload; as=fetch; crossorigin
+/apparel---accessories/shoes
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/apparel---accessories/shoes/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/apparel---accessories/shoes
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/apparel---accessories/shoes/page-data.json>; rel=preload; as=fetch; crossorigin
+/apparel---accessories/accessories
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/apparel---accessories/accessories/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/apparel---accessories/accessories
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/apparel---accessories/accessories/page-data.json>; rel=preload; as=fetch; crossorigin
+/apparel---accessories/watches
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/apparel---accessories/watches/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/apparel---accessories/watches
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/apparel---accessories/watches/page-data.json>; rel=preload; as=fetch; crossorigin
+/apparel---accessories/eyeglasses
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/apparel---accessories/eyeglasses/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/apparel---accessories/eyeglasses
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/apparel---accessories/eyeglasses/page-data.json>; rel=preload; as=fetch; crossorigin
+/apparel---accessories/clothing
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/apparel---accessories/clothing/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/apparel---accessories/clothing
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/apparel---accessories/clothing/page-data.json>; rel=preload; as=fetch; crossorigin
+/home---decor
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/home---decor/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/home---decor
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/home---decor/page-data.json>; rel=preload; as=fetch; crossorigin
+/hobbies-e-artes
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/hobbies-e-artes/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/hobbies-e-artes
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/hobbies-e-artes/page-data.json>; rel=preload; as=fetch; crossorigin
+/racao-para-aves
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/racao-para-aves/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/racao-para-aves
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/racao-para-aves/page-data.json>; rel=preload; as=fetch; crossorigin
+/bells
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/bells/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/bells
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/bells/page-data.json>; rel=preload; as=fetch; crossorigin
+/cadernos
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/cadernos/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/cadernos
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/cadernos/page-data.json>; rel=preload; as=fetch; crossorigin
+/medicamentos
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/medicamentos/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/medicamentos
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/medicamentos/page-data.json>; rel=preload; as=fetch; crossorigin
+/saude-e-beleza-2
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/saude-e-beleza-2/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/saude-e-beleza-2
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/saude-e-beleza-2/page-data.json>; rel=preload; as=fetch; crossorigin
+/grocery
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/grocery/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/grocery
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/grocery/page-data.json>; rel=preload; as=fetch; crossorigin
+/grocery/drinks
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/grocery/drinks/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/grocery/drinks
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/grocery/drinks/page-data.json>; rel=preload; as=fetch; crossorigin
+/storage
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/storage/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/storage
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/storage/page-data.json>; rel=preload; as=fetch; crossorigin
+/storage/hard-drive
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/storage/hard-drive/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/storage/hard-drive
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/storage/hard-drive/page-data.json>; rel=preload; as=fetch; crossorigin
+/__client-side-product__/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/__client-side-product__/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/__client-side-product__/p
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/__client-side-product__/p/page-data.json>; rel=preload; as=fetch; crossorigin
+/__client-side-search__
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/__client-side-search__/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/__client-side-search__
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </f475a83f1136ea4d67e57964dd7f4d91be1c21c3~253ae210-237fedb2067f19741301.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/__client-side-search__/page-data.json>; rel=preload; as=fetch; crossorigin
+/about
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </component---cache-vtex-cms-04-b-10074-8-f-17-40-e-1-9-d-78-c-0-cf-469-c-10-ec-tsx~1b5b593c-569386b54d153741ed52.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/about/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/about
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </component---cache-vtex-cms-04-b-10074-8-f-17-40-e-1-9-d-78-c-0-cf-469-c-10-ec-tsx~1b5b593c-569386b54d153741ed52.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/about/page-data.json>; rel=preload; as=fetch; crossorigin
+/404/
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/404/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/404/
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/404/page-data.json>; rel=preload; as=fetch; crossorigin
+/
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </7dae4f3f8dee19401a71fd314dd55020b017ae78~253ae210-ce3350f595c3b0d93ce7.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-pages-index-tsx~07745810-133e2353d16582f7fbb7.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/index/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </bdc387f5d128c1734a9bb3b66726c9c8ceb85a9f~253ae210-5de9dbc51e37f2c1750e.js>; rel=preload; as=script
+  Link: </7dae4f3f8dee19401a71fd314dd55020b017ae78~253ae210-ce3350f595c3b0d93ce7.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-pages-index-tsx~07745810-133e2353d16582f7fbb7.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/page-data.json>; rel=preload; as=fetch; crossorigin
+/preview/
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Content-Security-Policy: frame-src https://*.myvtex.com/
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </e6ac290685e6d00ed3cb4de2f54c6ba7e36f15ef~62bec46e-d0916d6f003d2f3b92cd.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-pages-preview-tsx~ce27b399-d0b49d688d9a70740bed.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/preview/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/preview/
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Content-Security-Policy: frame-src https://*.myvtex.com/
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </e6ac290685e6d00ed3cb4de2f54c6ba7e36f15ef~62bec46e-d0916d6f003d2f3b92cd.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-pages-preview-tsx~ce27b399-d0b49d688d9a70740bed.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/preview/page-data.json>; rel=preload; as=fetch; crossorigin
+/404.html
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/404.html/page-data.json>; rel=preload; as=fetch; crossorigin
+/pt/404.html
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+  Link: </webpack-runtime-48394a1f7efb90a34c3b.js>; rel=preload; as=script
+  Link: </framework~f9ca8911-5139161e70709a742c0e.js>; rel=preload; as=script
+  Link: </app~24120820-dec14f5a80177fbac8f7.js>; rel=preload; as=script
+  Link: </commons~253ae210-6f947986d9c5bc2d04a1.js>; rel=preload; as=script
+  Link: </8cac35445fd4b38a97cdc2aaf4f67e07c8f41020~253ae210-5e5844714e73ae45d036.js>; rel=preload; as=script
+  Link: </component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/pt/404.html/page-data.json>; rel=preload; as=fetch; crossorigin

@@ -1,0 +1,34 @@
+{
+  "name": "@vtex/gatsby-plugin-vtex-nginx",
+  "version": "0.0.0",
+  "description": "Gatsby plugin to generate a nginx configuration template.",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "cross-env NODE_ENV=production yarn run build",
+    "develop": "tsc --watch",
+    "test": "jest"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "vtex",
+    "nginx",
+    "gatsby-plugin-vtex-nginx"
+  ],
+  "devDependencies": {
+    "@types/jest": "^26.0.13",
+    "@types/webpack-assets-manifest": "^3.0.1",
+    "gatsby": "^2.24.37",
+    "jest": "^26.4.2",
+    "typescript": "^3.9.5"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.24.37"
+  },
+  "dependencies": {
+    "kebab-hash": "^0.1.2",
+    "webpack-assets-manifest": "^3.1.1"
+  }
+}
