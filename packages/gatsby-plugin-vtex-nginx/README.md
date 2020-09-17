@@ -1,6 +1,6 @@
 # gatsby-plugin-vtex-nginx
 
-This plugin will output a `nginx.out.conf` template file at the root directory, containing *nginx* rules for every page, static asset, *createRedirect* call and pages with mistmatched *path*/*matchPath*.
+This plugin will output a `nginx.conf` template file at the root directory, containing *nginx* rules for every page, static asset, *createRedirect* call and pages with mistmatched *path*/*matchPath*.
 
 ## Sample configuration
 

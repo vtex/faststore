@@ -14,4 +14,4 @@ export const CACHING_HEADERS = [
   ['/sw.js', [{ name: 'Cache-Control', value: 'no-cache' }]],
 ]
 
-export const VTEX_NGINX_CONF_FILENAME = 'nginx.out.conf'
+export const VTEX_NGINX_CONF_FILENAME = 'nginx.conf'
