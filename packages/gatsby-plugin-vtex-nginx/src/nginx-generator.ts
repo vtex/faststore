@@ -78,9 +78,7 @@ function stringify(directives: NginxDirective[]): string {
 }
 
 function convertFromPath(path: string) {
-  return `^${path
-    .replace(/\*/g, '.*') // order matters!
-    .replace(/:slug/g, '[^/]+')}`
+  return `^${path.replace(/\*/g, '.*').replace(/:slug/g, '[^/]+')}`
 }
 
 function validateRedirect({ fromPath, toPath }: Redirect): boolean {
