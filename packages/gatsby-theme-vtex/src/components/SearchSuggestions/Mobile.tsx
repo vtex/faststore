@@ -18,11 +18,13 @@ const SearchSuggestions: FC = () => {
         <SearchSuggestionsProduct
           title={formatMessage({
             id: 'search.suggestions.products.title',
+            defaultMessage: 'Products for: ',
           })}
           countDesc={(total: number) =>
             formatMessage(
               {
                 id: 'search.suggestions.products.total',
+                defaultMessage: 'See all {total} items',
               },
               { total }
             )
@@ -33,6 +35,7 @@ const SearchSuggestions: FC = () => {
         <SearchSuggestionsTopSearches
           title={formatMessage({
             id: 'search.suggestions.topSearches.title',
+            defaultMessage: 'Top Searches',
           })}
         />
       )}
