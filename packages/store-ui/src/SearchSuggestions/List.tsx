@@ -1,35 +1,59 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { FC } from 'react'
+import { jsx, ButtonProps } from 'theme-ui'
 
-interface ItemProps<T> {
-  item: T
+export const SearchSuggestionsListContainer: FC<{ variant: string }> = ({
+  variant,
+  children,
+}) => <div sx={{ variant: `suggestions.${variant}` }}>{children}</div>
+
+export const SearchSuggestionsListTitle: FC<{
+  title: string
   variant: string
+}> = ({ title, variant }) => (
+  <span sx={{ variant: `suggestions.${variant}.title` }}>{title}</span>
+)
+
+export const SearchSuggestionsListTotal: FC<ButtonProps> = ({
+  children,
+  variant,
+  ...props
+}) => (
+  <div sx={{ variant: `suggestions.${variant}.total` }} {...(props as any)}>
+    {children}
+  </div>
+)
+
+export interface BaseListItem {
+  key: string
+}
+
+interface ListItemProps<T extends BaseListItem> {
+  item: T
   index: number
+  variant: string
 }
 
-interface Props<T> {
-  variant?: string
-  title?: string
+interface Props<T extends BaseListItem> {
+  variant: string
   items: T[] | null | undefined
-  children: (props: ItemProps<T>) => JSX.Element
+  children: (props: ListItemProps<T>) => JSX.Element
 }
 
-export const SearchSuggestionsList = <T extends any>({
+export const SearchSuggestionsList = <T extends BaseListItem>({
   items,
-  title = '',
-  variant = 'history',
+  variant,
   children,
 }: Props<T>) => (
-  <div sx={{ variant: `suggestions.${variant}` }}>
-    <span sx={{ variant: `suggestions.${variant}.title` }}>{title}</span>
-    <ul sx={{ variant: `suggestions.${variant}.list` }}>
-      {items?.map((item, index) =>
-        children({
+  <ul sx={{ variant: `suggestions.${variant}.list` }}>
+    {items?.map((item, index) => (
+      <li key={item.key}>
+        {children({
           item,
           index,
           variant: `suggestions.${variant}.item`,
-        })
-      )}
-    </ul>
-  </div>
+        })}
+      </li>
+    ))}
+  </ul>
 )

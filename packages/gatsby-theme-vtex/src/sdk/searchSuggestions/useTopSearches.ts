@@ -22,6 +22,7 @@ export const query = gql`
       topSearches {
         searches {
           term
+          key: term
         }
       }
     }

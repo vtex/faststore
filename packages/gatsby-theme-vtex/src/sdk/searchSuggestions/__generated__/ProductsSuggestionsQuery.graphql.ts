@@ -33,6 +33,7 @@ export type ProductsSuggestionsQueryQuery = {
           productName: Maybe<string>
           description: Maybe<string>
           linkText: Maybe<string>
+          key: Maybe<string>
           items: Maybe<
             Array<
               Maybe<{
@@ -67,8 +68,8 @@ export type ProductsSuggestionsQueryQuery = {
 
 export const ProductsSuggestionsQuery = {
   query:
-    'query ProductsSuggestionsQuery($fullText: String!, $facetKey: String, $facetValue: String, $productOriginVtex: Boolean = false, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(fullText: $fullText, facetKey: $facetKey, facetValue: $facetValue, productOriginVtex: $productOriginVtex, simulationBehavior: $simulationBehavior) {\n      count\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query ProductsSuggestionsQuery($fullText: String!, $facetKey: String, $facetValue: String, $productOriginVtex: Boolean = false, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(fullText: $fullText, facetKey: $facetKey, facetValue: $facetValue, productOriginVtex: $productOriginVtex, simulationBehavior: $simulationBehavior) {\n      count\n      products {\n        key: productId\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'b88e64a852bf4035f35d6a9a7c2f6291b6da4c8615301acbdf3b792a1c4e98e4',
+    '2e4d14cc865edbb3a6778f368d32dd047c53fbf41f1477ff927422f8489b2030',
   operationName: 'ProductsSuggestionsQuery',
 }

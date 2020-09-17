@@ -21,7 +21,9 @@ export type TopSearchesSuggestionsQueryQueryVariables = Exact<{
 
 export type TopSearchesSuggestionsQueryQuery = {
   vtex: {
-    topSearches: Maybe<{ searches: Maybe<Array<Maybe<{ term: string }>>> }>
+    topSearches: Maybe<{
+      searches: Maybe<Array<Maybe<{ term: string; key: string }>>>
+    }>
   }
 }
 
@@ -29,8 +31,8 @@ export type TopSearchesSuggestionsQueryQuery = {
 
 export const TopSearchesSuggestionsQuery = {
   query:
-    'query TopSearchesSuggestionsQuery {\n  vtex {\n    topSearches {\n      searches {\n        term\n      }\n    }\n  }\n}\n',
+    'query TopSearchesSuggestionsQuery {\n  vtex {\n    topSearches {\n      searches {\n        term\n        key: term\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'adc8a8b3e4ac80efb45d2a47d9e89d12c1dc602b7a7c19c069e6d09b1f76b28b',
+    '0f17502d9ac8f6d58c692554521e07ab9dd0f6094271196bd3c9d37207dabeef',
   operationName: 'TopSearchesSuggestionsQuery',
 }

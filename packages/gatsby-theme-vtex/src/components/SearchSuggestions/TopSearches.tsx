@@ -1,7 +1,9 @@
 import {
   Box,
   SearchSuggestionsList,
+  SearchSuggestionsListTitle,
   useSearchSuggestionsContext,
+  SearchSuggestionsListContainer,
 } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
@@ -21,22 +23,20 @@ const SearchSuggestionsTopSearches: FC<Props> = ({
   const searches = data?.vtex.topSearches?.searches
 
   if (error || !searches || (searches.length === 0 && isValidating)) {
-    return <Box variant={`suggestions.${variant}`} />
+    return <SearchSuggestionsListContainer variant={variant} />
   }
 
   return (
-    <SearchSuggestionsList items={searches} variant={variant} title={title}>
-      {({ item, index, variant: v }) => (
-        <Box
-          as="li"
-          variant={v}
-          key={`${item!.term}${index}`}
-          onClick={() => onSearch(item!.term)}
-        >
-          <span>{index}&deg;</span> {item!.term}
-        </Box>
-      )}
-    </SearchSuggestionsList>
+    <SearchSuggestionsListContainer variant={variant}>
+      <SearchSuggestionsListTitle variant={variant} title={title} />
+      <SearchSuggestionsList items={searches as any} variant={variant}>
+        {({ item: { term }, index, variant: v }: any) => (
+          <Box variant={v} onClick={() => onSearch(term)}>
+            <span>{index}&deg;</span> {term}
+          </Box>
+        )}
+      </SearchSuggestionsList>
+    </SearchSuggestionsListContainer>
   )
 }
 
