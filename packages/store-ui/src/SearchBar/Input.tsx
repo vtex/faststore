@@ -12,8 +12,8 @@ export const SearchBarInput: FC<Props> = ({
   ...forward
 }) => {
   const popover = usePopoverState({ placement: 'bottom-start' })
-  const ref = useRef<HTMLInputElement>(null)
   const { term, setTerm, onSearch } = useSearchBarContext()
+  const ref = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (popover.visible) {
@@ -22,31 +22,29 @@ export const SearchBarInput: FC<Props> = ({
   }, [popover.visible])
 
   return (
-    <>
-      <Box variant={`${variant}.textInput`}>
-        <PopoverDisclosure {...popover}>
-          <Input
-            ref={ref}
-            onChange={(e) => {
-              setTerm(e.target.value)
-            }}
-            onKeyUp={(e) => {
-              if (e.key === 'Enter' && term) {
-                onSearch(term)
-              }
-            }}
-            {...forward}
-          />
-        </PopoverDisclosure>
-        <Popover
-          tabIndex={0}
-          aria-label="Searchbar Input"
-          style={{ width: 'inherit' }}
-          {...popover}
-        >
-          {popover.visible ? children : null}
-        </Popover>
-      </Box>
-    </>
+    <Box variant={`${variant}.textInput`}>
+      <PopoverDisclosure {...popover}>
+        <Input
+          ref={ref}
+          onChange={(e) => {
+            setTerm(e.target.value)
+          }}
+          onKeyUp={(e) => {
+            if (e.key === 'Enter' && term) {
+              onSearch(term)
+            }
+          }}
+          {...forward}
+        />
+      </PopoverDisclosure>
+      <Popover
+        tabIndex={0}
+        aria-label="Searchbar Input"
+        style={{ width: 'inherit' }}
+        {...popover}
+      >
+        {popover.visible ? children : null}
+      </Popover>
+    </Box>
   )
 }
