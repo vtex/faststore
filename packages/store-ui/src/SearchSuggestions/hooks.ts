@@ -20,7 +20,7 @@ export const useSearchSuggestionsContext = () => {
   }, [searchbarTerm])
 
   return {
-    term,
+    term: term ?? searchbarTerm,
     searchbarTerm,
     setTerm,
     onSearch,

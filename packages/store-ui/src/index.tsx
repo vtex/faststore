@@ -74,3 +74,5 @@ export * from './Slider/PaginationDots'
 export * from './Slider/hooks/useInterval'
 export * from './Slider/hooks/useSlider'
 export * from './Slider/hooks/useResponsiveSlider'
+// Spinner
+export * from './Spinner/CenteredSpinner'

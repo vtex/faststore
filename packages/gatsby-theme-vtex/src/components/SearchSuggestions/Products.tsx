@@ -1,10 +1,11 @@
 import {
   Box,
-  Flex,
-  Button,
-  Spinner,
+  CenteredSpinner,
   SearchSuggestionsList,
+  SearchSuggestionsListTitle,
+  SearchSuggestionsListContainer,
   useSearchSuggestionsContext,
+  SearchSuggestionsListTotal,
 } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
@@ -17,10 +18,6 @@ interface Props {
   variant?: string
   countDesc: (count: number) => string
 }
-
-const Container: FC<{ variant: string }> = ({ variant, children }) => (
-  <Box variant={`suggestions.${variant}`}>{children}</Box>
-)
 
 const SearchSuggestionsProduct: FC<Props> = ({
   title,
@@ -37,47 +34,39 @@ const SearchSuggestionsProduct: FC<Props> = ({
   const count = data?.vtex.productSuggestions?.count
   const products = data?.vtex.productSuggestions.products
   const loading = isValidating && !data
-  const notFound = !products || !count || count === 0
 
   if (loading) {
     return (
-      <Flex
-        sx={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          variant: `suggestions.${variant}`,
-        }}
-      >
-        <Spinner />
-      </Flex>
+      <SearchSuggestionsListContainer variant={variant}>
+        <CenteredSpinner />
+      </SearchSuggestionsListContainer>
     )
   }
 
-  if (error || notFound) {
-    return <Container variant={variant} />
+  if (error || !products || !count || count === 0) {
+    return <SearchSuggestionsListContainer variant={variant} />
   }
 
   return (
-    <Container variant={variant}>
-      <SearchSuggestionsList
-        items={products!}
+    <SearchSuggestionsListContainer variant={variant}>
+      <SearchSuggestionsListTitle
         variant={variant}
         title={`${title} ${term}`}
-      >
-        {({ item, variant: v }) => (
-          <Box as="li" variant={v} key={item!.linkText}>
-            <ProductSummary product={item!} />
+      />
+      <SearchSuggestionsList items={products as any} variant={variant}>
+        {({ item, variant: v }: any) => (
+          <Box variant={v}>
+            <ProductSummary product={item} />
           </Box>
         )}
       </SearchSuggestionsList>
-      <Box
-        as="button"
-        variant={`suggestions.${variant}.count`}
+      <SearchSuggestionsListTotal
+        variant={variant}
         onClick={() => onSearch(term!)}
       >
         {countDesc(count!)}
-      </Box>
-    </Container>
+      </SearchSuggestionsListTotal>
+    </SearchSuggestionsListContainer>
   )
 }
 

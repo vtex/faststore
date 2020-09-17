@@ -38,7 +38,12 @@ export const SearchBarInput: FC<Props> = ({
             {...forward}
           />
         </PopoverDisclosure>
-        <Popover tabIndex={0} {...popover} style={{ width: 'inherit' }}>
+        <Popover
+          tabIndex={0}
+          aria-label="Searchbar Input"
+          style={{ width: 'inherit' }}
+          {...popover}
+        >
           {popover.visible ? children : null}
         </Popover>
       </Box>

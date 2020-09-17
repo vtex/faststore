@@ -2,14 +2,16 @@ import React, { FC } from 'react'
 import {
   Box,
   SearchSuggestionsList,
+  SearchSuggestionsListTitle,
   useSearchSuggestionsContext,
+  SearchSuggestionsListContainer,
 } from '@vtex/store-ui'
 
 import { useAutocompleteSearchSeggestions } from '../../sdk/searchSuggestions/useAutocomplete'
 
 interface Props {
+  title: string
   variant?: string
-  title?: string
 }
 
 const SearchSuggestionsAutocomplete: FC<Props> = ({
@@ -17,29 +19,32 @@ const SearchSuggestionsAutocomplete: FC<Props> = ({
   variant = 'autocomplete',
 }) => {
   const { searchbarTerm, setTerm, onSearch } = useSearchSuggestionsContext()
-  const { data, error } = useAutocompleteSearchSeggestions(searchbarTerm!)
+  const { data, error, isValidating } = useAutocompleteSearchSeggestions(
+    searchbarTerm!
+  )
+
   const searches = data?.vtex.autocompleteSearchSuggestions?.searches
 
-  if (error || !searches) {
-    return <Box variant={`suggestions.${variant}`} />
+  if (error || (!searches && isValidating)) {
+    return <SearchSuggestionsListContainer variant={variant} />
   }
 
   return (
-    <SearchSuggestionsList items={searches} variant={variant} title={title}>
-      {({ item, variant: v }) => (
-        <li key={item!.term}>
+    <SearchSuggestionsListContainer variant={variant}>
+      <SearchSuggestionsListTitle variant={variant} title={title} />
+      <SearchSuggestionsList items={searches as any} variant={variant}>
+        {({ item: { term }, variant: v }: any) => (
           <Box
             as="span"
             variant={v}
-            onClick={() => onSearch(item!.term)}
-            onMouseEnter={() => setTerm(item!.term)}
-            onMouseLeave={() => setTerm(searchbarTerm)}
+            onClick={() => onSearch(term)}
+            onMouseEnter={() => setTerm(term)}
           >
-            {item!.term}
+            {term}
           </Box>
-        </li>
-      )}
-    </SearchSuggestionsList>
+        )}
+      </SearchSuggestionsList>
+    </SearchSuggestionsListContainer>
   )
 }
 

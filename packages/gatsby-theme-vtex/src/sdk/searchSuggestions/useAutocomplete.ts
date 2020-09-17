@@ -24,11 +24,7 @@ export const query = gql`
       autocompleteSearchSuggestions(fullText: $fullText) {
         searches {
           term
-          attributes {
-            key
-            value
-            labelValue
-          }
+          key: term
         }
       }
     }
