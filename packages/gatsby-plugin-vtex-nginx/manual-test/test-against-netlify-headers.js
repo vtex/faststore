@@ -75,7 +75,6 @@ function parseNetlifyHeaders(file = './_headers') {
         activePath = normalizePath(line.trim())
         headersMap[activePath] = []
       } else if (line.startsWith(' ')) {
-        // if (activePath === '/preview')
         headersMap[activePath].push(headerFromString(line.trim()))
       }
     })
