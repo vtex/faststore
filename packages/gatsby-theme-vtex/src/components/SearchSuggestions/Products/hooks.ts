@@ -1,6 +1,7 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
-import { useQuery } from '../graphql/useQuery'
+import { useQuery } from '../../../sdk/graphql/useQuery'
+import { useSearchSuggestionsContext } from '../base/hooks'
 import {
   ProductsSuggestionsQuery,
   ProductsSuggestionsQueryQuery,
@@ -8,25 +9,23 @@ import {
 } from './__generated__/ProductsSuggestionsQuery.graphql'
 
 interface Props {
-  term: string
-  maxItems?: number // max number of products to return. Hard limit of 5
+  maxItems: number // max number of products to return. Hard limit of 5
 }
 
-export const useProductsSuggestions = ({
-  term: fullText,
-  maxItems = Infinity,
-}: Props) => {
+export const useProductsSuggestions = ({ maxItems }: Props) => {
+  const context = useSearchSuggestionsContext()
   const response = useQuery<
     ProductsSuggestionsQueryQuery,
     ProductsSuggestionsQueryQueryVariables
   >({
     ...ProductsSuggestionsQuery,
     variables: {
-      fullText,
+      fullText: context.term,
     },
+    suspense: true,
   })
 
-  return {
+  const query = {
     ...response,
     data: response.data && {
       vtex: {
@@ -39,6 +38,11 @@ export const useProductsSuggestions = ({
         },
       },
     },
+  }
+
+  return {
+    query,
+    ...context,
   }
 }
 

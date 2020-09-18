@@ -1,5 +1,9 @@
 {
   "extends": "@vtex/tsconfig",
-  "include": ["src"],
+  "include": [
+    "src",
+    "../gatsby-theme-vtex/src/utils/debounce.ts",
+    "../gatsby-theme-vtex/src/components/SearchSuggestions/Base/hooks.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }

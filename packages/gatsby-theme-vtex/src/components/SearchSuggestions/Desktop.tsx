@@ -1,10 +1,8 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import {
-  SearchSuggestions as SearchSuggestionsProvider,
-  useSearchBarContext,
-} from '@vtex/store-ui'
+import { useSearchBarContext } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
+import { SearchSuggestionsProvider } from './base/Provider'
 import SearchSuggestionsAutocomplete from './Autocomplete'
 import SearchSuggestionsProduct from './Products'
 import SearchSuggestionsHistory from './SearchHistory'

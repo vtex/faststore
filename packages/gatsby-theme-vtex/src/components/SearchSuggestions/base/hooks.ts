@@ -1,6 +1,5 @@
+import { useSearchBarContext } from '@vtex/store-ui'
 import { createContext, useContext, useEffect } from 'react'
-
-import { useSearchBarContext } from '../SearchBar/hooks'
 
 export interface ISuggestionsContext {
   setTerm: (t: string | null) => unknown
@@ -26,3 +25,5 @@ export const useSearchSuggestionsContext = () => {
     onSearch,
   }
 }
+
+export const toRequiredItem = <T extends any>(x: Array<Maybe<T>>) => x as T[]

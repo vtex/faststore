@@ -1,28 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react'
-import { jsx, ButtonProps } from 'theme-ui'
-
-export const SearchSuggestionsListContainer: FC<{ variant: string }> = ({
-  variant,
-  children,
-}) => <div sx={{ variant: `suggestions.${variant}` }}>{children}</div>
-
-export const SearchSuggestionsListTitle: FC<{
-  title: string
-  variant: string
-}> = ({ title, variant }) => (
-  <span sx={{ variant: `suggestions.${variant}.title` }}>{title}</span>
-)
-
-export const SearchSuggestionsListTotal: FC<ButtonProps> = ({
-  children,
-  variant,
-  ...props
-}) => (
-  <div sx={{ variant: `suggestions.${variant}.total` }} {...(props as any)}>
-    {children}
-  </div>
-)
+import { jsx } from '@vtex/store-ui'
 
 export interface BaseListItem {
   key: string
