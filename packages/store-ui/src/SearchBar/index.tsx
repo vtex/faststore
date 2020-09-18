@@ -14,7 +14,7 @@ export const SearchBar: FC<Props> = ({
   variant = 'searchbar',
   children,
   onSearch,
-  debounceInterval = 50,
+  debounceInterval = 150,
 }) => {
   const [term, setTerm] = useState<string | null>(null)
   const setTermDebounced = useMemo(() => debounce(setTerm, debounceInterval), [
