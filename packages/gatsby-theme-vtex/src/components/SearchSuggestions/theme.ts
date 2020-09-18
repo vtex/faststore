@@ -22,7 +22,7 @@ const item: SxStyleProp = {
   },
 }
 
-export const searchSuggestionsTheme: SxStyleProp = {
+const theme: SxStyleProp = {
   suggestions: {
     color: 'primary',
     backgroundColor: 'white',
@@ -106,3 +106,5 @@ export const searchSuggestionsTheme: SxStyleProp = {
     },
   },
 }
+
+export default theme

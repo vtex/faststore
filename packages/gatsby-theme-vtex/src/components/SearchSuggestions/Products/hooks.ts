@@ -20,7 +20,7 @@ export const useProductsSuggestions = ({ maxItems }: Props) => {
   >({
     ...ProductsSuggestionsQuery,
     variables: {
-      fullText: context.term,
+      fullText: context.term || context.searchBar.term,
     },
     suspense: true,
   })

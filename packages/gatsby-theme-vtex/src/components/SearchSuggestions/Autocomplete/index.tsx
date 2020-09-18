@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from 'react'
+import React, { FC } from 'react'
 import { Box } from '@vtex/store-ui'
 
 import { useAutocompleteSearchSeggestions } from './hooks'
@@ -19,7 +19,7 @@ const SearchSuggestionsAutocomplete: FC<Required<Props>> = ({
   const {
     query: { data, error },
     setTerm,
-    onSearch,
+    searchBar: { onSearch },
   } = useAutocompleteSearchSeggestions()
 
   const searches = data?.vtex.autocompleteSearchSuggestions?.searches
@@ -50,10 +50,8 @@ const SearchSuggestionsAutocomplete: FC<Required<Props>> = ({
 }
 
 const SearchSuggestions: FC<Props> = ({ variant = 'autocomplete', title }) => (
-  <SearchSuggestionsListContainer variant={variant}>
-    <Suspense fallback={null}>
-      <SearchSuggestionsAutocomplete title={title} variant={variant} />
-    </Suspense>
+  <SearchSuggestionsListContainer variant={variant} fallback={null}>
+    <SearchSuggestionsAutocomplete title={title} variant={variant} />
   </SearchSuggestionsListContainer>
 )
 

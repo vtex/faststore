@@ -1,5 +1,5 @@
 import { Box } from '@vtex/store-ui'
-import React, { FC, Suspense } from 'react'
+import React, { FC } from 'react'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
 import { toRequiredItem } from '../base/hooks'
@@ -18,7 +18,7 @@ const SearchSuggestionsTopSearches: FC<Required<Props>> = ({
 }) => {
   const {
     query: { data, error },
-    onSearch,
+    searchBar: { onSearch },
   } = useTopSearches()
 
   const searches = data?.vtex.topSearches?.searches
@@ -44,10 +44,8 @@ const SearchSuggestionsTopSearches: FC<Required<Props>> = ({
 }
 
 const SearchSuggestions: FC<Props> = ({ variant = 'topSearches', title }) => (
-  <SearchSuggestionsListContainer variant={variant}>
-    <Suspense fallback={null}>
-      <SearchSuggestionsTopSearches variant={variant} title={title} />
-    </Suspense>
+  <SearchSuggestionsListContainer variant={variant} fallback={null}>
+    <SearchSuggestionsTopSearches variant={variant} title={title} />
   </SearchSuggestionsListContainer>
 )
 

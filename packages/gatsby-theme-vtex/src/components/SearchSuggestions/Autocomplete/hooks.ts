@@ -16,7 +16,7 @@ export const useAutocompleteSearchSeggestions = () => {
   >({
     ...AutocompleteSuggestionsQuery,
     variables: {
-      fullText: context.term,
+      fullText: context.searchBar.term,
     },
     suspense: true,
   })

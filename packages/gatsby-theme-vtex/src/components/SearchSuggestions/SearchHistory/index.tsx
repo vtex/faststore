@@ -13,7 +13,10 @@ interface Props {
 }
 
 const SearchSuggestionsHistory: FC<Required<Props>> = ({ title, variant }) => {
-  const { searches, onSearch } = useSearchHistory()
+  const {
+    searches,
+    searchBar: { onSearch },
+  } = useSearchHistory()
 
   if (!searches || searches.length === 0) {
     return null
@@ -37,7 +40,7 @@ const SearchSuggestionsHistory: FC<Required<Props>> = ({ title, variant }) => {
 }
 
 const SearchSuggestions: FC<Props> = ({ title, variant = 'history' }) => (
-  <SearchSuggestionsListContainer variant={variant}>
+  <SearchSuggestionsListContainer variant={variant} fallback={null}>
     <SearchSuggestionsHistory title={title} variant={variant} />
   </SearchSuggestionsListContainer>
 )

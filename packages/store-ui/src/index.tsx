@@ -56,12 +56,6 @@ export * from './SearchControls/FiltersButton'
 export * from './SearchControls/totalCount'
 export * from './SearchControls/Select'
 export * from './SearchControls/theme'
-// Search Bar
-export * from './SearchBar'
-export * from './SearchBar/Button'
-export * from './SearchBar/Input'
-export * from './SearchBar/hooks'
-export * from './SearchBar/theme'
 // Breadcrumb
 export * from './Breadcrumb'
 export { default as breadcrumbTheme } from './Breadcrumb/theme'
@@ -72,3 +66,5 @@ export * from './Slider/hooks/useSlider'
 export * from './Slider/hooks/useResponsiveSlider'
 // Spinner
 export * from './Spinner/CenteredSpinner'
+// Popover
+export * from './Popover'

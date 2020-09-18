@@ -1,43 +1,42 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { useSearchBarContext } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
-import { SearchSuggestionsProvider } from './base/Provider'
+import { useSearchSuggestionsContext } from './base/hooks'
 import SearchSuggestionsProduct from './Products'
 import SearchSuggestionsTopSearches from './TopSearches'
 
 const SearchSuggestions: FC = () => {
   const { formatMessage } = useIntl()
-  const { term } = useSearchBarContext()
+  const { term } = useSearchSuggestionsContext()
+
+  if (term) {
+    return (
+      <SearchSuggestionsProduct
+        title={formatMessage({
+          id: 'search.suggestions.products.title',
+          defaultMessage: 'Products for: ',
+        })}
+        countDesc={(total: number) =>
+          formatMessage(
+            {
+              id: 'search.suggestions.products.total',
+              defaultMessage: 'See all {total} items',
+            },
+            { total }
+          )
+        }
+        maxItems={2}
+      />
+    )
+  }
 
   return (
-    <SearchSuggestionsProvider>
-      {term ? (
-        <SearchSuggestionsProduct
-          title={formatMessage({
-            id: 'search.suggestions.products.title',
-            defaultMessage: 'Products for: ',
-          })}
-          countDesc={(total: number) =>
-            formatMessage(
-              {
-                id: 'search.suggestions.products.total',
-                defaultMessage: 'See all {total} items',
-              },
-              { total }
-            )
-          }
-          maxItems={2}
-        />
-      ) : (
-        <SearchSuggestionsTopSearches
-          title={formatMessage({
-            id: 'search.suggestions.topSearches.title',
-            defaultMessage: 'Top Searches',
-          })}
-        />
-      )}
-    </SearchSuggestionsProvider>
+    <SearchSuggestionsTopSearches
+      title={formatMessage({
+        id: 'search.suggestions.topSearches.title',
+        defaultMessage: 'Top Searches',
+      })}
+    />
   )
 }
 

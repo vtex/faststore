@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
-import { SearchBar as SearchBarProvider } from '@vtex/store-ui'
 
 import SearchBarButton from './Button'
 import SearchBarInput from './Input'
 import SearchSuggestions from '../SearchSuggestions'
-
-const loadController = () => import('../../sdk/search/controller')
+import SearchBarProvider from './Provider'
 
 interface Props {
   variant?: string
@@ -13,18 +11,12 @@ interface Props {
   'aria-label': string
 }
 
-const search = async (term: string) => {
-  const controller = await loadController()
-
-  controller.search(term)
-}
-
 const SearchBar: FC<Props> = ({
   variant = 'searchbar',
   placeholder,
   'aria-label': label,
 }) => (
-  <SearchBarProvider variant={variant} onSearch={search}>
+  <SearchBarProvider variant={variant}>
     <SearchBarInput
       variant={variant}
       aria-label={`${label} input`}

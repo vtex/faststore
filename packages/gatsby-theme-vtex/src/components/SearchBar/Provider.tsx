@@ -1,18 +1,21 @@
 import React, { FC, useState } from 'react'
-import { Flex } from 'theme-ui'
+import { Flex } from '@vtex/store-ui'
 
 import { SearchBarContext } from './hooks'
 
+const loadController = () => import('../../sdk/search/controller')
+
 interface Props {
   variant?: string
-  onSearch: (term: string) => unknown
 }
 
-export const SearchBar: FC<Props> = ({
-  variant = 'searchbar',
-  children,
-  onSearch,
-}) => {
+const onSearch = async (term: string) => {
+  const controller = await loadController()
+
+  controller.search(term)
+}
+
+const SearchBarProvider: FC<Props> = ({ variant = 'searchbar', children }) => {
   const [term, setTerm] = useState<string | null>(null)
 
   return (
@@ -27,3 +30,5 @@ export const SearchBar: FC<Props> = ({
     </SearchBarContext.Provider>
   )
 }
+
+export default SearchBarProvider

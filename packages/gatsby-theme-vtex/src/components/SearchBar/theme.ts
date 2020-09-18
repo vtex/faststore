@@ -1,6 +1,6 @@
 import { SxStyleProp } from 'theme-ui'
 
-export const searchBarTheme: SxStyleProp = {
+const theme: SxStyleProp = {
   searchbar: {
     textInput: {
       width: '100%',
@@ -47,3 +47,5 @@ export const searchBarTheme: SxStyleProp = {
     },
   },
 }
+
+export default theme

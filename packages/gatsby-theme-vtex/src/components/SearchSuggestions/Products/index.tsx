@@ -1,5 +1,5 @@
 import { Box, CenteredSpinner } from '@vtex/store-ui'
-import React, { FC, Suspense } from 'react'
+import React, { FC } from 'react'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
 import { SearchSuggestionsListTitle } from '../base/Title'
@@ -24,7 +24,7 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
 }) => {
   const {
     query: { data, error },
-    onSearch,
+    searchBar: { onSearch },
     term,
   } = useProductsSuggestions({
     maxItems,
@@ -68,15 +68,16 @@ const SearchSuggestions: FC<Props> = ({
   countDesc,
   title,
 }) => (
-  <SearchSuggestionsListContainer variant={variant}>
-    <Suspense fallback={<CenteredSpinner />}>
-      <SearchSuggestionsProduct
-        title={title}
-        variant={variant}
-        maxItems={maxItems}
-        countDesc={countDesc}
-      />
-    </Suspense>
+  <SearchSuggestionsListContainer
+    variant={variant}
+    fallback={<CenteredSpinner />}
+  >
+    <SearchSuggestionsProduct
+      title={title}
+      variant={variant}
+      maxItems={maxItems}
+      countDesc={countDesc}
+    />
   </SearchSuggestionsListContainer>
 )
 
