@@ -92,3 +92,5 @@ export { default as ProductDetailsImage } from './ProductDetails/Image'
 export { default as ProductDetailsTitle } from './ProductDetails/Title'
 export { default as ProductDetailsGallery } from './ProductDetails/Gallery'
 export { default as ProductDetailsReference } from './ProductDetails/Reference'
+// Floating Action Button
+export * from './FloatingActionButton'
