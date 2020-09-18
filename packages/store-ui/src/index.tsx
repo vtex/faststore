@@ -72,3 +72,5 @@ export { default as Center } from './Center'
 export * from './ProductSpecification'
 // Product Description
 export * from './ProductDescription'
+// Floating Action Button
+export * from './FloatingActionButton'
