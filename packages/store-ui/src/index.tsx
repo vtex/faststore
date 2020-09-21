@@ -94,3 +94,4 @@ export { default as ProductDetailsGallery } from './ProductDetails/Gallery'
 export { default as ProductDetailsReference } from './ProductDetails/Reference'
 // Floating Action Button
 export * from './FloatingActionButton'
+export * from './FloatingActionButton/theme'
