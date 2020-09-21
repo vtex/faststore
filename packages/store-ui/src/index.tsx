@@ -74,3 +74,4 @@ export * from './ProductSpecification'
 export * from './ProductDescription'
 // Floating Action Button
 export * from './FloatingActionButton'
+export * from './FloatingActionButton/theme'
