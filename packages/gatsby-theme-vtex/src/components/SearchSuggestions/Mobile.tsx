@@ -7,11 +7,11 @@ import SearchSuggestionsTopSearches from './TopSearches'
 const SearchSuggestions: FC = () => {
   const { term } = useSearchSuggestionsContext()
 
-  if (term) {
-    return <SearchSuggestionsProduct maxItems={2} />
+  if (term.length === 0) {
+    return <SearchSuggestionsTopSearches />
   }
 
-  return <SearchSuggestionsTopSearches />
+  return term ? <SearchSuggestionsProduct maxItems={2} term={term} /> : null
 }
 
 export default SearchSuggestions
