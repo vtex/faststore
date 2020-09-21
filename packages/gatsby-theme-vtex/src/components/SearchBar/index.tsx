@@ -1,9 +1,12 @@
-import React, { FC } from 'react'
+import React, { FC, lazy } from 'react'
 
-import SearchBarButton from './Button'
-import SearchBarInput from './Input'
-import SearchSuggestions from '../SearchSuggestions'
-import SearchBarProvider from './Provider'
+import SuspenseSSR from '../Suspense/SSR'
+import SearchBarContainer from './Container'
+
+const SearchBarButton = lazy(() => import('./Button'))
+const SearchBarInput = lazy(() => import('./Input'))
+const SearchSuggestions = lazy(() => import('../SearchSuggestions'))
+const SearchBarProvider = lazy(() => import('./Provider'))
 
 interface Props {
   variant?: string
@@ -16,17 +19,21 @@ const SearchBar: FC<Props> = ({
   placeholder,
   'aria-label': label,
 }) => (
-  <SearchBarProvider variant={variant}>
-    <SearchBarInput
-      variant={variant}
-      aria-label={`${label} input`}
-      placeholder={placeholder}
-      popoverState={{ placement: 'bottom-start' }}
-    >
-      <SearchSuggestions />
-    </SearchBarInput>
-    <SearchBarButton variant={variant} aria-label={`${label} button`} />
-  </SearchBarProvider>
+  <SearchBarContainer>
+    <SuspenseSSR fallback={null}>
+      <SearchBarProvider>
+        <SearchBarInput
+          variant={variant}
+          aria-label={`${label} input`}
+          placeholder={placeholder}
+          popoverState={{ placement: 'bottom-start' }}
+        >
+          <SearchSuggestions />
+        </SearchBarInput>
+        <SearchBarButton variant={variant} aria-label={`${label} button`} />
+      </SearchBarProvider>
+    </SuspenseSSR>
+  </SearchBarContainer>
 )
 
 export default SearchBar

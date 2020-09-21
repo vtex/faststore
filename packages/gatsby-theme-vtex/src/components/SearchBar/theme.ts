@@ -23,6 +23,8 @@ const theme: SxStyleProp = {
 
     container: {
       maxWidth: 250,
+      marginTop: '8px',
+      minHeight: '40px',
       bg: 'background',
       borderWidth: '2px',
       borderStyle: 'solid',

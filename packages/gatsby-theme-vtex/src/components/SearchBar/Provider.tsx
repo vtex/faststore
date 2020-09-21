@@ -1,27 +1,14 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react'
-import { Flex } from '@vtex/store-ui'
 
 import { SearchBarContext } from './hooks'
 import { debounce } from '../../utils/debounce'
-
-const loadController = () => import('../../sdk/search/controller')
+import { search } from '../../sdk/search/controller'
 
 interface Props {
-  variant?: string
   debounceInterval?: number
 }
 
-const onSearch = async (term: string) => {
-  const controller = await loadController()
-
-  controller.search(term)
-}
-
-const SearchBarProvider: FC<Props> = ({
-  variant = 'searchbar',
-  children,
-  debounceInterval = 300,
-}) => {
+const SearchBarProvider: FC<Props> = ({ children, debounceInterval = 300 }) => {
   const [syncTerm, setSyncTerm] = useState<string>('')
   const [asyncTerm, setAsyncTerm] = useState<string>(syncTerm)
   const setTermDebounced = useMemo(
@@ -47,10 +34,10 @@ const SearchBarProvider: FC<Props> = ({
         syncTerm,
         asyncTerm,
         setTerm,
-        onSearch,
+        onSearch: search,
       }}
     >
-      <Flex variant={`${variant}.container`}>{children}</Flex>
+      {children}
     </SearchBarContext.Provider>
   )
 }
