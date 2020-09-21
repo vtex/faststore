@@ -26,11 +26,11 @@ const MagGlass = () => (
 )
 
 const SearchBarButton: FC<Props> = ({ variant, ...forward }) => {
-  const { onSearch, term } = useSearchBarContext()
+  const { onSearch, syncTerm } = useSearchBarContext()
 
   return (
     <Button
-      onClick={() => term && onSearch(term)}
+      onClick={() => syncTerm && onSearch(syncTerm)}
       variant={`${variant}.button`}
       {...forward}
     >
