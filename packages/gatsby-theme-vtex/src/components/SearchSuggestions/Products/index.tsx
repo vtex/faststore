@@ -1,5 +1,6 @@
-import { Box, CenteredSpinner } from '@vtex/store-ui'
+import { Box, CenteredSpinner, Flex } from '@vtex/store-ui'
 import React, { FC } from 'react'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
 import { SearchSuggestionsListTitle } from '../base/Title'
@@ -10,41 +11,66 @@ import { useProductsSuggestions } from './hooks'
 import { toRequiredItem } from '../base/hooks'
 
 interface Props {
-  title: string
+  term: string
   maxItems?: number
   variant?: string
-  countDesc: (count: number) => string
 }
 
 const SearchSuggestionsProduct: FC<Required<Props>> = ({
-  title,
+  term,
   variant,
   maxItems,
-  countDesc,
 }) => {
+  const { formatMessage } = useIntl()
   const {
     query: { data, error },
     searchBar: { onSearch },
-    term,
   } = useProductsSuggestions({
     maxItems,
+    term,
   })
 
   const count = data?.vtex.productSuggestions?.count
   const products = data?.vtex.productSuggestions.products
+  const items = products && toRequiredItem(products)
 
-  if (error || !products || products.length === 0) {
+  const title = formatMessage(
+    {
+      id: 'suggestions.products.title',
+      defaultMessage: 'Products for: {term}',
+    },
+    { term }
+  )
+
+  const total = formatMessage(
+    {
+      id: 'suggestions.products.total',
+      defaultMessage: 'See all {count} items',
+    },
+    { count }
+  )
+
+  if (count === 0) {
+    return (
+      <>
+        <SearchSuggestionsListTitle variant={variant} title={title} />
+        <Flex sx={{ justifyContent: 'center', alignItems: 'center' }}>
+          {formatMessage({
+            id: 'suggestions.products.notFound',
+            defaultMessage: 'No products found',
+          })}
+        </Flex>
+      </>
+    )
+  }
+
+  if (error || !products) {
     return null
   }
 
-  const items = toRequiredItem(products)
-
   return (
     <>
-      <SearchSuggestionsListTitle
-        variant={variant}
-        title={`${title} ${term}`}
-      />
+      <SearchSuggestionsListTitle variant={variant} title={title} />
       <SearchSuggestionsList items={items as any} variant={variant}>
         {({ item, variant: v }: any) => (
           <Box variant={v}>
@@ -56,27 +82,28 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
         variant={variant}
         onClick={() => onSearch(term!)}
       >
-        {countDesc(count!)}
+        {total}
       </SearchSuggestionsListTotal>
     </>
   )
 }
 
+const Fallback = () => {
+  console.log('fallback')
+
+  return <CenteredSpinner />
+}
+
 const SearchSuggestions: FC<Props> = ({
   variant = 'products',
   maxItems = 3,
-  countDesc,
-  title,
+  term,
 }) => (
-  <SearchSuggestionsListContainer
-    variant={variant}
-    fallback={<CenteredSpinner />}
-  >
+  <SearchSuggestionsListContainer fallback={<Fallback />} variant={variant}>
     <SearchSuggestionsProduct
-      title={title}
-      variant={variant}
       maxItems={maxItems}
-      countDesc={countDesc}
+      variant={variant}
+      term={term}
     />
   </SearchSuggestionsListContainer>
 )

@@ -8,7 +8,11 @@ import {
   AutocompleteSuggestionsQueryQueryVariables,
 } from './__generated__/AutocompleteSuggestionsQuery.graphql'
 
-export const useAutocompleteSearchSeggestions = () => {
+interface Props {
+  term: string
+}
+
+export const useAutocompleteSearchSeggestions = ({ term }: Props) => {
   const context = useSearchSuggestionsContext()
   const query = useQuery<
     AutocompleteSuggestionsQueryQuery,
@@ -16,7 +20,7 @@ export const useAutocompleteSearchSeggestions = () => {
   >({
     ...AutocompleteSuggestionsQuery,
     variables: {
-      fullText: context.searchBar.term,
+      fullText: term,
     },
     suspense: true,
   })

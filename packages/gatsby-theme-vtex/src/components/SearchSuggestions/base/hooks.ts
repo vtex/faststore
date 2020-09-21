@@ -4,8 +4,8 @@ import { ISearchContext } from '../../SearchBar/hooks'
 
 export interface ISuggestionsContext {
   searchBar: ISearchContext
-  setTerm: (t: string | null) => unknown
-  term: string | null
+  setTerm: (t: string) => unknown
+  term: string
 }
 
 export const SearchSuggestionsContext = createContext<ISuggestionsContext>(

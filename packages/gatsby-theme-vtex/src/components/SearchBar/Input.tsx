@@ -1,20 +1,27 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, { ChangeEvent, FC, useEffect, useRef } from 'react'
 import {
   Box,
-  Input,
   InputProps,
   usePopoverState,
   PopoverDisclosure,
+  PopoverInitialState,
   Popover,
 } from '@vtex/store-ui'
 
 import { useSearchBarContext } from './hooks'
 
-type Props = Omit<InputProps, 'ref'>
+type Props = Omit<InputProps, 'ref'> & {
+  popoverState?: PopoverInitialState
+}
 
-const SearchBarInput: FC<Props> = ({ variant, children, ...forward }) => {
-  const popover = usePopoverState({ placement: 'bottom-start' })
-  const { term, setTerm, onSearch } = useSearchBarContext()
+const SearchBarInput: FC<Props> = ({
+  variant,
+  children,
+  popoverState,
+  ...forward
+}) => {
+  const popover = usePopoverState(popoverState)
+  const { syncTerm, setTerm, onSearch } = useSearchBarContext()
   const ref = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -25,24 +32,28 @@ const SearchBarInput: FC<Props> = ({ variant, children, ...forward }) => {
 
   return (
     <Box variant={`${variant}.textInput`}>
-      <PopoverDisclosure {...popover}>
-        <Input
-          ref={ref}
-          onChange={(e) => {
+      <PopoverDisclosure
+        ref={ref}
+        as="input"
+        type="text"
+        role="searchbox"
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          if (typeof e.target.value === 'string') {
             setTerm(e.target.value)
-          }}
-          onKeyUp={(e) => {
-            if (e.key === 'Enter' && term) {
-              onSearch(term)
-            }
-          }}
-          {...forward}
-        />
-      </PopoverDisclosure>
+          }
+        }}
+        onKeyUp={(e: KeyboardEvent) => {
+          if (e.key === 'Enter' && syncTerm) {
+            onSearch(syncTerm)
+          }
+        }}
+        {...popover}
+        {...forward}
+      />
       <Popover
         tabIndex={0}
         aria-label="Searchbar Input"
-        style={{ width: 'inherit' }}
+        style={{ width: 'inherit', zIndex: 9 }}
         {...popover}
       >
         {popover.visible ? children : null}

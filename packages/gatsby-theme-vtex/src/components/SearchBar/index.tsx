@@ -21,6 +21,7 @@ const SearchBar: FC<Props> = ({
       variant={variant}
       aria-label={`${label} input`}
       placeholder={placeholder}
+      popoverState={{ placement: 'bottom-start' }}
     >
       <SearchSuggestions />
     </SearchBarInput>

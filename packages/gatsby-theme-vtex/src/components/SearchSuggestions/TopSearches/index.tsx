@@ -1,3 +1,4 @@
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Box } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
@@ -9,13 +10,10 @@ import { useTopSearches } from './hooks'
 
 interface Props {
   variant?: string
-  title: string
 }
 
-const SearchSuggestionsTopSearches: FC<Required<Props>> = ({
-  title,
-  variant,
-}) => {
+const SearchSuggestionsTopSearches: FC<Required<Props>> = ({ variant }) => {
+  const { formatMessage } = useIntl()
   const {
     query: { data, error },
     searchBar: { onSearch },
@@ -31,7 +29,13 @@ const SearchSuggestionsTopSearches: FC<Required<Props>> = ({
 
   return (
     <>
-      <SearchSuggestionsListTitle variant={variant} title={title} />
+      <SearchSuggestionsListTitle
+        variant={variant}
+        title={formatMessage({
+          id: 'suggestions.topSearches.title',
+          defaultMessage: 'Top Searches',
+        })}
+      />
       <SearchSuggestionsList items={items} variant={variant}>
         {({ item: { term }, index, variant: v }) => (
           <Box variant={v} onClick={() => onSearch(term)}>
@@ -43,9 +47,9 @@ const SearchSuggestionsTopSearches: FC<Required<Props>> = ({
   )
 }
 
-const SearchSuggestions: FC<Props> = ({ variant = 'topSearches', title }) => (
+const SearchSuggestions: FC<Props> = ({ variant = 'topSearches' }) => (
   <SearchSuggestionsListContainer variant={variant} fallback={null}>
-    <SearchSuggestionsTopSearches variant={variant} title={title} />
+    <SearchSuggestionsTopSearches variant={variant} />
   </SearchSuggestionsListContainer>
 )
 

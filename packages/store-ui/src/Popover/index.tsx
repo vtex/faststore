@@ -1,1 +1,1 @@
-export { usePopoverState, Popover, PopoverDisclosure } from 'reakit/Popover'
+export * from 'reakit/Popover'

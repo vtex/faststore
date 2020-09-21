@@ -9,6 +9,8 @@ const theme: SxStyleProp = {
         pl: 3,
         pr: 48,
         border: 'none',
+        width: '100%',
+        minHeight: '30px',
       },
 
       button: {

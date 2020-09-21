@@ -9,10 +9,11 @@ import {
 } from './__generated__/ProductsSuggestionsQuery.graphql'
 
 interface Props {
+  term: string
   maxItems: number // max number of products to return. Hard limit of 5
 }
 
-export const useProductsSuggestions = ({ maxItems }: Props) => {
+export const useProductsSuggestions = ({ maxItems, term }: Props) => {
   const context = useSearchSuggestionsContext()
   const response = useQuery<
     ProductsSuggestionsQueryQuery,
@@ -20,7 +21,7 @@ export const useProductsSuggestions = ({ maxItems }: Props) => {
   >({
     ...ProductsSuggestionsQuery,
     variables: {
-      fullText: context.term || context.searchBar.term,
+      fullText: term,
     },
     suspense: true,
   })

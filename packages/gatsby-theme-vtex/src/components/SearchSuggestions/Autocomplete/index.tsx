@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Box } from '@vtex/store-ui'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { useAutocompleteSearchSeggestions } from './hooks'
 import { SearchSuggestionsListContainer } from '../base/Container'
@@ -8,19 +9,20 @@ import { SearchSuggestionsList } from '../base/List'
 import { toRequiredItem } from '../base/hooks'
 
 interface Props {
-  title: string
+  term: string
   variant?: string
 }
 
 const SearchSuggestionsAutocomplete: FC<Required<Props>> = ({
-  title,
   variant,
+  term: t,
 }) => {
+  const { formatMessage } = useIntl()
   const {
     query: { data, error },
     setTerm,
     searchBar: { onSearch },
-  } = useAutocompleteSearchSeggestions()
+  } = useAutocompleteSearchSeggestions({ term: t })
 
   const searches = data?.vtex.autocompleteSearchSuggestions?.searches
 
@@ -32,7 +34,13 @@ const SearchSuggestionsAutocomplete: FC<Required<Props>> = ({
 
   return (
     <>
-      <SearchSuggestionsListTitle variant={variant} title={title} />
+      <SearchSuggestionsListTitle
+        variant={variant}
+        title={formatMessage({
+          id: 'suggestions.autocomplete.title',
+          defaultMessage: 'Suggestions',
+        })}
+      />
       <SearchSuggestionsList items={items} variant={variant}>
         {({ item: { term }, variant: v }) => (
           <Box
@@ -49,9 +57,9 @@ const SearchSuggestionsAutocomplete: FC<Required<Props>> = ({
   )
 }
 
-const SearchSuggestions: FC<Props> = ({ variant = 'autocomplete', title }) => (
+const SearchSuggestions: FC<Props> = ({ variant = 'autocomplete', term }) => (
   <SearchSuggestionsListContainer variant={variant} fallback={null}>
-    <SearchSuggestionsAutocomplete title={title} variant={variant} />
+    <SearchSuggestionsAutocomplete variant={variant} term={term} />
   </SearchSuggestionsListContainer>
 )
 
