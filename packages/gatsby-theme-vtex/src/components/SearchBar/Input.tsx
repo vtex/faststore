@@ -49,6 +49,7 @@ const SearchBarInput: FC<Props> = ({
             onSearch(syncTerm)
           }
         }}
+        aria-expanded={null}
         {...popover}
         {...forward}
       />
