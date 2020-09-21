@@ -88,18 +88,15 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
   )
 }
 
-const Fallback = () => {
-  console.log('fallback')
-
-  return <CenteredSpinner />
-}
-
 const SearchSuggestions: FC<Props> = ({
   variant = 'products',
   maxItems = 3,
   term,
 }) => (
-  <SearchSuggestionsListContainer fallback={<Fallback />} variant={variant}>
+  <SearchSuggestionsListContainer
+    fallback={<CenteredSpinner />}
+    variant={variant}
+  >
     <SearchSuggestionsProduct
       maxItems={maxItems}
       variant={variant}

@@ -27,6 +27,8 @@ const SearchBarInput: FC<Props> = ({
   useEffect(() => {
     if (popover.visible) {
       ref.current?.focus()
+    } else {
+      ref.current?.blur()
     }
   }, [popover.visible])
 
@@ -35,7 +37,7 @@ const SearchBarInput: FC<Props> = ({
       <PopoverDisclosure
         ref={ref}
         as="input"
-        type="text"
+        type="search"
         role="searchbox"
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
           if (typeof e.target.value === 'string') {
