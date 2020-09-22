@@ -8,7 +8,7 @@ interface Props {
   debounceInterval?: number
 }
 
-const SearchBarProvider: FC<Props> = ({ children, debounceInterval = 300 }) => {
+const SearchBarProvider: FC<Props> = ({ children, debounceInterval = 250 }) => {
   const [syncTerm, setSyncTerm] = useState<string>('')
   const [asyncTerm, setAsyncTerm] = useState<string>(syncTerm)
   const setTermDebounced = useMemo(
