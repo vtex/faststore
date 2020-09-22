@@ -7,7 +7,7 @@ import Menu from './Menu'
 import Minicart from './Minicart'
 import NotificationBar from './NotificationBar'
 import OverMenu from './OverMenu'
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar/index'
 import SearchBarContainer from './SearchBar/Container'
 import SuspenseSSR from './Suspense/SSR'
 
