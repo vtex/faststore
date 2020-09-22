@@ -1,6 +1,6 @@
 {
   "name": "@vtex/store-ui",
-  "version": "0.61.0-alpha.1",
+  "version": "0.61.0-alpha.2",
   "description": "Next store component library",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "@theme-ui/preset-base": "^0.3.0",
     "@vtex-components/accordion": "^0.2.3",
     "@vtex-components/drawer": "^0.2.4",
-    "@vtex/gatsby-plugin-i18n": "^0.61.0-alpha.1",
+    "@vtex/gatsby-plugin-i18n": "^0.61.0-alpha.2",
     "deepmerge": "^4.2.2",
     "gatsby-link": "^2.4.13",
     "reakit": "^1.1.2",
@@ -57,5 +57,6 @@
     "ts-loader": "^8.0.1",
     "tsdx": "^0.13.2",
     "typescript": "^3.9.6"
-  }
+  },
+  "gitHead": "016819b014cf12e8c315a6a53c778d7a86a73994"
 }

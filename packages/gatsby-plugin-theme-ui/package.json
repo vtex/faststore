@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-theme-ui",
-  "version": "0.61.0-alpha.1",
+  "version": "0.61.0-alpha.2",
   "main": "index.js",
   "browser": "src/index.ts",
   "sideEffects": false,
@@ -33,5 +33,6 @@
     "@babel/traverse": "^7.11.0",
     "@babel/types": "^7.11.0",
     "theme-ui": "^0.3.1"
-  }
+  },
+  "gitHead": "016819b014cf12e8c315a6a53c778d7a86a73994"
 }
