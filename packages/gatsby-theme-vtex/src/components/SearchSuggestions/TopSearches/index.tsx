@@ -50,7 +50,7 @@ const SearchSuggestionsTopSearches: FC<Required<Props>> = ({ variant }) => {
       <SearchSuggestionsList items={items} variant={variant}>
         {({ item: { term }, index, variant: v }) => (
           <Box variant={v} onClick={() => onSearch(term)}>
-            <span>{index++}&deg;</span> {term}
+            <span>{++index}&deg;</span> {term}
           </Box>
         )}
       </SearchSuggestionsList>
