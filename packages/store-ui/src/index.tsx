@@ -43,7 +43,7 @@ export * from './Minicart/theme'
 // LocalizedLink
 export { default as LocalizedLink } from './LocalizedLink'
 // Banner
-export * from './Banner'
+export { default as Banner } from './Banner'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
 // Search Filters

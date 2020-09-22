@@ -13,7 +13,7 @@ type Props = {
   loading?: 'eager' | 'lazy'
 }
 
-export const Banner: FC<Props> = ({
+const Banner: FC<Props> = ({
   src,
   href,
   alt,
@@ -31,3 +31,5 @@ export const Banner: FC<Props> = ({
     />
   </LocalizedLink>
 )
+
+export default Banner
