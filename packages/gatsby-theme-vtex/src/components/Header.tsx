@@ -1,5 +1,5 @@
 import { Flex, Header } from '@vtex/store-ui'
-import React, { Fragment, lazy } from 'react'
+import React, { Fragment } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import Logo from './Logo'
