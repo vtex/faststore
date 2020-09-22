@@ -71,4 +71,3 @@ export * from './Slider/hooks/useSlider'
 export * from './Slider/hooks/useResponsiveSlider'
 // Product Specification
 export * from './ProductSpecification'
-export * from './ProductSpecification/theme'
