@@ -4,14 +4,19 @@ export const productSpecificationTheme: SxStyleProp = {
   productSpecification: {
     flexDirection: 'column',
 
-    item: {},
-
     title: {
-      flex: 1,
+      mt: 4,
+      mb: 2,
     },
 
-    value: {
-      flex: 2,
+    item: {
+      name: {
+        flex: 1,
+      },
+
+      value: {
+        flex: 2,
+      },
     },
   },
 }
