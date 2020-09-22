@@ -1,11 +1,40 @@
-import React, { FC } from 'react'
+/** @jsx jsx */
+import { FC, Suspense, lazy } from 'react'
+import { PopoverInitialState, jsx } from '@vtex/store-ui'
 
-import SearchBarContainer from './Container'
-import SearchBarComponent, { Props } from './SearchBar'
+import SearchBarButton from './Button'
+import SearchBarInput from './Input'
+import SearchBarProvider from './Provider'
 
-const SearchBar: FC<Props> = (props) => (
+const SearchSuggestions = lazy(() => import('../SearchSuggestions'))
+
+export interface Props {
+  variant?: string
+  placeholder: string
+  'aria-label': string
+  popoverState?: PopoverInitialState
+}
+
+const SearchBar: FC<Props> = ({
+  popoverState = { placement: 'bottom-start', unstable_flip: true },
+  variant = 'searchbar',
+  'aria-label': label,
+  placeholder,
+}) => (
   <SearchBarContainer>
-    <SearchBarComponent {...props} />
+    <SearchBarProvider>
+      <SearchBarInput
+        variant={variant}
+        aria-label={label}
+        placeholder={placeholder}
+        popoverState={popoverState}
+      >
+        <Suspense fallback={null}>
+          <SearchSuggestions />
+        </Suspense>
+      </SearchBarInput>
+      <SearchBarButton variant={variant} aria-label={`${label} button`} />
+    </SearchBarProvider>
   </SearchBarContainer>
 )
 
