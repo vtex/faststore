@@ -21,10 +21,13 @@ const SearchBarInput: FC<Props> = ({
   ...forward
 }) => {
   const { syncTerm, setTerm, onSearch } = useSearchBarContext()
-  const ref = useRef<HTMLInputElement>(null)
-  const referenceRef = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLInputElement>(null) // reference input
+  const referenceRef = useRef<HTMLDivElement>(null) // reference container
   const { toggle: t, ...popover } = usePopoverState(popoverState)
   const { show, visible } = popover
+
+  // When clicking in the input, always open but never close
+  // search autocomplete
   const toggle = useCallback(() => {
     if (!visible) {
       show()
@@ -32,9 +35,12 @@ const SearchBarInput: FC<Props> = ({
   }, [show, visible])
 
   useEffect(() => {
+    // Focus input when input is clicked
     if (popover.visible) {
       ref.current?.focus()
-    } else {
+    }
+    // Blurs input when user clicks away
+    else {
       ref.current?.blur()
     }
   }, [popover.visible])
