@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box } from '@vtex/store-ui'
+import { Box, Center } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { useAutocompleteSearchSeggestions } from './hooks'
@@ -25,12 +25,31 @@ const SearchSuggestionsAutocomplete: FC<Required<Props>> = ({
   } = useAutocompleteSearchSeggestions({ term: t })
 
   const searches = data?.vtex.autocompleteSearchSuggestions?.searches
+  const items = searches && toRequiredItem(searches)
 
-  if (error || !searches || searches.length === 0) {
+  if (error || !searches) {
     return null
   }
 
-  const items = toRequiredItem(searches)
+  if (searches.length === 0) {
+    return (
+      <>
+        <SearchSuggestionsListTitle
+          variant={variant}
+          title={formatMessage({
+            id: 'suggestions.autocomplete.title',
+            defaultMessage: 'Suggestions',
+          })}
+        />
+        <Center>
+          {formatMessage({
+            id: 'suggestions.autocomplete.notFound',
+            defaultMessage: 'No suggestions',
+          })}
+        </Center>
+      </>
+    )
+  }
 
   return (
     <>

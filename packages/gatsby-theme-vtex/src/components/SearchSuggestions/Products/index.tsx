@@ -1,4 +1,4 @@
-import { Box, CenteredSpinner, Flex } from '@vtex/store-ui'
+import { Box, Center, Spinner } from '@vtex/store-ui'
 import React, { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
@@ -58,7 +58,9 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
     return (
       <>
         <SearchSuggestionsListTitle variant={variant} title={title} />
-        <CenteredSpinner />
+        <Center>
+          <Spinner />
+        </Center>
       </>
     )
   }
@@ -67,19 +69,12 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
     return (
       <>
         <SearchSuggestionsListTitle variant={variant} title={title} />
-        <Flex
-          sx={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            height: '100%',
-          }}
-        >
+        <Center>
           {formatMessage({
             id: 'suggestions.products.notFound',
             defaultMessage: 'No products found',
           })}
-        </Flex>
+        </Center>
       </>
     )
   }

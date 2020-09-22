@@ -24,7 +24,7 @@ const item: SxStyleProp = {
 
 const theme: SxStyleProp = {
   suggestions: {
-    color: 'primary',
+    color: 'text',
     backgroundColor: 'white',
     justifyContent: 'space-around',
     boxShadow: '0 5px 7px rgba(0,0,0,.2)',
@@ -63,7 +63,7 @@ const theme: SxStyleProp = {
 
       total: {
         paddingTop: '10px',
-        color: 'primary',
+        color: 'text',
         textDecoration: 'underline',
         textAlign: 'center',
         cursor: 'pointer',

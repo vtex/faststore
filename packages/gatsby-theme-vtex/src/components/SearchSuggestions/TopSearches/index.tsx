@@ -1,5 +1,5 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box } from '@vtex/store-ui'
+import { Box, Center } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
@@ -20,22 +20,33 @@ const SearchSuggestionsTopSearches: FC<Required<Props>> = ({ variant }) => {
   } = useTopSearches()
 
   const searches = data?.vtex.topSearches?.searches
+  const items = searches && toRequiredItem(searches)
+  const title = formatMessage({
+    id: 'suggestions.topSearches.title',
+    defaultMessage: 'Top Searches',
+  })
 
-  if (error || !searches || searches.length === 0) {
+  if (error || !searches) {
     return null
   }
 
-  const items = toRequiredItem(searches)
+  if (searches.length === 0) {
+    return (
+      <>
+        <SearchSuggestionsListTitle variant={variant} title={title} />
+        <Center>
+          {formatMessage({
+            id: 'suggestions.topSearches.empty',
+            defaultMessage: 'Type to search',
+          })}
+        </Center>
+      </>
+    )
+  }
 
   return (
     <>
-      <SearchSuggestionsListTitle
-        variant={variant}
-        title={formatMessage({
-          id: 'suggestions.topSearches.title',
-          defaultMessage: 'Top Searches',
-        })}
-      />
+      <SearchSuggestionsListTitle variant={variant} title={title} />
       <SearchSuggestionsList items={items} variant={variant}>
         {({ item: { term }, index, variant: v }) => (
           <Box variant={v} onClick={() => onSearch(term)}>
