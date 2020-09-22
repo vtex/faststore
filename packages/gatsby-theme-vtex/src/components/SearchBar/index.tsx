@@ -5,6 +5,7 @@ import { PopoverInitialState, jsx } from '@vtex/store-ui'
 import SearchBarButton from './Button'
 import SearchBarInput from './Input'
 import SearchBarProvider from './Provider'
+import SearchBarContainer from './Container'
 
 const SearchSuggestions = lazy(() => import('../SearchSuggestions'))
 
