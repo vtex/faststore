@@ -70,4 +70,3 @@ export * from './Popover'
 export * from './Center'
 // Product Specification
 export * from './ProductSpecification'
-export * from './ProductSpecification/theme'
