@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-vtex-nginx",
-  "version": "0.61.0-alpha.2",
+  "version": "0.61.0-alpha.3",
   "description": "Gatsby plugin to generate a nginx configuration template.",
   "main": "index.js",
   "license": "MIT",
@@ -31,5 +31,5 @@
     "kebab-hash": "^0.1.2",
     "webpack-assets-manifest": "^3.1.1"
   },
-  "gitHead": "016819b014cf12e8c315a6a53c778d7a86a73994"
+  "gitHead": "5072fa2ad77e7f4a3537645cc1e60bfcf0d716a1"
 }
