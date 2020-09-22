@@ -1,6 +1,6 @@
 import { SxStyleProp } from 'theme-ui'
 
-export const floatingActionButtonTheme: SxStyleProp = {
+const floatingActionButtonTheme: SxStyleProp = {
   floatingActionButton: {
     div: {
       position: 'fixed',
