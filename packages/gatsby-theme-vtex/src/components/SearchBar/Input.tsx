@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useRef } from 'react'
+import React, { ChangeEvent, FC, useCallback, useEffect, useRef } from 'react'
 import {
   Box,
   InputProps,
@@ -23,7 +23,13 @@ const SearchBarInput: FC<Props> = ({
   const { syncTerm, setTerm, onSearch } = useSearchBarContext()
   const ref = useRef<HTMLInputElement>(null)
   const referenceRef = useRef<HTMLDivElement>(null)
-  const popover = usePopoverState(popoverState)
+  const { toggle: t, ...popover } = usePopoverState(popoverState)
+  const { show, visible } = popover
+  const toggle = useCallback(() => {
+    if (!visible) {
+      show()
+    }
+  }, [show, visible])
 
   useEffect(() => {
     if (popover.visible) {
@@ -36,6 +42,7 @@ const SearchBarInput: FC<Props> = ({
   return (
     <Box variant={`${variant}.textInput`} ref={referenceRef}>
       <PopoverDisclosure
+        toggle={toggle}
         as="input"
         type="search"
         role="searchbox"
@@ -56,7 +63,7 @@ const SearchBarInput: FC<Props> = ({
         aria-expanded={null}
       />
       <Popover tabIndex={0} aria-label="Searchbar Input" {...popover}>
-        {popover.visible ? children : null}
+        {visible ? children : null}
       </Popover>
     </Box>
   )
