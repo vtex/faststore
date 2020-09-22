@@ -13,8 +13,10 @@ const list: SxStyleProp = {
 }
 
 const item: SxStyleProp = {
+  cursor: 'pointer',
+  borderRadius: '4px',
+  padding: '5px 10px',
   fontSize: 1,
-  py: '5px',
   display: 'block',
   width: '100%',
   '&:hover': {

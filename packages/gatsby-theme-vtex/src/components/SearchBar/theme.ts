@@ -11,6 +11,7 @@ const theme: SxStyleProp = {
         border: 'none',
         width: '100%',
         minHeight: '40px',
+        fontSize: 'inherit',
       },
 
       button: {

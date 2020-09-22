@@ -1,5 +1,5 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box } from '@vtex/store-ui'
+import { Box, Center } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
@@ -19,8 +19,27 @@ const SearchSuggestionsHistory: FC<Required<Props>> = ({ variant }) => {
     searchBar: { onSearch },
   } = useSearchHistory()
 
-  if (!searches || searches.length === 0) {
+  const title = formatMessage({
+    id: 'suggestions.history.title',
+    defaultMessage: 'History',
+  })
+
+  if (!searches) {
     return null
+  }
+
+  if (searches.length === 0) {
+    return (
+      <>
+        <SearchSuggestionsListTitle variant={variant} title={title} />
+        <Center>
+          {formatMessage({
+            id: 'suggestions.history.empty',
+            defaultMessage: 'No history yet',
+          })}
+        </Center>
+      </>
+    )
   }
 
   return (
