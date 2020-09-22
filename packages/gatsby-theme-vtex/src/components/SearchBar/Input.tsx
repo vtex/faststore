@@ -20,9 +20,10 @@ const SearchBarInput: FC<Props> = ({
   popoverState,
   ...forward
 }) => {
-  const popover = usePopoverState(popoverState)
   const { syncTerm, setTerm, onSearch } = useSearchBarContext()
   const ref = useRef<HTMLInputElement>(null)
+  const referenceRef = useRef<HTMLDivElement>(null)
+  const popover = usePopoverState(popoverState)
 
   useEffect(() => {
     if (popover.visible) {
@@ -33,12 +34,15 @@ const SearchBarInput: FC<Props> = ({
   }, [popover.visible])
 
   return (
-    <Box variant={`${variant}.textInput`}>
+    <Box variant={`${variant}.textInput`} ref={referenceRef}>
       <PopoverDisclosure
-        ref={ref}
         as="input"
         type="search"
         role="searchbox"
+        {...forward}
+        {...popover}
+        ref={ref}
+        unstable_referenceRef={referenceRef}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
           if (typeof e.target.value === 'string') {
             setTerm(e.target.value)
@@ -50,15 +54,8 @@ const SearchBarInput: FC<Props> = ({
           }
         }}
         aria-expanded={null}
-        {...popover}
-        {...forward}
       />
-      <Popover
-        tabIndex={0}
-        aria-label="Searchbar Input"
-        style={{ width: 'inherit', zIndex: 9 }}
-        {...popover}
-      >
+      <Popover tabIndex={0} aria-label="Searchbar Input" {...popover}>
         {popover.visible ? children : null}
       </Popover>
     </Box>

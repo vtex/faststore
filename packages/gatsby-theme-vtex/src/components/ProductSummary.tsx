@@ -14,7 +14,7 @@ interface Props {
   loading?: 'lazy' | 'eager'
 }
 
-export const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
+const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
   const { linkText, items, productName } = product as any
   const [{ imageUrl, imageText }] = items[0].images
   const offer = items[0].sellers?.[0]?.commertialOffer
@@ -78,3 +78,5 @@ export const fragment = graphql`
     }
   }
 `
+
+export default ProductSummary

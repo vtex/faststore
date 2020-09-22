@@ -1,14 +1,15 @@
 import { Box, Center, Spinner } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React, { FC, Suspense, lazy } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
 import { SearchSuggestionsListTitle } from '../base/Title'
 import { SearchSuggestionsListTotal } from '../base/Total'
 import { SearchSuggestionsList } from '../base/List'
-import { ProductSummary } from '../../ProductSummary'
 import { useProductsSuggestions } from './hooks'
 import { toRequiredItem } from '../base/hooks'
+
+const ProductSummary = lazy(() => import('../../ProductSummary'))
 
 interface Props {
   term: string
@@ -85,7 +86,9 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
       <SearchSuggestionsList items={items as any} variant={variant}>
         {({ item, variant: v }: any) => (
           <Box variant={v}>
-            <ProductSummary product={item} />
+            <Suspense fallback={null}>
+              <ProductSummary product={item} />
+            </Suspense>
           </Box>
         )}
       </SearchSuggestionsList>

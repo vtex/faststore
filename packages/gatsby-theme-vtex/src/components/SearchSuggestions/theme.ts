@@ -29,9 +29,12 @@ const theme: SxStyleProp = {
     justifyContent: 'space-around',
     boxShadow: '0 5px 7px rgba(0,0,0,.2)',
     borderRadius: '0 0 5px 5px',
+    width: '100%',
+    marginTop: '5px',
     minWidth: ['0px', '40rem'],
     minHeight: '400px',
     padding: '1rem',
+    zIndex: 99,
 
     autocomplete: {
       paddingRight: '1rem',
