@@ -70,4 +70,3 @@ export * from 'reakit/Popover'
 export { default as Center } from './Center'
 // Product Specification
 export * from './ProductSpecification'
-export * from './ProductSpecification/theme'
