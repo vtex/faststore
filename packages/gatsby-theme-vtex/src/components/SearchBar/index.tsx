@@ -1,16 +1,11 @@
-import React, { FC, lazy } from 'react'
+import React, { FC } from 'react'
 
 import SearchBarContainer from './Container'
-import SuspenseSSR from '../Suspense/SSR'
-import { Props } from './SearchBar'
-
-const SearchBarComponent = lazy(() => import('./SearchBar'))
+import SearchBarComponent, { Props } from './SearchBar'
 
 const SearchBar: FC<Props> = (props) => (
   <SearchBarContainer>
-    <SuspenseSSR fallback={null}>
-      <SearchBarComponent {...props} />
-    </SuspenseSSR>
+    <SearchBarComponent {...props} />
   </SearchBarContainer>
 )
 
