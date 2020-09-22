@@ -50,11 +50,31 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
     { count }
   )
 
+  if (error) {
+    return null
+  }
+
+  if (!products) {
+    return (
+      <>
+        <SearchSuggestionsListTitle variant={variant} title={title} />
+        <CenteredSpinner />
+      </>
+    )
+  }
+
   if (count === 0) {
     return (
       <>
         <SearchSuggestionsListTitle variant={variant} title={title} />
-        <Flex sx={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Flex
+          sx={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+          }}
+        >
           {formatMessage({
             id: 'suggestions.products.notFound',
             defaultMessage: 'No products found',
@@ -62,10 +82,6 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
         </Flex>
       </>
     )
-  }
-
-  if (error || !products) {
-    return null
   }
 
   return (
@@ -93,10 +109,7 @@ const SearchSuggestions: FC<Props> = ({
   maxItems = 3,
   term,
 }) => (
-  <SearchSuggestionsListContainer
-    fallback={<CenteredSpinner />}
-    variant={variant}
-  >
+  <SearchSuggestionsListContainer variant={variant}>
     <SearchSuggestionsProduct
       maxItems={maxItems}
       variant={variant}

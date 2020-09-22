@@ -30,6 +30,7 @@ const theme: SxStyleProp = {
     boxShadow: '0 5px 7px rgba(0,0,0,.2)',
     borderRadius: '0 0 5px 5px',
     minWidth: ['0px', '40rem'],
+    minHeight: '400px',
     padding: '1rem',
 
     autocomplete: {
@@ -72,12 +73,11 @@ const theme: SxStyleProp = {
     },
 
     history: {
-      paddingRight: '1rem',
-      marginRight: '1rem',
-      borderRightStyle: 'ridge',
-      borderRightWidth: 'thin',
+      paddingLeft: '2rem',
+      borderLeftStyle: 'ridge',
+      borderLeftWidth: 'thin',
 
-      minWidth: '30%',
+      minWidth: '35%',
 
       list,
       title,
@@ -91,7 +91,7 @@ const theme: SxStyleProp = {
     },
 
     topSearches: {
-      minWidth: ['100%', '60%'],
+      minWidth: ['100%', '35%'],
 
       list,
       title,

@@ -10,7 +10,7 @@ const theme: SxStyleProp = {
         pr: 48,
         border: 'none',
         width: '100%',
-        minHeight: '30px',
+        minHeight: '40px',
       },
 
       button: {

@@ -15,8 +15,8 @@ const SearchSuggestions: FC = () => {
   if (term.length === 0) {
     return (
       <>
-        <SearchSuggestionsHistory />
         <SearchSuggestionsTopSearches />
+        <SearchSuggestionsHistory />
       </>
     )
   }

@@ -23,7 +23,7 @@ export const useProductsSuggestions = ({ maxItems, term }: Props) => {
     variables: {
       fullText: term,
     },
-    suspense: true,
+    suspense: false,
   })
 
   const query = {

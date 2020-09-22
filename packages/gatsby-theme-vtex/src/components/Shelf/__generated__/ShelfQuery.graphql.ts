@@ -72,7 +72,8 @@ export type ShelfQueryQuery = {
 // Query Related Code
 
 export const ShelfQuery = {
-  query: undefined,
+  query:
+    'query ShelfQuery($query: String, $map: String, $selectedFacets: [VTEX_SelectedFacetInput!], $fullText: String, $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(query: $query, map: $map, selectedFacets: $selectedFacets, fullText: $fullText, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
     '3bbb0a016127e310c09cf5f04bb358edcba3fcd34ff96e8b457f5a2d0ae504ec',
   operationName: 'ShelfQuery',

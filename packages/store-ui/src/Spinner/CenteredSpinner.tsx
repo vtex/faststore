@@ -16,6 +16,8 @@ export const CenteredSpinner: FC<Props> = ({ variant }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        height: '100%',
+        width: '100%',
       }}
     >
       <Spinner sx={{ variant: v }} />
