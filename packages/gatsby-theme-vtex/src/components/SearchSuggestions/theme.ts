@@ -28,7 +28,7 @@ const theme: SxStyleProp = {
   suggestions: {
     color: 'text',
     backgroundColor: 'white',
-    justifyContent: 'space-around',
+    justifyContent: 'left',
     boxShadow: '0 5px 7px rgba(0,0,0,.2)',
     borderRadius: '0 0 5px 5px',
     width: '100%',
@@ -44,15 +44,13 @@ const theme: SxStyleProp = {
       borderRightStyle: 'ridge',
       borderRightWidth: 'thin',
 
-      minWidth: '20%',
-
       list,
       title,
       item,
     },
 
     products: {
-      minWidth: '75%',
+      width: 'inherit',
 
       button: {
         backgroundColor: 'primary',
@@ -82,8 +80,6 @@ const theme: SxStyleProp = {
       borderLeftStyle: 'ridge',
       borderLeftWidth: 'thin',
 
-      minWidth: '35%',
-
       list,
       title,
       item: {
@@ -96,7 +92,7 @@ const theme: SxStyleProp = {
     },
 
     topSearches: {
-      minWidth: ['100%', '35%'],
+      marginRight: [0, '2rem'],
 
       list,
       title,
@@ -104,7 +100,8 @@ const theme: SxStyleProp = {
         ...item,
 
         span: {
-          mr: '15px',
+          display: 'inline-block',
+          minWidth: '30px',
           color: 'text',
         },
       },
