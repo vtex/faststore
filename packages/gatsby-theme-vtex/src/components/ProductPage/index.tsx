@@ -6,6 +6,7 @@ import { FC, lazy } from 'react'
 import BuyButton from '../BuyButton'
 import Container from '../Container'
 import OfferPreview from '../Offer/Preview'
+import ProductDescription from '../ProductDescription'
 import ProductDetailsImage from '../ProductDetailsImage'
 import SEO from '../SEO/ProductDetails'
 import SuspenseSSR from '../Suspense/SSR'
@@ -25,6 +26,7 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
   const {
     categoryTree: breadcrumb = [],
     productName,
+    description,
     linkText,
     items,
   } = product as any
@@ -59,6 +61,7 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
         >
           <ProductSpecification slug={linkText} />
         </SuspenseViewport>
+        <ProductDescription description={description} />
       </Container>
     </Flex>
   )
@@ -67,6 +70,7 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
 export const query = graphql`
   fragment ProductDetailsTemplate_product on VTEX_Product {
     productName
+    description
     linkText
     items {
       images {
