@@ -71,4 +71,4 @@ export * from './Slider/hooks/useSlider'
 export * from './Slider/hooks/useResponsiveSlider'
 // Floating Action Button
 export * from './FloatingActionButton'
-export * from './FloatingActionButton/theme'
+export { default as floatingActionButtonTheme } from './FloatingActionButton/theme'
