@@ -3,19 +3,19 @@ import React, { FC, Fragment } from 'react'
 import { ProductSpecificationItem } from './Item'
 import { ProductSpecificationTitle } from './Title'
 
-interface ProductSpecificationGroup {
-  name?: string
-  specifications?: Specification[]
-}
-
-interface Specification {
+export interface ProductSpecification {
   name?: string
   values?: string[]
 }
 
+export interface ProductSpecificationGroup {
+  name?: string
+  specifications?: ProductSpecification[]
+}
+
 interface ProductSpecificationProps {
   variant?: string
-  data?: ProductSpecificationGroup[]
+  data?: ProductSpecificationGroup[] | null
 }
 
 export const ProductSpecification: FC<ProductSpecificationProps> = ({
