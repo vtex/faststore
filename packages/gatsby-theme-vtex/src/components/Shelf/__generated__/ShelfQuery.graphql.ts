@@ -68,8 +68,7 @@ export type ShelfQueryQuery = {
 // Query Related Code
 
 export const ShelfQuery = {
-  query:
-    'query ShelfQuery($query: String, $map: String, $from: Int, $to: Int, $orderBy: String, $collection: String, $salesChannel: String, $hideUnavailableItems: Boolean) {\n  vtex {\n    products(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy, collection: $collection, salesChannel: $salesChannel, hideUnavailableItems: $hideUnavailableItems) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n            ListPrice\n          }\n        }\n      }\n    }\n  }\n}\n',
+  query: undefined,
   sha256Hash:
     'd4f6848f630b9cc9ecd45420e0f8013bfe73163584252f707de6a8091ebe9d99',
   operationName: 'ShelfQuery',
