@@ -7,23 +7,19 @@ import BuyButton from '../BuyButton'
 import Container from '../Container'
 import OfferPreview from '../Offer/Preview'
 import ProductDetailsImage from '../ProductDetailsImage'
-import ProductSpecification from '../ProductSpecification'
 import SEO from '../SEO/ProductDetails'
 import SuspenseSSR from '../Suspense/SSR'
+import SuspenseViewport from '../Suspense/Viewport'
 import { ProductDetailsTemplate_ProductFragment } from './__generated__/ProductDetailsTemplate_product.graphql'
 
+const productSpecificationLoader = () => import('../ProductSpecification')
+
+const ProductSpecification = lazy(productSpecificationLoader)
 const AsyncOffer = lazy(() => import('../Offer/Async'))
 
 interface Props {
   product: ProductDetailsTemplate_ProductFragment
 }
-
-const getSpecifications = (values: Record<string, string[]>) =>
-  Object.keys(values).reduce((acc: any[], item: string) => {
-    acc = [...acc, { title: item, value: values[item][0] }]
-
-    return acc
-  }, [])
 
 const ProductDetailsTemplate: FC<Props> = ({ product }) => {
   const {
@@ -57,33 +53,12 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
             <BuyButton sku={items[0] as any} />
           </Card>
         </Grid>
-        <ProductSpecification
-          values={getSpecifications({
-            Cor: ['Preto'],
-            Acabamento: ['Fosco'],
-            'Tipo de Assento': ['Fixo'],
-            'Linha ou Coleção': ['Sofia'],
-            Comprimento: ['45,5 cm'],
-            Largura: ['53 cm'],
-            Altura: ['82,5 cm'],
-            Material: ['Polipropileno'],
-            'Altura do chão até o assento': ['45,5 cm'],
-            'Suporta até (kg)': ['182 kg'],
-            Empilhável: ['Sim'],
-            Braço: ['Não'],
-            Antiderrapante: ['Sim'],
-            'Necessita Montagem': ['Não'],
-            'Cômodo Indicado': ['Cozinhas'],
-            Peso: ['3,60 kg'],
-            Certificado: [
-              'Produto certificado de acordo com a Portaria do Inmetro nº 342/2014',
-            ],
-            'Garantia do fabricante': [
-              '12 meses para vícios ou defeitos de fabricação',
-            ],
-            'Aviso sobre o produto': ['Imagem meramente ilustrativa'],
-          })}
-        />
+        <SuspenseViewport
+          fallback={null}
+          preloader={productSpecificationLoader}
+        >
+          <ProductSpecification slug={linkText} />
+        </SuspenseViewport>
       </Container>
     </Flex>
   )
@@ -91,7 +66,6 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
 
 export const query = graphql`
   fragment ProductDetailsTemplate_product on VTEX_Product {
-    # allSpecificationsGroups
     productName
     linkText
     items {
