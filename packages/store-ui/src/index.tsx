@@ -72,4 +72,4 @@ export { default as Center } from './Center'
 export * from './ProductSpecification'
 // Floating Action Button
 export * from './FloatingActionButton'
-export * from './FloatingActionButton/theme'
+export { default as floatingActionButtonTheme } from './FloatingActionButton/theme'
