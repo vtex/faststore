@@ -24,34 +24,32 @@ const AsyncShelf: FC<Props> = ({ searchParams, ...props }) => {
     return <Box variant="asyncShelfPlaceholder" />
   }
 
-  return (
-    <Shelf products={data?.vtex.productSearch?.products ?? []} {...props} />
-  )
+  return <Shelf products={data?.vtex.products ?? []} {...props} />
 }
 
 export const query = gql`
   query ShelfQuery(
     $query: String
     $map: String
-    $selectedFacets: [VTEX_SelectedFacetInput!]
-    $fullText: String
     $from: Int
     $to: Int
     $orderBy: String
+    $collection: String
+    $salesChannel: String
+    $hideUnavailableItems: Boolean
   ) {
     vtex {
-      productSearch(
+      products(
         query: $query
         map: $map
-        selectedFacets: $selectedFacets
-        fullText: $fullText
         from: $from
         to: $to
         orderBy: $orderBy
+        collection: $collection
+        salesChannel: $salesChannel
+        hideUnavailableItems: $hideUnavailableItems
       ) {
-        products {
-          ...ProductSummary_syncProduct
-        }
+        ...ProductSummary_syncProduct
       }
     }
   }
