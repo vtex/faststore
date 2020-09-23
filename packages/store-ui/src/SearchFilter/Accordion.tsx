@@ -49,7 +49,7 @@ export const SearchFilterAccordion: FC<Props> = ({
     >
       {filters.map((filter, index) => (
         <BaseAccordion.Section
-          key={filter.name}
+          key={`${filter.name}:${index}`}
           header={filter.name}
           isActive={isActiveFn(index)}
         >

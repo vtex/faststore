@@ -8,3 +8,5 @@ declare type Vtex_SelectedFacetInput = {
   key: string
   value: string
 }
+
+declare type Vtex_SimulationBehavior = 'default' | 'skip'
