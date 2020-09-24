@@ -5,15 +5,15 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import AboveTheFold from '../components/ProductPage/AboveTheFold'
+import AboveTheFoldPreview from '../components/ProductPage/AboveTheFoldPreview'
+import BelowTheFoldPreview from '../components/ProductPage/BelowTheFoldPreview'
+import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
 import {
   ProductPageQuery,
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
-import AboveTheFoldPreview from '../components/ProductPage/AboveTheFoldPreview'
-import SuspenseViewport from '../components/Suspense/Viewport'
-import BelowTheFoldPreview from '../components/ProductPage/BelowTheFoldPreview'
 
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')
