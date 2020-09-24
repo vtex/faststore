@@ -1,16 +1,20 @@
-/** @jsx jsx */
-import { graphql, PageProps } from 'gatsby'
-import { FC, useEffect } from 'react'
-import { jsx } from '@vtex/store-ui'
+import React, { FC, lazy, useEffect } from 'react'
+import { PageProps } from 'gatsby'
 
-import HomeBlocks from '../components/HomePage'
+import AboveTheFold from '../components/HomePage/AboveTheFold'
+import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO/siteMetadata'
-import { HomePageQueryQuery } from '../__generated__/HomePageQuery.graphql'
+import SuspenseViewport from '../components/Suspense/Viewport'
 
-type Props = PageProps<HomePageQueryQuery>
+const belowTheFoldPreloader = () =>
+  import('../components/HomePage/BelowTheFold')
 
-const Home: FC<Props> = ({ data }) => {
+const BelowTheFold = lazy(belowTheFoldPreloader)
+
+type Props = PageProps<unknown>
+
+const Home: FC<Props> = (props) => {
   useEffect(() => {
     ;(window as any).vtexrca('sendevent', 'homeView', {})
   }, [])
@@ -18,27 +22,15 @@ const Home: FC<Props> = ({ data }) => {
   return (
     <Layout>
       <SEO />
-      <HomeBlocks data={data} />
+      <AboveTheFold {...props} />
+      <SuspenseViewport
+        fallback={<BelowTheFoldPreview />}
+        preloader={belowTheFoldPreloader}
+      >
+        <BelowTheFold />
+      </SuspenseViewport>
     </Layout>
   )
 }
-
-export const query = graphql`
-  query HomePageQuery {
-    vtex {
-      productSearch(
-        from: 0
-        to: 9
-        orderBy: "OrderByScoreDESC"
-        selectedFacets: [{ key: "c", value: "apparel---accessories" }]
-        hideUnavailableItems: true
-      ) {
-        products {
-          ...ProductSummary_syncProduct
-        }
-      }
-    }
-  }
-`
 
 export default Home
