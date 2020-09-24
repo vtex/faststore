@@ -4,7 +4,7 @@ import { Grid, Flex, Card } from '@vtex/store-ui'
 
 import Container from '../Container'
 
-const Preview: FC = () => (
+const AboveTheFoldPreview: FC = () => (
   <Container>
     <Flex variant="productPage.container">
       <Skeleton width="500px" height="45px" />
@@ -21,4 +21,4 @@ const Preview: FC = () => (
   </Container>
 )
 
-export default Preview
+export default AboveTheFoldPreview
