@@ -1,0 +1,27 @@
+{
+  "name": "@vtex/lighthouse-config",
+  "version": "0.0.0",
+  "author": "Emerson Laurentino",
+  "license": "MIT",
+  "repository": "vtex/lighthouse-config",
+  "main": "dist/index.js",
+  "module": "dist/lighthouse-config.esm.js",
+  "typings": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "develop": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "prepare": "tsdx build"
+  },
+  "devDependencies": {
+    "tsdx": "^0.14.0",
+    "typescript": "^4.0.3"
+  }
+}
