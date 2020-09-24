@@ -65,6 +65,6 @@ export * from './Slider/hooks/useInterval'
 export * from './Slider/hooks/useSlider'
 export * from './Slider/hooks/useResponsiveSlider'
 // Popover
-export * from './Popover'
+export * from 'reakit/Popover'
 // Centered
-export * from './Center'
+export { default as Center } from './Center'
