@@ -1,6 +1,7 @@
 import {
   Content as ContentType,
   isContent as isContentType,
+  getMeta,
 } from '@vtex/gatsby-transformer-vtex-cms'
 import React, { FC, Suspense } from 'react'
 import { Helmet } from 'react-helmet'
@@ -22,10 +23,9 @@ const Preview: FC = () => {
     return <div>No Preview found. Waiting for input</div>
   }
 
-  const {
-    meta: { title, slug },
-    blocks,
-  } = content
+  const { blocks } = content
+
+  const { title, slug } = getMeta(content)
 
   return (
     <>
