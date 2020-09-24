@@ -25,7 +25,7 @@ const Preview: FC = () => {
 
   const { blocks } = content
 
-  const { title, slug } = getMeta(content)
+  const { title, slug } = getMeta(content) as any
 
   return (
     <>
