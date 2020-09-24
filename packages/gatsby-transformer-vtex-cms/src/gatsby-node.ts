@@ -1,6 +1,6 @@
 import { CreateNodeArgs, GatsbyNode } from 'gatsby'
 
-import { isContent } from './cms'
+import { getMeta, isContent } from './cms'
 import { BlockDOM } from './compiler'
 
 const TYPE = 'CMSPage'
@@ -29,7 +29,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
 
   const obj = {
     src: dom.renderToString(),
-    slug: content.meta.slug,
+    slug: getMeta(content)?.slug,
     name: node.name,
   }
 
