@@ -12,9 +12,12 @@ interface Props {
 const FloatingActionButton: FC<Props> = ({
   variant = 'floatingActionButton',
   href = '/',
+  children,
 }) => (
   <SuspenseSSR fallback={null}>
-    <FAButton variant={variant} href={href} />
+    <FAButton variant={variant} href={href}>
+      {children}
+    </FAButton>
   </SuspenseSSR>
 )
 
