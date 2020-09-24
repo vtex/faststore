@@ -24,7 +24,8 @@ export type FooterQueryQuery = {
 // Query Related Code
 
 export const FooterQuery = {
-  query: undefined,
+  query:
+    'query FooterQuery {\n  allDepartment(sort: {order: ASC, fields: name}) {\n    nodes {\n      name\n      slug\n    }\n  }\n}\n',
   sha256Hash:
     '710a5955f8eb20fb4d3015e76d050b41fac29fcf45c9edcbae750ecde0e51bf2',
   operationName: 'FooterQuery',
