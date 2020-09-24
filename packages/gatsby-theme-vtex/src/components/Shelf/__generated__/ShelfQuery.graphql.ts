@@ -16,14 +16,16 @@ type Scalars = {
 
 // Operation related types
 export type ShelfQueryQueryVariables = Exact<{
+  simulationBehavior?: Maybe<Vtex_SimulationBehavior>
+  hideUnavailableItems?: Maybe<Scalars['Boolean']>
+  salesChannel?: Maybe<Scalars['String']>
+  collection: Maybe<Scalars['String']>
+  category?: Maybe<Scalars['String']>
+  orderBy?: Maybe<Scalars['String']>
   query: Maybe<Scalars['String']>
   map: Maybe<Scalars['String']>
-  from: Maybe<Scalars['Int']>
-  to: Maybe<Scalars['Int']>
-  orderBy: Maybe<Scalars['String']>
-  collection: Maybe<Scalars['String']>
-  salesChannel: Maybe<Scalars['String']>
-  hideUnavailableItems: Maybe<Scalars['Boolean']>
+  from?: Maybe<Scalars['Int']>
+  to?: Maybe<Scalars['Int']>
 }>
 
 export type ShelfQueryQuery = {
@@ -69,8 +71,8 @@ export type ShelfQueryQuery = {
 
 export const ShelfQuery = {
   query:
-    'query ShelfQuery($query: String, $map: String, $from: Int, $to: Int, $orderBy: String, $collection: String, $salesChannel: String, $hideUnavailableItems: Boolean) {\n  vtex {\n    products(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy, collection: $collection, salesChannel: $salesChannel, hideUnavailableItems: $hideUnavailableItems) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n            ListPrice\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query ShelfQuery($simulationBehavior: VTEX_SimulationBehavior = default, $hideUnavailableItems: Boolean = true, $salesChannel: String = "1", $collection: String, $category: String = "", $orderBy: String = "OrderByTopSaleDESC", $query: String, $map: String, $from: Int = 0, $to: Int = 1) {\n  vtex {\n    products(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy, collection: $collection, salesChannel: $salesChannel, hideUnavailableItems: $hideUnavailableItems, category: $category, simulationBehavior: $simulationBehavior) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n            ListPrice\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'd4f6848f630b9cc9ecd45420e0f8013bfe73163584252f707de6a8091ebe9d99',
+    'a6811b63151cee4462fafbc2f6ce442e6f37b2c6228278c18ebdfc0761431d96',
   operationName: 'ShelfQuery',
 }

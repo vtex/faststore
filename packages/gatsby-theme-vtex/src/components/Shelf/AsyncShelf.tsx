@@ -29,14 +29,16 @@ const AsyncShelf: FC<Props> = ({ searchParams, ...props }) => {
 
 export const query = gql`
   query ShelfQuery(
+    $simulationBehavior: VTEX_SimulationBehavior = default
+    $hideUnavailableItems: Boolean = true
+    $salesChannel: String = "1"
+    $collection: String
+    $category: String = ""
+    $orderBy: String = "OrderByTopSaleDESC"
     $query: String
     $map: String
-    $from: Int
-    $to: Int
-    $orderBy: String
-    $collection: String
-    $salesChannel: String
-    $hideUnavailableItems: Boolean
+    $from: Int = 0
+    $to: Int = 9
   ) {
     vtex {
       products(
@@ -48,6 +50,8 @@ export const query = gql`
         collection: $collection
         salesChannel: $salesChannel
         hideUnavailableItems: $hideUnavailableItems
+        category: $category
+        simulationBehavior: $simulationBehavior
       ) {
         ...ProductSummary_syncProduct
       }
