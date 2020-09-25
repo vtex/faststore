@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
-import { ProductSummary_SyncProductFragment } from '../__generated__/ProductSummary_syncProduct.graphql'
-import ProductSummary from '../ProductSummary'
+import { ProductSummary_SyncProductFragment } from '../../__generated__/ProductSummary_syncProduct.graphql'
+import ProductSummary from '../../ProductSummary'
 
 interface Props {
   products: Array<ProductSummary_SyncProductFragment | undefined | null>

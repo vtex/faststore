@@ -1,12 +1,15 @@
 /* eslint-disable no-shadow */
 import { graphql, PageProps } from 'gatsby'
-import React, { FC } from 'react'
+import React, { FC, lazy } from 'react'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
-import SearchTemplate from '../components/SearchPage'
-import Preview from '../components/SearchPage/Preview'
+import AboveTheFold from '../components/SearchPage/AboveTheFold'
+import AboveTheFoldPreview from '../components/SearchPage/AboveTheFoldPreview'
+import BelowTheFoldPreview from '../components/SearchPage/BelowTheFoldPreview'
+import SuspenseSSR from '../components/Suspense/SSR'
+import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
 import { SearchProvider } from '../sdk/search/Provider'
 import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
@@ -16,9 +19,19 @@ import {
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
 
-type Props = PageProps<SearchPageQueryQuery, SearchPageQueryQueryVariables>
+const belowTheFoldPreloader = () =>
+  import('../components/SearchPage/BelowTheFold')
 
-const SearchPage: FC<Props> = ({ pageContext, data: staticData }) => {
+const BelowTheFold = lazy(belowTheFoldPreloader)
+const SEO = lazy(() => import('../components/SearchPage/SEO'))
+
+export type Props = PageProps<
+  SearchPageQueryQuery,
+  SearchPageQueryQueryVariables
+>
+
+const SearchPage: FC<Props> = (props) => {
+  const { pageContext, data: staticData } = props
   const { staticPath } = pageContext
   const filters = useSearchFiltersFromPageContext(pageContext)
   const { data } = useQuery<
@@ -37,7 +50,16 @@ const SearchPage: FC<Props> = ({ pageContext, data: staticData }) => {
 
   return (
     <SearchProvider filters={filters as any} data={data}>
-      <SearchTemplate data={data} />
+      <AboveTheFold {...props} data={data} />
+      <SuspenseSSR fallback={null}>
+        <SEO {...props} data={data} />
+      </SuspenseSSR>
+      <SuspenseViewport
+        fallback={<BelowTheFoldPreview />}
+        preloader={belowTheFoldPreloader}
+      >
+        <BelowTheFold />
+      </SuspenseViewport>
     </SearchProvider>
   )
 }
@@ -49,7 +71,10 @@ const SearchPageContainer: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <HybridWrapper isPrerendered={staticPath} fallback={<Preview />}>
+      <HybridWrapper
+        isPrerendered={staticPath}
+        fallback={<AboveTheFoldPreview />}
+      >
         <ErrorBoundary fallback={<div>Error !!</div>}>
           <SearchPage {...props} />
         </ErrorBoundary>

@@ -6,10 +6,10 @@ import React, { FC, Fragment } from 'react'
 import {
   SearchQuery,
   SearchQueryQuery,
-} from './__generated__/SearchQuery.graphql'
+} from '../../SearchPage/__generated__/SearchQuery.graphql'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
-import { useSearch } from '../../sdk/search/useSearch'
+import { useSearch } from '../../../sdk/search/useSearch'
 
 interface Props {
   initialData: SearchQueryQuery | undefined
