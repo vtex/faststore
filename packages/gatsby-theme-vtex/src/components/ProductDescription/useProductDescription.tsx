@@ -23,14 +23,19 @@ const useProductDescription = ({ slug, suspense = false }: Props) => {
   })
 
   return {
-    data: data?.vtex?.product?.specificationGroups as any,
+    data: data?.vtex?.product?.description as string,
   }
+  return { data: '' }
 }
 
 export const query = gql`
   query ProductDescriptionQuery($slug: String) {
-    productName
-    description
+    vtex {
+      product(slug: $slug) {
+        description
+        productName
+      }
+    }
   }
 `
 
