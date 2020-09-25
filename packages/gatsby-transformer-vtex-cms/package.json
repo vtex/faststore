@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-transformer-vtex-cms",
-  "version": "0.69.0-alpha.0",
+  "version": "0.69.0-alpha.1",
   "description": "Gatsby transformer plugin for building pages from VTEX CMS.",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,6 @@
     "cross-env": "^7.0.2",
     "gatsby": "^2.24.37",
     "typescript": "^3.9.5"
-  }
+  },
+  "gitHead": "a8f315d7a006b88859d1d63d9df99190cd0f8ef0"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-graphql",
-  "version": "0.69.0-alpha.0",
+  "version": "0.69.0-alpha.1",
   "description": "Gatsby plugin for unsing gatsby's grahpql on the client.",
   "main": "index.js",
   "browser": "src/index.ts",
@@ -33,5 +33,6 @@
     "@graphql-codegen/typescript-operations": "^1.17.7",
     "@graphql-tools/relay-operation-optimizer": "^6.0.15",
     "fs-extra": "^9.0.1"
-  }
+  },
+  "gitHead": "a8f315d7a006b88859d1d63d9df99190cd0f8ef0"
 }
