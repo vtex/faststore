@@ -1,7 +1,7 @@
 import { Drawer } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
-import DesktopSearchFilters, { Props as DesktopProps } from '../Desktop'
+import DesktopSearchFilters, { Props as DesktopProps } from './Desktop'
 
 interface Props extends DesktopProps {
   toggle: () => void
