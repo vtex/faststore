@@ -1,5 +1,5 @@
-import { ProductDescription } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import { ProductDescription, ProductDescriptionTitle } from '@vtex/store-ui'
+import React, { FC, Fragment } from 'react'
 
 import useProductDescription from './useProductDescription'
 
@@ -7,10 +7,15 @@ interface Props {
   slug: string
 }
 
-const Specification: FC<Props> = ({ slug }) => {
-  const specification = useProductDescription({ slug })
+const Description: FC<Props> = ({ slug }) => {
+  const description = useProductDescription({ slug })
 
-  return <ProductDescription {...specification} />
+  return (
+    <Fragment>
+      <ProductDescriptionTitle>Description</ProductDescriptionTitle>
+      <ProductDescription {...description} />
+    </Fragment>
+  )
 }
 
-export default Specification
+export default Description

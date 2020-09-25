@@ -54,13 +54,13 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
             <BuyButton sku={items[0] as any} />
           </Card>
         </Grid>
+        <ProductDescription slug={linkText} />
         <SuspenseViewport
           fallback={null}
           preloader={productSpecificationLoader}
         >
           <ProductSpecification slug={linkText} />
         </SuspenseViewport>
-        <ProductDescription slug={linkText} />
       </Container>
     </Flex>
   )
