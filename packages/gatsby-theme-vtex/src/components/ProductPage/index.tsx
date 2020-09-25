@@ -26,7 +26,6 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
   const {
     categoryTree: breadcrumb = [],
     productName,
-    description,
     linkText,
     items,
   } = product as any
@@ -61,7 +60,7 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
         >
           <ProductSpecification slug={linkText} />
         </SuspenseViewport>
-        <ProductDescription description={description} />
+        <ProductDescription slug={linkText} />
       </Container>
     </Flex>
   )
@@ -70,7 +69,6 @@ const ProductDetailsTemplate: FC<Props> = ({ product }) => {
 export const query = graphql`
   fragment ProductDetailsTemplate_product on VTEX_Product {
     productName
-    description
     linkText
     items {
       images {
