@@ -4,13 +4,14 @@ import { PageProps } from 'gatsby'
 import AboveTheFold from '../components/HomePage/AboveTheFold'
 import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO/siteMetadata'
 import SuspenseViewport from '../components/Suspense/Viewport'
+import SuspenseSSR from '../components/Suspense/SSR'
 
 const belowTheFoldPreloader = () =>
   import('../components/HomePage/BelowTheFold')
 
 const BelowTheFold = lazy(belowTheFoldPreloader)
+const SEO = lazy(() => import('../components/HomePage/SEO'))
 
 type Props = PageProps<unknown>
 
@@ -21,8 +22,10 @@ const Home: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <SEO />
       <AboveTheFold {...props} />
+      <SuspenseSSR fallback={null}>
+        <SEO />
+      </SuspenseSSR>
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
