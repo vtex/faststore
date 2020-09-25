@@ -1,30 +1,34 @@
 import { graphql, PageProps } from 'gatsby'
-import React, { FC } from 'react'
+import React, { FC, lazy } from 'react'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
-import ProductDetails from '../components/ProductPage'
+import AboveTheFold from '../components/ProductPage/AboveTheFold'
+import AboveTheFoldPreview from '../components/ProductPage/AboveTheFoldPreview'
+import BelowTheFoldPreview from '../components/ProductPage/BelowTheFoldPreview'
+import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
 import {
   ProductPageQuery,
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
-import Preview from '../components/ProductPage/Preview'
 
-type Props = PageProps<
+const belowTheFoldPreloader = () =>
+  import('../components/ProductPage/BelowTheFold')
+
+const BelowTheFold = lazy(belowTheFoldPreloader)
+
+export type Props = PageProps<
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables
 > & {
   slug?: string
 }
 
-const ProductPage: FC<Props> = ({
-  data: initialData,
-  pageContext,
-  slug: routeSlug,
-}) => {
+const ProductPage: FC<Props> = (props) => {
+  const { data: initialData, pageContext, slug: routeSlug } = props
   const { staticPath } = pageContext
   const slug = (pageContext.slug ?? routeSlug)!
 
@@ -42,7 +46,17 @@ const ProductPage: FC<Props> = ({
     return <div>Product Not Found</div>
   }
 
-  return <ProductDetails product={data.vtex.product} />
+  return (
+    <>
+      <AboveTheFold {...props} data={data} slug={slug} />
+      <SuspenseViewport
+        fallback={<BelowTheFoldPreview />}
+        preloader={belowTheFoldPreloader}
+      >
+        <BelowTheFold slug={slug} />
+      </SuspenseViewport>
+    </>
+  )
 }
 
 const ProductPageContainer: FC<Props> = (props) => {
@@ -52,7 +66,10 @@ const ProductPageContainer: FC<Props> = (props) => {
 
   return (
     <Layout>
-      <HybridWrapper isPrerendered={staticPath} fallback={<Preview />}>
+      <HybridWrapper
+        isPrerendered={staticPath}
+        fallback={<AboveTheFoldPreview />}
+      >
         <ErrorBoundary fallback={<div>Error !!</div>}>
           <ProductPage {...props} />
         </ErrorBoundary>
