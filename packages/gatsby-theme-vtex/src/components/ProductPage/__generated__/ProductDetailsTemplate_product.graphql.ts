@@ -16,6 +16,7 @@ type Scalars = {
 
 // Operation related types
 export type ProductDetailsTemplate_ProductFragment = {
+  productReference: Maybe<string>
   productName: Maybe<string>
   linkText: Maybe<string>
   items: Maybe<

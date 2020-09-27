@@ -23,6 +23,7 @@ export type ProductPageQueryQueryVariables = Exact<{
 export type ProductPageQueryQuery = {
   vtex: {
     product: Maybe<{
+      productReference: Maybe<string>
       productName: Maybe<string>
       linkText: Maybe<string>
       productId: Maybe<string>
@@ -61,8 +62,8 @@ export type ProductPageQueryQuery = {
 
 export const ProductPageQuery = {
   query:
-    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n          }\n        }\n        itemId\n      }\n      productId\n      description\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
+    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n          }\n        }\n        itemId\n      }\n      productId\n      description\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '56c9480dc8bf20f79bcf3f6bee72acd67d2b89d8246275db0d8b7e04e36ad40e',
+    '8bad4c2a0f66a500626d1d8c13cd4cdfbcff881cd4be3a128a1002af315f8e26',
   operationName: 'ProductPageQuery',
 }
