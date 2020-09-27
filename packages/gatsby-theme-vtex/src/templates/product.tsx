@@ -48,9 +48,15 @@ const ProductPage: FC<Props> = (props) => {
     return <div>Product Not Found</div>
   }
 
+  const pageProps = {
+    ...props,
+    data,
+    slug,
+  }
+
   return (
     <>
-      <AboveTheFold {...props} data={data} slug={slug} />
+      <AboveTheFold {...pageProps} />
       <SuspenseSSR fallback={null}>
         <SEO {...props} data={data} />
       </SuspenseSSR>
@@ -58,7 +64,7 @@ const ProductPage: FC<Props> = (props) => {
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
       >
-        <BelowTheFold slug={slug} />
+        <BelowTheFold {...pageProps} />
       </SuspenseViewport>
     </>
   )
