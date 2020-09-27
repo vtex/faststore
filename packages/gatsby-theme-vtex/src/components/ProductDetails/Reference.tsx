@@ -7,7 +7,7 @@ interface Props {
 
 const ProductDetailsReference: FC<Props> = ({
   children,
-  variant = 'details',
-}) => <Box variant={`product.${variant}.reference`}>{children}</Box>
+  variant = 'product',
+}) => <Box variant={`${variant}.reference`}>{children}</Box>
 
 export default ProductDetailsReference
