@@ -52,10 +52,10 @@ export type SearchPageQueryQuery = {
                     Array<
                       Maybe<{
                         sellerId: Maybe<string>
-                        commertialOffer: Maybe<{
-                          AvailableQuantity: Maybe<number>
-                          Price: Maybe<number>
-                          ListPrice: Maybe<number>
+                        commercialOffer: Maybe<{
+                          availableQuantity: Maybe<number>
+                          price: Maybe<number>
+                          listPrice: Maybe<number>
                         }>
                       }>
                     >
@@ -120,8 +120,8 @@ export type SearchPageQueryQuery = {
 
 export const SearchPageQuery = {
   query:
-    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, hideUnavailableItems: true, simulationBehavior: skip, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, hideUnavailableItems: true, simulationBehavior: skip, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n            }\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'd3b29cae645d60ee462b800f7e0de1d9801af4e808dc50cb253703075f5438bc',
+    'ed7c2c4f576330703e9d03a0b783d543c7da562728249ffa4c67d64bf10494a6',
   operationName: 'SearchPageQuery',
 }

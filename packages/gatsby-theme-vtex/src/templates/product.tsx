@@ -1,5 +1,5 @@
+import React, { FC, Fragment, lazy } from 'react'
 import { graphql, PageProps } from 'gatsby'
-import React, { FC, lazy } from 'react'
 
 import ErrorBoundary from '../components/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
@@ -55,7 +55,7 @@ const ProductPage: FC<Props> = (props) => {
   }
 
   return (
-    <>
+    <Fragment>
       <AboveTheFold {...pageProps} />
       <SuspenseSSR fallback={null}>
         <SEO {...props} data={data} />
@@ -66,11 +66,11 @@ const ProductPage: FC<Props> = (props) => {
       >
         <BelowTheFold {...pageProps} />
       </SuspenseViewport>
-    </>
+    </Fragment>
   )
 }
 
-const ProductPageContainer: FC<Props> = (props) => {
+const Page: FC<Props> = (props) => {
   const {
     pageContext: { staticPath },
   } = props
@@ -108,4 +108,4 @@ export const query = graphql`
   }
 `
 
-export default ProductPageContainer
+export default Page

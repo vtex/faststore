@@ -57,13 +57,9 @@ export const fragment = graphql`
         imageUrl
         imageText
       }
-      sellers {
-        sellerId
-        commertialOffer {
-          AvailableQuantity
-          Price
-        }
-      }
+    }
+    productClusters {
+      name
     }
   }
 `

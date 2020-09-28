@@ -15,11 +15,11 @@ type Scalars = {
 }
 
 // Operation related types
-export type UseAsyncProductQueryQueryVariables = Exact<{
+export type AsyncProductQueryQueryVariables = Exact<{
   slug: Maybe<Scalars['String']>
 }>
 
-export type UseAsyncProductQueryQuery = {
+export type AsyncProductQueryQuery = {
   vtex: {
     product: Maybe<{
       productId: Maybe<string>
@@ -38,10 +38,10 @@ export type UseAsyncProductQueryQuery = {
             sellers: Maybe<
               Array<
                 Maybe<{
-                  commertialOffer: Maybe<{
-                    AvailableQuantity: Maybe<number>
-                    ListPrice: Maybe<number>
-                    Price: Maybe<number>
+                  commercialOffer: Maybe<{
+                    availableQuantity: Maybe<number>
+                    listPrice: Maybe<number>
+                    price: Maybe<number>
                   }>
                 }>
               >
@@ -55,10 +55,10 @@ export type UseAsyncProductQueryQuery = {
 
 // Query Related Code
 
-export const useAsyncProductQuery = {
+export const AsyncProductQuery = {
   query:
-    'query useAsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          commertialOffer {\n            AvailableQuantity\n            ListPrice\n            Price\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query AsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          commercialOffer: commertialOffer {\n            availableQuantity: AvailableQuantity\n            listPrice: ListPrice\n            price: Price\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'ee5bffe7a8504361512c12f21f5f8017bd7341c2f54215c0f72eafad10ae7ebf',
-  operationName: 'useAsyncProductQuery',
+    '81c7db6fb5c82a66e0176452be6e43057593bcb5df40583ea33004e64dc96138',
+  operationName: 'AsyncProductQuery',
 }

@@ -5,7 +5,10 @@ interface Props {
   variant?: string
 }
 
-const ProductDetailsTitle: FC<Props> = ({ children, variant = 'product' }) => (
+const ProductDetailsTitle: FC<Props> = ({
+  variant = 'productDetails',
+  children,
+}) => (
   <Heading variant={`${variant}.title`} as="h1">
     {children}
   </Heading>

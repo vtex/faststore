@@ -5,29 +5,18 @@ import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 
 interface Props {
   price: number
-  listPrice: number
-
   variant?: string
 }
 
-const ListPrice: FC<Props> = ({
-  variant = 'offer',
-  listPrice,
-  children,
-  price,
-}) => {
+const Price: FC<Props> = ({ price, children, variant = 'offer' }) => {
   const { format } = useNumberFormat()
 
-  if (price === listPrice) {
-    return null
-  }
-
   return (
-    <Box variant={`${variant}.listPrice`}>
-      {format(listPrice)}
+    <Box variant={`${variant}.price`}>
+      {format(price)}
       {children}
     </Box>
   )
 }
 
-export default ListPrice
+export default Price

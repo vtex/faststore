@@ -64,7 +64,7 @@ const SearchPage: FC<Props> = (props) => {
   )
 }
 
-const SearchPageContainer: FC<Props> = (props) => {
+const Page: FC<Props> = (props) => {
   const {
     pageContext: { staticPath },
   } = props
@@ -152,4 +152,4 @@ export const query = graphql`
   }
 `
 
-export default SearchPageContainer
+export default Page

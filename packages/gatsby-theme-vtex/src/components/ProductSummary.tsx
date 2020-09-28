@@ -6,7 +6,7 @@ import { Card, Heading, jsx, LocalizedLink } from '@vtex/store-ui'
 import { ProductSummary_SyncProductFragment } from './__generated__/ProductSummary_syncProduct.graphql'
 import BuyButton from './BuyButton'
 import OfferPreview from './Offer/Preview'
-import SyncOffer from './Offer/Sync'
+// import SyncOffer from './Offer/Sync'
 import ProductSummaryImage from './ProductSummaryImage'
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
   const { linkText, items, productName } = product as any
   const [{ imageUrl, imageText }] = items[0].images
-  const offer = items[0].sellers?.[0]?.commertialOffer
+  // const offer = items[0].sellers?.[0]?.commercialOffer
 
   return (
     <LocalizedLink
@@ -44,11 +44,11 @@ const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
         <Heading variant="summary.name" as="h3">
           {productName.slice(0, 12)}
         </Heading>
-        {!offer ? (
-          <OfferPreview variant="summary" />
+        <OfferPreview variant="summary" />
+        {/* {!offer ? (
         ) : (
-          <SyncOffer sku={items[0]} variant="summary" />
-        )}
+          // <SyncOffer sku={items[0]} variant="summary" />
+        )} */}
         <BuyButton sku={items[0]} />
       </Card>
     </LocalizedLink>
@@ -69,10 +69,10 @@ export const fragment = graphql`
       }
       sellers {
         sellerId
-        commertialOffer {
-          AvailableQuantity
-          Price
-          ListPrice
+        commercialOffer: commertialOffer {
+          availableQuantity: AvailableQuantity
+          price: Price
+          listPrice: ListPrice
         }
       }
     }
