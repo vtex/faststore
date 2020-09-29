@@ -25,7 +25,6 @@ const useProductDescription = ({ slug, suspense = false }: Props) => {
   return {
     data: data?.vtex?.product?.description as string,
   }
-  return { data: '' }
 }
 
 export const query = gql`
