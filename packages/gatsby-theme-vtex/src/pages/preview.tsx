@@ -23,7 +23,7 @@ const Preview: FC = () => {
     return <div>No Preview found. Waiting for input</div>
   }
 
-  const { blocks } = content
+  const { beforeBlocks, blocks, afterBlocks } = content
 
   const { title, slug } = getMeta(content) as any
 
@@ -33,7 +33,17 @@ const Preview: FC = () => {
         <title>{title}</title>
       </Helmet>
       <div>slug: {slug}</div>
+      {beforeBlocks?.map((block, index) => (
+        <Suspense key={`block-${index}`} fallback={<div>Loading...</div>}>
+          <Block block={block} />
+        </Suspense>
+      ))}
       {blocks.map((block, index) => (
+        <Suspense key={`block-${index}`} fallback={<div>Loading...</div>}>
+          <Block block={block} />
+        </Suspense>
+      ))}
+      {afterBlocks?.map((block, index) => (
         <Suspense key={`block-${index}`} fallback={<div>Loading...</div>}>
           <Block block={block} />
         </Suspense>
