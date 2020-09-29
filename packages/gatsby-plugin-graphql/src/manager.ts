@@ -99,7 +99,7 @@ export class QueryManager {
 
         if (this.queries.get(queryName) !== undefined) {
           console.warn(
-            `Skipping query ${queryName} since it was already defined. If this wasn't the itended behavior please change your query operation name`
+            `Skipping query ${queryName} since it was already defined. If this wasn't the intended behavior please change your query operation name`
           )
 
           return
@@ -119,7 +119,7 @@ export class QueryManager {
 
         if (this.fragments.get(fragmentName) !== undefined) {
           console.warn(
-            `Skipping query ${fragmentName} since it was already defined. If this wasn't the itended behavior please change your query operation name`
+            `Skipping query ${fragmentName} since it was already defined. If this wasn't the intended behavior please change your query operation name`
           )
 
           return

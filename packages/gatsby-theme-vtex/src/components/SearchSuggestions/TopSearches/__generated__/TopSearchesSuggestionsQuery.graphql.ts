@@ -30,7 +30,8 @@ export type TopSearchesSuggestionsQueryQuery = {
 // Query Related Code
 
 export const TopSearchesSuggestionsQuery = {
-  query: undefined,
+  query:
+    'query TopSearchesSuggestionsQuery {\n  vtex {\n    topSearches {\n      searches {\n        term\n        key: term\n      }\n    }\n  }\n}\n',
   sha256Hash:
     '0f17502d9ac8f6d58c692554521e07ab9dd0f6094271196bd3c9d37207dabeef',
   operationName: 'TopSearchesSuggestionsQuery',
