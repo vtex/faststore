@@ -25,15 +25,20 @@ const parseBlockName = (name: string) => {
 export class BlockDOM {
   protected meta: RenderMetaInfo
 
-  constructor(protected blocks: Block[]) {
+  constructor(protected blocks: Block[] | undefined) {
     this.meta = {
       imports: new Map(),
     }
   }
 
   public renderToString = (): string => {
-    const blocksStr = this.renderBlocksToString(this.blocks)
-    const imports = this.renderImportsToString()
+    let blocksStr = '<></>'
+    let imports
+
+    if (this.blocks) {
+      blocksStr = this.renderBlocksToString(this.blocks)
+      imports = this.renderImportsToString()
+    }
 
     return `
 import React, { FC } from 'react'
@@ -43,6 +48,7 @@ ${imports}
 const CMSAutogenPage: FC = () => (
   ${blocksStr}
 )
+
 
 export default CMSAutogenPage
 `

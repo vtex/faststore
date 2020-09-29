@@ -1,6 +1,7 @@
 export interface Meta {
   slug: string
   title?: string
+  description?: string
 }
 
 export interface Block {
@@ -21,20 +22,20 @@ export interface Content {
   lastUpdatedAt: string
 }
 
-export const getMeta = (c: Content) => {
-  if (!c?.extraBlocks) {
+export const getMeta = (extraBlocks: BlockGroup[] | undefined) => {
+  if (!extraBlocks) {
     return {}
   }
 
-  const visibilityExtraBlock = c?.extraBlocks?.find(
+  const visibilityExtraBlock = extraBlocks.find(
     (block) => block?.name === 'admin/visibilityTitle'
   )
 
-  if (!visibilityExtraBlock || !visibilityExtraBlock?.blocks) {
+  if (!visibilityExtraBlock || !visibilityExtraBlock.blocks) {
     return {}
   }
 
-  const meta = visibilityExtraBlock?.blocks?.find(
+  const meta = visibilityExtraBlock.blocks?.find(
     (block) => block.name === 'informations'
   )
 
@@ -46,6 +47,6 @@ export const isBlock = (b: any): b is Block =>
 
 export const isContent = (c: any): c is Content =>
   !!c &&
-  typeof getMeta(c)?.slug === 'string' &&
+  typeof getMeta(c.extraBlocks)?.slug === 'string' &&
   Array.isArray(c.blocks) &&
   (c.blocks.length === 0 || c.blocks.every(isBlock))

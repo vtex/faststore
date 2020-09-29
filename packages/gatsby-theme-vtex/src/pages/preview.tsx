@@ -23,9 +23,9 @@ const Preview: FC = () => {
     return <div>No Preview found. Waiting for input</div>
   }
 
-  const { beforeBlocks, blocks, afterBlocks } = content
+  const { beforeBlocks, blocks, afterBlocks, extraBlocks } = content
 
-  const { title, slug } = getMeta(content) as any
+  const { title, slug } = getMeta(extraBlocks) as any
 
   return (
     <>

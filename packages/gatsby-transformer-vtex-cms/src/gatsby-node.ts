@@ -25,11 +25,13 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
     return
   }
 
-  const dom = new BlockDOM(content.blocks)
+  const { blocks, extraBlocks } = content
+
+  const dom = new BlockDOM(blocks)
 
   const obj = {
     src: dom.renderToString(),
-    slug: getMeta(content)?.slug,
+    slug: getMeta(extraBlocks)?.slug,
     name: node.name,
   }
 
