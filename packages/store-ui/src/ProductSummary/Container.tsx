@@ -1,22 +1,20 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { LocalizedLink, jsx } from '@vtex/store-ui'
+import { jsx } from 'theme-ui'
+
+import LocalizedLink from '../LocalizedLink/index'
 
 interface Props {
-  linkText: string
-  variant?: string
+  to: string
+  variant: string
 }
 
-const ProductSummaryContainer: FC<Props> = ({
-  children,
-  linkText,
-  variant = 'productSummary',
-}) => (
+const ProductSummaryContainer: FC<Props> = ({ children, to, variant }) => (
   <LocalizedLink
     state={{ fromSummary: true }}
-    to={`/${linkText}/p`}
+    to={to}
     sx={{
-      variant: `${variant}.container`,
+      variant: `productSummary.${variant}.container`,
       textDecoration: 'none',
       color: 'text',
       flexGrow: 1,

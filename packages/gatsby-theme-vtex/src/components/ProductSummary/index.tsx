@@ -1,17 +1,9 @@
 /** @jsx jsx */
 import { graphql } from 'gatsby'
-import { FC, Fragment } from 'react'
+import { FC } from 'react'
 import { jsx } from '@vtex/store-ui'
-import Skeleton from 'react-loading-skeleton'
 
 import { ProductSummary_ProductFragment } from './__generated__/ProductSummary_product.graphql'
-import BuyButton from '../BuyButton'
-import ProductSummaryImage from './Image'
-import ProductSummaryContainer from './Container'
-import ProductSummaryTitle from './Title'
-import { useBestSeller } from '../../sdk/product/useBestSeller'
-import Offer from '../Offer/index'
-import OfferContainer from '../Offer/Container'
 
 interface Props {
   product: ProductSummary_ProductFragment
@@ -19,43 +11,8 @@ interface Props {
   variant?: string
 }
 
-const OfferPreview = () => (
-  <Fragment>
-    <Skeleton height={20} />
-    <Skeleton height={23} />
-    <Skeleton height={20} />
-  </Fragment>
-)
-
-const ProductSummary: FC<Props> = ({
-  product,
-  loading = 'lazy',
-  variant = 'productSummary',
-}) => {
-  const { linkText, items, productName } = product as any
-  const [sku] = items
-  const { images } = sku
-  const [{ imageUrl, imageText }] = images
-  const seller: any = useBestSeller(sku)
-
-  return (
-    <ProductSummaryContainer linkText={linkText}>
-      <ProductSummaryImage
-        src={imageUrl}
-        alt={imageText ?? 'Product Image'}
-        loading={loading}
-      />
-      <ProductSummaryTitle>{productName}</ProductSummaryTitle>
-      <OfferContainer variant={variant}>
-        {seller ? (
-          <Offer variant={variant} commercialOffer={seller.commercialOffer} />
-        ) : (
-          <OfferPreview />
-        )}
-      </OfferContainer>
-      <BuyButton sku={sku} />
-    </ProductSummaryContainer>
-  )
+const ProductSummary: FC<Props> = () => {
+  return <div>Product Summary</div>
 }
 
 export const fragment = graphql`

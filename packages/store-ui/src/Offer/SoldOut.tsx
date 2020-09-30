@@ -5,8 +5,8 @@ interface Props {
   variant: string
 }
 
-const SoldOut: FC<Props> = ({ children, variant }) => (
+const OfferSoldOut: FC<Props> = ({ children, variant }) => (
   <Box variant={`offer.${variant}.soldout`}>{children}</Box>
 )
 
-export default SoldOut
+export default OfferSoldOut

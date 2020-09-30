@@ -1,0 +1,9 @@
+export const SUMMARY_IMAGE_WIDTH = 200
+export const SUMMARY_IMAGE_HEIGHT = 200
+export const SUMMARY_IMAGE_WIDTH_STR = '200px'
+export const SUMMARY_IMAGE_HEIGHT_STR = '200px'
+
+export const DETAILS_IMAGE_WIDTH = 500
+export const DETAILS_IMAGE_HEIGHT = 500
+export const DETAILS_IMAGE_WIDTH_STR = '500px'
+export const DETAILS_IMAGE_HEIGHT_STR = '500px'

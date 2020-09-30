@@ -1,5 +1,5 @@
-import { useOrderForm } from '../../sdk/orderForm/useOrderForm'
-import { useBestSeller } from '../../sdk/product/useBestSeller'
+import { useOrderForm } from '../orderForm/useOrderForm'
+import { useBestSeller } from '../product/useBestSeller'
 
 interface Seller {
   sellerId: string
