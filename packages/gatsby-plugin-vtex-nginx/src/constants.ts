@@ -5,6 +5,11 @@ export const IMMUTABLE_CACHING_HEADER = {
   value: 'public, max-age=31536000, immutable',
 }
 
+export const PUBLIC_CACHING_HEADER = {
+  name: 'Cache-Control',
+  value: 'public, max-age=0, must-revalidate',
+}
+
 export const COMMON_BUNDLES = ['commons', 'app']
 
 export const PAGE_DATA_DIR = 'page-data'

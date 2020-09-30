@@ -1,5 +1,7 @@
 import { posix } from 'path'
 
+import { PUBLIC_CACHING_HEADER } from './constants'
+
 export {
   stringify,
   convertFromPath,
@@ -55,6 +57,13 @@ function generateNginxConfiguration(
             {
               cmd: ['location', '@s3'],
               children: [
+                {
+                  cmd: [
+                    'add_header',
+                    PUBLIC_CACHING_HEADER.name,
+                    `"${PUBLIC_CACHING_HEADER.value}"`,
+                  ],
+                },
                 storagePassTemplate('$uri'),
                 { cmd: ['proxy_intercept_errors', 'on'] },
               ],

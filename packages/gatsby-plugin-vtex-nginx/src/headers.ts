@@ -7,6 +7,7 @@ import {
   COMMON_BUNDLES,
   IMMUTABLE_CACHING_HEADER,
   PAGE_DATA_DIR,
+  PUBLIC_CACHING_HEADER,
 } from './constants'
 
 function preloadHeadersByPath(
@@ -117,6 +118,18 @@ function applyUserHeadersTransform(
   )
 }
 
+function addPublicCachingHeader(headersMap: PathHeadersMap) {
+  return Object.fromEntries(
+    Object.entries(headersMap).map(([path, headers]) => {
+      if (headers.find((h) => h.name.toLowerCase() === 'cache-control')) {
+        return [path, headers]
+      }
+
+      return [path, [...headers, PUBLIC_CACHING_HEADER]]
+    })
+  )
+}
+
 function headerFromString(header: string): Header {
   const [name, ...rest] = header.split(':')
 
@@ -126,4 +139,9 @@ function headerFromString(header: string): Header {
   }
 }
 
-export { preloadHeadersByPath, cacheHeadersByPath, applyUserHeadersTransform }
+export {
+  addPublicCachingHeader,
+  preloadHeadersByPath,
+  cacheHeadersByPath,
+  applyUserHeadersTransform,
+}
