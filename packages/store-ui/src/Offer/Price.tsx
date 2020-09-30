@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box } from '@vtex/store-ui'
+import { Box } from 'theme-ui'
 
 interface Props {
   variant: string
