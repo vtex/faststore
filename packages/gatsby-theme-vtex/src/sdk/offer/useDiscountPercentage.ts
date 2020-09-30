@@ -3,8 +3,8 @@ interface Offer {
   listPrice: number
 }
 
-export const useDiscountPercentage = (offer: Offer) => {
-  const relation = Math.round((offer.price / offer.listPrice) * 100)
+export const useDiscountPercentage = ({ price, listPrice }: Offer) => {
+  const relation = listPrice !== 0 ? Math.round((price / listPrice) * 100) : 100
 
   return 100 - relation
 }

@@ -107,7 +107,6 @@ export const query = graphql`
         products {
           productId
           productName
-          description
           linkText
           items {
             itemId

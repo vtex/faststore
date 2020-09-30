@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { graphql } from 'gatsby'
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 import { jsx } from '@vtex/store-ui'
+import Skeleton from 'react-loading-skeleton'
 
 import { ProductSummary_ProductFragment } from './__generated__/ProductSummary_product.graphql'
 import BuyButton from '../BuyButton'
@@ -10,7 +11,7 @@ import ProductSummaryContainer from './Container'
 import ProductSummaryTitle from './Title'
 import { useBestSeller } from '../../sdk/product/useBestSeller'
 import Offer from '../Offer/index'
-import OfferPreview from '../Offer/Preview'
+import OfferContainer from '../Offer/Container'
 
 interface Props {
   product: ProductSummary_ProductFragment
@@ -18,7 +19,19 @@ interface Props {
   variant?: string
 }
 
-const ProductSummary: FC<Props> = ({ product, loading = 'lazy', variant = 'productSummary' }) => {
+const OfferPreview = () => (
+  <Fragment>
+    <Skeleton height={20} />
+    <Skeleton height={23} />
+    <Skeleton height={20} />
+  </Fragment>
+)
+
+const ProductSummary: FC<Props> = ({
+  product,
+  loading = 'lazy',
+  variant = 'productSummary',
+}) => {
   const { linkText, items, productName } = product as any
   const [sku] = items
   const { images } = sku
@@ -33,11 +46,13 @@ const ProductSummary: FC<Props> = ({ product, loading = 'lazy', variant = 'produ
         loading={loading}
       />
       <ProductSummaryTitle>{productName}</ProductSummaryTitle>
-      {seller ? (
-        <Offer commercialOffer={seller.commercialOffer} />
-      ) : (
-        <OfferPreview />
-      )}
+      <OfferContainer variant={variant}>
+        {seller ? (
+          <Offer variant={variant} commercialOffer={seller.commercialOffer} />
+        ) : (
+          <OfferPreview />
+        )}
+      </OfferContainer>
       <BuyButton sku={sku} />
     </ProductSummaryContainer>
   )
@@ -47,7 +62,6 @@ export const fragment = graphql`
   fragment ProductSummary_product on VTEX_Product {
     productId
     productName
-    description
     linkText
     productClusters {
       name

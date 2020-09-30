@@ -34,7 +34,6 @@ export type SearchPageQueryQuery = {
           Maybe<{
             productId: Maybe<string>
             productName: Maybe<string>
-            description: Maybe<string>
             linkText: Maybe<string>
             items: Maybe<
               Array<
@@ -108,8 +107,8 @@ export type SearchPageQueryQuery = {
 
 export const SearchPageQuery = {
   query:
-    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, hideUnavailableItems: true, simulationBehavior: skip, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, hideUnavailableItems: true, simulationBehavior: skip, from: 0, to: 9) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '3a2ba9522ce5d559944083f4bf8f4af264c8bf2c8ff675c77cd798f4a6ec305f',
+    '278fc99fdf6b11f5d227309bf7238fe4c6de3f4f9944248a138a60e6458fa21d',
   operationName: 'SearchPageQuery',
 }

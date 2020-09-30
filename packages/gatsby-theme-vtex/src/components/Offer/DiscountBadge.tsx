@@ -9,7 +9,12 @@ interface Props {
   variant: string
 }
 
-const DiscountBadge: FC<Props> = ({ price, listPrice, children, variant }) => {
+const OfferDiscountBadge: FC<Props> = ({
+  price,
+  listPrice,
+  children,
+  variant,
+}) => {
   const discount = useDiscountPercentage({ price, listPrice })
 
   if (discount === 0) {
@@ -17,10 +22,10 @@ const DiscountBadge: FC<Props> = ({ price, listPrice, children, variant }) => {
   }
 
   return (
-    <Flex variant={`${variant}.discountBadge`}>
+    <Flex variant={`offer.${variant}.discountBadge`}>
       -{discount}%{children}
     </Flex>
   )
 }
 
-export default DiscountBadge
+export default OfferDiscountBadge

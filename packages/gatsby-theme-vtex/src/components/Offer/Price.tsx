@@ -8,15 +8,15 @@ interface Props {
   variant: string
 }
 
-const Price: FC<Props> = ({ price, children, variant }) => {
+const OfferPrice: FC<Props> = ({ price, children, variant }) => {
   const { format } = useNumberFormat()
 
   return (
-    <Box variant={`${variant}.price`}>
+    <Box variant={`offer.${variant}.price`}>
       {format(price)}
       {children}
     </Box>
   )
 }
 
-export default Price
+export default OfferPrice

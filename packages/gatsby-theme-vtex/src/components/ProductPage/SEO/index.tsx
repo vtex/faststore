@@ -10,7 +10,7 @@ import { useStructuredProduct } from './useStructuredProduct'
 const SEO: FC<Props> = (props) => {
   const slug = props.slug!
   const [currency] = useCurrency()
-  const { product } = useAsyncProduct({ variables: { slug } })
+  const { product } = useAsyncProduct({ slug })
   const structuredProduct = useStructuredProduct(product as any, currency)
 
   // There is not product. There is no point on generating tags yet

@@ -58,7 +58,7 @@ const ProductPage: FC<Props> = (props) => {
     <Fragment>
       <AboveTheFold {...pageProps} />
       <SuspenseSSR fallback={null}>
-        <SEO {...props} data={data} />
+        <SEO {...pageProps} data={data} />
       </SuspenseSSR>
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}

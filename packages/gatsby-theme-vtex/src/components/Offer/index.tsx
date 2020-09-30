@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 
-import ListPrice from './ListPrice'
-import Price from './Price'
-import DiscountBagde from './DiscountBadge'
+import OfferListPrice from './ListPrice'
+import OfferPrice from './Price'
+import OfferDiscountBagde from './DiscountBadge'
 
 interface Props {
   commercialOffer: {
@@ -14,12 +14,12 @@ interface Props {
 
 const Offer: FC<Props> = ({
   commercialOffer: { price, listPrice },
-  variant = 'offer',
+  variant = 'default',
 }) => (
   <>
-    <DiscountBagde variant={variant} price={price} listPrice={listPrice} />
-    <ListPrice variant={variant} price={price} listPrice={listPrice} />
-    <Price variant={variant} price={price} />
+    <OfferDiscountBagde variant={variant} price={price} listPrice={listPrice} />
+    <OfferListPrice variant={variant} price={price} listPrice={listPrice} />
+    <OfferPrice variant={variant} price={price} />
   </>
 )
 

@@ -7,35 +7,29 @@ import {
 } from './__generated__/AsyncProductQuery.graphql'
 import { useQuery, QueryOptions } from '../../sdk/graphql/useQuery'
 
-type Props = Omit<QueryOptions, 'query' | 'sha256Hash' | 'operationName'>
+export type Options = Omit<
+  QueryOptions,
+  'query' | 'sha256Hash' | 'operationName'
+>
 
-type BaseOptions = Pick<QueryOptions, 'query' | 'sha256Hash' | 'operationName'>
-
-interface Query {
-  vtex: {
-    product: any
-  }
-}
-
-export const createUseAsyncProduct = <Q extends Query, V>(
-  query: BaseOptions
-) => (options: Props) => {
-  const { data, isValidating } = useQuery<Q, V>({
-    ...query,
+export const useAsyncProduct = (
+  variables: AsyncProductQueryQueryVariables,
+  options?: Options
+) => {
+  const { data } = useQuery<
+    AsyncProductQueryQuery,
+    AsyncProductQueryQueryVariables
+  >({
+    ...AsyncProductQuery,
+    variables,
     suspense: true,
     ...options,
   })
 
-  const isLoading = !data && isValidating
   const product = data?.vtex.product ?? null
 
-  return { product, isLoading }
+  return { product }
 }
-
-export const useAsyncProduct = createUseAsyncProduct<
-  AsyncProductQueryQuery,
-  AsyncProductQueryQueryVariables
->(AsyncProductQuery)
 
 export const query = gql`
   query AsyncProductQuery($slug: String) {

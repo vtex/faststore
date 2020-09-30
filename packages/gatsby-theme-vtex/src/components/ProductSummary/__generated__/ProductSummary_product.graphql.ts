@@ -18,7 +18,6 @@ type Scalars = {
 export type ProductSummary_ProductFragment = {
   productId: Maybe<string>
   productName: Maybe<string>
-  description: Maybe<string>
   linkText: Maybe<string>
   productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
   items: Maybe<
