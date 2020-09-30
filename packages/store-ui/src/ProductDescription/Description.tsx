@@ -1,9 +1,18 @@
-import React, { FC } from 'react'
+/** @jsx jsx */
+import { FC } from 'react'
+import { jsx } from 'theme-ui'
 
 export interface ProductDescriptionProps {
   data?: any
+  variant?: string
 }
 
 export const ProductDescription: FC<ProductDescriptionProps> = ({
-  data = 'productDescription',
-}) => <div dangerouslySetInnerHTML={{ __html: data }} />
+  data,
+  variant = 'productDescription',
+}) => (
+  <div
+    dangerouslySetInnerHTML={{ __html: data }}
+    sx={{ variant: `${variant}.description` }}
+  />
+)
