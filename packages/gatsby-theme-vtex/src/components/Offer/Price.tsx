@@ -5,10 +5,10 @@ import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 
 interface Props {
   price: number
-  variant?: string
+  variant: string
 }
 
-const Price: FC<Props> = ({ price, children, variant = 'offer' }) => {
+const Price: FC<Props> = ({ price, children, variant }) => {
   const { format } = useNumberFormat()
 
   return (

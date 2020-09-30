@@ -5,7 +5,7 @@ import React, { FC } from 'react'
 
 import { IMAGE_DEFAULT } from '../../sdk/img/constants'
 import { useScaledImage } from '../../sdk/img/useScaledImage'
-import { SIZE as PRODUCT_SUMMARY_SIZE } from '../ProductSummaryImage'
+import { SIZE as PRODUCT_SUMMARY_SIZE } from '../ProductSummary/Image'
 
 interface Props {
   width?: number

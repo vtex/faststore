@@ -15,11 +15,12 @@ type Scalars = {
 }
 
 // Operation related types
-export type ProductSummary_SyncProductFragment = {
+export type ProductSummary_ProductFragment = {
   productId: Maybe<string>
   productName: Maybe<string>
   description: Maybe<string>
   linkText: Maybe<string>
+  productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
   items: Maybe<
     Array<
       Maybe<{
@@ -32,9 +33,28 @@ export type ProductSummary_SyncProductFragment = {
             Maybe<{
               sellerId: Maybe<string>
               commercialOffer: Maybe<{
+                spotPrice: Maybe<number>
                 availableQuantity: Maybe<number>
                 price: Maybe<number>
                 listPrice: Maybe<number>
+                maxInstallments: Maybe<
+                  Array<
+                    Maybe<{
+                      value: Maybe<number>
+                      numberOfInstallments: Maybe<number>
+                    }>
+                  >
+                >
+                installments: Maybe<
+                  Array<
+                    Maybe<{
+                      value: Maybe<number>
+                      numberOfInstallments: Maybe<number>
+                      interestRate: Maybe<number>
+                    }>
+                  >
+                >
+                teasers: Maybe<Array<{ name: Maybe<string> }>>
               }>
             }>
           >

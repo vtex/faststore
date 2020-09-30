@@ -3,8 +3,8 @@ import { Image } from '@vtex/gatsby-source-vtex'
 import { AspectImage, jsx } from '@vtex/store-ui'
 import { FC } from 'react'
 
-import { IMAGE_DEFAULT } from '../sdk/img/constants'
-import { useScaledImage } from '../sdk/img/useScaledImage'
+import { IMAGE_DEFAULT } from '../../sdk/img/constants'
+import { useScaledImage } from '../../sdk/img/useScaledImage'
 
 interface Props {
   width?: number

@@ -4,15 +4,13 @@ import { Flex } from '@vtex/store-ui'
 import { useDiscountPercentage } from '../../sdk/offer/useDiscountPercentage'
 
 interface Props {
-  offer: {
-    price: number
-    listPrice: number
-  }
-  variant?: string
+  price: number
+  listPrice: number
+  variant: string
 }
 
-const DiscountBadge: FC<Props> = ({ offer, children, variant = 'offer' }) => {
-  const discount = useDiscountPercentage(offer)
+const DiscountBadge: FC<Props> = ({ price, listPrice, children, variant }) => {
+  const discount = useDiscountPercentage({ price, listPrice })
 
   if (discount === 0) {
     return null

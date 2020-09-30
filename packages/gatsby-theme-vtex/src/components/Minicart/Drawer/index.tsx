@@ -6,7 +6,7 @@ import { useCurrency } from '../../../sdk/localization/useCurrency'
 import { HeaderMinicartDrawerContent } from './Content'
 import { HeaderMinicartDrawerFooter } from './Footer'
 import { HeaderMinicartDrawerHeader } from './Header'
-import ProductSummaryImage from '../../ProductSummaryImage'
+import ProductSummaryImage from '../../ProductSummary/Image'
 
 const useHeaderMinicartDrawerContentData = (orderForm: any) => {
   const data = orderForm.value?.items.map((item: any) => ({

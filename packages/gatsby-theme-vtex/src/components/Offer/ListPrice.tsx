@@ -6,16 +6,10 @@ import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 interface Props {
   price: number
   listPrice: number
-
-  variant?: string
+  variant: string
 }
 
-const ListPrice: FC<Props> = ({
-  variant = 'offer',
-  listPrice,
-  children,
-  price,
-}) => {
+const ListPrice: FC<Props> = ({ variant, listPrice, children, price }) => {
   const { format } = useNumberFormat()
 
   if (price === listPrice) {

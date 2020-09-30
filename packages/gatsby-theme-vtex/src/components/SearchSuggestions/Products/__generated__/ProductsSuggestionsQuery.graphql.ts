@@ -34,6 +34,7 @@ export type ProductsSuggestionsQueryQuery = {
           description: Maybe<string>
           linkText: Maybe<string>
           key: Maybe<string>
+          productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
           items: Maybe<
             Array<
               Maybe<{
@@ -48,9 +49,28 @@ export type ProductsSuggestionsQueryQuery = {
                     Maybe<{
                       sellerId: Maybe<string>
                       commercialOffer: Maybe<{
+                        spotPrice: Maybe<number>
                         availableQuantity: Maybe<number>
                         price: Maybe<number>
                         listPrice: Maybe<number>
+                        maxInstallments: Maybe<
+                          Array<
+                            Maybe<{
+                              value: Maybe<number>
+                              numberOfInstallments: Maybe<number>
+                            }>
+                          >
+                        >
+                        installments: Maybe<
+                          Array<
+                            Maybe<{
+                              value: Maybe<number>
+                              numberOfInstallments: Maybe<number>
+                              interestRate: Maybe<number>
+                            }>
+                          >
+                        >
+                        teasers: Maybe<Array<{ name: Maybe<string> }>>
                       }>
                     }>
                   >
@@ -68,8 +88,8 @@ export type ProductsSuggestionsQueryQuery = {
 
 export const ProductsSuggestionsQuery = {
   query:
-    'query ProductsSuggestionsQuery($fullText: String!, $facetKey: String, $facetValue: String, $productOriginVtex: Boolean = false, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(fullText: $fullText, facetKey: $facetKey, facetValue: $facetValue, productOriginVtex: $productOriginVtex, simulationBehavior: $simulationBehavior) {\n      count\n      products {\n        key: productId\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query ProductsSuggestionsQuery($fullText: String!, $facetKey: String, $facetValue: String, $productOriginVtex: Boolean = false, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(fullText: $fullText, facetKey: $facetKey, facetValue: $facetValue, productOriginVtex: $productOriginVtex, simulationBehavior: $simulationBehavior) {\n      count\n      products {\n        key: productId\n        productId\n        productName\n        description\n        linkText\n        productClusters {\n          name\n        }\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              maxInstallments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n              }\n              installments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n                interestRate: InterestRate\n              }\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n              spotPrice\n              teasers {\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'b7fcfd8fc24b56df41f7c45e39d85b9afd182b9554fdf16f25328030a21e388a',
+    '734ed0c86c58a707d368767cf673d13fc01afcb3d5ba3125b8d717998dafe331',
   operationName: 'ProductsSuggestionsQuery',
 }

@@ -37,6 +37,7 @@ export type ShelfQueryQuery = {
           productName: Maybe<string>
           description: Maybe<string>
           linkText: Maybe<string>
+          productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
           items: Maybe<
             Array<
               Maybe<{
@@ -51,9 +52,28 @@ export type ShelfQueryQuery = {
                     Maybe<{
                       sellerId: Maybe<string>
                       commercialOffer: Maybe<{
+                        spotPrice: Maybe<number>
                         availableQuantity: Maybe<number>
                         price: Maybe<number>
                         listPrice: Maybe<number>
+                        maxInstallments: Maybe<
+                          Array<
+                            Maybe<{
+                              value: Maybe<number>
+                              numberOfInstallments: Maybe<number>
+                            }>
+                          >
+                        >
+                        installments: Maybe<
+                          Array<
+                            Maybe<{
+                              value: Maybe<number>
+                              numberOfInstallments: Maybe<number>
+                              interestRate: Maybe<number>
+                            }>
+                          >
+                        >
+                        teasers: Maybe<Array<{ name: Maybe<string> }>>
                       }>
                     }>
                   >
@@ -71,8 +91,8 @@ export type ShelfQueryQuery = {
 
 export const ShelfQuery = {
   query:
-    'query ShelfQuery($simulationBehavior: VTEX_SimulationBehavior = default, $hideUnavailableItems: Boolean = true, $salesChannel: String = "1", $collection: String, $category: String = "", $orderBy: String = "OrderByTopSaleDESC", $query: String, $map: String, $from: Int = 0, $to: Int = 9) {\n  vtex {\n    products(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy, collection: $collection, salesChannel: $salesChannel, hideUnavailableItems: $hideUnavailableItems, category: $category, simulationBehavior: $simulationBehavior) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query ShelfQuery($simulationBehavior: VTEX_SimulationBehavior = default, $hideUnavailableItems: Boolean = true, $salesChannel: String = "1", $collection: String, $category: String = "", $orderBy: String = "OrderByTopSaleDESC", $query: String, $map: String, $from: Int = 0, $to: Int = 9) {\n  vtex {\n    products(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy, collection: $collection, salesChannel: $salesChannel, hideUnavailableItems: $hideUnavailableItems, category: $category, simulationBehavior: $simulationBehavior) {\n      productId\n      productName\n      description\n      linkText\n      productClusters {\n        name\n      }\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'e17ac58bbbb2c6a0e451052b3396ab78c9f7f56500d1f94830a7fd49a54ed95c',
+    'a3203ec93a9e393fac88ad2a043db6aee5288d1c18966f37e50f778f921849cc',
   operationName: 'ShelfQuery',
 }

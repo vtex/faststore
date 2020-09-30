@@ -105,7 +105,17 @@ export const query = graphql`
         to: 9
       ) @include(if: $staticPath) {
         products {
-          ...ProductSummary_syncProduct
+          productId
+          productName
+          description
+          linkText
+          items {
+            itemId
+            images {
+              imageUrl
+              imageText
+            }
+          }
         }
         titleTag
         recordsFiltered
