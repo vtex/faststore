@@ -6,6 +6,7 @@ import WebpackAssetsManifest from 'webpack-assets-manifest'
 
 import { BUILD_HTML_STAGE, VTEX_NGINX_CONF_FILENAME } from './constants'
 import {
+  addPublicCachingHeader,
   applyUserHeadersTransform,
   cacheHeadersByPath,
   preloadHeadersByPath,
@@ -72,6 +73,8 @@ const Node: GatsbyNode = {
     if (typeof transformHeaders === 'function') {
       headers = applyUserHeadersTransform(headers, transformHeaders)
     }
+
+    headers = addPublicCachingHeader(headers)
 
     writeFileSync(
       join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
