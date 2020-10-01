@@ -32,7 +32,7 @@ export const fragment = graphql`
       sellers {
         sellerId
         commercialOffer: commertialOffer {
-          maxInstallments: Installments(criteria: ALL) {
+          maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {
             value: Value
             numberOfInstallments: NumberOfInstallments
           }
