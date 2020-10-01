@@ -21,7 +21,7 @@ export type SearchPageQueryQueryVariables = Exact<{
   map: Maybe<Scalars['String']>
   fullText: Maybe<Scalars['String']>
   staticPath: Scalars['Boolean']
-  selectedFacets: Maybe<Vtex_SelectedFacetInput[]>
+  selectedFacets: Maybe<Array<Vtex_SelectedFacetInput>>
   orderBy?: Maybe<Scalars['String']>
 }>
 
