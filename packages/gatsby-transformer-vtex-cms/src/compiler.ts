@@ -1,4 +1,4 @@
-import { Block, isBlock } from './cms'
+import { Content, Block, isBlock } from './cms'
 
 interface RenderMetaInfo {
   imports: Map<string, string> // components used during rendering
@@ -22,23 +22,31 @@ const parseBlockName = (name: string) => {
   }
 }
 
-export class BlockDOM {
+export class ContentDOM {
   protected meta: RenderMetaInfo
 
-  constructor(protected blocks: Block[] | undefined) {
+  constructor(protected content: Content) {
     this.meta = {
       imports: new Map(),
     }
   }
 
   public renderToString = (): string => {
-    let blocksStr = '<></>'
-    let imports
+    let afterBlocksStr
+    let beforeBlocksStr
+    const { blocks, beforeBlocks, afterBlocks } = this.content
 
-    if (this.blocks) {
-      blocksStr = this.renderBlocksToString(this.blocks)
-      imports = this.renderImportsToString()
+    const blocksStr = this.renderBlocksToString(blocks)
+
+    if (beforeBlocks) {
+      beforeBlocksStr = this.renderBlocksToString(beforeBlocks)
     }
+
+    if (afterBlocks) {
+      afterBlocksStr = this.renderBlocksToString(afterBlocks)
+    }
+
+    const imports = this.renderImportsToString()
 
     return `
 import React, { FC } from 'react'
@@ -46,9 +54,12 @@ import React, { FC } from 'react'
 ${imports}
 
 const CMSAutogenPage: FC = () => (
-  ${blocksStr}
+  <>
+    ${beforeBlocksStr}
+    ${blocksStr}
+    ${afterBlocksStr}
+  </>
 )
-
 
 export default CMSAutogenPage
 `
@@ -67,9 +78,11 @@ export default CMSAutogenPage
   }
 
   protected renderBlocksToString = (blocks: Block[]) => {
+    if (!blocks) return
+
     const inner = blocks.map((b) => this.renderBlockToString(b)).join('\n')
 
-    return `<>${inner}</>`
+    return `${inner}`
   }
 
   protected renderBlockToString = (block: Block): string => {
@@ -87,7 +100,7 @@ export default CMSAutogenPage
       this.meta.imports.set(component, name)
     }
 
-    let inner = ''
+    let inner
     const { children } = props
 
     if (isBlock(children)) {
