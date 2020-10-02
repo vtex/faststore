@@ -6,7 +6,7 @@ import React, { FC, Fragment } from 'react'
 import {
   SearchQuery,
   SearchQueryQuery,
-} from '../../SearchPage/__generated__/SearchQuery.graphql'
+} from './__generated__/SearchQuery.graphql'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
 import { useSearch } from '../../../sdk/search/useSearch'
@@ -75,7 +75,7 @@ export const query = gql`
         orderBy: $orderBy
       ) {
         products {
-          ...ProductSummary_syncProduct
+          ...ProductSummary_product
         }
       }
     }

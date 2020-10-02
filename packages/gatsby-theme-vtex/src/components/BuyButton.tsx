@@ -7,9 +7,9 @@ import { useBuyButton } from '../sdk/buyButton/useBuyButton'
 
 interface Seller {
   sellerId: string
-  commertialOffer: {
-    AvailableQuantity: number
-    Price: number
+  commercialOffer: {
+    availableQuantity: number
+    price: number
   }
 }
 

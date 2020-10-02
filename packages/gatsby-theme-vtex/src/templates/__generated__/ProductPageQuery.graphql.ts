@@ -40,9 +40,9 @@ export type ProductPageQueryQuery = {
               Array<
                 Maybe<{
                   sellerId: Maybe<string>
-                  commertialOffer: Maybe<{
-                    AvailableQuantity: Maybe<number>
-                    Price: Maybe<number>
+                  commercialOffer: Maybe<{
+                    availableQuantity: Maybe<number>
+                    price: Maybe<number>
                   }>
                 }>
               >
@@ -60,8 +60,9 @@ export type ProductPageQueryQuery = {
 // Query Related Code
 
 export const ProductPageQuery = {
-  query: undefined,
+  query:
+    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            availableQuantity: AvailableQuantity\n            price: Price\n          }\n        }\n        itemId\n      }\n      productId\n      description\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '56c9480dc8bf20f79bcf3f6bee72acd67d2b89d8246275db0d8b7e04e36ad40e',
+    'f4b3463122e182b07d1e14bbad8b78be7b1048af7f15217707132b4509cd054c',
   operationName: 'ProductPageQuery',
 }

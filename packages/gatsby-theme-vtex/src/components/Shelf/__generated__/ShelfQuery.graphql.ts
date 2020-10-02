@@ -50,10 +50,10 @@ export type ShelfQueryQuery = {
                   Array<
                     Maybe<{
                       sellerId: Maybe<string>
-                      commertialOffer: Maybe<{
-                        AvailableQuantity: Maybe<number>
-                        Price: Maybe<number>
-                        ListPrice: Maybe<number>
+                      commercialOffer: Maybe<{
+                        availableQuantity: Maybe<number>
+                        price: Maybe<number>
+                        listPrice: Maybe<number>
                       }>
                     }>
                   >
@@ -70,8 +70,9 @@ export type ShelfQueryQuery = {
 // Query Related Code
 
 export const ShelfQuery = {
-  query: undefined,
+  query:
+    'query ShelfQuery($simulationBehavior: VTEX_SimulationBehavior = default, $hideUnavailableItems: Boolean = true, $salesChannel: String = "1", $collection: String, $category: String = "", $orderBy: String = "OrderByTopSaleDESC", $query: String, $map: String, $from: Int = 0, $to: Int = 9) {\n  vtex {\n    products(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy, collection: $collection, salesChannel: $salesChannel, hideUnavailableItems: $hideUnavailableItems, category: $category, simulationBehavior: $simulationBehavior) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'e3559ae8fabe8b1ce81437b3cc9ee9582f8e79564d40ac74376124caab444157',
+    '914db2682c76a194fce33c1a7e5a34cbcad75bfe2d85cd96c4cd420f51d146f9',
   operationName: 'ShelfQuery',
 }

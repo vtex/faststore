@@ -47,10 +47,10 @@ export type ProductsSuggestionsQueryQuery = {
                   Array<
                     Maybe<{
                       sellerId: Maybe<string>
-                      commertialOffer: Maybe<{
-                        AvailableQuantity: Maybe<number>
-                        Price: Maybe<number>
-                        ListPrice: Maybe<number>
+                      commercialOffer: Maybe<{
+                        availableQuantity: Maybe<number>
+                        price: Maybe<number>
+                        listPrice: Maybe<number>
                       }>
                     }>
                   >
@@ -67,8 +67,9 @@ export type ProductsSuggestionsQueryQuery = {
 // Query Related Code
 
 export const ProductsSuggestionsQuery = {
-  query: undefined,
+  query:
+    'query ProductsSuggestionsQuery($fullText: String!, $facetKey: String, $facetValue: String, $productOriginVtex: Boolean = false, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(fullText: $fullText, facetKey: $facetKey, facetValue: $facetValue, productOriginVtex: $productOriginVtex, simulationBehavior: $simulationBehavior) {\n      count\n      products {\n        key: productId\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '2e4d14cc865edbb3a6778f368d32dd047c53fbf41f1477ff927422f8489b2030',
+    '8bebf0498101ef93ac5be449eb63b4964412cb936dbe667ca2ff4119fe87dff5',
   operationName: 'ProductsSuggestionsQuery',
 }

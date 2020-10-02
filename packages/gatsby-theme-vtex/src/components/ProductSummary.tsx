@@ -3,21 +3,21 @@ import { graphql } from 'gatsby'
 import { FC } from 'react'
 import { Card, Heading, jsx, LocalizedLink } from '@vtex/store-ui'
 
-import { ProductSummary_SyncProductFragment } from './__generated__/ProductSummary_syncProduct.graphql'
+import { ProductSummary_ProductFragment } from './__generated__/ProductSummary_product.graphql'
 import BuyButton from './BuyButton'
 import OfferPreview from './Offer/Preview'
 import SyncOffer from './Offer/Sync'
 import ProductSummaryImage from './ProductSummaryImage'
 
 interface Props {
-  product: ProductSummary_SyncProductFragment
+  product: ProductSummary_ProductFragment
   loading?: 'lazy' | 'eager'
 }
 
 const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
   const { linkText, items, productName } = product as any
   const [{ imageUrl, imageText }] = items[0].images
-  const offer = items[0].sellers?.[0]?.commertialOffer
+  const offer = items[0].sellers?.[0]?.commercialOffer
 
   return (
     <LocalizedLink
@@ -56,7 +56,7 @@ const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
 }
 
 export const fragment = graphql`
-  fragment ProductSummary_syncProduct on VTEX_Product {
+  fragment ProductSummary_product on VTEX_Product {
     productId
     productName
     description
@@ -69,10 +69,10 @@ export const fragment = graphql`
       }
       sellers {
         sellerId
-        commertialOffer {
-          AvailableQuantity
-          Price
-          ListPrice
+        commercialOffer: commertialOffer {
+          availableQuantity: AvailableQuantity
+          price: Price
+          listPrice: ListPrice
         }
       }
     }

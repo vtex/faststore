@@ -58,9 +58,9 @@ export const fragment = graphql`
       }
       sellers {
         sellerId
-        commertialOffer {
-          AvailableQuantity
-          Price
+        commercialOffer: commertialOffer {
+          availableQuantity: AvailableQuantity
+          price: Price
         }
       }
     }

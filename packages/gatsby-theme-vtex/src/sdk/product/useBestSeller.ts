@@ -1,7 +1,7 @@
 interface Seller {
-  commertialOffer: {
-    AvailableQuantity: number
-    Price: number
+  commercialOffer: {
+    availableQuantity: number
+    price: number
   }
 }
 

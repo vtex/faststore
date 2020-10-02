@@ -1,22 +1,19 @@
-import React, { FC, useMemo } from 'react'
+import React, { FC } from 'react'
 import { Helmet } from 'react-helmet'
 
 import { useCurrency } from '../../../sdk/localization/useCurrency'
-import { useAsyncProduct } from '../../../sdk/product/useAsyncProduct'
 import { ProductPageProps } from '../../../templates/product'
+import { useStructuredProduct } from './useStructuredProduct'
+import { useAsyncProduct } from '../useAsyncProduct'
 import SiteMetadataSEO from '../../HomePage/SEO'
-import { transform } from './structured'
 
 const SEO: FC<ProductPageProps> = (props) => {
   const { slug } = props
   const [currency] = useCurrency()
-  const { product } = useAsyncProduct(slug!)
-  const structuredProduct = useMemo(
-    () => (product ? transform(product as any, currency) : ''),
-    [product, currency]
-  )
+  const { product }: any = useAsyncProduct({ slug })
+  const structuredProduct = useStructuredProduct(product, currency)
 
-  // There is not product. There is no point on generating tags yet
+  // There is no product. There is no point on generating tags yet
   if (!product) {
     return <SiteMetadataSEO {...props} />
   }

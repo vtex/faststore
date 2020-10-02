@@ -66,7 +66,7 @@ export const query = gql`
         count
         products {
           key: productId
-          ...ProductSummary_syncProduct
+          ...ProductSummary_product
         }
       }
     }
