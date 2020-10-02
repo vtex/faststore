@@ -23,7 +23,7 @@ export type ShippingQueryQueryVariables = Exact<{
 }>;
 
 
-export type ShippingQueryQuery = { vtex: { shippingSLA: Maybe<{ countries: Maybe<Array<Maybe<string>>>, deliveryOptions: Maybe<Array<Maybe<{ estimate: Maybe<string>, price: Maybe<number> }>>> }> } };
+export type ShippingQueryQuery = { vtex: { shippingSLA: Maybe<{ countries: Maybe<Array<Maybe<string>>>, deliveryOptions: Array<{ estimate: string, price: number }> }> } };
 
 
 // Query Related Code

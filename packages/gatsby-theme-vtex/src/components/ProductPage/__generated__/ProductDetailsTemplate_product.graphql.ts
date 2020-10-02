@@ -13,25 +13,11 @@ type Scalars = {
   String: string
   Float: number
   Int: number
-  ID: string
 }
 
 // Operation related types
-export type ProductDetailsTemplate_ProductFragment = {
-  productReference: Maybe<string>
-  productName: Maybe<string>
-  linkText: Maybe<string>
-  items: Maybe<
-    Array<
-      Maybe<{
-        images: Maybe<
-          Array<Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>>
-        >
-      }>
-    >
-  >
-  productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
-}
+export type ProductDetailsTemplate_ProductFragment = { productReference: Maybe<string>, productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>> }>>>, productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>> };
+
 
 // Query Related Code
 
