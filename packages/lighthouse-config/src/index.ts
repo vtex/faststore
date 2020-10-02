@@ -30,6 +30,7 @@ const lhConfig = ({ urls, server }: Params) => {
           'uses-long-cache-ttl': 'off',
           'uses-rel-preconnect': 'warn', // somehow lighthouse ci can't find the dns-prefetch tags we are adding
           'uses-text-compression': ['warn', { maxLength: 1 }],
+          'uses-http2': 'off', // Page Speed Insights does not use http2. We should not use itt either
           bypass: 'off',
           interactive: ['error', { maxNumericValue: 3000 }],
         },

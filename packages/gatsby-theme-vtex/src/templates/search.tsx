@@ -64,7 +64,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
   )
 }
 
-const SearchPageContainer: FC<SearchPageProps> = (props) => {
+const Page: FC<SearchPageProps> = (props) => {
   const {
     pageContext: { staticPath },
   } = props
@@ -101,11 +101,21 @@ export const query = graphql`
         selectedFacets: $selectedFacets
         hideUnavailableItems: true
         simulationBehavior: skip
+        productOriginVtex: true
         from: 0
         to: 9
       ) @include(if: $staticPath) {
         products {
-          ...ProductSummary_syncProduct
+          productId
+          productName
+          linkText
+          items {
+            itemId
+            images {
+              imageUrl
+              imageText
+            }
+          }
         }
         titleTag
         recordsFiltered
@@ -152,4 +162,4 @@ export const query = graphql`
   }
 `
 
-export default SearchPageContainer
+export default Page

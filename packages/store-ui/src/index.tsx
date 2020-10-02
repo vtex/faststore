@@ -24,9 +24,9 @@ export * from './Header/theme'
 // Logo
 export * from './Logo'
 // ProgressiveImage
-export * from './ProgressiveImage'
+export { default as ProgressiveImage } from './ProgressiveImage'
 // ResponsiveImage
-export * from './ResponsiveImage'
+export * from './ResponsiveImage/index'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'
@@ -72,3 +72,19 @@ export { default as Center } from './Center'
 export * from './ProductSpecification'
 // Product Description
 export * from './ProductDescription'
+// Offer
+export { default as OfferPrice } from './Offer/Price'
+export { default as OfferSoldOut } from './Offer/SoldOut'
+export { default as OfferListPrice } from './Offer/ListPrice'
+export { default as OfferContainer } from './Offer/Container'
+export { default as OfferInstallments } from './Offer/Installments'
+export { default as OfferDiscountBadge } from './Offer/DiscountBadge'
+// Product Summary
+export { default as ProductSummaryImage } from './ProductSummary/Image'
+export { default as ProductSummaryTitle } from './ProductSummary/Title'
+export { default as ProductSummaryContainer } from './ProductSummary/Container'
+// Product Details
+export { default as ProductDetailsImage } from './ProductDetails/Image'
+export { default as ProductDetailsTitle } from './ProductDetails/Title'
+export { default as ProductDetailsGallery } from './ProductDetails/Gallery'
+export { default as ProductDetailsReference } from './ProductDetails/Reference'

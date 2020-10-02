@@ -35,8 +35,8 @@ export type ShelfQueryQuery = {
         Maybe<{
           productId: Maybe<string>
           productName: Maybe<string>
-          description: Maybe<string>
           linkText: Maybe<string>
+          productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
           items: Maybe<
             Array<
               Maybe<{
@@ -50,10 +50,29 @@ export type ShelfQueryQuery = {
                   Array<
                     Maybe<{
                       sellerId: Maybe<string>
-                      commertialOffer: Maybe<{
-                        AvailableQuantity: Maybe<number>
-                        Price: Maybe<number>
-                        ListPrice: Maybe<number>
+                      commercialOffer: Maybe<{
+                        spotPrice: Maybe<number>
+                        availableQuantity: Maybe<number>
+                        price: Maybe<number>
+                        listPrice: Maybe<number>
+                        maxInstallments: Maybe<
+                          Array<
+                            Maybe<{
+                              value: Maybe<number>
+                              numberOfInstallments: Maybe<number>
+                            }>
+                          >
+                        >
+                        installments: Maybe<
+                          Array<
+                            Maybe<{
+                              value: Maybe<number>
+                              numberOfInstallments: Maybe<number>
+                              interestRate: Maybe<number>
+                            }>
+                          >
+                        >
+                        teasers: Maybe<Array<{ name: Maybe<string> }>>
                       }>
                     }>
                   >
@@ -71,8 +90,8 @@ export type ShelfQueryQuery = {
 
 export const ShelfQuery = {
   query:
-    'query ShelfQuery($simulationBehavior: VTEX_SimulationBehavior = default, $hideUnavailableItems: Boolean = true, $salesChannel: String = "1", $collection: String, $category: String = "", $orderBy: String = "OrderByTopSaleDESC", $query: String, $map: String, $from: Int = 0, $to: Int = 9) {\n  vtex {\n    products(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy, collection: $collection, salesChannel: $salesChannel, hideUnavailableItems: $hideUnavailableItems, category: $category, simulationBehavior: $simulationBehavior) {\n      productId\n      productName\n      description\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n            ListPrice\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query ShelfQuery($simulationBehavior: VTEX_SimulationBehavior = default, $hideUnavailableItems: Boolean = true, $salesChannel: String = "1", $collection: String, $category: String = "", $orderBy: String = "OrderByTopSaleDESC", $query: String, $map: String, $from: Int = 0, $to: Int = 9) {\n  vtex {\n    products(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy, collection: $collection, salesChannel: $salesChannel, hideUnavailableItems: $hideUnavailableItems, category: $category, simulationBehavior: $simulationBehavior) {\n      productId\n      productName\n      linkText\n      productClusters {\n        name\n      }\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'e3559ae8fabe8b1ce81437b3cc9ee9582f8e79564d40ac74376124caab444157',
+    'd03b1958e8ab8e21138c0c6f04807d4594d527d2fd86234f519298771d53cf81',
   operationName: 'ShelfQuery',
 }
