@@ -1,6 +1,7 @@
 import {
   Content as ContentType,
   isContent as isContentType,
+  getMeta,
 } from '@vtex/gatsby-transformer-vtex-cms'
 import React, { FC, Suspense } from 'react'
 import { Helmet } from 'react-helmet'
@@ -22,10 +23,9 @@ const Preview: FC = () => {
     return <div>No Preview found. Waiting for input</div>
   }
 
-  const {
-    meta: { title, slug },
-    blocks,
-  } = content
+  const { beforeBlocks, blocks, afterBlocks, extraBlocks } = content
+
+  const { title, slug } = getMeta(extraBlocks) as any
 
   return (
     <>
@@ -33,7 +33,17 @@ const Preview: FC = () => {
         <title>{title}</title>
       </Helmet>
       <div>slug: {slug}</div>
+      {beforeBlocks?.map((block, index) => (
+        <Suspense key={`block-${index}`} fallback={<div>Loading...</div>}>
+          <Block block={block} />
+        </Suspense>
+      ))}
       {blocks.map((block, index) => (
+        <Suspense key={`block-${index}`} fallback={<div>Loading...</div>}>
+          <Block block={block} />
+        </Suspense>
+      ))}
+      {afterBlocks?.map((block, index) => (
         <Suspense key={`block-${index}`} fallback={<div>Loading...</div>}>
           <Block block={block} />
         </Suspense>

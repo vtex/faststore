@@ -5,4 +5,5 @@ export const components: Record<string, LazyExoticComponent<any>> = {
   Shelf: lazy(() => import('../Shelf')),
   RichText: lazy(() => import('../RichText')),
   Header: lazy(() => import('../Header')),
+  Footer: lazy(() => import('../Footer')),
 }
