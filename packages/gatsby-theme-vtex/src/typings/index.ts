@@ -18,3 +18,9 @@ declare type Vtex_MarketingDataInput = any
 declare type Vtex_UserType = any
 
 declare type Vtex_AddressType = any
+
+declare type Vtex_ShippingItem = {
+  id: string
+  quantity: string
+  seller: string
+}

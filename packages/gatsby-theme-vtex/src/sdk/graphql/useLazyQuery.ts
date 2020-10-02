@@ -31,5 +31,5 @@ export const useLazyQuery = <
     response.mutate(data, false)
   }
 
-  return [execute, response]
+  return [execute, response] as [typeof execute, typeof response]
 }
