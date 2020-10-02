@@ -109,7 +109,7 @@ export default CMSAutogenPage
       inner = this.renderBlocksToString(children)
     }
 
-    return `<${component} ${propsStr}>${inner}</${component}>`
+    return `<${component} ${propsStr}>${inner ?? ''}</${component}>`
   }
 
   protected propsToString = (props: any = {}): string =>
