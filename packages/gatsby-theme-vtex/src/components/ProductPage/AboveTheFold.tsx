@@ -2,12 +2,12 @@ import { Center, Text } from '@vtex/store-ui'
 import { graphql } from 'gatsby'
 import React, { FC } from 'react'
 
-import { Props } from '../../templates/product'
+import { ProductPageProps } from '../../templates/product'
 
 const format = (x: string) =>
   x.length > 100 ? `${x.slice(0, 100)} ...Truncated` : x
 
-const AboveTheFold: FC<Props> = (props) => (
+const AboveTheFold: FC<ProductPageProps> = (props) => (
   <>
     <Center height="150px">
       <Text sx={{ width: '50%' }}>

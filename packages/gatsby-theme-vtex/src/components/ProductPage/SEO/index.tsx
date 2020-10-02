@@ -3,15 +3,14 @@ import { Helmet } from 'react-helmet'
 
 import { useCurrency } from '../../../sdk/localization/useCurrency'
 import { useAsyncProduct } from '../../../sdk/product/useAsyncProduct'
+import { ProductPageProps } from '../../../templates/product'
+import SiteMetadataSEO from '../../HomePage/SEO'
 import { transform } from './structured'
 
-interface Props {
-  slug: string
-}
-
-const SEO: FC<Props> = ({ slug }) => {
+const SEO: FC<ProductPageProps> = (props) => {
+  const { slug } = props
   const [currency] = useCurrency()
-  const { product } = useAsyncProduct(slug)
+  const { product } = useAsyncProduct(slug!)
   const structuredProduct = useMemo(
     () => (product ? transform(product as any, currency) : ''),
     [product, currency]
@@ -19,18 +18,21 @@ const SEO: FC<Props> = ({ slug }) => {
 
   // There is not product. There is no point on generating tags yet
   if (!product) {
-    return null
+    return <SiteMetadataSEO {...props} />
   }
 
   return (
-    <Helmet
-      script={[
-        {
-          type: 'application/ld+json',
-          innerHTML: JSON.stringify(structuredProduct),
-        },
-      ]}
-    />
+    <>
+      <SiteMetadataSEO {...props} />
+      <Helmet
+        script={[
+          {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify(structuredProduct),
+          },
+        ]}
+      />
+    </>
   )
 }
 
