@@ -29,8 +29,8 @@ export type ShippingQueryQuery = { vtex: { shippingSLA: Maybe<{ countries: Maybe
 // Query Related Code
 
 export const ShippingQuery = {
-  query: "query ShippingQuery($items: [VTEX_ShippingItem], $postalCode: String, $country: String) {\n  vtex {\n    shippingSLA(items: $items, postalCode: $postalCode, country: $country) {\n      countries\n      deliveryOptions {\n        estimate\n        price\n      }\n    }\n  }\n}\n",
-  sha256Hash: "bada983651a7b0c3d8ae0fd43329737ee116307c15fb3c57e134025ff50e6fcc",
+  query: "query ShippingQuery($items: [VTEX_ShippingItem], $postalCode: String, $country: String) {\n  vtex {\n    shippingSLA(items: $items, postalCode: $postalCode, country: $country) {\n      deliveryOptions {\n        id\n        estimate\n        price\n      }\n    }\n  }\n}\n",
+  sha256Hash: "a02e8933ab8401e118b6d4df3c6521c851a3edaa8ed693379f74b59c27e66f52",
   operationName: "ShippingQuery",
 }
 
