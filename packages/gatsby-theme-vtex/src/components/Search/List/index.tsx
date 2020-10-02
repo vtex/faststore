@@ -34,7 +34,7 @@ const List: FC<Props> = ({ initialData, columns, pageSize }) => {
         {data.map((searchQuery, index) => (
           <Page
             key={`summary-page-${index}`}
-            products={searchQuery!.vtex.productSearch!.products!}
+            products={searchQuery!.vtex.productSearch!.products as any}
           />
         ))}
       </Grid>

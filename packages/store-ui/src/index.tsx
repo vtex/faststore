@@ -26,7 +26,7 @@ export * from './Logo'
 // ProgressiveImage
 export { default as ProgressiveImage } from './ProgressiveImage'
 // ResponsiveImage
-export * from './ResponsiveImage'
+export * from './ResponsiveImage/index'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'
@@ -83,3 +83,8 @@ export { default as OfferDiscountBadge } from './Offer/DiscountBadge'
 export { default as ProductSummaryImage } from './ProductSummary/Image'
 export { default as ProductSummaryTitle } from './ProductSummary/Title'
 export { default as ProductSummaryContainer } from './ProductSummary/Container'
+// Product Details
+export { default as ProductDetailsImage } from './ProductDetails/Image'
+export { default as ProductDetailsTitle } from './ProductDetails/Title'
+export { default as ProductDetailsGallery } from './ProductDetails/Gallery'
+export { default as ProductDetailsReference } from './ProductDetails/Reference'

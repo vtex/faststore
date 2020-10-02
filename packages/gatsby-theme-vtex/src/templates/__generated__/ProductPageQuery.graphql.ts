@@ -23,6 +23,7 @@ export type ProductPageQueryQueryVariables = Exact<{
 export type ProductPageQueryQuery = {
   vtex: {
     product: Maybe<{
+      productReference: Maybe<string>
       productName: Maybe<string>
       linkText: Maybe<string>
       productId: Maybe<string>
@@ -36,20 +37,10 @@ export type ProductPageQueryQuery = {
                 Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>
               >
             >
-            sellers: Maybe<
-              Array<
-                Maybe<{
-                  sellerId: Maybe<string>
-                  commercialOffer: Maybe<{
-                    availableQuantity: Maybe<number>
-                    price: Maybe<number>
-                  }>
-                }>
-              >
-            >
           }>
         >
       >
+      productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
       categoryTree: Maybe<
         Array<Maybe<{ name: Maybe<string>; href: Maybe<string> }>>
       >
@@ -61,8 +52,8 @@ export type ProductPageQueryQuery = {
 
 export const ProductPageQuery = {
   query:
-    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            availableQuantity: AvailableQuantity\n            price: Price\n          }\n        }\n        itemId\n      }\n      productId\n      description\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
+    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        itemId\n      }\n      productClusters {\n        name\n      }\n      productId\n      description\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'f4b3463122e182b07d1e14bbad8b78be7b1048af7f15217707132b4509cd054c',
+    '3f01910dd0ff42573bc8ff83b031ccccadd2bda796e9b34e2109045c98a06c25',
   operationName: 'ProductPageQuery',
 }

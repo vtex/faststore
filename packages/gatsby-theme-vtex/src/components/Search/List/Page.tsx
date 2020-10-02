@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 
-import ProductSummary from '../../ProductSummary'
 import { ProductSummary_ProductFragment } from '../../ProductSummary/__generated__/ProductSummary_product.graphql'
+import ProductSummary from '../../ProductSummary'
 
 interface Props {
-  products: Array<Maybe<ProductSummary_ProductFragment>>
+  products: Array<ProductSummary_ProductFragment | undefined | null>
 }
 
 const Page: FC<Props> = ({ products }) => (

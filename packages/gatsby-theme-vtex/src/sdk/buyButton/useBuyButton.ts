@@ -15,7 +15,7 @@ export interface SKU {
 }
 
 export const useBuyButton = (sku: Maybe<SKU>) => {
-  const seller = useBestSeller(sku as any)
+  const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
   const disabled = !sku || !orderForm?.value
 
@@ -31,7 +31,7 @@ export const useBuyButton = (sku: Maybe<SKU>) => {
     const orderFormItem = {
       id: sku.itemId,
       quantity: 1,
-      seller: (seller as any).sellerId,
+      seller: seller.sellerId,
     }
 
     orderForm.addItems([orderFormItem]).catch(console.error)
