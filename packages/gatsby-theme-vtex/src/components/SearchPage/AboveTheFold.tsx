@@ -2,7 +2,7 @@
 import { Text, Center, jsx } from '@vtex/store-ui'
 import { FC, Fragment } from 'react'
 
-import { Props } from '../../templates/search'
+import { SearchPageProps } from '../../templates/search'
 import {
   SearchTemplateAside,
   SearchTemplateContainer,
@@ -10,7 +10,7 @@ import {
 } from '../Search/SearchTemplate'
 import SuspenseDevice from '../Suspense/Device'
 
-const AboveTheFold: FC<Props> = () => (
+const AboveTheFold: FC<SearchPageProps> = () => (
   <Fragment>
     <Center height="150px">
       <Text sx={{ width: '50%' }}>

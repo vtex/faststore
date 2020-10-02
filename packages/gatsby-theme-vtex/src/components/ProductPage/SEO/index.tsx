@@ -3,11 +3,11 @@ import { Helmet } from 'react-helmet'
 
 import { useCurrency } from '../../../sdk/localization/useCurrency'
 import { useAsyncProduct } from '../../../sdk/product/useAsyncProduct'
-import { Props } from '../../../templates/product'
+import { ProductPageProps } from '../../../templates/product'
 import SiteMetadataSEO from '../../HomePage/SEO'
 import { transform } from './structured'
 
-const SEO: FC<Props> = (props) => {
+const SEO: FC<ProductPageProps> = (props) => {
   const { slug } = props
   const [currency] = useCurrency()
   const { product } = useAsyncProduct(slug!)

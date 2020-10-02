@@ -25,12 +25,12 @@ const belowTheFoldPreloader = () =>
 const BelowTheFold = lazy(belowTheFoldPreloader)
 const SEO = lazy(() => import('../components/SearchPage/SEO'))
 
-export type Props = PageProps<
+export type SearchPageProps = PageProps<
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables
 >
 
-const SearchPage: FC<Props> = (props) => {
+const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const { staticPath } = pageContext
   const filters = useSearchFiltersFromPageContext(pageContext)
@@ -64,7 +64,7 @@ const SearchPage: FC<Props> = (props) => {
   )
 }
 
-const SearchPageContainer: FC<Props> = (props) => {
+const SearchPageContainer: FC<SearchPageProps> = (props) => {
   const {
     pageContext: { staticPath },
   } = props
