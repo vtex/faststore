@@ -94,15 +94,16 @@ export const query = graphql`
   ) {
     vtex {
       productSearch(
+        from: 0
+        to: 9
+        hideUnavailableItems: true
+        productOriginVtex: true
+        simulationBehavior: skip
         orderBy: $orderBy
         query: $query
         map: $map
         fullText: $fullText
         selectedFacets: $selectedFacets
-        hideUnavailableItems: true
-        simulationBehavior: skip
-        from: 0
-        to: 9
       ) @include(if: $staticPath) {
         products {
           ...ProductSummary_syncProduct
