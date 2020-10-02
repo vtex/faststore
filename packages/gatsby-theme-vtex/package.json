@@ -39,7 +39,7 @@
     "@vtex/gatsby-plugin-theme-ui": "^0.81.0",
     "@vtex/gatsby-source-vtex": "^0.82.0",
     "@vtex/gatsby-transformer-vtex-cms": "^0.81.0",
-    "@vtex/address-form": "^3.12.14",
+    "@vtex/address-form": "^3.13.0",
     "babel-gql": "^0.1.3",
     "common-tags": "^1.8.0",
     "dotenv": "^8.2.0",
