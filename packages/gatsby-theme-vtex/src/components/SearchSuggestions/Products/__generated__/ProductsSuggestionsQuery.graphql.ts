@@ -91,10 +91,16 @@ export type ProductsSuggestionsQueryQuery = {
 // Query Related Code
 
 export const ProductsSuggestionsQuery = {
+<<<<<<< HEAD
   query:
     'query ProductsSuggestionsQuery($fullText: String!, $facetKey: String, $facetValue: String, $productOriginVtex: Boolean = false, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(fullText: $fullText, facetKey: $facetKey, facetValue: $facetValue, productOriginVtex: $productOriginVtex, simulationBehavior: $simulationBehavior) {\n      count\n      products {\n        key: productId\n        productId\n        productName\n        linkText\n        productClusters {\n          name\n        }\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n              }\n              installments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n                interestRate: InterestRate\n              }\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n              spotPrice\n              teasers {\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
     'f86944c7b1321edcc6e096b995cc2d8eed1db294f2a6b61472bc261aab343325',
   operationName: 'ProductsSuggestionsQuery',
+=======
+  query: "query ProductsSuggestionsQuery($fullText: String!, $facetKey: String, $facetValue: String, $productOriginVtex: Boolean = false, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(fullText: $fullText, facetKey: $facetKey, facetValue: $facetValue, productOriginVtex: $productOriginVtex, simulationBehavior: $simulationBehavior) {\n      count\n      products {\n        key: productId\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  sha256Hash: "2e4d14cc865edbb3a6778f368d32dd047c53fbf41f1477ff927422f8489b2030",
+  operationName: "ProductsSuggestionsQuery",
+>>>>>>> 90d0472c... Fixing rebase problemas
 }
 

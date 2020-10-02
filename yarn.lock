@@ -4961,10 +4961,10 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
-"@vtex/address-form@^3.12.14":
-  version "3.12.14"
-  resolved "https://registry.yarnpkg.com/@vtex/address-form/-/address-form-3.12.14.tgz#45e2a2428a16ce1ce685fd4b40a9736d40a54338"
-  integrity sha512-5I/xwv8t7mPKjTYCRszmeqM100G9qnDVWN66woVsB2qQcQE4za6I0Vxx59Ur2YxkiLnn7FLwwR0ov21oJUpbtA==
+"@vtex/address-form@^3.13.0":
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/@vtex/address-form/-/address-form-3.13.0.tgz#871182c2a66053a29b3f43887482684f641d6737"
+  integrity sha512-4e8SWiQ6n3b1GWiMHoHfjDG6ASuEq297eane4Qj19N8xo4SuJAKbiR6xCDN7NShHROcbhLTfW3Msz/s74G1oAw==
   dependencies:
     "@vtex/styleguide" "^9.112.28"
     axios "^0.16.2"
@@ -4980,9 +4980,9 @@
   integrity sha512-B2tvaxrWXAzF2iSaRpQaw88kxq1lGC7/DSOBuGOn9225wNrF5g6D6NNky4/TZomv0NJTgO8tIT59ftbTHgMxXg==
 
 "@vtex/styleguide@^9.112.28":
-  version "9.130.1"
-  resolved "https://registry.yarnpkg.com/@vtex/styleguide/-/styleguide-9.130.1.tgz#905f5b5c5dc28900694a1efa93d226ef5536ab64"
-  integrity sha512-QhmzL55vh5suOvcbk8Sq03gH7ao8kfB672Vpf0nA1ptpy955BVugmyqBsqjoG/Q10a/U8174igfykmNq90T76A==
+  version "9.130.2"
+  resolved "https://registry.yarnpkg.com/@vtex/styleguide/-/styleguide-9.130.2.tgz#1b944511df8cbfe77cabf598328e758756a23071"
+  integrity sha512-QPILtADVEgkxecSBGb5gqQTm6g2KMfC3FcUoCzwj8n40xLzCop4ROTA5w5LZohI5rwS41uUY3mRCksQtDuYF5w==
   dependencies:
     autoprefixer "^9.6.1"
     case-sensitive-paths-webpack-plugin "^2.2.0"
