@@ -38,5 +38,6 @@
   "searchControls.select.nameDesc": "Name, ascending",
   "searchControls.select.nameAsc": "Name, descending",
   "searchControls.select.releaseDateDesc": "Release date",
-  "searchControls.select.bestDiscountDesc": "Discount"
+  "searchControls.select.bestDiscountDesc": "Discount",
+  "shippingSimulator.label": "Calcular"
 }
