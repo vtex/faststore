@@ -24,12 +24,27 @@ export type AsyncProductQueryQuery = {
     product: Maybe<{
       productId: Maybe<string>
       productName: Maybe<string>
+      productReference: Maybe<string>
       description: Maybe<string>
       linkText: Maybe<string>
+      specificationGroups: Maybe<
+        Array<
+          Maybe<{
+            name: Maybe<string>
+            specifications: Maybe<
+              Array<
+                Maybe<{
+                  name: Maybe<string>
+                  values: Maybe<Array<Maybe<string>>>
+                }>
+              >
+            >
+          }>
+        >
+      >
       items: Maybe<
         Array<
           Maybe<{
-            itemId: Maybe<string>
             images: Maybe<
               Array<
                 Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>
@@ -38,10 +53,30 @@ export type AsyncProductQueryQuery = {
             sellers: Maybe<
               Array<
                 Maybe<{
+                  sellerId: Maybe<string>
                   commercialOffer: Maybe<{
+                    spotPrice: Maybe<number>
                     availableQuantity: Maybe<number>
-                    listPrice: Maybe<number>
                     price: Maybe<number>
+                    listPrice: Maybe<number>
+                    maxInstallments: Maybe<
+                      Array<
+                        Maybe<{
+                          value: Maybe<number>
+                          numberOfInstallments: Maybe<number>
+                        }>
+                      >
+                    >
+                    installments: Maybe<
+                      Array<
+                        Maybe<{
+                          value: Maybe<number>
+                          numberOfInstallments: Maybe<number>
+                          interestRate: Maybe<number>
+                        }>
+                      >
+                    >
+                    teasers: Maybe<Array<{ name: Maybe<string> }>>
                   }>
                 }>
               >
@@ -56,8 +91,9 @@ export type AsyncProductQueryQuery = {
 // Query Related Code
 
 export const AsyncProductQuery = {
-  query: undefined,
+  query:
+    'query AsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      productReference\n      description\n      linkText\n      specificationGroups {\n        name\n        specifications {\n          name\n          values\n        }\n      }\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '81c7db6fb5c82a66e0176452be6e43057593bcb5df40583ea33004e64dc96138',
+    '19d2aebdc7126fb862d67933cc7c0423273730de4183843f0c3bd3e90f2fa854',
   operationName: 'AsyncProductQuery',
 }

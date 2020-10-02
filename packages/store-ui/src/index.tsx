@@ -75,6 +75,7 @@ export { default as OfferPrice } from './Offer/Price'
 export { default as OfferSoldOut } from './Offer/SoldOut'
 export { default as OfferListPrice } from './Offer/ListPrice'
 export { default as OfferContainer } from './Offer/Container'
+export { default as OfferInstallments } from './Offer/Installments'
 export { default as OfferDiscountBadge } from './Offer/DiscountBadge'
 // Product Summary
 export { default as ProductSummaryImage } from './ProductSummary/Image'

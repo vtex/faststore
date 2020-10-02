@@ -9,7 +9,7 @@ export const useListPrice = ({ listPrice, price }: Props) => {
   const { format } = useNumberFormat()
 
   if (price === listPrice) {
-    return 0
+    return null
   }
 
   return format(listPrice)

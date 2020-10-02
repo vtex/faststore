@@ -5,12 +5,8 @@ interface Props {
   variant: string
 }
 
-const OfferListPrice: FC<Props> = ({ variant, children }) => {
-  if (children === 0) {
-    return null
-  }
-
-  return <Box variant={`offer.${variant}.listPrice`}>{children}</Box>
-}
+const OfferListPrice: FC<Props> = ({ variant, children }) => (
+  <Box variant={`offer.${variant}.listPrice`}>{children}</Box>
+)
 
 export default OfferListPrice

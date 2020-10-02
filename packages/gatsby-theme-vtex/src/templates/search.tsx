@@ -101,6 +101,7 @@ export const query = graphql`
         selectedFacets: $selectedFacets
         hideUnavailableItems: true
         simulationBehavior: skip
+        productOriginVtex: true
         from: 0
         to: 9
       ) @include(if: $staticPath) {
