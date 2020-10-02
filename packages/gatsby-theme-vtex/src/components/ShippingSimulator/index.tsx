@@ -21,8 +21,8 @@ export const query = gql`
   ) {
     vtex {
       shippingSLA(items: $items, postalCode: $postalCode, country: $country) {
-        countries
         deliveryOptions {
+          id
           estimate
           price
         }
@@ -67,7 +67,6 @@ const ShippingSimulatorWrapper: FC<Props> = ({
   initialPostalCode,
   variant,
 }) => {
-  const [shipping, setShipping] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const [getShipping, { data }] = useLazyQuery<
@@ -91,9 +90,8 @@ const ShippingSimulatorWrapper: FC<Props> = ({
       postalCode: address.postalCode.value,
     })
 
-    setShipping(null)
     setLoading(false)
-  }, [setShipping, setLoading, address, getShipping, country, seller, skuId])
+  }, [setLoading, address, getShipping, country, seller, skuId])
 
   return (
     <ShippingSimulator
@@ -104,7 +102,7 @@ const ShippingSimulatorWrapper: FC<Props> = ({
       loading={loading}
       address={address}
       isValid={isValid}
-      shipping={shipping}
+      shipping={data}
       onAddress={updateAddress}
       onCalculateShipping={handleCalculateShipping}
     />
