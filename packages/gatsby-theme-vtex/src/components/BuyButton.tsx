@@ -3,8 +3,7 @@ import { FC } from 'react'
 import { Button, jsx } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
-import { useBestSeller } from '../sdk/product/useBestSeller'
-import { useOrderForm } from '../sdk/orderForm/useOrderForm'
+import { useBuyButton } from '../sdk/buyButton/useBuyButton'
 
 interface Seller {
   sellerId: string
@@ -24,36 +23,11 @@ export interface Props {
 }
 
 const BuyButton: FC<Props> = ({ sku }) => {
-  const seller = useBestSeller(sku)
-  const orderForm = useOrderForm()
-  const disabled = !sku || !orderForm?.value
   const { formatMessage } = useIntl()
-
-  // Optimist add item on click
-  const addItemOnClick = async (e: any) => {
-    e.preventDefault()
-
-    if (!sku || !seller) {
-      return
-    }
-
-    // Item to be updated into the orderForm
-    const orderFormItem = {
-      id: sku.itemId,
-      quantity: 1,
-      seller: seller.sellerId,
-    }
-
-    orderForm.addItems([orderFormItem]).catch(console.error)
-  }
+  const props = useBuyButton(sku as any)
 
   return (
-    <Button
-      sx={{ width: '100%' }}
-      disabled={disabled}
-      variant="primary"
-      onClick={addItemOnClick}
-    >
+    <Button {...props}>
       {formatMessage({ id: 'buy-button.add-to-cart' })}
     </Button>
   )
