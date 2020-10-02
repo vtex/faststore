@@ -106,7 +106,8 @@ export type SearchPageQueryQuery = {
 // Query Related Code
 
 export const SearchPageQuery = {
-  query: undefined,
+  query:
+    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(from: 0, to: 9, hideUnavailableItems: true, productOriginVtex: true, simulationBehavior: skip, orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
     'c853364c908f50af7accea5d23245e878d6c3ede1440e794a4e67fa50e73255b',
   operationName: 'SearchPageQuery',

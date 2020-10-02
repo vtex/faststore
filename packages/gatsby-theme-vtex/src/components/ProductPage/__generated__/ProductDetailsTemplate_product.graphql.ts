@@ -16,6 +16,7 @@ type Scalars = {
 
 // Operation related types
 export type ProductDetailsTemplate_ProductFragment = {
+  productReference: Maybe<string>
   productName: Maybe<string>
   linkText: Maybe<string>
   items: Maybe<
@@ -24,20 +25,10 @@ export type ProductDetailsTemplate_ProductFragment = {
         images: Maybe<
           Array<Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>>
         >
-        sellers: Maybe<
-          Array<
-            Maybe<{
-              sellerId: Maybe<string>
-              commercialOffer: Maybe<{
-                availableQuantity: Maybe<number>
-                price: Maybe<number>
-              }>
-            }>
-          >
-        >
       }>
     >
   >
+  productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
 }
 
 // Query Related Code
