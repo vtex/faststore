@@ -3,7 +3,13 @@ import { gql } from '@vtex/gatsby-plugin-graphql'
 import { helpers } from '@vtex/address-form'
 
 import ShippingSimulator from './ShippingSimulator'
+import { useLazyQuery } from '../../sdk/graphql/useLazyQuery'
 import { getNewAddress } from './utils'
+import {
+  ShippingQuery,
+  ShippingQueryQuery,
+  ShippingQueryQueryVariables,
+} from './__generated__/ShippingQuery.graphql'
 
 const { addValidation } = helpers
 
@@ -47,8 +53,6 @@ const useAddressState = (country: string, postalCode?: string) => {
       ...newAddress,
     }
 
-    // eslint-disable-next-line no-console
-    console.log({ updatedAddress })
     setAddress(updatedAddress)
     setIsValid(updatedAddress.postalCode.valid)
   }
@@ -66,18 +70,30 @@ const ShippingSimulatorWrapper: FC<Props> = ({
   const [shipping, setShipping] = useState(null)
   const [loading, setLoading] = useState(false)
 
+  const [getShipping, { data }] = useLazyQuery<
+    ShippingQueryQuery,
+    ShippingQueryQueryVariables
+  >({
+    variables: null,
+    ...ShippingQuery,
+  })
+
   const { address, updateAddress, isValid } = useAddressState(
     country,
     initialPostalCode
   )
 
+  // TODO: Receive quantity from context or props
   const handleCalculateShipping = useCallback(() => {
-    // eslint-disable-next-line no-console
-    console.log(`Calculating shipping for ${address}`)
+    getShipping({
+      items: [{ id: skuId, seller, quantity: '1' }],
+      country,
+      postalCode: address.postalCode.value,
+    })
 
     setShipping(null)
     setLoading(false)
-  }, [setShipping, setLoading, address])
+  }, [setShipping, setLoading, address, getShipping, country, seller, skuId])
 
   return (
     <ShippingSimulator
