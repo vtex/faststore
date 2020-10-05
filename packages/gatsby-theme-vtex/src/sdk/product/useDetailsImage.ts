@@ -18,11 +18,11 @@ export const useDetailsImage = (maybeSrc: string | undefined) => {
 
   const { state }: any = useLocation()
   const url = useScaledImage(src, DETAILS_IMAGE_WIDTH, DETAILS_IMAGE_HEIGHT)
-  const tinySrc = useScaledImage(src, SUMMARY_IMAGE_WIDTH, SUMMARY_IMAGE_HEIGHT)
+  const tinyUrl = useScaledImage(src, SUMMARY_IMAGE_WIDTH, SUMMARY_IMAGE_HEIGHT)
 
   return {
     src: url,
-    placeholder: state?.fromSummary ? tinySrc : src,
+    placeholder: state?.fromSummary ? tinyUrl : url,
     width: DETAILS_IMAGE_WIDTH_STR,
     height: DETAILS_IMAGE_HEIGHT_STR,
   }
