@@ -27,7 +27,7 @@
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "@types/react-helmet": "^6.0.0",
-    "@vtex/store-ui": "^0.79.0",
+    "@vtex/store-ui": "^0.80.0-alpha.2",
     "cross-env": "^7.0.2",
     "gatsby": "^2.24.43",
     "typescript": "^3.9.5"
