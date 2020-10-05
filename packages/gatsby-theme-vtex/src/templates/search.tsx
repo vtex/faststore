@@ -106,7 +106,16 @@ export const query = graphql`
         selectedFacets: $selectedFacets
       ) @include(if: $staticPath) {
         products {
-          ...ProductSummary_product
+          productId
+          productName
+          linkText
+          items {
+            itemId
+            images {
+              imageUrl
+              imageText
+            }
+          }
         }
         titleTag
         recordsFiltered

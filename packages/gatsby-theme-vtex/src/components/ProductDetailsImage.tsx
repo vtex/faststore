@@ -5,7 +5,10 @@ import React, { FC } from 'react'
 
 import { IMAGE_DEFAULT } from '../sdk/img/constants'
 import { useScaledImage } from '../sdk/img/useScaledImage'
-import { SIZE as PRODUCT_SUMMARY_SIZE } from './ProductSummaryImage'
+import {
+  SUMMARY_IMAGE_HEIGHT,
+  SUMMARY_IMAGE_WIDTH,
+} from '../sdk/product/constants'
 
 interface Props {
   width?: number
@@ -28,8 +31,8 @@ const ProductDetailsImage: FC<Props> = ({
   const src = useScaledImage(rawSrc, width, height)
   const tinySrc = useScaledImage(
     rawSrc,
-    PRODUCT_SUMMARY_SIZE,
-    PRODUCT_SUMMARY_SIZE
+    SUMMARY_IMAGE_WIDTH,
+    SUMMARY_IMAGE_HEIGHT
   )
 
   const progressive = (state as any)?.fromSummary

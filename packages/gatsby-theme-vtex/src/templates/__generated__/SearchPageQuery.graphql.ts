@@ -34,7 +34,6 @@ export type SearchPageQueryQuery = {
           Maybe<{
             productId: Maybe<string>
             productName: Maybe<string>
-            description: Maybe<string>
             linkText: Maybe<string>
             items: Maybe<
               Array<
@@ -45,18 +44,6 @@ export type SearchPageQueryQuery = {
                       Maybe<{
                         imageUrl: Maybe<string>
                         imageText: Maybe<string>
-                      }>
-                    >
-                  >
-                  sellers: Maybe<
-                    Array<
-                      Maybe<{
-                        sellerId: Maybe<string>
-                        commercialOffer: Maybe<{
-                          availableQuantity: Maybe<number>
-                          price: Maybe<number>
-                          listPrice: Maybe<number>
-                        }>
                       }>
                     >
                   >
@@ -120,8 +107,8 @@ export type SearchPageQueryQuery = {
 
 export const SearchPageQuery = {
   query:
-    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(from: 0, to: 9, hideUnavailableItems: true, productOriginVtex: true, simulationBehavior: skip, orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n            }\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(from: 0, to: 9, hideUnavailableItems: true, productOriginVtex: true, simulationBehavior: skip, orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'f15b5324b2beea1d4cd96c649f8c30a30b2dcc5fffca6b6a60d91713edb39573',
+    'c853364c908f50af7accea5d23245e878d6c3ede1440e794a4e67fa50e73255b',
   operationName: 'SearchPageQuery',
 }

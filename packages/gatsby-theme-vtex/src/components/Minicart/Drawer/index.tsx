@@ -1,4 +1,8 @@
-import { MinicartDrawer, MinicartDrawerProps } from '@vtex/store-ui'
+import {
+  AspectImage,
+  MinicartDrawer,
+  MinicartDrawerProps,
+} from '@vtex/store-ui'
 import React, { FC } from 'react'
 
 import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
@@ -6,7 +10,6 @@ import { useCurrency } from '../../../sdk/localization/useCurrency'
 import { HeaderMinicartDrawerContent } from './Content'
 import { HeaderMinicartDrawerFooter } from './Footer'
 import { HeaderMinicartDrawerHeader } from './Header'
-import ProductSummaryImage from '../../ProductSummaryImage'
 
 const useHeaderMinicartDrawerContentData = (orderForm: any) => {
   const data = orderForm.value?.items.map((item: any) => ({
@@ -51,7 +54,7 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
       />
       <HeaderMinicartDrawerContent
         {...contentData}
-        imageElement={ProductSummaryImage}
+        imageElement={AspectImage}
         variant={customVariant}
         currency={currency}
       />

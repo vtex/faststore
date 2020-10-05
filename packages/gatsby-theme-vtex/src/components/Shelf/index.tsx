@@ -2,7 +2,7 @@
 import { FC, Fragment } from 'react'
 import { Flex, useResponsiveSlider, jsx } from '@vtex/store-ui'
 
-import { ProductSummary_ProductFragment } from '../__generated__/ProductSummary_product.graphql'
+import { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
 import ShelfPaginationDots from './PaginationDots'
 import ShelfArrowRight from './ArrowRight'
 import ShelfArrowLeft from './ArrowLeft'

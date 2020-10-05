@@ -7,7 +7,7 @@ export interface ProgressiveImageProps extends ImageProps, AspectImageProps {
   as?: ElementType
 }
 
-export const ProgressiveImage = memo<ProgressiveImageProps>(
+const ProgressiveImage = memo<ProgressiveImageProps>(
   ({ src, placeholder, as = 'img', ...props }) => {
     const [currentSrc, updateSrc] = useState(placeholder)
 
@@ -30,3 +30,5 @@ export const ProgressiveImage = memo<ProgressiveImageProps>(
 )
 
 ProgressiveImage.displayName = 'ProgressiveImage'
+
+export default ProgressiveImage
