@@ -47,7 +47,7 @@ export const createPages = async (
 
   createRedirect({
     fromPath: '/files/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/arquivos/:splat`,
+    toPath: `https://${workspace}--${tenant}.myvtex.com/files/:splat`,
     statusCode: 200,
   })
 

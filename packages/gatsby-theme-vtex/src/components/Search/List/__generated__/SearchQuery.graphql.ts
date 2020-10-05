@@ -72,8 +72,7 @@ export type SearchQueryQuery = {
 // Query Related Code
 
 export const SearchQuery = {
-  query:
-    'query SearchQuery($query: String, $map: String, $fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(productOriginVtex: true, hideUnavailableItems: true, selectedFacets: $selectedFacets, fullText: $fullText, query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+  query: undefined,
   sha256Hash:
     '8f561a1b40d870a0e5ef71cf44403e499a23c7d9a01adee0e10ba8b5d79fd628',
   operationName: 'SearchQuery',

@@ -119,8 +119,7 @@ export type SearchPageQueryQuery = {
 // Query Related Code
 
 export const SearchPageQuery = {
-  query:
-    'query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(from: 0, to: 9, hideUnavailableItems: true, productOriginVtex: true, simulationBehavior: skip, orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+  query: undefined,
   sha256Hash:
     'cde41d81452c4fe1f4fa4b630987e6c96969a6a38721617afec217e0163ffb7b',
   operationName: 'SearchPageQuery',
