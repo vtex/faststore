@@ -33,8 +33,8 @@ export type SearchQueryQuery = {
           Maybe<{
             productId: Maybe<string>
             productName: Maybe<string>
-            description: Maybe<string>
             linkText: Maybe<string>
+            productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
             items: Maybe<
               Array<
                 Maybe<{
@@ -52,9 +52,28 @@ export type SearchQueryQuery = {
                       Maybe<{
                         sellerId: Maybe<string>
                         commercialOffer: Maybe<{
+                          spotPrice: Maybe<number>
                           availableQuantity: Maybe<number>
                           price: Maybe<number>
                           listPrice: Maybe<number>
+                          maxInstallments: Maybe<
+                            Array<
+                              Maybe<{
+                                value: Maybe<number>
+                                numberOfInstallments: Maybe<number>
+                              }>
+                            >
+                          >
+                          installments: Maybe<
+                            Array<
+                              Maybe<{
+                                value: Maybe<number>
+                                numberOfInstallments: Maybe<number>
+                                interestRate: Maybe<number>
+                              }>
+                            >
+                          >
+                          teasers: Maybe<Array<{ name: Maybe<string> }>>
                         }>
                       }>
                     >
@@ -73,8 +92,8 @@ export type SearchQueryQuery = {
 
 export const SearchQuery = {
   query:
-    'query SearchQuery($query: String, $map: String, $fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(productOriginVtex: true, hideUnavailableItems: true, selectedFacets: $selectedFacets, fullText: $fullText, query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query SearchQuery($query: String, $map: String, $fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(productOriginVtex: true, hideUnavailableItems: true, selectedFacets: $selectedFacets, fullText: $fullText, query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        linkText\n        productClusters {\n          name\n        }\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n              }\n              installments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n                interestRate: InterestRate\n              }\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n              spotPrice\n              teasers {\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '783367904ff5d1f96a36ec4e0640aadfb958e8ece4bc292e0b0e58fdce0cce26',
+    '2f02c18e5e6498f2ad683b810bd953fd21d8ac251fccde02862f3adda0f25b9d',
   operationName: 'SearchQuery',
 }

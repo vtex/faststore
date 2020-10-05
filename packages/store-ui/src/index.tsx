@@ -24,7 +24,7 @@ export * from './Header/theme'
 // Logo
 export * from './Logo'
 // ProgressiveImage
-export * from './ProgressiveImage'
+export { default as ProgressiveImage } from './ProgressiveImage'
 // ResponsiveImage
 export * from './ResponsiveImage'
 // InfoCard
@@ -79,3 +79,7 @@ export { default as OfferListPrice } from './Offer/ListPrice'
 export { default as OfferContainer } from './Offer/Container'
 export { default as OfferInstallments } from './Offer/Installments'
 export { default as OfferDiscountBadge } from './Offer/DiscountBadge'
+// Product Summary
+export { default as ProductSummaryImage } from './ProductSummary/Image'
+export { default as ProductSummaryTitle } from './ProductSummary/Title'
+export { default as ProductSummaryContainer } from './ProductSummary/Container'
