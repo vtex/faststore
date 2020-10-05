@@ -5,8 +5,6 @@ import { Card, Heading, jsx, LocalizedLink } from '@vtex/store-ui'
 
 import { ProductSummary_ProductFragment } from './__generated__/ProductSummary_product.graphql'
 import BuyButton from './BuyButton'
-import OfferPreview from './Offer/Preview'
-import SyncOffer from './Offer/Sync'
 import ProductSummaryImage from './ProductSummaryImage'
 
 interface Props {
@@ -17,7 +15,6 @@ interface Props {
 const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
   const { linkText, items, productName } = product as any
   const [{ imageUrl, imageText }] = items[0].images
-  const offer = items[0].sellers?.[0]?.commercialOffer
 
   return (
     <LocalizedLink
@@ -44,11 +41,7 @@ const ProductSummary: FC<Props> = ({ product, loading = 'lazy' }) => {
         <Heading variant="summary.name" as="h3">
           {productName.slice(0, 12)}
         </Heading>
-        {!offer ? (
-          <OfferPreview variant="summary" />
-        ) : (
-          <SyncOffer sku={items[0]} variant="summary" />
-        )}
+
         <BuyButton sku={items[0]} />
       </Card>
     </LocalizedLink>
