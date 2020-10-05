@@ -2,6 +2,13 @@ import { SourceNodesArgs } from 'gatsby'
 
 import { Category, Channel } from './types'
 
+const getSlugFromUrl = (url: string) => {
+  const urlSplited = url.split('/')
+  const slug = urlSplited[urlSplited.length - 1]
+
+  return slug
+}
+
 export const createChannelNode = (
   {
     actions: { createNode },
@@ -36,11 +43,13 @@ export const createDepartmentNode = (
   { id, children, ...department }: Category
 ) => {
   const NODE_TYPE = 'Department'
-  const urlSplited = department.url.split('/')
-  const slug = urlSplited[urlSplited.length - 1]
   const data = {
     ...department,
-    slug,
+    slug: getSlugFromUrl(department.url),
+    subCategories: children.map((subCategory) => ({
+      ...subCategory,
+      slug: getSlugFromUrl(subCategory.url),
+    })),
   }
 
   createNode({
