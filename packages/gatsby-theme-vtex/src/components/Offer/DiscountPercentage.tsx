@@ -3,18 +3,18 @@ import { Flex } from '@vtex/store-ui'
 
 interface Props {
   offer: {
-    Price: number
-    ListPrice: number
+    price: number
+    listPrice: number
   }
   variant: string
 }
 
 const DiscountPercentage: FC<Props> = ({ offer, variant }) => {
-  if (offer.Price === offer.ListPrice) {
+  if (offer.price === offer.listPrice) {
     return null
   }
 
-  const relation = Math.round((offer.Price / offer.ListPrice) * 100)
+  const relation = Math.round((offer.price / offer.listPrice) * 100)
   const discount = 100 - relation
 
   return <Flex variant={`${variant}.discountBadge`}>-{discount}%</Flex>

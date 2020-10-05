@@ -8,10 +8,10 @@ import DiscountPercentage from './DiscountPercentage'
 import ListPrice from './ListPrice'
 
 interface Seller {
-  commertialOffer: {
-    AvailableQuantity: number
-    ListPrice: number
-    Price: number
+  commercialOffer: {
+    availableQuantity: number
+    listPrice: number
+    price: number
   }
 }
 
@@ -28,9 +28,9 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
   const { formatMessage } = useIntl()
   const numberFormat = useNumberFormat() // TODO: Can we do it on the server ?
   const seller = useBestSeller(sku)
-  const offer = seller?.commertialOffer
+  const offer = seller?.commercialOffer
 
-  if (!offer || offer.AvailableQuantity === 0) {
+  if (!offer || offer.availableQuantity === 0) {
     return <div>{formatMessage({ id: 'offer.product-unavailable' })}</div>
   }
 
@@ -39,14 +39,14 @@ const SyncOffer: FC<Props> = ({ sku, variant = '' }) => {
       <ListPrice variant={variant} offer={offer} />
       <Flex sx={{ alignItems: 'center' }}>
         <Box variant={`${variant}.price`}>
-          {numberFormat.format(offer.Price)}
+          {numberFormat.format(offer.price)}
         </Box>
         <DiscountPercentage variant={variant} offer={offer} />
       </Flex>
       <Box variant={`${variant}.availability`}>
         {formatMessage(
           { id: 'offer.units-left' },
-          { quantity: offer.AvailableQuantity }
+          { quantity: offer.availableQuantity }
         )}
       </Box>
     </Box>

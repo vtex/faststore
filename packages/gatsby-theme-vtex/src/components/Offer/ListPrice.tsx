@@ -5,8 +5,8 @@ import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 
 interface Props {
   offer: {
-    Price: number
-    ListPrice: number
+    price: number
+    listPrice: number
   }
   variant: string
 }
@@ -14,9 +14,9 @@ interface Props {
 const ListPrice: FC<Props> = ({ offer, variant }) => {
   const numberFormat = useNumberFormat()
   const price =
-    offer.Price === offer.ListPrice
+    offer.price === offer.listPrice
       ? null
-      : numberFormat.format(offer.ListPrice)
+      : numberFormat.format(offer.listPrice)
 
   return <Box variant={`${variant}.listPrice`}>{price}</Box>
 }

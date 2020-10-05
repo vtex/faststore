@@ -53,7 +53,7 @@ export const query = gql`
         category: $category
         simulationBehavior: $simulationBehavior
       ) {
-        ...ProductSummary_syncProduct
+        ...ProductSummary_product
       }
     }
   }

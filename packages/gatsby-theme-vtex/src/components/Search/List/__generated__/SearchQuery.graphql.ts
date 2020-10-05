@@ -51,10 +51,10 @@ export type SearchQueryQuery = {
                     Array<
                       Maybe<{
                         sellerId: Maybe<string>
-                        commertialOffer: Maybe<{
-                          AvailableQuantity: Maybe<number>
-                          Price: Maybe<number>
-                          ListPrice: Maybe<number>
+                        commercialOffer: Maybe<{
+                          availableQuantity: Maybe<number>
+                          price: Maybe<number>
+                          listPrice: Maybe<number>
                         }>
                       }>
                     >
@@ -72,8 +72,9 @@ export type SearchQueryQuery = {
 // Query Related Code
 
 export const SearchQuery = {
-  query: undefined,
+  query:
+    'query SearchQuery($query: String, $map: String, $fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(productOriginVtex: true, hideUnavailableItems: true, selectedFacets: $selectedFacets, fullText: $fullText, query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy) {\n      products {\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '63e45c5af79bf734db4fee4e7d55b7a6f17e9f5267be0e95bf49e53d13061942',
+    '783367904ff5d1f96a36ec4e0640aadfb958e8ece4bc292e0b0e58fdce0cce26',
   operationName: 'SearchQuery',
 }

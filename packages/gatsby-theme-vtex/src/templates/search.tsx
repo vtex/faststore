@@ -106,7 +106,7 @@ export const query = graphql`
         selectedFacets: $selectedFacets
       ) @include(if: $staticPath) {
         products {
-          ...ProductSummary_syncProduct
+          ...ProductSummary_product
         }
         titleTag
         recordsFiltered

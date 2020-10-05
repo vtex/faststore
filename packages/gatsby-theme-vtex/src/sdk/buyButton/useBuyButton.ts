@@ -3,8 +3,8 @@ import { useBestSeller } from '../product/useBestSeller'
 
 interface Seller {
   sellerId: string
-  commertialOffer: {
-    AvailableQuantity: number
+  commercialOffer: {
+    availableQuantity: number
     price: number
   }
 }

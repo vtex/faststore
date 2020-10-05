@@ -28,9 +28,9 @@ export type ProductDetailsTemplate_ProductFragment = {
           Array<
             Maybe<{
               sellerId: Maybe<string>
-              commertialOffer: Maybe<{
-                AvailableQuantity: Maybe<number>
-                Price: Maybe<number>
+              commercialOffer: Maybe<{
+                availableQuantity: Maybe<number>
+                price: Maybe<number>
               }>
             }>
           >

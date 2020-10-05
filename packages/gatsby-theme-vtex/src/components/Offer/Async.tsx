@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 
-import { useAsyncProduct, useSku } from '../../sdk/product/useAsyncProduct'
+import { useAsyncProduct } from '../ProductPage/useAsyncProduct'
+import { useSku } from '../../sdk/product/useSku'
 import SyncOffer from './Sync'
-import OfferPreview from './Preview'
 
 export interface Props {
   slug: string
@@ -11,12 +11,8 @@ export interface Props {
 }
 
 const AsyncOffer: FC<Props> = ({ slug, skuId, variant = '' }) => {
-  const { product, isLoading } = useAsyncProduct(slug)
+  const { product }: any = useAsyncProduct({ slug })
   const sku = useSku(product, skuId)
-
-  if (isLoading) {
-    return <OfferPreview variant={variant} />
-  }
 
   return <SyncOffer sku={sku as any} variant={variant} />
 }

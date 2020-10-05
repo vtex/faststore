@@ -2,15 +2,15 @@
 import { FC, Fragment } from 'react'
 import { Flex, useResponsiveSlider, jsx } from '@vtex/store-ui'
 
-import ShelfArrowLeft from './ArrowLeft'
-import ShelfArrowRight from './ArrowRight'
-import { ProductSummary_SyncProductFragment } from '../__generated__/ProductSummary_syncProduct.graphql'
+import { ProductSummary_ProductFragment } from '../__generated__/ProductSummary_product.graphql'
 import ShelfPaginationDots from './PaginationDots'
-import ShelfPage from './Page'
+import ShelfArrowRight from './ArrowRight'
+import ShelfArrowLeft from './ArrowLeft'
 import ShelfTitle from './Title'
+import ShelfPage from './Page'
 
 export interface Props {
-  products: Array<ProductSummary_SyncProductFragment | undefined | null>
+  products: Array<ProductSummary_ProductFragment | undefined | null>
   pageSizes?: number[]
   title?: string
   showArrows?: boolean

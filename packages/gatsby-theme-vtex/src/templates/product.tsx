@@ -48,17 +48,23 @@ const ProductPage: FC<ProductPageProps> = (props) => {
     return <div>Product Not Found</div>
   }
 
+  const pageProps = {
+    ...props,
+    data,
+    slug,
+  }
+
   return (
     <>
-      <AboveTheFold {...props} data={data} slug={slug} />
+      <AboveTheFold {...pageProps} data={data} slug={slug} />
       <SuspenseSSR fallback={null}>
-        <SEO {...props} data={data} />
+        <SEO {...pageProps} data={data} />
       </SuspenseSSR>
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
       >
-        <BelowTheFold slug={slug} />
+        <BelowTheFold {...pageProps} slug={slug} />
       </SuspenseViewport>
     </>
   )
