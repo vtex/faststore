@@ -126,6 +126,10 @@ module.exports = ({
         prefix: '/graphql',
         url: `https://${workspace}--${tenant}.myvtex.com`,
       },
+      {
+        prefix: '/checkout',
+        url: `https://${workspace}--${tenant}.myvtex.com`,
+      },
     ],
   }
 }

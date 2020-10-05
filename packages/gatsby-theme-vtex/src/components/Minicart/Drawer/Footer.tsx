@@ -1,5 +1,11 @@
 import React, { FC } from 'react'
-import { Flex, MinicartDrawerPrice, Text, Button } from '@vtex/store-ui'
+import {
+  Flex,
+  MinicartDrawerPrice,
+  Text,
+  Button,
+  LocalizedLink,
+} from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 export interface HeaderMinicartDrawerFooterProps {
@@ -35,7 +41,11 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
       <Text variant={`${customVariant}.message`}>
         {formatMessage({ id: 'minicart.drawer.shipping-disclaimer' })}
       </Text>
-      <Button>{formatMessage({ id: 'minicart.drawer.go-checkout' })}</Button>
+      <LocalizedLink to="/checkout">
+        <Button sx={{ width: '100%' }}>
+          {formatMessage({ id: 'minicart.drawer.go-checkout' })}
+        </Button>
+      </LocalizedLink>
     </Flex>
   )
 }
