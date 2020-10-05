@@ -7,23 +7,25 @@ import React, { FC } from 'react'
 
 import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
 import { useCurrency } from '../../../sdk/localization/useCurrency'
+import { OrderFormContext } from '../../../sdk/orderForm/Provider'
+import { IMAGE_DEFAULT } from '../../../sdk/product/constants'
 import { HeaderMinicartDrawerContent } from './Content'
 import { HeaderMinicartDrawerFooter } from './Footer'
 import { HeaderMinicartDrawerHeader } from './Header'
 
-const useHeaderMinicartDrawerContentData = (orderForm: any) => {
-  const data = orderForm.value?.items.map((item: any) => ({
-    id: item.uniqueId,
+const useHeaderMinicartDrawerContentData = (orderForm: OrderFormContext) => {
+  const data = orderForm.value?.items.map((item) => ({
+    id: item.uniqueId!,
     image: {
-      alt: item.name,
-      src: item.imageUrl,
+      alt: item.name!,
+      src: item.imageUrls?.at1x ?? IMAGE_DEFAULT,
     },
-    name: item.name,
-    price: item.price,
+    name: item.name!,
+    price: item.price!,
   }))
 
   return {
-    data,
+    data: data || [],
   }
 }
 

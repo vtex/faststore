@@ -10,3 +10,11 @@ declare type Vtex_SelectedFacetInput = {
 }
 
 declare type Vtex_SimulationBehavior = 'default' | 'skip'
+
+declare type Vtex_ItemInput = any
+
+declare type Vtex_MarketingDataInput = any
+
+declare type Vtex_UserType = any
+
+declare type Vtex_AddressType = any

@@ -2,7 +2,6 @@
  * This provider starts fetching early and adds a suspendable reader to
  * the context. Use the hooks to interact with the context
  */
-import { OrderForm as OrderFormType } from '@vtex/gatsby-source-vtex'
 import React, {
   createContext,
   FC,
@@ -11,52 +10,50 @@ import React, {
   useState,
 } from 'react'
 
+import { OrderFormFragment_OrderFormFragment } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 import { storage } from './storage'
 import { OrderFormItem } from './types'
 
-const controler = () => import('./controler')
+const controler = () => import('./controller')
 
-type OrderFormContext = {
-  value: OrderFormType | null
-  addItems: (items: OrderFormItem[]) => Promise<void>
+export type OrderFormContext = {
+  value: OrderFormFragment_OrderFormFragment | null
+  addToCart: (items: OrderFormItem[]) => Promise<void>
 }
 
 export const OrderForm = createContext<OrderFormContext>(undefined as any)
 
 export const OrderFormProvider: FC = ({ children }) => {
-  const [orderForm, setOrderForm] = useState<OrderFormType | null>(() =>
-    storage.get()
-  )
+  const [
+    orderForm,
+    setOrderForm,
+  ] = useState<OrderFormFragment_OrderFormFragment | null>(() => storage.get())
 
-  const id = orderForm?.orderFormId
+  const id = orderForm?.id
 
   // Fetch orderForm on first render
   useEffect(() => {
     let cancel = false
 
-    const fetchAndDispatch = async () => {
-      const { fetchOrderForm, startOrderForm } = await controler()
-
-      const data = await fetchOrderForm(orderForm)
-
-      if (!cancel) {
-        startOrderForm(data, setOrderForm)
-      }
-    }
-
-    fetchAndDispatch()
+    controler().then(({ getOrderForm }) =>
+      getOrderForm(id, (of) => {
+        if (!cancel) {
+          setOrderForm(of)
+        }
+      })
+    )
 
     return () => {
       cancel = true
     }
-  }, [orderForm])
+  }, [id])
 
   // Add item to cart using the queue
-  const addItems = useCallback(
+  const addToCart = useCallback(
     async (items) => {
       const ctl = await controler()
 
-      ctl.addItems(id, setOrderForm, items)
+      ctl.addToCart(id!, items, setOrderForm)
     },
     [id]
   )
@@ -65,7 +62,7 @@ export const OrderFormProvider: FC = ({ children }) => {
     <OrderForm.Provider
       value={{
         value: orderForm,
-        addItems,
+        addToCart,
       }}
     >
       {children}
