@@ -86,7 +86,8 @@ export type ProductsSuggestionsQueryQuery = {
 // Query Related Code
 
 export const ProductsSuggestionsQuery = {
-  query: undefined,
+  query:
+    'query ProductsSuggestionsQuery($fullText: String!, $facetKey: String, $facetValue: String, $productOriginVtex: Boolean = false, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(fullText: $fullText, facetKey: $facetKey, facetValue: $facetValue, productOriginVtex: $productOriginVtex, simulationBehavior: $simulationBehavior) {\n      count\n      products {\n        key: productId\n        productId\n        productName\n        description\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commertialOffer {\n              AvailableQuantity\n              Price\n              ListPrice\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
     'f86944c7b1321edcc6e096b995cc2d8eed1db294f2a6b61472bc261aab343325',
   operationName: 'ProductsSuggestionsQuery',
