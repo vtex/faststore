@@ -30,8 +30,7 @@ export type AutocompleteSuggestionsQueryQuery = {
 // Query Related Code
 
 export const AutocompleteSuggestionsQuery = {
-  query:
-    'query AutocompleteSuggestionsQuery($fullText: String!) {\n  vtex {\n    autocompleteSearchSuggestions(fullText: $fullText) {\n      searches {\n        term\n        key: term\n      }\n    }\n  }\n}\n',
+  query: undefined,
   sha256Hash:
     '85174d418018b5219606c7121dba3623fea4807351ebf07da5fad79455173646',
   operationName: 'AutocompleteSuggestionsQuery',
