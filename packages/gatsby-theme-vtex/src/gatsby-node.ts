@@ -41,13 +41,13 @@ export const createPages = async (
 
   createRedirect({
     fromPath: '/arquivos/*',
-    toPath: `https://${tenant}.${environment}.myvtex.com/arquivos/:splat`,
+    toPath: `https://${tenant}.vtexassets.com/arquivos/:splat`,
     statusCode: 200,
   })
 
   createRedirect({
     fromPath: '/files/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/files/:splat`,
+    toPath: `https://${tenant}.vtexassets.com/files/:splat`,
     statusCode: 200,
   })
 
