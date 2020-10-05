@@ -15,9 +15,6 @@ const ProductSummaryContainer: FC<Props> = ({ children, to, variant }) => (
     to={to}
     sx={{
       variant: `productSummary.${variant}.container`,
-      textDecoration: 'none',
-      color: 'text',
-      flexGrow: 1,
     }}
   >
     {children}
