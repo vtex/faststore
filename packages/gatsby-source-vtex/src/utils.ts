@@ -9,6 +9,13 @@ const getSlugFromUrl = (url: string) => {
   return slug
 }
 
+const getChildrenSlugFromUrl = (url: string) => {
+  const urlSplited = url.split('/')
+  const slug = urlSplited.slice(Math.max(urlSplited.length - 2, 0)).join('/')
+
+  return slug
+}
+
 export const createChannelNode = (
   {
     actions: { createNode },
@@ -48,7 +55,7 @@ export const createDepartmentNode = (
     slug: getSlugFromUrl(department.url),
     subCategories: children.map((subCategory) => ({
       ...subCategory,
-      slug: getSlugFromUrl(subCategory.url),
+      slug: getChildrenSlugFromUrl(subCategory.url),
     })),
   }
 
