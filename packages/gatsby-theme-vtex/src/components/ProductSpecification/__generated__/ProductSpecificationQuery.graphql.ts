@@ -44,7 +44,8 @@ export type ProductSpecificationQueryQuery = {
 // Query Related Code
 
 export const ProductSpecificationQuery = {
-  query: undefined,
+  query:
+    'query ProductSpecificationQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      specificationGroups {\n        name\n        specifications {\n          name\n          values\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
     '3ad8c09c11e825e8297969b23f9f3f731e938cbe2a2c9e4ac700f4e215926294',
   operationName: 'ProductSpecificationQuery',

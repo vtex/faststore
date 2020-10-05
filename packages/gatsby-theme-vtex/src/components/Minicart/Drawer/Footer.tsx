@@ -1,11 +1,5 @@
 import React, { FC } from 'react'
-import {
-  Flex,
-  MinicartDrawerPrice,
-  Text,
-  Button,
-  LocalizedLink,
-} from '@vtex/store-ui'
+import { Flex, MinicartDrawerPrice, Text, Button } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 export interface HeaderMinicartDrawerFooterProps {
