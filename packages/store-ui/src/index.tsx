@@ -72,3 +72,10 @@ export { default as Center } from './Center'
 export * from './ProductSpecification'
 // Product Description
 export * from './ProductDescription'
+// Offer
+export { default as OfferPrice } from './Offer/Price'
+export { default as OfferSoldOut } from './Offer/SoldOut'
+export { default as OfferListPrice } from './Offer/ListPrice'
+export { default as OfferContainer } from './Offer/Container'
+export { default as OfferInstallments } from './Offer/Installments'
+export { default as OfferDiscountBadge } from './Offer/DiscountBadge'
