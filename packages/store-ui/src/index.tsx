@@ -26,7 +26,7 @@ export * from './Logo'
 // ProgressiveImage
 export { default as ProgressiveImage } from './ProgressiveImage'
 // ResponsiveImage
-export * from './ResponsiveImage/index'
+export { default as ResponsiveImage } from './ResponsiveImage'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'

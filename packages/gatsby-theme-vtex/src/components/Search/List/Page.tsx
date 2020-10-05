@@ -4,7 +4,7 @@ import { ProductSummary_ProductFragment } from '../../ProductSummary/__generated
 import ProductSummary from '../../ProductSummary'
 
 interface Props {
-  products: Array<ProductSummary_ProductFragment | undefined | null>
+  products: Array<Maybe<ProductSummary_ProductFragment>>
 }
 
 const Page: FC<Props> = ({ products }) => (

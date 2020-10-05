@@ -23,7 +23,7 @@ interface Props extends IResponsiveImage {
   variant?: string
 }
 
-export const ResponsiveImage: FC<Props> = ({
+const ResponsiveImage: FC<Props> = ({
   sources,
   heights,
   variant,
@@ -53,3 +53,5 @@ export const ResponsiveImage: FC<Props> = ({
     />
   </picture>
 )
+
+export default ResponsiveImage
