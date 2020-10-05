@@ -45,6 +45,12 @@ export const createPages = async (
     statusCode: 200,
   })
 
+  createRedirect({
+    fromPath: '/checkout/*',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/checkout/:splat`,
+    statusCode: 200,
+  })
+
   /**
    * STATIC PATHS
    */
