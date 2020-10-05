@@ -10,7 +10,7 @@ interface Seller {
 }
 
 export interface SKU {
-  itemId: string
+  itemId: number
   sellers: Seller[]
 }
 
@@ -29,12 +29,12 @@ export const useBuyButton = (sku: Maybe<SKU>) => {
 
     // Item to be updated into the orderForm
     const orderFormItem = {
-      id: sku.itemId,
+      id: Number(sku.itemId),
       quantity: 1,
       seller: seller.sellerId,
     }
 
-    orderForm.addItems([orderFormItem]).catch(console.error)
+    orderForm.addToCart([orderFormItem]).catch(console.error)
   }
 
   return {
