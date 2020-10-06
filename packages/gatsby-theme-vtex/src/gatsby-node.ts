@@ -63,6 +63,12 @@ export const createPages = async (
     statusCode: 200,
   })
 
+  createRedirect({
+    fromPath: '/_v/private/auth-server/v1/login',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/_v/private/auth-server/v1/login`,
+    statusCode: 200,
+  })
+
   /**
    * STATIC PATHS
    */
