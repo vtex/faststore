@@ -35,11 +35,14 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
       <Text variant={`${customVariant}.message`}>
         {formatMessage({ id: 'minicart.drawer.shipping-disclaimer' })}
       </Text>
-      <a href="/checkout">
-        <Button sx={{ width: '100%' }}>
-          {formatMessage({ id: 'minicart.drawer.go-checkout' })}
-        </Button>
-      </a>
+      <Button
+        onClick={(e) => {
+          e.preventDefault()
+          window.location.href = '/checkout'
+        }}
+      >
+        {formatMessage({ id: 'minicart.drawer.go-checkout' })}
+      </Button>
     </Flex>
   )
 }
