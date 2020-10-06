@@ -48,6 +48,7 @@ type Scalars = {
   String: string
   Float: number
   Int: number
+  ID: string
 }
 
 // Operation related types
