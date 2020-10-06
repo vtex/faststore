@@ -2,7 +2,7 @@ import useSWR, { ConfigInterface } from 'swr'
 
 import { request, RequestOptions } from './request'
 
-type QueryOptions = ConfigInterface & RequestOptions
+export type QueryOptions = ConfigInterface & RequestOptions
 
 const getKey = (options: QueryOptions) =>
   `${options.sha256Hash}::${JSON.stringify(options.variables)}`

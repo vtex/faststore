@@ -12,6 +12,7 @@ type Scalars = {
   String: string
   Float: number
   Int: number
+  ID: string
 }
 
 // Operation related types
@@ -52,7 +53,7 @@ export type ProductPageQueryQuery = {
 
 export const ProductPageQuery = {
   query:
-    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commertialOffer {\n            AvailableQuantity\n            Price\n          }\n        }\n        itemId\n      }\n      productId\n      description\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
+    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        itemId\n      }\n      productClusters {\n        name\n      }\n      productId\n      description\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
   sha256Hash:
     '3f01910dd0ff42573bc8ff83b031ccccadd2bda796e9b34e2109045c98a06c25',
   operationName: 'ProductPageQuery',

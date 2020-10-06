@@ -16,17 +16,18 @@ export type CB = (of: OrderFormFragment_OrderFormFragment) => void
 
 export const setOrderFormState = (
   orderForm: OrderFormFragment_OrderFormFragment,
-  setReactState: CB
+  cb: CB
 ) => {
-  setReactState(orderForm)
+  cb(orderForm)
   storage.set(orderForm)
+  document.cookie = `checkout.vtex.com=__ofid=${orderForm.id}; path=/;`
 }
 
 export const startOrderForm = async (
   orderForm: OrderFormFragment_OrderFormFragment,
-  setReactState: CB
+  cb: CB
 ) => {
-  setOrderFormState(orderForm, setReactState)
+  setOrderFormState(orderForm, cb)
   queue.start()
 }
 
