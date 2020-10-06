@@ -30,7 +30,7 @@ export {
   default as ResponsiveImage,
   IResponsiveImage,
   IResponsiveImageSource,
-} from './ResponsiveImage/index'
+} from './ResponsiveImage'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'
