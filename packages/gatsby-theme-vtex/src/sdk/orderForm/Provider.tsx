@@ -16,7 +16,7 @@ import { OrderFormItem } from './types'
 
 const controler = () => import('./controller')
 
-type OrderFormContext = {
+export type OrderFormContext = {
   value: OrderFormFragment_OrderFormFragment | null
   addToCart: (items: OrderFormItem[]) => Promise<void>
 }
