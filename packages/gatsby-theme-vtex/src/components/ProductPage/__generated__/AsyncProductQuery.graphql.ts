@@ -12,6 +12,7 @@ type Scalars = {
   String: string
   Float: number
   Int: number
+  ID: string
 }
 
 // Operation related types
@@ -45,6 +46,7 @@ export type AsyncProductQueryQuery = {
       items: Maybe<
         Array<
           Maybe<{
+            itemId: Maybe<string>
             images: Maybe<
               Array<
                 Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>
@@ -92,8 +94,8 @@ export type AsyncProductQueryQuery = {
 
 export const AsyncProductQuery = {
   query:
-    'query AsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      productReference\n      description\n      linkText\n      specificationGroups {\n        name\n        specifications {\n          name\n          values\n        }\n      }\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query AsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      productReference\n      description\n      linkText\n      specificationGroups {\n        name\n        specifications {\n          name\n          values\n        }\n      }\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '19d2aebdc7126fb862d67933cc7c0423273730de4183843f0c3bd3e90f2fa854',
+    'bc3b14ad25f71246f0a711c9ca8b1598d9c2c9a698d7ad8b2ebb20678e696cd9',
   operationName: 'AsyncProductQuery',
 }

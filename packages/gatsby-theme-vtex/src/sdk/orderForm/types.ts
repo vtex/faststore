@@ -1,5 +1,5 @@
 export interface OrderFormItem {
-  id: string
+  id: number
   quantity: number
   seller: string
 }

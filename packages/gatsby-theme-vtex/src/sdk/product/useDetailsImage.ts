@@ -6,12 +6,10 @@ import {
   DETAILS_IMAGE_HEIGHT_STR,
   DETAILS_IMAGE_WIDTH,
   DETAILS_IMAGE_WIDTH_STR,
+  IMAGE_DEFAULT,
   SUMMARY_IMAGE_HEIGHT,
   SUMMARY_IMAGE_WIDTH,
 } from './constants'
-
-const IMAGE_DEFAULT =
-  'https://storecomponents.vtexassets.com/assets/faststore/images/product-not-found___29e298d98dd1d0744190f12619653717.jpg'
 
 export const useDetailsImage = (maybeSrc: string | undefined) => {
   const src = maybeSrc ?? IMAGE_DEFAULT

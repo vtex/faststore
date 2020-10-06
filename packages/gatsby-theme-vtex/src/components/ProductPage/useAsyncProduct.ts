@@ -48,6 +48,7 @@ export const query = gql`
           }
         }
         items {
+          itemId
           images {
             imageUrl
             imageText
