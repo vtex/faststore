@@ -12,6 +12,7 @@ type Props = {
 }
 
 const ShippingTable: FC<Props> = ({ shipping, variant }) => {
+  const intl = useIntl()
   const tableVariant = `${variant}.table`
 
   return (
@@ -19,13 +20,13 @@ const ShippingTable: FC<Props> = ({ shipping, variant }) => {
       <Box as="thead" variant={`${tableVariant}.thead`}>
         <Box as="tr" variant={`${tableVariant}.thead.row`}>
           <Box as="th" variant={`${tableVariant}.thead.id`}>
-            Nome
+            {intl.formatMessage({ id: 'shipping.label.id' })}
           </Box>
           <Box as="th" variant={`${tableVariant}.thead.estimate`}>
-            Prazo
+            {intl.formatMessage({ id: 'shipping.label.estimate' })}
           </Box>
           <Box as="th" variant={`${tableVariant}.thead.price`}>
-            Preço
+            {intl.formatMessage({ id: 'shipping.label.price' })}
           </Box>
         </Box>
       </Box>
@@ -35,7 +36,7 @@ const ShippingTable: FC<Props> = ({ shipping, variant }) => {
 
           const shippingOptionProps = {
             id: option.id,
-            price: option.price ?? 0,
+            price: option.price,
             estimate: option.estimate,
           }
 
@@ -55,7 +56,7 @@ const ShippingTable: FC<Props> = ({ shipping, variant }) => {
 type ShippingOptionProps = {
   id: string
   estimate: string
-  price: number
+  price?: number | null
   variant: string
 }
 
@@ -68,13 +69,13 @@ const ShippingOption: FC<ShippingOptionProps> = ({
   const format = useNumberFormat()
   const intl = useIntl()
 
-  const freighPrice = useMemo(() => {
-    if (typeof price === 'undefined') {
-      return '-'
-    }
-
+  const freightPrice = useMemo(() => {
     if (price === 0) {
       return intl.formatMessage({ id: 'shipping.free' })
+    }
+
+    if (!price) {
+      return '-'
     }
 
     return format.format(price)
@@ -92,7 +93,7 @@ const ShippingOption: FC<ShippingOptionProps> = ({
         <TranslateEstimate shippingEstimate={estimate} />
       </Box>
       <Box as="td" variant={`${variant}.priceCell`}>
-        {freighPrice}
+        {freightPrice}
       </Box>
     </Box>
   )
