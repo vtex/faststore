@@ -1,5 +1,4 @@
 import { parse, posix } from 'path'
-import { inspect } from 'util'
 
 import kebabHash from 'kebab-hash'
 

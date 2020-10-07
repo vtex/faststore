@@ -1,6 +1,6 @@
 import { posix } from 'path'
 
-import { INDEX_HTML, PUBLIC_CACHING_HEADER } from './constants'
+import { INDEX_HTML } from './constants'
 
 export {
   stringify,
