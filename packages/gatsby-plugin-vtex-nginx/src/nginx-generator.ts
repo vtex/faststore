@@ -48,27 +48,7 @@ function generateNginxConfiguration(
                 return value !== undefined
               }),
             ...generateRedirects(redirects),
-            {
-              cmd: ['location', '/'],
-              children: [{ cmd: ['try_files', '/dev/null', '@s3'] }],
-            },
-            generateRewrites(rewrites),
-            { cmd: ['error_page', '403', '=', '@clientSideFallback'] },
-            {
-              cmd: ['location', '@s3'],
-              children: [
-                {
-                  cmd: [
-                    'add_header',
-                    PUBLIC_CACHING_HEADER.name,
-                    `"${PUBLIC_CACHING_HEADER.value}"`,
-                  ],
-                },
-                // todo: remove this entire location
-                // storagePassTemplate('$uri'),
-                { cmd: ['proxy_intercept_errors', 'on'] },
-              ],
-            },
+            ...generateRewrites(rewrites),
           ],
         },
       ],
@@ -107,15 +87,13 @@ function validateRedirect({ fromPath, toPath }: Redirect): boolean {
   return true
 }
 
-function generateRewrites(rewrites: Redirect[]): NginxDirective {
-  return {
-    cmd: ['location', '@clientSideFallback'],
-    children: rewrites
-      .map(({ fromPath, toPath }) => ({
-        cmd: ['rewrite', convertFromPath(fromPath), toPath, 'last'],
-      }))
-      .concat([{ cmd: ['return', '404'] }]),
-  }
+function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
+  return rewrites.map(({ fromPath, toPath }) => {
+    return {
+      cmd: ['location', '~*', convertFromPath(fromPath)],
+      children: [{ cmd: ['rewrite', '.+', toPath] }],
+    }
+  })
 }
 
 function formatProxyHeaders(headers: Record<string, string> | undefined) {
