@@ -31,6 +31,7 @@ export type ShelfQueryQueryVariables = Exact<{
 }>;
 
 
+export type ShelfQueryQuery = { vtex: { products: Maybe<Array<Maybe<{ productId: Maybe<string>, productName: Maybe<string>, description: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ sellerId: Maybe<string>, commercialOffer: Maybe<{ availableQuantity: Maybe<number>, price: Maybe<number>, listPrice: Maybe<number> }> }>>> }>>> }>>> } };
 
 export type ShelfQueryQuery = {
   vtex: {
