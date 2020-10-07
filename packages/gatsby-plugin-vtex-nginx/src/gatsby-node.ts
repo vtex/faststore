@@ -7,11 +7,14 @@ import WebpackAssetsManifest from 'webpack-assets-manifest'
 import { BUILD_HTML_STAGE, VTEX_NGINX_CONF_FILENAME } from './constants'
 import {
   addPublicCachingHeader,
+  addStaticCachingHeader,
   applyUserHeadersTransform,
+  emptyHeadersMapForFiles,
   cacheHeadersByPath,
   preloadHeadersByPath,
 } from './headers'
 import { generateNginxConfiguration } from './nginx-generator'
+import { listFilesRecursively } from './listFiles'
 
 const assetsManifest: Record<string, string> = {}
 
@@ -54,9 +57,10 @@ const Node: GatsbyNode = {
         toPath: page.path,
       }))
 
+    const publicFolder = join(program.directory, 'public')
+
     const { assetsByChunkName } = require(join(
-      program.directory,
-      'public',
+      publicFolder,
       'webpack.stats.json'
     ))
 
@@ -65,7 +69,10 @@ const Node: GatsbyNode = {
       ...assetsByChunkName,
     }
 
+    const files = await listFilesRecursively(publicFolder)
+
     let headers = {
+      ...emptyHeadersMapForFiles(files),
       ...preloadHeadersByPath(pages, manifest, pathPrefix),
       ...cacheHeadersByPath(pages, manifest),
     }
@@ -74,11 +81,13 @@ const Node: GatsbyNode = {
       headers = applyUserHeadersTransform(headers, transformHeaders)
     }
 
+    headers = addStaticCachingHeader(headers)
+
     headers = addPublicCachingHeader(headers)
 
     writeFileSync(
       join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
-      generateNginxConfiguration(rewrites, redirects, headers)
+      generateNginxConfiguration(rewrites, redirects, headers, files)
     )
 
     reporter.success('write out nginx configuration')

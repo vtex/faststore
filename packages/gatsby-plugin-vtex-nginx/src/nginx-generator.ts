@@ -1,6 +1,6 @@
 import { posix } from 'path'
 
-import { PUBLIC_CACHING_HEADER } from './constants'
+import { INDEX_HTML, PUBLIC_CACHING_HEADER } from './constants'
 
 export {
   stringify,
@@ -20,7 +20,8 @@ export interface NginxDirective {
 function generateNginxConfiguration(
   rewrites: Redirect[],
   redirects: Redirect[],
-  headersMap: PathHeadersMap
+  headersMap: PathHeadersMap,
+  files: string[]
 ): string {
   return stringify([
     { cmd: ['worker_processes', '3'] },
@@ -33,20 +34,19 @@ function generateNginxConfiguration(
       children: [
         { cmd: ['access_log', '/var/log/nginx_access.log'] },
         {
-          cmd: ['map', '$http_referer', '$referer_path'],
-          children: [
-            { cmd: ['default', '""'] },
-            { cmd: ['~^.*?://.*?/(?<path>.*)$', '$path'] },
-          ],
-        },
-        {
           cmd: ['server'],
           children: [
             { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
             { cmd: ['resolver', '8.8.8.8'] },
-            ...Object.entries(headersMap).map(([path, headers]) =>
-              generatePathLocation(path, headers)
-            ),
+            ...Object.entries(headersMap)
+              .map(([path, headers]) =>
+                generatePathLocation(path, headers, files)
+              )
+              .filter<NginxDirective>(function (
+                value: NginxDirective | undefined
+              ): value is NginxDirective {
+                return value !== undefined
+              }),
             ...generateRedirects(redirects),
             {
               cmd: ['location', '/'],
@@ -64,7 +64,8 @@ function generateNginxConfiguration(
                     `"${PUBLIC_CACHING_HEADER.value}"`,
                   ],
                 },
-                storagePassTemplate('$uri'),
+                // todo: remove this entire location
+                // storagePassTemplate('$uri'),
                 { cmd: ['proxy_intercept_errors', 'on'] },
               ],
             },
@@ -139,33 +140,44 @@ function generateRedirects(redirects: Redirect[]): NginxDirective[] {
   })
 }
 
-function storagePassTemplate(path: string): NginxDirective {
+function storagePassTemplate(
+  path: string,
+  files: string[]
+): NginxDirective | undefined {
+  path = path.slice(1) // remove leading slash
+  const filePath = files.find(
+    (file) => file === path || file === posix.join(path, INDEX_HTML)
+  )
+
+  if (filePath === undefined) {
+    return undefined
+  }
+
   return {
-    cmd: [
-      'proxy_pass',
-      `https://s3.amazonaws.com/\${BUCKET}/\${BRANCH}/public${path}`,
-    ],
+    cmd: ['proxy_pass', `\${${filePath}}`],
   }
 }
 
-function generatePathLocation(path: string, headers: Header[]): NginxDirective {
+function generatePathLocation(
+  path: string,
+  headers: Header[],
+  files: string[]
+): NginxDirective | undefined {
+  const proxyPassDirective = storagePassTemplate(path, files)
+
+  if (proxyPassDirective === undefined) {
+    return undefined
+  }
+
   return {
     cmd: ['location', '=', path],
     children: [
       ...headers.map(({ name, value }) => ({
         cmd: ['add_header', name, `"${value}"`],
       })),
-      storagePassTemplate(fixFilePath(path)),
+      proxyPassDirective,
     ],
   }
-}
-
-function fixFilePath(path: string) {
-  if (path.indexOf('.') !== -1) {
-    return path
-  }
-
-  return posix.join(path, 'index.html')
 }
 
 function ident(text: string, space = '  ') {
