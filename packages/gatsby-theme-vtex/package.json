@@ -2,9 +2,6 @@
   "name": "@vtex/gatsby-theme-vtex",
   "version": "0.92.0",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc",
     "prepare": "cross-env NODE_ENV=production yarn run build",
     "develop": "tsc --watch"
   },
