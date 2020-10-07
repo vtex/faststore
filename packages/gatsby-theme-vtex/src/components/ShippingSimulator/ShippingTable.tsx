@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
-import { Box, Flex, Text } from '@vtex/store-ui'
+import { Box } from '@vtex/store-ui'
 
+import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 import { ShippingQueryQuery } from './__generated__/ShippingQuery.graphql'
+import { TranslateEstimate } from './TranslateEstimate'
 
 type Props = {
   shipping: ShippingQueryQuery | null
@@ -9,24 +11,42 @@ type Props = {
 }
 
 const ShippingTable: FC<Props> = ({ shipping, variant }) => {
+  const tableVariant = `${variant}.table`
+
   return (
-    <Box variant={`${variant}.shippingTable`}>
-      {shipping?.vtex.shippingSLA?.deliveryOptions?.map((option) => {
-        if (!option?.estimate || !option.id) return null
+    <Box as="table" variant={tableVariant}>
+      <Box as="thead" variant={`${tableVariant}.thead`}>
+        <Box as="tr" variant={`${tableVariant}.thead.row`}>
+          <Box as="th" variant={`${tableVariant}.thead.id`}>
+            Nome
+          </Box>
+          <Box as="th" variant={`${tableVariant}.thead.estimate`}>
+            Prazo
+          </Box>
+          <Box as="th" variant={`${tableVariant}.thead.price`}>
+            Preço
+          </Box>
+        </Box>
+      </Box>
+      <Box as="tbody" variant={`${tableVariant}.tbody`}>
+        {shipping?.vtex.shippingSLA?.deliveryOptions?.map((option) => {
+          if (!option?.estimate || !option.id) return null
 
-        const shippingOptionProps = {
-          id: option.id,
-          price: option.price ?? 0,
-          estimate: option.estimate,
-        }
+          const shippingOptionProps = {
+            id: option.id,
+            price: option.price ?? 0,
+            estimate: option.estimate,
+          }
 
-        return (
-          <ShippingOption
-            key={shippingOptionProps.id}
-            {...shippingOptionProps}
-          />
-        )
-      })}
+          return (
+            <ShippingOption
+              variant={variant}
+              key={shippingOptionProps.id}
+              {...shippingOptionProps}
+            />
+          )
+        })}
+      </Box>
     </Box>
   )
 }
@@ -35,23 +55,34 @@ type ShippingOptionProps = {
   id: string
   estimate: string
   price: number
+  variant: string
 }
 
-const ShippingOption: FC<ShippingOptionProps> = ({ id, price, estimate }) => {
+const ShippingOption: FC<ShippingOptionProps> = ({
+  id,
+  price,
+  estimate,
+  variant,
+}) => {
+  const format = useNumberFormat()
+
+  const freighPrice = price ? format.format(price) : 'Grátis'
+
   return (
-    <Flex sx={{ width: '100%', lineHeight: 1.15 }}>
-      <Box sx={{ flex: '1 1 auto' }}>
-        <Box mb={2}>{id}</Box>
-        <Text sx={{ color: 'textMuted' }}>
-          {estimate}
-          {/* <TranslateEstimate shippingEstimate={option.estimate} /> */}
-        </Text>
+    <Box as="tr" variant={`${variant}.optionRow`}>
+      <Box as="td" variant={`${variant}.idCell`}>
+        <Box as="label" variant={`${variant}.idLabel`}>
+          <input type="radio" name="shipping-option" />
+          {id}
+        </Box>
       </Box>
-      <Box sx={{ flex: 'none' }}>
-        {price}
-        {/* <FormattedPrice value={option.price / 100} /> */}
+      <Box as="td" variant={`${variant}.estimateCell`}>
+        <TranslateEstimate shippingEstimate={estimate} />
       </Box>
-    </Flex>
+      <Box as="td" variant={`${variant}.priceCell`}>
+        {freighPrice}
+      </Box>
+    </Box>
   )
 }
 

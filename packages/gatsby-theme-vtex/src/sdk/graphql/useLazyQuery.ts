@@ -13,7 +13,9 @@ export const useLazyQuery = <
 >(
   options: QueryOptions
 ) => {
-  const response = useSWR<Query | null, any[]>(getKey(options), () => null)
+  const response = useSWR<Query | null, any[]>(getKey(options), () => null, {
+    revalidateOnFocus: false,
+  })
 
   const execute = async (variables: Variables) => {
     const { data } = await request<Variables, Query>('/graphql/', {

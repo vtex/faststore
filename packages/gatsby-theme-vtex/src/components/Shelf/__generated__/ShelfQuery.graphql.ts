@@ -17,6 +17,7 @@ type Scalars = {
 
 // Operation related types
 export type ShelfQueryQueryVariables = Exact<{
+<<<<<<< HEAD
   simulationBehavior?: Maybe<Vtex_SimulationBehavior>
   hideUnavailableItems?: Maybe<Scalars['Boolean']>
   salesChannel?: Maybe<Scalars['String']>
@@ -28,6 +29,22 @@ export type ShelfQueryQueryVariables = Exact<{
   from?: Maybe<Scalars['Int']>
   to?: Maybe<Scalars['Int']>
 }>
+=======
+  simulationBehavior?: Maybe<Vtex_SimulationBehavior>;
+  hideUnavailableItems?: Maybe<Scalars['Boolean']>;
+  salesChannel?: Maybe<Scalars['String']>;
+  collection: Maybe<Scalars['String']>;
+  category?: Maybe<Scalars['String']>;
+  orderBy?: Maybe<Scalars['String']>;
+  query: Maybe<Scalars['String']>;
+  map: Maybe<Scalars['String']>;
+  from?: Maybe<Scalars['Int']>;
+  to?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type ShelfQueryQuery = { vtex: { products: Maybe<Array<Maybe<{ productId: Maybe<string>, productName: Maybe<string>, description: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ sellerId: Maybe<string>, commercialOffer: Maybe<{ availableQuantity: Maybe<number>, price: Maybe<number>, listPrice: Maybe<number> }> }>>> }>>> }>>> } };
+>>>>>>> f7cf8d99... Improving lazy query and adding variants
 
 export type ShelfQueryQuery = {
   vtex: {
