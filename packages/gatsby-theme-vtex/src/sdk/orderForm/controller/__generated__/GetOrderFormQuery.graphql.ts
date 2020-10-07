@@ -197,16 +197,12 @@ export type GetOrderFormQueryQuery = {
           street: Maybe<string>
           isDisposable: Maybe<boolean>
         }>
-        deliveryOptions: Maybe<
-          Array<
-            Maybe<{
-              id: Maybe<string>
-              price: Maybe<number>
-              estimate: Maybe<string>
-              isSelected: Maybe<boolean>
-            }>
-          >
-        >
+        deliveryOptions: Array<{
+          id: string
+          price: number
+          estimate: string
+          isSelected: boolean
+        }>
       }
       paymentData: {
         isValid: boolean

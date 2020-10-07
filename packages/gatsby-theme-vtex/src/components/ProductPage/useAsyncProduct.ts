@@ -68,6 +68,12 @@ export const query = gql`
               availableQuantity: AvailableQuantity
               price: Price
               listPrice: ListPrice
+              gifts {
+                skuName
+                images {
+                  imageUrl
+                }
+              }
               spotPrice
               teasers {
                 name
