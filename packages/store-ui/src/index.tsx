@@ -95,3 +95,7 @@ export { default as ProductDetailsReference } from './ProductDetails/Reference'
 // Floating Action Button
 export { default as FloatingActionButton } from './FloatingActionButton'
 export { default as floatingActionButtonTheme } from './FloatingActionButton/theme'
+// GiftList
+export { default as GiftList } from './GiftList/index'
+export { default as GiftListTitle } from './GiftList/Title'
+export { default as GiftListList } from './GiftList/List'
