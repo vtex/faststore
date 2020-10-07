@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { Box } from '@vtex/store-ui'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 import { ShippingQueryQuery } from './__generated__/ShippingQuery.graphql'
@@ -65,8 +66,19 @@ const ShippingOption: FC<ShippingOptionProps> = ({
   variant,
 }) => {
   const format = useNumberFormat()
+  const intl = useIntl()
 
-  const freighPrice = price ? format.format(price) : 'Grátis'
+  const freighPrice = useMemo(() => {
+    if (typeof price === 'undefined') {
+      return '-'
+    }
+
+    if (price === 0) {
+      return intl.formatMessage({ id: 'shipping.free' })
+    }
+
+    return format.format(price)
+  }, [price, format, intl])
 
   return (
     <Box as="tr" variant={`${variant}.optionRow`}>
