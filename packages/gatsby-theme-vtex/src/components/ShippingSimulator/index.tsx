@@ -84,18 +84,19 @@ const ShippingSimulatorWrapper: FC<Props> = ({
 
   // TODO: Receive quantity from context or props
   const handleCalculateShipping = useCallback(() => {
+    setLoading(true)
     getShipping({
       items: [{ id: skuId, seller, quantity: '1' }],
       country,
       postalCode: address.postalCode.value,
+    }).finally(() => {
+      setLoading(false)
     })
-
-    setLoading(false)
-  }, [setLoading, address, getShipping, country, seller, skuId])
+  }, [address, getShipping, country, seller, skuId])
 
   return (
     <ShippingSimulator
-      variant={`${variant}.shippingSimulator`}
+      variant={`shippingSimulator.${variant}`}
       skuId={skuId}
       seller={seller}
       country={country}
