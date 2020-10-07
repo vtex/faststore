@@ -6,16 +6,16 @@ export interface FloatingActionButtonProps {
   href?: string
 }
 
-export const FloatingActionButton: FC<FloatingActionButtonProps> = ({
+const FloatingActionButton: FC<FloatingActionButtonProps> = ({
   variant = 'floatingActionButton',
   href = '/',
   children,
-}) => {
-  return (
-    <Flex variant={variant}>
-      <a href={href} target="_blank" rel="noreferrer">
-        {children}
-      </a>
-    </Flex>
-  )
-}
+}) => (
+  <Flex variant={variant}>
+    <a href={href} target="_blank" rel="noreferrer">
+      {children}
+    </a>
+  </Flex>
+)
+
+export default FloatingActionButton
