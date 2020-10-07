@@ -1,10 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-vtex",
-<<<<<<< HEAD
   "version": "0.87.0",
-=======
-  "version": "0.85.0-alpha.shipping.0",
->>>>>>> b40c7dc4... Release: 0.85.0-alpha.shipping.0
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
   "scripts": {
