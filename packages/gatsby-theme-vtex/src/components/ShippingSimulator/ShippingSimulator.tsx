@@ -7,8 +7,6 @@ import DefaultInput from '@vtex/address-form/lib/inputs/DefaultInput'
 import Preview from './Preview'
 import ShippingTable from './ShippingTable'
 
-import './global.css'
-
 const { AddressContainer, AddressRules, PostalCodeGetter } = components
 
 type Props = {
@@ -61,6 +59,7 @@ const ShippingSimulator: FC<Props> = ({
         </AddressRules>
         <Button
           variant={`${variant}.button`}
+          disabled={!isValid || loading}
           onClick={onCalculateShipping}
           type="submit"
         >
