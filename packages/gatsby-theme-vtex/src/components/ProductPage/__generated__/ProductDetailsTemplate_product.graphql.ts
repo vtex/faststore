@@ -16,7 +16,11 @@ type Scalars = {
 }
 
 // Operation related types
+<<<<<<< HEAD
 export type ProductDetailsTemplate_ProductFragment = { productReference: Maybe<string>, productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>> }>>>, productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>> };
+=======
+export type ProductDetailsTemplate_ProductFragment = { productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ sellerId: Maybe<string>, commercialOffer: Maybe<{ availableQuantity: Maybe<number>, price: Maybe<number> }> }>>> }>>> };
+>>>>>>> e5c3ea7b... Improving lazy query and adding variants
 
 
 // Query Related Code

@@ -7,6 +7,8 @@ import DefaultInput from '@vtex/address-form/lib/inputs/DefaultInput'
 import Preview from './Preview'
 import ShippingTable from './ShippingTable'
 
+import './global.css'
+
 const { AddressContainer, AddressRules, PostalCodeGetter } = components
 
 type Props = {
@@ -45,9 +47,7 @@ const ShippingSimulator: FC<Props> = ({
       <Box variant={`${variant}.fieldContainer`}>
         <AddressRules
           country={country}
-          fetch={async () => {
-            return import('@vtex/address-form/lib/country/BRA')
-          }}
+          fetch={() => import(`@vtex/address-form/lib/country/${country}`)}
         >
           <AddressContainer
             Input={DefaultInput}
@@ -60,15 +60,15 @@ const ShippingSimulator: FC<Props> = ({
           </AddressContainer>
         </AddressRules>
         <Button
-          variant={`${variant}.shippingSimulator.button`}
+          variant={`${variant}.button`}
           onClick={onCalculateShipping}
-          disabled={!isValid}
           type="submit"
         >
           {intl.formatMessage({ id: 'shippingSimulator.label' })}
         </Button>
       </Box>
-      <ShippingTable shipping={shipping} variant={variant} />
+      {loading && <Preview />}
+      {shipping && <ShippingTable shipping={shipping} variant={variant} />}
     </Box>
   )
 }
