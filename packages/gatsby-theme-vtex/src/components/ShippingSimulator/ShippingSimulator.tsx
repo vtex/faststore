@@ -57,7 +57,7 @@ const ShippingSimulator: FC<Props> = ({
           {intl.formatMessage({ id: 'shippingSimulator.label' })}
         </Button>
       </Box>
-      {loading && <Preview />}
+      {loading && <Preview variant={variant} />}
       {shipping && <ShippingTable shipping={shipping} variant={variant} />}
     </Box>
   )
