@@ -26,5 +26,16 @@
   "suggestions.products.notFound": "No product found",
   "suggestions.history.title": "History",
   "suggestions.history.empty": "No history yet",
-  "suggestions.topSearches.title": "Top Searches"
+  "suggestions.topSearches.title": "Top Searches",
+  "searchControls.totalCount": "{count,plural,=0{ PRODUCTS}one{ PRODUCT}other{ PRODUCTS}}",
+  "searchControls.filters": "FILTERS",
+  "searchControls.select.scoreDesc": "Relevance",
+  "searchControls.select.priceDesc": "Price: High to Low",
+  "searchControls.select.priceAsc": "Price: Low to High",
+  "searchControls.select.topSaleDesc": "Sales",
+  "searchControls.select.reviewRateDesc": "Reviews",
+  "searchControls.select.nameDesc": "Name, ascending",
+  "searchControls.select.nameAsc": "Name, descending",
+  "searchControls.select.releaseDateDesc": "Release date",
+  "searchControls.select.bestDiscountDesc": "Discount"
 }

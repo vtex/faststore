@@ -2,24 +2,26 @@ import React, { FC } from 'react'
 import { Select, SelectProps } from 'theme-ui'
 
 const options = [
-  ['OrderByScoreDESC', 'Relevance'],
-  ['OrderByPriceDESC', 'Price: High to Low'],
-  ['OrderByPriceASC', 'Price: Low to High'],
-  ['OrderByTopSaleDESC', 'Sales'],
-  ['OrderByReviewRateDESC', 'Reviews'],
-  ['OrderByNameDESC', 'Name, ascending'],
-  ['OrderByNameASC', 'Name, descending'],
-  ['OrderByReleaseDateDESC', 'Release date'],
-  ['OrderByBestDiscountDESC', 'Discount'],
+  ['OrderByScoreDESC', 'searchControls.select.scoreDesc'],
+  ['OrderByPriceDESC', 'searchControls.select.priceDesc'],
+  ['OrderByPriceASC', 'searchControls.select.priceAsc'],
+  ['OrderByTopSaleDESC', 'searchControls.select.topSaleDesc'],
+  ['OrderByReviewRateDESC', 'searchControls.select.reviewRateDesc'],
+  ['OrderByNameDESC', 'searchControls.select.nameDesc'],
+  ['OrderByNameASC', 'searchControls.select.nameAsc'],
+  ['OrderByReleaseDateDESC', 'searchControls.select.releaseDateDesc'],
+  ['OrderByBestDiscountDESC', 'searchControls.select.bestDiscountDesc'],
 ]
 
 interface Props extends Omit<SelectProps, 'onChange' | 'ref'> {
   onChange: (value: string) => void
+  formatLabel: (x: string) => string
 }
 
 export const SearchControlsSelect: FC<Props> = ({
   onChange,
   'aria-label': ariaLabel = 'Refine Search',
+  formatLabel,
   variant: v,
   ...props
 }) => {
@@ -32,9 +34,11 @@ export const SearchControlsSelect: FC<Props> = ({
       variant={variant}
       {...props}
     >
-      {options.map(([value, label]) => (
-        <option key={value} value={value} label={label} aria-label={label} />
-      ))}
+      {options.map(([value, label]) => {
+        const l = formatLabel(label)
+
+        return <option label={l} key={value} value={value} aria-label={l} />
+      })}
     </Select>
   )
 }
