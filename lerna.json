@@ -1,5 +1,5 @@
 {
-  "version": "0.92.0",
+  "version": "0.91.0-alpha.shipping.1",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
