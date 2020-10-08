@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { SearchControlsSelect as StoreUISortSelect } from '@vtex/store-ui'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { useFilters } from '../../../sdk/search/useFilters'
 
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const SearchControlsSelect: FC<Props> = ({ variant }) => {
+  const { formatMessage } = useIntl()
   const filters = useFilters()
 
   return (
@@ -24,6 +26,7 @@ const SearchControlsSelect: FC<Props> = ({ variant }) => {
           orderBy,
         })
       }}
+      formatLabel={(label: string) => formatMessage({ id: label })}
     />
   )
 }

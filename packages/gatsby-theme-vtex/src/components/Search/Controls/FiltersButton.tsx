@@ -1,5 +1,6 @@
-import { SearchControlsFiltersButton as StoreUISearchControlsFiltersButton } from '@vtex/store-ui'
 import React, { FC, useState, useCallback, Suspense, lazy } from 'react'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { SearchControlsFiltersButton as StoreUISearchControlsFiltersButton } from '@vtex/store-ui'
 
 const SearchFiltersDrawer = lazy(() => import('../Filters/Mobile'))
 
@@ -12,14 +13,15 @@ export const SearchControlsFiltersButton: FC<Props> = ({
   variant,
   ...props
 }) => {
+  const { formatMessage } = useIntl()
   const [active, setActive] = useState(false)
   const toggle = useCallback(() => setActive(!active), [active])
 
   return (
     <>
       <StoreUISearchControlsFiltersButton
+        label={formatMessage({ id: 'searchControls.filters' })}
         variant={variant}
-        label="FILTERS "
         onClick={toggle}
       />
       {active ? (
