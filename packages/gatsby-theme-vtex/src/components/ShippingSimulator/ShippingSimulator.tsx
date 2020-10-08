@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Button, Box, Input } from '@vtex/store-ui'
+import { Button, Box, Input, Text } from '@vtex/store-ui'
 
 import Preview from './Preview'
 import ShippingTable from './ShippingTable'
@@ -39,8 +39,12 @@ const ShippingSimulator: FC<Props> = ({
     <Box variant={`${variant}.container`}>
       <Box variant={`${variant}.fieldContainer`}>
         <label htmlFor="postalCode">
-          {intl.formatMessage({ id: 'shipping.postalCodeLabel' })}
+          <Text variant={`${variant}.inputLabel`}>
+            {intl.formatMessage({ id: 'shipping.postalCodeLabel' })}
+          </Text>
+
           <Input
+            variant={`${variant}.input`}
             id="postalCode"
             name="postalCode"
             onChange={(e) => onPostalCode(e.target.value)}
