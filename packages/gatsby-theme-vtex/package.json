@@ -35,7 +35,7 @@
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
     "@vtex/gatsby-plugin-graphql": "^0.82.0",
-    "@vtex/gatsby-plugin-i18n": "^0.81.0",
+    "@vtex/gatsby-plugin-i18n": "^0.91.0-alpha.shipping.0",
     "@vtex/gatsby-plugin-theme-ui": "^0.81.0",
     "@vtex/gatsby-source-vtex": "^0.82.0",
     "@vtex/gatsby-transformer-vtex-cms": "^0.81.0",
