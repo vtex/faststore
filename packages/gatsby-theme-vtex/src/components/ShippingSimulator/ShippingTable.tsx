@@ -78,7 +78,7 @@ const ShippingOption: FC<ShippingOptionProps> = ({
       return '-'
     }
 
-    return format.format(price)
+    return format.format(price / 100)
   }, [price, format, intl])
 
   return (
