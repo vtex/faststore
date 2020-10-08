@@ -39,5 +39,15 @@
   "searchControls.select.nameAsc": "Name, descending",
   "searchControls.select.releaseDateDesc": "Release date",
   "searchControls.select.bestDiscountDesc": "Discount",
-  "shippingSimulator.label": "Calcular"
+  "shippingSimulator.label": "Calcular",
+  "shippingEstimate-bd": "{timeAmount, plural, =0 {Today} one {In # business day} other {Up to # business days}}",
+  "shippingEstimate-d": "{timeAmount, plural, =0 {Today} one {In # day} other {Up to # days}}",
+  "shippingEstimate-h": "{timeAmount, plural, =0 {Now} one {In # hour} other {Up to # hours}}",
+  "shippingEstimate-m": "{timeAmount, plural, =0 {Now} one {In # minute} other {Up to # minutes}}",
+  "shippingEstimate-scheduled": "{date}, between {startDate} and {endDate}",
+  "shippingEstimate-scheduled-no-dates": "Scheduled",
+  "shippingEstimatePickup-bd": "{timeAmount, plural, =0 {Ready today} one {Ready in up to # business day} other {Ready in up to # business days}}",
+  "shippingEstimatePickup-d": "{timeAmount, plural, =0 {Ready today} one {Ready in up to # day} other {Ready in up to # days}}",
+  "shippingEstimatePickup-h": "{timeAmount, plural, =0 {Ready for pickup} one {Ready in up to # hour} other {Ready in up to # hours}}",
+  "shippingEstimatePickup-m": "{timeAmount, plural, =0 {Ready for pickup} one {Ready in up to # minute} other {Ready in up to # minutes}}"
 }
