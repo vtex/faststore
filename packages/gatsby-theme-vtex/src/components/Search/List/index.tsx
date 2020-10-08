@@ -2,6 +2,7 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 import { Button, Grid } from '@vtex/store-ui'
 import React, { FC, Fragment } from 'react'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import {
   SearchQuery,
@@ -18,11 +19,15 @@ interface Props {
 }
 
 const List: FC<Props> = ({ initialData, columns, pageSize }) => {
+  const { formatMessage } = useIntl()
   const { data, fetchMore, isLoadingMore, isReachingEnd } = useSearch({
     query: SearchQuery,
     initialData,
     pageSize,
   })
+
+  const loadMoreLabel = formatMessage({ id: 'search.page-list.more' })
+  const loadingLabel = formatMessage({ id: 'search.page-list.more.loading' })
 
   if (!data) {
     return <OverlaySpinner />
@@ -44,9 +49,10 @@ const List: FC<Props> = ({ initialData, columns, pageSize }) => {
           ;(e.target as any).blur?.()
           fetchMore()
         }}
+        aria-label={loadMoreLabel}
         disabled={isReachingEnd || isLoadingMore}
       >
-        {isReachingEnd ? '' : isLoadingMore ? 'Loading...' : 'More'}
+        {isReachingEnd ? '' : isLoadingMore ? loadingLabel : loadMoreLabel}
       </Button>
     </Fragment>
   )
