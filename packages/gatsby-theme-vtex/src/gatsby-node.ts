@@ -40,6 +40,12 @@ export const createPages = async (
   })
 
   createRedirect({
+    fromPath: '/checkout/*',
+    toPath: `https://${tenant}.${environment}.com.br/checkout/:splat`,
+    statusCode: 200,
+  })
+
+  createRedirect({
     fromPath: '/arquivos/*',
     toPath: `https://${tenant}.vtexassets.com/arquivos/:splat`,
     statusCode: 200,
@@ -54,12 +60,6 @@ export const createPages = async (
   createRedirect({
     fromPath: '/graphql/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
-    statusCode: 200,
-  })
-
-  createRedirect({
-    fromPath: '/checkout/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/checkout/:splat`,
     statusCode: 200,
   })
 
