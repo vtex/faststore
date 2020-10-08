@@ -1,13 +1,17 @@
 import React, { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Button, Box } from '@vtex/store-ui'
-import { components } from '@vtex/address-form'
+import {
+  AddressContainer,
+  AddressRules,
+  PostalCodeGetter,
+} from '@vtex/address-form'
 import DefaultInput from '@vtex/address-form/lib/inputs/DefaultInput'
 
 import Preview from './Preview'
 import ShippingTable from './ShippingTable'
 
-const { AddressContainer, AddressRules, PostalCodeGetter } = components
+// const { AddressContainer, AddressRules, PostalCodeGetter } = components
 
 type Props = {
   variant: string
