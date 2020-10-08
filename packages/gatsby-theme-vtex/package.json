@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
-    "@vtex/address-form": "^3.13.0",
     "@vtex/gatsby-plugin-graphql": "^0.85.0-alpha.shipping.3",
     "@vtex/gatsby-plugin-i18n": "^0.85.0-alpha.shipping.3",
     "@vtex/gatsby-plugin-theme-ui": "^0.85.0-alpha.shipping.3",

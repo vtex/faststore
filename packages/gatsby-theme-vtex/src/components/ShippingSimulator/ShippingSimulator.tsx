@@ -1,17 +1,9 @@
 import React, { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Button, Box } from '@vtex/store-ui'
-import {
-  AddressContainer,
-  AddressRules,
-  PostalCodeGetter,
-} from '@vtex/address-form'
-import DefaultInput from '@vtex/address-form/lib/inputs/DefaultInput'
+import { Button, Box, Input } from '@vtex/store-ui'
 
 import Preview from './Preview'
 import ShippingTable from './ShippingTable'
-
-// const { AddressContainer, AddressRules, PostalCodeGetter } = components
 
 type Props = {
   variant: string
@@ -19,8 +11,8 @@ type Props = {
   seller: string
   country: string
   loading: boolean
-  onAddress?: (address: any) => void
-  address?: any
+  onPostalCode: (data: string) => void
+  postalCode?: string
   isValid: boolean
   onCalculateShipping?: () => void
   shipping?: any
@@ -30,12 +22,11 @@ const ShippingSimulator: FC<Props> = ({
   variant,
   skuId,
   seller,
-  country,
   loading,
-  onAddress,
-  address,
   isValid,
   onCalculateShipping,
+  onPostalCode,
+  postalCode,
   shipping,
 }) => {
   const intl = useIntl()
@@ -47,20 +38,16 @@ const ShippingSimulator: FC<Props> = ({
   return (
     <Box variant={`${variant}.container`}>
       <Box variant={`${variant}.fieldContainer`}>
-        <AddressRules
-          country={country}
-          fetch={() => import(`@vtex/address-form/lib/country/${country}`)}
-        >
-          <AddressContainer
-            Input={DefaultInput}
-            address={address}
-            onChangeAddress={onAddress}
-            autoCompletePostalCode
-            disabled={loading}
-          >
-            <PostalCodeGetter onSubmit={onCalculateShipping} />
-          </AddressContainer>
-        </AddressRules>
+        <label htmlFor="postalCode">
+          {intl.formatMessage({ id: 'shipping.postalCodeLabel' })}
+          <Input
+            id="postalCode"
+            name="postalCode"
+            onChange={(e) => onPostalCode(e.target.value)}
+            value={postalCode}
+            required
+          />
+        </label>
         <Button
           variant={`${variant}.button`}
           disabled={!isValid || loading}
