@@ -38,7 +38,7 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
       <Button
         onClick={(e) => {
           e.preventDefault()
-          window.location.href = '/checkout'
+          window.location.href = '/checkout/'
         }}
       >
         {formatMessage({ id: 'minicart.drawer.go-checkout' })}
