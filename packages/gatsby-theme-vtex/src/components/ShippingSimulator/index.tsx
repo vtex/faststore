@@ -1,17 +1,13 @@
 import React, { FC, useState, useCallback } from 'react'
 import { gql } from '@vtex/gatsby-plugin-graphql'
-import { helpers } from '@vtex/address-form'
 
 import ShippingSimulator from './ShippingSimulator'
 import { useLazyQuery } from '../../sdk/graphql/useLazyQuery'
-import { getNewAddress } from './utils'
 import {
   ShippingQuery,
   ShippingQueryQuery,
   ShippingQueryQueryVariables,
 } from './__generated__/ShippingQuery.graphql'
-
-const { addValidation } = helpers
 
 export const query = gql`
   query ShippingQuery(
@@ -39,25 +35,10 @@ type Props = {
   variant: string
 }
 
-// TODO: Type address
-const useAddressState = (country: string, postalCode?: string) => {
-  const [address, setAddress] = useState(
-    addValidation(getNewAddress(country, postalCode))
-  )
+const usePostalCode = (initialValue: string) => {
+  const [postalCode, setPostalCode] = useState(initialValue)
 
-  const [isValid, setIsValid] = useState(!!postalCode)
-
-  const updateAddress = (newAddress: any) => {
-    const updatedAddress = {
-      ...address,
-      ...newAddress,
-    }
-
-    setAddress(updatedAddress)
-    setIsValid(updatedAddress.postalCode.valid)
-  }
-
-  return { address, updateAddress, isValid }
+  return { postalCode, setPostalCode, isValid: postalCode?.length === 8 }
 }
 
 const ShippingSimulatorWrapper: FC<Props> = ({
@@ -68,6 +49,9 @@ const ShippingSimulatorWrapper: FC<Props> = ({
   variant,
 }) => {
   const [loading, setLoading] = useState(false)
+  const { setPostalCode, postalCode, isValid } = usePostalCode(
+    initialPostalCode ?? ''
+  )
 
   const [getShipping, { data }] = useLazyQuery<
     ShippingQueryQuery,
@@ -77,22 +61,17 @@ const ShippingSimulatorWrapper: FC<Props> = ({
     ...ShippingQuery,
   })
 
-  const { address, updateAddress, isValid } = useAddressState(
-    country,
-    initialPostalCode
-  )
-
   // TODO: Receive quantity from context or props
   const handleCalculateShipping = useCallback(() => {
     setLoading(true)
     getShipping({
       items: [{ id: skuId, seller, quantity: '1' }],
       country,
-      postalCode: address.postalCode.value,
+      postalCode,
     }).finally(() => {
       setLoading(false)
     })
-  }, [address, getShipping, country, seller, skuId])
+  }, [postalCode, getShipping, country, seller, skuId])
 
   return (
     <ShippingSimulator
@@ -101,10 +80,10 @@ const ShippingSimulatorWrapper: FC<Props> = ({
       seller={seller}
       country={country}
       loading={loading}
-      address={address}
+      postalCode={postalCode}
+      onPostalCode={setPostalCode}
       isValid={isValid}
       shipping={data}
-      onAddress={updateAddress}
       onCalculateShipping={handleCalculateShipping}
     />
   )
