@@ -3,7 +3,7 @@ import { Box } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
-import { ShippingQueryQuery } from './__generated__/ShippingQuery.graphql'
+import { ShippingQueryQuery } from './hooks/__generated__/ShippingQuery.graphql'
 import { TranslateEstimate } from './TranslateEstimate'
 
 type Props = {
