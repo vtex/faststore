@@ -94,6 +94,7 @@ export const query = graphql`
     vtex {
       product(slug: $slug) @include(if: $staticPath) {
         ...ProductDetailsTemplate_product
+        ...StructuredProductFragment_product
         productId
         description
         categoryTree {
