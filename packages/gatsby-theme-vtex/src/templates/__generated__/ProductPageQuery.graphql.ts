@@ -27,8 +27,9 @@ export type ProductPageQueryQuery = {
       productReference: Maybe<string>
       productName: Maybe<string>
       linkText: Maybe<string>
-      productId: Maybe<string>
       description: Maybe<string>
+      brand: Maybe<string>
+      productId: Maybe<string>
       items: Maybe<
         Array<
           Maybe<{
@@ -36,6 +37,17 @@ export type ProductPageQueryQuery = {
             images: Maybe<
               Array<
                 Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>
+              >
+            >
+            sellers: Maybe<
+              Array<
+                Maybe<{
+                  commercialOffer: Maybe<{
+                    price: Maybe<number>
+                    availableQuantity: Maybe<number>
+                    priceValidUntil: Maybe<string>
+                  }>
+                }>
               >
             >
           }>
@@ -53,8 +65,8 @@ export type ProductPageQueryQuery = {
 
 export const ProductPageQuery = {
   query:
-    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        itemId\n      }\n      productClusters {\n        name\n      }\n      productId\n      description\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
+    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        itemId\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n      }\n      productClusters {\n        name\n      }\n      description\n      brand\n      productId\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '3f01910dd0ff42573bc8ff83b031ccccadd2bda796e9b34e2109045c98a06c25',
+    '30940a00980f426a8d1801480adf2885d10781f0329cd8751e67b63e002c9eab',
   operationName: 'ProductPageQuery',
 }
