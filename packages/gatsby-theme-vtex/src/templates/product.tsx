@@ -1,4 +1,4 @@
-import React, { FC, Fragment, lazy } from 'react'
+import React, { FC, Fragment, lazy, useEffect } from 'react'
 import { graphql, PageProps } from 'gatsby'
 
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -19,8 +19,10 @@ import {
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')
 
+const seoPreloader = () => import('../components/ProductPage/SEO')
+
 const BelowTheFold = lazy(belowTheFoldPreloader)
-const SEO = lazy(() => import('../components/ProductPage/SEO'))
+const SEO = lazy(seoPreloader)
 
 export type ProductPageProps = PageProps<
   ProductPageQueryQuery,
@@ -74,6 +76,10 @@ const Page: FC<ProductPageProps> = (props) => {
   const {
     pageContext: { staticPath },
   } = props
+
+  useEffect(() => {
+    seoPreloader()
+  })
 
   return (
     <Layout>
