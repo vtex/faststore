@@ -13,7 +13,7 @@ const StructuredData: FC<ProductPageProps> = ({
   const [currency] = useCurrency()
   const structuredProduct = useStructuredProduct(product!, currency)
 
-  if (structuredProduct != null) {
+  if (structuredProduct == null) {
     return null
   }
 

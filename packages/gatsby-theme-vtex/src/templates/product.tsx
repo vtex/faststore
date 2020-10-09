@@ -15,7 +15,6 @@ import {
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
 import SEO from '../components/ProductPage/SEO'
-import { isBot } from '../utils/env'
 
 const loadBelowTheFold = () => import('../components/ProductPage/BelowTheFold')
 
