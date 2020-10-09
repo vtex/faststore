@@ -28,6 +28,7 @@ export type AsyncProductQueryQuery = {
       productReference: Maybe<string>
       description: Maybe<string>
       linkText: Maybe<string>
+      brand: Maybe<string>
       specificationGroups: Maybe<
         Array<
           Maybe<{
@@ -104,8 +105,8 @@ export type AsyncProductQueryQuery = {
 
 export const AsyncProductQuery = {
   query:
-    'query AsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      productReference\n      description\n      linkText\n      specificationGroups {\n        name\n        specifications {\n          name\n          values\n        }\n      }\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            gifts {\n              skuName\n              images {\n                imageUrl\n              }\n            }\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+    'query AsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      productReference\n      description\n      linkText\n      brand\n      specificationGroups {\n        name\n        specifications {\n          name\n          values\n        }\n      }\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            gifts {\n              skuName\n              images {\n                imageUrl\n              }\n            }\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    'c0e3648f8696ac206ec49e4401c2587cfc4de69a292ff4aaf94482de5325172e',
+    'b47b7012539329647d8a82dfcd342428bc0bbd56ee47ba73d1f83875a5b642f7',
   operationName: 'AsyncProductQuery',
 }

@@ -44,7 +44,7 @@ export const useStructuredProduct = (
       return ''
     }
 
-    const { productName, items, description, brand, brandImageUrl } = product
+    const { productName, items, description, brand } = product
 
     const [sku] = items
     const images = sku.images.map((i) => i.imageUrl)
@@ -64,7 +64,6 @@ export const useStructuredProduct = (
       brand: {
         '@type': 'Brand',
         name: brand,
-        logo: brandImageUrl,
       },
       description,
     }

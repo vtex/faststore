@@ -40,6 +40,7 @@ export const query = gql`
         productReference
         description
         linkText
+        brand
         specificationGroups {
           name
           specifications {

@@ -13,22 +13,19 @@ const SEO: FC<ProductPageProps> = (props) => {
   const { product }: any = useAsyncProduct({ slug })
   const structuredProduct = useStructuredProduct(product, currency)
 
-  // There is no product. There is no point on generating tags yet
-  if (!product) {
-    return <SiteMetadataSEO {...props} />
-  }
-
   return (
     <>
       <SiteMetadataSEO {...props} />
-      <Helmet
-        script={[
-          {
-            type: 'application/ld+json',
-            innerHTML: JSON.stringify(structuredProduct),
-          },
-        ]}
-      />
+      {structuredProduct != null ? (
+        <Helmet
+          script={[
+            {
+              type: 'application/ld+json',
+              innerHTML: JSON.stringify(structuredProduct),
+            },
+          ]}
+        />
+      ) : null}
     </>
   )
 }
