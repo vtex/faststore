@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby'
 import { useMemo } from 'react'
-import { ItemAvailability, Offer } from 'schema-dts'
+import { Offer } from 'schema-dts'
 
 import { StructuredProductFragment_ProductFragment } from './__generated__/StructuredProductFragment_product.graphql'
 
@@ -16,8 +16,8 @@ const getSkuOffers = (sku: SKU, currency: string): Offer[] =>
     priceValidUntil: `${seller!.commercialOffer!.priceValidUntil}`,
     availability:
       seller!.commercialOffer!.availableQuantity! > 0
-        ? ItemAvailability.InStock
-        : ItemAvailability.OutOfStock,
+        ? 'http://schema.org/InStock'
+        : 'http://schema.org/OutOfStock',
   }))
 
 export const useStructuredProduct = (

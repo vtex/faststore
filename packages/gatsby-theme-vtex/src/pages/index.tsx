@@ -5,13 +5,12 @@ import AboveTheFold from '../components/HomePage/AboveTheFold'
 import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
 import Layout from '../components/Layout'
 import SuspenseViewport from '../components/Suspense/Viewport'
-import SuspenseSSR from '../components/Suspense/SSR'
+import SEO from '../components/HomePage/SEO'
 
 const belowTheFoldPreloader = () =>
   import('../components/HomePage/BelowTheFold')
 
 const BelowTheFold = lazy(belowTheFoldPreloader)
-const SEO = lazy(() => import('../components/HomePage/SEO'))
 
 type Props = PageProps<unknown>
 
@@ -23,9 +22,7 @@ const Home: FC<Props> = (props) => {
   return (
     <Layout>
       <AboveTheFold {...props} />
-      <SuspenseSSR fallback={null}>
-        <SEO />
-      </SuspenseSSR>
+      <SEO />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}

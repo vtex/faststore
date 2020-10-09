@@ -1,33 +1,11 @@
 import React, { FC, Suspense, SuspenseProps, useEffect, useState } from 'react'
 
-import { isServer } from '../../utils/env'
+const SuspenseSSR: FC<SuspenseProps> = ({ fallback, children }) => {
+  const [hydrating, setHydrating] = useState(true)
 
-interface Props extends SuspenseProps {
-  // False to not wait for hydration before suspending.
-  // Use it carefully since it may break some libs
-  hydration?: boolean
-  preloader?: () => Promise<any>
-}
+  useEffect(() => setHydrating(false), [])
 
-const SuspenseSSR: FC<Props> = ({
-  fallback,
-  children,
-  hydration = true,
-  preloader,
-}) => {
-  const [hydrating, setHydrating] = useState(hydration)
-
-  useEffect(() => {
-    if (hydrating === true) {
-      setHydrating(false)
-    }
-  }, [hydrating])
-
-  useEffect(() => {
-    preloader?.()
-  }, [preloader])
-
-  if (isServer || hydrating) {
+  if (hydrating) {
     return <>{fallback}</>
   }
 
