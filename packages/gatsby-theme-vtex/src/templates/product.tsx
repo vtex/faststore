@@ -1,4 +1,4 @@
-import React, { FC, Fragment, lazy, useEffect } from 'react'
+import React, { FC, Fragment, lazy } from 'react'
 import { graphql, PageProps } from 'gatsby'
 
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -16,13 +16,12 @@ import {
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
 
-const belowTheFoldPreloader = () =>
-  import('../components/ProductPage/BelowTheFold')
+const loadBelowTheFold = () => import('../components/ProductPage/BelowTheFold')
 
-const seoPreloader = () => import('../components/ProductPage/SEO')
+const loadSEO = () => import('../components/ProductPage/SEO')
 
-const BelowTheFold = lazy(belowTheFoldPreloader)
-const SEO = lazy(seoPreloader)
+const BelowTheFold = lazy(loadBelowTheFold)
+const SEO = lazy(loadSEO)
 
 export type ProductPageProps = PageProps<
   ProductPageQueryQuery,
@@ -59,12 +58,12 @@ const ProductPage: FC<ProductPageProps> = (props) => {
   return (
     <Fragment>
       <AboveTheFold {...pageProps} />
-      <SuspenseSSR fallback={null}>
+      <SuspenseSSR fallback={null} hydration={false} preloader={loadSEO}>
         <SEO {...pageProps} data={data} />
       </SuspenseSSR>
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
-        preloader={belowTheFoldPreloader}
+        preloader={loadBelowTheFold}
       >
         <BelowTheFold {...pageProps} />
       </SuspenseViewport>
@@ -76,10 +75,6 @@ const Page: FC<ProductPageProps> = (props) => {
   const {
     pageContext: { staticPath },
   } = props
-
-  useEffect(() => {
-    seoPreloader()
-  })
 
   return (
     <Layout>

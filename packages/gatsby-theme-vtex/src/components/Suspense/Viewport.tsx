@@ -2,7 +2,7 @@ import React, { FC, Suspense, SuspenseProps, useEffect } from 'react'
 import { useInView } from 'react-hook-inview'
 
 interface Props extends SuspenseProps {
-  preloader: () => Promise<any>
+  preloader?: () => Promise<any>
   rootMargin?: string // '0px' or '0px 0px 0px 0px', also accepts '%' unit
   threshold?: number // A threshold of 1.0 means that when 100% of the target is visible within the element specified by the root option, the callback is invoked.
 }
@@ -21,7 +21,7 @@ const SuspenseViewport: FC<Props> = ({
   })
 
   useEffect(() => {
-    preloader()
+    preloader?.()
   }, [preloader])
 
   if (!isInView) {
