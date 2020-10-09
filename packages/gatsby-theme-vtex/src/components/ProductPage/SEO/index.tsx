@@ -6,7 +6,7 @@ import SiteMetadataSEO from '../../HomePage/SEO'
 import StructuredData from './StructuredData'
 
 const SEO: FC<ProductPageProps> = (props) => {
-  console.log({ isBot, useAgent: navigator?.userAgent })
+  console.log({ isBot, useAgent: isBot && navigator?.userAgent })
 
   return (
     <>
