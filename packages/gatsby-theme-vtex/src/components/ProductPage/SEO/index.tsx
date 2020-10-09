@@ -19,7 +19,7 @@ const SEO: FC<ProductPageProps> = (props) => {
   return (
     <>
       <SiteMetadataSEO {...props} />
-      {structuredProduct != null ? (
+      {structuredProduct != null && (
         <Helmet
           script={[
             {
@@ -28,7 +28,7 @@ const SEO: FC<ProductPageProps> = (props) => {
             },
           ]}
         />
-      ) : null}
+      )}
     </>
   )
 }
