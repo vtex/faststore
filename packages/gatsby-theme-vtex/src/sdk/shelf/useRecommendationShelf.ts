@@ -33,40 +33,7 @@ export const query = gql`
         identifier: { field: id, value: $value }
         type: viewAndBought
       ) {
-        productId
-        productName
-        linkText
-        productClusters {
-          name
-        }
-        items {
-          itemId
-          images {
-            imageUrl
-            imageText
-          }
-          sellers {
-            sellerId
-            commercialOffer: commertialOffer {
-              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {
-                value: Value
-                numberOfInstallments: NumberOfInstallments
-              }
-              installments: Installments(criteria: ALL) {
-                value: Value
-                numberOfInstallments: NumberOfInstallments
-                interestRate: InterestRate
-              }
-              availableQuantity: AvailableQuantity
-              price: Price
-              listPrice: ListPrice
-              spotPrice
-              teasers {
-                name
-              }
-            }
-          }
-        }
+        ...ProductSummary_product
       }
     }
   }
