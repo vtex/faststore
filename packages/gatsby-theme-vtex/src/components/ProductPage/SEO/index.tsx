@@ -5,6 +5,7 @@ import { useCurrency } from '../../../sdk/localization/useCurrency'
 import { ProductPageProps } from '../../../templates/product'
 import { useStructuredProduct } from './useStructuredProduct'
 import SiteMetadataSEO from '../../HomePage/SEO'
+import { isServer } from '../../../utils/env'
 
 // eslint-disable-next-line prefer-regex-literals
 const botPattern = new RegExp(
@@ -23,6 +24,10 @@ const SEO: FC<ProductPageProps> = (props) => {
 
   const [currency] = useCurrency()
   const structuredProduct = useStructuredProduct(product!, currency)
+
+  if (isServer) {
+    return null
+  }
 
   // eslint-disable-next-line no-console
   console.log({
