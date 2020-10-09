@@ -16,9 +16,10 @@ import {
 } from './__generated__/ProductPageQuery.graphql'
 import SEO from '../components/ProductPage/SEO'
 
-const loadBelowTheFold = () => import('../components/ProductPage/BelowTheFold')
+const belowTheFoldPreloader = () =>
+  import('../components/ProductPage/BelowTheFold')
 
-const BelowTheFold = lazy(loadBelowTheFold)
+const BelowTheFold = lazy(belowTheFoldPreloader)
 
 export type ProductPageProps = PageProps<
   ProductPageQueryQuery,
@@ -58,7 +59,7 @@ const ProductPage: FC<ProductPageProps> = (props) => {
       <SEO {...pageProps} data={data} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
-        preloader={loadBelowTheFold}
+        preloader={belowTheFoldPreloader}
       >
         <BelowTheFold {...pageProps} />
       </SuspenseViewport>
