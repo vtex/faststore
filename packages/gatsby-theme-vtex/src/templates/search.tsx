@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 import AboveTheFold from '../components/SearchPage/AboveTheFold'
 import AboveTheFoldPreview from '../components/SearchPage/AboveTheFoldPreview'
 import BelowTheFoldPreview from '../components/SearchPage/BelowTheFoldPreview'
-import SuspenseSSR from '../components/Suspense/SSR'
+import SEO from '../components/SearchPage/SEO'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
 import { SearchProvider } from '../sdk/search/Provider'
@@ -23,7 +23,6 @@ const belowTheFoldPreloader = () =>
   import('../components/SearchPage/BelowTheFold')
 
 const BelowTheFold = lazy(belowTheFoldPreloader)
-const SEO = lazy(() => import('../components/SearchPage/SEO'))
 
 export type SearchPageProps = PageProps<
   SearchPageQueryQuery,
@@ -51,9 +50,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
   return (
     <SearchProvider filters={filters as any} data={data}>
       <AboveTheFold {...props} data={data} />
-      <SuspenseSSR fallback={null}>
-        <SEO {...props} data={data} />
-      </SuspenseSSR>
+      <SEO {...props} data={data} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}

@@ -7,7 +7,6 @@ import Layout from '../components/Layout'
 import AboveTheFold from '../components/ProductPage/AboveTheFold'
 import AboveTheFoldPreview from '../components/ProductPage/AboveTheFoldPreview'
 import BelowTheFoldPreview from '../components/ProductPage/BelowTheFoldPreview'
-import SuspenseSSR from '../components/Suspense/SSR'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
 import {
@@ -15,12 +14,12 @@ import {
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
+import SEO from '../components/ProductPage/SEO'
 
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')
 
 const BelowTheFold = lazy(belowTheFoldPreloader)
-const SEO = lazy(() => import('../components/ProductPage/SEO'))
 
 export type ProductPageProps = PageProps<
   ProductPageQueryQuery,
@@ -57,9 +56,7 @@ const ProductPage: FC<ProductPageProps> = (props) => {
   return (
     <Fragment>
       <AboveTheFold {...pageProps} />
-      <SuspenseSSR fallback={null}>
-        <SEO {...pageProps} data={data} />
-      </SuspenseSSR>
+      <SEO {...pageProps} data={data} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
