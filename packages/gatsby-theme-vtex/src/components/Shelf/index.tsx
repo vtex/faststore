@@ -47,6 +47,8 @@ const Shelf: FC<Props> = ({
     autoplay,
   })
 
+  showArrows = showArrows && products.length >= Math.max(...pageSizes)
+
   return (
     <Fragment>
       {title ? <ShelfTitle title={title} variant={titleVariant} /> : null}
