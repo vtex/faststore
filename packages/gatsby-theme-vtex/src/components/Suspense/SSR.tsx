@@ -1,5 +1,7 @@
 import React, { FC, Suspense, SuspenseProps, useEffect, useState } from 'react'
 
+import { isServer } from '../../utils/env'
+
 interface Props extends SuspenseProps {
   // False to not wait for hydration before suspending.
   // Use it carefully since it may break some libs
@@ -25,7 +27,7 @@ const SuspenseSSR: FC<Props> = ({
     preloader?.()
   }, [preloader])
 
-  if (hydrating) {
+  if (isServer || hydrating) {
     return <>{fallback}</>
   }
 
