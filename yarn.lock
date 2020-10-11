@@ -4620,6 +4620,11 @@
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.6.tgz#a9ca4b70a18b270ccb2bc0aaafefd1d486b7ea74"
   integrity sha512-W+bw9ds02rAQaMvaLYxAbJ6cvguW/iJXNT6lTssS1ps6QdrMKttqEAMEG/b5CR8TZl3/L7/lH0ZV5nNR1LXikA==
 
+"@types/text-mask-core@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@types/text-mask-core/-/text-mask-core-5.1.0.tgz#cf87ea40fbe521454f91f6aabd7a862bfba400d1"
+  integrity sha512-8c0FVZJ6HAGQ9jJun4XC00VKvRnXdja8m5GhGVgUYpdmmI9xG4zf1A5eOnqmVdlqPLZmmiAphcDBHlySQiGH9g==
+
 "@types/theme-ui@*", "@types/theme-ui@^0.3.5":
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/@types/theme-ui/-/theme-ui-0.3.6.tgz#e7d25ef4fdaf6d3e69ef483858210df99c35c1fa"
@@ -21881,6 +21886,11 @@ text-extensions@^1.0.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/text-extensions/-/text-extensions-1.9.0.tgz#1853e45fee39c945ce6f6c36b2d659b5aabc2a26"
   integrity sha512-wiBrwC1EhBelW12Zy26JeOUkQ5mRu+5o8rpsJk5+2t+Y5vE7e842qtZDQ2g1NpX/29HdyFeJ4nSIhI47ENSxlQ==
+
+text-mask-core@^5.1.0:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.1.2.tgz#80dd5ebe04825757e46619e691407a9f8b3c1b6f"
+  integrity sha1-gN1evgSCV1fkZhnmkUB6n4s8G28=
 
 text-table@0.2.0, text-table@^0.2.0:
   version "0.2.0"

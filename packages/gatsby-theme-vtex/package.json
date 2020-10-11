@@ -27,6 +27,7 @@
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "@types/react-helmet": "^6.0.0",
+    "@types/text-mask-core": "^5.1.0",
     "@vtex/store-ui": "^0.87.0",
     "cross-env": "^7.0.2",
     "gatsby": "^2.24.43",
@@ -54,6 +55,7 @@
     "react-loading-skeleton": "^2.1.1",
     "requestidlecallback-polyfill": "^1.0.2",
     "schema-dts": "^0.6.0",
-    "swr": "^0.3.0"
+    "swr": "^0.3.0",
+    "text-mask-core": "^5.1.0"
   }
 }

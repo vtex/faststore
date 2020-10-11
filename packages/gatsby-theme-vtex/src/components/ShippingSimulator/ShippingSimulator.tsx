@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Button, Box, Input, Text } from '@vtex/store-ui'
+import { Button, Box, Text } from '@vtex/store-ui'
 
 import Preview from './Preview'
 import ShippingTable from './ShippingTable'
+import PostalCodeInput from './PostalCodeInput'
 
 type Props = {
   variant: string
@@ -37,13 +38,20 @@ const ShippingSimulator: FC<Props> = ({
 
   return (
     <Box variant={`${variant}.container`}>
-      <Box variant={`${variant}.fieldContainer`}>
+      <Box
+        as="form"
+        variant={`${variant}.fieldContainer`}
+        onSubmit={(e) => {
+          e.preventDefault()
+          onCalculateShipping?.()
+        }}
+      >
         <label htmlFor="postalCode">
           <Text variant={`${variant}.inputLabel`}>
             {intl.formatMessage({ id: 'shipping.postalCodeLabel' })}
           </Text>
 
-          <Input
+          <PostalCodeInput
             variant={`${variant}.input`}
             id="postalCode"
             name="postalCode"
@@ -55,14 +63,15 @@ const ShippingSimulator: FC<Props> = ({
         <Button
           variant={`${variant}.button`}
           disabled={!isValid || loading}
-          onClick={onCalculateShipping}
           type="submit"
         >
           {intl.formatMessage({ id: 'shippingSimulator.label' })}
         </Button>
       </Box>
       {loading && <Preview variant={variant} />}
-      {shipping && <ShippingTable shipping={shipping} variant={variant} />}
+      {shipping && !loading && (
+        <ShippingTable shipping={shipping} variant={variant} />
+      )}
     </Box>
   )
 }
