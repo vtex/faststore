@@ -4,6 +4,7 @@ import React, { FC, Suspense, useState } from 'react'
 
 import { AUTH_PROVIDERS } from '../components/Auth'
 import Layout from '../components/Layout'
+import { isServer } from '../utils/env'
 
 type Props = PageProps<unknown>
 
@@ -40,10 +41,6 @@ const Page: FC = () => {
 
 // We split into two components to avoid re-rendering the <Layout/> when
 // selecting Auth method
-const PageWithLayout: FC<Props> = () => (
-  <Layout>
-    <Page />
-  </Layout>
-)
+const PageWithLayout: FC<Props> = () => <Layout>{!isServer && <Page />}</Layout>
 
 export default PageWithLayout
