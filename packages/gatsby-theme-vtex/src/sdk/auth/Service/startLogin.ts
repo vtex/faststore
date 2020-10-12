@@ -21,6 +21,7 @@ export const startLogin = async ({
 
   const response = await fetch(api.startLogin, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       accept: 'application/json',
       'x-forwarded-host': window.location.host,

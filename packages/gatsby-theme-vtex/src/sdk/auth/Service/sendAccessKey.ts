@@ -13,6 +13,7 @@ export const sendAccessKey = async ({ email, locale = '' }: Options) => {
 
   const response = await fetch(api.sendAccessKey, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       accept: 'application/json',
       'x-forwarded-host': window.location.host,
