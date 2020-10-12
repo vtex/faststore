@@ -24,7 +24,6 @@ export const startLogin = async ({
     credentials: 'include',
     headers: {
       accept: 'application/json',
-      'x-forwarded-host': window.location.host,
     },
     body: form,
   })
