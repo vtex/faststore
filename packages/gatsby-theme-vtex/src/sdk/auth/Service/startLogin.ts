@@ -1,4 +1,4 @@
-const tenant = process.env.GATSBY_VTEX_TENANT as string
+import { api, tenant } from './api'
 
 interface Options {
   returnUrl?: string
@@ -6,7 +6,7 @@ interface Options {
   fingerprint?: string
 }
 
-export const startLogin = ({
+export const startLogin = async ({
   returnUrl = window.origin,
   fingerprint = '',
   user,
@@ -19,11 +19,15 @@ export const startLogin = ({
   form.append('scope', tenant)
   form.append('user', user)
 
-  return fetch('/api/vtexid/pub/authentication/startlogin', {
+  const response = await fetch(api.startLogin, {
     method: 'POST',
     headers: {
       accept: 'application/json',
     },
     body: form,
-  }).then((res) => res.json())
+  })
+
+  if (response.status !== 200) {
+    throw new Error('Something went wrong while logging in')
+  }
 }
