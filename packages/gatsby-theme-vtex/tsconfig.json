@@ -5,6 +5,10 @@
     "alwaysStrict": false,
     "jsx": "preserve"
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "src/sdk/auth/useEmailInput.tsx="
+  ],
   "exclude": ["./node_modules/**/*"]
 }
