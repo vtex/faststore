@@ -23,7 +23,7 @@ export const startLogin = async ({
     method: 'POST',
     headers: {
       accept: 'application/json',
-      'x-forwarded-host': window.location.origin,
+      'x-forwarded-host': window.location.host,
     },
     body: form,
   })

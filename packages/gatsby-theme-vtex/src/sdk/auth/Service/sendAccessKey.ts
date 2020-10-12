@@ -15,7 +15,7 @@ export const sendAccessKey = async ({ email, locale = '' }: Options) => {
     method: 'POST',
     headers: {
       accept: 'application/json',
-      'x-forwarded-host': window.location.origin,
+      'x-forwarded-host': window.location.host,
     },
     body: form,
   }).then((res) => res.json())
