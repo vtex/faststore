@@ -37,6 +37,7 @@ export const createPages = async (
     fromPath: '/api/*',
     toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
+    headers: '{Referer="www.marinbrasil.com.br"}',
   })
 
   createRedirect({
