@@ -1,15 +1,15 @@
 /** @jsx jsx */
 import { jsx, Flex, Heading } from '@vtex/store-ui'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 interface Props {
-  title: string
+  title: ReactNode
   variant?: string
 }
 
-const ShelfTitle: FC<Props> = ({ title, variant = 'shelfTitle' }) => (
+const ShelfTitle: FC<Props> = ({ title, variant = 'shelf.title' }) => (
   <Flex p={2} sx={{ justifyContent: 'center' }} marginY={[16, 30]}>
-    <Heading variant={variant} as="h2">
+    <Heading variant={`${variant}`} as="h2">
       {title}
     </Heading>
   </Flex>
