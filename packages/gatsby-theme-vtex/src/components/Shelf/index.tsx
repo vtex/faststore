@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, Fragment } from 'react'
+import { FC, Fragment, ReactNode } from 'react'
 import { Flex, useResponsiveSlider, jsx } from '@vtex/store-ui'
 
 import { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
@@ -12,8 +12,8 @@ import ShelfPage from './Page'
 export interface Props {
   products: Array<ProductSummary_ProductFragment | undefined | null>
   pageSizes?: number[]
-  title?: string
-  titleVariant?: string
+  title?: ReactNode
+  variant?: string
   showArrows?: boolean
   showDots?: boolean
   autoplay?: boolean
@@ -25,7 +25,7 @@ const PAGE_SIZES = [1, 3, 5]
 const Shelf: FC<Props> = ({
   products,
   title,
-  titleVariant,
+  variant = 'shelf',
   showArrows,
   showDots,
   autoplay,
@@ -51,7 +51,7 @@ const Shelf: FC<Props> = ({
 
   return (
     <Fragment>
-      {title ? <ShelfTitle title={title} variant={titleVariant} /> : null}
+      {title ? <ShelfTitle title={title} variant={`${variant}.title`} /> : null}
       <Flex>
         {showArrows ? (
           <ShelfArrowLeft onClick={() => setPreviousPage()} />
