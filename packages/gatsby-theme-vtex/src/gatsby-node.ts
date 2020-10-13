@@ -38,6 +38,7 @@ export const createPages = async (
     toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
     headers: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$host',
     },
   })
