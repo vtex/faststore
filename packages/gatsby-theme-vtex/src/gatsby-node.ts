@@ -33,12 +33,11 @@ export const createPages = async (
   { actions: { createPage, createRedirect }, graphql }: CreatePagesArgs,
   { getStaticPaths }: Options
 ) => {
-  createRedirect({
-    fromPath: '/api/*',
-    toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
-    statusCode: 200,
-    headers: '{x-forwarded-host="deploy-preview-313--faststore.netlify.app"}',
-  })
+  // createRedirect({
+  //   fromPath: '/api/*',
+  //   toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
+  //   statusCode: 200,
+  // })
 
   createRedirect({
     fromPath: '/checkout/*',
