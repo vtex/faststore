@@ -25,7 +25,7 @@ const PAGE_SIZES = [1, 3, 5]
 const Shelf: FC<Props> = ({
   products,
   title,
-  variant = 'shelf',
+  variant = 'default',
   showArrows,
   showDots,
   autoplay,
@@ -51,7 +51,9 @@ const Shelf: FC<Props> = ({
 
   return (
     <Fragment>
-      {title ? <ShelfTitle title={title} variant={`${variant}.title`} /> : null}
+      {title ? (
+        <ShelfTitle title={title} variant={`shelf.${variant}.title`} />
+      ) : null}
       <Flex>
         {showArrows ? (
           <ShelfArrowLeft onClick={() => setPreviousPage()} />
