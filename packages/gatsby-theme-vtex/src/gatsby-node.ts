@@ -38,7 +38,7 @@ export const createPages = async (
     toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
     headers: {
-      'x-forwarded-host': 'deploy-preview-313--faststore.netlify.app',
+      'x-forwarded-host': '$host',
     },
   })
 
