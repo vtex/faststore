@@ -1,12 +1,10 @@
 import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
 import { PageProps } from 'gatsby'
-import React, { FC, Suspense, useEffect, useState } from 'react'
-import { hydrate } from 'react-dom'
+import React, { FC, useState } from 'react'
 
 import { AUTH_PROVIDERS } from '../components/Auth'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
-import { isServer } from '../utils/env'
 
 type Props = PageProps<unknown>
 
@@ -27,7 +25,15 @@ const Page: FC = () => {
       </Box>
 
       <Box variant="login.page.group">
-        <Component variant="page" />
+        <SuspenseSSR
+          fallback={
+            <Center>
+              <Spinner />
+            </Center>
+          }
+        >
+          <Component variant="page" />
+        </SuspenseSSR>
       </Box>
     </Flex>
   )
@@ -35,20 +41,10 @@ const Page: FC = () => {
 
 // We split into two components to avoid re-rendering the <Layout/> when
 // selecting Auth method
-const PageWithLayout: FC<Props> = () => {
-  return (
-    <Layout>
-      <SuspenseSSR
-        fallback={
-          <Center>
-            <Spinner />
-          </Center>
-        }
-      >
-        <Page />
-      </SuspenseSSR>
-    </Layout>
-  )
-}
+const PageWithLayout: FC<Props> = () => (
+  <Layout>
+    <Page />
+  </Layout>
+)
 
 export default PageWithLayout

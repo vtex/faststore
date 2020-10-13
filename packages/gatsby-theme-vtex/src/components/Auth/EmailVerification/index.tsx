@@ -49,13 +49,13 @@ const EmailVerification: FC<Props> = ({ variant: v }) => {
           id="email"
           placeholder="Eg: example@gmail.com"
         />
+
         {badEmail && (
-          <Alert variant="secondary" mb={2}>
-            Sign in with a valid e-mail
-          </Alert>
+          <Alert variant="signInDanger">Sign in with a valid e-mail</Alert>
         )}
+
         {authError && (
-          <Alert variant="secondary" mb={2}>
+          <Alert variant="signInDanger">
             Signing in failed. Please try again later
           </Alert>
         )}
