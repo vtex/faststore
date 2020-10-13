@@ -21,3 +21,5 @@ export const CACHING_HEADERS = [
 ]
 
 export const VTEX_NGINX_CONF_FILENAME = 'nginx.conf'
+
+export const LOCATIONS_ONLY_ENV_VAR = 'NGINX_LOCATIONS_ONLY'

@@ -1,6 +1,6 @@
 import { posix } from 'path'
 
-import { INDEX_HTML } from './constants'
+import { INDEX_HTML, LOCATIONS_ONLY_ENV_VAR } from './constants'
 
 export {
   stringify,
@@ -23,37 +23,46 @@ function generateNginxConfiguration(
   headersMap: PathHeadersMap,
   files: string[]
 ): string {
-  return stringify([
-    { cmd: ['worker_processes', '3'] },
-    { cmd: ['worker_rlimit_nofile', '8192'] },
-    { cmd: ['error_log', '/var/log/nginx_errors.log', 'debug'] },
-    { cmd: ['pid', '/var/log/nginx_run.pid'] },
-    { cmd: ['events'], children: [{ cmd: ['worker_connections', '1024'] }] },
-    {
-      cmd: ['http'],
-      children: [
-        { cmd: ['access_log', '/var/log/nginx_access.log'] },
+  const locations = [
+    ...Object.entries(headersMap)
+      .map(([path, headers]) => generatePathLocation(path, headers, files))
+      .filter<NginxDirective>(function (
+        value: NginxDirective | undefined
+      ): value is NginxDirective {
+        return value !== undefined
+      }),
+    ...generateRedirects(redirects),
+    ...generateRewrites(rewrites),
+  ]
+
+  const conf = process.env[LOCATIONS_ONLY_ENV_VAR]
+    ? locations
+    : [
+        { cmd: ['worker_processes', '3'] },
+        { cmd: ['worker_rlimit_nofile', '8192'] },
+        { cmd: ['error_log', '/var/log/nginx_errors.log', 'debug'] },
+        { cmd: ['pid', '/var/log/nginx_run.pid'] },
         {
-          cmd: ['server'],
+          cmd: ['events'],
+          children: [{ cmd: ['worker_connections', '1024'] }],
+        },
+        {
+          cmd: ['http'],
           children: [
-            { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
-            { cmd: ['resolver', '8.8.8.8'] },
-            ...Object.entries(headersMap)
-              .map(([path, headers]) =>
-                generatePathLocation(path, headers, files)
-              )
-              .filter<NginxDirective>(function (
-                value: NginxDirective | undefined
-              ): value is NginxDirective {
-                return value !== undefined
-              }),
-            ...generateRedirects(redirects),
-            ...generateRewrites(rewrites),
+            { cmd: ['access_log', '/var/log/nginx_access.log'] },
+            {
+              cmd: ['server'],
+              children: [
+                { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
+                { cmd: ['resolver', '8.8.8.8'] },
+                ...locations,
+              ],
+            },
           ],
         },
-      ],
-    },
-  ])
+      ]
+
+  return stringify(conf)
 }
 
 function stringify(directives: NginxDirective[]): string {
