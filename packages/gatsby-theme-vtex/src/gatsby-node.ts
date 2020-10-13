@@ -39,29 +39,29 @@ export const createPages = async (
   //   statusCode: 200,
   // })
 
-  createRedirect({
-    fromPath: '/checkout/*',
-    toPath: `https://${tenant}.${environment}.com.br/checkout/:splat`,
-    statusCode: 200,
-  })
+  // createRedirect({
+  //   fromPath: '/checkout/*',
+  //   toPath: `https://${tenant}.${environment}.com.br/checkout/:splat`,
+  //   statusCode: 200,
+  // })
 
-  createRedirect({
-    fromPath: '/arquivos/*',
-    toPath: `https://${tenant}.vtexassets.com/arquivos/:splat`,
-    statusCode: 200,
-  })
+  // createRedirect({
+  //   fromPath: '/arquivos/*',
+  //   toPath: `https://${tenant}.vtexassets.com/arquivos/:splat`,
+  //   statusCode: 200,
+  // })
 
-  createRedirect({
-    fromPath: '/files/*',
-    toPath: `https://${tenant}.vtexassets.com/files/:splat`,
-    statusCode: 200,
-  })
+  // createRedirect({
+  //   fromPath: '/files/*',
+  //   toPath: `https://${tenant}.vtexassets.com/files/:splat`,
+  //   statusCode: 200,
+  // })
 
-  createRedirect({
-    fromPath: '/graphql/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
-    statusCode: 200,
-  })
+  // createRedirect({
+  //   fromPath: '/graphql/*',
+  //   toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
+  //   statusCode: 200,
+  // })
 
   /**
    * STATIC PATHS
