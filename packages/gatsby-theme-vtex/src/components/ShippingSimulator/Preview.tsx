@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ShippingSimulatorPreview: FC<Props> = ({ variant }) => (
-  <Box variant={`${variant}.preview`} sx={{ marginX: 10 }}>
+  <Box variant={variant} sx={{ marginX: 10 }}>
     <Skeleton height={20} />
   </Box>
 )

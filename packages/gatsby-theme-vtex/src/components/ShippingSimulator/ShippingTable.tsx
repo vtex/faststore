@@ -11,9 +11,8 @@ type Props = {
   variant: string
 }
 
-const ShippingTable: FC<Props> = ({ shipping, variant }) => {
+const ShippingTable: FC<Props> = ({ shipping, variant: tableVariant }) => {
   const intl = useIntl()
-  const tableVariant = `${variant}.table`
 
   return (
     <Box as="table" variant={tableVariant}>
@@ -42,7 +41,7 @@ const ShippingTable: FC<Props> = ({ shipping, variant }) => {
 
           return (
             <ShippingOption
-              variant={variant}
+              variant={tableVariant}
               key={shippingOptionProps.id}
               {...shippingOptionProps}
             />

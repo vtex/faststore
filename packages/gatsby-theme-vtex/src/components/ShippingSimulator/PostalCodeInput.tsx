@@ -22,7 +22,9 @@ const PostalCodeInput: FC<Props> = ({
     value: props.value as string,
   })
 
-  return <Input {...props} ref={inputRef} onChange={onChange} />
+  return (
+    <Input {...props} ref={inputRef} onChange={onChange} variant={variant} />
+  )
 }
 
 export default PostalCodeInput

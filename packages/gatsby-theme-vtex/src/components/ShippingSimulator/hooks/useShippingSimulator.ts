@@ -22,7 +22,7 @@ export const useShippingSimulator = ({
   country,
 }: HookProps) => {
   const [loading, setLoading] = useState(false)
-  const [postalCode, setPostalCode] = useState(initialPostalCode)
+  const [postalCode, setPostalCode] = useState(initialPostalCode ?? '')
 
   const [getShipping, { data: shipping }] = useLazyQuery<
     ShippingQueryQuery,
