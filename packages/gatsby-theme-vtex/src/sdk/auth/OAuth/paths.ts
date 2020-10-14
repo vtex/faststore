@@ -18,9 +18,10 @@ export const oAuthRedirectUrl = ({
   return `${api.pub.authentication.oauth.redirect}?${search.toString()}`
 }
 
-export const oAuthCallbackUrl = `${
-  new URL(api.oauth.finish, window.location.origin).href
-}?popup=true`
+export const oAuthCallbackUrl = new URL(
+  api.oauth.finish,
+  window.location.origin
+).href
 
 export const oAuthErrorFallbackUrl = () =>
   new URL(api.oauth.error, window.location.origin).href
