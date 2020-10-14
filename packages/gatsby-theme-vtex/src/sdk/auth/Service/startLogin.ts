@@ -8,7 +8,7 @@ interface Options {
 }
 
 export const startLogin = async ({
-  returnUrl = window.origin,
+  returnUrl = `${window.origin}/`,
   callbackUrl = '',
   fingerprint = '',
   user = '',
