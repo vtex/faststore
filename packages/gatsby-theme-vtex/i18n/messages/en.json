@@ -1,25 +1,17 @@
 {
-  "buy-button.add-to-cart": "ADD TO CART",
-  "shelf.0.title": "New Offers",
   "minicart.drawer.close": "Close",
   "minicart.drawer.count": "Count ({count})",
   "minicart.drawer.subtotal": "Subtotal",
   "minicart.drawer.total": "Total",
   "minicart.drawer.shipping-disclaimer": "Shipping and taxes calculated at checkout.",
   "minicart.drawer.go-checkout": "GO TO CHECKOUT",
-  "offer.product-unavailable": "Product Unavailable",
-  "offer.units-left": "{quantity} units left!",
-  "facets.brand-selector.title": "Brands",
-  "facets.tree-selector.title": "Departments",
+
   "facets.filters": "Filters",
   "search.page-list.more": "Show More",
   "search.page-list.more.loading": "Loading...",
-  "product-not-found": "Product not found",
-  "loading": "Loading...",
-  "error-generic": "Error",
-  "preview.not-found": "No Preview found. Waiting for input",
+
   "notification-bar.sale": "SELECTED ITEMS ON SALE! CHECK IT OUT!",
-  "signin": "Sign in",
+
   "suggestions.autocomplete.title": "Suggestions",
   "suggestions.autocomplete.notFound": "No Suggestions",
   "suggestions.products.title": "Producst for: {term}",
@@ -28,6 +20,7 @@
   "suggestions.history.title": "History",
   "suggestions.history.empty": "No history yet",
   "suggestions.topSearches.title": "Top Searches",
+
   "searchControls.totalCount": "{count,plural,=0{ PRODUCTS}one{ PRODUCT}other{ PRODUCTS}}",
   "searchControls.filters": "FILTERS",
   "searchControls.select.scoreDesc": "Relevance",
@@ -38,5 +31,61 @@
   "searchControls.select.nameDesc": "Name, ascending",
   "searchControls.select.nameAsc": "Name, descending",
   "searchControls.select.releaseDateDesc": "Release date",
-  "searchControls.select.bestDiscountDesc": "Discount"
+  "searchControls.select.bestDiscountDesc": "Discount",
+
+  "login.page.emailAndPassword.signUpForm.title": "Validate email and create new password",
+  "login.page.emailAndPassword.signUpForm.subTitle": "Insert the code we sent to the email {email} and create a new password",
+  "login.page.emailAndPassword.signUpForm.accessCodePlaceholder": "Add your access code",
+  "login.page.emailAndPassword.signUpForm.passwordPlaceholder": "Insert your password",
+  "login.page.emailAndPassword.signUpForm.confirmPasswordPlaceholder": "Confirm your password",
+  "login.page.emailAndPassword.signUpForm.invalidAccessCodeInput": "Invalid access code",
+  "login.page.emailAndPassword.signUpForm.invalidPassword": "Invalid password. Your password needs to have at least eight digits, one lower case and one upper case letter, with at least one digit",
+  "login.page.emailAndPassword.signUpForm.passwordDoNotMatch": "Passwords do not match",
+  "login.page.emailAndPassword.signUpForm.error": "Signing in failed. Please try again later",
+  "login.page.emailAndPassword.signUpForm.submitButton": "Create",
+  "login.page.emailAndPassword.signUpForm.backButton": "Back",
+
+  "login.page.emailAndPassword.signInForm.title": "Sign in with e-mail and password",
+  "login.page.emailAndPassword.signInForm.emailPlaceholder": "Eg: example@gmail.com",
+  "login.page.emailAndPassword.signInForm.password": "Insert your password",
+  "login.page.emailAndPassword.signInForm.forgotPassword": "Forgot my password",
+  "login.page.emailAndPassword.signInForm.invalidEmailInput": "Sign in with a valid e-mail",
+  "login.page.emailAndPassword.signInForm.invalidPasswordInput": "Sign in with a valid password",
+  "login.page.emailAndPassword.signInForm.authError": "Signing in failed. Please try again later",
+  "login.page.emailAndPassword.signInForm.submitButton": "Sign In",
+  "login.page.emailAndPassword.signInForm.signupButton": "Don't have an account yet ? Sign Up",
+
+  "login.page.emailAndPassword.emailForm.title": "Receive access code by e-mail",
+  "login.page.emailAndPassword.emailForm.emailPlaceholder": "Add your email",
+  "login.page.emailAndPassword.emailForm.invalidEmailInput": "Please insert a valid email",
+  "login.page.emailAndPassword.emailForm.error": "Something went wrong, please try again later",
+  "login.page.emailAndPassword.emailForm.submitButton": "Confirm",
+  "login.page.emailAndPassword.emailForm.backButton": "Back",
+
+  "login.page.emailAndPassword.button": "Sign in with email and password",
+
+  "login.page.emailVerification.accessCodeForm.title": "Enter the access code sent to your e-mail",
+  "login.page.emailVerification.accessCodeForm.codePlaceholder": "Add your access code",
+  "login.page.emailVerification.accessCodeForm.invalidAccessCode": "Insert a valid 6-digit access code",
+  "login.page.emailVerification.accessCodeForm.authError": "Something went wrong with your access code. Please recheck it and try again",
+  "login.page.emailVerification.accessCodeForm.submitButton": "Confirm",
+  "login.page.emailVerification.accessCodeForm.backButton": "Back",
+
+  "login.page.emailVerification.emailForm.title": "Receive access code by e-mail",
+  "login.page.emailVerification.emailForm.emailPlaceholder": "Add your email",
+  "login.page.emailVerification.emailForm.invalidEmailInput": "Please insert a valid email",
+  "login.page.emailVerification.emailForm.error": "Something went wrong, please try again later",
+  "login.page.emailVerification.emailForm.submitButton": "Send",
+
+  "login.page.emailVerification.button": "Receive access code by e-mail",
+
+  "login.page.facebookOAuth.button": "Sign in with Facebook",
+  "login.page.facebookOAuth.title": "Signing in with Facebook",
+  "login.page.facebookOAuth.error": "Signing in with Facebook failed. Please try again later or click on the button below to try again",
+  "login.page.facebookOAuth.tryAgain": "Try Again",
+
+  "login.page.googleOAuth.button": "Sign in with Google",
+  "login.page.googleOAuth.title": "Signing in with Google",
+  "login.page.googleOAuth.error": "Signing in with Google failed. Please try again later or click on the button below to try again",
+  "login.page.googleOAuth.tryAgain": "Try Again"
 }

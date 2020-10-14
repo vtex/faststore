@@ -1,8 +1,25 @@
 export const tenant = process.env.GATSBY_VTEX_TENANT as string
 
-const href = `/api/vtexid/pub`
+const base = `/api/vtexid`
 
 export const api = {
-  startLogin: `${href}/authentication/startlogin`,
-  sendAccessKey: `${href}/authentication/accesskey/send`,
+  pub: {
+    authentication: {
+      startlogin: `${base}/pub/authentication/startlogin`,
+      accesskey: {
+        send: `${base}/pub/authentication/accesskey/send`,
+        validate: `${base}/pub/authentication/accesskey/validate`,
+      },
+      oauth: {
+        redirect: `${base}/pub/authentication/oauth/redirect`,
+      },
+      classic: {
+        validate: `${base}/pub/authentication/classic/validate`,
+        setpassword: `${base}/pub/authentication/classic/setpassword`,
+      },
+    },
+  },
+  oauth: {
+    error: `${base}/oauth/error`,
+  },
 }

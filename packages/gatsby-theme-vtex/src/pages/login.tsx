@@ -2,7 +2,7 @@ import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
 import { PageProps } from 'gatsby'
 import React, { FC, useState } from 'react'
 
-import { AUTH_PROVIDERS } from '../components/Auth'
+import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 

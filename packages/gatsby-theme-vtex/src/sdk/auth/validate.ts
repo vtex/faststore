@@ -23,3 +23,5 @@ export const isValidPassword = (text: string) => {
     hasUpperCaseLetter,
   }
 }
+
+export const isValidAccessCode = (text: string) => text.length === 6
