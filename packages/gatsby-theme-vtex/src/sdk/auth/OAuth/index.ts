@@ -35,18 +35,13 @@ export const OAuthLogin = ({ providerName }: Options) =>
 
       const qs = new URLSearchParams(popup.location.search)
       const authStatus = qs.get('authStatus')
-      const oAuthError = qs.get('error')
-
-      if (authStatus !== 'Success' && !oAuthError) {
-        return
-      }
 
       clearInterval(id)
       popup.close()
 
       if (authStatus === 'Success') {
         resolve()
-      } else if (oAuthError) {
+      } else {
         reject(new Error('Something went wrong with OAuth'))
       }
     }, 500)
