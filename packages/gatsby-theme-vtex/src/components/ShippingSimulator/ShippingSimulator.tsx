@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, FormEvent } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Button, Box, Text } from '@vtex/store-ui'
 
@@ -41,7 +41,7 @@ const ShippingSimulator: FC<Props> = ({
       <Box
         as="form"
         variant={`${variant}.fieldContainer`}
-        onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
+        onSubmit={(e: FormEvent<HTMLDivElement>) => {
           e.preventDefault()
           onCalculateShipping?.()
         }}

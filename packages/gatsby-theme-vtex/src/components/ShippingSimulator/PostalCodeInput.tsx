@@ -19,7 +19,7 @@ const PostalCodeInput: FC<Props> = ({
     mask: [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/],
     guide: false,
     onChange: rawOnChange,
-    value: props.value,
+    value: props.value as string,
   })
 
   return <Input {...props} ref={inputRef} onChange={onChange} />
