@@ -1,19 +1,22 @@
 import { api, tenant } from './api'
 
 interface Options {
+  fingerprint?: string
+  callbackUrl?: string
   returnUrl?: string
   user?: string
-  fingerprint?: string
 }
 
 export const startLogin = async ({
   returnUrl = window.origin,
+  callbackUrl = '',
   fingerprint = '',
   user = '',
 }: Options) => {
   const form = new FormData()
 
   form.append('fingerprint', fingerprint)
+  form.append('callbackUrl', callbackUrl)
   form.append('returnUrl', returnUrl)
   form.append('accountName', tenant)
   form.append('scope', tenant)

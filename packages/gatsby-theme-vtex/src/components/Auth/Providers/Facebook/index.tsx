@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useState } from 'react'
-import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
+import React, { FC, useEffect, useState } from 'react'
 
-import { startLogin } from '../../../../sdk/auth/Service'
 import { OAuthLogin } from '../../../../sdk/auth/OAuth'
+import { oAuthCallbackUrl } from '../../../../sdk/auth/OAuth/paths'
+import { startLogin } from '../../../../sdk/auth/Service'
 import { onLoginSuccessful } from '../../../../sdk/auth/utils'
 import { AuthProviderComponentProps } from '../types'
 
@@ -18,7 +19,9 @@ const FacebookOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
     ;(async () => {
       try {
         if (state === 'initial') {
-          await startLogin({})
+          await startLogin({
+            callbackUrl: oAuthCallbackUrl,
+          })
           await OAuthLogin({ providerName: 'Facebook' })
 
           onLoginSuccessful()

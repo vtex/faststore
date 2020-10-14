@@ -21,5 +21,6 @@ export const api = {
   },
   oauth: {
     error: `${base}/oauth/error`,
+    finish: `${base}/oauth/finish`,
   },
 }
