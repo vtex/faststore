@@ -21,7 +21,7 @@ const MyAccountFetcher = () => {
       id="my-account"
       frameBorder={0}
       allowFullScreen
-      src="/my-account"
+      src="/legacy-extensions/account"
       style={{
         border: 'none',
         visibility: 'visible',
