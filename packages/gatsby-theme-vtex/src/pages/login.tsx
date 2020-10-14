@@ -27,7 +27,7 @@ const Page: FC = () => {
       <Box variant="login.page.group">
         <SuspenseSSR
           fallback={
-            <Center>
+            <Center height="200px">
               <Spinner />
             </Center>
           }
