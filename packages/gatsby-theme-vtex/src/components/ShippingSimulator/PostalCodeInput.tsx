@@ -10,19 +10,19 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Input> {
 const PostalCodeInput: FC<Props> = ({
   variant,
   onChange: rawOnChange,
-  value,
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
-  // @ts-ignore
   const onChange = useMaskedInput({
     input: inputRef,
-    mask: ['8'],
+    mask: [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/],
+    guide: false,
     onChange: rawOnChange,
+    value: props.value,
   })
 
-  return <Input ref={inputRef} onChange={onChange} value={value} {...props} />
+  return <Input {...props} ref={inputRef} onChange={onChange} />
 }
 
 export default PostalCodeInput

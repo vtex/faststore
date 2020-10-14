@@ -41,7 +41,7 @@ const ShippingSimulator: FC<Props> = ({
       <Box
         as="form"
         variant={`${variant}.fieldContainer`}
-        onSubmit={(e) => {
+        onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
           e.preventDefault()
           onCalculateShipping?.()
         }}
@@ -55,9 +55,10 @@ const ShippingSimulator: FC<Props> = ({
             variant={`${variant}.input`}
             id="postalCode"
             name="postalCode"
-            onChange={(e) => onPostalCode(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onPostalCode(e.target.value)
+            }}
             value={postalCode}
-            required
           />
         </label>
         <Button
@@ -68,9 +69,9 @@ const ShippingSimulator: FC<Props> = ({
           {intl.formatMessage({ id: 'shippingSimulator.label' })}
         </Button>
       </Box>
-      {loading && <Preview variant={variant} />}
+      {loading && <Preview variant={`${variant}.preview`} />}
       {shipping && !loading && (
-        <ShippingTable shipping={shipping} variant={variant} />
+        <ShippingTable shipping={shipping} variant={`${variant}.table`} />
       )}
     </Box>
   )

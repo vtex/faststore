@@ -25,15 +25,8 @@ export type DefaultCurrencyQueryQuery = { allChannel: { edges: Array<{ node: { d
 // Query Related Code
 
 export const DefaultCurrencyQuery = {
-<<<<<<< HEAD
-  query: undefined,
-  sha256Hash:
-    '7adae2e23aae06db92fa039faf12eaf1fefd6584dc1940be89c2663a7a634133',
-  operationName: 'DefaultCurrencyQuery',
-=======
   query: "query DefaultCurrencyQuery {\n  allChannel(filter: {targetProduct: {eq: \"vtex-storefront\"}}, limit: 1) {\n    edges {\n      node {\n        defaultCurrency\n      }\n    }\n  }\n}\n",
   sha256Hash: "7adae2e23aae06db92fa039faf12eaf1fefd6584dc1940be89c2663a7a634133",
   operationName: "DefaultCurrencyQuery",
->>>>>>> f7cf8d99... Improving lazy query and adding variants
 }
 

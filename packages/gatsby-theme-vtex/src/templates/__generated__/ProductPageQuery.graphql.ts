@@ -22,52 +22,14 @@ export type ProductPageQueryQueryVariables = Exact<{
 }>;
 
 
-export type ProductPageQueryQuery = {
-  vtex: {
-    product: Maybe<{
-      productReference: Maybe<string>
-      productName: Maybe<string>
-      linkText: Maybe<string>
-      description: Maybe<string>
-      brand: Maybe<string>
-      productId: Maybe<string>
-      items: Maybe<
-        Array<
-          Maybe<{
-            itemId: Maybe<string>
-            images: Maybe<
-              Array<
-                Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>
-              >
-            >
-            sellers: Maybe<
-              Array<
-                Maybe<{
-                  commercialOffer: Maybe<{
-                    price: Maybe<number>
-                    availableQuantity: Maybe<number>
-                    priceValidUntil: Maybe<string>
-                  }>
-                }>
-              >
-            >
-          }>
-        >
-      >
-      productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>
-      categoryTree: Maybe<
-        Array<Maybe<{ name: Maybe<string>; href: Maybe<string> }>>
-      >
-    }>
-  }
-}
+export type ProductPageQueryQuery = { vtex: { product: Maybe<{ productReference: Maybe<string>, productName: Maybe<string>, linkText: Maybe<string>, description: Maybe<string>, brand: Maybe<string>, productId: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ commercialOffer: Maybe<{ price: Maybe<number>, availableQuantity: Maybe<number>, priceValidUntil: Maybe<string> }> }>>> }>>>, productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>, categoryTree: Maybe<Array<Maybe<{ name: Maybe<string>, href: Maybe<string> }>>> }> } };
+
 
 // Query Related Code
 
 export const ProductPageQuery = {
-  query: undefined,
-  sha256Hash:
-    '30940a00980f426a8d1801480adf2885d10781f0329cd8751e67b63e002c9eab',
-  operationName: 'ProductPageQuery',
+  query: "query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        itemId\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n      }\n      productClusters {\n        name\n      }\n      description\n      brand\n      productId\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n",
+  sha256Hash: "30940a00980f426a8d1801480adf2885d10781f0329cd8751e67b63e002c9eab",
+  operationName: "ProductPageQuery",
 }
 

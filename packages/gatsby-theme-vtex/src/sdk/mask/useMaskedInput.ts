@@ -5,8 +5,8 @@ import {
 } from 'text-mask-core'
 import { MutableRefObject, useLayoutEffect, useRef } from 'react'
 
-interface Args extends CreateTextMaskConfig {
-  value: string
+interface Args extends Omit<CreateTextMaskConfig, 'inputElement'> {
+  value?: string
   input: MutableRefObject<HTMLInputElement | null>
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

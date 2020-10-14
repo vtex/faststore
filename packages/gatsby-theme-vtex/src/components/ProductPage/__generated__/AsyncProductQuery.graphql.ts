@@ -21,15 +21,14 @@ export type AsyncProductQueryQueryVariables = Exact<{
 }>;
 
 
-export type AsyncProductQueryQuery = { vtex: { product: Maybe<{ productId: Maybe<string>, productName: Maybe<string>, productReference: Maybe<string>, description: Maybe<string>, linkText: Maybe<string>, specificationGroups: Maybe<Array<Maybe<{ name: Maybe<string>, specifications: Maybe<Array<Maybe<{ name: Maybe<string>, values: Maybe<Array<Maybe<string>>> }>>> }>>>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ sellerId: Maybe<string>, commercialOffer: Maybe<{ spotPrice: Maybe<number>, availableQuantity: Maybe<number>, price: Maybe<number>, listPrice: Maybe<number>, maxInstallments: Maybe<Array<Maybe<{ value: Maybe<number>, numberOfInstallments: Maybe<number> }>>>, installments: Maybe<Array<Maybe<{ value: Maybe<number>, numberOfInstallments: Maybe<number>, interestRate: Maybe<number> }>>>, teasers: Maybe<Array<{ name: Maybe<string> }>> }> }>>> }>>> }> } };
+export type AsyncProductQueryQuery = { vtex: { product: Maybe<{ productId: Maybe<string>, productName: Maybe<string>, productReference: Maybe<string>, description: Maybe<string>, linkText: Maybe<string>, specificationGroups: Maybe<Array<Maybe<{ name: Maybe<string>, specifications: Maybe<Array<Maybe<{ name: Maybe<string>, values: Maybe<Array<Maybe<string>>> }>>> }>>>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ sellerId: Maybe<string>, commercialOffer: Maybe<{ spotPrice: Maybe<number>, availableQuantity: Maybe<number>, price: Maybe<number>, listPrice: Maybe<number>, maxInstallments: Maybe<Array<Maybe<{ value: Maybe<number>, numberOfInstallments: Maybe<number> }>>>, installments: Maybe<Array<Maybe<{ value: Maybe<number>, numberOfInstallments: Maybe<number>, interestRate: Maybe<number> }>>>, gifts: Maybe<Array<Maybe<{ skuName: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string> }>>> }>>>, teasers: Maybe<Array<{ name: Maybe<string> }>> }> }>>> }>>> }> } };
 
 
 // Query Related Code
 
 export const AsyncProductQuery = {
-  query: undefined,
-  sha256Hash:
-    'c0e3648f8696ac206ec49e4401c2587cfc4de69a292ff4aaf94482de5325172e',
-  operationName: 'AsyncProductQuery',
+  query: "query AsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      productReference\n      description\n      linkText\n      specificationGroups {\n        name\n        specifications {\n          name\n          values\n        }\n      }\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            gifts {\n              skuName\n              images {\n                imageUrl\n              }\n            }\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  sha256Hash: "c0e3648f8696ac206ec49e4401c2587cfc4de69a292ff4aaf94482de5325172e",
+  operationName: "AsyncProductQuery",
 }
 

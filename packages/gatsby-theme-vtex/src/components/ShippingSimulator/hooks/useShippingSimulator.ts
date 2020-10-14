@@ -49,7 +49,7 @@ export const useShippingSimulator = ({
     loading,
     postalCode,
     setPostalCode,
-    isValid: postalCode?.length === 8,
+    isValid: postalCode?.length === 9,
     onSubmit,
   }
 }
