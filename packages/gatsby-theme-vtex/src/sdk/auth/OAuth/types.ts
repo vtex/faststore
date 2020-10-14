@@ -1,1 +1,1 @@
-export type OAuthProvider = 'google' | 'facebook'
+export type OAuthProvider = 'Google' | 'Facebook'

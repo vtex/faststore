@@ -19,7 +19,7 @@ const GoogleOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
       try {
         if (state === 'initial') {
           await startLogin({})
-          await OAuthLogin({ providerName: 'google' })
+          await OAuthLogin({ providerName: 'Google' })
 
           onLoginSuccessful()
         }

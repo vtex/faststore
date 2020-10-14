@@ -19,7 +19,7 @@ const FacebookOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
       try {
         if (state === 'initial') {
           await startLogin({})
-          await OAuthLogin({ providerName: 'facebook' })
+          await OAuthLogin({ providerName: 'Facebook' })
 
           onLoginSuccessful()
         }
