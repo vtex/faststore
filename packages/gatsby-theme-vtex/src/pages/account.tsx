@@ -21,9 +21,7 @@ const Page: FC = () => (
           height: 750,
           width: '100%',
         }}
-      >
-        <div id={MY_ACCOUNT_ROOT} />
-      </iframe>
+      />
     </Container>
   </Layout>
 )
