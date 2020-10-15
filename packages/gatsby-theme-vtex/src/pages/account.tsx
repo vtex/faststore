@@ -1,10 +1,10 @@
 import { Center, Spinner } from '@vtex/store-ui'
 import React, { FC, useEffect, useState } from 'react'
+import RenderExtensionLoader from '@vtex/render-extension-loader'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 import { useLocale } from '../sdk/localization/useLocale'
-import RenderExtensionLoader from '../sdk/renderExtensionLoader'
 
 const MY_ACCOUNT_PATH = '/account'
 const MY_ACCOUNT_DIV_NAME = 'my-account'
@@ -33,15 +33,14 @@ const Account: FC = () => {
 
         const myAccountDiv = document.getElementById(MY_ACCOUNT_DIV_NAME)
 
-        if (window.__RENDER_7_RUNTIME__) {
+        if ((window as any).__RENDER_7_RUNTIME__) {
           loader.render(MY_ACCOUNT_EXTENSION_NAME, myAccountDiv, undefined)
 
           return
         }
 
         await loader.load()
-
-        window.__RUNTIME__ = loader.render(
+        ;(window as any).__RUNTIME__ = loader.render(
           MY_ACCOUNT_EXTENSION_NAME,
           myAccountDiv,
           undefined

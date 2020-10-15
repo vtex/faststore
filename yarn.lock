@@ -4963,6 +4963,11 @@
   resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.1.tgz#c376999e826827aa11f4b0e08af9cf59ae9ee476"
   integrity sha512-B2tvaxrWXAzF2iSaRpQaw88kxq1lGC7/DSOBuGOn9225wNrF5g6D6NNky4/TZomv0NJTgO8tIT59ftbTHgMxXg==
 
+"@vtex/render-extension-loader@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@vtex/render-extension-loader/-/render-extension-loader-0.2.2.tgz#30529c3faacbda57fc0f8f5cf05a10befb05dda4"
+  integrity sha512-cF832YJwXxT9xaEJUimyV5V9cZRn9lS0RVRfpNBDZgHHhoT4EP1ZrBYuLLXK1bK4vJ9L81YBHF/Y2Leof2IrPw==
+
 "@vtex/store-ui@^0.87.0":
   version "0.87.0"
   resolved "https://registry.yarnpkg.com/@vtex/store-ui/-/store-ui-0.87.0.tgz#38b6c314679ffccd0c7572f3c7e8b4a7eff0248d"
