@@ -39,7 +39,9 @@ const MyAccount: FC = () => {
           undefined
         )
       })
-      .catch(() => {})
+      .catch((err) => {
+        console.error(err)
+      })
   }, [])
 
   return <div ref={ref} />
