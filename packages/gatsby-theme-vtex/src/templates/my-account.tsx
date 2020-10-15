@@ -7,19 +7,14 @@ const MY_ACCOUNT_DIV_NAME = 'my-account'
 const MY_ACCOUNT_EXTENSION_NAME = 'my-account-portal'
 const ONE_MIN_IN_MILLI = 60 * 100
 
-/*
- * graphql-server of this workspace must not have CORS filter.
- * TODO: find better alternative other than removing the CORS filter
- */
-const MY_ACCOUNT_WORKSPACE = 'icaromyaccount'
-
-const tenant = process.env.GATSBY_VTEX_TENANT ?? 'storecomponents'
+const workspace = process.env.GATSBY_VTEX_IO_WORKSPACE
+const tenant = process.env.GATSBY_VTEX_TENANT
 
 const MyAccount = () => {
   useEffect(() => {
     const loader = new RenderExtensionLoader({
       account: tenant,
-      workspace: MY_ACCOUNT_WORKSPACE,
+      workspace,
       path: MY_ACCOUNT_PATH,
       locale: 'pt-BR',
       verbose: true,
