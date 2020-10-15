@@ -18,33 +18,37 @@ const MyAccount: FC = () => {
 
   useEffect(() => {
     ;(async () => {
-      const loader = new RenderExtensionLoader({
-        account: tenant,
-        workspace,
-        path: MY_ACCOUNT_PATH,
-        locale: 'pt-BR',
-        verbose: true,
-        publicEndpoint: undefined,
-        timeout: ONE_MIN_IN_MILLI,
-      })
+      try {
+        const loader = new RenderExtensionLoader({
+          account: tenant,
+          workspace,
+          path: MY_ACCOUNT_PATH,
+          locale: 'pt-BR',
+          verbose: true,
+          publicEndpoint: undefined,
+          timeout: ONE_MIN_IN_MILLI,
+        })
 
-      const myAccountDiv = document.getElementById(MY_ACCOUNT_DIV_NAME)
+        const myAccountDiv = document.getElementById(MY_ACCOUNT_DIV_NAME)
 
-      if (window.__RENDER_7_RUNTIME__) {
-        loader.render(MY_ACCOUNT_EXTENSION_NAME, myAccountDiv, undefined)
+        if (window.__RENDER_7_RUNTIME__) {
+          loader.render(MY_ACCOUNT_EXTENSION_NAME, myAccountDiv, undefined)
 
-        return
+          return
+        }
+
+        await loader.load()
+
+        window.__RUNTIME__ = loader.render(
+          MY_ACCOUNT_EXTENSION_NAME,
+          myAccountDiv,
+          undefined
+        )
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setLoading(false)
       }
-
-      await loader.load()
-
-      window.__RUNTIME__ = loader.render(
-        MY_ACCOUNT_EXTENSION_NAME,
-        myAccountDiv,
-        undefined
-      )
-
-      setLoading(false)
     })()
   }, [])
 
