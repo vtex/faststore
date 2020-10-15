@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
+import { MY_ACCOUNT_ROOT } from './legacy-extensions/account'
 
 const Page: FC = () => (
   <Layout>
@@ -20,7 +21,9 @@ const Page: FC = () => (
           height: 750,
           width: '100%',
         }}
-      />
+      >
+        <div id={MY_ACCOUNT_ROOT} />
+      </iframe>
     </Container>
   </Layout>
 )
