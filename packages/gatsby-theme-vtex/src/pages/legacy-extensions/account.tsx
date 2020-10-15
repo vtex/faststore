@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef } from 'react'
 
+import ErrorBoundary from '../../components/ErrorBoundary'
 import RenderExtensionLoader from '../../sdk/legacy-extensions/render-extension-loader'
 
 const MY_ACCOUNT_PATH = '/account'
@@ -47,4 +48,10 @@ const MyAccount: FC = () => {
   return <div ref={ref} />
 }
 
-export default MyAccount
+const Page: FC = () => (
+  <ErrorBoundary fallback={<div>Something went wrong</div>}>
+    <MyAccount />
+  </ErrorBoundary>
+)
+
+export default Page
