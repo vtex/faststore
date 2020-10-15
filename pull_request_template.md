@@ -10,4 +10,4 @@
 ## References
 <em>Spread the knowledge: is there any content you used to create this PR that is worth sharing?</em>  
 
-<em>Extra tip: add references to related issues or mention people important to this PR may be good for the documentation and reviewing process</em> 
+<em>Extra tip: adding references to related issues or mentioning people important to this PR may be good for the documentation and reviewing process</em> 
