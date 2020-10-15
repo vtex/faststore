@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
-import { MY_ACCOUNT_ROOT } from './legacy-extensions/account'
 
 const Page: FC = () => (
   <Layout>

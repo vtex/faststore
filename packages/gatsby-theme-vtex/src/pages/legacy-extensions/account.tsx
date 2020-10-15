@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react'
 
 import RenderExtensionLoader from '../../sdk/legacy-extensions/render-extension-loader'
 
-export const MY_ACCOUNT_ROOT = 'my-account-root'
+const MY_ACCOUNT_ROOT = 'my-account-root'
 const MY_ACCOUNT_PATH = '/account'
 const ONE_MIN_IN_MILLI = 60 * 100
 
