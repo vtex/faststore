@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import RenderExtensionLoader from '../utils/render-extension-loader'
 
@@ -10,7 +10,7 @@ const ONE_MIN_IN_MILLI = 60 * 100
 const workspace = process.env.GATSBY_VTEX_IO_WORKSPACE
 const tenant = process.env.GATSBY_VTEX_TENANT
 
-const MyAccount = () => {
+const MyAccount: FC = () => {
   useEffect(() => {
     const loader = new RenderExtensionLoader({
       account: tenant,
