@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
-import Skeleton from '@vtex/store-ui/src/Skeleton'
-import { Grid, Box } from '@vtex/store-ui'
+import { Grid, Box, Skeleton } from '@vtex/store-ui'
 
 import Container from '../Container'
 import SuspenseDevice from '../Suspense/Device'
