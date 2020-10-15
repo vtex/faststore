@@ -34,8 +34,8 @@ export const createPages = async (
   { getStaticPaths }: Options
 ) => {
   createRedirect({
-    fromPath: '/api/*',
-    toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
+    fromPath: '/api/io/*',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/:splat`,
     statusCode: 200,
     headers: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
@@ -44,8 +44,8 @@ export const createPages = async (
   })
 
   createRedirect({
-    fromPath: '/api/io/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/:splat`,
+    fromPath: '/api/*',
+    toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
     headers: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
