@@ -12,7 +12,7 @@ const Page: FC = () => (
         id="my-account"
         frameBorder={0}
         allowFullScreen
-        src="/legacy-extensions/account"
+        src="/io/my-account"
         style={{
           border: 'none',
           visibility: 'visible',
