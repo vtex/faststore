@@ -87,7 +87,11 @@ function stringify(directives: NginxDirective[]): string {
 }
 
 function convertFromPath(path: string) {
-  return `^${path.replace(/\*/g, '.*').replace(/:slug/g, '[^/]+')}`
+  return `^${path.replace(/\*/g, '(.*)').replace(/:slug/g, '[^/]+')}`
+}
+
+function convertToPath(path: string) {
+  return path.replace(/:splat/g, '$1')
 }
 
 function validateRedirect({ fromPath, toPath }: Redirect): boolean {
@@ -97,12 +101,6 @@ function validateRedirect({ fromPath, toPath }: Redirect): boolean {
     url = new URL(toPath)
   } catch (ex) {
     throw new Error(`redirect toPath "${toPath}" must be a valid absolute URL`)
-  }
-
-  if (fromPath.replace(/\*/g, ':splat') !== url.pathname) {
-    throw new Error(
-      `redirect toPath "${toPath}" fromPath "${fromPath}": paths must match`
-    )
   }
 
   return true
@@ -123,12 +121,11 @@ function generateRedirects(redirects: Redirect[]): NginxDirective[] {
   return redirects.map((redirect) => {
     validateRedirect(redirect)
     const { fromPath, toPath } = redirect
-    const { protocol, host } = new URL(toPath)
 
     return {
       cmd: ['location', '~*', convertFromPath(fromPath)],
       children: [
-        { cmd: ['proxy_pass', `${protocol}//${host}$uri$is_args$args`] },
+        { cmd: ['proxy_pass', `${convertToPath(toPath)}$is_args$args`] },
         { cmd: ['proxy_ssl_server_name', 'on'] },
       ],
     }
