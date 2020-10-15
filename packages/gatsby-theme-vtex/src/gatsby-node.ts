@@ -135,13 +135,6 @@ export const createPages = async (
     },
   })
 
-  createPage({
-    path: '/my-account',
-    // matchPath: '/my-account/*',
-    component: resolve(__dirname, './src/templates/my-account.tsx'),
-    context: {},
-  })
-
   /**
    * CMS PAGES
    */
