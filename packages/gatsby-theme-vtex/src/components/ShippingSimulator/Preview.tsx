@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import Skeleton from 'react-loading-skeleton'
 import { Box } from '@vtex/store-ui'
+import Skeleton from '@vtex/store-ui/src/Skeleton'
 
 interface Props {
   variant: string
@@ -8,7 +8,7 @@ interface Props {
 
 const ShippingSimulatorPreview: FC<Props> = ({ variant }) => (
   <Box variant={variant} sx={{ marginX: 10 }}>
-    <Skeleton height={20} />
+    <Skeleton height="20px" />
   </Box>
 )
 
