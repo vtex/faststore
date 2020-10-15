@@ -5,7 +5,7 @@
 <em>Tell us the role of the new feature, or component, in its context.</em>
 
 ## How to test it?
-<em>Describe the steps with bullet points. Is there any extenal link that can be used to better test it or an example?</em> 
+<em>Describe the steps with bullet points. Is there any external link that can be used to better test it or an example?</em> 
 
 ## References
 <em>Spread the knowledge: is there any content you used to create this PR that is worth sharing?</em>  
