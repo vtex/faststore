@@ -11,6 +11,24 @@ const workspace = process.env.GATSBY_VTEX_IO_WORKSPACE
 
 let once = true
 
+const render = async () => {
+  const loader = new RenderExtensionLoader({
+    account: tenant,
+    workspace,
+    path: MY_ACCOUNT_PATH,
+    locale: 'pt-BR',
+    verbose: true,
+    publicEndpoint: undefined,
+    timeout: ONE_MIN_IN_MILLI,
+  })
+
+  await loader.load()
+
+  const root = document.getElementById(MY_ACCOUNT_ROOT)
+
+  window.__RUNTIME__ = loader.render('my-account-portal', root, undefined)
+}
+
 const Page: FC = () => {
   useEffect(() => {
     if (!once) {
@@ -19,21 +37,7 @@ const Page: FC = () => {
 
     once = false
 
-    const loader = new RenderExtensionLoader({
-      account: tenant,
-      workspace,
-      path: MY_ACCOUNT_PATH,
-      locale: 'pt-BR',
-      verbose: true,
-      publicEndpoint: undefined,
-      timeout: ONE_MIN_IN_MILLI,
-    })
-
-    const root = document.getElementById(MY_ACCOUNT_ROOT)
-
-    loader.load().then(() => {
-      window.__RUNTIME__ = loader.render('my-account-portal', root, undefined)
-    })
+    render()
   }, [])
 
   return <div id={MY_ACCOUNT_ROOT} />
