@@ -99,3 +99,5 @@ export { default as floatingActionButtonTheme } from './FloatingActionButton/the
 export { default as GiftList } from './GiftList/index'
 export { default as GiftListTitle } from './GiftList/Title'
 export { default as GiftListList } from './GiftList/List'
+// Skeleton
+export { default as Skeleton } from './Skeleton'
