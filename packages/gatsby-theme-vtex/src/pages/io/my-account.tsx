@@ -1,4 +1,5 @@
-import React, { FC, useEffect } from 'react'
+import { Center, Spinner } from '@vtex/store-ui'
+import React, { FC, useEffect, useState } from 'react'
 
 import RenderExtensionLoader from '../../sdk/legacy-extensions/render-extension-loader'
 
@@ -30,6 +31,8 @@ const render = async () => {
 }
 
 const Page: FC = () => {
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     if (!once) {
       return
@@ -37,10 +40,19 @@ const Page: FC = () => {
 
     once = false
 
-    render()
+    render().then(() => setLoading(false))
   }, [])
 
-  return <div id={MY_ACCOUNT_ROOT} />
+  return (
+    <>
+      <div id={MY_ACCOUNT_ROOT} />
+      {loading && (
+        <Center height="500px">
+          <Spinner />
+        </Center>
+      )}
+    </>
+  )
 }
 
 export default Page
