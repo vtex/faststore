@@ -13,7 +13,7 @@ const ONE_MIN_IN_MILLI = 60 * 100
 const workspace = process.env.GATSBY_VTEX_IO_WORKSPACE
 const tenant = process.env.GATSBY_VTEX_TENANT
 
-const MyAccount: FC = () => {
+const Account: FC = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -67,8 +67,7 @@ const MyAccount: FC = () => {
 const Page: FC = () => (
   <Layout>
     <Container>
-      <h1>My account</h1>
-      <MyAccount />
+      <Account />
     </Container>
   </Layout>
 )
