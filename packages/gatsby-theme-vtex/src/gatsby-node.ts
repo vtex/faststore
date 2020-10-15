@@ -44,6 +44,16 @@ export const createPages = async (
   })
 
   createRedirect({
+    fromPath: '/api/io/*',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/:splat`,
+    statusCode: 200,
+    headers: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$host',
+    },
+  })
+
+  createRedirect({
     fromPath: '/checkout/*',
     toPath: `https://${tenant}.${environment}.com.br/checkout/:splat`,
     statusCode: 200,
