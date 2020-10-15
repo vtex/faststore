@@ -1,36 +1,30 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 
-const Account = () => {
+const Page: FC = () => {
   return (
     <Layout>
       <Container>
         <h1>My account</h1>
-        <MyAccountFetcher />
+        <iframe
+          title="my-account"
+          id="my-account"
+          frameBorder={0}
+          allowFullScreen
+          src="/legacy-extensions/account"
+          style={{
+            border: 'none',
+            visibility: 'visible',
+            overflow: 'hidden',
+            height: 750,
+            width: '100%',
+          }}
+        />
       </Container>
     </Layout>
   )
 }
 
-const MyAccountFetcher = () => {
-  return (
-    <iframe
-      title="my-account"
-      id="my-account"
-      frameBorder={0}
-      allowFullScreen
-      src="/legacy-extensions/account"
-      style={{
-        border: 'none',
-        visibility: 'visible',
-        overflow: 'hidden',
-        height: 750,
-        width: '100%',
-      }}
-    />
-  )
-}
-
-export default Account
+export default Page

@@ -8,10 +8,18 @@ const ONE_MIN_IN_MILLI = 60 * 100
 const tenant = process.env.GATSBY_VTEX_TENANT
 const workspace = process.env.GATSBY_VTEX_IO_WORKSPACE
 
+let once = true
+
 const MyAccount: FC = () => {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (!once) {
+      return
+    }
+
+    once = false
+
     const loader = new RenderExtensionLoader({
       account: tenant,
       workspace,
@@ -31,9 +39,7 @@ const MyAccount: FC = () => {
           undefined
         )
       })
-      .catch((err) => {
-        console.error(err)
-      })
+      .catch(() => {})
   }, [])
 
   return <div ref={ref} />
