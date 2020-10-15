@@ -31,18 +31,13 @@ const MyAccount: FC = () => {
       timeout: ONE_MIN_IN_MILLI,
     })
 
-    loader
-      .load()
-      .then(() => {
-        window.__RUNTIME__ = loader.render(
-          'my-account-portal',
-          ref.current,
-          undefined
-        )
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    loader.load().then(() => {
+      window.__RUNTIME__ = loader.render(
+        'my-account-portal',
+        ref.current,
+        undefined
+      )
+    })
   }, [])
 
   return <div ref={ref} />
