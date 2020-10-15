@@ -8,6 +8,6 @@
 <em>Describe the steps with bullet points. Is there any external reference, link, or example?</em> 
 
 ## References
-<em>Spread the knowledge: is this any content you used to create this PR that is worth sharing?</em>  
+<em>Spread the knowledge: is there any content you used to create this PR that is worth sharing?</em>  
 
 <em>Extra tip: add references to related issues or mention people important to this PR may be good for the documentation and reviewing process</em> 
