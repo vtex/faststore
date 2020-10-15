@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from 'react'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
+import { useLocale } from '../sdk/localization/useLocale'
 import RenderExtensionLoader from '../sdk/renderExtensionLoader'
 
 const MY_ACCOUNT_PATH = '/account'
@@ -15,6 +16,7 @@ const tenant = process.env.GATSBY_VTEX_TENANT
 
 const Account: FC = () => {
   const [loading, setLoading] = useState(true)
+  const locale = useLocale()
 
   useEffect(() => {
     ;(async () => {
@@ -23,7 +25,7 @@ const Account: FC = () => {
           account: tenant,
           workspace,
           path: MY_ACCOUNT_PATH,
-          locale: 'pt-BR',
+          locale,
           verbose: true,
           publicEndpoint: undefined,
           timeout: ONE_MIN_IN_MILLI,
@@ -50,7 +52,7 @@ const Account: FC = () => {
         setLoading(false)
       }
     })()
-  }, [])
+  }, [locale])
 
   return (
     <>
