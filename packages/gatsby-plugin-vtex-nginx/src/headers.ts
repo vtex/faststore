@@ -6,6 +6,7 @@ import {
   CACHING_HEADERS,
   COMMON_BUNDLES,
   IMMUTABLE_CACHING_HEADER,
+  INDEX_HTML,
   PAGE_DATA_DIR,
   PUBLIC_CACHING_HEADER,
 } from './constants'
@@ -130,6 +131,18 @@ function addPublicCachingHeader(headersMap: PathHeadersMap) {
   )
 }
 
+function addStaticCachingHeader(headersMap: PathHeadersMap) {
+  return Object.fromEntries(
+    Object.entries(headersMap).map(([path, headers]) => {
+      if (!path.startsWith('/static')) {
+        return [path, headers]
+      }
+
+      return [path, [...headers, IMMUTABLE_CACHING_HEADER]]
+    })
+  )
+}
+
 function headerFromString(header: string): Header {
   const [name, ...rest] = header.split(':')
 
@@ -139,8 +152,33 @@ function headerFromString(header: string): Header {
   }
 }
 
+function emptyHeadersMapForFiles(files: string[]): PathHeadersMap {
+  return Object.fromEntries(
+    files.map((file) => [normalizePath(`/${removeIndexSuffix(file)}`), []])
+  )
+}
+
+/** Any file ending with index.html might have a corresponding gatsby page.
+ * Since we want these empty headers to be substituted by their page's headers
+ * and to not create duplicate nginx directives for index.html files, we
+ * remove the index.html suffix.
+ * Any static, not-generated-by-gatsby, index.html file will still make its way to the
+ * nginx configuration file, which when generated will try to match the header
+ * entry with the list of files in the public directory. The only caveat is that
+ * they will be served under a path without the 'index.html'.
+ */
+function removeIndexSuffix(path: string) {
+  if (!path.endsWith(INDEX_HTML)) {
+    return path
+  }
+
+  return path.slice(0, -INDEX_HTML.length)
+}
+
 export {
   addPublicCachingHeader,
+  addStaticCachingHeader,
+  emptyHeadersMapForFiles,
   preloadHeadersByPath,
   cacheHeadersByPath,
   applyUserHeadersTransform,

@@ -1,6 +1,6 @@
 import { posix } from 'path'
 
-import { PUBLIC_CACHING_HEADER } from './constants'
+import { INDEX_HTML } from './constants'
 
 export {
   stringify,
@@ -20,59 +20,74 @@ export interface NginxDirective {
 function generateNginxConfiguration(
   rewrites: Redirect[],
   redirects: Redirect[],
-  headersMap: PathHeadersMap
+  headersMap: PathHeadersMap,
+  files: string[],
+  options: PluginOptions
 ): string {
-  return stringify([
-    { cmd: ['worker_processes', '3'] },
-    { cmd: ['worker_rlimit_nofile', '8192'] },
-    { cmd: ['error_log', '/var/log/nginx_errors.log', 'debug'] },
-    { cmd: ['pid', '/var/log/nginx_run.pid'] },
-    { cmd: ['events'], children: [{ cmd: ['worker_connections', '1024'] }] },
-    {
-      cmd: ['http'],
-      children: [
-        { cmd: ['access_log', '/var/log/nginx_access.log'] },
+  const locations = [
+    ...Object.entries(headersMap)
+      .map(([path, headers]) =>
+        generatePathLocation(path, headers, files, options)
+      )
+      .filter<NginxDirective>(function (
+        value: NginxDirective | undefined
+      ): value is NginxDirective {
+        return value !== undefined
+      }),
+    ...generateRedirects(redirects),
+    ...generateRewrites(rewrites),
+  ]
+
+  const conf = options.writeOnlyLocations
+    ? locations
+    : [
+        { cmd: ['worker_processes', '3'] },
+        { cmd: ['worker_rlimit_nofile', '8192'] },
+        { cmd: ['error_log', '/var/log/nginx_errors.log', 'debug'] },
+        { cmd: ['pid', '/var/log/nginx_run.pid'] },
         {
-          cmd: ['map', '$http_referer', '$referer_path'],
-          children: [
-            { cmd: ['default', '""'] },
-            { cmd: ['~^.*?://.*?/(?<path>.*)$', '$path'] },
-          ],
+          cmd: ['events'],
+          children: [{ cmd: ['worker_connections', '1024'] }],
         },
         {
-          cmd: ['server'],
+          cmd: ['http'],
           children: [
-            { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
-            { cmd: ['resolver', '8.8.8.8'] },
-            ...Object.entries(headersMap).map(([path, headers]) =>
-              generatePathLocation(path, headers)
-            ),
-            ...generateRedirects(redirects),
+            { cmd: ['access_log', '/var/log/nginx_access.log'] },
+            { cmd: ['include', '/etc/nginx/mime.types'] },
+            { cmd: ['default_type', 'application/octet-stream'] },
+            { cmd: ['disable_symlinks', 'off'] },
+            { cmd: ['sendfile', 'on'] },
+            { cmd: ['tcp_nopush', 'on'] },
+            { cmd: ['keepalive_timeout', '65'] },
+            { cmd: ['gzip', 'on'] },
             {
-              cmd: ['location', '/'],
-              children: [{ cmd: ['try_files', '/dev/null', '@s3'] }],
+              cmd: [
+                'gzip_types',
+                'text/plain',
+                'text/css',
+                'text/xml',
+                'application/javascript',
+                'application/x-javascript',
+                'application/xml',
+                'application/xml+rss',
+                'application/emacscript',
+                'application/json',
+                'image/svg+xml',
+              ],
             },
-            generateRewrites(rewrites),
-            { cmd: ['error_page', '403', '=', '@clientSideFallback'] },
             {
-              cmd: ['location', '@s3'],
+              cmd: ['server'],
               children: [
-                {
-                  cmd: [
-                    'add_header',
-                    PUBLIC_CACHING_HEADER.name,
-                    `"${PUBLIC_CACHING_HEADER.value}"`,
-                  ],
-                },
-                storagePassTemplate('$uri'),
-                { cmd: ['proxy_intercept_errors', 'on'] },
+                { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
+                { cmd: ['resolver', '8.8.8.8'] },
+                ...locations,
               ],
             },
           ],
         },
-      ],
-    },
-  ])
+      ]
+
+  return stringify(conf)
 }
 
 function stringify(directives: NginxDirective[]): string {
@@ -106,15 +121,13 @@ function validateRedirect({ fromPath, toPath }: Redirect): boolean {
   return true
 }
 
-function generateRewrites(rewrites: Redirect[]): NginxDirective {
-  return {
-    cmd: ['location', '@clientSideFallback'],
-    children: rewrites
-      .map(({ fromPath, toPath }) => ({
-        cmd: ['rewrite', convertFromPath(fromPath), toPath, 'last'],
-      }))
-      .concat([{ cmd: ['return', '404'] }]),
-  }
+function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
+  return rewrites.map(({ fromPath, toPath }) => {
+    return {
+      cmd: ['location', '~*', convertFromPath(fromPath)],
+      children: [{ cmd: ['rewrite', '.+', toPath] }],
+    }
+  })
 }
 
 function formatProxyHeaders(headers: Record<string, string> | undefined) {
@@ -139,33 +152,46 @@ function generateRedirects(redirects: Redirect[]): NginxDirective[] {
   })
 }
 
-function storagePassTemplate(path: string): NginxDirective {
+function storagePassTemplate(
+  path: string,
+  files: string[],
+  { serveFileDirective }: PluginOptions
+): NginxDirective | undefined {
+  path = path.slice(1) // remove leading slash
+  const filePath = files.find(
+    (file) => file === path || file === posix.join(path, INDEX_HTML)
+  )
+
+  if (filePath === undefined) {
+    return undefined
+  }
+
   return {
-    cmd: [
-      'proxy_pass',
-      `https://s3.amazonaws.com/\${BUCKET}/\${BRANCH}/public${path}`,
-    ],
+    cmd: serveFileDirective.map((part) => part.replace(/\$file/g, filePath)),
   }
 }
 
-function generatePathLocation(path: string, headers: Header[]): NginxDirective {
+function generatePathLocation(
+  path: string,
+  headers: Header[],
+  files: string[],
+  options: PluginOptions
+): NginxDirective | undefined {
+  const proxyPassDirective = storagePassTemplate(path, files, options)
+
+  if (proxyPassDirective === undefined) {
+    return undefined
+  }
+
   return {
     cmd: ['location', '=', path],
     children: [
       ...headers.map(({ name, value }) => ({
         cmd: ['add_header', name, `"${value}"`],
       })),
-      storagePassTemplate(fixFilePath(path)),
+      proxyPassDirective,
     ],
   }
-}
-
-function fixFilePath(path: string) {
-  if (path.indexOf('.') !== -1) {
-    return path
-  }
-
-  return posix.join(path, 'index.html')
 }
 
 function ident(text: string, space = '  ') {
