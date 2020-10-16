@@ -117,14 +117,21 @@ function generateRewrites(rewrites: Redirect[]): NginxDirective {
   }
 }
 
+function formatProxyHeaders(headers: Record<string, string> | undefined) {
+  return Object.keys(headers ?? {}).map((name) => {
+    return { cmd: ['proxy_set_header', name, headers![name]] }
+  })
+}
+
 function generateRedirects(redirects: Redirect[]): NginxDirective[] {
   return redirects.map((redirect) => {
     validateRedirect(redirect)
-    const { fromPath, toPath } = redirect
+    const { fromPath, toPath, headers } = redirect
 
     return {
       cmd: ['location', '~*', convertFromPath(fromPath)],
       children: [
+        ...formatProxyHeaders(headers as Record<string, string> | undefined),
         { cmd: ['proxy_pass', `${convertToPath(toPath)}$is_args$args`] },
         { cmd: ['proxy_ssl_server_name', 'on'] },
       ],
