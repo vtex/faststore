@@ -8,17 +8,17 @@ import {
 import { storage } from './storage'
 import { Session } from './types'
 
+export type Action =
+  | { type: 'create' }
+  | { type: 'clear' }
+  | { type: 'patch'; data: any }
+
 export interface SessionContext {
   value: Session | null
   dispatch: (action: Action) => Promise<void>
 }
 
 export const Context = createContext<SessionContext | undefined>(undefined)
-
-type Action =
-  | { type: 'create' }
-  | { type: 'clear' }
-  | { type: 'patch'; data: any }
 
 export const SessionProvider: FC = ({ children }) => {
   const [session, setSession] = useState(() => storage.get())
