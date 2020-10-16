@@ -53,6 +53,28 @@ function generateNginxConfiguration(
           cmd: ['http'],
           children: [
             { cmd: ['access_log', '/var/log/nginx_access.log'] },
+            { cmd: ['include', '/etc/nginx/mime.types'] },
+            { cmd: ['default_type', 'application/octet-stream'] },
+            { cmd: ['disable_symlinks', 'off'] },
+            { cmd: ['sendfile', 'on'] },
+            { cmd: ['tcp_nopush', 'on'] },
+            { cmd: ['keepalive_timeout', '65'] },
+            { cmd: ['gzip', 'on'] },
+            {
+              cmd: [
+                'gzip_types',
+                'text/plain',
+                'text/css',
+                'text/xml',
+                'application/javascript',
+                'application/x-javascript',
+                'application/xml',
+                'application/xml+rss',
+                'application/emacscript',
+                'application/json',
+                'image/svg+xml',
+              ],
+            },
             {
               cmd: ['server'],
               children: [
