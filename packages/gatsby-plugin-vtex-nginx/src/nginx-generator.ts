@@ -1,6 +1,6 @@
 import { posix } from 'path'
 
-import { INDEX_HTML, LOCATIONS_ONLY_ENV_VAR } from './constants'
+import { INDEX_HTML } from './constants'
 
 export {
   stringify,
@@ -21,11 +21,14 @@ function generateNginxConfiguration(
   rewrites: Redirect[],
   redirects: Redirect[],
   headersMap: PathHeadersMap,
-  files: string[]
+  files: string[],
+  options: PluginOptions
 ): string {
   const locations = [
     ...Object.entries(headersMap)
-      .map(([path, headers]) => generatePathLocation(path, headers, files))
+      .map(([path, headers]) =>
+        generatePathLocation(path, headers, files, options)
+      )
       .filter<NginxDirective>(function (
         value: NginxDirective | undefined
       ): value is NginxDirective {
@@ -35,7 +38,7 @@ function generateNginxConfiguration(
     ...generateRewrites(rewrites),
   ]
 
-  const conf = process.env[LOCATIONS_ONLY_ENV_VAR]
+  const conf = options.writeOnlyLocations
     ? locations
     : [
         { cmd: ['worker_processes', '3'] },
@@ -50,6 +53,28 @@ function generateNginxConfiguration(
           cmd: ['http'],
           children: [
             { cmd: ['access_log', '/var/log/nginx_access.log'] },
+            { cmd: ['include', '/etc/nginx/mime.types'] },
+            { cmd: ['default_type', 'application/octet-stream'] },
+            { cmd: ['disable_symlinks', 'off'] },
+            { cmd: ['sendfile', 'on'] },
+            { cmd: ['tcp_nopush', 'on'] },
+            { cmd: ['keepalive_timeout', '65'] },
+            { cmd: ['gzip', 'on'] },
+            {
+              cmd: [
+                'gzip_types',
+                'text/plain',
+                'text/css',
+                'text/xml',
+                'application/javascript',
+                'application/x-javascript',
+                'application/xml',
+                'application/xml+rss',
+                'application/emacscript',
+                'application/json',
+                'image/svg+xml',
+              ],
+            },
             {
               cmd: ['server'],
               children: [
@@ -129,7 +154,8 @@ function generateRedirects(redirects: Redirect[]): NginxDirective[] {
 
 function storagePassTemplate(
   path: string,
-  files: string[]
+  files: string[],
+  { serveFileDirective }: PluginOptions
 ): NginxDirective | undefined {
   path = path.slice(1) // remove leading slash
   const filePath = files.find(
@@ -141,16 +167,17 @@ function storagePassTemplate(
   }
 
   return {
-    cmd: ['proxy_pass', `\${${filePath}}`],
+    cmd: serveFileDirective.map((part) => part.replace(/\$file/g, filePath)),
   }
 }
 
 function generatePathLocation(
   path: string,
   headers: Header[],
-  files: string[]
+  files: string[],
+  options: PluginOptions
 ): NginxDirective | undefined {
-  const proxyPassDirective = storagePassTemplate(path, files)
+  const proxyPassDirective = storagePassTemplate(path, files, options)
 
   if (proxyPassDirective === undefined) {
     return undefined

@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { writeFileSync } from 'fs'
 
-import { GatsbyNode, PluginOptions as GatsbyPluginOptions } from 'gatsby'
+import { GatsbyNode } from 'gatsby'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 
 import { BUILD_HTML_STAGE, VTEX_NGINX_CONF_FILENAME } from './constants'
@@ -15,12 +15,9 @@ import {
 } from './headers'
 import { generateNginxConfiguration } from './nginx-generator'
 import { listFilesRecursively } from './listFiles'
+import { pluginOptions } from './pluginOptions'
 
 const assetsManifest: Record<string, string> = {}
-
-interface PluginOptions extends GatsbyPluginOptions {
-  transformHeaders?: (headers: string[], path: string) => string[]
-}
 
 const Node: GatsbyNode = {
   onCreateWebpackConfig({ actions, stage }) {
@@ -38,10 +35,9 @@ const Node: GatsbyNode = {
     })
   },
 
-  async onPostBuild(
-    { store, pathPrefix, reporter },
-    { transformHeaders }: PluginOptions
-  ) {
+  async onPostBuild({ store, pathPrefix, reporter }, opt: PluginOptions) {
+    const options = pluginOptions(opt)
+
     const { program, pages: pagesMap, redirects } = store.getState() as {
       pages: Map<string, Page>
       program: { directory: string }
@@ -77,8 +73,8 @@ const Node: GatsbyNode = {
       ...cacheHeadersByPath(pages, manifest),
     }
 
-    if (typeof transformHeaders === 'function') {
-      headers = applyUserHeadersTransform(headers, transformHeaders)
+    if (typeof options.transformHeaders === 'function') {
+      headers = applyUserHeadersTransform(headers, options.transformHeaders)
     }
 
     headers = addStaticCachingHeader(headers)
@@ -87,7 +83,7 @@ const Node: GatsbyNode = {
 
     writeFileSync(
       join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
-      generateNginxConfiguration(rewrites, redirects, headers, files)
+      generateNginxConfiguration(rewrites, redirects, headers, files, options)
     )
 
     reporter.success('write out nginx configuration')

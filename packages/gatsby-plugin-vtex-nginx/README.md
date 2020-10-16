@@ -2,6 +2,39 @@
 
 This plugin will output a `nginx.conf` template file at the root directory, containing *nginx* rules for every page, static asset, *createRedirect* call and pages with mistmatched *path*/*matchPath*.
 
+[![NPM](https://img.shields.io/npm/v/@vtex/gatsby-plugin-vtex-nginx.svg)](https://www.npmjs.com/package/@vtex/gatsby-plugin-vtex-nginx) 
+
+## Hosting locally
+
+After building your gatsby site, you can launch nginx locally for testing or development. Here is an one-liner using docker:
+
+```console
+sed -i -e 's/\$PORT/80/' public/nginx.conf && docker run --rm --name local_nginx -v "$PWD/public/nginx.conf:/etc/nginx/nginx.conf" -v "$PWD/public:/etc/nginx/html" -p 80:80 -it nginx:latest
+```
+
+If no errors occur, your site will be available at http://localhost
+
+All this one-liner does is:
+- Replace the `$PORT` placeholder with an arbitrary port (80)
+- Mount the generated configuration at `public/nginx.conf` to the default nginx path `/etc/nginx/nginx.conf`
+- Mount the `public` folder to the default nginx root folder at `/etc/nginx/html`
+- Name the container `local_nginx` for easy of use with other docker commands and instruct docker to remove (`--rm`) the container when it stops.
+
+To copy over nginx access or error logs, you can then use:
+
+```console
+docker cp local_nginx:/var/log/nginx_errors.log .
+docker cp local_nginx:/var/log/nginx_access.log .
+```
+
+To enable debug level error logs, add `nginx-debug -g 'daemon off;'` at the end of the `docker run` command.
+
+If you want to use a locally installed version of nginx instead of the docker imager, the paths included in these instructions might not work for you. To find out the paths used by your nginx distribution, you can use the following command:
+
+```console
+nginx -V
+```
+
 ## Sample configuration
 
 
@@ -107,7 +140,7 @@ location ~* ^/api/.* {
 }
 ```
 
-Note that the `proxy_pass` call uses the original request path (the *nginx* variable `$uri` above), so any *createRedirect* call with mistmatching *paths* will cause this plugin to throw an error for now. Let me (@cezar) know if we want/need to support this scenario.
+~~Note that the `proxy_pass` call uses the original request path (the *nginx* variable `$uri` above), so any *createRedirect* call with mistmatching *paths* will cause this plugin to throw an error for now. Let me (@cezar) know if we want/need to support this scenario.~~
 
 ---
 
