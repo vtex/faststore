@@ -24,10 +24,7 @@ export type OrderFormContext = {
 export const OrderForm = createContext<OrderFormContext>(undefined as any)
 
 export const OrderFormProvider: FC = ({ children }) => {
-  const [
-    orderForm,
-    setOrderForm,
-  ] = useState<OrderFormFragment_OrderFormFragment | null>(() => storage.get())
+  const [orderForm, setOrderForm] = useState(() => storage.get())
 
   const id = orderForm?.id
 
