@@ -7,12 +7,12 @@ import { useSession } from '../../sdk/session/useSession'
 import Logo from './Logo'
 
 const Login: FC = () => {
-  const { value } = useSession()
+  const [session] = useSession()
   const { formatMessage } = useIntl()
   const name =
-    value?.namespaces.profile?.firstName ?? value?.namespaces.profile?.email
+    session?.namespaces.profile?.firstName ?? session?.namespaces.profile?.email
 
-  const isAuthenticated = value?.namespaces.profile?.isAuthenticated
+  const isAuthenticated = session?.namespaces.profile?.isAuthenticated
 
   return isAuthenticated ? (
     <LocalizedLink to="/account" sx={{ variant: 'login.button.container' }}>

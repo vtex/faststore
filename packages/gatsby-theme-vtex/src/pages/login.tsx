@@ -6,17 +6,17 @@ import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import { onLoginSuccessful } from '../sdk/auth/utils'
-import { useEnsuredSession } from '../sdk/session/useEnsuredSession'
+import { useSession } from '../sdk/session/useSession'
 
 type Props = PageProps<unknown>
 
 const Page: FC = () => {
   const [index, setIndex] = useState(0)
   const { Component } = AUTH_PROVIDERS[index]
-  const { value } = useEnsuredSession()
-  const isAuthenticated = value?.namespaces.profile?.isAuthenticated
+  const [session] = useSession({ stale: false })
+  const isAuthenticated = session?.namespaces.profile?.isAuthenticated
   const name =
-    value?.namespaces.profile?.firstName ?? value?.namespaces.profile?.email
+    session?.namespaces.profile?.firstName ?? session?.namespaces.profile?.email
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -38,9 +38,13 @@ const Page: FC = () => {
       <Box variant="login.page.group">
         <Box variant="login.page.group.title">Choose a sign in option</Box>
 
-        {AUTH_PROVIDERS.map(({ Button }, i) =>
+        {AUTH_PROVIDERS.map(({ Button: ButtonComponent }, i) =>
           i !== index ? (
-            <Button key={i} variant="login.page" onClick={() => setIndex(i)} />
+            <ButtonComponent
+              key={i}
+              variant="login.page"
+              onClick={() => setIndex(i)}
+            />
           ) : null
         )}
       </Box>

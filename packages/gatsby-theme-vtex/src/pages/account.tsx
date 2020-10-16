@@ -42,14 +42,14 @@ const render = async (locale: string) => {
 }
 
 const Account: FC = () => {
-  const { value } = useSession()
+  const [session] = useSession()
   const [loading, setLoading] = useState(true)
   const locale = useLocale()
 
   useEffect(() => {
     ;(async () => {
       try {
-        const isAuthenticated = value?.namespaces.profile?.isAuthenticated
+        const isAuthenticated = session?.namespaces.profile?.isAuthenticated
 
         if (!isAuthenticated) {
           navigate('/login')
@@ -64,7 +64,7 @@ const Account: FC = () => {
         setLoading(false)
       }
     })()
-  }, [locale, value])
+  }, [locale, session])
 
   return (
     <>

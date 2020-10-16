@@ -29,7 +29,7 @@ export const clear = async () => {
     },
   })
 
-  return response.json()
+  return response.json() as Promise<Record<string, unknown>>
 }
 
 export const patch = async (data: any = {}) => {
@@ -43,5 +43,5 @@ export const patch = async (data: any = {}) => {
     },
   })
 
-  return response.json()
+  return response.json() as Promise<Session>
 }

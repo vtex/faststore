@@ -5,7 +5,6 @@ import 'requestidlecallback-polyfill'
 
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
-const { SessionProvider } = require('./src/sdk/session/Provider')
 const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
@@ -33,9 +32,7 @@ export const replaceHydrateFunction = () => (
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
   createElement(StrictMode, {
-    children: createElement(SessionProvider, {
-      children: createElement(OrderFormProvider, { children: element }),
-    }),
+    children: createElement(OrderFormProvider, { children: element }),
   })
 
 export const wrapPageElement = ({
