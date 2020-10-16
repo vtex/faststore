@@ -6,7 +6,7 @@ import {
 const defaultOptions: PluginOptions = {
   transformHeaders: undefined,
   writeOnlyLocations: false,
-  serveFileDirective: ['try_files', '$file'],
+  serveFileDirective: ['try_files', '/$file', '=404'],
   plugins: [],
 }
 
