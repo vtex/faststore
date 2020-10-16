@@ -1,11 +1,9 @@
+import React, { FC, useEffect, useState } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
-import React, { FC, useEffect, useState } from 'react'
 
-import { OAuthLogin } from '../../../../sdk/auth/OAuth'
-import { oAuthCallbackUrl } from '../../../../sdk/auth/OAuth/paths'
+import { oAuthCallbackUrl, oAuthRedirectUrl } from '../../../../sdk/auth/OAuth'
 import { startLogin } from '../../../../sdk/auth/Service'
-import { onLoginSuccessful } from '../../../../sdk/auth/utils'
 import { AuthProviderComponentProps } from '../types'
 
 type State = 'initial' | 'error'
@@ -22,9 +20,8 @@ const GoogleOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
           await startLogin({
             callbackUrl: oAuthCallbackUrl,
           })
-          await OAuthLogin({ providerName: 'Google' })
 
-          onLoginSuccessful()
+          window.location.href = oAuthRedirectUrl({ providerName: 'Google' })
         }
       } catch {
         setState('error')

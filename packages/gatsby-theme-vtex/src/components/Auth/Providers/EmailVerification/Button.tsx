@@ -5,13 +5,13 @@ import React, { FC } from 'react'
 import { AuthProviderButtonProps } from '../types'
 
 const EmailVerificationButton: FC<AuthProviderButtonProps> = ({
-  variant: v,
+  variant,
   ...rest
 }) => {
   const { formatMessage } = useIntl()
 
   return (
-    <Button variant={`${v}.emailVerification`} as="button" {...rest}>
+    <Button variant={`${variant}.emailVerification`} as="button" {...rest}>
       {formatMessage({
         id: 'login.page.emailVerification.button',
         defaultMessage: 'Receive access code by e-mail',

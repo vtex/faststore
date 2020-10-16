@@ -19,13 +19,13 @@ const Logo: FC = () => (
 )
 
 const FacebookOAuthButton: FC<AuthProviderButtonProps> = ({
-  variant: v,
+  variant,
   ...rest
 }) => {
   const { formatMessage } = useIntl()
 
   return (
-    <Button variant={`${v}.facebook`} as="button" {...rest}>
+    <Button variant={`${variant}.facebook`} as="button" {...rest}>
       <Center>
         <Logo />
         <Box ml={2}>

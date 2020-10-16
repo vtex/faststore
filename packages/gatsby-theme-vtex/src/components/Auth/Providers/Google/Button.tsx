@@ -35,13 +35,13 @@ const Logo: FC = () => (
 )
 
 const GoogleOAuthButton: FC<AuthProviderButtonProps> = ({
-  variant: v,
+  variant,
   ...rest
 }) => {
   const { formatMessage } = useIntl()
 
   return (
-    <Button variant={`${v}.google`} as="button" {...rest}>
+    <Button variant={`${variant}.google`} as="button" {...rest}>
       <Center>
         <Logo />
         <Box ml={2}>
