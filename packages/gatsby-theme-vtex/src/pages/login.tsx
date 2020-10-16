@@ -1,16 +1,34 @@
 import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
 import { PageProps } from 'gatsby'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
+import { onLoginSuccessful } from '../sdk/auth/utils'
+import { useEnsuredSession } from '../sdk/session/useEnsuredSession'
 
 type Props = PageProps<unknown>
 
 const Page: FC = () => {
   const [index, setIndex] = useState(0)
   const { Component } = AUTH_PROVIDERS[index]
+  const { value } = useEnsuredSession()
+  const storeUserID = value?.namespaces.authentication?.storeUserID
+
+  useEffect(() => {
+    if (storeUserID) {
+      onLoginSuccessful('/account')
+    }
+  }, [storeUserID])
+
+  if (storeUserID) {
+    return (
+      <Flex variant="login.page.container">
+        <Box>Logged in as {storeUserID}</Box>
+      </Flex>
+    )
+  }
 
   return (
     <Flex variant="login.page.container">
@@ -43,7 +61,15 @@ const Page: FC = () => {
 // selecting Auth method
 const PageWithLayout: FC<Props> = () => (
   <Layout>
-    <Page />
+    <SuspenseSSR
+      fallback={
+        <Center height="300px">
+          <Spinner />
+        </Center>
+      }
+    >
+      <Page />
+    </SuspenseSSR>
   </Layout>
 )
 
