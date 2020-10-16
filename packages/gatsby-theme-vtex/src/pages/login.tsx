@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
+import { Box, Button, Center, Flex, Spinner } from '@vtex/store-ui'
 import { PageProps } from 'gatsby'
 import React, { FC, useEffect, useState } from 'react'
 
@@ -14,18 +14,21 @@ const Page: FC = () => {
   const [index, setIndex] = useState(0)
   const { Component } = AUTH_PROVIDERS[index]
   const { value } = useEnsuredSession()
-  const storeUserID = value?.namespaces.authentication?.storeUserID
+  const isAuthenticated = value?.namespaces.profile?.isAuthenticated
+  const name =
+    value?.namespaces.profile?.firstName ?? value?.namespaces.profile?.email
 
   useEffect(() => {
-    if (storeUserID) {
+    if (isAuthenticated) {
       onLoginSuccessful('/account')
     }
-  }, [storeUserID])
+  }, [isAuthenticated])
 
-  if (storeUserID) {
+  if (isAuthenticated) {
     return (
       <Flex variant="login.page.container">
-        <Box>Logged in as {storeUserID}</Box>
+        <Box>Logged in as {name}</Box>
+        <Button>Logout</Button>
       </Flex>
     )
   }

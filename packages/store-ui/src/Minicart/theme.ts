@@ -4,7 +4,6 @@ export const minicartTheme: SxStyleProp = {
   minicart: {
     bg: '#f0f0f0',
     position: 'relative',
-    marginLeft: 2,
     cursor: 'pointer',
 
     badge: {
