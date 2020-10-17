@@ -8,13 +8,13 @@ const Anonymous: FC = () => {
   const { formatMessage } = useIntl()
 
   return (
-    <LocalizedLink to="/account">
+    <LocalizedLink to="/login">
       <Logo />
       <Box variant="login.button.greeting">
-        {formatMessage(
-          { id: 'login.button.greeting', defaultMessage: 'Hello {name}' },
-          { name }
-        )}
+        {formatMessage({
+          id: 'login.button.action',
+          defaultMessage: 'Sign In',
+        })}
       </Box>
     </LocalizedLink>
   )
