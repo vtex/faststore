@@ -1,11 +1,8 @@
-import React, { FC, useEffect, useState } from 'react'
-import { navigate } from 'gatsby'
 import { Center, Spinner } from '@vtex/store-ui'
+import React, { FC, useEffect, useState } from 'react'
 
 import { useLocale } from '../../sdk/localization/useLocale'
 import RenderExtensionLoader from '../../sdk/renderExtensionLoader'
-import { useProfile } from '../../sdk/session/useProfile'
-import SuspenseSSR from '../../components/Suspense/SSR'
 
 const MY_ACCOUNT_PATH = '/account'
 const MY_ACCOUNT_DIV_NAME = 'my-account'
@@ -46,22 +43,13 @@ const Loading: FC = () => (
   </Center>
 )
 
-const Account: FC = () => {
-  const profile = useProfile({ stale: false })
+const Page: FC = () => {
   const [loading, setLoading] = useState(true)
   const locale = useLocale()
 
   useEffect(() => {
     ;(async () => {
       try {
-        const isAuthenticated = profile?.isAuthenticated?.value === 'true'
-
-        if (!isAuthenticated) {
-          navigate('/login')
-
-          return
-        }
-
         await render(locale)
       } catch (err) {
         console.error(err)
@@ -69,7 +57,7 @@ const Account: FC = () => {
         setLoading(false)
       }
     })()
-  }, [locale, profile])
+  }, [locale])
 
   return (
     <>
@@ -78,11 +66,5 @@ const Account: FC = () => {
     </>
   )
 }
-
-const Page = () => (
-  <SuspenseSSR fallback={<Loading />}>
-    <Account />
-  </SuspenseSSR>
-)
 
 export default Page
