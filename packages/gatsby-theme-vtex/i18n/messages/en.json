@@ -99,5 +99,8 @@
   "login.page.googleOAuth.button": "Sign in with Google",
   "login.page.googleOAuth.title": "Signing in with Google",
   "login.page.googleOAuth.error": "Signing in with Google failed. Please try again later or click on the button below to try again",
-  "login.page.googleOAuth.tryAgain": "Try Again"
+  "login.page.googleOAuth.tryAgain": "Try Again",
+
+  "login.button.greeting": "Hello {name}",
+  "login.button.action": "Sign In"
 }
