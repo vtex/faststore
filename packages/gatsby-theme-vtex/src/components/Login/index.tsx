@@ -1,4 +1,3 @@
-import { Box } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
 import { useProfile } from '../../sdk/session/useProfile'
@@ -15,11 +14,9 @@ const Login: FC = () => {
 }
 
 const LoginContainer: FC = () => (
-  <Box variant="login.button.container">
-    <SuspenseSSR fallback={<Anonymous />}>
-      <Login />
-    </SuspenseSSR>
-  </Box>
+  <SuspenseSSR fallback={<Anonymous />}>
+    <Login />
+  </SuspenseSSR>
 )
 
 export default LoginContainer

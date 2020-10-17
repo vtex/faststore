@@ -4,7 +4,7 @@ const theme: SxStyleProp = {
   login: {
     button: {
       container: {
-        color: '#979899',
+        color: '#656667',
         paddingLeft: '16px',
         paddingY: '8px',
         display: 'flex',
