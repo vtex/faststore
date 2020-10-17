@@ -7,7 +7,6 @@ import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import { onLoginSuccessful } from '../sdk/auth/utils'
 import { useProfile } from '../sdk/session/useProfile'
-import { useSession } from '../sdk/session/useSession'
 
 type Props = PageProps<unknown>
 
@@ -15,7 +14,7 @@ const Page: FC = () => {
   const [index, setIndex] = useState(0)
   const { Component } = AUTH_PROVIDERS[index]
   const profile = useProfile({ stale: false })
-  const name = profile?.firstName ?? profile?.email
+  const name = profile?.firstName.value ?? profile?.email.value
   const isAuthenticated = profile?.isAuthenticated.value === 'true'
 
   useEffect(() => {
