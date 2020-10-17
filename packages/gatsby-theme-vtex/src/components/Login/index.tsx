@@ -4,6 +4,7 @@ import { Box, LocalizedLink, jsx } from '@vtex/store-ui'
 import { FC } from 'react'
 
 import { useProfile } from '../../sdk/session/useProfile'
+import SuspenseSSR from '../Suspense/SSR'
 import Logo from './Logo'
 
 const Login: FC = () => {
@@ -13,7 +14,7 @@ const Login: FC = () => {
   const isAuthenticated = profile?.isAuthenticated?.value === 'true'
 
   return isAuthenticated ? (
-    <LocalizedLink to="/account" sx={{ variant: 'login.button.container' }}>
+    <LocalizedLink to="/account">
       <Logo />
       <Box variant="login.button.greeting">
         {formatMessage(
@@ -23,7 +24,7 @@ const Login: FC = () => {
       </Box>
     </LocalizedLink>
   ) : (
-    <LocalizedLink to="/login" sx={{ variant: 'login.button.container' }}>
+    <LocalizedLink to="/login">
       <Logo />
       <Box variant="login.button.greeting">
         {formatMessage({
@@ -35,4 +36,12 @@ const Login: FC = () => {
   )
 }
 
-export default Login
+const LoginContainer: FC = () => (
+  <Box variant="login.button.container">
+    <SuspenseSSR fallback={null}>
+      <Login />
+    </SuspenseSSR>
+  </Box>
+)
+
+export default LoginContainer
