@@ -31,11 +31,11 @@ const Iframe: FC = () => {
       src="/legacy-extensions/account"
       onLoadStart={() => {
         // eslint-disable-next-line no-console
-        console.log('start loading', iframeRef.current, this)
+        console.log('start loading', iframeRef.current)
       }}
       onLoad={() => {
         // eslint-disable-next-line no-console
-        console.log('onload', iframeRef.current, this)
+        console.log('onload', iframeRef.current)
       }}
       style={{
         border: 'none',
