@@ -46,7 +46,7 @@ const Iframe: FC = () => {
         border: 'none',
         visibility: 'visible',
         overflow: 'hidden',
-        height: 750,
+        height: 1000,
         width: '100%',
       }}
     />
