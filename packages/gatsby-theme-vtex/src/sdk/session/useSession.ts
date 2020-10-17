@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 import {
@@ -29,6 +29,12 @@ export const useSession = (options?: Options) => {
     refreshInterval: Infinity,
     suspense: true,
   })
+
+  useEffect(() => {
+    if (data !== undefined) {
+      storage.set(data)
+    }
+  }, [data])
 
   const dispatch = useCallback(async (action: Action) => {
     let session = null
