@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { jsx, Box, LocalizedLink } from '@vtex/store-ui'
+import { Box, LocalizedLink, jsx } from '@vtex/store-ui'
 import { FC } from 'react'
 
 import Logo from './Logo'
