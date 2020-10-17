@@ -4,12 +4,13 @@ import React, { FC, useEffect, useRef } from 'react'
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
-import { useProfile } from '../sdk/session/useProfile'
+import { useSession } from '../sdk/session/useSession'
 
 const Iframe: FC = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null)
-  const profile = useProfile({ stale: false })
-  const isAuthenticated = profile?.isAuthenticated?.value === 'true'
+  const [session, dispatch] = useSession({ stale: false })
+  const isAuthenticated =
+    session?.namespaces.profile?.isAuthenticated?.value === 'true'
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -29,13 +30,17 @@ const Iframe: FC = () => {
       frameBorder={0}
       allowFullScreen
       src="/legacy-extensions/account"
-      onLoadStart={() => {
-        // eslint-disable-next-line no-console
-        console.log('start loading', iframeRef.current)
-      }}
       onLoad={() => {
+        const pathname = iframeRef.current?.contentWindow?.location.pathname
+
+        if (pathname === '/legacy-extensions/account') {
+          return
+        }
+
         // eslint-disable-next-line no-console
-        console.log('onload', iframeRef.current)
+        console.log({ pathname })
+        navigate('/')
+        dispatch({ type: 'clear' })
       }}
       style={{
         border: 'none',
