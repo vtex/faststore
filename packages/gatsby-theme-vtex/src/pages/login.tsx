@@ -1,4 +1,5 @@
-import { Box, Button, Center, Flex, Spinner } from '@vtex/store-ui'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
 import { PageProps } from 'gatsby'
 import React, { FC, useEffect, useState } from 'react'
 
@@ -11,10 +12,10 @@ import { useProfile } from '../sdk/session/useProfile'
 type Props = PageProps<unknown>
 
 const Page: FC = () => {
+  const { formatMessage } = useIntl()
   const [index, setIndex] = useState(0)
   const { Component } = AUTH_PROVIDERS[index]
   const profile = useProfile({ stale: false })
-  const name = profile?.firstName?.value ?? profile?.email?.value
   const isAuthenticated = profile?.isAuthenticated?.value === 'true'
 
   useEffect(() => {
@@ -25,17 +26,21 @@ const Page: FC = () => {
 
   if (isAuthenticated) {
     return (
-      <Flex variant="login.page.container">
-        <Box>Logged in as {name}</Box>
-        <Button>Logout</Button>
-      </Flex>
+      <Center height="200px">
+        <Spinner />
+      </Center>
     )
   }
 
   return (
     <Flex variant="login.page.container">
       <Box variant="login.page.group">
-        <Box variant="login.page.group.title">Choose a sign in option</Box>
+        <Box variant="login.page.group.title">
+          {formatMessage({
+            id: 'login.page.title',
+            defaultMessage: 'Choose a sign in option',
+          })}
+        </Box>
 
         {AUTH_PROVIDERS.map(({ Button: ButtonComponent }, i) =>
           i !== index ? (

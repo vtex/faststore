@@ -45,6 +45,8 @@
   "shippingEstimatePickup-h": "{timeAmount, plural, =0 {Ready for pickup} one {Ready in up to # hour} other {Ready in up to # hours}}",
   "shippingEstimatePickup-m": "{timeAmount, plural, =0 {Ready for pickup} one {Ready in up to # minute} other {Ready in up to # minutes}}",
 
+  "login.page.title": "Choose a sign in option",
+
   "login.page.emailAndPassword.signUpForm.title": "Validate email and create new password",
   "login.page.emailAndPassword.signUpForm.subTitle": "Insert the code we sent to the email {email} and create a new password",
   "login.page.emailAndPassword.signUpForm.accessCodePlaceholder": "Add your access code",
