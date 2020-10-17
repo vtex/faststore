@@ -49,7 +49,7 @@ const Account: FC = () => {
   useEffect(() => {
     ;(async () => {
       try {
-        const isAuthenticated = profile?.isAuthenticated.value === 'true'
+        const isAuthenticated = profile?.isAuthenticated?.value === 'true'
 
         if (!isAuthenticated) {
           navigate('/login')

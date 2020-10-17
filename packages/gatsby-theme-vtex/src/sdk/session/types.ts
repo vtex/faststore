@@ -67,13 +67,13 @@ export interface MinimumInstallmentValue {
 }
 
 export interface Profile {
-  id: AccountName
-  email: AccountName
-  firstName: AccountName
-  lastName: AccountName
-  phone: AccountName
-  document: AccountName
-  isAuthenticated: AccountName
+  id?: AccountName
+  email?: AccountName
+  firstName?: AccountName
+  lastName?: AccountName
+  phone?: AccountName
+  document?: AccountName
+  isAuthenticated?: AccountName
 }
 
 export interface Store {

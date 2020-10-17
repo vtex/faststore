@@ -9,8 +9,8 @@ import Logo from './Logo'
 const Login: FC = () => {
   const profile = useProfile()
   const { formatMessage } = useIntl()
-  const name = profile?.firstName.value ?? profile?.email.value
-  const isAuthenticated = profile?.isAuthenticated.value === 'true'
+  const name = profile?.firstName?.value ?? profile?.email?.value
+  const isAuthenticated = profile?.isAuthenticated?.value === 'true'
 
   return isAuthenticated ? (
     <LocalizedLink to="/account" sx={{ variant: 'login.button.container' }}>

@@ -14,8 +14,8 @@ const Page: FC = () => {
   const [index, setIndex] = useState(0)
   const { Component } = AUTH_PROVIDERS[index]
   const profile = useProfile({ stale: false })
-  const name = profile?.firstName.value ?? profile?.email.value
-  const isAuthenticated = profile?.isAuthenticated.value === 'true'
+  const name = profile?.firstName?.value ?? profile?.email?.value
+  const isAuthenticated = profile?.isAuthenticated?.value === 'true'
 
   useEffect(() => {
     if (isAuthenticated) {
