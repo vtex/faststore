@@ -6,7 +6,7 @@ import Container from '../components/Container'
 import Layout from '../components/Layout'
 import { useLocale } from '../sdk/localization/useLocale'
 import RenderExtensionLoader from '../sdk/renderExtensionLoader'
-import { useSession } from '../sdk/session/useSession'
+import { useProfile } from '../sdk/session/useProfile'
 
 const MY_ACCOUNT_PATH = '/account'
 const MY_ACCOUNT_DIV_NAME = 'my-account'
@@ -42,14 +42,14 @@ const render = async (locale: string) => {
 }
 
 const Account: FC = () => {
-  const [session] = useSession()
+  const profile = useProfile()
   const [loading, setLoading] = useState(true)
   const locale = useLocale()
 
   useEffect(() => {
     ;(async () => {
       try {
-        const isAuthenticated = session?.namespaces.profile?.isAuthenticated
+        const isAuthenticated = profile?.isAuthenticated.value === 'true'
 
         if (!isAuthenticated) {
           navigate('/login')
@@ -64,7 +64,7 @@ const Account: FC = () => {
         setLoading(false)
       }
     })()
-  }, [locale, session])
+  }, [locale, profile])
 
   return (
     <>

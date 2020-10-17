@@ -9,7 +9,7 @@ import {
 import { storage } from './storage'
 import { Session } from './types'
 
-interface Options {
+export interface Options {
   stale?: boolean
 }
 

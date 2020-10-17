@@ -1,18 +1,16 @@
 /** @jsx jsx */
-import { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box, jsx, LocalizedLink } from '@vtex/store-ui'
+import { Box, LocalizedLink, jsx } from '@vtex/store-ui'
+import { FC } from 'react'
 
-import { useSession } from '../../sdk/session/useSession'
+import { useProfile } from '../../sdk/session/useProfile'
 import Logo from './Logo'
 
 const Login: FC = () => {
-  const [session] = useSession()
+  const profile = useProfile()
   const { formatMessage } = useIntl()
-  const name =
-    session?.namespaces.profile?.firstName ?? session?.namespaces.profile?.email
-
-  const isAuthenticated = session?.namespaces.profile?.isAuthenticated
+  const name = profile?.firstName ?? profile?.email
+  const isAuthenticated = profile?.isAuthenticated.value === 'true'
 
   return isAuthenticated ? (
     <LocalizedLink to="/account" sx={{ variant: 'login.button.container' }}>
