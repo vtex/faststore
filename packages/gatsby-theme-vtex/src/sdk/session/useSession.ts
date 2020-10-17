@@ -26,7 +26,8 @@ export const useSession = (options?: Options) => {
     revalidateOnFocus: false,
     revalidateOnMount: false,
     revalidateOnReconnect: false,
-    refreshInterval: Infinity,
+    refreshWhenHidden: false,
+    refreshWhenOffline: false,
     suspense: true,
   })
 
