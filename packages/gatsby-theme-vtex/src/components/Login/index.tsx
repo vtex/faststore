@@ -8,8 +8,8 @@ import SuspenseSSR from '../Suspense/SSR'
 import Logo from './Logo'
 
 const Login: FC = () => {
-  const profile = useProfile()
   const { formatMessage } = useIntl()
+  const profile = useProfile()
   const name = profile?.firstName?.value ?? profile?.email?.value
   const isAuthenticated = profile?.isAuthenticated?.value === 'true'
 
