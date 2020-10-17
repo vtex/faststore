@@ -18,11 +18,12 @@ export type Action =
   | { type: 'clear' }
   | { type: 'patch'; data: any }
 
+const initialData = storage.get()
+
 export const useSession = (options?: Options) => {
-  const [staleData] = useState(() => storage.get())
   const { data, mutate } = useSWR('/api/sessions', {
     fetcher: createSession,
-    initialData: options?.stale !== false ? staleData : undefined,
+    initialData: options?.stale === false ? undefined : initialData,
     revalidateOnFocus: false,
     revalidateOnMount: false,
     revalidateOnReconnect: false,
