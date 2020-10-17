@@ -21,9 +21,13 @@ export type Action =
 const initialData = storage.get()
 
 export const useSession = (options?: Options) => {
+  const fresh =
+    options?.stale === false ||
+    initialData?.namespaces.profile?.isAuthenticated?.value === 'true'
+
   const { data, mutate } = useSWR('/api/sessions', {
     fetcher: createSession,
-    initialData: options?.stale === false ? undefined : initialData,
+    initialData: fresh ? undefined : initialData,
     revalidateOnFocus: false,
     revalidateOnMount: false,
     revalidateOnReconnect: false,

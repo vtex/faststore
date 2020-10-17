@@ -1,53 +1,94 @@
-import React, { FC, useEffect } from 'react'
+import { Center, Spinner } from '@vtex/store-ui'
 import { navigate } from 'gatsby'
+import React, { FC, useEffect, useState } from 'react'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
+import { useLocale } from '../sdk/localization/useLocale'
+import RenderExtensionLoader from '../sdk/renderExtensionLoader'
 import { useProfile } from '../sdk/session/useProfile'
-import RenderMyAccount from './legacy-extensions/account'
 
-const Iframe: FC = () => {
-  // const iframeRef = useRef<HTMLIFrameElement>(null)
+const MY_ACCOUNT_PATH = '/account'
+const MY_ACCOUNT_DIV_NAME = 'my-account'
+const MY_ACCOUNT_EXTENSION_NAME = 'my-account-portal'
+const ONE_MIN_IN_MILLI = 60 * 100
+
+const render = async (locale: string) => {
+  const loader = new RenderExtensionLoader({
+    account: process.env.GATSBY_VTEX_TENANT,
+    workspace: process.env.GATSBY_VTEX_IO_WORKSPACE,
+    verbose: process.env.NODE_ENV !== 'production',
+    publicEndpoint: undefined,
+    timeout: ONE_MIN_IN_MILLI,
+    path: MY_ACCOUNT_PATH,
+    locale,
+  })
+
+  const myAccountDiv = document.getElementById(MY_ACCOUNT_DIV_NAME)
+
+  if (window.__RENDER_7_RUNTIME__) {
+    loader.render(MY_ACCOUNT_EXTENSION_NAME, myAccountDiv, undefined)
+
+    return
+  }
+
+  await loader.load()
+
+  window.__RUNTIME__ = loader.render(
+    MY_ACCOUNT_EXTENSION_NAME,
+    myAccountDiv,
+    undefined
+  )
+}
+
+const Loading: FC = () => (
+  <Center height="750px">
+    <Spinner />
+  </Center>
+)
+
+const MyAccount: FC = () => {
   const profile = useProfile({ stale: false })
   const isAuthenticated = profile?.isAuthenticated?.value === 'true'
+  const [loading, setLoading] = useState(true)
+  const locale = useLocale()
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login')
-    }
-  })
+    ;(async () => {
+      try {
+        if (!isAuthenticated) {
+          navigate('/login')
+
+          return
+        }
+
+        await render(locale)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    })()
+  }, [isAuthenticated, locale])
 
   if (!isAuthenticated) {
     return null
   }
 
-  return <RenderMyAccount />
-
-  // return (
-  //   <iframe
-  //     ref={iframeRef}
-  //     title="my-account"
-  //     id="my-account"
-  //     frameBorder={0}
-  //     allowFullScreen
-  //     src="/legacy-extensions/account"
-  //     style={{
-  //       border: 'none',
-  //       visibility: 'visible',
-  //       overflow: 'hidden',
-  //       height: 1000,
-  //       width: '100%',
-  //     }}
-  //   />
-  // )
+  return (
+    <>
+      <div id={MY_ACCOUNT_DIV_NAME} />
+      {loading && <Loading />}
+    </>
+  )
 }
 
 const Page: FC = () => (
   <Layout>
     <Container>
-      <SuspenseSSR fallback={null}>
-        <Iframe />
+      <SuspenseSSR fallback={<Loading />}>
+        <MyAccount />
       </SuspenseSSR>
     </Container>
   </Layout>
