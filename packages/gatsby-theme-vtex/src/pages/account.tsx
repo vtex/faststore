@@ -29,9 +29,13 @@ const Iframe: FC = () => {
       frameBorder={0}
       allowFullScreen
       src="/legacy-extensions/account"
+      onLoadStart={() => {
+        // eslint-disable-next-line no-console
+        console.log('start loading', iframeRef.current, this)
+      }}
       onLoad={() => {
         // eslint-disable-next-line no-console
-        console.log('onload', iframeRef.current)
+        console.log('onload', iframeRef.current, this)
       }}
       style={{
         border: 'none',
