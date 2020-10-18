@@ -1,34 +1,31 @@
-import React, { FC } from 'react'
 import { gql } from '@vtex/gatsby-plugin-graphql'
-import { Box } from '@vtex/store-ui'
 
-import Shelf, { Props as ShelfProps } from '.'
+import { useQuery } from '../graphql/useQuery'
 import {
-  ShelfQuery,
-  ShelfQueryQuery,
-  ShelfQueryQueryVariables,
-} from './__generated__/ShelfQuery.graphql'
-import { useQuery } from '../../sdk/graphql/useQuery'
+  ProductsShelfQuery,
+  ProductsShelfQueryQuery,
+  ProductsShelfQueryQueryVariables,
+} from './__generated__/ProductsShelfQuery.graphql'
 
-export interface Props extends Omit<ShelfProps, 'products'> {
-  searchParams: Partial<ShelfQueryQueryVariables>
-}
+export type ProductsShelfOptions = Partial<ProductsShelfQueryQueryVariables>
 
-const AsyncShelf: FC<Props> = ({ searchParams, ...props }) => {
-  const { data } = useQuery<ShelfQueryQuery, ShelfQueryQueryVariables>({
-    ...ShelfQuery,
-    variables: searchParams,
+export const useProductsShelf = (variables: ProductsShelfOptions) => {
+  const { data } = useQuery<
+    ProductsShelfQueryQuery,
+    ProductsShelfQueryQueryVariables
+  >({
+    ...ProductsShelfQuery,
+    variables,
+    suspense: true,
   })
 
-  if (!data) {
-    return <Box variant="asyncShelfPlaceholder" />
+  return {
+    products: data?.vtex?.products ?? null,
   }
-
-  return <Shelf products={data?.vtex.products ?? []} {...props} />
 }
 
 export const query = gql`
-  query ShelfQuery(
+  query ProductsShelfQuery(
     $simulationBehavior: VTEX_SimulationBehavior = default
     $hideUnavailableItems: Boolean = true
     $salesChannel: String = "1"
@@ -58,5 +55,3 @@ export const query = gql`
     }
   }
 `
-
-export default AsyncShelf

@@ -7,17 +7,15 @@ import {
   ProductRecommendationsQueryQueryVariables,
 } from './__generated__/ProductRecommendationsQuery.graphql'
 
-interface Props {
-  value: string
-}
+export type RecommendationOptions = ProductRecommendationsQueryQueryVariables
 
-export const useRecommendationShelf = ({ value }: Props) => {
+export const useRecommendationShelf = (variables: RecommendationOptions) => {
   const { data } = useQuery<
     ProductRecommendationsQueryQuery,
     ProductRecommendationsQueryQueryVariables
   >({
     ...ProductRecommendationsQuery,
-    variables: { value },
+    variables,
     suspense: true,
   })
 

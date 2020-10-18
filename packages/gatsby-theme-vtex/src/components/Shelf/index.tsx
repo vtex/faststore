@@ -1,18 +1,17 @@
-/** @jsx jsx */
-import { FC, Fragment, ReactNode } from 'react'
-import { Flex, useResponsiveSlider, jsx } from '@vtex/store-ui'
+import React, { FC } from 'react'
+import { Flex, useResponsiveSlider } from '@vtex/store-ui'
 
 import { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
-import ShelfPaginationDots from './PaginationDots'
-import ShelfArrowRight from './ArrowRight'
 import ShelfArrowLeft from './ArrowLeft'
-import ShelfTitle from './Title'
+import ShelfArrowRight from './ArrowRight'
 import ShelfPage from './Page'
+import ShelfPaginationDots from './PaginationDots'
+import ShelfTitle from './Title'
 
 export interface Props {
   products: Array<ProductSummary_ProductFragment | undefined | null>
   pageSizes?: number[]
-  title?: ReactNode
+  title?: JSX.Element | string
   variant?: string
   showArrows?: boolean
   showDots?: boolean
@@ -50,26 +49,26 @@ const Shelf: FC<Props> = ({
   showArrows = showArrows && products.length >= Math.max(...pageSizes)
 
   return (
-    <Fragment>
-      {title ? (
-        <ShelfTitle title={title} variant={`shelf.${variant}.title`} />
-      ) : null}
+    <>
+      {title && <ShelfTitle variant={variant}>{title}</ShelfTitle>}
       <Flex>
-        {showArrows ? (
-          <ShelfArrowLeft onClick={() => setPreviousPage()} />
-        ) : null}
-        <ShelfPage items={items} pageSizes={pageSizes} />
-        {showArrows ? <ShelfArrowRight onClick={() => setNextPage()} /> : null}
+        {showArrows && (
+          <ShelfArrowLeft onClick={() => setPreviousPage()} variant={variant} />
+        )}
+        <ShelfPage items={items} pageSizes={pageSizes} variant={variant} />
+        {showArrows && (
+          <ShelfArrowRight onClick={() => setNextPage()} variant={variant} />
+        )}
       </Flex>
-      {showDots ? (
+      {showDots && (
         <ShelfPaginationDots
-          variant="shelf"
+          variant={variant}
           onSelect={setPage}
           selectedPage={page}
           totalPages={totalPages}
         />
-      ) : null}
-    </Fragment>
+      )}
+    </>
   )
 }
 
