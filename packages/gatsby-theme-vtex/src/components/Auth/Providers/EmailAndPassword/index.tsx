@@ -6,7 +6,7 @@ import {
   startLogin,
 } from '../../../../sdk/auth/Service'
 import { validatePassword } from '../../../../sdk/auth/Service/validatePassword'
-import { onLoginSuccessful } from '../../../../sdk/auth/utils'
+import { useOnLoginSuccessful } from '../../../../sdk/auth/useOnLoginSuccessful'
 import {
   isValidAccessCode,
   isValidEmail,
@@ -23,6 +23,7 @@ const EmailAndPassword: FC<AuthProviderComponentProps> = ({
   returnUrl,
 }) => {
   const [state, dispatch] = useReducer(reducer, { state: 'signInForm' })
+  const onLoginSuccessful = useOnLoginSuccessful()
   const variant = `emailAndPassword.${v}`
 
   return state.state.startsWith('emailForm') ? (

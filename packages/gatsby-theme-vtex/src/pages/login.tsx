@@ -6,12 +6,13 @@ import React, { FC, useEffect, useState } from 'react'
 import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
-import { onLoginSuccessful } from '../sdk/auth/utils'
+import { useOnLoginSuccessful } from '../sdk/auth/useOnLoginSuccessful'
 import { useProfile } from '../sdk/session/useProfile'
 
 type Props = PageProps<unknown>
 
 const Page: FC = () => {
+  const onLoginSuccessful = useOnLoginSuccessful()
   const { formatMessage } = useIntl()
   const [index, setIndex] = useState(0)
   const { Component } = AUTH_PROVIDERS[index]
@@ -22,7 +23,7 @@ const Page: FC = () => {
     if (isAuthenticated) {
       onLoginSuccessful('/account')
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, onLoginSuccessful])
 
   if (isAuthenticated) {
     return (
