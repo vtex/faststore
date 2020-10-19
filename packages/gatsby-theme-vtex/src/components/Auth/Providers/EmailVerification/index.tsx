@@ -5,7 +5,7 @@ import {
   startLogin,
   validateAccessKey,
 } from '../../../../sdk/auth/Service'
-import { onLoginSuccessful } from '../../../../sdk/auth/utils'
+import { useOnLoginSuccessful } from '../../../../sdk/auth/useOnLoginSuccessful'
 import { isValidAccessCode, isValidEmail } from '../../../../sdk/auth/validate'
 import { AuthProviderComponentProps } from '../types'
 import AccessCodeForm from './AccessCodeForm'
@@ -17,6 +17,7 @@ const EmailVerification: FC<AuthProviderComponentProps> = ({
   returnUrl,
 }) => {
   const [state, dispatch] = useReducer(reducer, { state: 'emailForm' })
+  const onLoginSuccessful = useOnLoginSuccessful()
 
   const variant = `emailVerification.${v}`
 
