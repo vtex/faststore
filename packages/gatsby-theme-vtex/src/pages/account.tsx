@@ -1,3 +1,8 @@
+import {
+  localizedPath,
+  useIntl,
+  useLocalizedPath,
+} from '@vtex/gatsby-plugin-i18n'
 import { Center, Spinner } from '@vtex/store-ui'
 import { navigate } from 'gatsby'
 import React, { FC, useEffect, useState } from 'react'
@@ -52,13 +57,15 @@ const MyAccount: FC = () => {
   const profile = useProfile({ stale: false })
   const isAuthenticated = profile?.isAuthenticated?.value === 'true'
   const [loading, setLoading] = useState(true)
-  const locale = useLocale()
+  const { locale, defaultLocale } = useIntl()
 
   useEffect(() => {
     ;(async () => {
       try {
         if (!isAuthenticated) {
-          navigate('/login')
+          const path = localizedPath(defaultLocale, locale, '/login')
+
+          navigate(path)
 
           return
         }
@@ -70,7 +77,7 @@ const MyAccount: FC = () => {
         setLoading(false)
       }
     })()
-  }, [isAuthenticated, locale])
+  }, [defaultLocale, isAuthenticated, locale])
 
   if (!isAuthenticated) {
     return null
