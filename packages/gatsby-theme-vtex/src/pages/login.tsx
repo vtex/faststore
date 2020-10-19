@@ -1,7 +1,7 @@
+import React, { FC, useEffect, useState } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
 import { PageProps } from 'gatsby'
-import React, { FC, useEffect, useState } from 'react'
 
 import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
