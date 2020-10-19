@@ -1,11 +1,8 @@
 import React, { FC, useReducer } from 'react'
 
-import {
-  sendAccessKey,
-  startLogin,
-  validateAccessKey,
-} from '../../../../sdk/auth/Service'
-import { onLoginSuccessful } from '../../../../sdk/auth/utils'
+import { sendAccessKey, validateAccessKey } from '../../../../sdk/auth/Service'
+import { useOnLoginSuccessful } from '../../../../sdk/auth/useOnLoginSuccessful'
+import { useStartLogin } from '../../../../sdk/auth/useStartLogin'
 import { isValidAccessCode, isValidEmail } from '../../../../sdk/auth/validate'
 import { AuthProviderComponentProps } from '../types'
 import AccessCodeForm from './AccessCodeForm'
@@ -17,6 +14,8 @@ const EmailVerification: FC<AuthProviderComponentProps> = ({
   returnUrl,
 }) => {
   const [state, dispatch] = useReducer(reducer, { state: 'emailForm' })
+  const onLoginSuccessful = useOnLoginSuccessful()
+  const startLogin = useStartLogin()
 
   const variant = `emailVerification.${v}`
 

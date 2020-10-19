@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-vtex",
-  "version": "0.102.0",
+  "version": "0.103.0-alpha.0",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
   "scripts": {
@@ -55,5 +55,6 @@
     "schema-dts": "^0.6.0",
     "swr": "^0.3.0",
     "text-mask-core": "^5.1.0"
-  }
+  },
+  "gitHead": "0f11e51be3e0645619c58b9bc73e310833c5c0a5"
 }

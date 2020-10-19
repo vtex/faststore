@@ -3,12 +3,13 @@ import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
 import React, { FC, useEffect, useState } from 'react'
 
 import { oAuthCallbackUrl, oAuthRedirectUrl } from '../../../../sdk/auth/OAuth'
-import { startLogin } from '../../../../sdk/auth/Service'
+import { useStartLogin } from '../../../../sdk/auth/useStartLogin'
 import { AuthProviderComponentProps } from '../types'
 
 type State = 'initial' | 'error'
 
 const FacebookOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
+  const startLogin = useStartLogin()
   const { formatMessage } = useIntl()
   const [state, setState] = useState<State>('initial')
   const variant = `facebookOAuth.${v}`
@@ -27,7 +28,7 @@ const FacebookOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
         setState('error')
       }
     })()
-  }, [state])
+  }, [startLogin, state])
 
   return (
     <Box variant={variant}>

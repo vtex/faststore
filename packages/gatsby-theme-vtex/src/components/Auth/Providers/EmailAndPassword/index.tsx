@@ -1,12 +1,9 @@
 import React, { FC, useReducer } from 'react'
 
-import {
-  sendAccessKey,
-  setPassword,
-  startLogin,
-} from '../../../../sdk/auth/Service'
+import { sendAccessKey, setPassword } from '../../../../sdk/auth/Service'
 import { validatePassword } from '../../../../sdk/auth/Service/validatePassword'
-import { onLoginSuccessful } from '../../../../sdk/auth/utils'
+import { useOnLoginSuccessful } from '../../../../sdk/auth/useOnLoginSuccessful'
+import { useStartLogin } from '../../../../sdk/auth/useStartLogin'
 import {
   isValidAccessCode,
   isValidEmail,
@@ -23,6 +20,8 @@ const EmailAndPassword: FC<AuthProviderComponentProps> = ({
   returnUrl,
 }) => {
   const [state, dispatch] = useReducer(reducer, { state: 'signInForm' })
+  const onLoginSuccessful = useOnLoginSuccessful()
+  const startLogin = useStartLogin()
   const variant = `emailAndPassword.${v}`
 
   return state.state.startsWith('emailForm') ? (
