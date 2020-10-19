@@ -30,10 +30,17 @@ export const replaceHydrateFunction = () => (
   root.render(element)
 }
 
-export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) =>
-  createElement(StrictMode, {
-    children: createElement(OrderFormProvider, { children: element }),
-  })
+export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
+  const root = createElement(OrderFormProvider, { children: element })
+
+  if (process.env.NODE_ENV === 'development') {
+    return createElement(StrictMode, {
+      children: root,
+    })
+  }
+
+  return root
+}
 
 export const wrapPageElement = ({
   element,
