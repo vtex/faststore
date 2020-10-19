@@ -1,16 +1,10 @@
-import React, { FC, lazy, useEffect } from 'react'
 import { PageProps } from 'gatsby'
+import React, { FC, useEffect } from 'react'
 
 import AboveTheFold from '../components/HomePage/AboveTheFold'
-import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
-import Layout from '../components/Layout'
-import SuspenseViewport from '../components/Suspense/Viewport'
+import BelowTheFold from '../components/HomePage/BelowTheFold'
 import SEO from '../components/HomePage/SEO'
-
-const belowTheFoldPreloader = () =>
-  import('../components/HomePage/BelowTheFold')
-
-const BelowTheFold = lazy(belowTheFoldPreloader)
+import Layout from '../components/Layout'
 
 type Props = PageProps<unknown>
 
@@ -23,12 +17,7 @@ const Home: FC<Props> = (props) => {
     <Layout>
       <AboveTheFold {...props} />
       <SEO />
-      <SuspenseViewport
-        fallback={<BelowTheFoldPreview />}
-        preloader={belowTheFoldPreloader}
-      >
-        <BelowTheFold />
-      </SuspenseViewport>
+      <BelowTheFold />
     </Layout>
   )
 }

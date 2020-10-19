@@ -1,25 +1,16 @@
-import React, { FC, Fragment, lazy } from 'react'
 import { graphql, PageProps } from 'gatsby'
+import React, { FC, Fragment } from 'react'
 
-import ErrorBoundary from '../components/ErrorBoundary'
-import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import AboveTheFold from '../components/ProductPage/AboveTheFold'
-import AboveTheFoldPreview from '../components/ProductPage/AboveTheFoldPreview'
-import BelowTheFoldPreview from '../components/ProductPage/BelowTheFoldPreview'
-import SuspenseViewport from '../components/Suspense/Viewport'
+import BelowTheFold from '../components/ProductPage/BelowTheFold'
+import SEO from '../components/ProductPage/SEO'
 import { useQuery } from '../sdk/graphql/useQuery'
 import {
   ProductPageQuery,
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
-import SEO from '../components/ProductPage/SEO'
-
-const belowTheFoldPreloader = () =>
-  import('../components/ProductPage/BelowTheFold')
-
-const BelowTheFold = lazy(belowTheFoldPreloader)
 
 export type ProductPageProps = PageProps<
   ProductPageQueryQuery,
@@ -33,15 +24,19 @@ const ProductPage: FC<ProductPageProps> = (props) => {
   const { staticPath } = pageContext
   const slug = (pageContext.slug ?? routeSlug)!
 
-  const { data } = useQuery<
+  const { data, isValidating } = useQuery<
     ProductPageQueryQuery,
     ProductPageQueryQueryVariables
   >({
     ...ProductPageQuery,
     variables: { slug, staticPath: true },
-    suspense: true,
+    // suspense: true,
     initialData: staticPath ? initialData : undefined,
   })
+
+  if (isValidating) {
+    return <div>loading...</div>
+  }
 
   if (!data?.vtex.product) {
     return <div>Product Not Found</div>
@@ -57,12 +52,12 @@ const ProductPage: FC<ProductPageProps> = (props) => {
     <Fragment>
       <AboveTheFold {...pageProps} />
       <SEO {...pageProps} data={data} />
-      <SuspenseViewport
+      <BelowTheFold {...pageProps} />
+      {/* <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
       >
-        <BelowTheFold {...pageProps} />
-      </SuspenseViewport>
+      </SuspenseViewport> */}
     </Fragment>
   )
 }
@@ -74,14 +69,7 @@ const Page: FC<ProductPageProps> = (props) => {
 
   return (
     <Layout>
-      <HybridWrapper
-        isPrerendered={staticPath}
-        fallback={<AboveTheFoldPreview />}
-      >
-        <ErrorBoundary fallback={<div>Error !!</div>}>
-          <ProductPage {...props} />
-        </ErrorBoundary>
-      </HybridWrapper>
+      <ProductPage {...props} />
     </Layout>
   )
 }

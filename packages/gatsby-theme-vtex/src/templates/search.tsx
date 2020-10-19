@@ -33,15 +33,19 @@ const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const { staticPath } = pageContext
   const filters = useSearchFiltersFromPageContext(pageContext)
-  const { data } = useQuery<
+  const { data, isValidating } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
   >({
     ...SearchPageQuery,
     variables: { ...filters, staticPath: true },
-    suspense: true,
+    // suspense: true,
     initialData: staticPath ? staticData : undefined,
   })
+
+  if (isValidating) {
+    return <div>loading...</div>
+  }
 
   if (!data) {
     return <div>Not Found</div>
@@ -51,12 +55,12 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     <SearchProvider filters={filters as any} data={data}>
       <AboveTheFold {...props} data={data} />
       <SEO {...props} data={data} />
-      <SuspenseViewport
+      {/* <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
       >
         <BelowTheFold />
-      </SuspenseViewport>
+      </SuspenseViewport> */}
     </SearchProvider>
   )
 }
@@ -68,16 +72,21 @@ const Page: FC<SearchPageProps> = (props) => {
 
   return (
     <Layout>
-      <HybridWrapper
-        isPrerendered={staticPath}
-        fallback={<AboveTheFoldPreview />}
-      >
-        <ErrorBoundary fallback={<div>Error !!</div>}>
-          <SearchPage {...props} />
-        </ErrorBoundary>
-      </HybridWrapper>
+      <SearchPage {...props} />
     </Layout>
   )
+  // return (
+  //   <Layout>
+  //     <HybridWrapper
+  //       isPrerendered={staticPath}
+  //       fallback={<AboveTheFoldPreview />}
+  //     >
+  //       <ErrorBoundary fallback={<div>Error !!</div>}>
+  //         <SearchPage {...props} />
+  //       </ErrorBoundary>
+  //     </HybridWrapper>
+  //   </Layout>
+  // )
 }
 
 export const query = graphql`
