@@ -3,12 +3,12 @@ import { api, tenant } from './api'
 interface Options {
   fingerprint?: string
   callbackUrl?: string
-  returnUrl?: string
   user?: string
+  returnUrl: string
 }
 
 export const startLogin = async ({
-  returnUrl = `${window.origin}/account`,
+  returnUrl,
   callbackUrl = '',
   fingerprint = '',
   user = '',
