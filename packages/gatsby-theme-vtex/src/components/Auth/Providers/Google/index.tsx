@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
+import React, { FC, useEffect, useState } from 'react'
 
 import { oAuthCallbackUrl, oAuthRedirectUrl } from '../../../../sdk/auth/OAuth'
-import { startLogin } from '../../../../sdk/auth/Service'
+import { useStartLogin } from '../../../../sdk/auth/useStartLogin'
 import { AuthProviderComponentProps } from '../types'
 
 type State = 'initial' | 'error'
@@ -11,6 +11,7 @@ type State = 'initial' | 'error'
 const GoogleOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
   const { formatMessage } = useIntl()
   const [state, setState] = useState<State>('initial')
+  const startLogin = useStartLogin()
   const variant = `googleOAuth.${v}`
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const GoogleOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
         setState('error')
       }
     })()
-  }, [state])
+  }, [startLogin, state])
 
   return (
     <Box variant={variant}>
