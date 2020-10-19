@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { debounce } from '@vtex/store-ui'
 
 import { SearchBarContext } from './hooks'
-import { debounce } from '../../utils/debounce'
 import { search } from '../../sdk/search/controller'
 
 interface Props {

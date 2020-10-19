@@ -16,6 +16,9 @@ export { default as Drawer } from '@vtex-components/drawer'
 export * from './createTheme'
 // Base Theme
 export * from './theme'
+// throttle and debounce
+export { default as throttle } from './utils/throttle'
+export { default as debounce } from './utils/debounce'
 
 // Local Components
 // Header
