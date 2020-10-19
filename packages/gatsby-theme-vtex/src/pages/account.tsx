@@ -6,7 +6,7 @@ import React, { FC, useEffect, useState } from 'react'
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
-import RenderExtensionLoader from '../sdk/renderExtensionLoader'
+import RenderExtensionLoader from '../sdk/RenderExtensionLoader'
 import { useProfile } from '../sdk/session/useProfile'
 
 const MY_ACCOUNT_PATH = '/account'
