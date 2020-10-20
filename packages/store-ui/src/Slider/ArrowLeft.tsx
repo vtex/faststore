@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, ButtonProps } from '@vtex/store-ui'
+import { Box, ButtonProps } from 'theme-ui'
 
 type Props = Omit<ButtonProps, 'ref'>
 
