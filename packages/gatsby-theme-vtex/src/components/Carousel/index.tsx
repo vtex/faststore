@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { Box, jsx, useSlider } from '@vtex/store-ui'
+import { Box, Flex, jsx, useSlider } from '@vtex/store-ui'
 
 import CarouselArrowLeft from './ArrowLeft'
 import CarouselArrowRight from './ArrowRight'
@@ -15,6 +15,8 @@ interface Props {
   autoplay?: boolean
   autoplayTimeout?: number
 }
+
+const variant = 'carousel'
 
 const Carousel: FC<Props> = ({
   allItems,
@@ -42,15 +44,22 @@ const Carousel: FC<Props> = ({
   const [item] = items
 
   return (
-    <Box sx={{ position: 'relative' }}>
-      {showArrows ? (
-        <CarouselArrowLeft onClick={() => setPreviousPage()} />
-      ) : null}
-      <CarouselPage item={item} loading={loading} />
-      {showArrows ? <CarouselArrowRight onClick={() => setNextPage()} /> : null}
+    <Box variant={variant}>
+      <Box variant={`${variant}.group`}>
+        {showArrows ? (
+          <CarouselArrowLeft
+            variant={variant}
+            onClick={() => setPreviousPage()}
+          />
+        ) : null}
+        <CarouselPage item={item} loading={loading} />
+        {showArrows ? (
+          <CarouselArrowRight variant={variant} onClick={() => setNextPage()} />
+        ) : null}
+      </Box>
       {showDots ? (
         <CarouselPaginationDots
-          variant="carousel"
+          variant={variant}
           onSelect={setPage}
           selectedPage={page}
           totalPages={totalPages}

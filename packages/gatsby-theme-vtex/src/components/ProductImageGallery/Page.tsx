@@ -1,14 +1,12 @@
 import React, { ComponentProps, FC } from 'react'
-import { AspectImage } from '@vtex/store-ui'
+import { Image } from '@vtex/store-ui'
 
-export type Item = ComponentProps<typeof AspectImage>
+export type Item = ComponentProps<typeof Image>
 
 interface Props {
   item: Item
 }
 
-const ProductImageGalleryPage: FC<Props> = ({ item }) => (
-  <AspectImage ratio={1} {...item} />
-)
+const ProductImageGalleryPage: FC<Props> = ({ item }) => <Image {...item} />
 
 export default ProductImageGalleryPage
