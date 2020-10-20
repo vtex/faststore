@@ -44,7 +44,7 @@ const ProductImageGallery: FC<Props> = ({
 
   return (
     <Box variant={variant}>
-      <Flex variant={`${variant}.group`}>
+      <Box variant={`${variant}.group`}>
         {showArrows ? (
           <ProductImageGalleryArrowLeft
             variant={variant}
@@ -58,7 +58,7 @@ const ProductImageGallery: FC<Props> = ({
             onClick={() => setNextPage()}
           />
         ) : null}
-      </Flex>
+      </Box>
       {showDots ? (
         <ProductImageGalleryPaginationDots
           variant={variant}
