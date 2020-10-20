@@ -1,7 +1,7 @@
 const throttle = <T extends any>(cb: (...args: any) => T, wait = 166) => {
   let timeout: NodeJS.Timeout | null = null
 
-  const throttled = (...args: any) => {
+  const throttled = (...args: any): T | undefined => {
     if (timeout !== null) {
       return
     }
@@ -14,8 +14,6 @@ const throttle = <T extends any>(cb: (...args: any) => T, wait = 166) => {
 
     return cb.apply(cb, args)
   }
-
-  throttled.clear = () => timeout && clearTimeout(timeout)
 
   return throttled
 }
