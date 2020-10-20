@@ -9,7 +9,7 @@ interface Props {
   variant?: string
 }
 
-export const SliderPaginationDots: FC<Props> = ({
+const SliderPaginationDots: FC<Props> = ({
   variant,
   onSelect,
   totalPages,
@@ -46,3 +46,5 @@ export const SliderPaginationDots: FC<Props> = ({
     </Box>
   )
 }
+
+export default SliderPaginationDots
