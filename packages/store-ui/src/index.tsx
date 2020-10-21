@@ -28,8 +28,6 @@ export * from './Header/theme'
 export * from './Logo'
 // ProgressiveLoader
 export { default as ProgressiveLoader } from './ProgressiveLoader'
-// ProgressiveImage
-export { default as ProgressiveImage } from './ProgressiveImage'
 // ResponsiveImage
 export { default as ResponsiveImage } from './ResponsiveImage'
 // InfoCard
