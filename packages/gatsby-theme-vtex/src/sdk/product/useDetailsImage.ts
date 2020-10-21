@@ -52,6 +52,7 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
         return {
           props: {
             src: url,
+            key: url,
             alt: imageText,
             loading: 'eager' as Loading,
             width: DETAILS_IMAGE_WIDTH_STR,
@@ -59,6 +60,7 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
           },
           propsPlaceholder: {
             src: placeholder,
+            key: placeholder,
             alt: imageText,
             loading: 'eager' as Loading,
             width: DETAILS_IMAGE_WIDTH_STR,
