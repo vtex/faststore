@@ -1,14 +1,14 @@
 import React, { ComponentProps, FC } from 'react'
-import { Image, ProgressiveImage } from '@vtex/store-ui'
+import { Image, ProgressiveLoader } from '@vtex/store-ui'
 
-export type Item = ComponentProps<typeof ProgressiveImage>
+export type Item = ComponentProps<typeof ProgressiveLoader>
 
 interface Props {
   item: Item
 }
 
 const ProductImageGalleryPage: FC<Props> = ({ item }) => (
-  <ProgressiveImage as={Image} {...item} />
+  <ProgressiveLoader {...item} as={Image} />
 )
 
 export default ProductImageGalleryPage
