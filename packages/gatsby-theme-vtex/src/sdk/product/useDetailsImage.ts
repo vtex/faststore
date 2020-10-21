@@ -49,8 +49,6 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
             )
           : url
 
-        console.log({ placeholder, url, state })
-
         return {
           props: {
             src: url,
