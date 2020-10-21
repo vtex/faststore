@@ -89,7 +89,6 @@ export { default as ProductSummaryImage } from './ProductSummary/Image'
 export { default as ProductSummaryTitle } from './ProductSummary/Title'
 export { default as ProductSummaryContainer } from './ProductSummary/Container'
 // Product Details
-export { default as ProductDetailsImage } from './ProductDetails/Image'
 export { default as ProductDetailsTitle } from './ProductDetails/Title'
 export { default as ProductDetailsGallery } from './ProductDetails/Gallery'
 export { default as ProductDetailsReference } from './ProductDetails/Reference'
