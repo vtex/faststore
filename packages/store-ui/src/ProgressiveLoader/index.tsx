@@ -1,7 +1,7 @@
 import React, { FC, ReactEventHandler, useEffect, useState } from 'react'
 
 interface ComponentProps {
-  key: string
+  key?: string | number | null
   onLoad?: ReactEventHandler
 }
 
