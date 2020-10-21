@@ -26,6 +26,8 @@ export * from './Header'
 export * from './Header/theme'
 // Logo
 export * from './Logo'
+// ProgressiveLoader
+export { default as ProgressiveLoader } from './ProgressiveLoader'
 // ProgressiveImage
 export { default as ProgressiveImage } from './ProgressiveImage'
 // ResponsiveImage

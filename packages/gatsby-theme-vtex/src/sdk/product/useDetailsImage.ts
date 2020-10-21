@@ -49,13 +49,23 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
             )
           : url
 
+        console.log({ placeholder, url, state })
+
         return {
-          src: url,
-          alt: imageText,
-          placeholder,
-          loading: 'eager' as Loading,
-          width: DETAILS_IMAGE_WIDTH_STR,
-          height: DETAILS_IMAGE_HEIGHT_STR,
+          props: {
+            src: url,
+            alt: imageText,
+            loading: 'eager' as Loading,
+            width: DETAILS_IMAGE_WIDTH_STR,
+            height: DETAILS_IMAGE_HEIGHT_STR,
+          },
+          propsPlaceholder: {
+            src: placeholder,
+            alt: imageText,
+            loading: 'eager' as Loading,
+            width: DETAILS_IMAGE_WIDTH_STR,
+            height: DETAILS_IMAGE_HEIGHT_STR,
+          },
         }
       }),
     [images]

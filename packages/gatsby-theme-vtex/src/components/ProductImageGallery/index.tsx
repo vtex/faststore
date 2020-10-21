@@ -45,28 +45,28 @@ const ProductImageGallery: FC<Props> = ({
   return (
     <Box variant={variant}>
       <Box variant={`${variant}.group`}>
-        {showArrows ? (
+        {showArrows && (
           <ProductImageGalleryArrowLeft
             variant={variant}
             onClick={() => setPreviousPage()}
           />
-        ) : null}
+        )}
         <ProductImageGalleryPage item={item} />
-        {showArrows ? (
+        {showArrows && (
           <ProductImageGalleryArrowRight
             variant={variant}
             onClick={() => setNextPage()}
           />
-        ) : null}
+        )}
       </Box>
-      {showDots ? (
+      {showDots && (
         <ProductImageGalleryPaginationDots
           variant={variant}
           onSelect={setPage}
           selectedPage={page}
           totalPages={totalPages}
         />
-      ) : null}
+      )}
     </Box>
   )
 }
