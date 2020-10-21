@@ -1,16 +1,22 @@
-import React, { FC, ReactEventHandler, useEffect, useState } from 'react'
+import React, {
+  ReactEventHandler,
+  FC,
+  Ref,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
 interface ComponentProps {
   key?: string | number | null
-  onLoad?: ReactEventHandler
+  ref?: Ref<HTMLImageElement>
+  onLoad?: ReactEventHandler<any>
 }
-
-type IncomingComponentProps = Omit<ComponentProps, 'style'>
 
 interface Props {
   as: FC<ComponentProps>
-  props: IncomingComponentProps
-  propsPlaceholder: IncomingComponentProps
+  props: ComponentProps
+  propsPlaceholder: ComponentProps
 }
 
 const ProgressiveLoader: FC<Props> = ({
@@ -19,22 +25,35 @@ const ProgressiveLoader: FC<Props> = ({
   propsPlaceholder,
 }) => {
   const [currentProps, setCurrentProps] = useState(propsPlaceholder)
+  const ref = useRef<HTMLImageElement>(null)
+  const complete = ref.current?.complete
 
+  // Resets component state when propsPlaceholder changes
   useEffect(() => {
-    setCurrentProps(propsPlaceholder)
-  }, [propsPlaceholder])
+    if (
+      currentProps.key !== propsPlaceholder.key &&
+      currentProps.key !== props.key
+    ) {
+      setCurrentProps(propsPlaceholder)
+    }
+  }, [currentProps.key, props.key, propsPlaceholder])
+
+  // when image is already loaded, fire the loaded event
+  useEffect(() => {
+    if (ref.current?.complete) {
+      setCurrentProps(props)
+    }
+  }, [complete, props])
 
   return (
     <>
       <Component {...currentProps} />
-
-      {props.key !== propsPlaceholder.key && (
+      {currentProps.key !== props.key && (
         <div style={{ display: 'none' }}>
           <Component
             {...props}
-            onLoad={() => {
-              setCurrentProps(props)
-            }}
+            ref={ref}
+            onLoad={() => setCurrentProps(props)}
           />
         </div>
       )}

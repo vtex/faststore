@@ -32,8 +32,9 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
 
   return useMemo(
     () =>
-      images.map(({ imageUrl, imageText }) => {
+      images.map(({ imageUrl, imageText }, index) => {
         const src = imageUrl ?? IMAGE_DEFAULT
+        const useSummary = state?.fromSummary && index === 0
 
         const url = scaleFileManagerImage(
           src,
@@ -41,7 +42,7 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
           DETAILS_IMAGE_HEIGHT
         )
 
-        const placeholder = state?.fromSummary
+        const placeholder = useSummary
           ? scaleFileManagerImage(
               src,
               SUMMARY_IMAGE_WIDTH,
