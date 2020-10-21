@@ -1,11 +1,7 @@
-import React, { FC } from 'react'
-import {
-  LocalizedLink,
-  ResponsiveImage,
-  IResponsiveImage,
-} from '@vtex/store-ui'
+import React, { ComponentPropsWithoutRef, FC } from 'react'
+import { LocalizedLink, ResponsiveImage } from '@vtex/store-ui'
 
-export interface Item extends IResponsiveImage {
+export interface Item extends ComponentPropsWithoutRef<typeof ResponsiveImage> {
   href: string
 }
 

@@ -3,13 +3,13 @@
 import { FC } from 'react'
 import { jsx } from 'theme-ui'
 
-export interface IResponsiveImageSource {
+interface IResponsiveImageSource {
   media: string
   srcSet: string
   sizes?: string
 }
 
-export interface IResponsiveImage {
+interface IResponsiveImage {
   sources: IResponsiveImageSource[]
   heights: string[]
   src?: string

@@ -1,7 +1,7 @@
 import React, { ComponentProps, FC } from 'react'
 import { Image, ProgressiveLoader } from '@vtex/store-ui'
 
-export type Item = ComponentProps<typeof ProgressiveLoader>
+export type Item = Omit<ComponentProps<typeof ProgressiveLoader>, 'as'>
 
 interface Props {
   item: Item
