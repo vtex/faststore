@@ -1,6 +1,7 @@
 import React, { FC, ReactEventHandler, useEffect, useState } from 'react'
 
 interface ComponentProps {
+  key: string
   onLoad?: ReactEventHandler
 }
 
@@ -12,23 +13,12 @@ interface Props {
   propsPlaceholder: IncomingComponentProps
 }
 
-const hidden = { display: 'none' }
-const initial = { display: 'initial' }
-
 const ProgressiveLoader: FC<Props> = ({
   as: Component,
   props,
   propsPlaceholder,
 }) => {
   const [currentProps, setCurrentProps] = useState(propsPlaceholder)
-  const [displayPlaceholder, setDisplayPlaceholder] = useState(true)
-  const [loaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    if (loaded) {
-      setDisplayPlaceholder(false)
-    }
-  }, [currentProps, loaded])
 
   useEffect(() => {
     setCurrentProps(propsPlaceholder)
@@ -36,18 +26,18 @@ const ProgressiveLoader: FC<Props> = ({
 
   return (
     <>
-      <div style={displayPlaceholder ? initial : hidden}>
-        <Component {...propsPlaceholder} />
-      </div>
-      <div style={displayPlaceholder ? hidden : initial}>
-        <Component
-          {...props}
-          onLoad={() => {
-            setCurrentProps(props)
-            setLoaded(true)
-          }}
-        />
-      </div>
+      <Component {...currentProps} />
+
+      {props.key !== propsPlaceholder.key && (
+        <div style={{ display: 'none' }}>
+          <Component
+            {...props}
+            onLoad={() => {
+              setCurrentProps(props)
+            }}
+          />
+        </div>
+      )}
     </>
   )
 }
