@@ -35,6 +35,7 @@ const ProgressiveLoader: FC<Props> = ({
       currentProps.key !== props.key
     ) {
       setCurrentProps(propsPlaceholder)
+      console.log('setFirstEffect')
     }
   }, [currentProps.key, props.key, propsPlaceholder])
 
@@ -42,6 +43,7 @@ const ProgressiveLoader: FC<Props> = ({
   useEffect(() => {
     if (ref.current?.complete) {
       setCurrentProps(props)
+      console.log('setSecondEffect')
     }
   }, [complete, props])
 
