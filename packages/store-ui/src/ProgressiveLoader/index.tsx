@@ -30,7 +30,9 @@ const ProgressiveLoader: FC<Props> = ({
     }
   }, [currentProps, loaded])
 
-  console.log({ displayPlaceholder, loaded, currentProps })
+  useEffect(() => {
+    setCurrentProps(propsPlaceholder)
+  }, [propsPlaceholder])
 
   return (
     <>
