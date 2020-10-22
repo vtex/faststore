@@ -1,6 +1,6 @@
 import { SxStyleProp } from 'theme-ui'
 
-const responsiveImage: SxStyleProp = {
+const responsivePicture: SxStyleProp = {
   picture: {
     display: 'block',
     overflow: 'hidden',
@@ -16,4 +16,4 @@ const responsiveImage: SxStyleProp = {
   },
 }
 
-export default responsiveImage
+export default responsivePicture

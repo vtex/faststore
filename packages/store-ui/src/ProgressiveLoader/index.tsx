@@ -14,16 +14,17 @@ interface ComponentProps {
   variant?: string
 }
 
-interface Props {
+interface Props extends ComponentProps {
   as: FC<ComponentProps>
-  props: ComponentProps
-  propsPlaceholder: ComponentProps
+  props: Partial<ComponentProps>
+  propsPlaceholder: Partial<ComponentProps>
 }
 
 const ProgressiveLoader: FC<Props> = ({
   as: Component,
   props,
   propsPlaceholder,
+  ...rest
 }) => {
   const [currentProps, setCurrentProps] = useState(propsPlaceholder)
   const ref = useRef<HTMLImageElement>(null)
@@ -48,11 +49,12 @@ const ProgressiveLoader: FC<Props> = ({
 
   return (
     <>
-      <Component {...currentProps} />
+      <Component {...currentProps} {...rest} />
       {currentProps.key !== props.key && (
         <div style={{ display: 'none' }}>
           <Component
             {...props}
+            {...rest}
             ref={ref}
             onLoad={() => setCurrentProps(props)}
           />

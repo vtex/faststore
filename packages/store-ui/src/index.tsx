@@ -28,9 +28,9 @@ export * from './Header/theme'
 export * from './Logo'
 // ProgressiveLoader
 export { default as ProgressiveLoader } from './ProgressiveLoader'
-// ResponsiveImage
-export { default as ResponsiveImage } from './ResponsiveImage'
-export { default as responsiveImageTheme } from './ResponsiveImage/theme'
+// ResponsivePicture
+export { default as ResponsivePicture } from './ResponsivePicture'
+export { default as responsivePictureTheme } from './ResponsivePicture/theme'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'

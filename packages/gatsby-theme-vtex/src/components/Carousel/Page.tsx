@@ -1,8 +1,8 @@
 import React, { ComponentProps, FC } from 'react'
-import { LocalizedLink, ResponsiveImage } from '@vtex/store-ui'
+import { LocalizedLink, ResponsivePicture } from '@vtex/store-ui'
 
 export interface Item
-  extends Omit<ComponentProps<typeof ResponsiveImage>, 'ref' | 'variant'> {
+  extends Omit<ComponentProps<typeof ResponsivePicture>, 'ref' | 'variant'> {
   href: string
 }
 
@@ -14,7 +14,7 @@ interface Props {
 
 const CarouselPage: FC<Props> = ({ item, loading, variant }) => (
   <LocalizedLink key={item.href} to={item.href}>
-    <ResponsiveImage {...item} variant={variant} loading={loading} />
+    <ResponsivePicture {...item} variant={variant} loading={loading} />
   </LocalizedLink>
 )
 
