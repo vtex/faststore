@@ -11,6 +11,7 @@ interface ComponentProps {
   key?: string | number | null
   ref?: Ref<HTMLImageElement>
   onLoad?: ReactEventHandler<any>
+  variant?: string
 }
 
 interface Props {
@@ -28,22 +29,20 @@ const ProgressiveLoader: FC<Props> = ({
   const ref = useRef<HTMLImageElement>(null)
   const complete = ref.current?.complete
 
-  // Resets component state when propsPlaceholder changes
+  // // Resets component state when propsPlaceholder changes
   useEffect(() => {
     if (
       currentProps.key !== propsPlaceholder.key &&
       currentProps.key !== props.key
     ) {
       setCurrentProps(propsPlaceholder)
-      console.log('setFirstEffect')
     }
   }, [currentProps.key, props.key, propsPlaceholder])
 
-  // when image is already loaded, fire the loaded event
+  // // when image is already loaded, fire the loaded event
   useEffect(() => {
     if (ref.current?.complete) {
       setCurrentProps(props)
-      console.log('setSecondEffect')
     }
   }, [complete, props])
 

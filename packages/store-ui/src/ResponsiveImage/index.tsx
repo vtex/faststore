@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /** @jsx jsx */
-import { FC } from 'react'
+import { FC, forwardRef } from 'react'
 import { jsx } from 'theme-ui'
 
 interface IResponsiveImageSource {
@@ -20,38 +20,29 @@ interface IResponsiveImage {
 
 interface Props extends IResponsiveImage {
   loading: 'eager' | 'lazy'
-  variant?: string
+  variant: string
 }
 
-const ResponsiveImage: FC<Props> = ({
-  sources,
-  heights,
-  variant,
-  ...imgProps
-}) => (
-  <picture
-    sx={{
-      display: 'block',
-      overflow: 'hidden',
-      variant: variant ? `${variant}.picture` : 'picture',
-    }}
-  >
-    {sources.map((source) => (
-      <source key={source.srcSet} {...source} />
-    ))}
-    <img
-      {...imgProps}
+const ResponsiveImage: FC<Props> = forwardRef<HTMLImageElement, Props>(
+  ({ sources, heights, variant, ...imgProps }, ref) => (
+    <picture
       sx={{
-        variant: variant ? `${variant}.img` : 'img',
-        minHeight: heights,
-        minWidth: '100%',
-        width: 'auto',
-        marginLeft: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: -2,
+        variant: `${variant}.responsiveImage.picture`,
       }}
-    />
-  </picture>
+    >
+      {sources.map((source) => (
+        <source key={source.srcSet} {...source} />
+      ))}
+      <img
+        sx={{
+          variant: `${variant}.responsiveImage.img`,
+          minHeight: heights,
+        }}
+        {...imgProps}
+        ref={ref}
+      />
+    </picture>
+  )
 )
 
 export default ResponsiveImage
