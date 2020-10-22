@@ -1,4 +1,4 @@
-import { SxStyleProp } from '@vtex/store-ui'
+import { SxStyleProp } from 'theme-ui'
 
 const responsiveImage: SxStyleProp = {
   picture: {
