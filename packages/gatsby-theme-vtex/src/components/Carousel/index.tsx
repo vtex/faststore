@@ -52,7 +52,7 @@ const Carousel: FC<Props> = ({
             onClick={() => setPreviousPage()}
           />
         ) : null}
-        <CarouselPage item={item} loading={loading} />
+        <CarouselPage variant={variant} item={item} loading={loading} />
         {showArrows ? (
           <CarouselArrowRight variant={variant} onClick={() => setNextPage()} />
         ) : null}

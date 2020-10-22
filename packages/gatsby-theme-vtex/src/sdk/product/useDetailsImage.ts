@@ -3,13 +3,10 @@ import { useMemo } from 'react'
 
 import { scaleFileManagerImage } from '../img/fileManager'
 import {
-  DETAILS_IMAGE_HEIGHT,
-  DETAILS_IMAGE_HEIGHT_STR,
-  DETAILS_IMAGE_WIDTH,
-  DETAILS_IMAGE_WIDTH_STR,
+  DETAILS_IMAGE,
+  DETAILS_IMAGES_HEIGHTS,
   IMAGE_DEFAULT,
-  SUMMARY_IMAGE_HEIGHT,
-  SUMMARY_IMAGE_WIDTH,
+  SUMMARY_IMAGE,
 } from './constants'
 
 interface Image {
@@ -36,36 +33,44 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
         const src = imageUrl ?? IMAGE_DEFAULT
         const useSummary = state?.fromSummary && index === 0
 
-        const url = scaleFileManagerImage(
-          src,
-          DETAILS_IMAGE_WIDTH,
-          DETAILS_IMAGE_HEIGHT
-        )
+        const sources = DETAILS_IMAGE.map(({ width, height, media }) => ({
+          srcSet: `${scaleFileManagerImage(src, width, height)} ${width}w`,
+          media,
+        }))
 
         const placeholder = useSummary
-          ? scaleFileManagerImage(
-              src,
-              SUMMARY_IMAGE_WIDTH,
-              SUMMARY_IMAGE_HEIGHT
-            )
-          : url
+          ? [
+              {
+                srcSet: scaleFileManagerImage(
+                  src,
+                  SUMMARY_IMAGE.width,
+                  SUMMARY_IMAGE.height
+                ),
+                media: '(min-width: 0px)',
+              },
+            ]
+          : sources
 
         return {
           props: {
-            src: url,
-            key: url,
+            sources,
+            src: imageUrl,
+            key: sources[0].srcSet,
             alt: imageText,
             loading: 'eager' as Loading,
-            width: DETAILS_IMAGE_WIDTH_STR,
-            height: DETAILS_IMAGE_HEIGHT_STR,
+            width: DETAILS_IMAGE[1].widthStr,
+            height: DETAILS_IMAGE[1].heightStr,
+            heights: DETAILS_IMAGES_HEIGHTS,
           },
           propsPlaceholder: {
-            src: placeholder,
-            key: placeholder,
+            sources: placeholder,
+            src: imageUrl,
+            key: placeholder[0].srcSet,
             alt: imageText,
             loading: 'eager' as Loading,
-            width: DETAILS_IMAGE_WIDTH_STR,
-            height: DETAILS_IMAGE_HEIGHT_STR,
+            width: DETAILS_IMAGE[1].widthStr,
+            height: DETAILS_IMAGE[1].heightStr,
+            heights: DETAILS_IMAGES_HEIGHTS,
           },
         }
       }),

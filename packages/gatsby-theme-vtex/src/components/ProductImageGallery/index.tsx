@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { Box, Flex, jsx, useSlider } from '@vtex/store-ui'
+import { jsx, Box, useSlider } from '@vtex/store-ui'
 
 import ProductImageGalleryArrowLeft from './ArrowLeft'
 import ProductImageGalleryArrowRight from './ArrowRight'
@@ -51,7 +51,7 @@ const ProductImageGallery: FC<Props> = ({
             onClick={() => setPreviousPage()}
           />
         )}
-        <ProductImageGalleryPage item={item} />
+        <ProductImageGalleryPage variant={variant} item={item} />
         {showArrows && (
           <ProductImageGalleryArrowRight
             variant={variant}
