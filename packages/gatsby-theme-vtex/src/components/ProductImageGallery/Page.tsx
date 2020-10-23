@@ -9,7 +9,12 @@ interface Props {
 }
 
 const ProductImageGalleryPage: FC<Props> = ({ item, variant }) => (
-  <ProgressiveImage {...item} variant={variant} ratio={1} as={AspectImage} />
+  <ProgressiveImage
+    {...item}
+    variant={`${variant}.img`}
+    ratio={1}
+    as={AspectImage}
+  />
 )
 
 export default ProductImageGalleryPage
