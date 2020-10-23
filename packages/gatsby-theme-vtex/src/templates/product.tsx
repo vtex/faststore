@@ -43,6 +43,8 @@ const ProductPage: FC<ProductPageProps> = (props) => {
     initialData: staticPath ? initialData : undefined,
   })
 
+  debugger
+
   if (!data?.vtex.product) {
     return <div>Product Not Found</div>
   }
