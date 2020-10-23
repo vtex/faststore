@@ -1,21 +1,18 @@
-import React, { FC } from 'react'
-import { Flex } from 'theme-ui'
+import React, { PropsWithoutRef, FC } from 'react'
+import { Box, ButtonProps } from 'theme-ui'
 
-export interface FloatingActionButtonProps {
-  variant?: string
-  href?: string
-}
+type Props = PropsWithoutRef<ButtonProps>
 
-const FloatingActionButton: FC<FloatingActionButtonProps> = ({
+const ButtonBox: FC<Props> = Box as any
+
+const FloatingActionButton: FC<Props> = ({
   variant = 'floatingActionButton',
-  href = '/',
   children,
+  ...rest
 }) => (
-  <Flex variant={variant}>
-    <a href={href} target="_blank" rel="noreferrer">
-      {children}
-    </a>
-  </Flex>
+  <ButtonBox as="button" variant={variant} {...rest}>
+    {children}
+  </ButtonBox>
 )
 
 export default FloatingActionButton
