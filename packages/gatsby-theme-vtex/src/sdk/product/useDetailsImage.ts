@@ -2,15 +2,7 @@ import { useLocation } from '@reach/router'
 import { useMemo } from 'react'
 
 import { scaleFileManagerImage } from '../img/fileManager'
-import {
-  DETAILS_IMAGE_HEIGHT,
-  DETAILS_IMAGE_HEIGHT_STR,
-  DETAILS_IMAGE_WIDTH,
-  DETAILS_IMAGE_WIDTH_STR,
-  IMAGE_DEFAULT,
-  SUMMARY_IMAGE_HEIGHT,
-  SUMMARY_IMAGE_WIDTH,
-} from './constants'
+import { DETAILS_IMAGE, IMAGE_DEFAULT, SUMMARY_IMAGE } from './constants'
 
 interface Image {
   imageUrl: string
@@ -26,36 +18,49 @@ const DEFAULT_IMAGES = [
   },
 ]
 
+const maxWidth = DETAILS_IMAGE[DETAILS_IMAGE.length - 1].widthStr
+const maxHeight = DETAILS_IMAGE[DETAILS_IMAGE.length - 1].heightStr
+const sizes = DETAILS_IMAGE.map(({ media }) => media).join(', ')
+
 export const useDetailsImage = (maybeImages: Image[] | undefined) => {
   const { state }: any = useLocation()
   const images = maybeImages ?? DEFAULT_IMAGES
 
   return useMemo(
     () =>
-      images.map(({ imageUrl, imageText }) => {
+      images.map(({ imageUrl, imageText }, index) => {
         const src = imageUrl ?? IMAGE_DEFAULT
+        const useSummary = state?.fromSummary && index === 0
 
-        const url = scaleFileManagerImage(
-          src,
-          DETAILS_IMAGE_WIDTH,
-          DETAILS_IMAGE_HEIGHT
-        )
+        const srcSet = DETAILS_IMAGE.map(
+          ({ width, height }) =>
+            `${scaleFileManagerImage(src, width, height)} ${width}w`
+        ).join(', ')
 
-        const placeholder = state?.fromSummary
+        const srcSetPlaceholder = useSummary
           ? scaleFileManagerImage(
               src,
-              SUMMARY_IMAGE_WIDTH,
-              SUMMARY_IMAGE_HEIGHT
+              SUMMARY_IMAGE.width,
+              SUMMARY_IMAGE.height
             )
-          : url
+          : srcSet
+
+        const sizesPlaceholder = useSummary ? '(minWidth: 0px) 100vw' : sizes
 
         return {
-          src: url,
+          targetProps: {
+            sizes,
+            srcSet,
+          },
+          placeholderProps: {
+            sizes: sizesPlaceholder,
+            srcSet: srcSetPlaceholder,
+          },
+          src: imageUrl,
           alt: imageText,
-          placeholder,
           loading: 'eager' as Loading,
-          width: DETAILS_IMAGE_WIDTH_STR,
-          height: DETAILS_IMAGE_HEIGHT_STR,
+          width: maxWidth,
+          height: maxHeight,
         }
       }),
     [images]
