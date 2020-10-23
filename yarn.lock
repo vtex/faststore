@@ -4909,47 +4909,6 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
-"@vtex/gatsby-plugin-graphql@^0.82.0":
-  version "0.82.0"
-  resolved "https://registry.yarnpkg.com/@vtex/gatsby-plugin-graphql/-/gatsby-plugin-graphql-0.82.0.tgz#eaf48246f1682f238c431be726b689bbd33d72b8"
-  integrity sha512-1E6j/Q07d4E9w+nh1P33qCn73U55suvYrd6iTg84d4eQ2piXGwbaDJ8rB1rnud9ew7vDvSzNddF4NZsyXgxKUg==
-  dependencies:
-    "@graphql-codegen/core" "^1.17.7"
-    "@graphql-codegen/plugin-helpers" "^1.17.7"
-    "@graphql-codegen/typescript" "^1.17.7"
-    "@graphql-codegen/typescript-operations" "^1.17.7"
-    "@graphql-tools/relay-operation-optimizer" "^6.0.15"
-    fs-extra "^9.0.1"
-
-"@vtex/gatsby-plugin-theme-ui@^0.81.0":
-  version "0.81.0"
-  resolved "https://registry.yarnpkg.com/@vtex/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.81.0.tgz#71389617564e25ca7223a6c3424a1aca026f2ca2"
-  integrity sha512-sOp94lT+HlKXDNZa+DqSui7ntMTIKoEtOLuLU5QD1vu0tElfXLfQP5JqrNl6/UgFfLMpsmlEfLJf8qGIHq9koA==
-  dependencies:
-    "@babel/core" "^7.11.4"
-    "@babel/parser" "^7.11.4"
-    "@babel/preset-typescript" "^7.10.4"
-    "@babel/register" "^7.11.5"
-    "@babel/traverse" "^7.11.0"
-    "@babel/types" "^7.11.0"
-    theme-ui "^0.3.1"
-
-"@vtex/gatsby-source-vtex@^0.82.0":
-  version "0.82.0"
-  resolved "https://registry.yarnpkg.com/@vtex/gatsby-source-vtex/-/gatsby-source-vtex-0.82.0.tgz#e9cc82d1b6bcd9c0ed20855a789f8e0945dd11dc"
-  integrity sha512-D/04UojsFGfhY9ysJTRrXb6JyHgqlBt9T2kxXRAv1uQqfFcxx1J18T8BQFOysEY8YxASrq0CXYA5Y7RZZtTvkg==
-  dependencies:
-    "@graphql-tools/delegate" "^6.0.15"
-    "@graphql-tools/wrap" "^6.0.15"
-    isomorphic-unfetch "^3.0.0"
-    p-map "^4.0.0"
-    uuid "^8.3.0"
-
-"@vtex/gatsby-transformer-vtex-cms@^0.81.0":
-  version "0.81.0"
-  resolved "https://registry.yarnpkg.com/@vtex/gatsby-transformer-vtex-cms/-/gatsby-transformer-vtex-cms-0.81.0.tgz#945555c433339c143491a04b71018a5cc1f61171"
-  integrity sha512-rODZ6xJkwnAOjH1HUo/FzJgZ4wSUAJkUI6EdAy2INRtK0ihDwA39Eg/Gjy8uKTwsEW5+Qijkti2PS1s5Cgm7aw==
-
 "@vtex/prettier-config@^0.3.0":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.1.tgz#c376999e826827aa11f4b0e08af9cf59ae9ee476"
