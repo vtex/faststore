@@ -23,6 +23,15 @@ const ProgressiveImage: FC<Props> = ({
   useEffect(() => setCurrent(placeholderProps), [placeholderProps])
 
   useEffect(() => {
+    // Placeholder equals target. Dont bother creating an image
+    if (
+      current.sizes === targetProps.sizes &&
+      current.srcSet === targetProps.srcSet &&
+      current.src === targetProps.src
+    ) {
+      return
+    }
+
     const imageToLoad = new Image()
 
     imageToLoad.onload = () => setCurrent(targetProps)
@@ -36,7 +45,7 @@ const ProgressiveImage: FC<Props> = ({
         imageToLoad.setAttribute(key.toLowerCase(), targetProps[key])
       }
     }
-  }, [targetProps])
+  }, [current, targetProps])
 
   return <Component {...commonProps} {...current} />
 }
