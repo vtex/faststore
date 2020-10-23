@@ -18,7 +18,9 @@ const DEFAULT_IMAGES = [
   },
 ]
 
-const lastImage = DETAILS_IMAGE.length - 1
+const maxWidth = DETAILS_IMAGE[DETAILS_IMAGE.length - 1].widthStr
+const maxHeight = DETAILS_IMAGE[DETAILS_IMAGE.length - 1].heightStr
+const sizes = DETAILS_IMAGE.map(({ media }) => media).join(', ')
 
 export const useDetailsImage = (maybeImages: Image[] | undefined) => {
   const { state }: any = useLocation()
@@ -35,8 +37,6 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
             `${scaleFileManagerImage(src, width, height)} ${width}w`
         ).join(', ')
 
-        const sizes = DETAILS_IMAGE.map(({ media }) => media).join(', ')
-
         const srcSetPlaceholder = useSummary
           ? scaleFileManagerImage(
               src,
@@ -45,29 +45,22 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
             )
           : srcSet
 
-        const sizesPlaceholder = useSummary ? '(minWidth: 0px) 0px' : sizes
+        const sizesPlaceholder = useSummary ? '(minWidth: 0px) 100vw' : sizes
 
         return {
-          props: {
+          targetProps: {
             sizes,
             srcSet,
-            src: imageUrl,
-            key: srcSet,
-            alt: imageText,
-            loading: 'eager' as Loading,
-            width: DETAILS_IMAGE[lastImage].widthStr,
-            height: DETAILS_IMAGE[lastImage].heightStr,
           },
-          propsPlaceholder: {
+          placeholderProps: {
             sizes: sizesPlaceholder,
             srcSet: srcSetPlaceholder,
-            src: imageUrl,
-            key: srcSetPlaceholder,
-            alt: imageText,
-            loading: 'eager' as Loading,
-            width: DETAILS_IMAGE[lastImage].widthStr,
-            height: DETAILS_IMAGE[lastImage].heightStr,
           },
+          src: imageUrl,
+          alt: imageText,
+          loading: 'eager' as Loading,
+          width: maxWidth,
+          height: maxHeight,
         }
       }),
     [images]

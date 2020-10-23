@@ -1,7 +1,7 @@
-import { AspectImage, ProgressiveLoader } from '@vtex/store-ui'
-import React, { ComponentProps, FC } from 'react'
+import { AspectImage, ProgressiveImage } from '@vtex/store-ui'
+import React, { ComponentPropsWithoutRef, FC } from 'react'
 
-export type Item = Omit<ComponentProps<typeof ProgressiveLoader>, 'as'>
+export type Item = ComponentPropsWithoutRef<typeof ProgressiveImage>
 
 interface Props {
   item: Item
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ProductImageGalleryPage: FC<Props> = ({ item, variant }) => (
-  <ProgressiveLoader {...item} variant={variant} ratio={1} as={AspectImage} />
+  <ProgressiveImage {...item} variant={variant} ratio={1} as={AspectImage} />
 )
 
 export default ProductImageGalleryPage
