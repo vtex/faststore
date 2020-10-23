@@ -10,9 +10,11 @@ const FloatingActionButton: FC<Props> = ({
   children,
   ...rest
 }) => (
-  <ButtonBox as="button" variant={variant} {...rest}>
-    {children}
-  </ButtonBox>
+  <Box variant={`${variant}.container`}>
+    <ButtonBox as="button" variant={`${variant}.button`} {...rest}>
+      {children}
+    </ButtonBox>
+  </Box>
 )
 
 export default FloatingActionButton
