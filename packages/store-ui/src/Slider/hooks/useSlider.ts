@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 
 import { useInterval } from './useInterval'
 
@@ -27,10 +27,16 @@ export const useSlider = <T>({
   // Page State pagination
   const [page, setPage] = useState(0)
 
+  // Somehow, the items changed but state kept the same,
+  // So go back to first page and apply Effect
+  const currentPage = page < allItems.length ? page : 0
+
+  useEffect(() => setPage(0), [allItems.length])
+
   // Items on current page
   const items = useMemo(
-    () => allItems.slice(page * pageSize, (page + 1) * pageSize),
-    [allItems, page, pageSize]
+    () => allItems.slice(currentPage * pageSize, (currentPage + 1) * pageSize),
+    [allItems, currentPage, pageSize]
   )
 
   const setNextPage = useCallback(() => setPage((p) => next(p, totalPages)), [
@@ -53,7 +59,7 @@ export const useSlider = <T>({
   return {
     totalPages,
     items,
-    page,
+    page: currentPage,
     setPage,
     setNextPage,
     setPreviousPage,
