@@ -1,22 +1,16 @@
 import { useScaledImage } from '../img/useScaledImage'
-import {
-  IMAGE_DEFAULT,
-  SUMMARY_IMAGE_HEIGHT,
-  SUMMARY_IMAGE_HEIGHT_STR,
-  SUMMARY_IMAGE_WIDTH,
-  SUMMARY_IMAGE_WIDTH_STR,
-} from './constants'
+import { IMAGE_DEFAULT, SUMMARY_IMAGE } from './constants'
 
 export const useSummaryImage = (maybeSrc: string | undefined) => {
   const src = useScaledImage(
     maybeSrc ?? IMAGE_DEFAULT,
-    SUMMARY_IMAGE_WIDTH,
-    SUMMARY_IMAGE_HEIGHT
+    SUMMARY_IMAGE.width,
+    SUMMARY_IMAGE.height
   )
 
   return {
     src,
-    width: SUMMARY_IMAGE_WIDTH_STR,
-    height: SUMMARY_IMAGE_HEIGHT_STR,
+    width: SUMMARY_IMAGE.widthStr,
+    height: SUMMARY_IMAGE.heightStr,
   }
 }
