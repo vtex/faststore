@@ -26,14 +26,11 @@ export * from './Header'
 export * from './Header/theme'
 // Logo
 export * from './Logo'
-// ProgressiveImage
+// ProgressiveLoader
 export { default as ProgressiveImage } from './ProgressiveImage'
-// ResponsiveImage
-export {
-  default as ResponsiveImage,
-  IResponsiveImage,
-  IResponsiveImageSource,
-} from './ResponsiveImage'
+// ResponsivePicture
+export { default as ResponsivePicture } from './ResponsivePicture'
+export { default as responsivePictureTheme } from './ResponsivePicture/theme'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'
@@ -93,7 +90,6 @@ export { default as ProductSummaryImage } from './ProductSummary/Image'
 export { default as ProductSummaryTitle } from './ProductSummary/Title'
 export { default as ProductSummaryContainer } from './ProductSummary/Container'
 // Product Details
-export { default as ProductDetailsImage } from './ProductDetails/Image'
 export { default as ProductDetailsTitle } from './ProductDetails/Title'
 export { default as ProductDetailsGallery } from './ProductDetails/Gallery'
 export { default as ProductDetailsReference } from './ProductDetails/Reference'

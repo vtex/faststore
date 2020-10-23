@@ -1,34 +1,53 @@
-import { createElement, ElementType, memo, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, PropsWithoutRef } from 'react'
 import { AspectImageProps, ImageProps } from 'theme-ui'
 
-export interface ProgressiveImageProps extends ImageProps, AspectImageProps {
-  src: string
-  placeholder: string
-  as?: ElementType
+type ImageLikeProps = PropsWithoutRef<AspectImageProps> &
+  PropsWithoutRef<ImageProps>
+
+type ImageLike = FC<ImageLikeProps>
+
+interface Props extends ImageLikeProps {
+  targetProps: ImageLikeProps
+  placeholderProps: ImageLikeProps
+  as?: ImageLike
 }
 
-const ProgressiveImage = memo<ProgressiveImageProps>(
-  ({ src, placeholder, as = 'img', ...props }) => {
-    const [currentSrc, updateSrc] = useState(placeholder)
+const ProgressiveImage: FC<Props> = ({
+  targetProps,
+  placeholderProps,
+  as: Component = 'img',
+  ...commonProps
+}) => {
+  const [current, setCurrent] = useState(placeholderProps)
 
-    useEffect(() => {
-      const imageToLoad = new Image()
+  useEffect(() => setCurrent(placeholderProps), [placeholderProps])
 
-      imageToLoad.src = src
-      imageToLoad.onload = () => {
-        updateSrc(src)
-      }
-    }, [src])
-
-    const elementProps = {
-      ...props,
-      src: currentSrc,
+  useEffect(() => {
+    // Placeholder equals target. Dont bother creating an image
+    if (
+      current.sizes === targetProps.sizes &&
+      current.srcSet === targetProps.srcSet &&
+      current.src === targetProps.src
+    ) {
+      return
     }
 
-    return createElement(as, elementProps)
-  }
-)
+    const imageToLoad = new Image()
 
-ProgressiveImage.displayName = 'ProgressiveImage'
+    imageToLoad.onload = () => setCurrent(targetProps)
+
+    // This order is important. Do NOT change it. Safari requires sizes to
+    // be set before than srcSet
+    const keys: Array<keyof ImageLikeProps> = ['sizes', 'srcSet', 'src']
+
+    for (const key of keys) {
+      if (key in targetProps) {
+        imageToLoad.setAttribute(key.toLowerCase(), targetProps[key])
+      }
+    }
+  }, [current, targetProps])
+
+  return <Component {...commonProps} {...current} />
+}
 
 export default ProgressiveImage
