@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { Box, jsx, useSlider } from '@vtex/store-ui'
+import { jsx, Box, useSlider } from '@vtex/store-ui'
 
 import ProductImageGalleryArrowLeft from './ArrowLeft'
 import ProductImageGalleryArrowRight from './ArrowRight'
@@ -15,6 +15,8 @@ interface Props {
   autoplay?: boolean
   autoplayTimeout?: number
 }
+
+const variant = 'productImageGallery'
 
 const ProductImageGallery: FC<Props> = ({
   allItems,
@@ -41,22 +43,30 @@ const ProductImageGallery: FC<Props> = ({
   const [item] = items
 
   return (
-    <Box sx={{ position: 'relative' }}>
-      {showArrows ? (
-        <ProductImageGalleryArrowLeft onClick={() => setPreviousPage()} />
-      ) : null}
-      <ProductImageGalleryPage item={item} />
-      {showArrows ? (
-        <ProductImageGalleryArrowRight onClick={() => setNextPage()} />
-      ) : null}
-      {showDots ? (
+    <Box variant={variant}>
+      <Box variant={`${variant}.group`}>
+        {showArrows && (
+          <ProductImageGalleryArrowLeft
+            variant={variant}
+            onClick={() => setPreviousPage()}
+          />
+        )}
+        <ProductImageGalleryPage variant={variant} item={item} />
+        {showArrows && (
+          <ProductImageGalleryArrowRight
+            variant={variant}
+            onClick={() => setNextPage()}
+          />
+        )}
+      </Box>
+      {showDots && (
         <ProductImageGalleryPaginationDots
-          variant="productImageGallery"
+          variant={variant}
           onSelect={setPage}
           selectedPage={page}
           totalPages={totalPages}
         />
-      ) : null}
+      )}
     </Box>
   )
 }
