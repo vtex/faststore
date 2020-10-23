@@ -14,9 +14,8 @@ interface Props {
   showDots?: boolean
   autoplay?: boolean
   autoplayTimeout?: number
+  variant?: string
 }
-
-const variant = 'carousel'
 
 const Carousel: FC<Props> = ({
   allItems,
@@ -25,6 +24,7 @@ const Carousel: FC<Props> = ({
   showDots = true,
   autoplay,
   autoplayTimeout,
+  variant = 'carousel',
 }) => {
   const {
     page,
