@@ -53,11 +53,11 @@ const Shelf: FC<Props> = ({
       {title && <ShelfTitle variant={variant}>{title}</ShelfTitle>}
       <Flex>
         {showArrows && (
-          <ShelfArrowLeft onClick={() => setPreviousPage()} variant={variant} />
+          <ShelfArrowLeft variant={variant} onClick={() => setPreviousPage()} />
         )}
-        <ShelfPage items={items} pageSizes={pageSizes} variant={variant} />
+        <ShelfPage variant={variant} items={items} pageSizes={pageSizes} />
         {showArrows && (
-          <ShelfArrowRight onClick={() => setNextPage()} variant={variant} />
+          <ShelfArrowRight variant={variant} onClick={() => setNextPage()} />
         )}
       </Flex>
       {showDots && (
