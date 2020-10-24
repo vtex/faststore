@@ -53,9 +53,16 @@ export const toggleItem = (item: SearchFilterItem, filters: SearchFilters) => {
 
     const index = splittedQuery?.findIndex((s) => s === value)
 
+    // Unselecting the base path. This is not allowed since it would redirect
+    // the user to the home page. In the future we should return a visual
+    // feedback for the user
+    if (index === 0) {
+      return
+    }
+
     // eslint-disable-next-line no-console
     console.assert(
-      index && index > -1,
+      index !== undefined && index > -1,
       `${value} is marked as selected but does not exist in ${query}`
     )
 
