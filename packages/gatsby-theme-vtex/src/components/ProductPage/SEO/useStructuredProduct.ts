@@ -8,8 +8,8 @@ type SKU = NonNullable<
   ArrayItem<NonNullable<StructuredProductFragment_ProductFragment['items']>>
 >
 
-const getSkuOffers = (sku: SKU, currency: string): Offer[] =>
-  sku.sellers!.map((seller) => ({
+const getSkuOffers = (sku: SKU, currency: string): Maybe<Offer[]> =>
+  sku.sellers?.map((seller) => ({
     '@type': 'Offer',
     price: seller!.commercialOffer!.price!,
     priceCurrency: currency,
@@ -35,7 +35,7 @@ export const useStructuredProduct = (
     const images = sku!.images!.map((i) => i!.imageUrl)
     const offers = getSkuOffers(sku!, currency)
 
-    if (!sku || !images || offers.length === 0 || !brand) {
+    if (!sku || !images || !offers || offers.length === 0 || !brand) {
       return null
     }
 
