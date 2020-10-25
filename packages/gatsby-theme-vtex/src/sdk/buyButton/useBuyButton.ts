@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
 
@@ -15,30 +17,39 @@ export interface SKU {
 }
 
 export const useBuyButton = (sku: Maybe<SKU>) => {
+  const [loading, setLoading] = useState(false)
   const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
-  const disabled = !sku || !orderForm?.value
+  const disabled = loading || !sku || !orderForm?.value || !seller
 
   // Optimist add item on click
   const onClick = async (e: any) => {
     e.preventDefault()
 
-    if (!sku || !seller) {
+    if (disabled) {
       return
     }
 
     // Item to be updated into the orderForm
     const orderFormItem = {
-      id: Number(sku.itemId),
+      id: Number(sku!.itemId),
       quantity: 1,
       seller: seller.sellerId,
     }
 
-    orderForm.addToCart([orderFormItem]).catch(console.error)
+    try {
+      setLoading(true)
+      await orderForm.addToCart([orderFormItem])
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return {
     disabled,
     onClick,
+    loading,
   }
 }
