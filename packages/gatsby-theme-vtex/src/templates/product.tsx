@@ -15,6 +15,7 @@ import {
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
 import SEO from '../components/ProductPage/SEO'
+import { useRCSendEvent } from '../sdk/vtexrc/useRCSendEvent'
 
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')
@@ -42,6 +43,8 @@ const ProductPage: FC<ProductPageProps> = (props) => {
     suspense: true,
     initialData: staticPath ? initialData : undefined,
   })
+
+  useRCSendEvent({ type: 'productView', payload: data?.vtex.product })
 
   if (!data?.vtex.product) {
     return <div>Product Not Found</div>

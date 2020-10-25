@@ -5,6 +5,7 @@ import 'requestidlecallback-polyfill'
 
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
+const { default: VTEXRCProvider } = require('./src/sdk/vtexrc/Provider')
 const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
@@ -31,7 +32,9 @@ export const replaceHydrateFunction = () => (
 }
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
-  const root = createElement(OrderFormProvider, { children: element })
+  const root = createElement(VTEXRCProvider, {
+    children: createElement(OrderFormProvider, { children: element }),
+  })
 
   if (process.env.NODE_ENV === 'development') {
     return createElement(StrictMode, {
