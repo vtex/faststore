@@ -13,6 +13,7 @@ import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
 import { SearchProvider } from '../sdk/search/Provider'
 import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
+import { useRCSendEvent } from '../sdk/vtexrc/useRCSendEvent'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
@@ -41,6 +42,15 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     variables: { ...filters, staticPath: true },
     suspense: true,
     initialData: staticPath ? staticData : undefined,
+  })
+
+  useRCSendEvent({
+    type: 'internalSearchView',
+    payload: {
+      siteSearchForm: filters.query,
+      siteSearchTerm: filters.fullText,
+      siteSearchResults: data?.vtex.productSearch?.recordsFiltered ?? 0,
+    },
   })
 
   if (!data) {

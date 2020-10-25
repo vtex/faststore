@@ -10,11 +10,22 @@ if (!window.vtexrca) {
   // eslint-disable-next-line func-names
   window.vtexrca = function () {
     // eslint-disable-next-line prefer-rest-params
-    window.vtexrca!.q.push(arguments)
+    vtexrca.q.push(arguments)
   } as any
 
-  window.vtexrca!.q = []
-  window.vtexrca!.l = +new Date()
+  Object.defineProperty(window.vtexrca, 'q', {
+    configurable: true,
+    writable: true,
+    enumerable: true,
+    value: [],
+  })
+
+  Object.defineProperty(window.vtexrca, 'l', {
+    configurable: true,
+    writable: true,
+    enumerable: true,
+    value: +new Date(),
+  })
 }
 
 const Provider = ({ children }: PropsWithChildren<unknown>) => {
