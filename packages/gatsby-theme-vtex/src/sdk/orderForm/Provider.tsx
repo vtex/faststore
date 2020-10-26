@@ -50,7 +50,7 @@ export const OrderFormProvider: FC = ({ children }) => {
     async (items) => {
       const ctl = await controler()
 
-      ctl.addToCart(id!, items, setOrderForm)
+      await ctl.addToCart(id!, items, setOrderForm)
     },
     [id]
   )
