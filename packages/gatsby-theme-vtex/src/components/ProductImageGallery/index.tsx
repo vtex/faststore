@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { Box, Flex, jsx, useSlider } from '@vtex/store-ui'
+import { jsx, Box, useSlider } from '@vtex/store-ui'
 
-import CarouselArrowLeft from './ArrowLeft'
-import CarouselArrowRight from './ArrowRight'
-import CarouselPaginationDots from './PaginationDots'
-import CarouselPage, { Item } from './Page'
+import ProductImageGalleryArrowLeft from './ArrowLeft'
+import ProductImageGalleryArrowRight from './ArrowRight'
+import ProductImageGalleryPaginationDots from './PaginationDots'
+import ProductImageGalleryPage, { Item } from './Page'
 
 interface Props {
   allItems: Item[]
@@ -14,17 +14,16 @@ interface Props {
   showDots?: boolean
   autoplay?: boolean
   autoplayTimeout?: number
-  variant?: string
 }
 
-const Carousel: FC<Props> = ({
+const variant = 'productImageGallery'
+
+const ProductImageGallery: FC<Props> = ({
   allItems,
-  loading = 'eager',
   showArrows = true,
   showDots = true,
   autoplay,
   autoplayTimeout,
-  variant = 'carousel',
 }) => {
   const {
     page,
@@ -46,27 +45,30 @@ const Carousel: FC<Props> = ({
   return (
     <Box variant={variant}>
       <Box variant={`${variant}.group`}>
-        {showArrows ? (
-          <CarouselArrowLeft
+        {showArrows && (
+          <ProductImageGalleryArrowLeft
             variant={variant}
             onClick={() => setPreviousPage()}
           />
-        ) : null}
-        <CarouselPage variant={variant} item={item} loading={loading} />
-        {showArrows ? (
-          <CarouselArrowRight variant={variant} onClick={() => setNextPage()} />
-        ) : null}
+        )}
+        <ProductImageGalleryPage variant={variant} item={item} />
+        {showArrows && (
+          <ProductImageGalleryArrowRight
+            variant={variant}
+            onClick={() => setNextPage()}
+          />
+        )}
       </Box>
-      {showDots ? (
-        <CarouselPaginationDots
+      {showDots && (
+        <ProductImageGalleryPaginationDots
           variant={variant}
           onSelect={setPage}
           selectedPage={page}
           totalPages={totalPages}
         />
-      ) : null}
+      )}
     </Box>
   )
 }
 
-export default Carousel
+export default ProductImageGallery

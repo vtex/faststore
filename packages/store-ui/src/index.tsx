@@ -26,14 +26,11 @@ export * from './Header'
 export * from './Header/theme'
 // Logo
 export * from './Logo'
-// ProgressiveImage
+// ProgressiveLoader
 export { default as ProgressiveImage } from './ProgressiveImage'
-// ResponsiveImage
-export {
-  default as ResponsiveImage,
-  IResponsiveImage,
-  IResponsiveImageSource,
-} from './ResponsiveImage'
+// ResponsivePicture
+export { default as ResponsivePicture } from './ResponsivePicture'
+export { default as responsivePictureTheme } from './ResponsivePicture/theme'
 // InfoCard
 export { default as InfoCard } from './InfoCard'
 export { default as InfoCardImage } from './InfoCard/Image'
@@ -67,7 +64,9 @@ export * from './SearchControls/theme'
 export * from './Breadcrumb'
 export { default as breadcrumbTheme } from './Breadcrumb/theme'
 // Slider
-export * from './Slider/PaginationDots'
+export { default as SliderPaginationDots } from './Slider/PaginationDots'
+export { default as SliderArrowLeft } from './Slider/ArrowLeft'
+export { default as SliderArrowRight } from './Slider/ArrowRight'
 export * from './Slider/hooks/useInterval'
 export * from './Slider/hooks/useSlider'
 export * from './Slider/hooks/useResponsiveSlider'
@@ -91,7 +90,6 @@ export { default as ProductSummaryImage } from './ProductSummary/Image'
 export { default as ProductSummaryTitle } from './ProductSummary/Title'
 export { default as ProductSummaryContainer } from './ProductSummary/Container'
 // Product Details
-export { default as ProductDetailsImage } from './ProductDetails/Image'
 export { default as ProductDetailsTitle } from './ProductDetails/Title'
 export { default as ProductDetailsGallery } from './ProductDetails/Gallery'
 export { default as ProductDetailsReference } from './ProductDetails/Reference'

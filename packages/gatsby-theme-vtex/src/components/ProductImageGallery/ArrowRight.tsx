@@ -8,7 +8,7 @@ const CarouselArrowRight: FC<Props> = (props) => (
   <SliderArrowRight
     backgroundColor="transparent"
     color="black"
-    aria-label="Next Carousel Image"
+    aria-label="Next Product Image"
     {...props}
   />
 )
