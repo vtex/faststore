@@ -1,7 +1,7 @@
 import React, { FC, Fragment, lazy } from 'react'
 import { graphql, PageProps } from 'gatsby'
 
-import ErrorBoundary from '../components/ErrorBoundary'
+import ErrorBoundary from '../components/Error/ErrorBoundary'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import AboveTheFold from '../components/ProductPage/AboveTheFold'
@@ -15,7 +15,7 @@ import {
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
 import SEO from '../components/ProductPage/SEO'
-import { useRCSendEvent } from '../sdk/vtexrc/useRCSendEvent'
+import DefaultErrorHandler from '../components/Error/ErrorHandler'
 
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')
@@ -43,8 +43,6 @@ const ProductPage: FC<ProductPageProps> = (props) => {
     suspense: true,
     initialData: staticPath ? initialData : undefined,
   })
-
-  useRCSendEvent({ type: 'productView', payload: data?.vtex.product })
 
   if (!data?.vtex.product) {
     return <div>Product Not Found</div>
@@ -81,7 +79,9 @@ const Page: FC<ProductPageProps> = (props) => {
         isPrerendered={staticPath}
         fallback={<AboveTheFoldPreview />}
       >
-        <ErrorBoundary fallback={<div>Error !!</div>}>
+        <ErrorBoundary
+          fallback={(error) => <DefaultErrorHandler error={error} />}
+        >
           <ProductPage {...props} />
         </ErrorBoundary>
       </HybridWrapper>
