@@ -32,16 +32,19 @@ export const OrderFormProvider: FC = ({ children }) => {
   useEffect(() => {
     let cancel = false
 
-    controler().then(({ getOrderForm }) =>
-      getOrderForm(id, (of) => {
-        if (!cancel) {
-          setOrderForm(of)
-        }
-      })
-    )
+    const callbackId = window.requestIdleCallback(() => {
+      controler().then(({ getOrderForm }) =>
+        getOrderForm(id, (of) => {
+          if (!cancel) {
+            setOrderForm(of)
+          }
+        })
+      )
+    })
 
     return () => {
       cancel = true
+      window.cancelIdleCallback(callbackId)
     }
   }, [id])
 

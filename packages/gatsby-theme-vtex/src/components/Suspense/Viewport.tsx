@@ -1,5 +1,7 @@
-import React, { FC, Suspense, SuspenseProps, useEffect } from 'react'
+import React, { FC, Suspense, SuspenseProps } from 'react'
 import { useInView } from 'react-hook-inview'
+
+import { useIdleEffect } from '../../sdk/useIdleEffect'
 
 interface Props extends SuspenseProps {
   preloader?: () => Promise<any>
@@ -7,10 +9,12 @@ interface Props extends SuspenseProps {
   threshold?: number // A threshold of 1.0 means that when 100% of the target is visible within the element specified by the root option, the callback is invoked.
 }
 
+const noop = () => {}
+
 const SuspenseViewport: FC<Props> = ({
   fallback,
   children,
-  preloader,
+  preloader = noop,
   rootMargin = '150px',
   threshold = 0,
 }) => {
@@ -20,8 +24,8 @@ const SuspenseViewport: FC<Props> = ({
     threshold,
   })
 
-  useEffect(() => {
-    preloader?.()
+  useIdleEffect(() => {
+    preloader()
   }, [preloader])
 
   if (!isInView) {

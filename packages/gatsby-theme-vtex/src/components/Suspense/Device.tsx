@@ -1,6 +1,7 @@
-import React, { FC, Suspense, SuspenseProps, useState, useEffect } from 'react'
+import React, { FC, Suspense, SuspenseProps, useState } from 'react'
 
 import { useDevice } from '../../sdk/media/useDevice'
+import { useIdleEffect } from '../../sdk/useIdleEffect'
 
 type Device = ReturnType<typeof useDevice>
 
@@ -16,7 +17,7 @@ const SuspenseDevice: FC<Props> = ({
   const currentDevice = useDevice()
   const [device, setDevice] = useState<Device | null>(null)
 
-  useEffect(() => {
+  useIdleEffect(() => {
     setDevice(currentDevice)
   }, [currentDevice])
 
