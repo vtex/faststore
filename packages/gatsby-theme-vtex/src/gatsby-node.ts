@@ -194,22 +194,7 @@ export const createPages = async (
 export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
 }: CreateWebpackConfigArgs) => {
-  const TerserPlugin = require('terser-webpack-plugin')
-
   setWebpackConfig({
-    optimization: {
-      minimize: false,
-      minimizer: [
-        new TerserPlugin({
-          cache: true,
-          parallel: true,
-          sourceMap: true, // Must be set to true if using source-maps in production
-          terserOptions: {
-            mangle: false,
-          },
-        }),
-      ],
-    },
     module: {
       rules: [
         {
