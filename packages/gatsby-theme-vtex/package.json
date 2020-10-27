@@ -48,6 +48,7 @@
     "markdown-loader": "^5.1.0",
     "nprogress": "^0.2.0",
     "p-queue": "^6.5.0",
+    "react-helmet-async": "^1.0.7",
     "react-hook-inview": "^4.3.0",
     "requestidlecallback-polyfill": "^1.0.2",
     "schema-dts": "^0.6.0",
