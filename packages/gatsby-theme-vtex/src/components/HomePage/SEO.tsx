@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React, { FC } from 'react'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 import { SiteMetadataQueryQuery } from './__generated__/SiteMetadataQuery.graphql'
 
@@ -30,47 +30,50 @@ const SEO: FC<Props> = ({ description, lang = 'en', meta = [], title }) => {
   const metaDescription = description ?? siteMetadata.description
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title ?? siteMetadata.title}
-      titleTemplate={`%s | ${siteMetadata.title}`}
-      meta={[
-        {
-          name: 'description',
-          content: metaDescription,
-        },
-        {
-          property: 'og:title',
-          content: title,
-        },
-        {
-          property: 'og:description',
-          content: metaDescription,
-        },
-        {
-          property: 'og:type',
-          content: 'website',
-        },
-        {
-          name: 'twitter:card',
-          content: 'summary',
-        },
-        {
-          name: 'twitter:creator',
-          content: siteMetadata.author,
-        },
-        {
-          name: 'twitter:title',
-          content: title,
-        },
-        {
-          name: 'twitter:description',
-          content: metaDescription,
-        },
-      ].concat(meta)}
-    />
+    // <Helmet
+    //   htmlAttributes={{
+    //     lang,
+    //   }}
+    //   title={title ?? siteMetadata.title}
+    //   titleTemplate={`%s | ${siteMetadata.title}`}
+    //   meta={[
+    //     {
+    //       name: 'description',
+    //       content: metaDescription,
+    //     },
+    //     {
+    //       property: 'og:title',
+    //       content: title,
+    //     },
+    //     {
+    //       property: 'og:description',
+    //       content: metaDescription,
+    //     },
+    //     {
+    //       property: 'og:type',
+    //       content: 'website',
+    //     },
+    //     {
+    //       name: 'twitter:card',
+    //       content: 'summary',
+    //     },
+    //     {
+    //       name: 'twitter:creator',
+    //       content: siteMetadata.author,
+    //     },
+    //     {
+    //       name: 'twitter:title',
+    //       content: title,
+    //     },
+    //     {
+    //       name: 'twitter:description',
+    //       content: metaDescription,
+    //     },
+    //   ].concat(meta)}
+    // />
+    <Helmet>
+      <title>{title ?? siteMetadata.title}</title>
+    </Helmet>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 import { useCurrency } from '../../../sdk/localization/useCurrency'
 import { ProductPageProps } from '../../../templates/product'
@@ -18,14 +18,15 @@ const StructuredData: FC<ProductPageProps> = ({
   }
 
   return (
-    <Helmet
-      script={[
-        {
-          type: 'application/ld+json',
-          innerHTML: JSON.stringify(structuredProduct),
-        },
-      ]}
-    />
+    // <Helmet
+    //   script={[
+    //     {
+    //       type: 'application/ld+json',
+    //       innerHTML: JSON.stringify(structuredProduct),
+    //     },
+    //   ]}
+    // />
+    null
   )
 }
 

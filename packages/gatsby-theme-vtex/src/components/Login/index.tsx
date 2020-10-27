@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { useProfile } from '../../sdk/session/useProfile'
-import SuspenseSSR from '../Suspense/SSR'
+// import SuspenseSSR from '../Suspense/SSR'
 import Anonymous from './Anonymous'
 import Authenticated from './Authenticated'
 
@@ -13,10 +13,10 @@ const Login: FC = () => {
   return isAuthenticated ? <Authenticated name={name!} /> : <Anonymous />
 }
 
-const LoginContainer: FC = () => (
-  <SuspenseSSR fallback={<Anonymous />}>
-    <Login />
-  </SuspenseSSR>
-)
+// const LoginContainer: FC = () => (
+//   <SuspenseSSR fallback={<Anonymous />}>
+//     <Login />
+//   </SuspenseSSR>
+// )
 
-export default LoginContainer
+export default Login
