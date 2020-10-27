@@ -21,7 +21,9 @@ const SuspenseViewport: FC<Props> = ({
   })
 
   useEffect(() => {
-    preloader?.()
+    const cb = window.requestIdleCallback(() => preloader?.())
+
+    return () => window.cancelIdleCallback(cb)
   }, [preloader])
 
   if (!isInView) {
