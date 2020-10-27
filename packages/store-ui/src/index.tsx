@@ -78,6 +78,8 @@ export { default as Center } from './Center'
 export * from './ProductSpecification'
 // Product Description
 export * from './ProductDescription'
+// Product Quantity
+export * from './ProductQuantity'
 // Offer
 export { default as OfferPrice } from './Offer/Price'
 export { default as OfferSoldOut } from './Offer/SoldOut'
