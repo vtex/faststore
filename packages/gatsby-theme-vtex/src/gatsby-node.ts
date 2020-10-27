@@ -2,6 +2,7 @@ import { join, resolve } from 'path'
 
 import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
+import TerserPlugin from 'terser-webpack-plugin'
 
 import { Environment, Options } from './gatsby-config'
 
@@ -195,6 +196,19 @@ export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
 }: CreateWebpackConfigArgs) => {
   setWebpackConfig({
+    optimization: {
+      minimize: false,
+      minimizer: [
+        new TerserPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: true, // Must be set to true if using source-maps in production
+          terserOptions: {
+            mangle: false,
+          },
+        }),
+      ],
+    },
     module: {
       rules: [
         {
