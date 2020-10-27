@@ -25,6 +25,7 @@
     "@types/nprogress": "^0.2.0",
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
+    "@types/react-helmet-async": "^1.0.3",
     "cross-env": "^7.0.2",
     "gatsby": "^2.24.43",
     "typescript": "^3.9.5"
@@ -53,5 +54,5 @@
     "swr": "^0.3.0",
     "text-mask-core": "^5.1.0"
   },
-  "gitHead": "3ff144cec89c213bc16406e74235cfb3d217c357"
+  "gitHead": "528840754196ea9c565c174754cfe3cd7ac168b1"
 }
