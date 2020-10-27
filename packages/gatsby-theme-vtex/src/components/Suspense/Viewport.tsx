@@ -7,10 +7,12 @@ interface Props extends SuspenseProps {
   threshold?: number // A threshold of 1.0 means that when 100% of the target is visible within the element specified by the root option, the callback is invoked.
 }
 
+const noop = () => {}
+
 const SuspenseViewport: FC<Props> = ({
   fallback,
   children,
-  preloader,
+  preloader = noop,
   rootMargin = '150px',
   threshold = 0,
 }) => {
@@ -21,7 +23,7 @@ const SuspenseViewport: FC<Props> = ({
   })
 
   useEffect(() => {
-    const cb = window.requestIdleCallback(() => preloader?.())
+    const cb = window.requestIdleCallback(preloader)
 
     return () => window.cancelIdleCallback(cb)
   }, [preloader])
