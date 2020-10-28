@@ -6,7 +6,7 @@ import { isBot, isDevelopment } from '../../../utils/env'
 import SiteMetadataSEO from '../../HomePage/SEO'
 import StructuredData from './StructuredData'
 
-const withSyncMetadata = true // isBot || isDevelopment
+const withSyncMetadata = isBot || isDevelopment
 
 const SEO: FC<ProductPageProps> = (props) => {
   const [metadata, setMetadata] = useState(withSyncMetadata)
