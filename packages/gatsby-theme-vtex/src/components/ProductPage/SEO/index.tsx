@@ -6,12 +6,12 @@ import { isBot, isDevelopment } from '../../../utils/env'
 import SiteMetadataSEO from '../../HomePage/SEO'
 import StructuredData from './StructuredData'
 
-const withSyncMetadata = isBot || isDevelopment
+const withSyncMetadata = true // isBot || isDevelopment
 
 const SEO: FC<ProductPageProps> = (props) => {
   const [metadata, setMetadata] = useState(withSyncMetadata)
 
-  useIdleEffect(() => setMetadata(false))
+  useIdleEffect(() => setMetadata(true))
 
   if (!metadata) {
     return null
