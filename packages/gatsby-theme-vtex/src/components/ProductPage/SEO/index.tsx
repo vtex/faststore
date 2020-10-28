@@ -11,7 +11,7 @@ const withSyncMetadata = isBot || isDevelopment
 const SEO: FC<ProductPageProps> = (props) => {
   const [metadata, setMetadata] = useState(withSyncMetadata)
 
-  useIdleEffect(() => setMetadata(true))
+  useIdleEffect(() => setMetadata(true), [])
 
   if (!metadata) {
     return null
