@@ -18,7 +18,7 @@ const StructuredData: FC<ProductPageProps> = ({
   }
 
   return (
-    <Helmet>
+    <Helmet defer={false} async={false}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredProduct) }}
