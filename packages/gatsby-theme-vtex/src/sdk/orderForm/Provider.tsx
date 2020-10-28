@@ -19,6 +19,7 @@ const controler = () => import('./controller')
 export type OrderFormContext = {
   value: OrderFormFragment_OrderFormFragment | null
   addToCart: (items: OrderFormItem[]) => Promise<void>
+  updateItems: (items: OrderFormItem[]) => Promise<void>
 }
 
 export const OrderForm = createContext<OrderFormContext>(undefined as any)
@@ -58,11 +59,21 @@ export const OrderFormProvider: FC = ({ children }) => {
     [id]
   )
 
+  const updateItems = useCallback(
+    async (items) => {
+      const ctl = await controler()
+
+      await ctl.updateItems({ orderFormId: id!, items, callback: setOrderForm })
+    },
+    [id]
+  )
+
   return (
     <OrderForm.Provider
       value={{
         value: orderForm,
         addToCart,
+        updateItems,
       }}
     >
       {children}
