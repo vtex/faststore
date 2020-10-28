@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useIdleEffect } from '../useIdleEffect'
 
 interface Options {
   src: string
@@ -22,12 +22,5 @@ const registerScript = ({ id, src }: Options) => {
   document.getElementsByTagName('head')[0].appendChild(script)
 }
 
-export const useLazyScript = (options: Options) => {
-  useEffect(() => {
-    const callbackId = window.requestIdleCallback(() => registerScript(options))
-
-    return () => {
-      window.cancelIdleCallback(callbackId)
-    }
-  }, [])
-}
+export const useLazyScript = (options: Options) =>
+  useIdleEffect(() => registerScript(options))

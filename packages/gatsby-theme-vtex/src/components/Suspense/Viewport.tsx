@@ -1,5 +1,7 @@
-import React, { FC, Suspense, SuspenseProps, useEffect } from 'react'
+import React, { FC, Suspense, SuspenseProps } from 'react'
 import { useInView } from 'react-hook-inview'
+
+import { useIdleEffect } from '../../sdk/useIdleEffect'
 
 interface Props extends SuspenseProps {
   preloader?: () => Promise<any>
@@ -22,11 +24,7 @@ const SuspenseViewport: FC<Props> = ({
     threshold,
   })
 
-  useEffect(() => {
-    const cb = window.requestIdleCallback(preloader)
-
-    return () => window.cancelIdleCallback(cb)
-  }, [preloader])
+  useIdleEffect(preloader)
 
   if (!isInView) {
     return <div ref={ref}>{fallback}</div>

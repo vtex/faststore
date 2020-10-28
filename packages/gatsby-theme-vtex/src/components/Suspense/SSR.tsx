@@ -1,13 +1,11 @@
-import React, { FC, Suspense, SuspenseProps, useEffect, useState } from 'react'
+import React, { FC, Suspense, SuspenseProps, useState } from 'react'
+
+import { useIdleEffect } from '../../sdk/useIdleEffect'
 
 const SuspenseSSR: FC<SuspenseProps> = ({ fallback, children }) => {
   const [hydrating, setHydrating] = useState(true)
 
-  useEffect(() => {
-    const id = window.requestIdleCallback(() => setHydrating(false))
-
-    return () => window.cancelIdleCallback(id)
-  }, [])
+  useIdleEffect(() => setHydrating(false))
 
   if (hydrating) {
     return <>{fallback}</>

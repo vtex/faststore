@@ -1,7 +1,8 @@
-import { FC, useEffect, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { useThemeUI } from '@vtex/store-ui'
 
 import { NProgress } from './controller'
+import { useIdleEffect } from '../useIdleEffect'
 
 const loadController = () => import('./controller')
 
@@ -21,8 +22,8 @@ export const Progress: FC<Props> = ({ children, location }) => {
   } = useThemeUI()
 
   // Load and Setup nprogress once the browser is idle
-  useEffect(() => {
-    const handler = window.requestIdleCallback(async () => {
+  useIdleEffect(() => {
+    ;(async () => {
       const controller = await loadController()
 
       // nprogress default options
@@ -31,9 +32,7 @@ export const Progress: FC<Props> = ({ children, location }) => {
         showSpinner: false,
         trickleSpeed: 100,
       })
-    })
-
-    return () => window.cancelIdleCallback(handler)
+    })()
   }, [colors])
 
   // Starts progress bar after milliseconds
