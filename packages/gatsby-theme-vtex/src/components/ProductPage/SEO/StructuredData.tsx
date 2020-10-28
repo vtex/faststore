@@ -18,14 +18,12 @@ const StructuredData: FC<ProductPageProps> = ({
   }
 
   return (
-    <Helmet
-      script={[
-        {
-          type: 'application/ld+json',
-          innerHTML: JSON.stringify(structuredProduct),
-        },
-      ]}
-    />
+    <Helmet>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredProduct) }}
+      />
+    </Helmet>
   )
 }
 
