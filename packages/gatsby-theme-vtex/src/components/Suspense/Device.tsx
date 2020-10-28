@@ -17,7 +17,9 @@ const SuspenseDevice: FC<Props> = ({
   const [device, setDevice] = useState<Device | null>(null)
 
   useEffect(() => {
-    setDevice(currentDevice)
+    const id = window.requestIdleCallback(() => setDevice(currentDevice))
+
+    return () => window.cancelIdleCallback(id)
   }, [currentDevice])
 
   if (targetDevice !== device) {
