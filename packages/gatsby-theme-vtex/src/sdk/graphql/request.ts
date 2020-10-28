@@ -16,7 +16,7 @@ export const request = async <
     fetchOptions: {
       ...options.fetchOptions,
       headers: {
-        'x-vtex-graphql-referer': window.location.host,
+        'x-forwarded-host': window.location.host,
         ...options.fetchOptions?.headers,
       },
     },
