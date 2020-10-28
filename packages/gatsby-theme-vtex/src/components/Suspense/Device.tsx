@@ -1,4 +1,4 @@
-import React, { FC, Suspense, SuspenseProps, useState, useEffect } from 'react'
+import React, { FC, Suspense, SuspenseProps, useState } from 'react'
 
 import { useDevice } from '../../sdk/media/useDevice'
 import { useIdleEffect } from '../../sdk/useIdleEffect'
