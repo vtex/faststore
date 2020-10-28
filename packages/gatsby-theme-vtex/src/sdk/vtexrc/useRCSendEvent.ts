@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useIdleEffect } from '../useIdleEffect'
 
 interface HomeView {
   type: 'homeView'
@@ -23,7 +23,7 @@ interface InternalSearchView {
 type ViewEvent = HomeView | ProductView | InternalSearchView
 
 export const useRCSendEvent = ({ type, payload }: ViewEvent) => {
-  useEffect(() => {
+  useIdleEffect(() => {
     window.vtexrca('sendevent', type, payload)
   }, [type, payload])
 }

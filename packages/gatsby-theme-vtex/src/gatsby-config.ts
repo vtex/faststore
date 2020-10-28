@@ -72,10 +72,10 @@ module.exports = ({
         },
       },
       {
-        resolve: require.resolve('@vtex/gatsby-plugin-theme-ui'),
+        resolve: require.resolve('gatsby-plugin-react-helmet-async'),
       },
       {
-        resolve: require.resolve('gatsby-plugin-react-helmet'),
+        resolve: require.resolve('@vtex/gatsby-plugin-theme-ui'),
       },
       {
         // Makes it possible to share graphql queries between

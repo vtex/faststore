@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@vtex/store-ui'
-import { FC, Fragment, lazy, Suspense, useEffect, useState } from 'react'
+import { FC, Fragment, lazy, Suspense, useState } from 'react'
 
+import { useIdleEffect } from '../../sdk/useIdleEffect'
 import CustomMinicartButton from './Button'
 
 const preloadDrawer = () => import('./Drawer')
@@ -12,10 +13,8 @@ const Minicart: FC = () => {
   const [isOpen, setOpen] = useState(false)
   const toggle = () => setOpen(!isOpen)
 
-  useEffect(() => {
-    const handler = window.requestIdleCallback(preloadDrawer)
-
-    return () => window.cancelIdleCallback(handler)
+  useIdleEffect(() => {
+    preloadDrawer()
   }, [])
 
   const customVariant = 'minicart'

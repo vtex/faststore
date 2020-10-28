@@ -4,7 +4,7 @@ import {
   getMeta,
 } from '@vtex/gatsby-transformer-vtex-cms'
 import React, { FC, Suspense } from 'react'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 import Block from '../components/cms/Block'
 import { CMS_CONTENT, setupIframeListener } from '../components/cms/iframe'
