@@ -1,5 +1,5 @@
-import React, { FC, Fragment, useCallback } from 'react'
-import { Box, Button, Flex, Input } from 'theme-ui'
+import React, { FC, Fragment, useCallback, useRef } from 'react'
+import { Button, Flex, Input } from 'theme-ui'
 
 export interface NumericStepperProps {
   variant?: string
@@ -13,6 +13,7 @@ export const NumericStepper: FC<NumericStepperProps> = ({
   maxValue,
   children,
 }) => {
+  const inputRef = useRef<HTMLInputElement | null>(null)
   var displayValue = 1
 
   const increaseNumber = useCallback(() => {
@@ -27,21 +28,37 @@ export const NumericStepper: FC<NumericStepperProps> = ({
     if (displayValue < minValue) displayValue = minValue
   }, [displayValue, minValue])
 
+  const onChange = useCallback(() => {
+    displayValue = displayValue - 1
+    if (displayValue < minValue) displayValue = minValue
+  }, [displayValue, minValue])
+
+  const isMax = maxValue ? displayValue >= maxValue : false
+  const isMin = displayValue <= minValue
+
   return (
     <Fragment>
       <Flex variant={`${variant}.numericStepper`}>
         <Button
           variant={`${variant}.numericStepper.button.minus`}
-          aria-label="-"
           onClick={() => decreaseNumber()}
-        ></Button>
-        <Input>{displayValue}</Input>
-        <Box variant={`${variant}.numericStepper.input`}></Box>
+          disabled={isMin}
+        >
+          -
+        </Button>
+        <Input
+          ref={inputRef}
+          value={displayValue}
+          onChange={onChange}
+          variant={`${variant}.numericStepper.input`}
+        />
         <Button
           variant={`${variant}.numericStepper.button.plus`}
-          aria-label="+"
           onClick={() => increaseNumber()}
-        ></Button>
+          disabled={isMax}
+        >
+          +
+        </Button>
         {children}
       </Flex>
     </Fragment>
