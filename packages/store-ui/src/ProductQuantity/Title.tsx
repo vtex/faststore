@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Heading } from 'theme-ui'
+import { Text } from 'theme-ui'
 
 export interface ProductQuantityTitleProps {
   variant?: string
@@ -8,4 +8,4 @@ export interface ProductQuantityTitleProps {
 export const ProductQuantityTitle: FC<ProductQuantityTitleProps> = ({
   variant = 'productDescription',
   children,
-}) => <Heading variant={`${variant}.title`}>{children}</Heading>
+}) => <Text variant={`${variant}.title`}>{children}</Text>
