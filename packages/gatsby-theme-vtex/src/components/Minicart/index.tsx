@@ -15,7 +15,7 @@ const Minicart: FC = () => {
 
   useIdleEffect(() => {
     preloadDrawer()
-  })
+  }, [])
 
   const customVariant = 'minicart'
 
