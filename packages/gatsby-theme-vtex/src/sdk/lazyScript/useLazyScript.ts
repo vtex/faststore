@@ -23,4 +23,4 @@ const registerScript = ({ id, src }: Options) => {
 }
 
 export const useLazyScript = (options: Options) =>
-  useIdleEffect(() => registerScript(options))
+  useIdleEffect(() => registerScript(options), [])

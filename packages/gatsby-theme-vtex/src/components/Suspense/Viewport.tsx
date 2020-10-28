@@ -24,7 +24,9 @@ const SuspenseViewport: FC<Props> = ({
     threshold,
   })
 
-  useIdleEffect(preloader)
+  useIdleEffect(() => {
+    preloader()
+  }, [preloader])
 
   if (!isInView) {
     return <div ref={ref}>{fallback}</div>
