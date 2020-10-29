@@ -45,6 +45,7 @@ export const productQuantityTheme: SxStyleProp = {
         },
 
         plus: {
+          marginRight: 20,
           borderWidth: '0.125rem',
           borderTopLeftRadius: 0,
           borderBottomLeftRadius: 0,
