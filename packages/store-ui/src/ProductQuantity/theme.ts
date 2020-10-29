@@ -8,6 +8,7 @@ export const productQuantityTheme: SxStyleProp = {
       mt: 4,
       mb: 2,
       color: '#717172',
+      fontSize: '14px',
     },
 
     numericStepper: {
@@ -17,12 +18,13 @@ export const productQuantityTheme: SxStyleProp = {
       input: {
         width: 80,
         textAlign: 'center',
-        margin: '-0.125rem',
+        margin: 0,
 
         boxSizing: 'border-box',
         borderStyle: 'solid',
         borderWidth: '0.125rem',
         borderColor: '#e3e4e6',
+        borderRadius: 0,
       },
 
       button: {
@@ -30,21 +32,23 @@ export const productQuantityTheme: SxStyleProp = {
 
         boxSizing: 'border-box',
         borderStyle: 'solid',
-        borderWidth: '0.125rem',
         borderColor: '#e3e4e6',
 
         backgroundColor: 'transparent',
         color: '#0f3e99',
-        margin: 0,
 
         minus: {
+          borderWidth: '0.125rem',
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,
+          borderRightWidth: 0,
         },
 
         plus: {
+          borderWidth: '0.125rem',
           borderTopLeftRadius: 0,
           borderBottomLeftRadius: 0,
+          borderLeftWidth: 0,
         },
       },
     },

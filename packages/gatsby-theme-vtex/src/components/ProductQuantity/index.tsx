@@ -1,5 +1,6 @@
+import { Box } from '@vtex/store-ui'
 import { ProductQuantityTitle, NumericStepper } from '@vtex/store-ui'
-import React, { FC, Fragment } from 'react'
+import React, { FC } from 'react'
 
 import useProductQuantity from './useProductQuantity'
 
@@ -11,10 +12,10 @@ const Quantity: FC<Props> = ({ slug }) => {
   const quantity = useProductQuantity({ slug })
 
   return (
-    <Fragment>
-      <ProductQuantityTitle>Description</ProductQuantityTitle>
+    <Box>
+      <ProductQuantityTitle>Quantity</ProductQuantityTitle>
       <NumericStepper {...quantity} />
-    </Fragment>
+    </Box>
   )
 }
 
