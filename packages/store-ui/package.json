@@ -1,6 +1,10 @@
 {
   "name": "@vtex/store-ui",
+<<<<<<< HEAD
   "version": "0.116.0",
+=======
+  "version": "0.115.1-productQuantity.0",
+>>>>>>> a121ac3b... Release: 0.115.1-productQuantity.0
   "description": "Next store component library",
   "author": "emersonlaurentino",
   "license": "MIT",
