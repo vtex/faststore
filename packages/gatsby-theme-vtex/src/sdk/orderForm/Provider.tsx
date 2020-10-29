@@ -63,7 +63,7 @@ export const OrderFormProvider: FC = ({ children }) => {
     async (items) => {
       const ctl = await controler()
 
-      await ctl.updateItems({ orderFormId: id!, items, callback: setOrderForm })
+      ctl.updateItems({ orderFormId: id!, items, callback: setOrderForm })
     },
     [id]
   )

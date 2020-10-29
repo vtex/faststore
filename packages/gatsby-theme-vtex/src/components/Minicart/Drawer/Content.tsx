@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Flex, Text } from 'theme-ui'
 
+import MinicartDelete from './Delete'
 import MinicartQuantity from './Quantity'
 
 export interface DataItem {
@@ -44,13 +45,16 @@ export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
             <Box {...imageProps(item)} />
           </Box>
           <Flex variant={`${customVariant}.product.name`}>
-            <Text variant={`${customVariant}.product.name.text`}>
-              {item.name}
-            </Text>
+            <Flex>
+              <Text variant={`${customVariant}.product.name.text`}>
+                {item.name}
+              </Text>
+              <MinicartDelete index={idx} variant={customVariant} />
+            </Flex>
             <Text variant={`${customVariant}.product.name.value`}>
               {`${currency} ${item.price}`}
             </Text>
-            <MinicartQuantity index={idx} />
+            <MinicartQuantity index={idx} variant={customVariant} />
           </Flex>
         </Flex>
       ))}
