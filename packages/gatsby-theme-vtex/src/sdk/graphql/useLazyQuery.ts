@@ -1,5 +1,6 @@
-import { request, RequestOptions } from '@vtex/gatsby-plugin-graphql'
 import useSWR, { ConfigInterface } from 'swr'
+
+import { request, RequestOptions } from './request'
 
 type QueryOptions = ConfigInterface & RequestOptions
 
@@ -18,16 +19,9 @@ export const useLazyQuery = <
   })
 
   const execute = async (variables: Variables) => {
-    const { data } = await request<Variables, Query>('/graphql/', {
+    const data = await request<Query, Variables>({
       ...options,
       variables,
-      fetchOptions: {
-        ...options.fetchOptions,
-        headers: {
-          'x-vtex-graphql-referer': window.location.host,
-          ...options.fetchOptions?.headers,
-        },
-      },
     })
 
     response.mutate(data, false)
