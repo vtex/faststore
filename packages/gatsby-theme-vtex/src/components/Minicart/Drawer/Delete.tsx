@@ -15,7 +15,7 @@ const MinicartDelete = (props: Props) => {
     variant: `${props.variant}.delete`,
     onClick: () => {
       setIsLoading(true)
-      updateItems(0)
+      updateItems(0, () => setIsLoading(false))
     },
   }
 
