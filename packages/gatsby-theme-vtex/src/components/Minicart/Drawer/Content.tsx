@@ -5,7 +5,7 @@ import MinicartDelete from './Delete'
 import MinicartQuantity from './Quantity'
 
 export interface DataItem {
-  id: string | number
+  id: number
   image: {
     alt: string
     src: string
