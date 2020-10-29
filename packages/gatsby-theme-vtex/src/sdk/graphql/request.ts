@@ -14,6 +14,7 @@ export const request = async <
   const { data, errors } = await baseRequest<Variables, Query>('/graphql/', {
     ...options,
     fetchOptions: {
+      credentials: 'omit', // we should NOT use cookies in graphql
       ...options.fetchOptions,
       headers: {
         'x-vtex-graphql-referer': window.location.host,
