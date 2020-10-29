@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Quantity: FC<Props> = ({ slug }) => {
-  const quantity = useProductQuantity({ slug })
+  const quantity = { maxValue: undefined }
 
   return (
     <Box>
