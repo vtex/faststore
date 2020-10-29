@@ -5,9 +5,8 @@ import {
 } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
-import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
-import { useCurrency } from '../../../sdk/localization/useCurrency'
 import { OrderFormContext } from '../../../sdk/orderForm/Provider'
+import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
 import { IMAGE_DEFAULT } from '../../../sdk/product/constants'
 import { HeaderMinicartDrawerContent } from './Content'
 import { HeaderMinicartDrawerFooter } from './Footer'
@@ -35,7 +34,6 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
   variant,
 }) => {
   const orderForm = useOrderForm()
-  const [currency] = useCurrency()
   const count = orderForm?.value?.items.length ?? 0
   const contentData = useHeaderMinicartDrawerContentData(orderForm)
 
@@ -58,14 +56,8 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
         {...contentData}
         imageElement={AspectImage}
         variant={customVariant}
-        currency={currency}
       />
-      <HeaderMinicartDrawerFooter
-        currency={currency}
-        variant={customVariant}
-        total={orderForm.value?.value}
-        subtotal={orderForm.value?.value}
-      />
+      <HeaderMinicartDrawerFooter variant={customVariant} />
     </MinicartDrawer>
   )
 }
