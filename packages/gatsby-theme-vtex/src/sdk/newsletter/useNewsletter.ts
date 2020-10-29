@@ -34,7 +34,7 @@ const useNewsletter = () => {
       setData(null)
       setLoading(true)
 
-      addToNewsletter(user)
+      return addToNewsletter(user)
         .then((response) => {
           setData(response as MDResponse)
         })
@@ -42,7 +42,7 @@ const useNewsletter = () => {
           setError(true)
         })
         .finally(() => {
-          setLoading(true)
+          setLoading(false)
         })
     },
     [setError, setData, setLoading]
