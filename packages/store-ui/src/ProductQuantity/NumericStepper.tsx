@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useCallback, useRef } from 'react'
+import React, { FC, Fragment, useCallback } from 'react'
 import { Button, Flex, Input } from 'theme-ui'
 
 export interface NumericStepperProps {
@@ -7,34 +7,41 @@ export interface NumericStepperProps {
   maxValue?: number | undefined
 }
 
+var currentQuantity = 1
+
+export const getCurrentQuantity = () => {
+  return currentQuantity
+}
+
 export const NumericStepper: FC<NumericStepperProps> = ({
   variant = 'productQuantity',
   minValue,
   maxValue,
   children,
 }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null)
-  var displayValue = 1
+  var [quantity, setQuantity] = React.useState<number>(1)
+
+  const updateQuantity = (value: number) => {
+    currentQuantity = value
+    setQuantity(value)
+  }
 
   const increaseNumber = useCallback(() => {
-    displayValue = displayValue + 1
+    quantity = quantity + 1
     if (maxValue) {
-      if (displayValue > maxValue) displayValue = maxValue
+      if (quantity > maxValue) quantity = maxValue
     }
-  }, [displayValue, maxValue])
+    updateQuantity(quantity)
+  }, [quantity, maxValue])
 
   const decreaseNumber = useCallback(() => {
-    displayValue = displayValue - 1
-    if (displayValue < minValue) displayValue = minValue
-  }, [displayValue, minValue])
+    quantity = quantity - 1
+    if (quantity < minValue) quantity = minValue
+    updateQuantity(quantity)
+  }, [quantity, minValue])
 
-  const onChange = useCallback(() => {
-    displayValue = displayValue - 1
-    if (displayValue < minValue) displayValue = minValue
-  }, [displayValue, minValue])
-
-  const isMax = maxValue ? displayValue >= maxValue : false
-  const isMin = displayValue <= minValue
+  const isMax = maxValue ? quantity >= maxValue : false
+  const isMin = quantity <= minValue
 
   return (
     <Fragment>
@@ -47,9 +54,8 @@ export const NumericStepper: FC<NumericStepperProps> = ({
           -
         </Button>
         <Input
-          ref={inputRef}
-          value={displayValue}
-          onChange={onChange}
+          value={quantity}
+          onChange={(e) => updateQuantity(Number(e.target.value))}
           variant={`${variant}.numericStepper.input`}
         />
         <Button
