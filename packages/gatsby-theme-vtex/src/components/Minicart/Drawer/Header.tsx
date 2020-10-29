@@ -1,6 +1,8 @@
-import React, { FC } from 'react'
-import { Box, Button, Heading } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Box, Heading } from '@vtex/store-ui'
+import React, { FC } from 'react'
+
+import { MinicartClose } from './Close'
 
 interface HeaderMinicartDrawerHeaderProps {
   variant?: string
@@ -18,9 +20,7 @@ export const HeaderMinicartDrawerHeader: FC<HeaderMinicartDrawerHeaderProps> = (
 
   return (
     <Box variant={headerVariant}>
-      <Button onClick={onClose} variant={`${headerVariant}.close`}>
-        {formatMessage({ id: 'minicart.drawer.close' })}
-      </Button>
+      <MinicartClose variant={headerVariant} onClose={onClose} />
       <Heading as="h1" variant={`${headerVariant}.title`}>
         {formatMessage({ id: 'minicart.drawer.count' }, { count })}
       </Heading>
