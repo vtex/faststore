@@ -1,32 +1,31 @@
-import { Select, Input } from '@vtex/store-ui'
+import { Input, Select } from '@vtex/store-ui'
 import React, { useState } from 'react'
 
-import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
+import { useItem } from './useItem'
+import { useUpdateItems } from './useUpdateItems'
 
 type Props = {
   index: number
+  variant?: string
 }
 
 const MinicartQuantity = (props: Props) => {
-  const { value, updateItems } = useOrderForm()
-  const data = value?.items[props.index]
-  const [quantityLocally, setValue] = useState<number>(data?.quantity ?? 1)
+  const updateItems = useUpdateItems(props.index)
+  const item = useItem(props.index)
+  const [quantityLocally, setQuantityLocally] = useState<number>(item.quantity)
+
+  const onChange = (e: any) => {
+    const quantity = Number(e.target.value)
+
+    setQuantityLocally(quantity)
+
+    updateItems(quantity)
+  }
+
   const useQuantity = {
     value: quantityLocally,
-    onChange: async (e: any) => {
-      const quantity = Number(e.target.value)
-
-      setValue(quantity)
-
-      const item = {
-        id: Number(data?.id),
-        quantity,
-        seller: data?.seller ?? '1',
-        index: props.index,
-      }
-
-      await updateItems([item])
-    },
+    variant: `${props.variant}.quantity`,
+    onChange,
   }
 
   return quantityLocally >= 10 ? (
