@@ -1,6 +1,7 @@
 {
   "minicart.drawer.close": "Close",
   "minicart.drawer.count": "Count ({count})",
+  "minicart.drawer.quantity.remove": "0 - to remove",
   "minicart.drawer.subtotal": "Subtotal",
   "minicart.drawer.total": "Total",
   "minicart.drawer.shipping-disclaimer": "Shipping and taxes calculated at checkout.",

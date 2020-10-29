@@ -1,3 +1,4 @@
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Input, Select } from '@vtex/store-ui'
 import React, { useState } from 'react'
 
@@ -11,6 +12,7 @@ type Props = {
 
 const MinicartQuantity = (props: Props) => {
   const updateItems = useUpdateItems(props.index)
+  const { formatMessage } = useIntl()
   const item = useItem(props.index)
   const [quantityLocally, setQuantityLocally] = useState<number>(item.quantity)
 
@@ -32,7 +34,9 @@ const MinicartQuantity = (props: Props) => {
     <Input {...useQuantity} />
   ) : (
     <Select {...useQuantity}>
-      <option value={0}>0 - remover</option>
+      <option value={0}>
+        {formatMessage({ id: 'minicart.drawer.quantity.remove' })}
+      </option>
       <option value={1}>1</option>
       <option value={2}>2</option>
       <option value={3}>3</option>
