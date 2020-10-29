@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Flex, Text } from 'theme-ui'
 
+import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 import MinicartDelete from './Delete'
 import MinicartQuantity from './Quantity'
 
@@ -17,14 +18,12 @@ export interface DataItem {
 export interface MinicartContentProps {
   data: DataItem[]
   variant: string
-  currency: string
   imageElement: React.ElementType
 }
 
 export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
   data,
   variant,
-  currency,
   imageElement,
 }) => {
   const customVariant = `${variant}.content`
@@ -36,6 +35,8 @@ export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
     alt: item.image.alt,
     loading: 'lazy',
   })
+
+  const { format } = useNumberFormat()
 
   return (
     <Flex variant={customVariant}>
@@ -51,10 +52,10 @@ export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
               </Text>
               <MinicartDelete index={idx} variant={customVariant} />
             </Flex>
-            <Text variant={`${customVariant}.product.name.value`}>
-              {`${currency} ${item.price}`}
-            </Text>
             <MinicartQuantity index={idx} variant={customVariant} />
+            <Text variant={`${customVariant}.product.name.value`}>
+              {format(Number(item.price) / 100)}
+            </Text>
           </Flex>
         </Flex>
       ))}
