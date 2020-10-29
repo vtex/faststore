@@ -1,42 +1,39 @@
-import React, { FC } from 'react'
-import { Flex, MinicartDrawerPrice, Text, Button } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Button, Flex, Text } from '@vtex/store-ui'
+import React, { FC } from 'react'
+
+import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
+import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
 
 export interface HeaderMinicartDrawerFooterProps {
   variant?: string
-  currency: string
-  subtotal?: number
-  total?: number
 }
 
 export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = ({
-  currency,
-  total = 0,
-  subtotal = 0,
   variant,
 }) => {
   const customVariant = `${variant}.footer`
+  const orderForm = useOrderForm()
   const { formatMessage } = useIntl()
+  const { format } = useNumberFormat()
+  const total = format(Number(orderForm.value?.value) / 100)
+  const subTotal = total
 
   return (
     <Flex variant={customVariant}>
-      <MinicartDrawerPrice
-        variant={`${customVariant}.total`}
-        currency={currency}
-        text="Total"
-        value={total}
-      />
-      <MinicartDrawerPrice
-        variant={`${customVariant}.subtotal`}
-        currency={currency}
-        text="Subtotal"
-        value={subtotal}
-      />
+      <Flex variant={`${customVariant}.total`}>
+        <Text variant={`${customVariant}.total.text`}>Total</Text>
+        <Text variant={`${customVariant}.total.value`}>{total}</Text>
+      </Flex>
+      <Flex variant={`${customVariant}.subtotal`}>
+        <Text variant={`${customVariant}.subtotal.text`}>Subtotal</Text>
+        <Text variant={`${customVariant}.subtotal.value`}>{subTotal}</Text>
+      </Flex>
       <Text variant={`${customVariant}.message`}>
         {formatMessage({ id: 'minicart.drawer.shipping-disclaimer' })}
       </Text>
       <Button
-        onClick={(e) => {
+        onClick={(e: any) => {
           e.preventDefault()
           window.location.href = '/checkout/'
         }}
