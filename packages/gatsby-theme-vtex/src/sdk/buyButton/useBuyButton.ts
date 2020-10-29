@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { getCurrentQuantity } from '@vtex/store-ui'
 
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
@@ -33,7 +34,7 @@ export const useBuyButton = (sku: Maybe<SKU>) => {
     // Item to be updated into the orderForm
     const orderFormItem = {
       id: Number(sku!.itemId),
-      quantity: 1,
+      quantity: getCurrentQuantity(),
       seller: seller.sellerId,
     }
 
