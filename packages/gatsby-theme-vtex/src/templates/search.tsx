@@ -12,9 +12,10 @@ import BelowTheFoldPreview from '../components/SearchPage/BelowTheFoldPreview'
 import SEO from '../components/SearchPage/SEO'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
+import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 import { SearchProvider } from '../sdk/search/Provider'
 import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
-import { useRCSendEvent } from '../sdk/vtexrc/useRCSendEvent'
+import { isServer } from '../utils/env'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
@@ -45,23 +46,36 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     initialData: staticPath ? staticData : undefined,
   })
 
-  useRCSendEvent({
-    type: 'internalSearchView',
-    payload: {
-      siteSearchForm: filters.query,
-      siteSearchTerm: filters.fullText,
-      siteSearchResults: data?.vtex.productSearch?.recordsFiltered ?? 0,
-    },
-  })
-
-  if (!data) {
-    return <div>Not Found</div>
-  }
+  usePixelSendEvent(
+    () => [
+      {
+        type: 'vtex:pageView',
+        data: {
+          pageUrl: window.location.href,
+          pageTitle: document.title,
+          referrer: document.referrer,
+          accountName: process.env.GATSBY_VTEX_TENANT!,
+        },
+      },
+      {
+        type: 'vtex:internalSiteSearchView',
+        data: {
+          accountName: process.env.GATSBY_VTEX_TENANT!,
+          pageUrl: window.location.href,
+          pageTitle: document.title,
+          referrer: document.referrer,
+          term: filters.fullText ?? '',
+          results: data?.vtex.productSearch?.recordsFiltered ?? 0,
+        },
+      },
+    ],
+    isServer ? '' : window.location.href
+  )
 
   return (
-    <SearchProvider filters={filters as any} data={data}>
-      <AboveTheFold {...props} data={data} />
-      <SEO {...props} data={data} />
+    <SearchProvider filters={filters as any} data={data!}>
+      <AboveTheFold {...props} data={data!} />
+      <SEO {...props} data={data!} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
