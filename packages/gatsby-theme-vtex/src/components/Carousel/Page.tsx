@@ -3,7 +3,7 @@ import { LocalizedLink, ResponsivePicture } from '@vtex/store-ui'
 
 type IResponsivePicture = ComponentPropsWithoutRef<typeof ResponsivePicture>
 
-export interface Item extends Omit<IResponsivePicture, 'variant'> {
+export interface Item extends Omit<IResponsivePicture, 'variant' | 'loading'> {
   href: string
 }
 

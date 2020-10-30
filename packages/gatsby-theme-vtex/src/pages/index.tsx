@@ -6,7 +6,7 @@ import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
 import Layout from '../components/Layout'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import SEO from '../components/HomePage/SEO'
-import { useRCSendEvent } from '../sdk/vtexrc/useRCSendEvent'
+import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 
 const belowTheFoldPreloader = () =>
   import('../components/HomePage/BelowTheFold')
@@ -16,7 +16,25 @@ const BelowTheFold = lazy(belowTheFoldPreloader)
 type Props = PageProps<unknown>
 
 const Home: FC<Props> = (props) => {
-  useRCSendEvent({ type: 'homeView', payload: {} })
+  usePixelSendEvent(() => {
+    const event = {
+      pageUrl: window.location.href,
+      pageTitle: document.title,
+      referrer: '',
+      accountName: process.env.GATSBY_VTEX_TENANT!,
+    }
+
+    return [
+      {
+        type: 'vtex:homeView',
+        data: event,
+      },
+      {
+        type: 'vtex:pageView',
+        data: event,
+      },
+    ]
+  })
 
   return (
     <Layout>

@@ -3,6 +3,7 @@ import { useIdleEffect } from '../useIdleEffect'
 interface Options {
   src: string
   id: string
+  timeout?: number // add script to the page after timeout ms after idleCallback fired
 }
 
 const registerScript = ({ id, src }: Options) => {
@@ -23,4 +24,8 @@ const registerScript = ({ id, src }: Options) => {
 }
 
 export const useLazyScript = (options: Options) =>
-  useIdleEffect(() => registerScript(options), [])
+  useIdleEffect(() => {
+    const timeout = options.timeout ?? 0
+
+    setTimeout(() => registerScript(options), timeout)
+  }, [])

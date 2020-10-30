@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { FC } from 'react'
-import { Box, Flex, jsx, useSlider } from '@vtex/store-ui'
+import { Box, jsx, useSlider } from '@vtex/store-ui'
 
 import CarouselArrowLeft from './ArrowLeft'
 import CarouselArrowRight from './ArrowRight'
