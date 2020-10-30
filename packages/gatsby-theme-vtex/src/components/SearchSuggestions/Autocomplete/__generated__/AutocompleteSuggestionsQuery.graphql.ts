@@ -29,7 +29,8 @@ export type AutocompleteSuggestionsQueryQuery = { vtex: { autocompleteSearchSugg
 
 export const AutocompleteSuggestionsQuery = {
   query: undefined,
-  sha256Hash: "85174d418018b5219606c7121dba3623fea4807351ebf07da5fad79455173646",
-  operationName: "AutocompleteSuggestionsQuery",
+  sha256Hash:
+    '85174d418018b5219606c7121dba3623fea4807351ebf07da5fad79455173646',
+  operationName: 'AutocompleteSuggestionsQuery',
 }
 

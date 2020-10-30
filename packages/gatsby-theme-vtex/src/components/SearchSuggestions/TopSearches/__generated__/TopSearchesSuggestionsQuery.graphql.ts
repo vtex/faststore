@@ -27,7 +27,8 @@ export type TopSearchesSuggestionsQueryQuery = { vtex: { topSearches: Maybe<{ se
 
 export const TopSearchesSuggestionsQuery = {
   query: undefined,
-  sha256Hash: "0f17502d9ac8f6d58c692554521e07ab9dd0f6094271196bd3c9d37207dabeef",
-  operationName: "TopSearchesSuggestionsQuery",
+  sha256Hash:
+    '0f17502d9ac8f6d58c692554521e07ab9dd0f6094271196bd3c9d37207dabeef',
+  operationName: 'TopSearchesSuggestionsQuery',
 }
 

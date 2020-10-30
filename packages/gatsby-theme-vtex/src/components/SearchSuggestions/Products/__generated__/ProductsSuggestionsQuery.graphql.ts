@@ -33,7 +33,8 @@ export type ProductsSuggestionsQueryQuery = { vtex: { productSuggestions: Maybe<
 
 export const ProductsSuggestionsQuery = {
   query: undefined,
-  sha256Hash: "f86944c7b1321edcc6e096b995cc2d8eed1db294f2a6b61472bc261aab343325",
-  operationName: "ProductsSuggestionsQuery",
+  sha256Hash:
+    'f86944c7b1321edcc6e096b995cc2d8eed1db294f2a6b61472bc261aab343325',
+  operationName: 'ProductsSuggestionsQuery',
 }
 

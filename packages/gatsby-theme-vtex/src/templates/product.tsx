@@ -16,6 +16,7 @@ import {
 } from './__generated__/ProductPageQuery.graphql'
 import SEO from '../components/ProductPage/SEO'
 import DefaultErrorHandler from '../components/Error/ErrorHandler'
+import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')
@@ -44,20 +45,23 @@ const ProductPage: FC<ProductPageProps> = (props) => {
     initialData: staticPath ? initialData : undefined,
   })
 
-  if (!data?.vtex.product) {
-    return <div>Product Not Found</div>
-  }
+  usePixelSendEvent({
+    type: 'vtex:productView',
+    data: {
+      product: data?.vtex.product,
+    },
+  })
 
   const pageProps = {
     ...props,
-    data,
+    data: data!,
     slug,
   }
 
   return (
     <Fragment>
       <AboveTheFold {...pageProps} />
-      <SEO {...pageProps} data={data} />
+      <SEO {...pageProps} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}

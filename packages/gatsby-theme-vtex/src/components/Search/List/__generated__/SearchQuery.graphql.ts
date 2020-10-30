@@ -35,7 +35,8 @@ export type SearchQueryQuery = { vtex: { productSearch: Maybe<{ products: Maybe<
 
 export const SearchQuery = {
   query: undefined,
-  sha256Hash: "2f02c18e5e6498f2ad683b810bd953fd21d8ac251fccde02862f3adda0f25b9d",
-  operationName: "SearchQuery",
+  sha256Hash:
+    '2f02c18e5e6498f2ad683b810bd953fd21d8ac251fccde02862f3adda0f25b9d',
+  operationName: 'SearchQuery',
 }
 
