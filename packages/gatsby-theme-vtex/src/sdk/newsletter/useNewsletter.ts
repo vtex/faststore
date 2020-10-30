@@ -19,7 +19,6 @@ const addToNewsletter = async (data: { name: string; email: string }) =>
       return response.json()
     }
 
-    console.error(response)
     throw new Error()
   })
 
