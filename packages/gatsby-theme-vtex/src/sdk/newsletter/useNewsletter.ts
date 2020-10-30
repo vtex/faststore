@@ -6,14 +6,14 @@ type MDResponse = {
   DocumentId: string
 }
 
-const addToNewsletter = async (data: { name: string; email: string }) =>
+const addToNewsletter = async (data: { nome: string; email: string }) =>
   fetch('/api/dataentities/NL/documents/', {
     headers: {
       'Content-Type': 'application/json',
       accept: 'application/vnd.vtex.ds.v10+json',
     },
     method: 'PATCH',
-    body: JSON.stringify(data),
+    body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
   }).then((response) => {
     if (response.ok) {
       return response.json()
@@ -28,7 +28,7 @@ const useNewsletter = () => {
   const [error, setError] = useState(false)
 
   const addUser = useCallback(
-    (user: { name: string; email: string }) => {
+    (user: { nome: string; email: string }) => {
       setError(false)
       setData(null)
       setLoading(true)
