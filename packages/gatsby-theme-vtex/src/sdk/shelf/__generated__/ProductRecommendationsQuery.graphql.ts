@@ -29,7 +29,8 @@ export type ProductRecommendationsQueryQuery = { vtex: { productRecommendations:
 
 export const ProductRecommendationsQuery = {
   query: undefined,
-  sha256Hash: "b71a91102538e2d04e10ca1c5d8b5fe57c68cab6b25e61d17d31537ced191c21",
-  operationName: "ProductRecommendationsQuery",
+  sha256Hash:
+    'b71a91102538e2d04e10ca1c5d8b5fe57c68cab6b25e61d17d31537ced191c21',
+  operationName: 'ProductRecommendationsQuery',
 }
 

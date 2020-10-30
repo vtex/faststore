@@ -31,7 +31,8 @@ export type AddToCartMutationMutation = { addToCart: { id: string, canEditData: 
 
 export const AddToCartMutation = {
   query: undefined,
-  sha256Hash: "050aa4dd330c96ade95f4018c3332aa38b882734968674fe4629f4fe8de0ddd4",
-  operationName: "AddToCartMutation",
+  sha256Hash:
+    '050aa4dd330c96ade95f4018c3332aa38b882734968674fe4629f4fe8de0ddd4',
+  operationName: 'AddToCartMutation',
 }
 

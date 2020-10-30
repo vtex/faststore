@@ -38,7 +38,8 @@ export type ProductsShelfQueryQuery = { vtex: { products: Maybe<Array<Maybe<{ pr
 
 export const ProductsShelfQuery = {
   query: undefined,
-  sha256Hash: "218493321a38cbdf90ec8fd5b6a32e26d61ac5b8c82fc6a674bdd0b2bddf379b",
-  operationName: "ProductsShelfQuery",
+  sha256Hash:
+    '218493321a38cbdf90ec8fd5b6a32e26d61ac5b8c82fc6a674bdd0b2bddf379b',
+  operationName: 'ProductsShelfQuery',
 }
 

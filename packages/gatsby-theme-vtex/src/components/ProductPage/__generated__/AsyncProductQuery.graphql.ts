@@ -29,7 +29,8 @@ export type AsyncProductQueryQuery = { vtex: { product: Maybe<{ productId: Maybe
 
 export const AsyncProductQuery = {
   query: undefined,
-  sha256Hash: "c0e3648f8696ac206ec49e4401c2587cfc4de69a292ff4aaf94482de5325172e",
-  operationName: "AsyncProductQuery",
+  sha256Hash:
+    'c0e3648f8696ac206ec49e4401c2587cfc4de69a292ff4aaf94482de5325172e',
+  operationName: 'AsyncProductQuery',
 }
 
