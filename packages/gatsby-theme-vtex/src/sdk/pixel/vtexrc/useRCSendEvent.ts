@@ -1,4 +1,4 @@
-import { useIdleEffect } from '../useIdleEffect'
+import { useIdleEffect } from '../../useIdleEffect'
 
 interface HomeView {
   type: 'homeView'
