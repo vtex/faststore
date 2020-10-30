@@ -14,7 +14,7 @@ import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
 import { SearchProvider } from '../sdk/search/Provider'
 import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
-import { useRCSendEvent } from '../sdk/vtexrc/useRCSendEvent'
+import { useRCSendEvent } from '../sdk/pixel/vtexrc/useRCSendEvent'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,

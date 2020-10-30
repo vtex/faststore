@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-import { useLazyScript } from '../lazyScript/useLazyScript'
+import { useLazyScript } from '../../lazyScript/useLazyScript'
 
 const id = 'async-vtex-rc'
 const src = 'https://io.vtex.com.br/rc/rc.js'
