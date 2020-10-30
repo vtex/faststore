@@ -6,7 +6,7 @@ import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
 import Layout from '../components/Layout'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import SEO from '../components/HomePage/SEO'
-import { useRCSendEvent } from '../sdk/vtexrc/useRCSendEvent'
+import { useRCSendEvent } from '../sdk/pixel/vtexrc/useRCSendEvent'
 
 const belowTheFoldPreloader = () =>
   import('../components/HomePage/BelowTheFold')
