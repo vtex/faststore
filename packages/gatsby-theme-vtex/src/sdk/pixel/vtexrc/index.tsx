@@ -1,9 +1,8 @@
-import { PropsWithChildren } from 'react'
+import React, { FC } from 'react'
 
 import { useLazyScript } from '../../lazyScript/useLazyScript'
-
-const id = 'async-vtex-rc'
-const src = 'https://io.vtex.com.br/rc/rc.js'
+import { usePixelCallbackEvent } from '../usePixelCallbackEvent'
+import { handler } from './handler'
 
 // Register VTEX RC synchronously
 if (!window.vtexrca) {
@@ -28,10 +27,12 @@ if (!window.vtexrca) {
   })
 }
 
-const Provider = ({ children }: PropsWithChildren<unknown>) => {
-  useLazyScript({ src, id })
+const Provider: FC = ({ children }) => {
+  useLazyScript({ src: 'https://io.vtex.com.br/rc/rc.js', id: 'async-vtex-rc' })
 
-  return children
+  usePixelCallbackEvent(handler)
+
+  return <>{children}</>
 }
 
 export default Provider
