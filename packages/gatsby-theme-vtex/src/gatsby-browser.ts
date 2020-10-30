@@ -5,7 +5,7 @@ import 'requestidlecallback-polyfill'
 
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
-const { default: VTEXRCProvider } = require('./src/sdk/vtexrc/Provider')
+const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/Provider')
 const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
