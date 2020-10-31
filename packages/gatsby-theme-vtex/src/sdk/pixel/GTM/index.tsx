@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 
 import { isServer } from '../../../utils/env'
 import { useLazyScript } from '../../lazyScript/useLazyScript'
@@ -7,6 +7,7 @@ import { handler } from './handler'
 
 if (!isServer) {
   window.dataLayer = window.dataLayer || []
+  window.dataLayer.push({ 'gtm.blacklist': ['html'] })
   window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
 }
 
@@ -22,7 +23,7 @@ const Provider: FC<Props> = ({ children, gtmId }) => {
 
   usePixelCallbackEvent(handler)
 
-  return <>{children}</>
+  return <Fragment>{children}</Fragment>
 }
 
 export default Provider
