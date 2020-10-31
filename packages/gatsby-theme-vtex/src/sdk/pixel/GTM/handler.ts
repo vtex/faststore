@@ -213,6 +213,8 @@ const getDataFromEvent = (event: PixelEvent) => {
 export const handler: PixelEventHandler = (event) => {
   const data = getDataFromEvent(event)
 
+  console.log({ event, data })
+
   if (data) {
     window.dataLayer.push(data)
   }
