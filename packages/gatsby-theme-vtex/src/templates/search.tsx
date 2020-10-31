@@ -45,13 +45,17 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     initialData: staticPath ? staticData : undefined,
   })
 
-  usePixelSendEvent({
+  usePixelSendEvent(() => ({
     type: 'vtex:internalSiteSearchView',
     data: {
+      accountName: process.env.GATSBY_VTEX_TENANT!,
+      pageUrl: window.location.href,
+      pageTitle: document.title,
+      referrer: document.referrer,
       term: filters.fullText ?? '',
       results: data?.vtex.productSearch?.recordsFiltered ?? 0,
     },
-  })
+  }))
 
   return (
     <SearchProvider filters={filters as any} data={data!}>
