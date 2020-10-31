@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 
 import { useLazyScript } from '../../lazyScript/useLazyScript'
 import { usePixelCallbackEvent } from '../usePixelCallbackEvent'
@@ -32,7 +32,7 @@ const Provider: FC = ({ children }) => {
 
   usePixelCallbackEvent(handler)
 
-  return <>{children}</>
+  return <Fragment>{children}</Fragment>
 }
 
 export default Provider
