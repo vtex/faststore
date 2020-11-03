@@ -4,10 +4,11 @@ import React, { FC } from 'react'
 
 interface Props {
   slug: string
+  onChange: (quantity: number) => void
 }
 
-const Quantity: FC<Props> = ({ slug }) => {
-  const quantity = { maxValue: undefined, minValue: 1 }
+const Quantity: FC<Props> = ({ slug, onChange }) => {
+  const quantity = { maxValue: undefined, minValue: 1, onChange }
 
   return (
     <Box>
