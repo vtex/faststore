@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { getCurrentQuantity } from '@vtex/store-ui'
 
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
@@ -17,7 +16,7 @@ export interface SKU {
   sellers: Seller[]
 }
 
-export const useBuyButton = (sku: Maybe<SKU>) => {
+export const useBuyButton = (sku: Maybe<SKU>, quantity: number) => {
   const [loading, setLoading] = useState(false)
   const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
@@ -34,7 +33,7 @@ export const useBuyButton = (sku: Maybe<SKU>) => {
     // Item to be updated into the orderForm
     const orderFormItem = {
       id: Number(sku!.itemId),
-      quantity: getCurrentQuantity(),
+      quantity,
       seller: seller.sellerId,
     }
 
