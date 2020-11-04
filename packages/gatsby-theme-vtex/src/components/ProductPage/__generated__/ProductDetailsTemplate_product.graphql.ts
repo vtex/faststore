@@ -26,6 +26,7 @@ export type ProductDetailsTemplate_ProductFragment = {
         images: Maybe<
           Array<Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>>
         >
+        videos: Maybe<Array<Maybe<{ videoUrl: Maybe<string> }>>>
       }>
     >
   >
