@@ -39,6 +39,7 @@ export type ProductPageQueryQuery = {
                 Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>
               >
             >
+            videos: Maybe<Array<Maybe<{ videoUrl: Maybe<string> }>>>
             sellers: Maybe<
               Array<
                 Maybe<{
@@ -65,8 +66,8 @@ export type ProductPageQueryQuery = {
 
 export const ProductPageQuery = {
   query:
-    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        itemId\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n      }\n      productClusters {\n        name\n      }\n      description\n      brand\n      productId\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
+    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        images {\n          imageUrl\n          imageText\n        }\n        videos {\n          videoUrl\n        }\n        itemId\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n      }\n      productClusters {\n        name\n      }\n      description\n      brand\n      productId\n      categoryTree {\n        name\n        href\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '30940a00980f426a8d1801480adf2885d10781f0329cd8751e67b63e002c9eab',
+    '911cda4b215f8e520c356a7fd5f86bcd28039742c9cd2383aa9ecaa23e965b9f',
   operationName: 'ProductPageQuery',
 }
