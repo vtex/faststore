@@ -1,4 +1,4 @@
-import { AspectImage, ProgressiveImage } from '@vtex/store-ui'
+import { AspectImage, ProgressiveImage, VideoIframe } from '@vtex/store-ui'
 import React, { ComponentPropsWithoutRef, FC, HTMLProps } from 'react'
 
 export type Item =
@@ -24,6 +24,13 @@ const ProductImageGalleryPage: FC<Props> = ({ item, variant }) =>
       ratio={1}
       as={AspectImage}
     />
-  ) : null
+  ) : (
+    <VideoIframe
+      variant={variant}
+      {...item.props}
+      url={item.props.src!}
+      title="Product"
+    />
+  )
 
 export default ProductImageGalleryPage
