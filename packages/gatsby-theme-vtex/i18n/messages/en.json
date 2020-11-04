@@ -12,6 +12,8 @@
 
   "notification-bar.sale": "SELECTED ITEMS ON SALE! CHECK IT OUT!",
 
+  "product.quantity.title": "Quantity",
+
   "suggestions.autocomplete.title": "Suggestions",
   "suggestions.autocomplete.notFound": "No Suggestions",
   "suggestions.products.title": "Producst for: {term}",
