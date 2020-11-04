@@ -11,44 +11,23 @@ export interface NumericStepperProps {
 export const NumericStepper: FC<NumericStepperProps> = ({
   variant = 'productQuantity',
   minValue,
-  maxValue,
+  maxValue = Infinity,
   onChange,
   children,
 }) => {
   var [quantity, setQuantity] = React.useState<number>(1)
 
+  const narrowedValue = (value: number) => {
+    return Math.min(Math.max(value, minValue), maxValue)
+  }
+
   const updateQuantity = useCallback(
     (value: number) => {
+      value = narrowedValue(value)
       setQuantity(value)
       onChange(value)
     },
     [setQuantity, onChange]
-  )
-
-  const increaseNumber = useCallback(() => {
-    quantity = quantity + 1
-    if (maxValue) {
-      if (quantity > maxValue) quantity = maxValue
-    }
-    updateQuantity(quantity)
-  }, [quantity, maxValue])
-
-  const decreaseNumber = useCallback(() => {
-    quantity = quantity - 1
-    if (quantity < minValue) quantity = minValue
-    updateQuantity(quantity)
-  }, [quantity, minValue])
-
-  const setNumber = useCallback(
-    (value: number) => {
-      quantity = value
-      if (quantity < minValue) quantity = minValue
-      if (maxValue) {
-        if (quantity > maxValue) quantity = maxValue
-      }
-      updateQuantity(quantity)
-    },
-    [quantity, minValue, maxValue]
   )
 
   const isMax = maxValue ? quantity >= maxValue : false
@@ -59,19 +38,15 @@ export const NumericStepper: FC<NumericStepperProps> = ({
       <Flex variant={`${variant}.numericStepper`}>
         <Button
           variant={`${variant}.numericStepper.button.minus`}
-          onClick={decreaseNumber}
+          onClick={() => updateQuantity(quantity - 1)}
           disabled={isMin}
         >
           -
         </Button>
-        <Input
-          value={quantity}
-          onChange={(e) => setNumber(Number(e.target.value))}
-          variant={`${variant}.numericStepper.input`}
-        />
+        <Input value={quantity} variant={`${variant}.numericStepper.input`} />
         <Button
           variant={`${variant}.numericStepper.button.plus`}
-          onClick={increaseNumber}
+          onClick={() => updateQuantity(quantity + 1)}
           disabled={isMax}
         >
           +
