@@ -3,8 +3,8 @@ import { Button, Flex, Input } from 'theme-ui'
 
 export interface NumericStepperProps {
   variant?: string
-  minValue: number | 1
-  maxValue?: number | undefined
+  minValue: number
+  maxValue?: number
   onChange: (quantity: number) => void
 }
 
@@ -30,7 +30,7 @@ export const NumericStepper: FC<NumericStepperProps> = ({
     [setQuantity, onChange]
   )
 
-  const isMax = maxValue ? quantity >= maxValue : false
+  const isMax = quantity >= maxValue
   const isMin = quantity <= minValue
 
   return (
