@@ -4,12 +4,11 @@ import { ProductQuantityTitle, NumericStepper } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
 interface Props {
-  slug: string
   onChange: (quantity: number) => void
 }
 
-const Quantity: FC<Props> = ({ slug, onChange }) => {
-  const quantity = { maxValue: undefined, minValue: 1, onChange }
+const Quantity: FC<Props> = ({ onChange }) => {
+  const quantity = { maxValue: Number.MAX_SAFE_INTEGER, minValue: 1, onChange }
   const { formatMessage } = useIntl()
 
   return (
