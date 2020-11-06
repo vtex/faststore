@@ -47,17 +47,28 @@ const SearchPage: FC<SearchPageProps> = (props) => {
   })
 
   usePixelSendEvent(
-    () => ({
-      type: 'vtex:internalSiteSearchView',
-      data: {
-        accountName: process.env.GATSBY_VTEX_TENANT!,
-        pageUrl: window.location.href,
-        pageTitle: document.title,
-        referrer: document.referrer,
-        term: filters.fullText ?? '',
-        results: data?.vtex.productSearch?.recordsFiltered ?? 0,
+    () => [
+      {
+        type: 'vtex:pageView',
+        data: {
+          pageUrl: window.location.href,
+          pageTitle: document.title,
+          referrer: document.referrer,
+          accountName: process.env.GATSBY_VTEX_TENANT!,
+        },
       },
-    }),
+      {
+        type: 'vtex:internalSiteSearchView',
+        data: {
+          accountName: process.env.GATSBY_VTEX_TENANT!,
+          pageUrl: window.location.href,
+          pageTitle: document.title,
+          referrer: document.referrer,
+          term: filters.fullText ?? '',
+          results: data?.vtex.productSearch?.recordsFiltered ?? 0,
+        },
+      },
+    ],
     isServer ? '' : window.location.href
   )
 

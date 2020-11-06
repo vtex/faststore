@@ -46,12 +46,23 @@ const ProductPage: FC<ProductPageProps> = (props) => {
   })
 
   usePixelSendEvent(
-    {
-      type: 'vtex:productView',
-      data: {
-        product: data?.vtex.product,
+    () => [
+      {
+        type: 'vtex:pageView',
+        data: {
+          pageUrl: window.location.href,
+          pageTitle: document.title,
+          referrer: document.referrer,
+          accountName: process.env.GATSBY_VTEX_TENANT!,
+        },
       },
-    },
+      {
+        type: 'vtex:productView',
+        data: {
+          product: data?.vtex.product,
+        },
+      },
+    ],
     data?.vtex.product?.productId ?? ''
   )
 
