@@ -45,12 +45,15 @@ const ProductPage: FC<ProductPageProps> = (props) => {
     initialData: staticPath ? initialData : undefined,
   })
 
-  usePixelSendEvent({
-    type: 'vtex:productView',
-    data: {
-      product: data?.vtex.product,
+  usePixelSendEvent(
+    {
+      type: 'vtex:productView',
+      data: {
+        product: data?.vtex.product,
+      },
     },
-  })
+    data?.vtex.product?.productId ?? ''
+  )
 
   const pageProps = {
     ...props,

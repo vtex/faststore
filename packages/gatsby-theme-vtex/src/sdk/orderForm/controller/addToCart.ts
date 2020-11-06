@@ -20,6 +20,8 @@ export const addToCart = async (
     >({ ...AddToCartMutation, variables: { orderFormId, items } })
 
     setOrderFormState(of, cb)
+
+    return of
   })
 
 export const mutation = gql`
