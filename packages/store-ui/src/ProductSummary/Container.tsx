@@ -1,21 +1,22 @@
 /** @jsx jsx */
-import { FC } from 'react'
+import { ComponentPropsWithoutRef, FC } from 'react'
 import { jsx } from 'theme-ui'
 
 import LocalizedLink from '../LocalizedLink/index'
 
-interface Props {
-  to: string
+type LocalizedLinkProps = ComponentPropsWithoutRef<typeof LocalizedLink>
+
+interface Props extends LocalizedLinkProps {
   variant: string
 }
 
-const ProductSummaryContainer: FC<Props> = ({ children, to, variant }) => (
+const ProductSummaryContainer: FC<Props> = ({ children, variant, ...rest }) => (
   <LocalizedLink
     state={{ fromSummary: true }}
-    to={to}
     sx={{
       variant: `productSummary.${variant}.container`,
     }}
+    {...rest}
   >
     {children}
   </LocalizedLink>

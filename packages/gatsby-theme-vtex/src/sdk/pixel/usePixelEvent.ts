@@ -23,6 +23,8 @@ export const usePixelEvent = (handler: PixelEventHandler) => {
   useEffect(() => {
     window.addEventListener('message', callback)
 
+    console.log('register callback')
+
     return () => window.removeEventListener('message', callback)
   }, [callback])
 }
