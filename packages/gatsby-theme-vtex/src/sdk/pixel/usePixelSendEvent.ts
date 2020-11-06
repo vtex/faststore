@@ -15,9 +15,12 @@ export const sendPixelEvent = (event: PixelEvent) => {
   }
 }
 
-export const usePixelSendEvent = (event: PixelEvent | EventGenerator) => {
+export const usePixelSendEvent = (
+  event: PixelEvent | EventGenerator,
+  id = ''
+) => {
   useIdleEffect(
     () => sendPixelEvent(typeof event === 'function' ? event() : event),
-    [event]
+    [id]
   )
 }

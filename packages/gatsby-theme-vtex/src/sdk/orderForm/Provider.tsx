@@ -18,7 +18,9 @@ const controler = () => import('./controller')
 
 export type OrderFormContext = {
   value: OrderFormFragment_OrderFormFragment | null
-  addToCart: (items: OrderFormItem[]) => Promise<void>
+  addToCart: (
+    items: OrderFormItem[]
+  ) => Promise<OrderFormFragment_OrderFormFragment>
   updateItems: (items: OrderFormItem[], cb: any) => Promise<void>
 }
 
@@ -54,7 +56,7 @@ export const OrderFormProvider: FC = ({ children }) => {
     async (items) => {
       const ctl = await controler()
 
-      await ctl.addToCart(id!, items, setOrderForm)
+      return ctl.addToCart(id!, items, setOrderForm)
     },
     [id]
   )
