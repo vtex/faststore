@@ -1,6 +1,7 @@
 import { ProductPageQueryQuery } from '../../templates/__generated__/ProductPageQuery.graphql'
 import { ProductSummary_ProductFragment } from '../../components/ProductSummary/__generated__/ProductSummary_product.graphql'
 import { OrderFormFragment_OrderFormFragment } from '../orderForm/controller/__generated__/OrderFormFragment_orderForm.graphql'
+import { OrderFormItem } from '../orderForm/types'
 
 export interface PageViewData {
   accountName: string
@@ -43,7 +44,7 @@ export interface InternalSiteSearchViewData extends PageViewData {
 }
 
 export interface AddToCartData {
-  items: OrderFormFragment_OrderFormFragment['items']
+  items: OrderFormItem[]
 }
 
 export interface RemoveFromCartData {

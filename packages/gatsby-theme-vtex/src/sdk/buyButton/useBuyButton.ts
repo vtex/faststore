@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
 
@@ -39,7 +40,16 @@ export const useBuyButton = (sku: Maybe<SKU>) => {
 
     try {
       setLoading(true)
-      await orderForm.addToCart([orderFormItem])
+      const items = [orderFormItem]
+
+      await orderForm.addToCart(items)
+
+      sendPixelEvent({
+        type: 'vtex:addToCart',
+        data: {
+          items,
+        },
+      })
     } catch (err) {
       console.error(err)
     } finally {
