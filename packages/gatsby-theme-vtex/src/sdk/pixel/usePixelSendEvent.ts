@@ -1,7 +1,7 @@
 import { PixelEvent, wrap } from './pixel'
 import { useIdleEffect } from '../useIdleEffect'
 
-type EventGenerator = () => PixelEvent
+type EventGenerator = () => PixelEvent | PixelEvent[]
 
 export const sendPixelEvent = (event: PixelEvent) => {
   try {
@@ -16,11 +16,16 @@ export const sendPixelEvent = (event: PixelEvent) => {
 }
 
 export const usePixelSendEvent = (
-  event: PixelEvent | EventGenerator,
+  event: PixelEvent | PixelEvent[] | EventGenerator,
   id = ''
 ) => {
-  useIdleEffect(
-    () => sendPixelEvent(typeof event === 'function' ? event() : event),
-    [id]
-  )
+  useIdleEffect(() => {
+    const obj = typeof event === 'function' ? event() : event
+
+    if (Array.isArray(obj)) {
+      obj.forEach(sendPixelEvent)
+    } else {
+      sendPixelEvent(obj)
+    }
+  }, [id])
 }
