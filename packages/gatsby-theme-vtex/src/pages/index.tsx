@@ -16,15 +16,25 @@ const BelowTheFold = lazy(belowTheFoldPreloader)
 type Props = PageProps<unknown>
 
 const Home: FC<Props> = (props) => {
-  usePixelSendEvent(() => ({
-    type: 'vtex:homeView',
-    data: {
+  usePixelSendEvent(() => {
+    const event = {
       pageUrl: window.location.href,
       pageTitle: document.title,
       referrer: document.referrer,
       accountName: process.env.GATSBY_VTEX_TENANT!,
-    },
-  }))
+    }
+
+    return [
+      {
+        type: 'vtex:homeView',
+        data: event,
+      },
+      {
+        type: 'vtex:pageView',
+        data: event,
+      },
+    ]
+  })
 
   return (
     <Layout>
