@@ -15,6 +15,7 @@ import { useQuery } from '../sdk/graphql/useQuery'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 import { SearchProvider } from '../sdk/search/Provider'
 import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
+import { isServer } from '../utils/env'
 import {
   SearchPageQuery,
   SearchPageQueryQuery,
@@ -57,7 +58,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
         results: data?.vtex.productSearch?.recordsFiltered ?? 0,
       },
     }),
-    window.location.href
+    isServer ? '' : window.location.href
   )
 
   return (
