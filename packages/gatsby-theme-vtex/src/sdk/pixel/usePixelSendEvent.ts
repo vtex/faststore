@@ -11,6 +11,7 @@ export const sendPixelEvent = (event: PixelEvent) => {
     // Ignoring for now, will try to find a workaround that
     // makes postMessage work on those browsers.
     // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/14719328/
+    console.error(e)
   }
 }
 
