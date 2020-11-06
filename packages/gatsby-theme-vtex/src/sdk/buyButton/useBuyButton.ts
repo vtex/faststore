@@ -16,7 +16,7 @@ export interface SKU {
   sellers: Seller[]
 }
 
-export const useBuyButton = (sku: Maybe<SKU>) => {
+export const useBuyButton = (sku: Maybe<SKU>, quantity: number) => {
   const [loading, setLoading] = useState(false)
   const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
@@ -33,7 +33,7 @@ export const useBuyButton = (sku: Maybe<SKU>) => {
     // Item to be updated into the orderForm
     const orderFormItem = {
       id: Number(sku!.itemId),
-      quantity: 1,
+      quantity,
       seller: seller.sellerId,
     }
 
