@@ -1,4 +1,4 @@
-import { PixelEventHandler } from '../usePixelCallbackEvent'
+import { PixelEventHandler } from '../usePixelEvent'
 import { PixelEvent } from '../pixel'
 
 const getDataFromEvent = (event: PixelEvent) => {

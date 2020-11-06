@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from 'react'
 
 import { useLazyScript } from '../../lazyScript/useLazyScript'
-import { usePixelCallbackEvent } from '../usePixelCallbackEvent'
+import { usePixelEvent } from '../usePixelEvent'
 import { handler } from './handler'
 
 // Register VTEX RC synchronously
@@ -30,7 +30,7 @@ if (!window.vtexrca) {
 const Provider: FC = ({ children }) => {
   useLazyScript({ src: 'https://io.vtex.com.br/rc/rc.js', id: 'async-vtex-rc' })
 
-  usePixelCallbackEvent(handler)
+  usePixelEvent(handler)
 
   return <Fragment>{children}</Fragment>
 }

@@ -4,11 +4,11 @@ import { PixelEvent, unwrap } from './pixel'
 
 export type PixelEventHandler = (event: PixelEvent) => void | Promise<void>
 
-export const usePixelCallbackEvent = (handler: PixelEventHandler) => {
+export const usePixelEvent = (handler: PixelEventHandler) => {
   const callback = useCallback(
-    (message: any) => {
+    (message: MessageEvent) => {
       try {
-        const maybeEvent = unwrap(message)
+        const maybeEvent = unwrap(message.data ?? {})
 
         if (maybeEvent) {
           handler(maybeEvent)

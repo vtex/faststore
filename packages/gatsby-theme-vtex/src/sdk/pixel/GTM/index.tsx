@@ -2,7 +2,7 @@ import React, { FC, Fragment } from 'react'
 
 import { isServer } from '../../../utils/env'
 import { useLazyScript } from '../../lazyScript/useLazyScript'
-import { usePixelCallbackEvent } from '../usePixelCallbackEvent'
+import { usePixelEvent } from '../usePixelEvent'
 import { handler } from './handler'
 
 if (!isServer) {
@@ -21,7 +21,7 @@ const Provider: FC<Props> = ({ children, gtmId }) => {
     id: gtmId,
   })
 
-  usePixelCallbackEvent(handler)
+  usePixelEvent(handler)
 
   return <Fragment>{children}</Fragment>
 }
