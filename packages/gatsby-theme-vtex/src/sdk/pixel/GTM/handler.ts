@@ -1,5 +1,5 @@
 import { PixelEvent } from '../pixel'
-import { PixelEventHandler } from '../usePixelCallbackEvent'
+import { PixelEventHandler } from '../usePixelEvent'
 
 const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {
@@ -212,8 +212,6 @@ const getDataFromEvent = (event: PixelEvent) => {
 
 export const handler: PixelEventHandler = (event) => {
   const data = getDataFromEvent(event)
-
-  console.log({ event, data })
 
   if (data) {
     window.dataLayer.push(data)
