@@ -43,7 +43,6 @@ export const useBuyButton = (sku: Maybe<SKU>, quantity: number) => {
       const items = [orderFormItem]
 
       await orderForm.addToCart(items)
-
       sendPixelEvent({
         type: 'vtex:addToCart',
         data: {
