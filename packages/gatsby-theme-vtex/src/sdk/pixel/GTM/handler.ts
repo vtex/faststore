@@ -80,14 +80,14 @@ const getDataFromEvent = (event: PixelEvent) => {
       return {
         ecommerce: {
           add: {
-            products: items.map((sku: any) => ({
-              brand: sku.brand,
-              category: sku.category,
-              id: sku.skuId,
-              name: sku.name,
-              price: `${sku.price}`,
+            products: items.map((sku) => ({
+              // brand: sku.brand,
+              // category: sku.category,
+              // id: sku.skuId,
+              // name: sku.name,
+              // price: `${sku.price}`,
               quantity: sku.quantity,
-              variant: sku.variant,
+              // variant: sku.variant,
             })),
           },
           // currencyCode: event.data.currency,
