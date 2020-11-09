@@ -40,7 +40,9 @@ export const onCreateWebpackConfig = ({
   setWebpackConfig({
     resolve: {
       alias: {
-        '@emotion/is-prop-valid': require.resolve('./@emotion/is-prop-valid/index')
+        '@emotion/is-prop-valid': require.resolve(
+          './@emotion/is-prop-valid/index'
+        ),
       },
     },
   })

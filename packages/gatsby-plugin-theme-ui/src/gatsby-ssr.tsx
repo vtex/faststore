@@ -14,21 +14,21 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => (
 export const replaceRenderer = ({
   bodyComponent,
   replaceBodyHTMLString,
-  setHeadComponents
+  setHeadComponents,
 }: ReplaceRendererArgs) => {
   const cache = createCache()
   const { extractCritical } = createEmotionServer(cache)
 
   const root = (
-    <CacheProvider value={cache}>
-      {bodyComponent as JSX.Element}
-    </CacheProvider>
+    <CacheProvider value={cache}>{bodyComponent as JSX.Element}</CacheProvider>
   )
 
   const { html, css, ids } = extractCritical(renderToString(root))
 
   setHeadComponents([
-    <style data-emotion-css={ids.join(' ')}>{css}</style>
+    <style key="data-emotion-css" data-emotion-css={ids.join(' ')}>
+      {css}
+    </style>,
   ])
 
   replaceBodyHTMLString(html)
