@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": ".",
     "alwaysStrict": false,
-    "jsx": "preserve"
+    "jsx": "react",
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["./node_modules/**/*"]

@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-import { CreateBabelConfigArgs } from 'gatsby'
+import { CreateBabelConfigArgs, CreateWebpackConfigArgs } from 'gatsby'
 
 const root = process.cwd()
 const name = '@vtex/gatsby-plugin-theme-ui'
@@ -30,6 +30,20 @@ export const onCreateBabelConfig = ({
     options: {
       inFile: filepath,
       inPath: base,
+    },
+  })
+}
+
+export const onCreateWebpackConfig = ({
+  actions: { setWebpackConfig },
+}: CreateWebpackConfigArgs) => {
+  setWebpackConfig({
+    resolve: {
+      alias: {
+        '@emotion/is-prop-valid': require.resolve(
+          './@emotion/is-prop-valid/index.js'
+        ),
+      },
     },
   })
 }
