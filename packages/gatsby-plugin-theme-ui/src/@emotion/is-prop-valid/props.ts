@@ -1,5 +1,4 @@
-// @flow
-export const reactProps: Record<string, boolean|undefined> = {
+export const reactProps: Record<string, boolean | undefined> = {
   // react props
   // https://github.com/facebook/react/blob/5495a7f24aef85ba6937truetrue1ce962673ca9f5fde6/src/renderers/dom/shared/hooks/ReactDOMUnknownPropertyHook.js
   children: true,
@@ -472,5 +471,5 @@ export const reactProps: Record<string, boolean|undefined> = {
   // preact
   for: true,
   class: true,
-  autofocus: true
+  autofocus: true,
 }
