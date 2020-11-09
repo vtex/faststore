@@ -19,7 +19,11 @@ export const replaceRenderer = ({
   const cache = createCache()
   const { extractCritical } = createEmotionServer(cache)
 
-  const root = <CacheProvider value={cache}>{bodyComponent as JSX.Element}</CacheProvider>
+  const root = (
+    <CacheProvider value={cache}>
+      {bodyComponent as JSX.Element}
+    </CacheProvider>
+  )
 
   const { html, css, ids } = extractCritical(renderToString(root))
 
