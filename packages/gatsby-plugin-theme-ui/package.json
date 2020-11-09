@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-theme-ui",
-  "version": "0.119.1",
+  "version": "0.120.0-alpha.7",
   "main": "index.js",
   "browser": "src/index.ts",
   "sideEffects": false,
@@ -32,6 +32,7 @@
     "@babel/register": "^7.11.5",
     "@babel/traverse": "^7.11.0",
     "@babel/types": "^7.11.0",
+    "create-emotion-server": "^10.0.27",
     "theme-ui": "^0.3.1"
   }
 }
