@@ -31,8 +31,7 @@ export type ShippingQueryQuery = { vtex: { shippingSLA: Maybe<{ deliveryOptions:
 
 export const ShippingQuery = {
   query: undefined,
-  sha256Hash:
-    'a02e8933ab8401e118b6d4df3c6521c851a3edaa8ed693379f74b59c27e66f52',
-  operationName: 'ShippingQuery',
+  sha256Hash: "a02e8933ab8401e118b6d4df3c6521c851a3edaa8ed693379f74b59c27e66f52",
+  operationName: "ShippingQuery",
 }
 

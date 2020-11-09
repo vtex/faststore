@@ -27,8 +27,7 @@ export type SiteMetadataQueryQuery = { site: Maybe<{ siteMetadata: Maybe<{ title
 
 export const SiteMetadataQuery = {
   query: undefined,
-  sha256Hash:
-    '38817674a7094b82cd30fd470268fe7e22c99de447b81ed2bf32f6c4fe65cc80',
-  operationName: 'SiteMetadataQuery',
+  sha256Hash: "38817674a7094b82cd30fd470268fe7e22c99de447b81ed2bf32f6c4fe65cc80",
+  operationName: "SiteMetadataQuery",
 }
 

@@ -29,8 +29,7 @@ export type GetOrderFormQueryQuery = { vtex: { orderForm: { id: string, canEditD
 
 export const GetOrderFormQuery = {
   query: undefined,
-  sha256Hash:
-    'ba6ccfb86104ba4f3ad168d51946599e8106c88fd785048ebe9c77d192b99045',
-  operationName: 'GetOrderFormQuery',
+  sha256Hash: "ba6ccfb86104ba4f3ad168d51946599e8106c88fd785048ebe9c77d192b99045",
+  operationName: "GetOrderFormQuery",
 }
 

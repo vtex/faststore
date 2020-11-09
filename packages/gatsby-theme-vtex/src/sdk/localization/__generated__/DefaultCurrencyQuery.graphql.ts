@@ -27,8 +27,7 @@ export type DefaultCurrencyQueryQuery = { allChannel: { edges: Array<{ node: { d
 
 export const DefaultCurrencyQuery = {
   query: undefined,
-  sha256Hash:
-    '7adae2e23aae06db92fa039faf12eaf1fefd6584dc1940be89c2663a7a634133',
-  operationName: 'DefaultCurrencyQuery',
+  sha256Hash: "7adae2e23aae06db92fa039faf12eaf1fefd6584dc1940be89c2663a7a634133",
+  operationName: "DefaultCurrencyQuery",
 }
 

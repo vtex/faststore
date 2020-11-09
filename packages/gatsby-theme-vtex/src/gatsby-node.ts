@@ -195,6 +195,9 @@ export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
 }: CreateWebpackConfigArgs) => {
   setWebpackConfig({
+    // optimization: {
+    //   minimize: false,
+    // },
     module: {
       rules: [
         {
