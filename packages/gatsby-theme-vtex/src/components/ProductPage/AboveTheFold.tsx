@@ -57,6 +57,9 @@ export const fragment = graphql`
         imageUrl
         imageText
       }
+      videos {
+        videoUrl
+      }
     }
     productClusters {
       name

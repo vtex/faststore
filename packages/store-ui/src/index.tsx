@@ -104,3 +104,5 @@ export { default as GiftListTitle } from './GiftList/Title'
 export { default as GiftListList } from './GiftList/List'
 // Skeleton
 export { default as Skeleton } from './Skeleton'
+// videoIframe
+export { default as VideoIframe } from './VideoIframe'
