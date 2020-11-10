@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { ThemeProvider as ThemeUIProvider } from 'theme-ui'
+import { ThemeProvider as ThemeUIProvider } from '@theme-ui/core'
 
 import theme from '../index'
 
