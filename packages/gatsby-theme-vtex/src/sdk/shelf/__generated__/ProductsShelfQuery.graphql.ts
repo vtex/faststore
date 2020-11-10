@@ -37,7 +37,7 @@ export type ProductsShelfQueryQuery = { vtex: { products: Maybe<Array<Maybe<{ pr
 // Query Related Code
 
 export const ProductsShelfQuery = {
-  query: undefined,
+  query: "query ProductsShelfQuery($simulationBehavior: VTEX_SimulationBehavior = default, $hideUnavailableItems: Boolean = true, $salesChannel: String = \"1\", $collection: String, $category: String = \"\", $orderBy: String = \"OrderByTopSaleDESC\", $query: String, $map: String, $from: Int = 0, $to: Int = 9) {\n  vtex {\n    products(query: $query, map: $map, from: $from, to: $to, orderBy: $orderBy, collection: $collection, salesChannel: $salesChannel, hideUnavailableItems: $hideUnavailableItems, category: $category, simulationBehavior: $simulationBehavior) {\n      productId\n      productName\n      linkText\n      productClusters {\n        name\n      }\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
   sha256Hash: "218493321a38cbdf90ec8fd5b6a32e26d61ac5b8c82fc6a674bdd0b2bddf379b",
   operationName: "ProductsShelfQuery",
 }

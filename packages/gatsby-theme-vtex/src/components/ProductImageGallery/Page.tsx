@@ -1,10 +1,10 @@
 import { AspectImage, ProgressiveImage, VideoIframe } from '@vtex/store-ui'
-import React, { ComponentPropsWithoutRef, FC, HTMLProps } from 'react'
+import React, { ComponentPropsWithoutRef, FC } from 'react'
 
 export type Item =
   | {
       type: 'video'
-      props: HTMLProps<HTMLIFrameElement>
+      props: ComponentPropsWithoutRef<typeof VideoIframe>
     }
   | {
       type: 'image'
@@ -26,10 +26,9 @@ const ProductImageGalleryPage: FC<Props> = ({ item, variant }) =>
     />
   ) : (
     <VideoIframe
-      variant={variant}
       {...item.props}
+      variant={variant}
       url={item.props.src!}
-      title="Product"
     />
   )
 
