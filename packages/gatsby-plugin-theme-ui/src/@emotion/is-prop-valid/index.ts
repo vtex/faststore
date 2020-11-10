@@ -5,7 +5,7 @@ import { reactProps } from './props'
 const reactPropsRegex = /^(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*)$/
 
 const isPropValid = memoize((prop: string) => {
-  console.log('isPropValid')
+  console.log('isPropValid again')
 
   return (
     (prop.charCodeAt(0) === 111 /* o */ &&
