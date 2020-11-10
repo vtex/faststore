@@ -11,6 +11,11 @@ interface Options {
   inPath: string
 }
 
+const template = (serialized: string) => `
+function getTheme () { return JSON.parse(${serialized}); };
+export default getTheme;
+`
+
 const plugin = (_: Babel, options: Options) => {
   const { inFile, inPath } = options
 
@@ -25,14 +30,9 @@ const plugin = (_: Babel, options: Options) => {
       } = state
 
       if (filename === inFile) {
-        const serialized = JSON.stringify(JSON.stringify(theme))
-        const parsed = parse(
-          `export default () => JSON.parse(${serialized});`,
-          {
-            sourceType: 'module',
-            strictMode: true,
-          }
-        )
+        const parsed = parse(template(JSON.stringify(JSON.stringify(theme))), {
+          sourceType: 'module',
+        })
 
         path.replaceWith(parsed.program)
         path.skip()
