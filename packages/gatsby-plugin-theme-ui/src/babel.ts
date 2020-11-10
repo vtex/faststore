@@ -32,7 +32,10 @@ const plugin = (_: Babel, options: Options) => {
       } = state
 
       if (filename === inFile) {
-        const parsed = parse(template(JSON.stringify(JSON.stringify(theme))), {
+        // Stringify twice to make sure the strings are correctly scaped. For more info:
+        // https://stackoverflow.com/questions/5506000/json-stringify-doesnt-escape
+        const serialized = JSON.stringify(JSON.stringify(theme))
+        const parsed = parse(template(serialized), {
           sourceType: 'module',
         })
 
