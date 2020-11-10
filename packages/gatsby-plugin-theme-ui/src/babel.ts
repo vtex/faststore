@@ -1,6 +1,6 @@
+import { parse } from '@babel/parser'
 import { Visitor } from '@babel/traverse'
 import BabelTypes from '@babel/types'
-import { parse } from '@babel/parser'
 
 interface Babel {
   types: typeof BabelTypes
@@ -25,9 +25,14 @@ const plugin = (_: Babel, options: Options) => {
       } = state
 
       if (filename === inFile) {
-        const parsed = parse(`export default ${JSON.stringify(theme)};`, {
-          sourceType: 'module',
-        })
+        const serialized = JSON.stringify(JSON.stringify(theme))
+        const parsed = parse(
+          `export default () => JSON.parse(${serialized});`,
+          {
+            sourceType: 'module',
+            strictMode: true,
+          }
+        )
 
         path.replaceWith(parsed.program)
         path.skip()
