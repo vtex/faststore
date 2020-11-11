@@ -5,7 +5,7 @@ const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {
     case 'vtex:pageView': {
       return {
-        event: 'Pageview',
+        event: 'pageView',
         location: event.data.pageUrl,
         page: event.data.pageUrl.replace(window.origin, ''),
         referrer: event.data.referrer,
