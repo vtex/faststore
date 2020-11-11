@@ -44,7 +44,7 @@ const ProductImageGallery: FC<Props> = ({
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'nowrap', flexDirection: 'row' }}>
-      <Box>
+      <Box sx={{ mx: '5px' }}>
         {allItems.map((it, index) => (
           <Box
             key={`ProductImageGalleryPage-${index}`}
