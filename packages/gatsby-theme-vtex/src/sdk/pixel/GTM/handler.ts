@@ -3,21 +3,9 @@ import { PixelEventHandler } from '../usePixelEvent'
 
 const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {
-    case 'vtex:homeView': {
-      return {
-        event: 'pageView',
-        location: event.data.pageUrl,
-        page: event.data.pageUrl.replace(window.origin, ''),
-        referrer: event.data.referrer,
-        ...(event.data.pageTitle && {
-          title: event.data.pageTitle,
-        }),
-      }
-    }
-
     case 'vtex:pageView': {
       return {
-        event: 'pageView',
+        event: 'Pageview',
         location: event.data.pageUrl,
         page: event.data.pageUrl.replace(window.origin, ''),
         referrer: event.data.referrer,
