@@ -2,6 +2,7 @@ import React, { FC, Fragment, useCallback } from 'react'
 import { Button, Flex, Input } from 'theme-ui'
 
 export interface NumericStepperProps {
+  htmlFor?: string
   variant?: string
   minValue: number
   maxValue?: number
@@ -10,6 +11,7 @@ export interface NumericStepperProps {
 
 export const NumericStepper: FC<NumericStepperProps> = ({
   variant = 'productQuantity',
+  htmlFor = 'product-quantity',
   minValue,
   maxValue = Infinity,
   onChange,
@@ -47,7 +49,7 @@ export const NumericStepper: FC<NumericStepperProps> = ({
           -
         </Button>
         <Input
-          id="product-quantity"
+          id={htmlFor}
           value={quantity}
           variant={`${variant}.numericStepper.input`}
         />
