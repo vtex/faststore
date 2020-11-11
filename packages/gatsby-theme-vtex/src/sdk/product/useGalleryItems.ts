@@ -9,7 +9,11 @@ type Video = {
 
 type Image = ComponentPropsWithoutRef<typeof ProgressiveImage>
 
-export const useGalleryItems = (images: Image[], videos: Video[], productName: string): Item[] =>
+export const useGalleryItems = (
+  images: Image[],
+  videos: Video[],
+  productName: string
+): Item[] =>
   useMemo(() => {
     const imagesMapped = images.map((props) => ({
       type: 'image',
