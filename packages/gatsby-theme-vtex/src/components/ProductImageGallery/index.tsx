@@ -60,7 +60,7 @@ const ProductImageGallery: FC<Props> = ({
             <AspectImage
               ratio={1}
               variant={variant}
-              {...it.props.targetProps as any}
+              {...(it.props as any).targetProps}
             />
           </Box>
         ))}
