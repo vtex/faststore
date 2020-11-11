@@ -20,7 +20,7 @@ const Home: FC<Props> = (props) => {
     const event = {
       pageUrl: window.location.href,
       pageTitle: document.title,
-      referrer: document.referrer,
+      referrer: '',
       accountName: process.env.GATSBY_VTEX_TENANT!,
     }
 
