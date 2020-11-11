@@ -45,8 +45,13 @@ const ProductImageGallery: FC<Props> = ({
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'nowrap', flexDirection: 'row' }}>
-      <SuspenseDevice device="desktop" fallback={null}>
-        <Box sx={{ mx: '5px' }}>
+      <SuspenseDevice
+        device="desktop"
+        fallback={
+          <Box sx={{ mx: '5px', width: '80px', display: ['none', 'block'] }} />
+        }
+      >
+        <Box sx={{ mx: '5px', width: '80px' }}>
           {allItems.map((it, index) => (
             <Box
               key={`ProductImageGalleryPage-${index}`}
