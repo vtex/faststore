@@ -6,6 +6,7 @@ import ProductImageGalleryArrowLeft from './ArrowLeft'
 import ProductImageGalleryArrowRight from './ArrowRight'
 import ProductImageGalleryPaginationDots from './PaginationDots'
 import ProductImageGalleryPage, { Item } from './Page'
+import SuspenseDevice from '../Suspense/Device'
 
 interface Props {
   allItems: Item[]
@@ -44,27 +45,29 @@ const ProductImageGallery: FC<Props> = ({
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'nowrap', flexDirection: 'row' }}>
-      <Box sx={{ mx: '5px' }}>
-        {allItems.map((it, index) => (
-          <Box
-            key={`ProductImageGalleryPage-${index}`}
-            sx={{
-              width: '80px',
-              my: '5px',
-              borderStyle: 'solid',
-              borderColor: page === index ? '#f17826' : 'gray',
-              borderWidth: '1px',
-            }}
-            onClick={() => setPage(index)}
-          >
-            <AspectImage
-              ratio={1}
-              variant={variant}
-              {...(it.props as any).targetProps}
-            />
-          </Box>
-        ))}
-      </Box>
+      <SuspenseDevice device="desktop" fallback={null}>
+        <Box sx={{ mx: '5px' }}>
+          {allItems.map((it, index) => (
+            <Box
+              key={`ProductImageGalleryPage-${index}`}
+              sx={{
+                width: '80px',
+                my: '5px',
+                borderStyle: 'solid',
+                borderColor: page === index ? '#f17826' : 'gray',
+                borderWidth: '1px',
+              }}
+              onClick={() => setPage(index)}
+            >
+              <AspectImage
+                ratio={1}
+                variant={variant}
+                {...(it.props as any).targetProps}
+              />
+            </Box>
+          ))}
+        </Box>
+      </SuspenseDevice>
 
       <Box variant={variant} sx={{ flexGrow: 4 }}>
         <Box variant={`${variant}.group`} sx={{ flexGrow: 2 }}>
