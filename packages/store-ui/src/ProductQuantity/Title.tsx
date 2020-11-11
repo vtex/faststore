@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Text } from 'theme-ui'
+import { Label } from 'theme-ui'
 
 export interface ProductQuantityTitleProps {
   variant?: string
@@ -8,4 +8,8 @@ export interface ProductQuantityTitleProps {
 export const ProductQuantityTitle: FC<ProductQuantityTitleProps> = ({
   variant = 'productDescription',
   children,
-}) => <Text variant={`${variant}.title`}>{children}</Text>
+}) => (
+  <Label htmlFor="product-quantity" variant={`${variant}.title`}>
+    {children}
+  </Label>
+)

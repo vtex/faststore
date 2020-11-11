@@ -15,11 +15,14 @@ export const NumericStepper: FC<NumericStepperProps> = ({
   onChange,
   children,
 }) => {
-  var [quantity, setQuantity] = React.useState<number>(1)
+  const [quantity, setQuantity] = React.useState<number>(1)
 
-  const narrowedValue = (value: number) => {
-    return Math.min(Math.max(value, minValue), maxValue)
-  }
+  const narrowedValue = useCallback(
+    (value: number) => {
+      return Math.min(Math.max(value, minValue), maxValue)
+    },
+    [maxValue, minValue]
+  )
 
   const updateQuantity = useCallback(
     (value: number) => {
@@ -27,7 +30,7 @@ export const NumericStepper: FC<NumericStepperProps> = ({
       setQuantity(value)
       onChange(value)
     },
-    [setQuantity, onChange]
+    [setQuantity, onChange, narrowedValue]
   )
 
   const isMax = quantity >= maxValue
@@ -43,7 +46,11 @@ export const NumericStepper: FC<NumericStepperProps> = ({
         >
           -
         </Button>
-        <Input value={quantity} variant={`${variant}.numericStepper.input`} />
+        <Input
+          id="product-quantity"
+          value={quantity}
+          variant={`${variant}.numericStepper.input`}
+        />
         <Button
           variant={`${variant}.numericStepper.button.plus`}
           onClick={() => updateQuantity(quantity + 1)}
