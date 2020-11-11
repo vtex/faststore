@@ -1,9 +1,11 @@
-import React, { FC } from 'react'
+import React, { ComponentPropsWithoutRef, FC } from 'react'
 import { AspectRatio } from 'theme-ui'
 
-import YouTube, { Props as YoutubeProps } from './Youtube'
+import YouTube from './Youtube'
 
-const Video: FC<YoutubeProps> = (props) => {
+type Props = ComponentPropsWithoutRef<typeof YouTube>
+
+const Video: FC<Props> = (props) => {
   const innerVariant = `${props.variant}.video`
 
   return (

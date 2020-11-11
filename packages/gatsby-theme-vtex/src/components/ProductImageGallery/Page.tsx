@@ -25,11 +25,7 @@ const ProductImageGalleryPage: FC<Props> = ({ item, variant }) =>
       as={AspectImage}
     />
   ) : (
-    <VideoIframe
-      {...item.props}
-      variant={variant}
-      url={item.props.src!}
-    />
+    <VideoIframe {...item.props} variant={variant} />
   )
 
 export default ProductImageGalleryPage
