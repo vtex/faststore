@@ -13,7 +13,7 @@ type HookProps = {
   skuId: string
   seller: string
   country: string
-  quantity: string
+  quantity?: number
 }
 
 export const useShippingSimulator = ({
@@ -37,7 +37,7 @@ export const useShippingSimulator = ({
   const onSubmit = useCallback(() => {
     setLoading(true)
     getShipping({
-      items: [{ id: skuId, seller, quantity }],
+      items: [{ id: skuId, seller, quantity: quantity?.toString() ?? '1' }],
       country,
       postalCode,
     }).finally(() => {
