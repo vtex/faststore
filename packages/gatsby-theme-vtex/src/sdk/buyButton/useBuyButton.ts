@@ -50,7 +50,7 @@ export const useBuyButton = (
       setLoading(true)
       const items = [orderFormItem]
 
-      await orderForm.addToCart([orderFormItem])
+      await orderForm.addToCart(items)
 
       sendPixelEvent({
         type: 'vtex:addToCart',
