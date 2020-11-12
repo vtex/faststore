@@ -2,7 +2,7 @@ import React, { FC, HTMLProps } from 'react'
 import { Box } from 'theme-ui'
 
 interface Props extends HTMLProps<HTMLIFrameElement> {
-  variant: string
+  variant?: string
   autoplay?: boolean
   loop?: boolean
   title: string

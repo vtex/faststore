@@ -9,8 +9,6 @@ interface Image {
   imageText: string
 }
 
-type Loading = 'lazy' | 'eager'
-
 const DEFAULT_IMAGES = [
   {
     imageUrl: IMAGE_DEFAULT,
@@ -22,7 +20,7 @@ const maxWidth = DETAILS_IMAGE[DETAILS_IMAGE.length - 1].widthStr
 const maxHeight = DETAILS_IMAGE[DETAILS_IMAGE.length - 1].heightStr
 const sizes = DETAILS_IMAGE.map(({ media }) => media).join(', ')
 
-export const useDetailsImage = (maybeImages: Image[] | undefined) => {
+export const useDetailsImages = (maybeImages: Image[] | undefined) => {
   const { state }: any = useLocation()
   const images = maybeImages ?? DEFAULT_IMAGES
 
@@ -48,19 +46,22 @@ export const useDetailsImage = (maybeImages: Image[] | undefined) => {
         const sizesPlaceholder = useSummary ? '(minWidth: 0px) 100vw' : sizes
 
         return {
-          targetProps: {
-            sizes,
-            srcSet,
+          type: ('image' as unknown) as 'image',
+          props: {
+            targetProps: {
+              sizes,
+              srcSet,
+            },
+            placeholderProps: {
+              sizes: sizesPlaceholder,
+              srcSet: srcSetPlaceholder,
+            },
+            src: imageUrl,
+            alt: imageText,
+            loading: ('eager' as unknown) as 'eager',
+            width: maxWidth,
+            height: maxHeight,
           },
-          placeholderProps: {
-            sizes: sizesPlaceholder,
-            srcSet: srcSetPlaceholder,
-          },
-          src: imageUrl,
-          alt: imageText,
-          loading: 'eager' as Loading,
-          width: maxWidth,
-          height: maxHeight,
         }
       }),
     [images]
