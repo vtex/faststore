@@ -17,7 +17,15 @@ export interface SKU {
   sellers: Seller[]
 }
 
-export const useBuyButton = (sku: Maybe<SKU>, quantity: number) => {
+type Options = {
+  isOneClickBuy?: boolean
+}
+
+export const useBuyButton = (
+  sku: Maybe<SKU>,
+  quantity: number,
+  options?: Options
+) => {
   const [loading, setLoading] = useState(false)
   const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
@@ -42,13 +50,18 @@ export const useBuyButton = (sku: Maybe<SKU>, quantity: number) => {
       setLoading(true)
       const items = [orderFormItem]
 
-      await orderForm.addToCart(items)
+      await orderForm.addToCart([orderFormItem])
+
       sendPixelEvent({
         type: 'vtex:addToCart',
         data: {
           items,
         },
       })
+
+      if (options?.isOneClickBuy) {
+        window.location.href = '/checkout/'
+      }
     } catch (err) {
       console.error(err)
     } finally {
