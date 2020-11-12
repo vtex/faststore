@@ -9,7 +9,7 @@ const LocalizedLink: FC<Props> = (props) => {
   const href = useLocalizedPath(props.to)
 
   return (
-    // @ts-expect-error - {HELP DEFINING WHY THIS IS OKAY}
+    // @ts-expect-error - Safe to ignore this type error
     <Link {...linkProps} to={href}>
       {children}
     </Link>
