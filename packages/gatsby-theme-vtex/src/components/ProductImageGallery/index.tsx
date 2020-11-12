@@ -1,12 +1,15 @@
 /** @jsx jsx */
-import { FC } from 'react'
-import { jsx, Box, useSlider, Image, AspectImage } from '@vtex/store-ui'
+import { FC, lazy } from 'react'
+import { jsx, Box, useSlider } from '@vtex/store-ui'
 
 import ProductImageGalleryArrowLeft from './ArrowLeft'
 import ProductImageGalleryArrowRight from './ArrowRight'
 import ProductImageGalleryPaginationDots from './PaginationDots'
 import ProductImageGalleryPage, { Item } from './Page'
 import SuspenseDevice from '../Suspense/Device'
+import Container from './PaginationMiniatures/Container'
+
+const PaginationMiniatures = lazy(() => import('./PaginationMiniatures/index'))
 
 interface Props {
   allItems: Item[]
@@ -47,31 +50,14 @@ const ProductImageGallery: FC<Props> = ({
     <Box sx={{ display: 'flex', flexWrap: 'nowrap', flexDirection: 'row' }}>
       <SuspenseDevice
         device="desktop"
-        fallback={
-          <Box sx={{ mx: '5px', width: '80px', display: ['none', 'block'] }} />
-        }
+        fallback={<Container variant={variant} />}
       >
-        <Box sx={{ mx: '5px', width: '80px' }}>
-          {allItems.map((it, index) => (
-            <Box
-              key={`ProductImageGalleryPage-${index}`}
-              sx={{
-                width: '80px',
-                my: '5px',
-                borderStyle: 'solid',
-                borderColor: page === index ? '#f17826' : 'gray',
-                borderWidth: '1px',
-              }}
-              onClick={() => setPage(index)}
-            >
-              <AspectImage
-                ratio={1}
-                variant={variant}
-                {...(it.props as any).targetProps}
-              />
-            </Box>
-          ))}
-        </Box>
+        <PaginationMiniatures
+          variant={variant}
+          onSelect={setPage}
+          selectedPage={page}
+          allItems={allItems}
+        />
       </SuspenseDevice>
 
       <Box variant={variant} sx={{ flexGrow: 4 }}>
