@@ -2,6 +2,7 @@ import React, { FC, Fragment, useCallback } from 'react'
 import { Button, Flex, Input } from 'theme-ui'
 
 export interface NumericStepperProps {
+  id?: string
   variant?: string
   minValue: number
   maxValue?: number
@@ -10,16 +11,20 @@ export interface NumericStepperProps {
 
 export const NumericStepper: FC<NumericStepperProps> = ({
   variant = 'productQuantity',
+  id = 'product-quantity',
   minValue,
   maxValue = Infinity,
   onChange,
   children,
 }) => {
-  var [quantity, setQuantity] = React.useState<number>(1)
+  const [quantity, setQuantity] = React.useState<number>(1)
 
-  const narrowedValue = (value: number) => {
-    return Math.min(Math.max(value, minValue), maxValue)
-  }
+  const narrowedValue = useCallback(
+    (value: number) => {
+      return Math.min(Math.max(value, minValue), maxValue)
+    },
+    [maxValue, minValue]
+  )
 
   const updateQuantity = useCallback(
     (value: number) => {
@@ -27,7 +32,7 @@ export const NumericStepper: FC<NumericStepperProps> = ({
       setQuantity(value)
       onChange(value)
     },
-    [setQuantity, onChange]
+    [setQuantity, onChange, narrowedValue]
   )
 
   const isMax = quantity >= maxValue
@@ -43,7 +48,13 @@ export const NumericStepper: FC<NumericStepperProps> = ({
         >
           -
         </Button>
-        <Input value={quantity} variant={`${variant}.numericStepper.input`} />
+        <Input
+          id={id}
+          value={quantity}
+          type="number"
+          onChange={(e) => updateQuantity(Number(e.target.value))}
+          variant={`${variant}.numericStepper.input`}
+        />
         <Button
           variant={`${variant}.numericStepper.button.plus`}
           onClick={() => updateQuantity(quantity + 1)}
