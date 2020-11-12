@@ -6,9 +6,10 @@ coverage/
 .vscode/
 .cache/
 
-# autogen js files
+# generated js files
 packages/gatsby-*/**/*.js
 packages/gatsby-*/**/*.jsx
+__generated__/
 
 # declaration files
 packages/gatsby-*/**/*.d.ts
