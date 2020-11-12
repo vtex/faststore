@@ -3,7 +3,8 @@ import { useIdleEffect } from '../useIdleEffect'
 interface Options {
   src: string
   id: string
-  timeout?: number // add script to the page after timeout ms after idleCallback fired
+  // add script to the page after timeout ms after idleCallback fired
+  timeout?: number
 }
 
 const registerScript = ({ id, src }: Options) => {

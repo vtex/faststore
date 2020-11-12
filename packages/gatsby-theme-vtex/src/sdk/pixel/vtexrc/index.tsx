@@ -31,7 +31,7 @@ const Provider: FC = ({ children }) => {
   useLazyScript({
     src: 'https://io.vtex.com.br/rc/rc.js',
     id: 'async-vtex-rc',
-    timeout: 5.5e3, // add script 5.5s after idle to decrease tti
+    timeout: 5500,
   })
 
   usePixelEvent(handler)

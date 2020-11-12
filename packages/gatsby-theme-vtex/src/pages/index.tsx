@@ -25,14 +25,8 @@ const Home: FC<Props> = (props) => {
     }
 
     return [
-      {
-        type: 'vtex:homeView',
-        data: event,
-      },
-      {
-        type: 'vtex:pageView',
-        data: event,
-      },
+      { type: 'vtex:homeView', data: event },
+      { type: 'vtex:pageView', data: event },
     ]
   })
 
