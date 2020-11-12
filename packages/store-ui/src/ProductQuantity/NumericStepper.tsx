@@ -51,6 +51,8 @@ export const NumericStepper: FC<NumericStepperProps> = ({
         <Input
           id={id}
           value={quantity}
+          type="number"
+          onChange={(e) => updateQuantity(Number(e.target.value))}
           variant={`${variant}.numericStepper.input`}
         />
         <Button
