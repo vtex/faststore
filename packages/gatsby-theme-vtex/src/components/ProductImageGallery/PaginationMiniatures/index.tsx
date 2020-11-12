@@ -22,14 +22,9 @@ const PaginationMiniatures: FC<Props> = ({
     {allItems.map((item, index) => (
       <Box
         key={`paginationMiniatures-${index}`}
-        variant={`${variant}.paginationMiniatures`}
-        sx={{
-          width: '80px',
-          my: '5px',
-          borderStyle: 'solid',
-          borderColor: selectedPage === index ? '#f17826' : 'gray',
-          borderWidth: '1px',
-        }}
+        variant={`${variant}.paginationMiniatures.${
+          selectedPage === index ? 'active' : 'inactive'
+        }`}
         onClick={() => onSelect(index)}
       >
         <ProductImageGalleryPage variant={variant} item={item} />
