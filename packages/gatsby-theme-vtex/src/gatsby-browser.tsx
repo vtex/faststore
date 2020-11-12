@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { WrapRootElementBrowserArgs } from 'gatsby'
-import { createElement, ElementType, StrictMode } from 'react'
+import React, { ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import 'requestidlecallback-polyfill'
 
@@ -32,14 +34,14 @@ export const replaceHydrateFunction = () => (
 }
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
-  const root = createElement(VTEXRCProvider, {
-    children: createElement(OrderFormProvider, { children: element }),
-  })
+  const root = (
+    <VTEXRCProvider>
+      <OrderFormProvider>{element}</OrderFormProvider>
+    </VTEXRCProvider>
+  )
 
   if (process.env.NODE_ENV === 'development') {
-    return createElement(StrictMode, {
-      children: root,
-    })
+    return <StrictMode>{root}</StrictMode>
   }
 
   return root
@@ -48,8 +50,9 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
 export const wrapPageElement = ({
   element,
   props: { location },
-}: WrapRootElementBrowserArgs | any) =>
-  createElement(Progress, { children: element, location })
+}: WrapRootElementBrowserArgs | any) => (
+  <Progress location={location}>{element}</Progress>
+)
 
 export const onRouteUpdate = () => {
   progressOnRouteUpdate()
