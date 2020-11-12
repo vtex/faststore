@@ -62,23 +62,16 @@ const getDataFromEvent = (event: PixelEvent) => {
     }
 
     case 'vtex:addToCart': {
-      // TODO: add currency
+      // TODO: add currency, brand, category, id, name, price, variant
       const { items } = event.data
 
       return {
         ecommerce: {
           add: {
             products: items.map((sku) => ({
-              // brand: sku.brand,
-              // category: sku.category,
-              // id: sku.skuId,
-              // name: sku.name,
-              // price: `${sku.price}`,
               quantity: sku.quantity,
-              // variant: sku.variant,
             })),
           },
-          // currencyCode: event.data.currency,
         },
         event: 'addToCart',
       }
@@ -90,7 +83,6 @@ const getDataFromEvent = (event: PixelEvent) => {
 
       return {
         ecommerce: {
-          // currencyCode: event.data.currency,
           remove: {
             products: items.map((sku: any) => ({
               brand: sku.brand,
@@ -143,10 +135,6 @@ const getDataFromEvent = (event: PixelEvent) => {
 
       const parsedImpressions = (impressions || []).map(
         ({ product, position }) => ({
-          // brand: product.brand,
-          // id: product.sku.itemId,
-          // price: `${product.sku.seller!.commertialOffer.Price}`,
-          // variant: product.sku.name,
           list,
           name: product.productName,
           position,
@@ -156,7 +144,6 @@ const getDataFromEvent = (event: PixelEvent) => {
       return {
         event: 'productImpression',
         ecommerce: {
-          // currencyCode: currency,
           impressions: parsedImpressions,
         },
       }
