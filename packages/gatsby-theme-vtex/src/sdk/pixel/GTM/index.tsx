@@ -19,6 +19,7 @@ const Provider: FC<Props> = ({ children, gtmId }) => {
   useLazyScript({
     src: `https://www.googletagmanager.com/gtm.js?id=${gtmId}`,
     id: gtmId,
+    timeout: 5.5e3,
   })
 
   usePixelEvent(handler)

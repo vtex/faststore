@@ -28,7 +28,11 @@ if (!window.vtexrca) {
 }
 
 const Provider: FC = ({ children }) => {
-  useLazyScript({ src: 'https://io.vtex.com.br/rc/rc.js', id: 'async-vtex-rc' })
+  useLazyScript({
+    src: 'https://io.vtex.com.br/rc/rc.js',
+    id: 'async-vtex-rc',
+    timeout: 5.5e3,
+  })
 
   usePixelEvent(handler)
 
