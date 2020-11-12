@@ -1,6 +1,5 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box } from '@vtex/store-ui'
-import { ProductQuantityTitle, NumericStepper } from '@vtex/store-ui'
+import { Box, ProductQuantityTitle, NumericStepper } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
 interface Props {
