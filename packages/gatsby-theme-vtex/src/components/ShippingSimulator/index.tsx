@@ -9,7 +9,7 @@ type Props = {
   country: string
   initialPostalCode?: string
   variant: string
-  quantity: string
+  quantity: number
 }
 
 const ShippingSimulatorWrapper: FC<Props> = ({
