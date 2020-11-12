@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { useLazyQuery } from '../../../sdk/graphql/useLazyQuery'
@@ -13,6 +13,7 @@ type HookProps = {
   skuId: string
   seller: string
   country: string
+  quantity?: number
 }
 
 export const useShippingSimulator = ({
@@ -20,6 +21,7 @@ export const useShippingSimulator = ({
   skuId,
   seller,
   country,
+  quantity,
 }: HookProps) => {
   const [loading, setLoading] = useState(false)
   const [postalCode, setPostalCode] = useState(initialPostalCode ?? '')
@@ -32,17 +34,21 @@ export const useShippingSimulator = ({
     ...ShippingQuery,
   })
 
-  // TODO: Receive quantity from context or props
   const onSubmit = useCallback(() => {
     setLoading(true)
     getShipping({
-      items: [{ id: skuId, seller, quantity: '1' }],
+      items: [{ id: skuId, seller, quantity: quantity?.toString() ?? '1' }],
       country,
       postalCode,
     }).finally(() => {
       setLoading(false)
     })
   }, [postalCode, getShipping, country, seller, skuId])
+
+  // Recalculates the shipping information if the product quantity changes
+  useEffect(() => {
+    !loading && postalCode && onSubmit()
+  }, [quantity])
 
   return {
     shipping,

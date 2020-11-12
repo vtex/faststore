@@ -14,7 +14,7 @@ type Props = {
 const ShippingTable: FC<Props> = ({ shipping, variant: tableVariant }) => {
   const intl = useIntl()
 
-  return (
+  return shipping?.vtex?.shippingSLA?.deliveryOptions?.length ? (
     <Box as="table" variant={tableVariant}>
       <Box as="thead" variant={`${tableVariant}.thead`}>
         <Box as="tr" variant={`${tableVariant}.thead.row`}>
@@ -49,7 +49,7 @@ const ShippingTable: FC<Props> = ({ shipping, variant: tableVariant }) => {
         })}
       </Box>
     </Box>
-  )
+  ) : null
 }
 
 type ShippingOptionProps = {

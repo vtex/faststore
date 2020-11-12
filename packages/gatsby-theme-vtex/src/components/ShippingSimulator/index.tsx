@@ -9,6 +9,7 @@ type Props = {
   country: string
   initialPostalCode?: string
   variant: string
+  quantity: number
 }
 
 const ShippingSimulatorWrapper: FC<Props> = ({
@@ -17,6 +18,7 @@ const ShippingSimulatorWrapper: FC<Props> = ({
   country,
   initialPostalCode,
   variant,
+  quantity,
 }) => {
   const {
     shipping,
@@ -25,7 +27,13 @@ const ShippingSimulatorWrapper: FC<Props> = ({
     isValid,
     loading,
     onSubmit,
-  } = useShippingSimulator({ initialPostalCode, skuId, seller, country })
+  } = useShippingSimulator({
+    initialPostalCode,
+    skuId,
+    seller,
+    country,
+    quantity,
+  })
 
   return (
     <ShippingSimulator
