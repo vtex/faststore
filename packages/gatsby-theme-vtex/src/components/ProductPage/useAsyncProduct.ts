@@ -48,6 +48,10 @@ export const query = gql`
           }
         }
         items {
+          variations {
+            name
+            values
+          }
           itemId
           images {
             imageUrl

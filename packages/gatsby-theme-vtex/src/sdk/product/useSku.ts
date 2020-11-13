@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-interface Sku {
+export interface Sku {
   itemId: string
 }
 
