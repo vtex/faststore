@@ -1,7 +1,7 @@
 import React, { FC, Fragment, lazy } from 'react'
 
-import Header from './Header'
 import SuspenseViewport from './Suspense/Viewport'
+import Header from './Header'
 
 const loader = () => import('./Footer')
 

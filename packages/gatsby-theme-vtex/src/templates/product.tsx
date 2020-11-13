@@ -15,7 +15,7 @@ import {
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
 import SEO from '../components/ProductPage/SEO'
-import DefaultErrorHandler from '../components/Error/ErrorHandler'
+import ErrorHandler from '../components/Error/ErrorHandler'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 
 const belowTheFoldPreloader = () =>
@@ -92,18 +92,16 @@ const Page: FC<ProductPageProps> = (props) => {
   } = props
 
   return (
-    <Layout>
-      <HybridWrapper
-        isPrerendered={staticPath}
-        fallback={<AboveTheFoldPreview />}
-      >
-        <ErrorBoundary
-          fallback={(error) => <DefaultErrorHandler error={error} />}
+    <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
+      <Layout>
+        <HybridWrapper
+          isPrerendered={staticPath}
+          fallback={<AboveTheFoldPreview />}
         >
           <ProductPage {...props} />
-        </ErrorBoundary>
-      </HybridWrapper>
-    </Layout>
+        </HybridWrapper>
+      </Layout>
+    </ErrorBoundary>
   )
 }
 

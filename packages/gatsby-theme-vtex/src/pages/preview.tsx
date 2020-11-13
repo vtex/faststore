@@ -9,6 +9,8 @@ import { Helmet } from 'react-helmet-async'
 import Block from '../components/cms/Block'
 import { CMS_CONTENT, setupIframeListener } from '../components/cms/iframe'
 import { useLocalStorage } from '../components/cms/localStorage'
+import ErrorBoundary from '../components/Error/ErrorBoundary'
+import ErrorHandler from '../components/Error/ErrorHandler'
 import { isServer } from '../utils/env'
 
 if (!isServer) {
@@ -28,7 +30,7 @@ const Preview: FC = () => {
   const { title, slug } = getMeta(extraBlocks) as any
 
   return (
-    <>
+    <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
       <Helmet>
         <title>{title}</title>
       </Helmet>
@@ -48,7 +50,7 @@ const Preview: FC = () => {
           <Block block={block} />
         </Suspense>
       ))}
-    </>
+    </ErrorBoundary>
   )
 }
 

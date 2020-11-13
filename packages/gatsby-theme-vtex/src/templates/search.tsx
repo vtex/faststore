@@ -3,7 +3,7 @@ import { graphql, PageProps } from 'gatsby'
 import React, { FC, lazy } from 'react'
 
 import ErrorBoundary from '../components/Error/ErrorBoundary'
-import DefaultErrorHandler from '../components/Error/ErrorHandler'
+import ErrorHandler from '../components/Error/ErrorHandler'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import AboveTheFold from '../components/SearchPage/AboveTheFold'
@@ -92,18 +92,16 @@ const Page: FC<SearchPageProps> = (props) => {
   } = props
 
   return (
-    <Layout>
-      <HybridWrapper
-        isPrerendered={staticPath}
-        fallback={<AboveTheFoldPreview />}
-      >
-        <ErrorBoundary
-          fallback={(error) => <DefaultErrorHandler error={error} />}
+    <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
+      <Layout>
+        <HybridWrapper
+          isPrerendered={staticPath}
+          fallback={<AboveTheFoldPreview />}
         >
           <SearchPage {...props} />
-        </ErrorBoundary>
-      </HybridWrapper>
-    </Layout>
+        </HybridWrapper>
+      </Layout>
+    </ErrorBoundary>
   )
 }
 
