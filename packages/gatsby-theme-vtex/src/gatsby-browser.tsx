@@ -6,9 +6,6 @@ import { WrapRootElementBrowserArgs } from 'gatsby'
 import React, { ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 
-import ErrorBoundary from './components/Error/ErrorBoundary'
-import DefaultErrorHandler from './components/Error/ErrorHandler'
-
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
@@ -39,11 +36,9 @@ export const replaceHydrateFunction = () => (
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   const root = (
-    <ErrorBoundary fallback={(error) => <DefaultErrorHandler error={error} />}>
-      <VTEXRCProvider>
-        <OrderFormProvider>{element}</OrderFormProvider>
-      </VTEXRCProvider>
-    </ErrorBoundary>
+    <VTEXRCProvider>
+      <OrderFormProvider>{element}</OrderFormProvider>
+    </VTEXRCProvider>
   )
 
   if (process.env.NODE_ENV === 'development') {
