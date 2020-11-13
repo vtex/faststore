@@ -43,7 +43,7 @@ export const createPages = async (
     },
   })
 
-  if (!process.env.NETLIFY_ENV) {
+  if (!process.env.NETLIFY) {
     createRedirect({
       fromPath: '/api/*',
       toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
