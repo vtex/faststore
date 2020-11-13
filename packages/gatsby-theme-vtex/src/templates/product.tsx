@@ -92,16 +92,14 @@ const Page: FC<ProductPageProps> = (props) => {
   } = props
 
   return (
-    <ErrorBoundary fallback={(error) => <DefaultErrorHandler error={error} />}>
-      <Layout>
-        <HybridWrapper
-          isPrerendered={staticPath}
-          fallback={<AboveTheFoldPreview />}
-        >
-          <ProductPage {...props} />
-        </HybridWrapper>
-      </Layout>
-    </ErrorBoundary>
+    <Layout>
+      <HybridWrapper
+        isPrerendered={staticPath}
+        fallback={<AboveTheFoldPreview />}
+      >
+        <ProductPage {...props} />
+      </HybridWrapper>
+    </Layout>
   )
 }
 

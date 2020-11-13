@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SEO from '../components/HomePage/SEO'
 
-const NotFoundPage = () => (
+const NotFoundPage: FC = () => (
   <Layout>
     <SEO title="404: Not found" />
     <Container>

@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-require-imports */
+import 'requestidlecallback-polyfill'
+
 import { WrapRootElementBrowserArgs } from 'gatsby'
 import React, { ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
-import 'requestidlecallback-polyfill'
+
+import ErrorBoundary from './components/Error/ErrorBoundary'
+import DefaultErrorHandler from './components/Error/ErrorHandler'
 
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
@@ -35,9 +39,11 @@ export const replaceHydrateFunction = () => (
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   const root = (
-    <VTEXRCProvider>
-      <OrderFormProvider>{element}</OrderFormProvider>
-    </VTEXRCProvider>
+    <ErrorBoundary fallback={(error) => <DefaultErrorHandler error={error} />}>
+      <VTEXRCProvider>
+        <OrderFormProvider>{element}</OrderFormProvider>
+      </VTEXRCProvider>
+    </ErrorBoundary>
   )
 
   if (process.env.NODE_ENV === 'development') {
