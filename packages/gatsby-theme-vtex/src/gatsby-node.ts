@@ -43,15 +43,17 @@ export const createPages = async (
     },
   })
 
-  createRedirect({
-    fromPath: '/api/*',
-    toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
-    statusCode: 200,
-    headers: {
-      // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
-    },
-  })
+  if (!process.env.NETLIFY_ENV) {
+    createRedirect({
+      fromPath: '/api/*',
+      toPath: `/.netlify/functions/api/:splat`,
+      statusCode: 200,
+      headers: {
+        // VTEX ID needs the forwarded host in order to set the cookie correctly
+        'x-forwarded-host': '$host',
+      },
+    })
+  }
 
   createRedirect({
     fromPath: '/checkout/*',
