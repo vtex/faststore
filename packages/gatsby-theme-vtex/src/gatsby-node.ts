@@ -46,7 +46,7 @@ export const createPages = async (
   if (!process.env.NETLIFY_ENV) {
     createRedirect({
       fromPath: '/api/*',
-      toPath: `/.netlify/functions/api/:splat`,
+      toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
       statusCode: 200,
       headers: {
         // VTEX ID needs the forwarded host in order to set the cookie correctly
