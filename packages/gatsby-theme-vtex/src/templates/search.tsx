@@ -92,18 +92,16 @@ const Page: FC<SearchPageProps> = (props) => {
   } = props
 
   return (
-    <Layout>
-      <HybridWrapper
-        isPrerendered={staticPath}
-        fallback={<AboveTheFoldPreview />}
-      >
-        <ErrorBoundary
-          fallback={(error) => <DefaultErrorHandler error={error} />}
+    <ErrorBoundary fallback={(error) => <DefaultErrorHandler error={error} />}>
+      <Layout>
+        <HybridWrapper
+          isPrerendered={staticPath}
+          fallback={<AboveTheFoldPreview />}
         >
           <SearchPage {...props} />
-        </ErrorBoundary>
-      </HybridWrapper>
-    </Layout>
+        </HybridWrapper>
+      </Layout>
+    </ErrorBoundary>
   )
 }
 
