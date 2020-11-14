@@ -13,7 +13,6 @@ interface Props extends HTMLProps<HTMLIFrameElement> {
 
 const YoutubeIframe: FC<Props> = (props) => {
   const iframeSrc = useYoutubeEmbeddedSrc(props)
-  const innerVariant = `${props.variant}.video`
 
   const iframeProps: HTMLProps<HTMLIFrameElement> = {
     ...props,
@@ -26,7 +25,6 @@ const YoutubeIframe: FC<Props> = (props) => {
     <AspectRatio ratio={1} sx={{ paddingTop: '20%' }}>
       <AspectRatio ratio={4 / 3}>
         <Box
-          variant={innerVariant}
           sx={{ width: '100%', height: '100%' }}
           {...iframeProps}
           as="iframe"
