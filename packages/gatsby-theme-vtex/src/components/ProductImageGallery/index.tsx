@@ -1,11 +1,15 @@
 /** @jsx jsx */
-import { FC } from 'react'
+import { FC, lazy } from 'react'
 import { jsx, Box, useSlider } from '@vtex/store-ui'
 
 import ProductImageGalleryArrowLeft from './ArrowLeft'
 import ProductImageGalleryArrowRight from './ArrowRight'
 import ProductImageGalleryPaginationDots from './PaginationDots'
 import ProductImageGalleryPage, { Item } from './Page'
+import SuspenseDevice from '../Suspense/Device'
+import ProductImageGalleryMiniaturesContainer from './Miniatures/Container'
+
+const ProductImageGalleryMiniatures = lazy(() => import('./Miniatures/index'))
 
 interface Props {
   allItems: Item[]
@@ -41,32 +45,47 @@ const ProductImageGallery: FC<Props> = ({
 
   // this is safe, since there is only one item per page
   const [item] = items
+  const featuredVariant = `${variant}.featured`
 
   return (
     <Box variant={variant}>
-      <Box variant={`${variant}.group`}>
+      <ProductImageGalleryMiniaturesContainer variant={variant}>
+        <SuspenseDevice device="desktop" fallback={null}>
+          <ProductImageGalleryMiniatures
+            variant={variant}
+            onSelect={setPage}
+            selectedPage={page}
+            allItems={allItems}
+          />
+        </SuspenseDevice>
+      </ProductImageGalleryMiniaturesContainer>
+
+      <Box variant={featuredVariant}>
         {showArrows && (
           <ProductImageGalleryArrowLeft
-            variant={variant}
+            variant={featuredVariant}
             onClick={() => setPreviousPage()}
           />
         )}
-        <ProductImageGalleryPage variant={variant} item={item} />
+
+        <ProductImageGalleryPage variant={featuredVariant} item={item} />
+
         {showArrows && (
           <ProductImageGalleryArrowRight
-            variant={variant}
+            variant={featuredVariant}
             onClick={() => setNextPage()}
           />
         )}
+
+        {showDots && (
+          <ProductImageGalleryPaginationDots
+            variant={featuredVariant}
+            onSelect={setPage}
+            selectedPage={page}
+            totalPages={totalPages}
+          />
+        )}
       </Box>
-      {showDots && (
-        <ProductImageGalleryPaginationDots
-          variant={variant}
-          onSelect={setPage}
-          selectedPage={page}
-          totalPages={totalPages}
-        />
-      )}
     </Box>
   )
 }

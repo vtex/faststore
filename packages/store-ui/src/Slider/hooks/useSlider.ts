@@ -31,7 +31,7 @@ export const useSlider = <T>({
   // So go back to first page and apply Effect
   const currentPage = page < allItems.length ? page : 0
 
-  useEffect(() => setPage(0), [allItems.length])
+  useEffect(() => setPage(0), [allItems])
 
   // Items on current page
   const items = useMemo(

@@ -1,10 +1,10 @@
-import { AspectImage, ProgressiveImage, VideoIframe } from '@vtex/store-ui'
 import React, { ComponentPropsWithoutRef, FC } from 'react'
+import { AspectImage, ProgressiveImage, YoutubeIframe } from '@vtex/store-ui'
 
 export type Item =
   | {
       type: 'video'
-      props: ComponentPropsWithoutRef<typeof VideoIframe>
+      props: ComponentPropsWithoutRef<typeof YoutubeIframe>
     }
   | {
       type: 'image'
@@ -20,16 +20,13 @@ const ProductImageGalleryPage: FC<Props> = ({ item, variant }) =>
   item.type === 'image' ? (
     <ProgressiveImage
       {...item.props}
-      variant={`${variant}.img`}
+      variant={`${variant}.media`}
       ratio={1}
       as={AspectImage}
     />
   ) : (
-    <VideoIframe
-      {...item.props}
-      variant={variant}
-      url={item.props.src!}
-    />
+    // TODO: Figure out a way of supporting other platforms, like vimeo
+    <YoutubeIframe {...item.props} variant={`${variant}.media`} />
   )
 
 export default ProductImageGalleryPage
