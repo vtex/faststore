@@ -105,4 +105,6 @@ export { default as GiftListList } from './GiftList/List'
 // Skeleton
 export { default as Skeleton } from './Skeleton'
 // videoIframe
-export { default as VideoIframe } from './VideoIframe'
+export { default as YoutubeIframe } from './Youtube/Iframe'
+export { default as YoutubeThumb } from './Youtube/Thumb'
+export * from './Youtube/hooks'
