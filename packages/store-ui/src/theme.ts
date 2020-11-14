@@ -13,6 +13,7 @@ const customBase = {
     textBold: '#03003d',
     background: '#fff',
     primary: '#0f3e99',
+    secondary: '#f71963',
     muted: '#f0f0f0',
     gray: '#e3e4e6',
   },
