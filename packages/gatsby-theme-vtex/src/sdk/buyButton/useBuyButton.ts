@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
+import { PixelEvent } from '../pixel/pixel'
+import { usePixelEvent } from '../pixel/usePixelEvent'
 
 interface Seller {
   sellerId: string
@@ -13,7 +15,7 @@ interface Seller {
 }
 
 export interface SKU {
-  itemId: number
+  itemId: string
   sellers: Seller[]
 }
 
@@ -30,6 +32,20 @@ export const useBuyButton = (
   const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
   const disabled = loading || !sku || !orderForm?.value || !seller
+
+  usePixelEvent((e) => {
+    if (options?.isOneClickBuy && e.type !== 'vtex:addToCart') {
+      return
+    }
+
+    const isThisItem = e.data.items[0].id?.toString() === sku?.itemId
+
+    if (!isThisItem) {
+      return
+    }
+
+    window.location.href = '/checkout/'
+  })
 
   // Optimist add item on click
   const onClick = async (e: any) => {
@@ -58,10 +74,6 @@ export const useBuyButton = (
           items,
         },
       })
-
-      if (options?.isOneClickBuy) {
-        window.location.href = '/checkout/'
-      }
     } catch (err) {
       console.error(err)
     } finally {
