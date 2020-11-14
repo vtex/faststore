@@ -32,7 +32,7 @@ export const useBuyButton = ({ sku, quantity, oneClickBuy }: Props) => {
 
   // Redirects the user to checkout after reassuring the pixel event was received
   usePixelEvent((e) => {
-    if (!oneClickBuy && e.type !== 'vtex:addToCart') {
+    if (!oneClickBuy || e.type !== 'vtex:addToCart') {
       return
     }
 
