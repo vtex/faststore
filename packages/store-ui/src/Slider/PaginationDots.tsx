@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { FC, useMemo } from 'react'
-import { jsx, Box } from 'theme-ui'
+import React, { FC, useMemo } from 'react'
+import { Box } from 'theme-ui'
 
 interface Props {
   totalPages: number
