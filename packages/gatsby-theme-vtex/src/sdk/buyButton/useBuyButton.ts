@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
-import { PixelEvent } from '../pixel/pixel'
 import { usePixelEvent } from '../pixel/usePixelEvent'
 
 interface Seller {
@@ -19,22 +18,21 @@ export interface SKU {
   sellers: Seller[]
 }
 
-type Options = {
-  isOneClickBuy?: boolean
+export interface Props {
+  sku: Maybe<SKU>
+  quantity: number
+  oneClickBuy?: boolean
 }
 
-export const useBuyButton = (
-  sku: Maybe<SKU>,
-  quantity: number,
-  options?: Options
-) => {
+export const useBuyButton = ({ sku, quantity, oneClickBuy }: Props) => {
   const [loading, setLoading] = useState(false)
   const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
   const disabled = loading || !sku || !orderForm?.value || !seller
 
+  // Redirects the user to checkout after reassuring the pixel event was received
   usePixelEvent((e) => {
-    if (options?.isOneClickBuy && e.type !== 'vtex:addToCart') {
+    if (oneClickBuy && e.type !== 'vtex:addToCart') {
       return
     }
 
@@ -44,7 +42,9 @@ export const useBuyButton = (
       return
     }
 
-    window.location.href = '/checkout/'
+    requestAnimationFrame(() => {
+      window.location.href = '/checkout/'
+    })
   })
 
   // Optimist add item on click
