@@ -8,12 +8,12 @@ interface Props {
   variant: string
 }
 
-const Page: FC<Props> = ({ item, variant }) => {
-  if (item.type === 'image') {
-    return <AspectImage ratio={1} {...item.props} {...item.props.targetProps} />
-  }
-
-  return <YoutubeThumb src={item.props.src} variant={variant} />
-}
+const Page: FC<Props> = ({ item, variant }) =>
+  item.type === 'image' ? (
+    <AspectImage ratio={1} {...item.props} {...item.props.targetProps} />
+  ) : (
+    // TODO: Figure out a way of supporting other platforms, like vimeo
+    <YoutubeThumb src={item.props.src} variant={variant} />
+  )
 
 export default Page

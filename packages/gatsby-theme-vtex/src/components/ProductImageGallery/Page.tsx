@@ -25,6 +25,7 @@ const ProductImageGalleryPage: FC<Props> = ({ item, variant }) =>
       as={AspectImage}
     />
   ) : (
+    // TODO: Figure out a way of supporting other platforms, like vimeo
     <YoutubeIframe {...item.props} variant={`${variant}.media`} />
   )
 
