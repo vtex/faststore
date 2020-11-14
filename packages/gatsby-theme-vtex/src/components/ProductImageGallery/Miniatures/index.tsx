@@ -21,7 +21,7 @@ const Miniatures: FC<Props> = ({
     {allItems.map((item, index) => (
       <Box
         key={`miniatures-${index}`}
-        variant={`${variant}.miniatures.${
+        variant={`${variant}.miniature.${
           selectedPage === index ? 'active' : 'inactive'
         }`}
         onClick={() => onSelect(index)}

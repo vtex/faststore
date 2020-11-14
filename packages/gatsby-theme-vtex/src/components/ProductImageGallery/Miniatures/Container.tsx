@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Container: FC<Props> = ({ variant, children }) => (
-  <Box variant={`${variant}.miniatures.container`}>{children}</Box>
+  <Box variant={`${variant}.miniature.container`}>{children}</Box>
 )
 
 export default Container
