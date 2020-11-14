@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import Error from './Error'
 
-const DefaultErrorHandler: FC<{ error: any }> = ({ error }) => {
+const ErrorHandler: FC<{ error: any }> = ({ error }) => {
   if (error?.extensions?.exception?.status === 404) {
     window.location.href = `/404?from=${window.location.pathname}`
 
@@ -12,4 +12,4 @@ const DefaultErrorHandler: FC<{ error: any }> = ({ error }) => {
   return <Error error={error} />
 }
 
-export default DefaultErrorHandler
+export default ErrorHandler

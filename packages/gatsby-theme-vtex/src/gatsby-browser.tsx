@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-require-imports */
+import 'requestidlecallback-polyfill'
+
 import { WrapRootElementBrowserArgs } from 'gatsby'
 import React, { ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
-import 'requestidlecallback-polyfill'
 
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')

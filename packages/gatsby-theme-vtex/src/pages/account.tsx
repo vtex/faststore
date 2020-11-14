@@ -4,6 +4,8 @@ import { navigate } from 'gatsby'
 import React, { FC, useEffect, useState } from 'react'
 
 import Container from '../components/Container'
+import ErrorBoundary from '../components/Error/ErrorBoundary'
+import ErrorHandler from '../components/Error/ErrorHandler'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import RenderExtensionLoader from '../sdk/RenderExtensionLoader'
@@ -87,13 +89,15 @@ const MyAccount: FC = () => {
 }
 
 const Page: FC = () => (
-  <Layout>
-    <Container>
-      <SuspenseSSR fallback={<Loading />}>
-        <MyAccount />
-      </SuspenseSSR>
-    </Container>
-  </Layout>
+  <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
+    <Layout>
+      <Container>
+        <SuspenseSSR fallback={<Loading />}>
+          <MyAccount />
+        </SuspenseSSR>
+      </Container>
+    </Layout>
+  </ErrorBoundary>
 )
 
 export default Page

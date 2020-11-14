@@ -3,9 +3,11 @@ import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
 import { PageProps } from 'gatsby'
 
-import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
+import ErrorBoundary from '../components/Error/ErrorBoundary'
+import ErrorHandler from '../components/Error/ErrorHandler'
+import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import { useOnLoginSuccessful } from '../sdk/auth/useOnLoginSuccessful'
 import { useProfile } from '../sdk/session/useProfile'
 
@@ -72,17 +74,19 @@ const Page: FC = () => {
 // We split into two components to avoid re-rendering the <Layout/> when
 // selecting Auth method
 const PageWithLayout: FC<Props> = () => (
-  <Layout>
-    <SuspenseSSR
-      fallback={
-        <Center height="300px">
-          <Spinner />
-        </Center>
-      }
-    >
-      <Page />
-    </SuspenseSSR>
-  </Layout>
+  <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
+    <Layout>
+      <SuspenseSSR
+        fallback={
+          <Center height="300px">
+            <Spinner />
+          </Center>
+        }
+      >
+        <Page />
+      </SuspenseSSR>
+    </Layout>
+  </ErrorBoundary>
 )
 
 export default PageWithLayout
