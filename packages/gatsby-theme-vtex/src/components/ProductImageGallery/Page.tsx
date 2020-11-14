@@ -20,12 +20,12 @@ const ProductImageGalleryPage: FC<Props> = ({ item, variant }) =>
   item.type === 'image' ? (
     <ProgressiveImage
       {...item.props}
-      variant={`${variant}.img`}
+      variant={`${variant}.media`}
       ratio={1}
       as={AspectImage}
     />
   ) : (
-    <YoutubeIframe {...item.props} variant={variant} />
+    <YoutubeIframe {...item.props} variant={`${variant}.media`} />
   )
 
 export default ProductImageGalleryPage
