@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FC, useCallback, useEffect, useRef } from 'react'
+import { useLocation } from '@reach/router'
 import {
   Box,
   InputProps,
@@ -20,11 +21,18 @@ const SearchBarInput: FC<Props> = ({
   popoverState,
   ...forward
 }) => {
+  const location = useLocation()
   const { syncTerm, setTerm, onSearch } = useSearchBarContext()
   const ref = useRef<HTMLInputElement>(null) // reference input
   const referenceRef = useRef<HTMLDivElement>(null) // reference container
   const { toggle: t, ...popover } = usePopoverState(popoverState)
-  const { show, visible } = popover
+  const { show, visible, hide } = popover
+
+  // Close it whenever the page changes
+  useEffect(() => {
+    hide()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
 
   // When clicking in the input, always open but never close
   // search autocomplete
