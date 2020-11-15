@@ -33,6 +33,7 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
         {formatMessage({ id: 'minicart.drawer.shipping-disclaimer' })}
       </Text>
       <Button
+        variant={`${customVariant}.button`}
         onClick={(e: any) => {
           e.preventDefault()
           window.location.href = '/checkout/'
