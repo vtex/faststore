@@ -27,6 +27,7 @@ export const startLogin = async ({
     credentials: 'include',
     headers: {
       accept: 'application/json',
+      'x-forwarded-host': 'deploy-preview-178--marinbrasil.netlify.app',
     },
     body: form,
   })
