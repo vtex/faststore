@@ -1,6 +1,6 @@
 export const tenant = process.env.GATSBY_VTEX_TENANT as string
 
-const base = `/api/vtexid`
+const base = `https://${tenant}.vtexcommercestable.com.br/api/vtexid`
 
 export const api = {
   pub: {
