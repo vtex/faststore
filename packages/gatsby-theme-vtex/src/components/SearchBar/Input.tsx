@@ -28,9 +28,9 @@ const SearchBarInput: FC<Props> = ({
   const { toggle: t, ...popover } = usePopoverState(popoverState)
   const { show, visible, hide } = popover
 
-  // If the popover is open, close it whenever the page changes
+  // Close it whenever the page changes
   useEffect(() => {
-    visible && hide()
+    hide()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
