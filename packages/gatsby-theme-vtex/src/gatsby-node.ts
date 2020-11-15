@@ -33,26 +33,26 @@ export const createPages = async (
   { actions: { createPage, createRedirect }, graphql }: CreatePagesArgs,
   { getStaticPaths }: Options
 ) => {
-  // Netlify does not accept proxy headers
-  const proxyHeaders = process.env.NETLIFY_ENV
-    ? undefined
-    : {
-        // VTEX ID needs the forwarded host in order to set the cookie correctly
-        'x-forwarded-host': '$host',
-      }
+  // // Netlify does not accept proxy headers
+  // const proxyHeaders = process.env.NETLIFY_ENV
+  //   ? undefined
+  //   : {
+  //       // VTEX ID needs the forwarded host in order to set the cookie correctly
+  //       'x-forwarded-host': '$host',
+  //     }
 
   createRedirect({
     fromPath: '/api/io/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/:splat`,
     statusCode: 200,
-    headers: proxyHeaders,
+    // headers: proxyHeaders,
   })
 
   createRedirect({
     fromPath: '/api/*',
     toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
-    headers: proxyHeaders,
+    // headers: proxyHeaders,
   })
 
   createRedirect({
