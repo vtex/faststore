@@ -118,7 +118,7 @@ export const query = graphql`
       productSearch(
         from: 0
         to: 9
-        hideUnavailableItems: true
+        hideUnavailableItems: false
         productOriginVtex: true
         simulationBehavior: skip
         orderBy: $orderBy
