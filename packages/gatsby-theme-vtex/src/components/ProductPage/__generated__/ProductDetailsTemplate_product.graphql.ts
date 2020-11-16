@@ -23,6 +23,9 @@ export type ProductDetailsTemplate_ProductFragment = {
   items: Maybe<
     Array<
       Maybe<{
+        name: Maybe<string>
+        itemId: Maybe<string>
+        referenceId: Maybe<Array<Maybe<{ value: Maybe<string> }>>>
         images: Maybe<
           Array<Maybe<{ imageUrl: Maybe<string>; imageText: Maybe<string> }>>
         >

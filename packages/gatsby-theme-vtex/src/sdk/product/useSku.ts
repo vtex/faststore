@@ -6,11 +6,11 @@ export interface Sku {
   itemId: string
 }
 
-interface Props {
-  items: Sku[]
+interface Props<T extends Sku> {
+  items: T[]
 }
 
-export const useSku = (product: Props) => {
+export const useSku = <T extends Sku>(product: Props<T>) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const skuId = searchParams.get('skuId')
 
@@ -23,10 +23,6 @@ export const useSku = (product: Props) => {
   )
 
   const sku = useMemo(() => {
-    if (product == null) {
-      return
-    }
-
     if (skuId === undefined) {
       return product.items[0]
     }
