@@ -48,6 +48,9 @@ export const query = gql`
           }
         }
         items {
+          referenceId {
+            value: Value
+          }
           variations {
             name
             values
