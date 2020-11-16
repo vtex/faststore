@@ -33,6 +33,7 @@
     "@vtex/gatsby-plugin-i18n": "^0.120.0",
     "deepmerge": "^4.2.2",
     "gatsby-link": "^2.4.13",
+    "react-swipeable": "^6.0.0",
     "reakit": "^1.1.2",
     "theme-ui": "^0.3.1"
   },

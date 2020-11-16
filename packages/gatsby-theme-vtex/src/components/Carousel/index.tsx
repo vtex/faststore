@@ -33,6 +33,7 @@ const Carousel: FC<Props> = ({
     setPage,
     setNextPage,
     setPreviousPage,
+    dragHandlers,
   } = useSlider({
     allItems,
     pageSize: 1,
@@ -45,7 +46,7 @@ const Carousel: FC<Props> = ({
 
   return (
     <Box variant={variant}>
-      <Box variant={`${variant}.group`}>
+      <Box variant={`${variant}.group`} {...dragHandlers}>
         {showArrows ? (
           <CarouselArrowLeft
             variant={variant}
