@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { FC } from 'react'
+import { ComponentPropsWithoutRef, FC } from 'react'
 import { jsx, Grid } from '@vtex/store-ui'
 
 import { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
 import ProductSummary from '../ProductSummary'
 
-interface Props {
+interface Props extends ComponentPropsWithoutRef<typeof Grid> {
   items: Array<ProductSummary_ProductFragment | undefined | null>
   pageSizes?: number[]
   variant: string
