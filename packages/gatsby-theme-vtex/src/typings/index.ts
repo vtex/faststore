@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 declare type Maybe<T> = T | undefined | null
 declare type ArrayItem<A> = A extends ReadonlyArray<infer T> ? T : never
 

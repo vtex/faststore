@@ -17,23 +17,29 @@ export interface NginxDirective {
   children?: NginxDirective[]
 }
 
-function generateNginxConfiguration(
-  rewrites: Redirect[],
-  redirects: Redirect[],
-  headersMap: PathHeadersMap,
-  files: string[],
+function generateNginxConfiguration({
+  rewrites,
+  redirects,
+  headersMap,
+  files,
+  options,
+}: {
+  rewrites: Redirect[]
+  redirects: Redirect[]
+  headersMap: PathHeadersMap
+  files: string[]
   options: PluginOptions
-): string {
+}): string {
   const locations = [
     ...Object.entries(headersMap)
       .map(([path, headers]) =>
-        generatePathLocation(path, headers, files, options)
+        generatePathLocation({ path, headers, files, options })
       )
-      .filter<NginxDirective>(function (
-        value: NginxDirective | undefined
-      ): value is NginxDirective {
-        return value !== undefined
-      }),
+      .filter<NginxDirective>(
+        (value: NginxDirective | undefined): value is NginxDirective => {
+          return value !== undefined
+        }
+      ),
     ...generateRedirects(redirects),
     ...generateRewrites(rewrites),
   ]
@@ -109,11 +115,9 @@ function convertToPath(path: string) {
   return path.replace(/:splat/g, '$1')
 }
 
-function validateRedirect({ fromPath, toPath }: Redirect): boolean {
-  let url: URL
-
+function validateRedirect({ toPath }: Redirect): boolean {
   try {
-    url = new URL(toPath)
+    new URL(toPath)
   } catch (ex) {
     throw new Error(`redirect toPath "${toPath}" must be a valid absolute URL`)
   }
@@ -171,12 +175,17 @@ function storagePassTemplate(
   }
 }
 
-function generatePathLocation(
-  path: string,
-  headers: Header[],
-  files: string[],
+function generatePathLocation({
+  path,
+  headers,
+  files,
+  options,
+}: {
+  path: string
+  headers: Header[]
+  files: string[]
   options: PluginOptions
-): NginxDirective | undefined {
+}): NginxDirective | undefined {
   const proxyPassDirective = storagePassTemplate(path, files, options)
 
   if (proxyPassDirective === undefined) {

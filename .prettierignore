@@ -4,3 +4,4 @@ public/
 coverage/
 .vscode/
 .cache/
+__generated__/

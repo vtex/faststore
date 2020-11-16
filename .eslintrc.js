@@ -1,41 +1,33 @@
 module.exports = {
   extends: ['vtex'],
-  env: {
-    browser: true,
-    es6: true,
-    node: true,
-  },
   overrides: [
     // Use vtex-react preset for .tsx files
     {
-      files: '**/*.tsx',
+      files: '*.tsx',
       extends: ['vtex-react'],
-      rules: {
-        'react/jsx-pascal-case': 'off',
-      },
     },
     // General overrides
     {
-      files: ['*'],
+      files: '*',
       rules: {
+        'no-console': [
+          'error',
+          {
+            allow: ['warn', 'error', 'info', 'time', 'timeEnd'],
+          },
+        ],
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
-        '@typescript-eslint/camelcase': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/prefer-enum-initializers': 'off',
         'no-await-in-loop': 'off',
       },
     },
-    // Override for .ts components only
+    // Gatsby configuration files
     {
-      files: ['*.ts'],
+      files: ['gatsby-{ssr,browser,node,config}.{ts,tsx}'],
       rules: {
-        'no-console': 'off',
-        'import/no-nodejs-modules': 'off',
         'global-require': 'off',
         '@typescript-eslint/no-require-imports': 'off',
         '@typescript-eslint/no-var-requires': 'off',
-        '@typescript-eslint/naming-convention': 'off',
       },
     },
   ],
