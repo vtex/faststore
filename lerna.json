@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "version": "0.138.0",
-=======
-  "version": "0.130.0-alpha.swipe.1",
->>>>>>> 1578f428... Release: 0.130.0-alpha.swipe.1
+  "version": "0.130.0-alpha.swipe.2",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
