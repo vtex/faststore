@@ -36,6 +36,7 @@ const ProductImageGallery: FC<Props> = ({
     setPage,
     setNextPage,
     setPreviousPage,
+    dragHandlers,
   } = useSlider({
     allItems,
     pageSize: 1,
@@ -60,7 +61,7 @@ const ProductImageGallery: FC<Props> = ({
         </SuspenseDevice>
       </ProductImageGalleryMiniaturesContainer>
 
-      <Box variant={featuredVariant}>
+      <Box variant={featuredVariant} {...dragHandlers}>
         {showArrows && (
           <ProductImageGalleryArrowLeft
             variant={featuredVariant}

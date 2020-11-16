@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useSwipeable } from 'react-swipeable'
 
 import { useInterval } from './useInterval'
 
@@ -56,6 +57,12 @@ export const useSlider = <T>({
     setNextPage()
   }, autoplayTimeout)
 
+  const dragHandlers = useSwipeable({
+    onSwipedLeft: () => setNextPage(),
+    onSwipedRight: () => setPreviousPage(),
+    delta: 10,
+  })
+
   return {
     totalPages,
     items,
@@ -63,5 +70,6 @@ export const useSlider = <T>({
     setPage,
     setNextPage,
     setPreviousPage,
+    dragHandlers,
   }
 }
