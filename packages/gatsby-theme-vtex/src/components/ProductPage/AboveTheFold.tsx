@@ -53,6 +53,11 @@ export const fragment = graphql`
     productName
     linkText
     items {
+      name
+      itemId
+      referenceId {
+        value: Value
+      }
       images {
         imageUrl
         imageText

@@ -117,9 +117,6 @@ export const query = graphql`
           name
           href
         }
-        items {
-          itemId
-        }
       }
     }
   }
