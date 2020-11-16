@@ -71,7 +71,7 @@ export const query = gql`
     vtex {
       productSearch(
         productOriginVtex: true
-        hideUnavailableItems: true
+        hideUnavailableItems: false
         selectedFacets: $selectedFacets
         fullText: $fullText
         query: $query
