@@ -1,6 +1,6 @@
 export const SUMMARY_IMAGE = {
-  width: 200,
-  height: 200,
+  width: 274,
+  height: 274,
   widthStr: '200px',
   heightStr: '200px',
 }
@@ -14,8 +14,8 @@ export const DETAILS_IMAGE = [
     media: '(max-width: 40em) 30vw',
   },
   {
-    width: 540,
-    height: 540,
+    width: 720,
+    height: 720,
     widthStr: '540px',
     heightStr: '540px',
     media: '50vw',
