@@ -36,6 +36,7 @@ const Shelf: FC<Props> = ({
     setPage,
     setNextPage,
     setPreviousPage,
+    dragHandlers
   } = useResponsiveSlider({
     pageSizes,
     defaultIndex: pageSizes.length - 1,
@@ -52,7 +53,7 @@ const Shelf: FC<Props> = ({
         {showArrows && (
           <ShelfArrowLeft variant={variant} onClick={() => setPreviousPage()} />
         )}
-        <ShelfPage variant={variant} items={items} pageSizes={pageSizes} />
+        <ShelfPage variant={variant} items={items} pageSizes={pageSizes} {...dragHandlers} />
         {showArrows && (
           <ShelfArrowRight variant={variant} onClick={() => setNextPage()} />
         )}

@@ -11,8 +11,9 @@ interface Props {
   variant: string
 }
 
-const ShelfPage: FC<Props> = ({ items, pageSizes, variant }) => (
+const ShelfPage: FC<Props> = ({ items, pageSizes, variant, ...props }) => (
   <Grid
+    {...props}
     variant={`shelf.${variant}.page.container`}
     gap={2}
     columns={pageSizes}
