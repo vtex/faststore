@@ -1,5 +1,7 @@
-import React, { FC, Fragment, useCallback } from 'react'
+import React, { FC } from 'react'
 import { Button, Flex, Input } from 'theme-ui'
+
+import { useNumericStepper } from './useNumericStepper'
 
 export interface NumericStepperProps {
   id?: string
@@ -17,53 +19,34 @@ export const NumericStepper: FC<NumericStepperProps> = ({
   onChange,
   children,
 }) => {
-  const [quantity, setQuantity] = React.useState<number>(1)
+  const { setValue, ...rest } = useNumericStepper({
+    min: minValue,
+    max: maxValue,
+    onChange,
+  })
 
-  const narrowedValue = useCallback(
-    (value: number) => {
-      return Math.min(Math.max(value, minValue), maxValue)
-    },
-    [maxValue, minValue]
-  )
-
-  const updateQuantity = useCallback(
-    (value: number) => {
-      value = narrowedValue(value)
-      setQuantity(value)
-      onChange(value)
-    },
-    [setQuantity, onChange, narrowedValue]
-  )
-
+  const quantity = Number(rest.value)
   const isMax = quantity >= maxValue
   const isMin = quantity <= minValue
 
   return (
-    <Fragment>
-      <Flex variant={`${variant}.numericStepper`}>
-        <Button
-          variant={`${variant}.numericStepper.button.minus`}
-          onClick={() => updateQuantity(quantity - 1)}
-          disabled={isMin}
-        >
-          -
-        </Button>
-        <Input
-          id={id}
-          value={quantity}
-          type="number"
-          onChange={(e) => updateQuantity(Number(e.target.value))}
-          variant={`${variant}.numericStepper.input`}
-        />
-        <Button
-          variant={`${variant}.numericStepper.button.plus`}
-          onClick={() => updateQuantity(quantity + 1)}
-          disabled={isMax}
-        >
-          +
-        </Button>
-        {children}
-      </Flex>
-    </Fragment>
+    <Flex variant={`${variant}.numericStepper`}>
+      <Button
+        variant={`${variant}.numericStepper.button.minus`}
+        onClick={() => setValue(quantity - 1)}
+        disabled={isMin}
+      >
+        -
+      </Button>
+      <Input id={id} variant={`${variant}.numericStepper.input`} {...rest} />
+      <Button
+        variant={`${variant}.numericStepper.button.plus`}
+        onClick={() => setValue(quantity + 1)}
+        disabled={isMax}
+      >
+        +
+      </Button>
+      {children}
+    </Flex>
   )
 }
