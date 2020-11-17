@@ -15,8 +15,7 @@ export interface Props {
   variant?: string
   showArrows?: boolean
   showDots?: boolean
-  autoplay?: boolean
-  autoplayTimeout?: number
+  autoplay?: number
 }
 
 const PAGE_SIZES = [1, 3, 5]
@@ -29,7 +28,6 @@ const Shelf: FC<Props> = ({
   showDots,
   autoplay,
   pageSizes = PAGE_SIZES,
-  autoplayTimeout,
 }) => {
   const {
     page,
@@ -42,7 +40,6 @@ const Shelf: FC<Props> = ({
     pageSizes,
     defaultIndex: pageSizes.length - 1,
     allItems: products,
-    autoplayTimeout,
     autoplay,
   })
 
