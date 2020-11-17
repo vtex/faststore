@@ -16,8 +16,7 @@ interface Props {
   loading?: 'lazy' | 'eager'
   showArrows?: boolean
   showDots?: boolean
-  autoplay?: boolean
-  autoplayTimeout?: number
+  autoplay?: number
 }
 
 const variant = 'productImageGallery'
@@ -27,7 +26,6 @@ const ProductImageGallery: FC<Props> = ({
   showArrows = true,
   showDots = true,
   autoplay,
-  autoplayTimeout,
 }) => {
   const {
     page,
@@ -40,7 +38,6 @@ const ProductImageGallery: FC<Props> = ({
     allItems,
     pageSize: 1,
     autoplay,
-    autoplayTimeout,
   })
 
   // this is safe, since there is only one item per page

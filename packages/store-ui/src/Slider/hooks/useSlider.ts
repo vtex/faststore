@@ -1,12 +1,9 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
 
-import { useInterval } from './useInterval'
-
 export interface UseSliderOptions<T> {
   allItems: T[]
   pageSize?: number
-  autoplay?: boolean
-  autoplayTimeout?: number
+  autoplay?: number // Number in milliseconds for timeout
 }
 
 // "next()" function makes the index value be always smaller than total,
@@ -18,9 +15,8 @@ const previous = (index: number, total: number) =>
 
 export const useSlider = <T>({
   allItems,
+  autoplay,
   pageSize = 1,
-  autoplay = false,
-  autoplayTimeout = 1e6,
 }: UseSliderOptions<T>) => {
   const totalPages = Math.ceil(allItems.length / pageSize)
 
@@ -48,13 +44,24 @@ export const useSlider = <T>({
     [totalPages]
   )
 
-  useInterval(() => {
-    if (!autoplay) {
+  useEffect(() => {
+    if (typeof autoplay !== 'number' || autoplay < 0) {
       return
     }
 
-    setNextPage()
-  }, autoplayTimeout)
+    let timeoutId: null | NodeJS.Timeout = null
+    const idleCallbackId = window.requestIdleCallback(() => {
+      timeoutId = setTimeout(() => setNextPage, autoplay)
+    })
+
+    return () => {
+      window.cancelIdleCallback(idleCallbackId)
+
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId)
+      }
+    }
+  }, [page, autoplay, setNextPage])
 
   return {
     totalPages,

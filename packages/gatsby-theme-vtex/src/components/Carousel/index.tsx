@@ -12,8 +12,7 @@ interface Props {
   loading?: 'lazy' | 'eager'
   showArrows?: boolean
   showDots?: boolean
-  autoplay?: boolean
-  autoplayTimeout?: number
+  autoplay?: number
   variant?: string
 }
 
@@ -23,7 +22,6 @@ const Carousel: FC<Props> = ({
   showArrows = true,
   showDots = true,
   autoplay,
-  autoplayTimeout,
   variant = 'carousel',
 }) => {
   const {
@@ -37,7 +35,6 @@ const Carousel: FC<Props> = ({
     allItems,
     pageSize: 1,
     autoplay,
-    autoplayTimeout,
   })
 
   // this is safe, since there is only one item per page
