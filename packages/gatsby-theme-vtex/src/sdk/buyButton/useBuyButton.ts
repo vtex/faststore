@@ -4,6 +4,7 @@ import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
 import { usePixelEvent } from '../pixel/usePixelEvent'
+import { useMinicart } from '../minicart/useMinicart'
 
 interface Seller {
   sellerId: string
@@ -22,9 +23,16 @@ export interface Props {
   sku: Maybe<SKU>
   quantity: number
   oneClickBuy?: boolean
+  openMinicart?: boolean
 }
 
-export const useBuyButton = ({ sku, quantity, oneClickBuy }: Props) => {
+export const useBuyButton = ({
+  sku,
+  quantity,
+  oneClickBuy,
+  openMinicart,
+}: Props) => {
+  const minicart = useMinicart()
   const [loading, setLoading] = useState(false)
   const seller = useBestSeller(sku)
   const orderForm = useOrderForm()
@@ -67,6 +75,10 @@ export const useBuyButton = ({ sku, quantity, oneClickBuy }: Props) => {
       const items = [orderFormItem]
 
       await orderForm.addToCart(items)
+
+      if (openMinicart) {
+        minicart.toggle()
+      }
 
       sendPixelEvent({
         type: 'vtex:addToCart',
