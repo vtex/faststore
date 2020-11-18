@@ -1,6 +1,6 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Input, Select, Spinner, Flex } from '@vtex/store-ui'
-import React, { useState, FC } from 'react'
+import { Input, Select, Spinner, Flex, useNumericStepper } from '@vtex/store-ui'
+import React, { useState, FC, ChangeEvent } from 'react'
 
 import { useItem } from './useItem'
 import { useUpdateItems } from './useUpdateItems'
@@ -28,6 +28,16 @@ const QuantityWrapper: FC<WrapperProps> = ({
   </Flex>
 )
 
+const InputStepper: FC<{
+  variant: string
+  value: number
+  onChange: (q: number) => void
+}> = ({ variant, value, onChange }) => {
+  const stepper = useNumericStepper({ value, min: 0, onChange })
+
+  return <Input variant={variant} {...stepper} />
+}
+
 const MinicartQuantity = (props: Props) => {
   const updateItems = useUpdateItems(props.index)
   const { formatMessage } = useIntl()
@@ -35,12 +45,9 @@ const MinicartQuantity = (props: Props) => {
   const [quantityLocally, setQuantityLocally] = useState<number>(item.quantity)
   const [isLoading, setIsLoading] = useState(false)
 
-  const onChange = (e: any) => {
+  const onChange = (quantity: number) => {
     setIsLoading(true)
-    const quantity = Number(e.target.value)
-
     setQuantityLocally(quantity)
-
     updateItems(quantity, () => setIsLoading(false))
   }
 
@@ -49,11 +56,12 @@ const MinicartQuantity = (props: Props) => {
   const useQuantity = {
     value: quantityLocally,
     variant,
-    onChange,
+    onChange: (e: ChangeEvent<HTMLSelectElement>) =>
+      onChange(Number(e.target.value)),
   }
 
   return quantityLocally >= 10 ? (
-    <Input {...useQuantity} />
+    <InputStepper {...useQuantity} onChange={onChange} />
   ) : (
     <QuantityWrapper isLoading={isLoading} variant={`${variant}.wrapper`}>
       <Select {...useQuantity}>
