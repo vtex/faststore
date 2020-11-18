@@ -52,7 +52,7 @@ export const query = gql`
     $fullText: String!
     $facetKey: String
     $facetValue: String
-    $productOriginVtex: Boolean = false
+    $productOriginVtex: Boolean = true
     $simulationBehavior: VTEX_SimulationBehavior = default
   ) {
     vtex {
