@@ -18,7 +18,7 @@ interface Options<Query extends BaseQueryShape | undefined> {
   pageSize?: number
 }
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 12
 
 export const useSearch = <Query extends BaseQueryShape | undefined>({
   query,

@@ -1,4 +1,4 @@
-/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-pascal-case */
 import { graphql, PageProps } from 'gatsby'
 import React, { FC, lazy } from 'react'
 
@@ -117,7 +117,7 @@ export const query = graphql`
     vtex {
       productSearch(
         from: 0
-        to: 9
+        to: 11
         hideUnavailableItems: false
         productOriginVtex: true
         simulationBehavior: skip
