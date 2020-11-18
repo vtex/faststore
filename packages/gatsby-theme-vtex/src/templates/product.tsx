@@ -49,6 +49,9 @@ const ProductPage: FC<ProductPageProps> = (props) => {
     initialData: staticPath ? initialData : undefined,
   })
 
+  // eslint-disable-next-line no-console
+  console.log('After useQuery', staticPath)
+
   // usePixelSendEvent(
   //   () => [
   //     {
@@ -78,8 +81,8 @@ const ProductPage: FC<ProductPageProps> = (props) => {
 
   return (
     <Fragment>
-      <AboveTheFold {...pageProps} />
       <SEO {...pageProps} />
+      <AboveTheFold {...pageProps} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
