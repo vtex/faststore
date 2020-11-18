@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useSwipeable } from 'react-swipeable'
 
 export interface UseSliderOptions<T> {
   allItems: T[]
@@ -63,6 +64,12 @@ export const useSlider = <T>({
     }
   }, [page, autoplay, setNextPage])
 
+  const dragHandlers = useSwipeable({
+    onSwipedLeft: () => setNextPage(),
+    onSwipedRight: () => setPreviousPage(),
+    delta: 10,
+  })
+
   return {
     totalPages,
     items,
@@ -70,5 +77,6 @@ export const useSlider = <T>({
     setPage,
     setNextPage,
     setPreviousPage,
+    dragHandlers,
   }
 }
