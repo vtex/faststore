@@ -51,7 +51,7 @@ export const useSlider = <T>({
 
     let timeoutId: null | NodeJS.Timeout = null
     const idleCallbackId = window.requestIdleCallback(() => {
-      timeoutId = setTimeout(() => setNextPage, autoplay)
+      timeoutId = setTimeout(setNextPage, autoplay)
     })
 
     return () => {
