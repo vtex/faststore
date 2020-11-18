@@ -72,6 +72,8 @@ yarn-error.log
 packages/gatsby-**/*.js
 packages/gatsby-**/*.jsx
 packages/gatsby-**/*.d.ts
+# these ones are manually added
+!packages/gatsby-**/typings/**/*.d.ts
 
 # Specific files
 packages/gatsby-theme-vtex/components

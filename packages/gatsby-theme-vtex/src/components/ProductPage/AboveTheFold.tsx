@@ -54,6 +54,7 @@ export const fragment = graphql`
     linkText
     items {
       name
+      complementName
       itemId
       referenceId {
         value: Value

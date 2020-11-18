@@ -31,14 +31,18 @@
     ]
   },
   "devDependencies": {
-    "@vtex/prettier-config": "^0.3.3",
-    "eslint-config-vtex-react": "^6.7.10",
-    "eslint-config-vtex": "^12.8.8",
+    "@vtex/prettier-config": "^0.3.5",
     "eslint": "^7.2.0",
+    "eslint-config-vtex": "^12.8.10",
+    "eslint-config-vtex-react": "^6.7.12",
     "husky": "^4.2.5",
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "typescript": "^3.9.5"
+  },
+  "resolutions": {
+    "@typescript-eslint/eslint-plugin": "^4",
+    "@typescript-eslint/parser": "^4"
   }
 }

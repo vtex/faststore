@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
 import { graphql, PageProps } from 'gatsby'
 import React, { FC, lazy } from 'react'
 
@@ -74,8 +73,8 @@ const SearchPage: FC<SearchPageProps> = (props) => {
 
   return (
     <SearchProvider filters={filters as any} data={data!}>
-      <AboveTheFold {...props} data={data!} />
       <SEO {...props} data={data!} />
+      <AboveTheFold {...props} data={data!} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
