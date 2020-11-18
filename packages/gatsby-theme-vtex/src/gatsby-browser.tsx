@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom'
 
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
-const { MinicartProvider } = require('./src/sdk/minicart')
+const { MinicartProvider } = require('./src/sdk/minicart/index')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
   Progress,
