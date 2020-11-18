@@ -1,8 +1,8 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import { useIdleEffect } from '../../../sdk/useIdleEffect'
 import { ProductPageProps } from '../../../templates/product'
-import { isBot, isDevelopment } from '../../../utils/env'
+import { isBot, isDevelopment, isServer } from '../../../utils/env'
 import SiteMetadataSEO from '../../HomePage/SEO'
 import StructuredData from './StructuredData'
 
@@ -14,7 +14,11 @@ const SEO: FC<ProductPageProps> = (props) => {
   useIdleEffect(() => setMetadata(true), [])
 
   // eslint-disable-next-line no-console
-  console.log({ userAgent: navigator.userAgent, isBot, isDevelopment })
+  console.log({
+    userAgent: !isServer && navigator.userAgent,
+    isBot,
+    isDevelopment,
+  })
 
   if (!metadata) {
     return null
