@@ -22,6 +22,5 @@
   "dependencies": {
     "@formatjs/cli": "^2.7.7",
     "react-intl": "^5.7.1"
-  },
-  "gitHead": "4746e1fffa27ebcb1c94c1b9b0d4343ee96dcdfb"
+  }
 }
