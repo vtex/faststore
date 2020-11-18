@@ -54,6 +54,5 @@
     "schema-dts": "^0.6.0",
     "swr": "^0.3.0",
     "text-mask-core": "^5.1.0"
-  },
-  "gitHead": "b2bf7ba2cd80c4f352b3b9a6f3e4ae6cccc07a21"
+  }
 }
