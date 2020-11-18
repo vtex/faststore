@@ -36,6 +36,9 @@ const ProductPage: FC<ProductPageProps> = (props) => {
   const { staticPath } = pageContext
   const slug = (pageContext.slug ?? routeSlug)!
 
+  // eslint-disable-next-line no-console
+  console.log('ProductPage')
+
   const { data } = useQuery<
     ProductPageQueryQuery,
     ProductPageQueryQueryVariables

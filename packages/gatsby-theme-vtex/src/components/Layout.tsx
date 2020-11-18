@@ -7,14 +7,19 @@ const loader = () => import('./Footer')
 
 const Footer = lazy(loader)
 
-const Layout: FC = ({ children }) => (
-  <Fragment>
-    <Header />
-    {children}
-    <SuspenseViewport fallback={null} preloader={loader}>
-      <Footer />
-    </SuspenseViewport>
-  </Fragment>
-)
+const Layout: FC = ({ children }) => {
+  // eslint-disable-next-line no-console
+  console.log('Layout')
+
+  return (
+    <Fragment>
+      <Header />
+      {children}
+      <SuspenseViewport fallback={null} preloader={loader}>
+        <Footer />
+      </SuspenseViewport>
+    </Fragment>
+  )
+}
 
 export default Layout

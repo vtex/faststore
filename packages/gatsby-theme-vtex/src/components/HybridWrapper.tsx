@@ -11,6 +11,9 @@ globalThis.__REACT_HYDRATED__ = false
 const HybridWrapper: FC<Props> = ({ fallback, isPrerendered, children }) => {
   const [isHydrated, setIsHydrated] = useState(globalThis.__REACT_HYDRATED__)
 
+  // eslint-disable-next-line no-console
+  console.log('HybridWrapper')
+
   useEffect(() => {
     globalThis.__REACT_HYDRATED__ = true
 

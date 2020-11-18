@@ -16,6 +16,9 @@ class ErrorBoundary extends Component<Props> {
   }
 
   public render() {
+    // eslint-disable-next-line no-console
+    console.log('Error Boundary')
+
     if (this.state.hasError) {
       return this.props.fallback(this.state.error)
     }
