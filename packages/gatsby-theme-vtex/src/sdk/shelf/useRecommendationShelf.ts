@@ -25,12 +25,12 @@ export const useRecommendationShelf = (variables: RecommendationOptions) => {
 }
 
 export const query = gql`
-  query ProductRecommendationsQuery($value: ID!) {
+  query ProductRecommendationsQuery(
+    $identifier: VTEX_ProductUniqueIdentifier!
+    $type: VTEX_CrossSelingInputEnum!
+  ) {
     vtex {
-      productRecommendations(
-        identifier: { field: id, value: $value }
-        type: viewAndBought
-      ) {
+      productRecommendations(identifier: $identifier, type: $type) {
         ...ProductSummary_product
       }
     }

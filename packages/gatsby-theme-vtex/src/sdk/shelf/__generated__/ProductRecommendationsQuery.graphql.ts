@@ -18,7 +18,8 @@ type Scalars = {
 
 // Operation related types
 export type ProductRecommendationsQueryQueryVariables = Exact<{
-  value: Scalars['ID'];
+  identifier: Vtex_ProductUniqueIdentifier;
+  type: Vtex_CrossSelingInputEnum;
 }>;
 
 
@@ -28,8 +29,8 @@ export type ProductRecommendationsQueryQuery = { vtex: { productRecommendations:
 // Query Related Code
 
 export const ProductRecommendationsQuery = {
-  query: "query ProductRecommendationsQuery($value: ID!) {\n  vtex {\n    productRecommendations(identifier: {field: id, value: $value}, type: viewAndBought) {\n      productId\n      productName\n      linkText\n      productClusters {\n        name\n      }\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
-  sha256Hash: "b71a91102538e2d04e10ca1c5d8b5fe57c68cab6b25e61d17d31537ced191c21",
+  query: "query ProductRecommendationsQuery($identifier: VTEX_ProductUniqueIdentifier!, $type: VTEX_CrossSelingInputEnum!) {\n  vtex {\n    productRecommendations(identifier: $identifier, type: $type) {\n      productId\n      productName\n      linkText\n      productClusters {\n        name\n      }\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  sha256Hash: "2b8ebda39d574d52594d3e1d900072d12b68cc40632b663a856fc814a3471b57",
   operationName: "ProductRecommendationsQuery",
 }
 
