@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import React, { FC, Fragment, lazy } from 'react'
 import { graphql, PageProps } from 'gatsby'
 
@@ -17,6 +18,7 @@ import {
 import SEO from '../components/ProductPage/SEO'
 import ErrorHandler from '../components/Error/ErrorHandler'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
+import { isServer, isBot, isDevelopment } from '../utils/env'
 
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')
@@ -90,6 +92,9 @@ const Page: FC<ProductPageProps> = (props) => {
   const {
     pageContext: { staticPath },
   } = props
+
+  // eslint-disable-next-line no-console
+  console.log(!isServer && navigator.userAgent, isBot, isDevelopment)
 
   return (
     <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
