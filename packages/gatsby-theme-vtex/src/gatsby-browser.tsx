@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-require-imports */
 import 'requestidlecallback-polyfill'
-
 import { WrapRootElementBrowserArgs } from 'gatsby'
 import React, { ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
+const { MinicartProvider } = require('./src/sdk/minicart')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
   Progress,
@@ -37,7 +37,9 @@ export const replaceHydrateFunction = () => (
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   const root = (
     <VTEXRCProvider>
-      <OrderFormProvider>{element}</OrderFormProvider>
+      <OrderFormProvider>
+        <MinicartProvider>{element}</MinicartProvider>
+      </OrderFormProvider>
     </VTEXRCProvider>
   )
 
