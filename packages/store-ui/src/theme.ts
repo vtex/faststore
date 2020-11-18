@@ -27,4 +27,4 @@ const customBase = {
   },
 }
 
-export const baseTheme = createTheme(base, customBase as any)
+export const baseTheme = createTheme(base, customBase)
