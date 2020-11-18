@@ -46,26 +46,26 @@ const ProductPage: FC<ProductPageProps> = (props) => {
     initialData: staticPath ? initialData : undefined,
   })
 
-  usePixelSendEvent(
-    () => [
-      {
-        type: 'vtex:pageView',
-        data: {
-          pageUrl: window.location.href,
-          pageTitle: document.title,
-          referrer: document.referrer,
-          accountName: process.env.GATSBY_VTEX_TENANT!,
-        },
-      },
-      {
-        type: 'vtex:productView',
-        data: {
-          product: data?.vtex.product,
-        },
-      },
-    ],
-    data?.vtex.product?.productId ?? ''
-  )
+  // usePixelSendEvent(
+  //   () => [
+  //     {
+  //       type: 'vtex:pageView',
+  //       data: {
+  //         pageUrl: window.location.href,
+  //         pageTitle: document.title,
+  //         referrer: document.referrer,
+  //         accountName: process.env.GATSBY_VTEX_TENANT!,
+  //       },
+  //     },
+  //     {
+  //       type: 'vtex:productView',
+  //       data: {
+  //         product: data?.vtex.product,
+  //       },
+  //     },
+  //   ],
+  //   data?.vtex.product?.productId ?? ''
+  // )
 
   const pageProps = {
     ...props,
