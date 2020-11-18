@@ -6,52 +6,6 @@ import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 import { ShippingQueryQuery } from './hooks/__generated__/ShippingQuery.graphql'
 import { TranslateEstimate } from './TranslateEstimate'
 
-type Props = {
-  shipping: ShippingQueryQuery | null
-  variant: string
-}
-
-const ShippingTable: FC<Props> = ({ shipping, variant: tableVariant }) => {
-  const intl = useIntl()
-
-  return shipping?.vtex?.shippingSLA?.deliveryOptions?.length ? (
-    <Box as="table" variant={tableVariant}>
-      <Box as="thead" variant={`${tableVariant}.thead`}>
-        <Box as="tr" variant={`${tableVariant}.thead.row`}>
-          <Box as="th" variant={`${tableVariant}.thead.id`}>
-            {intl.formatMessage({ id: 'shipping.label.id' })}
-          </Box>
-          <Box as="th" variant={`${tableVariant}.thead.estimate`}>
-            {intl.formatMessage({ id: 'shipping.label.estimate' })}
-          </Box>
-          <Box as="th" variant={`${tableVariant}.thead.price`}>
-            {intl.formatMessage({ id: 'shipping.label.price' })}
-          </Box>
-        </Box>
-      </Box>
-      <Box as="tbody" variant={`${tableVariant}.tbody`}>
-        {shipping?.vtex.shippingSLA?.deliveryOptions?.map((option) => {
-          if (!option?.estimate || !option.id) return null
-
-          const shippingOptionProps = {
-            id: option.id,
-            price: option.price,
-            estimate: option.estimate,
-          }
-
-          return (
-            <ShippingOption
-              variant={tableVariant}
-              key={shippingOptionProps.id}
-              {...shippingOptionProps}
-            />
-          )
-        })}
-      </Box>
-    </Box>
-  ) : null
-}
-
 type ShippingOptionProps = {
   id: string
   estimate: string
@@ -93,6 +47,59 @@ const ShippingOption: FC<ShippingOptionProps> = ({
       </Box>
       <Box as="td" variant={`${variant}.priceCell`}>
         {freightPrice}
+      </Box>
+    </Box>
+  )
+}
+
+type ShippingTableProps = {
+  shipping: ShippingQueryQuery | null
+  variant: string
+}
+
+const ShippingTable: FC<ShippingTableProps> = ({
+  shipping,
+  variant: tableVariant,
+}) => {
+  const intl = useIntl()
+
+  if (!shipping?.vtex?.shippingSLA?.deliveryOptions?.length) {
+    return null
+  }
+
+  return (
+    <Box as="table" variant={tableVariant}>
+      <Box as="thead" variant={`${tableVariant}.thead`}>
+        <Box as="tr" variant={`${tableVariant}.thead.row`}>
+          <Box as="th" variant={`${tableVariant}.thead.id`}>
+            {intl.formatMessage({ id: 'shipping.label.id' })}
+          </Box>
+          <Box as="th" variant={`${tableVariant}.thead.estimate`}>
+            {intl.formatMessage({ id: 'shipping.label.estimate' })}
+          </Box>
+          <Box as="th" variant={`${tableVariant}.thead.price`}>
+            {intl.formatMessage({ id: 'shipping.label.price' })}
+          </Box>
+        </Box>
+      </Box>
+      <Box as="tbody" variant={`${tableVariant}.tbody`}>
+        {shipping?.vtex.shippingSLA?.deliveryOptions?.map((option) => {
+          if (!option?.estimate || !option.id) return null
+
+          const shippingOptionProps = {
+            id: option.id,
+            price: option.price,
+            estimate: option.estimate,
+          }
+
+          return (
+            <ShippingOption
+              variant={tableVariant}
+              key={shippingOptionProps.id}
+              {...shippingOptionProps}
+            />
+          )
+        })}
       </Box>
     </Box>
   )
