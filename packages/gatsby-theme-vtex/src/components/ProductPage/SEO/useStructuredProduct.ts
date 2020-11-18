@@ -16,8 +16,8 @@ const getSkuOffers = (sku: SKU, currency: string): Maybe<Offer[]> =>
     priceValidUntil: `${seller!.commercialOffer!.priceValidUntil}`,
     availability:
       seller!.commercialOffer!.availableQuantity! > 0
-        ? 'http://schema.org/InStock'
-        : 'http://schema.org/OutOfStock',
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
   }))
 
 export const useStructuredProduct = (
