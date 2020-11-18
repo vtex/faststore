@@ -34,6 +34,7 @@ export const NumericStepper: FC<NumericStepperProps> = ({
       <Button
         variant={`${variant}.numericStepper.button.minus`}
         onClick={() => setValue(quantity - 1)}
+        onDoubleClick={(e) => e.preventDefault()}
         disabled={isMin}
       >
         -
@@ -42,6 +43,7 @@ export const NumericStepper: FC<NumericStepperProps> = ({
       <Button
         variant={`${variant}.numericStepper.button.plus`}
         onClick={() => setValue(quantity + 1)}
+        onDoubleClick={(e) => e.preventDefault()}
         disabled={isMax}
       >
         +
