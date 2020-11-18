@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
 import { graphql, PageProps } from 'gatsby'
 import React, { FC, lazy } from 'react'
 
@@ -9,7 +8,7 @@ import Layout from '../components/Layout'
 import AboveTheFold from '../components/SearchPage/AboveTheFold'
 import AboveTheFoldPreview from '../components/SearchPage/AboveTheFoldPreview'
 import BelowTheFoldPreview from '../components/SearchPage/BelowTheFoldPreview'
-import Seo from '../components/SearchPage/SEO'
+import SEO from '../components/SearchPage/SEO'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
@@ -74,7 +73,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
 
   return (
     <SearchProvider filters={filters as any} data={data!}>
-      <Seo {...props} data={data!} />
+      <SEO {...props} data={data!} />
       <AboveTheFold {...props} data={data!} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}

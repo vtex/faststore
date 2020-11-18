@@ -1,13 +1,13 @@
-import React, { FC, lazy } from 'react'
 import { PageProps } from 'gatsby'
+import React, { FC, lazy } from 'react'
 
-import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
-import SuspenseViewport from '../components/Suspense/Viewport'
-import AboveTheFold from '../components/HomePage/AboveTheFold'
 import ErrorBoundary from '../components/Error/ErrorBoundary'
 import ErrorHandler from '../components/Error/ErrorHandler'
-import Seo from '../components/HomePage/SEO'
+import AboveTheFold from '../components/HomePage/AboveTheFold'
+import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
+import SEO from '../components/HomePage/SEO'
 import Layout from '../components/Layout'
+import SuspenseViewport from '../components/Suspense/Viewport'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 
 const belowTheFoldPreloader = () =>
@@ -35,7 +35,7 @@ const Home: FC<Props> = (props) => {
   return (
     <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
       <Layout>
-        <Seo />
+        <SEO />
         <AboveTheFold {...props} />
         <SuspenseViewport
           fallback={<BelowTheFoldPreview />}

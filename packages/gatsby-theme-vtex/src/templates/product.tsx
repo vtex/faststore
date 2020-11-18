@@ -1,22 +1,22 @@
-import React, { FC, Fragment, lazy } from 'react'
 import { graphql, PageProps } from 'gatsby'
+import React, { FC, lazy } from 'react'
 
 import ErrorBoundary from '../components/Error/ErrorBoundary'
+import ErrorHandler from '../components/Error/ErrorHandler'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import AboveTheFold from '../components/ProductPage/AboveTheFold'
 import AboveTheFoldPreview from '../components/ProductPage/AboveTheFoldPreview'
 import BelowTheFoldPreview from '../components/ProductPage/BelowTheFoldPreview'
+import SEO from '../components/ProductPage/SEO'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
+import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 import {
   ProductPageQuery,
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
-import Seo from '../components/ProductPage/SEO'
-import ErrorHandler from '../components/Error/ErrorHandler'
-import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')
@@ -73,8 +73,8 @@ const ProductPage: FC<ProductPageProps> = (props) => {
   }
 
   return (
-    <Fragment>
-      <Seo {...pageProps} />
+    <>
+      <SEO {...pageProps} />
       <AboveTheFold {...pageProps} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
@@ -82,7 +82,7 @@ const ProductPage: FC<ProductPageProps> = (props) => {
       >
         <BelowTheFold {...pageProps} />
       </SuspenseViewport>
-    </Fragment>
+    </>
   )
 }
 
