@@ -13,10 +13,8 @@ const SEO: FC<ProductPageProps> = (props) => {
 
   useIdleEffect(() => setMetadata(true), [])
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log({ userAgent: navigator.userAgent, isBot, isDevelopment })
-  })
+  // eslint-disable-next-line no-console
+  console.log({ userAgent: navigator.userAgent, isBot, isDevelopment })
 
   if (!metadata) {
     return null
