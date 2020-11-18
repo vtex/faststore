@@ -25,3 +25,16 @@ declare type Vtex_ShippingItem = {
   quantity: string
   seller: string
 }
+
+declare type Vtex_ProductUniqueIdentifier = {
+  value: string
+  field: 'id' | 'slug' | 'ean' | 'reference' | 'sku'
+}
+
+declare type Vtex_CrossSelingInputEnum =
+  | 'buy'
+  | 'similars'
+  | 'view'
+  | 'viewAndBought'
+  | 'accessories'
+  | 'suggestions'
