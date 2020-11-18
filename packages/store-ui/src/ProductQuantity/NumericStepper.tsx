@@ -6,36 +6,40 @@ import { useNumericStepper } from './useNumericStepper'
 export interface NumericStepperProps {
   id?: string
   variant?: string
-  minValue: number
-  maxValue?: number
+  min?: number
+  max?: number
+  value?: number
+  disabled?: boolean
   onChange: (quantity: number) => void
 }
 
 export const NumericStepper: FC<NumericStepperProps> = ({
   variant = 'productQuantity',
   id = 'product-quantity',
-  minValue,
-  maxValue = Infinity,
+  value = 1,
+  min = 1,
+  max = Infinity,
+  disabled = false,
   onChange,
   children,
 }) => {
   const { setValue, ...rest } = useNumericStepper({
-    value: 1,
-    min: minValue,
-    max: maxValue,
+    value,
+    min,
+    max,
     onChange,
   })
 
   const quantity = Number(rest.value)
-  const isMax = quantity >= maxValue
-  const isMin = quantity <= minValue
+  const isMax = quantity >= max
+  const isMin = quantity <= min
 
   return (
     <Flex variant={`${variant}.numericStepper`}>
       <Button
         variant={`${variant}.numericStepper.button.minus`}
-        onClick={() => setValue(quantity - 1)}
         onDoubleClick={(e) => e.preventDefault()}
+        onClick={() => !disabled && setValue(quantity - 1)}
         disabled={isMin}
       >
         -
@@ -43,8 +47,8 @@ export const NumericStepper: FC<NumericStepperProps> = ({
       <Input id={id} variant={`${variant}.numericStepper.input`} {...rest} />
       <Button
         variant={`${variant}.numericStepper.button.plus`}
-        onClick={() => setValue(quantity + 1)}
         onDoubleClick={(e) => e.preventDefault()}
+        onClick={() => !disabled && setValue(quantity + 1)}
         disabled={isMax}
       >
         +
