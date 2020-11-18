@@ -33,8 +33,8 @@ export type SearchPageQueryQuery = { vtex: { productSearch: Maybe<{ titleTag: Ma
 // Query Related Code
 
 export const SearchPageQuery = {
-  query: "query SearchPageQuery($query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = \"OrderByScoreDESC\") {\n  vtex {\n    productSearch(from: 0, to: 9, hideUnavailableItems: false, productOriginVtex: true, simulationBehavior: skip, orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n        }\n      }\n      titleTag\n      recordsFiltered\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: \"Static\") @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
-  sha256Hash: "bf5f16a202da36ab1f1f05c62c522863d51565c93d5f9445d9fd01d8e2d36088",
+  query: undefined,
+  sha256Hash: "5b3852bf935acbbf4cd0e5592ea64fd85998e27f1047189d7804607239832a23",
   operationName: "SearchPageQuery",
 }
 
