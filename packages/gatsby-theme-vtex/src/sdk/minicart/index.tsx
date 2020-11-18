@@ -1,4 +1,4 @@
-import React, { createContext, FC, useContext, useState } from 'react'
+import React, { createContext, FC, useCallback, useState } from 'react'
 
 export type MinicartStateContext = {
   isOpen: boolean
@@ -12,7 +12,7 @@ export const MinicartState = createContext<MinicartStateContext>({
 
 export const MinicartProvider: FC = ({ children }) => {
   const [isOpen, setOpen] = useState<boolean>(false)
-  const toggle = () => setOpen(!isOpen)
+  const toggle = useCallback(() => setOpen(!isOpen), [isOpen])
 
   return (
     <MinicartState.Provider value={{ isOpen, toggle }}>
