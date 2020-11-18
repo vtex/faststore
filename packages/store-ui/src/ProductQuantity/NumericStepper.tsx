@@ -20,6 +20,7 @@ export const NumericStepper: FC<NumericStepperProps> = ({
   children,
 }) => {
   const { setValue, ...rest } = useNumericStepper({
+    value: 1,
     min: minValue,
     max: maxValue,
     onChange,
