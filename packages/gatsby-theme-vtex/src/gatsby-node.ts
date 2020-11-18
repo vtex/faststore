@@ -57,6 +57,40 @@ export const createPages = async (
     fromPath: '/checkout/*',
     toPath: `https://${tenant}.${environment}.com.br/checkout/:splat`,
     statusCode: 200,
+    headers: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$host',
+    },
+  })
+
+  createRedirect({
+    fromPath: '/graphql/*',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
+    statusCode: 200,
+    headers: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$host',
+    },
+  })
+
+  createRedirect({
+    fromPath: '/sitemap.xml',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/sitemap.xml`,
+    statusCode: 200,
+    headers: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$host',
+    },
+  })
+
+  createRedirect({
+    fromPath: '/sitemap/*',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/sitemap/:splat`,
+    statusCode: 200,
+    headers: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$host',
+    },
   })
 
   createRedirect({
@@ -68,12 +102,6 @@ export const createPages = async (
   createRedirect({
     fromPath: '/files/*',
     toPath: `https://${tenant}.vtexassets.com/files/:splat`,
-    statusCode: 200,
-  })
-
-  createRedirect({
-    fromPath: '/graphql/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
     statusCode: 200,
   })
 
