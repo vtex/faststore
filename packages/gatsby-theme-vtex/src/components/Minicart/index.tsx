@@ -10,21 +10,23 @@ const preloadDrawer = () => import('./Drawer')
 
 const MinicartDrawer = lazy(preloadDrawer)
 
-const Minicart: FC = () => {
+type Props = {
+  variant?: string
+}
+
+const Minicart: FC<Props> = ({ variant = 'minicart' }) => {
   const { isOpen, toggle } = useMinicart()
 
   useIdleEffect(() => {
     preloadDrawer()
   }, [])
 
-  const customVariant = 'minicart'
-
   return (
     <Fragment>
-      <CustomMinicartButton variant={customVariant} onClick={toggle} />
+      <CustomMinicartButton variant={variant} onClick={toggle} />
       {isOpen && (
         <Suspense fallback={null}>
-          <MinicartDrawer variant={customVariant} isOpen onClose={toggle} />
+          <MinicartDrawer variant={variant} isOpen onClose={toggle} />
         </Suspense>
       )}
     </Fragment>
