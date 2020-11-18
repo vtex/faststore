@@ -6,7 +6,7 @@ import SuspenseViewport from '../components/Suspense/Viewport'
 import AboveTheFold from '../components/HomePage/AboveTheFold'
 import ErrorBoundary from '../components/Error/ErrorBoundary'
 import ErrorHandler from '../components/Error/ErrorHandler'
-import SEO from '../components/HomePage/SEO'
+import Seo from '../components/HomePage/SEO'
 import Layout from '../components/Layout'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 
@@ -35,8 +35,8 @@ const Home: FC<Props> = (props) => {
   return (
     <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
       <Layout>
+        <Seo />
         <AboveTheFold {...props} />
-        <SEO />
         <SuspenseViewport
           fallback={<BelowTheFoldPreview />}
           preloader={belowTheFoldPreloader}

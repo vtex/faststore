@@ -14,7 +14,7 @@ import {
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
-import SEO from '../components/ProductPage/SEO'
+import Seo from '../components/ProductPage/SEO'
 import ErrorHandler from '../components/Error/ErrorHandler'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 
@@ -74,8 +74,8 @@ const ProductPage: FC<ProductPageProps> = (props) => {
 
   return (
     <Fragment>
+      <Seo {...pageProps} />
       <AboveTheFold {...pageProps} />
-      <SEO {...pageProps} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
