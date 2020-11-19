@@ -4,7 +4,7 @@ All packages follow Gatsby's [plugin naming scheme](https://www.gatsbyjs.com/doc
 
 * **gatsby-plugin-graphql** adds Webpack and Babel configuration so we can share queries and types between Gatsby and any other GraphQL server. This plugin is essential for dynamic, client-side queries.
 
-* **gatsby-plugin-i18n** is an optimized react-intl capable plugin. This plugin pre-optimizes messages we can serve react-intl without an ICU parser to the browser. Also, this plugins adds all necessary providers to the React tree
+* **gatsby-plugin-i18n** is an optimized react-intl capable plugin. This plugin pre-optimizes messages we can serve react-intl without an ICU parser to the browser. Also, this plugin adds all necessary providers to the React tree
 
 * **gatsby-plugin-theme-ui** is an optimized theme-ui plugin for Gatsby. It includes many optimizations, not only on `theme-ui` but also on `emotion`. The goal is to merge this package into their community-based versions so all the community benefits from such optimizations.
 
