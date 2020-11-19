@@ -10,10 +10,10 @@ import { HeaderMinicartDrawerHeader } from './Header'
 
 const useHeaderMinicartDrawerContentData = (orderForm: OrderFormContext) => {
   const data = orderForm.value?.items.map((item) => ({
-    id: Number(item.uniqueId!),
+    id: Number(item.id),
     image: {
       alt: item.name!,
-      src: item.imageUrls?.at1x ?? IMAGE_DEFAULT,
+      src: item.imageUrls?.at2x ?? IMAGE_DEFAULT,
     },
     name: item.name!,
     price: item.price!,

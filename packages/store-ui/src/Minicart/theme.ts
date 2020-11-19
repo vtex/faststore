@@ -65,6 +65,18 @@ export const minicartTheme: SxStyleProp = {
             flexDirection: 'column',
             ml: 3,
 
+            text: {
+              fontWeight: 400,
+              fontSize: '14px',
+              height: '60px',
+              marginTop: '0.5rem',
+              WebkitLineClamp: '3',
+              WebkitBoxOrient: 'vertical',
+              display: '-webkit-box',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            },
+
             value: {
               mt: 3,
             },
@@ -99,4 +111,4 @@ export const minicartTheme: SxStyleProp = {
       },
     },
   },
-}
+} as any
