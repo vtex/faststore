@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
-import { Box, Flex, Text } from 'theme-ui'
+import { Flex, Text } from 'theme-ui'
 
 import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 import MinicartDelete from './Delete'
+import { HeaderMinicartDrawerContentImage } from './Image'
 import MinicartQuantity from './Quantity'
 
 export interface DataItem {
@@ -21,14 +22,6 @@ export interface MinicartContentProps {
   imageElement: React.ElementType
 }
 
-const imageProps = (item: DataItem) => ({
-  width: 200,
-  height: 200,
-  src: item.image.src,
-  alt: item.image.alt,
-  loading: 'lazy',
-})
-
 export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
   data,
   variant: v,
@@ -41,9 +34,12 @@ export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
     <Flex variant={variant}>
       {data.map((item, idx) => (
         <Flex key={item.id} variant={`${variant}.product`}>
-          <Box variant={`${variant}.product.image`}>
-            <Box as={imageElement} {...imageProps(item)} />
-          </Box>
+          <HeaderMinicartDrawerContentImage
+            as={imageElement}
+            src={item.image.src}
+            alt={item.image.alt}
+            variant={`${variant}.product.image`}
+          />
           <Flex variant={`${variant}.product.name`}>
             <Flex>
               <Text variant={`${variant}.product.name.text`}>{item.name}</Text>
