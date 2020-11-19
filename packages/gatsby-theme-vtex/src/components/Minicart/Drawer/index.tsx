@@ -1,8 +1,4 @@
-import {
-  AspectImage,
-  MinicartDrawer,
-  MinicartDrawerProps,
-} from '@vtex/store-ui'
+import { Image, MinicartDrawer, MinicartDrawerProps } from '@vtex/store-ui'
 import React, { FC } from 'react'
 
 import { OrderFormContext } from '../../../sdk/orderForm/Provider'
@@ -54,7 +50,7 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
       />
       <HeaderMinicartDrawerContent
         {...contentData}
-        imageElement={AspectImage}
+        imageElement={Image}
         variant={customVariant}
       />
       <HeaderMinicartDrawerFooter variant={customVariant} />
