@@ -13,7 +13,7 @@ const useHeaderMinicartDrawerContentData = (orderForm: OrderFormContext) => {
     id: Number(item.uniqueId!),
     image: {
       alt: item.name!,
-      src: item.imageUrls?.at1x ?? IMAGE_DEFAULT,
+      src: item.imageUrls?.at2x ?? IMAGE_DEFAULT,
     },
     name: item.name!,
     price: item.price!,

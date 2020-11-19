@@ -21,39 +21,36 @@ export interface MinicartContentProps {
   imageElement: React.ElementType
 }
 
+const imageProps = (item: DataItem) => ({
+  width: 200,
+  height: 200,
+  src: item.image.src,
+  alt: item.image.alt,
+  loading: 'lazy',
+})
+
 export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
   data,
-  variant,
+  variant: v,
   imageElement,
 }) => {
-  const customVariant = `${variant}.content`
-  const imageProps = (item: DataItem) => ({
-    as: imageElement,
-    width: 200,
-    height: 200,
-    src: item.image.src,
-    alt: item.image.alt,
-    loading: 'lazy',
-  })
-
   const { format } = useNumberFormat()
+  const variant = `${v}.content`
 
   return (
-    <Flex variant={customVariant}>
+    <Flex variant={variant}>
       {data.map((item, idx) => (
-        <Flex key={item.id} variant={`${customVariant}.product`}>
-          <Box variant={`${customVariant}.product.image`}>
-            <Box {...imageProps(item)} />
+        <Flex key={item.id} variant={`${variant}.product`}>
+          <Box variant={`${variant}.product.image`}>
+            <Box as={imageElement} {...imageProps(item)} />
           </Box>
-          <Flex variant={`${customVariant}.product.name`}>
+          <Flex variant={`${variant}.product.name`}>
             <Flex>
-              <Text variant={`${customVariant}.product.name.text`}>
-                {item.name}
-              </Text>
-              <MinicartDelete index={idx} variant={customVariant} />
+              <Text variant={`${variant}.product.name.text`}>{item.name}</Text>
+              <MinicartDelete index={idx} variant={variant} />
             </Flex>
-            <MinicartQuantity index={idx} variant={customVariant} />
-            <Text variant={`${customVariant}.product.name.value`}>
+            <MinicartQuantity index={idx} variant={variant} />
+            <Text variant={`${variant}.product.name.value`}>
               {format(Number(item.price) / 100)}
             </Text>
           </Flex>
