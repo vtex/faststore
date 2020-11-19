@@ -13,6 +13,7 @@ type Props = {
 
 export const HeaderMinicartDrawerContentImage: FC<Props> = ({
   loading = 'lazy',
+  variant,
   ...props
 }) => {
   const imageProps = {
@@ -21,7 +22,7 @@ export const HeaderMinicartDrawerContentImage: FC<Props> = ({
   }
 
   return (
-    <Box variant={props.variant}>
+    <Box variant={variant}>
       <Box {...imageProps} />
     </Box>
   )
