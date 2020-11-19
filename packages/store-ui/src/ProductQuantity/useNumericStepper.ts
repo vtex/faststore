@@ -1,41 +1,51 @@
 import { useCallback, useState, FocusEvent, ChangeEvent } from 'react'
 
 interface Options {
-  min?: number
-  max?: number
+  value: number
+  min: number
+  max: number
   onChange: (quantity: number) => void
 }
 
+const narrow = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max)
+
 export const useNumericStepper = ({
+  value: initialValue,
   min = 0,
   max = Infinity,
   onChange: raiseOnChange,
 }: Options) => {
-  const [value, setValue] = useState(min)
+  const [value, setValue] = useState(() => narrow(initialValue, min, max))
 
-  const narrowValue = useCallback(
-    (e: FocusEvent<HTMLInputElement>) => {
-      const inputValue = Number(e.target.value) ?? min
-      const narrowed = Math.min(Math.max(inputValue, min), max)
+  const setAndRaise = useCallback(
+    async (val: number) => {
+      const narrowed = narrow(val, min, max)
 
       setValue(narrowed)
       raiseOnChange(narrowed)
     },
-    [value, min, max]
+    [value, min, max, raiseOnChange]
+  )
+
+  const narrowValue = useCallback(
+    (e: FocusEvent<HTMLInputElement> | FocusEvent<HTMLSelectElement>) =>
+      setAndRaise(Number(e.target.value) ?? min),
+    [min, setAndRaise]
   )
 
   const onChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) =>
+    (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>
       setValue(Number(e.target.value) ?? min),
-    []
+    [min]
   )
 
   return {
     value: value.toString(),
     type: 'number',
-    setValue,
     onChange,
     onBlur: narrowValue,
     onFocus: narrowValue,
+    setValue: setAndRaise,
   }
 }

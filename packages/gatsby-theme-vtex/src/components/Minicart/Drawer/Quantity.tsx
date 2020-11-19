@@ -1,6 +1,6 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Input, Select, Spinner, Flex } from '@vtex/store-ui'
-import React, { useState, FC } from 'react'
+import { Spinner, Flex, NumericStepper } from '@vtex/store-ui'
+import React, { useState, FC, ChangeEvent, useCallback } from 'react'
 
 import { useItem } from './useItem'
 import { useUpdateItems } from './useUpdateItems'
@@ -28,49 +28,29 @@ const QuantityWrapper: FC<WrapperProps> = ({
   </Flex>
 )
 
-const MinicartQuantity = (props: Props) => {
-  const updateItems = useUpdateItems(props.index)
-  const { formatMessage } = useIntl()
-  const item = useItem(props.index)
-  const [quantityLocally, setQuantityLocally] = useState<number>(item.quantity)
+const MinicartQuantity = ({ variant: v, index }: Props) => {
+  const updateItems = useUpdateItems(index)
+  const item = useItem(index)
   const [isLoading, setIsLoading] = useState(false)
 
-  const onChange = (e: any) => {
+  const onChange = (quantity: number) => {
+    if (quantity === item.quantity) {
+      return
+    }
+
     setIsLoading(true)
-    const quantity = Number(e.target.value)
-
-    setQuantityLocally(quantity)
-
     updateItems(quantity, () => setIsLoading(false))
   }
 
-  const variant = `${props.variant}.quantity`
+  const variant = `${v}.quantity`
 
-  const useQuantity = {
-    value: quantityLocally,
-    variant,
-    onChange,
-  }
-
-  return quantityLocally >= 10 ? (
-    <Input {...useQuantity} />
-  ) : (
+  return (
     <QuantityWrapper isLoading={isLoading} variant={`${variant}.wrapper`}>
-      <Select {...useQuantity}>
-        <option value={0}>
-          {formatMessage({ id: 'minicart.drawer.quantity.remove' })}
-        </option>
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-        <option value={6}>6</option>
-        <option value={7}>7</option>
-        <option value={8}>8</option>
-        <option value={9}>9</option>
-        <option value={10}>10 +</option>
-      </Select>
+      <NumericStepper
+        disabled={isLoading}
+        value={item.quantity}
+        onChange={onChange}
+      />
     </QuantityWrapper>
   )
 }

@@ -58,8 +58,7 @@ export const minicartTheme: SxStyleProp = {
           },
 
           image: {
-            height: 96,
-            width: 96,
+            minWidth: '150px',
           },
 
           name: {
