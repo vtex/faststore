@@ -1,6 +1,5 @@
-import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Spinner, Flex, NumericStepper } from '@vtex/store-ui'
-import React, { useState, FC, ChangeEvent, useCallback } from 'react'
+import React, { useState, FC } from 'react'
 
 import { useItem } from './useItem'
 import { useUpdateItems } from './useUpdateItems'
