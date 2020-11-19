@@ -25,7 +25,7 @@ export const useNumericStepper = ({
       setValue(narrowed)
       raiseOnChange(narrowed)
     },
-    [value, min, max, raiseOnChange]
+    [min, max, raiseOnChange]
   )
 
   const narrowValue = useCallback(

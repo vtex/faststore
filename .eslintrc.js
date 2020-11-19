@@ -1,10 +1,24 @@
 module.exports = {
   extends: ['vtex'],
   overrides: [
-    // Use vtex-react preset for .tsx files
     {
-      files: '*.tsx',
-      extends: ['vtex-react'],
+      files: [
+        // all tsx files
+        '*.tsx',
+        // gatsby config files (gatsby preset takes care of each variant)
+        'gatsby-*.*',
+        // generic components/hooks path
+        'components/**/*',
+        'hooks/**/*',
+        // hooks
+        'use*.ts',
+        'hooks.ts',
+        // themes
+        'theme.ts',
+        // store-ui is browser-only
+        'packages/store-ui/**/*',
+      ],
+      extends: ['vtex-react/gatsby'],
     },
     // General overrides
     {
@@ -13,7 +27,7 @@ module.exports = {
         'no-console': [
           'error',
           {
-            allow: ['warn', 'error', 'info', 'time', 'timeEnd'],
+            allow: ['warn', 'error', 'info', 'time', 'timeEnd', 'assert'],
           },
         ],
         '@typescript-eslint/no-explicit-any': 'off',
@@ -21,13 +35,11 @@ module.exports = {
         'no-await-in-loop': 'off',
       },
     },
-    // Gatsby configuration files
+    // stories overrides
     {
-      files: ['gatsby-{ssr,browser,node,config}.{ts,tsx}'],
+      files: '*.stories.tsx',
       rules: {
-        'global-require': 'off',
-        '@typescript-eslint/no-require-imports': 'off',
-        '@typescript-eslint/no-var-requires': 'off',
+        'no-console': 'off',
       },
     },
   ],
