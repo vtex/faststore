@@ -1,7 +1,7 @@
 import merge from 'deepmerge'
-import type { Theme } from 'styled-system'
+import { SxStyleProp } from 'theme-ui'
 
-const overwriteMerge = (_: unknown, sourceArray: unknown[]) => sourceArray
+const overwriteMerge = (_: any, sourceArray: any, __: any) => sourceArray
 
-export const createTheme = (...args: Theme[]) =>
-  merge.all(args, { arrayMerge: overwriteMerge }) as Theme
+export const createTheme = (...args: SxStyleProp[]) =>
+  merge.all(args as any, { arrayMerge: overwriteMerge }) as SxStyleProp
