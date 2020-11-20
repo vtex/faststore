@@ -20,7 +20,6 @@ export const setOrderFormState = (
 ) => {
   cb(orderForm)
   storage.set(orderForm)
-  document.cookie = `checkout.vtex.com=__ofid=${orderForm.id}; path=/;`
 }
 
 export const startOrderForm = async (
