@@ -17,7 +17,7 @@ type Scalars = {
 }
 
 // Operation related types
-export type StructuredProductFragment_ProductFragment = { productName: Maybe<string>, description: Maybe<string>, brand: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ commercialOffer: Maybe<{ price: Maybe<number>, availableQuantity: Maybe<number>, priceValidUntil: Maybe<string> }> }>>> }>>> };
+export type StructuredProductFragment_ProductFragment = { productName: Maybe<string>, description: Maybe<string>, brand: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ commercialOffer: Maybe<{ price: Maybe<number>, availableQuantity: Maybe<number>, priceValidUntil: Maybe<string> }> }>>> }>>> };
 
 
 // Query Related Code

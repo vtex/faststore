@@ -1,19 +1,25 @@
-import { graphql } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import { useMemo } from 'react'
 import { Offer } from 'schema-dts'
 
 import { StructuredProductFragment_ProductFragment } from './__generated__/StructuredProductFragment_product.graphql'
+import { StructuredProductSiteMetadataQueryQuery } from './__generated__/StructuredProductSiteMetadataQuery.graphql'
 
 type SKU = NonNullable<
   ArrayItem<NonNullable<StructuredProductFragment_ProductFragment['items']>>
 >
 
-const getSkuOffers = (sku: SKU, currency: string): Maybe<Offer[]> =>
+const getSkuOffers = (
+  sku: SKU,
+  currency: string,
+  url: string
+): Maybe<Offer[]> =>
   sku.sellers?.map((seller) => ({
     '@type': 'Offer',
     price: seller!.commercialOffer!.price!,
     priceCurrency: currency,
-    priceValidUntil: `${seller!.commercialOffer!.priceValidUntil}`,
+    url,
+    priceValidUntil: `${seller!.commercialOffer!.priceValidUntil}`.slice(0, 10),
     availability:
       seller!.commercialOffer!.availableQuantity! > 0
         ? 'https://schema.org/InStock'
@@ -23,17 +29,32 @@ const getSkuOffers = (sku: SKU, currency: string): Maybe<Offer[]> =>
 export const useStructuredProduct = (
   product: StructuredProductFragment_ProductFragment,
   currency: string
-) =>
-  useMemo(() => {
+) => {
+  const { site } = useStaticQuery<StructuredProductSiteMetadataQueryQuery>(
+    graphql`
+      query StructuredProductSiteMetadataQuery {
+        site {
+          siteMetadata {
+            siteUrl
+          }
+        }
+      }
+    `
+  )
+
+  const siteUrl = site?.siteMetadata?.siteUrl
+
+  return useMemo(() => {
     if (product === null) {
       return ''
     }
 
-    const { productName, items, description, brand } = product
+    const { productName, items, description, brand, linkText } = product
 
     const [sku] = items!
     const images = sku!.images!.map((i) => i!.imageUrl)
-    const offers = getSkuOffers(sku!, currency)
+    const url = `${siteUrl}/${linkText}/p`
+    const offers = getSkuOffers(sku!, currency, url)
 
     if (!sku || !images || !offers || offers.length === 0 || !brand) {
       return null
@@ -52,13 +73,15 @@ export const useStructuredProduct = (
       },
       description,
     }
-  }, [product, currency])
+  }, [product, currency, siteUrl])
+}
 
 export const fragment = graphql`
   fragment StructuredProductFragment_product on VTEX_Product {
     productName
     description
     brand
+    linkText
     items {
       itemId
       images {
