@@ -71,6 +71,7 @@ export const useStructuredProduct = (
         '@type': 'Brand',
         name: brand,
       },
+      gtin: sku.ean,
       description,
     }
   }, [product, currency, siteUrl])
@@ -84,6 +85,7 @@ export const fragment = graphql`
     linkText
     items {
       itemId
+      ean
       images {
         imageUrl
       }

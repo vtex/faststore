@@ -23,14 +23,14 @@ export type ProductPageQueryQueryVariables = Exact<{
 }>;
 
 
-export type ProductPageQueryQuery = { vtex: { product: Maybe<{ productReference: Maybe<string>, productName: Maybe<string>, linkText: Maybe<string>, description: Maybe<string>, brand: Maybe<string>, productId: Maybe<string>, items: Maybe<Array<Maybe<{ name: Maybe<string>, complementName: Maybe<string>, itemId: Maybe<string>, referenceId: Maybe<Array<Maybe<{ value: Maybe<string> }>>>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, videos: Maybe<Array<Maybe<{ videoUrl: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ commercialOffer: Maybe<{ price: Maybe<number>, availableQuantity: Maybe<number>, priceValidUntil: Maybe<string> }> }>>> }>>>, productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>, categoryTree: Maybe<Array<Maybe<{ name: Maybe<string>, href: Maybe<string> }>>> }> } };
+export type ProductPageQueryQuery = { vtex: { product: Maybe<{ productReference: Maybe<string>, productName: Maybe<string>, linkText: Maybe<string>, description: Maybe<string>, brand: Maybe<string>, productId: Maybe<string>, items: Maybe<Array<Maybe<{ name: Maybe<string>, complementName: Maybe<string>, itemId: Maybe<string>, ean: Maybe<string>, referenceId: Maybe<Array<Maybe<{ value: Maybe<string> }>>>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>>, videos: Maybe<Array<Maybe<{ videoUrl: Maybe<string> }>>>, sellers: Maybe<Array<Maybe<{ commercialOffer: Maybe<{ price: Maybe<number>, availableQuantity: Maybe<number>, priceValidUntil: Maybe<string> }> }>>> }>>>, productClusters: Maybe<Array<Maybe<{ name: Maybe<string> }>>>, categoryTree: Maybe<Array<Maybe<{ name: Maybe<string>, href: Maybe<string> }>>> }> } };
 
 
 // Query Related Code
 
 export const ProductPageQuery = {
   query: undefined,
-  sha256Hash: "fe90783ca1140690c18a9be69eba676152e7f69bf9e631f224afa45edd8e3edd",
+  sha256Hash: "c5ad27ecd4e0ee00eae3f589f535d66ab4d4b0182f4e1b377908da09f29a5de0",
   operationName: "ProductPageQuery",
 }
 
