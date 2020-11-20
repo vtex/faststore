@@ -30,7 +30,7 @@ export type ProductPageQueryQuery = { vtex: { product: Maybe<{ productReference:
 
 export const ProductPageQuery = {
   query: undefined,
-  sha256Hash: "a3ac6575449da35d8ac69c99663a16687be0edfcde2cdd013bfef31773d092ef",
+  sha256Hash: "fe90783ca1140690c18a9be69eba676152e7f69bf9e631f224afa45edd8e3edd",
   operationName: "ProductPageQuery",
 }
 
