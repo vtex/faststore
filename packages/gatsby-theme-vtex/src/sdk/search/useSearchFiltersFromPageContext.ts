@@ -2,18 +2,6 @@ import { useLocation } from '@reach/router'
 import { useMemo } from 'react'
 
 import { SearchPageQueryQueryVariables } from '../../templates/__generated__/SearchPageQuery.graphql'
-import { SearchFilterDefaults } from './defaults'
-
-type OrderBy =
-  | 'OrderByScoreDESC'
-  | 'OrderByPriceDESC'
-  | 'OrderByPriceASC'
-  | 'OrderByTopSaleDESC'
-  | 'OrderByReviewRateDESC'
-  | 'OrderByNameDESC'
-  | 'OrderByNameASC'
-  | 'OrderByReleaseDateDESC'
-  | 'OrderByBestDiscountDESC'
 
 // Creates a string with as many `c,c` as pathname has
 // segments.
@@ -71,14 +59,10 @@ export const useSearchFiltersFromPageContext = (
     const params = new URLSearchParams(search)
     const query = pageContext?.query ?? trimQuery(pathname)
     const map = pageContext?.map ?? params.get('map') ?? createMap(query)
+    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
+    const orderBy = pageContext?.orderBy ?? params.get('orderBy') ?? ''
     const selectedFacets =
       pageContext?.selectedFacets ?? selectedFacetsAfterQueryAndMap(query, map)
-
-    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
-
-    const orderBy = (pageContext?.orderBy ??
-      params.get('orderBy') ??
-      SearchFilterDefaults.orderBy) as OrderBy
 
     return {
       orderBy,
