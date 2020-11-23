@@ -1,7 +1,7 @@
 {
-  "name": "@vtex/gatsby-transformer-vtex-cms",
+  "name": "@vtex/gatsby-plugin-cms",
   "version": "0.199.0",
-  "description": "Gatsby transformer plugin for building pages from VTEX CMS.",
+  "description": "Gatsby plugin for building pages with VTEX CMS.",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -11,7 +11,7 @@
   "keywords": [
     "gatsby",
     "gatsby-plugin",
-    "gatsby-source-plugin",
+    "gatsby-plugin-cms",
     "vtex"
   ],
   "license": "MIT",

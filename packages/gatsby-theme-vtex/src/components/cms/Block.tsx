@@ -1,4 +1,4 @@
-import { Block as BlockType } from '@vtex/gatsby-transformer-vtex-cms'
+import { Block as BlockType } from '@vtex/gatsby-plugin-cms'
 import React, { FC } from 'react'
 
 import { components } from './components'

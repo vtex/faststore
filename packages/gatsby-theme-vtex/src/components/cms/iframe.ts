@@ -1,4 +1,4 @@
-import { Content, isContent } from '@vtex/gatsby-transformer-vtex-cms'
+import { Content, isContent } from '@vtex/gatsby-plugin-cms'
 
 interface CMSEvent {
   action: 'cmsUpdate'
