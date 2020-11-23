@@ -16,7 +16,7 @@ All packages follow Gatsby's [plugin naming scheme](https://www.gatsbyjs.com/doc
 
 * **@vtex/gatsby-plugin-checkout** implements checkout's Web SDK. It can be used without `gatsby-theme-store` to create extremely custom experiences.
 
-* **@vtex/gatsby-plugin-vtex-cms** integrates VTEX CMS with Gatsby. Live preview and pilot your ecommerce directly from VTEX Admin. Note that this overwrites any page in your gatsby project.
+* **@vtex/gatsby-plugin-cms** integrates VTEX CMS with Gatsby. Live preview and pilot your ecommerce directly from VTEX Admin. Note that this overwrites any page in your gatsby project.
 
 * **@vtex/lighthouse-config** contains an ecommerce focused Lighthouse CI configuration.
 
