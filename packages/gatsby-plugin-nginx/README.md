@@ -1,4 +1,4 @@
-# gatsby-plugin-vtex-nginx
+# gatsby-plugin-nginx
 
 This plugin will output a `nginx.conf` template file at the root directory, containing *nginx* rules for every page, static asset, *createRedirect* call and pages with mistmatched *path*/*matchPath*.
 
@@ -45,7 +45,7 @@ module.exports = {
   plugins: [
     // [...]
     {
-      resolve: require.resolve('@vtex/gatsby-plugin-vtex-nginx'),
+      resolve: require.resolve('@vtex/gatsby-plugin-nginx'),
       options: {
         transformHeaders: (headers, path) => {
           const DEFAULT_SECURITY_HEADERS = [

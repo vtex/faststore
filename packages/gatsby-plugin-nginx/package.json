@@ -1,5 +1,5 @@
 {
-  "name": "@vtex/gatsby-plugin-vtex-nginx",
+  "name": "@vtex/gatsby-plugin-nginx",
   "version": "0.199.0",
   "description": "Gatsby plugin to generate a nginx configuration template.",
   "main": "index.js",
@@ -15,7 +15,7 @@
     "gatsby-plugin",
     "vtex",
     "nginx",
-    "gatsby-plugin-vtex-nginx"
+    "gatsby-plugin-nginx"
   ],
   "devDependencies": {
     "@types/jest": "^26.0.13",
