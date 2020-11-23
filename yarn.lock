@@ -9313,20 +9313,20 @@ eslint-config-react-app@^5.0.2, eslint-config-react-app@^5.2.1:
   dependencies:
     confusing-browser-globals "^1.0.9"
 
-eslint-config-vtex-react@^6.8.2:
-  version "6.8.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.8.2.tgz#4303be49f57f7a169caaeda9b862dadd21d803ae"
-  integrity sha512-1eiLz1hMi7IxP6/hBnOYFto/q/bcvwU8ZJIReTyXc61FX/voCixT3+zwSkFvJ+Ak1+TT5eniNoptoZro4FpOqA==
+eslint-config-vtex-react@^6.8.3:
+  version "6.8.3"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.8.3.tgz#2648df5baca11d1bff677791c851ba3f7691bb9c"
+  integrity sha512-ArtgJTNO2fukCD+KW4k9SWlP61tfeeEowPvnoSUNPAdidiFnUz/JHyx/PkGyMT0k5m9VUnG4dFlvl2MZFg6gnQ==
   dependencies:
-    eslint-config-vtex "^12.8.10"
+    eslint-config-vtex "^12.8.11"
     eslint-plugin-jsx-a11y "^6.3.1"
     eslint-plugin-react "^7.20.6"
     eslint-plugin-react-hooks "^4.1.0"
 
-eslint-config-vtex@^12.8.10:
-  version "12.8.10"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.8.10.tgz#b3947f9311989ced8ccfba3c33ca3c3f73509e57"
-  integrity sha512-AhyiHAOx8glr5ty+hWklafVe7L0vXuMKUnOFOuOZdZb/7ir8Z0bn2CBTdfi9UyfM26H8+Qt32CiAOijlAmNCkw==
+eslint-config-vtex@^12.8.11:
+  version "12.8.11"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.8.11.tgz#4eddf3e0f1e93e96734dc4a84347ae082e833912"
+  integrity sha512-/FAHIh3S1FEMLErYbdIdz9vYXE0QmOp6eJ+JjQlsZF4OUvrlk/j23gENbCa67+zf0Yg/zAOUUJYm3/MwalF3Hw==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.8.1"
     "@typescript-eslint/parser" "^4.8.1"
@@ -9628,7 +9628,7 @@ eslint@^6.1.0, eslint@^6.6.0, eslint@^6.8.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
-eslint@^7.13.0:
+eslint@^7.14.0:
   version "7.14.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.14.0.tgz#2d2cac1d28174c510a97b377f122a5507958e344"
   integrity sha512-5YubdnPXrlrYAFCKybPuHIAH++PINe1pmKNc5wQRB9HSbqIK1ywAnntE3Wwua4giKu0bjligf1gLF6qxMGOYRA==
@@ -18057,7 +18057,12 @@ prettier@^1.19.1:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
 
-prettier@^2.0.5, prettier@^2.1.2:
+prettier@^2.0.5:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.1.2.tgz#3050700dae2e4c8b67c4c3f666cdb8af405e1ce5"
+  integrity sha512-16c7K+x4qVlJg9rEbXl7HEGmQyZlG4R9AgP+oHKRMsMsuk8s+ATStlf1NpDqyBI1HpVyfjLOeMhH2LvuNvV5Vg==
+
+prettier@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.0.tgz#8a03c7777883b29b37fb2c4348c66a78e980418b"
   integrity sha512-yYerpkvseM4iKD/BXLYUkQV5aKt4tQPqaGW6EsZjzyu0r7sVZZNPJW4Y8MyKmicp6t42XUPcBVA+H6sB3gqndw==
