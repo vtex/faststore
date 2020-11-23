@@ -94,6 +94,16 @@ export const createPages = async (
   })
 
   createRedirect({
+    fromPath: '/XMLData/*',
+    toPath: `https://${tenant}.${environment}.com.br/XMLData/:splat`,
+    statusCode: 200,
+    headers: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$host',
+    },
+  })
+
+  createRedirect({
     fromPath: '/arquivos/*',
     toPath: `https://${tenant}.vtexassets.com/arquivos/:splat`,
     statusCode: 200,
