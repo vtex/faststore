@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-require-imports */
 import 'requestidlecallback-polyfill'
+import 'intersection-observer'
 import { WrapRootElementBrowserArgs } from 'gatsby'
 import React, { ElementType, StrictMode } from 'react'
 import ReactDOM from 'react-dom'
