@@ -148,6 +148,7 @@ export const createPages = async (
         path,
         component: resolve(__dirname, './src/templates/search.tsx'),
         context: {
+          orderBy: '',
           query: segments.join('/'),
           map: new Array(segments.length).fill('c').join(','),
           selectedFacets: segments.map((segment) => ({
