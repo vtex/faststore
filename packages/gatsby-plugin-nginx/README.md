@@ -2,7 +2,7 @@
 
 This plugin will output a `nginx.conf` template file at the root directory, containing *nginx* rules for every page, static asset, *createRedirect* call and pages with mistmatched *path*/*matchPath*.
 
-[![NPM](https://img.shields.io/npm/v/@vtex/gatsby-plugin-vtex-nginx.svg)](https://www.npmjs.com/package/@vtex/gatsby-plugin-vtex-nginx) 
+[![NPM](https://img.shields.io/npm/v/@vtex/gatsby-plugin-nginx.svg)](https://www.npmjs.com/package/@vtex/gatsby-plugin-nginx) 
 
 ## Hosting locally
 
