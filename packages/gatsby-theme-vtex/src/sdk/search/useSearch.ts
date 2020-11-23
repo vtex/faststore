@@ -22,10 +22,11 @@ const PAGE_SIZE = 12
 
 export const useSearch = <Query extends BaseQueryShape | undefined>({
   query,
-  initialData,
+  initialData: firstPageData,
   pageSize = PAGE_SIZE,
 }: Options<Query>) => {
   const filters = useFilters()
+  const initialData = firstPageData && [firstPageData]
   const { data, error, size, setSize } = useQueryInfinite<Query, SearchFilters>(
     query,
     (page, previousPageData) => {
@@ -38,16 +39,29 @@ export const useSearch = <Query extends BaseQueryShape | undefined>({
 
       const from = page * pageSize
       const to = (page + 1) * pageSize - 1
+      let { fullText } = filters
+
+      // This is a pre-rendered search. Like so, we need to fetch the data
+      // at the exact same order from the pre-rendered data so we don't have
+      // data mismatch
+      const productIds =
+        page === 0 &&
+        firstPageData?.vtex.productSearch?.products?.map((x) => x.productId)
+
+      if (Array.isArray(productIds)) {
+        fullText = `product:${productIds.join(';')}`
+      }
 
       return {
         ...filters,
+        fullText,
         from,
         to,
       }
     },
     {
       revalidateOnMount: true,
-      initialData: initialData && [initialData],
+      initialData,
       initialSize: 2, // 2 will always prefetch the next page
     }
   )

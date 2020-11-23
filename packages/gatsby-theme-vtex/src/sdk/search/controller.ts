@@ -34,7 +34,7 @@ export const setSearchFilters = (filters: SearchFilters) => {
     const value = filters[key as keyof SearchFilters]
 
     if (value && key !== 'query' && key !== 'selectedFacets') {
-      params.set(key, value)
+      params.set(key, value as string)
     }
   })
   const to = `/${filters.query}?${params.toString()}`

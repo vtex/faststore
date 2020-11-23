@@ -33,8 +33,13 @@ export type SearchPageProps = PageProps<
 
 const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
-  const { staticPath } = pageContext
   const filters = useSearchFiltersFromPageContext(pageContext)
+  const staticPath =
+    pageContext.staticPath &&
+    pageContext.map === filters.map &&
+    pageContext.query === filters.query &&
+    pageContext.orderBy === filters.orderBy
+
   const { data } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
@@ -72,7 +77,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
   )
 
   return (
-    <SearchProvider filters={filters as any} data={data!}>
+    <SearchProvider filters={filters} data={data!}>
       <SEO {...props} data={data!} />
       <AboveTheFold {...props} data={data!} />
       <SuspenseViewport

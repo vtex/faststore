@@ -23,10 +23,10 @@ export const useQueryInfinite = <
 
       return JSON.stringify(variables)
     },
-    (varStr: string) =>
+    (variables: string) =>
       request<Query, Variables>({
         ...queryOptions,
-        variables: JSON.parse(varStr),
+        variables,
       }),
     config
   )
