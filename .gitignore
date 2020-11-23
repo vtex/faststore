@@ -85,3 +85,9 @@ packages/gatsby-theme-vtex/providers
 
 # lighthouse CI autogen files
 .lighthouseci
+
+# Jest tests
+!**/__tests__/*
+
+# gatsby-plugin-nginx manual tests
+!**/manual-test/**
