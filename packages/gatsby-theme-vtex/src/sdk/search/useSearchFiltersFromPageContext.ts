@@ -4,6 +4,17 @@ import { useMemo } from 'react'
 import { SearchPageQueryQueryVariables } from '../../templates/__generated__/SearchPageQuery.graphql'
 import { SearchFilterDefaults } from './defaults'
 
+type OrderBy =
+  | 'OrderByScoreDESC'
+  | 'OrderByPriceDESC'
+  | 'OrderByPriceASC'
+  | 'OrderByTopSaleDESC'
+  | 'OrderByReviewRateDESC'
+  | 'OrderByNameDESC'
+  | 'OrderByNameASC'
+  | 'OrderByReleaseDateDESC'
+  | 'OrderByBestDiscountDESC'
+
 // Creates a string with as many `c,c` as pathname has
 // segments.
 // For instance: cozinha/faqueiro-e-talheres would
@@ -65,10 +76,9 @@ export const useSearchFiltersFromPageContext = (
 
     const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
 
-    const orderBy =
-      pageContext?.orderBy ??
+    const orderBy = (pageContext?.orderBy ??
       params.get('orderBy') ??
-      SearchFilterDefaults.orderBy
+      SearchFilterDefaults.orderBy) as OrderBy
 
     return {
       orderBy,

@@ -1,12 +1,9 @@
 import React, { createContext, FC } from 'react'
 
 import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
+import { useSearchFiltersFromPageContext } from './useSearchFiltersFromPageContext'
 
-export interface SearchFilters {
-  query: Maybe<string>
-  map: Maybe<string>
-  orderBy: Maybe<string>
-}
+export type SearchFilters = ReturnType<typeof useSearchFiltersFromPageContext>
 
 interface SearchContextType {
   data: SearchPageQueryQuery

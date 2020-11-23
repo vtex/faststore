@@ -17,8 +17,8 @@ const SearchControlsSelect: FC<Props> = ({ variant }) => {
   return (
     <StoreUISortSelect
       variant={variant}
-      defaultValue={filters.orderBy as any}
-      onChange={async (orderBy: string) => {
+      defaultValue={filters.orderBy}
+      onChange={async (orderBy: any) => {
         const controller = await searchFilterControler()
 
         controller.setSearchFilters({
