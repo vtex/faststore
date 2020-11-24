@@ -31,5 +31,6 @@
   "dependencies": {
     "kebab-hash": "^0.1.2",
     "webpack-assets-manifest": "^3.1.1"
-  }
+  },
+  "gitHead": "c563748e3fd8f4f61ff55f080d7920339af47b5e"
 }
