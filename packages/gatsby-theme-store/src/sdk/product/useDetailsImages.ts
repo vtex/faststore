@@ -29,7 +29,7 @@ export const useDetailsImages = (maybeImages: Image[] | undefined) => {
     () =>
       images.map(({ imageUrl, imageText }, index) => {
         const src = imageUrl ?? IMAGE_DEFAULT
-        const useSummary = fromSummary && index === 0
+        const useSummary = fromSummary === true && index === 0
 
         const srcSet = DETAILS_IMAGE.map(
           ({ width, height }) =>
