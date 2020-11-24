@@ -90,11 +90,6 @@ module.exports = ({
         ),
       },
       {
-        // Transform cms's json files into .tsx nodes so other
-        // scripts can use it to generate files or templates
-        resolve: require.resolve('@vtex/gatsby-plugin-cms'),
-      },
-      {
         // Adds search info into the Gatsby's source graph. This is
         // the plugin responsible for adding Product/Category/Brand
         // info into the gatsby's source graph

@@ -1,11 +1,8 @@
-import { join, resolve } from 'path'
+import { resolve } from 'path'
 
-import { ensureDir, outputFile } from 'fs-extra'
 import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
 
 import { Environment, Options } from './gatsby-config'
-
-const root = process.cwd()
 
 const tenant = process.env.GATSBY_VTEX_TENANT as string
 const environment = process.env.GATSBY_VTEX_ENVIRONMENT as Environment
@@ -30,7 +27,7 @@ const getRoute = (path: string) => {
 }
 
 export const createPages = async (
-  { actions: { createPage, createRedirect }, graphql }: CreatePagesArgs,
+  { actions: { createPage, createRedirect } }: CreatePagesArgs,
   { getStaticPaths }: Options
 ) => {
   createRedirect({
@@ -183,51 +180,6 @@ export const createPages = async (
       staticPath: false,
     },
   })
-
-  /**
-   * CMS PAGES
-   */
-
-  const { data: cmsPageData, errors: cmsPageError } = await graphql<any>(`
-    query {
-      allCmsPage {
-        nodes {
-          name
-          slug
-          src
-        }
-      }
-    }
-  `)
-
-  if (cmsPageError) {
-    console.error(cmsPageError)
-
-    return
-  }
-
-  const { allCmsPage } = cmsPageData
-
-  // ensure dist folder
-  const cmsRoot = join(root, '.cache/vtex-cms')
-
-  await ensureDir(cmsRoot)
-
-  // Create page .tsx files as well as gatsby's node pages
-  const cmsPages = allCmsPage.nodes.map(async (page: any) => {
-    const { src, slug, name } = page
-    const filepath = join(cmsRoot, `${name}.tsx`)
-
-    await outputFile(filepath, src)
-
-    createPage({
-      path: slug,
-      component: filepath,
-      context: {},
-    })
-  })
-
-  await Promise.all(cmsPages)
 }
 
 export const onCreateWebpackConfig = ({
