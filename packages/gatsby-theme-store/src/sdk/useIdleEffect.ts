@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DependencyList, EffectCallback, useEffect } from 'react'
 
 export const useIdleEffect = (
@@ -8,4 +9,4 @@ export const useIdleEffect = (
     const id = window.requestIdleCallback(effect)
 
     return () => window.cancelIdleCallback(id)
-  }, [effect])
+  }, deps)
