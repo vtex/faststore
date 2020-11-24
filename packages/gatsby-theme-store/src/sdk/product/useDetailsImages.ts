@@ -22,13 +22,14 @@ const sizes = DETAILS_IMAGE.map(({ media }) => media).join(', ')
 
 export const useDetailsImages = (maybeImages: Image[] | undefined) => {
   const { state }: any = useLocation()
+  const fromSummary = state?.fromSummary
   const images = maybeImages ?? DEFAULT_IMAGES
 
   return useMemo(
     () =>
       images.map(({ imageUrl, imageText }, index) => {
         const src = imageUrl ?? IMAGE_DEFAULT
-        const useSummary = state?.fromSummary && index === 0
+        const useSummary = fromSummary && index === 0
 
         const srcSet = DETAILS_IMAGE.map(
           ({ width, height }) =>
@@ -64,6 +65,6 @@ export const useDetailsImages = (maybeImages: Image[] | undefined) => {
           },
         }
       }),
-    [images, state.fromSummary]
+    [images, fromSummary]
   )
 }
