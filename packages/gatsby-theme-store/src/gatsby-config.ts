@@ -38,15 +38,15 @@ module.exports = ({
 }: Options) => {
   assert(
     tenant,
-    `Tenant not found in gatsby-theme-vtex. Do you have a vtex.env configuration file ?`
+    `Tenant not found in gatsby-theme-store. Do you have a vtex.env configuration file ?`
   )
   assert(
     environment,
-    `Environment not found in gatsby-theme-vtex. Do you have a vtex.env configuration file ?`
+    `Environment not found in gatsby-theme-store. Do you have a vtex.env configuration file ?`
   )
   assert(
     workspace,
-    `Workspace not found in gatsby-theme-vtex. Do you have a vtex.env configuration file ?`
+    `Workspace not found in gatsby-theme-store. Do you have a vtex.env configuration file ?`
   )
 
   return {

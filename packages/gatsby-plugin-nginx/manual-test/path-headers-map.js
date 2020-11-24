@@ -41,7 +41,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -95,7 +95,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -149,7 +149,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -203,7 +203,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -257,7 +257,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -311,7 +311,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -365,7 +365,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -419,7 +419,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -473,7 +473,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -527,7 +527,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -581,7 +581,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -635,7 +635,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -689,7 +689,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -743,7 +743,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -797,7 +797,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -851,7 +851,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -905,7 +905,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -959,7 +959,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1013,7 +1013,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1067,7 +1067,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1121,7 +1121,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1175,7 +1175,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1229,7 +1229,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1283,7 +1283,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1337,7 +1337,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1391,7 +1391,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1445,7 +1445,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1499,7 +1499,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1553,7 +1553,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1607,7 +1607,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1661,7 +1661,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1715,7 +1715,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1769,7 +1769,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1823,7 +1823,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1877,7 +1877,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1931,7 +1931,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -1985,7 +1985,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2039,7 +2039,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2093,7 +2093,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2147,7 +2147,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2201,7 +2201,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2255,7 +2255,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2309,7 +2309,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2363,7 +2363,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2417,7 +2417,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2471,7 +2471,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2525,7 +2525,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2579,7 +2579,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2633,7 +2633,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2687,7 +2687,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2741,7 +2741,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2795,7 +2795,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2849,7 +2849,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2903,7 +2903,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -2957,7 +2957,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3011,7 +3011,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3065,7 +3065,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3119,7 +3119,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3173,7 +3173,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3227,7 +3227,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3281,7 +3281,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3335,7 +3335,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3447,7 +3447,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3491,7 +3491,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3545,7 +3545,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-pages-index-tsx~07745810-133e2353d16582f7fbb7.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-pages-index-tsx~07745810-133e2353d16582f7fbb7.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3599,7 +3599,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-pages-index-tsx~07745810-133e2353d16582f7fbb7.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-pages-index-tsx~07745810-133e2353d16582f7fbb7.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3641,7 +3641,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-pages-preview-tsx~ce27b399-d0b49d688d9a70740bed.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-pages-preview-tsx~ce27b399-d0b49d688d9a70740bed.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3683,7 +3683,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-pages-preview-tsx~ce27b399-d0b49d688d9a70740bed.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-pages-preview-tsx~ce27b399-d0b49d688d9a70740bed.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3727,7 +3727,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3771,7 +3771,7 @@ module.exports = {
     {
       name: 'Link',
       value:
-        '</component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script',
+        '</component---node-modules-vtex-gatsby-theme-store-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js>; rel=preload; as=script',
     },
     {
       name: 'Link',
@@ -3823,7 +3823,7 @@ module.exports = {
       value: 'public, max-age=31536000, immutable',
     },
   ],
-  '/component---node-modules-vtex-gatsby-theme-vtex-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js': [
+  '/component---node-modules-vtex-gatsby-theme-store-src-templates-product-tsx~49702ae1-d563a08226180917fda5.js': [
     { name: 'X-Frame-Options', value: 'DENY' },
     { name: 'X-XSS-Protection', value: '1; mode=block' },
     { name: 'X-Content-Type-Options', value: 'nosniff' },
@@ -3833,7 +3833,7 @@ module.exports = {
       value: 'public, max-age=31536000, immutable',
     },
   ],
-  '/component---node-modules-vtex-gatsby-theme-vtex-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js': [
+  '/component---node-modules-vtex-gatsby-theme-store-src-templates-search-tsx~253ae210-5db8dce268b0ce53e898.js': [
     { name: 'X-Frame-Options', value: 'DENY' },
     { name: 'X-XSS-Protection', value: '1; mode=block' },
     { name: 'X-Content-Type-Options', value: 'nosniff' },
@@ -3853,7 +3853,7 @@ module.exports = {
       value: 'public, max-age=31536000, immutable',
     },
   ],
-  '/component---node-modules-vtex-gatsby-theme-vtex-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js': [
+  '/component---node-modules-vtex-gatsby-theme-store-src-pages-404-tsx~07745810-6c4a3d73fb58aa827154.js': [
     { name: 'X-Frame-Options', value: 'DENY' },
     { name: 'X-XSS-Protection', value: '1; mode=block' },
     { name: 'X-Content-Type-Options', value: 'nosniff' },
@@ -3873,7 +3873,7 @@ module.exports = {
       value: 'public, max-age=31536000, immutable',
     },
   ],
-  '/component---node-modules-vtex-gatsby-theme-vtex-src-pages-index-tsx~07745810-133e2353d16582f7fbb7.js': [
+  '/component---node-modules-vtex-gatsby-theme-store-src-pages-index-tsx~07745810-133e2353d16582f7fbb7.js': [
     { name: 'X-Frame-Options', value: 'DENY' },
     { name: 'X-XSS-Protection', value: '1; mode=block' },
     { name: 'X-Content-Type-Options', value: 'nosniff' },
@@ -3893,7 +3893,7 @@ module.exports = {
       value: 'public, max-age=31536000, immutable',
     },
   ],
-  '/component---node-modules-vtex-gatsby-theme-vtex-src-pages-preview-tsx~ce27b399-d0b49d688d9a70740bed.js': [
+  '/component---node-modules-vtex-gatsby-theme-store-src-pages-preview-tsx~ce27b399-d0b49d688d9a70740bed.js': [
     { name: 'X-Frame-Options', value: 'DENY' },
     { name: 'X-XSS-Protection', value: '1; mode=block' },
     { name: 'X-Content-Type-Options', value: 'nosniff' },
