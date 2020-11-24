@@ -53,14 +53,14 @@ export const useSearchFiltersFromPageContext = (
   pageContext: SearchPageQueryQueryVariables
 ) => {
   const location = useLocation()
+  const { search, pathname } = location
 
   return useMemo(() => {
-    const { search, pathname } = location
     const params = new URLSearchParams(search)
     const query = pageContext?.query ?? trimQuery(pathname)
-    const map = pageContext?.map ?? params.get('map') ?? createMap(query)
+    const map = params.get('map') ?? pageContext?.map ?? createMap(query)
     const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
-    const orderBy = pageContext?.orderBy ?? params.get('orderBy') ?? ''
+    const orderBy = params.get('orderBy') ?? pageContext?.orderBy ?? ''
     const selectedFacets =
       pageContext?.selectedFacets ?? selectedFacetsAfterQueryAndMap(query, map)
 
@@ -71,5 +71,12 @@ export const useSearchFiltersFromPageContext = (
       query,
       map,
     }
-  }, [pageContext, location])
+  }, [
+    search,
+    pageContext.query,
+    pageContext.map,
+    pageContext.orderBy,
+    pageContext.selectedFacets,
+    pathname,
+  ])
 }
