@@ -1,4 +1,4 @@
-import { Content, Block, isBlock } from './cms'
+import { Content, Block, isBlock } from '../common'
 
 interface RenderMetaInfo {
   imports: Map<string, string> // components used during rendering

@@ -1,25 +1,22 @@
-import {
-  Content as ContentType,
-  isContent as isContentType,
-  getMeta,
-} from '@vtex/gatsby-plugin-cms'
 import React, { FC, Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
 
-import Block from '../components/cms/Block'
-import { CMS_CONTENT, setupIframeListener } from '../components/cms/iframe'
-import { useLocalStorage } from '../components/cms/localStorage'
-import ErrorBoundary from '../components/Error/ErrorBoundary'
-import ErrorHandler from '../components/Error/ErrorHandler'
-import { isServer } from '../utils/env'
-
-if (!isServer) {
-  setupIframeListener()
-}
+import {
+  Content as ContentType,
+  getMeta,
+  isContent as isContentType,
+} from '../common'
+import { useIframeListener } from '../hooks/useIframeListener'
+import { useLocalStorage } from '../hooks/useLocalStorage'
+import Block from '../components/Block'
+import ErrorBoundary from '../components/ErrorBoundary'
+import ErrorHandler from '../components/ErrorHandler'
 
 const Preview: FC = () => {
-  const content = useLocalStorage<ContentType>(CMS_CONTENT)
+  const content = useLocalStorage<ContentType>()
   const isContent = isContentType(content)
+
+  useIframeListener()
 
   if (!isContent || !content) {
     return <div>No Preview found. Waiting for input</div>
