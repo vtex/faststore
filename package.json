@@ -1,7 +1,7 @@
 {
   "name": "gatsby-vtex",
   "version": "1.0.0",
-  "description": "A monorepo for testing new ideas and solutions",
+  "description": "Plugins and libraries for building a lightning fast e-commerce in JAMStack",
   "main": "index.js",
   "repository": "git@github.com:vtex/faststore.git",
   "license": "MIT",
