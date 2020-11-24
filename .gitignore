@@ -73,15 +73,7 @@ packages/gatsby-**/*.js
 packages/gatsby-**/*.jsx
 packages/gatsby-**/*.d.ts
 # these ones are manually added
-!packages/gatsby-**/typings/**/*.d.ts
-
-# Specific files
-packages/gatsby-theme-vtex/components
-packages/gatsby-theme-vtex/pages
-packages/gatsby-theme-vtex/templates
-packages/gatsby-theme-vtex/utils
-packages/gatsby-theme-vtex/types
-packages/gatsby-theme-vtex/providers
+!packages/gatsby-**/src/typings/**/*.d.ts
 
 # lighthouse CI autogen files
 .lighthouseci

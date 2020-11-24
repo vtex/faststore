@@ -3,7 +3,7 @@ import {
   TextMaskInputElement,
   CreateTextMaskConfig,
 } from 'text-mask-core'
-import { MutableRefObject, useLayoutEffect, useRef } from 'react'
+import { MutableRefObject, useCallback, useLayoutEffect, useRef } from 'react'
 
 interface Args extends Omit<CreateTextMaskConfig, 'inputElement'> {
   value?: string
@@ -24,8 +24,10 @@ export default function useMaskedInput({
 }: Args) {
   const textMask = useRef<TextMaskInputElement>()
 
-  function init() {
-    if (!input?.current) return
+  const init = useCallback(() => {
+    if (!input?.current) {
+      return
+    }
 
     textMask.current = createTextMaskInputElement({
       guide,
@@ -38,7 +40,16 @@ export default function useMaskedInput({
     })
 
     textMask.current.update(value)
-  }
+  }, [
+    guide,
+    input,
+    keepCharPositions,
+    mask,
+    pipe,
+    placeholderChar,
+    showMask,
+    value,
+  ])
 
   useLayoutEffect(init, [
     guide,
@@ -53,7 +64,7 @@ export default function useMaskedInput({
     if (value === input?.current?.value) return
 
     init()
-  }, [value])
+  }, [init, input, value])
 
   return (event: React.ChangeEvent<HTMLInputElement>) => {
     if (textMask.current) {

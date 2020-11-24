@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DependencyList, EffectCallback, useEffect } from 'react'
 
 export const useIdleEffect = (
