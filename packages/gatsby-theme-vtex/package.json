@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
+    "@vtex/gatsby-plugin-cms": "^0.199.0",
     "@vtex/gatsby-plugin-graphql": "^0.120.0",
     "@vtex/gatsby-plugin-i18n": "^0.120.0",
     "@vtex/gatsby-plugin-theme-ui": "^0.120.1",
