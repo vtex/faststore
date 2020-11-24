@@ -20,4 +20,4 @@ All packages follow Gatsby's [plugin naming scheme](https://www.gatsbyjs.com/doc
 
 * **@vtex/lighthouse-config** contains an ecommerce focused Lighthouse CI configuration.
 
-* **@vtex/store-ui** contains many building blocks for creating your store. All components follows [this pattern](/components.md). Use it's storybook to find the right component for your ecommerce experience.
+* **@vtex/store-ui** contains many building blocks for creating your store. All components follows [this pattern](/docs/component.md). Use it's storybook to find the right component for your ecommerce experience.
