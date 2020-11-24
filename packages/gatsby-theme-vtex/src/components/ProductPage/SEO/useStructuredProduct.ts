@@ -71,7 +71,7 @@ export const useStructuredProduct = (
         '@type': 'Brand',
         name: brand,
       },
-      gtin: sku.ean,
+      gtin13: sku.ean,
       description,
     }
   }, [product, currency, siteUrl])
