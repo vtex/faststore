@@ -1,7 +1,7 @@
 {
   "name": "@vtex/gatsby-theme-store",
   "version": "0.202.0",
-  "description": "Gatsby source plugin for building websites using VTEX as a data source.",
+  "description": "Gatsby theme for building e-commerce websites",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -11,6 +11,7 @@
   "keywords": [
     "gatsby",
     "gatsby-theme-plugin",
+    "gatsby-theme-store",
     "vtex"
   ],
   "license": "MIT",

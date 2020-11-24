@@ -43,12 +43,12 @@ export const useShippingSimulator = ({
     }).finally(() => {
       setLoading(false)
     })
-  }, [postalCode, getShipping, country, seller, skuId])
+  }, [getShipping, skuId, seller, quantity, country, postalCode])
 
   // Recalculates the shipping information if the product quantity changes
   useEffect(() => {
     !loading && postalCode && onSubmit()
-  }, [quantity])
+  }, [loading, onSubmit, postalCode, quantity])
 
   return {
     shipping,

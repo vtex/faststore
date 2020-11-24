@@ -8,4 +8,4 @@ export const useIdleEffect = (
     const id = window.requestIdleCallback(effect)
 
     return () => window.cancelIdleCallback(id)
-  }, deps)
+  }, [effect])

@@ -42,24 +42,27 @@ export const useSession = (options?: Options) => {
     }
   }, [data])
 
-  const dispatch = useCallback(async (action: Action) => {
-    let session = null
+  const dispatch = useCallback(
+    async (action: Action) => {
+      let session = null
 
-    if (action.type === 'create') {
-      session = await createSession()
-    }
+      if (action.type === 'create') {
+        session = await createSession()
+      }
 
-    if (action.type === 'clear') {
-      await clearSession()
-    }
+      if (action.type === 'clear') {
+        await clearSession()
+      }
 
-    if (action.type === 'patch') {
-      session = await patchSession(action.data)
-    }
+      if (action.type === 'patch') {
+        session = await patchSession(action.data)
+      }
 
-    storage.set(session)
-    mutate(session)
-  }, [])
+      storage.set(session)
+      mutate(session)
+    },
+    [mutate]
+  )
 
   return [data, dispatch] as [
     Session | null | undefined,

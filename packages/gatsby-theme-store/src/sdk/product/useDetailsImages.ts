@@ -64,6 +64,6 @@ export const useDetailsImages = (maybeImages: Image[] | undefined) => {
           },
         }
       }),
-    [images]
+    [images, state.fromSummary]
   )
 }
