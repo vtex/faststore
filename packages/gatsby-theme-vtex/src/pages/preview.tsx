@@ -2,7 +2,7 @@ import {
   Content as ContentType,
   isContent as isContentType,
   getMeta,
-} from '@vtex/gatsby-transformer-vtex-cms'
+} from '@vtex/gatsby-plugin-cms'
 import React, { FC, Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
 
