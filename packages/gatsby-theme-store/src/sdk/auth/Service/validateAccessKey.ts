@@ -38,4 +38,10 @@ export const validateAccessKey = async ({
   if (response.status > 300) {
     throw new Error('Something went wrong while logging in')
   }
+
+  const json = await response.json()
+
+  if (json.authStatus !== 'Success') {
+    throw json
+  }
 }
