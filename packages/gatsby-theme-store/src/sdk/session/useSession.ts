@@ -28,8 +28,8 @@ export const useSession = (options?: Options) => {
   const { data, mutate } = useSWR('/api/sessions', {
     fetcher: createSession,
     initialData: fresh ? undefined : initialData,
-    revalidateOnFocus: fresh,
-    revalidateOnMount: fresh,
+    revalidateOnFocus: false,
+    revalidateOnMount: false,
     revalidateOnReconnect: false,
     refreshWhenHidden: false,
     refreshWhenOffline: false,

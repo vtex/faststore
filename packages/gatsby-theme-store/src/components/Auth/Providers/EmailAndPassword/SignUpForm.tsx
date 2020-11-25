@@ -59,7 +59,7 @@ const SignUpForm: FC<Props> = ({
         }}
         variant={variant}
       >
-        <Label htmlFor="code">
+        <Label htmlFor="signup-code">
           {formatMessage({
             id: 'login.page.emailAndPassword.signUpForm.accessCodeLabel',
             defaultMessage: 'Access code',
@@ -69,13 +69,13 @@ const SignUpForm: FC<Props> = ({
           ref={code}
           type="text"
           name="code"
-          id="code"
+          id="signup-code"
           placeholder={formatMessage({
             id: 'login.page.emailAndPassword.signUpForm.accessCodePlaceholder',
             defaultMessage: 'Add your access code',
           })}
         />
-        <Label htmlFor="password">
+        <Label htmlFor="signup-password">
           {formatMessage({
             id: 'login.page.emailAndPassword.signUpForm.passwordLabel',
             defaultMessage: 'Password',
@@ -85,14 +85,14 @@ const SignUpForm: FC<Props> = ({
           ref={password}
           type="password"
           name="password"
-          id="password"
+          id="signup-password"
           placeholder={formatMessage({
             id: 'login.page.emailAndPassword.signUpForm.passwordPlaceholder',
             defaultMessage: 'Insert your password',
           })}
           autoComplete="new-password"
         />
-        <Label htmlFor="confirm-password">
+        <Label htmlFor="signup-confirm-password">
           {formatMessage({
             id: 'login.page.emailAndPassword.signUpForm.confirmPasswordLabel',
             defaultMessage: 'Confirm Password',
@@ -102,7 +102,7 @@ const SignUpForm: FC<Props> = ({
           ref={confirmPwd}
           type="password"
           name="password"
-          id="confirm-password"
+          id="signup-confirm-password"
           placeholder={formatMessage({
             id:
               'login.page.emailAndPassword.signUpForm.confirmPasswordPlaceholder',

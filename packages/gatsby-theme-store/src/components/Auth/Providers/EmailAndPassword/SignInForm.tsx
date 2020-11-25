@@ -44,7 +44,7 @@ const SignInForm: FC<Props> = ({
           ref={email}
           type="email"
           name="email"
-          id="email"
+          id="signin-email"
           placeholder={formatMessage({
             id: 'login.page.emailAndPassword.signInForm.emailPlaceholder',
             defaultMessage: 'Eg: example@gmail.com',
@@ -55,7 +55,7 @@ const SignInForm: FC<Props> = ({
           ref={password}
           type="password"
           name="password"
-          id="password"
+          id="signin-password"
           placeholder={formatMessage({
             id: 'login.page.emailAndPassword.signInForm.password',
             defaultMessage: 'Insert your password',
