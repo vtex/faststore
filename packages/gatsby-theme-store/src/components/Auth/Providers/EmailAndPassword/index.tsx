@@ -54,7 +54,7 @@ const EmailAndPassword: FC<AuthProviderComponentProps> = ({
           dispatch({ type: 'signUpForm.invalidAccessCodeInput' })
         }
 
-        if (!isValidPassword(password)) {
+        if (!isValidPassword(password).passwordIsValid) {
           dispatch({ type: 'signUpForm.invalidPassword' })
         }
 
@@ -84,7 +84,7 @@ const EmailAndPassword: FC<AuthProviderComponentProps> = ({
           dispatch({ type: 'signInForm.invalidEmailInput' })
         }
 
-        if (!isValidPassword(password)) {
+        if (!isValidPassword(password).passwordIsValid) {
           dispatch({ type: 'signInForm.invalidPasswordInput' })
         }
 
