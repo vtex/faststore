@@ -32,6 +32,8 @@ const EmailAndPassword: FC<AuthProviderComponentProps> = ({
       onSubmit={async (email) => {
         if (!isValidEmail(email)) {
           dispatch({ type: 'emailForm.invalidEmailInput' })
+
+          return
         }
 
         try {
@@ -52,14 +54,20 @@ const EmailAndPassword: FC<AuthProviderComponentProps> = ({
       onSubmit={async (code, password, confirmPassword) => {
         if (!isValidAccessCode(code)) {
           dispatch({ type: 'signUpForm.invalidAccessCodeInput' })
+
+          return
         }
 
         if (!isValidPassword(password).passwordIsValid) {
           dispatch({ type: 'signUpForm.invalidPassword' })
+
+          return
         }
 
         if (password !== confirmPassword) {
           dispatch({ type: 'signUpForm.passwordDoNotMatch' })
+
+          return
         }
 
         try {
@@ -82,10 +90,14 @@ const EmailAndPassword: FC<AuthProviderComponentProps> = ({
       onSubmit={async (email, password) => {
         if (!isValidEmail(email)) {
           dispatch({ type: 'signInForm.invalidEmailInput' })
+
+          return
         }
 
         if (!isValidPassword(password).passwordIsValid) {
           dispatch({ type: 'signInForm.invalidPasswordInput' })
+
+          return
         }
 
         try {
