@@ -40,7 +40,7 @@ const EmailForm: FC<Props> = ({
           ref={input}
           type="email"
           name="email"
-          id="email"
+          id="emailform-email"
           placeholder={formatMessage({
             id: 'login.page.emailAndPassword.emailForm.emailPlaceholder',
             defaultMessage: 'Add your email',

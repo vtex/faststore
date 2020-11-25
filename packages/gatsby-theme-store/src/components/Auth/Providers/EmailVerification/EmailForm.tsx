@@ -34,7 +34,7 @@ const EmailForm: FC<Props> = ({ variant, state: { state }, onSubmit }) => {
           ref={input}
           type="email"
           name="email"
-          id="email"
+          id="emailform-email"
           placeholder={formatMessage({
             id: 'login.page.emailVerification.emailForm.emailPlaceholder',
             defaultMessage: 'Add your email',
