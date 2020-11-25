@@ -59,7 +59,7 @@ const SignUpForm: FC<Props> = ({
         }}
         variant={variant}
       >
-        <Label>
+        <Label htmlFor="code">
           {formatMessage({
             id: 'login.page.emailAndPassword.signUpForm.accessCodeLabel',
             defaultMessage: 'Access code',
@@ -75,7 +75,7 @@ const SignUpForm: FC<Props> = ({
             defaultMessage: 'Add your access code',
           })}
         />
-        <Label>
+        <Label htmlFor="password">
           {formatMessage({
             id: 'login.page.emailAndPassword.signUpForm.passwordLabel',
             defaultMessage: 'Password',
@@ -92,7 +92,7 @@ const SignUpForm: FC<Props> = ({
           })}
           autoComplete="new-password"
         />
-        <Label>
+        <Label htmlFor="confirm-password">
           {formatMessage({
             id: 'login.page.emailAndPassword.signUpForm.confirmPasswordLabel',
             defaultMessage: 'Confirm Password',
