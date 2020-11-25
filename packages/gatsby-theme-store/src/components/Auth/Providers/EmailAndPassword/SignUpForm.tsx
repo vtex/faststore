@@ -1,5 +1,5 @@
 import React, { FC, useRef } from 'react'
-import { Alert, Box, Button, Input } from '@vtex/store-ui'
+import { Alert, Box, Button, Input, Label } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { State } from './state'
@@ -59,6 +59,12 @@ const SignUpForm: FC<Props> = ({
         }}
         variant={variant}
       >
+        <Label>
+          {formatMessage({
+            id: 'login.page.emailAndPassword.signUpForm.accessCodeLabel',
+            defaultMessage: 'Access code',
+          })}
+        </Label>
         <Input
           ref={code}
           type="text"
@@ -69,6 +75,12 @@ const SignUpForm: FC<Props> = ({
             defaultMessage: 'Add your access code',
           })}
         />
+        <Label>
+          {formatMessage({
+            id: 'login.page.emailAndPassword.signUpForm.passwordLabel',
+            defaultMessage: 'Password',
+          })}
+        </Label>
         <Input
           ref={password}
           type="password"
@@ -80,6 +92,12 @@ const SignUpForm: FC<Props> = ({
           })}
           autoComplete="new-password"
         />
+        <Label>
+          {formatMessage({
+            id: 'login.page.emailAndPassword.signUpForm.confirmPasswordLabel',
+            defaultMessage: 'Confirm Password',
+          })}
+        </Label>
         <Input
           ref={confirmPwd}
           type="password"
