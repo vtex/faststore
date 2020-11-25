@@ -25,7 +25,7 @@ export const useSession = (options?: Options) => {
     options?.stale === false ||
     initialData?.namespaces.profile?.isAuthenticated?.value === 'true'
 
-  const { data, mutate } = useSWR(`/api/sessions`, {
+  const { data, mutate } = useSWR('/api/sessions', {
     fetcher: createSession,
     initialData: fresh ? undefined : initialData,
     revalidateOnFocus: false,
