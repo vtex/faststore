@@ -40,7 +40,7 @@ const AccessCodeForm: FC<Props> = ({
           ref={input}
           type="text"
           name="code"
-          id="code"
+          id="accesscodeform-code"
           placeholder={formatMessage({
             id: 'login.page.emailVerification.accessCodeForm.codePlaceholder',
             defaultMessage: 'Add your access code',

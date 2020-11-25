@@ -25,7 +25,11 @@ export const useSession = (options?: Options) => {
     options?.stale === false ||
     initialData?.namespaces.profile?.isAuthenticated?.value === 'true'
 
-  const { data, mutate } = useSWR('/api/sessions', {
+  // Uses different keys for different freshness of the data
+  // So we never mess stale with fresh data
+  const key = `/api/sessions?fresh=${fresh}`
+
+  const { data, mutate } = useSWR(key, {
     fetcher: createSession,
     initialData: fresh ? undefined : initialData,
     revalidateOnFocus: fresh,
