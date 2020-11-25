@@ -6,7 +6,7 @@ export const useOnLoginSuccessful = () => {
   const { defaultLocale, locale } = useIntl()
 
   return useCallback(
-    (returnUrl = '/') => {
+    (returnUrl = '/account') => {
       const path = localizedPath(defaultLocale, locale, returnUrl)
 
       navigate(path)
