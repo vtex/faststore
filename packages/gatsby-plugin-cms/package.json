@@ -20,11 +20,14 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.4",
+    "@types/json-schema": "^7.0.6",
     "cross-env": "^7.0.2",
     "gatsby": "^2.24.37",
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.12.7",
+    "@babel/register": "^7.12.1",
     "chokidar": "^3.4.3",
     "fs-extra": "^9.0.1"
   }
