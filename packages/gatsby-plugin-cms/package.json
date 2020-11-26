@@ -25,6 +25,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "chokidar": "^3.4.3",
     "fs-extra": "^9.0.1"
   }
 }

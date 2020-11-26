@@ -1,90 +1,90 @@
 import { join } from 'path'
-import { promisify } from 'util'
 
-import {
-  ensureDir,
-  outputFile,
-  readdir as readDirCB,
-  readJSON,
-  stat as statCB,
-  Stats,
-  pathExists,
-} from 'fs-extra'
+import chokidar from 'chokidar'
+import { ensureDir, outputFileSync, readJSONSync, unlink } from 'fs-extra'
 import { CreatePagesArgs } from 'gatsby'
 
-import { getMeta, isContent } from './common'
 import { ContentDOM } from './builder/compiler'
+import { getMeta, isContent } from './common'
 
 const root = process.cwd()
 
-const readDir = promisify<string, string[]>(readDirCB)
-const stat = promisify<string, Stats>(statCB)
-
 export const createPages = async ({
   actions: { createPage },
+  reporter,
 }: CreatePagesArgs) => {
-  const blocksRootPath = join(root, '@vtex/gatsby-plugin-cms/templates')
-
-  const exists = await pathExists(blocksRootPath)
-
-  if (!exists) {
-    return
-  }
-
-  const entries = await readDir(blocksRootPath)
-  const stats = await Promise.all(
-    entries.map((p) => stat(join(blocksRootPath, p)))
-  )
-
-  const files = entries.filter(
-    (filename, index) => stats[index].isFile() && filename.endsWith('.json')
-  )
+  const blocksRootPath = join(root, 'src/@vtex/gatsby-plugin-cms/templates')
 
   // ensure dist folder
   const generatedRootPath = join(blocksRootPath, '/__generated__')
 
   await ensureDir(generatedRootPath)
 
-  // Transform file contents
-  const nodes = await Promise.all(
-    files.map(async (filename) => {
-      const filepath = join(
-        generatedRootPath,
-        filename.replace('.json', '.tsx')
-      )
+  const watcher = chokidar.watch('*.json', {
+    persistent: true,
 
-      const content = await readJSON(join(blocksRootPath, filename))
+    ignored: '*.tsx',
+    ignoreInitial: false,
+    followSymlinks: false,
+    cwd: blocksRootPath,
 
-      if (!isContent(content)) {
-        throw new Error(`${filename} is not a CMS compatible block`)
-      }
+    depth: 1,
+  })
 
-      const dom = new ContentDOM(content)
-      const src = dom.renderToString()
-      const slug = getMeta(content.extraBlocks)?.slug
+  const getOutpath = (filename: string) =>
+    join(generatedRootPath, filename.replace('.json', '.tsx'))
 
-      if (typeof slug !== 'string') {
-        throw new Error(`No slug found for CMS block ${filename}`)
-      }
+  const transformFile = (filename: string) => {
+    const inpath = join(blocksRootPath, filename)
+    const outpath = getOutpath(filename)
 
-      return {
-        filepath,
-        slug,
-        src,
-      }
+    const content = readJSONSync(inpath)
+
+    if (!isContent(content)) {
+      throw new Error(`${filename} is not a CMS compatible block`)
+    }
+
+    const dom = new ContentDOM(content)
+    const src = dom.renderToString()
+    const slug = getMeta(content.extraBlocks)?.slug
+
+    if (typeof slug !== 'string') {
+      throw new Error(`No slug found for CMS block ${filename}`)
+    }
+
+    return {
+      src,
+      slug,
+      outpath,
+    }
+  }
+
+  watcher.on('add', (filename: string) => {
+    const { slug, outpath, src } = transformFile(filename)
+
+    outputFileSync(outpath, src)
+
+    createPage({
+      path: slug,
+      component: outpath,
+      context: {},
     })
-  )
+  })
 
-  // // Create page .tsx files as well as gatsby's node pages
-  await Promise.all(
-    nodes.map(async ({ src, slug, filepath }) => {
-      await outputFile(filepath, src)
+  watcher.on('change', (filename: string) => {
+    const { outpath, src } = transformFile(filename)
 
-      createPage({
-        path: slug,
-        component: filepath,
-        context: {},
-      })
-    })
-  )
+    outputFileSync(outpath, src)
+  })
+
+  watcher.on('unlink', async (filename: string) => {
+    const outpath = getOutpath(filename)
+
+    await unlink(outpath)
+  })
+
+  // Wait for chokidar to be ready
+  const ready = new Promise((resolve) => watcher.on('ready', resolve))
+
+  await ready
 }

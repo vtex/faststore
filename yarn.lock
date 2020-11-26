@@ -9301,10 +9301,10 @@ eslint-config-react-app@^5.0.2, eslint-config-react-app@^5.2.1:
   dependencies:
     confusing-browser-globals "^1.0.9"
 
-eslint-config-vtex-react@^6.8.3:
-  version "6.8.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.8.3.tgz#2648df5baca11d1bff677791c851ba3f7691bb9c"
-  integrity sha512-ArtgJTNO2fukCD+KW4k9SWlP61tfeeEowPvnoSUNPAdidiFnUz/JHyx/PkGyMT0k5m9VUnG4dFlvl2MZFg6gnQ==
+eslint-config-vtex-react@^6.8.4:
+  version "6.8.4"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.8.4.tgz#a2d6e1652d3c79b014c6cde28975b2442f3bf668"
+  integrity sha512-HA/2DvV6bBjomkuTWoLwlzhU4otdEQgYnvlhGaI/TTx7Fl5GREkS1OCzdvYXPx3cvwxP5UHywVekckHhX0D73A==
   dependencies:
     eslint-config-vtex "^12.8.11"
     eslint-plugin-jsx-a11y "^6.3.1"
