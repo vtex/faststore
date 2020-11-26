@@ -23,29 +23,37 @@ const stat = promisify<string, Stats>(statCB)
 export const createPages = async ({
   actions: { createPage },
 }: CreatePagesArgs) => {
-  const blocksPath = join(root, 'src/cms')
+  const blocksRootPath = join(root, '@vtex/gatsby-plugin-cms/templates')
 
-  const exists = await pathExists(blocksPath)
+  const exists = await pathExists(blocksRootPath)
 
   if (!exists) {
     return
   }
 
-  const entries = await readDir(blocksPath)
-  const stats = await Promise.all(entries.map((p) => stat(join(blocksPath, p))))
+  const entries = await readDir(blocksRootPath)
+  const stats = await Promise.all(
+    entries.map((p) => stat(join(blocksRootPath, p)))
+  )
 
-  const files = entries.filter((_, index) => stats[index].isFile())
+  const files = entries.filter(
+    (filename, index) => stats[index].isFile() && filename.endsWith('.json')
+  )
 
   // ensure dist folder
-  const cmsRoot = join(root, '.cache/vtex-cms')
+  const generatedRootPath = join(blocksRootPath, '/__generated__')
 
-  await ensureDir(cmsRoot)
+  await ensureDir(generatedRootPath)
 
   // Transform file contents
   const nodes = await Promise.all(
     files.map(async (filename) => {
-      const filepath = join(cmsRoot, filename.replace('.json', '.tsx'))
-      const content = await readJSON(join(blocksPath, filename))
+      const filepath = join(
+        generatedRootPath,
+        filename.replace('.json', '.tsx')
+      )
+
+      const content = await readJSON(join(blocksRootPath, filename))
 
       if (!isContent(content)) {
         throw new Error(`${filename} is not a CMS compatible block`)
