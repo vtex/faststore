@@ -48,7 +48,8 @@ export const useShippingSimulator = ({
   // Recalculates the shipping information if the product quantity changes
   useEffect(() => {
     !loading && postalCode && onSubmit()
-  }, [loading, onSubmit, postalCode, quantity])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity])
 
   return {
     shipping,
