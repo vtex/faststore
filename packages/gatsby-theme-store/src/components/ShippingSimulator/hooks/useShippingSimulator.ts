@@ -45,10 +45,17 @@ export const useShippingSimulator = ({
     })
   }, [getShipping, skuId, seller, quantity, country, postalCode])
 
-  // Recalculates the shipping information if the product quantity changes
+  /**
+   * This effect is responsible for trigerring a shipping simulation
+   * whenever the selected quantity changes.
+   *
+   * Here we are explictly disabling the react-hooks/exhaustive-deps rule.
+   * Adding the other recommended deps may trigger an update loop.
+   */
   useEffect(() => {
     !loading && postalCode && onSubmit()
-  }, [loading, onSubmit, postalCode, quantity])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity])
 
   return {
     shipping,
