@@ -12,7 +12,6 @@ export type Schemas = Record<string, Schema>
 export const schemas: Schemas = {}
 
 interface ContentType {
-  previewUrl: string
   blocks: Schemas
   extraBlocks: Record<string, Schemas>
   beforeBlocks: Schemas

@@ -1,7 +1,6 @@
 import { join } from 'path'
 
 import { JSONSchema6 } from 'json-schema'
-import chokidar from 'chokidar'
 import {
   ensureDir,
   outputFileSync,
@@ -11,6 +10,7 @@ import {
   outputJSON,
 } from 'fs-extra'
 import { CreatePagesArgs } from 'gatsby'
+import globby from 'globby'
 
 import { ContentDOM } from './builder/compiler'
 import { getMeta, isContent } from './common'
@@ -32,10 +32,42 @@ const { name } = require('./package.json')
 
 const root = process.cwd()
 
-export const onPostBootstrap = async () => {
+const CONTENT_TYPES_PATH = join(root, 'public/page-data/_cms/contentTypes.json')
+const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
+const BLOCKS_ROOT_PATH = join(root, 'src/@vtex/gatsby-plugin-cms/contents')
+const GENERATED_ROOT_PATH = join(BLOCKS_ROOT_PATH, '/__generated__')
+
+const PREVIEW_PATH = '/__preview'
+
+const getGeneratedOutpath = (filename: string) =>
+  join(GENERATED_ROOT_PATH, filename.replace('.json', '.tsx'))
+
+const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
+  const { data, errors } = await graphql(`
+    {
+      site {
+        siteMetadata {
+          siteUrl
+        }
+      }
+    }
+  `)
+
+  if (errors && errors.length > 0) {
+    reporter.panicOnBuild(
+      'Seomething went wrong while querying site metadata',
+      errors
+    )
+  }
+
+  const {
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  }: { site: { siteMetadata: { siteUrl: string } } } = data as any
+
   // Read index.ts from shadowed plugin
-  const filepath = join(root, 'src', name, 'index.ts')
-  const exists = await pathExists(filepath)
+  const exists = await pathExists(SHADOWED_INDEX_PATH)
 
   if (!exists) {
     return
@@ -45,7 +77,11 @@ export const onPostBootstrap = async () => {
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],
   })
-  const { components, schemas, contentTypes } = require(filepath) as {
+  const {
+    components,
+    schemas,
+    contentTypes,
+  } = require(SHADOWED_INDEX_PATH) as {
     components: Components
     schemas: Schemas
     contentTypes: ContentTypes
@@ -89,6 +125,7 @@ export const onPostBootstrap = async () => {
 
     acc.push({
       ...ct,
+      previewUrl: join(siteUrl, PREVIEW_PATH),
       blocks,
       beforeBlocks,
       afterBlocks,
@@ -98,40 +135,21 @@ export const onPostBootstrap = async () => {
     return acc
   }, [] as CMSContentType[])
 
-  await outputJSON(
-    join(root, 'public/page-data/_cms/contentTypes.json'),
-    contentTypesCMS
-  )
+  await outputJSON(CONTENT_TYPES_PATH, contentTypesCMS)
 }
 
-export const createPages = async ({
+const compileToTS = async ({
   actions: { createPage },
   reporter,
 }: CreatePagesArgs) => {
-  const blocksRootPath = join(root, 'src/@vtex/gatsby-plugin-cms/contents')
-
   // ensure dist folder
-  const generatedRootPath = join(blocksRootPath, '/__generated__')
+  await ensureDir(GENERATED_ROOT_PATH)
 
-  await ensureDir(generatedRootPath)
+  const files = await globby(['*.json'], { cwd: BLOCKS_ROOT_PATH })
 
-  const watcher = chokidar.watch('*.json', {
-    persistent: true,
-
-    ignored: '*.tsx',
-    ignoreInitial: false,
-    followSymlinks: false,
-    cwd: blocksRootPath,
-
-    depth: 1,
-  })
-
-  const getOutpath = (filename: string) =>
-    join(generatedRootPath, filename.replace('.json', '.tsx'))
-
-  const transformFile = (filename: string) => {
-    const inpath = join(blocksRootPath, filename)
-    const outpath = getOutpath(filename)
+  for (const filename of files) {
+    const inpath = join(BLOCKS_ROOT_PATH, filename)
+    const outpath = getGeneratedOutpath(filename)
 
     const content = readJSONSync(inpath)
 
@@ -149,16 +167,6 @@ export const createPages = async ({
 
     reporter.info(`[${name}]: Updated page: ${slug}`)
 
-    return {
-      src,
-      slug,
-      outpath,
-    }
-  }
-
-  watcher.on('add', (filename: string) => {
-    const { slug, outpath, src } = transformFile(filename)
-
     outputFileSync(outpath, src)
 
     createPage({
@@ -166,22 +174,8 @@ export const createPages = async ({
       component: outpath,
       context: {},
     })
-  })
-
-  watcher.on('change', (filename: string) => {
-    const { outpath, src } = transformFile(filename)
-
-    outputFileSync(outpath, src)
-  })
-
-  watcher.on('unlink', async (filename: string) => {
-    const outpath = getOutpath(filename)
-
-    await unlink(outpath)
-  })
-
-  // Wait for chokidar to be ready
-  const ready = new Promise((resolve) => watcher.on('ready', resolve))
-
-  await ready
+  }
 }
+
+export const createPages = (args: CreatePagesArgs) =>
+  Promise.all([compileToTS(args), exportCMSConfig(args)])
