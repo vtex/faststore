@@ -5,12 +5,12 @@ import {
   Content as ContentType,
   getMeta,
   isContent as isContentType,
-} from '../common'
-import { useIframeListener } from '../hooks/useIframeListener'
-import { useLocalStorage } from '../hooks/useLocalStorage'
-import Block from '../components/Block'
-import ErrorBoundary from '../components/ErrorBoundary'
-import ErrorHandler from '../components/ErrorHandler'
+} from '../../common'
+import { useIframeListener } from '../../hooks/useIframeListener'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
+import Block from '../../components/Block'
+import ErrorBoundary from '../../components/ErrorBoundary'
+import ErrorHandler from '../../components/ErrorHandler'
 
 const Preview: FC = () => {
   const content = useLocalStorage<ContentType>()

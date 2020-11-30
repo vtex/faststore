@@ -1,4 +1,4 @@
-import { join, resolve } from 'path'
+import { join } from 'path'
 
 import { JSONSchema6 } from 'json-schema'
 import {
@@ -36,7 +36,7 @@ const CONTENT_TYPES_PATH = join(root, 'public/page-data/_cms/contentTypes.json')
 const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
 const BLOCKS_ROOT_PATH = join(root, 'src/@vtex/gatsby-plugin-cms/contents')
 const GENERATED_ROOT_PATH = join(BLOCKS_ROOT_PATH, '/__generated__')
-const PREVIEW_PATH = '/__preview'
+const PREVIEW_PATH = '/cms/preview'
 
 const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
   const { data, errors } = await graphql(`
@@ -175,17 +175,5 @@ const compileToTS = async ({
   }
 }
 
-export const createPages = async (args: CreatePagesArgs) => {
-  // Compile CMS pages to TS
-  await compileToTS(args)
-
-  // Write CMS config to `public` folder
-  await exportCMSConfig(args)
-
-  // Create Preview page
-  args.actions.createPage({
-    path: PREVIEW_PATH,
-    component: resolve(__dirname, './src/templates/preview.tsx'),
-    context: {}
-  })
-}
+export const createPages = (args: CreatePagesArgs) =>
+  Promise.all([compileToTS(args), exportCMSConfig(args)])
