@@ -26,7 +26,7 @@ export type StructuredProductSiteMetadataQueryQuery = { site: Maybe<{ siteMetada
 // Query Related Code
 
 export const StructuredProductSiteMetadataQuery = {
-  query: "query StructuredProductSiteMetadataQuery {\n  site {\n    siteMetadata {\n      siteUrl\n    }\n  }\n}\n",
+  query: undefined,
   sha256Hash: "2913563707178ed9826fb719f97ecf01f114533386cfac4d03422b2d7af7a793",
   operationName: "StructuredProductSiteMetadataQuery",
 }

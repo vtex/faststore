@@ -1,4 +1,4 @@
-import { join } from 'path'
+import { join, resolve } from 'path'
 
 import { JSONSchema6 } from 'json-schema'
 import {
@@ -175,5 +175,17 @@ const compileToTS = async ({
   }
 }
 
-export const createPages = (args: CreatePagesArgs) =>
-  Promise.all([compileToTS(args), exportCMSConfig(args)])
+export const createPages = async (args: CreatePagesArgs) => {
+  // Compile CMS pages to TS
+  await compileToTS(args)
+
+  // Write CMS config to `public` folder
+  await exportCMSConfig(args)
+
+  // Create Preview page
+  args.actions.createPage({
+    path: PREVIEW_PATH,
+    component: resolve(__dirname, './src/templates/preview.tsx'),
+    context: {}
+  })
+}
