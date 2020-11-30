@@ -24,26 +24,15 @@ src/
 │   │   └── index.ts
 ```
 
-The shadowed `index.ts` file must export three properties, components, schemas and contentTypes. These three options are explained in detail below
+The shadowed `index.ts` file must export two properties, schemas and contentTypes. These two options are explained in detail below
 
 ### Adding Components
-To tell the CMS how to render and configure your components you need to export two structures, components and schemas. 
-Components is a dictionary of component names to their respective lazy-loaded implementations. For instance:
-
-```
-import { lazy } from 'react'
-import { Components } from '@vtex/gatsby-plugin-cms'
-
-export const components: Components = {
-  'path-to-my-component': lazy(() => import('path-to-my-component'))
-  ...
-}
-```
-
+To tell the CMS how to configure and render your components you need to export component schemas. 
 Schemas is a json-schema like configuration that tells the CMS interface on how to render your component's configuration.
 
 ```
-import { Schemas, Components } from '@vtex/gatsby-plugin-cms'
+import { lazy } from 'react'
+import { Schemas } from '@vtex/gatsby-plugin-cms'
 
 export const components: Components = {
   ...
@@ -51,6 +40,7 @@ export const components: Components = {
 
 export const schemas: Schemas = {
   'path-to-my-component': {
+    component: lazy(() => import('path-to-my-component'))
     title: 'My Awesome Component',
     description: 'This is my first CMS ready component',
     type: 'object',
@@ -68,18 +58,14 @@ export const schemas: Schemas = {
 }
 ```
 
-> Note that every entry in `components` must have a corresponding entry in `schemas`.
+> Note that every entry in `schemas` must have a corresponding `components`.
 
 ### Adding content types
 To add your components to the CMS interface you will need a content type. Content types define the page structure and they are those who you will be able to edit in the CMS interface.
 To export a content type, just:
 
 ```
-import { Components, Schemas, ContentTypes } from '@vtex/gatsby-plugin-cms'
-
-export const components: Components = {
-  ...
-}
+import { Schemas, ContentTypes } from '@vtex/gatsby-plugin-cms'
 
 export const schemas: Schemas = {
   ...
