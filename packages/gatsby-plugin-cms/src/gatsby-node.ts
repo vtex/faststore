@@ -6,7 +6,6 @@ import {
   outputFileSync,
   pathExists,
   readJSONSync,
-  unlink,
   outputJSON,
 } from 'fs-extra'
 import { CreatePagesArgs } from 'gatsby'
@@ -14,7 +13,7 @@ import globby from 'globby'
 
 import { ContentDOM } from './builder/compiler'
 import { getMeta, isContent } from './common'
-import { Components, ContentTypes, Schemas } from './index'
+import { ContentTypes, Schemas } from './index'
 
 interface CMSContentType {
   previewUrl: string
@@ -73,20 +72,18 @@ const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],
   })
-  const {
-    components,
-    schemas,
-    contentTypes,
-  } = require(SHADOWED_INDEX_PATH) as {
-    components: Components
+  const { schemas, contentTypes } = require(SHADOWED_INDEX_PATH) as {
     schemas: Schemas
     contentTypes: ContentTypes
   }
 
   // Make sure all components have a schema
-  for (const component in components) {
-    if (!(component in schemas)) {
-      reporter.panicOnBuild(`${component} does not have a schema. Please define it and export in schemas at index.ts`)
+  for (const schema in schemas) {
+    if (!('component' in schemas[schema])) {
+      reporter.panicOnBuild(
+        `${schema} does not have a registered component. Please add a property with component: lazy(() => import('path-to-component'))`
+      )
+
       return
     }
   }
@@ -142,6 +139,11 @@ const compileToTS = async ({
 }: CreatePagesArgs) => {
   // ensure dist folder
   await ensureDir(GENERATED_ROOT_PATH)
+
+  // Only create cms pages on dev mode for now
+  if (process.env.NODE_ENV === 'production') {
+    return
+  }
 
   const files = await globby(['*.json'], { cwd: BLOCKS_ROOT_PATH })
 

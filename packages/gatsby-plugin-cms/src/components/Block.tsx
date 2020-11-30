@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { Block as BlockType } from '../common'
-import { components } from '../index'
+import { schemas } from '../index'
 
 interface Props {
   block: BlockType
@@ -9,7 +9,7 @@ interface Props {
 
 const Block: FC<Props> = ({ block }) => {
   const { name, props } = block
-  const Component = components[name]
+  const Component = schemas[name].component
 
   return <Component {...props} />
 }

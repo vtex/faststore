@@ -1,11 +1,11 @@
 import { LazyExoticComponent } from 'react'
 import { JSONSchema6 } from 'json-schema'
 
-export type Components = Record<string, LazyExoticComponent<any>>
-
-export const components: Components = {}
-
-type Schema = JSONSchema6 & Required<Pick<JSONSchema6, 'title' | 'description'>>
+interface Schema extends JSONSchema6 {
+  title: string
+  description: string
+  component: LazyExoticComponent<any>
+}
 
 export type Schemas = Record<string, Schema>
 
