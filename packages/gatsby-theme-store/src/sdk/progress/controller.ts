@@ -1,5 +1,7 @@
 import progress, { NProgressOptions } from 'nprogress'
 
+import { once } from '../once'
+
 interface SetupOptions extends Partial<NProgressOptions> {
   color: string
 }
@@ -73,22 +75,17 @@ const getStyles = (color: string) => `
 }
 `
 
-let once = true
+export const setup = once((options: SetupOptions) => {
+  const styles = getStyles(options.color)
+  const node = document.createElement(`style`)
 
-export const setup = (options: SetupOptions) => {
-  if (once) {
-    const styles = getStyles(options.color)
-    const node = document.createElement(`style`)
+  node.id = `nprogress-styles`
+  node.innerHTML = styles
+  document.head.appendChild(node)
 
-    node.id = `nprogress-styles`
-    node.innerHTML = styles
-    document.head.appendChild(node)
-
-    progress.configure(options)
-    once = false
-  }
+  progress.configure(options)
 
   return progress
-}
+})
 
 export type NProgress = typeof progress
