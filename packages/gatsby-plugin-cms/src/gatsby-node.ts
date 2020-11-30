@@ -36,11 +36,7 @@ const CONTENT_TYPES_PATH = join(root, 'public/page-data/_cms/contentTypes.json')
 const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
 const BLOCKS_ROOT_PATH = join(root, 'src/@vtex/gatsby-plugin-cms/contents')
 const GENERATED_ROOT_PATH = join(BLOCKS_ROOT_PATH, '/__generated__')
-
 const PREVIEW_PATH = '/__preview'
-
-const getGeneratedOutpath = (filename: string) =>
-  join(GENERATED_ROOT_PATH, filename.replace('.json', '.tsx'))
 
 const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
   const { data, errors } = await graphql(`
@@ -90,9 +86,8 @@ const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
   // Make sure all components have a schema
   for (const component in components) {
     if (!(component in schemas)) {
-      throw new Error(
-        `${component} does not have a schema. Please define it and export in schemas at index.ts`
-      )
+      reporter.panicOnBuild(`${component} does not have a schema. Please define it and export in schemas at index.ts`)
+      return
     }
   }
 
@@ -137,6 +132,9 @@ const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
 
   await outputJSON(CONTENT_TYPES_PATH, contentTypesCMS)
 }
+
+const getGeneratedOutpath = (filename: string) =>
+  join(GENERATED_ROOT_PATH, filename.replace('.json', '.tsx'))
 
 const compileToTS = async ({
   actions: { createPage },
