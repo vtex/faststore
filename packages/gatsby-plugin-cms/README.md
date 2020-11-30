@@ -71,7 +71,7 @@ export const schemas: Schemas = {
 > Note that every entry in `components` must have a corresponding entry in `schemas`.
 
 ### Adding content types
-To add your components to the CMS interface you will need a content type. Content types defines the page structure and they are those who you will be able to edit in the CMS interface.
+To add your components to the CMS interface you will need a content type. Content types define the page structure and they are those who you will be able to edit in the CMS interface.
 To export a content type, just:
 
 ```
