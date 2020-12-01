@@ -1,8 +1,9 @@
 {
   "name": "@vtex/gatsby-plugin-cms",
-  "version": "0.207.0",
+  "version": "0.208.0-alpha.3",
   "description": "Gatsby plugin for building pages with VTEX CMS.",
   "main": "index.js",
+  "browser": "src/index.ts",
   "scripts": {
     "build": "tsc",
     "prepare": "cross-env NODE_ENV=production yarn run build",
@@ -19,8 +20,16 @@
     "gatsby": "^2.24.37"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.4",
+    "@types/json-schema": "^7.0.6",
     "cross-env": "^7.0.2",
     "gatsby": "^2.24.37",
     "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "@babel/preset-typescript": "^7.12.7",
+    "@babel/register": "^7.12.1",
+    "fs-extra": "^9.0.1",
+    "globby": "^11.0.1"
   }
 }
