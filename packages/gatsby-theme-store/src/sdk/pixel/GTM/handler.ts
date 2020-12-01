@@ -29,7 +29,7 @@ const getDataFromEvent = (event: PixelEvent) => {
 
     case 'vtex:internalSiteSearchView': {
       return {
-        type: 'internalSiteSearchView',
+        event: 'internalSiteSearchView',
         payload: {
           siteSearchTerm: event.data.term,
           siteSearchResults: event.data.results,
