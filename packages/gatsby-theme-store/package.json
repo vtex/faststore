@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-store",
-  "version": "0.208.0",
+  "version": "0.209.0-alpha.4",
   "description": "Gatsby theme for building e-commerce websites",
   "main": "index.js",
   "scripts": {
@@ -54,5 +54,6 @@
     "schema-dts": "^0.6.0",
     "swr": "^0.3.0",
     "text-mask-core": "^5.1.0"
-  }
+  },
+  "gitHead": "106bd1f8fa393567aca6af853de47dcc0bf19138"
 }

@@ -3,6 +3,18 @@ import { PixelEventHandler } from '../usePixelEvent'
 
 const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {
+    case 'vtex:homeView': {
+      return {
+        event: 'homeView',
+        location: event.data.pageUrl,
+        page: event.data.pageUrl.replace(window.origin, ''),
+        referrer: event.data.referrer,
+        ...(event.data.pageTitle && {
+          title: event.data.pageTitle,
+        }),
+      }
+    }
+
     case 'vtex:pageView': {
       return {
         event: 'pageView',
@@ -12,6 +24,16 @@ const getDataFromEvent = (event: PixelEvent) => {
         ...(event.data.pageTitle && {
           title: event.data.pageTitle,
         }),
+      }
+    }
+
+    case 'vtex:internalSiteSearchView': {
+      return {
+        event: 'internalSiteSearchView',
+        payload: {
+          siteSearchTerm: event.data.term,
+          siteSearchResults: event.data.results,
+        },
       }
     }
 
