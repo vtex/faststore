@@ -4660,17 +4660,6 @@
     create-emotion-server "^10.0.27"
     theme-ui "^0.3.1"
 
-"@vtex/gatsby-source-vtex@^0.120.0":
-  version "0.120.0"
-  resolved "https://registry.yarnpkg.com/@vtex/gatsby-source-vtex/-/gatsby-source-vtex-0.120.0.tgz#a8f62620c2b3b4309cab90435e88859ce08883a7"
-  integrity sha512-pfTxa5ChA/56pMSTpuZzcKpKG2I5vGh6wa9HAH5x/owVIZ3rXmuvu7FLW7oNPOidR6pBpsj4ArVoRBDsQPEBKw==
-  dependencies:
-    "@graphql-tools/delegate" "^6.0.15"
-    "@graphql-tools/wrap" "^6.0.15"
-    isomorphic-unfetch "^3.0.0"
-    p-map "^4.0.0"
-    uuid "^8.3.0"
-
 "@vtex/prettier-config@^0.3.5":
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.5.tgz#99e44c6235c541a8d2b7cd50fc9662c7bc17309a"
