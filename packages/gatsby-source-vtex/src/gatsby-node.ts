@@ -17,7 +17,7 @@ import { createDepartmentNode, createChannelNode } from './utils'
 const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`
 
-interface Options extends PluginOptions, VTEXOptions {}
+export interface Options extends PluginOptions, VTEXOptions {}
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
@@ -102,6 +102,12 @@ export const createPage = (
   { actions: { createRedirect } }: CreatePageArgs,
   { tenant, workspace, environment }: Options
 ) => {
+  /**
+   * Create all proxy rules for VTEX Store
+   * If adding a new rule, don't forget to modify ./gatsby-config.ts dev proxy
+   * so it also works in dev mode
+   */
+
   // Redirect API
   createRedirect({
     fromPath: '/api/io/*',
