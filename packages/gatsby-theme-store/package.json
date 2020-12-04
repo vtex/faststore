@@ -39,7 +39,6 @@
     "@vtex/store-ui": "^0.207.0",
     "babel-gql": "^0.1.3",
     "common-tags": "^1.8.0",
-    "dotenv": "^8.2.0",
     "gatsby-plugin-bundle-stats": "^2.2.0",
     "gatsby-plugin-react-helmet-async": "^1.1.0",
     "html-loader": "^1.1.0",

@@ -98,7 +98,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   departments.forEach((department) => createDepartmentNode(args, department))
 }
 
-export const createPage = (
+export const createPages = (
   { actions: { createRedirect } }: CreatePageArgs,
   { tenant, workspace, environment }: Options
 ) => {

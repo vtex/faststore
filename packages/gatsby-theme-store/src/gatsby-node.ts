@@ -1,6 +1,10 @@
 import { resolve } from 'path'
 
-import { CreatePagesArgs, CreateWebpackConfigArgs } from 'gatsby'
+import {
+  CreatePagesArgs,
+  CreateWebpackConfigArgs,
+  PluginOptionsSchemaArgs,
+} from 'gatsby'
 
 import { Options } from './gatsby-config'
 
