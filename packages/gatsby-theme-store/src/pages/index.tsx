@@ -23,7 +23,7 @@ const Home: FC<Props> = (props) => {
       pageUrl: window.location.href,
       pageTitle: document.title,
       referrer: '',
-      accountName: process.env.GATSBY_VTEX_TENANT!,
+      accountName: process.env.GATSBY_STORE_ID!,
     }
 
     return [

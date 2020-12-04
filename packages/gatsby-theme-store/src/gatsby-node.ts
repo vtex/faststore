@@ -4,9 +4,38 @@ import {
   CreatePagesArgs,
   CreateWebpackConfigArgs,
   PluginOptionsSchemaArgs,
+  ParentSpanPluginArgs,
 } from 'gatsby'
 
-import { Options } from './gatsby-config'
+export const onPostBootstrap = (
+  _: ParentSpanPluginArgs,
+  { storeId }: Options
+) => {
+  process.env.GATSBY_STORE_ID = storeId
+}
+
+export interface LocalizationThemeOptions {
+  messagesPath?: string
+  locales?: string[]
+  defaultLocale?: string
+}
+
+export interface Options {
+  storeId: string
+  getStaticPaths?: () => Promise<string[]>
+  localizationThemeOptions?: LocalizationThemeOptions
+}
+
+export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
+  Joi.object({
+    storeId: Joi.string().required(),
+    localizationThemeOptions: Joi.object({
+      messagesPath: Joi.string(),
+      locales: Joi.array().items(Joi.string()),
+      defaultLocale: Joi.string(),
+    }),
+    getStaticPaths: Joi.function().arity(0).required(),
+  })
 
 const getRoute = (path: string) => {
   const splitted = path.split('/')

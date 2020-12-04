@@ -18,7 +18,7 @@ const ONE_MIN_IN_MILLI = 60 * 100
 
 const render = async (locale: string) => {
   const loader = new RenderExtensionLoader({
-    account: process.env.GATSBY_VTEX_TENANT,
+    account: process.env.GATSBY_STORE_ID,
     workspace: process.env.GATSBY_VTEX_IO_WORKSPACE,
     verbose: process.env.NODE_ENV !== 'production',
     publicEndpoint: undefined,

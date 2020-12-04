@@ -1,20 +1,11 @@
-const root = process.cwd()
+import type { LocalizationThemeOptions, Options } from './gatsby-node'
 
-interface LocalizationThemeOptions {
-  messagesPath?: string
-  locales?: string[]
-  defaultLocale?: string
-}
+const root = process.cwd()
 
 const defaultLocalizationThemeOptions: Required<LocalizationThemeOptions> = {
   messagesPath: './i18n/messages',
   locales: ['en'],
   defaultLocale: 'en',
-}
-
-export interface Options {
-  getStaticPaths?: () => Promise<string[]>
-  localizationThemeOptions?: LocalizationThemeOptions
 }
 
 module.exports = ({ localizationThemeOptions }: Options) => ({
