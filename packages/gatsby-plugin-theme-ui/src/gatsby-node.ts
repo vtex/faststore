@@ -37,13 +37,13 @@ export const onCreateBabelConfig = ({
 export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
 }: CreateWebpackConfigArgs) => {
-  setWebpackConfig({
-    resolve: {
-      alias: {
-        '@emotion/is-prop-valid': require.resolve(
-          './@emotion/is-prop-valid/index.js'
-        ),
-      },
-    },
-  })
+  // setWebpackConfig({
+  //   resolve: {
+  //     alias: {
+  //       '@emotion/is-prop-valid': require.resolve(
+  //         './@emotion/is-prop-valid/index.js'
+  //       ),
+  //     },
+  //   },
+  // })
 }
