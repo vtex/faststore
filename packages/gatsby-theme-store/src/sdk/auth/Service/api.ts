@@ -1,5 +1,3 @@
-export const tenant = process.env.GATSBY_VTEX_TENANT as string
-
 const base = `/api/vtexid`
 
 export const api = {

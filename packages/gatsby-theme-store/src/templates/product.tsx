@@ -53,7 +53,7 @@ const ProductPage: FC<ProductPageProps> = (props) => {
           pageUrl: window.location.href,
           pageTitle: document.title,
           referrer: document.referrer,
-          accountName: process.env.GATSBY_VTEX_TENANT!,
+          accountName: process.env.GATSBY_STORE_ID!,
         },
       },
       {

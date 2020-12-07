@@ -1,4 +1,4 @@
-import { api, tenant } from './api'
+import { api } from './api'
 
 interface Options {
   fingerprint?: string
@@ -6,6 +6,8 @@ interface Options {
   user?: string
   returnUrl: string
 }
+
+const storeId = process.env.GATSBY_STORE_ID as string
 
 export const startLogin = async ({
   returnUrl,
@@ -18,8 +20,8 @@ export const startLogin = async ({
   form.append('fingerprint', fingerprint)
   form.append('callbackUrl', callbackUrl)
   form.append('returnUrl', returnUrl)
-  form.append('accountName', tenant)
-  form.append('scope', tenant)
+  form.append('accountName', storeId)
+  form.append('scope', storeId)
   form.append('user', user)
 
   const response = await fetch(api.pub.authentication.startlogin, {

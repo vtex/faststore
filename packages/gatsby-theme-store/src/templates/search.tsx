@@ -58,13 +58,13 @@ const SearchPage: FC<SearchPageProps> = (props) => {
           pageUrl: window.location.href,
           pageTitle: document.title,
           referrer: document.referrer,
-          accountName: process.env.GATSBY_VTEX_TENANT!,
+          accountName: process.env.GATSBY_STORE_ID!,
         },
       },
       {
         type: 'vtex:internalSiteSearchView',
         data: {
-          accountName: process.env.GATSBY_VTEX_TENANT!,
+          accountName: process.env.GATSBY_STORE_ID!,
           pageUrl: window.location.href,
           pageTitle: document.title,
           referrer: document.referrer,
