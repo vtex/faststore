@@ -1,14 +1,8 @@
-import type { LocalizationThemeOptions, Options } from './gatsby-node'
+import type { Options } from './gatsby-node'
 
 const root = process.cwd()
 
-const defaultLocalizationThemeOptions: Required<LocalizationThemeOptions> = {
-  messagesPath: './i18n/messages',
-  locales: ['en'],
-  defaultLocale: 'en',
-}
-
-module.exports = ({ localizationThemeOptions }: Options) => ({
+module.exports = ({ locales, defaultLocale }: Options) => ({
   plugins: [
     {
       resolve: require.resolve('gatsby-plugin-bundle-stats'),
@@ -43,7 +37,10 @@ module.exports = ({ localizationThemeOptions }: Options) => ({
     },
     {
       resolve: '@vtex/gatsby-plugin-i18n',
-      options: localizationThemeOptions ?? defaultLocalizationThemeOptions,
+      options: {
+        locales,
+        defaultLocale,
+      },
     },
   ],
 })

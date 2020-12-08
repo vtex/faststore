@@ -1,3 +1,9 @@
+export const localeFromPath = (pathname: string) => {
+  const [, base] = pathname.split(`/`)
+
+  return base
+}
+
 export const localizedPath = (
   defaultLocale: string,
   locale: string,
@@ -8,7 +14,7 @@ export const localizedPath = (
     return path
   }
 
-  const [, base] = path.split(`/`)
+  const base = localeFromPath(path)
 
   // If for whatever reason we receive an already localized path
   // (e.g. if the path was made with location.pathname)

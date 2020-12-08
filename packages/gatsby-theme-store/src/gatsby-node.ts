@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 
-import {
+import type {
   CreatePagesArgs,
   CreateWebpackConfigArgs,
   PluginOptionsSchemaArgs,
@@ -14,26 +14,18 @@ export const onPostBootstrap = (
   process.env.GATSBY_STORE_ID = storeId
 }
 
-export interface LocalizationThemeOptions {
-  messagesPath?: string
-  locales?: string[]
-  defaultLocale?: string
-}
-
 export interface Options {
   storeId: string
   getStaticPaths?: () => Promise<string[]>
-  localizationThemeOptions?: LocalizationThemeOptions
+  locales: string[]
+  defaultLocale: string
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
     storeId: Joi.string().required(),
-    localizationThemeOptions: Joi.object({
-      messagesPath: Joi.string(),
-      locales: Joi.array().items(Joi.string()),
-      defaultLocale: Joi.string(),
-    }),
+    locales: Joi.array().items(Joi.string()).required(),
+    defaultLocale: Joi.string().required(),
     getStaticPaths: Joi.function().arity(0).required(),
   })
 
