@@ -1,6 +1,7 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Box, Center } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
 import { SearchSuggestionsList } from '../base/List'
@@ -21,7 +22,6 @@ const SearchSuggestionsHistory: FC<Required<Props>> = ({ variant }) => {
 
   const title = formatMessage({
     id: 'suggestions.history.title',
-    defaultMessage: 'History',
   })
 
   if (!searches) {
@@ -35,7 +35,6 @@ const SearchSuggestionsHistory: FC<Required<Props>> = ({ variant }) => {
         <Center>
           {formatMessage({
             id: 'suggestions.history.empty',
-            defaultMessage: 'No history yet',
           })}
         </Center>
       </>
@@ -48,7 +47,6 @@ const SearchSuggestionsHistory: FC<Required<Props>> = ({ variant }) => {
         variant={variant}
         title={formatMessage({
           id: 'suggestions.history.title',
-          defaultMessage: 'History',
         })}
       />
       <SearchSuggestionsList items={searches} variant={variant}>

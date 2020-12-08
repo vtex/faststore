@@ -1,8 +1,9 @@
-import React, { FC, useRef } from 'react'
-import { Alert, Box, Button, Input } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Alert, Box, Button, Input } from '@vtex/store-ui'
+import React, { useRef } from 'react'
+import type { FC } from 'react'
 
-import { State } from './state'
+import type { State } from './state'
 
 interface Props {
   variant: string
@@ -25,7 +26,6 @@ const AccessCodeForm: FC<Props> = ({
       <Box variant={`${variant}.title`}>
         {formatMessage({
           id: 'login.page.emailVerification.accessCodeForm.title',
-          defaultMessage: 'Enter the access code sent to your e-mail',
         })}
       </Box>
       <Box
@@ -43,7 +43,6 @@ const AccessCodeForm: FC<Props> = ({
           id="accesscodeform-code"
           placeholder={formatMessage({
             id: 'login.page.emailVerification.accessCodeForm.codePlaceholder',
-            defaultMessage: 'Add your access code',
           })}
         />
 
@@ -52,7 +51,6 @@ const AccessCodeForm: FC<Props> = ({
             {formatMessage({
               id:
                 'login.page.emailVerification.accessCodeForm.invalidAccessCode',
-              defaultMessage: 'Insert a valid 6-digit access code',
             })}
           </Alert>
         )}
@@ -61,8 +59,6 @@ const AccessCodeForm: FC<Props> = ({
           <Alert variant="signInDanger">
             {formatMessage({
               id: 'login.page.emailVerification.accessCodeForm.authError',
-              defaultMessage:
-                'Something went wrong with your access code. Please recheck it and try again',
             })}
           </Alert>
         )}
@@ -70,7 +66,6 @@ const AccessCodeForm: FC<Props> = ({
         <Button>
           {formatMessage({
             id: 'login.page.emailVerification.accessCodeForm.submitButton',
-            defaultMessage: 'Confirm',
           })}
         </Button>
       </Box>
@@ -82,7 +77,6 @@ const AccessCodeForm: FC<Props> = ({
       >
         {formatMessage({
           id: 'login.page.emailVerification.accessCodeForm.backButton',
-          defaultMessage: 'Back',
         })}
       </Button>
     </>

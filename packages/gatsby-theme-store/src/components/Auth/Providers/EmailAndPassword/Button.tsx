@@ -1,8 +1,9 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Button } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 
-import { AuthProviderButtonProps } from '../types'
+import type { AuthProviderButtonProps } from '../types'
 
 const EmailAndPasswordButton: FC<AuthProviderButtonProps> = ({
   variant,
@@ -14,7 +15,6 @@ const EmailAndPasswordButton: FC<AuthProviderButtonProps> = ({
     <Button variant={`${variant}.emailAndPassword`} as="button" {...rest}>
       {formatMessage({
         id: 'login.page.emailAndPassword.button',
-        defaultMessage: 'Sign in with email and password',
       })}
     </Button>
   )

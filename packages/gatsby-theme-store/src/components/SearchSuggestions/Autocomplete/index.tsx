@@ -1,12 +1,13 @@
-import React, { FC } from 'react'
-import { Box, Center } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Box, Center } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
 
-import { useAutocompleteSearchSeggestions } from './hooks'
 import { SearchSuggestionsListContainer } from '../base/Container'
-import { SearchSuggestionsListTitle } from '../base/Title'
-import { SearchSuggestionsList } from '../base/List'
 import { toRequiredItem } from '../base/hooks'
+import { SearchSuggestionsList } from '../base/List'
+import { SearchSuggestionsListTitle } from '../base/Title'
+import { useAutocompleteSearchSeggestions } from './hooks'
 
 interface Props {
   term: string
@@ -38,13 +39,11 @@ const SearchSuggestionsAutocomplete: FC<Required<Props>> = ({
           variant={variant}
           title={formatMessage({
             id: 'suggestions.autocomplete.title',
-            defaultMessage: 'Suggestions',
           })}
         />
         <Center>
           {formatMessage({
             id: 'suggestions.autocomplete.notFound',
-            defaultMessage: 'No suggestions',
           })}
         </Center>
       </>
@@ -57,7 +56,6 @@ const SearchSuggestionsAutocomplete: FC<Required<Props>> = ({
         variant={variant}
         title={formatMessage({
           id: 'suggestions.autocomplete.title',
-          defaultMessage: 'Suggestions',
         })}
       />
       <SearchSuggestionsList items={items} variant={variant}>
