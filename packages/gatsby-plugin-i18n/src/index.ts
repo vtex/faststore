@@ -1,5 +1,6 @@
 export {
   useIntl,
+  IntlShape,
   FormattedMessage,
   FormattedDate,
   FormattedDateTimeRange,
