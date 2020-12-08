@@ -1,6 +1,5 @@
 export {
   useIntl,
-  IntlShape,
   FormattedMessage,
   FormattedDate,
   FormattedDateTimeRange,
@@ -14,6 +13,8 @@ export {
   FormattedTime,
   FormattedTimeParts,
 } from 'react-intl'
+
+export type { IntlShape } from 'react-intl'
 
 export { localizedPath } from './helpers/path'
 export { useLocalizedPath } from './helpers/useLocalizedPath'

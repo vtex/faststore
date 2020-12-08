@@ -1,80 +1,39 @@
-import type { CreatePageArgs, PluginOptionsSchemaArgs } from 'gatsby'
-// import { readJSON, outputFile, unlink } from 'fs-extra'
-// import { compile } from '@formatjs/cli'
+import { join } from 'path'
+
+import type {
+  CreateBabelConfigArgs,
+  CreatePageArgs,
+  CreateWebpackConfigArgs,
+  PluginOptionsSchemaArgs,
+} from 'gatsby'
 
 import { localizedPath } from './helpers/path'
 
-// export const sourceNodes = async (
-//   args: SourceNodesArgs,
-//   options: PluginOptions
-// ) => {
-//   const {
-//     actions: { createNode },
-//     createNodeId,
-//     createContentDigest,
-//     reporter,
-//   } = args
-//   const {
-//     locales,
-//     defaultLocale,
-//   } = options
-//   for (const locale of locales) {
-//     let languageJson = null as Record<string, string> | null
-//     if (languageJson == null) {
-//       reporter.info(`Error reading strings for locale ${locale}`)
-//       continue
-//     }
-//     const withDefaultMessage = Object.entries(languageJson).reduce(
-//       (acc, [key, val]) => {
-//         acc[key] = { defaultMessage: val }
-//         return acc
-//       },
-//       {} as Record<string, { defaultMessage: string }>
-//     )
-//     await outputFile(
-//       `${messagesPath}/${locale}-temp.json`,
-//       JSON.stringify(withDefaultMessage)
-//     )
-//     const resultAsString = await compile(
-//       [`${messagesPath}/${locale}-temp.json`],
-//       { ast: true }
-//     )
-//     await unlink(`${messagesPath}/${locale}-temp.json`)
-//     const data = { messages: resultAsString, locale }
-//     createNode({
-//       ...data,
-//       id: createNodeId(`LanguageData-${locale}`),
-//       internal: {
-//         type: 'LanguageData',
-//         content: JSON.stringify(data),
-//         contentDigest: createContentDigest(data),
-//       },
-//     })
-//   }
-//   const languageDataConfig = {
-//     locales,
-//     defaultLocale,
-//   }
-//   createNode({
-//     ...languageDataConfig,
-//     id: createNodeId(`LanguageDataConfig`),
-//     internal: {
-//       type: 'LanguageDataConfig',
-//       content: JSON.stringify(languageDataConfig),
-//       contentDigest: createContentDigest(languageDataConfig),
-//     },
-//   })
-// }
+const root = process.cwd()
+const name = '@vtex/gatsby-plugin-i18n'
 
-// export const onCreateWebpackConfig = ({ actions }: CreateWebpackConfigArgs) => {
-//   actions.setWebpackConfig({
-//     resolve: {
-//       alias: {
-//         'react-intl$': 'react-intl/react-intl-no-parser.umd',
-//       },
-//     },
-//   })
-// }
+const base = join(root, 'src', name, 'i18n')
+
+export const onCreateWebpackConfig = ({ actions }: CreateWebpackConfigArgs) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        'react-intl$': 'react-intl/react-intl-no-parser.umd',
+      },
+    },
+  })
+}
+
+export const onCreateBabelConfig = ({
+  actions: { setBabelPlugin },
+}: CreateBabelConfigArgs) => {
+  setBabelPlugin({
+    name: require.resolve('./babel'),
+    options: {
+      inPath: base,
+    },
+  })
+}
 
 export const onCreatePage = async (
   { page, actions }: CreatePageArgs,

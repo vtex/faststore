@@ -29,13 +29,13 @@ export const wrapRootElement = (
 ) => {
   const path = pathname || window.location.pathname
   const locale = getLocale(path, locales, defaultLocale)
-  const { default: messages } = require(`../i18n/${locale}`)
+  const { default: getMessages } = require(`../i18n/${locale}`)
 
   return (
     <IntlProvider
       locale={locale}
       defaultLocale={defaultLocale}
-      messages={messages}
+      messages={getMessages()}
     >
       {children}
     </IntlProvider>
