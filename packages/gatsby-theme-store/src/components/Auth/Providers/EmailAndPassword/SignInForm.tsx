@@ -1,8 +1,9 @@
-import React, { FC, useRef } from 'react'
-import { Alert, Box, Button, Input } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Alert, Box, Button, Input } from '@vtex/store-ui'
+import React, { useRef } from 'react'
+import type { FC } from 'react'
 
-import { State } from './state'
+import type { State } from './state'
 
 interface Props {
   variant: string
@@ -28,7 +29,6 @@ const SignInForm: FC<Props> = ({
       <Box variant={`${variant}.title`}>
         {formatMessage({
           id: 'login.page.emailAndPassword.signInForm.title',
-          defaultMessage: 'Sign in with e-mail and password',
         })}
       </Box>
       <Box
@@ -47,7 +47,6 @@ const SignInForm: FC<Props> = ({
           id="signin-email"
           placeholder={formatMessage({
             id: 'login.page.emailAndPassword.signInForm.emailPlaceholder',
-            defaultMessage: 'Eg: example@gmail.com',
           })}
           autoComplete="username"
         />
@@ -58,7 +57,6 @@ const SignInForm: FC<Props> = ({
           id="signin-password"
           placeholder={formatMessage({
             id: 'login.page.emailAndPassword.signInForm.password',
-            defaultMessage: 'Insert your password',
           })}
           autoComplete="current-password"
         />
@@ -68,7 +66,6 @@ const SignInForm: FC<Props> = ({
         >
           {formatMessage({
             id: 'login.page.emailAndPassword.signInForm.forgotPassword',
-            defaultMessage: 'Forgot my password',
           })}
         </Box>
 
@@ -76,7 +73,6 @@ const SignInForm: FC<Props> = ({
           <Alert variant="signInDanger">
             {formatMessage({
               id: 'login.page.emailAndPassword.signInForm.invalidEmailInput',
-              defaultMessage: 'Sign in with a valid e-mail',
             })}
           </Alert>
         )}
@@ -85,7 +81,6 @@ const SignInForm: FC<Props> = ({
           <Alert variant="signInDanger">
             {formatMessage({
               id: 'login.page.emailAndPassword.signInForm.invalidPasswordInput',
-              defaultMessage: 'Sign in with a valid password',
             })}
           </Alert>
         )}
@@ -94,7 +89,6 @@ const SignInForm: FC<Props> = ({
           <Alert variant="signInDanger">
             {formatMessage({
               id: 'login.page.emailAndPassword.signInForm.authError',
-              defaultMessage: 'Signing in failed. Please try again later',
             })}
           </Alert>
         )}
@@ -102,14 +96,12 @@ const SignInForm: FC<Props> = ({
         <Button>
           {formatMessage({
             id: 'login.page.emailAndPassword.signInForm.submitButton',
-            defaultMessage: 'Sign In',
           })}
         </Button>
       </Box>
       <Box variant={`${variant}.signup`} onClick={() => onSignUp()}>
         {formatMessage({
           id: 'login.page.emailAndPassword.signInForm.signupButton',
-          defaultMessage: "Don't have an account yet ? Sign Up",
         })}
       </Box>
     </>

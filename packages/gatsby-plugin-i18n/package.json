@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-i18n",
-  "version": "0.207.0",
+  "version": "0.211.0-alpha.7",
   "main": "index.js",
   "typings": "index.d.ts",
   "browser": "src/index.ts",
@@ -20,7 +20,12 @@
     "react": "*"
   },
   "dependencies": {
-    "@formatjs/cli": "^2.7.7",
+    "@babel/parser": "^7.12.7",
+    "@babel/preset-typescript": "^7.12.7",
+    "@babel/register": "^7.12.1",
+    "@babel/traverse": "^7.12.9",
+    "@babel/types": "^7.12.7",
+    "intl-messageformat-parser": "^6.0.18",
     "react-intl": "^5.7.1"
   }
 }
