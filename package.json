@@ -23,11 +23,11 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
-      "yarn lint --fix",
-      "yarn format --write"
+      "eslint packages/ --ext .js,.ts,.jsx,.tsx --fix",
+      "prettier --write \"packages/**/*.{ts,js,tsx,jsx}\""
     ],
     "*.json": [
-      "yarn format --write"
+      "prettier --write \"packages/**/*.json\""
     ]
   },
   "devDependencies": {
