@@ -1,5 +1,7 @@
-import React, { FC } from 'react'
-import { Box, ButtonProps } from 'theme-ui'
+import React from 'react'
+import { Box } from 'theme-ui'
+import type { FC } from 'react'
+import type { ButtonProps } from 'theme-ui'
 
 type Props = Omit<ButtonProps, 'ref'>
 

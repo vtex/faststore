@@ -1,8 +1,8 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { useQuery } from '../graphql/useQuery'
-import {
-  ProductRecommendationsQuery,
+import { ProductRecommendationsQuery } from './__generated__/ProductRecommendationsQuery.graphql'
+import type {
   ProductRecommendationsQueryQuery,
   ProductRecommendationsQueryQueryVariables,
 } from './__generated__/ProductRecommendationsQuery.graphql'

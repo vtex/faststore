@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { dirname } from 'path'
 
-import type { Visitor } from '@babel/traverse'
-import type { MessageFormatElement } from 'intl-messageformat-parser'
 import { parse } from '@babel/parser'
 import { parse as intlParse } from 'intl-messageformat-parser'
+import type { Visitor } from '@babel/traverse'
+import type { MessageFormatElement } from 'intl-messageformat-parser'
 
 interface Options {
   inPath: string

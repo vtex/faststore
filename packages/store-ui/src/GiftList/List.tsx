@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { Box } from 'theme-ui'
+import type { FunctionComponent } from 'react'
 
 interface Props<T> {
   variant?: string

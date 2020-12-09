@@ -1,5 +1,5 @@
-import { PixelEvent } from '../pixel'
-import { PixelEventHandler } from '../usePixelEvent'
+import type { PixelEvent } from '../pixel'
+import type { PixelEventHandler } from '../usePixelEvent'
 
 const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {

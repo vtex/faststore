@@ -1,6 +1,6 @@
 import { parse } from '@babel/parser'
-import { Visitor } from '@babel/traverse'
-import BabelTypes from '@babel/types'
+import type { Visitor } from '@babel/traverse'
+import type BabelTypes from '@babel/types'
 
 interface Babel {
   types: typeof BabelTypes

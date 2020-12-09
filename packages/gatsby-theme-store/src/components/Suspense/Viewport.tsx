@@ -1,5 +1,6 @@
-import React, { FC, Suspense, SuspenseProps } from 'react'
+import React, { Suspense } from 'react'
 import { useInView } from 'react-hook-inview'
+import type { FC, SuspenseProps } from 'react'
 
 import { useIdleEffect } from '../../sdk/useIdleEffect'
 

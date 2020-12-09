@@ -1,4 +1,5 @@
-import { useCallback, useState, FocusEvent, ChangeEvent } from 'react'
+import { useCallback, useState } from 'react'
+import type { FocusEvent, ChangeEvent } from 'react'
 
 interface Options {
   value: number

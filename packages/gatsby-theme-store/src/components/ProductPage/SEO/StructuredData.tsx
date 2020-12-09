@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet-async'
+import type { FC } from 'react'
 
 import { useCurrency } from '../../../sdk/localization/useCurrency'
-import { ProductPageProps } from '../../../templates/product'
 import { useStructuredProduct } from './useStructuredProduct'
+import type { ProductPageProps } from '../../../templates/product'
 
 const StructuredData: FC<ProductPageProps> = ({
   data: {

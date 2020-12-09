@@ -1,5 +1,7 @@
-import { graphql, PageProps } from 'gatsby'
-import React, { FC, lazy } from 'react'
+import { graphql } from 'gatsby'
+import React, { lazy } from 'react'
+import type { PageProps } from 'gatsby'
+import type { FC } from 'react'
 
 import ErrorBoundary from '../components/Error/ErrorBoundary'
 import ErrorHandler from '../components/Error/ErrorHandler'
@@ -12,8 +14,8 @@ import SEO from '../components/ProductPage/SEO'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import { useQuery } from '../sdk/graphql/useQuery'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
-import {
-  ProductPageQuery,
+import { ProductPageQuery } from './__generated__/ProductPageQuery.graphql'
+import type {
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'

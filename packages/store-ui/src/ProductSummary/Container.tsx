@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { ComponentPropsWithoutRef, FC } from 'react'
 import { jsx } from 'theme-ui'
+import type { ComponentPropsWithoutRef, FC } from 'react'
 
 import LocalizedLink from '../LocalizedLink/index'
 

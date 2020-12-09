@@ -1,4 +1,5 @@
-import React, { FC, Suspense, SuspenseProps, useState } from 'react'
+import React, { Suspense, useState } from 'react'
+import type { FC, SuspenseProps } from 'react'
 
 import { useIdleEffect } from '../../sdk/useIdleEffect'
 

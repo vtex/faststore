@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Flex, Text } from 'theme-ui'
+import type { FC } from 'react'
 
 import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 import MinicartDelete from './Delete'

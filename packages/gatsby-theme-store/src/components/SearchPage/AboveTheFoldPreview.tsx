@@ -1,13 +1,14 @@
-import React, { FC } from 'react'
-import { Grid, Box, Skeleton } from '@vtex/store-ui'
+import { Box, Grid, Skeleton } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
 
 import Container from '../Container'
-import SuspenseDevice from '../Suspense/Device'
 import {
-  SearchTemplateContainer,
   SearchTemplateAside,
+  SearchTemplateContainer,
   SearchTemplateMain,
 } from '../Search/SearchTemplate'
+import SuspenseDevice from '../Suspense/Device'
 
 const array = new Array(10).fill(true)
 

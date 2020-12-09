@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { FC } from 'react'
-import { jsx, ButtonProps } from '@vtex/store-ui'
+import { jsx } from '@vtex/store-ui'
+import type { FC } from 'react'
+import type { ButtonProps } from '@vtex/store-ui'
 
 export const SearchSuggestionsListTotal: FC<ButtonProps> = ({
   children,

@@ -1,4 +1,5 @@
-import React, { FC, Suspense, SuspenseProps, useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
+import type { FC, SuspenseProps } from 'react'
 
 import { isServer } from '../utils/env'
 

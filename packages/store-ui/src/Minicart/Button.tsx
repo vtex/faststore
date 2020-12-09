@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { FC } from 'react'
-import { Button, ButtonProps, jsx } from 'theme-ui'
+import { Button, jsx } from 'theme-ui'
+import type { FC } from 'react'
+import type { ButtonProps } from 'theme-ui'
 
 export type MinicartButtonProps = ButtonProps
 

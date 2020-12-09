@@ -1,4 +1,5 @@
-import React, { FC, Fragment, useMemo } from 'react'
+import React, { Fragment, useMemo } from 'react'
+import type { FC } from 'react'
 
 import { isServer } from '../../../utils/env'
 import { useLazyScript } from '../../lazyScript/useLazyScript'

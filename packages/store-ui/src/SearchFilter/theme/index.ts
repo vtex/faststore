@@ -1,4 +1,4 @@
-import { SxStyleProp } from 'theme-ui'
+import type { SxStyleProp } from 'theme-ui'
 
 import { createTheme } from '../../createTheme'
 import { accordionTheme } from './accordion'

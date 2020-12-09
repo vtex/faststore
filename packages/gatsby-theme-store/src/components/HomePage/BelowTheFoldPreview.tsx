@@ -1,5 +1,6 @@
 import { Center, Spinner } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 
 const BelowTheFoldPreview: FC = () => (
   <Center height="500px">

@@ -1,8 +1,9 @@
-import React, { FC } from 'react'
 import { Box } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
 
-import { Item } from '../Page'
 import Page from './Page'
+import type { Item } from '../Page'
 
 interface Props {
   variant: string

@@ -1,5 +1,6 @@
-import React, { ComponentPropsWithoutRef, FC } from 'react'
+import React from 'react'
 import { AspectImage } from 'theme-ui'
+import type { ComponentPropsWithoutRef, FC } from 'react'
 
 import { useYoutubeThumbSrc } from './hooks'
 

@@ -1,7 +1,7 @@
-import { AsyncExecutor } from '@graphql-tools/delegate'
 import { introspectSchema, wrapSchema } from '@graphql-tools/wrap'
 import { print } from 'graphql'
-import {
+import type { AsyncExecutor } from '@graphql-tools/delegate'
+import type {
   GatsbyNode,
   PluginOptions,
   SourceNodesArgs,
@@ -10,9 +10,10 @@ import {
 } from 'gatsby'
 
 import { api } from './api'
-import { fetchVTEX, VTEXOptions } from './fetch'
-import { Category, Tenant } from './types'
-import { createDepartmentNode, createChannelNode } from './utils'
+import { fetchVTEX } from './fetch'
+import { createChannelNode, createDepartmentNode } from './utils'
+import type { VTEXOptions } from './fetch'
+import type { Category, Tenant } from './types'
 
 const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`

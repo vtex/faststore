@@ -1,9 +1,9 @@
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { ReplaceRendererArgs, WrapRootElementBrowserArgs } from 'gatsby'
+import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/core'
 import createEmotionServer from 'create-emotion-server'
-import createCache from '@emotion/cache'
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import type { ReplaceRendererArgs, WrapRootElementBrowserArgs } from 'gatsby'
 
 const { ThemeProvider } = require('./src/components/Provider')
 

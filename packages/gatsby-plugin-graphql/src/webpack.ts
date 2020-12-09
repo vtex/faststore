@@ -5,11 +5,13 @@ import * as typeScriptPlugin from '@graphql-codegen/typescript'
 import * as typeScriptOperationsPlugin from '@graphql-codegen/typescript-operations'
 import { optimizeDocuments } from '@graphql-tools/relay-operation-optimizer'
 import { mkdirSync, outputJson } from 'fs-extra'
-import { GraphQLSchema, parse, print, printSchema } from 'graphql'
+import { parse, print, printSchema } from 'graphql'
+import type { GraphQLSchema } from 'graphql'
 
 import { isProduction } from '.'
 import { outputFile } from './filesystem'
-import { Node, QueryManager } from './manager'
+import { QueryManager } from './manager'
+import type { Node } from './manager'
 
 export interface QueryInfo {
   query?: string

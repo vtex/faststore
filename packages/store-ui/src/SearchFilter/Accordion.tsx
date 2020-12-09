@@ -1,9 +1,10 @@
 import BaseAccordion from '@vtex-components/accordion'
-import React, { FC, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { Box } from 'theme-ui'
+import type { FC } from 'react'
 
-import { Item } from './AccordionItemCheckbox'
 import { SearchFilterAccordionCollaipsibleIcon } from './AccordionCollapsibleIcon'
+import type { Item } from './AccordionItemCheckbox'
 
 export type SearchFilterItem = Item
 

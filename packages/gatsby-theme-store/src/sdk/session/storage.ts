@@ -1,5 +1,5 @@
 import { isServer } from '../../utils/env'
-import { Session } from './types'
+import type { Session } from './types'
 
 const SESSION_STORAGE_KEY = 'vtex:session'
 

@@ -1,8 +1,9 @@
-import React, { FC, useEffect, useState } from 'react'
 import { Flex } from '@vtex/store-ui'
+import React, { useEffect, useState } from 'react'
+import type { FC } from 'react'
 
-import { SearchSuggestionsContext } from './hooks'
 import { useSearchBarContext } from '../../SearchBar/hooks'
+import { SearchSuggestionsContext } from './hooks'
 
 interface Props {
   debounceInterval?: number

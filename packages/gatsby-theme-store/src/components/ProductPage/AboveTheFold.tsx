@@ -1,8 +1,9 @@
 import { Center, Text } from '@vtex/store-ui'
 import { graphql } from 'gatsby'
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
-import { ProductPageProps } from '../../templates/product'
+import type { ProductPageProps } from '../../templates/product'
 
 const format = (x: string) =>
   x.length > 100 ? `${x.slice(0, 100)} ...Truncated` : x

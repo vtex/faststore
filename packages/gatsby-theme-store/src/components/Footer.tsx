@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { graphql, useStaticQuery } from 'gatsby'
-import { FC } from 'react'
 import { Flex, Grid, Image, jsx, Link, LocalizedLink } from '@vtex/store-ui'
+import type { FC } from 'react'
 
 import Container from './Container'
-import { FooterQueryQuery } from './__generated__/FooterQuery.graphql'
+import type { FooterQueryQuery } from './__generated__/FooterQuery.graphql'
 
 interface Item {
   name: Maybe<string>

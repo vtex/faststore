@@ -2,8 +2,8 @@ import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { useQuery } from '../../../sdk/graphql/useQuery'
 import { useSearchSuggestionsContext } from '../base/hooks'
-import {
-  AutocompleteSuggestionsQuery,
+import { AutocompleteSuggestionsQuery } from './__generated__/AutocompleteSuggestionsQuery.graphql'
+import type {
   AutocompleteSuggestionsQueryQuery,
   AutocompleteSuggestionsQueryQueryVariables,
 } from './__generated__/AutocompleteSuggestionsQuery.graphql'

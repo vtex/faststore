@@ -1,14 +1,15 @@
 /** @jsx jsx */
 import { Text, Center, jsx } from '@vtex/store-ui'
-import { FC, Fragment } from 'react'
+import { Fragment } from 'react'
+import type { FC } from 'react'
 
-import { SearchPageProps } from '../../templates/search'
 import {
   SearchTemplateAside,
   SearchTemplateContainer,
   SearchTemplateMain,
 } from '../Search/SearchTemplate'
 import SuspenseDevice from '../Suspense/Device'
+import type { SearchPageProps } from '../../templates/search'
 
 const AboveTheFold: FC<SearchPageProps> = () => (
   <Fragment>

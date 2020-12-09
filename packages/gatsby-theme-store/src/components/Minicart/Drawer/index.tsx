@@ -1,12 +1,14 @@
-import { Image, MinicartDrawer, MinicartDrawerProps } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import { Image, MinicartDrawer } from '@vtex/store-ui'
+import React from 'react'
+import type { MinicartDrawerProps } from '@vtex/store-ui'
+import type { FC } from 'react'
 
-import { OrderFormContext } from '../../../sdk/orderForm/Provider'
 import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
 import { IMAGE_DEFAULT } from '../../../sdk/product/constants'
 import { HeaderMinicartDrawerContent } from './Content'
 import { HeaderMinicartDrawerFooter } from './Footer'
 import { HeaderMinicartDrawerHeader } from './Header'
+import type { OrderFormContext } from '../../../sdk/orderForm/Provider'
 
 const useHeaderMinicartDrawerContentData = (orderForm: OrderFormContext) => {
   const data = orderForm.value?.items.map((item) => ({

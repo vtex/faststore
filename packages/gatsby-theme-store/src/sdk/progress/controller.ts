@@ -1,4 +1,5 @@
-import progress, { NProgressOptions } from 'nprogress'
+import progress from 'nprogress'
+import type { NProgressOptions } from 'nprogress'
 
 import { once } from '../once'
 

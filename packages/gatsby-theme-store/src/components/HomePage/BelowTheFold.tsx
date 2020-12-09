@@ -1,5 +1,6 @@
 import { Center, Text } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 const BelowTheFold: FC = () => (
   <Center height="150px">

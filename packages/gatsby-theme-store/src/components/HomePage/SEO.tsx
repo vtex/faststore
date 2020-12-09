@@ -1,9 +1,10 @@
 import { graphql, useStaticQuery } from 'gatsby'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet-async'
 
 import { isBot } from '../../utils/env'
-import { SiteMetadataQueryQuery } from './__generated__/SiteMetadataQuery.graphql'
+import type { SiteMetadataQueryQuery } from './__generated__/SiteMetadataQuery.graphql'
 
 export interface Props {
   description?: string

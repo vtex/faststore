@@ -1,14 +1,9 @@
-import {
-  request as baseRequest,
-  RequestOptions as GraphQLRequestOptions,
-} from '@vtex/gatsby-plugin-graphql'
+import { request as baseRequest } from '@vtex/gatsby-plugin-graphql'
+import type { RequestOptions as GraphQLRequestOptions } from '@vtex/gatsby-plugin-graphql'
 
 export type RequestOptions = GraphQLRequestOptions
 
-export const request = async <
-  Query extends any = any,
-  Variables extends any = any
->(
+export const request = async <Query = any, Variables = any>(
   options: RequestOptions
 ) => {
   const { data, errors } = await baseRequest<Variables, Query>('/graphql/', {

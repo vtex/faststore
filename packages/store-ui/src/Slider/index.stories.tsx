@@ -4,7 +4,7 @@ import { ThemeProvider } from 'theme-ui'
 
 import { baseTheme } from '../theme'
 import { createTheme } from '../createTheme'
-import { SliderPaginationDots } from './PaginationDots'
+import SliderPaginationDots from './PaginationDots'
 
 export default {
   title: 'slider|PaginationDots',
@@ -12,7 +12,7 @@ export default {
 }
 
 export const Default = () => (
-  <ThemeProvider theme={createTheme(baseTheme)}>
+  <ThemeProvider theme={createTheme(baseTheme) as any}>
     <SliderPaginationDots
       totalPages={3}
       selectedPage={0}

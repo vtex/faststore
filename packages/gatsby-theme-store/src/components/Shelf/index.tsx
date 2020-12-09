@@ -1,12 +1,13 @@
-import React, { FC } from 'react'
 import { Flex, useResponsiveSlider } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
 
-import { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
 import ShelfArrowLeft from './ArrowLeft'
 import ShelfArrowRight from './ArrowRight'
 import ShelfPage from './Page'
 import ShelfPaginationDots from './PaginationDots'
 import ShelfTitle from './Title'
+import type { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
 
 export interface Props {
   products: Array<ProductSummary_ProductFragment | undefined | null>

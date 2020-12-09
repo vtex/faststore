@@ -1,7 +1,8 @@
-import React, { createContext, FC } from 'react'
+import React, { createContext } from 'react'
+import type { FC } from 'react'
 
-import { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
-import { useSearchFiltersFromPageContext } from './useSearchFiltersFromPageContext'
+import type { SearchPageQueryQuery } from '../../templates/__generated__/SearchPageQuery.graphql'
+import type { useSearchFiltersFromPageContext } from './useSearchFiltersFromPageContext'
 
 export type SearchFilters = ReturnType<typeof useSearchFiltersFromPageContext>
 

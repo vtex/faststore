@@ -1,8 +1,8 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { useQuery } from '../graphql/useQuery'
-import {
-  ProductsShelfQuery,
+import { ProductsShelfQuery } from './__generated__/ProductsShelfQuery.graphql'
+import type {
   ProductsShelfQueryQuery,
   ProductsShelfQueryQueryVariables,
 } from './__generated__/ProductsShelfQuery.graphql'

@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
-import { ProductSummary_ProductFragment } from '../../ProductSummary/__generated__/ProductSummary_product.graphql'
 import ProductSummary from '../../ProductSummary'
+import type { ProductSummary_ProductFragment } from '../../ProductSummary/__generated__/ProductSummary_product.graphql'
 
 interface Props {
   products: Array<Maybe<ProductSummary_ProductFragment>>

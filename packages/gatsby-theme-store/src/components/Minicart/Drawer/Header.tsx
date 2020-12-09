@@ -1,6 +1,7 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Box, Heading } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 import { MinicartClose } from './Close'
 

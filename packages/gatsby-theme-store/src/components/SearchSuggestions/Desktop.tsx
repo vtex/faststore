@@ -1,10 +1,11 @@
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 import SearchSuggestionsAutocomplete from './Autocomplete'
+import { useSearchSuggestionsContext } from './base/hooks'
 import SearchSuggestionsProduct from './Products'
 import SearchSuggestionsHistory from './SearchHistory'
 import SearchSuggestionsTopSearches from './TopSearches'
-import { useSearchSuggestionsContext } from './base/hooks'
 
 const SearchSuggestions: FC = () => {
   const {

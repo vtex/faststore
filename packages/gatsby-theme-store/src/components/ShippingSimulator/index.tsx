@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
-import ShippingSimulator from './ShippingSimulator'
 import { useShippingSimulator } from './hooks/useShippingSimulator'
+import ShippingSimulator from './ShippingSimulator'
 
 type Props = {
   skuId: string

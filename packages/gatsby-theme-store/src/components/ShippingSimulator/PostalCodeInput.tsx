@@ -1,5 +1,6 @@
-import React, { FC, useRef } from 'react'
 import { Input } from '@vtex/store-ui'
+import React, { useRef } from 'react'
+import type { FC } from 'react'
 
 import useMaskedInput from '../../sdk/mask/useMaskedInput'
 

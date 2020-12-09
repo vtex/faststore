@@ -1,6 +1,7 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Button, Flex, Text } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'

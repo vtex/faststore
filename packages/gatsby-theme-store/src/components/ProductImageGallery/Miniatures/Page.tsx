@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
 import { AspectImage, YoutubeThumb } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
 
-import { Item } from '../Page'
+import type { Item } from '../Page'
 
 interface Props {
   item: Item

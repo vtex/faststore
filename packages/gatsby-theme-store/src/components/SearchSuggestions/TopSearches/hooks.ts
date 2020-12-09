@@ -2,8 +2,8 @@ import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { useQuery } from '../../../sdk/graphql/useQuery'
 import { useSearchSuggestionsContext } from '../base/hooks'
-import {
-  TopSearchesSuggestionsQuery,
+import { TopSearchesSuggestionsQuery } from './__generated__/TopSearchesSuggestionsQuery.graphql'
+import type {
   TopSearchesSuggestionsQueryQuery,
   TopSearchesSuggestionsQueryQueryVariables,
 } from './__generated__/TopSearchesSuggestionsQuery.graphql'

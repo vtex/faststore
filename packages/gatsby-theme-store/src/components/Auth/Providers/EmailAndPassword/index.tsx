@@ -1,4 +1,5 @@
-import React, { FC, useReducer } from 'react'
+import React, { useReducer } from 'react'
+import type { FC } from 'react'
 
 import { sendAccessKey, setPassword } from '../../../../sdk/auth/Service'
 import { validatePassword } from '../../../../sdk/auth/Service/validatePassword'
@@ -9,11 +10,11 @@ import {
   isValidEmail,
   isValidPassword,
 } from '../../../../sdk/auth/validate'
-import { AuthProviderComponentProps } from '../types'
 import EmailForm from './EmailForm'
 import SignInForm from './SignInForm'
 import SignUpForm from './SignUpForm'
 import { reducer } from './state'
+import type { AuthProviderComponentProps } from '../types'
 
 const EmailAndPassword: FC<AuthProviderComponentProps> = ({
   variant: v,

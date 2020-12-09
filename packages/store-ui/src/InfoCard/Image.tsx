@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Flex, Image } from 'theme-ui'
+import type { FC } from 'react'
 
 import LocalizedLink from '../LocalizedLink'
 

@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { FC } from 'react'
 import { jsx, Image } from 'theme-ui'
+import type { FC } from 'react'
 
 import LocalizedLink from '../LocalizedLink'
 

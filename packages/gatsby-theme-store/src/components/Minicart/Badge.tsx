@@ -1,5 +1,6 @@
 import { MinicartBadge } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 import { useOrderForm } from '../../sdk/orderForm/useOrderForm'
 

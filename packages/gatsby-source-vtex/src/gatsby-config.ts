@@ -1,4 +1,4 @@
-import { Options } from './gatsby-node'
+import type { Options } from './gatsby-node'
 
 /**
  * Create all proxy rules.

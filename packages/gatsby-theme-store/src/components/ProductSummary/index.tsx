@@ -1,8 +1,9 @@
+import { Center, Flex, Text } from '@vtex/store-ui'
 import { graphql } from 'gatsby'
-import React, { FC } from 'react'
-import { Center, Text, Flex } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
 
-import { ProductSummary_ProductFragment } from './__generated__/ProductSummary_product.graphql'
+import type { ProductSummary_ProductFragment } from './__generated__/ProductSummary_product.graphql'
 
 export interface Props {
   product: ProductSummary_ProductFragment

@@ -6,7 +6,8 @@ import {
   jsx,
 } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { FC, Fragment } from 'react'
+import { Fragment } from 'react'
+import type { FC } from 'react'
 
 import { useFacets } from '../../../sdk/search/useFacets'
 

@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from '@graphql-tools/schema'
-import { CreateWebpackConfigArgs } from 'gatsby'
 import { parse, printSchema } from 'graphql'
+import type { CreateWebpackConfigArgs } from 'gatsby'
 
 import { WebpackPlugin } from './webpack'
 

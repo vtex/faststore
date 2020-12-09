@@ -1,7 +1,7 @@
 import { useLocation } from '@reach/router'
 import { useMemo } from 'react'
 
-import { SearchPageQueryQueryVariables } from '../../templates/__generated__/SearchPageQuery.graphql'
+import type { SearchPageQueryQueryVariables } from '../../templates/__generated__/SearchPageQuery.graphql'
 
 // Creates a string with as many `c,c` as pathname has
 // segments.

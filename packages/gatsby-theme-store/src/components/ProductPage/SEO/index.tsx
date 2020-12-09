@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
+import type { FC } from 'react'
 
 import { useIdleEffect } from '../../../sdk/useIdleEffect'
-import { ProductPageProps } from '../../../templates/product'
 import { isBot, isDevelopment } from '../../../utils/env'
 import SiteMetadataSEO from '../../HomePage/SEO'
 import StructuredData from './StructuredData'
+import type { ProductPageProps } from '../../../templates/product'
 
 const withSyncMetadata = isBot || isDevelopment
 

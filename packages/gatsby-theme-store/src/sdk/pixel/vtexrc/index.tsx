@@ -1,4 +1,5 @@
-import React, { FC, Fragment } from 'react'
+import React, { Fragment } from 'react'
+import type { FC } from 'react'
 
 import { useLazyScript } from '../../lazyScript/useLazyScript'
 import { usePixelEvent } from '../usePixelEvent'

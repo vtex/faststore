@@ -1,4 +1,5 @@
-import React, { FC, Fragment } from 'react'
+import React, { Fragment } from 'react'
+import type { FC } from 'react'
 
 import { ProductSpecificationItem } from './Item'
 import { ProductSpecificationTitle } from './Title'

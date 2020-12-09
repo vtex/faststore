@@ -2,7 +2,7 @@ import { gql } from '@vtex/gatsby-plugin-graphql'
 import PQueue from 'p-queue'
 
 import { storage } from '../storage'
-import { OrderFormFragment_OrderFormFragment } from './__generated__/OrderFormFragment_orderForm.graphql'
+import type { OrderFormFragment_OrderFormFragment } from './__generated__/OrderFormFragment_orderForm.graphql'
 
 // Queue to make changes to the orderForm
 export const queue = new PQueue({

@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react'
 
-import { PixelEvent, unwrap } from './pixel'
+import { unwrap } from './pixel'
+import type { PixelEvent } from './pixel'
 
 export type PixelEventHandler = (event: PixelEvent) => void | Promise<void>
 

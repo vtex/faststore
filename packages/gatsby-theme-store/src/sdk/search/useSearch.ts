@@ -1,8 +1,9 @@
 import { useCallback } from 'react'
 
-import { QueryOptions, useQueryInfinite } from '../graphql/useQueryInfinite'
-import { SearchFilters } from './Provider'
+import { useQueryInfinite } from '../graphql/useQueryInfinite'
 import { useFilters } from './useFilters'
+import type { QueryOptions } from '../graphql/useQueryInfinite'
+import type { SearchFilters } from './Provider'
 
 interface BaseQueryShape {
   vtex: {

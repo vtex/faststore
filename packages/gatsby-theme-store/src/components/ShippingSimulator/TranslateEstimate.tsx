@@ -1,5 +1,7 @@
-import React, { Fragment, FC } from 'react'
-import { useIntl, IntlShape } from '@vtex/gatsby-plugin-i18n'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import React, { Fragment } from 'react'
+import type { FC } from 'react'
+import type { IntlShape } from '@vtex/gatsby-plugin-i18n'
 
 interface DeliveryWindow {
   startDateUtc: string | null

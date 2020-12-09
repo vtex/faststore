@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 import SiteMetadataSEO from '../HomePage/SEO'
-import { SearchPageProps } from '../../templates/search'
+import type { SearchPageProps } from '../../templates/search'
 
 const SEO: FC<SearchPageProps> = ({ data }) => (
   <SiteMetadataSEO title={data.vtex.productSearch!.titleTag!} />

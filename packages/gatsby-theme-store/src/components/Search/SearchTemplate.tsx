@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@vtex/store-ui'
-import { FC } from 'react'
+import type { FC } from 'react'
 
 export interface Props {
   aside: JSX.Element

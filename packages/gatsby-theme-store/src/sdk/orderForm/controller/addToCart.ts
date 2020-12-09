@@ -1,9 +1,10 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { request } from '../../graphql/request'
-import { CB, queue, setOrderFormState } from './orderForm'
-import {
-  AddToCartMutation,
+import { AddToCartMutation } from './__generated__/AddToCartMutation.graphql'
+import { queue, setOrderFormState } from './orderForm'
+import type { CB } from './orderForm'
+import type {
   AddToCartMutationMutation,
   AddToCartMutationMutationVariables,
 } from './__generated__/AddToCartMutation.graphql'

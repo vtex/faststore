@@ -1,4 +1,5 @@
-import React, { FC, lazy } from 'react'
+import React, { lazy } from 'react'
+import type { FC } from 'react'
 
 import SuspenseDevice from '../Suspense/Device'
 import SearchSuggestionsProvider from './base/Provider'

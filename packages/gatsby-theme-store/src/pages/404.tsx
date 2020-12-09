@@ -1,10 +1,11 @@
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 import Container from '../components/Container'
-import Layout from '../components/Layout'
-import SEO from '../components/HomePage/SEO'
 import ErrorBoundary from '../components/Error/ErrorBoundary'
 import ErrorHandler from '../components/Error/ErrorHandler'
+import SEO from '../components/HomePage/SEO'
+import Layout from '../components/Layout'
 
 const NotFoundPage: FC = () => (
   <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>

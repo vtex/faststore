@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Box, Flex, Text } from 'theme-ui'
+import type { FC } from 'react'
 
 export interface DataItem {
   id: string | number

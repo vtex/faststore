@@ -2,13 +2,8 @@
 import assert from 'assert'
 import { createHash } from 'crypto'
 
-import {
-  FragmentDefinitionNode,
-  OperationDefinitionNode,
-  parse,
-  print,
-  visit,
-} from 'graphql'
+import { parse, print, visit } from 'graphql'
+import type { FragmentDefinitionNode, OperationDefinitionNode } from 'graphql'
 
 export interface CompiledQuery extends Node {
   sha256Hash: string

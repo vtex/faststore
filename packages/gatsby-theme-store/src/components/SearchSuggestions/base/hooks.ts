@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import { ISearchContext } from '../../SearchBar/hooks'
+import type { ISearchContext } from '../../SearchBar/hooks'
 
 export interface ISuggestionsContext {
   searchBar: ISearchContext
@@ -15,4 +15,4 @@ export const SearchSuggestionsContext = createContext<ISuggestionsContext>(
 export const useSearchSuggestionsContext = () =>
   useContext(SearchSuggestionsContext)
 
-export const toRequiredItem = <T extends any>(x: Array<Maybe<T>>) => x as T[]
+export const toRequiredItem = <T>(x: Array<Maybe<T>>) => x as T[]

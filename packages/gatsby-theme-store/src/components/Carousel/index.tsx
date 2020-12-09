@@ -1,11 +1,12 @@
 /** @jsx jsx */
-import { FC } from 'react'
+import type { FC } from 'react'
 import { Box, jsx, useSlider } from '@vtex/store-ui'
 
 import CarouselArrowLeft from './ArrowLeft'
 import CarouselArrowRight from './ArrowRight'
 import CarouselPaginationDots from './PaginationDots'
-import CarouselPage, { Item } from './Page'
+import type { Item } from './Page'
+import CarouselPage from './Page'
 
 interface Props {
   allItems: Item[]
