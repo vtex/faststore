@@ -1,31 +1,35 @@
 {
+  "buy-button.add-to-cart": "ADD TO CART",
+
   "minicart.drawer.close": "Close",
   "minicart.drawer.count": "Count ({count})",
-  "minicart.drawer.quantity.remove": "0 - to remove",
   "minicart.drawer.subtotal": "Subtotal",
   "minicart.drawer.total": "Total",
   "minicart.drawer.shipping-disclaimer": "Shipping and taxes calculated at checkout.",
   "minicart.drawer.go-checkout": "GO TO CHECKOUT",
 
   "facets.filters": "Filters",
-  "search.page-list.more": "Show More",
-  "search.page-list.more.loading": "Loading...",
+
+  "loading": "Loading...",
 
   "notification-bar.sale": "SELECTED ITEMS ON SALE! CHECK IT OUT!",
 
-  "product.quantity.title": "Quantity",
+  "search.page-list.more": "Show More",
+  "search.page-list.more.loading": "Loading...",
 
   "suggestions.autocomplete.title": "Suggestions",
   "suggestions.autocomplete.notFound": "No Suggestions",
-  "suggestions.products.title": "Producst for: {term}",
+  "suggestions.products.title": "Products for: {term}",
   "suggestions.products.total": "Check all {count} items",
   "suggestions.products.notFound": "No product found",
   "suggestions.history.title": "History",
   "suggestions.history.empty": "No history yet",
-  "suggestions.topSearches.title": "Top Searches",
+  "suggestions.topSearches.title": "Top searches",
+
+  "product.quantity.title": "Quantity",
 
   "searchControls.totalCount": "{count,plural,=0{ PRODUCTS}one{ PRODUCT}other{ PRODUCTS}}",
-  "searchControls.filters": "FILTERS",
+  "searchControls.filters": "FILTERS ",
   "searchControls.select.scoreDesc": "Relevance",
   "searchControls.select.priceDesc": "Price: High to Low",
   "searchControls.select.priceAsc": "Price: Low to High",
@@ -36,24 +40,29 @@
   "searchControls.select.releaseDateDesc": "Release date",
   "searchControls.select.bestDiscountDesc": "Discount",
 
-  "shippingSimulator.label": "Calcular",
-  "shippingEstimate-bd": "{timeAmount, plural, =0 {Today} one {In # business day} other {Up to # business days}}",
-  "shippingEstimate-d": "{timeAmount, plural, =0 {Today} one {In # day} other {Up to # days}}",
-  "shippingEstimate-h": "{timeAmount, plural, =0 {Now} one {In # hour} other {Up to # hours}}",
-  "shippingEstimate-m": "{timeAmount, plural, =0 {Now} one {In # minute} other {Up to # minutes}}",
-  "shippingEstimate-scheduled": "{date}, between {startDate} and {endDate}",
-  "shippingEstimate-scheduled-no-dates": "Scheduled",
-  "shippingEstimatePickup-bd": "{timeAmount, plural, =0 {Ready today} one {Ready in up to # business day} other {Ready in up to # business days}}",
-  "shippingEstimatePickup-d": "{timeAmount, plural, =0 {Ready today} one {Ready in up to # day} other {Ready in up to # days}}",
-  "shippingEstimatePickup-h": "{timeAmount, plural, =0 {Ready for pickup} one {Ready in up to # hour} other {Ready in up to # hours}}",
-  "shippingEstimatePickup-m": "{timeAmount, plural, =0 {Ready for pickup} one {Ready in up to # minute} other {Ready in up to # minutes}}",
+  "shippingSimulator.label": "OK",
+  "shipping.postalCodeLabel": "Shipping prices and dates",
+  "shipping.free": "Free Shipping",
+  "shipping.label.id": "Kind",
+  "shipping.label.estimate": "Date",
+  "shipping.label.price": "Price",
 
-  "login.page.title": "Choose a sign in option",
+  "shippingEstimate-bd": "{timeAmount, plural, =0 {Today} one {In # business day} other {Up to # business days}}",
+  "shippingEstimate-d": "{timeAmount, plural, =0 {Hoje} one {In # day} other {Up to # days}}",
+  "shippingEstimate-h": "{timeAmount, plural, =0 {Now} one {In # hours} other {Up to # hours}}",
+  "shippingEstimate-m": "{timeAmount, plural, =0 {Now} one {In # minutes} other {Up to # minutes}}",
+  "shippingEstimate-scheduled": "{date}, Between {startDate} and {endDate}",
+  "shippingEstimate-scheduled-no-dates": "Assigned",
+
+  "login.page.title": "Choose a login provider",
 
   "login.page.emailAndPassword.signUpForm.title": "Validate email and create new password",
   "login.page.emailAndPassword.signUpForm.subTitle": "Insert the code we sent to the email {email} and create a new password",
+  "login.page.emailAndPassword.signUpForm.accessCodeLabel": "Access code",
   "login.page.emailAndPassword.signUpForm.accessCodePlaceholder": "Add your access code",
+  "login.page.emailAndPassword.signUpForm.passwordLabel": "Password:",
   "login.page.emailAndPassword.signUpForm.passwordPlaceholder": "Insert your password",
+  "login.page.emailAndPassword.signUpForm.confirmPasswordLabel": "Confirm Password",
   "login.page.emailAndPassword.signUpForm.confirmPasswordPlaceholder": "Confirm your password",
   "login.page.emailAndPassword.signUpForm.invalidAccessCodeInput": "Invalid access code",
   "login.page.emailAndPassword.signUpForm.invalidPassword": "Invalid password. Your password needs to have at least eight digits, one lower case and one upper case letter, with at least one digit",
@@ -72,7 +81,7 @@
   "login.page.emailAndPassword.signInForm.submitButton": "Sign In",
   "login.page.emailAndPassword.signInForm.signupButton": "Don't have an account yet ? Sign Up",
 
-  "login.page.emailAndPassword.emailForm.title": "Receive access code by e-mail",
+  "login.page.emailAndPassword.emailForm.title": "Don't have an account yet ? Sign Up",
   "login.page.emailAndPassword.emailForm.emailPlaceholder": "Add your email",
   "login.page.emailAndPassword.emailForm.invalidEmailInput": "Please insert a valid email",
   "login.page.emailAndPassword.emailForm.error": "Something went wrong, please try again later",
@@ -96,8 +105,8 @@
 
   "login.page.emailVerification.button": "Receive access code by e-mail",
 
-  "login.page.facebookOAuth.button": "Sign in with Facebook",
-  "login.page.facebookOAuth.title": "Signing in with Facebook",
+  "login.page.facebookOAuth.button": "Sign in with facebook",
+  "login.page.facebookOAuth.title": "Signing in with facebook",
   "login.page.facebookOAuth.error": "Signing in with Facebook failed. Please try again later or click on the button below to try again",
   "login.page.facebookOAuth.tryAgain": "Try Again",
 
@@ -106,6 +115,8 @@
   "login.page.googleOAuth.error": "Signing in with Google failed. Please try again later or click on the button below to try again",
   "login.page.googleOAuth.tryAgain": "Try Again",
 
-  "login.button.greeting": "Hello {name}",
-  "login.button.action": "Sign In"
+  "login.button.greeting": "Hello, {name}",
+  "login.button.action": "Sign In",
+
+  "preview.not-found": "No Preview found. Waiting for input"
 }

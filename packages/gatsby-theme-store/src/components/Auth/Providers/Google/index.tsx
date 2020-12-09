@@ -1,10 +1,11 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
-import React, { FC, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import type { FC } from 'react'
 
 import { oAuthCallbackUrl, oAuthRedirectUrl } from '../../../../sdk/auth/OAuth'
 import { useStartLogin } from '../../../../sdk/auth/useStartLogin'
-import { AuthProviderComponentProps } from '../types'
+import type { AuthProviderComponentProps } from '../types'
 
 type State = 'initial' | 'error'
 
@@ -35,7 +36,6 @@ const GoogleOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
       <Box variant={`${variant}.title`}>
         {formatMessage({
           id: 'login.page.googleOAuth.title',
-          defaultMessage: 'Signing in with Google',
         })}
       </Box>
       {state === 'initial' ? (
@@ -47,14 +47,11 @@ const GoogleOAuth: FC<AuthProviderComponentProps> = ({ variant: v }) => {
           <Alert variant="signInDanger">
             {formatMessage({
               id: 'login.page.googleOAuth.error',
-              defaultMessage:
-                'Signing in with Google failed. Please try again later or click on the button below to try again',
             })}
           </Alert>
           <Button onClick={() => setState('initial')}>
             {formatMessage({
               id: 'login.page.googleOAuth.tryAgain',
-              defaultMessage: 'Try Again',
             })}
           </Button>
         </>

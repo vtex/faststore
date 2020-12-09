@@ -1,13 +1,14 @@
-import { Box, Center, Spinner } from '@vtex/store-ui'
-import React, { FC, Suspense, lazy } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Box, Center, Spinner } from '@vtex/store-ui'
+import React, { lazy, Suspense } from 'react'
+import type { FC } from 'react'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
+import { toRequiredItem } from '../base/hooks'
+import { SearchSuggestionsList } from '../base/List'
 import { SearchSuggestionsListTitle } from '../base/Title'
 import { SearchSuggestionsListTotal } from '../base/Total'
-import { SearchSuggestionsList } from '../base/List'
 import { useProductsSuggestions } from './hooks'
-import { toRequiredItem } from '../base/hooks'
 
 const ProductSummary = lazy(() => import('../../ProductSummary'))
 
@@ -38,7 +39,6 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
   const title = formatMessage(
     {
       id: 'suggestions.products.title',
-      defaultMessage: 'Products for: {term}',
     },
     { term }
   )
@@ -46,7 +46,6 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
   const total = formatMessage(
     {
       id: 'suggestions.products.total',
-      defaultMessage: 'See all {count} items',
     },
     { count }
   )
@@ -73,7 +72,6 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
         <Center>
           {formatMessage({
             id: 'suggestions.products.notFound',
-            defaultMessage: 'No products found',
           })}
         </Center>
       </>

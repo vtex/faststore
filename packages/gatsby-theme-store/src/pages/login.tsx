@@ -1,7 +1,8 @@
-import React, { FC, useEffect, useState } from 'react'
+import type { FC } from 'react'
+import type { PageProps } from 'gatsby'
+import React, { useEffect, useState } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
-import { PageProps } from 'gatsby'
 
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
@@ -41,7 +42,6 @@ const Page: FC = () => {
         <Box variant="login.page.group.title">
           {formatMessage({
             id: 'login.page.title',
-            defaultMessage: 'Choose a sign in option',
           })}
         </Box>
 

@@ -1,8 +1,9 @@
-import React, { FC } from 'react'
-import { Box, Button, Center } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Box, Button, Center } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
 
-import { AuthProviderButtonProps } from '../types'
+import type { AuthProviderButtonProps } from '../types'
 
 const Logo: FC = () => (
   <svg
@@ -31,7 +32,6 @@ const FacebookOAuthButton: FC<AuthProviderButtonProps> = ({
         <Box ml={2}>
           {formatMessage({
             id: 'login.page.facebookOAuth.button',
-            defaultMessage: 'Sign in with facebook',
           })}
         </Box>
       </Center>

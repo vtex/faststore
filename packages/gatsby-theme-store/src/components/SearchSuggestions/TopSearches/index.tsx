@@ -1,6 +1,7 @@
+import type { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Box, Center } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React from 'react'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
 import { toRequiredItem } from '../base/hooks'
@@ -23,7 +24,6 @@ const SearchSuggestionsTopSearches: FC<Required<Props>> = ({ variant }) => {
   const items = searches && toRequiredItem(searches)
   const title = formatMessage({
     id: 'suggestions.topSearches.title',
-    defaultMessage: 'Top Searches',
   })
 
   if (error || !searches) {
@@ -37,7 +37,6 @@ const SearchSuggestionsTopSearches: FC<Required<Props>> = ({ variant }) => {
         <Center>
           {formatMessage({
             id: 'suggestions.topSearches.empty',
-            defaultMessage: 'Type to search',
           })}
         </Center>
       </>

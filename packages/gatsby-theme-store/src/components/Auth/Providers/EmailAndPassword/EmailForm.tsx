@@ -1,8 +1,9 @@
-import React, { FC, useRef } from 'react'
-import { Alert, Box, Button, Input } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Alert, Box, Button, Input } from '@vtex/store-ui'
+import React, { useRef } from 'react'
+import type { FC } from 'react'
 
-import { State } from './state'
+import type { State } from './state'
 
 interface Props {
   variant: string
@@ -25,7 +26,6 @@ const EmailForm: FC<Props> = ({
       <Box variant={`${variant}.title`}>
         {formatMessage({
           id: 'login.page.emailAndPassword.emailForm.title',
-          defaultMessage: 'Receive access code by e-mail',
         })}
       </Box>
       <Box
@@ -43,7 +43,6 @@ const EmailForm: FC<Props> = ({
           id="emailform-email"
           placeholder={formatMessage({
             id: 'login.page.emailAndPassword.emailForm.emailPlaceholder',
-            defaultMessage: 'Add your email',
           })}
         />
 
@@ -51,7 +50,6 @@ const EmailForm: FC<Props> = ({
           <Alert variant="signInDanger">
             {formatMessage({
               id: 'login.page.emailAndPassword.emailForm.invalidEmailInput',
-              defaultMessage: 'Please insert a valid email',
             })}
           </Alert>
         )}
@@ -60,7 +58,6 @@ const EmailForm: FC<Props> = ({
           <Alert variant="signInDanger">
             {formatMessage({
               id: 'login.page.emailAndPassword.emailForm.error',
-              defaultMessage: 'Something went wrong, please try again later',
             })}
           </Alert>
         )}
@@ -68,7 +65,6 @@ const EmailForm: FC<Props> = ({
         <Button>
           {formatMessage({
             id: 'login.page.emailAndPassword.emailForm.submitButton',
-            defaultMessage: 'Confirm',
           })}
         </Button>
       </Box>
@@ -80,7 +76,6 @@ const EmailForm: FC<Props> = ({
       >
         {formatMessage({
           id: 'login.page.emailAndPassword.emailForm.backButton',
-          defaultMessage: 'Back',
         })}
       </Button>
     </>
