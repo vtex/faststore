@@ -9144,20 +9144,20 @@ eslint-config-react-app@^5.2.1:
   dependencies:
     confusing-browser-globals "^1.0.9"
 
-eslint-config-vtex-react@^6.8.7:
-  version "6.8.7"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.8.7.tgz#e4df5568d68aefb12ef1c65f638f7f98c7ec8eff"
-  integrity sha512-DyvF2RVx9GF59V+GWYlyzEqFxRePdyFqemIdITn1zMo89s22Ecwz092XWGxemCB8DK2ROVs+wsnSOW759BN+Iw==
+eslint-config-vtex-react@^6.9.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.9.0.tgz#82b571938c618e64c930b7ed5f5418ca167309f4"
+  integrity sha512-Ff/tbSZwh/7UpyYZJl2WRAM8LQWDhA76lOB4VK5/8JR2mTXBBLt7oobB+GFEUMaJQHsBp/om8kiapNVE4p9NJg==
   dependencies:
-    eslint-config-vtex "^12.8.14"
+    eslint-config-vtex "^12.9.0"
     eslint-plugin-jsx-a11y "^6.3.1"
     eslint-plugin-react "^7.20.6"
     eslint-plugin-react-hooks "^4.1.0"
 
-eslint-config-vtex@^12.8.14:
-  version "12.8.14"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.8.14.tgz#3a1bfe90d5b50fe3814309ab2c5ecce595dd779f"
-  integrity sha512-O+LVmaPaYRsr+ss7usJHIc1tIRRDUAKgXvTz3OiATfJaPd9ns/mXTZYoJEle2caUtso+LjsVW7hsHtG7K1aCLg==
+eslint-config-vtex@^12.9.0:
+  version "12.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.9.0.tgz#ddd8abbadde4af4a21ed1d5e1c87813826a4fbc3"
+  integrity sha512-bM1262rE3zvZB9mYNf2V50MAUA1Er873C3dzE7Q5pZXLk4/6z2vdlSVwN0s0wfb+s9ntdcFpy5K4pONd/Ikf5g==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.8.1"
     "@typescript-eslint/parser" "^4.8.1"
@@ -21607,12 +21607,12 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.7.3, typescript@^3.9.5, typescript@^3.9.6:
+typescript@^3.7.3:
   version "3.9.7"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
-typescript@^4.0.3:
+typescript@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.2.tgz#6369ef22516fe5e10304aae5a5c4862db55380e9"
   integrity sha512-thGloWsGH3SOxv1SoY7QojKi0tc+8FnOmiarEGMbd/lar7QOEd3hvlx3Fp5y6FlDUGl9L+pd4n2e+oToGMmhRQ==
