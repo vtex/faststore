@@ -18,7 +18,7 @@ export const onCreateWebpackConfig = ({ actions }: CreateWebpackConfigArgs) => {
   actions.setWebpackConfig({
     resolve: {
       alias: {
-        'react-intl$': 'react-intl/react-intl-no-parser.umd',
+        'intl-messageformat-parser': 'intl-messageformat-parser/dummy',
       },
     },
   })
