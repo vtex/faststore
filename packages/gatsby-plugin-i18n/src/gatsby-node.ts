@@ -18,7 +18,7 @@ export const onCreateWebpackConfig = ({ actions }: CreateWebpackConfigArgs) => {
   actions.setWebpackConfig({
     resolve: {
       alias: {
-        'intl-messageformat-parser': 'intl-messageformat-parser/dummy',
+        'intl-messageformat-parser': 'intl-messageformat-parser/lib/dummy',
       },
     },
   })
