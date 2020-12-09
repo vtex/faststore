@@ -3,6 +3,8 @@
   "version": "0.211.0",
   "description": "Gatsby theme for building e-commerce websites",
   "main": "index.js",
+  "browser": "src/index.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "tsc",
     "prepare": "cross-env NODE_ENV=production yarn run build",

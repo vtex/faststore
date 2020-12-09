@@ -9,6 +9,7 @@
   "browser": "src/index.tsx",
   "module": "dist/store-ui.esm.js",
   "typings": "dist/index.d.ts",
+  "sideEffects": false,
   "engines": {
     "node": ">=10"
   },
@@ -24,7 +25,6 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "sideEffects": false,
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
     "@theme-ui/preset-base": "^0.3.0",

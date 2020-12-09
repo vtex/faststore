@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-vtex",
+  "name": "openstore",
   "version": "1.0.0",
   "description": "Plugins and libraries for building a lightning fast e-commerce in JAMStack",
   "main": "index.js",
@@ -34,7 +34,7 @@
     "@vtex/prettier-config": "^0.3.5",
     "eslint": "^7.15.0",
     "eslint-config-vtex": "^12.9.0",
-    "eslint-config-vtex-react": "^6.9.0",
+    "eslint-config-vtex-react": "^6.9.1",
     "husky": "^4.3.0",
     "lerna": "^3.22.1",
     "lint-staged": "^10.5.1",
