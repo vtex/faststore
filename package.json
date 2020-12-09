@@ -23,11 +23,11 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "yarn lint --fix",
+      "yarn format --write"
     ],
     "*.json": [
-      "prettier --write"
+      "yarn format --write"
     ]
   },
   "devDependencies": {
