@@ -2,17 +2,12 @@
  * This provider starts fetching early and adds a suspendable reader to
  * the context. Use the hooks to interact with the context
  */
-import React, {
-  createContext,
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
+import type { FC } from 'react'
 
-import { OrderFormFragment_OrderFormFragment } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 import { storage } from './storage'
-import { OrderFormItem } from './types'
+import type { OrderFormFragment_OrderFormFragment } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
+import type { OrderFormItem } from './types'
 
 const controler = () => import('./controller')
 

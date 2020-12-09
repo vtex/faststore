@@ -1,5 +1,6 @@
-import React, { FC, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Box } from 'theme-ui'
+import type { FC } from 'react'
 
 interface Props {
   totalPages: number

@@ -4,12 +4,12 @@ export const gql = (_: TemplateStringsArray) => {
   throw new Error('This should have been removed by the babel plugin')
 }
 
-export interface GraphQLResponse<D extends any = any> {
+export interface GraphQLResponse<D = any> {
   data: D
   errors: any[]
 }
 
-export interface RequestOptions<V extends any = any> {
+export interface RequestOptions<V = any> {
   query?: string
   sha256Hash: string
   operationName: string
@@ -17,7 +17,7 @@ export interface RequestOptions<V extends any = any> {
   fetchOptions?: RequestInit
 }
 
-export const request = async <V extends any = any, D extends any = any>(
+export const request = async <V = any, D = any>(
   endpoint: string,
   {
     query,

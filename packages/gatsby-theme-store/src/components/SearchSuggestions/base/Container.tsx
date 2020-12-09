@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { FC, Suspense } from 'react'
+import { Suspense } from 'react'
 import { jsx } from '@vtex/store-ui'
+import type { FC } from 'react'
 
 interface Props {
   variant: string

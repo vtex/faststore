@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { FC } from 'react'
 import { Box, jsx } from 'theme-ui'
+import type { FC } from 'react'
 
 interface Props {
   width?: string

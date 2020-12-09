@@ -1,9 +1,9 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import { useMemo } from 'react'
-import { Offer } from 'schema-dts'
+import type { Offer } from 'schema-dts'
 
-import { StructuredProductFragment_ProductFragment } from './__generated__/StructuredProductFragment_product.graphql'
-import { StructuredProductSiteMetadataQueryQuery } from './__generated__/StructuredProductSiteMetadataQuery.graphql'
+import type { StructuredProductFragment_ProductFragment } from './__generated__/StructuredProductFragment_product.graphql'
+import type { StructuredProductSiteMetadataQueryQuery } from './__generated__/StructuredProductSiteMetadataQuery.graphql'
 
 type SKU = NonNullable<
   ArrayItem<NonNullable<StructuredProductFragment_ProductFragment['items']>>

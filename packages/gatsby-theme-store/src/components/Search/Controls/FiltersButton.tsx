@@ -1,6 +1,7 @@
-import React, { FC, useState, useCallback, Suspense, lazy } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { SearchControlsFiltersButton as StoreUISearchControlsFiltersButton } from '@vtex/store-ui'
+import React, { lazy, Suspense, useCallback, useState } from 'react'
+import type { FC } from 'react'
 
 const SearchFiltersDrawer = lazy(() => import('../Filters/Mobile'))
 

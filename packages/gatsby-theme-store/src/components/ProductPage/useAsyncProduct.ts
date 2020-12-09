@@ -1,11 +1,12 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
-import {
-  AsyncProductQuery,
+import { useQuery } from '../../sdk/graphql/useQuery'
+import { AsyncProductQuery } from './__generated__/AsyncProductQuery.graphql'
+import type {
   AsyncProductQueryQuery,
   AsyncProductQueryQueryVariables,
 } from './__generated__/AsyncProductQuery.graphql'
-import { useQuery, QueryOptions } from '../../sdk/graphql/useQuery'
+import type { QueryOptions } from '../../sdk/graphql/useQuery'
 
 export type Options = Omit<
   QueryOptions,

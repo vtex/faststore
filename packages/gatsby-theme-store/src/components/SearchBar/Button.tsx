@@ -1,5 +1,7 @@
-import React, { FC } from 'react'
-import { Button, ButtonProps } from '@vtex/store-ui'
+import { Button } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
+import type { ButtonProps } from '@vtex/store-ui'
 
 import { useSearchBarContext } from './hooks'
 

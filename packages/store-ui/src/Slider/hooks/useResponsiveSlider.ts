@@ -1,6 +1,7 @@
 import { useResponsiveValue } from '@theme-ui/match-media'
 
-import { UseSliderOptions, useSlider } from './useSlider'
+import { useSlider } from './useSlider'
+import type { UseSliderOptions } from './useSlider'
 
 export interface UseResponsiveSliderOptions<T>
   extends Omit<UseSliderOptions<T>, 'pageSize'> {

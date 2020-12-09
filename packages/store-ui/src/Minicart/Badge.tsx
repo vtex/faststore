@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Box } from 'theme-ui'
+import type { FC } from 'react'
 
-import { Variant } from '../utils/types'
+import type { Variant } from '../utils/types'
 
 export interface MinicartBadgeProps extends Variant {
   value: number

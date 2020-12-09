@@ -1,5 +1,6 @@
-import React, { FC, useEffect, useState, PropsWithoutRef } from 'react'
-import { AspectImageProps, ImageProps } from 'theme-ui'
+import React, { useEffect, useState } from 'react'
+import type { FC, PropsWithoutRef } from 'react'
+import type { AspectImageProps, ImageProps } from 'theme-ui'
 
 type ImageLikeProps = PropsWithoutRef<AspectImageProps> &
   PropsWithoutRef<ImageProps>

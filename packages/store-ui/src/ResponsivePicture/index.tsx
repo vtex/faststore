@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /** @jsx jsx */
-import { FC } from 'react'
 import { jsx } from 'theme-ui'
+import type { FC } from 'react'
 
 interface IResponsivePictureSource {
   media: string

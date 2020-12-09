@@ -1,13 +1,15 @@
 /** @jsx jsx */
-import { FC, lazy } from 'react'
-import { jsx, Box, useSlider } from '@vtex/store-ui'
+import { Box, useSlider, jsx } from '@vtex/store-ui'
+import { lazy } from 'react'
+import type { FC } from 'react'
 
+import SuspenseDevice from '../Suspense/Device'
 import ProductImageGalleryArrowLeft from './ArrowLeft'
 import ProductImageGalleryArrowRight from './ArrowRight'
-import ProductImageGalleryPaginationDots from './PaginationDots'
-import ProductImageGalleryPage, { Item } from './Page'
-import SuspenseDevice from '../Suspense/Device'
 import ProductImageGalleryMiniaturesContainer from './Miniatures/Container'
+import ProductImageGalleryPage from './Page'
+import ProductImageGalleryPaginationDots from './PaginationDots'
+import type { Item } from './Page'
 
 const ProductImageGalleryMiniatures = lazy(() => import('./Miniatures/index'))
 

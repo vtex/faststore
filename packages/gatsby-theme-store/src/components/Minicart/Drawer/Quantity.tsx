@@ -1,5 +1,6 @@
-import { Spinner, Flex, NumericStepper } from '@vtex/store-ui'
-import React, { useState, FC } from 'react'
+import { Flex, NumericStepper, Spinner } from '@vtex/store-ui'
+import React, { useState } from 'react'
+import type { FC } from 'react'
 
 import { useItem } from './useItem'
 import { useUpdateItems } from './useUpdateItems'

@@ -1,9 +1,7 @@
-import {
-  createTextMaskInputElement,
-  TextMaskInputElement,
-  CreateTextMaskConfig,
-} from 'text-mask-core'
-import { MutableRefObject, useCallback, useLayoutEffect, useRef } from 'react'
+import { useCallback, useLayoutEffect, useRef } from 'react'
+import { createTextMaskInputElement } from 'text-mask-core'
+import type { TextMaskInputElement, CreateTextMaskConfig } from 'text-mask-core'
+import type { MutableRefObject } from 'react'
 
 interface Args extends Omit<CreateTextMaskConfig, 'inputElement'> {
   value?: string

@@ -1,4 +1,4 @@
-import { SxStyleProp } from '@vtex/store-ui'
+import type { SxStyleProp } from '@vtex/store-ui'
 
 const theme: SxStyleProp = {
   login: {

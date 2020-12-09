@@ -1,11 +1,11 @@
-import { useState, useCallback, useEffect } from 'react'
 import { gql } from '@vtex/gatsby-plugin-graphql'
+import { useCallback, useEffect, useState } from 'react'
 
 import { useLazyQuery } from '../../../sdk/graphql/useLazyQuery'
-import {
+import { ShippingQuery } from './__generated__/ShippingQuery.graphql'
+import type {
   ShippingQueryQuery,
   ShippingQueryQueryVariables,
-  ShippingQuery,
 } from './__generated__/ShippingQuery.graphql'
 
 type HookProps = {

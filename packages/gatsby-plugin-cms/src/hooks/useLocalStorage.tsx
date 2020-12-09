@@ -4,7 +4,7 @@ import { CMS_CONTENT } from '../utils/constants'
 
 // A hook that uses the local storage and updates when a
 // storage updates
-export const useLocalStorage = <T extends any>() => {
+export const useLocalStorage = <T,>() => {
   const [storage, setStorage] = useState<T | null>(null)
 
   useEffect(() => {

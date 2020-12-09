@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { ComponentPropsWithoutRef, FC } from 'react'
 import { jsx, Grid } from '@vtex/store-ui'
+import type { ComponentPropsWithoutRef, FC } from 'react'
 
-import { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
 import ProductSummary from '../ProductSummary'
+import type { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
 
 interface Props extends ComponentPropsWithoutRef<typeof Grid> {
   items: Array<ProductSummary_ProductFragment | undefined | null>

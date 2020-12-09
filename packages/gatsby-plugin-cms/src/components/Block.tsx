@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
-import { Block as BlockType } from '../common'
-import { schemas } from '../index'
+import { schemas } from '..'
+import type { Block as BlockType } from '../common'
 
 interface Props {
   block: BlockType

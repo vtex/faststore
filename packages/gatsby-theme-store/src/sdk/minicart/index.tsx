@@ -1,4 +1,5 @@
-import React, { createContext, FC, useCallback, useState } from 'react'
+import React, { createContext, useCallback, useState } from 'react'
+import type { FC } from 'react'
 
 export type MinicartStateContext = {
   isOpen: boolean

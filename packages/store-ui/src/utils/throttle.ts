@@ -1,4 +1,4 @@
-const throttle = <T extends any>(cb: (...args: any) => T, wait = 166) => {
+const throttle = <T>(cb: (...args: any) => T, wait = 166) => {
   let timeout: NodeJS.Timeout | null = null
 
   const throttled = (...args: any): T | undefined => {

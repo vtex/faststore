@@ -1,5 +1,6 @@
 import { AspectImage } from 'theme-ui'
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 interface Props {
   loading?: 'lazy' | 'eager'

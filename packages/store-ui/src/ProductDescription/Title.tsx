@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Heading } from 'theme-ui'
+import type { FC } from 'react'
 
 export interface ProductDescriptionTitleProps {
   variant?: string

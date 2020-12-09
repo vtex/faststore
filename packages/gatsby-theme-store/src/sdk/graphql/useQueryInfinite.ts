@@ -1,6 +1,8 @@
-import { useSWRInfinite, SWRInfiniteConfigInterface } from 'swr'
+import { useSWRInfinite } from 'swr'
+import type { SWRInfiniteConfigInterface } from 'swr'
 
-import { request, RequestOptions } from './request'
+import { request } from './request'
+import type { RequestOptions } from './request'
 
 export type QueryOptions = Omit<RequestOptions, 'variables'>
 
@@ -9,10 +11,7 @@ type GetVariablesForPageFn<D, V> = (
   previousPageData: D | null
 ) => V | null
 
-export const useQueryInfinite = <
-  Query extends any = any,
-  Variables extends any = any
->(
+export const useQueryInfinite = <Query = any, Variables = any>(
   queryOptions: QueryOptions,
   getVariablesForPage: GetVariablesForPageFn<Query, Variables>,
   config?: SWRInfiniteConfigInterface<Query> | undefined

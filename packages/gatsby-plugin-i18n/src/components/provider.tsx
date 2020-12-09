@@ -5,8 +5,8 @@ import React from 'react'
 import { IntlProvider } from 'react-intl'
 import type { WrapRootElementBrowserArgs } from 'gatsby'
 
-import type { PluginOptions } from '../gatsby-node'
 import { localeFromPath } from '../helpers/path'
+import type { PluginOptions } from '../gatsby-node'
 
 const getLocale = (
   pathname: string,

@@ -1,5 +1,6 @@
 import { Flex } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 interface Props {
   variant?: string

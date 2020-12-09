@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { SearchHistory } from './controller'
+import type { SearchHistory } from './controller'
 
 const loadController = () => import('./controller')
 

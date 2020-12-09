@@ -1,9 +1,7 @@
-import {
-  MinicartBadge,
-  MinicartButton,
-  MinicartButtonProps,
-} from '@vtex/store-ui'
-import React, { FC, lazy } from 'react'
+import { MinicartBadge, MinicartButton } from '@vtex/store-ui'
+import React, { lazy } from 'react'
+import type { MinicartButtonProps } from '@vtex/store-ui'
+import type { FC } from 'react'
 
 import SuspenseSSR from '../Suspense/SSR'
 import CustomMinicartButtonSvg from './ButtonSvg'

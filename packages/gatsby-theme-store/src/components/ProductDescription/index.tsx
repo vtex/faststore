@@ -1,5 +1,6 @@
 import { ProductDescription, ProductDescriptionTitle } from '@vtex/store-ui'
-import React, { FC, Fragment } from 'react'
+import React, { Fragment } from 'react'
+import type { FC } from 'react'
 
 import useProductDescription from './useProductDescription'
 

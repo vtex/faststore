@@ -1,5 +1,5 @@
 import merge from 'deepmerge'
-import { SxStyleProp } from 'theme-ui'
+import type { SxStyleProp } from 'theme-ui'
 
 const overwriteMerge = (_: any, sourceArray: any, __: any) => sourceArray
 

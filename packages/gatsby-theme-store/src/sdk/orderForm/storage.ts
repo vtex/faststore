@@ -1,4 +1,4 @@
-import { OrderFormFragment_OrderFormFragment } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
+import type { OrderFormFragment_OrderFormFragment } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 
 const ORDER_FORM_STORAGE_KEY = 'vtex:orderForm'
 

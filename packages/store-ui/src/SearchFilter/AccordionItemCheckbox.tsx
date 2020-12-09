@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
-import { Label, Checkbox, Box } from 'theme-ui'
+import React from 'react'
+import { Box, Checkbox, Label } from 'theme-ui'
+import type { FC } from 'react'
 
 export interface Item {
   key: string

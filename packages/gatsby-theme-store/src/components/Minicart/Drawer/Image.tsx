@@ -1,5 +1,6 @@
 import { Box } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import React from 'react'
+import type { FC } from 'react'
 
 type Props = {
   variant?: string

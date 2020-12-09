@@ -2,10 +2,11 @@
  * Most of this file is nonsense and should be moved to the backend to
  * decrease the TBT
  */
-import { SearchFilterItem } from '@vtex/store-ui'
 import { useContext, useMemo } from 'react'
+import type { SearchFilterItem } from '@vtex/store-ui'
 
-import { SearchContext, SearchFilters } from './Provider'
+import { SearchContext } from './Provider'
+import type { SearchFilters } from './Provider'
 
 const loadController = () => import('./controller')
 

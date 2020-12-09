@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css, keyframes } from '@emotion/core'
-import { FC } from 'react'
+import type { FC } from 'react'
 
 const baseColor = '#eee'
 

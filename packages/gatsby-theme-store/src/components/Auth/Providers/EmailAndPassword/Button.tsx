@@ -1,7 +1,7 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Button } from '@vtex/store-ui'
-import type { FC } from 'react'
 import React from 'react'
+import type { FC } from 'react'
 
 import type { AuthProviderButtonProps } from '../types'
 

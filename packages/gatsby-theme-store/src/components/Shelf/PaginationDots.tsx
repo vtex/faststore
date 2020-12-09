@@ -1,5 +1,6 @@
-import React, { FC, ComponentProps } from 'react'
 import { SliderPaginationDots } from '@vtex/store-ui'
+import React from 'react'
+import type { FC, ComponentProps } from 'react'
 
 type Props = ComponentProps<typeof SliderPaginationDots>
 

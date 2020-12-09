@@ -1,5 +1,7 @@
-import React, { FC } from 'react'
-import { Select, SelectProps } from 'theme-ui'
+import React from 'react'
+import { Select } from 'theme-ui'
+import type { FC } from 'react'
+import type { SelectProps } from 'theme-ui'
 
 const options = [
   ['OrderByScoreDESC', 'searchControls.select.scoreDesc'],

@@ -1,5 +1,6 @@
-import { PixelEvent, wrap } from './pixel'
 import { useIdleEffect } from '../useIdleEffect'
+import { wrap } from './pixel'
+import type { PixelEvent } from './pixel'
 
 type EventGenerator = () => PixelEvent | PixelEvent[]
 

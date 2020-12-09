@@ -1,5 +1,7 @@
-import { graphql, PageProps } from 'gatsby'
-import React, { FC, lazy } from 'react'
+import { graphql } from 'gatsby'
+import React, { lazy } from 'react'
+import type { PageProps } from 'gatsby'
+import type { FC } from 'react'
 
 import ErrorBoundary from '../components/Error/ErrorBoundary'
 import ErrorHandler from '../components/Error/ErrorHandler'
@@ -15,8 +17,8 @@ import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 import { SearchProvider } from '../sdk/search/Provider'
 import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
 import { isServer } from '../utils/env'
-import {
-  SearchPageQuery,
+import { SearchPageQuery } from './__generated__/SearchPageQuery.graphql'
+import type {
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'

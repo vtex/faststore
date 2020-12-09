@@ -1,6 +1,7 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box, ProductQuantityTitle, NumericStepper } from '@vtex/store-ui'
-import React, { FC } from 'react'
+import { Box, NumericStepper, ProductQuantityTitle } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
 
 interface Props {
   onChange: (quantity: number) => void

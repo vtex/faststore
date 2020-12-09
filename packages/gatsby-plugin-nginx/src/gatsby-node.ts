@@ -1,20 +1,20 @@
-import { join } from 'path'
 import { writeFileSync } from 'fs'
+import { join } from 'path'
 
-import { GatsbyNode } from 'gatsby'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
+import type { GatsbyNode } from 'gatsby'
 
 import { BUILD_HTML_STAGE, VTEX_NGINX_CONF_FILENAME } from './constants'
 import {
   addPublicCachingHeader,
   addStaticCachingHeader,
   applyUserHeadersTransform,
-  emptyHeadersMapForFiles,
   cacheHeadersByPath,
+  emptyHeadersMapForFiles,
   preloadHeadersByPath,
 } from './headers'
-import { generateNginxConfiguration } from './nginx-generator'
 import { listFilesRecursively } from './listFiles'
+import { generateNginxConfiguration } from './nginx-generator'
 import { pluginOptions } from './pluginOptions'
 
 const assetsManifest: Record<string, string> = {}

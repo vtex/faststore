@@ -1,6 +1,7 @@
 import { Center, Text } from '@vtex/store-ui'
-import { PageProps } from 'gatsby'
-import React, { FC } from 'react'
+import React from 'react'
+import type { PageProps } from 'gatsby'
+import type { FC } from 'react'
 
 type Props = PageProps<unknown>
 

@@ -1,5 +1,5 @@
-import { NodePath, Visitor } from '@babel/traverse'
-import BabelTypes from '@babel/types'
+import type { NodePath, Visitor } from '@babel/traverse'
+import type BabelTypes from '@babel/types'
 
 import { QueryManager } from './manager'
 

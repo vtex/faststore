@@ -1,5 +1,7 @@
-import React, { FC } from 'react'
-import { Button, ButtonProps } from 'theme-ui'
+import React from 'react'
+import { Button } from 'theme-ui'
+import type { FC } from 'react'
+import type { ButtonProps } from 'theme-ui'
 
 interface Props extends ButtonProps {
   label: string

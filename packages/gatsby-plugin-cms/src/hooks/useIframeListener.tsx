@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 
-import { Content, isContent } from '../common'
+import { isContent } from '../common'
 import { CMS_CONTENT } from '../utils/constants'
+import type { Content } from '../common'
 
 interface CMSEvent {
   action: 'cmsUpdate'

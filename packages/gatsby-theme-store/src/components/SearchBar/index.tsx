@@ -1,6 +1,8 @@
 /** @jsx jsx */
-import { FC, Suspense, lazy } from 'react'
-import { PopoverInitialState, jsx } from '@vtex/store-ui'
+import { Suspense, lazy } from 'react'
+import { jsx } from '@vtex/store-ui'
+import type { FC } from 'react'
+import type { PopoverInitialState } from '@vtex/store-ui'
 
 import SearchBarButton from './Button'
 import SearchBarInput from './Input'

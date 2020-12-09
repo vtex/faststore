@@ -1,8 +1,10 @@
-import Drawer, { DrawerProps } from '@vtex-components/drawer'
-import React, { FC } from 'react'
+import Drawer from '@vtex-components/drawer'
+import React from 'react'
 import { Flex, Text } from 'theme-ui'
+import type { FC } from 'react'
+import type { DrawerProps } from '@vtex-components/drawer'
 
-import { Variant } from '../utils/types'
+import type { Variant } from '../utils/types'
 
 export type MinicartDrawerProps = DrawerProps
 export const MinicartDrawer = Drawer

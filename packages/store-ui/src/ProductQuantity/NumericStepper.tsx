@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Button, Flex, Input } from 'theme-ui'
+import type { FC } from 'react'
 
 import { useNumericStepper } from './useNumericStepper'
 

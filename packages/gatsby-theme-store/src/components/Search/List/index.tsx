@@ -1,16 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { gql } from '@vtex/gatsby-plugin-graphql'
-import { Button, Grid } from '@vtex/store-ui'
-import React, { FC, Fragment } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Button, Grid } from '@vtex/store-ui'
+import React, { Fragment } from 'react'
+import type { FC } from 'react'
 
-import {
-  SearchQuery,
-  SearchQueryQuery,
-} from './__generated__/SearchQuery.graphql'
+import { useSearch } from '../../../sdk/search/useSearch'
+import { SearchQuery } from './__generated__/SearchQuery.graphql'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
-import { useSearch } from '../../../sdk/search/useSearch'
+import type { SearchQueryQuery } from './__generated__/SearchQuery.graphql'
 
 interface Props {
   initialData: SearchQueryQuery | undefined

@@ -1,5 +1,5 @@
-import { LazyExoticComponent } from 'react'
-import { JSONSchema6 } from 'json-schema'
+import type { LazyExoticComponent } from 'react'
+import type { JSONSchema6 } from 'json-schema'
 
 interface Schema extends JSONSchema6 {
   title: string

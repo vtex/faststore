@@ -7,7 +7,7 @@ import {
   patch as patchSession,
 } from './controller'
 import { storage } from './storage'
-import { Session } from './types'
+import type { Session } from './types'
 
 export interface Options {
   stale?: boolean

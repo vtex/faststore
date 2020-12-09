@@ -1,5 +1,6 @@
-import React, { ComponentPropsWithoutRef, FC } from 'react'
 import { AspectImage, ProgressiveImage, YoutubeIframe } from '@vtex/store-ui'
+import React from 'react'
+import type { ComponentPropsWithoutRef, FC } from 'react'
 
 export type Item =
   | {

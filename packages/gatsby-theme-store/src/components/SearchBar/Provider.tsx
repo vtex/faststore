@@ -1,8 +1,9 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { debounce } from '@vtex/store-ui'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import type { FC } from 'react'
 
-import { SearchBarContext } from './hooks'
 import { search } from '../../sdk/search/controller'
+import { SearchBarContext } from './hooks'
 
 interface Props {
   debounceInterval?: number

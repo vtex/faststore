@@ -1,7 +1,7 @@
-import type { FC } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Box, Center } from '@vtex/store-ui'
 import React from 'react'
+import type { FC } from 'react'
 
 import { SearchSuggestionsListContainer } from '../base/Container'
 import { toRequiredItem } from '../base/hooks'

@@ -1,19 +1,19 @@
 import { join } from 'path'
 
-import { JSONSchema6 } from 'json-schema'
 import {
   ensureDir,
   outputFileSync,
+  outputJSON,
   pathExists,
   readJSONSync,
-  outputJSON,
 } from 'fs-extra'
-import { CreatePagesArgs } from 'gatsby'
 import globby from 'globby'
+import type { JSONSchema6 } from 'json-schema'
+import type { CreatePagesArgs } from 'gatsby'
 
 import { ContentDOM } from './builder/compiler'
 import { getMeta, isContent } from './common'
-import { ContentTypes, Schemas } from './index'
+import type { ContentTypes, Schemas } from './index'
 
 interface CMSContentType {
   previewUrl: string

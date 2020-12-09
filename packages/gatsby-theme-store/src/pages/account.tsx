@@ -1,7 +1,8 @@
 import { localizedPath, useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Center, Spinner } from '@vtex/store-ui'
 import { navigate } from 'gatsby'
-import React, { FC, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import type { FC } from 'react'
 
 import Container from '../components/Container'
 import ErrorBoundary from '../components/Error/ErrorBoundary'

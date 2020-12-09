@@ -1,8 +1,8 @@
 import { navigate } from '@reach/router'
-import { SearchFilterItem } from '@vtex/store-ui'
+import type { SearchFilterItem } from '@vtex/store-ui'
 
 import { uniqBy } from '../../utils/uniq'
-import { SearchFilters } from './Provider'
+import type { SearchFilters } from './Provider'
 
 const HISTORY_KEY = 'vtex-search-history'
 const MAX_ITEMS = 10

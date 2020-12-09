@@ -1,10 +1,11 @@
-import React, { FC } from 'react'
-import { SearchControls, SearchControlsTotalCount } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { SearchControls, SearchControlsTotalCount } from '@vtex/store-ui'
+import React from 'react'
+import type { FC } from 'react'
 
-import SearchControlsSelect from './SortSelect'
-import { SearchPageQueryQuery } from '../../../templates/__generated__/SearchPageQuery.graphql'
 import { SearchControlsFiltersButton } from './FiltersButton'
+import SearchControlsSelect from './SortSelect'
+import type { SearchPageQueryQuery } from '../../../templates/__generated__/SearchPageQuery.graphql'
 
 interface Props {
   data: SearchPageQueryQuery

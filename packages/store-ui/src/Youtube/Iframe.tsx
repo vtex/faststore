@@ -1,5 +1,6 @@
-import React, { FC, HTMLProps } from 'react'
+import React from 'react'
 import { AspectRatio, Box } from 'theme-ui'
+import type { FC, HTMLProps } from 'react'
 
 import { useYoutubeEmbeddedSrc } from './hooks'
 

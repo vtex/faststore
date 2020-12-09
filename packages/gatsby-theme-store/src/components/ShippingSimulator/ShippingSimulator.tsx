@@ -1,10 +1,11 @@
-import React, { FC, FormEvent } from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Button, Box, Text } from '@vtex/store-ui'
+import { Box, Button, Text } from '@vtex/store-ui'
+import React from 'react'
+import type { FC, FormEvent } from 'react'
 
+import PostalCodeInput from './PostalCodeInput'
 import Preview from './Preview'
 import ShippingTable from './ShippingTable'
-import PostalCodeInput from './PostalCodeInput'
 
 type Props = {
   variant: string

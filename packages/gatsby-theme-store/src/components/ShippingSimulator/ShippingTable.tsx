@@ -1,10 +1,11 @@
-import React, { FC, useMemo } from 'react'
-import { Box } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { Box } from '@vtex/store-ui'
+import React, { useMemo } from 'react'
+import type { FC } from 'react'
 
 import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
-import { ShippingQueryQuery } from './hooks/__generated__/ShippingQuery.graphql'
 import { TranslateEstimate } from './TranslateEstimate'
+import type { ShippingQueryQuery } from './hooks/__generated__/ShippingQuery.graphql'
 
 type ShippingOptionProps = {
   id: string

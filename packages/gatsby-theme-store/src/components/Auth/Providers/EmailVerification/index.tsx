@@ -1,13 +1,14 @@
-import React, { FC, useReducer } from 'react'
+import React, { useReducer } from 'react'
+import type { FC } from 'react'
 
 import { sendAccessKey, validateAccessKey } from '../../../../sdk/auth/Service'
 import { useOnLoginSuccessful } from '../../../../sdk/auth/useOnLoginSuccessful'
 import { useStartLogin } from '../../../../sdk/auth/useStartLogin'
 import { isValidAccessCode, isValidEmail } from '../../../../sdk/auth/validate'
-import { AuthProviderComponentProps } from '../types'
 import AccessCodeForm from './AccessCodeForm'
 import EmailForm from './EmailForm'
 import { reducer } from './state'
+import type { AuthProviderComponentProps } from '../types'
 
 const EmailVerification: FC<AuthProviderComponentProps> = ({
   variant: v,

@@ -1,6 +1,6 @@
-import { SourceNodesArgs } from 'gatsby'
+import type { SourceNodesArgs } from 'gatsby'
 
-import { Category, Channel } from './types'
+import type { Category, Channel } from './types'
 
 export const createChannelNode = (
   {

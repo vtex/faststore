@@ -1,10 +1,14 @@
-import { FunctionComponent, lazy } from 'react'
+import { lazy } from 'react'
+import type { FunctionComponent } from 'react'
 
 import EmailAndPasswordButton from './EmailAndPassword/Button'
 import EmailVerificationButton from './EmailVerification/Button'
 import FacebookOAuthButton from './Facebook/Button'
 import GoogleOAuthButton from './Google/Button'
-import { AuthProviderButtonProps, AuthProviderComponentProps } from './types'
+import type {
+  AuthProviderButtonProps,
+  AuthProviderComponentProps,
+} from './types'
 
 const EmailAndPassword = lazy(() => import('./EmailAndPassword'))
 

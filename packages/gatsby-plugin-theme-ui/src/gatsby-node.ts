@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-import { CreateBabelConfigArgs, CreateWebpackConfigArgs } from 'gatsby'
+import type { CreateBabelConfigArgs, CreateWebpackConfigArgs } from 'gatsby'
 
 const root = process.cwd()
 const name = '@vtex/gatsby-plugin-theme-ui'

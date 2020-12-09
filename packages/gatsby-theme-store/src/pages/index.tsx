@@ -1,5 +1,6 @@
-import { PageProps } from 'gatsby'
-import React, { FC, lazy } from 'react'
+import React, { lazy } from 'react'
+import type { PageProps } from 'gatsby'
+import type { FC } from 'react'
 
 import ErrorBoundary from '../components/Error/ErrorBoundary'
 import ErrorHandler from '../components/Error/ErrorHandler'

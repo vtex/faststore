@@ -1,6 +1,8 @@
-import useSWR, { ConfigInterface } from 'swr'
+import useSWR from 'swr'
+import type { ConfigInterface } from 'swr'
 
-import { request, RequestOptions } from './request'
+import { request } from './request'
+import type { RequestOptions } from './request'
 
 type QueryOptions = ConfigInterface & RequestOptions
 
@@ -8,10 +10,7 @@ type QueryOptions = ConfigInterface & RequestOptions
 const getKey = (options: QueryOptions) =>
   `${options.sha256Hash}::${JSON.stringify(options.variables)}`
 
-export const useLazyQuery = <
-  Query extends any = any,
-  Variables extends any = any
->(
+export const useLazyQuery = <Query = any, Variables = any>(
   options: QueryOptions
 ) => {
   const response = useSWR<Query | null, any[]>(getKey(options), () => null, {

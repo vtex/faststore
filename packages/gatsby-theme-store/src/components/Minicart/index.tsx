@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@vtex/store-ui'
-import { FC, Fragment, lazy, Suspense } from 'react'
+import { Fragment, lazy, Suspense } from 'react'
+import type { FC } from 'react'
 
 import { useMinicart } from '../../sdk/minicart/useMinicart'
 import { useIdleEffect } from '../../sdk/useIdleEffect'
