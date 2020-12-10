@@ -33,6 +33,11 @@ The main points of JAMStack are performance and stability. This is very well ali
 
 Gatsby has a very mature plugin system where the `No Fork` philosofy can be implemented via Gatsby Themes and Shadowing. Also, Gatsby is very aligned with performnance by implementing the PRPL architecture
 
+## Continous Performance and Stability
+Maintaining the FastStore performance and stability is a key element. For this, using Lighthouse CI and Cypress in your CI/CD pipeline is recommended. 
+
+We provide base setup for both platforms so you can easily add then to you CI/CD platform
+
 ## Docs
 We are still missing many docs and guides, however some of them are available at the `docs` folder. Available docs are:
 
@@ -64,3 +69,8 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 | @vtex/lighthouse-config      | [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)
 | @vtex/store-ui               | [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-ui.svg)](https://badge.fury.io/js/%40vtex%2Fstore-ui)
 
+
+## Who's using FastStore ?
+These are the clients running in production with FastStore
+
+- [Marin Brasil](https://www.marinbrasil.com.br/)
