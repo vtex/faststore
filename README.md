@@ -1,7 +1,7 @@
 # FastStore 
-## An open e-commerce framework
+## An open ecommerce framework
 
-FastStore is an open e-commerce framework built using modern technologies that aims to deliver the building blocks necessary for creating your custom e-commerce experience. With these building blocks you can achieve:
+FastStore is an open ecommerce framework built using modern technologies that aims to deliver the building blocks necessary for creating your custom ecommerce experience. With these building blocks you can archieve:
 
 - Multiregion stores with native internationalization support
 - Great Performance (90+ on Google's page speed insights)
@@ -13,11 +13,11 @@ FastStore is an open e-commerce framework built using modern technologies that a
 - Evergreen stores with our no-fork based approach
 
 ## Why building FastStore ?
-The web is a wild and noisy environment. Many projects claims to solve many different aspects of web development but none of them solves the ecommerce problem satisfactory. Ecommerce is a very complex case where performance is a must, but personalization is the key. 
+The web is a wild and noisy environment. Many projects clains to solve many different aspects of web development but none of them solves the ecommerce problem satisfactory. Ecommerce is a very complex case where performance is a must, but personalization is the key. 
 
 After years of developing ecommerces, FastStore creators packaged all of this knowledge into easy, ready to use building blocks for crafting production ready, multi-region marketplaces.
 
-FastStore not only contains code, but knowledge and guidelines for changing you way of thinking and building ecommerces
+FastStore not only contains code, but knowledge and guidelines to change the way you think and build ecommerces
 
 ## Project philosophy
 This project has a very well defined list of priorities. When solving an issue, a lower ranking priority must not degrade or override an upper ranking priority.

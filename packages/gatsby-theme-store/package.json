@@ -1,7 +1,7 @@
 {
   "name": "@vtex/gatsby-theme-store",
   "version": "0.212.0",
-  "description": "Gatsby theme for building e-commerce websites",
+  "description": "Gatsby theme for building ecommerce websites",
   "main": "index.js",
   "browser": "src/index.ts",
   "sideEffects": false,
