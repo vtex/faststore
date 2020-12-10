@@ -12,8 +12,8 @@ FastStore is an open ecommerce framework built using modern technologies that ai
 - Intelligence via Google Analytics and GTM
 - Evergreen stores with our no-fork based approach
 
-## Why building FastStore ?
-The web is a wild and noisy environment. Many projects clains to solve many different aspects of web development but none of them solves the ecommerce problem satisfactory. Ecommerce is a very complex case where performance is a must, but personalization is the key. 
+## Why building FastStore?
+The web is a wild and noisy environment. Many projects claims to solve many different aspects of web development but none of them solves the ecommerce problem satisfactory. Ecommerce is a very complex case where performance is a must, but personalization is the key. 
 
 After years of developing ecommerces, FastStore creators packaged all of this knowledge into easy, ready to use building blocks for crafting production ready, multi-region marketplaces.
 
