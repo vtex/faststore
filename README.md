@@ -28,7 +28,7 @@ The priorities are:
 3. No fork - Features should be delivered by dependencies and not by a store fork
 4. Feature completion
 
-## Why Jamstack and Gatsby ?
+## Why Jamstack and Gatsby?
 The main points of Jamstack are performance and stability. This is very well aligned to our core philosophy. 
 
 Gatsby has a very mature plugin system where the `No Fork` philosophy can be implemented via Gatsby Themes and Shadowing. Also, Gatsby is very aligned with performance by implementing the PRPL architecture.
