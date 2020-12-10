@@ -34,7 +34,7 @@ The main points of Jamstack are performance and stability. This is very well ali
 Gatsby has a very mature plugin system where the `No Fork` philosophy can be implemented via Gatsby Themes and Shadowing. Also, Gatsby is very aligned with performance by implementing the PRPL architecture.
 
 ## Continuous Performance and Stability
-Maintaining the FastStore performance and stability is a key element. For this, using Lighthouse CI and Cypress in your CI/CD pipeline is recommended. 
+Maintaining the FastStore performance and stability is a key element. For this, using Lighthouse CI and Cypress in your CI/CD pipeline is **highly** recommended. 
 
 We provide a base setup for both platforms so you can easily add them to your CI/CD platform.
 
