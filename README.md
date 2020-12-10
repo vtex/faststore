@@ -45,7 +45,7 @@ We are still missing many docs and guides, however some of them are available in
 - **Component**: learn how to develop a reusable component
 
 ## Contributing
-This is still a work in progress, however, if you are also a wild person, you can read the code and have some fun!
+This is still a work in progress, however, if you are also an adventurous person, you can read the code and have some fun!
 
 ### How to develop
 `graphql-js` package is cumbersome when using `yarn link` because it requires only one instance of the package and there are two.
