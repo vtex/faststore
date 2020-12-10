@@ -20,8 +20,8 @@ After years of developing ecommerces, FastStore creators packaged all of this kn
 FastStore not only contains code, but knowledge and guidelines to change the way you think and build ecommerces
 
 ## Project philosophy
-This project has a very well defined list of priorities. When solving an issue, a lower ranking priority must not degrade or override an upper ranking priority.
-The priorities are:
+This project has a very well defined list of priorities. When solving an issue, a lower-ranking priority must not degrade or override an upper ranking priority.
+The priorities are all about the stores' user experience and retailer satisfaction about it. For us that means:
 
 1. Performance
 2. Stability - e2e tests are complete and make sure the critical paths are covered
