@@ -29,9 +29,9 @@ The priorities are all about the stores' user experience and retailer satisfacti
 4. Feature completion - Enable you to craft your custom ecommerce experience
 
 ## Why Jamstack and Gatsby?
-The main points of Jamstack are performance and stability. This is very well aligned to our core philosophy. 
+Jamstack focuses on performance and stability, which is part of our core philosophy.
 
-Gatsby has a very mature plugin system where the `No Fork` philosophy can be implemented via Gatsby Themes and Shadowing. Also, Gatsby is very aligned with performance by implementing the PRPL architecture.
+Gatsby has a philosophy where customization can shadow the default theme implementation. This means we are able to deliver new performance improvements and bug fixes only by upgrading a dependency in your project. Also, Gatsby is very aligned with our performance concerns by implementing the PRPL architecture.
 
 ## Continuous Performance and Stability
 Maintaining the FastStore performance and stability is a key element. For this, using Lighthouse CI and Cypress in your CI/CD pipeline is **highly** recommended. 
