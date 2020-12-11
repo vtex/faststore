@@ -65,9 +65,9 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 | @vtex/gatsby-plugin-i18n     | Allows internationalization on Stores | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n)
 | @vtex/gatsby-plugin-nginx    | Exports a Nginx configuration base on the Store's routes | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx)
 | @vtex/gatsby-plugin-theme-ui | Allows style theming on the Store | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui)
-| @vtex/gatsby-source-vtex     | Queries and exports ecommerce information using VTEX APIs | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex)
-| @vtex/gatsby-theme-store     | Creates the base infrastructure for the Store project | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store)
-| @vtex/lighthouse-config      | Exports a Lighthouse CI configuration to perform tests on each Pull Request | [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)
+| @vtex/gatsby-source-vtex     | Fetchs and exports ecommerce information from VTEX APIs | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex)
+| @vtex/gatsby-theme-store     | Creates the base infrastructure for the Store site | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store)
+| @vtex/lighthouse-config      | Exports a Lighthouse CI configuration to allow automatic tests on each Pull Request | [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)
 | @vtex/store-ui               | Exports basic Store components  | [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-ui.svg)](https://badge.fury.io/js/%40vtex%2Fstore-ui)
 
 
