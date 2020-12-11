@@ -1,34 +1,30 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 import PQueue from 'p-queue'
 
-import { storage } from '../storage'
-import type { OrderFormFragment_OrderFormFragment } from './__generated__/OrderFormFragment_orderForm.graphql'
+const ORDER_FORM_STORAGE_KEY = 'vtex:orderFormId'
 
-// Queue to make changes to the orderForm
-export const queue = new PQueue({
-  concurrency: 1,
-})
+// Queue to make changes to the orderForm.
+// There should be only one single instance of this queue in the whole app
+const singletonQueue = () => {
+  const pqueue = new PQueue({
+    concurrency: 1,
+  })
 
-// This queue will be unpaused once we have an orderForm
-queue.pause()
+  // This queue will be unpaused once we have an orderForm
+  pqueue.pause()
 
-export type CB = (of: OrderFormFragment_OrderFormFragment) => void
-
-export const setOrderFormState = (
-  orderForm: OrderFormFragment_OrderFormFragment,
-  cb: CB
-) => {
-  cb(orderForm)
-  storage.set(orderForm)
+  return () => pqueue
 }
 
-export const startOrderForm = async (
-  orderForm: OrderFormFragment_OrderFormFragment,
-  cb: CB
-) => {
-  setOrderFormState(orderForm, cb)
-  queue.start()
-}
+export const queue = singletonQueue()
+
+export const getOrderformId = () => localStorage.getItem(ORDER_FORM_STORAGE_KEY)
+
+export const setOrderFormId = (ofId: string) =>
+  localStorage.setItem(ORDER_FORM_STORAGE_KEY, ofId)
+
+export const clearOrderFormId = () =>
+  localStorage.removeItem(ORDER_FORM_STORAGE_KEY)
 
 export const fragment = gql`
   fragment OrderFormFragment_orderForm on VTEX_OrderForm {
