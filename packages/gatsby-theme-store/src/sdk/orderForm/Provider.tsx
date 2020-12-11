@@ -30,17 +30,18 @@ export const OrderFormProvider: FC = ({ children }) => {
   useEffect(() => {
     let cancel = false
 
-    ;(async () => {
+    const cbId = window.requestIdleCallback(async () => {
       const ctl = await controller()
       const of = await ctl.getOrderForm()
 
       if (!cancel) {
         setOrderForm(of)
       }
-    })()
+    })
 
     return () => {
       cancel = true
+      window.cancelIdleCallback(cbId)
     }
   }, [])
 
