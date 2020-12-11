@@ -50,7 +50,7 @@ This is still a work in progress, however, if you are also an adventurous person
 ### How to develop
 `graphql-js` package is cumbersome when using `yarn link` because it requires only one instance of the package and there are two.
 
-To solve this problem you can deduplicate the instances by going into this project's `node_modules` and changing the file `node_modules/graphql/index.js` to
+To solve this problem you can deduplicate the instances by going into this project's `node_modules` and changing the file `node_modules/graphql/index.js` to:
 
 ```js
 module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.js>')
@@ -58,16 +58,17 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 
 ## Packages
 
-| Package                      | Version  |
-|:----------------------------:|:--------:|
-| @vtex/gatsby-plugin-cms      | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms)
-| @vtex/gatsby-plugin-graphql  | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql)
-| @vtex/gatsby-plugin-i18n     | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n)
-| @vtex/gatsby-plugin-nginx    | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx)
-| @vtex/gatsby-plugin-theme-ui | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui)
-| @vtex/gatsby-source-vtex     | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex)
-| @vtex/lighthouse-config      | [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)
-| @vtex/store-ui               | [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-ui.svg)](https://badge.fury.io/js/%40vtex%2Fstore-ui)
+| Package                      | Description | Version  |
+|:----------------------------|:--------| :-:|
+| @vtex/gatsby-plugin-cms      | Connects the Store to our CMS solution | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms)
+| @vtex/gatsby-plugin-graphql  | Builds and preprocess the store's GraphQL queries | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql)
+| @vtex/gatsby-plugin-i18n     | Allows internationalization on Stores | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n)
+| @vtex/gatsby-plugin-nginx    | Exports a Nginx configuration base on the Store's routes | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx)
+| @vtex/gatsby-plugin-theme-ui | Allows style theming on the Store | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui)
+| @vtex/gatsby-source-vtex     | Fetchs and exports ecommerce information from VTEX APIs | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex)
+| @vtex/gatsby-theme-store     | Creates the base infrastructure for the Store site | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store)
+| @vtex/lighthouse-config      | Exports a Lighthouse CI configuration to allow automatic tests on each Pull Request | [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)
+| @vtex/store-ui               | Exports basic Store components  | [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-ui.svg)](https://badge.fury.io/js/%40vtex%2Fstore-ui)
 
 
 ## Who's using FastStore?
