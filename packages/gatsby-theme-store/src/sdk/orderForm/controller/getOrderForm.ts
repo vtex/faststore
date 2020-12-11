@@ -22,7 +22,7 @@ export const getOrderForm = async () => {
       ...GetOrderFormQuery,
       variables: { orderFormId },
       fetchOptions: {
-        method: 'POST', // Use POST to prevent caching in any manner
+        method: 'POST', // Use POST to prevent caching
       },
     })
 
