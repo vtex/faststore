@@ -23,10 +23,10 @@ FastStore not only contains code, but knowledge and guidelines to change the way
 This project has a very well defined list of priorities. When solving an issue, a lower-ranking priority must not degrade or override an upper ranking priority.
 The priorities are all about the stores' user experience and retailer satisfaction about it. For us that means:
 
-1. Performance
-2. Stability - e2e tests are complete and make sure the critical paths are covered
+1. Performance - Great score on Lighthouse and Core Web Vitals
+2. Stability - E2E tests are complete and make sure the critical paths are covered
 3. No fork - Features should be delivered by dependencies and not by a store fork
-4. Feature completion
+4. Feature completion - Enable you to craft your custom ecommerce experience
 
 ## Why Jamstack and Gatsby?
 The main points of Jamstack are performance and stability. This is very well aligned to our core philosophy. 
