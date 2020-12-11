@@ -27,21 +27,27 @@ export const request = async <V = any, D = any>(
     fetchOptions,
   }: RequestOptions<V>
 ): Promise<GraphQLResponse<D>> => {
+  // Uses method from fetchOptions.
+  // If no one is passed, figure out with via heuristic
   const method =
-    isProduction && operationName.endsWith('Query') ? 'GET' : 'POST'
+    fetchOptions?.method !== undefined
+      ? fetchOptions.method
+      : isProduction && operationName.endsWith('Query')
+      ? 'GET'
+      : 'POST'
 
-  const extensions = isProduction
-    ? {
-        persistedQuery: {
-          sha256Hash,
-        },
-      }
-    : undefined
+  const extensions = {
+    persistedQuery: {
+      sha256Hash,
+    },
+  }
 
   const params = new URLSearchParams({
     operationName,
-    extensions: extensions && JSON.stringify(extensions),
-    variables: method === 'GET' ? JSON.stringify(variables) : undefined,
+    extensions:
+      method === 'GET' && isProduction ? JSON.stringify(extensions) : undefined,
+    variables:
+      method === 'GET' && isProduction ? JSON.stringify(variables) : undefined,
   } as any)
 
   const url = `${endpoint}?${params.toString()}`
@@ -50,9 +56,9 @@ export const request = async <V = any, D = any>(
     method === 'POST'
       ? JSON.stringify({
           operationName,
-          extensions,
+          extensions: isProduction ? extensions : undefined,
           variables,
-          query,
+          query: isProduction ? undefined : query,
         })
       : undefined
 
