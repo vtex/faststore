@@ -1,7 +1,7 @@
 {
   "name": "openstore",
   "version": "1.0.0",
-  "description": "Plugins and libraries for building a lightning fast e-commerce in JAMStack",
+  "description": "Plugins and libraries for building a lightning fast ecommerce in JAMStack",
   "main": "index.js",
   "repository": "git@github.com:vtex/faststore.git",
   "license": "MIT",
