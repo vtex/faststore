@@ -39,7 +39,7 @@ Maintaining the FastStore performance and stability is a key element. For this, 
 We provide a base setup for both platforms so you can easily add them to your CI/CD platform.
 
 ## Docs
-We are still missing many docs and guides, however some of them are available in the `docs` folder. Available docs are:
+FastStore docs are under development. For now, the available docs are:
 
 - **Architecture**: learn more about this project's architecture
 - **Component**: learn how to develop a reusable component
