@@ -21,6 +21,9 @@ export const getOrderForm = async () => {
     } = await request<GetOrderFormQueryQuery, GetOrderFormQueryQueryVariables>({
       ...GetOrderFormQuery,
       variables: { orderFormId },
+      fetchOptions: {
+        method: 'POST', // Use POST to prevent caching in any manner
+      },
     })
 
     setOrderFormId(orderForm.id)
