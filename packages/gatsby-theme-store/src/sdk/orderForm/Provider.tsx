@@ -5,24 +5,24 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import type { FC } from 'react'
 
-import { storage } from './storage'
 import type { OrderFormFragment_OrderFormFragment } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 import type { OrderFormItem } from './types'
 
-const controler = () => import('./controller')
+const controller = () => import('./controller')
 
 export type OrderFormContext = {
   value: OrderFormFragment_OrderFormFragment | null
-  addToCart: (
-    items: OrderFormItem[]
-  ) => Promise<OrderFormFragment_OrderFormFragment>
-  updateItems: (items: OrderFormItem[], cb: any) => Promise<void>
+  addToCart: (items: OrderFormItem[]) => Promise<void>
+  updateItems: (items: OrderFormItem[]) => Promise<void>
 }
 
 export const OrderForm = createContext<OrderFormContext>(undefined as any)
 
 export const OrderFormProvider: FC = ({ children }) => {
-  const [orderForm, setOrderForm] = useState(() => storage.get())
+  const [
+    orderForm,
+    setOrderForm,
+  ] = useState<OrderFormFragment_OrderFormFragment | null>(null)
 
   const id = orderForm?.id
 
@@ -30,44 +30,40 @@ export const OrderFormProvider: FC = ({ children }) => {
   useEffect(() => {
     let cancel = false
 
-    const callbackId = window.requestIdleCallback(() => {
-      controler().then(({ getOrderForm }) =>
-        getOrderForm(id, (of) => {
-          if (!cancel) {
-            setOrderForm(of)
-          }
-        })
-      )
-    })
+    ;(async () => {
+      const ctl = await controller()
+      const of = await ctl.getOrderForm()
+
+      if (!cancel) {
+        setOrderForm(of)
+      }
+    })()
 
     return () => {
       cancel = true
-      window.cancelIdleCallback(callbackId)
     }
-  }, [id])
+  }, [])
 
   // Add item to cart using the queue
   const addToCart = useCallback(
     async (items) => {
-      const ctl = await controler()
+      const ctl = await controller()
+      const of = await ctl.addToCart(id!, items)
 
-      return ctl.addToCart(id!, items, setOrderForm)
+      setOrderForm(of)
     },
     [id]
   )
 
   const updateItems = useCallback(
-    async (items, cb = () => null) => {
-      const ctl = await controler()
-
-      ctl.updateItems({
+    async (items) => {
+      const ctl = await controller()
+      const of = await ctl.updateItems({
         orderFormId: id!,
         items,
-        callback: (of) => {
-          cb(of)
-          setOrderForm(of)
-        },
       })
+
+      setOrderForm(of)
     },
     [id]
   )
