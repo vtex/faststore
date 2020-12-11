@@ -58,16 +58,17 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 
 ## Packages
 
-| Package                      | Version  |
-|:----------------------------:|:--------:|
-| @vtex/gatsby-plugin-cms      | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms)
-| @vtex/gatsby-plugin-graphql  | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql)
-| @vtex/gatsby-plugin-i18n     | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n)
-| @vtex/gatsby-plugin-nginx    | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx)
-| @vtex/gatsby-plugin-theme-ui | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui)
-| @vtex/gatsby-source-vtex     | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex)
-| @vtex/lighthouse-config      | [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)
-| @vtex/store-ui               | [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-ui.svg)](https://badge.fury.io/js/%40vtex%2Fstore-ui)
+| Package                      | Description | Version  |
+|:----------------------------|:--------| :-:|
+| @vtex/gatsby-plugin-cms      | Connects the Store to our CMS solution | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms)
+| @vtex/gatsby-plugin-graphql  | Builds and preprocess the store's GraphQL queries | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql)
+| @vtex/gatsby-plugin-i18n     | Allows internationalization on Stores | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n)
+| @vtex/gatsby-plugin-nginx    | Exports a Nginx configuration base on the Store's routes | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx)
+| @vtex/gatsby-plugin-theme-ui | Allows style theming on the Store | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui)
+| @vtex/gatsby-source-vtex     | Queries and exports ecommerce information using VTEX APIs | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex)
+| @vtex/gatsby-theme-store     | Creates the base infrastructure for the Store project | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store)
+| @vtex/lighthouse-config      | Exports a Lighthouse CI configuration to perform tests on each Pull Request | [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)
+| @vtex/store-ui               | Exports basic Store components  | [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-ui.svg)](https://badge.fury.io/js/%40vtex%2Fstore-ui)
 
 
 ## Who's using FastStore?
