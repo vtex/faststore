@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-store",
-  "version": "0.213.0-alpha.0",
+  "version": "0.213.0-alpha.1",
   "description": "Gatsby theme for building e-commerce websites",
   "main": "index.js",
   "browser": "src/index.ts",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
-    "@vtex/gatsby-plugin-graphql": "^0.212.0",
+    "@vtex/gatsby-plugin-graphql": "^0.213.0-alpha.1",
     "@vtex/gatsby-plugin-i18n": "^0.212.0",
     "@vtex/gatsby-plugin-theme-ui": "^0.212.0",
     "@vtex/store-ui": "^0.212.0",
