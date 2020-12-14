@@ -2,22 +2,41 @@ import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { request } from '../../graphql/request'
 import { GetOrderFormQuery } from './__generated__/GetOrderFormQuery.graphql'
-import { startOrderForm } from './orderForm'
+import {
+  clearOrderFormId,
+  getOrderformId,
+  queue,
+  setOrderFormId,
+} from './orderForm'
 import type {
   GetOrderFormQueryQuery,
   GetOrderFormQueryQueryVariables,
 } from './__generated__/GetOrderFormQuery.graphql'
-import type { CB } from './orderForm'
 
-export const getOrderForm = async (orderFormId: string | undefined, cb: CB) => {
-  const {
-    vtex: { orderForm },
-  } = await request<GetOrderFormQueryQuery, GetOrderFormQueryQueryVariables>({
-    ...GetOrderFormQuery,
-    variables: { orderFormId },
-  })
+export const getOrderForm = async () => {
+  try {
+    const orderFormId = getOrderformId()
+    const {
+      vtex: { orderForm },
+    } = await request<GetOrderFormQueryQuery, GetOrderFormQueryQueryVariables>({
+      ...GetOrderFormQuery,
+      variables: { orderFormId },
+      fetchOptions: {
+        method: 'POST', // Use POST to prevent caching
+      },
+    })
 
-  startOrderForm(orderForm, cb)
+    setOrderFormId(orderForm.id)
+    queue().start()
+
+    return orderForm
+  } catch (err) {
+    // If anything goes wrong on this step,
+    // let's try to self heal by removing any cached orderForm
+    clearOrderFormId()
+
+    throw err
+  }
 }
 
 export const query = gql`
