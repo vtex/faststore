@@ -1,5 +1,6 @@
 import { join } from 'path'
 
+import pMap from 'p-map'
 import {
   ensureDir,
   outputFileSync,
@@ -9,7 +10,12 @@ import {
 } from 'fs-extra'
 import globby from 'globby'
 import type { JSONSchema6 } from 'json-schema'
-import type { CreatePagesArgs } from 'gatsby'
+import type {
+  CreatePagesArgs,
+  PluginOptionsSchemaArgs,
+  SourceNodesArgs,
+} from 'gatsby'
+import fetch from 'isomorphic-unfetch'
 
 import { ContentDOM } from './builder/compiler'
 import { getMeta, isContent } from './common'
@@ -36,6 +42,198 @@ const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
 const BLOCKS_ROOT_PATH = join(root, 'src/@vtex/gatsby-plugin-cms/contents')
 const GENERATED_ROOT_PATH = join(BLOCKS_ROOT_PATH, '/__generated__')
 const PREVIEW_PATH = '/cms/preview'
+
+interface Options {
+  tenant: string
+  accessToken: string
+}
+
+export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
+  Joi.object({
+    tenant: Joi.string().required(),
+    accessToken: Joi.string().required(),
+  })
+
+export const sourceNodes = async (
+  {
+    reporter,
+    actions: { createNode },
+    createContentDigest,
+    createNodeId,
+  }: SourceNodesArgs,
+  { tenant, accessToken }: Options
+) => {
+  const url = `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/master/_v/graphql`
+
+  const fetcher = async (query: string, variables: any) => {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        cookie: `VtexIdclientAutCookie=${accessToken}`,
+      },
+      body: JSON.stringify({
+        query,
+        variables,
+      }),
+    })
+
+    if (response.status > 300 || response.status < 100) {
+      const text = await response.text()
+
+      reporter.panicOnBuild(text)
+
+      return
+    }
+
+    const { data, errors } = await response.json()
+
+    if (Array.isArray(errors) && errors.length > 0) {
+      reporter.panicOnBuild(JSON.stringify(errors, null, 2))
+
+      return
+    }
+
+    return data
+  }
+
+  const fetchTotal = async (first: number, offset: number) =>
+    fetcher(
+      `query GetTotalContent ($first: Int!, $offset: Int!) {
+        contentList(filters: {first: $first, offset: $offset, builderId: "faststore", statuses: [draft, live]}) {
+          total
+        }
+      }`,
+      {
+        first,
+        offset,
+      }
+    )
+
+  const fetchList = async (first: number, offset: number) =>
+    fetcher(
+      `query ListContent ($first: Int!, $offset: Int!) {
+        contentList(filters: {first: $first, offset: $offset, builderId: "faststore", statuses: [draft, live]}) {
+          entries {
+            id
+          }
+        }
+      }`,
+      {
+        first,
+        offset,
+      }
+    )
+
+  const fechContentById = async (id: string) =>
+    fetcher(
+      `query GetContentById ($id: ID!) {
+        content(id: $id, builderId: "faststore", contentTypeName: "pocPage") {
+          variants {
+            status
+            id
+            extraBlocks {
+              name
+              blocks {
+                name
+                props
+              }
+            }
+            blocks {
+              id
+              name
+              props
+            }
+          }
+        }
+      }`,
+      {
+        id,
+      }
+    )
+
+  // List all content ids
+
+  const pageSize = 30
+  const {
+    contentList: { total },
+  } = await fetchTotal(1, 0)
+
+  const pages = new Array(Math.ceil(total / pageSize))
+
+  let progress = reporter.createProgress(
+    'List VTEX CMS content',
+    pages.length,
+    0
+  )
+
+  progress.start()
+
+  const entries = await pMap(
+    pages,
+    async (_, page) => {
+      const {
+        contentList: { entries: es },
+      } = await fetchList(pageSize, page * pageSize)
+
+      progress.tick()
+
+      return es
+    },
+    { concurrency: 1 }
+  ).then((e) => e.flat())
+
+  progress.done()
+
+  // Fetch all content
+
+  progress = reporter.createProgress(
+    'Fetch VTEX CMS content',
+    entries.length,
+    0
+  )
+
+  progress.start()
+
+  const contents = await pMap(
+    entries,
+    async ({ id }) => {
+      const {
+        content: { variants },
+      } = await fechContentById(id)
+
+      progress.tick()
+
+      return variants
+    },
+    {
+      concurrency: 20,
+    }
+  ).then((c) => c.flat())
+
+  progress.done()
+
+  const NODE_TYPE = 'VTEX_CMS'
+
+  for (const content of contents) {
+    const { id, extraBlocks } = content
+
+    const data = {
+      slug: extraBlocks[0].blocks[0].props.slug,
+      ...content,
+    }
+
+    createNode({
+      ...data,
+      id: createNodeId(`${NODE_TYPE}-${id}`),
+      internal: {
+        type: NODE_TYPE,
+        content: JSON.stringify(data),
+        contentDigest: createContentDigest(data),
+      },
+    })
+  }
+}
 
 const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
   const { data, errors } = await graphql(`
@@ -115,17 +313,17 @@ const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
       })),
     }))
 
-    acc.push({
+    acc[key] = {
       ...ct,
       previewUrl: join(siteUrl, PREVIEW_PATH),
       blocks,
       beforeBlocks,
       afterBlocks,
       extraBlocks,
-    })
+    }
 
     return acc
-  }, [] as CMSContentType[])
+  }, {} as Record<string, CMSContentType>)
 
   await outputJSON(CONTENT_TYPES_PATH, contentTypesCMS)
 }
