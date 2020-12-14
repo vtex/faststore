@@ -9185,20 +9185,20 @@ eslint-config-react-app@^5.2.1:
   dependencies:
     confusing-browser-globals "^1.0.9"
 
-eslint-config-vtex-react@^6.9.1:
-  version "6.9.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.9.1.tgz#e28c250d93d796f9b6a1600b3bfb41231f41450d"
-  integrity sha512-tZCFrQZZq+kG1QrDLksy2zC5oJaW+QrIbRV5viLqmnm39ggFiGCAYmP+q8fv/NkjHC6zaipntDp3imvOl9AnFw==
+eslint-config-vtex-react@^6.9.2:
+  version "6.9.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.9.2.tgz#4b8e093ffbe0fbb952fe6cb578a3bc9bfc0c9947"
+  integrity sha512-y5Byaq+JvDvEb2cuHlmCu/+1x1kLzPjDrLkvp88qwtjK4W5g73LgvonKAvlYomBUu7Eev6Xw4Iuf4claTA4kCg==
   dependencies:
-    eslint-config-vtex "^12.9.1"
+    eslint-config-vtex "^12.9.2"
     eslint-plugin-jsx-a11y "^6.3.1"
     eslint-plugin-react "^7.20.6"
     eslint-plugin-react-hooks "^4.1.0"
 
-eslint-config-vtex@^12.9.0, eslint-config-vtex@^12.9.1:
-  version "12.9.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.9.1.tgz#5acb3b81d05ed4cce1e860e9e53b3b39a92adf32"
-  integrity sha512-+jktITXQikw44s7iKBXunyrys/zipJ3lZ3zh2wnqt2tA1LjtV8Xzs8jCZha0KffIHsMLEUe/EGjTgoXO9IkoZQ==
+eslint-config-vtex@^12.9.2:
+  version "12.9.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.9.2.tgz#c9ae18bb266d13b964d18d5e2ed9e4df8ee16a83"
+  integrity sha512-oEXizBXmwYfrANuOzaNsLDoL5YYkiRZnFjdUW+2npYHILhzWhKWEzejoKcEeGQQNTvHSHTGulH4megpWSafIRA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.8.1"
     "@typescript-eslint/parser" "^4.8.1"
@@ -9355,10 +9355,17 @@ eslint-plugin-jsx-a11y@^6.2.3, eslint-plugin-jsx-a11y@^6.3.1:
     jsx-ast-utils "^3.1.0"
     language-tags "^1.0.5"
 
-eslint-plugin-prettier@^3.1.0, eslint-plugin-prettier@^3.1.4:
+eslint-plugin-prettier@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.2.0.tgz#af391b2226fa0e15c96f36c733f6e9035dbd952c"
   integrity sha512-kOUSJnFjAUFKwVxuzy6sA5yyMx6+o9ino4gCdShzBNx4eyFRudWRYKCFolKjoM40PEiuU6Cn7wBLfq3WsGg7qg==
+  dependencies:
+    prettier-linter-helpers "^1.0.0"
+
+eslint-plugin-prettier@^3.1.4:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.3.0.tgz#61e295349a65688ffac0b7808ef0a8244bdd8d40"
+  integrity sha512-tMTwO8iUWlSRZIwS9k7/E4vrTsfvsrcM5p1eftyuqWH25nKsz/o6/54I7jwQ/3zobISyC7wMy9ZsFwgTxOcOpQ==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
@@ -12928,7 +12935,7 @@ isomorphic-form-data@2.0.0:
   dependencies:
     form-data "^2.3.2"
 
-isomorphic-unfetch@^3.0.0:
+isomorphic-unfetch@^3.0.0, isomorphic-unfetch@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/isomorphic-unfetch/-/isomorphic-unfetch-3.1.0.tgz#87341d5f4f7b63843d468438128cb087b7c3e98f"
   integrity sha512-geDJjpoZ8N0kWexiwkX8F9NkTsXhetLPVbZFQ+JTW239QNOwvB0gniuR1Wc6f0AMTn7/mFGyXvHTifrCp/GH8Q==
