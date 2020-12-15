@@ -10,6 +10,8 @@ import CarouselPage from './Page'
 
 interface Props {
   allItems: Item[]
+  width: string
+  height: string
   loading?: 'lazy' | 'eager'
   showArrows?: boolean
   showDots?: boolean
@@ -22,6 +24,8 @@ const Carousel: FC<Props> = ({
   loading = 'eager',
   showArrows = true,
   showDots = true,
+  width,
+  height,
   autoplay,
   variant = 'carousel',
 }) => {
@@ -51,7 +55,13 @@ const Carousel: FC<Props> = ({
             onClick={() => setPreviousPage()}
           />
         ) : null}
-        <CarouselPage variant={variant} item={item} loading={loading} />
+        <CarouselPage
+          variant={variant}
+          item={item}
+          width={width}
+          height={height}
+          loading={loading}
+        />
         {showArrows ? (
           <CarouselArrowRight variant={variant} onClick={() => setNextPage()} />
         ) : null}
