@@ -1,24 +1,16 @@
 import { join } from 'path'
 
+import ConfigStore from 'configstore'
+import { outputJSON, pathExists } from 'fs-extra'
+import fetch from 'isomorphic-unfetch'
 import pMap from 'p-map'
-import {
-  ensureDir,
-  outputFileSync,
-  outputJSON,
-  pathExists,
-  readJSONSync,
-} from 'fs-extra'
-import globby from 'globby'
 import type { JSONSchema6 } from 'json-schema'
 import type {
   CreatePagesArgs,
   PluginOptionsSchemaArgs,
   SourceNodesArgs,
 } from 'gatsby'
-import fetch from 'isomorphic-unfetch'
 
-import { ContentDOM } from './builder/compiler'
-import { getMeta, isContent } from './common'
 import type { ContentTypes, Schemas } from './index'
 
 interface CMSContentType {
@@ -45,14 +37,43 @@ const PREVIEW_PATH = '/cms/preview'
 
 interface Options {
   tenant: string
-  accessToken: string
+  appKey: string
+  appToken: string
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
     tenant: Joi.string().required(),
-    accessToken: Joi.string().required(),
+    appKey: Joi.string(),
+    appToken: Joi.string(),
   })
+
+const getAccessToken = async (appKey: string, appToken: string) => {
+  try {
+    if (!appKey || !appToken) {
+      const config = new ConfigStore('vtex')
+
+      return config.get('token')
+    }
+
+    const response = await fetch(
+      `https://vtexid.vtex.com.br/api/vtexid/pub/authenticate/default?user=${appKey}&pass=${appToken}`,
+      {
+        headers: {
+          accept: 'application/json',
+        },
+      }
+    )
+
+    const json = await response.json()
+
+    return json.authCookie.Value
+  } catch (err) {
+    console.error(err)
+
+    return ''
+  }
+}
 
 export const sourceNodes = async (
   {
@@ -61,22 +82,34 @@ export const sourceNodes = async (
     createContentDigest,
     createNodeId,
   }: SourceNodesArgs,
-  { tenant, accessToken }: Options
+  { tenant, appKey, appToken }: Options
 ) => {
-  const url = `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/gimenes/_v/graphql`
+  const accessToken = await getAccessToken(appKey, appToken)
+
+  if (!accessToken) {
+    reporter.panicOnBuild(
+      'No appKey/appToken or local config found. Please login with `vtex login` or add the appKey/appToken env vars'
+    )
+
+    return
+  }
 
   const fetcher = async (query: string, variables: any) => {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        cookie: `VtexIdclientAutCookie=${accessToken}`,
-      },
-      body: JSON.stringify({
-        query,
-        variables,
-      }),
-    })
+    const response = await fetch(
+      // `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/master/_v/graphql`
+      `https://gimenes--${tenant}.myvtex.com/_v/private/graphql/v1`,
+      {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          cookie: `VtexIdclientAutCookie=${accessToken}`,
+        },
+        body: JSON.stringify({
+          query,
+          variables,
+        }),
+      }
+    )
 
     if (response.status > 300 || response.status < 100) {
       const text = await response.text()
@@ -232,7 +265,7 @@ export const sourceNodes = async (
   }
 }
 
-const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
+export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
   const { data, errors } = await graphql(`
     {
       site {
@@ -313,53 +346,3 @@ const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
 
   await outputJSON(CONTENT_TYPES_PATH, contentTypesCMS)
 }
-
-const getGeneratedOutpath = (filename: string) =>
-  join(GENERATED_ROOT_PATH, filename.replace('.json', '.tsx'))
-
-const compileToTS = async ({
-  actions: { createPage },
-  reporter,
-}: CreatePagesArgs) => {
-  // ensure dist folder
-  await ensureDir(GENERATED_ROOT_PATH)
-
-  // Only create cms pages on dev mode for now
-  if (process.env.NODE_ENV === 'production') {
-    return
-  }
-
-  const files = await globby(['*.json'], { cwd: BLOCKS_ROOT_PATH })
-
-  for (const filename of files) {
-    const inpath = join(BLOCKS_ROOT_PATH, filename)
-    const outpath = getGeneratedOutpath(filename)
-
-    const content = readJSONSync(inpath)
-
-    if (!isContent(content)) {
-      throw new Error(`${filename} is not a CMS compatible block`)
-    }
-
-    const dom = new ContentDOM(content)
-    const src = dom.renderToString()
-    const slug = getMeta(content.extraBlocks)?.slug
-
-    if (typeof slug !== 'string') {
-      throw new Error(`No slug found for CMS block ${filename}`)
-    }
-
-    reporter.info(`[${name}]: Updated page: ${slug}`)
-
-    outputFileSync(outpath, src)
-
-    createPage({
-      path: slug,
-      component: outpath,
-      context: {},
-    })
-  }
-}
-
-export const createPages = (args: CreatePagesArgs) =>
-  Promise.all([compileToTS(args), exportCMSConfig(args)])
