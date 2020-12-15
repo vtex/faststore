@@ -4,12 +4,10 @@ import type { JSONSchema6 } from 'json-schema'
 interface Schema extends JSONSchema6 {
   title: string
   description: string
-  component: LazyExoticComponent<any>
+  component?: LazyExoticComponent<any>
 }
 
 export type Schemas = Record<string, Schema>
-
-export const schemas: Schemas = {}
 
 interface ContentType {
   blocks: Schemas

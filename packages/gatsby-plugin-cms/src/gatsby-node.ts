@@ -267,20 +267,9 @@ const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],
   })
-  const { schemas, contentTypes } = require(SHADOWED_INDEX_PATH) as {
+  const { contentTypes } = require(SHADOWED_INDEX_PATH) as {
     schemas: Schemas
     contentTypes: ContentTypes
-  }
-
-  // Make sure all components have a schema
-  for (const schema in schemas) {
-    if (!('component' in schemas[schema])) {
-      reporter.panicOnBuild(
-        `${schema} does not have a registered component. Please add a property with component: lazy(() => import('path-to-component'))`
-      )
-
-      return
-    }
   }
 
   // Transform all contentTypes into CMS ready contentType json
