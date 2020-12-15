@@ -63,7 +63,7 @@ export const sourceNodes = async (
   }: SourceNodesArgs,
   { tenant, accessToken }: Options
 ) => {
-  const url = `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/master/_v/graphql`
+  const url = `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/gimenes/_v/graphql`
 
   const fetcher = async (query: string, variables: any) => {
     const response = await fetch(url, {
@@ -116,6 +116,7 @@ export const sourceNodes = async (
         contentList(filters: {first: $first, offset: $offset, builderId: "faststore", statuses: [draft, live]}) {
           entries {
             id
+            type
           }
         }
       }`,
@@ -125,10 +126,10 @@ export const sourceNodes = async (
       }
     )
 
-  const fechContentById = async (id: string) =>
+  const fechContentById = async (id: string, type: string) =>
     fetcher(
-      `query GetContentById ($id: ID!) {
-        content(id: $id, builderId: "faststore", contentTypeName: "pocPage") {
+      `query GetContentById ($id: ID!, $type: String!) {
+        content(id: $id, builderId: "faststore", contentTypeName: $type) {
           variants {
             status
             id
@@ -149,6 +150,7 @@ export const sourceNodes = async (
       }`,
       {
         id,
+        type,
       }
     )
 
@@ -197,14 +199,14 @@ export const sourceNodes = async (
 
   const contents = await pMap(
     entries,
-    async ({ id }) => {
+    async ({ id, type }) => {
       const {
         content: { variants },
-      } = await fechContentById(id)
+      } = await fechContentById(id, type)
 
       progress.tick()
 
-      return variants
+      return variants.map((x: any) => ({ ...x, type }))
     },
     {
       concurrency: 20,
@@ -216,20 +218,15 @@ export const sourceNodes = async (
   const NODE_TYPE = 'VTEX_CMS'
 
   for (const content of contents) {
-    const { id, extraBlocks } = content
-
-    const data = {
-      slug: extraBlocks[0].blocks[0].props.slug,
-      ...content,
-    }
+    const { id } = content
 
     createNode({
-      ...data,
+      ...content,
       id: createNodeId(`${NODE_TYPE}-${id}`),
       internal: {
         type: NODE_TYPE,
-        content: JSON.stringify(data),
-        contentDigest: createContentDigest(data),
+        content: JSON.stringify(content),
+        contentDigest: createContentDigest(content),
       },
     })
   }
