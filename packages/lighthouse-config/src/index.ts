@@ -3,6 +3,11 @@ interface Params {
   urls: string[]
 }
 
+/**
+ * Some values, we took from the default lighthouse config
+ * throttling mobileSlow4G: https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/constants.js#L22
+ */
+
 const lhConfig = ({ urls, server }: Params) => {
   const url = urls.map((path) => `${server}${path}`)
 
@@ -11,6 +16,17 @@ const lhConfig = ({ urls, server }: Params) => {
       collect: {
         url,
         numberOfRuns: 5,
+        settings: {
+          formFactor: 'mobile',
+          throttling: {
+            rttMs: 150,
+            throughputKbps: 1638.4,
+            requestLatencyMs: 562.5,
+            downloadThroughputKbps: 1474.56,
+            uploadThroughputKbps: 675,
+            cpuSlowdownMultiplier: 4,
+          },
+        },
       },
       assert: {
         preset: 'lighthouse:no-pwa',
