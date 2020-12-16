@@ -10,13 +10,21 @@ export interface Item extends Omit<IResponsivePicture, 'variant' | 'loading'> {
 
 interface Props {
   item: Item
+  width: string
+  height: string
   loading: 'eager' | 'lazy'
   variant: string
 }
 
-const CarouselPage: FC<Props> = ({ item, loading, variant }) => (
+const CarouselPage: FC<Props> = ({ item, loading, width, height, variant }) => (
   <LocalizedLink key={item.href} to={item.href}>
-    <ResponsivePicture {...item} variant={variant} loading={loading} />
+    <ResponsivePicture
+      {...item}
+      variant={variant}
+      width={width}
+      height={height}
+      loading={loading}
+    />
   </LocalizedLink>
 )
 

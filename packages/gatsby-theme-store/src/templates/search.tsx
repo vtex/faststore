@@ -86,7 +86,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
       >
-        <BelowTheFold />
+        <BelowTheFold {...props} data={data!} />
       </SuspenseViewport>
     </SearchProvider>
   )
