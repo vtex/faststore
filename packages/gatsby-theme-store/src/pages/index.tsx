@@ -42,7 +42,7 @@ const Home: FC<Props> = (props) => {
           fallback={<BelowTheFoldPreview />}
           preloader={belowTheFoldPreloader}
         >
-          <BelowTheFold />
+          <BelowTheFold {...props} />
         </SuspenseViewport>
       </Layout>
     </ErrorBoundary>
