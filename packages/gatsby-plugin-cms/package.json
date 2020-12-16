@@ -34,6 +34,5 @@
     "fs-extra": "^9.0.1",
     "isomorphic-unfetch": "^3.1.0",
     "p-map": "^4.0.0"
-  },
-  "gitHead": "d69c6a9d2b89f08d23c24f6b711b2a8cf0c6ebfe"
+  }
 }
