@@ -15,7 +15,6 @@ const lhConfig = ({ urls, server }: Params) => {
     ci: {
       collect: {
         url,
-        numberOfRuns: 5,
         settings: {
           formFactor: 'mobile',
           throttling: {
