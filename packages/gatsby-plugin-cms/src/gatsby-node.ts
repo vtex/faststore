@@ -95,7 +95,7 @@ export const sourceNodes = async (
   const fetcher = async (query: string, variables: any) => {
     const response = await fetch(
       // `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/master/_v/graphql`
-      `https://gimenes--${tenant}.myvtex.com/_v/private/graphql/v1`,
+      `https://${tenant}.myvtex.com/_v/private/graphql/v1`,
       {
         method: 'POST',
         headers: {
