@@ -8,6 +8,7 @@ interface Schema extends JSONSchema6 {
 export type Schemas = Record<string, Schema>
 
 interface ContentType {
+  id: string
   name: string
   blocks: Schemas
   extraBlocks: Record<string, Schemas>
@@ -16,6 +17,6 @@ interface ContentType {
   messages: Record<string, string>
 }
 
-export type ContentTypes = Record<string, ContentType>
+export type ContentTypes = ContentType[]
 
-export const contentTypes: ContentTypes = {}
+export const contentTypes: ContentTypes = []

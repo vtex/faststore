@@ -98,8 +98,10 @@ const schemas: Schemas = {
   }
 }
 
-export const contentTypes: ContentTypes = {
-  'my-lading-page': {
+export const contentTypes: ContentTypes = [
+  {
+    id: 'my-lading-page',
+    name: 'My Landing Page',
     blocks: {
       'my-component-name': schemas['my-component-name'],
       ...
@@ -117,7 +119,7 @@ export const contentTypes: ContentTypes = {
       ...
     },
   },
-}
+]
 ```
 
 > Note that blocks must be a subset of schemas
