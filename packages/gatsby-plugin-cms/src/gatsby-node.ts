@@ -14,6 +14,8 @@ import type {
 import type { ContentTypes, Schemas } from './index'
 
 interface CMSContentType {
+  id: string
+  name: string
   previewUrl: string
   messages: Record<string, string>
   blocks: Array<{ name: string; schema: JSONSchema6 }>
@@ -94,9 +96,7 @@ export const sourceNodes = async (
 
   const fetcher = async (query: string, variables: any) => {
     const response = await fetch(
-      // TODO: Use this private url once Identity team creates a custom policy
-      // `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/master/_v/graphql`,
-      `https://${tenant}.myvtex.com/_v/private/graphql/v1`,
+      `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/master/_v/graphql`,
       {
         method: 'POST',
         headers: {
@@ -331,17 +331,18 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
       })),
     }))
 
-    acc[key] = {
+    acc.push({
       ...ct,
+      id: key,
       previewUrl: join(siteUrl, PREVIEW_PATH),
       blocks,
       beforeBlocks,
       afterBlocks,
       extraBlocks,
-    }
+    })
 
     return acc
-  }, {} as Record<string, CMSContentType>)
+  }, [] as CMSContentType[])
 
   await outputJSON(CONTENT_TYPES_PATH, contentTypesCMS)
 }
