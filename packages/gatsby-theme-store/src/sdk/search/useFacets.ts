@@ -83,6 +83,17 @@ export const useFacets = () => {
           return acc
         }
 
+        // Skip the root department facet selected
+        if (facet.name === 'Departamento') {
+          const rootFacet = focusCategoryFacet(rawFacet as any, filters)
+
+          facet.values?.forEach((value: any, index: number) => {
+            if (value.name === rootFacet.name) {
+              facet.values?.splice(index, 1)
+            }
+          })
+        }
+
         // Fill facet name
         facet!.name = facet!.name || (NAME_FROM_TYPE as any)[facet!.type!]
 
