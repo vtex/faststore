@@ -61,7 +61,7 @@ export default function babelGQLPlugin(babel: Babel): BabelPlugin {
 
               // If the tag is a gql tag, remove if from final code
               if (tag.name === GQL_TAG) {
-                path.remove()
+                path.replaceWith(t.stringLiteral(''))
               }
             } catch (error) {
               throw path.buildCodeFrameError(
