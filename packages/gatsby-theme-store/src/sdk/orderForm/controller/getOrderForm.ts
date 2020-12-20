@@ -7,7 +7,7 @@ import {
   getOrderformId,
   queue,
   setOrderFormId,
-} from './orderForm'
+} from './index'
 import type {
   GetOrderFormQueryQuery,
   GetOrderFormQueryQueryVariables,
