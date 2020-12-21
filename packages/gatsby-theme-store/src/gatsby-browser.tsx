@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-require-imports */
-import 'requestidlecallback-polyfill'
 
 import React, { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
@@ -16,15 +14,19 @@ const {
   onRouteUpdate: progressOnRouteUpdate,
 } = require('./src/sdk/progress')
 
-export const replaceHydrateFunction = () => async (
+export const onClientEntry = async () => {
+  const polyfillPromise = new Promise<void>((resolve) => {
+    __SUBSCRIBE_POLYFILL_IO_EVENT__(resolve)
+  })
+
+  await polyfillPromise
+}
+
+export const replaceHydrateFunction = () => (
   element: ElementType,
   container: Element,
   callback: any
 ) => {
-  if (typeof IntersectionObserver === 'undefined') {
-    await import('intersection-observer')
-  }
-
   const development = (process.env.GATSBY_BUILD_STAGE as any).includes(
     'develop'
   )
