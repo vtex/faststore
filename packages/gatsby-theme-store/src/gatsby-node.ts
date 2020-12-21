@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import { writeFile } from 'fs/promises'
 
 import type {
   CreatePagesArgs,
@@ -6,6 +7,36 @@ import type {
   PluginOptionsSchemaArgs,
   ParentSpanPluginArgs,
 } from 'gatsby'
+
+const babelConfig = `
+module.exports = {
+  plugins: [require.resolve('@vtex/gatsby-plugin-graphql/babel')],
+  presets: [
+    [
+      'babel-preset-gatsby',
+      {
+        targets: {
+          browsers: ['last 2 Chrome versions'],
+        },
+      },
+    ],
+  ],
+}
+`.trimStart()
+
+export const onPreInit = async (_: ParentSpanPluginArgs, options: Options) => {
+  const { autogenBabelConfig } = options
+
+  if (autogenBabelConfig === false) {
+    return
+  }
+
+  const babelPath = `${process.cwd()}/babel.config.js`
+
+  await writeFile(babelPath, babelConfig, {
+    encoding: 'utf-8',
+  })
+}
 
 export const onPostBootstrap = (
   _: ParentSpanPluginArgs,
@@ -19,6 +50,7 @@ export interface Options {
   getStaticPaths?: () => Promise<string[]>
   locales: string[]
   defaultLocale: string
+  autogenBabelConfig?: boolean
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
@@ -27,6 +59,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     locales: Joi.array().items(Joi.string()).required(),
     defaultLocale: Joi.string().required(),
     getStaticPaths: Joi.function().arity(0).required(),
+    autogenBabelConfig: Joi.boolean(),
   })
 
 const getRoute = (path: string) => {
