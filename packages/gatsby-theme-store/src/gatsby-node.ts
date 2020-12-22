@@ -1,5 +1,6 @@
 import { resolve } from 'path'
-import { writeFile } from 'fs/promises'
+import { writeFile } from 'fs'
+import { promisify } from 'util'
 
 import type {
   CreatePagesArgs,
@@ -24,6 +25,8 @@ module.exports = {
 }
 `.trimStart()
 
+const writeFileAsync = promisify(writeFile)
+
 export const onPreInit = async (_: ParentSpanPluginArgs, options: Options) => {
   const { autogenBabelConfig } = options
 
@@ -33,7 +36,7 @@ export const onPreInit = async (_: ParentSpanPluginArgs, options: Options) => {
 
   const babelPath = `${process.cwd()}/babel.config.js`
 
-  await writeFile(babelPath, babelConfig, {
+  await writeFileAsync(babelPath, babelConfig, {
     encoding: 'utf-8',
   })
 }
