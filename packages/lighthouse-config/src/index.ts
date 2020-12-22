@@ -9,7 +9,7 @@ interface Params {
  */
 
 const lhConfig = ({ urls, server }: Params) => {
-  const url = urls.map((path) => `${server}${path}`)
+  const url = urls.map((path) => `${server}${path}`.replace('https', 'http'))
 
   return {
     ci: {
