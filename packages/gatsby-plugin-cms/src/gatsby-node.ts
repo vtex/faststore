@@ -161,7 +161,7 @@ export const sourceNodes = async (
   const fechContentById = async (id: string, type: string) =>
     fetcher(
       `query GetContentById ($id: ID!, $type: String!) {
-        content(id: $id, builderId: "faststore", contentTypeName: $type) {
+        content(id: $id, builderId: "faststore", contentTypeId: $type) {
           variants {
             status
             id
