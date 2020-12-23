@@ -86,7 +86,7 @@ export const useFacets = () => {
           return acc
         }
 
-        // Skip the root department facet selected
+        // Skip the root department (filter) facet selected
         const rootFacet = focusCategoryFacet(rawFacet as any, filters)
 
         if (rootFacet.value && facet.values) {
