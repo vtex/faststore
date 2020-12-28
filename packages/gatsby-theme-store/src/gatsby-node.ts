@@ -125,15 +125,15 @@ export const createPages = async (
   // 404 status code in path `/404`
 
   createPage({
-    path: '/__not-found__',
-    matchPath: '/404/*',
+    path: '/404/notFound',
+    // matchPath: '/404/*',
     component: resolve(__dirname, './src/templates/404.tsx'),
     context: {},
   })
 
   createRedirect({
     fromPath: '/404/*',
-    toPath: '/__not-found__',
+    toPath: '/404/notFound',
     statusCode: 404,
   })
 }
