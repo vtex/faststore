@@ -126,7 +126,7 @@ export const createPages = async (
 
   createPage({
     path: '/404/notFound',
-    matchPath: '/404/*',
+    // matchPath: '/404/*',
     component: resolve(__dirname, './src/templates/404.tsx'),
     context: {},
   })
