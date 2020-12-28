@@ -127,7 +127,7 @@ export const createPages = async (
     component: resolve(__dirname, './src/templates/404.tsx'),
     context: {},
     statusCode: 404,
-  })
+  } as any)
 }
 
 export const onCreateWebpackConfig = ({
