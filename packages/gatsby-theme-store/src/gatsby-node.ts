@@ -48,7 +48,7 @@ const getRoute = (path: string) => {
 }
 
 export const createPages = async (
-  { actions: { createPage } }: CreatePagesArgs,
+  { actions: { createPage, createRedirect } }: CreatePagesArgs,
   { getStaticPaths }: Options
 ) => {
   /**
@@ -119,6 +119,13 @@ export const createPages = async (
       staticPath: false,
     },
   })
+
+  // // Use Render's legacy extensions
+  // createRedirect({
+  //   fromPath: '/404',
+  //   toPath: `/404.html`,
+  //   statusCode: 404,
+  // })
 }
 
 export const onCreateWebpackConfig = ({
