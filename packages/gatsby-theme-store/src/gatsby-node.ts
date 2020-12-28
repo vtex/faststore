@@ -121,8 +121,9 @@ export const createPages = async (
     },
   })
 
-  // Create 404 page and than create a redirect to it so we correctly return
-  // 404 status code in path `/404`
+  // I couldn't find a better way to make the path /404 return status code 404
+  // in Netlify, so the work around I found was to create a page and than create
+  // a redirect to it returning 404 status code
 
   createPage({
     path: '/404/__not_found__',
