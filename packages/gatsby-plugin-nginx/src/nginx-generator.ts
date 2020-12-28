@@ -5,7 +5,7 @@ import { INDEX_HTML } from './constants'
 export {
   stringify,
   convertFromPath,
-  validateRedirect,
+  parseRedirect,
   generateRewrites,
   generateRedirects,
   generatePathLocation,
@@ -115,14 +115,23 @@ function convertToPath(path: string) {
   return path.replace(/:splat/g, '$1')
 }
 
-function validateRedirect({ toPath }: Redirect): boolean {
+function parseRedirect({ toPath }: Redirect): 'proxy' | 'rewrite' {
   try {
     new URL(toPath)
+
+    return 'proxy'
   } catch (ex) {
-    throw new Error(`redirect toPath "${toPath}" must be a valid absolute URL`)
+    // This wasn't a proxy url. It must be an internal redirect
   }
 
-  return true
+  try {
+    // Parse as an internal redirect
+    new URL(toPath, 'http://example.org')
+
+    return 'rewrite'
+  } catch (e) {
+    throw new Error(`redirect toPath "${toPath}" must be a valid absolute URL`)
+  }
 }
 
 function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
@@ -142,13 +151,14 @@ function formatProxyHeaders(headers: Record<string, string> | undefined) {
 
 function generateRedirects(redirects: Redirect[]): NginxDirective[] {
   return redirects.map((redirect) => {
-    validateRedirect(redirect)
-    const { fromPath, toPath, headers } = redirect
+    const { fromPath, toPath, proxyHeaders } = redirect
 
     return {
       cmd: ['location', '~*', convertFromPath(fromPath)],
       children: [
-        ...formatProxyHeaders(headers as Record<string, string> | undefined),
+        ...formatProxyHeaders(
+          proxyHeaders as Record<string, string> | undefined
+        ),
         { cmd: ['proxy_pass', `${convertToPath(toPath)}$is_args$args`] },
         { cmd: ['proxy_ssl_server_name', 'on'] },
       ],

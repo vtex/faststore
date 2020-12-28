@@ -120,12 +120,12 @@ export const createPages = async (
     },
   })
 
-  // // Use Render's legacy extensions
-  // createRedirect({
-  //   fromPath: '/404',
-  //   toPath: `/404.html`,
-  //   statusCode: 404,
-  // })
+  // Create 404 page with 404 status code
+  createRedirect({
+    fromPath: '/404',
+    toPath: `/404.html`,
+    statusCode: 404,
+  })
 }
 
 export const onCreateWebpackConfig = ({

@@ -14,7 +14,7 @@ import {
   preloadHeadersByPath,
 } from './headers'
 import { listFilesRecursively } from './listFiles'
-import { generateNginxConfiguration } from './nginx-generator'
+import { generateNginxConfiguration, parseRedirect } from './nginx-generator'
 import { pluginOptions } from './pluginOptions'
 
 const assetsManifest: Record<string, string> = {}
@@ -38,7 +38,11 @@ const Node: GatsbyNode = {
   async onPostBuild({ store, pathPrefix, reporter }, opt: PluginOptions) {
     const options = pluginOptions(opt)
 
-    const { program, pages: pagesMap, redirects } = store.getState() as {
+    const {
+      program,
+      pages: pagesMap,
+      redirects: maybeRedirects,
+    } = store.getState() as {
       pages: Map<string, Page>
       program: { directory: string }
       redirects: Redirect[]
@@ -46,12 +50,32 @@ const Node: GatsbyNode = {
 
     const pages = Array.from(pagesMap.values())
 
-    const rewrites: Redirect[] = pages
+    const pageRewrites: Redirect[] = pages
       .filter((page) => page.matchPath && page.matchPath !== page.path)
       .map((page) => ({
         fromPath: page.matchPath as string,
         toPath: page.path,
       }))
+
+    const { redirects, rewrites: redirectRewrites } = maybeRedirects.reduce(
+      (acc, r) => {
+        const type = parseRedirect(r)
+
+        if (type === 'proxy') {
+          acc.redirects.push(r)
+        } else if (type === 'rewrite') {
+          acc.rewrites.push(r)
+        }
+
+        return acc
+      },
+      {
+        redirects: [],
+        rewrites: [],
+      } as { redirects: Redirect[]; rewrites: Redirect[] }
+    )
+
+    const rewrites = [...pageRewrites, ...redirectRewrites]
 
     const publicFolder = join(program.directory, 'public')
 
