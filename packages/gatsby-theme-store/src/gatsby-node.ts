@@ -103,7 +103,7 @@ export const createPages = async (
 
   // Client-side rendered product pages
   createPage({
-    path: '/__client-side-product__/p',
+    path: '/__client_side_product__/p',
     matchPath: '/:slug/p',
     component: resolve(__dirname, './src/templates/product.tsx'),
     context: {
@@ -113,7 +113,7 @@ export const createPages = async (
 
   // Client side search page
   createPage({
-    path: '/__client-side-search__',
+    path: '/__client_side_search__',
     matchPath: '/*',
     component: resolve(__dirname, './src/templates/search.tsx'),
     context: {
@@ -125,7 +125,7 @@ export const createPages = async (
   // 404 status code in path `/404`
 
   createPage({
-    path: '/404/notFound',
+    path: '/404/__not_found__',
     matchPath: '/404/*',
     component: resolve(__dirname, './src/templates/404.tsx'),
     context: {},
@@ -133,7 +133,7 @@ export const createPages = async (
 
   createRedirect({
     fromPath: '/404/*',
-    toPath: '/404/notFound',
+    toPath: '/404/__not_found__',
     statusCode: 404,
   })
 }
