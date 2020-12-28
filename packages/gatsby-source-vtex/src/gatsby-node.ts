@@ -114,7 +114,7 @@ export const createPages = (
     fromPath: '/api/io/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$host',
     },
@@ -124,7 +124,7 @@ export const createPages = (
     fromPath: '/api/*',
     toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$host',
     },
@@ -135,7 +135,18 @@ export const createPages = (
     fromPath: '/checkout/*',
     toPath: `https://${tenant}.${environment}.com.br/checkout/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$host',
+    },
+  })
+
+  // Use Render's legacy extensions
+  createRedirect({
+    fromPath: '/legacy_extensions/*',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/legacy_extensions/:splat`,
+    statusCode: 200,
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$host',
     },
@@ -159,7 +170,7 @@ export const createPages = (
     fromPath: '/graphql/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$host',
     },
@@ -170,7 +181,7 @@ export const createPages = (
     fromPath: '/sitemap.xml',
     toPath: `https://${workspace}--${tenant}.myvtex.com/sitemap.xml`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$host',
     },
@@ -180,7 +191,7 @@ export const createPages = (
     fromPath: '/sitemap/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/sitemap/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$host',
     },
@@ -191,7 +202,7 @@ export const createPages = (
     fromPath: '/XMLData/*',
     toPath: `https://${tenant}.${environment}.com.br/XMLData/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$host',
     },
