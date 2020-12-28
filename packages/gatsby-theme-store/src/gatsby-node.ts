@@ -126,8 +126,8 @@ export const createPages = async (
 
   createPage({
     path: '/__not-found__',
-    // matchPath: '/404/*',
-    // statusCode: 404,
+    matchPath: '/404/*',
+    statusCode: 404,
     component: resolve(__dirname, './src/templates/404.tsx'),
     context: {},
   } as any)
