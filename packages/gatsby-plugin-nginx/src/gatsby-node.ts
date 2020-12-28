@@ -4,6 +4,7 @@ import { join } from 'path'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import type { GatsbyNode } from 'gatsby'
 
+import { rankRoutes } from './pathRanking'
 import { BUILD_HTML_STAGE, VTEX_NGINX_CONF_FILENAME } from './constants'
 import {
   addPublicCachingHeader,
@@ -46,12 +47,17 @@ const Node: GatsbyNode = {
 
     const pages = Array.from(pagesMap.values())
 
-    const rewrites: Redirect[] = pages
-      .filter((page) => page.matchPath && page.matchPath !== page.path)
+    const pageRewrites: Redirect[] = pages
+      .filter(
+        (page) =>
+          typeof page.matchPath === 'string' && page.matchPath !== page.path
+      )
       .map((page) => ({
-        fromPath: page.matchPath as string,
+        fromPath: page.matchPath!,
         toPath: page.path,
       }))
+
+    const rewrites = rankRoutes([...pageRewrites, ...redirects])
 
     const publicFolder = join(program.directory, 'public')
 
@@ -85,7 +91,6 @@ const Node: GatsbyNode = {
       join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
       generateNginxConfiguration({
         rewrites,
-        redirects,
         headersMap: headers,
         files,
         options,
