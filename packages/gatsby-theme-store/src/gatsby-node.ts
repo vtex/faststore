@@ -121,9 +121,11 @@ export const createPages = async (
   })
 
   // Create 404 page with 404 status code
-  createRedirect({
-    fromPath: '/404',
-    toPath: `/404.html`,
+  createPage({
+    path: '/__not-found__',
+    matchPath: '/404/*',
+    component: resolve(__dirname, './src/templates/404.tsx'),
+    context: {},
     statusCode: 404,
   })
 }
