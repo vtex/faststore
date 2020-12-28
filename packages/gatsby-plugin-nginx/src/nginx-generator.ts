@@ -138,7 +138,11 @@ function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
   return rewrites.map(({ fromPath, toPath, statusCode = 200 }) => {
     return {
       cmd: ['location', '~*', convertFromPath(fromPath)],
-      children: [{ cmd: ['rewrite', '.+', toPath] }],
+      children: [
+        {
+          cmd: ['rewrite', '.+', toPath],
+        },
+      ],
     }
   })
 }

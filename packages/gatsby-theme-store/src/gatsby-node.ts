@@ -111,15 +111,6 @@ export const createPages = async (
     },
   })
 
-  // Create 404 page with 404 status code
-  createPage({
-    path: '/__not-found__',
-    matchPath: '/404',
-    component: resolve(__dirname, './src/templates/404.tsx'),
-    statusCode: 404,
-    context: {},
-  } as any)
-
   // Client side search page
   createPage({
     path: '/__client-side-search__',
@@ -128,6 +119,21 @@ export const createPages = async (
     context: {
       staticPath: false,
     },
+  })
+
+  // Create 404 page and than create a redirect to it so we correctly return
+  // 404 status code in path `/404`
+
+  createPage({
+    path: '/__not-found__',
+    component: resolve(__dirname, './src/templates/404.tsx'),
+    context: {},
+  })
+
+  createRedirect({
+    fromPath: '/404',
+    toPath: '/__not-found__',
+    statusCode: 404,
   })
 }
 
