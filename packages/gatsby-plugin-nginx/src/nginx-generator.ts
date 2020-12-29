@@ -5,7 +5,7 @@ import { INDEX_HTML } from './constants'
 export {
   stringify,
   convertFromPath,
-  parseRewrite as parseRedirect,
+  parseRewrite,
   generateRewrites,
   generatePathLocation,
   generateNginxConfiguration,
