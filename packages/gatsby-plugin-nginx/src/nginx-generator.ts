@@ -125,7 +125,7 @@ function parseRewrite({
   }
 
   try {
-    // Parse as an internal redirect
+    // Parse as an internal redirect, a.k.a /foo to /bar
     new URL(toPath, 'http://example.org')
 
     return statusCode === 200 ? 'rewrite' : 'error_page'
