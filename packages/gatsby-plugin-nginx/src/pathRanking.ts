@@ -1,5 +1,9 @@
 // path ranking algorithm copied (with small adjustments) from `gatsbyjs/gatsby` that copied from `@reach/router` (internal util, not exported from the package)
 // https://github.com/gatsbyjs/gatsby/blob/3ce476b1eac97aedd16f9d150cd6a81f36255380/packages/gatsby/src/bootstrap/requires-writer.ts#L26
+//
+// Path ranking is necessary since gatsby uses this order to generate .cache/match-paths.json that is used internally in it's routing system.
+// If we don't use the same order as of gatsby, we risk to serve a different page from what's gatsby router would have served, leading to
+// all sort of wierd bugs
 const paramRe = /^:(.+)/
 
 const SEGMENT_POINTS = 4
