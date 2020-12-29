@@ -1,4 +1,4 @@
-import { writeFileSync, readFileSync } from 'fs'
+import { writeFileSync } from 'fs'
 import { join } from 'path'
 
 import WebpackAssetsManifest from 'webpack-assets-manifest'
@@ -15,7 +15,7 @@ import {
   preloadHeadersByPath,
 } from './headers'
 import { listFilesRecursively } from './listFiles'
-import { generateNginxConfiguration, parseRedirect } from './nginx-generator'
+import { generateNginxConfiguration } from './nginx-generator'
 import { pluginOptions } from './pluginOptions'
 
 const assetsManifest: Record<string, string> = {}
@@ -57,20 +57,7 @@ const Node: GatsbyNode = {
         toPath: page.path,
       }))
 
-    const redirectProxies: Redirect[] = []
-    const redirectRewrites: Redirect[] = []
-
-    for (const redirect of redirects) {
-      const type = parseRedirect(redirect)
-
-      if (type === 'proxy') {
-        redirectProxies.push(redirect)
-      } else if (type === 'rewrite') {
-        redirectRewrites.push(redirect)
-      }
-    }
-
-    const rewrites = rankRoutes([...pageRewrites, ...redirectRewrites])
+    const rewrites = rankRoutes([...pageRewrites, ...redirects])
 
     const publicFolder = join(program.directory, 'public')
 
@@ -104,7 +91,6 @@ const Node: GatsbyNode = {
       join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
       generateNginxConfiguration({
         rewrites,
-        redirects: redirectProxies,
         headersMap: headers,
         files,
         options,

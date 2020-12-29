@@ -5,9 +5,8 @@ import { INDEX_HTML } from './constants'
 export {
   stringify,
   convertFromPath,
-  parseRedirect,
+  parseRewrite as parseRedirect,
   generateRewrites,
-  generateRedirects,
   generatePathLocation,
   generateNginxConfiguration,
 }
@@ -19,13 +18,11 @@ export interface NginxDirective {
 
 function generateNginxConfiguration({
   rewrites,
-  redirects,
   headersMap,
   files,
   options,
 }: {
   rewrites: Redirect[]
-  redirects: Redirect[]
   headersMap: PathHeadersMap
   files: string[]
   options: PluginOptions
@@ -40,7 +37,6 @@ function generateNginxConfiguration({
           return value !== undefined
         }
       ),
-    ...generateRedirects(redirects),
     ...generateRewrites(rewrites),
   ]
 
@@ -115,7 +111,10 @@ function convertToPath(path: string) {
   return path.replace(/:splat/g, '$1')
 }
 
-function parseRedirect({ toPath }: Redirect): 'proxy' | 'rewrite' {
+function parseRewrite({
+  toPath,
+  statusCode = 200,
+}: Redirect): 'proxy' | 'rewrite' | 'error_page' {
   try {
     new URL(toPath)
 
@@ -128,35 +127,10 @@ function parseRedirect({ toPath }: Redirect): 'proxy' | 'rewrite' {
     // Parse as an internal redirect
     new URL(toPath, 'http://example.org')
 
-    return 'rewrite'
+    return statusCode === 200 ? 'rewrite' : 'error_page'
   } catch (e) {
     throw new Error(`redirect toPath "${toPath}" must be a valid absolute URL`)
   }
-}
-
-function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
-  return rewrites.map(({ fromPath, toPath, statusCode = 200 }) => {
-    const children =
-      statusCode === 200
-        ? [
-            {
-              cmd: ['rewrite', '.+', toPath],
-            },
-          ]
-        : [
-            {
-              cmd: ['error_page', statusCode.toString(), toPath],
-            },
-            {
-              cmd: ['return', statusCode.toString()],
-            },
-          ]
-
-    return {
-      cmd: ['location', '~*', convertFromPath(fromPath)],
-      children,
-    }
-  })
 }
 
 function formatProxyHeaders(headers: Record<string, string> | undefined) {
@@ -165,19 +139,53 @@ function formatProxyHeaders(headers: Record<string, string> | undefined) {
   })
 }
 
-function generateRedirects(redirects: Redirect[]): NginxDirective[] {
-  return redirects.map((redirect) => {
-    const { fromPath, toPath, proxyHeaders } = redirect
+function generateProxyRewriteChildren({
+  toPath,
+  proxyHeaders,
+}: Redirect): NginxDirective['children'] {
+  return [
+    ...formatProxyHeaders(proxyHeaders as Record<string, string> | undefined),
+    { cmd: ['proxy_pass', `${convertToPath(toPath)}$is_args$args`] },
+    { cmd: ['proxy_ssl_server_name', 'on'] },
+  ]
+}
+
+function generateErrorPageRewriteChildren({
+  toPath,
+  statusCode = 200,
+}: Redirect): NginxDirective['children'] {
+  return [
+    {
+      cmd: ['error_page', statusCode.toString(), toPath],
+    },
+    {
+      cmd: ['return', statusCode.toString()],
+    },
+  ]
+}
+
+function generateRewriteChildren({ toPath }: Redirect) {
+  return [
+    {
+      cmd: ['rewrite', '.+', toPath],
+    },
+  ]
+}
+
+function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
+  const childrenByType = {
+    rewrite: generateRewriteChildren,
+    proxy: generateProxyRewriteChildren,
+    error_page: generateErrorPageRewriteChildren,
+  }
+
+  return rewrites.map((rewrite) => {
+    const { fromPath } = rewrite
+    const type = parseRewrite(rewrite)
 
     return {
       cmd: ['location', '~*', convertFromPath(fromPath)],
-      children: [
-        ...formatProxyHeaders(
-          proxyHeaders as Record<string, string> | undefined
-        ),
-        { cmd: ['proxy_pass', `${convertToPath(toPath)}$is_args$args`] },
-        { cmd: ['proxy_ssl_server_name', 'on'] },
-      ],
+      children: childrenByType[type](rewrite),
     }
   })
 }
