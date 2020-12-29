@@ -1,9 +1,10 @@
-import { writeFileSync } from 'fs'
+import { writeFileSync, readFileSync } from 'fs'
 import { join } from 'path'
 
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import type { GatsbyNode } from 'gatsby'
 
+import { rankRoutes } from './pathRanking'
 import { BUILD_HTML_STAGE, VTEX_NGINX_CONF_FILENAME } from './constants'
 import {
   addPublicCachingHeader,
@@ -38,11 +39,7 @@ const Node: GatsbyNode = {
   async onPostBuild({ store, pathPrefix, reporter }, opt: PluginOptions) {
     const options = pluginOptions(opt)
 
-    const {
-      program,
-      pages: pagesMap,
-      redirects: maybeRedirects,
-    } = store.getState() as {
+    const { program, pages: pagesMap, redirects } = store.getState() as {
       pages: Map<string, Page>
       program: { directory: string }
       redirects: Redirect[]
@@ -51,31 +48,29 @@ const Node: GatsbyNode = {
     const pages = Array.from(pagesMap.values())
 
     const pageRewrites: Redirect[] = pages
-      .filter((page) => page.matchPath && page.matchPath !== page.path)
+      .filter(
+        (page) =>
+          typeof page.matchPath === 'string' && page.matchPath !== page.path
+      )
       .map((page) => ({
-        fromPath: page.matchPath as string,
+        fromPath: page.matchPath!,
         toPath: page.path,
       }))
 
-    const { redirects, rewrites: redirectRewrites } = maybeRedirects.reduce(
-      (acc, r) => {
-        const type = parseRedirect(r)
+    const redirectProxies: Redirect[] = []
+    const redirectRewrites: Redirect[] = []
 
-        if (type === 'proxy') {
-          acc.redirects.push(r)
-        } else if (type === 'rewrite') {
-          acc.rewrites.push(r)
-        }
+    for (const redirect of redirects) {
+      const type = parseRedirect(redirect)
 
-        return acc
-      },
-      {
-        redirects: [],
-        rewrites: [],
-      } as { redirects: Redirect[]; rewrites: Redirect[] }
-    )
+      if (type === 'proxy') {
+        redirectProxies.push(redirect)
+      } else if (type === 'rewrite') {
+        redirectRewrites.push(redirect)
+      }
+    }
 
-    const rewrites = [...pageRewrites, ...redirectRewrites]
+    const rewrites = rankRoutes([...pageRewrites, ...redirectRewrites])
 
     const publicFolder = join(program.directory, 'public')
 
@@ -109,7 +104,7 @@ const Node: GatsbyNode = {
       join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
       generateNginxConfiguration({
         rewrites,
-        redirects,
+        redirects: redirectProxies,
         headersMap: headers,
         files,
         options,

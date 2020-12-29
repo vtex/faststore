@@ -133,7 +133,7 @@ export const createPages = async (
   })
 
   createRedirect({
-    fromPath: '/404/*',
+    fromPath: '/404',
     toPath: '/404/__not_found__',
     statusCode: 404,
   })

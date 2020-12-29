@@ -136,13 +136,25 @@ function parseRedirect({ toPath }: Redirect): 'proxy' | 'rewrite' {
 
 function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
   return rewrites.map(({ fromPath, toPath, statusCode = 200 }) => {
+    const children =
+      statusCode === 200
+        ? [
+            {
+              cmd: ['rewrite', '.+', toPath],
+            },
+          ]
+        : [
+            {
+              cmd: ['error_page', statusCode.toString(), toPath],
+            },
+            {
+              cmd: ['return', statusCode.toString()],
+            },
+          ]
+
     return {
       cmd: ['location', '~*', convertFromPath(fromPath)],
-      children: [
-        {
-          cmd: ['rewrite', '.+', toPath],
-        },
-      ],
+      children,
     }
   })
 }
