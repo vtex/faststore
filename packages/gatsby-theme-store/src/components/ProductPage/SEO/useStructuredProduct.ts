@@ -19,7 +19,7 @@ const getSkuOffers = (
     price: seller!.commercialOffer!.price!,
     priceCurrency: currency,
     url,
-    priceValidUntil: `${seller!.commercialOffer!.priceValidUntil}`.slice(0, 10),
+    priceValidUntil: seller!.commercialOffer!.priceValidUntil?.slice(0, 10),
     availability:
       seller!.commercialOffer!.availableQuantity! > 0
         ? 'https://schema.org/InStock'
