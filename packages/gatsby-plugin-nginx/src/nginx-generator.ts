@@ -120,7 +120,8 @@ function parseRewrite({
 
     return 'proxy'
   } catch (ex) {
-    // This wasn't a proxy url. It must be an internal redirect
+    // This wasn't a proxy url. Let's check if this is an internal redirect
+    // a.k.a from `/foo` to `/bar`
   }
 
   try {
