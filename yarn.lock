@@ -4231,7 +4231,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node-fetch@2":
+"@types/node-fetch@2", "@types/node-fetch@^2.5.7":
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.7.tgz#20a2afffa882ab04d44ca786449a276f9f6bbf3c"
   integrity sha512-o2WVNf5UhWRkxlf6eq+jMZDu7kjgpgJfl4xVNlvryc95O/6F2ld8ztKX+qu+Rjyet93WAWm5LjeX9H5FGkODvw==
@@ -9197,20 +9197,20 @@ eslint-config-react-app@^5.2.1:
   dependencies:
     confusing-browser-globals "^1.0.9"
 
-eslint-config-vtex-react@^6.9.2:
-  version "6.9.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.9.2.tgz#4b8e093ffbe0fbb952fe6cb578a3bc9bfc0c9947"
-  integrity sha512-y5Byaq+JvDvEb2cuHlmCu/+1x1kLzPjDrLkvp88qwtjK4W5g73LgvonKAvlYomBUu7Eev6Xw4Iuf4claTA4kCg==
+eslint-config-vtex-react@^6.9.3:
+  version "6.9.3"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex-react/-/eslint-config-vtex-react-6.9.3.tgz#a699041b1122b987d5da5abbdbd58d42415b85fe"
+  integrity sha512-qZyBAfrZ5d/4ZxQFO73RsdzvexeD8/bzlAUfFC413kSxw40dNGDQO22e+fBqwrJUJSrePbXiLUkyRisXvxLawg==
   dependencies:
-    eslint-config-vtex "^12.9.2"
+    eslint-config-vtex "^12.9.3"
     eslint-plugin-jsx-a11y "^6.3.1"
     eslint-plugin-react "^7.20.6"
     eslint-plugin-react-hooks "^4.1.0"
 
-eslint-config-vtex@^12.9.2:
-  version "12.9.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.9.2.tgz#c9ae18bb266d13b964d18d5e2ed9e4df8ee16a83"
-  integrity sha512-oEXizBXmwYfrANuOzaNsLDoL5YYkiRZnFjdUW+2npYHILhzWhKWEzejoKcEeGQQNTvHSHTGulH4megpWSafIRA==
+eslint-config-vtex@^12.9.3:
+  version "12.9.3"
+  resolved "https://registry.yarnpkg.com/eslint-config-vtex/-/eslint-config-vtex-12.9.3.tgz#e285fdc31780ddda3ef942e226ef860430b02afb"
+  integrity sha512-lLajiA1Ot2fIGqQbMBC+hnkczKw+i+AbxQsDGuHl87RlRRsQc3YDvVD17AYE7LwNLCKdL39bIMNJeKgOXcRSFQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.8.1"
     "@typescript-eslint/parser" "^4.8.1"
@@ -10579,6 +10579,17 @@ gatsby-graphiql-explorer@^0.7.0:
   integrity sha512-CRgxnfxVHgWe2VmGdBC1E4ctXGP54215rIQ8/wTqClkGiRuKOg98h70vuekVdWQJnicbpJI05Ms1zPLlj9ckgg==
   dependencies:
     "@babel/runtime" "^7.12.5"
+
+gatsby-graphql-source-toolkit@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/gatsby-graphql-source-toolkit/-/gatsby-graphql-source-toolkit-0.6.3.tgz#bb7bdc90a006c0ec1c0451fd0a362ec03353909c"
+  integrity sha512-Dd/tnd9fxy1mObft9fkDeyKB0WAtKAzL6RLR+Iq3GOXRXnrz/GVZhdWrZrwJEHPjhOGAe35cfAwoqlqNCu7COw==
+  dependencies:
+    "@types/node-fetch" "^2.5.7"
+    fs-extra "^9.0.1"
+    lodash "^4.17.15"
+    node-fetch "^2.6.0"
+    p-queue "^6.4.0"
 
 gatsby-legacy-polyfills@^0.3.0:
   version "0.3.0"
@@ -16709,7 +16720,7 @@ p-queue@^4.0.0:
   dependencies:
     eventemitter3 "^3.1.0"
 
-p-queue@^6.5.0:
+p-queue@^6.4.0, p-queue@^6.5.0:
   version "6.6.2"
   resolved "https://registry.yarnpkg.com/p-queue/-/p-queue-6.6.2.tgz#2068a9dcf8e67dd0ec3e7a2bcb76810faa85e426"
   integrity sha512-RwFpb72c/BhQLEXIZ5K2e+AhgNVmIejGlTgiB9MzZ0e93GRvqZ7uSi0dvRF7/XIXDeNkra2fNHBxTyPDGySpjQ==
