@@ -226,7 +226,7 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
       })),
     }))
 
-    acc[key] = {
+    acc.push({
       ...ct,
       id: key,
       previewUrl: join(siteUrl, PREVIEW_PATH),
@@ -234,10 +234,10 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
       beforeBlocks,
       afterBlocks,
       extraBlocks,
-    }
+    })
 
     return acc
-  }, {} as Record<string, CMSContentType>)
+  }, [] as CMSContentType[])
 
   await outputJSON(CONTENT_TYPES_PATH, contentTypesCMS)
 }
