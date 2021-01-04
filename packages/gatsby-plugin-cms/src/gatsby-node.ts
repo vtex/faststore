@@ -21,8 +21,8 @@ import {
 
 import type { ContentTypes, Schemas } from './index'
 
-// TODO: Move to master before shipping 🚢
-const WORKSPACE = 'gimenes'
+// VTEX IO workspace
+const WORKSPACE = 'master'
 
 interface CMSContentType {
   id: string
