@@ -3,15 +3,26 @@ import { join } from 'path'
 import ConfigStore from 'configstore'
 import { outputJSON, pathExists } from 'fs-extra'
 import fetch from 'isomorphic-unfetch'
-import pMap from 'p-map'
 import type { JSONSchema6 } from 'json-schema'
 import type {
   CreatePagesArgs,
   PluginOptionsSchemaArgs,
   SourceNodesArgs,
 } from 'gatsby'
+import {
+  buildNodeDefinitions,
+  compileNodeQueries,
+  createDefaultQueryExecutor,
+  createSchemaCustomization,
+  generateDefaultFragments,
+  loadSchema,
+  sourceAllNodes,
+} from 'gatsby-graphql-source-toolkit'
 
 import type { ContentTypes, Schemas } from './index'
+
+// VTEX IO workspace
+const WORKSPACE = 'master'
 
 interface CMSContentType {
   id: string
@@ -76,14 +87,10 @@ const getAccessToken = async (appKey: string, appToken: string) => {
 }
 
 export const sourceNodes = async (
-  {
-    reporter,
-    actions: { createNode },
-    createContentDigest,
-    createNodeId,
-  }: SourceNodesArgs,
+  args: SourceNodesArgs,
   { tenant, appKey, appToken }: Options
 ) => {
+  const { reporter } = args
   const accessToken = await getAccessToken(appKey, appToken)
 
   if (!accessToken) {
@@ -94,174 +101,62 @@ export const sourceNodes = async (
     return
   }
 
-  const fetcher = async (query: string, variables: any) => {
-    const response = await fetch(
-      `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/master/_v/graphql`,
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          cookie: `VtexIdclientAutCookie=${accessToken}`,
-        },
-        body: JSON.stringify({
-          query,
-          variables,
-        }),
-      }
-    )
-
-    if (response.status > 300 || response.status < 100) {
-      const text = await response.text()
-
-      reporter.panicOnBuild(text)
-
-      return
+  // Step1. Set up remote schema:
+  const executor = createDefaultQueryExecutor(
+    `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/${WORKSPACE}/_v/graphql`,
+    {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        cookie: `VtexIdclientAutCookie=${accessToken}`,
+      },
     }
+  )
 
-    const { data, errors } = await response.json()
+  const schema = await loadSchema(executor)
 
-    if (Array.isArray(errors) && errors.length > 0) {
-      reporter.panicOnBuild(JSON.stringify(errors, null, 2))
-
-      return
-    }
-
-    return data
-  }
-
-  const fetchTotal = async (first: number, offset: number) =>
-    fetcher(
-      `query GetTotalContent ($first: Int!, $offset: Int!) {
-        contentList(filters: {first: $first, offset: $offset, builderId: "faststore", statuses: [draft, live]}) {
-          total
-        }
-      }`,
-      {
-        first,
-        offset,
-      }
-    )
-
-  const fetchList = async (first: number, offset: number) =>
-    fetcher(
-      `query ListContent ($first: Int!, $offset: Int!) {
-        contentList(filters: {first: $first, offset: $offset, builderId: "faststore", statuses: [draft, live]}) {
-          entries {
-            id
-            type
-          }
-        }
-      }`,
-      {
-        first,
-        offset,
-      }
-    )
-
-  const fechContentById = async (id: string, type: string) =>
-    fetcher(
-      `query GetContentById ($id: ID!, $type: String!) {
-        content(id: $id, builderId: "faststore", contentTypeId: $type) {
-          variants {
-            status
-            id
-            extraBlocks {
-              name
-              blocks {
-                name
-                props
+  // Step2. Configure Gatsby node types
+  const gatsbyNodeTypes = [
+    {
+      remoteTypeName: `PageContent`,
+      queries: `
+        query LIST_PAGES ($first: Int!, $after: String ) {
+          pages (first: $first, after: $after, builderId: "faststore") {
+            edges {
+              node {
+                ...PageContentFragment
               }
             }
-            blocks {
-              id
-              name
-              props
-            }
           }
         }
-      }`,
-      {
-        id,
-        type,
-      }
-    )
-
-  // List all content ids
-
-  const pageSize = 30
-  const {
-    contentList: { total },
-  } = await fetchTotal(1, 0)
-
-  const pages = new Array(Math.ceil(total / pageSize))
-
-  let progress = reporter.createProgress(
-    'List VTEX CMS content',
-    pages.length,
-    0
-  )
-
-  progress.start()
-
-  const entries = await pMap(
-    pages,
-    async (_, page) => {
-      const {
-        contentList: { entries: es },
-      } = await fetchList(pageSize, page * pageSize)
-
-      progress.tick()
-
-      return es
+        fragment PageContentFragment on PageContent { __typename id }
+      `,
     },
-    { concurrency: 1 }
-  ).then((e) => e.flat())
+  ]
 
-  progress.done()
+  // Step3. Provide (or generate) fragments with fields to be fetched
+  const fragments = generateDefaultFragments({ schema, gatsbyNodeTypes })
 
-  // Fetch all content
+  // Step4. Compile sourcing queries
+  const documents = compileNodeQueries({
+    schema,
+    gatsbyNodeTypes,
+    customFragments: fragments,
+  })
 
-  progress = reporter.createProgress(
-    'Fetch VTEX CMS content',
-    entries.length,
-    0
-  )
-
-  progress.start()
-
-  const contents = await pMap(
-    entries,
-    async ({ id, type }) => {
-      const {
-        content: { variants },
-      } = await fechContentById(id, type)
-
-      progress.tick()
-
-      return variants.map((x: any) => ({ ...x, type }))
-    },
-    {
-      concurrency: 20,
-    }
-  ).then((c) => c.flat())
-
-  progress.done()
-
-  const NODE_TYPE = 'VTEX_CMS'
-
-  for (const content of contents) {
-    const { id } = content
-
-    createNode({
-      ...content,
-      id: createNodeId(`${NODE_TYPE}-${id}`),
-      internal: {
-        type: NODE_TYPE,
-        content: JSON.stringify(content),
-        contentDigest: createContentDigest(content),
-      },
-    })
+  const config = {
+    gatsbyApi: args,
+    schema,
+    execute: executor,
+    gatsbyTypePrefix: 'vtexCms',
+    gatsbyNodeDefs: buildNodeDefinitions({ gatsbyNodeTypes, documents }),
   }
+
+  // Step5. Add explicit types to gatsby schema
+  await createSchemaCustomization(config)
+
+  // Step6. Source nodes
+  await sourceAllNodes(config)
 }
 
 export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {

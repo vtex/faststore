@@ -33,8 +33,8 @@
   "devDependencies": {
     "@vtex/prettier-config": "^0.3.5",
     "eslint": "^7.15.0",
-    "eslint-config-vtex": "^12.9.2",
-    "eslint-config-vtex-react": "^6.9.2",
+    "eslint-config-vtex": "^12.9.3",
+    "eslint-config-vtex-react": "^6.9.3",
     "husky": "^4.3.0",
     "lerna": "^3.22.1",
     "lint-staged": "^10.5.1",
