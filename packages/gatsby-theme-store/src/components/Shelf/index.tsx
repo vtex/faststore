@@ -9,12 +9,14 @@ import ShelfPaginationDots from './PaginationDots'
 import ShelfTitle from './Title'
 import type { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
 
+export type Product = ProductSummary_ProductFragment | undefined | null
+
 export interface Props {
-  products: Array<ProductSummary_ProductFragment | undefined | null>
+  products?: Product[] | null
   pageSizes?: number[]
   title?: JSX.Element | string
   variant?: string
-  showArrows?: boolean
+  showArrows?: boolean | null
   showDots?: boolean
   autoplay?: number
 }
@@ -38,14 +40,15 @@ const Shelf: FC<Props> = ({
     setNextPage,
     setPreviousPage,
     dragHandlers,
-  } = useResponsiveSlider({
+  } = useResponsiveSlider<Product>({
     pageSizes,
     defaultIndex: pageSizes.length - 1,
-    allItems: products,
+    allItems: products as Product[],
     autoplay,
   })
 
-  showArrows = showArrows && products.length >= Math.max(...pageSizes)
+  showArrows =
+    showArrows && products && products.length >= Math.max(...pageSizes)
 
   return (
     <>

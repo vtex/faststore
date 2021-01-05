@@ -2,15 +2,49 @@ import { useCallback, useMemo } from 'react'
 
 import { useSearchParams } from '../state/useSearchParams'
 
-export interface Sku {
+type Item = {
   itemId: string
+  variations?: Array<{ name: string; values: string[] }>
+  images: Array<{ imageUrl: string; imageText: string }>
+  sellers: Array<{
+    sellerId: string
+    commercialOffer: {
+      spotPrice: number
+      availableQuantity: number
+      price: number
+      listPrice: number
+      maxInstallments: Array<{
+        value: number
+        numberOfInstallments: number
+      }>
+      installments: Array<{
+        value: number
+        numberOfInstallments: number
+        interestRate: number
+      }>
+      gifts: Array<{
+        skuName: string
+        images: Array<{ imageUrl: string }>
+      }>
+      teasers: Array<{ name: string }>
+    }
+  }>
 }
 
-interface Props<T extends Sku> {
-  items: T[]
+type Sku = {
+  productId: string
+  productName: string
+  productReference: string
+  description: string
+  linkText: string
+  specificationGroups: Array<{
+    name: string
+    specifications: Array<{ name: string; values: string[] }>
+  }>
+  items: Item[]
 }
 
-export const useSku = <T extends Sku>(product: Props<T>) => {
+export const useSku = (product: Sku) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const skuId = searchParams.get('skuId')
 
@@ -32,5 +66,5 @@ export const useSku = <T extends Sku>(product: Props<T>) => {
     )
   }, [product, skuId])
 
-  return [sku, setSku] as [Sku, typeof setSku]
+  return [sku, setSku] as [Item, typeof setSku]
 }
