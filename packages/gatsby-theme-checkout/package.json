@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-checkout",
-  "version": "0.222.0-beta.0",
+  "version": "0.223.0-alpha.0",
   "description": "Gatsby theme for VTEX Smart Checkout",
   "main": "index.js",
   "browser": "src/index.ts",
