@@ -1,0 +1,35 @@
+{
+  "name": "@vtex/gatsby-theme-checkout",
+  "version": "0.222.0-beta.0",
+  "description": "Gatsby theme for VTEX Smart Checkout",
+  "main": "index.js",
+  "browser": "src/index.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc",
+    "prepare": "cross-env NODE_ENV=production yarn run build",
+    "develop": "tsc --watch"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-theme-plugin",
+    "gatsby-theme-checkout",
+    "vtex"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^2.24.43",
+    "react": "^0.0.0-experimental-7f28234f8",
+    "react-dom": "^0.0.0-experimental-7f28234f8"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "cross-env": "^7.0.2",
+    "gatsby": "^2.24.43",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "liquid": "^5.1.1"
+  }
+}

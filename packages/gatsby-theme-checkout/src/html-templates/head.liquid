@@ -1,0 +1,105 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <title data-i18n="title"></title>
+    <link rel="shortcut icon" href="/arquivos/{{ account.site_name }}-favicon.ico">
+    <link rel="apple-touch-icon" href="/arquivos/{{ account.site_name }}-apple-touch-icon.png">
+    <meta name="msapplication-TileImage" content="/arquivos/{{ account.site_name }}-windows-tile.png" />
+    <link rel="stylesheet" href="//io.vtex.com.br/front-libs/bootstrap/2.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//io.vtex.com.br/front-libs/bootstrap/2.3.2/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="//io.vtex.com.br/front-libs/onda/1.0.0/onda.min.css" />
+    <link rel="stylesheet" href="//io.vtex.com.br/front-libs/font-awesome/3.2.1/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/checkout/lib/front-messages-ui/vtex-message.min.css" />
+    <link rel="stylesheet" href="/checkout/style/style.css" />
+    <link href="{{ 'checkout-custom.css' | legacy_file_url }}" rel="stylesheet" type="text/css" />
+    <link href="{{ 'checkout6-custom.css' | file_url }}" rel="stylesheet" type="text/css" id="checkout-custom-css" />
+    <script type="text/javascript" crossorigin="anonymous" src="//io.vtex.com.br/v3/polyfill.min.js?features=Object.values,Object.entries,Object.assign,Array.from,Array.prototype.findIndex,Array.prototype.fill,Array.prototype.find,Array.prototype.includes,String.prototype.startsWith,String.prototype.endsWith,String.prototype.includes,Symbol,fetch,Promise,Map,Number.isInteger,Number.isNaN,Set,Function.name,URL,IntersectionObserver,Intl.~locale.pt-BR&flags=gated"></script>
+    <script type="text/javascript" src="//io.vtex.com.br/front-libs/jquery/1.8.3/jquery-1.8.3.min.js?v=000002"></script>
+    <script type="text/javascript" src="//io.vtex.com.br/front-libs/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//vtex.vtexassets.com/_v/public/assets/v1/npm/@vtex/render-extension-loader@0.2.2/lib/render-extension-loader.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.1.0/es5-shim.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.1.0/es5-sham.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/checkout/script/init.js" type="text/javascript"></script>
+    <!--[if IE]>
+    <script type="text/javascript" src="/checkout/lib/ie-responsive/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <script type="text/javascript" src="/checkout/lib/ie-responsive/IE7.js"></script>
+    <link href="//io.vtex.com.br/front-libs/font-awesome/3.2.1/css/font-awesome-ie7.min.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <script type="text/javascript" src="/checkout/lib/ie-responsive/IE8.js"></script>
+    <![endif]-->
+    <!--[if IE 9]>
+    <script type="text/javascript" src="/checkout/lib/ie-responsive/IE9.js"></script>
+    <![endif]-->
+
+    <!--VTEXRC--><!--VTEXRC-->
+    <script>
+        !function(){if('PerformanceLongTaskTiming' in window){var g=window.__tti={e:[]};
+        g.o=new PerformanceObserver(function(l){g.e=g.e.concat(l.getEntries())});
+        g.o.observe({entryTypes:['longtask']})}}();
+    </script>
+    <script type="text/javascript">
+        vtex.siteTitle = "{{ config.title }}";
+        vtex.accountName = "{{ account.site_name }}";
+        vtex.googleMapsApiKey = "{{ config.google_maps_api_key }}" || undefined
+        vtex.geolocation = "{{ config.geolocation }}" || undefined
+        vtex.invoiceAddress = "{{ config.invoiceAddress }}" || undefined
+        vtex.leanShipping = "{{ config.leanShipping }}" || undefined
+        vtex.gtmId = "{{ config.gtm_id }}"
+        vtex.vtexid = vtex.vtexid || {};
+        vtex.vtexid.accountId = "{{ account.id }}";
+        vtex.vtexid.accountName = "{{ account.site_name }}";
+        vtex.checkout.version = "{{version}}";
+    </script>
+
+    <!-- build:js /checkout/script/metrics.min.js -->
+    <script type="text/javascript" src="/checkout/lib/splunkevents.js"></script>
+    <script type="text/javascript" src="/checkout/lib/tti-polyfill.js"></script>
+    <script type="text/javascript" src="/checkout/lib/first-input-delay.js"></script>
+    <script type="text/javascript" src="/checkout/script/logger.js"></script>
+    <script type="text/javascript" src="/checkout/script/splunk-logger.js"></script>
+    <script type="text/javascript" src="/checkout/script/performance.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js /checkout/script/ko-templates.min.js -->
+    <script type="text/javascript" src="/checkout/script/ko-templates.js"></script>
+    <!-- endbuild -->
+
+    <script>document.write($("#message-template").html())</script>
+
+    <!--remove-->
+    <script type="text/javascript">
+        // In development fallback to pt-BR as {{ page.culture }} will not be interpolated
+        $('html').attr('lang', 'pt-BR');
+
+        var hostParts = window.location.host.split('.');
+        if (hostParts.length > 0) {
+            vtex.accountName = hostParts[0];
+            vtex.vtexid.accountName = hostParts[0];
+        }
+
+        window.devPayPalPlus = "{{ developing paypal-plus }}".indexOf('developing') === -1
+        window.devCardUI = "{{ developing card-ui }}".indexOf('developing') === -1
+        vtex.siteTitle = '';
+    </script>
+    <script>
+        (function () {
+            window.vtex = window.vtex || {};
+            vtex.portal = vtex.portal || {};
+            vtex.portal.context = {
+                accountId: '0e914df8-c516-45bc-a45a-0aab6482eaf7'
+            };
+        })()
+    </script>
+    <script src="{{ 'scripts/vtex-events-all.min.js' | vtex_io: 'portal-ui', 1 }}"></script>
+    <script src="{{ 'scripts/vtex-analytics.js' | vtex_io: 'portal-ui', 1 }}"></script>
+    <!--endremove-->
+    <script type="text/javascript" src="{{ 'checkout6-custom.js' | file_url }}"></script>
+</head>

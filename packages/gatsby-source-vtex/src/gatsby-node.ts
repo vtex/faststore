@@ -130,17 +130,6 @@ export const createPages = (
     },
   })
 
-  // Use legacy checkout
-  createRedirect({
-    fromPath: '/checkout/*',
-    toPath: `https://${tenant}.${environment}.com.br/checkout/:splat`,
-    statusCode: 200,
-    proxyHeaders: {
-      // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
-    },
-  })
-
   // Use Render's legacy extensions
   createRedirect({
     fromPath: '/legacy_extensions/*',

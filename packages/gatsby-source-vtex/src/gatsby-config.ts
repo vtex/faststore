@@ -16,10 +16,6 @@ module.exports = ({ tenant, workspace, environment }: Options) => ({
       url: `https://${tenant}.${environment}.com.br`,
     },
     {
-      prefix: '/checkout',
-      url: `https://${workspace}--${tenant}.myvtex.com`,
-    },
-    {
       prefix: '/arquivos',
       url: `https://${tenant}.vtexassets.com`,
     },

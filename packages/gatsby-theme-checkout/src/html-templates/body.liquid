@@ -1,0 +1,347 @@
+<body class="loading">
+    <div class="container-fluid pci-alert-topbar" data-bind="style: { display: cookiePCIExists() ? 'block' : 'none' }">
+        <span data-bind="text: alertPCICookieMessage()"></span>
+        <a href="javascript:void(0);" data-bind="click: killCookiePCI, text: alertPCICookieClick()"></a>
+        <span data-bind="text: alertPCICookieClickInfo()"></span>
+    </div>
+
+    {% vtex call_center_operator_information %}
+    {% safe_include 'checkout-header' %}
+
+    <div class="vtex-front-messages-placeholder"></div>
+
+    <!-- DESATIVA PLUGIN SKYPE -->
+    <span id="skype_highlighting_settings" display="none" autoextractnumbers="0"></span>
+    <!-- END -->
+
+    <div class="container container-main">
+
+        <h1 class="hide" id="orderform-title" data-i18n="title" data-bind="fadeVisible: inOrderForm() && !sac.isActive()"></h1>
+        <h1 class="hide" id="orderform-sac-title" data-i18n="sacTitle" data-bind="fadeVisible: sac.isActive()"></h1>
+        <h1 class="hide" id="cart-title" data-i18n="shoppingCart" data-bind="fadeVisible: inCart() && !sac.isActive()"></h1>
+
+        <div id="order-by" class="hide order-by form-inline" data-bind="visible: multipleItems">
+        <label for="order-by-select" class="order-by-label control-label" data-i18n="orderBy.title"></label>
+        <select
+            id="order-by-select"
+            class="order-by-select"
+            data-bind="options: availableOrdinationOptions,
+                    optionsText: 'text',
+                    value: selectedOrdination">
+        </select>
+        </div>
+
+        <small class="gift-list-alert alert" style="display:none;" data-bind="visible: isUsingGiftRegistry">
+            <i class="icon-gift icon-large"></i>
+            <span class="gift-list-alert-text" data-i18n="giftListAlert"></span>
+            <b class="gift-list-alert-name" data-bind="text: giftRegistryDescription"></b>.
+            <a href="javascript:void(0);" data-bind="click: removeGiftRegistry" data-i18n="giftListDismiss"></a>.
+        </small>
+
+        <div class="loading loading-bg" data-bind="visible: loading">
+            <div class="loading-img">
+                <i class="icon-spinner icon-spin icon-3x">
+                    <span data-i18n="global.loading"></span>
+                </i>
+            </div>
+        </div>
+
+        <div class="checkout-container row-fluid">
+            <!-- CART -->
+            <div class="cart-template full-cart span12">
+                <div class="cart-template-holder" id="cartLoadedDiv" data-bind="template: 'cart-template'"></div>
+
+                <div class="cart-select-gift-placeholder cart-select-gift-placeholder--default"></div>
+
+                <div class="summary-template-holder" data-bind="template: {name: 'summary-template', afterRender: vtex.i18n.translateHtml}"></div>
+
+                <div class="clearfix pull-right cart-links cart-links-bottom hide">
+                    <span class="link-choose-more-products-wrapper">
+                        <a data-bind="attr: {href: (window.__RUNTIME__ && window.__RUNTIME__.rootPath ? (window.__RUNTIME__.rootPath + (window.__RUNTIME__.workspace != 'master' ? ('?workspace=' + window.__RUNTIME__.workspace) : '')) : '/') }" id="cart-choose-more-products" class="more link-choose-more-products" data-i18n="cart.chooseMoreProducts"></a>
+                    </span>
+                    <span class="link-print-cart-wrapper hide" data-bind="fadeVisible: userType() == 'callCenterOperator'">
+                        <a id="cart-print" onClick="window.print()" class="btn btn-large link-print-cart" data-i18n="cart.print"></a>
+                    </span>
+                    <span class="btn-place-order-wrapper">
+                        <a href="#/orderform"
+                        target="_self" data-event="cartToOrderform" id="cart-to-orderform" class="btn btn-large btn-success pull-left-margin btn-place-order"
+                        data-i18n="cart.finalize" data-bind="click: cart.next"></a>
+                    </span>
+                </div>
+                <div class="extensions-checkout-buttons-container row-fluid">
+                    <div class="extensions-checkout-buttons span5 pull-right">
+                        <div class="render-container" id="render-checkout-buttons"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /END CART -->
+
+            <!-- ORDERFORM -->
+            <div class="row-fluid orderform-template span12">
+                <div class="orderform-template-holder span8">
+                    <div class="row-fluid">
+                        <div id="client-profile-data" class="span6 client-profile-data" data-bind="template: {name: 'orderForm-clientProfileData-template', afterRender: afterRender}"></div>
+                        <div id="shipping-data" class="span6 pull-right shipping-data" data-bind="css: { 'step accordion-group box-info': !showShipping() }">
+                            <div class="accordion-heading">
+                                <span class="accordion-toggle collapsed" data-i18n="global.shipping" ><i class="icon-home"></i><span>Shipping</span>
+                                </span>
+                            </div>
+                            <div class="accordion-inner">
+                                <div class="box-step box-info shipping-summary-placeholder">
+                                    <div class="shipping-summary-info component-loading">
+                                        <div class="loading-img">
+                                            <i class="icon-spinner icon-spin icon-2x">
+                                                <span data-i18n="global.loading"></span>
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="payment-data" class="span6 pull-right payment-data" data-bind="template: {name: 'orderForm-paymentData-template', afterRender: afterRender}, css: { 'span6': !active(), 'span12': active }"></div>
+                    </div>
+                </div>
+                <div class="cart-template mini-cart span4">
+                    <div class="cart-fixed">
+                        <h2 data-i18n="totalizers.summary">Resumo da compra</h2>
+
+                        <!-- TODO remove window.router -->
+                        <div class="summary-cart-template-holder" data-bind="fadeVisible: window.router.inOrderForm, template: { name: 'orderForm-summary-cart-template', afterRender: vtex.i18n.translateHtml }"></div>
+
+                        <p id="go-to-cart-button" class="link link-cart pull-right" data-bind="if: !window.router.sac.isActive()">
+                            <small>
+                                <a data-bind="attr: { href: window.checkout.cartURL() }" id="orderform-minicart-to-cart" target="_self" data-event="orderformToCart" data-i18n="global.backToCart"></a>
+                            </small>
+                        </p>
+                        <div class="summary-template-holder" data-bind="template: 'summary-template'"></div>
+
+                        <div class="payment-confirmation-wrap">
+                            <div class="note summary-note" data-bind="template: 'note-template', css: { hide: !window.cart.allowManualPrice() }"></div>
+
+                            <p class="payment-submit-wrap">
+                                <button id="sac-submit" class="btn btn-default btn-large btn-block" data-bind="visible: window.router.sac.isActive(), click: cancel"
+                                    tabindex="200">
+                                    <span data-i18n="paymentData.cancel">Cancelar</span>
+                                </button>
+                                <button id="payment-data-submit" class="submit btn btn-success btn-large btn-block" data-bind="fadeVisible: window.router.sac.isActive(), click: submit, disable: window.checkout.disablePaymentButton"
+                                    tabindex="200">
+                                    <i class="icon-lock" data-bind="visible: !window.checkout.disablePaymentButton()"></i>
+                                    <i class="icon-spinner icon-spin" data-bind="visible: window.checkout.disablePaymentButton()"></i>
+                                    <span data-i18n="paymentData.saveChanges">Salvar alterações</span>
+                                </button>
+                                <button id="payment-data-submit" class="submit btn btn-success btn-large btn-block" data-bind="fadeVisible: !window.router.sac.isActive(), click: submit, disable: window.checkout.disablePaymentButton"
+                                    tabindex="200">
+                                    <i class="icon-lock" data-bind="visible: !window.checkout.disablePaymentButton()"></i>
+                                    <i class="icon-spinner icon-spin" data-bind="visible: window.checkout.disablePaymentButton()"></i>
+                                    <span data-i18n="paymentData.confirm">Confirmar compra</span>
+                                </button>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /END ORDERFORM -->
+        </div>
+        <div class="transactions-container row-fluid">
+            <div class="transactions span5 pull-right">
+                <div class="render-container" id="render-transactions"></div>
+            </div>
+        </div>
+    </div>
+
+  <div class="render-container" id="render-cartman"></div>
+  <div class="render-container" id="universal-extensions"></div>
+
+  {% safe_include 'checkout-footer' %}
+  <script src="{{ 'vtexid.min.js' | vtex_io: 'vtex-id-ui', 3 }}"></script>
+  <script>
+      vtexid.setScopeName(vtex.vtexid.accountName);
+      vtexid.setScope(vtex.vtexid.accountId);
+  </script>
+  <script src="//io.vtex.com.br/front-libs/bundles/knockout-2.3.0-underscore-1.7.0-i18next-1.7.2-radio-0.2-json2-patch.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <!-- build:js /checkout/script/lib-common.min.js -->
+  <script type="text/javascript" src="/checkout/lib/front-utils/vtex-utils-2.1.2.js"></script>
+  <script type="text/javascript" src="/checkout/lib/modernizr.js"></script>
+  <script type="text/javascript" src="/checkout/lib/front-messages-ui/vtex-message.min.js"></script>
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-ko-utils.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/pt-BR.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/pt-PT.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/en.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/en-GB.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/es.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/es-PA.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/bg.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/ca.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/da.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/de.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/el.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/fi.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/fr.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/fr-BE.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/it.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/ko.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/nl.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/nl-BE.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/no.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/pl.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/ro.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/ru.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/se.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/sk.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/sl.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/sv.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/uk.js"></script>
+  <script type="text/javascript" src="/checkout/script/locale/cs.js"></script>
+  <!-- endbuild -->
+
+  <script src="//io.vtex.com.br/front-libs/dustjs-linkedin/2.3.5/dust-core-2.3.5.min.js"></script>
+  <script src="//io.vtex.com.br/front-libs/dustjs-linkedin-helpers/1.1.1/dust-helpers-1.1.1.js"></script>
+  <script src="//io.vtex.com.br/front-libs/parsley/2.0.3/parsley.min.js"></script>
+  <script src="//io.vtex.com.br/front-libs/curl/0.8.10-vtex.2/curl.js"></script>
+
+  <script src="{{ 'script/setup/front-cart.js' | vtex_io: 'front.cart', 1 }}"></script>
+
+  <script src="//io.vtex.com.br/front-libs/front-i18n/0.7.2/vtex-i18n.js"></script>
+  <script src="//io.vtex.com.br/front-libs/front-i18n/0.7.2/vtex-locale-selector.js"></script>
+
+  {% if config.kiosk %}
+  <script src="{{ 'js/expiration/session-expiration.min.js' | vtex_io: 'portal-plugins', 2 }}"></script>
+  <!-- build:js /checkout/script/vtex-totem.min.js -->
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-totem.js"></script>
+  <!-- endbuild -->
+  <script>
+      vtex.totem = true;
+      var secondsForExpiration = parseInt('{{ config.timeout }}', 10) || 180;
+      var expirationReturnUrl = '{{ config.url }}' || '/';
+      vtex.portal.startExpiration(expirationReturnUrl, secondsForExpiration*1000, ["mousemove", "keyup", "click", "scroll"]);
+  </script>
+  {% endif %}
+
+  <script src="{{ 'retry-ajax.min.js' | vtex_io: 'vtex.js', 2 }}"></script>
+  <script src="{{ 'extended-ajax.min.js' | vtex_io: 'vtex.js', 2 }}"></script>
+  <script src="{{ 'checkout.min.js' | vtex_io: 'vtex.js', 2 }}"></script>
+  <script src="//io.vtex.com.br/front-libs/front-phone/4.10.1/phone-all-bundle.js"></script>
+
+  <script data-render-loader-script="true">
+      (function(global){
+          if (typeof global.RenderExtensionLoader === "undefined" || global.RenderExtensionLoader === null) {
+              global.vtex.renderLoaderPromise = new Promise(function (resolve) {
+                  global.vtex.renderRuntime = {
+                      extensions: {}, error: true, errorType: 'no-render-extension-loader'
+                  }
+                  resolve()
+              });
+              return;
+          }
+
+          var getCookie=function(e){var o=new RegExp("(^|\\s)"+e+"=([^;]+)(;|$)").exec(window.document.cookie);return o&&o[2]};
+          var parseCookie=function(e){ var a=e&&decodeURIComponent(e); return a&&a.split(':')[0] }
+          var getQuery=function(e){var n=new RegExp("[?&]"+e+"=([^&]+)(&|$)").exec(window.location.search);return n&&n[1]};
+          var getHost=function(){var h = window.location.host.split('--'); return h.length > 1 && h[0]};
+
+          var workspace = getQuery('workspace') || getHost() || parseCookie(getCookie('VtexWorkspace')) || 'master';
+          var publicEndpoint = getCookie('publicEndpoint') || getQuery('publicEndpoint') || 'myvtex.com';
+          var locale = getCookie('locale') || $('html').attr('lang');
+
+          global.vtex.renderLoader = new RenderExtensionLoader({
+              account: global.vtex.vtexid.accountName,
+              workspace: workspace,
+              path: '/checkout',
+              locale: locale,
+              publicEndpoint: publicEndpoint,
+          });
+
+          var renderLoaderReady = function() {
+              if (window.checkout) {
+                  $(window).trigger('renderLoaderReady.vtex')
+              } else {
+                  setTimeout(renderLoaderReady, 500)
+              }
+          }
+
+          global.vtex.renderLoader.getRuntimeContext()
+              .then(function(data) {
+                  global.vtex.renderRuntime = data.runtime;
+                  window.hasCheckoutIO = !!data.runtime.settings['vtex.checkout']
+                  global.vtex.renderLoader
+                      .load()
+                      .then(renderLoaderReady)
+              })
+              .catch(function(error) {
+                  window.logSplunk && window.logSplunk({
+                      level: 'Critical',
+                      type: 'Error',
+                      workflowType: 'checkout-ui',
+                      workflowInstance: 'render-load-timeout',
+                      event: {
+                          orderFormId: vtexjs.checkout.orderFormId,
+                          error: JSON.stringify(error)
+                      },
+                      account: vtex.accountName,
+                  })
+                  global.vtex.renderRuntime = {
+                      extensions: {}, error: true, errorType: 'render-load-failed'
+                  };
+              });
+      })(this)
+  </script>
+  <!-- build:js /checkout/script/checkout-lib.min.js -->
+  <script type="text/javascript" src="/checkout/lib/jquery.requestAnimationFrame.min.js"></script>
+  <script type="text/javascript" src="/checkout/lib/crossroads/signals.min.js"></script>
+  <script type="text/javascript" src="/checkout/lib/crossroads/hasher.min.js"></script>
+  <script type="text/javascript" src="/checkout/lib/crossroads/crossroads.min.js"></script>
+  <script type="text/javascript" src="/checkout/lib/mailcheck.min.js"></script>
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-mailcheck.js"></script>
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-validation.js"></script>
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-ko-validation.js"></script>
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-ko-i18n.js"></script>
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-ko-mask.js"></script>
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-ko-available.js"></script>
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-ko-renderExtension.js"></script>
+  <script type="text/javascript" src="/checkout/script/vtex/vtex-ko-i18nText.js"></script>
+  <!-- endbuild -->
+  <!-- build:js /checkout/script/checkout.min.js -->
+  <script type="text/javascript" src="/checkout/script/orderform/router.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/checkout.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/checkout-module.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/totalizer-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/summary-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/item-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/offering-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/seller-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/coupon-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/message-utils.js"></script>
+  <script type="text/javascript" src="/checkout/script/cart/cart-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/cart/item-attachment-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/cart/item-attachment-list-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/shipping/shipping-data-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/shipping/sla-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/shipping/logistics-info-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/cart-fixed-binding-handler.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/observable-step.js"></script>
+  <script type="text/javascript" src="/checkout/script/orderform/attachment.js"></script>
+  <script type="text/javascript" src="/checkout/script/clientprofile/clientprofile-data-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/shipping/slas-for-seller-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/payment.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/installment.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/paymentsystem.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/giftcard-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/paymentgroup.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/pg-iframe.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/pg-extension.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/multiplePaymentOptions.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/pg-pagosweb.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/special-gift-card-provider.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/special-gift-card.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/pg-giftcard.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/pg-bankInvoice.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment/payment-data-vm.js"></script>
+  <script type="text/javascript" src="/checkout/script/analytics.js"></script>
+  <script type="text/javascript" src="/checkout/script/config.js"></script>
+  <script type="text/javascript" src="/checkout/script/payment-data-wrapper.js"></script>
+  <script type="text/javascript" src="/checkout/script/main.js"></script>
+  <!-- endbuild -->
+</body>

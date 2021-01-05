@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": ".",
+    "alwaysStrict": false,
+    "jsx": "react"
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "src/templates/body.liquid"],
+  "exclude": ["./node_modules/**/*"]
+}
