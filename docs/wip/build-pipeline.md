@@ -1,4 +1,4 @@
-## Steps fo the pipeline
+## Steps of the pipeline
 
 ## Lighthouse CI
 
