@@ -44,7 +44,7 @@ For example: `https://preview-417--storecomponents.vtex.app/`.
 
 ## SonarQube
 
-SonarQube is used to mesasure and analyse code quality using static analysis.
+[SonarQube](sonarqube.md) is used to measure and analyze code quality using static analysis.
 
 Everytime that the CI flow is triggered, a static analysis of the code is made taking into account the latest changes of the pull request. If any issues are found by sonarqube, they will be marked as annotations on the pull request like so:
 
