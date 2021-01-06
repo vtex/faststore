@@ -1,7 +1,8 @@
 ## Steps of the pipeline
 Store Framework Jamstack CI flow consists 4 main steps: `Build`, `SonarQube`, `Integration Tests` and `Lighthouse CI`. 
 
-/* add image of the CI steps flow*/
+![Store Framework Jamstack CI flow](./../images/ci_flow.png)
+
 
 
 This flow is triggered by two situations:
@@ -11,7 +12,7 @@ This flow is triggered by two situations:
 When this happens, a `check suite` is created and populated with `check runs` that shows the state of each step.  
 The initial state of each step is `queued`. This indicates that soon they will be executed.
 
-/* add image of all the steps on `queued`*/
+![Store Framework Jamstack CI checks](./../images/queued_check_runs.png)
 
 
 ## Build
@@ -22,7 +23,9 @@ This step is reponsible of two main things:
 - Run an automated build for the store, saving all the generated artifacts in our infrastructure.
 - Send the build logs to GitHub.
 The build logs are visible by clicking on `details` on the `Build` check run once its completed.
-/* add image of the build check completed */
+
+![Store Framework Jamstack CI build check completed](./../images/build_check_completed.png)
+
 
 #### Possible states
 - `queued`: soon this step will be executed.
@@ -33,7 +36,8 @@ The build logs are visible by clicking on `details` on the `Build` check run onc
 ### Generate a deploy preview 
 For each pull request we provide a `Deploy Preview` that is a deploy of the most recent changes of the pull request.
 You can access the `Deploy Preview` of a specific Pull Request by clicking on `details` on the commit status with the title `<your store>/deploy-preview`:  
-/* add image of the deploy preview button */  
+
+![Store Framework Jamstack CI deploy preview commit status](./../images/deploy_preview_commit_status.png)
 
 Or directly on this url: `https://preview-<pull request number>--<your store name>.vtex.app/`.  
 For example: `https://preview-417--storecomponents.vtex.app/`.
