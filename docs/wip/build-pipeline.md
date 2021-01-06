@@ -58,11 +58,10 @@ Everytime that the CI flow is triggered, a static analysis of the code is made t
 
 ## Lighthouse CI
 
-### Run LHCI
+Lighthouse is a tool that is used to monitor the performance of a website, and it is executed each time a new build is completed, using the `Deploy Preview` as the source of analysis. This results are agregated and allows the developer to compare the performance of whats being developed with what is in production.  
 
-
-
-
+You can access the execution logs by clicking on `details` at the `Lighthouse` check.  
+![Store Framework Jamstack CI lhci check completed](./../images/lhci_check_completed.png)
 
 ## Integration Tests
 
