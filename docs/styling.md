@@ -85,6 +85,7 @@ To alther the color of the button, you need to change the `backgroundColor` prop
       },
     },
 ```
+<img src="../images/suggestions-altered-color.png">
 
 ## Remarks
 It is important to understand that theme shadowing only occurs on `@vtex/gatsby-plugin-theme-ui/index`. We structure the code with multiple files to improve readability. But the plugin only considers what is exported on  `index.ts`. Every theme from the components should be an argument for the `createTheme` function.
@@ -116,4 +117,5 @@ export default createTheme(
 ```
 
 ## Adding styles to a react component
-To add new styles from a theme into a react component, you have to discover what is the name of the variant that
+To add new styles from a theme into a react component, you have to discover what is the name of the Theme UI variant that you want to use. Today the components for `@vtex/store-ui` don't have documentation for the variant names, so you have to look at the code to see the component hierarchy. We always try to follow a convention of variant names resembling component names to simplify this process.
+
