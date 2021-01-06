@@ -4,7 +4,6 @@ Store Framework Jamstack CI flow consists 4 main steps: `Build`, `SonarQube`, `I
 ![Store Framework Jamstack CI flow](./../images/ci_flow.png)
 
 
-
 This flow is triggered by two situations:
 1. When a pull request is created.
 2. When a push with commits associated to a pull request is made.
@@ -45,11 +44,17 @@ For example: `https://preview-417--storecomponents.vtex.app/`.
 
 ## SonarQube
 
-### Execute sonarQube scan
+SonarQube is used to mesasure and analyse code quality using static analysis.
 
-### Mark the issues as annotations on the pull request
+Everytime that the CI flow is triggered, a static analysis of the code is made taking into account the latest changes of the pull request. If any issues are found by sonarqube, they will be marked as annotations on the pull request like so:
 
+![Store Framework Jamstack CI sonarqube annotations](./../images/sonarqube_annotation.png)
 
+#### Possible states
+- `queued`: soon this step will be executed.
+- `in_progress`: this step is being executed.
+- `completed/success`: Sonarqube didn't found any critial issues.
+- `completed/failure`: There is at least one critical issue found by sonarqube.
 
 ## Lighthouse CI
 
