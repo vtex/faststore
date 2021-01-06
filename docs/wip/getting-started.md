@@ -138,4 +138,25 @@ Esse comando acima é bem importante quando queremos debugar o site em producao 
 
 > Dica: Sempre que ocorrer um problema, faca um `yarn clean` para limpar qualquer artefato corrompido de um build anterior
 
-## SFJ building blocks
+### Primeiro PR
+Agora crie uma branch do git com:
+```sh
+git checkout -b feat/initial-pr
+```
+
+faca um build de producao para gerar assets otimizados com
+```sh
+yarn clean && yarn build
+```
+
+adicione todos os arquivos no PR com:
+```
+git add . && git commit -m "Initial Setup" && git push
+```
+
+Crie o PR. Apos o PR criado, voce vai ver os Bots validando e trabalhando no PR. Apos todos os checks terminarem com sucesso, mergeie o PR.
+
+
+
+Happy Development !
+
