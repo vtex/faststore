@@ -79,6 +79,10 @@ To visualize the project code coverage just run `npm run coverage`... (WIP)
 
 VTEX has a hub of helper functions to make writing E2E tests easy, you can install .. (WIP)
 
+## CI/CD Integration
+
+WIP...
+
 ## References
 
 [Cypress Documentation](https://docs.cypress.io/guides/overview/why-cypress.html#In-a-nutshell)
