@@ -2,39 +2,29 @@ import { useCallback, useMemo } from 'react'
 
 import { useSearchParams } from '../state/useSearchParams'
 
-type Item = {
+export type Item = {
+  name: string
+  complementName?: string
   itemId: string
-  variations?: Array<{ name: string; values: string[] }>
-  images: Array<{ imageUrl: string; imageText: string }>
+  referenceId: Array<{ value: string }>
+  videos: Array<{ videoUrl: string }>
   sellers: Array<{
     sellerId: string
     commercialOffer: {
-      spotPrice: number
       availableQuantity: number
       price: number
-      listPrice: number
-      maxInstallments: Array<{
-        value: number
-        numberOfInstallments: number
-      }>
-      installments: Array<{
-        value: number
-        numberOfInstallments: number
-        interestRate: number
-      }>
-      gifts: Array<{
-        skuName: string
-        images: Array<{ imageUrl: string }>
-      }>
-      teasers: Array<{ name: string }>
     }
   }>
+  variations?: Array<{ name: string; values: string[] }>
+  images: Array<{ imageUrl: string; imageText: string }>
 }
 
-type Sku = {
+export type Sku = {
   productId: string
+  productClusters: Array<{ name: string }>
   productName: string
   productReference: string
+  categoryTree: Array<{ name: string; href: string }>
   description: string
   linkText: string
   specificationGroups: Array<{
