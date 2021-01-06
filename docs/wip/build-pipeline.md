@@ -63,9 +63,24 @@ Lighthouse is a tool that is used to monitor the performance of a website, and i
 You can access the execution logs by clicking on `details` at the `Lighthouse` check.  
 ![Store Framework Jamstack CI lhci check completed](./../images/lhci_check_completed.png)
 
+#### Possible states
+- `queued`: soon this step will be executed.
+- `in_progress`: this step is being executed.
+- `completed/success`: Lighthouse CI is completed successfuly.
+- `completed/failure`: Something went wrong.
+- `completed/canceled`: The build was not successfull, therefore the Lighthouse CI can't be executed.
+
+
+
 ## Integration Tests
 
-### Execute integration tests
+Store Framework Jamstack CI flow support integration tests implemented with Cypress.
+Each time a build is completed, the integrations tests are executed using as url the `Deploy Preview` generated with the latest changes on the current pull request.
 
-### Add the results to the check run body
+The results of the tests can be seen directy on GitHub, by clicking on `details` at the `Integration Tests` check.
+
+![Store Framework Jamstack CI integration tests check completed](./../images/integration_tests_check_completed.png)
+
+![Store Framework Jamstack CI integration tests results](./../images/integration_tests_results.png)
+
 
