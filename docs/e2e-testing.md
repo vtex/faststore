@@ -88,4 +88,5 @@ VTEX has a hub of helper functions to make writing E2E tests easy, you can insta
 [Cypress Examples](https://docs.cypress.io/examples/examples/recipes.html)
 
 [VTEX Examples](https://github.com/vtex-sites/storecomponents.store)
+
 [Best Practices](https://docs.cypress.io/guides/references/best-practices.html)
