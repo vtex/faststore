@@ -1,45 +1,66 @@
 ## How to fetch data for your pages
- 
-Um dos grandes benefícios do Gatsby é a sua natureza híbrida capaz de recuperar de dados de maneira estática ou dinâmica, ou seja, é possível recuperar dados no *tempo de build* como também dinâmicamente no lado do cliente. A escolha de qual abordagem usar, depende da natureza do dado e seu contexto, na seção abaixo explicaremos a diferença com exemplos. 
 
-> Caso queira ler aprofundamente sobre esse assunto, recomendados a documentação do Gatsby de [Data Fetching](https://www.gatsbyjs.com/docs/data-fetching/).
+Leveraging from [Gatsby](https://www.gatsbyjs.com/)'s hybrid nature of fetching static and dynamic data, the Store Framework Jamstack (SFJ) allows you to create both fast static and engaging dynamic content.
+
+That means it's possible to fetch data in build time - for static contents, or through a runtime on the client-side - for dynamic contents.
+
+In the following sections, you'll learn whether to use static or dynamic content depending on the nature of the data and its context.
+
+> ℹ️ We strongly encourage you to check Gatsby's documentation on [querying for data with Gatsby](https://www.gatsbyjs.com/docs/how-to/querying-data/).
 
 ### Static data
 
-Dados estáticos são os conteúdos que não mudam frequentemente e também não dependem da interação por usuário. Como por exemplo a página de um produto, a descrição e atributos do produto não mudam constantemente, então faz sentido ser considerado como um dado estático que seja recuperado no tempo de build, assim quando o usuário acessa o produto o dado já está carregado.
+Static data is the content that does not change frequently or per user interaction. We recommend using static rendering when the content doesn't change very often, and when you want to guarantee the fastest possible loading time.
 
-Existem duas maneiras de recuperar dados de maneira estática no Gatsby: [Page Query](https://www.gatsbyjs.com/docs/recipes/querying-data#querying-data-with-a-page-query) e [Static Query](https://www.gatsbyjs.com/docs/how-to/querying-data/static-query/#reach-skip-nav).
+Take the following example: imagine you have a product page, whose descriptions, attributes, and photos rarely change. In this case, you can benefit from retrieving fast static data during build time so that, when a customer accesses this product page, the data is almost instantly loaded.
+
+>ℹ️ *Notice that, on the same page, you can have both static and dynamic data. For example, you can have dynamic data for your product price.*
+
+Gatsby provides two ways to fetch static data:
+
+- Using a [Page Query](https://www.gatsbyjs.com/docs/recipes/querying-data#querying-data-with-a-page-query) to query data from your SFJ store's pages.
+
+- Using a [Static Query](https://www.gatsbyjs.com/docs/how-to/querying-data/static-query/#reach-skip-nav) to retrieve data via a GraphQL query.
 
 ### Dynamic data
 
-Se o dado muda constantemente ou depende da interação do usuário, é uma forte indicação que ele deve ser dinâmico. Como por exemplo, o cálculo de frete que pode mudar dependendo da localidade do usuário que está interagindo ou a implementação de um carrinho de compras que seus dados mudam toda vez que um produto é adicionado, sendo necessário se comunicar com o backend da aplicação toda vez que o usuário interage com o carrinho.
+Dynamic data is the content that constantly changes or which relies on user's interactions.
 
-Para recuperar um dado dinâmico durante tempo de execução, use qualquer método para recuperar dados que você geralmente usaria numa app React normal. Como por exemplo, usar a `fetch` API ou o `apollo-client`.
+Take the following example: imagine you have a shipping calculator component, which regularly changes depending on the user's location. In this case, using static data is not an option.
 
-## What we provided out of the box with `gatsby-source-vtex`
+Interactive components, such as shipping calculators or shopping carts, must obligatorily incorporate a backend communication capability so they can retrieve data when a customer interacts with your website.
 
-O plugin `gatsby-source-vtex` conecta a [Gatsby data layer](https://www.gatsbyjs.com/docs/porting-from-create-react-app-to-gatsby/#unified-graphql-data-layer) ao [GraphQL da VTEX](https://github.com/vtex-apps/store-graphql), permitindo acessar dados da sua loja através do Graphql.
+For client runtime data fetching, you can apply any method you would use in a regular [React](https://reactjs.org/) app. For example, using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to retrieve data from a Rest API or an [Apollo client](https://www.apollographql.com/docs/react/) to retrieve data from a [GraphQL](https://graphql.org/) API.
 
-Para o plugin funcionar corretamente é necessário no arquivo `gatsby-config.js` mudar a varíavel `STORE_ID` para a conta VTEX desejada. Também é possível editar as varíaveis `enviroment` e `workspace`, exemplo:
+## Fetching data in the SFJ
 
-```js
-plugins: [
-    {
-      resolve: `@vtex/gatsby-source-vtex`,
-      options: {
-        tenant: STORE_ID, // conta da VTEX
-        environment: 'vtexcommercestable' , // pode ser vtexcommercestable ou vtexcommercebeta
-        workspace: 'master', // https://vtex.io/docs/concepts/workspace/ 
-      },
-    },
-```
+The [`@vtex/gatsby-source-vtex`](https://www.gatsbyjs.com/plugins/@vtex/gatsby-source-vtex/?=vtex) plugin, pre-setted in the [Store Components starter](https://github.com/vtex-sites/storecomponents.store), is used to fetch data from all VTEX public [REST API's](https://developers.vtex.com/vtex-developer-docs/reference/get-to-know-vtex-apis) that powers VTEX stores.
 
-Se tudo ocorrer bem, ao rodar o site com o comando `yarn develop` a saída no final irá conter a URL para acessar o playground do Graphql do Gatsby:
+>ℹ️ The [`@vtex/gatsby-source-vtex`](https://www.gatsbyjs.com/plugins/@vtex/gatsby-source-vtex/?=vtex) plugin connects the [Gatsby data layer](https://www.gatsbyjs.com/docs/porting-from-create-react-app-to-gatsby/#unified-graphql-data-layer) to the VTEX [Store GraphQL interface](https://github.com/vtex-apps/store-graphql) allowing Gatsby to access VTEX API's through your SFJ application.
 
-```
-View GraphiQL, an in-browser IDE, to explore your site data and schema
-⠀
-http://localhost:8000/___graphql
-```
+To be able to use this plugin, it's necessary to configure its settings. Take the following steps:
 
-Acesse essa URL e verá no Schema todas as queries e mutations da API da VTEX, sinta-se à vontade para testar as queries e ver o que elas retornam. Para usar esses dados no seu site, basta seguir o que é indicado no tópico anterior de [How to fetch data for your pages](#How-to-fetch-data-for-your-pages).
+1. Open your SFJ project in any code editor of your choosing.
+2. From the root directory, go to the `gatsby-config.js` file.
+3. Head to `plugins` and, inside `@vtex/gatsby-source-vtex`, replace the `STORE_ID` value with the `name` of your VTEX account.
+>ℹ️ *The [`gatsby-config.js`](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/) file defines your site’s metadata, plugins, and other general configurations.*
+    ```js
+    plugins: [
+        {
+          resolve: `@vtex/gatsby-source-vtex`,
+          options: {
+            tenant: STORE_ID, // VTEX account name
+            environment: 'vtexcommercestable' , // it can be vtexcommercestable or vtexcommercebeta
+            workspace: 'master', // https://vtex.io/docs/concepts/workspace/ 
+          },
+        },
+    ```
+4. Run the site with the `yarn develop` command. At the end of the running summary, you'll receive a successful message with the URL to the [Gatsby GraphQl playground](https://www.gatsbyjs.com/docs/using-graphql-playground/#reach-skip-nav).
+    ```
+    View GraphiQL, an in-browser IDE, to explore your site data and schema
+    ⠀
+    http://localhost:8000/___graphql
+    ```
+Now, if you access this URL in your browser, you'll be able to fetch and change data from the [Store GraphQL interface](https://github.com/vtex-apps/store-graphql). Feel free to test the queries and see what they return.
+
+To use this data on your website, follow the referenced links in the [How to fetch data for your pages](#How-to-fetch-data-for-your-pages) section.
