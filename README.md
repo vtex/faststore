@@ -129,4 +129,4 @@ Example: `yarn workspace @vtex/store-ui add react-modal`
 
 ## Getting help
 
-If you find any issues on the project you would like to report, please create an [issue](https://github.com/vtex/faststore/issues) on the repository. If you have a question, idea or what to show us something cool you have built, feel free to create a [discussion](https://github.com/vtex/faststore/discussions).
+If you find any issues on the project you would like to report, please create an [issue](https://github.com/vtex/faststore/issues) on the repository. If you have a question, idea or want to show us something cool you have built, feel free to create a [discussion](https://github.com/vtex/faststore/discussions).
