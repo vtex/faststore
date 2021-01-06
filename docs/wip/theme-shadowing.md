@@ -69,13 +69,19 @@ Notice that inside the `Text` component, there's a warning pointing out that eve
 
 Meanwhile, the [`ProductSummary/index.tsx`](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/ProductSummary/index.tsx) component reminds you where the base building blocks are available.
 
-### Examples
+### How to shadow
+In each of the following "how to shadow" sections, we will give you examples on how to:
 
-In each of the following "how to shadow" examples, we will present a goal and show how to achieve it:
+- Completly shadow a component.
+- Customize and reuse code from the original file.
 
-1. We want to completely shadow the [AboveTheFold](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/HomePage/AboveTheFold.tsx) component of the HomePage in our Store Components starter.
+#### Completely shadow a component
+We want to completely shadow the [`AboveTheFold`](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/HomePage/AboveTheFold.tsx) component from our Store Components starter `HomePage`.
 
-    Firstly, we create a new file named `AboveTheFold.tsx`, just like the original file. This will result in the following directory tree:
+Firstly, we create a new file named `AboveTheFold.tsx`, just like the original file name.
+
+This will result in the following directory tree:
+
     ```
     storecomponents.store
     └── src
@@ -85,35 +91,45 @@ In each of the following "how to shadow" examples, we will present a goal and sh
                     └── HomePage
                         └──AboveTheFold.tsx
     ```
-    Then, we implement it however we want. In this example, we go from [this](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/HomePage/AboveTheFold.tsx), which is just a text explaining what should be in this _"fold"_:
-    ```
-    const Fold: FC<Props> = () => (
-      <Center height="800px">
-        <Text sx={{ width: '50%' }}>
-          This is the Above the fold part of your home page. All sync items should
-          be rendered in here. Thus, make sure all data rendered in this part is
-          fetched during Server Side Rendering and revalidated on the client if
-          necessary
-        </Text>
-      </Center>
-    )
-    ```
-    to [this](https://github.com/vtex-sites/storecomponents.store/blob/master/src/%40vtex/gatsby-theme-store/components/HomePage/AboveTheFold.tsx) implementation:
-    ```
-    const Fold: FC<Props> = () => (
-      <>
-        <Carousel allItems={CAROUSEL_ITEMS} height="540px" width="360px" />
-        <RichTextRow />
-      </>
-    )
+
+Then, we open this file to customize it however we want.
+
+In this example, we go from [this](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/HomePage/AboveTheFold.tsx), which is just a text explaining what should be in the `Fold` component:
+
+    ```ts
+        const Fold: FC<Props> = () => (
+          <Center height="800px">
+            <Text sx={{ width: '50%' }}>
+              This is the Above the fold part of your home page. All sync items should
+              be rendered in here. Thus, make sure all data rendered in this part is
+              fetched during Server Side Rendering and revalidated on the client if
+              necessary
+            </Text>
+          </Center>
+        )
     ```
 
-2. We want to customize, but also reuse the code from the original file.
+To [this](https://github.com/vtex-sites/storecomponents.store/blob/master/src/%40vtex/gatsby-theme-store/components/HomePage/AboveTheFold.tsx) implementation:
 
-    In order to do that, we would create a file like the previous example, but now we would import the theme's original file. That way, we won't have to copy & paste all the code that we will reuse, we will only be concerned with the new code that we are going to implement.
+    ```ts
+        const Fold: FC<Props> = () => (
+          <>
+            <Carousel allItems={CAROUSEL_ITEMS} height="540px" width="360px" />
+            <RichTextRow />
+          </>
+        )
+    ```
 
-    This is shown in [this](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/shadowing/#importing-the-shadowed-component) example from the Gatsby documentation, in which a component is imported and wrapped with another component. 
-    In addition, there is an [example](https://github.com/vtex-sites/storecomponents.store/blob/master/src/%40vtex/gatsby-theme-store/components/ProductSummary/index.tsx) in our Store Components starter, where we import the `Props` interface from the [shadowed file](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/ProductSummary/index.tsx) to use it in our brand new ProductSummary component.
+That's all! Gatsby will now understand it should render the `AboveTheFold.tsx` component we just created instead of the theme's default file.
+
+#### Customize and reuse code from the original file
+To customize, but also reuse the code from the original file, we must create a file with the same name of the component we want to shadow, just like in the previous example, but now we must also **import** the theme's original file. 
+
+That way, we won't have to copy and paste all the code that we will reuse, we will only be concerned with the new code that we are going to implement.
+
+This is shown in [this example](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/shadowing/#importing-the-shadowed-component) from the Gatsby documentation, in which a component is imported and wrapped with another component.
+
+In addition, there is an [example](https://github.com/vtex-sites/storecomponents.store/blob/master/src/%40vtex/gatsby-theme-store/components/ProductSummary/index.tsx) in our Store Components starter, where we import the `Props` interface from the [shadowed file](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/ProductSummary/index.tsx) to use it in our brand new `ProductSummary` component.
 
 ## Reference Implementation
-Since Gastby is an open source framework, that are many examples out there, but you could always refer to our [Store Components starter](https://github.com/vtex-sites/storecomponents.store).
+Since Gatsby is an open-source framework, there are many examples out there, but you could always refer to our [Store Components starter (`storecomponents.store`)](https://github.com/vtex-sites/storecomponents.store).
