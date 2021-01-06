@@ -1,162 +1,119 @@
-Esse tutorial cobre o processo de setup da loja desde a criacao do repo git ate a criacao de tokens e perfils de acesso no admin. Algumas partes deste tutorial podem ser realizadas somente pelo pessoal da VTEX e outras podem somente ter acesso o usuario master da loja. 
-Ao final deste tutorial voce vai ter sua loja rodando com o nosso tema basico em `http://<account>.vtex.app`
+# Getting started 
 
-## Pre-requisites
-Conhecimentos basicos de:
-- Git/Github
-- Admin VTEX
-- Yarn
+At the end of this tutorial, you will have your VTEX store running our basic SFJ theme at `http://{account}.vtex.app`.
 
-Voce tambem precisa de uma conta na VTEX, a.k.a `storecomponents` e um usuario no Github
+## Requirements
+
+Before you start building your very first SFJ store, please make sure:
+
+- You have a GitHub account.
+- Your VTEX account is part of the [VTEX Sites](https://github.com/vtex-sites) organization.
+- You're comfortable using [Git commands](https://git-scm.com/docs).
+- You know what [Jamstack]() is.
+- You're familiar with [Gatsby's]() core concepts.
+- You know what [GraphQL](https://graphql.org/) is and its basic concepts.
+- You know how to develop [React](https://reactjs.org/) components.
 
 ## Tools
-- Yarn
-- Git
-- VTEX Toolbelt
-- Node.JS >14
 
-## Set up
-Apos instalar e setar as ferramentas acima, siga os pacos abaixo
+To build an SFJ store, we'll make use of different technologies and frameworks. Therefore, before proceeding any further, make sure you have the following tools installed in your machine:
 
-### Instalacao de apps
-Va ao terminal e logue na sua conta da VTEX
-```sh
-vtex login <account>
+- [Node.js](https://nodejs.org/en/), a JavaScript runtime built on Chrome's V8 JavaScript engine.
+- [Yarn](https://yarnpkg.com/), a package manager for your code that allows you to use and share code with other developers from around the world.
+- [Gatsby](https://www.gatsbyjs.com/docs/quick-start/), a React-based open-source framework for creating websites and apps. 
+- [Toolbelt](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-toolbelt), a command-line interface that provides all the necessary features to start developing apps with VTEX IO. 
+
+## Setting up your development environment
+
+1. Open up the terminal and log in to your VTEX account.
+
+```shell
+vtex login {account}
 ```
 
-Apos logar corretamente, instale as apps com o comando:
-```sh
+2. Run the following command to install all the necessary apps to start developing with the SFJ.
+
+```shell
 vtex install vtex.admin-search@1.x vtex.admin-cms@0.x vtex.graphql-gateway@0.x
 ```
 
-### Criacao do repo no github
-Agora vamos criar o repositorio no github. Va em https://github.com/vtex-sites e clique em `new`
+3. [Create a new repository from this template](https://github.com/vtex-sites/storecomponents.store) inside the [`vtex-sites` organization.](https://github.com/vtex) with the name `{account}.store`.
 
-[![Screen-Shot-2021-01-06-at-11-37-42-AM.png](https://i.postimg.cc/Y9m6Nwy3/Screen-Shot-2021-01-06-at-11-37-42-AM.png)](https://postimg.cc/XG4B3tWG)
+### Connecting to the VTEX CMS
 
-Crie o repositorio com o nome `<account>.store` a partir do template da storecomponents. Voce devera ter uma tela parecida com:
+>⚠️ *If you're not using the VTEX CMS, please, instead of taking the following steps, head to the [Gatsby Plugins](https://www.gatsbyjs.com/plugins/) reference and look for your current CMS in their plugin library. Open the `package.json` file of the recently created repository, replace `@vtex/gatsby-plugin-cms` with the name of your CMS plugin, and follow the instructions found on Gatsby website. Notice that if you can't find a corresponding plugin, consider [creating]() your own.*
 
-[![Screen-Shot-2021-01-06-at-11-39-33-AM.png](https://i.postimg.cc/bJzPkzJX/Screen-Shot-2021-01-06-at-11-39-33-AM.png)](https://postimg.cc/CZ69VpkJ)
+1. Follow [this tutorial](https://developers.vtex.com/vtex-developer-docs/docs/getting-started-authentication#creating-the-appkey-and-apptoken) to create a new `appKey`/`appToken`.
+2. Copy the generated token to your clipboard.
+3. Open your VTEX account admin on your browser and go to *Account management > Access profiles*.
+4. Create a new profile with the `SFJ CMS` name and configure the following products:
 
-Clique em `create repository` e pronto, o repositorio esta criado
+- Dynamic Storage
+    - Full access in all documents.
+    - Read only documents.
+- CMS
+    - CMS GraphQL API.
+5. Save the new  profile.
+6. Associate the created access profile with the `appKey / appToken key` previously generated.
 
-### Criacao de chaves
-Se voce nao for usar o CMS da VTEX, remove o plugin `@vtex/gatsby-plugin-cms` do `package.json` da sua loja e va para a proxima etapa.
+>⚠️ ***Keep in mind:** These `appkey`/`apptoken` must be related only to the `SFJ CMS` profile.*
 
-Para que o seu site consiga pedir dados do CMS, uma appKey/appToken precisa ser criada. Crie uma appKey/appToken seguindo [esse tutorial](https://developers.vtex.com/vtex-developer-docs/docs/getting-started-authentication#creating-the-appkey-and-apptoken)
-
-Apos a chave criada, va no ambiente administrativo em `configuracoes de conta => gerenciamento da conta => perfils de acesso` e crie um novo perfil de acesso.
-
-De o nome de `FastStore CMS` para esse novo perfil de acesso. Nesse perfil de acesso, configure os seguintes produtos e clique em `Salvar`
-
-[![Screen-Shot-2021-01-06-at-11-47-15-AM.png](https://i.postimg.cc/9XdxsGJB/Screen-Shot-2021-01-06-at-11-47-15-AM.png)](https://postimg.cc/G9pJys0B)
-
-Apos ter o perfil de acesso criado, associe o perfil de acesso criado com a chave appKey/appToken criada. Esse é o unico perfil de acesso que essa chave deve ter.
-
-Agora com a chave associada corretamente com o perfil de acesso, voce precisa colocar a chave em uma variavel de ambiente no seu ambiente de CI/CD escolhido. As chaves precisam estar setadas nas seguintes variaveis de ambiente:
+7. Set the `appKey`/`appToken`  to the following environment variables in the CI/CD environment of your choosing:
 
 ```
-VTEX_CMS_APP_KEY=<appKey>
-VTEX_CMS_APP_TOKEN=<appToken>
+VTEX_CMS_APP_KEY={appKey}
+VTEX_CMS_APP_TOKEN={appToken}
 ```
 
-Caso voce esteja usando a Netlify como CI/CD, voce pode setar essas variaveis de ambiente diretamente no painel da Netlify. 
+>ℹ️ *If you are using [Netlify](https://www.netlify.com/) as a CI/CD, you can [set these environment variables directly on the Netlify panel.](https://docs.netlify.com/configure-builds/environment-variables/#declare-variables)*
 
-Caso esteja usando o CI/CD do DevTools, voce ainda nao consegue setar variaveis de ambiente por api ou dashboard. Peca no slack para o `@vini` colocar essas variaveis de ambiente na conta correta
+>⚠️ *If you are using the VTEX CI/CD, you won't be able to set up environment variables by API or dashboard. Please, contact us for more information.*
 
-> Nao é necessario setar essas variaveis no ambiente de desenvolvimento local se voce esta logado na conta com `vtex login`. Preste atencao que o token do `vtex login` expira e apos 24h voce vai ter que fazer o `vtex login` novamente para o build local voltar funcionar.
+### Creating a SFJ store
 
-### Primeiro build local
-Para comecar a desenvolver, clone o repositorio do github em uma pasta com:
-```sh
-git clone <my-git-repo> && cd <my-git-repo>
+1. Open up the terminal and [clone](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository) the recently created project into your local files.
+
+```shell
+git clone vtex-sites/{account-name}.store && cd {local-folder}
 ```
 
-Instale as dependecias com
-```sh
-yarn
-```
+2. Change into the working directory and install all the dependencies listed within the  `package.json` file.
 
-Agora vamos apontar o repositorio para a conta na VTEX desejada. Abra o `gatsby-config.js` e mude a variavel `STORE_ID` de `storecomponents` para a conta na VTEX desejada.
+    ```shell
+    cd {store-name}.store/
+    yarn install
+    ```
 
-Agora abra o arquivo `staticPaths.json` e adicione os paths que voce deseja que sejam otimizados. Lembre que mais paths colocados aqui fazem o build e desenvolvimento ficarem mais lentos e demorados.
+>ℹ️ *Now, if you run `gatsby develop`, you'll start a development server and have access to our boilerplate at `http://localhost:8000/`.*
 
-Apos feitos esses procedimentos, vamos comecar a desenvolver com
-```
-yarn develop
-```
+3. Run the following command to generate a production version of the website and serve it.
 
-Voce deveria ver uma saida parecida com:
-```sh
-$ gatsby develop
-success open and validate gatsby-configs - 0.053s
-success load plugins - 1.226s
-success onPreInit - 0.038s
-success initialize cache - 0.007s
-success copy gatsby files - 0.045s
-success onPreBootstrap - 0.017s
-success createSchemaCustomization - 0.018s
-success [gatsby-graphql-toolkit] fetching PageContent - 0.583s
-warning The @vtex/gatsby-plugin-cms plugin has generated no Gatsby nodes. Do you need it?
-success Checking for changed pages - 0.000s
-success source and transform nodes - 2.991s
-success building schema - 0.349s
-info Total nodes: 121, SitePage nodes: 65 (use --verbose for breakdown)
-success createPages - 0.787s
-success Checking for changed pages - 0.000s
-success createPagesStatefully - 0.091s
-success update schema - 0.049s
-success write out redirect data - 0.001s
-success Build manifest and related icons - 0.126s
-success onPostBootstrap - 1.185s
-info bootstrap finished - 9.530s
-success onPreExtractQueries - 0.001s
-success extract queries from components - 1.343s
-success write out requires - 0.027s
-success run static queries - 0.039s - 5/5 127.04/s
-success run page queries - 7.513s - 72/72 9.58/s
-⠀
-You can now view storecomponents.store in the browser.
-⠀
-  http://localhost:8000/
-⠀
-View GraphiQL, an in-browser IDE, to explore your site data and schema
-⠀
-  http://localhost:8000/___graphql
-⠀
-Note that the development build is not optimized.
-To create a production build, use gatsby build
-```
-
-Para gerar uma versao de producao do site e servi-la, voce vai precisar do `docker` instalado. O comando abaixo gera o site e serve com o `docker`
-
-```
+```shell
 yarn build && yarn docker:serve
 ```
 
-Esse comando acima é bem importante quando queremos debugar o site em producao localmente. Isso ajuda bastante a entender melhorias de performance e bundles
+>ℹ️ *The command above generates the site and serves it with `docker`. We recommend using `docker` to locally debug a site in production and for more information on possible improvements in performance and bundles.*
 
-> Dica: Sempre que ocorrer um problema, faca um `yarn clean` para limpar qualquer artefato corrompido de um build anterior
+>ℹ️ ***Tip:** If you face any issues during development, first consider running `yarn clean` to clean up any corrupted artifacts from a previous build.*
 
-### Primeiro PR
-Agora crie uma branch do git com:
-```sh
+4. Create a new git branch.
+
+```shell
 git checkout -b feat/initial-pr
 ```
 
-faca um build de producao para gerar assets otimizados com
-```sh
+5. Make a production build to generate optimized assets.
+
+```shell
 yarn clean && yarn build
 ```
 
-adicione todos os arquivos no PR com:
-```
+6. Include all files in the PR.
+
+```shell
 git add . && git commit -m "Initial Setup" && git push
 ```
 
-Crie o PR. Apos o PR criado, voce vai ver os Bots validando e trabalhando no PR. Apos todos os checks terminarem com sucesso, mergeie o PR.
+7. Create a PR.
 
-
-
-Happy Development !
-
+You will now see [our bots]() validating your changes. Once all validations are successfully performed, merge the PR.
