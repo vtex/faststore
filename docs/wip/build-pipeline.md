@@ -56,6 +56,8 @@ Everytime that the CI flow is triggered, a static analysis of the code is made t
 - `completed/success`: Sonarqube didn't found any critial issues.
 - `completed/failure`: There is at least one critical issue found by sonarqube.
 
+More information can be found [here](./sonarqube.md)
+
 ## Lighthouse CI
 
 Lighthouse is a tool that is used to monitor the performance of a website, and it is executed each time a new build is completed, using the `Deploy Preview` as the source of analysis. This results are agregated and allows the developer to compare the performance of whats being developed with what is in production.  
@@ -71,7 +73,6 @@ You can access the execution logs by clicking on `details` at the `Lighthouse` c
 - `completed/canceled`: The build was not successfull, therefore the Lighthouse CI can't be executed.
 
 
-
 ## Integration Tests
 
 Store Framework Jamstack CI flow support integration tests implemented with Cypress.
@@ -83,4 +84,12 @@ The results of the tests can be seen directy on GitHub, by clicking on `details`
 
 ![Store Framework Jamstack CI integration tests results](./../images/integration_tests_results.png)
 
+More information can be found [here](./e2e-testing.md)
 
+#### Possible states
+- `queued`: soon this step will be executed.
+- `in_progress`: this step is being executed.
+- `completed/success`: All tests passed successfuly.
+- `completed/failure`: At least one test failed.
+- `completed/canceled`: The build was not successfull, therefore the Integrations Tests can't be executed.
+- `completed/neutral`: There are no integration tests implemented.
