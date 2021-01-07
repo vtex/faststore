@@ -1,8 +1,6 @@
 import { join } from 'path'
 
-import ConfigStore from 'configstore'
 import { outputJSON, pathExists } from 'fs-extra'
-import fetch from 'isomorphic-unfetch'
 import type { JSONSchema6 } from 'json-schema'
 import type {
   CreatePagesArgs,
@@ -48,67 +46,24 @@ const PREVIEW_PATH = '/cms/preview'
 
 interface Options {
   tenant: string
-  appKey: string
-  appToken: string
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
     tenant: Joi.string().required(),
-    appKey: Joi.string(),
-    appToken: Joi.string(),
   })
-
-const getAccessToken = async (appKey: string, appToken: string) => {
-  try {
-    if (!appKey || !appToken) {
-      const config = new ConfigStore('vtex')
-
-      return config.get('token')
-    }
-
-    const response = await fetch(
-      `https://vtexid.vtex.com.br/api/vtexid/pub/authenticate/default?user=${appKey}&pass=${appToken}`,
-      {
-        headers: {
-          accept: 'application/json',
-        },
-      }
-    )
-
-    const json = await response.json()
-
-    return json.authCookie.Value
-  } catch (err) {
-    console.error(err)
-
-    return ''
-  }
-}
 
 export const sourceNodes = async (
   args: SourceNodesArgs,
-  { tenant, appKey, appToken }: Options
+  { tenant }: Options
 ) => {
-  const { reporter } = args
-  const accessToken = await getAccessToken(appKey, appToken)
-
-  if (!accessToken) {
-    reporter.panicOnBuild(
-      'No appKey/appToken or local config found. Please login with `vtex login` or add the appKey/appToken env vars'
-    )
-
-    return
-  }
-
   // Step1. Set up remote schema:
   const executor = createDefaultQueryExecutor(
-    `https://app.io.vtex.com/vtex.admin-cms-graphql/v0/${tenant}/${WORKSPACE}/_v/graphql`,
+    `https://${WORKSPACE}--${tenant}.myvtex.com/graphql`,
     {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        cookie: `VtexIdclientAutCookie=${accessToken}`,
       },
     }
   )
@@ -121,10 +76,12 @@ export const sourceNodes = async (
       remoteTypeName: `PageContent`,
       queries: `
         query LIST_PAGES ($first: Int!, $after: String ) {
-          pages (first: $first, after: $after, builderId: "faststore") {
-            edges {
-              node {
-                ...PageContentFragment
+          vtex {
+            pages (first: $first, after: $after, builderId: "faststore") {
+              edges {
+                node {
+                  ...PageContentFragment
+                }
               }
             }
           }
