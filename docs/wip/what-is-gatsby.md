@@ -1,6 +1,6 @@
 # What is Gatsby?
 
-GatsbyJS é um gerador de sites estático moderno baseado em React e GraphQL. Que torna a experiencia do desenvolvedor muito agradável por usar as melhores partes do React, Webpack, GraphQL e outras ferramentas.
+[GatsbyJS](https://www.gatsbyjs.com/docs/) is a [GraphQL](https://graphql.org/) and [React](https://reactjs.org/)-based static site generator that brings together the best of [Webpack](https://webpack.js.org/), React, GraphQL, and other modern tools to provide a better developer experience. 
 
 ## Por que o escolhemos?
 
