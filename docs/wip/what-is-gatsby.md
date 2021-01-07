@@ -20,5 +20,3 @@ Gatsby is made more flexible and extensible thanks to its plugin-based ecosystem
 ### High customization level
 
 With [Shadowing](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/shadowing/), Gatsby increases customization levels, allowing the user to replace [webpack](https://webpack.js.org/) files with customized ones.
-
-A maneira como Gatsby usa GraphQL é feito para coletar seus dados de qualquer lugar: Markdown, JSON, seu CMS favorito, APIs de terceiros, em qualquer lugar! E no momento da construção, ele cria um servidor GraphQL interno de todos esses dados. Portanto, em seus componentes React seus dados são consultados em tempo de construção daquele mesmo lugar, da mesma forma por meio do GraphQL. Além da forma em como o GraphQL é utilizado, o gatsby é poderoso pelo seu ecossistema baseado em plugins, onde pode-se encontrar milhares deles em sua [página](https://www.gatsbyjs.com/plugins).
