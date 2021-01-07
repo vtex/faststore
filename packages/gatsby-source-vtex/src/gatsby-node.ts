@@ -1,4 +1,9 @@
-import { introspectSchema, wrapSchema } from '@graphql-tools/wrap'
+import {
+  FilterObjectFields,
+  introspectSchema,
+  PruneSchema,
+  wrapSchema,
+} from '@graphql-tools/wrap'
 import { print } from 'graphql'
 import type { AsyncExecutor } from '@graphql-tools/delegate'
 import type {
@@ -71,10 +76,19 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     return result
   }
 
-  const schema = wrapSchema({
-    schema: await introspectSchema(executor),
-    executor,
-  })
+  const schema = wrapSchema(
+    {
+      schema: await introspectSchema(executor),
+      executor,
+    },
+    [
+      // Filter CMS fields so people use the VTEX CMS plugin instead of this one
+      new FilterObjectFields(
+        (typeName, fieldName) => typeName !== 'VTEX' || fieldName !== 'pages'
+      ),
+      new PruneSchema({}),
+    ]
+  )
 
   addThirdPartySchema({ schema })
 
