@@ -11,7 +11,7 @@ Using `@vtex/gatsby-plugin-theme-ui`, the path to shadow styles is to export an 
 
 If you've started developing with our [template](https://github.com/vtex-sites/storecomponents.store/blob/master/src/%40vtex/gatsby-plugin-theme-ui/index.ts) this file should be already there.
 
-Since each store built using store framework jamstack is created on top of a pre-existing theme ui theme, every CSS customization should merge the new CSS with the pre-existing one.
+Since each store built using store framework Jamstack is created on top of a pre-existing theme-ui theme, every CSS customization should merge the new CSS with the pre-existing ones.
 
 To do that, you use the `createTheme` function imported from `@vtex/store-ui`.
 
@@ -118,4 +118,3 @@ export default createTheme(
 
 ## Adding styles to a react component
 To add new styles from a theme into a react component, you have to discover what is the name of the Theme UI variant that you want to use. Today the components for `@vtex/store-ui` don't have documentation for the variant names, so you have to look at the code to see the component hierarchy. We always try to follow a convention of variant names resembling component names to simplify this process.
-
