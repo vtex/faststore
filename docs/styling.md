@@ -5,7 +5,7 @@ Styling in Store Framework Jamstack leverages the library [theme-ui](https://the
 Theme UI already has a [gatsby plugin](https://www.gatsbyjs.com/docs/how-to/styling/theme-ui/) available. This plugin, however, was not attending our needs because we want to optimize how CSS is merged at runtime, and this plugin merges the CSS at build time.
 
 So we've built a [custom plugin](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-theme-ui
-) to attend this need.
+) to attend to this need.
 ## How to style
 Using `@vtex/gatsby-plugin-theme-ui`, the path to shadow styles is to export an `index.js` file inside the folder `src/@vtex/gatsby-plugin-theme-ui`.
 
