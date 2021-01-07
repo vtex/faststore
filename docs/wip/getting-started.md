@@ -40,32 +40,6 @@ Crie o repositorio com o nome `<account>.store` a partir do template da storecom
 
 Clique em `create repository` e pronto, o repositorio esta criado
 
-### Criacao de chaves
-Se voce nao for usar o CMS da VTEX, remove o plugin `@vtex/gatsby-plugin-cms` do `package.json` da sua loja e va para a proxima etapa.
-
-Para que o seu site consiga pedir dados do CMS, uma appKey/appToken precisa ser criada. Crie uma appKey/appToken seguindo [esse tutorial](https://developers.vtex.com/vtex-developer-docs/docs/getting-started-authentication#creating-the-appkey-and-apptoken)
-
-Apos a chave criada, va no ambiente administrativo em `configuracoes de conta => gerenciamento da conta => perfils de acesso` e crie um novo perfil de acesso.
-
-De o nome de `FastStore CMS` para esse novo perfil de acesso. Nesse perfil de acesso, configure os seguintes produtos e clique em `Salvar`
-
-[![Screen-Shot-2021-01-06-at-11-47-15-AM.png](https://i.postimg.cc/9XdxsGJB/Screen-Shot-2021-01-06-at-11-47-15-AM.png)](https://postimg.cc/G9pJys0B)
-
-Apos ter o perfil de acesso criado, associe o perfil de acesso criado com a chave appKey/appToken criada. Esse é o unico perfil de acesso que essa chave deve ter.
-
-Agora com a chave associada corretamente com o perfil de acesso, voce precisa colocar a chave em uma variavel de ambiente no seu ambiente de CI/CD escolhido. As chaves precisam estar setadas nas seguintes variaveis de ambiente:
-
-```
-VTEX_CMS_APP_KEY=<appKey>
-VTEX_CMS_APP_TOKEN=<appToken>
-```
-
-Caso voce esteja usando a Netlify como CI/CD, voce pode setar essas variaveis de ambiente diretamente no painel da Netlify. 
-
-Caso esteja usando o CI/CD do DevTools, voce ainda nao consegue setar variaveis de ambiente por api ou dashboard. Peca no slack para o `@vini` colocar essas variaveis de ambiente na conta correta
-
-> Nao é necessario setar essas variaveis no ambiente de desenvolvimento local se voce esta logado na conta com `vtex login`. Preste atencao que o token do `vtex login` expira e apos 24h voce vai ter que fazer o `vtex login` novamente para o build local voltar funcionar.
-
 ### Primeiro build local
 Para comecar a desenvolver, clone o repositorio do github em uma pasta com:
 ```sh
@@ -137,6 +111,8 @@ yarn build && yarn docker:serve
 Esse comando acima é bem importante quando queremos debugar o site em producao localmente. Isso ajuda bastante a entender melhorias de performance e bundles
 
 > Dica: Sempre que ocorrer um problema, faca um `yarn clean` para limpar qualquer artefato corrompido de um build anterior
+
+Para terminar, adicione as urls que vao ser testadas no lighthouse em `lighthouserc.js`.
 
 ### Primeiro PR
 Agora crie uma branch do git com:
