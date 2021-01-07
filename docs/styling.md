@@ -26,7 +26,7 @@ To style a pre-existing plugin, use the gatsby functionality [theme shadowing](h
 
 Let's alter the color of the `searchSuggestions` add to cart button component from primary to secondary.
 
- <img src="../images/suggestions.png">.
+ <img src="./images/suggestions.png">.
 
 
 First, find the correspondent for this button and alter the styles using theme shadowing.
@@ -93,7 +93,7 @@ Then, alther the color of the button by changing the `backgroundColor` property 
       },
     },
 ```
-<img src="../images/suggestions-altered-color.png">
+<img src="./images/suggestions-altered-color.png">
 
 ## Remarks
 Theme shadowing only occurs on `@vtex/gatsby-plugin-theme-ui/index`. We structure the code with multiple files to improve readability, but the plugin only considers what is exported on `index.ts`. Every theme from the components should be an argument for the `createTheme` function.
