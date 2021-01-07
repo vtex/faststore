@@ -7,7 +7,8 @@ Theme UI already has a [gatsby plugin](https://www.gatsbyjs.com/docs/how-to/styl
 So we've built a [custom plugin](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-theme-ui
 ) to attend to this need.
 ## How to style
-Using `@vtex/gatsby-plugin-theme-ui`, the path to shadow styles is to export an `index.js` file inside the folder `src/@vtex/gatsby-plugin-theme-ui`.
+Using the @vtex/gatsby-plugin-theme-ui, export an index.js file inside the folder src/@vtex/gatsby-plugin-theme-ui.
+
 
 If you've started developing with our [template](https://github.com/vtex-sites/storecomponents.store/blob/master/src/%40vtex/gatsby-plugin-theme-ui/index.ts) this file should be already there.
 
