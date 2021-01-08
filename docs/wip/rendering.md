@@ -34,5 +34,3 @@ Agora a renderização acontece em tempo de compilação, isso ocorre porque tra
 
 # Pros and cons
 
-
-O SFJ foi construído para performar com escalabilidade personalizada, isso significa que podemos ter páginas estáticas e dinamicas a depender de uma personalização. 
