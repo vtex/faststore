@@ -51,91 +51,127 @@ We structure the `@vtex/gatsby-plugin-theme-ui` code within multiple files to im
       authTheme
     )
     ```
-## How to style
-Using the @vtex/gatsby-plugin-theme-ui, export an index.js file inside the folder src/@vtex/gatsby-plugin-theme-ui.
+## Step by step
 
+### Overwriting CSS styles of the Store UI components
 
-If you've started developing with our [template](https://github.com/vtex-sites/storecomponents.store/blob/master/src/%40vtex/gatsby-plugin-theme-ui/index.ts) this file should be already there.
+Take the following steps as a guide to style Store UI components containing a pre-defined `themes.ts` style sheet.
 
-Since each store built using Store Framework Jamstack is created on top of a pre-existing theme-ui theme, every CSS customization should merge the new CSS with the pre-existing ones.
+Once you [set up your SFJ project]() from our [SFJ starter](https://github.com/vtex-sites/storecomponents.store), you're ready to start styling your VTEX store.  
 
-To do that, you use the `createTheme` function imported from `@vtex/store-ui`.
+1. Open up your SFJ project in the code editor of your choosing.
+2. Go to the `src/@vtex/gatsby-plugin-theme-ui`.
+3. Create a Typescript file with the name of the component you want to style (e.g., `searchSuggestions.ts`).
 
->ℹ️ `@vtex/store-ui` is our plugin that exports common ecommerce components
+>ℹ️ *Use the [SFJ Store Theme components folder](https://github.com/vtex/faststore/tree/master/packages/gatsby-theme-store/src/components) as a reference.*
 
-### Doing your first CSS change
-To style a pre-existing plugin, use the gatsby functionality [theme shadowing](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/shadowing/).
+4. Import the `createTheme` function and the pre-defined style sheet of the component you want to style.
+    
+    ```ts
+    import { createTheme, SxStyleProp } from '@vtex/store-ui'
+    ```
+    
+>⚠️ *Ideally, all default style sheets should be defined within the Store UI library. However, you'll notice some styles are defined within the SFJ Store Theme. We are aware of this situation and already working on it.*
 
-Let's alter the color of the `searchSuggestions` add to cart button component from primary to secondary.
+5. Declare a `custom` object, as in the following:
 
- <img src="./images/suggestions.png">.
+    ```ts
+    const custom = {
+    
+    }
+    ``` 
 
+6. Within the `custom` object, overwrite styles respecting the hierarchy of the style sheet of that component.
 
-First, find the correspondent for this button and alter the styles using theme shadowing.
+>⚠️ *Open the default style sheet file of the component you want to style and check the hierarchy you should follow when overwriting styles.*
 
-In your template, the theme for this component is located at this [file](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/SearchSuggestions/theme.ts).
+Take the following example from the [SearchSuggestions default style sheet (`@vtex/gatsby-theme-store/src/components/SearchSuggestions/theme.ts`)](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/SearchSuggestions/theme.ts). By default, we have:
+    
+    ```ts
+    // "faststore/packages/gatsby-theme-store/src/components/SearchSuggestions/theme.ts"
+        products: {
+          width: 'inherit',
+    
+          button: {
+            backgroundColor: 'primary',
+          },
+    
+          title,
+    
+          list: {
+            ...list,
+            display: 'flex',
+            flexWrap: 'nowrap',
+          },
+    
+          total: {
+            paddingTop: '10px',
+            color: 'text',
+            textDecoration: 'underline',
+            textAlign: 'center',
+            cursor: 'pointer',
+            width: '100%',
+            backgroundColor: 'white',
+          },
+        },
+    ```
 
-```ts
-// before altering the color
-    products: {
-      width: 'inherit',
+<img src="./images/suggestions.png">
 
-      button: {
-        backgroundColor: 'primary',
-      },
+>⚠️ ***Keep in mind**: If you don't respect the component style sheet hierarchy and names, you'll face issues when overwriting styles.*
 
-      title,
+To customize this style, we must stick to this hierarchy. Take the following example in which we customized the add-to-cart button from the `searchSuggestions` component by changing the `backgroundColor` property from `primary` to `secondary`.
 
-      list: {
-        ...list,
-        display: 'flex',
-        flexWrap: 'nowrap',
-      },
-
-      total: {
-        paddingTop: '10px',
-        color: 'text',
-        textDecoration: 'underline',
-        textAlign: 'center',
-        cursor: 'pointer',
-        width: '100%',
-        backgroundColor: 'white',
-      },
-    },
-```
-
-Then, alther the color of the button by changing the `backgroundColor` property from `primary` to `secondary`.
-
-
-```
-// after altering the color
-    products: {
-      width: 'inherit',
-
-      button: {
-        backgroundColor: 'secondary',
-      },
-
-      title,
-
-      list: {
-        ...list,
-        display: 'flex',
-        flexWrap: 'nowrap',
-      },
-
-      total: {
-        paddingTop: '10px',
-        color: 'text',
-        textDecoration: 'underline',
-        textAlign: 'center',
-        cursor: 'pointer',
-        width: '100%',
-        backgroundColor: 'white',
-      },
-    },
-```
 <img src="./images/suggestions-altered-color.png">
+
+    ```ts
+    // "src/@vtex/gatsby-plugin-theme-ui/searchSuggestions.ts"
+    import { createTheme, SxStyleProp } from '@vtex/store-ui'
+    import searchSuggestionsTheme from '@vtex/gatsby-theme-store/components/SearchSuggestions/theme'
+    
+        const custom{
+          button: {
+            backgroundColor: 'secondary',
+          }
+        }
+    ```
+
+7. At the end of the file, create a `searchSuggestionsCustom` variable that provides the default theme and the `custom` theme you created to the `createTheme` function.
+
+    ```ts
+    const searchSuggestionsCustom = createTheme(searchSuggestionsTheme, custom)
+    ```
+
+8. Export the object created in the previous step.
+
+    ```ts
+    export default searchSuggestionsCustom
+    ```
+
+9. Save your changes and close this file.
+10. Go to the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
+11. Import the style you created in the previous steps . Take the following example:
+
+    ```js
+    import searchSuggestionsCustom from './searchSuggestions'
+    ```
+    
+12. Export the theme in the `createTheme` function.
+
+    
+    ```js
+    export default createTheme(
+      searchSuggestionsCustom,
+      ...
+    )
+    ```
+
+7. Save your changes.
+
+>ℹ️ ***Keep in mind**: [Shadowing]() only occurs on the `@vtex/gatsby-plugin-theme-ui/index` file.*
+
+8. Run `gatsby deploy` to start a development server and check your changes live at `http://localhost:8000/`.
+
 
 ## Remarks
 Theme shadowing only occurs on `@vtex/gatsby-plugin-theme-ui/index`. We structure the code with multiple files to improve readability, but the plugin only considers what is exported on `index.ts`. Every theme from the components should be an argument for the `createTheme` function.
