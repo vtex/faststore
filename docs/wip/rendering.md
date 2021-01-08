@@ -1,6 +1,10 @@
-# Types of rendering: SSG, SSR, CSR
+# Page rendering
 
-No mundo do React existem formas diferentes de renderizar páginas:
+SFJ store interfaces are composed of [React](https://reactjs.org/) components. In this sense, it's necessary to understand how React handles rendering.
+
+When developing a website or web-application with React, rendering can be processed either on the *client-side*, *server-side*, or both.
+
+In the following sections, you'll have an overview of how these rendering modes work, and their pros and cons.
 
 ### CSR (client-side rendering)
 
