@@ -36,6 +36,20 @@ const lhConfig = ({ urls, server }: Params) => {
           emulatedUserAgent:
             'Mozilla/5.0 (Linux; Android 7.0; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4143.7 Mobile Safari/537.36 Chrome-Lighthouse',
           skipAudits: ['is-on-https'],
+          budgets: [
+            {
+              path: '/*',
+              timings: [
+                { metric: 'interactive', budget: 3500 },
+                { metric: 'first-meaningful-paint', budget: 2000 },
+              ],
+              resourceSizes: [
+                { resourceType: 'script', budget: 250 },
+                { resourceType: 'total', budget: 400 },
+              ],
+              resourceCounts: [{ resourceType: 'third-party', budget: 15 }],
+            },
+          ],
         },
       },
       assert: {
