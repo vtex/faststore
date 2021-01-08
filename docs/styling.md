@@ -173,34 +173,6 @@ To customize this style, we must stick to this hierarchy. Take the following exa
 8. Run `gatsby deploy` to start a development server and check your changes live at `http://localhost:8000/`.
 
 
-## Remarks
-Theme shadowing only occurs on `@vtex/gatsby-plugin-theme-ui/index`. We structure the code with multiple files to improve readability, but the plugin only considers what is exported on `index.ts`. Every theme from the components should be an argument for the `createTheme` function.
-
-Example:
-
-```ts
-// @vtex/gatsby-plugin-theme-ui/index.ts
-export default createTheme(
-  base,
-  breadcrumb,
-  minicart,
-  infoCardTheme,
-  headerTheme,
-  productQuantityTheme,
-  minicartTheme,
-  searchControlsTheme,
-  searchSuggestionsTheme,
-  searchBarTheme,
-  searchTheme,
-  custom,
-  sliderTheme,
-  offerTheme,
-  productSummaryTheme,
-  productDetailsTheme,
-  loginTheme,
-  authTheme
-)
-```
 
 ## Adding styles to a react component
 To add new styles from a theme into a react component, discover what is the name of the Theme UI variant that you want to use and pass it as props to the component that you want to style. More about this on this theme-ui [doc](https://theme-ui.com/guides/variants/).
