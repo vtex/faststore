@@ -36,5 +36,3 @@ Agora a renderização acontece em tempo de compilação, isso ocorre porque tra
 
 
 O SFJ foi construído para performar com escalabilidade personalizada, isso significa que podemos ter páginas estáticas e dinamicas a depender de uma personalização. 
-
-Você pode configurar quais páginas devem ser construídas em tempo de compilação e quais páginas deverá ser montada apenas no navegador.
