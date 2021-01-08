@@ -14,7 +14,43 @@ The SFJ Store Theme incorporates VTEX ecommerce solutions by configuring the fol
 - [`@vtex/gatsby-plugin-i18n`](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-i18n) - Allows store internationalization.
 - [`@vtex/gatsby-plugin-graphql`](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-graphql) - Builds and preprocesses VTEX store's GraphQL queries.
 
+# Styling
 
+In the Store Framework Jamstack (SFJ), styling can be achieved by:
+
+- [Overwriting CSS styles of the Store UI components.](#overwriting-css-styles-of-the-store-ui-components)
+- [Adding styles to React components from the Store UI library.](#adding-styles-to-react-components-from-the-store-ui-library)
+- [Creating your own components and styles.](#creating-your-own-components-and-styles)
+
+In the following sections, you'll find out more about each one of these topics.
+
+However, before proceeding any further, keep in mind that styling is possible thanks to the `@vtex/gatsby-plugin-theme-ui` plugin. 
+
+We structure the `@vtex/gatsby-plugin-theme-ui` code within multiple files to improve readability. However, the `@vtex/gatsby-plugin-theme-ui` plugin only considers the styles exported by the `createTheme` function inside the `index.ts` file.
+
+    ```ts
+    // @vtex/gatsby-plugin-theme-ui/index.ts
+    export default createTheme(
+      base,
+      breadcrumb,
+      minicart,
+      infoCardTheme,
+      headerTheme,
+      productQuantityTheme,
+      minicartTheme,
+      searchControlsTheme,
+      searchSuggestionsTheme,
+      searchBarTheme,
+      searchTheme,
+      custom,
+      sliderTheme,
+      offerTheme,
+      productSummaryTheme,
+      productDetailsTheme,
+      loginTheme,
+      authTheme
+    )
+    ```
 ## How to style
 Using the @vtex/gatsby-plugin-theme-ui, export an index.js file inside the folder src/@vtex/gatsby-plugin-theme-ui.
 
