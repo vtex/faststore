@@ -234,5 +234,8 @@ Take the following example:
     ```
     
 4. Define styles inside the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
+
+>ℹ️ *Check the name of the variants inside the component's `.tsx` source file. Then, pass the variants as props with the desired styles.*
+
 5. Save your changes.
 6. Run `gatsby deploy` to start a development server and check your changes live at `http://localhost:8000/`.
