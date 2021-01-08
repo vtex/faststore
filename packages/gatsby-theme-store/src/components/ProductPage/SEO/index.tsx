@@ -3,7 +3,7 @@ import type { FC } from 'react'
 
 import { useIdleEffect } from '../../../sdk/useIdleEffect'
 import { isBot, isDevelopment } from '../../../utils/env'
-import SiteMetadataSEO from '../../HomePage/SEO'
+import SiteMetadata from '../../SEO/SiteMetadata'
 import StructuredData from './StructuredData'
 import type { ProductPageProps } from '../../../templates/product'
 
@@ -20,7 +20,7 @@ const SEO: FC<ProductPageProps> = (props) => {
 
   return (
     <>
-      <SiteMetadataSEO {...props} />
+      <SiteMetadata {...props} />
       <StructuredData {...props} />
     </>
   )
