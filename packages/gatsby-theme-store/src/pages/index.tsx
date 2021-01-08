@@ -36,7 +36,7 @@ const Home: FC<Props> = (props) => {
   return (
     <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
       <Layout>
-        <SEO />
+        <SEO {...props} />
         <AboveTheFold {...props} />
         <SuspenseViewport
           fallback={<BelowTheFoldPreview />}
