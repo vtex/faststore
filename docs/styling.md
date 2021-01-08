@@ -174,5 +174,65 @@ To customize this style, we must stick to this hierarchy. Take the following exa
 
 
 
-## Adding styles to a react component
-To add new styles from a theme into a react component, discover what is the name of the Theme UI variant that you want to use and pass it as props to the component that you want to style. More about this on this theme-ui [doc](https://theme-ui.com/guides/variants/).
+## Adding styles to React components from the Store UI library
+
+Leveraging from the [Theme UI](https://theme-ui.com/), the `@vtex/gatsby-plugin-theme-ui` plugin incorporates the [Store UI library](https://github.com/vtex/faststore/tree/master/packages/store-ui) - a library that contains storefront components, such as the [Minicart](https://github.com/vtex/faststore/tree/master/packages/store-ui/src/Minicart).
+
+In this sense, we can benefit from the [Variants](https://theme-ui.com/guides/variants/) feature from the Theme UI library.
+
+>ℹ️ *Variants allow you to add groups of styles based on a component value. It works as classes in CSS.*
+
+Take the following example from the [`Header`](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/Header.tsx) component of the Store UI library:
+
+    ```tsx
+     const variant = 'header'
+
+    ...
+
+      <Flex variant={`${variant}.left`}>
+        <Logo variant={`${variant}.logo`}/>
+        <Menu variant={`${variant}.menu`}/>
+      </Flex>
+    
+    ...
+
+    ```
+
+Since, in this case, the `variant` name is `header`, we should add styles to this component as in the following:
+
+    ```ts
+    {
+      header:{
+    	  left: {
+    	    color: 'white',
+          bg: 'secondary',
+    	  },
+    	   logo: {
+            text: '#000',
+            background: '#fff',
+            primary: '#0c7',
+         },
+        menu{
+            body: 'system-ui, sans-serif',
+            heading: 'Poppins, sans-serif',
+        }
+    }
+    ```
+
+Therefore, to add new styles to a Store UI component, check the name of its variants inside the `.tsx` file. Then, pass the variants as props, containing the desired styles.
+
+1. Open up your SFJ project in the code editor of your choosing.
+2. Go to the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
+3. Import the style of the component you want to style. 
+
+>ℹ️ *Use the [SFJ Store UI library](https://github.com/vtex/faststore/tree/master/packages/store-ui) as a reference.*
+
+Take the following example:
+
+    ```js
+    import headerTheme from '@vtex/store-ui'
+    ```
+    
+4. Define styles inside the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
+5. Save your changes.
+6. Run `gatsby deploy` to start a development server and check your changes live at `http://localhost:8000/`.
