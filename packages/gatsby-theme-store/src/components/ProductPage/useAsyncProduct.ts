@@ -27,7 +27,7 @@ export const useAsyncProduct = (
     ...options,
   })
 
-  const product = data?.vtex.product ?? null
+  const product = data?.vtex.product
 
   return { product }
 }
