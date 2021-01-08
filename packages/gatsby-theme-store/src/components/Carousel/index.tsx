@@ -8,7 +8,7 @@ import CarouselPaginationDots from './PaginationDots'
 import type { Item } from './Page'
 import CarouselPage from './Page'
 
-interface Props {
+export interface Props {
   allItems: Item[]
   width: string
   height: string
