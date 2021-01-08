@@ -1,13 +1,19 @@
-# Styling in Store Framework Jamstack
+# SFJ Store Theme
 
-## Style with Gatsby themes
-Gatsby themes are plugins that include a gatsby-config.js file and add pre-configured functionality, data sourcing, and/or UI code to Gatsby sites. This approach allows you to control the site styling through a decoupled package, with version control and autonomy for updates. It is also possible to have more than one theme!
+The [SFJ Store Theme](https://github.com/vtex/faststore/tree/master/packages/gatsby-theme-store) is a [Gatsby theme](https://www.gatsbyjs.com/docs/themes/what-are-gatsby-themes/#gatsby-themes), a specific plugin type that contains pre-configured functionalities, data sourcing, and UI code defined in a [`/src/gatsby-config.js`](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/gatsby-config.ts) file.
 
-## Gatsby themes on the Store Framework Jamstack
+Different from a plugin, in a Gatsby theme, default configurations (shared functionality, data sourcing, UI code) are abstracted into an installable package.
 
-Styling in Store Framework Jamstack leverages the library [theme-ui](https://theme-ui.com/). By using this library we have a pre-defined way of creating themes that can be shared across components on the store.
+This way, Gatsby themes make it possible to control site styling through decoupled packages, characterized for version control and autonomous updates.
 
-In order to optimize how CSS is merged at runtime, Store Framework Jamstack uses a custom `theme-ui` [plugin](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-theme-ui)
+For being packaged as a standalone product, it is also possible to have more than one theme on the same site.
+
+The SFJ Store Theme incorporates VTEX ecommerce solutions by configuring the following plugins:
+
+- [`@vtex/gatsby-plugin-theme-ui`](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-theme-ui) - Allows theme styling and optimizes the way CSS is merged. Leveraging from the [Theme UI](https://theme-ui.com/), this plugin incorporates the [Store UI library](https://github.com/vtex/faststore/tree/master/packages/store-ui) - a library that contains storefront components, such as the [Minicart](https://github.com/vtex/faststore/tree/master/packages/store-ui/src/Minicart).
+- [`@vtex/gatsby-plugin-i18n`](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-i18n) - Allows store internationalization.
+- [`@vtex/gatsby-plugin-graphql`](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-graphql) - Builds and preprocesses VTEX store's GraphQL queries.
+
 
 ## How to style
 Using the @vtex/gatsby-plugin-theme-ui, export an index.js file inside the folder src/@vtex/gatsby-plugin-theme-ui.
