@@ -6,9 +6,15 @@ When developing a website or web-application with React, rendering can be proces
 
 In the following sections, you'll have an overview of how these rendering modes work, and their pros and cons.
 
-### CSR (client-side rendering)
+## Client-side rendering (CSR)
 
-É quando um arquivo HTML vazio é enviado para o navegador e, em seguida, o HTML é criado pelo Javascript. Isso ocorre porque o código do React precisa ser inicializado para renderizar os componentes na tela antes que ele possa cuspir HTML para o navegador analisar. Se você tiver muitos componentes carregando na tela, poderá ter problemas se quiser manter o tempo de interação (TTI) baixo. Esse cenário é onde o SSR frequentemente entra em jogo.
+Client-side rendering (CSR) handles data fetching, templating, and routing directly in the browser via JavaScript. So, rather than getting all the content from a pre-processed HTML document, a bare-bone HTML file is sent to the browser. 
+
+The browser, in its turn, initializes React and generates the HTML content using Javascript.
+
+Notice that before the browser can parse the generated HTML file, React must render its components on the screen. 
+
+Therefore, if you have many React components loading on the client-side, you may experience issues regarding a low [Time To Interactive (TTI)](https://web.dev/tti/). This scenario is where Server-Side Rendering often comes into play.
 
 ### SSR (server side render)
 
