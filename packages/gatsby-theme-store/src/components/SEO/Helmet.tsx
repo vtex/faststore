@@ -1,8 +1,8 @@
 /**
  * This is a thin wrapper around react helmet that defers or not the head tags creation based on the execution evironment
  *
- * If the execution environment is a Google/Facebook Bot, the tags are included asap so they don't miss any
- * If the execution environment is a user, the tags are lazy loaded so we don't spend time creating useless tags for a human
+ * If the execution environment is a Google/Facebook Bot, the tags are included ASAP so the Bots don't miss any tag
+ * else the tags are lazy loaded so we don't spend time creating useless tags for a human, thus loading the page faster
  */
 import React from 'react'
 import { Helmet as ReactHelmet } from 'react-helmet-async'
