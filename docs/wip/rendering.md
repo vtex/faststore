@@ -16,11 +16,17 @@ Notice that before the browser can parse the generated HTML file, React must ren
 
 Therefore, if you have many React components loading on the client-side, you may experience issues regarding a low [Time To Interactive (TTI)](https://web.dev/tti/). This scenario is where Server-Side Rendering often comes into play.
 
-### SSR (server side render)
+## Server-side rendering (SSR)
 
-Como o React precisa inicializar em algum lugar, agora a renderização inicial acontece no servidor. Então, para cada solicitação que o usuário envia para o servidor, você ativa uma instância do React e manda para o navegador o HTML e CSS pronto.
+Server-side rendering delivers a fully populated HTML file to the client just as at the beginning of the internet. Nowadays, however, it's also possible to render Javascript code on the server.
 
-Dito isso, como você está contando com a funcionalidade do servidor para fazer essa renderização, é necessário ter uma configuração de servidor personalizada. Não há hospedagem CDN simples aqui - seu servidor precisa inicializar e renderizar a página de cada usuário mediante solicitação.
+In this sense, React can be initialized on the server-side. In this case, the initial React rendering takes place on the server.
+
+In practice, that means that, for each request a user sends to the server, a React instance is activated. The user, in turn, receives back ready HTML and CSS files.
+
+Notice that, when talking about SSR, data-fetching and templating take fewer unnecessary round-trips, meaning that the page is fatly loaded and that you can achieve a faster [Time To Interactive (TTI)](https://web.dev/tti/).
+
+Relying on the server rendering functionality implies that you'll need to set up a custom server configuration. There is no simple Content delivery network (CDN) hosting here. Therefore, your server must initialize and render on-demand, as each user requests each file.
 
 ### SSG (static site generator)
 
