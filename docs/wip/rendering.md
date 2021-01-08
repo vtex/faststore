@@ -34,13 +34,6 @@ Agora a renderização acontece em tempo de compilação, isso ocorre porque tra
 
 # Pros and cons
 
-| Renderização | Prós                                                              | Contras                                                                                                        |
-|--------------|-------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| CSR          | - Fácil de escalar                                                | - Inicialização lenta de JS<br/>- Preocupações com SEO                                                             |
-| SSR          | - Otimização baseada em requisição<br/>- Melhor uso de SEO            | - Consumo maior do servidor<br/>- Necessita de um servidor específico<br/>- Mais esforço de desenvolvimento do que CSR |
-| SSG          | - Otimização baseada em layout<br/>- Melhor uso de SEO - CDN hostable | - Sem acesso aos dados de consulta<br/>- Mais esforço de desenvolvimento do que CSR                                |
-
-## Why we choose to use SSG
 
 O SFJ foi construído para performar com escalabilidade personalizada, isso significa que podemos ter páginas estáticas e dinamicas a depender de uma personalização. 
 
