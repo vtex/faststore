@@ -78,15 +78,20 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     isServer ? '' : window.location.href
   )
 
+  const pageProps = {
+    ...props,
+    data: data!,
+  }
+
   return (
     <SearchProvider filters={filters} data={data!}>
-      <SEO {...props} data={data!} />
-      <AboveTheFold {...props} data={data!} />
+      <SEO {...pageProps} />
+      <AboveTheFold {...pageProps} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
       >
-        <BelowTheFold {...props} data={data!} />
+        <BelowTheFold {...pageProps} />
       </SuspenseViewport>
     </SearchProvider>
   )
