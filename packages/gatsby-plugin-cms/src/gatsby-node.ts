@@ -133,7 +133,11 @@ export const createPages = async () => {
     presets: ['@babel/preset-typescript'],
   })
   const {
-    builderConfig: { contentTypes: ctypes, blocks: blks, messages },
+    builderConfig: {
+      contentTypes: ctypes = {},
+      blocks: blks = {},
+      messages = {},
+    } = {},
   } = require(SHADOWED_INDEX_PATH) as {
     builderConfig: BuilderConfig
   }
