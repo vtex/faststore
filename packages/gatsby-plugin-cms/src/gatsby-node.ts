@@ -1,5 +1,12 @@
 import { join } from 'path'
 
+import { outputJSON, pathExists } from 'fs-extra'
+import type { JSONSchema6 } from 'json-schema'
+import type {
+  CreatePagesArgs,
+  SourceNodesArgs,
+  PluginOptionsSchemaArgs,
+} from 'gatsby'
 import {
   buildNodeDefinitions,
   compileNodeQueries,
@@ -9,9 +16,6 @@ import {
   loadSchema,
   sourceAllNodes,
 } from 'gatsby-graphql-source-toolkit'
-import { outputJSON, pathExists } from 'fs-extra'
-import type { JSONSchema6 } from 'json-schema'
-import type { PluginOptionsSchemaArgs, SourceNodesArgs } from 'gatsby'
 
 import { sourceAllLocalNodes } from './node-api/sourceAllLocalNodes'
 import type { BuilderConfig } from './index'
@@ -30,6 +34,7 @@ interface CMSContentType {
 interface CMSBuilderConfig {
   id: 'faststore'
   name: 'Powered by Gatsby Plugin CMS'
+  productionBaseUrl: string
   blocks: Array<{ name: string; schema: JSONSchema6 }>
   contentTypes: CMSContentType[]
   messages: Record<string, string>
@@ -125,7 +130,30 @@ export const sourceNodes = async (
   ])
 }
 
-export const createPages = async () => {
+export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
+  const { data, errors } = await graphql(`
+    {
+      site {
+        siteMetadata {
+          siteUrl
+        }
+      }
+    }
+  `)
+
+  if (errors && errors.length > 0) {
+    reporter.panicOnBuild(
+      'Seomething went wrong while querying site metadata',
+      errors
+    )
+  }
+
+  const {
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  }: { site: { siteMetadata: { siteUrl: string } } } = data as any
+
   // Read index.ts from shadowed plugin
   const exists = await pathExists(SHADOWED_INDEX_PATH)
 
@@ -188,6 +216,7 @@ export const createPages = async () => {
   const builderConfig: CMSBuilderConfig = {
     id: 'faststore',
     name: 'Powered by Gatsby Plugin CMS',
+    productionBaseUrl: siteUrl,
     contentTypes,
     blocks,
     messages,
