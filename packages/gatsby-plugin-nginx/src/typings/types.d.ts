@@ -48,5 +48,10 @@ declare global {
      * ["try_files", "$file"]
      */
     serveFileDirective: string[]
+    /**
+     * When set, the nginx brotli [plugin](https://github.com/google/ngx_brotli) will be enabled.
+     * @default false
+     */
+    enableBrotliEncoding: boolean
   }
 }

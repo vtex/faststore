@@ -40,6 +40,40 @@ function generateNginxConfiguration({
     ...generateRewrites(rewrites),
   ]
 
+  const brotliConf = options.enableBrotliEncoding
+    ? [
+        { cmd: ['brotli', 'on'] },
+        { cmd: ['brotli_comp_level', '6'] },
+        { cmd: ['brotli_static', 'on'] },
+        {
+          cmd: [
+            'brotli_types',
+            'text/xml',
+            'image/svg+xml',
+            'application/x-font-ttf',
+            'image/vnd.microsoft.icon',
+            'application/x-font-opentype',
+            'application/json',
+            'font/eot',
+            'application/vnd.ms-fontobject',
+            'application/javascript',
+            'font/otf',
+            'application/xml',
+            'application/xhtml+xml',
+            'text/javascript',
+            'application/x-javascript',
+            'text/plain',
+            'application/x-font-truetype',
+            'application/xml+rss',
+            'image/x-icon',
+            'font/opentype',
+            'text/css',
+            'image/x-win-bitmap',
+          ],
+        },
+      ]
+    : []
+
   const conf = options.writeOnlyLocations
     ? locations
     : [
@@ -61,35 +95,7 @@ function generateNginxConfiguration({
             { cmd: ['sendfile', 'on'] },
             { cmd: ['tcp_nopush', 'on'] },
             { cmd: ['keepalive_timeout', '65'] },
-            { cmd: ['brotli', 'on'] },
-            { cmd: ['brotli_comp_level', '6'] },
-            { cmd: ['brotli_static', 'on'] },
-            {
-              cmd: [
-                'brotli_types',
-                'text/xml',
-                'image/svg+xml',
-                'application/x-font-ttf',
-                'image/vnd.microsoft.icon',
-                'application/x-font-opentype',
-                'application/json',
-                'font/eot',
-                'application/vnd.ms-fontobject',
-                'application/javascript',
-                'font/otf',
-                'application/xml',
-                'application/xhtml+xml',
-                'text/javascript',
-                'application/x-javascript',
-                'text/plain',
-                'application/x-font-truetype',
-                'application/xml+rss',
-                'image/x-icon',
-                'font/opentype',
-                'text/css',
-                'image/x-win-bitmap',
-              ],
-            },
+            ...brotliConf,
             { cmd: ['gzip', 'on'] },
             {
               cmd: [
