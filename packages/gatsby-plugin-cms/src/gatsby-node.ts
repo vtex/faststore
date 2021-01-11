@@ -11,21 +11,14 @@ import {
 } from 'gatsby-graphql-source-toolkit'
 import { outputJSON, pathExists } from 'fs-extra'
 import type { JSONSchema6 } from 'json-schema'
-import type {
-  CreatePagesArgs,
-  PluginOptionsSchemaArgs,
-  SourceNodesArgs,
-} from 'gatsby'
+import type { PluginOptionsSchemaArgs, SourceNodesArgs } from 'gatsby'
 
 import { sourceAllLocalNodes } from './node-api/sourceAllLocalNodes'
-import type { ContentTypes, Schemas } from './index'
+import type { BuilderConfig } from './index'
 
 interface CMSContentType {
   id: string
   name: string
-  previewUrl: string
-  messages: Record<string, string>
-  blocks: Array<{ name: string; schema: JSONSchema6 }>
   beforeBlocks: Array<{ name: string; schema: JSONSchema6 }>
   afterBlocks: Array<{ name: string; schema: JSONSchema6 }>
   extraBlocks: Array<{
@@ -34,13 +27,24 @@ interface CMSContentType {
   }>
 }
 
+interface CMSBuilderConfig {
+  id: 'faststore'
+  name: 'Powered by Gatsby Plugin CMS'
+  blocks: Array<{ name: string; schema: JSONSchema6 }>
+  contentTypes: CMSContentType[]
+  messages: Record<string, string>
+}
+
 const { name } = require('./package.json')
 
 const root = process.cwd()
 
-const CONTENT_TYPES_PATH = join(root, 'public/page-data/_cms/contentTypes.json')
+const BUILDER_CONFIG_PATH = join(
+  root,
+  'public/page-data/_cms/builderConfig.json'
+)
+
 const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
-const PREVIEW_PATH = '/cms/preview'
 
 interface Options {
   tenant: string
@@ -121,30 +125,7 @@ export const sourceNodes = async (
   ])
 }
 
-export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
-  const { data, errors } = await graphql(`
-    {
-      site {
-        siteMetadata {
-          siteUrl
-        }
-      }
-    }
-  `)
-
-  if (errors && errors.length > 0) {
-    reporter.panicOnBuild(
-      'Seomething went wrong while querying site metadata',
-      errors
-    )
-  }
-
-  const {
-    site: {
-      siteMetadata: { siteUrl },
-    },
-  }: { site: { siteMetadata: { siteUrl: string } } } = data as any
-
+export const createPages = async () => {
   // Read index.ts from shadowed plugin
   const exists = await pathExists(SHADOWED_INDEX_PATH)
 
@@ -156,19 +137,20 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],
   })
-  const { contentTypes } = require(SHADOWED_INDEX_PATH) as {
-    schemas: Schemas
-    contentTypes: ContentTypes
+  const {
+    builderConfig: { contentTypes: ctypes, blocks: blks, messages },
+  } = require(SHADOWED_INDEX_PATH) as {
+    builderConfig: BuilderConfig
   }
 
-  // Transform all contentTypes into CMS ready contentType json
-  const contentTypesCMS = Object.keys(contentTypes).reduce((acc, key) => {
-    const ct = contentTypes[key]
+  const blocks = Object.keys(blks).map((k) => ({
+    name: k,
+    schema: blks[k],
+  }))
 
-    const blocks = Object.keys(ct.blocks).map((k) => ({
-      name: k,
-      schema: ct.blocks[k],
-    }))
+  // Transform all contentTypes into CMS contentTypes format
+  const contentTypes = Object.keys(ctypes).reduce((acc, key) => {
+    const ct = ctypes[key]
 
     const beforeBlocks = Object.keys(ct.beforeBlocks).map((k) => ({
       name: k,
@@ -191,8 +173,7 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
     acc.push({
       ...ct,
       id: key,
-      previewUrl: join(siteUrl, PREVIEW_PATH),
-      blocks,
+      name: key,
       beforeBlocks,
       afterBlocks,
       extraBlocks,
@@ -201,5 +182,13 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
     return acc
   }, [] as CMSContentType[])
 
-  await outputJSON(CONTENT_TYPES_PATH, contentTypesCMS)
+  const builderConfig: CMSBuilderConfig = {
+    id: 'faststore',
+    name: 'Powered by Gatsby Plugin CMS',
+    contentTypes,
+    blocks,
+    messages,
+  }
+
+  await outputJSON(BUILDER_CONFIG_PATH, builderConfig)
 }
