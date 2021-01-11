@@ -173,7 +173,6 @@ export const createPages = async () => {
     acc.push({
       ...ct,
       id: key,
-      name: key,
       beforeBlocks,
       afterBlocks,
       extraBlocks,
