@@ -2,8 +2,6 @@ import React, { lazy } from 'react'
 import type { PageProps } from 'gatsby'
 import type { FC } from 'react'
 
-import ErrorBoundary from '../components/Error/ErrorBoundary'
-import ErrorHandler from '../components/Error/ErrorHandler'
 import AboveTheFold from '../components/HomePage/AboveTheFold'
 import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
 import SEO from '../components/HomePage/SEO'
@@ -34,18 +32,16 @@ const Home: FC<Props> = (props) => {
   })
 
   return (
-    <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
-      <Layout>
-        <SEO {...props} />
-        <AboveTheFold {...props} />
-        <SuspenseViewport
-          fallback={<BelowTheFoldPreview />}
-          preloader={belowTheFoldPreloader}
-        >
-          <BelowTheFold {...props} />
-        </SuspenseViewport>
-      </Layout>
-    </ErrorBoundary>
+    <Layout>
+      <SEO {...props} />
+      <AboveTheFold {...props} />
+      <SuspenseViewport
+        fallback={<BelowTheFoldPreview />}
+        preloader={belowTheFoldPreloader}
+      >
+        <BelowTheFold {...props} />
+      </SuspenseViewport>
+    </Layout>
   )
 }
 
