@@ -40,8 +40,9 @@ function generateNginxConfiguration({
     ...generateRewrites(rewrites),
   ]
 
-  const brotliConf = options.enableBrotliEncoding
-    ? [
+  const brotliConf = options.disableBrotliEncoding
+    ? []
+    : [
         { cmd: ['brotli', 'on'] },
         { cmd: ['brotli_comp_level', '6'] },
         { cmd: ['brotli_static', 'on'] },
@@ -72,7 +73,6 @@ function generateNginxConfiguration({
           ],
         },
       ]
-    : []
 
   const conf = options.writeOnlyLocations
     ? locations
