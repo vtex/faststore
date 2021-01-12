@@ -8,8 +8,8 @@ interface Props {
   href: string
   alt: string
   src: string
-  height: string
-  width: string
+  height?: string
+  width?: string
 }
 
 const InfoCardImage: FC<Props> = ({ alt, src, href, height, width }) => {

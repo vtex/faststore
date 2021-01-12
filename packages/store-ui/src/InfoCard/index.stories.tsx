@@ -1,5 +1,6 @@
 import React from 'react'
 import { ThemeProvider } from 'theme-ui'
+import type { Theme } from 'theme-ui'
 
 import { baseTheme } from '../theme'
 import InfoCardImage from './Image'
@@ -15,7 +16,7 @@ export default {
 }
 
 export const Fold = () => (
-  <ThemeProvider theme={createTheme(baseTheme, infoCardTheme)}>
+  <ThemeProvider theme={createTheme(baseTheme, infoCardTheme) as Theme}>
     <InfoCard>
       <InfoCardInfo title="New Promotion!">
         <InfoCardInfoAction href="/vintage-phone/p" label="BUY NOW" />
