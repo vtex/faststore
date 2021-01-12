@@ -118,5 +118,10 @@
   "login.button.greeting": "Ola {name}",
   "login.button.action": "Entrar",
 
-  "preview.not-found": "Pre-visualização não econtrada. Esperando por entradas"
+  "preview.not-found": "Pre-visualização não econtrada. Esperando por entradas",
+
+  "error.title": "Ops, ocorreu um erro!",
+  "error.action": "Por favor, volte ao início e tente novamente",
+  "error.action.button": "Voltar ao início",
+  "error.detail": "Erro: {errorId}"
 }
