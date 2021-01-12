@@ -9,7 +9,7 @@ import ShelfPaginationDots from './PaginationDots'
 import ShelfTitle from './Title'
 import type { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
 
-type Product = ProductSummary_ProductFragment | undefined | null
+type Product = Maybe<ProductSummary_ProductFragment>
 
 export interface Props {
   products?: Product[] | null
