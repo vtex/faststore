@@ -12,11 +12,11 @@ import type { ProductSummary_ProductFragment } from '../ProductSummary/__generat
 type Product = Maybe<ProductSummary_ProductFragment>
 
 export interface Props {
-  products?: Product[] | null
+  products: Maybe<Product[]>
   pageSizes?: number[]
   title?: JSX.Element | string
   variant?: string
-  showArrows?: boolean | null
+  showArrows: Maybe<boolean>
   showDots?: boolean
   autoplay?: number
 }
