@@ -45,6 +45,7 @@ export interface InternalSiteSearchViewData extends PageViewData {
 
 export interface AddToCartData {
   items: OrderFormItem[]
+  oneClickBuy?: boolean
 }
 
 export interface RemoveFromCartData {
