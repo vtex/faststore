@@ -5,8 +5,6 @@ import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
 import Container from '../components/Container'
-import ErrorBoundary from '../components/Error/ErrorBoundary'
-import ErrorHandler from '../components/Error/ErrorHandler'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import RenderExtensionLoader from '../sdk/RenderExtensionLoader'
@@ -90,15 +88,13 @@ const MyAccount: FC = () => {
 }
 
 const Page: FC = () => (
-  <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
-    <Layout>
-      <Container>
-        <SuspenseSSR fallback={<Loading />}>
-          <MyAccount />
-        </SuspenseSSR>
-      </Container>
-    </Layout>
-  </ErrorBoundary>
+  <Layout>
+    <Container>
+      <SuspenseSSR fallback={<Loading />}>
+        <MyAccount />
+      </SuspenseSSR>
+    </Container>
+  </Layout>
 )
 
 export default Page

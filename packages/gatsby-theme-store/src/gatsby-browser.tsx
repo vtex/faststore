@@ -11,6 +11,11 @@ import type { ElementType } from 'react'
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
 const { MinicartProvider } = require('./src/sdk/minicart/index')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
+const { default: ErrorHandler } = require('./src/components/Error/ErrorHandler')
+const {
+  default: ErrorBoundary,
+} = require('./src/components/Error/ErrorBoundary')
+// eslint-disable-next-line padding-line-between-statements
 const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
@@ -60,7 +65,9 @@ export const wrapPageElement = ({
   element,
   props: { location },
 }: WrapRootElementBrowserArgs | any) => (
-  <Progress location={location}>{element}</Progress>
+  <ErrorBoundary fallback={(error: any) => <ErrorHandler error={error} />}>
+    <Progress location={location}>{element}</Progress>
+  </ErrorBoundary>
 )
 
 export const onRouteUpdate = () => {
