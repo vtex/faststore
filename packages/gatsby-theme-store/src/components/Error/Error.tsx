@@ -8,7 +8,7 @@ import Container from '../Container'
 
 type Props = {
   error: any
-  errorId: string
+  errorId?: string
 }
 
 const uuidv4 = () =>
