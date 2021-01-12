@@ -1,5 +1,5 @@
 import { FormattedMessage, useLocalizedPath } from '@vtex/gatsby-plugin-i18n'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect } from 'react'
 import type { FC } from 'react'
 import { Box, Button, Flex } from '@vtex/store-ui'
 
