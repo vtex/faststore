@@ -1,12 +1,5 @@
 import { join } from 'path'
 
-import { outputJSON, pathExists } from 'fs-extra'
-import type { JSONSchema6 } from 'json-schema'
-import type {
-  CreatePagesArgs,
-  PluginOptionsSchemaArgs,
-  SourceNodesArgs,
-} from 'gatsby'
 import {
   buildNodeDefinitions,
   compileNodeQueries,
@@ -16,11 +9,19 @@ import {
   loadSchema,
   sourceAllNodes,
 } from 'gatsby-graphql-source-toolkit'
+import { outputJSON, pathExists } from 'fs-extra'
+import type { JSONSchema6 } from 'json-schema'
+import type {
+  CreatePagesArgs,
+  PluginOptionsSchemaArgs,
+  SourceNodesArgs,
+} from 'gatsby'
 
+import { sourceAllLocalNodes } from './node-api/sourceAllLocalNodes'
 import type { ContentTypes, Schemas } from './index'
 
 // VTEX IO workspace
-const WORKSPACE = 'master'
+const WORKSPACE = process.env.GATSBY_VTEX_IO_WORKSPACE ?? 'master'
 
 interface CMSContentType {
   id: string
@@ -112,8 +113,13 @@ export const sourceNodes = async (
   // Step5. Add explicit types to gatsby schema
   await createSchemaCustomization(config)
 
-  // Step6. Source nodes
-  await sourceAllNodes(config)
+  // Step6. Source local and remote nodes in parallel
+  await Promise.all([
+    // Source Nodes from VTEX CMS API
+    sourceAllNodes(config),
+    // Source Nodes from `fixtures` folder
+    sourceAllLocalNodes(config, root, name),
+  ])
 }
 
 export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {

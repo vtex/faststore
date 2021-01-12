@@ -30,6 +30,7 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.12.7",
     "@babel/register": "^7.12.1",
+    "chokidar": "^3.5.0",
     "fs-extra": "^9.0.1",
     "gatsby-graphql-source-toolkit": "^0.6.3",
     "p-map": "^4.0.0"
