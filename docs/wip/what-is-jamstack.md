@@ -22,9 +22,11 @@ In practice, whenever a user requests a page from a JAMstack website, the browse
 
 >ℹ️ *To make the most of your Store Framework Jamstack project, we strongly encourage you to learn more about the JAMstack architecture by checking out core concepts, such as [pre-rendering](https://jamstack.org/glossary/pre-render/) and [decoupling](https://jamstack.org/glossary/decoupling/).*
 
-### Why Jamstack for VTEX
+# Why JAMstack?
 
-There are two main aspects that are impacted positively in our platform as a result of using Jamstack architecture: performance and developer experience.
+By adopting the JAMstack architecture, VTEX Store Framework gives you the foundation needed **to quickly build high-performance stores.**
+
+This is closely related to two main aspects of JAMstack: improved performance and better developer experience.
 
 #### Performance
 
