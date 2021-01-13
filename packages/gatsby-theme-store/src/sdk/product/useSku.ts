@@ -24,7 +24,7 @@ export const useSku = <T extends Sku>(
     [searchParams, setSearchParams]
   )
 
-  const sku = useMemo<Sku>(() => {
+  const sku = useMemo(() => {
     if (skuId === undefined) {
       return product.items[0]
     }
