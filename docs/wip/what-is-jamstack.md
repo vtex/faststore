@@ -36,6 +36,6 @@ Jamstack allows us to trade build time for performance. By pre-rendering the mar
 
 #### Developer Experience
 
-Another change that comes with this architecture is in the way of developing. It is not dependant on proprietary technology, it is built on tools and conventions vastly available. This makes the code more accessible and more customizable, permits local development, eases debugging and facilitates finding talented developers with the skills to work with our stores.
+Another change that comes with this architecture is in the way of developing. It is not dependant on proprietary technology, it is built on tools and conventions vastly available. This makes the code more accessible and more customizable, permits local development, eases debugging, and facilitates finding talented developers with the skills to work with our stores.
 
 We continue to provide security, scale, maintainability, portability, [best practices](https://jamstack.org/best-practices/) and much more out of the box. But now with more transparency, freedom to customize almost everything and showing hints about how to avoid changes that endanger your site's performance. <!-- here i thought about linking to an explanation  of how we enforce paying attention to performance also-->
