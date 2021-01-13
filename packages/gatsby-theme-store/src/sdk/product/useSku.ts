@@ -2,39 +2,17 @@ import { useCallback, useMemo } from 'react'
 
 import { useSearchParams } from '../state/useSearchParams'
 
-export type Item = {
-  name: string
-  complementName?: string
+export interface Sku {
   itemId: string
-  referenceId: Array<{ value: string }>
-  videos: Array<{ videoUrl: string }>
-  sellers: Array<{
-    sellerId: string
-    commercialOffer: {
-      availableQuantity: number
-      price: number
-    }
-  }>
-  variations?: Array<{ name: string; values: string[] }>
-  images: Array<{ imageUrl: string; imageText: string }>
 }
 
-export type Sku = {
-  productId: string
-  productClusters: Array<{ name: string }>
-  productName: string
-  productReference: string
-  categoryTree: Array<{ name: string; href: string }>
-  description: string
-  linkText: string
-  specificationGroups: Array<{
-    name: string
-    specifications: Array<{ name: string; values: string[] }>
-  }>
-  items: Item[]
+interface Props<T extends Sku> {
+  items: T[]
 }
 
-export const useSku = (product: Sku) => {
+export const useSku = <T extends Sku>(
+  product: Props<T>
+): [T, typeof setSku] => {
   const [searchParams, setSearchParams] = useSearchParams()
   const skuId = searchParams.get('skuId')
 
@@ -46,7 +24,7 @@ export const useSku = (product: Sku) => {
     [searchParams, setSearchParams]
   )
 
-  const sku = useMemo(() => {
+  const sku = useMemo<Sku>(() => {
     if (skuId === undefined) {
       return product.items[0]
     }
@@ -56,5 +34,5 @@ export const useSku = (product: Sku) => {
     )
   }, [product, skuId])
 
-  return [sku, setSku] as [Item, typeof setSku]
+  return [sku, setSku] as [T, typeof setSku]
 }
