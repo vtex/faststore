@@ -10,16 +10,17 @@ Explain why we chose this architecture, showing the main benefits of using Jamst
 
 Organize it into topics, followed by a brief explanation.Example: Faster Performanceblalblallbabla (one paragraph) -->
 
-## Jamstack Overview
+#JAMstack
 
-> "A modern web development architecture based on client-side JavaScript, reusable APIs, and prebuilt Markup" - Mathias Biilmann (CEO & Co-founder of Netlify).
+**JAM**stack is a web architecture that decouples front and backend development by establishing how the following three technologies should interact to build faster applications and websites:
 
-Jamstack is an architecture which core principles [pre-rendering](https://jamstack.org/glossary/pre-render/) and [decoupling](https://jamstack.org/glossary/decoupling/), which enables sites to be delivered with better performance, confidence and resilience than ever before. 
+- **J**avaScript: Runs on the client-side, handling dynamic programming and supporting libraries, such as [React](http://reactjs.org/).
+- **A**PI: Communicates with the server-side for data fetching, authentication, or any other backend functionality.
+- **M**arkup: Is prebuilt at build time through a [static site generator](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/Introduction#static_site_generators), such as [Gatsby](https://www.gatsbyjs.com/). It is, then, served from a [content delivery network (CDN).](https://developer.mozilla.org/en-US/docs/Glossary/CDN)
 
-![Traditional Web vs Jamstack](/docs/images/jamstack.png)
-<!-- Maybe use a better image here? -->
+In practice, whenever a user requests a page from a JAMstack website, the browser serves the user with a prebuilt Markup file. JavaScript is, then, used to include dynamic content and call the necessary APIs. The APIs, in their turn, communicate with backend services, providing a secure serverless solution.
 
-For more information access [jamstack.org](https://jamstack.org/).
+>ℹ️ *To make the most of your Store Framework Jamstack project, we strongly encourage you to learn more about the JAMstack architecture by checking out core concepts, such as [pre-rendering](https://jamstack.org/glossary/pre-render/) and [decoupling](https://jamstack.org/glossary/decoupling/).*
 
 ### Why Jamstack for VTEX
 
