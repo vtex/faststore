@@ -79,17 +79,6 @@ This way, the test results can be used to compare what is being developed with w
 
 >ℹ️ *Once finished, you can click on the *Details* button next to the Lighthouse check run to check the execution logs.*
 
-You can access the execution logs by clicking on `details` at the `Lighthouse` check.  
-![Store Framework Jamstack CI lhci check completed](./../images/lhci_check_completed.png)
-
-#### Possible states
-- `queued`: soon this step will be executed.
-- `in_progress`: this step is being executed.
-- `completed/success`: Lighthouse CI is completed successfully.
-- `completed/failure`: Something went wrong.
-- `completed/canceled`: The build was not successful, therefore the Lighthouse CI can't be executed.
-
-
 ## Integration Tests
 
 Integration tests evaluate the project compliance by combining individual applications and testing them as a group. 
@@ -105,11 +94,3 @@ After completing the Build step, SFJ CI flow executes the integrations tests wit
 ![Store Framework Jamstack CI integration tests results](./../images/integration_tests_results.png)
 
 >ℹ️ *For more information on how to to write end-to-end (E2E) tests for modern web applications with Cypress, follow [this link.](./e2e-testing.md)*
-
-#### Possible states
-- `queued`: soon this step will be executed.
-- `in_progress`: this step is being executed.
-- `completed/success`: All tests passed successfully.
-- `completed/failure`: At least one test failed.
-- `completed/canceled`: The build was not successful, therefore the Integrations Tests can't be executed.
-- `completed/neutral`: There are no integration tests implemented.
