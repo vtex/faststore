@@ -5,8 +5,6 @@ import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 
 import { AUTH_PROVIDERS } from '../components/Auth/Providers'
-import ErrorBoundary from '../components/Error/ErrorBoundary'
-import ErrorHandler from '../components/Error/ErrorHandler'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import { useOnLoginSuccessful } from '../sdk/auth/useOnLoginSuccessful'
@@ -74,19 +72,17 @@ const Page: FC = () => {
 // We split into two components to avoid re-rendering the <Layout/> when
 // selecting Auth method
 const PageWithLayout: FC<Props> = () => (
-  <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
-    <Layout>
-      <SuspenseSSR
-        fallback={
-          <Center height="300px">
-            <Spinner />
-          </Center>
-        }
-      >
-        <Page />
-      </SuspenseSSR>
-    </Layout>
-  </ErrorBoundary>
+  <Layout>
+    <SuspenseSSR
+      fallback={
+        <Center height="300px">
+          <Spinner />
+        </Center>
+      }
+    >
+      <Page />
+    </SuspenseSSR>
+  </Layout>
 )
 
 export default PageWithLayout
