@@ -20,9 +20,6 @@ import type {
 import { sourceAllLocalNodes } from './node-api/sourceAllLocalNodes'
 import type { ContentTypes, Schemas } from './index'
 
-// VTEX IO workspace
-const WORKSPACE = process.env.GATSBY_VTEX_IO_WORKSPACE ?? 'master'
-
 interface CMSContentType {
   id: string
   name: string
@@ -47,20 +44,22 @@ const PREVIEW_PATH = '/cms/preview'
 
 interface Options {
   tenant: string
+  workspace?: string
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
     tenant: Joi.string().required(),
+    workspace: Joi.string(),
   })
 
 export const sourceNodes = async (
   args: SourceNodesArgs,
-  { tenant }: Options
+  { tenant, workspace = 'master' }: Options
 ) => {
   // Step1. Set up remote schema:
   const executor = createDefaultQueryExecutor(
-    `https://${WORKSPACE}--${tenant}.myvtex.com/graphql`,
+    `https://${workspace}--${tenant}.myvtex.com/graphql`,
     {
       method: 'POST',
       headers: {
