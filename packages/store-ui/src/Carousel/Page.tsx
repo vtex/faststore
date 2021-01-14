@@ -1,6 +1,7 @@
-import { LocalizedLink, ResponsivePicture } from '@vtex/store-ui'
 import React from 'react'
 import type { ComponentPropsWithoutRef, FC } from 'react'
+
+import { LocalizedLink, ResponsivePicture } from '../index'
 
 type IResponsivePicture = ComponentPropsWithoutRef<typeof ResponsivePicture>
 
