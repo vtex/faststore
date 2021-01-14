@@ -3,13 +3,13 @@ import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
-import { Helmet } from 'react-helmet-async'
 
 import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import { useOnLoginSuccessful } from '../sdk/auth/useOnLoginSuccessful'
 import { useProfile } from '../sdk/session/useProfile'
+import Helmet from '../components/SEO/Helmet'
 
 type Props = PageProps<unknown>
 
@@ -74,9 +74,15 @@ const Page: FC = () => {
 // selecting Auth method
 const PageWithLayout: FC<Props> = () => (
   <>
-    <Helmet defer={false} async={false}>
-      <meta name="robots" content="noindex, nofollow" />
-    </Helmet>
+    <Helmet
+      meta={[
+        {
+          name: 'robots',
+          content: 'noindex, nofollow',
+        },
+      ]}
+    />
+
     <Layout>
       <SuspenseSSR
         fallback={

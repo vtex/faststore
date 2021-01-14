@@ -3,13 +3,13 @@ import { Center, Spinner } from '@vtex/store-ui'
 import { navigate } from 'gatsby'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
-import { Helmet } from 'react-helmet-async'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import RenderExtensionLoader from '../sdk/RenderExtensionLoader'
 import { useProfile } from '../sdk/session/useProfile'
+import Helmet from '../components/SEO/Helmet'
 
 const MY_ACCOUNT_PATH = '/account'
 const MY_ACCOUNT_DIV_NAME = 'my-account'
@@ -90,9 +90,15 @@ const MyAccount: FC = () => {
 
 const Page: FC = () => (
   <>
-    <Helmet defer={false} async={false}>
-      <meta name="robots" content="noindex, nofollow" />
-    </Helmet>
+    <Helmet
+      meta={[
+        {
+          name: 'robots',
+          content: 'noindex, nofollow',
+        },
+      ]}
+    />
+
     <Layout>
       <Container>
         <SuspenseSSR fallback={<Loading />}>
