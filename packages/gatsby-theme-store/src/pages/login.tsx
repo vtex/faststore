@@ -3,6 +3,7 @@ import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
+import { Helmet } from 'react-helmet-async'
 
 import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
@@ -72,17 +73,22 @@ const Page: FC = () => {
 // We split into two components to avoid re-rendering the <Layout/> when
 // selecting Auth method
 const PageWithLayout: FC<Props> = () => (
-  <Layout>
-    <SuspenseSSR
-      fallback={
-        <Center height="300px">
-          <Spinner />
-        </Center>
-      }
-    >
-      <Page />
-    </SuspenseSSR>
-  </Layout>
+  <>
+    <Helmet>
+      <meta name="robots" content="noindex, nofollow" />
+    </Helmet>
+    <Layout>
+      <SuspenseSSR
+        fallback={
+          <Center height="300px">
+            <Spinner />
+          </Center>
+        }
+      >
+        <Page />
+      </SuspenseSSR>
+    </Layout>
+  </>
 )
 
 export default PageWithLayout

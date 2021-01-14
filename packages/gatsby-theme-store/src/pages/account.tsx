@@ -3,6 +3,7 @@ import { Center, Spinner } from '@vtex/store-ui'
 import { navigate } from 'gatsby'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
+import { Helmet } from 'react-helmet-async'
 
 import Container from '../components/Container'
 import Layout from '../components/Layout'
@@ -88,13 +89,18 @@ const MyAccount: FC = () => {
 }
 
 const Page: FC = () => (
-  <Layout>
-    <Container>
-      <SuspenseSSR fallback={<Loading />}>
-        <MyAccount />
-      </SuspenseSSR>
-    </Container>
-  </Layout>
+  <>
+    <Helmet>
+      <meta name="robots" content="noindex, nofollow" />
+    </Helmet>
+    <Layout>
+      <Container>
+        <SuspenseSSR fallback={<Loading />}>
+          <MyAccount />
+        </SuspenseSSR>
+      </Container>
+    </Layout>
+  </>
 )
 
 export default Page
