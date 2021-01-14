@@ -40,14 +40,15 @@ const lhConfig = ({ urls, server }: Params) => {
             {
               path: '/*',
               timings: [
-                { metric: 'interactive', budget: 3500 },
-                { metric: 'first-meaningful-paint', budget: 2000 },
+                { metric: 'interactive', budget: 4000 },
+                { metric: 'first-meaningful-paint', budget: 2500 },
+                { metric: 'largest-contenful-paint', budget: 2000 },
               ],
               resourceSizes: [
-                { resourceType: 'script', budget: 250 },
-                { resourceType: 'total', budget: 400 },
+                { resourceType: 'script', budget: 300 },
+                { resourceType: 'total', budget: 450 },
               ],
-              resourceCounts: [{ resourceType: 'third-party', budget: 15 }],
+              resourceCounts: [{ resourceType: 'third-party', budget: 20 }],
             },
           ],
         },
