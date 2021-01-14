@@ -1,5 +1,12 @@
 import { join } from 'path'
 
+import { outputJSON, pathExists } from 'fs-extra'
+import type { JSONSchema6 } from 'json-schema'
+import type {
+  CreatePagesArgs,
+  SourceNodesArgs,
+  PluginOptionsSchemaArgs,
+} from 'gatsby'
 import {
   buildNodeDefinitions,
   compileNodeQueries,
@@ -9,23 +16,13 @@ import {
   loadSchema,
   sourceAllNodes,
 } from 'gatsby-graphql-source-toolkit'
-import { outputJSON, pathExists } from 'fs-extra'
-import type { JSONSchema6 } from 'json-schema'
-import type {
-  CreatePagesArgs,
-  PluginOptionsSchemaArgs,
-  SourceNodesArgs,
-} from 'gatsby'
 
 import { sourceAllLocalNodes } from './node-api/sourceAllLocalNodes'
-import type { ContentTypes, Schemas } from './index'
+import type { BuilderConfig } from './index'
 
 interface CMSContentType {
   id: string
   name: string
-  previewUrl: string
-  messages: Record<string, string>
-  blocks: Array<{ name: string; schema: JSONSchema6 }>
   beforeBlocks: Array<{ name: string; schema: JSONSchema6 }>
   afterBlocks: Array<{ name: string; schema: JSONSchema6 }>
   extraBlocks: Array<{
@@ -34,13 +31,25 @@ interface CMSContentType {
   }>
 }
 
+interface CMSBuilderConfig {
+  id: 'faststore'
+  name: 'Powered by Gatsby Plugin CMS'
+  productionBaseUrl: string
+  blocks: Array<{ name: string; schema: JSONSchema6 }>
+  contentTypes: CMSContentType[]
+  messages: Record<string, string>
+}
+
 const { name } = require('./package.json')
 
 const root = process.cwd()
 
-const CONTENT_TYPES_PATH = join(root, 'public/page-data/_cms/contentTypes.json')
+const BUILDER_CONFIG_PATH = join(
+  root,
+  'public/page-data/_cms/builderConfig.json'
+)
+
 const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
-const PREVIEW_PATH = '/cms/preview'
 
 interface Options {
   tenant: string
@@ -156,50 +165,73 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],
   })
-  const { contentTypes } = require(SHADOWED_INDEX_PATH) as {
-    schemas: Schemas
-    contentTypes: ContentTypes
+  const {
+    builderConfig: {
+      contentTypes: userContentTypes = {},
+      blocks: userBlocks = {},
+      messages = {},
+    } = {},
+  } = require(SHADOWED_INDEX_PATH) as {
+    builderConfig: BuilderConfig
   }
 
-  // Transform all contentTypes into CMS ready contentType json
-  const contentTypesCMS = Object.keys(contentTypes).reduce((acc, key) => {
-    const ct = contentTypes[key]
+  const blocks = Object.keys(userBlocks).map((blockName) => ({
+    name: blockName,
+    schema: userBlocks[blockName],
+  }))
 
-    const blocks = Object.keys(ct.blocks).map((k) => ({
-      name: k,
-      schema: ct.blocks[k],
-    }))
+  // Transform all contentTypes into CMS contentTypes format
+  const contentTypes = Object.keys(userContentTypes).reduce(
+    (acc, contentTypeName) => {
+      const contentType = userContentTypes[contentTypeName]
 
-    const beforeBlocks = Object.keys(ct.beforeBlocks).map((k) => ({
-      name: k,
-      schema: ct.beforeBlocks[k],
-    }))
+      const beforeBlocks = Object.keys(contentType.beforeBlocks).map(
+        (blockName) => ({
+          name: blockName,
+          schema: contentType.beforeBlocks[blockName],
+        })
+      )
 
-    const afterBlocks = Object.keys(ct.afterBlocks).map((k) => ({
-      name: k,
-      schema: ct.afterBlocks[k],
-    }))
+      const afterBlocks = Object.keys(contentType.afterBlocks).map(
+        (blockName) => ({
+          name: blockName,
+          schema: contentType.afterBlocks[blockName],
+        })
+      )
 
-    const extraBlocks = Object.keys(ct.extraBlocks).map((k) => ({
-      name: k,
-      blocks: Object.keys(ct.extraBlocks[k]).map((kk) => ({
-        name: kk,
-        schema: ct.extraBlocks[k][kk],
-      })),
-    }))
+      const extraBlocks = Object.keys(contentType.extraBlocks).map(
+        (sectionName) => ({
+          name: sectionName,
+          blocks: Object.keys(contentType.extraBlocks[sectionName]).map(
+            (blockName) => ({
+              name: blockName,
+              schema: contentType.extraBlocks[sectionName][blockName],
+            })
+          ),
+        })
+      )
 
-    acc.push({
-      ...ct,
-      id: key,
-      previewUrl: join(siteUrl, PREVIEW_PATH),
-      blocks,
-      beforeBlocks,
-      afterBlocks,
-      extraBlocks,
-    })
+      acc.push({
+        ...contentType,
+        id: contentTypeName,
+        beforeBlocks,
+        afterBlocks,
+        extraBlocks,
+      })
 
-    return acc
-  }, [] as CMSContentType[])
+      return acc
+    },
+    [] as CMSContentType[]
+  )
 
-  await outputJSON(CONTENT_TYPES_PATH, contentTypesCMS)
+  const builderConfig: CMSBuilderConfig = {
+    id: 'faststore',
+    name: 'Powered by Gatsby Plugin CMS',
+    productionBaseUrl: siteUrl,
+    contentTypes,
+    blocks,
+    messages,
+  }
+
+  await outputJSON(BUILDER_CONFIG_PATH, builderConfig)
 }

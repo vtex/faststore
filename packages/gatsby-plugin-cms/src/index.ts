@@ -9,13 +9,21 @@ export type Schemas = Record<string, Schema>
 
 interface ContentType {
   name: string
-  blocks: Schemas
   extraBlocks: Record<string, Schemas>
   beforeBlocks: Schemas
   afterBlocks: Schemas
-  messages: Record<string, string>
 }
 
 export type ContentTypes = Record<string, ContentType>
 
-export const contentTypes: ContentTypes = {}
+export interface BuilderConfig {
+  contentTypes: ContentTypes
+  blocks: Schemas
+  messages: Record<string, string>
+}
+
+export const builderConfig: BuilderConfig = {
+  contentTypes: {},
+  blocks: {},
+  messages: {},
+}
