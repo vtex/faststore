@@ -74,7 +74,7 @@ const Page: FC = () => {
 // selecting Auth method
 const PageWithLayout: FC<Props> = () => (
   <>
-    <Helmet>
+    <Helmet defer={false} async={false}>
       <meta name="robots" content="noindex, nofollow" />
     </Helmet>
     <Layout>

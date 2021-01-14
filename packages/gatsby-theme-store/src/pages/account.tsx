@@ -90,7 +90,7 @@ const MyAccount: FC = () => {
 
 const Page: FC = () => (
   <>
-    <Helmet>
+    <Helmet defer={false} async={false}>
       <meta name="robots" content="noindex, nofollow" />
     </Helmet>
     <Layout>
