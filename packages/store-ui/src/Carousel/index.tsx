@@ -1,7 +1,7 @@
-/** @jsx jsx */
+import React from 'react'
 import type { FC } from 'react'
-import { Box, jsx, useSlider } from '@vtex/store-ui'
 
+import { Box, useSlider } from '../index'
 import CarouselArrowLeft from './ArrowLeft'
 import CarouselArrowRight from './ArrowRight'
 import CarouselPaginationDots from './PaginationDots'
