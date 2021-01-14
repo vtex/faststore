@@ -167,51 +167,62 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
   })
   const {
     builderConfig: {
-      contentTypes: ctypes = {},
-      blocks: blks = {},
+      contentTypes: userContentTypes = {},
+      blocks: userBlocks = {},
       messages = {},
     } = {},
   } = require(SHADOWED_INDEX_PATH) as {
     builderConfig: BuilderConfig
   }
 
-  const blocks = Object.keys(blks).map((k) => ({
-    name: k,
-    schema: blks[k],
+  const blocks = Object.keys(userBlocks).map((blockName) => ({
+    name: blockName,
+    schema: userBlocks[blockName],
   }))
 
   // Transform all contentTypes into CMS contentTypes format
-  const contentTypes = Object.keys(ctypes).reduce((acc, key) => {
-    const ct = ctypes[key]
+  const contentTypes = Object.keys(userContentTypes).reduce(
+    (acc, contentTypeName) => {
+      const contentType = userContentTypes[contentTypeName]
 
-    const beforeBlocks = Object.keys(ct.beforeBlocks).map((k) => ({
-      name: k,
-      schema: ct.beforeBlocks[k],
-    }))
+      const beforeBlocks = Object.keys(contentType.beforeBlocks).map(
+        (blockName) => ({
+          name: blockName,
+          schema: contentType.beforeBlocks[blockName],
+        })
+      )
 
-    const afterBlocks = Object.keys(ct.afterBlocks).map((k) => ({
-      name: k,
-      schema: ct.afterBlocks[k],
-    }))
+      const afterBlocks = Object.keys(contentType.afterBlocks).map(
+        (blockName) => ({
+          name: blockName,
+          schema: contentType.afterBlocks[blockName],
+        })
+      )
 
-    const extraBlocks = Object.keys(ct.extraBlocks).map((k) => ({
-      name: k,
-      blocks: Object.keys(ct.extraBlocks[k]).map((kk) => ({
-        name: kk,
-        schema: ct.extraBlocks[k][kk],
-      })),
-    }))
+      const extraBlocks = Object.keys(contentType.extraBlocks).map(
+        (sectionName) => ({
+          name: sectionName,
+          blocks: Object.keys(contentType.extraBlocks[sectionName]).map(
+            (blockName) => ({
+              name: blockName,
+              schema: contentType.extraBlocks[sectionName][blockName],
+            })
+          ),
+        })
+      )
 
-    acc.push({
-      ...ct,
-      id: key,
-      beforeBlocks,
-      afterBlocks,
-      extraBlocks,
-    })
+      acc.push({
+        ...contentType,
+        id: contentTypeName,
+        beforeBlocks,
+        afterBlocks,
+        extraBlocks,
+      })
 
-    return acc
-  }, [] as CMSContentType[])
+      return acc
+    },
+    [] as CMSContentType[]
+  )
 
   const builderConfig: CMSBuilderConfig = {
     id: 'faststore',
