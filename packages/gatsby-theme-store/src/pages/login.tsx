@@ -9,6 +9,7 @@ import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import { useOnLoginSuccessful } from '../sdk/auth/useOnLoginSuccessful'
 import { useProfile } from '../sdk/session/useProfile'
+import Helmet from '../components/SEO/Helmet'
 
 type Props = PageProps<unknown>
 
@@ -72,17 +73,28 @@ const Page: FC = () => {
 // We split into two components to avoid re-rendering the <Layout/> when
 // selecting Auth method
 const PageWithLayout: FC<Props> = () => (
-  <Layout>
-    <SuspenseSSR
-      fallback={
-        <Center height="300px">
-          <Spinner />
-        </Center>
-      }
-    >
-      <Page />
-    </SuspenseSSR>
-  </Layout>
+  <>
+    <Helmet
+      meta={[
+        {
+          name: 'robots',
+          content: 'noindex, nofollow',
+        },
+      ]}
+    />
+
+    <Layout>
+      <SuspenseSSR
+        fallback={
+          <Center height="300px">
+            <Spinner />
+          </Center>
+        }
+      >
+        <Page />
+      </SuspenseSSR>
+    </Layout>
+  </>
 )
 
 export default PageWithLayout

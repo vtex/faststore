@@ -9,6 +9,7 @@ import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import RenderExtensionLoader from '../sdk/RenderExtensionLoader'
 import { useProfile } from '../sdk/session/useProfile'
+import Helmet from '../components/SEO/Helmet'
 
 const MY_ACCOUNT_PATH = '/account'
 const MY_ACCOUNT_DIV_NAME = 'my-account'
@@ -88,13 +89,24 @@ const MyAccount: FC = () => {
 }
 
 const Page: FC = () => (
-  <Layout>
-    <Container>
-      <SuspenseSSR fallback={<Loading />}>
-        <MyAccount />
-      </SuspenseSSR>
-    </Container>
-  </Layout>
+  <>
+    <Helmet
+      meta={[
+        {
+          name: 'robots',
+          content: 'noindex, nofollow',
+        },
+      ]}
+    />
+
+    <Layout>
+      <Container>
+        <SuspenseSSR fallback={<Loading />}>
+          <MyAccount />
+        </SuspenseSSR>
+      </Container>
+    </Layout>
+  </>
 )
 
 export default Page
