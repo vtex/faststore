@@ -71,7 +71,7 @@ Once you [set up your SFJ project]() from our [SFJ starter](https://github.com/v
     import { createTheme, SxStyleProp } from '@vtex/store-ui'
     ```
     
->⚠️ *Ideally, all default style sheets should be defined within the Store UI library. However, you'll notice some styles are defined within the SFJ Store Theme. We are aware of this situation and already working on it.*
+>⚠️  *Ideally, all default style sheets should be defined within the Store UI library. However, you'll notice some styles are defined within the SFJ Store Theme. We are aware of this situation and already working on it.*
 
 5. Declare a `custom` object, as in the following:
 
