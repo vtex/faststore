@@ -1,5 +1,5 @@
 import React from 'react'
-import type { Component, ComponentPropsWithoutRef, FC } from 'react'
+import type { ComponentType, ComponentPropsWithoutRef, FC } from 'react'
 
 import { LocalizedLink, ResponsivePicture } from '../index'
 
@@ -15,7 +15,7 @@ interface Props {
   height: string
   loading: 'eager' | 'lazy'
   variant: string
-  link?: typeof Component | FC
+  link?: ComponentType
 }
 
 export const CarouselPage: FC<Props> = ({
