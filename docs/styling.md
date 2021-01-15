@@ -239,3 +239,24 @@ Take the following example:
 
 5. Save your changes.
 6. Run `gatsby deploy` to start a development server and check your changes live at `http://localhost:8000/`.
+
+## Creating your own components and styles
+
+With SFJ, you don't need to feel stuck to pre-defined components.
+
+By taking the following steps, you'll be able to create your own components:
+
+1. Open up your SFJ project in the code editor of your choosing.
+2. Go to the `src` folder.
+3. Create a new folder with the name of your component.
+4. Develop your React component and define styles.
+5. Save your changes.
+6. Now, go to the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
+7. Import your component styles.
+
+    ```js
+    import {component-name} from '.../{component-folder}/{component}'
+    ```
+
+6. Save your changes.
+7. Run `yarn develop` to start a development server and check your changes live at `http://localhost:8000/`.
