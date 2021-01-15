@@ -34,8 +34,10 @@ As ecommerce specialists, we understand the impact of performance for our custom
 
 Jamstack allows us to trade build time for performance. By pre-rendering the markup of our websites we are able to make them readily available with a [Content Delivering Network ](https://jamstack.org/glossary/cdn/)(CDN) avoiding unnecessary round trips to servers. And even though the content held by CDN's is static, it does not mean that the sites are static. In fact, with a process called [hydration](https://reactjs.org/docs/react-dom.html#hydrate) all the power of client-side Javascript and APIs is still available with the advantage that all the static content is immediately ready.
 
-#### Developer Experience
+### Better developer experience
 
-Another change that comes with this architecture is in the way of developing. It is not dependant on proprietary technology, it is built on tools and conventions vastly available. This makes the code more accessible and more customizable, permits local development, eases debugging, and facilitates finding talented developers with the skills to work with our stores.
+Since the JAMstack architecture is not dependant on any proprietary set of tools, developers can benefit from more freedom to work with their favorite technologies. 
 
-We continue to provide security, scale, maintainability, portability, [best practices](https://jamstack.org/best-practices/), and much more out of the box. But now with more transparency, freedom to customize almost everything, and showing hints about how to avoid changes that endanger your site's performance. <!-- here I thought about linking to an explanation  of how we enforce paying attention to performance also-->
+Consequently, finding talented developers to build your website's storefront becomes easier, your website code becomes more accessible, debugging becomes faster and local development becomes possible.
+
+By adopting the JAMstack architecture, we continue to afford a scalable, secure, and maintainable solution out of the box, but now with more mechanisms to improve performance and transparency for storefront customization.
