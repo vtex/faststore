@@ -2,13 +2,15 @@
 
 In the Store Framework Jamstack (SFJ), styling can be achieved by:
 
-- [Overwriting CSS styles of the Store UI components.](#overwriting-css-styles-of-the-store-ui-components)
-- [Adding styles to React components from the Store UI library.](#adding-styles-to-react-components-from-the-store-ui-library)
-- [Creating your own components and styles.](#creating-your-own-components-and-styles)
+- [Styling](#styling)
+  - [Step by step](#step-by-step)
+    - [Overwriting CSS styles of the Store UI components](#overwriting-css-styles-of-the-store-ui-components)
+    - [Adding styles to React components from the Store UI library](#adding-styles-to-react-components-from-the-store-ui-library)
+    - [Creating your own components and styles](#creating-your-own-components-and-styles)
 
 In the following sections, you'll find out more about each one of these topics.
 
-However, before proceeding any further, keep in mind that styling is possible thanks to the `@vtex/gatsby-plugin-theme-ui` plugin. 
+However, before proceeding any further, keep in mind that styling is possible thanks to the `@vtex/gatsby-plugin-theme-ui` plugin.
 
 We structure the `@vtex/gatsby-plugin-theme-ui` code within multiple files to improve readability. However, the `@vtex/gatsby-plugin-theme-ui` plugin only considers the styles exported by the `createTheme` function inside the `index.ts` file.
 
@@ -42,7 +44,7 @@ export default createTheme(
 
 Take the following steps as a guide to style Store UI components containing a pre-defined `themes.ts` style sheet.
 
-Once you [set up your SFJ project](getting-started.md) from our [SFJ starter](https://github.com/vtex-sites/storecomponents.store), you're ready to start styling your VTEX store.  
+Once you [set up your SFJ project](getting-started.md) from our [SFJ starter](https://github.com/vtex-sites/storecomponents.store), you're ready to start styling your VTEX store.
 
 1. Open up your SFJ project in the code editor of your choosing.
 2. Go to the `src/@vtex/gatsby-plugin-theme-ui`.
@@ -51,11 +53,11 @@ Once you [set up your SFJ project](getting-started.md) from our [SFJ starter](ht
 >ℹ️  *Use the [SFJ Store Theme components folder](https://github.com/vtex/faststore/tree/master/packages/gatsby-theme-store/src/components) as a reference.*
 
 4. Import the `createTheme` function and the pre-defined style sheet of the component you want to style.
-    
+
 ```ts
 import { createTheme, SxStyleProp } from '@vtex/store-ui'
 ```
-    
+
 >⚠️  *Ideally, all default style sheets should be defined within the Store UI library. However, you'll notice some styles are defined within the SFJ Store Theme. We are aware of this situation and already working on it.*
 
 5. Declare a `custom` object, as in the following:
@@ -64,14 +66,14 @@ import { createTheme, SxStyleProp } from '@vtex/store-ui'
 const custom = {
 
 }
-``` 
+```
 
 6. Within the `custom` object, overwrite styles respecting the hierarchy of the style sheet of that component.
 
 >⚠️  *Open the default style sheet file of the component you want to style and check the hierarchy you should follow when overwriting styles.*
 
 Take the following example from the [SearchSuggestions default style sheet (`@vtex/gatsby-theme-store/src/components/SearchSuggestions/theme.ts`)](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/SearchSuggestions/theme.ts). By default, we have:
-    
+
 ```ts
 // "faststore/packages/gatsby-theme-store/src/components/SearchSuggestions/theme.ts"
     products: {
@@ -101,13 +103,13 @@ Take the following example from the [SearchSuggestions default style sheet (`@vt
     },
 ```
 
-<img src="./images/suggestions.png">
+<img src="./images/suggestions.png" width="800">
 
 >⚠️  ***Keep in mind**: If you don't respect the component style sheet hierarchy and names, you'll face issues when overwriting styles.*
 
 To customize this style, we must stick to this hierarchy. Take the following example in which we customized the add-to-cart button from the `searchSuggestions` component by changing the `backgroundColor` property from `primary` to `secondary`.
 
-<img src="./images/suggestions-altered-color.png">
+<img src="./images/suggestions-altered-color.png" width="800">
 
 ```ts
 // "src/@vtex/gatsby-plugin-theme-ui/searchSuggestions.ts"
@@ -140,7 +142,7 @@ export default searchSuggestionsCustom
 ```js
 import searchSuggestionsCustom from './searchSuggestions'
 ```
-    
+
 12. Export the theme in the `createTheme` function.
 
 ```js
@@ -205,7 +207,7 @@ Therefore, to add new styles to a Store UI component, check the name of its vari
 
 1. Open up your SFJ project in the code editor of your choosing.
 2. Go to the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
-3. Import the style of the component you want to style. 
+3. Import the style of the component you want to style.
 
 >ℹ️  *Use the [SFJ Store UI library](https://github.com/vtex/faststore/tree/master/packages/store-ui) as a reference.*
 
@@ -214,7 +216,7 @@ Take the following example:
 ```js
 import headerTheme from '@vtex/store-ui'
 ```
-    
+
 4. Define styles inside the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
 
 >ℹ️  *Check the name of the variants inside the component's `.tsx` source file. Then, pass the variants as props with the desired styles.*
