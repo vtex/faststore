@@ -11,10 +11,14 @@ import {
   CarouselPage,
   CarouselPaginationDots,
 } from './index'
-import type { Item } from './index'
+import type { Item } from './Page'
 import { Box, useSlider } from '../index'
 
-const Link: FC = ({ children }) => <a href="/">{children}</a>
+const Link: FC = ({ children }) => (
+  <a href="#/" target="_blank">
+    {children}
+  </a>
+)
 
 export const Default = () => {
   const {

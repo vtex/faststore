@@ -5,8 +5,8 @@ import { Box, useSlider } from '../index'
 import CarouselArrowLeft from './ArrowLeft'
 import CarouselArrowRight from './ArrowRight'
 import CarouselPaginationDots from './PaginationDots'
+import { CarouselPage } from './Page'
 import type { Item } from './Page'
-import CarouselPage from './Page'
 
 interface Props {
   allItems: Item[]
@@ -84,5 +84,4 @@ export {
   CarouselArrowRight,
   CarouselPaginationDots,
   CarouselPage,
-  Item,
 }
