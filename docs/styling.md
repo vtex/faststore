@@ -13,7 +13,7 @@ However, before proceeding any further, keep in mind that styling is possible th
 We structure the `@vtex/gatsby-plugin-theme-ui` code within multiple files to improve readability. However, the `@vtex/gatsby-plugin-theme-ui` plugin only considers the styles exported by the `createTheme` function inside the `index.ts` file.
 
 ```ts
-// @vtex/gatsby-plugin-theme-ui/index.ts
+// "@vtex/gatsby-plugin-theme-ui/index.ts"
 export default createTheme(
     base,
     breadcrumb,
@@ -75,21 +75,21 @@ Take the following example from the [SearchSuggestions default style sheet (`@vt
 ```ts
 // "faststore/packages/gatsby-theme-store/src/components/SearchSuggestions/theme.ts"
     products: {
-        width: 'inherit',
+      width: 'inherit',
 
-        button: {
+      button: {
         backgroundColor: 'primary',
-        },
+      },
 
-        title,
+      title,
 
-        list: {
+      list: {
         ...list,
         display: 'flex',
         flexWrap: 'nowrap',
-        },
+      },
 
-        total: {
+      total: {
         paddingTop: '10px',
         color: 'text',
         textDecoration: 'underline',
@@ -97,7 +97,7 @@ Take the following example from the [SearchSuggestions default style sheet (`@vt
         cursor: 'pointer',
         width: '100%',
         backgroundColor: 'white',
-        },
+      },
     },
 ```
 
@@ -114,11 +114,11 @@ To customize this style, we must stick to this hierarchy. Take the following exa
 import { createTheme, SxStyleProp } from '@vtex/store-ui'
 import searchSuggestionsTheme from '@vtex/gatsby-theme-store/components/SearchSuggestions/theme'
 
-    const custom{
-        button: {
-        backgroundColor: 'secondary',
-        }
+const custom{
+    button: {
+      backgroundColor: 'secondary',
     }
+}
 ```
 
 7. At the end of the file, create a `searchSuggestionsCustom` variable that provides the default theme and the `custom` theme you created to the `createTheme` function.
@@ -150,11 +150,11 @@ export default createTheme(
 )
 ```
 
-7. Save your changes.
+13. Save your changes.
 
 >ℹ️  ***Keep in mind**: [Shadowing](shadowing.md) only occurs on the `@vtex/gatsby-plugin-theme-ui/index` file.*
 
-8. Run `yarn develop` to start a development server and check your changes live at `http://localhost:8000/`.
+14. Run `yarn develop` to start a development server and check your changes live at `http://localhost:8000/`.
 
 ### Adding styles to React components from the Store UI library
 
@@ -167,14 +167,14 @@ In this sense, we can benefit from the [Variants](https://theme-ui.com/guides/va
 Take the following example from the [`Header`](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/Header.tsx) component of the Store UI library:
 
 ```tsx
-    const variant = 'header'
+const variant = 'header'
 
 ...
 
-    <Flex variant={`${variant}.left`}>
-    <Logo variant={`${variant}.logo`}/>
-    <Menu variant={`${variant}.menu`}/>
-    </Flex>
+<Flex variant={`${variant}.left`}>
+<Logo variant={`${variant}.logo`}/>
+<Menu variant={`${variant}.menu`}/>
+</Flex>
 
 ...
 
@@ -186,13 +186,13 @@ Since, in this case, the `variant` name is `header`, we should add styles to thi
 {
     header:{
         left: {
-        color: 'white',
-        bg: 'secondary',
+          color: 'white',
+          bg: 'secondary',
         },
         logo: {
-        text: '#000',
-        background: '#fff',
-        primary: '#0c7',
+          text: '#000',
+          background: '#fff',
+          primary: '#0c7',
         },
     menu{
         body: 'system-ui, sans-serif',
