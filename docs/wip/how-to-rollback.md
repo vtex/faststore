@@ -8,7 +8,7 @@ The rollback interaction aims to help you to react faster when having trouble, c
 This document is the first version of a guide for the rollback process using VTEX Store Framework Jamstack. It also explains the rollback expected behavior.
 We'll start showing how to make a safe deploy — one that is ready to be used for a rollback.
 
-## 👮‍♀️ How to make a safe deploy (Security Measures)
+## 👮‍♀️ How to make a safe deployment (Security Measures)
 - Create a new branch from the current master (this is a backup branch):
 ```
 git checkout master
