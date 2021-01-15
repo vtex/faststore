@@ -1,4 +1,4 @@
-## ⚠️ Warning: this will only work when we start using VTEX infrastructure to build the images. Is also possible to build with Netlify[] — for rollback in Netlify, you can use it's tools.
+## ⚠️ Warning: this will only work when we start using VTEX infrastructure to build the images. Is also possible to build with Netlify[] — for rollback in Netlify, you can use its tools.
 
 
 # The rollback
