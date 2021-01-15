@@ -79,7 +79,7 @@ If your default branch is called `master` instead of `main`, this will perform a
 It will also allow new builds from the `main` branch every time a merge happens.
 
 ## Technical details
-You don't actually need to use the branch `backup-branch`, you can name it however you want.
+You don't need to use the branch `backup-branch`, you can name it however you want.
 
 There is the possibility of the url `http://builders.staging-2a.ingress.vtex.io` changing due to infrastructure updates.
 
