@@ -81,7 +81,7 @@ It will also allow new builds from the `main` branch every time a merge happens.
 ## Technical details
 You don't need to use the branch `backup-branch`, you can name it however you want.
 
-There is the possibility of the url `http://builders.staging-2a.ingress.vtex.io` changing due to infrastructure updates.
+There is the possibility of the URL `http://builders.staging-2a.ingress.vtex.io` changing due to infrastructure updates.
 
 For better clarity, here is the format of the body:
 ```
