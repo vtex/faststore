@@ -4,8 +4,8 @@ Store Framework Jamstack (SFJ) CI flow consists of 4 main steps:
 
 - [Build](#build) - runs an automated build for the store and generates a deploy preview.
 - [SonarQube](#sonarqube) - measures and analyzes code quality using static analysis.
-- [Integration Tests](#integration-test) - implements integration tests with [Cypress.](https://www.cypress.io/)
 - [Lighthouse CI](#lighthouse-ci) - provides insights on how performance changed with the new developments.
+- [Integration Tests](#integration-test) - implements integration tests with [Cypress.](https://www.cypress.io/)
 
 ![Store Framework Jamstack CI flow](./../images/ci_flow.png)
 
