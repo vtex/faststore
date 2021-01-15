@@ -225,7 +225,7 @@ Therefore, to add new styles to a Store UI component, check the name of its vari
 2. Go to the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
 3. Import the style of the component you want to style. 
 
->ℹ️ *Use the [SFJ Store UI library](https://github.com/vtex/faststore/tree/master/packages/store-ui) as a reference.*
+>ℹ️  *Use the [SFJ Store UI library](https://github.com/vtex/faststore/tree/master/packages/store-ui) as a reference.*
 
 Take the following example:
 
