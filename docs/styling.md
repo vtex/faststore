@@ -118,7 +118,7 @@ Take the following example from the [SearchSuggestions default style sheet (`@vt
 
 <img src="./images/suggestions.png">
 
->⚠️ ***Keep in mind**: If you don't respect the component style sheet hierarchy and names, you'll face issues when overwriting styles.*
+>⚠️  ***Keep in mind**: If you don't respect the component style sheet hierarchy and names, you'll face issues when overwriting styles.*
 
 To customize this style, we must stick to this hierarchy. Take the following example in which we customized the add-to-cart button from the `searchSuggestions` component by changing the `backgroundColor` property from `primary` to `secondary`.
 
