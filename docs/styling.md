@@ -180,7 +180,7 @@ Leveraging from the [Theme UI](https://theme-ui.com/), the `@vtex/gatsby-plugin-
 
 In this sense, we can benefit from the [Variants](https://theme-ui.com/guides/variants/) feature from the Theme UI library.
 
->ℹ️ *Variants allow you to add groups of styles based on a component value. It works as classes in CSS.*
+>ℹ️  *Variants allow you to add groups of styles based on a component value. It works as classes in CSS.*
 
 Take the following example from the [`Header`](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/Header.tsx) component of the Store UI library:
 
