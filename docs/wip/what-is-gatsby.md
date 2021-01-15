@@ -21,4 +21,4 @@ Additionally, thanks to its plugin-based ecosystem, Gatsby allows you to add new
 
 ### High customization level
 
-With [Shadowing](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/shadowing/), Gatsby increases customization levels, allowing the user to replace [webpack](https://webpack.js.org/) files with customized ones.
+With [shadowing](https://www.gatsbyjs.com/docs/how-to/plugins-and-themes/shadowing/), Gatsby increases customization levels, allowing the developer to overwrite [webpack](https://webpack.js.org/) files with customized ones.
