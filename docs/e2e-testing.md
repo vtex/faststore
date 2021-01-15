@@ -64,7 +64,7 @@ In the following, we'll create a simple test that verifies how a specific produc
 2. Create a new file named `index.js` inside `cypress/e2e/{test-name}` (e.g., `cypress/e2e/search`).
 3. Using JavaScript, write your E2E test. Take the code below as an example:
 
-   ```bash
+   ```js
    describe("Search e2e tests" () => {
 
    	beforeEach(() => {
@@ -90,4 +90,3 @@ In the following, we'll create a simple test that verifies how a specific produc
 
 
 That's it! Additionally, you can run `npm run coverage` (WIP) to visualize the test's code coverage.
-
