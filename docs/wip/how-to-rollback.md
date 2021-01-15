@@ -76,7 +76,7 @@ curl --location --request POST 'http://builders.staging-2a.ingress.vtex.io' \
 }'
 ```
 If your default branch is called `master` instead of `main`, this will perform a production build with the code in the `main` branch.
-It will also allow new builds from the `main` branch everytime a merge happens.
+It will also allow new builds from the `main` branch every time a merge happens.
 
 ## Technical details
 You don't actually need to use the branch `backup-branch`, you can name it however you want.
