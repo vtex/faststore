@@ -4,14 +4,14 @@ import type { FC } from 'react'
 import { ProductSpecificationItem } from './Item'
 import { ProductSpecificationTitle } from './Title'
 
-export interface ProductSpecification {
+export interface ProductSpecificationType {
   name?: string
   values?: string[]
 }
 
 export interface ProductSpecificationGroup {
   name?: string
-  specifications?: ProductSpecification[]
+  specifications?: ProductSpecificationType[]
 }
 
 interface ProductSpecificationProps {
