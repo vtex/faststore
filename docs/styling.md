@@ -168,7 +168,7 @@ To customize this style, we must stick to this hierarchy. Take the following exa
 
 7. Save your changes.
 
->ℹ️ ***Keep in mind**: [Shadowing]() only occurs on the `@vtex/gatsby-plugin-theme-ui/index` file.*
+>ℹ️  ***Keep in mind**: [Shadowing](shadowing.md) only occurs on the `@vtex/gatsby-plugin-theme-ui/index` file.*
 
 8. Run `gatsby deploy` to start a development server and check your changes live at `http://localhost:8000/`.
 
