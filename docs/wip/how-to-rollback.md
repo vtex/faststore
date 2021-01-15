@@ -105,7 +105,7 @@ For better clarity, here is the format of the body:
 
 # FAQ
 
-### How much time it takes?
+### How much time does it take?
 We are working to have a fast rollback, the time may not be longer than 10 minutes.
 
 ### How to take security measures? 
