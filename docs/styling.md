@@ -83,7 +83,7 @@ Once you [set up your SFJ project]() from our [SFJ starter](https://github.com/v
 
 6. Within the `custom` object, overwrite styles respecting the hierarchy of the style sheet of that component.
 
->⚠️ *Open the default style sheet file of the component you want to style and check the hierarchy you should follow when overwriting styles.*
+>⚠️  *Open the default style sheet file of the component you want to style and check the hierarchy you should follow when overwriting styles.*
 
 Take the following example from the [SearchSuggestions default style sheet (`@vtex/gatsby-theme-store/src/components/SearchSuggestions/theme.ts`)](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/SearchSuggestions/theme.ts). By default, we have:
     
