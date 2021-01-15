@@ -103,13 +103,13 @@ Take the following example from the [SearchSuggestions default style sheet (`@vt
     },
 ```
 
-<img src="./images/suggestions.png" width="800">
+<img src="./images/suggestions.png" width="400" height="400" >
 
 >⚠️  ***Keep in mind**: If you don't respect the component style sheet hierarchy and names, you'll face issues when overwriting styles.*
 
 To customize this style, we must stick to this hierarchy. Take the following example in which we customized the add-to-cart button from the `searchSuggestions` component by changing the `backgroundColor` property from `primary` to `secondary`.
 
-<img src="./images/suggestions-altered-color.png" width="800">
+<img src="./images/suggestions-altered-color.png" width="400" height="400">
 
 ```ts
 // "src/@vtex/gatsby-plugin-theme-ui/searchSuggestions.ts"
@@ -123,7 +123,7 @@ const custom{
 }
 ```
 
-7. At the end of the file, create a `searchSuggestionsCustom` variable that provides the default theme and the `custom` theme you created to the `createTheme` function.
+1. At the end of the file, create a `searchSuggestionsCustom` variable that provides the default theme and the `custom` theme you created to the `createTheme` function.
 
 ```ts
 const searchSuggestionsCustom = createTheme(searchSuggestionsTheme, custom)
