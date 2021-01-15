@@ -2,7 +2,7 @@
 
 
 # The rollback
-The rollback interaction aims to help you to react faster when having trouble, changing the deploy that is on production thought a safe and tested path. This also allows you to reuse older versions of a storefront, for a recurrent store's campaing for example. 
+The rollback interaction aims to help you to react faster when having trouble, changing the deploy that is on production through a safe and tested path. This also allows you to reuse older versions of a storefront, for a recurrent store's campaign for example. 
 
 # 📚 Step by step on how to rollback
 This document is the first version of a guide for the rollback process using VTEX Store Framework Jamstack. It also explains the rollback expected behavior.
