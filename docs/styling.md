@@ -42,7 +42,7 @@ export default createTheme(
 
 Take the following steps as a guide to style Store UI components containing a pre-defined `themes.ts` style sheet.
 
-Once you [set up your SFJ project]() from our [SFJ starter](https://github.com/vtex-sites/storecomponents.store), you're ready to start styling your VTEX store.  
+Once you [set up your SFJ project](getting-started.md) from our [SFJ starter](https://github.com/vtex-sites/storecomponents.store), you're ready to start styling your VTEX store.  
 
 1. Open up your SFJ project in the code editor of your choosing.
 2. Go to the `src/@vtex/gatsby-plugin-theme-ui`.
