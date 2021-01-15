@@ -28,11 +28,13 @@ By adopting the JAMstack architecture, VTEX Store Framework gives you the founda
 
 This is closely related to two main aspects of JAMstack: improved performance and better developer experience.
 
-#### Performance
+### Improved performance
 
-As ecommerce specialists, we understand the impact of performance for our customers' success. Performance boosts a store's visibility with [better SEO scores](https://developers.google.com/web/updates/2018/07/search-ads-speed), [raises customer satisfaction](https://neilpatel.com/blog/loading-time/) and as far as [a 0.1-second improvement of mobile site speed increases conversion rates by 8.4% for retail sites](https://www.thinkwithgoogle.com/intl/en-ca/marketing-strategies/app-and-mobile/mobile-page-speed-data/). 
+In the ecommerce business, appealing offers, high-quality products, or brand recognition might not be enough for converting leads if user-experience is left behind. For digital customers, every millisecond counts. In this sense, website performance impacts not only your store's visibility and SEO ranking but also your customers' decision process.
 
-Jamstack allows us to trade build time for performance. By pre-rendering the markup of our websites we are able to make them readily available with a [Content Delivering Network ](https://jamstack.org/glossary/cdn/)(CDN) avoiding unnecessary round trips to servers. And even though the content held by CDN's is static, it does not mean that the sites are static. In fact, with a process called [hydration](https://reactjs.org/docs/react-dom.html#hydrate) all the power of client-side Javascript and APIs is still available with the advantage that all the static content is immediately ready.
+When it comes to reducing the loading time, nothing beats serving pre-built files over a CDN. This approach avoids unnecessary round trips to servers and backend delays. However, even though the content held by CDNs is static, that doesn't mean you can't provide a dynamic and personalized experience for your customers.
+
+Thanks to a process called [hydration](https://reactjs.org/docs/react-dom.html#hydrate), all the power of client-side Javascript and APIs is still available with the advantage that static content can now be provided beforehand.
 
 ### Better developer experience
 
