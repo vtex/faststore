@@ -112,4 +112,4 @@ We are working to have a fast rollback, the time may not be longer than 10 minut
 Always check the deploy preview before putting a deploy on production. The rollback interaction will invite you to do so. 
 
 ### How much time it takes to invalidate caching
-We are investigatig it by now. 
+We are investigating it by now. 
