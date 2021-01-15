@@ -78,4 +78,11 @@ const Carousel: FC<Props> = ({
   )
 }
 
-export default Carousel
+export {
+  Carousel,
+  CarouselArrowLeft,
+  CarouselArrowRight,
+  CarouselPaginationDots,
+  CarouselPage,
+  Item,
+}
