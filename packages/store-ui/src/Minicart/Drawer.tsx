@@ -9,13 +9,13 @@ import type { Variant } from '../utils/types'
 export type MinicartDrawerProps = DrawerProps
 export const MinicartDrawer = Drawer
 
-export interface MinicartDrawerPrice extends Variant {
+export interface MinicartDrawerPriceProps extends Variant {
   currency: string
   text: string
   value?: number
 }
 
-export const MinicartDrawerPrice: FC<MinicartDrawerPrice> = ({
+export const MinicartDrawerPrice: FC<MinicartDrawerPriceProps> = ({
   currency,
   text,
   value = 0,
