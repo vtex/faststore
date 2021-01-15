@@ -63,7 +63,7 @@ Once you [set up your SFJ project]() from our [SFJ starter](https://github.com/v
 2. Go to the `src/@vtex/gatsby-plugin-theme-ui`.
 3. Create a Typescript file with the name of the component you want to style (e.g., `searchSuggestions.ts`).
 
->ℹ️ *Use the [SFJ Store Theme components folder](https://github.com/vtex/faststore/tree/master/packages/gatsby-theme-store/src/components) as a reference.*
+>ℹ️  *Use the [SFJ Store Theme components folder](https://github.com/vtex/faststore/tree/master/packages/gatsby-theme-store/src/components) as a reference.*
 
 4. Import the `createTheme` function and the pre-defined style sheet of the component you want to style.
     
