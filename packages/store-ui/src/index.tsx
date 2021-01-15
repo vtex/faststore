@@ -114,5 +114,4 @@ export {
   CarouselArrowRight,
   CarouselPaginationDots,
   CarouselPage,
-  Item as CarouselItem,
 } from './Carousel'

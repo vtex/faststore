@@ -18,7 +18,7 @@ interface Props {
   link?: typeof Component | FC
 }
 
-const CarouselPage: FC<Props> = ({
+export const CarouselPage: FC<Props> = ({
   item,
   loading,
   width,
@@ -36,5 +36,3 @@ const CarouselPage: FC<Props> = ({
     />
   </Link>
 )
-
-export default CarouselPage
