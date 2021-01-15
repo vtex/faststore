@@ -15,7 +15,9 @@ By creating an internal GraphQL server, Gatsby makes all that fetched data acces
 
 ### Extensible architecture
 
-Gatsby is made more flexible and extensible thanks to its plugin-based ecosystem. Thousands of plugins can be found on the Gatsby [website] (https://www.gatsbyjs.com/plugins). When diving deeper into our new way of building stores, you'll find out more about VTEX plugins. 
+For building more complex websites, Gatsby provides thousands of plugins on its [Plugin Library](https://www.gatsbyjs.com/plugins) that lets you modularize your site customizations into specific functionalities.
+
+Additionally, thanks to its plugin-based ecosystem, Gatsby allows you to add new functionalities to your website, making it even more flexible and extensible.
 
 ### High customization level
 
