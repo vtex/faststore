@@ -1,12 +1,19 @@
-## Overview
+# Building end-to-end tests
 
-[Cypress](https://github.com/cypress-io/cypress) is a testing framework that provide a great experience to write end-to-end (E2E) tests for modern web applications. It's very flexible, fast, easy to use, and besides being broadly used in the javascript ecosystem, it works very well with Gatsby, that's why we choose it as our main tool.
+End-to-end (E2E) testing replicates real user scenarios to ensure the application flow performs as expected from beginning to end. It can be used to verify different user behaviors, such as requesting a webpage or logging in. This way, E2E testing also endorses integration with other subsystems and data integrity.
 
-Feel free to check some other alternatives and compare the trade-offs of end-to-end test tools [here](https://stackshare.io/cypress/alternatives).
+In the Store Framework Jamstack (SFJ), end-to-end tests are developed with Cypress.
 
-## Getting Started
+>ℹ️ *[Cypress](https://www.cypress.io/) is a JavaScript-based end-to-end testing framework, widely used together with Gatsby, that serves as a tool to validate client-side code running in the browser.*
 
-1. Install the `cypress` and the `start-server-and-test`(permit using Gatsby’s development server with Cypress).
+In the following section, you'll learn how to build your own E2E test with Cypress. Therefore, if you're not familiar with Cypress, we strongly encourage you to check [Cypress's documentation](https://docs.cypress.io/guides/overview/why-cypress.html) before proceeding any further.
+
+## Step by step
+
+### Step 1: Setting up your development environment
+
+1. Open up the terminal.
+2. Install the `cypress` and the `start-server-and-test` packages to your `devDependencies`:
 
    ```bash
      $ yarn add cypress start-server-and-test --dev
@@ -23,7 +30,9 @@ Feel free to check some other alternatives and compare the trade-offs of end-to-
    }
    ```
 
-3. Update the `cypress.json` config file.
+>ℹ️ *The `cy:open` script opens the [Cypress dashboard](https://www.cypress.io/dashboard) and the `test:e2e` script runs all tests specified in that project in the command line.*
+
+4. Go to the root directory of your project and update the `cypress.json` config file with the following code:
 
 ```json
 {
@@ -32,7 +41,8 @@ Feel free to check some other alternatives and compare the trade-offs of end-to-
 }
 ```
 
-4. Run `npm run test:e2e`(it runs tests [in the command line](https://docs.cypress.io/guides/guides/command-line.html#Installation)) or `npm run cy:open`(it opens the [cypress dashboard](https://www.cypress.io/dashboard)). Both commands will generate a folder structure as below:
+5. Now, run `npm run test:e2e` to [run tests in the command line](https://docs.cypress.io/guides/guides/command-line.html#Installation) or `npm run cy:open` to open the [Cypress dashboard](https://www.cypress.io/dashboard). Whatever option you choose will generate a folder structure as below:
+
    ```bash
    ├── cypress
    │   ├── fixtures
@@ -44,12 +54,15 @@ Feel free to check some other alternatives and compare the trade-offs of end-to-
    │   ├── plugins
    ```
 
-## Writing a sample test
+Now you're ready to start developing your own E2E tests! Additionally, you can install the VTEX helper functions hub by running (command - WIP) to make writing E2E tests easier.
 
-Let's create a simple test that cover a specific product search.
+### Step 2: Writing a sample test
 
-1. Create a file at `cypress/e2e/search/index.js`.
-2. Paste the below code.
+In the following, we'll create a simple test that verifies how a specific product search behaves. Use it as an example to create your own E2E test with Cypress.
+
+1. Open up your SFJ project in the code editor of your choosing.
+2. Create a new file named `index.js` inside `cypress/e2e/{test-name}` (e.g., `cypress/e2e/search`).
+3. Using JavaScript, write your E2E test. Take the code below as an example:
 
    ```bash
    describe("Search e2e tests" () => {
@@ -69,28 +82,12 @@ Let's create a simple test that cover a specific product search.
 
    ```
 
-3. Run `npm run test:e2e` and verify if all tests are passing.
+>ℹ️ *This test checks how our SFJ store behaves when it receives "Eyeglasses" as an input in our search bar.*
 
-## Code Coverage
+>ℹ️ *To build your own tests, we strongly encourage you to check Cypress's [guides](https://docs.cypress.io/guides/getting-started/writing-your-first-test.html#Add-a-test-file), [examples](https://docs.cypress.io/examples/examples/recipes.html#Fundamentals), [API reference](https://docs.cypress.io/api/api/table-of-contents.html), and [best practices](https://docs.cypress.io/guides/references/best-practices.html).*
 
-To visualize the project code coverage just run `npm run coverage`... (WIP)
+4. Run `npm run test:e2e` to check the status of the tests.
 
-## Hooks
 
-VTEX has a hub of helper functions to make writing E2E tests easy, you can install .. (WIP)
+That's it! Additionally, you can run `npm run coverage` (WIP) to visualize the test's code coverage.
 
-## CI/CD Integration
-
-WIP...
-
-## References
-
-[Cypress Documentation](https://docs.cypress.io/guides/overview/why-cypress.html#In-a-nutshell)
-
-[Cypress API](https://docs.cypress.io/api/api/table-of-contents.html)
-
-[Cypress Examples](https://docs.cypress.io/examples/examples/recipes.html)
-
-[VTEX Examples](https://github.com/vtex-sites/storecomponents.store)
-
-[Best Practices](https://docs.cypress.io/guides/references/best-practices.html)
