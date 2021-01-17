@@ -4,7 +4,7 @@ export const once = <T extends (...args: any[]) => any>(fn: T) => {
 
   return (...args: Parameters<T>) => {
     if (run === true) {
-      res = fn(args)
+      res = fn(...args)
       run = false
     }
 
