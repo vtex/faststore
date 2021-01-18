@@ -25,6 +25,9 @@ const staticPaths = async ({
   environment = 'vtexcommercestable',
   pages = 500,
 }: Options): Promise<string[]> => {
+  // eslint-disable-next-line no-console
+  console.log('[gatsby-source-vtex]: starting getting staticPaths')
+
   const options = {
     tenant,
     workspace,
@@ -42,6 +45,9 @@ const staticPaths = async ({
     dfs(node, paths)
   }
 
+  // eslint-disable-next-line no-console
+  console.log('[gatsby-source-vtex]: categories', paths)
+
   const products = await fetchVTEX<Array<{ linkText: string }>>(
     api.catalog.category.search({
       from: 0,
@@ -53,6 +59,9 @@ const staticPaths = async ({
   for (const { linkText } of products) {
     paths.push(`/${linkText}/p`)
   }
+
+  // eslint-disable-next-line no-console
+  console.log('[gatsby-source-vtex]: categories + products', paths)
 
   return paths
 }
