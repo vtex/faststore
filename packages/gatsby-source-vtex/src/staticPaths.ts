@@ -1,3 +1,5 @@
+import pMap from 'p-map'
+
 import { api } from './api'
 import { fetchVTEX } from './fetch'
 import type { Category } from './types'
@@ -23,10 +25,9 @@ const staticPaths = async ({
   tenant,
   workspace = 'master',
   environment = 'vtexcommercestable',
-  pages = 500,
+  pages = 100,
 }: Options): Promise<string[]> => {
-  // eslint-disable-next-line no-console
-  console.log('[gatsby-source-vtex]: starting getting staticPaths')
+  const paths: string[] = [] // final array containing all paths
 
   const options = {
     tenant,
@@ -34,34 +35,53 @@ const staticPaths = async ({
     environment,
   }
 
+  // Add all category related paths.
+
   const tree = await fetchVTEX<Category[]>(
     api.catalog.category.tree(4),
     options
   )
 
-  const paths: string[] = []
-
   for (const node of tree) {
     dfs(node, paths)
   }
 
-  // eslint-disable-next-line no-console
-  console.log('[gatsby-source-vtex]: categories', paths)
+  // Add product paths into the final array
 
-  const products = await fetchVTEX<Array<{ linkText: string }>>(
-    api.catalog.category.search({
-      from: 0,
-      to: Math.max(10, pages - paths.length), // at least 10 products
-    }),
-    options
+  // This generates at least `itemsPerPage` and at most 2500 product paths
+  // `itemsPerPage` is an arbritary number, however 2500 is hard coded in VTEX search
+  const itemsPerPage = 49
+  const pagination = new Array(
+    Math.ceil(
+      Math.min(2500, Math.max(itemsPerPage, pages - paths.length)) /
+        itemsPerPage
+    )
   )
 
+  const products = await pMap(
+    pagination,
+    (_, pageIndex) =>
+      fetchVTEX<Array<{ linkText?: string }>>(
+        api.catalog.category.search({
+          from: pageIndex * itemsPerPage,
+          to: pageIndex * itemsPerPage + itemsPerPage,
+        }),
+        options
+      ),
+    {
+      concurrency: 5,
+    }
+  ).then((p) => p.flat())
+
   for (const { linkText } of products) {
+    if (!linkText) {
+      throw new Error(
+        `[gatsby-source-vtex]: Something went wrong while generating staticPaths. Expected a product path, but got ${linkText}`
+      )
+    }
+
     paths.push(`/${linkText}/p`)
   }
-
-  // eslint-disable-next-line no-console
-  console.log('[gatsby-source-vtex]: categories + products', paths)
 
   return paths
 }
