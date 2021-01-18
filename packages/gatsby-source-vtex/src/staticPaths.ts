@@ -50,7 +50,7 @@ const staticPaths = async ({
 
   // This generates at least `itemsPerPage` and at most 2500 product paths
   // `itemsPerPage` is an arbritary number, however 2500 is hard coded in VTEX search
-  const itemsPerPage = 49
+  const itemsPerPage = 25
   const pagination = new Array(
     Math.ceil(
       Math.min(2500, Math.max(itemsPerPage, pages - paths.length)) /
