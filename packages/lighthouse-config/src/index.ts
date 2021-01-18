@@ -42,7 +42,7 @@ const lhConfig = ({ urls, server }: Params) => {
               timings: [
                 { metric: 'interactive', budget: 4000 },
                 { metric: 'first-meaningful-paint', budget: 2500 },
-                { metric: 'largest-contentful-paint', budget: 2000 },
+                { metric: 'largest-contentful-paint', budget: 2800 },
               ],
               resourceSizes: [
                 { resourceType: 'script', budget: 300 },
