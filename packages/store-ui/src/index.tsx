@@ -108,10 +108,8 @@ export { default as YoutubeIframe } from './Youtube/Iframe'
 export { default as YoutubeThumb } from './Youtube/Thumb'
 export * from './Youtube/hooks'
 // Carousel
-export {
-  Carousel,
-  CarouselArrowLeft,
-  CarouselArrowRight,
-  CarouselPaginationDots,
-  CarouselPage,
-} from './Carousel'
+export { default as Carousel } from './Carousel'
+export { default as CarouselPage } from './Carousel/Page'
+export { default as CarouselArrowLeft } from './Carousel/ArrowLeft'
+export { default as CarouselArrowRight } from './Carousel/ArrowRight'
+export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
