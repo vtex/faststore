@@ -82,7 +82,6 @@ Firstly, we create a new file named `AboveTheFold.tsx`, just like the original f
 
 This will result in the following directory tree:
 
-    ```
     storecomponents.store
     └── src
         └── @vtex
@@ -90,35 +89,34 @@ This will result in the following directory tree:
                 └── components
                     └── HomePage
                         └──AboveTheFold.tsx
-    ```
 
 Then, we open this file to customize it however we want.
 
 In this example, we go from [this](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/HomePage/AboveTheFold.tsx), which is just a text explaining what should be in the `Fold` component:
 
-    ```ts
-        const Fold: FC<Props> = () => (
-          <Center height="800px">
-            <Text sx={{ width: '50%' }}>
-              This is the Above the fold part of your home page. All sync items should
-              be rendered in here. Thus, make sure all data rendered in this part is
-              fetched during Server Side Rendering and revalidated on the client if
-              necessary
-            </Text>
-          </Center>
-        )
-    ```
+```ts
+const Fold: FC<Props> = () => (
+  <Center height="800px">
+    <Text sx={{ width: '50%' }}>
+      This is the Above the fold part of your home page. All sync items should
+      be rendered in here. Thus, make sure all data rendered in this part is
+      fetched during Server Side Rendering and revalidated on the client if
+      necessary
+    </Text>
+  </Center>
+)
+```
 
 To [this](https://github.com/vtex-sites/storecomponents.store/blob/master/src/%40vtex/gatsby-theme-store/components/HomePage/AboveTheFold.tsx) implementation:
 
-    ```ts
-        const Fold: FC<Props> = () => (
-          <>
-            <Carousel allItems={CAROUSEL_ITEMS} height="540px" width="360px" />
-            <RichTextRow />
-          </>
-        )
-    ```
+```ts
+const Fold: FC<Props> = () => (
+  <>
+    <Carousel allItems={CAROUSEL_ITEMS} height="540px" width="360px" />
+    <RichTextRow />
+  </>
+)
+```
 
 That's all! Gatsby will now understand it should render the `AboveTheFold.tsx` component we just created instead of the theme's default file.
 
