@@ -111,7 +111,7 @@ const Fold: FC<Props> = () => (
 
 To [this](https://github.com/vtex-sites/storecomponents.store/blob/master/src/%40vtex/gatsby-theme-store/components/HomePage/AboveTheFold.tsx) implementation:
 
-```ts
+```tsx
 const Fold: FC<Props> = () => (
     <>
     <Carousel allItems= { CAROUSEL_ITEMS } height = "540px" width = "360px" />
