@@ -39,7 +39,7 @@ Maintaining the FastStore performance and stability is a key element. For this, 
 We provide a base setup for both platforms so you can easily add them to your CI/CD platform.
 
 ## Docs
-FastStore docs are under development. If you are not sure, where to start, make sure to check the [Getting Started](./docs/getting-started.md). Check out the available docs below:
+FastStore docs are under development. If you are not sure where to start, make sure to check the [Getting Started](./docs/getting-started.md). Check out the available docs below:
 
 - Concepts
   - [What is Jamstack](./docs/what-is-jamstack.md)
