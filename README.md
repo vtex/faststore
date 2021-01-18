@@ -42,7 +42,7 @@ We provide a base setup for both platforms so you can easily add them to your CI
 FastStore docs are under development. If you are not sure, where to start, make sure to check the [Getting Started](./docs/getting-started.md). Check out the available docs below:
 
 - Concepts
-  - [What is JAMstack](./docs/what-is-jamstack.md)
+  - [What is Jamstack](./docs/what-is-jamstack.md)
   - [What is Gatsby](./docs/what-is-gatsby.md)
   - [SFJ Architecture](./docs/architecture.md)
   - [Build Pipeline](./docs/build-pipeline.md)
