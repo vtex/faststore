@@ -1,5 +1,5 @@
 import React from 'react'
-import type { FC } from 'react'
+import type { ComponentType, FC } from 'react'
 
 import { Box, useSlider } from '../index'
 import CarouselArrowLeft from './ArrowLeft'
@@ -12,6 +12,7 @@ interface Props {
   allItems: Item[]
   width: string
   height: string
+  link?: ComponentType
   loading?: 'lazy' | 'eager'
   showArrows?: boolean
   showDots?: boolean
@@ -21,6 +22,7 @@ interface Props {
 
 const Carousel: FC<Props> = ({
   allItems,
+  link,
   loading = 'eager',
   showArrows = true,
   showDots = true,
@@ -61,6 +63,7 @@ const Carousel: FC<Props> = ({
           width={width}
           height={height}
           loading={loading}
+          link={link}
         />
         {showArrows ? (
           <CarouselArrowRight variant={variant} onClick={() => setNextPage()} />
