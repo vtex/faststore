@@ -5,7 +5,7 @@ import { Box, useSlider } from '../index'
 import CarouselArrowLeft from './ArrowLeft'
 import CarouselArrowRight from './ArrowRight'
 import CarouselPaginationDots from './PaginationDots'
-import { CarouselPage } from './Page'
+import CarouselPage from './Page'
 import type { Item } from './Page'
 
 interface Props {
@@ -78,10 +78,4 @@ const Carousel: FC<Props> = ({
   )
 }
 
-export {
-  Carousel,
-  CarouselArrowLeft,
-  CarouselArrowRight,
-  CarouselPaginationDots,
-  CarouselPage,
-}
+export default Carousel
