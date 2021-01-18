@@ -96,7 +96,7 @@ Then, we open this file to customize it however we want.
 
 In this example, we go from [this](https://github.com/vtex/faststore/blob/master/packages/gatsby-theme-store/src/components/HomePage/AboveTheFold.tsx), which is just a text explaining what should be in the `Fold` component:
 
-```ts
+```tsx
 const Fold: FC<Props> = () => (
     <Center height="800px">
     <Text sx={{ width: '50%' }}>
