@@ -1,7 +1,8 @@
 import React from 'react'
 import type { ComponentType, ComponentPropsWithoutRef, FC } from 'react'
+import Link from 'gatsby-link'
 
-import { LocalizedLink, ResponsivePicture } from '../index'
+import { ResponsivePicture } from '../index'
 
 type IResponsivePicture = ComponentPropsWithoutRef<typeof ResponsivePicture>
 
@@ -18,15 +19,15 @@ interface Props {
   link?: ComponentType
 }
 
-export const CarouselPage: FC<Props> = ({
+const CarouselPage: FC<Props> = ({
   item,
   loading,
   width,
   height,
   variant,
-  link: Link = LocalizedLink,
+  link: DynamicLink = Link,
 }) => (
-  <Link key={item.href} to={item.href}>
+  <DynamicLink key={item.href} to={item.href}>
     <ResponsivePicture
       {...item}
       variant={variant}
@@ -34,5 +35,7 @@ export const CarouselPage: FC<Props> = ({
       height={height}
       loading={loading}
     />
-  </Link>
+  </DynamicLink>
 )
+
+export default CarouselPage
