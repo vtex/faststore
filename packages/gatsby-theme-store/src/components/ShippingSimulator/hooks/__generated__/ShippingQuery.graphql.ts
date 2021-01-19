@@ -18,7 +18,7 @@ type Scalars = {
 
 // Operation related types
 export type ShippingQueryQueryVariables = Exact<{
-  items: Maybe<Array<Maybe<Vtex_ShippingItem>>>;
+  items: Maybe<Array<Maybe<Vtex_ShippingItem>> | Maybe<Vtex_ShippingItem>>;
   postalCode: Maybe<Scalars['String']>;
   country: Maybe<Scalars['String']>;
 }>;

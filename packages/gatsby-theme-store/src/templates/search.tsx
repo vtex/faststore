@@ -35,10 +35,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const filters = useSearchFiltersFromPageContext(pageContext)
   const staticPath =
-    pageContext.staticPath &&
-    pageContext.map === filters.map &&
-    pageContext.query === filters.query &&
-    pageContext.orderBy === filters.orderBy
+    pageContext.staticPath && pageContext.orderBy === filters.orderBy
 
   const { data } = useQuery<
     SearchPageQueryQuery,
@@ -78,6 +75,10 @@ const SearchPage: FC<SearchPageProps> = (props) => {
 
   const pageProps = {
     ...props,
+    pageContext: {
+      ...pageContext,
+      staticPath,
+    },
     data: data!,
   }
 
