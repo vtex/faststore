@@ -1,5 +1,12 @@
 import React, { useReducer } from 'react'
 import type { FC } from 'react'
+import {
+  EmailAndPasswordEmailForm as EmailForm,
+  EmailAndPasswordSignInForm as SignInForm,
+  EmailAndPasswordSignUpForm as SignUpForm,
+  EmailAndPasswordReducer as reducer,
+} from '@vtex/store-ui'
+import type { AuthProviderComponentProps } from '@vtex/store-ui'
 
 import { sendAccessKey, setPassword } from '../../../../sdk/auth/Service'
 import { validatePassword } from '../../../../sdk/auth/Service/validatePassword'
@@ -10,11 +17,6 @@ import {
   isValidEmail,
   isValidPassword,
 } from '../../../../sdk/auth/validate'
-import EmailForm from './EmailForm'
-import SignInForm from './SignInForm'
-import SignUpForm from './SignUpForm'
-import { reducer } from './state'
-import type { AuthProviderComponentProps } from '../types'
 
 const EmailAndPassword: FC<AuthProviderComponentProps> = ({
   variant: v,

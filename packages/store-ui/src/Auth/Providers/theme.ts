@@ -1,4 +1,4 @@
-import type { SxStyleProp } from '@vtex/store-ui'
+import type { SxStyleProp } from 'theme-ui'
 
 const baseButton: SxStyleProp = {
   width: '100%',
