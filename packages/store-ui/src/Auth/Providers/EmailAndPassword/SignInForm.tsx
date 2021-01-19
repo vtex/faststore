@@ -1,8 +1,8 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Alert, Box, Button, Input } from '@vtex/store-ui'
 import React, { useRef } from 'react'
 import type { FC } from 'react'
 
+import { Alert, Box, Button, Input } from '../../../index'
 import type { State } from './state'
 
 interface Props {

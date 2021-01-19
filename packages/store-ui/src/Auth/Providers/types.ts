@@ -1,4 +1,4 @@
-import type { ButtonProps } from '@vtex/store-ui'
+import type { ButtonProps } from 'theme-ui'
 
 export interface AuthProviderComponentProps {
   variant: string

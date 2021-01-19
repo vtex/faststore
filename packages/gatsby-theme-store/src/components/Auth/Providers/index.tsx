@@ -1,14 +1,15 @@
 import { lazy } from 'react'
 import type { FunctionComponent } from 'react'
-
-import EmailAndPasswordButton from './EmailAndPassword/Button'
-import EmailVerificationButton from './EmailVerification/Button'
-import FacebookOAuthButton from './Facebook/Button'
-import GoogleOAuthButton from './Google/Button'
+import {
+  EmailAndPasswordButton,
+  EmailVerificationButton,
+  FacebookOAuthButton,
+  GoogleOAuthButton,
+} from '@vtex/store-ui'
 import type {
   AuthProviderButtonProps,
   AuthProviderComponentProps,
-} from './types'
+} from '@vtex/store-ui'
 
 const EmailAndPassword = lazy(() => import('./EmailAndPassword'))
 

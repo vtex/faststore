@@ -1,8 +1,9 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box, Button, Center } from '@vtex/store-ui'
+import { Box, Button } from 'theme-ui'
 import React from 'react'
 import type { FC } from 'react'
 
+import Center from '../../../Center'
 import type { AuthProviderButtonProps } from '../types'
 
 const Logo: FC = () => (

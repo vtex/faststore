@@ -1,5 +1,5 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Alert, Box, Button, Input } from '@vtex/store-ui'
+import { Alert, Box, Button, Input } from 'theme-ui'
 import React, { useRef } from 'react'
 import type { FC } from 'react'
 
@@ -8,10 +8,16 @@ import type { State } from './state'
 interface Props {
   variant: string
   onSubmit: (email: string) => Promise<void>
+  onBack: () => void
   state: State
 }
 
-const EmailForm: FC<Props> = ({ variant, state: { state }, onSubmit }) => {
+const AccessCodeForm: FC<Props> = ({
+  variant,
+  state: { state },
+  onSubmit,
+  onBack,
+}) => {
   const { formatMessage } = useIntl()
   const input = useRef<HTMLInputElement>(null)
 
@@ -19,7 +25,7 @@ const EmailForm: FC<Props> = ({ variant, state: { state }, onSubmit }) => {
     <>
       <Box variant={`${variant}.title`}>
         {formatMessage({
-          id: 'login.page.emailVerification.emailForm.title',
+          id: 'login.page.emailVerification.accessCodeForm.title',
         })}
       </Box>
       <Box
@@ -32,38 +38,49 @@ const EmailForm: FC<Props> = ({ variant, state: { state }, onSubmit }) => {
       >
         <Input
           ref={input}
-          type="email"
-          name="email"
-          id="emailform-email"
+          type="text"
+          name="code"
+          id="accesscodeform-code"
           placeholder={formatMessage({
-            id: 'login.page.emailVerification.emailForm.emailPlaceholder',
+            id: 'login.page.emailVerification.accessCodeForm.codePlaceholder',
           })}
         />
 
-        {state === 'emailForm.invalidEmailInput' && (
+        {state === 'accessCodeForm.invalidAccessCode' && (
           <Alert variant="signInDanger">
             {formatMessage({
-              id: 'login.page.emailVerification.emailForm.invalidEmailInput',
+              id:
+                'login.page.emailVerification.accessCodeForm.invalidAccessCode',
             })}
           </Alert>
         )}
 
-        {state === 'emailForm.authError' && (
+        {state === 'accessCodeForm.authError' && (
           <Alert variant="signInDanger">
             {formatMessage({
-              id: 'login.page.emailVerification.emailForm.error',
+              id: 'login.page.emailVerification.accessCodeForm.authError',
             })}
           </Alert>
         )}
 
         <Button>
           {formatMessage({
-            id: 'login.page.emailVerification.emailForm.submitButton',
+            id: 'login.page.emailVerification.accessCodeForm.submitButton',
           })}
         </Button>
       </Box>
+      <Button
+        onClick={(e) => {
+          e.preventDefault()
+          onBack()
+        }}
+      >
+        {formatMessage({
+          id: 'login.page.emailVerification.accessCodeForm.backButton',
+        })}
+      </Button>
     </>
   )
 }
 
-export default EmailForm
+export default AccessCodeForm

@@ -1,8 +1,8 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Button } from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
 
+import { Button } from '../../../index'
 import type { AuthProviderButtonProps } from '../types'
 
 const EmailAndPasswordButton: FC<AuthProviderButtonProps> = ({
