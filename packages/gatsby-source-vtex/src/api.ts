@@ -5,7 +5,7 @@ export const api = {
     category: {
       tree: (depth: number) => `/api/catalog_system/pub/category/tree/${depth}`,
       search: ({
-        sort = 'OrderByTopSaleDESC',
+        sort = '',
         from,
         to,
       }: {

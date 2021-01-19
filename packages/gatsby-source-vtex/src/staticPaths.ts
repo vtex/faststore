@@ -63,6 +63,7 @@ const staticPaths = async ({
     (_, pageIndex) =>
       fetchVTEX<Array<{ linkText?: string }>>(
         api.catalog.category.search({
+          sort: 'OrderByTopSaleDESC',
           from: pageIndex * itemsPerPage,
           to: pageIndex * itemsPerPage + itemsPerPage,
         }),

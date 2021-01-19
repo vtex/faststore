@@ -63,3 +63,4 @@ export type Sort =
   | 'OrderByReleaseDateDESC'
   | 'OrderByBestDiscountDESC'
   | 'OrderByScoreDESC'
+  | ''
