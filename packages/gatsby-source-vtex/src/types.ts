@@ -52,3 +52,15 @@ export interface Category {
   MetaTagDescription: string
   LinkId: string
 }
+
+export type Sort =
+  | 'OrderByPriceDESC'
+  | 'OrderByPriceASC'
+  | 'OrderByTopSaleDESC'
+  | 'OrderByReviewRateDESC'
+  | 'OrderByNameASC'
+  | 'OrderByNameDESC'
+  | 'OrderByReleaseDateDESC'
+  | 'OrderByBestDiscountDESC'
+  | 'OrderByScoreDESC'
+  | ''
