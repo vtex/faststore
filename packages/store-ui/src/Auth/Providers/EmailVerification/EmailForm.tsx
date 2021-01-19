@@ -1,5 +1,5 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Alert, Box, Button, Input } from '@vtex/store-ui'
+import { Alert, Box, Button, Input } from 'theme-ui'
 import React, { useRef } from 'react'
 import type { FC } from 'react'
 
@@ -7,17 +7,11 @@ import type { State } from './state'
 
 interface Props {
   variant: string
-  state: State
-  onBack: () => void
   onSubmit: (email: string) => Promise<void>
+  state: State
 }
 
-const EmailForm: FC<Props> = ({
-  variant,
-  state: { state },
-  onSubmit,
-  onBack,
-}) => {
+const EmailForm: FC<Props> = ({ variant, state: { state }, onSubmit }) => {
   const { formatMessage } = useIntl()
   const input = useRef<HTMLInputElement>(null)
 
@@ -25,7 +19,7 @@ const EmailForm: FC<Props> = ({
     <>
       <Box variant={`${variant}.title`}>
         {formatMessage({
-          id: 'login.page.emailAndPassword.emailForm.title',
+          id: 'login.page.emailVerification.emailForm.title',
         })}
       </Box>
       <Box
@@ -42,42 +36,32 @@ const EmailForm: FC<Props> = ({
           name="email"
           id="emailform-email"
           placeholder={formatMessage({
-            id: 'login.page.emailAndPassword.emailForm.emailPlaceholder',
+            id: 'login.page.emailVerification.emailForm.emailPlaceholder',
           })}
         />
 
         {state === 'emailForm.invalidEmailInput' && (
           <Alert variant="signInDanger">
             {formatMessage({
-              id: 'login.page.emailAndPassword.emailForm.invalidEmailInput',
+              id: 'login.page.emailVerification.emailForm.invalidEmailInput',
             })}
           </Alert>
         )}
 
-        {state === 'emailForm.error' && (
+        {state === 'emailForm.authError' && (
           <Alert variant="signInDanger">
             {formatMessage({
-              id: 'login.page.emailAndPassword.emailForm.error',
+              id: 'login.page.emailVerification.emailForm.error',
             })}
           </Alert>
         )}
 
         <Button>
           {formatMessage({
-            id: 'login.page.emailAndPassword.emailForm.submitButton',
+            id: 'login.page.emailVerification.emailForm.submitButton',
           })}
         </Button>
       </Box>
-      <Button
-        onClick={(e) => {
-          e.preventDefault()
-          onBack()
-        }}
-      >
-        {formatMessage({
-          id: 'login.page.emailAndPassword.emailForm.backButton',
-        })}
-      </Button>
     </>
   )
 }
