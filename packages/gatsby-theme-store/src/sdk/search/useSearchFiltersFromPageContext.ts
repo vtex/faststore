@@ -3,39 +3,6 @@ import { useMemo } from 'react'
 
 import type { SearchPageQueryQueryVariables } from '../../templates/__generated__/SearchPageQuery.graphql'
 
-// Creates a string with as many `c,c` as pathname has
-// segments.
-// For instance: cozinha/faqueiro-e-talheres would
-// generate the string c,c
-//
-// TODO: this function may have to change in the future
-const createMap = (query: string) => {
-  const splitted = query.split('/')
-
-  // We have generated all departments/brands statically, so it's safe
-  // to assume that, if the process reach this code, the path
-  // is a full text search
-  if (splitted.length === 1) {
-    return 'ft'
-  }
-
-  return new Array(splitted.length).fill('c').join(',')
-}
-
-// I think this function should change to a more simpler version.
-const selectedFacetsAfterQueryAndMap = (query: string, map: string) => {
-  const smap = map.split(',')
-  const squery = query.split('/')
-
-  const selectedFacets: Array<{ key: string; value: string }> = []
-
-  for (let it = 0; it < smap.length; it++) {
-    selectedFacets.push({ key: smap[it], value: squery[it] })
-  }
-
-  return selectedFacets
-}
-
 // Removes starting/ending slashes
 // ex: trimQuery('/p0/p1/') -> 'p0/p1'
 //
@@ -57,12 +24,32 @@ export const useSearchFiltersFromPageContext = (
 
   return useMemo(() => {
     const params = new URLSearchParams(search)
-    const query = pageContext?.query ?? trimQuery(pathname)
-    const map = params.get('map') ?? pageContext?.map ?? createMap(query)
-    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
-    const orderBy = params.get('orderBy') ?? pageContext?.orderBy ?? ''
+
+    const query = pageContext.query ?? trimQuery(pathname)
+    const querySegments = query.split('/')
+
+    const map =
+      pageContext.map ?? // in case of static generation
+      params.get('map') ?? // user is navigating or entering directely into the page
+      (querySegments.length === 1 && 'ft') // full text search by directly typing the search into searchbar
+
+    const mapSegments = map !== false && map.split(',')
+
+    // Test if no map could be generated for this path. This means that the path
+    // was not pre rendered and the ?map querystring is mismatching the path
+    if (
+      map === false ||
+      mapSegments === false ||
+      mapSegments.length !== querySegments.length
+    ) {
+      throw new Error('NotFound')
+    }
+
+    const fullText = mapSegments[0] === 'ft' ? querySegments[0] : undefined
+    const orderBy = params.get('orderBy') ?? pageContext.orderBy ?? ''
     const selectedFacets =
-      pageContext?.selectedFacets ?? selectedFacetsAfterQueryAndMap(query, map)
+      pageContext.selectedFacets ??
+      mapSegments.map((key, i) => ({ key, value: querySegments[i] }))
 
     return {
       orderBy,

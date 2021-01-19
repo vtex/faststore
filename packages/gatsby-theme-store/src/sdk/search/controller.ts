@@ -48,8 +48,8 @@ export const toggleItem = (item: SearchFilterItem, filters: SearchFilters) => {
   let { map, query } = filters
 
   if (selected) {
-    const splittedQuery = query?.split('/')
-    const splittedMap = map?.split(',')
+    const splittedQuery = query.split('/')
+    const splittedMap = map.split(',')
 
     const index = splittedQuery?.findIndex((s) => s === value)
 
