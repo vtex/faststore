@@ -1,5 +1,5 @@
 {
-  "version": "0.235.0-gatsby.4",
+  "version": "0.235.0-gatsby.5",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
