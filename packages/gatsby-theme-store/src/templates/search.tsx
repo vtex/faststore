@@ -78,6 +78,10 @@ const SearchPage: FC<SearchPageProps> = (props) => {
 
   const pageProps = {
     ...props,
+    pageContext: {
+      ...pageContext,
+      staticPath,
+    },
     data: data!,
   }
 
