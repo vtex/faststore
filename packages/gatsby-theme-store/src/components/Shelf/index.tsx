@@ -50,18 +50,18 @@ const Shelf: FC<Props> = ({
     autoplay,
   })
 
-  showArrows =
+  const shouldShowArrows =
     showArrows && products && products.length >= Math.max(...pageSizes)
 
   return (
     <>
       {title && <ShelfTitle variant={variant}>{title}</ShelfTitle>}
       <Flex {...dragHandlers}>
-        {showArrows && (
+        {shouldShowArrows && (
           <ShelfArrowLeft variant={variant} onClick={() => setPreviousPage()} />
         )}
         <ShelfPage variant={variant} items={items} pageSizes={pageSizes} />
-        {showArrows && (
+        {shouldShowArrows && (
           <ShelfArrowRight variant={variant} onClick={() => setNextPage()} />
         )}
       </Flex>
