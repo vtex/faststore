@@ -50,6 +50,8 @@ export { default as LocalizedLink } from './LocalizedLink'
 export { default as Banner } from './Banner'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
+// RichText
+export { default as RichText } from './RichText'
 // Search Filters
 export * from './SearchFilter/Accordion'
 export * from './SearchFilter/AccordionItemCheckbox'
@@ -60,6 +62,12 @@ export * from './SearchControls/FiltersButton'
 export * from './SearchControls/totalCount'
 export * from './SearchControls/Select'
 export * from './SearchControls/theme'
+// Shelf
+export { default as ShelfArrowLeft } from './Shelf/ArrowLeft'
+export { default as ShelfArrowRight } from './Shelf/ArrowRight'
+export { default as ShelfContainer } from './Shelf/Container'
+export { default as ShelfPaginationDots } from './Shelf/PaginationDots'
+export { default as ShelfTitle } from './Shelf/Title'
 // Breadcrumb
 export * from './Breadcrumb'
 export { default as breadcrumbTheme } from './Breadcrumb/theme'
