@@ -1,11 +1,11 @@
 import React from 'react'
-import type { FC } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
+import type { FC } from 'react'
 
 import SiteMetadata from '../../SEO/SiteMetadata'
-import type { SearchPageProps } from '../../../templates/search'
 import StructuredData from './StructuredData'
 import Canonical from './Canonical'
+import type { SearchPageProps } from '../../../templates/search'
 
 const SEO: FC<SearchPageProps> = (props) => {
   const {
