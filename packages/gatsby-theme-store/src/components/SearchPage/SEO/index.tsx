@@ -12,6 +12,7 @@ const SEO: FC<SearchPageProps> = (props) => {
     data: {
       vtex: { productSearch },
     },
+    staticPath,
   } = props
 
   const {
@@ -37,7 +38,9 @@ const SEO: FC<SearchPageProps> = (props) => {
         {...siteMetadata}
         title={productSearch!.titleTag ?? siteMetadata.title}
       />
-      <StructuredData {...props} siteMetadata={siteMetadata} />
+      {staticPath === true && (
+        <StructuredData {...props} siteMetadata={siteMetadata} />
+      )}
       <Canonical {...props} siteMetadata={siteMetadata} />
     </>
   )
