@@ -6,7 +6,11 @@ import { useCurrency } from '../../../sdk/localization/useCurrency'
 import { useStructuredProduct } from './useStructuredProduct'
 import type { ProductPageProps } from '../../../templates/product'
 
-const StructuredData: FC<ProductPageProps> = ({
+interface Props extends ProductPageProps {
+  siteMetadata: any
+}
+
+const StructuredData: FC<Props> = ({
   data: {
     vtex: { product },
   },
