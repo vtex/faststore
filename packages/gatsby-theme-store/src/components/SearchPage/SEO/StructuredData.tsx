@@ -24,10 +24,8 @@ const useStructuredBreadcrumb = (
     itemListElement: breadcrumb.map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,
-      item: {
-        '@id': `${siteUrl}${item!.href}`,
-        name: item!.name!,
-      },
+      name: item!.name!,
+      item: `${siteUrl}${item!.href}`,
     })),
   }
 }
