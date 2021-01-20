@@ -1,9 +1,10 @@
+import { useLocation } from '@reach/router'
 import React from 'react'
 import type { FC } from 'react'
 
+import Helmet from '../SEO/Helmet'
 import SiteMetadata from '../SEO/SiteMetadata'
 import type { SearchPageProps } from '../../templates/search'
-import Helmet from '../SEO/Helmet'
 
 const SEO: FC<SearchPageProps> = ({
   data: {
@@ -11,18 +12,34 @@ const SEO: FC<SearchPageProps> = ({
   },
   pageContext: { staticPath },
 }) => {
+  const location = useLocation()
+
+  // One should use either noindex or canonical, never both
+  // This deduplicates pages so our pages rank higher in Google
+  const deduplicationTags =
+    staticPath === false ? (
+      <Helmet
+        meta={[
+          {
+            name: 'robots',
+            content: 'noindex',
+          },
+        ]}
+      />
+    ) : (
+      <Helmet
+        link={[
+          {
+            rel: 'canonical',
+            href: `https://${location.host}${location.pathname}`,
+          },
+        ]}
+      />
+    )
+
   return (
     <>
-      {staticPath === false && (
-        <Helmet
-          meta={[
-            {
-              name: 'robots',
-              content: 'noindex',
-            },
-          ]}
-        />
-      )}
+      {deduplicationTags}
       <SiteMetadata title={productSearch!.titleTag!} />
     </>
   )
