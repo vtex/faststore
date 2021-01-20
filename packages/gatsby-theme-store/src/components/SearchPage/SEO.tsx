@@ -10,7 +10,7 @@ const SEO: FC<SearchPageProps> = ({
   data: {
     vtex: { productSearch },
   },
-  pageContext: { staticPath },
+  staticPath,
 }) => {
   const location = useLocation()
 
