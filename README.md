@@ -1,4 +1,4 @@
-# FastStore 
+# FastStore
 ## An open ecommerce framework
 
 FastStore is an open ecommerce framework built using modern technologies that aims to deliver the building blocks necessary for creating your custom ecommerce experience. With these building blocks you can achieve:
@@ -13,7 +13,7 @@ FastStore is an open ecommerce framework built using modern technologies that ai
 - Evergreen stores with our no-fork based approach
 
 ## Why building FastStore?
-The web is a wild and noisy environment. Many projects claim to solve many different aspects of web development but none of them solves the ecommerce problem satisfactorily. Ecommerce is a very complex case where performance is a must, but personalization is the key. 
+The web is a wild and noisy environment. Many projects claim to solve many different aspects of web development but none of them solves the ecommerce problem satisfactorily. Ecommerce is a very complex case where performance is a must, but personalization is the key.
 
 After years of developing ecommerces, FastStore creators packaged all of this knowledge into easy, ready to use building blocks for crafting production-ready, multi-region marketplaces.
 
@@ -34,15 +34,26 @@ Jamstack focuses on performance and stability, which is part of our core philoso
 Gatsby has a philosophy where customization can shadow the default theme implementation. This means we are able to deliver new performance improvements and bug fixes only by upgrading a dependency in your project. Also, Gatsby is very aligned with our performance concerns by implementing the PRPL architecture.
 
 ## Continuous Performance and Stability
-Maintaining the FastStore performance and stability is a key element. For this, using Lighthouse CI and Cypress in your CI/CD pipeline is **highly** recommended. 
+Maintaining the FastStore performance and stability is a key element. For this, using Lighthouse CI and Cypress in your CI/CD pipeline is **highly** recommended.
 
 We provide a base setup for both platforms so you can easily add them to your CI/CD platform.
 
 ## Docs
-FastStore docs are under development. For now, the available docs are:
+FastStore docs are under development. If you are not sure where to start, make sure to check the [Getting Started](./docs/getting-started.md). Check out the available docs below:
 
-- **Architecture**: learn more about this project's architecture
-- **Component**: learn how to develop a reusable component
+- Concepts
+  - [What is Jamstack](./docs/what-is-jamstack.md)
+  - [What is Gatsby](./docs/what-is-gatsby.md)
+  - [SFJ Architecture](./docs/architecture.md)
+  - [Build Pipeline](./docs/build-pipeline.md)
+  - [Page Rendering](./docs/rendering.md)
+  - [Data structure](./docs/data-structure.md)
+  - [SFJ Theme](./docs/sfj-theme.md)
+- How-to Guides
+  - [How to Create a Component](./docs/component.md)
+  - [How to Fetch Data](./docs/data-fetching.md)
+  - [How to Create an E2E Test](./docs/e2e-testing.md)
+  - [How to Style the UI](./docs/styling.md)
 
 ## Contributing
 This is still a work in progress, however, if you are also an adventurous person, you can read the code and have some fun!

@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-nginx",
-  "version": "0.230.0",
+  "version": "0.236.0",
   "description": "Gatsby plugin to generate a nginx configuration template.",
   "main": "index.js",
   "license": "MIT",
@@ -21,15 +21,15 @@
     "@types/jest": "^26.0.13",
     "@types/webpack-assets-manifest": "^3.0.1",
     "cross-env": "^7.0.2",
-    "gatsby": "^2.24.37",
+    "gatsby": "^2.31.0",
     "jest": "^26.4.2",
     "typescript": "^4.1.2"
-  },
-  "peerDependencies": {
-    "gatsby": "^2.24.37"
   },
   "dependencies": {
     "kebab-hash": "^0.1.2",
     "webpack-assets-manifest": "^3.1.1"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.31.0"
   }
 }
