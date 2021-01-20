@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": ".",
+    "alwaysStrict": false,
+    "jsx": "react"
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "src/gatsby-node.js"],
+  "exclude": ["./node_modules/**/*"]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "@vtex/gatsby-plugin-google-tag-manager",
+  "version": "0.1.0-alpha.1",
+  "description": "Gatsby plugin for using Google Tag Manager with SFJ",
+  "main": "index.js",
+  "browser": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "cross-env NODE_ENV=production yarn run build",
+    "develop": "tsc --watch"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-plugin-google-tag-manager",
+    "gatsby-plugin-gtm",
+    "vtex"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@vtex/gatsby-theme-store": "^0.232.0",
+    "cross-env": "^7.0.2",
+    "gatsby": "^2.24.37",
+    "typescript": "^4.1.2"
+  },
+  "peerDependencies": {
+    "@vtex/gatsby-theme-store": "^0.232.0",
+    "gatsby": "^2.24.37",
+    "graphql": "^14.0.0 || ^15.0.0"
+  }
+}
