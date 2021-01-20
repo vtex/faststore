@@ -19,7 +19,7 @@ type Scalars = {
 // Operation related types
 export type AddToCartMutationMutationVariables = Exact<{
   orderFormId: Maybe<Scalars['ID']>;
-  items: Maybe<Array<Maybe<Vtex_ItemInput>> | Maybe<Vtex_ItemInput>>;
+  items: Maybe<Array<Maybe<Vtex_ItemInput>>>;
   marketingData: Maybe<Vtex_MarketingDataInput>;
 }>;
 
