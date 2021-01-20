@@ -11,15 +11,15 @@ interface Props extends ProductPageProps {
   }
 }
 
-const Canonical: FC<Props> = ({ siteMetadata: { siteUrl } }) => {
-  const location = useLocation()
+const Canonical: FC<Props> = () => {
+  const { pathname, host } = useLocation()
 
   return (
     <Helmet
       link={[
         {
           rel: 'canonical',
-          href: `${siteUrl}${location.pathname}`,
+          href: `https://${host}${pathname}`,
         },
       ]}
     />

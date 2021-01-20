@@ -18,12 +18,9 @@ interface Props extends SearchPageProps {
 }
 
 const Canonical: FC<Props> = (props) => {
-  const {
-    staticPath,
-    siteMetadata: { siteUrl },
-  } = props
+  const { staticPath } = props
 
-  const { pathname } = useLocation()
+  const { pathname, host } = useLocation()
 
   if (staticPath === false) {
     return (
@@ -43,7 +40,7 @@ const Canonical: FC<Props> = (props) => {
       link={[
         {
           rel: 'canonical',
-          href: `${siteUrl}${pathname}`,
+          href: `https://${host}${pathname}`,
         },
       ]}
     />
