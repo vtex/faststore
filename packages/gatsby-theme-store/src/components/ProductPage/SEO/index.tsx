@@ -4,9 +4,9 @@ import type { FC } from 'react'
 
 import { useIdleEffect } from '../../../sdk/useIdleEffect'
 import { isBot, isDevelopment } from '../../../utils/env'
-import SiteMetadata from '../../SEO/SiteMetadata'
 import Canonical from './Canonical'
 import StructuredData from './StructuredData'
+import SiteMetadata from './SiteMetadata'
 import type { ProductPageProps } from '../../../templates/product'
 
 const withSyncMetadata = isBot || isDevelopment
@@ -37,11 +37,16 @@ const SEO: FC<ProductPageProps> = (props) => {
 
   const { siteMetadata } = site!
 
+  const subProps = {
+    ...props,
+    siteMetadata,
+  }
+
   return (
     <>
-      <SiteMetadata {...siteMetadata} {...props} />
-      <StructuredData {...props} siteMetadata={siteMetadata} />
-      <Canonical {...props} siteMetadata={siteMetadata} />
+      <SiteMetadata {...subProps} />
+      <Canonical {...subProps} />
+      <StructuredData {...subProps} />
     </>
   )
 }
