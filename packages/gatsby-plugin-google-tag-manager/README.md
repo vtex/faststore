@@ -13,7 +13,7 @@ Just run `npm i @vtex/gatsby-plugin-google-tag-manager` in the root of your code
 
 ## When do I use this plugin?
 
-When you want to use Google Tag Manager.
+When you want to use Google Tag Manager and have the Google Enhanced Ecommerce events.
 
 ## Examples of usage
 
