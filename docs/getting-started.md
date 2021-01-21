@@ -36,7 +36,7 @@ vtex login {account}
 2. Run the following command to install all the necessary apps to start developing with the SFJ.
 
 ```shell
-vtex install vtex.admin-search@1.x vtex.admin-cms@0.x vtex.graphql-gateway@0.x
+vtex install vtex.admin-search@1.x vtex.admin-cms@0.x vtex.graphql-gateway@0.x vtex.store-sitemap@2.x
 ```
 
 3. [Create a new repository from this template](https://github.com/vtex-sites/storecomponents.store) inside the [`vtex-sites` organization.](https://github.com/vtex) with the name `{account}.store`.
