@@ -1,38 +1,52 @@
+import { graphql, useStaticQuery } from 'gatsby'
 import React, { useState } from 'react'
-import { useLocation } from '@reach/router'
 import type { FC } from 'react'
 
 import { useIdleEffect } from '../../../sdk/useIdleEffect'
 import { isBot, isDevelopment } from '../../../utils/env'
-import SiteMetadata from '../../SEO/SiteMetadata'
+import Canonical from './Canonical'
 import StructuredData from './StructuredData'
+import SiteMetadata from './SiteMetadata'
 import type { ProductPageProps } from '../../../templates/product'
-import Helmet from '../../SEO/Helmet'
 
 const withSyncMetadata = isBot || isDevelopment
 
 const SEO: FC<ProductPageProps> = (props) => {
   const [metadata, setMetadata] = useState(withSyncMetadata)
-  const location = useLocation()
 
   useIdleEffect(() => setMetadata(true), [])
+
+  const { site } = useStaticQuery(
+    graphql`
+      query ProductPageSEOQuery {
+        site {
+          siteMetadata {
+            title
+            siteUrl
+            description
+            author
+          }
+        }
+      }
+    `
+  )
 
   if (!metadata) {
     return null
   }
 
+  const { siteMetadata } = site!
+
+  const subProps = {
+    ...props,
+    siteMetadata,
+  }
+
   return (
     <>
-      <SiteMetadata {...props} />
-      <StructuredData {...props} />
-      <Helmet
-        link={[
-          {
-            rel: 'canonical',
-            href: `https://${location.host}${location.pathname}`,
-          },
-        ]}
-      />
+      <SiteMetadata {...subProps} />
+      <Canonical {...subProps} />
+      <StructuredData {...subProps} />
     </>
   )
 }

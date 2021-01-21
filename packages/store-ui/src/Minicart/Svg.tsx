@@ -1,14 +1,14 @@
 import React from 'react'
 import type { FC } from 'react'
 
-export interface MinicartButtonSvg {
+export interface MinicartButtonSvgProps {
   color?: string
   viewBox?: string
   height?: number
   width?: number
 }
 
-export const MinicartButtonSvg: FC<MinicartButtonSvg> = ({
+export const MinicartButtonSvg: FC<MinicartButtonSvgProps> = ({
   color = '#979899',
   height = 16,
   width = 16,

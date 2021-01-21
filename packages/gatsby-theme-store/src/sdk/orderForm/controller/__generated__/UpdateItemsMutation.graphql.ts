@@ -19,7 +19,7 @@ type Scalars = {
 // Operation related types
 export type UpdateItemsMutationMutationVariables = Exact<{
   orderFormId: Maybe<Scalars['ID']>;
-  items: Maybe<Array<Maybe<Vtex_ItemInput>> | Maybe<Vtex_ItemInput>>;
+  items: Maybe<Array<Maybe<Vtex_ItemInput>>>;
   splitItem: Maybe<Scalars['Boolean']>;
 }>;
 
