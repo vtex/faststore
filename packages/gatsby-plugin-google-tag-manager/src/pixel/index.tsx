@@ -15,7 +15,6 @@ const setupGTM = once((dataLayerConfig: Array<Record<string, string[]>>) => {
   }
 
   window.dataLayer = window.dataLayer || []
-  console.log(dataLayerConfig)
   for (const item of dataLayerConfig) {
     window.dataLayer.push(item)
   }
