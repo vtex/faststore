@@ -7,7 +7,7 @@ Como explicado na parte de rendering, utilizamos da tecnica de hybrid rendering 
 Alem de dividirmos a renderizacao em `AboveTheFold.tsx`/`BelowTheFold.tsx`, tambem temos um componente especifico chamado `SEO.tsx` que lida com a renderizacao das tags e dados estruturados necessarios para a pagina. Para entender melhor o codigo e o que fazemos por padrao em cada pagina, leia o codigo de cada componente. Contudo, abaixo tenteamos sumarizar as tags geradas nos casos mais comuns.
 
 ## Home
-A pagina de home tem tags padrao para geracao de titulo etc. Voce provavelmente vai querer fazer o shadowing e sobreescrever as tags geradas para melhor encaixar no seu negocio
+A pagina de home tem tags padrao para geracao de titulo etc. Voce provavelmente vai querer fazer o shadowing e sobreescrever as tags geradas para melhor encaixar no seu negocio. Contudo, a home tambem tem tags canonicals para o dominio final de producao e dados estruturados para fazer [searchbox-sitelinks](https://developers.google.com/search/docs/data-types/sitelinks-searchbox). Se voce quiser, voce pode desinstalar o searchbox sitelinks fazendo shadow do componente
 
 ## PDP
 Todas as paginas de produto recebem a tag `<link rel="canonical">` com a url sendo o path da pagina. Ou seja, mesmo que tenhamos links apontando para `/:slug/p?skuId=123`, as tags canonicas geradas sao `/:slug/p`.
