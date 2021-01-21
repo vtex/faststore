@@ -1,4 +1,4 @@
-## Sonarqube
+# Sonarqube
 
 SonarQube measures and analyzes code quality through [static analysis](https://en.wikipedia.org/wiki/Static_program_analysis). **This feature is enabled by default** in every Store Framework Jamstack (SFJ) project to *guarantee quality and security standards.*
 
