@@ -41,7 +41,7 @@ vtex install vtex.admin-search@1.x vtex.admin-cms@0.x vtex.graphql-gateway@0.x v
 
 >ℹ️ *Make sure VTEX Intelligent Search is installed and set correctly. Visit our (help center)[https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/3qgT47zY08biLP3d5os3DG] for more info*
 
-3. [Create a new repository from this template](https://github.com/vtex-sites/storecomponents.store) inside the [`vtex-sites` organization.](https://github.com/vtex) with the name `{account}.store`.
+3. [Create a new repository from this template](https://github.com/vtex-sites/storecomponents.store) inside the [`vtex-sites` organization.](https://github.com/vtex-sites) with the name `{account}.store`.
 
 ### Step 2: Creating a SFJ store
 
