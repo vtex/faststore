@@ -9,7 +9,7 @@ Just run `npm i @vtex/gatsby-plugin-google-tag-manager` in the root of your code
 ## Available options (if any)
 
 - `gtmId` **required**: the ID of the Google Tag Manager container.
-- `dataLayerConfig` **optional**: this options informs what are the options that you want to have in your data layer. By default we pass `[{ 'gtm.blacklist': ['html'] }]`. If you want to be able to use custom HTML tags with Google Tag Manager, use `[]` in this option.
+- `dataLayerConfig` **optional**: this options informs what are the options that you want to have in your data layer. By default we pass `[{ 'gtm.blacklist': ['html'] }]`. If you want to be able to use Custom HTML tags in Google Tag Manager, use `[]` in this option.
 
 ## When do I use this plugin?
 
