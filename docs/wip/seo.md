@@ -4,7 +4,9 @@ O SEO é uma das principais metas do projeto. Ter paginas com tags e urls SEO fr
 Como explicado na parte de rendering, utilizamos da tecnica de hybrid rendering para renderizar as milhares de paginas de produtos. Isso significa que se o search engine nao executar JavaScript, tags nao serao geradas e a faststore vai performar mal no search engine. Felizmente, o Google executa JavaScript e é SPA-friendly (Single Page Application)
 
 # Aonde encontro o codigo de SEO da pagina ?
-Alem de dividirmos a renderizacao em `AboveTheFold.tsx`/`BelowTheFold.tsx`, tambem temos um componente especifico chamado `SEO.tsx` que lida com a renderizacao das tags e dados estruturados necessarios para a pagina. Para entender melhor o codigo e o que fazemos por padrao em cada pagina, leia o codigo de cada componente. Contudo, abaixo tenteamos sumarizar as tags geradas nos casos mais comuns.
+Alem de dividirmos a renderizacao em `AboveTheFold.tsx`/`BelowTheFold.tsx`, tambem temos 3 componentes na pasta `SEO` que lida com a renderizacao das tags e dados estruturados necessarios para a pagina. Para entender melhor o codigo e o que fazemos por padrao em cada pagina, leia o codigo de cada componente. Contudo, abaixo tenteamos sumarizar as tags geradas nos casos mais comuns.
+
+A pasta `SEO` esta separada em 3 componentes principais. `SiteMetadata.tsx` que contem logica para geracao de titulo e outras tags, `Canonical.tsx` para desambiguar paginas no google com a utilizacao das tags `rel=canonical` e `StructuredData.tsx` para gerar dados estruturados para a pagina
 
 ## Home
 A pagina de home tem tags padrao para geracao de titulo etc. Voce provavelmente vai querer fazer o shadowing e sobreescrever as tags geradas para melhor encaixar no seu negocio. Contudo, a home tambem tem tags canonicals para o dominio final de producao e dados estruturados para fazer [searchbox-sitelinks](https://developers.google.com/search/docs/data-types/sitelinks-searchbox). Se voce quiser, voce pode desinstalar o searchbox sitelinks fazendo shadow do componente
