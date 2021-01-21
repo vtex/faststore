@@ -1,10 +1,10 @@
 import React from 'react'
-import { Helmet } from 'react-helmet-async'
 import type { FC } from 'react'
 
 import { useCurrency } from '../../../sdk/localization/useCurrency'
 import { useStructuredProduct } from './useStructuredProduct'
 import type { ProductPageProps } from '../../../templates/product'
+import Helmet from '../../SEO/Helmet'
 
 interface Props extends ProductPageProps {
   siteMetadata: any
@@ -24,8 +24,6 @@ const StructuredData: FC<Props> = ({
 
   return (
     <Helmet
-      defer={false}
-      async={false}
       script={[
         {
           type: 'application/ld+json',
