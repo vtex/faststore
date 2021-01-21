@@ -25,7 +25,6 @@
   },
   "peerDependencies": {
     "@vtex/gatsby-theme-store": "^0.232.0",
-    "gatsby": "^2.24.37",
-    "graphql": "^14.0.0 || ^15.0.0"
+    "gatsby": "^2.24.37"
   }
 }
