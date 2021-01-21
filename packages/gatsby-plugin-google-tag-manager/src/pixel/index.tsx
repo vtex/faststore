@@ -6,16 +6,16 @@ import { usePixelEvent } from '@vtex/gatsby-theme-store/src/sdk/pixel/usePixelEv
 import { once } from '@vtex/gatsby-theme-store/src/sdk/once'
 
 import { handler } from './handler'
+import { DEFAULT_DATALAYER_CONFIG } from './constants'
+import type { GTMProviderProps } from './types'
 
-const DEFAULT_DATALAYER_CONFIG = [{ 'gtm.blacklist': ['html'] }]
-
-const setupGTM = once((dataLayerConfig: any[]) => {
+const setupGTM = once((dataLayerConfig: Array<Record<string, string[]>>) => {
   if (isServer) {
     return
   }
 
   window.dataLayer = window.dataLayer || []
-
+  console.log(dataLayerConfig)
   for (const item of dataLayerConfig) {
     window.dataLayer.push(item)
   }
@@ -28,13 +28,7 @@ const useSetupGTM = (dataLayerConfig: any[]) =>
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setupGTM(dataLayerConfig), [])
 
-interface Props {
-  gtmId: string
-  timeout?: number
-  dataLayerConfig?: any[]
-}
-
-const Provider: FC<Props> = ({
+const Provider: FC<GTMProviderProps> = ({
   children,
   gtmId,
   timeout = 5500,
