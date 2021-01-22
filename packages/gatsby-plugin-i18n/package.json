@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-i18n",
-  "version": "0.240.4",
+  "version": "0.241.2",
   "main": "index.js",
   "typings": "index.d.ts",
   "browser": "src/index.ts",
