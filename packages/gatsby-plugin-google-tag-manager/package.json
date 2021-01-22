@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-google-tag-manager",
-  "version": "0.240.4-alpha.0",
+  "version": "0.240.4-alpha.1",
   "description": "Gatsby plugin for using Google Tag Manager with SFJ",
   "main": "index.js",
   "browser": "src/index.ts",
@@ -27,5 +27,5 @@
     "@vtex/gatsby-theme-store": "^0.232.0",
     "gatsby": "^2.24.37"
   },
-  "gitHead": "4406012da539bec9367e84789ed3d2fef6885ea4"
+  "gitHead": "50e814abaded072feedfd6b8250b5712154bc4cf"
 }

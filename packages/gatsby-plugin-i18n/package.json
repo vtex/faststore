@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-i18n",
-  "version": "0.240.4-alpha.0",
+  "version": "0.240.4-alpha.1",
   "main": "index.js",
   "typings": "index.d.ts",
   "browser": "src/index.ts",
@@ -29,5 +29,5 @@
     "intl-messageformat-parser": "^6.0.18",
     "react-intl": "^5.7.1"
   },
-  "gitHead": "4406012da539bec9367e84789ed3d2fef6885ea4"
+  "gitHead": "50e814abaded072feedfd6b8250b5712154bc4cf"
 }
