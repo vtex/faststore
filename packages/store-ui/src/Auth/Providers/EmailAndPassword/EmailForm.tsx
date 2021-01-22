@@ -1,5 +1,5 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Alert, Box, Button, Input } from '@vtex/store-ui'
+import { Alert, Box, Button, Input } from 'theme-ui'
 import React, { useRef } from 'react'
 import type { FC } from 'react'
 
@@ -7,12 +7,12 @@ import type { State } from './state'
 
 interface Props {
   variant: string
-  onSubmit: (email: string) => Promise<void>
-  onBack: () => void
   state: State
+  onBack: () => void
+  onSubmit: (email: string) => Promise<void>
 }
 
-const AccessCodeForm: FC<Props> = ({
+const EmailForm: FC<Props> = ({
   variant,
   state: { state },
   onSubmit,
@@ -25,7 +25,7 @@ const AccessCodeForm: FC<Props> = ({
     <>
       <Box variant={`${variant}.title`}>
         {formatMessage({
-          id: 'login.page.emailVerification.accessCodeForm.title',
+          id: 'login.page.emailAndPassword.emailForm.title',
         })}
       </Box>
       <Box
@@ -38,34 +38,33 @@ const AccessCodeForm: FC<Props> = ({
       >
         <Input
           ref={input}
-          type="text"
-          name="code"
-          id="accesscodeform-code"
+          type="email"
+          name="email"
+          id="emailform-email"
           placeholder={formatMessage({
-            id: 'login.page.emailVerification.accessCodeForm.codePlaceholder',
+            id: 'login.page.emailAndPassword.emailForm.emailPlaceholder',
           })}
         />
 
-        {state === 'accessCodeForm.invalidAccessCode' && (
+        {state === 'emailForm.invalidEmailInput' && (
           <Alert variant="signInDanger">
             {formatMessage({
-              id:
-                'login.page.emailVerification.accessCodeForm.invalidAccessCode',
+              id: 'login.page.emailAndPassword.emailForm.invalidEmailInput',
             })}
           </Alert>
         )}
 
-        {state === 'accessCodeForm.authError' && (
+        {state === 'emailForm.error' && (
           <Alert variant="signInDanger">
             {formatMessage({
-              id: 'login.page.emailVerification.accessCodeForm.authError',
+              id: 'login.page.emailAndPassword.emailForm.error',
             })}
           </Alert>
         )}
 
         <Button>
           {formatMessage({
-            id: 'login.page.emailVerification.accessCodeForm.submitButton',
+            id: 'login.page.emailAndPassword.emailForm.submitButton',
           })}
         </Button>
       </Box>
@@ -76,11 +75,11 @@ const AccessCodeForm: FC<Props> = ({
         }}
       >
         {formatMessage({
-          id: 'login.page.emailVerification.accessCodeForm.backButton',
+          id: 'login.page.emailAndPassword.emailForm.backButton',
         })}
       </Button>
     </>
   )
 }
 
-export default AccessCodeForm
+export default EmailForm

@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-cms",
-  "version": "0.241.1",
+  "version": "0.241.2",
   "description": "Gatsby plugin for building pages with VTEX CMS.",
   "main": "index.js",
   "browser": "src/index.ts",
@@ -34,6 +34,5 @@
     "fs-extra": "^9.0.1",
     "gatsby-graphql-source-toolkit": "^0.6.3",
     "p-map": "^4.0.0"
-  },
-  "gitHead": "6f0f114bc623846990d6fb2d887245b1aa648a36"
+  }
 }
