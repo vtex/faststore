@@ -94,6 +94,15 @@ export const createPages = async (
           staticPath: true,
         },
       })
+
+      createPage({
+        path: `${path}/__client_side_search__`,
+        matchPath: `${path}/*`,
+        component: resolve(__dirname, './src/templates/search.tsx'),
+        context: {
+          staticPath: false,
+        },
+      })
     }
   })
 
