@@ -115,3 +115,12 @@ export { default as CarouselArrowRight } from './Carousel/ArrowRight'
 export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
 // Auth Providers
 export * from './Auth/Providers'
+// Product Image Gallery
+export { default as ProductImageGalleryArrowLeft } from './ProductImageGallery/ArrowLeft'
+export { default as ProductImageGalleryArrowRight } from './ProductImageGallery/ArrowRight'
+export {
+  default as ProductImageGalleryPage,
+  Item as ProductImageGalleryItem,
+} from './ProductImageGallery/Page'
+export { default as ProductImageGalleryPaginationDots } from './ProductImageGallery/PaginationDots'
+export { default as ProductImageGalleryMiniaturesContainer } from './ProductImageGallery/Miniatures/Container'
