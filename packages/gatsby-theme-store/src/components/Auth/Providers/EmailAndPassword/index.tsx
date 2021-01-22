@@ -2,8 +2,8 @@ import React, { useReducer } from 'react'
 import type { FC } from 'react'
 import {
   EmailAndPasswordEmailForm as EmailForm,
-  EmailAndPasswordSignInForm as SignInForm,
   EmailAndPasswordSignUpForm as SignUpForm,
+  EmailAndPasswordSignInForm as SignInForm,
   EmailAndPasswordReducer as reducer,
 } from '@vtex/store-ui'
 import type { AuthProviderComponentProps } from '@vtex/store-ui'
