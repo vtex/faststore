@@ -49,6 +49,7 @@ FastStore docs are under development. If you are not sure where to start, make s
   - [Page Rendering](./docs/rendering.md)
   - [Data structure](./docs/data-structure.md)
   - [SFJ Theme](./docs/sfj-theme.md)
+  - [Sonarqube](./docs/sonarqube.md)
 - How-to Guides
   - [How to Create a Component](./docs/component.md)
   - [How to Fetch Data](./docs/data-fetching.md)
