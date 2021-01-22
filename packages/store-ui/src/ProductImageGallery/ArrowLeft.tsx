@@ -1,6 +1,7 @@
-/** @jsx jsx */
-import { jsx, SliderArrowLeft } from '@vtex/store-ui'
+import React from 'react'
 import type { ComponentProps, FC } from 'react'
+
+import { SliderArrowLeft } from '../index'
 
 type Props = ComponentProps<typeof SliderArrowLeft>
 

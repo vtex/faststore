@@ -1,9 +1,7 @@
-import { Box } from '@vtex/store-ui'
+import { Box, ProductImageGalleryPage as Page } from '@vtex/store-ui'
+import type { ProductImageGalleryItem as Item } from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
-
-import Page from './Page'
-import type { Item } from '../Page'
 
 interface Props {
   variant: string

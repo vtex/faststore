@@ -1,7 +1,8 @@
-import { AspectImage, YoutubeThumb } from '@vtex/store-ui'
+import { AspectImage } from 'theme-ui'
 import React from 'react'
 import type { FC } from 'react'
 
+import { YoutubeThumb } from '../../index'
 import type { Item } from '../Page'
 
 interface Props {
