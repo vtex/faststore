@@ -1,5 +1,21 @@
 # FastStore
 
+## Table of contents
+
+- [FastStore](#faststore)
+  - [Table of contents](#table-of-contents)
+  - [An open ecommerce framework](#an-open-ecommerce-framework)
+  - [Why building FastStore?](#why-building-faststore)
+  - [Project philosophy](#project-philosophy)
+  - [Why Jamstack and Gatsby?](#why-jamstack-and-gatsby)
+  - [Continuous Performance and Stability](#continuous-performance-and-stability)
+  - [Docs](#docs)
+  - [Contributing](#contributing)
+    - [How to develop](#how-to-develop)
+  - [Packages](#packages)
+  - [Who's using FastStore?](#whos-using-faststore)
+  - [Troubleshooting](#troubleshooting)
+
 ## An open ecommerce framework
 
 FastStore is an open ecommerce framework built using modern technologies that aims to deliver the building blocks necessary for creating your custom ecommerce experience. With these building blocks you can achieve:
@@ -95,3 +111,11 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 These are the clients running in production with FastStore:
 
 - [Marin Brasil](https://www.marinbrasil.com.br/)
+
+## Troubleshooting
+
+---
+
+**Question:** I'm having errors while running/building a store. There are the following log `Cannot query field "vtexCms" on type "Query"` or an error with `Status Code 403`.
+
+**Answer:** You need to log in VTEX by `vtex login <account>`
