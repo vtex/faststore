@@ -116,6 +116,6 @@ These are the clients running in production with FastStore:
 
 ---
 
-**Question:** I'm having errors while running/building a store. There are the following log `Cannot query field "vtexCms" on type "Query"` or a error with `Status Code 403`.
+**Question:** I'm having errors while running/building a store. There are the following log `Cannot query field "vtexCms" on type "Query"` or an error with `Status Code 403`.
 
 **Answer:** You need to log in VTEX by `vtex login <account>`
