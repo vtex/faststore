@@ -44,14 +44,15 @@ export const handler: PixelEventHandler = (event) => {
       const { items } = event.data
 
       fbq('track', 'AddToCart', {
-        value:
-          items.reduce((acc, item) => acc + (item.price ? item.price : 0), 0) /
-          100,
+        value: items.reduce(
+          (acc, item) => acc + (item.price ? item.price : 0),
+          0
+        ),
         content_ids: items.map((sku) => sku.id),
         contents: items.map((sku) => ({
           id: sku.id,
           quantity: sku.quantity,
-          item_price: (sku.price ? sku.price : 0) / 100,
+          item_price: sku.price ? sku.price : 0,
         })),
         content_type: 'product',
         // TODO: send currency
