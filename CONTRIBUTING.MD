@@ -1,3 +1,5 @@
+# How to contribute
+
 ## Developing Packages that depend on one another at the same time
 
 1. Run `yarn` at the root of the repo
