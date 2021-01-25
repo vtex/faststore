@@ -1,8 +1,6 @@
 import { useLocation } from '@reach/router'
 import { useMemo } from 'react'
 
-import type { SearchPageQueryQueryVariables } from '../../templates/__generated__/SearchPageQuery.graphql'
-
 // Creates a string with as many `c,c` as pathname has
 // segments.
 // For instance: cozinha/faqueiro-e-talheres would
@@ -49,9 +47,7 @@ const trimQuery = (query: string) => {
   return query.slice(i, j)
 }
 
-export const useSearchFiltersFromPageContext = (
-  pageContext: SearchPageQueryQueryVariables
-) => {
+export const useSearchFiltersFromPageContext = (pageContext: any) => {
   const location = useLocation()
   const { search, pathname } = location
 

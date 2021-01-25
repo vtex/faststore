@@ -51,7 +51,7 @@ export const toggleItem = (item: SearchFilterItem, filters: SearchFilters) => {
     const splittedQuery = query?.split('/')
     const splittedMap = map?.split(',')
 
-    const index = splittedQuery?.findIndex((s) => s === value)
+    const index = splittedQuery?.findIndex((s: any) => s === value)
 
     // Unselecting the base path. This is not allowed since it would redirect
     // the user to the home page. In the future we should return a visual

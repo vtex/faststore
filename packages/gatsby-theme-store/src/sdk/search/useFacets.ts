@@ -72,7 +72,7 @@ export const useFacets = () => {
 
   const fixedFacets = useMemo(
     () =>
-      staticFacets!.facets!.reduce((acc, rawFacet) => {
+      staticFacets!.facets!.reduce((acc: Facet[], rawFacet: any) => {
         const facet =
           rawFacet?.type === 'CATEGORYTREE'
             ? focusCategoryFacet(rawFacet as any, filters)
