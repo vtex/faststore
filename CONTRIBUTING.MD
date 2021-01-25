@@ -2,11 +2,13 @@
 
 ## Developing Packages that depend on one another at the same time
 
-1. Run `yarn` at the root of the repo
+1. Run `yarn` at the root of the repo.
 
-2. Run `lerna link --force-local` at the root of the repo
+2. Run `lerna link --force-local` at the root of the repo.
 
-3. Run `yarn develop` at each of the packages that depends on the other
+3. Run `yarn build` at the root of the repo.
+
+4. Run `yarn develop` at each of the packages that depends on the other.
 
 ## Developing packages while also testing on a store
 
