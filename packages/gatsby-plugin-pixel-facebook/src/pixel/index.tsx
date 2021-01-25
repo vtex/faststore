@@ -43,7 +43,7 @@ interface Props {
   timeout?: number
 }
 
-const Provider: FC<Props> = ({ children, pixelId, timeout = 2000 }) => {
+const Provider: FC<Props> = ({ children, pixelId, timeout = 5500 }) => {
   // Setup FB Pixel
   useSetupFBPixel(pixelId)
 
