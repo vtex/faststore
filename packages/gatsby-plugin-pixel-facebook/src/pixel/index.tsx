@@ -7,7 +7,7 @@ import { once } from '@vtex/gatsby-theme-store/src/sdk/once'
 
 import { handler } from './handler'
 
-const setupFBPixel = once((pixelId: any) => {
+const setupFBPixel = once((pixelId: string) => {
   if (isServer) {
     return
   }
