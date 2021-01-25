@@ -15,11 +15,6 @@ import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 import { SearchProvider } from '../sdk/search/Provider'
 import { useSearchFiltersFromPageContext } from '../sdk/search/useSearchFiltersFromPageContext'
 import { isServer } from '../utils/env'
-import { SearchPageQuery } from './__generated__/SearchPageQuery.graphql'
-import type {
-  SearchPageQueryQuery,
-  SearchPageQueryQueryVariables,
-} from './__generated__/SearchPageQuery.graphql'
 
 const belowTheFoldPreloader = () =>
   import('../components/SearchPage/BelowTheFold')
@@ -27,9 +22,23 @@ const belowTheFoldPreloader = () =>
 const BelowTheFold = lazy(belowTheFoldPreloader)
 
 export type SearchPageProps = PageProps<
-  SearchPageQueryQuery,
-  SearchPageQueryQueryVariables
-> & { staticPath: boolean }
+  any,
+  {
+    staticPath: boolean
+    orderBy?: Maybe<string>
+    query: Maybe<string>
+    map: Maybe<string>
+    fullText: Maybe<string>
+    selectedFacets: any
+  }
+> & {
+  staticPath: boolean
+  pageQuery: {
+    query?: string
+    sha256Hash: string
+    operationName: string
+  }
+}
 
 const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
@@ -37,11 +46,8 @@ const SearchPage: FC<SearchPageProps> = (props) => {
   const staticPath =
     pageContext.staticPath && pageContext.orderBy === filters.orderBy
 
-  const { data } = useQuery<
-    SearchPageQueryQuery,
-    SearchPageQueryQueryVariables
-  >({
-    ...SearchPageQuery,
+  const { data } = useQuery({
+    ...props.pageQuery,
     variables: { ...filters, staticPath: true },
     suspense: true,
     initialData: staticPath ? staticData : undefined,
@@ -109,84 +115,5 @@ const Page: FC<SearchPageProps> = (props) => {
     </Layout>
   )
 }
-
-export const query = graphql`
-  query SearchPageQuery(
-    $query: String
-    $map: String
-    $fullText: String
-    $staticPath: Boolean!
-    $selectedFacets: [VTEX_SelectedFacetInput!]
-    $orderBy: String = "OrderByScoreDESC"
-  ) {
-    vtex {
-      productSearch(
-        from: 0
-        to: 11
-        hideUnavailableItems: false
-        productOriginVtex: true
-        simulationBehavior: skip
-        orderBy: $orderBy
-        query: $query
-        map: $map
-        fullText: $fullText
-        selectedFacets: $selectedFacets
-      ) @include(if: $staticPath) {
-        products {
-          productId
-          productName
-          linkText
-          items {
-            itemId
-            images {
-              imageUrl
-              imageText
-            }
-          }
-        }
-        titleTag
-        recordsFiltered
-      }
-      facets(
-        query: $query
-        map: $map
-        fullText: $fullText
-        selectedFacets: $selectedFacets
-        operator: or
-        behavior: "Static"
-      ) @include(if: $staticPath) {
-        breadcrumb {
-          href
-          name
-        }
-        facets {
-          name
-          type
-          values {
-            key
-            name
-            value
-            selected
-            quantity
-            values: children {
-              key
-              name
-              value
-              selected
-              quantity
-              values: children {
-                key
-                name
-                value
-                selected
-                quantity
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
 
 export default Page

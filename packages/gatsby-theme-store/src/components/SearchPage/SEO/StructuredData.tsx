@@ -21,7 +21,7 @@ const useStructuredBreadcrumb = (
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: breadcrumb.map((item, index) => ({
+    itemListElement: breadcrumb.map((item: any, index: number) => ({
       '@type': 'ListItem',
       position: index + 1,
       name: item!.name!,

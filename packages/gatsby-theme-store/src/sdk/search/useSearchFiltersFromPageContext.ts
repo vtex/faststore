@@ -57,12 +57,18 @@ export const useSearchFiltersFromPageContext = (
 
   return useMemo(() => {
     const params = new URLSearchParams(search)
-    const query = pageContext?.query ?? trimQuery(pathname)
-    const map = params.get('map') ?? pageContext?.map ?? createMap(query)
+    let query = pageContext.query!
+    let map = pageContext.map!
+    let selectedFacets = pageContext.selectedFacets!
+
+    if (pageContext.staticPath === false) {
+      query = trimQuery(pathname)
+      map = params.get('map') ?? createMap(query)
+      selectedFacets = selectedFacetsAfterQueryAndMap(query, map)
+    }
+
     const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
-    const orderBy = params.get('orderBy') ?? pageContext?.orderBy ?? ''
-    const selectedFacets =
-      pageContext?.selectedFacets ?? selectedFacetsAfterQueryAndMap(query, map)
+    const orderBy = params.get('orderBy') ?? pageContext.orderBy ?? ''
 
     return {
       orderBy,
@@ -73,6 +79,7 @@ export const useSearchFiltersFromPageContext = (
     }
   }, [
     search,
+    pageContext.staticPath,
     pageContext.query,
     pageContext.map,
     pageContext.orderBy,

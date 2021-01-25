@@ -29,22 +29,27 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     getStaticPaths: Joi.function().arity(0).required(),
   })
 
-const getRoute = (path: string) => {
-  const splitted = path.split('/')
-
-  if (path === '/') {
+const getRoute = (segments: string[]) => {
+  if (segments.length === 1 && segments[0] === '') {
     return null
   }
 
-  if (splitted.length === 3 && path.endsWith('/p')) {
+  if (segments.length === 2 && segments[segments.length - 1] === 'p') {
     return 'product'
   }
 
-  if (splitted.length >= 2) {
+  if (segments.length >= 1) {
     return 'search'
   }
 
-  throw new Error(`Unroutable route: ${path}`)
+  throw new Error(`Unroutable route: /${segments.join('/')}`)
+}
+
+const normalizePath = (path: string) => {
+  const i = path[0] === '/' ? 1 : 0
+  const j = path[path.length - 1] === '/' ? path.length - 1 : path.length
+
+  return `/${path.slice(i, j)}`
 }
 
 export const createPages = async (
@@ -58,13 +63,13 @@ export const createPages = async (
   const staticPaths =
     typeof getStaticPaths === 'function' ? await getStaticPaths() : []
 
-  staticPaths.map(async (path) => {
-    const route = getRoute(path)
-    const splitted = path.split('/')
+  staticPaths.map(normalizePath).map(async (path) => {
+    const [, ...segments] = path.split('/')
+    const route = getRoute(segments)
 
     // Product Pages
     if (route === 'product') {
-      const [, slug] = splitted
+      const [slug] = segments
 
       createPage({
         path,
@@ -78,8 +83,6 @@ export const createPages = async (
 
     // Search Pages
     else if (route === 'search') {
-      const segments = splitted.filter((segment) => !!segment)
-
       const searchParams = {
         orderBy: '',
         query: segments.join('/'),
@@ -95,6 +98,7 @@ export const createPages = async (
         component: resolve(__dirname, './src/templates/search.tsx'),
         context: {
           ...searchParams,
+          canonicalPath: path,
           staticPath: true,
         },
       })
@@ -104,7 +108,7 @@ export const createPages = async (
         matchPath: `${path}/*`,
         component: resolve(__dirname, './src/templates/search.tsx'),
         context: {
-          parentSearchParams: searchParams,
+          canonicalPath: path,
           staticPath: false,
         },
       })
