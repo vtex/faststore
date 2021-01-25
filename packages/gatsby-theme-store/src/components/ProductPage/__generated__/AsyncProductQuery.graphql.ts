@@ -28,7 +28,7 @@ export type AsyncProductQueryQuery = { vtex: { product: Maybe<{ productId: Maybe
 // Query Related Code
 
 export const AsyncProductQuery = {
-  query: undefined,
+  query: "query AsyncProductQuery($slug: String) {\n  vtex {\n    product(slug: $slug) {\n      productId\n      productName\n      productReference\n      description\n      linkText\n      specificationGroups {\n        name\n        specifications {\n          name\n          values\n        }\n      }\n      items {\n        variations {\n          name\n          values\n        }\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n        sellers {\n          sellerId\n          commercialOffer: commertialOffer {\n            maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n            }\n            installments: Installments(criteria: ALL) {\n              value: Value\n              numberOfInstallments: NumberOfInstallments\n              interestRate: InterestRate\n            }\n            availableQuantity: AvailableQuantity\n            price: Price\n            listPrice: ListPrice\n            gifts {\n              skuName\n              images {\n                imageUrl\n              }\n            }\n            spotPrice\n            teasers {\n              name\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
   sha256Hash: "13f7b624027146d1ba086bc73608ba6a2c254821d9192ebb22d1b9150ef264c4",
   operationName: "AsyncProductQuery",
 }

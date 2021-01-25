@@ -83,7 +83,7 @@ export const useBuyButton = ({
       sendPixelEvent({
         type: 'vtex:addToCart',
         data: {
-          items,
+          items: [{ ...orderFormItem, price: seller.commercialOffer.price }],
           oneClickBuy,
         },
       })
