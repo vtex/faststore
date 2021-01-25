@@ -80,17 +80,21 @@ export const createPages = async (
     else if (route === 'search') {
       const segments = splitted.filter((segment) => !!segment)
 
+      const searchParams = {
+        orderBy: '',
+        query: segments.join('/'),
+        map: new Array(segments.length).fill('c').join(','),
+        selectedFacets: segments.map((segment) => ({
+          key: 'c',
+          value: segment,
+        })),
+      }
+
       createPage({
         path,
         component: resolve(__dirname, './src/templates/search.tsx'),
         context: {
-          orderBy: '',
-          query: segments.join('/'),
-          map: new Array(segments.length).fill('c').join(','),
-          selectedFacets: segments.map((segment) => ({
-            key: 'c',
-            value: segment,
-          })),
+          ...searchParams,
           staticPath: true,
         },
       })
@@ -100,6 +104,7 @@ export const createPages = async (
         matchPath: `${path}/*`,
         component: resolve(__dirname, './src/templates/search.tsx'),
         context: {
+          parentSearchParams: searchParams,
           staticPath: false,
         },
       })
