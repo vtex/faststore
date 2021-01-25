@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-cms",
-  "version": "0.253.2-alpha.0",
+  "version": "0.253.0",
   "description": "Gatsby plugin for building pages with VTEX CMS.",
   "main": "index.js",
   "browser": "src/index.ts",
