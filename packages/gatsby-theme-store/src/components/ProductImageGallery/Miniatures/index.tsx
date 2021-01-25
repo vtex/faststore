@@ -1,4 +1,4 @@
-import { Box, ProductImageGalleryPage as Page } from '@vtex/store-ui'
+import { Box, ProductImageGalleryMiniaturesPage as Page } from '@vtex/store-ui'
 import type { ProductImageGalleryItem as Item } from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
