@@ -17,17 +17,17 @@ type Scalars = {
 }
 
 // Operation related types
-export type FooterQueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type StructuredProductSiteMetadataQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FooterQueryQuery = { allDepartment: { nodes: Array<{ name: Maybe<string>, slug: Maybe<string> }> } };
+export type StructuredProductSiteMetadataQueryQuery = { site: Maybe<{ siteMetadata: Maybe<{ siteUrl: Maybe<string> }> }> };
 
 
 // Query Related Code
 
-export const FooterQuery = {
+export const StructuredProductSiteMetadataQuery = {
   query: undefined,
-  sha256Hash: "710a5955f8eb20fb4d3015e76d050b41fac29fcf45c9edcbae750ecde0e51bf2",
-  operationName: "FooterQuery",
+  sha256Hash: "2913563707178ed9826fb719f97ecf01f114533386cfac4d03422b2d7af7a793",
+  operationName: "StructuredProductSiteMetadataQuery",
 }
 
