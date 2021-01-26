@@ -35,7 +35,6 @@ const setupFBPixel = once((pixelId: string) => {
 const useSetupFBPixel = (pixelId: string) =>
   // We don't need pixelId in hooks deps since setupFBPixel is run once
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  /* eslint-disable */
   useMemo(() => setupFBPixel(pixelId), [])
 
 interface Props {
