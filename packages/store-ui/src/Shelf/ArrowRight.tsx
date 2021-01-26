@@ -1,10 +1,11 @@
-import { SliderArrowRight } from '@vtex/store-ui'
 import React from 'react'
 import type { ComponentProps, FC } from 'react'
 
+import SliderArrowRight from '../Slider/ArrowRight'
+
 type Props = ComponentProps<typeof SliderArrowRight>
 
-const ShelfArrowLeft: FC<Props> = ({ variant, ...rest }) => (
+const ShelfArrowRight: FC<Props> = ({ variant, ...rest }) => (
   <SliderArrowRight
     variant={`shelf.${variant}`}
     aria-label="See shelf next page"
@@ -12,4 +13,4 @@ const ShelfArrowLeft: FC<Props> = ({ variant, ...rest }) => (
   />
 )
 
-export default ShelfArrowLeft
+export default ShelfArrowRight
