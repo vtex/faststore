@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box, LocalizedLink, jsx } from '@vtex/store-ui'
+import { Box, jsx } from 'theme-ui'
 import type { FC } from 'react'
 
+import LocalizedLink from '../LocalizedLink'
 import Logo from './Logo'
 
 interface Props {

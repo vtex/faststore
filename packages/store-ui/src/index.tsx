@@ -123,3 +123,8 @@ export { default as CarouselArrowRight } from './Carousel/ArrowRight'
 export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
 // Auth Providers
 export * from './Auth/Providers'
+// Login
+export { default as Anonymous } from './Login/Anonymous'
+export { default as Authenticated } from './Login/Authenticated'
+export { default as LoginLogo } from './Login/Logo'
+export { default as loginTheme } from './Login/theme'

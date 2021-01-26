@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box, LocalizedLink, jsx } from '@vtex/store-ui'
+import { Box, jsx } from 'theme-ui'
 import type { FC } from 'react'
 
 import Logo from './Logo'
+import LocalizedLink from '../LocalizedLink'
 
 const Anonymous: FC = () => {
   const { formatMessage } = useIntl()
