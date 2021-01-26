@@ -46,10 +46,10 @@ export const useShippingSimulator = ({
   }, [getShipping, skuId, seller, quantity, country, postalCode])
 
   /**
-   * This effect is responsible for trigerring a shipping simulation
+   * This effect is responsible for triggering a shipping simulation
    * whenever the selected quantity changes.
    *
-   * Here we are explictly disabling the react-hooks/exhaustive-deps rule.
+   * Here we are explicitly disabling the react-hooks/exhaustive-deps rule.
    * Adding the other recommended deps may trigger an update loop.
    */
   useEffect(() => {

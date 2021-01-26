@@ -121,6 +121,10 @@ export { default as CarouselPage } from './Carousel/Page'
 export { default as CarouselArrowLeft } from './Carousel/ArrowLeft'
 export { default as CarouselArrowRight } from './Carousel/ArrowRight'
 export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
+
+// ShippingSimulator
+export { default as ShippingSimulator } from './ShippingSimulator'
+
 // Auth Providers
 export * from './Auth/Providers'
 // Search Bar
