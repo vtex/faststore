@@ -19,7 +19,7 @@ export interface Props {
   pageSizes?: number[]
   title?: JSX.Element | string
   variant?: string
-  showArrows?: Maybe<boolean>
+  showArrows?: boolean | null
   showDots?: boolean
   autoplay?: number
 }
