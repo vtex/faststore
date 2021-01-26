@@ -1,8 +1,8 @@
-import { Input } from '@vtex/store-ui'
+import { Input } from 'theme-ui'
 import React, { useRef } from 'react'
 import type { FC } from 'react'
 
-import useMaskedInput from '../../sdk/mask/useMaskedInput'
+import useMaskedInput from './hooks/useMaskedInput'
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Input> {
   variant: string

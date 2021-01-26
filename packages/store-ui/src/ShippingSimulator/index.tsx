@@ -1,5 +1,5 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box, Button, Text } from '@vtex/store-ui'
+import { Box, Button, Text } from 'theme-ui'
 import React from 'react'
 import type { FC, FormEvent } from 'react'
 
@@ -18,6 +18,7 @@ type Props = {
   isValid: boolean
   onCalculateShipping?: () => void
   shipping?: any
+  numberFormattingFunction: Intl.NumberFormat['format']
 }
 
 const ShippingSimulator: FC<Props> = ({
@@ -28,6 +29,7 @@ const ShippingSimulator: FC<Props> = ({
   isValid,
   onCalculateShipping,
   onPostalCode,
+  numberFormattingFunction,
   postalCode,
   shipping,
 }) => {
@@ -72,7 +74,11 @@ const ShippingSimulator: FC<Props> = ({
       </Box>
       {loading && <Preview variant={`${variant}.preview`} />}
       {shipping && !loading && (
-        <ShippingTable shipping={shipping} variant={`${variant}.table`} />
+        <ShippingTable
+          shipping={shipping}
+          variant={`${variant}.table`}
+          numberFormattingFunction={numberFormattingFunction}
+        />
       )}
     </Box>
   )
