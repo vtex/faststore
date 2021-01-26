@@ -1,10 +1,9 @@
 import React from 'react'
 import type { FC } from 'react'
+import { Authenticated, Anonymous } from '@vtex/store-ui'
 
-import { useProfile } from '../../sdk/session/useProfile'
-import SuspenseSSR from '../Suspense/SSR'
-import Anonymous from './Anonymous'
-import Authenticated from './Authenticated'
+import { useProfile } from '../sdk/session/useProfile'
+import SuspenseSSR from './Suspense/SSR'
 
 const Login: FC = () => {
   const profile = useProfile()
