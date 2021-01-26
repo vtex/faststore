@@ -22,6 +22,6 @@ export { default as FacebookOAuthButton } from './Facebook/Button'
 // Google
 export { default as GoogleOAuthButton } from './Google/Button'
 // Theme
-export { default as AuthProvidersTheme } from './theme'
+export { default as authProvidersTheme } from './theme'
 // Types
 export * from './types'

@@ -115,3 +115,11 @@ export { default as CarouselArrowRight } from './Carousel/ArrowRight'
 export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
 // Auth Providers
 export * from './Auth/Providers'
+// Search Bar
+export { default as SearchBarButton } from './SearchBar/Button'
+export { default as SearchBarContainer } from './SearchBar/Container'
+export { default as SearchBarInput } from './SearchBar/Input'
+export { default as SearchBarProvider } from './SearchBar/Provider'
+export { default as searchBarTheme } from './SearchBar/theme'
+export { SearchBarContext, useSearchBarContext } from './SearchBar/hooks'
+export type { ISearchContext } from './SearchBar/hooks'
