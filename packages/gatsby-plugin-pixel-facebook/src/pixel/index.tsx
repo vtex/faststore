@@ -5,6 +5,7 @@ import { useLazyScript } from '@vtex/gatsby-theme-store/src/sdk/lazyScript/useLa
 import { usePixelEvent } from '@vtex/gatsby-theme-store/src/sdk/pixel/usePixelEvent'
 import { once } from '@vtex/gatsby-theme-store/src/sdk/once'
 
+import type { FBPixelProviderProps } from './types'
 import { handler } from './handler'
 
 const setupFBPixel = once((pixelId: string) => {
@@ -37,12 +38,11 @@ const useSetupFBPixel = (pixelId: string) =>
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setupFBPixel(pixelId), [])
 
-interface Props {
-  pixelId: string
-  timeout?: number
-}
-
-const Provider: FC<Props> = ({ children, pixelId, timeout = 5500 }) => {
+const Provider: FC<FBPixelProviderProps> = ({
+  children,
+  pixelId,
+  timeout = 5500,
+}) => {
   // Setup FB Pixel
   useSetupFBPixel(pixelId)
 
