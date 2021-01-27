@@ -15,7 +15,6 @@ export const DEFAULT_OPTIONS = {
   refreshWhenHidden: false,
   refreshWhenOffline: false,
   revalidateOnFocus: false,
-  revalidateOnMount: false,
   revalidateOnReconnect: false,
   shouldRetryOnError: true,
 }
