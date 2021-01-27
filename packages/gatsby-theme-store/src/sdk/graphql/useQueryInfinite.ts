@@ -1,6 +1,7 @@
 import { useSWRInfinite } from 'swr'
 import type { SWRInfiniteConfigInterface } from 'swr'
 
+import { DEFAULT_OPTIONS } from './useQuery'
 import { request } from './request'
 import type { RequestOptions } from './request'
 
@@ -27,5 +28,9 @@ export const useQueryInfinite = <Query = any, Variables = any>(
         ...queryOptions,
         variables,
       }),
-    config
+    {
+      ...DEFAULT_OPTIONS,
+      revalidateAll: false,
+      ...config,
+    }
   )
