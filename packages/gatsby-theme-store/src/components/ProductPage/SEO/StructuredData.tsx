@@ -16,9 +16,9 @@ const StructuredData: FC<Props> = ({
   },
 }) => {
   const [currency] = useCurrency()
-  const structuredProduct = useStructuredProduct(product!, currency)
+  const pageStructuredData = useStructuredProduct(product!, currency)
 
-  if (structuredProduct == null) {
+  if (pageStructuredData.length === 0) {
     return null
   }
 
@@ -27,7 +27,7 @@ const StructuredData: FC<Props> = ({
       script={[
         {
           type: 'application/ld+json',
-          innerHTML: JSON.stringify(structuredProduct),
+          innerHTML: JSON.stringify(pageStructuredData),
         },
       ]}
     />

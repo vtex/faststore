@@ -1,9 +1,10 @@
-import { graphql, useStaticQuery } from 'gatsby'
+import { useLocation } from '@reach/router'
+import { graphql } from 'gatsby'
 import { useMemo } from 'react'
 import type { Offer } from 'schema-dts'
 
+import { useCanonical } from './Canonical'
 import type { StructuredProductFragment_ProductFragment } from './__generated__/StructuredProductFragment_product.graphql'
-import type { StructuredProductSiteMetadataQueryQuery } from './__generated__/StructuredProductSiteMetadataQuery.graphql'
 
 type SKU = NonNullable<
   ArrayItem<NonNullable<StructuredProductFragment_ProductFragment['items']>>
@@ -30,31 +31,21 @@ export const useStructuredProduct = (
   product: StructuredProductFragment_ProductFragment,
   currency: string
 ) => {
-  const { site } = useStaticQuery<StructuredProductSiteMetadataQueryQuery>(
-    graphql`
-      query StructuredProductSiteMetadataQuery {
-        site {
-          siteMetadata {
-            siteUrl
-          }
-        }
-      }
-    `
-  )
+  const canonical = useCanonical()
+  const { host } = useLocation()
 
-  const siteUrl = site?.siteMetadata?.siteUrl
+  const structuredData = []
 
-  return useMemo(() => {
+  const productData = useMemo(() => {
     if (product === null) {
-      return ''
+      return null
     }
 
-    const { productName, items, description, brand, linkText } = product
+    const { productName, items, description, brand } = product
 
     const [sku] = items!
     const images = sku!.images!.map((i) => i!.imageUrl)
-    const url = `${siteUrl}/${linkText}/p`
-    const offers = getSkuOffers(sku!, currency, url)
+    const offers = getSkuOffers(sku!, currency, canonical)
 
     if (!sku || !images || !offers || offers.length === 0 || !brand) {
       return null
@@ -74,7 +65,49 @@ export const useStructuredProduct = (
       gtin13: sku.ean,
       description,
     }
-  }, [product, currency, siteUrl])
+  }, [product, currency, canonical])
+
+  if (productData !== null) {
+    structuredData.push(productData)
+  }
+
+  const breadcrumbData = useMemo(() => {
+    if (
+      product === null ||
+      product.categoryTree == null ||
+      product.categoryTree.length === 0
+    ) {
+      return null
+    }
+
+    const { categoryTree, productName } = product
+
+    const itemListElement = categoryTree.map((item, index: number) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item!.name!,
+      item: `https://${host}/${item!.href}`,
+    }))
+
+    itemListElement.push({
+      '@type': 'ListItem',
+      position: (itemListElement.length as number) + 1,
+      name: productName!,
+      item: canonical,
+    })
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement,
+    }
+  }, [canonical, host, product])
+
+  if (breadcrumbData !== null) {
+    structuredData.push(breadcrumbData)
+  }
+
+  return structuredData
 }
 
 export const fragment = graphql`
@@ -96,6 +129,10 @@ export const fragment = graphql`
           priceValidUntil: PriceValidUntil
         }
       }
+    }
+    categoryTree {
+      href
+      name
     }
   }
 `
