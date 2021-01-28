@@ -70,6 +70,7 @@ export interface PageType {
   metaTagDescription: string
   pageType:
     | 'Product'
+    | 'SubCategory'
     | 'Department'
     | 'Category'
     | 'Brand'

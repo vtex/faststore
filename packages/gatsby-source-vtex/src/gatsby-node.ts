@@ -180,7 +180,13 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     return
   }
 
-  const pageTypesWhitelist = ['Product', 'Department', 'Category', 'Brand']
+  const pageTypesWhitelist = [
+    'Product',
+    'Department',
+    'Category',
+    'Brand',
+    'SubCategory',
+  ]
 
   for (let it = 0; it < pageTypes.length; it++) {
     const pageType = pageTypes[it]
