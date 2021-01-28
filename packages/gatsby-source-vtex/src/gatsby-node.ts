@@ -32,13 +32,28 @@ const getGraphQLUrl = (tenant: string, workspace: string) =>
 
 export interface Options extends PluginOptions, VTEXOptions {
   getStaticPaths?: () => Promise<string[]>
+  pageTypes?: Array<PageType['pageType']>
 }
+
+const DEFAULT_PAGE_TYPES_WHITELIST = [
+  'Product',
+  'Department',
+  'Category',
+  'Brand',
+  'SubCategory',
+]
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
   options: Options
 ) => {
-  const { tenant, workspace, getStaticPaths } = options
+  const {
+    tenant,
+    workspace,
+    getStaticPaths,
+    pageTypes: pageTypesWhitelist = DEFAULT_PAGE_TYPES_WHITELIST,
+  } = options
+
   const {
     actions: { addThirdPartySchema },
     reporter,
@@ -180,14 +195,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     return
   }
 
-  const pageTypesWhitelist = [
-    'Product',
-    'Department',
-    'Category',
-    'Brand',
-    'SubCategory',
-  ]
-
   for (let it = 0; it < pageTypes.length; it++) {
     const pageType = pageTypes[it]
     const staticPath = staticPaths[it]
@@ -324,4 +331,5 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
       /^(vtexcommercestable|vtexcommercebeta)$/
     ),
     getStaticPaths: Joi.function().arity(0),
+    pageTypes: Joi.array().items(Joi.string()),
   })
