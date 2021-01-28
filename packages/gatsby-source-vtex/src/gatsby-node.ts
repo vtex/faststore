@@ -13,26 +13,57 @@ import type {
   CreatePageArgs,
   PluginOptionsSchemaArgs,
 } from 'gatsby'
+import pMap from 'p-map'
 
 import { api } from './api'
 import { fetchVTEX } from './fetch'
-import { createChannelNode, createDepartmentNode } from './utils'
+import {
+  createChannelNode,
+  createDepartmentNode,
+  createStaticPathNode,
+  normalizePath,
+} from './utils'
 import type { VTEXOptions } from './fetch'
-import type { Category, Tenant } from './types'
+import type { Category, PageType, Tenant } from './types'
+import defaultStaticPaths from './staticPaths'
 
 const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`
 
-export interface Options extends PluginOptions, VTEXOptions {}
+export interface Options extends PluginOptions, VTEXOptions {
+  getStaticPaths?: () => Promise<string[]>
+  pageTypes?: Array<PageType['pageType']>
+}
+
+const DEFAULT_PAGE_TYPES_WHITELIST = [
+  'Product',
+  'Department',
+  'Category',
+  'Brand',
+  'SubCategory',
+]
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
   options: Options
 ) => {
-  const { tenant, workspace } = options
+  const {
+    tenant,
+    workspace,
+    getStaticPaths,
+    pageTypes: pageTypesWhitelist = DEFAULT_PAGE_TYPES_WHITELIST,
+  } = options
+
   const {
     actions: { addThirdPartySchema },
+    reporter,
   } = args
+
+  let activity = reporter.activityTimer(
+    '[gatsby-source-vtex]: adding VTEX GraphQL Schema'
+  )
+
+  activity.start()
 
   /**
    * VTEX GraphQL API
@@ -92,25 +123,94 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
   addThirdPartySchema({ schema })
 
+  activity.end()
+
   /**
    * VTEX HTTP API fetches
    * */
 
   // Bindings
+  activity = reporter.activityTimer(
+    '[gatsby-source-vtex]: fetching VTEX Bindings'
+  )
+  activity.start()
+
   const { bindings } = await fetchVTEX<Tenant>(
     api.tenants.tenant(tenant),
     options
   )
 
-  bindings.forEach((binding) => createChannelNode(args, binding))
+  for (const binding of bindings) {
+    createChannelNode(args, binding)
+  }
+
+  activity.end()
 
   // Catetgories
+  activity = reporter.activityTimer(
+    '[gatsby-source-vtex]: fetching VTEX Departments'
+  )
+  activity.start()
+
   const departments = await fetchVTEX<Category[]>(
     api.catalog.category.tree(1),
     options
   )
 
-  departments.forEach((department) => createDepartmentNode(args, department))
+  for (const department of departments) {
+    createDepartmentNode(args, department)
+  }
+
+  activity.end()
+
+  /**
+   * Static Paths used to generate pages
+   */
+
+  activity = reporter.activityTimer(
+    '[gatsby-source-vtex]: fetching StaticPaths'
+  )
+
+  activity.start()
+
+  const staticPaths = (typeof getStaticPaths === 'function'
+    ? await getStaticPaths()
+    : await defaultStaticPaths(options)
+  ).map(normalizePath)
+
+  const pageTypes = await pMap(
+    staticPaths,
+    (path: string) =>
+      fetchVTEX<PageType>(api.catalog.portal.pageType(path), options),
+    {
+      concurrency: 20,
+    }
+  )
+
+  if (pageTypes.length !== staticPaths.length) {
+    reporter.panicOnBuild(
+      '[gatsby-source-vtex]: Length of PageTypes and staticPaths do not agree. No static path will be generated'
+    )
+
+    return
+  }
+
+  for (let it = 0; it < pageTypes.length; it++) {
+    const pageType = pageTypes[it]
+    const staticPath = staticPaths[it]
+
+    if (!pageTypesWhitelist.includes(pageType.pageType)) {
+      reporter.warn(
+        `[gatsby-source-vtex]: Dropping path. Reason: PageType API reported ${pageType.pageType} for path: ${staticPath}`
+      )
+
+      continue
+    }
+
+    createStaticPathNode(args, pageType, staticPath)
+  }
+
+  activity.end()
 }
 
 export const createPages = (
@@ -230,4 +330,6 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     environment: Joi.string().pattern(
       /^(vtexcommercestable|vtexcommercebeta)$/
     ),
+    getStaticPaths: Joi.function().arity(0),
+    pageTypes: Joi.array().items(Joi.string()),
   })
