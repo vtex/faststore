@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import type { ISearchContext } from '../../SearchBar/hooks'
+import type { ISearchContext } from '@vtex/store-ui'
 
 export interface ISuggestionsContext {
   searchBar: ISearchContext

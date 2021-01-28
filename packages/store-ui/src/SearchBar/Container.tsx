@@ -1,4 +1,4 @@
-import { Flex } from '@vtex/store-ui'
+import { Flex } from 'theme-ui'
 import React from 'react'
 import type { FC } from 'react'
 
