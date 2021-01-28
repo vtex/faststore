@@ -1,5 +1,5 @@
 {
-  "version": "0.249.1",
+  "version": "0.249.2-shippingsimulator.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
