@@ -16,7 +16,6 @@ export const onPostBootstrap = (
 
 export interface Options {
   storeId: string
-  getStaticPaths?: () => Promise<string[]>
   locales: string[]
   defaultLocale: string
 }
@@ -26,94 +25,125 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     storeId: Joi.string().required(),
     locales: Joi.array().items(Joi.string()).required(),
     defaultLocale: Joi.string().required(),
-    getStaticPaths: Joi.function().arity(0).required(),
   })
 
-const getRoute = (segments: string[]) => {
-  if (segments.length === 1 && segments[0] === '') {
-    return null
-  }
-
-  if (segments.length === 2 && segments[segments.length - 1] === 'p') {
-    return 'product'
-  }
-
-  if (segments.length >= 1) {
-    return 'search'
-  }
-
-  throw new Error(`Unroutable route: /${segments.join('/')}`)
+interface StaticPath {
+  id: string
+  path: string
+  pageType:
+    | 'Product'
+    | 'Department'
+    | 'Category'
+    | 'Brand'
+    | 'FullText'
+    | 'NotFound'
 }
 
-const normalizePath = (path: string) => {
-  const i = path[0] === '/' ? 1 : 0
-  const j = path[path.length - 1] === '/' ? path.length - 1 : path.length
-
-  return `/${path.slice(i, j)}`
-}
-
-export const createPages = async (
-  { actions: { createPage, createRedirect } }: CreatePagesArgs,
-  { getStaticPaths }: Options
-) => {
+export const createPages = async ({
+  actions: { createPage, createRedirect },
+  graphql,
+  reporter,
+}: CreatePagesArgs) => {
   /**
    * STATIC PATHS
    */
 
-  const staticPaths =
-    typeof getStaticPaths === 'function' ? await getStaticPaths() : []
-
-  staticPaths.map(normalizePath).map(async (path) => {
-    const [, ...segments] = path.split('/')
-    const route = getRoute(segments)
-
-    // Product Pages
-    if (route === 'product') {
-      const [slug] = segments
-
-      createPage({
-        path,
-        component: resolve(__dirname, './src/templates/product.tsx'),
-        context: {
-          slug,
-          staticPath: true,
-        },
-      })
-    }
-
-    // Search Pages
-    else if (route === 'search') {
-      const searchParams = {
-        orderBy: '',
-        query: segments.join('/'),
-        map: new Array(segments.length).fill('c').join(','),
-        selectedFacets: segments.map((segment) => ({
-          key: 'c',
-          value: segment,
-        })),
+  const { data: staticPaths, errors } = await graphql<{
+    searches: { nodes: StaticPath[] }
+    products: { nodes: StaticPath[] }
+  }>(`
+    query GetAllStaticPaths {
+      searches: allStaticPath(
+        filter: { pageType: { in: ["Department", "Category", "Brand"] } }
+      ) {
+        nodes {
+          ...staticPath
+        }
       }
-
-      createPage({
-        path,
-        component: resolve(__dirname, './src/templates/search.tsx'),
-        context: {
-          ...searchParams,
-          canonicalPath: path,
-          staticPath: true,
-        },
-      })
-
-      createPage({
-        path: `${path}/__client_side_search__`,
-        matchPath: `${path}/*`,
-        component: resolve(__dirname, './src/templates/search.tsx'),
-        context: {
-          canonicalPath: path,
-          staticPath: false,
-        },
-      })
+      products: allStaticPath(filter: { pageType: { eq: "Product" } }) {
+        nodes {
+          ...staticPath
+        }
+      }
     }
-  })
+
+    fragment staticPath on StaticPath {
+      id
+      path
+      pageType
+    }
+  `)
+
+  if (errors && errors.length > 0) {
+    reporter.panicOnBuild(
+      `[gatsby-theme-store]: Something went wrong while querying for static paths: ${errors.toString()}`
+    )
+
+    return
+  }
+
+  const {
+    searches: { nodes: searches = [] },
+    products: { nodes: products = [] },
+  } = staticPaths!
+
+  /**
+   * Create search static paths
+   */
+  for (const search of searches) {
+    const { path, id, pageType } = search
+    const [, ...segments] = path.split('/')
+    const key = pageType === 'Brand' ? 'b' : 'c'
+
+    const searchParams = {
+      orderBy: '',
+      query: segments.join('/'),
+      map: new Array(segments.length).fill(key).join(','),
+      selectedFacets: segments.map((segment) => ({
+        key,
+        value: segment,
+      })),
+    }
+
+    createPage({
+      path,
+      component: resolve(__dirname, './src/templates/search.tsx'),
+      context: {
+        ...searchParams,
+        id,
+        canonicalPath: path,
+        staticPath: true,
+      },
+    })
+
+    createPage({
+      path: `${path}/__client_side_search__`,
+      matchPath: `${path}/*`,
+      component: resolve(__dirname, './src/templates/search.tsx'),
+      context: {
+        id,
+        canonicalPath: path,
+        staticPath: false,
+      },
+    })
+  }
+
+  /**
+   * Create product static paths
+   */
+  for (const product of products) {
+    const { path } = product
+    const [, slug] = path.split('/')
+
+    createPage({
+      path,
+      component: resolve(__dirname, './src/templates/product.tsx'),
+      context: {
+        slug,
+        staticPath: true,
+      },
+    })
+  }
 
   /**
    * CLIENT ONLY PATHS
