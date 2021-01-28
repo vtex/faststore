@@ -71,7 +71,9 @@ const staticPaths = async ({
       continue
     }
 
-    paths.push(`/${slugify(brand.name, { replacement: '-', lower: true })}`)
+    paths.push(
+      `/${slugify(brand.name, { replacement: '-', lower: true, strict: true })}`
+    )
   }
 
   // Add product paths into the final array
