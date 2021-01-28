@@ -187,7 +187,9 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     const staticPath = staticPaths[it]
 
     if (!pageTypesWhitelist.includes(pageType.pageType)) {
-      reporter.warn(`[gatsby-source-vtex]: Dropping path ${staticPath}`)
+      reporter.warn(
+        `[gatsby-source-vtex]: Dropping path. Reason: PageType API reported ${pageType.pageType} for path: ${staticPath}`
+      )
 
       continue
     }
