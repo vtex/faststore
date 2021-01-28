@@ -165,7 +165,8 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
   const pageTypes = await pMap(
     staticPaths,
-    (path) => fetchVTEX<PageType>(api.catalog.portal.pageType(path), options),
+    (path: string) =>
+      fetchVTEX<PageType>(api.catalog.portal.pageType(path), options),
     {
       concurrency: 20,
     }
