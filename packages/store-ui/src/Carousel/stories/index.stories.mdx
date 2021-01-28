@@ -1,0 +1,27 @@
+import React from 'react'
+
+import baseTheme from '../theme'
+import allItems from './fixtures/items'
+import Carousel from '../index.tsx'
+
+import { Meta, Story, Preview, Canvas } from '@storybook/addon-docs/blocks'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
+import { action } from '@storybook/addon-actions'
+
+<Meta title="Carousel" component={Carousel} />
+
+# Carousel
+
+\* Default values
+
+## Usage
+
+| Props   | Values                                    | Description |
+| ------- | ----------------------------------------- | ----------- |
+| example | <code>false\*</code> \| <code>true</code> | Lorem ipsum |
+
+<Canvas>
+  <Story name="default">
+    <Carousel height="540px" width="360px" allItems={allItems} />
+  </Story>
+</Canvas>
