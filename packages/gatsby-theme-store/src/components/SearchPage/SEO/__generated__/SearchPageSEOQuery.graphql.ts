@@ -26,7 +26,7 @@ export type SearchPageSeoQueryQuery = { site: Maybe<{ siteMetadata: Maybe<{ titl
 // Query Related Code
 
 export const SearchPageSEOQuery = {
-  query: undefined,
+  query: "query SearchPageSEOQuery {\n  site {\n    siteMetadata {\n      title\n      siteUrl\n      description\n      author\n    }\n  }\n}\n",
   sha256Hash: "0a1dc02e238fe0141de8070972491e15946f3d9e448df48c6e90487029196ca8",
   operationName: "SearchPageSEOQuery",
 }
