@@ -180,8 +180,19 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     return
   }
 
+  const pageTypesWhitelist = ['Product', 'Department', 'Category', 'Brand']
+
   for (let it = 0; it < pageTypes.length; it++) {
-    createStaticPathNode(args, pageTypes[it], staticPaths[it])
+    const pageType = pageTypes[it]
+    const staticPath = staticPaths[it]
+
+    if (!pageTypesWhitelist.includes(pageType.pageType)) {
+      reporter.warn(`[gatsby-source-vtex]: Dropping path ${staticPath}`)
+
+      continue
+    }
+
+    createStaticPathNode(args, pageType, staticPath)
   }
 
   activity.end()
