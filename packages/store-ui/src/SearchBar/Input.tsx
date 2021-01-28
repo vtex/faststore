@@ -1,13 +1,10 @@
-import { useLocation } from '@reach/router'
-import {
-  Box,
-  Popover,
-  PopoverDisclosure,
-  usePopoverState,
-} from '@vtex/store-ui'
 import React, { useCallback, useEffect, useRef } from 'react'
 import type { ChangeEvent, FC } from 'react'
-import type { InputProps, PopoverInitialState } from '@vtex/store-ui'
+import { Box } from 'theme-ui'
+import type { InputProps } from 'theme-ui'
+import { Popover, PopoverDisclosure, usePopoverState } from 'reakit/Popover'
+import type { PopoverInitialState } from 'reakit/Popover'
+import { useLocation } from '@reach/router'
 
 import { useSearchBarContext } from './hooks'
 

@@ -1,13 +1,16 @@
 /** @jsx jsx */
 import { Suspense, lazy } from 'react'
-import { jsx } from '@vtex/store-ui'
+import {
+  jsx,
+  SearchBarButton,
+  SearchBarInput,
+  SearchBarProvider,
+  SearchBarContainer,
+} from '@vtex/store-ui'
 import type { FC } from 'react'
 import type { PopoverInitialState } from '@vtex/store-ui'
 
-import SearchBarButton from './Button'
-import SearchBarInput from './Input'
-import SearchBarProvider from './Provider'
-import SearchBarContainer from './Container'
+import { search } from '../../sdk/search/controller'
 
 const SearchSuggestions = lazy(() => import('../SearchSuggestions'))
 
@@ -25,7 +28,7 @@ const SearchBar: FC<Props> = ({
   placeholder,
 }) => (
   <SearchBarContainer>
-    <SearchBarProvider>
+    <SearchBarProvider onSearch={search}>
       <SearchBarInput
         variant={variant}
         aria-label={label}
