@@ -1,3 +1,4 @@
+import ThemeProvider from './decorators/ThemeProvider'
 import GatsbyIntlProvider from './decorators/GatsbyIntlProvider'
 import { addDecorator } from '@storybook/react'
 import { withContexts } from '@storybook/addon-contexts/react'
@@ -12,3 +13,7 @@ export const parameters = {
   },
   layout: 'fullscreen',
 }
+
+addDecorator(withContexts(contexts))
+addDecorator(GatsbyIntlProvider)
+addDecorator(ThemeProvider)

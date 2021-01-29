@@ -1,0 +1,40 @@
+import EmailForm from '../EmailForm'
+import { Box, Flex } from 'theme-ui'
+
+import { Meta, Story, Preview, Canvas } from '@storybook/addon-docs/blocks'
+
+<Meta title="EmailForm" component={EmailForm} />
+
+# EmailForm
+
+\* Default values
+
+## Usage
+
+| Props   | Values                                    | Description |
+| ------- | ----------------------------------------- | ----------- |
+| example | <code>false\*</code> \| <code>true</code> | Lorem ipsum |
+
+<Canvas>
+  <Story name="default">
+    {({ variant: v }) => {
+      const variant = `emailAndPassword.page`
+      return (
+        <Flex variant="login.page.container">
+          <Box variant="login.page.group">
+            <EmailForm
+              state={{ state: 'emailForm' }}
+              variant={variant}
+              onBack={() => console.log('EmailForm back')}
+              onSubmit={async (email) => {
+                console.log('EmailForm Submit data:', {
+                  email,
+                })
+              }}
+            />
+          </Box>
+        </Flex>
+      )
+    }}
+  </Story>
+</Canvas>

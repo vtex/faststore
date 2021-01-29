@@ -13,12 +13,12 @@ import MessagesPt from '../i18n/pt.json'
 //   }
 // }, {})
 
-const GatsbyIntlProvider = ({ children }) => {
+const Provider = (Story) => {
   return (
     <IntlProvider locale="pt" defaultLocale="pt" messages={MessagesPt}>
-      {children}
+      {Story()}
     </IntlProvider>
   )
 }
 
-export default GatsbyIntlProvider
+export default Provider
