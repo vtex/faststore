@@ -1,6 +1,8 @@
-import { Box, Skeleton } from '@vtex/store-ui'
+import { Box } from 'theme-ui'
 import React from 'react'
 import type { FC } from 'react'
+
+import Skeleton from '../Skeleton'
 
 interface Props {
   variant: string
