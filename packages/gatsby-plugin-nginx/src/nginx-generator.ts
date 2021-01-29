@@ -88,6 +88,12 @@ function generateNginxConfiguration({
         {
           cmd: ['http'],
           children: [
+            {
+              cmd: ['map', '$http_origin', '$origin'],
+              children: [
+                { cmd: ['~^https?://(<hostname>.*)/?.*$', '$hostname'] },
+              ],
+            },
             { cmd: ['access_log', '/var/log/nginx_access.log'] },
             { cmd: ['include', '/etc/nginx/mime.types'] },
             { cmd: ['default_type', 'application/octet-stream'] },

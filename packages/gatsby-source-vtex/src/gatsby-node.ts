@@ -230,7 +230,7 @@ export const createPages = (
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin',
     },
   })
 
@@ -240,7 +240,7 @@ export const createPages = (
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin',
     },
   })
 
@@ -251,7 +251,7 @@ export const createPages = (
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin',
     },
   })
 
@@ -262,7 +262,7 @@ export const createPages = (
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin',
     },
   })
 
@@ -286,7 +286,7 @@ export const createPages = (
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin',
     },
   })
 
@@ -297,7 +297,7 @@ export const createPages = (
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin',
     },
   })
 
@@ -307,7 +307,7 @@ export const createPages = (
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin',
     },
   })
 
@@ -318,7 +318,7 @@ export const createPages = (
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin',
     },
   })
 }
