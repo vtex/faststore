@@ -1,11 +1,16 @@
+import Button from '../Button'
 import EmailForm from '../EmailForm'
+import SignInForm from '../SignInForm'
+import SignUpForm from '../SignUpForm'
 import { Box, Flex } from 'theme-ui'
 
 import { Meta, Story, Preview, Canvas } from '@storybook/addon-docs/blocks'
 
-<Meta title="EmailForm" component={EmailForm} />
+<Meta title="EmailAndPassword" />
 
-# EmailForm
+# EmailAndPassword
+
+Some description.
 
 \* Default values
 
@@ -16,25 +21,63 @@ import { Meta, Story, Preview, Canvas } from '@storybook/addon-docs/blocks'
 | example | <code>false\*</code> \| <code>true</code> | Lorem ipsum |
 
 <Canvas>
-  <Story name="default">
-    {({ variant: v }) => {
-      const variant = `emailAndPassword.page`
-      return (
-        <Flex variant="login.page.container">
-          <Box variant="login.page.group">
-            <EmailForm
-              state={{ state: 'emailForm' }}
-              variant={variant}
-              onBack={() => console.log('EmailForm back')}
-              onSubmit={async (email) => {
-                console.log('EmailForm Submit data:', {
-                  email,
-                })
-              }}
-            />
-          </Box>
-        </Flex>
-      )
-    }}
+  <Story name="Button">
+    <Flex variant="login.page.container">
+      <Box variant="login.page.group">
+        <Button variant="login.page" onClick={() => console.log('Click')} />
+      </Box>
+    </Flex>
+  </Story>
+  <Story name="EmailForm">
+    <Flex variant="login.page.container">
+      <Box variant="login.page.group">
+        <EmailForm
+          state={{ state: 'emailForm' }}
+          variant="emailAndPassword.page"
+          onBack={() => console.log('EmailForm back')}
+          onSubmit={async (email) => {
+            console.log('EmailForm Submit data:', {
+              email,
+            })
+          }}
+        />
+      </Box>
+    </Flex>
+  </Story>
+  <Story name="SignInForm">
+    <Flex variant="login.page.container">
+      <Box variant="login.page.group">
+        <SignInForm
+          state={{ state: 'signInForm' }}
+          variant="emailAndPassword.page"
+          onSubmit={async (email, password) => {
+            console.log('SignInForm Submit data:', {
+              email,
+              password,
+            })
+          }}
+          onForgotPassword={() => console.log(`SignInForm forgot password`)}
+          onSignUp={() => console.log(`SignInForm sign up`)}
+        />
+      </Box>
+    </Flex>
+  </Story>
+  <Story name="SignUpForm">
+    <Flex variant="login.page.container">
+      <Box variant="login.page.group">
+        <SignUpForm
+          state={{ state: 'signUpForm' }}
+          variant="emailAndPassword.page"
+          onBack={() => console.log('SignUpForm back')}
+          onSubmit={async (email, password, confirmPassword) => {
+            console.log('SignUnForm Submit data:', {
+              email,
+              password,
+              confirmPassword,
+            })
+          }}
+        />
+      </Box>
+    </Flex>
   </Story>
 </Canvas>

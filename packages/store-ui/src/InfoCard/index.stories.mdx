@@ -1,22 +1,26 @@
-import React from 'react'
-import { ThemeProvider } from 'theme-ui'
-import type { Theme } from 'theme-ui'
-
-import { baseTheme } from '../theme'
 import InfoCardImage from './Image'
 import InfoCard from './index'
 import InfoCardInfo from './Info'
 import InfoCardInfoAction from './InfoAction'
-import infoCardTheme from './theme'
-import { createTheme } from '../createTheme'
 
-export default {
-  title: 'Card',
-  component: InfoCard,
-}
+import { Meta, Story, Preview, Canvas } from '@storybook/addon-docs/blocks'
 
-export const Fold = () => (
-  <ThemeProvider theme={createTheme(baseTheme, infoCardTheme) as Theme}>
+<Meta title="InfoCard" />
+
+# InfoCard
+
+Some description.
+
+\* Default values
+
+## Usage
+
+| Props   | Values                                    | Description |
+| ------- | ----------------------------------------- | ----------- |
+| example | <code>false\*</code> \| <code>true</code> | Lorem ipsum |
+
+<Canvas>
+  <Story name="default">
     <InfoCard>
       <InfoCardInfo title="New Promotion!">
         <InfoCardInfoAction href="/vintage-phone/p" label="BUY NOW" />
@@ -27,5 +31,5 @@ export const Fold = () => (
         alt="infocard-banner"
       />
     </InfoCard>
-  </ThemeProvider>
-)
+  </Story>
+</Canvas>
