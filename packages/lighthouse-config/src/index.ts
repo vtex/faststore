@@ -1,6 +1,7 @@
 interface Params {
   server?: string
   urls: string[]
+  assertions?: any
 }
 
 /**
@@ -8,7 +9,7 @@ interface Params {
  * throttling mobileSlow4G: https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/constants.js#L22
  */
 
-const lhConfig = ({ urls, server }: Params) => {
+const lhConfig = ({ urls, server, assertions = {} }: Params) => {
   const url = urls.map((path) => `${server}${path}`)
 
   return {
@@ -58,6 +59,7 @@ const lhConfig = ({ urls, server }: Params) => {
           'uses-text-compression': ['warn', { maxLength: 1 }],
           bypass: 'off',
           interactive: ['error', { maxNumericValue: 3000 }],
+          ...assertions,
         },
       },
       upload: {
