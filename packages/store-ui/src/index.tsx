@@ -135,3 +135,6 @@ export { default as SearchBarProvider } from './SearchBar/Provider'
 export { default as searchBarTheme } from './SearchBar/theme'
 export { SearchBarContext, useSearchBarContext } from './SearchBar/hooks'
 export type { ISearchContext } from './SearchBar/hooks'
+// Login
+export { default as LoginLogo } from './Login/Logo'
+export { default as loginTheme } from './Login/theme'
