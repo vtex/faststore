@@ -12,11 +12,6 @@ type MoveEventsType = {
   pointerdown: 'pointermove'
 }
 
-interface MouseTouchEvent extends TouchEvent {
-  pageX: number
-  persist(): Promise<boolean>
-}
-
 const UP_EVENTS: UpEventsType[] = ['mouseup', 'pointerup', 'touchend']
 
 const MOVE_EVENT_MAP: MoveEventsType = {
@@ -38,12 +33,19 @@ function quantize(value: number, step: number) {
 /**
  * Get the event pageX attribute, with support for mobile events
  */
-function getPageX(evt: MouseTouchEvent) {
-  if (evt.targetTouches && evt.targetTouches.length > 0) {
-    return evt.targetTouches[0].pageX
+function getPageX(evt: React.TouchEvent | React.MouseEvent) {
+  if (
+    evt.nativeEvent instanceof TouchEvent &&
+    evt.nativeEvent.targetTouches.length > 0
+  ) {
+    return evt.nativeEvent.targetTouches[0].pageX
   }
 
-  return evt.pageX
+  if (evt.nativeEvent instanceof MouseEvent) {
+    return evt.nativeEvent.screenX
+  }
+
+  return 0
 }
 
 /**
@@ -63,7 +65,7 @@ type Props = {
   alwaysShowCurrentValue: boolean
   formatValue: (value: number) => number
   range: boolean
-  handleIcon: ComponentType
+  handleIcon: ComponentType | null
 }
 
 const Slider: FC<Props> = ({
@@ -207,7 +209,10 @@ const Slider: FC<Props> = ({
     }
   }
 
-  const updatePositionFromEvent = (e: MouseTouchEvent, position: string) => {
+  const updatePositionFromEvent = (
+    e: React.TouchEvent | React.MouseEvent,
+    position: string
+  ) => {
     const slider = sliderRef.current
     const rect = slider!.getBoundingClientRect()
 
@@ -220,7 +225,9 @@ const Slider: FC<Props> = ({
     updatePositionForValue(value, position)
   }
 
-  const handleDrag = (position: string) => (e: MouseTouchEvent) => {
+  const handleDrag = (position: string) => (
+    e: React.TouchEvent | React.MouseEvent
+  ) => {
     e.preventDefault()
     updatePositionFromEvent(e, position)
   }
@@ -241,7 +248,9 @@ const Slider: FC<Props> = ({
     updateLayout()
   }
 
-  const handleDragStart = (position: string) => (e: MouseTouchEvent) => {
+  const handleDragStart = (position: string) => (
+    e: React.TouchEvent | React.MouseEvent
+  ) => {
     e.stopPropagation()
 
     if (disabled || dragging) {
@@ -275,20 +284,23 @@ const Slider: FC<Props> = ({
       UP_EVENTS.forEach((evtName) =>
         document.body.removeEventListener(evtName, handleUpEvent)
       )
-      document.body.removeEventListener(MOVE_EVENT_MAP[e.type], moveHandler)
+      document.body.removeEventListener(
+        MOVE_EVENT_MAP[e.type] as any,
+        moveHandler
+      )
       document.body.removeEventListener('keydown', handleKeyDown)
     })
 
     UP_EVENTS.forEach((evtName) =>
       document.body.addEventListener(evtName, handleUpEvent)
     )
-    document.body.addEventListener(MOVE_EVENT_MAP[e.type], moveHandler)
+    document.body.addEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
     document.body.addEventListener('keydown', handleKeyDown)
 
     updatePositionFromEvent(e, position)
   }
 
-  const handleSliderMouseDown = (e: MouseTouchEvent) => {
+  const handleSliderMouseDown = (e: React.TouchEvent | React.MouseEvent) => {
     const rect = sliderRef!.current!.getBoundingClientRect()
     const xPos = getPageX(e) - rect.left
 
