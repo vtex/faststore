@@ -10,7 +10,7 @@ interface Props {
   displayPopup?: boolean
   formatValue: (value: number) => number
   offset: number
-  icon: ComponentType
+  icon: ComponentType | null
 }
 
 const Selector: FC<Props> = ({
