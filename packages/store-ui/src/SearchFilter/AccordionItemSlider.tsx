@@ -14,6 +14,7 @@ type MoveEventsType = {
 
 interface MouseTouchEvent extends TouchEvent {
   pageX: number
+  persist(): Promise<boolean>
 }
 
 const UP_EVENTS: UpEventsType[] = ['mouseup', 'pointerup', 'touchend']
@@ -89,6 +90,19 @@ const Slider: FC<Props> = ({
         : max,
   })
 
+  const [cancelDragEvent_, setCancelDragEvent] = useState<
+    (() => void) | undefined
+  >(undefined)
+
+  const [valuesBeforeDrag_, setValuesBeforeDrag] = useState({
+    left: defaultValues && defaultValues.length > 0 ? defaultValues[0] : min,
+    right:
+      range && defaultValues && defaultValues.length >= 2
+        ? defaultValues[1]
+        : max,
+    isCurrentValue: false,
+  })
+
   const getTranslateValueForInputValue = useCallback(
     (value: number, position: string) => {
       const rect = sliderRef!.current!.getBoundingClientRect()
@@ -146,10 +160,10 @@ const Slider: FC<Props> = ({
 
       if (cancelDragEvent_) {
         cancelDragEvent_()
-        cancelDragEvent_ = undefined
+        setCancelDragEvent(undefined)
       }
     }
-  }, [defaultValues, updateLayout])
+  }, [cancelDragEvent_, defaultValues, updateLayout])
 
   const getValueForPercent = (percentageComplete: number, position: string) => {
     const rawValue = min + percentageComplete * (max - min)
@@ -184,7 +198,7 @@ const Slider: FC<Props> = ({
   const handleDragEnd = () => {
     setDragging(null)
 
-    cancelDragEvent_ = undefined
+    setCancelDragEvent(undefined)
 
     if (range) {
       onChange([values.left, values.right])
@@ -219,9 +233,11 @@ const Slider: FC<Props> = ({
     setDragging(false)
     setValues(valuesBeforeDrag_)
 
-    cancelDragEvent_()
-    cancelDragEvent = undefined
+    if (cancelDragEvent_) {
+      cancelDragEvent_()
+    }
 
+    setCancelDragEvent(undefined)
     updateLayout()
   }
 
@@ -234,7 +250,7 @@ const Slider: FC<Props> = ({
 
     setDragging(position)
 
-    valuesBeforeDrag_ = values
+    setValuesBeforeDrag({ ...values, isCurrentValue: true })
 
     // https://reactjs.org/docs/events.html#event-pooling
     e.persist()
@@ -242,21 +258,26 @@ const Slider: FC<Props> = ({
     const moveHandler = handleDrag(position)
 
     const handleUpEvent = () => {
-      cancelDragEvent_()
+      if (cancelDragEvent_ !== undefined) {
+        cancelDragEvent_()
+      }
+
       handleDragEnd()
     }
 
     // The events bellow are attached to the body because we need
     // to support the dragging event *outside* of the slider bounds
 
-    const cancelDragEvent_ = () => {
-      valuesBeforeDrag_ = undefined
+    setCancelDragEvent(() => {
+      setValuesBeforeDrag((oldValues) => {
+        return { ...oldValues, isCurrentValue: false }
+      })
       UP_EVENTS.forEach((evtName) =>
         document.body.removeEventListener(evtName, handleUpEvent)
       )
       document.body.removeEventListener(MOVE_EVENT_MAP[e.type], moveHandler)
       document.body.removeEventListener('keydown', handleKeyDown)
-    }
+    })
 
     UP_EVENTS.forEach((evtName) =>
       document.body.addEventListener(evtName, handleUpEvent)
@@ -267,7 +288,7 @@ const Slider: FC<Props> = ({
     updatePositionFromEvent(e, position)
   }
 
-  const handleSliderMouseDown = (e: TouchEvent) => {
+  const handleSliderMouseDown = (e: MouseTouchEvent) => {
     const rect = sliderRef!.current!.getBoundingClientRect()
     const xPos = getPageX(e) - rect.left
 
@@ -288,8 +309,11 @@ const Slider: FC<Props> = ({
 
   const { left, right } = translate
 
-  const lastLeftValue = valuesBeforeDrag_ ? valuesBeforeDrag_.left : values.left
-  const lastRightValue = valuesBeforeDrag_
+  const lastLeftValue = valuesBeforeDrag_.isCurrentValue
+    ? valuesBeforeDrag_.left
+    : values.left
+
+  const lastRightValue = valuesBeforeDrag_.isCurrentValue
     ? valuesBeforeDrag_.right
     : values.right
 
