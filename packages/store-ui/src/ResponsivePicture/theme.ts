@@ -4,15 +4,12 @@ const responsivePicture: SxStyleProp = {
   picture: {
     display: 'block',
     overflow: 'hidden',
+    height: '350px',
   },
 
   img: {
-    minWidth: '100%',
-    width: 'auto',
-    height: 'auto',
-    marginLeft: '50%',
-    transform: 'translateX(-50%)',
-    zIndex: -2,
+    width: '100%',
+    objectFit: 'cover',
   },
 }
 

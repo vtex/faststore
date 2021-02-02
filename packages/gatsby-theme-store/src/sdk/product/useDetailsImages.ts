@@ -1,7 +1,7 @@
 import { useLocation } from '@reach/router'
 import { useMemo } from 'react'
 
-import { scaleFileManagerImage } from '../img/fileManager'
+import { scaleImage } from '../img/arquivos/scale'
 import { DETAILS_IMAGE, IMAGE_DEFAULT, SUMMARY_IMAGE } from './constants'
 
 interface Image {
@@ -32,16 +32,11 @@ export const useDetailsImages = (maybeImages: Image[] | undefined) => {
         const useSummary = fromSummary === true && index === 0
 
         const srcSet = DETAILS_IMAGE.map(
-          ({ width, height }) =>
-            `${scaleFileManagerImage(src, width, height)} ${width}w`
+          ({ width, height }) => `${scaleImage(src, width, height)} ${width}w`
         ).join(', ')
 
         const srcSetPlaceholder = useSummary
-          ? scaleFileManagerImage(
-              src,
-              SUMMARY_IMAGE.width,
-              SUMMARY_IMAGE.height
-            )
+          ? scaleImage(src, SUMMARY_IMAGE.width, SUMMARY_IMAGE.height)
           : srcSet
 
         const sizesPlaceholder = useSummary ? '(minWidth: 0px) 100vw' : sizes
