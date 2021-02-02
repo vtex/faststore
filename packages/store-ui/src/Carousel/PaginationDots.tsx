@@ -1,3 +1,3 @@
-import { SliderPaginationDots as CarouselPaginationDots } from '../index'
+import CarouselPaginationDots from '../Slider/PaginationDots'
 
 export default CarouselPaginationDots
