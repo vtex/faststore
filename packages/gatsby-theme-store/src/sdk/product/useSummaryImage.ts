@@ -1,4 +1,4 @@
-import { useScaledImage } from '../img/useScaledImage'
+import { useScaledImage } from '../img/arquivos/useScaledImage'
 import { IMAGE_DEFAULT, SUMMARY_IMAGE } from './constants'
 
 export const useSummaryImage = (maybeSrc: string | undefined) => {
