@@ -4,10 +4,11 @@ const responsivePicture: SxStyleProp = {
   picture: {
     display: 'block',
     overflow: 'hidden',
-    height: '350px',
   },
 
   img: {
+    height: 'auto',
+    aspectRatio: '4 / 3',
     width: '100%',
     objectFit: 'cover',
   },
