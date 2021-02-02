@@ -29,7 +29,7 @@ export type ProductPageQueryQuery = { vtex: { product: Maybe<{ productReference:
 // Query Related Code
 
 export const ProductPageQuery = {
-  query: "query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        name\n        complementName\n        itemId\n        referenceId {\n          value: Value\n        }\n        images {\n          imageUrl\n          imageText\n        }\n        videos {\n          videoUrl\n        }\n        ean\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n      }\n      productClusters {\n        name\n      }\n      description\n      brand\n      categoryTree {\n        href\n        name\n      }\n      productId\n    }\n  }\n}\n",
+  query: undefined,
   sha256Hash: "d4aacb826e7f654ea695eaa2c18347e1ae87145daa3c300bf1119d1a37469675",
   operationName: "ProductPageQuery",
 }
