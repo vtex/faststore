@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { Box, Flex, Label, jsx } from 'theme-ui'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import type { ComponentType, FC } from 'react'
 
@@ -65,7 +67,7 @@ type Props = {
   alwaysShowCurrentValue: boolean
   formatValue: (value: number) => number
   range: boolean
-  handleIcon: ComponentType | null
+  handleIcon?: ComponentType | null
 }
 
 const Slider: FC<Props> = ({
@@ -335,7 +337,7 @@ const Slider: FC<Props> = ({
 
   return (
     <div>
-      <div
+      <Box
         aria-valuenow={0}
         style={{
           height: 24,
@@ -346,20 +348,36 @@ const Slider: FC<Props> = ({
           WebkitUserSelect: 'none',
           userSelect: 'none',
         }}
+        sx={{
+          width: '100%',
+          position: 'relative',
+        }}
         onMouseDown={handleSliderMouseDown}
         onTouchStart={handleSliderMouseDown}
         role="slider"
         tabIndex={0}
       >
-        <div
+        <Box
           ref={sliderRef}
-          style={{
+          sx={{
+            backgroundColor: '#e3e4e6',
+            borderRadius: '9999px',
             height: '0.25rem',
+            overflow: 'hidden',
+            position: 'absolute',
             top: '0.7rem',
+            width: '100%',
           }}
         >
-          <div style={sliderSelectionStyle} />
-        </div>
+          <Box
+            sx={{
+              backgroundColor: '#134cd8',
+              height: '100%',
+              position: 'absolute',
+            }}
+            style={sliderSelectionStyle}
+          />
+        </Box>
         <Selector
           offset={left}
           onDragStart={handleDragStart}
@@ -369,6 +387,11 @@ const Slider: FC<Props> = ({
           value={values.left}
           formatValue={formatValue}
           icon={handleIcon}
+          sx={{
+            left: 0,
+            position: 'absolute',
+            zIndex: 1,
+          }}
         />
         {range && (
           <Selector
@@ -380,19 +403,46 @@ const Slider: FC<Props> = ({
             value={values.right}
             formatValue={formatValue}
             icon={handleIcon}
+            sx={{
+              right: 0,
+              position: 'absolute',
+              zIndex: 1,
+            }}
           />
         )}
-      </div>
+      </Box>
 
-      <div>
-        <label>{formatValue(lastLeftValue)}</label>
+      <Flex sx={{ justifyContent: 'flex-end' }}>
+        <Label
+          sx={{
+            color: '#727273',
+            fontWeight: 'normal',
+            fontSize: '.875rem',
+            textTransform: 'initial',
+            letterSpacing: 0,
+            width: 'auto',
+          }}
+        >
+          {formatValue(lastLeftValue)}
+        </Label>
         {range && (
-          <label>
-            <span>&ndash;</span>
+          <Label
+            sx={{
+              color: '#727273',
+              fontWeight: 'normal',
+              fontSize: '.875rem',
+              textTransform: 'initial',
+              letterSpacing: 0,
+              width: 'auto',
+            }}
+          >
+            <span sx={{ marginLeft: ' .25rem', marginRight: '.25rem' }}>
+              &ndash;
+            </span>
             {formatValue(lastRightValue)}
-          </label>
+          </Label>
         )}
-      </div>
+      </Flex>
     </div>
   )
 }
