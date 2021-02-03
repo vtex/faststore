@@ -6,7 +6,7 @@
   - [Table of contents](#table-of-contents)
   - [An open ecommerce framework](#an-open-ecommerce-framework)
   - [Why building FastStore?](#why-building-faststore)
-  - [Project philosophy](#project-philosophy)
+  - [Project Philosophy](#project-philosophy)
   - [Why Jamstack and Gatsby?](#why-jamstack-and-gatsby)
   - [Continuous Performance and Stability](#continuous-performance-and-stability)
   - [Docs](#docs)
@@ -37,7 +37,7 @@ After years of developing ecommerces, FastStore creators packaged all of this kn
 
 FastStore not only contains code, but knowledge and guidelines to change the way you think and build ecommerces
 
-## Project philosophy
+## Project Philosophy
 
 This project has a very well defined list of priorities. When solving an issue, a lower-ranking priority must not degrade or override an upper ranking priority.
 The priorities are all about the stores' user experience and retailer satisfaction about it. For us that means:
