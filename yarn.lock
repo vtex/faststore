@@ -4603,10 +4603,37 @@
     intl-messageformat-parser "^6.0.18"
     react-intl "^5.7.1"
 
+"@vtex/gatsby-plugin-i18n@^0.248.0":
+  version "0.248.0"
+  resolved "https://registry.npmjs.org/@vtex/gatsby-plugin-i18n/-/gatsby-plugin-i18n-0.248.0.tgz#7749ceac928c44045cbb24d54b4bf09a8deb6371"
+  integrity sha512-QpSpKEykuOJizme5GAaQKW0oDbEVq3RCGXgwp0yeG9Y8xdga8y4K+yGW+PjlCI2RpTmoFqbVNzMiWBunySfUyg==
+  dependencies:
+    "@babel/parser" "^7.12.7"
+    "@babel/preset-typescript" "^7.12.7"
+    "@babel/register" "^7.12.1"
+    "@babel/traverse" "^7.12.9"
+    "@babel/types" "^7.12.7"
+    intl-messageformat-parser "^6.0.18"
+    react-intl "^5.7.1"
+
 "@vtex/gatsby-plugin-theme-ui@^0.230.0":
   version "0.230.0"
   resolved "https://registry.npmjs.org/@vtex/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.230.0.tgz#67ae3fc1ce6f8a14056deb7c62ab4d0e90b40da0"
   integrity sha512-xCdDHRpgS/fufuvPLKUQEkZI3ehS2waaBlMUGkFsdTVbi/DtEcfFwsnK5VvLRW2qcMUINtCjaxTYgWKDznIrIw==
+  dependencies:
+    "@babel/core" "^7.11.4"
+    "@babel/parser" "^7.11.4"
+    "@babel/preset-typescript" "^7.10.4"
+    "@babel/register" "^7.11.5"
+    "@babel/traverse" "^7.11.0"
+    "@babel/types" "^7.11.0"
+    create-emotion-server "^10.0.27"
+    theme-ui "^0.3.1"
+
+"@vtex/gatsby-plugin-theme-ui@^0.248.0":
+  version "0.248.0"
+  resolved "https://registry.npmjs.org/@vtex/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.248.0.tgz#ee32812a0579c7e767e336b50fdeefbba84ee6bd"
+  integrity sha512-TP05s6f8Q7dis8gIuEnDMqbyG4M/w7BpZ4VT46p8D3bVcDroHJvgVjNCI2TbzMVz8npiVbLt6NSuc0GnuD0iGg==
   dependencies:
     "@babel/core" "^7.11.4"
     "@babel/parser" "^7.11.4"
