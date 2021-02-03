@@ -12,6 +12,8 @@
 
 4. Run `yarn develop` at each of the packages that depends on the other.
 
+> You can run a package individually: `yarn workspace {packageName} develop`
+
 ### Developing packages while also testing on a store
 
 1. Repeat the steps from the above section
