@@ -18,6 +18,6 @@ Just run `yarn add @vtex/gatsby-plugin-pixel-facebook` at the root folder of you
 
 ## How to run tests
 
-## How to develop locally
+## How to Develop Locally
 
 ## How to contribute
