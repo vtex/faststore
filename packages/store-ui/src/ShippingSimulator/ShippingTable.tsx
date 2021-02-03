@@ -1,17 +1,27 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box } from '@vtex/store-ui'
+import { Box } from 'theme-ui'
 import React, { useMemo } from 'react'
 import type { FC } from 'react'
 
-import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 import { TranslateEstimate } from './TranslateEstimate'
-import type { ShippingQueryQuery } from './hooks/__generated__/ShippingQuery.graphql'
+
+// Keeping this Maybe<T> so that this component can still be used in our
+// Gatsby theme.
+type Maybe<T> = T | null | undefined
+type ShippingQueryQuery = {
+  vtex: {
+    shippingSLA: Maybe<{
+      deliveryOptions: Array<{ id: string; estimate: string; price: number }>
+    }>
+  }
+}
 
 type ShippingOptionProps = {
   id: string
   estimate: string
   price?: number | null
   variant: string
+  formattingFunction: Intl.NumberFormat['format']
 }
 
 const ShippingOption: FC<ShippingOptionProps> = ({
@@ -19,8 +29,8 @@ const ShippingOption: FC<ShippingOptionProps> = ({
   price,
   estimate,
   variant,
+  formattingFunction,
 }) => {
-  const format = useNumberFormat()
   const intl = useIntl()
 
   const freightPrice = useMemo(() => {
@@ -32,8 +42,8 @@ const ShippingOption: FC<ShippingOptionProps> = ({
       return '-'
     }
 
-    return format.format(price / 100)
-  }, [price, format, intl])
+    return formattingFunction(price / 100)
+  }, [price, formattingFunction, intl])
 
   return (
     <Box as="tr" variant={`${variant}.optionRow`}>
@@ -55,11 +65,13 @@ const ShippingOption: FC<ShippingOptionProps> = ({
 
 type ShippingTableProps = {
   shipping: ShippingQueryQuery | null
+  numberFormattingFunction: Intl.NumberFormat['format']
   variant: string
 }
 
 const ShippingTable: FC<ShippingTableProps> = ({
   shipping,
+  numberFormattingFunction,
   variant: tableVariant,
 }) => {
   const intl = useIntl()
@@ -97,6 +109,7 @@ const ShippingTable: FC<ShippingTableProps> = ({
             <ShippingOption
               variant={tableVariant}
               key={shippingOptionProps.id}
+              formattingFunction={numberFormattingFunction}
               {...shippingOptionProps}
             />
           )

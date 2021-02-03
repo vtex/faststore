@@ -1,8 +1,13 @@
+import { promisify } from 'util'
+import { join } from 'path'
+import { readFile } from 'fs'
+
+import slugify from 'slugify'
 import pMap from 'p-map'
 
 import { api } from './api'
 import { fetchVTEX } from './fetch'
-import type { Category } from './types'
+import type { Brand, Category } from './types'
 
 interface Options {
   tenant: string
@@ -10,6 +15,8 @@ interface Options {
   environment?: 'vtexcommercestable' | 'vtexcommercebeta'
   pages?: number // max number of staticPaths to generate
 }
+
+const readFileAsync = promisify(readFile)
 
 const dfs = (root: Category, paths: string[]) => {
   const url = new URL(root.url)
@@ -21,13 +28,24 @@ const dfs = (root: Category, paths: string[]) => {
   }
 }
 
+const staticPathsFromJson = async () => {
+  const path = join(process.cwd(), 'staticPaths.json')
+  const staticPaths = await readFileAsync(path, { encoding: 'utf-8' })
+
+  return JSON.parse(staticPaths)
+}
+
 const staticPaths = async ({
   tenant,
   workspace = 'master',
   environment = 'vtexcommercestable',
   pages = 100,
 }: Options): Promise<string[]> => {
-  const paths: string[] = [] // final array containing all paths
+  const paths: string[] = await staticPathsFromJson() // final array containing all paths
+
+  if (process.env.NODE_ENV === 'development') {
+    return paths
+  }
 
   const options = {
     tenant,
@@ -44,6 +62,18 @@ const staticPaths = async ({
 
   for (const node of tree) {
     dfs(node, paths)
+  }
+
+  const brands = await fetchVTEX<Brand[]>(api.catalog.brand.list, options)
+
+  for (const brand of brands) {
+    if (!brand.isActive) {
+      continue
+    }
+
+    paths.push(
+      `/${slugify(brand.name, { replacement: '-', lower: true, strict: true })}`
+    )
   }
 
   // Add product paths into the final array

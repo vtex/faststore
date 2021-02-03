@@ -121,6 +121,10 @@ export { default as CarouselPage } from './Carousel/Page'
 export { default as CarouselArrowLeft } from './Carousel/ArrowLeft'
 export { default as CarouselArrowRight } from './Carousel/ArrowRight'
 export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
+
+// ShippingSimulator
+export { default as ShippingSimulator } from './ShippingSimulator'
+
 // Auth Providers
 export * from './Auth/Providers'
 // Search Bar
@@ -131,3 +135,6 @@ export { default as SearchBarProvider } from './SearchBar/Provider'
 export { default as searchBarTheme } from './SearchBar/theme'
 export { SearchBarContext, useSearchBarContext } from './SearchBar/hooks'
 export type { ISearchContext } from './SearchBar/hooks'
+// Login
+export { default as LoginLogo } from './Login/Logo'
+export { default as loginTheme } from './Login/theme'

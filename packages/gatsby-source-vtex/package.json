@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-source-vtex",
-  "version": "0.244.1-alpha.0",
+  "version": "0.253.0",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "@graphql-tools/wrap": "^6.0.15",
     "isomorphic-unfetch": "^3.0.0",
     "p-map": "^4.0.0",
+    "slugify": "^1.4.6",
     "uuid": "^8.3.0"
   },
   "peerDependencies": {

@@ -2,6 +2,13 @@ import type { Sort } from './types'
 
 export const api = {
   catalog: {
+    brand: {
+      list: '/api/catalog_system/pub/brand/list',
+    },
+    portal: {
+      pageType: (path: string) =>
+        `/api/catalog_system/pub/portal/pagetype${path}`,
+    },
     category: {
       tree: (depth: number) => `/api/catalog_system/pub/category/tree/${depth}`,
       search: ({
