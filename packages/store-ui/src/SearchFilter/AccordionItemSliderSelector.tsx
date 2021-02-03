@@ -1,4 +1,5 @@
-import React from 'react'
+/** @jsx jsx */
+import { Box, Flex, jsx } from 'theme-ui'
 import type { ComponentType, FC } from 'react'
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
 
 const Selector: FC<Props> = ({
   active = false,
-  disabled = false,
+  // disabled = false,
   value = 0,
   displayPopup = false,
   icon = null,
@@ -30,33 +31,49 @@ const Selector: FC<Props> = ({
       : { transform: `translateX(-${offset}px) translateX(50%)` }
 
   return (
-    <div
+    <Box
       aria-valuenow={0}
       onMouseDown={() => onDragStart(position)}
       onTouchStart={() => onDragStart(position)}
       role="slider"
       tabIndex={0}
-      style={{
+      sx={{
         ...containerStyle,
+        cursor: 'pointer',
+        left: position === 'left' ? 0 : 'initial',
+        position: 'absolute',
+        right: position === 'right' ? 0 : 'initial',
         willChange: 'transform',
         top: 6.5,
+        zIndex: active ? 2 : 1,
       }}
     >
       {(active || displayPopup) && (
-        <div style={{ left: '50%', bottom: '100%' }}>
-          <div style={{ left: '-50%' }}>{formatValue(value)}</div>
-        </div>
+        <Box
+          sx={{
+            paddingBottom: '.75rem',
+            position: 'absolute',
+            left: '50%',
+            bottom: '100%',
+          }}
+        >
+          <Box style={{ left: '-50%' }}>{formatValue(value)}</Box>
+        </Box>
       )}
-      <div
-        style={{
+      <Flex
+        sx={{
+          alignItems: 'center',
+          backgroundColor: '#134cd8',
+          borderRadius: '100%',
+          boxShadow: '-1px 1px 3px rgba(0, 0, 0, 0.15)',
           height: '0.75rem',
           width: '0.75rem',
-          boxShadow: '-1px 1px 3px rgba(0, 0, 0, 0.15)',
+          justifyContent: 'center',
         }}
       >
         {icon}
-      </div>
-    </div>
+      </Flex>
+    </Box>
   )
 }
 

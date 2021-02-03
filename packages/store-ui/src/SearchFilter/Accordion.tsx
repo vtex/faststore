@@ -5,11 +5,13 @@ import type { FC } from 'react'
 
 import { SearchFilterAccordionCollaipsibleIcon } from './AccordionCollapsibleIcon'
 import type { Item } from './AccordionItemCheckbox'
+import Slider from './AccordionItemSlider'
 
 export type SearchFilterItem = Item
 
 interface Filter {
   name: string
+  type: string
   values: SearchFilterItem[]
 }
 
@@ -54,13 +56,29 @@ export const SearchFilterAccordion: FC<Props> = ({
           header={filter.name}
           isActive={isActiveFn(index)}
         >
-          <Box as="ul" variant={`${variant}.accordion.collapsible.ul`}>
-            {filter.values.map((item, idx) => (
-              <li key={`${filter.name}:${idx}`}>
-                {renderItem(item, `${variant}.accordion.collapsible.li`)}
-              </li>
-            ))}
-          </Box>
+          {filter.type === 'PRICERANGE' ? (
+            <Box variant={`${variant}.accordion.collapsible.ul`}>
+              <Slider
+                onChange={() => {}}
+                min={0}
+                max={99}
+                step={1}
+                disabled={false}
+                defaultValues={[0, 50]}
+                alwaysShowCurrentValue={false}
+                formatValue={(a: number) => a + 1}
+                range
+              />
+            </Box>
+          ) : (
+            <Box as="ul" variant={`${variant}.accordion.collapsible.ul`}>
+              {filter.values.map((item, idx) => (
+                <li key={`${filter.name}:${idx}`}>
+                  {renderItem(item, `${variant}.accordion.collapsible.li`)}
+                </li>
+              ))}
+            </Box>
+          )}
         </BaseAccordion.Section>
       ))}
     </BaseAccordion>
