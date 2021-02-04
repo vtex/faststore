@@ -62,10 +62,10 @@ type Props = {
   max: number
   onChange: (args: number[]) => void
   step: number
-  disabled: boolean
+  disabled?: boolean
   defaultValues: number[]
   alwaysShowCurrentValue: boolean
-  formatValue: (value: number) => number
+  formatValue: (value: number) => number | string
   range: boolean
   handleIcon?: ComponentType | null
 }
@@ -80,11 +80,11 @@ const Slider: FC<Props> = ({
   range = false,
   handleIcon = null,
   defaultValues,
-  disabled,
+  disabled = false,
 }) => {
   const sliderRef = useRef<HTMLDivElement>(null)
 
-  const [dragging, setDragging] = useState<string | false | null>(null)
+  const [dragging, setDragging] = useState<string | false>(false)
   const [translate, setTranslate] = useState({ left: 0, right: 0 })
   const [values, setValues] = useState({
     left: defaultValues && defaultValues.length > 0 ? defaultValues[0] : min,
@@ -120,7 +120,7 @@ const Slider: FC<Props> = ({
 
       return translatePx
     },
-    [max, min]
+    [min, max]
   )
 
   const updatePositionForValue = useCallback(
@@ -128,30 +128,33 @@ const Slider: FC<Props> = ({
       const translatePx = getTranslateValueForInputValue(value, position)
 
       requestAnimationFrame(() => {
-        setValues({
-          ...values,
+        setValues((prevValues) => ({
+          ...prevValues,
           [position]: value,
-        })
-        setTranslate({
-          ...translate,
+        }))
+        setTranslate((prevTranslate) => ({
+          ...prevTranslate,
           [position]: translatePx,
-        })
+        }))
       })
     },
-    [getTranslateValueForInputValue, translate, values]
+    [getTranslateValueForInputValue]
   )
 
   const updateLayout = useCallback(() => {
     updatePositionForValue(values.left, 'left')
     updatePositionForValue(values.right, 'right')
-  }, [updatePositionForValue, values])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updatePositionForValue])
 
+  // ComponentDidUpdate
   useEffect(() => {
     setTranslate({ left: 0, right: 0 })
     setValues({ left: min, right: max })
     updateLayout()
   }, [min, max, updateLayout])
 
+  // ComponentDidMount
   useEffect(() => {
     window.addEventListener('resize', updateLayout)
 
@@ -159,6 +162,7 @@ const Slider: FC<Props> = ({
       updateLayout()
     }
 
+    // ComponentWillUnmount
     return () => {
       window.removeEventListener('resize', updateLayout)
 
@@ -200,7 +204,7 @@ const Slider: FC<Props> = ({
   }
 
   const handleDragEnd = () => {
-    setDragging(null)
+    setDragging(false)
 
     setCancelDragEvent(undefined)
 
@@ -255,7 +259,7 @@ const Slider: FC<Props> = ({
   ) => {
     e.stopPropagation()
 
-    if (disabled || dragging) {
+    if (disabled) {
       return
     }
 
@@ -284,20 +288,17 @@ const Slider: FC<Props> = ({
         return { ...oldValues, isCurrentValue: false }
       })
       UP_EVENTS.forEach((evtName) =>
-        document.body.removeEventListener(evtName, handleUpEvent)
+        document.removeEventListener(evtName, handleUpEvent)
       )
-      document.body.removeEventListener(
-        MOVE_EVENT_MAP[e.type] as any,
-        moveHandler
-      )
-      document.body.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
+      document.removeEventListener('keydown', handleKeyDown)
     })
 
-    UP_EVENTS.forEach((evtName) =>
-      document.body.addEventListener(evtName, handleUpEvent)
-    )
-    document.body.addEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
-    document.body.addEventListener('keydown', handleKeyDown)
+    UP_EVENTS.forEach((evtName) => {
+      document.addEventListener(evtName, handleUpEvent)
+    })
+    document.addEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
+    document.addEventListener('keydown', handleKeyDown)
 
     updatePositionFromEvent(e, position)
   }
@@ -336,10 +337,10 @@ const Slider: FC<Props> = ({
     : { left: 0, width: left }
 
   return (
-    <div>
+    <Box>
       <Box
         aria-valuenow={0}
-        style={{
+        sx={{
           height: 24,
           // since we can't include css with the components, the
           // prefixed attributes need to be included
@@ -347,10 +348,11 @@ const Slider: FC<Props> = ({
           msUserSelect: 'none',
           WebkitUserSelect: 'none',
           userSelect: 'none',
-        }}
-        sx={{
           width: '100%',
           position: 'relative',
+          ':focus': {
+            outline: 0,
+          },
         }}
         onMouseDown={handleSliderMouseDown}
         onTouchStart={handleSliderMouseDown}
@@ -371,7 +373,7 @@ const Slider: FC<Props> = ({
         >
           <Box
             sx={{
-              backgroundColor: '#134cd8',
+              backgroundColor: disabled ? '#e3e4e6' : '#134cd8',
               height: '100%',
               position: 'absolute',
             }}
@@ -387,11 +389,7 @@ const Slider: FC<Props> = ({
           value={values.left}
           formatValue={formatValue}
           icon={handleIcon}
-          sx={{
-            left: 0,
-            position: 'absolute',
-            zIndex: 1,
-          }}
+          sx={{ left: 0 }}
         />
         {range && (
           <Selector
@@ -403,11 +401,7 @@ const Slider: FC<Props> = ({
             value={values.right}
             formatValue={formatValue}
             icon={handleIcon}
-            sx={{
-              right: 0,
-              position: 'absolute',
-              zIndex: 1,
-            }}
+            sx={{ right: 0 }}
           />
         )}
       </Box>
@@ -443,7 +437,7 @@ const Slider: FC<Props> = ({
           </Label>
         )}
       </Flex>
-    </div>
+    </Box>
   )
 }
 
