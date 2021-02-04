@@ -4578,91 +4578,10 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
-"@vtex/gatsby-plugin-graphql@^0.214.0-alpha.6":
-  version "0.214.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@vtex/gatsby-plugin-graphql/-/gatsby-plugin-graphql-0.214.0-alpha.6.tgz#f414feef3fc0a5e2fa54422e435d7994580f3619"
-  integrity sha512-a12shRUK4nCWRzrB4nixdP0g6Fl9l/UbZs/WXr0NZnYf76CJFzslX+EIpY6D9GVA3SUbLB0SQZVb+PxjjbpfpQ==
-  dependencies:
-    "@graphql-codegen/core" "^1.17.7"
-    "@graphql-codegen/plugin-helpers" "^1.17.7"
-    "@graphql-codegen/typescript" "^1.17.7"
-    "@graphql-codegen/typescript-operations" "^1.17.7"
-    "@graphql-tools/relay-operation-optimizer" "^6.0.15"
-    fs-extra "^9.0.1"
-
-"@vtex/gatsby-plugin-i18n@^0.230.0":
-  version "0.230.0"
-  resolved "https://registry.npmjs.org/@vtex/gatsby-plugin-i18n/-/gatsby-plugin-i18n-0.230.0.tgz#60f8bb804b69e3c07ae4924f239dd2461959157a"
-  integrity sha512-mQoesH0QJk59lOwo5XRQK4CRjoa4d4j5kCIykzLr17MV16hE/pspC1F39/GO2lrF2VmLchmvwrD+Xwa0BV64ng==
-  dependencies:
-    "@babel/parser" "^7.12.7"
-    "@babel/preset-typescript" "^7.12.7"
-    "@babel/register" "^7.12.1"
-    "@babel/traverse" "^7.12.9"
-    "@babel/types" "^7.12.7"
-    intl-messageformat-parser "^6.0.18"
-    react-intl "^5.7.1"
-
-"@vtex/gatsby-plugin-theme-ui@^0.230.0":
-  version "0.230.0"
-  resolved "https://registry.npmjs.org/@vtex/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.230.0.tgz#67ae3fc1ce6f8a14056deb7c62ab4d0e90b40da0"
-  integrity sha512-xCdDHRpgS/fufuvPLKUQEkZI3ehS2waaBlMUGkFsdTVbi/DtEcfFwsnK5VvLRW2qcMUINtCjaxTYgWKDznIrIw==
-  dependencies:
-    "@babel/core" "^7.11.4"
-    "@babel/parser" "^7.11.4"
-    "@babel/preset-typescript" "^7.10.4"
-    "@babel/register" "^7.11.5"
-    "@babel/traverse" "^7.11.0"
-    "@babel/types" "^7.11.0"
-    create-emotion-server "^10.0.27"
-    theme-ui "^0.3.1"
-
-"@vtex/gatsby-theme-store@^0.232.0":
-  version "0.232.0"
-  resolved "https://registry.npmjs.org/@vtex/gatsby-theme-store/-/gatsby-theme-store-0.232.0.tgz#bfda78019023713d4b2cc04cab225e81482501a1"
-  integrity sha512-DSk5+bkVZFuCTHFH89T//lqFPDvQn8m33s9PM5OO/f30Dne/vR3HNou66CguU7isSJ42t5JePcNy73chWKp71w==
-  dependencies:
-    "@theme-ui/match-media" "^0.3.1"
-    "@vtex/gatsby-plugin-graphql" "^0.214.0-alpha.6"
-    "@vtex/gatsby-plugin-i18n" "^0.230.0"
-    "@vtex/gatsby-plugin-theme-ui" "^0.230.0"
-    "@vtex/store-ui" "^0.230.0"
-    gatsby-plugin-bundle-stats "^2.2.0"
-    gatsby-plugin-react-helmet-async "^1.1.0"
-    html-loader "^1.1.0"
-    intersection-observer "^0.11.0"
-    intl-format-cache "^4.3.0"
-    markdown-loader "^5.1.0"
-    nprogress "^0.2.0"
-    p-queue "^6.5.0"
-    react-helmet-async "^1.0.7"
-    react-hook-inview "^4.3.0"
-    requestidlecallback-polyfill "^1.0.2"
-    schema-dts "^0.6.0"
-    swr "^0.3.0"
-    text-mask-core "^5.1.0"
-
 "@vtex/prettier-config@^0.3.5":
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.6.tgz#31762608d9a59b815b6d4e963e439b12f1a12279"
   integrity sha512-nXE3BcMODomFK3EowfK+Hdj2qQRqB8JcdRv8yTREXnN9xq8DYKmH/dWB+RY/Hn3KozFLbygpZRbqYsiA6HDINQ==
-
-"@vtex/store-ui@^0.230.0":
-  version "0.230.0"
-  resolved "https://registry.npmjs.org/@vtex/store-ui/-/store-ui-0.230.0.tgz#3ab87522af984c3d863b4855e8d9cb6af3003d40"
-  integrity sha512-2dSqfd30DKYwYIM6/s6CQiXHh5A9IUlKXZY6HTuQpUyzdN3NzE4bw4vBGVKcuV2X/V9ogyLbFkQcGkpzxkfTbg==
-  dependencies:
-    "@theme-ui/match-media" "^0.3.1"
-    "@theme-ui/preset-base" "^0.3.0"
-    "@types/theme-ui__components" "^0.2.6"
-    "@vtex-components/accordion" "^0.2.3"
-    "@vtex-components/drawer" "^0.2.4"
-    "@vtex/gatsby-plugin-i18n" "^0.230.0"
-    deepmerge "^4.2.2"
-    gatsby-link "^2.4.13"
-    react-swipeable "^6.0.0"
-    reakit "^1.3.0"
-    theme-ui "^0.3.1"
 
 "@vtex/tsconfig@^0.5.0":
   version "0.5.6"
@@ -21229,7 +21148,7 @@ text-extensions@^1.0.0:
   resolved "https://registry.yarnpkg.com/text-extensions/-/text-extensions-1.9.0.tgz#1853e45fee39c945ce6f6c36b2d659b5aabc2a26"
   integrity sha512-wiBrwC1EhBelW12Zy26JeOUkQ5mRu+5o8rpsJk5+2t+Y5vE7e842qtZDQ2g1NpX/29HdyFeJ4nSIhI47ENSxlQ==
 
-text-mask-core@^5.1.0, text-mask-core@^5.1.2:
+text-mask-core@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.1.2.tgz#80dd5ebe04825757e46619e691407a9f8b3c1b6f"
   integrity sha1-gN1evgSCV1fkZhnmkUB6n4s8G28=

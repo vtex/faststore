@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-store",
-  "version": "0.254.0",
+  "version": "0.254.1-alpha.0",
   "description": "Gatsby theme for building ecommerce websites",
   "main": "index.js",
   "browser": "src/index.ts",
@@ -33,10 +33,10 @@
   },
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
-    "@vtex/gatsby-plugin-graphql": "^0.214.0-alpha.6",
-    "@vtex/gatsby-plugin-i18n": "^0.248.0",
-    "@vtex/gatsby-plugin-theme-ui": "^0.248.0",
-    "@vtex/store-ui": "^0.254.0",
+    "@vtex/gatsby-plugin-graphql": "^0.253.2-alpha.0",
+    "@vtex/gatsby-plugin-i18n": "^0.253.2-alpha.0",
+    "@vtex/gatsby-plugin-theme-ui": "^0.253.2-alpha.0",
+    "@vtex/store-ui": "^0.253.2-alpha.0",
     "gatsby-plugin-bundle-stats": "^2.2.0",
     "gatsby-plugin-react-helmet-async": "^1.1.0",
     "html-loader": "^1.1.0",
@@ -51,5 +51,4 @@
     "schema-dts": "^0.6.0",
     "swr": "^0.3.0"
   },
-  "gitHead": "4406012da539bec9367e84789ed3d2fef6885ea4"
 }

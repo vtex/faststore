@@ -22,12 +22,12 @@ export type SearchPageQueryQueryVariables = Exact<{
   map: Maybe<Scalars['String']>;
   fullText: Maybe<Scalars['String']>;
   staticPath: Scalars['Boolean'];
-  selectedFacets: Maybe<Array<Vtex_SelectedFacetInput>>;
+  selectedFacets: Maybe<Array<Vtex_SelectedFacetInput> | Vtex_SelectedFacetInput>;
   orderBy?: Maybe<Scalars['String']>;
 }>;
 
 
-export type SearchPageQueryQuery = { vtex: { productSearch: Maybe<{ titleTag: Maybe<string>, recordsFiltered: Maybe<number>, products: Maybe<Array<Maybe<{ productId: Maybe<string>, productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>> }>>> }>>> }>, facets: Maybe<{ breadcrumb: Maybe<Array<Maybe<{ href: Maybe<string>, name: Maybe<string> }>>>, facets: Maybe<Array<Maybe<{ name: Maybe<string>, type: Maybe<Vtex_FilterType>, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number }>>> }>>> }>>> }>>> }> } };
+export type SearchPageQueryQuery = { vtex: { productSearch?: Maybe<{ titleTag: Maybe<string>, recordsFiltered: Maybe<number>, products: Maybe<Array<Maybe<{ productId: Maybe<string>, productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>> }>>> }>>> }>, facets?: Maybe<{ breadcrumb: Maybe<Array<Maybe<{ href: Maybe<string>, name: Maybe<string> }>>>, facets: Maybe<Array<Maybe<{ name: Maybe<string>, type: Maybe<Vtex_FilterType>, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number }>>> }>>> }>>> }>>> }> } };
 
 
 // Query Related Code

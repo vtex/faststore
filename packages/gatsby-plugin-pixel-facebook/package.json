@@ -1,7 +1,7 @@
 {
-  "name": "@vtex/gatsby-plugin-google-tag-manager",
+  "name": "@vtex/gatsby-plugin-pixel-facebook",
   "version": "0.254.1-alpha.0",
-  "description": "Gatsby plugin for using Google Tag Manager with SFJ",
+  "description": "Gatsby plugin for using Facebook Pixel with Store Framework Jamstack",
   "main": "index.js",
   "browser": "src/index.ts",
   "scripts": {
@@ -12,8 +12,8 @@
   "keywords": [
     "gatsby",
     "gatsby-plugin",
-    "gatsby-plugin-google-tag-manager",
-    "gatsby-plugin-gtm",
+    "gatsby-plugin-facebook",
+    "gatsby-plugin-pixel-facebook",
     "vtex"
   ],
   "license": "MIT",
