@@ -10,6 +10,7 @@ const Logo: FC = () => (
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
   >
+    <title>Login Logo</title>
     <use href="#hpa-profile" xlinkHref="#hpa-profile">
       <g id="hpa-profile">
         <path
