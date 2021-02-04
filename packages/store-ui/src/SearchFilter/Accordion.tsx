@@ -57,16 +57,16 @@ export const SearchFilterAccordion: FC<Props> = ({
           isActive={isActiveFn(index)}
         >
           {filter.type === 'PRICERANGE' ? (
-            <Box variant={`${variant}.accordion.collapsible.ul`}>
+            <Box variant={`${variant}.accordion.collapsible.price`}>
               <Slider
                 onChange={() => {}}
                 min={0}
-                max={99}
+                max={200000}
                 step={1}
                 disabled={false}
                 defaultValues={[0, 50]}
                 alwaysShowCurrentValue={false}
-                formatValue={(a: number) => a + 1}
+                formatValue={(a: number) => `R$${a},00`}
                 range
               />
             </Box>
