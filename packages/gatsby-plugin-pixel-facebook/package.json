@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-pixel-facebook",
-  "version": "0.255.6-alpha.0",
+  "version": "0.255.7-alpha.0",
   "description": "Gatsby plugin for using Facebook Pixel with Store Framework Jamstack",
   "main": "index.js",
   "browser": "src/index.ts",
