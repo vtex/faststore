@@ -68,6 +68,10 @@ export const useBuyButton = ({
       id: Number(sku!.itemId),
       quantity,
       seller: seller.sellerId,
+    }
+
+    const orderFormItemWithPrice = {
+      ...orderFormItem,
       price: seller.commercialOffer.price,
     }
 
@@ -84,7 +88,7 @@ export const useBuyButton = ({
       sendPixelEvent({
         type: 'vtex:addToCart',
         data: {
-          items: [orderFormItem],
+          items: [orderFormItemWithPrice],
           oneClickBuy,
         },
       })

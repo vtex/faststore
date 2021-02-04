@@ -4578,41 +4578,10 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
-"@vtex/gatsby-plugin-i18n@^0.253.2-alpha.0":
-  version "0.253.2-alpha.0"
-  resolved "https://registry.npmjs.org/@vtex/gatsby-plugin-i18n/-/gatsby-plugin-i18n-0.253.2-alpha.0.tgz#f521027800b689fedb391da8372b848403a227bd"
-  integrity sha512-wD/KiKw2mRPnB6pkfon7qOPRzDTa347m3H55uVZEXOpk1w8iUf9u5speNjBf1Y2b9mOb8ytJ6kot7TZcIkeI9A==
-  dependencies:
-    "@babel/parser" "^7.12.7"
-    "@babel/preset-typescript" "^7.12.7"
-    "@babel/register" "^7.12.1"
-    "@babel/traverse" "^7.12.9"
-    "@babel/types" "^7.12.7"
-    intl-messageformat-parser "^6.0.18"
-    react-intl "^5.7.1"
-
 "@vtex/prettier-config@^0.3.5":
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.6.tgz#31762608d9a59b815b6d4e963e439b12f1a12279"
   integrity sha512-nXE3BcMODomFK3EowfK+Hdj2qQRqB8JcdRv8yTREXnN9xq8DYKmH/dWB+RY/Hn3KozFLbygpZRbqYsiA6HDINQ==
-
-"@vtex/store-ui@^0.253.2-alpha.0":
-  version "0.253.2-alpha.0"
-  resolved "https://registry.npmjs.org/@vtex/store-ui/-/store-ui-0.253.2-alpha.0.tgz#1c1cc7305b7400ae18af40de024c60f26a5a1a9f"
-  integrity sha512-mYuUk/wHw/0uDhc7uHgKXwTUdxl6aTg2MChxAQq4enMDQjCpXq65If3EtLLUX48bKPXt6UYM0/AwtW7Ux97xgg==
-  dependencies:
-    "@theme-ui/match-media" "^0.3.1"
-    "@theme-ui/preset-base" "^0.3.0"
-    "@types/theme-ui__components" "^0.2.6"
-    "@vtex-components/accordion" "^0.2.3"
-    "@vtex-components/drawer" "^0.2.4"
-    "@vtex/gatsby-plugin-i18n" "^0.253.2-alpha.0"
-    deepmerge "^4.2.2"
-    gatsby-link "^2.4.13"
-    react-swipeable "^6.0.0"
-    reakit "^1.3.0"
-    text-mask-core "^5.1.2"
-    theme-ui "^0.3.1"
 
 "@vtex/tsconfig@^0.5.0":
   version "0.5.6"
