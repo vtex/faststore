@@ -6,17 +6,15 @@ interface Props {
   position: 'left' | 'right'
   onDragStart: (position: string) => void
   active?: boolean
-  disabled?: boolean
   value?: number
   displayPopup?: boolean
-  formatValue: (value: number) => number
+  formatValue: (value: number) => number | string
   offset: number
   icon: ComponentType | null
 }
 
 const Selector: FC<Props> = ({
   active = false,
-  // disabled = false,
   value = 0,
   displayPopup = false,
   icon = null,
@@ -39,13 +37,16 @@ const Selector: FC<Props> = ({
       tabIndex={0}
       sx={{
         ...containerStyle,
-        cursor: 'pointer',
-        left: position === 'left' ? 0 : 'initial',
         position: 'absolute',
-        right: position === 'right' ? 0 : 'initial',
+        cursor: 'pointer',
         willChange: 'transform',
         top: 6.5,
+        left: position === 'left' ? 0 : 'initial',
+        right: position === 'right' ? 0 : 'initial',
         zIndex: active ? 2 : 1,
+        ':focus': {
+          outline: 0,
+        },
       }}
     >
       {(active || displayPopup) && (
@@ -57,7 +58,25 @@ const Selector: FC<Props> = ({
             bottom: '100%',
           }}
         >
-          <Box style={{ left: '-50%' }}>{formatValue(value)}</Box>
+          <Flex
+            sx={{
+              alignItems: 'center',
+              backgroundColor: '#134cd8',
+              border: '1px solid #134cd8',
+              borderRadius: '.25rem',
+              color: '#FFF',
+              padding: '.25rem .5rem',
+              position: 'relative',
+              justifyContent: 'center',
+              left: '-50%',
+              fontWeight: 'normal',
+              fontSize: '.875rem',
+              textTransform: 'initial',
+              letterSpacing: 0,
+            }}
+          >
+            {formatValue(value)}
+          </Flex>
         </Box>
       )}
       <Flex
