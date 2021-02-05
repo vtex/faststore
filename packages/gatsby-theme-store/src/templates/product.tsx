@@ -110,6 +110,7 @@ export const query = graphql`
         ...ProductDetailsTemplate_product
         ...StructuredProductFragment_product
         titleTag
+        metaTagDescription
         productId
         description
         categoryTree {
