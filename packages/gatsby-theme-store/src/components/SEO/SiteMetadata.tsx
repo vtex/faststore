@@ -9,19 +9,22 @@ export interface Props {
   meta?: any[]
   title: string
   author?: string
+  titleTemplate?: string
 }
 
 const SiteMetadata: FC<Props> = ({
+  title,
+  titleTemplate,
   description,
   lang = 'en',
-  meta = [],
-  title,
   author = 'VTEX',
+  meta = [],
 }) => (
   <Helmet
     htmlAttributes={{
       lang,
     }}
+    titleTemplate={titleTemplate}
     title={title}
     meta={[
       {

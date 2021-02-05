@@ -9,13 +9,6 @@ import type { SearchPageProps } from '../../../templates/search'
 
 const SEO: FC<SearchPageProps> = (props) => {
   const {
-    data: {
-      vtex: { productSearch },
-    },
-    staticPath,
-  } = props
-
-  const {
     site: { siteMetadata },
   } = useStaticQuery(
     graphql`
@@ -23,6 +16,7 @@ const SEO: FC<SearchPageProps> = (props) => {
         site {
           siteMetadata {
             title
+            titleTemplate
             siteUrl
             description
             author
@@ -40,7 +34,7 @@ const SEO: FC<SearchPageProps> = (props) => {
   return (
     <>
       <SiteMetadata {...subProps} />
-      {staticPath === true && <StructuredData {...subProps} />}
+      <StructuredData {...subProps} />
       <Canonical {...subProps} />
     </>
   )

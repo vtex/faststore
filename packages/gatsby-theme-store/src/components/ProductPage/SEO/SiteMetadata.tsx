@@ -12,8 +12,16 @@ interface Props extends ProductPageProps {
   }
 }
 
-const SiteMetadata: FC<Props> = (props) => (
-  <DefaultSiteMetadata {...props.siteMetadata} />
+const SiteMetadata: FC<Props> = ({
+  data: {
+    vtex: { product },
+  },
+  siteMetadata,
+}) => (
+  <DefaultSiteMetadata
+    {...siteMetadata}
+    title={product!.titleTag ?? siteMetadata.title}
+  />
 )
 
 export default SiteMetadata
