@@ -35,5 +35,5 @@
     "@graphql-tools/relay-operation-optimizer": "^6.0.15",
     "fs-extra": "^9.0.1"
   },
-  "gitHead": "6b9e7d6e28ebe4a916ee7966b39e28c1b3ec56d3"
+  "gitHead": "1dab3cceb5ac01598ad0cf0ab5386863a0a60c07"
 }
