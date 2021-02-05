@@ -21,7 +21,7 @@ const ArrowDown = (
   />
 )
 
-export const SearchFilterAccordionCollaipsibleIcon: FC<Props> = ({
+export const SearchFilterAccordionCollapsibleIcon: FC<Props> = ({
   isActive,
   variant,
 }) => (

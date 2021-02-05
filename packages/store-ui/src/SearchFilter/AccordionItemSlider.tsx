@@ -22,6 +22,14 @@ const MOVE_EVENT_MAP: MoveEventsType = {
   pointerdown: 'pointermove',
 }
 
+interface Item {
+  key: string
+  name: string
+  value: string
+  quantity: number
+  selected: boolean
+}
+
 /**
  * Round the value to the nearest step multiple
  */
@@ -35,19 +43,12 @@ function quantize(value: number, step: number) {
 /**
  * Get the event pageX attribute, with support for mobile events
  */
-function getPageX(evt: React.TouchEvent | React.MouseEvent) {
-  if (
-    evt.nativeEvent instanceof TouchEvent &&
-    evt.nativeEvent.targetTouches.length > 0
-  ) {
-    return evt.nativeEvent.targetTouches[0].pageX
+function getPageX(evt: any) {
+  if (evt.targetTouches && evt.targetTouches.length > 0) {
+    return evt.targetTouches[0].pageX
   }
 
-  if (evt.nativeEvent instanceof MouseEvent) {
-    return evt.nativeEvent.screenX
-  }
-
-  return 0
+  return evt.pageX
 }
 
 /**
@@ -58,19 +59,21 @@ function isEscKeyEvent(evt: KeyboardEvent) {
 }
 
 type Props = {
-  min: number
-  max: number
-  onChange: (args: number[]) => void
-  step: number
+  min?: number
+  max?: number
+  onChange?: (args: number[]) => void
+  step?: number
   disabled?: boolean
   defaultValues: number[]
-  alwaysShowCurrentValue: boolean
-  formatValue: (value: number) => number | string
-  range: boolean
+  alwaysShowCurrentValue?: boolean
+  formatValue?: (value: number) => number | string
+  range?: boolean
   handleIcon?: ComponentType | null
+  item?: Item
+  variant?: string
 }
 
-const Slider: FC<Props> = ({
+export const SearchFilterAccordionItemSlider: FC<Props> = ({
   min = 0,
   max = 10,
   step = 1,
@@ -85,13 +88,11 @@ const Slider: FC<Props> = ({
   const sliderRef = useRef<HTMLDivElement>(null)
 
   const [dragging, setDragging] = useState<string | false>(false)
+  const [dragEnd, setDragEnd] = useState(false)
   const [translate, setTranslate] = useState({ left: 0, right: 0 })
   const [values, setValues] = useState({
-    left: defaultValues && defaultValues.length > 0 ? defaultValues[0] : min,
-    right:
-      range && defaultValues && defaultValues.length >= 2
-        ? defaultValues[1]
-        : max,
+    left: defaultValues ? defaultValues[0] : min,
+    right: range && defaultValues ? defaultValues[1] : max,
   })
 
   const [cancelDragEvent_, setCancelDragEvent] = useState<
@@ -141,37 +142,21 @@ const Slider: FC<Props> = ({
     [getTranslateValueForInputValue]
   )
 
-  const updateLayout = useCallback(() => {
-    updatePositionForValue(values.left, 'left')
-    updatePositionForValue(values.right, 'right')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [updatePositionForValue])
-
-  // ComponentDidUpdate
   useEffect(() => {
-    setTranslate({ left: 0, right: 0 })
-    setValues({ left: min, right: max })
-    updateLayout()
-  }, [min, max, updateLayout])
-
-  // ComponentDidMount
-  useEffect(() => {
-    window.addEventListener('resize', updateLayout)
-
-    if (defaultValues && defaultValues.length > 0) {
-      updateLayout()
+    if (defaultValues) {
+      updatePositionForValue(defaultValues[0], 'left')
+      updatePositionForValue(defaultValues[1], 'right')
     }
+  }, [defaultValues, updatePositionForValue])
 
-    // ComponentWillUnmount
+  useEffect(() => {
     return () => {
-      window.removeEventListener('resize', updateLayout)
-
       if (cancelDragEvent_) {
         cancelDragEvent_()
         setCancelDragEvent(undefined)
       }
     }
-  }, [cancelDragEvent_, defaultValues, updateLayout])
+  }, [cancelDragEvent_, defaultValues, updatePositionForValue])
 
   const getValueForPercent = (percentageComplete: number, position: string) => {
     const rawValue = min + percentageComplete * (max - min)
@@ -203,17 +188,28 @@ const Slider: FC<Props> = ({
     return value
   }
 
-  const handleDragEnd = () => {
-    setDragging(false)
-
-    setCancelDragEvent(undefined)
-
+  const handleChange = useCallback(() => {
     if (range) {
       onChange([values.left, values.right])
     } else {
       onChange([values.left])
     }
-  }
+  }, [values, onChange, range])
+
+  useEffect(() => {
+    if (dragEnd) {
+      handleChange()
+      setDragEnd(false)
+    }
+  }, [dragEnd, handleChange])
+
+  const handleDragEnd = useCallback(() => {
+    setDragging(false)
+
+    setCancelDragEvent(undefined)
+
+    setDragEnd(true)
+  }, [])
 
   const updatePositionFromEvent = (
     e: React.TouchEvent | React.MouseEvent,
@@ -251,7 +247,6 @@ const Slider: FC<Props> = ({
     }
 
     setCancelDragEvent(undefined)
-    updateLayout()
   }
 
   const handleDragStart = (position: string) => (
@@ -280,25 +275,25 @@ const Slider: FC<Props> = ({
       handleDragEnd()
     }
 
-    // The events bellow are attached to the body because we need
+    // The events below are attached to the body because we need
     // to support the dragging event *outside* of the slider bounds
 
-    setCancelDragEvent(() => {
+    setCancelDragEvent(() => () => {
       setValuesBeforeDrag((oldValues) => {
         return { ...oldValues, isCurrentValue: false }
       })
-      UP_EVENTS.forEach((evtName) =>
-        document.removeEventListener(evtName, handleUpEvent)
-      )
-      document.removeEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
-      document.removeEventListener('keydown', handleKeyDown)
+      UP_EVENTS.forEach((evtName) => {
+        window.removeEventListener(evtName, handleUpEvent)
+      })
+      window.removeEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
+      window.removeEventListener('keydown', handleKeyDown)
     })
 
     UP_EVENTS.forEach((evtName) => {
-      document.addEventListener(evtName, handleUpEvent)
+      window.addEventListener(evtName, handleUpEvent)
     })
-    document.addEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
-    document.addEventListener('keydown', handleKeyDown)
+    window.addEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
+    window.addEventListener('keydown', handleKeyDown)
 
     updatePositionFromEvent(e, position)
   }
@@ -440,5 +435,3 @@ const Slider: FC<Props> = ({
     </Box>
   )
 }
-
-export default Slider
