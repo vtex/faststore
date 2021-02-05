@@ -20,8 +20,8 @@ const SiteMetadata: FC<Props> = ({
 }) => (
   <DefaultSiteMetadata
     {...siteMetadata}
-    title={product!.titleTag ?? siteMetadata.title}
-    description={product!.metaTagDescription ?? siteMetadata.description}
+    title={product!.titleTag || siteMetadata.title}
+    description={product!.metaTagDescription || siteMetadata.description}
   />
 )
 
