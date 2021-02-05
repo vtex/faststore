@@ -88,10 +88,28 @@ function generateNginxConfiguration({
         {
           cmd: ['http'],
           children: [
+            // $use_url_tmp = $host OR $http_origin
             {
-              cmd: ['map', '$http_origin', '$origin'],
+              cmd: ['map', '$http_origin', '$use_url_tmp'],
               children: [
-                { cmd: ['~^https?://(<hostname>.*)/?.*$', '$hostname'] },
+                { cmd: ['default', '$host'] },
+                { cmd: ['~^(?<all>.*)$', '$all'] },
+              ],
+            },
+            // $use_url = $use_url_tmp OR $http_x_forwarded_host
+            {
+              cmd: ['map', '$http_x_forwarded_host', '$use_url'],
+              children: [
+                { cmd: ['default', '$use_url_tmp'] },
+                { cmd: ['~^(?<all>.*)$', '$all'] },
+              ],
+            },
+            // $origin_host = remove_protocol($use_url)
+            {
+              cmd: ['map', '$use_url', '$origin_host'],
+              children: [
+                { cmd: ['default', '$use_url'] },
+                { cmd: ['~^https?://(?<all>.*)/?.*$', '$all'] },
               ],
             },
             { cmd: ['access_log', '/var/log/nginx_access.log'] },
