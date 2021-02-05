@@ -34,6 +34,5 @@
     "@babel/types": "^7.11.0",
     "create-emotion-server": "^10.0.27",
     "theme-ui": "^0.3.1"
-  },
-  "gitHead": "1dab3cceb5ac01598ad0cf0ab5386863a0a60c07"
+  }
 }
