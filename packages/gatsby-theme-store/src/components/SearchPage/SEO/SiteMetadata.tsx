@@ -23,8 +23,8 @@ const SiteMetadata: FC<Props> = (props) => {
   return (
     <DefaultSiteMetadata
       {...siteMetadata}
-      title={searchMetadata?.title ?? siteMetadata.title}
-      description={searchMetadata?.description ?? siteMetadata.description}
+      title={searchMetadata?.title || siteMetadata.title}
+      description={searchMetadata?.description || siteMetadata.description}
     />
   )
 }
