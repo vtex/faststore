@@ -34,6 +34,5 @@
     "fs-extra": "^9.0.1",
     "gatsby-graphql-source-toolkit": "^0.6.3",
     "p-map": "^4.0.0"
-  },
-  "gitHead": "1dab3cceb5ac01598ad0cf0ab5386863a0a60c07"
+  }
 }
