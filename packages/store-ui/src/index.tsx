@@ -55,6 +55,7 @@ export { default as RichText } from './RichText'
 // Search Filters
 export * from './SearchFilter/Accordion'
 export * from './SearchFilter/AccordionItemCheckbox'
+export * from './SearchFilter/AccordionItemSlider'
 export * from './SearchFilter/theme'
 // Search Controls
 export * from './SearchControls'
