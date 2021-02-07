@@ -88,6 +88,30 @@ function generateNginxConfiguration({
         {
           cmd: ['http'],
           children: [
+            // $use_url_tmp = $host OR $http_origin
+            {
+              cmd: ['map', '$host', '$use_url_tmp'],
+              children: [
+                { cmd: ['default', '$http_origin'] },
+                { cmd: ['~^(?<all>.*)$', '$all'] },
+              ],
+            },
+            // $use_url = $http_x_forwarded_host OR $use_url_tmp
+            {
+              cmd: ['map', '$http_x_forwarded_host', '$use_url'],
+              children: [
+                { cmd: ['default', '$use_url_tmp'] },
+                { cmd: ['~^(?<all>.*)$', '$all'] },
+              ],
+            },
+            // $origin_host = remove_protocol($use_url)
+            {
+              cmd: ['map', '$use_url', '$origin_host'],
+              children: [
+                { cmd: ['default', '$use_url'] },
+                { cmd: ['~^https?://(?<all>.*)/?.*$', '$all'] },
+              ],
+            },
             { cmd: ['access_log', '/var/log/nginx_access.log'] },
             { cmd: ['include', '/etc/nginx/mime.types'] },
             { cmd: ['default_type', 'application/octet-stream'] },
