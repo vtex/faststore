@@ -90,13 +90,13 @@ function generateNginxConfiguration({
           children: [
             // $use_url_tmp = $host OR $http_origin
             {
-              cmd: ['map', '$http_origin', '$use_url_tmp'],
+              cmd: ['map', '$host', '$use_url_tmp'],
               children: [
-                { cmd: ['default', '$host'] },
+                { cmd: ['default', '$http_origin'] },
                 { cmd: ['~^(?<all>.*)$', '$all'] },
               ],
             },
-            // $use_url = $use_url_tmp OR $http_x_forwarded_host
+            // $use_url = $http_x_forwarded_host OR $use_url_tmp
             {
               cmd: ['map', '$http_x_forwarded_host', '$use_url'],
               children: [
