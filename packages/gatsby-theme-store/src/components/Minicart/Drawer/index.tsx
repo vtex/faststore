@@ -19,6 +19,8 @@ const useHeaderMinicartDrawerContentData = (orderForm: OrderFormContext) => {
     },
     name: item.name!,
     price: item.price!,
+    listPrice: item.listPrice,
+    sellingPrice: item.sellingPrice,
   }))
 
   return {
