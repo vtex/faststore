@@ -31,5 +31,6 @@
   },
   "peerDependencies": {
     "gatsby": "^2.31.0"
-  }
+  },
+  "gitHead": "8e8e5d0de58ec0a6458bd708c81ac3b4bc1663f2"
 }

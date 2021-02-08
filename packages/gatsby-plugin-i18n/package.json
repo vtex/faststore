@@ -28,5 +28,6 @@
     "@babel/types": "^7.12.7",
     "intl-messageformat-parser": "^6.0.18",
     "react-intl": "^5.7.1"
-  }
+  },
+  "gitHead": "8e8e5d0de58ec0a6458bd708c81ac3b4bc1663f2"
 }
