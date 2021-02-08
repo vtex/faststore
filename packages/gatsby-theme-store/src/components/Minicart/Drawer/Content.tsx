@@ -6,19 +6,11 @@ import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 import MinicartDelete from './Delete'
 import { HeaderMinicartDrawerContentImage } from './Image'
 import MinicartQuantity from './Quantity'
-
-export interface DataItem {
-  id: number
-  image: {
-    alt: string
-    src: string
-  }
-  name: string
-  sellingPrice: string | number
-}
+import type { OrderFormContext } from '../../../sdk/orderForm/Provider'
+import { IMAGE_DEFAULT } from '../../../sdk/product/constants'
 
 export interface MinicartContentProps {
-  data: DataItem[]
+  data: NonNullable<OrderFormContext['value']>['items']
   variant: string
   imageElement: React.ElementType
 }
@@ -37,8 +29,8 @@ export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
         <Flex key={item.id} variant={`${variant}.product`}>
           <HeaderMinicartDrawerContentImage
             as={imageElement}
-            src={item.image.src}
-            alt={item.image.alt}
+            src={item.imageUrls?.at2x ?? IMAGE_DEFAULT}
+            alt={item.name!}
             variant={`${variant}.product.image`}
           />
           <Flex variant={`${variant}.product.name`}>
