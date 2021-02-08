@@ -15,7 +15,7 @@ interface Props extends SearchPageProps {
 const SiteMetadata: FC<Props> = (props) => {
   const {
     data: {
-      vtex: { productSearch },
+      vtex: { searchMetadata },
     },
     siteMetadata,
   } = props
@@ -23,7 +23,8 @@ const SiteMetadata: FC<Props> = (props) => {
   return (
     <DefaultSiteMetadata
       {...siteMetadata}
-      title={productSearch?.titleTag ?? siteMetadata.title}
+      title={searchMetadata?.title || siteMetadata.title}
+      description={searchMetadata?.description || siteMetadata.description}
     />
   )
 }

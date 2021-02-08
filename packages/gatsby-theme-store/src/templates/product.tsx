@@ -109,6 +109,8 @@ export const query = graphql`
       product(slug: $slug) @include(if: $staticPath) {
         ...ProductDetailsTemplate_product
         ...StructuredProductFragment_product
+        titleTag
+        metaTagDescription
         productId
         description
         categoryTree {

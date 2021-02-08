@@ -144,8 +144,16 @@ export const query = graphql`
             }
           }
         }
-        titleTag
         recordsFiltered
+      }
+      searchMetadata(
+        query: $query
+        map: $map
+        fullText: $fullText
+        selectedFacets: $selectedFacets
+      ) {
+        title: titleTag
+        description: metaTagDescription
       }
       facets(
         query: $query

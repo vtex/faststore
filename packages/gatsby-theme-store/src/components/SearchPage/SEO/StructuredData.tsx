@@ -41,8 +41,13 @@ const StructuredData: FC<Props> = ({
     vtex: { facets },
   },
   siteMetadata: { siteUrl },
+  staticPath,
 }) => {
   const breadcrumb = useStructuredBreadcrumb(facets!.breadcrumb, siteUrl)
+
+  if (staticPath !== true) {
+    return null
+  }
 
   return (
     <Helmet
