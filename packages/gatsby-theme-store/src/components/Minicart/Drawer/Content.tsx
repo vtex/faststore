@@ -14,7 +14,7 @@ export interface DataItem {
     src: string
   }
   name: string
-  price: string | number
+  sellingPrice: string | number
 }
 
 export interface MinicartContentProps {
@@ -48,7 +48,7 @@ export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
             </Flex>
             <MinicartQuantity index={idx} variant={variant} />
             <Text variant={`${variant}.product.name.value`}>
-              {format(Number(item.price) / 100)}
+              {format(Number(item.sellingPrice) / 100)}
             </Text>
           </Flex>
         </Flex>
