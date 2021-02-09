@@ -18,7 +18,6 @@ const SEO: FC<Props> = (props) => {
         site {
           siteMetadata {
             title
-            siteUrl
             description
             author
           }

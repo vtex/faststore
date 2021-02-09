@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { useLocation } from '@reach/router'
 import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 import type { WebSite, WithContext } from 'schema-dts'
@@ -14,7 +15,10 @@ interface Props extends PageProps<unknown> {
 const removeTrailingSlashes = (x: string) =>
   x[x.length - 1] === '/' ? x.slice(0, x.length - 1) : x
 
-const StructuredData: FC<Props> = ({ siteMetadata: { siteUrl } }) => {
+const StructuredData: FC<Props> = () => {
+  const { host } = useLocation()
+  const siteUrl = `https://${host}`
+
   const siteLinks: WithContext<WebSite> = useMemo(
     () => ({
       '@context': 'https://schema.org',

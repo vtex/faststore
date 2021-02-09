@@ -20,14 +20,14 @@ type Scalars = {
 export type SearchPageSeoQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SearchPageSeoQueryQuery = { site: Maybe<{ siteMetadata: Maybe<{ title: Maybe<string>, titleTemplate: Maybe<string>, siteUrl: Maybe<string>, description: Maybe<string>, author: Maybe<string> }> }> };
+export type SearchPageSeoQueryQuery = { site: Maybe<{ siteMetadata: Maybe<{ title: Maybe<string>, titleTemplate: Maybe<string>, description: Maybe<string>, author: Maybe<string> }> }> };
 
 
 // Query Related Code
 
 export const SearchPageSEOQuery = {
-  query: undefined,
-  sha256Hash: "78467c58ecaaf9bd3b276104e60367355ce000d298fac563bf7f6c7b2d1e7d18",
+  query: "query SearchPageSEOQuery {\n  site {\n    siteMetadata {\n      title\n      titleTemplate\n      description\n      author\n    }\n  }\n}\n",
+  sha256Hash: "c54e5dd9142582e4a862fa58e3d15a15e0907d03a42a1341c86ac646153a158c",
   operationName: "SearchPageSEOQuery",
 }
 
