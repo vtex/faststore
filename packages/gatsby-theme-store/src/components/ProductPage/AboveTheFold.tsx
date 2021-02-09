@@ -67,6 +67,14 @@ export const fragment = graphql`
       videos {
         videoUrl
       }
+      sellers {
+        commercialOffer: commertialOffer {
+          price: Price
+          listPrice: ListPrice
+          availableQuantity: AvailableQuantity
+          priceValidUntil: PriceValidUntil
+        }
+      }
     }
     productClusters {
       name
