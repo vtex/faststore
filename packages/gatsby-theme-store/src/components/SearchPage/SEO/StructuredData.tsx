@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import React from 'react'
+import { useLocation } from '@reach/router'
 import type { FC } from 'react'
 import type { BreadcrumbList, WithContext } from 'schema-dts'
 
@@ -30,20 +31,19 @@ const useStructuredBreadcrumb = (
   }
 }
 
-interface Props extends SearchPageProps {
-  siteMetadata: {
-    siteUrl: string
-  }
-}
+type Props = SearchPageProps
 
 const StructuredData: FC<Props> = ({
   data: {
     vtex: { facets },
   },
-  siteMetadata: { siteUrl },
   staticPath,
 }) => {
-  const breadcrumb = useStructuredBreadcrumb(facets!.breadcrumb, siteUrl)
+  const { host } = useLocation()
+  const breadcrumb = useStructuredBreadcrumb(
+    facets!.breadcrumb,
+    `https://${host}`
+  )
 
   if (staticPath !== true) {
     return null

@@ -15,7 +15,6 @@ const SEO: FC<ProductPageProps> = (props) => {
           siteMetadata {
             title
             titleTemplate
-            siteUrl
             description
             author
           }
