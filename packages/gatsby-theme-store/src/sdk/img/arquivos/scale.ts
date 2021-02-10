@@ -5,8 +5,7 @@ export const scaleImage = (
   width: number | 'auto' = 'auto',
   height: number | 'auto' = 'auto'
 ) => {
-  const [host, r1] = path.split(separator)
-  const fixedHost = host.replace('vteximg.com.br', 'vtexassets.com')
+  const [, r1] = path.split(separator)
 
   if (!r1) {
     return path
@@ -17,5 +16,5 @@ export const scaleImage = (
   const idSplited = id.split('-')
   const imageId = idSplited.length ? idSplited[0] : id
 
-  return `${fixedHost}${separator}${imageId}-${width}-${height}?${query || ''}`
+  return `${separator}${imageId}-${width}-${height}?${query || ''}`
 }
