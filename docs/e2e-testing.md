@@ -30,7 +30,11 @@ In the following section, you'll learn how to build your own E2E test with Cypre
    }
    ```
 
+<<<<<<< HEAD
 > ℹ️  The `cy:open` script opens the [Cypress dashboard](https://www.cypress.io/dashboard) and the `test:e2e` script runs all tests specified in that project in the command line.
+=======
+> ℹ️ _The `cy:open` script opens the [Cypress dashboard](https://www.cypress.io/dashboard) and the `test:e2e` script runs all tests specified in that project in the command line._
+>>>>>>> a7abbedf2 (add data test ids)
 
 4. Go to the root directory of your project and update the `cypress.json` config file with the following code:
 
@@ -54,7 +58,11 @@ In the following section, you'll learn how to build your own E2E test with Cypre
    │   ├── plugins
    ```
 
+<<<<<<< HEAD
 Now you're ready to start developing your own E2E tests! Additionally, you can install the [VTEX helper functions hub](https://github.com/vtex/test-tools) to make writing E2E tests easier.
+=======
+Now you're ready to start developing your own E2E tests! Additionally, you can install the [VTEX helper functions hub](https://github.com/vtex/test-toolshttps://github.com/vtex/test-tools) to make writing E2E tests easier and to add out-of-the-box tests to a store.
+>>>>>>> a7abbedf2 (add data test ids)
 
 ### Step 2: Writing a sample test
 
@@ -64,18 +72,28 @@ In the following, we'll create a simple test that verifies how a specific produc
 2. Create a new file named `index.js` inside `cypress/e2e/{test-name}` (e.g., `cypress/e2e/search`).
 3. Make sure to add the `data-testid` attribute to the elements that will need some interaction. In our case are `searchBarInput`, `searchBarItem`, and `productTitle`.
 4. Using JavaScript, write your E2E test. Take the code below as an example:
+<<<<<<< HEAD
 
+=======
+>>>>>>> a7abbedf2 (add data test ids)
 
    ```js
    describe("Search e2e tests" () => {
 
    	it("Finds a very specific product using the search bar", () => {
+<<<<<<< HEAD
 
            cy.visit("/")
 
    		cy.get('[data-testid="searchBarInput"]').type("{{ PRODUCT_NAME }}")
 
 
+=======
+      cy.visit("/")
+
+   		cy.get('[data-testid="searchBarInput"]').type("Eyeglasses")
+
+>>>>>>> a7abbedf2 (add data test ids)
    		cy.get('[data-testid="searchSuggestionItem"]').contains("{{ PRODUCT_NAME }}").click()
 
    		cy.get('[data-testid="productTitle"]').should('has.text', "{{ PRODUCT_NAME }}")
@@ -83,10 +101,19 @@ In the following, we'll create a simple test that verifies how a specific produc
    })
    ```
 
+<<<<<<< HEAD
 > ℹ️  This test checks how our SFJ store behaves when it receives a product name of your store as an input in our search bar.
+=======
+> ℹ️ _This test checks how our SFJ store behaves when it receives "Eyeglasses" as an input in our search bar._
+
+> ℹ️ _To build your own tests, we strongly encourage you to check Cypress's [guides](https://docs.cypress.io/guides/getting-started/writing-your-first-test.html#Add-a-test-file), [examples](https://docs.cypress.io/examples/examples/recipes.html#Fundamentals), [API reference](https://docs.cypress.io/api/api/table-of-contents.html), and [best practices](https://docs.cypress.io/guides/references/best-practices.html)._
+>>>>>>> a7abbedf2 (add data test ids)
 
 > ℹ️  To build your own tests, we strongly encourage you to check Cypress's [guides](https://docs.cypress.io/guides/getting-started/writing-your-first-test.html#Add-a-test-file), [examples](https://docs.cypress.io/examples/examples/recipes.html#Fundamentals), [API reference](https://docs.cypress.io/api/api/table-of-contents.html), and [best practices](https://docs.cypress.io/guides/references/best-practices.html).
 
+<<<<<<< HEAD
 5. Run `npm run test:e2e` to check the status of the tests.
 
+=======
+>>>>>>> a7abbedf2 (add data test ids)
 That's it! Additionally, you can add a code coverage tool to monitor the status of your tests and find new opportunities. You can check Cypress's Code Coverage [documentation](https://docs.cypress.io/guides/tooling/code-coverage.html#Introduction).
