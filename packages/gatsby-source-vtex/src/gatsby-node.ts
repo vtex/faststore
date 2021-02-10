@@ -231,7 +231,7 @@ export const createPages = (
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
-      via: '',
+      via: "''",
     },
   })
 
@@ -242,7 +242,7 @@ export const createPages = (
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
-      via: '',
+      via: "''",
     },
   })
 
@@ -254,7 +254,7 @@ export const createPages = (
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
-      via: '',
+      via: "''",
     },
   })
 
@@ -266,7 +266,7 @@ export const createPages = (
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
-      via: '',
+      via: "''",
     },
   })
 
@@ -291,7 +291,7 @@ export const createPages = (
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
-      via: '',
+      via: "''",
     },
   })
 
@@ -303,7 +303,7 @@ export const createPages = (
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
-      via: '',
+      via: "''",
     },
   })
 
@@ -314,7 +314,7 @@ export const createPages = (
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
-      via: '',
+      via: "''",
     },
   })
 
@@ -326,7 +326,7 @@ export const createPages = (
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
-      via: '',
+      via: "''",
     },
   })
 }
