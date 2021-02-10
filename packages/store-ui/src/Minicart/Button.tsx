@@ -9,7 +9,7 @@ export const MinicartButton: FC<MinicartButtonProps> = ({
   children,
   ...props
 }) => (
-  <Button aria-label="Open Cart" {...props}>
+  <Button data-testid="openCart" aria-label="Open Cart" {...props}>
     {children}
   </Button>
 )

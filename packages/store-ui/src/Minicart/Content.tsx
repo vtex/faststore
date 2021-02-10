@@ -36,7 +36,7 @@ export const MinicartContent: FC<MinicartContentProps> = ({
   })
 
   return (
-    <Flex variant={customVariant}>
+    <Flex data-testid="miniCartDrawer" variant={customVariant}>
       {data.map((item) => (
         <Flex key={item.id} variant={`${customVariant}.product`}>
           <Box variant={`${customVariant}.product.image`}>

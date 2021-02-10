@@ -7,7 +7,9 @@ interface Props {
 }
 
 const OfferSoldOut: FC<Props> = ({ children, variant }) => (
-  <Box variant={`offer.${variant}.soldout`}>{children}</Box>
+  <Box data-testid="offerSoldOut" variant={`offer.${variant}.soldout`}>
+    {children}
+  </Box>
 )
 
 export default OfferSoldOut

@@ -24,7 +24,12 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
     <Flex variant={customVariant}>
       <Flex variant={`${customVariant}.total`}>
         <Text variant={`${customVariant}.total.text`}>Total</Text>
-        <Text variant={`${customVariant}.total.value`}>{total}</Text>
+        <Text
+          data-testid="minicartTotalValue"
+          variant={`${customVariant}.total.value`}
+        >
+          {total}
+        </Text>
       </Flex>
       <Flex variant={`${customVariant}.subtotal`}>
         <Text variant={`${customVariant}.subtotal.text`}>Subtotal</Text>
@@ -34,6 +39,7 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
         {formatMessage({ id: 'minicart.drawer.shipping-disclaimer' })}
       </Text>
       <Button
+        data-testid="goCheckout"
         variant={`${customVariant}.button`}
         onClick={(e: any) => {
           e.preventDefault()

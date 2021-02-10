@@ -39,15 +39,22 @@ export const NumericStepper: FC<NumericStepperProps> = ({
     <Flex variant={`${variant}.numericStepper`}>
       <Button
         variant={`${variant}.numericStepper.button.minus`}
+        data-testid="numericStepperMinus"
         onDoubleClick={(e) => e.preventDefault()}
         onClick={() => !disabled && setValue(quantity - 1)}
         disabled={isMin}
       >
         -
       </Button>
-      <Input id={id} variant={`${variant}.numericStepper.input`} {...rest} />
+      <Input
+        data-testid="numericStepperInput"
+        id={id}
+        variant={`${variant}.numericStepper.input`}
+        {...rest}
+      />
       <Button
         variant={`${variant}.numericStepper.button.plus`}
+        data-testid="numericStepperPlus"
         onDoubleClick={(e) => e.preventDefault()}
         onClick={() => !disabled && setValue(quantity + 1)}
         disabled={isMax}

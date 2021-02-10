@@ -14,6 +14,7 @@ interface Props extends ComponentPropsWithoutRef<typeof Grid> {
 const ShelfPage: FC<Props> = ({ items, pageSizes, variant, ...props }) => (
   <Grid
     {...props}
+    data-testid="shelfPage"
     variant={`shelf.${variant}.page.container`}
     gap={2}
     columns={pageSizes}

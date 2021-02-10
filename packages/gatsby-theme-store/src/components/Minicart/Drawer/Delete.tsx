@@ -24,7 +24,7 @@ const MinicartDelete = (props: Props) => {
   }
 
   return (
-    <Button {...useDelete}>
+    <Button data-testid="minicartDelete" {...useDelete}>
       {isLoading ? (
         <Spinner width={24} height={24} />
       ) : (

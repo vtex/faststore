@@ -13,7 +13,7 @@ export const MinicartClose: FC<MinicartCloseProps> = ({ onClose, variant }) => {
   const { formatMessage } = useIntl()
 
   return (
-    <Button onClick={onClose} variant={customVariant}>
+    <Button data-testid="closeCart" onClick={onClose} variant={customVariant}>
       {formatMessage({ id: 'minicart.drawer.close' })}
     </Button>
   )

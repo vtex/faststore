@@ -22,7 +22,11 @@ export const HeaderMinicartDrawerHeader: FC<HeaderMinicartDrawerHeaderProps> = (
   return (
     <Box variant={headerVariant}>
       <MinicartClose variant={headerVariant} onClose={onClose} />
-      <Heading as="h1" variant={`${headerVariant}.title`}>
+      <Heading
+        as="h1"
+        data-testid="minicartTitle"
+        variant={`${headerVariant}.title`}
+      >
         {formatMessage({ id: 'minicart.drawer.count' }, { count })}
       </Heading>
     </Box>
