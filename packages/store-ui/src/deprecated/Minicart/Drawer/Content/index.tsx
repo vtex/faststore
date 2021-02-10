@@ -48,7 +48,7 @@ const MinicartDrawerContent = <T extends Item>({
   const variant = `${v}.content`
 
   return (
-    <Flex variant={variant}>
+    <Flex data-testid="miniCartDrawer" variant={variant}>
       <Box variant={`${variant}.section`}>
         <FormattedMessage id="minicart.drawer.section.products" />
       </Box>

@@ -8,7 +8,11 @@ interface Props {
 }
 
 const MinicartDrawerCloseButton: FC<Props> = ({ onClose, variant }) => (
-  <Button onClick={onClose} variant={`${variant}.close`}>
+  <Button
+    data-testid="closeCart"
+    onClick={onClose}
+    variant={`${variant}.close`}
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       height="24"

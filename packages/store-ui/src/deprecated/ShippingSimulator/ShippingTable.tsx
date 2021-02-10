@@ -81,7 +81,7 @@ const ShippingTable: FC<ShippingTableProps> = ({
   }
 
   return (
-    <Box as="table" variant={tableVariant}>
+    <Box data-testid="shippingTable" as="table" variant={tableVariant}>
       <Box as="thead" variant={`${tableVariant}.thead`}>
         <Box as="tr" variant={`${tableVariant}.thead.row`}>
           <Box as="th" variant={`${tableVariant}.thead.id`}>

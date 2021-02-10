@@ -12,6 +12,7 @@ export const ProductDescription: FC<ProductDescriptionProps> = ({
   variant = 'productDescription',
 }) => (
   <div
+    data-testid="productDescription"
     dangerouslySetInnerHTML={{ __html: data }}
     sx={{ variant: `${variant}.description` }}
   />

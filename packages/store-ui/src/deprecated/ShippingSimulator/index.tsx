@@ -56,6 +56,7 @@ const ShippingSimulator: FC<Props> = ({
 
           <PostalCodeInput
             variant={`${variant}.input`}
+            data-testid="postalCode"
             id="postalCode"
             name="postalCode"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +67,7 @@ const ShippingSimulator: FC<Props> = ({
         </label>
         <Button
           variant={`${variant}.button`}
+          data-testid="postalCodeSubmit"
           disabled={!isValid || loading}
           type="submit"
         >
