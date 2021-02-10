@@ -39,7 +39,7 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
     <>
       <SearchSuggestionsList items={items as any} variant={variant}>
         {({ item, variant: v }: any) => (
-          <Box variant={v}>
+          <Box data-testid="searchSuggestionsItem" variant={v}>
             <Suspense fallback={null}>
               <SummaryComponent product={item} />
             </Suspense>

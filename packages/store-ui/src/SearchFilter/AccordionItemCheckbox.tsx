@@ -32,8 +32,15 @@ const SearchFilterAccordionItemCheckbox: FC<Props> = ({
       onClick(item)
     }}
   >
-    <Checkbox variant={`${variant}.checkbox`} checked={selected} readOnly />
-    <Box variant={`${variant}.value`}>{name}</Box>
+    <Checkbox
+      data-testid="filterItemCheckbox"
+      variant={`${variant}.checkbox`}
+      checked={selected}
+      readOnly
+    />
+    <Box data-testid="filterItemValue" variant={`${variant}.value`}>
+      {name}
+    </Box>
     <Box variant={`${variant}.quantity`}>{quantity}</Box>
   </Label>
 )

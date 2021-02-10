@@ -75,6 +75,7 @@ const SearchBarInput: FC<Props> = ({
           }
         }}
         aria-expanded={null}
+        data-testid="searchBarInput"
       />
       <Popover
         tabIndex={0}
