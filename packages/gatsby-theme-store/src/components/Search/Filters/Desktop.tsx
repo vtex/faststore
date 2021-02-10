@@ -3,6 +3,7 @@ import {
   Box,
   SearchFilterAccordion,
   SearchFilterAccordionItemCheckbox,
+  SearchFilterAccordionItemSlider,
   jsx,
 } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
@@ -17,8 +18,16 @@ export interface Props {
 }
 
 const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
-  const { facets, toggleItem } = useFacets()
+  const { facets, toggleItem, setPriceRange } = useFacets()
   const { formatMessage } = useIntl()
+
+  const { search: searchParams } = window.location
+  const params = new URLSearchParams(searchParams)
+
+  const defaultValues = params
+    .get('priceRange')
+    ?.split(' TO ')
+    .map((price) => parseInt(price, 10))
 
   return (
     <Fragment>
@@ -30,11 +39,23 @@ const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
         filters={facets}
         isActive={isActive}
         variant={variant}
-        renderItem={(item, v) => (
+        renderFilter={(item, v: string) => (
           <SearchFilterAccordionItemCheckbox
             onClick={toggleItem}
             item={item}
             variant={v}
+          />
+        )}
+        renderPrice={() => (
+          <SearchFilterAccordionItemSlider
+            onChange={setPriceRange}
+            min={0}
+            max={1000}
+            step={1}
+            defaultValues={defaultValues ?? [0, 1000]}
+            alwaysShowCurrentValue={false}
+            formatValue={(a: number) => `R$${a},00`}
+            range
           />
         )}
       />

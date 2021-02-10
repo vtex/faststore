@@ -70,6 +70,12 @@ export const useFacets = () => {
     controller.toggleItem(item, filters)
   }
 
+  const setPriceRange = async (priceRange: number[]) => {
+    const controller = await loadController()
+
+    controller.setPriceRange(priceRange, filters)
+  }
+
   const fixedFacets = useMemo(
     () =>
       staticFacets!.facets!.reduce((acc, rawFacet) => {
@@ -96,5 +102,6 @@ export const useFacets = () => {
   return {
     facets: fixedFacets,
     toggleItem,
+    setPriceRange,
   }
 }

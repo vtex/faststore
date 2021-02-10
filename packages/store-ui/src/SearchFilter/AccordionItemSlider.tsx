@@ -22,14 +22,6 @@ const MOVE_EVENT_MAP: MoveEventsType = {
   pointerdown: 'pointermove',
 }
 
-interface Item {
-  key: string
-  name: string
-  value: string
-  quantity: number
-  selected: boolean
-}
-
 /**
  * Round the value to the nearest step multiple
  */
@@ -51,13 +43,6 @@ function getPageX(evt: any) {
   return evt.pageX
 }
 
-/**
- * Check for the esc key event
- */
-function isEscKeyEvent(evt: KeyboardEvent) {
-  return evt.key === 'Escape' || evt.code === 'Escape'
-}
-
 type Props = {
   min?: number
   max?: number
@@ -69,7 +54,6 @@ type Props = {
   formatValue?: (value: number) => number | string
   range?: boolean
   handleIcon?: ComponentType | null
-  item?: Item
   variant?: string
 }
 
@@ -234,21 +218,6 @@ export const SearchFilterAccordionItemSlider: FC<Props> = ({
     updatePositionFromEvent(e, position)
   }
 
-  const handleKeyDown = (evt: KeyboardEvent) => {
-    if (!isEscKeyEvent(evt) || !dragging) {
-      return
-    }
-
-    setDragging(false)
-    setValues(valuesBeforeDrag_)
-
-    if (cancelDragEvent_) {
-      cancelDragEvent_()
-    }
-
-    setCancelDragEvent(undefined)
-  }
-
   const handleDragStart = (position: string) => (
     e: React.TouchEvent | React.MouseEvent
   ) => {
@@ -286,14 +255,12 @@ export const SearchFilterAccordionItemSlider: FC<Props> = ({
         window.removeEventListener(evtName, handleUpEvent)
       })
       window.removeEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
-      window.removeEventListener('keydown', handleKeyDown)
     })
 
     UP_EVENTS.forEach((evtName) => {
       window.addEventListener(evtName, handleUpEvent)
     })
     window.addEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
-    window.addEventListener('keydown', handleKeyDown)
 
     updatePositionFromEvent(e, position)
   }
