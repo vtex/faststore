@@ -82,3 +82,33 @@ export const toggleItem = (item: SearchFilterItem, filters: SearchFilters) => {
     map,
   })
 }
+
+type Facet = {
+  key: string
+  value: string
+}
+
+export const setPriceRange = (priceRange: number[], filters: SearchFilters) => {
+  const { search: searchParams } = window.location
+  const params = new URLSearchParams(searchParams)
+  const facets = filters.selectedFacets as Facet[]
+
+  params.set('priceRange', `${priceRange[0]} TO ${priceRange[1]}`)
+
+  const priceRangeIndex = facets.findIndex(
+    (facet) => facet.key === 'priceRange'
+  )
+
+  if (priceRangeIndex > -1) {
+    facets[priceRangeIndex].value = `${priceRange[0]} TO ${priceRange[1]}`
+  } else {
+    facets.push({
+      key: 'priceRange',
+      value: `${priceRange[0]} TO ${priceRange[1]}`,
+    })
+  }
+
+  const to = `/${filters.query}?${params.toString()}`
+
+  navigate(to)
+}
