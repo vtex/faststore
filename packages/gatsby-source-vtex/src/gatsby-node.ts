@@ -293,6 +293,17 @@ export const createPages = (
     },
   })
 
+  createRedirect({
+    fromPath: '/assets/*',
+    toPath: `https://${tenant}.vtexassets.com/assets/:splat`,
+    statusCode: 200,
+    proxyHeaders: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$origin_host',
+      via: "''",
+    },
+  })
+
   // Use graphql-gateway from VTEX IO
   createRedirect({
     fromPath: '/graphql/*',
@@ -320,17 +331,6 @@ export const createPages = (
   createRedirect({
     fromPath: '/sitemap/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/sitemap/:splat`,
-    statusCode: 200,
-    proxyHeaders: {
-      // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$origin_host',
-      via: "''",
-    },
-  })
-
-  createRedirect({
-    fromPath: '/assets/*',
-    toPath: `https://${tenant}.vtexassets.com/assets/:splat`,
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly

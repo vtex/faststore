@@ -28,6 +28,10 @@ module.exports = ({ tenant, workspace, environment }: Options) => ({
       url: `https://${tenant}.vtexassets.com`,
     },
     {
+      prefix: '/assets',
+      url: `https://${tenant}.vtexassets.com`,
+    },
+    {
       prefix: '/graphql',
       url: `https://${workspace}--${tenant}.myvtex.com`,
     },
@@ -42,10 +46,6 @@ module.exports = ({ tenant, workspace, environment }: Options) => ({
     {
       prefix: '/XMLData',
       url: `https://${tenant}.${environment}.com.br`,
-    },
-    {
-      prefix: '/assets',
-      url: `https://${tenant}.vtexassets.com`,
     },
   ],
 })
