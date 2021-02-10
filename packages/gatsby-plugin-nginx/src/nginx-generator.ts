@@ -163,7 +163,7 @@ function stringify(directives: NginxDirective[]): string {
 }
 
 function convertFromPath(path: string) {
-  return `^${path.replace(/\*/g, '(.*)').replace(/:slug/g, '[^/]+')}`
+  return `^${path.replace(/\*/g, '(.*)').replace(/:slug/g, '[^/]+')}$`
 }
 
 function convertToPath(path: string) {
