@@ -115,6 +115,7 @@ export const query = graphql`
     $query: String
     $map: String
     $fullText: String
+    $priceRange: String
     $staticPath: Boolean!
     $selectedFacets: [VTEX_SelectedFacetInput!]
     $orderBy: String = "OrderByScoreDESC"
@@ -125,6 +126,7 @@ export const query = graphql`
         to: 11
         hideUnavailableItems: false
         productOriginVtex: true
+        priceRange: $priceRange
         simulationBehavior: skip
         orderBy: $orderBy
         query: $query
@@ -177,18 +179,30 @@ export const query = graphql`
             value
             selected
             quantity
+            range {
+              from
+              to
+            }
             values: children {
               key
               name
               value
               selected
               quantity
+              range {
+                from
+                to
+              }
               values: children {
                 key
                 name
                 value
                 selected
                 quantity
+                range {
+                  from
+                  to
+                }
               }
             }
           }

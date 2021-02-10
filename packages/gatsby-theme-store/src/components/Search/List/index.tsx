@@ -62,6 +62,7 @@ export const query = gql`
     $query: String
     $map: String
     $fullText: String
+    $priceRange: String
     $selectedFacets: [VTEX_SelectedFacetInput!]
     $from: Int
     $to: Int
@@ -71,6 +72,7 @@ export const query = gql`
       productSearch(
         productOriginVtex: true
         hideUnavailableItems: false
+        priceRange: $priceRange
         selectedFacets: $selectedFacets
         fullText: $fullText
         query: $query

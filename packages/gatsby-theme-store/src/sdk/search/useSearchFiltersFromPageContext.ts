@@ -59,12 +59,31 @@ export const useSearchFiltersFromPageContext = (
     const params = new URLSearchParams(search)
     let query = pageContext.query!
     let map = pageContext.map!
-    let selectedFacets = pageContext.selectedFacets!
+    const priceRange = params.get('priceRange')
+    let selectedFacets = pageContext.selectedFacets! as Array<{
+      key: string
+      value: string
+    }>
 
     if (pageContext.staticPath === false) {
       query = trimQuery(pathname)
       map = params.get('map') ?? createMap(query)
       selectedFacets = selectedFacetsAfterQueryAndMap(query, map)
+    }
+
+    if (priceRange !== null && selectedFacets) {
+      const priceRangeIndex = selectedFacets.findIndex(
+        (facet) => facet.key === 'priceRange'
+      )
+
+      if (priceRangeIndex > -1) {
+        selectedFacets[priceRangeIndex].value = priceRange
+      } else {
+        selectedFacets.push({
+          key: 'priceRange',
+          value: priceRange,
+        })
+      }
     }
 
     const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
@@ -74,6 +93,7 @@ export const useSearchFiltersFromPageContext = (
       orderBy,
       selectedFacets,
       fullText,
+      priceRange,
       query,
       map,
     }
