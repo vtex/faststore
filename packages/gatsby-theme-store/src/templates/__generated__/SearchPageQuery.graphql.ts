@@ -27,14 +27,14 @@ export type SearchPageQueryQueryVariables = Exact<{
 }>;
 
 
-export type SearchPageQueryQuery = { vtex: { searchMetadata: Maybe<{ title: Maybe<string>, description: Maybe<string> }>, productSearch: Maybe<{ recordsFiltered: Maybe<number>, products: Maybe<Array<Maybe<{ productId: Maybe<string>, productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>> }>>> }>>> }>, facets: Maybe<{ breadcrumb: Maybe<Array<Maybe<{ href: Maybe<string>, name: Maybe<string> }>>>, facets: Maybe<Array<Maybe<{ name: Maybe<string>, type: Maybe<Vtex_FilterType>, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number }>>> }>>> }>>> }>>> }> } };
+export type SearchPageQueryQuery = { vtex: { productSearch?: Maybe<{ recordsFiltered: Maybe<number>, products: Maybe<Array<Maybe<{ productId: Maybe<string>, productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>> }>>> }>>> }>, searchMetadata?: Maybe<{ title: Maybe<string>, description: Maybe<string> }>, facets?: Maybe<{ breadcrumb: Maybe<Array<Maybe<{ href: Maybe<string>, name: Maybe<string> }>>>, facets: Maybe<Array<Maybe<{ name: Maybe<string>, type: Maybe<Vtex_FilterType>, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number, values: Maybe<Array<Maybe<{ key: Maybe<string>, name: Maybe<string>, value: Maybe<string>, selected: Maybe<boolean>, quantity: number }>>> }>>> }>>> }>>> }> } };
 
 
 // Query Related Code
 
 export const SearchPageQuery = {
   query: undefined,
-  sha256Hash: "5af2fd846059b8cffaf2b9e17ce5beed87bcd1284a42bf930102acefdb4415d8",
+  sha256Hash: "03ef58dd76c3b7035779006ec998ca98b8ee4e9e3e6a0fb087557e265817dd2a",
   operationName: "SearchPageQuery",
 }
 

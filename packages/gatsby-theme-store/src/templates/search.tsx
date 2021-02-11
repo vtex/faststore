@@ -118,7 +118,6 @@ export const query = graphql`
     $staticPath: Boolean!
     $selectedFacets: [VTEX_SelectedFacetInput!]
     $orderBy: String = "OrderByScoreDESC"
-    $removeHiddenFacets: Boolean = false
   ) {
     vtex {
       productSearch(
@@ -152,7 +151,7 @@ export const query = graphql`
         map: $map
         fullText: $fullText
         selectedFacets: $selectedFacets
-      ) {
+      ) @include(if: $staticPath) {
         title: titleTag
         description: metaTagDescription
       }
@@ -163,7 +162,7 @@ export const query = graphql`
         selectedFacets: $selectedFacets
         operator: or
         behavior: "Static"
-        removeHiddenFacets: $removeHiddenFacets
+        removeHiddenFacets: true
       ) @include(if: $staticPath) {
         breadcrumb {
           href
