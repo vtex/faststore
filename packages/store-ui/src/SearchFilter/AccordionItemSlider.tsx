@@ -231,7 +231,6 @@ export const SearchFilterAccordionItemSlider: FC<Props> = ({
 
     setValuesBeforeDrag({ ...values, isCurrentValue: true })
 
-    // https://reactjs.org/docs/events.html#event-pooling
     e.persist()
 
     const moveHandler = handleDrag(position)
@@ -304,8 +303,6 @@ export const SearchFilterAccordionItemSlider: FC<Props> = ({
         aria-valuenow={0}
         sx={{
           height: 24,
-          // since we can't include css with the components, the
-          // prefixed attributes need to be included
           MozUserSelect: 'none',
           msUserSelect: 'none',
           WebkitUserSelect: 'none',
