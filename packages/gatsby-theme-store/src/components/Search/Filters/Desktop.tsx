@@ -11,6 +11,7 @@ import { Fragment } from 'react'
 import type { FC } from 'react'
 
 import { useFacets } from '../../../sdk/search/useFacets'
+import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 
 export interface Props {
   variant?: string
@@ -20,6 +21,7 @@ export interface Props {
 const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
   const { facets, toggleItem, setPriceRange } = useFacets()
   const { formatMessage } = useIntl()
+  const { format } = useNumberFormat()
 
   const { search: searchParams } = window.location
   const params = new URLSearchParams(searchParams)
@@ -54,7 +56,7 @@ const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
             step={1}
             defaultValues={defaultValues ?? [0, 5000]}
             alwaysShowCurrentValue={false}
-            formatValue={(a: number) => `R$${a},00`}
+            formatValue={format}
             range
           />
         )}
