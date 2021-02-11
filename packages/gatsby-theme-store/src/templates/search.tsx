@@ -118,6 +118,7 @@ export const query = graphql`
     $staticPath: Boolean!
     $selectedFacets: [VTEX_SelectedFacetInput!]
     $orderBy: String = "OrderByScoreDESC"
+    $removeHiddenFacets: Boolean = false
   ) {
     vtex {
       productSearch(
@@ -162,6 +163,7 @@ export const query = graphql`
         selectedFacets: $selectedFacets
         operator: or
         behavior: "Static"
+        removeHiddenFacets: $removeHiddenFacets
       ) @include(if: $staticPath) {
         breadcrumb {
           href
