@@ -50,9 +50,9 @@ const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
           <SearchFilterAccordionItemSlider
             onChange={setPriceRange}
             min={0}
-            max={1000}
+            max={5000}
             step={1}
-            defaultValues={defaultValues ?? [0, 1000]}
+            defaultValues={defaultValues ?? [0, 5000]}
             alwaysShowCurrentValue={false}
             formatValue={(a: number) => `R$${a},00`}
             range
