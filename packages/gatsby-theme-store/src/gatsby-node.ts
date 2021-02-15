@@ -191,6 +191,13 @@ export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
 }: CreateWebpackConfigArgs) => {
   setWebpackConfig({
+    // 🐞🐞 Uncomment for debugging final bundle 🐞🐞
+    // optimization: {
+    //   minimize: false,
+    //   moduleIds: 'named',
+    //   chunkIds: 'named',
+    //   concatenateModules: false,
+    // },
     module: {
       rules: [
         {

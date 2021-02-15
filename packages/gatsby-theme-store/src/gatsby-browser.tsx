@@ -11,7 +11,6 @@ import type { ElementType } from 'react'
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
 const { MinicartProvider } = require('./src/sdk/minicart/index')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
-const { default: ErrorHandler } = require('./src/components/Error/ErrorHandler')
 const {
   default: ErrorBoundary,
 } = require('./src/components/Error/ErrorBoundary')
@@ -47,11 +46,13 @@ export const replaceHydrateFunction = () => async (
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   const root = (
-    <VTEXRCProvider>
-      <OrderFormProvider>
-        <MinicartProvider>{element}</MinicartProvider>
-      </OrderFormProvider>
-    </VTEXRCProvider>
+    <ErrorBoundary>
+      <VTEXRCProvider>
+        <OrderFormProvider>
+          <MinicartProvider>{element}</MinicartProvider>
+        </OrderFormProvider>
+      </VTEXRCProvider>
+    </ErrorBoundary>
   )
 
   if (process.env.NODE_ENV === 'development') {
@@ -65,9 +66,7 @@ export const wrapPageElement = ({
   element,
   props: { location },
 }: WrapRootElementBrowserArgs | any) => (
-  <ErrorBoundary fallback={(error: any) => <ErrorHandler error={error} />}>
-    <Progress location={location}>{element}</Progress>
-  </ErrorBoundary>
+  <Progress location={location}>{element}</Progress>
 )
 
 export const onRouteUpdate = () => {

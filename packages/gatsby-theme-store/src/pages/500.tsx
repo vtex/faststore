@@ -1,15 +1,14 @@
 import { FormattedMessage, useLocalizedPath } from '@vtex/gatsby-plugin-i18n'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 import { Box, Button, Flex } from '@vtex/store-ui'
+import type { PageProps } from 'gatsby'
 
-import Layout from '../Layout'
-import Container from '../Container'
+import Layout from '../components/Layout'
+import Container from '../components/Container'
+import { useSearchParams } from '../sdk/state/useSearchParams'
 
-type Props = {
-  error: any
-  errorId?: string
-}
+type Props = PageProps
 
 const uuidv4 = () =>
   'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -19,10 +18,14 @@ const uuidv4 = () =>
     return v.toString(16)
   })
 
-const Error: FC<Props> = ({ error, errorId = uuidv4() }) => {
+const Page: FC<Props> = () => {
+  const [params] = useSearchParams()
   const path = useLocalizedPath('/')
+  const [errorId, setErrorId] = useState('')
 
-  useEffect(() => console.error(error))
+  useEffect(() => {
+    setErrorId(params.get('errorId') || uuidv4())
+  }, [errorId, params])
 
   return (
     <Layout>
@@ -78,4 +81,4 @@ const Error: FC<Props> = ({ error, errorId = uuidv4() }) => {
   )
 }
 
-export default Error
+export default Page
