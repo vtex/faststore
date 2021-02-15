@@ -24,7 +24,7 @@ const Page: FC<Props> = () => {
   const [errorId, setErrorId] = useState('')
 
   useEffect(() => {
-    setErrorId(params.get('errorId') ?? uuidv4())
+    setErrorId(params.get('errorId') || uuidv4())
   }, [errorId, params])
 
   return (
