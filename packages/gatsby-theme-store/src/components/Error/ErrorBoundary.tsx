@@ -3,7 +3,6 @@ import React, { Suspense, Component, lazy } from 'react'
 
 type Props = {
   children: ReactNode
-  fallback: (error: any) => ReactNode
 }
 
 const ErrorHandler = lazy(() => import('./ErrorHandler'))
