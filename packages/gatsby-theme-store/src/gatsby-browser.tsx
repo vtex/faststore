@@ -46,11 +46,13 @@ export const replaceHydrateFunction = () => async (
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   const root = (
-    <VTEXRCProvider>
-      <OrderFormProvider>
-        <MinicartProvider>{element}</MinicartProvider>
-      </OrderFormProvider>
-    </VTEXRCProvider>
+    <ErrorBoundary>
+      <VTEXRCProvider>
+        <OrderFormProvider>
+          <MinicartProvider>{element}</MinicartProvider>
+        </OrderFormProvider>
+      </VTEXRCProvider>
+    </ErrorBoundary>
   )
 
   if (process.env.NODE_ENV === 'development') {
@@ -64,9 +66,7 @@ export const wrapPageElement = ({
   element,
   props: { location },
 }: WrapRootElementBrowserArgs | any) => (
-  <ErrorBoundary>
-    <Progress location={location}>{element}</Progress>
-  </ErrorBoundary>
+  <Progress location={location}>{element}</Progress>
 )
 
 export const onRouteUpdate = () => {

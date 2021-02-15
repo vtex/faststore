@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
-import React, { Suspense, Component, lazy } from 'react'
+import React, { Component } from 'react'
+
+import ErrorHandler from './ErrorHandler'
 
 type Props = {
   children: ReactNode
 }
-
-const ErrorHandler = lazy(() => import('./ErrorHandler'))
 
 class ErrorBoundary extends Component<Props> {
   public state = { hasError: false, error: null }
@@ -19,11 +19,7 @@ class ErrorBoundary extends Component<Props> {
 
   public render() {
     if (this.state.hasError) {
-      return (
-        <Suspense fallback={null}>
-          <ErrorHandler error={this.state.error} />
-        </Suspense>
-      )
+      return <ErrorHandler error={this.state.error} />
     }
 
     return this.props.children
