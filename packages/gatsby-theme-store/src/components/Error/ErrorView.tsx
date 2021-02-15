@@ -19,7 +19,7 @@ const uuidv4 = () =>
     return v.toString(16)
   })
 
-const Error: FC<Props> = ({ error, errorId = uuidv4() }) => {
+const ErrorView: FC<Props> = ({ error, errorId = uuidv4() }) => {
   const path = useLocalizedPath('/')
 
   useEffect(() => console.error(error))
@@ -78,4 +78,4 @@ const Error: FC<Props> = ({ error, errorId = uuidv4() }) => {
   )
 }
 
-export default Error
+export default ErrorView

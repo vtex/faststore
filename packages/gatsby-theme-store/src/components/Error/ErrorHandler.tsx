@@ -1,7 +1,7 @@
 import React from 'react'
 import type { FC } from 'react'
 
-import Error from './Error'
+import ErrorView from './ErrorView'
 
 const ErrorHandler: FC<{ error: any }> = ({ error }) => {
   if (error?.extensions?.exception?.status === 404) {
@@ -10,7 +10,7 @@ const ErrorHandler: FC<{ error: any }> = ({ error }) => {
     return null
   }
 
-  return <Error error={error} />
+  return <ErrorView error={error} />
 }
 
 export default ErrorHandler
