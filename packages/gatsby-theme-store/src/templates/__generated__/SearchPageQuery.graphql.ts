@@ -20,6 +20,7 @@ export type SearchPageQueryQueryVariables = Exact<{
   query: Maybe<Scalars['String']>
   map: Maybe<Scalars['String']>
   fullText: Maybe<Scalars['String']>
+  priceRange: Maybe<Scalars['String']>
   staticPath: Scalars['Boolean']
   selectedFacets: Maybe<
     Array<Vtex_SelectedFacetInput> | Vtex_SelectedFacetInput
@@ -109,8 +110,9 @@ export type SearchPageQueryQuery = {
 // Query Related Code
 
 export const SearchPageQuery = {
-  query: undefined,
+  query:
+    'query SearchPageQuery($query: String, $map: String, $fullText: String, $priceRange: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = "OrderByScoreDESC") {\n  vtex {\n    productSearch(from: 0, to: 11, hideUnavailableItems: false, productOriginVtex: true, priceRange: $priceRange, simulationBehavior: skip, orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n        }\n      }\n      recordsFiltered\n    }\n    searchMetadata(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      title: titleTag\n      description: metaTagDescription\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: "Static", removeHiddenFacets: true) @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          range {\n            from\n            to\n          }\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            range {\n              from\n              to\n            }\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n              range {\n                from\n                to\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
   sha256Hash:
-    '03ef58dd76c3b7035779006ec998ca98b8ee4e9e3e6a0fb087557e265817dd2a',
+    'abd40c2d94da830ec04447a9bdc5cb805091e6be3de1f07a5fed0833158ee3d2',
   operationName: 'SearchPageQuery',
 }
