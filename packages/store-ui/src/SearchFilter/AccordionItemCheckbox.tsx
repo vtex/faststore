@@ -6,6 +6,10 @@ export interface Item {
   key: string
   name: string
   value: string
+  range?: {
+    from: number
+    to: number
+  }
   quantity: number
   selected: boolean
 }
