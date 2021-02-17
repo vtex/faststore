@@ -30,16 +30,17 @@ export const setSearchFilters = (filters: SearchFilters) => {
   const { search: searchParams } = window.location
   const params = new URLSearchParams(searchParams)
 
+  params.delete('priceRange')
+
   Object.keys(filters).forEach((key: string) => {
     const value = filters[key as keyof SearchFilters]
 
-    if (value && key !== 'query' && key !== 'selectedFacets') {
+    if (value && !['query', 'selectedFacets', 'priceRange'].includes(key)) {
       params.set(key, value as string)
     }
   })
-  const to = `/${filters.query}?${params.toString()}`
 
-  navigate(to)
+  navigate(`/${filters.query}?${params.toString()}`)
 }
 
 // TODO: This function can be moved to the backend if we have a decent graphql layer
