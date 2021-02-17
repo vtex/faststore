@@ -48,18 +48,32 @@ const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
             variant={v}
           />
         )}
-        renderPrice={() => (
-          <SearchFilterAccordionItemSlider
-            onChange={setPriceRange}
-            min={0}
-            max={5000}
-            step={1}
-            defaultValues={defaultValues ?? [0, 5000]}
-            alwaysShowCurrentValue={false}
-            formatValue={format}
-            range
-          />
-        )}
+        renderPrice={(filter) => {
+          const priceRanges: number[] = []
+
+          filter.values.forEach(({ range: { from, to } }) => {
+            priceRanges.push(from)
+            priceRanges.push(to)
+          })
+
+          return (
+            <SearchFilterAccordionItemSlider
+              onChange={setPriceRange}
+              min={Math.min(...priceRanges)}
+              max={Math.max(...priceRanges)}
+              step={1}
+              defaultValues={
+                defaultValues ?? [
+                  Math.min(...priceRanges),
+                  Math.max(...priceRanges),
+                ]
+              }
+              alwaysShowCurrentValue={false}
+              formatValue={format}
+              range
+            />
+          )
+        }}
       />
     </Fragment>
   )
