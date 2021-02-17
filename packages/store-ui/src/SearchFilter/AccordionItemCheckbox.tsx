@@ -6,7 +6,7 @@ export interface Item {
   key: string
   name: string
   value: string
-  range?: {
+  range: {
     from: number
     to: number
   }
