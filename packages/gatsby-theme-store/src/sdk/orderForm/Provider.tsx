@@ -19,6 +19,7 @@ export type OrderFormContext = {
 export const OrderForm = createContext<OrderFormContext>(undefined as any)
 
 export const OrderFormProvider: FC = ({ children }) => {
+  const [error, setError] = useState<Error | null>(null)
   const [
     orderForm,
     setOrderForm,
@@ -26,16 +27,26 @@ export const OrderFormProvider: FC = ({ children }) => {
 
   const id = orderForm?.id
 
+  useEffect(() => {
+    if (error != null && !window.location.pathname.startsWith('/500')) {
+      throw error
+    }
+  }, [error])
+
   // Fetch orderForm on first render
   useEffect(() => {
     let cancel = false
 
     const cbId = window.requestIdleCallback(async () => {
-      const ctl = await controller()
-      const of = await ctl.getOrderForm()
+      try {
+        const ctl = await controller()
+        const of = await ctl.getOrderForm()
 
-      if (!cancel) {
-        setOrderForm(of)
+        if (!cancel) {
+          setOrderForm(of)
+        }
+      } catch (e) {
+        setError(e)
       }
     })
 
