@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs'
+import { writeFileSync, readFileSync } from 'fs'
 import { join } from 'path'
 
 import WebpackAssetsManifest from 'webpack-assets-manifest'
@@ -81,11 +81,13 @@ const Node: GatsbyNode = {
 
     headers = addPublicCachingHeader(headers)
 
+    const functionRedirects = getFunctionsRedirects(program.directory)
+
     writeFileSync(
       join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
       generateNginxConfiguration({
         rewrites,
-        redirects,
+        redirects: [...redirects, ...functionRedirects],
         headersMap: headers,
         files,
         options,
@@ -94,6 +96,16 @@ const Node: GatsbyNode = {
 
     reporter.success('write out nginx configuration')
   },
+}
+
+function getFunctionsRedirects(basedir: string) {
+  const contents = readFileSync(join(basedir, 'public', 'function-redirects.json')).toString()
+  const file = JSON.parse(contents) as Record<string, string>
+
+  return Object.entries(file).map(([key, value]) => ({
+    fromPath: key,
+    toPath: value,
+  }))
 }
 
 function mapObjectValues<V, T>(
