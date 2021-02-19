@@ -134,22 +134,32 @@ export const sourceNodes = async (
 
   const { webhookBody }: any = args
 
-  if (isPreviewServer && Object.keys(webhookBody).length) {
-    console.info(
-      `[gatsby-source-nodes]: Preview content ${webhookBody.eventName}: ${webhookBody.variantId}`
-    )
+  console.info(`[gatsby-source-nodes]: Preview content ${webhookBody.updates}`)
 
-    // Source delta changes
-    const nodeEvents = [
-      {
-        eventName: webhookBody.eventName,
+  // if (isPreviewServer && Object.keys(webhookBody).length) {
+  if (isPreviewServer && webhookBody.updates) {
+    const nodeEvents = webhookBody.updates.map((update: any) => {
+      return {
+        eventName: update.eventName,
         remoteTypeName: 'PageContent',
         remoteId: {
           __typename: 'PageContent',
-          id: webhookBody.variantId,
+          id: update.variantId,
         },
-      },
-    ] as NodeEvent[]
+      }
+    })
+
+    // Source delta changes
+    // const nodeEvents = [
+    //   {
+    //     eventName: webhookBody.eventName,
+    //     remoteTypeName: 'PageContent',
+    //     remoteId: {
+    //       __typename: 'PageContent',
+    //       id: webhookBody.variantId,
+    //     },
+    //   },
+    // ] as NodeEvent[]
     await sourceNodeChanges(config, { nodeEvents })
 
     return
