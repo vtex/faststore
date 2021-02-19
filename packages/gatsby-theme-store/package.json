@@ -50,6 +50,5 @@
     "requestidlecallback-polyfill": "^1.0.2",
     "schema-dts": "^0.6.0",
     "swr": "^0.3.0"
-  },
-  "gitHead": "cce401e59b081a2e2c468fcc4040ce6199c45b87"
+  }
 }
