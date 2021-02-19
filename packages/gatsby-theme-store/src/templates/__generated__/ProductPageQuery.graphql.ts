@@ -71,9 +71,7 @@ export type ProductPageQueryQuery = {
 // Query Related Code
 
 export const ProductPageQuery = {
-  query:
-    'query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        name\n        complementName\n        itemId\n        referenceId {\n          value: Value\n        }\n        images {\n          imageUrl\n          imageText\n        }\n        videos {\n          videoUrl\n        }\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            listPrice: ListPrice\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n        ean\n      }\n      productClusters {\n        name\n      }\n      description\n      brand\n      categoryTree {\n        href\n        name\n      }\n      titleTag\n      metaTagDescription\n      productId\n    }\n  }\n}\n',
-  sha256Hash:
-    'c1e0430dadc076ef455f353181c789a41162b50a0c41cd220d19f3d846b91fb4',
-  operationName: 'ProductPageQuery',
+  query: process.env.NODE_ENV === 'production' ? undefined : "query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        name\n        complementName\n        itemId\n        referenceId {\n          value: Value\n        }\n        images {\n          imageUrl\n          imageText\n        }\n        videos {\n          videoUrl\n        }\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            listPrice: ListPrice\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n        ean\n      }\n      productClusters {\n        name\n      }\n      description\n      brand\n      categoryTree {\n        href\n        name\n      }\n      titleTag\n      metaTagDescription\n      productId\n    }\n  }\n}\n",
+  sha256Hash: "c1e0430dadc076ef455f353181c789a41162b50a0c41cd220d19f3d846b91fb4",
+  operationName: "ProductPageQuery",
 }
