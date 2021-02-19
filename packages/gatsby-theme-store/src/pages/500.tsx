@@ -10,21 +10,13 @@ import { useSearchParams } from '../sdk/state/useSearchParams'
 
 type Props = PageProps
 
-const uuidv4 = () =>
-  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0
-    const v = c === 'x' ? r : (r & 0x3) | 0x8
-
-    return v.toString(16)
-  })
-
 const Page: FC<Props> = () => {
   const [params] = useSearchParams()
   const path = useLocalizedPath('/')
   const [errorId, setErrorId] = useState('')
 
   useEffect(() => {
-    setErrorId(params.get('errorId') || uuidv4())
+    setErrorId(params.get('errorId') ?? 'unknown')
   }, [errorId, params])
 
   return (
