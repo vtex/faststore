@@ -7,7 +7,7 @@ import {
   jsx,
 } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Fragment } from 'react'
+import { Fragment, useMemo } from 'react'
 import type { FC } from 'react'
 
 import { useFacets } from '../../../sdk/search/useFacets'
@@ -26,10 +26,14 @@ const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
   const { search: searchParams } = window.location
   const params = new URLSearchParams(searchParams)
 
-  const defaultValues = params
-    .get('priceRange')
-    ?.split(' TO ')
-    .map((price) => parseInt(price, 10))
+  const defaultValues = useMemo(
+    () =>
+      params
+        .get('priceRange')
+        ?.split(' TO ')
+        .map((price) => parseInt(price, 10)),
+    [params]
+  )
 
   return (
     <Fragment>
