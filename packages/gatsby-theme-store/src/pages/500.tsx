@@ -16,7 +16,9 @@ const Page: FC<Props> = () => {
   const [errorId, setErrorId] = useState('')
 
   useEffect(() => {
-    setErrorId(params.get('errorId') ?? 'unknown')
+    const id = params.get('errorId') ?? 'unknown'
+
+    setErrorId(id)
   }, [errorId, params])
 
   return (
