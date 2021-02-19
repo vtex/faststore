@@ -15,10 +15,12 @@ import {
   generateDefaultFragments,
   loadSchema,
   sourceAllNodes,
+  sourceNodeChanges,
 } from 'gatsby-graphql-source-toolkit'
 
 import { sourceAllLocalNodes } from './node-api/sourceAllLocalNodes'
 import type { BuilderConfig } from './index'
+import { NodeEvent } from 'gatsby-graphql-source-toolkit/dist/types'
 
 interface CMSContentType {
   id: string
@@ -62,13 +64,15 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     workspace: Joi.string(),
   })
 
+const isPreviewServer = process.env.ENABLE_GATSBY_REFRESH_ENDPOINT === 'true'
+
 export const sourceNodes = async (
   args: SourceNodesArgs,
   { tenant, workspace = 'master' }: Options
 ) => {
   // Step1. Set up remote schema:
   const executor = createDefaultQueryExecutor(
-    `https://${workspace}--${tenant}.myvtex.com/graphql`,
+    `https://preview--${tenant}.myvtex.com/graphql`,
     {
       method: 'POST',
       headers: {
@@ -92,6 +96,13 @@ export const sourceNodes = async (
                   ...PageContentFragment
                 }
               }
+            }
+          }
+        }
+        query NODE_PREVIEW_PAGE ($id: ID!) {
+          vtex {
+            previewContent (id: $id) {
+              ...PageContentFragment
             }
           }
         }
@@ -120,6 +131,29 @@ export const sourceNodes = async (
 
   // Step5. Add explicit types to gatsby schema
   await createSchemaCustomization(config)
+
+  const { webhookBody }: any = args
+
+  if (isPreviewServer && Object.keys(webhookBody).length) {
+    console.info(
+      `[gatsby-source-nodes]: Preview content ${webhookBody.eventName}: ${webhookBody.variantId}`
+    )
+
+    // Source delta changes
+    const nodeEvents = [
+      {
+        eventName: webhookBody.eventName,
+        remoteTypeName: 'PageContent',
+        remoteId: {
+          __typename: 'PageContent',
+          id: webhookBody.variantId,
+        },
+      },
+    ] as NodeEvent[]
+    await sourceNodeChanges(config, { nodeEvents })
+
+    return
+  }
 
   // Step6. Source local and remote nodes in parallel
   await Promise.all([

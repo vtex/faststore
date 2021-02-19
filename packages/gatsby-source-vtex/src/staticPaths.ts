@@ -16,6 +16,9 @@ interface Options {
   pages?: number // max number of staticPaths to generate
 }
 
+const isProduction = process.env.NODE_ENV === 'production'
+const isPreviewServer = process.env.ENABLE_GATSBY_REFRESH_ENDPOINT === 'true'
+
 const readFileAsync = promisify(readFile)
 
 const dfs = (root: Category, paths: string[]) => {
@@ -43,7 +46,8 @@ const staticPaths = async ({
 }: Options): Promise<string[]> => {
   const paths: string[] = await staticPathsFromJson() // final array containing all paths
 
-  if (process.env.NODE_ENV === 'development') {
+  if (!isProduction && !isPreviewServer) {
+    console.info(`[gatsby-source-vtex]: Paths from fixture`)
     return paths
   }
 
