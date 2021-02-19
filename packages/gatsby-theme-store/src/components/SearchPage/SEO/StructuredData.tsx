@@ -45,7 +45,7 @@ const StructuredData: FC<Props> = ({
     `https://${host}`
   )
 
-  if (staticPath !== true) {
+  if (staticPath !== true || breadcrumb === null) {
     return null
   }
 
