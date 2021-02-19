@@ -29,7 +29,9 @@ export const target = join(root, 'public', publicPath)
 
 const queryCode = ({ name, value, sha256Hash }: QueryNode) => `
 export const ${name} = {
-  query: ${isProduction ? undefined : JSON.stringify(value)},
+  query: process.env.NODE_ENV === 'production' ? undefined : ${JSON.stringify(
+    value
+  )},
   sha256Hash: "${sha256Hash}",
   operationName: "${name}",
 }
