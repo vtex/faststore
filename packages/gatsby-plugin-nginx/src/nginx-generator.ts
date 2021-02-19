@@ -88,6 +88,17 @@ function generateNginxConfiguration({
         {
           cmd: ['http'],
           children: [
+            {
+              cmd: [
+                'proxy_cache_path',
+                '/tmp/cache',
+                'levels=1:2',
+                'keys_zone=assets_cache:10m',
+                'max_size=10g',
+                'inactive=60m',
+                'use_temp_path=off',
+              ],
+            },
             // $use_url_tmp = $host OR $http_origin
             {
               cmd: ['map', '$host', '$use_url_tmp'],
@@ -139,6 +150,7 @@ function generateNginxConfiguration({
             {
               cmd: ['server'],
               children: [
+                { cmd: ['proxy_cache', 'assets_cache'] },
                 { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
                 { cmd: ['resolver', '8.8.8.8'] },
                 ...locations,
