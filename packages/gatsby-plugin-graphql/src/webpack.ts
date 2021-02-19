@@ -8,7 +8,6 @@ import { mkdirSync, outputJson } from 'fs-extra'
 import { parse, print, printSchema } from 'graphql'
 import type { GraphQLSchema } from 'graphql'
 
-import { isProduction } from '.'
 import { outputFile } from './filesystem'
 import { QueryManager } from './manager'
 import type { Node } from './manager'
