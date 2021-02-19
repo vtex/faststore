@@ -7,6 +7,8 @@
 import type { FC } from 'react'
 import { useEffect } from 'react'
 
+import { uuidv4 } from '../../sdk/uuid'
+
 interface Props {
   error: any
   errorId?: string
@@ -27,7 +29,7 @@ export const handleError = ({ error, errorId }: Props) => {
   window.location.href =
     error?.extensions?.exception?.status === 404
       ? `/404?from=${window.location.pathname}`
-      : `/500?from=${window.location.pathname}&errorId=${errorId ?? ''}`
+      : `/500?from=${window.location.pathname}&errorId=${errorId ?? uuidv4()}`
 }
 
 const ErrorHandler: FC<Props> = ({ error, errorId }) => {
