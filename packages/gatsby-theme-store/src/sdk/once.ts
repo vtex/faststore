@@ -8,6 +8,6 @@ export const once = <T extends (...args: any[]) => any>(fn: T) => {
       run = false
     }
 
-    return res
+    return res!
   }
 }
