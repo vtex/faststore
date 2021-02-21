@@ -28,7 +28,7 @@ jobs:
       - name: Configure CI Git User
         run: |
           git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --global user.email 'gabriel.antiqueira@vtex.com.br'
 
       - name: Authenticate with Registry
         run: |
