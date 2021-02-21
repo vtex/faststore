@@ -50,7 +50,7 @@ const Provider: FC<FBPixelProviderProps> = ({
   allowedHosts,
 }) => {
   // Setup FB Pixel
-  const ok = useSetupFBPixel(pixelId, allowedHosts)
+  const shouldSetup = useSetupFBPixel(pixelId, allowedHosts)
 
   if (ok === true) {
     // Include FB pixel's scripts into the page
