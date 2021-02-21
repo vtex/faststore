@@ -13,7 +13,7 @@
     "lint": "eslint packages/ --ext .js,.ts,.jsx,.tsx",
     "test:lhci": "lhci autorun --collect.url=/index.html",
     "bootstrap": "lerna bootstrap",
-    "master-publish": "lerna version minor --yes && lerna publish from-git --yes"
+    "publish": "lerna version minor --yes && lerna publish from-git --yes"
   },
   "workspaces": [
     "packages/*"
