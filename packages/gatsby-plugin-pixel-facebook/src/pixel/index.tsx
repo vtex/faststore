@@ -52,7 +52,7 @@ const Provider: FC<FBPixelProviderProps> = ({
   // Setup FB Pixel
   const shouldSetup = useSetupFBPixel(pixelId, allowedHosts)
 
-  if (ok === true) {
+  if (shouldSetup === true) {
     // Include FB pixel's scripts into the page
     useLazyScript({
       src: `https://connect.facebook.net/en_US/fbevents.js`,

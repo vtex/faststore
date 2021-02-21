@@ -41,9 +41,9 @@ const Provider: FC<GTMProviderProps> = ({
   allowedHosts,
 }) => {
   // Setup GTM
-  const ok = useSetupGTM(dataLayerConfig, allowedHosts)
+  const shouldSetup = useSetupGTM(dataLayerConfig, allowedHosts)
 
-  if (ok === true) {
+  if (shouldSetup === true) {
     // Include GTM's scripts into the page
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useLazyScript({
