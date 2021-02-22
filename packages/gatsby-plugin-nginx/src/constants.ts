@@ -25,3 +25,7 @@ export const VTEX_NGINX_CONF_FILENAME = 'nginx.conf'
 export const LOCATIONS_ONLY_ENV_VAR = 'NGINX_LOCATIONS_ONLY'
 
 export const FILE_SERVE_DIRECTIVE_ENV_VAR = 'NGINX_SERVE_FILE_DIRECTIVE'
+
+export const FUNCTIONS_REDIRECTS_FILENAME = 'function-redirects.json'
+
+export const FUNCTIONS_URL_PATH = 'functions'
