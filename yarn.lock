@@ -20030,7 +20030,7 @@ promzard@^0.3.0:
   dependencies:
     read "1"
 
-prop-types@^15.0.0, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.0.0, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -22686,13 +22686,6 @@ store2@^2.7.1:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.12.0.tgz#e1f1b7e1a59b6083b2596a8d067f6ee88fd4d3cf"
   integrity sha512-7t+/wpKLanLzSnQPX8WAcuLCCeuSHoWdQuh9SB3xD0kNOM38DNf+0Oa+wmvxmYueRzkmh6IcdKFtvTa+ecgPDw==
-
-storybook-addon-intl@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/storybook-addon-intl/-/storybook-addon-intl-2.4.1.tgz#870d990defde87615e490aa4ca18abec3ac19f2c"
-  integrity sha512-07CofbUQcx8axTWd2/x0CNyaNJzRFW+/idHg2W3fnimy9w56A088kJwQzefjVFVSJELFDL2kjG19pP3MJ2A0ng==
-  dependencies:
-    prop-types "^15.5.0"
 
 stream-browserify@^2.0.1:
   version "2.0.2"
