@@ -1,6 +1,6 @@
 import React from 'react'
 import { IntlProvider } from '@vtex/gatsby-plugin-i18n'
-import MessagesPt from '../i18n/pt.json'
+import MessagesPt from '../i18n/en.json'
 
 const Provider = (Story) => {
   return (
