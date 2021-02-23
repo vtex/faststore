@@ -37,6 +37,8 @@ export const handleError = ({ error, errorId }: Props) => {
 
   if (isUserOffline) {
     window.location.href = '/offline'
+
+    return
   }
 
   window.location.href = `/500?from=${window.location.pathname}&errorId=${
