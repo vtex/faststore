@@ -23,7 +23,7 @@ interface Props {
   renderIcon?: ((isActive: boolean) => React.ReactNode) | null
 }
 
-export const SearchFilterAccordion: FC<Props> = ({
+const SearchFilterAccordion: FC<Props> = ({
   filters,
   variant: v,
   isActive,
@@ -75,3 +75,5 @@ export const SearchFilterAccordion: FC<Props> = ({
     </BaseAccordion>
   )
 }
+
+export default SearchFilterAccordion

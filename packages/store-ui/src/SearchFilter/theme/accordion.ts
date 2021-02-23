@@ -37,8 +37,8 @@ export const accordionTheme: SxStyleProp = {
 
       price: {
         maxHeight: '210px',
-        margin: 0,
-        px: 0,
+        my: 0,
+        mx: ['20px', '0px'],
         range: {
           ':focus': {
             outline: 0,

@@ -1,36 +1,16 @@
 /** @jsx jsx */
 import { Box, Flex, Label, jsx } from 'theme-ui'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import type { ComponentType, FC } from 'react'
+import React, {
+  useReducer,
+  useRef,
+  Fragment,
+  useEffect,
+  useCallback,
+} from 'react'
+import type { ComponentType, FC, RefObject } from 'react'
 
 import Selector from './AccordionItemSliderSelector'
-
-type UpEventsType = 'mouseup' | 'pointerup' | 'touchend'
-
-type MoveEventsType = {
-  [key: string]: string
-  mousedown: 'mousemove'
-  touchstart: 'touchmove'
-  pointerdown: 'pointermove'
-}
-
-const UP_EVENTS: UpEventsType[] = ['mouseup', 'pointerup', 'touchend']
-
-const MOVE_EVENT_MAP: MoveEventsType = {
-  mousedown: 'mousemove',
-  touchstart: 'touchmove',
-  pointerdown: 'pointermove',
-}
-
-/**
- * Round the value to the nearest step multiple
- */
-function quantize(value: number, step: number) {
-  const numSteps = Math.round(value / step)
-  const quantizedVal = numSteps * step
-
-  return quantizedVal
-}
+import throttle from '../utils/throttle'
 
 /**
  * Get the event pageX attribute, with support for mobile events
@@ -43,262 +23,290 @@ function getPageX(evt: any) {
   return evt.pageX
 }
 
-type Props = {
-  min?: number
-  max?: number
-  onChange?: (args: number[]) => void
-  step?: number
-  disabled?: boolean
-  defaultValues: number[]
-  alwaysShowCurrentValue?: boolean
-  formatValue?: (value: number) => number | string
-  range?: boolean
-  handleIcon?: ComponentType | null
-  variant?: string
+interface Range {
+  min: number
+  max: number
 }
 
-export const SearchFilterAccordionItemSlider: FC<Props> = ({
-  min = 0,
-  max = 10,
-  step = 1,
+interface Props {
+  // Slider range
+  range: Range
+  // Cursor position in "range" units
+  cursor: {
+    left: number
+    right: number
+  }
+  disabled?: boolean
+  displayPopup?: boolean
+  onChange?: (range: Range) => void
+  formatValue?: (value: number) => number | string
+  handleIcon?: ComponentType | null
+}
+
+// 'left' if dragging left cursor
+// 'right' if dragging right cursor
+// false if not dragging
+type Drag = 'left' | 'right' | false
+
+interface State {
+  min: number
+  max: number
+  cursorLeft: {
+    formatted: number | string
+    value: number
+    offset: number
+  }
+  cursorRight: {
+    formatted: number | string
+    value: number
+    offset: number
+  }
+  dragging: Drag
+}
+
+type Action =
+  | {
+      type: 'setLeft'
+      data: {
+        offset: number
+        dragging?: Drag
+      }
+    }
+  | {
+      type: 'setRight'
+      data: {
+        offset: number
+        dragging?: Drag
+      }
+    }
+  | {
+      type: 'setDrag'
+      data: {
+        dragging: Drag
+      }
+    }
+
+const reducer = (format: (value: number) => number | string) => (
+  state: State,
+  action: Action
+): State => {
+  if (action.type === 'setLeft') {
+    const {
+      data: { offset, dragging = state.dragging },
+    } = action
+
+    const value = state.min + (state.max - state.min) * offset
+
+    if (dragging === false || value > state.cursorRight.value) {
+      return state
+    }
+
+    return {
+      ...state,
+      dragging,
+      cursorLeft: {
+        formatted: format(value),
+        offset,
+        value,
+      },
+    }
+  }
+
+  if (action.type === 'setRight') {
+    const {
+      data: { offset, dragging = state.dragging },
+    } = action
+
+    const value = state.min + (state.max - state.min) * offset
+
+    if (dragging === false || value < state.cursorLeft.value) {
+      return state
+    }
+
+    return {
+      ...state,
+      dragging,
+      cursorRight: {
+        formatted: format(value),
+        offset,
+        value,
+      },
+    }
+  }
+
+  if (action.type === 'setDrag') {
+    return {
+      ...state,
+      dragging: action.data.dragging,
+    }
+  }
+
+  return state
+}
+
+const findCursor = (
+  e: React.TouchEvent | React.MouseEvent,
+  sliderRef: RefObject<HTMLDivElement>,
+  state: State
+) => {
+  const rect = sliderRef!.current!.getBoundingClientRect()
+  const xPos = Math.min(Math.max(0, getPageX(e) - rect.left), rect.width)
+
+  const leftPos = rect.width * state.cursorLeft.offset
+  const rightPos = rect.width * state.cursorRight.offset
+
+  // Which one has a absolute value closer to 0
+  const position =
+    Math.abs(leftPos - xPos) < Math.abs(rightPos - xPos) ? 'left' : 'right'
+
+  return {
+    position: position as 'left' | 'right',
+    offset: xPos / rect.width,
+  }
+}
+
+const Labels: FC<{ left: string | number; right: string | number }> = ({
+  left,
+  right,
+}) => (
+  <Flex sx={{ justifyContent: 'flex-end' }}>
+    <Label
+      sx={{
+        color: '#727273',
+        fontWeight: 'normal',
+        fontSize: '.875rem',
+        textTransform: 'initial',
+        letterSpacing: 0,
+        width: 'auto',
+      }}
+    >
+      {left}
+    </Label>
+    <span
+      sx={{
+        marginLeft: ' .25rem',
+        marginRight: '.25rem',
+        color: '#727273',
+        fontWeight: 'normal',
+        fontSize: '.875rem',
+        textTransform: 'initial',
+        letterSpacing: 0,
+      }}
+    >
+      &ndash;
+    </span>
+    <Label
+      sx={{
+        color: '#727273',
+        fontWeight: 'normal',
+        fontSize: '.875rem',
+        textTransform: 'initial',
+        letterSpacing: 0,
+        width: 'auto',
+      }}
+    >
+      {right}
+    </Label>
+  </Flex>
+)
+
+const SearchFilterAccordionItemSlider: FC<Props> = ({
+  range,
+  cursor,
   onChange = () => {},
-  alwaysShowCurrentValue = false,
+  displayPopup = true,
   formatValue = (a) => a,
-  range = false,
   handleIcon = null,
-  defaultValues,
   disabled = false,
 }) => {
   const sliderRef = useRef<HTMLDivElement>(null)
 
-  const [dragging, setDragging] = useState<string | false>(false)
-  const [dragEnd, setDragEnd] = useState(false)
-  const [translate, setTranslate] = useState({ left: 0, right: 0 })
-  const [values, setValues] = useState({
-    left: defaultValues ? defaultValues[0] : min,
-    right: range && defaultValues ? defaultValues[1] : max,
+  const [state, dispatch] = useReducer(reducer(formatValue), {
+    min: range.min,
+    max: range.max,
+    cursorLeft: {
+      formatted: formatValue(cursor.left),
+      value: cursor.left,
+      offset: (cursor.left - range.min) / (range.max - range.min),
+    },
+    cursorRight: {
+      formatted: formatValue(cursor.right),
+      value: cursor.right,
+      offset: (cursor.right - range.min) / (range.max - range.min),
+    },
+    dragging: false,
   })
 
-  const [cancelDragEvent_, setCancelDragEvent] = useState<
-    (() => void) | undefined
-  >(undefined)
-
-  const [valuesBeforeDrag_, setValuesBeforeDrag] = useState({
-    left: defaultValues && defaultValues.length > 0 ? defaultValues[0] : min,
-    right:
-      range && defaultValues && defaultValues.length >= 2
-        ? defaultValues[1]
-        : max,
-    isCurrentValue: false,
-  })
-
-  const getTranslateValueForInputValue = useCallback(
-    (value: number, position: string) => {
-      const rect = sliderRef!.current!.getBoundingClientRect()
-      const percentageComplete = (value - min) / (max - min)
-
-      let translatePx = percentageComplete * rect.width
-
-      if (position === 'right') {
-        translatePx = rect.width - translatePx
+  const handleDown = useCallback(
+    (e: React.TouchEvent | React.MouseEvent) => {
+      if (disabled === true) {
+        return
       }
 
-      return translatePx
-    },
-    [min, max]
-  )
+      const { position, offset } = findCursor(e, sliderRef, state)
 
-  const updatePositionForValue = useCallback(
-    (value: number, position: string) => {
-      const translatePx = getTranslateValueForInputValue(value, position)
-
-      requestAnimationFrame(() => {
-        setValues((prevValues) => ({
-          ...prevValues,
-          [position]: value,
-        }))
-        setTranslate((prevTranslate) => ({
-          ...prevTranslate,
-          [position]: translatePx,
-        }))
+      dispatch({
+        type: position === 'left' ? 'setLeft' : 'setRight',
+        data: {
+          offset,
+          dragging: position,
+        },
       })
     },
-    [getTranslateValueForInputValue]
+    [disabled, state]
   )
 
-  useEffect(() => {
-    if (defaultValues) {
-      updatePositionForValue(defaultValues[0], 'left')
-      updatePositionForValue(defaultValues[1], 'right')
-    }
-  }, [defaultValues, updatePositionForValue])
+  const handleMove = useCallback(
+    throttle((e: React.TouchEvent | React.MouseEvent) => {
+      const { offset } = findCursor(e, sliderRef, state)
 
+      dispatch({
+        type: state.dragging === 'left' ? 'setLeft' : 'setRight',
+        data: {
+          offset,
+        },
+      })
+    }),
+    [state]
+  )
+
+  const handleUp = useCallback(() => {
+    dispatch({
+      type: 'setDrag',
+      data: {
+        dragging: false,
+      },
+    })
+
+    // Schedule to next frame so the slider transitions into its final state
+    requestAnimationFrame(() => {
+      onChange({
+        min: state.cursorLeft.value,
+        max: state.cursorRight.value,
+      })
+    })
+  }, [onChange, state.cursorLeft.value, state.cursorRight.value])
+
+  // Use global event handlers so the user can use drag outside
+  // the component's area
   useEffect(() => {
+    window.addEventListener('pointermove', handleMove)
+    window.addEventListener('touchmove', handleMove)
+
+    window.addEventListener('pointerup', handleUp)
+    window.addEventListener('touchend', handleUp)
+
     return () => {
-      if (cancelDragEvent_) {
-        cancelDragEvent_()
-        setCancelDragEvent(undefined)
-      }
+      window.removeEventListener('pointermove', handleMove)
+      window.removeEventListener('touchmove', handleMove)
+
+      window.removeEventListener('pointerup', handleUp)
+      window.removeEventListener('touchend', handleUp)
     }
-  }, [cancelDragEvent_, defaultValues, updatePositionForValue])
-
-  const getValueForPercent = (percentageComplete: number, position: string) => {
-    const rawValue = min + percentageComplete * (max - min)
-
-    let value
-
-    if (rawValue !== min && rawValue !== max) {
-      value = quantize(rawValue, step)
-    } else {
-      value = rawValue
-    }
-
-    if (value < min) {
-      value = min
-    } else if (value > max) {
-      value = max
-    }
-
-    if (!range) {
-      return value
-    }
-
-    if (position === 'left' && value >= values.right) {
-      value = values.right - step
-    } else if (position === 'right' && value <= values.left) {
-      value = values.left + step
-    }
-
-    return value
-  }
-
-  const handleChange = useCallback(() => {
-    if (range) {
-      onChange([values.left, values.right])
-    } else {
-      onChange([values.left])
-    }
-  }, [values, onChange, range])
-
-  useEffect(() => {
-    if (dragEnd) {
-      handleChange()
-      setDragEnd(false)
-    }
-  }, [dragEnd, handleChange])
-
-  const handleDragEnd = useCallback(() => {
-    setDragging(false)
-
-    setCancelDragEvent(undefined)
-
-    setDragEnd(true)
-  }, [])
-
-  const updatePositionFromEvent = (
-    e: React.TouchEvent | React.MouseEvent,
-    position: string
-  ) => {
-    const slider = sliderRef.current
-    const rect = slider!.getBoundingClientRect()
-
-    const xPos = getPageX(e) - rect.left
-
-    const percentageComplete = xPos / rect.width
-
-    const value = getValueForPercent(percentageComplete, position)
-
-    updatePositionForValue(value, position)
-  }
-
-  const handleDrag = (position: string) => (
-    e: React.TouchEvent | React.MouseEvent
-  ) => {
-    e.preventDefault()
-    updatePositionFromEvent(e, position)
-  }
-
-  const handleDragStart = (position: string) => (
-    e: React.TouchEvent | React.MouseEvent
-  ) => {
-    e.stopPropagation()
-
-    if (disabled) {
-      return
-    }
-
-    setDragging(position)
-
-    setValuesBeforeDrag({ ...values, isCurrentValue: true })
-
-    e.persist()
-
-    const moveHandler = handleDrag(position)
-
-    const handleUpEvent = () => {
-      if (cancelDragEvent_ !== undefined) {
-        cancelDragEvent_()
-      }
-
-      handleDragEnd()
-    }
-
-    // The events below are attached to the body because we need
-    // to support the dragging event *outside* of the slider bounds
-
-    setCancelDragEvent(() => () => {
-      setValuesBeforeDrag((oldValues) => {
-        return { ...oldValues, isCurrentValue: false }
-      })
-      UP_EVENTS.forEach((evtName) => {
-        window.removeEventListener(evtName, handleUpEvent)
-      })
-      window.removeEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
-    })
-
-    UP_EVENTS.forEach((evtName) => {
-      window.addEventListener(evtName, handleUpEvent)
-    })
-    window.addEventListener(MOVE_EVENT_MAP[e.type] as any, moveHandler)
-
-    updatePositionFromEvent(e, position)
-  }
-
-  const handleSliderMouseDown = (e: React.TouchEvent | React.MouseEvent) => {
-    const rect = sliderRef!.current!.getBoundingClientRect()
-    const xPos = getPageX(e) - rect.left
-
-    const leftPos = translate.left
-    const rightPos = rect.width - translate.right
-
-    let nearestPoint
-
-    // Which one has a absolute value closer to 0
-    if (!range || Math.abs(leftPos - xPos) < Math.abs(rightPos - xPos)) {
-      nearestPoint = 'left'
-    } else {
-      nearestPoint = 'right'
-    }
-
-    handleDragStart(nearestPoint)(e)
-  }
-
-  const { left, right } = translate
-
-  const lastLeftValue = valuesBeforeDrag_.isCurrentValue
-    ? valuesBeforeDrag_.left
-    : values.left
-
-  const lastRightValue = valuesBeforeDrag_.isCurrentValue
-    ? valuesBeforeDrag_.right
-    : values.right
-
-  const sliderSelectionStyle = range
-    ? { left, right }
-    : { left: 0, width: left }
+  }, [handleMove, handleUp, state.dragging])
 
   return (
-    <Box>
+    <Fragment>
       <Box
         aria-valuenow={0}
         sx={{
@@ -309,15 +317,23 @@ export const SearchFilterAccordionItemSlider: FC<Props> = ({
           userSelect: 'none',
           width: '100%',
           position: 'relative',
+          cursor: 'pointer',
           ':focus': {
             outline: 0,
           },
         }}
-        onMouseDown={handleSliderMouseDown}
-        onTouchStart={handleSliderMouseDown}
+        onTouchStart={handleDown}
+        onPointerDown={handleDown}
         role="slider"
         tabIndex={0}
       >
+        <Selector
+          offset={state.cursorLeft.offset}
+          value={state.cursorLeft.formatted}
+          active={state.dragging === 'left'}
+          displayPopup={displayPopup}
+          icon={handleIcon}
+        />
         <Box
           ref={sliderRef}
           sx={{
@@ -332,70 +348,29 @@ export const SearchFilterAccordionItemSlider: FC<Props> = ({
         >
           <Box
             sx={{
-              backgroundColor: disabled ? '#e3e4e6' : '#134cd8',
+              backgroundColor: disabled ? '#e3e4e6' : 'primary',
               height: '100%',
               position: 'absolute',
+              left: `${state.cursorLeft.offset * 100}%`,
+              right: `${(1 - state.cursorRight.offset) * 100}%`,
             }}
-            style={sliderSelectionStyle}
           />
         </Box>
         <Selector
-          offset={left}
-          onDragStart={handleDragStart}
-          position="left"
-          active={dragging === 'left'}
-          displayPopup={alwaysShowCurrentValue}
-          value={values.left}
-          formatValue={formatValue}
+          offset={state.cursorRight.offset}
+          value={state.cursorRight.formatted}
+          active={state.dragging === 'right'}
+          displayPopup={displayPopup}
           icon={handleIcon}
-          sx={{ left: 0 }}
         />
-        {range && (
-          <Selector
-            offset={right}
-            onDragStart={handleDragStart}
-            position="right"
-            active={dragging === 'right'}
-            displayPopup={alwaysShowCurrentValue}
-            value={values.right}
-            formatValue={formatValue}
-            icon={handleIcon}
-            sx={{ right: 0 }}
-          />
-        )}
       </Box>
 
-      <Flex sx={{ justifyContent: 'flex-end' }}>
-        <Label
-          sx={{
-            color: '#727273',
-            fontWeight: 'normal',
-            fontSize: '.875rem',
-            textTransform: 'initial',
-            letterSpacing: 0,
-            width: 'auto',
-          }}
-        >
-          {formatValue(lastLeftValue)}
-        </Label>
-        {range && (
-          <Label
-            sx={{
-              color: '#727273',
-              fontWeight: 'normal',
-              fontSize: '.875rem',
-              textTransform: 'initial',
-              letterSpacing: 0,
-              width: 'auto',
-            }}
-          >
-            <span sx={{ marginLeft: ' .25rem', marginRight: '.25rem' }}>
-              &ndash;
-            </span>
-            {formatValue(lastRightValue)}
-          </Label>
-        )}
-      </Flex>
-    </Box>
+      <Labels
+        left={state.cursorLeft.formatted}
+        right={state.cursorRight.formatted}
+      />
+    </Fragment>
   )
 }
+
+export default SearchFilterAccordionItemSlider

@@ -20,7 +20,7 @@ interface Props {
   onClick: (item: Item) => void
 }
 
-export const SearchFilterAccordionItemCheckbox: FC<Props> = ({
+const SearchFilterAccordionItemCheckbox: FC<Props> = ({
   item: { name, quantity, selected },
   variant,
   onClick,
@@ -37,3 +37,5 @@ export const SearchFilterAccordionItemCheckbox: FC<Props> = ({
     <Box variant={`${variant}.quantity`}>{quantity}</Box>
   </Label>
 )
+
+export default SearchFilterAccordionItemCheckbox
