@@ -45,19 +45,6 @@ const Page: FC<Props> = () => {
           >
             ⤾ Reload
           </Button>
-
-          {/* <Box
-            as="p"
-            sx={{
-              paddingX: '15px',
-              fontSize: '14px',
-              textAlign: 'center',
-              marginTop: '20px',
-              color: '#656565',
-            }}
-          >
-            <FormattedMessage id="error.detail" values={{ errorId }} />
-          </Box> */}
         </Flex>
       </Container>
     </Layout>
