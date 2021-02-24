@@ -31,16 +31,27 @@ export const search = (term: string) => {
 export const setSearchFilters = (filters: SearchFilters) => {
   const { search: searchParams } = window.location
   const params = new URLSearchParams(searchParams)
+  const filterNames = Object.keys(filters) as Array<keyof SearchFilters>
 
-  Object.keys(filters).forEach((key: string) => {
-    const value = filters[key as keyof SearchFilters]
-
-    if (key === 'priceRange') {
-      params.set(key, format(value as PriceRange))
-    } else if (value && !['query', 'selectedFacets'].includes(key)) {
-      params.set(key, value as string)
+  for (const filter of filterNames) {
+    if (filter === 'query' || filter === 'selectedFacets') {
+      continue
     }
-  })
+
+    let value = filters[filter]
+
+    if (filter === 'priceRange') {
+      const v = filters[filter]
+
+      if (v !== null) {
+        value = format(v)
+      }
+    }
+
+    if (typeof value === 'string') {
+      params.set(filter, value)
+    }
+  }
 
   navigate(`/${filters.query}?${params.toString()}`)
 }
