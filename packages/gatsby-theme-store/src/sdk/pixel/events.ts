@@ -8,6 +8,7 @@ export interface PageViewData {
   pageTitle: string
   pageUrl: string
   referrer: string
+  pageType: 'home' | 'fullText' | 'pdp' | 'plp'
 }
 
 export interface UserData extends PageViewData {
@@ -23,8 +24,6 @@ export interface UserData extends PageViewData {
 export interface CartIdData extends PageViewData {
   cartId: string
 }
-
-export type HomeViewData = PageViewData
 
 export type ProductPageInfoData = PageViewData
 

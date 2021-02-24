@@ -3,21 +3,10 @@ import type { PixelEventHandler } from '@vtex/gatsby-theme-store/src/sdk/pixel/u
 
 const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {
-    case 'vtex:homeView': {
-      return {
-        event: 'homeView',
-        location: event.data.pageUrl,
-        page: event.data.pageUrl.replace(window.origin, ''),
-        referrer: event.data.referrer,
-        ...(event.data.pageTitle && {
-          title: event.data.pageTitle,
-        }),
-      }
-    }
-
     case 'vtex:pageView': {
       return {
         event: 'pageView',
+        pageType: event.data.pageType,
         location: event.data.pageUrl,
         page: event.data.pageUrl.replace(window.origin, ''),
         referrer: event.data.referrer,
@@ -30,6 +19,7 @@ const getDataFromEvent = (event: PixelEvent) => {
     case 'vtex:internalSiteSearchView': {
       return {
         event: 'internalSiteSearchView',
+        pageType: event.data.pageType,
         siteSearchTerm: event.data.term,
         siteSearchResults: event.data.results,
       }

@@ -8,6 +8,7 @@ import SEO from '../components/HomePage/SEO'
 import Layout from '../components/Layout'
 import SuspenseViewport from '../components/Suspense/Viewport'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
+import type { PageViewData } from '../sdk/pixel/events'
 
 const belowTheFoldPreloader = () =>
   import('../components/HomePage/BelowTheFold')
@@ -18,17 +19,15 @@ type Props = PageProps<unknown>
 
 const Home: FC<Props> = (props) => {
   usePixelSendEvent(() => {
-    const event = {
+    const event: PageViewData = {
+      pageType: 'home',
       pageUrl: window.location.href,
       pageTitle: document.title,
       referrer: '',
       accountName: process.env.GATSBY_STORE_ID!,
     }
 
-    return [
-      { type: 'vtex:homeView', data: event },
-      { type: 'vtex:pageView', data: event },
-    ]
+    return { type: 'vtex:pageView', data: event }
   })
 
   return (

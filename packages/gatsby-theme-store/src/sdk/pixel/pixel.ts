@@ -1,5 +1,4 @@
 import type {
-  HomeViewData,
   ProductViewData,
   ProductClickData,
   ProductImpressionData,
@@ -15,7 +14,6 @@ import type {
 } from './events'
 
 export type PixelEvent =
-  | { type: 'vtex:homeView'; data: HomeViewData }
   | { type: 'vtex:productView'; data: ProductViewData }
   | { type: 'vtex:productClick'; data: ProductClickData }
   | { type: 'vtex:productImpression'; data: ProductImpressionData }
