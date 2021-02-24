@@ -86,7 +86,10 @@ export const toggleItem = (item: SearchFilterItem, filters: SearchFilters) => {
   })
 }
 
-export const setPriceRange = (priceRange: PriceRange, filters: SearchFilters) =>
+export const setPriceRange = (
+  priceRange: PriceRange,
+  filters: SearchFilters
+) => {
   setSearchFilters({
     ...filters,
     priceRange: {
@@ -94,3 +97,4 @@ export const setPriceRange = (priceRange: PriceRange, filters: SearchFilters) =>
       to: Math.trunc(priceRange.to),
     },
   })
+}
