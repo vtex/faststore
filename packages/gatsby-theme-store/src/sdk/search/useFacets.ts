@@ -5,6 +5,7 @@
 import { useContext, useMemo } from 'react'
 import type { SearchFilterItem } from '@vtex/store-ui'
 
+import type { PriceRange } from './priceRange'
 import { SearchContext } from './Provider'
 import type { SearchFilters } from './Provider'
 
@@ -70,7 +71,7 @@ export const useFacets = () => {
     controller.toggleItem(item, filters)
   }
 
-  const setPriceRange = async (priceRange: number[]) => {
+  const setPriceRange = async (priceRange: PriceRange) => {
     const controller = await loadController()
 
     controller.setPriceRange(priceRange, filters)

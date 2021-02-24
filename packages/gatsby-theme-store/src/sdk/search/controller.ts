@@ -1,6 +1,8 @@
 import { navigate } from '@reach/router'
 import type { SearchFilterItem } from '@vtex/store-ui'
 
+import type { PriceRange } from './priceRange'
+import { format } from './priceRange'
 import { uniqBy } from '../../utils/uniq'
 import type { SearchFilters } from './Provider'
 
@@ -29,16 +31,27 @@ export const search = (term: string) => {
 export const setSearchFilters = (filters: SearchFilters) => {
   const { search: searchParams } = window.location
   const params = new URLSearchParams(searchParams)
+  const filterNames = Object.keys(filters) as Array<keyof SearchFilters>
 
-  params.delete('priceRange')
-
-  Object.keys(filters).forEach((key: string) => {
-    const value = filters[key as keyof SearchFilters]
-
-    if (value && !['query', 'selectedFacets', 'priceRange'].includes(key)) {
-      params.set(key, value as string)
+  for (const filter of filterNames) {
+    if (filter === 'query' || filter === 'selectedFacets') {
+      continue
     }
-  })
+
+    let value = filters[filter]
+
+    if (filter === 'priceRange') {
+      const v = filters[filter]
+
+      if (v !== null) {
+        value = format(v)
+      }
+    }
+
+    if (typeof value === 'string') {
+      params.set(filter, value)
+    }
+  }
 
   navigate(`/${filters.query}?${params.toString()}`)
 }
@@ -84,32 +97,15 @@ export const toggleItem = (item: SearchFilterItem, filters: SearchFilters) => {
   })
 }
 
-type Facet = {
-  key: string
-  value: string
-}
-
-export const setPriceRange = (priceRange: number[], filters: SearchFilters) => {
-  const { search: searchParams } = window.location
-  const params = new URLSearchParams(searchParams)
-  const facets = filters.selectedFacets as Facet[]
-
-  params.set('priceRange', `${priceRange[0]} TO ${priceRange[1]}`)
-
-  const priceRangeIndex = facets.findIndex(
-    (facet) => facet.key === 'priceRange'
-  )
-
-  if (priceRangeIndex > -1) {
-    facets[priceRangeIndex].value = `${priceRange[0]} TO ${priceRange[1]}`
-  } else {
-    facets.push({
-      key: 'priceRange',
-      value: `${priceRange[0]} TO ${priceRange[1]}`,
-    })
-  }
-
-  const to = `/${filters.query}?${params.toString()}`
-
-  navigate(to)
+export const setPriceRange = (
+  priceRange: PriceRange,
+  filters: SearchFilters
+) => {
+  setSearchFilters({
+    ...filters,
+    priceRange: {
+      from: Math.trunc(priceRange.from),
+      to: Math.trunc(priceRange.to),
+    },
+  })
 }

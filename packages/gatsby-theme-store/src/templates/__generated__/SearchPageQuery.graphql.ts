@@ -18,10 +18,11 @@ type Scalars = {
 
 // Operation related types
 export type SearchPageQueryQueryVariables = Exact<{
+  from?: Maybe<Scalars['Int']>;
+  to?: Maybe<Scalars['Int']>;
   query: Maybe<Scalars['String']>;
   map: Maybe<Scalars['String']>;
   fullText: Maybe<Scalars['String']>;
-  priceRange: Maybe<Scalars['String']>;
   staticPath: Scalars['Boolean'];
   selectedFacets: Maybe<Array<Vtex_SelectedFacetInput> | Vtex_SelectedFacetInput>;
   orderBy?: Maybe<Scalars['String']>;
@@ -34,8 +35,8 @@ export type SearchPageQueryQuery = { vtex: { productSearch: Maybe<{ recordsFilte
 // Query Related Code
 
 export const SearchPageQuery = {
-  query: process.env.NODE_ENV === 'production' ? undefined : "query SearchPageQuery($query: String, $map: String, $fullText: String, $priceRange: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = \"OrderByScoreDESC\") {\n  vtex {\n    productSearch(from: 0, to: 11, hideUnavailableItems: false, productOriginVtex: true, priceRange: $priceRange, simulationBehavior: skip, orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n        }\n      }\n      recordsFiltered\n    }\n    searchMetadata(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      title: titleTag\n      description: metaTagDescription\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: \"Static\", removeHiddenFacets: true) @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          range {\n            from\n            to\n          }\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            range {\n              from\n              to\n            }\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n              range {\n                from\n                to\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
-  sha256Hash: "abd40c2d94da830ec04447a9bdc5cb805091e6be3de1f07a5fed0833158ee3d2",
+  query: process.env.NODE_ENV === 'production' ? undefined : "query SearchPageQuery($from: Int = 0, $to: Int = 11, $query: String, $map: String, $fullText: String, $staticPath: Boolean!, $selectedFacets: [VTEX_SelectedFacetInput!], $orderBy: String = \"OrderByScoreDESC\") {\n  vtex {\n    productSearch(from: $from, to: $to, hideUnavailableItems: false, productOriginVtex: true, simulationBehavior: skip, orderBy: $orderBy, query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      products {\n        productId\n        productName\n        linkText\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n        }\n      }\n      recordsFiltered\n    }\n    searchMetadata(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets) @include(if: $staticPath) {\n      title: titleTag\n      description: metaTagDescription\n    }\n    facets(query: $query, map: $map, fullText: $fullText, selectedFacets: $selectedFacets, operator: or, behavior: \"Static\", removeHiddenFacets: true) @include(if: $staticPath) {\n      breadcrumb {\n        href\n        name\n      }\n      facets {\n        name\n        type\n        values {\n          key\n          name\n          value\n          selected\n          quantity\n          range {\n            from\n            to\n          }\n          values: children {\n            key\n            name\n            value\n            selected\n            quantity\n            range {\n              from\n              to\n            }\n            values: children {\n              key\n              name\n              value\n              selected\n              quantity\n              range {\n                from\n                to\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  sha256Hash: "c246f9fae2cef7329519ecd64012eb8d3edcdaa8b4ab57fc970be5669ae4f588",
   operationName: "SearchPageQuery",
 }
 

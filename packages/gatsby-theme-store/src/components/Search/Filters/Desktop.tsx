@@ -1,17 +1,16 @@
-/** @jsx jsx */
 import {
   Box,
   SearchFilterAccordion,
   SearchFilterAccordionItemCheckbox,
   SearchFilterAccordionItemSlider,
-  jsx,
 } from '@vtex/store-ui'
-import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Fragment, useMemo } from 'react'
+import { FormattedMessage } from '@vtex/gatsby-plugin-i18n'
+import React, { Fragment } from 'react'
 import type { FC } from 'react'
 
 import { useFacets } from '../../../sdk/search/useFacets'
 import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
+import { useFilters } from '../../../sdk/search/useFilters'
 
 export interface Props {
   variant?: string
@@ -20,25 +19,13 @@ export interface Props {
 
 const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
   const { facets, toggleItem, setPriceRange } = useFacets()
-  const { formatMessage } = useIntl()
+  const { priceRange } = useFilters()
   const { format } = useNumberFormat()
-
-  const { search: searchParams } = window.location
-  const params = new URLSearchParams(searchParams)
-
-  const defaultValues = useMemo(
-    () =>
-      params
-        .get('priceRange')
-        ?.split(' TO ')
-        .map((price) => parseInt(price, 10)),
-    [params]
-  )
 
   return (
     <Fragment>
       <Box variant={`searchFilter.${variant}.title`}>
-        {formatMessage({ id: 'facets.filters' })}
+        <FormattedMessage id="facets.filters" />
       </Box>
 
       <SearchFilterAccordion
@@ -53,28 +40,41 @@ const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
           />
         )}
         renderPrice={(filter) => {
-          const priceRanges: number[] = []
+          let min = Infinity
+          let max = 0
 
-          filter.values.forEach(({ range: { from, to } }) => {
-            priceRanges.push(from)
-            priceRanges.push(to)
-          })
+          /**
+           * TODO: This should be moved to the back-end since there is no
+           * reason for making this reduce in the frontend
+           */
+          for (const {
+            range: { from, to },
+          } of filter.values) {
+            if (from < min) {
+              min = from
+            }
+
+            if (to > max) {
+              max = to
+            }
+          }
 
           return (
             <SearchFilterAccordionItemSlider
-              onChange={setPriceRange}
-              min={Math.min(...priceRanges)}
-              max={Math.max(...priceRanges)}
-              step={1}
-              defaultValues={
-                defaultValues ?? [
-                  Math.min(...priceRanges),
-                  Math.max(...priceRanges),
-                ]
-              }
-              alwaysShowCurrentValue={false}
+              onChange={({ min: from, max: to }) => {
+                setPriceRange({ from, to: to! })
+              }}
+              range={{
+                min,
+                max,
+              }}
+              cursor={{
+                left: priceRange?.from ?? min,
+                right: priceRange?.to ?? max,
+              }}
               formatValue={format}
-              range
+              disabled={false}
+              displayPopup
             />
           )
         }}
