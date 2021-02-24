@@ -6,7 +6,7 @@ export type RequestOptions = GraphQLRequestOptions
 export const request = async <Query = any, Variables = any>(
   options: RequestOptions
 ) => {
-  const { data, errors } = await baseRequest<Variables, Query>('/graphql/', {
+  const { data, errors } = await baseRequest<Variables, Query>('/graphql', {
     ...options,
     fetchOptions: {
       credentials: 'include',

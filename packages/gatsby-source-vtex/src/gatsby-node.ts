@@ -295,8 +295,8 @@ export const createPages = (
 
   // Use graphql-gateway from VTEX IO
   createRedirect({
-    fromPath: '/graphql/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
+    fromPath: '/graphql',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/graphql`,
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly

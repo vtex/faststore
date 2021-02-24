@@ -141,6 +141,8 @@ function generateNginxConfiguration({
               children: [
                 { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
                 { cmd: ['resolver', '8.8.8.8'] },
+                // remove trailling slashes since Gatsby already does that on the frontend for us
+                { cmd: ['rewrite', '^/(.*)/$', '/$1', 'permanent'] },
                 ...locations,
               ],
             },
