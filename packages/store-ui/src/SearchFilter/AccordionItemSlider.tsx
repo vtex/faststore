@@ -220,19 +220,20 @@ const SearchFilterAccordionItemSlider: FC<Props> = ({
   disabled = false,
 }) => {
   const sliderRef = useRef<HTMLDivElement>(null)
-
+  const cursorLeft = Math.max(range.min, cursor.left)
+  const cursorRight = Math.min(range.max, cursor.right)
   const [state, dispatch] = useReducer(reducer(formatValue), {
     min: range.min,
     max: range.max,
     cursorLeft: {
-      formatted: formatValue(cursor.left),
-      value: cursor.left,
-      offset: (cursor.left - range.min) / (range.max - range.min),
+      formatted: formatValue(cursorLeft),
+      value: cursorLeft,
+      offset: (cursorLeft - range.min) / (range.max - range.min),
     },
     cursorRight: {
-      formatted: formatValue(cursor.right),
-      value: cursor.right,
-      offset: (cursor.right - range.min) / (range.max - range.min),
+      formatted: formatValue(cursorRight),
+      value: cursorRight,
+      offset: (cursorRight - range.min) / (range.max - range.min),
     },
     dragging: false,
   })
