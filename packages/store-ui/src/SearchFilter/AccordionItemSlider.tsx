@@ -290,6 +290,10 @@ const SearchFilterAccordionItemSlider: FC<Props> = ({
   // Use global event handlers so the user can use drag outside
   // the component's area
   useEffect(() => {
+    if (state.dragging === false) {
+      return
+    }
+
     window.addEventListener('pointermove', handleMove)
     window.addEventListener('touchmove', handleMove)
 
