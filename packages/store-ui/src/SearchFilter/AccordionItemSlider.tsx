@@ -210,15 +210,16 @@ const Labels: FC<{ left: string | number; right: string | number }> = ({
   </Flex>
 )
 
-const SearchFilterAccordionItemSlider: FC<Props> = ({
+const useRangeSlider = ({
   range,
   cursor,
   onChange = () => {},
-  displayPopup = true,
   formatValue = (a) => a,
-  handleIcon = null,
-  disabled = false,
-}) => {
+  disabled,
+}: Pick<
+  Props,
+  'range' | 'cursor' | 'onChange' | 'formatValue' | 'disabled'
+>) => {
   const sliderRef = useRef<HTMLDivElement>(null)
   const cursorLeft = Math.max(range.min, cursor.left)
   const cursorRight = Math.min(range.max, cursor.right)
@@ -309,6 +310,29 @@ const SearchFilterAccordionItemSlider: FC<Props> = ({
       window.removeEventListener('touchend', handleUp)
     }
   }, [handleMove, handleUp, state.dragging])
+
+  return {
+    handleDown,
+    sliderRef,
+    state,
+  }
+}
+
+const SearchFilterAccordionItemSlider: FC<Props> = ({
+  range,
+  cursor,
+  onChange = () => {},
+  formatValue = (a) => a,
+  displayPopup = true,
+  handleIcon = null,
+  disabled = false,
+}) => {
+  const { handleDown, sliderRef, state } = useRangeSlider({
+    range,
+    cursor,
+    onChange,
+    formatValue,
+  })
 
   return (
     <Fragment>
