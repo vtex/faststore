@@ -1,0 +1,56 @@
+import { Meta, Story, Preview, Canvas } from '@storybook/addon-docs/blocks'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
+import { action } from '@storybook/addon-actions'
+
+import baseTheme from './theme'
+import { Breadcrumb } from './index'
+
+<Meta title="Breadcrumb" component={Breadcrumb} />
+
+# Breadcrumb
+
+Breadcrumbs are used to show the navigation levels and their hierarchy.
+
+\* Default values
+
+## Usage
+
+| Props   | Values                                    | Description |
+| ------- | ----------------------------------------- | ----------- |
+| example | <code>false\*</code> \| <code>true</code> | Lorem ipsum |
+
+<Canvas>
+  <Story name="Product">
+    <Breadcrumb
+      breadcrumb={[
+        {
+          href: '/Cubas-e-Tanques',
+          name: 'Cubas e Tanques',
+        },
+        {
+          href: '/Cubas-e-Tanques/Cubas',
+          name: 'Cubas',
+        },
+      ]}
+      type="PRODUCT"
+    />
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="Search">
+    <Breadcrumb
+      breadcrumb={[
+        {
+          name: 'Apparel & Accessories',
+          href: '/apparel---accessories',
+        },
+        {
+          name: 'Clothing',
+          href: '/apparel---accessories/clothing',
+        },
+      ]}
+      type="SEARCH"
+    />
+  </Story>
+</Canvas>

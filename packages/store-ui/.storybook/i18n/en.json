@@ -1,0 +1,126 @@
+{
+  "buy-button.add-to-cart": "ADD TO CART",
+
+  "minicart.drawer.close": "Close",
+  "minicart.drawer.count": "Cart ({count})",
+  "minicart.drawer.subtotal": "Subtotal",
+  "minicart.drawer.total": "Total",
+  "minicart.drawer.shipping-disclaimer": "Shipping and taxes are calculated at checkout.",
+  "minicart.drawer.go-checkout": "CHECKOUT",
+
+  "facets.filters": "Filter by:",
+
+  "loading": "Loading...",
+
+  "notification-bar.sale": "SELECTED ITEMS ON SALE! TAKE A LOOK!",
+
+  "search.page-list.more": "See More",
+  "search.page-list.more.loading": "Loading...",
+
+  "suggestions.autocomplete.title": "Suggestions",
+  "suggestions.autocomplete.notFound": "No suggestions",
+  "suggestions.products.title": "Products for: {term}",
+  "suggestions.products.total": "See all {count} items",
+  "suggestions.products.notFound": "No products found",
+  "suggestions.history.title": "History",
+  "suggestions.history.empty": "No search found",
+  "suggestions.topSearches.title": "Most searched terms",
+  "suggestions.topSearches.empty": "No term found",
+
+  "product.quantity.title": "Quantity",
+
+  "searchControls.totalCount": "{count,plural,=0{ PRODUCTS}one{ PRODUCT}other{ PRODUCTS}}",
+  "searchControls.filters": "Filters",
+  "searchControls.select.scoreDesc": "Relevance",
+  "searchControls.select.priceDesc": "Price: Highest to Lowest",
+  "searchControls.select.priceAsc": "Price: Lowest to Highest",
+  "searchControls.select.topSaleDesc": "Best sellers",
+  "searchControls.select.reviewRateDesc": "Reviews",
+  "searchControls.select.nameDesc": "Name, ascending",
+  "searchControls.select.nameAsc": "Name, descending",
+  "searchControls.select.releaseDateDesc": "Releases",
+  "searchControls.select.bestDiscountDesc": "Discount",
+
+  "shippingSimulator.label": "OK",
+  "shipping.postalCodeLabel": "Calculate shipping and delivery time:",
+  "shipping.free": "Free Shipping",
+  "shipping.label.id": "Type",
+  "shipping.label.estimate": "Deadline",
+  "shipping.label.price": "Price",
+
+  "shippingEstimate-bd": "{timeAmount, plural, =0 {Today} one {In # workday} other {Up to # workdays}}",
+  "shippingEstimate-d": "{timeAmount, plural, =0 {Today} one {In # workday} other {Up to # workdays}}",
+  "shippingEstimate-h": "{timeAmount, plural, =0 {Now} one {In # hour} other {Up to # hours}}",
+  "shippingEstimate-m": "{timeAmount, plural, =0 {Now} one {In # minute} other {Up to # minutes}}",
+  "shippingEstimate-scheduled": "{date}, between {startDate} and {endDate}",
+  "shippingEstimate-scheduled-no-dates": "Scheduled",
+
+  "login.page.title": "Choose a way to login",
+
+  "login.page.emailAndPassword.signUpForm.title": "Validate email create a new password",
+  "login.page.emailAndPassword.signUpForm.subTitle": "Enter the code sent to {email} and create a new password",
+  "login.page.emailAndPassword.signUpForm.accessCodeLabel": "Access code:",
+  "login.page.emailAndPassword.signUpForm.accessCodePlaceholder": "Enter access code",
+  "login.page.emailAndPassword.signUpForm.passwordLabel": "Password:",
+  "login.page.emailAndPassword.signUpForm.passwordPlaceholder": "Enter password",
+  "login.page.emailAndPassword.signUpForm.confirmPasswordLabel": "Confirm password:",
+  "login.page.emailAndPassword.signUpForm.confirmPasswordPlaceholder": "Confirm password",
+  "login.page.emailAndPassword.signUpForm.invalidAccessCodeInput": "Invalid access code",
+  "login.page.emailAndPassword.signUpForm.invalidPassword": "Invalid password. Your password must contain at least eight digits, one lower and one upper character, and at least 1 number",
+  "login.page.emailAndPassword.signUpForm.passwordDoNotMatch": "Passwords don't match",
+  "login.page.emailAndPassword.signUpForm.error": "Error. Please try again",
+  "login.page.emailAndPassword.signUpForm.submitButton": "Create",
+  "login.page.emailAndPassword.signUpForm.backButton": "Back",
+
+  "login.page.emailAndPassword.signInForm.title": "Login with email and password",
+  "login.page.emailAndPassword.signInForm.emailPlaceholder": "Ex: example@gmail.com",
+  "login.page.emailAndPassword.signInForm.password": "Enter password",
+  "login.page.emailAndPassword.signInForm.forgotPassword": "Forgot my password",
+  "login.page.emailAndPassword.signInForm.invalidEmailInput": "Invalid email",
+  "login.page.emailAndPassword.signInForm.invalidPasswordInput": "Invalid password",
+  "login.page.emailAndPassword.signInForm.authError": "Something went wrong. Please try again",
+  "login.page.emailAndPassword.signInForm.submitButton": "Login",
+  "login.page.emailAndPassword.signInForm.signupButton": "Do not have an account yet? Register",
+
+  "login.page.emailAndPassword.emailForm.title": "Receive access code by email",
+  "login.page.emailAndPassword.emailForm.emailPlaceholder": "Enter email",
+  "login.page.emailAndPassword.emailForm.invalidEmailInput": "Invalid email",
+  "login.page.emailAndPassword.emailForm.error": "Something went wrong. Please try again",
+  "login.page.emailAndPassword.emailForm.submitButton": "Confirm",
+  "login.page.emailAndPassword.emailForm.backButton": "Back",
+
+  "login.page.emailAndPassword.button": "Login with email and password",
+
+  "login.page.emailVerification.accessCodeForm.title": "Enter the access code sent to your email",
+  "login.page.emailVerification.accessCodeForm.codePlaceholder": "Enter your access code",
+  "login.page.emailVerification.accessCodeForm.invalidAccessCode": "Enter a valid 6-digit code",
+  "login.page.emailVerification.accessCodeForm.authError": "Something went wrong with your access code. Please check the number and try again",
+  "login.page.emailVerification.accessCodeForm.submitButton": "Confirm",
+  "login.page.emailVerification.accessCodeForm.backButton": "Back",
+
+  "login.page.emailVerification.emailForm.title": "Receive access code by email",
+  "login.page.emailVerification.emailForm.emailPlaceholder": "Enter email",
+  "login.page.emailVerification.emailForm.invalidEmailInput": "Invalid email",
+  "login.page.emailVerification.emailForm.error": "Something went wrong, please try again",
+  "login.page.emailVerification.emailForm.submitButton": "Send",
+
+  "login.page.emailVerification.button": "Receive access code by email",
+
+  "login.page.facebookOAuth.button": "Login using Facebook",
+  "login.page.facebookOAuth.title": "Logging with Facebook",
+  "login.page.facebookOAuth.error": "Login using Facebook failed. Click the button below to try again",
+  "login.page.facebookOAuth.tryAgain": "Try again",
+
+  "login.page.googleOAuth.button": "Login using Google",
+  "login.page.googleOAuth.title": "Logging with Google",
+  "login.page.googleOAuth.error": "Login using Google failed. Click the button below to try again",
+  "login.page.googleOAuth.tryAgain": "Try again",
+
+  "login.button.greeting": "Hello {name}",
+  "login.button.action": "Login",
+
+  "error.title": "Oops, an error occurred!",
+  "error.action": "Please go back to the beginning and try again",
+  "error.action.button": "Back to the beginning",
+  "error.detail": "Error: {errorId}"
+}
