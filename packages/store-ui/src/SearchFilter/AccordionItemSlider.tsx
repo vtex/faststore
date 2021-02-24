@@ -319,6 +319,7 @@ const SearchFilterAccordionItemSlider: FC<Props> = ({
           msUserSelect: 'none',
           WebkitUserSelect: 'none',
           userSelect: 'none',
+          touchAction: 'none',
           width: '100%',
           position: 'relative',
           cursor: 'pointer',
