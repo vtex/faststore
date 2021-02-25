@@ -152,8 +152,13 @@ function generateNginxConfiguration({
               children: [
                 // https://www.nginx.com/blog/nginx-caching-guide/
                 { cmd: ['proxy_cache', 'assets_cache'] },
-                { cmd: ['proxy_cache_revalidate', 'on'] },
-                { cmd: ['proxy_cache_min_uses', '1'] },
+                {
+                  cmd: [
+                    'proxy_cache_revalidate',
+                    options.proxyCache.revalidate,
+                  ],
+                },
+                { cmd: ['proxy_cache_min_uses', options.proxyCache.minUses] },
                 {
                   cmd: [
                     'proxy_cache_use_stale',
