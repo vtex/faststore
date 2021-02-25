@@ -91,12 +91,12 @@ function generateNginxConfiguration({
             {
               cmd: [
                 'proxy_cache_path',
-                '/tmp/cache',
-                'levels=1:2',
-                'keys_zone=assets_cache:10m',
-                'max_size=10g',
-                'inactive=60m',
-                'use_temp_path=off',
+                options.proxyCache.path,
+                options.proxyCache.levels,
+                `keys_zone=${options.proxyCache.key}:${options.proxyCache.entries}`,
+                `max_size=${options.proxyCache.maxSize}`,
+                `inactive=${options.proxyCache.inactive}`,
+                `use_temp_path=${options.proxyCache.useTmpPath}`,
               ],
             },
             // $use_url_tmp = $host OR $http_origin
@@ -157,17 +157,16 @@ function generateNginxConfiguration({
                 {
                   cmd: [
                     'proxy_cache_use_stale',
-                    'error',
-                    'timeout',
-                    'updating',
-                    'http_500',
-                    'http_502',
-                    'http_503',
-                    'http_504',
+                    ...options.proxyCache.useStale,
                   ],
                 },
-                { cmd: ['proxy_cache_background_update', 'on'] },
-                { cmd: ['proxy_cache_lock', 'on'] },
+                {
+                  cmd: [
+                    'proxy_cache_background_update',
+                    options.proxyCache.backgroundUpdate,
+                  ],
+                },
+                { cmd: ['proxy_cache_lock', options.proxyCache.lock] },
 
                 { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
                 { cmd: ['resolver', '8.8.8.8'] },
