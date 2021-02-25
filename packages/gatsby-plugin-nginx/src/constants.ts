@@ -9,7 +9,7 @@ export const IMMUTABLE_CACHING_HEADER = {
 
 export const PUBLIC_CACHING_HEADER = {
   name: 'Cache-Control',
-  value: 'public, max-age=0, stale-while-revalidate',
+  value: 'public, max-age=0, stale-while-revalidate=60',
 }
 
 export const COMMON_BUNDLES = ['commons', 'app']
