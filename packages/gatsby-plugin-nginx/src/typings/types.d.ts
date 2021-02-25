@@ -34,6 +34,7 @@ declare global {
     useStale: string[]
     backgroundUpdate: string
     lock: string
+    useTmpPath: string
   }
 
   // All options are optional but we omit the typescript ?
