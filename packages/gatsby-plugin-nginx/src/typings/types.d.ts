@@ -22,6 +22,20 @@ declare global {
     [path: string]: Header[]
   }
 
+  interface ProxyCacheOptions {
+    key: string
+    size: string
+    path: string
+    levels: string
+    maxSize: string
+    inactive: string
+    revalidate: string
+    minUses: string
+    useStale: string[]
+    backgroundUpdate: string
+    lock: string
+  }
+
   // All options are optional but we omit the typescript ?
   // because the user options will be provided default values.
   interface PluginOptions extends GatsbyPluginOptions {
@@ -53,5 +67,9 @@ declare global {
      * @default false
      */
     disableBrotliEncoding: boolean
+    /**
+     * Local file system proxy cache options
+     */
+    proxyCache: ProxyCacheOptions
   }
 }

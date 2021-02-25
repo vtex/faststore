@@ -9,6 +9,27 @@ const defaultOptions: PluginOptions = {
   writeOnlyLocations: false,
   disableBrotliEncoding: false,
   serveFileDirective: ['try_files', '/$file', '=404'],
+  proxyCache: {
+    key: 'fs_cache',
+    size: '10m',
+    path: '/tmp/cache',
+    levels: '1:2',
+    maxSize: '10g',
+    inactive: '60m',
+    revalidate: 'on',
+    minUses: '1',
+    useStale: [
+      'error',
+      'timeout',
+      'updating',
+      'http_500',
+      'http_502',
+      'http_503',
+      'http_504',
+    ],
+    backgroundUpdate: 'on',
+    lock: 'on',
+  },
   plugins: [],
 }
 
@@ -33,6 +54,7 @@ export function pluginOptions(options: Partial<PluginOptions>): PluginOptions {
       options.serveFileDirective ??
       defaultOptions.serveFileDirective,
     plugins: options.plugins ?? defaultOptions.plugins,
+    proxyCache: options.proxyCache ?? defaultOptions.proxyCache,
   }
 }
 
