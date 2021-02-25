@@ -246,6 +246,9 @@ function generateRedirectRewriteChildren({
 
   return [
     {
+      cmd: ['absolute_redirect', 'off'],
+    },
+    {
       cmd: ['return', `${status}`, toPath],
     },
   ]
