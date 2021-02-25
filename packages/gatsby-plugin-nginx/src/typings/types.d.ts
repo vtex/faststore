@@ -24,7 +24,7 @@ declare global {
 
   interface ProxyCacheOptions {
     key: string
-    size: string
+    entries: string
     path: string
     levels: string
     maxSize: string
