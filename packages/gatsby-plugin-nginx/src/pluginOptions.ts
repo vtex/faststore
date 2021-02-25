@@ -11,7 +11,7 @@ const defaultOptions: PluginOptions = {
   serveFileDirective: ['try_files', '/$file', '=404'],
   proxyCache: {
     key: 'fs_cache',
-    size: '10m',
+    entries: '10m',
     path: '/tmp/cache',
     levels: '1:2',
     maxSize: '10g',
@@ -27,6 +27,7 @@ const defaultOptions: PluginOptions = {
       'http_503',
       'http_504',
     ],
+    useTmpPath: 'off',
     backgroundUpdate: 'on',
     lock: 'on',
   },
