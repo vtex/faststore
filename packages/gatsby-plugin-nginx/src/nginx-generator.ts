@@ -1,6 +1,7 @@
 import { posix } from 'path'
 
 import { INDEX_HTML } from './constants'
+import { applyUserHeadersTransform } from './headers'
 
 export {
   stringify,
@@ -15,6 +16,8 @@ export interface NginxDirective {
   cmd: string[]
   children?: NginxDirective[]
 }
+
+const noopTransformHeaders = (headers: string[], _: string) => headers
 
 function generateNginxConfiguration({
   rewrites,
@@ -37,7 +40,7 @@ function generateNginxConfiguration({
           return value !== undefined
         }
       ),
-    ...generateRewrites(rewrites),
+    ...generateRewrites(rewrites, options),
   ]
 
   const brotliConf = options.disableBrotliEncoding
@@ -238,12 +241,23 @@ function formatProxyHeaders(headers: Record<string, string> | undefined) {
   })
 }
 
-function generateProxyRewriteChildren({
-  toPath,
-  proxyHeaders,
-}: Redirect): NginxDirective['children'] {
+function generateProxyRewriteChildren(
+  { toPath, proxyHeaders }: Redirect,
+  transformHeaders: (headers: string[], path: string) => string[]
+): NginxDirective['children'] {
+  const headers = applyUserHeadersTransform({}, transformHeaders)
+
   return [
     ...formatProxyHeaders(proxyHeaders as Record<string, string> | undefined),
+    ...(Object.entries(headers)
+      .map(([name, values]) => {
+        if (values.length === 1) {
+          return { cmd: ['add_header', name, `"${values[0]}"`] }
+        }
+
+        return undefined
+      })
+      .filter((x) => !!x) as NginxDirective[]),
     { cmd: ['proxy_pass', `${convertToPath(toPath)}$is_args$args`] },
     { cmd: ['proxy_ssl_server_name', 'on'] },
   ]
@@ -288,7 +302,10 @@ function generateRedirectRewriteChildren({
   ]
 }
 
-function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
+function generateRewrites(
+  rewrites: Redirect[],
+  options: PluginOptions
+): NginxDirective[] {
   const childrenByType = {
     rewrite: generateRewriteChildren,
     proxy: generateProxyRewriteChildren,
@@ -302,7 +319,10 @@ function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
 
     return {
       cmd: ['location', '~*', convertFromPath(fromPath)],
-      children: childrenByType[type](rewrite),
+      children: childrenByType[type](
+        rewrite,
+        options.transformHeaders ?? noopTransformHeaders
+      ),
     }
   })
 }
