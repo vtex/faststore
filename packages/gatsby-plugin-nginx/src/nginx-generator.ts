@@ -150,21 +150,10 @@ function generateNginxConfiguration({
             {
               cmd: ['server'],
               children: [
-                /*
-              proxy_cache my_cache;
-              proxy_cache_revalidate on;
-              proxy_cache_min_uses 3;
-              proxy_cache_use_stale error timeout updating http_500 http_502
-                                    http_503 http_504;
-              proxy_cache_background_update on;
-              proxy_cache_lock on;
-
-              proxy_pass http://my_upstream;
-              */
-
+                // https://www.nginx.com/blog/nginx-caching-guide/
                 { cmd: ['proxy_cache', 'assets_cache'] },
                 { cmd: ['proxy_cache_revalidate', 'on'] },
-                { cmd: ['proxy_cache_min_uses', 'on'] },
+                { cmd: ['proxy_cache_min_uses', '3'] },
                 {
                   cmd: [
                     'proxy_cache_use_stale',
