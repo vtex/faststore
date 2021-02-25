@@ -92,7 +92,7 @@ function generateNginxConfiguration({
               cmd: [
                 'proxy_cache_path',
                 options.proxyCache.path,
-                options.proxyCache.levels,
+                `levels=${options.proxyCache.levels}`,
                 `keys_zone=${options.proxyCache.key}:${options.proxyCache.entries}`,
                 `max_size=${options.proxyCache.maxSize}`,
                 `inactive=${options.proxyCache.inactive}`,
