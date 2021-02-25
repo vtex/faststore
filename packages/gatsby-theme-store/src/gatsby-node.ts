@@ -116,6 +116,14 @@ export const createPages = async ({
       },
     })
 
+    createRedirect({
+      fromPath: `${path}/`,
+      toPath: path,
+      isPermanent: true,
+      statusCode: 301,
+      redirectInBrowser: false,
+    })
+
     createPage({
       path: `${path}/__client_side_search__`,
       matchPath: `${path}/*`,
