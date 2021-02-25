@@ -245,14 +245,22 @@ function generateProxyRewriteChildren(
   { toPath, proxyHeaders }: Redirect,
   transformHeaders: (headers: string[], path: string) => string[]
 ): NginxDirective['children'] {
-  const headers = applyUserHeadersTransform({}, transformHeaders)
+  const url = new URL(toPath)
+  const headers = url.pathname.includes('/graphql/:splat')
+    ? applyUserHeadersTransform(
+        {
+          [url.pathname]: [],
+        },
+        transformHeaders
+      )
+    : {}
 
   return [
     ...formatProxyHeaders(proxyHeaders as Record<string, string> | undefined),
     ...(Object.entries(headers)
-      .map(([name, values]) => {
-        if (values.length === 1) {
-          return { cmd: ['add_header', name, `"${values[0]}"`] }
+      .map(([_, hdrs]) => {
+        if (hdrs.length === 1) {
+          return { cmd: ['add_header', hdrs[0].name, `"${hdrs[0].value}"`] }
         }
 
         return undefined
