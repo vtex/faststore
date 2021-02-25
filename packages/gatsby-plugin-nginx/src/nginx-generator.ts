@@ -151,7 +151,7 @@ function generateNginxConfiguration({
               cmd: ['server'],
               children: [
                 // https://www.nginx.com/blog/nginx-caching-guide/
-                { cmd: ['proxy_cache', 'assets_cache'] },
+                { cmd: ['proxy_cache', options.proxyCache.key] },
                 {
                   cmd: [
                     'proxy_cache_revalidate',
