@@ -3,11 +3,15 @@ import type { PixelEvent } from '../pixel'
 
 const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {
-    case 'vtex:homeView': {
-      return {
-        type: 'homeView',
-        payload: undefined,
+    case 'vtex:pageView': {
+      if (event.data.pageType === 'home') {
+        return {
+          type: 'homeView',
+          payload: undefined,
+        }
       }
+
+      return
     }
 
     case 'vtex:productView': {

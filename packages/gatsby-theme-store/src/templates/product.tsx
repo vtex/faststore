@@ -50,6 +50,7 @@ const ProductPage: FC<ProductPageProps> = (props) => {
       {
         type: 'vtex:pageView',
         data: {
+          pageType: 'pdp',
           pageUrl: window.location.href,
           pageTitle: document.title,
           referrer: document.referrer,
