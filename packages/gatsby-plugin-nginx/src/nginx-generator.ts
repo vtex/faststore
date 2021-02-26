@@ -188,7 +188,7 @@ function parseRewrite({
     // Parse as an internal redirect, a.k.a /foo to /bar
     new URL(toPath, 'http://example.org')
 
-    return statusCode === 200 && !isPermanent
+    return statusCode === 200
       ? 'rewrite'
       : statusCode === 301 || statusCode === 302 || isPermanent
       ? 'redirect'
@@ -237,8 +237,12 @@ function generateRewriteChildren({ toPath }: Redirect) {
   ]
 }
 
-function generateRedirectRewriteChildren({ toPath, isPermanent }: Redirect) {
-  const status = isPermanent ? 301 : 302
+function generateRedirectRewriteChildren({
+  toPath,
+  isPermanent,
+  statusCode = 301,
+}: Redirect) {
+  const status = isPermanent ? 301 : statusCode
 
   return [
     {

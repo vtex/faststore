@@ -19,7 +19,7 @@ export const redirectsFromCSV = ({
 }
 
 const removeTrailingSlashes = (str: string) =>
-  str.endsWith('/') ? str.substring(0, str.length - 1) : str
+  str.endsWith('/') && str.length > 1 ? str.substring(0, str.length - 1) : str
 
 export const assertRedirects = (maybeRedirects: any[]): Redirect[] => {
   const redirects: Redirect[] = []
@@ -59,6 +59,7 @@ export const assertRedirects = (maybeRedirects: any[]): Redirect[] => {
       fromPath: removeTrailingSlashes(fromPath),
       toPath: removeTrailingSlashes(toPath),
       isPermanent: type === 'PERMANENT',
+      statusCode: type === 'PERMANENT' ? 301 : 302,
     })
   }
 
