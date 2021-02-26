@@ -188,7 +188,7 @@ function parseRewrite({
     // Parse as an internal redirect, a.k.a /foo to /bar
     new URL(toPath, 'http://example.org')
 
-    return statusCode === 200
+    return statusCode === 200 && !isPermanent
       ? 'rewrite'
       : statusCode === 301 || statusCode === 302 || isPermanent
       ? 'redirect'
