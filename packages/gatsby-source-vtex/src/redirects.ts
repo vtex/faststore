@@ -20,12 +20,6 @@ export const assertRedirects = (redirects: Redirect[]) => {
       )
     }
 
-    if (fromPath.endsWith('/') || toPath.endsWith('/')) {
-      throw new Error(
-        `[gatsby-source-vtex]: The redirect ${fromPath} -> ${toPath} is not valid in redirects:${line}. The urls must not have trailing slashes`
-      )
-    }
-
     if (isPermanent == null) {
       throw new Error(
         `[gatsby-source-vtex]: Invalid redirect type in redirects:${line}. isPermanent is required`
