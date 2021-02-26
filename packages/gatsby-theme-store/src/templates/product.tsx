@@ -3,8 +3,6 @@ import React, { lazy } from 'react'
 import type { PageProps } from 'gatsby'
 import type { FC } from 'react'
 
-import ErrorBoundary from '../components/Error/ErrorBoundary'
-import ErrorHandler from '../components/Error/ErrorHandler'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import AboveTheFold from '../components/ProductPage/AboveTheFold'
@@ -94,16 +92,14 @@ const Page: FC<ProductPageProps> = (props) => {
   } = props
 
   return (
-    <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
-      <Layout>
-        <HybridWrapper
-          isPrerendered={staticPath}
-          fallback={<AboveTheFoldPreview />}
-        >
-          <ProductPage {...props} />
-        </HybridWrapper>
-      </Layout>
-    </ErrorBoundary>
+    <Layout>
+      <HybridWrapper
+        isPrerendered={staticPath}
+        fallback={<AboveTheFoldPreview />}
+      >
+        <ProductPage {...props} />
+      </HybridWrapper>
+    </Layout>
   )
 }
 
@@ -113,6 +109,8 @@ export const query = graphql`
       product(slug: $slug) @include(if: $staticPath) {
         ...ProductDetailsTemplate_product
         ...StructuredProductFragment_product
+        titleTag
+        metaTagDescription
         productId
         description
         categoryTree {

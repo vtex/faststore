@@ -1,27 +1,40 @@
-import React, { useState } from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import React from 'react'
 import type { FC } from 'react'
 
-import { useIdleEffect } from '../../../sdk/useIdleEffect'
-import { isBot, isDevelopment } from '../../../utils/env'
-import SiteMetadataSEO from '../../HomePage/SEO'
+import Canonical from './Canonical'
+import SiteMetadata from './SiteMetadata'
 import StructuredData from './StructuredData'
 import type { ProductPageProps } from '../../../templates/product'
 
-const withSyncMetadata = isBot || isDevelopment
-
 const SEO: FC<ProductPageProps> = (props) => {
-  const [metadata, setMetadata] = useState(withSyncMetadata)
+  const { site } = useStaticQuery(
+    graphql`
+      query ProductPageSEOQuery {
+        site {
+          siteMetadata {
+            title
+            titleTemplate
+            description
+            author
+          }
+        }
+      }
+    `
+  )
 
-  useIdleEffect(() => setMetadata(true), [])
+  const { siteMetadata } = site!
 
-  if (!metadata) {
-    return null
+  const subProps = {
+    ...props,
+    siteMetadata,
   }
 
   return (
     <>
-      <SiteMetadataSEO {...props} />
-      <StructuredData {...props} />
+      <SiteMetadata {...subProps} />
+      <Canonical {...subProps} />
+      <StructuredData {...subProps} />
     </>
   )
 }

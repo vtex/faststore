@@ -1,11 +1,11 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
+import type { AuthProviderComponentProps } from '@vtex/store-ui'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
 import { oAuthCallbackUrl, oAuthRedirectUrl } from '../../../../sdk/auth/OAuth'
 import { useStartLogin } from '../../../../sdk/auth/useStartLogin'
-import type { AuthProviderComponentProps } from '../types'
 
 type State = 'initial' | 'error'
 

@@ -26,6 +26,8 @@ export const LOCATIONS_ONLY_ENV_VAR = 'NGINX_LOCATIONS_ONLY'
 
 export const FILE_SERVE_DIRECTIVE_ENV_VAR = 'NGINX_SERVE_FILE_DIRECTIVE'
 
+export const DISABLE_BROTLI_ENV_VAR = 'NGINX_DISABLE_BROTLI'
+
 export const FUNCTIONS_REDIRECTS_FILENAME = 'function-redirects.json'
 
 export const FUNCTIONS_URL_PATH = 'functions'

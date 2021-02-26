@@ -23,4 +23,4 @@ export const DETAILS_IMAGE = [
 ]
 
 export const IMAGE_DEFAULT =
-  'https://storecomponents.vtexassets.com/assets/faststore/images/product-not-found___29e298d98dd1d0744190f12619653717.jpg'
+  'https://storecomponents.vtexassets.com/assets/faststore/images/product-not-found___896e5a25304827218d2e6b1c18e1f3ed.jpeg'

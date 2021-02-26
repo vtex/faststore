@@ -1,8 +1,9 @@
 import React from 'react'
 import type { FC } from 'react'
+import { ShippingSimulator } from '@vtex/store-ui'
 
 import { useShippingSimulator } from './hooks/useShippingSimulator'
-import ShippingSimulator from './ShippingSimulator'
+import { useNumberFormat } from '../../sdk/localization/useNumberFormat'
 
 type Props = {
   skuId: string
@@ -36,6 +37,8 @@ const ShippingSimulatorWrapper: FC<Props> = ({
     quantity,
   })
 
+  const { format } = useNumberFormat()
+
   return (
     <ShippingSimulator
       variant={`shippingSimulator.${variant}`}
@@ -48,6 +51,7 @@ const ShippingSimulatorWrapper: FC<Props> = ({
       isValid={isValid}
       shipping={shipping}
       onCalculateShipping={onSubmit}
+      numberFormattingFunction={format}
     />
   )
 }

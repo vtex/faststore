@@ -3,13 +3,15 @@ import {
   Box,
   SearchFilterAccordion,
   SearchFilterAccordionItemCheckbox,
+  SearchFilterAccordionItemSlider,
   jsx,
 } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Fragment } from 'react'
+import { Fragment, useMemo } from 'react'
 import type { FC } from 'react'
 
 import { useFacets } from '../../../sdk/search/useFacets'
+import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 
 export interface Props {
   variant?: string
@@ -17,8 +19,21 @@ export interface Props {
 }
 
 const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
-  const { facets, toggleItem } = useFacets()
+  const { facets, toggleItem, setPriceRange } = useFacets()
   const { formatMessage } = useIntl()
+  const { format } = useNumberFormat()
+
+  const { search: searchParams } = window.location
+  const params = new URLSearchParams(searchParams)
+
+  const defaultValues = useMemo(
+    () =>
+      params
+        .get('priceRange')
+        ?.split(' TO ')
+        .map((price) => parseInt(price, 10)),
+    [params]
+  )
 
   return (
     <Fragment>
@@ -30,13 +45,39 @@ const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
         filters={facets}
         isActive={isActive}
         variant={variant}
-        renderItem={(item, v) => (
+        renderFilter={(item, v: string) => (
           <SearchFilterAccordionItemCheckbox
             onClick={toggleItem}
             item={item}
             variant={v}
           />
         )}
+        renderPrice={(filter) => {
+          const priceRanges: number[] = []
+
+          filter.values.forEach(({ range: { from, to } }) => {
+            priceRanges.push(from)
+            priceRanges.push(to)
+          })
+
+          return (
+            <SearchFilterAccordionItemSlider
+              onChange={setPriceRange}
+              min={Math.min(...priceRanges)}
+              max={Math.max(...priceRanges)}
+              step={1}
+              defaultValues={
+                defaultValues ?? [
+                  Math.min(...priceRanges),
+                  Math.max(...priceRanges),
+                ]
+              }
+              alwaysShowCurrentValue={false}
+              formatValue={format}
+              range
+            />
+          )
+        }}
       />
     </Fragment>
   )

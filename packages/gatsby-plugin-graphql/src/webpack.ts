@@ -8,7 +8,6 @@ import { mkdirSync, outputJson } from 'fs-extra'
 import { parse, print, printSchema } from 'graphql'
 import type { GraphQLSchema } from 'graphql'
 
-import { isProduction } from '.'
 import { outputFile } from './filesystem'
 import { QueryManager } from './manager'
 import type { Node } from './manager'
@@ -29,7 +28,9 @@ export const target = join(root, 'public', publicPath)
 
 const queryCode = ({ name, value, sha256Hash }: QueryNode) => `
 export const ${name} = {
-  query: ${isProduction ? undefined : JSON.stringify(value)},
+  query: process.env.NODE_ENV === 'production' ? undefined : ${JSON.stringify(
+    value
+  )},
   sha256Hash: "${sha256Hash}",
   operationName: "${name}",
 }

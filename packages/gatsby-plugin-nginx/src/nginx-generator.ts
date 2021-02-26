@@ -5,9 +5,8 @@ import { INDEX_HTML } from './constants'
 export {
   stringify,
   convertFromPath,
-  validateRedirect,
+  parseRewrite,
   generateRewrites,
-  generateRedirects,
   generatePathLocation,
   generateNginxConfiguration,
 }
@@ -19,13 +18,11 @@ export interface NginxDirective {
 
 function generateNginxConfiguration({
   rewrites,
-  redirects,
   headersMap,
   files,
   options,
 }: {
   rewrites: Redirect[]
-  redirects: Redirect[]
   headersMap: PathHeadersMap
   files: string[]
   options: PluginOptions
@@ -40,9 +37,42 @@ function generateNginxConfiguration({
           return value !== undefined
         }
       ),
-    ...generateRedirects(redirects),
     ...generateRewrites(rewrites),
   ]
+
+  const brotliConf = options.disableBrotliEncoding
+    ? []
+    : [
+        { cmd: ['brotli', 'on'] },
+        { cmd: ['brotli_comp_level', '6'] },
+        { cmd: ['brotli_static', 'on'] },
+        {
+          cmd: [
+            'brotli_types',
+            'text/xml',
+            'image/svg+xml',
+            'application/x-font-ttf',
+            'image/vnd.microsoft.icon',
+            'application/x-font-opentype',
+            'application/json',
+            'font/eot',
+            'application/vnd.ms-fontobject',
+            'application/javascript',
+            'font/otf',
+            'application/xml',
+            'application/xhtml+xml',
+            'text/javascript',
+            'application/x-javascript',
+            'text/plain',
+            'application/x-font-truetype',
+            'application/xml+rss',
+            'image/x-icon',
+            'font/opentype',
+            'text/css',
+            'image/x-win-bitmap',
+          ],
+        },
+      ]
 
   const conf = options.writeOnlyLocations
     ? locations
@@ -58,6 +88,30 @@ function generateNginxConfiguration({
         {
           cmd: ['http'],
           children: [
+            // $use_url_tmp = $host OR $http_origin
+            {
+              cmd: ['map', '$host', '$use_url_tmp'],
+              children: [
+                { cmd: ['default', '$http_origin'] },
+                { cmd: ['~^(?<all>.*)$', '$all'] },
+              ],
+            },
+            // $use_url = $http_x_forwarded_host OR $use_url_tmp
+            {
+              cmd: ['map', '$http_x_forwarded_host', '$use_url'],
+              children: [
+                { cmd: ['default', '$use_url_tmp'] },
+                { cmd: ['~^(?<all>.*)$', '$all'] },
+              ],
+            },
+            // $origin_host = remove_protocol($use_url)
+            {
+              cmd: ['map', '$use_url', '$origin_host'],
+              children: [
+                { cmd: ['default', '$use_url'] },
+                { cmd: ['~^https?://(?<all>.*)/?.*$', '$all'] },
+              ],
+            },
             { cmd: ['access_log', '/var/log/nginx_access.log'] },
             { cmd: ['include', '/etc/nginx/mime.types'] },
             { cmd: ['default_type', 'application/octet-stream'] },
@@ -65,6 +119,7 @@ function generateNginxConfiguration({
             { cmd: ['sendfile', 'on'] },
             { cmd: ['tcp_nopush', 'on'] },
             { cmd: ['keepalive_timeout', '65'] },
+            ...brotliConf,
             { cmd: ['gzip', 'on'] },
             {
               cmd: [
@@ -108,30 +163,34 @@ function stringify(directives: NginxDirective[]): string {
 }
 
 function convertFromPath(path: string) {
-  return `^${path.replace(/\*/g, '(.*)').replace(/:slug/g, '[^/]+')}`
+  return `^${path.replace(/\*/g, '(.*)').replace(/:slug/g, '[^/]+')}$`
 }
 
 function convertToPath(path: string) {
   return path.replace(/:splat/g, '$1')
 }
 
-function validateRedirect({ toPath }: Redirect): boolean {
+function parseRewrite({
+  toPath,
+  statusCode = 200,
+}: Redirect): 'proxy' | 'rewrite' | 'error_page' {
   try {
     new URL(toPath)
+
+    return 'proxy'
   } catch (ex) {
-    throw new Error(`redirect toPath "${toPath}" must be a valid absolute URL`)
+    // This wasn't a proxy url. Let's check if this is an internal redirect
+    // a.k.a from `/foo` to `/bar`
   }
 
-  return true
-}
+  try {
+    // Parse as an internal redirect, a.k.a /foo to /bar
+    new URL(toPath, 'http://example.org')
 
-function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
-  return rewrites.map(({ fromPath, toPath }) => {
-    return {
-      cmd: ['location', '~*', convertFromPath(fromPath)],
-      children: [{ cmd: ['rewrite', '.+', toPath] }],
-    }
-  })
+    return statusCode === 200 ? 'rewrite' : 'error_page'
+  } catch (e) {
+    throw new Error(`redirect toPath "${toPath}" must be a valid absolute URL`)
+  }
 }
 
 function formatProxyHeaders(headers: Record<string, string> | undefined) {
@@ -140,18 +199,53 @@ function formatProxyHeaders(headers: Record<string, string> | undefined) {
   })
 }
 
-function generateRedirects(redirects: Redirect[]): NginxDirective[] {
-  return redirects.map((redirect) => {
-    validateRedirect(redirect)
-    const { fromPath, toPath, headers } = redirect
+function generateProxyRewriteChildren({
+  toPath,
+  proxyHeaders,
+}: Redirect): NginxDirective['children'] {
+  return [
+    ...formatProxyHeaders(proxyHeaders as Record<string, string> | undefined),
+    { cmd: ['proxy_pass', `${convertToPath(toPath)}$is_args$args`] },
+    { cmd: ['proxy_ssl_server_name', 'on'] },
+  ]
+}
+
+function generateErrorPageRewriteChildren({
+  toPath,
+  statusCode = 200,
+}: Redirect): NginxDirective['children'] {
+  return [
+    {
+      cmd: ['error_page', statusCode.toString(), toPath],
+    },
+    {
+      cmd: ['return', statusCode.toString()],
+    },
+  ]
+}
+
+function generateRewriteChildren({ toPath }: Redirect) {
+  return [
+    {
+      cmd: ['rewrite', '.+', toPath],
+    },
+  ]
+}
+
+function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
+  const childrenByType = {
+    rewrite: generateRewriteChildren,
+    proxy: generateProxyRewriteChildren,
+    error_page: generateErrorPageRewriteChildren,
+  }
+
+  return rewrites.map((rewrite) => {
+    const { fromPath } = rewrite
+    const type = parseRewrite(rewrite)
 
     return {
       cmd: ['location', '~*', convertFromPath(fromPath)],
-      children: [
-        ...formatProxyHeaders(headers as Record<string, string> | undefined),
-        { cmd: ['proxy_pass', `${convertToPath(toPath)}$is_args$args`] },
-        { cmd: ['proxy_ssl_server_name', 'on'] },
-      ],
+      children: childrenByType[type](rewrite),
     }
   })
 }

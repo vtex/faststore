@@ -1,8 +1,11 @@
 import { Center, Text } from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
+import type { PageProps } from 'gatsby'
 
-const BelowTheFold: FC = () => (
+type Props = PageProps<unknown>
+
+const BelowTheFold: FC<Props> = () => (
   <Center height="150px">
     <Text sx={{ width: '50%' }}>
       This is the below the fold part of your home page. All data in this part

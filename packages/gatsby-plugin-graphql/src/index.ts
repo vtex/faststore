@@ -1,4 +1,4 @@
-export const isProduction = process.env.NODE_ENV === 'production'
+const isProduction = process.env.NODE_ENV === 'production'
 
 export const gql = (_: TemplateStringsArray) => {
   throw new Error('This should have been removed by the babel plugin')
@@ -56,9 +56,10 @@ export const request = async <V = any, D = any>(
     method === 'POST'
       ? JSON.stringify({
           operationName,
-          extensions: isProduction ? extensions : undefined,
+          extensions:
+            process.env.NODE_ENV === 'production' ? extensions : undefined,
           variables,
-          query: isProduction ? undefined : query,
+          query: process.env.NODE_ENV === 'production' ? undefined : query,
         })
       : undefined
 

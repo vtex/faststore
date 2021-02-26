@@ -30,16 +30,17 @@ export const setSearchFilters = (filters: SearchFilters) => {
   const { search: searchParams } = window.location
   const params = new URLSearchParams(searchParams)
 
+  params.delete('priceRange')
+
   Object.keys(filters).forEach((key: string) => {
     const value = filters[key as keyof SearchFilters]
 
-    if (value && key !== 'query' && key !== 'selectedFacets') {
+    if (value && !['query', 'selectedFacets', 'priceRange'].includes(key)) {
       params.set(key, value as string)
     }
   })
-  const to = `/${filters.query}?${params.toString()}`
 
-  navigate(to)
+  navigate(`/${filters.query}?${params.toString()}`)
 }
 
 // TODO: This function can be moved to the backend if we have a decent graphql layer
@@ -81,4 +82,34 @@ export const toggleItem = (item: SearchFilterItem, filters: SearchFilters) => {
     query,
     map,
   })
+}
+
+type Facet = {
+  key: string
+  value: string
+}
+
+export const setPriceRange = (priceRange: number[], filters: SearchFilters) => {
+  const { search: searchParams } = window.location
+  const params = new URLSearchParams(searchParams)
+  const facets = filters.selectedFacets as Facet[]
+
+  params.set('priceRange', `${priceRange[0]} TO ${priceRange[1]}`)
+
+  const priceRangeIndex = facets.findIndex(
+    (facet) => facet.key === 'priceRange'
+  )
+
+  if (priceRangeIndex > -1) {
+    facets[priceRangeIndex].value = `${priceRange[0]} TO ${priceRange[1]}`
+  } else {
+    facets.push({
+      key: 'priceRange',
+      value: `${priceRange[0]} TO ${priceRange[1]}`,
+    })
+  }
+
+  const to = `/${filters.query}?${params.toString()}`
+
+  navigate(to)
 }

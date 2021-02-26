@@ -25,6 +25,7 @@
   "suggestions.history.title": "History",
   "suggestions.history.empty": "No history yet",
   "suggestions.topSearches.title": "Top searches",
+  "suggestions.topSearches.empty": "No top searches",
 
   "product.quantity.title": "Quantity",
 
@@ -118,5 +119,8 @@
   "login.button.greeting": "Hello, {name}",
   "login.button.action": "Sign In",
 
-  "preview.not-found": "No Preview found. Waiting for input"
+  "error.title": "Ops, an error has occured!",
+  "error.action": "Please, go back and try again",
+  "error.action.button": "Go Back",
+  "error.detail": "Error: {errorId}"
 }

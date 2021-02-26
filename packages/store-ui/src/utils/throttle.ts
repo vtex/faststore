@@ -1,5 +1,5 @@
 const throttle = <T>(cb: (...args: any) => T, wait = 166) => {
-  let timeout: NodeJS.Timeout | null = null
+  let timeout: ReturnType<typeof setTimeout> | null = null
 
   const throttled = (...args: any): T | undefined => {
     if (timeout !== null) {

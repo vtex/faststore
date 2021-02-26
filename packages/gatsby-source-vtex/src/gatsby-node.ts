@@ -1,4 +1,9 @@
-import { introspectSchema, wrapSchema } from '@graphql-tools/wrap'
+import {
+  FilterObjectFields,
+  introspectSchema,
+  PruneSchema,
+  wrapSchema,
+} from '@graphql-tools/wrap'
 import { print } from 'graphql'
 import type { AsyncExecutor } from '@graphql-tools/delegate'
 import type {
@@ -8,26 +13,57 @@ import type {
   CreatePageArgs,
   PluginOptionsSchemaArgs,
 } from 'gatsby'
+import pMap from 'p-map'
 
 import { api } from './api'
 import { fetchVTEX } from './fetch'
-import { createChannelNode, createDepartmentNode } from './utils'
+import {
+  createChannelNode,
+  createDepartmentNode,
+  createStaticPathNode,
+  normalizePath,
+} from './utils'
 import type { VTEXOptions } from './fetch'
-import type { Category, Tenant } from './types'
+import type { Category, PageType, Tenant } from './types'
+import defaultStaticPaths from './staticPaths'
 
 const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`
 
-export interface Options extends PluginOptions, VTEXOptions {}
+export interface Options extends PluginOptions, VTEXOptions {
+  getStaticPaths?: () => Promise<string[]>
+  pageTypes?: Array<PageType['pageType']>
+}
+
+const DEFAULT_PAGE_TYPES_WHITELIST = [
+  'Product',
+  'Department',
+  'Category',
+  'Brand',
+  'SubCategory',
+]
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   args: SourceNodesArgs,
   options: Options
 ) => {
-  const { tenant, workspace } = options
+  const {
+    tenant,
+    workspace,
+    getStaticPaths,
+    pageTypes: pageTypesWhitelist = DEFAULT_PAGE_TYPES_WHITELIST,
+  } = options
+
   const {
     actions: { addThirdPartySchema },
+    reporter,
   } = args
+
+  let activity = reporter.activityTimer(
+    '[gatsby-source-vtex]: adding VTEX GraphQL Schema'
+  )
+
+  activity.start()
 
   /**
    * VTEX GraphQL API
@@ -71,32 +107,110 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     return result
   }
 
-  const schema = wrapSchema({
-    schema: await introspectSchema(executor),
-    executor,
-  })
+  const schema = wrapSchema(
+    {
+      schema: await introspectSchema(executor),
+      executor,
+    },
+    [
+      // Filter CMS fields so people use the VTEX CMS plugin instead of this one
+      new FilterObjectFields(
+        (typeName, fieldName) => typeName !== 'VTEX' || fieldName !== 'pages'
+      ),
+      new PruneSchema({}),
+    ]
+  )
 
   addThirdPartySchema({ schema })
+
+  activity.end()
 
   /**
    * VTEX HTTP API fetches
    * */
 
   // Bindings
+  activity = reporter.activityTimer(
+    '[gatsby-source-vtex]: fetching VTEX Bindings'
+  )
+  activity.start()
+
   const { bindings } = await fetchVTEX<Tenant>(
     api.tenants.tenant(tenant),
     options
   )
 
-  bindings.forEach((binding) => createChannelNode(args, binding))
+  for (const binding of bindings) {
+    createChannelNode(args, binding)
+  }
+
+  activity.end()
 
   // Catetgories
+  activity = reporter.activityTimer(
+    '[gatsby-source-vtex]: fetching VTEX Departments'
+  )
+  activity.start()
+
   const departments = await fetchVTEX<Category[]>(
     api.catalog.category.tree(1),
     options
   )
 
-  departments.forEach((department) => createDepartmentNode(args, department))
+  for (const department of departments) {
+    createDepartmentNode(args, department)
+  }
+
+  activity.end()
+
+  /**
+   * Static Paths used to generate pages
+   */
+
+  activity = reporter.activityTimer(
+    '[gatsby-source-vtex]: fetching StaticPaths'
+  )
+
+  activity.start()
+
+  const staticPaths = (typeof getStaticPaths === 'function'
+    ? await getStaticPaths()
+    : await defaultStaticPaths(options)
+  ).map(normalizePath)
+
+  const pageTypes = await pMap(
+    staticPaths,
+    (path: string) =>
+      fetchVTEX<PageType>(api.catalog.portal.pageType(path), options),
+    {
+      concurrency: 20,
+    }
+  )
+
+  if (pageTypes.length !== staticPaths.length) {
+    reporter.panicOnBuild(
+      '[gatsby-source-vtex]: Length of PageTypes and staticPaths do not agree. No static path will be generated'
+    )
+
+    return
+  }
+
+  for (let it = 0; it < pageTypes.length; it++) {
+    const pageType = pageTypes[it]
+    const staticPath = staticPaths[it]
+
+    if (!pageTypesWhitelist.includes(pageType.pageType)) {
+      reporter.warn(
+        `[gatsby-source-vtex]: Dropping path. Reason: PageType API reported ${pageType.pageType} for path: ${staticPath}`
+      )
+
+      continue
+    }
+
+    createStaticPathNode(args, pageType, staticPath)
+  }
+
+  activity.end()
 }
 
 export const createPages = (
@@ -114,9 +228,10 @@ export const createPages = (
     fromPath: '/api/io/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin_host',
+      via: "''",
     },
   })
 
@@ -124,9 +239,10 @@ export const createPages = (
     fromPath: '/api/*',
     toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin_host',
+      via: "''",
     },
   })
 
@@ -135,9 +251,22 @@ export const createPages = (
     fromPath: '/checkout/*',
     toPath: `https://${tenant}.${environment}.com.br/checkout/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin_host',
+      via: "''",
+    },
+  })
+
+  // Use Render's legacy extensions
+  createRedirect({
+    fromPath: '/legacy_extensions/*',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/legacy_extensions/:splat`,
+    statusCode: 200,
+    proxyHeaders: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$origin_host',
+      via: "''",
     },
   })
 
@@ -146,12 +275,22 @@ export const createPages = (
     fromPath: '/arquivos/*',
     toPath: `https://${tenant}.vtexassets.com/arquivos/:splat`,
     statusCode: 200,
+    proxyHeaders: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$origin_host',
+      via: "''",
+    },
   })
 
   createRedirect({
     fromPath: '/files/*',
     toPath: `https://${tenant}.vtexassets.com/files/:splat`,
     statusCode: 200,
+    proxyHeaders: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$origin_host',
+      via: "''",
+    },
   })
 
   // Use graphql-gateway from VTEX IO
@@ -159,9 +298,10 @@ export const createPages = (
     fromPath: '/graphql/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin_host',
+      via: "''",
     },
   })
 
@@ -170,9 +310,10 @@ export const createPages = (
     fromPath: '/sitemap.xml',
     toPath: `https://${workspace}--${tenant}.myvtex.com/sitemap.xml`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin_host',
+      via: "''",
     },
   })
 
@@ -180,9 +321,10 @@ export const createPages = (
     fromPath: '/sitemap/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/sitemap/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin_host',
+      via: "''",
     },
   })
 
@@ -191,9 +333,10 @@ export const createPages = (
     fromPath: '/XMLData/*',
     toPath: `https://${tenant}.${environment}.com.br/XMLData/:splat`,
     statusCode: 200,
-    headers: {
+    proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$host',
+      'x-forwarded-host': '$origin_host',
+      via: "''",
     },
   })
 }
@@ -205,4 +348,6 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     environment: Joi.string().pattern(
       /^(vtexcommercestable|vtexcommercebeta)$/
     ),
+    getStaticPaths: Joi.function().arity(0),
+    pageTypes: Joi.array().items(Joi.string()),
   })

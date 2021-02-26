@@ -1,20 +1,25 @@
-import { Flex, useResponsiveSlider } from '@vtex/store-ui'
+import {
+  Flex,
+  useResponsiveSlider,
+  ShelfArrowLeft,
+  ShelfArrowRight,
+  ShelfPaginationDots,
+  ShelfTitle,
+} from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
 
-import ShelfArrowLeft from './ArrowLeft'
-import ShelfArrowRight from './ArrowRight'
 import ShelfPage from './Page'
-import ShelfPaginationDots from './PaginationDots'
-import ShelfTitle from './Title'
 import type { ProductSummary_ProductFragment } from '../ProductSummary/__generated__/ProductSummary_product.graphql'
 
+type Product = Maybe<ProductSummary_ProductFragment>
+
 export interface Props {
-  products: Array<ProductSummary_ProductFragment | undefined | null>
+  products: Maybe<Product[]>
   pageSizes?: number[]
   title?: JSX.Element | string
   variant?: string
-  showArrows?: boolean
+  showArrows?: boolean | null
   showDots?: boolean
   autoplay?: number
 }
@@ -38,24 +43,25 @@ const Shelf: FC<Props> = ({
     setNextPage,
     setPreviousPage,
     dragHandlers,
-  } = useResponsiveSlider({
+  } = useResponsiveSlider<Product>({
     pageSizes,
     defaultIndex: pageSizes.length - 1,
-    allItems: products,
+    allItems: products as Product[],
     autoplay,
   })
 
-  showArrows = showArrows && products.length >= Math.max(...pageSizes)
+  const shouldShowArrows =
+    showArrows && products && products.length >= Math.max(...pageSizes)
 
   return (
     <>
       {title && <ShelfTitle variant={variant}>{title}</ShelfTitle>}
       <Flex {...dragHandlers}>
-        {showArrows && (
+        {shouldShowArrows && (
           <ShelfArrowLeft variant={variant} onClick={() => setPreviousPage()} />
         )}
         <ShelfPage variant={variant} items={items} pageSizes={pageSizes} />
-        {showArrows && (
+        {shouldShowArrows && (
           <ShelfArrowRight variant={variant} onClick={() => setNextPage()} />
         )}
       </Flex>

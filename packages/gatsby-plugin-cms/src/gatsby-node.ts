@@ -1,24 +1,28 @@
 import { join } from 'path'
 
-import {
-  ensureDir,
-  outputFileSync,
-  outputJSON,
-  pathExists,
-  readJSONSync,
-} from 'fs-extra'
-import globby from 'globby'
+import { outputJSON, pathExists } from 'fs-extra'
 import type { JSONSchema6 } from 'json-schema'
-import type { CreatePagesArgs } from 'gatsby'
+import type {
+  CreatePagesArgs,
+  SourceNodesArgs,
+  PluginOptionsSchemaArgs,
+} from 'gatsby'
+import {
+  buildNodeDefinitions,
+  compileNodeQueries,
+  createDefaultQueryExecutor,
+  createSchemaCustomization,
+  generateDefaultFragments,
+  loadSchema,
+  sourceAllNodes,
+} from 'gatsby-graphql-source-toolkit'
 
-import { ContentDOM } from './builder/compiler'
-import { getMeta, isContent } from './common'
-import type { ContentTypes, Schemas } from './index'
+import { sourceAllLocalNodes } from './node-api/sourceAllLocalNodes'
+import type { BuilderConfig } from './index'
 
 interface CMSContentType {
-  previewUrl: string
-  messages: Record<string, string>
-  blocks: Array<{ name: string; schema: JSONSchema6 }>
+  id: string
+  name: string
   beforeBlocks: Array<{ name: string; schema: JSONSchema6 }>
   afterBlocks: Array<{ name: string; schema: JSONSchema6 }>
   extraBlocks: Array<{
@@ -27,17 +31,106 @@ interface CMSContentType {
   }>
 }
 
+interface CMSBuilderConfig {
+  id: 'faststore'
+  name: 'Powered by Gatsby Plugin CMS'
+  productionBaseUrl: string
+  blocks: Array<{ name: string; schema: JSONSchema6 }>
+  contentTypes: CMSContentType[]
+  messages: Record<string, string>
+}
+
 const { name } = require('./package.json')
 
 const root = process.cwd()
 
-const CONTENT_TYPES_PATH = join(root, 'public/page-data/_cms/contentTypes.json')
-const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
-const BLOCKS_ROOT_PATH = join(root, 'src/@vtex/gatsby-plugin-cms/contents')
-const GENERATED_ROOT_PATH = join(BLOCKS_ROOT_PATH, '/__generated__')
-const PREVIEW_PATH = '/cms/preview'
+const BUILDER_CONFIG_PATH = join(
+  root,
+  'public/page-data/_cms/builderConfig.json'
+)
 
-const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
+const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
+
+interface Options {
+  tenant: string
+  workspace?: string
+}
+
+export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
+  Joi.object({
+    tenant: Joi.string().required(),
+    workspace: Joi.string(),
+  })
+
+export const sourceNodes = async (
+  args: SourceNodesArgs,
+  { tenant, workspace = 'master' }: Options
+) => {
+  // Step1. Set up remote schema:
+  const executor = createDefaultQueryExecutor(
+    `https://${workspace}--${tenant}.myvtex.com/graphql`,
+    {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+    }
+  )
+
+  const schema = await loadSchema(executor)
+
+  // Step2. Configure Gatsby node types
+  const gatsbyNodeTypes = [
+    {
+      remoteTypeName: `PageContent`,
+      queries: `
+        query LIST_PAGES ($first: Int!, $after: String ) {
+          vtex {
+            pages (first: $first, after: $after, builderId: "faststore") {
+              edges {
+                node {
+                  ...PageContentFragment
+                }
+              }
+            }
+          }
+        }
+        fragment PageContentFragment on PageContent { __typename id }
+      `,
+    },
+  ]
+
+  // Step3. Provide (or generate) fragments with fields to be fetched
+  const fragments = generateDefaultFragments({ schema, gatsbyNodeTypes })
+
+  // Step4. Compile sourcing queries
+  const documents = compileNodeQueries({
+    schema,
+    gatsbyNodeTypes,
+    customFragments: fragments,
+  })
+
+  const config = {
+    gatsbyApi: args,
+    schema,
+    execute: executor,
+    gatsbyTypePrefix: 'vtexCms',
+    gatsbyNodeDefs: buildNodeDefinitions({ gatsbyNodeTypes, documents }),
+  }
+
+  // Step5. Add explicit types to gatsby schema
+  await createSchemaCustomization(config)
+
+  // Step6. Source local and remote nodes in parallel
+  await Promise.all([
+    // Source Nodes from VTEX CMS API
+    sourceAllNodes(config),
+    // Source Nodes from `fixtures` folder
+    sourceAllLocalNodes(config, root, name),
+  ])
+}
+
+export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
   const { data, errors } = await graphql(`
     {
       site {
@@ -72,110 +165,73 @@ const exportCMSConfig = async ({ graphql, reporter }: CreatePagesArgs) => {
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],
   })
-  const { schemas, contentTypes } = require(SHADOWED_INDEX_PATH) as {
-    schemas: Schemas
-    contentTypes: ContentTypes
+  const {
+    builderConfig: {
+      contentTypes: userContentTypes = {},
+      blocks: userBlocks = {},
+      messages = {},
+    } = {},
+  } = require(SHADOWED_INDEX_PATH) as {
+    builderConfig: BuilderConfig
   }
 
-  // Make sure all components have a schema
-  for (const schema in schemas) {
-    if (!('component' in schemas[schema])) {
-      reporter.panicOnBuild(
-        `${schema} does not have a registered component. Please add a property with component: lazy(() => import('path-to-component'))`
+  const blocks = Object.keys(userBlocks).map((blockName) => ({
+    name: blockName,
+    schema: userBlocks[blockName],
+  }))
+
+  // Transform all contentTypes into CMS contentTypes format
+  const contentTypes = Object.keys(userContentTypes).reduce(
+    (acc, contentTypeName) => {
+      const contentType = userContentTypes[contentTypeName]
+
+      const beforeBlocks = Object.keys(contentType.beforeBlocks).map(
+        (blockName) => ({
+          name: blockName,
+          schema: contentType.beforeBlocks[blockName],
+        })
       )
 
-      return
-    }
+      const afterBlocks = Object.keys(contentType.afterBlocks).map(
+        (blockName) => ({
+          name: blockName,
+          schema: contentType.afterBlocks[blockName],
+        })
+      )
+
+      const extraBlocks = Object.keys(contentType.extraBlocks).map(
+        (sectionName) => ({
+          name: sectionName,
+          blocks: Object.keys(contentType.extraBlocks[sectionName]).map(
+            (blockName) => ({
+              name: blockName,
+              schema: contentType.extraBlocks[sectionName][blockName],
+            })
+          ),
+        })
+      )
+
+      acc.push({
+        ...contentType,
+        id: contentTypeName,
+        beforeBlocks,
+        afterBlocks,
+        extraBlocks,
+      })
+
+      return acc
+    },
+    [] as CMSContentType[]
+  )
+
+  const builderConfig: CMSBuilderConfig = {
+    id: 'faststore',
+    name: 'Powered by Gatsby Plugin CMS',
+    productionBaseUrl: siteUrl,
+    contentTypes,
+    blocks,
+    messages,
   }
 
-  // Transform all contentTypes into CMS ready contentType json
-  const contentTypesCMS = Object.keys(contentTypes).reduce((acc, key) => {
-    const ct = contentTypes[key]
-
-    const blocks = Object.keys(ct.blocks).map((k) => ({
-      name: k,
-      schema: ct.blocks[k],
-    }))
-
-    const beforeBlocks = Object.keys(ct.beforeBlocks).map((k) => ({
-      name: k,
-      schema: ct.beforeBlocks[k],
-    }))
-
-    const afterBlocks = Object.keys(ct.afterBlocks).map((k) => ({
-      name: k,
-      schema: ct.afterBlocks[k],
-    }))
-
-    const extraBlocks = Object.keys(ct.extraBlocks).map((k) => ({
-      name: k,
-      blocks: Object.keys(ct.extraBlocks[k]).map((kk) => ({
-        name: kk,
-        schema: ct.extraBlocks[k][kk],
-      })),
-    }))
-
-    acc.push({
-      ...ct,
-      previewUrl: join(siteUrl, PREVIEW_PATH),
-      blocks,
-      beforeBlocks,
-      afterBlocks,
-      extraBlocks,
-    })
-
-    return acc
-  }, [] as CMSContentType[])
-
-  await outputJSON(CONTENT_TYPES_PATH, contentTypesCMS)
+  await outputJSON(BUILDER_CONFIG_PATH, builderConfig)
 }
-
-const getGeneratedOutpath = (filename: string) =>
-  join(GENERATED_ROOT_PATH, filename.replace('.json', '.tsx'))
-
-const compileToTS = async ({
-  actions: { createPage },
-  reporter,
-}: CreatePagesArgs) => {
-  // ensure dist folder
-  await ensureDir(GENERATED_ROOT_PATH)
-
-  // Only create cms pages on dev mode for now
-  if (process.env.NODE_ENV === 'production') {
-    return
-  }
-
-  const files = await globby(['*.json'], { cwd: BLOCKS_ROOT_PATH })
-
-  for (const filename of files) {
-    const inpath = join(BLOCKS_ROOT_PATH, filename)
-    const outpath = getGeneratedOutpath(filename)
-
-    const content = readJSONSync(inpath)
-
-    if (!isContent(content)) {
-      throw new Error(`${filename} is not a CMS compatible block`)
-    }
-
-    const dom = new ContentDOM(content)
-    const src = dom.renderToString()
-    const slug = getMeta(content.extraBlocks)?.slug
-
-    if (typeof slug !== 'string') {
-      throw new Error(`No slug found for CMS block ${filename}`)
-    }
-
-    reporter.info(`[${name}]: Updated page: ${slug}`)
-
-    outputFileSync(outpath, src)
-
-    createPage({
-      path: slug,
-      component: outpath,
-      context: {},
-    })
-  }
-}
-
-export const createPages = (args: CreatePagesArgs) =>
-  Promise.all([compileToTS(args), exportCMSConfig(args)])

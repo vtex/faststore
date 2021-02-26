@@ -1,16 +1,43 @@
 interface Params {
   server?: string
   urls: string[]
+  assertions?: any
 }
 
-const lhConfig = ({ urls, server }: Params) => {
+/**
+ * Some values, we took from the default lighthouse config
+ * throttling mobileSlow4G: https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/constants.js#L22
+ */
+
+const lhConfig = ({ urls, server, assertions = {} }: Params) => {
   const url = urls.map((path) => `${server}${path}`)
 
   return {
     ci: {
       collect: {
         url,
-        numberOfRuns: 5,
+        settings: {
+          formFactor: 'mobile',
+          throttling: {
+            rttMs: 150,
+            throughputKbps: 1638.4,
+            requestLatencyMs: 562.5,
+            downloadThroughputKbps: 1474.56,
+            uploadThroughputKbps: 675,
+            cpuSlowdownMultiplier: 4,
+          },
+          throttlingMethod: 'simulate',
+          screenEmulation: {
+            mobile: true,
+            width: 360,
+            height: 640,
+            deviceScaleFactor: 2.625,
+            disabled: false,
+          },
+          emulatedUserAgent:
+            'Mozilla/5.0 (Linux; Android 7.0; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4143.7 Mobile Safari/537.36 Chrome-Lighthouse',
+          skipAudits: ['is-on-https'],
+        },
       },
       assert: {
         preset: 'lighthouse:no-pwa',
@@ -32,6 +59,7 @@ const lhConfig = ({ urls, server }: Params) => {
           'uses-text-compression': ['warn', { maxLength: 1 }],
           bypass: 'off',
           interactive: ['error', { maxNumericValue: 3000 }],
+          ...assertions,
         },
       },
       upload: {

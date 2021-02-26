@@ -2,7 +2,7 @@ import { Flex } from '@vtex/store-ui'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
-import { useSearchBarContext } from '../../SearchBar/hooks'
+import { useSearchBarContext } from '@vtex/store-ui'
 import { SearchSuggestionsContext } from './hooks'
 
 interface Props {

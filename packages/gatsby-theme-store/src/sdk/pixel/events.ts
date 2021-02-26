@@ -45,6 +45,7 @@ export interface InternalSiteSearchViewData extends PageViewData {
 
 export interface AddToCartData {
   items: OrderFormItem[]
+  oneClickBuy?: boolean
 }
 
 export interface RemoveFromCartData {
@@ -132,7 +133,7 @@ interface ShippingMethod {
   selectedSla: string
 }
 
-interface ProductOrder {
+export interface ProductOrder {
   id: string
   name: string
   sku: string

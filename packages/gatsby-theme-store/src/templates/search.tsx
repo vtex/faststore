@@ -1,10 +1,8 @@
 import { graphql } from 'gatsby'
-import type { FC } from 'react'
 import React, { lazy } from 'react'
+import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 
-import ErrorBoundary from '../components/Error/ErrorBoundary'
-import ErrorHandler from '../components/Error/ErrorHandler'
 import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import AboveTheFold from '../components/SearchPage/AboveTheFold'
@@ -31,16 +29,13 @@ const BelowTheFold = lazy(belowTheFoldPreloader)
 export type SearchPageProps = PageProps<
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables
->
+> & { staticPath: boolean }
 
 const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const filters = useSearchFiltersFromPageContext(pageContext)
   const staticPath =
-    pageContext.staticPath &&
-    pageContext.map === filters.map &&
-    pageContext.query === filters.query &&
-    pageContext.orderBy === filters.orderBy
+    pageContext.staticPath && pageContext.orderBy === filters.orderBy
 
   const { data } = useQuery<
     SearchPageQueryQuery,
@@ -78,15 +73,21 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     isServer ? '' : window.location.href
   )
 
+  const pageProps = {
+    ...props,
+    staticPath,
+    data: data!,
+  }
+
   return (
     <SearchProvider filters={filters} data={data!}>
-      <SEO {...props} data={data!} />
-      <AboveTheFold {...props} data={data!} />
+      <SEO {...pageProps} />
+      <AboveTheFold {...pageProps} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview />}
         preloader={belowTheFoldPreloader}
       >
-        <BelowTheFold />
+        <BelowTheFold {...pageProps} />
       </SuspenseViewport>
     </SearchProvider>
   )
@@ -98,16 +99,14 @@ const Page: FC<SearchPageProps> = (props) => {
   } = props
 
   return (
-    <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
-      <Layout>
-        <HybridWrapper
-          isPrerendered={staticPath}
-          fallback={<AboveTheFoldPreview />}
-        >
-          <SearchPage {...props} />
-        </HybridWrapper>
-      </Layout>
-    </ErrorBoundary>
+    <Layout>
+      <HybridWrapper
+        isPrerendered={staticPath}
+        fallback={<AboveTheFoldPreview />}
+      >
+        <SearchPage {...props} />
+      </HybridWrapper>
+    </Layout>
   )
 }
 
@@ -116,6 +115,7 @@ export const query = graphql`
     $query: String
     $map: String
     $fullText: String
+    $priceRange: String
     $staticPath: Boolean!
     $selectedFacets: [VTEX_SelectedFacetInput!]
     $orderBy: String = "OrderByScoreDESC"
@@ -126,6 +126,7 @@ export const query = graphql`
         to: 11
         hideUnavailableItems: false
         productOriginVtex: true
+        priceRange: $priceRange
         simulationBehavior: skip
         orderBy: $orderBy
         query: $query
@@ -145,8 +146,16 @@ export const query = graphql`
             }
           }
         }
-        titleTag
         recordsFiltered
+      }
+      searchMetadata(
+        query: $query
+        map: $map
+        fullText: $fullText
+        selectedFacets: $selectedFacets
+      ) @include(if: $staticPath) {
+        title: titleTag
+        description: metaTagDescription
       }
       facets(
         query: $query
@@ -155,6 +164,7 @@ export const query = graphql`
         selectedFacets: $selectedFacets
         operator: or
         behavior: "Static"
+        removeHiddenFacets: true
       ) @include(if: $staticPath) {
         breadcrumb {
           href
@@ -169,18 +179,30 @@ export const query = graphql`
             value
             selected
             quantity
+            range {
+              from
+              to
+            }
             values: children {
               key
               name
               value
               selected
               quantity
+              range {
+                from
+                to
+              }
               values: children {
                 key
                 name
                 value
                 selected
                 quantity
+                range {
+                  from
+                  to
+                }
               }
             }
           }

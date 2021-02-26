@@ -29,8 +29,8 @@ export interface Props {
 export const useBuyButton = ({
   sku,
   quantity,
-  oneClickBuy,
-  openMinicart,
+  oneClickBuy = false,
+  openMinicart = true,
 }: Props) => {
   const minicart = useMinicart()
   const [loading, setLoading] = useState(false)
@@ -40,13 +40,13 @@ export const useBuyButton = ({
 
   // Redirects the user to checkout after reassuring the pixel event was received
   usePixelEvent((e) => {
-    if (!oneClickBuy || e.type !== 'vtex:addToCart') {
+    if (e.type !== 'vtex:addToCart') {
       return
     }
 
     const isThisItem = e.data.items[0].id?.toString() === sku?.itemId
 
-    if (!isThisItem) {
+    if (!isThisItem || !e.data.oneClickBuy) {
       return
     }
 
@@ -70,6 +70,11 @@ export const useBuyButton = ({
       seller: seller.sellerId,
     }
 
+    const orderFormItemWithPrice = {
+      ...orderFormItem,
+      price: seller.commercialOffer.price,
+    }
+
     try {
       setLoading(true)
       const items = [orderFormItem]
@@ -83,7 +88,8 @@ export const useBuyButton = ({
       sendPixelEvent({
         type: 'vtex:addToCart',
         data: {
-          items,
+          items: [orderFormItemWithPrice],
+          oneClickBuy,
         },
       })
     } catch (err) {

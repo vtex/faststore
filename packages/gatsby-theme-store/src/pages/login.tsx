@@ -5,12 +5,11 @@ import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 
 import { AUTH_PROVIDERS } from '../components/Auth/Providers'
-import ErrorBoundary from '../components/Error/ErrorBoundary'
-import ErrorHandler from '../components/Error/ErrorHandler'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import { useOnLoginSuccessful } from '../sdk/auth/useOnLoginSuccessful'
 import { useProfile } from '../sdk/session/useProfile'
+import Helmet from '../components/SEO/Helmet'
 
 type Props = PageProps<unknown>
 
@@ -74,7 +73,16 @@ const Page: FC = () => {
 // We split into two components to avoid re-rendering the <Layout/> when
 // selecting Auth method
 const PageWithLayout: FC<Props> = () => (
-  <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
+  <>
+    <Helmet
+      meta={[
+        {
+          name: 'robots',
+          content: 'noindex, nofollow',
+        },
+      ]}
+    />
+
     <Layout>
       <SuspenseSSR
         fallback={
@@ -86,7 +94,7 @@ const PageWithLayout: FC<Props> = () => (
         <Page />
       </SuspenseSSR>
     </Layout>
-  </ErrorBoundary>
+  </>
 )
 
 export default PageWithLayout

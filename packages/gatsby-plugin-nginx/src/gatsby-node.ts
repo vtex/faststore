@@ -1,9 +1,10 @@
-import { writeFileSync, readFileSync } from 'fs'
+import { writeFileSync, readFileSync, existsSync } from 'fs'
 import { join } from 'path'
 
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import type { GatsbyNode } from 'gatsby'
 
+import { rankRoutes } from './pathRanking'
 import {
   BUILD_HTML_STAGE,
   VTEX_NGINX_CONF_FILENAME,
@@ -51,12 +52,17 @@ const Node: GatsbyNode = {
 
     const pages = Array.from(pagesMap.values())
 
-    const rewrites: Redirect[] = pages
-      .filter((page) => page.matchPath && page.matchPath !== page.path)
+    const pageRewrites: Redirect[] = pages
+      .filter(
+        (page) =>
+          typeof page.matchPath === 'string' && page.matchPath !== page.path
+      )
       .map((page) => ({
-        fromPath: page.matchPath as string,
+        fromPath: page.matchPath!,
         toPath: page.path,
       }))
+
+    const rewrites = rankRoutes([...pageRewrites, ...redirects, ...getFunctionsRedirects(program.directory)])
 
     const publicFolder = join(program.directory, 'public')
 
@@ -86,13 +92,10 @@ const Node: GatsbyNode = {
 
     headers = addPublicCachingHeader(headers)
 
-    const functionRedirects = getFunctionsRedirects(program.directory)
-
     writeFileSync(
       join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
       generateNginxConfiguration({
         rewrites,
-        redirects: [...redirects, ...functionRedirects],
         headersMap: headers,
         files,
         options,
@@ -103,8 +106,13 @@ const Node: GatsbyNode = {
   },
 }
 
-function getFunctionsRedirects(basedir: string) {
-  const contents = readFileSync(join(basedir, 'public', FUNCTIONS_REDIRECTS_FILENAME)).toString()
+function getFunctionsRedirects(basedir: string): Redirect[] {
+  const redirectsFile = join(basedir, 'public', FUNCTIONS_REDIRECTS_FILENAME)
+  if (!existsSync(redirectsFile)) {
+    return []
+  }
+
+  const contents = readFileSync(redirectsFile).toString()
   const file = JSON.parse(contents) as Record<string, string>
 
   return Object.entries(file).map(([key, value]) => ({

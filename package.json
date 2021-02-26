@@ -11,7 +11,8 @@
     "clean": "lerna clean && lerna run clean",
     "format": "prettier --write \"packages/**/*.{ts,js,tsx,jsx,json}\"",
     "lint": "eslint packages/ --ext .js,.ts,.jsx,.tsx",
-    "test:lhci": "lhci autorun --collect.url=/index.html"
+    "bootstrap": "lerna bootstrap",
+    "publish": "lerna version minor --yes && lerna publish from-git --yes"
   },
   "workspaces": [
     "packages/*"
@@ -33,8 +34,8 @@
   "devDependencies": {
     "@vtex/prettier-config": "^0.3.5",
     "eslint": "^7.15.0",
-    "eslint-config-vtex": "^12.9.0",
-    "eslint-config-vtex-react": "^6.9.1",
+    "eslint-config-vtex": "^12.9.3",
+    "eslint-config-vtex-react": "^6.9.3",
     "husky": "^4.3.0",
     "lerna": "^3.22.1",
     "lint-staged": "^10.5.1",

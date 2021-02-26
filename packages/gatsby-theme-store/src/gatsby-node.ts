@@ -16,7 +16,6 @@ export const onPostBootstrap = (
 
 export interface Options {
   storeId: string
-  getStaticPaths?: () => Promise<string[]>
   locales: string[]
   defaultLocale: string
 }
@@ -26,76 +25,125 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     storeId: Joi.string().required(),
     locales: Joi.array().items(Joi.string()).required(),
     defaultLocale: Joi.string().required(),
-    getStaticPaths: Joi.function().arity(0).required(),
   })
 
-const getRoute = (path: string) => {
-  const splitted = path.split('/')
-
-  if (path === '/') {
-    return null
-  }
-
-  if (splitted.length === 3 && path.endsWith('/p')) {
-    return 'product'
-  }
-
-  if (splitted.length >= 2) {
-    return 'search'
-  }
-
-  throw new Error(`Unroutable route: ${path}`)
+interface StaticPath {
+  id: string
+  path: string
+  pageType:
+    | 'Product'
+    | 'Department'
+    | 'Category'
+    | 'Brand'
+    | 'FullText'
+    | 'NotFound'
 }
 
-export const createPages = async (
-  { actions: { createPage } }: CreatePagesArgs,
-  { getStaticPaths }: Options
-) => {
+export const createPages = async ({
+  actions: { createPage, createRedirect },
+  graphql,
+  reporter,
+}: CreatePagesArgs) => {
   /**
    * STATIC PATHS
    */
 
-  const staticPaths =
-    typeof getStaticPaths === 'function' ? await getStaticPaths() : []
-
-  staticPaths.map(async (path) => {
-    const route = getRoute(path)
-    const splitted = path.split('/')
-
-    // Product Pages
-    if (route === 'product') {
-      const [, slug] = splitted
-
-      createPage({
-        path,
-        component: resolve(__dirname, './src/templates/product.tsx'),
-        context: {
-          slug,
-          staticPath: true,
-        },
-      })
+  const { data: staticPaths, errors } = await graphql<{
+    searches: { nodes: StaticPath[] }
+    products: { nodes: StaticPath[] }
+  }>(`
+    query GetAllStaticPaths {
+      searches: allStaticPath(
+        filter: { pageType: { in: ["Department", "Category", "Brand"] } }
+      ) {
+        nodes {
+          ...staticPath
+        }
+      }
+      products: allStaticPath(filter: { pageType: { eq: "Product" } }) {
+        nodes {
+          ...staticPath
+        }
+      }
     }
 
-    // Search Pages
-    else if (route === 'search') {
-      const segments = splitted.filter((segment) => !!segment)
-
-      createPage({
-        path,
-        component: resolve(__dirname, './src/templates/search.tsx'),
-        context: {
-          orderBy: '',
-          query: segments.join('/'),
-          map: new Array(segments.length).fill('c').join(','),
-          selectedFacets: segments.map((segment) => ({
-            key: 'c',
-            value: segment,
-          })),
-          staticPath: true,
-        },
-      })
+    fragment staticPath on StaticPath {
+      id
+      path
+      pageType
     }
-  })
+  `)
+
+  if (errors && errors.length > 0) {
+    reporter.panicOnBuild(
+      `[gatsby-theme-store]: Something went wrong while querying for static paths: ${errors.toString()}`
+    )
+
+    return
+  }
+
+  const {
+    searches: { nodes: searches = [] },
+    products: { nodes: products = [] },
+  } = staticPaths!
+
+  /**
+   * Create search static paths
+   */
+  for (const search of searches) {
+    const { path, id, pageType } = search
+    const [, ...segments] = path.split('/')
+    const key = pageType === 'Brand' ? 'b' : 'c'
+
+    const searchParams = {
+      orderBy: '',
+      query: segments.join('/'),
+      map: new Array(segments.length).fill(key).join(','),
+      selectedFacets: segments.map((segment) => ({
+        key,
+        value: segment,
+      })),
+    }
+
+    createPage({
+      path,
+      component: resolve(__dirname, './src/templates/search.tsx'),
+      context: {
+        ...searchParams,
+        id,
+        canonicalPath: path,
+        staticPath: true,
+      },
+    })
+
+    createPage({
+      path: `${path}/__client_side_search__`,
+      matchPath: `${path}/*`,
+      component: resolve(__dirname, './src/templates/search.tsx'),
+      context: {
+        id,
+        canonicalPath: path,
+        staticPath: false,
+      },
+    })
+  }
+
+  /**
+   * Create product static paths
+   */
+  for (const product of products) {
+    const { path } = product
+    const [, slug] = path.split('/')
+
+    createPage({
+      path,
+      component: resolve(__dirname, './src/templates/product.tsx'),
+      context: {
+        slug,
+        staticPath: true,
+      },
+    })
+  }
 
   /**
    * CLIENT ONLY PATHS
@@ -103,7 +151,7 @@ export const createPages = async (
 
   // Client-side rendered product pages
   createPage({
-    path: '/__client-side-product__/p',
+    path: '/__client_side_product__/p',
     matchPath: '/:slug/p',
     component: resolve(__dirname, './src/templates/product.tsx'),
     context: {
@@ -111,13 +159,31 @@ export const createPages = async (
     },
   })
 
+  // Client side search page
   createPage({
-    path: '/__client-side-search__',
+    path: '/__client_side_search__',
     matchPath: '/*',
     component: resolve(__dirname, './src/templates/search.tsx'),
     context: {
       staticPath: false,
     },
+  })
+
+  // I couldn't find a better way to make the path /404 return status code 404
+  // in Netlify, so the work around I found was to create a page and than create
+  // a redirect to it returning 404 status code
+
+  createPage({
+    path: '/404/__not_found__',
+    matchPath: '/404/*',
+    component: resolve(__dirname, './src/templates/404.tsx'),
+    context: {},
+  })
+
+  createRedirect({
+    fromPath: '/404',
+    toPath: '/404/__not_found__',
+    statusCode: 404,
   })
 }
 
@@ -125,6 +191,13 @@ export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
 }: CreateWebpackConfigArgs) => {
   setWebpackConfig({
+    // 🐞🐞 Uncomment for debugging final bundle 🐞🐞
+    // optimization: {
+    //   minimize: false,
+    //   moduleIds: 'named',
+    //   chunkIds: 'named',
+    //   concatenateModules: false,
+    // },
     module: {
       rules: [
         {

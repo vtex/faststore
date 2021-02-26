@@ -1,8 +1,9 @@
 import React from 'react'
 import { ThemeProvider } from 'theme-ui'
+import type { Theme } from 'theme-ui'
 
-import baseTheme from '../theme'
-import Breadcrumb from './index'
+import baseTheme from './theme'
+import { Breadcrumb } from './index'
 
 export default {
   title: 'product|Breadcrumb',
@@ -10,9 +11,9 @@ export default {
 }
 
 export const ProductBreadcrumb = () => (
-  <ThemeProvider theme={{ ...baseTheme }}>
+  <ThemeProvider theme={{ ...baseTheme } as Theme}>
     <Breadcrumb
-      categoryTree={[
+      breadcrumb={[
         {
           href: '/Cubas-e-Tanques',
           name: 'Cubas e Tanques',
@@ -22,12 +23,13 @@ export const ProductBreadcrumb = () => (
           name: 'Cubas',
         },
       ]}
+      type="PRODUCT"
     />
   </ThemeProvider>
 )
 
 export const SearchBreadcrumb = () => (
-  <ThemeProvider theme={{ ...baseTheme }}>
+  <ThemeProvider theme={{ ...baseTheme } as Theme}>
     <Breadcrumb
       breadcrumb={[
         {
@@ -39,6 +41,7 @@ export const SearchBreadcrumb = () => (
           href: '/apparel---accessories/clothing',
         },
       ]}
+      type="SEARCH"
     />
   </ThemeProvider>
 )

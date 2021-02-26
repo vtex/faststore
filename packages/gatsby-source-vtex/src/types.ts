@@ -52,3 +52,40 @@ export interface Category {
   MetaTagDescription: string
   LinkId: string
 }
+
+export interface Brand {
+  id: number
+  name: string
+  isActive: boolean
+  title: string
+  metaTagDescription: string
+  imageUrl: string | null
+}
+
+export interface PageType {
+  id: string
+  name: string
+  url: string
+  title: string
+  metaTagDescription: string
+  pageType:
+    | 'Product'
+    | 'SubCategory'
+    | 'Department'
+    | 'Category'
+    | 'Brand'
+    | 'FullText'
+    | 'NotFound'
+}
+
+export type Sort =
+  | 'OrderByPriceDESC'
+  | 'OrderByPriceASC'
+  | 'OrderByTopSaleDESC'
+  | 'OrderByReviewRateDESC'
+  | 'OrderByNameASC'
+  | 'OrderByNameDESC'
+  | 'OrderByReleaseDateDESC'
+  | 'OrderByBestDiscountDESC'
+  | 'OrderByScoreDESC'
+  | ''

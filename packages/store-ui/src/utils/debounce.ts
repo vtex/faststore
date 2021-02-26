@@ -4,7 +4,7 @@
 // Corresponds to 10 frames at 60 Hz.
 // A few bytes payload overhead when lodash/debounce is ~3 kB and debounce ~300 B.
 const debounce = <T>(cb: (...args: any) => T, wait = 166) => {
-  let timeout: NodeJS.Timeout
+  let timeout: ReturnType<typeof setTimeout>
 
   const debounced = (...args: any) => {
     const later = () => cb.apply(cb, args)

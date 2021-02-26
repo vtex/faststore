@@ -50,9 +50,12 @@ export { default as LocalizedLink } from './LocalizedLink'
 export { default as Banner } from './Banner'
 // RichMarkdown
 export { default as RichMarkdown } from './RichMarkdown'
+// RichText
+export { default as RichText } from './RichText'
 // Search Filters
 export * from './SearchFilter/Accordion'
 export * from './SearchFilter/AccordionItemCheckbox'
+export * from './SearchFilter/AccordionItemSlider'
 export * from './SearchFilter/theme'
 // Search Controls
 export * from './SearchControls'
@@ -60,6 +63,12 @@ export * from './SearchControls/FiltersButton'
 export * from './SearchControls/totalCount'
 export * from './SearchControls/Select'
 export * from './SearchControls/theme'
+// Shelf
+export { default as ShelfArrowLeft } from './Shelf/ArrowLeft'
+export { default as ShelfArrowRight } from './Shelf/ArrowRight'
+export { default as ShelfContainer } from './Shelf/Container'
+export { default as ShelfPaginationDots } from './Shelf/PaginationDots'
+export { default as ShelfTitle } from './Shelf/Title'
 // Breadcrumb
 export * from './Breadcrumb'
 export { default as breadcrumbTheme } from './Breadcrumb/theme'
@@ -107,3 +116,26 @@ export { default as Skeleton } from './Skeleton'
 export { default as YoutubeIframe } from './Youtube/Iframe'
 export { default as YoutubeThumb } from './Youtube/Thumb'
 export * from './Youtube/hooks'
+// Carousel
+export { default as Carousel } from './Carousel'
+export { default as CarouselPage } from './Carousel/Page'
+export { default as CarouselArrowLeft } from './Carousel/ArrowLeft'
+export { default as CarouselArrowRight } from './Carousel/ArrowRight'
+export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
+
+// ShippingSimulator
+export { default as ShippingSimulator } from './ShippingSimulator'
+
+// Auth Providers
+export * from './Auth/Providers'
+// Search Bar
+export { default as SearchBarButton } from './SearchBar/Button'
+export { default as SearchBarContainer } from './SearchBar/Container'
+export { default as SearchBarInput } from './SearchBar/Input'
+export { default as SearchBarProvider } from './SearchBar/Provider'
+export { default as searchBarTheme } from './SearchBar/theme'
+export { SearchBarContext, useSearchBarContext } from './SearchBar/hooks'
+export type { ISearchContext } from './SearchBar/hooks'
+// Login
+export { default as LoginLogo } from './Login/Logo'
+export { default as loginTheme } from './Login/theme'

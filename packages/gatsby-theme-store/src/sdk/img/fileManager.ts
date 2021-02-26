@@ -1,21 +1,21 @@
-const separator = '/arquivos/ids/'
+/**
+ * WARNING: You should be using this on the backend for critical rendering, a.k.a. gatsby-node.js.
+ * If this file in being added to your final bundle, please rethink your rendering strategy
+ */
 
-export const scaleFileManagerImage = (
-  path: string,
-  width: number | 'auto' = 'auto',
-  height: number | 'auto' = 'auto'
-) => {
-  const [host, r1] = path.split(separator)
-  const fixedHost = host.replace('vteximg.com.br', 'vtexassets.com')
+interface Options {
+  width?: number
+  height?: number
+  aspect?: boolean
+  quality?: number
+}
 
-  if (!r1) {
-    return path
+export const optimize = (src: string, opts: Options) => {
+  const url = new URL(src)
+
+  for (const option of Object.keys(opts)) {
+    url.searchParams.append(option, `${opts[option as keyof Options]}`)
   }
 
-  const [r2, query] = r1.split('?')
-  const [id] = r2.split('/')
-  const idSplited = id.split('-')
-  const imageId = idSplited.length ? idSplited[0] : id
-
-  return `${fixedHost}${separator}${imageId}-${width}-${height}?${query || ''}`
+  return url.toString()
 }

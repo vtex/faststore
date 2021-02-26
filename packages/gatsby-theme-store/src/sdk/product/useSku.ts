@@ -10,7 +10,9 @@ interface Props<T extends Sku> {
   items: T[]
 }
 
-export const useSku = <T extends Sku>(product: Props<T>) => {
+export const useSku = <T extends Sku>(
+  product: Props<T>
+): [T, typeof setSku] => {
   const [searchParams, setSearchParams] = useSearchParams()
   const skuId = searchParams.get('skuId')
 
@@ -32,5 +34,5 @@ export const useSku = <T extends Sku>(product: Props<T>) => {
     )
   }, [product, skuId])
 
-  return [sku, setSku] as [Sku, typeof setSku]
+  return [sku, setSku] as [T, typeof setSku]
 }

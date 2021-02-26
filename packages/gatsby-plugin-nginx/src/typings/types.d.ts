@@ -43,10 +43,15 @@ declare global {
      * May be overriden with environment variable NGINX_SERVE_FILE_DIRECTIVE in JSON format
      * @example
      * // serve files from a s3 bucket
-     * ["proxy_pass", "https://s3.amazonaws.com/static-site-bucket/$file"]
+     * [ "proxy_pass", "https://s3.amazonaws.com/static-site-bucket/$file" ]
      * // serve files from file system
-     * ["try_files", "$file"]
+     * [ "try_files", "$file" ]
      */
     serveFileDirective: string[]
+    /**
+     * When set, the nginx brotli [plugin](https://github.com/google/ngx_brotli) won't be enabled.
+     * @default false
+     */
+    disableBrotliEncoding: boolean
   }
 }

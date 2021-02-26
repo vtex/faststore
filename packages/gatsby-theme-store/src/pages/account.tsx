@@ -5,12 +5,11 @@ import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
 import Container from '../components/Container'
-import ErrorBoundary from '../components/Error/ErrorBoundary'
-import ErrorHandler from '../components/Error/ErrorHandler'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import RenderExtensionLoader from '../sdk/RenderExtensionLoader'
 import { useProfile } from '../sdk/session/useProfile'
+import Helmet from '../components/SEO/Helmet'
 
 const MY_ACCOUNT_PATH = '/account'
 const MY_ACCOUNT_DIV_NAME = 'my-account'
@@ -90,7 +89,16 @@ const MyAccount: FC = () => {
 }
 
 const Page: FC = () => (
-  <ErrorBoundary fallback={(error) => <ErrorHandler error={error} />}>
+  <>
+    <Helmet
+      meta={[
+        {
+          name: 'robots',
+          content: 'noindex, nofollow',
+        },
+      ]}
+    />
+
     <Layout>
       <Container>
         <SuspenseSSR fallback={<Loading />}>
@@ -98,7 +106,7 @@ const Page: FC = () => (
         </SuspenseSSR>
       </Container>
     </Layout>
-  </ErrorBoundary>
+  </>
 )
 
 export default Page
