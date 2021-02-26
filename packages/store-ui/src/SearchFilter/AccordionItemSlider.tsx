@@ -332,6 +332,7 @@ const SearchFilterAccordionItemSlider: FC<Props> = ({
     cursor,
     onChange,
     formatValue,
+    disabled,
   })
 
   return (
