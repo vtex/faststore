@@ -41,9 +41,9 @@ export const assertRedirects = (maybeRedirects: any[]): Redirect[] => {
       )
     }
 
-    if (type !== 'PERMANENT' || type !== 'TEMPORARY') {
+    if (type !== 'PERMANENT' && type !== 'TEMPORARY') {
       throw new Error(
-        `[gatsby-source-vtex]: Invalid redirect type in redirects:${line}. Expected TEMPORARY or PERMANENT by received ${type}`
+        `[gatsby-source-vtex]: Invalid redirect type in redirects:${line}. Expected TEMPORARY or PERMANENT but received ${type}`
       )
     }
 
