@@ -1,32 +1,11 @@
-import fs from 'fs'
-
-import csv2json from 'csvtojson'
-
 import type { Redirect } from './types'
 
-const csv = `${process.cwd()}/redirects.csv`
-
-export const redirectsFromCSV = ({
-  delimiter = ';',
-}: {
-  delimiter: string
-}) => {
-  if (!fs.existsSync(csv)) {
-    return []
-  }
-
-  return csv2json({ delimiter }).fromFile(csv)
-}
-
-const removeTrailingSlashes = (str: string) =>
-  str.endsWith('/') && str.length > 1 ? str.substring(0, str.length - 1) : str
-
-export const assertRedirects = (maybeRedirects: any[]): Redirect[] => {
-  const redirects: Redirect[] = []
+export const assertRedirects = (redirects: Redirect[]) => {
   const seen = new Set()
 
-  for (let it = 0; it < maybeRedirects.length; it++) {
-    const { fromPath, toPath, type = 'PERMANENT' } = maybeRedirects[it]
+  for (let it = 0; it < redirects.length; it++) {
+    const { fromPath, toPath, isPermanent } = redirects[it]
+
     const line = it + 1
 
     if (typeof fromPath !== 'string' || typeof toPath !== 'string') {
@@ -41,9 +20,9 @@ export const assertRedirects = (maybeRedirects: any[]): Redirect[] => {
       )
     }
 
-    if (type !== 'PERMANENT' && type !== 'TEMPORARY') {
+    if (isPermanent == null) {
       throw new Error(
-        `[gatsby-source-vtex]: Invalid redirect type in redirects:${line}. Expected TEMPORARY or PERMANENT but received ${type}`
+        `[gatsby-source-vtex]: Invalid redirect type in redirects:${line}. isPermanent is required`
       )
     }
 
@@ -54,22 +33,5 @@ export const assertRedirects = (maybeRedirects: any[]): Redirect[] => {
     }
 
     seen.add(fromPath)
-
-    redirects.push({
-      fromPath: removeTrailingSlashes(fromPath),
-      toPath: removeTrailingSlashes(toPath),
-      isPermanent: type === 'PERMANENT',
-      statusCode: type === 'PERMANENT' ? 301 : 302,
-    })
   }
-
-  return redirects
 }
-
-const getRedirects = async () => {
-  const maybeRedirects = await redirectsFromCSV({ delimiter: ';' })
-
-  return assertRedirects(maybeRedirects)
-}
-
-export default getRedirects

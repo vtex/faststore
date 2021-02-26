@@ -26,7 +26,7 @@ import {
 import type { VTEXOptions } from './fetch'
 import type { Category, PageType, Redirect, Tenant } from './types'
 import defaultStaticPaths from './staticPaths'
-import defaultGetRedirects from './redirects'
+import { assertRedirects } from './redirects'
 
 const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`
@@ -217,12 +217,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
 export const createPages = async (
   { actions: { createRedirect }, reporter }: CreatePageArgs,
-  {
-    tenant,
-    workspace,
-    environment,
-    getRedirects = defaultGetRedirects,
-  }: Options
+  { tenant, workspace, environment, getRedirects }: Options
 ) => {
   /**
    * Create all proxy rules for VTEX Store
@@ -230,19 +225,23 @@ export const createPages = async (
    * so it also works in dev mode
    */
 
-  const activity = reporter.activityTimer(
-    '[gatsby-source-vtex]: sourcing Redirects'
-  )
+  if (typeof getRedirects === 'function') {
+    const activity = reporter.activityTimer(
+      '[gatsby-source-vtex]: sourcing Redirects'
+    )
 
-  activity.start()
+    activity.start()
 
-  const redirects = await getRedirects()
+    const redirects = await getRedirects()
 
-  for (const redirect of redirects) {
-    createRedirect(redirect)
+    assertRedirects(redirects)
+
+    for (const redirect of redirects) {
+      createRedirect(redirect)
+    }
+
+    activity.end()
   }
-
-  activity.end()
 
   // Redirect API
   createRedirect({
