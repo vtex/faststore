@@ -24,6 +24,7 @@
   "dependencies": {
     "@graphql-tools/delegate": "^6.0.15",
     "@graphql-tools/wrap": "^6.0.15",
+    "csvtojson": "^2.0.10",
     "isomorphic-unfetch": "^3.0.0",
     "p-map": "^4.0.0",
     "slugify": "^1.4.6",
