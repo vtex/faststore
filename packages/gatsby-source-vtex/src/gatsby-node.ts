@@ -231,7 +231,7 @@ export const createPages = async (
    */
 
   const activity = reporter.activityTimer(
-    '[gatsby-source-vtex]: soucing Redirects'
+    '[gatsby-source-vtex]: sourcing Redirects'
   )
 
   activity.start()
