@@ -3,7 +3,8 @@ import type { Sort } from './types'
 export const api = {
   catalog: {
     brand: {
-      list: '/api/catalog_system/pub/brand/list',
+      list: ({ page, pageSize }: { page: number; pageSize: number }) =>
+        `/api/catalog_system/pub/brand/list?page=${page}&pageSize=${pageSize}`,
     },
     portal: {
       pageType: (path: string) =>

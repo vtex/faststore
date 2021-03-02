@@ -64,7 +64,13 @@ const staticPaths = async ({
     dfs(node, paths)
   }
 
-  const brands = await fetchVTEX<Brand[]>(api.catalog.brand.list, options)
+  // TODO: decrease the number of items per page and increase the number of
+  // pages to have faster requests
+
+  const brands = await fetchVTEX<Brand[]>(
+    api.catalog.brand.list({ page: 0, pageSize: 1000 }),
+    options
+  )
 
   for (const brand of brands) {
     if (!brand.isActive) {
