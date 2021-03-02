@@ -89,3 +89,13 @@ export type Sort =
   | 'OrderByBestDiscountDESC'
   | 'OrderByScoreDESC'
   | ''
+
+export interface Redirect {
+  [key: string]: unknown
+  fromPath: string
+  isPermanent?: boolean
+  toPath: string
+  redirectInBrowser?: boolean
+  force?: boolean
+  statusCode?: number
+}

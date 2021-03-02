@@ -1,6 +1,6 @@
 import { posix } from 'path'
 
-import { INDEX_HTML } from './constants'
+import { INDEX_HTML, LOCATION_MODIFIERS } from './constants'
 
 export {
   stringify,
@@ -173,7 +173,8 @@ function convertToPath(path: string) {
 function parseRewrite({
   toPath,
   statusCode = 200,
-}: Redirect): 'proxy' | 'rewrite' | 'error_page' {
+  isPermanent,
+}: Redirect): 'proxy' | 'rewrite' | 'redirect' | 'error_page' {
   try {
     new URL(toPath)
 
@@ -187,7 +188,11 @@ function parseRewrite({
     // Parse as an internal redirect, a.k.a /foo to /bar
     new URL(toPath, 'http://example.org')
 
-    return statusCode === 200 ? 'rewrite' : 'error_page'
+    return statusCode === 200
+      ? 'rewrite'
+      : statusCode === 301 || statusCode === 302 || isPermanent
+      ? 'redirect'
+      : 'error_page'
   } catch (e) {
     throw new Error(`redirect toPath "${toPath}" must be a valid absolute URL`)
   }
@@ -232,19 +237,47 @@ function generateRewriteChildren({ toPath }: Redirect) {
   ]
 }
 
+function generateRedirectRewriteChildren({
+  toPath,
+  isPermanent,
+  statusCode = 301,
+}: Redirect) {
+  const status = isPermanent ? 301 : statusCode
+
+  return [
+    {
+      cmd: ['absolute_redirect', 'off'],
+    },
+    {
+      cmd: ['return', `${status}`, toPath],
+    },
+  ]
+}
+
 function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
   const childrenByType = {
     rewrite: generateRewriteChildren,
     proxy: generateProxyRewriteChildren,
     error_page: generateErrorPageRewriteChildren,
+    redirect: generateRedirectRewriteChildren,
   }
 
   return rewrites.map((rewrite) => {
     const { fromPath } = rewrite
     const type = parseRewrite(rewrite)
 
+    const modifier =
+      type === 'redirect'
+        ? LOCATION_MODIFIERS.EXACT_MATCH
+        : LOCATION_MODIFIERS.CASE_INSENSITIVE_REGEX_MATCH
+
+    const match =
+      modifier === LOCATION_MODIFIERS.EXACT_MATCH
+        ? `"${fromPath}"`
+        : convertFromPath(fromPath)
+
     return {
-      cmd: ['location', '~*', convertFromPath(fromPath)],
+      cmd: ['location', modifier, match],
       children: childrenByType[type](rewrite),
     }
   })

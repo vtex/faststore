@@ -35,7 +35,9 @@ const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const filters = useSearchFiltersFromPageContext(pageContext)
   const staticPath =
-    pageContext.staticPath && pageContext.orderBy === filters.orderBy
+    pageContext.staticPath &&
+    pageContext.orderBy === filters.orderBy &&
+    filters.priceRange === null
 
   const { data } = useQuery<
     SearchPageQueryQuery,
@@ -48,28 +50,34 @@ const SearchPage: FC<SearchPageProps> = (props) => {
   })
 
   usePixelSendEvent(
-    () => [
-      {
-        type: 'vtex:pageView',
-        data: {
-          pageUrl: window.location.href,
-          pageTitle: document.title,
-          referrer: document.referrer,
-          accountName: process.env.GATSBY_STORE_ID!,
+    () => {
+      const pageType = filters.fullText ? 'fullText' : 'plp'
+
+      return [
+        {
+          type: 'vtex:pageView',
+          data: {
+            pageUrl: window.location.href,
+            pageTitle: document.title,
+            referrer: document.referrer,
+            accountName: process.env.GATSBY_STORE_ID!,
+            pageType,
+          },
         },
-      },
-      {
-        type: 'vtex:internalSiteSearchView',
-        data: {
-          accountName: process.env.GATSBY_STORE_ID!,
-          pageUrl: window.location.href,
-          pageTitle: document.title,
-          referrer: document.referrer,
-          term: filters.fullText ?? '',
-          results: data?.vtex.productSearch?.recordsFiltered ?? 0,
+        {
+          type: 'vtex:internalSiteSearchView',
+          data: {
+            accountName: process.env.GATSBY_STORE_ID!,
+            pageUrl: window.location.href,
+            pageTitle: document.title,
+            referrer: document.referrer,
+            term: filters.fullText ?? filters.query ?? '',
+            results: data?.vtex.productSearch?.recordsFiltered ?? 0,
+            pageType,
+          },
         },
-      },
-    ],
+      ]
+    },
     isServer ? '' : window.location.href
   )
 
@@ -112,21 +120,21 @@ const Page: FC<SearchPageProps> = (props) => {
 
 export const query = graphql`
   query SearchPageQuery(
+    $from: Int = 0
+    $to: Int = 11
     $query: String
     $map: String
     $fullText: String
-    $priceRange: String
     $staticPath: Boolean!
     $selectedFacets: [VTEX_SelectedFacetInput!]
     $orderBy: String = "OrderByScoreDESC"
   ) {
     vtex {
       productSearch(
-        from: 0
-        to: 11
+        from: $from
+        to: $to
         hideUnavailableItems: false
         productOriginVtex: true
-        priceRange: $priceRange
         simulationBehavior: skip
         orderBy: $orderBy
         query: $query

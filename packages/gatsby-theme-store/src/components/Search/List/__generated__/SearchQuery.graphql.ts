@@ -21,7 +21,6 @@ export type SearchQueryQueryVariables = Exact<{
   query: Maybe<Scalars['String']>;
   map: Maybe<Scalars['String']>;
   fullText: Maybe<Scalars['String']>;
-  priceRange: Maybe<Scalars['String']>;
   selectedFacets: Maybe<Array<Vtex_SelectedFacetInput> | Vtex_SelectedFacetInput>;
   from: Maybe<Scalars['Int']>;
   to: Maybe<Scalars['Int']>;

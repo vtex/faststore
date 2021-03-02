@@ -2,6 +2,7 @@ import { useLocation } from '@reach/router'
 import { useMemo } from 'react'
 
 import type { SearchPageQueryQueryVariables } from '../../templates/__generated__/SearchPageQuery.graphql'
+import { format, parse } from './priceRange'
 
 // Creates a string with as many `c,c` as pathname has
 // segments.
@@ -59,7 +60,6 @@ export const useSearchFiltersFromPageContext = (
     const params = new URLSearchParams(search)
     let query = pageContext.query!
     let map = pageContext.map!
-    const priceRange = params.get('priceRange')
     let selectedFacets = pageContext.selectedFacets! as Array<{
       key: string
       value: string
@@ -71,23 +71,24 @@ export const useSearchFiltersFromPageContext = (
       selectedFacets = selectedFacetsAfterQueryAndMap(query, map)
     }
 
-    if (priceRange !== null && selectedFacets) {
-      const priceRangeIndex = selectedFacets.findIndex(
-        (facet) => facet.key === 'priceRange'
-      )
+    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
+    const orderBy = params.get('orderBy') ?? pageContext.orderBy ?? ''
+    const maybePriceRange = params.get('priceRange')
+    const priceRange = parse(maybePriceRange ?? '')
 
-      if (priceRangeIndex > -1) {
-        selectedFacets[priceRangeIndex].value = priceRange
+    if (priceRange !== null) {
+      const value = format(priceRange)
+      const range = selectedFacets.find((facet) => facet.key === 'priceRange')
+
+      if (range !== undefined) {
+        range.value = value
       } else {
         selectedFacets.push({
           key: 'priceRange',
-          value: priceRange,
+          value,
         })
       }
     }
-
-    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
-    const orderBy = params.get('orderBy') ?? pageContext.orderBy ?? ''
 
     return {
       orderBy,
