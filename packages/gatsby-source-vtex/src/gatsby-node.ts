@@ -35,6 +35,8 @@ export interface Options extends PluginOptions, VTEXOptions {
   getStaticPaths?: () => Promise<string[]>
   getRedirects?: () => Promise<Redirect[]>
   pageTypes?: Array<PageType['pageType']>
+  ignorePaths?: string[]
+  concurrency?: number
 }
 
 const DEFAULT_PAGE_TYPES_WHITELIST = [
@@ -54,6 +56,8 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     workspace,
     getStaticPaths,
     pageTypes: pageTypesWhitelist = DEFAULT_PAGE_TYPES_WHITELIST,
+    concurrency = 20,
+    ignorePaths = [],
   } = options
 
   const {
@@ -178,15 +182,15 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   const staticPaths = (typeof getStaticPaths === 'function'
     ? await getStaticPaths()
     : await defaultStaticPaths(options)
-  ).map(normalizePath)
+  )
+    .map(normalizePath)
+    .filter((path) => !ignorePaths.includes(path))
 
   const pageTypes = await pMap(
     staticPaths,
     (path: string) =>
       fetchVTEX<PageType>(api.catalog.portal.pageType(path), options),
-    {
-      concurrency: 20,
-    }
+    { concurrency }
   )
 
   if (pageTypes.length !== staticPaths.length) {
