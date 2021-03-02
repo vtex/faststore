@@ -1,11 +1,16 @@
-import { writeFileSync } from 'fs'
+import { writeFileSync, readFileSync, existsSync } from 'fs'
 import { join } from 'path'
 
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import type { GatsbyNode } from 'gatsby'
 
 import { rankRoutes } from './pathRanking'
-import { BUILD_HTML_STAGE, VTEX_NGINX_CONF_FILENAME } from './constants'
+import {
+  BUILD_HTML_STAGE,
+  VTEX_NGINX_CONF_FILENAME,
+  FUNCTIONS_REDIRECTS_FILENAME,
+  FUNCTIONS_URL_PATH,
+} from './constants'
 import {
   addPublicCachingHeader,
   addStaticCachingHeader,
@@ -57,7 +62,7 @@ const Node: GatsbyNode = {
         toPath: page.path,
       }))
 
-    const rewrites = rankRoutes([...pageRewrites, ...redirects])
+    const rewrites = rankRoutes([...pageRewrites, ...redirects, ...getFunctionsRedirects(program.directory)])
 
     const publicFolder = join(program.directory, 'public')
 
@@ -99,6 +104,21 @@ const Node: GatsbyNode = {
 
     reporter.success('write out nginx configuration')
   },
+}
+
+function getFunctionsRedirects(basedir: string): Redirect[] {
+  const redirectsFile = join(basedir, 'public', FUNCTIONS_REDIRECTS_FILENAME)
+  if (!existsSync(redirectsFile)) {
+    return []
+  }
+
+  const contents = readFileSync(redirectsFile).toString()
+  const file = JSON.parse(contents) as Record<string, string>
+
+  return Object.entries(file).map(([key, value]) => ({
+    fromPath: join(FUNCTIONS_URL_PATH, key),
+    toPath: value,
+  }))
 }
 
 function mapObjectValues<V, T>(

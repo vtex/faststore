@@ -34,3 +34,7 @@ export const LOCATION_MODIFIERS = {
   CASE_INSENSITIVE_REGEX_MATCH: '~*', // the location block will be interpreted as a case-insensitive regular expression match.
   BEST_NON_REGEX_MATCH: '^~', // if this block is selected as the best non-regular expression match, regular expression matching will not take place.
 }
+
+export const FUNCTIONS_REDIRECTS_FILENAME = 'function-redirects.json'
+
+export const FUNCTIONS_URL_PATH = 'functions'
