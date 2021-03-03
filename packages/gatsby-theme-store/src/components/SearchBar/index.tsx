@@ -19,6 +19,7 @@ export interface Props {
   placeholder: string
   'aria-label': string
   popoverState?: PopoverInitialState
+  icon?: Element
 }
 
 const SearchBar: FC<Props> = ({
@@ -26,6 +27,7 @@ const SearchBar: FC<Props> = ({
   variant = 'searchbar',
   'aria-label': label,
   placeholder,
+  icon
 }) => (
   <SearchBarContainer>
     <SearchBarProvider onSearch={search}>
@@ -39,7 +41,7 @@ const SearchBar: FC<Props> = ({
           <SearchSuggestions />
         </Suspense>
       </SearchBarInput>
-      <SearchBarButton variant={variant} aria-label={`${label} button`} />
+      <SearchBarButton variant={variant} aria-label={`${label} button`} icon={icon}/>
     </SearchBarProvider>
   </SearchBarContainer>
 )
