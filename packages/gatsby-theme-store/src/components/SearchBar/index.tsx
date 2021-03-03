@@ -27,7 +27,7 @@ const SearchBar: FC<Props> = ({
   variant = 'searchbar',
   'aria-label': label,
   placeholder,
-  icon
+  icon,
 }) => (
   <SearchBarContainer>
     <SearchBarProvider onSearch={search}>
@@ -41,7 +41,11 @@ const SearchBar: FC<Props> = ({
           <SearchSuggestions />
         </Suspense>
       </SearchBarInput>
-      <SearchBarButton variant={variant} aria-label={`${label} button`} icon={icon}/>
+      <SearchBarButton
+        variant={variant}
+        aria-label={`${label} button`}
+        icon={icon}
+      />
     </SearchBarProvider>
   </SearchBarContainer>
 )
