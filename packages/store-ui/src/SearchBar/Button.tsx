@@ -5,7 +5,7 @@ import type { FC } from 'react'
 
 import { useSearchBarContext } from './hooks'
 
-type Props = Omit<ButtonProps, 'ref'>
+type Props = Omit<ButtonProps, 'ref'> & { icon?: Element }
 
 const MagGlass = () => (
   <svg
@@ -27,7 +27,7 @@ const MagGlass = () => (
   </svg>
 )
 
-const SearchBarButton: FC<Props> = ({ variant, ...forward }) => {
+const SearchBarButton: FC<Props> = ({ variant, icon, ...forward }) => {
   const { onSearch, syncTerm } = useSearchBarContext()
 
   return (
@@ -36,7 +36,7 @@ const SearchBarButton: FC<Props> = ({ variant, ...forward }) => {
       variant={`${variant}.button`}
       {...forward}
     >
-      <MagGlass />
+      {icon ?? <MagGlass />}
     </Button>
   )
 }
