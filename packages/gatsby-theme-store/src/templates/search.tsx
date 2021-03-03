@@ -134,7 +134,7 @@ export const query = graphql`
         from: $from
         to: $to
         hideUnavailableItems: false
-        productOriginVtex: true
+        # productOriginVtex: true
         simulationBehavior: skip
         orderBy: $orderBy
         query: $query
