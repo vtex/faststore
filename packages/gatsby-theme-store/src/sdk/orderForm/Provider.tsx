@@ -28,7 +28,11 @@ export const OrderFormProvider: FC = ({ children }) => {
   const id = orderForm?.id
 
   useEffect(() => {
-    if (error != null && !window.location.pathname.startsWith('/500')) {
+    if (
+      error != null &&
+      !window.location.pathname.startsWith('/500') &&
+      !window.location.pathname.startsWith('/offline')
+    ) {
       throw error
     }
   }, [error])
