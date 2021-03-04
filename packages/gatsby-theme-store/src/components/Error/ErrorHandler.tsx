@@ -6,7 +6,6 @@
  */
 import type { FC } from 'react'
 import { useEffect } from 'react'
-import { navigate } from 'gatsby'
 
 import { uuidv4 } from '../../sdk/uuid'
 
@@ -37,7 +36,7 @@ export const handleError = ({ error, errorId }: Props) => {
   }
 
   if (isUserOffline) {
-    navigate('/offline/')
+    window.location.href = '/offline/'
 
     return
   }
