@@ -1,5 +1,5 @@
 {
-  "version": "0.267.2-pwalpha.2",
+  "version": "0.267.2-pwalpha.3",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {

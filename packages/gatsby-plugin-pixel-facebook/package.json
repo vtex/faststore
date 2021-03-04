@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-pixel-facebook",
-  "version": "0.267.2-pwalpha.2",
+  "version": "0.267.2-pwalpha.3",
   "description": "Gatsby plugin for using Facebook Pixel with Store Framework Jamstack",
   "main": "index.js",
   "browser": "src/index.ts",
@@ -18,7 +18,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@vtex/gatsby-theme-store": "^0.267.2-pwalpha.2",
+    "@vtex/gatsby-theme-store": "^0.267.2-pwalpha.3",
     "cross-env": "^7.0.2",
     "gatsby": "^2.24.37",
     "typescript": "^4.1.2"
