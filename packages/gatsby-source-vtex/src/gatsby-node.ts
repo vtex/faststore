@@ -282,6 +282,18 @@ export const createPages = async (
     },
   })
 
+  // Use checkout IO
+  createRedirect({
+    fromPath: '/cart/*',
+    toPath: `https://${tenant}.${environment}.com.br/cart/:splat`,
+    statusCode: 200,
+    proxyHeaders: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$origin_host',
+      via: "''",
+    },
+  })
+
   // Use Render's legacy extensions
   createRedirect({
     fromPath: '/legacy_extensions/*',
