@@ -12,7 +12,7 @@ interface Item {
 }
 
 const MenuLink: FC<Item> = ({ slug, name }) => (
-  <LocalizedLink to={`/${slug}`}>{name!.split(' ')[0]}</LocalizedLink>
+  <LocalizedLink to={slug!}>{name!.replace(/[,\s].*/, '')}</LocalizedLink>
 )
 
 const Footer: FC = () => {
