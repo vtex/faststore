@@ -6,12 +6,7 @@ import SliderArrowLeft from '../Slider/ArrowLeft'
 type Props = ComponentProps<typeof SliderArrowLeft>
 
 const CarouselArrowLeft: FC<Props> = (props) => (
-  <SliderArrowLeft
-    backgroundColor="transparent"
-    color="black"
-    aria-label="Previous Carousel Image"
-    {...props}
-  />
+  <SliderArrowLeft aria-label="Previous Carousel Image" {...props} />
 )
 
 export default CarouselArrowLeft
