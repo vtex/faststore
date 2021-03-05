@@ -6,7 +6,7 @@
 
 1. Run `yarn` at the root of the repo.
 
-2. Run `lerna link --force-local` at the root of the repo.
+2. Run `yarn lerna link --force-local` at the root of the repo.
 
 3. Run `yarn build` at the root of the repo.
 
