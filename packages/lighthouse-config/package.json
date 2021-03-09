@@ -1,6 +1,6 @@
 {
   "name": "@vtex/lighthouse-config",
-  "version": "0.277.3-alpha.2",
+  "version": "0.277.3-gomes.0",
   "author": "Emerson Laurentino",
   "license": "MIT",
   "repository": "vtex/lighthouse-config",
@@ -24,5 +24,5 @@
     "tsdx": "^0.14.1",
     "typescript": "^4.1.2"
   },
-  "gitHead": "d0235b6fac1b42f4e4c41a1866e4e10d7d7ac5a2"
+  "gitHead": "e0cc6484ef309c0c209ec96e67c9eda842c28f1c"
 }
