@@ -122,5 +122,10 @@
   "error.title": "Ops, ocorreu um erro!",
   "error.action": "Por favor, volte ao início e tente novamente",
   "error.action.button": "Voltar ao início",
-  "error.detail": "Erro: {errorId}"
+  "error.detail": "Erro: {errorId}",
+
+  "zipcode.change.modal.title": "Confira se atendemos sua região",
+  "zipcode.change.modal.description": "Informe o CEP",
+  "zipcode.change.modal.button": "Buscar",
+  "zipcode.change.modal.nozipcode": "Não sei o CEP"
 }
