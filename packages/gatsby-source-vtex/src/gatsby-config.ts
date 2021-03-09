@@ -43,5 +43,9 @@ module.exports = ({ tenant, workspace, environment }: Options) => ({
       prefix: '/XMLData',
       url: `https://${tenant}.${environment}.com.br`,
     },
+    {
+      prefix: '/auth/login',
+      url: `https://${workspace}--${tenant}.myvtex.com`,
+    },
   ],
 })
