@@ -282,10 +282,9 @@ export const createPages = async (
     },
   })
 
-  // Use checkout IO
   createRedirect({
-    fromPath: '/cart/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/cart/:splat`,
+    fromPath: '/_v/private/graphql/*',
+    toPath: `https://${workspace}--${tenant}.myvtex.com//_v/private/graphql/:splat`,
     statusCode: 200,
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly

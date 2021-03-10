@@ -40,6 +40,10 @@ module.exports = ({ tenant, workspace, environment }: Options) => ({
       url: `https://${workspace}--${tenant}.myvtex.com`,
     },
     {
+      prefix: '/_v/private/graphql',
+      url: `https://${workspace}--${tenant}.myvtex.com`,
+    },
+    {
       prefix: '/XMLData',
       url: `https://${tenant}.${environment}.com.br`,
     },
