@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-nginx",
-  "version": "0.277.3",
+  "version": "0.277.4",
   "description": "Gatsby plugin to generate a nginx configuration template.",
   "main": "index.js",
   "license": "MIT",
@@ -31,5 +31,6 @@
   },
   "peerDependencies": {
     "gatsby": "^2.31.0"
-  }
+  },
+  "gitHead": "27acd834634300c8771551f8f62c7c478e6b85de"
 }
