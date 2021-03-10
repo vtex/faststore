@@ -366,10 +366,10 @@ export const createPages = async (
 
   createRedirect({
     fromPath: '/auth/login/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/auth/login/:splat`,
+    toPath: `https://${tenant}.${environment}.com.br/auth/login/:splat`,
     statusCode: 200,
     proxyHeaders: {
-      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      // VTEX ID needs the forwarded host i/loginn order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
       via: "''",
     },
