@@ -6,6 +6,7 @@
 
 // All components and styles from Theme UI
 export * from 'theme-ui'
+export { default as Modal } from 'react-modal'
 
 // Base components from @vtex-components
 // Drawer
