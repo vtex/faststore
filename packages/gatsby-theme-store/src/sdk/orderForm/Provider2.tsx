@@ -1,8 +1,8 @@
 // TODO: rename this file to Provider
 import { useState, useEffect } from 'react'
-import type { OrderForm } from '@vtex/order-manager/src/OrderForm'
 
 import type { getOrderForm as getOrderFormType } from './controller'
+import type { OrderFormFragment_OrderFormFragment as OrderForm } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 
 let controller: {
   getOrderForm: typeof getOrderFormType
@@ -17,7 +17,7 @@ const getController = async () => {
 }
 
 export const useFetchOrderForm = () => {
-  const [orderForm, setOrderForm] = useState<Exclude<OrderForm, '__typename'>>()
+  const [orderForm, setOrderForm] = useState<OrderForm>()
 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<any>(null)
@@ -27,7 +27,7 @@ export const useFetchOrderForm = () => {
       localController
         .getOrderForm()
         .then((newOrderForm) => {
-          setOrderForm((newOrderForm as unknown) as OrderForm)
+          setOrderForm(newOrderForm)
           setLoading(false)
         })
         .catch(setError)
@@ -37,6 +37,7 @@ export const useFetchOrderForm = () => {
   return { data: orderForm ? { orderForm } : undefined, loading, error }
 }
 
+export type { OrderFormFragment_OrderFormFragment as OrderForm } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 export {
   OrderFormProvider,
   useOrderForm,
