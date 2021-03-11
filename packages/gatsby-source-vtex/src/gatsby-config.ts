@@ -20,6 +20,14 @@ module.exports = ({ tenant, workspace, environment }: Options) => ({
       url: `https://${workspace}--${tenant}.myvtex.com`,
     },
     {
+      prefix: '/_v/private/graphql',
+      url: `https://${workspace}--${tenant}.myvtex.com`,
+    },
+    {
+      prefix: '/_v/public/graphql',
+      url: `https://${workspace}--${tenant}.myvtex.com`,
+    },
+    {
       prefix: '/arquivos',
       url: `https://${tenant}.vtexassets.com`,
     },
