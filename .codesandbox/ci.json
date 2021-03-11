@@ -1,0 +1,5 @@
+{
+  "buildCommand": "build",
+  "packages": ["packages/*"],
+  "node": "14"
+}
