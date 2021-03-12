@@ -119,3 +119,10 @@ These are the clients running in production with FastStore:
 **Question:** I'm having errors while running/building a store. There are the following log `Cannot query field "vtexCms" on type "Query"` or an error with `Status Code 403`.
 
 **Answer:** You need to log in VTEX by `vtex login <account>`
+
+---
+
+**Question:** I'm trying to add a dependency inside a specific package with `yarn add <package>`, but it's not working.
+
+**Answer:** Each package has a workspace, so you need to add libraries like this: `yarn workspace <workspace> add <package>`
+Example: `yarn workspace @vtex/store-ui add react-modal`
