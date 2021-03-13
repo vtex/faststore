@@ -15,10 +15,7 @@ interface Props extends PageProps<unknown> {
 const removeTrailingSlashes = (x: string) =>
   x[x.length - 1] === '/' ? x.slice(0, x.length - 1) : x
 
-const StructuredData: FC<Props> = () => {
-  const { host } = useLocation()
-  const siteUrl = `https://${host}`
-
+const StructuredData: FC<Props> = ({ siteMetadata: { siteUrl } }) => {
   const siteLinks: WithContext<WebSite> = useMemo(
     () => ({
       '@context': 'https://schema.org',
