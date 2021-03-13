@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react'
-import { useLocation } from '@reach/router'
 import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 import type { WebSite, WithContext } from 'schema-dts'
