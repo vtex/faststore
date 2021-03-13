@@ -17,8 +17,8 @@ const SEO: FC<Props> = (props) => {
       query HomePageSEOQuery {
         site {
           siteMetadata {
-            siteUrl
             title
+            siteUrl
             description
             author
           }

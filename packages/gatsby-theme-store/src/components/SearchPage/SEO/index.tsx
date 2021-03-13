@@ -17,6 +17,7 @@ const SEO: FC<SearchPageProps> = (props) => {
           siteMetadata {
             title
             titleTemplate
+            siteUrl
             description
             author
           }
