@@ -25,6 +25,10 @@ module.exports = ({
       url: `https://${workspace}--${tenant}.myvtex.com`,
     },
     {
+      prefix: '/legacy_extensions',
+      url: `https://${workspace}--${tenant}.myvtex.com`,
+    },
+    {
       prefix: '/arquivos',
       url: `https://${tenant}.vtexassets.com`,
     },
