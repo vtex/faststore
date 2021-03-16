@@ -283,18 +283,6 @@ export const createPages = async (
     },
   })
 
-  // Use Render's legacy extensions
-  createRedirect({
-    fromPath: '/legacy_extensions/*',
-    toPath: `https://${workspace}--${tenant}.myvtex.com/legacy_extensions/:splat`,
-    statusCode: 200,
-    proxyHeaders: {
-      // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$origin_host',
-      via: "''",
-    },
-  })
-
   // Static assets checkout uses
   createRedirect({
     fromPath: '/arquivos/*',
