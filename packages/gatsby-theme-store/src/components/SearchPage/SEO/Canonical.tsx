@@ -1,34 +1,34 @@
 /**
  * One should use either noindex or canonical, never both
- *
+
  * This deduplicates pages so our pages rank higher in Google
  */
 
-import React from 'react'
 import type { FC } from 'react'
-import { useLocation } from '@reach/router'
+import React from 'react'
 
-import type { SearchPageProps } from '../../../templates/search'
 import Helmet from '../../SEO/Helmet'
 
-interface Props extends SearchPageProps {
+interface Props {
+  pageContext: {
+    canonicalPath?: string
+  }
   siteMetadata: {
     siteUrl: string
   }
 }
 
-const Canonical: FC<Props> = (props) => {
-  const { staticPath } = props
-
-  const { pathname, host } = useLocation()
-
-  if (staticPath === false) {
+const Canonical: FC<Props> = ({
+  pageContext: { canonicalPath },
+  siteMetadata: { siteUrl },
+}) => {
+  if (typeof canonicalPath === 'string') {
     return (
       <Helmet
-        meta={[
+        link={[
           {
-            name: 'robots',
-            content: 'noindex',
+            rel: 'canonical',
+            href: `${siteUrl}${canonicalPath}`,
           },
         ]}
       />
@@ -37,10 +37,10 @@ const Canonical: FC<Props> = (props) => {
 
   return (
     <Helmet
-      link={[
+      meta={[
         {
-          rel: 'canonical',
-          href: `https://${host}${pathname}`,
+          name: 'robots',
+          content: 'noindex',
         },
       ]}
     />

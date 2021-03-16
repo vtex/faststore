@@ -20,6 +20,7 @@ const SEO: FC<Props> = (props) => {
             title
             description
             author
+            siteUrl
           }
         }
       }
