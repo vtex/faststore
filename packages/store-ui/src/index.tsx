@@ -6,7 +6,6 @@
 
 // All components and styles from Theme UI
 export * from 'theme-ui'
-export { default as Modal } from 'react-modal'
 
 // Base components from @vtex-components
 // Drawer
@@ -143,3 +142,7 @@ export type { ISearchContext } from './SearchBar/hooks'
 // Login
 export { default as LoginLogo } from './Login/Logo'
 export { default as loginTheme } from './Login/theme'
+// Dialog
+export * from 'reakit/Dialog'
+// Portal
+export * from 'reakit/Portal'
