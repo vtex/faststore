@@ -290,6 +290,7 @@ export const createPages = async (
     proxyHeaders: {
       // VTEX ID needs the forwarded host in order to set the cookie correctly
       'x-forwarded-host': '$origin_host',
+      origin: `https://${workspace}--${tenant}.myvtex.com`,
       via: "''",
     },
   })
