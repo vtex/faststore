@@ -1,8 +1,8 @@
-import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
+import { useOrderForm } from '../../../sdk/orderForm/Providers'
 
 export const useItem = (index: number) => {
-  const { value } = useOrderForm()
-  const item = value?.items[index]
+  const { orderForm } = useOrderForm()
+  const item = orderForm.items[index]
 
   return {
     quantity: item?.quantity ?? 1,
