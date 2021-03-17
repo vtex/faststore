@@ -1,6 +1,10 @@
 {
   "name": "@vtex/gatsby-theme-store",
+<<<<<<< HEAD
   "version": "0.277.6",
+=======
+  "version": "0.277.5-antiq.0",
+>>>>>>> f962aa36 (Release: 0.277.5-antiq.0)
   "description": "Gatsby theme for building ecommerce websites",
   "main": "index.js",
   "browser": "src/index.ts",
