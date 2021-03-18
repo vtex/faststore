@@ -10,15 +10,75 @@ import SuspenseSSR from '../components/Suspense/SSR'
 import { useOnLoginSuccessful } from '../sdk/auth/useOnLoginSuccessful'
 import { useProfile } from '../sdk/session/useProfile'
 import Helmet from '../components/SEO/Helmet'
+import { useProviders } from '../sdk/auth/useProviders'
+import type { ProvidersResponse } from '../sdk/auth/Service/getProviders'
 
 type Props = PageProps<unknown>
+type DefaultProvidersComponents = typeof AUTH_PROVIDERS
+type ProviderName = keyof typeof AUTH_PROVIDERS
+
+const filterProviders = (
+  providersComponents: DefaultProvidersComponents,
+  storeProviders?: ProvidersResponse
+) => {
+  if (!storeProviders) {
+    return [{ name: '', ...providersComponents.Empty }]
+  }
+
+  const hasLogin = storeProviders.passwordAuthentication
+  const hasAccessCode = storeProviders.accessKeyAuthentication
+  const hasSingleProvider = storeProviders.oAuthProviders.length === 1
+
+  if (!hasLogin && !hasAccessCode && hasSingleProvider) {
+    return [
+      {
+        name: storeProviders.oAuthProviders[0].providerName,
+        ...providersComponents.CustomProvider,
+      },
+    ]
+  }
+
+  const providers = []
+
+  if (hasLogin) {
+    providers.push({
+      name: 'EmailAndPassword',
+      ...providersComponents.EmailAndPassword,
+    })
+  }
+
+  if (hasAccessCode) {
+    providers.push({
+      name: 'EmailVerification',
+      ...providersComponents.EmailVerification,
+    })
+  }
+
+  storeProviders.oAuthProviders.forEach(({ providerName }) => {
+    const provider = providersComponents[providerName as ProviderName]
+
+    if (provider) {
+      providers.push({ name: providerName, ...provider })
+    }
+  })
+
+  return providers
+}
 
 const Page: FC = () => {
   const onLoginSuccessful = useOnLoginSuccessful()
   const { formatMessage } = useIntl()
-  const [index, setIndex] = useState(0)
-  const { Component } = AUTH_PROVIDERS[index]
+  const { data: storeProviders } = useProviders()
   const profile = useProfile({ stale: false })
+
+  const filteredProviders = filterProviders(AUTH_PROVIDERS, storeProviders)
+
+  const [focusProvider, setFocusProvider] = useState(0)
+
+  const { Component } = filterProviders(AUTH_PROVIDERS, storeProviders)[
+    focusProvider
+  ]
+
   const isAuthenticated = profile?.isAuthenticated?.value === 'true'
 
   useEffect(() => {
@@ -44,12 +104,12 @@ const Page: FC = () => {
           })}
         </Box>
 
-        {AUTH_PROVIDERS.map(({ Button: ButtonComponent }, i) =>
-          i !== index ? (
+        {filteredProviders.map(({ Button: ButtonComponent }, i) =>
+          i !== focusProvider ? (
             <ButtonComponent
               key={i}
               variant="login.page"
-              onClick={() => setIndex(i)}
+              onClick={() => setFocusProvider(i)}
             />
           ) : null
         )}
@@ -63,7 +123,10 @@ const Page: FC = () => {
             </Center>
           }
         >
-          <Component variant="page" />
+          <Component
+            variant="page"
+            provider={filteredProviders[focusProvider].name}
+          />
         </SuspenseSSR>
       </Box>
     </Flex>
