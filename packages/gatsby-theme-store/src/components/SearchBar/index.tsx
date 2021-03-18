@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import { Suspense, lazy } from 'react'
+import type { PopoverInitialState } from '@vtex/store-ui'
 import {
   jsx,
   SearchBarButton,
+  SearchBarContainer,
   SearchBarInput,
   SearchBarProvider,
-  SearchBarContainer,
 } from '@vtex/store-ui'
-import type { FC } from 'react'
-import type { PopoverInitialState } from '@vtex/store-ui'
+import type { FC, ReactNode } from 'react'
+import { lazy, Suspense } from 'react'
 
 import { search } from '../../sdk/search/controller'
 
@@ -19,7 +19,7 @@ export interface Props {
   placeholder: string
   'aria-label': string
   popoverState?: PopoverInitialState
-  icon?: Element
+  icon?: ReactNode
 }
 
 const SearchBar: FC<Props> = ({

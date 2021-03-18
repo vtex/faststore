@@ -1,11 +1,11 @@
-import { Button } from 'theme-ui'
-import type { ButtonProps } from 'theme-ui'
+import type { FC, ReactNode } from 'react'
 import React from 'react'
-import type { FC } from 'react'
+import type { ButtonProps } from 'theme-ui'
+import { Button } from 'theme-ui'
 
 import { useSearchBarContext } from './hooks'
 
-type Props = Omit<ButtonProps, 'ref'> & { icon?: Element }
+type Props = Omit<ButtonProps, 'ref'> & { icon?: ReactNode }
 
 const MagGlass = () => (
   <svg
