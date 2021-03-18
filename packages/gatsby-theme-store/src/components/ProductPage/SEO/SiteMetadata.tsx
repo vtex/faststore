@@ -1,8 +1,8 @@
-import React from 'react'
 import type { FC } from 'react'
+import React from 'react'
 
-import DefaultSiteMetadata from '../../SEO/SiteMetadata'
 import type { ProductPageProps } from '../../../templates/product'
+import DefaultSiteMetadata from '../../SEO/SiteMetadata'
 
 interface Props extends ProductPageProps {
   siteMetadata: {
@@ -20,8 +20,8 @@ const SiteMetadata: FC<Props> = ({
 }) => (
   <DefaultSiteMetadata
     {...siteMetadata}
-    title={product!.titleTag || siteMetadata.title}
-    description={product!.metaTagDescription || siteMetadata.description}
+    title={product?.titleTag || siteMetadata.title}
+    description={product?.metaTagDescription || siteMetadata.description}
   />
 )
 
