@@ -11,31 +11,49 @@ import type {
   AuthProviderComponentProps,
 } from '@vtex/store-ui'
 
+const ExternalProvider = lazy(() => import('./ExternalProvider'))
 const EmailAndPassword = lazy(() => import('./EmailAndPassword'))
-
 const EmailVerification = lazy(() => import('./EmailVerification'))
 
-const FacebookOAuth = lazy(() => import('./Facebook'))
-const GoogleOAuth = lazy(() => import('./Google'))
+type Provider =
+  | 'Google'
+  | 'Facebook'
+  | 'CustomProvider'
+  | 'NoState'
+  | 'EmailAndPassword'
+  | 'EmailVerification'
 
-export const AUTH_PROVIDERS: Array<{
-  Component: FunctionComponent<AuthProviderComponentProps>
-  Button: FunctionComponent<AuthProviderButtonProps>
-}> = [
+const None: FunctionComponent = () => null
+
+export const AUTH_PROVIDERS: Record<
+  Provider,
   {
+    Component: FunctionComponent<AuthProviderComponentProps>
+    Button: FunctionComponent<AuthProviderButtonProps>
+  }
+> = {
+  NoState: {
+    Component: None,
+    Button: None,
+  },
+  CustomProvider: {
+    Component: ExternalProvider,
+    Button: None,
+  },
+  EmailAndPassword: {
     Component: EmailAndPassword,
     Button: EmailAndPasswordButton,
   },
-  {
+  EmailVerification: {
     Component: EmailVerification,
     Button: EmailVerificationButton,
   },
-  {
-    Component: GoogleOAuth,
+  Google: {
+    Component: ExternalProvider,
     Button: GoogleOAuthButton,
   },
-  {
-    Component: FacebookOAuth,
+  Facebook: {
+    Component: ExternalProvider,
     Button: FacebookOAuthButton,
   },
-]
+}

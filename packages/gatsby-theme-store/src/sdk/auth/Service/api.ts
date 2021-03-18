@@ -15,6 +15,7 @@ export const api = {
         validate: `${base}/pub/authentication/classic/validate`,
         setpassword: `${base}/pub/authentication/classic/setpassword`,
       },
+      providers: `${base}/pub/authentication/providers`,
     },
   },
   oauth: {
