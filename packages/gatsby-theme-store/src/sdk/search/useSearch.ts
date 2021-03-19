@@ -4,6 +4,7 @@ import { useQueryInfinite } from '../graphql/useQueryInfinite'
 import { useFilters } from './useFilters'
 import type { QueryOptions } from '../graphql/useQueryInfinite'
 import type { SearchFilters } from './Provider'
+import { useRegion } from '../region/useRegion'
 
 interface BaseQueryShape {
   vtex: {
@@ -27,6 +28,8 @@ export const useSearch = <Query extends BaseQueryShape | undefined>({
   pageSize = PAGE_SIZE,
 }: Options<Query>) => {
   const filters = useFilters()
+  const { regionId } = useRegion()
+
   const initialData = firstPageData && [firstPageData]
   const { data, error, size, setSize } = useQueryInfinite<Query, SearchFilters>(
     query,
@@ -47,14 +50,27 @@ export const useSearch = <Query extends BaseQueryShape | undefined>({
       // data mismatch
       const productIds =
         page === 0 &&
+        !regionId &&
         firstPageData?.vtex.productSearch?.products?.map((x) => x.productId)
 
       if (Array.isArray(productIds)) {
         fullText = `product:${productIds.join(';')}`
       }
 
+      const selectedFacets = ([] as typeof filters.selectedFacets)
+        .concat(filters?.selectedFacets ?? [])
+        .concat(
+          regionId
+            ? {
+                key: 'region-id',
+                value: regionId,
+              }
+            : []
+        )
+
       return {
         ...filters,
+        selectedFacets,
         fullText,
         from,
         to,
