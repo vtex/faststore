@@ -1,4 +1,4 @@
-import { useOrderForm } from '../../../sdk/orderForm/Providers'
+import { useOrderForm } from '../../../sdk/orderForm/Provider'
 
 export const useItem = (index: number) => {
   const { orderForm } = useOrderForm()
