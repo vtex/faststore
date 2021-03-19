@@ -8,7 +8,7 @@ export const getProviders = async () => {
   search.append('scope', storeId)
   search.append('accountName', storeId)
 
-  const response = await fetch(api.pub.authentication.startlogin, {
+  const response = await fetch(api.pub.authentication.providers, {
     method: 'GET',
     credentials: 'include',
     headers: {
