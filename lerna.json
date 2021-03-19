@@ -1,5 +1,5 @@
 {
-  "version": "0.278.0-extprov.3",
+  "version": "0.278.0-extprov.4",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
