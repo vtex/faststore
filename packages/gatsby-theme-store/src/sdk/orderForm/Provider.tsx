@@ -7,7 +7,7 @@ import {
 } from '@vtex/order-manager'
 import { createOrderItemsProvider } from '@vtex/order-items'
 
-import { clearOrderFormMessages } from './clearOrderFormMessage'
+import { useClearOrderFormMessages } from './useClearOrderFormMessage'
 import { useToast } from './useToast'
 import { useLogger } from './useLogger'
 import { useGetOrderForm } from './useGetOrderForm'
@@ -41,7 +41,7 @@ const defaultOrderForm: OrderForm = {
 
 const { OrderFormProvider, useOrderForm } = createOrderFormProvider<OrderForm>({
   useGetOrderForm,
-  clearOrderFormMessages,
+  useClearOrderFormMessages,
   useToast,
   defaultOrderForm,
 })

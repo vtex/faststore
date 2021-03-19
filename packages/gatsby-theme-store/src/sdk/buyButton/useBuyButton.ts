@@ -37,7 +37,7 @@ export const useBuyButton = ({
   const seller = useBestSeller(sku)
   const { orderForm } = useOrderForm()
   const { addItem } = useOrderItems()
-  const disabled = loading || !sku || orderForm || !seller
+  const disabled = loading || !sku || !orderForm || !seller
 
   // Redirects the user to checkout after reassuring the pixel event was received
   usePixelEvent((e) => {
