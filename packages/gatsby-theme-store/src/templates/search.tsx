@@ -20,6 +20,7 @@ import type {
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
+import { useRegion } from '../components/useRegion'
 
 const belowTheFoldPreloader = () =>
   import('../components/SearchPage/BelowTheFold')
@@ -34,17 +35,29 @@ export type SearchPageProps = PageProps<
 const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const filters = useSearchFiltersFromPageContext(pageContext)
+  const { regionId } = useRegion()
   const staticPath =
     pageContext.staticPath &&
     pageContext.orderBy === filters.orderBy &&
     filters.priceRange === null
+
+  const selectedFacets = ([] as typeof filters.selectedFacets)
+    .concat(filters?.selectedFacets ?? [])
+    .concat(
+      regionId
+        ? {
+            key: 'region-id',
+            value: regionId,
+          }
+        : []
+    )
 
   const { data } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
   >({
     ...SearchPageQuery,
-    variables: { ...filters, staticPath: true },
+    variables: { ...filters, selectedFacets, staticPath: true },
     suspense: true,
     initialData: staticPath ? staticData : undefined,
   })
