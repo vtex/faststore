@@ -3,7 +3,7 @@ import React from 'react'
 import type { MinicartDrawerProps } from '@vtex/store-ui'
 import type { FC } from 'react'
 
-import { useOrderForm } from '../../../sdk/orderForm/Providers'
+import { useOrderForm } from '../../../sdk/orderForm/Provider'
 import { HeaderMinicartDrawerContent } from './Content'
 import { HeaderMinicartDrawerFooter } from './Footer'
 import { HeaderMinicartDrawerHeader } from './Header'
@@ -14,7 +14,7 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
   variant,
 }) => {
   const { orderForm } = useOrderForm()
-  const count = orderForm?.items.length ?? 0
+  const count = orderForm.items.length ?? 0
 
   const customVariant = `${variant}.drawer`
 

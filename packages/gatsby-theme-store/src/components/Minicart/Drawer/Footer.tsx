@@ -4,7 +4,7 @@ import React from 'react'
 import type { FC } from 'react'
 
 import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
-import { useOrderForm } from '../../../sdk/orderForm/Providers'
+import { useOrderForm } from '../../../sdk/orderForm/Provider'
 
 export interface HeaderMinicartDrawerFooterProps {
   variant?: string
@@ -17,7 +17,7 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
   const { orderForm } = useOrderForm()
   const { formatMessage } = useIntl()
   const { format } = useNumberFormat()
-  const total = format(Number(orderForm?.value) / 100)
+  const total = format(Number(orderForm.value) / 100)
   const subTotal = total
 
   return (

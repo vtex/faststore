@@ -1,7 +1,7 @@
 import { Button, Spinner } from '@vtex/store-ui'
 import React, { useState } from 'react'
 
-import { useUpdateItems } from './useUpdateItems'
+import { useUpdateItem } from './useUpdateItem'
 
 type Props = {
   index: number
@@ -10,13 +10,13 @@ type Props = {
 
 const MinicartDelete = (props: Props) => {
   const [isLoading, setIsLoading] = useState(false)
-  const updateItems = useUpdateItems(props.index)
+  const updateItems = useUpdateItem(props.index)
   const useDelete = {
     variant: `${props.variant}.delete`,
     onClick: async () => {
       try {
         setIsLoading(true)
-        await updateItems(0)
+        await updateItems(0) // TOOO useOrderItmes (delete)
       } finally {
         setIsLoading(false)
       }
