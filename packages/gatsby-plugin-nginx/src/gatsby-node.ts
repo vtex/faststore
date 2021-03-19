@@ -62,7 +62,11 @@ const Node: GatsbyNode = {
         toPath: page.path,
       }))
 
-    const rewrites = rankRoutes([...pageRewrites, ...redirects, ...getFunctionsRedirects(program.directory)])
+    const rewrites = rankRoutes([
+      ...pageRewrites,
+      ...redirects,
+      ...getFunctionsRedirects(program.directory),
+    ])
 
     const publicFolder = join(program.directory, 'public')
 
@@ -108,6 +112,7 @@ const Node: GatsbyNode = {
 
 function getFunctionsRedirects(basedir: string): Redirect[] {
   const redirectsFile = join(basedir, 'public', FUNCTIONS_REDIRECTS_FILENAME)
+
   if (!existsSync(redirectsFile)) {
     return []
   }
