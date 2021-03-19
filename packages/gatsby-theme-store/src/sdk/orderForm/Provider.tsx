@@ -1,94 +1,71 @@
-/**
- * This provider starts fetching early and adds a suspendable reader to
- * the context. Use the hooks to interact with the context
- */
-import React, { createContext, useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import type { FC } from 'react'
+import {
+  OrderQueueProvider,
+  createOrderFormProvider,
+  DEFAULT_ORDER_FORM,
+} from '@vtex/order-manager'
+import { createOrderItemsProvider } from '@vtex/order-items'
 
-import type { OrderFormFragment_OrderFormFragment } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
-import type { OrderFormItem } from './types'
+import { clearOrderFormMessages } from './clearOrderFormMessage'
+import { useToast } from './useToast'
+import { useLogger } from './useLogger'
+import { useGetOrderForm } from './useGetOrderForm'
+import { useMutateAddItems } from './useMutateAddItems'
+import { useMutateUpdateQuantity } from './useMutateUpdateQuantity'
+import type { OrderFormFragment_OrderFormFragment as OrderForm } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 
-const controller = () => import('./controller')
-
-export type OrderFormContext = {
-  value: OrderFormFragment_OrderFormFragment | null
-  addToCart: (items: OrderFormItem[]) => Promise<void>
-  updateItems: (items: OrderFormItem[]) => Promise<void>
+const defaultOrderForm: OrderForm = {
+  ...DEFAULT_ORDER_FORM,
+  userProfileId: '',
+  userType: '',
+  allowManualPrice: null,
+  clientPreferencesData: null,
+  clientProfileData: null,
+  marketingData: {
+    coupon: null,
+    utmCampaign: null,
+    utmMedium: null,
+    utmSource: null,
+    utmiCampaign: null,
+    utmiPage: null,
+    utmiPart: null,
+  },
+  shipping: {
+    ...DEFAULT_ORDER_FORM.shipping,
+    countries: null,
+    availableAddresses: null,
+    selectedAddress: null,
+  },
 }
 
-export const OrderForm = createContext<OrderFormContext>(undefined as any)
+const { OrderFormProvider, useOrderForm } = createOrderFormProvider<OrderForm>({
+  useGetOrderForm,
+  clearOrderFormMessages,
+  useToast,
+  defaultOrderForm,
+})
 
-export const OrderFormProvider: FC = ({ children }) => {
-  const [error, setError] = useState<Error | null>(null)
-  const [
-    orderForm,
-    setOrderForm,
-  ] = useState<OrderFormFragment_OrderFormFragment | null>(null)
+const {
+  OrderItemsProvider,
+  useOrderItems,
+} = createOrderItemsProvider<OrderForm>({
+  useMutateAddItems,
+  useMutateUpdateQuantity,
+  useOrderForm,
+  useMutateSetManualPrice: () => undefined,
+  useLogger,
+})
 
-  const id = orderForm?.id
-
-  useEffect(() => {
-    if (error != null && !window.location.pathname.startsWith('/500')) {
-      throw error
-    }
-  }, [error])
-
-  // Fetch orderForm on first render
-  useEffect(() => {
-    let cancel = false
-
-    const cbId = window.requestIdleCallback(async () => {
-      try {
-        const ctl = await controller()
-        const of = await ctl.getOrderForm()
-
-        if (!cancel) {
-          setOrderForm(of)
-        }
-      } catch (e) {
-        setError(e)
-      }
-    })
-
-    return () => {
-      cancel = true
-      window.cancelIdleCallback(cbId)
-    }
-  }, [])
-
-  // Add item to cart using the queue
-  const addToCart = useCallback(
-    async (items) => {
-      const ctl = await controller()
-      const of = await ctl.addToCart(id!, items)
-
-      setOrderForm(of)
-    },
-    [id]
-  )
-
-  const updateItems = useCallback(
-    async (items) => {
-      const ctl = await controller()
-      const of = await ctl.updateItems({
-        orderFormId: id!,
-        items,
-      })
-
-      setOrderForm(of)
-    },
-    [id]
-  )
-
+export const Provider: FC = ({ children }) => {
   return (
-    <OrderForm.Provider
-      value={{
-        value: orderForm,
-        addToCart,
-        updateItems,
-      }}
-    >
-      {children}
-    </OrderForm.Provider>
+    <OrderQueueProvider>
+      <OrderFormProvider>
+        <OrderItemsProvider>{children}</OrderItemsProvider>
+      </OrderFormProvider>
+    </OrderQueueProvider>
   )
 }
+
+export { useOrderForm, useOrderItems }
+export type { OrderForm }

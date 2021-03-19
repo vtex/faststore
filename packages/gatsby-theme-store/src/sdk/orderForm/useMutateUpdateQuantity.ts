@@ -1,13 +1,14 @@
 import { getOrderformId } from './controller/orderForm'
-import type { GraphQLMutationOptions } from '../graphql/typings'
 import type { UpdateItemsMutationMutationVariables } from './controller/__generated__/UpdateItemsMutation.graphql'
 import type { OrderFormFragment_OrderFormFragment } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 
 const getOrderFormController = () => import('./controller')
 
-export const mutationUpdateQuantity = async ({
-  variables: { items },
-}: GraphQLMutationOptions<UpdateItemsMutationMutationVariables>) => {
+const mutationUpdateQuantity = async ({
+  orderItems: items,
+}: {
+  orderItems: UpdateItemsMutationMutationVariables['items']
+}) => {
   const id = getOrderformId()
 
   const orderFormController = await getOrderFormController()
@@ -17,4 +18,8 @@ export const mutationUpdateQuantity = async ({
     .then((orderForm: OrderFormFragment_OrderFormFragment) => ({
       data: orderForm,
     }))
+}
+
+export const useMutateUpdateQuantity = () => {
+  return mutationUpdateQuantity
 }
