@@ -8,8 +8,7 @@ import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ElementType } from 'react'
 
 // Webpack + TS magic to make this work
-const { OrderFormProviders } = require('./src/sdk/orderForm/Providers')
-const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
+const { Provider: OrderFormProvider } = require('./src/sdk/orderForm/Provider')
 const { MinicartProvider } = require('./src/sdk/minicart/index')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
@@ -49,11 +48,9 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   const root = (
     <ErrorBoundary>
       <VTEXRCProvider>
-        <OrderFormProviders>
-          <OrderFormProvider>
-            <MinicartProvider>{element}</MinicartProvider>
-          </OrderFormProvider>
-        </OrderFormProviders>
+        <OrderFormProvider>
+          <MinicartProvider>{element}</MinicartProvider>
+        </OrderFormProvider>
       </VTEXRCProvider>
     </ErrorBoundary>
   )
