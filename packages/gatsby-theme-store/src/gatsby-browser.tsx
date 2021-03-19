@@ -7,8 +7,11 @@ import ReactDOM from 'react-dom'
 import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ElementType } from 'react'
 
+// import { RegionProvider } from './components/Region'
+
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
+const { RegionProvider } = require('./src/sdk/region/index')
 const { MinicartProvider } = require('./src/sdk/minicart/index')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
@@ -49,7 +52,9 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
     <ErrorBoundary>
       <VTEXRCProvider>
         <OrderFormProvider>
-          <MinicartProvider>{element}</MinicartProvider>
+          <RegionProvider>
+            <MinicartProvider>{element}</MinicartProvider>
+          </RegionProvider>
         </OrderFormProvider>
       </VTEXRCProvider>
     </ErrorBoundary>
