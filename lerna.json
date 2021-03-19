@@ -7,7 +7,5 @@
       "message": "Release: %v"
     }
   },
-  "packages": [
-    "packages/*"
-  ]
+  "packages": ["packages/*"]
 }
