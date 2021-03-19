@@ -5852,10 +5852,10 @@
   dependencies:
     react "17.0.1"
 
-"@vtex/order-manager@^0.0.3-14":
-  version "0.0.3-14"
-  resolved "https://registry.yarnpkg.com/@vtex/order-manager/-/order-manager-0.0.3-14.tgz#4bede74eb3ed02600ea04c829f3b50f3b90c4cc1"
-  integrity sha512-QvobwfxjUG3wLgKB0/L8oQk5gkQZDq1Uk15S7sI2vjhn2wi+kJO81VhvMIFje63yGKICyHYpsIJEBsGFsRJ4OQ==
+"@vtex/order-manager@^0.0.3-16":
+  version "0.0.3-16"
+  resolved "https://registry.yarnpkg.com/@vtex/order-manager/-/order-manager-0.0.3-16.tgz#e790081938bb7fc1f1763eab1cbdabd4dff6b3b7"
+  integrity sha512-wc+AdM4kztyXAeFwiFJp9XHHEyNzRXg50lJkHgWrX55rRgrRQ2wZHcNLdNMT/PNBbuV9rgQhuu34mLeT0dt1lw==
   dependencies:
     react "17.0.1"
 

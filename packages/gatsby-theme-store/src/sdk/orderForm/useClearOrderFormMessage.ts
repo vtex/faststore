@@ -1,11 +1,9 @@
 interface ClearOrderFormMessagesParams {
-  variables: {
-    orderFormId: string
-  }
+  orderFormId: string
 }
 
 const clearOrderFormMessages = ({
-  variables: { orderFormId },
+  orderFormId,
 }: ClearOrderFormMessagesParams): Promise<any> => {
   return new Promise((resolve) => resolve(orderFormId))
 }
