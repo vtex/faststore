@@ -7,8 +7,6 @@ import ReactDOM from 'react-dom'
 import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ElementType } from 'react'
 
-// import { RegionProvider } from './components/Region'
-
 // Webpack + TS magic to make this work
 const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
 const { RegionProvider } = require('./src/sdk/region/index')
