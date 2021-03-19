@@ -5835,20 +5835,20 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
-"@vtex/order-items@^0.0.1-1":
-  version "0.0.1-1"
-  resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.0.1-1.tgz#43e1e0c6315d261b2ce28faaf1df658125f18ecf"
-  integrity sha512-IjRLk2JQGTKdQNjwgUspfqsqShQ+PyDI6/AxbF5YhmV/ZzKqwZU5tHgATOKZgE0rR6STD9BR7qJSe29xxf2yAw==
+"@vtex/order-items@^0.0.1-6":
+  version "0.0.1-6"
+  resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.0.1-6.tgz#902221ddb89ec80d359406e236ccf1dce51bacfe"
+  integrity sha512-3VBhaeIS7iNZHH1QSl+QRMW+oODdhlBRL/SVcfxCaH8OkVRGEbNq1dTmkBtp8L8a64Q2t4qVWhq0gw7sTo9Pkg==
   dependencies:
     "@types/uuid" "^8.3.0"
-    "@vtex/order-manager" "0.0.3-12"
+    "@vtex/order-manager" "0.0.3-15"
     react "17.0.1"
     uuid "^8.3.2"
 
-"@vtex/order-manager@0.0.3-12":
-  version "0.0.3-12"
-  resolved "https://registry.yarnpkg.com/@vtex/order-manager/-/order-manager-0.0.3-12.tgz#a7bed92978243e2b0b800d16ddf9c7cd5ef1a42e"
-  integrity sha512-QqXZwG9lGlZbPMvCjSZ0aKBbACIAWhL82jtmE/cgUleCKKSXcwyTkR4k6q3kKUX5c4s9I8nK6eYNrg4idZPO4w==
+"@vtex/order-manager@0.0.3-15":
+  version "0.0.3-15"
+  resolved "https://registry.yarnpkg.com/@vtex/order-manager/-/order-manager-0.0.3-15.tgz#6fb71250d3fefe6edbd10958d3c3fe2fe41af3af"
+  integrity sha512-5ho2CnYRKHRDnDrTIXdz4JVLnlT3QUNgQYnUv2TKPqg3QR5430NtjeaCRCQvPMuvU0lMrVan7N/4Z7LWjo5vhw==
   dependencies:
     react "17.0.1"
 
@@ -14022,7 +14022,7 @@ intl-format-cache@^4.3.0:
   resolved "https://registry.yarnpkg.com/intl-format-cache/-/intl-format-cache-4.3.1.tgz#484d31a9872161e6c02139349b259a6229ade377"
   integrity sha512-OEUYNA7D06agqPOYhbTkl0T8HA3QKSuwWh1HiClEnpd9vw7N+3XsQt5iZ0GUEchp5CW1fQk/tary+NsbF3yQ1Q==
 
-intl-messageformat-parser@6.4.3:
+intl-messageformat-parser@6.4.3, intl-messageformat-parser@^6.0.18:
   version "6.4.3"
   resolved "https://registry.yarnpkg.com/intl-messageformat-parser/-/intl-messageformat-parser-6.4.3.tgz#4326201256c52907f342c7bb058208113c3c7f95"
   integrity sha512-gpB7OeKDSd9wqjIQ7wVQM9byrpMlokGoUfJND7DS9SjoBbOsZIHAHw+lrmAWYmq+MI3WQUeLouSFdYAZ6zSX9A==
@@ -20804,7 +20804,7 @@ react-inspector@^5.0.1:
     is-dom "^1.0.0"
     prop-types "^15.0.0"
 
-react-intl@^5.13.5:
+react-intl@^5.7.1:
   version "5.13.5"
   resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-5.13.5.tgz#32bb74120b67950fe63329db58aa83cfac73f6c8"
   integrity sha512-Ym6knnC04k070vwe3UDcRHQUDE2rGn1PNfmYNhDHVPL6vbusuFbefjnt8ZC1GEjnfo29WUHn/tkGd9SMudzD+g==
