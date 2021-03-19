@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import type { OrderFormFragment_OrderFormFragment } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 
@@ -25,5 +25,10 @@ export const useGetOrderForm = () => {
     })
   }, [])
 
-  return { data: orderForm ? { orderForm } : undefined, loading, error }
+  const result = useMemo(
+    () => ({ data: orderForm ? { orderForm } : undefined, loading, error }),
+    [error, loading, orderForm]
+  )
+
+  return result
 }
