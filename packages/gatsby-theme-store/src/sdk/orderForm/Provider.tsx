@@ -4,6 +4,8 @@ import {
   OrderQueueProvider,
   createOrderFormProvider,
   DEFAULT_ORDER_FORM,
+  useOrderQueue,
+  useQueueStatus,
 } from '@vtex/order-manager'
 import { createOrderItemsProvider } from '@vtex/order-items'
 
@@ -55,6 +57,8 @@ const {
   useOrderForm,
   useMutateSetManualPrice: () => undefined,
   useLogger,
+  useOrderQueue,
+  useQueueStatus,
 })
 
 export const Provider: FC = ({ children }) => {
