@@ -20,8 +20,8 @@ export const useNumericStepper = ({
   const [value, setValue] = useState(() => narrow(initialValue, min, max))
 
   useEffect(() => {
-    setValue(initialValue)
-  }, [initialValue])
+    setValue(narrow(initialValue, min, max))
+  }, [initialValue, min, max])
 
   const setAndRaise = useCallback(
     async (val: number) => {
