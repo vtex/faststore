@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { FocusEvent, ChangeEvent } from 'react'
 
 interface Options {
@@ -18,6 +18,10 @@ export const useNumericStepper = ({
   onChange: raiseOnChange,
 }: Options) => {
   const [value, setValue] = useState(() => narrow(initialValue, min, max))
+
+  useEffect(() => {
+    setValue(initialValue)
+  }, [initialValue])
 
   const setAndRaise = useCallback(
     async (val: number) => {
