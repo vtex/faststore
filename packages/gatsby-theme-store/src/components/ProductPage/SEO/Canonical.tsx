@@ -1,6 +1,6 @@
 import React from 'react'
 import type { FC } from 'react'
-import { useLocation } from '@reach/router'
+import { useLocation } from '@gatsbyjs/reach-router'
 
 import Helmet from '../../SEO/Helmet'
 import type { ProductPageProps } from '../../../templates/product'
