@@ -21,6 +21,7 @@ export type UpdateItemsMutationMutationVariables = Exact<{
   orderFormId: Maybe<Scalars['ID']>;
   items: Maybe<Array<Maybe<Vtex_ItemInput>> | Maybe<Vtex_ItemInput>>;
   splitItem: Maybe<Scalars['Boolean']>;
+  allowOutdatedData: Maybe<Array<string>>;
 }>;
 
 

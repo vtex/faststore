@@ -12,16 +12,17 @@ interface Options {
   orderFormId: string
   items: Vtex_ItemInput[]
   splitItem?: boolean
+  allowOutdatedData?: UpdateItemsMutationMutationVariables['allowOutdatedData']
 }
 
-export const updateItems = async ({ orderFormId, items, splitItem }: Options) =>
+export const updateItems = async ({ orderFormId, items, splitItem, allowOutdatedData }: Options) =>
   queue().add(async () => {
     const { updateItems: of } = await request<
       UpdateItemsMutationMutation,
       UpdateItemsMutationMutationVariables
     >({
       ...UpdateItemsMutation,
-      variables: { orderFormId, items, splitItem },
+      variables: { orderFormId, items, splitItem, allowOutdatedData },
     })
 
     setOrderFormId(of.id)
@@ -34,11 +35,13 @@ export const mutation = gql`
     $orderFormId: ID
     $items: [VTEX_ItemInput]
     $splitItem: Boolean
+    $allowOutdatedData: [String!]
   ) {
     updateItems(
       orderFormId: $orderFormId
       orderItems: $items
       splitItem: $splitItem
+      allowOutdatedData: $allowOutdatedData
     ) {
       ...OrderFormFragment_orderForm
     }
