@@ -5,6 +5,5 @@ export const useRemoveItem = (index: number) => {
   const { removeItem } = useOrderItems()
   const item = useItem(index)
 
-  return () =>
-    removeItem({ id: `${item.id}`, seller: item.seller, index, quantity: 0 })
+  return () => removeItem({ id: `${item.id}`, seller: item.seller, index })
 }
