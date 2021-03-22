@@ -20,7 +20,9 @@ export const getProviders = async () => {
   )
 
   if (response.status > 300) {
-    throw new Error('Something went wrong while logging in')
+    throw new Error(
+      'Something went wrong while logging in: error when getting providers'
+    )
   }
 
   return response.json().then((providers) => providers as ProvidersResponse)

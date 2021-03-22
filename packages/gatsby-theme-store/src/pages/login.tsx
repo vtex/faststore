@@ -75,9 +75,7 @@ const Page: FC = () => {
 
   const [focusProvider, setFocusProvider] = useState(0)
 
-  const { Component } = filterProviders(AUTH_PROVIDERS, storeProviders)[
-    focusProvider
-  ]
+  const { Component } = filteredProviders[focusProvider]
 
   const isAuthenticated = profile?.isAuthenticated?.value === 'true'
 
