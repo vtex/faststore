@@ -1,6 +1,6 @@
 import React from 'react'
 import { Flex, Text } from 'theme-ui'
-import Link from 'gatsby-link'
+import { Link } from 'gatsby'
 
 export interface BreadcrumbItem {
   name: string
