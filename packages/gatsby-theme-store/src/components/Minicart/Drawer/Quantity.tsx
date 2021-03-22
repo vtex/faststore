@@ -33,14 +33,14 @@ const MinicartQuantity = ({ variant: v, index }: Props) => {
   const item = useItem(index)
   const [isLoading, setIsLoading] = useState(false)
 
-  const onChange = async (quantity: number) => {
+  const onChange = (quantity: number) => {
     if (quantity === item.quantity) {
       return
     }
 
     try {
       setIsLoading(true)
-      await updateItems(quantity)
+      updateItems(quantity)
     } finally {
       setIsLoading(false)
     }
