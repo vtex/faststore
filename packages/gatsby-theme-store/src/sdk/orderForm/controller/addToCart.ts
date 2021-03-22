@@ -8,7 +8,13 @@ import type {
   AddToCartMutationMutationVariables,
 } from './__generated__/AddToCartMutation.graphql'
 
-export const addToCart = async (orderFormId: string, items: Vtex_ItemInput[]) =>
+interface AddToCartParams {
+  orderFormId?: string | null
+  items: AddToCartMutationMutationVariables['items']
+  marketingData?: AddToCartMutationMutationVariables['marketingData']
+}
+
+export const addToCart = async ({ orderFormId, items }: AddToCartParams) =>
   queue().add(async () => {
     const { addToCart: of } = await request<
       AddToCartMutationMutation,
