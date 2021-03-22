@@ -8,5 +8,15 @@ export const useItem = (index: number) => {
     quantity: item?.quantity ?? 1,
     id: Number(item?.id),
     seller: item?.seller ?? '1',
+    sellingPrice: item?.sellingPrice ?? 0,
+    name: item?.name ?? '',
+    image: {
+      alt: item?.name ?? '',
+      src:
+        item?.imageUrls?.at1x ??
+        item?.imageUrls?.at2x ??
+        item?.imageUrls?.at3x ??
+        '',
+    },
   }
 }
