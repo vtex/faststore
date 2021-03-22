@@ -59,12 +59,12 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
           <>
             <Alert variant="signInDanger">
               {formatMessage({
-                id: 'login.page.customOAuth.error',
+                id: 'login.page.externalOAuth.error',
               })}
             </Alert>
             <Button onClick={() => setState('initial')}>
               {formatMessage({
-                id: 'login.page.googleOAuth.tryAgain',
+                id: 'login.page.externalOAuth.tryAgain',
               })}
             </Button>
           </>
