@@ -2,7 +2,7 @@ import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { request } from '../../graphql/request'
 import { AddToCartMutation } from './__generated__/AddToCartMutation.graphql'
-import { queue, setOrderFormId } from './orderForm'
+import { setOrderFormId } from './orderForm'
 import type {
   AddToCartMutationMutation,
   AddToCartMutationMutationVariables,
@@ -14,17 +14,16 @@ interface AddToCartParams {
   marketingData?: AddToCartMutationMutationVariables['marketingData']
 }
 
-export const addToCart = async ({ orderFormId, items }: AddToCartParams) =>
-  queue().add(async () => {
-    const { addToCart: of } = await request<
-      AddToCartMutationMutation,
-      AddToCartMutationMutationVariables
-    >({ ...AddToCartMutation, variables: { orderFormId, items } })
+export const addToCart = async ({ orderFormId, items }: AddToCartParams) => {
+  const { addToCart: of } = await request<
+    AddToCartMutationMutation,
+    AddToCartMutationMutationVariables
+  >({ ...AddToCartMutation, variables: { orderFormId, items } })
 
-    setOrderFormId(of.id)
+  setOrderFormId(of.id)
 
-    return of
-  })
+  return of
+}
 
 export const mutation = gql`
   mutation AddToCartMutation(
