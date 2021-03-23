@@ -6,11 +6,10 @@ import type { FC } from 'react'
 import { useStartLogin } from '@vtex/gatsby-theme-store/src/sdk/auth/useStartLogin'
 import { api } from '@vtex/gatsby-theme-store/src/sdk/auth/Service/api'
 
-const oAuthErrorFallbackUrl = () =>
-  new URL(api.oauth.error, window.location.origin).href
-
-const oAuthCallbackUrl = () =>
-  new URL(api.oauth.finish, window.location.origin).href
+import {
+  oAuthCallbackUrl,
+  oAuthErrorFallbackUrl,
+} from '../../../../sdk/auth/OAuth'
 
 const oAuthRedirectUrl = (providerName: string) => {
   const search = new URLSearchParams()
