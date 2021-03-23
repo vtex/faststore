@@ -8,6 +8,7 @@ export const useItem = (index: number) => {
     quantity: item?.quantity ?? 1,
     id: Number(item?.id),
     seller: item?.seller ?? '1',
+    price: item?.price ?? 0,
     sellingPrice: item?.sellingPrice ?? 0,
     name: item?.name ?? '',
     image: {
