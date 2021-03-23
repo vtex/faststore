@@ -66,20 +66,21 @@ export const useBuyButton = ({
 
     // Item to be updated into the orderForm
     const orderFormItem = {
-      id: sku!.itemId,
+      id: Number(sku!.itemId),
       quantity,
       seller: seller.sellerId,
     }
 
     const orderFormItemWithPrice = {
       ...orderFormItem,
-      id: Number(orderFormItem.id),
-      price: seller.commercialOffer.price,
+      id: sku!.itemId,
+      price: seller.commercialOffer.price * 100,
+      sellingPrice: seller.commercialOffer.price * 100,
     }
 
     try {
       setLoading(true)
-      const items = [orderFormItem]
+      const items = [orderFormItemWithPrice]
 
       addItem(items)
 
@@ -90,7 +91,7 @@ export const useBuyButton = ({
       sendPixelEvent({
         type: 'vtex:addToCart',
         data: {
-          items: [orderFormItemWithPrice],
+          items: [orderFormItem],
           oneClickBuy,
         },
       })
