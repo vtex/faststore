@@ -109,7 +109,7 @@ const emailAndPassword: SxStyleProp = {
   },
 }
 
-const googleOAuth: SxStyleProp = {
+const OAuth: SxStyleProp = {
   page: {
     title: {
       my: '8px',
@@ -123,10 +123,18 @@ const googleOAuth: SxStyleProp = {
   },
 }
 
+const externalOAuth: SxStyleProp = {
+  Google: {
+    ...OAuth,
+  },
+  Facebook: {
+    ...OAuth,
+  },
+}
+
 export default {
   login,
   emailAndPassword,
   emailVerification: emailAndPassword,
-  googleOAuth,
-  facebookOAuth: googleOAuth,
+  externalOAuth,
 }
