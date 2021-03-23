@@ -71,6 +71,5 @@
     "ts-loader": "^8.0.1",
     "tsdx": "^0.14.1",
     "typescript": "^4.1.2"
-  },
-  "gitHead": "9bc8e220842503ac43743afdaaf4dde1b55b8d0f"
+  }
 }
