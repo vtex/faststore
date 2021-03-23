@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Center, Flex, Spinner } from '@vtex/store-ui'
+import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
 import type { AuthProviderComponentProps } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import React, { useEffect, useState } from 'react'
@@ -27,7 +27,7 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
   const { formatMessage } = useIntl()
   const startLogin = useStartLogin()
   const [state, setState] = useState<string>('initial')
-  const variant = `customOAuth.${providerName}.${v}`
+  const variant = `externalOAuth.${providerName}.${v}`
 
   useEffect(() => {
     ;(async () => {
@@ -48,28 +48,31 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
   }, [providerName, startLogin, state])
 
   return (
-    <Flex variant={variant}>
-      <Box variant={variant}>
-        {state === 'initial' ? (
-          <Center>
-            <Spinner />
-          </Center>
-        ) : (
-          <>
-            <Alert variant="signInDanger">
-              {formatMessage({
-                id: 'login.page.externalOAuth.error',
-              })}
-            </Alert>
-            <Button onClick={() => setState('initial')}>
-              {formatMessage({
-                id: 'login.page.externalOAuth.tryAgain',
-              })}
-            </Button>
-          </>
-        )}
+    <Box variant={variant}>
+      <Box variant={`${variant}.title`}>
+        {formatMessage({
+          id: `login.page.externalOAuth.title`,
+        })}
       </Box>
-    </Flex>
+      {state === 'initial' ? (
+        <Center>
+          <Spinner />
+        </Center>
+      ) : (
+        <>
+          <Alert variant="signInDanger">
+            {formatMessage({
+              id: 'login.page.externalOAuth.error',
+            })}
+          </Alert>
+          <Button onClick={() => setState('initial')}>
+            {formatMessage({
+              id: 'login.page.externalOAuth.tryAgain',
+            })}
+          </Button>
+        </>
+      )}
+    </Box>
   )
 }
 
