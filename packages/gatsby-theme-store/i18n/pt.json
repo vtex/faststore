@@ -108,13 +108,13 @@
 
   "login.page.facebookOAuth.button": "Entrar usando Facebook",
   "login.page.facebookOAuth.title": "Entrando com Facebook",
-  "login.page.facebookOAuth.error": "Entrar usando Facebook falhou. Clique no botao abaixo para tentar novamente",
-  "login.page.facebookOAuth.tryAgain": "Tentar novamente",
 
   "login.page.googleOAuth.button": "Entrar usando Google",
   "login.page.googleOAuth.title": "Entrando com Google",
-  "login.page.googleOAuth.error": "Entrar usando Google falhou. Clique no botao abaixo para tentar novamente",
-  "login.page.googleOAuth.tryAgain": "Tentar novamente",
+
+  "login.page.externalOAuth.title": "Entrando",
+  "login.page.externalOAuth.error": "Entrar usando o provedor de login falhou. Clique no botao abaixo para tentar novamente",
+  "login.page.externalOAuth.tryAgain": "Tentar novamente",
 
   "login.button.greeting": "Ola {name}",
   "login.button.action": "Entrar",

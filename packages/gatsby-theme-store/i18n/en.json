@@ -108,13 +108,13 @@
 
   "login.page.facebookOAuth.button": "Sign in with facebook",
   "login.page.facebookOAuth.title": "Signing in with facebook",
-  "login.page.facebookOAuth.error": "Signing in with Facebook failed. Please try again later or click on the button below to try again",
-  "login.page.facebookOAuth.tryAgain": "Try Again",
 
   "login.page.googleOAuth.button": "Sign in with Google",
   "login.page.googleOAuth.title": "Signing in with Google",
-  "login.page.googleOAuth.error": "Signing in with Google failed. Please try again later or click on the button below to try again",
-  "login.page.googleOAuth.tryAgain": "Try Again",
+
+  "login.page.externalOAuth.title": "Signing in",
+  "login.page.externalOAuth.error": "Signing in with provider failed. Please try again later or click on the button below to try again",
+  "login.page.externalOAuth.tryAgain": "Try Again",
 
   "login.button.greeting": "Hello, {name}",
   "login.button.action": "Sign In",
