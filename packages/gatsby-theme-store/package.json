@@ -34,7 +34,7 @@
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
     "@vtex/gatsby-plugin-graphql": "^0.279.0-alpha.1",
-    "@vtex/gatsby-plugin-i18n": "^0.279.0-alpha.1",
+    "@vtex/gatsby-plugin-i18n": "^0.277.6",
     "@vtex/gatsby-plugin-theme-ui": "^0.279.0-alpha.1",
     "@vtex/order-items": "^0.1.0",
     "@vtex/order-manager": "^0.1.0",
