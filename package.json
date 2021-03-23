@@ -34,8 +34,8 @@
   "devDependencies": {
     "@vtex/prettier-config": "^0.3.5",
     "eslint": "^7.15.0",
-    "eslint-config-vtex": "^12.9.4",
-    "eslint-config-vtex-react": "^6.9.4",
+    "eslint-config-vtex": "^13.0.0",
+    "eslint-config-vtex-react": "^7.0.0",
     "husky": "^4.3.0",
     "lerna": "^3.22.1",
     "lint-staged": "^10.5.1",
@@ -45,5 +45,6 @@
   "resolutions": {
     "@typescript-eslint/eslint-plugin": "^4",
     "@typescript-eslint/parser": "^4"
-  }
+  },
+  "dependencies": {}
 }

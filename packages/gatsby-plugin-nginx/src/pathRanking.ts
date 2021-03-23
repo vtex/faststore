@@ -1,4 +1,4 @@
-// path ranking algorithm copied (with small adjustments) from `gatsbyjs/gatsby` that copied from `@reach/router` (internal util, not exported from the package)
+// path ranking algorithm copied (with small adjustments) from `gatsbyjs/gatsby` that copied from `@gatsbyjs/reach-router` (internal util, not exported from the package)
 // https://github.com/gatsbyjs/gatsby/blob/3ce476b1eac97aedd16f9d150cd6a81f36255380/packages/gatsby/src/bootstrap/requires-writer.ts#L26
 //
 // Path ranking is necessary since gatsby uses this order to generate .cache/match-paths.json that is used internally in it's routing system.
@@ -45,4 +45,4 @@ export const rankRoutes = (routes: Redirect[]) =>
     )
     .map(({ route }) => route)
 
-// end of copied `gatsbyjs/gatsby` and `@reach/router` internals
+// end of copied `gatsbyjs/gatsby` and `@gatsbyjs/reach-router` internals
