@@ -79,6 +79,8 @@ const Page: FC = () => {
 
   const isAuthenticated = profile?.isAuthenticated?.value === 'true'
 
+  const hasMultipleProviders = filteredProviders.length > 1
+
   useEffect(() => {
     if (isAuthenticated) {
       onLoginSuccessful('/account')
@@ -96,7 +98,7 @@ const Page: FC = () => {
   return (
     <Flex variant="login.page.container">
       <Box variant="login.page.group">
-        {storeProviders && (
+        {hasMultipleProviders && (
           <Box variant="login.page.group.title">
             {formatMessage({
               id: 'login.page.title',
