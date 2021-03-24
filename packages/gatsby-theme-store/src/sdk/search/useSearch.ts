@@ -48,14 +48,18 @@ export const useSearch = <Query extends BaseQueryShape | undefined>({
       // This is a pre-rendered search. Like so, we need to fetch the data
       // at the exact same order from the pre-rendered data so we don't have
       // data mismatch
-      const productIds =
-        page === 0 &&
-        !regionId &&
-        firstPageData?.vtex.productSearch?.products?.map((x) => x.productId)
 
-      if (Array.isArray(productIds)) {
-        fullText = `product:${productIds.join(';')}`
-      }
+      // TODO: commented because this breaks regionalization
+      // Figure out how to solve this with regionalization
+
+      // const productIds =
+      //   page === 0 &&
+      //   !regionId &&
+      //   firstPageData?.vtex.productSearch?.products?.map((x) => x.productId)
+
+      // if (Array.isArray(productIds)) {
+      //   fullText = `product:${productIds.join(';')}`
+      // }
 
       const selectedFacets = ([] as typeof filters.selectedFacets)
         .concat(filters?.selectedFacets ?? [])
