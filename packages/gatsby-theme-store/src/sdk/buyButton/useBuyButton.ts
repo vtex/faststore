@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
-import { useOrderForm } from '../orderForm/useOrderForm'
+import { useOrderForm, useOrderItems } from '../orderForm/Provider'
 import { useBestSeller } from '../product/useBestSeller'
 import { usePixelEvent } from '../pixel/usePixelEvent'
 import { useMinicart } from '../minicart/useMinicart'
@@ -35,8 +35,9 @@ export const useBuyButton = ({
   const minicart = useMinicart()
   const [loading, setLoading] = useState(false)
   const seller = useBestSeller(sku)
-  const orderForm = useOrderForm()
-  const disabled = loading || !sku || !orderForm?.value || !seller
+  const { orderForm } = useOrderForm()
+  const { addItem } = useOrderItems()
+  const disabled = loading || !sku || !orderForm || !seller
 
   // Redirects the user to checkout after reassuring the pixel event was received
   usePixelEvent((e) => {
@@ -72,14 +73,16 @@ export const useBuyButton = ({
 
     const orderFormItemWithPrice = {
       ...orderFormItem,
-      price: seller.commercialOffer.price,
+      id: sku!.itemId,
+      price: seller.commercialOffer.price * 100,
+      sellingPrice: seller.commercialOffer.price * 100,
     }
 
     try {
       setLoading(true)
-      const items = [orderFormItem]
+      const items = [orderFormItemWithPrice]
 
-      await orderForm.addToCart(items)
+      addItem(items)
 
       if (openMinicart) {
         minicart.toggle()
@@ -88,7 +91,7 @@ export const useBuyButton = ({
       sendPixelEvent({
         type: 'vtex:addToCart',
         data: {
-          items: [orderFormItemWithPrice],
+          items: [orderFormItem],
           oneClickBuy,
         },
       })

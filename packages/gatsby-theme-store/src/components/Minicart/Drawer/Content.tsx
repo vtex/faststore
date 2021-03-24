@@ -6,11 +6,11 @@ import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 import MinicartDelete from './Delete'
 import { HeaderMinicartDrawerContentImage } from './Image'
 import MinicartQuantity from './Quantity'
-import type { OrderFormContext } from '../../../sdk/orderForm/Provider'
+import type { OrderForm } from '../../../sdk/orderForm/Provider'
 import { IMAGE_DEFAULT } from '../../../sdk/product/constants'
 
 export interface MinicartContentProps {
-  data: NonNullable<OrderFormContext['value']>['items']
+  data: NonNullable<OrderForm>['items']
   variant: string
   imageElement: React.ElementType
 }
