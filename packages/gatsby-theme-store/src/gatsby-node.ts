@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve, dirname, join } from 'path'
 
 import type {
   CreatePagesArgs,
@@ -197,7 +197,26 @@ export const createPages = async ({
 
 export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
+  stage,
 }: CreateWebpackConfigArgs) => {
+  let modernConfig
+
+  if (
+    stage === 'build-javascript' ||
+    stage === 'build-html' ||
+    stage === 'develop-html'
+  ) {
+    modernConfig = {
+      target: ['web', 'es2017'],
+      output: {
+        module: true,
+      },
+      experiments: {
+        outputModule: true,
+      },
+    }
+  }
+
   setWebpackConfig({
     // 🐞🐞 Uncomment for debugging final bundle 🐞🐞
     // optimization: {
@@ -206,6 +225,28 @@ export const onCreateWebpackConfig = ({
     //   chunkIds: 'named',
     //   concatenateModules: false,
     // },
+    ...modernConfig,
+    resolve: {
+      alias: {
+        '@gatsbyjs/reach-router$': join(
+          dirname(
+            require.resolve('@gatsbyjs/reach-router', {
+              paths: [process.cwd()],
+            })
+          ),
+          'es',
+          'index.js'
+        ),
+        '@gatsbyjs/reach-router': join(
+          dirname(
+            require.resolve('@gatsbyjs/reach-router', {
+              paths: [process.cwd()],
+            })
+          ),
+          'es'
+        ),
+      },
+    },
     module: {
       rules: [
         {
