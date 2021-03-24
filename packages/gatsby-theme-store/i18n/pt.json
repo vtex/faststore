@@ -112,7 +112,6 @@
   "login.page.googleOAuth.button": "Entrar usando Google",
   "login.page.googleOAuth.title": "Entrando com Google",
 
-  "login.page.externalOAuth.title": "Entrando",
   "login.page.externalOAuth.error": "Entrar usando o provedor de login falhou. Clique no botao abaixo para tentar novamente",
   "login.page.externalOAuth.tryAgain": "Tentar novamente",
 
