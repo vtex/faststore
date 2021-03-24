@@ -1,8 +1,8 @@
 import React from 'react'
-import Link from 'gatsby-link'
+import { Link } from 'gatsby'
 import { useLocalizedPath } from '@vtex/gatsby-plugin-i18n'
 import type { FC } from 'react'
-import type { GatsbyLinkProps } from 'gatsby-link'
+import type { GatsbyLinkProps } from 'gatsby'
 
 type Props = GatsbyLinkProps<any>
 

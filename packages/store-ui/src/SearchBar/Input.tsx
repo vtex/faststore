@@ -4,7 +4,7 @@ import { Box } from 'theme-ui'
 import type { InputProps } from 'theme-ui'
 import { Popover, PopoverDisclosure, usePopoverState } from 'reakit/Popover'
 import type { PopoverInitialState } from 'reakit/Popover'
-import { useLocation } from '@reach/router'
+import { useLocation } from '@gatsbyjs/reach-router'
 
 import { useSearchBarContext } from './hooks'
 

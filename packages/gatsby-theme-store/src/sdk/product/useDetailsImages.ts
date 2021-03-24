@@ -1,4 +1,4 @@
-import { useLocation } from '@reach/router'
+import { useLocation } from '@gatsbyjs/reach-router'
 import { useMemo } from 'react'
 
 import { scaleImage } from '../img/arquivos/scale'

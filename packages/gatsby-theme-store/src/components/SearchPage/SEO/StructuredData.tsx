@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import React from 'react'
-import { useLocation } from '@reach/router'
+import { useLocation } from '@gatsbyjs/reach-router'
 import type { FC } from 'react'
 import type { BreadcrumbList, WithContext } from 'schema-dts'
 
