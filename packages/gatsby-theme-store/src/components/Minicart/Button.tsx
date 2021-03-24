@@ -4,14 +4,14 @@ import type { MinicartButtonProps } from '@vtex/store-ui'
 import type { FC } from 'react'
 
 import CustomMinicartButtonSvg from './ButtonSvg'
-import { useOrderForm } from '../../sdk/orderForm/useOrderForm'
+import { useOrderForm } from '../../sdk/orderForm/Provider'
 
 const CustomMinicartButton: FC<MinicartButtonProps> = ({
   variant,
   onClick,
 }) => {
-  const orderForm = useOrderForm()
-  const count = orderForm?.value?.items.length ?? 0
+  const { orderForm } = useOrderForm()
+  const count = orderForm.items.length ?? 0
 
   return (
     <MinicartButton variant={variant} onClick={onClick} aria-label="Open Cart">
