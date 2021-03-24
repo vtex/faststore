@@ -28,6 +28,7 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
   const startLogin = useStartLogin()
   const [state, setState] = useState<string>('initial')
   const variant = `externalOAuth.${providerName}.${v}`
+  const nativeAuthProviders = ['Google', 'Facebook']
 
   useEffect(() => {
     ;(async () => {
@@ -50,7 +51,7 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
   return (
     <Box variant={variant}>
       <Box variant={`${variant}.title`}>
-        {(providerName === 'Google' || providerName === 'Facebook') &&
+        {nativeAuthProviders.includes(providerName) &&
           formatMessage({
             id: `login.page.${providerName.toLowerCase()}OAuth.title`,
           })}
