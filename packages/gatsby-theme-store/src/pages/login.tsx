@@ -96,12 +96,13 @@ const Page: FC = () => {
   return (
     <Flex variant="login.page.container">
       <Box variant="login.page.group">
-        <Box variant="login.page.group.title">
-          {formatMessage({
-            id: 'login.page.title',
-          })}
-        </Box>
-
+        {storeProviders && (
+          <Box variant="login.page.group.title">
+            {formatMessage({
+              id: 'login.page.title',
+            })}
+          </Box>
+        )}
         {filteredProviders.map(({ Button: ButtonComponent }, i) =>
           i !== focusProvider ? (
             <ButtonComponent

@@ -50,9 +50,10 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
   return (
     <Box variant={variant}>
       <Box variant={`${variant}.title`}>
-        {formatMessage({
-          id: `login.page.externalOAuth.title`,
-        })}
+        {(providerName === 'Google' || providerName === 'Facebook') &&
+          formatMessage({
+            id: `login.page.${providerName.toLowerCase()}OAuth.title`,
+          })}
       </Box>
       {state === 'initial' ? (
         <Center>
