@@ -58,8 +58,7 @@ export const useSearchFiltersFromPageContext = (
 
   return useMemo(() => {
     const params = new URLSearchParams(search)
-    let query = pageContext.query!
-    let map = pageContext.map!
+    let { query, map } = pageContext
     let selectedFacets = pageContext.selectedFacets! as Array<{
       key: string
       value: string
@@ -71,7 +70,7 @@ export const useSearchFiltersFromPageContext = (
       selectedFacets = selectedFacetsAfterQueryAndMap(query, map)
     }
 
-    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
+    const fullText = map?.startsWith('ft') ? query?.split('/')[0] : undefined
     const orderBy = params.get('orderBy') ?? pageContext.orderBy ?? ''
     const maybePriceRange = params.get('priceRange')
     const priceRange = parse(maybePriceRange ?? '')
@@ -98,13 +97,5 @@ export const useSearchFiltersFromPageContext = (
       query,
       map,
     }
-  }, [
-    search,
-    pageContext.staticPath,
-    pageContext.query,
-    pageContext.map,
-    pageContext.orderBy,
-    pageContext.selectedFacets,
-    pathname,
-  ])
+  }, [search, pageContext, pathname])
 }
