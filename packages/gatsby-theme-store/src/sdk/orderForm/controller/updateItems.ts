@@ -2,7 +2,7 @@ import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { request } from '../../graphql/request'
 import { UpdateItemsMutation } from './__generated__/UpdateItemsMutation.graphql'
-import { queue, setOrderFormId } from './orderForm'
+import { setOrderFormId } from './orderForm'
 import type {
   UpdateItemsMutationMutation,
   UpdateItemsMutationMutationVariables,
@@ -14,20 +14,23 @@ interface Options {
   splitItem?: boolean
 }
 
-export const updateItems = async ({ orderFormId, items, splitItem }: Options) =>
-  queue().add(async () => {
-    const { updateItems: of } = await request<
-      UpdateItemsMutationMutation,
-      UpdateItemsMutationMutationVariables
-    >({
-      ...UpdateItemsMutation,
-      variables: { orderFormId, items, splitItem },
-    })
-
-    setOrderFormId(of.id)
-
-    return of
+export const updateItems = async ({
+  orderFormId,
+  items,
+  splitItem,
+}: Options) => {
+  const { updateItems: of } = await request<
+    UpdateItemsMutationMutation,
+    UpdateItemsMutationMutationVariables
+  >({
+    ...UpdateItemsMutation,
+    variables: { orderFormId, items, splitItem },
   })
+
+  setOrderFormId(of.id)
+
+  return of
+}
 
 export const mutation = gql`
   mutation UpdateItemsMutation(

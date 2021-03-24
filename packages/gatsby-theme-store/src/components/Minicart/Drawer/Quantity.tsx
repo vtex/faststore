@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import type { FC } from 'react'
 
 import { useItem } from './useItem'
-import { useUpdateItems } from './useUpdateItems'
+import { useUpdateItem } from './useUpdateItem'
 
 type Props = {
   index: number
@@ -29,18 +29,18 @@ const QuantityWrapper: FC<WrapperProps> = ({
 )
 
 const MinicartQuantity = ({ variant: v, index }: Props) => {
-  const updateItems = useUpdateItems(index)
+  const updateItems = useUpdateItem(index)
   const item = useItem(index)
   const [isLoading, setIsLoading] = useState(false)
 
-  const onChange = async (quantity: number) => {
+  const onChange = (quantity: number) => {
     if (quantity === item.quantity) {
       return
     }
 
     try {
       setIsLoading(true)
-      await updateItems(quantity)
+      updateItems(quantity)
     } finally {
       setIsLoading(false)
     }
