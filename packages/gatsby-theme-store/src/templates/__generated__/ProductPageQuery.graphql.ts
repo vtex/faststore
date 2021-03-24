@@ -20,6 +20,7 @@ type Scalars = {
 export type ProductPageQueryQueryVariables = Exact<{
   slug: Maybe<Scalars['String']>;
   staticPath: Scalars['Boolean'];
+  regionId: Maybe<Scalars['String']>;
 }>;
 
 
@@ -29,8 +30,8 @@ export type ProductPageQueryQuery = { vtex: { product: Maybe<{ productReference:
 // Query Related Code
 
 export const ProductPageQuery = {
-  query: process.env.NODE_ENV === 'production' ? undefined : "query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        name\n        complementName\n        itemId\n        referenceId {\n          value: Value\n        }\n        images {\n          imageUrl\n          imageText\n        }\n        videos {\n          videoUrl\n        }\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            listPrice: ListPrice\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n        ean\n      }\n      productClusters {\n        name\n      }\n      description\n      brand\n      categoryTree {\n        href\n        name\n      }\n      titleTag\n      metaTagDescription\n      productId\n    }\n  }\n}\n",
-  sha256Hash: "c1e0430dadc076ef455f353181c789a41162b50a0c41cd220d19f3d846b91fb4",
+  query: process.env.NODE_ENV === 'production' ? undefined : "query ProductPageQuery($slug: String, $staticPath: Boolean!, $regionId: String) {\n  vtex {\n    product(slug: $slug, regionId: $regionId) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        name\n        complementName\n        itemId\n        referenceId {\n          value: Value\n        }\n        images {\n          imageUrl\n          imageText\n        }\n        videos {\n          videoUrl\n        }\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            listPrice: ListPrice\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n        ean\n      }\n      productClusters {\n        name\n      }\n      description\n      brand\n      categoryTree {\n        href\n        name\n      }\n      titleTag\n      metaTagDescription\n      productId\n    }\n  }\n}\n",
+  sha256Hash: "d452147ef136c56f915528905f2e012e61c331ed58dbef29d4a5c0a1ccd36ac1",
   operationName: "ProductPageQuery",
 }
 
