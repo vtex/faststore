@@ -52,12 +52,18 @@ const SearchPage: FC<SearchPageProps> = (props) => {
         : []
     )
 
+  const cleanFilters = {
+    ...filters,
+    query: undefined,
+    map: undefined,
+  }
+
   const { data } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
   >({
     ...SearchPageQuery,
-    variables: { ...filters, selectedFacets, staticPath: true },
+    variables: { ...cleanFilters, selectedFacets, staticPath: true },
     suspense: true,
     initialData: staticPath ? staticData : undefined,
   })
@@ -84,7 +90,9 @@ const SearchPage: FC<SearchPageProps> = (props) => {
             pageUrl: window.location.href,
             pageTitle: document.title,
             referrer: document.referrer,
-            term: filters.fullText ?? filters.query ?? '',
+            // TODO: see if including query here is necessary
+            // term: filters.fullText ?? filters.query ?? '',
+            term: filters.fullText ?? '',
             results: data?.vtex.productSearch?.recordsFiltered ?? 0,
             pageType,
           },
