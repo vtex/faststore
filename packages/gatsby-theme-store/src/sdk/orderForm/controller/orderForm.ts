@@ -1,22 +1,9 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
-import PQueue from 'p-queue'
 
 const ORDER_FORM_STORAGE_KEY = 'vtex:orderFormId'
 
 // Queue to make changes to the orderForm.
 // There should be only one single instance of this queue in the whole app
-const singletonQueue = () => {
-  const pqueue = new PQueue({
-    concurrency: 1,
-  })
-
-  // This queue will be unpaused once we have an orderForm
-  pqueue.pause()
-
-  return () => pqueue
-}
-
-export const queue = singletonQueue()
 
 export const getOrderformId = () => localStorage.getItem(ORDER_FORM_STORAGE_KEY)
 
