@@ -8,7 +8,7 @@ import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ElementType } from 'react'
 
 // Webpack + TS magic to make this work
-const { OrderFormProvider } = require('./src/sdk/orderForm/Provider')
+const { Provider: OrderFormProvider } = require('./src/sdk/orderForm/Provider')
 const { MinicartProvider } = require('./src/sdk/minicart/index')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
