@@ -1,6 +1,6 @@
 import React from 'react'
 import { AspectRatio, Box } from 'theme-ui'
-import type { FC, HTMLProps } from 'react'
+import type { FC, HTMLProps, Ref } from 'react'
 
 import { useYoutubeEmbeddedSrc } from './hooks'
 
@@ -10,12 +10,13 @@ interface Props extends HTMLProps<HTMLIFrameElement> {
   loop?: boolean
   title: string
   src: string
+  ref?: Ref<HTMLIFrameElement>
 }
 
 const YoutubeIframe: FC<Props> = (props) => {
   const iframeSrc = useYoutubeEmbeddedSrc(props)
 
-  const iframeProps: HTMLProps<HTMLIFrameElement> = {
+  const iframeProps = {
     ...props,
     src: iframeSrc,
     frameBorder: 0,
