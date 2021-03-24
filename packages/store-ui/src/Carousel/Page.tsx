@@ -1,6 +1,6 @@
 import React from 'react'
 import type { ComponentType, ComponentPropsWithoutRef, FC } from 'react'
-import Link from 'gatsby-link'
+import { Link } from 'gatsby'
 
 import ResponsivePicture from '../ResponsivePicture'
 
