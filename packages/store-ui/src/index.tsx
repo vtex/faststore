@@ -146,3 +146,5 @@ export { default as loginTheme } from './Login/theme'
 export * from 'reakit/Dialog'
 // Portal
 export * from 'reakit/Portal'
+// Tooltip
+export * from 'reakit/Tooltip'
