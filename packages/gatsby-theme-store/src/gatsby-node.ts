@@ -204,13 +204,11 @@ export const onCreateWebpackConfig = ({
 
   let modernConfig
 
-  if (stage === 'build-javascript') {
+  if (stage === 'build-javascript' || stage === 'develop') {
     modernConfig = {
       target: ['web', 'es2017'],
       output: {
         ...webpack.output,
-        iife: false,
-        scriptType: 'module',
         module: true,
       },
       experiments: {
@@ -222,15 +220,16 @@ export const onCreateWebpackConfig = ({
 
   replaceWebpackConfig({
     ...webpack,
+    ...modernConfig,
     // 🐞🐞 Uncomment for debugging final bundle 🐞🐞
     // optimization: {
-    //   ...webpack,
+    //   ...webpack.optimization,
     //   minimize: false,
     //   moduleIds: 'named',
     //   chunkIds: 'named',
     //   concatenateModules: false,
+    //   portableRecords: true,
     // },
-    ...modernConfig,
     resolve: {
       ...webpack.resolve,
       alias: {
