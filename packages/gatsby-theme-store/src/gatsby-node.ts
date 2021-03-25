@@ -1,12 +1,10 @@
-import { resolve, dirname, join } from 'path'
-// import { inspect } from 'util'
+import { dirname, join, resolve } from 'path'
 
 import type {
   CreatePagesArgs,
   CreateWebpackConfigArgs,
   PluginOptionsSchemaArgs,
   ParentSpanPluginArgs,
-  // BuildArgs,
 } from 'gatsby'
 
 export const onPostBootstrap = (
@@ -197,37 +195,36 @@ export const createPages = async ({
   })
 }
 
-// export const onPostBuild = ({ store }: BuildArgs) => {
-//   const state = store.getState().webpack
-
-//   console.log(inspect(state, false, 10, true))
-// }
-
 export const onCreateWebpackConfig = ({
-  actions: { setWebpackConfig },
+  getConfig,
+  actions: { replaceWebpackConfig },
   stage,
 }: CreateWebpackConfigArgs) => {
+  const webpack = getConfig()
+
   let modernConfig
 
-  if (
-    stage === 'build-javascript' ||
-    stage === 'build-html' ||
-    stage === 'develop-html'
-  ) {
+  if (stage === 'build-javascript') {
     modernConfig = {
       target: ['web', 'es2017'],
       output: {
+        ...webpack.output,
+        iife: false,
+        scriptType: 'module',
         module: true,
       },
       experiments: {
+        ...webpack.experiments,
         outputModule: true,
       },
     }
   }
 
-  setWebpackConfig({
+  replaceWebpackConfig({
+    ...webpack,
     // 🐞🐞 Uncomment for debugging final bundle 🐞🐞
     // optimization: {
+    //   ...webpack,
     //   minimize: false,
     //   moduleIds: 'named',
     //   chunkIds: 'named',
@@ -235,7 +232,9 @@ export const onCreateWebpackConfig = ({
     // },
     ...modernConfig,
     resolve: {
+      ...webpack.resolve,
       alias: {
+        ...webpack.resolve.alias,
         '@gatsbyjs/reach-router$': join(
           dirname(
             require.resolve('@gatsbyjs/reach-router', {
@@ -256,7 +255,9 @@ export const onCreateWebpackConfig = ({
       },
     },
     module: {
+      ...webpack.module,
       rules: [
+        ...webpack.module.rules,
         {
           test: /\.md$/,
           use: [
