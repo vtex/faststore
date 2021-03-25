@@ -49,6 +49,7 @@
     "react-hook-inview": "^4.3.0",
     "requestidlecallback-polyfill": "^1.0.2",
     "schema-dts": "^0.6.0",
-    "swr": "^0.3.0"
+    "swr": "^0.3.0",
+    "webpack-merge": "^5.7.3"
   }
 }

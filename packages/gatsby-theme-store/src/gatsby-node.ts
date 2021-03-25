@@ -1,5 +1,6 @@
 import { dirname, join, resolve } from 'path'
 
+import { merge } from 'webpack-merge'
 import type {
   CreatePagesArgs,
   CreateWebpackConfigArgs,
@@ -198,29 +199,10 @@ export const createPages = async ({
 export const onCreateWebpackConfig = ({
   getConfig,
   actions: { replaceWebpackConfig },
-  stage,
 }: CreateWebpackConfigArgs) => {
-  const webpack = getConfig()
+  const gatsbyConfig = getConfig()
 
-  let modernConfig
-
-  if (stage === 'build-javascript' || stage === 'develop') {
-    modernConfig = {
-      target: ['web', 'es2017'],
-      output: {
-        ...webpack.output,
-        module: true,
-      },
-      experiments: {
-        ...webpack.experiments,
-        outputModule: true,
-      },
-    }
-  }
-
-  replaceWebpackConfig({
-    ...webpack,
-    ...modernConfig,
+  const storeConfig = {
     // 🐞🐞 Uncomment for debugging final bundle 🐞🐞
     // optimization: {
     //   ...webpack.optimization,
@@ -231,9 +213,7 @@ export const onCreateWebpackConfig = ({
     //   portableRecords: true,
     // },
     resolve: {
-      ...webpack.resolve,
       alias: {
-        ...webpack.resolve.alias,
         '@gatsbyjs/reach-router$': join(
           dirname(
             require.resolve('@gatsbyjs/reach-router', {
@@ -254,9 +234,7 @@ export const onCreateWebpackConfig = ({
       },
     },
     module: {
-      ...webpack.module,
       rules: [
-        ...webpack.module.rules,
         {
           test: /\.md$/,
           use: [
@@ -266,5 +244,28 @@ export const onCreateWebpackConfig = ({
         },
       ],
     },
-  })
+  }
+
+  const targetsWeb = gatsbyConfig.target.includes('web')
+
+  // Use es6 module only on web-based targets
+  const moduleConfig = targetsWeb
+    ? {
+        output: {
+          module: true,
+        },
+        experiments: {
+          outputModule: true,
+        },
+      }
+    : {}
+
+  // Targets modern browsers
+  if (targetsWeb) {
+    gatsbyConfig.target = ['web', 'es2017']
+  }
+
+  const webpackConfig = merge(gatsbyConfig, storeConfig, moduleConfig)
+
+  replaceWebpackConfig(webpackConfig)
 }
