@@ -1,10 +1,12 @@
 import { resolve, dirname, join } from 'path'
+// import { inspect } from 'util'
 
 import type {
   CreatePagesArgs,
   CreateWebpackConfigArgs,
   PluginOptionsSchemaArgs,
   ParentSpanPluginArgs,
+  // BuildArgs,
 } from 'gatsby'
 
 export const onPostBootstrap = (
@@ -194,6 +196,12 @@ export const createPages = async ({
     statusCode: 404,
   })
 }
+
+// export const onPostBuild = ({ store }: BuildArgs) => {
+//   const state = store.getState().webpack
+
+//   console.log(inspect(state, false, 10, true))
+// }
 
 export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
