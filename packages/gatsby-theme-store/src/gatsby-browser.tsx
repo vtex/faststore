@@ -9,6 +9,7 @@ import type { ElementType } from 'react'
 
 // Webpack + TS magic to make this work
 const { Provider: OrderFormProvider } = require('./src/sdk/orderForm/Provider')
+const { RegionProvider } = require('./src/sdk/region/index')
 const { MinicartProvider } = require('./src/sdk/minicart/index')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
@@ -49,7 +50,9 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
     <ErrorBoundary>
       <VTEXRCProvider>
         <OrderFormProvider>
-          <MinicartProvider>{element}</MinicartProvider>
+          <RegionProvider>
+            <MinicartProvider>{element}</MinicartProvider>
+          </RegionProvider>
         </OrderFormProvider>
       </VTEXRCProvider>
     </ErrorBoundary>

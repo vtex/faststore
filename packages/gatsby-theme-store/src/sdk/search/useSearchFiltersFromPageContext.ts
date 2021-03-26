@@ -58,8 +58,11 @@ export const useSearchFiltersFromPageContext = (
 
   return useMemo(() => {
     const params = new URLSearchParams(search)
-    let query = pageContext.query!
-    let map = pageContext.map!
+    // Quick fix for some questions regarding memo dependencies
+    /* eslint-disable-next-line prefer-destructuring */
+    let query = pageContext.query
+    /* eslint-disable-next-line prefer-destructuring */
+    let map = pageContext.map
     let selectedFacets = pageContext.selectedFacets! as Array<{
       key: string
       value: string
@@ -71,7 +74,7 @@ export const useSearchFiltersFromPageContext = (
       selectedFacets = selectedFacetsAfterQueryAndMap(query, map)
     }
 
-    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
+    const fullText = map?.startsWith('ft') ? query?.split('/')[0] : undefined
     const orderBy = params.get('orderBy') ?? pageContext.orderBy ?? ''
     const maybePriceRange = params.get('priceRange')
     const priceRange = parse(maybePriceRange ?? '')
