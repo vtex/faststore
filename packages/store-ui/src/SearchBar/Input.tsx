@@ -4,6 +4,9 @@ import { Box } from 'theme-ui'
 import type { InputProps } from 'theme-ui'
 import { Popover, PopoverDisclosure, usePopoverState } from 'reakit/Popover'
 import type { PopoverInitialState } from 'reakit/Popover'
+// TODO: We should remove this import since a base store component that depends on our
+// routing system makes no sense and may create all sorts of wierd bugs 🐞🐞🐞
+// When doing this change, do not forget to remove @reach/router dependency from @vtex/store-ui
 import { useLocation } from '@reach/router'
 
 import { useSearchBarContext } from './hooks'
