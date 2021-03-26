@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from '@gatsbyjs/reach-router'
+import { useLocation } from '@reach/router'
 import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 

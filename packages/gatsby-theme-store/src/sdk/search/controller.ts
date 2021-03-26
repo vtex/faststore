@@ -1,4 +1,4 @@
-import { navigate } from '@gatsbyjs/reach-router'
+import { navigate } from '@reach/router'
 import type { SearchFilterItem } from '@vtex/store-ui'
 
 import type { PriceRange } from './priceRange'
