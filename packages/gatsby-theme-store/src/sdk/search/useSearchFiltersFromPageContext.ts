@@ -69,7 +69,7 @@ export const useSearchFiltersFromPageContext = (
       selectedFacets = searchParams.selectedFacets
     }
 
-    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
+    const fullText = map?.startsWith('ft') ? query?.split('/')[0] : undefined
     const orderBy = params.get('orderBy') ?? pageContext.orderBy ?? ''
     const maybePriceRange = params.get('priceRange')
     const priceRange = parse(maybePriceRange ?? '')
