@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-theme-ui",
-  "version": "0.282.1-next.0",
+  "version": "0.282.3-next.0",
   "main": "index.js",
   "browser": "src/index.ts",
   "sideEffects": false,
