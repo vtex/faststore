@@ -19,6 +19,7 @@ const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
 } = require('./src/sdk/progress')
+const { Provider: ToastProvider } = require('./src/components/ToastProvider')
 
 export const replaceHydrateFunction = () => async (
   element: ElementType,
@@ -48,9 +49,11 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   const root = (
     <ErrorBoundary>
       <VTEXRCProvider>
-        <OrderFormProvider>
-          <MinicartProvider>{element}</MinicartProvider>
-        </OrderFormProvider>
+        <ToastProvider>
+          <OrderFormProvider>
+            <MinicartProvider>{element}</MinicartProvider>
+          </OrderFormProvider>
+        </ToastProvider>
       </VTEXRCProvider>
     </ErrorBoundary>
   )
