@@ -58,7 +58,11 @@ export const useSearchFiltersFromPageContext = (
 
   return useMemo(() => {
     const params = new URLSearchParams(search)
-    let { query, map } = pageContext
+    // Quick fix for some questions regarding memo dependencies
+    /* eslint-disable-next-line prefer-destructuring */
+    let query = pageContext.query
+    /* eslint-disable-next-line prefer-destructuring */
+    let map = pageContext.map
     let selectedFacets = pageContext.selectedFacets! as Array<{
       key: string
       value: string
@@ -97,5 +101,13 @@ export const useSearchFiltersFromPageContext = (
       query,
       map,
     }
-  }, [search, pageContext, pathname])
+  }, [
+    search,
+    pageContext.staticPath,
+    pageContext.query,
+    pageContext.map,
+    pageContext.orderBy,
+    pageContext.selectedFacets,
+    pathname,
+  ])
 }
