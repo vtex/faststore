@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-extra-semi */
 import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
 import type { AuthProviderComponentProps } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
@@ -33,10 +32,10 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
   const variant = `externalOAuth.${providerName}.${v}`
 
   useEffect(() => {
-    ;(async () => {
-      if (!window) {
-        return
-      }
+    let mounted = true
+
+    async function login() {
+      if (!window) return
 
       try {
         await startLogin({
@@ -45,9 +44,17 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
 
         window.location.href = oAuthRedirectUrl(providerName)
       } catch {
+        if (!mounted) return
+
         setState('error')
       }
-    })()
+    }
+
+    login()
+
+    return () => {
+      mounted = false
+    }
   }, [providerName, startLogin, state])
 
   return (
