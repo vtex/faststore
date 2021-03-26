@@ -9,7 +9,7 @@
 
 // export const Provider: FC = ({ children }) => {
 //   return (
-//     <Suspense fallback={null}>
+//     <Suspense fallback={() => children}>
 //       <ToastProvider>{children}</ToastProvider>
 //     </Suspense>
 //   )
