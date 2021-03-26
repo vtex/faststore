@@ -17,6 +17,7 @@ import type {
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
+import { useRegion } from '../components/useRegion'
 
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')
@@ -35,12 +36,14 @@ const ProductPage: FC<ProductPageProps> = (props) => {
   const { staticPath } = pageContext
   const slug = (pageContext.slug ?? routeSlug)!
 
+  const { regionId } = useRegion()
+
   const { data } = useQuery<
     ProductPageQueryQuery,
     ProductPageQueryQueryVariables
   >({
     ...ProductPageQuery,
-    variables: { slug, staticPath: true },
+    variables: { slug, staticPath: true, regionId },
     suspense: true,
     initialData: staticPath ? initialData : undefined,
   })
@@ -105,9 +108,13 @@ const Page: FC<ProductPageProps> = (props) => {
 }
 
 export const query = graphql`
-  query ProductPageQuery($slug: String, $staticPath: Boolean!) {
+  query ProductPageQuery(
+    $slug: String
+    $staticPath: Boolean!
+    $regionId: String
+  ) {
     vtex {
-      product(slug: $slug) @include(if: $staticPath) {
+      product(slug: $slug, regionId: $regionId) @include(if: $staticPath) {
         ...ProductDetailsTemplate_product
         ...StructuredProductFragment_product
         titleTag

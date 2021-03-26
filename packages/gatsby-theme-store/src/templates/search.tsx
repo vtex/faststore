@@ -20,6 +20,7 @@ import type {
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
+import { useRegion } from '../components/useRegion'
 
 const belowTheFoldPreloader = () =>
   import('../components/SearchPage/BelowTheFold')
@@ -38,17 +39,35 @@ export type SearchPageProps = PageProps<
 const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const filters = useSearchFiltersFromPageContext(pageContext)
+  const { regionId } = useRegion()
   const staticPath =
     pageContext.staticPath &&
     pageContext.orderBy === filters.orderBy &&
     filters.priceRange === null
+
+  const selectedFacets = ([] as typeof filters.selectedFacets)
+    .concat(filters?.selectedFacets ?? [])
+    .concat(
+      regionId
+        ? {
+            key: 'region-id',
+            value: regionId,
+          }
+        : []
+    )
+
+  const cleanFilters = {
+    ...filters,
+    query: undefined,
+    map: undefined,
+  }
 
   const { data } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
   >({
     ...SearchPageQuery,
-    variables: { ...filters, staticPath: true },
+    variables: { ...cleanFilters, selectedFacets, staticPath: true },
     suspense: true,
     initialData: staticPath ? staticData : undefined,
   })
@@ -75,7 +94,9 @@ const SearchPage: FC<SearchPageProps> = (props) => {
             pageUrl: window.location.href,
             pageTitle: document.title,
             referrer: document.referrer,
-            term: filters.fullText ?? filters.query ?? '',
+            // TODO: see if including query here is necessary
+            // term: filters.fullText ?? filters.query ?? '',
+            term: filters.fullText ?? '',
             results: data?.vtex.productSearch?.recordsFiltered ?? 0,
             pageType,
           },
