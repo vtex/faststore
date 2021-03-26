@@ -1,4 +1,4 @@
-import { useLocation } from '@gatsbyjs/reach-router'
+import { useLocation } from '@reach/router'
 import { useMemo } from 'react'
 
 import type { SearchPageQueryQueryVariables } from '../../templates/__generated__/SearchPageQuery.graphql'

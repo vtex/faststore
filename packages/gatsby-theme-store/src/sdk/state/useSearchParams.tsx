@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { navigate } from 'gatsby'
-import { useLocation } from '@gatsbyjs/reach-router'
+import { useLocation } from '@reach/router'
 
 export const setSearchParams = (
   search: URLSearchParams,

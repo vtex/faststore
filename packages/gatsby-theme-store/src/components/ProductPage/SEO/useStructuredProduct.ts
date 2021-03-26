@@ -1,4 +1,4 @@
-import { useLocation } from '@gatsbyjs/reach-router'
+import { useLocation } from '@reach/router'
 import { graphql } from 'gatsby'
 import { useMemo } from 'react'
 import type { Offer } from 'schema-dts'
