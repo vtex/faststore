@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-extra-semi */
 import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
 import type { AuthProviderComponentProps } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
@@ -10,6 +11,8 @@ import {
   oAuthCallbackUrl,
   oAuthErrorFallbackUrl,
 } from '../../../../sdk/auth/OAuth'
+
+const nativeAuthProviders = new Set(['Google', 'Facebook'])
 
 const oAuthRedirectUrl = (providerName: string) => {
   const search = new URLSearchParams()
@@ -50,9 +53,10 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
   return (
     <Box variant={variant}>
       <Box variant={`${variant}.title`}>
-        {formatMessage({
-          id: `login.page.externalOAuth.title`,
-        })}
+        {nativeAuthProviders.has(providerName) &&
+          formatMessage({
+            id: `login.page.${providerName.toLowerCase()}OAuth.title`,
+          })}
       </Box>
       {state === 'initial' ? (
         <Center>
