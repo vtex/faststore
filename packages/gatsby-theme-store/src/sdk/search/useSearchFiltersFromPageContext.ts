@@ -51,17 +51,30 @@ export const useSearchFiltersFromPageContext = (
 ) => {
   const location = useLocation()
   const { search, pathname } = location
+  const {
+    query: pageContextQuery,
+    map: pageContextMap,
+    selectedFacets: pageContextSelectedFacets,
+    staticPath: pageContextStaticPath,
+    orderBy: pageContextOrderBy,
+  } = pageContext
 
   return useMemo(() => {
     const params = new URLSearchParams(search)
-    let query = pageContext.query!
-    let map = pageContext.map!
-    let selectedFacets = pageContext.selectedFacets! as SelectedFacets[]
+    // Quick fix for some questions regarding memo dependencies
+    /* eslint-disable-next-line prefer-destructuring */
+    let query = pageContextQuery
+    /* eslint-disable-next-line prefer-destructuring */
+    let map = pageContextMap
+    let selectedFacets = pageContextSelectedFacets! as Array<{
+      key: string
+      value: string
+    }>
 
     /**
      *  Hydrates search context for dynamic search pages.
      */
-    if (pageContext.staticPath === false) {
+    if (pageContextStaticPath === false) {
       const searchParams = searchParamsFromURL(pathname, params)
 
       query = searchParams.query
@@ -69,8 +82,8 @@ export const useSearchFiltersFromPageContext = (
       selectedFacets = searchParams.selectedFacets
     }
 
-    const fullText = map.startsWith('ft') ? query.split('/')[0] : undefined
-    const orderBy = params.get('orderBy') ?? pageContext.orderBy ?? ''
+    const fullText = map?.startsWith('ft') ? query?.split('/')[0] : undefined
+    const orderBy = params.get('orderBy') ?? pageContextOrderBy ?? ''
     const maybePriceRange = params.get('priceRange')
     const priceRange = parse(maybePriceRange ?? '')
 
@@ -98,11 +111,11 @@ export const useSearchFiltersFromPageContext = (
     }
   }, [
     search,
-    pageContext.query,
-    pageContext.map,
-    pageContext.selectedFacets,
-    pageContext.staticPath,
-    pageContext.orderBy,
+    pageContextQuery,
+    pageContextMap,
+    pageContextSelectedFacets,
+    pageContextStaticPath,
+    pageContextOrderBy,
     pathname,
   ])
 }

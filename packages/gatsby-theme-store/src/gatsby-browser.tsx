@@ -11,6 +11,7 @@ import type { ElementType } from 'react'
 const {
   Provider: OrderFormProvider,
 } = require('./src/sdk/orderForm/LazyProvider')
+const { RegionProvider } = require('./src/sdk/region/index')
 const { MinicartProvider } = require('./src/sdk/minicart/index')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
@@ -52,9 +53,11 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
     <ErrorBoundary>
       <VTEXRCProvider>
         <ToastProvider>
-          <OrderFormProvider>
-            <MinicartProvider>{element}</MinicartProvider>
-          </OrderFormProvider>
+          <RegionProvider>
+            <OrderFormProvider>
+              <MinicartProvider>{element}</MinicartProvider>
+            </OrderFormProvider>
+          </RegionProvider>
         </ToastProvider>
       </VTEXRCProvider>
     </ErrorBoundary>
