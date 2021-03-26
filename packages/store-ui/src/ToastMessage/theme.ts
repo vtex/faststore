@@ -10,6 +10,7 @@ const theme: SxStyleProp = {
       color: 'white',
       display: 'flex',
       flexDirection: 'row',
+      fontSize: '14px',
       justifyContent: 'space-between',
       zIndex: 998,
 
