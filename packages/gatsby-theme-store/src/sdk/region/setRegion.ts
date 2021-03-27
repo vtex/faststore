@@ -22,9 +22,18 @@ export const setRegion = async ({
 }
 
 export const mutation = gql`
-  mutation SetRegionMutation($postalCode: String, $orderFormId: ID) {
+  mutation SetRegionMutation(
+    $postalCode: String
+    $country: String = "BRA"
+    $addressType: VTEX_AddressType = residential
+    $orderFormId: ID
+  ) {
     updateSelectedAddress(
-      input: { postalCode: $postalCode, country: "brazil", addressType: search }
+      input: {
+        postalCode: $postalCode
+        country: $country
+        addressType: $addressType
+      }
       orderFormId: $orderFormId
     ) {
       id
