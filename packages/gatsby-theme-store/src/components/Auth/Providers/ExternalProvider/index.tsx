@@ -11,6 +11,8 @@ import {
   oAuthErrorFallbackUrl,
 } from '../../../../sdk/auth/OAuth'
 
+const nativeAuthProviders = new Set(['Google', 'Facebook'])
+
 const oAuthRedirectUrl = (providerName: string) => {
   const search = new URLSearchParams()
 
@@ -30,10 +32,10 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
   const variant = `externalOAuth.${providerName}.${v}`
 
   useEffect(() => {
-    ;(async () => {
-      if (!window) {
-        return
-      }
+    let mounted = true
+
+    async function login() {
+      if (!window) return
 
       try {
         await startLogin({
@@ -42,17 +44,26 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
 
         window.location.href = oAuthRedirectUrl(providerName)
       } catch {
+        if (!mounted) return
+
         setState('error')
       }
-    })()
+    }
+
+    login()
+
+    return () => {
+      mounted = false
+    }
   }, [providerName, startLogin, state])
 
   return (
     <Box variant={variant}>
       <Box variant={`${variant}.title`}>
-        {formatMessage({
-          id: `login.page.externalOAuth.title`,
-        })}
+        {nativeAuthProviders.has(providerName) &&
+          formatMessage({
+            id: `login.page.${providerName.toLowerCase()}OAuth.title`,
+          })}
       </Box>
       {state === 'initial' ? (
         <Center>
