@@ -62,11 +62,7 @@ export const setSearchFilters = (filters: SearchFilters) => {
   const spath = pathname.split('/').slice(1)
   const squery = filters.query.split('/')
 
-  let it = 0
-
-  while (it < spath.length && spath[it] !== squery[0]) {
-    it++
-  }
+  const it = spath.findIndex((path) => squery[0] === path) ?? 0
 
   const rootPath = spath.slice(0, it).join('/')
   const path = rootPath ? `${rootPath}/${filters.query}` : filters.query
