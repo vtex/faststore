@@ -26,6 +26,5 @@
   "peerDependencies": {
     "@vtex/gatsby-theme-store": "^0.255.6-alpha.0",
     "gatsby": "^3.1.1"
-  },
-  "gitHead": "0f4948ed164f9acd72b9146e5db5b269e4da8cc1"
+  }
 }
