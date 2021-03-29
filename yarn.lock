@@ -5896,20 +5896,20 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
-"@vtex/order-items@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.2.0.tgz#e426de01da557a9499813492934b131120356d76"
-  integrity sha512-ETILL72HH9UKzovmghFh8XrsNz11jyNqr93cQnyy+vuSrXIT4v3gglRCyOsnRGJrQsATpBAEoKuBSw6jpQISKg==
+"@vtex/order-items@^0.3.1-0":
+  version "0.3.1-0"
+  resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.3.1-0.tgz#67129f8ff0c6cf4f60c40c89f742f73c9c95b080"
+  integrity sha512-C1QIY5VG23mmr8UGZL4WF3D30TkTGU/9nCOS3ZdzVrXVTqFOs5Utahh54Z8MxR+UjWwJaOuyLSsUwr9TZtgx7Q==
   dependencies:
     "@types/uuid" "^8.3.0"
-    "@vtex/order-manager" "^0.2.0"
+    "@vtex/order-manager" "^0.2.1-0"
     react "17.0.1"
     uuid "^8.3.2"
 
-"@vtex/order-manager@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@vtex/order-manager/-/order-manager-0.2.0.tgz#5d10a678ca140b5aac90c9e29596700146fa1c6d"
-  integrity sha512-LdBsHdAu3pp3NWBfNKCzqYykisveWvbGNutJGtwzeZ2qd7qUY6rr2pdmsZEkC/ZcSrTHSxQbHsznlg3UwQmlBw==
+"@vtex/order-manager@^0.2.1-0":
+  version "0.2.1-0"
+  resolved "https://registry.yarnpkg.com/@vtex/order-manager/-/order-manager-0.2.1-0.tgz#787d1437403988e5cdd1224e3166d5ca57f1610a"
+  integrity sha512-joaWCpUgsmqXZWUwA3yx/n2TRfe391tSVfFaZcPAipGI1GWjfaWU8n9jX/Fy6A+vDyiboCgy3JtgyapD6Kjiig==
   dependencies:
     react "17.0.1"
 
@@ -17884,6 +17884,9 @@ minizlib@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/minizlib/-/minizlib-2.1.2.tgz#e90d3466ba209b932451508a11ce3d3632145931"
   integrity sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==
+  dependencies:
+    minipass "^3.0.0"
+    yallist "^4.0.0"
 
 mississippi@^3.0.0:
   version "3.0.0"

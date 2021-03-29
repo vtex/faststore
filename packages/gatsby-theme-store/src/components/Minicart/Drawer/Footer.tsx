@@ -4,7 +4,7 @@ import React from 'react'
 import type { FC } from 'react'
 
 import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
-import { useOrderForm } from '../../../sdk/orderForm/Provider'
+import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
 
 export interface HeaderMinicartDrawerFooterProps {
   variant?: string

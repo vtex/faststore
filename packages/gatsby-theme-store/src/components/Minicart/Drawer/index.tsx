@@ -3,7 +3,7 @@ import React from 'react'
 import type { MinicartDrawerProps } from '@vtex/store-ui'
 import type { FC } from 'react'
 
-import { useOrderForm } from '../../../sdk/orderForm/Provider'
+import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
 import { HeaderMinicartDrawerContent } from './Content'
 import { HeaderMinicartDrawerFooter } from './Footer'
 import { HeaderMinicartDrawerHeader } from './Header'
