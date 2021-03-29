@@ -5896,32 +5896,6 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
-"@vtex/gatsby-plugin-graphql@^0.282.1-next.0":
-  version "0.282.1-next.0"
-  resolved "https://registry.yarnpkg.com/@vtex/gatsby-plugin-graphql/-/gatsby-plugin-graphql-0.282.1-next.0.tgz#2a092ec831c859672dc3e8e284ee025a644d0e4e"
-  integrity sha512-HHleWGHhqsejSLoovAk22IUgfMEsRvprkVuzT5XLgrC0vupQTPkxehsaXfsV9NANBqeIm6XL4QUZbHtDpAeF0A==
-  dependencies:
-    "@graphql-codegen/core" "^1.17.7"
-    "@graphql-codegen/plugin-helpers" "^1.17.7"
-    "@graphql-codegen/typescript" "^1.17.7"
-    "@graphql-codegen/typescript-operations" "^1.17.7"
-    "@graphql-tools/relay-operation-optimizer" "^6.0.15"
-    fs-extra "^9.0.1"
-
-"@vtex/gatsby-plugin-theme-ui@^0.282.1-next.0":
-  version "0.282.1-next.0"
-  resolved "https://registry.yarnpkg.com/@vtex/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.282.1-next.0.tgz#ac009aa1a289ee3abcaf8d1f27a263e08eff74b1"
-  integrity sha512-kzIFl9ThGCbaVKi+/rGJ4m4h3Kj3ua2J4gYqCNqHJR5wtw9THAHokVwEBLgAJk5mzX/h8WdykntnDLDLgL+Jpg==
-  dependencies:
-    "@babel/core" "^7.11.4"
-    "@babel/parser" "^7.11.4"
-    "@babel/preset-typescript" "^7.10.4"
-    "@babel/register" "^7.11.5"
-    "@babel/traverse" "^7.11.0"
-    "@babel/types" "^7.11.0"
-    create-emotion-server "^10.0.27"
-    theme-ui "^0.3.1"
-
 "@vtex/order-items@^0.3.1-0":
   version "0.3.1-0"
   resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.3.1-0.tgz#67129f8ff0c6cf4f60c40c89f742f73c9c95b080"
@@ -5943,24 +5917,6 @@
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.6.tgz#31762608d9a59b815b6d4e963e439b12f1a12279"
   integrity sha512-nXE3BcMODomFK3EowfK+Hdj2qQRqB8JcdRv8yTREXnN9xq8DYKmH/dWB+RY/Hn3KozFLbygpZRbqYsiA6HDINQ==
-
-"@vtex/store-ui@^0.282.1-next.0":
-  version "0.282.1-next.0"
-  resolved "https://registry.yarnpkg.com/@vtex/store-ui/-/store-ui-0.282.1-next.0.tgz#20b5832f570940776980b1d322a884e6cfc40f02"
-  integrity sha512-YBLGpYxrs4fLjJOjihwltLiBp1pmViRim2pMfiMBF9QI3cvwrSF3OEiYXtUBPwBkxPC/dydZcNRj6ADpjADpAQ==
-  dependencies:
-    "@reach/router" "^1.3.4"
-    "@theme-ui/match-media" "^0.3.1"
-    "@theme-ui/preset-base" "^0.3.0"
-    "@types/react-modal" "^3.12.0"
-    "@types/theme-ui__components" "^0.2.6"
-    "@vtex-components/accordion" "^0.2.3"
-    "@vtex-components/drawer" "^0.2.4"
-    deepmerge "^4.2.2"
-    react-swipeable "^6.0.0"
-    reakit "^1.3.0"
-    text-mask-core "^5.1.2"
-    theme-ui "^0.3.1"
 
 "@vtex/tsconfig@^0.5.0":
   version "0.5.6"
