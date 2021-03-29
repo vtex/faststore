@@ -6,6 +6,7 @@ import {
   DEFAULT_ORDER_FORM,
   useOrderQueue,
   useQueueStatus,
+  useOrderForm,
 } from '@vtex/order-manager'
 import { createOrderItemsProvider } from '@vtex/order-items'
 
@@ -41,17 +42,14 @@ const defaultOrderForm: OrderForm = {
   },
 }
 
-const { OrderFormProvider, useOrderForm } = createOrderFormProvider<OrderForm>({
+const { OrderFormProvider } = createOrderFormProvider<OrderForm>({
   useGetOrderForm,
   useClearOrderFormMessages,
   useToast,
   defaultOrderForm,
 })
 
-const {
-  OrderItemsProvider,
-  useOrderItems,
-} = createOrderItemsProvider<OrderForm>({
+const { OrderItemsProvider } = createOrderItemsProvider<OrderForm>({
   useMutateAddItems,
   useMutateUpdateQuantity,
   useOrderForm,
@@ -71,5 +69,4 @@ export const Provider: FC = ({ children }) => {
   )
 }
 
-export { useOrderForm, useOrderItems }
 export type { OrderForm }
