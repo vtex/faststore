@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
-import { useOrderForm, useOrderItems } from '../orderForm/Provider'
+import { useOrderItems } from '../orderForm/useOrderItems'
+import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
 import { usePixelEvent } from '../pixel/usePixelEvent'
 import { useMinicart } from '../minicart/useMinicart'
