@@ -9,7 +9,7 @@ const LazyProvider = lazy(() =>
 
 export const Provider = ({ children }: PropsWithChildren<null>) => {
   return (
-    <Suspense fallback={() => children}>
+    <Suspense fallback={<>{children}</>}>
       <LazyProvider>{children}</LazyProvider>
     </Suspense>
   )
