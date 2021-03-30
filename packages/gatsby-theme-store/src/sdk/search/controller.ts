@@ -25,7 +25,11 @@ export type SearchHistory = typeof history
 export const search = (term: string) => {
   history.add(term)
 
-  navigate(`/${encodeURI(term)}`)
+  const params = new URLSearchParams(window.location.search)
+
+  params.set('map', 'ft')
+
+  navigate(`/${encodeURI(term)}?${params.toString()}`)
 }
 
 export const setSearchFilters = (filters: SearchFilters) => {
