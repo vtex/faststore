@@ -7,7 +7,7 @@ const ToastProvider = lazy(loader)
 
 export const Provider: FC = ({ children }) => {
   return (
-    <Suspense fallback={<>{children}</>}>
+    <Suspense fallback={null}>
       <ToastProvider>{children}</ToastProvider>
     </Suspense>
   )
