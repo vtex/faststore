@@ -225,7 +225,7 @@ export * from 'reakit/Portal'
 export * from 'reakit/Tooltip'
 
 // Toast
-export { default } from './ToastMessage/ToastProvider'
+export { default as ToastProvider } from './ToastMessage/ToastProvider'
 export { Toast } from './ToastMessage/Toast'
 export { ToastContext, useToast } from './ToastMessage/ToastContext'
 export { default as toastTheme } from './ToastMessage/theme'
