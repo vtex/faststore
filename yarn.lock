@@ -5896,20 +5896,20 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
-"@vtex/order-items@^0.3.1-0":
-  version "0.3.1-0"
-  resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.3.1-0.tgz#67129f8ff0c6cf4f60c40c89f742f73c9c95b080"
-  integrity sha512-C1QIY5VG23mmr8UGZL4WF3D30TkTGU/9nCOS3ZdzVrXVTqFOs5Utahh54Z8MxR+UjWwJaOuyLSsUwr9TZtgx7Q==
+"@vtex/order-items@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.4.0.tgz#cf8014addc71ce381ab7358804127790e5ee2a68"
+  integrity sha512-lEm8KlPLAu48cEYt4vfJA7QOISW59d42/G8mSE/G8nXnj8ELHbXr3lYhG2tNhctZsT7BiPQkqNIibXDpAujrOA==
   dependencies:
     "@types/uuid" "^8.3.0"
-    "@vtex/order-manager" "^0.2.1-0"
+    "@vtex/order-manager" "^0.3.0"
     react "17.0.1"
     uuid "^8.3.2"
 
-"@vtex/order-manager@^0.2.1-0":
-  version "0.2.1-0"
-  resolved "https://registry.yarnpkg.com/@vtex/order-manager/-/order-manager-0.2.1-0.tgz#787d1437403988e5cdd1224e3166d5ca57f1610a"
-  integrity sha512-joaWCpUgsmqXZWUwA3yx/n2TRfe391tSVfFaZcPAipGI1GWjfaWU8n9jX/Fy6A+vDyiboCgy3JtgyapD6Kjiig==
+"@vtex/order-manager@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@vtex/order-manager/-/order-manager-0.3.0.tgz#d086f373da5d370e342f9afa57705ace0dfd1029"
+  integrity sha512-wjG/oy2KJNdgtDbl1Ajp4KvJHV6Ih57wXdekjzd26oXXPKHOifFMmVL4UAerijtIAy9nxFrj4u44Z9rXVTRDZQ==
   dependencies:
     react "17.0.1"
 
