@@ -25,11 +25,15 @@ export type SearchHistory = typeof history
 export const search = (term: string) => {
   history.add(term)
 
-  navigate(`/${encodeURI(term)}`)
+  const params = new URLSearchParams(window.location.search)
+
+  params.set('map', 'ft')
+
+  navigate(`/${encodeURI(term)}?${params.toString()}`)
 }
 
 export const setSearchFilters = (filters: SearchFilters) => {
-  const { search: searchParams } = window.location
+  const { search: searchParams, pathname } = window.location
   const params = new URLSearchParams(searchParams)
   const filterNames = Object.keys(filters) as Array<keyof SearchFilters>
 
@@ -53,7 +57,21 @@ export const setSearchFilters = (filters: SearchFilters) => {
     }
   }
 
-  navigate(`/${filters.query}?${params.toString()}`)
+  /**
+   * Usually, "filters.query" is the right place to navigate to. However, in landing pages
+   * the "filters.query" contains a different value from the page's root path because the
+   * business user decides the value of "canonicalPath". This makes us have to always
+   * add the root path to the navigation so we never miss the landing page navigation context
+   */
+  const spath = pathname.split('/').slice(1)
+  const squery = filters.query.split('/')
+  const subIndex = spath.findIndex((path) => squery[0] === path)
+  const it = subIndex > -1 ? subIndex : spath.length
+
+  const rootPath = spath.slice(0, it).join('/')
+  const path = rootPath ? `${rootPath}/${filters.query}` : filters.query
+
+  navigate(`/${path}?${params.toString()}`)
 }
 
 // TODO: This function can be moved to the backend if we have a decent graphql layer

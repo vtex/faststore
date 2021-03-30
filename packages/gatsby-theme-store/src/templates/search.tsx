@@ -27,10 +27,14 @@ const belowTheFoldPreloader = () =>
 
 const BelowTheFold = lazy(belowTheFoldPreloader)
 
+export type SearchPageContext = SearchPageQueryQueryVariables
+
 export type SearchPageProps = PageProps<
   SearchPageQueryQuery,
-  SearchPageQueryQueryVariables
-> & { staticPath: boolean }
+  SearchPageContext
+> & {
+  staticPath: boolean
+}
 
 const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props

@@ -1,57 +1,53 @@
 import { useLocation } from '@reach/router'
 import { useMemo } from 'react'
 
-import type { SearchPageQueryQueryVariables } from '../../templates/__generated__/SearchPageQuery.graphql'
 import { format, parse } from './priceRange'
+import type { SearchPageContext } from '../../templates/search'
 
-// Creates a string with as many `c,c` as pathname has
-// segments.
-// For instance: cozinha/faqueiro-e-talheres would
-// generate the string c,c
-//
-// TODO: this function may have to change in the future
-const createMap = (query: string) => {
-  const splitted = query.split('/')
-
-  // We have generated all departments/brands statically, so it's safe
-  // to assume that, if the process reach this code, the path
-  // is a full text search
-  if (splitted.length === 1) {
-    return 'ft'
-  }
-
-  return new Array(splitted.length).fill('c').join(',')
+export interface SelectedFacets {
+  key: string
+  value: string
 }
 
-// I think this function should change to a more simpler version.
-const selectedFacetsAfterQueryAndMap = (query: string, map: string) => {
-  const smap = map.split(',')
-  const squery = query.split('/')
+const searchParamsFromURL = (pathname: string, params: URLSearchParams) => {
+  const smap = params.get('map')?.split(',')
+  const spath = pathname.split('/').slice(1)
 
-  const selectedFacets: Array<{ key: string; value: string }> = []
-
-  for (let it = 0; it < smap.length; it++) {
-    selectedFacets.push({ key: smap[it], value: squery[it] })
+  if (smap === undefined) {
+    throw new Error(
+      `Search page does not have enough information to create search context from URL. Please add a 'map' querystring to the page`
+    )
   }
 
-  return selectedFacets
-}
+  if (smap.length > spath.length) {
+    throw new Error(
+      `Invalid search querystring. There are more map params than segments on the path: (map: ${smap.join(
+        ','
+      )}, pathname: ${pathname}). `
+    )
+  }
 
-// Removes starting/ending slashes
-// ex: trimQuery('/p0/p1/') -> 'p0/p1'
-//
-// Slice is done only once to improve performance !
-//
-// TODO: This function should be removed eventually
-const trimQuery = (query: string) => {
-  const i = query[0] === '/' ? 1 : 0
-  const j = query[query.length - 1] === '/' ? query.length - 1 : query.length
+  const selectedFacets = new Array<SelectedFacets>(smap.length)
+  const squery = new Array<string>(smap.length)
 
-  return query.slice(i, j)
+  for (let it = smap.length - 1; it >= 0; it--) {
+    squery[it] = spath[it + spath.length - squery.length]
+
+    selectedFacets[it] = {
+      key: smap[it],
+      value: squery[it],
+    }
+  }
+
+  return {
+    query: squery.join('/'),
+    map: smap.join(','),
+    selectedFacets,
+  }
 }
 
 export const useSearchFiltersFromPageContext = (
-  pageContext: SearchPageQueryQueryVariables
+  pageContext: SearchPageContext
 ) => {
   const location = useLocation()
   const { search, pathname } = location
@@ -68,10 +64,15 @@ export const useSearchFiltersFromPageContext = (
       value: string
     }>
 
+    /**
+     *  Hydrates search context for dynamic search pages.
+     */
     if (pageContext.staticPath === false) {
-      query = trimQuery(pathname)
-      map = params.get('map') ?? createMap(query)
-      selectedFacets = selectedFacetsAfterQueryAndMap(query, map)
+      const searchParams = searchParamsFromURL(pathname, params)
+
+      query = searchParams.query
+      map = searchParams.map
+      selectedFacets = searchParams.selectedFacets
     }
 
     const fullText = map?.startsWith('ft') ? query?.split('/')[0] : undefined
@@ -103,11 +104,11 @@ export const useSearchFiltersFromPageContext = (
     }
   }, [
     search,
-    pageContext.staticPath,
     pageContext.query,
     pageContext.map,
-    pageContext.orderBy,
     pageContext.selectedFacets,
+    pageContext.staticPath,
+    pageContext.orderBy,
     pathname,
   ])
 }
