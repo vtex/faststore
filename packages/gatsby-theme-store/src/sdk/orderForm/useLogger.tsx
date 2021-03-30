@@ -1,7 +1,5 @@
-import { useCallback } from 'react'
+const log = () => {}
 
 export const useLogger = () => {
-  const log = useCallback(() => {}, [])
-
   return { log }
 }
