@@ -39,6 +39,7 @@ export const fragment = graphql`
     linkText
     productClusters {
       name
+      id
     }
     items {
       itemId
