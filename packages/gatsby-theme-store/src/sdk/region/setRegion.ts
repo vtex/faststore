@@ -10,7 +10,7 @@ export const setRegion = async ({
   postalCode: string
   orderFormId: string
 }) => {
-  const result = await request({
+  let result = await request({
     ...SetRegionMutation,
     variables: {
       orderFormId,
@@ -18,13 +18,36 @@ export const setRegion = async ({
     },
   })
 
+  // TODO: it seems that sometimes the first request to set the address
+  // either fails or just kind of "warms up" the order form shipping.
+  // Anyway, retrying the request once seems to fix the problem.
+  // This needs to be looked into though!
+  if (!result?.updateSelectedAddress?.shipping?.selectedAddress) {
+    result = await request({
+      ...SetRegionMutation,
+      variables: {
+        orderFormId,
+        postalCode,
+      },
+    })
+  }
+
   return result
 }
 
 export const mutation = gql`
-  mutation SetRegionMutation($postalCode: String, $orderFormId: ID) {
+  mutation SetRegionMutation(
+    $postalCode: String
+    $country: String = "BRA"
+    $addressType: VTEX_AddressType = residential
+    $orderFormId: ID
+  ) {
     updateSelectedAddress(
-      input: { postalCode: $postalCode, country: "brazil", addressType: search }
+      input: {
+        postalCode: $postalCode
+        country: $country
+        addressType: $addressType
+      }
       orderFormId: $orderFormId
     ) {
       id
