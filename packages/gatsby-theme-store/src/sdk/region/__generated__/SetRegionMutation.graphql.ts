@@ -18,6 +18,8 @@ type Scalars = {
 // Operation related types
 export type SetRegionMutationMutationVariables = Exact<{
   postalCode: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  addressType?: Maybe<Vtex_AddressType>;
   orderFormId: Maybe<Scalars['ID']>;
 }>;
 
@@ -28,8 +30,8 @@ export type SetRegionMutationMutation = { updateSelectedAddress: { id: string, s
 // Query Related Code
 
 export const SetRegionMutation = {
-  query: process.env.NODE_ENV === 'production' ? undefined : "mutation SetRegionMutation($postalCode: String, $orderFormId: ID) {\n  updateSelectedAddress(\n    input: {postalCode: $postalCode, country: \"brazil\", addressType: search}\n    orderFormId: $orderFormId\n  ) {\n    id\n    shipping {\n      availableAddresses {\n        postalCode\n        receiverName\n        reference\n        state\n        street\n        number\n        neighborhood\n        isDisposable\n        geoCoordinates\n        country\n        complement\n        city\n        addressType\n        addressId\n      }\n      selectedAddress {\n        addressId\n        addressType\n        city\n        complement\n        country\n        geoCoordinates\n        isDisposable\n        neighborhood\n        postalCode\n        number\n        receiverName\n        reference\n        state\n        street\n      }\n    }\n  }\n}\n",
-  sha256Hash: "fda0a3810115b1d82295f69b5bfdebb7411ee816be6eded31fffad002b91ffff",
+  query: process.env.NODE_ENV === 'production' ? undefined : "mutation SetRegionMutation($postalCode: String, $country: String = \"BRA\", $addressType: VTEX_AddressType = residential, $orderFormId: ID) {\n  updateSelectedAddress(\n    input: {postalCode: $postalCode, country: $country, addressType: $addressType}\n    orderFormId: $orderFormId\n  ) {\n    id\n    shipping {\n      availableAddresses {\n        postalCode\n        receiverName\n        reference\n        state\n        street\n        number\n        neighborhood\n        isDisposable\n        geoCoordinates\n        country\n        complement\n        city\n        addressType\n        addressId\n      }\n      selectedAddress {\n        addressId\n        addressType\n        city\n        complement\n        country\n        geoCoordinates\n        isDisposable\n        neighborhood\n        postalCode\n        number\n        receiverName\n        reference\n        state\n        street\n      }\n    }\n  }\n}\n",
+  sha256Hash: "88123433bae328c5343786600d75a4860f4465dd6281e02ea9e17c8fd8d57a62",
   operationName: "SetRegionMutation",
 }
 
