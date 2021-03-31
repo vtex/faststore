@@ -7,6 +7,7 @@ import type {
   AsyncProductQueryQueryVariables,
 } from './__generated__/AsyncProductQuery.graphql'
 import type { QueryOptions } from '../../sdk/graphql/useQuery'
+import { useRegion } from '../useRegion'
 
 export type Options = Omit<
   QueryOptions,
@@ -17,12 +18,17 @@ export const useAsyncProduct = (
   variables: AsyncProductQueryQueryVariables,
   options?: Options
 ) => {
+  const { regionId } = useRegion()
+
   const { data } = useQuery<
     AsyncProductQueryQuery,
     AsyncProductQueryQueryVariables
   >({
     ...AsyncProductQuery,
-    variables,
+    variables: {
+      ...variables,
+      regionId,
+    },
     suspense: true,
     ...options,
   })
@@ -33,9 +39,9 @@ export const useAsyncProduct = (
 }
 
 export const query = gql`
-  query AsyncProductQuery($slug: String) {
+  query AsyncProductQuery($slug: String, $regionId: String) {
     vtex {
-      product(slug: $slug) {
+      product(slug: $slug, regionId: $regionId) {
         productId
         productName
         productReference
