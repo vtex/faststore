@@ -5,6 +5,7 @@ import type { PriceRange } from './priceRange'
 import { format } from './priceRange'
 import { uniqBy } from '../../utils/uniq'
 import type { SearchFilters } from './Provider'
+import { slugify } from './slugify'
 
 const HISTORY_KEY = 'vtex-search-history'
 const MAX_ITEMS = 10
@@ -58,7 +59,7 @@ export const search = async (term: string) => {
   const params = new URLSearchParams(window.location.search)
 
   // Check if "term" has a more specific page
-  const slugified = encodeURIComponent(term.toLowerCase().replace(/ /g, '-'))
+  const slugified = encodeURIComponent(slugify(term))
   const path = `/${slugified}`
   const exists = await pathExists(path)
 
