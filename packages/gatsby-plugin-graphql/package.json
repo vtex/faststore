@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-graphql",
-  "version": "0.282.6-next.0",
+  "version": "0.282.7-next.0",
   "description": "Gatsby plugin for unsing gatsby's grahpql on the client.",
   "main": "index.js",
   "browser": "src/index.ts",
