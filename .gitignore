@@ -75,6 +75,7 @@ packages/gatsby-**/*.d.ts
 packages/gatsby-**/**/*.json
 # these ones are manually added
 !packages/gatsby-**/src/typings/**/*.d.ts
+!packages/gatsby-**/src/**/*.json
 
 # lighthouse CI autogen files
 .lighthouseci
