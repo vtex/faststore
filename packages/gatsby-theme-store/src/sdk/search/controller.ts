@@ -45,7 +45,7 @@ const pathExists = async (pathname: string) => {
  * algorithm:
  *
  * 1. Make a call to the page's data object.
- * 2. If it exists, this means we Server Side Generated (SSG) a page for this search term and we should navigate there instead
+ * 2. If it exists, this means we Static Site Generated (SSG) a page for this search term and we should navigate there instead
  * 3. If it doesn't exist, we should fallback to a full text search instead
  *
  * This "VTEX search engine product display prioritization" is important because it allows our customers to create landing pages
