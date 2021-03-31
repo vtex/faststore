@@ -169,8 +169,8 @@ export const createPages = async ({
 
   // Client side search page
   createPage({
-    path: '/__client_side_search__',
-    matchPath: '/*',
+    path: '/s/__client_side_search__',
+    matchPath: '/s/*',
     component: resolve(__dirname, './src/templates/search.tsx'),
     context: {
       staticPath: false,
@@ -192,6 +192,12 @@ export const createPages = async ({
     fromPath: '/404',
     toPath: '/404/__not_found__',
     statusCode: 404,
+  })
+
+  createRedirect({
+    fromPath: '/*',
+    toPath: '/404',
+    statusCode: 301,
   })
 }
 
