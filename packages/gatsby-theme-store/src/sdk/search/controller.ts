@@ -1,11 +1,11 @@
 import { navigate } from '@reach/router'
 import type { SearchFilterItem } from '@vtex/store-ui'
 
-import type { PriceRange } from './priceRange'
-import { format } from './priceRange'
+import { slugify } from '../../utils/slugify'
 import { uniqBy } from '../../utils/uniq'
+import { format } from './priceRange'
 import type { SearchFilters } from './Provider'
-import { slugify } from './slugify'
+import type { PriceRange } from './priceRange'
 
 const HISTORY_KEY = 'vtex-search-history'
 const MAX_ITEMS = 10
