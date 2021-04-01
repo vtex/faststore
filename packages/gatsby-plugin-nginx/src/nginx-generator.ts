@@ -140,6 +140,10 @@ function generateNginxConfiguration({
               children: [
                 { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
                 { cmd: ['resolver', '8.8.8.8'] },
+
+                // https://www.gatsbyjs.com/docs/how-to/adding-common-features/add-404-page/
+                { cmd: ['error_page', '404', '/404.html'] },
+
                 ...locations,
               ],
             },
@@ -326,6 +330,9 @@ function generatePathLocation({
 }): NginxDirective | undefined {
   const proxyPassDirective = storagePassTemplate(path, files, options)
 
+  // Enforce returnin 404 status code for /404 page
+  const returnDirective = path === '/404' ? [{ cmd: ['return', '404'] }] : []
+
   if (proxyPassDirective === undefined) {
     return undefined
   }
@@ -337,6 +344,7 @@ function generatePathLocation({
         cmd: ['add_header', name, `"${value}"`],
       })),
       proxyPassDirective,
+      ...returnDirective,
     ],
   }
 }
