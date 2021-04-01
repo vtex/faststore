@@ -21,8 +21,7 @@ export const handleError = ({ error, errorId }: Props) => {
   // prevent infinite loop
   if (
     window.location.pathname.startsWith('/404') ||
-    window.location.pathname.startsWith('/500') ||
-    process.env.NODE_ENV !== 'production'
+    window.location.pathname.startsWith('/500')
   ) {
     return
   }

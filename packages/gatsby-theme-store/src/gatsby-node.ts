@@ -169,29 +169,12 @@ export const createPages = async ({
 
   // Client side search page
   createPage({
-    path: '/__client_side_search__',
-    matchPath: '/*',
+    path: '/s/__client_side_search__',
+    matchPath: '/s/*',
     component: resolve(__dirname, './src/templates/search.tsx'),
     context: {
       staticPath: false,
     },
-  })
-
-  // I couldn't find a better way to make the path /404 return status code 404
-  // in Netlify, so the work around I found was to create a page and than create
-  // a redirect to it returning 404 status code
-
-  createPage({
-    path: '/404/__not_found__',
-    matchPath: '/404/*',
-    component: resolve(__dirname, './src/templates/404.tsx'),
-    context: {},
-  })
-
-  createRedirect({
-    fromPath: '/404',
-    toPath: '/404/__not_found__',
-    statusCode: 404,
   })
 }
 
