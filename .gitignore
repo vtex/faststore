@@ -85,3 +85,6 @@ packages/gatsby-**/**/*.json
 
 # gatsby-plugin-nginx manual tests
 !**/manual-test/**
+
+# Watchman
+**/.watchmanconfig
