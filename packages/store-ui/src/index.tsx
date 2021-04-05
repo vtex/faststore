@@ -148,3 +148,8 @@ export * from 'reakit/Dialog'
 export * from 'reakit/Portal'
 // Tooltip
 export * from 'reakit/Tooltip'
+
+// The default Spinner from theme-ui, at the time of writing,
+// is under-performant in terms of CPU usage
+// https://github.com/vtex/faststore/pull/558
+export { default as Spinner } from './Spinner'
