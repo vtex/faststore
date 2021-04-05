@@ -1,8 +1,9 @@
 import { useCallback } from 'react'
-import { useToast as useToastFromProvider } from '@vtex/store-ui'
+
+import { useToast as useToastFromProvider } from '../toast/useToast'
 
 export const useToast = () => {
-  const { toastState, showToast } = useToastFromProvider()
+  const { showToast, isVisible } = useToastFromProvider()
 
   const showToastWrapped = useCallback(
     (message: string) => {
@@ -13,6 +14,6 @@ export const useToast = () => {
 
   return {
     showToast: showToastWrapped,
-    toastState: { isToastVisible: toastState.isVisible },
+    toastState: { isToastVisible: isVisible },
   }
 }

@@ -21,7 +21,7 @@ const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
 } = require('./src/sdk/progress')
-const { Provider: ToastProvider } = require('./src/components/ToastProvider')
+const { Provider: ToastProvider } = require('./src/sdk/toast/Provider')
 
 export const replaceHydrateFunction = () => async (
   element: ElementType,

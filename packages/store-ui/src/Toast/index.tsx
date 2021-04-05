@@ -1,24 +1,21 @@
 import React from 'react'
 import { createPortal } from 'react-dom'
-import type { ReactNode } from 'react'
 import { Box } from 'theme-ui'
+import type { ReactNode, FC } from 'react'
 
-import { useToast } from './ToastContext'
 import { CrossIcon } from './CrossIcon'
 
 interface Props {
-  message?: ReactNode
+  message: ReactNode
+  isVisible: boolean
+  hideToast: () => void
 }
 
-export const Toast = ({ message: propMessage }: Props) => {
-  const {
-    toastState: { isVisible, message: toastMessage },
-    hideToast,
-  } = useToast()
+const Toast: FC<Props> = ({ message, isVisible, hideToast }) => {
+  if (!isVisible) {
+    return null
+  }
 
-  if (!isVisible) return null
-
-  const message = toastMessage ?? propMessage
   const content = (
     <Box variant="toast.container">
       {message}
@@ -30,3 +27,5 @@ export const Toast = ({ message: propMessage }: Props) => {
 
   return createPortal(content, document.body)
 }
+
+export default Toast

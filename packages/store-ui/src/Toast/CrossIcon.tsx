@@ -1,6 +1,7 @@
 import React from 'react'
+import type { FC } from 'react'
 
-export const CrossIcon = () => (
+export const CrossIcon: FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="24"
