@@ -180,15 +180,30 @@ export const createPages = async ({
 
 export const onCreateWebpackConfig = ({
   actions: { setWebpackConfig },
+  stage,
 }: CreateWebpackConfigArgs) => {
+  const enableProfiling = process.env.GATSBY_STORE_PROFILING === 'true'
+
+  const profilingConfig =
+    stage === 'build-javascript' && enableProfiling === true
+      ? {
+          resolve: {
+            alias: {
+              'react-dom': 'react-dom/profiling',
+              'scheduler/tracing': 'scheduler/tracing-profiling',
+            },
+          },
+          optimization: {
+            minimize: false,
+            moduleIds: 'named',
+            chunkIds: 'named',
+            concatenateModules: false,
+          },
+        }
+      : null
+
   setWebpackConfig({
-    // 🐞🐞 Uncomment for debugging final bundle 🐞🐞
-    // optimization: {
-    //   minimize: false,
-    //   moduleIds: 'named',
-    //   chunkIds: 'named',
-    //   concatenateModules: false,
-    // },
+    ...profilingConfig,
     module: {
       rules: [
         {
