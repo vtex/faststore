@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useState } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import type { FC } from 'react'
 
 export interface ShowToastOptions {
@@ -24,6 +30,12 @@ export const Provider: FC = ({ children }) => {
     message: '',
   })
 
+  const timeoutRef = useRef(0)
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutRef.current)
+  }, [])
+
   const hideToast = useCallback(() => {
     setToastState((prev) => ({ ...prev, isVisible: false }))
   }, [])
@@ -36,11 +48,10 @@ export const Provider: FC = ({ children }) => {
         isVisible: true,
       }))
 
-      // TODO: fix on umounted component
-      setTimeout(
+      timeoutRef.current = (setTimeout(
         () => setToastState((prev) => ({ ...prev, isVisible: false })),
         duration
-      )
+      ) as unknown) as number
     },
     []
   )
