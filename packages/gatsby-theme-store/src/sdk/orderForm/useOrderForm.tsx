@@ -1,5 +1,6 @@
-import { useContext } from 'react'
+import { useOrderForm as useDefaultOrderForm } from '@vtex/order-manager'
+import type { OrderFormContext } from '@vtex/order-manager'
 
-import { OrderForm } from './Provider'
+import type { OrderFormFragment_OrderFormFragment as OrderForm } from './controller/__generated__/OrderFormFragment_orderForm.graphql'
 
-export const useOrderForm = () => useContext(OrderForm)
+export const useOrderForm = useDefaultOrderForm as () => OrderFormContext<OrderForm>

@@ -223,3 +223,7 @@ export * from 'reakit/Dialog'
 export * from 'reakit/Portal'
 // Tooltip
 export * from 'reakit/Tooltip'
+
+// Toast
+export { default as Toast } from './Toast'
+export { default as toastTheme } from './Toast/theme'

@@ -10,8 +10,8 @@ const CustomMinicartButton: FC<MinicartButtonProps> = ({
   variant,
   onClick,
 }) => {
-  const orderForm = useOrderForm()
-  const count = orderForm?.value?.items.length ?? 0
+  const { orderForm } = useOrderForm()
+  const count = orderForm.items.length ?? 0
 
   return (
     <MinicartButton variant={variant} onClick={onClick} aria-label="Open Cart">

@@ -14,10 +14,10 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
   variant,
 }) => {
   const customVariant = `${variant}.footer`
-  const orderForm = useOrderForm()
+  const { orderForm } = useOrderForm()
   const { formatMessage } = useIntl()
   const { format } = useNumberFormat()
-  const total = format(Number(orderForm.value?.value) / 100)
+  const total = format(Number(orderForm.value) / 100)
   const subTotal = total
 
   return (

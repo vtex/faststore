@@ -13,8 +13,8 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
   onClose,
   variant,
 }) => {
-  const orderForm = useOrderForm()
-  const count = orderForm?.value?.items.length ?? 0
+  const { orderForm } = useOrderForm()
+  const count = orderForm.items.length ?? 0
 
   const customVariant = `${variant}.drawer`
 
@@ -32,7 +32,7 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
         variant={customVariant}
       />
       <HeaderMinicartDrawerContent
-        data={orderForm.value?.items ?? []}
+        data={orderForm.items ?? []}
         imageElement={Image}
         variant={customVariant}
       />

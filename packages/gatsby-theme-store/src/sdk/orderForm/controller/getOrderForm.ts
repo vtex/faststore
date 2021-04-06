@@ -2,12 +2,7 @@ import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { request } from '../../graphql/request'
 import { GetOrderFormQuery } from './__generated__/GetOrderFormQuery.graphql'
-import {
-  clearOrderFormId,
-  getOrderformId,
-  queue,
-  setOrderFormId,
-} from './orderForm'
+import { clearOrderFormId, getOrderformId, setOrderFormId } from './orderForm'
 import type {
   GetOrderFormQueryQuery,
   GetOrderFormQueryQueryVariables,
@@ -27,7 +22,6 @@ export const getOrderForm = async () => {
     })
 
     setOrderFormId(orderForm.id)
-    queue().start()
 
     return orderForm
   } catch (err) {
