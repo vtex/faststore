@@ -53,6 +53,7 @@ export const useProductsSuggestions = ({ maxItems, term, regionId }: Props) => {
 export const query = gql`
   query ProductsSuggestionsQuery(
     $fullText: String!
+    $regionId: String
     $facetKey: String
     $facetValue: String
     $productOriginVtex: Boolean = true
