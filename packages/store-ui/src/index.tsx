@@ -5,7 +5,81 @@
  */
 
 // All components and styles from Theme UI
-export * from 'theme-ui'
+export {
+  Box,
+  Flex,
+  Grid,
+  Button,
+  Link,
+  Heading,
+  Image,
+  Card,
+  Label,
+  Input,
+  Select,
+  Textarea,
+  Text,
+  Radio,
+  Checkbox,
+  Slider,
+  Field,
+  Progress,
+  Donut,
+  Avatar,
+  Badge,
+  Close,
+  Alert,
+  Divider,
+  Embed,
+  AspectRatio,
+  AspectImage,
+  Container,
+  NavLink,
+  Message,
+  IconButton,
+  MenuButton,
+  jsx,
+  useThemeUI,
+} from 'theme-ui'
+
+export type {
+  SxStyleProp,
+  BoxProps,
+  FlexProps,
+  GridProps,
+  ButtonProps,
+  LinkProps,
+  HeadingProps,
+  ImageProps,
+  CardProps,
+  LabelProps,
+  InputProps,
+  SelectProps,
+  TextareaProps,
+  TextProps,
+  RadioProps,
+  CheckboxProps,
+  SliderProps,
+  ProgressProps,
+  DonutProps,
+  AvatarProps,
+  BadgeProps,
+  AlertProps,
+  DividerProps,
+  EmbedProps,
+  AspectRatioProps,
+  AspectImageProps,
+  ContainerProps,
+  NavLinkProps,
+  MessageProps,
+  IconButtonProps,
+  MenuButtonProps,
+} from 'theme-ui'
+
+// The default Spinner from theme-ui, at the time of writing,
+// is under-performant in terms of CPU usage
+// https://github.com/vtex/faststore/pull/558
+export { default as Spinner } from './Spinner'
 
 // Base components from @vtex-components
 // Drawer
@@ -13,9 +87,10 @@ export { default as Drawer } from '@vtex-components/drawer'
 
 // Utils
 // Merge Theme
-export * from './createTheme'
+export { createTheme } from './createTheme'
 // Base Theme
-export * from './theme'
+export { baseTheme } from './theme'
+
 // throttle and debounce
 export { default as throttle } from './utils/throttle'
 export { default as debounce } from './utils/debounce'
@@ -148,8 +223,3 @@ export * from 'reakit/Dialog'
 export * from 'reakit/Portal'
 // Tooltip
 export * from 'reakit/Tooltip'
-
-// The default Spinner from theme-ui, at the time of writing,
-// is under-performant in terms of CPU usage
-// https://github.com/vtex/faststore/pull/558
-export { default as Spinner } from './Spinner'

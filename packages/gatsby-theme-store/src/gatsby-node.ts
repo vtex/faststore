@@ -18,6 +18,7 @@ export interface Options {
   storeId: string
   locales: string[]
   defaultLocale: string
+  profiling?: boolean
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
@@ -25,6 +26,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     storeId: Joi.string().required(),
     locales: Joi.array().items(Joi.string()).required(),
     defaultLocale: Joi.string().required(),
+    profiling: Joi.boolean(),
   })
 
 interface StaticPath {
@@ -178,17 +180,30 @@ export const createPages = async ({
   })
 }
 
-export const onCreateWebpackConfig = ({
-  actions: { setWebpackConfig },
-}: CreateWebpackConfigArgs) => {
+export const onCreateWebpackConfig = (
+  { actions: { setWebpackConfig }, stage }: CreateWebpackConfigArgs,
+  { profiling = false }: Options
+) => {
+  const profilingConfig =
+    stage === 'build-javascript' && profiling === true
+      ? {
+          resolve: {
+            alias: {
+              'react-dom': 'react-dom/profiling',
+              'scheduler/tracing': 'scheduler/tracing-profiling',
+            },
+          },
+          optimization: {
+            minimize: false,
+            moduleIds: 'named',
+            chunkIds: 'named',
+            concatenateModules: false,
+          },
+        }
+      : null
+
   setWebpackConfig({
-    // 🐞🐞 Uncomment for debugging final bundle 🐞🐞
-    // optimization: {
-    //   minimize: false,
-    //   moduleIds: 'named',
-    //   chunkIds: 'named',
-    //   concatenateModules: false,
-    // },
+    ...profilingConfig,
     module: {
       rules: [
         {
