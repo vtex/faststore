@@ -7,7 +7,11 @@ import SearchSuggestionsProduct from './Products'
 import SearchSuggestionsHistory from './SearchHistory'
 import SearchSuggestionsTopSearches from './TopSearches'
 
-const SearchSuggestions: FC = () => {
+interface Props {
+  regionId?: string | null
+}
+
+const SearchSuggestions: FC<Props> = ({ regionId }: Props) => {
   const {
     term,
     searchBar: { asyncTerm },
@@ -25,7 +29,13 @@ const SearchSuggestions: FC = () => {
   return (
     <>
       {asyncTerm ? <SearchSuggestionsAutocomplete term={asyncTerm} /> : null}
-      {term ? <SearchSuggestionsProduct maxItems={3} term={term} /> : null}
+      {term ? (
+        <SearchSuggestionsProduct
+          maxItems={3}
+          term={term}
+          regionId={regionId}
+        />
+      ) : null}
     </>
   )
 }
