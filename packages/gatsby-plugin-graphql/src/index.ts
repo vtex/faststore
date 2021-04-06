@@ -1,9 +1,9 @@
 const isProduction = process.env.NODE_ENV === 'production'
 
 export const gql = (_: TemplateStringsArray) => {
-  if (typeof window !== undefined) {
+  if (typeof window !== 'undefined') {
     throw new Error(
-      '[gatsby-plugin-graphql]: This should have been removed by the babel plugin and not be available on the browser'
+      `[gatsby-plugin-graphql]: This should have been removed by the babel plugin and not be available on the browser`
     )
   }
 }
