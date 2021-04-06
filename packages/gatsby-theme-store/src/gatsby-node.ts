@@ -26,7 +26,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     storeId: Joi.string().required(),
     locales: Joi.array().items(Joi.string()).required(),
     defaultLocale: Joi.string().required(),
-    profile: Joi.boolean(),
+    profiling: Joi.boolean(),
   })
 
 interface StaticPath {
