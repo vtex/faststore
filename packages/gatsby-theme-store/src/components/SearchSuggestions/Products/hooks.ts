@@ -1,7 +1,6 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { useQuery } from '../../../sdk/graphql/useQuery'
-import { useRegion } from '../../../sdk/region/useRegion'
 import { useSearchSuggestionsContext } from '../base/hooks'
 import { ProductsSuggestionsQuery } from './__generated__/ProductsSuggestionsQuery.graphql'
 import type {
