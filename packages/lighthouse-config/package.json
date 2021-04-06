@@ -23,6 +23,5 @@
   "devDependencies": {
     "tsdx": "^0.14.1",
     "typescript": "^4.1.2"
-  },
-  "gitHead": "e38694ec32a3cee59c80db8a0de9e1e8aabcf7a6"
+  }
 }
