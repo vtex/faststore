@@ -2,7 +2,7 @@
  * WARNING: Do not shadow this component and use Theme-ui's component
  * or any other dependency that uses React context API. If you want to
  * style or change the error page, please shadow the `pages/500.tsx` instead.
- * This component is synchronouly imported and has a big TBT implication
+ * This component is synchronously imported and has a big TBT implication
  */
 import type { FC } from 'react'
 import { useEffect } from 'react'
@@ -18,10 +18,14 @@ export const handleError = ({ error, errorId }: Props) => {
   console.error(error)
   console.error(errorId)
 
+  const isUserOffline = !window.navigator.onLine
+
   // prevent infinite loop
   if (
     window.location.pathname.startsWith('/404') ||
-    window.location.pathname.startsWith('/500')
+    window.location.pathname.startsWith('/500') ||
+    window.location.pathname.startsWith('/_v/offline') ||
+    isUserOffline
   ) {
     return
   }
