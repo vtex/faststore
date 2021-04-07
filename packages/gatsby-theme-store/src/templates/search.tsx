@@ -147,7 +147,7 @@ export const query = graphql`
         selectedFacets: $selectedFacets
       ) @include(if: $staticPath) {
         products {
-          productId
+          id: productId
           productName
           linkText
           items {
