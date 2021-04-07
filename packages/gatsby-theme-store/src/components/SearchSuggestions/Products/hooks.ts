@@ -7,15 +7,16 @@ import type {
   ProductsSuggestionsQueryQuery,
   ProductsSuggestionsQueryQueryVariables,
 } from './__generated__/ProductsSuggestionsQuery.graphql'
+import { useRegion } from '../../../sdk/region/useRegion'
 
 interface Props {
   term: string
   maxItems: number // max number of products to return. Hard limit of 5
-  regionId?: string | null
 }
 
-export const useProductsSuggestions = ({ maxItems, term, regionId }: Props) => {
+export const useProductsSuggestions = ({ maxItems, term }: Props) => {
   const context = useSearchSuggestionsContext()
+  const regionContext = useRegion()
   const response = useQuery<
     ProductsSuggestionsQueryQuery,
     ProductsSuggestionsQueryQueryVariables
@@ -23,7 +24,7 @@ export const useProductsSuggestions = ({ maxItems, term, regionId }: Props) => {
     ...ProductsSuggestionsQuery,
     variables: {
       fullText: term,
-      regionId,
+      regionId: regionContext.regionId,
     },
     suspense: false,
   })
