@@ -83,13 +83,14 @@ export const useSearch = <Query extends BaseQueryShape | undefined>({
         priceRange: null,
       }
 
-      return {
+      // TODO: Add this cast just to develop locally, remove it before go to production
+      return ({
         ...cleanFilters,
         selectedFacets,
         fullText,
         from,
         to,
-      }
+      } as unknown) as SearchFilters
     },
     {
       revalidateOnMount: true,

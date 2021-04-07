@@ -4,7 +4,7 @@ import type { MinicartButtonProps } from '@vtex/store-ui'
 import type { FC } from 'react'
 
 import CustomMinicartButtonSvg from './ButtonSvg'
-import { useOrderForm } from '../../sdk/orderForm/Provider'
+import { useOrderForm } from '../../sdk/orderForm/useOrderForm'
 
 const CustomMinicartButton: FC<MinicartButtonProps> = ({
   variant,
