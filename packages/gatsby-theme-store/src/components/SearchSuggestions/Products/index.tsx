@@ -16,14 +16,12 @@ interface Props {
   term: string
   maxItems?: number
   variant?: string
-  regionId?: string | null
 }
 
 const SearchSuggestionsProduct: FC<Required<Props>> = ({
   term,
   variant,
   maxItems,
-  regionId,
 }) => {
   const { formatMessage } = useIntl()
   const {
@@ -32,7 +30,6 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
   } = useProductsSuggestions({
     maxItems,
     term,
-    regionId,
   })
 
   const count = data?.vtex.productSuggestions?.count
@@ -107,14 +104,12 @@ const SearchSuggestions: FC<Props> = ({
   variant = 'products',
   maxItems = 3,
   term,
-  regionId,
 }) => (
   <SearchSuggestionsListContainer variant={variant}>
     <SearchSuggestionsProduct
       maxItems={maxItems}
       variant={variant}
       term={term}
-      regionId={regionId || null}
     />
   </SearchSuggestionsListContainer>
 )
