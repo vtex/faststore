@@ -32,5 +32,6 @@
   "peerDependencies": {
     "gatsby": "^3.1.1",
     "graphql": "^14.0.0 || ^15.0.0"
-  }
+  },
+  "gitHead": "de570ab991c344e913e48d95311ff283f6c416c5"
 }
