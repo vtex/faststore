@@ -7,6 +7,7 @@ import type {
   ProductsSuggestionsQueryQuery,
   ProductsSuggestionsQueryQueryVariables,
 } from './__generated__/ProductsSuggestionsQuery.graphql'
+import { useRegion } from '../../../sdk/region/useRegion'
 
 interface Props {
   term: string
@@ -15,6 +16,7 @@ interface Props {
 
 export const useProductsSuggestions = ({ maxItems, term }: Props) => {
   const context = useSearchSuggestionsContext()
+  const regionContext = useRegion()
   const response = useQuery<
     ProductsSuggestionsQueryQuery,
     ProductsSuggestionsQueryQueryVariables
@@ -22,6 +24,7 @@ export const useProductsSuggestions = ({ maxItems, term }: Props) => {
     ...ProductsSuggestionsQuery,
     variables: {
       fullText: term,
+      regionId: regionContext.regionId,
     },
     suspense: false,
   })
@@ -50,6 +53,7 @@ export const useProductsSuggestions = ({ maxItems, term }: Props) => {
 export const query = gql`
   query ProductsSuggestionsQuery(
     $fullText: String!
+    $regionId: String
     $facetKey: String
     $facetValue: String
     $productOriginVtex: Boolean = true
@@ -58,6 +62,7 @@ export const query = gql`
     vtex {
       productSuggestions(
         fullText: $fullText
+        regionId: $regionId
         facetKey: $facetKey
         facetValue: $facetValue
         productOriginVtex: $productOriginVtex
