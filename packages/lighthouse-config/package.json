@@ -1,6 +1,6 @@
 {
   "name": "@vtex/lighthouse-config",
-  "version": "0.290.0",
+  "version": "0.290.1-pwa.0",
   "author": "Emerson Laurentino",
   "license": "MIT",
   "repository": "vtex/lighthouse-config",
