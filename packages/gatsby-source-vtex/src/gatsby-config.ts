@@ -5,12 +5,7 @@ import type { Options } from './gatsby-node'
  * If adding a new rule, don't forget to create a redirect in ./gatsby-node.ts
  * so the redirect works in production websites as well
  */
-module.exports = ({
-  tenant,
-  workspace,
-  environment,
-  filesNewPath = false,
-}: Options) => ({
+module.exports = ({ tenant, workspace, environment }: Options) => ({
   proxy: [
     {
       prefix: '/api/io',
@@ -34,9 +29,7 @@ module.exports = ({
     },
     {
       prefix: '/files',
-      url: filesNewPath
-        ? `https://${workspace}--${tenant}.myvtex.com`
-        : `https://${tenant}.vtexassets.com`,
+      url: `https://${workspace}--${tenant}.myvtex.com`,
     },
     {
       prefix: '/graphql',
