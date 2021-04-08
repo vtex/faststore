@@ -221,7 +221,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
 export const createPages = async (
   { actions: { createRedirect }, reporter }: CreatePageArgs,
-  { tenant, workspace, environment, filesNewPath, getRedirects }: Options
+  { tenant, workspace, environment, getRedirects }: Options
 ) => {
   /**
    * Create all proxy rules for VTEX Store
