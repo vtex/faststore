@@ -5,7 +5,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import type { ReplaceRendererArgs, WrapRootElementBrowserArgs } from 'gatsby'
 
-const { ThemeProvider } = require('./src/components/Provider')
+import { ThemeProvider } from './components/Provider'
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => (
   <ThemeProvider>{element}</ThemeProvider>
