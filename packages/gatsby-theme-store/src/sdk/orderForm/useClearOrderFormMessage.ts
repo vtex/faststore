@@ -11,7 +11,7 @@ const clearOrderFormMessages = async (
 
   return orderFormController
     .clearMessages(mutationInput)
-    .then((orderFormId) => ({ data: { clearOrderFormMessages: orderFormId } }))
+    .then((orderForm) => ({ data: orderForm }))
 }
 
 export const useClearOrderFormMessages = () => clearOrderFormMessages

@@ -12,7 +12,7 @@ export const clearMessages = async ({
 }: {
   orderFormId: string
 }) => {
-  await request<
+  return request<
     ClearOrderFormMessagesMutationMutation,
     ClearOrderFormMessagesMutationMutationVariables
   >({ ...ClearOrderFormMessagesMutation, variables: { orderFormId } })
@@ -21,7 +21,7 @@ export const clearMessages = async ({
 export const mutation = gql`
   mutation ClearOrderFormMessagesMutation($orderFormId: ID) {
     clearOrderFormMessages(orderFormId: $orderFormId) {
-      id
+      ...OrderFormFragment_orderForm
     }
   }
 `
