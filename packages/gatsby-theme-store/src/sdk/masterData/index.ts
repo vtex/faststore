@@ -16,23 +16,29 @@ export type MasterData = (
    */
   create: (data: DataInput) => Promise<MasterDataSaveResponse>
   /**
-   * Create or update entire document
+   * `upsert` query updates a document if it exists, or creates a new.
    */
   upsert: (data: DataInput) => Promise<MasterDataSaveResponse>
   /**
-   * Create or update partial document
+   * Similar to `upsert`, the `upsertial` query updates partial data of
+   * document if it exists, or creates a new.
+   *
+   * The difference is that data that is not requested for updating will
+   * be kept.
    */
   upsertial: (data: DataInput) => Promise<MasterDataSaveResponse>
   /**
-   * Update entire document
+   * `update` updates an existing document.
+   *
+   * Similar to `upsert`, however it does not create a document does not exist.
    */
   update: (id: string, data: DataInput) => Promise<MasterDataSaveResponse>
   /**
-   * Get document
+   * `findUnique` method lets you retrieve a single document by id.
    */
   findUnique: (id: string) => Promise<unknown>
   /**
-   * Delete document
+   * `delete` method deletes a document by id.
    */
   delete: (id: string) => Promise<unknown>
 }
