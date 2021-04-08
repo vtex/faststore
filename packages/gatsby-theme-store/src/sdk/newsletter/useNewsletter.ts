@@ -6,7 +6,12 @@ type MDResponse = {
   DocumentId: string
 }
 
-const addToNewsletter = async (data: { nome: string; email: string }) =>
+type NewsletterData = {
+  name: string
+  email: string
+}
+
+const addToNewsletter = async (data: NewsletterData) =>
   fetch('/api/dataentities/NL/documents/', {
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +33,7 @@ export const useNewsletter = () => {
   const [error, setError] = useState(false)
 
   const addUser = useCallback(
-    (user: { nome: string; email: string }) => {
+    (user: NewsletterData) => {
       setError(false)
       setData(null)
       setLoading(true)
