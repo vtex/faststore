@@ -34,7 +34,7 @@ const ProductSummary: FC<Props> = () => (
 
 export const fragment = graphql`
   fragment ProductSummary_product on VTEX_Product {
-    productId
+    id: productId
     productName
     linkText
     productClusters {

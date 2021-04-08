@@ -45,12 +45,12 @@ export const useSearch = <Query extends BaseQueryShape | undefined>({
       // This is a pre-rendered search. Like so, we need to fetch the data
       // at the exact same order from the pre-rendered data so we don't have
       // data mismatch
-      const productIds =
+      const ids =
         page === 0 &&
-        firstPageData?.vtex.productSearch?.products?.map((x) => x.productId)
+        firstPageData?.vtex.productSearch?.products?.map((x) => x.id)
 
-      if (Array.isArray(productIds)) {
-        fullText = `product:${productIds.join(';')}`
+      if (Array.isArray(ids)) {
+        fullText = `product:${ids.join(';')}`
       }
 
       return {
