@@ -7,8 +7,8 @@ type MDResponse = {
 }
 
 type NewsletterData = {
-  name: string
   email: string
+  name?: string
 }
 
 const addToNewsletter = async (data: NewsletterData) =>
