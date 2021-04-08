@@ -37,6 +37,7 @@ export interface Options extends PluginOptions, VTEXOptions {
   pageTypes?: Array<PageType['pageType']>
   ignorePaths?: string[]
   concurrency?: number
+  filesNewPath?: boolean
 }
 
 const DEFAULT_PAGE_TYPES_WHITELIST = [
@@ -221,7 +222,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
 export const createPages = async (
   { actions: { createRedirect }, reporter }: CreatePageArgs,
-  { tenant, workspace, environment, getRedirects }: Options
+  { tenant, workspace, environment, filesNewPath, getRedirects }: Options
 ) => {
   /**
    * Create all proxy rules for VTEX Store
@@ -306,16 +307,18 @@ export const createPages = async (
     },
   })
 
-  createRedirect({
-    fromPath: '/files/*',
-    toPath: `https://${tenant}.vtexassets.com/files/:splat`,
-    statusCode: 200,
-    proxyHeaders: {
-      // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$origin_host',
-      via: "''",
-    },
-  })
+  if (!filesNewPath) {
+    createRedirect({
+      fromPath: '/files/*',
+      toPath: `https://${tenant}.vtexassets.com/files/:splat`,
+      statusCode: 200,
+      proxyHeaders: {
+        // VTEX ID needs the forwarded host in order to set the cookie correctly
+        'x-forwarded-host': '$origin_host',
+        via: "''",
+      },
+    })
+  }
 
   // Use graphql-gateway from VTEX IO
   createRedirect({
