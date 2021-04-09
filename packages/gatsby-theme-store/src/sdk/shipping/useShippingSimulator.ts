@@ -1,14 +1,14 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 import { useCallback, useEffect, useState } from 'react'
 
-import { useLazyQuery } from '../../../sdk/graphql/useLazyQuery'
+import { useLazyQuery } from '../graphql/useLazyQuery'
 import { ShippingQuery } from './__generated__/ShippingQuery.graphql'
 import type {
   ShippingQueryQuery,
   ShippingQueryQueryVariables,
 } from './__generated__/ShippingQuery.graphql'
 
-type HookProps = {
+interface Props {
   initialPostalCode?: string
   skuId: string
   seller: string
@@ -22,7 +22,7 @@ export const useShippingSimulator = ({
   seller,
   country,
   quantity,
-}: HookProps) => {
+}: Props) => {
   const [loading, setLoading] = useState(false)
   const [postalCode, setPostalCode] = useState(initialPostalCode ?? '')
 

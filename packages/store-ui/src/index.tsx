@@ -206,6 +206,8 @@ export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
 
 // ShippingSimulator
 export { default as ShippingSimulator } from './ShippingSimulator'
+export { default as shippingSimulatorI18nPT } from './ShippingSimulator/i18n/pt'
+export { default as shippingSimulatorI18nEN } from './ShippingSimulator/i18n/en'
 
 // Auth Providers
 export * from './Auth/Providers'

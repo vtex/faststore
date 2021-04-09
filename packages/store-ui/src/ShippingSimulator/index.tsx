@@ -69,7 +69,7 @@ const ShippingSimulator: FC<Props> = ({
           disabled={!isValid || loading}
           type="submit"
         >
-          {intl.formatMessage({ id: 'shippingSimulator.label' })}
+          {intl.formatMessage({ id: 'shipping.label' })}
         </Button>
       </Box>
       {loading && <Preview variant={`${variant}.preview`} />}
