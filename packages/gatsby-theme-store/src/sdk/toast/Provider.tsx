@@ -7,14 +7,15 @@ import React, {
 } from 'react'
 import type { FC } from 'react'
 
-export interface ShowToastOptions {
-  message: string
-  duration?: number
-}
-
 export interface State {
   isVisible: boolean
   message: string
+  type?: 'error' | 'warning' | 'success'
+}
+
+interface ShowToastOptions
+  extends Pick<State, Exclude<keyof State, 'isVisible'>> {
+  duration?: number
 }
 
 export interface IContext extends State {
@@ -41,11 +42,12 @@ export const Provider: FC = ({ children }) => {
   }, [])
 
   const showToast = useCallback<IContext['showToast']>(
-    ({ duration = 3000, message }: ShowToastOptions) => {
+    ({ duration = 3000, message, type }: ShowToastOptions) => {
       setToastState((prevState) => ({
         ...prevState,
         message,
         isVisible: true,
+        type,
       }))
 
       timeoutRef.current = (setTimeout(
