@@ -7,7 +7,6 @@ import type {
   AsyncProductQueryQueryVariables,
 } from './__generated__/AsyncProductQuery.graphql'
 import type { QueryOptions } from '../../sdk/graphql/useQuery'
-import { useRegion } from '../useRegion'
 
 export type Options = Omit<
   QueryOptions,
@@ -18,17 +17,12 @@ export const useAsyncProduct = (
   variables: AsyncProductQueryQueryVariables,
   options?: Options
 ) => {
-  const { regionId } = useRegion()
-
   const { data } = useQuery<
     AsyncProductQueryQuery,
     AsyncProductQueryQueryVariables
   >({
     ...AsyncProductQuery,
-    variables: {
-      ...variables,
-      regionId,
-    },
+    variables,
     suspense: true,
     ...options,
   })
