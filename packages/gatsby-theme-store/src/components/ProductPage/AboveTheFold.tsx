@@ -77,8 +77,13 @@ export const fragment = graphql`
       }
     }
     productClusters {
-      name
       id
+      name
+    }
+    properties {
+      name
+      originalName
+      values
     }
   }
 `
