@@ -21,6 +21,9 @@ export { useCurrency } from './sdk/localization/useCurrency'
 export { useLocale } from './sdk/localization/useLocale'
 export { useNumberFormat } from './sdk/localization/useNumberFormat'
 
+// Shipping
+export { useShippingSimulator } from './sdk/shipping/useShippingSimulator'
+
 export { useDevice } from './sdk/media/useDevice'
 
 export { useMinicart } from './sdk/minicart/useMinicart'
