@@ -22,7 +22,7 @@ const addToNewsletter = async (data: { nome: string; email: string }) =>
     throw new Error()
   })
 
-const useNewsletter = () => {
+export const useNewsletter = () => {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<MDResponse | null>(null)
   const [error, setError] = useState(false)
@@ -61,5 +61,3 @@ const useNewsletter = () => {
     reset,
   }
 }
-
-export default useNewsletter

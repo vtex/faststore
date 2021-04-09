@@ -34,9 +34,7 @@ module.exports = ({
     },
     {
       prefix: '/files',
-      url: filesNewPath
-        ? `https://${workspace}--${tenant}.myvtex.com`
-        : `https://${tenant}.vtexassets.com`,
+      url: `https://${workspace}--${tenant}.myvtex.com`,
     },
     {
       prefix: '/graphql',

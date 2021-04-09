@@ -32,13 +32,7 @@ const getDataFromEvent = (event: PixelEvent) => {
         return
       }
 
-      const {
-        productName,
-        brand,
-        items,
-        productId,
-        ...rest
-      } = event.data.product
+      const { productName, brand, items, id, ...rest } = event.data.product
 
       const price = items?.[0]?.sellers?.[0]?.commercialOffer?.price
 
@@ -50,7 +44,7 @@ const getDataFromEvent = (event: PixelEvent) => {
                 brand,
                 name: productName,
                 price,
-                productID: productId,
+                productID: id,
                 ...rest,
               },
             ],

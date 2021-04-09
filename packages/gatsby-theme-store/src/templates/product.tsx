@@ -67,7 +67,7 @@ const ProductPage: FC<ProductPageProps> = (props) => {
         },
       },
     ],
-    data?.vtex.product?.productId ?? ''
+    data?.vtex.product?.id ?? ''
   )
 
   const pageProps = {
@@ -119,7 +119,7 @@ export const query = graphql`
         ...StructuredProductFragment_product
         titleTag
         metaTagDescription
-        productId
+        id: productId
         description
         categoryTree {
           name

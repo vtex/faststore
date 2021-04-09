@@ -21,7 +21,10 @@ export const useGetOrderForm = () => {
           setOrderForm(newOrderForm)
           setLoading(false)
         })
-        .catch(setError)
+        .catch((err) => {
+          setError(err)
+          setLoading(false)
+        })
     })
   }, [])
 

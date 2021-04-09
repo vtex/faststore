@@ -4,7 +4,6 @@ import { INDEX_HTML, LOCATION_MODIFIERS } from './constants'
 
 export {
   stringify,
-  convertFromPath,
   parseRewrite,
   generateRewrites,
   generatePathLocation,
@@ -141,6 +140,10 @@ function generateNginxConfiguration({
               children: [
                 { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
                 { cmd: ['resolver', '8.8.8.8'] },
+
+                // https://www.gatsbyjs.com/docs/how-to/adding-common-features/add-404-page/
+                { cmd: ['error_page', '404', '/404.html'] },
+
                 ...locations,
               ],
             },
@@ -162,8 +165,12 @@ function stringify(directives: NginxDirective[]): string {
     .join('\n')
 }
 
-function convertFromPath(path: string) {
+function convertToRegExp(path: string) {
   return `^${path.replace(/\*/g, '(.*)').replace(/:slug/g, '[^/]+')}$`
+}
+
+function isRegExpMatch(path: string) {
+  return /\*/g.test(path) || /:slug/g.test(path)
 }
 
 function convertToPath(path: string) {
@@ -249,7 +256,7 @@ function generateRedirectRewriteChildren({
       cmd: ['absolute_redirect', 'off'],
     },
     {
-      cmd: ['return', `${status}`, toPath],
+      cmd: ['return', `${status}`, `"${toPath}"`],
     },
   ]
 }
@@ -266,18 +273,26 @@ function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
     const { fromPath } = rewrite
     const type = parseRewrite(rewrite)
 
-    const modifier =
-      type === 'redirect'
-        ? LOCATION_MODIFIERS.EXACT_MATCH
-        : LOCATION_MODIFIERS.CASE_INSENSITIVE_REGEX_MATCH
+    /**
+     * https://www.getpagespeed.com/server-setup/nginx-locations-performance-impact-and-optimizations
+     * According to the source above and my sense as programmer, it's better to use EXACT_MATCH than
+     * any form of RegExp for performance reasons.
+     *
+     * With this in mind, let's use RegExp only where it's necessary
+     */
+    const shouldUseRegex = isRegExpMatch(fromPath)
+
+    const modifier = shouldUseRegex
+      ? LOCATION_MODIFIERS.CASE_INSENSITIVE_REGEX_MATCH
+      : LOCATION_MODIFIERS.EXACT_MATCH
 
     const match =
       modifier === LOCATION_MODIFIERS.EXACT_MATCH
-        ? `"${fromPath}"`
-        : convertFromPath(fromPath)
+        ? fromPath
+        : convertToRegExp(fromPath)
 
     return {
-      cmd: ['location', modifier, match],
+      cmd: ['location', modifier, `"${match}"`],
       children: childrenByType[type](rewrite),
     }
   })
@@ -315,6 +330,9 @@ function generatePathLocation({
 }): NginxDirective | undefined {
   const proxyPassDirective = storagePassTemplate(path, files, options)
 
+  // Enforce returnin 404 status code for /404 page
+  const returnDirective = path === '/404' ? [{ cmd: ['return', '404'] }] : []
+
   if (proxyPassDirective === undefined) {
     return undefined
   }
@@ -326,6 +344,7 @@ function generatePathLocation({
         cmd: ['add_header', name, `"${value}"`],
       })),
       proxyPassDirective,
+      ...returnDirective,
     ],
   }
 }

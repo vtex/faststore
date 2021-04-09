@@ -8,8 +8,9 @@ import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ElementType } from 'react'
 
 // Webpack + TS magic to make this work
-const { Provider: OrderFormProvider } = require('./src/sdk/orderForm/Provider')
-const { RegionProvider } = require('./src/sdk/region/index')
+const {
+  Provider: OrderFormProvider,
+} = require('./src/sdk/orderForm/LazyProvider')
 const { MinicartProvider } = require('./src/sdk/minicart/index')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
@@ -20,6 +21,7 @@ const {
   Progress,
   onRouteUpdate: progressOnRouteUpdate,
 } = require('./src/sdk/progress')
+const { Provider: ToastProvider } = require('./src/sdk/toast/Provider')
 
 export const replaceHydrateFunction = () => async (
   element: ElementType,
@@ -49,11 +51,11 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   const root = (
     <ErrorBoundary>
       <VTEXRCProvider>
-        <OrderFormProvider>
-          <RegionProvider>
+        <ToastProvider>
+          <OrderFormProvider>
             <MinicartProvider>{element}</MinicartProvider>
-          </RegionProvider>
-        </OrderFormProvider>
+          </OrderFormProvider>
+        </ToastProvider>
       </VTEXRCProvider>
     </ErrorBoundary>
   )

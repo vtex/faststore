@@ -1,7 +1,9 @@
 const isProduction = process.env.NODE_ENV === 'production'
 
-export const gql = (_: TemplateStringsArray): undefined => {
-  throw new Error('This should have been removed by the babel plugin')
+export const gql = (_: TemplateStringsArray) => {
+  throw new Error(
+    `[gatsby-plugin-graphql]: This should have been removed by the babel plugin`
+  )
 }
 
 export interface GraphQLResponse<D = any> {

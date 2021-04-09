@@ -1,11 +1,17 @@
+const getOrderFormController = () => import('./controller')
+
 interface ClearOrderFormMessagesParams {
   orderFormId: string
 }
 
-const clearOrderFormMessages = ({
-  orderFormId,
-}: ClearOrderFormMessagesParams): Promise<any> => {
-  return new Promise((resolve) => resolve(orderFormId))
+const clearOrderFormMessages = async (
+  mutationInput: ClearOrderFormMessagesParams
+) => {
+  const orderFormController = await getOrderFormController()
+
+  return orderFormController
+    .clearMessages(mutationInput)
+    .then((orderForm) => ({ data: orderForm }))
 }
 
 export const useClearOrderFormMessages = () => clearOrderFormMessages
