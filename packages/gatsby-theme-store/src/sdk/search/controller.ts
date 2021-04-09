@@ -109,7 +109,7 @@ export const setSearchFilters = (filters: SearchFilters) => {
    * add the root path to the navigation so we never miss the landing page navigation context
    */
   const spath = pathname.split('/').slice(1)
-  const squery = filters.query.split('/')
+  const squery = filters?.query?.split('/') ?? []
   const subIndex = spath.findIndex((path) => squery[0] === path)
   const it = subIndex > -1 ? subIndex : spath.length
 
