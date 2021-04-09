@@ -20,14 +20,14 @@ export const RegionContext = React.createContext<RegionContextType>({
 export const RegionProvider: FC = ({ children }) => {
   const [postalCode, setPostalCode] = useState<string | null | undefined>(
     () => {
-      const savedPostalCode = window?.localStorage?.getItem('postalCode')
+      const savedPostalCode = window?.localStorage?.getItem('vtex:postalCode')
 
       return savedPostalCode ?? null
     }
   )
 
   const [regionId, setRegionId] = useState<string | null | undefined>(() => {
-    const savedRegionId = window?.localStorage?.getItem('regionId')
+    const savedRegionId = window?.localStorage?.getItem('vtex:regionId')
 
     return savedRegionId ?? null
   })
@@ -38,18 +38,18 @@ export const RegionProvider: FC = ({ children }) => {
       regionId,
       setPostalCode: (value: string | null | undefined) => {
         if (value) {
-          localStorage.setItem('postalCode', value)
+          localStorage.setItem('vtex:postalCode', value)
         } else {
-          localStorage.removeItem('postalCode')
+          localStorage.removeItem('vtex:postalCode')
         }
 
         setPostalCode(value)
       },
       setRegionId: (value: string | null | undefined) => {
         if (value) {
-          localStorage.setItem('regionId', value)
+          localStorage.setItem('vtex:regionId', value)
         } else {
-          localStorage.removeItem('regionId')
+          localStorage.removeItem('vtex:regionId')
         }
 
         setRegionId(value)
