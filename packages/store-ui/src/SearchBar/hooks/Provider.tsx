@@ -1,8 +1,24 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import type { FC } from 'react'
 
-import debounce from '../utils/debounce'
-import { SearchBarContext } from './hooks'
+import debounce from '../../utils/debounce'
+
+export interface ISearchContext {
+  syncTerm: string // Synchronous term. This can have a huge negative impact in performance
+  asyncTerm: string // The Asynchronous/throttled term. This should be safe to use for reading input value
+  setTerm: (t: string) => unknown
+  onSearch: (term: string) => unknown
+}
+
+export const SearchBarContext = createContext<ISearchContext | undefined>(
+  undefined
+)
 
 interface Props {
   debounceInterval?: number
