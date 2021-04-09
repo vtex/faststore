@@ -9,7 +9,7 @@ import type { PopoverInitialState } from 'reakit/Popover'
 // When doing this change, do not forget to remove @reach/router dependency from @vtex/store-ui
 import { useLocation } from '@reach/router'
 
-import { useSearchBarContext } from './hooks'
+import { useSearchBarContext } from './hooks/useSearchBarContext'
 
 type Props = Omit<InputProps, 'ref'> & {
   popoverState?: PopoverInitialState

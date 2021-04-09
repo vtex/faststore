@@ -1,22 +1,16 @@
-/** @jsx jsx */
-// TODO: this import is failing, look into it
-// import type { PopoverInitialState } from '@vtex/store-ui'
-
+import React, { lazy, Suspense } from 'react'
 import {
-  jsx,
   SearchBarButton,
   SearchBarContainer,
   SearchBarInput,
   SearchBarProvider,
 } from '@vtex/store-ui'
+import type { PopoverInitialState } from '@vtex/store-ui'
 import type { FC, ReactNode } from 'react'
-import { lazy, Suspense } from 'react'
 
 import { search } from '../../sdk/search/controller'
 
 const SearchSuggestions = lazy(() => import('../SearchSuggestions'))
-
-type PopoverInitialState = any
 
 export interface Props {
   variant?: string

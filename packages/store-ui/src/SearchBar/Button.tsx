@@ -3,7 +3,7 @@ import React from 'react'
 import type { ButtonProps } from 'theme-ui'
 import { Button } from 'theme-ui'
 
-import { useSearchBarContext } from './hooks'
+import { useSearchBarContext } from './hooks/useSearchBarContext'
 
 type Props = Omit<ButtonProps, 'ref'> & { icon?: ReactNode }
 
