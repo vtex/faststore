@@ -47,6 +47,8 @@ export {
   IMAGE_DEFAULT,
 } from './sdk/product/constants'
 
+export { search } from './sdk/search/controller'
+
 export { useProfile } from './sdk/session/useProfile'
 export { useSession } from './sdk/session/useSession'
 
