@@ -109,6 +109,10 @@ export const setSearchFilters = (filters: SearchFilters) => {
    * add the root path to the navigation so we never miss the landing page navigation context
    */
   const spath = pathname.split('/').slice(1)
+  // TODO: fix filters/query type.
+  // Since we stopped sending query and map to searches, the type is nullable,
+  // but these values are still used internally.
+  // Needs a clearer separation between sent query/map values and internal ones.
   const squery = filters?.query?.split('/') ?? []
   const subIndex = spath.findIndex((path) => squery[0] === path)
   const it = subIndex > -1 ? subIndex : spath.length
