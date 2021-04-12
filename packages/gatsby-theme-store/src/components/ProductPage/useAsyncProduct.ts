@@ -36,7 +36,7 @@ export const query = gql`
   query AsyncProductQuery($slug: String, $regionId: String) {
     vtex {
       product(slug: $slug, regionId: $regionId) {
-        productId
+        id: productId
         productName
         productReference
         description
