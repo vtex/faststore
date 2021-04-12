@@ -25,7 +25,10 @@ export interface Props {
 }
 
 const SearchBar: FC<Props> = ({
-  popoverState = { placement: 'bottom-start', unstable_flip: true },
+  popoverState = {
+    placement: 'bottom-start',
+    unstable_flip: true,
+  },
   variant = 'searchbar',
   'aria-label': label,
   placeholder,

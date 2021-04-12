@@ -5,7 +5,7 @@ import { Button, Grid } from '@vtex/store-ui'
 import React, { Fragment } from 'react'
 import type { FC } from 'react'
 
-import { useSearch } from '../../../sdk/search/useSearch'
+import { useSearchInfinite } from '../../../sdk/search/useSearchInfinite'
 import { SearchQuery } from './__generated__/SearchQuery.graphql'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
@@ -19,7 +19,7 @@ interface Props {
 
 const List: FC<Props> = ({ initialData, columns, pageSize }) => {
   const { formatMessage } = useIntl()
-  const { data, fetchMore, isLoadingMore, isReachingEnd } = useSearch({
+  const { data, fetchMore, isLoadingMore, isReachingEnd } = useSearchInfinite({
     query: SearchQuery,
     initialData,
     pageSize,
@@ -44,8 +44,8 @@ const List: FC<Props> = ({ initialData, columns, pageSize }) => {
       </Grid>
       <Button
         variant="loadMore"
-        onClick={(e) => {
-          ;(e.target as any).blur?.()
+        onClick={(e: any) => {
+          e.target.blur?.()
           fetchMore()
         }}
         aria-label={loadMoreLabel}

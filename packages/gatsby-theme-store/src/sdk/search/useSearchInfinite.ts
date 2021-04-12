@@ -22,7 +22,7 @@ interface Options<Query extends BaseQueryShape | undefined> {
 
 const PAGE_SIZE = 12
 
-export const useSearch = <Query extends BaseQueryShape | undefined>({
+export const useSearchInfinite = <Query extends BaseQueryShape | undefined>({
   query,
   initialData: firstPageData,
   pageSize = PAGE_SIZE,
@@ -97,7 +97,7 @@ export const useSearch = <Query extends BaseQueryShape | undefined>({
     }
   )
 
-  const fetchMore = useCallback(() => setSize!((s) => s + 1), [setSize])
+  const fetchMore = useCallback(() => setSize!((s: number) => s + 1), [setSize])
 
   // Since we prefetch the next page, we always render one page less from
   // what we have in memory

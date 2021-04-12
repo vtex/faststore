@@ -76,7 +76,12 @@ const SearchBarInput: FC<Props> = ({
         }}
         aria-expanded={null}
       />
-      <Popover tabIndex={0} aria-label="Searchbar Input" {...popover}>
+      <Popover
+        tabIndex={0}
+        aria-label="Searchbar Input"
+        {...popover}
+        style={{ position: 'relative', top: '0px', left: '0px' }}
+      >
         {visible ? children : null}
       </Popover>
     </Box>
