@@ -1,6 +1,7 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
 import { useQuery } from '../../../sdk/graphql/useQuery'
+import { useRegion } from '../../../sdk/region/useRegion'
 import { useSearchSuggestionsContext } from '../base/hooks'
 import { ProductsSuggestionsQuery } from './__generated__/ProductsSuggestionsQuery.graphql'
 import type {
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const useProductsSuggestions = ({ maxItems, term }: Props) => {
+  const regionContext = useRegion()
   const context = useSearchSuggestionsContext()
   const response = useQuery<
     ProductsSuggestionsQueryQuery,
@@ -22,6 +24,7 @@ export const useProductsSuggestions = ({ maxItems, term }: Props) => {
     ...ProductsSuggestionsQuery,
     variables: {
       fullText: term,
+      regionId: regionContext.regionId,
     },
     suspense: false,
   })
@@ -50,6 +53,7 @@ export const useProductsSuggestions = ({ maxItems, term }: Props) => {
 export const query = gql`
   query ProductsSuggestionsQuery(
     $fullText: String!
+    $regionId: String
     $facetKey: String
     $facetValue: String
     $productOriginVtex: Boolean = true
@@ -58,6 +62,7 @@ export const query = gql`
     vtex {
       productSuggestions(
         fullText: $fullText
+        regionId: $regionId
         facetKey: $facetKey
         facetValue: $facetValue
         productOriginVtex: $productOriginVtex
