@@ -1,6 +1,7 @@
 import React from 'react'
+import type { FC } from 'react'
 
-const Header = () => (
+const Header: FC = () => (
   <div
     style={{
       height: 100,
