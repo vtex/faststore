@@ -7,6 +7,7 @@ import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
 import { HeaderMinicartDrawerContent } from './Content'
 import { HeaderMinicartDrawerFooter } from './Footer'
 import { HeaderMinicartDrawerHeader } from './Header'
+import { MinicartWarning } from './Warning'
 
 const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
   isOpen,
@@ -36,6 +37,7 @@ const CustomMinicartDrawer: FC<MinicartDrawerProps> = ({
         imageElement={Image}
         variant={customVariant}
       />
+      <MinicartWarning />
       <HeaderMinicartDrawerFooter variant={customVariant} />
     </MinicartDrawer>
   )
