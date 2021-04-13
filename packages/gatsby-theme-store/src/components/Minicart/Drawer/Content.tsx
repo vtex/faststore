@@ -1,6 +1,7 @@
 import React from 'react'
 import { Flex, Text } from 'theme-ui'
 import type { FC } from 'react'
+import { useIntl } from '@vtex/gatsby-plugin-i18n'
 
 import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 import MinicartDelete from './Delete'
@@ -15,12 +16,16 @@ export interface MinicartContentProps {
   imageElement: React.ElementType
 }
 
+export const freeVariant = (price: Maybe<number>) =>
+  price === 0 ? '.free' : ''
+
 export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
   data,
   variant: v,
   imageElement,
 }) => {
   const { format } = useNumberFormat()
+  const { formatMessage } = useIntl()
   const variant = `${v}.content`
 
   return (
@@ -38,9 +43,19 @@ export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
               <Text variant={`${variant}.product.name.text`}>{item.name}</Text>
               <MinicartDelete index={idx} variant={variant} />
             </Flex>
-            <MinicartQuantity index={idx} variant={variant} />
-            <Text variant={`${variant}.product.name.value`}>
-              {format(Number(item.sellingPrice) / 100)}
+            <MinicartQuantity
+              index={idx}
+              isDisabled={item.sellingPrice === 0}
+              variant={`${variant}${freeVariant(item.sellingPrice)}`}
+            />
+            <Text
+              variant={`${variant}.product.name.value${freeVariant(
+                item.sellingPrice
+              )}`}
+            >
+              {item.sellingPrice === 0
+                ? formatMessage({ id: 'minicart.price.free' })
+                : format(Number(item.sellingPrice) / 100)}
             </Text>
           </Flex>
         </Flex>

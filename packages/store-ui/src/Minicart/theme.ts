@@ -79,6 +79,9 @@ export const minicartTheme: SxStyleProp = {
 
             value: {
               mt: 3,
+              free: {
+                color: 'green',
+              },
             },
           },
         },
