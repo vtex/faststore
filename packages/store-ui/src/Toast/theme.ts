@@ -1,7 +1,19 @@
 import type { SxStyleProp } from 'theme-ui'
+import { keyframes } from '@emotion/core'
+
+const toastAnimation = keyframes`
+  from {
+    bottom: 0px;
+  }
+  
+  to {
+    bottom: 30px;
+  }
+`
 
 const defaultContainerTheme: SxStyleProp = {
   alignItems: 'center',
+  animation: `${toastAnimation} .125s`,
   borderRadius: 5,
   boxShadow: '0 0 10px rgb(0 0 0 / 28%)',
   color: 'white',
