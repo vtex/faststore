@@ -11,9 +11,6 @@ const defaultContainerTheme: SxStyleProp = {
   justifyContent: 'space-between',
   zIndex: 99999,
 
-  bottom: 30,
-  position: 'sticky',
-
   marginLeft: ['10px', 'auto'],
   marginRight: ['10px', '5%'],
   py: '5px',
@@ -25,20 +22,49 @@ const defaultContainerTheme: SxStyleProp = {
   fill: 'white',
 }
 
+const containerPortal: SxStyleProp = {
+  bottom: 30,
+  position: 'sticky',
+}
+
+const containerError: SxStyleProp = {
+  ...defaultContainerTheme,
+  backgroundColor: '#DC143C',
+}
+
+const containerSuccess: SxStyleProp = {
+  ...defaultContainerTheme,
+  backgroundColor: '#40aa60',
+}
+
+const containerWarning: SxStyleProp = {
+  ...defaultContainerTheme,
+  backgroundColor: '#f3e32d',
+}
+
 const theme: SxStyleProp = {
   toast: {
     container: {
       error: {
-        ...defaultContainerTheme,
-        background: '#DC143C',
+        ...containerError,
+        portal: {
+          ...containerError,
+          ...containerPortal,
+        },
       },
       success: {
-        ...defaultContainerTheme,
-        background: '#40aa60',
+        ...containerSuccess,
+        portal: {
+          ...containerSuccess,
+          ...containerPortal,
+        },
       },
       warning: {
-        ...defaultContainerTheme,
-        background: '#f3e32d',
+        ...containerWarning,
+        portal: {
+          ...containerWarning,
+          ...containerPortal,
+        },
       },
     },
     closeButton: {

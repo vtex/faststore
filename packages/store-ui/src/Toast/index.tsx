@@ -21,6 +21,7 @@ interface Props {
   isVisible: boolean
   hideToast: () => void
   type: ToastType
+  disablePortal?: boolean
 }
 
 const Toast: FC<Props> = ({
@@ -28,12 +29,17 @@ const Toast: FC<Props> = ({
   isVisible,
   hideToast,
   type = 'success',
+  disablePortal,
 }) => {
   if (!isVisible) {
     return null
   }
 
-  const containerVariant = `toast.container.${type}`
+  const defaultVariant = 'toast.container'
+  const containerVariant = disablePortal
+    ? `${defaultVariant}.${type}`
+    : `${defaultVariant}.${type}.portal`
+
   const Icon = typeIcons[type]
 
   const content = (
@@ -47,6 +53,10 @@ const Toast: FC<Props> = ({
       </Box>
     </Box>
   )
+
+  if (disablePortal) {
+    return content
+  }
 
   return createPortal(content, document.body)
 }
