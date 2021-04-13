@@ -1,7 +1,7 @@
 import React from 'react'
 import type { FC } from 'react'
+import { Container } from '@vtex/store-ui'
 
-import Container from '../components/Container'
 import SiteMetadata from '../components/SEO/SiteMetadata'
 import Layout from '../components/Layout'
 

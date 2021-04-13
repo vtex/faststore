@@ -1,10 +1,9 @@
 import { localizedPath, useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Center, Spinner } from '@vtex/store-ui'
+import { Center, Spinner, Container } from '@vtex/store-ui'
 import { navigate } from 'gatsby'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
-import Container from '../components/Container'
 import Layout from '../components/Layout'
 import SuspenseSSR from '../components/Suspense/SSR'
 import RenderExtensionLoader from '../sdk/RenderExtensionLoader'
@@ -57,7 +56,7 @@ const MyAccount: FC = () => {
   const { locale, defaultLocale } = useIntl()
 
   useEffect(() => {
-    ;(async () => {
+    const challangeAndRender = async () => {
       try {
         if (!isAuthenticated) {
           const path = localizedPath(defaultLocale, locale, '/login')
@@ -73,7 +72,9 @@ const MyAccount: FC = () => {
       } finally {
         setLoading(false)
       }
-    })()
+    }
+
+    challangeAndRender()
   }, [defaultLocale, isAuthenticated, locale])
 
   if (!isAuthenticated) {
