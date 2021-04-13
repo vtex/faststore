@@ -57,3 +57,5 @@ export type { ProductsShelfOptions } from './sdk/shelf/useProductsShelf'
 export type { RecommendationOptions } from './sdk/shelf/useRecommendationShelf'
 
 export { useIdleEffect } from './sdk/useIdleEffect'
+
+export { useToast } from './sdk/toast/useToast'
