@@ -7,7 +7,7 @@ Store Framework Jamstack (SFJ) CI flow consists of 4 main steps:
 - [Lighthouse CI](#lighthouse-ci) - provides insights on how performance changed with the new developments.
 - [Integration Tests](#integration-tests) - implements integration tests with [Cypress.](https://www.cypress.io/)
 
-![Store Framework Jamstack CI flow](../images/ci_flow.png)
+![Store Framework Jamstack CI flow](./images/ci_flow.png)
 
 Two situations trigger this CI flow:
 
@@ -16,7 +16,7 @@ Two situations trigger this CI flow:
 
 In both cases, GitHub creates a [check suite](https://docs.github.com/en/free-pro-team@latest/rest/guides/getting-started-with-the-checks-api#about-check-suites) and populates it with [check runs](https://docs.github.com/en/free-pro-team@latest/rest/guides/getting-started-with-the-checks-api#about-check-runs). 
 
-![Store Framework Jamstack CI checks](../images/queued_check_runs.png)
+![Store Framework Jamstack CI checks](./images/queued_check_runs.png)
 
 Each of these check runs can have one of the following states, with each one of them indicating that the step:
 
@@ -42,7 +42,7 @@ The Build step runs an automated build for the store, saving all the generated a
 
 >ℹ️ *Once finished, you can click on the *Details* button next to the Build check run to check the build logs.*
 
-![Store Framework Jamstack CI build check completed](../images/build_check_completed.png)
+![Store Framework Jamstack CI build check completed](./images/build_check_completed.png)
 
 ### Deploy preview 
 
@@ -52,7 +52,7 @@ For each pull request, the Build step generates a *Deploy Preview*.
 
 Once the commit status updates to {store-name}/deploy-preview, you'll be able to access the *Deploy Preview* of a specific pull request by clicking on *Details* or directly on the URL: https://preview-{pull-request-number}--{store-name}.vtex.app/.
 
-![Store Framework Jamstack CI deploy preview commit status](../images/deploy_preview_commit_status.png)
+![Store Framework Jamstack CI deploy preview commit status](./images/deploy_preview_commit_status.png)
 
 ## SonarQube
 
@@ -60,7 +60,7 @@ Once the commit status updates to {store-name}/deploy-preview, you'll be able to
 
 If the test detects any issues in the code of a given pull request, SonarQube provides annotations as in the following:
 
-![Store Framework Jamstack CI sonarqube annotations](../images/sonarqube_annotation.png)
+![Store Framework Jamstack CI sonarqube annotations](./images/sonarqube_annotation.png)
 
 ## Lighthouse CI
 
@@ -84,8 +84,8 @@ After completing the Build step, SFJ CI flow executes the integrations tests wit
 
 >ℹ️ *Once finished, you can click on the *Details* button next to the Integration Tests check run to check the test results.*
 
-![Store Framework Jamstack CI integration tests check completed](../images/integration_tests_check_completed.png)
+![Store Framework Jamstack CI integration tests check completed](./images/integration_tests_check_completed.png)
 
-![Store Framework Jamstack CI integration tests results](../images/integration_tests_results.png)
+![Store Framework Jamstack CI integration tests results](./images/integration_tests_results.png)
 
 >ℹ️ *For more information on how to to write end-to-end (E2E) tests for modern web applications with Cypress, follow [this link.](./e2e-testing.md)*
