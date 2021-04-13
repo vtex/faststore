@@ -1,8 +1,7 @@
-import { Box, Grid, Skeleton } from '@vtex/store-ui'
+import { Box, Grid, Skeleton, Container } from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
 
-import Container from '../Container'
 import {
   SearchTemplateAside,
   SearchTemplateContainer,

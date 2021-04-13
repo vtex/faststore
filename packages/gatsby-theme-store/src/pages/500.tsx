@@ -1,11 +1,10 @@
 import { FormattedMessage, useLocalizedPath } from '@vtex/gatsby-plugin-i18n'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
-import { Box, Button, Flex } from '@vtex/store-ui'
+import { Box, Button, Flex, Container } from '@vtex/store-ui'
 import type { PageProps } from 'gatsby'
 
 import Layout from '../components/Layout'
-import Container from '../components/Container'
 import { useSearchParams } from '../sdk/state/useSearchParams'
 
 type Props = PageProps
