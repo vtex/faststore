@@ -19,7 +19,11 @@ class ErrorBoundary extends Component<Props> {
 
   public render() {
     if (this.state.hasError) {
-      return <ErrorHandler error={this.state.error} />
+      return (
+        <ErrorHandler error={this.state.error}>
+          {this.props.children}
+        </ErrorHandler>
+      )
     }
 
     return this.props.children
