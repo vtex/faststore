@@ -20,7 +20,7 @@ interface Props {
   message: ReactNode
   isVisible: boolean
   hideToast: () => void
-  type: ToastType
+  type?: ToastType
   disablePortal?: boolean
 }
 
