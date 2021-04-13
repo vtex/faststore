@@ -1,8 +1,6 @@
-import { Card, Flex, Grid, Skeleton } from '@vtex/store-ui'
+import { Card, Flex, Grid, Skeleton, Container } from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
-
-import Container from '../Container'
 
 const AboveTheFoldPreview: FC = () => (
   <Container>
