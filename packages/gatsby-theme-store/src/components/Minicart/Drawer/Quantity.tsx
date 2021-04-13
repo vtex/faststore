@@ -29,7 +29,7 @@ const QuantityWrapper: FC<WrapperProps> = ({
   </Flex>
 )
 
-const MinicartQuantity = ({ variant: v, index, isDisabled }: Props) => {
+const MinicartQuantity = ({ variant: v, index, isDisabled = false }: Props) => {
   const updateItems = useUpdateItem(index)
   const item = useItem(index)
   const [isLoading, setIsLoading] = useState(false)
@@ -52,7 +52,7 @@ const MinicartQuantity = ({ variant: v, index, isDisabled }: Props) => {
   return (
     <QuantityWrapper isLoading={isLoading} variant={`${variant}.wrapper`}>
       <NumericStepper
-        disabled={isDisabled ?? isLoading}
+        disabled={isDisabled || isLoading}
         value={item.quantity}
         onChange={onChange}
       />
