@@ -56,7 +56,7 @@ const MyAccount: FC = () => {
   const { locale, defaultLocale } = useIntl()
 
   useEffect(() => {
-    const challangeAndRender = async () => {
+    const challengeAndRender = async () => {
       try {
         if (!isAuthenticated) {
           const path = localizedPath(defaultLocale, locale, '/login')
@@ -74,7 +74,7 @@ const MyAccount: FC = () => {
       }
     }
 
-    challangeAndRender()
+    challengeAndRender()
   }, [defaultLocale, isAuthenticated, locale])
 
   if (!isAuthenticated) {
