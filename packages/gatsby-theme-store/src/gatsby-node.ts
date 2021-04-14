@@ -56,7 +56,9 @@ export const createPages = async ({
   }>(`
     query GetAllStaticPaths {
       searches: allStaticPath(
-        filter: { pageType: { in: ["Department", "Category", "Brand"] } }
+        filter: {
+          pageType: { in: ["Department", "Category", "Brand", "SubCategory"] }
+        }
       ) {
         nodes {
           ...staticPath

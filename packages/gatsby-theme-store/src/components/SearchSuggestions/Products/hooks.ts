@@ -56,7 +56,6 @@ export const query = gql`
     $regionId: String
     $facetKey: String
     $facetValue: String
-    $productOriginVtex: Boolean = true
     $simulationBehavior: VTEX_SimulationBehavior = default
   ) {
     vtex {
@@ -65,7 +64,6 @@ export const query = gql`
         regionId: $regionId
         facetKey: $facetKey
         facetValue: $facetValue
-        productOriginVtex: $productOriginVtex
         simulationBehavior: $simulationBehavior
       ) {
         count
