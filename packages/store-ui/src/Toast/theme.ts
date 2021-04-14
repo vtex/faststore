@@ -34,11 +34,6 @@ const defaultContainerTheme: SxStyleProp = {
   fill: 'white',
 }
 
-const containerPortal: SxStyleProp = {
-  bottom: 30,
-  position: 'sticky',
-}
-
 const containerError: SxStyleProp = {
   ...defaultContainerTheme,
   backgroundColor: '#DC143C',
@@ -57,27 +52,9 @@ const containerWarning: SxStyleProp = {
 const theme: SxStyleProp = {
   toast: {
     container: {
-      error: {
-        ...containerError,
-        portal: {
-          ...containerError,
-          ...containerPortal,
-        },
-      },
-      success: {
-        ...containerSuccess,
-        portal: {
-          ...containerSuccess,
-          ...containerPortal,
-        },
-      },
-      warning: {
-        ...containerWarning,
-        portal: {
-          ...containerWarning,
-          ...containerPortal,
-        },
-      },
+      error: containerError,
+      success: containerSuccess,
+      warning: containerWarning,
     },
     closeButton: {
       backgroundColor: 'transparent',

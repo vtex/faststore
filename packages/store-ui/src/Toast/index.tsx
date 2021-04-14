@@ -1,5 +1,4 @@
 import React from 'react'
-import { createPortal } from 'react-dom'
 import { Box } from 'theme-ui'
 import type { ReactNode, FC } from 'react'
 
@@ -21,7 +20,6 @@ interface Props {
   isVisible: boolean
   hideToast: () => void
   type?: ToastType
-  disablePortal?: boolean
 }
 
 const Toast: FC<Props> = ({
@@ -29,21 +27,15 @@ const Toast: FC<Props> = ({
   isVisible,
   hideToast,
   type = 'success',
-  disablePortal,
 }) => {
   if (!isVisible) {
     return null
   }
 
-  const defaultVariant = 'toast.container'
-  const containerVariant = disablePortal
-    ? `${defaultVariant}.${type}`
-    : `${defaultVariant}.${type}.portal`
-
   const Icon = typeIcons[type]
 
-  const content = (
-    <Box variant={containerVariant}>
+  return (
+    <Box variant={`toast.container.${type}`}>
       <Box variant="toast.icon">
         <Icon />
       </Box>
@@ -53,12 +45,6 @@ const Toast: FC<Props> = ({
       </Box>
     </Box>
   )
-
-  if (disablePortal) {
-    return content
-  }
-
-  return createPortal(content, document.body)
 }
 
 export default Toast
