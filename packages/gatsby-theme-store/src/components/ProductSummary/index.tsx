@@ -43,6 +43,10 @@ export const fragment = graphql`
         imageUrl
         imageText
       }
+      productClusters {
+        id
+        name
+      }
       sellers {
         sellerId
         commercialOffer: commertialOffer {
@@ -64,10 +68,6 @@ export const fragment = graphql`
           }
         }
       }
-    }
-    productClusters {
-      id
-      name
     }
   }
 `
