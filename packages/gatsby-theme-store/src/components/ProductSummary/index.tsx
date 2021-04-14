@@ -37,9 +37,6 @@ export const fragment = graphql`
     id: productId
     productName
     linkText
-    productClusters {
-      name
-    }
     items {
       itemId
       images {
@@ -67,6 +64,15 @@ export const fragment = graphql`
           }
         }
       }
+    }
+    productClusters {
+      id
+      name
+    }
+    properties {
+      name
+      originalName
+      values
     }
   }
 `
