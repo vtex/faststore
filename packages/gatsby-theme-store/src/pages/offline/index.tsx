@@ -17,10 +17,10 @@ import React, { useEffect } from 'react'
 
   3. User went offline, then navigated into a page that **did** trigger a fetch
   request to the server. In this case, our service worker will respond with
-  this page's HTML. There will be no redirect, so the user would see this
+  this page's HTML. There will be no redirect, so the user would see an
   offline page, but would still be in the route there were trying to navigate
-  to. In this case, we're sending the user to the page they were trying to
-  access when they're back online.
+  to. This case is handled by the currently active service worker, and the page
+  rendered is '/offline/simple.html'.
 
   */
 function handleUserBackOnline(
@@ -31,13 +31,6 @@ function handleUserBackOnline(
     const { previousPagePath } = locationContext.state
 
     window.location.href = previousPagePath
-
-    return
-  }
-
-  // Case 3.
-  if (!window.location.pathname.startsWith('/offline')) {
-    window.location.reload()
 
     return
   }
@@ -104,7 +97,8 @@ const Page: FC<PagePropsWithNavigationState> = ({ location }) => {
             marginBottom: '30px',
           }}
         >
-          Once your connection is back, you will be redirected.
+          Once your connection is back, you will be redirected to the page you
+          were trying to visit.
         </p>
       </div>
     </div>
