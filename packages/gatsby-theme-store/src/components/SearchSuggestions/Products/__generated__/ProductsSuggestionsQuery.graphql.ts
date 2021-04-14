@@ -22,7 +22,6 @@ export type ProductsSuggestionsQueryQueryVariables = Exact<{
   regionId: Maybe<Scalars['String']>;
   facetKey: Maybe<Scalars['String']>;
   facetValue: Maybe<Scalars['String']>;
-  productOriginVtex?: Maybe<Scalars['Boolean']>;
   simulationBehavior?: Maybe<Vtex_SimulationBehavior>;
 }>;
 
@@ -33,8 +32,8 @@ export type ProductsSuggestionsQueryQuery = { vtex: { productSuggestions: Maybe<
 // Query Related Code
 
 export const ProductsSuggestionsQuery = {
-  query: process.env.NODE_ENV === 'production' ? undefined : "query ProductsSuggestionsQuery($fullText: String!, $regionId: String, $facetKey: String, $facetValue: String, $productOriginVtex: Boolean = true, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(\n      fullText: $fullText\n      regionId: $regionId\n      facetKey: $facetKey\n      facetValue: $facetValue\n      productOriginVtex: $productOriginVtex\n      simulationBehavior: $simulationBehavior\n    ) {\n      count\n      products {\n        key: productId\n        id: productId\n        productName\n        linkText\n        productClusters {\n          name\n        }\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n              }\n              installments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n                interestRate: InterestRate\n              }\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n              spotPrice\n              teasers {\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
-  sha256Hash: "34ac9974b643156fcdc8d796f7cfafde88b052637ba07f89fd7aa13847aea0bf",
+  query: process.env.NODE_ENV === 'production' ? undefined : "query ProductsSuggestionsQuery($fullText: String!, $regionId: String, $facetKey: String, $facetValue: String, $simulationBehavior: VTEX_SimulationBehavior = default) {\n  vtex {\n    productSuggestions(\n      fullText: $fullText\n      regionId: $regionId\n      facetKey: $facetKey\n      facetValue: $facetValue\n      simulationBehavior: $simulationBehavior\n    ) {\n      count\n      products {\n        key: productId\n        id: productId\n        productName\n        linkText\n        productClusters {\n          name\n        }\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n              }\n              installments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n                interestRate: InterestRate\n              }\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n              spotPrice\n              teasers {\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  sha256Hash: "c8f6cb0b3cf59e505791707fca3807e7fac3d95461dfbbb432d51163102b0c0f",
   operationName: "ProductsSuggestionsQuery",
 }
 
