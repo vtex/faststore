@@ -1,0 +1,17 @@
+name: "Internal Docs Integration"
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: vtex/action-internal-docs@main
+        with:
+          repo-token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
+          docs-product: Store-Framework
