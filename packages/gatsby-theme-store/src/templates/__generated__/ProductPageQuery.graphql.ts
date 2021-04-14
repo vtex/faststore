@@ -31,7 +31,7 @@ export type ProductPageQueryQuery = { vtex: { product?: Maybe<{ productReference
 
 export const ProductPageQuery = {
   query: process.env.NODE_ENV === 'production' ? undefined : "query ProductPageQuery($slug: String, $staticPath: Boolean!, $regionId: String) {\n  vtex {\n    product(slug: $slug, regionId: $regionId) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        name\n        complementName\n        itemId\n        referenceId {\n          value: Value\n        }\n        images {\n          imageUrl\n          imageText\n        }\n        videos {\n          videoUrl\n        }\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            listPrice: ListPrice\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n          }\n        }\n        ean\n      }\n      productClusters {\n        id\n        name\n      }\n      properties {\n        name\n        originalName\n        values\n      }\n      description\n      brand\n      categoryTree {\n        href\n        name\n      }\n      titleTag\n      metaTagDescription\n      id: productId\n    }\n  }\n}\n",
-  sha256Hash: "598af846106ba5dfcd01b5dab3f6577a159fd6b57d7193089d0ebeefa6c07760",
+  sha256Hash: "85ae4570768d12e75db1f572b2c805b7d9af6dc672ed3f0cdeecf9a054b539c4",
   operationName: "ProductPageQuery",
 }
 
