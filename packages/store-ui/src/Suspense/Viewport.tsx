@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import { useInView } from 'react-hook-inview'
 import type { FC, SuspenseProps } from 'react'
 
-import { useIdleEffect } from '../../sdk/useIdleEffect'
+import { useIdleEffect } from './hooks/useIdleEffect'
 
 interface Props extends SuspenseProps {
   preloader?: () => Promise<any>

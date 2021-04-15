@@ -1,6 +1,5 @@
 import { useState } from 'react'
-
-import { useIdleEffect } from '../useIdleEffect'
+import { useIdleEffect } from '@vtex/store-ui'
 
 type SearchFn = (term: string) => Promise<void>
 

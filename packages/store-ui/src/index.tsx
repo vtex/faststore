@@ -236,3 +236,10 @@ export * from 'reakit/Tooltip'
 // Toast
 export { default as Toast } from './Toast'
 export { default as toastTheme } from './Toast/theme'
+
+// Suspense
+export { default as SuspenseDevice } from './Suspense/Device'
+export { default as SuspenseSSR } from './Suspense/SSR'
+export { default as SuspenseViewport } from './Suspense/Viewport'
+export { useIdleEffect } from './Suspense/hooks/useIdleEffect'
+export { useDevice } from './Suspense/hooks/useDevice'

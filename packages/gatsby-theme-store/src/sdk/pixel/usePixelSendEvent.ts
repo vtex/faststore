@@ -1,4 +1,5 @@
-import { useIdleEffect } from '../useIdleEffect'
+import { useIdleEffect } from '@vtex/store-ui'
+
 import { wrap } from './pixel'
 import type { PixelEvent } from './pixel'
 

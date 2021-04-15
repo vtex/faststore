@@ -1,8 +1,8 @@
 import React, { Suspense, useState } from 'react'
 import type { FC, SuspenseProps } from 'react'
 
-import { useDevice } from '../../sdk/media/useDevice'
-import { useIdleEffect } from '../../sdk/useIdleEffect'
+import { useDevice } from './hooks/useDevice'
+import { useIdleEffect } from './hooks/useIdleEffect'
 
 type Device = ReturnType<typeof useDevice>
 
