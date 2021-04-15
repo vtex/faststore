@@ -1,11 +1,10 @@
 import { localizedPath, useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Center, Spinner, Container } from '@vtex/store-ui'
+import { Center, Spinner, Container, SuspenseSSR } from '@vtex/store-ui'
 import { navigate } from 'gatsby'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
 import Layout from '../components/Layout'
-import SuspenseSSR from '../components/Suspense/SSR'
 import RenderExtensionLoader from '../sdk/RenderExtensionLoader'
 import { useProfile } from '../sdk/session/useProfile'
 import Helmet from '../components/SEO/Helmet'

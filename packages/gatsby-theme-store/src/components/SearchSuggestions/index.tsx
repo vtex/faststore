@@ -1,7 +1,7 @@
 import React, { lazy } from 'react'
 import type { FC } from 'react'
+import { SuspenseDevice } from '@vtex/store-ui'
 
-import SuspenseDevice from '../Suspense/Device'
 import SearchSuggestionsProvider from './base/Provider'
 
 const SearchSuggestionMobile = lazy(() => import('./Mobile'))

@@ -1,4 +1,4 @@
-import { useIdleEffect } from '../useIdleEffect'
+import { useIdleEffect } from '@vtex/store-ui'
 
 interface Options {
   src: string

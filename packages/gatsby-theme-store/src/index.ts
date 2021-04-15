@@ -24,8 +24,6 @@ export { useNumberFormat } from './sdk/localization/useNumberFormat'
 // Shipping
 export { useShippingSimulator } from './sdk/shipping/useShippingSimulator'
 
-export { useDevice } from './sdk/media/useDevice'
-
 export { useMinicart } from './sdk/minicart/useMinicart'
 
 export { useDiscount } from './sdk/offer/useDiscount'
@@ -57,5 +55,3 @@ export { useRecommendationShelf } from './sdk/shelf/useRecommendationShelf'
 export { useProductsShelf } from './sdk/shelf/useProductsShelf'
 export type { ProductsShelfOptions } from './sdk/shelf/useProductsShelf'
 export type { RecommendationOptions } from './sdk/shelf/useRecommendationShelf'
-
-export { useIdleEffect } from './sdk/useIdleEffect'

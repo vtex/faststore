@@ -1,8 +1,7 @@
-import { useThemeUI } from '@vtex/store-ui'
+import { useThemeUI, useIdleEffect } from '@vtex/store-ui'
 import { useMemo } from 'react'
 import type { FC } from 'react'
 
-import { useIdleEffect } from '../useIdleEffect'
 import type { NProgress } from './controller'
 
 const loadController = () => import('./controller')

@@ -1,12 +1,12 @@
 import React, { lazy } from 'react'
 import type { PageProps } from 'gatsby'
 import type { FC } from 'react'
+import { SuspenseViewport } from '@vtex/store-ui'
 
 import AboveTheFold from '../components/HomePage/AboveTheFold'
 import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
 import SEO from '../components/HomePage/SEO'
 import Layout from '../components/Layout'
-import SuspenseViewport from '../components/Suspense/Viewport'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 import type { PageViewData } from '../sdk/pixel/events'
 
