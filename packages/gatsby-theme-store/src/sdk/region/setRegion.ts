@@ -50,41 +50,7 @@ export const mutation = gql`
       }
       orderFormId: $orderFormId
     ) {
-      id
-      shipping {
-        availableAddresses {
-          postalCode
-          receiverName
-          reference
-          state
-          street
-          number
-          neighborhood
-          isDisposable
-          geoCoordinates
-          country
-          complement
-          city
-          addressType
-          addressId
-        }
-        selectedAddress {
-          addressId
-          addressType
-          city
-          complement
-          country
-          geoCoordinates
-          isDisposable
-          neighborhood
-          postalCode
-          number
-          receiverName
-          reference
-          state
-          street
-        }
-      }
+      ...OrderFormFragment_orderForm
     }
   }
 `
