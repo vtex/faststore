@@ -1,5 +1,5 @@
-import { Box } from '@vtex/store-ui'
 import React from 'react'
+import { Box } from 'theme-ui'
 import type { FC } from 'react'
 
 interface Props {

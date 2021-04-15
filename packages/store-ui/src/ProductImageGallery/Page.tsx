@@ -1,6 +1,9 @@
-import { AspectImage, ProgressiveImage, YoutubeIframe } from '@vtex/store-ui'
-import React from 'react'
 import type { ComponentPropsWithoutRef, FC } from 'react'
+import React from 'react'
+import { AspectImage } from 'theme-ui'
+
+import YoutubeIframe from '../Youtube/Iframe'
+import ProgressiveImage from '../ProgressiveImage'
 
 export type Item =
   | {

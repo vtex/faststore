@@ -1,7 +1,6 @@
-/** @jsx jsx */
-import { Box, useSlider, jsx, SuspenseDevice } from '@vtex/store-ui'
-import { lazy } from 'react'
+import React, { lazy } from 'react'
 import type { FC } from 'react'
+import { Box } from 'theme-ui'
 
 import ProductImageGalleryArrowLeft from './ArrowLeft'
 import ProductImageGalleryArrowRight from './ArrowRight'
@@ -9,8 +8,10 @@ import ProductImageGalleryMiniaturesContainer from './Miniatures/Container'
 import ProductImageGalleryPage from './Page'
 import ProductImageGalleryPaginationDots from './PaginationDots'
 import type { Item } from './Page'
+import { useSlider } from '../Slider/hooks/useSlider'
+import SuspenseDevice from '../Suspense/Device'
 
-const ProductImageGalleryMiniatures = lazy(() => import('./Miniatures/index'))
+const ProductImageGalleryMiniatures = lazy(() => import('./Miniatures'))
 
 interface Props {
   allItems: Item[]

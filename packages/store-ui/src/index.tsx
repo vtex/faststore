@@ -243,3 +243,13 @@ export { default as SuspenseSSR } from './Suspense/SSR'
 export { default as SuspenseViewport } from './Suspense/Viewport'
 export { useIdleEffect } from './Suspense/hooks/useIdleEffect'
 export { useDevice } from './Suspense/hooks/useDevice'
+
+// Product Image Gallery
+export { default as ProductImageGallery } from './ProductImageGallery'
+export { default as ProductImageGalleryArrowLeft } from './ProductImageGallery/ArrowLeft'
+export { default as ProductImageGalleryArrowRight } from './ProductImageGallery/ArrowRight'
+export { default as ProductImageGalleryPage } from './ProductImageGallery/Page'
+export { default as ProductImageGalleryPaginationDots } from './ProductImageGallery/PaginationDots'
+export { default as ProductImageGalleryMiniatures } from './ProductImageGallery/Miniatures'
+export { default as ProductImageGalleryMiniaturesContainer } from './ProductImageGallery/Miniatures/Container'
+export { productImageGalleryTheme } from './ProductImageGallery/theme'

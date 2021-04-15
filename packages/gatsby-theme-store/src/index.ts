@@ -55,3 +55,8 @@ export { useRecommendationShelf } from './sdk/shelf/useRecommendationShelf'
 export { useProductsShelf } from './sdk/shelf/useProductsShelf'
 export type { ProductsShelfOptions } from './sdk/shelf/useProductsShelf'
 export type { RecommendationOptions } from './sdk/shelf/useRecommendationShelf'
+
+export { useRegion } from './sdk/region/useRegion'
+export { setRegion } from './sdk/region/setRegion'
+
+export { useToast } from './sdk/toast/useToast'
