@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useOrderItems } from '../orderForm/useOrderItems'
 import { useOrderForm } from '../orderForm/useOrderForm'
@@ -18,6 +16,9 @@ interface Seller {
 export interface SKU {
   itemId: string
   sellers: Seller[]
+  images?: Array<{
+    imageUrl: string
+  }>
 }
 
 export interface Props {
@@ -25,6 +26,7 @@ export interface Props {
   quantity: number
   oneClickBuy?: boolean
   openMinicart?: boolean
+  productName?: string
 }
 
 export const useBuyButton = ({
@@ -32,11 +34,11 @@ export const useBuyButton = ({
   quantity,
   oneClickBuy = false,
   openMinicart = true,
+  productName,
 }: Props) => {
   const minicart = useMinicart()
-  const [loading, setLoading] = useState(false)
   const seller = useBestSeller(sku)
-  const { orderForm } = useOrderForm()
+  const { orderForm, loading } = useOrderForm()
   const { addItem } = useOrderItems()
   const disabled = loading || !sku || !orderForm || !seller
 
@@ -77,10 +79,11 @@ export const useBuyButton = ({
       id: sku!.itemId,
       price: seller.commercialOffer.price * 100,
       sellingPrice: seller.commercialOffer.price * 100,
+      imageUrl: sku!.images?.[0]?.imageUrl,
+      name: productName,
     }
 
     try {
-      setLoading(true)
       const items = [orderFormItemWithPrice]
 
       addItem(items)
@@ -98,8 +101,6 @@ export const useBuyButton = ({
       })
     } catch (err) {
       console.error(err)
-    } finally {
-      setLoading(false)
     }
   }
 
