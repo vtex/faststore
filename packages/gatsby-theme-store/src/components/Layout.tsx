@@ -1,8 +1,8 @@
 import React, { Fragment, lazy } from 'react'
 import type { FC } from 'react'
+import { SuspenseViewport } from '@vtex/store-ui'
 
 import Header from './Header'
-import SuspenseViewport from './Suspense/Viewport'
 
 const loader = () => import('./Footer')
 

@@ -24,8 +24,6 @@ export { useNumberFormat } from './sdk/localization/useNumberFormat'
 // Shipping
 export { useShippingSimulator } from './sdk/shipping/useShippingSimulator'
 
-export { useDevice } from './sdk/media/useDevice'
-
 export { useMinicart } from './sdk/minicart/useMinicart'
 
 export { useDiscount } from './sdk/offer/useDiscount'
