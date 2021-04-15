@@ -124,6 +124,9 @@ export const fragment = graphql`
       }
       sellers {
         commercialOffer: commertialOffer {
+          teasers {
+            name
+          }
           price: Price
           availableQuantity: AvailableQuantity
           priceValidUntil: PriceValidUntil
