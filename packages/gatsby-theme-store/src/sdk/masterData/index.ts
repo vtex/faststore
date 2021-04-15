@@ -45,27 +45,26 @@ export type MasterData = (
 
 type Method = 'POST' | 'GET' | 'PATCH' | 'DELETE' | 'PUT'
 
-const fetchy = (
+const fetchy = async (
   url: string,
   method: Method,
   data?: DataInput
-): Promise<MasterDataSaveResponse> =>
-  new Promise((resolve, reject) => {
-    fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        accept: 'application/vnd.vtex.ds.v10+json',
-      },
-      method,
-      body: JSON.stringify(data),
-    }).then((response) => {
-      if (response.ok) {
-        resolve(response.json())
-      } else {
-        reject(new Error())
-      }
-    })
+): Promise<MasterDataSaveResponse> => {
+  return fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      accept: 'application/vnd.vtex.ds.v10+json',
+    },
+    method,
+    body: JSON.stringify(data),
+  }).then((response) => {
+    if (response.ok) {
+      return response.json()
+    }
+
+    return new Error()
   })
+}
 
 const masterDataApi: MasterData = (entity) => {
   const url = `/api/dataentities/${entity}/documents`
