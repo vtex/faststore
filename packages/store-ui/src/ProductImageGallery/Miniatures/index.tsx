@@ -1,8 +1,8 @@
-import { Box } from '@vtex/store-ui'
 import React from 'react'
+import { AspectImage, Box } from 'theme-ui'
 import type { FC } from 'react'
 
-import Page from './Page'
+import YoutubeThumb from '../../Youtube/Thumb'
 import type { Item } from '../Page'
 
 interface Props {
@@ -27,7 +27,12 @@ const Miniatures: FC<Props> = ({
         }`}
         onClick={() => onSelect(index)}
       >
-        <Page variant={variant} item={item} />
+        {item.type === 'image' ? (
+          <AspectImage ratio={1} {...item.props} {...item.props.targetProps} />
+        ) : (
+          // TODO: Figure out a way of supporting other platforms, like vimeo
+          <YoutubeThumb src={item.props.src} variant={variant} />
+        )}
       </Box>
     ))}
   </>

@@ -17,7 +17,8 @@ import type {
   ProductPageQueryQuery,
   ProductPageQueryQueryVariables,
 } from './__generated__/ProductPageQuery.graphql'
-import { useRegion } from '../components/useRegion'
+import { useRegion } from '../sdk/region/useRegion'
+
 
 const belowTheFoldPreloader = () =>
   import('../components/ProductPage/BelowTheFold')

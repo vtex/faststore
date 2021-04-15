@@ -20,7 +20,8 @@ import type {
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
-import { useRegion } from '../components/useRegion'
+import { useRegion } from '../sdk/region/useRegion'
+
 
 const belowTheFoldPreloader = () =>
   import('../components/SearchPage/BelowTheFold')

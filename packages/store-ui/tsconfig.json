@@ -1,5 +1,8 @@
 {
   "extends": "@vtex/tsconfig",
   "include": ["src"],
+  "compilerOptions": {
+    "module": "ESNext"
+  },
   "exclude": ["node_modules", "dist"]
 }
