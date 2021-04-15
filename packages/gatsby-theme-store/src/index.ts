@@ -57,5 +57,3 @@ export { useRecommendationShelf } from './sdk/shelf/useRecommendationShelf'
 export { useProductsShelf } from './sdk/shelf/useProductsShelf'
 export type { ProductsShelfOptions } from './sdk/shelf/useProductsShelf'
 export type { RecommendationOptions } from './sdk/shelf/useRecommendationShelf'
-
-export { useIdleEffect } from './sdk/useIdleEffect'

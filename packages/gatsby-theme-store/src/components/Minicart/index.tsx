@@ -1,10 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@vtex/store-ui'
+import { jsx, useIdleEffect } from '@vtex/store-ui'
 import { Fragment, lazy, Suspense } from 'react'
 import type { FC } from 'react'
 
 import { useMinicart } from '../../sdk/minicart/useMinicart'
-import { useIdleEffect } from '../../sdk/useIdleEffect'
 import CustomMinicartButton from './Button'
 
 const preloadDrawer = () => import('./Drawer')
