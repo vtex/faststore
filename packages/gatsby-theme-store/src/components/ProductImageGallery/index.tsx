@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { Box, useSlider, jsx } from '@vtex/store-ui'
+import { Box, useSlider, jsx, SuspenseDevice } from '@vtex/store-ui'
 import { lazy } from 'react'
 import type { FC } from 'react'
 
-import SuspenseDevice from '../Suspense/Device'
 import ProductImageGalleryArrowLeft from './ArrowLeft'
 import ProductImageGalleryArrowRight from './ArrowRight'
 import ProductImageGalleryMiniaturesContainer from './Miniatures/Container'

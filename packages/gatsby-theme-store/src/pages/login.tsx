@@ -1,12 +1,11 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Box, Center, Flex, Spinner } from '@vtex/store-ui'
+import { Box, Center, Flex, Spinner, SuspenseSSR } from '@vtex/store-ui'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 
 import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
-import SuspenseSSR from '../components/Suspense/SSR'
 import { useOnLoginSuccessful } from '../sdk/auth/useOnLoginSuccessful'
 import { useProfile } from '../sdk/session/useProfile'
 import Helmet from '../components/SEO/Helmet'
