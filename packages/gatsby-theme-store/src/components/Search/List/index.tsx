@@ -66,10 +66,11 @@ export const query = gql`
     $from: Int
     $to: Int
     $orderBy: String
+    $hideUnavailableItems: Boolean = false
   ) {
     vtex {
       productSearch(
-        hideUnavailableItems: false
+        hideUnavailableItems: $hideUnavailableItems
         selectedFacets: $selectedFacets
         fullText: $fullText
         query: $query

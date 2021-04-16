@@ -57,6 +57,7 @@ export const useSearchFiltersFromPageContext = (
     selectedFacets: pageContextSelectedFacets,
     staticPath: pageContextStaticPath,
     orderBy: pageContextOrderBy,
+    hideUnavailableItems,
   } = pageContext
 
   return useMemo(() => {
@@ -108,6 +109,7 @@ export const useSearchFiltersFromPageContext = (
       priceRange,
       query,
       map,
+      hideUnavailableItems,
     }
   }, [
     search,
@@ -117,5 +119,6 @@ export const useSearchFiltersFromPageContext = (
     pageContextStaticPath,
     pageContextOrderBy,
     pathname,
+    hideUnavailableItems,
   ])
 }
