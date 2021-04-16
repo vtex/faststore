@@ -25,6 +25,7 @@ export type SearchQueryQueryVariables = Exact<{
   from: Maybe<Scalars['Int']>;
   to: Maybe<Scalars['Int']>;
   orderBy: Maybe<Scalars['String']>;
+  hideUnavailableItems?: Maybe<Scalars['Boolean']>;
 }>;
 
 
@@ -34,8 +35,8 @@ export type SearchQueryQuery = { vtex: { productSearch: Maybe<{ products: Maybe<
 // Query Related Code
 
 export const SearchQuery = {
-  query: process.env.NODE_ENV === 'production' ? undefined : "query SearchQuery($query: String, $map: String, $fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $orderBy: String) {\n  vtex {\n    productSearch(\n      hideUnavailableItems: false\n      selectedFacets: $selectedFacets\n      fullText: $fullText\n      query: $query\n      map: $map\n      from: $from\n      to: $to\n      orderBy: $orderBy\n    ) {\n      products {\n        id: productId\n        productName\n        linkText\n        productClusters {\n          id\n          name\n        }\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n              }\n              installments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n                interestRate: InterestRate\n              }\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n              spotPrice\n              teasers {\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
-  sha256Hash: "cd15a42751c7074e597f0083c4964fad522d75d91a2b22d83edfb5d391737621",
+  query: process.env.NODE_ENV === 'production' ? undefined : "query SearchQuery($query: String, $map: String, $fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $orderBy: String, $hideUnavailableItems: Boolean = false) {\n  vtex {\n    productSearch(\n      hideUnavailableItems: $hideUnavailableItems\n      selectedFacets: $selectedFacets\n      fullText: $fullText\n      query: $query\n      map: $map\n      from: $from\n      to: $to\n      orderBy: $orderBy\n    ) {\n      products {\n        id: productId\n        productName\n        linkText\n        productClusters {\n          id\n          name\n        }\n        items {\n          itemId\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n              }\n              installments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n                interestRate: InterestRate\n              }\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n              spotPrice\n              teasers {\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  sha256Hash: "c8beed60ebef5966ae0e09bef21b96db4948f08216782ce7e6d352bbaf2d3100",
   operationName: "SearchQuery",
 }
 

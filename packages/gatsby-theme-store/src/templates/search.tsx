@@ -22,7 +22,6 @@ import type {
 } from './__generated__/SearchPageQuery.graphql'
 import { useRegion } from '../sdk/region/useRegion'
 
-
 const belowTheFoldPreloader = () =>
   import('../components/SearchPage/BelowTheFold')
 
@@ -154,12 +153,13 @@ export const query = graphql`
     $staticPath: Boolean!
     $selectedFacets: [VTEX_SelectedFacetInput!]
     $orderBy: String = "OrderByScoreDESC"
+    $hideUnavailableItems: Boolean = false
   ) {
     vtex {
       productSearch(
         from: $from
         to: $to
-        hideUnavailableItems: false
+        hideUnavailableItems: $hideUnavailableItems
         simulationBehavior: skip
         orderBy: $orderBy
         query: $query
