@@ -36,7 +36,7 @@ vtex login {account}
 2. Run the following command to setup the environment and install all the necessary apps to start developing with the SFJ.
 
 ```shell
-vtex install vtex.admin-search@1.x vtex.admin-cms@0.x vtex.graphql-gateway@0.x vtex.store-sitemap@2.x vtex.store@2.x && vtex settings set vtex.store enableOrderFormOptimization true
+vtex install vtex.admin-search@1.x vtex.admin-cms@0.x vtex.graphql-gateway@0.x vtex.store-sitemap@2.x vtex.store@2.x vtex.messages@1.x && vtex settings set vtex.store enableOrderFormOptimization true && vtex settings set vtex.messages automaticTranslation false
 ```
 
 >ℹ️ *Before proceeding, make sure that the [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/3qgT47zY08biLP3d5os3DG) app (`vtex.search-resolver@1.x`) is installed in your VTEX account and that [indexing](https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/6wKQgKmu2FT6084BJT7z5V) has started. Check [our docs](https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/3qgT47zY08biLP3d5os3DG) for more info.*
