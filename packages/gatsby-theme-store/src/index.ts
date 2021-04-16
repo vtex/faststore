@@ -32,8 +32,13 @@ export { useDiscount } from './sdk/offer/useDiscount'
 export { useListPrice } from './sdk/offer/useListPrice'
 export { usePrice } from './sdk/offer/usePrice'
 
-export { useOrderForm } from './sdk/orderForm/useOrderForm'
+export {
+  useOrderForm,
+  useOrderQueue,
+  useQueueStatus,
+} from './sdk/orderForm/useOrderForm'
 export type { OrderForm } from './sdk/orderForm/Provider'
+export { useOrderItems } from './sdk/orderForm/useOrderItems'
 
 export { useSummaryImage } from './sdk/product/useSummaryImage'
 export { useSku } from './sdk/product/useSku'
