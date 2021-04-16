@@ -17,7 +17,7 @@ const getSkuOffers = (
 ): Maybe<Offer[]> =>
   sku.sellers?.map((seller) => ({
     '@type': 'Offer',
-    price: seller!.commercialOffer!.price!,
+    price: seller!.commercialOffer!.spotPrice!,
     priceCurrency: currency,
     url,
     priceValidUntil: seller!.commercialOffer!.priceValidUntil?.slice(0, 10),
@@ -124,10 +124,7 @@ export const fragment = graphql`
       }
       sellers {
         commercialOffer: commertialOffer {
-          teasers {
-            name
-          }
-          price: Price
+          spotPrice
           availableQuantity: AvailableQuantity
           priceValidUntil: PriceValidUntil
         }
