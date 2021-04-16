@@ -7,7 +7,7 @@ export const useToast = () => {
 
   const showToastWrapped = useCallback(
     (message: string) => {
-      showToast({ message, duration: 3000 })
+      showToast({ message, duration: 6000, type: 'error' })
     },
     [showToast]
   )
