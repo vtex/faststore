@@ -39,7 +39,11 @@ export const SearchControlsSelect: FC<Props> = ({
       {options.map(([value, label]) => {
         const l = formatLabel(label)
 
-        return <option label={l} key={value} value={value} aria-label={l} />
+        return (
+          <option key={value} value={value} aria-label={l}>
+            {l}
+          </option>
+        )
       })}
     </Select>
   )
