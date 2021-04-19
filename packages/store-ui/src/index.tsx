@@ -112,13 +112,6 @@ export { default as InfoCardImage } from './InfoCard/Image'
 export { default as InfoCardInfo } from './InfoCard/Info'
 export { default as InfoCardInfoAction } from './InfoCard/InfoAction'
 export { default as infoCardTheme } from './InfoCard/theme'
-// Minicart
-export * from './Minicart/Badge'
-export * from './Minicart/Button'
-export * from './Minicart/Content'
-export * from './Minicart/Drawer'
-export * from './Minicart/Svg'
-export * from './Minicart/theme'
 // LocalizedLink
 export { default as LocalizedLink } from './LocalizedLink'
 // Banner
@@ -253,3 +246,16 @@ export { default as ProductImageGalleryPaginationDots } from './ProductImageGall
 export { default as ProductImageGalleryMiniatures } from './ProductImageGallery/Miniatures'
 export { default as ProductImageGalleryMiniaturesContainer } from './ProductImageGallery/Miniatures/Container'
 export { productImageGalleryTheme } from './ProductImageGallery/theme'
+
+// Minicart
+export { default as Minicart } from './Minicart'
+export { default as MinicartDrawer } from './Minicart/Drawer'
+export { default as MinicartDrawerHeader } from './Minicart/Drawer/Header'
+export { default as MinicartDrawerHeaderCloseButton } from './Minicart/Drawer/Header/CloseButton'
+export { default as MinicartDrawerFooter } from './Minicart/Drawer/Footer'
+export { default as MinicartDrawerContent } from './Minicart/Drawer/Content'
+export { default as MinicartDrawerContentImage } from './Minicart/Drawer/Content/Image'
+export { default as MinicartDrawerContentDelete } from './Minicart/Drawer/Content/RemoveItem'
+export { default as MinicartDrawerContentQuantity } from './Minicart/Drawer/Content/UpdateItem'
+export { default as MinicartButton } from './Minicart/Button'
+export { minicartTheme } from './Minicart/theme'
