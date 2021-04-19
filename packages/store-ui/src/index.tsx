@@ -248,7 +248,6 @@ export { default as ProductImageGalleryMiniaturesContainer } from './ProductImag
 export { productImageGalleryTheme } from './ProductImageGallery/theme'
 
 // Minicart
-export { default as Minicart } from './Minicart'
 export { default as MinicartDrawer } from './Minicart/Drawer'
 export { default as MinicartDrawerHeader } from './Minicart/Drawer/Header'
 export { default as MinicartDrawerHeaderCloseButton } from './Minicart/Drawer/Header/CloseButton'

@@ -7,10 +7,14 @@ import MinicartButtomBadge from './Badge'
 
 interface Props extends ComponentPropsWithoutRef<typeof Button> {
   value: number
-  variant: string
+  variant?: string
 }
 
-const MinicartButton: FC<Props> = ({ variant: v, value, ...props }) => {
+const MinicartButton: FC<Props> = ({
+  variant: v = 'default',
+  value,
+  ...props
+}) => {
   const variant = `minicart.${v}.button`
 
   return (

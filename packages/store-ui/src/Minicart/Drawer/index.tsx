@@ -19,12 +19,11 @@ export interface Props<T extends Item>
       ComponentPropsWithoutRef<typeof MinicartDrawerFooter>,
       'onCheckout' | 'total' | 'subTotal' | 'numberFormat'
     > {
-  variant: string
+  variant?: string
 }
 
 const MinicartDrawer = <T extends Item>({
   isOpen,
-  variant,
   items,
   total,
   subTotal,
@@ -33,6 +32,7 @@ const MinicartDrawer = <T extends Item>({
   updateItem,
   numberFormat,
   onCheckout,
+  variant = 'default',
 }: PropsWithChildren<Props<T>>) => {
   const customVariant = `minicart.${variant}.drawer`
 
