@@ -11,11 +11,6 @@ interface Props {
   numberFormat: (num: number) => string
 }
 
-// const checkout: MouseEventHandler<HTMLButtonElement> = (e) => {
-//   e.preventDefault()
-//   window.location.href = '/checkout/'
-// }
-
 const MinicartDrawerFooter: FC<Props> = ({
   variant: v,
   total,
@@ -24,11 +19,6 @@ const MinicartDrawerFooter: FC<Props> = ({
   numberFormat,
 }) => {
   const variant = `${v}.footer`
-  // const { orderForm } = useOrderForm()
-  // const { formatMessage } = useIntl()
-  // const { format } = useNumberFormat()
-  // const total = format(Number(orderForm.value) / 100)
-  // const subTotal = total
 
   return (
     <Flex variant={variant}>

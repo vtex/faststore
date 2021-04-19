@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { Context } from '.'
+import { Context } from './Provider'
 
 export const useMinicart = () => {
   const context = useContext(Context)

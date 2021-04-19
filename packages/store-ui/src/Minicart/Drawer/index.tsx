@@ -38,16 +38,16 @@ const MinicartDrawer = <T extends Item>({
 
   return (
     <Drawer
-      variant={variant}
+      variant={customVariant}
       isOpen={isOpen}
       placement="right"
       onClose={onClose}
       width={400}
     >
       <MinicartDrawerHeader
+        variant={customVariant}
         onClose={onClose}
         count={items.length}
-        variant={customVariant}
       />
       <MinicartDrawerContent
         variant={customVariant}
@@ -57,9 +57,9 @@ const MinicartDrawer = <T extends Item>({
         numberFormat={numberFormat}
       />
       <MinicartDrawerFooter
+        variant={customVariant}
         total={total}
         subTotal={subTotal}
-        variant={customVariant}
         onCheckout={onCheckout}
         numberFormat={numberFormat}
       />

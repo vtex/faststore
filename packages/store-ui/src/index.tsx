@@ -258,4 +258,8 @@ export { default as MinicartDrawerContentImage } from './Minicart/Drawer/Content
 export { default as MinicartDrawerContentDelete } from './Minicart/Drawer/Content/RemoveItem'
 export { default as MinicartDrawerContentQuantity } from './Minicart/Drawer/Content/UpdateItem'
 export { default as MinicartButton } from './Minicart/Button'
+export { default as MinicartButtonSVG } from './Minicart/Button/Svg'
+export { default as MinicartButtonBadge } from './Minicart/Button/Badge'
+export { default as MinicartI18nPT } from './Minicart/i18n/pt'
+export { default as MinicartI18nEN } from './Minicart/i18n/en'
 export { minicartTheme } from './Minicart/theme'
