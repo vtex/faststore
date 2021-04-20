@@ -155,6 +155,15 @@ function generateNginxConfiguration({
                 // https://www.gatsbyjs.com/docs/how-to/adding-common-features/add-404-page/
                 { cmd: ['error_page', '404', '/404.html'] },
 
+                // Block nginx.conf
+                {
+                  cmd: ['location', '/nginx.conf'],
+                  children: [
+                    { cmd: ['deny', 'all'] },
+                    { cmd: ['return', '404'] },
+                  ],
+                },
+
                 ...locations,
               ],
             },
