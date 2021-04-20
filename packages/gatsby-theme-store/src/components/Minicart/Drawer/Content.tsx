@@ -20,14 +20,14 @@ export interface MinicartContentProps {
   imageElement: React.ElementType
 }
 
-interface ItemsProps {
+export interface ItemsProps {
   items: Product[]
   variant: string
   imageElement: React.ElementType
   formats: { format: (value: number) => string; formatMessage: any }
 }
 
-interface ItemProps {
+export interface ItemProps {
   item: Product
   variant: string
   formats: { format: (value: number) => string; formatMessage: any }
@@ -36,7 +36,7 @@ interface ItemProps {
 export const freeVariant = (price: Maybe<number>) =>
   price === 0 ? '.free' : ''
 
-const ItemInfo = ({
+export const ItemInfo = ({
   item: { product, index },
   variant,
   formats: { format, formatMessage },
@@ -65,7 +65,7 @@ const ItemInfo = ({
   </>
 )
 
-const AvailableItems = ({
+export const AvailableItems = ({
   items,
   variant,
   imageElement,
@@ -92,7 +92,7 @@ const AvailableItems = ({
   </Box>
 )
 
-const UnavailableItems = ({
+export const UnavailableItems = ({
   items,
   variant,
   imageElement,
