@@ -39,7 +39,7 @@
     "@vtex/gatsby-plugin-graphql": "^0.311.0",
     "@vtex/gatsby-plugin-theme-ui": "^0.311.0",
     "@vtex/order-items": "^0.5.1",
-    "@vtex/order-manager": "^0.3.1",
+    "@vtex/order-manager": "^0.4.1-1",
     "@vtex/store-ui": "^0.311.0",
     "gatsby-plugin-bundle-stats": "^2.7.2",
     "gatsby-plugin-react-helmet-async": "^1.2.0",
