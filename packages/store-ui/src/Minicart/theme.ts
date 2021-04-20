@@ -84,6 +84,16 @@ export const minicartTheme: SxStyleProp = {
               },
             },
           },
+          availabilityContainer: {
+            backgroundColor: '#fff6e0',
+            borderRadius: '4px',
+            padding: '10px',
+            message: {
+              fontSize: '16px',
+              lineHeight: '20px',
+              fontWeight: 400,
+            },
+          },
         },
       },
 
