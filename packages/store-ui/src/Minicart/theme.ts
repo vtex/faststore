@@ -1,13 +1,15 @@
 import type { SxStyleProp } from 'theme-ui'
 
 const theme: SxStyleProp = {
+  bg: 'muted',
+
   button: {
-    bg: '#f0f0f0',
+    bg: 'transparent',
     position: 'relative',
     cursor: 'pointer',
 
     badge: {
-      bg: '#f71963',
+      bg: 'secondary',
       borderRadius: '100%',
       height: 16,
       position: 'absolute',

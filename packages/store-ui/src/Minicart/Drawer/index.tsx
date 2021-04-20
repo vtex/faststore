@@ -34,11 +34,12 @@ const MinicartDrawer = <T extends Item>({
   onCheckout,
   variant = 'default',
 }: PropsWithChildren<Props<T>>) => {
+  const drawerVariant = `minicart.${variant}`
   const customVariant = `minicart.${variant}.drawer`
 
   return (
     <Drawer
-      variant={customVariant}
+      variant={drawerVariant}
       isOpen={isOpen}
       placement="right"
       onClose={onClose}

@@ -13,7 +13,7 @@ interface Props<T extends Item> {
   updateItem: (item: T) => Promise<void> | void
 }
 
-const MinicartDrawerUpdateItem = <T extends Item>({
+const MinicartDrawerQuantity = <T extends Item>({
   updateItem,
   item,
   variant: v,
@@ -52,4 +52,4 @@ const MinicartDrawerUpdateItem = <T extends Item>({
   )
 }
 
-export default MinicartDrawerUpdateItem
+export default MinicartDrawerQuantity

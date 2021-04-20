@@ -3,9 +3,9 @@ import { Flex, Text } from 'theme-ui'
 import { FormattedMessage } from '@vtex/gatsby-plugin-i18n'
 import type { PropsWithChildren } from 'react'
 
-import MinicartDrawerRemoveItem from './RemoveItem'
+import MinicartDrawerRemove from './Remove'
 import MinicartDrawerImage from './Image'
-import MinicartDrawerUpdateItem from './UpdateItem'
+import MinicartDrawerQuantity from './Quantity'
 import type { Item } from '../../types'
 
 export interface Props<T> {
@@ -46,13 +46,13 @@ const MinicartDrawerContent = <T extends Item>({
                 <Text variant={`${variant}.product.name.text`}>
                   {item.name}
                 </Text>
-                <MinicartDrawerRemoveItem
+                <MinicartDrawerRemove
                   item={item}
                   variant={variant}
                   removeItem={removeItem}
                 />
               </Flex>
-              <MinicartDrawerUpdateItem
+              <MinicartDrawerQuantity
                 updateItem={updateItem}
                 item={item}
                 disabled={item.sellingPrice === 0}
