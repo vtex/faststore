@@ -6,6 +6,7 @@ import type { PropsWithChildren, ComponentPropsWithoutRef } from 'react'
 import MinicartDrawerContent from './Content'
 import MinicartDrawerFooter from './Footer'
 import MinicartDrawerHeader from './Header'
+import MinicartDrawerToast from './Toast'
 import type { Props as MinicartDrawerContentProps } from './Content'
 import type { Item } from '../types'
 
@@ -18,7 +19,12 @@ export interface Props<T extends Item>
     Pick<
       ComponentPropsWithoutRef<typeof MinicartDrawerFooter>,
       'onCheckout' | 'total' | 'subTotal' | 'numberFormat'
+    >,
+    Pick<
+      ComponentPropsWithoutRef<typeof MinicartDrawerToast>,
+      'hideToast' | 'message' | 'type'
     > {
+  isToastVisible: boolean
   variant?: string
 }
 
@@ -32,6 +38,10 @@ const MinicartDrawer = <T extends Item>({
   updateItem,
   numberFormat,
   onCheckout,
+  hideToast,
+  type,
+  message,
+  isToastVisible,
   variant = 'default',
 }: PropsWithChildren<Props<T>>) => {
   const drawerVariant = `minicart.${variant}`
@@ -56,6 +66,12 @@ const MinicartDrawer = <T extends Item>({
         removeItem={removeItem}
         updateItem={updateItem}
         numberFormat={numberFormat}
+      />
+      <MinicartDrawerToast
+        hideToast={hideToast}
+        message={message}
+        isVisible={isToastVisible}
+        type={type}
       />
       <MinicartDrawerFooter
         variant={customVariant}

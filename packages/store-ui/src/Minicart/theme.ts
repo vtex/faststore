@@ -115,6 +115,11 @@ const theme: SxStyleProp = {
         my: 3,
       },
     },
+
+    toast: {
+      px: ['6px', '16px'],
+      py: ['10px', '16px'],
+    },
   },
 } as any
 

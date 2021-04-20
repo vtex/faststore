@@ -1,5 +1,5 @@
-import React from 'react'
-import { Flex, Text } from 'theme-ui'
+import React, { useMemo } from 'react'
+import { Box, Flex, Text } from 'theme-ui'
 import { FormattedMessage } from '@vtex/gatsby-plugin-i18n'
 import type { PropsWithChildren } from 'react'
 
@@ -16,7 +16,23 @@ export interface Props<T> {
   numberFormat: (num: number) => string
 }
 
-const getFreeVariant = (price: number) => (price === 0 ? '.free' : '')
+const useCartSections = <T extends Item>(items: T[]) =>
+  useMemo(
+    () =>
+      items.reduce(
+        (acc, curr) => {
+          if (curr.sellingPrice === 0) {
+            acc.gifts.push(curr)
+          } else {
+            acc.products.push(curr)
+          }
+
+          return acc
+        },
+        { gifts: [] as T[], products: [] as T[] }
+      ),
+    [items]
+  )
 
 const MinicartDrawerContent = <T extends Item>({
   items,
@@ -25,50 +41,64 @@ const MinicartDrawerContent = <T extends Item>({
   updateItem,
   numberFormat,
 }: PropsWithChildren<Props<T>>) => {
+  const { gifts, products } = useCartSections(items)
   const variant = `${v}.content`
 
   return (
     <Flex variant={variant}>
-      {items.map((item) => {
-        const freeVariant = getFreeVariant(item.sellingPrice)
-
-        return (
-          <Flex key={item.id} variant={`${variant}.product`}>
-            <MinicartDrawerImage
-              width="192px"
-              height="192px"
-              src={item.imageUrls?.at2x}
-              alt={item.name!}
-              variant={`${variant}.product.image`}
-            />
-            <Flex variant={`${variant}.product.name`}>
-              <Flex>
-                <Text variant={`${variant}.product.name.text`}>
-                  {item.name}
-                </Text>
-                <MinicartDrawerRemove
-                  item={item}
-                  variant={variant}
-                  removeItem={removeItem}
-                />
-              </Flex>
-              <MinicartDrawerQuantity
-                updateItem={updateItem}
+      <Box variant={`${variant}.section`}>
+        <FormattedMessage id="minicart.drawer.section.products" />
+      </Box>
+      {products.map((item) => (
+        <Flex key={item.id} variant={`${variant}.product`}>
+          <MinicartDrawerImage
+            width="192px"
+            height="192px"
+            src={item.imageUrls?.at2x}
+            alt={item.name!}
+            variant={`${variant}.product.image`}
+          />
+          <Flex variant={`${variant}.product.name`}>
+            <Flex>
+              <Text variant={`${variant}.product.name.text`}>{item.name}</Text>
+              <MinicartDrawerRemove
                 item={item}
-                disabled={item.sellingPrice === 0}
-                variant={`${variant}${freeVariant}`}
+                variant={variant}
+                removeItem={removeItem}
               />
-              <Text variant={`${variant}.product.name.value${freeVariant}`}>
-                {item.sellingPrice === 0 ? (
-                  <FormattedMessage id="minicart.price.free" />
-                ) : (
-                  numberFormat(Number(item.sellingPrice) / 100)
-                )}
-              </Text>
+            </Flex>
+            <MinicartDrawerQuantity
+              updateItem={updateItem}
+              item={item}
+              variant={variant}
+            />
+            <Text variant={`${variant}.product.name.value`}>
+              {numberFormat(Number(item.sellingPrice) / 100)}
+            </Text>
+          </Flex>
+        </Flex>
+      ))}
+      {gifts.length > 0 && (
+        <Box variant={`${variant}.section`}>
+          <FormattedMessage id="minicart.drawer.section.gifts" />
+        </Box>
+      )}
+      {gifts.map((item) => (
+        <Flex key={item.id} variant={`${variant}.product`}>
+          <MinicartDrawerImage
+            width="192px"
+            height="192px"
+            src={item.imageUrls?.at2x}
+            alt={item.name!}
+            variant={`${variant}.product.image`}
+          />
+          <Flex variant={`${variant}.product.name`}>
+            <Flex>
+              <Text variant={`${variant}.product.name.text`}>{item.name}</Text>
             </Flex>
           </Flex>
-        )
-      })}
+        </Flex>
+      ))}
     </Flex>
   )
 }

@@ -1,5 +1,4 @@
 export default {
-  'minicart.drawer.close': 'Close',
   'minicart.drawer.count': 'Count ({count})',
   'minicart.drawer.subtotal': 'Subtotal',
   'minicart.drawer.total': 'Total',
@@ -7,5 +6,6 @@ export default {
     'Shipping and taxes calculated at checkout.',
   'minicart.drawer.go-checkout': 'GO TO CHECKOUT',
 
-  'minicart.price.free': 'FREE',
+  'minicart.drawer.section.products': 'Products',
+  'minicart.drawer.section.gifts': 'Gifts',
 }

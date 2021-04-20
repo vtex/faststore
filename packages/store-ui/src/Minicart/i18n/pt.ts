@@ -1,5 +1,4 @@
 export default {
-  'minicart.drawer.close': 'Fechar',
   'minicart.drawer.count': 'Carrinho ({count})',
   'minicart.drawer.subtotal': 'Subtotal',
   'minicart.drawer.total': 'Total',
@@ -7,5 +6,6 @@ export default {
     'Frete e impostos são calculados no checkout.',
   'minicart.drawer.go-checkout': 'FINALIZAR COMPRA',
 
-  'minicart.price.free': 'GRÁTIS',
+  'minicart.drawer.section.products': 'Produtos',
+  'minicart.drawer.section.gifts': 'Brindes',
 }
