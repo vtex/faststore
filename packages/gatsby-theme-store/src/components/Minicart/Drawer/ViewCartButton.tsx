@@ -24,7 +24,7 @@ export const ViewCartButton = ({ variant }: Props) => {
     >
       {orderFormIsLoading ? (
         <Center>
-          <Spinner size="24px" variant={`${variant}.checkout.spinner`} />
+          <Spinner size={24} variant={`${variant}.checkout.spinner`} />
         </Center>
       ) : (
         formatMessage({ id: 'minicart.drawer.go-checkout' })
