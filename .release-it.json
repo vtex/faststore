@@ -1,0 +1,21 @@
+{
+  "github": {
+    "release": true
+  },
+  "plugins": {
+    "@release-it/keep-a-changelog": {
+      "strictLatest": false,
+      "addUnreleased": true,
+      "filename": "CHANGELOG.md"
+    },
+    "@release-it/bumper": {
+      "in": "lerna.json",
+      "out": ["package.json", "lerna.json"]
+    }
+  },
+  "hooks": {
+    "after:git:bump": "yarn lerna:version",
+    "after:release": "yarn npm:publish"
+  },
+  "npm": false
+}
