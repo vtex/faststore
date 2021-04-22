@@ -6,5 +6,15 @@ export const useUpdateItem = (index: number) => {
   const item = useItem(index)
 
   return (quantity: number) =>
-    updateQuantity({ id: `${item.id}`, quantity, seller: item.seller, index })
+    updateQuantity(
+      {
+        id: `${item.id}`,
+        quantity,
+        seller: item.seller,
+        index,
+      },
+      {
+        allowedOutdatedData: ['paymentData'],
+      }
+    )
 }

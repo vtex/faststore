@@ -6,15 +6,22 @@ const getOrderFormController = () => import('./controller')
 
 const mutationUpdateQuantity = async ({
   orderItems: items,
+  allowedOutdatedData,
 }: {
   orderItems: UpdateItemsMutationMutationVariables['items']
+  allowedOutdatedData?: UpdateItemsMutationMutationVariables['allowedOutdatedData']
 }) => {
   const id = getOrderformId()
 
   const orderFormController = await getOrderFormController()
 
   return orderFormController
-    .updateItems({ orderFormId: id!, items })
+    .updateItems({
+      items,
+      orderFormId: id,
+      splitItem: null,
+      allowedOutdatedData,
+    })
     .then((orderForm: OrderFormFragment_OrderFormFragment) => ({
       data: orderForm,
     }))
