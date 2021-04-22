@@ -7,10 +7,10 @@ interface Props {
   value: number
 }
 
-const MinicartButtomBadge: FC<Props> = ({ variant, value }) => (
+const MinicartButtonBadge: FC<Props> = ({ variant, value }) => (
   <Box variant={`${variant}.badge`} as="span">
     {value}
   </Box>
 )
 
-export default MinicartButtomBadge
+export default MinicartButtonBadge
