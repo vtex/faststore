@@ -8,6 +8,8 @@
   "minicart.drawer.shipping-disclaimer": "Shipping and taxes calculated at checkout.",
   "minicart.drawer.go-checkout": "GO TO CHECKOUT",
   "minicart.price.free": "FREE",
+  "minicart.section.available": "{count, plural, one {# product} other {# products}} available",
+  "minicart.warning.unavailable": "This product cannot be delivered to the address provided.",
 
   "facets.filters": "Filters",
 
