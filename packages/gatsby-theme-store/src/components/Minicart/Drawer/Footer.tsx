@@ -1,10 +1,11 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Button, Flex, Text } from '@vtex/store-ui'
+import { Flex, Text } from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
 
 import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
 import { useOrderForm } from '../../../sdk/orderForm/useOrderForm'
+import { ViewCartButton } from './ViewCartButton'
 
 export interface HeaderMinicartDrawerFooterProps {
   variant?: string
@@ -33,15 +34,7 @@ export const HeaderMinicartDrawerFooter: FC<HeaderMinicartDrawerFooterProps> = (
       <Text variant={`${customVariant}.message`}>
         {formatMessage({ id: 'minicart.drawer.shipping-disclaimer' })}
       </Text>
-      <Button
-        variant={`${customVariant}.button`}
-        onClick={(e: any) => {
-          e.preventDefault()
-          window.location.href = '/checkout/'
-        }}
-      >
-        {formatMessage({ id: 'minicart.drawer.go-checkout' })}
-      </Button>
+      <ViewCartButton variant={customVariant} />
     </Flex>
   )
 }
