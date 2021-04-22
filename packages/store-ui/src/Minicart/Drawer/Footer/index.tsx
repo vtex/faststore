@@ -51,7 +51,11 @@ const MinicartDrawerFooter: FC<Props> = ({
       >
         {disableViewCart ? (
           <Center>
-            <Spinner size={24} variant={`${variant}.checkout.spinner`} />
+            <Spinner
+              width="16px"
+              height="16px"
+              variant={`${variant}.checkout.spinner`}
+            />
           </Center>
         ) : (
           <FormattedMessage id="minicart.drawer.go-checkout" />
