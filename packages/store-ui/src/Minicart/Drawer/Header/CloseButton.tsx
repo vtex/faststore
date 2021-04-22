@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button } from 'theme-ui'
-import type { FC } from 'react'
+import type { FC, MouseEventHandler } from 'react'
 
 interface Props {
   variant: string
-  onClose?: () => void
+  onClose?: MouseEventHandler<HTMLButtonElement>
 }
 
 const MinicartDrawerCloseButton: FC<Props> = ({ onClose, variant }) => (
