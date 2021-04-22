@@ -8,28 +8,23 @@ import type {
   UpdateItemsMutationMutationVariables,
 } from './__generated__/UpdateItemsMutation.graphql'
 
-interface Options {
-  orderFormId: string
-  items: Vtex_ItemInput[]
-  splitItem?: boolean
-}
-
 export const updateItems = async ({
   orderFormId,
   items,
   splitItem,
-}: Options) => {
-  const { updateItems: of } = await request<
+  allowedOutdatedData,
+}: UpdateItemsMutationMutationVariables) => {
+  const { updateItems: orderForm } = await request<
     UpdateItemsMutationMutation,
     UpdateItemsMutationMutationVariables
   >({
     ...UpdateItemsMutation,
-    variables: { orderFormId, items, splitItem },
+    variables: { orderFormId, items, splitItem, allowedOutdatedData },
   })
 
-  setOrderFormId(of.id)
+  setOrderFormId(orderForm.id)
 
-  return of
+  return orderForm
 }
 
 export const mutation = gql`
@@ -37,11 +32,13 @@ export const mutation = gql`
     $orderFormId: ID
     $items: [VTEX_ItemInput]
     $splitItem: Boolean
+    $allowedOutdatedData: [String!]
   ) {
     updateItems(
       orderFormId: $orderFormId
       orderItems: $items
       splitItem: $splitItem
+      allowedOutdatedData: $allowedOutdatedData
     ) {
       ...OrderFormFragment_orderForm
     }
