@@ -33,6 +33,7 @@ export { useListPrice } from './sdk/offer/useListPrice'
 export { usePrice } from './sdk/offer/usePrice'
 
 export { useOrderForm } from './sdk/orderForm/useOrderForm'
+export { useOrderItems } from './sdk/orderForm/useOrderItems'
 export type { OrderForm } from './sdk/orderForm/Provider'
 
 export { useSummaryImage } from './sdk/product/useSummaryImage'
