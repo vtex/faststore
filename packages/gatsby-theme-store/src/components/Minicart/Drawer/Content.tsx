@@ -37,10 +37,10 @@ export const HeaderMinicartDrawerContent: FC<MinicartContentProps> = ({
       )}
       {unavailable.length > 0 && available.length > 0 && (
         <Box variant={`${variant}.section`}>
-          {available.length}
-          {available.length > 1
-            ? ' produtos disponíveis'
-            : ' produto disponível'}
+          {formatMessage(
+            { id: 'minicart.section.available' },
+            { count: available.length }
+          )}
         </Box>
       )}
       {available.length > 0 && (

@@ -31,7 +31,7 @@ export const UnavailableItems: FC<ItemsProps> = ({
           />
           <Flex variant={`${variant}.product.availabilityContainer`}>
             <Text variant={`${variant}.product.availabilityContainer.message`}>
-              Este produto não pode ser entregue no endereço fornecido.
+              {formats.formatMessage({ id: 'minicart.warning.unavailable' })}
             </Text>
           </Flex>
         </Flex>
