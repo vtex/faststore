@@ -8,7 +8,7 @@ interface Props {
   width?: number
 }
 
-const MinicartButtonSvg: FC<Props> = ({
+const MinicartButtonIcon: FC<Props> = ({
   color = '#979899',
   height = 16,
   width = 16,
@@ -34,4 +34,4 @@ const MinicartButtonSvg: FC<Props> = ({
   </svg>
 )
 
-export default MinicartButtonSvg
+export default MinicartButtonIcon

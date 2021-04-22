@@ -2,12 +2,12 @@ import React from 'react'
 import { Button } from 'theme-ui'
 import type { ComponentPropsWithoutRef, FC, ComponentPropsWithRef } from 'react'
 
-import MinicartButtonSvg from './Svg'
+import MinicartButtonIcon from './Icon'
 import MinicartButtomBadge from './Badge'
 
 interface Props
   extends ComponentPropsWithoutRef<typeof Button>,
-    ComponentPropsWithRef<typeof MinicartButtonSvg> {
+    ComponentPropsWithRef<typeof MinicartButtonIcon> {
   value: number
   variant?: string
 }
@@ -25,7 +25,7 @@ const MinicartButton: FC<Props> = ({
 
   return (
     <Button aria-label="Open Cart" variant={variant} {...props}>
-      <MinicartButtonSvg
+      <MinicartButtonIcon
         height={height}
         width={width}
         viewBox={viewBox}
