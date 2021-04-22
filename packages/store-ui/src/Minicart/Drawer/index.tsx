@@ -18,7 +18,7 @@ export interface Props<T extends Item>
     >,
     Pick<
       ComponentPropsWithoutRef<typeof MinicartDrawerFooter>,
-      'onCheckout' | 'total' | 'subTotal' | 'numberFormat'
+      'onCheckout' | 'total' | 'subTotal' | 'numberFormat' | 'disableViewCart'
     >,
     Pick<
       ComponentPropsWithoutRef<typeof MinicartDrawerToast>,
@@ -39,6 +39,7 @@ const MinicartDrawer = <T extends Item>({
   numberFormat,
   onCheckout,
   hideToast,
+  disableViewCart,
   type,
   message,
   isToastVisible,
@@ -74,11 +75,12 @@ const MinicartDrawer = <T extends Item>({
         type={type}
       />
       <MinicartDrawerFooter
-        variant={customVariant}
         total={total}
+        variant={customVariant}
         subTotal={subTotal}
         onCheckout={onCheckout}
         numberFormat={numberFormat}
+        disableViewCart={disableViewCart}
       />
     </Drawer>
   )
