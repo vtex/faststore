@@ -253,3 +253,9 @@ export { default as ProductImageGalleryPaginationDots } from './ProductImageGall
 export { default as ProductImageGalleryMiniatures } from './ProductImageGallery/Miniatures'
 export { default as ProductImageGalleryMiniaturesContainer } from './ProductImageGallery/Miniatures/Container'
 export { productImageGalleryTheme } from './ProductImageGallery/theme'
+
+// Search Suggestions
+export { default as SearchSuggestions } from './SearchSuggestions'
+export { searchSuggestionsTheme } from './SearchSuggestions/theme'
+export { default as searchSuggestionsI18nPT } from './SearchSuggestions/i18n/pt'
+export { default as searchSuggestionsI18nEN } from './SearchSuggestions/i18n/en'

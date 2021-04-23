@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Suspense } from 'react'
-import { jsx } from '@vtex/store-ui'
+import { jsx } from 'theme-ui'
 import type { FC } from 'react'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   fallback?: JSX.Element | null
 }
 
-export const SearchSuggestionsListContainer: FC<Props> = ({
+const SearchSuggestionsContainer: FC<Props> = ({
   variant,
   children,
   fallback = null,
@@ -17,3 +17,5 @@ export const SearchSuggestionsListContainer: FC<Props> = ({
     <Suspense fallback={fallback}>{children}</Suspense>
   </div>
 )
+
+export default SearchSuggestionsContainer

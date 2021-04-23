@@ -1,7 +1,6 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
-import { useQuery } from '../../../sdk/graphql/useQuery'
-import { useSearchSuggestionsContext } from '../base/hooks'
+import { useQuery } from '../graphql/useQuery'
 import { AutocompleteSuggestionsQuery } from './__generated__/AutocompleteSuggestionsQuery.graphql'
 import type {
   AutocompleteSuggestionsQueryQuery,
@@ -12,9 +11,8 @@ interface Props {
   term: string
 }
 
-export const useAutocompleteSearchSeggestions = ({ term }: Props) => {
-  const context = useSearchSuggestionsContext()
-  const query = useQuery<
+export const useAutocompleteSuggestions = ({ term }: Props) => {
+  const { data } = useQuery<
     AutocompleteSuggestionsQueryQuery,
     AutocompleteSuggestionsQueryQueryVariables
   >({
@@ -25,10 +23,7 @@ export const useAutocompleteSearchSeggestions = ({ term }: Props) => {
     suspense: true,
   })
 
-  return {
-    query,
-    ...context,
-  }
+  return data!.vtex.autocompleteSearchSuggestions!.searches!
 }
 
 export const query = gql`
@@ -37,7 +32,6 @@ export const query = gql`
       autocompleteSearchSuggestions(fullText: $fullText) {
         searches {
           term
-          key: term
         }
       }
     }

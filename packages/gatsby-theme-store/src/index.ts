@@ -50,6 +50,10 @@ export {
 } from './sdk/product/constants'
 
 export { useSearch } from './sdk/search/useSearch'
+export { useTopSearches } from './sdk/search/useTopSearches'
+export { useSuggestions } from './sdk/search/useSuggestions'
+export { useAutocompleteSuggestions } from './sdk/search/useAutocompleteSuggestions'
+export { useSearchHistory } from './sdk/search/useSearchHistory'
 
 export { useProfile } from './sdk/session/useProfile'
 export { useSession } from './sdk/session/useSession'
