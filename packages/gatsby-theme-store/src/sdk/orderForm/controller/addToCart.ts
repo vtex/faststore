@@ -12,17 +12,18 @@ interface AddToCartParams {
   orderFormId?: string | null
   items: AddToCartMutationMutationVariables['items']
   marketingData?: AddToCartMutationMutationVariables['marketingData']
+  allowedOutdatedData?: AddToCartMutationMutationVariables['allowedOutdatedData']
 }
 
 export const addToCart = async ({ orderFormId, items }: AddToCartParams) => {
-  const { addToCart: of } = await request<
+  const { addToCart: orderForm } = await request<
     AddToCartMutationMutation,
     AddToCartMutationMutationVariables
   >({ ...AddToCartMutation, variables: { orderFormId, items } })
 
-  setOrderFormId(of.id)
+  setOrderFormId(orderForm.id)
 
-  return of
+  return orderForm
 }
 
 export const mutation = gql`
@@ -30,11 +31,13 @@ export const mutation = gql`
     $orderFormId: ID
     $items: [VTEX_ItemInput]
     $marketingData: VTEX_MarketingDataInput
+    $allowedOutdatedData: [String!]
   ) {
     addToCart(
       orderFormId: $orderFormId
       items: $items
       marketingData: $marketingData
+      allowedOutdatedData: $allowedOutdatedData
     ) {
       ...OrderFormFragment_orderForm
     }
