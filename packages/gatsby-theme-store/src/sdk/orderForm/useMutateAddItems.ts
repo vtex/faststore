@@ -6,13 +6,17 @@ const getOrderFormController = () => import('./controller')
 
 const mutationAddItem = async ({
   items,
-}: Pick<AddToCartMutationMutationVariables, 'items'>) => {
+  allowedOutdatedData,
+}: {
+  items: AddToCartMutationMutationVariables['items']
+  allowedOutdatedData?: AddToCartMutationMutationVariables['allowedOutdatedData']
+}) => {
   const orderFormId = getOrderformId()
 
   const orderFormController = await getOrderFormController()
 
   return orderFormController
-    .addToCart({ orderFormId, items })
+    .addToCart({ orderFormId, items, allowedOutdatedData })
     .then((orderForm: OrderForm) => ({
       data: orderForm,
     }))

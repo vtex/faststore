@@ -39,7 +39,7 @@ export const useBuyButton = ({
   const minicart = useMinicart()
   const seller = useBestSeller(sku)
   const { orderForm, loading } = useOrderForm()
-  const { addItem } = useOrderItems()
+  const { addItems } = useOrderItems()
   const disabled =
     loading ||
     !sku ||
@@ -91,7 +91,7 @@ export const useBuyButton = ({
     try {
       const items = [orderFormItemWithPrice]
 
-      addItem(items)
+      addItems(items, { allowedOutdatedData: ['paymentData'] })
 
       if (openMinicart) {
         minicart.toggle()
