@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { Flex } from 'theme-ui'
 import type { FC } from 'react'
 
 import { useSearchBarContext } from '../../SearchBar/hooks/useSearchBarContext'
