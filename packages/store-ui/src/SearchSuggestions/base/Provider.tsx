@@ -30,7 +30,7 @@ const Provider: FC = ({ children }) => {
         searchBar: searchbarContext,
       }}
     >
-      <Flex variant="suggestions">{children}</Flex>
+      {children}
     </Context.Provider>
   )
 }

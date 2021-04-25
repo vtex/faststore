@@ -256,6 +256,7 @@ export { productImageGalleryTheme } from './ProductImageGallery/theme'
 
 // Search Suggestions
 export { default as SearchSuggestions } from './SearchSuggestions'
+export { default as SearchSuggestionsContainer } from './SearchSuggestions/Container'
 export { searchSuggestionsTheme } from './SearchSuggestions/theme'
 export { default as searchSuggestionsI18nPT } from './SearchSuggestions/i18n/pt'
 export { default as searchSuggestionsI18nEN } from './SearchSuggestions/i18n/en'
