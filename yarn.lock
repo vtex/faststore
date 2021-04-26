@@ -5942,10 +5942,10 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
-"@vtex/order-items@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.5.2.tgz#ac687ad3248a64d0ac56f4849bcd46d1106c1b36"
-  integrity sha512-U0sT1NR1SYCpA8uzErZVu9m5HTBBI/w+rRhNjpbH5uj2h9tsvi2mSOiOVdViBwGQWqPQo3gy7JF51miMmtH79A==
+"@vtex/order-items@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.6.0.tgz#2e3d0d1da28a39be1d6c460b0c5728e1bbc2c1d1"
+  integrity sha512-s5bsQ4F/JEUK7tNoIcl6ryOW2o8Ok1j8gSs1+CXOSg79pa4FHEhDLjvafDZJnmgwVfKaPgbPntMDWMtSRlY7WA==
   dependencies:
     "@types/uuid" "^8.3.0"
     "@vtex/order-manager" "^0.5.0"
