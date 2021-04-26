@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import { Box, Flex, Container } from '@vtex/store-ui'
 import React, { useEffect } from 'react'
 
-import Layout from '../../components/Layout'
+import Layout from '../components/Layout'
 
 /** There are three different cases that we need to consider when the user
   is back online.
@@ -22,8 +22,7 @@ import Layout from '../../components/Layout'
   request to the server. In this case, our service worker will respond with
   this page's HTML. There will be no redirect, so the user would see an
   offline page, but would still be in the route there were trying to navigate
-  to. This case is handled by the currently active service worker, and the page
-  rendered is '/offline/simple.html'.
+  to. This case is handled by the currently active service worker.
 
   */
 function handleUserBackOnline(
