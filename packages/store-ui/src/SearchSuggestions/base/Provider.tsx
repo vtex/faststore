@@ -6,7 +6,7 @@ import type { ISearchContext } from '../../SearchBar/hooks/Provider'
 
 export interface IContext {
   searchBar: ISearchContext
-  setTerm: (t: string) => unknown
+  setTerm: (t: string) => void
   term: string
 }
 
