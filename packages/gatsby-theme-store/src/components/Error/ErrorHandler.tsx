@@ -27,7 +27,7 @@ export const handleError = (
   if (isUserOffline) {
     const previousPagePath = window.location.pathname
 
-    navigate('/offline/', {
+    navigate('/offline', {
       state: { previousPagePath },
     })
 
