@@ -38,7 +38,7 @@
     "@theme-ui/match-media": "^0.3.1",
     "@vtex/gatsby-plugin-graphql": "^0.321.0",
     "@vtex/gatsby-plugin-theme-ui": "^0.321.0",
-    "@vtex/order-items": "^0.5.2",
+    "@vtex/order-items": "^0.6.0",
     "@vtex/order-manager": "^0.5.0",
     "@vtex/store-ui": "^0.321.0",
     "gatsby-plugin-bundle-stats": "^2.7.2",
