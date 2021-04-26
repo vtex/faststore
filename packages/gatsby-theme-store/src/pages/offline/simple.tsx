@@ -4,8 +4,8 @@
  *
  * Notice that the SimpleOfflinePage component should be very simple, since
  * React will not be available in the client once this page is rendered.
- * Functionalities such as 'useEffect', 'useState' and event handlers will
- * NOT work. In the context of this page, try to inline as much as possible.
+ * Functionalities such as 'useEffect' and 'useState' will NOT work.
+ * In the context of this page, try to inline as much as possible.
  */
 
 import React from 'react'

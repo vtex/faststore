@@ -1,10 +1,9 @@
 import type { PageProps } from 'gatsby'
 import type { FC } from 'react'
-import { Box, Flex } from '@vtex/store-ui'
+import { Box, Flex, Container } from '@vtex/store-ui'
 import React, { useEffect } from 'react'
 
 import Layout from '../../components/Layout'
-import Container from '../../components/Container'
 
 /** There are three different cases that we need to consider when the user
   is back online.
