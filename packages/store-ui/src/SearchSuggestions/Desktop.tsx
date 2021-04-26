@@ -47,7 +47,7 @@ const SearchSuggestions: FC<Props> = ({
   return (
     <>
       {asyncTerm ? (
-        <SearchSuggestionsAutocomplete items={autocomplete} /> // term={asyncTerm}
+        <SearchSuggestionsAutocomplete items={autocomplete} />
       ) : null}
       {term ? (
         <SearchSuggestionsProduct
