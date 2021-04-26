@@ -259,8 +259,8 @@ export { default as MinicartDrawerContentQuantity } from './Minicart/Drawer/Cont
 export { default as MinicartButton } from './Minicart/Button'
 export { default as MinicartButtonIcon } from './Minicart/Button/Icon'
 export { default as MinicartButtonBadge } from './Minicart/Button/Badge'
-export { default as MinicartI18nPT } from './Minicart/i18n/pt'
-export { default as MinicartI18nEN } from './Minicart/i18n/en'
+export { default as minicartI18nPT } from './Minicart/i18n/pt'
+export { default as minicartI18nEN } from './Minicart/i18n/en'
 export { minicartTheme } from './Minicart/theme'
 
 // Search Suggestions
