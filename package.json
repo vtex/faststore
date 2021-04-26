@@ -11,6 +11,7 @@
     "clean": "lerna clean && lerna run clean",
     "format": "prettier --write \"packages/**/*.{ts,js,tsx,jsx,json}\"",
     "lint": "eslint packages/ --ext .js,.ts,.jsx,.tsx",
+    "npm:publish": "lerna publish from-package -y",
     "bootstrap": "lerna bootstrap",
     "release": "lerna version minor --yes && lerna publish from-git --yes",
     "lerna:version": "lerna version ${npm_package_version} --amend --no-git-tag-version --yes"
