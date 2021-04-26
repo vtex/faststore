@@ -12,11 +12,11 @@
     "format": "prettier --write \"packages/**/*.{ts,js,tsx,jsx,json}\"",
     "lint": "eslint packages/ --ext .js,.ts,.jsx,.tsx",
     "npm:publish": "lerna publish from-package -y",
-    "npm:publish:beta": "lerna publish from-package -y --dist-tag beta",
+    "npm:publish:alpha": "lerna publish from-package -y --dist-tag alpha",
     "bootstrap": "lerna bootstrap",
     "release": "yarn release:stable",
     "release:stable": "yarn release-it --only-version",
-    "release:alpha": "yarn release-it -c .release-it.alpha.json --only-version --preRelease=beta",
+    "release:alpha": "yarn release-it -c .release-it.alpha.json --only-version --preRelease=alpha",
     "lerna:version": "lerna version ${npm_package_version} --amend --no-git-tag-version --yes"
   },
   "workspaces": [

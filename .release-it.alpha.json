@@ -10,7 +10,7 @@
   },
   "hooks": {
     "after:git:bump": "yarn lerna:version",
-    "after:release": "yarn npm:publish:beta"
+    "after:release": "yarn npm:publish:alpha"
   },
   "npm": false
 }
