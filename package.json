@@ -16,7 +16,7 @@
     "bootstrap": "lerna bootstrap",
     "release": "yarn release:stable",
     "release:stable": "yarn release-it --only-version",
-    "release:alpha": "yarn release-it -c .release-it.alpha.json --only-version --preRelease=alpha",
+    "release:alpha": "yarn release-it -c .release-it.alpha.json --preRelease=alpha",
     "lerna:version": "lerna version ${npm_package_version} --amend --no-git-tag-version --yes"
   },
   "workspaces": [
