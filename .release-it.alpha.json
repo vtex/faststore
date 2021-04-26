@@ -1,0 +1,16 @@
+{
+  "github": {
+    "release": false
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "in": "lerna.json",
+      "out": ["package.json", "lerna.json"]
+    }
+  },
+  "hooks": {
+    "after:git:bump": "yarn lerna:version",
+    "after:release": "yarn npm:publish:beta"
+  },
+  "npm": false
+}
