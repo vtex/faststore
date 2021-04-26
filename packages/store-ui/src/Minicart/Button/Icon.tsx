@@ -1,14 +1,14 @@
 import React from 'react'
 import type { FC } from 'react'
 
-export interface MinicartButtonSvgProps {
+interface Props {
   color?: string
   viewBox?: string
   height?: number
   width?: number
 }
 
-export const MinicartButtonSvg: FC<MinicartButtonSvgProps> = ({
+const MinicartButtonIcon: FC<Props> = ({
   color = '#979899',
   height = 16,
   width = 16,
@@ -33,3 +33,5 @@ export const MinicartButtonSvg: FC<MinicartButtonSvgProps> = ({
     </use>
   </svg>
 )
+
+export default MinicartButtonIcon
