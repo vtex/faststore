@@ -10,16 +10,6 @@
   "search.page-list.more": "Mostrar Mais",
   "search.page-list.more.loading": "Carregando...",
 
-  "suggestions.autocomplete.title": "Sugestões",
-  "suggestions.autocomplete.notFound": "Sem sugestões",
-  "suggestions.products.title": "Produtos para: {term}",
-  "suggestions.products.total": "Ver todos os {count} items",
-  "suggestions.products.notFound": "Nenhum produto encontrado",
-  "suggestions.history.title": "Historico",
-  "suggestions.history.empty": "Nenhuma pesquisa encontrada",
-  "suggestions.topSearches.title": "Termos mais buscados",
-  "suggestions.topSearches.empty": "Nenhum termo encontrado",
-
   "product.quantity.title": "Quantidade",
 
   "searchControls.totalCount": "{count,plural,=0{ PRODUTOS}one{ PRODUTO}other{ PRODUTOS}}",

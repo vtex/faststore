@@ -259,6 +259,13 @@ export { default as MinicartDrawerContentQuantity } from './Minicart/Drawer/Cont
 export { default as MinicartButton } from './Minicart/Button'
 export { default as MinicartButtonIcon } from './Minicart/Button/Icon'
 export { default as MinicartButtonBadge } from './Minicart/Button/Badge'
-export { default as MinicartI18nPT } from './Minicart/i18n/pt'
-export { default as MinicartI18nEN } from './Minicart/i18n/en'
+export { default as minicartI18nPT } from './Minicart/i18n/pt'
+export { default as minicartI18nEN } from './Minicart/i18n/en'
 export { minicartTheme } from './Minicart/theme'
+
+// Search Suggestions
+export { default as SearchSuggestions } from './SearchSuggestions'
+export { default as SearchSuggestionsContainer } from './SearchSuggestions/Container'
+export { searchSuggestionsTheme } from './SearchSuggestions/theme'
+export { default as searchSuggestionsI18nPT } from './SearchSuggestions/i18n/pt'
+export { default as searchSuggestionsI18nEN } from './SearchSuggestions/i18n/en'
