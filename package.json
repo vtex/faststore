@@ -12,7 +12,7 @@
     "format": "prettier --write \"packages/**/*.{ts,js,tsx,jsx,json}\"",
     "lint": "eslint packages/ --ext .js,.ts,.jsx,.tsx",
     "npm:publish": "lerna publish from-package -y",
-    "npm:publish:alpha": "lerna publish from-package -y --dist-tag alpha",
+    "npm:publish:alpha": "lerna publish from-package -y --dist-tag next",
     "bootstrap": "lerna bootstrap",
     "release": "yarn release:stable",
     "release:stable": "yarn release-it --only-version",
