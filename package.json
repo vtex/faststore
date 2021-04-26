@@ -12,7 +12,8 @@
     "format": "prettier --write \"packages/**/*.{ts,js,tsx,jsx,json}\"",
     "lint": "eslint packages/ --ext .js,.ts,.jsx,.tsx",
     "bootstrap": "lerna bootstrap",
-    "release": "lerna version minor --yes && lerna publish from-git --yes"
+    "release": "lerna version minor --yes && lerna publish from-git --yes",
+    "lerna:version": "lerna version ${npm_package_version} --amend --no-git-tag-version --yes"
   },
   "workspaces": [
     "packages/*"
