@@ -1,7 +1,6 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 
-import { useQuery } from '../../../sdk/graphql/useQuery'
-import { useSearchSuggestionsContext } from '../base/hooks'
+import { useQuery } from '../graphql/useQuery'
 import { TopSearchesSuggestionsQuery } from './__generated__/TopSearchesSuggestionsQuery.graphql'
 import type {
   TopSearchesSuggestionsQueryQuery,
@@ -9,8 +8,7 @@ import type {
 } from './__generated__/TopSearchesSuggestionsQuery.graphql'
 
 export const useTopSearches = () => {
-  const context = useSearchSuggestionsContext()
-  const query = useQuery<
+  const { data } = useQuery<
     TopSearchesSuggestionsQueryQuery,
     TopSearchesSuggestionsQueryQueryVariables
   >({
@@ -18,10 +16,7 @@ export const useTopSearches = () => {
     variables: {},
   })
 
-  return {
-    query,
-    ...context,
-  }
+  return data?.vtex.topSearches!.searches
 }
 
 export const query = gql`
@@ -30,7 +25,6 @@ export const query = gql`
       topSearches {
         searches {
           term
-          key: term
         }
       }
     }

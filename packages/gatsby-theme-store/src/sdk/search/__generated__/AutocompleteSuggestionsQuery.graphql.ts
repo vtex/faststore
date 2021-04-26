@@ -22,14 +22,14 @@ export type AutocompleteSuggestionsQueryQueryVariables = Exact<{
 }>;
 
 
-export type AutocompleteSuggestionsQueryQuery = { vtex: { autocompleteSearchSuggestions: Maybe<{ searches: Maybe<Array<Maybe<{ term: string, key: string }>>> }> } };
+export type AutocompleteSuggestionsQueryQuery = { vtex: { autocompleteSearchSuggestions: Maybe<{ searches: Maybe<Array<Maybe<{ term: string }>>> }> } };
 
 
 // Query Related Code
 
 export const AutocompleteSuggestionsQuery = {
-  query: process.env.NODE_ENV === 'production' ? undefined : "query AutocompleteSuggestionsQuery($fullText: String!) {\n  vtex {\n    autocompleteSearchSuggestions(fullText: $fullText) {\n      searches {\n        term\n        key: term\n      }\n    }\n  }\n}\n",
-  sha256Hash: "85174d418018b5219606c7121dba3623fea4807351ebf07da5fad79455173646",
+  query: process.env.NODE_ENV === 'production' ? undefined : "query AutocompleteSuggestionsQuery($fullText: String!) {\n  vtex {\n    autocompleteSearchSuggestions(fullText: $fullText) {\n      searches {\n        term\n      }\n    }\n  }\n}\n",
+  sha256Hash: "0a7c20eadfee9296a47a4e9e1e0062b7aeac1f8ad2fda4e7f11681b0fe56b60a",
   operationName: "AutocompleteSuggestionsQuery",
 }
 

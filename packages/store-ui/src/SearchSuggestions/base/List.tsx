@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@vtex/store-ui'
+import { jsx } from 'theme-ui'
 
 export interface BaseListItem {
   key: string
@@ -17,7 +17,7 @@ interface Props<T extends BaseListItem> {
   children: (props: ListItemProps<T>) => JSX.Element
 }
 
-export const SearchSuggestionsList = <T extends BaseListItem>({
+const SearchSuggestionsList = <T extends BaseListItem>({
   items,
   variant,
   children,
@@ -34,3 +34,5 @@ export const SearchSuggestionsList = <T extends BaseListItem>({
     ))}
   </ul>
 )
+
+export default SearchSuggestionsList

@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@vtex/store-ui'
+import { jsx } from 'theme-ui'
 import type { FC } from 'react'
-import type { ButtonProps } from '@vtex/store-ui'
+import type { ButtonProps } from 'theme-ui'
 
-export const SearchSuggestionsListTotal: FC<ButtonProps> = ({
+const SearchSuggestionsTotal: FC<ButtonProps> = ({
   children,
   variant,
   ...props
@@ -12,3 +12,5 @@ export const SearchSuggestionsListTotal: FC<ButtonProps> = ({
     {children}
   </div>
 )
+
+export default SearchSuggestionsTotal

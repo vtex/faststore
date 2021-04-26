@@ -262,3 +262,10 @@ export { default as MinicartButtonBadge } from './Minicart/Button/Badge'
 export { default as MinicartI18nPT } from './Minicart/i18n/pt'
 export { default as MinicartI18nEN } from './Minicart/i18n/en'
 export { minicartTheme } from './Minicart/theme'
+
+// Search Suggestions
+export { default as SearchSuggestions } from './SearchSuggestions'
+export { default as SearchSuggestionsContainer } from './SearchSuggestions/Container'
+export { searchSuggestionsTheme } from './SearchSuggestions/theme'
+export { default as searchSuggestionsI18nPT } from './SearchSuggestions/i18n/pt'
+export { default as searchSuggestionsI18nEN } from './SearchSuggestions/i18n/en'
