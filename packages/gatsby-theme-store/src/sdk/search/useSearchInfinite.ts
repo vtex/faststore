@@ -48,16 +48,12 @@ export const useSearchInfinite = <Query extends BaseQueryShape | undefined>({
       // This is a pre-rendered search. Like so, we need to fetch the data
       // at the exact same order from the pre-rendered data so we don't have
       // data mismatch
-      // TODO: This breaks regionalization, so we don't do it if regionId is set.
-      // Need to look into it.
-      if (!regionId) {
-        const ids =
-          page === 0 &&
-          firstPageData?.vtex.productSearch?.products?.map((x) => x.id)
+      const ids =
+        page === 0 &&
+        firstPageData?.vtex.productSearch?.products?.map((x) => x.id)
 
-        if (Array.isArray(ids)) {
-          fullText = `product:${ids.join(';')}`
-        }
+      if (Array.isArray(ids)) {
+        fullText = `product:${ids.join(';')}`
       }
 
       const selectedFacets = ([] as typeof filters.selectedFacets)

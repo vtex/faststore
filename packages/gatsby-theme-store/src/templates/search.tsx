@@ -62,8 +62,6 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     map: undefined,
   }
 
-  const hasRegion = Boolean(regionId)
-
   const { data } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
@@ -71,7 +69,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     ...SearchPageQuery,
     variables: { ...cleanFilters, selectedFacets, staticPath: true },
     suspense: true,
-    initialData: staticPath && !hasRegion ? staticData : undefined,
+    initialData: staticPath ? staticData : undefined,
   })
 
   usePixelSendEvent(
