@@ -30,8 +30,8 @@ const SuspenseViewport: FC<Props> = ({
 
   useIdleEffect(() => {
     // preloader()
-    console.log('should render by idle')
-    setShouldRender(true)
+    // console.log('should render by idle')
+    // setShouldRender(true)
   }, [preloader])
 
   useEffect(() => {
