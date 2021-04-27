@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { useInView } from 'react-hook-inview'
 import type { FC, SuspenseProps } from 'react'
 
@@ -19,6 +19,9 @@ const SuspenseViewport: FC<Props> = ({
   rootMargin = '150px',
   threshold = 0,
 }) => {
+  const [shouldRender, setShouldRender] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
+
   const [ref, isInView] = useInView({
     unobserveOnEnter: true, // Set 'true' to run only once
     rootMargin,
@@ -26,10 +29,33 @@ const SuspenseViewport: FC<Props> = ({
   })
 
   useIdleEffect(() => {
-    preloader()
+    // preloader()
+    console.log('should render by idle')
+    setShouldRender(true)
   }, [preloader])
 
-  if (!isInView) {
+  useEffect(() => {
+    if (hasInteracted) {
+      return
+    }
+
+    const setInteraction = () => {
+      console.log('has interacted')
+      setHasInteracted(true)
+    }
+
+    window.addEventListener('mousemove', setInteraction)
+
+    return () => {
+      window.removeEventListener('mousemove', setInteraction)
+    }
+  }, [hasInteracted, setHasInteracted])
+
+  const shouldRenderByIdle = shouldRender
+  const shouldRenderByView = isInView && hasInteracted
+
+  console.log({ shouldRenderByIdle, shouldRenderByView })
+  if (!shouldRenderByIdle && !shouldRenderByView) {
     return <div ref={ref}>{fallback}</div>
   }
 
