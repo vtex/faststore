@@ -39,22 +39,11 @@ export type SearchPageProps = PageProps<
 const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const filters = useSearchFiltersFromPageContext(pageContext)
-  const { regionId } = useRegion()
+
   const staticPath =
     pageContext.staticPath &&
     pageContext.orderBy === filters.orderBy &&
     filters.priceRange === null
-
-  const selectedFacets = ([] as typeof filters.selectedFacets)
-    .concat(filters?.selectedFacets ?? [])
-    .concat(
-      regionId
-        ? {
-            key: 'region-id',
-            value: regionId,
-          }
-        : []
-    )
 
   const cleanFilters = {
     ...filters,
@@ -67,7 +56,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     SearchPageQueryQueryVariables
   >({
     ...SearchPageQuery,
-    variables: { ...cleanFilters, selectedFacets, staticPath: true },
+    variables: { ...cleanFilters, staticPath: true },
     suspense: true,
     initialData: staticPath ? staticData : undefined,
   })

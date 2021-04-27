@@ -56,34 +56,18 @@ export const useSearchInfinite = <Query extends BaseQueryShape | undefined>({
         fullText = `product:${ids.join(';')}`
       }
 
-      const selectedFacets = ([] as typeof filters.selectedFacets)
-        .concat(filters?.selectedFacets ?? [])
-        .concat(
-          regionId
-            ? {
-                key: 'region-id',
-                value: regionId,
-              }
-            : []
-        )
-
       // TODO: The query itself can't receive query and map parameters, because it breaks,
       // but these values are used elsewhere.
       // So we only remove them from the query variables.
       // Need to find a cleaner solution
-      const cleanFilters = {
-        ...filters,
-        query: null,
-        map: null,
-        priceRange: null,
-      }
-
       return {
-        ...cleanFilters,
-        selectedFacets,
+        ...filters,
         fullText,
         from,
         to,
+        priceRange: null,
+        query: null,
+        map: null,
       }
     },
     {

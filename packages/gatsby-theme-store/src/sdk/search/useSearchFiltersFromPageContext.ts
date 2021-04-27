@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 
 import { format, parse } from './priceRange'
 import type { SearchPageContext } from '../../templates/search'
+import { useRegion } from '../region/useRegion'
 
 export interface SelectedFacets {
   key: string
@@ -50,6 +51,7 @@ export const useSearchFiltersFromPageContext = (
   pageContext: SearchPageContext
 ) => {
   const location = useLocation()
+  const { regionId } = useRegion()
   const { search, pathname } = location
   const {
     query: pageContextQuery,
@@ -102,6 +104,19 @@ export const useSearchFiltersFromPageContext = (
       }
     }
 
+    if (regionId != null) {
+      const region = selectedFacets.find((facet) => facet.key === 'region-id')
+
+      if (region !== undefined) {
+        region.value = regionId
+      } else {
+        selectedFacets.push({
+          key: 'region-id',
+          value: regionId,
+        })
+      }
+    }
+
     return {
       orderBy,
       selectedFacets,
@@ -118,7 +133,8 @@ export const useSearchFiltersFromPageContext = (
     pageContextSelectedFacets,
     pageContextStaticPath,
     pageContextOrderBy,
-    pathname,
+    regionId,
     hideUnavailableItems,
+    pathname,
   ])
 }
