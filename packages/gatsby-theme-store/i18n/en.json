@@ -1,14 +1,6 @@
 {
   "buy-button.add-to-cart": "ADD TO CART",
 
-  "minicart.drawer.close": "Close",
-  "minicart.drawer.count": "Count ({count})",
-  "minicart.drawer.subtotal": "Subtotal",
-  "minicart.drawer.total": "Total",
-  "minicart.drawer.shipping-disclaimer": "Shipping and taxes calculated at checkout.",
-  "minicart.drawer.go-checkout": "GO TO CHECKOUT",
-  "minicart.price.free": "FREE",
-
   "facets.filters": "Filters",
 
   "loading": "Loading...",
@@ -17,16 +9,6 @@
 
   "search.page-list.more": "Show More",
   "search.page-list.more.loading": "Loading...",
-
-  "suggestions.autocomplete.title": "Suggestions",
-  "suggestions.autocomplete.notFound": "No Suggestions",
-  "suggestions.products.title": "Products for: {term}",
-  "suggestions.products.total": "Check all {count} items",
-  "suggestions.products.notFound": "No product found",
-  "suggestions.history.title": "History",
-  "suggestions.history.empty": "No history yet",
-  "suggestions.topSearches.title": "Top searches",
-  "suggestions.topSearches.empty": "No top searches",
 
   "product.quantity.title": "Quantity",
 

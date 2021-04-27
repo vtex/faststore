@@ -25,9 +25,6 @@ const custom: SxStyleProp = {
       },
       content: {
         quantity: {
-          width: 100,
-          border: '2px solid #e3e4e6',
-
           wrapper: {
             marginTop: 3,
             alignItems: 'center',

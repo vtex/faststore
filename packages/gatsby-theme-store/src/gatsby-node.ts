@@ -206,6 +206,15 @@ export const onCreateWebpackConfig = (
 
   setWebpackConfig({
     ...profilingConfig,
+    resolve: {
+      alias: {
+        ...profilingConfig?.resolve.alias,
+        '@vtex/order-manager': require.resolve(
+          '@vtex/order-manager/src/index.tsx'
+        ),
+        '@vtex/order-items': require.resolve('@vtex/order-items/src/index.tsx'),
+      },
+    },
     module: {
       rules: [
         {

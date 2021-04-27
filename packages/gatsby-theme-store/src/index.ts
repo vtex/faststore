@@ -32,8 +32,10 @@ export { useDiscount } from './sdk/offer/useDiscount'
 export { useListPrice } from './sdk/offer/useListPrice'
 export { usePrice } from './sdk/offer/usePrice'
 
-export { useOrderForm } from './sdk/orderForm/useOrderForm'
+export { useOrderForm, useOrderQueue } from './sdk/orderForm/useOrderForm'
 export type { OrderForm } from './sdk/orderForm/Provider'
+export { useOrderItems } from './sdk/orderForm/useOrderItems'
+export { useOrderQueueStatus } from './sdk/orderForm/useQueueStatus'
 
 export { useSummaryImage } from './sdk/product/useSummaryImage'
 export { useSku } from './sdk/product/useSku'
@@ -48,6 +50,10 @@ export {
 } from './sdk/product/constants'
 
 export { useSearch } from './sdk/search/useSearch'
+export { useTopSearches } from './sdk/search/useTopSearches'
+export { useSuggestions } from './sdk/search/useSuggestions'
+export { useAutocompleteSuggestions } from './sdk/search/useAutocompleteSuggestions'
+export { useSearchHistory } from './sdk/search/useSearchHistory'
 
 export { useProfile } from './sdk/session/useProfile'
 export { useSession } from './sdk/session/useSession'

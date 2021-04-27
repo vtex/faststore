@@ -12,7 +12,7 @@ const {
   Provider: OrderFormProvider,
 } = require('./src/sdk/orderForm/LazyProvider')
 const { RegionProvider } = require('./src/sdk/region/index')
-const { MinicartProvider } = require('./src/sdk/minicart/index')
+const { Provider: MinicartProvider } = require('./src/sdk/minicart/Provider')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
   default: ErrorBoundary,
