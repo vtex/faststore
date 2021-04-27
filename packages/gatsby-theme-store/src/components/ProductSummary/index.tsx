@@ -41,6 +41,11 @@ export const fragment = graphql`
       id
       name
     }
+    properties {
+      name
+      originalName
+      values
+    }
     items {
       itemId
       images {
