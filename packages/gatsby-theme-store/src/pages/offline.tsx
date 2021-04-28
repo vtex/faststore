@@ -1,45 +1,5 @@
 import { Box, Flex, Container } from '@vtex/store-ui'
-import React, { useEffect } from 'react'
-
-/** There are two different cases that we need to consider when the user
-  is back online.
-
-  1. User went offline, then navigated into a page that didn't trigger a fetch
-  request to the server. If any request being made to render the page fails,
-  our ErrorHandler will handle it and redirect the user to '/offline', which
-  renders the Page component defined below. In this case, there should be a
-  query string '?from=...' in the current URL. The value of this query string
-  is the route to which we should redirect the user once they're back online.
-
-  2. User went offline, then navigated into a page that **did** trigger a fetch
-  request to the server. In this case, our service worker will respond with
-  this page's HTML. There will be no redirect, so the user will see an
-  offline page, but still be in the route there were trying to navigate
-  to. Then, when back online, we just need to reload the page.
-
-  */
-function handleUserBackOnline() {
-  const queryStringParams = new URLSearchParams(window.location.search)
-  const isOfflineRoute = window.location.pathname.startsWith('/offline')
-
-  // Case 1.
-  if (queryStringParams.has('from')) {
-    const offlineFrom = queryStringParams.get('from') ?? '/'
-
-    window.location.href = offlineFrom
-
-    return
-  }
-
-  // Case 2.
-  if (!isOfflineRoute) {
-    window.location.reload()
-
-    return
-  }
-
-  window.location.href = '/'
-}
+import React from 'react'
 
 // Icon taken from https://commons.wikimedia.org/wiki/File:Offline_logo.svg.
 const OfflineSvgIcon = (
@@ -84,44 +44,36 @@ const OfflineSvgIcon = (
   </svg>
 )
 
-const Page = () => {
-  useEffect(() => {
-    window.addEventListener('online', handleUserBackOnline)
-
-    return window.removeEventListener('online', handleUserBackOnline)
-  }, [])
-
-  return (
-    <Container>
-      <Flex p={2} sx={{ alignItems: 'center', flexDirection: 'column' }}>
-        <div style={{ width: '150px', height: '150px' }}>{OfflineSvgIcon}</div>
-        <Box
-          as="h3"
-          sx={{
-            fontSize: '43px',
-            fontWeight: '600',
-            textAlign: 'center',
-            color: 'primary',
-            mt: '50px',
-          }}
-        >
-          You are offline
-        </Box>
-        <Box
-          as="p"
-          sx={{
-            paddingX: '15px',
-            fontSize: '20px',
-            textAlign: 'center',
-            marginBottom: '30px',
-          }}
-        >
-          Once your connection is back, you will be redirected to the page you
-          were trying to visit.
-        </Box>
-      </Flex>
-    </Container>
-  )
-}
+const Page = () => (
+  <Container>
+    <Flex sx={{ alignItems: 'center', flexDirection: 'column', padding: 2 }}>
+      <div style={{ width: '150px', height: '150px' }}>{OfflineSvgIcon}</div>
+      <Box
+        as="h3"
+        sx={{
+          fontSize: '43px',
+          fontWeight: '600',
+          textAlign: 'center',
+          color: 'primary',
+          mt: '50px',
+        }}
+      >
+        You are offline
+      </Box>
+      <Box
+        as="p"
+        sx={{
+          paddingX: '15px',
+          fontSize: '20px',
+          textAlign: 'center',
+          marginBottom: '30px',
+        }}
+      >
+        Once your connection is back, you will be redirected to the page you
+        were trying to visit.
+      </Box>
+    </Flex>
+  </Container>
+)
 
 export default Page
