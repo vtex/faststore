@@ -202,8 +202,6 @@ export { default as ShippingSimulator } from './ShippingSimulator'
 export { default as shippingSimulatorI18nPT } from './ShippingSimulator/i18n/pt'
 export { default as shippingSimulatorI18nEN } from './ShippingSimulator/i18n/en'
 
-// Auth Providers
-export * from './Auth/Providers'
 // Search Bar
 export { default as SearchBar } from './SearchBar'
 export { default as SearchBarButton } from './SearchBar/Button'
@@ -269,3 +267,19 @@ export { default as SearchSuggestionsContainer } from './SearchSuggestions/Conta
 export { searchSuggestionsTheme } from './SearchSuggestions/theme'
 export { default as searchSuggestionsI18nPT } from './SearchSuggestions/i18n/pt'
 export { default as searchSuggestionsI18nEN } from './SearchSuggestions/i18n/en'
+
+// Auth Providers
+export { default as EmailAndPasswordProvider } from './Auth/Providers/EmailAndPassword'
+export { default as EmailVerificationProvider } from './Auth/Providers/EmailVerification'
+export { default as OAuthProvider } from './Auth/Providers/OAuth'
+export { default as EmailAndPasswordButton } from './Auth/Providers/EmailAndPassword/Button'
+export { default as EmailVerificationButton } from './Auth/Providers/EmailVerification/Button'
+export { default as GoogleOAuthButton } from './Auth/Providers/Google/Button'
+export { default as FacebookOAuthButton } from './Auth/Providers/Facebook/Button'
+export { default as authProvidersTheme } from './Auth/Providers/theme'
+export { default as authProvidersI18nPT } from './Auth/i18n/pt'
+export { default as authProvidersI18nEN } from './Auth/i18n/en'
+export type {
+  AuthProviderComponentProps,
+  AuthProviderButtonProps,
+} from './Auth/Providers/types'

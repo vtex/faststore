@@ -5,6 +5,10 @@
     "alwaysStrict": false,
     "jsx": "react"
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "../store-ui/src/Auth/Providers/EmailAndPassword/index.tsx"
+  ],
   "exclude": ["./node_modules/**/*"]
 }

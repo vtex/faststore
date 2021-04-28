@@ -116,9 +116,6 @@
   "login.page.googleOAuth.error": "Login using Google failed. Click the button below to try again",
   "login.page.googleOAuth.tryAgain": "Try again",
 
-  "login.button.greeting": "Hello {name}",
-  "login.button.action": "Login",
-
   "error.title": "Oops, an error occurred!",
   "error.action": "Please go back to the beginning and try again",
   "error.action.button": "Back to the beginning",
