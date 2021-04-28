@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-theme-ui",
-  "version": "0.318.4-searchimage2.0",
+  "version": "0.318.5-searchimage2.0",
   "main": "index.js",
   "browser": "src/index.ts",
   "sideEffects": false,
