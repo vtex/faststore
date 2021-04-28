@@ -4,7 +4,6 @@ import { useQueryInfinite } from '../graphql/useQueryInfinite'
 import { useFilters } from './useFilters'
 import type { QueryOptions } from '../graphql/useQueryInfinite'
 import type { SearchFilters } from './Provider'
-import { useRegion } from '../region/useRegion'
 
 interface BaseQueryShape {
   vtex: {
@@ -28,7 +27,6 @@ export const useSearchInfinite = <Query extends BaseQueryShape | undefined>({
   pageSize = PAGE_SIZE,
 }: Options<Query>) => {
   const filters = useFilters()
-  const { regionId } = useRegion()
 
   const initialData = firstPageData && [firstPageData]
   const { data, error, size, setSize } = useQueryInfinite<Query, SearchFilters>(
