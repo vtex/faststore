@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby'
-import React, { lazy, useEffect, useState } from 'react'
+import React, { lazy } from 'react'
 import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 import { SuspenseViewport } from '@vtex/store-ui'
@@ -39,13 +39,7 @@ export type SearchPageProps = PageProps<
 const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const filters = useSearchFiltersFromPageContext(pageContext)
-  const { regionId: regionId0 } = useRegion()
-  const [regionId, setRegionId] = useState<Maybe<string>>()
-
-  useEffect(() => {
-    setRegionId(regionId0)
-  }, [regionId0])
-
+  const { regionId } = useRegion()
   const staticPath =
     pageContext.staticPath &&
     pageContext.orderBy === filters.orderBy &&
