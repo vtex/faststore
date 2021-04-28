@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@vtex/store-ui'
 import type { FC } from 'react'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 type MaybeString = Maybe<string>
 export interface RegionContextType {
@@ -18,17 +18,18 @@ export const RegionContext = React.createContext<RegionContextType>({
 })
 
 export const RegionProvider: FC = ({ children }) => {
-  const [postalCode, setPostalCode] = useState<MaybeString>(() => {
+  const [postalCode, setPostalCode] = useState<MaybeString>()
+  const [regionId, setRegionId] = useState<MaybeString>()
+
+  // Set using useEffect instead on the initial useState setup
+  // to prevent issues with hydration mismatch.
+  useEffect(() => {
     const savedPostalCode = window?.localStorage?.getItem('vtex:postalCode')
-
-    return savedPostalCode ?? null
-  })
-
-  const [regionId, setRegionId] = useState<MaybeString>(() => {
     const savedRegionId = window?.localStorage?.getItem('vtex:regionId')
 
-    return savedRegionId ?? null
-  })
+    setPostalCode(savedPostalCode ?? null)
+    setRegionId(savedRegionId ?? null)
+  }, [])
 
   const contextValue = useMemo(
     () => ({
