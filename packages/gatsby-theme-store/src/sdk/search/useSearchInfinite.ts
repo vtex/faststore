@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
 import { useQueryInfinite } from '../graphql/useQueryInfinite'
 import { useFilters } from './useFilters'
@@ -28,12 +28,7 @@ export const useSearchInfinite = <Query extends BaseQueryShape | undefined>({
   pageSize = PAGE_SIZE,
 }: Options<Query>) => {
   const filters = useFilters()
-  const { regionId: regionId0 } = useRegion()
-  const [regionId, setRegionId] = useState<Maybe<string>>(null)
-
-  useEffect(() => {
-    setRegionId(regionId0)
-  }, [regionId0])
+  const { regionId } = useRegion()
 
   const initialData = firstPageData && [firstPageData]
   const { data, error, size, setSize } = useQueryInfinite<Query, SearchFilters>(
