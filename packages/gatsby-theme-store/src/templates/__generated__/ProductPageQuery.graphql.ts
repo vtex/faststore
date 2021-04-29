@@ -20,7 +20,6 @@ type Scalars = {
 export type ProductPageQueryQueryVariables = Exact<{
   slug: Maybe<Scalars['String']>;
   staticPath: Scalars['Boolean'];
-  regionId: Maybe<Scalars['String']>;
 }>;
 
 
@@ -30,8 +29,8 @@ export type ProductPageQueryQuery = { vtex: { product?: Maybe<{ productReference
 // Query Related Code
 
 export const ProductPageQuery = {
-  query: process.env.NODE_ENV === 'production' ? undefined : "query ProductPageQuery($slug: String, $staticPath: Boolean!, $regionId: String) {\n  vtex {\n    product(slug: $slug, regionId: $regionId) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        name\n        complementName\n        itemId\n        referenceId {\n          value: Value\n        }\n        images {\n          imageUrl\n          imageText\n        }\n        videos {\n          videoUrl\n        }\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            listPrice: ListPrice\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n            spotPrice\n          }\n        }\n        ean\n      }\n      productClusters {\n        id\n        name\n      }\n      properties {\n        name\n        originalName\n        values\n      }\n      description\n      brand\n      categoryTree {\n        href\n        name\n      }\n      titleTag\n      metaTagDescription\n      id: productId\n    }\n  }\n}\n",
-  sha256Hash: "8c6a8d35c6dfa670011f10853e5b820027d66f67ff9340792c1fe8386fd16461",
+  query: process.env.NODE_ENV === 'production' ? undefined : "query ProductPageQuery($slug: String, $staticPath: Boolean!) {\n  vtex {\n    product(slug: $slug) @include(if: $staticPath) {\n      productReference\n      productName\n      linkText\n      items {\n        name\n        complementName\n        itemId\n        referenceId {\n          value: Value\n        }\n        images {\n          imageUrl\n          imageText\n        }\n        videos {\n          videoUrl\n        }\n        sellers {\n          commercialOffer: commertialOffer {\n            price: Price\n            listPrice: ListPrice\n            availableQuantity: AvailableQuantity\n            priceValidUntil: PriceValidUntil\n            spotPrice\n          }\n        }\n        ean\n      }\n      productClusters {\n        id\n        name\n      }\n      properties {\n        name\n        originalName\n        values\n      }\n      description\n      brand\n      categoryTree {\n        href\n        name\n      }\n      titleTag\n      metaTagDescription\n      id: productId\n    }\n  }\n}\n",
+  sha256Hash: "b3f95cb3006dd7869f26e637ebe99c019792a2e378dc1c01ae6587d3239011bb",
   operationName: "ProductPageQuery",
 }
 

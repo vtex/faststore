@@ -20,7 +20,7 @@ import type {
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
-import { useRegion } from '../sdk/region/useRegion'
+import { useRegionalizedSearch } from '../sdk/search/useRegionalizedSearch'
 
 const belowTheFoldPreloader = () =>
   import('../components/SearchPage/BelowTheFold')
@@ -44,6 +44,8 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     pageContext.staticPath &&
     pageContext.orderBy === filters.orderBy &&
     filters.priceRange === null
+
+  useRegionalizedSearch(filters, staticPath)
 
   const cleanFilters = {
     ...filters,

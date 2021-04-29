@@ -1,9 +1,9 @@
 import { useLocation } from '@reach/router'
-import { useMemo } from 'react'
+import { useMemo, useContext } from 'react'
 
 import { format, parse } from './priceRange'
 import type { SearchPageContext } from '../../templates/search'
-import { useRegion } from '../region/useRegion'
+import { Context } from '../region/Provider'
 
 export interface SelectedFacets {
   key: string
@@ -11,8 +11,15 @@ export interface SelectedFacets {
 }
 
 const searchParamsFromURL = (pathname: string, params: URLSearchParams) => {
-  const smap = params.get('map')?.split(',')
-  const spath = pathname.split('/').slice(1)
+  const smap = params
+    .get('map')
+    ?.replace(/(,)?region$/g, '')
+    .split(',')
+
+  const spath = pathname
+    .replace(/(\/)?rId$/g, '')
+    .split('/')
+    .slice(1)
 
   if (smap === undefined) {
     throw new Error(
@@ -50,8 +57,9 @@ const searchParamsFromURL = (pathname: string, params: URLSearchParams) => {
 export const useSearchFiltersFromPageContext = (
   pageContext: SearchPageContext
 ) => {
+  const region = useContext(Context)
+  const regionId = region?.regionId
   const location = useLocation()
-  const { regionId } = useRegion()
   const { search, pathname } = location
   const {
     query: pageContextQuery,
@@ -105,10 +113,12 @@ export const useSearchFiltersFromPageContext = (
     }
 
     if (regionId != null) {
-      const region = selectedFacets.find((facet) => facet.key === 'region-id')
+      const regionFacet = selectedFacets.find(
+        (facet) => facet.key === 'region-id'
+      )
 
-      if (region !== undefined) {
-        region.value = regionId
+      if (regionFacet !== undefined) {
+        regionFacet.value = regionId
       } else {
         selectedFacets.push({
           key: 'region-id',
