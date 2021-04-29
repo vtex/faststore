@@ -7,7 +7,7 @@ import type { PopoverInitialState } from 'reakit/Popover'
 // TODO: We should remove this import since a base store component that depends on our
 // routing system makes no sense and may create all sorts of wierd bugs 🐞🐞🐞
 // When doing this change, do not forget to remove @reach/router dependency from @vtex/store-ui
-import { useLocation } from '@reach/router'
+// import { useLocation } from '@reach/router'
 
 import { useSearchBarContext } from './hooks/useSearchBarContext'
 
@@ -21,18 +21,18 @@ const SearchBarInput: FC<Props> = ({
   popoverState,
   ...forward
 }) => {
-  const location = useLocation()
+  // const location = useLocation()
   const { syncTerm, setTerm, onSearch } = useSearchBarContext()
   const ref = useRef<HTMLInputElement>(null) // reference input
   const referenceRef = useRef<HTMLDivElement>(null) // reference container
   const { toggle: t, ...popover } = usePopoverState(popoverState)
   const { show, visible, hide } = popover
 
-  // Close it whenever the page changes
-  useEffect(() => {
-    hide()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname])
+  // // Close it whenever the page changes
+  // useEffect(() => {
+  //   hide()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [location.pathname])
 
   // When clicking in the input, always open but never close
   // search autocomplete
