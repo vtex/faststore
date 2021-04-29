@@ -26,7 +26,8 @@ const SearchBarInput: FC<Props> = ({
   const ref = useRef<HTMLInputElement>(null) // reference input
   const referenceRef = useRef<HTMLDivElement>(null) // reference container
   const { toggle: t, ...popover } = usePopoverState(popoverState)
-  const { show, visible, hide } = popover
+  const { show, visible } = popover
+  // const { show, visible, hide } = popover
 
   // // Close it whenever the page changes
   // useEffect(() => {
