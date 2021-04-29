@@ -12,14 +12,18 @@ export const updateItems = async ({
   orderFormId,
   items,
   splitItem,
-  allowedOutdatedData,
-}: UpdateItemsMutationMutationVariables) => {
+}: Omit<UpdateItemsMutationMutationVariables, 'allowedOutdatedData'>) => {
   const { updateItems: orderForm } = await request<
     UpdateItemsMutationMutation,
     UpdateItemsMutationMutationVariables
   >({
     ...UpdateItemsMutation,
-    variables: { orderFormId, items, splitItem, allowedOutdatedData },
+    variables: {
+      orderFormId,
+      items,
+      splitItem,
+      allowedOutdatedData: ['paymentData'],
+    },
   })
 
   setOrderFormId(orderForm.id)

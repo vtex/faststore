@@ -12,14 +12,16 @@ interface AddToCartParams {
   orderFormId?: string | null
   items: AddToCartMutationMutationVariables['items']
   marketingData?: AddToCartMutationMutationVariables['marketingData']
-  allowedOutdatedData?: AddToCartMutationMutationVariables['allowedOutdatedData']
 }
 
 export const addToCart = async ({ orderFormId, items }: AddToCartParams) => {
   const { addToCart: orderForm } = await request<
     AddToCartMutationMutation,
     AddToCartMutationMutationVariables
-  >({ ...AddToCartMutation, variables: { orderFormId, items } })
+  >({
+    ...AddToCartMutation,
+    variables: { orderFormId, items, allowedOutdatedData: ['paymentData'] },
+  })
 
   setOrderFormId(orderForm.id)
 
