@@ -1,5 +1,6 @@
 module.exports = {
   extends: ['vtex'],
+  plugins: ['react-hooks', 'jest-dom', 'testing-library'],
   overrides: [
     {
       files: [
@@ -33,6 +34,12 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         'no-await-in-loop': 'off',
+      },
+      env: {
+        node: true,
+        commonjs: true,
+        browser: true,
+        jest: true,
       },
     },
     // stories overrides
