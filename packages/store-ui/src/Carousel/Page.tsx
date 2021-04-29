@@ -1,6 +1,10 @@
 import React from 'react'
-import type { ComponentType, ComponentPropsWithoutRef, FC } from 'react'
-import { Link } from 'gatsby'
+import type {
+  ComponentType,
+  ComponentPropsWithoutRef,
+  FC,
+  AnchorHTMLAttributes,
+} from 'react'
 
 import ResponsivePicture from '../ResponsivePicture'
 
@@ -16,7 +20,7 @@ interface Props {
   height: string
   loading: 'eager' | 'lazy'
   variant: string
-  link?: ComponentType
+  Link?: ComponentType<AnchorHTMLAttributes<HTMLAnchorElement>>
 }
 
 const CarouselPage: FC<Props> = ({
@@ -25,9 +29,9 @@ const CarouselPage: FC<Props> = ({
   width,
   height,
   variant,
-  link: DynamicLink = Link,
+  Link = 'a',
 }) => (
-  <DynamicLink key={item.href} to={item.href}>
+  <Link key={item.href} href={item.href}>
     <ResponsivePicture
       {...item}
       variant={variant}
@@ -35,7 +39,7 @@ const CarouselPage: FC<Props> = ({
       height={height}
       loading={loading}
     />
-  </DynamicLink>
+  </Link>
 )
 
 export default CarouselPage

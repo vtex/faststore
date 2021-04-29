@@ -1,6 +1,6 @@
 import React from 'react'
 import { Flex, Text } from 'theme-ui'
-import { Link } from 'gatsby'
+import type { ComponentType, AnchorHTMLAttributes } from 'react'
 
 export interface BreadcrumbItem {
   name: string
@@ -10,6 +10,7 @@ export interface BreadcrumbItem {
 export interface BreadcrumbProps {
   breadcrumb: BreadcrumbItem[]
   type: 'PRODUCT' | 'SEARCH'
+  Link?: ComponentType<AnchorHTMLAttributes<HTMLAnchorElement>>
 }
 
 const homeSvgProps = {
@@ -24,10 +25,14 @@ const caretSvgProps = {
   viewBox: '0 0 180 180',
 }
 
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb, type }) => {
+export const Breadcrumb: React.FC<BreadcrumbProps> = ({
+  breadcrumb,
+  type,
+  Link = 'a',
+}) => {
   return (
     <Flex data-testid="breadcrumb" variant="breadcrumb.container">
-      <Link to="/" aria-label="Home">
+      <Link href="/" aria-label="Home">
         <Flex as="svg" variant="breadcrumb.homeIcon" {...homeSvgProps}>
           <path d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z" />
         </Flex>
@@ -41,7 +46,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb, type }) => {
 			c4.194,4.194,4.194,10.987,0,15.175l-81.934,81.939C57.201,184.293,54.454,185.343,51.707,185.343z"
             />
           </Flex>
-          <Link to={href} style={{ textDecoration: 'none ' }}>
+          <Link href={href} style={{ textDecoration: 'none ' }}>
             {/** We only want to apply a different style to the last item on Search pages */}
             <Text
               variant={`breadcrumb.${

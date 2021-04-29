@@ -1,6 +1,6 @@
-import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Alert, Box, Button, Input } from 'theme-ui'
 import React, { useRef } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
+import { Alert, Box, Button, Input } from 'theme-ui'
 import type { FC } from 'react'
 
 import type { State } from './state'
@@ -24,9 +24,7 @@ const EmailForm: FC<Props> = ({
   return (
     <>
       <Box variant={`${variant}.title`}>
-        {formatMessage({
-          id: 'login.page.emailAndPassword.emailForm.title',
-        })}
+        <FormattedMessage id="login.page.emailAndPassword.emailForm.title" />
       </Box>
       <Box
         as="form"
@@ -48,24 +46,18 @@ const EmailForm: FC<Props> = ({
 
         {state === 'emailForm.invalidEmailInput' && (
           <Alert variant="signInDanger">
-            {formatMessage({
-              id: 'login.page.emailAndPassword.emailForm.invalidEmailInput',
-            })}
+            <FormattedMessage id="login.page.emailAndPassword.emailForm.invalidEmailInput" />
           </Alert>
         )}
 
         {state === 'emailForm.error' && (
           <Alert variant="signInDanger">
-            {formatMessage({
-              id: 'login.page.emailAndPassword.emailForm.error',
-            })}
+            <FormattedMessage id="login.page.emailAndPassword.emailForm.error" />
           </Alert>
         )}
 
         <Button>
-          {formatMessage({
-            id: 'login.page.emailAndPassword.emailForm.submitButton',
-          })}
+          <FormattedMessage id="login.page.emailAndPassword.emailForm.submitButton" />
         </Button>
       </Box>
       <Button
@@ -74,9 +66,7 @@ const EmailForm: FC<Props> = ({
           onBack()
         }}
       >
-        {formatMessage({
-          id: 'login.page.emailAndPassword.emailForm.backButton',
-        })}
+        <FormattedMessage id="login.page.emailAndPassword.emailForm.backButton" />
       </Button>
     </>
   )

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Box, Flex, Text } from 'theme-ui'
-import { FormattedMessage } from '@vtex/gatsby-plugin-i18n'
+import { FormattedMessage } from 'react-intl'
 import type { PropsWithChildren } from 'react'
 
 import MinicartDrawerRemove from './Remove'

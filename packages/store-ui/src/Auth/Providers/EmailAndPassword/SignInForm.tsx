@@ -1,7 +1,7 @@
-import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import React, { useRef } from 'react'
-import type { FC } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { Alert, Box, Button, Input } from 'theme-ui'
+import type { FC } from 'react'
 
 import type { State } from './state'
 
@@ -27,9 +27,7 @@ const SignInForm: FC<Props> = ({
   return (
     <>
       <Box variant={`${variant}.title`}>
-        {formatMessage({
-          id: 'login.page.emailAndPassword.signInForm.title',
-        })}
+        <FormattedMessage id="login.page.emailAndPassword.signInForm.title" />
       </Box>
       <Box
         as="form"
@@ -64,45 +62,33 @@ const SignInForm: FC<Props> = ({
           variant={`${variant}.forgotPassword`}
           onClick={() => onForgotPassword()}
         >
-          {formatMessage({
-            id: 'login.page.emailAndPassword.signInForm.forgotPassword',
-          })}
+          <FormattedMessage id="login.page.emailAndPassword.signInForm.forgotPassword" />
         </Box>
 
         {state === 'signInForm.invalidEmailInput' && (
           <Alert variant="signInDanger">
-            {formatMessage({
-              id: 'login.page.emailAndPassword.signInForm.invalidEmailInput',
-            })}
+            <FormattedMessage id="login.page.emailAndPassword.signInForm.invalidEmailInput" />
           </Alert>
         )}
 
         {state === 'signInForm.invalidPasswordInput' && (
           <Alert variant="signInDanger">
-            {formatMessage({
-              id: 'login.page.emailAndPassword.signInForm.invalidPasswordInput',
-            })}
+            <FormattedMessage id="login.page.emailAndPassword.signInForm.invalidPasswordInput" />
           </Alert>
         )}
 
         {state === 'signInForm.authError' && (
           <Alert variant="signInDanger">
-            {formatMessage({
-              id: 'login.page.emailAndPassword.signInForm.authError',
-            })}
+            <FormattedMessage id="login.page.emailAndPassword.signInForm.authError" />
           </Alert>
         )}
 
         <Button>
-          {formatMessage({
-            id: 'login.page.emailAndPassword.signInForm.submitButton',
-          })}
+          <FormattedMessage id="login.page.emailAndPassword.signInForm.submitButton" />
         </Button>
       </Box>
       <Box variant={`${variant}.signup`} onClick={() => onSignUp()}>
-        {formatMessage({
-          id: 'login.page.emailAndPassword.signInForm.signupButton',
-        })}
+        <FormattedMessage id="login.page.emailAndPassword.signInForm.signupButton" />
       </Box>
     </>
   )

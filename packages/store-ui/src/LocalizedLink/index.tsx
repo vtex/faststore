@@ -1,21 +1,21 @@
 import React from 'react'
-import { Link } from 'gatsby'
-import { useLocalizedPath } from '@vtex/gatsby-plugin-i18n'
-import type { FC } from 'react'
-import type { GatsbyLinkProps } from 'gatsby'
+import type { FC, AnchorHTMLAttributes, ComponentType } from 'react'
 
-type Props = GatsbyLinkProps<any>
-
-const LocalizedLink: FC<Props> = (props) => {
-  const { children, ...linkProps } = props
-  const href = useLocalizedPath(props.to)
-
-  return (
-    // @ts-expect-error - Safe to ignore this type error
-    <Link {...linkProps} to={href}>
-      {children}
-    </Link>
-  )
+interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  Link?: ComponentType<AnchorHTMLAttributes<HTMLAnchorElement>>
+  localizePath?: (x: string) => string
 }
+
+const LocalizedLink: FC<Props> = ({
+  children,
+  href,
+  Link = 'a',
+  localizePath = (x: string) => x,
+  ...linkProps
+}) => (
+  <Link {...linkProps} href={localizePath(href!)}>
+    {children}
+  </Link>
+)
 
 export default LocalizedLink
