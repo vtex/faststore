@@ -1,29 +1,28 @@
 import React from 'react'
-import type { ComponentType, FC } from 'react'
 import { Box } from 'theme-ui'
+import type { ComponentType, FC, AnchorHTMLAttributes } from 'react'
 
 import { useSlider } from '../Slider/hooks/useSlider'
 import CarouselArrowLeft from './ArrowLeft'
 import CarouselArrowRight from './ArrowRight'
-import CarouselPaginationDots from './PaginationDots'
 import CarouselPage from './Page'
+import CarouselPaginationDots from './PaginationDots'
 import type { Item } from './Page'
 
 interface Props {
   allItems: Item[]
   width: string
   height: string
-  link?: ComponentType
   loading?: 'lazy' | 'eager'
   showArrows?: boolean
   showDots?: boolean
   autoplay?: number
   variant?: string
+  Link?: ComponentType<AnchorHTMLAttributes<HTMLAnchorElement>>
 }
 
 const Carousel: FC<Props> = ({
   allItems,
-  link,
   loading = 'eager',
   showArrows = true,
   showDots = true,
@@ -31,6 +30,7 @@ const Carousel: FC<Props> = ({
   height,
   autoplay,
   variant = 'carousel',
+  Link = 'a',
 }) => {
   const {
     page,
@@ -64,7 +64,7 @@ const Carousel: FC<Props> = ({
           width={width}
           height={height}
           loading={loading}
-          link={link}
+          Link={Link}
         />
         {showArrows ? (
           <CarouselArrowRight variant={variant} onClick={() => setNextPage()} />

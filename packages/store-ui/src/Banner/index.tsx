@@ -1,6 +1,6 @@
-/** @jsx jsx */
-import { jsx, Image } from 'theme-ui'
-import type { FC } from 'react'
+import React from 'react'
+import { Image } from 'theme-ui'
+import type { FC, AnchorHTMLAttributes, ComponentType } from 'react'
 
 import LocalizedLink from '../LocalizedLink'
 
@@ -11,6 +11,7 @@ type Props = {
   width: number | string
   height: number | string
   loading?: 'eager' | 'lazy'
+  Link?: ComponentType<AnchorHTMLAttributes<HTMLAnchorElement>>
 }
 
 const Banner: FC<Props> = ({
@@ -20,8 +21,9 @@ const Banner: FC<Props> = ({
   width,
   height,
   loading = 'lazy',
+  Link = 'a',
 }) => (
-  <LocalizedLink to={href}>
+  <LocalizedLink Link={Link} href={href}>
     <Image
       src={src}
       alt={alt}

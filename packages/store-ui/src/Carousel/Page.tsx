@@ -20,7 +20,7 @@ interface Props {
   height: string
   loading: 'eager' | 'lazy'
   variant: string
-  Link?: ComponentType<AnchorHTMLAttributes<HTMLAnchorElement>>
+  Link?: ComponentType<AnchorHTMLAttributes<HTMLAnchorElement>> | string
 }
 
 const CarouselPage: FC<Props> = ({
