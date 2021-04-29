@@ -9,4 +9,5 @@ export interface Item {
     at3x: string
   }
   quantity: number
+  availability: string
 }

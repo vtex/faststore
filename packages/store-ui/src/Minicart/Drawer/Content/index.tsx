@@ -1,12 +1,10 @@
 import React, { useMemo } from 'react'
 import { Box, Flex, Text } from 'theme-ui'
-import { FormattedMessage } from '@vtex/gatsby-plugin-i18n'
+import { FormattedMessage, useIntl } from '@vtex/gatsby-plugin-i18n'
 import type { PropsWithChildren } from 'react'
 
-import MinicartDrawerRemove from './Remove'
-import MinicartDrawerImage from './Image'
-import MinicartDrawerQuantity from './Quantity'
 import type { Item } from '../../types'
+import { Items } from './Items'
 
 export interface Props<T> {
   items: T[]
@@ -21,15 +19,19 @@ const useCartSections = <T extends Item>(items: T[]) =>
     () =>
       items.reduce(
         (acc, curr) => {
-          if (curr.sellingPrice === 0) {
-            acc.gifts.push(curr)
+          if (curr.availability === 'available') {
+            if (curr.sellingPrice === 0) {
+              acc.gifts.push(curr)
+            } else {
+              acc.products.push(curr)
+            }
           } else {
-            acc.products.push(curr)
+            acc.unavailable.push(curr)
           }
 
           return acc
         },
-        { gifts: [] as T[], products: [] as T[] }
+        { gifts: [] as T[], products: [] as T[], unavailable: [] as T[] }
       ),
     [items]
   )
@@ -41,7 +43,8 @@ const MinicartDrawerContent = <T extends Item>({
   updateItem,
   numberFormat,
 }: PropsWithChildren<Props<T>>) => {
-  const { gifts, products } = useCartSections(items)
+  const { formatMessage } = useIntl()
+  const { gifts, products, unavailable } = useCartSections(items)
   const variant = `${v}.content`
 
   return (
@@ -49,56 +52,55 @@ const MinicartDrawerContent = <T extends Item>({
       <Box variant={`${variant}.section`}>
         <FormattedMessage id="minicart.drawer.section.products" />
       </Box>
-      {products.map((item) => (
-        <Flex key={item.id} variant={`${variant}.product`}>
-          <MinicartDrawerImage
-            width="192px"
-            height="192px"
-            src={item.imageUrls?.at2x}
-            alt={item.name!}
-            variant={`${variant}.product.image`}
-          />
-          <Flex variant={`${variant}.product.name`}>
-            <Flex>
-              <Text variant={`${variant}.product.name.text`}>{item.name}</Text>
-              <MinicartDrawerRemove
-                item={item}
-                variant={variant}
-                removeItem={removeItem}
-              />
-            </Flex>
-            <MinicartDrawerQuantity
-              updateItem={updateItem}
-              item={item}
-              variant={variant}
-            />
-            <Text variant={`${variant}.product.name.value`}>
-              {numberFormat(Number(item.sellingPrice) / 100)}
+      {unavailable.length > 0 && (
+        <Items
+          items={unavailable}
+          variant={variant}
+          numberFormat={numberFormat}
+          formatMessage={formatMessage}
+          removeItem={removeItem}
+          updateItem={updateItem}
+        >
+          <Flex variant={`${variant}.product.availabilityContainer`}>
+            <Text variant={`${variant}.product.availabilityContainer.message`}>
+              {formatMessage({ id: 'minicart.warning.unavailable' })}
             </Text>
           </Flex>
-        </Flex>
-      ))}
-      {gifts.length > 0 && (
+        </Items>
+      )}
+      {unavailable.length > 0 && products.length > 0 && (
         <Box variant={`${variant}.section`}>
-          <FormattedMessage id="minicart.drawer.section.gifts" />
+          {formatMessage(
+            { id: 'minicart.section.available' },
+            { count: products.length }
+          )}
         </Box>
       )}
-      {gifts.map((item) => (
-        <Flex key={item.id} variant={`${variant}.product`}>
-          <MinicartDrawerImage
-            width="192px"
-            height="192px"
-            src={item.imageUrls?.at2x}
-            alt={item.name!}
-            variant={`${variant}.product.image`}
+      {products.length > 0 && (
+        <Items
+          items={products}
+          variant={variant}
+          numberFormat={numberFormat}
+          formatMessage={formatMessage}
+          removeItem={removeItem}
+          updateItem={updateItem}
+        />
+      )}
+      {gifts.length > 0 && (
+        <>
+          <Box variant={`${variant}.section`}>
+            <FormattedMessage id="minicart.drawer.section.gifts" />
+          </Box>
+          <Items
+            items={gifts}
+            variant={variant}
+            numberFormat={numberFormat}
+            formatMessage={formatMessage}
+            removeItem={removeItem}
+            updateItem={updateItem}
           />
-          <Flex variant={`${variant}.product.name`}>
-            <Flex>
-              <Text variant={`${variant}.product.name.text`}>{item.name}</Text>
-            </Flex>
-          </Flex>
-        </Flex>
-      ))}
+        </>
+      )}
     </Flex>
   )
 }
