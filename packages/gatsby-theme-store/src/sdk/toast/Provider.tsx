@@ -7,55 +7,92 @@ import React, {
 } from 'react'
 import type { FC } from 'react'
 
-export interface State {
-  isVisible: boolean
-  message: string
+import { uuidv4 } from '../uuid'
+
+interface Message {
+  content: string
   type?: 'error' | 'warning' | 'success'
+  id: string
 }
 
-interface ShowToastOptions
-  extends Pick<State, Exclude<keyof State, 'isVisible'>> {
+export interface State {
+  messages: Message[]
+}
+
+interface ShowToastOptions extends Omit<Message, 'id'> {
+  id?: Message['id']
   duration?: number
 }
 
 export interface IContext extends State {
   showToast: (options: ShowToastOptions) => void
-  hideToast: () => void
+  hideToast: (id: NonNullable<Message['id']>) => void
 }
 
 export const Context = createContext<IContext | undefined>(undefined)
 
 export const Provider: FC = ({ children }) => {
   const [toastState, setToastState] = useState<State>({
-    isVisible: false,
-    message: '',
+    messages: [],
   })
 
-  const timeoutRef = useRef(0)
+  const timeoutRef = useRef<Record<string, number>>({})
 
   useEffect(() => {
-    return () => clearTimeout(timeoutRef.current)
+    const copyTimeoutRef = timeoutRef
+
+    return () => {
+      Object.values(copyTimeoutRef.current).forEach((timeoutId) =>
+        clearTimeout(timeoutId)
+      )
+    }
   }, [])
 
-  const hideToast = useCallback(() => {
-    setToastState((prev) => ({ ...prev, isVisible: false }))
-  }, [])
-
-  const showToast = useCallback<IContext['showToast']>(
-    ({ duration = 3000, message, type }: ShowToastOptions) => {
-      setToastState((prevState) => ({
-        ...prevState,
-        message,
-        isVisible: true,
-        type,
+  const hideToast = useCallback<IContext['hideToast']>(
+    (id: NonNullable<Message['id']>) => {
+      setToastState((prevToastState) => ({
+        messages: prevToastState.messages.filter(
+          (message) => message.id !== id
+        ),
       }))
-
-      timeoutRef.current = (setTimeout(
-        () => setToastState((prev) => ({ ...prev, isVisible: false })),
-        duration
-      ) as unknown) as number
+      clearTimeout(timeoutRef.current[id])
+      delete timeoutRef.current[id]
     },
     []
+  )
+
+  const setMessageCloseTimeout = useCallback(
+    ({ id, duration }) => {
+      timeoutRef.current[id] = (setTimeout(() => {
+        hideToast(id)
+      }, duration) as unknown) as number
+    },
+    [hideToast]
+  )
+
+  const showToast = useCallback<IContext['showToast']>(
+    ({ duration = 3000, content, type, id }: ShowToastOptions) => {
+      if (
+        id &&
+        toastState.messages.filter((message) => message.id === id).length > 0
+      ) {
+        setMessageCloseTimeout({ id, duration })
+
+        return
+      }
+
+      const msgId = id ?? uuidv4()
+
+      setToastState((prevToastState) => ({
+        isVisible: true,
+        messages: prevToastState.messages.concat([
+          { content, type: type ?? 'success', id: msgId },
+        ]),
+      }))
+
+      setMessageCloseTimeout({ id: msgId, duration })
+    },
+    [toastState, setMessageCloseTimeout]
   )
 
   return (
