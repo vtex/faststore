@@ -23,6 +23,9 @@ export const RegionProvider: FC = ({ children }) => {
 
   // Set using useEffect instead on the initial useState setup
   // to prevent issues with hydration mismatch.
+  // Refer to https://reactjs.org/docs/react-dom.html#hydrate,
+  // looking out for "two-pass rendering", and more in depth in
+  // https://www.joshwcomeau.com/react/the-perils-of-rehydration/
   useEffect(() => {
     const savedPostalCode = window?.localStorage?.getItem('vtex:postalCode')
     const savedRegionId = window?.localStorage?.getItem('vtex:regionId')
