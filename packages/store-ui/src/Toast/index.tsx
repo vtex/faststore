@@ -16,32 +16,28 @@ const typeIcons: Record<ToastType, FC> = {
 }
 
 interface Props {
-  message: ReactNode
-  isVisible: boolean
+  content: ReactNode
   hideToast: () => void
   type?: ToastType
 }
 
-const Toast: FC<Props> = ({
-  message,
-  isVisible,
-  hideToast,
-  type = 'success',
-}) => {
-  if (!isVisible) {
+const Toast: FC<Props> = ({ content, hideToast, type = 'success' }) => {
+  if (!content) {
     return null
   }
 
   const Icon = typeIcons[type]
 
   return (
-    <Box variant={`toast.container.${type}`}>
-      <Box variant="toast.icon">
-        <Icon />
-      </Box>
-      <Box variant="toast.message">{message}</Box>
-      <Box as="button" variant="toast.closeButton" onClick={hideToast}>
-        <CrossIcon />
+    <Box variant="toast.outerContainer">
+      <Box variant={`toast.container.${type}`}>
+        <Box variant="toast.icon">
+          <Icon />
+        </Box>
+        <Box variant="toast.content">{content}</Box>
+        <Box as="button" variant="toast.closeButton" onClick={hideToast}>
+          <CrossIcon />
+        </Box>
       </Box>
     </Box>
   )

@@ -22,9 +22,9 @@ export interface Props<T extends Item>
     >,
     Pick<
       ComponentPropsWithoutRef<typeof MinicartDrawerToast>,
-      'hideToast' | 'message' | 'type'
+      'hideToast' | 'type'
     > {
-  isToastVisible: boolean
+  message: string
   variant?: string
 }
 
@@ -42,7 +42,6 @@ const MinicartDrawer = <T extends Item>({
   disableViewCart,
   type,
   message,
-  isToastVisible,
   variant = 'default',
 }: PropsWithChildren<Props<T>>) => {
   const drawerVariant = `minicart.${variant}`
@@ -70,8 +69,7 @@ const MinicartDrawer = <T extends Item>({
       />
       <MinicartDrawerToast
         hideToast={hideToast}
-        message={message}
-        isVisible={isToastVisible}
+        content={message}
         type={type}
       />
       <MinicartDrawerFooter
