@@ -34,6 +34,7 @@ build/Release
 
 # bundle
 dist/
+storybook-static/
 
 # Dependency directories
 node_modules/
