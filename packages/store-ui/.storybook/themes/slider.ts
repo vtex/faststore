@@ -1,6 +1,6 @@
-import { createTheme, responsivePictureTheme, SxStyleProp } from '../../src'
+import { createTheme, responsivePictureTheme, ThemeUIStyleObject } from '../../src'
 
-const paginationDots: SxStyleProp = {
+const paginationDots: ThemeUIStyleObject = {
   container: {
     paddingY: '10px',
     paddingX: 0,
@@ -41,13 +41,13 @@ const paginationDots: SxStyleProp = {
   },
 }
 
-const shelfPaginationDots: SxStyleProp = createTheme(paginationDots, {
+const shelfPaginationDots: ThemeUIStyleObject = createTheme(paginationDots, {
   container: {
     position: 'relative',
   },
 })
 
-const shelfArrows: SxStyleProp = {
+const shelfArrows: ThemeUIStyleObject = {
   left: {
     button: {
       bg: 'transparent',
@@ -81,7 +81,7 @@ const shelfArrows: SxStyleProp = {
   },
 }
 
-const carouselArrows: SxStyleProp = {
+const carouselArrows: ThemeUIStyleObject = {
   left: {
     button: {
       position: 'absolute',
@@ -134,7 +134,7 @@ const carouselResponsivePicture = createTheme(responsivePictureTheme, {
   },
 })
 
-const theme: SxStyleProp = {
+const theme: ThemeUIStyleObject = {
   productImageGallery: {
     mx: 2,
     display: 'flex',

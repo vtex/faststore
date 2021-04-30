@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-const paginationDots: SxStyleProp = {
+const paginationDots: ThemeUIStyleObject = {
   container: {
     paddingY: '10px',
     paddingX: 0,
@@ -41,7 +41,7 @@ const paginationDots: SxStyleProp = {
   },
 }
 
-const arrow: SxStyleProp = {
+const arrow: ThemeUIStyleObject = {
   left: {
     button: {
       position: 'absolute',
@@ -83,7 +83,7 @@ const arrow: SxStyleProp = {
   },
 }
 
-const miniature: SxStyleProp = {
+const miniature: ThemeUIStyleObject = {
   container: {
     mx: '15px',
     width: '78px',
@@ -105,7 +105,7 @@ const miniature: SxStyleProp = {
   },
 }
 
-export const productImageGalleryTheme: SxStyleProp = {
+export const productImageGalleryTheme: ThemeUIStyleObject = {
   productImageGallery: {
     mx: 2,
     display: 'flex',

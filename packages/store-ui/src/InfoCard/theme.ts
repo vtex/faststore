@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-const CardTheme: SxStyleProp = {
+const CardTheme: ThemeUIStyleObject = {
   card: {
     margin: '0 auto',
     width: '100%',

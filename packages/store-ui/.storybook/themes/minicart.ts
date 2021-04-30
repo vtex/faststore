@@ -1,4 +1,4 @@
-import { createTheme, minicartTheme, SxStyleProp } from '../../src'
+import { createTheme, minicartTheme, ThemeUIStyleObject } from '../../src'
 
 const btn = {
   padding: 0,
@@ -12,7 +12,7 @@ const btn = {
   cursor: 'pointer',
 }
 
-const custom: SxStyleProp = {
+const custom: ThemeUIStyleObject = {
   minicart: {
     drawer: {
       footer: {

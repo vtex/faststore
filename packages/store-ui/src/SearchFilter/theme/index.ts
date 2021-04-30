@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
 import { createTheme } from '../../createTheme'
 import { accordionTheme } from './accordion'
 
-export const searchFilterTheme: SxStyleProp = createTheme(accordionTheme)
+export const searchFilterTheme: ThemeUIStyleObject = createTheme(accordionTheme)

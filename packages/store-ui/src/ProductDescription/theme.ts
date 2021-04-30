@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-export const productDescriptionTheme: SxStyleProp = {
+export const productDescriptionTheme: ThemeUIStyleObject = {
   productDescription: {
     flexDirection: 'column',
 

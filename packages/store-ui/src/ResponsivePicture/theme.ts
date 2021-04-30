@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-const responsivePicture: SxStyleProp = {
+const responsivePicture: ThemeUIStyleObject = {
   picture: {
     display: 'block',
     overflow: 'hidden',

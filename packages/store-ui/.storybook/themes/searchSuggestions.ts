@@ -1,7 +1,7 @@
-import { createTheme, SxStyleProp } from '../../src'
+import { createTheme, ThemeUIStyleObject } from '../../src'
 import searchSuggestionsTheme from '@vtex/gatsby-theme-store/components/SearchSuggestions/theme'
 
-const theme: SxStyleProp = createTheme(searchSuggestionsTheme, {
+const theme: ThemeUIStyleObject = createTheme(searchSuggestionsTheme, {
   suggestions: {
     minWidth: ['19rem', '40rem'],
 

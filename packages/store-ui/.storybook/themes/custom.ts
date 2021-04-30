@@ -1,6 +1,6 @@
-import { SxStyleProp } from '../../src'
+import { ThemeUIStyleObject } from '../../src'
 
-export const custom: SxStyleProp = {
+export const custom: ThemeUIStyleObject = {
   'rich-text': {
     default: {
       color: 'textBold',

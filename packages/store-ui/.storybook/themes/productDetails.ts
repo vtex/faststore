@@ -1,6 +1,6 @@
-import { SxStyleProp } from '../../src'
+import { ThemeUIStyleObject } from '../../src'
 
-const productDetails: SxStyleProp = {
+const productDetails: ThemeUIStyleObject = {
   reference: {
     fontSize: '16px',
     fontWeight: 400,

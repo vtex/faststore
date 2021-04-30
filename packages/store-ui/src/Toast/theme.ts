@@ -1,17 +1,17 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 import { keyframes } from '@emotion/core'
 
 const toastAnimation = keyframes`
   from {
     bottom: 0px;
   }
-  
+
   to {
     bottom: 30px;
   }
 `
 
-const defaultContainerTheme: SxStyleProp = {
+const defaultContainerTheme: ThemeUIStyleObject = {
   alignItems: 'center',
   animation: `${toastAnimation} .125s`,
   borderRadius: 5,
@@ -34,22 +34,22 @@ const defaultContainerTheme: SxStyleProp = {
   fill: 'white',
 }
 
-const containerError: SxStyleProp = {
+const containerError: ThemeUIStyleObject = {
   ...defaultContainerTheme,
   backgroundColor: '#DC143C',
 }
 
-const containerSuccess: SxStyleProp = {
+const containerSuccess: ThemeUIStyleObject = {
   ...defaultContainerTheme,
   backgroundColor: '#40aa60',
 }
 
-const containerWarning: SxStyleProp = {
+const containerWarning: ThemeUIStyleObject = {
   ...defaultContainerTheme,
   backgroundColor: '#f3e32d',
 }
 
-const theme: SxStyleProp = {
+const theme: ThemeUIStyleObject = {
   toast: {
     container: {
       error: containerError,

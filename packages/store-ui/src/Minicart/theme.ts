@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-const theme: SxStyleProp = {
+const theme: ThemeUIStyleObject = {
   bg: 'muted',
 
   button: {
@@ -123,7 +123,7 @@ const theme: SxStyleProp = {
   },
 } as any
 
-export const minicartTheme: SxStyleProp = {
+export const minicartTheme: ThemeUIStyleObject = {
   minicart: {
     default: theme,
   },

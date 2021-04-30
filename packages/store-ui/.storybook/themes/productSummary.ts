@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-const productSummary: SxStyleProp = {
+const productSummary: ThemeUIStyleObject = {
   container: {
     maxWidth: '300px',
     minWidth: '150px',

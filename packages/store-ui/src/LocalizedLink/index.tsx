@@ -5,6 +5,7 @@ interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
   Link?: ComponentType<AnchorHTMLAttributes<HTMLAnchorElement>> | string
   localizePath?: (x: string) => string
   state?: any
+  sx?: any
 }
 
 const LocalizedLink: FC<Props> = ({

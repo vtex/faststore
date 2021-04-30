@@ -1,7 +1,7 @@
-import type { SxStyleProp } from '../index'
+import type { ThemeUIStyleObject } from '../index'
 import { createTheme, responsivePictureTheme } from '../index'
 
-const paginationDots: SxStyleProp = {
+const paginationDots: ThemeUIStyleObject = {
   container: {
     my: '0.5rem',
     position: 'absolute',
@@ -40,7 +40,7 @@ const paginationDots: SxStyleProp = {
   },
 }
 
-const carouselArrows: SxStyleProp = {
+const carouselArrows: ThemeUIStyleObject = {
   left: {
     button: {
       display: ['none', 'block'],
@@ -92,7 +92,7 @@ const carouselresponsivePicture = createTheme(responsivePictureTheme, {
   },
 })
 
-const theme: SxStyleProp = {
+const theme: ThemeUIStyleObject = {
   carousel: {
     position: 'relative',
     arrow: carouselArrows,

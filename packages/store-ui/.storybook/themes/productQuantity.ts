@@ -1,10 +1,10 @@
 import {
-  SxStyleProp,
+  ThemeUIStyleObject,
   productQuantityTheme as defaultProductQuantityTheme,
   createTheme,
 } from '../../src'
 
-export const productQuantityTheme: SxStyleProp = createTheme(
+export const productQuantityTheme: ThemeUIStyleObject = createTheme(
   defaultProductQuantityTheme,
   {
     productQuantity: {

@@ -1,6 +1,6 @@
-import { createTheme, searchBarTheme, SxStyleProp } from '../../src'
+import { createTheme, searchBarTheme, ThemeUIStyleObject } from '../../src'
 
-const theme: SxStyleProp = createTheme(searchBarTheme, {
+const theme: ThemeUIStyleObject = createTheme(searchBarTheme, {
   searchbar: {
     textInput: {
       maxHeight: '40px',

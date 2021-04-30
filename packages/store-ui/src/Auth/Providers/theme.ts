@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-const baseButton: SxStyleProp = {
+const baseButton: ThemeUIStyleObject = {
   width: '100%',
   minHeight: '40px',
   my: '4px',
@@ -15,7 +15,7 @@ const baseButton: SxStyleProp = {
   cursor: 'pointer',
 }
 
-const login: SxStyleProp = {
+const login: ThemeUIStyleObject = {
   page: {
     container: {
       flexWrap: 'wrap-reverse',
@@ -55,7 +55,7 @@ const login: SxStyleProp = {
   },
 }
 
-const baseInput: SxStyleProp = {
+const baseInput: ThemeUIStyleObject = {
   width: '100%',
   height: '41px',
   borderColor: '#e3e4e6',
@@ -69,7 +69,7 @@ const baseInput: SxStyleProp = {
   my: '8px',
 }
 
-const emailAndPassword: SxStyleProp = {
+const emailAndPassword: ThemeUIStyleObject = {
   page: {
     my: '10px',
 
@@ -109,7 +109,7 @@ const emailAndPassword: SxStyleProp = {
   },
 }
 
-const OAuth: SxStyleProp = {
+const OAuth: ThemeUIStyleObject = {
   page: {
     title: {
       my: '8px',
@@ -123,7 +123,7 @@ const OAuth: SxStyleProp = {
   },
 }
 
-const externalOAuth: SxStyleProp = {
+const externalOAuth: ThemeUIStyleObject = {
   Google: {
     ...OAuth,
   },

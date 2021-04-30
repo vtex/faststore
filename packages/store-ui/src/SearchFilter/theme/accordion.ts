@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-export const accordionTheme: SxStyleProp = {
+export const accordionTheme: ThemeUIStyleObject = {
   accordion: {
     collapsible: {
       paddingBottom: '16px',

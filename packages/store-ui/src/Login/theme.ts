@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-const theme: SxStyleProp = {
+const theme: ThemeUIStyleObject = {
   login: {
     button: {
       container: {

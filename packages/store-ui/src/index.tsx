@@ -43,7 +43,7 @@ export {
 } from 'theme-ui'
 
 export type {
-  SxStyleProp,
+  ThemeUIStyleObject,
   BoxProps,
   FlexProps,
   GridProps,

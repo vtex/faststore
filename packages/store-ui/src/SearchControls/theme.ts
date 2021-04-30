@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-export const searchControlsTheme: SxStyleProp = {
+export const searchControlsTheme: ThemeUIStyleObject = {
   searchControls: {
     display: 'flex',
     flexDirection: 'row-reverse',

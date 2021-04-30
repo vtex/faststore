@@ -1,6 +1,6 @@
-import { createTheme, breadcrumbTheme, SxStyleProp } from '../../src'
+import { createTheme, breadcrumbTheme, ThemeUIStyleObject } from '../../src'
 
-const custom: SxStyleProp = {
+const custom: ThemeUIStyleObject = {
   breadcrumb: {
     container: {
       alignItems: 'center',

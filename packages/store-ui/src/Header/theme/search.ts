@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-export const searchTheme: SxStyleProp = {
+export const searchTheme: ThemeUIStyleObject = {
   search: {
     maxWidth: 250,
     bg: 'background',

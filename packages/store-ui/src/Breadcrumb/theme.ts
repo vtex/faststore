@@ -1,5 +1,5 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-const breadcrumbTheme: SxStyleProp = {}
+const breadcrumbTheme: ThemeUIStyleObject = {}
 
 export default breadcrumbTheme

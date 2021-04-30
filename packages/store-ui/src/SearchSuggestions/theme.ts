@@ -1,18 +1,18 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-const title: SxStyleProp = {
+const title: ThemeUIStyleObject = {
   textTransform: 'uppercase',
   fontSize: 2,
   fontWeight: 'bold',
 }
 
-const list: SxStyleProp = {
+const list: ThemeUIStyleObject = {
   listStyle: 'none',
   margin: 0,
   padding: 0,
 }
 
-const item: SxStyleProp = {
+const item: ThemeUIStyleObject = {
   cursor: 'pointer',
   borderRadius: '4px',
   padding: '5px 10px',
@@ -24,7 +24,7 @@ const item: SxStyleProp = {
   },
 }
 
-export const searchSuggestionsTheme: SxStyleProp = {
+export const searchSuggestionsTheme: ThemeUIStyleObject = {
   suggestions: {
     color: 'text',
     backgroundColor: 'white',

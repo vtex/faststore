@@ -1,8 +1,8 @@
-import { createTheme, SxStyleProp, searchFilterTheme } from '../../src'
+import { createTheme, ThemeUIStyleObject, searchFilterTheme } from '../../src'
 
-const accordionDesktop: SxStyleProp = createTheme(searchFilterTheme, {})
+const accordionDesktop: ThemeUIStyleObject = createTheme(searchFilterTheme, {})
 
-const accordionMobile: SxStyleProp = createTheme(accordionDesktop, {
+const accordionMobile: ThemeUIStyleObject = createTheme(accordionDesktop, {
   accordion: {
     collapsible: {
       paddingBottom: 0,
@@ -32,7 +32,7 @@ const accordionMobile: SxStyleProp = createTheme(accordionDesktop, {
   },
 })
 
-const filtersDesktop: SxStyleProp = {
+const filtersDesktop: ThemeUIStyleObject = {
   title: {
     py: [0, 4],
     fontSize: '20px',
@@ -42,7 +42,7 @@ const filtersDesktop: SxStyleProp = {
   ...accordionDesktop,
 }
 
-const filtersMobile: SxStyleProp = createTheme(filtersDesktop, {
+const filtersMobile: ThemeUIStyleObject = createTheme(filtersDesktop, {
   title: {
     fontSize: 4,
     borderBottom: '1px solid #e2e2e2',
@@ -60,7 +60,7 @@ const filtersMobile: SxStyleProp = createTheme(filtersDesktop, {
   ...accordionMobile,
 })
 
-export const searchTheme: SxStyleProp = {
+export const searchTheme: ThemeUIStyleObject = {
   searchFilter: {
     desktop: filtersDesktop,
     mobile: filtersMobile,

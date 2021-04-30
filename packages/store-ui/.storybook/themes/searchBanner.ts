@@ -1,6 +1,6 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
-export const searchBannerTheme: SxStyleProp = {
+export const searchBannerTheme: ThemeUIStyleObject = {
   searchBanner: {
     responsivePicture: {
       picture: {

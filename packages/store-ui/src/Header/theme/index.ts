@@ -1,4 +1,4 @@
-import type { SxStyleProp } from 'theme-ui'
+import type { ThemeUIStyleObject } from 'theme-ui'
 
 import { createTheme } from '../../createTheme'
 import { menuTheme } from './menu'
@@ -6,7 +6,7 @@ import { notificationbarTheme } from './notificationbar'
 import { overmenuTheme } from './overmenu'
 import { searchTheme } from './search'
 
-export const headerTheme: SxStyleProp = {
+export const headerTheme: ThemeUIStyleObject = {
   header: createTheme(
     {
       bg: 'muted',
