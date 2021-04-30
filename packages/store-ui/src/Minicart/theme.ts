@@ -50,6 +50,19 @@ const theme: SxStyleProp = {
       overflow: 'auto',
       px: 3,
 
+      section: {
+        marginTop: 4,
+        paddingBottom: 3,
+        borderBottom: '1px solid #e3e4e6',
+        fontSize: '16px',
+        fontWeight: 400,
+        color: '#727273',
+
+        sub: {
+          paddingLeft: 3,
+        },
+      },
+
       product: {
         py: 3,
         borderBottomWidth: 1,
@@ -62,6 +75,7 @@ const theme: SxStyleProp = {
 
         image: {
           minWidth: '150px',
+          objectFit: 'cover',
         },
 
         name: {
