@@ -22,7 +22,7 @@ export const useRegionalizedSearch = (
   const { pathname } = useLocation()
   const region = useContext(Context)
 
-  if (region?.regionId === undefined || staticPath !== true) {
+  if (region?.regionId == null || staticPath !== true) {
     return false
   }
 
