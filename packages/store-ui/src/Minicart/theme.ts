@@ -63,6 +63,7 @@ const theme: SxStyleProp = {
 
       subsection: {
         ...section,
+        paddingLeft: 3,
       },
 
       product: {
