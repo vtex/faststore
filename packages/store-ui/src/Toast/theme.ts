@@ -51,7 +51,7 @@ const containerWarning: SxStyleProp = {
 
 const theme: SxStyleProp = {
   toast: {
-    outerContaienr: {
+    outerContainer: {
       overflow: 'hidden',
     },
     container: {
