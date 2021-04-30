@@ -11,7 +11,7 @@ import type { ElementType } from 'react'
 const {
   Provider: OrderFormProvider,
 } = require('./src/sdk/orderForm/LazyProvider')
-const { RegionProvider } = require('./src/sdk/region/index')
+const { Provider: RegionProvider } = require('./src/sdk/region/Provider')
 const { Provider: MinicartProvider } = require('./src/sdk/minicart/Provider')
 const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
 const {
