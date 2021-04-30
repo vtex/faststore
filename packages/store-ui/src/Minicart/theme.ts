@@ -1,5 +1,14 @@
 import type { SxStyleProp } from 'theme-ui'
 
+const section = {
+  marginTop: 4,
+  paddingBottom: 3,
+  borderBottom: '1px solid #e3e4e6',
+  fontSize: '16px',
+  fontWeight: 400,
+  color: '#727273',
+}
+
 const theme: SxStyleProp = {
   bg: 'muted',
 
@@ -50,17 +59,10 @@ const theme: SxStyleProp = {
       overflow: 'auto',
       px: 3,
 
-      section: {
-        marginTop: 4,
-        paddingBottom: 3,
-        borderBottom: '1px solid #e3e4e6',
-        fontSize: '16px',
-        fontWeight: 400,
-        color: '#727273',
+      section,
 
-        sub: {
-          paddingLeft: 3,
-        },
+      subsection: {
+        ...section,
       },
 
       product: {
