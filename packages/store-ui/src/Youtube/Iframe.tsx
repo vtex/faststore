@@ -1,5 +1,4 @@
 import React from 'react'
-import type { ThemeUIStyleObject } from 'theme-ui'
 import { AspectRatio, Box } from 'theme-ui'
 import type { FC, HTMLProps, Ref } from 'react'
 
@@ -14,10 +13,10 @@ interface Props extends HTMLProps<HTMLIFrameElement> {
   ref?: Ref<HTMLIFrameElement>
 }
 
-const styles: ThemeUIStyleObject = {
+const styles = {
   width: '100%',
   height: '100%',
-}
+} as const
 
 const YoutubeIframe: FC<Props> = (props) => {
   const iframeSrc = useYoutubeEmbeddedSrc(props)
@@ -32,7 +31,7 @@ const YoutubeIframe: FC<Props> = (props) => {
   return (
     <AspectRatio ratio={1} sx={{ paddingTop: '20%' }}>
       <AspectRatio ratio={4 / 3}>
-        <Box sx={styles} {...iframeProps} as="iframe" />
+        <Box {...iframeProps} as="iframe" sx={styles} />
       </AspectRatio>
     </AspectRatio>
   )
