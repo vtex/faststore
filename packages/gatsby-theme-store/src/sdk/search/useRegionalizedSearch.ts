@@ -23,7 +23,7 @@ export const useRegionalizedSearch = (
   const region = useContext(Context)
 
   if (region?.regionId === undefined || staticPath !== true) {
-    return true
+    return false
   }
 
   const newMap = map == null ? 'region' : `${map},region`
@@ -31,5 +31,5 @@ export const useRegionalizedSearch = (
 
   navigate(to)
 
-  return false
+  return true
 }
