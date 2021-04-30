@@ -1,4 +1,4 @@
-const region = {
+const postalCode = {
   get: () => window.localStorage.getItem('vtex:postalCode'),
   set: (value: Maybe<string>) => {
     if (value) {
@@ -9,7 +9,7 @@ const region = {
   },
 }
 
-const postalCode = {
+const region = {
   get: () => window.localStorage.getItem('vtex:regionId'),
   set: (value: Maybe<string>) => {
     if (value) {
