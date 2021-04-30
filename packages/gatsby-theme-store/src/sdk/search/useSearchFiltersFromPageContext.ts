@@ -1,8 +1,9 @@
 import { useLocation } from '@reach/router'
-import { useMemo } from 'react'
+import { useMemo, useContext } from 'react'
 
 import { format, parse } from './priceRange'
 import type { SearchPageContext } from '../../templates/search'
+import { Context } from '../region/Provider'
 
 export interface SelectedFacets {
   key: string
@@ -10,8 +11,17 @@ export interface SelectedFacets {
 }
 
 const searchParamsFromURL = (pathname: string, params: URLSearchParams) => {
-  const smap = params.get('map')?.split(',')
-  const spath = pathname.split('/').slice(1)
+  const smap = params
+    .get('map')
+    // remove `region` from map since it serves only to fetch the client-side version of the search page
+    ?.replace(/(,)?region$/g, '')
+    .split(',')
+
+  const spath = pathname
+    // remove `rId` from pathname since it serves only to fetch the client-side version of the search page
+    .replace(/(\/)?rId$/g, '')
+    .split('/')
+    .slice(1)
 
   if (smap === undefined) {
     throw new Error(
@@ -49,6 +59,8 @@ const searchParamsFromURL = (pathname: string, params: URLSearchParams) => {
 export const useSearchFiltersFromPageContext = (
   pageContext: SearchPageContext
 ) => {
+  const region = useContext(Context)
+  const regionId = region?.regionId
   const location = useLocation()
   const { search, pathname } = location
   const {
@@ -102,6 +114,21 @@ export const useSearchFiltersFromPageContext = (
       }
     }
 
+    if (regionId != null) {
+      const regionFacet = selectedFacets.find(
+        (facet) => facet.key === 'region-id'
+      )
+
+      if (regionFacet !== undefined) {
+        regionFacet.value = regionId
+      } else {
+        selectedFacets.push({
+          key: 'region-id',
+          value: regionId,
+        })
+      }
+    }
+
     return {
       orderBy,
       selectedFacets,
@@ -118,7 +145,8 @@ export const useSearchFiltersFromPageContext = (
     pageContextSelectedFacets,
     pageContextStaticPath,
     pageContextOrderBy,
-    pathname,
+    regionId,
     hideUnavailableItems,
+    pathname,
   ])
 }

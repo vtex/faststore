@@ -20,7 +20,7 @@ import type {
   SearchPageQueryQuery,
   SearchPageQueryQueryVariables,
 } from './__generated__/SearchPageQuery.graphql'
-import { useRegion } from '../sdk/region/useRegion'
+import { useRegionalizedSearch } from '../sdk/search/useRegionalizedSearch'
 
 const belowTheFoldPreloader = () =>
   import('../components/SearchPage/BelowTheFold')
@@ -39,22 +39,13 @@ export type SearchPageProps = PageProps<
 const SearchPage: FC<SearchPageProps> = (props) => {
   const { pageContext, data: staticData } = props
   const filters = useSearchFiltersFromPageContext(pageContext)
-  const { regionId } = useRegion()
+
   const staticPath =
     pageContext.staticPath &&
     pageContext.orderBy === filters.orderBy &&
     filters.priceRange === null
 
-  const selectedFacets = ([] as typeof filters.selectedFacets)
-    .concat(filters?.selectedFacets ?? [])
-    .concat(
-      regionId
-        ? {
-            key: 'region-id',
-            value: regionId,
-          }
-        : []
-    )
+  useRegionalizedSearch(filters, staticPath)
 
   const cleanFilters = {
     ...filters,
@@ -62,16 +53,14 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     map: undefined,
   }
 
-  const hasRegion = Boolean(regionId)
-
   const { data } = useQuery<
     SearchPageQueryQuery,
     SearchPageQueryQueryVariables
   >({
     ...SearchPageQuery,
-    variables: { ...cleanFilters, selectedFacets, staticPath: true },
+    variables: { ...cleanFilters, staticPath: true },
     suspense: true,
-    initialData: staticPath && !hasRegion ? staticData : undefined,
+    initialData: staticPath ? staticData : undefined,
   })
 
   usePixelSendEvent(
