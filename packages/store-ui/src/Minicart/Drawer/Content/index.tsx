@@ -69,7 +69,7 @@ const MinicartDrawerContent = <T extends Item>({
         </Items>
       )}
       {unavailable.length > 0 && products.length > 0 && (
-        <Box variant={`${variant}.section`}>
+        <Box variant={`${variant}.section.sub`}>
           {formatMessage(
             { id: 'minicart.section.available' },
             { count: products.length }
