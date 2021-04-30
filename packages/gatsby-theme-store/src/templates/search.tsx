@@ -45,7 +45,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     pageContext.orderBy === filters.orderBy &&
     filters.priceRange === null
 
-  useRegionalizedSearch(filters, staticPath)
+  const regionalized = useRegionalizedSearch(filters, staticPath)
 
   const cleanFilters = {
     ...filters,
@@ -60,7 +60,7 @@ const SearchPage: FC<SearchPageProps> = (props) => {
     ...SearchPageQuery,
     variables: { ...cleanFilters, staticPath: true },
     suspense: true,
-    initialData: staticPath ? staticData : undefined,
+    initialData: staticPath && !regionalized ? staticData : undefined,
   })
 
   usePixelSendEvent(

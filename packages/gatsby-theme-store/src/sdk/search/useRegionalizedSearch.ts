@@ -23,11 +23,13 @@ export const useRegionalizedSearch = (
   const region = useContext(Context)
 
   if (region?.regionId === undefined || staticPath !== true) {
-    return
+    return true
   }
 
   const newMap = map == null ? 'region' : `${map},region`
   const to = `${pathname}/rId?map=${newMap}`
 
   navigate(to)
+
+  return false
 }
