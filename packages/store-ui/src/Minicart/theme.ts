@@ -83,18 +83,19 @@ const theme: SxStyleProp = {
           value: {
             mt: 3,
             free: {
+              mt: 3,
               color: 'green',
             },
           },
-          availabilityContainer: {
-            backgroundColor: '#fff6e0',
-            borderRadius: '4px',
-            padding: '10px',
-            message: {
-              fontSize: '16px',
-              lineHeight: '20px',
-              fontWeight: 400,
-            },
+        },
+        availabilityContainer: {
+          backgroundColor: '#fff6e0',
+          borderRadius: '4px',
+          padding: '10px',
+          message: {
+            fontSize: '16px',
+            lineHeight: '20px',
+            fontWeight: 400,
           },
         },
       },
