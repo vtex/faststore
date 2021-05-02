@@ -385,5 +385,5 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     getStaticPaths: Joi.function().arity(0),
     getRedirects: Joi.function().arity(0),
     pageTypes: Joi.array().items(Joi.string()),
-    maxNumPaths: Joi.number()
+    maxNumPaths: Joi.number(),
   })
