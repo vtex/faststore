@@ -1,23 +1,28 @@
-import React from 'react'
+import { useLocation } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
+import { GatsbySeo, JsonLd } from 'gatsby-plugin-next-seo'
+import React from 'react'
 import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 
-import SiteMetadata from './SiteMetadata'
-import Canonical from './Canonical'
-import StructuredData from './StructuredData'
+import type { HomePageSeoQueryQuery } from './__generated__/HomePageSEOQuery.graphql'
 
 type Props = PageProps<unknown>
 
-const SEO: FC<Props> = (props) => {
+const SEO: FC<Props> = () => {
+  const { host } = useLocation()
+  const siteUrl = `https://${host}`
   const {
-    site: { siteMetadata },
-  } = useStaticQuery(
+    site: {
+      siteMetadata: { title, description, titleTemplate },
+    },
+  } = useStaticQuery<HomePageSeoQueryQuery>(
     graphql`
       query HomePageSEOQuery {
         site {
           siteMetadata {
             title
+            titleTemplate
             description
             author
           }
@@ -26,16 +31,34 @@ const SEO: FC<Props> = (props) => {
     `
   )
 
-  const subProps = {
-    ...props,
-    siteMetadata,
-  }
-
   return (
     <>
-      <SiteMetadata {...subProps} />
-      <Canonical {...subProps} />
-      <StructuredData {...subProps} />
+      <GatsbySeo
+        title={title}
+        description={description}
+        titleTemplate={titleTemplate}
+        canonical={siteUrl}
+        openGraph={{
+          type: 'website',
+          url: siteUrl,
+          title,
+          description,
+        }}
+        defer
+      />
+      <JsonLd
+        json={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          url: siteUrl,
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: `${siteUrl}/s/{search_term_string}`,
+            'query-input': 'required name=search_term_string',
+          },
+        }}
+        defer
+      />
     </>
   )
 }

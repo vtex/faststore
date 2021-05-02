@@ -32,11 +32,21 @@ const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`
 
 export interface Options extends PluginOptions, VTEXOptions {
+  /**
+   * @description function to return the paths to statically generate
+   * */
   getStaticPaths?: () => Promise<string[]>
+  /**
+   * @description function to return the redurects to generate in our infra. Note that these are server side redirects
+   * */
   getRedirects?: () => Promise<Redirect[]>
   pageTypes?: Array<PageType['pageType']>
   ignorePaths?: string[]
   concurrency?: number
+  /**
+   * @description max number of paths for getStaticPaths to generate
+   * */
+  maxNumPaths?: number
 }
 
 const DEFAULT_PAGE_TYPES_WHITELIST = [
@@ -375,4 +385,5 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     getStaticPaths: Joi.function().arity(0),
     getRedirects: Joi.function().arity(0),
     pageTypes: Joi.array().items(Joi.string()),
+    maxNumPaths: Joi.number()
   })
