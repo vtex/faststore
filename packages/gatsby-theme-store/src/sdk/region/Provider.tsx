@@ -8,6 +8,7 @@ export interface IContext {
   regionId: Maybe<string>
   setPostalCode: (value: Maybe<string>) => void
   setRegionId: (value: Maybe<string>) => void
+  loading?: boolean
 }
 
 export const Context = createContext<IContext | undefined>(undefined)
@@ -15,6 +16,7 @@ export const Context = createContext<IContext | undefined>(undefined)
 export const Provider: FC = ({ children }) => {
   const [postalCode, setPostalCode] = useState<Maybe<string>>(null)
   const [regionId, setRegionId] = useState<Maybe<string>>(null)
+  const [isLoading, setLoading] = useState(true)
 
   const value = useMemo(
     () => ({
@@ -28,13 +30,15 @@ export const Provider: FC = ({ children }) => {
         controller.region.set(val)
         setRegionId(val)
       },
+      loading: isLoading,
     }),
-    [postalCode, regionId]
+    [postalCode, regionId, isLoading]
   )
 
   useEffect(() => {
     setPostalCode(controller.postalCode.get())
     setRegionId(controller.region.get())
+    setLoading(false)
   }, [])
 
   return <Context.Provider value={value}>{children}</Context.Provider>
