@@ -30,7 +30,7 @@ export const handleError = ({ error, errorId }: Props) => {
   }
 
   if (isUserOffline) {
-    const previousPagePath = window.location.pathname
+    const previousPagePath = encodeURIComponent(window.location.pathname)
 
     window.location.href = `/offline?from=${previousPagePath}`
 
