@@ -9,7 +9,8 @@
   "scripts": {
     "build": "tsc",
     "prepare": "cross-env NODE_ENV=production yarn run build",
-    "develop": "tsc --watch"
+    "develop": "tsc --watch",
+    "test": "tsdx test"
   },
   "keywords": [
     "gatsby",
@@ -25,6 +26,8 @@
     "react-dom": "^0.0.0-experimental-7f28234f8"
   },
   "devDependencies": {
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/react-hooks": "^5.1.2",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
