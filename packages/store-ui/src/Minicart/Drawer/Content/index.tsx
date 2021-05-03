@@ -20,7 +20,7 @@ const useCartSections = <T extends Item>(items: T[]) =>
       items.reduce(
         (acc, curr) => {
           if (curr.availability === 'available') {
-            if (curr.sellingPrice === 0) {
+            if (curr.isGift) {
               acc.gifts.push(curr)
             } else {
               acc.products.push(curr)

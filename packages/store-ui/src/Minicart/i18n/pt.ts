@@ -5,7 +5,7 @@ export default {
   'minicart.drawer.shipping-disclaimer':
     'Frete e impostos são calculados no checkout.',
   'minicart.drawer.go-checkout': 'FINALIZAR COMPRA',
-  'minicart.price.free': 'GRÁTIS',
+  'minicart.price.free': 'Grátis',
   'minicart.section.available':
     '{count, plural, one {# produto disponível} other {# produtos disponíveis}}',
   'minicart.warning.unavailable':
