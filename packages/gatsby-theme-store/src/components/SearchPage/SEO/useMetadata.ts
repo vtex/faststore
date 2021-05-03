@@ -1,3 +1,4 @@
+import { useLocation } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
 import type { GatsbySeo } from 'gatsby-plugin-next-seo'
 import type { ComponentPropsWithoutRef } from 'react'
@@ -14,6 +15,7 @@ type Options = SearchPageProps
 export const useMetadata = (
   options: Options
 ): ComponentPropsWithoutRef<typeof GatsbySeo> => {
+  const { host } = useLocation()
   const {
     site: { siteMetadata },
   } = useStaticQuery<SearchPageSeoQueryQuery>(
@@ -35,13 +37,24 @@ export const useMetadata = (
     data: {
       vtex: { searchMetadata },
     },
+    pageContext: { canonicalPath },
   } = options
 
   const title = searchMetadata?.title || siteMetadata.title
   const description = searchMetadata?.description || siteMetadata.description
 
+  const canonical =
+    typeof canonicalPath === 'string'
+      ? {
+          canonical: `https://${host}${canonicalPath}`,
+          noindex: false,
+          nofollow: false,
+        }
+      : { canonical: undefined, noindex: true, nofollow: false }
+
   return {
     ...siteMetadata,
+    ...canonical,
     title,
     description,
     openGraph: {

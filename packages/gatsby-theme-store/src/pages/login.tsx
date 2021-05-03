@@ -1,15 +1,17 @@
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { Box, Center, Flex, Spinner, SuspenseSSR } from '@vtex/store-ui'
+import { GatsbySeo } from 'gatsby-plugin-next-seo'
 import React, { useEffect, useState } from 'react'
-import type { FC } from 'react'
-import type { PageProps } from 'gatsby'
 
 import { AUTH_PROVIDERS } from '../components/Auth/Providers'
 import Layout from '../components/Layout'
 import { useOnLoginSuccessful } from '../sdk/auth/useOnLoginSuccessful'
-import { useProfile } from '../sdk/session/useProfile'
-import Helmet from '../components/SEO/Helmet'
 import { useProviders } from '../sdk/auth/useProviders'
+import { useProfile } from '../sdk/session/useProfile'
+
+import type { FC } from 'react'
+import type { PageProps } from 'gatsby'
+
 import type { ProvidersResponse } from '../sdk/auth/Service/getProviders'
 
 type Props = PageProps<unknown>
@@ -134,14 +136,7 @@ const Page: FC = () => {
 // selecting Auth method
 const PageWithLayout: FC<Props> = () => (
   <>
-    <Helmet
-      meta={[
-        {
-          name: 'robots',
-          content: 'noindex, nofollow',
-        },
-      ]}
-    />
+    <GatsbySeo noindex nofollow />
 
     <Layout>
       <SuspenseSSR
