@@ -196,12 +196,19 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     .map(normalizePath)
     .filter((path) => !ignorePaths.includes(path))
 
-  const pageTypes = await pMap(
-    staticPaths,
-    (path: string) =>
-      fetchVTEX<PageType>(api.catalog.portal.pageType(path), options),
-    { concurrency }
-  )
+  const pageTypeForPath = async (path: string) => {
+    const productPageRegex = /\/.*\/p$/g
+
+    if (productPageRegex.test(path)) {
+      return {
+        pageType: 'Product',
+      }
+    }
+
+    return fetchVTEX<PageType>(api.catalog.portal.pageType(path), options)
+  }
+
+  const pageTypes = await pMap(staticPaths, pageTypeForPath, { concurrency })
 
   if (pageTypes.length !== staticPaths.length) {
     reporter.panicOnBuild(
@@ -223,7 +230,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       continue
     }
 
-    createStaticPathNode(args, pageType, staticPath)
+    createStaticPathNode(args, pageType as any, staticPath)
   }
 
   activity.end()
