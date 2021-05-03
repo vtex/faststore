@@ -102,6 +102,7 @@ const theme: SxStyleProp = {
             free: {
               mt: 3,
               color: 'green',
+              textTransform: 'uppercase',
             },
           },
         },
