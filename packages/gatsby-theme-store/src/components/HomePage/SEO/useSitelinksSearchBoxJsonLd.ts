@@ -24,7 +24,7 @@ export const useSiteLinksSearchBoxJsonLd = (_: Options): Return | null => {
     url,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${url}/s/{search_term_string}`,
+      target: `${url}/s/{search_term_string}?map=ft`,
       'query-input': 'required name=search_term_string',
     },
   }
