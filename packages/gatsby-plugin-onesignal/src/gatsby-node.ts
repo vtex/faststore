@@ -40,9 +40,7 @@ exports.onPostBuild = async (_: BuildArgs, pluginOptions: PluginOptions) => {
   const mainFilePath = path.join(oneSignalFilesPath, mainSWFileName)
   const updaterFilePath = path.join(oneSignalFilesPath, updaterSWFileName)
 
-  // OneSignalSDKWorker
   fs.writeFileSync(mainFilePath, OneSignalSDKWorker)
 
-  // OneSignalSDKUpdaterWorker
   fs.writeFileSync(updaterFilePath, OneSignalSDKUpdaterWorker)
 }
