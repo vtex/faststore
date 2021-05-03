@@ -182,24 +182,17 @@ export const createPages = async ({
   })
 }
 
-const resolveToGatsbyBrowser = (pkg: string): Record<string, string> => {
+const resolveToTS = (
+  pkg: string,
+  file: 'gatsby-browser' | 'gatsby-ssr' | 'gatsby-node'
+): Record<string, string> => {
   const root = `${process.cwd()}/.cache`
+  const nextSeoFrom = relative(root, require.resolve(`${pkg}/${file}.js`))
+  const nextSeoTo = nextSeoFrom.replace(`/${file}.js`, `/src/${file}`)
 
-  const nextSeoFrom = relative(
-    root,
-    require.resolve(`${pkg}/gatsby-browser.js`)
-  )
-
-  const nextSeoTo = nextSeoFrom.replace(
-    '/gatsby-browser.js',
-    '/src/gatsby-browser'
-  )
-
-  const alias = {
+  return {
     [nextSeoFrom]: nextSeoTo,
   }
-
-  return alias
 }
 
 export const onCreateWebpackConfig = (
@@ -229,8 +222,14 @@ export const onCreateWebpackConfig = (
     resolve: {
       alias: {
         ...profilingConfig?.resolve.alias,
-        'gatsby-plugin-next-seo$': 'gatsby-plugin-next-seo/src/index',
-        ...resolveToGatsbyBrowser('gatsby-plugin-next-seo'),
+        'gatsby-plugin-next-seo$': resolve(
+          require.resolve('gatsby-plugin-next-seo'),
+          stage === 'build-javascript' || stage === 'develop'
+            ? '../../src/index'
+            : ''
+        ),
+        ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-browser'),
+        ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-ssr'),
         '@vtex/order-manager': require.resolve(
           '@vtex/order-manager/src/index.tsx'
         ),
