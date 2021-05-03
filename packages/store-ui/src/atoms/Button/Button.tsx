@@ -1,7 +1,11 @@
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 import React from 'react'
 
-const Button: FC = ({ children, ...props }) => {
+export type ButtonProps = {
+  children: ReactNode
+}
+
+const Button: FC<ButtonProps> = ({ children, ...props }) => {
   return <button {...props}>{children}</button>
 }
 
