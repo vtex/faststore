@@ -12,6 +12,20 @@
     "develop": "tsc --watch",
     "test": "tsdx test"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
+    "modulePaths": [
+      "<rootDir>/src"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/sdk/"
+    ]
+  },
   "keywords": [
     "gatsby",
     "gatsby-theme-plugin",
