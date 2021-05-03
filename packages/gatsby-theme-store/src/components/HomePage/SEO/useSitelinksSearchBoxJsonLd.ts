@@ -1,6 +1,5 @@
+import { useLocation } from '@reach/router'
 import type { PageProps } from 'gatsby'
-
-import { useCanonical } from './useCanonical'
 
 type Options = PageProps<unknown>
 
@@ -15,16 +14,17 @@ interface Return {
   }
 }
 
-export const useSiteLinksSearchBoxJsonLd = (opts: Options): Return | null => {
-  const { canonical } = useCanonical(opts)
+export const useSiteLinksSearchBoxJsonLd = (_: Options): Return | null => {
+  const { host } = useLocation()
+  const url = `https://${host}`
 
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    url: canonical ?? '',
+    url,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${canonical}/s/{search_term_string}`,
+      target: `${url}/s/{search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   }

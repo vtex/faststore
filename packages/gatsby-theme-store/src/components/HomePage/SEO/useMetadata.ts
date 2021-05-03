@@ -17,7 +17,7 @@ export const useMetadata = (_: Options): Return => {
     site: {
       siteMetadata: { title, description, titleTemplate },
     },
-  } = useStaticQuery<HomePageSeoQueryQuery>(
+  }: any = useStaticQuery<HomePageSeoQueryQuery>(
     graphql`
       query HomePageSEOQuery {
         site {

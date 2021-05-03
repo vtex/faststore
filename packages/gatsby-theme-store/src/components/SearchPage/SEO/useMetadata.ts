@@ -18,7 +18,7 @@ export const useMetadata = (
   const { host } = useLocation()
   const {
     site: { siteMetadata },
-  } = useStaticQuery<SearchPageSeoQueryQuery>(
+  }: any = useStaticQuery<SearchPageSeoQueryQuery>(
     graphql`
       query SearchPageSEOQuery {
         site {
@@ -38,7 +38,7 @@ export const useMetadata = (
       vtex: { searchMetadata },
     },
     pageContext: { canonicalPath },
-  } = options
+  }: any = options
 
   const title = searchMetadata?.title || siteMetadata.title
   const description = searchMetadata?.description || siteMetadata.description

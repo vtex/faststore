@@ -21,7 +21,7 @@ export const useMetadata = (
   const { pathname, host } = useLocation()
   const {
     site: { siteMetadata },
-  } = useStaticQuery<ProductPageSeoQueryQuery>(
+  }: any = useStaticQuery<ProductPageSeoQueryQuery>(
     graphql`
       query ProductPageSeoQuery {
         site {
