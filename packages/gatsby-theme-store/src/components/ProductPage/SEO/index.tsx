@@ -18,11 +18,9 @@ const SEO: FC<ProductPageProps> = (props) => {
 
   return (
     <>
-      <GatsbySeo {...metadata} defer />
-      {breadcrumbProps !== null && (
-        <BreadcrumbJsonLd {...breadcrumbProps} defer />
-      )}
-      {productProps !== null && <ProductJsonLd {...productProps} defer />}
+      <GatsbySeo {...metadata} />
+      {breadcrumbProps !== null && <BreadcrumbJsonLd {...breadcrumbProps} />}
+      {productProps !== null && <ProductJsonLd {...productProps} />}
     </>
   )
 }
