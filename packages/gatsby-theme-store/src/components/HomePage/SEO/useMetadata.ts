@@ -13,9 +13,11 @@ type Return = ComponentPropsWithoutRef<typeof GatsbySeo>
 
 export const useMetadata = (_: Options): Return => {
   const language = useLocale()
+  const { pathname, host } = useLocation()
+  const siteUrl = `https://${host}${pathname}`
   const {
     site: {
-      siteMetadata: { title, description, titleTemplate, siteUrl },
+      siteMetadata: { title, description, titleTemplate },
     },
   }: any = useStaticQuery<HomePageSeoQueryQuery>(
     graphql`
@@ -26,7 +28,6 @@ export const useMetadata = (_: Options): Return => {
             titleTemplate
             description
             author
-            siteUrl
           }
         }
       }
