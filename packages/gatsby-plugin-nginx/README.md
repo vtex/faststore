@@ -23,8 +23,8 @@ All this one-liner does is:
 To copy over nginx access or error logs, you can then use:
 
 ```console
-docker cp local_nginx:/var/log/nginx_errors.log .
-docker cp local_nginx:/var/log/nginx_access.log .
+docker cp local_nginx:/var/log/nginx/error.log .
+docker cp local_nginx:/var/log/nginx/access.log .
 ```
 
 To enable debug level error logs, add `nginx-debug -g 'daemon off;'` at the end of the `docker run` command.
@@ -69,13 +69,13 @@ module.exports = {
 ```nginx
 worker_processes 3;
 worker_rlimit_nofile 8192;
-error_log /var/log/nginx_errors.log debug;
+error_log /var/log/nginx/error.log debug;
 pid /var/log/nginx_run.pid;
 events {
   worker_connections 1024;
 }
 http {
-  access_log /var/log/nginx_access.log;
+  access_log /var/log/nginx/access.log;
   server {
     listen 0.0.0.0:8080 default_server;
     resolver 8.8.8.8;
