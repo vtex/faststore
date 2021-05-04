@@ -11,7 +11,17 @@ export interface IContext {
   loading?: boolean
 }
 
-export const Context = createContext<IContext | undefined>(undefined)
+export const Context = createContext<IContext>({
+  postalCode: null,
+  regionId: null,
+  setPostalCode: () => {
+    console.error('setPostalCode has been called outside a Region Provider. This is a noop. Please insert the caller component inside a Region Provider')
+  },
+  setRegionId: () => {
+    console.error('setRegionId has been called outside a Region Provider. This is a noop. Please insert the caller component inside a Region Provider')
+  },
+  loading: true,
+})
 
 export const Provider: FC = ({ children }) => {
   const [postalCode, setPostalCode] = useState<Maybe<string>>(null)
