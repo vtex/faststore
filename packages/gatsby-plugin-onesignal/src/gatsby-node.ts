@@ -5,20 +5,27 @@ import type { PluginOptionsSchemaArgs, BuildArgs } from 'gatsby'
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
-    oneSignalAppId: Joi.string().required(),
-    pathToOneSignalFiles: Joi.string().optional,
-    mainSWFileName: Joi.string().optional,
-    updaterSWFileName: Joi.string().optional,
-    SWRegistrationScope: Joi.string().optional,
+    oneSignalAppId: Joi.string()
+      .required()
+      .description("Your site's appId, provided by OneSignal."),
+    pathToOneSignalFiles: Joi.string().description(
+      "This should match the 'Path to service worker files' option found in the advanced section of your site's OneSignal admin panel. In most cases this should also match the 'Service worker registration scope' option."
+    ),
+    mainSWFileName: Joi.string().description(
+      "This should match the 'Main service worker filename' option found in the advanced section of your site's OneSignal admin panel."
+    ),
+    updaterSWFileName: Joi.string().description(
+      "This should match the 'Updater service worker filename' option found in the advanced section of your site's OneSignal admin panel."
+    ),
   })
 
 export type PluginOptions = {
-  plugins: unknown[]
   oneSignalAppId: string
   pathToOneSignalFiles?: string
   mainSWFileName?: string
   updaterSWFileName?: string
-  SWRegistrationScope?: string
+  // This property is added by Gatsby and is not a part of this plugin's API
+  plugins: unknown[]
 }
 
 const OneSignalSDKUpdaterWorker = `importScripts('https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js');`
