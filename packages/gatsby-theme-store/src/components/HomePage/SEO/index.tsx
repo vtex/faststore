@@ -14,8 +14,10 @@ const SEO: FC<Props> = (props) => {
 
   return (
     <>
-      <GatsbySeo {...metadata} defer />
-      {siteLinksSearchBox != null && <JsonLd json={siteLinksSearchBox} defer />}
+      <GatsbySeo {...metadata} defer={false} />
+      {siteLinksSearchBox != null && (
+        <JsonLd json={siteLinksSearchBox} defer={false} />
+      )}
     </>
   )
 }
