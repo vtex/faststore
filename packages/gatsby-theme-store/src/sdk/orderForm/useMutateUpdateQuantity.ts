@@ -14,7 +14,11 @@ const mutationUpdateQuantity = async ({
   const orderFormController = await getOrderFormController()
 
   return orderFormController
-    .updateItems({ orderFormId: id!, items })
+    .updateItems({
+      items,
+      orderFormId: id,
+      splitItem: null,
+    })
     .then((orderForm: OrderFormFragment_OrderFormFragment) => ({
       data: orderForm,
     }))

@@ -17,6 +17,7 @@ export const fragment = gql`
   fragment OrderFormFragment_orderForm on VTEX_OrderForm {
     id
     items {
+      isGift
       additionalInfo {
         brandName
       }
