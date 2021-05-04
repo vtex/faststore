@@ -5,6 +5,7 @@ import type { GatsbySeo } from 'gatsby-plugin-next-seo'
 import type { ComponentPropsWithoutRef } from 'react'
 
 import { scaleImage } from '../../../sdk/img/arquivos/scale'
+import { useLocale } from '../../../sdk/localization/useLocale'
 import { IMAGE_DEFAULT } from '../../../sdk/product/constants'
 import type { ProductPageProps } from '../../../templates/product'
 import type { ProductPageSeoQueryQuery } from './__generated__/ProductPageSEOQuery.graphql'
@@ -21,6 +22,7 @@ const IMAGE_SIZE = 720
 export const useMetadata = (
   options: Options
 ): ComponentPropsWithoutRef<typeof GatsbySeo> => {
+  const locale = useLocale()
   const { pathname, host } = useLocation()
   const {
     site: { siteMetadata },
@@ -65,6 +67,7 @@ export const useMetadata = (
 
   return {
     ...siteMetadata,
+    language: locale,
     title,
     description,
     canonical,
