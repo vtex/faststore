@@ -39,7 +39,7 @@ export const useProductJsonLd = (options: Options): Return => {
     const offers = {
       price: `${seller!.commercialOffer!.spotPrice!}`,
       priceCurrency: currency,
-      url: `https://${host}/${pathname}`,
+      url: `https://${host}${pathname}`,
       priceValidUntil: seller!.commercialOffer!.priceValidUntil?.slice(0, 10),
       availability:
         seller!.commercialOffer!.availableQuantity! > 0

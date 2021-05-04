@@ -32,7 +32,7 @@ export const useBreadcrumbJsonLd = (options: Options): Return => {
     const itemListElements = categoryTree.map((item, index: number) => ({
       position: index + 1,
       name: item!.name!,
-      item: `https://${host}/${item!.href}`,
+      item: `https://${host}${item!.href}`,
     }))
 
     const len: number = itemListElements.length
@@ -40,7 +40,7 @@ export const useBreadcrumbJsonLd = (options: Options): Return => {
     itemListElements.push({
       position: len + 1,
       name: productName!,
-      item: `https://${host}/${pathname}`,
+      item: `https://${host}${pathname}`,
     })
 
     return {
