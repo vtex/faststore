@@ -61,6 +61,7 @@ export const useMetadata = (
         ),
         width: IMAGE_SIZE,
         height: IMAGE_SIZE,
+        alt: image?.imageText,
       })),
     [product]
   )
