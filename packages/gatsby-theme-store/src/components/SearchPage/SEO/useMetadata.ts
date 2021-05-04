@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import type { GatsbySeo } from 'gatsby-plugin-next-seo'
 import type { ComponentPropsWithoutRef } from 'react'
 
+import { useLocale } from '../../../sdk/localization/useLocale'
 import type { SearchPageProps } from '../../../templates/search'
 import type { SearchPageSeoQueryQuery } from './__generated__/SearchPageSEOQuery.graphql'
 /**
@@ -15,6 +16,7 @@ type Options = SearchPageProps
 export const useMetadata = (
   options: Options
 ): ComponentPropsWithoutRef<typeof GatsbySeo> => {
+  const language = useLocale()
   const { host } = useLocation()
   const {
     site: { siteMetadata },
@@ -55,6 +57,7 @@ export const useMetadata = (
   return {
     ...siteMetadata,
     ...canonical,
+    language,
     title,
     description,
     openGraph: {

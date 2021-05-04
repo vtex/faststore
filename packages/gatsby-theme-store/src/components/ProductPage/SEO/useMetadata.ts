@@ -22,7 +22,7 @@ const IMAGE_SIZE = 720
 export const useMetadata = (
   options: Options
 ): ComponentPropsWithoutRef<typeof GatsbySeo> => {
-  const locale = useLocale()
+  const language = useLocale()
   const { pathname, host } = useLocation()
   const {
     site: { siteMetadata },
@@ -67,7 +67,7 @@ export const useMetadata = (
 
   return {
     ...siteMetadata,
-    language: locale,
+    language,
     title,
     description,
     canonical,
