@@ -5,6 +5,7 @@ import {
   wrapSchema,
 } from '@graphql-tools/wrap'
 import { print } from 'graphql'
+import pMap from 'p-map'
 import type { AsyncExecutor } from '@graphql-tools/delegate'
 import type {
   GatsbyNode,
@@ -13,10 +14,12 @@ import type {
   CreatePageArgs,
   PluginOptionsSchemaArgs,
 } from 'gatsby'
-import pMap from 'p-map'
 
 import { api } from './api'
 import { fetchVTEX } from './fetch'
+import { md5 } from './md5'
+import { assertRedirects } from './redirects'
+import defaultStaticPaths from './staticPaths'
 import {
   createChannelNode,
   createDepartmentNode,
@@ -25,8 +28,6 @@ import {
 } from './utils'
 import type { VTEXOptions } from './fetch'
 import type { Category, PageType, Redirect, Tenant } from './types'
-import defaultStaticPaths from './staticPaths'
-import { assertRedirects } from './redirects'
 
 const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`
@@ -196,12 +197,27 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     .map(normalizePath)
     .filter((path) => !ignorePaths.includes(path))
 
-  const pageTypes = await pMap(
-    staticPaths,
-    (path: string) =>
-      fetchVTEX<PageType>(api.catalog.portal.pageType(path), options),
-    { concurrency }
-  )
+  const fetchPageTypes = async (path: string): Promise<PageType> => {
+    const isProduct = /\/(.)+\/p$/g
+
+    // When the page is a product page, we skip calling the pageType backend to speedup the process considerably.
+    // This makes us have to synthetically generate some data. However, it shouldn't be a problem since we don't
+    // use these synthetic attributes
+    if (isProduct.test(path)) {
+      return {
+        id: md5(path),
+        name: path.split('/p')[0],
+        url: path,
+        title: '',
+        metaTagDescription: '',
+        pageType: 'Product',
+      }
+    }
+
+    return fetchVTEX<PageType>(api.catalog.portal.pageType(path), options)
+  }
+
+  const pageTypes = await pMap(staticPaths, fetchPageTypes, { concurrency })
 
   if (pageTypes.length !== staticPaths.length) {
     reporter.panicOnBuild(
@@ -223,7 +239,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       continue
     }
 
-    createStaticPathNode(args, pageType as any, staticPath)
+    createStaticPathNode(args, pageType, staticPath)
   }
 
   activity.end()
