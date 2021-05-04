@@ -13,8 +13,10 @@ const SEO: FC<SearchPageProps> = (props) => {
 
   return (
     <>
-      <GatsbySeo {...metadata} />
-      {breadcrumbProps !== null && <BreadcrumbJsonLd {...breadcrumbProps} />}
+      <GatsbySeo {...metadata} defer />
+      {breadcrumbProps !== null && (
+        <BreadcrumbJsonLd {...breadcrumbProps} defer />
+      )}
     </>
   )
 }
