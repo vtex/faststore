@@ -10,5 +10,4 @@ export interface Item {
   }
   quantity: number
   availability: string
-  isGift: boolean
 }
