@@ -62,6 +62,7 @@ const theme: SxStyleProp = {
 
         image: {
           minWidth: '150px',
+          objectFit: 'contain',
         },
 
         name: {

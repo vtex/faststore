@@ -5,7 +5,7 @@ export default {
   'minicart.drawer.shipping-disclaimer':
     'Shipping and taxes calculated at checkout.',
   'minicart.drawer.go-checkout': 'GO TO CHECKOUT',
-  'minicart.price.free': 'FREE',
+  'minicart.price.free': 'Free',
   'minicart.section.available':
     '{count, plural, one {# product} other {# products}} available',
   'minicart.warning.unavailable':
