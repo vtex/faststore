@@ -49,7 +49,7 @@ export const useProductJsonLd = (options: Options): Return => {
 
     return {
       name: name!,
-      image: images,
+      images,
       offers,
       sku: sku.itemId!,
       brand,
