@@ -1,5 +1,11 @@
 import type { SxStyleProp } from 'theme-ui'
 
+const section = {
+  marginBottom: 2,
+  paddingBottom: 2,
+  borderBottom: '1px solid #eee',
+}
+
 const theme: SxStyleProp = {
   bg: 'muted',
 
@@ -50,6 +56,13 @@ const theme: SxStyleProp = {
       overflow: 'auto',
       px: 3,
 
+      section,
+
+      subsection: {
+        ...section,
+        paddingLeft: 3,
+      },
+
       product: {
         py: 3,
         borderBottomWidth: 1,
@@ -62,6 +75,7 @@ const theme: SxStyleProp = {
 
         image: {
           minWidth: '150px',
+          objectFit: 'contain',
         },
 
         name: {
@@ -83,8 +97,20 @@ const theme: SxStyleProp = {
           value: {
             mt: 3,
             free: {
+              mt: 3,
               color: 'green',
+              textTransform: 'uppercase',
             },
+          },
+        },
+        availabilityContainer: {
+          backgroundColor: '#fff6e0',
+          borderRadius: '4px',
+          padding: '10px',
+          message: {
+            fontSize: '16px',
+            lineHeight: '20px',
+            fontWeight: 400,
           },
         },
       },
