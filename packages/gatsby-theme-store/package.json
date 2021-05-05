@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-store",
-  "version": "0.323.1-alpha.1",
+  "version": "0.323.1-alpha.2",
   "description": "Gatsby theme for building ecommerce websites",
   "main": "index.js",
   "module": "src/index.ts",
@@ -44,7 +44,7 @@
     "@vtex/gatsby-plugin-theme-ui": "^0.323.1-alpha.1",
     "@vtex/order-items": "^0.6.0",
     "@vtex/order-manager": "^0.5.0",
-    "@vtex/store-ui": "^0.323.1-alpha.1",
+    "@vtex/store-ui": "^0.323.1-alpha.2",
     "gatsby-plugin-bundle-stats": "^2.7.2",
     "html-loader": "^2.1.2",
     "intersection-observer": "^0.11.0",
