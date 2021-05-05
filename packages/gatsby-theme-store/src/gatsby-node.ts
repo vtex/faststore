@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve, relative } from 'path'
 
 import type {
   CreatePagesArgs,
@@ -182,6 +182,19 @@ export const createPages = async ({
   })
 }
 
+const resolveToTS = (
+  pkg: string,
+  file: 'gatsby-browser' | 'gatsby-ssr' | 'gatsby-node'
+): Record<string, string> => {
+  const root = `${process.cwd()}/.cache`
+  const nextSeoFrom = relative(root, require.resolve(`${pkg}/${file}.js`))
+  const nextSeoTo = nextSeoFrom.replace(`/${file}.js`, `/src/${file}`)
+
+  return {
+    [nextSeoFrom]: nextSeoTo,
+  }
+}
+
 export const onCreateWebpackConfig = (
   { actions: { setWebpackConfig }, stage }: CreateWebpackConfigArgs,
   { profiling = false }: Options
@@ -209,6 +222,14 @@ export const onCreateWebpackConfig = (
     resolve: {
       alias: {
         ...profilingConfig?.resolve.alias,
+        'gatsby-plugin-next-seo$': resolve(
+          require.resolve('gatsby-plugin-next-seo'),
+          stage === 'build-javascript' || stage === 'develop'
+            ? '../../src/index'
+            : ''
+        ),
+        ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-browser'),
+        ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-ssr'),
         '@vtex/order-manager': require.resolve(
           '@vtex/order-manager/src/index.tsx'
         ),

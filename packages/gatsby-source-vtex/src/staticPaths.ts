@@ -13,7 +13,7 @@ interface Options {
   tenant: string
   workspace?: string
   environment?: 'vtexcommercestable' | 'vtexcommercebeta'
-  pages?: number // max number of staticPaths to generate
+  maxNumPaths?: number // max number of staticPaths to generate
 }
 
 const readFileAsync = promisify(readFile)
@@ -39,7 +39,7 @@ const staticPaths = async ({
   tenant,
   workspace = 'master',
   environment = 'vtexcommercestable',
-  pages = 100,
+  maxNumPaths = 100,
 }: Options): Promise<string[]> => {
   const paths: string[] = await staticPathsFromJson() // final array containing all paths
 
@@ -89,7 +89,7 @@ const staticPaths = async ({
   const itemsPerPage = 25
   const pagination = new Array(
     Math.ceil(
-      Math.min(2500, Math.max(itemsPerPage, pages - paths.length)) /
+      Math.min(2500, Math.max(itemsPerPage, maxNumPaths - paths.length)) /
         itemsPerPage
     )
   )
