@@ -3,17 +3,18 @@ import { keyframes } from '@emotion/core'
 
 const toastAnimation = keyframes`
   from {
-    bottom: 0px;
+    transform: translate3d(0, 100%, 0);
   }
   
   to {
-    bottom: 30px;
+    transform: translate3d(0, 0, 0);
   }
 `
 
 const defaultContainerTheme: SxStyleProp = {
   alignItems: 'center',
   animation: `${toastAnimation} .125s`,
+  animationTimingFunction: 'ease-in-out',
   borderRadius: 5,
   boxShadow: '0 0 10px rgb(0 0 0 / 28%)',
   color: 'white',
@@ -23,13 +24,12 @@ const defaultContainerTheme: SxStyleProp = {
   justifyContent: 'space-between',
   zIndex: 99999,
 
-  marginLeft: ['10px', 'auto'],
-  marginRight: ['10px', '5%'],
+  margin: '10px',
   py: '5px',
   px: '10px',
 
   minHeight: 60,
-  width: ['auto', '100%'],
+  width: ['auto'],
   maxWidth: ['none', 420],
   fill: 'white',
 }
@@ -51,6 +51,9 @@ const containerWarning: SxStyleProp = {
 
 const theme: SxStyleProp = {
   toast: {
+    outerContainer: {
+      overflow: 'hidden',
+    },
     container: {
       error: containerError,
       success: containerSuccess,
@@ -68,7 +71,7 @@ const theme: SxStyleProp = {
       minWidth: 36,
       py: '1px',
     },
-    message: {},
+    content: {},
   },
 }
 

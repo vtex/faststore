@@ -10,6 +10,14 @@ import MinicartDrawerToast from './Toast'
 import type { Props as MinicartDrawerContentProps } from './Content'
 import type { Item } from '../types'
 
+interface Message
+  extends Pick<
+    ComponentPropsWithoutRef<typeof MinicartDrawerToast>,
+    'type' | 'content'
+  > {
+  id: string
+}
+
 export interface Props<T extends Item>
   extends DrawerProps,
     Pick<
@@ -19,12 +27,9 @@ export interface Props<T extends Item>
     Pick<
       ComponentPropsWithoutRef<typeof MinicartDrawerFooter>,
       'onCheckout' | 'total' | 'subTotal' | 'numberFormat' | 'disableViewCart'
-    >,
-    Pick<
-      ComponentPropsWithoutRef<typeof MinicartDrawerToast>,
-      'hideToast' | 'message' | 'type'
     > {
-  isToastVisible: boolean
+  hideToast: (id: string) => void
+  messages: Message[]
   variant?: string
 }
 
@@ -40,9 +45,7 @@ const MinicartDrawer = <T extends Item>({
   onCheckout,
   hideToast,
   disableViewCart,
-  type,
-  message,
-  isToastVisible,
+  messages,
   variant = 'default',
 }: PropsWithChildren<Props<T>>) => {
   const drawerVariant = `minicart.${variant}`
@@ -68,12 +71,13 @@ const MinicartDrawer = <T extends Item>({
         updateItem={updateItem}
         numberFormat={numberFormat}
       />
-      <MinicartDrawerToast
-        hideToast={hideToast}
-        message={message}
-        isVisible={isToastVisible}
-        type={type}
-      />
+      {messages.map(({ id, ...messageProps }) => (
+        <MinicartDrawerToast
+          key={id}
+          {...messageProps}
+          hideToast={() => hideToast(id)}
+        />
+      ))}
       <MinicartDrawerFooter
         total={total}
         variant={customVariant}
