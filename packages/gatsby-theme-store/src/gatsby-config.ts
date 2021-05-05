@@ -19,6 +19,9 @@ module.exports = ({ locales, defaultLocale }: Options) => ({
     },
     {
       resolve: 'gatsby-plugin-next-seo',
+      options: {
+        defer: true,
+      },
     },
     {
       resolve: require.resolve('@vtex/gatsby-plugin-theme-ui'),
