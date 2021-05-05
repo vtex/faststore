@@ -53,8 +53,8 @@
   },
   "peerDependencies": {
     "@vtex/gatsby-plugin-i18n": "^0.280.0",
-    "react": "^0.0.0-experimental-7f28234f8",
-    "react-dom": "^0.0.0-experimental-7f28234f8"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
@@ -72,9 +72,9 @@
     "@vtex/gatsby-plugin-i18n": "^0.324.0",
     "@vtex/tsconfig": "^0.5.0",
     "babel-loader": "^8.2.2",
-    "react": "^0.0.0-experimental-7f28234f8",
+    "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
-    "react-dom": "^0.0.0-experimental-7f28234f8",
+    "react-dom": "^17.0.2",
     "react-scripts": "^3.4.1",
     "ts-loader": "^8.0.1",
     "tsdx": "^0.14.1",

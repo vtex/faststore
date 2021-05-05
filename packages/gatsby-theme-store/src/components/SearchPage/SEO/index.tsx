@@ -1,40 +1,22 @@
+import { BreadcrumbJsonLd, GatsbySeo } from 'gatsby-plugin-next-seo'
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
 import type { FC } from 'react'
 
-import SiteMetadata from './SiteMetadata'
-import StructuredData from './StructuredData'
-import Canonical from './Canonical'
+import { useBreadcrumb } from './useBreadcrumbJsonLd'
+import { useMetadata } from './useMetadata'
 import type { SearchPageProps } from '../../../templates/search'
 
 const SEO: FC<SearchPageProps> = (props) => {
-  const {
-    site: { siteMetadata },
-  } = useStaticQuery(
-    graphql`
-      query SearchPageSEOQuery {
-        site {
-          siteMetadata {
-            title
-            titleTemplate
-            description
-            author
-          }
-        }
-      }
-    `
-  )
+  const metadata = useMetadata(props)
 
-  const subProps = {
-    ...props,
-    siteMetadata,
-  }
+  const breadcrumbProps = useBreadcrumb(props)
 
   return (
     <>
-      <SiteMetadata {...subProps} />
-      <StructuredData {...subProps} />
-      <Canonical {...subProps} />
+      <GatsbySeo {...metadata} defer />
+      {breadcrumbProps !== null && (
+        <BreadcrumbJsonLd {...breadcrumbProps} defer />
+      )}
     </>
   )
 }
