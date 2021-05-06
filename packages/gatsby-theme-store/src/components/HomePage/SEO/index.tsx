@@ -4,7 +4,7 @@ import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 
 import { useMetadata } from './useMetadata'
-import { useSiteLinksSearchBoxJsonLd } from './useSitelinksSearchBoxJsonLd'
+import { useSiteLinksSearchBoxJsonLd } from './useSiteLinksSearchBoxJsonLd'
 
 type Props = PageProps<unknown>
 
