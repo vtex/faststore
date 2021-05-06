@@ -57,6 +57,7 @@
     "@vtex/gatsby-plugin-theme-ui": "^0.325.0-alpha.0",
     "@vtex/order-items": "^0.6.0",
     "@vtex/order-manager": "^0.5.0",
+    "@vtex/store-sdk": "^0.325.0-alpha.0",
     "@vtex/store-ui": "^0.325.0-alpha.0",
     "gatsby-plugin-bundle-stats": "^2.7.2",
     "gatsby-plugin-react-helmet-async": "^1.2.0",
