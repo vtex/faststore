@@ -18,9 +18,6 @@ module.exports = ({ locales, defaultLocale }: Options) => ({
       },
     },
     {
-      resolve: require.resolve('gatsby-plugin-react-helmet-async'),
-    },
-    {
       resolve: require.resolve('@vtex/gatsby-plugin-theme-ui'),
     },
     {

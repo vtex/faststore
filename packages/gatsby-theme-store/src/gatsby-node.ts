@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve, relative } from 'path'
 
 import type {
   CreatePagesArgs,
@@ -182,6 +182,19 @@ export const createPages = async ({
   })
 }
 
+const resolveToTS = (
+  pkg: string,
+  file: 'gatsby-browser' | 'gatsby-ssr' | 'gatsby-node'
+): Record<string, string> => {
+  const root = `${process.cwd()}/.cache`
+  const nextSeoFrom = relative(root, require.resolve(`${pkg}/${file}.js`))
+  const nextSeoTo = nextSeoFrom.replace(`/${file}.js`, `/src/${file}`)
+
+  return {
+    [nextSeoFrom]: nextSeoTo,
+  }
+}
+
 export const onCreateWebpackConfig = (
   { actions: { setWebpackConfig }, stage }: CreateWebpackConfigArgs,
   { profiling = false }: Options
@@ -209,6 +222,18 @@ export const onCreateWebpackConfig = (
     resolve: {
       alias: {
         ...profilingConfig?.resolve.alias,
+        // Gatsby-plugin-next-seo does not have a "sideEffects: false" in its package.json. Webpack doesn't know if
+        // it can tree shake it or not. This points the webpack directly to the source file so everything is imported
+        // using es6 and only the used packages are used
+        'gatsby-plugin-next-seo$': resolve(
+          require.resolve('gatsby-plugin-next-seo'),
+          stage === 'build-javascript' || stage === 'develop'
+            ? '../../src/index'
+            : ''
+        ),
+        // Resolve to the .ts versions of gatsby-(browser|ssr) so we don't end up by adding the whole lib.
+        ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-browser'),
+        ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-ssr'),
         '@vtex/order-manager': require.resolve(
           '@vtex/order-manager/src/index.tsx'
         ),

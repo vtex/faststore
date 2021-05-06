@@ -1,13 +1,13 @@
 import { localizedPath, useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Center, Spinner, Container, SuspenseSSR } from '@vtex/store-ui'
+import { Center, Container, Spinner, SuspenseSSR } from '@vtex/store-ui'
 import { navigate } from 'gatsby'
+import { GatsbySeo } from 'gatsby-plugin-next-seo'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
 import Layout from '../components/Layout'
 import RenderExtensionLoader from '../sdk/RenderExtensionLoader'
 import { useProfile } from '../sdk/session/useProfile'
-import Helmet from '../components/SEO/Helmet'
 
 const MY_ACCOUNT_PATH = '/account'
 const MY_ACCOUNT_DIV_NAME = 'my-account'
@@ -90,14 +90,7 @@ const MyAccount: FC = () => {
 
 const Page: FC = () => (
   <>
-    <Helmet
-      meta={[
-        {
-          name: 'robots',
-          content: 'noindex, nofollow',
-        },
-      ]}
-    />
+    <GatsbySeo noindex nofollow />
 
     <Layout>
       <Container>
