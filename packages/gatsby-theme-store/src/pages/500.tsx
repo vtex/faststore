@@ -1,7 +1,8 @@
 import { FormattedMessage, useLocalizedPath } from '@vtex/gatsby-plugin-i18n'
+import { Box, Button, Container, Flex } from '@vtex/store-ui'
+import { GatsbySeo } from 'gatsby-plugin-next-seo'
 import React, { useEffect, useState } from 'react'
 import type { FC } from 'react'
-import { Box, Button, Flex, Container } from '@vtex/store-ui'
 import type { PageProps } from 'gatsby'
 
 import Layout from '../components/Layout'
@@ -21,56 +22,59 @@ const Page: FC<Props> = () => {
   }, [errorId, params])
 
   return (
-    <Layout>
-      <Container>
-        <Flex p={2} sx={{ alignItems: 'center', flexDirection: 'column' }}>
-          <Box
-            as="h3"
-            sx={{
-              fontSize: '43px',
-              fontWeight: '600',
-              textAlign: 'center',
-              color: 'primary',
-              mt: '50px',
-            }}
-          >
-            <FormattedMessage id="error.title" />
-          </Box>
-          <Box
-            as="p"
-            sx={{
-              paddingX: '15px',
-              fontSize: '20px',
-              textAlign: 'center',
-              marginBottom: '30px',
-            }}
-          >
-            <FormattedMessage id="error.action" />
-          </Box>
+    <>
+      <GatsbySeo noindex nofollow />
+      <Layout>
+        <Container>
+          <Flex p={2} sx={{ alignItems: 'center', flexDirection: 'column' }}>
+            <Box
+              as="h3"
+              sx={{
+                fontSize: '43px',
+                fontWeight: '600',
+                textAlign: 'center',
+                color: 'primary',
+                mt: '50px',
+              }}
+            >
+              <FormattedMessage id="error.title" />
+            </Box>
+            <Box
+              as="p"
+              sx={{
+                paddingX: '15px',
+                fontSize: '20px',
+                textAlign: 'center',
+                marginBottom: '30px',
+              }}
+            >
+              <FormattedMessage id="error.action" />
+            </Box>
 
-          <Button
-            onClick={() => {
-              window.location.href = path
-            }}
-          >
-            <FormattedMessage id="error.action.button" />
-          </Button>
+            <Button
+              onClick={() => {
+                window.location.href = path
+              }}
+            >
+              <FormattedMessage id="error.action.button" />
+            </Button>
 
-          <Box
-            as="p"
-            sx={{
-              paddingX: '15px',
-              fontSize: '14px',
-              textAlign: 'center',
-              marginTop: '20px',
-              color: '#656565',
-            }}
-          >
-            <FormattedMessage id="error.detail" values={{ errorId }} />
-          </Box>
-        </Flex>
-      </Container>
-    </Layout>
+            <Box
+              as="p"
+              sx={{
+                paddingX: '15px',
+                fontSize: '14px',
+                textAlign: 'center',
+                marginTop: '20px',
+                color: '#656565',
+              }}
+            >
+              <FormattedMessage id="error.detail" values={{ errorId }} />
+            </Box>
+          </Flex>
+        </Container>
+      </Layout>
+    </>
   )
 }
 

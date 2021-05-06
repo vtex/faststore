@@ -14,6 +14,7 @@ export { useQueryInfinite } from './sdk/graphql/useQueryInfinite'
 // TODO: We should have a single solution for dealing with images in our framework
 export { optimize } from './sdk/img/fileManager'
 export { useScaledImage } from './sdk/img/arquivos/useScaledImage'
+export { scaleImage } from './sdk/img/arquivos/scale'
 
 // Add third-party scripts API
 export { useLazyScript } from './sdk/lazyScript/useLazyScript'
