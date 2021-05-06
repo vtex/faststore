@@ -187,11 +187,11 @@ const resolveToTS = (
   file: 'gatsby-browser' | 'gatsby-ssr' | 'gatsby-node'
 ): Record<string, string> => {
   const root = `${process.cwd()}/.cache`
-  const nextSeoFrom = relative(root, require.resolve(`${pkg}/${file}.js`))
-  const nextSeoTo = nextSeoFrom.replace(`/${file}.js`, `/src/${file}`)
+  const cjs = relative(root, require.resolve(`${pkg}/${file}.js`))
+  const ts = cjs.replace(`/${file}.js`, `/src/${file}`)
 
   return {
-    [nextSeoFrom]: nextSeoTo,
+    [cjs]: ts,
   }
 }
 
@@ -228,8 +228,16 @@ export const onCreateWebpackConfig = (
             ? '../../src/index'
             : ''
         ),
+        '@vtex/store-ui$': resolve(
+          require.resolve('@vtex/store-ui'),
+          stage === 'build-javascript' || stage === 'develop'
+            ? '../../src/index'
+            : ''
+        ),
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-browser'),
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-ssr'),
+        ...resolveToTS('@vtex/gatsby-theme-store', 'gatsby-browser'),
+        ...resolveToTS('@vtex/gatsby-theme-store', 'gatsby-ssr'),
         '@vtex/order-manager': require.resolve(
           '@vtex/order-manager/src/index.tsx'
         ),
