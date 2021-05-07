@@ -3,7 +3,7 @@ import type { PageProps } from 'gatsby'
 
 type Options = PageProps<unknown>
 
-interface SiteLinksSearchBoxJSONLD {
+interface Return {
   '@context': 'https://schema.org'
   '@type': 'WebSite'
   url: string
@@ -14,7 +14,7 @@ interface SiteLinksSearchBoxJSONLD {
   }
 }
 
-export const useSiteLinksSearchBoxJsonLd = (_: Options): SiteLinksSearchBoxJSONLD => {
+export const useSiteLinksSearchBoxJsonLd = (_: Options): Return | null => {
   const { host } = useLocation()
   const url = `https://${host}`
 
