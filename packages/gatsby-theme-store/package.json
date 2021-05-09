@@ -50,6 +50,8 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-helmet-async": "^1.0.3",
     "@vtex/gatsby-plugin-i18n": "^0.325.0",
+    "@vtex/store-sdk": "^0.325.0-alpha.0",
+    "@vtex/store-ui": "^0.325.0",
     "cross-env": "^7.0.2",
     "gatsby": "^3.1.1",
     "gatsby-plugin-next-seo": "^1.7.0",

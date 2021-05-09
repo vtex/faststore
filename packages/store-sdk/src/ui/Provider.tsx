@@ -51,8 +51,8 @@ const defaultReducer = <S extends State, A extends Action>(
 }
 
 interface Props<S extends State, A extends Action> {
-  reducer: (state: S, aciton: A) => S
-  initialState: S
+  reducer?: (state: S, aciton: A) => S
+  initialState?: S
 }
 
 export const Provider = <S extends State = State, A extends Action = Action>({

@@ -5676,6 +5676,25 @@
   resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.6.tgz#31762608d9a59b815b6d4e963e439b12f1a12279"
   integrity sha512-nXE3BcMODomFK3EowfK+Hdj2qQRqB8JcdRv8yTREXnN9xq8DYKmH/dWB+RY/Hn3KozFLbygpZRbqYsiA6HDINQ==
 
+"@vtex/store-ui@^0.325.0":
+  version "0.325.0"
+  resolved "https://registry.yarnpkg.com/@vtex/store-ui/-/store-ui-0.325.0.tgz#3ff842ac569a2ec97a585732277af42710973313"
+  integrity sha512-8xPczmx0kK5YSNs8q0o1bm1yXZI6ggmbTvQlhyXMIvz+doDYAAS9Z11nk7tHmpek5z2Sg50/YFp/DByyW9Z+4A==
+  dependencies:
+    "@reach/router" "^1.3.4"
+    "@theme-ui/match-media" "^0.3.1"
+    "@theme-ui/preset-base" "^0.3.0"
+    "@types/react-modal" "^3.12.0"
+    "@types/theme-ui__components" "^0.2.6"
+    "@vtex-components/accordion" "^0.2.3"
+    "@vtex-components/drawer" "^0.2.4"
+    deepmerge "^4.2.2"
+    react-hook-inview "^4.3.9"
+    react-swipeable "^6.0.0"
+    reakit "^1.3.0"
+    text-mask-core "^5.1.2"
+    theme-ui "^0.3.1"
+
 "@vtex/tsconfig@^0.5.0":
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/@vtex/tsconfig/-/tsconfig-0.5.6.tgz#c0eb4222a75d1b8a4fefb1d85bbd9349880ddbe5"
