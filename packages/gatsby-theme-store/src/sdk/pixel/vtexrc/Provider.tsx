@@ -28,7 +28,7 @@ if (!window.vtexrca) {
   })
 }
 
-const Provider: FC = ({ children }) => {
+export const Provider: FC = ({ children }) => {
   useLazyScript({
     src: 'https://io.vtex.com.br/rc/rc.js',
     id: 'async-vtex-rc',
@@ -39,5 +39,3 @@ const Provider: FC = ({ children }) => {
 
   return <Fragment>{children}</Fragment>
 }
-
-export default Provider

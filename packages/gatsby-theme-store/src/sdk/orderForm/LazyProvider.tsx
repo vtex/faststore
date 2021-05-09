@@ -1,5 +1,5 @@
-import type { FC, PropsWithChildren } from 'react'
 import React, { Fragment, lazy, Suspense } from 'react'
+import type { FC } from 'react'
 
 const isOfflinePage = window.location.pathname.startsWith('/offline')
 
@@ -19,10 +19,8 @@ const LazyProvider = lazy(() =>
     })
 )
 
-export const Provider = ({ children }: PropsWithChildren<null>) => {
-  return (
-    <Suspense fallback={null}>
-      <LazyProvider>{children}</LazyProvider>
-    </Suspense>
-  )
-}
+export const Provider: FC = ({ children }) => (
+  <Suspense fallback={null}>
+    <LazyProvider>{children}</LazyProvider>
+  </Suspense>
+)

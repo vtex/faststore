@@ -7,22 +7,16 @@ import ReactDOM from 'react-dom'
 import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ElementType } from 'react'
 
-// Webpack + TS magic to make this work
-const {
-  Provider: OrderFormProvider,
-} = require('./src/sdk/orderForm/LazyProvider')
-const { Provider: RegionProvider } = require('./src/sdk/region/Provider')
-const { Provider: MinicartProvider } = require('./src/sdk/minicart/Provider')
-const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
-const {
-  default: ErrorBoundary,
-} = require('./src/components/Error/ErrorBoundary')
-// eslint-disable-next-line padding-line-between-statements
-const {
+import { Provider as OrderFormProvider } from './sdk/orderForm/LazyProvider'
+import { Provider as RegionProvider } from './sdk/region/Provider'
+import { Provider as MinicartProvider } from './sdk/minicart/Provider'
+import { Provider as ToastProvider } from './sdk/toast/Provider'
+import { Provider as VTEXRCProvider } from './sdk/pixel/vtexrc/Provider'
+import ErrorBoundary from './components/Error/ErrorBoundary'
+import {
   Progress,
-  onRouteUpdate: progressOnRouteUpdate,
-} = require('./src/sdk/progress')
-const { Provider: ToastProvider } = require('./src/sdk/toast/Provider')
+  onRouteUpdate as progressOnRouteUpdate,
+} from './sdk/progress'
 
 export const replaceHydrateFunction = () => async (
   element: ElementType,
