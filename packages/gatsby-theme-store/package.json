@@ -35,6 +35,8 @@
   "license": "MIT",
   "peerDependencies": {
     "@vtex/gatsby-plugin-i18n": "^0.280.0",
+    "@vtex/store-sdk": "^0.325.0-alpha.0",
+    "@vtex/store-ui": "^0.325.0",
     "gatsby": "^3.1.1",
     "gatsby-plugin-next-seo": "^1.7.0",
     "react": "^17.0.2",
@@ -53,7 +55,7 @@
     "gatsby-plugin-next-seo": "^1.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "typescript": "^4.1.2"
+    "typescript": "^4.2.4"
   },
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
@@ -61,7 +63,6 @@
     "@vtex/gatsby-plugin-theme-ui": "^0.325.0",
     "@vtex/order-items": "^0.6.1",
     "@vtex/order-manager": "^0.5.2",
-    "@vtex/store-ui": "^0.326.3-alpha.3",
     "gatsby-plugin-bundle-stats": "^2.7.2",
     "html-loader": "^2.1.2",
     "intersection-observer": "^0.11.0",
