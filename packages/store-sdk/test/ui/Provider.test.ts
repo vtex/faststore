@@ -5,6 +5,8 @@ import { UIProvider, useUI } from '../../src'
 test('UI PRovider: Open/Close minicart', async () => {
   const { result } = renderHook(useUI, { wrapper: UIProvider })
 
+  expect(result.current.displayMinicart).toBe(false)
+
   act(() => {
     result.current.openMinicart()
   })

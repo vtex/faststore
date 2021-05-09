@@ -1,5 +1,5 @@
 import React, { createContext, useMemo, useReducer } from 'react'
-import type { PropsWithChildren } from 'react'
+import type { FC } from 'react'
 
 export interface State {
   displayMinicart: boolean
@@ -10,7 +10,7 @@ export interface Value extends State {
   closeMinicart: () => void
 }
 
-type Action =
+export type Action =
   | {
       type: 'OPEN_MINICART'
     }
@@ -21,14 +21,11 @@ type Action =
 export const Context = createContext<Value | undefined>(undefined)
 Context.displayName = 'UIContext'
 
-const defaultInitialState: State = {
-  displayMinicart: true,
+const initialState: State = {
+  displayMinicart: false,
 }
 
-const defaultReducer = <S extends State, A extends Action>(
-  state: S,
-  action: A
-): S => {
+const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case 'OPEN_MINICART': {
       return {
@@ -50,20 +47,11 @@ const defaultReducer = <S extends State, A extends Action>(
   }
 }
 
-interface Props<S extends State, A extends Action> {
-  reducer?: (state: S, aciton: A) => S
-  initialState?: S
-}
-
-export const Provider = <S extends State = State, A extends Action = Action>({
-  children,
-  reducer = defaultReducer,
-  initialState = defaultInitialState as S,
-}: PropsWithChildren<Props<S, A>>) => {
+export const Provider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const openMinicart = () => dispatch({ type: 'OPEN_MINICART' } as A)
-  const closeMinicart = () => dispatch({ type: 'CLOSE_MINICART' } as A)
+  const openMinicart = () => dispatch({ type: 'OPEN_MINICART' })
+  const closeMinicart = () => dispatch({ type: 'CLOSE_MINICART' })
 
   const value = useMemo(
     () => ({
