@@ -63,7 +63,5 @@ export const Provider: FC = ({ children }) => {
     [state]
   )
 
-  console.warn('[store-sdk]: UIPROVIDER')
-
   return <Context.Provider value={value}>{children}</Context.Provider>
 }
