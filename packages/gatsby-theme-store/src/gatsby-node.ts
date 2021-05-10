@@ -196,7 +196,7 @@ const resolveToTS = (
 }
 
 export const onCreateWebpackConfig = (
-  { actions: { setWebpackConfig }, stage }: CreateWebpackConfigArgs,
+  { actions: { setWebpackConfig }, stage, getConfig }: CreateWebpackConfigArgs,
   { profiling = false }: Options
 ) => {
   const profilingConfig =
@@ -217,8 +217,23 @@ export const onCreateWebpackConfig = (
         }
       : null
 
+  const prevConfig = getConfig()
+  const prevExternals = prevConfig.externals ?? []
+  // console.log('prev externals', prevExternals)
+  // const prevExternalsType = prevConfig.externalsType
+  // console.log('prev externals type', prevExternalsType)
   setWebpackConfig({
     ...profilingConfig,
+    externals: [
+      ...prevExternals,
+      //@ts-ignore
+      ...(stage==="build-javascript" ? [
+        {
+          'react': 'root React',
+          'react-dom': 'root ReactDOM',
+        }
+      ] : [])
+    ],
     resolve: {
       alias: {
         ...profilingConfig?.resolve.alias,
