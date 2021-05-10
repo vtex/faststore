@@ -187,7 +187,11 @@ const resolveToTS = (
   file: 'gatsby-browser' | 'gatsby-ssr' | 'gatsby-node'
 ): Record<string, string> => {
   const root = `${process.cwd()}/.cache`
-  const cjs = relative(root, require.resolve(`${pkg}/${file}.js`))
+  const cjs = relative(
+    root,
+    require.resolve(`${pkg}/${file}.js`, { paths: [process.cwd()] })
+  )
+
   const ts = cjs.replace(`/${file}.js`, `/src/${file}`)
 
   return {
@@ -226,13 +230,13 @@ export const onCreateWebpackConfig = (
         // it can tree shake it or not. This points the webpack directly to the source file so everything is imported
         // using es6 and only the used packages are used
         'gatsby-plugin-next-seo$': resolve(
-          require.resolve('gatsby-plugin-next-seo'),
+          require.resolve('gatsby-plugin-next-seo', { paths: [process.cwd()] }),
           stage === 'build-javascript' || stage === 'develop'
             ? '../../src/index'
             : ''
         ),
         '@vtex/store-ui$': resolve(
-          require.resolve('@vtex/store-ui'),
+          require.resolve('@vtex/store-ui', { paths: [process.cwd()] }),
           stage === 'build-javascript' || stage === 'develop'
             ? '../../src/index'
             : ''

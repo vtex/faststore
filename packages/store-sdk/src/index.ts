@@ -5,3 +5,5 @@ export type {
   Value as UIContextValue,
 } from './ui/Provider'
 export { useUI } from './ui/useUI'
+
+export { once } from './utils/once'
