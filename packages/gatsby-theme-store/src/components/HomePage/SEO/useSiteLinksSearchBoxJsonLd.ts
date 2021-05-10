@@ -14,7 +14,9 @@ interface SiteLinksSearchBoxJSONLD {
   }
 }
 
-export const useSiteLinksSearchBoxJsonLd = (_: Options): SiteLinksSearchBoxJSONLD => {
+export const useSiteLinksSearchBoxJsonLd = (
+  _: Options
+): SiteLinksSearchBoxJSONLD => {
   const { host } = useLocation()
   const url = `https://${host}`
 

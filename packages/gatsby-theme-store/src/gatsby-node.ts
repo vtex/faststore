@@ -187,11 +187,15 @@ const resolveToTS = (
   file: 'gatsby-browser' | 'gatsby-ssr' | 'gatsby-node'
 ): Record<string, string> => {
   const root = `${process.cwd()}/.cache`
-  const nextSeoFrom = relative(root, require.resolve(`${pkg}/${file}.js`))
-  const nextSeoTo = nextSeoFrom.replace(`/${file}.js`, `/src/${file}`)
+  const cjs = relative(
+    root,
+    require.resolve(`${pkg}/${file}.js`, { paths: [process.cwd()] })
+  )
+
+  const ts = cjs.replace(`/${file}.js`, `/src/${file}`)
 
   return {
-    [nextSeoFrom]: nextSeoTo,
+    [cjs]: ts,
   }
 }
 
@@ -226,7 +230,13 @@ export const onCreateWebpackConfig = (
         // it can tree shake it or not. This points the webpack directly to the source file so everything is imported
         // using es6 and only the used packages are used
         'gatsby-plugin-next-seo$': resolve(
-          require.resolve('gatsby-plugin-next-seo'),
+          require.resolve('gatsby-plugin-next-seo', { paths: [process.cwd()] }),
+          stage === 'build-javascript' || stage === 'develop'
+            ? '../../src/index'
+            : ''
+        ),
+        '@vtex/store-ui$': resolve(
+          require.resolve('@vtex/store-ui', { paths: [process.cwd()] }),
           stage === 'build-javascript' || stage === 'develop'
             ? '../../src/index'
             : ''
@@ -234,6 +244,8 @@ export const onCreateWebpackConfig = (
         // Resolve to the .ts versions of gatsby-(browser|ssr) so we don't end up by adding the whole lib.
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-browser'),
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-ssr'),
+        ...resolveToTS('@vtex/gatsby-theme-store', 'gatsby-browser'),
+        ...resolveToTS('@vtex/gatsby-theme-store', 'gatsby-ssr'),
         '@vtex/order-manager': require.resolve(
           '@vtex/order-manager/src/index.tsx'
         ),
