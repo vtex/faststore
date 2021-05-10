@@ -1,9 +1,10 @@
+import { useUI } from '@vtex/store-sdk'
+
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useOrderItems } from '../orderForm/useOrderItems'
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
 import { usePixelEvent } from '../pixel/usePixelEvent'
-import { useMinicart } from '../minicart/useMinicart'
 
 interface Seller {
   sellerId: string
@@ -33,10 +34,10 @@ export const useBuyButton = ({
   sku,
   quantity,
   oneClickBuy = false,
-  openMinicart = true,
+  openMinicart: shouldOpenMinicart = true,
   productName,
 }: Props) => {
-  const minicart = useMinicart()
+  const { openMinicart } = useUI()
   const seller = useBestSeller(sku)
   const { orderForm, loading } = useOrderForm()
   const { addItems } = useOrderItems()
@@ -93,8 +94,8 @@ export const useBuyButton = ({
 
       addItems(items, { allowedOutdatedData: ['paymentData'] })
 
-      if (openMinicart) {
-        minicart.toggle()
+      if (shouldOpenMinicart) {
+        openMinicart()
       }
 
       sendPixelEvent({
