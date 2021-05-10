@@ -4,6 +4,6 @@ export type {
   State as UIState,
   Value as UIContextValue,
 } from './ui/Provider'
-export { useUI } from './ui/useUI'
+export { useGlobalUIState } from './ui/useGlobalUIState'
 
 export { once } from './utils/once'
