@@ -5,11 +5,10 @@ import type { ButtonProps } from 'theme-ui'
 
 export type MinicartButtonProps = ButtonProps
 
-export const MinicartButton: FC<MinicartButtonProps> = ({
-  children,
-  ...props
-}) => (
+const MinicartButton: FC<MinicartButtonProps> = ({ children, ...props }) => (
   <Button data-testid="openCart" aria-label="Open Cart" {...props}>
     {children}
   </Button>
 )
+
+export default MinicartButton
