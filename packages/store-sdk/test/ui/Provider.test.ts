@@ -1,9 +1,9 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 
-import { UIProvider, useUI } from '../../src'
+import { UIProvider, useGlobalUIState } from '../../src'
 
 test('UI PRovider: Open/Close minicart', async () => {
-  const { result } = renderHook(useUI, { wrapper: UIProvider })
+  const { result } = renderHook(useGlobalUIState, { wrapper: UIProvider })
 
   expect(result.current.displayMinicart).toBe(false)
 

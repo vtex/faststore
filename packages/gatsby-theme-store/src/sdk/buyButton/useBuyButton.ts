@@ -1,4 +1,4 @@
-import { useUI } from '@vtex/store-sdk'
+import { useGlobalUIState } from '@vtex/store-sdk'
 
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useOrderItems } from '../orderForm/useOrderItems'
@@ -37,7 +37,7 @@ export const useBuyButton = ({
   openMinicart: shouldOpenMinicart = true,
   productName,
 }: Props) => {
-  const { openMinicart } = useUI()
+  const { openMinicart } = useGlobalUIState()
   const seller = useBestSeller(sku)
   const { orderForm, loading } = useOrderForm()
   const { addItems } = useOrderItems()
