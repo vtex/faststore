@@ -4,7 +4,7 @@ import type { RenderBodyArgs } from 'gatsby'
 import type { PluginOptions } from './gatsby-node'
 
 export function onRenderBody(
-  { setHeadComponents }: RenderBodyArgs,
+  { setHeadComponents, setPostBodyComponents }: RenderBodyArgs,
   pluginOptions: PluginOptions
 ) {
   if (process.env.NODE_ENV !== `production`) {
@@ -21,7 +21,7 @@ export function onRenderBody(
     />,
   ])
 
-  return setHeadComponents([
+  return setPostBodyComponents([
     <script
       key="gatsby-plugin-onesignal-cdn"
       src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
