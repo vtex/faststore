@@ -235,6 +235,7 @@ export const onCreateWebpackConfig = (
         {
           'react': 'root React',
           'react-dom': 'root ReactDOM',
+          'intl-messageformat': 'var IntlMessageFormat'
         }
       ] : [])
     ],
