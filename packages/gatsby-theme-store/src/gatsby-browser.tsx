@@ -32,16 +32,22 @@ export const replaceHydrateFunction = () => async (
   )
 
   const { unstable_createRoot: createRoot }: any = ReactDOM
-  setTimeout(() => {
-    const root = createRoot(container, {
-      hydrate: !development,
-      hydrationOptions: {
-        onHydrated: callback,
-      },
-    })
+  const root = createRoot(container, {
+    hydrate: !development,
+    hydrationOptions: {
+      onHydrated: callback,
+    },
+  })
 
+  const renderFn = () => {
+    console.log({ hydrate: !development })
+    console.log({ callback })
     root.render(element)
-  }, 1)
+  }
+
+  (window as any).renderFn = renderFn
+
+  renderFn()
 }
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
