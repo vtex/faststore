@@ -48,6 +48,6 @@ Example:
 
 6. Wait for checks to pass and reviews to be approved.
 
-7. Bump your package version in the `faststore` PR, by using `lerna publish --dist-tag next` and select a `latest` version.
+7. Bump your package version in the `faststore` PR, by using `lerna publish` and select a `latest` version.
 
 8. Update `package.json` of the `storecomponents` with the `latest` version of your package.
