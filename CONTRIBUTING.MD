@@ -66,3 +66,14 @@ git clean -fdx && yarn && lerna run build && lerna publish minor --yes
 yarn upgrade -L --scope @vtex
 ```
 
+6. Stage, commit and push your changes with:
+```
+git add . && git commit -m "upgrade deps" && git push
+```
+
+7. Rebase with master
+```
+git rebase origin/master && git push --force
+```
+
+8. Wait for the bots to approve the PR and squash-merge for releasing a store version
