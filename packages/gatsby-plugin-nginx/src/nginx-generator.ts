@@ -78,7 +78,7 @@ function generateNginxConfiguration({
     : [
         { cmd: ['worker_processes', '3'] },
         { cmd: ['worker_rlimit_nofile', '8192'] },
-        { cmd: ['error_log', '/var/log/nginx_errors.log', 'debug'] },
+        { cmd: ['error_log', '/var/log/nginx/error.log', 'debug'] },
         { cmd: ['pid', '/var/log/nginx_run.pid'] },
         {
           cmd: ['events'],
@@ -111,7 +111,7 @@ function generateNginxConfiguration({
                 { cmd: ['~^https?://(?<all>.*)/?.*$', '$all'] },
               ],
             },
-            { cmd: ['access_log', '/var/log/nginx_access.log'] },
+            { cmd: ['access_log', '/var/log/nginx/access.log'] },
             { cmd: ['include', '/etc/nginx/mime.types'] },
             { cmd: ['default_type', 'application/octet-stream'] },
             { cmd: ['disable_symlinks', 'off'] },
