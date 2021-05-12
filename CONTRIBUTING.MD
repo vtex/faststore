@@ -48,6 +48,21 @@ Example:
 
 6. Wait for checks to pass and reviews to be approved.
 
-7. Bump your package version in the `faststore` PR, by using `lerna publish` and select a `latest` version.
+## Release
 
-8. Update `package.json` of the `storecomponents` with the `latest` version of your package.
+1. After acquiring the necessary approval, rebase and squash-merge your PR in master
+
+2. Locally, go to the master branch pull the changes with `git pull origin master`
+
+3. Clear any artifact and release a clean build with
+```
+git clean -fdx && yarn && lerna run build && lerna publish minor --yes
+```
+
+4. Go grab a coffe ☕
+
+5. Update `package.json` of the `storecomponents` with:
+```
+yarn upgrade -L --scope @vtex
+```
+
