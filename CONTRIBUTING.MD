@@ -76,4 +76,6 @@ git add . && git commit -m "upgrade deps" && git push
 git rebase origin/master && git push --force
 ```
 
-8. Wait for the bots to approve the PR and squash-merge for releasing a store version
+8. Wait for the bots to approve the PR.
+
+9. Squash-merge for releasing a new store version 🎉
