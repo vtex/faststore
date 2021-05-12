@@ -3,12 +3,12 @@ import { graphql } from 'gatsby'
 import React from 'react'
 import type { FC } from 'react'
 
-import type { ProductPageProps } from '../../templates/product'
+import type { ProductViewProps } from './index'
 
 const format = (x: string) =>
   x.length > 100 ? `${x.slice(0, 100)} ...Truncated` : x
 
-const AboveTheFold: FC<ProductPageProps> = (props) => (
+const AboveTheFold: FC<ProductViewProps> = (props) => (
   <>
     <Center height="150px">
       <Text sx={{ width: '50%' }}>

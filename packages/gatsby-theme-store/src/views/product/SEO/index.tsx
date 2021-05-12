@@ -8,10 +8,10 @@ import type { FC } from 'react'
 
 import { useMetadata } from './useMetadata'
 import { useBreadcrumbJsonLd } from './useBreadcrumbJsonLd'
-import type { ProductPageProps } from '../../../templates/product'
 import { useProductJsonLd } from './useProductJsonLd'
+import type { ProductViewProps } from '../index'
 
-const SEO: FC<ProductPageProps> = (props) => {
+const SEO: FC<ProductViewProps> = (props) => {
   const metadata = useMetadata(props)
   const breadcrumbProps = useBreadcrumbJsonLd(props)
   const productProps = useProductJsonLd(props)
