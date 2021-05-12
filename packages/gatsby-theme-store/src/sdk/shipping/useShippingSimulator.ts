@@ -69,7 +69,7 @@ export const useShippingSimulator = ({
 
 export const query = gql`
   query ShippingQuery(
-    $items: [VTEX_ShippingItem]
+    $items: [VTEX_CheckoutGraphql_ShippingItem]
     $postalCode: String
     $country: String
   ) {

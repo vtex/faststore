@@ -142,7 +142,7 @@ export const query = graphql`
     $map: String
     $fullText: String
     $staticPath: Boolean!
-    $selectedFacets: [VTEX_SelectedFacetInput!]
+    $selectedFacets: [VTEX_SearchResolver_SelectedFacetInput!]
     $orderBy: String = "OrderByScoreDESC"
     $hideUnavailableItems: Boolean = false
   ) {

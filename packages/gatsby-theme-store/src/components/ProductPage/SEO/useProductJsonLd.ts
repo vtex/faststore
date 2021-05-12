@@ -60,7 +60,7 @@ export const useProductJsonLd = (options: Options): ProductJSONLD | null => {
 }
 
 export const fragment = graphql`
-  fragment StructuredProductFragment_product on VTEX_Product {
+  fragment StructuredProductFragment_product on VTEX_SearchResolver_Product {
     productName
     description
     brand

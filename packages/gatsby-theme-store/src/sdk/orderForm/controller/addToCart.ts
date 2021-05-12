@@ -31,8 +31,8 @@ export const addToCart = async ({ orderFormId, items }: AddToCartParams) => {
 export const mutation = gql`
   mutation AddToCartMutation(
     $orderFormId: ID
-    $items: [VTEX_ItemInput]
-    $marketingData: VTEX_MarketingDataInput
+    $items: [VTEX_CheckoutGraphql_ItemInput]
+    $marketingData: VTEX_CheckoutGraphql_MarketingDataInput
     $allowedOutdatedData: [String!]
   ) {
     addToCart(

@@ -26,8 +26,8 @@ export const useRecommendationShelf = (variables: RecommendationOptions) => {
 
 export const query = gql`
   query ProductRecommendationsQuery(
-    $identifier: VTEX_ProductUniqueIdentifier!
-    $type: VTEX_CrossSelingInputEnum!
+    $identifier: VTEX_SearchResolver_ProductUniqueIdentifier!
+    $type: VTEX_SearchResolver_CrossSelingInputEnum!
   ) {
     vtex {
       productRecommendations(identifier: $identifier, type: $type) {

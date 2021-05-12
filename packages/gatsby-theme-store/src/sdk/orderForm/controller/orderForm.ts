@@ -14,7 +14,7 @@ export const clearOrderFormId = () =>
   localStorage.removeItem(ORDER_FORM_STORAGE_KEY)
 
 export const fragment = gql`
-  fragment OrderFormFragment_orderForm on VTEX_OrderForm {
+  fragment OrderFormFragment_orderForm on VTEX_CheckoutGraphql_OrderForm {
     id
     items {
       isGift

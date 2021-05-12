@@ -33,7 +33,7 @@ const ProductSummary: FC<Props> = () => (
 )
 
 export const fragment = graphql`
-  fragment ProductSummary_product on VTEX_Product {
+  fragment ProductSummary_product on VTEX_SearchResolver_Product {
     id: productId
     productName
     linkText

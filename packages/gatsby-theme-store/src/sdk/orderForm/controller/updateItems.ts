@@ -34,7 +34,7 @@ export const updateItems = async ({
 export const mutation = gql`
   mutation UpdateItemsMutation(
     $orderFormId: ID
-    $items: [VTEX_ItemInput]
+    $items: [VTEX_CheckoutGraphql_ItemInput]
     $splitItem: Boolean
     $allowedOutdatedData: [String!]
   ) {

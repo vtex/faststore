@@ -39,7 +39,7 @@ export const query = gql`
     $regionId: String
     $facetKey: String
     $facetValue: String
-    $simulationBehavior: VTEX_SimulationBehavior = default
+    $simulationBehavior: VTEX_SearchResolver_SimulationBehavior = default
   ) {
     vtex {
       productSuggestions(
