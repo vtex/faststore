@@ -5,9 +5,9 @@ import type { ComponentPropsWithoutRef } from 'react'
 import type { ProductJsonLd } from 'gatsby-plugin-next-seo'
 
 import { useCurrency } from '../../../sdk/localization/useCurrency'
-import type { ProductPageProps } from '../../../templates/product'
+import type { ProductViewProps } from '../index'
 
-type Options = ProductPageProps
+type Options = ProductViewProps
 
 type ProductJSONLD = ComponentPropsWithoutRef<typeof ProductJsonLd>
 

@@ -149,11 +149,8 @@ export const createPages = async ({
 
     createPage({
       path,
-      component: resolve(__dirname, './src/templates/product.tsx'),
-      context: {
-        slug,
-        staticPath: true,
-      },
+      component: resolve(__dirname, './src/templates/product.server.tsx'),
+      context: { slug },
     })
   }
 
@@ -165,10 +162,8 @@ export const createPages = async ({
   createPage({
     path: '/__client_side_product__/p',
     matchPath: '/:slug/p',
-    component: resolve(__dirname, './src/templates/product.tsx'),
-    context: {
-      staticPath: false,
-    },
+    component: resolve(__dirname, './src/templates/product.browser.tsx'),
+    context: {},
   })
 
   // Client side search page

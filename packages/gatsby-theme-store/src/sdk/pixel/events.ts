@@ -1,4 +1,4 @@
-import type { ProductPageQueryQuery } from '../../templates/__generated__/ProductPageQuery.graphql'
+import type { ServerProductPageQueryQuery } from '../../templates/__generated__/ServerProductPageQuery.graphql'
 import type { ProductSummary_ProductFragment } from '../../components/ProductSummary/__generated__/ProductSummary_product.graphql'
 import type { OrderFormFragment_OrderFormFragment } from '../orderForm/controller/__generated__/OrderFormFragment_orderForm.graphql'
 import type { OrderFormItem } from '../orderForm/types'
@@ -60,7 +60,7 @@ export type OrderPlacedData = Order
 export type OrderPlacedTrackedData = Order
 
 export interface ProductViewData {
-  product: ProductPageQueryQuery['vtex']['product']
+  product: ServerProductPageQueryQuery['vtex']['product']
 }
 
 export interface ProductClickData {

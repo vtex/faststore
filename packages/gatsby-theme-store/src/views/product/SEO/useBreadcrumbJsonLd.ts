@@ -3,13 +3,15 @@ import { useMemo } from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { BreadcrumbJsonLd } from 'gatsby-plugin-next-seo'
 
-import type { ProductPageProps } from '../../../templates/product'
+import type { ProductViewProps } from '../index'
 
-type Options = ProductPageProps
+type Options = ProductViewProps
 
 type BreadcrumbJSONLD = ComponentPropsWithoutRef<typeof BreadcrumbJsonLd>
 
-export const useBreadcrumbJsonLd = (options: Options): BreadcrumbJSONLD | null => {
+export const useBreadcrumbJsonLd = (
+  options: Options
+): BreadcrumbJSONLD | null => {
   const {
     data: {
       vtex: { product },

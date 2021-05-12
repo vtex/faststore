@@ -7,15 +7,15 @@ import type { ComponentPropsWithoutRef } from 'react'
 import { scaleImage } from '../../../sdk/img/arquivos/scale'
 import { useLocale } from '../../../sdk/localization/useLocale'
 import { IMAGE_DEFAULT } from '../../../sdk/product/constants'
-import type { ProductPageProps } from '../../../templates/product'
 import type { ProductPageSeoQueryQuery } from './__generated__/ProductPageSEOQuery.graphql'
+import type { ProductViewProps } from '../index'
 
 /**
  * One should use either noindex or canonical, never both
 
 * This deduplicates pages so our pages rank higher in Google
 */
-type Options = ProductPageProps
+type Options = ProductViewProps
 
 const IMAGE_SIZE = 720
 
