@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   lint:
-    name: Lint Faststore
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,7 @@ jobs:
         run: yarn lint
 
   test:
-    name: Test Faststore
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
@@ -42,7 +42,7 @@ jobs:
         run: yarn test --ci --maxWorkers=2
 
   build:
-    name: Build Faststore
+    name: Build
     runs-on: ubuntu-latest
 
     steps:

@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    name: Publish Faststore
+    name: Publish
     runs-on: ubuntu-latest
 
     steps:
