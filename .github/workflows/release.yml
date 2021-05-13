@@ -32,8 +32,9 @@ jobs:
       - name: Build
         run: yarn build
 
+      - name: Publish
       - uses: smartlyio/lerna-publish-action@v2
         with:
-          bump: major
+          bump: minor
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
