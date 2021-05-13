@@ -6,10 +6,10 @@ import React, { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ElementType } from 'react'
+import { UIProvider } from '@vtex/store-sdk'
 
 import { Provider as OrderFormProvider } from './sdk/orderForm/LazyProvider'
 import { Provider as RegionProvider } from './sdk/region/Provider'
-import { Provider as MinicartProvider } from './sdk/minicart/Provider'
 import { Provider as ToastProvider } from './sdk/toast/Provider'
 import { Provider as VTEXRCProvider } from './sdk/pixel/vtexrc/Provider'
 import ErrorBoundary from './components/Error/ErrorBoundary'
@@ -49,7 +49,7 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
         <ToastProvider>
           <RegionProvider>
             <OrderFormProvider>
-              <MinicartProvider>{element}</MinicartProvider>
+              <UIProvider>{element}</UIProvider>
             </OrderFormProvider>
           </RegionProvider>
         </ToastProvider>
