@@ -1,7 +1,7 @@
 const {
   stringify,
-  convertFromPath,
-  validateRedirect,
+  convertToRegExp,
+  parseRewrite,
   generateRewrites,
   generateRedirects,
 } = require('../nginx-generator.js')
@@ -39,73 +39,56 @@ http {
   })
 })
 
-describe('convertFromPath', () => {
+describe('convert Gatsby paths into nginx RegExp', () => {
   it('handles :slug', () => {
-    expect(convertFromPath('/:slug/p')).toEqual('^/[^/]+/p')
-    expect(convertFromPath('/:slug')).toEqual('^/[^/]+')
-    expect(convertFromPath('/pt/:slug/p')).toEqual('^/pt/[^/]+/p')
+    expect(convertToRegExp('/:slug/p')).toEqual('^/[^/]+/p$')
+    expect(convertToRegExp('/:slug')).toEqual('^/[^/]+$')
+    expect(convertToRegExp('/pt/:slug/p')).toEqual('^/pt/[^/]+/p$')
   })
 
   it('handles wildcard (*)', () => {
-    expect(convertFromPath('/*')).toEqual('^/.*')
-    expect(convertFromPath('/pt/*')).toEqual('^/pt/.*')
+    expect(convertToRegExp('/*')).toEqual('^/(.*)$')
+    expect(convertToRegExp('/pt/*')).toEqual('^/pt/(.*)$')
   })
 })
 
-describe('validateRedirect', () => {
-  it('throws when toPath is not an absolute URL', () => {
-    const cases = [
-      ['/api/*', '/api/:splat'],
-      ['/api/*', 'www.example.com'],
-    ]
-    cases.forEach(([fromPath, toPath]) =>
-      expect(() => validateRedirect({ fromPath, toPath })).toThrow(
-        `redirect toPath "${toPath}" must be a valid absolute URL`
-      )
-    )
-  })
-
-  it('throws if paths do not match', () => {
-    expect(() =>
-      validateRedirect({
-        fromPath: '/api/*',
-        toPath:
-          'https://storecomponents.vtexcommercestable.com.br/api/v2/:splat',
-      })
-    ).toThrow(
-      'redirect toPath "https://storecomponents.vtexcommercestable.com.br/api/v2/:splat" fromPath "/api/*": paths must match'
-    )
-  })
-
-  it('accepts matching paths with absolute toPath', () => {
+describe('parseRewrite', () => {
+  it('Correctly parse rewrite cases', () => {
+    expect(parseRewrite({ toPath: '/api/:splat' })).toBe('rewrite')
+    expect(parseRewrite({ toPath: 'www.example.com' })).toBe('rewrite')
+    expect(parseRewrite({ toPath: 'https://www.example.com' })).toBe('proxy')
     expect(
-      validateRedirect({
-        fromPath: '/api/*',
-        toPath: 'https://storecomponents.vtexcommercestable.com.br/api/:splat',
-      })
-    ).toEqual(true)
+      parseRewrite({ toPath: 'https://www.example.com', statusCode: 301 })
+    ).toBe('proxy')
+    expect(parseRewrite({ toPath: '/foo', statusCode: 301 })).toBe('redirect')
+    expect(parseRewrite({ toPath: '/foo', statusCode: 404 })).toBe('error_page')
   })
 })
 
 describe('generateRewrites', () => {
   it('correctly translates into NginxDirectives', () => {
-    const expected = {
-      cmd: ['location', '@clientSideFallback'],
-      children: [
-        { cmd: ['rewrite', '^/[^/]+/p', '/__client-side-product__/p', 'last'] },
-        {
-          cmd: [
-            'rewrite',
-            '^/pt/[^/]+/p',
-            '/pt/__client-side-product__/p',
-            'last',
-          ],
-        },
-        { cmd: ['rewrite', '^/.*', '/__client-side-search__', 'last'] },
-        { cmd: ['rewrite', '^/pt/.*', '/pt/__client-side-search__', 'last'] },
-        { cmd: ['return', '404'] },
-      ],
-    }
+    const expected = [
+      {
+        children: [
+          {
+            cmd: ['rewrite', '.+', '/__client-side-product__/p'],
+          },
+        ],
+        cmd: ['location', '~*', '"^/[^/]+/p$"'],
+      },
+      {
+        children: [{ cmd: ['rewrite', '.+', '/pt/__client-side-product__/p'] }],
+        cmd: ['location', '~*', '"^/pt/[^/]+/p$"'],
+      },
+      {
+        children: [{ cmd: ['rewrite', '.+', '/__client-side-search__'] }],
+        cmd: ['location', '~*', '"^/(.*)$"'],
+      },
+      {
+        children: [{ cmd: ['rewrite', '.+', '/pt/__client-side-search__'] }],
+        cmd: ['location', '~*', '"^/pt/(.*)$"'],
+      },
+    ]
     expect(
       generateRewrites([
         { fromPath: '/:slug/p', toPath: '/__client-side-product__/p' },
@@ -121,32 +104,33 @@ describe('generateRedirects', () => {
   it('correctly translates into NginxDirectives', () => {
     const expected = [
       {
-        cmd: ['location', '~*', '^/api/.*'],
+        cmd: ['location', '~*', '"^/api/(.*)$"'],
         children: [
           {
             cmd: [
               'proxy_pass',
-              'https://storecomponents.vtexcommercestable.com.br$uri$is_args$args',
+              'https://storecomponents.vtexcommercestable.com.br/api/$1$is_args$args',
             ],
           },
           { cmd: ['proxy_ssl_server_name', 'on'] },
         ],
       },
       {
-        cmd: ['location', '~*', '^/graphql/.*'],
+        cmd: ['location', '~*', '"^/graphql/(.*)$"'],
         children: [
           {
             cmd: [
               'proxy_pass',
-              'https://master--storecomponents.myvtex.com$uri$is_args$args',
+              'https://master--storecomponents.myvtex.com/graphql/$1$is_args$args',
             ],
           },
           { cmd: ['proxy_ssl_server_name', 'on'] },
         ],
       },
     ]
+
     expect(
-      generateRedirects([
+      generateRewrites([
         {
           fromPath: '/api/*',
           isPermanent: false,

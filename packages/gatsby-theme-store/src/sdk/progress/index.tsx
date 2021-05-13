@@ -23,7 +23,7 @@ export const Progress: FC<Props> = ({ children, location }) => {
 
   // Load and Setup nprogress once the browser is idle
   useIdleEffect(() => {
-    ;(async () => {
+    const setup = async () => {
       const controller = await loadController()
 
       // nprogress default options
@@ -32,7 +32,9 @@ export const Progress: FC<Props> = ({ children, location }) => {
         showSpinner: false,
         trickleSpeed: 100,
       })
-    })()
+    }
+
+    setup()
   }, [colors])
 
   // Starts progress bar after milliseconds

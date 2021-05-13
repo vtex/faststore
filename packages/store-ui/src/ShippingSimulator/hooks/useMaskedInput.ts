@@ -49,6 +49,7 @@ export default function useMaskedInput({
     value,
   ])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(init, [
     guide,
     keepCharPositions,
