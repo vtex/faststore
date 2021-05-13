@@ -10,7 +10,8 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "gatsby-*.js"
   ],
   "scripts": {
     "develop": "tsdx watch",
