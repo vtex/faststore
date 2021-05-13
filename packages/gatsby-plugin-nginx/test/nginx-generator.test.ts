@@ -53,14 +53,23 @@ describe('convert Gatsby paths into nginx RegExp', () => {
 
 describe('parseRewrite', () => {
   it('Correctly parse rewrite cases', () => {
-    expect(parseRewrite({ toPath: '/api/:splat' })).toBe('rewrite')
-    expect(parseRewrite({ toPath: 'www.example.com' })).toBe('rewrite')
-    expect(parseRewrite({ toPath: 'https://www.example.com' })).toBe('proxy')
+    expect(parseRewrite({ toPath: '/api/:splat' }) as any).toBe('rewrite')
+    expect(parseRewrite({ toPath: 'www.example.com' }) as any).toBe('rewrite')
+    expect(parseRewrite({ toPath: 'https://www.example.com' }) as any).toBe(
+      'proxy'
+    )
     expect(
-      parseRewrite({ toPath: 'https://www.example.com', statusCode: 301 })
+      parseRewrite({
+        toPath: 'https://www.example.com',
+        statusCode: 301,
+      }) as any
     ).toBe('proxy')
-    expect(parseRewrite({ toPath: '/foo', statusCode: 301 })).toBe('redirect')
-    expect(parseRewrite({ toPath: '/foo', statusCode: 404 })).toBe('error_page')
+    expect(parseRewrite({ toPath: '/foo', statusCode: 301 }) as any).toBe(
+      'redirect'
+    )
+    expect(parseRewrite({ toPath: '/foo', statusCode: 404 }) as any).toBe(
+      'error_page'
+    )
   })
 })
 
