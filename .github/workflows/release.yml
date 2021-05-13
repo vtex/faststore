@@ -28,6 +28,10 @@ jobs:
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
+      # TODO: We should be able to remove this extra build and save some action money
+      - name: Build
+        run: yarn build
+
       - uses: smartlyio/lerna-publish-action@v2
         with:
           bump: major
