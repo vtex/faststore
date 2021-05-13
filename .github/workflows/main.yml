@@ -48,6 +48,7 @@ jobs:
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
+      # Currently, gatsby-plugin-nginx needs a build to run before testing. However we could get rid of this step by migrating it to tsdx
       - name: Build
         run: yarn build
 
