@@ -32,7 +32,8 @@ jobs:
         run: yarn build
 
       - name: Publish package
-        run: lerna publish minor --yes
+        run:
+          | echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+          | lerna publish minor --yes
         env:
-          # GITHUB_TOKEN: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
