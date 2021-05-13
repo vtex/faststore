@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-nginx",
-  "version": "0.328.2-alpha.3",
+  "version": "0.328.2-alpha.4",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/gatsby-plugin-nginx.esm.js",
