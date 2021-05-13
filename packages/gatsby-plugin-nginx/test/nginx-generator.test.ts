@@ -1,10 +1,9 @@
-const {
+import {
   stringify,
   convertToRegExp,
   parseRewrite,
   generateRewrites,
-  generateRedirects,
-} = require('../nginx-generator.js')
+} from '../src/nginx-generator'
 
 describe('stringify', () => {
   it('correctly stringifies nginx directives', () => {
@@ -89,6 +88,7 @@ describe('generateRewrites', () => {
         cmd: ['location', '~*', '"^/pt/(.*)$"'],
       },
     ]
+
     expect(
       generateRewrites([
         { fromPath: '/:slug/p', toPath: '/__client-side-product__/p' },
