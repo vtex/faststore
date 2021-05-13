@@ -1,9 +1,9 @@
-import { act, renderHook } from '@testing-library/react-hooks'
 import React from 'react'
+import { act, renderHook } from '@testing-library/react-hooks'
 import type { FC } from 'react'
 
 import { UIProvider, useGlobalUIState } from '../../src'
-import type { UIActions, UIEffects, UIInitializer } from '../../src'
+import type { UIActions, UIEffects, UIInitialState } from '../../src'
 
 test('UI PRovider: Open/Close minicart', async () => {
   const { result } = renderHook(useGlobalUIState, { wrapper: UIProvider })
@@ -34,13 +34,12 @@ test('UI PRovider: Extend UI context', async () => {
     closeModal: () => dispatch({ type: 'CLOSE_MODAL' }),
   })
 
-  const init: UIInitializer = (state) => ({
-    ...state,
+  const initialState: UIInitialState = {
     displayModal: false,
-  })
+  }
 
   const CustomUIProvider: FC = ({ children }) => (
-    <UIProvider actions={actions} effects={effects} init={init}>
+    <UIProvider actions={actions} effects={effects} initialState={initialState}>
       {children}
     </UIProvider>
   )
@@ -89,18 +88,17 @@ test('UI PRovider: Extend UI context with custom data', async () => {
     closeToast: () => dispatch({ type: 'CLOSE_TOAST' }),
   })
 
-  const init: UIInitializer = (state) => ({
-    ...state,
+  const initialState: UIInitialState = {
     displayToast: false,
     toastState: {
       message: '',
       timeout: 3000,
       type: 'info',
     },
-  })
+  }
 
   const CustomUIProvider: FC = ({ children }) => (
-    <UIProvider actions={actions} effects={effects} init={init}>
+    <UIProvider actions={actions} effects={effects} initialState={initialState}>
       {children}
     </UIProvider>
   )

@@ -5,12 +5,12 @@ interface BaseState {
   displayMinicart: boolean
 }
 
+type State = Record<string, any> & BaseState
+
 interface BaseContextValue extends BaseState {
   openMinicart: () => void
   closeMinicart: () => void
 }
-
-type State = Record<string, any> & BaseState
 
 type ContextValue = Record<string, any> & BaseContextValue
 
@@ -31,17 +31,15 @@ type Action =
 export const Context = createContext<ContextValue | undefined>(undefined)
 Context.displayName = 'UIContext'
 
-const initialState: State = {
-  displayMinicart: false,
-}
-
 export type Actions = Record<string, (state: State, data?: any) => State>
 
 export type Effects = (
   dispatch: Dispatch<Action>
 ) => Omit<ContextValue, keyof BaseContextValue>
 
-export type InitFunction = (initial: State) => State
+const baseInitialState: State = {
+  displayMinicart: false,
+}
 
 const reducer = (actions: Actions) => {
   const allActions: Actions = {
@@ -67,22 +65,26 @@ const reducer = (actions: Actions) => {
   }
 }
 
+export type InitialState = Record<string, any>
+
 interface Props {
   actions?: Actions
   effects?: Effects
-  init?: InitFunction
+  initialState?: InitialState
 }
 
-const defaultInitializer = <T,>(x: T) => x
 const defaultEffects: Effects = () => ({})
 
 export const Provider: FC<Props> = ({
   children,
   actions = {},
   effects = defaultEffects,
-  init = defaultInitializer,
+  initialState = {},
 }) => {
-  const [state, dispatch] = useReducer(reducer(actions), initialState, init)
+  const [state, dispatch] = useReducer(reducer(actions), {
+    ...baseInitialState,
+    ...initialState,
+  })
 
   const value = useMemo(
     () => ({
