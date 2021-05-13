@@ -27,11 +27,10 @@ jobs:
           git config user.name vtexgithubbot
           git config user.email vtexgithubbot@github.com
 
-      # TODO: We should be able to remove this extra steop and save some action money
       - name: Build
         run: yarn build
 
       - name: Publish package
-        run: lerna publish minor --yes # --no-verify-access
+        run: lerna publish minor --yes --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
