@@ -1,10 +1,12 @@
-name: CI
+name: CD
 
-on: [push]
+on:
+  push:
+    branches: ['master']
 
 jobs:
-  build:
-    name: Lint, build, and test faststore
+  publish:
+    name: Release faststore
 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -14,21 +16,20 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          ref: master
 
       - name: Use Node ${{ matrix.node }}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
-      - name: Lint
-        run: yarn lint
-
-      - name: Build
-        run: yarn build
-
-      - name: Test
-        run: yarn test --ci --maxWorkers=2
+      - uses: smartlyio/lerna-publish-action@v2
+        with:
+          bump: major
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
