@@ -2,7 +2,7 @@ name: CI
 on: [push]
 jobs:
   build:
-    name: Lint, test and build faststore
+    name: Lint, build, and test faststore
 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -25,8 +25,8 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Test
-        run: yarn test --ci --maxWorkers=2
-
       - name: Build
         run: yarn build
+
+      - name: Test
+        run: yarn test --ci --maxWorkers=2
