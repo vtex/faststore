@@ -17,14 +17,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
-
-      - name: WhoAmI
-        run: |
-          echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
-          npm whoami
 
       - name: Configure CI Git User
         run: |
@@ -36,8 +32,6 @@ jobs:
         run: yarn build
 
       - name: Publish package
-        run: |
-          echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
-          lerna publish minor --yes
+        run: lerna publish minor --yes
         env:
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
