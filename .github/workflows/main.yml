@@ -4,22 +4,17 @@ on: [push]
 
 jobs:
   lint:
-    name: Lint
-
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node: ['14.x']
-        os: [ubuntu-latest]
+    name: Lint Faststore
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use Node ${{ matrix.node }}
+      - name: Use Node 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '14.x'
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
@@ -28,22 +23,17 @@ jobs:
         run: yarn lint
 
   test:
-    name: Test
-
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node: ['14.x']
-        os: [ubuntu-latest]
+    name: Test Faststore
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use Node ${{ matrix.node }}
+      - name: Use Node 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '14.x'
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
@@ -52,22 +42,17 @@ jobs:
         run: yarn test --ci --maxWorkers=2
 
   build:
-    name: Build
-
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node: ['14.x']
-        os: [ubuntu-latest]
+    name: Build Faststore
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use Node ${{ matrix.node }}
+      - name: Use Node 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '14.x'
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
