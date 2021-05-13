@@ -24,7 +24,7 @@ jobs:
       - name: WhoAmI
         run: |
           echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
-          lerna whoami
+          npm whoami
 
       - name: Configure CI Git User
         run: |
