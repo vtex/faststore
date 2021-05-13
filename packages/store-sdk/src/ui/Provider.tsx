@@ -12,7 +12,7 @@ interface BaseContextValue extends BaseState {
   closeMinicart: () => void
 }
 
-type ContextValue = Record<string, any> & BaseContextValue
+export type ContextValue = Record<string, any> & BaseContextValue
 
 type Action =
   | {
