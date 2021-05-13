@@ -1,3 +1,3 @@
-const { GatbyNode } = require('.')
+const { GatsbyNode } = require('.')
 
 module.exports = GatsbyNode
