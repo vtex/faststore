@@ -6,9 +6,7 @@ on:
 
 jobs:
   publish:
-    name: Publish
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -23,13 +21,18 @@ jobs:
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
+      - name: Configure CI Git User
+        run: |
+          git config --global user.name 'faststore bot'
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+
       # TODO: We should be able to remove this extra build and save some action money
       - name: Build
         run: yarn build
 
-      - name: Publish
-        uses: smartlyio/lerna-publish-action@v2
-        with:
-          bump: minor
+      - name: Publish package
+        run: lerna publish minor --yes
         env:
-          AUTH_TOKEN_STRING: ${{ secrets.NPM_AUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
