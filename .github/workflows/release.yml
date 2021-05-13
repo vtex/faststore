@@ -1,0 +1,39 @@
+name: CD
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  publish:
+    name: Release faststore
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: ['14.x']
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout repo
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: Use Node ${{ matrix.node }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+
+      # TODO: We should be able to remove this extra build and save some action money
+      - name: Build
+        run: yarn build
+
+      - uses: smartlyio/lerna-publish-action@v2
+        with:
+          bump: major
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

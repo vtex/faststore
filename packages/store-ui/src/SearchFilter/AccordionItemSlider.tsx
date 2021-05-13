@@ -258,6 +258,7 @@ const useRangeSlider = ({
     [disabled, state]
   )
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleMove = useCallback(
     throttle((e: React.TouchEvent | React.MouseEvent) => {
       const { offset } = findCursor(e, sliderRef, state)

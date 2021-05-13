@@ -56,6 +56,7 @@ export class QueryManager {
 
   public static getSingleton(): QueryManager {
     if (!(global as any).QueryManager) {
+      // eslint-disable-next-line @typescript-eslint/no-extra-semi
       ;(global as any).QueryManager = new QueryManager()
     }
 

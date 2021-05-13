@@ -30,6 +30,7 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
   const variant = `externalOAuth.${providerName}.${v}`
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(async () => {
       if (!window) {
         return

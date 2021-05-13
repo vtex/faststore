@@ -9,7 +9,9 @@ type Options = ProductPageProps
 
 type BreadcrumbJSONLD = ComponentPropsWithoutRef<typeof BreadcrumbJsonLd>
 
-export const useBreadcrumbJsonLd = (options: Options): BreadcrumbJSONLD | null => {
+export const useBreadcrumbJsonLd = (
+  options: Options
+): BreadcrumbJSONLD | null => {
   const {
     data: {
       vtex: { product },

@@ -161,6 +161,7 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
     return
   }
 
+  // eslint-disable-next-line node/global-require
   require('@babel/register')({
     extensions: ['.ts'],
     presets: ['@babel/preset-typescript'],
@@ -171,6 +172,7 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
       blocks: userBlocks = {},
       messages = {},
     } = {},
+    // eslint-disable-next-line node/global-require
   } = require(SHADOWED_INDEX_PATH) as {
     builderConfig: BuilderConfig
   }

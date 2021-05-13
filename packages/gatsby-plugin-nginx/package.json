@@ -1,14 +1,27 @@
 {
   "name": "@vtex/gatsby-plugin-nginx",
-  "version": "0.327.1",
+  "version": "0.328.2-alpha.5",
   "description": "Gatsby plugin to generate a nginx configuration template.",
-  "main": "index.js",
   "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/gatsby-plugin-nginx.esm.js",
+  "typings": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "dist",
+    "src",
+    "gatsby-*.js"
+  ],
   "scripts": {
-    "build": "tsc",
-    "prepare": "cross-env NODE_ENV=production yarn run build",
-    "develop": "tsc --watch",
-    "test": "jest"
+    "develop": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
   },
   "keywords": [
     "gatsby",
@@ -17,19 +30,30 @@
     "nginx",
     "gatsby-plugin-nginx"
   ],
+  "size-limit": [
+    {
+      "path": "dist/gatsby-plugin-nginx.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/gatsby-plugin-nginx.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "peerDependencies": {
+    "gatsby": "^3.5.0"
+  },
   "devDependencies": {
-    "@types/jest": "^26.0.13",
-    "@types/webpack-assets-manifest": "^3.0.1",
-    "cross-env": "^7.0.2",
-    "gatsby": "^3.1.1",
-    "jest": "^26.4.2",
-    "typescript": "^4.1.2"
+    "@size-limit/preset-small-lib": "^4.10.2",
+    "@types/webpack-assets-manifest": "^5.0.0",
+    "gatsby": "^3.5.0",
+    "size-limit": "^4.10.2",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
   },
   "dependencies": {
     "kebab-hash": "^0.1.2",
-    "webpack-assets-manifest": "^5.0.1"
-  },
-  "peerDependencies": {
-    "gatsby": "^3.1.1"
+    "webpack-assets-manifest": "^5.0.6"
   }
 }

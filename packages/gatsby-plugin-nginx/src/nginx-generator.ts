@@ -165,7 +165,7 @@ function stringify(directives: NginxDirective[]): string {
     .join('\n')
 }
 
-function convertToRegExp(path: string) {
+export function convertToRegExp(path: string) {
   return `^${path.replace(/\*/g, '(.*)').replace(/:slug/g, '[^/]+')}$`
 }
 

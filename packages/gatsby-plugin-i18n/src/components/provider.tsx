@@ -29,6 +29,7 @@ export const wrapRootElement = (
 ) => {
   const path = pathname || window.location.pathname
   const locale = getLocale(path, locales, defaultLocale)
+  // eslint-disable-next-line node/global-require
   const { default: getMessages } = require(`../i18n/${locale}`)
   const messages = getMessages()
 

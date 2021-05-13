@@ -1,3 +1,4 @@
+/* eslint-disable node/global-require */
 import { join } from 'path'
 
 import type { CreateBabelConfigArgs, CreateWebpackConfigArgs } from 'gatsby'
