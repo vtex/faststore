@@ -32,4 +32,4 @@ jobs:
         with:
           bump: minor
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          AUTH_TOKEN_STRING: ${{ secrets.NPM_AUTH_TOKEN }}
