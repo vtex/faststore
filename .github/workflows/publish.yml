@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: ['master', 'feat/cd']
+    branches: ['master']
 
 jobs:
   publish:
