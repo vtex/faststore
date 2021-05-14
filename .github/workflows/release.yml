@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - 'fix/cd-release'
 
 jobs:
   lint:
@@ -75,6 +76,6 @@ jobs:
         run: yarn build
 
       - name: Publish package
-        run: lerna publish minor --yes --ignore-scripts
+        run: lerna publish prepatch --yes --ignore-scripts # TODO: change before releasing
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
