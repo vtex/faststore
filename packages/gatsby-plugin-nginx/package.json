@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-nginx",
-  "version": "0.328.0-alpha.0",
+  "version": "0.336.0-alpha.0",
   "description": "Gatsby plugin to generate a nginx configuration template.",
   "license": "MIT",
   "main": "dist/index.js",
