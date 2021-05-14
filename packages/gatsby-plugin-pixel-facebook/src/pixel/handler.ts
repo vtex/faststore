@@ -1,8 +1,8 @@
-import type { PixelEventHandler } from '@vtex/gatsby-theme-store/src/sdk/pixel/usePixelEvent'
 import type {
+  PixelEventHandler,
   ProductOrder,
   ProductViewData,
-} from '@vtex/gatsby-theme-store/src/sdk/pixel/events'
+} from '@vtex/gatsby-theme-store'
 
 export const handler: PixelEventHandler = (event) => {
   switch (event.type) {

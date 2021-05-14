@@ -1,8 +1,6 @@
 import React, { Fragment, useMemo } from 'react'
 import type { FC } from 'react'
-import { useLazyScript } from '@vtex/gatsby-theme-store/src/sdk/lazyScript/useLazyScript'
-import { usePixelEvent } from '@vtex/gatsby-theme-store/src/sdk/pixel/usePixelEvent'
-import { once } from '@vtex/gatsby-theme-store/src/sdk/once'
+import { useLazyScript, usePixelEvent, once } from '@vtex/gatsby-theme-store'
 
 import { handler } from './handler'
 import { DEFAULT_DATALAYER_CONFIG } from './constants'
