@@ -75,6 +75,6 @@ jobs:
         run: yarn build
 
       - name: Publish package
-        run: lerna publish minor --yes --ignore-scripts
+        run: lerna publish minor --yes --no-verify-access --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
