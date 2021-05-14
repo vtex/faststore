@@ -76,6 +76,6 @@ jobs:
         run: yarn build
 
       - name: Publish package
-        run: lerna publish prepatch --yes --ignore-scripts # TODO: change before releasing
+        run: lerna publish prepatch --yes --no-verify-access --ignore-scripts # TODO: change before releasing
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
