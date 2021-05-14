@@ -1,5 +1,10 @@
 {
+  "installCommand": "install",
   "buildCommand": "build",
   "packages": ["packages/*"],
+  "publishDirectory": {
+    "@vtex/store-ui": "packages/store-ui",
+    "@vtex/store-sdk": "packages/store-sdk"
+  },
   "node": "14"
 }
