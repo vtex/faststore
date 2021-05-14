@@ -3656,38 +3656,6 @@
     webpack "^4.44.1"
     webpack-bundle-analyzer "^4.4.0"
 
-"@size-limit/file@4.10.2":
-  version "4.10.2"
-  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-4.10.2.tgz#0a91b83ae310d267bd0a9d6d865e06b0f3fef6ce"
-  integrity sha512-IrmEzZitNMTyGcbvIN5bMN6u8A5x8M1YVjfJnEiO3mukMtszGK2yOqVYltyyvB0Qm0Wvqcm4qXAxxRASXtDwVg==
-  dependencies:
-    semver "7.3.5"
-
-"@size-limit/preset-small-lib@^4.10.2":
-  version "4.10.2"
-  resolved "https://registry.yarnpkg.com/@size-limit/preset-small-lib/-/preset-small-lib-4.10.2.tgz#9522f38fb091f88fcb7178735903b31ac9bf4f17"
-  integrity sha512-TjnxyhwLbazXXMUPYqfta+l0lFKhdhg3GJ92rdxioiO1syS8dMbrvi8VBb9b7CJkfjnAf3gI4kmQxALwfhbCiA==
-  dependencies:
-    "@size-limit/file" "4.10.2"
-    "@size-limit/webpack" "4.10.2"
-
-"@size-limit/webpack@4.10.2":
-  version "4.10.2"
-  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-4.10.2.tgz#e9bf3ca30eaa371d40687e03e5be4a1c82c6e561"
-  integrity sha512-ZWGQk4RO8XGOQmYVWiOj5tTsltb7O4f2FEr5iULURbaOuziMItDk6fR1Bs8mXFawrb4s1lKSIGzBxi4uf+TjTQ==
-  dependencies:
-    css-loader "^5.2.0"
-    escape-string-regexp "^4.0.0"
-    file-loader "^6.2.0"
-    mkdirp "^1.0.4"
-    nanoid "^3.1.22"
-    optimize-css-assets-webpack-plugin "^5.0.4"
-    pnp-webpack-plugin "^1.6.4"
-    rimraf "^3.0.2"
-    style-loader "^2.0.0"
-    webpack "^4.44.1"
-    webpack-bundle-analyzer "^4.4.0"
-
 "@storybook/addon-actions@6.2.9", "@storybook/addon-actions@^6.2.9":
   version "6.2.9"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-6.2.9.tgz#688413ac77410690755a5da3c277bfa0ff1a10b0"
@@ -17667,7 +17635,7 @@ nan@^2.12.1:
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
   integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
 
-nanoid@^3.1.20, nanoid@^3.1.22:
+nanoid@^3.1.20:
   version "3.1.22"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.22.tgz#b35f8fb7d151990a8aebd5aa5015c03cf726f844"
   integrity sha512-/2ZUaJX2ANuLtTvqTlgqBQNJoQO398KyJgZloL0PZkC0dpysjncRUPsFe3DUPzz/y3h+u7C46np8RMuvF3jsSQ==
@@ -19991,6 +19959,15 @@ postcss@^8.2.8:
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.20"
+    source-map "^0.6.1"
+
+postcss@^8.2.9:
+  version "8.2.15"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.2.15.tgz#9e66ccf07292817d226fc315cbbf9bc148fbca65"
+  integrity sha512-2zO3b26eJD/8rb106Qu2o7Qgg52ND5HPjcyQiK2B98O388h43A448LCslC0dI2P97wCAQRJsFvwTRcXxTKds+Q==
+  dependencies:
+    colorette "^1.2.2"
+    nanoid "^3.1.23"
     source-map "^0.6.1"
 
 preact@10.5.12:
