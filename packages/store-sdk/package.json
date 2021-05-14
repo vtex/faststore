@@ -1,18 +1,18 @@
 {
-  "name": "@vtex/gatsby-plugin-nginx",
+  "name": "@vtex/store-sdk",
   "version": "0.336.0-alpha.2",
-  "description": "Gatsby plugin to generate a nginx configuration template.",
+  "description": "Hooks for creating your next component library",
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/gatsby-plugin-nginx.esm.js",
+  "module": "dist/store-sdk.esm.js",
   "typings": "dist/index.d.ts",
+  "sideEffects": false,
   "engines": {
     "node": ">=10"
   },
   "files": [
     "dist",
-    "src",
-    "gatsby-*.js"
+    "src"
   ],
   "scripts": {
     "develop": "tsdx watch",
@@ -23,37 +23,25 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "keywords": [
-    "gatsby",
-    "gatsby-plugin",
-    "vtex",
-    "nginx",
-    "gatsby-plugin-nginx"
-  ],
   "size-limit": [
     {
-      "path": "dist/gatsby-plugin-nginx.cjs.production.min.js",
+      "path": "dist/store-sdk.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/gatsby-plugin-nginx.esm.js",
+      "path": "dist/store-sdk.esm.js",
       "limit": "10 KB"
     }
   ],
   "peerDependencies": {
-    "gatsby": "^3.5.0"
+    "react": "^17.0.2"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
-    "@types/webpack-assets-manifest": "^5.0.0",
-    "gatsby": "^3.5.0",
+    "react": "^17.0.2",
     "size-limit": "^4.10.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
-  },
-  "dependencies": {
-    "kebab-hash": "^0.1.2",
-    "webpack-assets-manifest": "^5.0.6"
   }
 }
