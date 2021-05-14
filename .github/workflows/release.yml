@@ -1,6 +1,10 @@
-name: CI
+# This Action should run on master and verify lint, test, and then publish the version on npm
+name: CD
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   lint:
@@ -23,6 +27,7 @@ jobs:
         run: yarn lint
 
   test:
+    needs: lint
     name: Test
     runs-on: ubuntu-latest
 
@@ -41,21 +46,35 @@ jobs:
       - name: Test
         run: yarn test --ci --maxWorkers=2
 
-  build:
-    name: Build
+  publish:
+    needs: test
+    name: Publish
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
 
       - name: Use Node 14.x
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
+      - name: Configure CI Git User
+        run: |
+          git config user.name vtexgithubbot
+          git config user.email vtexgithubbot@github.com
+
       - name: Build
         run: yarn build
+
+      - name: Publish package
+        run: lerna publish minor --yes --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
