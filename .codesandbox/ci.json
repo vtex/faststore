@@ -1,18 +1,18 @@
 {
   "packages": ["packages/*"],
   "publishDirectory": {
-    "gatsby-plugin-cms": ".",
-    "gatsby-plugin-theme-ui": ".",
-    "gatsby-plugin-google-tag-manager": ".",
-    "gatsby-source-vtex": ".",
-    "gatsby-plugin-graphql": ".",
-    "gatsby-theme-store": ".",
-    "gatsby-plugin-i18n": ".",
-    "lighthouse-config": ".",
-    "gatsby-plugin-nginx": ".",
-    "store-sdk": ".",
-    "gatsby-plugin-pixel-facebook": ".",
-    "store-ui": "."
+    "gatsby-plugin-cms": "packages/gatsby-plugin-cms",
+    "gatsby-plugin-theme-ui": "packages/gatsby-plugin-theme-ui",
+    "gatsby-plugin-google-tag-manager": "packages/gatsby-plugin-google-tag-manager",
+    "gatsby-source-vtex": "packages/gatsby-source-vtex",
+    "gatsby-plugin-graphql": "packages/gatsby-plugin-graphql",
+    "gatsby-theme-store": "packages/gatsby-theme-store",
+    "gatsby-plugin-i18n": "packages/gatsby-plugin-i18n",
+    "lighthouse-config": "packages/lighthouse-config",
+    "gatsby-plugin-nginx": "packages/gatsby-plugin-nginx",
+    "store-sdk": "packages/store-sdk",
+    "gatsby-plugin-pixel-facebook": "packages/gatsby-plugin-pixel-facebook",
+    "store-ui": "packages/store-ui"
   },
   "node": "14"
 }
