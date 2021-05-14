@@ -1,3 +1,4 @@
+# This Action should run on each PR by verifying if they pass on lint, test and build
 name: CI
 
 on:

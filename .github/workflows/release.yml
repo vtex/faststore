@@ -1,3 +1,4 @@
+# This Action should run on master and verify lint, test, and then publish the version on npm
 name: CD
 
 on:
@@ -26,6 +27,7 @@ jobs:
         run: yarn lint
 
   test:
+    needs: lint
     name: Test
     runs-on: ubuntu-latest
 
@@ -45,6 +47,7 @@ jobs:
         run: yarn test --ci --maxWorkers=2
 
   publish:
+    needs: test
     name: Publish
     runs-on: ubuntu-latest
 
