@@ -87,7 +87,11 @@ export const sourceNodes = async (
         query LIST_PAGES ($first: Int!, $after: String ) {
           vtex {
             pages (first: $first, after: $after, builderId: "faststore") {
+              pageInfo {
+                hasNextPage
+              }
               edges {
+                cursor
                 node {
                   ...PageContentFragment
                 }
