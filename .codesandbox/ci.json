@@ -1,6 +1,4 @@
 {
-  "installCommand": "install",
-  "buildCommand": "build",
   "packages": ["packages/*"],
   "publishDirectory": {
     "@vtex/store-ui": "packages/store-ui",
