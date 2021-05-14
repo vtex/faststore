@@ -1,8 +1,18 @@
 {
   "packages": ["packages/*"],
   "publishDirectory": {
-    "@vtex/store-ui": "packages/store-ui",
-    "@vtex/store-sdk": "packages/store-sdk"
+    "@vtex/gatsby-plugin-cms": ".",
+    "@vtex/gatsby-plugin-theme-ui": ".",
+    "@vtex/gatsby-plugin-google-tag-manager": ".",
+    "@vtex/gatsby-source-vtex": ".",
+    "@vtex/gatsby-plugin-graphql": ".",
+    "@vtex/gatsby-theme-store": ".",
+    "@vtex/gatsby-plugin-i18n": ".",
+    "@vtex/lighthouse-config": ".",
+    "@vtex/gatsby-plugin-nginx": ".",
+    "@vtex/store-sdk": ".",
+    "@vtex/gatsby-plugin-pixel-facebook": ".",
+    "@vtex/store-ui": "."
   },
   "node": "14"
 }
