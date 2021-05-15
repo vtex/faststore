@@ -8,7 +8,6 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsc",
-    "prepare": "cross-env NODE_ENV=production yarn run build",
     "develop": "tsc --watch",
     "test": "tsdx test"
   },
