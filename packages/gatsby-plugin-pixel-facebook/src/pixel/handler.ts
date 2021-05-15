@@ -45,7 +45,8 @@ export const handler: PixelEventHandler = (event) => {
 
       fbq('track', 'AddToCart', {
         value: items.reduce(
-          (acc, item) => acc + (item.price ? item.price : 0),
+          (acc: number, { price }) =>
+            acc + (typeof price === 'number' ? price : 0),
           0
         ),
         content_ids: items.map((sku) => sku.id),
