@@ -17,8 +17,7 @@
   "scripts": {
     "develop": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "prepare": "tsdx build"
+    "test": "tsdx test --passWithNoTests"
   },
   "devDependencies": {
     "@vtex/tsconfig": "^0.5.6",

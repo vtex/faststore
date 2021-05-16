@@ -20,7 +20,6 @@
     "develop": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
-    "prepare": "tsdx build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

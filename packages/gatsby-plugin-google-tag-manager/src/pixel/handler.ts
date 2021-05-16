@@ -1,5 +1,4 @@
-import type { PixelEvent } from '@vtex/gatsby-theme-store/src/sdk/pixel/pixel'
-import type { PixelEventHandler } from '@vtex/gatsby-theme-store/src/sdk/pixel/usePixelEvent'
+import type { PixelEvent, PixelEventHandler } from '@vtex/gatsby-theme-store'
 
 const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {
