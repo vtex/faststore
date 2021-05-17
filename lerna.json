@@ -1,5 +1,5 @@
 {
-  "version": "0.337.0",
+  "version": "0.337.1-nginxjson2.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
