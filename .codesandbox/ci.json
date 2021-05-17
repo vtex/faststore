@@ -1,4 +1,5 @@
 {
   "packages": ["packages/*"],
+  "sandboxes": ["react-typescript-react-ts"],
   "node": "14"
 }
