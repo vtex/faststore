@@ -1,4 +1,4 @@
-import { useIntl } from '@vtex/gatsby-plugin-i18n'
+import { useIntl } from 'react-intl'
 import { Box } from 'theme-ui'
 import React, { useMemo } from 'react'
 import type { FC } from 'react'

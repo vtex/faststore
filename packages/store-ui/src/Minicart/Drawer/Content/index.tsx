@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Box, Flex, Text } from 'theme-ui'
-import { FormattedMessage, useIntl } from '@vtex/gatsby-plugin-i18n'
+import { FormattedMessage, useIntl } from 'react-intl'
 import type { PropsWithChildren } from 'react'
 
 import type { Item } from '../../types'
