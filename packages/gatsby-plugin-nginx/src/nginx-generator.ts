@@ -111,7 +111,17 @@ function generateNginxConfiguration({
                 { cmd: ['~^https?://(?<all>.*)/?.*$', '$all'] },
               ],
             },
-            { cmd: ['access_log', '/var/log/nginx/access.log'] },
+            {
+              cmd: [
+                'log_format',
+                'json_combined',
+                'escape=json',
+                '\'{ "time_local":"$time_local", "remote_addr":"$remote_addr", "remote_user":"$remote_user", "request":"$request", "status": "$status", "body_bytes_sent":"$body_bytes_sent", "request_time":"$request_time", "http_referrer":"$http_referer", "http_user_agent":"$http_user_agent" }\'',
+              ],
+            },
+            {
+              cmd: ['access_log', '/var/log/nginx/access.log', 'json_combined'],
+            },
             { cmd: ['include', '/etc/nginx/mime.types'] },
             { cmd: ['default_type', 'application/octet-stream'] },
             { cmd: ['disable_symlinks', 'off'] },
