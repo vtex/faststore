@@ -1,13 +1,20 @@
-import type { ReactNode } from 'react'
+import type {
+  ButtonHTMLAttributes,
+  JSXElementConstructor,
+  ReactNode,
+} from 'react'
 import React, { forwardRef } from 'react'
 
-export type ButtonProps = {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
   className?: string
+  href?: string
+  disabled?: boolean
+  as?: JSXElementConstructor<any>
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { children, ...props },
+  { children, as: Component = 'button', ...props },
   ref
 ) {
   const commonProps = {
@@ -16,7 +23,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     ...props,
   }
 
-  return <button {...commonProps}>{children}</button>
+  return <Component {...commonProps}>{children}</Component>
 })
 
 export default Button
