@@ -1,4 +1,4 @@
-import { FormattedMessage } from '@vtex/gatsby-plugin-i18n'
+import { FormattedMessage } from 'react-intl'
 import React from 'react'
 import { Button, Flex, Text } from 'theme-ui'
 import type { FC, MouseEventHandler } from 'react'
