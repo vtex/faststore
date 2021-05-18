@@ -1,10 +1,10 @@
-import { Alert, Box, Button, Center, Spinner } from '@vtex/store-ui'
-import type { AuthProviderComponentProps } from '@vtex/store-ui'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import React, { useEffect, useState } from 'react'
-import type { FC } from 'react'
-import { useStartLogin } from '@vtex/gatsby-theme-store/src/sdk/auth/useStartLogin'
 import { api } from '@vtex/gatsby-theme-store/src/sdk/auth/Service/api'
+import { useStartLogin } from '@vtex/gatsby-theme-store/src/sdk/auth/useStartLogin'
+import type { AuthProviderComponentProps } from '@vtex/store-ui'
+import { Alert, Box, Center, Spinner, UIButton } from '@vtex/store-ui'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   oAuthCallbackUrl,
@@ -66,11 +66,11 @@ const ExternalProvider: FC<AuthProviderComponentProps> = ({
               id: 'login.page.externalOAuth.error',
             })}
           </Alert>
-          <Button onClick={() => setState('initial')}>
+          <UIButton onClick={() => setState('initial')}>
             {formatMessage({
               id: 'login.page.externalOAuth.tryAgain',
             })}
-          </Button>
+          </UIButton>
         </>
       )}
     </Box>

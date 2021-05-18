@@ -43,6 +43,7 @@
     "@vtex-components/accordion": "^0.2.3",
     "@vtex-components/drawer": "^0.2.4",
     "deepmerge": "^4.2.2",
+    "gatsby-link": "^3.5.0",
     "react-hook-inview": "^4.3.9",
     "react-intl": "^5.17.7",
     "react-swipeable": "^6.0.0",
