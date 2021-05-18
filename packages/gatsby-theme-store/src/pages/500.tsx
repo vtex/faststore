@@ -1,9 +1,9 @@
 import { FormattedMessage, useLocalizedPath } from '@vtex/gatsby-plugin-i18n'
-import { Box, Button, Container, Flex } from '@vtex/store-ui'
-import { GatsbySeo } from 'gatsby-plugin-next-seo'
-import React, { useEffect, useState } from 'react'
-import type { FC } from 'react'
+import { Box, Container, Flex, UIButton } from '@vtex/store-ui'
 import type { PageProps } from 'gatsby'
+import { GatsbySeo } from 'gatsby-plugin-next-seo'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Layout from '../components/Layout'
 import { useSearchParams } from '../sdk/state/useSearchParams'
@@ -51,13 +51,13 @@ const Page: FC<Props> = () => {
               <FormattedMessage id="error.action" />
             </Box>
 
-            <Button
+            <UIButton
               onClick={() => {
                 window.location.href = path
               }}
             >
               <FormattedMessage id="error.action.button" />
-            </Button>
+            </UIButton>
 
             <Box
               as="p"
