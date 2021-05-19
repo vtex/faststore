@@ -9,7 +9,7 @@ export {
   Box,
   Flex,
   Grid,
-  Button as UIButton,
+  Button,
   Link,
   Heading,
   Image,
@@ -47,7 +47,7 @@ export type {
   BoxProps,
   FlexProps,
   GridProps,
-  ButtonProps as UIButtonProps,
+  ButtonProps,
   LinkProps,
   HeadingProps,
   ImageProps,
@@ -75,10 +75,6 @@ export type {
   IconButtonProps,
   MenuButtonProps,
 } from 'theme-ui'
-
-// All atomic components
-
-export { default as Button, ButtonProps } from './atoms/Button'
 
 // The default Spinner from theme-ui, at the time of writing,
 // is under-performant in terms of CPU usage
