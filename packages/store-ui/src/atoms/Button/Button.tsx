@@ -1,4 +1,8 @@
-import type { ButtonHTMLAttributes, ElementType, ReactNode } from 'react'
+import type {
+  ButtonHTMLAttributes,
+  JSXElementConstructor,
+  ReactNode,
+} from 'react'
 import React, { forwardRef } from 'react'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -6,7 +10,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
   href?: string
   disabled?: boolean
-  as?: ElementType
+  as?: JSXElementConstructor<any>
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
