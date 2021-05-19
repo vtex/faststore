@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage } from '@vtex/gatsby-plugin-i18n'
 import React, { Suspense } from 'react'
 import { Box, Spinner } from 'theme-ui'
 import type { FC, ComponentType } from 'react'
