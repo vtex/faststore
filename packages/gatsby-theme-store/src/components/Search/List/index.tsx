@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { gql } from '@vtex/gatsby-plugin-graphql'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Button, Grid } from '@vtex/store-ui'
-import React, { Fragment } from 'react'
+import { Grid, UIButton } from '@vtex/store-ui'
 import type { FC } from 'react'
+import React, { Fragment } from 'react'
 
 import { useSearchInfinite } from '../../../sdk/search/useSearchInfinite'
-import { SearchQuery } from './__generated__/SearchQuery.graphql'
 import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
 import type { SearchQueryQuery } from './__generated__/SearchQuery.graphql'
+import { SearchQuery } from './__generated__/SearchQuery.graphql'
 
 interface Props {
   initialData: SearchQueryQuery | undefined
@@ -42,7 +42,7 @@ const List: FC<Props> = ({ initialData, columns, pageSize }) => {
           />
         ))}
       </Grid>
-      <Button
+      <UIButton
         variant="loadMore"
         onClick={(e: any) => {
           e.target.blur?.()
@@ -52,7 +52,7 @@ const List: FC<Props> = ({ initialData, columns, pageSize }) => {
         disabled={isReachingEnd || isLoadingMore}
       >
         {isReachingEnd ? '' : isLoadingMore ? loadingLabel : loadMoreLabel}
-      </Button>
+      </UIButton>
     </Fragment>
   )
 }
