@@ -10,11 +10,17 @@ interface Options {
   quality?: number
 }
 
-export const optimize = (src: string, opts: Options) => {
+export const optimize = (src: string, opts: Options, ratio = 1) => {
   const url = new URL(src)
 
   for (const option of Object.keys(opts)) {
-    url.searchParams.append(option, `${opts[option as keyof Options]}`)
+    let paramValue = opts[option as keyof Options]
+
+    if (paramValue && ['width', 'height'].includes(option)) {
+      paramValue = (paramValue as number) * ratio
+    }
+
+    url.searchParams.append(option, `${paramValue}`)
   }
 
   return url.toString()
