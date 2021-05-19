@@ -1,5 +1,5 @@
-import type { GatsbyLinkProps } from 'gatsby-link'
-import Link from 'gatsby-link'
+import type { GatsbyLinkProps } from 'gatsby'
+import { Link } from 'gatsby'
 import type { FC } from 'react'
 import React from 'react'
 
