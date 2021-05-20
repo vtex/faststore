@@ -16,7 +16,7 @@ export const optimize = (src: string, opts: Options, ratio = 1) => {
   for (const option of Object.keys(opts)) {
     let paramValue = opts[option as keyof Options]
 
-    if (paramValue && ['width', 'height'].includes(option)) {
+    if (option === 'width' || option === 'height') {
       paramValue = (paramValue as number) * ratio
     }
 
