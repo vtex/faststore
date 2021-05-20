@@ -3,21 +3,28 @@
  * If this file in being added to your final bundle, please rethink your rendering strategy
  */
 
-interface Options {
+interface ImageParams {
   width?: number
   height?: number
   aspect?: boolean
   quality?: number
 }
+interface Options {
+  ratio: number
+}
 
-export const optimize = (src: string, opts: Options, ratio = 1) => {
+export const optimize = (
+  src: string,
+  imageParams: ImageParams,
+  options: Options = { ratio: 1 }
+) => {
   const url = new URL(src)
 
-  for (const option of Object.keys(opts)) {
-    let paramValue = opts[option as keyof Options]
+  for (const option of Object.keys(imageParams)) {
+    let paramValue = imageParams[option as keyof ImageParams]
 
     if (option === 'width' || option === 'height') {
-      paramValue = (paramValue as number) * ratio
+      paramValue = (paramValue as number) * options.ratio
     }
 
     url.searchParams.append(option, `${paramValue}`)
