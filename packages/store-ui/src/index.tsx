@@ -15,7 +15,7 @@ export {
   Image,
   Card,
   Label,
-  Input,
+  Input as UIInput,
   Select,
   Textarea,
   Text,
@@ -53,7 +53,7 @@ export type {
   ImageProps,
   CardProps,
   LabelProps,
-  InputProps,
+  InputProps as UIInputProps,
   SelectProps,
   TextareaProps,
   TextProps,
@@ -77,8 +77,8 @@ export type {
 } from 'theme-ui'
 
 // All atomic components
-
 export { default as Button, ButtonProps } from './atoms/Button'
+export { default as Input, InputProps } from './atoms/Input'
 
 // The default Spinner from theme-ui, at the time of writing,
 // is under-performant in terms of CPU usage
