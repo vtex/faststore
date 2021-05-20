@@ -1,6 +1,6 @@
 # Choosing Which Pages are Pre-Rendered
 
-One of the core principles of [JAMStack](https://github.com/vtex/faststore/tree/master/docs/what-is-jamstack.md) is the pre-rendering, or static generation, of pages at build time. This provides artifacts of highly optimized static pages, reducing the runtime complexity while increasing performance and resiliency. In the end were left with a super stable & faststore...
+One of the core principles of [JAMStack](https://github.com/vtex/faststore/tree/master/docs/what-is-jamstack.md) is the pre-rendering, or static generation, of pages at build time. This provides artifacts of highly optimized static pages, reducing the runtime complexity while increasing performance and resiliency. In the end we're left with a super stable & faststore...
 
 ## Using the `@vtex/gatsby-vtex-source` Plugin
 
