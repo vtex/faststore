@@ -1,35 +1,21 @@
-import type { SVGAttributes } from 'react'
-import React from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
+import React, { forwardRef } from 'react'
 
-import icons from './icons'
-
-export interface IconProps extends SVGAttributes<SVGElement> {
-  className?: string
-  name: 'add_to_cart'
+export interface IconProps extends HTMLAttributes<HTMLSpanElement> {
+  component: ReactNode
 }
 
-const Icon = ({ name, ...props }: IconProps) => {
+const Icon = forwardRef<HTMLSpanElement, IconProps>(function Button(
+  { component, ...props }: IconProps,
+  ref
+) {
   const commonProps = {
+    ref,
     'data-store-icon': '',
     ...props,
   }
 
-  const icon = icons[name]
-
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      {...commonProps}
-    >
-      {icon.map((path, key) => (
-        <path key={`${name}-${key}`} d={path} />
-      ))}
-    </svg>
-  )
-}
+  return <span {...commonProps}>{component}</span>
+})
 
 export default Icon
