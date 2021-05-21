@@ -79,6 +79,7 @@ export type {
 // All atomic components
 export { default as Button, ButtonProps } from './atoms/Button'
 export { default as Input, InputProps } from './atoms/Input'
+export { default as Icon, IconProps } from './atoms/Icon'
 
 // The default Spinner from theme-ui, at the time of writing,
 // is under-performant in terms of CPU usage
