@@ -13,4 +13,6 @@ const InputTemplate: Story<InputProps> = (args) => <Root {...args} />
 export const Input = InputTemplate.bind({})
 Input.args = {
   placeholder: 'First name',
+  error: false,
+  success: false,
 }
