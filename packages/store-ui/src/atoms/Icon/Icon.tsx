@@ -9,13 +9,11 @@ const Icon = forwardRef<HTMLSpanElement, IconProps>(function Button(
   { component, ...props }: IconProps,
   ref
 ) {
-  const commonProps = {
-    ref,
-    'data-store-icon': '',
-    ...props,
-  }
-
-  return <span {...commonProps}>{component}</span>
+  return (
+    <span ref={ref} data-store-icon {...props}>
+      {component}
+    </span>
+  )
 })
 
 export default Icon
