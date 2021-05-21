@@ -1,5 +1,5 @@
 {
   "packages": ["packages/*"],
-  "sandboxes": ["react-typescript-react-ts"],
+  "sandboxes": ["store-ui-typescript-0gd9u"],
   "node": "14"
 }
