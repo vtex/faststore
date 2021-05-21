@@ -15,7 +15,7 @@ describe('Input', () => {
   })
   it('`data-error` is present', () => {
     const { getByPlaceholderText } = render(
-      <Input placeholder="Hello World!" isError />
+      <Input placeholder="Hello World!" error />
     )
 
     expect(getByPlaceholderText('Hello World!')).toHaveAttribute('data-error')

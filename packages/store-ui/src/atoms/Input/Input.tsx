@@ -2,11 +2,11 @@ import type { InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  isError?: boolean
+  error?: boolean
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { isError, ...props },
+  { error, ...props },
   ref
 ) {
   const commonProps = {
@@ -15,7 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     ...props,
   }
 
-  const errorProp = isError
+  const errorProp = error
     ? {
         'data-error': '',
       }
