@@ -12,5 +12,5 @@ const InputTemplate: Story<InputProps> = (args) => <Root {...args} />
 
 export const Input = InputTemplate.bind({})
 Input.args = {
-  children: 'Input',
+  value: 'First name',
 }
