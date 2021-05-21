@@ -3,10 +3,11 @@ import React, { forwardRef } from 'react'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean
+  success?: boolean
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { error, ...props },
+  { error, success, ...props },
   ref
 ) {
   const commonProps = {
@@ -21,9 +22,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       }
     : {}
 
+  const successProp = success
+    ? {
+        'data-success': '',
+      }
+    : {}
+
   const allProps = {
     ...commonProps,
     ...errorProp,
+    ...successProp,
   }
 
   return <input {...allProps} />

@@ -20,4 +20,11 @@ describe('Input', () => {
 
     expect(getByPlaceholderText('Hello World!')).toHaveAttribute('data-error')
   })
+  it('`data-success` is present', () => {
+    const { getByPlaceholderText } = render(
+      <Input placeholder="Hello World!" success />
+    )
+
+    expect(getByPlaceholderText('Hello World!')).toHaveAttribute('data-success')
+  })
 })
