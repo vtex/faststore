@@ -1,27 +1,21 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import type { InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  error?: boolean
-  success?: boolean
+  state?: 'success' | 'error'
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { error, success, ...props },
+  { state, ...props },
   ref
 ) {
-  const commonProps = {
-    ref,
-    'data-store-input': '',
-    ...props,
-  }
-
   const states = {
-    ...(error && { 'data-error': '' }),
-    ...(success && { 'data-success': '' }),
+    'data-error': state === 'error' || undefined,
+    'data-success': state === 'success' || undefined,
   }
 
-  return <input {...commonProps} {...states} />
+  return <input ref={ref} data-store-input {...states} {...props} />
 })
 
 export default Input

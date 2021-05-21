@@ -10,9 +10,19 @@ export default {
 
 const InputTemplate: Story<InputProps> = (args) => <Root {...args} />
 
-export const Input = InputTemplate.bind({})
-Input.args = {
+export const Default = InputTemplate.bind({})
+Default.args = {
   placeholder: 'First name',
-  error: false,
-  success: false,
+}
+
+export const Error = InputTemplate.bind({})
+Error.args = {
+  placeholder: 'First name',
+  state: 'error',
+}
+
+export const Success = InputTemplate.bind({})
+Success.args = {
+  placeholder: 'First name',
+  state: 'success',
 }
