@@ -16,25 +16,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     ...props,
   }
 
-  const errorProp = error
-    ? {
-        'data-error': '',
-      }
-    : {}
-
-  const successProp = success
-    ? {
-        'data-success': '',
-      }
-    : {}
-
-  const allProps = {
-    ...commonProps,
-    ...errorProp,
-    ...successProp,
+  const states = {
+    ...(error && { 'data-error': '' }),
+    ...(success && { 'data-success': '' }),
   }
 
-  return <input {...allProps} />
+  return <input {...commonProps} {...states} />
 })
 
 export default Input
