@@ -13,13 +13,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   { children, as: Component = 'button', ...props },
   ref
 ) {
-  const commonProps = {
-    ref,
-    'data-store-button': '',
-    ...props,
-  }
-
-  return <Component {...commonProps}>{children}</Component>
+  return (
+    <Component ref={ref} data-store-button {...props}>
+      {children}
+    </Component>
+  )
 })
 
 export default Button
