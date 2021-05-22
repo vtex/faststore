@@ -21,6 +21,7 @@ const registerScript = ({ id, src }: Options) => {
   script.setAttribute('type', 'application/javascript')
   script.setAttribute('id', id)
   script.setAttribute('src', src)
+  script.setAttribute('crossorigin', 'anonymous')
   document.getElementsByTagName('head')[0].appendChild(script)
 }
 
