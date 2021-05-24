@@ -3,7 +3,7 @@ import {
   writeFile as writeFileFS,
   rename as renameFS,
 } from 'fs'
-import { join, basename, resolve } from 'path'
+import { join, resolve } from 'path'
 import { promisify } from 'util'
 
 const root = process.cwd()
