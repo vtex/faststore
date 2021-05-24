@@ -6,7 +6,18 @@ import { useIdleEffect } from './hooks/useIdleEffect'
 const SuspenseSSR: FC<SuspenseProps> = ({ fallback, children }) => {
   const [hydrating, setHydrating] = useState(true)
 
-  useIdleEffect(() => setHydrating(false), [])
+  const timeout = setTimeout(() => {
+    if (hydrating) {
+      setHydrating(false)
+    }
+  }, 5500)
+
+  useIdleEffect(() => {
+    if (hydrating) {
+      setHydrating(false)
+      clearTimeout(timeout)
+    }
+  }, [])
 
   if (hydrating) {
     return <>{fallback}</>
