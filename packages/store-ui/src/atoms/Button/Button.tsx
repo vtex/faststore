@@ -1,11 +1,8 @@
-import type { ButtonHTMLAttributes, ElementType, ReactNode } from 'react'
+import type { ButtonHTMLAttributes, ElementType } from 'react'
 import React, { forwardRef } from 'react'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode
-  className?: string
   href?: string
-  disabled?: boolean
   as?: ElementType
 }
 
