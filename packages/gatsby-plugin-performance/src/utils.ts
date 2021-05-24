@@ -39,7 +39,7 @@ export const wrapApiRunnerBrowserPlugins = async () => {
 
   const plugins = buffer
     .toString()
-    .replace(/plugins: require/g, 'plugins: () => require')
+    .replace(/plugin: require/g, 'plugins: () => require')
 
   await writeFile(file, plugins)
 }
