@@ -33,6 +33,8 @@ export const Provider: FC = ({ children }) => {
     src: 'https://io.vtex.com.br/rc/rc.js',
     id: 'async-vtex-rc',
     timeout: 5500,
+    crossOrigin: 'anonymous',
+    type: 'application/javascript',
   })
 
   usePixelEvent(handler)
