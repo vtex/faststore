@@ -26,6 +26,8 @@ const registerScript = ({ id, timeout, ...scriptTagAttributes }: Options) => {
     )
   })
 
+  script.setAttribute('id', id)
+
   document.getElementsByTagName('head')[0].appendChild(script)
 }
 
