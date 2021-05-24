@@ -1,6 +1,7 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
 import { SuspenseSSR } from '@vtex/store-ui'
 import React from 'react'
+import { useMatch } from '@reach/router'
 import type { PageProps } from 'gatsby'
 import type { FC } from 'react'
 
@@ -17,9 +18,7 @@ import type {
 export type BrowserProductPageProps = PageProps
 
 const ProductPage: FC<BrowserProductPageProps> = (props) => {
-  const {
-    params: { slug },
-  } = props
+  const { slug } = useMatch(props.pageResources.page.matchPath!)!
 
   const { data } = useQuery<
     BrowserProductPageQueryQuery,
