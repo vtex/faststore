@@ -34,7 +34,6 @@ export const Provider: FC = ({ children }) => {
     id: 'async-vtex-rc',
     timeout: 5500,
     crossOrigin: 'anonymous',
-    async: true,
     type: 'application/javascript',
   })
 

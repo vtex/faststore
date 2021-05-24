@@ -6,7 +6,12 @@ interface Options extends Partial<HTMLScriptElement> {
   timeout?: number
 }
 
-const registerScript = ({ id, timeout, ...scriptTagAttributes }: Options) => {
+const registerScript = ({
+  id,
+  timeout,
+  async = true,
+  ...scriptTagAttributes
+}: Options) => {
   const maybeElement = document.getElementById(id)
 
   // Script already added to page
@@ -25,6 +30,10 @@ const registerScript = ({ id, timeout, ...scriptTagAttributes }: Options) => {
       (scriptTagAttributes as any)[attributeName]
     )
   })
+
+  if (async) {
+    script.setAttribute('async', '')
+  }
 
   script.setAttribute('id', id)
 
