@@ -1,13 +1,17 @@
 import { useIdleEffect } from '@vtex/store-ui'
 
-interface Options {
-  src: string
+interface Options extends Partial<HTMLScriptElement> {
   id: string
   // add script to the page after timeout ms after idleCallback fired
   timeout?: number
 }
 
-const registerScript = ({ id, src }: Options) => {
+const registerScript = ({
+  id,
+  timeout,
+  async = true,
+  ...scriptTagAttributes
+}: Options) => {
   const maybeElement = document.getElementById(id)
 
   // Script already added to page
@@ -16,11 +20,23 @@ const registerScript = ({ id, src }: Options) => {
   }
 
   const script = document.createElement('script')
+  const attributes = Object.keys(scriptTagAttributes) as Array<
+    keyof HTMLScriptElement
+  >
 
-  script.setAttribute('async', '')
-  script.setAttribute('type', 'application/javascript')
+  attributes.forEach((attributeName) => {
+    script.setAttribute(
+      attributeName,
+      (scriptTagAttributes as any)[attributeName]
+    )
+  })
+
+  if (async) {
+    script.setAttribute('async', '')
+  }
+
   script.setAttribute('id', id)
-  script.setAttribute('src', src)
+
   document.getElementsByTagName('head')[0].appendChild(script)
 }
 
