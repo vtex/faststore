@@ -7,10 +7,16 @@ import type {
 } from 'gatsby'
 import { getAbsolutePathForVirtualModule } from 'gatsby/dist/utils/gatsby-webpack-virtual-modules'
 
-import { copyToCacheDir, getPageDataJsonPath } from './utils'
+import {
+  copyToCacheDir,
+  getPageDataJsonPath,
+  renameFileCacheDir,
+  wrapApiRunnerBrowserPlugins,
+} from './utils'
 
 interface Options {
   enableServerRouting?: boolean
+  enableNonBlockingStart?: boolean
 }
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -18,6 +24,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
     enableServerRouting: Joi.boolean(),
+    enableNonBlockingStart: Joi.boolean(),
   })
 
 export const onCreateWebpackConfig = (
@@ -85,13 +92,26 @@ export const onCreatePage = (
 
 export const onPostBootstrap = async (
   _: ParentSpanPluginArgs,
-  { enableServerRouting }: Options
+  { enableServerRouting, enableNonBlockingStart }: Options
 ) => {
-  if (!enableServerRouting || !isProduction) {
+  if (!isProduction) {
     return
   }
 
-  await copyToCacheDir(
-    require.resolve('../cache-dir/find-path.js', { paths: [__dirname] })
-  )
+  if (enableServerRouting) {
+    await copyToCacheDir('find-path.js')
+  }
+
+  if (enableNonBlockingStart) {
+    await Promise.all([
+      wrapApiRunnerBrowserPlugins(),
+      renameFileCacheDir('production-app.js', 'production-app-upstream.js'),
+    ])
+
+    await Promise.all([
+      copyToCacheDir('zero-timeout.js'),
+      copyToCacheDir('production-app.js'),
+      copyToCacheDir('api-runner-browser.js'),
+    ])
+  }
 }
