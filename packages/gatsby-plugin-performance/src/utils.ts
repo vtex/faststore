@@ -3,7 +3,7 @@ import {
   writeFile as writeFileFS,
   rename as renameFS,
 } from 'fs'
-import { join, resolve } from 'path'
+import { join } from 'path'
 import { promisify } from 'util'
 
 const root = process.cwd()
@@ -18,7 +18,10 @@ export const getPageDataJsonPath = (path: string) =>
   join('/page-data', path, '/page-data.json')
 
 export const copyToCacheDir = async (fromFile: string) => {
-  const fromPath = resolve('../cache-dir', fromFile)
+  const fromPath = require.resolve(join('../cache-dir', fromFile), {
+    paths: [__dirname],
+  })
+
   const toPath = cacheDirPath(fromFile)
 
   const data = await readFile(fromPath, { encoding: 'utf-8' })
