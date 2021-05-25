@@ -1,0 +1,11 @@
+{
+  "name": "@vtex/gatsby-plugin-image-preload",
+  "version": "0.0.1",
+  "description": "",
+  "main": "gatsby-ssr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas Bebber",
+  "license": "MIT"
+}
