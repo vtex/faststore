@@ -1,3 +1,4 @@
+// This file is copied from gatsby's cache-dir folder. The only part we change is the code related to path matching with matchPaths variable. We leave all unecessary code commented up to make it easier for future PRs to support newer versions of gatsby
 // import { pick } from "@gatsbyjs/reach-router/lib/utils"
 import stripPrefix from "./strip-prefix"
 import normalizePagePath from "./normalize-page-path"
