@@ -2,8 +2,12 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches-ignore:
+      - master
+  pull_request_target:
+    branches:
       - master
 
 jobs:
