@@ -78,6 +78,9 @@ packages/gatsby-**/**/*.json
 !packages/gatsby-**/src/typings/**/*.d.ts
 !packages/gatsby-**/src/**/*.json
 
+# WIP
+!packages/gatsby-plugin-image-preload/*
+
 # lighthouse CI autogen files
 .lighthouseci
 
