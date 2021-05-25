@@ -8,6 +8,7 @@ on:
   pull_request_target:
     branches:
       - master
+  workflow_dispatch
 
 jobs:
   lint:
