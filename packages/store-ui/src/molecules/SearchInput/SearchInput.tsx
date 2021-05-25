@@ -1,10 +1,5 @@
-import type {
-  ChangeEvent,
-  FormEvent,
-  InputHTMLAttributes,
-  ReactNode,
-} from 'react'
-import React, { forwardRef, useState } from 'react'
+import type { FormEvent, InputHTMLAttributes, ReactNode } from 'react'
+import React, { forwardRef, useRef } from 'react'
 
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
@@ -40,18 +35,14 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
     { onSubmit, icon, testId = 'store-search-input', ...props },
     ref
   ) {
-    const [search, setSearch] = useState<string>('')
+    const valueRef = useRef<HTMLInputElement>(null)
 
     const handleSubmit = (event: FormEvent) => {
       event.preventDefault()
 
-      if (search !== '') {
-        onSubmit(search)
+      if (valueRef.current?.value !== '') {
+        onSubmit(valueRef.current!.value)
       }
-    }
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      setSearch(event.target.value)
     }
 
     return (
@@ -61,7 +52,7 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
         data-testid={testId}
         onSubmit={handleSubmit}
       >
-        <Input name="search" onChange={handleChange} {...props} />
+        <Input ref={valueRef} {...props} />
         <Button type="submit">
           <Icon component={icon ?? <SearchIcon />} />
         </Button>

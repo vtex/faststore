@@ -36,7 +36,6 @@ export const Default = SearchInputTemplate.bind({})
 Default.args = {
   placeholder: 'Search',
   onSubmit: (value: string) => alert(`[search]: ${value}`),
-  onFocus: () => console.log('input onFocus'),
 }
 
 export const CustomIcon = SearchInputTemplate.bind({})
