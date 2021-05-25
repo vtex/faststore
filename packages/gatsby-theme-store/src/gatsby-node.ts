@@ -236,9 +236,6 @@ export const onCreateWebpackConfig = (
             ? '../../src/index'
             : ''
         ),
-        'react-intl$': require.resolve('react-intl', {
-          paths: [process.cwd()],
-        }),
         // Resolve to the .ts versions of gatsby-(browser|ssr) so we don't end up by adding the whole lib.
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-browser'),
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-ssr'),
