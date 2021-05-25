@@ -4,15 +4,14 @@ import type { FC } from 'react'
 import type { SelectProps } from 'theme-ui'
 
 const options = [
-  ['OrderByScoreDESC', 'searchControls.select.scoreDesc'],
-  ['OrderByPriceDESC', 'searchControls.select.priceDesc'],
-  ['OrderByPriceASC', 'searchControls.select.priceAsc'],
-  ['OrderByTopSaleDESC', 'searchControls.select.topSaleDesc'],
-  ['OrderByReviewRateDESC', 'searchControls.select.reviewRateDesc'],
-  ['OrderByNameDESC', 'searchControls.select.nameDesc'],
-  ['OrderByNameASC', 'searchControls.select.nameAsc'],
-  ['OrderByReleaseDateDESC', 'searchControls.select.releaseDateDesc'],
-  ['OrderByBestDiscountDESC', 'searchControls.select.bestDiscountDesc'],
+  ['price-desc', 'searchControls.select.priceDesc'],
+  ['price-asc', 'searchControls.select.priceAsc'],
+  ['name-desc', 'searchControls.select.nameDesc'],
+  ['name-asc', 'searchControls.select.nameAsc'],
+  ['orders-desc', 'searchControls.select.topSaleDesc'],
+  ['release-desc', 'searchControls.select.releaseDateDesc'],
+  ['discount-desc', 'searchControls.select.bestDiscountDesc'],
+  ['score-desc', 'searchControls.select.scoreDesc'],
 ]
 
 interface Props extends Omit<SelectProps, 'onChange' | 'ref'> {

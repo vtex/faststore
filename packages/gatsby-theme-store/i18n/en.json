@@ -19,8 +19,8 @@
   "searchControls.select.priceAsc": "Price: Low to High",
   "searchControls.select.topSaleDesc": "Sales",
   "searchControls.select.reviewRateDesc": "Reviews",
-  "searchControls.select.nameDesc": "Name, ascending",
-  "searchControls.select.nameAsc": "Name, descending",
+  "searchControls.select.nameDesc": "Name, descending",
+  "searchControls.select.nameAsc": "Name, ascending",
   "searchControls.select.releaseDateDesc": "Release date",
   "searchControls.select.bestDiscountDesc": "Discount",
 

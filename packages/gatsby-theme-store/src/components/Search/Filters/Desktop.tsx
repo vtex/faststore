@@ -8,9 +8,9 @@ import { FormattedMessage } from '@vtex/gatsby-plugin-i18n'
 import React, { Fragment } from 'react'
 import type { FC } from 'react'
 
-import { useFacets } from '../../../sdk/search/useFacets'
 import { useNumberFormat } from '../../../sdk/localization/useNumberFormat'
-import { useFilters } from '../../../sdk/search/useFilters'
+import { useSearch } from '../../../sdk/search/useSearch'
+import { priceRange } from '../../../sdk/search/converter/priceRange'
 
 export interface Props {
   variant?: string
@@ -18,9 +18,15 @@ export interface Props {
 }
 
 const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
-  const { facets, toggleItem, setPriceRange } = useFacets()
-  const { priceRange } = useFilters()
   const { format } = useNumberFormat()
+  const {
+    toggleFacet,
+    setFacet,
+    searchParams: { selectedFacets },
+    data: {
+      vtex: { facets },
+    },
+  } = useSearch()
 
   return (
     <Fragment>
@@ -29,17 +35,21 @@ const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
       </Box>
 
       <SearchFilterAccordion
-        filters={facets}
+        filters={facets!.facets! as any}
         isActive={isActive}
         variant={variant}
         renderFilter={(item, v: string) => (
           <SearchFilterAccordionItemCheckbox
-            onClick={toggleItem}
+            onClick={toggleFacet}
             item={item}
             variant={v}
           />
         )}
         renderPrice={(filter) => {
+          const range = priceRange.parseUrl(
+            selectedFacets.find((x) => x.key === 'priceRange')?.value ?? ''
+          )
+
           let min = Infinity
           let max = 0
 
@@ -62,15 +72,19 @@ const SearchFilters: FC<Props> = ({ variant = 'desktop', isActive = true }) => {
           return (
             <SearchFilterAccordionItemSlider
               onChange={({ min: from, max: to }) => {
-                setPriceRange({ from, to: to! })
+                setFacet({
+                  key: 'priceRange',
+                  value: priceRange.formatUrl({ from, to }),
+                  unique: true,
+                })
               }}
               range={{
                 min,
                 max,
               }}
               cursor={{
-                left: priceRange?.from ?? min,
-                right: priceRange?.to ?? max,
+                left: range?.from ?? min,
+                right: range?.to ?? max,
               }}
               formatValue={format}
               disabled={false}

@@ -1,25 +1,26 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/no-require-imports */
+// eslint-disable-next-line spaced-comment
+/// <reference types="react-dom/experimental" />
+
 import 'requestidlecallback-polyfill'
 
-import React, { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
-import type { WrapRootElementBrowserArgs } from 'gatsby'
-import type { ElementType } from 'react'
 import { UIProvider } from '@vtex/store-sdk'
+import React, { StrictMode } from 'react'
+import { unstable_createRoot as createRoot } from 'react-dom'
+import type { WrapRootElementBrowserArgs } from 'gatsby'
+import type { ReactChild } from 'react'
 
+import ErrorBoundary from './components/Error/ErrorBoundary'
 import { Provider as OrderFormProvider } from './sdk/orderForm/LazyProvider'
+import { Provider as VTEXRCProvider } from './sdk/pixel/vtexrc/Provider'
+import {
+  onRouteUpdate as progressOnRouteUpdate,
+  Progress,
+} from './sdk/progress'
 import { Provider as RegionProvider } from './sdk/region/Provider'
 import { Provider as ToastProvider } from './sdk/toast/Provider'
-import { Provider as VTEXRCProvider } from './sdk/pixel/vtexrc/Provider'
-import ErrorBoundary from './components/Error/ErrorBoundary'
-import {
-  Progress,
-  onRouteUpdate as progressOnRouteUpdate,
-} from './sdk/progress'
 
 export const replaceHydrateFunction = () => async (
-  element: ElementType,
+  element: ReactChild,
   container: Element,
   callback: any
 ) => {
@@ -31,7 +32,6 @@ export const replaceHydrateFunction = () => async (
     'develop'
   )
 
-  const { unstable_createRoot: createRoot }: any = ReactDOM
   const root = createRoot(container, {
     hydrate: !development,
   })
@@ -59,6 +59,10 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   }
 
   return root
+}
+
+export const onInitialClientRender = () => {
+  globalThis.__REACT_HYDRATED__ = true
 }
 
 export const wrapPageElement = ({

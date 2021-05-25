@@ -1,22 +1,13 @@
-import { useState } from 'react'
-import { useIdleEffect } from '@vtex/store-ui'
+import { useContext } from 'react'
 
-type SearchFn = (term: string) => Promise<void>
-
-const noop = async (_: string) => {
-  throw new Error('Cannot create full text search. Search is not ready')
-}
+import { Context } from './Provider'
 
 export const useSearch = () => {
-  const [search, setSearch] = useState<SearchFn>(() => noop)
+  const context = useContext(Context)
 
-  useIdleEffect(() => {
-    import('./controller').then((controller) => {
-      if (search === noop) {
-        setSearch(() => controller.search)
-      }
-    })
-  })
+  if (context === undefined) {
+    throw new Error('SearchContext not found in React tree')
+  }
 
-  return search
+  return context
 }
