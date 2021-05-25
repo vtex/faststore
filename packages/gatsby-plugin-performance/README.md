@@ -4,7 +4,7 @@ Optimizes assets and behaviors of the Gatsby framework for a notable increate in
 
 Some optmizations included are:
 - Reduce Gatsby's framework induced TBT. Apply [this PR](https://github.com/gatsbyjs/gatsby/pull/29636) 
-- Reduce Gatsby's framework bundle sizes by using Server Routing (match-paths.json)
+- Reduce Gatsby's framework bundle sizes by using Server Routing (match-paths.json). Addresses [this issue](https://github.com/gatsbyjs/gatsby/issues/21701)
 
 ## Install
 
@@ -18,7 +18,13 @@ yarn add @vtex/gatsby-plugin-performance
 module.exports = {
   plugins: [
     // other plugins ...
-    `@vtex/gatsby-plugin-performance`    
+    {
+      resolve: `@vtex/gatsby-plugin-performance`
+      options: {
+        enableServerRouting: true,
+        enableNonBlockingStart: true,
+      }
+    }
   ],
 }
 ```
