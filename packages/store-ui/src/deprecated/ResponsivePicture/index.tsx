@@ -27,6 +27,7 @@ const ResponsivePicture: FC<Props> = ({ sources, variant, ...imgProps }) => (
     sx={{
       variant: `${variant}.responsivePicture.picture`,
     }}
+    data-image-preload="preload"
   >
     {sources.map((source) => (
       <source key={source.srcSet} {...source} />
