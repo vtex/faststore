@@ -79,7 +79,7 @@ packages/gatsby-**/**/*.json
 !packages/gatsby-**/src/**/*.json
 
 # WIP
-!packages/gatsby-plugin-image-preload/*
+!packages/gatsby-plugin-image-preload/**/*
 
 # lighthouse CI autogen files
 .lighthouseci
