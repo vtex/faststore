@@ -22,7 +22,8 @@ const customCreateElement = (element, props, ...children) => {
   }
 
   if (props?.['data-image-preload'] !== 'preload') {
-    return defaultValue
+    return defaultCreateElement(element, {...props, loading: 'lazy'}, ...children)
+    // return defaultValue
   }
 
   if (element === 'img') {
