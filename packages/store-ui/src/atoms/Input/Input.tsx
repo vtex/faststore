@@ -4,10 +4,11 @@ import React, { forwardRef } from 'react'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   state?: 'success' | 'error'
+  testId?: string
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { state, ...props },
+  { state, testId = 'store-input', ...props },
   ref
 ) {
   const states = {
@@ -15,7 +16,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     'data-success': state === 'success' || undefined,
   }
 
-  return <input ref={ref} data-store-input {...states} {...props} />
+  return (
+    <input
+      ref={ref}
+      data-store-input
+      data-testid={testId}
+      {...states}
+      {...props}
+    />
+  )
 })
 
 export default Input
