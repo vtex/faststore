@@ -3,15 +3,14 @@ import type { PageProps } from 'gatsby'
 import type { FC } from 'react'
 import { SuspenseViewport } from '@vtex/store-ui'
 
-import AboveTheFold from '../components/HomePage/AboveTheFold'
-import BelowTheFoldPreview from '../components/HomePage/BelowTheFoldPreview'
-import SEO from '../components/HomePage/SEO'
+import AboveTheFold from '../views/home/AboveTheFold'
+import BelowTheFoldPreview from '../views/home/BelowTheFoldPreview'
+import SEO from '../views/home/SEO'
 import Layout from '../components/Layout'
 import { usePixelSendEvent } from '../sdk/pixel/usePixelSendEvent'
 import type { PageViewData } from '../sdk/pixel/events'
 
-const belowTheFoldPreloader = () =>
-  import('../components/HomePage/BelowTheFold')
+const belowTheFoldPreloader = () => import('../views/home/BelowTheFold')
 
 const BelowTheFold = lazy(belowTheFoldPreloader)
 
