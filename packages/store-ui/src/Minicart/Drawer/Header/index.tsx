@@ -17,11 +17,7 @@ const MinicartDrawerHeader: FC<Props> = ({ onClose, count, variant: v }) => {
   return (
     <Box variant={variant}>
       <MinicartDrawerCloseButton variant={variant} onClose={onClose} />
-      <Heading
-        data-testid="minicartTitle"
-        as="h1"
-        variant={`${variant}.title`}
-      >
+      <Heading data-testid="minicartTitle" as="h1" variant={`${variant}.title`}>
         <FormattedMessage id="minicart.drawer.count" values={{ count }} />
       </Heading>
     </Box>
