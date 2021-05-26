@@ -4,17 +4,16 @@ import type { GatsbySeo } from 'gatsby-plugin-next-seo'
 import type { ComponentPropsWithoutRef } from 'react'
 
 import { useLocale } from '../../../sdk/localization/useLocale'
-import type { SearchPageProps } from '../../../templates/search'
+import type { SearchViewProps } from '..'
 import type { SearchPageSeoQueryQuery } from './__generated__/SearchPageSEOQuery.graphql'
+
 /**
  * One should use either noindex or canonical, never both
 
 * This deduplicates pages so our pages rank higher in Google
 */
-type Options = SearchPageProps
-
 export const useMetadata = (
-  options: Options
+  options: SearchViewProps
 ): ComponentPropsWithoutRef<typeof GatsbySeo> => {
   const language = useLocale()
   const { host } = useLocation()

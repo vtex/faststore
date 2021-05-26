@@ -4,9 +4,9 @@ import type { FC } from 'react'
 
 import { useBreadcrumb } from './useBreadcrumbJsonLd'
 import { useMetadata } from './useMetadata'
-import type { SearchPageProps } from '../../../templates/search'
+import type { SearchViewProps } from '..'
 
-const SEO: FC<SearchPageProps> = (props) => {
+const SEO: FC<SearchViewProps> = (props) => {
   const metadata = useMetadata(props)
 
   const breadcrumbProps = useBreadcrumb(props)

@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
 
 import { useQueryInfinite } from '../graphql/useQueryInfinite'
-import { useFilters } from './useFilters'
+import { useQueryVariablesFromSearchParams } from './converter/useQueryVariablesFromSearchParams'
+import { useSearch } from './useSearch'
 import type { QueryOptions } from '../graphql/useQueryInfinite'
-import type { SearchFilters } from './Provider'
 
 interface BaseQueryShape {
   vtex: {
@@ -26,10 +26,11 @@ export const useSearchInfinite = <Query extends BaseQueryShape | undefined>({
   initialData: firstPageData,
   pageSize = PAGE_SIZE,
 }: Options<Query>) => {
-  const filters = useFilters()
+  const { searchParams } = useSearch()
+  const variables = useQueryVariablesFromSearchParams(searchParams)
 
   const initialData = firstPageData && [firstPageData]
-  const { data, error, size, setSize } = useQueryInfinite<Query, SearchFilters>(
+  const { data, error, size, setSize } = useQueryInfinite<Query>(
     query,
     (page, previousPageData) => {
       if (
@@ -41,31 +42,22 @@ export const useSearchInfinite = <Query extends BaseQueryShape | undefined>({
 
       const from = page * pageSize
       const to = (page + 1) * pageSize - 1
-      let { fullText } = filters
 
-      // This is a pre-rendered search. Like so, we need to fetch the data
-      // at the exact same order from the pre-rendered data so we don't have
-      // data mismatch
+      // The first page results was already fetched. Like so, we need to fetch the data
+      // at the exact same order from the first page result so we don't have data mismatches
       const ids =
         page === 0 &&
         firstPageData?.vtex.productSearch?.products?.map((x) => x.id)
 
-      if (Array.isArray(ids)) {
-        fullText = `product:${ids.join(';')}`
-      }
+      const fullText = Array.isArray(ids)
+        ? `product:${ids.join(';')}`
+        : variables.fullText
 
-      // TODO: The query itself can't receive query and map parameters, because it breaks,
-      // but these values are used elsewhere.
-      // So we only remove them from the query variables.
-      // Need to find a cleaner solution
       return {
-        ...filters,
+        ...variables,
         fullText,
         from,
         to,
-        priceRange: null,
-        query: null,
-        map: null,
       }
     },
     {

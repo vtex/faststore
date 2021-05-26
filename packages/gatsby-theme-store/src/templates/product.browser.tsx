@@ -1,7 +1,6 @@
 import { gql } from '@vtex/gatsby-plugin-graphql'
-import { SuspenseSSR } from '@vtex/store-ui'
-import React from 'react'
 import { useMatch } from '@reach/router'
+import React, { Suspense } from 'react'
 import type { PageProps } from 'gatsby'
 import type { FC } from 'react'
 
@@ -14,6 +13,8 @@ import type {
   BrowserProductPageQueryQuery,
   BrowserProductPageQueryQueryVariables,
 } from './__generated__/BrowserProductPageQuery.graphql'
+import { isServer } from '../utils/env'
+import HybridWrapper from '../components/HybridWrapper'
 
 export type BrowserProductPageProps = PageProps
 
@@ -34,9 +35,9 @@ const ProductPage: FC<BrowserProductPageProps> = (props) => {
 
 const Page: FC<BrowserProductPageProps> = (props) => (
   <Layout>
-    <SuspenseSSR fallback={<AboveTheFoldPreview />}>
+    <HybridWrapper fallback={<AboveTheFoldPreview />}>
       <ProductPage {...props} />
-    </SuspenseSSR>
+    </HybridWrapper>
   </Layout>
 )
 

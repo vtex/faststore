@@ -19,8 +19,8 @@
   "searchControls.select.priceAsc": "Preço: Menor ao Maior",
   "searchControls.select.topSaleDesc": "Mais vendidos",
   "searchControls.select.reviewRateDesc": "Reviews",
-  "searchControls.select.nameDesc": "Nome, crescente",
-  "searchControls.select.nameAsc": "Nome, decrescente",
+  "searchControls.select.nameDesc": "Nome, decrescente",
+  "searchControls.select.nameAsc": "Nome, crescente",
   "searchControls.select.releaseDateDesc": "Lançamentos",
   "searchControls.select.bestDiscountDesc": "Desconto",
 
