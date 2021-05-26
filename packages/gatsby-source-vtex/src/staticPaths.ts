@@ -101,10 +101,7 @@ const staticPaths = async ({
         api.catalog.category.search({
           sort: 'OrderByTopSaleDESC',
           from: pageIndex * itemsPerPage,
-          to: pageIndex * itemsPerPage + itemsPerPage - 1,
-          to: pageIndex
-            ? pageIndex * itemsPerPage + itemsPerPage
-            : itemsPerPage,
+          to: pageIndex * itemsPerPage + itemsPerPage - 1
         }),
         options
       ),
