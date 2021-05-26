@@ -2,9 +2,9 @@ import { Center, Text } from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
 
-import type { SearchPageProps } from '../../templates/search'
+import type { SearchViewProps } from '.'
 
-const BelowTheFold: FC<SearchPageProps> = () => (
+const BelowTheFold: FC<SearchViewProps> = () => (
   <Center height="150px">
     <Text sx={{ width: '50%' }}>
       This is the below the fold part of your search template. All data in this

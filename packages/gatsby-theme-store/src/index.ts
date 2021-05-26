@@ -48,11 +48,12 @@ export {
   IMAGE_DEFAULT,
 } from './sdk/product/constants'
 
+export { useTopSearches } from './sdk/searchBar/useTopSearches'
+export { useSuggestions } from './sdk/searchBar/useSuggestions'
+export { useAutocompleteSuggestions } from './sdk/searchBar/useAutocompleteSuggestions'
+export { useSearchHistory } from './sdk/searchBar/useSearchHistory'
 export { useSearch } from './sdk/search/useSearch'
-export { useTopSearches } from './sdk/search/useTopSearches'
-export { useSuggestions } from './sdk/search/useSuggestions'
-export { useAutocompleteSuggestions } from './sdk/search/useAutocompleteSuggestions'
-export { useSearchHistory } from './sdk/search/useSearchHistory'
+export { useFullTextSearch } from './sdk/searchBar/useFullTextSearch'
 
 export { useProfile } from './sdk/session/useProfile'
 export { useSession } from './sdk/session/useSession'

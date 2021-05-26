@@ -2,7 +2,9 @@ import { Center, Spinner } from '@vtex/store-ui'
 import React from 'react'
 import type { FC, CSSProperties } from 'react'
 
-const BelowTheFoldPreview: FC = () => (
+import type { SearchViewProps } from '.'
+
+const BelowTheFoldPreview: FC<SearchViewProps> = () => (
   <div
     style={
       ({

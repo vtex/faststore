@@ -8,9 +8,9 @@ import {
   SearchTemplateContainer,
   SearchTemplateMain,
 } from '../Search/SearchTemplate'
-import type { SearchPageProps } from '../../templates/search'
+import type { SearchViewProps } from '.'
 
-const AboveTheFold: FC<SearchPageProps> = () => (
+const AboveTheFold: FC<SearchViewProps> = () => (
   <Fragment>
     <Center height="150px">
       <Text sx={{ width: '50%' }}>

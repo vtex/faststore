@@ -101,8 +101,6 @@ export const createPages = async ({
 
     const searchParams = {
       orderBy: '',
-      query: segments.join('/'),
-      map: new Array(segments.length).fill(key).join(','),
       selectedFacets: segments.map((segment) => ({
         key,
         value: segment,
@@ -111,12 +109,11 @@ export const createPages = async ({
 
     createPage({
       path,
-      component: resolve(__dirname, './src/templates/search.tsx'),
+      component: resolve(__dirname, './src/templates/search.server.tsx'),
       context: {
         ...searchParams,
         id,
         canonicalPath: path,
-        staticPath: true,
       },
     })
 
@@ -131,11 +128,10 @@ export const createPages = async ({
     createPage({
       path: `${path}/__client_side_search__`,
       matchPath: `${path}/*`,
-      component: resolve(__dirname, './src/templates/search.tsx'),
+      component: resolve(__dirname, './src/templates/search.browser.tsx'),
       context: {
         id,
         canonicalPath: path,
-        staticPath: false,
       },
     })
   }
@@ -166,14 +162,12 @@ export const createPages = async ({
     context: {},
   })
 
-  // Client side search page
+  // Client side, full text, search page
   createPage({
     path: '/s/__client_side_search__',
     matchPath: '/s/*',
-    component: resolve(__dirname, './src/templates/search.tsx'),
-    context: {
-      staticPath: false,
-    },
+    component: resolve(__dirname, './src/templates/search.browser.tsx'),
+    context: {},
   })
 }
 
@@ -182,10 +176,12 @@ const resolveToTS = (
   file: 'gatsby-browser' | 'gatsby-ssr' | 'gatsby-node'
 ): Record<string, string> => {
   const root = `${process.cwd()}/.cache`
-  const cjs = relative(
-    root,
-    require.resolve(`${pkg}/${file}.js`, { paths: [process.cwd()] })
-  )
+
+  let cjs = require.resolve(`${pkg}/${file}.js`, { paths: [process.cwd()] })
+
+  if (file === 'gatsby-browser') {
+    cjs = relative(root, cjs)
+  }
 
   const ts = cjs.replace(`/${file}.js`, `/src/${file}`)
 

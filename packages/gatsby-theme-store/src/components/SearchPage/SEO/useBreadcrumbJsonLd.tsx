@@ -3,9 +3,9 @@ import { useMemo } from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { BreadcrumbJsonLd } from 'gatsby-plugin-next-seo'
 
-import type { SearchPageProps } from '../../../templates/search'
+import type { SearchViewProps } from '..'
 
-type Options = SearchPageProps
+type Options = SearchViewProps
 
 type BreadcrumbJSONLD = ComponentPropsWithoutRef<typeof BreadcrumbJsonLd>
 
@@ -13,7 +13,6 @@ export const useBreadcrumb = ({
   data: {
     vtex: { facets },
   },
-  staticPath,
 }: Options): BreadcrumbJSONLD | null => {
   const { host } = useLocation()
 
@@ -21,7 +20,7 @@ export const useBreadcrumb = ({
     const siteUrl = `https://${host}`
     const { breadcrumb } = facets!
 
-    if (staticPath !== true || breadcrumb == null || breadcrumb.length === 0) {
+    if (breadcrumb == null || breadcrumb.length === 0) {
       return null
     }
 
@@ -32,5 +31,5 @@ export const useBreadcrumb = ({
         item: `${siteUrl}${item!.href}`,
       })),
     }
-  }, [facets, staticPath, host])
+  }, [facets, host])
 }

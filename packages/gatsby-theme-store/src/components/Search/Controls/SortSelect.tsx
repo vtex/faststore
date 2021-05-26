@@ -3,9 +3,7 @@ import { SearchControlsSelect as StoreUISortSelect } from '@vtex/store-ui'
 import React from 'react'
 import type { FC } from 'react'
 
-import { useFilters } from '../../../sdk/search/useFilters'
-
-const searchFilterControler = () => import('../../../sdk/search/controller')
+import { useSearch } from '../../../sdk/search/useSearch'
 
 interface Props {
   variant?: string
@@ -13,20 +11,16 @@ interface Props {
 
 const SearchControlsSelect: FC<Props> = ({ variant }) => {
   const { formatMessage } = useIntl()
-  const filters = useFilters()
+  const {
+    setSort,
+    searchParams: { sort },
+  } = useSearch()
 
   return (
     <StoreUISortSelect
       variant={variant}
-      defaultValue={filters.orderBy}
-      onChange={async (orderBy) => {
-        const controller = await searchFilterControler()
-
-        controller.setSearchFilters({
-          ...filters,
-          orderBy,
-        })
-      }}
+      defaultValue={sort}
+      onChange={setSort as any}
       formatLabel={(label: string) => formatMessage({ id: label })}
     />
   )
