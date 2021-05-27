@@ -26,10 +26,11 @@ function generateNginxConfiguration({
   files: string[]
   options: PluginOptions
 }): string {
+  const filesSet = new Set(files)
   const locations = [
     ...Object.entries(headersMap)
       .map(([path, headers]) =>
-        generatePathLocation({ path, headers, files, options })
+        generatePathLocation({ path, headers, files: filesSet, options })
       )
       .filter<NginxDirective>(
         (value: NginxDirective | undefined): value is NginxDirective => {
@@ -310,13 +311,17 @@ function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
 
 function storagePassTemplate(
   path: string,
-  files: string[],
+  files: Set<string>,
   { serveFileDirective }: PluginOptions
 ): NginxDirective | undefined {
   path = path.slice(1) // remove leading slash
-  const filePath = files.find(
-    (file) => file === path || file === posix.join(path, INDEX_HTML)
-  )
+
+  const pathIndex = posix.join(path, INDEX_HTML)
+  const filePath = files.has(pathIndex)
+    ? pathIndex
+    : files.has(path)
+    ? path
+    : undefined
 
   if (filePath === undefined) {
     return undefined
@@ -335,7 +340,7 @@ function generatePathLocation({
 }: {
   path: string
   headers: Header[]
-  files: string[]
+  files: Set<string>
   options: PluginOptions
 }): NginxDirective | undefined {
   const proxyPassDirective = storagePassTemplate(path, files, options)

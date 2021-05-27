@@ -3,6 +3,7 @@ import {
   convertToRegExp,
   parseRewrite,
   generateRewrites,
+  generateNginxConfiguration,
 } from '../src/nginx-generator'
 
 describe('stringify', () => {
@@ -27,14 +28,16 @@ describe('stringify', () => {
           ],
         },
       ])
-    ).toEqual(`worker_processes 3;
-http {
-  server {
-    location = /blouse/p {
-      add_header x-frame-options "DENY";
-    }
-  }
-}`)
+    ).toMatchInlineSnapshot(`
+      "worker_processes 3;
+      http {
+        server {
+          location = /blouse/p {
+            add_header x-frame-options \\"DENY\\";
+          }
+        }
+      }"
+    `)
   })
 })
 
@@ -162,5 +165,125 @@ describe('generateRedirects', () => {
         },
       ])
     ).toEqual(expected)
+  })
+})
+
+describe('generateNginxConfiguration', () => {
+  it('correctly generates basic nginx configuration', () => {
+    const rewrites: Redirect[] = []
+
+    const headersMap: PathHeadersMap = {
+      '/foo': [{ name: `a`, value: `b` }],
+      '/bar': [{ name: `a`, value: `b` }],
+    }
+
+    const files: string[] = [`foo/index.html`, `bar/index.html`]
+    const options: PluginOptions = {
+      plugins: [],
+      disableBrotliEncoding: false,
+      serveFileDirective: ['try_files', '/$file', '=404'],
+      transformHeaders: undefined,
+      writeOnlyLocations: false,
+    }
+
+    expect(
+      generateNginxConfiguration({
+        rewrites,
+        headersMap,
+        files,
+        options,
+      })
+    ).toMatchInlineSnapshot(`
+      "worker_processes 3;
+      worker_rlimit_nofile 8192;
+      error_log /var/log/nginx/error.log debug;
+      pid /var/log/nginx_run.pid;
+      events {
+        worker_connections 1024;
+      }
+      http {
+        map $host $use_url_tmp {
+          default $http_origin;
+          ~^(?<all>.*)$ $all;
+        }
+        map $http_x_forwarded_host $use_url {
+          default $use_url_tmp;
+          ~^(?<all>.*)$ $all;
+        }
+        map $use_url $origin_host {
+          default $use_url;
+          ~^https?://(?<all>.*)/?.*$ $all;
+        }
+        log_format json_combined escape=json '{ \\"time_local\\":\\"$time_local\\", \\"remote_addr\\":\\"$remote_addr\\", \\"remote_user\\":\\"$remote_user\\", \\"request\\":\\"$request\\", \\"status\\": \\"$status\\", \\"body_bytes_sent\\":\\"$body_bytes_sent\\", \\"request_time\\":\\"$request_time\\", \\"http_referrer\\":\\"$http_referer\\", \\"http_user_agent\\":\\"$http_user_agent\\" }';
+        access_log /var/log/nginx/access.log json_combined;
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+        disable_symlinks off;
+        sendfile on;
+        tcp_nopush on;
+        keepalive_timeout 65;
+        brotli on;
+        brotli_comp_level 6;
+        brotli_static on;
+        brotli_types text/xml image/svg+xml application/x-font-ttf image/vnd.microsoft.icon application/x-font-opentype application/json font/eot application/vnd.ms-fontobject application/javascript font/otf application/xml application/xhtml+xml text/javascript application/x-javascript text/plain application/x-font-truetype application/xml+rss image/x-icon font/opentype text/css image/x-win-bitmap;
+        gzip on;
+        gzip_types text/plain text/css text/xml application/javascript application/x-javascript application/xml application/xml+rss application/emacscript application/json image/svg+xml;
+        server {
+          listen 0.0.0.0:$PORT default_server;
+          resolver 8.8.8.8;
+          error_page 404 /404.html;
+          location = /foo {
+            add_header a \\"b\\";
+            try_files /foo/index.html =404;
+          }
+          location = /bar {
+            add_header a \\"b\\";
+            try_files /bar/index.html =404;
+          }
+        }
+      }"
+    `)
+  })
+
+  it('quickly generates large nginx configuration', () => {
+    function generateLargeConfig(numFiles: number) {
+      const headersMap: PathHeadersMap = {}
+      const files: string[] = []
+
+      for (let i = 0; i < numFiles; i++) {
+        headersMap[`/page-${i}`] = [{ name: `a`, value: `b` }]
+        files.push(`page-${i}/index.html`)
+      }
+
+      return {
+        headersMap,
+        files,
+      }
+    }
+
+    const rewrites: Redirect[] = []
+
+    const { headersMap, files } = generateLargeConfig(10000)
+    const options: PluginOptions = {
+      plugins: [],
+      disableBrotliEncoding: false,
+      serveFileDirective: ['try_files', '/$file', '=404'],
+      transformHeaders: (headers) =>
+        headers
+          .filter((h) => !h.includes(`Cache-Control`))
+          .concat(`Cache-Control: public`),
+      writeOnlyLocations: false,
+    }
+
+    const start = performance.now()
+
+    generateNginxConfiguration({
+      rewrites,
+      headersMap,
+      files,
+      options,
+    })
+
+    expect(performance.now() - start).toBeLessThan(1000) // on my macbook pro this was 25759.70454ms before perf fix was applied
   })
 })
