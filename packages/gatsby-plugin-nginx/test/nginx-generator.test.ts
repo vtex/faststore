@@ -232,6 +232,10 @@ describe('generateNginxConfiguration', () => {
           listen 0.0.0.0:$PORT default_server;
           resolver 8.8.8.8;
           error_page 404 /404.html;
+          location /nginx.conf {
+            deny all;
+            return 404;
+          }
           location = /foo {
             add_header a \\"b\\";
             try_files /foo/index.html =404;
