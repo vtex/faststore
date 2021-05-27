@@ -1,6 +1,6 @@
 import { optimize } from './fileManager'
-
-test('Image optimization: Return URL with the correct parameters', async () => {
+describe('Image Optimization', () => {
+test('return URL with the correct parameters', () => {
   const imageSrc =
     'https://storecomponents.vtexassets.com/assets/vtex.file-manager-graphql/images/f05e3621-d515-4dac-8c44-675f1ab36b66___3be6fb3cbcef0db2be3ad13631f2f356.jpg'
 
