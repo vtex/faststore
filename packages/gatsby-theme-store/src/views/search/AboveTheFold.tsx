@@ -7,7 +7,7 @@ import {
   SearchTemplateAside,
   SearchTemplateContainer,
   SearchTemplateMain,
-} from '../Search/SearchTemplate'
+} from '../../components/Search/SearchTemplate'
 import type { SearchViewProps } from '.'
 
 const AboveTheFold: FC<SearchViewProps> = () => (

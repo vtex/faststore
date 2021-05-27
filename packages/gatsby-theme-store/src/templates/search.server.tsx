@@ -4,8 +4,8 @@ import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 
 import Layout from '../components/Layout'
-import SearchView from '../components/SearchPage'
-import AboveTheFoldPreview from '../components/SearchPage/AboveTheFoldPreview'
+import SearchView from '../views/search'
+import AboveTheFoldPreview from '../views/search/AboveTheFoldPreview'
 import { useSearchParamsFromQueryVariables } from '../sdk/search/converter/useSearchParamsFromQueryVariables'
 import { usePersonalizedSearchRedirect } from '../sdk/search/usePersonalizedSearchRedirect'
 import type {
