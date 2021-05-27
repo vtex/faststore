@@ -9,6 +9,7 @@ interface ImageParams {
   aspect?: boolean
   quality?: number
 }
+
 interface Options {
   ratio: number
 }
