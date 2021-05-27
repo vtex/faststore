@@ -6,7 +6,7 @@ import {
   SearchTemplateAside,
   SearchTemplateContainer,
   SearchTemplateMain,
-} from '../Search/SearchTemplate'
+} from '../../components/Search/SearchTemplate'
 
 const array = new Array(10).fill(true)
 
