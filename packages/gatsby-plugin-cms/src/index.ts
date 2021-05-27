@@ -2,7 +2,7 @@ import type { JSONSchema6 } from 'json-schema'
 
 export interface Schema extends JSONSchema6 {
   title: string
-  description: string
+  description?: string
 }
 
 export type Schemas = Record<string, Schema>
