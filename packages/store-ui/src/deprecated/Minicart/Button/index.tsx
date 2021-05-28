@@ -24,12 +24,7 @@ const MinicartButton: FC<Props> = ({
   const variant = `minicart.${v}.button`
 
   return (
-    <Button
-      data-testid="openCart"
-      aria-label="Open Cart"
-      variant={variant}
-      {...props}
-    >
+    <Button aria-label="Open Cart" variant={variant} {...props}>
       <MinicartButtonIcon
         height={height}
         width={width}
