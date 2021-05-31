@@ -87,6 +87,8 @@ export {
   default as SearchInput,
   SearchInputProps,
 } from './molecules/SearchInput'
+// Organisms
+export { default as SearchBar, SearchBarProps } from './organisms/SearchBar'
 
 // The default Spinner from theme-ui, at the time of writing,
 // is under-performant in terms of CPU usage
@@ -214,18 +216,6 @@ export { default as shippingSimulatorI18nEN } from './ShippingSimulator/i18n/en'
 
 // Auth Providers
 export * from './Auth/Providers'
-// Search Bar
-export { default as SearchBar } from './SearchBar'
-export { default as SearchBarButton } from './SearchBar/Button'
-export { default as SearchBarContainer } from './SearchBar/Container'
-export { default as SearchBarInput } from './SearchBar/Input'
-export { default as searchBarTheme } from './SearchBar/theme'
-export {
-  default as SearchBarProvider,
-  SearchBarContext,
-} from './SearchBar/hooks/Provider'
-export { useSearchBarContext } from './SearchBar/hooks/useSearchBarContext'
-export type { ISearchContext } from './SearchBar/hooks/Provider'
 // Login
 export { default as LoginLogo } from './Login/Logo'
 export { default as loginTheme } from './Login/theme'
