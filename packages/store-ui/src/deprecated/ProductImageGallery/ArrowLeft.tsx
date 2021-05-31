@@ -9,7 +9,6 @@ const CarouselArrowLeft: FC<Props> = (props) => (
   <SliderArrowLeft
     backgroundColor="transparent"
     color="black"
-    data-testid="previousProductImage"
     aria-label="Previous Product Image"
     {...props}
   />
