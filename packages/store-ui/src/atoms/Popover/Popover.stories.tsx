@@ -36,6 +36,4 @@ const PopoverTemplate: Story<PopoverProps> = (args) => {
 }
 
 export const Popover = PopoverTemplate.bind({})
-Popover.args = {
-  children: <div>Popover BOdy</div>,
-}
+Popover.args = {}
