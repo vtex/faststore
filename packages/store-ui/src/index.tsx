@@ -81,6 +81,7 @@ export type {
 export { default as Button, ButtonProps } from './atoms/Button'
 export { default as Input, InputProps } from './atoms/Input'
 export { default as Icon, IconProps } from './atoms/Icon'
+export { default as Popover, PopoverProps } from './atoms/Popover'
 // Molecules
 export {
   default as SearchInput,
@@ -163,8 +164,6 @@ export { default as SliderArrowLeft } from './Slider/ArrowLeft'
 export { default as SliderArrowRight } from './Slider/ArrowRight'
 export * from './Slider/hooks/useSlider'
 export * from './Slider/hooks/useResponsiveSlider'
-// Popover
-export * from 'reakit/Popover'
 // Centered
 export { default as Center } from './Center'
 // Product Specification
