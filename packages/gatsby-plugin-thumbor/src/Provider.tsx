@@ -3,7 +3,7 @@ import type { FC } from 'react'
 
 interface PluginOptions {
   server: string
-  sizes: string[]
+  sizes?: string[]
   basePath?: string
 }
 
