@@ -43,9 +43,9 @@ describe('stringify', () => {
 
 describe('convert Gatsby paths into nginx RegExp', () => {
   it('handles :slug', () => {
-    expect(convertToRegExp('/:slug/p')).toEqual('^/[^/]+/p$')
-    expect(convertToRegExp('/:slug')).toEqual('^/[^/]+$')
-    expect(convertToRegExp('/pt/:slug/p')).toEqual('^/pt/[^/]+/p$')
+    expect(convertToRegExp('/:slug/p')).toEqual('^/([^/]+)/p$')
+    expect(convertToRegExp('/:slug')).toEqual('^/([^/]+)$')
+    expect(convertToRegExp('/pt/:slug/p')).toEqual('^/pt/([^/]+)/p$')
   })
 
   it('handles wildcard (*)', () => {
@@ -90,11 +90,11 @@ describe('generateRewrites', () => {
             cmd: ['rewrite', '.+', '/__client-side-product__/p'],
           },
         ],
-        cmd: ['location', '~*', '"^/[^/]+/p$"'],
+        cmd: ['location', '~*', '"^/([^/]+)/p$"'],
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/pt/__client-side-product__/p'] }],
-        cmd: ['location', '~*', '"^/pt/[^/]+/p$"'],
+        cmd: ['location', '~*', '"^/pt/([^/]+)/p$"'],
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/__client-side-search__'] }],
@@ -184,6 +184,8 @@ describe('generateNginxConfiguration', () => {
       serveFileDirective: ['try_files', '/$file', '=404'],
       transformHeaders: undefined,
       writeOnlyLocations: false,
+      serverOptions: [],
+      httpOptions: [],
     }
 
     expect(
@@ -228,9 +230,9 @@ describe('generateNginxConfiguration', () => {
         brotli_types text/xml image/svg+xml application/x-font-ttf image/vnd.microsoft.icon application/x-font-opentype application/json font/eot application/vnd.ms-fontobject application/javascript font/otf application/xml application/xhtml+xml text/javascript application/x-javascript text/plain application/x-font-truetype application/xml+rss image/x-icon font/opentype text/css image/x-win-bitmap;
         gzip on;
         gzip_types text/plain text/css text/xml application/javascript application/x-javascript application/xml application/xml+rss application/emacscript application/json image/svg+xml;
+        proxy_http_version 1.1;
         server {
           listen 0.0.0.0:$PORT default_server;
-          resolver 8.8.8.8;
           error_page 404 /404.html;
           location /nginx.conf {
             deny all;
@@ -277,6 +279,8 @@ describe('generateNginxConfiguration', () => {
           .filter((h) => !h.includes(`Cache-Control`))
           .concat(`Cache-Control: public`),
       writeOnlyLocations: false,
+      serverOptions: [],
+      httpOptions: [],
     }
 
     const start = performance.now()

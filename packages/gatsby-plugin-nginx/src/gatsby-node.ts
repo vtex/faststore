@@ -75,6 +75,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async (
   const options = pluginOptions(opt)
 
   const timer = reporter.activityTimer(`write out nginx configuration`)
+
   timer.start()
 
   const { program, pages: pagesMap, redirects } = store.getState() as {

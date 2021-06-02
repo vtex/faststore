@@ -26,6 +26,13 @@ function generateNginxConfiguration({
   files: string[]
   options: PluginOptions
 }): string {
+  const {
+    disableBrotliEncoding,
+    writeOnlyLocations,
+    serverOptions,
+    httpOptions,
+  } = options
+
   const filesSet = new Set(files)
   const locations = [
     ...Object.entries(headersMap)
@@ -40,7 +47,7 @@ function generateNginxConfiguration({
     ...generateRewrites(rewrites),
   ]
 
-  const brotliConf = options.disableBrotliEncoding
+  const brotliConf = disableBrotliEncoding
     ? []
     : [
         { cmd: ['brotli', 'on'] },
@@ -74,7 +81,7 @@ function generateNginxConfiguration({
         },
       ]
 
-  const conf = options.writeOnlyLocations
+  const conf = writeOnlyLocations
     ? locations
     : [
         { cmd: ['worker_processes', '3'] },
@@ -88,6 +95,7 @@ function generateNginxConfiguration({
         {
           cmd: ['http'],
           children: [
+            ...httpOptions.map((cmd) => ({ cmd })),
             // $use_url_tmp = $host OR $http_origin
             {
               cmd: ['map', '$host', '$use_url_tmp'],
@@ -146,12 +154,12 @@ function generateNginxConfiguration({
                 'image/svg+xml',
               ],
             },
+            { cmd: ['proxy_http_version', '1.1'] },
             {
               cmd: ['server'],
               children: [
+                ...serverOptions.map((cmd) => ({ cmd })),
                 { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
-                { cmd: ['resolver', '8.8.8.8'] },
-
                 // https://www.gatsbyjs.com/docs/how-to/adding-common-features/add-404-page/
                 { cmd: ['error_page', '404', '/404.html'] },
 
@@ -185,16 +193,42 @@ function stringify(directives: NginxDirective[]): string {
     .join('\n')
 }
 
+const wildcard = /\*/g
+const namedSegment = /:[^/]+/g
+
+// Converts a gatsby path to nginx location path
+// Ex:
+//  '/:p1/:p2/foo/*' => '^/([^/]+)/([^/]+)/foo/(.*)$'
+//  '/:splat' => '^/([^/]+)$'
+//  '/foo/bar/:splat' => '^/foo/bar/([^/]+)$'
 export function convertToRegExp(path: string) {
-  return `^${path.replace(/\*/g, '(.*)').replace(/:slug/g, '[^/]+')}$`
+  const converted = path
+    .replace(wildcard, '(.*)') // replace * with (.*)
+    .replace(namedSegment, '([^/]+)') // replace :param like with url component like regex ([^/]+)
+
+  return `^${converted}$`
 }
 
 function isRegExpMatch(path: string) {
-  return /\*/g.test(path) || /:slug/g.test(path)
+  return wildcard.test(path) || namedSegment.test(path)
 }
 
+// Converts a gatsby path to nginx proxy_pass path
+// Ex:
+//  '/:p1/:p2/foo/*' => /$1/$2/foo/$3
+//  '/:splat' => '/$1'
+//  '/foo/bar/:splat' => '/foo/bar/$1'
 function convertToPath(path: string) {
-  return path.replace(/:splat/g, '$1')
+  let it = 0
+
+  return path.replace(
+    new RegExp(`${wildcard.source}|${namedSegment.source}`, 'g'),
+    () => {
+      it += 1
+
+      return `$${it}`
+    }
+  )
 }
 
 function parseRewrite({
