@@ -56,9 +56,7 @@ export const urlBuilder = (args: IUrlBuilderArgs<ThumborProps>) => {
   const { options } = args
 
   const urlComponents = [
-    options.basePath
-      ? options.basePath
-      : `${options.server}/unsafe`,
+    options.basePath ? options.basePath : `${options.server}/unsafe`,
   ]
 
   // Add the trim parameter after unsafe if appliable
