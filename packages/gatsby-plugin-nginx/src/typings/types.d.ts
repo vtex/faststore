@@ -71,7 +71,7 @@ declare global {
      * // Disable merge_slashes nginx config
      * httpOptions: [['merge_slashes', 'off']]
      *
-     * * @default []
+     * * @default [['proxy_http_version', '1.1']]
      */
     httpOptions: string[][]
   }

@@ -48,6 +48,12 @@ describe('convert Gatsby paths into nginx RegExp', () => {
     expect(convertToRegExp('/pt/:slug/p')).toEqual('^/pt/([^/]+)/p$')
   })
 
+  it('handles multiple params', () => {
+    expect(convertToRegExp('/:p1/:p2/p')).toEqual('^/([^/]+)/([^/]+)/p$')
+    expect(convertToRegExp('/base/:p1/:p2')).toEqual('^/base/([^/]+)/([^/]+)$')
+    expect(convertToRegExp('/:p1/foo/:p2')).toEqual('^/([^/]+)/foo/([^/]+)$')
+  })
+
   it('handles wildcard (*)', () => {
     expect(convertToRegExp('/*')).toEqual('^/(.*)$')
     expect(convertToRegExp('/pt/*')).toEqual('^/pt/(.*)$')
@@ -104,6 +110,14 @@ describe('generateRewrites', () => {
         children: [{ cmd: ['rewrite', '.+', '/pt/__client-side-search__'] }],
         cmd: ['location', '~*', '"^/pt/(.*)$"'],
       },
+      {
+        children: [{ cmd: ['rewrite', '.+', '/foo-path'] }],
+        cmd: ['location', '~*', '"^/([^/]+)/([^/]+)/foo$"'],
+      },
+      {
+        children: [{ cmd: ['rewrite', '.+', '/bar-path'] }],
+        cmd: ['location', '~*', '"^/([^/]+)/bar/([^/]+)$"'],
+      },
     ]
 
     expect(
@@ -112,6 +126,8 @@ describe('generateRewrites', () => {
         { fromPath: '/pt/:slug/p', toPath: '/pt/__client-side-product__/p' },
         { fromPath: '/*', toPath: '/__client-side-search__' },
         { fromPath: '/pt/*', toPath: '/pt/__client-side-search__' },
+        { fromPath: '/:p1/:p2/foo', toPath: '/foo-path' },
+        { fromPath: '/:p1/bar/:p2', toPath: '/bar-path' },
       ])
     ).toEqual(expected)
   })
@@ -230,7 +246,6 @@ describe('generateNginxConfiguration', () => {
         brotli_types text/xml image/svg+xml application/x-font-ttf image/vnd.microsoft.icon application/x-font-opentype application/json font/eot application/vnd.ms-fontobject application/javascript font/otf application/xml application/xhtml+xml text/javascript application/x-javascript text/plain application/x-font-truetype application/xml+rss image/x-icon font/opentype text/css image/x-win-bitmap;
         gzip on;
         gzip_types text/plain text/css text/xml application/javascript application/x-javascript application/xml application/xml+rss application/emacscript application/json image/svg+xml;
-        proxy_http_version 1.1;
         server {
           listen 0.0.0.0:$PORT default_server;
           error_page 404 /404.html;

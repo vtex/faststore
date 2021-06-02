@@ -10,7 +10,7 @@ const defaultOptions: PluginOptions = {
   disableBrotliEncoding: false,
   serveFileDirective: ['try_files', '/$file', '=404'],
   plugins: [],
-  httpOptions: [],
+  httpOptions: [['proxy_http_version', '1.1']],
   serverOptions: [['resolver', '8.8.8.8']],
 }
 
