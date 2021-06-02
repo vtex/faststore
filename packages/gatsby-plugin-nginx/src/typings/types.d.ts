@@ -1,3 +1,4 @@
+import { NginxDirective } from './../../dist/nginx-generator.d'
 import {
   PageProps,
   Actions,
@@ -53,5 +54,25 @@ declare global {
      * @default false
      */
     disableBrotliEncoding: boolean
+    /**
+     * Add attributes to nginx's server block options
+     *
+     * @example
+     * // Add Google dns server
+     * serverOptions: [['resolver', '8.8.8.8']]
+     *
+     * @default [['resolver', '8.8.8.8']]
+     */
+    serverOptions: string[][]
+    /**
+     * Add attributes to nginx's http block options
+     *
+     * @example
+     * // Disable merge_slashes nginx config
+     * httpOptions: [['merge_slashes', 'off']]
+     *
+     * * @default [['proxy_http_version', '1.1']]
+     */
+    httpOptions: string[][]
   }
 }

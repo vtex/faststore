@@ -10,6 +10,8 @@ const defaultOptions: PluginOptions = {
   disableBrotliEncoding: false,
   serveFileDirective: ['try_files', '/$file', '=404'],
   plugins: [],
+  httpOptions: [['proxy_http_version', '1.1']],
+  serverOptions: [['resolver', '8.8.8.8']],
 }
 
 export function pluginOptions(options: Partial<PluginOptions>): PluginOptions {
@@ -33,6 +35,8 @@ export function pluginOptions(options: Partial<PluginOptions>): PluginOptions {
       options.serveFileDirective ??
       defaultOptions.serveFileDirective,
     plugins: options.plugins ?? defaultOptions.plugins,
+    httpOptions: options.httpOptions ?? defaultOptions.httpOptions,
+    serverOptions: options.serverOptions ?? defaultOptions.serverOptions,
   }
 }
 

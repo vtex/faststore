@@ -43,9 +43,15 @@ describe('stringify', () => {
 
 describe('convert Gatsby paths into nginx RegExp', () => {
   it('handles :slug', () => {
-    expect(convertToRegExp('/:slug/p')).toEqual('^/[^/]+/p$')
-    expect(convertToRegExp('/:slug')).toEqual('^/[^/]+$')
-    expect(convertToRegExp('/pt/:slug/p')).toEqual('^/pt/[^/]+/p$')
+    expect(convertToRegExp('/:slug/p')).toEqual('^/([^/]+)/p$')
+    expect(convertToRegExp('/:slug')).toEqual('^/([^/]+)$')
+    expect(convertToRegExp('/pt/:slug/p')).toEqual('^/pt/([^/]+)/p$')
+  })
+
+  it('handles multiple params', () => {
+    expect(convertToRegExp('/:p1/:p2/p')).toEqual('^/([^/]+)/([^/]+)/p$')
+    expect(convertToRegExp('/base/:p1/:p2')).toEqual('^/base/([^/]+)/([^/]+)$')
+    expect(convertToRegExp('/:p1/foo/:p2')).toEqual('^/([^/]+)/foo/([^/]+)$')
   })
 
   it('handles wildcard (*)', () => {
@@ -90,11 +96,11 @@ describe('generateRewrites', () => {
             cmd: ['rewrite', '.+', '/__client-side-product__/p'],
           },
         ],
-        cmd: ['location', '~*', '"^/[^/]+/p$"'],
+        cmd: ['location', '~*', '"^/([^/]+)/p$"'],
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/pt/__client-side-product__/p'] }],
-        cmd: ['location', '~*', '"^/pt/[^/]+/p$"'],
+        cmd: ['location', '~*', '"^/pt/([^/]+)/p$"'],
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/__client-side-search__'] }],
@@ -104,6 +110,14 @@ describe('generateRewrites', () => {
         children: [{ cmd: ['rewrite', '.+', '/pt/__client-side-search__'] }],
         cmd: ['location', '~*', '"^/pt/(.*)$"'],
       },
+      {
+        children: [{ cmd: ['rewrite', '.+', '/foo-path'] }],
+        cmd: ['location', '~*', '"^/([^/]+)/([^/]+)/foo$"'],
+      },
+      {
+        children: [{ cmd: ['rewrite', '.+', '/bar-path'] }],
+        cmd: ['location', '~*', '"^/([^/]+)/bar/([^/]+)$"'],
+      },
     ]
 
     expect(
@@ -112,6 +126,8 @@ describe('generateRewrites', () => {
         { fromPath: '/pt/:slug/p', toPath: '/pt/__client-side-product__/p' },
         { fromPath: '/*', toPath: '/__client-side-search__' },
         { fromPath: '/pt/*', toPath: '/pt/__client-side-search__' },
+        { fromPath: '/:p1/:p2/foo', toPath: '/foo-path' },
+        { fromPath: '/:p1/bar/:p2', toPath: '/bar-path' },
       ])
     ).toEqual(expected)
   })
@@ -184,6 +200,8 @@ describe('generateNginxConfiguration', () => {
       serveFileDirective: ['try_files', '/$file', '=404'],
       transformHeaders: undefined,
       writeOnlyLocations: false,
+      serverOptions: [],
+      httpOptions: [],
     }
 
     expect(
@@ -230,7 +248,6 @@ describe('generateNginxConfiguration', () => {
         gzip_types text/plain text/css text/xml application/javascript application/x-javascript application/xml application/xml+rss application/emacscript application/json image/svg+xml;
         server {
           listen 0.0.0.0:$PORT default_server;
-          resolver 8.8.8.8;
           error_page 404 /404.html;
           location /nginx.conf {
             deny all;
@@ -277,6 +294,8 @@ describe('generateNginxConfiguration', () => {
           .filter((h) => !h.includes(`Cache-Control`))
           .concat(`Cache-Control: public`),
       writeOnlyLocations: false,
+      serverOptions: [],
+      httpOptions: [],
     }
 
     const start = performance.now()

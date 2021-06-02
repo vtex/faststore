@@ -45,7 +45,7 @@ module.exports = {
   plugins: [
     // [...]
     {
-      resolve: require.resolve('@vtex/gatsby-plugin-nginx'),
+      resolve: '@vtex/gatsby-plugin-nginx',
       options: {
         transformHeaders: (headers, path) => {
           const DEFAULT_SECURITY_HEADERS = [
@@ -180,3 +180,33 @@ This location finally handles pages with mismatching *path* and *matchPath*.
 
 `createRedirect` with relative paths are not yet implemented. 
 
+### Adding custom blocks to nginx config
+Our default nginx config may not be suited for all use cases. For those use cases where you need to enable/disable some extra flags in the `server` and `http` block you can use the `serverOptions` and `httpOptions` params respectively. 
+
+For instance, say we don't want to use Google's dns server, but use the AWS one instead. One could configure the plugin like:
+```js
+// gatsby-config.js
+module.exports = {
+  // [...]
+  plugins: [
+    // [...]
+    {
+      resolve: '@vtex/gatsby-plugin-nginx',
+      options: {
+        // other options
+        serverOptions: [['resolver', '169.254.169.253']],
+      }
+    },
+  ],
+}
+```
+
+This will create an `nginx.conf` file similar to: 
+```
+...
+ server {
+    resolver 169.254.169.253;
+    ...
+ }
+...
+```
