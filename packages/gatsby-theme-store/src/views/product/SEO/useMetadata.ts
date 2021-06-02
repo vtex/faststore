@@ -4,9 +4,7 @@ import { useMemo } from 'react'
 import type { GatsbySeo } from 'gatsby-plugin-next-seo'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { scaleImage } from '../../../sdk/img/arquivos/scale'
 import { useLocale } from '../../../sdk/localization/useLocale'
-import { IMAGE_DEFAULT } from '../../../sdk/product/constants'
 import type { ProductPageSeoQueryQuery } from './__generated__/ProductPageSEOQuery.graphql'
 import type { ProductViewProps } from '../index'
 
@@ -16,8 +14,6 @@ import type { ProductViewProps } from '../index'
 * This deduplicates pages so our pages rank higher in Google
 */
 type Options = ProductViewProps
-
-const IMAGE_SIZE = 720
 
 export const useMetadata = (
   options: Options
@@ -54,13 +50,7 @@ export const useMetadata = (
   const images = useMemo(
     () =>
       product?.items?.[0]?.images?.map((image) => ({
-        url: scaleImage(
-          image?.imageUrl ?? IMAGE_DEFAULT,
-          IMAGE_SIZE,
-          IMAGE_SIZE
-        ),
-        width: IMAGE_SIZE,
-        height: IMAGE_SIZE,
+        url: image?.imageUrl,
         alt: image?.imageText,
       })),
     [product]
