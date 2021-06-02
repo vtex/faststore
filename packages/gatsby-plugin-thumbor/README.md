@@ -95,6 +95,29 @@ Now, instead of creating urls like `https://mythumborserver.com/unsafe/1080x1080
 
 Behind the scenes, what this plugin is doing is calling a `createRedirect` function between `/{basePath}/{size} => https://mythumborserver.com/unsafe/{size}` 
 
-## How to contribute
+## Extra APIs
+Aside from `useThumborImageData`, this plugin exports `useUrlBuilder`, `useGetThumborImageData`, `getThumborImageData` and `urlBuilder`. These functions are thin wrappers to their counterparts on `gatsby-plugin-image` only adding the plugin's options, like the thumbor server url. You can use them normally in your react code. For instance, if you need the `getImageData` function you can:
+```tsx
+// In your React component
+import React, { FC } from 'react'
+import { useGetThumborImageData } from '@vtex/gatsby-plugin-thumbor'
+import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image'
 
+const MyComponent: FC = () => {
+  // gatsby-plugin-image's getImageData function
+  const getImageData = useGetThumborImageData()
+  const img1 = getImageData({baseUrl: 'http://example.org/img1.jpg'})
+  const img2 = getImageData({baseUrl: 'http://example.org/img2.jpg'})
+
+  // The images are totally compatible with gatsby-plugin-image
+  const image = withArtDirection(img1, {
+    media: '(max-width: 40em)',
+    image: img2
+  })
+
+  return <GatsbyImage alt="example image" image={image} />
+}
+```
+
+## How to contribute
 Feel free to open issues in our repo. Also, there is a general contributing guidelines in there
