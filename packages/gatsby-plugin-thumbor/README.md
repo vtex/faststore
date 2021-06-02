@@ -49,24 +49,24 @@ const MyComponent: FC = () => {
 ```
 
 ## How it works
-Thumbor is an image processing service that enable you to process any image on the web. According to `gatsby-plugin-image` documentation, thumbor is a url-based image optimization service. This means that, for processing an image, we only need to generate an url with the right parameters and thumbor will do the heavy lifting for us.
+Thumbor is an image processing service that enables you to process any image on the web. According to `gatsby-plugin-image` documentation, thumbor is a URL-based image optimization service. This means that, for processing an image, we only need to generate an URL with the right parameters, and thumbor will do the heavy lifting for us.
 
-A thumbor compatible url can be splitted in two sections. The first one is a thumbor specific url with parameters for image resizing, postprocessing etc, and a second section containing a data source where thumbor must fetch the original image from. To illustrate. Let's supose your thumbor service is located at `mythumborserver.com` domain and that you need to resize to 250px/250px an image located at `example.com/image.png`. To resize `image.png` you can do the following request:
+A thumbor compatible URL can be split into two sections. The first one is a thumbor specific URL with parameters for image resizing, postprocessing, etc, and a second section containing a data source where thumbor must fetch the original image from. To illustrate. Let's suppose your thumbor service is located at `mythumborserver.com` domain and that you need to resize to 250px/250px an image located at `example.com/image.png`. To resize `image.png` you can do the following request:
 ```
 GET https://mythumborserver.com/unsafe/250x250/http://example.com/image.png
 ```
-The aforementioned request returns the processed image. `gatsby-plugin-image` uses this url in html's `img` tag elements to add images to the final html.
+The aforementioned request returns the processed image. `gatsby-plugin-image` uses this URL in HTML's `img` tag elements to add images to the final HTML.
 
-As mentioned before, Thumbor has lots of different parameters that tell it how to process and convert images. `gatsby-plugin-thumbor` tightly integrates with `gatsby-plugin-image` to give you control over these parameters in a simple interface, while generating a thumbor compatible urls. The interface chosen is the extra `options` parameters in `gatsby-plugin-image` functions.
+As mentioned before, Thumbor has lots of different parameters that tell it how to process and convert images. `gatsby-plugin-thumbor` tightly integrates with `gatsby-plugin-image` to give you control over these parameters in a simple interface, while generating a thumbor compatible URLs. The interface chosen is the extra `options` parameters in `gatsby-plugin-image` functions.
 
 ## Securing your thumbor service
-You may now be wondering why there is an `/unsafe` segment in thumbor's generated url. This is because, thumbor accepts requests from anyone on the internet to process and resize images. This makes the thumbor service prone to DDoS attacks.
+You may now be wondering why there is an `/unsafe` segment in thumbor's generated URL. This is because thumbor accepts requests from anyone on the internet to process and resize images. This makes the thumbor service prone to DDoS attacks.
  
-Thumbor has a solution for this on their docs. They say you should sign the urls so the thumbor service know when an image is from a reliable source or if it's someone messing with your server. This is the best way for protecting your thumbor server. 
+Thumbor has a solution for this on their docs. They say you should sign the URLs so the thumbor service knows when an image is from a reliable source or if it's someone messing with your server. This is the best way for protecting your thumbor server. 
 
 However, this plugin offers an alternative to this solution. 
-Usually, when serving gatsby, you are using a CDN (`gatsby-plugin-netlify`) or nginx (`@vtex/gatsby-plugin-nginx`). These services can be used as a reverse proxy server. Adding a reverse proxy to your thumbor service may protect it from malicous users because then we can only allow a small subset of all possible transformations to your images, decreasing the attack space on your thumbor service. 
-This protection is achieved with two parameters accepted by the plugin, `sizes` and `basePath`. A config using these parameters look like this:
+Usually, when serving gatsby, you are using a CDN (`gatsby-plugin-netlify`) or Nginx (`@vtex/gatsby-plugin-nginx`). These services can be used as a reverse proxy server. Adding a reverse proxy to your thumbor service may protect it from malicious users because then we can only allow a small subset of all possible transformations to your images, decreasing the attack space on your thumbor service. 
+This protection is achieved with two parameters accepted by the plugin, `sizes` and `basePath`. A config using these parameters looks like this:
 ```js
 // In your gatsby-config.js
 module.exports = {
@@ -91,12 +91,12 @@ module.exports = {
 }
 ```
 
-Now, instead of creating urls like `https://mythumborserver.com/unsafe/1080x1080/http://example.com/image.png`, the plugin will create urls for `{basePath}/1080x1080/http://example.com/image.png`, serve thumbor images on the same domain as your site and will only allow resizing to 1080x1080 and 720x720 images.
+Now, instead of creating URLs like `https://mythumborserver.com/unsafe/1080x1080/http://example.com/image.png`, the plugin will create URLs for `{basePath}/1080x1080/http://example.com/image.png`, serve thumbor images on the same domain as your site, and will only allow resizing to 1080x1080 and 720x720 images.
 
 Behind the scenes, what this plugin is doing is calling a `createRedirect` function between `/{basePath}/{size} => https://mythumborserver.com/unsafe/{size}` 
 
 ## Examples
-Aside from `useThumborImageData`, this plugin exports `useUrlBuilder`, `useGetThumborImageData`, `getThumborImageData` and `urlBuilder`. These functions are thin wrappers to their counterparts on `gatsby-plugin-image` only adding the plugin's options, like the thumbor server url. You can use them normally in your react code. For instance, if you need the `getImageData` function you can:
+Aside from `useThumborImageData`, this plugin exports `useUrlBuilder`, `useGetThumborImageData`, `getThumborImageData` and `urlBuilder`. These functions are thin wrappers to their counterparts on `gatsby-plugin-image` only adding the plugin's options, like the thumbor server URL. You can use them normally in your react code. For instance, if you need the `getImageData` function you can:
 ```tsx
 // In your React component
 import React, { FC } from 'react'
@@ -120,4 +120,4 @@ const MyComponent: FC = () => {
 ```
 
 ## How to contribute
-Feel free to open issues in our repo. Also, there is a general contributing guidelines in there
+Feel free to open issues in our repo. Also, there is a general contributing guideline in there
