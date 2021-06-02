@@ -95,7 +95,7 @@ Now, instead of creating urls like `https://mythumborserver.com/unsafe/1080x1080
 
 Behind the scenes, what this plugin is doing is calling a `createRedirect` function between `/{basePath}/{size} => https://mythumborserver.com/unsafe/{size}` 
 
-## Extra APIs
+## Examples
 Aside from `useThumborImageData`, this plugin exports `useUrlBuilder`, `useGetThumborImageData`, `getThumborImageData` and `urlBuilder`. These functions are thin wrappers to their counterparts on `gatsby-plugin-image` only adding the plugin's options, like the thumbor server url. You can use them normally in your react code. For instance, if you need the `getImageData` function you can:
 ```tsx
 // In your React component
