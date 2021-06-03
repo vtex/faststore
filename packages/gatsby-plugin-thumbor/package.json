@@ -25,6 +25,13 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "vtex",
+    "thumbor",
+    "gatsby-plugin-thumbor"
+  ],
   "size-limit": [
     {
       "path": "dist/gatsby-plugin-thumbor.cjs.production.min.js",
