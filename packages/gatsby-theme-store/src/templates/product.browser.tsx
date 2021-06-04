@@ -1,9 +1,10 @@
-import { gql } from '@vtex/gatsby-plugin-graphql'
 import { useMatch } from '@reach/router'
-import React, { Suspense } from 'react'
+import { gql } from '@vtex/gatsby-plugin-graphql'
+import React from 'react'
 import type { PageProps } from 'gatsby'
 import type { FC } from 'react'
 
+import HybridWrapper from '../components/HybridWrapper'
 import Layout from '../components/Layout'
 import { useQuery } from '../sdk/graphql/useQuery'
 import ProductView from '../views/product'
@@ -13,8 +14,6 @@ import type {
   BrowserProductPageQueryQuery,
   BrowserProductPageQueryQueryVariables,
 } from './__generated__/BrowserProductPageQuery.graphql'
-import { isServer } from '../utils/env'
-import HybridWrapper from '../components/HybridWrapper'
 
 export type BrowserProductPageProps = PageProps
 

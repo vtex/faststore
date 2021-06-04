@@ -3,7 +3,6 @@ import { SuspenseViewport } from '@vtex/store-ui'
 import React, { lazy } from 'react'
 import type { FC } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
-import type { PageProps } from 'gatsby'
 
 import { usePixelSendEvent } from '../../sdk/pixel/usePixelSendEvent'
 import { SearchProvider } from '../../sdk/search/Provider'
