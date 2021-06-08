@@ -25,7 +25,12 @@ const SearchBarInput: FC<Props> = ({
   const { syncTerm, setTerm, onSearch } = useSearchBarContext()
   const ref = useRef<HTMLInputElement>(null) // reference input
   const referenceRef = useRef<HTMLDivElement>(null) // reference container
-  const { toggle: t, ...popover } = usePopoverState(popoverState)
+  const {
+    toggle: t, // Removes toggle because we add a custom behavior with toggle callback below
+    baseId, // Removes baseId because we have a hydration mismatch otherwise
+    ...popover
+  } = usePopoverState(popoverState)
+
   const { show, visible, hide } = popover
 
   // Close it whenever the page changes
@@ -74,7 +79,7 @@ const SearchBarInput: FC<Props> = ({
             onSearch(syncTerm)
           }
         }}
-        aria-expanded={null}
+        aria-controls={null}
       />
       <Popover
         tabIndex={0}

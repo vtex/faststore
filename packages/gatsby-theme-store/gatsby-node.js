@@ -1,27 +1,10 @@
-import { resolve, relative } from 'path'
+const { resolve, relative } = require('path')
 
-import type {
-  CreatePagesArgs,
-  CreateWebpackConfigArgs,
-  PluginOptionsSchemaArgs,
-  ParentSpanPluginArgs,
-} from 'gatsby'
-
-export const onPostBootstrap = (
-  _: ParentSpanPluginArgs,
-  { storeId }: Options
-) => {
+exports.onPostBootstrap = (_, { storeId }) => {
   process.env.GATSBY_STORE_ID = storeId
 }
 
-export interface Options {
-  storeId: string
-  locales: string[]
-  defaultLocale: string
-  profiling?: boolean
-}
-
-export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
+exports.pluginOptionsSchema = ({ Joi }) =>
   Joi.object({
     storeId: Joi.string().required(),
     locales: Joi.array().items(Joi.string()).required(),
@@ -29,31 +12,16 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     profiling: Joi.boolean(),
   })
 
-interface StaticPath {
-  id: string
-  path: string
-  pageType:
-    | 'Product'
-    | 'Department'
-    | 'Category'
-    | 'Brand'
-    | 'FullText'
-    | 'NotFound'
-}
-
-export const createPages = async ({
-  actions: { createPage, createRedirect },
+exports.createPages = async ({
+  actions: { createPage },
   graphql,
   reporter,
-}: CreatePagesArgs) => {
+}) => {
   /**
    * STATIC PATHS
    */
 
-  const { data: staticPaths, errors } = await graphql<{
-    searches: { nodes: StaticPath[] }
-    products: { nodes: StaticPath[] }
-  }>(`
+  const { data: staticPaths, errors } = await graphql(`
     query GetAllStaticPaths {
       searches: allStaticPath(
         filter: {
@@ -89,7 +57,7 @@ export const createPages = async ({
   const {
     searches: { nodes: searches = [] },
     products: { nodes: products = [] },
-  } = staticPaths!
+  } = staticPaths
 
   /**
    * Create search static paths
@@ -109,7 +77,7 @@ export const createPages = async ({
 
     createPage({
       path,
-      component: resolve(__dirname, './src/templates/search.server.tsx'),
+      component: resolve(__dirname, 'src/templates/search.server.tsx'),
       context: {
         ...searchParams,
         id,
@@ -117,18 +85,10 @@ export const createPages = async ({
       },
     })
 
-    createRedirect({
-      fromPath: `${path}/`,
-      toPath: path,
-      isPermanent: true,
-      statusCode: 301,
-      redirectInBrowser: false,
-    })
-
     createPage({
       path: `${path}/__client_side_search__`,
       matchPath: `${path}/*`,
-      component: resolve(__dirname, './src/templates/search.browser.tsx'),
+      component: resolve(__dirname, 'src/templates/search.browser.tsx'),
       context: {
         id,
         canonicalPath: path,
@@ -145,7 +105,7 @@ export const createPages = async ({
 
     createPage({
       path,
-      component: resolve(__dirname, './src/templates/product.server.tsx'),
+      component: resolve(__dirname, 'src/templates/product.server.tsx'),
       context: { slug },
     })
   }
@@ -158,7 +118,7 @@ export const createPages = async ({
   createPage({
     path: '/__client_side_product__/p',
     matchPath: '/:slug/p',
-    component: resolve(__dirname, './src/templates/product.browser.tsx'),
+    component: resolve(__dirname, 'src/templates/product.browser.tsx'),
     context: {},
   })
 
@@ -166,15 +126,12 @@ export const createPages = async ({
   createPage({
     path: '/s/__client_side_search__',
     matchPath: '/s/*',
-    component: resolve(__dirname, './src/templates/search.browser.tsx'),
+    component: resolve(__dirname, 'src/templates/search.browser.tsx'),
     context: {},
   })
 }
 
-const resolveToTS = (
-  pkg: string,
-  file: 'gatsby-browser' | 'gatsby-ssr' | 'gatsby-node'
-): Record<string, string> => {
+const resolveToTS = (pkg, file) => {
   const root = `${process.cwd()}/.cache`
 
   let cjs = require.resolve(`${pkg}/${file}.js`, { paths: [process.cwd()] })
@@ -190,9 +147,9 @@ const resolveToTS = (
   }
 }
 
-export const onCreateWebpackConfig = (
-  { actions: { setWebpackConfig }, stage }: CreateWebpackConfigArgs,
-  { profiling = false }: Options
+exports.onCreateWebpackConfig = (
+  { actions: { setWebpackConfig }, stage },
+  { profiling = false }
 ) => {
   const profilingConfig =
     stage === 'build-javascript' && profiling === true
@@ -235,8 +192,6 @@ export const onCreateWebpackConfig = (
         // Resolve to the .ts versions of gatsby-(browser|ssr) so we don't end up by adding the whole lib.
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-browser'),
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-ssr'),
-        ...resolveToTS('@vtex/gatsby-theme-store', 'gatsby-browser'),
-        ...resolveToTS('@vtex/gatsby-theme-store', 'gatsby-ssr'),
         '@vtex/order-manager': require.resolve(
           '@vtex/order-manager/src/index.tsx'
         ),

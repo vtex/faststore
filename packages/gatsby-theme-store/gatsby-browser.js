@@ -6,32 +6,24 @@ import 'requestidlecallback-polyfill'
 import React, { StrictMode } from 'react'
 import { UIProvider } from '@vtex/store-sdk'
 import { createRoot } from 'react-dom'
-import type { WrapRootElementBrowserArgs } from 'gatsby'
-import type { ReactChild } from 'react'
 
-import ErrorBoundary from './components/Error/ErrorBoundary'
-import { Provider as OrderFormProvider } from './sdk/orderForm/LazyProvider'
-import { Provider as VTEXRCProvider } from './sdk/pixel/vtexrc/Provider'
+import ErrorBoundary from './src/components/Error/ErrorBoundary'
+import { Provider as OrderFormProvider } from './src/sdk/orderForm/Provider'
+import { Provider as VTEXRCProvider } from './src/sdk/pixel/vtexrc/Provider'
 import {
   onRouteUpdate as progressOnRouteUpdate,
   Progress,
-} from './sdk/progress'
-import { Provider as RegionProvider } from './sdk/region/Provider'
-import { Provider as ToastProvider } from './sdk/toast/Provider'
+} from './src/sdk/progress'
+import { Provider as RegionProvider } from './src/sdk/region/Provider'
+import { Provider as ToastProvider } from './src/sdk/toast/Provider'
 
-export const replaceHydrateFunction = () => async (
-  element: ReactChild,
-  container: Element,
-  callback: any
-) => {
+export const onClientEntry = async () => {
   if (typeof IntersectionObserver === 'undefined') {
     await import('intersection-observer')
   }
-
-  createRoot(container, { hydrate: true }).render(element, callback)
 }
 
-export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
+export const wrapRootElement = ({ element }) => {
   const root = (
     <ErrorBoundary>
       <VTEXRCProvider>
@@ -46,10 +38,6 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
     </ErrorBoundary>
   )
 
-  if (process.env.NODE_ENV === 'development') {
-    return <StrictMode>{root}</StrictMode>
-  }
-
   return root
 }
 
@@ -57,10 +45,7 @@ export const onInitialClientRender = () => {
   globalThis.__REACT_HYDRATED__ = true
 }
 
-export const wrapPageElement = ({
-  element,
-  props: { location },
-}: WrapRootElementBrowserArgs | any) => (
+export const wrapPageElement = ({ element, props: { location } }) => (
   <Progress location={location}>{element}</Progress>
 )
 

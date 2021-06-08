@@ -1,11 +1,9 @@
-import type { Options } from './gatsby-node'
-
 const root = process.cwd()
 
-module.exports = ({ locales, defaultLocale }: Options) => ({
+module.exports = ({ locales, defaultLocale }) => ({
   plugins: [
     {
-      resolve: require.resolve('gatsby-plugin-bundle-stats'),
+      resolve: 'gatsby-plugin-bundle-stats',
       options: {
         compare: true,
         baseline: true,
@@ -18,7 +16,7 @@ module.exports = ({ locales, defaultLocale }: Options) => ({
       },
     },
     {
-      resolve: require.resolve('@vtex/gatsby-plugin-theme-ui'),
+      resolve: '@vtex/gatsby-plugin-theme-ui',
     },
     {
       // Makes it possible to share graphql queries between

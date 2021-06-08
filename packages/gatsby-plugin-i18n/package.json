@@ -13,11 +13,11 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "gatsby": "^3.6.2",
+    "gatsby": "^3.7.0",
     "typescript": "^4.2.4"
   },
   "peerDependencies": {
-    "gatsby": "^3.6.2",
+    "gatsby": "^3.7.0",
     "react": "*"
   },
   "dependencies": {

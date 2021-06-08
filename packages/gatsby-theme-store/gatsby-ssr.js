@@ -1,12 +1,11 @@
-import { UIProvider } from '@vtex/store-sdk'
 import React from 'react'
-import type { RenderBodyArgs, WrapRootElementNodeArgs } from 'gatsby'
+import { UIProvider } from '@vtex/store-sdk'
 
-import { handleUserBackOnline } from './sdk/offline'
-import { Provider as RegionProvider } from './sdk/region/Provider'
-import { Provider as ToastProvider } from './sdk/toast/Provider'
+import { handleUserBackOnline } from './src/sdk/offline'
+import { Provider as RegionProvider } from './src/sdk/region/Provider'
+import { Provider as ToastProvider } from './src/sdk/toast/Provider'
 
-export const wrapRootElement = ({ element }: WrapRootElementNodeArgs) => (
+export const wrapRootElement = ({ element }) => (
   <UIProvider>
     <RegionProvider>
       <ToastProvider>{element}</ToastProvider>
@@ -14,10 +13,7 @@ export const wrapRootElement = ({ element }: WrapRootElementNodeArgs) => (
   </UIProvider>
 )
 
-export const onRenderBody = ({
-  setPostBodyComponents,
-  pathname,
-}: RenderBodyArgs) => {
+export const onRenderBody = ({ setPostBodyComponents, pathname }) => {
   if (!pathname.startsWith('/offline')) {
     return null
   }

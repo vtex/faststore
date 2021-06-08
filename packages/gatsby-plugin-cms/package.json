@@ -24,7 +24,7 @@
     "@types/fs-extra": "^9.0.4",
     "@types/json-schema": "^7.0.6",
     "cross-env": "^7.0.2",
-    "gatsby": "^3.6.2",
+    "gatsby": "^3.7.0",
     "typescript": "^4.2.4"
   },
   "dependencies": {
