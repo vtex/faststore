@@ -1,12 +1,22 @@
 {
-  "extends": "../../tsconfig.json",
+  // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
+  "include": ["src", "types"],
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "esnext",
+    "declaration": true,
+    "sourceMap": true,
+    "rootDir": "./src",
     "outDir": "./dist",
-    "alwaysStrict": false,
-    "jsx": "react"
-  },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["./node_modules/**/*"]
+    "strict": true,
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    // linter checks for common issues
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true
+  }
 }

@@ -3,19 +3,6 @@ const root = process.cwd()
 module.exports = ({ locales, defaultLocale }) => ({
   plugins: [
     {
-      resolve: 'gatsby-plugin-bundle-stats',
-      options: {
-        compare: true,
-        baseline: true,
-        html: true,
-        json: true,
-        outDir: `.`,
-        stats: {
-          context: `${root}/src`,
-        },
-      },
-    },
-    {
       resolve: '@vtex/gatsby-plugin-theme-ui',
     },
     {

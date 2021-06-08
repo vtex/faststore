@@ -3,9 +3,8 @@
 
 import 'requestidlecallback-polyfill'
 
-import React, { StrictMode } from 'react'
+import React from 'react'
 import { UIProvider } from '@vtex/store-sdk'
-import { createRoot } from 'react-dom'
 
 import ErrorBoundary from './src/components/Error/ErrorBoundary'
 import { Provider as OrderFormProvider } from './src/sdk/orderForm/Provider'

@@ -3,16 +3,16 @@
   "version": "0.368.0",
   "description": "Gatsby theme for building ecommerce websites",
   "main": "index.js",
-  "module": "src/index.ts",
+  "module": "dist/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc build",
     "develop": "tsc --watch",
     "test": "tsdx test"
   },
   "files": [
-    "src/**.tsx",
-    "src/**.ts",
+    "dist",
+    "src",
     "index.js",
     "gatsby-*"
   ],
@@ -55,7 +55,6 @@
     "@vtex/gatsby-plugin-theme-ui": "^0.368.0",
     "@vtex/order-items": "^0.6.1",
     "@vtex/order-manager": "^0.5.2",
-    "gatsby-plugin-bundle-stats": "^2.7.2",
     "html-loader": "^2.1.2",
     "intersection-observer": "^0.11.0",
     "intl-format-cache": "^4.3.0",
