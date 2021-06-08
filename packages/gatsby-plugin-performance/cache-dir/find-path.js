@@ -1,15 +1,19 @@
 // This file is copied from gatsby's cache-dir folder. The only part we change is the code related to path matching with matchPaths variable. We leave all unecessary code commented up to make it easier for future PRs to support newer versions of gatsby
 // import { pick } from "@gatsbyjs/reach-router/lib/utils"
-import stripPrefix from "./strip-prefix"
-import normalizePagePath from "./normalize-page-path"
+import stripPrefix from './strip-prefix'
+import normalizePagePath from './normalize-page-path'
+import { maybeGetBrowserRedirect } from './redirect-utils.js'
 
 const pathCache = new Map()
 // let matchPaths = []
 
-const trimPathname = rawPathname => {
+const trimPathname = (rawPathname) => {
   const pathname = decodeURIComponent(rawPathname)
   // Remove the pathPrefix from the pathname.
-  const trimmedPathname = stripPrefix(pathname, __BASE_PATH__)
+  const trimmedPathname = stripPrefix(
+    pathname,
+    decodeURIComponent(__BASE_PATH__)
+  )
     // Remove any hashfragment
     .split(`#`)[0]
     // Remove search query
@@ -40,7 +44,7 @@ function absolutify(path) {
  *
  * @param {Array<{path: string, matchPath: string}>} value collection of matchPaths
  */
-export const setMatchPaths = value => {
+export const setMatchPaths = (value) => {
   // matchPaths = value
 }
 
@@ -52,7 +56,7 @@ export const setMatchPaths = value => {
  * @param {string} rawPathname A raw pathname
  * @return {string|null}
  */
-export const findMatchPath = rawPathname => {
+export const findMatchPath = (rawPathname) => {
   const trimmedPathname = cleanPath(rawPathname)
 
   // const pickPaths = matchPaths.map(({ path, matchPath }) => {
@@ -68,8 +72,6 @@ export const findMatchPath = rawPathname => {
   //   return normalizePagePath(path.route.originalPath)
   // }
 
-  // return null
-
   return trimmedPathname
 }
 
@@ -82,7 +84,7 @@ export const findMatchPath = rawPathname => {
  * @param {string} rawPathname A raw pathname
  * @return {object}
  */
-export const grabMatchParams = rawPathname => {
+export const grabMatchParams = (rawPathname) => {
   // const trimmedPathname = cleanPath(rawPathname)
 
   // const pickPaths = matchPaths.map(({ path, matchPath }) => {
@@ -109,10 +111,15 @@ export const grabMatchParams = rawPathname => {
 //
 // Or if `match-paths.json` contains `{ "/foo*": "/page1", ...}`, then
 // `/foo?bar=far` => `/page1`
-export const findPath = rawPathname => {
+export const findPath = (rawPathname) => {
   const trimmedPathname = trimPathname(absolutify(rawPathname))
   if (pathCache.has(trimmedPathname)) {
     return pathCache.get(trimmedPathname)
+  }
+
+  const redirect = maybeGetBrowserRedirect(rawPathname)
+  if (redirect) {
+    return findPath(redirect.toPath)
   }
 
   let foundPath = findMatchPath(trimmedPathname)
@@ -133,7 +140,7 @@ export const findPath = rawPathname => {
  * @param {string} rawPathname A raw pathname
  * @return {string}
  */
-export const cleanPath = rawPathname => {
+export const cleanPath = (rawPathname) => {
   const trimmedPathname = trimPathname(absolutify(rawPathname))
 
   let foundPath = trimmedPathname

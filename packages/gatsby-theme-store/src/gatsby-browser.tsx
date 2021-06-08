@@ -3,9 +3,9 @@
 
 import 'requestidlecallback-polyfill'
 
-import { UIProvider } from '@vtex/store-sdk'
 import React, { StrictMode } from 'react'
-import { unstable_createRoot as createRoot } from 'react-dom'
+import { UIProvider } from '@vtex/store-sdk'
+import { createRoot } from 'react-dom'
 import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ReactChild } from 'react'
 
@@ -28,15 +28,7 @@ export const replaceHydrateFunction = () => async (
     await import('intersection-observer')
   }
 
-  const development = (process.env.GATSBY_BUILD_STAGE as any).includes(
-    'develop'
-  )
-
-  const root = createRoot(container, {
-    hydrate: !development,
-  })
-
-  root.render(element, callback)
+  createRoot(container, { hydrate: true }).render(element, callback)
 }
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
