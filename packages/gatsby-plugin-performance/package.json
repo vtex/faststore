@@ -1,7 +1,7 @@
 {
   "name": "@vtex/gatsby-plugin-performance",
   "author": "Tiago Gimenes",
-  "version": "0.368.0",
+  "version": "0.368.1",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/gatsby-plugin-performance.esm.js",
