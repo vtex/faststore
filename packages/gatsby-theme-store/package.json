@@ -12,6 +12,7 @@
     "test": "tsdx test"
   },
   "files": [
+    "i18n",
     "dist",
     "src",
     "index.js",
