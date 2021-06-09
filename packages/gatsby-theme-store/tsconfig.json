@@ -9,7 +9,7 @@
     "outDir": "./dist",
     "strict": true,
     "moduleResolution": "node",
-    "jsx": "preserve",
+    "jsx": "react",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
