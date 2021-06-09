@@ -17,7 +17,7 @@
       "labels": [
         "renovate",
         "automerge",
-        "VTEX"
+        "faststore"
       ],
       "schedule": [
         "after 9am and before 6pm every weekday"
@@ -43,7 +43,7 @@
             "digest",
             "pin"
           ],
-          "groupName": "VTEX Dependencies",
+          "groupName": "Faststore Dependencies",
           "major": {
             "automerge": false
           },
