@@ -1,0 +1,26 @@
+{
+  "extends": ["config:base", ":timezone(America/Sao_Paulo)"],
+  "labels": ["renovate", "automerge", "VTEX"],
+  "schedule": ["after 9am and before 6pm every weekday"],
+  "reviewers": ["vtex:faststore", "vtex:store-framework"],
+  "pin": {
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "excludePackagePatterns": ["*"],
+      "matchPackagePatterns": ["^@vtex/"],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pin"],
+      "groupName": "VTEX Dependencies",
+      "major": {
+        "automerge": false
+      },
+      "minor": {
+        "automerge": true
+      },
+      "patch": {
+        "automerge": true
+      }
+    }
+  ]
+}
