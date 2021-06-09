@@ -2,11 +2,12 @@
   "name": "@vtex/gatsby-theme-store",
   "version": "0.368.0",
   "description": "Gatsby theme for building ecommerce websites",
-  "main": "index.js",
-  "module": "dist/index.js",
+  "main": "dist/index.ts",
+  "module": "src/index.ts",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "build": "tsc build",
+    "build": "tsc",
     "develop": "tsc --watch",
     "test": "tsdx test"
   },

@@ -30,15 +30,12 @@
     "lint": "tsdx lint"
   },
   "peerDependencies": {
-    "gatsby": "3.6.2"
+    "gatsby": "3.7.0"
   },
   "devDependencies": {
-    "gatsby": "3.6.2",
+    "gatsby": "3.7.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
-  },
-  "dependencies": {
-    "gatsby": "^3.7.0"
   }
 }
