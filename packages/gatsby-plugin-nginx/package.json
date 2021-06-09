@@ -41,7 +41,7 @@
     }
   ],
   "peerDependencies": {
-    "gatsby": "^3.6.2"
+    "gatsby": "^3.7.0"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
