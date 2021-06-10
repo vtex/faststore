@@ -44,7 +44,7 @@ The priorities are all about the stores' user experience and retailer satisfacti
 
 1. Performance - Great score on Lighthouse and Core Web Vitals
 2. Stability - E2E tests are complete and make sure the critical paths are covered
-3. SEO - Stores should pass on all aspects of Google search console, like complete structured data and web vitals
+3. SEO - Stores should pass on all aspects of the Google search console, like complete structured data and web vitals
 4. Feature completion - Enable you to craft your custom ecommerce experience
 
 ## Basic Architecture
@@ -53,7 +53,7 @@ FastStore core is composed of two main packages:
 1. [`store-ui`](https://storeui.netlify.app/): A performant ecommerce ready component library
 2. `store-sdk`: An SDK for ecommerce to solve your basic ecommerce needs, like cart, pixel management, session etc.
 
-These packages have bidings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc.
+These packages have bindings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc.
 We want to support other frameworks, like Next.JS and Create React App in the future
 
 ## Why Jamstack?
