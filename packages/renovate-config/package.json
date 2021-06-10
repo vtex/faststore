@@ -1,0 +1,60 @@
+{
+  "name": "@vtex/renovate-config",
+  "version": "0.368.2",
+  "description": "A plugin that holds the Renovate preset config for updating VTEX dependencies in our stores",
+  "author": "VTEX",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vtex/faststore.git"
+  },
+  "renovate-config": {
+    "default": {
+      "extends": [
+        "config:base",
+        ":timezone(America/Sao_Paulo)"
+      ],
+      "labels": [
+        "renovate",
+        "automerge",
+        "faststore"
+      ],
+      "schedule": [
+        "after 9am and before 6pm every weekday"
+      ],
+      "reviewers": [
+        "vtex:faststore",
+        "vtex:store-framework"
+      ],
+      "pin": {
+        "automerge": true
+      },
+      "packageRules": [
+        {
+          "excludePackagePatterns": [
+            "*"
+          ],
+          "matchPackagePatterns": [
+            "^@vtex/"
+          ],
+          "matchUpdateTypes": [
+            "minor",
+            "patch",
+            "digest",
+            "pin"
+          ],
+          "groupName": "Faststore Dependencies",
+          "major": {
+            "automerge": false
+          },
+          "minor": {
+            "automerge": true
+          },
+          "patch": {
+            "automerge": true
+          }
+        }
+      ]
+    }
+  }
+}
