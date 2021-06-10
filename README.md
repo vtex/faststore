@@ -55,7 +55,7 @@ FastStore core is composed of two main packages:
 2. `store-sdk`: An SDK for ecommerce to solve your basic ecommerce needs, like cart, pixel management, session etc.
 
 These packages have bindings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc.
-We also want to support other React frameworks in the future, such as Next.JS, or even React applications bootstrapped using Create React App"
+We also want to support other React frameworks in the future, such as Next.JS, or even React applications bootstrapped using Create React App
 
 ## Why Jamstack?
 
