@@ -27,7 +27,7 @@ FastStore is an open ecommerce framework built using modern technologies that ai
 - Jamstack based (deploy with Netlify, Vercel and any other JAMStack platform)
 - Marketplace ready with support to millions of skus
 - Intelligence via Google Analytics and GTM
-- Evergreen stores with our no-fork based approach
+- Evergreen stores with auto updates
 
 ## Why building FastStore?
 
@@ -44,14 +44,12 @@ The priorities are all about the stores' user experience and retailer satisfacti
 
 1. Performance - Great score on Lighthouse and Core Web Vitals
 2. Stability - E2E tests are complete and make sure the critical paths are covered
-3. No fork - Features should be delivered by dependencies and not by a store fork
+3. SEO - Stores should pass on all aspects of Google search console, like complete structured data and web vitals
 4. Feature completion - Enable you to craft your custom ecommerce experience
 
-## Why Jamstack and Gatsby?
+## Why Jamstack?
 
 Jamstack focuses on performance and stability, which is part of our core philosophy.
-
-Gatsby has a philosophy where customization can shadow the default theme implementation. This means we are able to deliver new performance improvements and bug fixes only by upgrading a dependency in your project. Also, Gatsby is very aligned with our performance concerns by implementing the PRPL architecture.
 
 ## Continuous Performance and Stability
 
