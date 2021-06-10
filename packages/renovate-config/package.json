@@ -22,10 +22,7 @@
       "schedule": [
         "after 9am and before 6pm every weekday"
       ],
-      "reviewers": [
-        "vtex:faststore",
-        "vtex:store-framework"
-      ],
+      "reviewers": ["team:store-framework"],
       "pin": {
         "automerge": true
       },
