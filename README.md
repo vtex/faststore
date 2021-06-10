@@ -7,6 +7,7 @@
   - [An open ecommerce framework](#an-open-ecommerce-framework)
   - [Why building FastStore?](#why-building-faststore)
   - [Project Philosophy](#project-philosophy)
+  - [Basic Architecture](#basic-architecture)
   - [Why Jamstack?](#why-jamstack)
   - [Continuous Performance and Stability](#continuous-performance-and-stability)
   - [Docs](#docs)
