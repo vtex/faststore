@@ -47,7 +47,6 @@ const SearchFilterAccordion: FC<Props> = ({
 
   return (
     <BaseAccordion
-      data-testid="accordion"
       variant={variant}
       mode="multiOpen"
       renderIcon={renderIcon ?? defaultRenderIcon}
