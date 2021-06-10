@@ -7,7 +7,7 @@
   - [An open ecommerce framework](#an-open-ecommerce-framework)
   - [Why building FastStore?](#why-building-faststore)
   - [Project Philosophy](#project-philosophy)
-  - [Why Jamstack and Gatsby?](#why-jamstack-and-gatsby)
+  - [Why Jamstack?](#why-jamstack-and-gatsby)
   - [Continuous Performance and Stability](#continuous-performance-and-stability)
   - [Docs](#docs)
   - [Contributing](#contributing)
@@ -53,7 +53,8 @@ FastStore core is composed of two main packages:
 1. [`store-ui`](https://storeui.netlify.app/): A performant ecommerce ready component library
 2. `store-sdk`: An sdk for ecommerce to solve your basic ecommerce needs, like cart, pixel managment, session etc.
 
-These packages have bidings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc
+These packages have bidings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc.
+We want to support other frameworks, like Next.JS and Create React App in the future
 
 ## Why Jamstack?
 
@@ -109,8 +110,9 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 | @vtex/gatsby-plugin-theme-ui | Allows style theming on the Store                                                   | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui) |
 | @vtex/gatsby-source-vtex     | Fetchs and exports ecommerce information from VTEX APIs                             |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex)     |
 | @vtex/gatsby-theme-store     | Creates the base infrastructure for the Store site                                  |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store)     |
+| @vtex/gatsby-plugin-thumbor  | Integrates thumbor service with gatsby-plugin-image                                  |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-thumbor.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-thumbor)     |
 | @vtex/lighthouse-config      | Exports a Lighthouse CI configuration to allow automatic tests on each Pull Request |      [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)      |
-| @vtex/store-ui               | Exports basic Store components                                                      |               [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-ui.svg)](https://badge.fury.io/js/%40vtex%2Fstore-ui)               |
+| @vtex/store-ui               | Exports basic Store components. Checkout our [storybook](https://storeui.netlify.app/)                                                      |               [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-ui.svg)](https://badge.fury.io/js/%40vtex%2Fstore-ui)               |
 | @vtex/store-sdk               | Exports basic logic hooks for creating your custom ecommerce                      |               [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-sdk.svg)](https://badge.fury.io/js/%40vtex%2Fstore-sdk)               |
 
 
