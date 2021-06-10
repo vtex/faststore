@@ -7,7 +7,7 @@
   - [An open ecommerce framework](#an-open-ecommerce-framework)
   - [Why building FastStore?](#why-building-faststore)
   - [Project Philosophy](#project-philosophy)
-  - [Why Jamstack?](#why-jamstack-and-gatsby)
+  - [Why Jamstack?](#why-jamstack)
   - [Continuous Performance and Stability](#continuous-performance-and-stability)
   - [Docs](#docs)
   - [Contributing](#contributing)
@@ -27,7 +27,7 @@ FastStore is an open ecommerce framework built using modern technologies that ai
 - Jamstack based (deploy with Netlify, Vercel and any other JAMStack platform)
 - Marketplace ready with support to millions of skus
 - Intelligence via Google Analytics and GTM
-- Evergreen stores with auto updates
+- Evergreen stores
 
 ## Why building FastStore?
 
@@ -54,7 +54,7 @@ FastStore core is composed of two main packages:
 2. `store-sdk`: An SDK for ecommerce to solve your basic ecommerce needs, like cart, pixel management, session etc.
 
 These packages have bindings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc.
-We want to support other frameworks, like Next.JS and Create React App in the future
+We also want to support other React frameworks in the future, such as Next.JS, or even React applications bootstrapped using Create React App"
 
 ## Why Jamstack?
 
