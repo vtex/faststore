@@ -51,7 +51,7 @@ The priorities are all about the stores' user experience and retailer satisfacti
 
 FastStore core is composed of two main packages:
 1. [`store-ui`](https://storeui.netlify.app/): A performant ecommerce ready component library
-2. `store-sdk`: An sdk for ecommerce to solve your basic ecommerce needs, like cart, pixel managment, session etc.
+2. `store-sdk`: An SDK for ecommerce to solve your basic ecommerce needs, like cart, pixel management, session etc.
 
 These packages have bidings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc.
 We want to support other frameworks, like Next.JS and Create React App in the future
