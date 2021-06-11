@@ -34,9 +34,7 @@ export const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
     const formattedPrice = formatter(value, variant)
 
     const props = {
-      // If it's false, we want to set it as undefined
-      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-      [`data-store-price-${variant}`]: Boolean(variant) || undefined,
+      [`data-store-price-${variant}`]: true,
       ...rawProps,
     }
 
