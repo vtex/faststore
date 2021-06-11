@@ -9,7 +9,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Set the HTML element tag of this component.
    */
-  as: ElementType
+  as?: ElementType
   /**
    * ID to find this component in Cypress tests.
    */
