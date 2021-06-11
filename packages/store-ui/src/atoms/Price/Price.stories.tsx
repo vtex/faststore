@@ -52,28 +52,24 @@ const PriceTemplate: Story<PriceProps> = (args) => <Root {...args} />
 export const Default = PriceTemplate.bind({})
 
 Default.args = {
-  children: 'Price',
   value: 2.32,
 }
 
 export const IntlFormatted = PriceTemplate.bind({})
 
 IntlFormatted.args = {
-  children: 'Price',
   value: 62.5,
   formatter: intlFormatter,
 }
 
 export const IntlFormattedToParts = PriceTemplate.bind({})
 IntlFormattedToParts.args = {
-  children: 'Price',
   value: 32.5,
   formatter: intlPartsFormatter,
 }
 
 export const Listing = PriceTemplate.bind({})
 Listing.args = {
-  children: 'Price',
   value: 3.45,
   formatter: intlFormatter,
   listing: true,
@@ -81,7 +77,6 @@ Listing.args = {
 
 export const Custom = PriceTemplate.bind({})
 Custom.args = {
-  children: 'Price',
   value: 3.75,
   formatter: customFormatter,
 }
