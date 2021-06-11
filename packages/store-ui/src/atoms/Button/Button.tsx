@@ -2,8 +2,17 @@ import type { ButtonHTMLAttributes, ElementType } from 'react'
 import React, { forwardRef } from 'react'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * Specifies the URL of the page this button click goes to.
+   */
   href?: string
-  as?: ElementType
+  /**
+   * Set the HTML element tag of this component.
+   */
+  as: ElementType
+  /**
+   * ID to find this component in Cypress tests.
+   */
   testId?: string
 }
 
