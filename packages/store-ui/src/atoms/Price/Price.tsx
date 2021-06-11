@@ -1,7 +1,14 @@
 import type { HTMLAttributes, ElementType, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-export type PriceFormatter = (price: number, listing: boolean) => ReactNode
+export type PriceFormatter = (price: number, variant: PriceVariant) => ReactNode
+
+export type PriceVariant =
+  | 'default'
+  | 'listing'
+  | 'spot'
+  | 'savings'
+  | 'installment'
 
 export interface PriceProps
   extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
@@ -9,7 +16,7 @@ export interface PriceProps
   testId?: string
   value: number
   formatter?: PriceFormatter
-  listing?: boolean
+  variant?: PriceVariant
 }
 
 export const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
@@ -19,17 +26,17 @@ export const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
       testId = 'store-price',
       value,
       formatter = (price) => price,
-      listing,
+      variant = 'default',
       ...rawProps
     },
     ref
   ) {
-    const formattedPrice = formatter(value, Boolean(listing))
+    const formattedPrice = formatter(value, variant)
 
     const props = {
       // If it's false, we want to set it as undefined
       // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-      'data-listing': listing || undefined,
+      [`data-store-price-${variant}`]: Boolean(variant) || undefined,
       ...rawProps,
     }
 

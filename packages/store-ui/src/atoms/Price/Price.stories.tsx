@@ -1,39 +1,43 @@
 import type { Meta, Story } from '@storybook/react'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import type { PriceProps } from './Price'
 import Root from './Price'
 
-function intlFormatter(price: number) {
-  const formattedPrice = new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(price)
+function useIntlFormatter(price: number) {
+  return useMemo(() => {
+    const formattedPrice = new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'EUR',
+    }).format(price)
 
-  return formattedPrice
+    return formattedPrice
+  }, [price])
 }
 
-function intlPartsFormatter(price: number) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  })
-    .formatToParts(price)
-    .map((part) => {
-      const props = {
-        [`data-store-price-${part.type}`]: true,
-      } as Record<string, unknown>
-
-      if (part.type === 'integer') {
-        props.style = { fontWeight: 700 }
-      }
-
-      return (
-        <span key={part.type} {...props}>
-          {part.value}
-        </span>
-      )
+function useIntlPartsFormatter(price: number) {
+  return useMemo(() => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
     })
+      .formatToParts(price)
+      .map((part) => {
+        const props = {
+          [`data-store-price-${part.type}`]: true,
+        } as Record<string, unknown>
+
+        if (part.type === 'integer') {
+          props.style = { fontWeight: 700 }
+        }
+
+        return (
+          <span key={part.type} {...props}>
+            {part.value}
+          </span>
+        )
+      })
+  }, [price])
 }
 
 function customFormatter(price: number) {
@@ -59,20 +63,27 @@ export const IntlFormatted = PriceTemplate.bind({})
 
 IntlFormatted.args = {
   value: 62.5,
-  formatter: intlFormatter,
+  formatter: useIntlFormatter,
 }
 
 export const IntlFormattedToParts = PriceTemplate.bind({})
 IntlFormattedToParts.args = {
   value: 32.5,
-  formatter: intlPartsFormatter,
+  formatter: useIntlPartsFormatter,
 }
 
-export const Listing = PriceTemplate.bind({})
-Listing.args = {
+export const Variant = PriceTemplate.bind({})
+Variant.args = {
   value: 3.45,
-  formatter: intlFormatter,
-  listing: true,
+  formatter: useIntlFormatter,
+  variant: 'listing',
+}
+
+Variant.argTypes = {
+  variant: {
+    options: ['default', 'listing', 'spot', 'savings', 'installment'],
+    control: { type: 'select' },
+  },
 }
 
 export const Custom = PriceTemplate.bind({})
