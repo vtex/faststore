@@ -48,8 +48,8 @@ export const replaceHydrateFunction = () => (
   createRoot(container, { hydrate }).render(element)
 }
 
-export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => (
-  <StrictMode>
+export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
+  const root = (
     <ErrorBoundary>
       <VTEXRCProvider>
         <ToastProvider>
@@ -61,8 +61,14 @@ export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => (
         </ToastProvider>
       </VTEXRCProvider>
     </ErrorBoundary>
-  </StrictMode>
-)
+  )
+
+  if (process.env.NODE_ENV === 'development') {
+    return <StrictMode>{root}</StrictMode>
+  }
+
+  return root
+}
 
 export const onInitialClientRender = () => {
   globalThis.__REACT_HYDRATED__ = true
