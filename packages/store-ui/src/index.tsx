@@ -91,7 +91,7 @@ export {
 // The default Spinner from theme-ui, at the time of writing,
 // is under-performant in terms of CPU usage
 // https://github.com/vtex/faststore/pull/558
-export { default as Spinner } from './Spinner'
+export { default as Spinner } from './deprecated/Spinner'
 
 // Base components from @vtex-components
 // Drawer
@@ -104,131 +104,131 @@ export { createTheme } from './createTheme'
 export { baseTheme } from './theme'
 
 // throttle and debounce
-export { default as throttle } from './utils/throttle'
-export { default as debounce } from './utils/debounce'
+export { default as throttle } from './deprecated/utils/throttle'
+export { default as debounce } from './deprecated/utils/debounce'
 
 // Local Components
 // Header
-export * from './Header'
-export * from './Header/theme'
+export * from './deprecated/Header'
+export * from './deprecated/Header/theme'
 // Logo
-export * from './Logo'
+export * from './deprecated/Logo'
 // ProgressiveLoader
-export { default as ProgressiveImage } from './ProgressiveImage'
+export { default as ProgressiveImage } from './deprecated/ProgressiveImage'
 // ResponsivePicture
-export { default as ResponsivePicture } from './ResponsivePicture'
-export { default as responsivePictureTheme } from './ResponsivePicture/theme'
+export { default as ResponsivePicture } from './deprecated/ResponsivePicture'
+export { default as responsivePictureTheme } from './deprecated/ResponsivePicture/theme'
 // InfoCard
-export { default as InfoCard } from './InfoCard'
-export { default as InfoCardImage } from './InfoCard/Image'
-export { default as InfoCardInfo } from './InfoCard/Info'
-export { default as InfoCardInfoAction } from './InfoCard/InfoAction'
-export { default as infoCardTheme } from './InfoCard/theme'
+export { default as InfoCard } from './deprecated/InfoCard'
+export { default as InfoCardImage } from './deprecated/InfoCard/Image'
+export { default as InfoCardInfo } from './deprecated/InfoCard/Info'
+export { default as InfoCardInfoAction } from './deprecated/InfoCard/InfoAction'
+export { default as infoCardTheme } from './deprecated/InfoCard/theme'
 // LocalizedLink
-export { default as LocalizedLink } from './LocalizedLink'
+export { default as LocalizedLink } from './deprecated/LocalizedLink'
 // Banner
-export { default as Banner } from './Banner'
+export { default as Banner } from './deprecated/Banner'
 // RichMarkdown
-export { default as RichMarkdown } from './RichMarkdown'
+export { default as RichMarkdown } from './deprecated/RichMarkdown'
 // RichText
-export { default as RichText } from './RichText'
+export { default as RichText } from './deprecated/RichText'
 // Search Filters
 export {
   default as SearchFilterAccordion,
   SearchFilterItem,
-} from './SearchFilter/Accordion'
-export { default as SearchFilterAccordionItemCheckbox } from './SearchFilter/AccordionItemCheckbox'
-export { default as SearchFilterAccordionItemSlider } from './SearchFilter/AccordionItemSlider'
-export * from './SearchFilter/theme'
+} from './deprecated/SearchFilter/Accordion'
+export { default as SearchFilterAccordionItemCheckbox } from './deprecated/SearchFilter/AccordionItemCheckbox'
+export { default as SearchFilterAccordionItemSlider } from './deprecated/SearchFilter/AccordionItemSlider'
+export * from './deprecated/SearchFilter/theme'
 // Search Controls
-export * from './SearchControls'
-export * from './SearchControls/FiltersButton'
-export * from './SearchControls/totalCount'
-export * from './SearchControls/Select'
-export * from './SearchControls/theme'
+export * from './deprecated/SearchControls'
+export * from './deprecated/SearchControls/FiltersButton'
+export * from './deprecated/SearchControls/totalCount'
+export * from './deprecated/SearchControls/Select'
+export * from './deprecated/SearchControls/theme'
 // Shelf
-export { default as ShelfArrowLeft } from './Shelf/ArrowLeft'
-export { default as ShelfArrowRight } from './Shelf/ArrowRight'
-export { default as ShelfContainer } from './Shelf/Container'
-export { default as ShelfPaginationDots } from './Shelf/PaginationDots'
-export { default as ShelfTitle } from './Shelf/Title'
-export { default as ShelfPage } from './Shelf/Page'
-export { default as Shelf } from './Shelf'
-export { default as shelfTheme } from './Shelf/theme'
+export { default as ShelfArrowLeft } from './deprecated/Shelf/ArrowLeft'
+export { default as ShelfArrowRight } from './deprecated/Shelf/ArrowRight'
+export { default as ShelfContainer } from './deprecated/Shelf/Container'
+export { default as ShelfPaginationDots } from './deprecated/Shelf/PaginationDots'
+export { default as ShelfTitle } from './deprecated/Shelf/Title'
+export { default as ShelfPage } from './deprecated/Shelf/Page'
+export { default as Shelf } from './deprecated/Shelf'
+export { default as shelfTheme } from './deprecated/Shelf/theme'
 // Breadcrumb
-export * from './Breadcrumb'
-export { default as breadcrumbTheme } from './Breadcrumb/theme'
+export * from './deprecated/Breadcrumb'
+export { default as breadcrumbTheme } from './deprecated/Breadcrumb/theme'
 // Slider
-export { default as SliderPaginationDots } from './Slider/PaginationDots'
-export { default as SliderArrowLeft } from './Slider/ArrowLeft'
-export { default as SliderArrowRight } from './Slider/ArrowRight'
-export * from './Slider/hooks/useSlider'
-export * from './Slider/hooks/useResponsiveSlider'
+export { default as SliderPaginationDots } from './deprecated/Slider/PaginationDots'
+export { default as SliderArrowLeft } from './deprecated/Slider/ArrowLeft'
+export { default as SliderArrowRight } from './deprecated/Slider/ArrowRight'
+export * from './deprecated/Slider/hooks/useSlider'
+export * from './deprecated/Slider/hooks/useResponsiveSlider'
 // Centered
-export { default as Center } from './Center'
+export { default as Center } from './deprecated/Center'
 // Product Specification
-export * from './ProductSpecification'
+export * from './deprecated/ProductSpecification'
 // Product Description
-export * from './ProductDescription'
+export * from './deprecated/ProductDescription'
 // Product Quantity
-export * from './ProductQuantity'
+export * from './deprecated/ProductQuantity'
 // Offer
-export { default as OfferPrice } from './Offer/Price'
-export { default as OfferSoldOut } from './Offer/SoldOut'
-export { default as OfferListPrice } from './Offer/ListPrice'
-export { default as OfferContainer } from './Offer/Container'
-export { default as OfferInstallments } from './Offer/Installments'
-export { default as OfferDiscountBadge } from './Offer/DiscountBadge'
+export { default as OfferPrice } from './deprecated/Offer/Price'
+export { default as OfferSoldOut } from './deprecated/Offer/SoldOut'
+export { default as OfferListPrice } from './deprecated/Offer/ListPrice'
+export { default as OfferContainer } from './deprecated/Offer/Container'
+export { default as OfferInstallments } from './deprecated/Offer/Installments'
+export { default as OfferDiscountBadge } from './deprecated/Offer/DiscountBadge'
 // Product Summary
-export { default as ProductSummaryImage } from './ProductSummary/Image'
-export { default as ProductSummaryTitle } from './ProductSummary/Title'
-export { default as ProductSummaryContainer } from './ProductSummary/Container'
+export { default as ProductSummaryImage } from './deprecated/ProductSummary/Image'
+export { default as ProductSummaryTitle } from './deprecated/ProductSummary/Title'
+export { default as ProductSummaryContainer } from './deprecated/ProductSummary/Container'
 // Product Details
-export { default as ProductDetailsTitle } from './ProductDetails/Title'
-export { default as ProductDetailsGallery } from './ProductDetails/Gallery'
-export { default as ProductDetailsReference } from './ProductDetails/Reference'
+export { default as ProductDetailsTitle } from './deprecated/ProductDetails/Title'
+export { default as ProductDetailsGallery } from './deprecated/ProductDetails/Gallery'
+export { default as ProductDetailsReference } from './deprecated/ProductDetails/Reference'
 // Floating Action Button
-export { default as FloatingActionButton } from './FloatingActionButton'
-export { default as floatingActionButtonTheme } from './FloatingActionButton/theme'
+export { default as FloatingActionButton } from './deprecated/FloatingActionButton'
+export { default as floatingActionButtonTheme } from './deprecated/FloatingActionButton/theme'
 // GiftList
-export { default as GiftList } from './GiftList/index'
-export { default as GiftListTitle } from './GiftList/Title'
-export { default as GiftListList } from './GiftList/List'
+export { default as GiftList } from './deprecated/GiftList/index'
+export { default as GiftListTitle } from './deprecated/GiftList/Title'
+export { default as GiftListList } from './deprecated/GiftList/List'
 // Skeleton
-export { default as Skeleton } from './Skeleton'
+export { default as Skeleton } from './deprecated/Skeleton'
 // videoIframe
-export { default as YoutubeIframe } from './Youtube/Iframe'
-export { default as YoutubeThumb } from './Youtube/Thumb'
-export * from './Youtube/hooks'
+export { default as YoutubeIframe } from './deprecated/Youtube/Iframe'
+export { default as YoutubeThumb } from './deprecated/Youtube/Thumb'
+export * from './deprecated/Youtube/hooks'
 // Carousel
-export { default as Carousel } from './Carousel'
-export { default as CarouselPage } from './Carousel/Page'
-export { default as CarouselArrowLeft } from './Carousel/ArrowLeft'
-export { default as CarouselArrowRight } from './Carousel/ArrowRight'
-export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
+export { default as Carousel } from './deprecated/Carousel'
+export { default as CarouselPage } from './deprecated/Carousel/Page'
+export { default as CarouselArrowLeft } from './deprecated/Carousel/ArrowLeft'
+export { default as CarouselArrowRight } from './deprecated/Carousel/ArrowRight'
+export { default as CarouselPaginationDots } from './deprecated/Carousel/PaginationDots'
 
 // ShippingSimulator
-export { default as ShippingSimulator } from './ShippingSimulator'
-export { default as shippingSimulatorI18nPT } from './ShippingSimulator/i18n/pt'
-export { default as shippingSimulatorI18nEN } from './ShippingSimulator/i18n/en'
+export { default as ShippingSimulator } from './deprecated/ShippingSimulator'
+export { default as shippingSimulatorI18nPT } from './deprecated/ShippingSimulator/i18n/pt'
+export { default as shippingSimulatorI18nEN } from './deprecated/ShippingSimulator/i18n/en'
 
 // Auth Providers
-export * from './Auth/Providers'
+export * from './deprecated/Auth/Providers'
 // Search Bar
-export { default as SearchBar } from './SearchBar'
-export { default as SearchBarButton } from './SearchBar/Button'
-export { default as SearchBarContainer } from './SearchBar/Container'
-export { default as SearchBarInput } from './SearchBar/Input'
-export { default as searchBarTheme } from './SearchBar/theme'
+export { default as SearchBar } from './deprecated/SearchBar'
+export { default as SearchBarButton } from './deprecated/SearchBar/Button'
+export { default as SearchBarContainer } from './deprecated/SearchBar/Container'
+export { default as SearchBarInput } from './deprecated/SearchBar/Input'
+export { default as searchBarTheme } from './deprecated/SearchBar/theme'
 export {
   default as SearchBarProvider,
   SearchBarContext,
-} from './SearchBar/hooks/Provider'
-export { useSearchBarContext } from './SearchBar/hooks/useSearchBarContext'
-export type { ISearchContext } from './SearchBar/hooks/Provider'
+} from './deprecated/SearchBar/hooks/Provider'
+export { useSearchBarContext } from './deprecated/SearchBar/hooks/useSearchBarContext'
+export type { ISearchContext } from './deprecated/SearchBar/hooks/Provider'
 // Login
-export { default as LoginLogo } from './Login/Logo'
-export { default as loginTheme } from './Login/theme'
+export { default as LoginLogo } from './deprecated/Login/Logo'
+export { default as loginTheme } from './deprecated/Login/theme'
 // Dialog
 export * from 'reakit/Dialog'
 // Portal
@@ -237,45 +237,45 @@ export * from 'reakit/Portal'
 export * from 'reakit/Tooltip'
 
 // Toast
-export { default as Toast } from './Toast'
-export { default as toastTheme } from './Toast/theme'
+export { default as Toast } from './deprecated/Toast'
+export { default as toastTheme } from './deprecated/Toast/theme'
 
 // Suspense
-export { default as SuspenseDevice } from './Suspense/Device'
-export { default as SuspenseSSR } from './Suspense/SSR'
-export { default as SuspenseViewport } from './Suspense/Viewport'
-export { useIdleEffect } from './Suspense/hooks/useIdleEffect'
-export { useDevice } from './Suspense/hooks/useDevice'
+export { default as SuspenseDevice } from './deprecated/Suspense/Device'
+export { default as SuspenseSSR } from './deprecated/Suspense/SSR'
+export { default as SuspenseViewport } from './deprecated/Suspense/Viewport'
+export { useIdleEffect } from './deprecated/Suspense/hooks/useIdleEffect'
+export { useDevice } from './deprecated/Suspense/hooks/useDevice'
 
 // Product Image Gallery
-export { default as ProductImageGallery } from './ProductImageGallery'
-export { default as ProductImageGalleryArrowLeft } from './ProductImageGallery/ArrowLeft'
-export { default as ProductImageGalleryArrowRight } from './ProductImageGallery/ArrowRight'
-export { default as ProductImageGalleryPage } from './ProductImageGallery/Page'
-export { default as ProductImageGalleryPaginationDots } from './ProductImageGallery/PaginationDots'
-export { default as ProductImageGalleryMiniatures } from './ProductImageGallery/Miniatures'
-export { default as ProductImageGalleryMiniaturesContainer } from './ProductImageGallery/Miniatures/Container'
-export { productImageGalleryTheme } from './ProductImageGallery/theme'
+export { default as ProductImageGallery } from './deprecated/ProductImageGallery'
+export { default as ProductImageGalleryArrowLeft } from './deprecated/ProductImageGallery/ArrowLeft'
+export { default as ProductImageGalleryArrowRight } from './deprecated/ProductImageGallery/ArrowRight'
+export { default as ProductImageGalleryPage } from './deprecated/ProductImageGallery/Page'
+export { default as ProductImageGalleryPaginationDots } from './deprecated/ProductImageGallery/PaginationDots'
+export { default as ProductImageGalleryMiniatures } from './deprecated/ProductImageGallery/Miniatures'
+export { default as ProductImageGalleryMiniaturesContainer } from './deprecated/ProductImageGallery/Miniatures/Container'
+export { productImageGalleryTheme } from './deprecated/ProductImageGallery/theme'
 
 // Minicart
-export { default as MinicartDrawer } from './Minicart/Drawer'
-export { default as MinicartDrawerHeader } from './Minicart/Drawer/Header'
-export { default as MinicartDrawerHeaderCloseButton } from './Minicart/Drawer/Header/CloseButton'
-export { default as MinicartDrawerFooter } from './Minicart/Drawer/Footer'
-export { default as MinicartDrawerContent } from './Minicart/Drawer/Content'
-export { default as MinicartDrawerContentImage } from './Minicart/Drawer/Content/Image'
-export { default as MinicartDrawerContentRemove } from './Minicart/Drawer/Content/Remove'
-export { default as MinicartDrawerContentQuantity } from './Minicart/Drawer/Content/Quantity'
-export { default as MinicartButton } from './Minicart/Button'
-export { default as MinicartButtonIcon } from './Minicart/Button/Icon'
-export { default as MinicartButtonBadge } from './Minicart/Button/Badge'
-export { default as minicartI18nPT } from './Minicart/i18n/pt'
-export { default as minicartI18nEN } from './Minicart/i18n/en'
-export { minicartTheme } from './Minicart/theme'
+export { default as MinicartDrawer } from './deprecated/Minicart/Drawer'
+export { default as MinicartDrawerHeader } from './deprecated/Minicart/Drawer/Header'
+export { default as MinicartDrawerHeaderCloseButton } from './deprecated/Minicart/Drawer/Header/CloseButton'
+export { default as MinicartDrawerFooter } from './deprecated/Minicart/Drawer/Footer'
+export { default as MinicartDrawerContent } from './deprecated/Minicart/Drawer/Content'
+export { default as MinicartDrawerContentImage } from './deprecated/Minicart/Drawer/Content/Image'
+export { default as MinicartDrawerContentRemove } from './deprecated/Minicart/Drawer/Content/Remove'
+export { default as MinicartDrawerContentQuantity } from './deprecated/Minicart/Drawer/Content/Quantity'
+export { default as MinicartButton } from './deprecated/Minicart/Button'
+export { default as MinicartButtonIcon } from './deprecated/Minicart/Button/Icon'
+export { default as MinicartButtonBadge } from './deprecated/Minicart/Button/Badge'
+export { default as minicartI18nPT } from './deprecated/Minicart/i18n/pt'
+export { default as minicartI18nEN } from './deprecated/Minicart/i18n/en'
+export { minicartTheme } from './deprecated/Minicart/theme'
 
 // Search Suggestions
-export { default as SearchSuggestions } from './SearchSuggestions'
-export { default as SearchSuggestionsContainer } from './SearchSuggestions/Container'
-export { searchSuggestionsTheme } from './SearchSuggestions/theme'
-export { default as searchSuggestionsI18nPT } from './SearchSuggestions/i18n/pt'
-export { default as searchSuggestionsI18nEN } from './SearchSuggestions/i18n/en'
+export { default as SearchSuggestions } from './deprecated/SearchSuggestions'
+export { default as SearchSuggestionsContainer } from './deprecated/SearchSuggestions/Container'
+export { searchSuggestionsTheme } from './deprecated/SearchSuggestions/theme'
+export { default as searchSuggestionsI18nPT } from './deprecated/SearchSuggestions/i18n/pt'
+export { default as searchSuggestionsI18nEN } from './deprecated/SearchSuggestions/i18n/en'

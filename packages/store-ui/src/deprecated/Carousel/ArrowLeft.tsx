@@ -1,7 +1,7 @@
 import React from 'react'
 import type { ComponentProps, FC } from 'react'
 
-import SliderArrowLeft from '../Slider/ArrowLeft'
+import SliderArrowLeft from '../../Slider/ArrowLeft'
 
 type Props = ComponentProps<typeof SliderArrowLeft>
 

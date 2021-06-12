@@ -1,5 +1,5 @@
-import type { SxStyleProp } from '../index'
-import { createTheme, responsivePictureTheme } from '../index'
+import type { SxStyleProp } from '../../index'
+import { createTheme, responsivePictureTheme } from '../../index'
 
 const paginationDots: SxStyleProp = {
   container: {
