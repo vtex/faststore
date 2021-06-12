@@ -2,7 +2,7 @@ import React from 'react'
 import type { ComponentType, FC } from 'react'
 import { Box } from 'theme-ui'
 
-import { useSlider } from '../../Slider/hooks/useSlider'
+import { useSlider } from '../Slider/hooks/useSlider'
 import CarouselArrowLeft from './ArrowLeft'
 import CarouselArrowRight from './ArrowRight'
 import CarouselPaginationDots from './PaginationDots'

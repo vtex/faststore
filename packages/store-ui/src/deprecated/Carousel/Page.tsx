@@ -2,7 +2,7 @@ import React from 'react'
 import type { ComponentType, ComponentPropsWithoutRef, FC } from 'react'
 import Link from 'gatsby-link'
 
-import ResponsivePicture from '../../ResponsivePicture'
+import ResponsivePicture from '../ResponsivePicture'
 
 type IResponsivePicture = ComponentPropsWithoutRef<typeof ResponsivePicture>
 
