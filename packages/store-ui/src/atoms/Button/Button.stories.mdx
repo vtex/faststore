@@ -3,15 +3,13 @@ import Button from "./Button";
 
 <Meta title="Atoms/Button" />
 
-export const Template = (args) => <Button {...args} />
-
 # Preview
 
 <Preview>
   <Story name="Button" args={{
     children: "Button"
   }}>
-    {Template.bind({})}
+    {(args) => <Button {...args} />}
   </Story>
 </Preview>
 
