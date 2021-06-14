@@ -16,7 +16,7 @@ import type {
 } from 'gatsby'
 
 import { api } from './api'
-import { fetchVTEX } from './fetch'
+import { fetchGraphQL, fetchVTEX } from './fetch'
 import { md5 } from './md5'
 import { assertRedirects } from './redirects'
 import defaultStaticPaths from './staticPaths'
@@ -91,40 +91,15 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     // Create executor to run queries against schema
     const url = getGraphQLUrl(tenant, workspace)
 
-    const executor: AsyncExecutor = async ({ document, variables }) => {
-      const query = print(document)
-      const fetchResult = await fetch(url, {
+    const executor: AsyncExecutor = ({ document, variables }) =>
+      fetchGraphQL(url, {
         method: 'POST',
         headers: {
           accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query, variables }),
+        body: JSON.stringify({ query: print(document), variables }),
       })
-
-      const result = await fetchResult.json()
-
-      /**
-       * We've chosen to ignore the 404 errors on build time.
-       * This allows us to complete builds with slightly old slugs and
-       * to handle this type of error on the client, where we will make
-       * some redirects.
-       */
-      if (result.errors && result.errors.length > 0) {
-        result.errors = result.errors.filter((error: any) => {
-          console.warn(error)
-          const status = error.extensions?.exception?.status
-
-          return !status || status !== 404
-        })
-
-        if (result.errors.length === 0) {
-          delete result.errors
-        }
-      }
-
-      return result
-    }
 
     const schema = wrapSchema(
       {
