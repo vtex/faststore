@@ -53,3 +53,24 @@ export const fetchVTEX = async <T>(
     throw err
   }
 }
+
+export const fetchIS = async <T>(
+  path: string,
+  options: VTEXOptions,
+  init?: RequestInit
+): Promise<T> => {
+  try {
+    const url = `https://search.biggylabs.com.br/search-api/v1/${options.tenant}${path}`
+
+    return await fetchRetry(url, {
+      ...init,
+      headers: {
+        ...headers,
+        ...init?.headers,
+      },
+    })
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
+}

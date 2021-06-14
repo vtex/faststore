@@ -1,6 +1,31 @@
-import type { Sort } from './types'
+interface SearchOptions {
+  query?: string
+  page: number
+  count: number
+  sort: 'orders:desc'
+  operator: 'and' | 'or'
+  fuzzy?: string
+  locale?: string
+  bgy_leap?: boolean
+  'hide-unavailable-items'?: boolean
+}
 
 export const api = {
+  is: {
+    search: (params: SearchOptions) => {
+      const searchParams = new URLSearchParams()
+
+      Object.keys(params).forEach((key) => {
+        const value = params[key as keyof SearchOptions]
+
+        if (value) {
+          searchParams.set(key, `${value}`)
+        }
+      })
+
+      return `/api/split/product_search/trade-policy/1?${searchParams}`
+    },
+  },
   catalog: {
     brand: {
       list: ({ page, pageSize }: { page: number; pageSize: number }) =>
@@ -12,16 +37,6 @@ export const api = {
     },
     category: {
       tree: (depth: number) => `/api/catalog_system/pub/category/tree/${depth}`,
-      search: ({
-        sort = '',
-        from,
-        to,
-      }: {
-        sort?: Sort
-        from: number
-        to: number
-      }) =>
-        `/api/catalog_system/pub/products/search?O=${sort}&_from=${from}&_to=${to}`,
     },
   },
   tenants: {
