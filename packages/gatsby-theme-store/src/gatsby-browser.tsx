@@ -3,14 +3,14 @@
 
 import 'requestidlecallback-polyfill'
 
-import { UIProvider } from '@vtex/store-sdk'
 import React, { StrictMode } from 'react'
-import { unstable_createRoot as createRoot } from 'react-dom'
+import { UIProvider } from '@vtex/store-sdk'
+import ReactDOM from 'react-dom'
 import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ReactChild } from 'react'
 
 import ErrorBoundary from './components/Error/ErrorBoundary'
-import { Provider as OrderFormProvider } from './sdk/orderForm/LazyProvider'
+import { Provider as OrderFormProvider } from './sdk/orderForm/Provider'
 import { Provider as VTEXRCProvider } from './sdk/pixel/vtexrc/Provider'
 import {
   onRouteUpdate as progressOnRouteUpdate,
@@ -19,24 +19,33 @@ import {
 import { Provider as RegionProvider } from './sdk/region/Provider'
 import { Provider as ToastProvider } from './sdk/toast/Provider'
 
-export const replaceHydrateFunction = () => async (
-  element: ReactChild,
-  container: Element,
-  callback: any
-) => {
+export const onClientEntry = async () => {
   if (typeof IntersectionObserver === 'undefined') {
     await import('intersection-observer')
   }
+}
 
-  const development = (process.env.GATSBY_BUILD_STAGE as any).includes(
-    'develop'
-  )
+export const replaceHydrateFunction = () => (
+  element: ReactChild,
+  container: Element
+) => {
+  let hydrate = true
 
-  const root = createRoot(container, {
-    hydrate: !development,
-  })
+  // This part will be removed by webpack on production builds since this only
+  // serves for React not complaining about mismatches on devMode.
+  // We can not just default to `render` mode on devMode because the user may be using
+  // DEV_SSR=true flag
+  if (process.env.NODE_ENV !== 'production') {
+    const focusEl = document.getElementById(`gatsby-focus-wrapper`)
 
-  root.render(element, callback)
+    hydrate = !!focusEl && focusEl.children.length > 0
+  }
+
+  // There are versions of React currently exporting createRoot and others exporting unstable_createRoot
+  const createRoot =
+    ReactDOM.createRoot || (ReactDOM as any).unstable_createRoot
+
+  createRoot(container, { hydrate }).render(element)
 }
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
