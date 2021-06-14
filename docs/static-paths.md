@@ -4,7 +4,7 @@ One of the core principles of [JAMStack](https://github.com/vtex/faststore/tree/
 
 ## Using the `@vtex/gatsby-vtex-source` Plugin
 
->ℹ️ *We are assuming you have followed the [Getting Started](https://github.com/vtex/faststore/tree/master/docs/getting-started.mb) document and have a running store.*
+>ℹ️ *We are assuming you have followed the [Getting Started](https://github.com/vtex/faststore/tree/master/docs/getting-started.md) document and have a running store.*
 
 `gatsby-vtex-source` comes with a default function that employs sensible defaults in building the list of static paths. After some initialization beyond the scope of this document, `gatsby-vtex-source` checks the `typeof` the `getStaticPaths` Plugin Option. If it is a `function`, the option is used. Otherwise the default configuration will be run.
 
