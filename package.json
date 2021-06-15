@@ -13,7 +13,8 @@
     "lint": "eslint packages/ --ext .ts,.tsx",
     "test": "lerna run test --",
     "bootstrap": "lerna bootstrap",
-    "release": "lerna version minor --yes && lerna publish from-git --yes"
+    "release": "lerna version minor --yes && lerna publish from-git --yes",
+    "size": "lerna run size"
   },
   "workspaces": [
     "packages/*"
