@@ -65,5 +65,8 @@ jobs:
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
+      - name: Build
+        run: yarn build --ci --maxWorkers=2
+
       - name: Size Limit
         run: yarn size
