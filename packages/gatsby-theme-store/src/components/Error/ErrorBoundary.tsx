@@ -1,13 +1,8 @@
-import type { ReactNode } from 'react'
 import React, { Component } from 'react'
 
 import ErrorHandler from './ErrorHandler'
 
-type Props = {
-  children: ReactNode
-}
-
-class ErrorBoundary extends Component<Props> {
+class ErrorBoundary extends Component {
   public state = { hasError: false, error: null }
 
   public static getDerivedStateFromError(error: any) {
