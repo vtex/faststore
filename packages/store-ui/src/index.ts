@@ -99,9 +99,9 @@ export { default as Drawer } from '@vtex-components/drawer'
 
 // Utils
 // Merge Theme
-export { createTheme } from './createTheme'
+export { createTheme } from './deprecated/createTheme'
 // Base Theme
-export { baseTheme } from './theme'
+export { baseTheme } from './deprecated/theme'
 
 // throttle and debounce
 export { default as throttle } from './deprecated/utils/throttle'
