@@ -19,9 +19,7 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+    "prepare": "tsdx build"
   },
   "keywords": [
     "gatsby",
@@ -29,16 +27,6 @@
     "vtex",
     "nginx",
     "gatsby-plugin-nginx"
-  ],
-  "size-limit": [
-    {
-      "path": "dist/gatsby-plugin-nginx.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/gatsby-plugin-nginx.esm.js",
-      "limit": "10 KB"
-    }
   ],
   "peerDependencies": {
     "gatsby": "^3.5.0"
