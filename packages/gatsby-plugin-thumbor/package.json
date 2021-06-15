@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-thumbor",
-  "version": "0.371.4",
+  "version": "0.371.5",
   "author": "Tiago Gimenes",
   "license": "MIT",
   "main": "index.js",
