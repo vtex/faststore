@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react'
 export type PriceFormatter = (price: number, variant: PriceVariant) => ReactNode
 
 export type PriceVariant =
-  | 'default'
+  | 'selling'
   | 'listing'
   | 'spot'
   | 'savings'
@@ -26,7 +26,7 @@ export const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
       testId = 'store-price',
       value,
       formatter = (price) => price,
-      variant = 'default',
+      variant = 'selling',
       ...rawProps
     },
     ref
@@ -34,7 +34,7 @@ export const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
     const formattedPrice = formatter(value, variant)
 
     const props = {
-      [`data-store-price-${variant}`]: true,
+      [`data-${variant}`]: true,
       ...rawProps,
     }
 

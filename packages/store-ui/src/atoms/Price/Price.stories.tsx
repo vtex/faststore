@@ -81,7 +81,7 @@ Variant.args = {
 
 Variant.argTypes = {
   variant: {
-    options: ['default', 'listing', 'spot', 'savings', 'installment'],
+    options: ['selling', 'listing', 'spot', 'savings', 'installment'],
     control: { type: 'select' },
   },
 }
