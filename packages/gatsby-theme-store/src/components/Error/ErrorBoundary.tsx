@@ -13,7 +13,7 @@ class ErrorBoundary extends Component {
   }
 
   public render() {
-    if (this.state.hasError) {
+    if (this.state.hasError && process.env.NODE_ENV === 'production') {
       return (
         <ErrorHandler error={this.state.error}>
           {this.props.children}
