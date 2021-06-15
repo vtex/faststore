@@ -6,7 +6,7 @@ import 'requestidlecallback-polyfill'
 import React, { StrictMode } from 'react'
 import { UIProvider } from '@vtex/store-sdk'
 import ReactDOM from 'react-dom'
-import type { WrapRootElementBrowserArgs } from 'gatsby'
+import type { RouteUpdateArgs, WrapRootElementBrowserArgs } from 'gatsby'
 import type { ReactChild } from 'react'
 
 import ErrorBoundary from './components/Error/ErrorBoundary'
@@ -84,3 +84,19 @@ export const wrapPageElement = ({
 export const onRouteUpdate = () => {
   progressOnRouteUpdate()
 }
+
+let nextRoute: string | undefined
+
+export const onPreRouteUpdate = ({ location }: RouteUpdateArgs) => {
+  nextRoute = location.pathname
+}
+
+window.addEventListener('unhandledrejection', (event) => {
+  if (event.reason.name === 'ChunkLoadError') {
+    if (nextRoute) {
+      window.location.pathname = nextRoute
+    } else {
+      window.location.reload()
+    }
+  }
+})

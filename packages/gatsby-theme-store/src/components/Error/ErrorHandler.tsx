@@ -4,8 +4,8 @@
  * style or change the error page, please shadow the `pages/500.tsx` instead.
  * This component is synchronously imported and has a big TBT implication
  */
-import type { FC } from 'react'
 import { useEffect } from 'react'
+import type { FC } from 'react'
 
 import { uuidv4 } from '../../sdk/uuid'
 
@@ -18,8 +18,6 @@ export const handleError = ({ error, errorId }: Props) => {
   console.error(error)
   console.error(errorId)
 
-  const isUserOffline = !window.navigator.onLine
-
   // prevent infinite loop
   if (
     window.location.pathname.startsWith('/404') ||
@@ -29,18 +27,21 @@ export const handleError = ({ error, errorId }: Props) => {
     return
   }
 
-  if (isUserOffline) {
-    const previousPagePath = encodeURIComponent(window.location.pathname)
+  const from = encodeURIComponent(window.location.pathname)
 
-    window.location.href = `/offline?from=${previousPagePath}`
+  const isOffline = !window.navigator.onLine
+  const is404 = error?.extensions?.exception?.status === 404
+  const isFrameworkLevelError = error.name === 'ChunkLoadError'
 
-    return
+  if (isFrameworkLevelError) {
+    window.location.reload()
+  } else if (isOffline) {
+    window.location.href = `/offline?from=${from}`
+  } else if (is404) {
+    window.location.href = `/404?from=${from}`
+  } else {
+    window.location.href = `/500?from=${from}&errorId=${errorId ?? uuidv4()}`
   }
-
-  window.location.href =
-    error?.extensions?.exception?.status === 404
-      ? `/404?from=${window.location.pathname}`
-      : `/500?from=${window.location.pathname}&errorId=${errorId ?? uuidv4()}`
 }
 
 const ErrorHandler: FC<Props> = ({ error, errorId }) => {
