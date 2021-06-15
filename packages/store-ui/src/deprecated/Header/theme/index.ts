@@ -1,6 +1,6 @@
 import type { SxStyleProp } from 'theme-ui'
 
-import { createTheme } from '../../../createTheme'
+import { createTheme } from '../../createTheme'
 import { menuTheme } from './menu'
 import { notificationbarTheme } from './notificationbar'
 import { overmenuTheme } from './overmenu'
