@@ -66,7 +66,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Build
-        run: yarn build --ci
+        run: yarn build --scope "@vtex/gatsby-plugin-thumbor" --scope "@vtex/store-ui" --scope "@vtex/store-sdk" --ci
 
       - name: Size Limit
         run: yarn size
