@@ -48,3 +48,22 @@ jobs:
 
       - name: Test
         run: yarn test --ci --maxWorkers=2
+
+  test:
+    name: Size Limit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+
+      - name: Size Limit
+        run: yarn size
