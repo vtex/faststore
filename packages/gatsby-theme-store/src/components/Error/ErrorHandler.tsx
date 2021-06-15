@@ -34,7 +34,7 @@ export const handleError = ({ error, errorId }: Props) => {
   const isFrameworkLevelError = error.name === 'ChunkLoadError'
 
   if (isFrameworkLevelError) {
-    window.location.href = `${window.location.pathname}?${params}`
+    window.location.reload()
   } else if (isOffline) {
     window.location.href = `/offline?from=${from}`
   } else if (is404) {
