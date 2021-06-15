@@ -11,12 +11,12 @@ import type {
   GatsbyNode,
   PluginOptions,
   SourceNodesArgs,
-  CreatePageArgs,
+  CreatePagesArgs,
   PluginOptionsSchemaArgs,
 } from 'gatsby'
 
 import { api } from './api'
-import { fetchVTEX } from './fetch'
+import { fetchGraphQL, fetchVTEX } from './fetch'
 import { md5 } from './md5'
 import { assertRedirects } from './redirects'
 import defaultStaticPaths from './staticPaths'
@@ -76,179 +76,210 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     reporter,
   } = args
 
-  let activity = reporter.activityTimer(
-    '[gatsby-source-vtex]: adding VTEX GraphQL Schema'
-  )
-
-  activity.start()
+  const promisses = [] as Array<() => Promise<void>>
 
   /**
-   * VTEX GraphQL API
-   * */
+   * Add VTEX GraphQL API as 3p schema
+   */
+  promisses.push(async () => {
+    const activity = reporter.activityTimer(
+      '[gatsby-source-vtex]: adding VTEX GraphQL Schema'
+    )
 
-  // Create executor to run queries against schema
-  const url = getGraphQLUrl(tenant, workspace)
+    activity.start()
 
-  const executor: AsyncExecutor = async ({ document, variables }) => {
-    const query = print(document)
-    const fetchResult = await fetch(url, {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query, variables }),
-    })
+    // Create executor to run queries against schema
+    const url = getGraphQLUrl(tenant, workspace)
 
-    const result = await fetchResult.json()
-
-    /**
-     * We've chosen to ignore the 404 errors on build time.
-     * This allows us to complete builds with slightly old slugs and
-     * to handle this type of error on the client, where we will make
-     * some redirects.
-     */
-    if (result.errors && result.errors.length > 0) {
-      result.errors = result.errors.filter((error: any) => {
-        console.warn(error)
-        const status = error.extensions?.exception?.status
-
-        return !status || status !== 404
+    const executor: AsyncExecutor = ({ document, variables }) =>
+      fetchGraphQL(url, {
+        method: 'POST',
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: print(document), variables }),
       })
 
-      if (result.errors.length === 0) {
-        delete result.errors
-      }
-    }
+    const schema = wrapSchema(
+      {
+        schema: await introspectSchema(executor),
+        executor,
+      },
+      [
+        // Filter CMS fields so people use the VTEX CMS plugin instead of this one
+        new FilterObjectFields(
+          (typeName, fieldName) => typeName !== 'VTEX' || fieldName !== 'pages'
+        ),
+        new PruneSchema({}),
+      ]
+    )
 
-    return result
-  }
+    addThirdPartySchema({ schema })
 
-  const schema = wrapSchema(
-    {
-      schema: await introspectSchema(executor),
-      executor,
-    },
-    [
-      // Filter CMS fields so people use the VTEX CMS plugin instead of this one
-      new FilterObjectFields(
-        (typeName, fieldName) => typeName !== 'VTEX' || fieldName !== 'pages'
-      ),
-      new PruneSchema({}),
-    ]
-  )
-
-  addThirdPartySchema({ schema })
-
-  activity.end()
+    activity.end()
+  })
 
   /**
-   * VTEX HTTP API fetches
-   * */
+   * Add VTEX bindings
+   */
+  promisses.push(async () => {
+    const activity = reporter.activityTimer(
+      '[gatsby-source-vtex]: fetching VTEX Bindings'
+    )
 
-  // Bindings
-  activity = reporter.activityTimer(
-    '[gatsby-source-vtex]: fetching VTEX Bindings'
-  )
-  activity.start()
+    activity.start()
 
-  const { bindings } = await fetchVTEX<Tenant>(
-    api.tenants.tenant(tenant),
-    options
-  )
+    const { bindings } = await fetchVTEX<Tenant>(
+      api.tenants.tenant(tenant),
+      options
+    )
 
-  for (const binding of bindings) {
-    createChannelNode(args, binding)
-  }
+    for (const binding of bindings) {
+      createChannelNode(args, binding)
+    }
 
-  activity.end()
+    activity.end()
+  })
 
-  // Catetgories
-  activity = reporter.activityTimer(
-    '[gatsby-source-vtex]: fetching VTEX Departments'
-  )
-  activity.start()
+  /**
+   * Add VTEX categories
+   */
+  promisses.push(async () => {
+    const activity = reporter.activityTimer(
+      '[gatsby-source-vtex]: fetching VTEX Departments'
+    )
 
-  const departments = await fetchVTEX<Category[]>(
-    api.catalog.category.tree(1),
-    options
-  )
+    activity.start()
 
-  for (const department of departments) {
-    createDepartmentNode(args, department)
-  }
+    const departments = await fetchVTEX<Category[]>(
+      api.catalog.category.tree(1),
+      options
+    )
 
-  activity.end()
+    for (const department of departments) {
+      createDepartmentNode(args, department)
+    }
+
+    activity.end()
+  })
 
   /**
    * Static Paths used to generate pages
    */
-
-  activity = reporter.activityTimer(
-    '[gatsby-source-vtex]: fetching StaticPaths'
-  )
-
-  activity.start()
-
-  const staticPaths = (typeof getStaticPaths === 'function'
-    ? await getStaticPaths()
-    : await defaultStaticPaths(options)
-  )
-    .map(normalizePath)
-    .filter((path) => !ignorePaths.includes(path))
-
-  const fetchPageTypes = async (path: string): Promise<PageType> => {
-    const isProduct = /\/(.)+\/p$/g
-
-    // When the page is a product page, we skip calling the pageType backend to speedup the process considerably.
-    // This makes us have to synthetically generate some data. However, it shouldn't be a problem since we don't
-    // use these synthetic attributes
-    if (isProduct.test(path)) {
-      return {
-        id: md5(path),
-        name: path.split('/p')[0],
-        url: path,
-        title: '',
-        metaTagDescription: '',
-        pageType: 'Product',
-      }
-    }
-
-    return fetchVTEX<PageType>(api.catalog.portal.pageType(path), options)
-  }
-
-  const pageTypes = await pMap(staticPaths, fetchPageTypes, { concurrency })
-
-  if (pageTypes.length !== staticPaths.length) {
-    reporter.panicOnBuild(
-      '[gatsby-source-vtex]: Length of PageTypes and staticPaths do not agree. No static path will be generated'
+  promisses.push(async () => {
+    let activity = reporter.activityTimer(
+      '[gatsby-source-vtex]: fetching StaticPaths'
     )
 
-    return
-  }
+    activity.start()
 
-  for (let it = 0; it < pageTypes.length; it++) {
-    const pageType = pageTypes[it]
-    const staticPath = staticPaths[it]
+    const staticPaths = (typeof getStaticPaths === 'function'
+      ? await getStaticPaths()
+      : await defaultStaticPaths(options)
+    )
+      .map(normalizePath)
+      .filter((path) => !ignorePaths.includes(path))
 
-    if (!pageTypesWhitelist.includes(pageType.pageType)) {
-      reporter.warn(
-        `[gatsby-source-vtex]: Dropping path. Reason: PageType API reported ${pageType.pageType} for path: ${staticPath}`
-      )
+    activity.end()
 
-      continue
+    activity = reporter.activityTimer(
+      '[gatsby-source-vtex]: fetching PageTypes'
+    )
+
+    activity.start()
+
+    const fetchPageTypes = async (path: string): Promise<PageType> => {
+      const isProduct = /\/(.)+\/p$/g
+
+      // When the page is a product page, we skip calling the pageType backend to speedup the process considerably.
+      // This makes us have to synthetically generate some data. However, it shouldn't be a problem since we don't
+      // use these synthetic attributes
+      if (isProduct.test(path)) {
+        return {
+          id: md5(path),
+          name: path.split('/p')[0],
+          url: path,
+          title: '',
+          metaTagDescription: '',
+          pageType: 'Product',
+        }
+      }
+
+      return fetchVTEX<PageType>(api.catalog.portal.pageType(path), options)
     }
 
-    createStaticPathNode(args, pageType, staticPath)
-  }
+    const pageTypes = await pMap(staticPaths, fetchPageTypes, { concurrency })
 
-  activity.end()
+    if (pageTypes.length !== staticPaths.length) {
+      reporter.panicOnBuild(
+        '[gatsby-source-vtex]: Length of PageTypes and staticPaths do not agree. No static path will be generated'
+      )
+
+      return
+    }
+
+    for (let it = 0; it < pageTypes.length; it++) {
+      const pageType = pageTypes[it]
+      const staticPath = staticPaths[it]
+
+      if (!pageTypesWhitelist.includes(pageType.pageType)) {
+        reporter.warn(
+          `[gatsby-source-vtex]: Dropping path. Reason: PageType API reported ${pageType.pageType} for path: ${staticPath}`
+        )
+
+        continue
+      }
+
+      createStaticPathNode(args, pageType, staticPath)
+    }
+
+    activity.end()
+  })
+
+  await Promise.all(promisses.map((x) => x()))
 }
 
 export const createPages = async (
-  { actions: { createRedirect }, reporter }: CreatePageArgs,
+  { actions: { createRedirect }, graphql, reporter }: CreatePagesArgs,
   { tenant, workspace, environment, getRedirects }: Options
 ) => {
+  /**
+   * Report available PDPs and PLPs
+   */
+  const {
+    data: {
+      searches: { nodes: searches },
+      products: { nodes: products },
+    },
+  } = await graphql<any>(`
+    query GetAllStaticPaths {
+      searches: allStaticPath(
+        filter: {
+          pageType: { in: ["Department", "Category", "Brand", "SubCategory"] }
+        }
+      ) {
+        nodes {
+          ...staticPath
+        }
+      }
+      products: allStaticPath(filter: { pageType: { eq: "Product" } }) {
+        nodes {
+          ...staticPath
+        }
+      }
+    }
+
+    fragment staticPath on StaticPath {
+      id
+      path
+      pageType
+    }
+  `)
+
+  reporter.info(`[gatsby-source-vtex]: Available pdps: ${products.length}`)
+  reporter.info(`[gatsby-source-vtex]: Available plps: ${searches.length}`)
+
   /**
    * Create all proxy rules for VTEX Store
    * If adding a new rule, don't forget to modify ./gatsby-config.ts dev proxy

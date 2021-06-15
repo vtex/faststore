@@ -6,7 +6,7 @@ import slugify from 'slugify'
 import pMap from 'p-map'
 
 import { api } from './api'
-import { fetchVTEX } from './fetch'
+import { fetchIS, fetchVTEX } from './fetch'
 import type { Brand, Category } from './types'
 
 interface Options {
@@ -14,6 +14,13 @@ interface Options {
   workspace?: string
   environment?: 'vtexcommercestable' | 'vtexcommercebeta'
   maxNumPaths?: number // max number of staticPaths to generate
+}
+
+interface SearchResult {
+  products: Array<{ url: string }>
+  pagination: {
+    count: number
+  }
 }
 
 const readFileAsync = promisify(readFile)
@@ -86,41 +93,31 @@ const staticPaths = async ({
 
   // This generates at least `itemsPerPage` and at most 2500 product paths
   // `itemsPerPage` is an arbritary number, however 2500 is hard coded in VTEX search
-  const itemsPerPage = 25
-  const pagination = new Array(
-    Math.ceil(
-      Math.min(2500, Math.max(itemsPerPage, maxNumPaths - paths.length)) /
-        itemsPerPage
-    )
+  const itemsPerPage = 100
+  const totalItems = Math.min(
+    2500,
+    Math.max(itemsPerPage, maxNumPaths - paths.length)
   )
 
-  const products = await pMap(
-    pagination,
-    (_, pageIndex) =>
-      fetchVTEX<Array<{ linkText?: string }>>(
-        api.catalog.category.search({
-          sort: 'OrderByTopSaleDESC',
-          from: pageIndex * itemsPerPage,
-          to: pageIndex * itemsPerPage + itemsPerPage,
+  const pages = new Array(Math.ceil(totalItems / itemsPerPage)).fill(null)
+
+  const productUrls = await pMap(
+    pages,
+    (_, page) =>
+      fetchIS<SearchResult>(
+        api.is.search({
+          'hide-unavailable-items': false,
+          sort: 'orders:desc',
+          count: itemsPerPage,
+          operator: 'and',
+          page: page + 1,
         }),
         options
-      ),
-    {
-      concurrency: 5,
-    }
-  ).then((p) => p.flat())
+      ).then(({ products }) => products.map((x) => x.url)),
+    { concurrency: 10 }
+  ).then((x) => x.flat())
 
-  for (const { linkText } of products) {
-    if (!linkText) {
-      throw new Error(
-        `[gatsby-source-vtex]: Something went wrong while generating staticPaths. Expected a product path, but got ${linkText}`
-      )
-    }
-
-    paths.push(`/${linkText}/p`)
-  }
-
-  return paths
+  return [...paths, ...productUrls]
 }
 
 export default staticPaths
