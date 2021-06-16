@@ -19,7 +19,12 @@ export const onCreateWebpackConfig = async ({
   const typeDefs = parse(printSchema(dirtySchema))
   const schema = makeExecutableSchema({ typeDefs })
 
-  setWebpackConfig({
-    plugins: [new WebpackPlugin(schema)],
-  })
+  const activeEnv =
+    process.env.GATSBY_ACTIVE_ENV ?? process.env.NODE_ENV ?? 'development'
+
+  if (activeEnv === 'build-javascript' || activeEnv === 'development') {
+    setWebpackConfig({
+      plugins: [new WebpackPlugin(schema)],
+    })
+  }
 }
