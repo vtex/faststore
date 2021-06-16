@@ -82,6 +82,7 @@ export { default as Button, ButtonProps } from './atoms/Button'
 export { default as Input, InputProps } from './atoms/Input'
 export { default as Icon, IconProps } from './atoms/Icon'
 export { default as Popover, PopoverProps } from './atoms/Popover'
+export { default as Price, PriceProps } from './atoms/Price'
 // Molecules
 export {
   default as SearchInput,
