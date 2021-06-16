@@ -12,6 +12,11 @@ class ErrorBoundary extends Component {
     }
   }
 
+  public componentDidCatch(error: any, info: any) {
+    console.error(error)
+    console.error(info)
+  }
+
   public render() {
     if (this.state.hasError && process.env.NODE_ENV === 'production') {
       return (

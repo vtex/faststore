@@ -15,9 +15,6 @@ interface Props {
 }
 
 export const handleError = ({ error, errorId }: Props) => {
-  console.error(error)
-  console.error(errorId)
-
   // prevent infinite loop
   if (
     window.location.pathname.startsWith('/404') ||
