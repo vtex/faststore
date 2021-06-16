@@ -52,30 +52,27 @@ Example:
 
 1. After acquiring the necessary approval, rebase and squash-merge your PR in master
 
-2. Locally, go to the master branch pull the changes with `git pull origin master`
+2. A bot will commit on master releasing your changes. In the meantime, go grab a coffee ☕
 
-3. Clear any artifact and release a clean build with
-```
-git clean -fdx && yarn && lerna run build && lerna publish minor --yes
-```
+> If the bot isn't working or you want to release it manually, use the following command to clean any artifact and release a clean build:
+>
+> `git clean -fdx && yarn && lerna run build && lerna publish patch --yes`
 
-4. Go grab a coffe ☕
-
-5. Update `package.json` of the `storecomponents` with:
+3. Update `package.json` of the `storecomponents` with:
 ```
 yarn upgrade -L --scope @vtex
 ```
 
-6. Stage, commit and push your changes with:
+4. Stage, commit and push your changes with:
 ```
 git add . && git commit -m "upgrade deps" && git push
 ```
 
-7. Rebase with master
+5. Rebase with master
 ```
 git rebase origin/master && git push --force
 ```
 
-8. Wait for the bots to approve the PR.
+6. Wait for the PR checks to have been passed
 
-9. Squash-merge for releasing a new store version 🎉
+7. Squash-merge for releasing a new store version 🎉
