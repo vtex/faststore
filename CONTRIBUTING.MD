@@ -52,11 +52,11 @@ Example:
 
 1. After acquiring the necessary approval, rebase and squash-merge your PR in master
 
-2. A bot will commit on master releasing your changes. In the mean time, go grab a coffe ☕
+2. A bot will commit on master releasing your changes. In the meantime, go grab a coffee ☕
 
 > If the bot isn't working or you want to release it manually, use the following command to clean any artifact and release a clean build:
 >
-> `git clean -fdx && yarn && lerna run build && lerna publish minor --yes`
+> `git clean -fdx && yarn && lerna run build && lerna publish patch --yes`
 
 3. Update `package.json` of the `storecomponents` with:
 ```
@@ -73,6 +73,6 @@ git add . && git commit -m "upgrade deps" && git push
 git rebase origin/master && git push --force
 ```
 
-6. Wait for the bots to approve the PR.
+6. Wait for the PR checks to have been passed
 
 7. Squash-merge for releasing a new store version 🎉
