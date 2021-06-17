@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import React, { Component } from 'react'
 import type { ErrorInfo } from 'react'
 
