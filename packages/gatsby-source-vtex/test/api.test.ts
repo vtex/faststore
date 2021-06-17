@@ -1,7 +1,7 @@
 import { api } from '../src/api'
 
 describe('API module url handling', () => {
-  it('Generate a simple IS url', () => {
+  it('Generates a simple IS url', () => {
     const url = api.is.search({
       page: 1,
       count: 10,
