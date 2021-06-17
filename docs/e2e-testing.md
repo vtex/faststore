@@ -54,7 +54,7 @@ In the following section, you'll learn how to build your own E2E test with Cypre
    │   ├── plugins
    ```
 
-Now you're ready to start developing your own E2E tests! Additionally, you can install the [VTEX helper functions hub](https://github.com/vtex/test-toolshttps://github.com/vtex/test-tools) to make writing E2E tests easier.
+Now you're ready to start developing your own E2E tests! Additionally, you can install the [VTEX helper functions hub](https://github.com/vtex/test-tools) to make writing E2E tests easier.
 
 ### Step 2: Writing a sample test
 
