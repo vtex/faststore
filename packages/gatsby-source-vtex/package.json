@@ -15,10 +15,10 @@
     "dist"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch",
+    "develop": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
