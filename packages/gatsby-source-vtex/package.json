@@ -22,8 +22,7 @@
     "develop": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "lint": "tsdx lint"
   },
   "dependencies": {
     "@graphql-tools/delegate": "^6.0.15",
