@@ -26,7 +26,7 @@ export const SearchFilterAccordionCollapsibleIcon: FC<Props> = ({
   variant,
 }) => (
   <Box
-    data-testid="searchFilterAccordionCollaipsibleIcon"
+    data-testid="searchFilterAccordionCollapsibleIcon"
     variant={`${variant}.icon`}
   >
     <svg
