@@ -1,25 +1,28 @@
 {
-  "name": "@vtex/gatsby-source-vtex",
-  "version": "0.371.11",
-  "description": "Gatsby source plugin for building websites using VTEX as a data source.",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "prepare": "cross-env NODE_ENV=production yarn run build",
-    "develop": "tsc --watch"
-  },
-  "keywords": [
-    "gatsby",
-    "gatsby-plugin",
-    "gatsby-source-plugin",
-    "vtex"
-  ],
+  "name": "gatsby-source-vtex",
+  "version": "0.1.0",
+  "author": "Store Framework",
   "license": "MIT",
-  "devDependencies": {
-    "@types/pluralize": "^0.0.29",
-    "cross-env": "^7.0.2",
-    "gatsby": "^3.1.1",
-    "typescript": "^4.2.4"
+  "main": "dist/index.js",
+  "module": "dist/gatsby-source-vtex.esm.js",
+  "typings": "dist/index.d.ts",
+  "repository": {
+    "directory": "packages/gatsby-source-vtex",
+    "url": "https://github.com/vtex/faststore",
+    "type": "git"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
   },
   "dependencies": {
     "@graphql-tools/delegate": "^6.0.15",
@@ -31,6 +34,13 @@
   },
   "peerDependencies": {
     "gatsby": "^3.1.1",
-    "graphql": "^14.0.0 || ^15.0.0"
+    "graphql": "^15.0.0"
+  },
+  "devDependencies": {
+    "gatsby": "^3.1.1",
+    "@types/pluralize": "^0.0.29",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.3"
   }
 }
