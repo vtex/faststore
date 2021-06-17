@@ -36,10 +36,10 @@ If you want to take full control of the logic for deciding what resources are pr
 **Best Practice** is to define a file, `getStaticPaths.js`, in the Project Root. This file should export a single async function and ultimately return an array of strings, or URL Paths if we want to be specific. The contents of this function are up to you but the [default function](https://github.com/vtex/faststore/blob/master/packages/gatsby-source-vtex/src/staticPaths.ts#L38) can be used as a blueprint for your customizations.
 This file would then be utilized in your projects `gatsby-config.js` and required so it can be used in the plugin configuration.
 ```javascript
-# where getStaticPaths.js exports a single function
-# that returns an array of strings. Note that no options
-# are sent to the getStaticPaths function when used over
-# the default static paths function.
+// where getStaticPaths.js exports a single function
+// that returns an array of strings. Note that no options
+// are sent to the getStaticPaths function when used over
+// the default static paths function.
 const getStaticPaths = require('./getStaticPaths')
 module.exports = {
   plugins: [
