@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
+import type { ErrorInfo } from 'react'
 
 import ErrorHandler from './ErrorHandler'
 
 class ErrorBoundary extends Component {
   public state = { hasError: false, error: null }
 
-  public static getDerivedStateFromError(error: any) {
+  public static getDerivedStateFromError(error: Error) {
     return {
       hasError: true,
       error,
     }
+  }
+
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error(`React Error: ${error.message} ${errorInfo.componentStack}`)
   }
 
   public render() {
