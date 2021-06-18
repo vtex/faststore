@@ -1,4 +1,4 @@
-import theme from './theme'
+import customTheme from './theme'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -7,9 +7,12 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/,
     },
-    theme,
+    theme: customTheme,
+  },
+  docs: {
+    theme: customTheme,
   },
   options: {
-    theme,
+    theme: customTheme,
   },
 }
