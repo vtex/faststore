@@ -13,7 +13,8 @@
     "type": "git"
   },
   "files": [
-    "dist"
+    "dist",
+    "fragments"
   ],
   "engines": {
     "node": ">=10"
@@ -26,7 +27,8 @@
   },
   "dependencies": {
     "@graphql-tools/delegate": "^6.0.15",
-    "@graphql-tools/wrap": "^6.0.15",
+    "@graphql-tools/wrap": "^7.0.8",
+    "gatsby-graphql-source-toolkit": "^2.0.1",
     "isomorphic-unfetch": "^3.0.0",
     "p-map": "^4.0.0",
     "slugify": "^1.4.6",

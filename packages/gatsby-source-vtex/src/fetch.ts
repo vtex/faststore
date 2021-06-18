@@ -1,3 +1,5 @@
+import { inspect } from 'util'
+
 import fetch from 'isomorphic-unfetch'
 
 export interface VTEXOptions {
@@ -53,9 +55,11 @@ export const fetchGraphQL = async <T>(
     }
 
     retryCount += 1
+    const [mainError] = response.errors
+
     console.error(
       `[gatsby-source-vtex]: Error while fetching graphql data. Retry ${retryCount}`,
-      response.errors
+      inspect(mainError, false, 20, !process.env.CI)
     )
   }
 
