@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Releases/v0.x.x/Migration Guide - template" />
+
+# v0.x.x Migration Guide
+
+- [Button](#button)
+  - [Props changes](#props-changes)
+  - [Atoms refactored](#atoms-refactored)
+
+For better performance and better DX (developer experience) in usage, we did major refactors for the following components:
+
+## `Button`
+
+From v0.x.x onwards, `Button` will be a simple atom.
+
+### Props changes
+
+| Props | Status     | Changes |
+| ----- | ---------- | ------- |
+| as    | Deprecated | N/A     |
+| href  | Deprecated | N/A     |
+
+**Before**
+
+```js
+// ...Code Example
+```
+
+**In v0.x.x**
+
+```js
+// ...Code Example
+```
+
+## Atoms refactored
+
+As the better web performance is one of our main goals, we refactored components without additional logic into functional components:
+
+- [Button](?path=/story/atoms-button--button)
+- [Input](?path=/story/atoms-input--default)
