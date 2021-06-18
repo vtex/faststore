@@ -3,6 +3,11 @@
   "version": "0.371.15",
   "description": "Gatsby theme for building ecommerce websites",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/gatsby-theme-store"
+  },
   "module": "src/index.ts",
   "browser": "src/index.ts",
   "sideEffects": false,

@@ -1,6 +1,11 @@
 {
   "name": "@vtex/gatsby-plugin-google-tag-manager",
   "version": "0.371.15",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/gatsby-plugin-google-tag-manager"
+  },
   "description": "Gatsby plugin for using Google Tag Manager with SFJ",
   "main": "index.js",
   "browser": "src/index.ts",

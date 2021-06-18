@@ -1,6 +1,11 @@
 {
   "name": "@vtex/gatsby-plugin-graphql",
   "version": "0.371.15",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/gatsby-plugin-graphql"
+  },
   "description": "Gatsby plugin for unsing gatsby's grahpql on the client.",
   "main": "index.js",
   "browser": "src/index.ts",
