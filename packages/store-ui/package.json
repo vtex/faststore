@@ -4,7 +4,11 @@
   "description": "Next store component library",
   "author": "emersonlaurentino",
   "license": "MIT",
-  "repository": "vtex/gatsby-vtex",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/store-ui"
+  },
   "main": "dist/index.js",
   "module": "dist/store-ui.esm.js",
   "typings": "dist/index.d.ts",
