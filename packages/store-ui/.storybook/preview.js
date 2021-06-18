@@ -15,7 +15,7 @@ export const parameters = {
   options: {
     theme: customTheme,
     storySort: {
-      order: ['Getting Started', 'Atoms', 'Molecules', 'Organisms'],
+      order: ['Getting Started', 'Atoms', 'Molecules', 'Organisms', 'Releases'],
     },
   },
 }
