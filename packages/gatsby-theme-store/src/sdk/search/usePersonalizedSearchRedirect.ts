@@ -25,7 +25,7 @@ export const usePersonalizedSearchRedirect = (searchParams: Options) => {
     personalized: true,
   })
 
-  navigate(`${pathname}${search}`)
+  navigate(`${pathname}${search}`, { replace: true })
 
   return true
 }
