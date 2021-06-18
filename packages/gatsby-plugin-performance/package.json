@@ -3,6 +3,11 @@
   "author": "Tiago Gimenes",
   "version": "0.371.14",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/gatsby-plugin-performance"
+  },
   "main": "dist/index.js",
   "module": "dist/gatsby-plugin-performance.esm.js",
   "typings": "dist/index.d.ts",

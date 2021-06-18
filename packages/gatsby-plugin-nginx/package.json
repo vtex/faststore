@@ -3,6 +3,11 @@
   "version": "0.371.14",
   "description": "Gatsby plugin to generate a nginx configuration template.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/gatsby-plugin-nginx"
+  },
   "main": "dist/index.js",
   "module": "dist/gatsby-plugin-nginx.esm.js",
   "typings": "dist/index.d.ts",
