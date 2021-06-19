@@ -4,7 +4,7 @@
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "author": "Store Framework",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "index.js",
   "module": "dist/gatsby-source-vtex.esm.js",
   "typings": "dist/index.d.ts",
   "repository": {
@@ -14,7 +14,9 @@
   },
   "files": [
     "dist",
-    "fragments"
+    "fragments",
+    "gatsby-*",
+    "index.js"
   ],
   "engines": {
     "node": ">=10"

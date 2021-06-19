@@ -273,17 +273,11 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       ],
     })
 
-    const readFile = promisify(readFileAsync)
-    const ProductFragment = await readFile(
-      join(__dirname, '../fragments/ProductFragment.graphql')
-    )
-
     // Step2. Configure Gatsby node types
     const gatsbyNodeTypes = [
       {
         remoteTypeName: `Product`,
         queries: `
-        # Write your query or mutation here
           query LIST_PRODUCTS($from: number, $to: number) {
             vtex {
               productSearch(
@@ -292,18 +286,28 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
                 to: $to
               ){
                 products {
-                  ...StoreProductFragment
+                  ..._StoreProductFragment_
                 }
               }
             }
           }
-          ${ProductFragment}
+
+          fragment _StoreProductFragment_ on Product {
+            id: productId
+            __typename
+          }
         `,
       },
     ]
 
     // Step3. Provide (or generate) fragments with fields to be fetched
     const fragments = new Map()
+    const readFile = promisify(readFileAsync)
+    const productFragment = await readFile(
+      join(__dirname, '../fragments/ProductFragment.graphql')
+    )
+
+    fragments.set('Product', `${productFragment}`)
 
     // Step4. Compile sourcing queries
     const documents = compileNodeQueries({
@@ -383,7 +387,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     await args.cache.set(`LAST_BUILD_TIME`, Date.now())
   })
 
-  await Promise.all(promisses.slice(1).map((x) => x()))
+  await Promise.all(promisses.map((x) => x()))
 }
 
 export const createPages = async (
@@ -397,7 +401,7 @@ export const createPages = async (
     data: {
       searches: { nodes: searches },
       products: { nodes: products },
-      // allStoreProduct: { totalCount },
+      allStoreProduct: { totalCount },
     },
   } = await graphql<any>(`
     query GetAllStaticPaths {
@@ -415,6 +419,9 @@ export const createPages = async (
           ...staticPath
         }
       }
+      allStoreProduct {
+        totalCount
+      }
     }
 
     fragment staticPath on StaticPath {
@@ -426,7 +433,7 @@ export const createPages = async (
 
   reporter.info(`[gatsby-source-vtex]: Available pdps: ${products.length}`)
   reporter.info(`[gatsby-source-vtex]: Available plps: ${searches.length}`)
-  // reporter.info(`[gatsby-source-vtex]: Available Products: ${totalCount}`)
+  reporter.info(`[gatsby-source-vtex]: Available Products: ${totalCount}`)
 
   /**
    * Create all proxy rules for VTEX Store

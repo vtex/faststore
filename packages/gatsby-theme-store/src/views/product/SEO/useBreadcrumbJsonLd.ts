@@ -13,9 +13,7 @@ export const useBreadcrumbJsonLd = (
   options: Options
 ): BreadcrumbJSONLD | null => {
   const {
-    data: {
-      vtex: { product },
-    },
+    data: { product },
   } = options
 
   const { host, pathname } = useLocation()
@@ -31,7 +29,7 @@ export const useBreadcrumbJsonLd = (
 
     const { categoryTree, productName } = product
 
-    const itemListElements = categoryTree.map((item, index: number) => ({
+    const itemListElements = categoryTree.map((item: any, index: number) => ({
       position: index + 1,
       name: item!.name!,
       item: `https://${host}${item!.href}`,

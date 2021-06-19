@@ -137,30 +137,8 @@ export const createPages = async ({
   }
 
   /**
-   * Create product static paths
-   */
-  for (const product of products) {
-    const { path } = product
-    const [, slug] = path.split('/')
-
-    createPage({
-      path,
-      component: resolve(__dirname, './src/templates/product.server.tsx'),
-      context: { slug },
-    })
-  }
-
-  /**
    * CLIENT ONLY PATHS
    */
-
-  // Client-side rendered product pages
-  createPage({
-    path: '/__client_side_product__/p',
-    matchPath: '/:slug/p',
-    component: resolve(__dirname, './src/templates/product.browser.tsx'),
-    context: {},
-  })
 
   // Client side, full text, search page
   createPage({
