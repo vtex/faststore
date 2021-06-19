@@ -1,0 +1,10 @@
+.container-welcome {
+  padding: 0 !important;
+}
+
+.welcome__container {
+  font-family: 'Open Sans', sans-serif;
+  width: 100vw;
+  height: 100vh;
+  padding: 3rem;
+}
