@@ -78,16 +78,23 @@ export type {
 
 // All atomic components
 // Atoms
-export { default as Button, ButtonProps } from './atoms/Button'
-export { default as Input, InputProps } from './atoms/Input'
-export { default as Icon, IconProps } from './atoms/Icon'
-export { default as Popover, PopoverProps } from './atoms/Popover'
-export { default as Price, PriceProps } from './atoms/Price'
+export { default as Button } from './atoms/Button'
+export type { ButtonProps } from './atoms/Button'
+
+export { default as Input } from './atoms/Input'
+export type { InputProps } from './atoms/Input'
+
+export { default as Icon } from './atoms/Icon'
+export type { IconProps } from './atoms/Icon'
+
+export { default as Popover } from './atoms/Popover'
+export type { PopoverProps } from './atoms/Popover'
+
+export { default as Price } from './atoms/Price'
+export type { PriceProps } from './atoms/Price'
 // Molecules
-export {
-  default as SearchInput,
-  SearchInputProps,
-} from './molecules/SearchInput'
+export { default as SearchInput } from './molecules/SearchInput'
+export type { SearchInputProps } from './molecules/SearchInput'
 
 // The default Spinner from theme-ui, at the time of writing,
 // is under-performant in terms of CPU usage
