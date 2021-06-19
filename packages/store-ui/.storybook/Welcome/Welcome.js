@@ -11,8 +11,11 @@ export const Welcome = () => {
         backgroundSize: 'cover',
       }}
     >
-      <h2 className="welcome__heading">Store Framework Jamstack</h2>
-      <h4 className="welcome__heading welcome__heading--subtitle">{`Store UI v${PackageInfo.version}`}</h4>
+      <h2 className="welcome__heading">Store UI v{`${PackageInfo.version}`}</h2>
+      <h4 className="welcome__heading welcome__heading--subtitle">
+        A complete, framework agnostic library for building your next digital
+        experience
+      </h4>
     </div>
   )
 }
