@@ -8,7 +8,12 @@
   },
   "packageRules": [
     {
-      "excludePackagePatterns": ["*"],
+      "packagePatterns": ["*"],
+      "excludePackagePatterns": ["^@vtex/"],
+      "enabled": false
+    },
+    {
+      "enabled": true,
       "matchPackagePatterns": ["^@vtex/"],
       "matchUpdateTypes": ["minor", "patch", "digest", "pin"],
       "groupName": "Faststore Dependencies",
