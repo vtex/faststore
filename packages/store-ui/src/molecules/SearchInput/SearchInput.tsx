@@ -25,8 +25,17 @@ const SearchIcon = () => (
 type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'>
 
 export interface SearchInputProps extends InputProps {
+  /**
+   * Callback function when submitted.
+   */
   onSubmit: (value: string) => void
+  /**
+   * Custom icon inside the submit button.
+   */
   icon?: ReactNode
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId?: string
 }
 

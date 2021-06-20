@@ -1,0 +1,46 @@
+import { Meta, Story, Preview, ArgsTable } from '@storybook/addon-docs/blocks'
+import SearchInput from '.'
+import CustomIcon from './assets/CustomIcon'
+
+<Meta title="Molecules/SearchInput" />
+
+# Default
+
+<Preview>
+  <Story
+    name="Default"
+    args={{
+      placeholder: 'Search',
+    }}
+  >
+    {(args) => (
+      <SearchInput
+        onSubmit={(value) => alert(`[search]: ${value}`)}
+        {...args}
+      />
+    )}
+  </Story>
+</Preview>
+
+# With custom icon
+
+<Preview>
+  <Story
+    name="CustomIcon"
+    args={{
+      placeholder: 'Search',
+    }}
+  >
+    {(args) => (
+      <SearchInput
+        icon={<CustomIcon />}
+        onSubmit={(value) => alert(`[search]: ${value}`)}
+        {...args}
+      />
+    )}
+  </Story>
+</Preview>
+
+# Props
+
+<ArgsTable of={SearchInput} />
