@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
-import Input from './Input'
+import Input from '.'
 
 describe('Input', () => {
   it('`data-store-input` is present', () => {

@@ -1,0 +1,126 @@
+import { Meta, Story, Preview, ArgsTable } from '@storybook/addon-docs/blocks'
+import { useMemo } from 'react'
+import Price from '.'
+
+<Meta
+  title="Atoms/Price"
+  argTypes={{
+    variant: {
+      options: ['selling', 'listing', 'spot', 'savings', 'installment'],
+      control: { type: 'select' },
+    },
+    formatter: {
+      table: { disable: true },
+    },
+  }}
+/>
+
+# Default
+
+<Preview>
+  <Story
+    name="Default"
+    args={{
+      value: 2.32,
+    }}
+  >
+    {(args) => <Price {...args} />}
+  </Story>
+</Preview>
+
+# INTL Formatted
+
+<Preview>
+  <Story
+    name="INTL Formatted"
+    args={{
+      value: 62.5,
+    }}
+  >
+    {(args) => {
+      function useIntlFormatter(price) {
+        return useMemo(() => {
+          const formattedPrice = new Intl.NumberFormat('en-GB', {
+            style: 'currency',
+            currency: 'EUR',
+          }).format(price)
+          return formattedPrice
+        }, [price])
+      }
+      return <Price formatter={useIntlFormatter} {...args} />
+    }}
+  </Story>
+</Preview>
+
+# INTL Formatted to parts
+
+<Preview>
+  <Story
+    name="INTL Formatted to parts"
+    args={{
+      value: 32.5,
+    }}
+  >
+    {(args) => {
+      function useIntlFormatter(price) {
+        return useMemo(() => {
+          const formattedPrice = new Intl.NumberFormat('en-GB', {
+            style: 'currency',
+            currency: 'EUR',
+          }).format(price)
+          return formattedPrice
+        }, [price])
+      }
+      return <Price formatter={useIntlFormatter} {...args} />
+    }}
+  </Story>
+</Preview>
+
+# Variant
+
+<Preview>
+  <Story
+    name="Variant"
+    args={{
+      value: 3.45,
+      variant: 'selling',
+    }}
+  >
+    {(args) => {
+      function useIntlFormatter(price) {
+        return useMemo(() => {
+          const formattedPrice = new Intl.NumberFormat('en-GB', {
+            style: 'currency',
+            currency: 'EUR',
+          }).format(price)
+          return formattedPrice
+        }, [price])
+      }
+      return <Price formatter={useIntlFormatter} {...args} />
+    }}
+  </Story>
+</Preview>
+
+# Custom
+
+<Preview>
+  <Story
+    name="Custom"
+    args={{
+      value: 3.75,
+    }}
+  >
+    {(args) => {
+      function customFormatter(price) {
+        const unformattedPrice = `${price}`
+        const formattedPrice = `${unformattedPrice.replace('.', ',')} reais`
+        return formattedPrice
+      }
+      return <Price formatter={customFormatter} {...args} />
+    }}
+  </Story>
+</Preview>
+
+# Props
+
+<ArgsTable of={Price} />

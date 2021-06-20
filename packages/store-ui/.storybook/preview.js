@@ -11,6 +11,9 @@ export const parameters = {
   },
   docs: {
     theme: customTheme,
+    source: {
+      type: 'code',
+    },
   },
   options: {
     theme: customTheme,

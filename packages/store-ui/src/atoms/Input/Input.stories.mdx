@@ -1,0 +1,79 @@
+import { Meta, Story, Preview, ArgsTable } from '@storybook/addon-docs/blocks'
+import Input from '.'
+
+<Meta title="Atoms/Input" />
+
+export const colorByState = {
+  default: 'black',
+  success: 'green',
+  error: 'red',
+}
+
+# Default
+
+<Preview>
+  <Story
+    name="Default"
+    args={{
+      placeholder: 'First name',
+    }}
+  >
+    {(args) => (
+      <Input
+        style={{
+          borderColor: colorByState[args.state],
+          borderStyle: 'solid',
+        }}
+        {...args}
+      />
+    )}
+  </Story>
+</Preview>
+
+# <h1 style={{ color: 'green' }}>Success</h1>
+
+<Preview>
+  <Story
+    name="Success"
+    args={{
+      placeholder: 'First name',
+      state: 'success',
+    }}
+  >
+    {(args) => (
+      <Input
+        style={{
+          borderColor: colorByState[args.state],
+          borderStyle: 'solid',
+        }}
+        {...args}
+      />
+    )}
+  </Story>
+</Preview>
+
+# <h1 style={{ color: 'red' }}>Error</h1>
+
+<Preview>
+  <Story
+    name="Error"
+    args={{
+      placeholder: 'First name',
+      state: 'error',
+    }}
+  >
+    {(args) => (
+      <Input
+        style={{
+          borderColor: colorByState[args.state],
+          borderStyle: 'solid',
+        }}
+        {...args}
+      />
+    )}
+  </Story>
+</Preview>
+
+# Props
+
+<ArgsTable of={Input} />
