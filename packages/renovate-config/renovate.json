@@ -21,10 +21,10 @@
         "automerge": false
       },
       "minor": {
-        "automerge": true
+        "automerge": false
       },
       "patch": {
-        "automerge": true
+        "automerge": false
       }
     }
   ]
