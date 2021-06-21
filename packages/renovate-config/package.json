@@ -31,9 +31,16 @@
       },
       "packageRules": [
         {
-          "excludePackagePatterns": [
+          "packagePatterns": [
             "*"
           ],
+          "excludePackagePatterns": [
+            "^@vtex/"
+          ],
+          "enabled": false
+        },
+        {
+          "enabled": true,
           "matchPackagePatterns": [
             "^@vtex/"
           ],
@@ -48,10 +55,10 @@
             "automerge": false
           },
           "minor": {
-            "automerge": true
+            "automerge": false
           },
           "patch": {
-            "automerge": true
+            "automerge": false
           }
         }
       ]
