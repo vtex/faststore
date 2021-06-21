@@ -63,6 +63,7 @@ const ProductImageGallery: FC<Props> = ({
       <Box variant={featuredVariant} {...dragHandlers}>
         {showArrows && (
           <ProductImageGalleryArrowLeft
+            data-testid="previousProductImage"
             variant={featuredVariant}
             onClick={() => setPreviousPage()}
           />
@@ -72,6 +73,7 @@ const ProductImageGallery: FC<Props> = ({
 
         {showArrows && (
           <ProductImageGalleryArrowRight
+            data-testid="nextProductImage"
             variant={featuredVariant}
             onClick={() => setNextPage()}
           />
