@@ -56,30 +56,3 @@ export const useProductJsonLd = (options: Options): ProductJSONLD | null => {
     }
   }, [currency, host, pathname, product])
 }
-
-// export const fragment = graphql`
-//   fragment StructuredProductFragment_product on VTEX_Product {
-//     productName
-//     description
-//     brand
-//     linkText
-//     items {
-//       itemId
-//       ean
-//       images {
-//         imageUrl
-//       }
-//       sellers {
-//         commercialOffer: commertialOffer {
-//           spotPrice
-//           availableQuantity: AvailableQuantity
-//           priceValidUntil: PriceValidUntil
-//         }
-//       }
-//     }
-//     categoryTree {
-//       href
-//       name
-//     }
-//   }
-// `

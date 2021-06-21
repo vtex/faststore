@@ -1,6 +1,6 @@
-import { readFile as readFileAsync } from 'fs'
-import { promisify } from 'util'
+import { readFile as readFileAsync, writeFileSync } from 'fs'
 import { join } from 'path'
+import { promisify } from 'util'
 
 import {
   FilterObjectFields,
@@ -17,7 +17,7 @@ import {
   sourceNodeChanges,
   wrapQueryExecutorWithQueue,
 } from 'gatsby-graphql-source-toolkit'
-import { execute, parse, print } from 'graphql'
+import { execute, parse, print, printSchema } from 'graphql'
 import pMap from 'p-map'
 import type { AsyncExecutor } from '@graphql-tools/delegate'
 import type {
@@ -27,7 +27,6 @@ import type {
   CreatePagesArgs,
   PluginOptionsSchemaArgs,
 } from 'gatsby'
-import type { IPaginationAdapter } from 'gatsby-graphql-source-toolkit'
 import type {
   ISourcingConfig,
   NodeEvent,
@@ -46,6 +45,8 @@ import {
 } from './utils'
 import type { VTEXOptions } from './fetch'
 import type { Category, PageType, Redirect, Tenant } from './types'
+// import { RemoveTypes } from './graphql/transforms/removeTypes'
+import { ProductPaginationAdapter } from './graphql/pagination/product'
 
 const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`
@@ -77,7 +78,7 @@ const DEFAULT_PAGE_TYPES_WHITELIST = [
 ]
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
-  args: SourceNodesArgs,
+  gatsbyAPI: SourceNodesArgs,
   options: Options
 ) => {
   const {
@@ -89,10 +90,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     ignorePaths = [],
   } = options
 
-  const {
-    actions: { addThirdPartySchema },
-    reporter,
-  } = args
+  const { reporter } = gatsbyAPI
 
   const promisses = [] as Array<() => Promise<void>>
 
@@ -114,6 +112,10 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    * Add VTEX GraphQL API as 3p schema
    */
   promisses.push(async () => {
+    const {
+      actions: { addThirdPartySchema },
+    } = gatsbyAPI
+
     const activity = reporter.activityTimer(
       '[gatsby-source-vtex]: adding VTEX GraphQL Schema'
     )
@@ -128,9 +130,12 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
         new FilterObjectFields(
           (typeName, fieldName) => typeName !== 'VTEX' || fieldName !== 'pages'
         ),
-        new PruneSchema(),
+        new RenameTypes((typeName) => typeName.replace('VTEX_', 'Store')),
+        // new RemoveTypes((typeName) => typeName === 'StoreProduct'),
       ],
     })
+
+    writeFileSync(`${process.cwd()}/schemas.graphql`, printSchema(schema))
 
     addThirdPartySchema({ schema })
 
@@ -153,7 +158,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     )
 
     for (const binding of bindings) {
-      createChannelNode(args, binding)
+      createChannelNode(gatsbyAPI, binding)
     }
 
     activity.end()
@@ -175,7 +180,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     )
 
     for (const department of departments) {
-      createDepartmentNode(args, department)
+      createDepartmentNode(gatsbyAPI, department)
     }
 
     activity.end()
@@ -248,16 +253,17 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
         continue
       }
 
-      createStaticPathNode(args, pageType, staticPath)
+      createStaticPathNode(gatsbyAPI, pageType, staticPath)
     }
 
     activity.end()
   })
 
   /**
-   * Source products
+   * Source Products
    */
-  promisses.push(async () => {
+  // promisses.push
+  ;(async () => {
     // Step1. Set up remote schema:
     const schema = wrapSchema({
       schema: gatewaySchema,
@@ -316,36 +322,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       customFragments: fragments,
     })
 
-    // Define pagination adapters
-    interface IProduct {
-      productId: string
-    }
-
-    interface IPage {
-      products: IProduct[]
-    }
-
-    const StoreProductPaginationAdapter: IPaginationAdapter<IPage, IProduct> = {
-      name: 'StoreProductPaginationAdapter',
-      expectedVariableNames: [`from`, `to`],
-      start: () => ({
-        variables: { from: 0, to: 99 },
-        hasNextPage: true,
-      }),
-      next: (state, page) => ({
-        variables: {
-          from: Number(state.variables.from) + 100,
-          to: Number(state.variables.to) + 100,
-        },
-        hasNextPage: page.products.length > 0,
-      }),
-      concat: (result, page) => ({
-        products: result.products.concat(page.products),
-      }),
-      getItems: (pageOrResult) => pageOrResult.products,
-    }
-
-    // Define how to execute a query into the schema
+    // Step5. Define how to execute a query against the schema with transforms
     const run = wrapQueryExecutorWithQueue(async (opts) =>
       execute({
         schema,
@@ -356,19 +333,19 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     )
 
     const config: ISourcingConfig = {
-      gatsbyApi: args,
+      gatsbyApi: gatsbyAPI,
       schema,
       execute: run,
       gatsbyTypePrefix: `Store`,
       gatsbyNodeDefs: buildNodeDefinitions({ gatsbyNodeTypes, documents }),
-      paginationAdapters: [StoreProductPaginationAdapter],
+      paginationAdapters: [ProductPaginationAdapter],
     }
 
-    // Step5. Add explicit types to gatsby schema
+    // Step6. Add explicit types to gatsby schema
     await createSchemaCustomization(config)
 
-    // Step6. Source nodes either from delta changes or scratch
-    const lastBuildTime = await args.cache.get(`LAST_BUILD_TIME`)
+    // Step7. Source nodes either from delta changes or scratch
+    const lastBuildTime = await gatsbyAPI.cache.get(`LAST_BUILD_TIME`)
 
     if (lastBuildTime) {
       reporter.info(
@@ -384,7 +361,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       await sourceAllNodes(config)
     }
 
-    await args.cache.set(`LAST_BUILD_TIME`, Date.now())
+    await gatsbyAPI.cache.set(`LAST_BUILD_TIME`, Date.now())
   })
 
   await Promise.all(promisses.map((x) => x()))
