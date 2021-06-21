@@ -4,6 +4,7 @@ import { promisify } from 'util'
 
 import {
   FilterObjectFields,
+  FilterTypes,
   introspectSchema,
   PruneSchema,
   RenameTypes,
@@ -34,6 +35,7 @@ import type {
 
 import { api } from './api'
 import { fetchGraphQL, fetchVTEX } from './fetch'
+import { ProductPaginationAdapter } from './graphql/pagination/product'
 import { md5 } from './md5'
 import { assertRedirects } from './redirects'
 import defaultStaticPaths from './staticPaths'
@@ -45,8 +47,6 @@ import {
 } from './utils'
 import type { VTEXOptions } from './fetch'
 import type { Category, PageType, Redirect, Tenant } from './types'
-// import { RemoveTypes } from './graphql/transforms/removeTypes'
-import { ProductPaginationAdapter } from './graphql/pagination/product'
 
 const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`
@@ -122,7 +122,10 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
     activity.start()
 
+    const blacklist = new Set(['StoreProduct', 'StoreInstallment', 'StoreAttachment'])
+
     const schema = wrapSchema({
+      // schema: gatewaySchema,
       schema: gatewaySchema,
       executor,
       transforms: [
@@ -131,11 +134,12 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
           (typeName, fieldName) => typeName !== 'VTEX' || fieldName !== 'pages'
         ),
         new RenameTypes((typeName) => typeName.replace('VTEX_', 'Store')),
-        // new RemoveTypes((typeName) => typeName === 'StoreProduct'),
+        new FilterTypes((type) => !blacklist.has(type.name)),
+        new PruneSchema(),
       ],
     })
 
-    writeFileSync(`${process.cwd()}/schemas.graphql`, printSchema(schema))
+    writeFileSync(`${process.cwd()}/schema.graphql`, printSchema(schema))
 
     addThirdPartySchema({ schema })
 
@@ -262,8 +266,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   /**
    * Source Products
    */
-  // promisses.push
-  ;(async () => {
+  promisses.push(async () => {
     // Step1. Set up remote schema:
     const schema = wrapSchema({
       schema: gatewaySchema,
