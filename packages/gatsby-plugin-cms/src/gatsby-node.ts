@@ -134,7 +134,11 @@ export const sourceNodes = async (
   ])
 }
 
-export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
+export const createPages = async ({
+  actions: { createRedirect },
+  graphql,
+  reporter,
+}: CreatePagesArgs) => {
   const { data, errors } = await graphql(`
     {
       site {
@@ -164,6 +168,18 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
   if (!exists) {
     return
   }
+
+  // Use admin-cms restapi
+  createRedirect({
+    fromPath: '/cms-api/*',
+    toPath: `https://${workspace}--${tenant}.myvtex.com/_v/admin-cms-graphql-rc/v0/:splat`,
+    statusCode: 200,
+    proxyHeaders: {
+      // VTEX ID needs the forwarded host in order to set the cookie correctly
+      'x-forwarded-host': '$origin_host',
+      via: "''",
+    },
+  })
 
   // eslint-disable-next-line node/global-require
   require('@babel/register')({
