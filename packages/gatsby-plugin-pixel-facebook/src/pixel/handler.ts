@@ -49,11 +49,11 @@ export const handler: PixelEventHandler = (event) => {
             acc + (typeof price === 'number' ? price : 0),
           0
         ),
-        content_ids: items.map((sku) => sku.id),
-        contents: items.map((sku) => ({
-          id: sku.id,
-          quantity: sku.quantity,
-          item_price: sku.price ? sku.price : 0,
+        content_ids: items.map((product) => product.skuId),
+        contents: items.map((product) => ({
+          id: product.skuId,
+          quantity: product.quantity,
+          item_price: product.price ? product.price : 0,
         })),
         content_type: 'product',
         // TODO: send currency
