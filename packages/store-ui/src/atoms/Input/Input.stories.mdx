@@ -1,7 +1,15 @@
 import { Meta, Story, Preview, ArgsTable } from '@storybook/addon-docs/blocks'
 import Input from '.'
 
-<Meta title="Atoms/Input" />
+<Meta
+  argTypes={{
+    state: {
+      options: ['default', 'success', 'error'],
+      control: { type: 'select' },
+    },
+  }}
+  title="Atoms/Input"
+/>
 
 export const colorByState = {
   default: 'black',
@@ -22,7 +30,7 @@ export const colorByState = {
     {({placeholder, state}) => (
       <Input
         style={{
-          borderColor: colorByState[args.state],
+          borderColor: colorByState[state],
           borderStyle: 'solid',
         }}
         placeholder={placeholder}
