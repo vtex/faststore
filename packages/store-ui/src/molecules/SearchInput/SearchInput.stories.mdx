@@ -13,10 +13,10 @@ import CustomIcon from './assets/CustomIcon'
       placeholder: 'Search',
     }}
   >
-    {(args) => (
+    {({placeholder}) => (
       <SearchInput
         onSubmit={(value) => alert(`[search]: ${value}`)}
-        {...args}
+        placeholder={placeholder}
       />
     )}
   </Story>
@@ -31,11 +31,11 @@ import CustomIcon from './assets/CustomIcon'
       placeholder: 'Search',
     }}
   >
-    {(args) => (
+    {({placeholder}) => (
       <SearchInput
         icon={<CustomIcon />}
         onSubmit={(value) => alert(`[search]: ${value}`)}
-        {...args}
+        placeholder={placeholder}
       />
     )}
   </Story>

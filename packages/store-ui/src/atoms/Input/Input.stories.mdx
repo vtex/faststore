@@ -13,62 +13,20 @@ export const colorByState = {
 
 <Preview>
   <Story
-    name="Default"
+    name="Input"
     args={{
       placeholder: 'First name',
+      state: "default"
     }}
   >
-    {(args) => (
+    {({placeholder, state}) => (
       <Input
         style={{
           borderColor: colorByState[args.state],
           borderStyle: 'solid',
         }}
-        {...args}
-      />
-    )}
-  </Story>
-</Preview>
-
-# <h1 style={{ color: 'green' }}>Success</h1>
-
-<Preview>
-  <Story
-    name="Success"
-    args={{
-      placeholder: 'First name',
-      state: 'success',
-    }}
-  >
-    {(args) => (
-      <Input
-        style={{
-          borderColor: colorByState[args.state],
-          borderStyle: 'solid',
-        }}
-        {...args}
-      />
-    )}
-  </Story>
-</Preview>
-
-# <h1 style={{ color: 'red' }}>Error</h1>
-
-<Preview>
-  <Story
-    name="Error"
-    args={{
-      placeholder: 'First name',
-      state: 'error',
-    }}
-  >
-    {(args) => (
-      <Input
-        style={{
-          borderColor: colorByState[args.state],
-          borderStyle: 'solid',
-        }}
-        {...args}
+        placeholder={placeholder}
+        state={state}
       />
     )}
   </Story>

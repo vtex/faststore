@@ -2,6 +2,8 @@ import { Meta, Story, Preview, ArgsTable } from '@storybook/addon-docs/blocks'
 import { useMemo } from 'react'
 import Price from '.'
 
+export const value = 62.5
+
 <Meta
   title="Atoms/Price"
   argTypes={{
@@ -21,10 +23,10 @@ import Price from '.'
   <Story
     name="Default"
     args={{
-      value: 2.32,
+      value
     }}
   >
-    {(args) => <Price {...args} />}
+    {({value}) => <Price value={value} />}
   </Story>
 </Preview>
 
@@ -34,10 +36,10 @@ import Price from '.'
   <Story
     name="INTL Formatted"
     args={{
-      value: 62.5,
+      value
     }}
   >
-    {(args) => {
+    {({value}) => {
       function useIntlFormatter(price) {
         return useMemo(() => {
           const formattedPrice = new Intl.NumberFormat('en-GB', {
@@ -47,7 +49,7 @@ import Price from '.'
           return formattedPrice
         }, [price])
       }
-      return <Price formatter={useIntlFormatter} {...args} />
+      return <Price formatter={useIntlFormatter} value={value} />
     }}
   </Story>
 </Preview>
@@ -58,10 +60,10 @@ import Price from '.'
   <Story
     name="INTL Formatted to parts"
     args={{
-      value: 32.5,
+      value
     }}
   >
-    {(args) => {
+    {({value}) => {
       function useIntlFormatter(price) {
         return useMemo(() => {
           const formattedPrice = new Intl.NumberFormat('en-GB', {
@@ -71,7 +73,7 @@ import Price from '.'
           return formattedPrice
         }, [price])
       }
-      return <Price formatter={useIntlFormatter} {...args} />
+      return <Price formatter={useIntlFormatter} value={value} />
     }}
   </Story>
 </Preview>
@@ -82,11 +84,11 @@ import Price from '.'
   <Story
     name="Variant"
     args={{
-      value: 3.45,
+      value,
       variant: 'selling',
     }}
   >
-    {(args) => {
+    {({value, variant}) => {
       function useIntlFormatter(price) {
         return useMemo(() => {
           const formattedPrice = new Intl.NumberFormat('en-GB', {
@@ -96,7 +98,7 @@ import Price from '.'
           return formattedPrice
         }, [price])
       }
-      return <Price formatter={useIntlFormatter} {...args} />
+      return <Price formatter={useIntlFormatter} value={value} variant={variant} />
     }}
   </Story>
 </Preview>
@@ -107,16 +109,16 @@ import Price from '.'
   <Story
     name="Custom"
     args={{
-      value: 3.75,
+      value
     }}
   >
-    {(args) => {
+    {({value}) => {
       function customFormatter(price) {
         const unformattedPrice = `${price}`
         const formattedPrice = `${unformattedPrice.replace('.', ',')} reais`
         return formattedPrice
       }
-      return <Price formatter={customFormatter} {...args} />
+      return <Price formatter={customFormatter} value={value} />
     }}
   </Story>
 </Preview>

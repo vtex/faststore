@@ -3,7 +3,16 @@ import { useRef, useState } from 'react'
 import Popover from '.'
 import Input from '../Input'
 
-<Meta title="Atoms/Popover" />
+<Meta
+  title="Atoms/Popover"
+  parameters={{
+    docs: {
+      source: {
+        type: 'code',
+      },
+    }
+  }}
+/>
 
 # Preview
 
@@ -27,7 +36,7 @@ import Input from '../Input'
               ref={ref}
             />
           </label>
-          {value.length > 0 && <Popover {...args} targetRef={ref} />}
+          {value.length > 0 && <Popover targetRef={ref}>{children}</Popover>}
         </div>
       )
     }}
