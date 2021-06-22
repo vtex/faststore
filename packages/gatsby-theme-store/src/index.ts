@@ -1,7 +1,7 @@
 export { default as masterData } from './sdk/masterData'
 
 export { useBuyButton } from './sdk/buyButton/useBuyButton'
-export type { SKU } from './sdk/buyButton/useBuyButton'
+export type { SKU, Product } from './sdk/buyButton/useBuyButton'
 
 export { useSalesChannel } from './sdk/channel/useSalesChannel'
 export { useNewsletter } from './sdk/newsletter/useNewsletter'
@@ -34,6 +34,19 @@ export { useOrderForm, useOrderQueue } from './sdk/orderForm/useOrderForm'
 export type { OrderForm } from './sdk/orderForm/Provider'
 export { useOrderItems } from './sdk/orderForm/useOrderItems'
 export { useOrderQueueStatus } from './sdk/orderForm/useQueueStatus'
+export {
+  useUpdateQuantityAnalytics,
+  updateQuantityWithAnalytics,
+} from './sdk/orderForm/useUpdateQuantityAnalytics'
+export {
+  useRemoveItemAnalytics,
+  removeItemWithAnalytics,
+} from './sdk/orderForm/useRemoveItemAnalytics'
+export type {
+  UpdateQuantityWithAnalyticsParams,
+  OrderFormItemToAnalytics,
+} from './sdk/orderForm/useUpdateQuantityAnalytics'
+export type { RemoveItemWithAnalyticsParams } from './sdk/orderForm/useRemoveItemAnalytics'
 
 export { useSummaryImage } from './sdk/product/useSummaryImage'
 export { useSku } from './sdk/product/useSku'

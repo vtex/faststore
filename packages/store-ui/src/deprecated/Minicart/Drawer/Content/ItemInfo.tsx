@@ -9,7 +9,7 @@ interface Props<T> {
   item: T
   variant: string
   removeItem: (item: T) => Promise<void> | void
-  updateItem: (item: T) => Promise<void> | void
+  updateItem: (item: T, oldItem?: T) => Promise<void> | void
   numberFormat: (num: number) => string
   formatMessage: (obj: { id: string }) => string
 }

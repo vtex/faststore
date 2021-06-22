@@ -42,12 +42,12 @@ export interface InternalSiteSearchViewData extends PageViewData {
 }
 
 export interface AddToCartData {
-  items: OrderFormItem[]
+  items: PixelItem[]
   oneClickBuy?: boolean
 }
 
 export interface RemoveFromCartData {
-  items: OrderFormFragment_OrderFormFragment['items']
+  items: PixelItem[]
 }
 
 export interface CartChangedData {
@@ -164,4 +164,18 @@ interface PriceTag {
   identifier: string
   isPercentual: boolean
   value: number
+}
+
+export interface PixelItem {
+  productId: string
+  productReferenceId: Maybe<string>
+  productName: string
+  brand: string
+  categoryTree: Array<{ name: string }>
+  price: number
+  // TODO currencyCode
+  quantity: number
+  skuId: string
+  skuName: string
+  skuReferenceId: Maybe<Array<{ value: Maybe<string> }>>
 }
