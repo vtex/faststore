@@ -4,13 +4,13 @@ import { version } from '../package.json'
 export default create({
   base: 'light',
 
-  colorPrimary: '#f71963',
-  colorSecondary: '#f71963',
+  colorPrimary: '#05a0c7',
+  colorSecondary: '#05a0c7',
 
   // UI
   appBg: 'white',
   appContentBg: 'white',
-  appBorderColor: '#f71963',
+  appBorderColor: '#05a0c7',
   appBorderRadius: 4,
 
   // Typography
@@ -22,13 +22,13 @@ export default create({
 
   // Toolbar default and active colors
   barTextColor: 'black',
-  barSelectedColor: '#f71963',
+  barSelectedColor: '#05a0c7',
   barBg: 'white',
-  barBorder: '#f71963',
+  barBorder: '#05a0c7',
 
   // Form colors
   inputBg: 'white',
-  inputBorder: '#f71963',
+  inputBorder: '#05a0c7',
   inputTextColor: 'black',
   inputBorderRadius: 4,
 
