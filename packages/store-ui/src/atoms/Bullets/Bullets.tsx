@@ -8,6 +8,7 @@ export interface BulletsProps {
   activeBullet: number
   onClick: (e: MouseEvent, bulletIdx: number) => void
   testId?: string
+  listItemTestId?: string
 }
 
 function Bullets({
@@ -15,6 +16,7 @@ function Bullets({
   activeBullet,
   onClick,
   testId = 'store-bullets',
+  listItemTestId = 'bullet-item',
 }: BulletsProps) {
   const bulletIndexes = [...new Array(totalQuantity).keys()]
 
@@ -26,7 +28,7 @@ function Bullets({
         return (
           <li
             key={idx}
-            data-testid="bullet-item"
+            data-testid={listItemTestId}
             data-bullet-item
             data-active={isActive || undefined}
           >
