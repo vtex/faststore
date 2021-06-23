@@ -31,7 +31,7 @@ export const query = gql`
   ) {
     vtex {
       productRecommendations(identifier: $identifier, type: $type) {
-        ...ProductSummary_product
+        ...ProductSummaryFragment_product
       }
     }
   }

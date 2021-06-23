@@ -50,103 +50,102 @@ export const createPages = async ({
    * STATIC PATHS
    */
 
-  const { data: staticPaths, errors } = await graphql<{
-    searches: { nodes: StaticPath[] }
-    products: { nodes: StaticPath[] }
-  }>(`
-    query GetAllStaticPaths {
-      searches: allStaticPath(
-        filter: {
-          pageType: { in: ["Department", "Category", "Brand", "SubCategory"] }
-        }
-      ) {
-        nodes {
-          ...staticPath
-        }
-      }
-      products: allStaticPath(filter: { pageType: { eq: "Product" } }) {
-        nodes {
-          ...staticPath
-        }
-      }
-    }
+  // const { data: staticPaths, errors } = await graphql<{
+  //   searches: { nodes: StaticPath[] }
+  //   products: { nodes: StaticPath[] }
+  // }>(`
+  //   query GetAllStaticPaths {
+  //     searches: allStaticPath(
+  //       filter: {
+  //         pageType: { in: ["Department", "Category", "Brand", "SubCategory"] }
+  //       }
+  //     ) {
+  //       nodes {
+  //         ...staticPath
+  //       }
+  //     }
+  //     products: allStaticPath(filter: { pageType: { eq: "Product" } }) {
+  //       nodes {
+  //         ...staticPath
+  //       }
+  //     }
+  //   }
 
-    fragment staticPath on StaticPath {
-      id
-      path
-      pageType
-    }
-  `)
+  //   fragment staticPath on StaticPath {
+  //     id
+  //     path
+  //     pageType
+  //   }
+  // `)
 
-  if (errors && errors.length > 0) {
-    reporter.panicOnBuild(
-      `[gatsby-theme-store]: Something went wrong while querying for static paths: ${errors.toString()}`
-    )
+  // if (errors && errors.length > 0) {
+  //   reporter.panicOnBuild(
+  //     `[gatsby-theme-store]: Something went wrong while querying for static paths: ${errors.toString()}`
+  //   )
 
-    return
-  }
+  //   return
+  // }
 
-  const {
-    searches: { nodes: searches = [] },
-    products: { nodes: products = [] },
-  } = staticPaths!
+  // const {
+  //   searches: { nodes: searches = [] },
+  // } = staticPaths!
 
-  /**
-   * Create search static paths
-   */
-  for (const search of searches) {
-    const { path, id, pageType } = search
-    const [, ...segments] = path.split('/')
-    const key = pageType === 'Brand' ? 'b' : 'c'
+  // /**
+  //  * Create search static paths
+  //  */
+  // for (const search of searches) {
+  //   const { path, id, pageType } = search
+  //   const [, ...segments] = path.split('/')
+  //   const key = pageType === 'Brand' ? 'b' : 'c'
 
-    const searchParams = {
-      orderBy: '',
-      selectedFacets: segments.map((segment) => ({
-        key,
-        value: segment,
-      })),
-    }
+  //   const searchParams = {
+  //     orderBy: '',
+  //     selectedFacets: segments.map((segment) => ({
+  //       key,
+  //       value: segment,
+  //     })),
+  //   }
 
-    createPage({
-      path,
-      component: resolve(__dirname, './src/templates/search.server.tsx'),
-      context: {
-        ...searchParams,
-        id,
-        canonicalPath: path,
-      },
-    })
+  //   createPage({
+  //     path,
+  //     component: resolve(__dirname, './src/templates/search.server.tsx'),
+  //     context: {
+  //       ...searchParams,
+  //       id,
+  //       canonicalPath: path,
+  //     },
+  //   })
 
-    createRedirect({
-      fromPath: `${path}/`,
-      toPath: path,
-      isPermanent: true,
-      statusCode: 301,
-      redirectInBrowser: false,
-    })
+  //   createRedirect({
+  //     fromPath: `${path}/`,
+  //     toPath: path,
+  //     isPermanent: true,
+  //     statusCode: 301,
+  //     redirectInBrowser: false,
+  //   })
 
-    createPage({
-      path: `${path}/__client_side_search__`,
-      matchPath: `${path}/*`,
-      component: resolve(__dirname, './src/templates/search.browser.tsx'),
-      context: {
-        id,
-        canonicalPath: path,
-      },
-    })
-  }
+  //   createPage({
+  //     path: `${path}/__client_side_search__`,
+  //     matchPath: `${path}/*`,
+  //     component: resolve(__dirname, './src/templates/search.browser.tsx'),
+  //     context: {
+  //       id,
+  //       canonicalPath: path,
+  //     },
+  //   })
+  // }
 
   /**
    * CLIENT ONLY PATHS
    */
 
   // Client side, full text, search page
-  createPage({
-    path: '/s/__client_side_search__',
-    matchPath: '/s/*',
-    component: resolve(__dirname, './src/templates/search.browser.tsx'),
-    context: {},
-  })
+  // createPage({
+  //   path: '/s/__client_side_search__',
+  //   matchPath: '/s/*',
+  //   component: resolve(__dirname, './src/tewmplates/search.browser.tsx'),
+  //   context: {},
+  // })
 }
 
 const resolveToTS = (

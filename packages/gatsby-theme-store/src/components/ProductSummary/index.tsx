@@ -33,7 +33,7 @@ const ProductSummary: FC<Props> = () => (
 )
 
 export const fragment = graphql`
-  fragment ProductSummary_product on VTEX_Product {
+  fragment ProductSummaryFragment_product on StoreProduct {
     id: productId
     productName
     linkText
@@ -55,11 +55,11 @@ export const fragment = graphql`
       sellers {
         sellerId
         commercialOffer: commertialOffer {
-          maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {
+          maxInstallments {
             value: Value
             numberOfInstallments: NumberOfInstallments
           }
-          installments: Installments(criteria: ALL) {
+          installments {
             value: Value
             numberOfInstallments: NumberOfInstallments
             interestRate: InterestRate

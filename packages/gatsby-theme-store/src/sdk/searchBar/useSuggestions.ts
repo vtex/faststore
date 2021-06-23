@@ -51,7 +51,7 @@ export const query = gql`
       ) {
         total: count
         products {
-          ...ProductSummary_product
+          ...ProductSummaryFragment_product
         }
       }
     }

@@ -153,11 +153,21 @@ fragment Product on Product {
           sellerDefault
           commertialOffer {
             ... on Offer {
-              Installments {
-                ... on Installment {
-                  value: Value
-                  numberOfInstallments: NumberOfInstallments
-                }
+              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {
+                Value
+                NumberOfInstallments
+              }
+              installments: Installments(criteria: ALL) {
+                Value
+                NumberOfInstallments
+                InterestRate
+              }
+              AvailableQuantity
+              Price
+              ListPrice
+              spotPrice
+              teasers {
+                name
               }
               Price
               ListPrice

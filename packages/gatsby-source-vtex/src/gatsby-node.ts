@@ -1,40 +1,36 @@
-import { readFile as readFileAsync, writeFileSync } from 'fs'
+import { readFile as readFileAsync } from 'fs'
 import { join } from 'path'
 import { promisify } from 'util'
 
-import {
-  FilterObjectFields,
-  FilterTypes,
-  introspectSchema,
-  PruneSchema,
-  RenameTypes,
-  wrapSchema,
-} from '@graphql-tools/wrap'
+import { PruneSchema, RenameTypes, wrapSchema } from '@graphql-tools/wrap'
 import {
   buildNodeDefinitions,
   compileNodeQueries,
-  createSchemaCustomization,
+  createSchemaCustomization as toolkitCreateSchemaCustomization,
   sourceAllNodes,
   sourceNodeChanges,
   wrapQueryExecutorWithQueue,
 } from 'gatsby-graphql-source-toolkit'
-import { execute, parse, print, printSchema } from 'graphql'
+import { execute, parse } from 'graphql'
 import pMap from 'p-map'
-import type { AsyncExecutor } from '@graphql-tools/delegate'
+import type { GraphQLResolveInfo } from 'graphql'
 import type {
   GatsbyNode,
   PluginOptions,
   SourceNodesArgs,
   CreatePagesArgs,
   PluginOptionsSchemaArgs,
+  CreateSchemaCustomizationArgs,
+  CreateResolversArgs,
 } from 'gatsby'
 import type {
   ISourcingConfig,
   NodeEvent,
 } from 'gatsby-graphql-source-toolkit/dist/types'
 
+import { getDelegateToSchema } from './graphql/delegate'
 import { api } from './api'
-import { fetchGraphQL, fetchVTEX } from './fetch'
+import { fetchVTEX } from './fetch'
 import { ProductPaginationAdapter } from './graphql/pagination/product'
 import { md5 } from './md5'
 import { assertRedirects } from './redirects'
@@ -45,11 +41,14 @@ import {
   createStaticPathNode,
   normalizePath,
 } from './utils'
+import { getExecutor, getGatewaySchema } from './graphql/schema'
 import type { VTEXOptions } from './fetch'
 import type { Category, PageType, Redirect, Tenant } from './types'
+import { getResolvers } from './graphql/resolvers'
 
-const getGraphQLUrl = (tenant: string, workspace: string) =>
-  `http://${workspace}--${tenant}.myvtex.com/graphql`
+const readFile = promisify(readFileAsync)
+
+const PLUGIN_NAME = 'gatsby-source-vtex'
 
 export interface Options extends PluginOptions, VTEXOptions {
   /**
@@ -67,6 +66,7 @@ export interface Options extends PluginOptions, VTEXOptions {
    * @description max number of paths for getStaticPaths to generate
    * */
   maxNumPaths?: number
+  unstable_fastSourcing?: boolean
 }
 
 const DEFAULT_PAGE_TYPES_WHITELIST = [
@@ -88,70 +88,24 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     pageTypes: pageTypesWhitelist = DEFAULT_PAGE_TYPES_WHITELIST,
     concurrency = 20,
     ignorePaths = [],
+    unstable_fastSourcing: fastSourcing,
   } = options
 
   const { reporter } = gatsbyAPI
 
   const promisses = [] as Array<() => Promise<void>>
 
-  // Create executor to run queries against schema
-  const url = getGraphQLUrl(tenant, workspace)
-  const executor: AsyncExecutor = ({ document, variables }) =>
-    fetchGraphQL(url, {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query: print(document), variables }),
-    })
+  const lastBuildTime = await gatsbyAPI.cache.get(`LAST_BUILD_TIME`)
 
-  const gatewaySchema = await introspectSchema(executor)
-
-  /**
-   * Add VTEX GraphQL API as 3p schema
-   */
-  promisses.push(async () => {
-    const {
-      actions: { addThirdPartySchema },
-    } = gatsbyAPI
-
-    const activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: adding VTEX GraphQL Schema'
-    )
-
-    activity.start()
-
-    const blacklist = new Set(['StoreProduct', 'StoreInstallment', 'StoreAttachment'])
-
-    const schema = wrapSchema({
-      // schema: gatewaySchema,
-      schema: gatewaySchema,
-      executor,
-      transforms: [
-        // Filter CMS fields so people use the VTEX CMS plugin instead of this one
-        new FilterObjectFields(
-          (typeName, fieldName) => typeName !== 'VTEX' || fieldName !== 'pages'
-        ),
-        new RenameTypes((typeName) => typeName.replace('VTEX_', 'Store')),
-        new FilterTypes((type) => !blacklist.has(type.name)),
-        new PruneSchema(),
-      ],
-    })
-
-    writeFileSync(`${process.cwd()}/schema.graphql`, printSchema(schema))
-
-    addThirdPartySchema({ schema })
-
-    activity.end()
-  })
+  /** Reset last build time */
+  promisses.push(async () => gatsbyAPI.cache.set(`LAST_BUILD_TIME`, Date.now()))
 
   /**
    * Add VTEX bindings
    */
   promisses.push(async () => {
     const activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching VTEX Bindings'
+      `[${PLUGIN_NAME}]: fetching VTEX Bindings`
     )
 
     activity.start()
@@ -173,7 +127,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    */
   promisses.push(async () => {
     const activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching VTEX Departments'
+      `[${PLUGIN_NAME}]: fetching VTEX Departments`
     )
 
     activity.start()
@@ -193,181 +147,204 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   /**
    * Static Paths used to generate pages
    */
-  promisses.push(async () => {
-    let activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching StaticPaths'
-    )
-
-    activity.start()
-
-    const staticPaths = (typeof getStaticPaths === 'function'
-      ? await getStaticPaths()
-      : await defaultStaticPaths(options)
-    )
-      .map(normalizePath)
-      .filter((path) => !ignorePaths.includes(path))
-
-    activity.end()
-
-    activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching PageTypes'
-    )
-
-    activity.start()
-
-    const fetchPageTypes = async (path: string): Promise<PageType> => {
-      const isProduct = /\/(.)+\/p$/g
-
-      // When the page is a product page, we skip calling the pageType backend to speedup the process considerably.
-      // This makes us have to synthetically generate some data. However, it shouldn't be a problem since we don't
-      // use these synthetic attributes
-      if (isProduct.test(path)) {
-        return {
-          id: md5(path),
-          name: path.split('/p')[0],
-          url: path,
-          title: '',
-          metaTagDescription: '',
-          pageType: 'Product',
-        }
-      }
-
-      return fetchVTEX<PageType>(api.catalog.portal.pageType(path), options)
-    }
-
-    const pageTypes = await pMap(staticPaths, fetchPageTypes, { concurrency })
-
-    if (pageTypes.length !== staticPaths.length) {
-      reporter.panicOnBuild(
-        '[gatsby-source-vtex]: Length of PageTypes and staticPaths do not agree. No static path will be generated'
+  if (!fastSourcing) {
+    promisses.push(async () => {
+      let activity = reporter.activityTimer(
+        `[${PLUGIN_NAME}]: fetching StaticPaths`
       )
 
-      return
-    }
+      activity.start()
 
-    for (let it = 0; it < pageTypes.length; it++) {
-      const pageType = pageTypes[it]
-      const staticPath = staticPaths[it]
+      const staticPaths = (typeof getStaticPaths === 'function'
+        ? await getStaticPaths()
+        : await defaultStaticPaths(options)
+      )
+        .map(normalizePath)
+        .filter((path) => !ignorePaths.includes(path))
 
-      if (!pageTypesWhitelist.includes(pageType.pageType)) {
-        reporter.warn(
-          `[gatsby-source-vtex]: Dropping path. Reason: PageType API reported ${pageType.pageType} for path: ${staticPath}`
-        )
+      activity.end()
 
-        continue
+      activity = reporter.activityTimer(`[${PLUGIN_NAME}]: fetching PageTypes`)
+
+      activity.start()
+
+      const fetchPageTypes = async (path: string): Promise<PageType> => {
+        const isProduct = /\/(.)+\/p$/g
+
+        // When the page is a product page, we skip calling the pageType backend to speedup the process considerably.
+        // This makes us have to synthetically generate some data. However, it shouldn't be a problem since we don't
+        // use these synthetic attributes
+        if (isProduct.test(path)) {
+          return {
+            id: md5(path),
+            name: path.split('/p')[0],
+            url: path,
+            title: '',
+            metaTagDescription: '',
+            pageType: 'Product',
+          }
+        }
+
+        return fetchVTEX<PageType>(api.catalog.portal.pageType(path), options)
       }
 
-      createStaticPathNode(gatsbyAPI, pageType, staticPath)
-    }
+      const pageTypes = await pMap(staticPaths, fetchPageTypes, { concurrency })
 
-    activity.end()
-  })
+      if (pageTypes.length !== staticPaths.length) {
+        reporter.panicOnBuild(
+          `[${PLUGIN_NAME}]: Length of PageTypes and staticPaths do not agree. No static path will be generated`
+        )
+
+        return
+      }
+
+      for (let it = 0; it < pageTypes.length; it++) {
+        const pageType = pageTypes[it]
+        const staticPath = staticPaths[it]
+
+        if (!pageTypesWhitelist.includes(pageType.pageType)) {
+          reporter.warn(
+            `[${PLUGIN_NAME}]: Dropping path. Reason: PageType API reported ${pageType.pageType} for path: ${staticPath}`
+          )
+
+          continue
+        }
+
+        createStaticPathNode(gatsbyAPI, pageType, staticPath)
+      }
+
+      activity.end()
+    })
+  }
 
   /**
    * Source Products
    */
-  promisses.push(async () => {
-    // Step1. Set up remote schema:
-    const schema = wrapSchema({
-      schema: gatewaySchema,
-      executor,
-      transforms: [
-        new RenameTypes((typeName: string) => {
-          const newTypeName = typeName.replace('VTEX_', '')
-          const isTypeNameAvailable = !gatewaySchema.getType(newTypeName)
+  if (fastSourcing) {
+    promisses.push(async () => {
+      // Step1. Set up remote schema:
+      const executor = getExecutor(options)
+      const gatewaySchema = await getGatewaySchema(options)
+      const schema = wrapSchema({
+        schema: gatewaySchema,
+        executor,
+        transforms: [
+          new RenameTypes((typeName: string) => {
+            const newTypeName = typeName.replace('VTEX_', '')
+            const isTypeNameAvailable = !gatewaySchema.getType(newTypeName)
 
-          return isTypeNameAvailable ? newTypeName : typeName
-        }),
-        new PruneSchema(),
-      ],
-    })
+            return isTypeNameAvailable ? newTypeName : typeName
+          }),
+          new PruneSchema(),
+        ],
+      })
 
-    // Step2. Configure Gatsby node types
-    const gatsbyNodeTypes = [
-      {
-        remoteTypeName: `Product`,
-        queries: `
-          query LIST_PRODUCTS($from: number, $to: number) {
-            vtex {
-              productSearch(
-                orderBy: "orders:desc",
-                from: $from,
-                to: $to
-              ){
-                products {
-                  ..._StoreProductFragment_
+      // Step2. Configure Gatsby node types
+      const gatsbyNodeTypes = [
+        {
+          remoteTypeName: `Product`,
+          queries: `
+            query LIST_PRODUCTS($from: number, $to: number) {
+              vtex {
+                productSearch(
+                  orderBy: "orders:desc",
+                  from: $from,
+                  to: $to
+                ){
+                  products {
+                    ..._StoreProductFragment_
+                  }
                 }
               }
             }
-          }
 
-          fragment _StoreProductFragment_ on Product {
-            id: productId
-            __typename
-          }
-        `,
-      },
-    ]
+            fragment _StoreProductFragment_ on Product {
+              id: productId
+              __typename
+            }
+          `,
+        },
+      ]
 
-    // Step3. Provide (or generate) fragments with fields to be fetched
-    const fragments = new Map()
-    const readFile = promisify(readFileAsync)
-    const productFragment = await readFile(
-      join(__dirname, '../fragments/ProductFragment.graphql')
-    )
+      // Step3. Provide (or generate) fragments with fields to be fetched
+      const fragments = new Map()
+      const productFragment = await readFile(
+        join(__dirname, '../graphql/fragments/ProductFragment.graphql')
+      )
 
-    fragments.set('Product', `${productFragment}`)
+      fragments.set('Product', `${productFragment}`)
 
-    // Step4. Compile sourcing queries
-    const documents = compileNodeQueries({
-      schema,
-      gatsbyNodeTypes,
-      customFragments: fragments,
-    })
-
-    // Step5. Define how to execute a query against the schema with transforms
-    const run = wrapQueryExecutorWithQueue(async (opts) =>
-      execute({
+      // Step4. Compile sourcing queries
+      const documents = compileNodeQueries({
         schema,
-        document: parse(opts.query),
-        operationName: opts.operationName,
-        variableValues: opts.variables,
+        gatsbyNodeTypes,
+        customFragments: fragments,
       })
-    )
 
-    const config: ISourcingConfig = {
-      gatsbyApi: gatsbyAPI,
-      schema,
-      execute: run,
-      gatsbyTypePrefix: `Store`,
-      gatsbyNodeDefs: buildNodeDefinitions({ gatsbyNodeTypes, documents }),
-      paginationAdapters: [ProductPaginationAdapter],
-    }
-
-    // Step6. Add explicit types to gatsby schema
-    await createSchemaCustomization(config)
-
-    // Step7. Source nodes either from delta changes or scratch
-    const lastBuildTime = await gatsbyAPI.cache.get(`LAST_BUILD_TIME`)
-
-    if (lastBuildTime) {
-      reporter.info(
-        '[gatsby-source-vtex]: Cache found! We are about to go fast! Sourcing only changed data'
+      // Step5. Define how to execute a query against the schema with transforms
+      const run = wrapQueryExecutorWithQueue(async (opts) =>
+        execute({
+          schema,
+          document: parse(opts.query),
+          operationName: opts.operationName,
+          variableValues: opts.variables,
+        })
       )
-      const nodeEvents: NodeEvent[] = []
 
-      await sourceNodeChanges(config, { nodeEvents })
-    } else {
-      reporter.info(
-        '[gatsby-source-vtex]: No cache found. Sourcing all data from scratch'
-      )
-      await sourceAllNodes(config)
-    }
+      const config: ISourcingConfig = {
+        gatsbyApi: gatsbyAPI,
+        schema,
+        execute: run,
+        gatsbyTypePrefix: `Store`,
+        gatsbyNodeDefs: buildNodeDefinitions({ gatsbyNodeTypes, documents }),
+        paginationAdapters: [ProductPaginationAdapter],
+      }
 
-    await gatsbyAPI.cache.set(`LAST_BUILD_TIME`, Date.now())
-  })
+      // Step6. Add explicit types to gatsby schema
+      await toolkitCreateSchemaCustomization(config)
+
+      // Step7. Source nodes either from delta changes or scratch
+
+      if (lastBuildTime) {
+        reporter.info(
+          `[${PLUGIN_NAME}]: Cache found! We are about to go fast! Sourcing only changed data`
+        )
+        const nodeEvents: NodeEvent[] = []
+
+        await sourceNodeChanges(config, { nodeEvents })
+      } else {
+        reporter.info(
+          `[${PLUGIN_NAME}]: No cache found. Sourcing all data from scratch`
+        )
+        await sourceAllNodes(config)
+      }
+    })
+  }
 
   await Promise.all(promisses.map((x) => x()))
+}
+
+export const createSchemaCustomization = async (
+  args: CreateSchemaCustomizationArgs
+) => {
+  const {
+    actions: { createTypes },
+  } = args
+
+  const typeDefs = await readFile(join(__dirname, '../graphql/schema.graphql'))
+
+  createTypes(typeDefs.toString(), { name: PLUGIN_NAME })
+}
+
+export const createResolvers = async (
+  gatsbyAPI: CreateResolversArgs,
+  options: Options
+) => {
+  const { createResolvers: createResolversAPI } = gatsbyAPI
+
+  const resolvers = await getResolvers(options)
+
+  createResolversAPI(resolvers)
 }
 
 export const createPages = async (
@@ -379,41 +356,17 @@ export const createPages = async (
    */
   const {
     data: {
-      searches: { nodes: searches },
-      products: { nodes: products },
       allStoreProduct: { totalCount },
     },
   } = await graphql<any>(`
     query GetAllStaticPaths {
-      searches: allStaticPath(
-        filter: {
-          pageType: { in: ["Department", "Category", "Brand", "SubCategory"] }
-        }
-      ) {
-        nodes {
-          ...staticPath
-        }
-      }
-      products: allStaticPath(filter: { pageType: { eq: "Product" } }) {
-        nodes {
-          ...staticPath
-        }
-      }
       allStoreProduct {
         totalCount
       }
     }
-
-    fragment staticPath on StaticPath {
-      id
-      path
-      pageType
-    }
   `)
 
-  reporter.info(`[gatsby-source-vtex]: Available pdps: ${products.length}`)
-  reporter.info(`[gatsby-source-vtex]: Available plps: ${searches.length}`)
-  reporter.info(`[gatsby-source-vtex]: Available Products: ${totalCount}`)
+  reporter.info(`[${PLUGIN_NAME}]: Available Products: ${totalCount}`)
 
   /**
    * Create all proxy rules for VTEX Store
@@ -423,7 +376,7 @@ export const createPages = async (
 
   if (typeof getRedirects === 'function') {
     const activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: sourcing Redirects'
+      `[${PLUGIN_NAME}]: sourcing Redirects`
     )
 
     activity.start()
@@ -568,4 +521,5 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     getRedirects: Joi.function().arity(0),
     pageTypes: Joi.array().items(Joi.string()),
     maxNumPaths: Joi.number(),
+    unstable_fastSourcing: Joi.boolean(),
   })

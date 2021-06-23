@@ -39,7 +39,7 @@ export const mutation = gql`
   mutation SetRegionMutation(
     $postalCode: String
     $country: String = "BRA"
-    $addressType: VTEX_AddressType = residential
+    $addressType: StoreAddressType = residential
     $orderFormId: ID
   ) {
     updateSelectedAddress(

@@ -80,7 +80,7 @@ export const query = gql`
         orderBy: $orderBy
       ) {
         products {
-          ...ProductSummary_product
+          ...ProductSummaryFragment_product
         }
       }
     }

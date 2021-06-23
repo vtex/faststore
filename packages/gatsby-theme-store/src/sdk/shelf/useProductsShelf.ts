@@ -50,7 +50,7 @@ export const query = gql`
         category: $category
         simulationBehavior: $simulationBehavior
       ) {
-        ...ProductSummary_product
+        ...ProductSummaryFragment_product
       }
     }
   }
