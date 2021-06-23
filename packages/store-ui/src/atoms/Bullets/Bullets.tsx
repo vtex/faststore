@@ -4,10 +4,28 @@ import React from 'react'
 import Button from '../Button'
 
 export interface BulletsProps {
+  /**
+   * Number of bullets that should be rendered.
+   */
   totalQuantity: number
+  /**
+   * The currently active bullet (zero-indexed).
+   */
   activeBullet: number
+  /**
+   * Event handler for clicks on each bullet. The handler will be called with
+   * the index of the bullet that received the click.
+   */
   onClick: (e: MouseEvent, bulletIdx: number) => void
+  /**
+   * ID to find this component in testing tools (e.g.: cypress,
+   * testing-library, and jest).
+   */
   testId?: string
+  /**
+   * ID to find each `<li>` rendered by this component in testing tools
+   * (e.g.: cypress, testing-library, and jest).
+   */
   listItemTestId?: string
 }
 
