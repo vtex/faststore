@@ -1,7 +1,7 @@
 import type { MouseEvent } from 'react'
 import React, { useMemo } from 'react'
 
-import Button from '../Button'
+import Button from '../../atoms/Button'
 
 export interface BulletsProps {
   /**
