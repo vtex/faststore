@@ -1,5 +1,5 @@
 import type { MouseEvent } from 'react'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import Button from '../Button'
 
@@ -36,7 +36,9 @@ function Bullets({
   testId = 'store-bullets',
   listItemTestId = 'bullet-item',
 }: BulletsProps) {
-  const bulletIndexes = [...new Array(totalQuantity).keys()]
+  const bulletIndexes = useMemo(() => [...new Array(totalQuantity).keys()], [
+    totalQuantity,
+  ])
 
   return (
     <ol data-store-bullets data-testid={testId}>
