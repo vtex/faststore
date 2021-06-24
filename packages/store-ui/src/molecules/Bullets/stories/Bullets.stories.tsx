@@ -18,8 +18,14 @@ export default {
   component: Bullets,
   argTypes: {
     totalQuantity: {
-      control: 'number',
+      control: { type: 'number', min: 1 },
       defaultValue: 5,
+      min: 1,
+    },
+    activeBullet: {
+      control: { type: 'number', min: 0 },
+      defaultValue: 3,
+      min: 0,
     },
     onClick: {
       action: 'Bullet clicked',
