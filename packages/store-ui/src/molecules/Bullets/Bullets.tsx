@@ -27,6 +27,16 @@ export interface BulletsProps {
    * (e.g.: cypress, testing-library, and jest).
    */
   listItemTestId?: string
+  /**
+   * Function that should be used to generate the aria-label attribute added
+   * to each bullet that is inactive. It receives the bullet index as an
+   * argument so that it can be interpolated in the generated string.
+   */
+  ariaLabelGenerator?: (index: number) => string
+  /**
+   * aria-label attribute to be added to the currently active bullet.
+   */
+  activeAriaLabel?: string
 }
 
 function Bullets({
@@ -35,6 +45,8 @@ function Bullets({
   onClick,
   testId = 'store-bullets',
   listItemTestId = 'bullet-item',
+  ariaLabelGenerator = (idx: number) => `Go to page ${idx + 1}`,
+  activeAriaLabel = 'Current page',
 }: BulletsProps) {
   const bulletIndexes = useMemo(() => [...new Array(totalQuantity).keys()], [
     totalQuantity,
@@ -44,6 +56,7 @@ function Bullets({
     <ol data-store-bullets data-testid={testId}>
       {bulletIndexes.map((idx) => {
         const isActive = activeBullet === idx
+        const ariaLabel = ariaLabelGenerator(idx)
 
         return (
           <li
@@ -53,7 +66,7 @@ function Bullets({
             data-active={isActive || undefined}
           >
             <Button
-              aria-label={isActive ? 'Current page' : `Go to page ${idx + 1}`}
+              aria-label={isActive ? activeAriaLabel : ariaLabel}
               onClick={(e) => onClick(e, idx)}
             />
           </li>
