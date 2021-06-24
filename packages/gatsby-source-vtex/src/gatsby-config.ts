@@ -5,7 +5,7 @@ import type { Options } from './gatsby-node'
  * If adding a new rule, don't forget to create a redirect in ./gatsby-node.ts
  * so the redirect works in production websites as well
  */
-export default ({ tenant, workspace, environment }: Options) => ({
+export const config = ({ tenant, workspace, environment }: Options) => ({
   proxy: [
     {
       prefix: '/api/io',
