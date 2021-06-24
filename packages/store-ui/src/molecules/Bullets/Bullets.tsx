@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react'
+import type { MouseEvent, PropsWithChildren } from 'react'
 import React, { useMemo } from 'react'
 
 import Button from '../../atoms/Button'
@@ -23,30 +23,43 @@ export interface BulletsProps {
    */
   testId?: string
   /**
-   * ID to find each `<li>` rendered by this component in testing tools
-   * (e.g.: cypress, testing-library, and jest).
-   */
-  listItemTestId?: string
-  /**
    * Function that should be used to generate the aria-label attribute added
    * to each bullet that is inactive. It receives the bullet index as an
    * argument so that it can be interpolated in the generated string.
    */
-  ariaLabelGenerator?: (index: number) => string
-  /**
-   * aria-label attribute to be added to the currently active bullet.
-   */
-  activeAriaLabel?: string
+  ariaLabelGenerator?: (index: number, isActive: boolean) => string
 }
+
+interface BulletProps {
+  isActive: boolean
+  testId: string
+}
+
+function Bullet({
+  isActive,
+  testId,
+  children,
+}: PropsWithChildren<BulletProps>) {
+  return (
+    <li
+      data-testid={testId}
+      data-bullet-item
+      data-active={isActive || undefined}
+    >
+      {children}
+    </li>
+  )
+}
+
+const defaultAriaLabel = (idx: number, isActive: boolean) =>
+  isActive ? 'Current page' : `Go to page ${idx + 1}`
 
 function Bullets({
   totalQuantity,
   activeBullet,
   onClick,
   testId = 'store-bullets',
-  listItemTestId = 'bullet-item',
-  ariaLabelGenerator = (idx: number) => `Go to page ${idx + 1}`,
-  activeAriaLabel = 'Current page',
+  ariaLabelGenerator = defaultAriaLabel,
 }: BulletsProps) {
   const bulletIndexes = useMemo(() => [...new Array(totalQuantity).keys()], [
     totalQuantity,
@@ -56,20 +69,15 @@ function Bullets({
     <ol data-store-bullets data-testid={testId}>
       {bulletIndexes.map((idx) => {
         const isActive = activeBullet === idx
-        const ariaLabel = ariaLabelGenerator(idx)
 
         return (
-          <li
-            key={idx}
-            data-testid={listItemTestId}
-            data-bullet-item
-            data-active={isActive || undefined}
-          >
+          <Bullet key={idx} testId={`${testId}-item`} isActive={isActive}>
             <Button
-              aria-label={isActive ? activeAriaLabel : ariaLabel}
+              aria-label={ariaLabelGenerator(idx, isActive)}
               onClick={(e) => onClick(e, idx)}
+              disabled={isActive}
             />
-          </li>
+          </Bullet>
         )
       })}
     </ol>
