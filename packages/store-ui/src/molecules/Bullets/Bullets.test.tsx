@@ -17,7 +17,13 @@ describe('Bullets', () => {
       <Bullets totalQuantity={5} activeBullet={2} onClick={() => {}} />
     )
 
-    expect(queryAllByTestId('bullet-item')).toHaveLength(5)
+    const bulletItems = queryAllByTestId('store-bullets-item')
+
+    expect(bulletItems).toHaveLength(5)
+
+    bulletItems.forEach((bullet) =>
+      expect(bullet).toHaveAttribute('data-bullet-item')
+    )
   })
 
   it('should render only the currently active bullet with a `data-active` attribute', () => {
@@ -25,7 +31,7 @@ describe('Bullets', () => {
       <Bullets totalQuantity={5} activeBullet={2} onClick={() => {}} />
     )
 
-    const bulletItems = queryAllByTestId('bullet-item')
+    const bulletItems = queryAllByTestId('store-bullets-item')
 
     // eslint-disable-next-line prefer-destructuring
     const expectedActiveBullet = bulletItems[2]
@@ -52,7 +58,7 @@ describe('Bullets', () => {
       />
     )
 
-    const bulletItems = queryAllByTestId('bullet-item')
+    const bulletItems = queryAllByTestId('store-bullets-item')
 
     expect(bulletItems).toHaveLength(5)
 
