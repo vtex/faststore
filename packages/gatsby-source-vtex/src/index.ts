@@ -1,2 +1,2 @@
 export * as GatsbyNode from './gatsby-node'
-export * as GatsbyConfig from './gatsby-config'
+export { config as GatsbyConfig } from './gatsby-config'
