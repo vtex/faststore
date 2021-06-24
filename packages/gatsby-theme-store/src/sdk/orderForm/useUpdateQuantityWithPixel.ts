@@ -3,11 +3,11 @@ import { useCallback } from 'react'
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import type { PixelItem } from '../pixel/events'
 
-export interface UpdateQuantityWithAnalyticsParams<K, S> {
+export interface UpdateQuantityWithPixelParams<K, S> {
   updateQuantity: (item: K) => S
 }
 
-export interface OrderFormItemToAnalytics {
+export interface MinimalOrderFormItem {
   productId: string
   productRefId: string
   /* Product Name */
@@ -27,7 +27,7 @@ export interface OrderFormItemToAnalytics {
 }
 
 export function orderFormItemToPixelItem(
-  orderFormItem: OrderFormItemToAnalytics
+  orderFormItem: MinimalOrderFormItem
 ): PixelItem {
   return {
     productId: orderFormItem.productId,
@@ -48,11 +48,9 @@ export function orderFormItemToPixelItem(
   } as PixelItem
 }
 
-export function updateQuantityWithAnalytics<
-  T extends OrderFormItemToAnalytics,
-  K,
-  S
->({ updateQuantity }: UpdateQuantityWithAnalyticsParams<K, S>) {
+export function updateQuantityWithPixel<T extends MinimalOrderFormItem, K, S>({
+  updateQuantity,
+}: UpdateQuantityWithPixelParams<K, S>) {
   return (updatedItem: T & K, oldItem?: T) => {
     const updateQuantityResult = updateQuantity(updatedItem)
 
@@ -82,16 +80,16 @@ export function updateQuantityWithAnalytics<
   }
 }
 
-export function useUpdateQuantityAnalytics<
-  T extends OrderFormItemToAnalytics,
+export function useUpdateQuantityWithPixel<
+  T extends MinimalOrderFormItem,
   K,
   S
->({ updateQuantity }: UpdateQuantityWithAnalyticsParams<K, S>) {
-  const updateQuantityWithAnalyticsCallback = useCallback(
+>({ updateQuantity }: UpdateQuantityWithPixelParams<K, S>) {
+  const updateQuantityWithPixelCallback = useCallback(
     (updatedItem: T & K, oldItem?: T) =>
-      updateQuantityWithAnalytics({ updateQuantity })(updatedItem, oldItem),
+      updateQuantityWithPixel({ updateQuantity })(updatedItem, oldItem),
     [updateQuantity]
   )
 
-  return { updateQuantityWithAnalytics: updateQuantityWithAnalyticsCallback }
+  return { updateQuantityWithPixel: updateQuantityWithPixelCallback }
 }

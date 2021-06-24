@@ -35,18 +35,18 @@ export type { OrderForm } from './sdk/orderForm/Provider'
 export { useOrderItems } from './sdk/orderForm/useOrderItems'
 export { useOrderQueueStatus } from './sdk/orderForm/useQueueStatus'
 export {
-  useUpdateQuantityAnalytics,
-  updateQuantityWithAnalytics,
-} from './sdk/orderForm/useUpdateQuantityAnalytics'
+  useUpdateQuantityWithPixel,
+  updateQuantityWithPixel,
+} from './sdk/orderForm/useUpdateQuantityWithPixel'
 export {
-  useRemoveItemAnalytics,
-  removeItemWithAnalytics,
-} from './sdk/orderForm/useRemoveItemAnalytics'
+  useRemoveItemWithPixel,
+  removeItemWithPixel,
+} from './sdk/orderForm/useRemoveItemWithPixel'
 export type {
-  UpdateQuantityWithAnalyticsParams,
-  OrderFormItemToAnalytics,
-} from './sdk/orderForm/useUpdateQuantityAnalytics'
-export type { RemoveItemWithAnalyticsParams } from './sdk/orderForm/useRemoveItemAnalytics'
+  UpdateQuantityWithPixelParams,
+  MinimalOrderFormItem,
+} from './sdk/orderForm/useUpdateQuantityWithPixel'
+export type { RemoveItemWithPixelParams } from './sdk/orderForm/useRemoveItemWithPixel'
 
 export { useSummaryImage } from './sdk/product/useSummaryImage'
 export { useSku } from './sdk/product/useSku'
