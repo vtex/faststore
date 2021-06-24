@@ -4,14 +4,22 @@ import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import type { MinimalOrderFormItem } from './useUpdateQuantityWithPixel'
 import { orderFormItemToPixelItem } from './useUpdateQuantityWithPixel'
 
-export interface RemoveItemWithPixelParams<K, S> {
-  removeItem: (item: K) => S
+export type RemoveItemWithPixel<T, R> = <P extends MinimalOrderFormItem>(
+  item: P & T
+) => R
+
+export interface UseRemoveItemWithPixel<T, R> {
+  removeItemWithPixel: RemoveItemWithPixel<T, R>
 }
 
-export function removeItemWithPixel<T extends MinimalOrderFormItem, K, S>({
+export interface RemoveItemWithPixelParams<T, R> {
+  removeItem: (item: T) => R
+}
+
+export function removeItemWithPixel<T, R>({
   removeItem,
-}: RemoveItemWithPixelParams<K, S>) {
-  return (item: T & K): S => {
+}: RemoveItemWithPixelParams<T, R>): RemoveItemWithPixel<T, R> {
+  return (item): R => {
     const removeItemResult = removeItem(item)
 
     const pixelEventItem = orderFormItemToPixelItem(item)
@@ -27,11 +35,11 @@ export function removeItemWithPixel<T extends MinimalOrderFormItem, K, S>({
   }
 }
 
-export function useRemoveItemWithPixel<T extends MinimalOrderFormItem, K, S>({
+export function useRemoveItemWithPixel<T, R>({
   removeItem,
-}: RemoveItemWithPixelParams<K, S>) {
+}: RemoveItemWithPixelParams<T, R>): UseRemoveItemWithPixel<T, R> {
   const removeItemWithPixelCallback = useCallback(
-    (item: T & K) => removeItemWithPixel({ removeItem })(item),
+    (item) => removeItemWithPixel({ removeItem })(item),
     [removeItem]
   )
 

@@ -3,8 +3,17 @@ import { useCallback } from 'react'
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import type { PixelItem } from '../pixel/events'
 
-export interface UpdateQuantityWithPixelParams<K, S> {
-  updateQuantity: (item: K) => S
+export interface UpdateQuantityWithPixelParams<T, R> {
+  updateQuantity: (item: T) => R
+}
+
+export type UpdateQuantityWithPixel<T, R> = <P extends MinimalOrderFormItem>(
+  item: P & T,
+  oldItem?: P
+) => R
+
+export interface UseUpdateQuantityWithPixel<T, R> {
+  updateQuantityWithPixel: UpdateQuantityWithPixel<T, R>
 }
 
 export interface MinimalOrderFormItem {
@@ -48,10 +57,10 @@ export function orderFormItemToPixelItem(
   } as PixelItem
 }
 
-export function updateQuantityWithPixel<T extends MinimalOrderFormItem, K, S>({
+export function updateQuantityWithPixel<T, R>({
   updateQuantity,
-}: UpdateQuantityWithPixelParams<K, S>) {
-  return (updatedItem: T & K, oldItem?: T) => {
+}: UpdateQuantityWithPixelParams<T, R>): UpdateQuantityWithPixel<T, R> {
+  return (updatedItem, oldItem) => {
     const updateQuantityResult = updateQuantity(updatedItem)
 
     if (!oldItem) {
@@ -80,13 +89,11 @@ export function updateQuantityWithPixel<T extends MinimalOrderFormItem, K, S>({
   }
 }
 
-export function useUpdateQuantityWithPixel<
-  T extends MinimalOrderFormItem,
-  K,
-  S
->({ updateQuantity }: UpdateQuantityWithPixelParams<K, S>) {
+export function useUpdateQuantityWithPixel<T, R>({
+  updateQuantity,
+}: UpdateQuantityWithPixelParams<T, R>): UseUpdateQuantityWithPixel<T, R> {
   const updateQuantityWithPixelCallback = useCallback(
-    (updatedItem: T & K, oldItem?: T) =>
+    (updatedItem, oldItem) =>
       updateQuantityWithPixel({ updateQuantity })(updatedItem, oldItem),
     [updateQuantity]
   )
