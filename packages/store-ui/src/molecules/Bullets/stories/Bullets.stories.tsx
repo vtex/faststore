@@ -5,7 +5,21 @@ import type { BulletsProps } from '../Bullets'
 import Component from '../Bullets'
 import mdx from './Bullets.mdx'
 
-const BulletsTemplate: Story<BulletsProps> = (args) => <Component {...args} />
+const BulletsTemplate: Story<BulletsProps> = ({
+  onClick,
+  activeBullet,
+  totalQuantity,
+  ariaLabelGenerator,
+  testId,
+}) => (
+  <Component
+    onClick={onClick}
+    activeBullet={activeBullet}
+    totalQuantity={totalQuantity}
+    ariaLabelGenerator={ariaLabelGenerator}
+    testId={testId}
+  />
+)
 
 export const Bullets = BulletsTemplate.bind({})
 Bullets.args = {
