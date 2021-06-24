@@ -2,7 +2,12 @@ import { readFile as readFileAsync } from 'fs'
 import { join } from 'path'
 import { promisify } from 'util'
 
-import { PruneSchema, RenameTypes, wrapSchema } from '@graphql-tools/wrap'
+import {
+  FilterObjectFields,
+  PruneSchema,
+  RenameTypes,
+  wrapSchema,
+} from '@graphql-tools/wrap'
 import {
   buildNodeDefinitions,
   compileNodeQueries,
@@ -11,9 +16,8 @@ import {
   sourceNodeChanges,
   wrapQueryExecutorWithQueue,
 } from 'gatsby-graphql-source-toolkit'
-import { execute, parse } from 'graphql'
+import { execute, parse, printSchema } from 'graphql'
 import pMap from 'p-map'
-import type { GraphQLResolveInfo } from 'graphql'
 import type {
   GatsbyNode,
   PluginOptions,
@@ -28,7 +32,6 @@ import type {
   NodeEvent,
 } from 'gatsby-graphql-source-toolkit/dist/types'
 
-import { getDelegateToSchema } from './graphql/delegate'
 import { api } from './api'
 import { fetchVTEX } from './fetch'
 import { ProductPaginationAdapter } from './graphql/pagination/product'
@@ -48,7 +51,7 @@ import { getResolvers } from './graphql/resolvers'
 
 const readFile = promisify(readFileAsync)
 
-const PLUGIN_NAME = 'gatsby-source-vtex'
+const PLUGIN_NAME = '@vtex/gatsby-source-vtex'
 
 export interface Options extends PluginOptions, VTEXOptions {
   /**
@@ -83,7 +86,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 ) => {
   const {
     tenant,
-    workspace,
     getStaticPaths,
     pageTypes: pageTypesWhitelist = DEFAULT_PAGE_TYPES_WHITELIST,
     concurrency = 20,
@@ -325,13 +327,26 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 }
 
 export const createSchemaCustomization = async (
-  args: CreateSchemaCustomizationArgs
+  args: CreateSchemaCustomizationArgs,
+  options: Options
 ) => {
   const {
     actions: { createTypes },
   } = args
 
-  const typeDefs = await readFile(join(__dirname, '../graphql/schema.graphql'))
+  const schema = wrapSchema({
+    schema: await getGatewaySchema(options),
+    transforms: [
+      new RenameTypes((typename) => typename.replace('VTEX_', 'Store')),
+      new FilterObjectFields(
+        (typeName, fieldName) =>
+          !(typeName === 'StoreProduct' && fieldName === 'itemMetadata') &&
+          !(typeName === 'VTEX' && fieldName === 'pages')
+      ),
+    ],
+  })
+
+  const typeDefs = printSchema(schema)
 
   createTypes(typeDefs.toString(), { name: PLUGIN_NAME })
 }

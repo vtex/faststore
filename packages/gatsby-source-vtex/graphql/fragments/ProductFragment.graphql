@@ -358,67 +358,6 @@ fragment Product on Product {
       teaserType
     }
   }
-  itemMetadata {
-    ... on ItemMetadata {
-      items {
-        ... on ItemMetadataUnit {
-          id
-          name
-          skuName
-          productId
-          refId
-          ean
-          imageUrl
-          detailUrl
-          seller
-          assemblyOptions {
-            ... on AssemblyOption {
-              id
-              name
-              required
-              composition {
-                ... on CompositionType {
-                  minQuantity
-                  maxQuantity
-                  items {
-                    ... on CompositionItem {
-                      id
-                      minQuantity
-                      maxQuantity
-                      initialQuantity
-                      priceTable
-                      seller
-                    }
-                  }
-                }
-              }
-              inputValues {
-                ... on InputValue {
-                  label
-                  maxLength
-                  type
-                  defaultValue
-                  domain
-                }
-              }
-            }
-          }
-        }
-      }
-      priceTable {
-        ... on ItemPriceTable {
-          type
-          values {
-            ... on PriceTableItem {
-              id
-              assemblyId
-              price
-            }
-          }
-        }
-      }
-    }
-  }
   specificationGroups {
     ... on SpecificationGroup {
       originalName

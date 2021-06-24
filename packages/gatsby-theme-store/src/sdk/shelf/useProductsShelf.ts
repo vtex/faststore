@@ -26,7 +26,7 @@ export const useProductsShelf = (variables: ProductsShelfOptions) => {
 
 export const query = gql`
   query ProductsShelfQuery(
-    $simulationBehavior: VTEX_SimulationBehavior = default
+    $simulationBehavior: StoreSimulationBehavior = default
     $hideUnavailableItems: Boolean = true
     $salesChannel: String = "1"
     $collection: String

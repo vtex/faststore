@@ -1,6 +1,10 @@
 import { print } from 'graphql'
+import {
+  FilterObjectFields,
+  introspectSchema,
+  wrapSchema,
+} from '@graphql-tools/wrap'
 import type { AsyncExecutor } from '@graphql-tools/delegate'
-import { introspectSchema } from '@graphql-tools/wrap'
 
 import { fetchGraphQL } from '../fetch'
 import type { Options } from '../gatsby-node'
@@ -8,9 +12,12 @@ import type { Options } from '../gatsby-node'
 export const getGraphQLUrl = (tenant: string, workspace: string) =>
   `http://${workspace}--${tenant}.myvtex.com/graphql`
 
-export const getExecutor = ({ tenant, workspace }: Options) => {
+export const getExecutor = ({ tenant, workspace }: Options): AsyncExecutor => {
   const endpoint = getGraphQLUrl(tenant, workspace)
-  const executor: AsyncExecutor = ({ document, variables, info }) => {
+
+  return ({ document, variables, info }) => {
+    const query = print(document)
+
     return fetchGraphQL<any>(endpoint, {
       method: 'POST',
       headers: {
@@ -18,15 +25,13 @@ export const getExecutor = ({ tenant, workspace }: Options) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: print(document),
+        query,
         variables,
         operatioName: info?.operation.name?.value,
       }),
     })
   }
-
-  return executor
 }
 
-export const getGatewaySchema = (options: Options) =>
+export const getGatewaySchema = async (options: Options) =>
   introspectSchema(getExecutor(options))

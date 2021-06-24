@@ -55,15 +55,6 @@ export const fragment = graphql`
       sellers {
         sellerId
         commercialOffer: commertialOffer {
-          maxInstallments {
-            value: Value
-            numberOfInstallments: NumberOfInstallments
-          }
-          installments {
-            value: Value
-            numberOfInstallments: NumberOfInstallments
-            interestRate: InterestRate
-          }
           availableQuantity: AvailableQuantity
           price: Price
           listPrice: ListPrice

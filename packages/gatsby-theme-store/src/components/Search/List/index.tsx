@@ -62,7 +62,7 @@ export const query = gql`
     $query: String
     $map: String
     $fullText: String
-    $selectedFacets: [VTEX_SelectedFacetInput!]
+    $selectedFacets: [StoreSelectedFacetInput!]
     $from: Int
     $to: Int
     $orderBy: String
