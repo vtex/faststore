@@ -7,7 +7,6 @@
       "message": "Release: %v"
     }
   },
-  "packages": [
-    "packages/*"
-  ]
+  "changelogPreset": "angular",
+  "packages": ["packages/*"]
 }
