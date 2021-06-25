@@ -5,14 +5,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.373.0-alpha.2](https://github.com/vtex/faststore/compare/v0.373.0-alpha.1...v0.373.0-alpha.2) (2021-06-25)
 
-**Note:** Version bump only for package openstore
-
-
-
-
-
-## Unreleased
-
-### Feat
-- Add changelog to monorepo
-- Automatic changelog generation
+**Note:** Version bump only for package @vtex/gatsby-theme-store
