@@ -4,6 +4,7 @@ import { promisify } from 'util'
 
 import {
   FilterObjectFields,
+  FilterTypes,
   PruneSchema,
   RenameTypes,
   wrapSchema,
@@ -80,6 +81,43 @@ const DEFAULT_PAGE_TYPES_WHITELIST = [
   'SubCategory',
 ]
 
+export const createSchemaCustomization = async (
+  args: CreateSchemaCustomizationArgs,
+  options: Options
+) => {
+  const {
+    actions: { createTypes },
+  } = args
+
+  const schema = wrapSchema({
+    schema: await getGatewaySchema(options),
+    transforms: [
+      new FilterTypes((type) => type.name !== 'JSONObject'),
+      new RenameTypes((typename) => typename.replace('VTEX_', 'Store')),
+      new FilterObjectFields(
+        (typeName, fieldName) =>
+          !(typeName === 'StoreProduct' && fieldName === 'itemMetadata') &&
+          !(typeName === 'VTEX' && fieldName === 'pages')
+      ),
+    ],
+  })
+
+  const typeDefs = printSchema(schema)
+
+  createTypes(typeDefs, { name: PLUGIN_NAME })
+}
+
+export const createResolvers = async (
+  gatsbyAPI: CreateResolversArgs,
+  options: Options
+) => {
+  const { createResolvers: createResolversAPI } = gatsbyAPI
+
+  const resolvers = await getResolvers(options)
+
+  createResolversAPI(resolvers)
+}
+
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   gatsbyAPI: SourceNodesArgs,
   options: Options
@@ -95,12 +133,12 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
   const { reporter } = gatsbyAPI
 
-  const promisses = [] as Array<() => Promise<void>>
-
   const lastBuildTime = await gatsbyAPI.cache.get(`LAST_BUILD_TIME`)
 
   /** Reset last build time */
-  promisses.push(async () => gatsbyAPI.cache.set(`LAST_BUILD_TIME`, Date.now()))
+  await gatsbyAPI.cache.set(`LAST_BUILD_TIME`, Date.now())
+
+  const promisses = [] as Array<() => Promise<void>>
 
   /**
    * Add VTEX bindings
@@ -326,62 +364,34 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   await Promise.all(promisses.map((x) => x()))
 }
 
-export const createSchemaCustomization = async (
-  args: CreateSchemaCustomizationArgs,
-  options: Options
-) => {
-  const {
-    actions: { createTypes },
-  } = args
-
-  const schema = wrapSchema({
-    schema: await getGatewaySchema(options),
-    transforms: [
-      new RenameTypes((typename) => typename.replace('VTEX_', 'Store')),
-      new FilterObjectFields(
-        (typeName, fieldName) =>
-          !(typeName === 'StoreProduct' && fieldName === 'itemMetadata') &&
-          !(typeName === 'VTEX' && fieldName === 'pages')
-      ),
-    ],
-  })
-
-  const typeDefs = printSchema(schema)
-
-  createTypes(typeDefs.toString(), { name: PLUGIN_NAME })
-}
-
-export const createResolvers = async (
-  gatsbyAPI: CreateResolversArgs,
-  options: Options
-) => {
-  const { createResolvers: createResolversAPI } = gatsbyAPI
-
-  const resolvers = await getResolvers(options)
-
-  createResolversAPI(resolvers)
-}
-
 export const createPages = async (
   { actions: { createRedirect }, graphql, reporter }: CreatePagesArgs,
-  { tenant, workspace, environment, getRedirects }: Options
+  {
+    tenant,
+    workspace,
+    environment,
+    getRedirects,
+    unstable_fastSourcing: fastSourcing,
+  }: Options
 ) => {
-  /**
-   * Report available PDPs and PLPs
-   */
-  const {
-    data: {
-      allStoreProduct: { totalCount },
-    },
-  } = await graphql<any>(`
-    query GetAllStaticPaths {
-      allStoreProduct {
-        totalCount
+  if (fastSourcing) {
+    /**
+     * Report available PDPs and PLPs
+     */
+    const {
+      data: {
+        allStoreProduct: { totalCount },
+      },
+    } = await graphql<any>(`
+      query GetAllStaticPaths {
+        allStoreProduct {
+          totalCount
+        }
       }
-    }
-  `)
+    `)
 
-  reporter.info(`[${PLUGIN_NAME}]: Available Products: ${totalCount}`)
+    reporter.info(`[${PLUGIN_NAME}]: Available Products: ${totalCount}`)
+  }
 
   /**
    * Create all proxy rules for VTEX Store

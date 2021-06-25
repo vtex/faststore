@@ -1,5 +1,4 @@
 import type { ServerProductPageQueryQuery } from '../../templates/__generated__/ServerProductPageQuery.graphql'
-import type { ProductSummary_ProductFragment } from '../../components/ProductSummary/__generated__/ProductSummary_product.graphql'
 import type { OrderFormFragment_OrderFormFragment } from '../orderForm/controller/__generated__/OrderFormFragment_orderForm.graphql'
 import type { OrderFormItem } from '../orderForm/types'
 
@@ -64,12 +63,12 @@ export interface ProductViewData {
 }
 
 export interface ProductClickData {
-  product: ProductSummary_ProductFragment
+  product: any
 }
 
 export interface ProductImpressionData {
   impressions: Impression[]
-  product?: ProductSummary_ProductFragment // deprecated, use impressions list!
+  product?: any // deprecated, use impressions list!
   position?: number // deprecated, use impressions list!
   list: string
 }
@@ -116,7 +115,7 @@ interface Order {
 }
 
 interface Impression {
-  product: ProductSummary_ProductFragment
+  product: any
   position: number
 }
 

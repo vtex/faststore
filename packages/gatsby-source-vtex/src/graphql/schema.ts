@@ -1,9 +1,5 @@
 import { print } from 'graphql'
-import {
-  FilterObjectFields,
-  introspectSchema,
-  wrapSchema,
-} from '@graphql-tools/wrap'
+import { introspectSchema } from '@graphql-tools/wrap'
 import type { AsyncExecutor } from '@graphql-tools/delegate'
 
 import { fetchGraphQL } from '../fetch'

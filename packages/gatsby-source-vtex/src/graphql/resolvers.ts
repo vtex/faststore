@@ -1,10 +1,8 @@
-import { inspect } from 'util'
-
 import { RenameTypes, wrapSchema } from '@graphql-tools/wrap'
 import { execute, parse, print } from 'graphql'
 import type { GraphQLResolveInfo } from 'graphql'
 
-import { RemoveAliasTransform } from './transforms/removeAlias'
+import { removeAliasFields } from './transforms/removeAlias'
 import { getExecutor, getGatewaySchema } from './schema'
 import type { Options } from '../gatsby-node'
 
@@ -13,7 +11,6 @@ export const getResolvers = async (options: Options) => {
     schema: await getGatewaySchema(options),
     executor: getExecutor(options),
     transforms: [
-      new RemoveAliasTransform(),
       new RenameTypes((typeName) => typeName.replace('VTEX_', 'Store')),
     ],
   })
@@ -32,13 +29,12 @@ export const getResolvers = async (options: Options) => {
             info.fragments
           ).map(print)}`
 
+          const document = removeAliasFields(parse(query))
           const response = await execute({
             schema,
-            document: parse(query),
+            document,
             variableValues: info.variableValues,
           })
-
-          console.log(inspect(response, false, 100, true))
 
           return response.data?.vtex || {}
         },

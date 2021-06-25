@@ -1,14 +1,9 @@
-import { Center, Flex, Text } from '@vtex/store-ui'
-import { graphql } from 'gatsby'
 import React from 'react'
+import { Center, Flex, Text } from '@vtex/store-ui'
 import type { FC } from 'react'
 
-import type { ProductSummary_ProductFragment } from './__generated__/ProductSummary_product.graphql'
-
 export interface Props {
-  product: ProductSummary_ProductFragment
-  loading?: 'lazy' | 'eager'
-  variant?: string
+  product: any
 }
 
 const ProductSummary: FC<Props> = () => (
@@ -31,41 +26,5 @@ const ProductSummary: FC<Props> = () => (
     </Center>
   </Flex>
 )
-
-export const fragment = graphql`
-  fragment ProductSummaryFragment_product on StoreProduct {
-    id: productId
-    productName
-    linkText
-    productClusters {
-      id
-      name
-    }
-    properties {
-      name
-      originalName
-      values
-    }
-    items {
-      itemId
-      images {
-        imageUrl
-        imageText
-      }
-      sellers {
-        sellerId
-        commercialOffer: commertialOffer {
-          availableQuantity: AvailableQuantity
-          price: Price
-          listPrice: ListPrice
-          spotPrice
-          teasers {
-            name
-          }
-        }
-      }
-    }
-  }
-`
 
 export default ProductSummary
