@@ -7,8 +7,6 @@
       "message": "Release: %v"
     }
   },
-  "changelogPreset": {
-    "name": "conventionalcommits"
-  },
+  "changelogPreset": "angular",
   "packages": ["packages/*"]
 }
