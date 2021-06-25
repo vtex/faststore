@@ -9,7 +9,7 @@ In the Store Framework Jamstack (SFJ), end-to-end tests are developed with Cypre
 In the following section, you'll learn how to build your own E2E test with Cypress. Therefore, if you're not familiar with Cypress, we strongly encourage you to check [Cypress's documentation](https://docs.cypress.io/guides/overview/why-cypress.html) before proceeding any further.
 
 ## Step by step
-
+ 
 ### Step 1: Setting up your development environment
 
 1. Open up the terminal.

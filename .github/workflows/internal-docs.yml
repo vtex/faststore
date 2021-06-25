@@ -16,4 +16,4 @@ jobs:
       - uses: vtex/action-internal-docs@main
         with:
           repo-token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
-          docs-product: Store-Framework
+          docs-product: Store-Framework/Jamstack/Store
