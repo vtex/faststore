@@ -1,11 +1,14 @@
 {
-  "version": "0.373.0-alpha.3",
+  "version": "0.373.0-alpha.4",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
     "publish": {
       "message": "Release: %v"
     }
+  },
+  "changelogPreset": {
+    "name": "conventionalcommits"
   },
   "packages": ["packages/*"]
 }
