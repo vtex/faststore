@@ -1,6 +1,6 @@
 {
   "extends": ["config:base", ":timezone(America/Sao_Paulo)"],
-  "labels": ["renovate", "automerge", "faststore"],
+  "labels": ["renovate", "faststore"],
   "schedule": ["after 9am and before 6pm every weekday"],
   "reviewers": ["team:store-framework"],
   "pin": {
