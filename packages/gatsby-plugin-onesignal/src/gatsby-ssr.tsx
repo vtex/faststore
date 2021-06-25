@@ -7,7 +7,7 @@ export function onRenderBody(
   { setHeadComponents, setPostBodyComponents }: RenderBodyArgs,
   pluginOptions: PluginOptions
 ) {
-  if (process.env.NODE_ENV !== `production`) {
+  if (process.env.NODE_ENV !== 'production') {
     return null
   }
 
