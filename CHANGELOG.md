@@ -7,3 +7,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Feat
 - Add changelog to monorepo
+- Automatic changelog generation
