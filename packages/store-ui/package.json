@@ -1,6 +1,6 @@
 {
   "name": "@vtex/store-ui",
-  "version": "0.371.21",
+  "version": "0.372.0-alpha.0",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
