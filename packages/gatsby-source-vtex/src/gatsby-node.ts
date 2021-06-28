@@ -293,6 +293,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
                 orderBy: "orders:desc",
                 from: $from,
                 to: $to
+                simulationBehavior: skip
               ){
                 products {
                   ..._ProductFragment_
