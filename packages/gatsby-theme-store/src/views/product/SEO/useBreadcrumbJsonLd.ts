@@ -12,12 +12,7 @@ type BreadcrumbJSONLD = ComponentPropsWithoutRef<typeof BreadcrumbJsonLd>
 export const useBreadcrumbJsonLd = (
   options: Options
 ): BreadcrumbJSONLD | null => {
-  const {
-    data: {
-      vtex: { product },
-    },
-  } = options
-
+  const { product } = options
   const { host, pathname } = useLocation()
 
   return useMemo(() => {
@@ -31,7 +26,7 @@ export const useBreadcrumbJsonLd = (
 
     const { categoryTree, productName } = product
 
-    const itemListElements = categoryTree.map((item, index: number) => ({
+    const itemListElements = categoryTree.map((item: any, index: number) => ({
       position: index + 1,
       name: item!.name!,
       item: `https://${host}${item!.href}`,

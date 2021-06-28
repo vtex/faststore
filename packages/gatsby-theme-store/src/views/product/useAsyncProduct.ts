@@ -33,7 +33,7 @@ export const useAsyncProduct = (
 }
 
 export const query = gql`
-  query AsyncProductQuery($slug: String, $regionId: String) {
+  query AsyncProductQuery($slug: String!, $regionId: String) {
     vtex {
       product(slug: $slug, regionId: $regionId) {
         id: productId
@@ -61,11 +61,11 @@ export const query = gql`
           sellers {
             sellerId
             commercialOffer: commertialOffer {
-              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {
+              maxInstallments {
                 value: Value
                 numberOfInstallments: NumberOfInstallments
               }
-              installments: Installments(criteria: ALL) {
+              installments {
                 value: Value
                 numberOfInstallments: NumberOfInstallments
                 interestRate: InterestRate

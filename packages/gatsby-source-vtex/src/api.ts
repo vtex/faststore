@@ -1,31 +1,4 @@
-interface SearchOptions {
-  query?: string
-  page: number
-  count: number
-  sort: 'orders:desc'
-  operator: 'and' | 'or'
-  fuzzy?: string
-  locale?: string
-  bgy_leap?: boolean
-  'hide-unavailable-items'?: boolean
-}
-
 export const api = {
-  is: {
-    search: (params: SearchOptions) => {
-      const searchParams = new URLSearchParams()
-
-      Object.keys(params).forEach((key) => {
-        const value = params[key as keyof SearchOptions]
-
-        if (value) {
-          searchParams.set(key, `${value}`)
-        }
-      })
-
-      return `/api/split/product_search/trade-policy/1?${searchParams}`
-    },
-  },
   catalog: {
     brand: {
       list: ({ page, pageSize }: { page: number; pageSize: number }) =>

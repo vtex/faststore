@@ -15,7 +15,8 @@
   "files": [
     "dist",
     "gatsby-*",
-    "index.js"
+    "index.js",
+    "src"
   ],
   "engines": {
     "node": ">=10"

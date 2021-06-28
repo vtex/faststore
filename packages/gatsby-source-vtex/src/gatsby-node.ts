@@ -26,6 +26,7 @@ import type {
   CreatePagesArgs,
   PluginOptionsSchemaArgs,
   CreateSchemaCustomizationArgs,
+  CreateResolversArgs,
 } from 'gatsby'
 import type {
   ISourcingConfig,
@@ -35,8 +36,7 @@ import type {
 import { api } from './api'
 import { fetchVTEX } from './fetch'
 import { ProductPaginationAdapter } from './graphql/pagination/product'
-import { getExecutor } from './graphql/schema'
-import { md5 } from './md5'
+import { getExecutor } from './graphql/executor'
 import { assertRedirects } from './redirects'
 import defaultStaticPaths from './staticPaths'
 import {
@@ -67,12 +67,13 @@ export interface Options extends PluginOptions, VTEXOptions {
 }
 
 const DEFAULT_PAGE_TYPES_WHITELIST = [
-  'Product',
   'Department',
   'Category',
   'Brand',
   'SubCategory',
 ]
+
+const readFile = promisify(readFileAsync)
 
 /**
  * Add VTEX GraphQL API as 3p schema
@@ -101,15 +102,40 @@ export const createSchemaCustomization = async (
     transforms: [
       // Filter CMS fields so people use the VTEX CMS plugin instead of this one
       new FilterObjectFields(
-        (typeName, fieldName) => typeName !== 'VTEX' || fieldName !== 'pages'
+        (typeName, fieldName) =>
+          !(
+            typeName === 'VTEX' &&
+            (fieldName === 'pages' || fieldName === 'product')
+          )
       ),
       new PruneSchema({}),
     ],
   })
 
-  addThirdPartySchema({ schema })
+  addThirdPartySchema({ schema }, { name: 'gatsby-source-vtex' })
 
   activity.end()
+}
+
+export const createResolvers = ({
+  createResolvers: createGatsbyResolvers,
+}: CreateResolversArgs) => {
+  const resolvers = {
+    VTEX: {
+      product: {
+        type: 'StoreProduct!',
+        args: {
+          slug: 'String!',
+          regionId: 'String',
+        },
+        resolve: () => {
+          throw new Error('Client-side only route. Can not be used on SSG')
+        },
+      },
+    },
+  }
+
+  createGatsbyResolvers(resolvers)
 }
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
@@ -203,22 +229,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     activity.start()
 
     const fetchPageTypes = async (path: string): Promise<PageType> => {
-      const isProduct = /\/(.)+\/p$/g
-
-      // When the page is a product page, we skip calling the pageType backend to speedup the process considerably.
-      // This makes us have to synthetically generate some data. However, it shouldn't be a problem since we don't
-      // use these synthetic attributes
-      if (isProduct.test(path)) {
-        return {
-          id: md5(path),
-          name: path.split('/p')[0],
-          url: path,
-          title: '',
-          metaTagDescription: '',
-          pageType: 'Product',
-        }
-      }
-
       return fetchVTEX<PageType>(api.catalog.portal.pageType(path), options)
     }
 
@@ -271,11 +281,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       ],
     })
 
-    const readFile = promisify(readFileAsync)
-    const ProductFragment = await readFile(
-      join(__dirname, '../fragments/ProductFragment.graphql')
-    )
-
     // Step2. Configure Gatsby node types
     const gatsbyNodeTypes = [
       {
@@ -290,18 +295,26 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
                 to: $to
               ){
                 products {
-                  ...StoreProductFragment
+                  ..._ProductFragment_
                 }
               }
             }
           }
-          ${ProductFragment}
+          fragment _ProductFragment_ on Product {
+            id: productId
+            __typename
+          }
         `,
       },
     ]
 
     // Step3. Provide (or generate) fragments with fields to be fetched
     const fragments = new Map()
+    const ProductFragment = await readFile(
+      join(__dirname, '../src/graphql/fragments/ProductFragment.graphql')
+    )
+
+    fragments.set('Product', ProductFragment.toString())
 
     // Step4. Compile sourcing queries
     const documents = compileNodeQueries({
@@ -361,7 +374,7 @@ export const createPages = async (
   const {
     data: {
       searches: { nodes: searches },
-      // products: { nodes: products },
+      allStoreProduct: { totalCount: pdps },
     },
   } = await graphql<any>(`
     query GetAllStaticPaths {
@@ -376,10 +389,13 @@ export const createPages = async (
           pageType
         }
       }
+      allStoreProduct {
+        totalCount
+      }
     }
   `)
 
-  // reporter.info(`[gatsby-source-vtex]: Available pdps: ${products.length}`)
+  reporter.info(`[gatsby-source-vtex]: Available pdps: ${pdps}`)
   reporter.info(`[gatsby-source-vtex]: Available plps: ${searches.length}`)
 
   /**

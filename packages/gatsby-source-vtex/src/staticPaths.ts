@@ -3,10 +3,9 @@ import { join } from 'path'
 import { readFile } from 'fs'
 
 import slugify from 'slugify'
-import pMap from 'p-map'
 
 import { api } from './api'
-import { fetchIS, fetchVTEX } from './fetch'
+import { fetchVTEX } from './fetch'
 import type { Brand, Category } from './types'
 
 interface Options {

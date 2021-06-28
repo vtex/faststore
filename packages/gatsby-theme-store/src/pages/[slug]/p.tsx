@@ -1,35 +1,38 @@
-import { useMatch } from '@reach/router'
 import { gql } from '@vtex/gatsby-plugin-graphql'
 import React from 'react'
 import type { PageProps } from 'gatsby'
 import type { FC } from 'react'
 
-import HybridWrapper from '../components/HybridWrapper'
-import Layout from '../components/Layout'
-import { useQuery } from '../sdk/graphql/useQuery'
-import ProductView from '../views/product'
-import AboveTheFoldPreview from '../views/product/AboveTheFoldPreview'
-import { BrowserProductPageQuery } from './__generated__/BrowserProductPageQuery.graphql'
+import HybridWrapper from '../../components/HybridWrapper'
+import Layout from '../../components/Layout'
+import { useQuery } from '../../sdk/graphql/useQuery'
+import ProductView from '../../views/product'
+import AboveTheFoldPreview from '../../views/product/AboveTheFoldPreview'
+import { BrowserProductPageQuery } from '../../[slug]/__generated__/BrowserProductPageQuery.graphql'
 import type {
   BrowserProductPageQueryQuery,
   BrowserProductPageQueryQueryVariables,
-} from './__generated__/BrowserProductPageQuery.graphql'
+} from '../../[slug]/__generated__/BrowserProductPageQuery.graphql'
 
 export type BrowserProductPageProps = PageProps
 
 const ProductPage: FC<BrowserProductPageProps> = (props) => {
-  const { slug } = useMatch(props.pageResources.page.matchPath!)!
-
   const { data } = useQuery<
     BrowserProductPageQueryQuery,
     BrowserProductPageQueryQueryVariables
   >({
     ...BrowserProductPageQuery,
-    variables: { slug },
+    variables: { slug: props.params.slug },
     suspense: true,
   })
 
-  return <ProductView {...props} data={data!} slug={slug} />
+  return (
+    <ProductView
+      {...props}
+      product={data?.vtex.product}
+      slug={props.params.slug}
+    />
+  )
 }
 
 const Page: FC<BrowserProductPageProps> = (props) => (

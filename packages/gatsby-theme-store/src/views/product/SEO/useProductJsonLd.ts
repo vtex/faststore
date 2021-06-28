@@ -12,12 +12,7 @@ type Options = ProductViewProps
 type ProductJSONLD = ComponentPropsWithoutRef<typeof ProductJsonLd>
 
 export const useProductJsonLd = (options: Options): ProductJSONLD | null => {
-  const {
-    data: {
-      vtex: { product },
-    },
-  } = options
-
+  const { product } = options
   const { host, pathname } = useLocation()
   const [currency] = useCurrency()
 
@@ -29,7 +24,7 @@ export const useProductJsonLd = (options: Options): ProductJSONLD | null => {
     const { productName: name, items, description, brand } = product
 
     const [sku] = items!
-    const images = sku!.images!.map((i) => i!.imageUrl!)
+    const images = sku!.images!.map((i: any) => i!.imageUrl!)
     const seller = sku!.sellers?.[0]
 
     if (!images || !seller || !brand) {
@@ -60,7 +55,7 @@ export const useProductJsonLd = (options: Options): ProductJSONLD | null => {
 }
 
 export const fragment = graphql`
-  fragment StructuredProductFragment_product on VTEX_Product {
+  fragment StructuredProductFragment_product on StoreProduct {
     productName
     description
     brand

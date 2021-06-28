@@ -49,7 +49,7 @@ const AboveTheFold: FC<ProductViewProps> = (props) => (
 )
 
 export const fragment = graphql`
-  fragment ProductDetailsTemplate_product on VTEX_Product {
+  fragment ProductDetailsTemplate_product on StoreProduct {
     productReference
     productName
     linkText
