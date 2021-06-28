@@ -14,7 +14,7 @@ import type {
   BrowserProductPageQueryQueryVariables,
 } from '../../[slug]/__generated__/BrowserProductPageQuery.graphql'
 
-export type BrowserProductPageProps = PageProps
+export type BrowserProductPageProps = PageProps & { slug: string }
 
 const ProductPage: FC<BrowserProductPageProps> = (props) => {
   const { data } = useQuery<
@@ -22,16 +22,12 @@ const ProductPage: FC<BrowserProductPageProps> = (props) => {
     BrowserProductPageQueryQueryVariables
   >({
     ...BrowserProductPageQuery,
-    variables: { slug: props.params.slug },
+    variables: { slug: props.slug },
     suspense: true,
   })
 
   return (
-    <ProductView
-      {...props}
-      product={data?.vtex.product}
-      slug={props.params.slug}
-    />
+    <ProductView {...props} product={data?.vtex.product} slug={props.slug} />
   )
 }
 
