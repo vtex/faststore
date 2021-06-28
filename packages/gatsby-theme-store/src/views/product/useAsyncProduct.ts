@@ -61,11 +61,7 @@ export const query = gql`
           sellers {
             sellerId
             commercialOffer: commertialOffer {
-              maxInstallments {
-                value: Value
-                numberOfInstallments: NumberOfInstallments
-              }
-              installments {
+              installments: Installments {
                 value: Value
                 numberOfInstallments: NumberOfInstallments
                 interestRate: InterestRate
