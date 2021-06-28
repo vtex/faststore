@@ -349,7 +349,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     // Step6. Source nodes either from delta changes or scratch
     if (lastBuildTime) {
       reporter.info(
-        '[gatsby-source-vtex]: CACHE FOUND! We are about to go FAST! Skippping FETCH'
+        '[gatsby-source-vtex]: CACHE FOUND! We are about to go FAST! Skipping FETCH'
       )
       const nodeEvents: NodeEvent[] = []
 
