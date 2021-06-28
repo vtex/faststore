@@ -9,16 +9,19 @@ interface IPage {
   products: IProduct[]
 }
 
+const PAGE_SIZE = 250
+
 export const ProductPaginationAdapter: IPaginationAdapter<IPage, IProduct> = {
   name: 'ProductPaginationAdapter',
   expectedVariableNames: [`from`, `to`],
   start: () => ({
-    variables: { from: 0, to: 99 },
+    // Our search is inclusive, so 0 -> PAGE_SIZE - 1 fetches PAGE_SIZE items
+    variables: { from: 0, to: PAGE_SIZE - 1 },
     hasNextPage: true,
   }),
   next: (state, page) => {
-    const from = Number(state.variables.from) + 100
-    const to = Number(state.variables.to) + 100
+    const from = Number(state.variables.from) + PAGE_SIZE
+    const to = Number(state.variables.to) + PAGE_SIZE
 
     return {
       variables: {
