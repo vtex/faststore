@@ -31,7 +31,7 @@ export const handler: PixelEventHandler = (event) => {
       const items = product?.items
 
       fbq('track', 'ViewContent', {
-        content_ids: items?.map((item) => item?.itemId),
+        content_ids: items?.map((item: any) => item?.itemId),
         content_name: product?.productName,
         content_type: 'product',
         // TODO: send currency
