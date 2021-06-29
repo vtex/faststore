@@ -52,7 +52,6 @@ export const createPages = async ({
 
   const { data: staticPaths, errors } = await graphql<{
     searches: { nodes: StaticPath[] }
-    products: { nodes: StaticPath[] }
   }>(`
     query GetAllStaticPaths {
       searches: allStaticPath(
@@ -61,20 +60,11 @@ export const createPages = async ({
         }
       ) {
         nodes {
-          ...staticPath
+          id
+          path
+          pageType
         }
       }
-      products: allStaticPath(filter: { pageType: { eq: "Product" } }) {
-        nodes {
-          ...staticPath
-        }
-      }
-    }
-
-    fragment staticPath on StaticPath {
-      id
-      path
-      pageType
     }
   `)
 
@@ -88,7 +78,6 @@ export const createPages = async ({
 
   const {
     searches: { nodes: searches = [] },
-    products: { nodes: products = [] },
   } = staticPaths!
 
   /**
