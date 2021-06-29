@@ -76,7 +76,17 @@ const DEFAULT_PAGE_TYPES_WHITELIST = [
 const readFile = promisify(readFileAsync)
 
 /**
- * Add VTEX GraphQL API as 3p schema
+ * Add VTEX GraphQL API as 3p schema.
+ *
+ * VTEX schema contains some extra fields that should not be queryable by pages, like
+ * the `pages` field. This field contains the VTEX CMS data and is already handled by
+ * gatsby-plugin-cms.
+ *
+ * Also, we remove the `product` field from type VTEX for two reasons:
+ * 1. This field must return type StoreProduct instead of the original VTEX_Product so our type
+ * generation works correctly with user defined queries and fragments
+ * 2. Because we can't allow pages to query this field during SSG so we can't correctly use Gatsby's
+ * data model for incremental site generation
  */
 export const createSchemaCustomization = async (
   args: CreateSchemaCustomizationArgs,
@@ -117,6 +127,10 @@ export const createSchemaCustomization = async (
   activity.end()
 }
 
+/**
+ * Creates dummy resolvers so we don't allow developers to query for these fields
+ * during SSG and uses the Gatsby data model correctly
+ */
 export const createResolvers = ({
   createResolvers: createGatsbyResolvers,
 }: CreateResolversArgs) => {
