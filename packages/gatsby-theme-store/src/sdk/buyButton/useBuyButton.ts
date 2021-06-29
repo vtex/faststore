@@ -39,10 +39,6 @@ export interface Props {
   quantity: number
   oneClickBuy?: boolean
   openMinicart?: boolean
-  /**
-   * @deprecated This property was deprecated in favor of the new product.productName property
-   */
-  productName?: string
 }
 
 export const useBuyButton = ({
@@ -51,7 +47,6 @@ export const useBuyButton = ({
   quantity,
   oneClickBuy = false,
   openMinicart: shouldOpenMinicart = true,
-  productName,
 }: Props) => {
   const { openMinicart } = useGlobalUIState()
   const seller = useBestSeller(sku)
@@ -92,7 +87,7 @@ export const useBuyButton = ({
     const pixelEventProduct = {
       productId: product?.id,
       productReferenceId: product?.productReference,
-      productName: product?.productName ?? productName,
+      productName: product?.productName,
       brand: product?.brand,
       categoryTree: product?.categoryTree,
       price: seller.commercialOffer.price,
@@ -116,7 +111,7 @@ export const useBuyButton = ({
       price: seller.commercialOffer.price * 100,
       sellingPrice: seller.commercialOffer.price * 100,
       imageUrl: sku!.images?.[0]?.imageUrl,
-      name: product?.productName ?? productName,
+      name: product?.productName,
     }
 
     try {
