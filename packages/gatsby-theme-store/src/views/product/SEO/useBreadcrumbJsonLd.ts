@@ -5,7 +5,7 @@ import type { BreadcrumbJsonLd } from 'gatsby-plugin-next-seo'
 
 import type { ProductViewProps } from '../index'
 
-type Options = ProductViewProps
+type Options = ProductViewProps<any>
 
 type BreadcrumbJSONLD = ComponentPropsWithoutRef<typeof BreadcrumbJsonLd>
 

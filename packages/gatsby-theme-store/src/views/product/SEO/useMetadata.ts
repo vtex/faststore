@@ -13,7 +13,7 @@ import type { ProductViewProps } from '../index'
 
 * This deduplicates pages so our pages rank higher in Google
 */
-type Options = ProductViewProps
+type Options = ProductViewProps<any>
 
 export const useMetadata = (
   options: Options

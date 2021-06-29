@@ -7,7 +7,7 @@ import type { ProductJsonLd } from 'gatsby-plugin-next-seo'
 import { useCurrency } from '../../../sdk/localization/useCurrency'
 import type { ProductViewProps } from '../index'
 
-type Options = ProductViewProps
+type Options = ProductViewProps<any>
 
 type ProductJSONLD = ComponentPropsWithoutRef<typeof ProductJsonLd>
 
