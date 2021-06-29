@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import type { MinimalOrderFormItem } from './useUpdateQuantityWithPixel'
-import { orderFormItemToPixelItem } from './useUpdateQuantityWithPixel'
+import { orderFormItemToPixelProduct } from './useUpdateQuantityWithPixel'
 
 export type RemoveItemWithPixel<T, R> = <P extends MinimalOrderFormItem>(
   item: P & T
@@ -22,12 +22,12 @@ export function removeItemWithPixel<T, R>({
   return (item): R => {
     const removeItemResult = removeItem(item)
 
-    const pixelEventItem = orderFormItemToPixelItem(item)
+    const pixelEventProduct = orderFormItemToPixelProduct(item)
 
     sendPixelEvent({
       type: 'vtex:removeFromCart',
       data: {
-        items: [pixelEventItem],
+        products: [pixelEventProduct],
       },
     })
 

@@ -75,12 +75,12 @@ const getDataFromEvent = (event: PixelEvent) => {
 
     case 'vtex:addToCart': {
       // TODO: add currency, brand, category, id, name, price, variant
-      const { items } = event.data
+      const { products } = event.data
 
       return {
         ecommerce: {
           add: {
-            products: items.map((sku) => ({
+            products: products.map((sku) => ({
               quantity: sku.quantity,
             })),
           },
@@ -91,12 +91,12 @@ const getDataFromEvent = (event: PixelEvent) => {
 
     case 'vtex:removeFromCart': {
       // TODO: add currency
-      const { items } = event.data
+      const { products } = event.data
 
       return {
         ecommerce: {
           remove: {
-            products: items.map((sku: any) => ({
+            products: products.map((sku: any) => ({
               brand: sku.brand,
               id: sku.skuId,
               category: sku.category,

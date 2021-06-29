@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
-import type { PixelItem } from '../pixel/events'
+import type { PixelProduct } from '../pixel/events'
 
 export interface UpdateQuantityWithPixelParams<T, R> {
   updateQuantity: (item: T) => R
@@ -35,9 +35,9 @@ export interface MinimalOrderFormItem {
   productCategories: Record<number, string>
 }
 
-export function orderFormItemToPixelItem(
+export function orderFormItemToPixelProduct(
   orderFormItem: MinimalOrderFormItem
-): PixelItem {
+): PixelProduct {
   return {
     productId: orderFormItem.productId,
     productReferenceId: orderFormItem.productRefId,
@@ -54,7 +54,7 @@ export function orderFormItemToPixelItem(
     skuId: orderFormItem.id,
     skuReferenceId: [{ value: orderFormItem.refId }],
     skuName: orderFormItem.skuName,
-  } as PixelItem
+  } as PixelProduct
 }
 
 export function updateQuantityWithPixel<T, R>({
@@ -73,7 +73,7 @@ export function updateQuantityWithPixel<T, R>({
       return updateQuantityResult
     }
 
-    const pixelEventItem = orderFormItemToPixelItem({
+    const pixelEventProduct = orderFormItemToPixelProduct({
       ...updatedItem,
       quantity: Math.abs(quantityDelta),
     })
@@ -81,7 +81,7 @@ export function updateQuantityWithPixel<T, R>({
     sendPixelEvent({
       type: quantityDelta > 0 ? 'vtex:addToCart' : 'vtex:removeFromCart',
       data: {
-        items: [pixelEventItem],
+        products: [pixelEventProduct],
       },
     })
 

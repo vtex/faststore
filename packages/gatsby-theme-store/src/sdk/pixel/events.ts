@@ -41,12 +41,12 @@ export interface InternalSiteSearchViewData extends PageViewData {
 }
 
 export interface AddToCartData {
-  items: PixelItem[]
+  products: PixelProduct[]
   oneClickBuy?: boolean
 }
 
 export interface RemoveFromCartData {
-  items: PixelItem[]
+  products: PixelProduct[]
 }
 
 export interface CartChangedData {
@@ -165,7 +165,7 @@ interface PriceTag {
   value: number
 }
 
-export interface PixelItem {
+export interface PixelProduct {
   productId: string
   productReferenceId: Maybe<string>
   productName: string

@@ -5,7 +5,7 @@ import { useOrderItems } from '../orderForm/useOrderItems'
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
 import { usePixelEvent } from '../pixel/usePixelEvent'
-import type { PixelItem } from '../pixel/events'
+import type { PixelProduct } from '../pixel/events'
 
 interface Seller {
   sellerId: string
@@ -70,7 +70,7 @@ export const useBuyButton = ({
       return
     }
 
-    const isThisItem = e.data.items[0].skuId?.toString() === sku?.itemId
+    const isThisItem = e.data.products[0].skuId?.toString() === sku?.itemId
 
     if (!isThisItem || !e.data.oneClickBuy) {
       return
@@ -89,7 +89,7 @@ export const useBuyButton = ({
       return
     }
 
-    const pixelEventItem = {
+    const pixelEventProduct = {
       productId: product?.id,
       productReferenceId: product?.productReference,
       productName: product?.productName ?? productName,
@@ -101,7 +101,7 @@ export const useBuyButton = ({
       skuId: sku?.itemId,
       skuName: sku?.name,
       skuReferenceId: sku?.referenceId,
-    } as PixelItem
+    } as PixelProduct
 
     // Item to be updated into the orderForm
     const orderFormItem = {
@@ -131,7 +131,7 @@ export const useBuyButton = ({
       sendPixelEvent({
         type: 'vtex:addToCart',
         data: {
-          items: [pixelEventItem],
+          products: [pixelEventProduct],
           oneClickBuy,
         },
       })
