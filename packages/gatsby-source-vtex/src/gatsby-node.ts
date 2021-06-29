@@ -1,6 +1,5 @@
-import { readFile as readFileAsync } from 'fs'
+import { readFile } from 'fs/promises'
 import { join } from 'path'
-import { promisify } from 'util'
 
 import {
   FilterObjectFields,
@@ -72,8 +71,6 @@ const DEFAULT_PAGE_TYPES_WHITELIST = [
   'Brand',
   'SubCategory',
 ]
-
-const readFile = promisify(readFileAsync)
 
 /**
  * Add VTEX GraphQL API as 3p schema.
