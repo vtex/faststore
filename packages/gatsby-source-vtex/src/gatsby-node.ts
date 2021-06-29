@@ -261,7 +261,8 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   })
 
   /**
-   * Source products
+   * Source products so we can use Gatsby's file system route api for creating pages.
+   * https://www.gatsbyjs.com/docs/reference/routing/file-system-route-api/
    */
   promisses.push(async () => {
     // Step1. Set up remote schema:
