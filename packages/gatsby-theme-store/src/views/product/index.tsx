@@ -6,18 +6,18 @@ import { usePixelSendEvent } from '../../sdk/pixel/usePixelSendEvent'
 import AboveTheFold from './AboveTheFold'
 import BelowTheFoldPreview from './BelowTheFoldPreview'
 import SEO from './SEO'
-import type { ServerProductPageProps } from '../../templates/product.server'
+import type { ServerProductPageProps } from '../../pages/{StoreProduct.slug}/p'
 
 const belowTheFoldPreloader = () => import('./BelowTheFold')
 const BelowTheFold = lazy(belowTheFoldPreloader)
 
 export type ProductViewProps = {
-  data: ServerProductPageProps['data']
+  product: ServerProductPageProps['data']['product']
   slug: string
 }
 
 const ProductView: FC<ProductViewProps> = (props) => {
-  const { data } = props
+  const { product } = props
 
   usePixelSendEvent(
     () => [
@@ -34,11 +34,11 @@ const ProductView: FC<ProductViewProps> = (props) => {
       {
         type: 'vtex:productView',
         data: {
-          product: data?.vtex.product,
+          product,
         },
       },
     ],
-    data?.vtex.product?.id ?? ''
+    product?.id ?? ''
   )
 
   return (

@@ -1,0 +1,398 @@
+fragment Product on Product {
+  slug: linkText
+  name: productName
+  productID: productId
+  id: productId
+  brand
+  description
+  categoryTree {
+    ... on Category {
+      cacheId
+      href
+      slug
+      id
+      name
+      titleTag
+      hasChildren
+      metaTagDescription
+      children {
+        remoteTypeName: __typename
+      }
+    }
+  }
+  clusterHighlights {
+    ... on ClusterHighlight {
+      id
+      name
+    }
+  }
+  productClusters {
+    ... on ProductClusters {
+      id
+      name
+    }
+  }
+  items {
+    ... on SKU {
+      itemId
+      name
+      nameComplete
+      complementName
+      ean
+      referenceId {
+        ... on Reference {
+          Key
+          Value
+        }
+      }
+      measurementUnit
+      unitMultiplier
+      kitItems {
+        ... on KitItem {
+          itemId
+          amount
+          product {
+            ... on OnlyProduct {
+              brand
+              categoryId
+              categoryTree {
+                ... on Category {
+                  cacheId
+                  href
+                  slug
+                  id
+                  name
+                  titleTag
+                  hasChildren
+                  metaTagDescription
+                  children {
+                    remoteTypeName: __typename
+                  }
+                }
+              }
+              clusterHighlights {
+                ... on ClusterHighlight {
+                  id
+                  name
+                }
+              }
+              productClusters {
+                ... on ProductClusters {
+                  id
+                  name
+                }
+              }
+              description
+              link
+              linkText
+              productId
+              productName
+              properties {
+                ... on Property {
+                  originalName
+                  name
+                  values
+                }
+              }
+              propertyGroups {
+                ... on PropertyGroup {
+                  name
+                  properties
+                }
+              }
+              productReference
+              recommendations {
+                ... on Recommendation {
+                  buy {
+                    ... on Product {
+                      remoteTypeName: __typename
+                      id: productId
+                    }
+                  }
+                  view {
+                    ... on Product {
+                      remoteTypeName: __typename
+                      id: productId
+                    }
+                  }
+                  similars {
+                    ... on Product {
+                      remoteTypeName: __typename
+                      id: productId
+                    }
+                  }
+                }
+              }
+              jsonSpecifications
+            }
+          }
+          sku {
+            remoteTypeName: __typename
+          }
+        }
+      }
+      images {
+        ... on Image {
+          cacheId
+          imageId
+          imageLabel
+          imageTag
+          imageUrl
+          imageText
+        }
+      }
+      videos {
+        ... on Video {
+          videoUrl
+        }
+      }
+      sellers {
+        ... on Seller {
+          sellerId
+          sellerName
+          addToCartLink
+          sellerDefault
+          commertialOffer {
+            ... on Offer {
+              Installments(criteria: ALL) {
+                Name
+                TotalValuePlusInterestRate
+                Value
+                NumberOfInstallments
+                InterestRate
+                PaymentSystemName
+                PaymentSystemGroupName
+              }
+              AvailableQuantity
+              Price
+              ListPrice
+              spotPrice
+              teasers {
+                name
+              }
+              Price
+              ListPrice
+              spotPrice
+              PriceWithoutDiscount
+              RewardValue
+              PriceValidUntil
+              AvailableQuantity
+              Tax
+              taxPercentage
+              CacheVersionUsedToCallCheckout
+              DeliverySlaSamples {
+                ... on DeliverySlaSamples {
+                  DeliverySlaPerTypes {
+                    ... on DeliverySlaPerTypes {
+                      TypeName
+                      Price
+                      EstimatedTimeSpanToDelivery
+                    }
+                  }
+                  Region {
+                    ... on Region {
+                      IsPersisted
+                      IsRemoved
+                      Id
+                      Name
+                      CountryCode
+                      ZipCode
+                      CultureInfoName
+                    }
+                  }
+                }
+              }
+              discountHighlights {
+                ... on Discount {
+                  name
+                }
+              }
+              teasers {
+                ... on Teaser {
+                  name
+                  conditions {
+                    ... on TeaserCondition {
+                      minimumQuantity
+                      parameters {
+                        ... on TeaserValue {
+                          name
+                          value
+                        }
+                      }
+                    }
+                  }
+                  effects {
+                    ... on TeaserEffects {
+                      parameters {
+                        ... on TeaserValue {
+                          name
+                          value
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              giftSkuIds
+              gifts {
+                ... on Gift {
+                  productName
+                  skuName
+                  brand
+                  linkText
+                  description
+                  images {
+                    ... on GiftImage {
+                      imageUrl
+                      imageLabel
+                      imageText
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      variations {
+        ... on Property {
+          originalName
+          name
+          values
+        }
+      }
+      attachments {
+        ... on Attachment {
+          id
+          name
+          required
+          domainValues {
+            ... on DomainValues {
+              FieldName
+              MaxCaracters
+              DomainValues
+            }
+          }
+          content
+        }
+      }
+      estimatedDateArrival
+    }
+  }
+  skuSpecifications {
+    ... on SkuSpecification {
+      field {
+        ... on SKUSpecificationField {
+          originalName
+          name
+        }
+      }
+      values {
+        ... on SKUSpecificationValue {
+          originalName
+          name
+        }
+      }
+    }
+  }
+  link
+  linkText
+  productId
+  productName
+  properties {
+    ... on Property {
+      originalName
+      name
+      values
+    }
+  }
+  propertyGroups {
+    ... on PropertyGroup {
+      name
+      properties
+    }
+  }
+  productReference
+  titleTag
+  metaTagDescription
+  recommendations {
+    ... on Recommendation {
+      buy {
+        ... on Product {
+          remoteTypeName: __typename
+          id: productId
+        }
+      }
+      view {
+        ... on Product {
+          remoteTypeName: __typename
+          id: productId
+        }
+      }
+      similars {
+        ... on Product {
+          remoteTypeName: __typename
+          id: productId
+        }
+      }
+    }
+  }
+  jsonSpecifications
+  benefits {
+    ... on Benefit {
+      featured
+      id
+      name
+      items {
+        ... on BenefitItem {
+          benefitProduct {
+            ... on Product {
+              remoteTypeName: __typename
+              id: productId
+            }
+          }
+          benefitSKUIds
+          discount
+          minQuantity
+        }
+      }
+      teaserType
+    }
+  }
+  specificationGroups {
+    ... on SpecificationGroup {
+      originalName
+      name
+      specifications {
+        ... on SpecificationGroupProperty {
+          originalName
+          name
+          values
+        }
+      }
+    }
+  }
+  priceRange {
+    ... on ProductPriceRange {
+      sellingPrice {
+        ... on PriceRange {
+          highPrice
+          lowPrice
+        }
+      }
+      listPrice {
+        ... on PriceRange {
+          highPrice
+          lowPrice
+        }
+      }
+    }
+  }
+  releaseDate
+  selectedProperties {
+    ... on SelectedProperty {
+      key
+      value
+    }
+  }
+}

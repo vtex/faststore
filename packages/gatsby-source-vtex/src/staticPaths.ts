@@ -3,10 +3,9 @@ import { join } from 'path'
 import { readFile } from 'fs'
 
 import slugify from 'slugify'
-import pMap from 'p-map'
 
 import { api } from './api'
-import { fetchIS, fetchVTEX } from './fetch'
+import { fetchVTEX } from './fetch'
 import type { Brand, Category } from './types'
 
 interface Options {
@@ -14,13 +13,6 @@ interface Options {
   workspace?: string
   environment?: 'vtexcommercestable' | 'vtexcommercebeta'
   maxNumPaths?: number // max number of staticPaths to generate
-}
-
-interface SearchResult {
-  products: Array<{ url: string }>
-  pagination: {
-    count: number
-  }
 }
 
 const readFileAsync = promisify(readFile)
@@ -46,7 +38,6 @@ const staticPaths = async ({
   tenant,
   workspace = 'master',
   environment = 'vtexcommercestable',
-  maxNumPaths = 100,
 }: Options): Promise<string[]> => {
   const paths: string[] = await staticPathsFromJson() // final array containing all paths
 
@@ -89,35 +80,7 @@ const staticPaths = async ({
     )
   }
 
-  // Add product paths into the final array
-
-  // This generates at least `itemsPerPage` and at most 2500 product paths
-  // `itemsPerPage` is an arbritary number, however 2500 is hard coded in VTEX search
-  const itemsPerPage = 100
-  const totalItems = Math.min(
-    2500,
-    Math.max(itemsPerPage, maxNumPaths - paths.length)
-  )
-
-  const pages = new Array(Math.ceil(totalItems / itemsPerPage)).fill(null)
-
-  const productUrls = await pMap(
-    pages,
-    (_, page) =>
-      fetchIS<SearchResult>(
-        api.is.search({
-          'hide-unavailable-items': false,
-          sort: 'orders:desc',
-          count: itemsPerPage,
-          operator: 'and',
-          page: page + 1,
-        }),
-        options
-      ).then(({ products }) => products.map((x) => x.url)),
-    { concurrency: 10 }
-  ).then((x) => x.flat())
-
-  return [...paths, ...productUrls]
+  return paths
 }
 
 export default staticPaths

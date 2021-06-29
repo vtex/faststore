@@ -38,18 +38,13 @@ export const useMetadata = (
     `
   )
 
-  const {
-    data: {
-      vtex: { product },
-    },
-  } = options
-
+  const { product } = options
   const title = product?.titleTag || siteMetadata.title
   const description = product?.metaTagDescription || siteMetadata.description
   const canonical = `https://${host}${pathname}`
   const images = useMemo(
     () =>
-      product?.items?.[0]?.images?.map((image) => ({
+      product?.items?.[0]?.images?.map((image: any) => ({
         url: image?.imageUrl,
         alt: image?.imageText,
       })),

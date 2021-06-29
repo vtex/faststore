@@ -52,7 +52,6 @@ export const createPages = async ({
 
   const { data: staticPaths, errors } = await graphql<{
     searches: { nodes: StaticPath[] }
-    products: { nodes: StaticPath[] }
   }>(`
     query GetAllStaticPaths {
       searches: allStaticPath(
@@ -61,20 +60,11 @@ export const createPages = async ({
         }
       ) {
         nodes {
-          ...staticPath
+          id
+          path
+          pageType
         }
       }
-      products: allStaticPath(filter: { pageType: { eq: "Product" } }) {
-        nodes {
-          ...staticPath
-        }
-      }
-    }
-
-    fragment staticPath on StaticPath {
-      id
-      path
-      pageType
     }
   `)
 
@@ -88,7 +78,6 @@ export const createPages = async ({
 
   const {
     searches: { nodes: searches = [] },
-    products: { nodes: products = [] },
   } = staticPaths!
 
   /**
@@ -137,30 +126,8 @@ export const createPages = async ({
   }
 
   /**
-   * Create product static paths
-   */
-  for (const product of products) {
-    const { path } = product
-    const [, slug] = path.split('/')
-
-    createPage({
-      path,
-      component: resolve(__dirname, './src/templates/product.server.tsx'),
-      context: { slug },
-    })
-  }
-
-  /**
    * CLIENT ONLY PATHS
    */
-
-  // Client-side rendered product pages
-  createPage({
-    path: '/__client_side_product__/p',
-    matchPath: '/:slug/p',
-    component: resolve(__dirname, './src/templates/product.browser.tsx'),
-    context: {},
-  })
 
   // Client side, full text, search page
   createPage({

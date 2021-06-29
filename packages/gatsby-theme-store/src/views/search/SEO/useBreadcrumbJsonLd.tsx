@@ -25,7 +25,7 @@ export const useBreadcrumb = ({
     }
 
     return {
-      itemListElements: breadcrumb.map((item, index: number) => ({
+      itemListElements: breadcrumb.map((item: any, index: number) => ({
         position: index + 1,
         name: item!.name!,
         item: `${siteUrl}${item!.href}`,
