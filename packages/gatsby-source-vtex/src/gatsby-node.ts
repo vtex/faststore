@@ -310,6 +310,8 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
                 from: $from,
                 to: $to
                 simulationBehavior: skip
+                # Product data like spotPrice in IS is not reliable. Let's use portal
+                productOriginVtex: true
               ){
                 products {
                   ..._ProductFragment_
