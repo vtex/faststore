@@ -1,6 +1,6 @@
 # gatsby-plugin-thumbor
 
-A plugin for integrating gatsby-plugin-image with (thumbor)[http://thumbor.org/], an open-source smart on-demand image cropping, resizing and filters, so you can make your own smart image handling service.
+A plugin for integrating gatsby-plugin-image with [thumbor](http://thumbor.org/), an open-source smart on-demand image cropping, resizing and filters, so you can make your own smart image handling service.
 
 ## Install
 ```
