@@ -278,7 +278,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    * Source products so we can use Gatsby's file system route api for creating pages.
    * https://www.gatsbyjs.com/docs/reference/routing/file-system-route-api/
    *
-   * Also, the steps below follow the tutorial from gatsby-source-toolkit.
+   * Also, the steps below follow the tutorial from gatsby-graphql-toolkit.
    * Take a look at their docs for more info
    * https://github.com/gatsbyjs/gatsby-graphql-toolkit#how-it-works
    */
