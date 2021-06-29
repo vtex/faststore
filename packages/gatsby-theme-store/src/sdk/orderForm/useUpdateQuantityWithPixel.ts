@@ -9,7 +9,7 @@ export interface UpdateQuantityWithPixelParams<T, R> {
 
 export type UpdateQuantityWithPixel<T, R> = <P extends MinimalOrderFormItem>(
   item: P & T,
-  oldItem?: P
+  oldItem: P
 ) => R
 
 export interface UseUpdateQuantityWithPixel<T, R> {
@@ -62,10 +62,6 @@ export function updateQuantityWithPixel<T, R>({
 }: UpdateQuantityWithPixelParams<T, R>): UpdateQuantityWithPixel<T, R> {
   return (updatedItem, oldItem) => {
     const updateQuantityResult = updateQuantity(updatedItem)
-
-    if (!oldItem) {
-      return updateQuantityResult
-    }
 
     const quantityDelta = updatedItem.quantity - oldItem.quantity
 
