@@ -56,6 +56,8 @@ export const useProductJsonLd = (options: Options): ProductJSONLD | null => {
 
 export const fragment = graphql`
   fragment StructuredProductFragment_product on StoreProduct {
+    titleTag
+    metaTagDescription
     productName
     description
     brand

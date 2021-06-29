@@ -60,7 +60,7 @@ export type OrderPlacedData = Order
 export type OrderPlacedTrackedData = Order
 
 export interface ProductViewData {
-  product: ServerProductPageQueryQuery['product']
+  product: any
 }
 
 export interface ProductClickData {

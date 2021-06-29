@@ -1,14 +1,12 @@
 import { Center, Text } from '@vtex/store-ui'
-import { graphql } from 'gatsby'
 import React from 'react'
-import type { FC } from 'react'
 
 import type { ProductViewProps } from './index'
 
 const format = (x: string) =>
   x.length > 100 ? `${x.slice(0, 100)} ...Truncated` : x
 
-const AboveTheFold: FC<ProductViewProps> = (props) => (
+const AboveTheFold = (props: ProductViewProps) => (
   <>
     <Center height="150px">
       <Text sx={{ width: '50%' }}>
@@ -47,45 +45,5 @@ const AboveTheFold: FC<ProductViewProps> = (props) => (
     </Center>
   </>
 )
-
-export const fragment = graphql`
-  fragment ProductDetailsTemplate_product on StoreProduct {
-    productReference
-    productName
-    linkText
-    items {
-      name
-      complementName
-      itemId
-      referenceId {
-        value: Value
-      }
-      images {
-        imageUrl
-        imageText
-      }
-      videos {
-        videoUrl
-      }
-      sellers {
-        commercialOffer: commertialOffer {
-          price: Price
-          listPrice: ListPrice
-          availableQuantity: AvailableQuantity
-          priceValidUntil: PriceValidUntil
-        }
-      }
-    }
-    productClusters {
-      id
-      name
-    }
-    properties {
-      name
-      originalName
-      values
-    }
-  }
-`
 
 export default AboveTheFold
