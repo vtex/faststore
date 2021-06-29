@@ -57,6 +57,7 @@ export const useBuyButton = ({
     !sku ||
     !orderForm ||
     !seller ||
+    !product ||
     seller.commercialOffer.availableQuantity === 0
 
   // Redirects the user to checkout after reassuring the pixel event was received
