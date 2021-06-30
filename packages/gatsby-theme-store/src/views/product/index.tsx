@@ -1,22 +1,25 @@
 import { SuspenseViewport } from '@vtex/store-ui'
 import React, { lazy } from 'react'
-import type { FC } from 'react'
+import type { PropsWithChildren } from 'react'
 
 import { usePixelSendEvent } from '../../sdk/pixel/usePixelSendEvent'
 import AboveTheFold from './AboveTheFold'
 import BelowTheFoldPreview from './BelowTheFoldPreview'
 import SEO from './SEO'
-import type { ServerProductPageProps } from '../../pages/{StoreProduct.slug}/p'
 
 const belowTheFoldPreloader = () => import('./BelowTheFold')
 const BelowTheFold = lazy(belowTheFoldPreloader)
 
-export type ProductViewProps = {
-  product: ServerProductPageProps['data']['product']
+export type ProductViewProps<P = Product> = PropsWithChildren<{
+  product: P
   slug: string
+}>
+
+interface Product {
+  id: string
 }
 
-const ProductView: FC<ProductViewProps> = (props) => {
+const ProductView = <P extends Product>(props: ProductViewProps<P>) => {
   const { product } = props
 
   usePixelSendEvent(
