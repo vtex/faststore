@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.371.29 (2021-06-30)
+
+
+### Features
+
+* Use Gatsby's file system routing API for product pages ([#795](https://github.com/vtex/faststore/issues/795)) ([c9b8eed](https://github.com/vtex/faststore/commit/c9b8eed75834738e9b869780790c772947ec65c3))
+
+
+
+
+
 ## 0.371.28 (2021-06-30)
 
 **Note:** Version bump only for package openstore

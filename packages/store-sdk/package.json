@@ -1,6 +1,6 @@
 {
   "name": "@vtex/store-sdk",
-  "version": "0.371.28",
+  "version": "0.371.29",
   "description": "Hooks for creating your next component library",
   "license": "MIT",
   "repository": {
