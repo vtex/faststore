@@ -25,9 +25,12 @@ export const getOrderForm = async () => {
 
     return orderForm
   } catch (err) {
-    // If anything goes wrong on this step,
-    // let's try to self heal by removing any cached orderForm
-    clearOrderFormId()
+    // Check if checkout return status code is related to request or server errors
+    if (err.extensions?.exception?.status >= 400) {
+      // If anything goes wrong on this step,
+      // let's try to self heal by removing any cached orderForm
+      clearOrderFormId()
+    }
 
     throw err
   }
