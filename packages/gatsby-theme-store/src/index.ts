@@ -54,6 +54,9 @@ export { useAutocompleteSuggestions } from './sdk/searchBar/useAutocompleteSugge
 export { useSearchHistory } from './sdk/searchBar/useSearchHistory'
 export { useSearch } from './sdk/search/useSearch'
 export { useFullTextSearch } from './sdk/searchBar/useFullTextSearch'
+export { useQueryVariablesFromSearchParams } from './sdk/search/converter/useQueryVariablesFromSearchParams'
+export { useSearchParamsFromUrl } from './sdk/search/converter/useSearchParamsFromURL'
+export { usePersonalizedSearchRedirect } from './sdk/search/usePersonalizedSearchRedirect'
 
 export { useProfile } from './sdk/session/useProfile'
 export { useSession } from './sdk/session/useSession'
