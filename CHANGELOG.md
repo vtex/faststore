@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.371.30 (2021-07-01)
+
+
+### Bug Fixes
+
+* **gatsby-source-vtex:** page size ([#799](https://github.com/vtex/faststore/issues/799)) ([03b4b61](https://github.com/vtex/faststore/commit/03b4b61d8de5e5554b729e2ef41f0dfd7eca558d))
+
+
+
+
+
 ## 0.371.29 (2021-06-30)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-theme-ui",
-  "version": "0.371.29",
+  "version": "0.371.30",
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",
