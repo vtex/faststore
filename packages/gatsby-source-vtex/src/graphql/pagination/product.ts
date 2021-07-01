@@ -11,7 +11,7 @@ interface IPage {
 
 // Current max page size supported by VTEX API
 // TODO: Increasing this number could help on our build times
-const PAGE_SIZE = 100
+const PAGE_SIZE = 90
 
 export const ProductPaginationAdapter: IPaginationAdapter<IPage, IProduct> = {
   name: 'ProductPaginationAdapter',
