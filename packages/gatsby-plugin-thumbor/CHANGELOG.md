@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.371.33 (2021-07-01)
+
+
+### Bug Fixes
+
+* **gatsby-theme-store:** complex plp navigation ([#749](https://github.com/vtex/faststore/issues/749)) ([849f079](https://github.com/vtex/faststore/commit/849f079a29550e9106d4aa00254cd81060022634))
+
+
+
+
+
 ## 0.371.32 (2021-07-01)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-thumbor
