@@ -17,7 +17,6 @@
       ],
       "labels": [
         "renovate",
-        "automerge",
         "faststore"
       ],
       "schedule": [
