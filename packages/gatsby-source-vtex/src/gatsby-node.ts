@@ -60,9 +60,9 @@ export interface Options extends PluginOptions, VTEXOptions {
   ignorePaths?: string[]
   concurrency?: number
   /**
-   * @description max number of paths for getStaticPaths to generate
+   * @description minimum number of products to fetch from catalog
    * */
-  maxNumPaths?: number
+  minProducts?: number
 }
 
 const DEFAULT_PAGE_TYPES_WHITELIST = [
@@ -358,7 +358,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       execute: run,
       gatsbyTypePrefix: `Store`,
       gatsbyNodeDefs: buildNodeDefinitions({ gatsbyNodeTypes, documents }),
-      paginationAdapters: [ProductPaginationAdapter],
+      paginationAdapters: [ProductPaginationAdapter(options)],
     }
 
     // Step5. Add explicit types to gatsby schema
@@ -569,5 +569,5 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     getStaticPaths: Joi.function().arity(0),
     getRedirects: Joi.function().arity(0),
     pageTypes: Joi.array().items(Joi.string()),
-    maxNumPaths: Joi.number(),
+    minProducts: Joi.number(),
   })

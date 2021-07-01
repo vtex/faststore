@@ -1,5 +1,9 @@
 import type { IPaginationAdapter } from 'gatsby-graphql-source-toolkit'
 
+interface Options {
+  minProducts?: number
+}
+
 // Define pagination adapters
 interface IProduct {
   productId: string
@@ -13,29 +17,38 @@ interface IPage {
 // TODO: Increasing this number could help on our build times
 const PAGE_SIZE = 90
 
-export const ProductPaginationAdapter: IPaginationAdapter<IPage, IProduct> = {
-  name: 'ProductPaginationAdapter',
-  expectedVariableNames: [`from`, `to`],
-  start: () => ({
-    // Our search is inclusive, so 0 -> PAGE_SIZE - 1 fetches PAGE_SIZE items
-    variables: { from: 0, to: PAGE_SIZE - 1 },
-    hasNextPage: true,
-  }),
-  next: (state, page) => {
-    const from = Number(state.variables.from) + PAGE_SIZE
-    const to = Number(state.variables.to) + PAGE_SIZE
+// VTEX Search API hard limits us to 2500 products at most
+// Increasing this hard limit on the API may help us fetching more products
+const MAX_PRODUCTS = 2500
 
-    return {
-      variables: {
-        from,
-        to,
-      },
-      // VTEX Search API hard limits us to 2500 products at most
-      hasNextPage: page.products.length > 0 && to < 2500,
-    }
-  },
-  concat: (result, page) => ({
-    products: result.products.concat(page.products),
-  }),
-  getItems: (pageOrResult) => pageOrResult.products,
+export const ProductPaginationAdapter = ({
+  minProducts = MAX_PRODUCTS,
+}: Options): IPaginationAdapter<IPage, IProduct> => {
+  const threshold = Math.min(minProducts, MAX_PRODUCTS)
+
+  return {
+    name: 'ProductPaginationAdapter',
+    expectedVariableNames: [`from`, `to`],
+    start: () => ({
+      // Our search is inclusive, so 0 -> PAGE_SIZE - 1 fetches PAGE_SIZE items
+      variables: { from: 0, to: PAGE_SIZE - 1 },
+      hasNextPage: true,
+    }),
+    next: (state, page) => {
+      const from = Number(state.variables.from) + PAGE_SIZE
+      const to = Number(state.variables.to) + PAGE_SIZE
+
+      return {
+        variables: {
+          from,
+          to,
+        },
+        hasNextPage: page.products.length > 0 && to < threshold,
+      }
+    },
+    concat: (result, page) => ({
+      products: result.products.concat(page.products),
+    }),
+    getItems: (pageOrResult) => pageOrResult.products,
+  }
 }
