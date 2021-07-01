@@ -22,12 +22,4 @@ export const onCreateWebpackConfig = async ({
   setWebpackConfig({
     plugins: [new WebpackPlugin(schema)],
   })
-
-  const activeEnv =
-    process.env.GATSBY_ACTIVE_ENV ?? process.env.NODE_ENV ?? 'development'
-
-  if (activeEnv === 'build-javascript' || activeEnv === 'development') {
-    // eslint-disable-next-line no-console
-    console.log(`Using environment config: '${activeEnv}'`)
-  }
 }
