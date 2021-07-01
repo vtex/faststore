@@ -1,5 +1,6 @@
 import type { IPaginationAdapter } from 'gatsby-graphql-source-toolkit'
-import type { Options } from '../../../gatsby-node'
+
+import type { Options } from '../../gatsby-node'
 
 // Define pagination adapters
 interface IProduct {
