@@ -16,7 +16,7 @@ interface IPage {
 const PAGE_SIZE = 90
 
 // VTEX Search API hard limits us to 2500 products at most
-// Increasing this hard limit on the API may help us fetching more products
+// Increasing this hard limit on the API may help us fetch more products
 const MAX_PRODUCTS = 2500
 
 export const ProductPaginationAdapter = ({
