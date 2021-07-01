@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.371.31 (2021-07-01)
+
+
+### Features
+
+* **store-ui:** components migration to .tsx + .mdx and update storybook version to v6.3 ([#782](https://github.com/vtex/faststore/issues/782)) ([9c8da3c](https://github.com/vtex/faststore/commit/9c8da3cc050e30916303b495b00532bde6c6328d))
+
+
+
+
+
 ## 0.371.30 (2021-07-01)
 
 
