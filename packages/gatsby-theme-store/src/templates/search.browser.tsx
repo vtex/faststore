@@ -21,9 +21,10 @@ const SearchPage: FC<PageProps> = (props) => {
   const {
     pageContext: { hideUnavailableItems },
     pageContext,
+    location,
   } = props
 
-  const searchParams = useSearchParamsFromUrl()
+  const searchParams = useSearchParamsFromUrl(location)
   const variables = useQueryVariablesFromSearchParams(searchParams)
   const redirecting = usePersonalizedSearchRedirect(searchParams)
 
