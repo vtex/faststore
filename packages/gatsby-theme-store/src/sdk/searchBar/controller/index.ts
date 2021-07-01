@@ -59,6 +59,7 @@ export const search = async (term: string) => {
   const path = `/${slugified}`
   const exists = await pathExists(path)
 
+  params.delete('map')
   if (exists) {
     // The page /slugified exists, let's navigate to this page
     pathname = `/${slugified}`
