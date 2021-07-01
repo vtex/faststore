@@ -47,6 +47,7 @@ export const mutation = gql`
         postalCode: $postalCode
         country: $country
         addressType: $addressType
+        isDisposable: true
       }
       orderFormId: $orderFormId
     ) {
