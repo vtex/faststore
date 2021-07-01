@@ -22,10 +22,6 @@ const BulletsTemplate: Story<BulletsProps> = ({
 )
 
 export const Bullets = BulletsTemplate.bind({})
-Bullets.args = {
-  totalQuantity: 5,
-  activeBullet: 3,
-}
 
 export default {
   title: 'Molecules/Bullets',
@@ -43,6 +39,7 @@ export default {
     },
     onClick: {
       action: 'Bullet clicked',
+      table: { disable: true },
     },
   },
   parameters: {

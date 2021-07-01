@@ -3,7 +3,13 @@ import type { InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  /**
+   * Current state of the input.
+   */
   state?: 'success' | 'error'
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId?: string
 }
 
