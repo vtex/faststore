@@ -84,7 +84,7 @@ export { useBreadcrumbJsonLd as useProductBreadcrumbJsonLd } from './views/produ
 export { useMetadata as useProductMetadata } from './views/product/useMetadata'
 export { useProductJsonLd } from './views/product/useProductJsonLd'
 export { default as ProductSEO } from './views/product/ProductSEO'
-export { useProductPixel } from './views/product/useProductPixel'
+export { useProductPixel as useProductPixelEffect } from './views/product/useProductPixel'
 
 export type { Options as ProductBreadcrumbOptions } from './views/product/useBreadcrumbJsonLd'
 export type { Options as ProductMetadataOptions } from './views/product/useMetadata'
