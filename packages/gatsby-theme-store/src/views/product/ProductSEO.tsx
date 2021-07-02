@@ -1,17 +1,21 @@
+import React from 'react'
 import {
   GatsbySeo,
   BreadcrumbJsonLd,
   ProductJsonLd,
 } from 'gatsby-plugin-next-seo'
-import React from 'react'
 import type { FC } from 'react'
 
 import { useMetadata } from './useMetadata'
 import { useBreadcrumbJsonLd } from './useBreadcrumbJsonLd'
 import { useProductJsonLd } from './useProductJsonLd'
-import type { ProductViewProps } from '../index'
+import type { Options as MetadataOptions } from './useMetadata'
+import type { Options as BreadcrumbOptions } from './useBreadcrumbJsonLd'
+import type { Options as JsonLdOptions } from './useProductJsonLd'
 
-const SEO: FC<ProductViewProps> = (props) => {
+export type Props = BreadcrumbOptions & MetadataOptions & JsonLdOptions
+
+const ProductSEO: FC<Props> = (props) => {
   const metadata = useMetadata(props)
   const breadcrumbProps = useBreadcrumbJsonLd(props)
   const productProps = useProductJsonLd(props)
@@ -27,4 +31,4 @@ const SEO: FC<ProductViewProps> = (props) => {
   )
 }
 
-export default SEO
+export default ProductSEO

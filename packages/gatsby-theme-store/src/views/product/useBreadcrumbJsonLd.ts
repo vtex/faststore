@@ -3,9 +3,11 @@ import { useMemo } from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { BreadcrumbJsonLd } from 'gatsby-plugin-next-seo'
 
-import type { ProductViewProps } from '../index'
+import type { Product } from './types'
 
-type Options = ProductViewProps<any>
+export type Options = {
+  product?: Product
+}
 
 type BreadcrumbJSONLD = ComponentPropsWithoutRef<typeof BreadcrumbJsonLd>
 
@@ -26,10 +28,10 @@ export const useBreadcrumbJsonLd = (
 
     const { categoryTree, productName } = product
 
-    const itemListElements = categoryTree.map((item: any, index: number) => ({
+    const itemListElements = categoryTree.map((item, index) => ({
       position: index + 1,
-      name: item!.name!,
-      item: `https://${host}${item!.href}`,
+      name: item.name,
+      item: `https://${host}${item.href}`,
     }))
 
     const len: number = itemListElements.length

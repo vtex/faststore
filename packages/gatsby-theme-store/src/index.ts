@@ -79,3 +79,14 @@ export type { PixelEventHandler } from './sdk/pixel/usePixelEvent'
 export * from './sdk/pixel/events'
 
 export { once } from './sdk/once'
+
+export { useBreadcrumbJsonLd as useProductBreadcrumbJsonLd } from './views/product/useBreadcrumbJsonLd'
+export { useMetadata as useProductMetadata } from './views/product/useMetadata'
+export { useProductJsonLd } from './views/product/useProductJsonLd'
+export { default as ProductSEO } from './views/product/ProductSEO'
+export { useProductPixel } from './views/product/useProductPixel'
+
+export type { Options as ProductBreadcrumbOptions } from './views/product/useBreadcrumbJsonLd'
+export type { Options as ProductMetadataOptions } from './views/product/useMetadata'
+export type { Options as ProductJsonLdOptions } from './views/product/useProductJsonLd'
+export type { Options as ProductPixelOptions } from './views/product/useProductPixel'
