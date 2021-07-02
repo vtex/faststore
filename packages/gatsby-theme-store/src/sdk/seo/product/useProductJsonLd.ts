@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { ProductJsonLd } from 'gatsby-plugin-next-seo'
 
-import { useCurrency } from '../../sdk/localization/useCurrency'
+import { useCurrency } from '../../localization/useCurrency'
 import type { Product } from './types'
 
 export type Options = {

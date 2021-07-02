@@ -8,8 +8,8 @@ import { useMemo } from 'react'
 import type { GatsbySeo } from 'gatsby-plugin-next-seo'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { useCurrency } from '../../sdk/localization/useCurrency'
-import { useLocale } from '../../sdk/localization/useLocale'
+import { useCurrency } from '../../localization/useCurrency'
+import { useLocale } from '../../localization/useLocale'
 import type { Product } from './types'
 
 export type Options = {

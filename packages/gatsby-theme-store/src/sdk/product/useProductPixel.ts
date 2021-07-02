@@ -1,11 +1,12 @@
-import { usePixelSendEvent } from '../../sdk/pixel/usePixelSendEvent'
-import type { Product } from './types'
+import { usePixelSendEvent } from '../pixel/usePixelSendEvent'
 
-export interface Options {
-  product?: Product
+export interface Options<P> {
+  product?: P
 }
 
-export const useProductPixel = ({ product }: Options) =>
+export const useProductPixel = <P extends { id: string }>({
+  product,
+}: Options<P>) =>
   usePixelSendEvent(
     () => [
       {

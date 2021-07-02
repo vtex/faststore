@@ -6,12 +6,12 @@ import {
 } from 'gatsby-plugin-next-seo'
 import type { FC } from 'react'
 
-import { useMetadata } from './useMetadata'
-import { useBreadcrumbJsonLd } from './useBreadcrumbJsonLd'
-import { useProductJsonLd } from './useProductJsonLd'
-import type { Options as MetadataOptions } from './useMetadata'
-import type { Options as BreadcrumbOptions } from './useBreadcrumbJsonLd'
-import type { Options as JsonLdOptions } from './useProductJsonLd'
+import { useMetadata } from '../../../sdk/seo/product/useMetadata'
+import { useBreadcrumbJsonLd } from '../../../sdk/seo/product/useBreadcrumbJsonLd'
+import { useProductJsonLd } from '../../../sdk/seo/product/useProductJsonLd'
+import type { Options as MetadataOptions } from '../../../sdk/seo/product/useMetadata'
+import type { Options as BreadcrumbOptions } from '../../../sdk/seo/product/useBreadcrumbJsonLd'
+import type { Options as JsonLdOptions } from '../../../sdk/seo/product/useProductJsonLd'
 
 export type Props = BreadcrumbOptions & MetadataOptions & JsonLdOptions
 
