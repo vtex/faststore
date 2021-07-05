@@ -17,23 +17,6 @@ export type Options = {
   siteMetadata: ComponentPropsWithoutRef<typeof GatsbySeo> & { siteUrl: string }
 }
 
-// const {
-//   site: { siteMetadata },
-// }: any = useStaticQuery<ProductPageSeoQueryQuery>(
-//   graphql`
-//     query ProductPageSeoQuery {
-//       site {
-//         siteMetadata {
-//           title
-//           titleTemplate
-//           description
-//           author
-//           siteUrl
-//         }
-//       }
-//     }
-//   `
-// )
 export const useMetadata = (
   options: Options
 ): ComponentPropsWithoutRef<typeof GatsbySeo> => {
