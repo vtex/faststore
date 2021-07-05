@@ -66,7 +66,9 @@ export const fetchGraphQL = async <T>(
     }
 
     throw new Error(
-      `[gatsby-source-vtex]: GraphQL Error\n\n: ${response.errors}`
+      `[gatsby-source-vtex]: GraphQL Error\n\n: ${response.errors
+        .map((err) => err.message)
+        .join('\n\n')}`
     )
   }
 
