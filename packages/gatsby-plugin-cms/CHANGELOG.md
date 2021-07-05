@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.371.37 (2021-07-05)
+
+
+### Bug Fixes
+
+* **gatsby-theme-store:** set isDisposable to true on setRegionMutation, fixing zip code persistence ([#802](https://github.com/vtex/faststore/issues/802)) ([#802](https://github.com/vtex/faststore/issues/802)) ([46f65f8](https://github.com/vtex/faststore/commit/46f65f89270cd8004283c14d8988a9490b513228))
+
+
+
+
+
 ## 0.371.36 (2021-07-05)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-cms
