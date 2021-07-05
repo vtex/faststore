@@ -61,6 +61,7 @@ export { usePersonalizedSearchRedirect } from './sdk/search/usePersonalizedSearc
 export { useProfile } from './sdk/session/useProfile'
 export { useSession } from './sdk/session/useSession'
 
+export { useSearchParams } from './sdk/state/useSearchParams'
 export { usePersistedSearchParams } from './sdk/state/usePersistedSearchParams'
 export { useRecommendationShelf } from './sdk/shelf/useRecommendationShelf'
 export { useProductsShelf } from './sdk/shelf/useProductsShelf'
