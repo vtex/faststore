@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.371.35 (2021-07-05)
+
+**Note:** Version bump only for package @vtex/gatsby-plugin-theme-ui
+
+
+
+
+
 ## 0.371.34 (2021-07-05)
 
 
