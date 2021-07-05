@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.371.34 (2021-07-05)
+
+
+### Features
+
+* move status pages ([#807](https://github.com/vtex/faststore/issues/807)) ([4c5cf62](https://github.com/vtex/faststore/commit/4c5cf6282f18f797a52b06ba8d6770cf7b6c2533))
+
+
+
+
+
 ## 0.371.33 (2021-07-01)
 
 
