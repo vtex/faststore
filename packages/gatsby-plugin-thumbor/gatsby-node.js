@@ -17,21 +17,33 @@ module.exports.createPages = (
     createRedirect({
       fromPath: `${basePath}/${size}/*`,
       toPath: `${server}/unsafe/${size}/:splat`,
+      proxyHeaders: {
+        cookie: "''",
+      },
     })
 
     createRedirect({
       fromPath: `${basePath}/:p1/${size}/*`,
       toPath: `${server}/unsafe/:p1/${size}/:splat`,
+      proxyHeaders: {
+        cookie: "''",
+      },
     })
 
     createRedirect({
       fromPath: `${basePath}/:p1/:p2/${size}/*`,
       toPath: `${server}/unsafe/:p1/:p2/${size}/:splat`,
+      proxyHeaders: {
+        cookie: "''",
+      },
     })
 
     createRedirect({
       fromPath: `${basePath}/:p1/:p2/:p3/${size}/*`,
       toPath: `${server}/unsafe/:p1/:p2/:p3/${size}/:splat`,
+      proxyHeaders: {
+        cookie: "''",
+      },
     })
   }
 }
