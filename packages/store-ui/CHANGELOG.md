@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.3 (2021-07-06)
+
+
+### Features
+
+* **gatsby-theme-store:** Move auth pages to stores ([#809](https://github.com/vtex/faststore/issues/809)) ([8abbe7f](https://github.com/vtex/faststore/commit/8abbe7fcb455fc1449960ef26a02df36a0d4c8dd))
+
+
+
+
+
 ## 0.372.2 (2021-07-06)
 
 
