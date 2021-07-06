@@ -1,5 +1,5 @@
 {
-  "version": "0.371.38",
+  "version": "0.372.0-alpha.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -8,7 +8,5 @@
     }
   },
   "changelogPreset": "angular",
-  "packages": [
-    "packages/*"
-  ]
+  "packages": ["packages/*"]
 }
