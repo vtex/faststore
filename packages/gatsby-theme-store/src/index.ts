@@ -95,3 +95,9 @@ export type { Props as ProductSEOProps } from './components/Seo/product/ProductS
 
 export { useProductPixel as useProductPixelEffect } from './sdk/product/useProductPixel'
 export type { Options as ProductPixelOptions } from './sdk/product/useProductPixel'
+export { default as RenderExtensionLoader } from './sdk/RenderExtensionLoader'
+
+export { AUTH_PROVIDERS } from './components/Auth/Providers'
+export { useProviders } from './sdk/auth/useProviders'
+export { useOnLoginSuccessful } from './sdk/auth/useOnLoginSuccessful'
+export type { ProvidersResponse } from './sdk/auth/Service/getProviders'
