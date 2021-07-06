@@ -80,3 +80,18 @@ export type { PixelEventHandler } from './sdk/pixel/usePixelEvent'
 export * from './sdk/pixel/events'
 
 export { once } from './sdk/once'
+
+export { useBreadcrumbJsonLd as useProductBreadcrumbJsonLd } from './sdk/seo/product/useBreadcrumbJsonLd'
+export type { Options as ProductBreadcrumbOptions } from './sdk/seo/product/useBreadcrumbJsonLd'
+
+export { useMetadata as useProductMetadata } from './sdk/seo/product/useMetadata'
+export type { Options as ProductMetadataOptions } from './sdk/seo/product/useMetadata'
+
+export { useProductJsonLd } from './sdk/seo/product/useProductJsonLd'
+export type { Options as ProductJsonLdOptions } from './sdk/seo/product/useProductJsonLd'
+
+export { default as ProductSEO } from './components/Seo/product/ProductSEO'
+export type { Props as ProductSEOProps } from './components/Seo/product/ProductSEO'
+
+export { useProductPixel as useProductPixelEffect } from './sdk/product/useProductPixel'
+export type { Options as ProductPixelOptions } from './sdk/product/useProductPixel'
