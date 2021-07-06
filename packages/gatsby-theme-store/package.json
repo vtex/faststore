@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-store",
-  "version": "0.372.0",
+  "version": "0.372.1",
   "description": "Gatsby theme for building ecommerce websites",
   "main": "index.js",
   "repository": {
@@ -53,9 +53,9 @@
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.7",
     "@types/react-helmet-async": "^1.0.3",
-    "@vtex/gatsby-plugin-i18n": "^0.372.0",
-    "@vtex/store-sdk": "^0.372.0",
-    "@vtex/store-ui": "^0.372.0",
+    "@vtex/gatsby-plugin-i18n": "^0.372.1",
+    "@vtex/store-sdk": "^0.372.1",
+    "@vtex/store-ui": "^0.372.1",
     "cross-env": "^7.0.2",
     "gatsby": "^3.1.1",
     "gatsby-plugin-next-seo": "^1.7.0",
@@ -65,8 +65,8 @@
   },
   "dependencies": {
     "@theme-ui/match-media": "^0.3.1",
-    "@vtex/gatsby-plugin-graphql": "^0.372.0",
-    "@vtex/gatsby-plugin-theme-ui": "^0.372.0",
+    "@vtex/gatsby-plugin-graphql": "^0.372.1",
+    "@vtex/gatsby-plugin-theme-ui": "^0.372.1",
     "@vtex/order-items": "^0.6.1",
     "@vtex/order-manager": "^0.5.2",
     "gatsby-plugin-bundle-stats": "^2.7.2",

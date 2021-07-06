@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.1 (2021-07-06)
+
+
+### Features
+
+* **gatsby-theme-store:** product view ([#803](https://github.com/vtex/faststore/issues/803)) ([082d3f9](https://github.com/vtex/faststore/commit/082d3f9b1ffac15f444b9a7aacc62f21dc331237))
+
+
+
+
+
 ## 0.371.38 (2021-07-06)
 
 **Note:** Version bump only for package openstore
