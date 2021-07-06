@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.2 (2021-07-06)
+
+
+### Bug Fixes
+
+* **gatsby-plugin-thumbor:** Remove cookie on redirect ([#810](https://github.com/vtex/faststore/issues/810)) ([9a2f7fc](https://github.com/vtex/faststore/commit/9a2f7fcd3410ef606843c03552857f7e09f1528b))
+
+
+
+
+
 ## 0.372.1 (2021-07-06)
 
 
