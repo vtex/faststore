@@ -9,7 +9,6 @@ export { useNewsletter } from './sdk/newsletter/useNewsletter'
 // GraphQL API
 export { useLazyQuery } from './sdk/graphql/useLazyQuery'
 export { useQuery } from './sdk/graphql/useQuery'
-export { useQueryInfinite } from './sdk/graphql/useQueryInfinite'
 
 // TODO: We should have a single solution for dealing with images in our framework
 export { optimize } from './sdk/img/fileManager'
