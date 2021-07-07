@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import {
   formatSearchParamsState,
   initSearchParamsState,
@@ -14,7 +15,18 @@ import type { BrowserSearchPageQueryQuery } from '../../templates/__generated__/
 
 type SearchQuery = ServerSearchPageQueryQuery | BrowserSearchPageQueryQuery
 
+export interface PageInfo {
+  /** @description items per page */
+  size: number
+  /** @description total number of pages */
+  total: number
+}
+
 export interface SearchContext {
+  pageInfo: PageInfo & {
+    next?: string
+    previous?: string
+  }
   data: SearchQuery
   searchParams: SearchParamsState
   setFacet: (item: Facet) => void
@@ -48,15 +60,32 @@ const toggleFacet = (item: Facet, state: SearchParamsState) =>
 interface Props {
   data: SearchQuery
   searchParams: SearchParamsState
+  pageInfo: PageInfo
 }
 
 export const SearchProvider: FC<Props> = ({
   children,
   searchParams: initalState,
   data,
+  pageInfo,
 }) => {
   const value = useMemo(() => {
     const paramsState = initSearchParamsState(initalState)
+    const nextPage =
+      paramsState.page + 1 < pageInfo.total
+        ? formatSearchParamsState({
+            ...paramsState,
+            page: paramsState.page + 1,
+          }).href
+        : undefined
+
+    const previousPage =
+      paramsState.page > 0
+        ? formatSearchParamsState({
+            ...paramsState,
+            page: paramsState.page - 1,
+          }).href
+        : undefined
 
     return {
       toggleFacet: (item: Facet) => apply(toggleFacet(item, paramsState)),
@@ -73,8 +102,15 @@ export const SearchProvider: FC<Props> = ({
       searchParams: paramsState,
 
       data,
+
+      pageInfo: {
+        total: pageInfo.total,
+        size: pageInfo.size,
+        next: nextPage,
+        previous: previousPage,
+      },
     }
-  }, [initalState, data])
+  }, [initalState, data, pageInfo])
 
   return <Context.Provider value={value}>{children}</Context.Provider>
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { useMemo } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
@@ -23,7 +24,8 @@ const sortMap = {
 } as const
 
 export const useQueryVariablesFromSearchParams = (
-  params: SearchParamsState
+  params: SearchParamsState,
+  pageInfo: { size: number }
 ): QueryParamsFromSearch => {
   const { regionId } = useRegion()
 
@@ -44,6 +46,9 @@ export const useQueryVariablesFromSearchParams = (
       fullText: params.term ?? undefined,
       selectedFacets,
       orderBy: sortMap[params.sort],
+      from: params.page * pageInfo.size,
+      // Search API is inclusive. This removes the last product
+      to: (params.page + 1) * pageInfo.size - 1,
     }
 
     if (regionId != null) {
@@ -54,5 +59,5 @@ export const useQueryVariablesFromSearchParams = (
     }
 
     return queryParams
-  }, [params, regionId])
+  }, [params, regionId, pageInfo])
 }

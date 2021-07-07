@@ -17,10 +17,15 @@ export type SearchPageProps = PageProps<
   ServerSearchPageQueryQuery,
   ServerSearchPageQueryQueryVariables & {
     canonicalPath: string
+    pageInfo: { size: number }
   }
 >
 
-const Page: FC<SearchPageProps> = ({ pageContext, data }) => {
+const Page: FC<SearchPageProps> = ({ pageContext, data, location }) => {
+  console.assert(
+    !!pageContext.pageInfo,
+    `Page Info does not exists on ${location.href}`
+  )
   /**
    * In the future, we won't need this hook since in the ideal word our API
    * uses the same parameters as the output of this hook, so our searchParams can
@@ -40,6 +45,7 @@ const Page: FC<SearchPageProps> = ({ pageContext, data }) => {
             data={data}
             searchParams={searchParams}
             pageContext={pageContext}
+            pageInfo={pageContext.pageInfo}
           />
         )
       }

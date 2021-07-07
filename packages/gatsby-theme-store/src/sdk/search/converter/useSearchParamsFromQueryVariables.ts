@@ -2,8 +2,8 @@ import { useMemo } from 'react'
 import { useLocation } from '@reach/router'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
-import type { SearchPageProps } from '../../../templates/search.server'
 import { priceRange } from './priceRange'
+import type { SearchPageProps } from '../../../templates/search.server'
 
 export interface SelectedFacets {
   key: string
@@ -28,7 +28,8 @@ export const useSearchParamsFromQueryVariables = (
   pageContext: SearchPageProps['pageContext']
 ): SearchParamsState => {
   const { pathname } = useLocation()
-  const { selectedFacets, orderBy, fullText } = pageContext
+  const { selectedFacets, orderBy, fullText, pageInfo } = pageContext
+  const from = pageContext.from ?? 0
 
   if (selectedFacets == null || !Array.isArray(selectedFacets)) {
     throw new Error('Bad SelectedFacets in static search page')
@@ -51,6 +52,7 @@ export const useSearchParamsFromQueryVariables = (
     const [base] = pathname.split(selectedFacets[0].value)
 
     return {
+      page: Math.floor(from / pageInfo.size),
       base,
       selectedFacets: facets,
       term: fullText ?? null,
@@ -60,5 +62,5 @@ export const useSearchParamsFromQueryVariables = (
           ? sortMap[orderBy as keyof typeof sortMap]
           : 'score-desc',
     }
-  }, [fullText, orderBy, pathname, selectedFacets])
+  }, [from, pageInfo, fullText, orderBy, pathname, selectedFacets])
 }

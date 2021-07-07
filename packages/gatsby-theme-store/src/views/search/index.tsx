@@ -21,10 +21,13 @@ export interface SearchViewProps {
   }
   data: ServerSearchPageQueryQuery | BrowserSearchPageQueryQuery
   searchParams: SearchParamsState
+  pageInfo: { size: number }
 }
 
+export const DEFAULT_PAGE_INFO = { size: 12 }
+
 const SearchView: FC<SearchViewProps> = (props) => {
-  const { data, searchParams } = props
+  const { data, searchParams, pageInfo } = props
   const location = useLocation()
 
   usePixelSendEvent(() => {
@@ -58,7 +61,16 @@ const SearchView: FC<SearchViewProps> = (props) => {
   }, location.href)
 
   return (
-    <SearchProvider searchParams={searchParams} data={data}>
+    <SearchProvider
+      searchParams={searchParams}
+      data={data}
+      pageInfo={{
+        size: pageInfo.size,
+        total: Math.ceil(
+          (data.vtex.productSearch?.recordsFiltered ?? 0) / pageInfo.size
+        ),
+      }}
+    >
       <SEO {...props} />
       <AboveTheFold {...props} />
       <SuspenseViewport
