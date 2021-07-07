@@ -25,6 +25,11 @@ export const format = (params: SearchParamsState): URL => {
     query.push('per')
   }
 
+  if (typeof params.page === 'number') {
+    map.push('page')
+    query.push(params.page.toString())
+  }
+
   const url = new URL(
     `${params.base}${query.join('/')}`,
     window.location.origin

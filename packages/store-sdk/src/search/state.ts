@@ -27,6 +27,10 @@ export interface SearchParamsState {
    * */
   base: string
   personalized: boolean
+  /**
+   * @description current pagination cursor
+   */
+  page: number
 }
 
 export const initialize = ({
@@ -35,10 +39,12 @@ export const initialize = ({
   personalized = false,
   term = null,
   base = '/',
+  page = 0,
 }: Partial<SearchParamsState> | undefined = {}) => ({
   sort,
   selectedFacets,
   personalized,
   term,
   base: base.endsWith('/') ? base : `${base}/`,
+  page,
 })
