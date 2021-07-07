@@ -124,6 +124,7 @@ export const createPages = async ({
       context: {
         id,
         canonicalPath: path,
+        pageInfo: DEFAULT_PAGE_INFO,
       },
     })
   }
