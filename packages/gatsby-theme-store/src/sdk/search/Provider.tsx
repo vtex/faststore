@@ -39,11 +39,13 @@ export const Context = createContext<SearchContext | undefined>(undefined)
 
 Context.displayName = 'SearchContext'
 
-const apply = (params: SearchParamsState) => {
-  const { pathname, search } = formatSearchParamsState(params)
+const getLink = (searchParams: SearchParamsState) => {
+  const { pathname, search } = formatSearchParamsState(searchParams)
 
-  navigate(`${pathname}${search}`)
+  return `${pathname}${search}`
 }
+
+const apply = (params: SearchParamsState) => navigate(getLink(params))
 
 interface Facet {
   selected?: boolean
@@ -73,18 +75,18 @@ export const SearchProvider: FC<Props> = ({
     const paramsState = initSearchParamsState(initalState)
     const nextPage =
       paramsState.page + 1 < pageInfo.total
-        ? formatSearchParamsState({
+        ? getLink({
             ...paramsState,
             page: paramsState.page + 1,
-          }).href
+          })
         : undefined
 
     const previousPage =
       paramsState.page > 0
-        ? formatSearchParamsState({
+        ? getLink({
             ...paramsState,
             page: paramsState.page - 1,
-          }).href
+          })
         : undefined
 
     return {

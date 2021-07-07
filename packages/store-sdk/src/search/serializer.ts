@@ -30,10 +30,7 @@ export const format = (params: SearchParamsState): URL => {
     query.push(params.page.toString())
   }
 
-  const url = new URL(
-    `${params.base}${query.join('/')}`,
-    window.location.origin
-  )
+  const url = new URL(`${params.base}${query.join('/')}`, 'http://localhost')
 
   url.searchParams.set('map', map.join(','))
 
