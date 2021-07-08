@@ -21,7 +21,7 @@ export type SearchPageProps = PageProps<
   }
 >
 
-const Page: FC<SearchPageProps> = ({ pageContext, data, location }) => {
+const Page: FC<SearchPageProps> = ({ pageContext, data }) => {
   /**
    * In the future, we won't need this hook since in the ideal word our API
    * uses the same parameters as the output of this hook, so our searchParams can
