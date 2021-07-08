@@ -57,6 +57,4 @@ banners.map(({ id, html }) =>
 
 ### References
 
-- [Banner for search terms](https://github.com/vtex-sites/storecomponents.store/pull/1006).
-
-This [PR](https://github.com/vtex-sites/storecomponents.store/pull/1006) implements this feature on the Storecomponents store.
+The PR, [Banner for search terms](https://github.com/vtex-sites/storecomponents.store/pull/1006), implements this feature on the Storecomponents store.
