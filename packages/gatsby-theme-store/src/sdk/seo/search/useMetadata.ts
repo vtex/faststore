@@ -22,7 +22,7 @@ export const useMetadata = ({
   canonical,
 }: Options): GatsbySEOProps => {
   const language = useLocale()
-  const { origin, host } = useLocation()
+  const { host } = useLocation()
   const {
     pageInfo: { nextPage, prevPage },
   } = useSearch()
@@ -32,14 +32,15 @@ export const useMetadata = ({
   const canonicalTags = useMemo(() => {
     if (typeof canonical === 'string') {
       return {
-        canonical: host !== undefined ? `${origin}${canonical}` : canonical,
+        canonical:
+          host !== undefined ? `https://${host}${canonical}` : canonical,
         noindex: false,
         nofollow: false,
       }
     }
 
     return { canonical: undefined, noindex: true, nofollow: false }
-  }, [canonical, host, origin])
+  }, [canonical, host])
 
   const linkTags = useMemo(() => {
     const tags: GatsbySEOProps['linkTags'] = []
