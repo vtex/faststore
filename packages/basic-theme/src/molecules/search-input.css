@@ -1,0 +1,39 @@
+[data-store-search-input] {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  max-width: 250px;
+  margin-top: 0px;
+  min-height: 40px;
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e3e4e6;
+  align-items: center;
+  position: relative;
+  width: 250px;
+  height: 45px;
+  display: flex;
+}
+
+[data-store-search-input] [data-store-button] {
+  align-items: center;
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin: 0;
+  min-width: 0;
+  max-height: 40px;
+  padding: 8px 16px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  text-decoration: none;
+}

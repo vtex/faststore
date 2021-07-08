@@ -1,0 +1,23 @@
+.basic-theme [data-store-input] {
+  width: 340px;
+  height: 41px;
+  border-color: rgb(227, 228, 230);
+  border-width: 1px;
+  border-style: solid;
+  color: rgb(63, 63, 64);
+  font-size: 16px;
+  font-weight: 400;
+  padding: 1px 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.basic-theme [data-store-input][data-success], .basic-theme [data-store-input][data-success]:focus {
+  border-color: green;
+  outline-width: 0;
+}
+
+.basic-theme [data-store-input][data-error], .basic-theme [data-store-input][data-error]:focus {
+  border-color: red;
+  outline-width: 0;
+}

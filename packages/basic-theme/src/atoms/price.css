@@ -1,0 +1,11 @@
+.basic-theme [data-store-price] {
+  padding-right: 50px;
+}
+
+.basic-theme [data-store-price][data-listing] {
+  text-decoration: line-through;
+}
+
+.basic-theme [data-store-price] [data-store-price-integer] {
+  font-weight: bold;
+}

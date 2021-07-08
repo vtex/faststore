@@ -1,0 +1,14 @@
+.basic-theme [data-store-button] {
+  background-color: rgb(3, 3, 78);
+  border: 0px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: 500;
+  padding: 8px 24px;
+  min-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
