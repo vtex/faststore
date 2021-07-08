@@ -12,7 +12,7 @@ Learn how to implement the Search Banner in the following sections.
 
 To add the banner query you will need to shadow the `@vtex/gatsby-theme-store/templates/search.browser.tsx` file:
 
-1. Inside the source folder of your store project, create a file with this path `src/@vtex/gatsby-theme-store/templates/search.browser.tsx`
+1. Inside the source folder of your store project, open the file with this path `src/@vtex/gatsby-theme-store/templates/search.browser.tsx` or create it if it doesn't already exist.
 2. Then, add the following query snippet on your search page query:
 
 ```tsx
