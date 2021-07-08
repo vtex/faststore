@@ -1,3 +1,5 @@
+import { useLocation } from '@reach/router'
+import { useMemo } from 'react'
 import type { GatsbySeo } from 'gatsby-plugin-next-seo'
 import type { ComponentPropsWithoutRef } from 'react'
 
@@ -20,25 +22,38 @@ export const useMetadata = ({
   canonical,
 }: Options): GatsbySEOProps => {
   const language = useLocale()
+  const { origin, host } = useLocation()
   const {
     pageInfo: { nextPage, prevPage },
   } = useSearch()
 
-  const linkTags: GatsbySEOProps['linkTags'] = []
+  // According to Google, one should use either noindex or canonical, never both.
+  // Also, we generate relative canonicals in the HTML that will be hydrated to absolute ones via JS
+  const canonicalTags = useMemo(() => {
+    if (typeof canonical === 'string') {
+      return {
+        canonical: host !== undefined ? `${origin}${canonical}` : canonical,
+        noindex: false,
+        nofollow: false,
+      }
+    }
 
-  if (prevPage !== false) {
-    linkTags.push({ rel: 'prev', href: prevPage.link })
-  }
+    return { canonical: undefined, noindex: true, nofollow: false }
+  }, [canonical, host, origin])
 
-  if (nextPage !== false) {
-    linkTags.push({ rel: 'next', href: nextPage.link })
-  }
+  const linkTags = useMemo(() => {
+    const tags: GatsbySEOProps['linkTags'] = []
 
-  // According to Google, one should use either noindex or canonical, never both
-  const canonicalTags =
-    typeof canonical === 'string'
-      ? { canonical, noindex: false, nofollow: false }
-      : { canonical: undefined, noindex: true, nofollow: false }
+    if (prevPage !== false) {
+      tags.push({ rel: 'prev', href: prevPage.link })
+    }
+
+    if (nextPage !== false) {
+      tags.push({ rel: 'next', href: nextPage.link })
+    }
+
+    return tags
+  }, [nextPage, prevPage])
 
   return {
     ...canonicalTags,
