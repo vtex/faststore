@@ -35,7 +35,7 @@ export const query = gql`
 
 ### Adding the Banner on UI
 
-You can access the banner data, on the AboveTheFold component. 
+You can access the banner data on the `AboveTheFold` component. 
 
 ```tsx
 // src/@vtex/gatsby-theme-store/views/search/AboveTheFold.tsx
