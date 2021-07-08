@@ -26,6 +26,6 @@
   min-height: 0;
 }
 
-[data-store-bullets] > [data-bullet-item] [data-active] > [data-store-button] {
+[data-store-bullets] > [data-bullet-item][data-active] > [data-store-button] {
   background-color: rgb(247, 25, 99);
 }
