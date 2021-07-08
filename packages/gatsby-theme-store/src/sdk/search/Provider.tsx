@@ -6,7 +6,7 @@ import {
   setSearchParam,
 } from '@vtex/store-sdk'
 import { navigate } from 'gatsby'
-import React, { createContext, useMemo } from 'react'
+import React, { createContext, useMemo, useState } from 'react'
 import type { FC } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
@@ -22,10 +22,18 @@ export interface PageInfo {
   total: number
 }
 
+interface PageConnection {
+  cursor: number
+  link: string
+}
+
 export interface SearchContext {
   pageInfo: PageInfo & {
-    next?: string
-    previous?: string
+    nextPage: PageConnection | false
+    prevPage: PageConnection | false
+    pages: number[]
+    addNextPage: (e: any) => void
+    addPreviousPage: (e: any) => void
   }
   data: SearchQuery
   searchParams: SearchParamsState
@@ -39,7 +47,7 @@ export const Context = createContext<SearchContext | undefined>(undefined)
 
 Context.displayName = 'SearchContext'
 
-const getLink = (searchParams: SearchParamsState) => {
+export const getLink = (searchParams: SearchParamsState) => {
   const { pathname, search } = formatSearchParamsState(searchParams)
 
   return `${pathname}${search}`
@@ -71,23 +79,24 @@ export const SearchProvider: FC<Props> = ({
   data,
   pageInfo,
 }) => {
+  const [pages, setPages] = useState([initalState.page])
+
   const value = useMemo(() => {
     const paramsState = initSearchParamsState(initalState)
-    const nextPage =
-      paramsState.page + 1 < pageInfo.total
-        ? getLink({
-            ...paramsState,
-            page: paramsState.page + 1,
-          })
-        : undefined
+    const nextPage = pages[pages.length - 1] + 1
+    const previousPage = pages[0] - 1
+    const hasNextPage = pageInfo.total > pages[pages.length - 1] + 1
+    const hasPreviousPage = pages[0] > 0
 
-    const previousPage =
-      paramsState.page > 0
-        ? getLink({
-            ...paramsState,
-            page: paramsState.page - 1,
-          })
-        : undefined
+    const setPage = (e: any, direction: 'next' | 'prev') => {
+      e.target.blur?.()
+      e.preventDefault()
+      if (direction === 'next' && hasNextPage) {
+        setPages([...pages, nextPage])
+      } else if (direction === 'prev' && hasPreviousPage) {
+        setPages([previousPage, ...pages])
+      }
+    }
 
     return {
       toggleFacet: (item: Facet) => apply(toggleFacet(item, paramsState)),
@@ -108,11 +117,20 @@ export const SearchProvider: FC<Props> = ({
       pageInfo: {
         total: pageInfo.total,
         size: pageInfo.size,
-        next: nextPage,
-        previous: previousPage,
+        nextPage: hasNextPage && {
+          cursor: nextPage,
+          link: getLink({ ...paramsState, page: nextPage }),
+        },
+        prevPage: hasPreviousPage && {
+          cursor: previousPage,
+          link: getLink({ ...paramsState, page: previousPage }),
+        },
+        pages,
+        addNextPage: (e: any) => setPage(e, 'next'),
+        addPreviousPage: (e: any) => setPage(e, 'prev'),
       },
     }
-  }, [initalState, data, pageInfo])
+  }, [initalState, pages, pageInfo.total, pageInfo.size, data])
 
   return <Context.Provider value={value}>{children}</Context.Provider>
 }

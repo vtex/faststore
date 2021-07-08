@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
+import React from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
 import { UIButton } from '@vtex/store-ui'
-import React from 'react'
 import type { FC } from 'react'
 
 import Page from './Page'
 import { useSearch } from '../../../sdk/search/useSearch'
-import { useSearchInfinite } from '../../../sdk/search/useSearchInfinite'
 import type { SearchQueryQuery } from './__generated__/SearchQuery.graphql'
 
 interface Props {
@@ -16,29 +15,31 @@ interface Props {
 
 const List: FC<Props> = ({ columns, initialData }) => {
   const { formatMessage } = useIntl()
-  const { pageInfo, searchParams } = useSearch()
   const {
-    pages,
-    nextPage,
-    previousPage,
-    fetchNextPage,
-    fetchPreviousPage,
-  } = useSearchInfinite()
+    searchParams,
+    pageInfo: {
+      nextPage: next,
+      prevPage: previous,
+      pages,
+      addNextPage: setNextPage,
+      addPreviousPage: fetchPreviousPage,
+    },
+  } = useSearch()
 
   const nextLabel = formatMessage({ id: 'search.page-list.next' })
-  const previousLabel = formatMessage({ id: 'search.page-list.previous' })
+  const prevLabel = formatMessage({ id: 'search.page-list.previous' })
 
   return (
     <>
-      {previousPage !== false && (
+      {previous !== false && (
         <UIButton
           as="a"
           variant="loadMore"
           onClick={fetchPreviousPage}
-          aria-label={previousLabel}
-          {...{ href: pageInfo.previous }}
+          aria-label={prevLabel}
+          {...{ href: previous.link, rel: 'prev' }}
         >
-          {previousLabel}
+          {prevLabel}
         </UIButton>
       )}
       {pages.map((page) => (
@@ -50,24 +51,24 @@ const List: FC<Props> = ({ columns, initialData }) => {
           display
         />
       ))}
-      {nextPage !== false && (
+      {next !== false && (
         <UIButton
           as="a"
           variant="loadMore"
-          onClick={fetchNextPage}
+          onClick={setNextPage}
           aria-label={nextLabel}
-          {...{ href: pageInfo.next }}
+          {...{ href: next.link, rel: 'next' }}
         >
           {nextLabel}
         </UIButton>
       )}
       {/* Prefetch Previous pages */}
-      {previousPage !== false && (
-        <Page columns={columns} cursor={previousPage} display={false} />
+      {previous !== false && (
+        <Page columns={columns} cursor={previous.cursor} display={false} />
       )}
       {/* Prefetch Next page */}
-      {nextPage !== false && (
-        <Page columns={columns} cursor={nextPage} display={false} />
+      {next !== false && (
+        <Page columns={columns} cursor={next.cursor} display={false} />
       )}
     </>
   )

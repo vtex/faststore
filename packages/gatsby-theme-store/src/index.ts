@@ -92,6 +92,9 @@ export type { Options as ProductJsonLdOptions } from './sdk/seo/product/useProdu
 export { default as ProductSEO } from './components/Seo/product/ProductSEO'
 export type { Props as ProductSEOProps } from './components/Seo/product/ProductSEO'
 
+export type { Props as SearchSEOProps } from './components/Seo/search/SearchSEO'
+export { default as SearchSEO } from './components/Seo/search/SearchSEO'
+
 export { useProductPixel as useProductPixelEffect } from './sdk/product/useProductPixel'
 export type { Options as ProductPixelOptions } from './sdk/product/useProductPixel'
 export { default as RenderExtensionLoader } from './sdk/RenderExtensionLoader'

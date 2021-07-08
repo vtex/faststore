@@ -8,7 +8,7 @@ import { usePixelSendEvent } from '../../sdk/pixel/usePixelSendEvent'
 import { SearchProvider } from '../../sdk/search/Provider'
 import AboveTheFold from './AboveTheFold'
 import BelowTheFoldPreview from './BelowTheFoldPreview'
-import SEO from './SEO'
+import SEO from './Seo'
 import type { ServerSearchPageQueryQuery } from '../../templates/__generated__/ServerSearchPageQuery.graphql'
 import type { BrowserSearchPageQueryQuery } from '../../templates/__generated__/BrowserSearchPageQuery.graphql'
 
