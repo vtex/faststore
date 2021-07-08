@@ -43,7 +43,7 @@ You can access the banner data on the `AboveTheFold` component.
 const banners = data.vtex?.banners?.banners // List with all banners
 ```
 
-So you can render all these banners HTML with this snippet. 
+And you can render the HTMLs of all these banners with this snippet:
 
 ```tsx
 // src/@vtex/gatsby-theme-store/views/search/AboveTheFold.tsx
