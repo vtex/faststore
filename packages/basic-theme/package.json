@@ -1,0 +1,24 @@
+{
+  "name": "@vtex/basic-theme",
+  "version": "0.371.30",
+  "description": "Basic theme for our Store UI components.",
+  "author": "VTEX <gabriel.antiqueira@vtex.com.br>",
+  "license": "MIT",
+  "main": "src/index.css",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/basic-theme"
+  },
+  "scripts": {
+    "build": "echo No build script"
+  },
+  "bugs": {
+    "url": "https://github.com/vtex/faststore/issues"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.5",
+    "tailwindcss": "^2.2.4"
+  }
+}

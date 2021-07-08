@@ -1,0 +1,5 @@
+.basic-theme [data-store-popover] {
+  border: 1px solid black;
+  margin: 8px;
+  padding: 8px 16px;
+}
