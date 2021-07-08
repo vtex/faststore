@@ -2,9 +2,7 @@
 
 The Search Banner Feature is related to the term searched on a store.
 
-{% note %}
-For more information about the Search Banner Feature, check [configuring banners](https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/4ViKEivLJtJsvpaW0aqIQ5) on VTEX Intelligent Search.
-{% endnote %}
+> ℹ️ For more information about the Search Banner Feature, check [configuring banners](https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/4ViKEivLJtJsvpaW0aqIQ5) on VTEX Intelligent Search.
 
 Learn how to implement the Search Banner in the following sections.
 
@@ -33,9 +31,7 @@ export const query = gql`
 `
 ```
 
-{% node %}
-This query belongs to vtex.search-graphql app. Take a look at the [SearchPage](https://github.com/vtex-sites/storecomponents.store/blob/33904e9ed808c5496265da37206cfdaa9b0255d2/src/%40vtex/gatsby-theme-store/templates/search.browser.tsx#L142-L151) component.
-{% endnode %}
+> ℹ️ This query belongs to vtex.search-graphql app. Take a look at the [SearchPage](https://github.com/vtex-sites/storecomponents.store/blob/33904e9ed808c5496265da37206cfdaa9b0255d2/src/%40vtex/gatsby-theme-store/templates/search.browser.tsx#L142-L151) component.
 
 ### Adding the Banner on UI
 
@@ -57,11 +53,7 @@ banners.map(({ id, html }) =>
 )
 ```
 
-
-{% node %}
-Take a look at the [AboveTheFold](https://github.com/vtex-sites/storecomponents.store/blob/7f8692706bc3b5a58df17d720228c55ce58de092/src/%40vtex/gatsby-theme-store/views/search/AboveTheFold.tsx#L33) and [SearchBanner](https://github.com/vtex-sites/storecomponents.store/blob/7f8692706bc3b5a58df17d720228c55ce58de092/src/components/search/Banner.tsx#L22-L25) components.
-{% endnode %}
-
+> ℹ️ Take a look at the [AboveTheFold](https://github.com/vtex-sites/storecomponents.store/blob/7f8692706bc3b5a58df17d720228c55ce58de092/src/%40vtex/gatsby-theme-store/views/search/AboveTheFold.tsx#L33) and [SearchBanner](https://github.com/vtex-sites/storecomponents.store/blob/7f8692706bc3b5a58df17d720228c55ce58de092/src/components/search/Banner.tsx#L22-L25) components.
 
 ### References
 
