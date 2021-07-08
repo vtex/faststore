@@ -24,8 +24,6 @@ const SearchPage: FC<PageProps> = (props) => {
     location,
   } = props
 
-  console.assert(!!pageInfo, `Page Info does not exists on ${location.href}`)
-
   const searchParams = useSearchParamsFromUrl(location)
   const variables = useQueryVariablesFromSearchParams(searchParams, pageInfo)
   const redirecting = usePersonalizedSearchRedirect(searchParams)

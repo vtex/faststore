@@ -22,10 +22,6 @@ export type SearchPageProps = PageProps<
 >
 
 const Page: FC<SearchPageProps> = ({ pageContext, data, location }) => {
-  console.assert(
-    !!pageContext.pageInfo,
-    `Page Info does not exists on ${location.href}`
-  )
   /**
    * In the future, we won't need this hook since in the ideal word our API
    * uses the same parameters as the output of this hook, so our searchParams can
