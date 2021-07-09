@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.5 (2021-07-09)
+
+
+### Bug Fixes
+
+* **seo:** Fix undefined host in canonical tags of product pages ([#814](https://github.com/vtex/faststore/issues/814)) ([3ba980d](https://github.com/vtex/faststore/commit/3ba980d4a9bec1cb9cc8b6b51140e9418247ac6a))
+
+
+
+
+
 ## 0.372.4 (2021-07-08)
 
 **Note:** Version bump only for package @vtex/gatsby-theme-store
