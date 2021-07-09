@@ -10,8 +10,6 @@ const CarouselTemplate: Story<CarouselProps> = () => (
     <img alt="" src="https://unsplash.it/475/205" />
     <img alt="" src="https://unsplash.it/476/205" />
     <img alt="" src="https://unsplash.it/477/205" />
-    <img alt="" src="https://unsplash.it/478/205" />
-    <img alt="" src="https://unsplash.it/479/205" />
   </Component>
 )
 
