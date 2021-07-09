@@ -30,6 +30,7 @@ export const SearchControlsSelect: FC<Props> = ({
 
   return (
     <Select
+      data-testid="refineSearch"
       aria-label={ariaLabel}
       onChange={(event) => onChange(event.target.selectedOptions[0].value)}
       variant={variant}

@@ -12,6 +12,7 @@ interface Props extends LocalizedLinkProps {
 
 const ProductSummaryContainer: FC<Props> = ({ children, variant, ...rest }) => (
   <LocalizedLink
+    data-testid="productSummaryContainer"
     state={{ fromSummary: true }}
     sx={{
       variant: `productSummary.${variant}.container`,

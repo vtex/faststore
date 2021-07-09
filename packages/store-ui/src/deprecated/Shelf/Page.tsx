@@ -29,6 +29,7 @@ const ShelfPage = <T extends Product>({
 }: PropsWithChildren<Props<T>>) => (
   <Grid
     {...props}
+    data-testid="shelfPage"
     variant={`shelf.${variant}.page.container`}
     gap={2}
     columns={pageSizes}

@@ -7,7 +7,11 @@ interface Props {
 }
 
 const ProductSummaryTitle: FC<Props> = ({ variant, children }) => (
-  <Box variant={`productSummary.${variant}.title`} as="h3">
+  <Box
+    data-testid="productSummaryTitle"
+    variant={`productSummary.${variant}.title`}
+    as="h3"
+  >
     {children}
   </Box>
 )

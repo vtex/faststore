@@ -54,7 +54,11 @@ const SearchBarInput: FC<Props> = ({
   }, [popover.visible])
 
   return (
-    <Box variant={`${variant}.textInput`} ref={referenceRef}>
+    <Box
+      data-testid="searchBarInput"
+      variant={`${variant}.textInput`}
+      ref={referenceRef}
+    >
       <PopoverDisclosure
         toggle={toggle}
         as="input"

@@ -31,7 +31,12 @@ const MinicartDrawerFooter: FC<Props> = ({
         <Text variant={`${variant}.total.text`}>
           <FormattedMessage id="minicart.drawer.total" />
         </Text>
-        <Text variant={`${variant}.total.value`}>{numberFormat(total)}</Text>
+        <Text
+          data-testid="minicartTotalValue"
+          variant={`${variant}.total.value`}
+        >
+          {numberFormat(total)}
+        </Text>
       </Flex>
       <Flex variant={`${variant}.subtotal`}>
         <Text variant={`${variant}.subtotal.text`}>
@@ -45,6 +50,7 @@ const MinicartDrawerFooter: FC<Props> = ({
         <FormattedMessage id="minicart.drawer.shipping-disclaimer" />
       </Text>
       <Button
+        data-testid="goCheckout"
         variant={`${variant}.go-checkout`}
         disabled={disableViewCart}
         onClick={onCheckout}

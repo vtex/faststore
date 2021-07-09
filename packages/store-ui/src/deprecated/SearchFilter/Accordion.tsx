@@ -62,7 +62,15 @@ const SearchFilterAccordion: FC<Props> = ({
               {renderPrice(filter, variant)}
             </Box>
           ) : (
-            <Box as="ul" variant={`${variant}.accordion.collapsible.ul`}>
+            <Box
+              as="ul"
+              variant={`${variant}.accordion.collapsible.ul`}
+              data-testid={
+                filter.name === 'Categoria'
+                  ? 'collapsible-Categoria'
+                  : 'collapsible-Others'
+              }
+            >
               {filter.values.map((item, idx) => (
                 <li key={`${filter.name}:${idx}`}>
                   {renderFilter(item, `${variant}.accordion.collapsible.li`)}
