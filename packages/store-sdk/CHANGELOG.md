@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.6 (2021-07-09)
+
+
+### Features
+
+* **store-ui:** Checkbox atom component ([#813](https://github.com/vtex/faststore/issues/813)) ([36834fa](https://github.com/vtex/faststore/commit/36834fa572305ca26c1fea8e60e011ff768bc13e))
+
+
+
+
+
 ## 0.372.5 (2021-07-09)
 
 
