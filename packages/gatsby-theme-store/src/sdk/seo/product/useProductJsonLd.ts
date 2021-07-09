@@ -14,7 +14,7 @@ type ProductJSONLD = ComponentPropsWithoutRef<typeof ProductJsonLd>
 
 export const useProductJsonLd = (options: Options): ProductJSONLD | null => {
   const { product } = options
-  const { host, pathname } = useLocation()
+  const { pathname } = useLocation()
   const [currency] = useCurrency()
 
   return useMemo(() => {
@@ -35,7 +35,7 @@ export const useProductJsonLd = (options: Options): ProductJSONLD | null => {
     const offers = {
       price: `${seller.commercialOffer.spotPrice}`,
       priceCurrency: currency,
-      url: `https://${host}${pathname}`,
+      url: pathname,
       priceValidUntil: seller.commercialOffer.priceValidUntil?.slice(0, 10),
       availability:
         seller.commercialOffer.availableQuantity > 0
@@ -52,5 +52,5 @@ export const useProductJsonLd = (options: Options): ProductJSONLD | null => {
       gtin13: sku.ean,
       description,
     }
-  }, [currency, host, pathname, product])
+  }, [currency, pathname, product])
 }

@@ -15,7 +15,7 @@ export const useBreadcrumbJsonLd = (
   options: Options
 ): BreadcrumbJSONLD | null => {
   const { product } = options
-  const { host, pathname } = useLocation()
+  const { pathname } = useLocation()
 
   return useMemo(() => {
     if (
@@ -31,7 +31,7 @@ export const useBreadcrumbJsonLd = (
     const itemListElements = categoryTree.map((item, index) => ({
       position: index + 1,
       name: item.name,
-      item: `https://${host}${item.href}`,
+      item: item.href,
     }))
 
     const len: number = itemListElements.length
@@ -39,11 +39,11 @@ export const useBreadcrumbJsonLd = (
     itemListElements.push({
       position: len + 1,
       name: productName!,
-      item: `https://${host}${pathname}`,
+      item: pathname,
     })
 
     return {
       itemListElements,
     }
-  }, [host, pathname, product])
+  }, [pathname, product])
 }
