@@ -7,7 +7,7 @@ export interface Props
 }
 
 const Checkbox = forwardRef<HTMLInputElement, Props>(function Checkbox(
-  { testId = 'checkbox', ...props }: Props,
+  { testId = 'store-checkbox', ...props }: Props,
   ref
 ) {
   return (
