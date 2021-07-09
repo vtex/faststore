@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.7 (2021-07-09)
+
+
+### Features
+
+* **store-ui:** Adding data-testid to our components  ([#530](https://github.com/vtex/faststore/issues/530)) ([eed2760](https://github.com/vtex/faststore/commit/eed2760438b3f83fd997ebb76e2794cfd56449aa))
+
+
+
+
+
 ## 0.372.6 (2021-07-09)
 
 
