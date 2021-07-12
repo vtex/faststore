@@ -40,9 +40,9 @@ Example:
 
 2. Commit your changes in a branch
 
-3. Push your changes to the remote repo by running `lerna publish --dist-tag next`
+3. Push your changes to the remote repo and open a Pull Request
 
-4. Take note of the version of your packages and add them as a dependency in the `package.json` file of the [storecomponents](https://github.com/vtex-sites/storecomponents.store).
+4. Use the `Local Install Instructions` provided on the `CodeSandBox` bot in the PR to add your version of the packages as dependencies in the `package.json` file of the [storecomponents](https://github.com/vtex-sites/storecomponents.store).
 
 5. Submit a Pull Request with this changes to `storecomponents`
 
