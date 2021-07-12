@@ -14,6 +14,9 @@ export type { PopoverProps } from './atoms/Popover'
 export { default as Price } from './atoms/Price'
 export type { PriceProps } from './atoms/Price'
 
+export { default as TextArea } from './atoms/TextArea'
+export type { TextAreaProps } from './atoms/TextArea'
+
 // Molecules
 export { default as SearchInput } from './molecules/SearchInput'
 export type { SearchInputProps } from './molecules/SearchInput'
