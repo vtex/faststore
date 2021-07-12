@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-cms",
-  "version": "0.372.8",
+  "version": "0.372.9",
   "description": "Gatsby plugin for building pages with VTEX CMS.",
   "repository": {
     "type": "git",
