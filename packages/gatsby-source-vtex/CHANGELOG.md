@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.8 (2021-07-12)
+
+
+### Bug Fixes
+
+* **contributing:** updating documentation ([#816](https://github.com/vtex/faststore/issues/816)) ([7923668](https://github.com/vtex/faststore/commit/7923668033da7ea7243e72f54225f6e029626e64))
+
+
+
+
+
 ## 0.372.7 (2021-07-09)
 
 
