@@ -306,6 +306,106 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   await Promise.all([sourceBindings(), sourceProducts(), sourceCollections()])
 }
 
+export const onCreateNode: GatsbyNode['onCreateNode'] = async (
+  { node, actions, createContentDigest },
+  options: Options
+) => {
+  const { createNode, deleteNode } = actions
+
+  if (node.internal.type !== 'StoreCollection' || !!node.productIds) {
+    return
+  }
+
+  const executor = getExecutor(options)
+  const { data } = await executor({
+    document: parse(`
+      query Search(
+        $from: Int = 0,
+        $to: Int = 11,
+        $selectedFacets: [VTEX_SelectedFacetInput!],
+        $orderBy: String = "",
+        $hideUnavailableItems: Boolean = false
+      ) {
+        vtex {
+          productSearch(
+            from: $from
+            to: $to
+            hideUnavailableItems: $hideUnavailableItems
+            simulationBehavior: skip
+            orderBy: $orderBy
+            selectedFacets: $selectedFacets
+          ) {
+            products {
+              productId
+            }
+          }
+          facets(
+            selectedFacets: $selectedFacets
+            operator: or
+            behavior: "Static"
+            removeHiddenFacets: true
+          ) {
+            breadcrumb {
+              item: href
+              name
+            }
+            facets {
+              name
+              type
+              values {
+                key
+                name
+                value
+                selected
+                quantity
+                range {
+                  from
+                  to
+                }
+              }
+            }
+          }
+        }
+      }
+      `),
+    variables: node.searchParams,
+  })
+
+  const {
+    vtex: {
+      productSearch: { products },
+      facets: { breadcrumb, facets },
+    },
+  } = data!
+
+  const productIds = products.map((x: any) => x.productId)
+  const breadcrumbJsonLD = breadcrumb.map((x: any, idx: number) => ({
+    ...x,
+    position: idx + 1,
+  }))
+
+  const newData: any = {
+    ...node,
+    productIds,
+    breadcrumb: breadcrumbJsonLD,
+    facets,
+    internal: undefined,
+  }
+
+  deleteNode(node)
+  createNode(
+    {
+      ...newData,
+      internal: {
+        type: node.internal.type,
+        content: JSON.stringify(newData),
+        contentDigest: createContentDigest(newData),
+      },
+    },
+    PLUGIN
+  )
+}
+
 export const createPages = async (
   { actions: { createRedirect }, graphql, reporter }: CreatePagesArgs,
   { tenant, workspace, environment, getRedirects }: Options

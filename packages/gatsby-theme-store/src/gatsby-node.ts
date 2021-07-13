@@ -1,7 +1,6 @@
 import { resolve, relative } from 'path'
 
 import type {
-  CreatePagesArgs,
   CreateWebpackConfigArgs,
   PluginOptionsSchemaArgs,
   ParentSpanPluginArgs,

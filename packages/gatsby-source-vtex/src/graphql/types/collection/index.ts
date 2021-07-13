@@ -23,10 +23,12 @@ interface Collection {
    * Search Args.
    * TODO: Maybe we can get rid of this?
    */
-  from: number
-  to: number
-  selectedFacets: Array<{ key: string; value: string }>
-  orderBy: Sort
+  searchParams: {
+    from: number
+    to: number
+    selectedFacets: Array<{ key: string; value: string }>
+    orderBy: Sort
+  }
 }
 
 export const NODE_TYPE = 'StoreCollection'
@@ -35,7 +37,7 @@ export const typeDefs = readFileSync(
   join(__dirname, '../src/graphql/types/collection/typedefs.graphql')
 ).toString()
 
-const DEFAULT_ARGS = {
+const DEFAULT_SEARCH_PARAMS = {
   from: 0,
   to: 11,
   orderBy: '',
@@ -60,15 +62,13 @@ const categoryToCollection = (item: Category) => {
     slug: gatsbySlugify(href),
     remoteId: item.id.toString(),
     children: item.children.map((x) => `${x.id}`),
-    /**
-     * Search Args.
-     * TODO: Maybe we can get rid of this?
-     */
-    ...DEFAULT_ARGS,
-    selectedFacets: href
-      .split('/')
-      .slice(1)
-      .map((x) => ({ key: 'c', value: x })),
+    searchParams: {
+      ...DEFAULT_SEARCH_PARAMS,
+      selectedFacets: href
+        .split('/')
+        .slice(1)
+        .map((x) => ({ key: 'c', value: x })),
+    },
   }
 }
 
@@ -81,12 +81,10 @@ const brandToCollection = (item: Brand) => ({
   slug: gatsbySlugify(item.name),
   remoteId: item.id.toString(),
   children: [],
-  /**
-   * Search Args.
-   * TODO: Maybe we can get rid of this?
-   */
-  ...DEFAULT_ARGS,
-  selectedFacets: [{ key: 'b', value: item.name }],
+  searchParams: {
+    ...DEFAULT_SEARCH_PARAMS,
+    selectedFacets: [{ key: 'b', value: item.name }],
+  },
 })
 
 const createNode = (

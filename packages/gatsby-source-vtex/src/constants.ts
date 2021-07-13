@@ -1,1 +1,1 @@
-export const PLUGIN = { name: 'gatsby-source-vtex' }
+export const PLUGIN = { name: '@vtex/gatsby-source-vtex' }

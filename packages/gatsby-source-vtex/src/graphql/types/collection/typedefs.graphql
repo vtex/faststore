@@ -8,16 +8,54 @@ type StoreSelectedFacet {
   value: String!
 }
 
-type StoreCollection implements Node @childOf(types: ["StoreCategoryTree"]) {
+#Search Args. TODO: Maybe we can get rid of this?
+type StoreSearchParams {
+  from: Int!
+  to: Int!
+  selectedFacets: [StoreSelectedFacet!]!
+  orderBy: String!
+}
+
+type Breadcrumb {
+  position: Int!
+  name: String!
+  item: String!
+}
+
+type Facet {
+  name: String!
+  type: String!
+  values: [FacetValue!]!
+}
+
+type Range {
+  from: Float!
+  to: Float!
+}
+
+type FacetValue {
+  name: String!
+  value: String!
+  key: String!
+  selected: Boolean!
+  quantity: Int!
+  range: Range
+}
+
+type StoreCollection implements Node @childOf(types: ["StoreCollection"]) {
   id: ID!
   remoteId: ID!
   seo: StoreCollectionSeo!
   name: String!
   slug: String!
 
-  #Search Args. TODO: Maybe we can get rid of this?
-  from: Int!
-  to: Int!
-  selectedFacets: [StoreSelectedFacet!]!
-  orderBy: String!
+  searchParams:  StoreSearchParams!
+
+  productIds: [ID!]!
+  products: [StoreProduct!]! @link(from: "productIds", by: "productID")
+
+  breadcrumb: [Breadcrumb!]!
+
+  facets: [Facet!]!
 }
+

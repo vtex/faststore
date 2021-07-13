@@ -50,71 +50,111 @@ const Page: FC<SearchPageProps> = ({ pageContext, data }) => {
 }
 
 export const query = graphql`
-  query ServerCollectionPageQuery(
-    $from: Int = 0
-    $to: Int = 11
-    $fullText: String
-    $selectedFacets: [VTEX_SelectedFacetInput!]
-    $orderBy: String = ""
-    $hideUnavailableItems: Boolean = false
-  ) {
-    vtex {
-      productSearch(
-        from: $from
-        to: $to
-        hideUnavailableItems: $hideUnavailableItems
-        simulationBehavior: skip
-        orderBy: $orderBy
-        fullText: $fullText
-        selectedFacets: $selectedFacets
-      ) {
-        products {
-          id: productId
-          productName
-          linkText
-          items {
-            itemId
-            images {
-              imageUrl
-              imageText
-            }
+  query ServerCollectionPageQuery($id: String!) {
+    storeCollection(id: { eq: $id }) {
+      seo {
+        title
+        description
+      }
+      breadcrumb {
+        position
+        item
+        name
+      }
+      products {
+        id
+        productName
+        linkText
+        items {
+          itemId
+          images {
+            imageUrl
+            imageText
           }
         }
-        recordsFiltered
       }
-      searchMetadata(fullText: $fullText, selectedFacets: $selectedFacets) {
-        title: titleTag
-        description: metaTagDescription
-      }
-      facets(
-        fullText: $fullText
-        selectedFacets: $selectedFacets
-        operator: or
-        behavior: "Static"
-        removeHiddenFacets: true
-      ) {
-        breadcrumb {
-          href
+      facets {
+        name
+        type
+        values {
+          key
           name
-        }
-        facets {
-          name
-          type
-          values {
-            key
-            name
-            value
-            selected
-            quantity
-            range {
-              from
-              to
-            }
+          quantity
+          selected
+          value
+          range {
+            from
+            to
           }
         }
       }
     }
   }
 `
+// query ServerCollectionPageQuery(
+//   $from: Int = 0
+//   $to: Int = 11
+//   $fullText: String
+//   $selectedFacets: [VTEX_SelectedFacetInput!]
+//   $orderBy: String = ""
+//   $hideUnavailableItems: Boolean = false
+// ) {
+//   vtex {
+//     productSearch(
+//       from: $from
+//       to: $to
+//       hideUnavailableItems: $hideUnavailableItems
+//       simulationBehavior: skip
+//       orderBy: $orderBy
+//       fullText: $fullText
+//       selectedFacets: $selectedFacets
+//     ) {
+//       products {
+//         id: productId
+//         productName
+//         linkText
+//         items {
+//           itemId
+//           images {
+//             imageUrl
+//             imageText
+//           }
+//         }
+//       }
+//       recordsFiltered
+//     }
+//     searchMetadata(fullText: $fullText, selectedFacets: $selectedFacets) {
+//       title: titleTag
+//       description: metaTagDescription
+//     }
+//     facets(
+//       fullText: $fullText
+//       selectedFacets: $selectedFacets
+//       operator: or
+//       behavior: "Static"
+//       removeHiddenFacets: true
+//     ) {
+//       breadcrumb {
+//         href
+//         name
+//       }
+//       facets {
+//         name
+//         type
+//         values {
+//           key
+//           name
+//           value
+//           selected
+//           quantity
+//           range {
+//             from
+//             to
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
 export default Page
