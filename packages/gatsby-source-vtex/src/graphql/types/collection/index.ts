@@ -37,11 +37,15 @@ export const typeDefs = readFileSync(
   join(__dirname, '../src/graphql/types/collection/typedefs.graphql')
 ).toString()
 
-const DEFAULT_SEARCH_PARAMS = {
-  from: 0,
-  to: 11,
-  orderBy: '',
-} as const
+const getDefaultParams = (options: Options) =>
+  ({
+    from: 0,
+    to: (options.itemsPerPage ?? 12) - 1,
+    orderBy: '',
+    pageInfo: {
+      size: options.itemsPerPage,
+    },
+  } as const)
 
 const gatsbySlugify = (term: string) =>
   slugify(term, {
@@ -50,7 +54,7 @@ const gatsbySlugify = (term: string) =>
     strict: true,
   })
 
-const categoryToCollection = (item: Category) => {
+const categoryToCollection = (item: Category, options: Options) => {
   const href = new URL(item.url).pathname
 
   return {
@@ -63,7 +67,7 @@ const categoryToCollection = (item: Category) => {
     remoteId: item.id.toString(),
     children: item.children.map((x) => `${x.id}`),
     searchParams: {
-      ...DEFAULT_SEARCH_PARAMS,
+      ...getDefaultParams(options),
       selectedFacets: href
         .split('/')
         .slice(1)
@@ -72,7 +76,7 @@ const categoryToCollection = (item: Category) => {
   }
 }
 
-const brandToCollection = (item: Brand) => ({
+const brandToCollection = (item: Brand, options: Options) => ({
   seo: {
     title: item.title ?? '',
     description: item.metaTagDescription ?? '',
@@ -82,7 +86,7 @@ const brandToCollection = (item: Brand) => ({
   remoteId: item.id.toString(),
   children: [],
   searchParams: {
-    ...DEFAULT_SEARCH_PARAMS,
+    ...getDefaultParams(options),
     selectedFacets: [{ key: 'b', value: item.name }],
   },
 })
@@ -133,7 +137,7 @@ export const sourceAllNodes = async (
         return
       }
 
-      createNode(gatsbyApi, categoryToCollection(node), parent)
+      createNode(gatsbyApi, categoryToCollection(node, options), parent)
 
       for (const child of node.children) {
         dfs(child, node, seen)
@@ -158,7 +162,7 @@ export const sourceAllNodes = async (
         continue
       }
 
-      createNode(gatsbyApi, brandToCollection(brand), null)
+      createNode(gatsbyApi, brandToCollection(brand, options), null)
     }
   }
 

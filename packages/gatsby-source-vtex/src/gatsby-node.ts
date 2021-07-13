@@ -48,17 +48,15 @@ import type { VTEXOptions } from './fetch'
 import type { PageType, Redirect, Tenant } from './types'
 
 export interface Options extends PluginOptions, VTEXOptions {
-  /**
-   * @description function to return the redirects to generate in our infra. Note that these are server-side redirects
-   * */
+  /** @description function to return the redirects to generate in our infra. Note that these are server-side redirects */
   getRedirects?: () => Promise<Redirect[]>
   pageTypes?: Array<PageType['pageType']>
   ignorePaths?: string[]
   concurrency?: number
-  /**
-   * @description minimum number of products to fetch from catalog
-   * */
+  /** @description minimum number of products to fetch from catalog */
   minProducts?: number
+  /** @description items per page in product listing pages */
+  itemsPerPage?: number
 }
 
 /**
@@ -306,112 +304,14 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   await Promise.all([sourceBindings(), sourceProducts(), sourceCollections()])
 }
 
-export const onCreateNode: GatsbyNode['onCreateNode'] = async (
-  { node, actions, createContentDigest },
-  options: Options
-) => {
-  const { createNode, deleteNode } = actions
-
-  if (node.internal.type !== 'StoreCollection' || !!node.productIds) {
-    return
-  }
-
-  const executor = getExecutor(options)
-  const { data } = await executor({
-    document: parse(`
-      query Search(
-        $from: Int = 0,
-        $to: Int = 11,
-        $selectedFacets: [VTEX_SelectedFacetInput!],
-        $orderBy: String = "",
-        $hideUnavailableItems: Boolean = false
-      ) {
-        vtex {
-          productSearch(
-            from: $from
-            to: $to
-            hideUnavailableItems: $hideUnavailableItems
-            simulationBehavior: skip
-            orderBy: $orderBy
-            selectedFacets: $selectedFacets
-          ) {
-            products {
-              productId
-            }
-            recordsFiltered
-          }
-          facets(
-            selectedFacets: $selectedFacets
-            operator: or
-            behavior: "Static"
-            removeHiddenFacets: true
-          ) {
-            breadcrumb {
-              item: href
-              name
-            }
-            facets {
-              name
-              type
-              values {
-                key
-                name
-                value
-                selected
-                quantity
-                range {
-                  from
-                  to
-                }
-              }
-            }
-          }
-        }
-      }
-      `),
-    variables: node.searchParams,
-  })
-
-  const {
-    vtex: {
-      productSearch: { products, recordsFiltered },
-      facets: { breadcrumb, facets },
-    },
-  } = data!
-
-  const productIds = products.map((x: any) => x.productId)
-  const breadcrumbJsonLD = breadcrumb.map((x: any, idx: number) => ({
-    ...x,
-    position: idx + 1,
-  }))
-
-  const newData: any = {
-    ...node,
-    productIds,
-    totalProducts: recordsFiltered,
-    breadcrumb: breadcrumbJsonLD,
-    facets,
-    internal: undefined,
-  }
-
-  deleteNode(node)
-  createNode(
-    {
-      ...newData,
-      internal: {
-        type: node.internal.type,
-        content: JSON.stringify(newData),
-        contentDigest: createContentDigest(newData),
-      },
-    },
-    PLUGIN
-  )
-}
+let globalGraphQL: any
 
 export const createPages = async (
   { actions: { createRedirect }, graphql, reporter }: CreatePagesArgs,
   { tenant, workspace, environment, getRedirects }: Options
 ) => {
+  globalGraphQL = graphql
+
   /**
    * Report available PDPs and PLPs
    */
@@ -576,6 +476,48 @@ export const createPages = async (
   })
 }
 
+export const onCreatePage: GatsbyNode['onCreatePage'] = async (gatsbyApi) => {
+  const { page, actions } = gatsbyApi
+  const collectionRegex = /{StoreCollection.slug}/g
+
+  if (
+    !collectionRegex.test(page.component) &&
+    !(page.context as any).selectedFacets
+  ) {
+    return
+  }
+
+  const { data } = await globalGraphQL(
+    `
+    query CollectionQuery($id: String!) {
+      storeCollection(id: {eq: $id}) {
+        searchParams {
+          from
+          to
+          selectedFacets {
+            key
+            value
+          }
+          orderBy
+        }
+      }
+    }
+  `,
+    page.context
+  )
+
+  actions.deletePage(page)
+  actions.createPage({
+    ...page,
+    context: {
+      ...page.context,
+      ...data.storeCollection.searchParams,
+      canonicalPath: page.path,
+      pageInfo: { size: 12 },
+    },
+  })
+}
+
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
     tenant: Joi.string().required(),
@@ -586,4 +528,5 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     getRedirects: Joi.function().arity(0),
     pageTypes: Joi.array().items(Joi.string()),
     minProducts: Joi.number(),
+    itemsPerPage: Joi.number(),
   })

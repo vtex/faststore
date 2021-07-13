@@ -24,8 +24,6 @@ export interface SearchViewProps {
   pageInfo: { size: number }
 }
 
-export const DEFAULT_PAGE_INFO = { size: 12 }
-
 const SearchView: FC<SearchViewProps> = (props) => {
   const { data, searchParams, pageInfo } = props
   const location = useLocation()

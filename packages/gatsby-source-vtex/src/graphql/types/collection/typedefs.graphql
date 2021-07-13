@@ -16,32 +16,6 @@ type StoreSearchParams {
   orderBy: String!
 }
 
-type Breadcrumb {
-  position: Int!
-  name: String!
-  item: String!
-}
-
-type Facet {
-  name: String!
-  type: String!
-  values: [FacetValue!]!
-}
-
-type Range {
-  from: Float!
-  to: Float!
-}
-
-type FacetValue {
-  name: String!
-  key: String!
-  selected: Boolean!
-  quantity: Int!
-  value: String
-  range: Range
-}
-
 type StoreCollection implements Node @childOf(types: ["StoreCollection"]) {
   id: ID!
   remoteId: ID!
@@ -50,13 +24,5 @@ type StoreCollection implements Node @childOf(types: ["StoreCollection"]) {
   slug: String!
 
   searchParams:  StoreSearchParams!
-
-  productIds: [ID!]!
-  products: [StoreProduct!]! @link(from: "productIds", by: "productID")
-  totalProducts: Int!
-
-  breadcrumb: [Breadcrumb!]!
-
-  facets: [Facet!]!
 }
 
