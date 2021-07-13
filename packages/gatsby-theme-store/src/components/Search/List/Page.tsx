@@ -42,7 +42,7 @@ const Page: FC<Props> = ({ display, cursor, initialData, columns }) => {
     return null
   }
 
-  if (data == null) {
+  if (data === undefined) {
     return (
       <Box sx={{ height: ['200px', '500px'] }}>
         <Center>
