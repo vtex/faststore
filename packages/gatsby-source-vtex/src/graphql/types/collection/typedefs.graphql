@@ -35,10 +35,10 @@ type Range {
 
 type FacetValue {
   name: String!
-  value: String!
   key: String!
   selected: Boolean!
   quantity: Int!
+  value: String
   range: Range
 }
 
@@ -53,6 +53,7 @@ type StoreCollection implements Node @childOf(types: ["StoreCollection"]) {
 
   productIds: [ID!]!
   products: [StoreProduct!]! @link(from: "productIds", by: "productID")
+  totalProducts: Int!
 
   breadcrumb: [Breadcrumb!]!
 

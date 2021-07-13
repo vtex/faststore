@@ -22,14 +22,14 @@ export type ServerCollectionPageQueryQueryVariables = Exact<{
 }>;
 
 
-export type ServerCollectionPageQueryQuery = { storeCollection: Maybe<{ seo: { title: string, description: string }, breadcrumb: Array<{ position: number, item: string, name: string }>, products: Array<{ id: string, productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>> }>>> }>, facets: Array<{ name: string, type: string, values: Array<{ key: string, name: string, quantity: number, selected: boolean, value: string, range: Maybe<{ from: number, to: number }> }> }> }> };
+export type ServerCollectionPageQueryQuery = { storeCollection: Maybe<{ totalProducts: number, seo: { title: string, description: string }, breadcrumb: Array<{ position: number, item: string, name: string }>, products: Array<{ id: string, productName: Maybe<string>, linkText: Maybe<string>, items: Maybe<Array<Maybe<{ itemId: Maybe<string>, images: Maybe<Array<Maybe<{ imageUrl: Maybe<string>, imageText: Maybe<string> }>>> }>>> }>, facets: Array<{ name: string, type: string, values: Array<{ key: string, name: string, quantity: number, selected: boolean, value: Maybe<string>, range: Maybe<{ from: number, to: number }> }> }> }> };
 
 
 // Query Related Code
 
 export const ServerCollectionPageQuery = {
-  query: process.env.NODE_ENV === 'production' ? undefined : "query ServerCollectionPageQuery($id: String!) {\n  storeCollection(id: {eq: $id}) {\n    seo {\n      title\n      description\n    }\n    breadcrumb {\n      position\n      item\n      name\n    }\n    products {\n      id\n      productName\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n      }\n    }\n    facets {\n      name\n      type\n      values {\n        key\n        name\n        quantity\n        selected\n        value\n        range {\n          from\n          to\n        }\n      }\n    }\n  }\n}\n",
-  sha256Hash: "c8f85657d21792849e5073e80f932c9931b0ed47b513923f7cd329494a798995",
+  query: process.env.NODE_ENV === 'production' ? undefined : "query ServerCollectionPageQuery($id: String!) {\n  storeCollection(id: {eq: $id}) {\n    seo {\n      title\n      description\n    }\n    breadcrumb {\n      position\n      item\n      name\n    }\n    products {\n      id\n      productName\n      linkText\n      items {\n        itemId\n        images {\n          imageUrl\n          imageText\n        }\n      }\n    }\n    totalProducts\n    facets {\n      name\n      type\n      values {\n        key\n        name\n        quantity\n        selected\n        value\n        range {\n          from\n          to\n        }\n      }\n    }\n  }\n}\n",
+  sha256Hash: "a61c272d4e8318557865e78fbffce789896f8ff0dae059d3e5cfc461e95520cf",
   operationName: "ServerCollectionPageQuery",
 }
 

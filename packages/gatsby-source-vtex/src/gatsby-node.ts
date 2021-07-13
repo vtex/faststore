@@ -338,6 +338,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async (
             products {
               productId
             }
+            recordsFiltered
           }
           facets(
             selectedFacets: $selectedFacets
@@ -373,7 +374,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async (
 
   const {
     vtex: {
-      productSearch: { products },
+      productSearch: { products, recordsFiltered },
       facets: { breadcrumb, facets },
     },
   } = data!
@@ -387,6 +388,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = async (
   const newData: any = {
     ...node,
     productIds,
+    totalProducts: recordsFiltered,
     breadcrumb: breadcrumbJsonLD,
     facets,
     internal: undefined,
