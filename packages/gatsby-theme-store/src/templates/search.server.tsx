@@ -17,6 +17,7 @@ export type SearchPageProps = PageProps<
   ServerSearchPageQueryQuery,
   ServerSearchPageQueryQueryVariables & {
     canonicalPath: string
+    pageInfo: { size: number }
   }
 >
 
@@ -40,6 +41,7 @@ const Page: FC<SearchPageProps> = ({ pageContext, data }) => {
             data={data}
             searchParams={searchParams}
             pageContext={pageContext}
+            pageInfo={pageContext.pageInfo}
           />
         )
       }

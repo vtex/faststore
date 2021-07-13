@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import {
   formatSearchParamsState,
   initSearchParamsState,
@@ -5,7 +6,7 @@ import {
   setSearchParam,
 } from '@vtex/store-sdk'
 import { navigate } from 'gatsby'
-import React, { createContext, useMemo } from 'react'
+import React, { createContext, useMemo, useState } from 'react'
 import type { FC } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
@@ -14,7 +15,26 @@ import type { BrowserSearchPageQueryQuery } from '../../templates/__generated__/
 
 type SearchQuery = ServerSearchPageQueryQuery | BrowserSearchPageQueryQuery
 
+export interface PageInfo {
+  /** @description items per page */
+  size: number
+  /** @description total number of pages */
+  total: number
+}
+
+interface PageConnection {
+  cursor: number
+  link: string
+}
+
 export interface SearchContext {
+  pageInfo: PageInfo & {
+    nextPage: PageConnection | false
+    prevPage: PageConnection | false
+    pages: number[]
+    addNextPage: (e: any) => void
+    addPreviousPage: (e: any) => void
+  }
   data: SearchQuery
   searchParams: SearchParamsState
   setFacet: (item: Facet) => void
@@ -27,11 +47,13 @@ export const Context = createContext<SearchContext | undefined>(undefined)
 
 Context.displayName = 'SearchContext'
 
-const apply = (params: SearchParamsState) => {
-  const { pathname, search } = formatSearchParamsState(params)
+export const getLink = (searchParams: SearchParamsState) => {
+  const { pathname, search } = formatSearchParamsState(searchParams)
 
-  navigate(`${pathname}${search}`)
+  return `${pathname}${search}`
 }
+
+const apply = (params: SearchParamsState) => navigate(getLink(params))
 
 interface Facet {
   selected?: boolean
@@ -48,15 +70,33 @@ const toggleFacet = (item: Facet, state: SearchParamsState) =>
 interface Props {
   data: SearchQuery
   searchParams: SearchParamsState
+  pageInfo: PageInfo
 }
 
 export const SearchProvider: FC<Props> = ({
   children,
   searchParams: initalState,
   data,
+  pageInfo,
 }) => {
+  const [pages, setPages] = useState([initalState.page])
+
   const value = useMemo(() => {
     const paramsState = initSearchParamsState(initalState)
+    const nextPage = pages[pages.length - 1] + 1
+    const previousPage = pages[0] - 1
+    const hasNextPage = pageInfo.total > pages[pages.length - 1] + 1
+    const hasPreviousPage = pages[0] > 0
+
+    const setPage = (e: any, direction: 'next' | 'prev') => {
+      e.target.blur?.()
+      e.preventDefault()
+      if (direction === 'next' && hasNextPage) {
+        setPages([...pages, nextPage])
+      } else if (direction === 'prev' && hasPreviousPage) {
+        setPages([previousPage, ...pages])
+      }
+    }
 
     return {
       toggleFacet: (item: Facet) => apply(toggleFacet(item, paramsState)),
@@ -73,8 +113,24 @@ export const SearchProvider: FC<Props> = ({
       searchParams: paramsState,
 
       data,
+
+      pageInfo: {
+        total: pageInfo.total,
+        size: pageInfo.size,
+        nextPage: hasNextPage && {
+          cursor: nextPage,
+          link: getLink({ ...paramsState, page: nextPage }),
+        },
+        prevPage: hasPreviousPage && {
+          cursor: previousPage,
+          link: getLink({ ...paramsState, page: previousPage }),
+        },
+        pages,
+        addNextPage: (e: any) => setPage(e, 'next'),
+        addPreviousPage: (e: any) => setPage(e, 'prev'),
+      },
     }
-  }, [initalState, data])
+  }, [initalState, pages, pageInfo.total, pageInfo.size, data])
 
   return <Context.Provider value={value}>{children}</Context.Provider>
 }

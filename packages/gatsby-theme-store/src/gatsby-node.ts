@@ -41,6 +41,8 @@ interface StaticPath {
     | 'NotFound'
 }
 
+const DEFAULT_PAGE_INFO = { size: 12 }
+
 export const createPages = async ({
   actions: { createPage, createRedirect },
   graphql,
@@ -94,6 +96,7 @@ export const createPages = async ({
         key,
         value: segment,
       })),
+      pageInfo: DEFAULT_PAGE_INFO,
     }
 
     createPage({
@@ -121,6 +124,7 @@ export const createPages = async ({
       context: {
         id,
         canonicalPath: path,
+        pageInfo: DEFAULT_PAGE_INFO,
       },
     })
   }
@@ -134,7 +138,9 @@ export const createPages = async ({
     path: '/s/__client_side_search__',
     matchPath: '/s/*',
     component: resolve(__dirname, './src/templates/search.browser.tsx'),
-    context: {},
+    context: {
+      pageInfo: DEFAULT_PAGE_INFO,
+    },
   })
 }
 

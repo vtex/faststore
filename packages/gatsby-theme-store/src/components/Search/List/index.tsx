@@ -1,90 +1,77 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { gql } from '@vtex/gatsby-plugin-graphql'
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+import React from 'react'
 import { useIntl } from '@vtex/gatsby-plugin-i18n'
-import { Grid, UIButton } from '@vtex/store-ui'
+import { UIButton } from '@vtex/store-ui'
 import type { FC } from 'react'
-import React, { Fragment } from 'react'
 
-import { useSearchInfinite } from '../../../sdk/search/useSearchInfinite'
-import OverlaySpinner from './OverlaySpinner'
 import Page from './Page'
+import { useSearch } from '../../../sdk/search/useSearch'
 import type { SearchQueryQuery } from './__generated__/SearchQuery.graphql'
-import { SearchQuery } from './__generated__/SearchQuery.graphql'
 
 interface Props {
-  initialData: SearchQueryQuery | undefined
   columns: number[]
-  pageSize?: number
+  initialData: SearchQueryQuery | undefined
 }
 
-const List: FC<Props> = ({ initialData, columns, pageSize }) => {
+const List: FC<Props> = ({ columns, initialData }) => {
   const { formatMessage } = useIntl()
-  const { data, fetchMore, isLoadingMore, isReachingEnd } = useSearchInfinite({
-    query: SearchQuery,
-    initialData,
-    pageSize,
-  })
+  const {
+    searchParams,
+    pageInfo: {
+      nextPage: next,
+      prevPage: previous,
+      pages,
+      addNextPage: setNextPage,
+      addPreviousPage: fetchPreviousPage,
+    },
+  } = useSearch()
 
-  const loadMoreLabel = formatMessage({ id: 'search.page-list.more' })
-  const loadingLabel = formatMessage({ id: 'search.page-list.more.loading' })
-
-  if (!data) {
-    return <OverlaySpinner />
-  }
+  const nextLabel = formatMessage({ id: 'search.page-list.next' })
+  const prevLabel = formatMessage({ id: 'search.page-list.previous' })
 
   return (
-    <Fragment>
-      <Grid variant="search" columns={columns}>
-        {data.map((searchQuery, index) => (
-          <Page
-            key={`summary-page-${index}`}
-            products={searchQuery!.vtex.productSearch!.products!}
-          />
-        ))}
-      </Grid>
-      <UIButton
-        variant="loadMore"
-        onClick={(e: any) => {
-          e.target.blur?.()
-          fetchMore()
-        }}
-        aria-label={loadMoreLabel}
-        disabled={isReachingEnd || isLoadingMore}
-      >
-        {isReachingEnd ? '' : isLoadingMore ? loadingLabel : loadMoreLabel}
-      </UIButton>
-    </Fragment>
+    <>
+      {previous !== false && (
+        <UIButton
+          as="a"
+          variant="loadMore"
+          onClick={fetchPreviousPage}
+          aria-label={prevLabel}
+          {...{ href: previous.link, rel: 'prev' }}
+        >
+          {prevLabel}
+        </UIButton>
+      )}
+      {pages.map((page) => (
+        <Page
+          key={`search-result-page-${page}`}
+          initialData={page === searchParams.page ? initialData : undefined}
+          columns={columns}
+          cursor={page}
+          display
+        />
+      ))}
+      {next !== false && (
+        <UIButton
+          as="a"
+          variant="loadMore"
+          onClick={setNextPage}
+          aria-label={nextLabel}
+          {...{ href: next.link, rel: 'next' }}
+        >
+          {nextLabel}
+        </UIButton>
+      )}
+      {/* Prefetch Previous pages */}
+      {previous !== false && (
+        <Page columns={columns} cursor={previous.cursor} display={false} />
+      )}
+      {/* Prefetch Next page */}
+      {next !== false && (
+        <Page columns={columns} cursor={next.cursor} display={false} />
+      )}
+    </>
   )
 }
-
-export const query = gql`
-  query SearchQuery(
-    $query: String
-    $map: String
-    $fullText: String
-    $selectedFacets: [VTEX_SelectedFacetInput!]
-    $from: Int
-    $to: Int
-    $orderBy: String
-    $hideUnavailableItems: Boolean = false
-  ) {
-    vtex {
-      productSearch(
-        hideUnavailableItems: $hideUnavailableItems
-        selectedFacets: $selectedFacets
-        fullText: $fullText
-        query: $query
-        map: $map
-        from: $from
-        to: $to
-        orderBy: $orderBy
-      ) {
-        products {
-          ...ProductSummary_product
-        }
-      }
-    }
-  }
-`
 
 export default List

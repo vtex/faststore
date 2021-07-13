@@ -9,7 +9,6 @@ export { useNewsletter } from './sdk/newsletter/useNewsletter'
 // GraphQL API
 export { useLazyQuery } from './sdk/graphql/useLazyQuery'
 export { useQuery } from './sdk/graphql/useQuery'
-export { useQueryInfinite } from './sdk/graphql/useQueryInfinite'
 
 // TODO: We should have a single solution for dealing with images in our framework
 export { optimize } from './sdk/img/fileManager'
@@ -92,6 +91,9 @@ export type { Options as ProductJsonLdOptions } from './sdk/seo/product/useProdu
 
 export { default as ProductSEO } from './components/Seo/product/ProductSEO'
 export type { Props as ProductSEOProps } from './components/Seo/product/ProductSEO'
+
+export type { Props as SearchSEOProps } from './components/Seo/search/SearchSEO'
+export { default as SearchSEO } from './components/Seo/search/SearchSEO'
 
 export { useProductPixel as useProductPixelEffect } from './sdk/product/useProductPixel'
 export type { Options as ProductPixelOptions } from './sdk/product/useProductPixel'

@@ -47,6 +47,10 @@ export const setSearchParam = (
       state.term = param.value
       break
 
+    case 'page':
+      state.page = Number(param.value)
+      break
+
     default:
       if (!isFacetParam(param)) {
         throw new SDKError(`Facet param must define if it's unique or not`)

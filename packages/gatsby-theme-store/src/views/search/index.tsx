@@ -8,7 +8,7 @@ import { usePixelSendEvent } from '../../sdk/pixel/usePixelSendEvent'
 import { SearchProvider } from '../../sdk/search/Provider'
 import AboveTheFold from './AboveTheFold'
 import BelowTheFoldPreview from './BelowTheFoldPreview'
-import SEO from './SEO'
+import Seo from './Seo'
 import type { ServerSearchPageQueryQuery } from '../../templates/__generated__/ServerSearchPageQuery.graphql'
 import type { BrowserSearchPageQueryQuery } from '../../templates/__generated__/BrowserSearchPageQuery.graphql'
 
@@ -21,10 +21,13 @@ export interface SearchViewProps {
   }
   data: ServerSearchPageQueryQuery | BrowserSearchPageQueryQuery
   searchParams: SearchParamsState
+  pageInfo: { size: number }
 }
 
+export const DEFAULT_PAGE_INFO = { size: 12 }
+
 const SearchView: FC<SearchViewProps> = (props) => {
-  const { data, searchParams } = props
+  const { data, searchParams, pageInfo } = props
   const location = useLocation()
 
   usePixelSendEvent(() => {
@@ -58,8 +61,17 @@ const SearchView: FC<SearchViewProps> = (props) => {
   }, location.href)
 
   return (
-    <SearchProvider searchParams={searchParams} data={data}>
-      <SEO {...props} />
+    <SearchProvider
+      searchParams={searchParams}
+      data={data}
+      pageInfo={{
+        size: pageInfo.size,
+        total: Math.ceil(
+          (data.vtex.productSearch?.recordsFiltered ?? 0) / pageInfo.size
+        ),
+      }}
+    >
+      <Seo {...props} />
       <AboveTheFold {...props} />
       <SuspenseViewport
         fallback={<BelowTheFoldPreview {...props} />}

@@ -7,8 +7,8 @@
 
   "notification-bar.sale": "SELECTED ITEMS ON SALE! CHECK IT OUT!",
 
-  "search.page-list.more": "Show More",
-  "search.page-list.more.loading": "Loading...",
+  "search.page-list.next": "Show More",
+  "search.page-list.previous": "Previous Page",
 
   "product.quantity.title": "Quantity",
 

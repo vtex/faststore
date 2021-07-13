@@ -9,27 +9,27 @@ test('Search State Serializer: Basic serialization', async () => {
   const state = initSearchParamsState()
 
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/score-desc?map=sort'
+    'http://localhost/score-desc/0?map=sort%2Cpage'
   )
 
   setSearchParam(state, { key: 'term', value: 'Hello Wolrd' })
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/Hello%20Wolrd/score-desc?map=term%2Csort'
+    'http://localhost/Hello%20Wolrd/score-desc/0?map=term%2Csort%2Cpage'
   )
 
   setSearchParam(state, { key: 'personalized', value: true })
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/Hello%20Wolrd/score-desc/per?map=term%2Csort%2Cpersonalized'
+    'http://localhost/Hello%20Wolrd/score-desc/per/0?map=term%2Csort%2Cpersonalized%2Cpage'
   )
 
   setSearchParam(state, { key: 'personalized', value: false })
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/Hello%20Wolrd/score-desc?map=term%2Csort'
+    'http://localhost/Hello%20Wolrd/score-desc/0?map=term%2Csort%2Cpage'
   )
 
   setSearchParam(state, { key: 'priceRange', value: '10-to-100', unique: true })
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/Hello%20Wolrd/10-to-100/score-desc?map=term%2CpriceRange%2Csort'
+    'http://localhost/Hello%20Wolrd/10-to-100/score-desc/0?map=term%2CpriceRange%2Csort%2Cpage'
   )
 })
 
@@ -39,27 +39,27 @@ test('Search State Serializer: serialization with base path', async () => {
   })
 
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/score-desc?map=sort'
+    'http://localhost/pt-br/sale/score-desc/0?map=sort%2Cpage'
   )
 
   setSearchParam(state, { key: 'term', value: 'Hello Wolrd' })
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/Hello%20Wolrd/score-desc?map=term%2Csort'
+    'http://localhost/pt-br/sale/Hello%20Wolrd/score-desc/0?map=term%2Csort%2Cpage'
   )
 
   setSearchParam(state, { key: 'personalized', value: true })
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/Hello%20Wolrd/score-desc/per?map=term%2Csort%2Cpersonalized'
+    'http://localhost/pt-br/sale/Hello%20Wolrd/score-desc/per/0?map=term%2Csort%2Cpersonalized%2Cpage'
   )
 
   setSearchParam(state, { key: 'personalized', value: false })
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/Hello%20Wolrd/score-desc?map=term%2Csort'
+    'http://localhost/pt-br/sale/Hello%20Wolrd/score-desc/0?map=term%2Csort%2Cpage'
   )
 
   setSearchParam(state, { key: 'priceRange', value: '10-to-100', unique: true })
   expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/Hello%20Wolrd/10-to-100/score-desc?map=term%2CpriceRange%2Csort'
+    'http://localhost/pt-br/sale/Hello%20Wolrd/10-to-100/score-desc/0?map=term%2CpriceRange%2Csort%2Cpage'
   )
 })
 
@@ -67,7 +67,7 @@ test('Search State Serializer: Basic parsing', async () => {
   expect(
     parseSearchParamsState(
       new URL(
-        'http://localhost/pt-br/sale/Hello%20Wolrd/10-to-100/score-desc?map=term%2CpriceRange%2Csort'
+        'http://localhost/pt-br/sale/Hello%20Wolrd/10-to-100/score-desc/0?map=term%2CpriceRange%2Csort%2Cpage'
       )
     )
   ).toEqual({
@@ -82,12 +82,13 @@ test('Search State Serializer: Basic parsing', async () => {
     ],
     sort: 'score-desc',
     term: 'Hello%20Wolrd',
+    page: 0,
   })
 
   expect(
     parseSearchParamsState(
       new URL(
-        'http://localhost/pt-br/sale/Hello%20Wolrd/score-desc/per?map=term%2Csort%2Cpersonalized'
+        'http://localhost/pt-br/sale/Hello%20Wolrd/score-desc/per/1?map=term%2Csort%2Cpersonalized%2Cpage'
       )
     )
   ).toEqual({
@@ -96,12 +97,13 @@ test('Search State Serializer: Basic parsing', async () => {
     selectedFacets: [],
     sort: 'score-desc',
     term: 'Hello%20Wolrd',
+    page: 1,
   })
 
   expect(
     parseSearchParamsState(
       new URL(
-        'http://localhost/Hello%20Wolrd/score-desc/per?map=term%2Csort%2Cpersonalized'
+        'http://localhost/Hello%20Wolrd/score-desc/per/10?map=term%2Csort%2Cpersonalized%2Cpage'
       )
     )
   ).toEqual({
@@ -110,5 +112,6 @@ test('Search State Serializer: Basic parsing', async () => {
     selectedFacets: [],
     sort: 'score-desc',
     term: 'Hello%20Wolrd',
+    page: 10,
   })
 })
