@@ -5,11 +5,11 @@ import type { FC } from 'react'
 
 import { SearchControlsFiltersButton } from './FiltersButton'
 import SearchControlsSelect from './SortSelect'
-import type { BrowserSearchPageQueryQuery } from '../../../templates/__generated__/BrowserSearchPageQuery.graphql'
-import type { ServerSearchPageQueryQuery } from '../../../templates/__generated__/ServerSearchPageQuery.graphql'
+import type { BrowserCollectionPageQueryQuery } from '../../../{StoreCollection.slug}/__generated__/BrowserCollectionPageQuery.graphql'
+import type { ServerCollectionPageQueryQuery } from '../../../{StoreCollection.slug}/__generated__/ServerCollectionPageQuery.graphql'
 
 interface Props {
-  data: BrowserSearchPageQueryQuery | ServerSearchPageQueryQuery
+  data: BrowserCollectionPageQueryQuery | ServerCollectionPageQueryQuery
 }
 
 const Controls: FC<Props> = ({ data }) => {

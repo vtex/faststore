@@ -17,7 +17,6 @@ import {
   wrapQueryExecutorWithQueue,
 } from 'gatsby-graphql-source-toolkit'
 import { execute, parse } from 'graphql'
-import pMap from 'p-map'
 import type {
   GatsbyNode,
   PluginOptions,
@@ -32,26 +31,23 @@ import type {
   NodeEvent,
 } from 'gatsby-graphql-source-toolkit/dist/types'
 
+import { PLUGIN } from './constants'
 import { api } from './api'
 import { fetchVTEX } from './fetch'
 import { ProductPaginationAdapter } from './graphql/pagination/product'
 import { getExecutor } from './graphql/executor'
 import { assertRedirects } from './redirects'
-import defaultStaticPaths from './staticPaths'
+import { createChannelNode } from './utils'
 import {
-  createChannelNode,
-  createDepartmentNode,
-  createStaticPathNode,
-  normalizePath,
-} from './utils'
+  NODE_TYPE as collectionType,
+  typeDefs as collectionTypeDefs,
+  sourceNodeChanges as sourceCollectionChanges,
+  sourceAllNodes as sourceAllCollectionNodes,
+} from './graphql/types/collection'
 import type { VTEXOptions } from './fetch'
-import type { Category, PageType, Redirect, Tenant } from './types'
+import type { PageType, Redirect, Tenant } from './types'
 
 export interface Options extends PluginOptions, VTEXOptions {
-  /**
-   * @description function to return the paths to statically generate
-   * */
-  getStaticPaths?: () => Promise<string[]>
   /**
    * @description function to return the redirects to generate in our infra. Note that these are server-side redirects
    * */
@@ -64,13 +60,6 @@ export interface Options extends PluginOptions, VTEXOptions {
    * */
   minProducts?: number
 }
-
-const DEFAULT_PAGE_TYPES_WHITELIST = [
-  'Department',
-  'Category',
-  'Brand',
-  'SubCategory',
-]
 
 /**
  * Add VTEX GraphQL API as 3p schema.
@@ -91,7 +80,7 @@ export const createSchemaCustomization = async (
 ) => {
   const {
     reporter,
-    actions: { addThirdPartySchema },
+    actions: { addThirdPartySchema, createTypes },
   } = args
 
   const activity = reporter.activityTimer(
@@ -119,9 +108,12 @@ export const createSchemaCustomization = async (
     ],
   })
 
-  addThirdPartySchema({ schema }, { name: 'gatsby-source-vtex' })
+  addThirdPartySchema({ schema }, PLUGIN)
 
   activity.end()
+
+  // Add custom types to the graphql schema
+  createTypes(collectionTypeDefs)
 }
 
 /**
@@ -150,30 +142,21 @@ export const createResolvers = ({
 }
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
-  args: SourceNodesArgs,
+  gatsbyApi: SourceNodesArgs,
   options: Options
 ) => {
-  const {
-    tenant,
-    getStaticPaths,
-    pageTypes: pageTypesWhitelist = DEFAULT_PAGE_TYPES_WHITELIST,
-    concurrency = 20,
-    ignorePaths = [],
-  } = options
-
-  const { reporter } = args
+  const { tenant } = options
+  const { reporter } = gatsbyApi
 
   /** Reset last build time on this machine */
-  const lastBuildTime = await args.cache.get(`LAST_BUILD_TIME`)
+  const lastBuildTime = await gatsbyApi.cache.get(`LAST_BUILD_TIME`)
 
-  await args.cache.set(`LAST_BUILD_TIME`, Date.now())
-
-  const promisses = [] as Array<() => Promise<void>>
+  await gatsbyApi.cache.set(`LAST_BUILD_TIME`, Date.now())
 
   /**
    * Add VTEX bindings
    */
-  promisses.push(async () => {
+  const sourceBindings = async () => {
     const activity = reporter.activityTimer(
       '[gatsby-source-vtex]: fetching VTEX Bindings'
     )
@@ -186,90 +169,30 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     )
 
     for (const binding of bindings) {
-      createChannelNode(args, binding)
+      createChannelNode(gatsbyApi, binding)
     }
 
     activity.end()
-  })
+  }
 
   /**
-   * Add VTEX categories
+   * Add Collections
    */
-  promisses.push(async () => {
+  const sourceCollections = async () => {
     const activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching VTEX Departments'
+      `[gatsby-source-vtex]: fetching ${collectionType}`
     )
 
     activity.start()
 
-    const departments = await fetchVTEX<Category[]>(
-      api.catalog.category.tree(1),
-      options
-    )
-
-    for (const department of departments) {
-      createDepartmentNode(args, department)
+    if (lastBuildTime) {
+      await sourceCollectionChanges(gatsbyApi, options)
+    } else {
+      await sourceAllCollectionNodes(gatsbyApi, options)
     }
 
     activity.end()
-  })
-
-  /**
-   * Static Paths used to generate pages
-   */
-  promisses.push(async () => {
-    let activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching StaticPaths'
-    )
-
-    activity.start()
-
-    const staticPaths = (typeof getStaticPaths === 'function'
-      ? await getStaticPaths()
-      : await defaultStaticPaths(options)
-    )
-      .map(normalizePath)
-      .filter((path) => !ignorePaths.includes(path))
-
-    activity.end()
-
-    activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching PageTypes'
-    )
-
-    activity.start()
-
-    const fetchPageTypes = async (path: string): Promise<PageType> => {
-      return fetchVTEX<PageType>(api.catalog.portal.pageType(path), options)
-    }
-
-    const pageTypes = await pMap(staticPaths, fetchPageTypes, { concurrency })
-
-    if (pageTypes.length !== staticPaths.length) {
-      reporter.panicOnBuild(
-        '[gatsby-source-vtex]: Length of PageTypes and staticPaths do not agree. No static path will be generated'
-      )
-
-      return
-    }
-
-    for (let it = 0; it < pageTypes.length; it++) {
-      const pageType = pageTypes[it]
-      const staticPath = staticPaths[it]
-
-      if (!pageTypesWhitelist.includes(pageType.pageType)) {
-        reporter.warn(
-          `[gatsby-source-vtex]: Dropping path. Reason: PageType API reported ${pageType.pageType} for path: ${staticPath}`
-        )
-
-        continue
-      }
-
-      createStaticPathNode(args, pageType, staticPath)
-    }
-
-    activity.end()
-  })
+  }
 
   /**
    * Source products so we can use Gatsby's file system route api for creating pages.
@@ -279,7 +202,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    * Take a look at their docs for more info
    * https://github.com/gatsbyjs/gatsby-graphql-toolkit#how-it-works
    */
-  promisses.push(async () => {
+  const sourceProducts = async () => {
     // Step1. Set up remote schema:
     const executor = getExecutor(options)
     const gatewaySchema = await introspectSchema(executor)
@@ -353,7 +276,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     )
 
     const config: ISourcingConfig = {
-      gatsbyApi: args,
+      gatsbyApi,
       schema,
       execute: run,
       gatsbyTypePrefix: `Store`,
@@ -378,9 +301,9 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       )
       await sourceAllNodes(config)
     }
-  })
+  }
 
-  await Promise.all(promisses.map((x) => x()))
+  await Promise.all([sourceBindings(), sourceProducts(), sourceCollections()])
 }
 
 export const createPages = async (
@@ -392,21 +315,13 @@ export const createPages = async (
    */
   const {
     data: {
-      searches: { nodes: searches },
+      allStoreCollection: { totalCount: plps },
       allStoreProduct: { totalCount: pdps },
     },
   } = await graphql<any>(`
     query GetAllStaticPaths {
-      searches: allStaticPath(
-        filter: {
-          pageType: { in: ["Department", "Category", "Brand", "SubCategory"] }
-        }
-      ) {
-        nodes {
-          id
-          path
-          pageType
-        }
+      allStoreCollection {
+        totalCount
       }
       allStoreProduct {
         totalCount
@@ -415,7 +330,7 @@ export const createPages = async (
   `)
 
   reporter.info(`[gatsby-source-vtex]: Available pdps: ${pdps}`)
-  reporter.info(`[gatsby-source-vtex]: Available plps: ${searches.length}`)
+  reporter.info(`[gatsby-source-vtex]: Available plps: ${plps}`)
 
   /**
    * Create all proxy rules for VTEX Store
@@ -566,7 +481,6 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     environment: Joi.string().pattern(
       /^(vtexcommercestable|vtexcommercebeta)$/
     ),
-    getStaticPaths: Joi.function().arity(0),
     getRedirects: Joi.function().arity(0),
     pageTypes: Joi.array().items(Joi.string()),
     minProducts: Joi.number(),

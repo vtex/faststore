@@ -3,19 +3,19 @@ import React from 'react'
 import type { FC } from 'react'
 import type { PageProps } from 'gatsby'
 
-import Layout from '../components/Layout'
-import SearchView from '../views/search'
-import AboveTheFoldPreview from '../views/search/AboveTheFoldPreview'
-import { useSearchParamsFromQueryVariables } from '../sdk/search/converter/useSearchParamsFromQueryVariables'
-import { usePersonalizedSearchRedirect } from '../sdk/search/usePersonalizedSearchRedirect'
+import Layout from '../../components/Layout'
+import SearchView from '../../views/search'
+import AboveTheFoldPreview from '../../views/search/AboveTheFoldPreview'
+import { useSearchParamsFromQueryVariables } from '../../sdk/search/converter/useSearchParamsFromQueryVariables'
+import { usePersonalizedSearchRedirect } from '../../sdk/search/usePersonalizedSearchRedirect'
 import type {
-  ServerSearchPageQueryQuery,
-  ServerSearchPageQueryQueryVariables,
-} from './__generated__/ServerSearchPageQuery.graphql'
+  ServerCollectionPageQueryQuery,
+  ServerCollectionPageQueryQueryVariables,
+} from '../../{StoreCollection.slug}/__generated__/ServerCollectionPageQuery.graphql'
 
 export type SearchPageProps = PageProps<
-  ServerSearchPageQueryQuery,
-  ServerSearchPageQueryQueryVariables & {
+  ServerCollectionPageQueryQuery,
+  ServerCollectionPageQueryQueryVariables & {
     canonicalPath: string
     pageInfo: { size: number }
   }
@@ -50,7 +50,7 @@ const Page: FC<SearchPageProps> = ({ pageContext, data }) => {
 }
 
 export const query = graphql`
-  query ServerSearchPageQuery(
+  query ServerCollectionPageQuery(
     $from: Int = 0
     $to: Int = 11
     $fullText: String

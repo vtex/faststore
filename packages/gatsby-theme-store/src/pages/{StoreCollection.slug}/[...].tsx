@@ -3,36 +3,36 @@ import React from 'react'
 import type { FC } from 'react'
 import type { PageProps as GatsbyPageProps } from 'gatsby'
 
-import HybridWrapper from '../components/HybridWrapper'
-import Layout from '../components/Layout'
-import SearchView from '../views/search'
-import AboveTheFoldPreview from '../views/search/AboveTheFoldPreview'
-import { useQuery } from '../sdk/graphql/useQuery'
-import { useQueryVariablesFromSearchParams } from '../sdk/search/converter/useQueryVariablesFromSearchParams'
-import { useSearchParamsFromUrl } from '../sdk/search/converter/useSearchParamsFromURL'
-import { usePersonalizedSearchRedirect } from '../sdk/search/usePersonalizedSearchRedirect'
-import { BrowserSearchPageQuery } from './__generated__/BrowserSearchPageQuery.graphql'
+import HybridWrapper from '../../components/HybridWrapper'
+import Layout from '../../components/Layout'
+import SearchView from '../../views/search'
+import AboveTheFoldPreview from '../../views/search/AboveTheFoldPreview'
+import { useQuery } from '../../sdk/graphql/useQuery'
+import { useQueryVariablesFromSearchParams } from '../../sdk/search/converter/useQueryVariablesFromSearchParams'
+import { useSearchParamsFromUrl } from '../../sdk/search/converter/useSearchParamsFromURL'
+import { usePersonalizedSearchRedirect } from '../../sdk/search/usePersonalizedSearchRedirect'
+import { BrowserCollectionPageQuery } from '../../{StoreCollection.slug}/__generated__/BrowserCollectionPageQuery.graphql'
 import type {
-  BrowserSearchPageQueryQuery,
-  BrowserSearchPageQueryQueryVariables,
-} from './__generated__/BrowserSearchPageQuery.graphql'
+  BrowserCollectionPageQueryQuery,
+  BrowserCollectionPageQueryQueryVariables,
+} from '../../{StoreCollection.slug}/__generated__/BrowserCollectionPageQuery.graphql'
 
 const SearchPage: FC<PageProps> = (props) => {
   const {
-    pageContext: { hideUnavailableItems, pageInfo },
+    pageContext: { hideUnavailableItems },
     pageContext,
     location,
   } = props
 
   const searchParams = useSearchParamsFromUrl(location)
-  const variables = useQueryVariablesFromSearchParams(searchParams, pageInfo)
+  const variables = useQueryVariablesFromSearchParams(searchParams)
   const redirecting = usePersonalizedSearchRedirect(searchParams)
 
   const { data } = useQuery<
-    BrowserSearchPageQueryQuery,
-    BrowserSearchPageQueryQueryVariables
+    BrowserCollectionPageQueryQuery,
+    BrowserCollectionPageQueryQueryVariables
   >({
-    ...BrowserSearchPageQuery,
+    ...BrowserCollectionPageQuery,
     variables: { ...variables, hideUnavailableItems },
     suspense: true,
   })
@@ -52,7 +52,6 @@ const SearchPage: FC<PageProps> = (props) => {
       data={data}
       searchParams={searchParams}
       pageContext={pageContext}
-      pageInfo={pageInfo}
     />
   )
 }
@@ -64,7 +63,6 @@ type PageProps = GatsbyPageProps<
     from?: number
     to?: number
     canonicalPath: string
-    pageInfo: { size: number }
   }
 >
 
@@ -77,7 +75,7 @@ const Page: FC<PageProps> = (props) => (
 )
 
 export const query = gql`
-  query BrowserSearchPageQuery(
+  query BrowserCollectionPageQuery(
     $from: Int = 0
     $to: Int = 11
     $fullText: String

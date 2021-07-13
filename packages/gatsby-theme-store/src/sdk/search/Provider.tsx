@@ -10,10 +10,12 @@ import React, { createContext, useMemo, useState } from 'react'
 import type { FC } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
-import type { ServerSearchPageQueryQuery } from '../../templates/__generated__/ServerSearchPageQuery.graphql'
-import type { BrowserSearchPageQueryQuery } from '../../templates/__generated__/BrowserSearchPageQuery.graphql'
+import type { ServerCollectionPageQueryQuery } from '../../{StoreCollection.slug}/__generated__/ServerCollectionPageQuery.graphql'
+import type { BrowserCollectionPageQueryQuery } from '../../{StoreCollection.slug}/__generated__/BrowserCollectionPageQuery.graphql'
 
-type SearchQuery = ServerSearchPageQueryQuery | BrowserSearchPageQueryQuery
+type SearchQuery =
+  | ServerCollectionPageQueryQuery
+  | BrowserCollectionPageQueryQuery
 
 export interface PageInfo {
   /** @description items per page */

@@ -1,0 +1,23 @@
+type StoreCollectionSeo {
+  title: String!
+  description: String!
+}
+
+type StoreSelectedFacet {
+  key: String!
+  value: String!
+}
+
+type StoreCollection implements Node @childOf(types: ["StoreCategoryTree"]) {
+  id: ID!
+  remoteId: ID!
+  seo: StoreCollectionSeo!
+  name: String!
+  slug: String!
+
+  #Search Args. TODO: Maybe we can get rid of this?
+  from: Int!
+  to: Int!
+  selectedFacets: [StoreSelectedFacet!]!
+  orderBy: String!
+}

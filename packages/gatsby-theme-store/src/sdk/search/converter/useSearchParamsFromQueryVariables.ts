@@ -3,7 +3,7 @@ import { useLocation } from '@reach/router'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
 import { priceRange } from './priceRange'
-import type { SearchPageProps } from '../../../templates/search.server'
+import type { SearchPageProps } from '../../../pages/{StoreCollection.slug}'
 
 export interface SelectedFacets {
   key: string

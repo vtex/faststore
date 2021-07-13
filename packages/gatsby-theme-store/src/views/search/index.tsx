@@ -9,8 +9,8 @@ import { SearchProvider } from '../../sdk/search/Provider'
 import AboveTheFold from './AboveTheFold'
 import BelowTheFoldPreview from './BelowTheFoldPreview'
 import Seo from './Seo'
-import type { ServerSearchPageQueryQuery } from '../../templates/__generated__/ServerSearchPageQuery.graphql'
-import type { BrowserSearchPageQueryQuery } from '../../templates/__generated__/BrowserSearchPageQuery.graphql'
+import type { ServerCollectionPageQueryQuery } from '../../{StoreCollection.slug}/__generated__/ServerCollectionPageQuery.graphql'
+import type { BrowserCollectionPageQueryQuery } from '../../{StoreCollection.slug}/__generated__/BrowserCollectionPageQuery.graphql'
 
 const belowTheFoldPreloader = () => import('./BelowTheFold')
 const BelowTheFold = lazy(belowTheFoldPreloader)
@@ -19,7 +19,7 @@ export interface SearchViewProps {
   pageContext: {
     canonicalPath: string
   }
-  data: ServerSearchPageQueryQuery | BrowserSearchPageQueryQuery
+  data: ServerCollectionPageQueryQuery | BrowserCollectionPageQueryQuery
   searchParams: SearchParamsState
   pageInfo: { size: number }
 }

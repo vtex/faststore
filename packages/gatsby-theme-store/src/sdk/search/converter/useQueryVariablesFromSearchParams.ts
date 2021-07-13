@@ -3,12 +3,13 @@ import { useMemo } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
 import { useRegion } from '../../region/useRegion'
-import type { BrowserSearchPageQueryQueryVariables } from '../../../templates/__generated__/BrowserSearchPageQuery.graphql'
-import type { ServerSearchPageQueryQueryVariables } from '../../../templates/__generated__/ServerSearchPageQuery.graphql'
 import { priceRange } from './priceRange'
+import type { BrowserCollectionPageQueryQueryVariables } from '../../../{StoreCollection.slug}/__generated__/BrowserCollectionPageQuery.graphql'
+import type { ServerCollectionPageQueryQueryVariables } from '../../../{StoreCollection.slug}/__generated__/ServerCollectionPageQuery.graphql'
 
 type QueryParamsFromSearch = Omit<
-  BrowserSearchPageQueryQueryVariables | ServerSearchPageQueryQueryVariables,
+  | BrowserCollectionPageQueryQueryVariables
+  | ServerCollectionPageQueryQueryVariables,
   'hideUnavailableItems'
 >
 

@@ -79,15 +79,13 @@ export interface PageType {
 }
 
 export type Sort =
-  | 'OrderByPriceDESC'
-  | 'OrderByPriceASC'
-  | 'OrderByTopSaleDESC'
-  | 'OrderByReviewRateDESC'
-  | 'OrderByNameASC'
-  | 'OrderByNameDESC'
-  | 'OrderByReleaseDateDESC'
-  | 'OrderByBestDiscountDESC'
-  | 'OrderByScoreDESC'
+  | 'price:desc'
+  | 'price:asc'
+  | 'orders:desc'
+  | 'name:desc'
+  | 'name:asc'
+  | 'release:desc'
+  | 'discount:desc'
   | ''
 
 export interface Redirect {
