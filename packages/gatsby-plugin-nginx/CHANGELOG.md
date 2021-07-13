@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.10 (2021-07-13)
+
+
+### Features
+
+* **seo:** Add next/prev links in search page's infinite scroll. ([#811](https://github.com/vtex/faststore/issues/811)) ([89fa673](https://github.com/vtex/faststore/commit/89fa6738034e290c6806a55db21209925cf50783))
+
+
+
+
+
 ## 0.372.9 (2021-07-12)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-nginx
