@@ -15,14 +15,14 @@ describe('Input', () => {
   })
   it('`data-error` is present', () => {
     const { getByPlaceholderText } = render(
-      <Input placeholder="Hello World!" state="error" />
+      <Input placeholder="Hello World!" variant="error" />
     )
 
     expect(getByPlaceholderText('Hello World!')).toHaveAttribute('data-error')
   })
   it('`data-success` is present', () => {
     const { getByPlaceholderText } = render(
-      <Input placeholder="Hello World!" state="success" />
+      <Input placeholder="Hello World!" variant="success" />
     )
 
     expect(getByPlaceholderText('Hello World!')).toHaveAttribute('data-success')
