@@ -1,6 +1,7 @@
-import type { Story, Meta, ArgTypes } from '@storybook/react'
+import type { Story, Meta } from '@storybook/react'
 import React from 'react'
 
+import type { ComponentArgTypes } from '../../../typings/utils'
 import type { Props as CheckboxProps } from '../Checkbox'
 import Component from '../Checkbox'
 import mdx from './Checkbox.mdx'
@@ -11,7 +12,7 @@ const CheckboxTemplate: Story<CheckboxProps> = (props) => (
 
 export const Checkbox = CheckboxTemplate.bind({})
 
-const controls: ArgTypes = {
+const controls: ComponentArgTypes<CheckboxProps> = {
   checked: {
     control: {
       type: 'boolean',
@@ -19,7 +20,7 @@ const controls: ArgTypes = {
   },
 }
 
-const actions: ArgTypes = {
+const actions: ComponentArgTypes<CheckboxProps> = {
   onClick: { action: 'clicked', table: { disable: true } },
 }
 

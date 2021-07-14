@@ -4,9 +4,9 @@ import React, { forwardRef } from 'react'
 export interface Props
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'children'> {
   /**
-   * Current state of the input.
+   * Current variant of the input.
    */
-  state?: 'success' | 'error'
+  variant?: 'success' | 'error'
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -14,12 +14,12 @@ export interface Props
 }
 
 const TextArea = forwardRef<HTMLTextAreaElement, Props>(function TextArea(
-  { state, testId = 'store-textarea', ...props },
+  { variant, testId = 'store-textarea', ...props },
   ref
 ) {
-  const states = {
-    'data-success': state === 'success' || undefined,
-    'data-error': state === 'error' || undefined,
+  const variants = {
+    'data-success': variant === 'success' || undefined,
+    'data-error': variant === 'error' || undefined,
   }
 
   return (
@@ -27,7 +27,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>(function TextArea(
       ref={ref}
       data-store-textarea
       data-testid={testId}
-      {...states}
+      {...variants}
       {...props}
     />
   )

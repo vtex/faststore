@@ -4,6 +4,7 @@ import type { Story } from '@storybook/react'
 import Component from '../Price'
 import type { PriceProps } from '../Price'
 import mdx from './Price.mdx'
+import type { ComponentArgTypes } from '../../../typings/utils'
 
 const priceValue = 62.5
 
@@ -108,17 +109,19 @@ Custom.args = {
   value: priceValue,
 }
 
+const argTypes: ComponentArgTypes<Omit<PriceProps, 'value'>> = {
+  variant: {
+    options: ['selling', 'listing', 'spot', 'savings', 'installment'],
+    control: { type: 'select' },
+  },
+  formatter: {
+    table: { disable: true },
+  },
+}
+
 export default {
   title: 'Atoms/Price',
-  argTypes: {
-    variant: {
-      options: ['selling', 'listing', 'spot', 'savings', 'installment'],
-      control: { type: 'select' },
-    },
-    formatter: {
-      table: { disable: true },
-    },
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,

@@ -4,9 +4,9 @@ import React, { forwardRef } from 'react'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
-   * Current state of the input.
+   * Current variant of the input.
    */
-  state?: 'success' | 'error'
+  variant?: 'success' | 'error'
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -14,12 +14,12 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { state, testId = 'store-input', ...props },
+  { variant, testId = 'store-input', ...props },
   ref
 ) {
-  const states = {
-    'data-error': state === 'error' || undefined,
-    'data-success': state === 'success' || undefined,
+  const variants = {
+    'data-error': variant === 'error' || undefined,
+    'data-success': variant === 'success' || undefined,
   }
 
   return (
@@ -27,7 +27,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       ref={ref}
       data-store-input
       data-testid={testId}
-      {...states}
+      {...variants}
       {...props}
     />
   )

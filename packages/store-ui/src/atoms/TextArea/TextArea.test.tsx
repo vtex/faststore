@@ -13,14 +13,16 @@ describe('TextArea', () => {
   })
 
   it('state is error', () => {
-    const { getByTestId } = render(<TextArea testId={testId} state="error" />)
+    const { getByTestId } = render(<TextArea testId={testId} variant="error" />)
 
     expect(getByTestId(testId)).toHaveAttribute('data-error', 'true')
     expect(getByTestId(testId)).not.toHaveAttribute('data-success')
   })
 
   it('state is success', () => {
-    const { getByTestId } = render(<TextArea testId={testId} state="success" />)
+    const { getByTestId } = render(
+      <TextArea testId={testId} variant="success" />
+    )
 
     expect(getByTestId(testId)).toHaveAttribute('data-success', 'true')
     expect(getByTestId(testId)).not.toHaveAttribute('data-error')

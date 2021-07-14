@@ -5,6 +5,7 @@ import type { SearchInputProps } from '../SearchInput'
 import Component from '../SearchInput'
 import mdx from './SearchInput.mdx'
 import Icon from './assets/CustomIcon'
+import type { ComponentArgTypes } from '../../../typings/utils'
 
 const DefaultTemplate: Story<SearchInputProps> = ({
   onSubmit,
@@ -22,18 +23,20 @@ const CustomIconTemplate: Story<SearchInputProps> = ({
 
 export const CustomIcon = CustomIconTemplate.bind({})
 
+const argTypes: ComponentArgTypes<SearchInputProps> = {
+  placeholder: {
+    control: { type: 'text' },
+    defaultValue: 'Search',
+  },
+  onSubmit: {
+    action: 'SearchInput submitted!',
+    table: { disable: true },
+  },
+}
+
 export default {
   title: 'Molecules/SearchInput',
-  argTypes: {
-    placeholder: {
-      control: { type: 'text' },
-      defaultValue: 'Search',
-    },
-    onSubmit: {
-      action: 'SearchInput submitted!',
-      table: { disable: true },
-    },
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,
