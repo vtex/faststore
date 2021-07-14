@@ -16,6 +16,7 @@ const PopoverTemplate: Story<PopoverProps> = ({ children }) => {
       <label>
         <span>Type for a special message</span>
         <Input
+          state={value.length > 0 ? 'success' : undefined}
           type="text"
           onChange={(event) => setValue(event.target.value)}
           ref={ref}
@@ -27,9 +28,14 @@ const PopoverTemplate: Story<PopoverProps> = ({ children }) => {
 }
 
 export const Popover = PopoverTemplate.bind({})
+Popover.args = {
+  children: 'Whoa! Look at me!',
+}
 
 const argTypes: ComponentArgTypes<Omit<PopoverProps, 'targetRef'>> = {
-  children: 'Whoa! Look at me!',
+  children: {
+    table: { disable: true },
+  },
 }
 
 export default {

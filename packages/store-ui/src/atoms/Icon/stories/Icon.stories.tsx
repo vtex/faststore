@@ -12,16 +12,16 @@ const IconTemplate: Story<IconProps> = ({ style }) => (
 )
 
 export const Icon = IconTemplate.bind({})
+Icon.args = {
+  style: {
+    fontSize: '32px',
+    color: 'red',
+  },
+}
 
 const argTypes: ComponentArgTypes<Omit<IconProps, 'component'>> = {
   style: {
     control: { type: 'object' },
-    defaultValue: {
-      fontSize: '32px',
-      color: 'red',
-      display: 'inline-block',
-      lineHeight: 0,
-    },
   },
   onClick: {
     action: 'Icon clicked',
