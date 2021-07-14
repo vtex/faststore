@@ -1,6 +1,7 @@
 import type { Story } from '@storybook/react'
 import React from 'react'
 
+import type { ComponentArgTypes } from '../../../typings/utils'
 import type { BulletsProps } from '../Bullets'
 import Component from '../Bullets'
 import mdx from './Bullets.mdx'
@@ -23,24 +24,28 @@ const BulletsTemplate: Story<BulletsProps> = ({
 
 export const Bullets = BulletsTemplate.bind({})
 
+const controls: ComponentArgTypes<BulletsProps> = {
+  totalQuantity: {
+    control: { type: 'number', min: 1 },
+    defaultValue: 5,
+    min: 1,
+  },
+  activeBullet: {
+    control: { type: 'number', min: 0 },
+    defaultValue: 3,
+    min: 0,
+  },
+  onClick: {
+    action: 'Bullet clicked',
+    table: { disable: true },
+  },
+}
+
 export default {
   title: 'Molecules/Bullets',
   component: Bullets,
   argTypes: {
-    totalQuantity: {
-      control: { type: 'number', min: 1 },
-      defaultValue: 5,
-      min: 1,
-    },
-    activeBullet: {
-      control: { type: 'number', min: 0 },
-      defaultValue: 3,
-      min: 0,
-    },
-    onClick: {
-      action: 'Bullet clicked',
-      table: { disable: true },
-    },
+    ...controls,
   },
   parameters: {
     docs: {
