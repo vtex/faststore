@@ -163,5 +163,5 @@ export const useCarousel = ({
     ...swipeableConfigOverrides,
   })
 
-  return { handlers, carouselState, carouselDispatch }
+  return { handlers, slide, carouselState, carouselDispatch }
 }
