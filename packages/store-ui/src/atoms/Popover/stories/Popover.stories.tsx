@@ -5,6 +5,7 @@ import Component from '../Popover'
 import Input from '../../Input'
 import type { PopoverProps } from '../Popover'
 import mdx from './Popover.mdx'
+import type { ComponentArgTypes } from '../../../typings/utils'
 
 const PopoverTemplate: Story<PopoverProps> = ({ children }) => {
   const ref = useRef(null)
@@ -27,10 +28,14 @@ const PopoverTemplate: Story<PopoverProps> = ({ children }) => {
 
 export const Popover = PopoverTemplate.bind({})
 
+const controls: ComponentArgTypes<Omit<PopoverProps, 'targetRef'>> = {
+  children: 'Whoa! Look at me!',
+}
+
 export default {
   title: 'Atoms/Popover',
   argTypes: {
-    children: 'Whoa! Look at me!',
+    ...controls,
   },
   parameters: {
     docs: {
