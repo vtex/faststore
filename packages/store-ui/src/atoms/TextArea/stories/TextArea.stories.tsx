@@ -4,10 +4,11 @@ import type { Story, Meta, ArgTypes } from '@storybook/react'
 import Component from '../TextArea'
 import type { Props as TextAreaProps } from '../TextArea'
 import mdx from './TextArea.mdx'
+import type { ComponentArgTypes } from '../../../typings/utils'
 
-const TextAreaTemplate: Story<TextAreaProps> = (props) => {
+const TextAreaTemplate: Story<TextAreaProps> = ({ variant, ...props }) => {
   const colorByState: Record<
-    NonNullable<TextAreaProps['state']> | 'default',
+    NonNullable<TextAreaProps['variant']> | 'default',
     string
   > = {
     default: 'black',
@@ -20,9 +21,10 @@ const TextAreaTemplate: Story<TextAreaProps> = (props) => {
       style={{
         borderWidth: 2,
         borderStyle: 'solid',
-        borderColor: colorByState[props.state || 'default'],
+        borderColor: colorByState[variant || 'default'],
       }}
       {...props}
+      variant={variant}
     />
   )
 }
@@ -32,8 +34,8 @@ TextArea.args = {
   defaultValue: 'Write something here',
 }
 
-const controls: ArgTypes = {
-  state: {
+const controls: ComponentArgTypes<TextAreaProps> = {
+  variant: {
     options: ['default', 'success', 'error'],
     defaultValue: 'default',
     control: { type: 'select' },
@@ -48,7 +50,7 @@ const controls: ArgTypes = {
   },
 }
 
-const actions: ArgTypes = {
+const actions: ComponentArgTypes<TextAreaProps> = {
   onChange: { action: 'changed', table: { disable: true } },
 }
 
