@@ -23,7 +23,7 @@ function isSlideVisible(carouselState: CarouselState, slideIdx: number) {
 
 function Carousel({
   testId = 'store-carousel',
-  itemsPerPage = 2,
+  itemsPerPage = 1,
   swipeableConfigOverrides,
   children,
 }: PropsWithChildren<CarouselProps>) {
