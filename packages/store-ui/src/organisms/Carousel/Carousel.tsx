@@ -5,7 +5,8 @@ import React from 'react'
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
-import useCarousel from './useCarousel'
+import type { SlideDirection } from './hooks/useCarousel'
+import { useCarousel } from './hooks/useCarousel'
 
 export interface CarouselProps {
   testId?: string
@@ -17,10 +18,29 @@ function Carousel({
   swipeableConfigOverrides,
   children,
 }: PropsWithChildren<CarouselProps>) {
-  const { handlers, slide, carouselState } = useCarousel({
-    numberOfItems: React.Children.count(children),
+  const { handlers, carouselState, carouselDispatch } = useCarousel({
+    totalItems: React.Children.count(children),
+    itemsPerPage: 2,
     swipeableConfigOverrides,
   })
+
+  const slide = (slideDirection: SlideDirection) => {
+    if (slideDirection === 'next') {
+      carouselDispatch({
+        type: 'NEXT_PAGE',
+      })
+    }
+
+    if (slideDirection === 'previous') {
+      carouselDispatch({
+        type: 'PREVIOUS_PAGE',
+      })
+    }
+
+    setTimeout(() => {
+      carouselDispatch({ type: 'STOP_SLIDE' })
+    }, 50)
+  }
 
   return (
     <section
@@ -30,11 +50,11 @@ function Carousel({
       {...handlers}
     >
       <div data-carousel-track-container>
-        <div data-carousel-track>
+        <div style={{ display: 'flex' }} data-carousel-track>
           {React.Children.map(children, (child, idx) => (
             <div
               data-carousel-item
-              data-active={idx === carouselState.currentPosition || undefined}
+              data-active={idx === carouselState.currentSlide || undefined}
             >
               {child}
             </div>
@@ -57,7 +77,8 @@ function Carousel({
           <Icon component={<RightArrowIcon />} />
         </Button>
       </div>
-      {`This is the current slide: ${carouselState.currentPosition}`}
+      {`This is the current slide: ${carouselState.currentSlide}`}
+      {`This is the current page: ${carouselState.currentPage}`}
     </section>
   )
 }
