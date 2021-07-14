@@ -16,13 +16,26 @@ type StoreSearchParams {
   orderBy: String!
 }
 
+
+enum CollectionRole {
+  Department
+  Category
+  Brand
+  Cluster
+}
+
+type StoreCollectionFields {
+  searchParams: StoreSearchParams!
+}
+
 type StoreCollection implements Node @childOf(types: ["StoreCollection"]) {
   id: ID!
   remoteId: ID!
   seo: StoreCollectionSeo!
   name: String!
   slug: String!
+  type: CollectionRole!
 
-  searchParams:  StoreSearchParams!
+  fields: StoreCollectionFields!
 }
 

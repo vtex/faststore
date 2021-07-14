@@ -8,7 +8,8 @@ import { api } from '../../../api'
 import { fetchVTEX } from '../../../fetch'
 import { PLUGIN } from '../../../constants'
 import type { Options } from '../../../gatsby-node'
-import type { Brand, Category, Sort } from '../../../types'
+// import type { Brand, Category, Sort } from '../../../types'
+import type { Brand, Category } from '../../../types'
 
 interface Collection {
   seo: {
@@ -19,16 +20,16 @@ interface Collection {
   slug: string
   remoteId: string
   children: string[]
-  /**
-   * Search Args.
-   * TODO: Maybe we can get rid of this?
-   */
-  searchParams: {
-    from: number
-    to: number
-    selectedFacets: Array<{ key: string; value: string }>
-    orderBy: Sort
-  }
+  type: 'Department' | 'Brand' | 'Category' | 'Cluster'
+
+  // fields: {
+  //   searchParams: {
+  //     from: number
+  //     to: number
+  //     selectedFacets: Array<{ key: string; value: string }>
+  //     orderBy: Sort
+  //   }
+  // }
 }
 
 export const NODE_TYPE = 'StoreCollection'
@@ -37,24 +38,25 @@ export const typeDefs = readFileSync(
   join(__dirname, '../src/graphql/types/collection/typedefs.graphql')
 ).toString()
 
-const getDefaultParams = (options: Options) =>
-  ({
-    from: 0,
-    to: (options.itemsPerPage ?? 12) - 1,
-    orderBy: '',
-    pageInfo: {
-      size: options.itemsPerPage,
-    },
-  } as const)
+// const getDefaultParams = (options: Options) =>
+//   ({
+//     from: 0,
+//     to: (options.itemsPerPage ?? 12) - 1,
+//     orderBy: '',
+//     pageInfo: {
+//       size: options.itemsPerPage,
+//     },
+//   } as const)
 
 const gatsbySlugify = (term: string) =>
   slugify(term, {
     replacement: '-',
     lower: true,
-    strict: true,
+    strict: false,
+    remove: /[*+~.()'"!:@]/g,
   })
 
-const categoryToCollection = (item: Category, options: Options) => {
+const categoryToCollection = (item: Category, _: Options) => {
   const href = new URL(item.url).pathname
 
   return {
@@ -63,32 +65,39 @@ const categoryToCollection = (item: Category, options: Options) => {
       description: item.MetaTagDescription ?? '',
     },
     name: item.name ?? '',
-    slug: gatsbySlugify(href),
+    slug: gatsbySlugify(href).slice(1),
+    href,
     remoteId: item.id.toString(),
     children: item.children.map((x) => `${x.id}`),
-    searchParams: {
-      ...getDefaultParams(options),
-      selectedFacets: href
-        .split('/')
-        .slice(1)
-        .map((x) => ({ key: 'c', value: x })),
-    },
+    // fields: {
+    //   searchParams: {
+    //     ...getDefaultParams(options),
+    //     selectedFacets: href
+    //       .split('/')
+    //       .slice(1)
+    //       .map((x) => ({ key: 'c', value: x })),
+    //   },
+    // },
   }
 }
 
-const brandToCollection = (item: Brand, options: Options) => ({
+const brandToCollection = (item: Brand, _: Options) => ({
   seo: {
     title: item.title ?? '',
     description: item.metaTagDescription ?? '',
   },
   name: item.name,
   slug: gatsbySlugify(item.name),
+  href: `/${gatsbySlugify(item.name)}`,
   remoteId: item.id.toString(),
   children: [],
-  searchParams: {
-    ...getDefaultParams(options),
-    selectedFacets: [{ key: 'b', value: item.name }],
-  },
+  type: 'Brand' as const,
+  // fields: {
+  //   searchParams: {
+  //     ...getDefaultParams(options),
+  //     selectedFacets: [{ key: 'b', value: item.name }],
+  //   },
+  // },
 })
 
 const createNode = (
@@ -137,7 +146,10 @@ export const sourceAllNodes = async (
         return
       }
 
-      createNode(gatsbyApi, categoryToCollection(node, options), parent)
+      const collection = categoryToCollection(node, options)
+      const type = parent === null ? 'Department' : ('Category' as const)
+
+      createNode(gatsbyApi, { ...collection, type }, parent)
 
       for (const child of node.children) {
         dfs(child, node, seen)

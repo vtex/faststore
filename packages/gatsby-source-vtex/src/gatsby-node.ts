@@ -39,7 +39,6 @@ import { getExecutor } from './graphql/executor'
 import { assertRedirects } from './redirects'
 import { createChannelNode } from './utils'
 import {
-  NODE_TYPE as collectionType,
   typeDefs as collectionTypeDefs,
   sourceNodeChanges as sourceCollectionChanges,
   sourceAllNodes as sourceAllCollectionNodes,
@@ -178,7 +177,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    */
   const sourceCollections = async () => {
     const activity = reporter.activityTimer(
-      `[gatsby-source-vtex]: fetching ${collectionType}`
+      `[gatsby-source-vtex]: fetching Collection`
     )
 
     activity.start()
@@ -304,13 +303,54 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   await Promise.all([sourceBindings(), sourceProducts(), sourceCollections()])
 }
 
-let globalGraphQL: any
+export const onCreateNode: GatsbyNode['onCreateNode'] = async ({
+  node,
+  actions,
+}) => {
+  if (node.internal.type !== 'StoreCollection') {
+    return
+  }
+
+  const { createNodeField } = actions
+  const href = node.href as string
+  const type =
+    node.type === 'Brand'
+      ? 'b'
+      : node.type === 'Cluster'
+      ? 'productClusterId'
+      : 'c'
+
+  createNodeField(
+    {
+      node,
+      name: 'searchParams',
+      value: {
+        from: 0,
+        to: 12 - 1,
+        orderBy: '',
+        selectedFacets: href
+          .slice(1)
+          .split('/')
+          .map((value) => ({ value, key: type })),
+        pageInfo: {
+          size: 12,
+        },
+      },
+    },
+    PLUGIN
+  )
+}
+
+let resolveGraphQL: any
+const graphqlPromise = new Promise<any>((resolve) => {
+  resolveGraphQL = resolve
+})
 
 export const createPages = async (
   { actions: { createRedirect }, graphql, reporter }: CreatePagesArgs,
   { tenant, workspace, environment, getRedirects }: Options
 ) => {
-  globalGraphQL = graphql
+  resolveGraphQL(graphql)
 
   /**
    * Report available PDPs and PLPs
@@ -477,32 +517,36 @@ export const createPages = async (
 }
 
 export const onCreatePage: GatsbyNode['onCreatePage'] = async (gatsbyApi) => {
+  const graphql = await graphqlPromise
+
   const { page, actions } = gatsbyApi
   const collectionRegex = /{StoreCollection.slug}/g
 
   if (
-    !collectionRegex.test(page.component) &&
-    !(page.context as any).selectedFacets
+    !collectionRegex.test(page.component) ||
+    typeof (page.context as any).canonicalPath === 'string'
   ) {
     return
   }
 
-  const { data } = await globalGraphQL(
+  const { data } = await graphql(
     `
-    query CollectionQuery($id: String!) {
-      storeCollection(id: {eq: $id}) {
-        searchParams {
-          from
-          to
-          selectedFacets {
-            key
-            value
+      query CollectionQuery($id: String!) {
+        storeCollection(id: { eq: $id }) {
+          fields {
+            searchParams {
+              from
+              to
+              selectedFacets {
+                key
+                value
+              }
+              orderBy
+            }
           }
-          orderBy
         }
       }
-    }
-  `,
+    `,
     page.context
   )
 
@@ -511,8 +555,10 @@ export const onCreatePage: GatsbyNode['onCreatePage'] = async (gatsbyApi) => {
     ...page,
     context: {
       ...page.context,
-      ...data.storeCollection.searchParams,
-      canonicalPath: page.path,
+      ...data.storeCollection.fields.searchParams,
+      canonicalPath: page.path.endsWith('/')
+        ? page.path.slice(0, -1)
+        : page.path,
       pageInfo: { size: 12 },
     },
   })
