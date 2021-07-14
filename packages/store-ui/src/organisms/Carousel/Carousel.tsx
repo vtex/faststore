@@ -5,21 +5,34 @@ import React from 'react'
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
+import type { CarouselState } from './hooks/useCarousel'
 import { useCarousel } from './hooks/useCarousel'
+import Bullets from '../../molecules/Bullets'
 
 export interface CarouselProps {
   testId?: string
+  itemsPerPage?: number
   swipeableConfigOverrides?: SwipeableProps
+}
+
+function isSlideVisible(carouselState: CarouselState, slideIdx: number) {
+  const { itemsPerPage, currentSlide } = carouselState
+
+  return slideIdx >= currentSlide && slideIdx < currentSlide + itemsPerPage
 }
 
 function Carousel({
   testId = 'store-carousel',
+  itemsPerPage = 2,
   swipeableConfigOverrides,
   children,
 }: PropsWithChildren<CarouselProps>) {
+  const numberOfSlides = React.Children.count(children)
+  const numberOfPages = Math.ceil(numberOfSlides / itemsPerPage)
+
   const { handlers, slide, carouselState, carouselDispatch } = useCarousel({
-    totalItems: React.Children.count(children),
-    itemsPerPage: 2,
+    totalItems: numberOfSlides,
+    itemsPerPage,
     swipeableConfigOverrides,
   })
 
@@ -31,11 +44,11 @@ function Carousel({
       {...handlers}
     >
       <div data-carousel-track-container>
-        <div style={{ display: 'flex' }} data-carousel-track>
+        <div data-carousel-track>
           {React.Children.map(children, (child, idx) => (
             <div
               data-carousel-item
-              data-active={idx === carouselState.currentSlide || undefined}
+              data-visible={isSlideVisible(carouselState, idx) || undefined}
             >
               {child}
             </div>
@@ -58,8 +71,20 @@ function Carousel({
           <Icon component={<RightArrowIcon />} />
         </Button>
       </div>
-      {`This is the current slide: ${carouselState.currentSlide}`}
-      {`This is the current page: ${carouselState.currentPage}`}
+      <div data-carousel-bullets>
+        <Bullets
+          totalQuantity={numberOfPages}
+          activeBullet={carouselState.currentPage}
+          onClick={(_, idx) =>
+            carouselDispatch({
+              type: 'GO_TO_PAGE',
+              payload: {
+                pageIndex: idx,
+              },
+            })
+          }
+        />
+      </div>
     </section>
   )
 }

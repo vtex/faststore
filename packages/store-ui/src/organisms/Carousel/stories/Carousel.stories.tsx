@@ -7,9 +7,24 @@ import mdx from './Carousel.mdx'
 
 const CarouselTemplate: Story<CarouselProps> = () => (
   <Component>
-    <img alt="" src="https://unsplash.it/475/205" />
-    <img alt="" src="https://unsplash.it/476/205" />
-    <img alt="" src="https://unsplash.it/477/205" />
+    <img alt="" width={450} src="https://source.unsplash.com/1600x900/?beach" />
+    <img alt="" width={450} src="https://source.unsplash.com/1600x900/?sun" />
+    <img alt="" width={450} src="https://source.unsplash.com/1600x900/?rio" />
+    <img
+      alt=""
+      width={450}
+      src="https://source.unsplash.com/1600x900/?brazil"
+    />
+    <img
+      alt=""
+      width={450}
+      src="https://source.unsplash.com/1600x900/?icecream"
+    />
+    <img
+      alt=""
+      width={450}
+      src="https://source.unsplash.com/1600x900/?summer"
+    />
   </Component>
 )
 
