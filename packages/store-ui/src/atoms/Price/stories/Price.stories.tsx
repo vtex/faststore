@@ -8,13 +8,14 @@ import type { ComponentArgTypes } from '../../../typings/utils'
 
 const priceValue = 62.5
 
-const PriceTemplate: Story<PriceProps> = ({ value }) => (
-  <Component value={value} />
+const PriceTemplate: Story<PriceProps> = ({ value, variant }) => (
+  <Component value={value} variant={variant} />
 )
 
 export const Default = PriceTemplate.bind({})
 Default.args = {
   value: priceValue,
+  variant: 'listing',
 }
 
 const INTLFormattedTemplate: Story<PriceProps> = ({ value, variant }) => {
@@ -37,6 +38,7 @@ const INTLFormattedTemplate: Story<PriceProps> = ({ value, variant }) => {
 export const INTLFormatted = INTLFormattedTemplate.bind({})
 INTLFormatted.args = {
   value: priceValue,
+  variant: 'spot',
 }
 
 const INTLFormattedToPartsTemplate: Story<PriceProps> = ({
@@ -80,16 +82,7 @@ const INTLFormattedToPartsTemplate: Story<PriceProps> = ({
 export const INTLFormattedToParts = INTLFormattedToPartsTemplate.bind({})
 INTLFormattedToParts.args = {
   value: priceValue,
-}
-
-const VariantTemplate: Story<PriceProps> = ({ value, variant }) => (
-  <Component value={value} variant={variant} />
-)
-
-export const Variant = VariantTemplate.bind({})
-Variant.args = {
-  value: priceValue,
-  variant: 'listing',
+  variant: 'selling',
 }
 
 export const Custom: Story<PriceProps> = ({ value, variant }) => {
@@ -107,6 +100,7 @@ export const Custom: Story<PriceProps> = ({ value, variant }) => {
 
 Custom.args = {
   value: priceValue,
+  variant: 'savings',
 }
 
 const argTypes: ComponentArgTypes<Omit<PriceProps, 'value'>> = {
