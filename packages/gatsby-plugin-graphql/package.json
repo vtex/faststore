@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-graphql",
-  "version": "0.372.12",
+  "version": "0.372.13",
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.13 (2021-07-14)
+
+**Note:** Version bump only for package @vtex/gatsby-plugin-pixel-facebook
+
+
+
+
+
 ## 0.372.12 (2021-07-14)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-pixel-facebook
