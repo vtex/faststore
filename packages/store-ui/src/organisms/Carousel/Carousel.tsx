@@ -5,7 +5,6 @@ import React from 'react'
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
-import type { SlideDirection } from './hooks/useCarousel'
 import { useCarousel } from './hooks/useCarousel'
 
 export interface CarouselProps {
@@ -18,29 +17,11 @@ function Carousel({
   swipeableConfigOverrides,
   children,
 }: PropsWithChildren<CarouselProps>) {
-  const { handlers, carouselState, carouselDispatch } = useCarousel({
+  const { handlers, slide, carouselState, carouselDispatch } = useCarousel({
     totalItems: React.Children.count(children),
     itemsPerPage: 2,
     swipeableConfigOverrides,
   })
-
-  const slide = (slideDirection: SlideDirection) => {
-    if (slideDirection === 'next') {
-      carouselDispatch({
-        type: 'NEXT_PAGE',
-      })
-    }
-
-    if (slideDirection === 'previous') {
-      carouselDispatch({
-        type: 'PREVIOUS_PAGE',
-      })
-    }
-
-    setTimeout(() => {
-      carouselDispatch({ type: 'STOP_SLIDE' })
-    }, 50)
-  }
 
   return (
     <section
@@ -65,14 +46,14 @@ function Carousel({
         <Button
           aria-controls="carousel"
           aria-label="previous"
-          onClick={() => slide('previous')}
+          onClick={() => slide('previous', carouselDispatch)}
         >
           <Icon component={<LeftArrowIcon />} />
         </Button>
         <Button
           aria-controls="carousel"
           aria-label="next"
-          onClick={() => slide('next')}
+          onClick={() => slide('next', carouselDispatch)}
         >
           <Icon component={<RightArrowIcon />} />
         </Button>
