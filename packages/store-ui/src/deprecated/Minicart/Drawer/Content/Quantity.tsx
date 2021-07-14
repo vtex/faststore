@@ -10,7 +10,7 @@ interface Props<T extends Item> {
   item: T
   variant: string
   disabled?: boolean
-  updateItem: (item: T) => Promise<void> | void
+  updateItem: (item: T, oldItem?: T) => Promise<void> | void
 }
 
 const MinicartDrawerQuantity = <T extends Item>({
@@ -30,7 +30,7 @@ const MinicartDrawerQuantity = <T extends Item>({
 
       try {
         setIsLoading(true)
-        await updateItem({ ...item, quantity })
+        await updateItem({ ...item, quantity }, item)
       } finally {
         setIsLoading(false)
       }

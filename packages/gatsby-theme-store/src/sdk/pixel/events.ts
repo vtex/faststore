@@ -1,6 +1,5 @@
 import type { ProductSummary_ProductFragment } from '../../components/ProductSummary/__generated__/ProductSummary_product.graphql'
 import type { OrderFormFragment_OrderFormFragment } from '../orderForm/controller/__generated__/OrderFormFragment_orderForm.graphql'
-import type { OrderFormItem } from '../orderForm/types'
 
 export interface PageViewData {
   accountName: string
@@ -42,12 +41,12 @@ export interface InternalSiteSearchViewData extends PageViewData {
 }
 
 export interface AddToCartData {
-  items: OrderFormItem[]
+  products: PixelProduct[]
   oneClickBuy?: boolean
 }
 
 export interface RemoveFromCartData {
-  items: OrderFormFragment_OrderFormFragment['items']
+  products: PixelProduct[]
 }
 
 export interface CartChangedData {
@@ -164,4 +163,18 @@ interface PriceTag {
   identifier: string
   isPercentual: boolean
   value: number
+}
+
+export interface PixelProduct {
+  productId: string
+  productReferenceId: Maybe<string>
+  productName: string
+  brand: string
+  categoryTree: Array<{ name: string }>
+  price: number
+  // TODO currencyCode
+  quantity: number
+  skuId: string
+  skuName: string
+  skuReferenceId: Maybe<Array<{ value: Maybe<string> }>>
 }

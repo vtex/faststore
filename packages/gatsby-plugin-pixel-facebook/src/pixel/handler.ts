@@ -41,19 +41,19 @@ export const handler: PixelEventHandler = (event) => {
     }
 
     case 'vtex:addToCart': {
-      const { items } = event.data
+      const { products } = event.data
 
       fbq('track', 'AddToCart', {
-        value: items.reduce(
+        value: products.reduce(
           (acc: number, { price }) =>
             acc + (typeof price === 'number' ? price : 0),
           0
         ),
-        content_ids: items.map((sku) => sku.id),
-        contents: items.map((sku) => ({
-          id: sku.id,
-          quantity: sku.quantity,
-          item_price: sku.price ? sku.price : 0,
+        content_ids: products.map((product) => product.skuId),
+        contents: products.map((product) => ({
+          id: product.skuId,
+          quantity: product.quantity,
+          item_price: product.price ? product.price : 0,
         })),
         content_type: 'product',
         // TODO: send currency
