@@ -1,13 +1,13 @@
 import React from 'react'
-import type { Story, Meta, ArgTypes } from '@storybook/react'
+import type { Story, Meta } from '@storybook/react'
 
 import Component from '../TextArea'
 import type { Props as TextAreaProps } from '../TextArea'
 import mdx from './TextArea.mdx'
 import type { ComponentArgTypes } from '../../../typings/utils'
 
-const TextAreaTemplate: Story<TextAreaProps> = ({ variant, ...props }) => {
-  const colorByState: Record<
+const TextAreaTemplate: Story<TextAreaProps> = (props) => {
+  const colorByVariant: Record<
     NonNullable<TextAreaProps['variant']> | 'default',
     string
   > = {
@@ -21,10 +21,9 @@ const TextAreaTemplate: Story<TextAreaProps> = ({ variant, ...props }) => {
       style={{
         borderWidth: 2,
         borderStyle: 'solid',
-        borderColor: colorByState[variant || 'default'],
+        borderColor: colorByVariant[props.variant || 'default'],
       }}
       {...props}
-      variant={variant}
     />
   )
 }

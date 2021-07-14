@@ -109,7 +109,7 @@ Custom.args = {
   value: priceValue,
 }
 
-const constrols: ComponentArgTypes<Omit<PriceProps, 'value'>> = {
+const argTypes: ComponentArgTypes<Omit<PriceProps, 'value'>> = {
   variant: {
     options: ['selling', 'listing', 'spot', 'savings', 'installment'],
     control: { type: 'select' },
@@ -121,9 +121,7 @@ const constrols: ComponentArgTypes<Omit<PriceProps, 'value'>> = {
 
 export default {
   title: 'Atoms/Price',
-  argTypes: {
-    ...constrols,
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,

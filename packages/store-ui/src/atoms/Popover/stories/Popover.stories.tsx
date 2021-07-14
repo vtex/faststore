@@ -28,15 +28,13 @@ const PopoverTemplate: Story<PopoverProps> = ({ children }) => {
 
 export const Popover = PopoverTemplate.bind({})
 
-const controls: ComponentArgTypes<Omit<PopoverProps, 'targetRef'>> = {
+const argTypes: ComponentArgTypes<Omit<PopoverProps, 'targetRef'>> = {
   children: 'Whoa! Look at me!',
 }
 
 export default {
   title: 'Atoms/Popover',
-  argTypes: {
-    ...controls,
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,

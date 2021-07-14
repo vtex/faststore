@@ -7,7 +7,7 @@ import Component from '../Input'
 import mdx from './Input.mdx'
 
 const InputTemplate: Story<InputProps> = ({ placeholder, variant }) => {
-  const colorByvariant = {
+  const colorByVariant = {
     default: 'black',
     success: 'green',
     error: 'red',
@@ -16,7 +16,7 @@ const InputTemplate: Story<InputProps> = ({ placeholder, variant }) => {
   return (
     <Component
       style={{
-        borderColor: colorByvariant[variant || 'default'],
+        borderColor: colorByVariant[variant || 'default'],
         borderStyle: 'solid',
       }}
       placeholder={placeholder}
@@ -27,7 +27,7 @@ const InputTemplate: Story<InputProps> = ({ placeholder, variant }) => {
 
 export const Input = InputTemplate.bind({})
 
-const controls: ComponentArgTypes<InputProps> = {
+const argTypes: ComponentArgTypes<InputProps> = {
   variant: {
     options: ['default', 'success', 'error'],
     defaultValue: 'default',
@@ -42,9 +42,7 @@ const controls: ComponentArgTypes<InputProps> = {
 export default {
   title: 'Atoms/Input',
   component: Input,
-  argTypes: {
-    ...controls,
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,

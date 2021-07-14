@@ -24,7 +24,7 @@ const BulletsTemplate: Story<BulletsProps> = ({
 
 export const Bullets = BulletsTemplate.bind({})
 
-const controls: ComponentArgTypes<BulletsProps> = {
+const argTypes: ComponentArgTypes<BulletsProps> = {
   totalQuantity: {
     control: { type: 'number', min: 1 },
     defaultValue: 5,
@@ -44,9 +44,7 @@ const controls: ComponentArgTypes<BulletsProps> = {
 export default {
   title: 'Molecules/Bullets',
   component: Bullets,
-  argTypes: {
-    ...controls,
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,

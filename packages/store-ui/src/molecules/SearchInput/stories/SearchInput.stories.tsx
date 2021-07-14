@@ -23,7 +23,7 @@ const CustomIconTemplate: Story<SearchInputProps> = ({
 
 export const CustomIcon = CustomIconTemplate.bind({})
 
-const controls: ComponentArgTypes<SearchInputProps> = {
+const argTypes: ComponentArgTypes<SearchInputProps> = {
   placeholder: {
     control: { type: 'text' },
     defaultValue: 'Search',
@@ -36,9 +36,7 @@ const controls: ComponentArgTypes<SearchInputProps> = {
 
 export default {
   title: 'Molecules/SearchInput',
-  argTypes: {
-    ...controls,
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,

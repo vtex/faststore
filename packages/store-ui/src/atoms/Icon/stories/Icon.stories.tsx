@@ -13,7 +13,7 @@ const IconTemplate: Story<IconProps> = ({ style }) => (
 
 export const Icon = IconTemplate.bind({})
 
-const controls: ComponentArgTypes<Omit<IconProps, 'component'>> = {
+const argTypes: ComponentArgTypes<Omit<IconProps, 'component'>> = {
   style: {
     control: { type: 'object' },
     defaultValue: {
@@ -32,9 +32,7 @@ const controls: ComponentArgTypes<Omit<IconProps, 'component'>> = {
 export default {
   title: 'Atoms/Icon',
   component: Icon,
-  argTypes: {
-    ...controls,
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,

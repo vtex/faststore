@@ -14,7 +14,7 @@ const ButtonTemplate: Story<ButtonProps> = ({ children, onClick, testId }) => (
 
 export const Button = ButtonTemplate.bind({})
 
-const constrols: ComponentArgTypes<ButtonProps> = {
+const argTypes: ComponentArgTypes<ButtonProps> = {
   children: {
     control: { type: 'text' },
     defaultValue: 'Button',
@@ -28,9 +28,7 @@ const constrols: ComponentArgTypes<ButtonProps> = {
 export default {
   title: 'Atoms/Button',
   component: Button,
-  argTypes: {
-    ...constrols,
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,
