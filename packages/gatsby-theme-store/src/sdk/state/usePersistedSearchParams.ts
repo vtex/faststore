@@ -19,10 +19,6 @@ export const usePersistedSearchParams = (
     }
   }
 
-  // const value = isServer
-  //   ? valueDefault
-  //   : searchParams.get(key) ?? localStorage.getItem(key) ?? valueDefault
-
   useEffect(() => {
     if (navigator.cookieEnabled) {
       localStorage.setItem(key, value)
