@@ -5,20 +5,14 @@ import React from 'react'
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
-import type { CarouselState } from './hooks/useCarousel'
 import { useCarousel } from './hooks/useCarousel'
+import { useSliderVisibility } from './hooks/useSlideVisibility'
 import Bullets from '../../molecules/Bullets'
 
 export interface CarouselProps {
   testId?: string
   itemsPerPage?: number
   swipeableConfigOverrides?: SwipeableProps
-}
-
-function isSlideVisible(carouselState: CarouselState, slideIdx: number) {
-  const { itemsPerPage, currentSlide } = carouselState
-
-  return slideIdx >= currentSlide && slideIdx < currentSlide + itemsPerPage
 }
 
 function Carousel({
@@ -36,6 +30,11 @@ function Carousel({
     swipeableConfigOverrides,
   })
 
+  const { shouldRenderItem, isItemVisible } = useSliderVisibility({
+    itemsPerPage: carouselState.itemsPerPage,
+    currentSlide: carouselState.currentSlide,
+  })
+
   return (
     <section
       data-store-carousel
@@ -47,10 +46,11 @@ function Carousel({
         <div data-carousel-track>
           {React.Children.map(children, (child, idx) => (
             <div
+              key={idx}
               data-carousel-item
-              data-visible={isSlideVisible(carouselState, idx) || undefined}
+              data-visible={isItemVisible(idx) || undefined}
             >
-              {child}
+              {shouldRenderItem(idx) ? child : <div />}
             </div>
           ))}
         </div>
