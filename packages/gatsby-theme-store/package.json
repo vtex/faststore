@@ -68,7 +68,7 @@
     "@vtex/gatsby-plugin-graphql": "^0.372.14",
     "@vtex/gatsby-plugin-theme-ui": "^0.372.14",
     "@vtex/order-items": "^0.6.1",
-    "@vtex/order-manager": "^0.5.2",
+    "@vtex/order-manager": "^0.5.4-beta.0",
     "gatsby-plugin-bundle-stats": "^2.7.2",
     "html-loader": "^2.1.2",
     "intersection-observer": "^0.11.0",
