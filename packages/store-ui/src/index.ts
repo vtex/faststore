@@ -21,6 +21,9 @@ export { default as Checkbox } from './atoms/Checkbox'
 export type { CheckboxProps } from './atoms/Checkbox'
 
 // Molecules
+export { default as Bullets } from './molecules/Bullets'
+export type { BulletsProps } from './molecules/Bullets'
+
 export { default as SearchInput } from './molecules/SearchInput'
 export type { SearchInputProps } from './molecules/SearchInput'
 
