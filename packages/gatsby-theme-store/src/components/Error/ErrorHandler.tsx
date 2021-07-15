@@ -15,10 +15,17 @@ interface Props {
 }
 
 const getReloads = () =>
-  Number(window.sessionStorage.getItem('store:reloads') ?? '0')
+  Number(
+    navigator.cookieEnabled
+      ? window.sessionStorage.getItem('store:reloads') ?? '0'
+      : '0'
+  )
 
-const setReloads = (reloads: number) =>
-  window.sessionStorage.setItem('store:reloads', `${reloads}`)
+const setReloads = (reloads: number) => {
+  if (navigator.cookieEnabled) {
+    window.sessionStorage.setItem('store:reloads', `${reloads}`)
+  }
+}
 
 const canRecover = () => getReloads() < 2
 
