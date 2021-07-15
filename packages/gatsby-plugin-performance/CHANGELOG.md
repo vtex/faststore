@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.15 (2021-07-15)
+
+**Note:** Version bump only for package @vtex/gatsby-plugin-performance
+
+
+
+
+
 ## 0.372.14 (2021-07-15)
 
 
