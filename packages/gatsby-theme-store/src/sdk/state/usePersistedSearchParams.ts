@@ -9,12 +9,24 @@ export const usePersistedSearchParams = (
 ): [string, typeof setSearchParams] => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const value = isServer
-    ? valueDefault
-    : searchParams.get(key) ?? localStorage.getItem(key) ?? valueDefault
+  let value = valueDefault
+
+  if (!isServer) {
+    value = searchParams.get(key) ?? valueDefault
+
+    if (value === null && navigator.cookieEnabled) {
+      value = localStorage.getItem(key) ?? valueDefault
+    }
+  }
+
+  // const value = isServer
+  //   ? valueDefault
+  //   : searchParams.get(key) ?? localStorage.getItem(key) ?? valueDefault
 
   useEffect(() => {
-    localStorage.setItem(key, value)
+    if (navigator.cookieEnabled) {
+      localStorage.setItem(key, value)
+    }
   }, [key, value])
 
   return [value, setSearchParams]

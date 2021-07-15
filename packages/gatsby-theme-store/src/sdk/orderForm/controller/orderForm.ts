@@ -5,13 +5,23 @@ const ORDER_FORM_STORAGE_KEY = 'vtex:orderFormId'
 // Queue to make changes to the orderForm.
 // There should be only one single instance of this queue in the whole app
 
-export const getOrderformId = () => localStorage.getItem(ORDER_FORM_STORAGE_KEY)
+export const getOrderformId = () => {
+  if (navigator.cookieEnabled) {
+    return localStorage.getItem(ORDER_FORM_STORAGE_KEY)
+  }
+}
 
-export const setOrderFormId = (ofId: string) =>
-  localStorage.setItem(ORDER_FORM_STORAGE_KEY, ofId)
+export const setOrderFormId = (ofId: string) => {
+  if (navigator.cookieEnabled) {
+    localStorage.setItem(ORDER_FORM_STORAGE_KEY, ofId)
+  }
+}
 
-export const clearOrderFormId = () =>
-  localStorage.removeItem(ORDER_FORM_STORAGE_KEY)
+export const clearOrderFormId = () => {
+  if (navigator.cookieEnabled) {
+    localStorage.removeItem(ORDER_FORM_STORAGE_KEY)
+  }
+}
 
 export const fragment = gql`
   fragment OrderFormFragment_orderForm on VTEX_OrderForm {

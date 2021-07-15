@@ -7,13 +7,21 @@ const HISTORY_KEY = 'vtex:search-history'
 const MAX_ITEMS = 10
 
 export const history = {
-  get: (): string[] => JSON.parse(localStorage.getItem(HISTORY_KEY) ?? '[]'),
+  get: (): string[] => {
+    if (navigator.cookieEnabled) {
+      return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? '[]')
+    }
+
+    return []
+  },
   add: (term: string) => {
     const h = history.get()
 
     const updatedHistory = uniqBy([term, ...h].slice(0, MAX_ITEMS), (t) => t)
 
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory))
+    if (navigator.cookieEnabled) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory))
+    }
   },
 }
 
