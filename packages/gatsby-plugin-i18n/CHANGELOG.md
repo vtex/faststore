@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.14 (2021-07-15)
+
+
+### Features
+
+* **store-ui:** update accordion version ([#820](https://github.com/vtex/faststore/issues/820)) ([624060a](https://github.com/vtex/faststore/commit/624060a1a88740794f82bb4d5782f896dc80695f))
+
+
+
+
+
 ## 0.372.13 (2021-07-14)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-i18n
