@@ -17,8 +17,8 @@ interface Props {
 const getReloads = () =>
   Number(
     navigator.cookieEnabled
-      ? window.sessionStorage.getItem('store:reloads') ?? '0'
-      : '0'
+      ? window.sessionStorage.getItem('store:reloads') ?? '2'
+      : '2'
   )
 
 const setReloads = (reloads: number) => {
