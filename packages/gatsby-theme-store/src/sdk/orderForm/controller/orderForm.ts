@@ -9,6 +9,8 @@ export const getOrderformId = () => {
   if (navigator.cookieEnabled) {
     return localStorage.getItem(ORDER_FORM_STORAGE_KEY)
   }
+
+  return null
 }
 
 export const setOrderFormId = (ofId: string) => {

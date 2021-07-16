@@ -12,10 +12,10 @@ const ONE_DAY_MS = 86400000
 
 export const storage = {
   get: () => {
-    const serialized = null
+    let serialized = null
 
     if (!isServer && navigator.cookieEnabled) {
-      localStorage.getItem(SESSION_STORAGE_KEY)
+      serialized = localStorage.getItem(SESSION_STORAGE_KEY)
     }
 
     const payload = serialized ? (JSON.parse(serialized) as Payload) : null
@@ -37,9 +37,7 @@ export const storage = {
         generatedAt: Date.now(),
       }
 
-      if (navigator.cookieEnabled) {
-        localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(payload))
-      }
+      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(payload))
     }
   },
 }

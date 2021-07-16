@@ -3,6 +3,8 @@ const postalCode = {
     if (navigator.cookieEnabled) {
       return window.localStorage.getItem('vtex:postalCode')
     }
+
+    return null
   },
   set: (value: Maybe<string>) => {
     if (navigator.cookieEnabled) {
@@ -20,6 +22,8 @@ const region = {
     if (navigator.cookieEnabled) {
       return window.localStorage.getItem('vtex:regionId')
     }
+
+    return null
   },
   set: (value: Maybe<string>) => {
     if (navigator.cookieEnabled) {
