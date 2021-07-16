@@ -18,7 +18,7 @@ const postalCode = {
 const region = {
   get: () => {
     if (navigator.cookieEnabled) {
-      return localStorage.getItem('vtex:regionId')
+      return window.localStorage.getItem('vtex:regionId')
     }
   },
   set: (value: Maybe<string>) => {
