@@ -1,2 +1,2 @@
 export { default } from './Price'
-export * from './Price'
+export type { PriceProps } from './Price'
