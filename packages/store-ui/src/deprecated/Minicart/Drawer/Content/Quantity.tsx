@@ -10,7 +10,7 @@ interface Props<T extends Item> {
   item: T
   variant: string
   disabled?: boolean
-  updateItem: (item: T, oldItem?: T) => Promise<void> | void
+  updateItem: (item: T, oldItem?: T) => PromiseLike<unknown> | unknown
 }
 
 const MinicartDrawerQuantity = <T extends Item>({

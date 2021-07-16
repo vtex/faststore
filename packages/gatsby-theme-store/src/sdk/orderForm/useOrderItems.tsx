@@ -10,14 +10,8 @@ import type { UpdateQuantityWithPixel } from './useUpdateQuantityWithPixel'
 import { useUpdateQuantityWithPixel } from './useUpdateQuantityWithPixel'
 
 export interface UseOrderItemsWithPixel {
-  updateQuantity: UpdateQuantityWithPixel<
-    Parameters<UpdateQuantityFn>[0],
-    ReturnType<UpdateQuantityFn>
-  >
-  removeItem: RemoveItemWithPixel<
-    Parameters<RemoveItemFn>[0],
-    ReturnType<RemoveItemFn>
-  >
+  updateQuantity: UpdateQuantityWithPixel<Parameters<UpdateQuantityFn>[0], void>
+  removeItem: RemoveItemWithPixel<Parameters<RemoveItemFn>[0], void>
 }
 
 export type UseOrderItems = Omit<
@@ -25,6 +19,12 @@ export type UseOrderItems = Omit<
   'updateQuantity' | 'removeItem'
 > &
   UseOrderItemsWithPixel
+
+const nonBlockingWrapper = <T extends any[]>(fn: (...args: T) => any) => {
+  return (...args: T): void => {
+    fn(...args)
+  }
+}
 
 export function useOrderItems(): UseOrderItems {
   const { updateQuantity, removeItem, ...rawOrderItems } = useRawOrderItems()
@@ -36,7 +36,7 @@ export function useOrderItems(): UseOrderItems {
 
   return {
     ...rawOrderItems,
-    updateQuantity: updateQuantityWithPixel,
+    updateQuantity: nonBlockingWrapper(updateQuantityWithPixel),
     removeItem: removeItemWithPixel,
   }
 }
