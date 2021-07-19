@@ -50,7 +50,7 @@ function Carousel({
               data-carousel-item
               data-visible={isItemVisible(idx) || undefined}
             >
-              {shouldRenderItem(idx) ? child : <div />}
+              {shouldRenderItem(idx) ? child : null}
             </div>
           ))}
         </div>
