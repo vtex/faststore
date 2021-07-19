@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.16 (2021-07-19)
+
+
+### Bug Fixes
+
+* **store-ui:** Fix bullets iterator ([#824](https://github.com/vtex/faststore/issues/824)) ([74034a6](https://github.com/vtex/faststore/commit/74034a667a6b4f40602ec179575bcedaf18c4af4))
+
+
+
+
+
 ## 0.372.15 (2021-07-15)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-performance
