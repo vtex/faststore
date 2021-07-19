@@ -1,2 +1,2 @@
 export { default } from './Checkbox'
-export { Props as CheckboxProps } from './Checkbox'
+export type { CheckboxProps } from './Checkbox'

@@ -2,7 +2,7 @@ import React from 'react'
 import type { Story, Meta } from '@storybook/react'
 
 import Component from '../TextArea'
-import type { Props as TextAreaProps } from '../TextArea'
+import type { TextAreaProps } from '../TextArea'
 import mdx from './TextArea.mdx'
 import type { ComponentArgTypes } from '../../../typings/utils'
 

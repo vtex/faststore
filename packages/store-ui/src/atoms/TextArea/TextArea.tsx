@@ -1,7 +1,7 @@
 import type { TextareaHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export interface Props
+export interface TextAreaProps
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'children'> {
   /**
    * Current variant of the input.
@@ -13,24 +13,23 @@ export interface Props
   testId?: string
 }
 
-const TextArea = forwardRef<HTMLTextAreaElement, Props>(function TextArea(
-  { variant, testId = 'store-textarea', ...props },
-  ref
-) {
-  const variants = {
-    'data-success': variant === 'success' || undefined,
-    'data-error': variant === 'error' || undefined,
-  }
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  function TextArea({ variant, testId = 'store-textarea', ...props }, ref) {
+    const variants = {
+      'data-success': variant === 'success' || undefined,
+      'data-error': variant === 'error' || undefined,
+    }
 
-  return (
-    <textarea
-      ref={ref}
-      data-store-textarea
-      data-testid={testId}
-      {...variants}
-      {...props}
-    />
-  )
-})
+    return (
+      <textarea
+        ref={ref}
+        data-store-textarea
+        data-testid={testId}
+        {...variants}
+        {...props}
+      />
+    )
+  }
+)
 
 export default TextArea
