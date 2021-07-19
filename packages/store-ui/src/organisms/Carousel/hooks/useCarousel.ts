@@ -80,7 +80,7 @@ function reducer(state: CarouselState, action: Action): CarouselState {
       let previousPage = state.currentPage - 1
 
       if (previousSlide < 0) {
-        previousSlide = state.totalItems - 1 - (state.itemsPerPage - 1)
+        previousSlide = state.totalItems - state.itemsPerPage + 1
       }
 
       if (previousPage < 0) {
@@ -96,15 +96,20 @@ function reducer(state: CarouselState, action: Action): CarouselState {
       }
     }
 
-    case 'GO_TO_PAGE':
+    case 'GO_TO_PAGE': {
+      if (action.payload.pageIndex === state.currentPage) {
+        return state
+      }
+
       return {
         ...state,
         sliding: true,
         slideDirection:
-          action.payload.pageIndex > state.currentSlide ? 'next' : 'previous',
+          action.payload.pageIndex > state.currentPage ? 'next' : 'previous',
         currentSlide: action.payload.pageIndex * state.itemsPerPage,
         currentPage: action.payload.pageIndex,
       }
+    }
 
     case 'STOP_SLIDE':
       return { ...state, sliding: false }
