@@ -6,7 +6,7 @@ import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
 import { useCarousel } from './hooks/useCarousel'
-import { useSliderVisibility } from './hooks/useSlideVisibility'
+import { useSlideVisibility } from './hooks/useSlideVisibility'
 import Bullets from '../../molecules/Bullets'
 
 export interface CarouselProps {
@@ -30,7 +30,7 @@ function Carousel({
     swipeableConfigOverrides,
   })
 
-  const { shouldRenderItem, isItemVisible } = useSliderVisibility({
+  const { shouldRenderItem, isItemVisible } = useSlideVisibility({
     itemsPerPage: carouselState.itemsPerPage,
     currentSlide: carouselState.currentSlide,
   })
