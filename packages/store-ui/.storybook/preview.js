@@ -27,6 +27,10 @@ export const parameters = {
     onChange: (theme) => {
       document
         .getElementById('storybook-preview-iframe')
+        .contentDocument.querySelector('body').className =
+        'sb-show-main sb-main-padded'
+      document
+        .getElementById('storybook-preview-iframe')
         .contentDocument.querySelector('body')
         .classList.add(theme.class)
     },
