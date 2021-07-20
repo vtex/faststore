@@ -1,5 +1,32 @@
+import { useMemo } from 'react'
+
 import type { ProductSummary_ProductFragment } from '../../components/ProductSummary/__generated__/ProductSummary_product.graphql'
 import type { OrderFormFragment_OrderFormFragment } from '../orderForm/controller/__generated__/OrderFormFragment_orderForm.graphql'
+import { getBestSeller } from '../product/useBestSeller'
+import { useSku } from '../product/useSku'
+
+export function minimalToPixelProduct(
+  product: MinimalProduct,
+  sku: MinimalSKU
+): PixelProduct {
+  return {
+    productId: product.id,
+    productReferenceId: product.productReference,
+    productName: product.productName,
+    brand: product.brand,
+    categoryTree: product.categoryTree,
+    price: getBestSeller(sku)?.commercialOffer.price,
+    skuId: sku.itemId,
+    skuName: sku.name,
+    skuReferenceId: sku.referenceId,
+  } as PixelProduct
+}
+
+export function useMinimalToPixelProduct(product: MinimalProduct) {
+  const [sku] = useSku(product)
+
+  return useMemo(() => minimalToPixelProduct(product, sku), [product, sku])
+}
 
 export interface PageViewData {
   accountName: string
@@ -41,12 +68,12 @@ export interface InternalSiteSearchViewData extends PageViewData {
 }
 
 export interface AddToCartData {
-  products: PixelProduct[]
+  products: CartPixelProduct[]
   oneClickBuy?: boolean
 }
 
 export interface RemoveFromCartData {
-  products: PixelProduct[]
+  products: CartPixelProduct[]
 }
 
 export interface CartChangedData {
@@ -62,7 +89,7 @@ export interface ProductViewData {
 }
 
 export interface ProductClickData {
-  product: ProductSummary_ProductFragment
+  product: PixelProduct
 }
 
 export interface ProductImpressionData {
@@ -173,8 +200,104 @@ export interface PixelProduct {
   categoryTree: Array<{ name: string }>
   price: number
   // TODO currencyCode
-  quantity: number
   skuId: string
   skuName: string
   skuReferenceId: Maybe<Array<{ value: Maybe<string> }>>
+}
+
+export interface CartPixelProduct extends PixelProduct {
+  quantity: number
+}
+
+interface MinimalSeller {
+  /**
+   * Seller's commercial offer. It contains price and availability information.
+   *
+   * @type {object}
+   * @memberof Seller
+   */
+  commercialOffer: {
+    /**
+     * Price of a seller's SKU.
+     *
+     * @type {number}
+     */
+    price: number
+  }
+}
+
+export interface MinimalSKU {
+  /**
+   * SKU id.
+   *
+   * @type {string}
+   * @memberof SKU
+   */
+  itemId: string
+  /**
+   * SKU sellers.
+   *
+   * @type {MinimalSeller[]}
+   * @memberof SKU
+   */
+  sellers: MinimalSeller[]
+  /**
+   * SKU reference id. May be an array of objects with possibly `null` value properties.
+   *
+   * @type {Maybe<Array<{ value: Maybe<string> }>>}
+   * @memberof SKU
+   */
+  referenceId: Maybe<Array<{ value: Maybe<string> }>>
+  /**
+   * SKU name. Doesn't include the product name.
+   *
+   * @type {string}
+   * @memberof SKU
+   */
+  name: string
+}
+
+export interface MinimalProduct {
+  /**
+   * Product id.
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  id: string
+  /**
+   * Product name. Doesn't include the SKU name.
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  productName: string
+  /**
+   * Product brand.
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  brand: string
+  /**
+   * Product's category tree. Each category must have a name.
+   *
+   * @type {Array<{ name: string }>}
+   * @memberof Product
+   */
+  categoryTree: Array<{ name: string }>
+  /**
+   * Product reference id.
+   *
+   * @type {Maybe<string>}
+   * @memberof Product
+   */
+  productReference: Maybe<string>
+  /**
+   * Product's SKU list.
+   *
+   * @type {MinimalSKU[]}
+   * @memberof MinimalProduct
+   */
+  items: MinimalSKU[]
 }

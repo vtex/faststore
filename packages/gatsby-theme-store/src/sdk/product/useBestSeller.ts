@@ -1,15 +1,10 @@
-interface Seller {
-  commercialOffer: {
-    availableQuantity: number
-    price: number
-  }
+interface SKU<T> {
+  sellers: T[]
 }
 
-interface SKU {
-  sellers: Seller[]
-}
+export const getBestSeller = <T>(sku: Maybe<SKU<T>>): T | undefined =>
+  sku?.sellers?.[0]
 
 // TODO: This could be sent to the backend since only marketplaces
 // require this feature
-export const useBestSeller = <T extends SKU>(sku: Maybe<T>) =>
-  sku?.sellers?.[0] as ArrayItem<T['sellers']>
+export const useBestSeller = getBestSeller
