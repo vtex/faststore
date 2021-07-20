@@ -1,6 +1,5 @@
 // import { useEffect } from "react"
 import { withThemes } from 'storybook-addon-themes/react'
-import theme from './theme'
 import SBTheme from './theme'
 import ThemeProvider from './themes'
 
@@ -25,16 +24,14 @@ export const parameters = {
       { name: 'none', class: 'no-theme', color: '#FFFFFF' },
       { name: 'basic-theme', class: 'basic-theme', color: '#999999' },
     ],
-    // onChange: (theme) => {
-    //   document.body.classList.add(theme.class)
-    // }
+    onChange: (theme) => {
+      document
+        .getElementById('storybook-preview-iframe')
+        .contentDocument.querySelector('body')
+        .classList.add(theme.class)
+    },
   },
-  Decorator: ({ children, themeName }) => {
-    console.log(themeName)
-    // document.body.classList.add(themeName)
-    console.log(document.getElementsByClassName('sb-show-main'))
-    // document.getElementsByClassName("sb-show-main")[0].classList.add(theme.class)
-
+  Decorator: ({ children }) => {
     return <ThemeProvider>{children}</ThemeProvider>
   },
 }
