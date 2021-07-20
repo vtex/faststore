@@ -1,0 +1,23 @@
+type StoreCollectionSeo {
+  title: String!
+  description: String!
+}
+
+type KeyValue {
+  key: String!
+  value: String!
+}
+
+type SearchParams {
+  selectedFacets: [KeyValue!]!
+  orderBy: String!
+  from: Int!
+  to: Int!
+}
+
+type StoreCollection implements Node @childOf(types: ["StoreCollection"]{
+  id: ID!
+  seo: StoreCollectionSeo!
+  slug: String!
+  searchParams: SearchParams!
+}

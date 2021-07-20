@@ -6,18 +6,21 @@ import type {
   CreatePagesArgs,
   SourceNodesArgs,
   PluginOptionsSchemaArgs,
+  CreateSchemaCustomizationArgs,
+  CreateNodeArgs,
 } from 'gatsby'
 import {
   buildNodeDefinitions,
   compileNodeQueries,
   createDefaultQueryExecutor,
-  createSchemaCustomization,
+  createSchemaCustomization as toolkitCreateSchemaCustomization,
   generateDefaultFragments,
   loadSchema,
   sourceAllNodes,
 } from 'gatsby-graphql-source-toolkit'
 
 import { sourceAllLocalNodes } from './node-api/sourceAllLocalNodes'
+import { typeDefs as CollectionTypeDefs } from './types/collection'
 import type { BuilderConfig } from './index'
 
 interface CMSContentType {
@@ -51,16 +54,26 @@ const BUILDER_CONFIG_PATH = join(
 
 const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
 
-interface Options {
+export interface Options {
   tenant: string
+  environment?: 'vtexcommercestable' | 'vtexcommercebeta'
   workspace?: string
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
     tenant: Joi.string().required(),
+    environment: Joi.string()
+      .valid('vtexcommercestable')
+      .valid('vtexcommercebeta'),
     workspace: Joi.string(),
   })
+
+export const createSchemaCustomization = ({
+  actions: { createTypes },
+}: CreateSchemaCustomizationArgs) => {
+  createTypes(CollectionTypeDefs)
+}
 
 export const sourceNodes = async (
   args: SourceNodesArgs,
@@ -123,7 +136,7 @@ export const sourceNodes = async (
   }
 
   // Step5. Add explicit types to gatsby schema
-  await createSchemaCustomization(config)
+  await toolkitCreateSchemaCustomization(config)
 
   // Step6. Source local and remote nodes in parallel
   await Promise.all([
@@ -132,6 +145,14 @@ export const sourceNodes = async (
     // Source Nodes from `fixtures` folder
     sourceAllLocalNodes(config, root, name),
   ])
+}
+
+export const onCreateNode = async (gatsbyApi: CreateNodeArgs) => {
+  const { node, actions } = gatsbyApi
+
+  if (node.internal.type === 'vtexCmsPageContent') {
+    // console.log('vtexCmsPageContent')
+  }
 }
 
 export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {

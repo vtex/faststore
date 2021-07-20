@@ -1,0 +1,124 @@
+{
+  "title": "StoreCollection",
+  "description": "Definition of a Collection for the CMS",
+  "type": "object",
+  "required": ["seo", "href", "ui", "remoteId"],
+  "properties": {
+    "href": {
+      "type": "string",
+      "title": "Page path on your website",
+      "default": "/path/to/the/page",
+      "pattern": "^/([a-zA-Z0-9]|-|/|_)*"
+    },
+    "seo": {
+      "type": "object",
+      "title": "Seo",
+      "required": ["title", "description"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title Tag",
+          "default": "Page's Title Tag"
+        },
+        "description": {
+          "type": "string",
+          "title": "Meta tag description",
+          "default": "Page's meta tag description"
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "title": "UI Related parameters",
+      "required": ["orderBy", "columns", "lines"],
+      "properties": {
+        "orderBy": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "price:desc",
+            "price:asc",
+            "orders:desc",
+            "name:desc",
+            "name:asc",
+            "release:desc",
+            "discount:desc",
+            ""
+          ],
+          "enumNames": [
+            "Price: High to Low",
+            "Price: Low to High",
+            "Sales",
+            "Name, descending",
+            "Name, ascending",
+            "Release date",
+            "Discount",
+            "Default"
+          ]
+        },
+        "columns": {
+          "type": "object",
+          "required": ["desktop", "tablet", "mobile"],
+          "properties": {
+            "desktop": {
+              "type": "integer",
+              "default": 4
+            },
+            "tablet": {
+              "type": "integer",
+              "default": 3
+            },
+            "mobile": {
+              "type": "integer",
+              "default": 2
+            }
+          }
+        },
+        "lines": {
+          "title": "Minimun number of lines",
+          "type": "integer",
+          "default": 2
+        }
+      }
+    },
+    "remoteId": {
+      "title": "Choose the product cluster to create from",
+      "type": "object",
+      "anyOf": [
+        {
+          "title": "Category",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "entity": {
+              "const": "Category"
+            }
+          }
+        },
+        {
+          "title": "Brand",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "entity": {
+              "const": "Brand"
+            }
+          }
+        },
+        {
+          "title": "Collection",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "entity": {
+              "const": "Collection"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
