@@ -33,21 +33,15 @@ import type {
 interface CMSContentType {
   id: string
   name: string
-  beforeBlocks: Array<{ name: string; schema: JSONSchema6 }>
-  afterBlocks: Array<{ name: string; schema: JSONSchema6 }>
-  extraBlocks: Array<{
+  configurationSchemaSets: Array<{
     name: string
-    blocks: Array<{ name: string; schema: JSONSchema6 }>
+    configurations: Array<{ name: string; schema: JSONSchema6 }>
   }>
 }
 
 interface CMSBuilderConfig {
   id: 'faststore'
-  name: 'Powered by Gatsby Plugin CMS'
   productionBaseUrl: string
-  blocks: Array<{ name: string; schema: JSONSchema6 }>
-  contentTypes: CMSContentType[]
-  messages: Record<string, string>
 }
 
 const { name } = require('./package.json')
@@ -57,6 +51,18 @@ const root = process.cwd()
 const BUILDER_CONFIG_PATH = join(
   root,
   'public/page-data/_cms/builderConfig.json'
+)
+
+const CONTENT_TYPES_PATH = join(
+  root,
+  'public/page-data/_cms/content-types.json'
+)
+
+const SECTIONS_PATH = join(root, 'public/page-data/_cms/sections.json')
+
+const TRANSLATION_KEYS_PATH = join(
+  root,
+  'public/page-data/_cms/translation-keys.json'
 )
 
 const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
@@ -217,9 +223,9 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
   })
   const {
     builderConfig: {
-      contentTypes: userContentTypes = {},
-      blocks: userBlocks = {},
       messages = {},
+      blocks: userBlocks = {},
+      contentTypes: userContentTypes = {},
     } = {},
     // eslint-disable-next-line node/global-require
   } = require(SHADOWED_INDEX_PATH) as {
@@ -233,27 +239,13 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
 
   // Transform all contentTypes into CMS contentTypes format
   const contentTypes = Object.keys(userContentTypes).reduce(
-    (acc, contentTypeName) => {
-      const contentType = userContentTypes[contentTypeName]
+    (acc, contentTypeId) => {
+      const contentType = userContentTypes[contentTypeId]
 
-      const beforeBlocks = Object.keys(contentType.beforeBlocks).map(
-        (blockName) => ({
-          name: blockName,
-          schema: contentType.beforeBlocks[blockName],
-        })
-      )
-
-      const afterBlocks = Object.keys(contentType.afterBlocks).map(
-        (blockName) => ({
-          name: blockName,
-          schema: contentType.afterBlocks[blockName],
-        })
-      )
-
-      const extraBlocks = Object.keys(contentType.extraBlocks).map(
+      const configurationSchemaSets = Object.keys(contentType.extraBlocks).map(
         (sectionName) => ({
           name: sectionName,
-          blocks: Object.keys(contentType.extraBlocks[sectionName]).map(
+          configurations: Object.keys(contentType.extraBlocks[sectionName]).map(
             (blockName) => ({
               name: blockName,
               schema: contentType.extraBlocks[sectionName][blockName],
@@ -263,11 +255,9 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
       )
 
       acc.push({
-        ...contentType,
-        id: contentTypeName,
-        beforeBlocks,
-        afterBlocks,
-        extraBlocks,
+        id: contentTypeId,
+        name: contentType.name,
+        configurationSchemaSets,
       })
 
       return acc
@@ -277,12 +267,15 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
 
   const builderConfig: CMSBuilderConfig = {
     id: 'faststore',
-    name: 'Powered by Gatsby Plugin CMS',
     productionBaseUrl: siteUrl,
-    contentTypes,
-    blocks,
-    messages,
   }
 
-  await outputJSON(BUILDER_CONFIG_PATH, builderConfig)
+  Promise.all([
+    outputJSON(SECTIONS_PATH, blocks),
+    outputJSON(TRANSLATION_KEYS_PATH, messages),
+    outputJSON(CONTENT_TYPES_PATH, contentTypes),
+
+    // TODO: remove it when all stores migrate to the new format of config
+    outputJSON(BUILDER_CONFIG_PATH, builderConfig),
+  ])
 }
