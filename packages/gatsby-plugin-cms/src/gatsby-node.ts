@@ -7,18 +7,11 @@ import type {
   SourceNodesArgs,
   PluginOptionsSchemaArgs,
 } from 'gatsby'
-import {
-  buildNodeDefinitions,
-  compileNodeQueries,
-  createDefaultQueryExecutor,
-  createSchemaCustomization,
-  generateDefaultFragments,
-  loadSchema,
-  sourceAllNodes,
-} from 'gatsby-graphql-source-toolkit'
 
-import { sourceAllLocalNodes } from './node-api/sourceAllLocalNodes'
+import { fetchAllNodes } from './node-api/fetchNodes'
+// import { sourceAllLocalNodes } from './node-api/local/sourceAllLocalNodes'
 import type { BuilderConfig } from './index'
+import { createSchemaCustomization, sourceNode } from './node-api/sourceNode'
 
 interface CMSContentType {
   id: string
@@ -51,7 +44,7 @@ const BUILDER_CONFIG_PATH = join(
 
 const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
 
-interface Options {
+export interface Options {
   tenant: string
   workspace?: string
 }
@@ -63,75 +56,16 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   })
 
 export const sourceNodes = async (
-  args: SourceNodesArgs,
-  { tenant, workspace = 'master' }: Options
+  gatsbyApi: SourceNodesArgs,
+  options: Options
 ) => {
-  // Step1. Set up remote schema:
-  const executor = createDefaultQueryExecutor(
-    `https://${workspace}--${tenant}.myvtex.com/graphql`,
-    {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-    }
-  )
+  const nodes = await fetchAllNodes(gatsbyApi, options)
 
-  const schema = await loadSchema(executor)
+  createSchemaCustomization(gatsbyApi, nodes)
 
-  // Step2. Configure Gatsby node types
-  const gatsbyNodeTypes = [
-    {
-      remoteTypeName: `PageContent`,
-      queries: `
-        query LIST_PAGES ($first: Int!, $after: String ) {
-          vtex {
-            pages (first: $first, after: $after, builderId: "faststore") {
-              pageInfo {
-                hasNextPage
-              }
-              edges {
-                cursor
-                node {
-                  ...PageContentFragment
-                }
-              }
-            }
-          }
-        }
-        fragment PageContentFragment on PageContent { __typename id }
-      `,
-    },
-  ]
-
-  // Step3. Provide (or generate) fragments with fields to be fetched
-  const fragments = generateDefaultFragments({ schema, gatsbyNodeTypes })
-
-  // Step4. Compile sourcing queries
-  const documents = compileNodeQueries({
-    schema,
-    gatsbyNodeTypes,
-    customFragments: fragments,
-  })
-
-  const config = {
-    gatsbyApi: args,
-    schema,
-    execute: executor,
-    gatsbyTypePrefix: 'vtexCms',
-    gatsbyNodeDefs: buildNodeDefinitions({ gatsbyNodeTypes, documents }),
+  for (const node of nodes) {
+    sourceNode(gatsbyApi, node)
   }
-
-  // Step5. Add explicit types to gatsby schema
-  await createSchemaCustomization(config)
-
-  // Step6. Source local and remote nodes in parallel
-  await Promise.all([
-    // Source Nodes from VTEX CMS API
-    sourceAllNodes(config),
-    // Source Nodes from `fixtures` folder
-    sourceAllLocalNodes(config, root, name),
-  ])
 }
 
 export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {

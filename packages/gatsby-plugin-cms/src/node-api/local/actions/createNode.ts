@@ -1,8 +1,8 @@
 import { basename } from 'path'
 
 import { readJSON } from 'fs-extra'
-import type { ISourcingContext } from 'gatsby-graphql-source-toolkit/dist/types'
 import { createNodes } from 'gatsby-graphql-source-toolkit'
+import type { ISourcingContext } from 'gatsby-graphql-source-toolkit/dist/types'
 
 import { remoteId } from '../remoteId'
 
