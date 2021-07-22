@@ -52,7 +52,7 @@ export interface UseLinkProduct extends MinimalProduct {
  * @param {UseLinkOptions} [options] Hook options. Include pixel-related data whenever possible. This is specially useful on shelves or product listing pages.
  * @returns `to` and `onClick` properties to be passed on to a link component.
  */
-export const useLink = (product: UseLinkProduct, options: UseLinkOptions) => {
+export const useLink = (product: UseLinkProduct, options?: UseLinkOptions) => {
   const [sku] = useSku(product)
   const { pixelData = {} } = options ?? {}
 
