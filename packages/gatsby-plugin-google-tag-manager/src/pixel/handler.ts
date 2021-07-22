@@ -55,8 +55,7 @@ const getDataFromEvent = (event: PixelEvent) => {
 
     case 'vtex:productClick': {
       // TODO: Add brand, categories and sku
-      const { productName, items } = event.data.product
-      const price = items?.[0]?.sellers?.[0]?.commercialOffer?.price
+      const { productName, price } = event.data.product
 
       return {
         event: 'productClick',
