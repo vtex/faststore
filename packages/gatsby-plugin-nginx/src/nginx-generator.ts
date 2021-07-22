@@ -222,7 +222,14 @@ function convertToPath(path: string) {
 
   return path.replace(
     new RegExp(`${wildcard.source}|${namedSegment.source}`, 'g'),
-    () => {
+    (match) => {
+      const isMatchANumber = !Number.isNaN(parseInt(match.substr(1), 10))
+      const isMatchAPortNumber = it === 0 && isMatchANumber
+
+      if (isMatchAPortNumber) {
+        return match
+      }
+
       it += 1
 
       return `$${it}`

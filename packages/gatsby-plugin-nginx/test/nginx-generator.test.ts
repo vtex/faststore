@@ -160,6 +160,20 @@ describe('generateRedirects', () => {
           { cmd: ['proxy_ssl_server_name', 'on'] },
         ],
       },
+      {
+        cmd: ['location', '=', '"/logs"'],
+        children: [
+          {
+            cmd: [
+              'proxy_pass',
+              'https://mylogs-proxy.endpoint.com:8088/logs$is_args$args',
+            ],
+          },
+          {
+            cmd: ['proxy_ssl_server_name', 'on'],
+          },
+        ],
+      },
     ]
 
     expect(
@@ -177,6 +191,13 @@ describe('generateRedirects', () => {
           isPermanent: false,
           redirectInBrowser: false,
           toPath: 'https://master--storecomponents.myvtex.com/graphql/:splat',
+          statusCode: 200,
+        },
+        {
+          fromPath: '/logs',
+          isPermanent: false,
+          redirectInBrowser: false,
+          toPath: 'https://mylogs-proxy.endpoint.com:8088/logs',
           statusCode: 200,
         },
       ])
