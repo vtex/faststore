@@ -9,15 +9,20 @@ import ReactDOM from 'react-dom'
 import type { WrapRootElementBrowserArgs } from 'gatsby'
 import type { ReactChild } from 'react'
 
-import ErrorBoundary from './components/Error/ErrorBoundary'
-import { Provider as OrderFormProvider } from './sdk/orderForm/Provider'
-import { Provider as VTEXRCProvider } from './sdk/pixel/vtexrc/Provider'
 import {
   onRouteUpdate as progressOnRouteUpdate,
   Progress,
 } from './sdk/progress'
-import { Provider as RegionProvider } from './sdk/region/Provider'
-import { Provider as ToastProvider } from './sdk/toast/Provider'
+
+const {
+  default: ErrorBoundary,
+} = require('./src/components/Error/ErrorBoundary')
+const {
+  Provider: OrderFormProvider,
+} = require('./src/sdk/orderForm/LazyProvider')
+const { Provider: RegionProvider } = require('./src/sdk/region/Provider')
+const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
+const { Provider: ToastProvider } = require('./src/sdk/toast/Provider')
 
 export const onClientEntry = async () => {
   if (typeof IntersectionObserver === 'undefined') {
