@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.17 (2021-07-22)
+
+
+### Bug Fixes
+
+* **gatsby-plugin-nginx:** Fix proxy pass when toPath has port numbers on it ([#830](https://github.com/vtex/faststore/issues/830)) ([574f9bd](https://github.com/vtex/faststore/commit/574f9bd575fff7878106ef0f05145fd7f759a827))
+
+
+
+
+
 ## 0.372.16 (2021-07-19)
 
 
