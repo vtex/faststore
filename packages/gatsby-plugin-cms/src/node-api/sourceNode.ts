@@ -4,7 +4,7 @@ import type { ParentSpanPluginArgs } from 'gatsby'
 import { PLUGIN } from '../constants'
 import type { RemotePageContent, Block, PageContent } from './types'
 
-const getTypeName = (name: string) => camelcase(['cms', name])
+export const getTypeName = (name: string) => camelcase(['cms', name])
 
 const baseSchema = `
 scalar JSONPropsCmsObject
@@ -34,13 +34,13 @@ export const createSchemaCustomization = (
   gatsbyApi.actions.createTypes(typeDefs)
 }
 
+const nodeId = (node: RemotePageContent): string =>
+  `${getTypeName(node.type)}:${node.remoteId}`
+
 export const sourceNode = async (
   gatsbyApi: ParentSpanPluginArgs,
   node: RemotePageContent
 ) => {
-  const type = getTypeName(node.type)
-  const createNodeId = (id: string) => gatsbyApi.createNodeId(`${type}:${id}`)
-
   const extra = node.extraBlocks.reduce(
     (acc, { name, blocks }) => ({
       ...acc,
@@ -53,7 +53,7 @@ export const sourceNode = async (
   )
 
   const data = {
-    id: createNodeId(node.id),
+    id: gatsbyApi.createNodeId(nodeId(node)),
     name: node.name,
     sections: node.blocks,
     ...extra,
@@ -63,11 +63,21 @@ export const sourceNode = async (
     {
       ...data,
       internal: {
-        type,
+        type: getTypeName(node.type),
         content: JSON.stringify(data),
         contentDigest: gatsbyApi.createContentDigest(data),
       },
     },
     { name: PLUGIN }
   )
+}
+
+export const deleteNode = (
+  gatsbyApi: ParentSpanPluginArgs,
+  remoteNode: RemotePageContent
+) => {
+  const id = nodeId(remoteNode)
+  const node = gatsbyApi.getNode(id)
+
+  gatsbyApi.actions.deleteNode(node)
 }

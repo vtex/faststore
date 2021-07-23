@@ -9,9 +9,9 @@ import type {
 } from 'gatsby'
 
 import { fetchAllNodes } from './node-api/fetchNodes'
-// import { sourceAllLocalNodes } from './node-api/local/sourceAllLocalNodes'
 import type { BuilderConfig } from './index'
 import { createSchemaCustomization, sourceNode } from './node-api/sourceNode'
+import { sourceAllLocalNodes } from './node-api/sourceLocalNodes'
 
 interface CMSContentType {
   id: string
@@ -66,6 +66,8 @@ export const sourceNodes = async (
   for (const node of nodes) {
     sourceNode(gatsbyApi, node)
   }
+
+  await sourceAllLocalNodes(gatsbyApi, process.cwd(), '@vtex/gatsby-plugin-cms')
 }
 
 export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
