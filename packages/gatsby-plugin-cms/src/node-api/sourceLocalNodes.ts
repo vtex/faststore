@@ -1,4 +1,4 @@
-import { join, basename } from 'path'
+import { join } from 'path'
 
 import chokidar from 'chokidar'
 import { readJSON } from 'fs-extra'
@@ -12,8 +12,7 @@ const localNodeKey = (path: string) => `${PLUGIN}:fiture:${path}`
 
 const sourceLocalNode = async (
   gatsbyApi: ParentSpanPluginArgs,
-  path: string,
-  update = false
+  path: string
 ) => {
   if (!path.endsWith('.json')) {
     return
@@ -25,6 +24,8 @@ const sourceLocalNode = async (
   if (!node || Object.keys(node).length === 0) {
     return
   }
+
+  node.remoteId = node.remoteId ?? path
 
   await gatsbyApi.cache.set(localNodeKey(path), node)
 
@@ -56,7 +57,7 @@ export const sourceAllLocalNodes = async (
   })
 
   watcher.on('add', (path) => sourceLocalNode(gatsbyApi, path))
-  watcher.on('change', (path) => sourceLocalNode(gatsbyApi, path, true))
+  watcher.on('change', (path) => sourceLocalNode(gatsbyApi, path))
   watcher.on('unlink', (path) => deleteLocalNode(gatsbyApi, path))
 
   // Wait for chokidar ready event.
