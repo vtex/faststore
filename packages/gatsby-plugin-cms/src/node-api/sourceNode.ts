@@ -37,7 +37,7 @@ export const createSchemaCustomization = (
 const nodeId = (node: RemotePageContent): string =>
   `${getTypeName(node.type)}:${node.remoteId}`
 
-export const sourceNode = async (
+export const sourceNode = (
   gatsbyApi: ParentSpanPluginArgs,
   node: RemotePageContent
 ) => {

@@ -1,1 +1,1 @@
-export const PLUGIN = 'gatsby-plugin-cms'
+export const PLUGIN = '@vtex/gatsby-plugin-cms'
