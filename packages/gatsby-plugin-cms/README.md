@@ -3,6 +3,7 @@ This plugin links your gatsby site with VTEX's CMS datalayer.
 
 ## Installation
 To install `@vtex/gatsby-plugin-cms` in your project, just open your gatsby-config.js and add:
+
 ```
 module.exports = {
   siteMetadata: {
@@ -13,43 +14,39 @@ module.exports = {
       resolve: '@vtex/gatsby-plugin-cms',
       options: {
         tenant,
-        appKey,
-        appToken,
+        workspace,
       },
     }
   ],
 }
 ```
 
-where `tenant` is your store's account name. `appKey` and `appToken` are your CMS's key and token. 
+where `tenant` is your store's account name and `workspace` is the VTEX IO workspace being used. Usually you will want to set this option to `master`.
 
-You don't need to setup `appKey` and `appToken` for developing localy. Just login into your account using [VTEX IO toolbelt](https://www.npmjs.com/package/toolbelt).
+An example config would be:
+
+```
+module.exports = {
+  siteMetadata: {
+    siteUrl: `https://storecomponents.vtex.app`,
+  },
+  plugins: [
+    {
+      resolve: '@vtex/gatsby-plugin-cms',
+      options: {
+        tenant: 'storecomponents',
+        workspace: 'master',
+      },
+    }
+  ],
+}
+```
 
 > Note: The siteUrl property must be defined and not left empty.
 
-## Generating appKey and appToken
-To generate the access keys, please [follow this tutorial](https://developers.vtex.com/vtex-developer-docs/docs/getting-started-authentication)
-
-After the keys are generated, you will need to give this key access to the right CMS resource. For this:
-
-1. Log into your admin environment.
-2. Go to `Account Settings > Account Management > Access profiles`.
-3. Click in `New Profile`
-  1. Set name as `FastStore CMS`
-  2. Choose the product `Dynamic Storage`
-  3. Check `Full access in all documents`
-  4. Check `Read only documents`
-  5. Click on `Save`
-4. Go to `Account Settings > Account Management > Users`.
-5. Filter by your app key
-6. Leave the `FastStore CMS` as the only access profile in this key
-
-Now open your build platform (Netlify/Vercell) and make sure to add these keys as build-time secrets
-
-> Note: Do NEVER commit any of your appKeys or appTokens since this is a SERIOUS SECURITY THREAT
-
 ## Configuring CMS
 All CMS configuration is done by shadowing this plugin's `index.ts` file. The shadowing can be done by creating the folowing structure in your gatsby project
+
 ```
 src/
 ├── @vtex
@@ -60,7 +57,7 @@ src/
 The shadowed `index.ts` file must export one variable called `contentTypes`. This option is explained in detail below
 
 ### Adding Components and defining ContentTypes
-To tell the CMS how to configure and render your components you need to define a component schema. The component schema is written in Json Schema v6, a versatile description language for creating forms. 
+To tell the CMS how to configure and render your components you need to define a component schema. The component schema is written in Json Schema v6, a versatile description language for creating forms.
 
 For instance, a component description is something like:
 
@@ -123,3 +120,83 @@ export const contentTypes: ContentTypes = {
 > Note that blocks must be a subset of schemas
 
 You can read more about each property in the [CMS developer docs](https://vtex.io/)
+
+### Querying data.
+After creating contents in the CMS, you will be able to query them into the Gatsby GraphQL layer.
+Each content type will have a corresponding type on the Gatsby GraphQL layer.
+
+For instace, let's supose you are defining the content type for your home page. In your home page you have a banner, 
+and you have some information about the SEO of this page, like title and description tags.
+The following contentType definition is a valid solution:
+
+```
+{
+  homePage: {
+    blocks: {
+      banner: {
+        type: 'object',
+        properties: {
+          imageUrl: {
+            type: "string",
+          }
+        }
+      }
+    },
+    extraBlocks: {
+      seo: {
+        tags: {
+          type: 'object'
+          properties: {
+            title: {
+              type: 'string'
+            },
+            description: {
+              type: 'string'
+            }
+          }
+
+        }
+      }
+    },
+  }
+}
+```
+
+This, in turn, would generate types in your Gatsby GraphQL layer. To query these data you can do the follwing query:
+
+```
+query HomePageQuery {
+  cmsHomePage {
+    sections: {
+      name
+      props
+    }
+    seo {
+      tags {
+        title
+        description
+      }
+    }
+  }
+}
+```
+
+which would return the follwing json:
+```
+{
+  data: {
+    sections: {
+      name: 'banner'
+      props: {
+        imageUrl: 'https://path/to/image/url'
+      }
+    },
+    seo: {
+      tags: {
+        title: 'Page Title',
+        description: 'Page Description'
+      }
+    }
+  }
+}
+```
