@@ -1,27 +1,26 @@
 import type { MouseEvent } from 'react'
 
 import { minimalToPixelProduct } from '../pixel/events'
-import type { MinimalProduct } from '../pixel/events'
+import type { MinimalProduct, PageType } from '../pixel/events'
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useSku } from './useSku'
-
-export type SearchMap = 'ft' | 'c' | 'b'
+import { useUnprotectedSearch } from '../search/useSearch'
 
 export interface UseLinkPixelData {
   /**
-   * Type of product listing page query that's being made.
+   * Type of page on which the link is present.
    *
-   * @type {SearchMap}
+   * @type {PageType}
    * @memberof UseLinkPixelData
    */
-  map?: SearchMap
+  pageType?: PageType
   /**
-   * Main term that's being used at the product listing page query.
+   * Main term that's being used at the full text search page.
    *
    * @type {string}
    * @memberof UseLinkPixelData
    */
-  query?: string
+  term?: string
   /**
    * The item's position on a list, usually a shelf or a product listing page.
    *
@@ -45,16 +44,28 @@ export interface UseLinkProduct extends MinimalProduct {
   linkText: string
 }
 
+function getSearchPageType(term: string | null): PageType {
+  return term ? 'fullTextSearch' : 'nonFullTextSearch'
+}
+
 /**
  * Given a product, returns the necessary properties for a component to link to the page of the product.
  *
  * @param {MinimalProduct} product The product to be used to extract the link.
- * @param {UseLinkOptions} [options] Hook options. Include pixel-related data whenever possible. This is specially useful on shelves or product listing pages.
+ * @param {UseLinkOptions} [options] Hook options. Include position data to have accurate pixel events. Overriding default pageType and term values may be specially useful on recommendation shelves.
  * @returns `to` and `onClick` properties to be passed on to a link component.
  */
 export const useLink = (product: UseLinkProduct, options?: UseLinkOptions) => {
   const [sku] = useSku(product)
-  const { pixelData = {} } = options ?? {}
+  const searchContext = useUnprotectedSearch()
+
+  const defaultTerm = searchContext?.searchParams.term ?? null
+  const defaultPageType: PageType = searchContext
+    ? getSearchPageType(defaultTerm)
+    : 'other'
+
+  const { pageType = defaultPageType, term = defaultTerm, position } =
+    options?.pixelData ?? {}
 
   return {
     to: `/${product.linkText}/p?skuId=${sku.itemId}`,
@@ -62,7 +73,9 @@ export const useLink = (product: UseLinkProduct, options?: UseLinkOptions) => {
       sendPixelEvent({
         type: 'vtex:productClick',
         data: {
-          ...pixelData,
+          pageType,
+          term,
+          position,
           product: minimalToPixelProduct(product, sku),
         },
       }),

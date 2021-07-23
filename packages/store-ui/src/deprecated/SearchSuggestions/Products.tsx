@@ -14,7 +14,10 @@ interface Item {
   key: string
 }
 
-export type SummaryComponent = ComponentType<{ product: Item }>
+export type SummaryComponent = ComponentType<{
+  product: Item
+  position: number
+}>
 
 interface Props {
   SummaryComponent: SummaryComponent
@@ -37,11 +40,11 @@ const SearchSuggestionsProduct: FC<Required<Props>> = ({
 
   return (
     <>
-      <SearchSuggestionsList items={items as any} variant={variant}>
-        {({ item, variant: v }: any) => (
+      <SearchSuggestionsList items={items} variant={variant}>
+        {({ item, index, variant: v }) => (
           <Box data-testid="searchSuggestionsItem" variant={v}>
             <Suspense fallback={null}>
-              <SummaryComponent product={item} />
+              <SummaryComponent product={item} position={Number(index) + 1} />
             </Suspense>
           </Box>
         )}

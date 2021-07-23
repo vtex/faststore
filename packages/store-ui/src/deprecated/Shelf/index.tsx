@@ -43,6 +43,7 @@ const Shelf = <T extends Product>({
 }: PropsWithChildren<Props<T>>) => {
   const {
     page,
+    pageSize,
     items,
     totalPages,
     setPage,
@@ -71,6 +72,8 @@ const Shelf = <T extends Product>({
           ProductSummary={Component}
           variant={variant}
           items={items}
+          page={page}
+          pageSize={pageSize}
           pageSizes={pageSizes}
         />
         {withArrows === true && (

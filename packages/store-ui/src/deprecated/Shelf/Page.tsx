@@ -10,11 +10,16 @@ export interface Product {
   id: string
 }
 
-export type ProductSummary<T extends Product> = ComponentType<{ product: T }>
+export type ProductSummary<T extends Product> = ComponentType<{
+  product: T
+  position: number
+}>
 
 interface Props<T extends Product>
   extends ComponentPropsWithoutRef<typeof Grid> {
   items: T[]
+  page: number
+  pageSize: number
   pageSizes?: number[]
   variant: string
   ProductSummary: ProductSummary<T>
@@ -22,6 +27,8 @@ interface Props<T extends Product>
 
 const ShelfPage = <T extends Product>({
   items,
+  page,
+  pageSize,
   pageSizes,
   variant,
   ProductSummary,
@@ -35,8 +42,12 @@ const ShelfPage = <T extends Product>({
     columns={pageSizes}
     sx={{ width: '100%' }}
   >
-    {items.map((item) => (
-      <ProductSummary product={item} key={item.id} />
+    {items.map((item, index) => (
+      <ProductSummary
+        product={item}
+        position={page * pageSize + index + 1}
+        key={item.id}
+      />
     ))}
   </Grid>
 )

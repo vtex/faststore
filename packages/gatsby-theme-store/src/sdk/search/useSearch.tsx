@@ -11,3 +11,5 @@ export const useSearch = () => {
 
   return context
 }
+
+export const useUnprotectedSearch = () => useContext(Context)

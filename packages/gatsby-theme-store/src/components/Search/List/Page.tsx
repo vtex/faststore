@@ -54,8 +54,13 @@ const Page: FC<Props> = ({ display, cursor, initialData, columns }) => {
 
   return (
     <Grid variant="search" columns={columns}>
-      {data.vtex.productSearch?.products?.map((product) => (
-        <ProductSummary loading="lazy" key={product!.id!} product={product!} />
+      {data.vtex.productSearch?.products?.map((product, index) => (
+        <ProductSummary
+          loading="lazy"
+          key={product!.id!}
+          product={product!}
+          position={cursor * pageInfo.size + index + 1}
+        />
       ))}
     </Grid>
   )

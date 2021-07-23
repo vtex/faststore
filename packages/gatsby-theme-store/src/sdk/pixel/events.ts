@@ -89,6 +89,9 @@ export interface ProductViewData {
 }
 
 export interface ProductClickData {
+  pageType: PageType
+  term?: string | undefined | null
+  position?: number | undefined | null
   product: PixelProduct
 }
 
@@ -301,3 +304,5 @@ export interface MinimalProduct {
    */
   items: MinimalSKU[]
 }
+
+export type PageType = 'fullTextSearch' | 'nonFullTextSearch' | 'other'
