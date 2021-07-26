@@ -340,6 +340,7 @@ const SearchFilterAccordionItemSlider: FC<Props> = ({
     <Fragment>
       <Box
         aria-valuenow={0}
+        data-testid="accordionSlider"
         sx={{
           height: 24,
           MozUserSelect: 'none',
