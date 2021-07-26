@@ -275,9 +275,11 @@ function generateProxyRewriteChildren({
   toPath,
   proxyHeaders,
 }: Redirect): NginxDirective['children'] {
+  const isArgs: string = toPath.includes('?') ? '&' : '?'
+
   return [
     ...formatProxyHeaders(proxyHeaders as Record<string, string> | undefined),
-    { cmd: ['proxy_pass', `${convertToPath(toPath)}$is_args$args`] },
+    { cmd: ['proxy_pass', `${convertToPath(toPath)}${isArgs}$args`] },
     { cmd: ['proxy_ssl_server_name', 'on'] },
   ]
 }
