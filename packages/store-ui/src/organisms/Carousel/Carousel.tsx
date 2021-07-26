@@ -5,7 +5,7 @@ import React from 'react'
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
-import { useCarousel } from './hooks/useCarousel'
+import useCarousel from './hooks/useCarousel'
 import { useSlideVisibility } from './hooks/useSlideVisibility'
 import Bullets from '../../molecules/Bullets'
 
@@ -22,7 +22,6 @@ function Carousel({
   children,
 }: PropsWithChildren<CarouselProps>) {
   const numberOfSlides = React.Children.count(children)
-  const numberOfPages = Math.ceil(numberOfSlides / itemsPerPage)
 
   const { handlers, slide, carouselState, carouselDispatch } = useCarousel({
     totalItems: numberOfSlides,
@@ -73,7 +72,7 @@ function Carousel({
       </div>
       <div data-carousel-bullets>
         <Bullets
-          totalQuantity={numberOfPages}
+          totalQuantity={carouselState.totalPages}
           activeBullet={carouselState.currentPage}
           onClick={(_, idx) =>
             carouselDispatch({
