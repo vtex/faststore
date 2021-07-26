@@ -109,7 +109,7 @@ function reducer(state: CarouselState, action: Action): CarouselState {
         // Dividing by the total number of pages to make sure `currentSlide`
         // is always <= total number of slides.
         currentSlide:
-          (action.payload.pageIndex * state.itemsPerPage) % state.totalPages,
+          (action.payload.pageIndex % state.totalPages) * state.itemsPerPage,
         currentPage: action.payload.pageIndex,
       }
     }
