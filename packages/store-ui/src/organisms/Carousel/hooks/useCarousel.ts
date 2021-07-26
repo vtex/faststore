@@ -106,7 +106,10 @@ function reducer(state: CarouselState, action: Action): CarouselState {
         sliding: true,
         slideDirection:
           action.payload.pageIndex > state.currentPage ? 'next' : 'previous',
-        currentSlide: action.payload.pageIndex * state.itemsPerPage,
+        // Dividing by the total number of pages to make sure `currentSlide`
+        // is always <= total number of slides.
+        currentSlide:
+          (action.payload.pageIndex * state.itemsPerPage) % state.totalPages,
         currentPage: action.payload.pageIndex,
       }
     }
@@ -150,11 +153,11 @@ const slide = (slideDirection: SlideDirection, dispatch: Dispatch<Action>) => {
   }, 50)
 }
 
-export const useCarousel = ({
+export default function useCarousel({
   totalItems,
   swipeableConfigOverrides,
   itemsPerPage = 1,
-}: UseCarouselArgs) => {
+}: UseCarouselArgs) {
   const [carouselState, carouselDispatch] = useReducer(
     reducer,
     defaultCarouselState(totalItems, itemsPerPage)
