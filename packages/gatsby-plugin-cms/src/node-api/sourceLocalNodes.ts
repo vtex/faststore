@@ -8,7 +8,7 @@ import { PLUGIN } from '../constants'
 import { createSchemaCustomization, deleteNode, sourceNode } from './sourceNode'
 import type { RemotePageContent } from './types'
 
-const localNodeKey = (path: string) => `${PLUGIN}:fiture:${path}`
+const localNodeKey = (path: string) => `${PLUGIN}:fixture:${path}`
 
 const sourceLocalNode = async (
   gatsbyApi: ParentSpanPluginArgs,
