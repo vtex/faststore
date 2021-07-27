@@ -58,7 +58,7 @@ function reducer(state: CarouselState, action: Action): CarouselState {
       let nextSlide = state.currentSlide + state.itemsPerPage
       let nextPage = state.currentPage + 1
 
-      if (nextSlide > state.totalItems - 1) {
+      if (nextSlide >= state.totalItems) {
         nextSlide = 0
       }
 
