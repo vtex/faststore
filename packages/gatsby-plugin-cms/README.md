@@ -23,7 +23,7 @@ module.exports = {
 
 where `tenant` is your store's account name and `workspace` is the VTEX IO workspace being used. Usually you will want to set this option to `master`.
 
-An example config would be:
+An example config, using storecomponents account, would be:
 
 ```
 module.exports = {
