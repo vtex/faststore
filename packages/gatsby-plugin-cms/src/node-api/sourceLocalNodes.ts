@@ -5,7 +5,7 @@ import { readJSON } from 'fs-extra'
 import type { ParentSpanPluginArgs } from 'gatsby'
 
 import { PLUGIN } from '../constants'
-import { deleteNode, sourceNode } from './sourceNode'
+import { createSchemaCustomization, deleteNode, sourceNode } from './sourceNode'
 import type { RemotePageContent } from './types'
 
 const localNodeKey = (path: string) => `${PLUGIN}:fiture:${path}`
@@ -29,6 +29,7 @@ const sourceLocalNode = async (
 
   await gatsbyApi.cache.set(localNodeKey(path), node)
 
+  createSchemaCustomization(gatsbyApi, [node])
   sourceNode(gatsbyApi, node)
 }
 
