@@ -26,8 +26,4 @@ export type PageContent = {
   id: string
   name: string
   sections: Block[]
-} & {
-  [name: string]: {
-    [name: string]: Block['props']
-  }
-}
+} & Record<string, Record<string, Block['props']>>
