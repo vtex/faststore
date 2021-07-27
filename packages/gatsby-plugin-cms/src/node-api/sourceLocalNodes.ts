@@ -29,7 +29,9 @@ const sourceLocalNode = async (
 
   await gatsbyApi.cache.set(localNodeKey(path), node)
 
+  // Must create schema customization before sourcing nodes
   createSchemaCustomization(gatsbyApi, [node])
+
   sourceNode(gatsbyApi, node)
 }
 
