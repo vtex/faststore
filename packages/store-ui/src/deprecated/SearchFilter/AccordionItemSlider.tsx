@@ -171,6 +171,7 @@ const Labels: FC<{ left: string | number; right: string | number }> = ({
 }) => (
   <Flex sx={{ justifyContent: 'flex-end' }}>
     <Label
+      data-testid="accordionSliderLabel"
       sx={{
         color: '#727273',
         fontWeight: 'normal',
@@ -196,6 +197,7 @@ const Labels: FC<{ left: string | number; right: string | number }> = ({
       &ndash;
     </span>
     <Label
+      data-testid="accordionSliderLabel"
       sx={{
         color: '#727273',
         fontWeight: 'normal',

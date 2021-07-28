@@ -53,7 +53,6 @@ const SearchFilterAccordion: FC<Props> = ({
     >
       {filters.map((filter, index) => (
         <BaseAccordion.Section
-          data-testid="collapsibleHeader"
           key={`${filter.name}:${index}`}
           header={filter.name}
           isActive={isActiveFn(index)}
