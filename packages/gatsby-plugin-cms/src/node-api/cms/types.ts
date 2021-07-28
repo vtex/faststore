@@ -5,6 +5,7 @@ export interface Block {
 
 export interface RemotePageContent {
   remoteId: string
+  id: string
   name: string
   type: string
   builderId: 'faststore'

@@ -1,10 +1,11 @@
 import camelcase from 'camelcase'
 import type { ParentSpanPluginArgs } from 'gatsby'
 
-import { PLUGIN } from '../constants'
+import { PLUGIN } from '../../constants'
 import type { RemotePageContent, Block, PageContent } from './types'
 
-export const getTypeName = (name: string) => camelcase(['cms', name])
+export const getTypeName = (name: string) =>
+  camelcase(['cms', name], { pascalCase: true })
 
 const baseSchema = `
 scalar JSONPropsCmsObject
@@ -34,7 +35,7 @@ export const createSchemaCustomization = (
   gatsbyApi.actions.createTypes(typeDefs)
 }
 
-const nodeId = (node: RemotePageContent): string =>
+export const nodeId = (node: RemotePageContent): string =>
   `${getTypeName(node.type)}:${node.remoteId}`
 
 export const sourceNode = (

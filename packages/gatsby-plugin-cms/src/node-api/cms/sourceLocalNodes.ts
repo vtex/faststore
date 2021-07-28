@@ -4,7 +4,7 @@ import chokidar from 'chokidar'
 import { readJSON } from 'fs-extra'
 import type { ParentSpanPluginArgs } from 'gatsby'
 
-import { PLUGIN } from '../constants'
+import { PLUGIN } from '../../constants'
 import { createSchemaCustomization, deleteNode, sourceNode } from './sourceNode'
 import type { RemotePageContent } from './types'
 
@@ -29,7 +29,6 @@ const sourceLocalNode = async (
 
   await gatsbyApi.cache.set(localNodeKey(path), node)
 
-  // Must create schema customization before sourcing nodes
   createSchemaCustomization(gatsbyApi, [node])
 
   sourceNode(gatsbyApi, node)
