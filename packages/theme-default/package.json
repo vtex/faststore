@@ -1,5 +1,5 @@
 {
-  "name": "@vtex/basic-theme",
+  "name": "@vtex/theme-default",
   "version": "0.371.30",
   "description": "Basic theme for our Store UI components.",
   "author": "VTEX <gabriel.antiqueira@vtex.com.br>",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",
-    "directory": "packages/basic-theme"
+    "directory": "packages/theme-default"
   },
   "scripts": {
     "build": "echo No build script"
