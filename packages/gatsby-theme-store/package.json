@@ -12,7 +12,7 @@
   "browser": "src/index.ts",
   "sideEffects": false,
   "scripts": {
-    "build": "tsc",
+    "build": "cross-env NODE_ENV=production tsc",
     "develop": "tsc --watch",
     "test": "tsdx test"
   },
