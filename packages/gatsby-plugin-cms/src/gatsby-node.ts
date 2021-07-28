@@ -20,14 +20,13 @@ import {
   isBrandCollection,
   isClusterCollection,
 } from './node-api/catalog/index'
-import { PLUGIN } from './constants'
-import { fetchAllNodes as fetchAllCmsNodes } from './node-api/cms/fetchNodes'
+import { fetchAllNodes as fetchAllRemoteNodes } from './node-api/cms/fetchNodes'
 import {
-  createSchemaCustomization as createCmsSchemaCustomizations,
+  createSchemaCustomization as createCmsSchemaCustomization,
   nodeId,
   sourceNode as sourceCmsNode,
 } from './node-api/cms/sourceNode'
-import { sourceAllLocalNodes } from './node-api/cms/sourceLocalNodes'
+import { fetchAllNodes as fetchAllLocalNodes } from './node-api/cms/sourceLocalNodes'
 import type { BuilderConfig } from './index'
 import type { ICollection } from './native-types'
 import { isCategoryCollection } from './native-types'
@@ -100,17 +99,18 @@ export const sourceNodes = async (
   gatsbyApi: SourceNodesArgs,
   options: Options
 ) => {
-  // Warning: Do not source cms and local nodes in parallel since this order is
-  // important for the local nodes not to overrider remote nodes
-  const cmsNodes = await fetchAllCmsNodes(gatsbyApi, options)
+  // Warning: Do not source remote and local nodes in a different order since this
+  // is important for the local nodes not to overrider remote ones
+  const cmsNodes = await Promise.all([
+    fetchAllRemoteNodes(gatsbyApi, options),
+    fetchAllLocalNodes(gatsbyApi),
+  ]).then(([x, y]) => [...x, ...y])
+
+  createCmsSchemaCustomization(gatsbyApi, cmsNodes)
 
   for (const node of cmsNodes) {
     sourceCmsNode(gatsbyApi, node)
   }
-
-  await sourceAllLocalNodes(gatsbyApi, process.cwd(), PLUGIN)
-
-  createCmsSchemaCustomizations(gatsbyApi, cmsNodes)
 
   /**
    * Add CMS overrides to StoreCollection Nodes

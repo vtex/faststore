@@ -401,13 +401,8 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     promisses.push(async () => {
       const config = { gatsbyApi, options }
 
-      await sourceAllCollectionNodes(config, options)
-      // if (lastBuildTime) {
-      //   const nodeEvents: CollectionNodeEvent[] = []
-
-      //   await sourceCollectionNodeChanges(config, { nodeEvents })
-      // } else {
-      // }
+      // TODO: Implement incremental build
+      await sourceAllCollectionNodes(config)
     })
   }
 
