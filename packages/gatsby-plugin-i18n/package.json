@@ -12,8 +12,7 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "prepare": "cross-env NODE_ENV=production yarn run build",
+    "build": "cross-env NODE_ENV=production tsc",
     "develop": "tsc --watch"
   },
   "devDependencies": {
