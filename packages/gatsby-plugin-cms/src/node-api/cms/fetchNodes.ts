@@ -61,11 +61,11 @@ export const fetchAllNodes = async (
 ): Promise<RemotePageContent[]> => {
   const { tenant, workspace } = options
 
-  const activity2 = gatsbyApi.reporter.activityTimer(
-    `[${PLUGIN}]: Fetching PageContents`
+  const activity = gatsbyApi.reporter.activityTimer(
+    `[${PLUGIN}]: fetching PageContents from remote`
   )
 
-  activity2.start()
+  activity.start()
 
   const executor = <T = any>({
     query,
@@ -113,7 +113,7 @@ export const fetchAllNodes = async (
     }
   }
 
-  activity2.end()
+  activity.end()
 
   return data
 }

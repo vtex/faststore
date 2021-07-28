@@ -1,7 +1,6 @@
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
-import pMap from 'p-map'
 import slugify from 'slugify'
 import type { ParentSpanPluginArgs } from 'gatsby'
 
@@ -100,8 +99,17 @@ const categoryToStoreCollection = (
   slug: new URL(node.url).pathname.slice(1),
 })
 
-const fetchData = (options: Options): Promise<[Category[], Brand[]]> =>
-  Promise.all([
+export const fetchAllNodes = async ({
+  gatsbyApi,
+  options,
+}: Config): Promise<StoreCollection[]> => {
+  const activity = gatsbyApi.reporter.activityTimer(
+    `[gatsby-source-vtex]: fetching Categories/Brands`
+  )
+
+  activity.start()
+
+  const [tree, brands] = await Promise.all([
     fetchVTEX<Category[]>(api.catalog.category.tree(4), options),
     fetchVTEX<Brand[]>(
       api.catalog.brand.list({ page: 0, pageSize: 1000 }),
@@ -109,152 +117,149 @@ const fetchData = (options: Options): Promise<[Category[], Brand[]]> =>
     ),
   ])
 
-export const fetchAllNodes = async (
-  options: Options
-): Promise<StoreCollection[]> => {
-  const [tree, brands] = await fetchData(options)
-
-  const seenNodes: StoreCollection[] = []
+  const collectionCategories: StoreCollection[] = []
   const dfs = (
     node: Category,
-    seen: StoreCollection[],
+    collections: StoreCollection[],
     parent: string | undefined
   ) => {
     const collection = categoryToStoreCollection(node, parent)
 
-    seen.push(collection)
+    collections.push(collection)
 
     for (const child of node.children) {
-      dfs(child, seen, `${node.id}`)
+      dfs(child, collections, `${node.id}`)
     }
   }
 
   for (const node of tree) {
-    dfs(node, seenNodes, undefined)
+    dfs(node, collectionCategories, undefined)
   }
 
   const collectionBrands = brands
     .filter((x) => x.isActive)
     .map(brandToStoreCollection)
 
-  return [...seenNodes, ...collectionBrands]
+  activity.end()
+
+  return [...collectionCategories, ...collectionBrands]
 }
 
-export const sourceAllNodes = async (config: Config, options: Options) => {
+export const sourceAllNodes = async (config: Config) => {
   const { gatsbyApi } = config
 
-  const nodes = await fetchAllNodes(options)
+  const nodes = await fetchAllNodes(config)
 
   for (const node of nodes) {
     createNode(gatsbyApi, node)
   }
 }
 
-export interface NodeEvent {
-  eventName: 'DELETE' | 'UPDATE' | 'CREATE'
-  remoteId: {
-    type: 'Department' | 'Category' | 'Brand'
-    id: string
-  }
-}
+// TODO: Finish implementing fetchNodeChanges
+// export interface NodeEvent {
+//   eventName: 'DELETE' | 'UPDATE' | 'CREATE'
+//   remoteId: {
+//     type: 'Department' | 'Category' | 'Brand'
+//     id: string
+//   }
+// }
 
-// TODO:
-export const fetchNodeChanges = async (
-  options: Options,
-  events: { nodeEvents: NodeEvent[] }
-): Promise<Array<StoreCollection | undefined>> => {
-  const [tree, brands] = await fetchData(options)
+// export const fetchNodeChanges = async (
+//   options: Options,
+//   events: { nodeEvents: NodeEvent[] }
+// ): Promise<Array<StoreCollection | undefined>> => {
+//   const [tree, brands] = await fetchData(options)
 
-  const treeMap = new Map<
-    string,
-    { node: Category; parent: string | undefined }
-  >()
+//   const treeMap = new Map<
+//     string,
+//     { node: Category; parent: string | undefined }
+//   >()
 
-  const dfs = (node: Category, parent: string | undefined) => {
-    const id = node.id.toString()
+//   const dfs = (node: Category, parent: string | undefined) => {
+//     const id = node.id.toString()
 
-    treeMap.set(id, { node, parent })
+//     treeMap.set(id, { node, parent })
 
-    node.children.forEach((child) => dfs(child, id))
-  }
+//     node.children.forEach((child) => dfs(child, id))
+//   }
 
-  tree.forEach((node) => dfs(node, undefined))
+//   tree.forEach((node) => dfs(node, undefined))
 
-  const fetchChange = async (
-    event: NodeEvent
-  ): Promise<StoreCollection | undefined> => {
-    if (event.eventName === 'DELETE') {
-      return undefined
-    }
+//   const fetchChange = async (
+//     event: NodeEvent
+//   ): Promise<StoreCollection | undefined> => {
+//     if (event.eventName === 'DELETE') {
+//       return undefined
+//     }
 
-    if (event.remoteId.type === 'Category') {
-      const data = treeMap.get(event.remoteId.id)
+//     if (event.remoteId.type === 'Category') {
+//       const data = treeMap.get(event.remoteId.id)
 
-      if (!data) {
-        throw new Error('Error while updating catalog category tree data')
-      }
+//       if (!data) {
+//         throw new Error('Error while updating catalog category tree data')
+//       }
 
-      return categoryToStoreCollection(data.node, data.parent)
-    }
+//       return categoryToStoreCollection(data.node, data.parent)
+//     }
 
-    if (event.remoteId.type === 'Brand') {
-      const brand = brands.find((b) => `${b.id}` === event.remoteId.id)
+//     if (event.remoteId.type === 'Brand') {
+//       const brand = brands.find((b) => `${b.id}` === event.remoteId.id)
 
-      if (!brand) {
-        throw new Error('Error while updating catalog brand data')
-      }
+//       if (!brand) {
+//         throw new Error('Error while updating catalog brand data')
+//       }
 
-      return brandToStoreCollection(brand)
-    }
+//       return brandToStoreCollection(brand)
+//     }
 
-    throw new Error('Error while updating catalog data')
-  }
+//     throw new Error('Error while updating catalog data')
+//   }
 
-  return pMap(events.nodeEvents, fetchChange, { concurrency: 20 })
-}
+//   return pMap(events.nodeEvents, fetchChange, { concurrency: 20 })
+// }
 
-/**
- * This algorithm is split in two steps:
- * 1. Touch all nodes
- * 2. For updated/deleted nodes:
- *  2.1 delete these touched nodes
- *  2.2 if the node was updated, create a new node
- */
-export const sourceNodeChanges = async (
-  config: Config,
-  events: { nodeEvents: NodeEvent[] }
-) => {
-  const { gatsbyApi, options } = config
+// /**
+//  * This algorithm is split in two steps:
+//  * 1. Touch all nodes
+//  * 2. For updated/deleted nodes:
+//  *  2.1 delete these touched nodes
+//  *  2.2 if the node was updated, create a new node
+//  */
+// export const sourceNodeChanges = async (
+//   config: Config,
+//   events: { nodeEvents: NodeEvent[] }
+// ) => {
+//   const { gatsbyApi, options } = config
 
-  // Step1: Touch all StoreCollection nodes
-  const nodes = gatsbyApi.getNodesByType(typeName)
+//   // Step1: Touch all StoreCollection nodes
+//   const nodes = gatsbyApi.getNodesByType(typeName)
 
-  for (const node of nodes) {
-    gatsbyApi.actions.touchNode(node)
-  }
+//   for (const node of nodes) {
+//     gatsbyApi.actions.touchNode(node)
+//   }
 
-  // Step2: Create/Delete nodes
-  const changes = await fetchNodeChanges(options, events)
+//   // Step2: Create/Delete nodes
+//   const changes = await fetchNodeChanges(options, events)
 
-  for (let it = 0; it < changes.length; it++) {
-    const change = changes[it]
-    const event = events.nodeEvents[it]
-    const nodeId = createNodeId(
-      event.remoteId.id,
-      event.remoteId.type,
-      gatsbyApi
-    )
+//   for (let it = 0; it < changes.length; it++) {
+//     const change = changes[it]
+//     const event = events.nodeEvents[it]
+//     const nodeId = createNodeId(
+//       event.remoteId.id,
+//       event.remoteId.type,
+//       gatsbyApi
+//     )
 
-    // Delete all nodes, even if it was updated
-    const node = gatsbyApi.getNode(nodeId)
+//     // Delete all nodes, even if it was updated
+//     const node = gatsbyApi.getNode(nodeId)
 
-    if (node) {
-      gatsbyApi.actions.deleteNode(node)
-    }
+//     if (node) {
+//       gatsbyApi.actions.deleteNode(node)
+//     }
 
-    // if the node was updated/created, create this new node
-    if (change !== undefined) {
-      createNode(gatsbyApi, change)
-    }
-  }
-}
+//     // if the node was updated/created, create this new node
+//     if (change !== undefined) {
+//       createNode(gatsbyApi, change)
+//     }
+//   }
+// }

@@ -1,80 +1,38 @@
 import { join } from 'path'
 
-import chokidar from 'chokidar'
+import globby from 'globby'
 import { readJSON } from 'fs-extra'
 import type { ParentSpanPluginArgs } from 'gatsby'
 
 import { PLUGIN } from '../../constants'
-import { createSchemaCustomization, deleteNode, sourceNode } from './sourceNode'
 import type { RemotePageContent } from './types'
 
 const localNodeKey = (path: string) => `${PLUGIN}:fixture:${path}`
 
-const sourceLocalNode = async (
-  gatsbyApi: ParentSpanPluginArgs,
-  path: string
-) => {
-  if (!path.endsWith('.json')) {
-    return
-  }
+/**
+ * @description Fetch Nodes from fixtures folder
+ */
+export const fetchAllNodes = async (gatsbyApi: ParentSpanPluginArgs) => {
+  const activity = gatsbyApi.reporter.activityTimer(
+    `[${PLUGIN}]: fetching PageContents from fixtures`
+  )
 
-  const node: RemotePageContent = await readJSON(path)
+  activity.start()
 
-  // TODO: We should add a verification if the json complies with the exported JSON schema
-  if (!node || Object.keys(node).length === 0) {
-    return
-  }
+  const root = join(process.cwd(), 'src', PLUGIN, 'fixtures')
 
-  node.remoteId = node.remoteId ?? path
+  const files = await globby('*.json', { cwd: root, deep: 1, onlyFiles: true })
 
-  await gatsbyApi.cache.set(localNodeKey(path), node)
+  const nodes = await Promise.all(
+    files.map(async (file) => {
+      const json = await readJSON(join(root, file))
+      const id = localNodeKey(file)
 
-  createSchemaCustomization(gatsbyApi, [node])
+      return { ...json, remoteId: id, id } as RemotePageContent
+    })
+  )
 
-  sourceNode(gatsbyApi, node)
-}
+  activity.end()
 
-const deleteLocalNode = async (
-  gatsbyApi: ParentSpanPluginArgs,
-  path: string
-) => {
-  if (!path.endsWith('.json')) {
-    return
-  }
-
-  const localNode = await gatsbyApi.cache.get(localNodeKey(path))
-
-  deleteNode(gatsbyApi, localNode)
-}
-
-/** Source Nodes from fixtures folder */
-export const sourceAllLocalNodes = async (
-  gatsbyApi: ParentSpanPluginArgs,
-  root: string,
-  name: string
-) => {
-  const watcher = chokidar.watch(join(root, 'src', name, 'fixtures'), {
-    ignoreInitial: false,
-    depth: 1,
-  })
-
-  watcher.on('add', (path) => sourceLocalNode(gatsbyApi, path))
-  watcher.on('change', (path) => sourceLocalNode(gatsbyApi, path))
-  watcher.on('unlink', (path) => deleteLocalNode(gatsbyApi, path))
-
-  // Wait for chokidar ready event.
-  //
-  // If we don't wait for this event, gatsby will think this plugin didn't source any
-  // node and will ask to the developer to remove it. Since we are `ignoreInitial: false`
-  // we are sure chokidar will fire the ready event and not stall the build process
-  const onReady = new Promise((resolve) => {
-    watcher.on('ready', resolve)
-  })
-
-  await onReady
-
-  // Do not keep the watcher in `gatsby build`
-  if (process.env.NODE_ENV === 'production') {
-    watcher.close()
-  }
+  return nodes
 }
