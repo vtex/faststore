@@ -79,16 +79,14 @@ export interface PageType {
 }
 
 export type Sort =
-  | 'OrderByPriceDESC'
-  | 'OrderByPriceASC'
-  | 'OrderByTopSaleDESC'
-  | 'OrderByReviewRateDESC'
-  | 'OrderByNameASC'
-  | 'OrderByNameDESC'
-  | 'OrderByReleaseDateDESC'
-  | 'OrderByBestDiscountDESC'
-  | 'OrderByScoreDESC'
-  | ''
+  | '' // 'Relevance',
+  | 'price:desc' // 'Price: High to Low',
+  | 'price:asc' // 'Price: Low to High',
+  | 'orders:desc' // 'Sales',
+  | 'name:desc' // 'Name, descending',
+  | 'name:asc' // 'Name, ascending',
+  | 'release:desc' // 'Release date',
+  | 'discount:desc' // 'Discount',
 
 export interface Redirect {
   [key: string]: unknown

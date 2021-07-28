@@ -1,0 +1,31 @@
+type StoreCollectionSeo {
+  title: String!
+  description: String!
+}
+
+enum StoreCollectionType {
+  Department
+  Category
+  Brand
+  Cluster
+}
+
+# type StoreCollectionFacet {
+#   key: String!
+#   value: String!
+# }
+
+# type StoreCollectionMeta {
+#   sort: String!
+#   selectedFacets: [StoreCollectionFacet!]!
+#   itemsPerPage: Int!
+#   meta: StoreCollectionMeta!
+# }
+
+type StoreCollection implements Node @childOf(types: ["StoreCollection"]) {
+  id: ID!
+  remoteId: ID!
+  slug: String!
+  seo: StoreCollectionSeo!
+  type: StoreCollectionType!
+}

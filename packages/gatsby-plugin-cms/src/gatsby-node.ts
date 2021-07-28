@@ -6,13 +6,31 @@ import type {
   CreatePagesArgs,
   SourceNodesArgs,
   PluginOptionsSchemaArgs,
+  CreateNodeArgs,
 } from 'gatsby'
+import type { StoreCollection } from '@vtex/gatsby-source-vtex'
+import { sourceStoreCollectionNode } from '@vtex/gatsby-source-vtex'
 
+import type {
+  IClusterCollection,
+  IBrandCollection,
+  ICategoryCollection,
+} from './node-api/catalog/index'
+import {
+  isBrandCollection,
+  isClusterCollection,
+} from './node-api/catalog/index'
 import { PLUGIN } from './constants'
-import { fetchAllNodes } from './node-api/fetchNodes'
-import { createSchemaCustomization, sourceNode } from './node-api/sourceNode'
-import { sourceAllLocalNodes } from './node-api/sourceLocalNodes'
+import { fetchAllNodes as fetchAllCmsNodes } from './node-api/cms/fetchNodes'
+import {
+  createSchemaCustomization as createCmsSchemaCustomizations,
+  nodeId,
+  sourceNode as sourceCmsNode,
+} from './node-api/cms/sourceNode'
+import { sourceAllLocalNodes } from './node-api/cms/sourceLocalNodes'
 import type { BuilderConfig } from './index'
+import type { ICollection } from './native-types'
+import { isCategoryCollection } from './native-types'
 
 interface CMSContentType {
   id: string
@@ -47,28 +65,168 @@ const SHADOWED_INDEX_PATH = join(root, 'src', name, 'index.ts')
 
 export interface Options {
   tenant: string
-  workspace?: string
+  workspace: string
+  environment: 'vtexcommercestable' | 'vtexcommercebeta'
+  sourcingMode: 'cms-first' | 'catalog-first'
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
     tenant: Joi.string().required(),
-    workspace: Joi.string(),
+    workspace: Joi.string().required(),
+    environment: Joi.string()
+      .required()
+      .valid('vtexcommercestable')
+      .valid('vtexcommercebeta'),
+    sourcingMode: Joi.string().valid('cms-first').valid('catalog-first'),
   })
+
+type WithPLP<T> = T & { plp: string }
+
+interface Overrides {
+  Category: Record<string, WithPLP<ICategoryCollection>>
+  Department: Record<string, WithPLP<ICategoryCollection>>
+  Cluster: Record<string, WithPLP<IClusterCollection>>
+  Brand: Record<string, WithPLP<IBrandCollection>>
+}
+
+let setOverrides: (value: Overrides) => void | undefined
+
+const getOverrides = new Promise<Overrides>((resolve) => {
+  setOverrides = resolve
+})
 
 export const sourceNodes = async (
   gatsbyApi: SourceNodesArgs,
   options: Options
 ) => {
-  const nodes = await fetchAllNodes(gatsbyApi, options)
+  // Warning: Do not source cms and local nodes in parallel since this order is
+  // important for the local nodes not to overrider remote nodes
+  const cmsNodes = await fetchAllCmsNodes(gatsbyApi, options)
 
-  createSchemaCustomization(gatsbyApi, nodes)
-
-  for (const node of nodes) {
-    sourceNode(gatsbyApi, node)
+  for (const node of cmsNodes) {
+    sourceCmsNode(gatsbyApi, node)
   }
 
   await sourceAllLocalNodes(gatsbyApi, process.cwd(), PLUGIN)
+
+  createCmsSchemaCustomizations(gatsbyApi, cmsNodes)
+
+  /**
+   * Add CMS overrides to StoreCollection Nodes
+   */
+
+  const collectionBlocks: Array<WithPLP<ICollection>> = []
+
+  for (const node of cmsNodes) {
+    for (const extraBlock of node.extraBlocks) {
+      const block = extraBlock.blocks.find((x) => x.name === 'Collection')
+
+      if (block) {
+        const props = (block.props as unknown) as ICollection
+
+        collectionBlocks.push({
+          ...props,
+          plp: gatsbyApi.createNodeId(nodeId(node)),
+        })
+      }
+    }
+  }
+
+  const categories = collectionBlocks
+    .filter((x): x is WithPLP<ICategoryCollection> => isCategoryCollection(x))
+    .reduce(
+      (acc, curr) => ({ ...acc, [curr.categoryId]: curr }),
+      {} as Record<string, WithPLP<ICategoryCollection>>
+    )
+
+  const brands = collectionBlocks
+    .filter((x): x is WithPLP<IBrandCollection> => isBrandCollection(x))
+    .reduce(
+      (acc, curr) => ({ ...acc, [curr.brandId]: curr }),
+      {} as Record<string, WithPLP<IBrandCollection>>
+    )
+
+  const clusters = collectionBlocks
+    .filter((x): x is WithPLP<IClusterCollection> => isClusterCollection(x))
+    .reduce(
+      (acc, curr) => ({ ...acc, [curr.clusterId]: curr }),
+      {} as Record<string, WithPLP<IClusterCollection>>
+    )
+
+  setOverrides({
+    Category: categories,
+    Department: categories,
+    Brand: brands,
+    Cluster: clusters,
+  })
+
+  /**
+   * Source StoreCollection from clusters. This part isn't done in
+   * gatsby-source-vtex because collections do not have a defined
+   * path on the store
+   */
+  for (const cluster of Object.values(clusters)) {
+    const node: StoreCollection = {
+      id: `${cluster.clusterId}:${cluster.seo.slug}`,
+      remoteId: cluster.clusterId,
+      slug: cluster.seo.slug,
+      seo: {
+        title: cluster.seo.title,
+        description: cluster.seo.description,
+      },
+      type: 'Cluster',
+    }
+
+    sourceStoreCollectionNode(gatsbyApi, node)
+  }
+
+  // TODO
+  if (options.sourcingMode === 'cms-first') {
+    throw new Error('NotImplemented')
+  }
+}
+
+const TypeKeyMap = {
+  Cluster: 'productClusterIds',
+  Brand: 'b',
+  Category: 'c',
+  Department: 'c',
+}
+
+export const onCreateNode = async (gatsbyApi: CreateNodeArgs) => {
+  const { node } = gatsbyApi
+
+  if (node.internal.type !== 'StoreCollection') {
+    return
+  }
+
+  const collection = (node as unknown) as StoreCollection
+  const overrides = await getOverrides
+
+  const maybeOverride = overrides[collection.type][collection.remoteId]
+
+  gatsbyApi.actions.createNodeField({
+    node,
+    name: 'searchParams',
+    value: {
+      sort: maybeOverride?.sort ?? '""',
+      itemsPerPage: 12,
+      selectedFacets:
+        collection.type === 'Cluster'
+          ? [{ key: TypeKeyMap.Cluster, value: collection.remoteId }]
+          : collection.slug.split('/').map((segment) => ({
+              key: TypeKeyMap[collection.type],
+              value: segment,
+            })),
+    },
+  })
+
+  gatsbyApi.actions.createNodeField({
+    node,
+    name: `plp___NODE`,
+    value: maybeOverride?.plp ?? null,
+  })
 }
 
 export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
