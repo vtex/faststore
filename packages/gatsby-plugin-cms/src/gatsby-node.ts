@@ -181,7 +181,7 @@ export const sourceNodes = async (
     sourceStoreCollectionNode(gatsbyApi, node)
   }
 
-  // TODO
+  // TODO: Implement cms-first schema
   if (options.sourcingMode === 'cms-first') {
     throw new Error('NotImplemented')
   }
