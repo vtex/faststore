@@ -56,7 +56,7 @@ const argTypes: ComponentArgTypes<CarouselProps> = {
 }
 
 export default {
-  title: 'Organisms/Carousel',
+  title: 'Molecules/Carousel',
   component: Carousel,
   argTypes,
   parameters: {
