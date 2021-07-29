@@ -200,3 +200,48 @@ which would return the follwing json:
   }
 }
 ```
+
+## Native Types
+CMS plugin has pre-built blocks that speeds up your content types creation. Think of this like a component library that you can import and stitch together to create the content type you desire. 
+These types include Carousel, Seo, and much more. To use it on your project, justs:
+```js
+import { Carousel } from '@vtex/gatsby-plugin-cms/native-types'
+
+...
+
+export default {
+  ...
+  blocks: {
+    myBlock: {
+      Carousel,
+      ...
+    }
+  }
+  ...
+}
+```
+
+Check all available blocks, and their definition, at `@vtex/gatsby-plugin-cms/native-types`
+
+### VTEX modules and Native Types
+Some VTEX modules have first-class support in our CMS. To enable this support, you need to create your contentTypes with our native types for that specific module. 
+Below you can find the doc and how these integrations work for each module.
+
+#### Catalog
+Sourcing Brands/Categories can be achieved by using `@vtex/gatsby-source-vtex` plugin. This plugin sources a `StoreColletion` node into the Gatsby's data layer containing basic info about a category and brand. Although being handy for creating pages using the [File System Route API](https://www.gatsbyjs.com/docs/reference/routing/file-system-route-api/), `StoreCollection` does not have enought data to create a rich PLP, with banners and much more. For this, you need to extend `StoreCollection` with more data. 
+To help you extend `StoreCollection` for your business users, we created a native type called `PLP`.
+
+Whenever the CMS finds a node with the `PLP` signature, it will create a customization on the corresponding `StoreCollection` node adding this `PLP` as a foring key on the `StoreCollection` node. This way, you can easily fetch all sections of the `PLP` when rendering the `StoreCollection` page, thus allowing you to add any information you want to the `PLP`.
+
+To use it, just add this to your cms config:
+```js
+import { PLP } from '@vtex/gatsby-plugin-cms/native-types'
+
+export default {
+  ...
+  contentTypes: {
+    ...PLP()
+  },
+  ...
+}
+```

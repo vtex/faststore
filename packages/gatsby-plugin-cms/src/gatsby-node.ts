@@ -21,14 +21,14 @@ import { fetchAllNodes as fetchAllLocalNodes } from './node-api/cms/sourceLocalN
 import {
   getCollectionsFromPageContent,
   splitCollections,
-} from './node-api/catalog/collections'
+} from './node-api/catalog'
+import type { WithPLP } from './node-api/catalog/index'
+import type { BuilderConfig } from './index'
 import type {
-  IBrandCollection,
   ICategoryCollection,
   IClusterCollection,
-} from './native-types'
-import type { BuilderConfig } from './index'
-import type { WithPLP } from './node-api/catalog/collections'
+  IBrandCollection,
+} from './native-types/blocks/collection'
 
 interface CMSContentType {
   id: string
