@@ -17,10 +17,10 @@ function isSlideVisible({
   return slideIdx >= currentSlide && slideIdx < currentSlide + itemsPerPage
 }
 
-export const useSlideVisibility = ({
+export default function useSlideVisibility({
   currentSlide,
   itemsPerPage,
-}: UseSlideVisibilityArgs) => {
+}: UseSlideVisibilityArgs) {
   /** Keeps track of slides that have been visualized before.
    * We want to keep rendering them because the issue is mostly rendering
    * slides that might never be viewed; On the other hand, hiding slides

@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 
 import useCarousel from './useCarousel'
-import { useSlideVisibility } from './useSlideVisibility'
+import useSlideVisibility from './useSlideVisibility'
 import type { UseSlideVisibilityArgs } from './useSlideVisibility'
 
 describe('useCarousel', () => {
