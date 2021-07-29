@@ -30,6 +30,8 @@ export type Action =
   | StopSlideAction
   | GoToPageAction
 
+export type CarouselDispatch = Dispatch<Action>
+
 export interface CarouselState {
   /**
    * The `currentSlide` in a Carousel with multiple items in a single page is
