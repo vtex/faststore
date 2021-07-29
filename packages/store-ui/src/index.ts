@@ -27,5 +27,17 @@ export type { BulletsProps } from './molecules/Bullets'
 export { default as SearchInput } from './molecules/SearchInput'
 export type { SearchInputProps } from './molecules/SearchInput'
 
+export { default as Carousel } from './molecules/Carousel'
+export { default as useCarousel } from './molecules/Carousel/hooks/useCarousel'
+export { default as useSlideVisibility } from './molecules/Carousel/hooks/useSlideVisibility'
+export type {
+  CarouselProps,
+  CarouselState,
+  CarouselDispatch,
+  UseCarouselArgs,
+  UseSlideVisibilityArgs,
+  SlideDirection,
+} from './molecules/Carousel'
+
 // Deprecated APIs
 export * from './deprecated/index'
