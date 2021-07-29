@@ -47,13 +47,15 @@ export const createNode = (
   node: StoreCollection
 ) => {
   const id = createNodeId(node.id, node.type, gatsbyApi)
+  const parentType = node.type === 'Category' ? 'Department' : node.type
+  const childType = node.type === 'Department' ? 'Category' : node.type
 
   const data = {
     ...node,
     id,
-    parent: node.parent && createNodeId(node.parent, node.type, gatsbyApi),
+    parent: node.parent && createNodeId(node.parent, parentType, gatsbyApi),
     children: node.children?.map((child) =>
-      createNodeId(child, node.type, gatsbyApi)
+      createNodeId(child, childType, gatsbyApi)
     ),
   }
 
