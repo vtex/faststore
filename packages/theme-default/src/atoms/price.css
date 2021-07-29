@@ -1,33 +1,33 @@
-.basic-theme [data-store-price] {
+.theme-default [data-store-price] {
   font-size: 16px;
 }
 
-.basic-theme [data-store-price][data-listing] {
+.theme-default [data-store-price][data-listing] {
   color: #727273;
   text-decoration: line-through;
 }
 
-.basic-theme [data-store-price][data-savings] {
+.theme-default [data-store-price][data-savings] {
   color: #417a00;
   font-size: 16px;
 }
 
-.basic-theme [data-store-price][data-selling] {
+.theme-default [data-store-price][data-selling] {
   color: #727273;
   font-weight: 400;
 }
 
-.basic-theme [data-store-price][data-spot] {
+.theme-default [data-store-price][data-spot] {
   color: #3f3f06;
   font-weight: 700;
   font-size: 36px;
 }
 
-.basic-theme [data-store-price][data-installment] {
+.theme-default [data-store-price][data-installment] {
   color: #727273;
   font-weight: 400;
 }
 
-.basic-theme [data-store-price] [data-store-price-integer] {
+.theme-default [data-store-price] [data-store-price-integer] {
   font-weight: bold;
 }
