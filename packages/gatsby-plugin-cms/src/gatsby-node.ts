@@ -1,6 +1,7 @@
 import { join } from 'path'
 
 import { outputJSON, pathExists } from 'fs-extra'
+import { sourceStoreCollectionNode } from '@vtex/gatsby-source-vtex'
 import type { JSONSchema6 } from 'json-schema'
 import type {
   CreatePagesArgs,
@@ -9,27 +10,25 @@ import type {
   CreateNodeArgs,
 } from 'gatsby'
 import type { StoreCollection } from '@vtex/gatsby-source-vtex'
-import { sourceStoreCollectionNode } from '@vtex/gatsby-source-vtex'
 
-import type {
-  IClusterCollection,
-  IBrandCollection,
-  ICategoryCollection,
-} from './node-api/catalog/index'
-import {
-  isBrandCollection,
-  isClusterCollection,
-} from './node-api/catalog/index'
+import { Barrier } from './utils/barrier'
 import { fetchAllNodes as fetchAllRemoteNodes } from './node-api/cms/fetchNodes'
 import {
   createSchemaCustomization as createCmsSchemaCustomization,
-  nodeId,
   sourceNode as sourceCmsNode,
 } from './node-api/cms/sourceNode'
 import { fetchAllNodes as fetchAllLocalNodes } from './node-api/cms/sourceLocalNodes'
+import {
+  getCollectionsFromPageContent,
+  splitCollections,
+} from './node-api/catalog/collections'
+import type {
+  IBrandCollection,
+  ICategoryCollection,
+  IClusterCollection,
+} from './native-types'
 import type { BuilderConfig } from './index'
-import type { ICollection } from './native-types'
-import { isCategoryCollection } from './native-types'
+import type { WithPLP } from './node-api/catalog/collections'
 
 interface CMSContentType {
   id: string
@@ -80,20 +79,14 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     sourcingMode: Joi.string().valid('cms-first').valid('catalog-first'),
   })
 
-type WithPLP<T> = T & { plp: string }
-
-interface Overrides {
+interface CollectionsByType {
   Category: Record<string, WithPLP<ICategoryCollection>>
   Department: Record<string, WithPLP<ICategoryCollection>>
   Cluster: Record<string, WithPLP<IClusterCollection>>
   Brand: Record<string, WithPLP<IBrandCollection>>
 }
 
-let setOverrides: (value: Overrides) => void | undefined
-
-const getOverrides = new Promise<Overrides>((resolve) => {
-  setOverrides = resolve
-})
+const overridesBarrier = new Barrier<CollectionsByType>()
 
 export const sourceNodes = async (
   gatsbyApi: SourceNodesArgs,
@@ -101,64 +94,28 @@ export const sourceNodes = async (
 ) => {
   // Warning: Do not source remote and local nodes in a different order since this
   // is important for the local nodes not to overrider remote ones
-  const cmsNodes = await Promise.all([
+  const nodes = await Promise.all([
     fetchAllRemoteNodes(gatsbyApi, options),
     fetchAllLocalNodes(gatsbyApi),
   ]).then(([x, y]) => [...x, ...y])
 
-  createCmsSchemaCustomization(gatsbyApi, cmsNodes)
+  createCmsSchemaCustomization(gatsbyApi, nodes)
 
-  for (const node of cmsNodes) {
+  for (const node of nodes) {
     sourceCmsNode(gatsbyApi, node)
   }
 
   /**
    * Add CMS overrides to StoreCollection Nodes
    */
+  const collections = getCollectionsFromPageContent(gatsbyApi, nodes)
+  const splitted = splitCollections(collections)
 
-  const collectionBlocks: Array<WithPLP<ICollection>> = []
-
-  for (const node of cmsNodes) {
-    for (const extraBlock of node.extraBlocks) {
-      const block = extraBlock.blocks.find((x) => x.name === 'Collection')
-
-      if (block) {
-        const props = (block.props as unknown) as ICollection
-
-        collectionBlocks.push({
-          ...props,
-          plp: gatsbyApi.createNodeId(nodeId(node)),
-        })
-      }
-    }
-  }
-
-  const categories = collectionBlocks
-    .filter((x): x is WithPLP<ICategoryCollection> => isCategoryCollection(x))
-    .reduce(
-      (acc, curr) => ({ ...acc, [curr.categoryId]: curr }),
-      {} as Record<string, WithPLP<ICategoryCollection>>
-    )
-
-  const brands = collectionBlocks
-    .filter((x): x is WithPLP<IBrandCollection> => isBrandCollection(x))
-    .reduce(
-      (acc, curr) => ({ ...acc, [curr.brandId]: curr }),
-      {} as Record<string, WithPLP<IBrandCollection>>
-    )
-
-  const clusters = collectionBlocks
-    .filter((x): x is WithPLP<IClusterCollection> => isClusterCollection(x))
-    .reduce(
-      (acc, curr) => ({ ...acc, [curr.clusterId]: curr }),
-      {} as Record<string, WithPLP<IClusterCollection>>
-    )
-
-  setOverrides({
-    Category: categories,
-    Department: categories,
-    Brand: brands,
-    Cluster: clusters,
+  overridesBarrier.set({
+    Category: splitted.categories,
+    Department: splitted.categories,
+    Brand: splitted.brands,
+    Cluster: splitted.clusters,
   })
 
   /**
@@ -166,7 +123,7 @@ export const sourceNodes = async (
    * gatsby-source-vtex because collections do not have a defined
    * path on the store
    */
-  for (const cluster of Object.values(clusters)) {
+  for (const cluster of Object.values(splitted.clusters)) {
     const node: StoreCollection = {
       id: `${cluster.clusterId}:${cluster.seo.slug}`,
       remoteId: cluster.clusterId,
@@ -194,6 +151,10 @@ const TypeKeyMap = {
   Department: 'c',
 }
 
+/**
+ * @description
+ * Create custom fields on StoreCollection when this collection is defined on the CMS
+ */
 export const onCreateNode = async (gatsbyApi: CreateNodeArgs) => {
   const { node } = gatsbyApi
 
@@ -202,15 +163,15 @@ export const onCreateNode = async (gatsbyApi: CreateNodeArgs) => {
   }
 
   const collection = (node as unknown) as StoreCollection
-  const overrides = await getOverrides
+  const overrides = await overridesBarrier.get()
 
-  const maybeOverride = overrides[collection.type][collection.remoteId]
+  const override = overrides[collection.type][collection.remoteId]
 
   gatsbyApi.actions.createNodeField({
     node,
     name: 'searchParams',
     value: {
-      sort: maybeOverride?.sort ?? '""',
+      sort: override?.sort ?? '""',
       itemsPerPage: 12,
       selectedFacets:
         collection.type === 'Cluster'
@@ -225,7 +186,7 @@ export const onCreateNode = async (gatsbyApi: CreateNodeArgs) => {
   gatsbyApi.actions.createNodeField({
     node,
     name: `plp___NODE`,
-    value: maybeOverride?.plp ?? null,
+    value: override?.plp ?? null,
   })
 }
 
