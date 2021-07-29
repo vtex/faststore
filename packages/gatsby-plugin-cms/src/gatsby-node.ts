@@ -65,7 +65,6 @@ export interface Options {
   tenant: string
   workspace: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
-  sourcingMode: 'cms-first' | 'catalog-first'
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
@@ -76,7 +75,6 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
       .required()
       .valid('vtexcommercestable')
       .valid('vtexcommercebeta'),
-    sourcingMode: Joi.string().valid('cms-first').valid('catalog-first'),
   })
 
 interface CollectionsByType {
@@ -136,11 +134,6 @@ export const sourceNodes = async (
     }
 
     sourceStoreCollectionNode(gatsbyApi, node)
-  }
-
-  // TODO: Implement cms-first schema
-  if (options.sourcingMode === 'cms-first') {
-    throw new Error('NotImplemented')
   }
 }
 
