@@ -8,6 +8,7 @@ import type { ProductSummary_ProductFragment } from './__generated__/ProductSumm
 export interface Props {
   product: ProductSummary_ProductFragment
   loading?: 'lazy' | 'eager'
+  position?: number
   variant?: string
 }
 

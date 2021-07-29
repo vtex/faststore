@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { sendPixelEvent } from '../pixel/usePixelSendEvent'
-import type { PixelProduct } from '../pixel/events'
+import type { CartPixelProduct } from '../pixel/events'
 
 export interface UpdateQuantityWithPixelParams<T, R> {
   updateQuantity: (item: T) => R
@@ -37,7 +37,7 @@ export interface MinimalOrderFormItem {
 
 export function orderFormItemToPixelProduct(
   orderFormItem: MinimalOrderFormItem
-): PixelProduct {
+): CartPixelProduct {
   return {
     productId: orderFormItem.productId,
     productReferenceId: orderFormItem.productRefId,
@@ -54,7 +54,7 @@ export function orderFormItemToPixelProduct(
     skuId: orderFormItem.id,
     skuReferenceId: [{ value: orderFormItem.refId }],
     skuName: orderFormItem.skuName,
-  } as PixelProduct
+  } as CartPixelProduct
 }
 
 export function updateQuantityWithPixel<T, R>({
