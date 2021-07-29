@@ -4,7 +4,6 @@ import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useOrderItems } from '../orderForm/useOrderItems'
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
-import { usePixelEvent } from '../pixel/usePixelEvent'
 import type { PixelProduct } from '../pixel/events'
 
 interface Seller {
@@ -60,23 +59,6 @@ export const useBuyButton = ({
     !product ||
     seller.commercialOffer.availableQuantity === 0
 
-  // Redirects the user to checkout after reassuring the pixel event was received
-  usePixelEvent((e) => {
-    if (e.type !== 'vtex:addToCart') {
-      return
-    }
-
-    const isThisItem = e.data.products[0].skuId?.toString() === sku?.itemId
-
-    if (!isThisItem || !e.data.oneClickBuy) {
-      return
-    }
-
-    requestAnimationFrame(() => {
-      window.location.href = '/checkout/'
-    })
-  })
-
   // Optimist add item on click
   const onClick = async (e: any) => {
     e.preventDefault()
@@ -118,7 +100,9 @@ export const useBuyButton = ({
     try {
       const items = [orderFormItemWithPrice]
 
-      addItems(items, { allowedOutdatedData: ['paymentData'] })
+      const addItemsPromise = addItems(items, {
+        allowedOutdatedData: ['paymentData'],
+      })
 
       if (shouldOpenMinicart) {
         openMinicart()
@@ -128,9 +112,17 @@ export const useBuyButton = ({
         type: 'vtex:addToCart',
         data: {
           products: [pixelEventProduct],
-          oneClickBuy,
         },
       })
+
+      if (oneClickBuy) {
+        // Makes sure the request is completed before redirecting the user
+        await addItemsPromise
+
+        requestAnimationFrame(() => {
+          window.location.href = '/checkout/'
+        })
+      }
     } catch (err) {
       console.error(err)
     }
