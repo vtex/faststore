@@ -205,7 +205,7 @@ which would return the follwing json:
 CMS plugin has pre-built blocks that speeds up your content types creation. Think of this like a component library that you can import and stitch together to create the content type you desire. 
 These types include Carousel, Seo, and much more. To use it on your project, justs:
 ```js
-import { Carousel } from '@vtex/gatsby-plugin-cms/native-types'
+import { Carousel } from '@vtex/gatsby-plugin-cms'
 
 ...
 
@@ -221,7 +221,7 @@ export default {
 }
 ```
 
-Check all available blocks, and their definition, at `@vtex/gatsby-plugin-cms/native-types`
+Check all available blocks, and their definition, at [`gatsby-plugin-cms/native-types`](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-cms/src/native-types)
 
 ### VTEX modules and Native Types
 Some VTEX modules have first-class support in our CMS. To enable this support, you need to create your contentTypes with our native types for that specific module. 
@@ -235,7 +235,7 @@ Whenever the CMS finds a node with the `PLP` signature, it will create a customi
 
 To use it, just add this to your cms config:
 ```js
-import { PLP } from '@vtex/gatsby-plugin-cms/native-types'
+import { PLP } from '@vtex/gatsby-plugin-cms'
 
 export default {
   ...

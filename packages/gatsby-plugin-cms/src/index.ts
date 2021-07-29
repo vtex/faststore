@@ -1,5 +1,13 @@
 import type { JSONSchema6 } from 'json-schema'
 
+export { PLP } from './native-types/contentTypes/plp'
+
+export { Seo } from './native-types/blocks/seo'
+export type { ISeo } from './native-types/blocks/seo'
+
+export { Sort } from './native-types/blocks/sort'
+export type { ISort } from './native-types/blocks/sort'
+
 export interface Schema extends JSONSchema6 {
   title: string
   description?: string
