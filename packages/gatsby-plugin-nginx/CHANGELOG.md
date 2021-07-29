@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.20 (2021-07-29)
+
+
+### Features
+
+* **gatsby-theme-store:** fix product click event ([#866](https://github.com/vtex/faststore/issues/866)) ([eeb4df2](https://github.com/vtex/faststore/commit/eeb4df2308a8113256c8c716574ef213d1da9468))
+
+
+
+
+
 ## 0.372.19 (2021-07-29)
 
 
