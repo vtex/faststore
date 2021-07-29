@@ -6,7 +6,7 @@ import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
 import useCarousel from './hooks/useCarousel'
-import { useSlideVisibility } from './hooks/useSlideVisibility'
+import useSlideVisibility from './hooks/useSlideVisibility'
 import Bullets from '../Bullets'
 
 export interface CarouselProps {
