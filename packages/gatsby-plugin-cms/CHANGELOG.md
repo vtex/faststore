@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.19 (2021-07-29)
+
+
+### Bug Fixes
+
+* **gatsby-theme-store:** useBuyButton only redirects users to the checkout when product is added successfully ([#823](https://github.com/vtex/faststore/issues/823)) ([304178e](https://github.com/vtex/faststore/commit/304178e05e2c396407f47afc76ba2e9b959f6147))
+
+
+
+
+
 ## 0.372.18 (2021-07-27)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-cms
