@@ -1,15 +1,15 @@
-[data-store-bullets] {
+.theme-default [data-store-bullets] {
   box-sizing: border-box;
   padding: 10px 0px;
   justify-content: center;
   display: flex;
 }
 
-[data-store-bullets] [data-bullet-item] {
+.theme-default [data-store-bullets] [data-bullet-item] {
   display: inline-block;
 }
 
-[data-store-bullets] [data-bullet-item] [data-store-button] {
+.theme-default [data-store-bullets] [data-bullet-item] [data-store-button] {
   box-sizing: border-box;
   min-width: 0px;
   background-color: rgb(168, 168, 168);
@@ -26,6 +26,6 @@
   min-height: 0;
 }
 
-[data-store-bullets] > [data-bullet-item][data-active] > [data-store-button] {
+.theme-default [data-store-bullets] > [data-bullet-item][data-active] > [data-store-button] {
   background-color: rgb(247, 25, 99);
 }

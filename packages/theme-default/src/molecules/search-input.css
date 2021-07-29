@@ -1,4 +1,4 @@
-[data-store-search-input] {
+.theme-default [data-store-search-input] {
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -16,7 +16,7 @@
   display: flex;
 }
 
-[data-store-search-input] [data-store-button] {
+.theme-default [data-store-search-input] [data-store-button] {
   align-items: center;
   appearance: none;
   background-color: transparent;

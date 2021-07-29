@@ -19,10 +19,10 @@ export const parameters = {
   },
   themes: {
     clearable: false,
-    default: 'basic-theme',
+    default: 'theme-default',
     list: [
       { name: 'none', class: 'no-theme', color: '#FFFFFF' },
-      { name: 'basic-theme', class: 'basic-theme', color: '#999999' },
+      { name: 'theme-default', class: 'theme-default', color: '#999999' },
     ],
     onChange: (theme) => {
       document

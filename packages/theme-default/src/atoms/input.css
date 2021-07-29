@@ -1,4 +1,4 @@
-.basic-theme [data-store-input] {
+.theme-default [data-store-input] {
   width: 340px;
   height: 41px;
   border-color: rgb(227, 228, 230);
@@ -12,12 +12,12 @@
   margin-bottom: 8px;
 }
 
-.basic-theme [data-store-input][data-success], .basic-theme [data-store-input][data-success]:focus {
+.theme-default [data-store-input][data-success], .theme-default [data-store-input][data-success]:focus {
   border-color: green;
   outline-width: 0;
 }
 
-.basic-theme [data-store-input][data-error], .basic-theme [data-store-input][data-error]:focus {
+.theme-default [data-store-input][data-error], .theme-default [data-store-input][data-error]:focus {
   border-color: red;
   outline-width: 0;
 }

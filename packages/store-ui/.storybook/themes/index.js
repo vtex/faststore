@@ -1,5 +1,5 @@
 import React from 'react'
-import '@vtex/basic-theme'
+import '@vtex/theme-default/dist/index.css'
 
 const ThemeProvider = ({ children }) => <>{children}</>
 

@@ -4,14 +4,18 @@
   "description": "Basic theme for our Store UI components.",
   "author": "VTEX <gabriel.antiqueira@vtex.com.br>",
   "license": "MIT",
-  "main": "src/index.css",
+  "main": "dist/index.css",
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",
     "directory": "packages/theme-default"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "build": "echo No build script"
+    "build": "postcss src/**/*.css src/*.css --base src --dir ./dist"
   },
   "bugs": {
     "url": "https://github.com/vtex/faststore/issues"
@@ -20,5 +24,8 @@
     "autoprefixer": "^10.2.6",
     "postcss": "^8.3.5",
     "tailwindcss": "^2.2.4"
+  },
+  "dependencies": {
+    "postcss-cli": "^8.3.1"
   }
 }
