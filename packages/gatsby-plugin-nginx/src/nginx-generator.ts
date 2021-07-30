@@ -275,7 +275,7 @@ function generateProxyRewriteChildren({
   toPath,
   proxyHeaders,
 }: Redirect): NginxDirective['children'] {
-  const isArgs: string = toPath.includes('?') ? '&' : '?'
+  const isArgs: string = toPath.includes('?') ? '&' : '$is_args'
 
   return [
     ...formatProxyHeaders(proxyHeaders as Record<string, string> | undefined),
