@@ -73,8 +73,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     workspace: Joi.string().required(),
     environment: Joi.string()
       .required()
-      .valid('vtexcommercestable')
-      .valid('vtexcommercebeta'),
+      .valid('vtexcommercestable', 'vtexcommercebeta'),
   })
 
 interface CollectionsByType {
