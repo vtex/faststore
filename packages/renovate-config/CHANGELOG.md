@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.372.22 (2021-07-30)
+
+
+### Features
+
+* **collections:** Source collections from category tree ([#871](https://github.com/vtex/faststore/issues/871)) ([e4ca79a](https://github.com/vtex/faststore/commit/e4ca79a810ca89f609082b994a9ad069e9d64579))
+
+
+
+
+
 ## 0.372.21 (2021-07-29)
 
 **Note:** Version bump only for package @vtex/renovate-config
