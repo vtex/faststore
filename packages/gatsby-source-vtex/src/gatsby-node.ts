@@ -32,6 +32,12 @@ import type {
   NodeEvent,
 } from 'gatsby-graphql-source-toolkit/dist/types'
 
+// import type { NodeEvent as CollectionNodeEvent } from './graphql/types/collection'
+import {
+  // sourceNodeChanges as sourceCollectionNodeChanges,
+  sourceAllNodes as sourceAllCollectionNodes,
+  typeDefs as StoreCollectionTypeDefs,
+} from './graphql/types/collection'
 import { api } from './api'
 import { fetchVTEX } from './fetch'
 import { ProductPaginationAdapter } from './graphql/pagination/product'
@@ -63,6 +69,7 @@ export interface Options extends PluginOptions, VTEXOptions {
    * @description minimum number of products to fetch from catalog
    * */
   minProducts?: number
+  sourceCollections?: boolean
 }
 
 const DEFAULT_PAGE_TYPES_WHITELIST = [
@@ -86,42 +93,48 @@ const DEFAULT_PAGE_TYPES_WHITELIST = [
  * data model for incremental site generation
  */
 export const createSchemaCustomization = async (
-  args: CreateSchemaCustomizationArgs,
+  gatsbyApi: CreateSchemaCustomizationArgs,
   options: Options
 ) => {
-  const {
-    reporter,
-    actions: { addThirdPartySchema },
-  } = args
+  const addThirdPartySchema = async () => {
+    const activity = gatsbyApi.reporter.activityTimer(
+      '[gatsby-source-vtex]: adding VTEX Gateway GraphQL Schema'
+    )
 
-  const activity = reporter.activityTimer(
-    '[gatsby-source-vtex]: adding VTEX Gateway GraphQL Schema'
-  )
+    activity.start()
 
-  activity.start()
+    // Create executor to run queries against schema
+    const executor = getExecutor(options)
 
-  // Create executor to run queries against schema
-  const executor = getExecutor(options)
+    const schema = wrapSchema({
+      schema: await introspectSchema(executor),
+      executor,
+      transforms: [
+        // Filter CMS fields so people use the VTEX CMS plugin instead of this one
+        new FilterObjectFields(
+          (typeName, fieldName) =>
+            !(
+              typeName === 'VTEX' &&
+              (fieldName === 'pages' || fieldName === 'product')
+            )
+        ),
+        new PruneSchema({}),
+      ],
+    })
 
-  const schema = wrapSchema({
-    schema: await introspectSchema(executor),
-    executor,
-    transforms: [
-      // Filter CMS fields so people use the VTEX CMS plugin instead of this one
-      new FilterObjectFields(
-        (typeName, fieldName) =>
-          !(
-            typeName === 'VTEX' &&
-            (fieldName === 'pages' || fieldName === 'product')
-          )
-      ),
-      new PruneSchema({}),
-    ],
-  })
+    gatsbyApi.actions.addThirdPartySchema(
+      { schema },
+      { name: 'gatsby-source-vtex' }
+    )
 
-  addThirdPartySchema({ schema }, { name: 'gatsby-source-vtex' })
+    activity.end()
+  }
 
-  activity.end()
+  const addStoreCollection = async () => {
+    gatsbyApi.actions.createTypes(StoreCollectionTypeDefs)
+  }
+
+  await Promise.all([addThirdPartySchema(), addStoreCollection()])
 }
 
 /**
@@ -150,7 +163,7 @@ export const createResolvers = ({
 }
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
-  args: SourceNodesArgs,
+  gatsbyApi: SourceNodesArgs,
   options: Options
 ) => {
   const {
@@ -161,12 +174,22 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     ignorePaths = [],
   } = options
 
-  const { reporter } = args
+  const { reporter } = gatsbyApi
 
   /** Reset last build time on this machine */
-  const lastBuildTime = await args.cache.get(`LAST_BUILD_TIME`)
+  const lastBuildTime = await gatsbyApi.cache.get(`LAST_BUILD_TIME`)
 
-  await args.cache.set(`LAST_BUILD_TIME`, Date.now())
+  await gatsbyApi.cache.set(`LAST_BUILD_TIME`, Date.now())
+
+  if (lastBuildTime) {
+    reporter.info(
+      '[gatsby-source-vtex]: CACHE FOUND! We are about to go FAST! Skipping FETCH'
+    )
+  } else {
+    reporter.info(
+      '[gatsby-source-vtex]: No cache found. Sourcing all data from scratch'
+    )
+  }
 
   const promisses = [] as Array<() => Promise<void>>
 
@@ -186,7 +209,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     )
 
     for (const binding of bindings) {
-      createChannelNode(args, binding)
+      createChannelNode(gatsbyApi, binding)
     }
 
     activity.end()
@@ -208,7 +231,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     )
 
     for (const department of departments) {
-      createDepartmentNode(args, department)
+      createDepartmentNode(gatsbyApi, department)
     }
 
     activity.end()
@@ -265,7 +288,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
         continue
       }
 
-      createStaticPathNode(args, pageType, staticPath)
+      createStaticPathNode(gatsbyApi, pageType, staticPath)
     }
 
     activity.end()
@@ -353,7 +376,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     )
 
     const config: ISourcingConfig = {
-      gatsbyApi: args,
+      gatsbyApi,
       schema,
       execute: run,
       gatsbyTypePrefix: `Store`,
@@ -366,19 +389,22 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
     // Step6. Source nodes either from delta changes or scratch
     if (lastBuildTime) {
-      reporter.info(
-        '[gatsby-source-vtex]: CACHE FOUND! We are about to go FAST! Skipping FETCH'
-      )
       const nodeEvents: NodeEvent[] = []
 
       await sourceNodeChanges(config, { nodeEvents })
     } else {
-      reporter.info(
-        '[gatsby-source-vtex]: No cache found. Sourcing all data from scratch'
-      )
       await sourceAllNodes(config)
     }
   })
+
+  if (options.sourceCollections !== false) {
+    promisses.push(async () => {
+      const config = { gatsbyApi, options }
+
+      // TODO: Implement incremental build
+      await sourceAllCollectionNodes(config)
+    })
+  }
 
   await Promise.all(promisses.map((x) => x()))
 }
@@ -392,21 +418,13 @@ export const createPages = async (
    */
   const {
     data: {
-      searches: { nodes: searches },
+      allStoreCollection: { totalCount: plps },
       allStoreProduct: { totalCount: pdps },
     },
   } = await graphql<any>(`
     query GetAllStaticPaths {
-      searches: allStaticPath(
-        filter: {
-          pageType: { in: ["Department", "Category", "Brand", "SubCategory"] }
-        }
-      ) {
-        nodes {
-          id
-          path
-          pageType
-        }
+      allStoreCollection {
+        totalCount
       }
       allStoreProduct {
         totalCount
@@ -415,7 +433,7 @@ export const createPages = async (
   `)
 
   reporter.info(`[gatsby-source-vtex]: Available pdps: ${pdps}`)
-  reporter.info(`[gatsby-source-vtex]: Available plps: ${searches.length}`)
+  reporter.info(`[gatsby-source-vtex]: Available plps: ${plps}`)
 
   /**
    * Create all proxy rules for VTEX Store
@@ -570,4 +588,5 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     getRedirects: Joi.function().arity(0),
     pageTypes: Joi.array().items(Joi.string()),
     minProducts: Joi.number(),
+    sourceCollections: Joi.boolean(),
   })

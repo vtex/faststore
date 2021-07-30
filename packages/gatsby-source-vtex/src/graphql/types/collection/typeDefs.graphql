@@ -1,0 +1,19 @@
+type StoreCollectionSeo {
+  title: String!
+  description: String!
+}
+
+enum StoreCollectionType {
+  Department
+  Category
+  Brand
+  Cluster
+}
+
+type StoreCollection implements Node @childOf(types: ["StoreCollection"]) {
+  id: ID!
+  remoteId: ID!
+  slug: String!
+  seo: StoreCollectionSeo!
+  type: StoreCollectionType!
+}
