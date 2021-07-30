@@ -1,4 +1,3 @@
-// import { useEffect } from "react"
 import { withThemes } from 'storybook-addon-themes/react'
 import SBTheme from './theme'
 import ThemeProvider from './themes'
