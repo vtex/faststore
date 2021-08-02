@@ -30,17 +30,17 @@ export type Action =
   | StopSlideAction
   | GoToPageAction
 
-export type CarouselDispatch = Dispatch<Action>
+export type SliderDispatch = Dispatch<Action>
 
-export interface CarouselState {
+export interface SliderState {
   /**
-   * The `currentSlide` in a Carousel with multiple items in a single page is
+   * The `currentSlide` in a Slider with multiple items in a single page is
    * always **the one with the lowest index** in the current page.
    */
   currentSlide: number
   /** Current active page */
   currentPage: number
-  /** Whether or not the Carousel is currently sliding */
+  /** Whether or not the Slider is currently sliding */
   sliding: boolean
   slideDirection: SlideDirection
   totalItems: number
@@ -48,53 +48,44 @@ export interface CarouselState {
   totalPages: number
 }
 
-export interface UseCarouselArgs {
+export interface UseSliderArgs extends SwipeableProps {
   totalItems: number
   itemsPerPage?: number
-  swipeableConfigOverrides?: SwipeableProps
 }
 
-function reducer(state: CarouselState, action: Action): CarouselState {
+export const nextPage = (current: number, total: number) =>
+  (current + 1) % total
+
+export const previousPage = (current: number, total: number) =>
+  (total - ((total - current + 1) % total)) % total
+
+function reducer(state: SliderState, action: Action): SliderState {
   switch (action.type) {
     case 'NEXT_PAGE': {
-      let nextSlide = state.currentSlide + state.itemsPerPage
-      let nextPage = state.currentPage + 1
-
-      if (nextSlide >= state.totalItems) {
-        nextSlide = 0
-      }
-
-      if (nextPage >= state.totalPages) {
-        nextPage = 0
-      }
+      const nextPageIndex = nextPage(state.currentPage, state.totalPages)
 
       return {
         ...state,
         sliding: true,
         slideDirection: 'next',
-        currentSlide: nextSlide,
-        currentPage: nextPage,
+        currentSlide: (nextPageIndex % state.totalPages) * state.itemsPerPage,
+        currentPage: nextPageIndex,
       }
     }
 
     case 'PREVIOUS_PAGE': {
-      let previousSlide = state.currentSlide - state.itemsPerPage
-      let previousPage = state.currentPage - 1
-
-      if (previousSlide < 0) {
-        previousSlide = state.totalItems - state.itemsPerPage + 1
-      }
-
-      if (previousPage < 0) {
-        previousPage = state.totalPages - 1
-      }
+      const previousPageIndex = previousPage(
+        state.currentPage,
+        state.totalPages
+      )
 
       return {
         ...state,
         sliding: true,
         slideDirection: 'previous',
-        currentSlide: previousSlide,
-        currentPage: previousPage,
+        currentSlide:
+          (previousPageIndex % state.totalPages) * state.itemsPerPage,
+        currentPage: previousPageIndex,
       }
     }
 
@@ -124,10 +115,10 @@ function reducer(state: CarouselState, action: Action): CarouselState {
   }
 }
 
-const defaultCarouselState = (
+const defaultSliderState = (
   totalItems: number,
   itemsPerPage: number
-): CarouselState => ({
+): SliderState => ({
   currentSlide: 0,
   currentPage: 0,
   sliding: false,
@@ -155,23 +146,27 @@ const slide = (slideDirection: SlideDirection, dispatch: Dispatch<Action>) => {
   }, 50)
 }
 
-export default function useCarousel({
+export default function useSlider({
   totalItems,
-  swipeableConfigOverrides,
   itemsPerPage = 1,
-}: UseCarouselArgs) {
-  const [carouselState, carouselDispatch] = useReducer(
-    reducer,
-    defaultCarouselState(totalItems, itemsPerPage)
+  ...swipeableConfigOverrides
+}: UseSliderArgs) {
+  const [sliderState, sliderDispatch] = useReducer(reducer, undefined, () =>
+    defaultSliderState(totalItems, itemsPerPage)
   )
 
   const handlers = useSwipeable({
-    onSwipedRight: () => slide('previous', carouselDispatch),
-    onSwipedLeft: () => slide('next', carouselDispatch),
+    onSwipedRight: () => slide('previous', sliderDispatch),
+    onSwipedLeft: () => slide('next', sliderDispatch),
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
     ...swipeableConfigOverrides,
   })
 
-  return { handlers, slide, carouselState, carouselDispatch }
+  return {
+    handlers,
+    slide,
+    sliderState,
+    sliderDispatch,
+  }
 }

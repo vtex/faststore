@@ -28,16 +28,16 @@ export { default as SearchInput } from './molecules/SearchInput'
 export type { SearchInputProps } from './molecules/SearchInput'
 
 export { default as Carousel } from './molecules/Carousel'
-export { default as useCarousel } from './molecules/Carousel/hooks/useCarousel'
-export { default as useSlideVisibility } from './molecules/Carousel/hooks/useSlideVisibility'
+export type { CarouselProps } from './molecules/Carousel'
+
+// Hooks
+export { default as useSlider } from './hooks/useSlider'
 export type {
-  CarouselProps,
-  CarouselState,
-  CarouselDispatch,
-  UseCarouselArgs,
-  UseSlideVisibilityArgs,
+  UseSliderArgs,
+  SliderState,
+  SliderDispatch,
   SlideDirection,
-} from './molecules/Carousel'
+} from './hooks/useSlider'
 
 // Deprecated APIs
 export * from './deprecated/index'
