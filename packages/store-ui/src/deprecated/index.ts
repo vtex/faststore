@@ -150,7 +150,10 @@ export { default as breadcrumbTheme } from './Breadcrumb/theme'
 export { default as SliderPaginationDots } from './Slider/PaginationDots'
 export { default as SliderArrowLeft } from './Slider/ArrowLeft'
 export { default as SliderArrowRight } from './Slider/ArrowRight'
-export * from './Slider/hooks/useSlider'
+export {
+  UseSliderOptions,
+  useSlider as useUISlider,
+} from './Slider/hooks/useSlider'
 export * from './Slider/hooks/useResponsiveSlider'
 // Centered
 export { default as Center } from './Center'
