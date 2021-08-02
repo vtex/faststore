@@ -89,7 +89,7 @@ describe('Carousel component', () => {
 
   it('should add `data-visible` attribute to currently visible carousel items', () => {
     const { getByTestId } = render(
-      <Carousel itemsPerPage={2}>
+      <Carousel>
         <div>Slide 1</div>
         <div>Slide 2</div>
         <div>Slide 3</div>
@@ -104,9 +104,9 @@ describe('Carousel component', () => {
 
     expect(items).toHaveLength(5)
 
-    // Only the first and second items should have `data-visible` attributes
+    // Only the first item should have `data-visible` attributes
     expect(items[0]).toHaveAttribute('data-visible')
-    expect(items[1]).toHaveAttribute('data-visible')
+    expect(items[1]).not.toHaveAttribute('data-visible')
     expect(items[2]).not.toHaveAttribute('data-visible')
     expect(items[3]).not.toHaveAttribute('data-visible')
     expect(items[4]).not.toHaveAttribute('data-visible')
@@ -114,7 +114,7 @@ describe('Carousel component', () => {
 
   it('should allow users to navigate through pages using the `Arrows` controls', () => {
     const { getByTestId, getByLabelText } = render(
-      <Carousel itemsPerPage={2}>
+      <Carousel>
         <div>Slide 1</div>
         <div>Slide 2</div>
         <div>Slide 3</div>
@@ -137,11 +137,11 @@ describe('Carousel component', () => {
     const carouselSection = getByTestId('store-carousel')
     let items = carouselSection.querySelectorAll('[data-carousel-item]')
 
-    // Only the items in the second page should be visible
+    // Only the second item should be visible
     expect(items[0]).not.toHaveAttribute('data-visible')
-    expect(items[1]).not.toHaveAttribute('data-visible')
-    expect(items[2]).toHaveAttribute('data-visible')
-    expect(items[3]).toHaveAttribute('data-visible')
+    expect(items[1]).toHaveAttribute('data-visible')
+    expect(items[2]).not.toHaveAttribute('data-visible')
+    expect(items[3]).not.toHaveAttribute('data-visible')
     expect(items[4]).not.toHaveAttribute('data-visible')
 
     // Go from page 1 back to 0
@@ -151,9 +151,9 @@ describe('Carousel component', () => {
 
     items = carouselSection.querySelectorAll('[data-carousel-item]')
 
-    // Only the items in the first page should be visible
+    // Only the first item should be visible
     expect(items[0]).toHaveAttribute('data-visible')
-    expect(items[1]).toHaveAttribute('data-visible')
+    expect(items[1]).not.toHaveAttribute('data-visible')
     expect(items[2]).not.toHaveAttribute('data-visible')
     expect(items[3]).not.toHaveAttribute('data-visible')
     expect(items[4]).not.toHaveAttribute('data-visible')
@@ -161,7 +161,7 @@ describe('Carousel component', () => {
 
   it('should allow users to navigate through pages by clicking on a pagination bullet', () => {
     const { getByTestId, queryAllByTestId, getByLabelText } = render(
-      <Carousel itemsPerPage={2}>
+      <Carousel>
         <div>Slide 1</div>
         <div>Slide 2</div>
         <div>Slide 3</div>
@@ -173,7 +173,7 @@ describe('Carousel component', () => {
     const carouselSection = getByTestId('store-carousel')
     const bullets = queryAllByTestId('store-bullets-item')
 
-    expect(bullets).toHaveLength(3)
+    expect(bullets).toHaveLength(5)
 
     const secondPageBullet = getByLabelText('Go to page 2')
 
@@ -183,11 +183,11 @@ describe('Carousel component', () => {
 
     let items = carouselSection.querySelectorAll('[data-carousel-item]')
 
-    // Only the items in the second page should be visible
+    // Only the second item should be visible
     expect(items[0]).not.toHaveAttribute('data-visible')
-    expect(items[1]).not.toHaveAttribute('data-visible')
-    expect(items[2]).toHaveAttribute('data-visible')
-    expect(items[3]).toHaveAttribute('data-visible')
+    expect(items[1]).toHaveAttribute('data-visible')
+    expect(items[2]).not.toHaveAttribute('data-visible')
+    expect(items[3]).not.toHaveAttribute('data-visible')
     expect(items[4]).not.toHaveAttribute('data-visible')
 
     const thirdPageBullet = getByLabelText('Go to page 3')
@@ -198,11 +198,11 @@ describe('Carousel component', () => {
 
     items = carouselSection.querySelectorAll('[data-carousel-item]')
 
-    // Only the items in the last page (3rd) should be visible
+    // Only the 3rd item should be visible
     expect(items[0]).not.toHaveAttribute('data-visible')
     expect(items[1]).not.toHaveAttribute('data-visible')
-    expect(items[2]).not.toHaveAttribute('data-visible')
+    expect(items[2]).toHaveAttribute('data-visible')
     expect(items[3]).not.toHaveAttribute('data-visible')
-    expect(items[4]).toHaveAttribute('data-visible')
+    expect(items[4]).not.toHaveAttribute('data-visible')
   })
 })

@@ -1,52 +1,78 @@
 import type { PropsWithChildren } from 'react'
+import React, { useMemo } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
-import React from 'react'
 
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
-import useCarousel from './hooks/useCarousel'
+import useSlider from '../../hooks/useSlider/useSlider'
 import useSlideVisibility from './hooks/useSlideVisibility'
 import Bullets from '../Bullets'
 
-export interface CarouselProps {
+export interface CarouselProps extends SwipeableProps {
   testId?: string
-  itemsPerPage?: number
-  swipeableConfigOverrides?: SwipeableProps
+}
+
+const createTransformValues = (totalItems: number) => {
+  const slideWidth = 100 / totalItems
+
+  const transformArray = Array(totalItems)
+    .fill(0)
+    .map((_, idx) => -(slideWidth * idx))
+
+  return transformArray
 }
 
 function Carousel({
   testId = 'store-carousel',
-  itemsPerPage = 1,
-  swipeableConfigOverrides,
   children,
+  ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
   const numberOfSlides = React.Children.count(children)
 
-  const { handlers, slide, carouselState, carouselDispatch } = useCarousel({
+  const transformValues = useMemo(() => createTransformValues(numberOfSlides), [
+    numberOfSlides,
+  ])
+
+  const { handlers, slide, sliderState, sliderDispatch } = useSlider({
     totalItems: numberOfSlides,
-    itemsPerPage,
-    swipeableConfigOverrides,
+    itemsPerPage: 1,
+    ...swipeableConfigOverrides,
   })
 
-  const { shouldRenderItem, isItemVisible } = useSlideVisibility({
-    itemsPerPage: carouselState.itemsPerPage,
-    currentSlide: carouselState.currentSlide,
+  const { isItemVisible, shouldRenderItem } = useSlideVisibility({
+    itemsPerPage: sliderState.itemsPerPage,
+    currentSlide: sliderState.currentSlide,
   })
 
   return (
     <section
       data-store-carousel
+      style={{ display: 'flex' }}
       data-testid={testId}
       aria-label="carousel"
-      {...handlers}
     >
-      <div data-carousel-track-container>
-        <div data-carousel-track>
+      <div
+        data-carousel-track-container
+        style={{ overflow: 'hidden', width: '100%' }}
+        {...handlers}
+      >
+        <div
+          data-carousel-track
+          style={{
+            display: 'flex',
+            transition: `transform 400ms 0ms`,
+            width: `${(numberOfSlides * 100) / sliderState.itemsPerPage}%`,
+            transform: `translate3d(${
+              transformValues[sliderState.currentPage]
+            }%, 0, 0)`,
+          }}
+        >
           {React.Children.map(children, (child, idx) => (
             <div
               key={idx}
               data-carousel-item
+              style={{ width: `100%`, display: 'flex' }}
               data-visible={isItemVisible(idx) || undefined}
             >
               {shouldRenderItem(idx) ? child : null}
@@ -58,30 +84,30 @@ function Carousel({
         <Button
           aria-controls="carousel"
           aria-label="previous"
-          onClick={() => slide('previous', carouselDispatch)}
+          onClick={() => slide('previous', sliderDispatch)}
         >
           <Icon component={<LeftArrowIcon />} />
         </Button>
         <Button
           aria-controls="carousel"
           aria-label="next"
-          onClick={() => slide('next', carouselDispatch)}
+          onClick={() => slide('next', sliderDispatch)}
         >
           <Icon component={<RightArrowIcon />} />
         </Button>
       </div>
       <div data-carousel-bullets>
         <Bullets
-          totalQuantity={carouselState.totalPages}
-          activeBullet={carouselState.currentPage}
-          onClick={(_, idx) =>
-            carouselDispatch({
+          totalQuantity={sliderState.totalPages}
+          activeBullet={sliderState.currentPage}
+          onClick={(_, idx) => {
+            sliderDispatch({
               type: 'GO_TO_PAGE',
               payload: {
                 pageIndex: idx,
               },
             })
-          }
+          }}
         />
       </div>
     </section>
