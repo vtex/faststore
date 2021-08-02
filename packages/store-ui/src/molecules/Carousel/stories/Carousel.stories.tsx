@@ -6,16 +6,8 @@ import Component from '../Carousel'
 import type { CarouselProps } from '../Carousel'
 import mdx from './Carousel.mdx'
 
-const CarouselTemplate: Story<CarouselProps> = ({
-  itemsPerPage,
-  swipeableConfigOverrides,
-  testId,
-}) => (
-  <Component
-    testId={testId}
-    itemsPerPage={itemsPerPage}
-    swipeableConfigOverrides={swipeableConfigOverrides}
-  >
+const CarouselTemplate: Story<CarouselProps> = ({ testId, variant }) => (
+  <Component testId={testId} variant={variant}>
     <img alt="" width={500} src="https://source.unsplash.com/1600x900/?rio" />
     <img
       alt=""
@@ -48,10 +40,9 @@ const CarouselTemplate: Story<CarouselProps> = ({
 export const Carousel = CarouselTemplate.bind({})
 
 const argTypes: ComponentArgTypes<CarouselProps> = {
-  itemsPerPage: {
-    control: { type: 'number', min: 1 },
-    defaultValue: 1,
-    min: 1,
+  variant: {
+    control: { type: 'select', options: ['full', 'preview'] },
+    defaultValue: 'preview',
   },
 }
 

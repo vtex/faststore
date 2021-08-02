@@ -1,0 +1,58 @@
+.theme-default [data-store-carousel] {
+  max-width: 100%;
+}
+
+.theme-default [data-carousel-track-container] {
+  overflow: hidden;
+}
+
+.theme-default [data-carousel-track] {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.theme-default [data-carousel-track]::-webkit-scrollbar {
+  width: 0px;
+}
+
+.theme-default [data-preview] > [data-carousel-track-container] > [data-carousel-track] > [data-carousel-item] {
+  min-width: 83%;
+  scroll-snap-align: center;
+}
+
+.theme-default [data-full] > [data-carousel-track-container] > [data-carousel-track] > [data-carousel-item] {
+  min-width: 100%;
+  scroll-snap-align: center;
+}
+
+.theme-default [data-carousel-item] {
+  margin-left: 0.25%;
+  margin-right: 0.25%;
+}
+
+.theme-default [data-carousel-item] > img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+.theme-default [data-carousel-controls] > [data-store-button] {
+  position: absolute;
+  top: 35%;
+  border-radius: 100%;
+  aspect-ratio: 1;
+  background-color: rgba(123, 123, 123, 0.632);
+}
+
+.theme-default [data-carousel-controls] > [data-store-button][data-next] {
+  right: 3%;
+}
+
+.theme-default [data-carousel-controls] > [data-store-button][data-prev] {
+  left: 3%;
+}

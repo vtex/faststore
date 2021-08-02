@@ -1,55 +1,67 @@
+import React, { Children, createRef, useMemo } from 'react'
 import type { PropsWithChildren } from 'react'
-import type { SwipeableProps } from 'react-swipeable'
-import React from 'react'
 
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
-import useCarousel from './hooks/useCarousel'
-import useSlideVisibility from './hooks/useSlideVisibility'
 import Bullets from '../Bullets'
+import useSlider, { nextPage, previousPage } from '../../hooks/useSlider'
+import type { UseSliderArgs } from '../../hooks/useSlider'
 
-export interface CarouselProps {
+export interface CarouselProps extends UseCarouselArgs {
   testId?: string
-  itemsPerPage?: number
-  swipeableConfigOverrides?: SwipeableProps
+}
+
+interface UseCarouselArgs extends Omit<UseSliderArgs, 'totalItems'> {
+  variant: 'full' | 'preview'
 }
 
 function Carousel({
   testId = 'store-carousel',
-  itemsPerPage = 1,
-  swipeableConfigOverrides,
   children,
+  variant = 'preview',
+  ...rest
 }: PropsWithChildren<CarouselProps>) {
-  const numberOfSlides = React.Children.count(children)
+  const totalItems = Children.count(children)
+  const refs = useMemo(
+    () =>
+      Array(totalItems)
+        .fill(0)
+        .map((_) => createRef<HTMLDivElement>()),
+    [totalItems]
+  )
 
-  const { handlers, slide, carouselState, carouselDispatch } = useCarousel({
-    totalItems: numberOfSlides,
-    itemsPerPage,
-    swipeableConfigOverrides,
+  const {
+    handlers,
+    state: { totalPages, currentPage },
+    slide,
+  } = useSlider({
+    totalItems,
+    itemsPerPage: 1,
+    ...rest,
   })
 
-  const { shouldRenderItem, isItemVisible } = useSlideVisibility({
-    itemsPerPage: carouselState.itemsPerPage,
-    currentSlide: carouselState.currentSlide,
-  })
+  const variants = {
+    'data-full': variant === 'full' || undefined,
+    'data-preview': variant === 'preview' || undefined,
+  }
 
   return (
     <section
       data-store-carousel
       data-testid={testId}
       aria-label="carousel"
-      {...handlers}
+      {...variants}
     >
-      <div data-carousel-track-container>
+      <div data-carousel-track-container {...handlers}>
         <div data-carousel-track>
-          {React.Children.map(children, (child, idx) => (
+          {Children.map(children, (child, idx) => (
             <div
-              key={idx}
               data-carousel-item
-              data-visible={isItemVisible(idx) || undefined}
+              key={`carousel-item-${idx}`}
+              ref={refs[idx]}
             >
-              {shouldRenderItem(idx) ? child : null}
+              {child}
             </div>
           ))}
         </div>
@@ -58,30 +70,44 @@ function Carousel({
         <Button
           aria-controls="carousel"
           aria-label="previous"
-          onClick={() => slide('previous', carouselDispatch)}
+          data-prev
+          onClick={() => {
+            const item = previousPage(currentPage, totalPages)
+
+            refs[item].current?.scrollIntoView()
+
+            slide('previous')
+          }}
         >
           <Icon component={<LeftArrowIcon />} />
         </Button>
         <Button
           aria-controls="carousel"
           aria-label="next"
-          onClick={() => slide('next', carouselDispatch)}
+          data-next
+          onClick={() => {
+            const item = nextPage(currentPage, totalPages)
+
+            refs[item].current?.scrollIntoView()
+
+            slide('next')
+          }}
         >
           <Icon component={<RightArrowIcon />} />
         </Button>
       </div>
       <div data-carousel-bullets>
         <Bullets
-          totalQuantity={carouselState.totalPages}
-          activeBullet={carouselState.currentPage}
-          onClick={(_, idx) =>
-            carouselDispatch({
-              type: 'GO_TO_PAGE',
-              payload: {
-                pageIndex: idx,
-              },
-            })
-          }
+          totalQuantity={totalPages}
+          activeBullet={currentPage}
+          onClick={({ target }, item) => {
+            // eslint-disable-next-line @typescript-eslint/no-extra-semi
+            ;(target as any)?.blur()
+
+            refs[item].current?.scrollIntoView()
+
+            slide(item)
+          }}
         />
       </div>
     </section>
