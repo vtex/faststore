@@ -18,10 +18,14 @@ export const parameters = {
   },
   themes: {
     clearable: false,
-    default: 'theme-default',
+    default: 'theme-b2c-tailwind',
     list: [
       { name: 'none', class: 'no-theme', color: '#FFFFFF' },
-      { name: 'theme-default', class: 'theme-default', color: '#999999' },
+      {
+        name: 'theme-b2c-tailwind',
+        class: 'theme-b2c-tailwind',
+        color: '#999999',
+      },
     ],
     onChange: (theme) => {
       document

@@ -7,5 +7,5 @@ Done with [TailwindCSS](https://tailwindcss.com/) and [PostCSS](https://postcss.
 ## Usage
 
 ```
-import '@vtex/theme-default'
+import '@vtex/theme-b2c-tailwind'
 ```
