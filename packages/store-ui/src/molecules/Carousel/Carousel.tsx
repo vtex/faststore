@@ -1,11 +1,11 @@
-import React, { Children, createRef, useMemo } from 'react'
+import React, { Children, useEffect, useRef } from 'react'
 import type { PropsWithChildren } from 'react'
 
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
 import Bullets from '../Bullets'
-import useSlider, { nextPage, previousPage } from '../../hooks/useSlider'
+import useSlider from '../../hooks/useSlider'
 import type { UseSliderArgs } from '../../hooks/useSlider'
 
 export interface CarouselProps extends UseCarouselArgs {
@@ -22,29 +22,25 @@ function Carousel({
   variant = 'preview',
   ...rest
 }: PropsWithChildren<CarouselProps>) {
-  const totalItems = Children.count(children)
-  const refs = useMemo(
-    () =>
-      Array(totalItems)
-        .fill(0)
-        .map((_) => createRef<HTMLDivElement>()),
-    [totalItems]
-  )
-
   const {
     handlers,
     state: { totalPages, currentPage },
     slide,
   } = useSlider({
-    totalItems,
+    totalItems: Children.count(children),
     itemsPerPage: 1,
     ...rest,
   })
 
+  const currentRef = useRef<HTMLDivElement | null>(null)
   const variants = {
     'data-full': variant === 'full' || undefined,
     'data-preview': variant === 'preview' || undefined,
   }
+
+  useEffect(() => {
+    currentRef.current!.scrollIntoView()
+  }, [currentPage])
 
   return (
     <section
@@ -59,7 +55,7 @@ function Carousel({
             <div
               data-carousel-item
               key={`carousel-item-${idx}`}
-              ref={refs[idx]}
+              ref={idx === currentPage ? currentRef : undefined}
             >
               {child}
             </div>
@@ -72,10 +68,6 @@ function Carousel({
           aria-label="previous"
           data-prev
           onClick={() => {
-            const item = previousPage(currentPage, totalPages)
-
-            refs[item].current?.scrollIntoView()
-
             slide('previous')
           }}
         >
@@ -86,10 +78,6 @@ function Carousel({
           aria-label="next"
           data-next
           onClick={() => {
-            const item = nextPage(currentPage, totalPages)
-
-            refs[item].current?.scrollIntoView()
-
             slide('next')
           }}
         >
@@ -100,12 +88,7 @@ function Carousel({
         <Bullets
           totalQuantity={totalPages}
           activeBullet={currentPage}
-          onClick={({ target }, item) => {
-            // eslint-disable-next-line @typescript-eslint/no-extra-semi
-            ;(target as any)?.blur()
-
-            refs[item].current?.scrollIntoView()
-
+          onClick={(_, item) => {
             slide(item)
           }}
         />

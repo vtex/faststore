@@ -60,7 +60,7 @@ export interface UseSliderArgs extends SwipeableProps {
 export const nextPage = (current: number, total: number) =>
   (current + 1) % total
 
-export const previousPage = (current: number, total: number) =>
+export const prevPage = (current: number, total: number) =>
   (total - ((total - current + 1) % total)) % total
 
 const defaultState = (
@@ -91,7 +91,7 @@ function reducer(state: SliderState, action: Action): SliderState {
         ...state,
         sliding: true,
         slideDirection: 'previous',
-        currentPage: previousPage(state.currentPage, state.totalPages),
+        currentPage: prevPage(state.currentPage, state.totalPages),
       }
     }
 
