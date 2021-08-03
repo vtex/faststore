@@ -59,6 +59,7 @@
     "@types/theme-ui__components": "^0.2.6",
     "@vtex-components/accordion": "^0.2.4",
     "@vtex-components/drawer": "^0.2.4",
+    "@vtex/theme-b2c-tailwind": "^0.371.30",
     "deepmerge": "^4.2.2",
     "react-hook-inview": "^4.3.9",
     "react-intl": "^5.18.0",
