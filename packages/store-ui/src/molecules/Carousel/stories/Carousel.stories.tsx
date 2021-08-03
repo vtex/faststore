@@ -41,8 +41,8 @@ export const Carousel = CarouselTemplate.bind({})
 
 const argTypes: ComponentArgTypes<CarouselProps> = {
   variant: {
-    control: { type: 'select', options: ['full', 'preview'] },
-    defaultValue: 'preview',
+    control: { type: 'select', options: ['full', 'center'] },
+    defaultValue: 'center',
   },
 }
 

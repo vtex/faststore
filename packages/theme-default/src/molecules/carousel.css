@@ -1,5 +1,6 @@
 .theme-default [data-store-carousel] {
   max-width: 100%;
+  position: relative;
 }
 
 .theme-default [data-carousel-track-container] {
@@ -16,11 +17,11 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* .theme-default [data-carousel-track]::-webkit-scrollbar {
+.theme-default [data-carousel-track]::-webkit-scrollbar {
   width: 0px;
-} */
+}
 
-.theme-default [data-preview] > [data-carousel-track-container] > [data-carousel-track] > [data-carousel-item] {
+.theme-default [data-center] > [data-carousel-track-container] > [data-carousel-track] > [data-carousel-item] {
   min-width: 83%;
   scroll-snap-align: center;
 }

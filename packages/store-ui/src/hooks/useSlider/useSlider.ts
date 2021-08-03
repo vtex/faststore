@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from 'react'
+import { useCallback, useReducer } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import type { Dispatch } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
@@ -23,21 +23,11 @@ interface GoToPageAction {
 interface StopSlideAction {
   type: 'STOP_SLIDE'
 }
-
-interface ResetAction {
-  type: 'RESET'
-  payload: {
-    totalItems: number
-    itemsPerPage: number
-  }
-}
-
 export type Action =
   | NextPageAction
   | PreviousPageAction
   | StopSlideAction
   | GoToPageAction
-  | ResetAction
 
 export type SliderDispatch = Dispatch<Action>
 
@@ -112,12 +102,6 @@ function reducer(state: SliderState, action: Action): SliderState {
     case 'STOP_SLIDE':
       return { ...state, sliding: false }
 
-    case 'RESET':
-      return defaultState(
-        action.payload.totalItems,
-        action.payload.itemsPerPage
-      )
-
     default:
       return state
   }
@@ -131,15 +115,6 @@ export default function useSlider({
   const [state, dispatch] = useReducer(reducer, undefined, () =>
     defaultState(totalItems, itemsPerPage)
   )
-
-  useEffect(() => {
-    if (
-      state.totalItems !== totalItems ||
-      state.itemsPerPage !== itemsPerPage
-    ) {
-      dispatch({ type: 'RESET', payload: { totalItems, itemsPerPage } })
-    }
-  }, [totalItems, itemsPerPage, state.totalItems, state.itemsPerPage])
 
   const slide = useCallback(
     (page: Direction | number) => {
@@ -166,7 +141,7 @@ export default function useSlider({
 
       setTimeout(() => {
         dispatch({ type: 'STOP_SLIDE' })
-      }, 1000)
+      }, 50)
     },
     [dispatch]
   )

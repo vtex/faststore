@@ -13,13 +13,13 @@ export interface CarouselProps extends UseCarouselArgs {
 }
 
 interface UseCarouselArgs extends Omit<UseSliderArgs, 'totalItems'> {
-  variant: 'full' | 'preview'
+  variant: 'full' | 'center'
 }
 
 function Carousel({
   testId = 'store-carousel',
   children,
-  variant = 'preview',
+  variant = 'center',
   ...rest
 }: PropsWithChildren<CarouselProps>) {
   const {
@@ -35,7 +35,7 @@ function Carousel({
   const currentRef = useRef<HTMLDivElement | null>(null)
   const variants = {
     'data-full': variant === 'full' || undefined,
-    'data-preview': variant === 'preview' || undefined,
+    'data-center': variant === 'center' || undefined,
   }
 
   useEffect(() => {
@@ -67,9 +67,7 @@ function Carousel({
           aria-controls="carousel"
           aria-label="previous"
           data-prev
-          onClick={() => {
-            slide('previous')
-          }}
+          onClick={() => slide('previous')}
         >
           <Icon component={<LeftArrowIcon />} />
         </Button>
@@ -77,9 +75,7 @@ function Carousel({
           aria-controls="carousel"
           aria-label="next"
           data-next
-          onClick={() => {
-            slide('next')
-          }}
+          onClick={() => slide('next')}
         >
           <Icon component={<RightArrowIcon />} />
         </Button>
@@ -88,9 +84,7 @@ function Carousel({
         <Bullets
           totalQuantity={totalPages}
           activeBullet={currentPage}
-          onClick={(_, item) => {
-            slide(item)
-          }}
+          onClick={(_, item) => slide(item)}
         />
       </div>
     </section>
