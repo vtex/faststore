@@ -6,7 +6,7 @@ import type { SelectProps } from '../Select'
 import Component from '../Select'
 import mdx from './Select.mdx'
 
-const SelectTemplate: Story<SelectProps> = ({ children, testId, props }) => {
+const SelectTemplate: Story<SelectProps> = ({ children, testId, ...props }) => {
   return (
     <Component testId={testId} {...props}>
       {children}
