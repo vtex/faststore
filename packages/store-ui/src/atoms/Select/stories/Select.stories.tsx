@@ -6,15 +6,24 @@ import type { SelectProps } from '../Select'
 import Component from '../Select'
 import mdx from './Select.mdx'
 
-const SelectTemplate: Story<SelectProps> = ({ children, testId }) => {
-  return <Component testId={testId}>{children}</Component>
+const SelectTemplate: Story<SelectProps> = ({ children, testId, props }) => {
+  return (
+    <Component testId={testId} {...props}>
+      {children}
+    </Component>
+  )
 }
 
 export const Select = SelectTemplate.bind({})
 
+const defaultOption = () => {
+  return <option value="default">Default</option>
+}
+
 const argTypes: ComponentArgTypes<SelectProps> = {
   children: {
     control: { type: 'option' },
+    defaultValue: defaultOption(),
   },
 }
 
