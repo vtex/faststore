@@ -46,12 +46,7 @@ function Carousel({
   })
 
   return (
-    <section
-      data-store-carousel
-      style={{ display: 'flex' }}
-      data-testid={testId}
-      aria-label="carousel"
-    >
+    <section data-store-carousel data-testid={testId} aria-label="carousel">
       <div
         data-carousel-track-container
         style={{ overflow: 'hidden', width: '100%' }}
@@ -72,7 +67,7 @@ function Carousel({
             <div
               key={idx}
               data-carousel-item
-              style={{ width: `100%`, display: 'flex' }}
+              style={{ width: `100%` }}
               data-visible={isItemVisible(idx) || undefined}
             >
               {shouldRenderItem(idx) ? child : null}
