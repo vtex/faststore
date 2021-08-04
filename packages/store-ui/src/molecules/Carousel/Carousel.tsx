@@ -11,6 +11,8 @@ import Bullets from '../Bullets'
 
 export interface CarouselProps extends SwipeableProps {
   testId?: string
+  showNavigationArrows?: boolean
+  showPaginationBullets?: boolean
 }
 
 const createTransformValues = (totalItems: number) => {
@@ -25,6 +27,8 @@ const createTransformValues = (totalItems: number) => {
 
 function Carousel({
   testId = 'store-carousel',
+  showNavigationArrows = true,
+  showPaginationBullets = true,
   children,
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
@@ -74,38 +78,44 @@ function Carousel({
           ))}
         </div>
       </div>
-      <div data-carousel-controls>
-        <Button
-          data-left-arrow
-          aria-controls="carousel"
-          aria-label="previous"
-          onClick={() => slide('previous', sliderDispatch)}
-        >
-          <Icon component={<LeftArrowIcon />} />
-        </Button>
-        <Button
-          data-right-arrow
-          aria-controls="carousel"
-          aria-label="next"
-          onClick={() => slide('next', sliderDispatch)}
-        >
-          <Icon component={<RightArrowIcon />} />
-        </Button>
-      </div>
-      <div data-carousel-bullets>
-        <Bullets
-          totalQuantity={sliderState.totalPages}
-          activeBullet={sliderState.currentPage}
-          onClick={(_, idx) => {
-            sliderDispatch({
-              type: 'GO_TO_PAGE',
-              payload: {
-                pageIndex: idx,
-              },
-            })
-          }}
-        />
-      </div>
+
+      {showNavigationArrows && (
+        <div data-carousel-controls>
+          <Button
+            data-left-arrow
+            aria-controls="carousel"
+            aria-label="previous"
+            onClick={() => slide('previous', sliderDispatch)}
+          >
+            <Icon component={<LeftArrowIcon />} />
+          </Button>
+          <Button
+            data-right-arrow
+            aria-controls="carousel"
+            aria-label="next"
+            onClick={() => slide('next', sliderDispatch)}
+          >
+            <Icon component={<RightArrowIcon />} />
+          </Button>
+        </div>
+      )}
+
+      {showPaginationBullets && (
+        <div data-carousel-bullets>
+          <Bullets
+            totalQuantity={sliderState.totalPages}
+            activeBullet={sliderState.currentPage}
+            onClick={(_, idx) => {
+              sliderDispatch({
+                type: 'GO_TO_PAGE',
+                payload: {
+                  pageIndex: idx,
+                },
+              })
+            }}
+          />
+        </div>
+      )}
     </section>
   )
 }
