@@ -68,13 +68,11 @@ const Page: FC<Props> = ({ display, cursor, initialData, columns }) => {
 
 export const query = gql`
   query SearchQuery(
-    $query: String
-    $map: String
     $fullText: String
     $selectedFacets: [VTEX_SelectedFacetInput!]
     $from: Int
     $to: Int
-    $orderBy: String
+    $sort: String
     $hideUnavailableItems: Boolean = false
   ) {
     vtex {
@@ -82,11 +80,9 @@ export const query = gql`
         hideUnavailableItems: $hideUnavailableItems
         selectedFacets: $selectedFacets
         fullText: $fullText
-        query: $query
-        map: $map
         from: $from
         to: $to
-        orderBy: $orderBy
+        orderBy: $sort
       ) {
         products {
           ...ProductSummary_product
