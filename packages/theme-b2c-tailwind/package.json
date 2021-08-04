@@ -15,6 +15,7 @@
     "src"
   ],
   "scripts": {
+    "develop": "postcss src/**/*.css src/*.css --base src --dir ./dist -w",
     "build": "postcss src/**/*.css src/*.css --base src --dir ./dist"
   },
   "bugs": {

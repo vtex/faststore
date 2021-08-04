@@ -1,4 +1,4 @@
 .theme-b2c-tailwind [data-store-icon] {
-  display: inline-block;
+  @apply inline-block;
   line-height: 0;
 }

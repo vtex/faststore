@@ -1,23 +1,15 @@
 .theme-b2c-tailwind [data-store-input] {
-  width: 340px;
-  height: 41px;
-  border-color: rgb(227, 228, 230);
-  border-width: 1px;
-  border-style: solid;
-  color: rgb(63, 63, 64);
-  font-size: 16px;
-  font-weight: 400;
-  padding: 1px 16px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  @apply w-80 h-10 border px-4 py-1 my-2;
+  @apply border-black text-gray-700;
+  @apply text-base font-normal no-underline;
 }
 
 .theme-b2c-tailwind [data-store-input][data-success], .theme-b2c-tailwind [data-store-input][data-success]:focus {
-  border-color: green;
-  outline-width: 0;
+  @apply outline-none;
+  @apply border-green-600;
 }
 
 .theme-b2c-tailwind [data-store-input][data-error], .theme-b2c-tailwind [data-store-input][data-error]:focus {
-  border-color: red;
-  outline-width: 0;
+  @apply outline-none;
+  @apply border-red-600;
 }

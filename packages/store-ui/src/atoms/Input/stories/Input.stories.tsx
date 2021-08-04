@@ -6,24 +6,9 @@ import type { InputProps } from '../Input'
 import Component from '../Input'
 import mdx from './Input.mdx'
 
-const InputTemplate: Story<InputProps> = ({ placeholder, variant }) => {
-  const colorByVariant = {
-    default: 'black',
-    success: 'green',
-    error: 'red',
-  }
-
-  return (
-    <Component
-      style={{
-        borderColor: colorByVariant[variant || 'default'],
-        borderStyle: 'solid',
-      }}
-      placeholder={placeholder}
-      variant={variant}
-    />
-  )
-}
+const InputTemplate: Story<InputProps> = ({ placeholder, variant }) => (
+  <Component placeholder={placeholder} variant={variant} />
+)
 
 export const Input = InputTemplate.bind({})
 

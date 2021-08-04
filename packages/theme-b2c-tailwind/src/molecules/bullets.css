@@ -1,31 +1,15 @@
 .theme-b2c-tailwind [data-store-bullets] {
-  box-sizing: border-box;
-  padding: 10px 0px;
-  justify-content: center;
-  display: flex;
+  @apply box-border py-2 justify-center flex;
 }
 
 .theme-b2c-tailwind [data-store-bullets] [data-bullet-item] {
-  display: inline-block;
+  @apply inline-block;
 }
 
 .theme-b2c-tailwind [data-store-bullets] [data-bullet-item] [data-store-button] {
-  box-sizing: border-box;
-  min-width: 0px;
-  background-color: rgb(168, 168, 168);
-  cursor: pointer;
-  display: inline-block;
-  border-radius: 100%;
-  margin: 12px;
-  padding: 0.25rem;
-  border-width: 0px;
-  outline: 0px;
-  height: 0.725rem;
-  width: 0.725rem;
-  padding: 0;
-  min-height: 0;
+  @apply box-border min-w-0 bg-gray-400 cursor-pointer inline-block rounded-full m-3 border-0 outline-none h-3 w-3 min-h-0 p-0;
 }
 
 .theme-b2c-tailwind [data-store-bullets] > [data-bullet-item][data-active] > [data-store-button] {
-  background-color: rgb(247, 25, 99);
+  @apply bg-pink-700;
 }

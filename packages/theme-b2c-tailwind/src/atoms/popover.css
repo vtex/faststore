@@ -1,5 +1,4 @@
 .theme-b2c-tailwind [data-store-popover] {
-  border: 1px solid black;
-  margin: 8px 0;
-  padding: 8px 16px;
+  @apply border my-2 py-2 px-4;
+  @apply border-black;
 }
