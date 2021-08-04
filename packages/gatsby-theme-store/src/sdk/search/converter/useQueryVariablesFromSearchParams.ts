@@ -3,14 +3,7 @@ import { useMemo } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
 import { useRegion } from '../../region/useRegion'
-import type { BrowserSearchPageQueryQueryVariables } from '../../../templates/__generated__/BrowserSearchPageQuery.graphql'
-import type { ServerSearchPageQueryQueryVariables } from '../../../templates/__generated__/ServerSearchPageQuery.graphql'
 import { priceRange } from './priceRange'
-
-type QueryParamsFromSearch = Omit<
-  BrowserSearchPageQueryQueryVariables | ServerSearchPageQueryQueryVariables,
-  'hideUnavailableItems'
->
 
 const sortMap = {
   'price-desc': 'price:desc',
@@ -26,7 +19,7 @@ const sortMap = {
 export const useQueryVariablesFromSearchParams = (
   params: SearchParamsState,
   pageInfo: { size: number }
-): QueryParamsFromSearch => {
+) => {
   const { regionId } = useRegion()
 
   return useMemo(() => {
@@ -45,7 +38,7 @@ export const useQueryVariablesFromSearchParams = (
     const queryParams = {
       fullText: params.term ?? undefined,
       selectedFacets,
-      orderBy: sortMap[params.sort],
+      sort: sortMap[params.sort],
       from: params.page * pageInfo.size,
       // Search API is inclusive. This removes the last product
       to: (params.page + 1) * pageInfo.size - 1,

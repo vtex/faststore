@@ -5,11 +5,9 @@ import type { FC } from 'react'
 
 import { SearchControlsFiltersButton } from './FiltersButton'
 import SearchControlsSelect from './SortSelect'
-import type { BrowserSearchPageQueryQuery } from '../../../templates/__generated__/BrowserSearchPageQuery.graphql'
-import type { ServerSearchPageQueryQuery } from '../../../templates/__generated__/ServerSearchPageQuery.graphql'
 
 interface Props {
-  data: BrowserSearchPageQueryQuery | ServerSearchPageQueryQuery
+  data: any // TODO
 }
 
 const Controls: FC<Props> = ({ data }) => {

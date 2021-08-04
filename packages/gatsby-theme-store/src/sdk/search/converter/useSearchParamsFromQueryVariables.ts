@@ -3,7 +3,6 @@ import { useLocation } from '@reach/router'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
 import { priceRange } from './priceRange'
-import type { SearchPageProps } from '../../../templates/search.server'
 
 export interface SelectedFacets {
   key: string
@@ -21,14 +20,22 @@ const sortMap = {
   '': 'score-desc',
 } as const
 
+interface Args {
+  selectedFacets: SelectedFacets[]
+  sort: string
+  itemsPerPage: number
+  fullText?: string
+  from?: number
+}
+
 /**
  * @description: Hydrates search context for static search pages.
  */
 export const useSearchParamsFromQueryVariables = (
-  pageContext: SearchPageProps['pageContext']
+  pageContext: Args
 ): SearchParamsState => {
   const { pathname } = useLocation()
-  const { selectedFacets, orderBy, fullText, pageInfo } = pageContext
+  const { selectedFacets, sort, fullText, itemsPerPage } = pageContext
   const from = pageContext.from ?? 0
 
   if (selectedFacets == null || !Array.isArray(selectedFacets)) {
@@ -52,15 +59,15 @@ export const useSearchParamsFromQueryVariables = (
     const [base] = pathname.split(selectedFacets[0].value)
 
     return {
-      page: Math.floor(from / pageInfo.size),
+      page: Math.floor(from / itemsPerPage),
       base,
       selectedFacets: facets,
       term: fullText ?? null,
       personalized: false,
       sort:
-        typeof orderBy === 'string' && orderBy in sortMap
-          ? sortMap[orderBy as keyof typeof sortMap]
+        typeof sort === 'string' && sort in sortMap
+          ? sortMap[sort as keyof typeof sortMap]
           : 'score-desc',
     }
-  }, [from, pageInfo, fullText, orderBy, pathname, selectedFacets])
+  }, [from, fullText, itemsPerPage, pathname, selectedFacets, sort])
 }

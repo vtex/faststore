@@ -65,6 +65,7 @@ export interface Options {
   tenant: string
   workspace: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
+  itemsPerPage?: number
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
@@ -74,6 +75,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     environment: Joi.string()
       .required()
       .valid('vtexcommercestable', 'vtexcommercebeta'),
+    itemsPerPage: Joi.number(),
   })
 
 interface CollectionsByType {
@@ -147,7 +149,10 @@ const TypeKeyMap = {
  * @description
  * Create custom fields on StoreCollection when this collection is defined on the CMS
  */
-export const onCreateNode = async (gatsbyApi: CreateNodeArgs) => {
+export const onCreateNode = async (
+  gatsbyApi: CreateNodeArgs,
+  { itemsPerPage = 12 }: Options
+) => {
   const { node } = gatsbyApi
 
   if (node.internal.type !== 'StoreCollection') {
@@ -163,8 +168,8 @@ export const onCreateNode = async (gatsbyApi: CreateNodeArgs) => {
     node,
     name: 'searchParams',
     value: {
-      sort: override?.sort ?? '""',
-      itemsPerPage: 12,
+      sort: override?.sort === '""' ? '' : override?.sort ?? '',
+      itemsPerPage,
       selectedFacets:
         collection.type === 'Cluster'
           ? [{ key: TypeKeyMap.Cluster, value: collection.remoteId }]

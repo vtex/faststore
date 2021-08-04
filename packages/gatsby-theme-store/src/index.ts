@@ -67,8 +67,12 @@ export { useSearchHistory } from './sdk/searchBar/useSearchHistory'
 export { useSearch } from './sdk/search/useSearch'
 export { useFullTextSearch } from './sdk/searchBar/useFullTextSearch'
 export { useQueryVariablesFromSearchParams } from './sdk/search/converter/useQueryVariablesFromSearchParams'
+export { useSearchParamsFromQueryVariables } from './sdk/search/converter/useSearchParamsFromQueryVariables'
 export { useSearchParamsFromUrl } from './sdk/search/converter/useSearchParamsFromURL'
 export { usePersonalizedSearchRedirect } from './sdk/search/usePersonalizedSearchRedirect'
+export { SearchProvider } from './sdk/search/Provider'
+
+export { usePlpPixelEffect } from './sdk/plp/usePlpPixel'
 
 export { useProfile } from './sdk/session/useProfile'
 export { useSession } from './sdk/session/useSession'
@@ -119,3 +123,5 @@ export * from './sdk/auth/OAuth'
 export * from './sdk/auth/Service/index'
 export * from './sdk/auth/validate'
 export type { ProvidersResponse } from './sdk/auth/Service/getProviders'
+
+export { default as HybridWrapper } from './components/HybridWrapper'
