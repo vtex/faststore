@@ -56,7 +56,6 @@ function Carousel({
           data-carousel-track
           style={{
             display: 'flex',
-            transition: `transform 400ms 0ms`,
             width: `${(numberOfSlides * 100) / sliderState.itemsPerPage}%`,
             transform: `translate3d(${
               transformValues[sliderState.currentPage]
@@ -77,6 +76,7 @@ function Carousel({
       </div>
       <div data-carousel-controls>
         <Button
+          data-left-arrow
           aria-controls="carousel"
           aria-label="previous"
           onClick={() => slide('previous', sliderDispatch)}
@@ -84,6 +84,7 @@ function Carousel({
           <Icon component={<LeftArrowIcon />} />
         </Button>
         <Button
+          data-right-arrow
           aria-controls="carousel"
           aria-label="next"
           onClick={() => slide('next', sliderDispatch)}
