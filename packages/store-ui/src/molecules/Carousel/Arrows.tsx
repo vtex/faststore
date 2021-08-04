@@ -10,8 +10,8 @@ interface IconProps {
 }
 
 export const LeftArrowIcon = ({
-  size = { width: 16, height: 16 },
-  viewBox = '0 0 10 14',
+  size = { width: 25, height: 25 },
+  viewBox = '0 0 16 16',
   color = 'currentColor',
 }: IconProps) => (
   <svg
@@ -30,8 +30,8 @@ export const LeftArrowIcon = ({
 )
 
 export const RightArrowIcon = ({
-  size = { width: 16, height: 16 },
-  viewBox = '0 0 10 14',
+  size = { width: 25, height: 25 },
+  viewBox = '0 0 16 16',
   color = 'currentColor',
 }: IconProps) => (
   <svg
