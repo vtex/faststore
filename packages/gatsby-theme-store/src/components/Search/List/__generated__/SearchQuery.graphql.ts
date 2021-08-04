@@ -18,13 +18,11 @@ type Scalars = {
 
 // Operation related types
 export type SearchQueryQueryVariables = Exact<{
-  query: Maybe<Scalars['String']>;
-  map: Maybe<Scalars['String']>;
   fullText: Maybe<Scalars['String']>;
   selectedFacets: Maybe<Array<Vtex_SelectedFacetInput> | Vtex_SelectedFacetInput>;
   from: Maybe<Scalars['Int']>;
   to: Maybe<Scalars['Int']>;
-  orderBy: Maybe<Scalars['String']>;
+  sort: Maybe<Scalars['String']>;
   hideUnavailableItems?: Maybe<Scalars['Boolean']>;
 }>;
 
@@ -35,8 +33,8 @@ export type SearchQueryQuery = { vtex: { productSearch: Maybe<{ products: Maybe<
 // Query Related Code
 
 export const SearchQuery = {
-  query: process.env.NODE_ENV === 'production' ? undefined : "query SearchQuery($query: String, $map: String, $fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $orderBy: String, $hideUnavailableItems: Boolean = false) {\n  vtex {\n    productSearch(\n      hideUnavailableItems: $hideUnavailableItems\n      selectedFacets: $selectedFacets\n      fullText: $fullText\n      query: $query\n      map: $map\n      from: $from\n      to: $to\n      orderBy: $orderBy\n    ) {\n      products {\n        id: productId\n        productName\n        linkText\n        brand\n        productReference\n        categoryTree {\n          name\n        }\n        productClusters {\n          id\n          name\n        }\n        properties {\n          name\n          originalName\n          values\n        }\n        items {\n          itemId\n          name\n          referenceId {\n            value: Value\n          }\n          images {\n            imageUrl\n            imageText\n          }\n          measurementUnit\n          unitMultiplier\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n              }\n              installments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n                interestRate: InterestRate\n              }\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n              spotPrice\n              teasers {\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
-  sha256Hash: "1c1b0bd87e3f90806f777d6baa04b1d33b3918add61c0413462028194d07ef20",
+  query: process.env.NODE_ENV === 'production' ? undefined : "query SearchQuery($fullText: String, $selectedFacets: [VTEX_SelectedFacetInput!], $from: Int, $to: Int, $sort: String, $hideUnavailableItems: Boolean = false) {\n  vtex {\n    productSearch(\n      hideUnavailableItems: $hideUnavailableItems\n      selectedFacets: $selectedFacets\n      fullText: $fullText\n      from: $from\n      to: $to\n      orderBy: $sort\n    ) {\n      products {\n        id: productId\n        productName\n        linkText\n        brand\n        productReference\n        categoryTree {\n          name\n        }\n        productClusters {\n          id\n          name\n        }\n        properties {\n          name\n          originalName\n          values\n        }\n        items {\n          itemId\n          name\n          referenceId {\n            value: Value\n          }\n          images {\n            imageUrl\n            imageText\n          }\n          sellers {\n            sellerId\n            commercialOffer: commertialOffer {\n              maxInstallments: Installments(criteria: MAX_WITHOUT_INTEREST) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n              }\n              installments: Installments(criteria: ALL) {\n                value: Value\n                numberOfInstallments: NumberOfInstallments\n                interestRate: InterestRate\n              }\n              availableQuantity: AvailableQuantity\n              price: Price\n              listPrice: ListPrice\n              spotPrice\n              teasers {\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+  sha256Hash: "ebe61d9e7086693cd857c14fe6d60afe17ca0597610e79322dd48733e2842fad",
   operationName: "SearchQuery",
 }
 
