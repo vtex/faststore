@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import type { SelectHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+export interface SelectProps<T = HTMLSelectElement>
+  extends SelectHTMLAttributes<T> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -10,7 +10,7 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { testId = 'store-select', children, ...props },
+  { children, testId = 'store-select', ...props },
   ref
 ) {
   return (
