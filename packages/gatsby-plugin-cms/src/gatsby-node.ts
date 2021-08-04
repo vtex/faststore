@@ -126,7 +126,7 @@ export const sourceNodes = async (
     const node: StoreCollection = {
       id: `${cluster.clusterId}:${cluster.seo.slug}`,
       remoteId: cluster.clusterId,
-      slug: cluster.seo.slug,
+      slug: cluster.seo.slug.replace(/^\//g, ''),
       seo: {
         title: cluster.seo.title,
         description: cluster.seo.description,
