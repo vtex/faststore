@@ -6,25 +6,35 @@ import type { SelectProps } from '../Select'
 import Component from '../Select'
 import mdx from './Select.mdx'
 
-const SelectTemplate: Story<SelectProps> = ({ testId, options, ...props }) => {
-  return <Component testId={testId} options={options} {...props} />
+const SelectTemplate: Story<SelectProps> = ({ options, ...props }) => {
+  return <Component options={options} {...props} />
 }
 
-export const Select = SelectTemplate.bind({})
+export const BaseSelect = SelectTemplate.bind({})
+
+export const DisabledSelect = SelectTemplate.bind({})
+DisabledSelect.args = {
+  disabled: true,
+}
+
+export const MultipleSelect = SelectTemplate.bind({})
+MultipleSelect.args = {
+  multiple: true,
+}
 
 const argTypes: ComponentArgTypes<SelectProps> = {
   options: {
     control: { type: 'array' },
     defaultValue: [
-      ['ok', 'ok'],
-      ['bad', 'bad'],
+      ['great', 'Great'],
+      ['ok', 'Ok'],
+      ['bad', 'Bad'],
     ],
   },
 }
 
 export default {
   title: 'Atoms/Select',
-  component: Select,
   argTypes,
   parameters: {
     docs: {
