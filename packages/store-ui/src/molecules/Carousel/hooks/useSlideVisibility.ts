@@ -3,23 +3,33 @@ import { useRef, useEffect } from 'react'
 export interface UseSlideVisibilityArgs {
   currentSlide: number
   itemsPerPage: number
+  totalItems: number
+}
+
+interface IsSlideVisibleArgs {
+  itemsPerPage: number
+  currentSlide: number
+  slideIdx: number
+  totalItems: number
 }
 
 function isSlideVisible({
   itemsPerPage,
   currentSlide,
   slideIdx,
-}: {
-  itemsPerPage: number
-  currentSlide: number
-  slideIdx: number
-}) {
-  return slideIdx >= currentSlide && slideIdx < currentSlide + itemsPerPage
+  totalItems,
+}: IsSlideVisibleArgs) {
+  const isClonedSlide = currentSlide < 0 || currentSlide >= totalItems
+  const isVisible =
+    slideIdx >= currentSlide && slideIdx < currentSlide + itemsPerPage
+
+  return isClonedSlide || isVisible
 }
 
 export default function useSlideVisibility({
   currentSlide,
   itemsPerPage,
+  totalItems,
 }: UseSlideVisibilityArgs) {
   /** Keeps track of slides that have been visualized before.
    * We want to keep rendering them because the issue is mostly rendering
@@ -38,6 +48,7 @@ export default function useSlideVisibility({
       slideIdx: index,
       currentSlide,
       itemsPerPage,
+      totalItems,
     })
 
   const shouldRenderItem = (index: number) => {
