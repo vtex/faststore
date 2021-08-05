@@ -10,7 +10,7 @@ const SelectTemplate: Story<SelectProps> = ({ options, ...props }) => {
   return <Component options={options} {...props} />
 }
 
-export const BaseSelect = SelectTemplate.bind({})
+export const DefaultSelect = SelectTemplate.bind({})
 
 export const DisabledSelect = SelectTemplate.bind({})
 DisabledSelect.args = {
@@ -20,6 +20,11 @@ DisabledSelect.args = {
 export const MultipleSelect = SelectTemplate.bind({})
 MultipleSelect.args = {
   multiple: true,
+}
+
+export const BaseValueSelect = SelectTemplate.bind({})
+BaseValueSelect.args = {
+  defaultValue: 'ok',
 }
 
 const argTypes: ComponentArgTypes<SelectProps> = {

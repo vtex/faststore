@@ -19,9 +19,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
 ) {
   return (
     <select ref={ref} data-store-select data-testid={testId} {...props}>
-      {options.map(([value, label]) => {
+      {options?.map(([value, label]) => {
         return (
-          <option key={value} value={value} aria-label={value}>
+          <option key={value} value={value}>
             {label}
           </option>
         )
