@@ -20,4 +20,10 @@ describe('Select', () => {
 
     expect(getByTestId('store-select')).toBeDisabled()
   })
+
+  it('Select is empty when no options given', () => {
+    const { getByTestId } = render(<Select />)
+
+    expect(getByTestId('store-select')).toBeEmptyDOMElement()
+  })
 })
