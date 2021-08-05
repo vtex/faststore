@@ -5,19 +5,21 @@ import useSlider from './useSlider'
 describe('useSlider', () => {
   it('should initialize sliderState correctly', () => {
     const expectedSliderState = {
-      currentSlide: 0,
+      currentItem: 0,
       currentPage: 0,
       sliding: false,
       slideDirection: 'next',
       totalItems: 5,
       itemsPerPage: 2,
       totalPages: 3,
+      infinite: false,
     }
 
     const { result: returnValue } = renderHook(() =>
       useSlider({
         totalItems: 5,
         itemsPerPage: 2,
+        infiniteMode: false,
       })
     )
 
@@ -31,17 +33,19 @@ describe('useSlider', () => {
       useSlider({
         totalItems: 5,
         itemsPerPage: 2,
+        infiniteMode: false,
       })
     )
 
     const finalState = {
-      currentSlide: 2,
+      currentItem: 2,
       currentPage: 1,
       sliding: true,
       slideDirection: 'next',
       totalItems: 5,
       itemsPerPage: 2,
       totalPages: 3,
+      infinite: false,
     }
 
     const { sliderDispatch } = result.current
@@ -58,6 +62,7 @@ describe('useSlider', () => {
       useSlider({
         totalItems: 5,
         itemsPerPage: 2,
+        infiniteMode: false,
       })
     )
 
@@ -68,13 +73,14 @@ describe('useSlider', () => {
     })
 
     expect(result.current.sliderState).toEqual({
-      currentSlide: 4,
+      currentItem: 4,
       currentPage: 2,
       sliding: true,
       slideDirection: 'previous',
       totalItems: 5,
       itemsPerPage: 2,
       totalPages: 3,
+      infinite: false,
     })
 
     act(() => {
@@ -82,13 +88,14 @@ describe('useSlider', () => {
     })
 
     expect(result.current.sliderState).toEqual({
-      currentSlide: 2,
+      currentItem: 2,
       currentPage: 1,
       sliding: true,
       slideDirection: 'previous',
       totalItems: 5,
       itemsPerPage: 2,
       totalPages: 3,
+      infinite: false,
     })
   })
 
@@ -97,6 +104,7 @@ describe('useSlider', () => {
       useSlider({
         totalItems: 5,
         itemsPerPage: 2,
+        infiniteMode: false,
       })
     )
 
@@ -107,18 +115,20 @@ describe('useSlider', () => {
         type: 'GO_TO_PAGE',
         payload: {
           pageIndex: 1,
+          shouldSlide: true,
         },
       })
     })
 
     expect(result.current.sliderState).toEqual({
-      currentSlide: 2,
+      currentItem: 2,
       currentPage: 1,
       sliding: true,
       slideDirection: 'next',
       totalItems: 5,
       itemsPerPage: 2,
       totalPages: 3,
+      infinite: false,
     })
 
     act(() => {
@@ -126,18 +136,20 @@ describe('useSlider', () => {
         type: 'GO_TO_PAGE',
         payload: {
           pageIndex: 2,
+          shouldSlide: true,
         },
       })
     })
 
     expect(result.current.sliderState).toEqual({
-      currentSlide: 4,
+      currentItem: 4,
       currentPage: 2,
       sliding: true,
       slideDirection: 'next',
       totalItems: 5,
       itemsPerPage: 2,
       totalPages: 3,
+      infinite: false,
     })
 
     act(() => {
@@ -145,18 +157,20 @@ describe('useSlider', () => {
         type: 'GO_TO_PAGE',
         payload: {
           pageIndex: 0,
+          shouldSlide: true,
         },
       })
     })
 
     expect(result.current.sliderState).toEqual({
-      currentSlide: 0,
+      currentItem: 0,
       currentPage: 0,
       sliding: true,
       slideDirection: 'previous',
       totalItems: 5,
       itemsPerPage: 2,
       totalPages: 3,
+      infinite: false,
     })
   })
 })

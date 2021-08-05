@@ -17,8 +17,9 @@ describe('useSlideVisibility', () => {
           useSlideVisibility({
             currentSlide: props.currentSlide,
             itemsPerPage: props.itemsPerPage,
+            totalItems: props.totalItems,
           }),
-        { initialProps: { currentSlide: 0, itemsPerPage: 3 } }
+        { initialProps: { currentSlide: 0, itemsPerPage: 3, totalItems: 10 } }
       )
 
       let currentResultsArray = slideIndexes.map((index) =>
@@ -33,7 +34,7 @@ describe('useSlideVisibility', () => {
       expect(firstExpectedTruthyValues).toHaveLength(3)
 
       // This represents the carousel currently in the second page.
-      rerender({ currentSlide: 3, itemsPerPage: 3 })
+      rerender({ currentSlide: 3, itemsPerPage: 3, totalItems: 10 })
 
       currentResultsArray = slideIndexes.map((index) =>
         result.current.shouldRenderItem(index)
@@ -47,7 +48,7 @@ describe('useSlideVisibility', () => {
       expect(secondExpectedTruthyValues).toHaveLength(6)
 
       // This represents the carousel currently in the first page again.
-      rerender({ currentSlide: 0, itemsPerPage: 3 })
+      rerender({ currentSlide: 0, itemsPerPage: 3, totalItems: 10 })
 
       currentResultsArray = slideIndexes.map((index) =>
         result.current.shouldRenderItem(index)
@@ -70,8 +71,9 @@ describe('useSlideVisibility', () => {
           useSlideVisibility({
             currentSlide: props.currentSlide,
             itemsPerPage: props.itemsPerPage,
+            totalItems: props.totalItems,
           }),
-        { initialProps: { currentSlide: 0, itemsPerPage: 3 } }
+        { initialProps: { currentSlide: 0, itemsPerPage: 3, totalItems: 10 } }
       )
 
       let currentResultsArray = slideIndexes.map((index) =>
@@ -86,7 +88,7 @@ describe('useSlideVisibility', () => {
       expect(firstExpectedTruthyValues).toHaveLength(3)
 
       // This represents the carousel currently in the second page.
-      rerender({ currentSlide: 3, itemsPerPage: 3 })
+      rerender({ currentSlide: 3, itemsPerPage: 3, totalItems: 10 })
 
       currentResultsArray = slideIndexes.map((index) =>
         result.current.isItemVisible(index)

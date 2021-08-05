@@ -72,7 +72,7 @@ describe('Carousel component', () => {
 
   it('should render 5 slides with `data-carousel-item` attributes', () => {
     const { getByTestId } = render(
-      <Carousel>
+      <Carousel infiniteMode={false}>
         <div>Slide 1</div>
         <div>Slide 2</div>
         <div>Slide 3</div>
@@ -102,19 +102,21 @@ describe('Carousel component', () => {
 
     const items = carouselSection.querySelectorAll('[data-carousel-item]')
 
-    expect(items).toHaveLength(5)
+    expect(items).toHaveLength(7)
 
     // Only the first item should have `data-visible` attributes
-    expect(items[0]).toHaveAttribute('data-visible')
-    expect(items[1]).not.toHaveAttribute('data-visible')
+    expect(items[0]).not.toHaveAttribute('data-visible')
+    expect(items[1]).toHaveAttribute('data-visible')
     expect(items[2]).not.toHaveAttribute('data-visible')
     expect(items[3]).not.toHaveAttribute('data-visible')
     expect(items[4]).not.toHaveAttribute('data-visible')
+    expect(items[5]).not.toHaveAttribute('data-visible')
+    expect(items[6]).not.toHaveAttribute('data-visible')
   })
 
   it('should allow users to navigate through pages using the `Arrows` controls', () => {
     const { getByTestId, getByLabelText } = render(
-      <Carousel>
+      <Carousel infiniteMode={false}>
         <div>Slide 1</div>
         <div>Slide 2</div>
         <div>Slide 3</div>
@@ -161,7 +163,7 @@ describe('Carousel component', () => {
 
   it('should allow users to navigate through pages by clicking on a pagination bullet', () => {
     const { getByTestId, queryAllByTestId, getByLabelText } = render(
-      <Carousel>
+      <Carousel infiniteMode={false}>
         <div>Slide 1</div>
         <div>Slide 2</div>
         <div>Slide 3</div>
