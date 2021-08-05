@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run build",
-    "build-themes": "./build-themes.sh",
+    "build-themes": "lerna run build --scope '@vtex/theme-*' || true",
     "build-storybook": "yarn build-themes && yarn workspace @vtex/store-ui build-storybook",
     "clean": "lerna clean && lerna run clean",
     "format": "prettier --write \"packages/**/*.{ts,tsx,json}\"",
