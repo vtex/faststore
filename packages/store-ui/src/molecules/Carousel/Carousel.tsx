@@ -11,43 +11,62 @@ import Bullets from '../Bullets'
 
 export interface CarouselProps extends SwipeableProps {
   testId?: string
+  infiniteMode?: boolean
   showNavigationArrows?: boolean
   showPaginationBullets?: boolean
 }
 
-const createTransformValues = (totalItems: number) => {
+const createTransformValues = (infinite: boolean, totalItems: number) => {
+  const transformMap: Record<number, number> = {}
   const slideWidth = 100 / totalItems
 
-  const transformArray = Array(totalItems)
-    .fill(0)
-    .map((_, idx) => -(slideWidth * idx))
+  for (let idx = 0; idx < totalItems; ++idx) {
+    const currIdx = infinite ? idx - 1 : idx
+    const transformValue = -(slideWidth * idx)
 
-  return transformArray
+    transformMap[currIdx] = transformValue
+  }
+
+  return transformMap
 }
 
 function Carousel({
   testId = 'store-carousel',
   showNavigationArrows = true,
   showPaginationBullets = true,
+  infiniteMode = true,
   children,
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
-  const numberOfSlides = React.Children.count(children)
+  const childrenArray = React.Children.toArray(children)
+  const childrenCount = childrenArray.length
+  const numberOfSlides = infiniteMode ? childrenCount + 2 : childrenCount
 
-  const transformValues = useMemo(() => createTransformValues(numberOfSlides), [
-    numberOfSlides,
-  ])
+  const transformValues = useMemo(
+    () => createTransformValues(infiniteMode, numberOfSlides),
+    [numberOfSlides, infiniteMode]
+  )
 
   const { handlers, slide, sliderState, sliderDispatch } = useSlider({
-    totalItems: numberOfSlides,
+    totalItems: childrenCount,
     itemsPerPage: 1,
+    infiniteMode,
     ...swipeableConfigOverrides,
   })
 
   const { isItemVisible, shouldRenderItem } = useSlideVisibility({
     itemsPerPage: sliderState.itemsPerPage,
-    currentSlide: sliderState.currentSlide,
+    currentSlide: sliderState.currentItem,
+    totalItems: childrenCount,
   })
+
+  const postRenderedSlides =
+    infiniteMode && children ? childrenArray.slice(0, 1) : []
+
+  const preRenderedSlides =
+    infiniteMode && children ? childrenArray.slice(childrenCount - 1) : []
+
+  const slides = preRenderedSlides.concat(children ?? [], postRenderedSlides)
 
   return (
     <section data-store-carousel data-testid={testId} aria-label="carousel">
@@ -60,20 +79,46 @@ function Carousel({
           data-carousel-track
           style={{
             display: 'flex',
-            width: `${(numberOfSlides * 100) / sliderState.itemsPerPage}%`,
+            transition: sliderState.sliding ? 'transform 400ms 0ms' : undefined,
+            width: `${numberOfSlides * 100}%`,
             transform: `translate3d(${
               transformValues[sliderState.currentPage]
             }%, 0, 0)`,
           }}
+          onTransitionEnd={() => {
+            if (sliderState.currentItem >= childrenCount) {
+              sliderDispatch({
+                type: 'GO_TO_PAGE',
+                payload: {
+                  pageIndex: 0,
+                  shouldSlide: false,
+                },
+              })
+            }
+
+            if (sliderState.currentItem < 0) {
+              sliderDispatch({
+                type: 'GO_TO_PAGE',
+                payload: {
+                  pageIndex: sliderState.totalPages - 1,
+                  shouldSlide: false,
+                },
+              })
+            }
+          }}
         >
-          {React.Children.map(children, (child, idx) => (
+          {slides.map((currentSlide, idx) => (
             <div
               key={idx}
               data-carousel-item
               style={{ width: `100%` }}
-              data-visible={isItemVisible(idx) || undefined}
+              data-visible={
+                isItemVisible(idx - Number(infiniteMode)) || undefined
+              }
             >
-              {shouldRenderItem(idx) ? child : null}
+              {shouldRenderItem(idx - Number(infiniteMode))
+                ? currentSlide
+                : null}
             </div>
           ))}
         </div>
@@ -103,15 +148,10 @@ function Carousel({
       {showPaginationBullets && (
         <div data-carousel-bullets>
           <Bullets
-            totalQuantity={sliderState.totalPages}
+            totalQuantity={childrenCount}
             activeBullet={sliderState.currentPage}
             onClick={(_, idx) => {
-              sliderDispatch({
-                type: 'GO_TO_PAGE',
-                payload: {
-                  pageIndex: idx,
-                },
-              })
+              slide(idx, sliderDispatch)
             }}
           />
         </div>

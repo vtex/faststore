@@ -17,6 +17,7 @@ interface GoToPageAction {
   type: 'GO_TO_PAGE'
   payload: {
     pageIndex: number
+    shouldSlide: boolean
   }
 }
 
@@ -34,23 +35,36 @@ export type SliderDispatch = Dispatch<Action>
 
 export interface SliderState {
   /**
-   * The `currentSlide` in a Slider with multiple items in a single page is
+   * The `currentItem` in a Slider with multiple items in a single page is
    * always **the one with the lowest index** in the current page.
    */
-  currentSlide: number
-  /** Current active page */
+  currentItem: number
+  /** Currently active page */
   currentPage: number
-  /** Whether or not the Slider is currently sliding */
+  /**
+   * Whether or not the Slider is currently sliding. This is useful to
+   * manipulate the `transition` property in a component.
+   */
   sliding: boolean
+  /** The direction in which the Slider is sliding. */
   slideDirection: SlideDirection
+  /** The total number of unique items in the slider. */
   totalItems: number
+  /** The number of items in a single page. */
   itemsPerPage: number
+  /** The total number of pages in the slider. */
   totalPages: number
+  /** Whether or not the slider is infinite. */
+  infinite: boolean
 }
 
 export interface UseSliderArgs extends SwipeableProps {
+  /** The total number of unique items in the slider. */
   totalItems: number
+  /** The number of items in a single slider page. */
   itemsPerPage?: number
+  /** Whether or not the slider is infinite. */
+  infiniteMode?: boolean
 }
 
 export const nextPage = (current: number, total: number) =>
@@ -62,29 +76,42 @@ export const previousPage = (current: number, total: number) =>
 function reducer(state: SliderState, action: Action): SliderState {
   switch (action.type) {
     case 'NEXT_PAGE': {
-      const nextPageIndex = nextPage(state.currentPage, state.totalPages)
+      // If `state.infinite` is true, we need to take into account an extra
+      // page in the calculation. This extra page is a clone of the first page.
+      const adjustedTotalPages = state.totalPages + Number(state.infinite)
+
+      const nextPageIndex = nextPage(state.currentPage, adjustedTotalPages)
+
+      const nextItemIndex =
+        (nextPageIndex % adjustedTotalPages) * state.itemsPerPage
 
       return {
         ...state,
         sliding: true,
         slideDirection: 'next',
-        currentSlide: (nextPageIndex % state.totalPages) * state.itemsPerPage,
+        currentItem: nextItemIndex,
         currentPage: nextPageIndex,
       }
     }
 
     case 'PREVIOUS_PAGE': {
-      const previousPageIndex = previousPage(
-        state.currentPage,
-        state.totalPages
-      )
+      // If `state.infinite` is true, we need to take into account an extra
+      // page in the calculation. This extra page is a clone of the first page.
+      const adjustedTotalPages = state.totalPages + Number(state.infinite)
+
+      // If `state.infinite` is true and we're currently in page 0, we need to
+      // let the slider go to page -1. This -1 page is a clone of the last page.
+      const shouldGoToClone = state.infinite && state.currentPage === 0
+      const previousPageIndex = shouldGoToClone
+        ? -1
+        : previousPage(state.currentPage, state.totalPages)
 
       return {
         ...state,
         sliding: true,
         slideDirection: 'previous',
-        currentSlide:
-          (previousPageIndex % state.totalPages) * state.itemsPerPage,
+        currentItem:
+          (previousPageIndex % adjustedTotalPages) * state.itemsPerPage,
         currentPage: previousPageIndex,
       }
     }
@@ -96,12 +123,10 @@ function reducer(state: SliderState, action: Action): SliderState {
 
       return {
         ...state,
-        sliding: true,
+        sliding: action.payload.shouldSlide,
         slideDirection:
           action.payload.pageIndex > state.currentPage ? 'next' : 'previous',
-        // Dividing by the total number of pages to make sure `currentSlide`
-        // is always <= total number of slides.
-        currentSlide:
+        currentItem:
           (action.payload.pageIndex % state.totalPages) * state.itemsPerPage,
         currentPage: action.payload.pageIndex,
       }
@@ -117,42 +142,55 @@ function reducer(state: SliderState, action: Action): SliderState {
 
 const defaultSliderState = (
   totalItems: number,
-  itemsPerPage: number
+  itemsPerPage: number,
+  infinite: boolean
 ): SliderState => ({
-  currentSlide: 0,
+  currentItem: 0,
   currentPage: 0,
   sliding: false,
   slideDirection: 'next',
   totalItems,
   itemsPerPage,
   totalPages: Math.ceil(totalItems / itemsPerPage),
+  infinite,
 })
 
-const slide = (slideDirection: SlideDirection, dispatch: Dispatch<Action>) => {
-  if (slideDirection === 'next') {
+const slide = (page: SlideDirection | number, dispatch: Dispatch<Action>) => {
+  if (page === 'next') {
     dispatch({
       type: 'NEXT_PAGE',
     })
   }
 
-  if (slideDirection === 'previous') {
+  if (page === 'previous') {
     dispatch({
       type: 'PREVIOUS_PAGE',
     })
   }
 
+  if (typeof page === 'number') {
+    dispatch({
+      type: 'GO_TO_PAGE',
+      payload: {
+        pageIndex: page,
+        shouldSlide: true,
+      },
+    })
+  }
+
   setTimeout(() => {
     dispatch({ type: 'STOP_SLIDE' })
-  }, 50)
+  }, 450)
 }
 
 export default function useSlider({
   totalItems,
   itemsPerPage = 1,
+  infiniteMode = false,
   ...swipeableConfigOverrides
 }: UseSliderArgs) {
   const [sliderState, sliderDispatch] = useReducer(reducer, undefined, () =>
-    defaultSliderState(totalItems, itemsPerPage)
+    defaultSliderState(totalItems, itemsPerPage, infiniteMode)
   )
 
   const handlers = useSwipeable({
