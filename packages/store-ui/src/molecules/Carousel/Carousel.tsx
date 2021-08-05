@@ -14,6 +14,7 @@ export interface CarouselProps extends SwipeableProps {
   infiniteMode?: boolean
   showNavigationArrows?: boolean
   showPaginationBullets?: boolean
+  slidingTransition?: string
 }
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
@@ -35,6 +36,7 @@ function Carousel({
   showNavigationArrows = true,
   showPaginationBullets = true,
   infiniteMode = true,
+  slidingTransition = 'transform 400ms 0ms',
   children,
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
@@ -79,7 +81,7 @@ function Carousel({
           data-carousel-track
           style={{
             display: 'flex',
-            transition: sliderState.sliding ? 'transform 400ms 0ms' : undefined,
+            transition: sliderState.sliding ? slidingTransition : undefined,
             width: `${numberOfSlides * 100}%`,
             transform: `translate3d(${
               transformValues[sliderState.currentPage]
