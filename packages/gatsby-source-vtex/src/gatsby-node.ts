@@ -17,7 +17,6 @@ import {
   wrapQueryExecutorWithQueue,
 } from 'gatsby-graphql-source-toolkit'
 import { execute, parse } from 'graphql'
-import pMap from 'p-map'
 import type {
   GatsbyNode,
   PluginOptions,
@@ -32,9 +31,7 @@ import type {
   NodeEvent,
 } from 'gatsby-graphql-source-toolkit/dist/types'
 
-// import type { NodeEvent as CollectionNodeEvent } from './graphql/types/collection'
 import {
-  // sourceNodeChanges as sourceCollectionNodeChanges,
   sourceAllNodes as sourceAllCollectionNodes,
   typeDefs as StoreCollectionTypeDefs,
 } from './graphql/types/collection'
@@ -43,41 +40,21 @@ import { fetchVTEX } from './fetch'
 import { ProductPaginationAdapter } from './graphql/pagination/product'
 import { getExecutor } from './graphql/executor'
 import { assertRedirects } from './redirects'
-import defaultStaticPaths from './staticPaths'
-import {
-  createChannelNode,
-  createDepartmentNode,
-  createStaticPathNode,
-  normalizePath,
-} from './utils'
+import { createChannelNode } from './utils'
 import type { VTEXOptions } from './fetch'
-import type { Category, PageType, Redirect, Tenant } from './types'
+import type { Redirect, Tenant } from './types'
 
 export interface Options extends PluginOptions, VTEXOptions {
-  /**
-   * @description function to return the paths to statically generate
-   * */
-  getStaticPaths?: () => Promise<string[]>
   /**
    * @description function to return the redirects to generate in our infra. Note that these are server-side redirects
    * */
   getRedirects?: () => Promise<Redirect[]>
-  pageTypes?: Array<PageType['pageType']>
-  ignorePaths?: string[]
-  concurrency?: number
   /**
    * @description minimum number of products to fetch from catalog
    * */
   minProducts?: number
   sourceCollections?: boolean
 }
-
-const DEFAULT_PAGE_TYPES_WHITELIST = [
-  'Department',
-  'Category',
-  'Brand',
-  'SubCategory',
-]
 
 /**
  * Add VTEX GraphQL API as 3p schema.
@@ -166,14 +143,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   gatsbyApi: SourceNodesArgs,
   options: Options
 ) => {
-  const {
-    tenant,
-    getStaticPaths,
-    pageTypes: pageTypesWhitelist = DEFAULT_PAGE_TYPES_WHITELIST,
-    concurrency = 20,
-    ignorePaths = [],
-  } = options
-
+  const { tenant } = options
   const { reporter } = gatsbyApi
 
   /** Reset last build time on this machine */
@@ -210,85 +180,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
 
     for (const binding of bindings) {
       createChannelNode(gatsbyApi, binding)
-    }
-
-    activity.end()
-  })
-
-  /**
-   * Add VTEX categories
-   */
-  promisses.push(async () => {
-    const activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching VTEX Departments'
-    )
-
-    activity.start()
-
-    const departments = await fetchVTEX<Category[]>(
-      api.catalog.category.tree(1),
-      options
-    )
-
-    for (const department of departments) {
-      createDepartmentNode(gatsbyApi, department)
-    }
-
-    activity.end()
-  })
-
-  /**
-   * Static Paths used to generate pages
-   */
-  promisses.push(async () => {
-    let activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching StaticPaths'
-    )
-
-    activity.start()
-
-    const staticPaths = (typeof getStaticPaths === 'function'
-      ? await getStaticPaths()
-      : await defaultStaticPaths(options)
-    )
-      .map(normalizePath)
-      .filter((path) => !ignorePaths.includes(path))
-
-    activity.end()
-
-    activity = reporter.activityTimer(
-      '[gatsby-source-vtex]: fetching PageTypes'
-    )
-
-    activity.start()
-
-    const fetchPageTypes = async (path: string): Promise<PageType> => {
-      return fetchVTEX<PageType>(api.catalog.portal.pageType(path), options)
-    }
-
-    const pageTypes = await pMap(staticPaths, fetchPageTypes, { concurrency })
-
-    if (pageTypes.length !== staticPaths.length) {
-      reporter.panicOnBuild(
-        '[gatsby-source-vtex]: Length of PageTypes and staticPaths do not agree. No static path will be generated'
-      )
-
-      return
-    }
-
-    for (let it = 0; it < pageTypes.length; it++) {
-      const pageType = pageTypes[it]
-      const staticPath = staticPaths[it]
-
-      if (!pageTypesWhitelist.includes(pageType.pageType)) {
-        reporter.warn(
-          `[gatsby-source-vtex]: Dropping path. Reason: PageType API reported ${pageType.pageType} for path: ${staticPath}`
-        )
-
-        continue
-      }
-
-      createStaticPathNode(gatsbyApi, pageType, staticPath)
     }
 
     activity.end()
@@ -584,9 +475,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     environment: Joi.string().pattern(
       /^(vtexcommercestable|vtexcommercebeta)$/
     ),
-    getStaticPaths: Joi.function().arity(0),
     getRedirects: Joi.function().arity(0),
-    pageTypes: Joi.array().items(Joi.string()),
     minProducts: Joi.number(),
     sourceCollections: Joi.boolean(),
   })

@@ -62,32 +62,6 @@ export interface Brand {
   imageUrl: string | null
 }
 
-export interface PageType {
-  id: string
-  name: string
-  url: string
-  title: string
-  metaTagDescription: string
-  pageType:
-    | 'Product'
-    | 'SubCategory'
-    | 'Department'
-    | 'Category'
-    | 'Brand'
-    | 'FullText'
-    | 'NotFound'
-}
-
-export type Sort =
-  | '' // 'Relevance',
-  | 'price:desc' // 'Price: High to Low',
-  | 'price:asc' // 'Price: Low to High',
-  | 'orders:desc' // 'Sales',
-  | 'name:desc' // 'Name, descending',
-  | 'name:asc' // 'Name, ascending',
-  | 'release:desc' // 'Release date',
-  | 'discount:desc' // 'Discount',
-
 export interface Redirect {
   [key: string]: unknown
   fromPath: string

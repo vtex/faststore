@@ -32,16 +32,13 @@
     "@graphql-tools/wrap": "^7.0.8",
     "gatsby-graphql-source-toolkit": "^2.0.1",
     "isomorphic-unfetch": "^3.0.0",
-    "p-map": "^4.0.0",
-    "slugify": "^1.4.6",
-    "uuid": "^8.3.0"
+    "slugify": "^1.4.6"
   },
   "peerDependencies": {
     "gatsby": "^3.1.1",
     "graphql": "^15.0.0"
   },
   "devDependencies": {
-    "@types/pluralize": "^0.0.29",
     "gatsby": "^3.1.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.0",
