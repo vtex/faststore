@@ -7,27 +7,13 @@ export interface SelectProps<T = HTMLSelectElement>
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-  /**
-   * List of key-value pairs representing the component's options
-   */
-  options?: string[][]
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { testId = 'store-select', options, ...props },
+  { testId = 'store-select', ...props },
   ref
 ) {
-  return (
-    <select ref={ref} data-store-select data-testid={testId} {...props}>
-      {options?.map(([value, label]) => {
-        return (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        )
-      })}
-    </select>
-  )
+  return <select ref={ref} data-store-select data-testid={testId} {...props} />
 })
 
 export default Select

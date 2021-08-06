@@ -7,7 +7,17 @@ import Component from '../Select'
 import mdx from './Select.mdx'
 
 const SelectTemplate: Story<SelectProps> = ({ options, ...props }) => {
-  return <Component options={options} {...props} />
+  return (
+    <Component {...props}>
+      {options.map(([value, label]) => {
+        return (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        )
+      })}
+    </Component>
+  )
 }
 
 export const DefaultSelect = SelectTemplate.bind({})

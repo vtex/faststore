@@ -9,14 +9,34 @@ const optionsArray = [
   ['bad', 'Bad'],
 ]
 
+const mapPairToOption = (value: string, label: string) => {
+  return (
+    <option key={value} value={value}>
+      {label}
+    </option>
+  )
+}
+
 describe('Select', () => {
   it('`data-store-select` is present', () => {
-    const { getByTestId } = render(<Select options={optionsArray} />)
+    const { getByTestId } = render(
+      <Select>
+        {optionsArray.map(([value, label]) => {
+          return mapPairToOption(value, label)
+        })}
+      </Select>
+    )
 
     expect(getByTestId('store-select')).toHaveAttribute('data-store-select')
   })
   it('Select is disabled', () => {
-    const { getByTestId } = render(<Select options={optionsArray} disabled />)
+    const { getByTestId } = render(
+      <Select disabled>
+        {optionsArray.map(([value, label]) => {
+          return mapPairToOption(value, label)
+        })}
+      </Select>
+    )
 
     expect(getByTestId('store-select')).toBeDisabled()
   })
