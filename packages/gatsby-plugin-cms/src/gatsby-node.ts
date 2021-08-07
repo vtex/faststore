@@ -132,17 +132,15 @@ export const sourceNodes = async (
         description: cluster.seo.description,
       },
       type: 'Cluster',
+      meta: {
+        selectedFacets: [
+          { key: 'productClusterIds', value: cluster.clusterId },
+        ],
+      },
     }
 
     sourceStoreCollectionNode(gatsbyApi, node)
   }
-}
-
-const TypeKeyMap = {
-  Cluster: 'productClusterIds',
-  Brand: 'b',
-  Category: 'c',
-  Department: 'c',
 }
 
 /**
@@ -170,13 +168,7 @@ export const onCreateNode = async (
     value: {
       sort: override?.sort === '""' ? '' : override?.sort ?? '',
       itemsPerPage,
-      selectedFacets:
-        collection.type === 'Cluster'
-          ? [{ key: TypeKeyMap.Cluster, value: collection.remoteId }]
-          : collection.slug.split('/').map((segment) => ({
-              key: TypeKeyMap[collection.type],
-              value: segment,
-            })),
+      selectedFacets: collection.meta.selectedFacets,
     },
   })
 

@@ -10,10 +10,20 @@ enum StoreCollectionType {
   Cluster
 }
 
+type StoreCollectionFacet {
+  key: String!
+  value: String!
+}
+
+type StoreCollectionMeta {
+  selectedFacets: [StoreCollectionFacet!]!
+}
+
 type StoreCollection implements Node @childOf(types: ["StoreCollection"]) {
   id: ID!
   remoteId: ID!
   slug: String!
   seo: StoreCollectionSeo!
   type: StoreCollectionType!
+  meta: StoreCollectionMeta!
 }
