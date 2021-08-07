@@ -58,7 +58,7 @@ export const createNode = (
 
   const data = {
     ...node,
-    slug: node.slug.split('/').map(gatsbyPath).join('/'),
+    slug: node.slug.replace(/^\//g, '').split('/').map(gatsbyPath).join('/'),
     id,
     parent: node.parent && createNodeId(node.parent, parentType, gatsbyApi),
     children: node.children?.map((child) =>
