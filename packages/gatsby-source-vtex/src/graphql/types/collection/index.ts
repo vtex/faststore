@@ -52,6 +52,7 @@ export const createNode = (
 
   const data = {
     ...node,
+    slug: slugify(node.slug, { replacement: '-', lower: true }),
     id,
     parent: node.parent && createNodeId(node.parent, parentType, gatsbyApi),
     children: node.children?.map((child) =>
@@ -82,7 +83,7 @@ const brandToStoreCollection = (node: Brand): StoreCollection => ({
     description: node.metaTagDescription ?? '',
   },
   type: 'Brand',
-  slug: slugify(node.name, { replacement: '-', lower: true }),
+  slug: node.name,
 })
 
 const categoryToStoreCollection = (
