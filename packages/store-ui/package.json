@@ -24,8 +24,8 @@
     "develop": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
-    "storybook": "start-storybook -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook",
+    "storybook": "start-storybook -s node_modules/@vtex -p 6006 --no-manager-cache",
+    "build-storybook": "build-storybook -s node_modules/@vtex",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },

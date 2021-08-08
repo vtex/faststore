@@ -1,6 +1,5 @@
 import { withThemes } from 'storybook-addon-themes/react'
 import SBTheme from './theme'
-import ThemeProvider from './themes'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -27,19 +26,27 @@ export const parameters = {
         color: '#999999',
       },
     ],
-    onChange: (theme) => {
-      document
+    onChange: ({ class: themeName }) => {
+      const currentTheme = document
         .getElementById('storybook-preview-iframe')
-        .contentDocument.querySelector('body').className =
-        'sb-show-main sb-main-padded'
-      document
-        .getElementById('storybook-preview-iframe')
-        .contentDocument.querySelector('body')
-        .classList.add(theme.class)
+        .contentDocument.querySelector('link[rel=stylesheet]')
+
+      if (currentTheme) {
+        currentTheme.remove()
+      }
+
+      if (themeName !== 'no-theme') {
+        var theme = document.createElement('link')
+        theme.rel = 'stylesheet'
+        theme.type = 'text/css'
+        theme.href = `/${themeName}/dist/index.css`
+
+        document
+          .getElementById('storybook-preview-iframe')
+          .contentDocument.querySelector('head')
+          .appendChild(theme)
+      }
     },
-  },
-  Decorator: ({ children }) => {
-    return <ThemeProvider>{children}</ThemeProvider>
   },
 }
 

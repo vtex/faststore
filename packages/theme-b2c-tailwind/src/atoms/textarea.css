@@ -1,15 +1,15 @@
-.theme-b2c-tailwind [data-store-textarea] {
+[data-store-textarea] {
   @apply w-80 border-solid px-4 py-1 my-2;
   @apply text-gray-700 border-black;
   @apply font-normal text-base;
 }
 
-.theme-b2c-tailwind [data-store-textarea][data-success], .theme-b2c-tailwind [data-store-textarea][data-success]:focus {
+[data-store-textarea][data-success], [data-store-textarea][data-success]:focus {
   @apply outline-none;
   @apply border-red-600;
 }
 
-.theme-b2c-tailwind [data-store-textarea][data-error], .theme-b2c-tailwind [data-store-textarea][data-error]:focus {
+[data-store-textarea][data-error], [data-store-textarea][data-error]:focus {
   @apply outline-none;
   @apply border-red-600;
 }
