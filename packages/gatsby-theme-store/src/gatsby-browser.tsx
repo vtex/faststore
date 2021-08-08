@@ -14,15 +14,11 @@ import {
   Progress,
 } from './sdk/progress'
 
-const {
-  default: ErrorBoundary,
-} = require('./src/components/Error/ErrorBoundary')
-const {
-  Provider: OrderFormProvider,
-} = require('./src/sdk/orderForm/LazyProvider')
-const { Provider: RegionProvider } = require('./src/sdk/region/Provider')
-const { default: VTEXRCProvider } = require('./src/sdk/pixel/vtexrc/index')
-const { Provider: ToastProvider } = require('./src/sdk/toast/Provider')
+const { default: ErrorBoundary } = require('./components/Error/ErrorBoundary')
+const { Provider: OrderFormProvider } = require('./sdk/orderForm/Provider')
+const { default: VTEXRCProvider } = require('./sdk/pixel/vtexrc/Provider')
+const { Provider: RegionProvider } = require('./sdk/region/Provider')
+const { Provider: ToastProvider } = require('./sdk/toast/Provider')
 
 export const onClientEntry = async () => {
   if (typeof IntersectionObserver === 'undefined') {
