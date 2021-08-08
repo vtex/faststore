@@ -52,15 +52,15 @@ export const replaceHydrateFunction = () => (
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
   const root = (
     <ErrorBoundary>
-      <VTEXRCProvider>
-        <ToastProvider>
-          <RegionProvider>
-            <OrderFormProvider>
+      <OrderFormProvider>
+        <VTEXRCProvider>
+          <ToastProvider>
+            <RegionProvider>
               <UIProvider>{element}</UIProvider>
-            </OrderFormProvider>
-          </RegionProvider>
-        </ToastProvider>
-      </VTEXRCProvider>
+            </RegionProvider>
+          </ToastProvider>
+        </VTEXRCProvider>
+      </OrderFormProvider>
     </ErrorBoundary>
   )
 
