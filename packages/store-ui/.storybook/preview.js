@@ -39,7 +39,7 @@ export const parameters = {
         var theme = document.createElement('link')
         theme.rel = 'stylesheet'
         theme.type = 'text/css'
-        theme.href = `/${themeName}/dist/index.css`
+        theme.href = `./${themeName}/dist/index.css`
 
         document
           .getElementById('storybook-preview-iframe')
