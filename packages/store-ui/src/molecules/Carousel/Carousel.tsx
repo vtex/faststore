@@ -12,8 +12,13 @@ import Bullets from '../Bullets'
 export interface CarouselProps extends SwipeableProps {
   testId?: string
   infiniteMode?: boolean
-  slidingTransition?: string
   controls?: 'complete' | 'navigationArrows' | 'paginationBullets'
+  transition?: {
+    duration: number
+    property: string
+    delay?: number
+    timing?: string
+  }
 }
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
@@ -34,13 +39,19 @@ function Carousel({
   infiniteMode = true,
   controls = 'complete',
   testId = 'store-carousel',
-  slidingTransition = 'transform 400ms 0ms',
+  transition = {
+    duration: 400,
+    property: 'transform',
+  },
   children,
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
   const childrenArray = React.Children.toArray(children)
   const childrenCount = childrenArray.length
   const numberOfSlides = infiniteMode ? childrenCount + 2 : childrenCount
+  const slidingTransition = `${transition.property} ${transition.duration}ms ${
+    transition.timing ?? ''
+  } ${transition.delay ?? ''}`
 
   const showNavigationArrows =
     controls === 'complete' || controls === 'navigationArrows'
@@ -57,6 +68,7 @@ function Carousel({
     totalItems: childrenCount,
     itemsPerPage: 1,
     infiniteMode,
+    slidingTransitionDuration: transition.duration,
     ...swipeableConfigOverrides,
   })
 
@@ -136,7 +148,13 @@ function Carousel({
             data-left-arrow
             aria-controls="carousel"
             aria-label="previous"
-            onClick={() => slide('previous', sliderDispatch)}
+            onClick={() => {
+              if (sliderState.sliding) {
+                return
+              }
+
+              slide('previous', transition.duration, sliderDispatch)
+            }}
           >
             <Icon component={<LeftArrowIcon />} />
           </Button>
@@ -144,7 +162,13 @@ function Carousel({
             data-right-arrow
             aria-controls="carousel"
             aria-label="next"
-            onClick={() => slide('next', sliderDispatch)}
+            onClick={() => {
+              if (sliderState.sliding) {
+                return
+              }
+
+              slide('next', transition.duration, sliderDispatch)
+            }}
           >
             <Icon component={<RightArrowIcon />} />
           </Button>
@@ -157,7 +181,11 @@ function Carousel({
             totalQuantity={childrenCount}
             activeBullet={sliderState.currentPage}
             onClick={(_, idx) => {
-              slide(idx, sliderDispatch)
+              if (sliderState.sliding) {
+                return
+              }
+
+              slide(idx, transition.duration, sliderDispatch)
             }}
           />
         </div>
