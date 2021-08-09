@@ -62,13 +62,13 @@ export interface UseSliderArgs extends SwipeableProps {
   /** The total number of unique items in the slider. */
   totalItems: number
   /** The number of items in a single slider page. */
-  itemsPerPage: number
+  itemsPerPage?: number
   /** Whether or not the slider is infinite. */
   infiniteMode?: boolean
   /**
    * The duration **in ms** of the sliding transition animation being used in
    * your slider. If you're not using an animation, this value should be set to
-   * 0
+   * 0.
    */
   slidingTransitionDuration: number
 }
