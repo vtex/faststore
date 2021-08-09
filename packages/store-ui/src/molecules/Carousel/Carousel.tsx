@@ -12,9 +12,8 @@ import Bullets from '../Bullets'
 export interface CarouselProps extends SwipeableProps {
   testId?: string
   infiniteMode?: boolean
-  showNavigationArrows?: boolean
-  showPaginationBullets?: boolean
   slidingTransition?: string
+  controls?: 'complete' | 'navigationArrows' | 'paginationBullets'
 }
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
@@ -32,10 +31,9 @@ const createTransformValues = (infinite: boolean, totalItems: number) => {
 }
 
 function Carousel({
-  testId = 'store-carousel',
-  showNavigationArrows = true,
-  showPaginationBullets = true,
   infiniteMode = true,
+  controls = 'complete',
+  testId = 'store-carousel',
   slidingTransition = 'transform 400ms 0ms',
   children,
   ...swipeableConfigOverrides
@@ -43,6 +41,12 @@ function Carousel({
   const childrenArray = React.Children.toArray(children)
   const childrenCount = childrenArray.length
   const numberOfSlides = infiniteMode ? childrenCount + 2 : childrenCount
+
+  const showNavigationArrows =
+    controls === 'complete' || controls === 'navigationArrows'
+
+  const showPaginationBullets =
+    controls === 'complete' || controls === 'paginationBullets'
 
   const transformValues = useMemo(
     () => createTransformValues(infiniteMode, numberOfSlides),
@@ -113,7 +117,7 @@ function Carousel({
             <div
               key={idx}
               data-carousel-item
-              style={{ width: `100%` }}
+              style={{ width: '100%' }}
               data-visible={
                 isItemVisible(idx - Number(infiniteMode)) || undefined
               }
