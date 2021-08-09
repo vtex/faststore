@@ -70,7 +70,7 @@ export interface UseSliderArgs extends SwipeableProps {
    * your slider. If you're not using an animation, this value should be set to
    * 0.
    */
-  slidingTransitionDuration: number
+  slidingTransitionDuration?: number
 }
 
 export const nextPage = (current: number, total: number) =>
@@ -200,7 +200,7 @@ export default function useSlider({
   totalItems,
   itemsPerPage = 1,
   infiniteMode = false,
-  slidingTransitionDuration,
+  slidingTransitionDuration = 0,
   ...swipeableConfigOverrides
 }: UseSliderArgs) {
   const [sliderState, sliderDispatch] = useReducer(reducer, undefined, () =>
