@@ -6,16 +6,8 @@ import Component from '../Carousel'
 import type { CarouselProps } from '../Carousel'
 import mdx from './Carousel.mdx'
 
-const CarouselTemplate: Story<CarouselProps> = ({
-  infiniteMode,
-  showNavigationArrows,
-  showPaginationBullets,
-}) => (
-  <Component
-    infiniteMode={infiniteMode}
-    showNavigationArrows={showNavigationArrows}
-    showPaginationBullets={showPaginationBullets}
-  >
+const CarouselTemplate: Story<CarouselProps> = ({ infiniteMode, controls }) => (
+  <Component infiniteMode={infiniteMode} controls={controls}>
     <img
       alt=""
       width="100%"
@@ -34,17 +26,10 @@ const CarouselTemplate: Story<CarouselProps> = ({
 export const Carousel = CarouselTemplate.bind({})
 
 const argTypes: ComponentArgTypes<CarouselProps> = {
-  // infiniteMode: {
-  //   control: { type: 'boolean'  },
-  //   defaultValue: true,
-  // },
-  showNavigationArrows: {
-    control: { type: 'boolean' },
-    defaultValue: true,
-  },
-  showPaginationBullets: {
-    control: { type: 'boolean' },
-    defaultValue: true,
+  controls: {
+    type: 'select',
+    options: ['complete', 'paginationBullets', 'navigationArrows'],
+    defaultValue: 'complete',
   },
 }
 
