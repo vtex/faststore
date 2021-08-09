@@ -192,7 +192,7 @@ const slide = (
     () => {
       dispatch({ type: 'STOP_SLIDE' })
     },
-    transitionDuration > 0 ? transitionDuration + 10 : 0
+    transitionDuration > 0 ? transitionDuration + 5 : 0
   )
 }
 
