@@ -6,8 +6,14 @@ import Component from '../Carousel'
 import type { CarouselProps } from '../Carousel'
 import mdx from './Carousel.mdx'
 
-const CarouselTemplate: Story<CarouselProps> = ({ infiniteMode, controls }) => (
-  <Component infiniteMode={infiniteMode} controls={controls}>
+const CarouselTemplate: Story<
+  CarouselProps & { transitionDuration: number }
+> = ({ infiniteMode, controls, transitionDuration }) => (
+  <Component
+    infiniteMode={infiniteMode}
+    controls={controls}
+    transition={{ property: 'transform', duration: transitionDuration }}
+  >
     <img
       alt=""
       width="100%"
@@ -25,11 +31,17 @@ const CarouselTemplate: Story<CarouselProps> = ({ infiniteMode, controls }) => (
 
 export const Carousel = CarouselTemplate.bind({})
 
-const argTypes: ComponentArgTypes<CarouselProps> = {
+const argTypes: ComponentArgTypes<
+  CarouselProps & { transitionDuration: number }
+> = {
   controls: {
     type: 'select',
     options: ['complete', 'paginationBullets', 'navigationArrows'],
     defaultValue: 'complete',
+  },
+  transitionDuration: {
+    type: 'number',
+    defaultValue: 400,
   },
 }
 
