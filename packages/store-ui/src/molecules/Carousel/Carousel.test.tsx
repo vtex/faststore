@@ -3,6 +3,11 @@ import { render, fireEvent, act } from '@testing-library/react'
 
 import Carousel from './Carousel'
 
+const wait = (amount = 0) =>
+  new Promise((resolve) => setTimeout(resolve, amount))
+
+const SLIDING_TRANSITION_DURATION = 100
+
 describe('Carousel component', () => {
   it('should have `data-store-carousel` attribute in the section tag', () => {
     const { getByTestId } = render(
@@ -114,9 +119,15 @@ describe('Carousel component', () => {
     expect(items[6]).not.toHaveAttribute('data-visible')
   })
 
-  it('should allow users to navigate through pages using the `Arrows` controls', () => {
+  it('should allow users to navigate through pages using the `Arrows` controls', async () => {
     const { getByTestId, getByLabelText } = render(
-      <Carousel infiniteMode={false}>
+      <Carousel
+        transition={{
+          property: 'transform',
+          duration: SLIDING_TRANSITION_DURATION,
+        }}
+        infiniteMode={false}
+      >
         <div>Slide 1</div>
         <div>Slide 2</div>
         <div>Slide 3</div>
@@ -147,8 +158,16 @@ describe('Carousel component', () => {
     expect(items[4]).not.toHaveAttribute('data-visible')
 
     // Go from page 1 back to 0
-    act(() => {
+    await act(async () => {
+      // This takes into account the 100ms duration of the sliding animation +
+      // 5ms added by the `slide` function.
+      await wait(SLIDING_TRANSITION_DURATION + 5)
       fireEvent.click(goToPreviousPageButton)
+
+      // This is to avoid trying to call 'dispatch' after the component has
+      // already been unmounted, and is only necessary in this testing
+      // environment.
+      await wait(SLIDING_TRANSITION_DURATION + 5)
     })
 
     items = carouselSection.querySelectorAll('[data-carousel-item]')
@@ -161,9 +180,15 @@ describe('Carousel component', () => {
     expect(items[4]).not.toHaveAttribute('data-visible')
   })
 
-  it('should allow users to navigate through pages by clicking on a pagination bullet', () => {
+  it('should allow users to navigate through pages by clicking on a pagination bullet', async () => {
     const { getByTestId, queryAllByTestId, getByLabelText } = render(
-      <Carousel infiniteMode={false}>
+      <Carousel
+        transition={{
+          property: 'transform',
+          duration: SLIDING_TRANSITION_DURATION,
+        }}
+        infiniteMode={false}
+      >
         <div>Slide 1</div>
         <div>Slide 2</div>
         <div>Slide 3</div>
@@ -194,7 +219,10 @@ describe('Carousel component', () => {
 
     const thirdPageBullet = getByLabelText('Go to page 3')
 
-    act(() => {
+    await act(async () => {
+      // This takes into account the 100ms duration of the sliding animation +
+      // 5ms added by the `slide` function.
+      await wait(SLIDING_TRANSITION_DURATION + 5)
       fireEvent.click(thirdPageBullet)
     })
 
