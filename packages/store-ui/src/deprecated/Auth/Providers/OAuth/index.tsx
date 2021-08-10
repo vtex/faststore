@@ -1,4 +1,4 @@
-import { FormattedMessage } from '@vtex/gatsby-plugin-i18n'
+import { FormattedMessage } from 'react-intl'
 import React, { useEffect, useState } from 'react'
 import { Alert, Box, Button } from 'theme-ui'
 import type { FC } from 'react'
