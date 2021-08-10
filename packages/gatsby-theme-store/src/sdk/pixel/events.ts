@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 
-import type { ProductSummary_ProductFragment } from '../../components/ProductSummary/__generated__/ProductSummary_product.graphql'
 import type { OrderFormFragment_OrderFormFragment } from '../orderForm/controller/__generated__/OrderFormFragment_orderForm.graphql'
 import { getBestSeller } from '../product/useBestSeller'
 import { useSku } from '../product/useSku'
@@ -97,7 +96,7 @@ export interface ProductClickData {
 
 export interface ProductImpressionData {
   impressions: Impression[]
-  product?: ProductSummary_ProductFragment // deprecated, use impressions list!
+  product?: any // deprecated, use impressions list!
   position?: number // deprecated, use impressions list!
   list: string
 }
@@ -144,7 +143,7 @@ interface Order {
 }
 
 interface Impression {
-  product: ProductSummary_ProductFragment
+  product: any
   position: number
 }
 
