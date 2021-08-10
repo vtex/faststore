@@ -53,7 +53,6 @@ export type {
   CardProps,
   LabelProps,
   InputProps as UIInputProps,
-  SelectProps,
   TextareaProps as UITextareaProps,
   TextProps,
   RadioProps,
