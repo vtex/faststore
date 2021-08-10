@@ -62,6 +62,8 @@ export const fragment = graphql`
         imageUrl
         imageText
       }
+      measurementUnit
+      unitMultiplier
       sellers {
         sellerId
         commercialOffer: commertialOffer {
