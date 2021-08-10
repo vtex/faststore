@@ -1,24 +1,34 @@
 import React, { useReducer } from 'react'
 import type { FC } from 'react'
-import {
-  EmailVerificationAccessCodeForm as AccessCodeForm,
-  EmailVerificationEmailForm as EmailForm,
-  EmailVerificationReducer as reducer,
-} from '@vtex/store-ui'
-import type { AuthProviderComponentProps } from '@vtex/store-ui'
 
-import { sendAccessKey, validateAccessKey } from '../../../../sdk/auth/Service'
-import { useOnLoginSuccessful } from '../../../../sdk/auth/useOnLoginSuccessful'
-import { useStartLogin } from '../../../../sdk/auth/useStartLogin'
-import { isValidAccessCode, isValidEmail } from '../../../../sdk/auth/validate'
+import { reducer } from './state'
+import EmailForm from './EmailForm'
+import AccessCodeForm from './AccessCodeForm'
+import type { AuthProviderComponentProps } from '../types'
 
-const EmailVerification: FC<AuthProviderComponentProps> = ({
+interface Props extends AuthProviderComponentProps {
+  sendAccessKey: (opts: { email: string }) => Promise<void>
+  validateAccessKey: (opts: {
+    accessKey: string
+    login: string
+  }) => Promise<void>
+  isValidAccessCode: (code: string) => boolean
+  isValidEmail: (email: string) => boolean
+  startLogin: (opts: { user: string }) => Promise<void>
+  onLoginSuccessful: (returnUrl: string | undefined) => Promise<void>
+}
+
+const EmailVerification: FC<Props> = ({
   variant: v,
   returnUrl,
+  sendAccessKey,
+  validateAccessKey,
+  isValidAccessCode,
+  isValidEmail,
+  startLogin,
+  onLoginSuccessful,
 }) => {
   const [state, dispatch] = useReducer(reducer, { state: 'emailForm' })
-  const onLoginSuccessful = useOnLoginSuccessful()
-  const startLogin = useStartLogin()
 
   const variant = `emailVerification.${v}`
 

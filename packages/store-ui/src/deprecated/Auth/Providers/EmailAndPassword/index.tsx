@@ -1,30 +1,40 @@
 import React, { useReducer } from 'react'
 import type { FC } from 'react'
-import {
-  EmailAndPasswordEmailForm as EmailForm,
-  EmailAndPasswordSignUpForm as SignUpForm,
-  EmailAndPasswordSignInForm as SignInForm,
-  EmailAndPasswordReducer as reducer,
-} from '@vtex/store-ui'
-import type { AuthProviderComponentProps } from '@vtex/store-ui'
 
-import { sendAccessKey, setPassword } from '../../../../sdk/auth/Service'
-import { validatePassword } from '../../../../sdk/auth/Service/validatePassword'
-import { useOnLoginSuccessful } from '../../../../sdk/auth/useOnLoginSuccessful'
-import { useStartLogin } from '../../../../sdk/auth/useStartLogin'
-import {
+import EmailForm from './EmailForm'
+import SignInForm from './SignInForm'
+import SignUpForm from './SignUpForm'
+import { reducer } from './state'
+import type { AuthProviderComponentProps } from '../types'
+
+interface Props extends AuthProviderComponentProps {
+  isValidAccessCode: (code: string) => boolean
+  isValidEmail: (email: string) => boolean
+  isValidPassword: (pwd: string) => { passwordIsValid: boolean }
+  sendAccessKey: (opts: { email: string }) => Promise<void>
+  setPassword: (opts: {
+    login: string
+    newPassword: string
+    accesskey: string
+  }) => Promise<void>
+  validatePassword: (opts: { login: string; password: string }) => void
+  startLogin: (opts: { user: string }) => Promise<void>
+  onLoginSuccessful: (returnUrl: string | undefined) => Promise<void>
+}
+
+const EmailAndPassword: FC<Props> = ({
+  variant: v,
+  returnUrl,
   isValidAccessCode,
   isValidEmail,
   isValidPassword,
-} from '../../../../sdk/auth/validate'
-
-const EmailAndPassword: FC<AuthProviderComponentProps> = ({
-  variant: v,
-  returnUrl,
+  sendAccessKey,
+  setPassword,
+  validatePassword,
+  startLogin,
+  onLoginSuccessful,
 }) => {
   const [state, dispatch] = useReducer(reducer, { state: 'signInForm' })
-  const onLoginSuccessful = useOnLoginSuccessful()
-  const startLogin = useStartLogin()
   const variant = `emailAndPassword.${v}`
 
   return state.state.startsWith('emailForm') ? (

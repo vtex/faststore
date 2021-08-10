@@ -112,7 +112,10 @@ export { useProductPixel as useProductPixelEffect } from './sdk/product/useProdu
 export type { Options as ProductPixelOptions } from './sdk/product/useProductPixel'
 export { default as RenderExtensionLoader } from './sdk/RenderExtensionLoader'
 
-export { AUTH_PROVIDERS } from './components/Auth/Providers'
 export { useProviders } from './sdk/auth/useProviders'
 export { useOnLoginSuccessful } from './sdk/auth/useOnLoginSuccessful'
+export { useStartLogin } from './sdk/auth/useStartLogin'
+export * from './sdk/auth/OAuth'
+export * from './sdk/auth/Service/index'
+export * from './sdk/auth/validate'
 export type { ProvidersResponse } from './sdk/auth/Service/getProviders'
