@@ -19,6 +19,9 @@ export interface StoreCollection {
     title: string
     description: string
   }
+  meta: {
+    selectedFacets: Array<{ key: string; value: string }>
+  }
   slug: string
   parent?: string
   children?: string[]
@@ -29,6 +32,9 @@ interface Config {
   gatsbyApi: ParentSpanPluginArgs
   options: Options
 }
+
+const gatsbyPath = (path: string) =>
+  slugify(path, { replacement: '-', lower: true })
 
 export const typeDefs = readFileSync(
   join(__dirname, '../src/graphql/types/collection/typeDefs.graphql')
@@ -52,6 +58,7 @@ export const createNode = (
 
   const data = {
     ...node,
+    slug: node.slug.replace(/^\//g, '').split('/').map(gatsbyPath).join('/'),
     id,
     parent: node.parent && createNodeId(node.parent, parentType, gatsbyApi),
     children: node.children?.map((child) =>
@@ -82,24 +89,37 @@ const brandToStoreCollection = (node: Brand): StoreCollection => ({
     description: node.metaTagDescription ?? '',
   },
   type: 'Brand',
-  slug: slugify(node.name, { replacement: '-', lower: true }),
+  slug: node.name,
+  meta: {
+    selectedFacets: [{ key: 'b', value: node.name }],
+  },
 })
 
 const categoryToStoreCollection = (
   node: Category,
   parent: string | undefined
-): StoreCollection => ({
-  id: `${node.id}`,
-  remoteId: `${node.id}`,
-  parent,
-  children: node.children.map((child) => `${child.id}`),
-  seo: {
-    title: node.Title ?? '',
-    description: node.MetaTagDescription ?? '',
-  },
-  type: parent === undefined ? 'Department' : 'Category',
-  slug: new URL(node.url).pathname.slice(1),
-})
+): StoreCollection => {
+  const slug = new URL(node.url).pathname.slice(1)
+
+  return {
+    id: `${node.id}`,
+    remoteId: `${node.id}`,
+    parent,
+    children: node.children.map((child) => `${child.id}`),
+    seo: {
+      title: node.Title ?? '',
+      description: node.MetaTagDescription ?? '',
+    },
+    type: parent === undefined ? 'Department' : 'Category',
+    slug,
+    meta: {
+      selectedFacets: slug.split('/').map((segment) => ({
+        key: 'c',
+        value: segment,
+      })),
+    },
+  }
+}
 
 export const fetchAllNodes = async ({
   gatsbyApi,

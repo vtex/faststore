@@ -10,10 +10,8 @@ import React, { createContext, useMemo, useState } from 'react'
 import type { FC } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
 
-import type { ServerSearchPageQueryQuery } from '../../templates/__generated__/ServerSearchPageQuery.graphql'
-import type { BrowserSearchPageQueryQuery } from '../../templates/__generated__/BrowserSearchPageQuery.graphql'
-
-type SearchQuery = ServerSearchPageQueryQuery | BrowserSearchPageQueryQuery
+// TODO. I think we should remove data from this context once all componets are moved to the stores
+type SearchQuery = any
 
 export interface PageInfo {
   /** @description items per page */

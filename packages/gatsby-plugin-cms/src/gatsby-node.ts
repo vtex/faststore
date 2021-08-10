@@ -65,6 +65,7 @@ export interface Options {
   tenant: string
   workspace: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
+  itemsPerPage?: number
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
@@ -74,6 +75,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     environment: Joi.string()
       .required()
       .valid('vtexcommercestable', 'vtexcommercebeta'),
+    itemsPerPage: Joi.number(),
   })
 
 interface CollectionsByType {
@@ -130,24 +132,25 @@ export const sourceNodes = async (
         description: cluster.seo.description,
       },
       type: 'Cluster',
+      meta: {
+        selectedFacets: [
+          { key: 'productClusterIds', value: cluster.clusterId },
+        ],
+      },
     }
 
     sourceStoreCollectionNode(gatsbyApi, node)
   }
 }
 
-const TypeKeyMap = {
-  Cluster: 'productClusterIds',
-  Brand: 'b',
-  Category: 'c',
-  Department: 'c',
-}
-
 /**
  * @description
  * Create custom fields on StoreCollection when this collection is defined on the CMS
  */
-export const onCreateNode = async (gatsbyApi: CreateNodeArgs) => {
+export const onCreateNode = async (
+  gatsbyApi: CreateNodeArgs,
+  { itemsPerPage = 12 }: Options
+) => {
   const { node } = gatsbyApi
 
   if (node.internal.type !== 'StoreCollection') {
@@ -163,15 +166,9 @@ export const onCreateNode = async (gatsbyApi: CreateNodeArgs) => {
     node,
     name: 'searchParams',
     value: {
-      sort: override?.sort ?? '""',
-      itemsPerPage: 12,
-      selectedFacets:
-        collection.type === 'Cluster'
-          ? [{ key: TypeKeyMap.Cluster, value: collection.remoteId }]
-          : collection.slug.split('/').map((segment) => ({
-              key: TypeKeyMap[collection.type],
-              value: segment,
-            })),
+      sort: override?.sort === '""' ? '' : override?.sort ?? '',
+      itemsPerPage,
+      selectedFacets: collection.meta.selectedFacets,
     },
   })
 

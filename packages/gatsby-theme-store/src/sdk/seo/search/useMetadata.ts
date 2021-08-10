@@ -25,22 +25,26 @@ export const useMetadata = ({
   const { host } = useLocation()
   const {
     pageInfo: { nextPage, prevPage },
+    searchParams,
   } = useSearch()
 
   // According to Google, one should use either noindex or canonical, never both.
   // Also, we generate relative canonicals in the HTML. These will be hydrated to absolute URLs via JS
   const canonicalTags = useMemo(() => {
-    if (typeof canonical === 'string') {
+    // We still don't support canonalizing other pagination rather then the first one
+    if (typeof canonical === 'string' && searchParams.page === 0) {
       return {
-        canonical:
-          host !== undefined ? `https://${host}${canonical}` : canonical,
+        canonical: (host !== undefined
+          ? `https://${host}${canonical}`
+          : canonical
+        ).replace(/\/$/, ''),
         noindex: false,
         nofollow: false,
       }
     }
 
     return { canonical: undefined, noindex: true, nofollow: false }
-  }, [canonical, host])
+  }, [canonical, host, searchParams.page])
 
   const linkTags = useMemo(() => {
     const tags: GatsbySEOProps['linkTags'] = []
