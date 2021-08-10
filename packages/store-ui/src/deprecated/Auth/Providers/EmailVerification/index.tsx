@@ -1,10 +1,10 @@
 import React, { useReducer } from 'react'
 import type { FC } from 'react'
 
-import type { AuthProviderComponentProps } from '../types'
 import { reducer } from './state'
 import EmailForm from './EmailForm'
 import AccessCodeForm from './AccessCodeForm'
+import type { AuthProviderComponentProps } from '../types'
 
 interface Props extends AuthProviderComponentProps {
   sendAccessKey: (opts: { email: string }) => Promise<void>
