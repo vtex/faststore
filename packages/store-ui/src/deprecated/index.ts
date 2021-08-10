@@ -53,6 +53,7 @@ export type {
   CardProps,
   LabelProps,
   InputProps as UIInputProps,
+  SelectProps,
   TextareaProps as UITextareaProps,
   TextProps,
   RadioProps,
@@ -78,6 +79,10 @@ export type {
 // is under-performant in terms of CPU usage
 // https://github.com/vtex/faststore/pull/558
 export { default as Spinner } from './Spinner'
+
+// Exporting with different names not to conflict with our atom
+export { Select as UISelect } from 'theme-ui'
+export { SelectProps as UISelectProps } from 'theme-ui'
 
 // Base components from @vtex-components
 // Drawer
