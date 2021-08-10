@@ -42,7 +42,7 @@ export default {
     'Não tem uma conta ainda ? Cadastre-se',
 
   'login.page.emailAndPassword.emailForm.title':
-    'Receba codigo de acesso por email',
+    'Receba o código de acesso por email',
   'login.page.emailAndPassword.emailForm.emailPlaceholder':
     'Adicione seu email',
   'login.page.emailAndPassword.emailForm.invalidEmailInput': 'Email invalido',
@@ -65,7 +65,7 @@ export default {
   'login.page.emailVerification.accessCodeForm.backButton': 'Voltar',
 
   'login.page.emailVerification.emailForm.title':
-    'Receba codigo de acesso por email',
+    'Receba o código de acesso por email',
   'login.page.emailVerification.emailForm.emailPlaceholder':
     'Adicione seu email',
   'login.page.emailVerification.emailForm.invalidEmailInput': 'Email invalido',
@@ -73,7 +73,7 @@ export default {
     'Algo deu errado, por favor, tente outra vez',
   'login.page.emailVerification.emailForm.submitButton': 'Enviar',
 
-  'login.page.emailVerification.button': 'Receba codigo de acesso por email',
+  'login.page.emailVerification.button': 'Receba o código de acesso por email',
 
   'login.page.facebookOAuth.button': 'Entrar usando Facebook',
 
