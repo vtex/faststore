@@ -1,26 +1,10 @@
-import { resolve, relative } from 'path'
+const { resolve, relative } = require('path')
 
-import type {
-  CreateWebpackConfigArgs,
-  PluginOptionsSchemaArgs,
-  ParentSpanPluginArgs,
-} from 'gatsby'
-
-export const onPostBootstrap = (
-  _: ParentSpanPluginArgs,
-  { storeId }: Options
-) => {
+exports.onPostBootstrap = (_, { storeId }) => {
   process.env.GATSBY_STORE_ID = storeId
 }
 
-export interface Options {
-  storeId: string
-  locales: string[]
-  defaultLocale: string
-  profiling?: boolean
-}
-
-export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
+exports.pluginOptionsSchema = ({ Joi }) =>
   Joi.object({
     storeId: Joi.string().required(),
     locales: Joi.array().items(Joi.string()).required(),
@@ -28,10 +12,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     profiling: Joi.boolean(),
   })
 
-const resolveToTS = (
-  pkg: string,
-  file: 'gatsby-browser' | 'gatsby-ssr' | 'gatsby-node'
-): Record<string, string> => {
+const resolveToTS = (pkg, file) => {
   const root = `${process.cwd()}/.cache`
 
   let cjs = require.resolve(`${pkg}/${file}.js`, { paths: [process.cwd()] })
@@ -47,9 +28,9 @@ const resolveToTS = (
   }
 }
 
-export const onCreateWebpackConfig = (
-  { actions: { setWebpackConfig }, stage }: CreateWebpackConfigArgs,
-  { profiling = false }: Options
+exports.onCreateWebpackConfig = (
+  { actions: { setWebpackConfig }, stage },
+  { profiling = false }
 ) => {
   const profilingConfig =
     stage === 'build-javascript' && profiling === true
@@ -92,8 +73,6 @@ export const onCreateWebpackConfig = (
         // Resolve to the .ts versions of gatsby-(browser|ssr) so we don't end up by adding the whole lib.
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-browser'),
         ...resolveToTS('gatsby-plugin-next-seo', 'gatsby-ssr'),
-        ...resolveToTS('@vtex/gatsby-theme-store', 'gatsby-browser'),
-        ...resolveToTS('@vtex/gatsby-theme-store', 'gatsby-ssr'),
         '@vtex/order-manager': require.resolve(
           '@vtex/order-manager/src/index.tsx'
         ),

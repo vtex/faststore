@@ -1,8 +1,6 @@
-import type { Options } from './gatsby-node'
-
 const root = process.cwd()
 
-module.exports = ({ locales, defaultLocale }: Options) => ({
+module.exports = ({ locales, defaultLocale }) => ({
   plugins: [
     {
       resolve: require.resolve('gatsby-plugin-bundle-stats'),
