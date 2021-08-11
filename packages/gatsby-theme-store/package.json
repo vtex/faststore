@@ -11,7 +11,8 @@
     "dist",
     "gatsby-*",
     "index.js",
-    "src"
+    "src",
+    "i18n"
   ],
   "repository": {
     "type": "git",
