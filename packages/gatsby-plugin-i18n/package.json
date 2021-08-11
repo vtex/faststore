@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-i18n",
-  "version": "0.373.7",
+  "version": "0.373.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",
