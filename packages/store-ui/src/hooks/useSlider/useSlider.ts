@@ -65,12 +65,6 @@ export interface UseSliderArgs extends SwipeableProps {
   itemsPerPage?: number
   /** Whether or not the slider is infinite. */
   infiniteMode?: boolean
-  /**
-   * The duration **in ms** of the sliding transition animation being used in
-   * your slider. If you're not using an animation, this value should be set to
-   * 0.
-   */
-  slidingTransitionDuration?: number
 }
 
 export const nextPage = (current: number, total: number) =>
@@ -161,11 +155,7 @@ const defaultSliderState = (
   infinite,
 })
 
-const slide = (
-  page: SlideDirection | number,
-  transitionDuration: number,
-  dispatch: Dispatch<Action>
-) => {
+const slide = (page: SlideDirection | number, dispatch: Dispatch<Action>) => {
   if (page === 'next') {
     dispatch({
       type: 'NEXT_PAGE',
@@ -187,20 +177,12 @@ const slide = (
       },
     })
   }
-
-  setTimeout(
-    () => {
-      dispatch({ type: 'STOP_SLIDE' })
-    },
-    transitionDuration > 0 ? transitionDuration + 5 : 0
-  )
 }
 
 export default function useSlider({
   totalItems,
   itemsPerPage = 1,
   infiniteMode = false,
-  slidingTransitionDuration = 0,
   ...swipeableConfigOverrides
 }: UseSliderArgs) {
   const [sliderState, sliderDispatch] = useReducer(reducer, undefined, () =>
@@ -208,10 +190,8 @@ export default function useSlider({
   )
 
   const handlers = useSwipeable({
-    onSwipedRight: () =>
-      slide('previous', slidingTransitionDuration, sliderDispatch),
-    onSwipedLeft: () =>
-      slide('next', slidingTransitionDuration, sliderDispatch),
+    onSwipedRight: () => slide('previous', sliderDispatch),
+    onSwipedLeft: () => slide('next', sliderDispatch),
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
     ...swipeableConfigOverrides,

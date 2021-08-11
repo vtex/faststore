@@ -68,7 +68,6 @@ function Carousel({
     totalItems: childrenCount,
     itemsPerPage: 1,
     infiniteMode,
-    slidingTransitionDuration: transition.duration,
     ...swipeableConfigOverrides,
   })
 
@@ -104,6 +103,10 @@ function Carousel({
             }%, 0, 0)`,
           }}
           onTransitionEnd={() => {
+            sliderDispatch({
+              type: 'STOP_SLIDE',
+            })
+
             if (sliderState.currentItem >= childrenCount) {
               sliderDispatch({
                 type: 'GO_TO_PAGE',
@@ -153,7 +156,7 @@ function Carousel({
                 return
               }
 
-              slide('previous', transition.duration, sliderDispatch)
+              slide('previous', sliderDispatch)
             }}
           >
             <Icon component={<LeftArrowIcon />} />
@@ -167,7 +170,7 @@ function Carousel({
                 return
               }
 
-              slide('next', transition.duration, sliderDispatch)
+              slide('next', sliderDispatch)
             }}
           >
             <Icon component={<RightArrowIcon />} />
@@ -185,7 +188,7 @@ function Carousel({
                 return
               }
 
-              slide(idx, transition.duration, sliderDispatch)
+              slide(idx, sliderDispatch)
             }}
           />
         </div>
