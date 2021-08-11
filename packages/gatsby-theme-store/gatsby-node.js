@@ -1,16 +1,7 @@
 const { resolve, relative } = require('path')
 
-exports.onPostBootstrap = (_, { storeId }) => {
-  process.env.GATSBY_STORE_ID = storeId
-}
-
 exports.pluginOptionsSchema = ({ Joi }) =>
-  Joi.object({
-    storeId: Joi.string().required(),
-    locales: Joi.array().items(Joi.string()).required(),
-    defaultLocale: Joi.string().required(),
-    profiling: Joi.boolean(),
-  })
+  Joi.object({ profiling: Joi.boolean() })
 
 const resolveToTS = (pkg, file) => {
   const root = `${process.cwd()}/.cache`
