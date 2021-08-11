@@ -27,7 +27,7 @@ export const useMetadata = (
   const price = product?.items[0].sellers?.[0].commercialOffer.spotPrice
   const title = product?.titleTag ?? siteMetadata.title
   const description = product?.metaTagDescription ?? siteMetadata.description
-  const pathname = path.slice(0, -1) // remove trailing slashes from pathname
+  const pathname = path[path.length - 1] === '/' ? path.slice(0, -1) : path // remove trailing slashes from pathname
   const canonical = host !== undefined ? `https://${host}${pathname}` : pathname
   const images = useMemo(
     () =>
