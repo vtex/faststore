@@ -299,7 +299,7 @@ function generateErrorPageRewriteChildren({
 function generateRewriteChildren({ toPath }: Redirect) {
   return [
     {
-      cmd: ['rewrite', '.+', toPath],
+      cmd: ['rewrite', '.+', toPath.replace(/\/$/g, '')],
     },
   ]
 }
