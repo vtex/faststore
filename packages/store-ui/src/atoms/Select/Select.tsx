@@ -9,10 +9,14 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { testId = 'store-select', ...props },
+  { children, testId = 'store-select', ...props },
   ref
 ) {
-  return <select ref={ref} data-store-select data-testid={testId} {...props} />
+  return (
+    <select ref={ref} data-store-select data-testid={testId} {...props}>
+      {children}
+    </select>
+  )
 })
 
 export default Select
