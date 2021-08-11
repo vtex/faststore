@@ -70,6 +70,7 @@ export { useQueryVariablesFromSearchParams } from './sdk/search/converter/useQue
 export { useSearchParamsFromQueryVariables } from './sdk/search/converter/useSearchParamsFromQueryVariables'
 export { useSearchParamsFromUrl } from './sdk/search/converter/useSearchParamsFromURL'
 export { usePersonalizedSearchRedirect } from './sdk/search/usePersonalizedSearchRedirect'
+export { priceRange } from './sdk/search/converter/priceRange'
 export { SearchProvider } from './sdk/search/Provider'
 
 export { usePlpPixelEffect } from './sdk/plp/usePlpPixel'
