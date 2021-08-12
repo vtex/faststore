@@ -8,11 +8,10 @@
   "browser": "src/index.ts",
   "sideEffects": false,
   "files": [
+    "src",
     "dist",
     "gatsby-*",
-    "index.js",
-    "src",
-    "i18n"
+    "index.js"
   ],
   "repository": {
     "type": "git",
