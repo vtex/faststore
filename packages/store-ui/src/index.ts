@@ -20,6 +20,9 @@ export type { TextAreaProps } from './atoms/TextArea'
 export { default as Checkbox } from './atoms/Checkbox'
 export type { CheckboxProps } from './atoms/Checkbox'
 
+export { default as Overlay } from './atoms/Overlay'
+export type { OverlayProps } from './atoms/Overlay'
+
 // Molecules
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
