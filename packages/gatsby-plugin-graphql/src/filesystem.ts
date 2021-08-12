@@ -6,24 +6,22 @@
  */
 import { createHash } from 'crypto'
 
-import { outputFile as fsExtraOutputFile } from 'fs-extra'
-
-const filesMap = new Map<string, string>()
+import { outputFile as fsExtraOutputFile, pathExists, readFile } from 'fs-extra'
 
 function hash(s: string) {
   return createHash('md5').update(s, 'utf8').digest().toString('hex')
 }
 
-export const outputFile = (file: string, data: any) => {
-  const newHash = hash(JSON.stringify(data))
-  const oldHash = filesMap.get(file)
+export const outputFile = async (file: string, data: string) => {
+  const exists = await pathExists(file)
 
-  // The files content are equal, don't do anything
-  if (oldHash === newHash) {
-    return
+  if (exists) {
+    const oldData = await readFile(file)
+
+    if (hash(oldData.toString()) === hash(data)) {
+      return
+    }
   }
-
-  filesMap.set(file, newHash)
 
   return fsExtraOutputFile(file, data)
 }
