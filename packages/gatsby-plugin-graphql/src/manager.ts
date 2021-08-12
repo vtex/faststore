@@ -93,7 +93,10 @@ export class QueryManager {
 
         const query = print(def).trim()
 
-        if (this.queries.get(queryName) !== undefined) {
+        if (
+          this.queries.has(queryName) &&
+          this.queries.get(queryName)!.filename !== filename
+        ) {
           console.warn(
             `Skipping query ${queryName} since it was already defined. If this wasn't the intended behavior please change your query operation name`
           )
@@ -113,7 +116,10 @@ export class QueryManager {
           'GraphQL Fragment should be named following the template <ComponentName>_<PropName>'
         )
 
-        if (this.fragments.get(fragmentName) !== undefined) {
+        if (
+          this.fragments.has(fragmentName) &&
+          this.fragments.get(fragmentName)!.filename !== filename
+        ) {
           console.warn(
             `Skipping query ${fragmentName} since it was already defined. If this wasn't the intended behavior please change your query operation name`
           )

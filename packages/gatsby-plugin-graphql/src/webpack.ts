@@ -1,15 +1,22 @@
 import { dirname, join } from 'path'
 
-import { codegen } from '@graphql-codegen/core'
 import * as typeScriptPlugin from '@graphql-codegen/typescript'
 import * as typeScriptOperationsPlugin from '@graphql-codegen/typescript-operations'
+import { codegen } from '@graphql-codegen/core'
 import { optimizeDocuments } from '@graphql-tools/relay-operation-optimizer'
-import { mkdirSync, outputJson } from 'fs-extra'
 import { parse, print, printSchema } from 'graphql'
+import {
+  mkdirSync,
+  outputJson,
+  pathExistsSync,
+  readFileSync,
+  outputFile as fsExtraOutputFile,
+} from 'fs-extra'
 import type { GraphQLSchema } from 'graphql'
 
 import { outputFile } from './filesystem'
 import { QueryManager } from './manager'
+import { hydrate, serialize } from './cache'
 import type { Node } from './manager'
 
 export interface QueryInfo {
@@ -21,6 +28,7 @@ const root = process.cwd()
 
 export const persisted = 'persisted.graphql.json'
 export const queryInfo = 'queryInfo.graphql.json'
+export const cache = 'cache.graphql.txt'
 
 export const publicPath = '/page-data/_graphql'
 
@@ -70,12 +78,22 @@ const isQueryNode = (node: any): node is QueryNode =>
 export class WebpackPlugin {
   public persistedPath: string
   public queryInfoPath: string
+  public cachePath: string
 
   constructor(public schema: GraphQLSchema) {
     this.persistedPath = join(root, 'public', publicPath, persisted)
     this.queryInfoPath = join(root, 'public', publicPath, queryInfo)
+    this.cachePath = join(root, 'public', publicPath, cache)
 
     mkdirSync(target, { recursive: true })
+
+    // Hydrate cache
+    if (pathExistsSync(this.cachePath)) {
+      hydrate(
+        readFileSync(this.cachePath).toString(),
+        QueryManager.getSingleton()
+      )
+    }
   }
 
   public optimizeQuery = (query: string) => {
@@ -192,6 +210,8 @@ export class WebpackPlugin {
             return outputFile(filename, value)
           })
         )
+
+        await fsExtraOutputFile(this.cachePath, serialize(manager))
       } catch (err) {
         console.error('[gatsby-plugin-graphql]', err)
       }

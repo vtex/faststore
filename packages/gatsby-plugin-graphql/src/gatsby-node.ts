@@ -7,7 +7,12 @@ import { WebpackPlugin } from './webpack'
 export const onCreateWebpackConfig = async ({
   actions: { setWebpackConfig },
   store,
+  stage,
 }: CreateWebpackConfigArgs) => {
+  if (stage === 'build-html' || stage === 'develop-html') {
+    return
+  }
+
   /**
    * Here be Unicorns 🦄
    *
