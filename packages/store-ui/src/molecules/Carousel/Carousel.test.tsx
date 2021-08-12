@@ -136,8 +136,10 @@ describe('Carousel component', () => {
       </Carousel>
     )
 
+    const carouselSection = getByTestId('store-carousel')
     const goToNextPageButton = getByLabelText('next')
     const goToPreviousPageButton = getByLabelText('previous')
+    const carouselTrack = carouselSection.querySelector('[data-carousel-track]')
 
     expect(goToNextPageButton).toBeInTheDocument()
     expect(goToPreviousPageButton).toBeInTheDocument()
@@ -147,7 +149,6 @@ describe('Carousel component', () => {
       fireEvent.click(goToNextPageButton)
     })
 
-    const carouselSection = getByTestId('store-carousel')
     let items = carouselSection.querySelectorAll('[data-carousel-item]')
 
     // Only the second item should be visible
@@ -159,15 +160,21 @@ describe('Carousel component', () => {
 
     // Go from page 1 back to 0
     await act(async () => {
-      // This takes into account the 100ms duration of the sliding animation +
-      // 5ms added by the `slide` function.
-      await wait(SLIDING_TRANSITION_DURATION + 5)
-      fireEvent.click(goToPreviousPageButton)
+      /**
+       * These two lines simulate what happens after a user navigates:
+       *
+       * 1. Wait for the animation triggered by the `goToNextPageButton` click
+       *    to finish.
+       * 2. `onTransitionEnd` event is triggered.
+       * 3. User is then able to click the `goToPreviousPageButton` button.
+       *
+       * react-testing-library (or dom-testing-library) doesn't trigger the
+       * `onTransitionEnd` event, so we need to do it manually.
+       */
+      await wait(SLIDING_TRANSITION_DURATION)
+      carouselTrack && fireEvent.transitionEnd(carouselTrack)
 
-      // This is to avoid trying to call 'dispatch' after the component has
-      // already been unmounted, and is only necessary in this testing
-      // environment.
-      await wait(SLIDING_TRANSITION_DURATION + 5)
+      fireEvent.click(goToPreviousPageButton)
     })
 
     items = carouselSection.querySelectorAll('[data-carousel-item]')
@@ -199,6 +206,7 @@ describe('Carousel component', () => {
 
     const carouselSection = getByTestId('store-carousel')
     const bullets = queryAllByTestId('store-bullets-item')
+    const carouselTrack = carouselSection.querySelector('[data-carousel-track]')
 
     expect(bullets).toHaveLength(5)
 
@@ -220,9 +228,20 @@ describe('Carousel component', () => {
     const thirdPageBullet = getByLabelText('Go to page 3')
 
     await act(async () => {
-      // This takes into account the 100ms duration of the sliding animation +
-      // 5ms added by the `slide` function.
-      await wait(SLIDING_TRANSITION_DURATION + 5)
+      /**
+       * These two lines simulate what happens after a user navigates.
+       *
+       * 1. Wait for the animation triggered by the `secondPageBullet` click
+       *    to finish.
+       * 2. `onTransitionEnd` event is triggered.
+       * 3. User is then able to click the `thirdPageBullet` button.
+       *
+       * react-testing-library (or dom-testing-library) doesn't trigger the
+       * `onTransitionEnd` event, so we need to do it manually.
+       */
+      await wait(SLIDING_TRANSITION_DURATION)
+      carouselTrack && fireEvent.transitionEnd(carouselTrack)
+
       fireEvent.click(thirdPageBullet)
     })
 
