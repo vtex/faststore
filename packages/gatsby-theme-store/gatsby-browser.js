@@ -4,20 +4,18 @@
 import 'requestidlecallback-polyfill'
 
 import React, { StrictMode } from 'react'
-import { UIProvider } from '@vtex/store-sdk'
 import ReactDOM from 'react-dom'
-import type { WrapRootElementBrowserArgs } from 'gatsby'
-import type { ReactChild } from 'react'
+import { UIProvider } from '@vtex/store-sdk'
 
-import ErrorBoundary from './components/Error/ErrorBoundary'
-import { Provider as OrderFormProvider } from './sdk/orderForm/Provider'
-import { Provider as VTEXRCProvider } from './sdk/pixel/vtexrc/Provider'
+import ErrorBoundary from './src/components/Error/ErrorBoundary'
+import { Provider as OrderFormProvider } from './src/sdk/orderForm/Provider'
+import { Provider as VTEXRCProvider } from './src/sdk/pixel/vtexrc/Provider'
 import {
   onRouteUpdate as progressOnRouteUpdate,
   Progress,
-} from './sdk/progress'
-import { Provider as RegionProvider } from './sdk/region/Provider'
-import { Provider as ToastProvider } from './sdk/toast/Provider'
+} from './src/sdk/progress'
+import { Provider as RegionProvider } from './src/sdk/region/Provider'
+import { Provider as ToastProvider } from './src/sdk/toast/Provider'
 
 export const onClientEntry = async () => {
   if (typeof IntersectionObserver === 'undefined') {
@@ -25,10 +23,7 @@ export const onClientEntry = async () => {
   }
 }
 
-export const replaceHydrateFunction = () => (
-  element: ReactChild,
-  container: Element
-) => {
+export const replaceHydrateFunction = () => (element, container) => {
   let hydrate = true
 
   // This part will be removed by webpack on production builds since this only
@@ -42,13 +37,12 @@ export const replaceHydrateFunction = () => (
   }
 
   // There are versions of React currently exporting createRoot and others exporting unstable_createRoot
-  const createRoot =
-    ReactDOM.createRoot || (ReactDOM as any).unstable_createRoot
+  const createRoot = ReactDOM.createRoot || ReactDOM.unstable_createRoot
 
   createRoot(container, { hydrate }).render(element)
 }
 
-export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => {
+export const wrapRootElement = ({ element }) => {
   const root = (
     <ErrorBoundary>
       <VTEXRCProvider>
@@ -74,10 +68,7 @@ export const onInitialClientRender = () => {
   globalThis.__REACT_HYDRATED__ = true
 }
 
-export const wrapPageElement = ({
-  element,
-  props: { location },
-}: WrapRootElementBrowserArgs | any) => (
+export const wrapPageElement = ({ element, props: { location } }) => (
   <Progress location={location}>{element}</Progress>
 )
 

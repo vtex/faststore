@@ -3,14 +3,22 @@
   "version": "0.373.8",
   "description": "Gatsby theme for building ecommerce websites",
   "main": "index.js",
+  "module": "src/index.ts",
+  "typings": "src/index.ts",
+  "browser": "src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "gatsby-*",
+    "index.js",
+    "src",
+    "i18n"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",
     "directory": "packages/gatsby-theme-store"
   },
-  "module": "src/index.ts",
-  "browser": "src/index.ts",
-  "sideEffects": false,
   "scripts": {
     "build": "cross-env NODE_ENV=production tsc",
     "develop": "tsc --watch",
@@ -41,7 +49,7 @@
     "@vtex/gatsby-plugin-i18n": "^0.338.0",
     "@vtex/store-sdk": "^0.338.0",
     "@vtex/store-ui": "^0.338.0",
-    "gatsby": "^3.1.1",
+    "gatsby": "^3.11.1",
     "gatsby-plugin-next-seo": "^1.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -57,7 +65,7 @@
     "@vtex/store-sdk": "^0.373.8",
     "@vtex/store-ui": "^0.373.8",
     "cross-env": "^7.0.2",
-    "gatsby": "^3.1.1",
+    "gatsby": "^3.11.1",
     "gatsby-plugin-next-seo": "^1.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
