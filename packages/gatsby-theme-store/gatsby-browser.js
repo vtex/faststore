@@ -10,10 +10,6 @@ import { UIProvider } from '@vtex/store-sdk'
 import ErrorBoundary from './src/components/Error/ErrorBoundary'
 import { Provider as OrderFormProvider } from './src/sdk/orderForm/Provider'
 import { Provider as VTEXRCProvider } from './src/sdk/pixel/vtexrc/Provider'
-import {
-  onRouteUpdate as progressOnRouteUpdate,
-  Progress,
-} from './src/sdk/progress'
 import { Provider as RegionProvider } from './src/sdk/region/Provider'
 import { Provider as ToastProvider } from './src/sdk/toast/Provider'
 
@@ -66,12 +62,4 @@ export const wrapRootElement = ({ element }) => {
 
 export const onInitialClientRender = () => {
   globalThis.__REACT_HYDRATED__ = true
-}
-
-export const wrapPageElement = ({ element, props: { location } }) => (
-  <Progress location={location}>{element}</Progress>
-)
-
-export const onRouteUpdate = () => {
-  progressOnRouteUpdate()
 }
