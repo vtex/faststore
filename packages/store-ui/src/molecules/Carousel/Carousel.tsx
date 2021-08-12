@@ -86,7 +86,12 @@ function Carousel({
   const slides = preRenderedSlides.concat(children ?? [], postRenderedSlides)
 
   return (
-    <section data-store-carousel data-testid={testId} aria-label="carousel">
+    <section
+      id="store-carousel"
+      data-store-carousel
+      data-testid={testId}
+      aria-label="carousel"
+    >
       <div
         data-carousel-track-container
         style={{ overflow: 'hidden', width: '100%' }}
@@ -127,6 +132,7 @@ function Carousel({
               })
             }
           }}
+          aria-live="polite"
         >
           {slides.map((currentSlide, idx) => (
             <div
@@ -149,7 +155,7 @@ function Carousel({
         <div data-carousel-controls>
           <Button
             data-left-arrow
-            aria-controls="carousel"
+            aria-controls="store-carousel"
             aria-label="previous"
             onClick={() => {
               if (sliderState.sliding) {
@@ -163,7 +169,7 @@ function Carousel({
           </Button>
           <Button
             data-right-arrow
-            aria-controls="carousel"
+            aria-controls="store-carousel"
             aria-label="next"
             onClick={() => {
               if (sliderState.sliding) {
