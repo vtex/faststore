@@ -9,18 +9,6 @@ import useSlider from '../../hooks/useSlider/useSlider'
 import useSlideVisibility from './hooks/useSlideVisibility'
 import Bullets from '../Bullets'
 
-export interface CarouselProps extends SwipeableProps {
-  testId?: string
-  infiniteMode?: boolean
-  controls?: 'complete' | 'navigationArrows' | 'paginationBullets'
-  transition?: {
-    duration: number
-    property: string
-    delay?: number
-    timing?: string
-  }
-}
-
 const createTransformValues = (infinite: boolean, totalItems: number) => {
   const transformMap: Record<number, number> = {}
   const slideWidth = 100 / totalItems
@@ -33,6 +21,18 @@ const createTransformValues = (infinite: boolean, totalItems: number) => {
   }
 
   return transformMap
+}
+
+export interface CarouselProps extends SwipeableProps {
+  testId?: string
+  infiniteMode?: boolean
+  controls?: 'complete' | 'navigationArrows' | 'paginationBullets'
+  transition?: {
+    duration: number
+    property: string
+    delay?: number
+    timing?: string
+  }
 }
 
 function Carousel({

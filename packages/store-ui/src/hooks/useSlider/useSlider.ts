@@ -58,15 +58,6 @@ export interface SliderState {
   infinite: boolean
 }
 
-export interface UseSliderArgs extends SwipeableProps {
-  /** The total number of unique items in the slider. */
-  totalItems: number
-  /** The number of items in a single slider page. */
-  itemsPerPage?: number
-  /** Whether or not the slider is infinite. */
-  infiniteMode?: boolean
-}
-
 export const nextPage = (current: number, total: number) =>
   (current + 1) % total
 
@@ -177,6 +168,15 @@ const slide = (page: SlideDirection | number, dispatch: Dispatch<Action>) => {
       },
     })
   }
+}
+
+export interface UseSliderArgs extends SwipeableProps {
+  /** The total number of unique items in the slider. */
+  totalItems: number
+  /** The number of items in a single slider page. */
+  itemsPerPage?: number
+  /** Whether or not the slider is infinite. */
+  infiniteMode?: boolean
 }
 
 export default function useSlider({
