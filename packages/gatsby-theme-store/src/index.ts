@@ -10,11 +10,6 @@ export { useNewsletter } from './sdk/newsletter/useNewsletter'
 export { useLazyQuery } from './sdk/graphql/useLazyQuery'
 export { useQuery } from './sdk/graphql/useQuery'
 
-// TODO: We should have a single solution for dealing with images in our framework
-export { optimize } from './sdk/img/fileManager'
-export { useScaledImage } from './sdk/img/arquivos/useScaledImage'
-export { scaleImage } from './sdk/img/arquivos/scale'
-
 // Add third-party scripts API
 export { useLazyScript } from './sdk/lazyScript/useLazyScript'
 
@@ -48,17 +43,10 @@ export type {
 } from './sdk/orderForm/useUpdateQuantityWithPixel'
 export type { RemoveItemWithPixelParams } from './sdk/orderForm/useRemoveItemWithPixel'
 
-export { useSummaryImage } from './sdk/product/useSummaryImage'
 export { useSku } from './sdk/product/useSku'
 export { useLink } from './sdk/product/useLink'
 export { useDetailsVideos } from './sdk/product/useDetailsVideos'
-export { useDetailsImages } from './sdk/product/useDetailsImages'
 export { useBestSeller } from './sdk/product/useBestSeller'
-export {
-  SUMMARY_IMAGE,
-  DETAILS_IMAGE,
-  IMAGE_DEFAULT,
-} from './sdk/product/constants'
 
 export { useTopSearches } from './sdk/searchBar/useTopSearches'
 export { useSuggestions } from './sdk/searchBar/useSuggestions'
