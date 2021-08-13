@@ -7,7 +7,7 @@ export interface BadgeProps {
 }
 
 function Badge(
-  { testId, children }: BadgeProps,
+  { testId = 'store-badge', children }: BadgeProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
   return (
