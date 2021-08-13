@@ -24,8 +24,8 @@
     "develop": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
-    "storybook": "start-storybook -s ../ -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook -s ../",
+    "storybook": "start-storybook -s ../../themes -p 6006 --no-manager-cache",
+    "build-storybook": "build-storybook -s ../../themes",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
