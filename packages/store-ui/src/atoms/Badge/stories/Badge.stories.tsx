@@ -1,6 +1,7 @@
 import type { Story } from '@storybook/react'
 import React from 'react'
 
+import type { ComponentArgTypes } from '../../../typings/utils'
 import Component from '../Badge'
 import mdx from './Badge.mdx'
 
@@ -14,17 +15,20 @@ const BadgeTemplate: Story<StoryControls> = ({ badgeText }) => (
 
 export const Badge = BadgeTemplate.bind({})
 
+const argTypes: ComponentArgTypes<StoryControls> = {
+  badgeText: {
+    name: 'Badge text',
+    control: {
+      type: 'text',
+    },
+    defaultValue: '-25%',
+  },
+}
+
 export default {
   title: 'Atoms/Badge',
   component: Badge,
-  argTypes: {
-    badgeText: {
-      control: {
-        type: 'text',
-      },
-      defaultValue: 'Discount badge',
-    },
-  },
+  argTypes,
   parameters: {
     docs: {
       page: mdx,
