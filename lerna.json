@@ -9,6 +9,7 @@
   },
   "changelogPreset": "angular",
   "packages": [
-    "packages/*"
+    "packages/*",
+    "themes/*"
   ]
 }

@@ -1,0 +1,4 @@
+[data-store-popover] {
+  @apply border my-2 py-2 px-4;
+  @apply border-black;
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@vtex/theme-b2c-tailwind",
+  "version": "0.371.30",
+  "description": "Basic theme for our Store UI components.",
+  "author": "VTEX <gabriel.antiqueira@vtex.com.br>",
+  "license": "MIT",
+  "main": "dist/index.css",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/theme-b2c-tailwind"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "develop": "postcss src/**/*.css src/*.css --base src --dir ./dist -w",
+    "build": "postcss src/**/*.css src/*.css --base src --dir ./dist"
+  },
+  "bugs": {
+    "url": "https://github.com/vtex/faststore/issues"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.5",
+    "tailwindcss": "^2.2.4"
+  },
+  "dependencies": {
+    "postcss-cli": "^8.3.1"
+  }
+}

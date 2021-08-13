@@ -1,0 +1,15 @@
+[data-store-textarea] {
+  @apply w-80 border-solid px-4 py-1 my-2;
+  @apply text-gray-700 border-black;
+  @apply font-normal text-base;
+}
+
+[data-store-textarea][data-success], [data-store-textarea][data-success]:focus {
+  @apply outline-none;
+  @apply border-red-600;
+}
+
+[data-store-textarea][data-error], [data-store-textarea][data-error]:focus {
+  @apply outline-none;
+  @apply border-red-600;
+}

@@ -1,0 +1,10 @@
+[data-store-search-input] {
+  @apply box-border m-0 min-w-0 max-w-sm min-h-0 items-center relative w-60 h-11 flex;
+  @apply bg-white border border-gray-400;
+}
+
+[data-store-search-input] [data-store-button] {
+  @apply items-center border-0 rounded box-border cursor-pointer flex h-10 justify-center m-0 min-w-0 max-h-10 py-2 px-4 absolute right-0;
+  @apply appearance-none bg-transparent text-black;
+  @apply text-center no-underline;
+}

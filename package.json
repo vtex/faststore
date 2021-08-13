@@ -19,7 +19,8 @@
     "size": "lerna run size"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "themes/*"
   ],
   "husky": {
     "hooks": {

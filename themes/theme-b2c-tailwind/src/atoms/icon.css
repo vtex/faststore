@@ -1,0 +1,4 @@
+[data-store-icon] {
+  @apply inline-block;
+  line-height: 0;
+}

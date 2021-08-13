@@ -24,8 +24,8 @@
     "develop": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
-    "storybook": "start-storybook -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook",
+    "storybook": "start-storybook -s ../../themes -p 6006 --no-manager-cache",
+    "build-storybook": "build-storybook -s ../../themes",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
@@ -89,6 +89,7 @@
     "@types/react-dom": "^17.0.7",
     "@types/testing-library__jest-dom": "^5.9.5",
     "@types/unorm": "^1.3.28",
+    "@vtex/theme-b2c-tailwind": "^0.371.30",
     "@vtex/tsconfig": "^0.5.0",
     "babel-loader": "^8.2.2",
     "gatsby-link": "^3.5.0",
@@ -97,6 +98,7 @@
     "react-dom": "^17.0.2",
     "react-scripts": "^3.4.1",
     "size-limit": "^4.11.0",
+    "storybook-addon-themes": "^6.1.0",
     "ts-loader": "^8.0.1",
     "tsdx": "^0.14.1",
     "typescript": "^4.2.4"

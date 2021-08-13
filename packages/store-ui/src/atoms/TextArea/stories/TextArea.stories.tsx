@@ -6,27 +6,9 @@ import type { TextAreaProps } from '../TextArea'
 import mdx from './TextArea.mdx'
 import type { ComponentArgTypes } from '../../../typings/utils'
 
-const TextAreaTemplate: Story<TextAreaProps> = (props) => {
-  const colorByVariant: Record<
-    NonNullable<TextAreaProps['variant']> | 'default',
-    string
-  > = {
-    default: 'black',
-    success: 'green',
-    error: 'red',
-  }
-
-  return (
-    <Component
-      style={{
-        borderWidth: 2,
-        borderStyle: 'solid',
-        borderColor: colorByVariant[props.variant || 'default'],
-      }}
-      {...props}
-    />
-  )
-}
+const TextAreaTemplate: Story<TextAreaProps> = (props) => (
+  <Component {...props} />
+)
 
 export const TextArea = TextAreaTemplate.bind({})
 TextArea.args = {

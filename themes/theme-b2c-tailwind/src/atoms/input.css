@@ -1,0 +1,15 @@
+[data-store-input] {
+  @apply w-80 h-10 border px-4 py-1 my-2;
+  @apply border-black text-gray-700;
+  @apply text-base font-normal no-underline;
+}
+
+[data-store-input][data-success], [data-store-input][data-success]:focus {
+  @apply outline-none;
+  @apply border-green-600;
+}
+
+[data-store-input][data-error], [data-store-input][data-error]:focus {
+  @apply outline-none;
+  @apply border-red-600;
+}
