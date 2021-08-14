@@ -192,7 +192,7 @@ function stringify(directives: NginxDirective[]): string {
     .join('\n')
 }
 
-const wildcard = /\*/g
+const wildcard = /\/\*/g
 const namedSegment = /:[^/]+/g
 
 // Converts a gatsby path to nginx location path
