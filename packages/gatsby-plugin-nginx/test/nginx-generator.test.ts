@@ -55,8 +55,8 @@ describe('convert Gatsby paths into nginx RegExp', () => {
   })
 
   it('handles wildcard (*)', () => {
-    expect(convertToRegExp('/*')).toEqual('^/(.*)$')
-    expect(convertToRegExp('/pt/*')).toEqual('^/pt/(.*)$')
+    expect(convertToRegExp('/*')).toEqual('^(.*)$')
+    expect(convertToRegExp('/pt/*')).toEqual('^/pt(.*)$')
   })
 })
 
@@ -104,11 +104,11 @@ describe('generateRewrites', () => {
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/__client-side-search__'] }],
-        cmd: ['location', '~*', '"^/(.*)$"'],
+        cmd: ['location', '~*', '"^(.*)$"'],
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/pt/__client-side-search__'] }],
-        cmd: ['location', '~*', '"^/pt/(.*)$"'],
+        cmd: ['location', '~*', '"^/pt(.*)$"'],
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/foo-path'] }],
@@ -137,7 +137,7 @@ describe('generateRedirects', () => {
   it('correctly translates into NginxDirectives', () => {
     const expected = [
       {
-        cmd: ['location', '~*', '"^/api/(.*)$"'],
+        cmd: ['location', '~*', '"^/api(.*)$"'],
         children: [
           {
             cmd: [
@@ -149,7 +149,7 @@ describe('generateRedirects', () => {
         ],
       },
       {
-        cmd: ['location', '~*', '"^/graphql/(.*)$"'],
+        cmd: ['location', '~*', '"^/graphql(.*)$"'],
         children: [
           {
             cmd: [
