@@ -1,7 +1,7 @@
 import React, { createContext, useMemo } from 'react'
 import type { FC } from 'react'
 
-import { useLocalStorage } from '../utils/useLocalStorage'
+import { useLocalStorage } from '../storage/useLocalStorage'
 
 export interface Currency {
   code: string // USD
