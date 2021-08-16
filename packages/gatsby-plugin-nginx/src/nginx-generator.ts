@@ -1,6 +1,7 @@
 import { posix } from 'path'
 
 import { INDEX_HTML, LOCATION_MODIFIERS } from './constants'
+import { normalizePath } from './headers'
 
 export {
   stringify,
@@ -192,7 +193,7 @@ function stringify(directives: NginxDirective[]): string {
     .join('\n')
 }
 
-const wildcard = /\/\*/g
+const wildcard = /\*/g
 const namedSegment = /:[^/]+/g
 
 // Converts a gatsby path to nginx location path
@@ -205,7 +206,9 @@ export function convertToRegExp(path: string) {
     .replace(wildcard, '(.*)') // replace * with (.*)
     .replace(namedSegment, '([^/]+)') // replace :param like with url component like regex ([^/]+)
 
-  return `^${converted}$`
+  const noTrailingSlashes = normalizePath(converted)
+
+  return `^${noTrailingSlashes}$`
 }
 
 function isRegExpMatch(path: string) {
