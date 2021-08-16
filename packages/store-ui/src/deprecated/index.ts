@@ -150,7 +150,10 @@ export { default as breadcrumbTheme } from './Breadcrumb/theme'
 export { default as SliderPaginationDots } from './Slider/PaginationDots'
 export { default as SliderArrowLeft } from './Slider/ArrowLeft'
 export { default as SliderArrowRight } from './Slider/ArrowRight'
-export * from './Slider/hooks/useSlider'
+export {
+  UseSliderOptions,
+  useSlider as useUISlider,
+} from './Slider/hooks/useSlider'
 export * from './Slider/hooks/useResponsiveSlider'
 // Centered
 export { default as Center } from './Center'
@@ -189,11 +192,11 @@ export { default as YoutubeIframe } from './Youtube/Iframe'
 export { default as YoutubeThumb } from './Youtube/Thumb'
 export * from './Youtube/hooks'
 // Carousel
-export { default as Carousel } from './Carousel'
-export { default as CarouselPage } from './Carousel/Page'
-export { default as CarouselArrowLeft } from './Carousel/ArrowLeft'
-export { default as CarouselArrowRight } from './Carousel/ArrowRight'
-export { default as CarouselPaginationDots } from './Carousel/PaginationDots'
+export { default as UICarousel } from './Carousel'
+export { default as UICarouselPage } from './Carousel/Page'
+export { default as UICarouselArrowLeft } from './Carousel/ArrowLeft'
+export { default as UICarouselArrowRight } from './Carousel/ArrowRight'
+export { default as UICarouselPaginationDots } from './Carousel/PaginationDots'
 
 // ShippingSimulator
 export { default as ShippingSimulator } from './ShippingSimulator'
