@@ -56,6 +56,7 @@ describe('convert Gatsby paths into nginx RegExp', () => {
 
   it('handles wildcard (*)', () => {
     expect(convertToRegExp('/*')).toEqual('^/(.*)$')
+    expect(convertToRegExp('/*/')).toEqual('^/(.*)$')
     expect(convertToRegExp('/pt/*')).toEqual('^/pt/(.*)$')
   })
 })

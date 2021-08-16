@@ -64,7 +64,7 @@ function cacheHeadersByPath(pages: Page[], manifest: Manifest): PathHeadersMap {
 }
 
 // removes trailing slash if possible
-function normalizePath(path: string) {
+export function normalizePath(path: string) {
   if (!path.endsWith('/') || path === '/') {
     return path
   }
