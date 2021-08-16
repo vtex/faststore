@@ -47,7 +47,7 @@ const baseInitialState: Session = {
 export type InitialState = Record<string, any>
 
 interface Props {
-  initialState?: Session
+  initialState?: Partial<Session>
   namespace?: string
 }
 

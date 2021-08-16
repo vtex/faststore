@@ -37,7 +37,7 @@ export const useLocalStorage = <T>(
   }))
 
   useEffect(() => {
-    if (data.state === 'inital') {
+    if (data.state === 'initial') {
       const item = getItem<T>(key) ?? data.payload
 
       setData({ payload: item, state: 'hydrated' })
