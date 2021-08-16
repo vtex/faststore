@@ -51,8 +51,8 @@ export {
 } from './session/Provider'
 export type {
   InitialState as SessionInitialState,
-  Currency,
-  User,
+  Currency as SessionCurrency,
+  User as SessionUser,
 } from './session/Provider'
 export { useSession } from './session/useSession'
 
