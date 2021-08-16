@@ -2,7 +2,7 @@
  * Safe localstorage interface. These try..catch are usefull because
  * some browsers may block accesss to these APIs due to security policies
  *
- * Also, the local storage value is lazy-loaded to avoid hydration mimatch
+ * Also, the local storage value is lazy-loaded to avoid hydration mismatch
  * between server/browser. When state is 'hydrated', the in the heap is the
  * same as the value in local storage
  */
