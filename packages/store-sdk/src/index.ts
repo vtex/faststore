@@ -53,5 +53,7 @@ export type {
   Actions as SessionActions,
   Effects as SessionEffects,
   InitialState as SessionInitialState,
-} from './ui/Provider'
+  Currency,
+  User,
+} from './session/Provider'
 export { useSession } from './session/useSession'
