@@ -5,7 +5,7 @@ import { useLocalStorage } from '../storage/useLocalStorage'
 
 export interface Currency {
   code: string // Ex: USD
-  symbol: string // $
+  symbol: string // Ex: $
 }
 
 export interface User {
