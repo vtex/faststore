@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.15 (2021-08-16)
+
+
+### Features
+
+* **store-ui:** Create Carousel component and useSlider hook ([#815](https://github.com/vtex/faststore/issues/815)) ([f46108c](https://github.com/vtex/faststore/commit/f46108c038402f003c7157833efb052554d339d4))
+
+
+
+
+
 ## 0.373.14 (2021-08-16)
 
 
