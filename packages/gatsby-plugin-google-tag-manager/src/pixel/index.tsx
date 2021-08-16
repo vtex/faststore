@@ -1,6 +1,7 @@
 import React, { Fragment, useMemo } from 'react'
 import type { FC } from 'react'
-import { useLazyScript, usePixelEvent, once } from '@vtex/gatsby-theme-store'
+import { useAnalyticsEvent } from '@vtex/store-sdk'
+import { useLazyScript, once } from '@vtex/gatsby-theme-store'
 
 import { handler } from './handler'
 import { DEFAULT_DATALAYER_CONFIG } from './constants'
@@ -52,7 +53,7 @@ const Provider: FC<GTMProviderProps> = ({
 
     // Register Pixel event handler
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    usePixelEvent(handler)
+    useAnalyticsEvent(handler)
   }
 
   return <Fragment>{children}</Fragment>

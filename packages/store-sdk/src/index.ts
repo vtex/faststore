@@ -1,3 +1,9 @@
+// Analytics
+export * from './analytics/index'
+export * from './analytics/events'
+export * from './analytics/sendAnalyticsEvent'
+export * from './analytics/useAnalyticsEvent'
+
 // Faceted Search
 export { initialize as initSearchParamsState } from './search/state'
 export type { SearchParamsState } from './search/state'

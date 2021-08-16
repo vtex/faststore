@@ -1,6 +1,5 @@
-import { useGlobalUIState } from '@vtex/store-sdk'
+import { useGlobalUIState, sendAnalyticsEvent } from '@vtex/store-sdk'
 
-import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useOrderItems } from '../orderForm/useOrderItems'
 import { useOrderForm } from '../orderForm/useOrderForm'
 import { useBestSeller } from '../product/useBestSeller'
@@ -230,7 +229,7 @@ export const useBuyButton = ({
         openMinicart()
       }
 
-      sendPixelEvent({
+      sendAnalyticsEvent({
         type: 'vtex:addToCart',
         data: {
           products: [pixelEventProduct],

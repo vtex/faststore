@@ -1,11 +1,13 @@
 import { useCallback, useEffect } from 'react'
 
-import { unwrap } from './pixel'
-import type { PixelEvent } from './pixel'
+import { unwrap } from '.'
+import type { AnalyticsEvent } from '.'
 
-export type PixelEventHandler = (event: PixelEvent) => void | Promise<void>
+export type AnalyticsEventHandler = (
+  event: AnalyticsEvent
+) => void | PromiseLike<void>
 
-export const usePixelEvent = (handler: PixelEventHandler) => {
+export const useAnalyticsEvent = (handler: AnalyticsEventHandler) => {
   const callback = useCallback(
     (message: MessageEvent) => {
       try {
@@ -15,7 +17,7 @@ export const usePixelEvent = (handler: PixelEventHandler) => {
           handler(maybeEvent)
         }
       } catch (err) {
-        console.error('Some bad happened while running Pixel handler')
+        console.error('Some bad happened while running Analytics handler')
       }
     },
     [handler]
