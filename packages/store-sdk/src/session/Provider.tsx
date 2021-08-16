@@ -4,7 +4,7 @@ import type { FC } from 'react'
 import { useLocalStorage } from '../storage/useLocalStorage'
 
 export interface Currency {
-  code: string // USD
+  code: string // Ex: USD
   symbol: string // $
 }
 
