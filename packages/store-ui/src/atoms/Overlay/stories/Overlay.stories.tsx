@@ -13,10 +13,13 @@ const OverlayTemplate: Story<OverlayStoryProps> = ({
   color = 'black',
   ...props
 }) => {
+  const dataColor =
+    color === 'black' ? { 'data-black': true } : { 'data-green': true }
+
   return (
     <div data-store-overlay-out-container>
       A content outside me
-      <Component {...props} className={`bg-opacity-50 bg-${color}-500`}>
+      <Component {...props} {...dataColor}>
         <div data-store-overlay-modal>
           <div data-store-overlay-modal-content>Scroll me</div>
         </div>

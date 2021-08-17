@@ -8,7 +8,7 @@
 }
 
 [data-store-overlay-modal] {
-  @apply overflow-hidden;
+  @apply overflow-auto;
   max-height: 40px;
   border-radius: 6px;
 }
@@ -17,4 +17,12 @@
   @apply p-5 bg-white;
   width: 150px;
   height: 60px;
+}
+
+[data-store-overlay][data-green] {
+  @apply bg-green-500 bg-opacity-50;
+}
+
+[data-store-overlay][data-black] {
+  @apply bg-gray-500 bg-opacity-50;
 }
