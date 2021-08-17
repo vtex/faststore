@@ -208,9 +208,7 @@ export function convertToRegExp(path: string) {
     .replace(namedSegment, nginxNamedSegment) // replace :param like with url component like regex ([^/]+)
 
   // Remove trailing slashes from matched paths. Convert /(.*) -> (.*)
-  const noTrailingSlashes = converted
-    .replace(/\/\(\.\*\)$/, nginxWildCard)
-    .replace(/\/\(\[\^\/\]\+\)$/, nginxNamedSegment)
+  const noTrailingSlashes = converted.replace(/\/\(\.\*\)$/, nginxWildCard)
 
   return `^${noTrailingSlashes}$`
 }
