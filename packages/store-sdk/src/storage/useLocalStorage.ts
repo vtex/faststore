@@ -2,11 +2,11 @@
  * Safe localstorage interface. These try..catch are usefull because
  * some browsers may block accesss to these APIs due to security policies
  *
- * Also, the local storage value is lazy-loaded to avoid hydration mismatch
- * between server/browser. When state is 'hydrated', the in the heap is the
- * same as the value in local storage
+ * Also, the local storage value is lazy-loaded to avoid hydration mimatch
+ * between server/browser. When state is 'hydrated', the value in the heap
+ * is the same as the value in local storage
  */
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 const getItem = <T>(key: string) => {
   try {
@@ -47,10 +47,12 @@ export const useLocalStorage = <T>(
     }
   }, [data.payload, data.state, key])
 
-  const setPayload = useCallback(
-    (value: T) => setData((state) => ({ ...state, payload: value })),
-    []
+  return useMemo(
+    () =>
+      [
+        data.payload,
+        (value: T) => setData((state) => ({ ...state, payload: value })),
+      ] as const,
+    [data.payload]
   )
-
-  return [data.payload, setPayload] as [typeof data.payload, typeof setPayload]
 }
