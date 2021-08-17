@@ -1,7 +1,6 @@
 import { posix } from 'path'
 
 import { INDEX_HTML, LOCATION_MODIFIERS } from './constants'
-import { normalizePath } from './headers'
 
 export {
   stringify,
@@ -202,11 +201,16 @@ const namedSegment = /:[^/]+/g
 //  '/:splat' => '^/([^/]+)$'
 //  '/foo/bar/:splat' => '^/foo/bar/([^/]+)$'
 export function convertToRegExp(path: string) {
+  const nginxWildCard = '(.*)'
+  const nginxNamedSegment = '([^/]+)'
   const converted = path
-    .replace(wildcard, '(.*)') // replace * with (.*)
-    .replace(namedSegment, '([^/]+)') // replace :param like with url component like regex ([^/]+)
+    .replace(wildcard, nginxWildCard) // replace * with (.*)
+    .replace(namedSegment, nginxNamedSegment) // replace :param like with url component like regex ([^/]+)
 
-  const noTrailingSlashes = normalizePath(converted)
+  // Remove trailing slashes from matched paths. Convert /(.*) -> (.*)
+  const noTrailingSlashes = converted
+    .replace(/\/\(\.\*\)$/, nginxWildCard)
+    .replace(/\/\(\[\^\/\]\+\)$/, nginxNamedSegment)
 
   return `^${noTrailingSlashes}$`
 }
