@@ -12,7 +12,15 @@ const Overlay = forwardRef<HTMLDivElement, Props>(function Overlay(
   { testId = 'store-overlay', ...props },
   ref
 ) {
-  return <div data-store-overlay data-testid={testId} ref={ref} {...props} />
+  return (
+    <div
+      role="presentation"
+      data-store-overlay
+      data-testid={testId}
+      ref={ref}
+      {...props}
+    />
+  )
 })
 
 export default Overlay
