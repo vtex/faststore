@@ -13,47 +13,12 @@ const OverlayTemplate: Story<OverlayStoryProps> = ({
   color = 'black',
   ...props
 }) => {
-  const styleMap = {
-    green: {
-      backgroundColor: 'rgba(0, 255, 0, 0.5)',
-    },
-    black: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-  }
-
   return (
-    <div style={{ height: 'calc(100vh + 150px)' }}>
+    <div data-store-overlay-out-container>
       A content outside me
-      <Component
-        {...props}
-        style={{
-          zIndex: 10,
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          top: 0,
-          // styles that don't be part of the overlay behavior
-          ...styleMap[color],
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{ maxHeight: '40px', overflow: 'auto', borderRadius: '6px' }}
-        >
-          <div
-            style={{
-              backgroundColor: 'white',
-              width: '150px',
-              height: '60px',
-              padding: '10px',
-            }}
-          >
-            Scroll me
-          </div>
+      <Component {...props} className={`bg-opacity-50 bg-${color}-500`}>
+        <div data-store-overlay-modal>
+          <div data-store-overlay-modal-content>Scroll me</div>
         </div>
       </Component>
     </div>
