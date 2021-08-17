@@ -57,4 +57,4 @@ export type {
 export { useSession } from './session/useSession'
 
 // Storage
-export { useLocalStorage } from './storage/useLocalStorage'
+export { useStorage } from './storage/useStorage'

@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks'
+import { set } from 'idb-keyval'
 
 import { SessionProvider, useSession } from '../../src'
 
@@ -11,43 +12,18 @@ test('Session Provider: Set initial session values', async () => {
   expect(result.current.channel).toBe('test-channel')
 })
 
-test('Session Provider: Hydrate values from localstorage', async () => {
+test('Session Provider: Hydrate values from storage', async () => {
   // Renders once with a custom initial state
-  const initialState = { channel: 'test-channel' }
-  const { result: r1 } = renderHook(useSession, {
-    wrapper: SessionProvider,
-    initialProps: { initialState },
-  })
+  const storedState = { channel: 'test-channel' }
 
-  expect(r1.current.channel).toBe(initialState.channel)
+  await set('main::store::session', storedState)
 
-  // Renders again. Now we should have stored the past session
-  // on localstorage and we should be able to hydrate from it
-  const { result: r2 } = renderHook(useSession, {
+  // We should have stored the past session on storage and we should be able to hydrate from it
+  const run = renderHook(useSession, {
     wrapper: SessionProvider,
   })
 
-  expect(r2.current.channel).toBe(initialState.channel)
-})
+  await run.waitForValueToChange(() => run.result.current.channel)
 
-test('Session Provider: Different namespaces', async () => {
-  const { result: r1 } = renderHook(useSession, {
-    wrapper: SessionProvider,
-    initialProps: { namespace: 'n1 ' },
-  })
-
-  const { result: r2 } = renderHook(useSession, {
-    wrapper: SessionProvider,
-    initialProps: { namespace: 'n2 ', initialState: { channel: '1' } },
-  })
-
-  expect(r1.current.channel).toBeNull()
-  expect(r2.current.channel).toBe('1')
-
-  const { result: r3 } = renderHook(useSession, {
-    wrapper: SessionProvider,
-    initialProps: { namespace: 'n2 ' },
-  })
-
-  expect(r3.current.channel).toBe('1')
+  expect(run.result.current.channel).toBe(storedState.channel)
 })

@@ -1,7 +1,7 @@
 import React, { createContext, useMemo } from 'react'
 import type { FC } from 'react'
 
-import { useLocalStorage } from '../storage/useLocalStorage'
+import { useStorage } from '../storage/useStorage'
 
 export interface Currency {
   code: string // Ex: USD
@@ -52,7 +52,7 @@ export const Provider: FC<Props> = ({
   initialState,
   namespace = 'main',
 }) => {
-  const [session, setSession] = useLocalStorage<Session>(
+  const [session, setSession] = useStorage<Session>(
     `${namespace}::store::session`,
     () => ({
       ...baseInitialState,
