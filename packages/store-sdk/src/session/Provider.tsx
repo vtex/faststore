@@ -17,8 +17,6 @@ interface Session {
   currency: Currency
   country: string // BRA
   channel: string | null
-  region: string | null
-  priceTable: string | null
   postalCode: string | null
   user: User | null
 }
@@ -38,9 +36,7 @@ const baseInitialState: Session = {
   country: 'USA',
   locale: 'en',
   postalCode: null,
-  priceTable: null,
   channel: null,
-  region: null,
   user: null,
 }
 
