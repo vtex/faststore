@@ -62,7 +62,7 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
     () =>
       [
         data.payload,
-        (value: T) => setData((state) => ({ ...state, payload: value })),
+        (value: T) => setData({ state: 'hydrated', payload: value }),
       ] as const,
     [data.payload]
   )
