@@ -1,10 +1,10 @@
 import type {
-  PixelEventHandler,
+  AnalyticsEventHandler,
   ProductOrder,
   ProductViewData,
-} from '@vtex/gatsby-theme-store'
+} from '@vtex/store-sdk'
 
-export const handler: PixelEventHandler = (event) => {
+export const handler: AnalyticsEventHandler = (event) => {
   switch (event.type) {
     case 'vtex:pageView': {
       break
