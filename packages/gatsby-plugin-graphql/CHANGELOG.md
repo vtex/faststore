@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.17 (2021-08-18)
+
+
+### Features
+
+* **store-ui:** Overlay Atom Component ([#890](https://github.com/vtex/faststore/issues/890)) ([a0757bc](https://github.com/vtex/faststore/commit/a0757bcf1155084f5b66f4625f47c8efa18285b3))
+
+
+
+
+
 ## 0.373.16 (2021-08-17)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-graphql
