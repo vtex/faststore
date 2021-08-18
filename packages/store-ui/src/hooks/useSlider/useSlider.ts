@@ -69,7 +69,9 @@ function reducer(state: SliderState, action: Action): SliderState {
     case 'NEXT_PAGE': {
       // If `state.infinite` is true, we need to take into account an extra
       // page in the calculation. This extra page is a clone of the first page.
-      const adjustedTotalPages = state.totalPages + Number(state.infinite)
+      const adjustedTotalPages = state.infinite
+        ? state.totalPages + 1
+        : state.totalPages
 
       const nextPageIndex = nextPage(state.currentPage, adjustedTotalPages)
 
@@ -88,9 +90,11 @@ function reducer(state: SliderState, action: Action): SliderState {
     case 'PREVIOUS_PAGE': {
       // If `state.infinite` is true, we need to take into account an extra
       // page in the calculation. This extra page is a clone of the first page.
-      const adjustedTotalPages = state.totalPages + Number(state.infinite)
+      const adjustedTotalPages = state.infinite
+        ? state.totalPages + 1
+        : state.totalPages
 
-      // If `state.infinite` is true and we're currently in page 0, we need to
+      // If `state.infinite` is true and we're currently on page 0, we need to
       // let the slider go to page -1. This -1 page is a clone of the last page.
       const shouldGoToClone = state.infinite && state.currentPage === 0
       const previousPageIndex = shouldGoToClone
