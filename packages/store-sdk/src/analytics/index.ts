@@ -13,7 +13,7 @@ import type {
   OrderPlacedData,
 } from './events'
 
-export type PixelEvent =
+export type AnalyticsEvent =
   | { type: 'vtex:productView'; data: ProductViewData }
   | { type: 'vtex:productClick'; data: ProductClickData }
   | { type: 'vtex:productImpression'; data: ProductImpressionData }
@@ -37,16 +37,16 @@ export type PixelEvent =
   | { type: 'vtex:openDrawer'; data: any }
   | { type: 'vtex:userData'; data: UserData }
 
-type WrappedPixelEvent = { type: 'PixelEvent'; data: PixelEvent }
+type WrappedAnalyticsEvent = { type: 'AnalyticsEvent'; data: AnalyticsEvent }
 
-export const wrap = (event: PixelEvent): WrappedPixelEvent => ({
-  type: 'PixelEvent',
+export const wrap = (event: AnalyticsEvent): WrappedAnalyticsEvent => ({
+  type: 'AnalyticsEvent',
   data: event,
 })
 
 export const unwrap = (event: any) => {
-  if (event.type === 'PixelEvent') {
-    return (event as WrappedPixelEvent).data
+  if (event.type === 'AnalyticsEvent') {
+    return (event as WrappedAnalyticsEvent).data
   }
 
   return null

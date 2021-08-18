@@ -1,6 +1,6 @@
+import { useEffect } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
-
-import { usePixelSendEvent } from '../pixel/usePixelSendEvent'
+import { sendAnalyticsEvent } from '@vtex/store-sdk'
 
 interface Args {
   location: Location
@@ -13,11 +13,11 @@ export const usePlpPixelEffect = ({
   totalCount,
   searchParams,
 }: Args) => {
-  usePixelSendEvent(() => {
+  useEffect(() => {
     const { term } = searchParams
     const pageType = term ? 'fullText' : 'plp'
 
-    return [
+    const events = [
       {
         type: 'vtex:pageView',
         data: {
@@ -40,6 +40,8 @@ export const usePlpPixelEffect = ({
           pageType,
         },
       },
-    ]
-  }, location.href)
+    ] as const
+
+    events.forEach(sendAnalyticsEvent)
+  }, [location.href, totalCount, searchParams])
 }

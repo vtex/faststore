@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import type { FC } from 'react'
+import { useAnalyticsEvent } from '@vtex/store-sdk'
 
 import { useLazyScript } from '../../lazyScript/useLazyScript'
-import { usePixelEvent } from '../usePixelEvent'
 import { handler } from './handler'
 
 // Register VTEX RC synchronously
@@ -37,7 +37,7 @@ export const Provider: FC = ({ children }) => {
     type: 'application/javascript',
   })
 
-  usePixelEvent(handler)
+  useAnalyticsEvent(handler)
 
   return <Fragment>{children}</Fragment>
 }

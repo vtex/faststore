@@ -1,6 +1,6 @@
-import type { PixelEvent, PixelEventHandler } from '@vtex/gatsby-theme-store'
+import type { AnalyticsEvent, AnalyticsEventHandler } from '@vtex/store-sdk'
 
-const getDataFromEvent = (event: PixelEvent) => {
+const getDataFromEvent = (event: AnalyticsEvent) => {
   switch (event.type) {
     case 'vtex:pageView': {
       return {
@@ -183,7 +183,7 @@ const getDataFromEvent = (event: PixelEvent) => {
             actionField: {
               step: 1,
             },
-            products: orderForm.items.map((item) => ({
+            products: orderForm.items.map((item: any) => ({
               id: item.id,
               name: item.name,
               category: Object.keys(item.productCategories ?? {}).reduce(
@@ -208,7 +208,7 @@ const getDataFromEvent = (event: PixelEvent) => {
   }
 }
 
-export const handler: PixelEventHandler = (event) => {
+export const handler: AnalyticsEventHandler = (event) => {
   const data = getDataFromEvent(event)
 
   if (data) {

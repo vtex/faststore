@@ -3,7 +3,5 @@ export declare global {
     var __REACT_HYDRATED__: boolean
     var vtexrca: ((...x: any[]) => void) & { q: any[]; l: number }
     var dataLayer: any[]
-    function requestIdleCallback(args: () => void): number
-    function cancelIdleCallback(id: number): void
   }
 }

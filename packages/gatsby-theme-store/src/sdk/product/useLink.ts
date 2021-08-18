@@ -1,8 +1,8 @@
 import type { MouseEvent } from 'react'
+import { sendAnalyticsEvent } from '@vtex/store-sdk'
 
-import { minimalToPixelProduct } from '../pixel/events'
+import { minimalToAnalyticsProduct } from '../pixel/events'
 import type { MinimalProduct, PageType } from '../pixel/events'
-import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import { useSku } from './useSku'
 import { useUnprotectedSearch } from '../search/useSearch'
 
@@ -70,13 +70,13 @@ export const useLink = (product: UseLinkProduct, options?: UseLinkOptions) => {
   return {
     to: `/${product.linkText}/p?skuId=${sku.itemId}`,
     onClick: (_: MouseEvent<HTMLAnchorElement>) =>
-      sendPixelEvent({
+      sendAnalyticsEvent({
         type: 'vtex:productClick',
         data: {
           pageType,
           term,
           position,
-          product: minimalToPixelProduct(product, sku),
+          product: minimalToAnalyticsProduct(product, sku),
         },
       }),
   }

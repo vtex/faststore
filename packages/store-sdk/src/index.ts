@@ -1,3 +1,31 @@
+// Analytics
+export type { AnalyticsEvent } from './analytics/index'
+export type {
+  PageViewData,
+  UserData,
+  CartIdData,
+  ProductPageInfoData,
+  CategoryViewData,
+  DepartmentViewData,
+  InternalSiteSearchViewData,
+  AddToCartData,
+  RemoveFromCartData,
+  CartChangedData,
+  OrderPlacedData,
+  OrderPlacedTrackedData,
+  ProductViewData,
+  ProductClickData,
+  ProductImpressionData,
+  CartLoadedData,
+  ProductOrder,
+  AnalyticsProduct,
+  CartPixelProduct,
+  PageType,
+} from './analytics/events'
+export { sendAnalyticsEvent } from './analytics/sendAnalyticsEvent'
+export type { AnalyticsEventHandler } from './analytics/useAnalyticsEvent'
+export { useAnalyticsEvent } from './analytics/useAnalyticsEvent'
+
 // Faceted Search
 export { initialize as initSearchParamsState } from './search/state'
 export type { SearchParamsState } from './search/state'

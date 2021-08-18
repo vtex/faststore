@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
+import { sendAnalyticsEvent } from '@vtex/store-sdk'
 
-import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import type { MinimalOrderFormItem } from './useUpdateQuantityWithPixel'
 import { orderFormItemToPixelProduct } from './useUpdateQuantityWithPixel'
 
@@ -24,7 +24,7 @@ export function removeItemWithPixel<T, R>({
 
     const pixelEventProduct = orderFormItemToPixelProduct(item)
 
-    sendPixelEvent({
+    sendAnalyticsEvent({
       type: 'vtex:removeFromCart',
       data: {
         products: [pixelEventProduct],
