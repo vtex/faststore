@@ -3,8 +3,8 @@ import React from 'react'
 
 import type { Props as IconButtonProps } from '../IconButton'
 import Component from '../IconButton'
-import mdx from './IconButton.mdx'
 import ShoppingCartIcon from '../../../atoms/Icon/stories/assets/ShoppingCart'
+import mdx from './IconButton.mdx'
 
 const IconButtonTemplate: Story<IconButtonProps> = (props) => (
   <Component {...props} icon={<ShoppingCartIcon />} />

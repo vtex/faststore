@@ -6,6 +6,13 @@ import type { ButtonProps } from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 
 export interface Props extends ButtonProps {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+  /**
+   * The icon component
+   */
   icon: ReactNode
   children?: never
 }
