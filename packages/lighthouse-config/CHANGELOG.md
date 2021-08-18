@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.19 (2021-08-18)
+
+
+### Features
+
+* **store-sdk:** Add Session to store-sdk ([#896](https://github.com/vtex/faststore/issues/896)) ([6a7f1b5](https://github.com/vtex/faststore/commit/6a7f1b5458bdb44aff2760bcd32ddf8888c05740))
+
+
+
+
+
 ## 0.373.18 (2021-08-18)
 
 **Note:** Version bump only for package @vtex/lighthouse-config
