@@ -46,7 +46,7 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
         if (!cancel) {
           setData({ payload: item, state: 'hydrated' })
         }
-      } else {
+      } else if (!cancel) {
         setItem(key, data.payload)
       }
     }
