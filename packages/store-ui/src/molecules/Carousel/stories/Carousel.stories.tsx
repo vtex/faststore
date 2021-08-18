@@ -47,7 +47,6 @@ const argTypes: ComponentArgTypes<
 
 export default {
   title: 'Molecules/Carousel',
-  component: Carousel,
   argTypes,
   parameters: {
     docs: {

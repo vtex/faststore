@@ -1,5 +1,5 @@
 [data-store-button] {
-  @apply px-6 py-2 rounded border-0;
+  @apply px-6 py-2 rounded border-0 cursor-pointer;
   @apply bg-blue-800 text-white;
   @apply text-lg;
 }

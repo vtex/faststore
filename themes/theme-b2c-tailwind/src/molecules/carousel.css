@@ -1,0 +1,20 @@
+[data-store-carousel] {
+  @apply relative flex items-center;
+}
+
+[data-carousel-bullets] {
+  @apply absolute bottom-0 w-full flex justify-center;
+}
+
+[data-store-button][data-left-arrow], [data-store-button][data-right-arrow]  {
+  @apply bg-transparent absolute text-black;
+}
+
+[data-left-arrow] {
+  @apply left-0;
+}
+
+
+[data-right-arrow] {
+  @apply right-0;
+}
