@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.20 (2021-08-18)
+
+**Note:** Version bump only for package @vtex/gatsby-plugin-thumbor
+
+
+
+
+
 ## 0.373.19 (2021-08-18)
 
 
