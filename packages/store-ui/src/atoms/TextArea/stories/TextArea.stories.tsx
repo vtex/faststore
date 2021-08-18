@@ -37,7 +37,6 @@ const actions: ComponentArgTypes<TextAreaProps> = {
 
 export default {
   title: 'Atoms/TextArea',
-  component: TextArea,
   argTypes: {
     ...controls,
     ...actions,
