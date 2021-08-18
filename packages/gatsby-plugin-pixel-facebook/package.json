@@ -22,13 +22,15 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@vtex/store-sdk": "^0.373.16",
+    "@vtex/gatsby-theme-store": "^0.373.17",
+    "@vtex/store-sdk": "^0.373.17",
     "cross-env": "^7.0.2",
     "gatsby": "^3.11.1",
     "typescript": "^4.2.4"
   },
   "peerDependencies": {
-    "@vtex/store-sdk": "^0.373.16",
+    "@vtex/gatsby-theme-store": "^0.373.17",
+    "@vtex/store-sdk": "^0.373.17",
     "gatsby": "^3.11.1"
   }
 }
