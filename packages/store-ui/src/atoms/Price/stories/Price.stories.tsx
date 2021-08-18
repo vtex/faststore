@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react'
 import type { Story } from '@storybook/react'
+import React, { useMemo } from 'react'
+import type { ComponentArgTypes } from 'typings/utils'
 
-import Component from '../Price'
 import type { PriceProps } from '../Price'
+import Component from '../Price'
 import mdx from './Price.mdx'
-import type { ComponentArgTypes } from '../../../typings/utils'
 
 const priceValue = 62.5
 

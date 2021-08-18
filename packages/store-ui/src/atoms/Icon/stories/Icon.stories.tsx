@@ -1,11 +1,11 @@
-import React from 'react'
 import type { Story } from '@storybook/react'
+import React from 'react'
+import type { ComponentArgTypes } from 'typings/utils'
 
-import Component from '../Icon'
 import type { IconProps } from '../Icon'
-import mdx from './Icon.mdx'
+import Component from '../Icon'
 import ShoppingCart from './assets/ShoppingCart'
-import type { ComponentArgTypes } from '../../../typings/utils'
+import mdx from './Icon.mdx'
 
 const IconTemplate: Story<IconProps> = ({ style }) => (
   <Component style={style} component={<ShoppingCart />} />

@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react'
 import type { Story } from '@storybook/react'
+import React, { useRef, useState } from 'react'
+import type { ComponentArgTypes } from 'typings/utils'
 
-import Component from '../Popover'
 import Input from '../../Input'
 import type { PopoverProps } from '../Popover'
+import Component from '../Popover'
 import mdx from './Popover.mdx'
-import type { ComponentArgTypes } from '../../../typings/utils'
 
 const PopoverTemplate: Story<PopoverProps> = ({ children }) => {
   const ref = useRef(null)

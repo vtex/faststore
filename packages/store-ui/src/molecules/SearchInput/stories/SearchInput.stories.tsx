@@ -1,11 +1,11 @@
 import type { Story } from '@storybook/react'
 import React from 'react'
+import type { ComponentArgTypes } from 'typings/utils'
 
 import type { SearchInputProps } from '../SearchInput'
 import Component from '../SearchInput'
-import mdx from './SearchInput.mdx'
 import Icon from './assets/CustomIcon'
-import type { ComponentArgTypes } from '../../../typings/utils'
+import mdx from './SearchInput.mdx'
 
 const DefaultTemplate: Story<SearchInputProps> = ({
   onSubmit,

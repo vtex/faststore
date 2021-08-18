@@ -1,7 +1,7 @@
 import type { Story } from '@storybook/react'
 import React from 'react'
+import type { ComponentArgTypes } from 'typings/utils'
 
-import type { ComponentArgTypes } from '../../../typings/utils'
 import type { InputProps } from '../Input'
 import Component from '../Input'
 import mdx from './Input.mdx'

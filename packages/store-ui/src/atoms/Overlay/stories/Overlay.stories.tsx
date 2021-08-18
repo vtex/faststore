@@ -1,7 +1,7 @@
-import type { Story, Meta } from '@storybook/react'
+import type { Meta, Story } from '@storybook/react'
 import React from 'react'
+import type { ComponentArgTypes } from 'typings/utils'
 
-import type { ComponentArgTypes } from '../../../typings/utils'
 import type { Props as OverlayProps } from '../Overlay'
 import Component from '../Overlay'
 import mdx from './Overlay.mdx'
