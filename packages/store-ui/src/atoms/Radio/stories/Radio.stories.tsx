@@ -6,9 +6,7 @@ import type { RadioProps } from '../Radio'
 import Component from '../Radio'
 import mdx from './Radio.mdx'
 
-const RadioTemplate: Story<RadioProps> = (props) => (
-  <Component {...props} />
-)
+const RadioTemplate: Story<RadioProps> = (props) => <Component {...props} />
 
 export const Radio = RadioTemplate.bind({})
 
