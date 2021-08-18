@@ -1,5 +1,5 @@
 import type { Story } from '@storybook/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import type { ComponentArgTypes } from '../../../typings/utils'
 import type { BulletsProps } from '../Bullets'
@@ -12,15 +12,26 @@ const BulletsTemplate: Story<BulletsProps> = ({
   totalQuantity,
   ariaLabelGenerator,
   testId,
-}) => (
-  <Component
-    onClick={onClick}
-    activeBullet={activeBullet}
-    totalQuantity={totalQuantity}
-    ariaLabelGenerator={ariaLabelGenerator}
-    testId={testId}
-  />
-)
+}) => {
+  const [localActiveBullet, setLocalActiveBullet] = useState(activeBullet)
+
+  useEffect(() => {
+    setLocalActiveBullet(activeBullet)
+  }, [activeBullet, setLocalActiveBullet])
+
+  return (
+    <Component
+      onClick={(e, idx) => {
+        onClick?.(e, idx)
+        setLocalActiveBullet(idx)
+      }}
+      activeBullet={localActiveBullet}
+      totalQuantity={totalQuantity}
+      ariaLabelGenerator={ariaLabelGenerator}
+      testId={testId}
+    />
+  )
+}
 
 export const Bullets = BulletsTemplate.bind({})
 
