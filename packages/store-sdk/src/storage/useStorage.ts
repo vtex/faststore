@@ -2,7 +2,7 @@
  * Safe IDB storage interface. These try..catch are usefull because
  * some browsers may block accesss to these APIs due to security policies
  *
- * Also, the stored value is lazy-loaded to avoid hydration mimatch
+ * Also, the stored value is lazy-loaded to avoid hydration mismatch
  * between server/browser. When state is 'hydrated', the value in the heap
  * is the same as the value in IDB
  */
