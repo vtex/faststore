@@ -5,7 +5,7 @@ import Button from '../../atoms/Button'
 import type { ButtonProps } from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 
-export interface Props extends ButtonProps {
+export interface Props extends Omit<ButtonProps, 'children'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -14,7 +14,6 @@ export interface Props extends ButtonProps {
    * The icon component
    */
   icon: ReactNode
-  children?: never
 }
 
 const IconButton = forwardRef<HTMLButtonElement, Props>(function IconButton(
