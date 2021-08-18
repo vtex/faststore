@@ -17,13 +17,9 @@ const OverlayTemplate: Story<OverlayStoryProps> = ({
     color === 'black' ? { 'data-black': true } : { 'data-green': true }
 
   return (
-    <div data-store-overlay-out-container>
+    <div data-story-overlay-out-container>
       A content outside me
-      <Component {...props} {...dataColor}>
-        <div data-store-overlay-modal>
-          <div data-store-overlay-modal-content>Scroll me</div>
-        </div>
-      </Component>
+      <Component {...props} {...dataColor} />
     </div>
   )
 }
@@ -41,7 +37,6 @@ const controls: ComponentArgTypes<OverlayStoryProps> = {
 
 export default {
   title: 'Atoms/Overlay',
-  component: Overlay,
   argTypes: {
     ...controls,
   },

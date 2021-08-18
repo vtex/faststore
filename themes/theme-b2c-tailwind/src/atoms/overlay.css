@@ -1,22 +1,10 @@
-[data-store-overlay-out-container] { 
+[data-story-overlay-out-container] { 
   height: calc(100vh + 150px);
 }
 
 [data-store-overlay] {
   @apply z-50 fixed inset-0;
   @apply flex justify-center items-center;
-}
-
-[data-store-overlay-modal] {
-  @apply overflow-auto;
-  max-height: 40px;
-  border-radius: 6px;
-}
-
-[data-store-overlay-modal-content] {
-  @apply p-5 bg-white;
-  width: 150px;
-  height: 60px;
 }
 
 [data-store-overlay][data-green] {
