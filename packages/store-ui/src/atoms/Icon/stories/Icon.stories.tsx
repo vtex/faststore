@@ -31,7 +31,6 @@ const argTypes: ComponentArgTypes<Omit<IconProps, 'component'>> = {
 
 export default {
   title: 'Atoms/Icon',
-  component: Icon,
   argTypes,
   parameters: {
     docs: {
