@@ -2,6 +2,7 @@
   "extends": "@vtex/tsconfig",
   "include": ["src"],
   "compilerOptions": {
+    "baseUrl": "src",
     "module": "ESNext"
   },
   "exclude": ["node_modules", "dist"]
