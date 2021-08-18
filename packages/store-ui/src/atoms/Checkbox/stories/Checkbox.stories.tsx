@@ -1,16 +1,38 @@
 import type { Story, Meta } from '@storybook/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import type { ComponentArgTypes } from '../../../typings/utils'
 import type { CheckboxProps } from '../Checkbox'
 import Component from '../Checkbox'
 import mdx from './Checkbox.mdx'
 
-const CheckboxTemplate: Story<CheckboxProps> = (props) => (
-  <Component {...props} />
-)
+const CheckboxTemplate: Story<CheckboxProps> = ({
+  checked,
+  onClick,
+  ...props
+}) => {
+  const [localChecked, setLocalChecked] = useState(checked)
+
+  useEffect(() => {
+    setLocalChecked(checked)
+  }, [checked])
+
+  return (
+    <Component
+      {...props}
+      checked={localChecked}
+      onClick={(e) => {
+        onClick?.(e)
+        setLocalChecked(!localChecked)
+      }}
+    />
+  )
+}
 
 export const Checkbox = CheckboxTemplate.bind({})
+Checkbox.args = {
+  checked: true,
+}
 
 const controls: ComponentArgTypes<CheckboxProps> = {
   checked: {
