@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-theme-store",
-  "version": "0.373.17",
+  "version": "0.373.18",
   "description": "Gatsby theme for building ecommerce websites",
   "main": "index.js",
   "module": "src/index.ts",
@@ -58,8 +58,8 @@
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.7",
     "@types/react-helmet-async": "^1.0.3",
-    "@vtex/store-sdk": "^0.373.17",
-    "@vtex/store-ui": "^0.373.17",
+    "@vtex/store-sdk": "^0.373.18",
+    "@vtex/store-ui": "^0.373.18",
     "cross-env": "^7.0.2",
     "gatsby": "^3.11.1",
     "gatsby-plugin-next-seo": "^1.7.0",
