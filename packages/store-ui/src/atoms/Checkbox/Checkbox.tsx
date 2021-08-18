@@ -3,6 +3,9 @@ import type { InputHTMLAttributes } from 'react'
 
 export interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId?: string
 }
 

@@ -2,7 +2,7 @@ import type { Story, Meta } from '@storybook/react'
 import React from 'react'
 
 import type { ComponentArgTypes } from '../../../typings/utils'
-import type { Props as CheckboxProps } from '../Checkbox'
+import type { CheckboxProps } from '../Checkbox'
 import Component from '../Checkbox'
 import mdx from './Checkbox.mdx'
 
@@ -26,7 +26,6 @@ const actions: ComponentArgTypes<CheckboxProps> = {
 
 export default {
   title: 'Atoms/Checkbox',
-  component: Checkbox,
   argTypes: {
     ...controls,
     ...actions,
