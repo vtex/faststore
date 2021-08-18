@@ -27,6 +27,11 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
+  "jest": {
+    "setupFiles": [
+      "./test/setup.js"
+    ]
+  },
   "size-limit": [
     {
       "path": "dist/store-sdk.cjs.production.min.js",
@@ -42,10 +47,14 @@
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
+    "fake-indexeddb": "^3.1.3",
     "react": "^17.0.2",
     "size-limit": "^4.10.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "idb-keyval": "^5.1.3"
   }
 }
