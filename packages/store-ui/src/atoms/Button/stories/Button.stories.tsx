@@ -27,7 +27,6 @@ const argTypes: ComponentArgTypes<ButtonProps> = {
 
 export default {
   title: 'Atoms/Button',
-  component: Button,
   argTypes,
   parameters: {
     docs: {
