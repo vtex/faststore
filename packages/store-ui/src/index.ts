@@ -41,6 +41,3 @@ export type {
   SliderDispatch,
   SlideDirection,
 } from './hooks/useSlider'
-
-// Deprecated APIs
-export * from './deprecated/index'
