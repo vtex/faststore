@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.21 (2021-08-20)
+
+
+### Bug Fixes
+
+* **store-ui:** Remove unnecessary ID and improve a11y ([#915](https://github.com/vtex/faststore/issues/915)) ([7ee629d](https://github.com/vtex/faststore/commit/7ee629d6b738ed67332000e47ebdb9fcb5dc2883))
+
+
+
+
+
 ## 0.373.20 (2021-08-18)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-cms
