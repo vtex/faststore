@@ -24,6 +24,7 @@ const createTransformValues = (infinite: boolean, totalItems: number) => {
 }
 
 export interface CarouselProps extends SwipeableProps {
+  id?: string
   testId?: string
   infiniteMode?: boolean
   controls?: 'complete' | 'navigationArrows' | 'paginationBullets'
@@ -44,6 +45,7 @@ function Carousel({
     property: 'transform',
   },
   children,
+  id = 'store-carousel',
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
   const childrenArray = React.Children.toArray(children)
@@ -87,7 +89,7 @@ function Carousel({
 
   return (
     <section
-      id="store-carousel"
+      id={id}
       data-store-carousel
       data-testid={testId}
       aria-label="carousel"
@@ -155,7 +157,7 @@ function Carousel({
         <div data-carousel-controls>
           <Button
             data-left-arrow
-            aria-controls="store-carousel"
+            aria-controls={id}
             aria-label="previous"
             onClick={() => {
               if (sliderState.sliding) {
@@ -169,7 +171,7 @@ function Carousel({
           </Button>
           <Button
             data-right-arrow
-            aria-controls="store-carousel"
+            aria-controls={id}
             aria-label="next"
             onClick={() => {
               if (sliderState.sliding) {
