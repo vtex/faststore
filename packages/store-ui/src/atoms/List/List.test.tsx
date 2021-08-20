@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
-import List from '.'
+import List from './List'
 
 const optionsArray = [
   ['great', 'Great'],
@@ -12,35 +12,47 @@ const optionsArray = [
 const mapPairToItem = (value: string, variant: string) => {
   switch (variant) {
     case 'unordered':
-      return <ul>{value}</ul>
+      return <ul key={value}>{value}</ul>
 
     case 'ordered':
-      return <ol>{value}</ol>
+      return <ol key={value}>{value}</ol>
 
     case 'description':
-      return <dl>{value}</dl>
+      return <dl key={value}>{value}</dl>
 
     default:
-      return <div>{value}</div>
+      return <div key={value}>{value}</div>
   }
 }
 
 describe('List', () => {
   it('`data-store-List` is present', () => {
     const { getByTestId } = render(
-      <List testId="store-List" variant="default">
+      <List testId="store-list" variant="default">
         {optionsArray.map(([value, variant]) => {
           return mapPairToItem(value, variant)
         })}
       </List>
     )
 
-    expect(getByTestId('store-List')).toHaveAttribute('data-store-List')
+    expect(getByTestId('store-list')).toHaveAttribute('data-store-list-default')
   })
 
   it('List is empty when no options are given', () => {
-    const { getByTestId } = render(<List testId="store-List" />)
+    const { getByTestId } = render(<List testId="store-list" />)
 
-    expect(getByTestId('store-List')).toBeEmptyDOMElement()
+    expect(getByTestId('store-list')).toBeEmptyDOMElement()
+  })
+
+  it('List is ordered', () => {
+    const { getByTestId } = render(
+      <List variant="ordered" testId="store-list">
+        {optionsArray.map(([value, variant]) => {
+          return mapPairToItem(value, variant)
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toHaveAttribute('data-store-list-ordered')
   })
 })

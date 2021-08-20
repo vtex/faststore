@@ -1,8 +1,23 @@
-import type { HTMLAttributes, ElementType, ReactNode } from 'react'
+import type { HTMLAttributes, ElementType } from 'react'
 import React, { forwardRef } from 'react'
 
 export type ListVariant = 'default' | 'description' | 'ordered' | 'unordered'
-export type ListFormatter = (List: number, variant: ListVariant) => ReactNode
+
+const variantToType = (variant: string) => {
+  switch (variant) {
+    case 'unordered':
+      return 'ul'
+
+    case 'ordered':
+      return 'ol'
+
+    case 'description':
+      return 'dl'
+
+    default:
+      return 'div'
+  }
+}
 
 export interface ListProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -21,21 +36,21 @@ export interface ListProps extends HTMLAttributes<HTMLDivElement> {
 
 export const List = forwardRef<HTMLDivElement, ListProps>(function List(
   {
-    as: Component = 'div',
     children,
     testId = 'store-list',
     variant = 'default',
+    as: Component = variantToType(variant),
     ...rawProps
   },
   ref
 ) {
   const props = {
-    [`data-${variant}`]: true,
+    [`data-store-list-${variant}`]: true,
     ...rawProps,
   }
 
   return (
-    <Component ref={ref} data-store-List data-testid={testId} {...props}>
+    <Component ref={ref} data-testid={testId} {...props}>
       {children}
     </Component>
   )
