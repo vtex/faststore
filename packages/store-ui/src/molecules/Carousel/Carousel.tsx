@@ -24,7 +24,7 @@ const createTransformValues = (infinite: boolean, totalItems: number) => {
 }
 
 export interface CarouselProps extends SwipeableProps {
-  id: string
+  id?: string
   testId?: string
   infiniteMode?: boolean
   controls?: 'complete' | 'navigationArrows' | 'paginationBullets'
