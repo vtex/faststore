@@ -86,12 +86,7 @@ function Carousel({
   const slides = preRenderedSlides.concat(children ?? [], postRenderedSlides)
 
   return (
-    <section
-      id="store-carousel"
-      data-store-carousel
-      data-testid={testId}
-      aria-label="carousel"
-    >
+    <section data-store-carousel data-testid={testId} aria-label="carousel">
       <div
         data-carousel-track-container
         style={{ overflow: 'hidden', width: '100%' }}
