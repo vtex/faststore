@@ -11,7 +11,7 @@ export interface Props extends Omit<ButtonProps, 'children'> {
    */
   testId?: string
   /**
-   * The icon component
+   * A React component that will be rendered as an icon.
    */
   icon: ReactNode
 }
