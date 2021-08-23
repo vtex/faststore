@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.22 (2021-08-23)
+
+**Note:** Version bump only for package @vtex/gatsby-source-vtex
+
+
+
+
+
 ## 0.373.21 (2021-08-20)
 
 
