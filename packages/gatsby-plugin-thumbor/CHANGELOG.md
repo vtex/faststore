@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.24 (2021-08-23)
+
+
+### Features
+
+* **store-ui:** radio component ([#906](https://github.com/vtex/faststore/issues/906)) ([06ef1dd](https://github.com/vtex/faststore/commit/06ef1dd3aa0cda304f4341697859c9b0fc16cfc2))
+
+
+
+
+
 ## 0.373.23 (2021-08-23)
 
 
