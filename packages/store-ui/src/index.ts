@@ -23,6 +23,9 @@ export type { CheckboxProps } from './atoms/Checkbox'
 export { default as Overlay } from './atoms/Overlay'
 export type { OverlayProps } from './atoms/Overlay'
 
+export { default as Select } from './atoms/Select'
+export type { SelectProps } from './atoms/Select'
+
 // Molecules
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
