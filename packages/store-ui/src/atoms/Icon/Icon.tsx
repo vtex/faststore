@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 
 export interface IconProps extends HTMLAttributes<HTMLSpanElement> {
   /**
-   * The icon component
+   * A React component that will be rendered as an icon.
    */
   component: ReactNode
   /**
