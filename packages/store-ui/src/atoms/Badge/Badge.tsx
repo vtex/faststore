@@ -2,6 +2,9 @@ import type { ReactNode, ForwardedRef } from 'react'
 import React, { forwardRef } from 'react'
 
 export interface BadgeProps {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId?: string
   children?: ReactNode
 }
