@@ -24,7 +24,6 @@ const actions: ComponentArgTypes<RadioProps> = {
 
 export default {
   title: 'Atoms/Radio',
-  component: Radio,
   argTypes: {
     ...controls,
     ...actions,
