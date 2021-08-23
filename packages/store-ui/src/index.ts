@@ -26,6 +26,9 @@ export type { OverlayProps } from './atoms/Overlay'
 export { default as Select } from './atoms/Select'
 export type { SelectProps } from './atoms/Select'
 
+export { default as Radio } from './atoms/Radio'
+export type { RadioProps } from './atoms/Radio'
+
 // Molecules
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
