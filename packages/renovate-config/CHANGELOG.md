@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.23 (2021-08-23)
+
+
+### Features
+
+* **store-ui:** Adding select atom ([#876](https://github.com/vtex/faststore/issues/876)) ([3276269](https://github.com/vtex/faststore/commit/3276269813b6208b88d7178293b9550b2b05cc77))
+
+
+
+
+
 ## 0.373.22 (2021-08-23)
 
 **Note:** Version bump only for package @vtex/renovate-config
