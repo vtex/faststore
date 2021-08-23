@@ -3,34 +3,14 @@ import React from 'react'
 
 import List from './List'
 
-const optionsArray = [
-  ['great', 'Great'],
-  ['ok', 'Ok'],
-  ['bad', 'Bad'],
-]
-
-const mapPairToItem = (value: string, variant: string) => {
-  switch (variant) {
-    case 'unordered':
-      return <ul key={value}>{value}</ul>
-
-    case 'ordered':
-      return <ol key={value}>{value}</ol>
-
-    case 'description':
-      return <dl key={value}>{value}</dl>
-
-    default:
-      return <div key={value}>{value}</div>
-  }
-}
+const optionsArray = ['Great', 'Ok', 'Bad']
 
 describe('List', () => {
   it('`data-store-List` is present', () => {
     const { getByTestId } = render(
-      <List testId="store-list" variant="default">
-        {optionsArray.map(([value, variant]) => {
-          return mapPairToItem(value, variant)
+      <List testId="store-list">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
         })}
       </List>
     )
@@ -44,11 +24,11 @@ describe('List', () => {
     expect(getByTestId('store-list')).toBeEmptyDOMElement()
   })
 
-  it('List is ordered', () => {
+  it('List has correct data-store attribute', () => {
     const { getByTestId } = render(
       <List variant="ordered" testId="store-list">
-        {optionsArray.map(([value, variant]) => {
-          return mapPairToItem(value, variant)
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
         })}
       </List>
     )
