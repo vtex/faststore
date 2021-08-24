@@ -36,7 +36,7 @@ export {
   Container,
   NavLink,
   Message,
-  IconButton,
+  IconButton as UIIconButton,
   MenuButton,
   jsx,
   useThemeUI,
@@ -72,7 +72,7 @@ export type {
   ContainerProps,
   NavLinkProps,
   MessageProps,
-  IconButtonProps,
+  IconButtonProps as UIIconButtonProps,
   MenuButtonProps,
 } from 'theme-ui'
 
