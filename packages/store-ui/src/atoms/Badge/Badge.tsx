@@ -1,4 +1,4 @@
-import type { ReactNode, ForwardedRef } from 'react'
+import type { ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
 export interface BadgeProps {
@@ -11,7 +11,7 @@ export interface BadgeProps {
 
 const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
   { testId = 'store-badge', children }: BadgeProps,
-  ref: ForwardedRef<HTMLDivElement>
+  ref
 ) {
   return (
     <div ref={ref} data-testid={testId} data-store-badge>
