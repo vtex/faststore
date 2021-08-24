@@ -64,13 +64,17 @@ function Example() {
 
 ### Props
 
-| Prop       | Type    | Required | Default      |
-| ---------- | ------- | -------- | ------------ |
-| min        | number  | true     |              |
-| max        | number  | true     |              |
-| showValues | boolean | false    | true         |
-| testId     | string  | false    | store-slider |
-| onChange   | void    | false    |              |
+| Prop             | Type    | Required | Default      |
+| ---------------- | ------- | -------- | ------------ |
+| min              | number  | true     |              |
+| max              | number  | true     |              |
+| showValues       | boolean | false    | true         |
+| testId           | string  | false    | store-slider |
+| onChange         | void    | false    |              |
+| onChange         | void    | false    |              |
+| onChange         | void    | false    |              |
+| ariaLabel        | string  | false    |              |
+| getAriaValueText | void    | false    |              |
 
 ## TODO
 
