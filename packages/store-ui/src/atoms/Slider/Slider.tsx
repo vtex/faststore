@@ -15,7 +15,7 @@ const Slider = ({
   min,
   max,
   onChange,
-  testId,
+  testId = 'store-slider',
   showValues = true,
 }: SliderProps) => {
   const [minVal, setMinVal] = useState(min)
