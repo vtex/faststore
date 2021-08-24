@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/react'
+import type { Meta, Story } from '@storybook/react'
 import React from 'react'
 
 import type { ComponentArgTypes } from '../../../typings/utils'
@@ -27,7 +27,6 @@ const argTypes: ComponentArgTypes<SliderProps> = {
 
 export default {
   title: 'Atoms/Slider',
-  component: Slider,
   argTypes,
   parameters: {
     docs: {
