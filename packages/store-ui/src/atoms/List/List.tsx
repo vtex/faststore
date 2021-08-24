@@ -5,14 +5,14 @@ export type ListVariant = 'default' | 'description' | 'ordered' | 'unordered'
 
 const variantToType = (variant: string) => {
   switch (variant) {
+    case 'description':
+      return 'dl'
+
     case 'unordered':
       return 'ul'
 
     case 'ordered':
       return 'ol'
-
-    case 'description':
-      return 'dl'
 
     default:
       return 'div'
