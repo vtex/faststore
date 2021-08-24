@@ -1,14 +1,29 @@
+import { join } from 'path'
+
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import { parse, printSchema } from 'graphql'
-import type { CreatePageArgs, CreateWebpackConfigArgs } from 'gatsby'
+import type {
+  CreatePageArgs,
+  CreateWebpackConfigArgs,
+  PluginOptionsSchemaArgs,
+} from 'gatsby'
 
 import { WebpackPlugin } from './webpack'
 
-export const onCreateWebpackConfig = async ({
-  actions: { setWebpackConfig },
-  store,
-  stage,
-}: CreateWebpackConfigArgs) => {
+interface Options {
+  schemaPath?: string
+}
+
+export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) => {
+  return Joi.object({
+    schemaPath: Joi.string(),
+  })
+}
+
+export const onCreateWebpackConfig = async (
+  { actions: { setWebpackConfig }, store, stage }: CreateWebpackConfigArgs,
+  options: Options
+) => {
   if (stage === 'build-html' || stage === 'develop-html') {
     return
   }
@@ -23,9 +38,13 @@ export const onCreateWebpackConfig = async ({
   const { schema: dirtySchema } = store.getState()
   const typeDefs = parse(printSchema(dirtySchema))
   const schema = makeExecutableSchema({ typeDefs })
+  const schemaPath = join(
+    process.cwd(),
+    options.schemaPath ?? '/src/typings/schema.graphql.d.ts'
+  )
 
   setWebpackConfig({
-    plugins: [new WebpackPlugin(schema)],
+    plugins: [new WebpackPlugin(schema, { schemaPath })],
   })
 }
 
