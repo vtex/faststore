@@ -112,13 +112,12 @@ export class WebpackPlugin {
   public generateSchemaCode = async () =>
     codegen({
       config: {
+        allowEnumStringTypes: false,
         avoidOptionals: true,
-        preResolveTypes: true,
         enumsAsTypes: true,
         skipTypeNameForRoot: true,
         skipTypename: true,
         noExport: true,
-        allowEnumStringTypes: true,
         namingConvention: 'change-case-all#pascalCase',
       },
       documents: [],
