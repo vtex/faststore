@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.25 (2021-08-24)
+
+
+### Bug Fixes
+
+* **gatsby-plugin-graphql:** Export schema types ([#916](https://github.com/vtex/faststore/issues/916)) ([65d43d3](https://github.com/vtex/faststore/commit/65d43d3191422ef14988dabe0aa8383daf74b471))
+
+
+
+
+
 ## 0.373.24 (2021-08-23)
 
 
