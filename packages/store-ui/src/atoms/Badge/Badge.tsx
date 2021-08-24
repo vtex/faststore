@@ -9,7 +9,7 @@ export interface BadgeProps {
   children?: ReactNode
 }
 
-function Badge(
+const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
   { testId = 'store-badge', children }: BadgeProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
@@ -18,6 +18,6 @@ function Badge(
       {children}
     </div>
   )
-}
+})
 
-export default forwardRef<HTMLDivElement, BadgeProps>(Badge)
+export default Badge
