@@ -2,10 +2,10 @@
   @apply inline-flex;
 }
 
-[data-custom-store-icon-button] {
+[data-store-icon-button="story"] {
   @apply text-black inline-flex bg-transparent cursor-pointer rounded-full p-2 transition-colors duration-150 ease-in;
 }
 
-[data-custom-store-icon-button]:hover {
+[data-store-icon-button="story"]:hover {
   @apply bg-gray-400 bg-opacity-40;
 }

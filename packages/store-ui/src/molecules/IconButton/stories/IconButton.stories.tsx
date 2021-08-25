@@ -16,7 +16,7 @@ const IconButtonCustomTemplate: Story<IconButtonProps> = (props) => {
   return (
     <Component
       {...props}
-      data-custom-store-icon-button
+      data-store-icon-button="story"
       icon={<ShoppingCartIcon />}
     />
   )
