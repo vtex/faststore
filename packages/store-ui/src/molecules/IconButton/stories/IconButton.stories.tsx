@@ -14,11 +14,7 @@ export const Default = IconButtonTemplate.bind({})
 
 const IconButtonCustomTemplate: Story<IconButtonProps> = (props) => {
   return (
-    <Component
-      {...props}
-      data-store-icon-button="story"
-      icon={<ShoppingCartIcon />}
-    />
+    <Component {...props} className="iconButton" icon={<ShoppingCartIcon />} />
   )
 }
 
