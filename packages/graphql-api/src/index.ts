@@ -9,6 +9,7 @@ export const schema = `
   type Product {
     id: ID!
     name: String!
+    price: Float!
   }
 `
 
@@ -20,6 +21,16 @@ interface VtexOptions {
 interface VtexProduct {
   productId: string
   productName: string
+  items: VtexProductSku[]
+}
+
+interface VtexProductSku {
+  itemId: string
+  sellers: VtexSeller[]
+}
+
+interface VtexSeller {
+  commertialOffer: { Price: number }
 }
 
 const getSearchUrl = ({ environment, tenant }: VtexOptions) =>
@@ -65,6 +76,8 @@ export const getGraphQLConfig = (options: VtexOptions) => {
       Product: {
         id: (root: VtexProduct) => root.productId,
         name: (root: VtexProduct) => root.productName,
+        price: (root: VtexProduct) =>
+          root.items[0].sellers[0].commertialOffer.Price,
       },
     },
   }

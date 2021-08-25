@@ -1,18 +1,19 @@
 {
-  "name": "@vtex/graphql-api",
+  "name": "@vtex/graphql-request",
   "version": "0.0.0",
   "author": "mairatma",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",
-    "directory": "packages/graphql-api"
+    "directory": "packages/graphql-request"
   },
   "keywords": [
     "graphql",
     "vtex"
   ],
   "main": "dist/index.js",
+  "module": "dist/graphql-request.esm.js",
   "typings": "dist/index.d.ts",
   "engines": {
     "node": ">=10"
@@ -22,14 +23,17 @@
     "src"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production tsc",
-    "develop": "tsc --watch"
+    "develop": "tsdx watch",
+    "build": "tsdx build",
+    "lint": "tsdx lint"
   },
   "devDependencies": {
     "@vtex/tsconfig": "^0.5.6",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "swr": "^0.5.6"
   }
 }
