@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 
 export type ListVariant = 'default' | 'description' | 'ordered' | 'unordered'
 
-const variantToType = (variant: string) => {
+const variantToType = (variant: ListVariant) => {
   switch (variant) {
     case 'description':
       return 'dl'
@@ -19,7 +19,7 @@ const variantToType = (variant: string) => {
   }
 }
 
-export interface ListProps extends HTMLAttributes<HTMLDivElement> {
+export interface ListProps extends HTMLAttributes<HTMLElement> {
   /**
    * Set the HTML element tag of this component.
    */
@@ -29,14 +29,13 @@ export interface ListProps extends HTMLAttributes<HTMLDivElement> {
    */
   testId?: string
   /**
-   * The current use case variant for Lists.
+   * The current use case variants for Lists.
    */
   variant?: ListVariant
 }
 
-export const List = forwardRef<HTMLDivElement, ListProps>(function List(
+export const List = forwardRef<HTMLElement, ListProps>(function List(
   {
-    children,
     testId = 'store-list',
     variant = 'default',
     as: Component = variantToType(variant),
@@ -49,11 +48,7 @@ export const List = forwardRef<HTMLDivElement, ListProps>(function List(
     ...rawProps,
   }
 
-  return (
-    <Component ref={ref} data-testid={testId} {...props}>
-      {children}
-    </Component>
-  )
+  return <Component ref={ref} data-testid={testId} {...props} />
 })
 
 export default List
