@@ -7,6 +7,7 @@ import Component from '../List'
 import mdx from './List.mdx'
 
 type ListStoryProps = ListProps & { options: string[] }
+type DescriptionListStoryProps = ListProps & { options: string[][] }
 
 const ListTemplate: Story<ListStoryProps> = ({ options, ...props }) => {
   return (
@@ -18,7 +19,31 @@ const ListTemplate: Story<ListStoryProps> = ({ options, ...props }) => {
   )
 }
 
+const DescriptionListTemplate: Story<DescriptionListStoryProps> = ({
+  options,
+  ...props
+}) => {
+  return (
+    <Component {...props}>
+      {options.map(([title, value]) => [
+        <dt key={title}>{title}</dt>,
+        <dd key={value}>{value}</dd>,
+      ])}
+    </Component>
+  )
+}
+
 export const List = ListTemplate.bind({})
+
+export const DescriptionList = DescriptionListTemplate.bind({})
+DescriptionList.args = {
+  options: [
+    ['Ok', 'An ok item'],
+    ['Good', 'A good item'],
+    ['Bad', 'A bad item'],
+  ],
+  variant: 'description',
+}
 
 const argTypes: ComponentArgTypes<ListStoryProps> = {
   options: {
