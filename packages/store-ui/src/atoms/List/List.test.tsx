@@ -35,4 +35,28 @@ describe('List', () => {
 
     expect(getByTestId('store-list')).toHaveAttribute('data-store-list-ordered')
   })
+
+  it('List is unordered', () => {
+    const { getByTestId } = render(
+      <List variant="unordered" testId="store-list">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toBeInstanceOf(HTMLUListElement)
+  })
+
+  it('List is description', () => {
+    const { getByTestId } = render(
+      <List variant="description" testId="store-list">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toBeInstanceOf(HTMLDListElement)
+  })
 })
