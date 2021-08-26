@@ -1,28 +1,5 @@
 # Slider
 
-## Installation
-
-From the command line in your project directory, run npm install `@vtex/store-ui` or yarn add `@vtex/store-ui`.
-
-```cmd
-npm install @vtex/store-ui
-# or
-yarn add @vtex/store-ui
-```
-
-For style, you can install our default theme, run npm install `@vtex/theme-b2c-tailwind` or yarn add `@vtex/theme-b2c-tailwind`:
-
-```cmd
-npm install @vtex/theme-b2c-tailwind
-# or
-yarn add @vtex/theme-b2c-tailwind
-```
-
-```tsx
-import { Slider } from '@vtex/store-ui'
-import '@vtex/theme-b2c-tailwind/dist/index.css'
-```
-
 ## Usage
 
 ```tsx
