@@ -60,6 +60,7 @@ const Slider = ({
     [min, max]
   )
 
+  // width of the range to reduce from the left side
   useEffect(() => {
     const minPercent = getPercent(minVal)
     const maxPercent = getPercent(maxValRef.current)
@@ -70,6 +71,7 @@ const Slider = ({
     }
   }, [minVal, getPercent])
 
+  // width of the range to reduce from the right side
   useEffect(() => {
     const minPercent = getPercent(minValRef.current)
     const maxPercent = getPercent(maxVal)
