@@ -14,7 +14,7 @@ npm install @vtex/store-ui
 yarn add @vtex/store-ui
 ```
 
-For style, you can install our default theme, run npm install `@vtex/theme-b2c-tailwind` or yarn add `@vtex/theme-b2c-tailwind`:
+For style, you can use our default theme. To install:
 
 ```cmd
 npm install @vtex/theme-b2c-tailwind
