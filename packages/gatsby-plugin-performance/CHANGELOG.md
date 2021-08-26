@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.29 (2021-08-26)
+
+
+### Bug Fixes
+
+* **gatsby-plugin-cms:** null cms nodes were preventing stores from building ([0270037](https://github.com/vtex/faststore/commit/027003711c00854fc6679b6d469a2be13a3d0437))
+
+
+
+
+
 ## 0.373.28 (2021-08-26)
 
 
