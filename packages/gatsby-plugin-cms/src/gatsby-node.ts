@@ -96,7 +96,7 @@ export const sourceNodes = async (
   const nodes = await Promise.all([
     fetchAllRemoteNodes(gatsbyApi, options),
     fetchAllLocalNodes(gatsbyApi),
-  ]).then(([x, y]) => [...x, ...y])
+  ]).then(([x, y]) => [...x, ...y].filter(Boolean))
 
   createCmsSchemaCustomization(gatsbyApi, nodes)
 
