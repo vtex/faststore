@@ -1,3 +1,7 @@
+/**
+ * This code is inspired by the work of [sandra-lewis](https://codesandbox.io/u/sandra-lewis)
+ */
+
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 export type SliderProps = {
