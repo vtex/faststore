@@ -1,3 +1,5 @@
+import { useQuery } from '@vtex/graphql-request'
+
 const isProduction = process.env.NODE_ENV === 'production'
 
 export const gql = (_: TemplateStringsArray) => {
@@ -73,3 +75,5 @@ export const request = async <V = any, D = any>(
 
   return response.json()
 }
+
+export { useQuery }

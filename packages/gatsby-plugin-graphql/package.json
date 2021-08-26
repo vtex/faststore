@@ -37,6 +37,7 @@
     "@graphql-codegen/typescript": "^1.17.7",
     "@graphql-codegen/typescript-operations": "^1.17.7",
     "@graphql-tools/relay-operation-optimizer": "^6.0.15",
+    "@vtex/graphql-request": "file:/Users/mairatabello/dev/vtex/faststore/packages/graphql-request",
     "fs-extra": "^9.0.1"
   }
 }
