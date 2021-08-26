@@ -42,6 +42,9 @@ export type { SearchInputProps } from './molecules/SearchInput'
 export { default as Carousel } from './molecules/Carousel'
 export type { CarouselProps } from './molecules/Carousel'
 
+export { default as IconButton } from './molecules/IconButton'
+export type { IconButtonProps } from './molecules/IconButton'
+
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
 export type {

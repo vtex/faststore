@@ -1,0 +1,11 @@
+[data-store-icon-button] {
+  @apply inline-flex;
+}
+
+.iconButton {
+  @apply text-black inline-flex bg-transparent cursor-pointer rounded-full p-2 transition-colors duration-150 ease-in;
+}
+
+.iconButton:hover {
+  @apply bg-gray-400 bg-opacity-40;
+}

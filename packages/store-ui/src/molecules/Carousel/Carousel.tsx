@@ -2,12 +2,11 @@ import type { PropsWithChildren } from 'react'
 import React, { useMemo } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
-import Button from '../../atoms/Button'
-import Icon from '../../atoms/Icon'
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
 import useSlider from '../../hooks/useSlider/useSlider'
 import useSlideVisibility from './hooks/useSlideVisibility'
 import Bullets from '../Bullets'
+import IconButton from '../IconButton'
 
 const createTransformValues = (infinite: boolean, totalItems: number) => {
   const transformMap: Record<number, number> = {}
@@ -155,7 +154,7 @@ function Carousel({
 
       {showNavigationArrows && (
         <div data-carousel-controls>
-          <Button
+          <IconButton
             data-left-arrow
             aria-controls={id}
             aria-label="previous"
@@ -166,10 +165,9 @@ function Carousel({
 
               slide('previous', sliderDispatch)
             }}
-          >
-            <Icon component={<LeftArrowIcon />} />
-          </Button>
-          <Button
+            icon={<LeftArrowIcon />}
+          />
+          <IconButton
             data-right-arrow
             aria-controls={id}
             aria-label="next"
@@ -180,9 +178,8 @@ function Carousel({
 
               slide('next', sliderDispatch)
             }}
-          >
-            <Icon component={<RightArrowIcon />} />
-          </Button>
+            icon={<RightArrowIcon />}
+          />
         </div>
       )}
 
