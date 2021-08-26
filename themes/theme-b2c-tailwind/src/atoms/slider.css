@@ -43,11 +43,11 @@
 }
 
 [data-store-slider-thumb='left']::-webkit-slider-thumb {
-  @apply -ml-1;
+  @apply -ml-2;
 }
 
 [data-store-slider-thumb='right']::-webkit-slider-thumb {
-  @apply -mr-1;
+  @apply -mr-2;
 }
 
 /* For Firefox browsers */
