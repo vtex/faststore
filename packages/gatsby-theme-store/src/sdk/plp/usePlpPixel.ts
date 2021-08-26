@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import type { SearchParamsState } from '@vtex/store-sdk'
-import { sendAnalyticsEvent } from '@vtex/store-sdk'
+
+import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 
 interface Args {
   location: Location
@@ -42,6 +43,6 @@ export const usePlpPixelEffect = ({
       },
     ] as const
 
-    events.forEach(sendAnalyticsEvent)
+    events.forEach(sendPixelEvent)
   }, [location.href, totalCount, searchParams])
 }

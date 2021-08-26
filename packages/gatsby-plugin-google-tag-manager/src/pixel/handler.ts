@@ -1,6 +1,6 @@
-import type { AnalyticsEvent, AnalyticsEventHandler } from '@vtex/store-sdk'
+import type { PixelEvent, PixelEventHandler } from '@vtex/gatsby-theme-store'
 
-const getDataFromEvent = (event: AnalyticsEvent) => {
+const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {
     case 'vtex:pageView': {
       return {
@@ -208,7 +208,7 @@ const getDataFromEvent = (event: AnalyticsEvent) => {
   }
 }
 
-export const handler: AnalyticsEventHandler = (event) => {
+export const handler: PixelEventHandler = (event) => {
   const data = getDataFromEvent(event)
 
   if (data) {

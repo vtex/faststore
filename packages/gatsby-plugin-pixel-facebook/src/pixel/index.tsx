@@ -1,7 +1,6 @@
 import React, { Fragment, useMemo } from 'react'
 import type { FC } from 'react'
-import { useAnalyticsEvent } from '@vtex/store-sdk'
-import { useLazyScript, once } from '@vtex/gatsby-theme-store'
+import { usePixelEvent, useLazyScript, once } from '@vtex/gatsby-theme-store'
 
 import type { FBPixelProviderProps } from './types'
 import { handler } from './handler'
@@ -60,7 +59,7 @@ const Provider: FC<FBPixelProviderProps> = ({
     })
 
     // Register Pixel event handler
-    useAnalyticsEvent(handler)
+    usePixelEvent(handler)
   }
 
   return <Fragment>{children}</Fragment>

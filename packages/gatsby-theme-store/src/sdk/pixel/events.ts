@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
-import type { AnalyticsProduct } from '@vtex/store-sdk'
 
+import type { OrderFormFragment_OrderFormFragment } from '../orderForm/controller/__generated__/OrderFormFragment_orderForm.graphql'
 import { getBestSeller } from '../product/useBestSeller'
 import { useSku } from '../product/useSku'
 
-export function minimalToAnalyticsProduct(
+export function minimalToPixelProduct(
   product: MinimalProduct,
   sku: MinimalSKU
-): AnalyticsProduct {
+): PixelProduct {
   return {
     productId: product.id,
     productReferenceId: product.productReference,
@@ -18,37 +18,214 @@ export function minimalToAnalyticsProduct(
     skuId: sku.itemId,
     skuName: sku.name,
     skuReferenceId: sku.referenceId,
-  } as AnalyticsProduct
+  } as PixelProduct
 }
 
-export function useMinimalToAnalyticsProduct(product: MinimalProduct) {
+export function useMinimalToPixelProduct(product: MinimalProduct) {
   const [sku] = useSku(product)
 
-  return useMemo(() => minimalToAnalyticsProduct(product, sku), [product, sku])
+  return useMemo(() => minimalToPixelProduct(product, sku), [product, sku])
 }
 
-export interface CartPixelProduct extends AnalyticsProduct {
-  quantity: number
+export interface PageViewData {
+  accountName: string
+  pageTitle: string
+  pageUrl: string
+  referrer: string
+  pageType: 'home' | 'fullText' | 'pdp' | 'plp'
 }
 
-interface MinimalCommercialOffer {
-  /**
-   * Price of a seller's SKU.
-   *
-   * @type {number}
-   * @memberof MinimalCommercialOffer
-   */
+export interface UserData extends PageViewData {
+  firstName?: string
+  lastName?: string
+  document?: string
+  id?: string
+  email?: string
+  phone?: string
+  isAuthenticated: boolean
+}
+
+export interface CartIdData extends PageViewData {
+  cartId: string
+}
+
+export type ProductPageInfoData = PageViewData
+
+export interface CategoryViewData extends PageViewData {
+  id: string
+  name: string
+}
+
+export interface DepartmentViewData extends PageViewData {
+  id: string
+  name: string
+}
+
+export interface InternalSiteSearchViewData extends PageViewData {
+  term: string
+  results: number
+}
+
+export interface AddToCartData {
+  products: CartPixelProduct[]
+  oneClickBuy?: boolean
+}
+
+export interface RemoveFromCartData {
+  products: CartPixelProduct[]
+}
+
+export interface CartChangedData {
+  items: OrderFormFragment_OrderFormFragment['items']
+}
+
+export type OrderPlacedData = Order
+
+export type OrderPlacedTrackedData = Order
+
+export interface ProductViewData {
+  product: any
+}
+
+export interface ProductClickData {
+  pageType: PageType
+  term?: string | undefined | null
+  position?: number | undefined | null
+  product: PixelProduct
+}
+
+export interface ProductImpressionData {
+  impressions: Impression[]
+  product?: any // deprecated, use impressions list!
+  position?: number // deprecated, use impressions list!
+  list: string
+}
+
+export interface CartLoadedData {
+  orderForm: OrderFormFragment_OrderFormFragment
+}
+
+interface Order {
+  accountName: string
+  corporateName: string
+  coupon: string
+  currency: string
+  openTextField: string
+  orderGroup: string
+  salesChannel: string
+  visitorAddressCity: string
+  visitorAddressComplement: string
+  visitorAddressCountry: string
+  visitorAddressNeighborhood: string
+  visitorAddressNumber: string
+  visitorAddressPostalCode: string
+  visitorAddressState: string
+  visitorAddressStreet: string
+  visitorContactInfo: string[]
+  visitorContactPhone: string
+  visitorType: string
+  transactionId: string
+  transactionDate: string
+  transactionAffiliation: string
+  transactionTotal: number
+  transactionShipping: number
+  transactionSubtotal: number
+  transactionDiscounts: number
+  transactionTax: number
+  transactionCurrency: string
+  transactionPaymentType: PaymentType[]
+  transactionShippingMethod: ShippingMethod[]
+  transactionLatestShippingEstimate: Date
+  transactionProducts: ProductOrder[]
+  transactionPayment: {
+    id: string
+  }
+}
+
+interface Impression {
+  product: any
+  position: number
+}
+
+interface PaymentType {
+  group: string
+  paymentSystemName: string
+  installments: number
+  value: number
+}
+
+interface ShippingMethod {
+  itemId: string
+  selectedSla: string
+}
+
+export interface ProductOrder {
+  id: string
+  name: string
+  sku: string
+  skuRefId: string
+  skuName: string
+  productRefId: string
+  ean: string
+  slug: string
+  brand: string
+  brandId: string
+  seller: string
+  sellerId: string
+  category: string
+  categoryId: string
+  categoryTree: string[]
+  categoryIdTree: string[]
+  priceTags: PriceTag[]
+  originalPrice: number
   price: number
+  sellingPrice: number
+  tax: number
+  quantity: number
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  components: any[]
+  measurementUnit: string
+  unitMultiplier: number
+}
+
+interface PriceTag {
+  identifier: string
+  isPercentual: boolean
+  value: number
+}
+
+export interface PixelProduct {
+  productId: string
+  productReferenceId: Maybe<string>
+  productName: string
+  brand: string
+  categoryTree: Array<{ name: string }>
+  price: number
+  // TODO currencyCode
+  skuId: string
+  skuName: string
+  skuReferenceId: Maybe<Array<{ value: Maybe<string> }>>
+}
+
+export interface CartPixelProduct extends PixelProduct {
+  quantity: number
 }
 
 interface MinimalSeller {
   /**
    * Seller's commercial offer. It contains price and availability information.
    *
-   * @type {MinimalCommercialOffer}
-   * @memberof MinimalSeller
+   * @type {object}
+   * @memberof Seller
    */
-  commercialOffer: MinimalCommercialOffer
+  commercialOffer: {
+    /**
+     * Price of a seller's SKU.
+     *
+     * @type {number}
+     */
+    price: number
+  }
 }
 
 export interface MinimalSKU {
@@ -56,28 +233,28 @@ export interface MinimalSKU {
    * SKU id.
    *
    * @type {string}
-   * @memberof MinimalSKU
+   * @memberof SKU
    */
   itemId: string
   /**
    * SKU sellers.
    *
    * @type {MinimalSeller[]}
-   * @memberof MinimalSKU
+   * @memberof SKU
    */
   sellers: MinimalSeller[]
   /**
    * SKU reference id. May be an array of objects with possibly `null` value properties.
    *
-   * @type {Array<{ value: string | null | undefined }> | null | undefined}
-   * @memberof MinimalSKU
+   * @type {Maybe<Array<{ value: Maybe<string> }>>}
+   * @memberof SKU
    */
-  referenceId: Array<{ value: string | null | undefined }> | null | undefined
+  referenceId: Maybe<Array<{ value: Maybe<string> }>>
   /**
    * SKU name. Doesn't include the product name.
    *
    * @type {string}
-   * @memberof MinimalSKU
+   * @memberof SKU
    */
   name: string
 }
@@ -87,37 +264,37 @@ export interface MinimalProduct {
    * Product id.
    *
    * @type {string}
-   * @memberof MinimalProduct
+   * @memberof Product
    */
   id: string
   /**
    * Product name. Doesn't include the SKU name.
    *
    * @type {string}
-   * @memberof MinimalProduct
+   * @memberof Product
    */
   productName: string
   /**
    * Product brand.
    *
    * @type {string}
-   * @memberof MinimalProduct
+   * @memberof Product
    */
   brand: string
   /**
    * Product's category tree. Each category must have a name.
    *
    * @type {Array<{ name: string }>}
-   * @memberof MinimalProduct
+   * @memberof Product
    */
   categoryTree: Array<{ name: string }>
   /**
    * Product reference id.
    *
-   * @type {string | null | undefined}
-   * @memberof MinimalProduct
+   * @type {Maybe<string>}
+   * @memberof Product
    */
-  productReference: string | null | undefined
+  productReference: Maybe<string>
   /**
    * Product's SKU list.
    *

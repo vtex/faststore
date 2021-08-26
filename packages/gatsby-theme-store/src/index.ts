@@ -90,6 +90,13 @@ export { setRegion } from './sdk/region/setRegion'
 
 export { useToast } from './sdk/toast/useToast'
 
+export {
+  usePixelSendEvent,
+  sendPixelEvent,
+} from './sdk/pixel/usePixelSendEvent'
+export { usePixelEvent } from './sdk/pixel/usePixelEvent'
+export type { PixelEvent } from './sdk/pixel/pixel'
+export type { PixelEventHandler } from './sdk/pixel/usePixelEvent'
 export * from './sdk/pixel/events'
 
 export { once } from './sdk/once'
