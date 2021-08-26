@@ -6937,6 +6937,11 @@
   resolved "https://registry.yarnpkg.com/@vtex-components/drawer/-/drawer-0.2.4.tgz#682e627135c8f6cb134ffcc6661206163de6d7e8"
   integrity sha512-bv39LunQ9q+mtMN9eGzZSfRUx8VgJkOrMr5LDt8kdlA1+NemohiROTshj0RUwLGxCD6HcOOsQE25imIklKc1FQ==
 
+"@vtex/graphql-api@file:packages/graphql-api":
+  version "0.0.0"
+  dependencies:
+    axios "^0.21.1"
+
 "@vtex/order-items@^0.6.3":
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/@vtex/order-items/-/order-items-0.6.3.tgz#cf21ff9df864b08dd49e7fff90f4a99dc5afbdc2"
