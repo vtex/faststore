@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.30 (2021-08-27)
+
+
+### Bug Fixes
+
+* move pixel back to gatsby-theme-store ([#922](https://github.com/vtex/faststore/issues/922)) ([58de70d](https://github.com/vtex/faststore/commit/58de70d943aec36883384a0d6545ad7ab7d8f6bb))
+
+
+
+
+
 ## 0.373.29 (2021-08-26)
 
 
