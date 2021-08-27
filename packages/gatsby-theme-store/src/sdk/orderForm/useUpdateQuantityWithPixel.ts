@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { sendAnalyticsEvent } from '@vtex/store-sdk'
 
+import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 import type { CartPixelProduct } from '../pixel/events'
 
 export interface UpdateQuantityWithPixelParams<T, R> {
@@ -74,7 +74,7 @@ export function updateQuantityWithPixel<T, R>({
       quantity: Math.abs(quantityDelta),
     })
 
-    sendAnalyticsEvent({
+    sendPixelEvent({
       type: quantityDelta > 0 ? 'vtex:addToCart' : 'vtex:removeFromCart',
       data: {
         products: [pixelEventProduct],

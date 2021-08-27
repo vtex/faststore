@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { sendAnalyticsEvent } from '@vtex/store-sdk'
+
+import { sendPixelEvent } from '../pixel/usePixelSendEvent'
 
 export interface Options<P> {
   product?: P
@@ -28,5 +29,5 @@ export const useProductPixel = <P extends { id: string }>({
       },
     ] as const
 
-    events.forEach(sendAnalyticsEvent)
+    events.forEach(sendPixelEvent)
   }, [product])

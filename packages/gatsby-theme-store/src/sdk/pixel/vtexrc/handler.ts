@@ -1,6 +1,7 @@
-import type { AnalyticsEventHandler, AnalyticsEvent } from '@vtex/store-sdk'
+import type { PixelEventHandler } from '../usePixelEvent'
+import type { PixelEvent } from '../pixel'
 
-const getDataFromEvent = (event: AnalyticsEvent) => {
+const getDataFromEvent = (event: PixelEvent) => {
   switch (event.type) {
     case 'vtex:pageView': {
       if (event.data.pageType === 'home') {
@@ -34,7 +35,7 @@ const getDataFromEvent = (event: AnalyticsEvent) => {
   }
 }
 
-export const handler: AnalyticsEventHandler = (event) => {
+export const handler: PixelEventHandler = (event) => {
   const data = getDataFromEvent(event)
 
   if (data) {
