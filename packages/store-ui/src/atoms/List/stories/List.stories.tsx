@@ -33,7 +33,7 @@ const DescriptionListTemplate: Story<DescriptionListStoryProps> = ({
   )
 }
 
-export const List = ListTemplate.bind({})
+export const DefaultList = ListTemplate.bind({})
 
 export const DescriptionList = DescriptionListTemplate.bind({})
 DescriptionList.args = {
