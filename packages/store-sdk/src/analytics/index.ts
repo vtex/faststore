@@ -1,52 +1,72 @@
-import type {
-  ProductViewData,
-  ProductClickData,
-  ProductImpressionData,
-  CategoryViewData,
-  DepartmentViewData,
-  InternalSiteSearchViewData,
-  PageViewData,
-  AddToCartData,
-  CartLoadedData,
-  UserData,
-  RemoveFromCartData,
-  OrderPlacedData,
-} from './events'
+import type { ShareEvent } from './events/share'
+import type { SearchEvent } from './events/search'
+import type { SignupEvent } from './events/signup'
+import type { LoginEvent } from './events/login'
+import type { RefundEvent } from './events/refund'
+import type { PurchaseEvent } from './events/purchase'
+import type { AddShippingInfoEvent } from './events/add_shipping_info'
+import type { AddPaymentInfoEvent } from './events/add_payment_info'
+import type { BeginCheckoutEvent } from './events/begin_checkout'
+import type { ViewCartEvent } from './events/view_cart'
+import type { RemoveFromCartEvent } from './events/remove_from_cart'
+import type { AddToCartEvent } from './events/add_to_cart'
+import type { SelectItemEvent } from './events/select_item'
+import type { AddToWishlistEvent } from './events/add_to_wishlist'
+import type { SelectPromotionEvent } from './events/select_promotion'
+import type { ViewPromotionEvent } from './events/view_promotion'
+import type { ViewItemEvent } from './events/view_item'
+import type { ViewItemListEvent } from './events/view_item_list'
 
+/**
+ * All these events are based on the official GA4 docs. https://developers.google.com/gtagjs/reference/ga4-events
+ */
 export type AnalyticsEvent =
-  | { type: 'vtex:productView'; data: ProductViewData }
-  | { type: 'vtex:productClick'; data: ProductClickData }
-  | { type: 'vtex:productImpression'; data: ProductImpressionData }
-  | { type: 'vtex:categoryView'; data: CategoryViewData }
-  | { type: 'vtex:departmentView'; data: DepartmentViewData }
-  | { type: 'vtex:internalSiteSearchView'; data: InternalSiteSearchViewData }
-  | { type: 'vtex:pageView'; data: PageViewData }
-  | { type: 'vtex:cartLoaded'; data: CartLoadedData }
-  | { type: 'vtex:addToCart'; data: AddToCartData }
-  | { type: 'vtex:removeFromCart'; data: RemoveFromCartData }
-  | { type: 'vtex:orderPlaced'; data: OrderPlacedData }
-  | { type: 'vtex:otherView'; data: any }
-  | { type: 'vtex:pageInfo'; data: any }
-  | { type: 'vtex:cart'; data: any }
-  | { type: 'vtex:checkout'; data: any }
-  | { type: 'vtex:checkoutOption'; data: any }
-  | { type: 'vtex:sendPayments'; data: any }
-  | { type: 'vtex:finishPayment'; data: any }
-  | { type: 'vtex:pageComponentInteraction'; data: any }
-  | { type: 'vtex:installWebApp'; data: any }
-  | { type: 'vtex:openDrawer'; data: any }
-  | { type: 'vtex:userData'; data: UserData }
+  | ViewItemListEvent
+  | ViewItemEvent
+  | SelectItemEvent
+  | ViewPromotionEvent
+  | SelectPromotionEvent
+  | AddToWishlistEvent
+  | AddToCartEvent
+  | RemoveFromCartEvent
+  | ViewCartEvent
+  | BeginCheckoutEvent
+  | AddPaymentInfoEvent
+  | AddShippingInfoEvent
+  | PurchaseEvent
+  | RefundEvent
+  | SearchEvent
+  | LoginEvent
+  | SignupEvent
+  | ShareEvent
 
-type WrappedAnalyticsEvent = { type: 'AnalyticsEvent'; data: AnalyticsEvent }
+export type WrappedAnalyticsEvent<T extends AnalyticsEvent> = {
+  type: 'AnalyticsEvent'
+  data: T
+}
 
-export const wrap = (event: AnalyticsEvent): WrappedAnalyticsEvent => ({
+export const STORE_EVENT_PREFIX = 'store:'
+
+export const wrap = <T extends AnalyticsEvent>(
+  event: T
+): WrappedAnalyticsEvent<T> => ({
   type: 'AnalyticsEvent',
-  data: event,
+  data: {
+    ...event,
+    type: `${STORE_EVENT_PREFIX}${event.type}`,
+  },
 })
 
-export const unwrap = (event: any) => {
+export const unwrap = <T extends AnalyticsEvent>(
+  event: WrappedAnalyticsEvent<T>
+) => {
   if (event.type === 'AnalyticsEvent') {
-    return (event as WrappedAnalyticsEvent).data
+    return {
+      ...event.data,
+      type: event.type.startsWith(STORE_EVENT_PREFIX)
+        ? event.type.slice(STORE_EVENT_PREFIX.length, event.type.length)
+        : event.type,
+    }
   }
 
   return null

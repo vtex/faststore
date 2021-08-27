@@ -25,6 +25,10 @@ const MyStoreComponent: FC = () => {
 }
 ```
 
+## Analytics
+
+The analytics data layer is based on [the official GA4 specification](https://developers.google.com/gtagjs/reference/ga4-events).
+
 ## License
 
 MIT © [VTEX](https://github.com/vtex/faststore)
