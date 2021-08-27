@@ -6,7 +6,7 @@ import List from './List'
 const optionsArray = ['Great', 'Ok', 'Bad']
 
 describe('List', () => {
-  it('`data-store-List` is present', () => {
+  it('`data-store-list` is present', () => {
     const { getByTestId } = render(
       <List testId="store-list">
         {optionsArray.map((value) => {
@@ -15,7 +15,7 @@ describe('List', () => {
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-store-list-default')
+    expect(getByTestId('store-list')).toHaveAttribute('data-store-list')
   })
 
   it('List is empty when no options are given', () => {
@@ -33,7 +33,10 @@ describe('List', () => {
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-store-list-ordered')
+    expect(getByTestId('store-list')).toHaveAttribute(
+      'data-store-list',
+      'ordered'
+    )
   })
 
   it('List is unordered', () => {

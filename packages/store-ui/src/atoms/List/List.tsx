@@ -43,12 +43,14 @@ export const List = forwardRef<HTMLElement, ListProps>(function List(
   },
   ref
 ) {
-  const props = {
-    [`data-store-list-${variant}`]: true,
-    ...rawProps,
-  }
-
-  return <Component ref={ref} data-testid={testId} {...props} />
+  return (
+    <Component
+      ref={ref}
+      data-store-list={variant}
+      data-testid={testId}
+      {...rawProps}
+    />
+  )
 })
 
 export default List
