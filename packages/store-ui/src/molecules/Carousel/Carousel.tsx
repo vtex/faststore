@@ -155,7 +155,7 @@ function Carousel({
       {showNavigationArrows && (
         <div data-carousel-controls>
           <IconButton
-            data-left-arrow
+            data-arrow="left"
             aria-controls={id}
             aria-label="previous"
             onClick={() => {
@@ -168,7 +168,7 @@ function Carousel({
             icon={<LeftArrowIcon />}
           />
           <IconButton
-            data-right-arrow
+            data-arrow="right"
             aria-controls={id}
             aria-label="next"
             onClick={() => {

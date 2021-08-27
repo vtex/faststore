@@ -2,18 +2,27 @@ import { Story, Canvas, ArgsTable } from '@storybook/addon-docs'
 import SearchInput from '../SearchInput'
 import CustomIcon from './assets/CustomIcon'
 
-# Default
+# Search Input
+
+## Default
 
 <Canvas>
   <Story id="molecules-searchinput--default" />
 </Canvas>
 
-# With custom icon
+## With custom icon
 
 <Canvas>
   <Story id="molecules-searchinput--custom-icon" />
 </Canvas>
 
-# Props
+## Props
 
 <ArgsTable of={SearchInput} />
+
+## CSS Selectors
+```css
+[data-store-search-input] {}
+```
+
+This component inherits [Input](?path=/docs/atoms-input--input#css-selectors), [Button](?path=/docs/atoms-button--button#css-selectors), [Icon](?path=/docs/atoms-icon--icon#css-selectors) css selectors.

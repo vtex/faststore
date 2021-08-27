@@ -2,12 +2,24 @@ import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
 
 import Bullets from '../Bullets'
 
-# Default
+# Bullets
 
 <Canvas>
   <Story id="molecules-bullets--bullets" />
 </Canvas>
 
-# Props
+## Props
 
 <ArgsTable of={Bullets} />
+
+## CSS Selectors
+
+```css
+[data-store-bullets] {}
+
+[data-bullet-item] {}
+
+[data-active] {}
+```
+
+This component inherits [Button](?path=/docs/atoms-button--button#css-selectors) css selectors.

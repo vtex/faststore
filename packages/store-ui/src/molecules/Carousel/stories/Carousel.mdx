@@ -2,12 +2,32 @@ import { Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 
 import Carousel from '../Carousel'
 
-# Default
+# Carousel
 
 <Canvas>
   <Story id="molecules-carousel--carousel" />
 </Canvas>
 
-# Props
+## Props
 
 <ArgsTable of={Carousel} />
+
+## CSS Selectors
+
+```css
+[data-store-carousel] {}
+
+[data-carousel-track-container] {}
+
+[data-carousel-track] {}
+
+[data-carousel-item] {}
+
+[data-carousel-controls] {}
+
+[data-arrow="left|right"] {}
+
+[data-carousel-bullets] {}
+```
+
+This components inherits [IconButton](?path=/docs/molecules-iconbutton--default#css-selectors), [Bullets](?path=/docs/molecules-bullets--bullets#css-selectors) css selectors.

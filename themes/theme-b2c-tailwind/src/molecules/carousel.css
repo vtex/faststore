@@ -6,14 +6,14 @@
   @apply absolute bottom-0 w-full flex justify-center;
 }
 
-[data-store-button][data-left-arrow], [data-store-button][data-right-arrow]  {
+[data-store-button][data-arrow] {
   @apply bg-transparent absolute text-black;
 }
 
-[data-left-arrow] {
+[data-arrow="left"] {
   @apply left-0;
 }
 
-[data-right-arrow] {
+[data-arrow="right"] {
   @apply right-0;
 }
