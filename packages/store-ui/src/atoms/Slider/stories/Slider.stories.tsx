@@ -19,10 +19,6 @@ const argTypes: ComponentArgTypes<SliderProps> = {
     control: { type: 'text' },
     defaultValue: '500',
   },
-  showValues: {
-    control: { type: 'boolean' },
-    defaultValue: true,
-  },
 }
 
 export default {
