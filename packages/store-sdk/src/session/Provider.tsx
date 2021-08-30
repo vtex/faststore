@@ -1,7 +1,7 @@
 import React, { createContext, useMemo } from 'react'
 import type { FC } from 'react'
 
-import { useStorage } from '../storage/useStorage'
+import { useStorage } from 'storage/useStorage'
 
 export interface Currency {
   code: string // Ex: USD
