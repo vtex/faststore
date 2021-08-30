@@ -88,11 +88,17 @@ export {
   Context as SessionContext,
 } from './session/Provider'
 export type {
-  InitialState as SessionInitialState,
+  Session,
   Currency as SessionCurrency,
   User as SessionUser,
 } from './session/Provider'
 export { useSession } from './session/useSession'
+
+// Cart
+export { Provider as CartProvider } from './cart/Provider'
+export { useCart } from './cart/useCart'
+export type { Item as CartItem } from './cart/Cart'
+export type { Cart } from './cart/Optimistic'
 
 // Storage
 export { useStorage } from './storage/useStorage'
