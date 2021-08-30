@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.33 (2021-08-30)
+
+
+### Features
+
+* **store-ui:** slider ([#917](https://github.com/vtex/faststore/issues/917)) ([15a5f82](https://github.com/vtex/faststore/commit/15a5f826f3ad0054934c5092a2def4cd8d2a7c3c))
+
+
+
+
+
 ## 0.373.32 (2021-08-27)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-performance
