@@ -1,4 +1,4 @@
-import { SDKError } from '../utils/error'
+import { SDKError } from 'utils/error'
 import type { Facet, SearchParamsState, SearchSort } from './state'
 
 const sortKeys = new Set<SearchSort>([
