@@ -1,5 +1,5 @@
 [data-store-slider] {
-  @apply bg-gray-200 rounded-full relative h-2 w-full m-2;
+  @apply bg-gray-200 rounded-full relative h-2 w-full;
 }
 
 [data-store-slider-range] {
@@ -36,10 +36,6 @@
 
 [data-store-slider-thumb='left']::-webkit-slider-thumb {
   @apply -ml-2;
-}
-
-[data-store-slider-thumb='right']::-webkit-slider-thumb {
-  @apply -mr-2;
 }
 
 /* For Firefox browsers */
