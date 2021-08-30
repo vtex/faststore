@@ -107,7 +107,6 @@ const Slider = ({
             minValRef.current = value
           }}
           data-store-slider-thumb="left"
-          style={{ zIndex: minVal > max - 100 ? 5 : 'auto' }}
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={minVal}
