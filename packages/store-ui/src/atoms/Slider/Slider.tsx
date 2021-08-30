@@ -14,12 +14,6 @@ export type SliderProps = {
    */
   max: number
   /**
-   * Show selected values.
-   *
-   * @default true
-   */
-  showValues?: boolean
-  /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    *
    * @default 'store-slider'
@@ -44,7 +38,6 @@ const Slider = ({
   max,
   onChange,
   testId = 'store-slider',
-  showValues = true,
   ariaLabel,
   getAriaValueText,
 }: SliderProps) => {
@@ -93,55 +86,47 @@ const Slider = ({
       // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
       role="slider"
     >
-      <div data-store-slider-range>
-        <div ref={range} data-store-slider-track />
-        <input
-          type="range"
-          min={min}
-          max={max}
-          value={minVal}
-          onChange={(event) => {
-            const value = Math.min(Number(event.target.value), maxVal - 1)
+      <div ref={range} data-store-slider-range />
+      <input
+        type="range"
+        min={min}
+        max={max}
+        value={minVal}
+        onChange={(event) => {
+          const value = Math.min(Number(event.target.value), maxVal - 1)
 
-            setMinVal(value)
-            minValRef.current = value
-          }}
-          data-store-slider-thumb="left"
-          aria-valuemin={min}
-          aria-valuemax={max}
-          aria-valuenow={minVal}
-          aria-label={String(minVal)}
-          aria-labelledby={
-            getAriaValueText ? getAriaValueText(minVal, 'min') : undefined
-          }
-        />
-        <input
-          type="range"
-          min={min}
-          max={max}
-          value={maxVal}
-          onChange={(event) => {
-            const value = Math.max(Number(event.target.value), minVal + 1)
+          setMinVal(value)
+          minValRef.current = value
+        }}
+        data-store-slider-thumb="left"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={minVal}
+        aria-label={String(minVal)}
+        aria-labelledby={
+          getAriaValueText ? getAriaValueText(minVal, 'min') : undefined
+        }
+      />
+      <input
+        type="range"
+        min={min}
+        max={max}
+        value={maxVal}
+        onChange={(event) => {
+          const value = Math.max(Number(event.target.value), minVal + 1)
 
-            setMaxVal(value)
-            maxValRef.current = value
-          }}
-          data-store-slider-thumb="right"
-          aria-valuemin={min}
-          aria-valuemax={max}
-          aria-valuenow={maxVal}
-          aria-label={String(maxVal)}
-          aria-labelledby={
-            getAriaValueText ? getAriaValueText(maxVal, 'max') : undefined
-          }
-        />
-      </div>
-      {showValues && (
-        <div data-store-slider-values>
-          <div data-store-slider-value="min">{minVal}</div>
-          <div data-store-slider-value="max">{maxVal}</div>
-        </div>
-      )}
+          setMaxVal(value)
+          maxValRef.current = value
+        }}
+        data-store-slider-thumb="right"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={maxVal}
+        aria-label={String(maxVal)}
+        aria-labelledby={
+          getAriaValueText ? getAriaValueText(maxVal, 'max') : undefined
+        }
+      />
     </div>
   )
 }
