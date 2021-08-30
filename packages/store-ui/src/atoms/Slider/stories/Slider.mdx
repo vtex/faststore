@@ -1,0 +1,29 @@
+import { Story, Canvas, ArgsTable } from '@storybook/addon-docs'
+import Slider from '../Slider'
+
+# Slider
+
+<Canvas>
+  <Story id="atoms-slider--slider" />
+</Canvas>
+
+# Props
+
+<ArgsTable of={Slider} />
+
+# CSS Selectors
+
+```css
+[data-store-slider] {
+}
+[data-store-slider-range] {
+}
+[data-store-slider-thumb='(left|right)'] {
+}
+```
+
+# TODO
+
+- [ ] [Keyboard Interaction](https://www.w3.org/TR/wai-aria-practices-1.2/#slidertwothumb_kbd_interaction)
+- [ ] More test cases
+- [ ] Support to orientation

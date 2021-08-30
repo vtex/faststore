@@ -1,0 +1,46 @@
+[data-store-slider] {
+  @apply bg-gray-200 rounded-full relative h-2 w-full;
+}
+
+[data-store-slider-range] {
+  @apply bg-blue-500 absolute;
+  height: inherit;
+}
+
+/* Removing the default appearance */
+[data-store-slider-thumb],
+[data-store-slider-thumb]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+[data-store-slider-thumb] {
+  @apply pointer-events-none h-0 outline-none absolute;
+  width: inherit;
+}
+
+[data-store-slider-thumb='left'] {
+  @apply z-10;
+}
+
+[data-store-slider-thumb='right'] {
+  @apply z-20;
+}
+
+/* For Chrome browsers */
+[data-store-slider-thumb]::-webkit-slider-thumb {
+  @apply bg-gray-100 border-none rounded-full pointer-events-auto h-4 w-4 relative mt-1;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: col-resize;
+}
+
+[data-store-slider-thumb='left']::-webkit-slider-thumb {
+  @apply -ml-2;
+}
+
+/* For Firefox browsers */
+[data-store-slider-thumb]::-moz-range-thumb {
+  @apply bg-gray-100 border-none rounded-full pointer-events-auto h-4 w-4 relative mt-1;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: col-resize;
+}
