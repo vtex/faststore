@@ -26,7 +26,6 @@ const argTypes: ComponentArgTypes<InputProps> = {
 
 export default {
   title: 'Atoms/Input',
-  component: Input,
   argTypes,
   parameters: {
     docs: {

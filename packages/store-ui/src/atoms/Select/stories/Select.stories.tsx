@@ -6,7 +6,8 @@ import type { SelectProps } from '../Select'
 import Component from '../Select'
 import mdx from './Select.mdx'
 
-const SelectTemplate: Story<SelectProps> = ({ options, ...props }) => {
+type SelectStoryProps = SelectProps & { options: string[][] }
+const SelectTemplate: Story<SelectStoryProps> = ({ options, ...props }) => {
   return (
     <Component {...props}>
       {options.map(([value, label]) => {
@@ -37,7 +38,7 @@ BaseValueSelect.args = {
   defaultValue: 'ok',
 }
 
-const argTypes: ComponentArgTypes<SelectProps> = {
+const argTypes: ComponentArgTypes<SelectStoryProps> = {
   options: {
     control: { type: 'array' },
     defaultValue: [

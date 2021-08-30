@@ -15,7 +15,6 @@ const PriceTemplate: Story<PriceProps> = ({ value, variant }) => (
 export const Default = PriceTemplate.bind({})
 Default.args = {
   value: priceValue,
-  variant: 'listing',
 }
 
 const INTLFormattedTemplate: Story<PriceProps> = ({ value, variant }) => {

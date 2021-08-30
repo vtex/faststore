@@ -10,8 +10,8 @@ const TextAreaTemplate: Story<TextAreaProps> = (props) => (
   <Component {...props} />
 )
 
-export const TextArea = TextAreaTemplate.bind({})
-TextArea.args = {
+export const Textarea = TextAreaTemplate.bind({})
+Textarea.args = {
   defaultValue: 'Write something here',
 }
 
@@ -36,8 +36,7 @@ const actions: ComponentArgTypes<TextAreaProps> = {
 }
 
 export default {
-  title: 'Atoms/TextArea',
-  component: TextArea,
+  title: 'Atoms/Textarea',
   argTypes: {
     ...controls,
     ...actions,

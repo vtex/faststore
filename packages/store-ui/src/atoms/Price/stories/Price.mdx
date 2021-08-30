@@ -1,43 +1,55 @@
 import { Story, Canvas, ArgsTable } from '@storybook/addon-docs'
 import Price from '../Price'
 
-# Default
+# Price
+
+## Default
 
 <Canvas>
   <Story id="atoms-price--default" />
 </Canvas>
 
-# INTL Formatted
+## INTL Formatted
 
 <Canvas>
   <Story id="atoms-price--intl-formatted" />
 </Canvas>
 
-# INTL Formatted to parts
+## INTL Formatted to parts
 
 <Canvas>
   <Story id="atoms-price--intl-formatted-to-parts" />
 </Canvas>
 
-# Variant
-
-<Canvas>
-  <Story id="atoms-price--variant" />
-</Canvas>
-
-# Custom
+## Custom
 
 <Canvas>
   <Story id="atoms-price--custom" />
 </Canvas>
 
-# Props
+## Props
 
 <ArgsTable of={Price} />
 
+## CSS Selectors
+
+```css
+[data-store-price] {}
+
+[data-selling] {}
+
+[data-listing] {}
+
+[data-spot] {}
+
+[data-savings] {}
+
+[data-installment] {}
+```
+
 ### Formatter function example
 
-``` jsx
+```jsx
 function customFormatter(price: number) {
   const unformattedPrice = `${price}`
   const formattedPrice = `${unformattedPrice.replace('.', ',')} reais`
