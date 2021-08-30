@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.34 (2021-08-30)
+
+
+### Features
+
+* **store-ui:** price range ([#924](https://github.com/vtex/faststore/issues/924)) ([e5c5d9a](https://github.com/vtex/faststore/commit/e5c5d9aade59d91aead75af6a09d7db3cc67348e))
+
+
+
+
+
 ## 0.373.33 (2021-08-30)
 
 

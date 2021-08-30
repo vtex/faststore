@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-google-tag-manager",
-  "version": "0.373.33",
+  "version": "0.373.34",
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",
@@ -22,8 +22,8 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@vtex/gatsby-theme-store": "^0.373.33",
-    "@vtex/store-sdk": "^0.373.33",
+    "@vtex/gatsby-theme-store": "^0.373.34",
+    "@vtex/store-sdk": "^0.373.34",
     "cross-env": "^7.0.2",
     "gatsby": "^3.11.1",
     "typescript": "^4.2.4"
