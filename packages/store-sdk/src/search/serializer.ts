@@ -1,4 +1,4 @@
-import { SDKError } from '../utils/error'
+import { SDKError } from 'utils/error'
 import { setSearchParam } from './reducer'
 import { initialize } from './state'
 import type { SearchParamsState } from './state'
