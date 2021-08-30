@@ -12,12 +12,12 @@ export const Slider = SliderTemplate.bind({})
 
 const argTypes: ComponentArgTypes<SliderProps> = {
   min: {
-    control: { type: 'text' },
-    defaultValue: '0',
+    control: { type: 'number', min: 0 },
+    defaultValue: 0,
   },
   max: {
-    control: { type: 'text' },
-    defaultValue: '500',
+    control: { type: 'number', min: 1 },
+    defaultValue: 500,
   },
 }
 
