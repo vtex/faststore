@@ -22,12 +22,12 @@ npm install @vtex/theme-b2c-tailwind
 yarn add @vtex/theme-b2c-tailwind
 ```
 
+## Usage
+
 ```tsx
-import { Slider } from '@vtex/store-ui'
+import { Button } from '@vtex/store-ui'
 import '@vtex/theme-b2c-tailwind/dist/index.css'
 ```
-
-## Usage
 
 ```tsx
 import React, { Component } from 'react'
