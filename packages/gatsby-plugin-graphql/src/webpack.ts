@@ -1,4 +1,4 @@
-import { dirname, join } from 'path'
+import { join } from 'path'
 
 import * as typeScriptPlugin from '@graphql-codegen/typescript'
 import * as typeScriptOperationsPlugin from '@graphql-codegen/typescript-operations'
