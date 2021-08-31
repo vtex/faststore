@@ -15,7 +15,7 @@ const variantToType = (variant: ListVariant) => {
       return 'ol'
 
     default:
-      return 'div'
+      return 'ul'
   }
 }
 
@@ -43,14 +43,12 @@ export const List = forwardRef<HTMLElement, ListProps>(function List(
   },
   ref
 ) {
-  return (
-    <Component
-      ref={ref}
-      data-store-list={variant}
-      data-testid={testId}
-      {...rawProps}
-    />
-  )
+  const props = {
+    [`data-store-list-${variant}`]: true,
+    ...rawProps,
+  }
+
+  return <Component ref={ref} data-testid={testId} {...props} />
 })
 
 export default List
