@@ -82,7 +82,7 @@ export class WebpackPlugin {
 
   constructor(
     public schema: GraphQLSchema,
-    public options: { schemaPath: string }
+    public options: { schemaPath: string; rootPath: string }
   ) {
     this.persistedPath = join(root, 'public', publicPath, persisted)
     this.queryInfoPath = join(root, 'public', publicPath, queryInfo)
@@ -235,12 +235,8 @@ export class WebpackPlugin {
 
         // write generated files
         await Promise.all([
-          ...operationNodes.map(async ({ value, filename: filepath, name }) => {
-            const filename = join(
-              dirname(filepath),
-              '__generated__',
-              `${name}.graphql.ts`
-            )
+          ...operationNodes.map(async ({ value, name }) => {
+            const filename = join(this.options.rootPath, `${name}.graphql.ts`)
 
             return outputFile(filename, value)
           }),
