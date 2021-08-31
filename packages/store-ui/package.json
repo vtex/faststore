@@ -43,37 +43,22 @@
   "size-limit": [
     {
       "path": "dist/store-ui.cjs.production.min.js",
-      "limit": "150 KB"
+      "limit": "10 KB"
     },
     {
       "path": "dist/store-ui.esm.js",
-      "limit": "150 KB"
+      "limit": "10 KB"
     }
   ],
   "dependencies": {
-    "@reach/popover": "^0.15.0",
-    "@reach/router": "^1.3.4",
-    "@theme-ui/match-media": "^0.3.1",
-    "@theme-ui/preset-base": "^0.3.0",
-    "@types/react-modal": "^3.12.0",
-    "@types/theme-ui__components": "^0.2.6",
-    "@vtex-components/accordion": "^0.2.4",
-    "@vtex-components/drawer": "^0.2.4",
-    "deepmerge": "^4.2.2",
-    "react-hook-inview": "^4.3.9",
-    "react-intl": "^5.18.0",
-    "react-swipeable": "^6.1.2",
-    "reakit": "^1.3.0",
-    "text-mask-core": "^5.1.2",
-    "theme-ui": "^0.3.1"
+    "@reach/popover": "^0.16.0",
+    "react-swipeable": "^6.1.2"
   },
   "peerDependencies": {
-    "gatsby-link": "^3.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.16",
     "@size-limit/preset-small-lib": "^4.11.0",
     "@storybook/addon-actions": "^6.3.7",
     "@storybook/addon-docs": "^6.3.7",
@@ -85,21 +70,14 @@
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.8",
-    "@types/react": "^17.0.11",
-    "@types/react-dom": "^17.0.7",
     "@types/testing-library__jest-dom": "^5.9.5",
-    "@types/unorm": "^1.3.28",
     "@vtex/theme-b2c-tailwind": "^0.373.36",
     "@vtex/tsconfig": "^0.5.0",
-    "babel-loader": "^8.2.2",
-    "gatsby-link": "^3.5.0",
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "^3.4.1",
     "size-limit": "^4.11.0",
     "storybook-addon-themes": "^6.1.0",
-    "ts-loader": "^8.0.1",
     "tsdx": "^0.14.1",
     "typescript": "^4.2.4"
   }
