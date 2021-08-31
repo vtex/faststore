@@ -238,6 +238,8 @@ export class WebpackPlugin {
           ...operationNodes.map(async ({ value, name }) => {
             const filename = join(this.options.rootPath, `${name}.graphql.ts`)
 
+            console.log('outputing', filename)
+
             return outputFile(filename, value)
           }),
           outputFile(this.options.schemaPath, schemaNode),

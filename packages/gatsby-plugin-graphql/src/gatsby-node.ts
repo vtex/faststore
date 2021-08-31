@@ -36,7 +36,7 @@ export const onCreateWebpackConfig = async (
   const { schema: dirtySchema } = store.getState()
   const typeDefs = parse(printSchema(dirtySchema))
   const schema = makeExecutableSchema({ typeDefs })
-  const rootPath = join(process.cwd(), options.rootPath ?? '/__generated__')
+  const rootPath = join(process.cwd(), options.rootPath ?? '__generated__')
   const schemaPath = join(
     process.cwd(),
     options.schemaPath ?? '/src/typings/schema.graphql.d.ts'
