@@ -59,3 +59,11 @@ export type {
   SliderDispatch,
   SlideDirection,
 } from './hooks/useSlider'
+
+// Generic Types
+export type {
+  PolymorphicProps,
+  PolymorphicComponentProps,
+  PolymorphicComponentPropsWithRef,
+} from './types/PolymorphicGenerics'
+

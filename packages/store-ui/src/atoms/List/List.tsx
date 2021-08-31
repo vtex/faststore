@@ -1,5 +1,7 @@
-import type { HTMLAttributes, ElementType } from 'react'
+import type { ElementType, ReactElement, ComponentPropsWithRef } from 'react'
 import React, { forwardRef } from 'react'
+
+import type { PolymorphicComponentPropsWithRef } from '../../index'
 
 export type ListVariant = 'default' | 'description' | 'ordered' | 'unordered'
 
@@ -19,34 +21,31 @@ const variantToType = (variant: ListVariant) => {
   }
 }
 
-export interface ListProps extends HTMLAttributes<HTMLElement> {
-  /**
-   * Set the HTML element tag of this component.
-   */
-  as?: ElementType
-  /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
-   */
-  testId?: string
-  /**
-   * The current use case variants for Lists.
-   */
-  variant?: ListVariant
-}
+type ListPropsPolymorphic<
+  C extends ElementType
+> = PolymorphicComponentPropsWithRef<C>
 
-export const List = forwardRef<HTMLElement, ListProps>(function List(
+type ListComponent = <C extends ElementType = 'div'>(
+  props: ListPropsPolymorphic<C>
+) => ReactElement | null
+
+export type ListProps<C extends ElementType = 'div'> = ListPropsPolymorphic<C>
+
+const List: ListComponent = forwardRef(function List<C extends ElementType>(
   {
     testId = 'store-list',
     variant = 'default',
-    as: Component = variantToType(variant),
+    as,
     ...rawProps
-  },
-  ref
+  }: ListPropsPolymorphic<C>,
+  ref: ComponentPropsWithRef<C>['ref']
 ) {
   const props = {
     [`data-store-list-${variant}`]: true,
     ...rawProps,
   }
+
+  const Component = as ?? variantToType(variant)
 
   return <Component ref={ref} data-testid={testId} {...props} />
 })

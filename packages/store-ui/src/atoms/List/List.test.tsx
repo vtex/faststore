@@ -15,7 +15,7 @@ describe('List', () => {
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-store-list')
+    expect(getByTestId('store-list')).toHaveAttribute('data-store-list-default')
   })
 
   it('List is empty when no options are given', () => {
@@ -33,10 +33,7 @@ describe('List', () => {
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute(
-      'data-store-list',
-      'ordered'
-    )
+    expect(getByTestId('store-list')).toHaveAttribute('data-store-list-ordered')
   })
 
   it('List is unordered', () => {
