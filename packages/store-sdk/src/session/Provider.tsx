@@ -12,7 +12,7 @@ export interface User {
   id: string // user id
 }
 
-interface Session {
+export interface Session {
   locale: string // en-US
   currency: Currency
   country: string // BRA
@@ -39,8 +39,6 @@ const baseInitialState: Session = {
   channel: null,
   user: null,
 }
-
-export type InitialState = Record<string, any>
 
 interface Props {
   initialState?: Partial<Session>

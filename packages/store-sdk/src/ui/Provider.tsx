@@ -86,14 +86,21 @@ export const Provider: FC<Props> = ({
     ...initialState,
   })
 
-  const value = useMemo(
+  const effectsValue = useMemo(
     () => ({
-      ...state,
       ...effects(dispatch),
       openMinicart: () => dispatch({ type: 'OPEN_MINICART' }),
       closeMinicart: () => dispatch({ type: 'CLOSE_MINICART' }),
     }),
-    [effects, state]
+    [effects]
+  )
+
+  const value = useMemo(
+    () => ({
+      ...state,
+      ...effectsValue,
+    }),
+    [effectsValue, state]
   )
 
   return <Context.Provider value={value}>{children}</Context.Provider>
