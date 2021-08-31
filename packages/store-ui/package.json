@@ -51,6 +51,7 @@
     }
   ],
   "dependencies": {
+    "@reach/popover": "^0.16.0",
     "react-swipeable": "^6.1.2"
   },
   "peerDependencies": {
