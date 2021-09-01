@@ -354,67 +354,57 @@ export const createPages = async (
   createRedirect({
     fromPath: '/api/io/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/:splat`,
-    statusCode: 200,
   })
 
   createRedirect({
     fromPath: '/api/*',
     toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
-    statusCode: 200,
   })
 
   // Use legacy checkout
   createRedirect({
     fromPath: '/checkout/*',
     toPath: `https://${tenant}.${environment}.com.br/checkout/:splat`,
-    statusCode: 200,
   })
 
   // Use Render's legacy extensions
   createRedirect({
     fromPath: '/legacy_extensions/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/legacy_extensions/:splat`,
-    statusCode: 200,
   })
 
   // Static assets checkout uses
   createRedirect({
     fromPath: '/arquivos/*',
     toPath: `https://${tenant}.vtexassets.com/arquivos/:splat`,
-    statusCode: 200,
   })
 
   createRedirect({
     fromPath: '/files/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/files/:splat`,
-    statusCode: 200,
   })
 
   // Use graphql-gateway from VTEX IO
   createRedirect({
     fromPath: '/graphql/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/graphql/:splat`,
-    statusCode: 200,
   })
 
   // Use sitemap from VTEX
   createRedirect({
     fromPath: '/sitemap.xml',
     toPath: `https://${workspace}--${tenant}.myvtex.com/sitemap.xml`,
-    statusCode: 200,
   })
 
   createRedirect({
     fromPath: '/sitemap/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/sitemap/:splat`,
-    statusCode: 200,
   })
 
   // Some people use XMLData integration via their main domains
   createRedirect({
     fromPath: '/XMLData/*',
     toPath: `https://${tenant}.${environment}.com.br/XMLData/:splat`,
-    statusCode: 200,
   })
 }
 
