@@ -58,8 +58,8 @@ export type {
   PromotionItem,
   CurrencyCode,
 } from './analytics/events/common'
-export type { AnalyticsEvent, WrappedAnalyticsEvent } from './analytics/index'
-export { STORE_EVENT_PREFIX, ANALYTICS_EVENT_TYPE } from './analytics/index'
+export type { AnalyticsEvent, WrappedAnalyticsEvent } from './analytics/wrap'
+export { STORE_EVENT_PREFIX, ANALYTICS_EVENT_TYPE } from './analytics/wrap'
 export { sendAnalyticsEvent } from './analytics/sendAnalyticsEvent'
 export type { AnalyticsEventHandler } from './analytics/useAnalyticsEvent'
 export { useAnalyticsEvent } from './analytics/useAnalyticsEvent'
