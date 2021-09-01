@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 
-import { unwrap } from '.'
+import { ANALYTICS_EVENT_TYPE, unwrap } from '.'
 import type { AnalyticsEvent } from '.'
 
 export type AnalyticsEventHandler = (
@@ -11,7 +11,11 @@ export const useAnalyticsEvent = (handler: AnalyticsEventHandler) => {
   const callback = useCallback(
     (message: MessageEvent) => {
       try {
-        const maybeEvent = unwrap(message.data ?? {})
+        if (message.data.type !== ANALYTICS_EVENT_TYPE) {
+          return
+        }
+
+        const maybeEvent = unwrap(message.data)
 
         if (maybeEvent) {
           handler(maybeEvent)
