@@ -1,5 +1,5 @@
-import { wrap } from '.'
-import type { AnalyticsEvent } from '.'
+import { wrap } from './wrap'
+import type { AnalyticsEvent } from './wrap'
 
 export const sendAnalyticsEvent = (event: AnalyticsEvent) => {
   try {

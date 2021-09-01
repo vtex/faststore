@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 
-import { ANALYTICS_EVENT_TYPE, unwrap } from '.'
-import type { AnalyticsEvent } from '.'
+import { ANALYTICS_EVENT_TYPE, unwrap } from './wrap'
+import type { AnalyticsEvent } from './wrap'
 
 export type AnalyticsEventHandler = (
   event: AnalyticsEvent
