@@ -350,7 +350,7 @@ export const createPages = async (
     activity.end()
   }
 
-  // Redirect API
+  // // Redirect API
   createRedirect({
     fromPath: '/api/io/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/:splat`,
@@ -362,16 +362,16 @@ export const createPages = async (
     },
   })
 
-  createRedirect({
-    fromPath: '/api/*',
-    toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
-    statusCode: 200,
-    proxyHeaders: {
-      // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$origin_host',
-      via: "''",
-    },
-  })
+  // createRedirect({
+  //   fromPath: '/api/*',
+  //   toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
+  //   statusCode: 200,
+  //   proxyHeaders: {
+  //     // VTEX ID needs the forwarded host in order to set the cookie correctly
+  //     'x-forwarded-host': '$origin_host',
+  //     via: "''",
+  //   },
+  // })
 
   // Use legacy checkout
   createRedirect({

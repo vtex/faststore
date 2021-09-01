@@ -11,10 +11,10 @@ export const config = ({ tenant, workspace, environment }: Options) => ({
       prefix: '/api/io',
       url: `https://${workspace}--${tenant}.myvtex.com`,
     },
-    {
-      prefix: '/api',
-      url: `https://${tenant}.${environment}.com.br`,
-    },
+    // {
+    //   prefix: '/api',
+    //   url: `https://${tenant}.${environment}.com.br`,
+    // },
     {
       prefix: '/checkout',
       url: `https://${workspace}--${tenant}.myvtex.com`,
