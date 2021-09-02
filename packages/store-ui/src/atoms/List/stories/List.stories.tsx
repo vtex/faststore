@@ -1,7 +1,7 @@
 import type { Story } from '@storybook/react'
 import React from 'react'
 
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../typings'
 import type { ListProps } from '../List'
 import Component from '../List'
 import mdx from './List.mdx'
@@ -33,7 +33,12 @@ const DescriptionListTemplate: Story<DescriptionListStoryProps> = ({
   )
 }
 
-export const DefaultList = ListTemplate.bind({})
+export const UnorderedList = ListTemplate.bind({})
+
+export const OrderedList = ListTemplate.bind({})
+OrderedList.args = {
+  variant: 'ordered',
+}
 
 export const DescriptionList = DescriptionListTemplate.bind({})
 DescriptionList.args = {
@@ -51,9 +56,9 @@ const argTypes: ComponentArgTypes<ListStoryProps> = {
     defaultValue: ['Great', 'Ok', 'Bad'],
   },
   variant: {
-    options: ['default', 'description', 'ordered', 'unordered'],
+    options: ['description', 'ordered', 'unordered'],
     control: { type: 'select' },
-    defaultValue: 'default',
+    defaultValue: 'unordered',
   },
 }
 
