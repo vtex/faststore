@@ -4,6 +4,8 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
+import Input from '../Input'
+
 export type SliderProps = {
   /**
    * The minimum value of the slider.
@@ -93,7 +95,7 @@ const Slider = ({
       className={className}
     >
       <div ref={range} data-store-slider-range />
-      <input
+      <Input
         type="range"
         min={min}
         max={max}
@@ -113,7 +115,7 @@ const Slider = ({
           getAriaValueText ? getAriaValueText(minVal, 'min') : undefined
         }
       />
-      <input
+      <Input
         type="range"
         min={min}
         max={max}
