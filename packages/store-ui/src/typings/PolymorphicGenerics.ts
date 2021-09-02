@@ -40,8 +40,6 @@ export type PolymorphicComponentProps<
   Props = Record<string, never>
 > = InheritableElementProps<C, Props & AsProp<C>>
 
-export type PolymorphicProps<C = any, P = any> = Omit<C, keyof P> & P
-
 export type PolymorphicComponentPropsWithRef<
   C extends ElementType,
   P = Record<string, never>
