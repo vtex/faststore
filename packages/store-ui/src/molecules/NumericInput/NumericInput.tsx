@@ -52,7 +52,7 @@ export interface NumericInputProps {
    */
   isDisabled?: boolean
   /**
-   * Callback that fir
+   * Callback that fires when the input value changes.
    */
   onChange?: (value: number) => void
   /**
