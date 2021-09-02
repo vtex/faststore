@@ -1,0 +1,7 @@
+[data-store-skeleton-container] {
+  @apply animate-pulse;
+}
+
+[data-store-skeleton] {
+  @apply rounded bg-gray-400 h-14 w-96;
+}
