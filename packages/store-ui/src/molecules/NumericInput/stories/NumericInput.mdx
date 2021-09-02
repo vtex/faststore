@@ -1,0 +1,32 @@
+import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
+
+import NumericInput from '../NumericInput'
+
+# NumericInput
+
+<Canvas>
+  <Story id="molecules-numeric-input--numeric-input" />
+</Canvas>
+
+## Props
+
+<ArgsTable of={NumericInput} />
+
+## CSS Selectors
+
+```css
+[data-store-numeric-input] {
+}
+[data-store-numeric-input-range-limited] {
+}
+[data-numeric-input-action='(dec|inc)'] {
+}
+```
+
+This component inherits [Button](?path=/docs/atoms-button--button#css-selectors) and [Input](?path=/docs/atoms-input--input#css-selectors) css selectors.
+
+# TODO
+
+- [ ] [Keyboard Interaction](https://www.w3.org/TR/wai-aria-practices-1.2/#slidertwothumb_kbd_interaction)
+- [ ] Accept button's children component
+- [ ] Test cases
