@@ -1,5 +1,7 @@
-import type { ElementType, ComponentPropsWithRef } from 'react'
+import type { ElementType, ComponentPropsWithRef, ReactElement } from 'react'
 import React, { forwardRef } from 'react'
+
+import type { PolymorphicComponentPropsWithRef } from '../../typings'
 
 export type ListVariant = 'description' | 'ordered' | 'unordered'
 
@@ -19,16 +21,23 @@ const variantToType = (variant: ListVariant) => {
   }
 }
 
-interface Props<C extends ElementType> {
-  as?: C
+interface Props {
   testId?: string
   variant?: ListVariant
 }
 
-export type ListProps<C extends ElementType> = Props<C> &
-  Omit<ComponentPropsWithRef<C>, keyof Props<C>>
+export type ListProps<C extends ElementType> = PolymorphicComponentPropsWithRef<
+  C,
+  Props
+>
 
-const List = forwardRef(function List<C extends ElementType = 'ul'>(
+type ListComponent = <C extends ElementType = 'ul'>(
+  props: ListProps<C>
+) => ReactElement | null
+
+const List: ListComponent = forwardRef(function List<
+  C extends ElementType = 'ul'
+>(
   {
     testId = 'store-list',
     variant = 'unordered',
