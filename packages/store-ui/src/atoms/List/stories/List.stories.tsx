@@ -6,8 +6,8 @@ import type { ListProps } from '../List'
 import Component from '../List'
 import mdx from './List.mdx'
 
-type ListStoryProps = ListProps & { options: string[] }
-type DescriptionListStoryProps = ListProps & { options: string[][] }
+type ListStoryProps = ListProps<'ul'> & { options: string[] }
+type DescriptionListStoryProps = ListProps<'dl'> & { options: string[][] }
 
 const ListTemplate: Story<ListStoryProps> = ({ options, ...props }) => {
   return (
