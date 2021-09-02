@@ -3,5 +3,3 @@ export type {
   PolymorphicComponentProps,
   PolymorphicComponentPropsWithRef,
 } from './PolymorphicGenerics'
-
-export type { ComponentArgTypes } from './Storybook'
