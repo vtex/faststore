@@ -6,39 +6,49 @@ import List from './List'
 const optionsArray = ['Great', 'Ok', 'Bad']
 
 describe('List', () => {
-  it('`data-store-list` is present', () => {
+  it('should have `data-store-list` attribute', () => {
     const { getByTestId } = render(
-      <List testId="store-list">
+      <List>
         {optionsArray.map((value) => {
           return <li key={value}>{value}</li>
         })}
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-store-list-default')
+    expect(getByTestId('store-list')).toHaveAttribute('data-store-list')
   })
 
-  it('List is empty when no options are given', () => {
-    const { getByTestId } = render(<List testId="store-list" />)
+  it('should be empty if no children are provided', () => {
+    const { getByTestId } = render(<List />)
 
     expect(getByTestId('store-list')).toBeEmptyDOMElement()
   })
 
-  it('List has correct data-store attribute', () => {
-    const { getByTestId } = render(
-      <List variant="ordered" testId="store-list">
+  it('should have expected data attributes for each variation', () => {
+    const { getByTestId, rerender } = render(
+      <List variant="ordered">
         {optionsArray.map((value) => {
           return <li key={value}>{value}</li>
         })}
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-store-list-ordered')
+    expect(getByTestId('store-list')).toHaveAttribute('data-ordered')
+
+    rerender(
+      <List variant="unordered">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toHaveAttribute('data-unordered')
   })
 
-  it('List is unordered', () => {
-    const { getByTestId } = render(
-      <List variant="unordered" testId="store-list">
+  it('should render the expected HTML tag for each variant', () => {
+    const { getByTestId, rerender } = render(
+      <List variant="unordered">
         {optionsArray.map((value) => {
           return <li key={value}>{value}</li>
         })}
@@ -46,11 +56,19 @@ describe('List', () => {
     )
 
     expect(getByTestId('store-list')).toBeInstanceOf(HTMLUListElement)
-  })
 
-  it('List is description', () => {
-    const { getByTestId } = render(
-      <List variant="description" testId="store-list">
+    rerender(
+      <List variant="ordered">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toBeInstanceOf(HTMLOListElement)
+
+    rerender(
+      <List variant="description">
         {optionsArray.map((value) => {
           return <li key={value}>{value}</li>
         })}
