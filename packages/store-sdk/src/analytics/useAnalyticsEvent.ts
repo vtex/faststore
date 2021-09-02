@@ -15,11 +15,7 @@ export const useAnalyticsEvent = (handler: AnalyticsEventHandler) => {
           return
         }
 
-        const maybeEvent = unwrap(message.data)
-
-        if (maybeEvent) {
-          handler(maybeEvent)
-        }
+        handler(unwrap(message.data))
       } catch (err) {
         console.error('Some bad happened while running Analytics handler')
       }
