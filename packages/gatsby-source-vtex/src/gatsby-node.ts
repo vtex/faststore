@@ -54,6 +54,7 @@ export interface Options extends PluginOptions, VTEXOptions {
    * */
   minProducts?: number
   sourceCollections?: boolean
+  sourceProducts?: boolean
 }
 
 /**
@@ -193,100 +194,102 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    * Take a look at their docs for more info
    * https://github.com/gatsbyjs/gatsby-graphql-toolkit#how-it-works
    */
-  promisses.push(async () => {
-    // Step1. Set up remote schema:
-    const executor = getExecutor(options)
-    const gatewaySchema = await introspectSchema(executor)
-    const schema = wrapSchema({
-      schema: gatewaySchema,
-      executor,
-      transforms: [
-        new RenameTypes((typeName: string) => {
-          const newTypeName = typeName.replace('VTEX_', '')
-          const isTypeNameAvailable = !gatewaySchema.getType(newTypeName)
+  if (options.sourceProducts !== false) {
+    promisses.push(async () => {
+      // Step1. Set up remote schema:
+      const executor = getExecutor(options)
+      const gatewaySchema = await introspectSchema(executor)
+      const schema = wrapSchema({
+        schema: gatewaySchema,
+        executor,
+        transforms: [
+          new RenameTypes((typeName: string) => {
+            const newTypeName = typeName.replace('VTEX_', '')
+            const isTypeNameAvailable = !gatewaySchema.getType(newTypeName)
 
-          return isTypeNameAvailable ? newTypeName : typeName
-        }),
-        new PruneSchema(),
-      ],
-    })
+            return isTypeNameAvailable ? newTypeName : typeName
+          }),
+          new PruneSchema(),
+        ],
+      })
 
-    // Step2. Configure Gatsby node types
-    const gatsbyNodeTypes = [
-      {
-        remoteTypeName: `Product`,
-        queries: `
-        # Write your query or mutation here
-          query LIST_PRODUCTS($from: number, $to: number) {
-            vtex {
-              productSearch(
-                orderBy: "orders:desc",
-                from: $from,
-                to: $to
-                simulationBehavior: skip
-                # Product data like spotPrice in IS is not reliable. Let's use portal
-                productOriginVtex: true
-              ){
-                products {
-                  ..._ProductFragment_
+      // Step2. Configure Gatsby node types
+      const gatsbyNodeTypes = [
+        {
+          remoteTypeName: `Product`,
+          queries: `
+          # Write your query or mutation here
+            query LIST_PRODUCTS($from: number, $to: number) {
+              vtex {
+                productSearch(
+                  orderBy: "orders:desc",
+                  from: $from,
+                  to: $to
+                  simulationBehavior: skip
+                  # Product data like spotPrice in IS is not reliable. Let's use portal
+                  productOriginVtex: true
+                ){
+                  products {
+                    ..._ProductFragment_
+                  }
                 }
               }
             }
-          }
-          fragment _ProductFragment_ on Product {
-            id: productId
-            __typename
-          }
-        `,
-      },
-    ]
+            fragment _ProductFragment_ on Product {
+              id: productId
+              __typename
+            }
+          `,
+        },
+      ]
 
-    // Step3. Provide (or generate) fragments with fields to be fetched
-    const fragments = new Map()
-    const ProductFragment = await readFile(
-      join(__dirname, '../src/graphql/fragments/ProductFragment.graphql')
-    )
+      // Step3. Provide (or generate) fragments with fields to be fetched
+      const fragments = new Map()
+      const ProductFragment = await readFile(
+        join(__dirname, '../src/graphql/fragments/ProductFragment.graphql')
+      )
 
-    fragments.set('Product', ProductFragment.toString())
+      fragments.set('Product', ProductFragment.toString())
 
-    // Step4. Compile sourcing queries
-    const documents = compileNodeQueries({
-      schema,
-      gatsbyNodeTypes,
-      customFragments: fragments,
-    })
-
-    // Define how to execute a query into the schema
-    const run = wrapQueryExecutorWithQueue(async (opts) =>
-      execute({
+      // Step4. Compile sourcing queries
+      const documents = compileNodeQueries({
         schema,
-        document: parse(opts.query),
-        operationName: opts.operationName,
-        variableValues: opts.variables,
+        gatsbyNodeTypes,
+        customFragments: fragments,
       })
-    )
 
-    const config: ISourcingConfig = {
-      gatsbyApi,
-      schema,
-      execute: run,
-      gatsbyTypePrefix: `Store`,
-      gatsbyNodeDefs: buildNodeDefinitions({ gatsbyNodeTypes, documents }),
-      paginationAdapters: [ProductPaginationAdapter(options)],
-    }
+      // Define how to execute a query into the schema
+      const run = wrapQueryExecutorWithQueue(async (opts) =>
+        execute({
+          schema,
+          document: parse(opts.query),
+          operationName: opts.operationName,
+          variableValues: opts.variables,
+        })
+      )
 
-    // Step5. Add explicit types to gatsby schema
-    await toolkitCreateSchemaCustomization(config)
+      const config: ISourcingConfig = {
+        gatsbyApi,
+        schema,
+        execute: run,
+        gatsbyTypePrefix: `Store`,
+        gatsbyNodeDefs: buildNodeDefinitions({ gatsbyNodeTypes, documents }),
+        paginationAdapters: [ProductPaginationAdapter(options)],
+      }
 
-    // Step6. Source nodes either from delta changes or scratch
-    if (lastBuildTime) {
-      const nodeEvents: NodeEvent[] = []
+      // Step5. Add explicit types to gatsby schema
+      await toolkitCreateSchemaCustomization(config)
 
-      await sourceNodeChanges(config, { nodeEvents })
-    } else {
-      await sourceAllNodes(config)
-    }
-  })
+      // Step6. Source nodes either from delta changes or scratch
+      if (lastBuildTime) {
+        const nodeEvents: NodeEvent[] = []
+
+        await sourceNodeChanges(config, { nodeEvents })
+      } else {
+        await sourceAllNodes(config)
+      }
+    })
+  }
 
   if (options.sourceCollections !== false) {
     promisses.push(async () => {
@@ -477,5 +480,6 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     ),
     getRedirects: Joi.function().arity(0),
     minProducts: Joi.number(),
+    sourceProducts: Joi.boolean(),
     sourceCollections: Joi.boolean(),
   })
