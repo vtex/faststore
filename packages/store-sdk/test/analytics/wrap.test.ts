@@ -1,6 +1,3 @@
-// import React from 'react'
-// import { act, renderHook } from '@testing-library/react-hooks'
-
 import { wrap, unwrap } from '../../src/analytics/wrap'
 import type { AddToCartEvent } from '../../src/analytics/events/add_to_cart'
 
