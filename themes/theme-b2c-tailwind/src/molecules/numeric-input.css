@@ -1,9 +1,9 @@
-[data-store-numeric-input-range-limited]::-webkit-inner-spin-button,
-[data-store-numeric-input-range-limited]::-webkit-outer-spin-button {
+[data-store-numeric-input] > [data-store-input][type='number']::-webkit-inner-spin-button,
+[data-store-numeric-input] > [data-store-input][type='number']::-webkit-outer-spin-button {
 	-webkit-appearance: none;
   margin: 0;
 }
 
-[data-store-numeric-input-range-limited] {
+[data-store-numeric-input] > [data-store-input][type='number'] {
   -moz-appearance: textfield;
 }

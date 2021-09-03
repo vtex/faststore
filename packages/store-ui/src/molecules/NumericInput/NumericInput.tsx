@@ -121,7 +121,6 @@ const NumericInput = ({
         <span>-</span>
       </ActionButton>
       <Input
-        data-store-numeric-input-range-limited
         type="number"
         value={currentValue}
         onChange={handleInputChange}
