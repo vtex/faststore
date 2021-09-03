@@ -11,11 +11,7 @@ const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton(
   { testId = 'store-skeleton', ...props },
   ref
 ) {
-  return (
-    <div ref={ref} data-store-skeleton-container data-testid={testId}>
-      <div data-store-skeleton {...props} />
-    </div>
-  )
+  return <div ref={ref} data-store-skeleton data-testid={testId} {...props} />
 })
 
 export default Skeleton
