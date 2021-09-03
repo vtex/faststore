@@ -76,7 +76,7 @@ const NumericInput = ({
   const [isButtonDisabled, setIsButtonDisabled] = useState<{
     dec: boolean
     inc: boolean
-  }>({ dec: isDisabled, inc: isDisabled })
+  }>({ dec: value === min || isDisabled, inc: value === max || isDisabled })
 
   const handleInputChange = useCallback(
     (event: React.FormEvent<HTMLInputElement>) => {
@@ -93,7 +93,7 @@ const NumericInput = ({
       const newValue =
         actionOption === 'dec' ? currentValue - 1 : currentValue + 1
 
-      if (newValue > min && newValue < max) {
+      if (newValue >= min && newValue <= max) {
         setCurrentValue(newValue)
         onChange?.(newValue)
       }
@@ -128,6 +128,7 @@ const NumericInput = ({
         min={min}
         max={max}
         defaultValue={defaultValue}
+        variant={currentValue < min || currentValue > max ? 'error' : undefined}
         disabled={isDisabled}
       />
       <ActionButton
