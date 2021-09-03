@@ -47,21 +47,14 @@ const List: ListComponent = forwardRef(function List<
   ref: ComponentPropsWithRef<C>['ref']
 ) {
   const dataAttributes = {
-    'data-test-id': testId,
+    'data-testid': testId,
     'data-store-list': true,
     [`data-${variant}`]: true,
   }
 
   const Component = as ?? variantToType(variant)
 
-  return (
-    <Component
-      ref={ref}
-      data-testid={testId}
-      {...dataAttributes}
-      {...rawProps}
-    />
-  )
+  return <Component ref={ref} {...dataAttributes} {...rawProps} />
 })
 
 export default List
