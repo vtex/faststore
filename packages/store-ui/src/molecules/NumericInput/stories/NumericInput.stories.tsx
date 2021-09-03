@@ -29,7 +29,7 @@ const argTypes: ComponentArgTypes<NumericInputProps> = {
   },
   max: {
     control: { type: 'number', min: 1 },
-    defaultValue: 4,
+    defaultValue: 10,
   },
   isDisabled: {
     control: { type: 'boolean' },
