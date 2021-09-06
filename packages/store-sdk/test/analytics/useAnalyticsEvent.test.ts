@@ -12,7 +12,7 @@ const eventSample: AddToCartEvent = {
 }
 
 describe('useAnalyticsEvent', () => {
-  afterAll(() => {
+  afterEach(() => {
     jest.restoreAllMocks()
   })
 
