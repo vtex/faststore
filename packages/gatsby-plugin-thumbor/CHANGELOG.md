@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.2 (2021-09-06)
+
+
+### Features
+
+* **store-ui:** adding list atom ([#918](https://github.com/vtex/faststore/issues/918)) ([72c3b2e](https://github.com/vtex/faststore/commit/72c3b2eeac85c784bbee310898b24823c2c18c3a))
+
+
+
+
+
 ## 1.1.1 (2021-09-01)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-thumbor
