@@ -1,4 +1,9 @@
-import type { ElementType, ComponentPropsWithRef, ReactElement } from 'react'
+import type {
+  ElementType,
+  ComponentPropsWithRef,
+  ReactElement,
+  FC,
+} from 'react'
 import React, { forwardRef } from 'react'
 
 import type { PolymorphicComponentPropsWithRef } from '../../typings'
@@ -56,5 +61,12 @@ const List: ListComponent = forwardRef(function List<
 
   return <Component ref={ref} {...dataAttributes} {...rawProps} />
 })
+
+/**
+ * This is only being exported to make it easier to use in Storybook.
+ * **DON'T** import this directly to use this component, use the default export
+ * instead.
+ */
+export const StorybookList = List as FC<Props>
 
 export default List
