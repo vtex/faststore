@@ -44,6 +44,9 @@ export type { SkeletonProps } from './atoms/Skeleton'
 export { default as Spinner } from './atoms/Spinner'
 export type { SpinnerProps } from './atoms/Spinner'
 
+export { default as List } from './atoms/List'
+export type { ListProps } from './atoms/List'
+
 // Molecules
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
