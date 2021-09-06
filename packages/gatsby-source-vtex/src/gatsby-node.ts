@@ -345,7 +345,7 @@ export const createPages = async (
     activity.end()
   }
 
-  // // Redirect API
+  // Redirect API
   createRedirect({
     fromPath: '/api/io/*',
     toPath: `https://${workspace}--${tenant}.myvtex.com/:splat`,
