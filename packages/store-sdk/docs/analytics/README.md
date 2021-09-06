@@ -1,6 +1,6 @@
 ## Cart
 
-The analytics module lets you manage analytics events based on Google Analytics 4 (GA4) data model. The events are wrapped and sent over standard `postMessage` calls, that shares the event only with the website's origin. The events are received via event listeners. It also supports sending and receiving custom events as the types on the helper functions can be overriden.
+The analytics module lets you manage analytics events based on [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events). The events are wrapped and then sent over standard `postMessage` calls, that shares the event only with the website's origin. The events are received via event listeners. It also supports sending and receiving custom events as the types on the helper functions can be overriden.
 
 ### Sending events
 
