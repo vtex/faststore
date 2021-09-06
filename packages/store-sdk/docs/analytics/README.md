@@ -1,10 +1,10 @@
 ## Analytics
 
-The analytics module lets you manage analytics events based on [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events). The events are wrapped and then sent over standard `postMessage` calls, that shares the event only with the website's origin. The events are received via event listeners. It also supports sending and receiving custom events as the types on the helper functions can be overriden.
+The analytics module lets you manage analytics events based on [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events). The events are wrapped and then sent over standard `postMessage` calls, that share the event only with the website's origin. The events are received via event listeners. It also supports sending and receiving custom events as the types on the helper functions can be overridden.
 
 ### Sending events
 
-Analytics events can be sent by using the `sendAnalyticsEvent` function and it's specially useful to send common ecommerce events such as `add_to_cart`. It enforces standard GA4 events via typecheck and intellisense suggestions, but this behavior can be altered via by overriding the function's types.
+Analytics events can be sent by using the `sendAnalyticsEvent` function and it's especially useful to send common ecommerce events such as `add_to_cart`. It enforces standard GA4 events via type check and IntelliSense suggestions, but this behavior can be altered via overriding the function's types.
 
 To fire a standard GA4 event:
 ```tsx
@@ -66,7 +66,7 @@ const MyComponent = () => {
 
 ### Receiving events
 
-It's possible to receive analytics events by using the `useAnalyticsEvent` hook. It accepts a handler that will be called everytime an event sent by `sendAnalyticsEvent` arrives. For that reason it can fire both for standard GA4 events and for custom events that a library or a component might be sending. To help users be aware of that possibility, the event received by the handler is, by default, typed as `UnknownEvent`. You can assume it has another type by simply typing the callback function as you wish, but be careful with the unforseen events that might come to this handler.
+It's possible to receive analytics events by using the `useAnalyticsEvent` hook. It accepts a handler that will be called every time an event sent by `sendAnalyticsEvent` arrives. For that reason, it can fire both for standard GA4 events and for custom events that a library or a component might be sending. To help users be aware of that possibility, the event received by the handler is, by default, typed as `UnknownEvent`. You can assume it has another type by simply typing the callback function as you wish, but be careful with the unforeseen events that might come to this handler.
 
 To use the `useAnalyticsEvent` hook:
 
