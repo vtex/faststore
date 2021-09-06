@@ -40,14 +40,19 @@ export type AnalyticsEvent =
   | SignupEvent
   | ShareEvent
 
-export type WrappedAnalyticsEventData<T extends AnalyticsEvent> = Omit<
+export interface UnknownEvent {
+  type: string
+  data: unknown
+}
+
+export type WrappedAnalyticsEventData<T extends UnknownEvent> = Omit<
   T,
   'type'
 > & {
   type: `store:${T['type']}`
 }
 
-export interface WrappedAnalyticsEvent<T extends AnalyticsEvent> {
+export interface WrappedAnalyticsEvent<T extends UnknownEvent> {
   type: 'AnalyticsEvent'
   data: WrappedAnalyticsEventData<T>
 }
@@ -55,7 +60,7 @@ export interface WrappedAnalyticsEvent<T extends AnalyticsEvent> {
 export const STORE_EVENT_PREFIX = 'store:'
 export const ANALYTICS_EVENT_TYPE = 'AnalyticsEvent'
 
-export const wrap = <T extends AnalyticsEvent>(
+export const wrap = <T extends UnknownEvent>(
   event: T
 ): WrappedAnalyticsEvent<T> =>
   ({
@@ -66,7 +71,7 @@ export const wrap = <T extends AnalyticsEvent>(
     },
   } as WrappedAnalyticsEvent<T>)
 
-export const unwrap = <T extends AnalyticsEvent>(
+export const unwrap = <T extends UnknownEvent>(
   event: WrappedAnalyticsEvent<T>
 ): T => {
   return {
