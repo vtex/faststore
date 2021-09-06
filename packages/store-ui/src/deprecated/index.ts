@@ -188,7 +188,7 @@ export { default as GiftList } from './GiftList/index'
 export { default as GiftListTitle } from './GiftList/Title'
 export { default as GiftListList } from './GiftList/List'
 // Skeleton
-export { default as Skeleton } from './Skeleton'
+export { default as UISkeleton } from './Skeleton'
 // videoIframe
 export { default as YoutubeIframe } from './Youtube/Iframe'
 export { default as YoutubeThumb } from './Youtube/Thumb'
