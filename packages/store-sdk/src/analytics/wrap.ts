@@ -49,7 +49,9 @@ export type WrappedAnalyticsEventData<T extends UnknownEvent> = Omit<
   T,
   'type'
 > & {
-  type: `store:${T['type']}`
+  // Sadly tsdx doesn't support typescript 4.x yet. We should change this type to this when it does:
+  // type: `store:${T['type']}`
+  type: string
 }
 
 export interface WrappedAnalyticsEvent<T extends UnknownEvent> {
@@ -67,7 +69,7 @@ export const wrap = <T extends UnknownEvent>(
     type: ANALYTICS_EVENT_TYPE,
     data: {
       ...event,
-      type: `${STORE_EVENT_PREFIX}${event.type}` as const,
+      type: `${STORE_EVENT_PREFIX}${event.type}`,
     },
   } as WrappedAnalyticsEvent<T>)
 

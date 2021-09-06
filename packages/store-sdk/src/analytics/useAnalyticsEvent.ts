@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react'
 
 import { ANALYTICS_EVENT_TYPE, unwrap } from './wrap'
-import type { UnknownEvent, WrappedAnalyticsEvent } from './wrap'
+import type { UnknownEvent } from './wrap'
 
 export const useAnalyticsEvent = <T extends UnknownEvent = UnknownEvent>(
   handler: (event: T) => unknown
 ) => {
   const callback = useCallback(
-    (message: MessageEvent<WrappedAnalyticsEvent<T>>) => {
+    (message: MessageEvent) => {
       try {
         if (message.data.type !== ANALYTICS_EVENT_TYPE) {
           return
