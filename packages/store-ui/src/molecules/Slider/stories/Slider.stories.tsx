@@ -22,7 +22,7 @@ const argTypes: ComponentArgTypes<SliderProps> = {
 }
 
 export default {
-  title: 'Atoms/Slider',
+  title: 'Molecules/Slider',
   argTypes,
   parameters: {
     docs: {

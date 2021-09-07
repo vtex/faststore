@@ -4,7 +4,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-import Input from '../Input'
+import Input from '../../atoms/Input'
 
 export type SliderProps = {
   /**

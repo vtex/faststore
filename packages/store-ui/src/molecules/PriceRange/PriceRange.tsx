@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 import type { PriceProps } from '../../atoms/Price'
 import Price from '../../atoms/Price'
-import type { SliderProps } from '../../atoms/Slider'
-import Slider from '../../atoms/Slider'
+import type { SliderProps } from '../Slider'
+import Slider from '../Slider'
 
 export type PriceRangeProps = SliderProps & {
   /**

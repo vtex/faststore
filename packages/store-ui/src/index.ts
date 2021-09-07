@@ -32,9 +32,6 @@ export type { RadioProps } from './atoms/Radio'
 export { default as Badge } from './atoms/Badge'
 export type { BadgeProps } from './atoms/Badge'
 
-export { default as Slider } from './atoms/Slider'
-export type { SliderProps } from './atoms/Slider'
-
 // Molecules
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
@@ -47,6 +44,9 @@ export type { CarouselProps } from './molecules/Carousel'
 
 export { default as IconButton } from './molecules/IconButton'
 export type { IconButtonProps } from './molecules/IconButton'
+
+export { default as Slider } from './molecules/Slider'
+export type { SliderProps } from './molecules/Slider'
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
