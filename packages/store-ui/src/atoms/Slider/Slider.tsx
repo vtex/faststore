@@ -106,7 +106,7 @@ const Slider = ({
           setMinVal(value)
           minValRef.current = value
         }}
-        data-store-slider-thumb="left"
+        data-store-input="slider-thumb-left"
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={minVal}
@@ -126,7 +126,7 @@ const Slider = ({
           setMaxVal(value)
           maxValRef.current = value
         }}
-        data-store-slider-thumb="right"
+        data-store-input="slider-thumb-right"
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={maxVal}
