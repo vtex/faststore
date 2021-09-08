@@ -1,4 +1,9 @@
-import type { PluginOptionsSchemaArgs, SourceNodesArgs } from 'gatsby'
+import { printSchema } from 'graphql'
+import type {
+  CreateSchemaCustomizationArgs,
+  PluginOptionsSchemaArgs,
+  SourceNodesArgs,
+} from 'gatsby'
 import type { GraphQLSchema } from 'graphql'
 
 import { sourceCollections } from './sourceCollections'
@@ -7,6 +12,8 @@ import { sourceProducts } from './sourceProducts'
 export interface Options {
   sourceProducts?: boolean
   sourceCollections?: boolean
+  maxNumProducts?: number
+  maxNumCollections?: number
   getSchema: () => Promise<GraphQLSchema>
 }
 
@@ -14,8 +21,24 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
   Joi.object({
     sourceProducts: Joi.boolean(),
     sourceCollections: Joi.boolean(),
+    maxNumProducts: Joi.number(),
+    maxNumCollections: Joi.number(),
     getSchema: Joi.function().required(),
   })
+
+export const createSchemaCustomization = async (
+  gatsbyApi: CreateSchemaCustomizationArgs,
+  options: Options
+) => {
+  const { actions } = gatsbyApi
+  const schema = await options.getSchema()
+  const typeDefs = printSchema(schema)
+    .replace('type StoreCollection {', 'type StoreCollection implements Node {')
+    .replace(`type StoreProduct {`, `type StoreProduct implements Node {`)
+    .replace(/(\w*)Connection/g, 'Browser$1Connection')
+
+  actions.createTypes(typeDefs)
+}
 
 export const sourceNodes = async (
   gatsbyApi: SourceNodesArgs,
