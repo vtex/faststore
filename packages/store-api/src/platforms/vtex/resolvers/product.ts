@@ -3,6 +3,12 @@ import type { EnhancedSku } from '../utils/enhanceSku'
 
 type Root = EnhancedSku
 
+const DEFAULT_IMAGE = {
+  name: 'image',
+  value:
+    'https://storecomponents.vtexassets.com/assets/faststore/images/image___117a6d3e229a96ad0e0d0876352566e2.svg',
+}
+
 const getSlug = (link: string, id: string) => `${link}-${id}`
 const getPath = (link: string, id: string) => `/${getSlug(link, id)}/p`
 
@@ -32,10 +38,12 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     numberOfItems: categoryTrees.length,
   }),
   image: ({ isVariantOf, images }) =>
-    (images ?? isVariantOf.images ?? []).map(({ name, value }) => ({
-      alternateName: name ?? '',
-      url: value.replace('vteximg.com.br', 'vtexassets.com'),
-    })),
+    (images ?? isVariantOf.images ?? [DEFAULT_IMAGE]).map(
+      ({ name, value }) => ({
+        alternateName: name ?? '',
+        url: value.replace('vteximg.com.br', 'vtexassets.com'),
+      })
+    ),
   sku: ({
     isVariantOf: {
       skus: [sku],

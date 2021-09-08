@@ -3,9 +3,9 @@
 // Copying some code was necessary because tsdx does shallow merges
 
 module.exports = {
+  preset: 'ts-jest',
   transform: {
     '.(graphql)$': 'jest-transform-graphql',
-    '.(ts|tsx)$': 'ts-jest/dist',
     '.(js|jsx)$': 'babel-jest', // jest's default
   },
 }
