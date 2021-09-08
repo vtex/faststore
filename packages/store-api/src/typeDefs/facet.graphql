@@ -1,0 +1,17 @@
+type StoreFacet {
+  key: String!
+  label: String!
+
+  values: [StoreFacetValue!]!
+  type: StoreFacetType!
+}
+
+type StoreFacetValue {
+  value: String!
+
+  label: String!
+  selected: Boolean!
+
+  # Number of items with this facet
+  quantity: Int!
+}
