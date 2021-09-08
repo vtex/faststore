@@ -15,7 +15,7 @@ export const useAnalyticsEvent = <T extends UnknownEvent = UnknownEvent>(
 
         handler(unwrap(message.data))
       } catch (err) {
-        console.error('Some bad happened while running Analytics handler')
+        console.error('Something went wrong while running Analytics handler')
       }
     },
     [handler]
