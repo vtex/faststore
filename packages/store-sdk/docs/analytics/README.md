@@ -1,6 +1,6 @@
 ## Analytics
 
-The analytics module lets you manage analytics events based on [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events). The events are wrapped and then sent over standard `postMessage` calls, that share the event only with the website's origin. The events are received via event listeners. It also supports sending and receiving custom events as the types on the helper functions can be overridden.
+The analytics module lets you manage analytics events based on [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events). The events are wrapped and then sent over standard `postMessage` calls, which share the event only with the website's origin. The events are received via event listeners. It also supports sending and receiving custom events as the types on the helper functions can be overridden.
 
 ### Sending events
 
@@ -66,7 +66,7 @@ const MyComponent = () => {
 
 ### Receiving events
 
-It's possible to receive analytics events by using the `useAnalyticsEvent` hook. It accepts a handler that will be called every time an event sent by `sendAnalyticsEvent` arrives. For that reason, it can fire both for standard GA4 events and for custom events that a library or a component might be sending. To help users be aware of that possibility, the event received by the handler is, by default, typed as `UnknownEvent`. You can assume it has another type by simply typing the callback function as you wish, but be careful with the unforeseen events that might come to this handler.
+It's possible to receive analytics events by using the `useAnalyticsEvent` hook. It accepts a handler that will be called every time an event sent by `sendAnalyticsEvent` arrives. For that reason, it can fire both for standard GA4 events and for custom events that a library or a component might be sending. To help users be aware of that possibility, the event received by the handler is, by default, typed as `UnknownEvent`. You can assume it has another type by simply typing the callback function as you wish, but be careful with the unexpected events that might come to this handler.
 
 To use the `useAnalyticsEvent` hook:
 
@@ -82,13 +82,15 @@ import type { AnalyticsEvent } from '@vtex/store-sdk'
  */
 function handler(event: AnalyticsEvent) {
   switch(event.type) {
-    'add_to_cart': {
+    case 'add_to_cart': {
       /* ... */
     }
 
     /* ... */
     
-    default:
+    default: {
+      /* ... */
+    }
   } 
 }
 
