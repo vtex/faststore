@@ -26,7 +26,7 @@ With the aim of giving the store developers more autonomy and control over the s
 
 ### If the store is not configured yet
 
-If you have never used secrets in your store before and do not have the secrets.hidden.json file in your repository, it is necessary to do an initial setup.
+If you have never used secrets in your store before and do not have the `secrets.hidden.json` file in your repository, it is necessary to do an initial setup.
 1. Be sure you are in the root of your repository and that you have the `vtex.env` file.
     1. If you cannot find this file in there, create it and keep it empty.
 2. Then, run `vtex secrets setup` command.
@@ -37,7 +37,7 @@ Right after running `vtex secrets setup` command, if everything works properly, 
 
 ## File Settings
 
-In the secrets.opened.json file, you can add, modify and delete secrets. The file is in JSON format, so all secrets should be added as follows:
+In the `secrets.revealed.json` file, you can add, modify and delete secrets. The file is in JSON format, so all secrets should be added as follows:
 ` ”name of the secret”: “value of the secret” `
 
 ![cmd 5](../docs/images/sfjsecrets-plugin/sfjsecrets-plugin-console-5.png)
@@ -48,17 +48,10 @@ The account and the encryption-decryption key alias are already in the file as a
 
 
 After modifying the file, you must:
-Encrypt it by running `vtex secrets hide` command, so the secrets are encrypted and the secrets file extension changes from secrets.revealed.json to secrets.hidden.json
+Encrypt it by running `vtex secrets hide` command, so the secrets are encrypted and the secrets file extension changes from `secrets.revealed.json` to `secrets.hidden.json`.
 By doing this, you will be able to commit the changes and push them into your remote repository safely
-Whenever the file needs to be updated, you may run `vtex secrets reveal`, so the secrets will be decrypted and the file extension will change back again to secrets.revealed.json.
-
+Whenever the file needs to be updated, you may run `vtex secrets reveal`, so the secrets will be decrypted and the file extension will change back again to `secrets.revealed.json`.
 
 >⚠️ Always hide your secrets after editing them, so they can be kept safe and can be pushed to the remote repository.
 
->⚠️[blue note] After committing your code changes into the repository, the build pipeline is able to access the secrets.hidden.json file which has the secrets encrypted and decrypt it. The secrets will be transformed into environment variables so the build process can correctly happen.
-
-
-
-
-
-
+>⚠️[blue note] After committing your code changes into the repository, the build pipeline is able to access the `secrets.hidden.json` file, which has the encrypted secrets, and decrypts it. The secrets will be transformed into environment variables so the build process can correctly happen.
