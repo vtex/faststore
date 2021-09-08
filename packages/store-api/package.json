@@ -22,7 +22,7 @@
   "dependencies": {
     "rollup-plugin-graphql": "^0.1.0",
     "slugify": "^1.6.0",
-    "ts-jest": "25.3.1"
+    "ts-jest": "25.5.1"
   },
   "devDependencies": {
     "babel-jest": "^27.1.1",
