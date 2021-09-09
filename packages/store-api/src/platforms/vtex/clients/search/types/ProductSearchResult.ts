@@ -80,7 +80,7 @@ export interface Product {
   installment: Installment
   name: string
   boost: Boost
-  skus: Skus[]
+  skus: Sku[]
   link: string
   wear: number
   description: string
@@ -158,7 +158,7 @@ export interface NumberAttribute {
   key: string
 }
 
-export interface Skus {
+export interface Sku {
   images: Image[]
   nameComplete: string
   complementName: string

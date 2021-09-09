@@ -1,8 +1,6 @@
 type StoreOffer {
   listPrice: Float!
   sellingPrice: Float!
-
-  # Schema.org properties
   priceCurrency: String!
   # Also known as spotPrice
   price: Float!

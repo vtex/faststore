@@ -5,8 +5,6 @@ type StoreProduct {
   breadcrumbList: StoreBreadcrumbList!
   # Where to retrieve this entity
   slug: String!
-
-  # Schema.org compatible Product fields
   name: String!
   productID: String!
   brand: StoreBrand!

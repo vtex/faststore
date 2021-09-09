@@ -19,9 +19,7 @@ type StoreCollection {
   seo: StoreSeo!
   # location for structured data
   breadcrumbList: StoreBreadcrumbList!
-
   meta: StoreCollectionMeta!
-
   id: ID!
   slug: String!
   type: StoreCollectionType!
