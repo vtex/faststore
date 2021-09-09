@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.5 (2021-09-09)
+
+
+### Features
+
+* **store-sdk:** custom events, tests and docs ([#937](https://github.com/vtex/faststore/issues/937)) ([c268542](https://github.com/vtex/faststore/commit/c2685425b8a2b6c40ce2f79a5a0afc2b2022760d))
+
+
+
+
+
 ## 1.1.4 (2021-09-09)
 
 
