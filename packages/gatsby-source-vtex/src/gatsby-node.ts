@@ -3,7 +3,6 @@ import { join } from 'path'
 
 import {
   FilterObjectFields,
-  introspectSchema,
   PruneSchema,
   RenameTypes,
   wrapSchema,
@@ -16,6 +15,7 @@ import {
   sourceNodeChanges,
   wrapQueryExecutorWithQueue,
 } from 'gatsby-graphql-source-toolkit'
+import type { GraphQLSchema } from 'graphql'
 import { execute, parse } from 'graphql'
 import type {
   GatsbyNode,
@@ -31,14 +31,13 @@ import type {
   NodeEvent,
 } from 'gatsby-graphql-source-toolkit/dist/types'
 
+import { api } from './api'
+import { fetchVTEX } from './fetch'
+import { ProductPaginationAdapter } from './graphql/pagination/product'
 import {
   sourceAllNodes as sourceAllCollectionNodes,
   typeDefs as StoreCollectionTypeDefs,
 } from './graphql/types/collection'
-import { api } from './api'
-import { fetchVTEX } from './fetch'
-import { ProductPaginationAdapter } from './graphql/pagination/product'
-import { getExecutor } from './graphql/executor'
 import { assertRedirects } from './redirects'
 import { createChannelNode } from './utils'
 import type { VTEXOptions } from './fetch'
@@ -54,6 +53,7 @@ export interface Options extends PluginOptions, VTEXOptions {
    * */
   minProducts?: number
   sourceCollections?: boolean
+  getSchema: () => Promise<GraphQLSchema>
 }
 
 /**
@@ -81,11 +81,8 @@ export const createSchemaCustomization = async (
     activity.start()
 
     // Create executor to run queries against schema
-    const executor = getExecutor(options)
-
     const schema = wrapSchema({
-      schema: await introspectSchema(executor),
-      executor,
+      schema: await options.getSchema(),
       transforms: [
         // Filter CMS fields so people use the VTEX CMS plugin instead of this one
         new FilterObjectFields(
@@ -195,11 +192,9 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    */
   promisses.push(async () => {
     // Step1. Set up remote schema:
-    const executor = getExecutor(options)
-    const gatewaySchema = await introspectSchema(executor)
+    const gatewaySchema = await options.getSchema()
     const schema = wrapSchema({
       schema: gatewaySchema,
-      executor,
       transforms: [
         new RenameTypes((typeName: string) => {
           const newTypeName = typeName.replace('VTEX_', '')
@@ -362,17 +357,6 @@ export const createPages = async (
     },
   })
 
-  createRedirect({
-    fromPath: '/api/*',
-    toPath: `https://${tenant}.${environment}.com.br/api/:splat`,
-    statusCode: 200,
-    proxyHeaders: {
-      // VTEX ID needs the forwarded host in order to set the cookie correctly
-      'x-forwarded-host': '$origin_host',
-      via: "''",
-    },
-  })
-
   // Use legacy checkout
   createRedirect({
     fromPath: '/checkout/*',
@@ -478,4 +462,5 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     getRedirects: Joi.function().arity(0),
     minProducts: Joi.number(),
     sourceCollections: Joi.boolean(),
+    getSchema: Joi.function(),
   })

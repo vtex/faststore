@@ -84,8 +84,8 @@ export class WebpackPlugin {
     public schema: GraphQLSchema,
     public options: { schemaPath: string; rootPath: string }
   ) {
-    this.persistedPath = join(root, 'public', publicPath, persisted)
-    this.queryInfoPath = join(root, 'public', publicPath, queryInfo)
+    this.persistedPath = join(options.rootPath, persisted)
+    this.queryInfoPath = join(options.rootPath, queryInfo)
     this.cachePath = join(root, 'public', publicPath, cache)
 
     mkdirSync(target, { recursive: true })
