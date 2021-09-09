@@ -1,23 +1,21 @@
 import { useCallback, useEffect } from 'react'
 
-import { unwrap } from '.'
-import type { AnalyticsEvent } from '.'
+import { ANALYTICS_EVENT_TYPE, unwrap } from './wrap'
+import type { UnknownEvent } from './wrap'
 
-export type AnalyticsEventHandler = (
-  event: AnalyticsEvent
-) => void | PromiseLike<void>
-
-export const useAnalyticsEvent = (handler: AnalyticsEventHandler) => {
+export const useAnalyticsEvent = <T extends UnknownEvent = UnknownEvent>(
+  handler: (event: T) => unknown
+) => {
   const callback = useCallback(
     (message: MessageEvent) => {
       try {
-        const maybeEvent = unwrap(message.data ?? {})
-
-        if (maybeEvent) {
-          handler(maybeEvent)
+        if (message.data.type !== ANALYTICS_EVENT_TYPE) {
+          return
         }
+
+        handler(unwrap(message.data))
       } catch (err) {
-        console.error('Some bad happened while running Analytics handler')
+        console.error('Something went wrong while running Analytics handler')
       }
     },
     [handler]

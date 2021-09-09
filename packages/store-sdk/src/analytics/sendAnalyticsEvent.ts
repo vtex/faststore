@@ -1,7 +1,13 @@
-import { wrap } from '.'
-import type { AnalyticsEvent } from '.'
+import { wrap } from './wrap'
+import type { UnknownEvent, AnalyticsEvent } from './wrap'
 
-export const sendAnalyticsEvent = (event: AnalyticsEvent) => {
+export const sendAnalyticsEvent = <
+  K extends UnknownEvent = AnalyticsEvent,
+  /** This generic is here so users get the IntelliSense for event type options from AnalyticsEvent */
+  T extends K = K
+>(
+  event: T
+) => {
   try {
     window.postMessage(wrap(event), window.origin)
   } catch (e) {
