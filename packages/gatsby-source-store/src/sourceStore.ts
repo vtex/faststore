@@ -21,7 +21,7 @@ export const sourceStoreType = async (
   gatsbyNodeTypes: IGatsbyNodeConfig[],
   maxItems: number
 ) => {
-  // Step1. Set up remote schema:
+  // Step1. Set up remote schema
   const schema = await options.getSchema()
 
   // Step3. Provide (or generate) fragments with fields to be fetched

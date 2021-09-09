@@ -27,11 +27,6 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "jest": {
-    "setupFiles": [
-      "./test/setup.js"
-    ]
-  },
   "size-limit": [
     {
       "path": "dist/store-sdk.cjs.production.min.js",

@@ -87,6 +87,7 @@ export const Query = {
     const skus = products.products
       .map((product) => product.skus.map((sku) => enhanceSku(sku, product)))
       .flat()
+      .filter((sku) => sku.sellers.length > 0)
 
     return {
       pageInfo: {

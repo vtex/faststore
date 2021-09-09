@@ -12,11 +12,13 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const products = await is.products(searchArgs)
 
-    const skus = products.products.map((product) => {
-      const [sku] = product.skus
+    const skus = products.products
+      .map((product) => {
+        const maybeSku = product.skus.find((x) => x.sellers.length > 0)
 
-      return enhanceSku(sku, product)
-    })
+        return maybeSku && enhanceSku(maybeSku, product)
+      })
+      .filter((sku) => !!sku)
 
     return {
       pageInfo: {
