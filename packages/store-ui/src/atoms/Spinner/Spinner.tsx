@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 
-export interface SpinnerProps {
+export type SpinnerProps = {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
