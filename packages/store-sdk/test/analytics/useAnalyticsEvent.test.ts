@@ -2,14 +2,7 @@ import { renderHook } from '@testing-library/react-hooks'
 
 import { useAnalyticsEvent } from '../../src/analytics/useAnalyticsEvent'
 import { wrap } from '../../src/analytics/wrap'
-import type { AddToCartEvent } from '../../src/analytics/events/add_to_cart'
-
-const eventSample: AddToCartEvent = {
-  type: 'add_to_cart',
-  data: {
-    items: [{ item_id: 'PRODUCT_ID' }],
-  },
-}
+import { ADD_TO_CART_SAMPLE } from './__fixtures__/EventSamples'
 
 describe('useAnalyticsEvent', () => {
   afterEach(() => {
@@ -21,14 +14,14 @@ describe('useAnalyticsEvent', () => {
 
     jest.spyOn(window, 'addEventListener').mockImplementation((_, fn) => {
       if (typeof fn === 'function') {
-        fn(new MessageEvent('message', { data: wrap(eventSample) }))
+        fn(new MessageEvent('message', { data: wrap(ADD_TO_CART_SAMPLE) }))
       }
     })
 
     renderHook(() => useAnalyticsEvent(handler))
 
     expect(handler).toHaveBeenCalled()
-    expect(handler).toHaveBeenCalledWith(eventSample)
+    expect(handler).toHaveBeenCalledWith(ADD_TO_CART_SAMPLE)
   })
 
   it('useAnalyticsEvent ignores events that are not AnalyticsEvent', async () => {
@@ -38,7 +31,7 @@ describe('useAnalyticsEvent', () => {
       if (typeof fn === 'function') {
         fn(
           new MessageEvent('message', {
-            data: { ...wrap(eventSample), type: 'OtherEventType' },
+            data: { ...wrap(ADD_TO_CART_SAMPLE), type: 'OtherEventType' },
           })
         )
       }

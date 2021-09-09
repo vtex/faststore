@@ -1,50 +1,11 @@
 import { sendAnalyticsEvent } from '../../src/analytics/sendAnalyticsEvent'
-import type { AddToCartEvent } from '../../src/analytics/events/add_to_cart'
-import type { WrappedAnalyticsEvent } from '../../src/analytics/wrap'
-
-interface CustomEvent {
-  type: 'custom_event'
-  data: {
-    customDataProperty: string
-  }
-  customProperty: string
-}
-
-const eventCustomSample: CustomEvent = {
-  type: 'custom_event',
-  data: {
-    customDataProperty: 'value',
-  },
-  customProperty: 'value',
-}
-
-const wrappedCustomEventSample: WrappedAnalyticsEvent<CustomEvent> = {
-  type: 'AnalyticsEvent',
-  data: {
-    type: 'store:custom_event',
-    data: {
-      customDataProperty: 'value',
-    },
-    customProperty: 'value',
-  },
-}
-
-const eventSample: AddToCartEvent = {
-  type: 'add_to_cart',
-  data: {
-    items: [{ item_id: 'PRODUCT_ID' }],
-  },
-}
-
-const wrappedEventSample: WrappedAnalyticsEvent<AddToCartEvent> = {
-  type: 'AnalyticsEvent',
-  data: {
-    type: 'store:add_to_cart',
-    data: {
-      items: [{ item_id: 'PRODUCT_ID' }],
-    },
-  },
-}
+import type { CustomEvent } from './__fixtures__/EventSamples'
+import {
+  CUSTOM_EVENT_SAMPLE,
+  ADD_TO_CART_SAMPLE,
+  WRAPPED_CUSTOM_EVENT_SAMPLE,
+  WRAPPED_ADD_TO_CART_SAMPLE,
+} from './__fixtures__/EventSamples'
 
 const noop = () => {}
 const origin = 'http://localhost:8080/'
@@ -64,10 +25,13 @@ describe('sendAnalyticsEvent', () => {
       value: origin,
     })
 
-    sendAnalyticsEvent(eventSample)
+    sendAnalyticsEvent(ADD_TO_CART_SAMPLE)
 
     expect(postMessageSpy).toHaveBeenCalled()
-    expect(postMessageSpy).toHaveBeenCalledWith(wrappedEventSample, origin)
+    expect(postMessageSpy).toHaveBeenCalledWith(
+      WRAPPED_ADD_TO_CART_SAMPLE,
+      origin
+    )
   })
 
   it('sendAnalyticsEvent is able to send custom events', () => {
@@ -80,11 +44,11 @@ describe('sendAnalyticsEvent', () => {
       value: origin,
     })
 
-    sendAnalyticsEvent<CustomEvent>(eventCustomSample)
+    sendAnalyticsEvent<CustomEvent>(CUSTOM_EVENT_SAMPLE)
 
     expect(postMessageSpy).toHaveBeenCalled()
     expect(postMessageSpy).toHaveBeenCalledWith(
-      wrappedCustomEventSample,
+      WRAPPED_CUSTOM_EVENT_SAMPLE,
       origin
     )
   })
