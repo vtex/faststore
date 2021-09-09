@@ -1,6 +1,6 @@
 import { enhanceSku } from '../utils/enhanceSku'
 import { SORT_MAP } from '../utils/sort'
-import type { ProductLocator } from '../clients/is'
+import type { ProductLocator } from '../clients/search'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
 
@@ -32,7 +32,7 @@ export const Query = {
     ctx: Context
   ) => {
     const {
-      clients: { is },
+      clients: { search },
     } = ctx
 
     const skuId =
@@ -42,7 +42,7 @@ export const Query = {
 
     const {
       products: [product],
-    } = await is.products({ query: `sku:${skuId}`, page: 0, count: 1 })
+    } = await search.products({ query: `sku:${skuId}`, page: 0, count: 1 })
 
     const sku = product.skus.find((x) => x.id === skuId)
 
@@ -75,11 +75,11 @@ export const Query = {
     ctx: Context
   ) => {
     const {
-      clients: { is },
+      clients: { search },
     } = ctx
 
     const after = maybeAfter ? Number(maybeAfter) : 0
-    const products = await is.products({
+    const products = await search.products({
       page: Math.ceil(after / first),
       count: first,
     })

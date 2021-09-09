@@ -1,5 +1,5 @@
 import type { Resolver } from '..'
-import type { Attribute } from '../clients/is/types/AttributeSearchResult'
+import type { Attribute } from '../clients/search/types/AttributeSearchResult'
 
 type Root = Attribute
 

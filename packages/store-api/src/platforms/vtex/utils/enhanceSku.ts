@@ -1,4 +1,4 @@
-import type { Product, Skus } from '../clients/is/types/ProductSearchResult'
+import type { Product, Skus } from '../clients/search/types/ProductSearchResult'
 
 export type EnhancedSku = Skus & { isVariantOf: Product }
 

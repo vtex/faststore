@@ -1,15 +1,15 @@
 import { VtexCommerce } from './commerce'
-import { IntelligentSearch } from './is'
+import { IntelligentSearch } from './search'
 import type { Options } from '..'
 
 export type Clients = ReturnType<typeof getClients>
 
 export const getClients = (options: Options) => {
-  const is = IntelligentSearch(options)
+  const search = IntelligentSearch(options)
   const commerce = VtexCommerce(options)
 
   return {
-    is,
+    search,
     commerce,
   }
 }

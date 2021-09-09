@@ -1,5 +1,5 @@
 import type { Resolver } from '..'
-import type { Value } from '../clients/is/types/AttributeSearchResult'
+import type { Value } from '../clients/search/types/AttributeSearchResult'
 
 type Root = Value
 

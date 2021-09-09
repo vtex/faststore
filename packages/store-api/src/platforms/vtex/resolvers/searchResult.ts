@@ -1,16 +1,16 @@
 import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
-import type { SearchArgs } from '../clients/is'
+import type { SearchArgs } from '../clients/search'
 
 type Root = Omit<SearchArgs, 'type'>
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   products: async (searchArgs, _, ctx) => {
     const {
-      clients: { is },
+      clients: { search },
     } = ctx
 
-    const products = await is.products(searchArgs)
+    const products = await search.products(searchArgs)
 
     const skus = products.products
       .map((product) => {
@@ -36,7 +36,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
   },
   facets: async (searchArgs, _, ctx) => {
     const {
-      clients: { is },
+      clients: { search: is },
     } = ctx
 
     const facets = await is.facets(searchArgs)

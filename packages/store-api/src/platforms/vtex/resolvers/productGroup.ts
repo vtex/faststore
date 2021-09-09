@@ -1,5 +1,5 @@
 import { enhanceSku } from '../utils/enhanceSku'
-import type { Product } from '../clients/is/types/ProductSearchResult'
+import type { Product } from '../clients/search/types/ProductSearchResult'
 import type { Resolver } from '..'
 
 export const StoreProductGroup: Record<string, Resolver<Product>> = {
