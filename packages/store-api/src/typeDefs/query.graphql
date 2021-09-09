@@ -1,0 +1,72 @@
+type StoreProductEdge {
+  node: StoreProduct!
+  cursor: String!
+}
+
+type StoreProductConnection {
+  pageInfo: StorePageInfo!
+  edges: [StoreProductEdge!]!
+}
+
+
+type StoreCollectionEdge {
+  node: StoreCollection!
+  cursor: String!
+}
+
+type StoreCollectionConnection {
+  pageInfo: StorePageInfo!
+  edges: [StoreCollectionEdge!]!
+}
+
+enum StoreProductIDField {
+  id
+  slug
+}
+
+input StoreProductID {
+  field: StoreProductIDField!
+  value: ID!
+}
+
+enum StoreSort {
+  price_desc
+  price_asc
+  orders_desc
+  name_desc
+  name_asc
+  release_desc
+  discount_desc
+  score_desc
+}
+
+input StoreSelectedFacet {
+  key: String!
+  value: String!
+}
+
+enum StoreFacetType {
+  BOOLEAN
+  RANGE
+}
+
+type StoreSearchResult {
+  products: StoreProductConnection!
+  facets: [StoreFacet!]!
+}
+
+type Query {
+  product(locator: StoreProductID!): StoreProduct!
+
+  search(
+    first: Int!
+    after: String
+    sort: StoreSort = score_desc
+    term: String = ""
+    selectedFacets: [StoreSelectedFacet!]
+  ): StoreSearchResult!
+
+  allProducts(first: Int!, after: String): StoreProductConnection!
+
+  allCollections(first: Int!, after: String): StoreCollectionConnection!
+}

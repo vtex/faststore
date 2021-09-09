@@ -1,0 +1,26 @@
+enum StoreCollectionType {
+  Department
+  Category
+  Brand
+  Cluster
+}
+
+type StoreCollectionFacet {
+  key: String!
+  value: String!
+}
+
+type StoreCollectionMeta {
+  selectedFacets: [StoreCollectionFacet!]!
+}
+
+type StoreCollection {
+  # Meta tag data
+  seo: StoreSeo!
+  # location for structured data
+  breadcrumbList: StoreBreadcrumbList!
+  meta: StoreCollectionMeta!
+  id: ID!
+  slug: String!
+  type: StoreCollectionType!
+}
