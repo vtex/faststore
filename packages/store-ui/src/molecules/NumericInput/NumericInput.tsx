@@ -124,15 +124,17 @@ const NumericInput = ({
     <div
       data-store-numeric-input
       data-testid={testId}
-      aria-label="numeric-input"
+      aria-label="number-input"
     >
       <ActionButton
         actionOption="dec"
         disabled={buttonDisabled?.dec ?? false}
         testId={testId}
         onClick={() => handleActionButtonClick('dec')}
+        aria-label="decrease"
+        aria-disabled="false"
       >
-        <span>-</span>
+        <span aria-hidden="true">-</span>
       </ActionButton>
       <Input
         type="number"
@@ -143,14 +145,20 @@ const NumericInput = ({
         defaultValue={defaultValue}
         variant={currentValue < min || currentValue > max ? 'error' : undefined}
         disabled={disabled}
+        role="spinbutton"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={currentValue}
       />
       <ActionButton
         actionOption="inc"
         disabled={buttonDisabled?.inc ?? false}
         testId={testId}
         onClick={() => handleActionButtonClick('inc')}
+        aria-label="increase"
+        aria-disabled="false"
       >
-        <span>+</span>
+        <span aria-hidden="true">+</span>
       </ActionButton>
     </div>
   )
