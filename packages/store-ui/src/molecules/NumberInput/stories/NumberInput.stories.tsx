@@ -2,17 +2,17 @@ import type { Story } from '@storybook/react'
 import React from 'react'
 
 import type { ComponentArgTypes } from '../../../typings/utils'
-import type { NumericInputProps } from '../NumericInput'
-import Component from '../NumericInput'
-import mdx from './NumericInput.mdx'
+import type { NumberInputProps } from '../NumberInput'
+import Component from '../NumberInput'
+import mdx from './NumberInput.mdx'
 
-const NumericInputTemplate: Story<NumericInputProps> = (props) => (
+const NumberInputTemplate: Story<NumberInputProps> = (props) => (
   <Component {...props} />
 )
 
-export const NumericInput = NumericInputTemplate.bind({})
+export const NumberInput = NumberInputTemplate.bind({})
 
-const argTypes: ComponentArgTypes<NumericInputProps> = {
+const argTypes: ComponentArgTypes<NumberInputProps> = {
   defaultValue: {
     control: { type: 'number' },
     defaultValue: 1,
@@ -36,8 +36,8 @@ const argTypes: ComponentArgTypes<NumericInputProps> = {
 }
 
 export default {
-  title: 'Molecules/NumericInput',
-  component: NumericInput,
+  title: 'Molecules/NumberInput',
+  component: NumberInput,
   argTypes,
   parameters: {
     docs: {

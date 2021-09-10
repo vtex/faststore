@@ -1,19 +1,19 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
-import NumericInput from './NumericInput'
+import NumberInput from './NumberInput'
 
-describe('NumericInput', () => {
-  it('should have `data-store-numeric-input` attribute', () => {
-    const { getByTestId } = render(<NumericInput />)
+describe('NumberInput', () => {
+  it('should have `data-store-number-input` attribute', () => {
+    const { getByTestId } = render(<NumberInput />)
 
-    expect(getByTestId('store-numeric-input')).toHaveAttribute(
-      'data-store-numeric-input'
+    expect(getByTestId('store-number-input')).toHaveAttribute(
+      'data-store-number-input'
     )
   })
 
   it('should have `data-store-button="dec"` and `data-store-button="inc"` attributes', () => {
-    const { queryAllByTestId } = render(<NumericInput />)
+    const { queryAllByTestId } = render(<NumberInput />)
 
     const actionButtonElements = queryAllByTestId('store-button')
 

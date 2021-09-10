@@ -30,7 +30,7 @@ const ActionButton = ({
   </Button>
 )
 
-export interface NumericInputProps {
+export interface NumberInputProps {
   /**
    * The initial value of the input. Should be less than max and greater then min.
    */
@@ -54,19 +54,19 @@ export interface NumericInputProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    *
-   * @default 'store-numeric-input'
+   * @default 'store-number-input'
    */
   testId?: string
 }
 
-const NumericInput = ({
+const NumberInput = ({
   defaultValue,
   min = -Infinity,
   max = Infinity,
   disabled = false,
-  testId = 'store-numeric-input',
+  testId = 'store-number-input',
   onChange,
-}: NumericInputProps) => {
+}: NumberInputProps) => {
   const initialValue =
     defaultValue && defaultValue >= min && defaultValue <= max
       ? defaultValue
@@ -122,11 +122,7 @@ const NumericInput = ({
   }, [currentValue, disabled, min, max])
 
   return (
-    <div
-      data-store-numeric-input
-      data-testid={testId}
-      aria-label="number-input"
-    >
+    <div data-store-number-input data-testid={testId} aria-label="number-input">
       <ActionButton
         actionOption="dec"
         disabled={buttonDisabled?.dec ?? false}
@@ -161,4 +157,4 @@ const NumericInput = ({
   )
 }
 
-export default NumericInput
+export default NumberInput
