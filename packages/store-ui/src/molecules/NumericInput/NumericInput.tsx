@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import type { PropsWithChildren } from 'react'
 
 import Button from '../../atoms/Button'
@@ -6,14 +6,14 @@ import Input from '../../atoms/Input'
 
 interface ActionButtonProps {
   actionOption: 'dec' | 'inc'
-  isDisabled: boolean
+  disabled: boolean
   testId: string
   onClick: (currentValue: number) => void
 }
 
 const ActionButton = ({
   actionOption,
-  isDisabled,
+  disabled,
   testId,
   onClick,
   children,
@@ -21,20 +21,15 @@ const ActionButton = ({
   <Button
     type="button"
     data-testid={`${testId}-${actionOption}`}
-    data-numeric-input-action={actionOption}
     onClick={(event) => onClick(parseInt(event.currentTarget.value, 10))}
     aria-label={`numeric-input-${actionOption}`}
-    disabled={isDisabled}
+    disabled={disabled}
   >
     {children}
   </Button>
 )
 
 export interface NumericInputProps {
-  /**
-   * The current value of the input. Should be less than max and greater then min.
-   */
-  value?: number
   /**
    * The initial value of the input. Should be less than max and greater then min.
    */
@@ -48,11 +43,11 @@ export interface NumericInputProps {
    */
   max?: number
   /**
-   * Define if the input is disabled.
+   * Define if the component is disabled.
    */
-  isDisabled?: boolean
+  disabled?: boolean
   /**
-   * Callback that fires when the input value changes.
+   * Callback that fires when the current value changes, either by directly changing the input or by buttons' action.
    */
   onChange?: (value: number) => void
   /**
@@ -64,47 +59,66 @@ export interface NumericInputProps {
 }
 
 const NumericInput = ({
-  value = 1,
   defaultValue,
-  min = 0,
+  min = -Infinity,
   max = Infinity,
-  isDisabled = false,
+  disabled = false,
   testId = 'store-numeric-input',
   onChange,
 }: NumericInputProps) => {
-  const [currentValue, setCurrentValue] = useState(value)
-  const [isButtonDisabled, setIsButtonDisabled] = useState<{
+  const initialValue =
+    defaultValue && defaultValue >= min && defaultValue <= max
+      ? defaultValue
+      : min !== -Infinity
+      ? min
+      : 0
+
+  const [currentValue, setCurrentValue] = useState(initialValue)
+  const [buttonDisabled, setButtonDisabled] = useState<{
     dec: boolean
     inc: boolean
-  }>({ dec: value === min || isDisabled, inc: value === max || isDisabled })
+  }>()
 
-  const handleInputChange = useCallback(
-    (event: React.FormEvent<HTMLInputElement>) => {
-      const inputValue = parseInt(event.currentTarget.value, 10)
-
-      setCurrentValue(inputValue)
-      onChange?.(inputValue)
+  const handleCurrentValueUpdate = useCallback(
+    (newValue: number) => {
+      setCurrentValue(newValue)
+      onChange?.(newValue)
     },
     [onChange]
   )
 
+  const handleInputChange = useCallback(
+    (event: React.FormEvent<HTMLInputElement>) => {
+      if (disabled) return
+
+      const inputValue = parseInt(event.currentTarget.value, 10)
+
+      if (Number.isNaN(inputValue)) handleCurrentValueUpdate(initialValue)
+      else handleCurrentValueUpdate(inputValue)
+    },
+    [disabled, initialValue, handleCurrentValueUpdate]
+  )
+
   const handleActionButtonClick = useCallback(
     (actionOption: 'dec' | 'inc') => {
-      const newValue =
-        actionOption === 'dec' ? currentValue - 1 : currentValue + 1
+      if (currentValue < min) handleCurrentValueUpdate(min)
+      else if (currentValue > max) handleCurrentValueUpdate(max)
+      else {
+        const newValue =
+          actionOption === 'dec' ? currentValue - 1 : currentValue + 1
 
-      if (newValue >= min && newValue <= max) {
-        setCurrentValue(newValue)
-        onChange?.(newValue)
+        handleCurrentValueUpdate(newValue)
       }
-
-      setIsButtonDisabled({
-        dec: newValue <= min,
-        inc: newValue >= max,
-      })
     },
-    [currentValue, max, min, onChange]
+    [currentValue, max, min, handleCurrentValueUpdate]
   )
+
+  useEffect(() => {
+    setButtonDisabled({
+      dec: currentValue <= min || disabled,
+      inc: currentValue >= max || disabled,
+    })
+  }, [currentValue, disabled, min, max])
 
   return (
     <div
@@ -114,7 +128,7 @@ const NumericInput = ({
     >
       <ActionButton
         actionOption="dec"
-        isDisabled={isButtonDisabled.dec}
+        disabled={buttonDisabled?.dec ?? false}
         testId={testId}
         onClick={() => handleActionButtonClick('dec')}
       >
@@ -128,11 +142,11 @@ const NumericInput = ({
         max={max}
         defaultValue={defaultValue}
         variant={currentValue < min || currentValue > max ? 'error' : undefined}
-        disabled={isDisabled}
+        disabled={disabled}
       />
       <ActionButton
         actionOption="inc"
-        isDisabled={isButtonDisabled.inc}
+        disabled={buttonDisabled?.inc ?? false}
         testId={testId}
         onClick={() => handleActionButtonClick('inc')}
       >

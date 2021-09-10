@@ -13,25 +13,19 @@ const NumericInputTemplate: Story<NumericInputProps> = (props) => (
 export const NumericInput = NumericInputTemplate.bind({})
 
 const argTypes: ComponentArgTypes<NumericInputProps> = {
-  value: {
-    control: { type: 'number', min: 0 },
-    defaultValue: 0,
-    min: 0,
-  },
   defaultValue: {
-    control: { type: 'number', min: 0 },
-    defaultValue: 0,
-    min: 0,
+    control: { type: 'number' },
+    defaultValue: 1,
   },
   min: {
-    control: { type: 'number', min: 0 },
+    control: { type: 'number' },
     defaultValue: 0,
   },
   max: {
-    control: { type: 'number', min: 1 },
+    control: { type: 'number' },
     defaultValue: 10,
   },
-  isDisabled: {
+  disabled: {
     control: { type: 'boolean' },
     defaultValue: false,
   },

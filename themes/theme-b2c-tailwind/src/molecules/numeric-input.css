@@ -1,9 +1,31 @@
+/* Removing the default spinners input appearance - Chrome, Safari, Edge, Opera */
 [data-store-numeric-input] > [data-store-input][type='number']::-webkit-inner-spin-button,
 [data-store-numeric-input] > [data-store-input][type='number']::-webkit-outer-spin-button {
 	-webkit-appearance: none;
   margin: 0;
 }
 
+/* Removing the default spinners input appearance - Firefox */
 [data-store-numeric-input] > [data-store-input][type='number'] {
   -moz-appearance: textfield;
+}
+
+[data-store-numeric-input] {
+  @apply flex flex-row;
+}
+
+[data-store-numeric-input] > [data-store-button] {
+  @apply p-0 h-7 w-7;
+}
+
+[data-store-numeric-input] > [data-store-button]:disabled {
+  @apply bg-gray-200 cursor-default;
+}
+
+[data-store-numeric-input] > [data-store-input] {
+  @apply w-16 h-full mx-1 my-0 text-center;
+}
+
+[data-store-numeric-input] > [data-store-input]:disabled {
+  @apply opacity-20;
 }
