@@ -7,23 +7,24 @@ import Input from '../../atoms/Input'
 interface ActionButtonProps {
   actionOption: 'dec' | 'inc'
   disabled: boolean
-  testId: string
+  ariaLabel: string
   onClick: (currentValue: number) => void
 }
 
 const ActionButton = ({
+  children,
   actionOption,
   disabled,
-  testId,
+  ariaLabel,
   onClick,
-  children,
 }: PropsWithChildren<ActionButtonProps>) => (
   <Button
     type="button"
-    data-testid={`${testId}-${actionOption}`}
+    data-store-button={actionOption}
     onClick={(event) => onClick(parseInt(event.currentTarget.value, 10))}
-    aria-label={`numeric-input-${actionOption}`}
     disabled={disabled}
+    aria-label={ariaLabel}
+    aria-disabled="false"
   >
     {children}
   </Button>
@@ -91,10 +92,10 @@ const NumericInput = ({
     (event: React.FormEvent<HTMLInputElement>) => {
       if (disabled) return
 
-      const inputValue = parseInt(event.currentTarget.value, 10)
+      const inputValue = event.currentTarget.value
 
-      if (Number.isNaN(inputValue)) handleCurrentValueUpdate(initialValue)
-      else handleCurrentValueUpdate(inputValue)
+      if (inputValue === '') handleCurrentValueUpdate(initialValue)
+      else handleCurrentValueUpdate(parseInt(inputValue, 10))
     },
     [disabled, initialValue, handleCurrentValueUpdate]
   )
@@ -129,10 +130,8 @@ const NumericInput = ({
       <ActionButton
         actionOption="dec"
         disabled={buttonDisabled?.dec ?? false}
-        testId={testId}
         onClick={() => handleActionButtonClick('dec')}
-        aria-label="decrease"
-        aria-disabled="false"
+        ariaLabel="Decrease current value"
       >
         <span aria-hidden="true">-</span>
       </ActionButton>
@@ -153,10 +152,8 @@ const NumericInput = ({
       <ActionButton
         actionOption="inc"
         disabled={buttonDisabled?.inc ?? false}
-        testId={testId}
         onClick={() => handleActionButtonClick('inc')}
-        aria-label="increase"
-        aria-disabled="false"
+        ariaLabel="Increase current value"
       >
         <span aria-hidden="true">+</span>
       </ActionButton>
