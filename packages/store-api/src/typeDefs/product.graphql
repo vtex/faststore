@@ -1,7 +1,7 @@
 type StoreProduct {
   # Meta tag data
   seo: StoreSeo!
-  # location for structured data
+  # Location for structured data
   breadcrumbList: StoreBreadcrumbList!
   # Where to retrieve this entity
   slug: String!
