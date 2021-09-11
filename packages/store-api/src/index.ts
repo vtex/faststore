@@ -10,16 +10,13 @@ const getResolversByPlatform = {
   vtex: getResolversVTEX,
 }
 
-const getTypeDefs = async () => typeDefs
+export const getTypeDefs = () => typeDefs
 
-const getResolvers = (options: Options) =>
+export const getResolvers = (options: Options) =>
   getResolversByPlatform[options.platform](options)
 
-export const getSchema = async (options: Options) => {
-  const [resolvers, defs] = await Promise.all([
-    getResolvers(options),
-    getTypeDefs(),
-  ])
-
-  return makeExecutableSchema({ resolvers, typeDefs: defs })
-}
+export const getSchema = async (options: Options) =>
+  makeExecutableSchema({
+    resolvers: getResolvers(options),
+    typeDefs: getTypeDefs(),
+  })
