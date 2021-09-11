@@ -33,5 +33,10 @@ export const sourceProducts = async (
     },
   ]
 
-  await sourceStoreType(gatsbyApi, options, gatsbyNodeTypes, maxNumProducts)
+  await sourceStoreType({
+    gatsbyApi,
+    pluginOptions: options,
+    gatsbyNodeTypes,
+    maxItems: maxNumProducts,
+  })
 }

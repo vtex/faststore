@@ -40,7 +40,7 @@ This plugin brings additional options for you to control how the nodes are sourc
 | maxNumProducts    |  number |   max number of products to source  |
 | maxNumCollections |  number | max number of collections to source |
 
-> Tip: While sourcing large ecommerces, add the maxNumProducts and maxNumCollections so you can develop whithout waiting for the whole dataset to be downloaded. Maybe try something like:
+> Tip: While sourcing large ecommerces, add the maxNumProducts and maxNumCollections so you can develop without waiting for the whole dataset to be downloaded. Maybe try something like:
 ```js
 const { getSchema } = require('@vtex/store-api')
 

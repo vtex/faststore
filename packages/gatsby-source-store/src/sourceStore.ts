@@ -15,12 +15,19 @@ import type {
 import type { Options } from './gatsby-node'
 import { RelayForward } from './paginate'
 
-export const sourceStoreType = async (
-  gatsbyApi: SourceNodesArgs,
-  options: Options,
-  gatsbyNodeTypes: IGatsbyNodeConfig[],
+interface Args {
+  gatsbyApi: SourceNodesArgs
+  pluginOptions: Options
+  gatsbyNodeTypes: IGatsbyNodeConfig[]
   maxItems: number
-) => {
+}
+
+export const sourceStoreType = async ({
+  gatsbyApi,
+  pluginOptions: options,
+  gatsbyNodeTypes,
+  maxItems,
+}: Args) => {
   // Step1. Set up remote schema
   const schema = await options.getSchema()
 
