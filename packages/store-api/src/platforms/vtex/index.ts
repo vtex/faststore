@@ -47,6 +47,8 @@ const Resolvers = {
 
 export const getContextFactory = (options: Options) => (ctx: any) => {
   ctx.clients = getClients(options)
+
+  return ctx
 }
 
 export const getResolvers = (_: Options) => Resolvers
