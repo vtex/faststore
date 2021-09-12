@@ -45,17 +45,8 @@ const Resolvers = {
   Query,
 }
 
-const Wrap = (resolvers: Record<string, Resolver>, options: Options) =>
-  Object.keys(resolvers).reduce((acc, key) => {
-    acc[key] = (root, args, ctx, info) =>
-      resolvers[key](root, args, { ...ctx, clients: getClients(options) }, info)
+export const getContextFactory = (options: Options) => (ctx: any) => {
+  ctx.clients = getClients(options)
+}
 
-    return acc
-  }, {} as Record<string, Resolver>)
-
-export const getResolvers = (options: Options) =>
-  Object.keys(Resolvers).reduce((acc, key) => {
-    acc[key] = Wrap((Resolvers as any)[key], options)
-
-    return acc
-  }, {} as Record<string, Record<string, Resolver>>)
+export const getResolvers = (_: Options) => Resolvers
