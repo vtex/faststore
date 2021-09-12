@@ -50,7 +50,7 @@ export const sourceStoreType = async ({
         operationName: args.operationName,
         document: parse(args.query),
         variableValues: args.variables,
-        contextValue: contextFactory(),
+        contextValue: contextFactory({}),
         schema,
       })
 
