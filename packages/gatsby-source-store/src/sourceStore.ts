@@ -30,6 +30,7 @@ export const sourceStoreType = async ({
 }: Args) => {
   // Step1. Set up remote schema
   const schema = await options.getSchema()
+  const contextFactory = await options.getContextFactory()
 
   // Step3. Provide (or generate) fragments with fields to be fetched
   const fragments = generateDefaultFragments({ schema, gatsbyNodeTypes })
@@ -49,6 +50,7 @@ export const sourceStoreType = async ({
         operationName: args.operationName,
         document: parse(args.query),
         variableValues: args.variables,
+        contextValue: contextFactory(),
         schema,
       })
 

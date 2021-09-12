@@ -15,6 +15,7 @@ export interface Options {
   maxNumProducts?: number
   maxNumCollections?: number
   getSchema: () => Promise<GraphQLSchema>
+  getContextFactory: () => Promise<any>
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
@@ -24,6 +25,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
     maxNumProducts: Joi.number(),
     maxNumCollections: Joi.number(),
     getSchema: Joi.function().required(),
+    getContextFactory: Joi.function().required(),
   })
 
 export const createSchemaCustomization = async (
