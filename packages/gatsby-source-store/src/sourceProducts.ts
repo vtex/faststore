@@ -5,7 +5,8 @@ import type { Options } from './gatsby-node'
 
 export const sourceProducts = async (
   gatsbyApi: SourceNodesArgs,
-  options: Options
+  options: Options,
+  lastBuildTime?: number
 ) => {
   const { maxNumProducts = Infinity } = options
   const gatsbyNodeTypes = [
@@ -38,5 +39,6 @@ export const sourceProducts = async (
     pluginOptions: options,
     gatsbyNodeTypes,
     maxItems: maxNumProducts,
+    lastBuildTime,
   })
 }

@@ -13,15 +13,15 @@ import type {
   ISourcingConfig,
 } from 'gatsby-graphql-source-toolkit/dist/types'
 
-import type { Options } from './gatsby-node'
 import { RelayForward } from './paginate'
+import type { Options } from './gatsby-node'
 
 interface Args {
   gatsbyApi: SourceNodesArgs
   pluginOptions: Options
   gatsbyNodeTypes: IGatsbyNodeConfig[]
   maxItems: number
-  lastBuildTime?: number
+  lastBuildTime: number | undefined
 }
 
 export const sourceStoreType = async ({
@@ -73,10 +73,10 @@ export const sourceStoreType = async ({
   // Step5. Add explicit types to gatsby schema
   await toolkitCreateSchemaCustomization(config)
 
+  // Step6. Source nodes
   if (lastBuildTime) {
     await sourceNodeChanges(config, { nodeEvents: [] })
   } else {
-    // Step6. Source nodes
     await sourceAllNodes(config)
   }
 }
