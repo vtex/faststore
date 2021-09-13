@@ -61,8 +61,15 @@ export const sourceNodes = async (
     )
   }
 
-  await Promise.all([
-    sourceProducts(gatsbyApi, options),
-    sourceCollections(gatsbyApi, options),
-  ])
+  const sources: Array<Promise<void>> = []
+
+  if (options.sourceProducts !== false) {
+    sources.push(sourceProducts(gatsbyApi, options))
+  }
+
+  if (options.sourceCollections !== false) {
+    sources.push(sourceCollections(gatsbyApi, options))
+  }
+
+  await Promise.all(sources)
 }

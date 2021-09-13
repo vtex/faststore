@@ -4,6 +4,7 @@ import {
   createSchemaCustomization as toolkitCreateSchemaCustomization,
   generateDefaultFragments,
   sourceAllNodes,
+  sourceNodeChanges,
 } from 'gatsby-graphql-source-toolkit'
 import { execute, parse } from 'graphql'
 import type { SourceNodesArgs } from 'gatsby'
@@ -20,6 +21,7 @@ interface Args {
   pluginOptions: Options
   gatsbyNodeTypes: IGatsbyNodeConfig[]
   maxItems: number
+  lastBuildTime?: number
 }
 
 export const sourceStoreType = async ({
@@ -27,10 +29,13 @@ export const sourceStoreType = async ({
   pluginOptions: options,
   gatsbyNodeTypes,
   maxItems,
+  lastBuildTime,
 }: Args) => {
   // Step1. Set up remote schema
-  const schema = await options.getSchema()
-  const contextFactory = await options.getContextFactory()
+  const [schema, contextFactory] = await Promise.all([
+    options.getSchema(),
+    options.getContextFactory(),
+  ])
 
   // Step3. Provide (or generate) fragments with fields to be fetched
   const fragments = generateDefaultFragments({ schema, gatsbyNodeTypes })
@@ -68,6 +73,10 @@ export const sourceStoreType = async ({
   // Step5. Add explicit types to gatsby schema
   await toolkitCreateSchemaCustomization(config)
 
-  // Step6. Source nodes
-  await sourceAllNodes(config)
+  if (lastBuildTime) {
+    await sourceNodeChanges(config, { nodeEvents: [] })
+  } else {
+    // Step6. Source nodes
+    await sourceAllNodes(config)
+  }
 }
