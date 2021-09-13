@@ -111,5 +111,5 @@ const resolvers = {
 // Create a runnable schema
 const schema = makeExecutableSchema({ resolvers, typeDefs })
 
-// You now have a runnable GraphQL schema, you can create a server or rurn queries locally.
+// You now have a runnable GraphQL schema, you can create a server or run queries locally.
 ```
