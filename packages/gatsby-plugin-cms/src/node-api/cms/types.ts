@@ -15,8 +15,6 @@ export interface RemotePageContent {
   }
   lastUpdatedAt: string
   blocks: Block[]
-  beforeBlocks: Block[]
-  afterBlocks: Block[]
   extraBlocks: Array<{
     name: string
     blocks: Block[]

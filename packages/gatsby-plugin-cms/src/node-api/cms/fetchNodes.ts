@@ -37,14 +37,6 @@ fragment PageContentFragment on PageContent {
     name
     props
   }
-  beforeBlocks {
-    name
-    props
-  }
-  afterBlocks {
-    name
-    props
-  }
   extraBlocks {
     name
     blocks {

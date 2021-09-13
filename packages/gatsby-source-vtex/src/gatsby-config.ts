@@ -12,10 +12,6 @@ export const config = ({ tenant, workspace, environment }: Options) => ({
       url: `https://${workspace}--${tenant}.myvtex.com`,
     },
     {
-      prefix: '/api',
-      url: `https://${tenant}.${environment}.com.br`,
-    },
-    {
       prefix: '/checkout',
       url: `https://${workspace}--${tenant}.myvtex.com`,
     },

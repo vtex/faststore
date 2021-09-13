@@ -35,6 +35,12 @@ export type { BadgeProps } from './atoms/Badge'
 export { default as Slider } from './atoms/Slider'
 export type { SliderProps } from './atoms/Slider'
 
+export { default as List } from './atoms/List'
+export type { ListProps } from './atoms/List'
+
+export { default as Skeleton } from './atoms/Skeleton'
+export type { SkeletonProps } from './atoms/Skeleton'
+
 // Molecules
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
