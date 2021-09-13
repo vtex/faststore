@@ -52,14 +52,14 @@ import { ApolloServer } from 'apollo-server'
 // Setup type extensions
 const typeDefs = `
 extend type Product {
-  cutomField: String!
+  customField: String!
 }
 `
 
 // Setup custom resolvers
 const resolvers = {
   Product: {
-    cutomField: async () => {
+    customField: async () => {
       ...
       // Your code goes here
       ...
