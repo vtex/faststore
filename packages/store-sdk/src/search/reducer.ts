@@ -2,14 +2,14 @@ import { SDKError } from '../utils/error'
 import type { Facet, SearchParamsState, SearchSort } from './state'
 
 const sortKeys = new Set<SearchSort>([
-  'price-desc',
-  'price-asc',
-  'orders-desc',
-  'name-desc',
-  'name-asc',
-  'release-desc',
-  'discount-desc',
-  'score-desc',
+  'price_desc',
+  'price_asc',
+  'orders_desc',
+  'name_desc',
+  'name_asc',
+  'release_desc',
+  'discount_desc',
+  'score_desc',
 ])
 
 interface FacetParam extends Facet {

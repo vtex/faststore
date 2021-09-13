@@ -1,3 +1,3 @@
-/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Fake indexedDB
 globalThis.indexedDB = require('fake-indexeddb')
