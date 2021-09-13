@@ -61,7 +61,7 @@ export interface NumberInputProps {
 
 const NumberInput = ({
   defaultValue,
-  min = -Infinity,
+  min = 0,
   max = Infinity,
   disabled = false,
   testId = 'store-number-input',
@@ -70,9 +70,7 @@ const NumberInput = ({
   const initialValue =
     defaultValue && defaultValue >= min && defaultValue <= max
       ? defaultValue
-      : min !== -Infinity
-      ? min
-      : 0
+      : min
 
   const [currentValue, setCurrentValue] = useState(initialValue)
   const [buttonDisabled, setButtonDisabled] = useState<{
