@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.7 (2021-09-13)
+
+
+### Features
+
+* **store-ui:** Add Skeleton Atom ([#911](https://github.com/vtex/faststore/issues/911)) ([ef25cde](https://github.com/vtex/faststore/commit/ef25cdea6f6e344b4005ecd2ec0c80d959df35b0))
+
+
+
+
+
 ## 1.1.6 (2021-09-09)
 
 **Note:** Version bump only for package @vtex/store-sdk
