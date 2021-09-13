@@ -3,6 +3,6 @@ type StorePageInfo {
   hasPreviousPage: Boolean!
   startCursor: String!
   endCursor: String!
-  # Total number of items, not pages
+  # Total number of items(products/collections), not pages
   totalCount: Int!
 }
