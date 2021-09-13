@@ -97,6 +97,7 @@ To create your own resolvers, you can:
 ```ts
 import { getTypeDefs } from '@vtex/store-api'
 import { ApolloServer } from 'apollo-server'
+import { makeExecutableSchema } from '@graphql-tools/schema'
 
 // Get the Store API TypeDefs
 const typeDefs = getTypeDefs()
