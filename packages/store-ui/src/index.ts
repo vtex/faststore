@@ -57,6 +57,9 @@ export type { CarouselProps } from './molecules/Carousel'
 export { default as IconButton } from './molecules/IconButton'
 export type { IconButtonProps } from './molecules/IconButton'
 
+export { default as Modal } from './molecules/Modal'
+export type { ModalProps } from './molecules/Modal'
+
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
 export type {
