@@ -24,7 +24,7 @@ const ActionButton = ({
     onClick={(event) => onClick(parseInt(event.currentTarget.value, 10))}
     disabled={disabled}
     aria-label={ariaLabel}
-    aria-disabled="false"
+    aria-disabled={disabled}
   >
     {children}
   </Button>
