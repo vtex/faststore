@@ -59,7 +59,9 @@ type Query {
   product(locator: StoreProductID!): StoreProduct!
 
   search(
+    # Relay style pagination args. To know more: https://relay.dev/graphql/connections.htm
     first: Int!
+     # Relay style pagination args. To know more: https://relay.dev/graphql/connections.htm
     after: String
     sort: StoreSort = score_desc
     term: String = ""
