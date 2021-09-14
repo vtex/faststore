@@ -66,6 +66,7 @@ const NumberInput = ({
   disabled = false,
   testId = 'store-number-input',
   onChange,
+  ...props
 }: NumberInputProps) => {
   const initialValue =
     defaultValue && defaultValue >= min && defaultValue <= max
@@ -120,7 +121,12 @@ const NumberInput = ({
   }, [currentValue, disabled, min, max])
 
   return (
-    <div data-store-number-input data-testid={testId} aria-label="number-input">
+    <div
+      data-store-number-input
+      data-testid={testId}
+      aria-label="number-input"
+      {...props}
+    >
       <ActionButton
         actionOption="dec"
         disabled={buttonDisabled?.dec ?? false}
