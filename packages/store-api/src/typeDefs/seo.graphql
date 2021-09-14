@@ -1,0 +1,6 @@
+type StoreSeo {
+  title: String!
+  titleTemplate: String!
+  description: String!
+  canonical: String!
+}

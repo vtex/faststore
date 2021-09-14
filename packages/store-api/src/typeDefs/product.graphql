@@ -1,0 +1,19 @@
+type StoreProduct {
+  # Meta tag data
+  seo: StoreSeo!
+  # Location for structured data
+  breadcrumbList: StoreBreadcrumbList!
+  # Where to retrieve this entity
+  slug: String!
+  name: String!
+  productID: String!
+  brand: StoreBrand!
+  description: String!
+  image: [StoreImage!]!
+  offers: StoreAggregateOffer!
+  sku: String!
+  gtin: String!
+  review: [StoreReview!]!
+  aggregateRating: StoreAggregateRating!
+  isVariantOf: StoreProductGroup!
+}
