@@ -1,12 +1,12 @@
 export type SearchSort =
-  | 'price-desc'
-  | 'price-asc'
-  | 'orders-desc'
-  | 'name-desc'
-  | 'name-asc'
-  | 'release-desc'
-  | 'discount-desc'
-  | 'score-desc'
+  | 'price_desc'
+  | 'price_asc'
+  | 'orders_desc'
+  | 'name_desc'
+  | 'name_asc'
+  | 'release_desc'
+  | 'discount_desc'
+  | 'score_desc'
 
 export interface Facet {
   key: string
@@ -34,7 +34,7 @@ export interface SearchParamsState {
 }
 
 export const initialize = ({
-  sort = 'score-desc',
+  sort = 'score_desc',
   selectedFacets = [],
   personalized = false,
   term = null,

@@ -1,0 +1,10 @@
+type StoreAggregateOffer {
+  # Highest spot price amongst all sellers
+  highPrice: Float!
+  # Lowest spot price amongst all sellers
+  lowPrice: Float!
+  # Number of sellers selling this sku
+  offerCount: Int!
+  priceCurrency: String!
+  offers: [StoreOffer!]!
+}

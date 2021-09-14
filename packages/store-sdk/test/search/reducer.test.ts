@@ -7,10 +7,10 @@ import {
 test('Search State Manager: change sort ordering', async () => {
   const state = initSearchParamsState()
 
-  expect(state.sort).toBe('score-desc')
+  expect(state.sort).toBe('score_desc')
 
-  setSearchParam(state, { key: 'sort', value: 'name-asc' })
-  expect(state.sort).toBe('name-asc')
+  setSearchParam(state, { key: 'sort', value: 'name_asc' })
+  expect(state.sort).toBe('name_asc')
 
   expect(() => {
     setSearchParam(state, {

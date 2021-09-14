@@ -1,0 +1,9 @@
+type StoreReviewRating {
+  ratingValue: Float!
+  bestRating: Float!
+}
+
+type StoreReview {
+  reviewRating: StoreReviewRating!
+  author: StoreAuthor!
+}
