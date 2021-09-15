@@ -22,8 +22,7 @@
   "dependencies": {
     "graphql": "^15.5.3",
     "rollup-plugin-graphql": "^0.1.0",
-    "slugify": "^1.6.0",
-    "ts-jest": "25.5.1"
+    "slugify": "^1.6.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.2.0",
