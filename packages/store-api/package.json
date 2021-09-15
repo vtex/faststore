@@ -14,7 +14,7 @@
   },
   "scripts": {
     "develop": "tsdx watch",
-    "build": "yarn run generate && tsdx build",
+    "build": "graphql-codegen --config codegen.yml && tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "generate": "graphql-codegen --config codegen.yml"
