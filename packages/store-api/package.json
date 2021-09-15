@@ -20,7 +20,9 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@graphql-tools/schema": "^8.2.0",
     "graphql": "^15.5.3",
+    "isomorphic-unfetch": "^3.1.0",
     "rollup-plugin-graphql": "^0.1.0",
     "slugify": "^1.6.0"
   },
