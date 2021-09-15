@@ -1,6 +1,6 @@
 {
   "name": "@vtex/store-ui",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -71,7 +71,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.8",
     "@types/testing-library__jest-dom": "^5.9.5",
-    "@vtex/theme-b2c-tailwind": "^1.1.8",
+    "@vtex/theme-b2c-tailwind": "^1.1.9",
     "@vtex/tsconfig": "^0.5.0",
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
