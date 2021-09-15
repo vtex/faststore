@@ -14,16 +14,20 @@
   },
   "scripts": {
     "develop": "tsdx watch",
-    "build": "tsdx build",
+    "build": "yarn generate && tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint"
+    "lint": "tsdx lint",
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "graphql": "^15.5.3",
     "rollup-plugin-graphql": "^0.1.0",
     "slugify": "^1.6.0",
     "ts-jest": "25.5.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.2.0",
+    "@graphql-codegen/typescript": "2.2.2",
     "babel-jest": "^27.1.1",
     "jest-transform-graphql": "^2.1.0",
     "ts-jest": "^27.0.5",
