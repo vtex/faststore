@@ -7,6 +7,8 @@ import {
 import { typeDefs } from './typeDefs'
 import type { Options as OptionsVTEX } from './platforms/vtex'
 
+export * from '@generated/schema'
+
 export type Options = OptionsVTEX
 
 const platforms = {
