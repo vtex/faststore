@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.10 (2021-09-16)
+
+
+### Features
+
+* **store-api:** Add codegen ([#960](https://github.com/vtex/faststore/issues/960)) ([5231e6c](https://github.com/vtex/faststore/commit/5231e6c455be73b9d870627188c07a420651ed44))
+
+
+
+
+
 ## 1.1.9 (2021-09-15)
 
 **Note:** Version bump only for package @vtex/theme-b2c-tailwind

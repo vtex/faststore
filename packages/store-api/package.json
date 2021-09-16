@@ -1,6 +1,6 @@
 {
   "name": "@vtex/store-api",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "develop":  "concurrently \"yarn generate -w\" \"tsdx watch\"",
+    "develop": "concurrently \"yarn generate -w\" \"tsdx watch\"",
     "build": "graphql-codegen --config codegen.yml && tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
