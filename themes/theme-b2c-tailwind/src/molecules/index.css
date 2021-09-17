@@ -1,8 +1,9 @@
 @import "./bullets.css";
-@import "./search-input.css";
-@import "./icon-button.css";
-@import './price-range.css';
 @import "./carousel.css";
+@import "./icon-button.css";
+@import "./loading-button.css";
+@import './price-range.css';
 @import "./modal.css";
 @import "./accordion.css";
 @import "./table.css";
+@import "./search-input.css";
