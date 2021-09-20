@@ -1,0 +1,9 @@
+[data-store-modal] {
+  @apply bg-white w-96 font-sans; 
+  @apply p-5 rounded;
+}
+
+[data-store-modal] > [data-action-container] {
+  @apply flex justify-end;
+}
+
