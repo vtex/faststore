@@ -35,12 +35,13 @@ export const ADD_TO_CART_SAMPLE: AddToCartEvent = {
   },
 }
 
-export const WRAPPED_ADD_TO_CART_SAMPLE: WrappedAnalyticsEvent<AddToCartEvent> = {
-  type: 'AnalyticsEvent',
-  data: {
-    type: 'store:add_to_cart',
+export const WRAPPED_ADD_TO_CART_SAMPLE: WrappedAnalyticsEvent<AddToCartEvent> =
+  {
+    type: 'AnalyticsEvent',
     data: {
-      items: [{ item_id: 'PRODUCT_ID' }],
+      type: 'store:add_to_cart',
+      data: {
+        items: [{ item_id: 'PRODUCT_ID' }],
+      },
     },
-  },
-}
+  }

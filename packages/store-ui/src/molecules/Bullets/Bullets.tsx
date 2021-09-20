@@ -61,9 +61,10 @@ function Bullets({
   testId = 'store-bullets',
   ariaLabelGenerator = defaultAriaLabel,
 }: BulletsProps) {
-  const bulletIndexes = useMemo(() => Array(totalQuantity).fill(0), [
-    totalQuantity,
-  ])
+  const bulletIndexes = useMemo(
+    () => Array(totalQuantity).fill(0),
+    [totalQuantity]
+  )
 
   return (
     <ol data-store-bullets data-testid={testId}>

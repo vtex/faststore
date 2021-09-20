@@ -18,7 +18,7 @@ Default.args = {
 }
 
 const INTLFormattedTemplate: Story<PriceProps> = ({ value, variant }) => {
-  function useIntlFormatter(price: number) {
+  const useIntlFormatter = (price: number) => {
     return useMemo(() => {
       const formattedPrice = new Intl.NumberFormat('en-GB', {
         style: 'currency',
@@ -44,7 +44,7 @@ const INTLFormattedToPartsTemplate: Story<PriceProps> = ({
   value,
   variant,
 }) => {
-  function useIntlPartsFormatter(price: number) {
+  const useIntlPartsFormatter = (price: number) => {
     return useMemo(() => {
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -85,7 +85,7 @@ INTLFormattedToParts.args = {
 }
 
 export const Custom: Story<PriceProps> = ({ value, variant }) => {
-  function customFormatter(price: number) {
+  const customFormatter = (price: number) => {
     const unformattedPrice = `${price}`
     const formattedPrice = `${unformattedPrice.replace('.', ',')} reais`
 

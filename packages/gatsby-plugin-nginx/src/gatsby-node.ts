@@ -50,23 +50,21 @@ function mapObjectValues<V, T>(
   )
 }
 
-export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = async ({
-  actions: { setWebpackConfig },
-  stage,
-}) => {
-  if (stage !== BUILD_HTML_STAGE) {
-    return
-  }
+export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] =
+  async ({ actions: { setWebpackConfig }, stage }) => {
+    if (stage !== BUILD_HTML_STAGE) {
+      return
+    }
 
-  setWebpackConfig({
-    plugins: [
-      new WebpackAssetsManifest({
-        assets: assetsManifest,
-        merge: true,
-      }),
-    ],
-  })
-}
+    setWebpackConfig({
+      plugins: [
+        new WebpackAssetsManifest({
+          assets: assetsManifest,
+          merge: true,
+        }),
+      ],
+    })
+  }
 
 export const onPostBuild: GatsbyNode['onPostBuild'] = async (
   { store, pathPrefix, reporter },
@@ -78,7 +76,11 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async (
 
   timer.start()
 
-  const { program, pages: pagesMap, redirects } = store.getState() as {
+  const {
+    program,
+    pages: pagesMap,
+    redirects,
+  } = store.getState() as {
     pages: Map<string, Page>
     program: { directory: string }
     redirects: Redirect[]

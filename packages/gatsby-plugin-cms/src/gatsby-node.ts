@@ -163,7 +163,7 @@ export const onCreateNode = async (
     return
   }
 
-  const collection = (node as unknown) as StoreCollection
+  const collection = node as unknown as StoreCollection
   const overrides = await overridesBarrier.get()
 
   const override = overrides[collection.type][collection.remoteId]

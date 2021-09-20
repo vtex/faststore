@@ -32,7 +32,7 @@ export const getCollectionsFromPageContent = (
       const block = extraBlock.blocks.find((x) => x.name === 'Collection')
 
       if (block) {
-        const props = (block.props as unknown) as ICollection
+        const props = block.props as unknown as ICollection
 
         collectionBlocks.push({
           ...props,
