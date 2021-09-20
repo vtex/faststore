@@ -1,8 +1,6 @@
 import React from 'react'
-import {
-  AccordionPanel as ReachAccordionPanel,
-  AccordionPanelProps as ReachAccordionPanelProps,
-} from '@reach/accordion'
+import { AccordionPanel as ReachAccordionPanel } from '@reach/accordion'
+import type { AccordionPanelProps as ReachAccordionPanelProps } from '@reach/accordion'
 
 export interface AccordionPanelProps extends ReachAccordionPanelProps {
   /**

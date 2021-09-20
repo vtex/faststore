@@ -1,8 +1,8 @@
 import type { Story } from '@storybook/react'
 import React from 'react'
-import { AccordionButton, AccordionItem, AccordionPanel } from '..'
 
-import type { AccordionProps } from '../Accordion'
+import { AccordionButton, AccordionItem, AccordionPanel } from '..'
+import type { AccordionProps } from '..'
 import Component from '../Accordion'
 import mdx from './Accordion.mdx'
 
@@ -24,7 +24,7 @@ const Clothing = () => (
     </AccordionPanel>
   </AccordionItem>
 )
-const Sale = ({ disabled }: {disabled?: boolean}) => (
+const Sale = ({ disabled }: { disabled?: boolean }) => (
   <AccordionItem disabled={disabled}>
     <AccordionButton>Sale</AccordionButton>
     <AccordionPanel>

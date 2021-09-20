@@ -1,8 +1,6 @@
 import React from 'react'
-import {
-  AccordionItem as ReachAccordionItem,
-  AccordionItemProps as ReachAccordionItemProps,
-} from '@reach/accordion'
+import { AccordionItem as ReachAccordionItem } from '@reach/accordion'
+import type { AccordionItemProps as ReachAccordionItemProps } from '@reach/accordion'
 
 export interface AccordionItemProps extends ReachAccordionItemProps {
   /**

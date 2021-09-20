@@ -1,8 +1,6 @@
 import React from 'react'
-import {
-  AccordionButton as ReachAccordionButton,
-  AccordionButtonProps as ReachAccordionButtonProps,
-} from '@reach/accordion'
+import { AccordionButton as ReachAccordionButton } from '@reach/accordion'
+import type { AccordionButtonProps as ReachAccordionButtonProps } from '@reach/accordion'
 
 export interface AccordionButtonProps extends ReachAccordionButtonProps {
   /**
