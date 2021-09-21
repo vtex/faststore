@@ -9,7 +9,7 @@ test('useStorage: Hydrate with initial value', async () => {
   expect(hook.result.current[0].a).toBe(1)
 })
 
-test('useStorage: Read value from localStorage after hydration', async () => {
+test('useStorage: Read value from indexedDB after hydration', async () => {
   const key = 'k'
   const storedValue = { a: 1 }
   const initialValue = { a: 2 }
