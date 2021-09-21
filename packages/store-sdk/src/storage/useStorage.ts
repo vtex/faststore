@@ -9,6 +9,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { get, set } from 'idb-keyval'
 
+import { isFunction } from './utils'
+
 const getItem = async <T>(key: string) => {
   try {
     const value = await get<T>(key)
@@ -26,9 +28,6 @@ const setItem = async <T>(key: string, value: T | null) => {
     // noop
   }
 }
-
-const isFunction = <T>(x: T | (() => T)): x is () => T =>
-  typeof x === 'function'
 
 export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
   const [data, setData] = useState(() => ({
