@@ -12,16 +12,6 @@ import Overlay from '../../atoms/Overlay'
 import ModalContent from './ModalContent'
 import type { ModalContentProps } from './ModalContent'
 
-const composeEventHandler = <EventType extends React.SyntheticEvent | Event>(
-  internalHandler: (event: EventType) => void
-) => {
-  return (event: EventType) => {
-    if (!event.defaultPrevented) {
-      internalHandler(event)
-    }
-  }
-}
-
 interface ModalPureProps extends ModalContentProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
@@ -88,23 +78,29 @@ const Modal = ({
   ...props
 }: PropsWithChildren<ModalProps>) => {
   const handleBackdropClick = (event: MouseEvent) => {
+    if (event.defaultPrevented) {
+      return
+    }
+
     event.stopPropagation()
     onDismiss?.(event)
   }
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      event.stopPropagation()
-      onDismiss?.(event)
+    if (event.key !== 'Escape' || event.defaultPrevented) {
+      return
     }
+
+    event.stopPropagation()
+    onDismiss?.(event)
   }
 
   return isOpen
     ? createPortal(
         <ModalPure
           {...props}
-          onBackdropClick={composeEventHandler(handleBackdropClick)}
-          onBackdropKeyDown={composeEventHandler(handleBackdropKeyDown)}
+          onBackdropClick={handleBackdropClick}
+          onBackdropKeyDown={handleBackdropKeyDown}
         >
           {children}
         </ModalPure>,

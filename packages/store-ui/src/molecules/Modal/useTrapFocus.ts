@@ -10,7 +10,7 @@ interface TrapFocusParams {
 }
 
 /**
- * Element that will maintain the focus inside, focus the first element,
+ * Element that will maintain the focus inside trapFocusRef, focus the first element,
  * and focus back on the element that was in focus when useTrapFocus was triggered.
  *
  * Inspired by Material UI TrapFocus https://github.com/mui-org/material-ui/blob/master/packages/mui-core/src/Unstable_TrapFocus/Unstable_TrapFocus.js
