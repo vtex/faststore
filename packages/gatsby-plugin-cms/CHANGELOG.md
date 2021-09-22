@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.12 (2021-09-22)
+
+
+### Bug Fixes
+
+* users were unable to develop a store in an account without CMS pages ([#969](https://github.com/vtex/faststore/issues/969)) ([7b28a4e](https://github.com/vtex/faststore/commit/7b28a4e0da1edec7e843a614339909c6565b220a))
+
+
+
+
+
 ## 1.1.11 (2021-09-17)
 
 
