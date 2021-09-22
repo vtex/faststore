@@ -1,9 +1,9 @@
-[data-store-modal] {
+[data-store-modal-content] {
   @apply bg-white w-96 font-sans; 
   @apply p-5 rounded;
 }
 
-[data-store-modal] > [data-action-container] {
+[data-store-modal-content] > [data-action-container] {
   @apply flex justify-end;
 }
 
