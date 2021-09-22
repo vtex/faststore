@@ -107,7 +107,7 @@ export const fetchAllNodes = async (
       const { edges, pageInfo } = pages
       const nodes = edges.map((x: any) => x.node)
 
-      after = edges[edges.length - 1].cursor
+      after = edges[edges.length - 1]?.cursor
       hasNextPage = pageInfo.hasNextPage
       data = [...data, ...nodes]
     }
