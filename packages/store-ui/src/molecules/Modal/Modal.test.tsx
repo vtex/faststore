@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import React, { useState } from 'react'
 import { fireEvent, render } from '@testing-library/react'
 
@@ -7,7 +8,7 @@ import Input from '../../atoms/Input'
 
 const modalTestId = 'store-modal'
 
-const TestModal = () => {
+const TestModal = ({ children }: { children?: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = () => {
     setIsOpen(true)
@@ -25,6 +26,7 @@ const TestModal = () => {
       <Modal isOpen={isOpen} testId={modalTestId} onDismiss={onDismiss}>
         <Input testId="first-input" />
         <Button testId="first-button" />
+        {children}
       </Modal>
     </>
   )
@@ -94,6 +96,38 @@ describe('Modal WAI-ARIA Specifications', () => {
     expect(getByTestId('first-input')).toHaveFocus()
   })
 
+  it('Loop focus inside the child modal', () => {
+    const { getByTestId, getAllByTestId } = render(
+      <TestModal>
+        <TestModal />
+      </TestModal>
+    )
+
+    // Open the first modal
+    fireEvent.click(getByTestId('trigger'))
+
+    const [, secondTrigger] = getAllByTestId('trigger')
+
+    // Open the internal modal
+    fireEvent.click(secondTrigger)
+
+    // Check if the first input of the internal modal is focused
+    expect(secondTrigger).not.toHaveFocus()
+    expect(getAllByTestId('first-input')[1]).toHaveFocus()
+
+    // Simulate loop back: from first to last element of the internal modal
+    fireEvent.keyDown(document.activeElement!, {
+      key: 'Tab',
+      shiftKey: true,
+    })
+
+    fireEvent.focus(getAllByTestId('sentinelStart')[1])
+    const [firstButton, secondButton] = getAllByTestId('first-button')
+
+    expect(secondButton).toHaveFocus()
+    expect(firstButton).not.toHaveFocus()
+  })
+
   it('Focus last element before the modal was opened', () => {
     const { getByTestId } = render(<TestModal />)
     const triggerModalButton = getByTestId('trigger')
@@ -129,6 +163,29 @@ describe('Modal WAI-ARIA Specifications', () => {
     })
 
     expect(document.querySelector(`[data-testid="${modalTestId}"]`)).toBeNull()
+  })
+
+  it('Close only internal modal when press escape', () => {
+    const { getByTestId, getAllByTestId } = render(
+      <TestModal>
+        <TestModal />
+      </TestModal>
+    )
+
+    fireEvent.click(getByTestId('trigger'))
+    fireEvent.click(getAllByTestId('trigger')[1])
+
+    expect(getAllByTestId('store-modal')[1]).toBeInTheDocument()
+
+    // Press Escape on internal modal. Only the internal modal should close
+    fireEvent.keyDown(getAllByTestId('store-modal')[1], {
+      key: 'Escape',
+    })
+
+    expect(
+      document.querySelectorAll(`[data-testid="${modalTestId}"]`)
+    ).toHaveLength(1)
+    expect(getByTestId('store-modal')).toBeInTheDocument()
   })
 
   it('Close when click outside the modal', () => {
