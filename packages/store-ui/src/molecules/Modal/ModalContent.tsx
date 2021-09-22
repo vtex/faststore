@@ -34,8 +34,8 @@ const ModalContentPure = ({
       <div tabIndex={0} data-testid="sentinelStart" ref={sentinelStartRef} />
       {/*
        * This next line is disabled due to the onClick prop.
-       * Even though div isn't clickable, the onClick is required to prevent the event bubbles
-       * until the overlay, which calls onDismiss inside the onClick handler, is clicked.
+       * Even though a div isn't clickable, the onClick is required to prevent event bubbles
+       * from reaching the Overlay, which calls onDismiss inside the onClick handler when it's clicked.
        */}
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div
