@@ -1,5 +1,5 @@
 const postalCode = {
-  get: () => window.localStorage.getItem('vtex:postalCode'),
+  get: () => window?.localStorage?.getItem('vtex:postalCode'),
   set: (value: Maybe<string>) => {
     if (value) {
       localStorage.setItem('vtex:postalCode', value)
@@ -10,7 +10,7 @@ const postalCode = {
 }
 
 const region = {
-  get: () => window.localStorage.getItem('vtex:regionId'),
+  get: () => window?.localStorage?.getItem('vtex:regionId'),
   set: (value: Maybe<string>) => {
     if (value) {
       localStorage.setItem('vtex:regionId', value)
