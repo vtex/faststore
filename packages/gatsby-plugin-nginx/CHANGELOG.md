@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.37 (2021-09-23)
+
+
+### Features
+
+* add 0.x to release CI ([#972](https://github.com/vtex/faststore/issues/972)) ([91f4044](https://github.com/vtex/faststore/commit/91f40449c3b4041e43c89d953c916ae5a9918971))
+
+
+
+
+
 ## 0.373.36 (2021-08-31)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-nginx
