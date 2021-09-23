@@ -91,6 +91,7 @@ const Modal = ({
     }
 
     event.stopPropagation()
+    onDismiss?.(event)
   }
 
   const ModalOverlay = ({
