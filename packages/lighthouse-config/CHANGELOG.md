@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.39 (2021-09-23)
+
+
+### Bug Fixes
+
+* possibly null window during ssr localstorage access ([#975](https://github.com/vtex/faststore/issues/975)) ([9f09fd8](https://github.com/vtex/faststore/commit/9f09fd88c2ef13c7a3d151adf7875fc98d16b576))
+
+
+
+
+
 ## 0.373.38 (2021-09-23)
 
 
