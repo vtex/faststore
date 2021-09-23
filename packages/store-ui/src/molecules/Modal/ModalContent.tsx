@@ -20,12 +20,14 @@ interface ModalContentPureProps
   sentinelStartRef: RefObject<HTMLDivElement>
   trapFocusRef: RefObject<HTMLDivElement>
   sentinelEndRef: RefObject<HTMLDivElement>
+  testId?: string
 }
 
 const ModalContentPure = ({
   trapFocusRef,
   sentinelStartRef,
   sentinelEndRef,
+  testId = 'store-modal-content',
   children,
   ...props
 }: ModalContentPureProps) => {
@@ -41,6 +43,7 @@ const ModalContentPure = ({
       <div
         data-store-modal-content
         {...props}
+        data-testid={testId}
         ref={trapFocusRef}
         aria-modal="true"
         role="dialog"
@@ -55,7 +58,7 @@ const ModalContentPure = ({
 
 export type ModalContentProps = Omit<
   ModalContentPureProps,
-  'sentinelStartRef' | 'sentinelEndRef' | 'trapFocusRef'
+  'sentinelStartRef' | 'sentinelEndRef' | 'trapFocusRef' | 'onClick'
 >
 
 const ModalContent = ({ children, ...props }: ModalContentProps) => {

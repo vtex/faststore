@@ -3,8 +3,6 @@ import type {
   KeyboardEvent,
   MouseEvent,
   PropsWithChildren,
-  ReactElement,
-  ReactNode,
 } from 'react'
 import React from 'react'
 import { createPortal } from 'react-dom'
@@ -13,11 +11,7 @@ import Overlay from '../../atoms/Overlay'
 import ModalContent from './ModalContent'
 import type { ModalContentProps } from './ModalContent'
 
-type OnlyChildrenProps<
-  T extends { children?: ReactNode } = { children?: ReactNode }
-> = Pick<T, 'children'>
-
-interface ModalPureProps extends ModalContentProps {
+export interface ModalProps extends ModalContentProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -27,32 +21,7 @@ interface ModalPureProps extends ModalContentProps {
    * @see aria-labelledby https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby
    */
   'aria-labelledby'?: AriaAttributes['aria-label']
-  /**
-   * Overlay component for modal
-   */
-  overlay: (props: OnlyChildrenProps) => ReactElement
-}
 
-const ModalPure = ({
-  testId = 'store-modal',
-  children,
-  overlay: ModalOverlay,
-  ...props
-}: ModalPureProps) => {
-  return (
-    <ModalOverlay>
-      <ModalContent {...props} data-testid={testId}>
-        {children}
-      </ModalContent>
-    </ModalOverlay>
-  )
-}
-
-export interface ModalProps
-  extends Omit<
-    ModalPureProps,
-    'onBackdropKeyDown' | 'onBackdropClick' | 'overlay'
-  > {
   /**
    * This function is called whenever the user hits "Escape" or clicks outside
    * the dialog.
@@ -74,6 +43,7 @@ const Modal = ({
   isOpen,
   children,
   onDismiss,
+  testId = 'store-modal',
   ...props
 }: PropsWithChildren<ModalProps>) => {
   const handleBackdropClick = (event: MouseEvent) => {
@@ -94,25 +64,17 @@ const Modal = ({
     onDismiss?.(event)
   }
 
-  const ModalOverlay = ({
-    children: modalContent,
-  }: PropsWithChildren<unknown>) => {
-    return (
-      <Overlay
-        data-modal-overlay
-        onClick={handleBackdropClick}
-        onKeyDown={handleBackdropKeyDown}
-      >
-        {modalContent}
-      </Overlay>
-    )
-  }
-
   return isOpen
     ? createPortal(
-        <ModalPure {...props} overlay={ModalOverlay}>
-          {children}
-        </ModalPure>,
+        <Overlay
+          data-modal-overlay
+          onClick={handleBackdropClick}
+          onKeyDown={handleBackdropKeyDown}
+        >
+          <ModalContent {...props} testId={testId}>
+            {children}
+          </ModalContent>
+        </Overlay>,
         document.body
       )
     : null
