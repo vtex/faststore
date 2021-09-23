@@ -1,8 +1,8 @@
-# Theme Default
+# Theme B2C Tailwind
 
-Basic CSS theme for [Store UI](https://storeui.netlify.app/)'s default theme.
+Theme B2C Tailwind is a basic CSS theme powered by [TailwindCSS](https://tailwindcss.com/) and [PostCSS](https://postcss.org/). It is currently under development and is being specifically used to enhance the general look and feel of the [Store UI Storybook](https://storeui.netlify.app/). 
 
-Done with [TailwindCSS](https://tailwindcss.com/) and [PostCSS](https://postcss.org/).
+>⚠️  We do not recommend you to use Theme B2C Tailwind to customize your stores yet. Instead, check out [Tailwind](https://tailwindcss.com/docs/guides/gatsby).
 
 ## Usage
 
