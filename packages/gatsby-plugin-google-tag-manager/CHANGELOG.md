@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.38 (2021-09-23)
+
+
+### Bug Fixes
+
+* synchronously reading regionId initial value ([#974](https://github.com/vtex/faststore/issues/974)) ([9742da4](https://github.com/vtex/faststore/commit/9742da499d20901d3bdf58423b59ac4c1f59139d))
+
+
+
+
+
 ## 0.373.37 (2021-09-23)
 
 
