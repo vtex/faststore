@@ -14,9 +14,15 @@ export interface IContext {
 export const Context = createContext<IContext | undefined>(undefined)
 
 export const Provider: FC = ({ children }) => {
-  const [postalCode, setPostalCode] = useState<Maybe<string>>(null)
-  const [regionId, setRegionId] = useState<Maybe<string>>(null)
   const [isLoading, setLoading] = useState(true)
+
+  const [postalCode, setPostalCode] = useState<Maybe<string>>(
+    controller.postalCode.get()
+  )
+
+  const [regionId, setRegionId] = useState<Maybe<string>>(
+    controller.region.get()
+  )
 
   const value = useMemo(
     () => ({
@@ -36,8 +42,6 @@ export const Provider: FC = ({ children }) => {
   )
 
   useEffect(() => {
-    setPostalCode(controller.postalCode.get())
-    setRegionId(controller.region.get())
     setLoading(false)
   }, [])
 
