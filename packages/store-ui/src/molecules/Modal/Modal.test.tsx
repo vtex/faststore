@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import React, { useState } from 'react'
 import { fireEvent, render } from '@testing-library/react'
+import { axe } from 'jest-axe'
 
 import Modal from './Modal'
 import Button from '../../atoms/Button'
@@ -60,6 +61,16 @@ describe('Modal', () => {
 describe('Modal WAI-ARIA Specifications', () => {
   // WAI-ARIA tests
   // https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal
+  it('AXE Test', async () => {
+    render(
+      <Modal aria-label="test modal" testId="store-modal" isOpen>
+        Foo
+      </Modal>
+    )
+
+    expect(await axe(document.body)).toHaveNoViolations()
+  })
+
   it('Focus first element', () => {
     const { getByTestId } = render(<TestModal />)
 
