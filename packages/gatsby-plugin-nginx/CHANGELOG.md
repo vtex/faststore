@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.40 (2021-09-23)
+
+
+### Bug Fixes
+
+* check if window is available before accessing it ([#976](https://github.com/vtex/faststore/issues/976)) ([b758958](https://github.com/vtex/faststore/commit/b758958536b3e672f3a0013143377d49830cb5fb))
+
+
+
+
+
 ## 0.373.39 (2021-09-23)
 
 
