@@ -46,7 +46,7 @@ describe('Modal', () => {
     )
   })
 
-  it('Test isOpen', () => {
+  it('Modal should only be rendered if isOpen is true', () => {
     // Check that modal won't be rendered
     const { getByTestId } = render(<TestModal />)
 
