@@ -9,7 +9,13 @@ import Input from '../../atoms/Input'
 
 const modalTestId = 'store-modal'
 
-const TestModal = ({ children }: { children?: ReactNode }) => {
+const TestModal = ({
+  children,
+  onDismiss: mockOnDismiss,
+}: {
+  children?: ReactNode
+  onDismiss?: () => void
+}) => {
   const [isOpen, setIsOpen] = useState(false)
   const handleOpen = () => {
     setIsOpen(true)
@@ -17,6 +23,7 @@ const TestModal = ({ children }: { children?: ReactNode }) => {
 
   const onDismiss = () => {
     setIsOpen(false)
+    mockOnDismiss?.()
   }
 
   return (
@@ -159,27 +166,42 @@ describe('Modal WAI-ARIA Specifications', () => {
     expect(triggerModalButton).toHaveFocus()
   })
 
-  it('Close when press escape', () => {
-    const { getByTestId } = render(<TestModal />)
+  it('Call onDismiss when press escape without tabbable children', () => {
+    const mockDismiss = jest.fn()
+    const { getByTestId } = render(
+      <Modal isOpen testId="store-modal" onDismiss={mockDismiss}>
+        Not focable content
+      </Modal>
+    )
+
+    fireEvent.keyDown(getByTestId('store-modal'), { key: 'Escape' })
+    expect(mockDismiss).toHaveBeenCalled()
+  })
+
+  it('Call onDismiss when press escape with tabbable children', () => {
+    const mockDismiss = jest.fn()
+    const { getByTestId } = render(<TestModal onDismiss={mockDismiss} />)
 
     fireEvent.click(getByTestId('trigger'))
 
     // Pressing any key other than 'Escape' won't close the modal
     fireEvent.keyPress(getByTestId('store-modal'), { key: 'j' })
-    expect(getByTestId('store-modal')).toBeInTheDocument()
+    expect(mockDismiss).not.toHaveBeenCalled()
 
     // Press Escape
     fireEvent.keyDown(getByTestId('store-modal'), {
       key: 'Escape',
     })
 
-    expect(document.querySelector(`[data-testid="${modalTestId}"]`)).toBeNull()
+    expect(mockDismiss).toHaveBeenCalled()
   })
 
-  it('Close only internal modal when press escape', () => {
+  it('Call only the onDismiss from internal modal when press escape', () => {
+    const mockExternalDismiss = jest.fn()
+    const mockInternalDismiss = jest.fn()
     const { getByTestId, getAllByTestId } = render(
-      <TestModal>
-        <TestModal />
+      <TestModal onDismiss={mockExternalDismiss}>
+        <TestModal onDismiss={mockInternalDismiss} />
       </TestModal>
     )
 
@@ -193,22 +215,19 @@ describe('Modal WAI-ARIA Specifications', () => {
       key: 'Escape',
     })
 
-    expect(
-      document.querySelectorAll(`[data-testid="${modalTestId}"]`)
-    ).toHaveLength(1)
-    expect(getByTestId('store-modal')).toBeInTheDocument()
+    expect(mockExternalDismiss).not.toHaveBeenCalled()
+    expect(mockInternalDismiss).toHaveBeenCalled()
   })
 
-  it('Close when click outside the modal', () => {
-    const { getByTestId } = render(<TestModal />)
+  it('Call onDismiss when click outside the modal', () => {
+    const mockDismiss = jest.fn()
+    const { getByTestId } = render(<TestModal onDismiss={mockDismiss} />)
 
     fireEvent.click(getByTestId('trigger'))
-
-    expect(getByTestId('store-modal')).toBeInTheDocument()
 
     // Close the modal
     fireEvent.click(getByTestId('store-overlay'))
 
-    expect(document.querySelector(`[data-testid="${modalTestId}"]`)).toBeNull()
+    expect(mockDismiss).toHaveBeenCalled()
   })
 })

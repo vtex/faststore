@@ -46,7 +46,15 @@ const useTrapFocus = ({
       tabbableNodesRef.current = tabbable(trapFocusRef.current)
     }
 
-    tabbableNodesRef.current[0]?.focus()
+    const [firstTabbable] = tabbableNodesRef.current
+
+    if (!firstTabbable) {
+      trapFocusRef.current.focus()
+
+      return
+    }
+
+    firstTabbable.focus()
   }, [trapFocusRef])
 
   // Handle loop focus. Set keydown and focusin event listeners
