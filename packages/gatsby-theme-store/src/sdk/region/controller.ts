@@ -1,5 +1,8 @@
 const postalCode = {
-  get: () => window?.localStorage?.getItem('vtex:postalCode'),
+  get: () =>
+    typeof window !== 'undefined'
+      ? window?.localStorage?.getItem('vtex:postalCode')
+      : null,
   set: (value: Maybe<string>) => {
     if (value) {
       localStorage.setItem('vtex:postalCode', value)
@@ -10,7 +13,10 @@ const postalCode = {
 }
 
 const region = {
-  get: () => window?.localStorage?.getItem('vtex:regionId'),
+  get: () =>
+    typeof window !== 'undefined'
+      ? window?.localStorage?.getItem('vtex:regionId')
+      : null,
   set: (value: Maybe<string>) => {
     if (value) {
       localStorage.setItem('vtex:regionId', value)
