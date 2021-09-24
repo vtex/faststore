@@ -33,7 +33,7 @@ export interface ModalProps extends ModalContentProps {
   isOpen: boolean
 }
 
-/**
+/*
  * This component is based on @reach/dialog.
  * https://github.com/reach/reach-ui/blob/main/packages/dialog/src/index.tsx
  * https://reach.tech/dialog

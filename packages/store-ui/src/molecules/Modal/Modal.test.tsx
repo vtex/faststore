@@ -102,7 +102,7 @@ describe('Modal WAI-ARIA Specifications', () => {
       shiftKey: true,
     })
 
-    fireEvent.focus(getByTestId('sentinelStart'))
+    fireEvent.focus(getByTestId('beforeElement'))
     expect(getByTestId('first-button')).toHaveFocus()
 
     // Simulate loop back: from last to first element
@@ -110,7 +110,7 @@ describe('Modal WAI-ARIA Specifications', () => {
       key: 'Tab',
     })
 
-    fireEvent.focus(getByTestId('sentinelEnd'))
+    fireEvent.focus(getByTestId('afterElement'))
     expect(getByTestId('first-input')).toHaveFocus()
   })
 
@@ -139,7 +139,7 @@ describe('Modal WAI-ARIA Specifications', () => {
       shiftKey: true,
     })
 
-    fireEvent.focus(getAllByTestId('sentinelStart')[1])
+    fireEvent.focus(getAllByTestId('beforeElement')[1])
     const [firstButton, secondButton] = getAllByTestId('first-button')
 
     expect(secondButton).toHaveFocus()
