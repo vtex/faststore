@@ -24,11 +24,6 @@ const ModalContentPure = ({
   ...props
 }: ModalContentPureProps) => {
   return (
-    /*
-     * This next line is disabled due to the onClick prop.
-     * Even though a div isn't clickable, the onClick is required to prevent event bubbles
-     * from reaching the Overlay, which calls onDismiss inside the onClick handler when it's clicked.
-     */
     <div
       data-store-modal-content
       {...props}
