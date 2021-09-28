@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.14 (2021-09-28)
+
+
+### Features
+
+* **store-ui:** Add Modal molecule ([#957](https://github.com/vtex/faststore/issues/957)) ([530b308](https://github.com/vtex/faststore/commit/530b3085a5707be459b37757844ce2e52b2f2981))
+
+
+
+
+
 ## 1.1.13 (2021-09-23)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-cms
