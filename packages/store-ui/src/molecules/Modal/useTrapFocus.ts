@@ -63,7 +63,7 @@ const useTrapFocus = ({ trapFocusRef }: TrapFocusParams) => {
     }
   }, [nodeToRestoreRef])
 
-  // Set focus on first tababble element
+  // Set focus on first tabbable element
   useEffect(() => {
     if (!trapFocusRef.current) {
       return
