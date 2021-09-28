@@ -4,7 +4,9 @@ import type { FocusableElement } from 'tabbable'
 import { tabbable } from 'tabbable'
 
 interface TrapFocusParams {
+  beforeElementRef: RefObject<HTMLElement>
   trapFocusRef: RefObject<HTMLElement>
+  afterElementRef: RefObject<HTMLElement>
 }
 
 /*
@@ -13,46 +15,15 @@ interface TrapFocusParams {
  *
  * Inspired by Reakit useTrapFocus https://github.com/reakit/reakit/blob/a211d94da9f3b683182568a56479b91afb1b85ae/packages/reakit/src/Dialog/__utils/useFocusTrap.ts
  */
-const useTrapFocus = ({ trapFocusRef }: TrapFocusParams) => {
-  // #L31
+const useTrapFocus = ({
+  trapFocusRef,
+  beforeElementRef,
+  afterElementRef,
+}: TrapFocusParams) => {
   const tabbableNodesRef = useRef<FocusableElement[]>()
-
-  const beforeElementRef = useRef<HTMLDivElement | null>(null)
-  const afterElementRef = useRef<HTMLDivElement | null>(null)
   const nodeToRestoreRef = useRef<HTMLElement | null>(
     document.hasFocus() ? (document.activeElement as HTMLElement) : null
   )
-
-  // Add before and after elements, and set refs.
-  useEffect(() => {
-    if (!trapFocusRef.current) {
-      return
-    }
-
-    if (!beforeElementRef.current) {
-      const beforeElement = document.createElement('div')
-
-      beforeElement.tabIndex = 0
-      beforeElement.setAttribute('aria-hidden', 'true')
-      beforeElement.setAttribute('data-testid', 'beforeElement')
-      beforeElementRef.current = beforeElement
-    }
-
-    if (!afterElementRef.current) {
-      afterElementRef.current = beforeElementRef.current.cloneNode() as HTMLDivElement
-      afterElementRef.current.setAttribute('data-testid', 'afterElement')
-    }
-
-    trapFocusRef.current.insertAdjacentElement(
-      'beforebegin',
-      beforeElementRef.current
-    )
-
-    trapFocusRef.current.insertAdjacentElement(
-      'afterend',
-      afterElementRef.current
-    )
-  }, [beforeElementRef, afterElementRef, trapFocusRef])
 
   // Focus back on the element that was focused when useTrapFocus is triggered.
   useEffect(() => {
