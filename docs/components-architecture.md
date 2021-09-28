@@ -10,6 +10,9 @@ TODO
 ## Tests for each component
 TODO
 
+### Add accessibility tests
+- Use axe + jest
+
 ## Use slots or not. When use?
 TODO
 
