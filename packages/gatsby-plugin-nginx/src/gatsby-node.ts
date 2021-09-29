@@ -9,7 +9,6 @@ import {
   BUILD_HTML_STAGE,
   VTEX_NGINX_CONF_FILENAME,
   FUNCTIONS_REDIRECTS_FILENAME,
-  FUNCTIONS_URL_PATH,
 } from './constants'
 import {
   addPublicCachingHeader,
@@ -26,19 +25,20 @@ import { pluginOptions } from './pluginOptions'
 const assetsManifest: Record<string, string> = {}
 
 function getFunctionsRedirects(basedir: string): Redirect[] {
-  const redirectsFile = join(basedir, 'public', FUNCTIONS_REDIRECTS_FILENAME)
+  const redirectsFile = join(basedir, '.cache', FUNCTIONS_REDIRECTS_FILENAME)
 
   if (!existsSync(redirectsFile)) {
     return []
   }
 
-  const contents = readFileSync(redirectsFile).toString()
-  const file = JSON.parse(contents) as Record<string, string>
+  const lambdaUrl = readFileSync(redirectsFile).toString()
 
-  return Object.entries(file).map(([key, value]) => ({
-    fromPath: join(FUNCTIONS_URL_PATH, key),
-    toPath: value,
-  }))
+  return [
+    {
+      fromPath: '/api/*',
+      toPath: lambdaUrl + '/:splat',
+    },
+  ]
 }
 
 function mapObjectValues<V, T>(
