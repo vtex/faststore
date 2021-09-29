@@ -68,10 +68,8 @@ Each component should have a story and doc. We have a default template for the s
 <ArgsTable of={} />
 
 ## CSS Selectors
-<!--- Put all data-attributes related to styling here -->
+<!--- Put all data-attributes related to styling here. Remember tu put into ```css ``` block-->
 
-```css
 [data-attribute] {}
-```
 
 ```
