@@ -8,9 +8,11 @@ Discussion related https://github.com/vtex/faststore/discussions/919
 TODO 
 
 ## Tests for each component
+
 Each component should have your test for each property, behavior, and data-attributes for styles.
 
 ### Add accessibility tests
+
 Each component should have tests for accessibility using jest-axe. Also, you should implement tests to check the specifications for described components on [w3 best practices](https://www.w3.org/TR/wai-aria-practices-1.1).
 
 For example, tests for Modal Dialog component: 
@@ -43,3 +45,33 @@ TODO
 
 ## Export hook vs export UI
 TODO
+
+## Storybook
+
+Each component should have a story and doc. We have a default template for the story `.mdx` file:
+
+```mdx
+# Component name Here
+
+<!--- if the component has more than one example add a h2 section with the name of your variation. The names of the variations can be anyone. -->
+## Default
+<Canvas>
+  <Story />
+</Canvas>
+
+## Secondary
+<Canvas>
+  <Story />
+</Canvas>
+
+## Props
+<ArgsTable of={} />
+
+## CSS Selectors
+<!--- Put all data-attributes related to styling here -->
+
+```css
+[data-attribute] {}
+```
+
+```
