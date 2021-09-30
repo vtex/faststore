@@ -32,6 +32,9 @@ export type { RadioProps } from './atoms/Radio'
 export { default as Badge } from './atoms/Badge'
 export type { BadgeProps } from './atoms/Badge'
 
+export { default as List } from './atoms/List'
+export type { ListProps } from './atoms/List'
+
 // Molecules
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'

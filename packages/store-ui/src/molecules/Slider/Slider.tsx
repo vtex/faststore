@@ -94,7 +94,7 @@ const Slider = ({
       role="slider"
       className={className}
     >
-      <div ref={range} data-store-slider-range />
+      <div ref={range} data-slider-range />
       <Input
         type="range"
         min={min}
@@ -106,7 +106,8 @@ const Slider = ({
           setMinVal(value)
           minValRef.current = value
         }}
-        data-store-input="slider-thumb-left"
+        data-store-input={false}
+        data-slider-thumb="left"
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={minVal}
@@ -126,7 +127,8 @@ const Slider = ({
           setMaxVal(value)
           maxValRef.current = value
         }}
-        data-store-input="slider-thumb-right"
+        data-store-input={false}
+        data-slider-thumb="right"
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={maxVal}
