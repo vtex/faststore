@@ -1,4 +1,4 @@
-# Conditions of satisfaction for a Component PR
+# Conditions of satisfaction for a store-ui component
 
 ## Data Attributes for styling
 
@@ -54,8 +54,16 @@ So, if you want to style the disable state, you can do by doing this:
 
 For more information look at the [styling discussion](https://github.com/vtex/faststore/discussions/919).
 
-## Opinionated or not molecules, organisms, template, and pages. In which level?
-TODO 
+## Control the UI
+
+A store-ui component structures how the its inner elements are arranged. This means that our atoms, molecules and organisms can (and often will) control how the UI is displayed and arranged. Understand UI control as the opinions on how different elements should be displayed together. As an example, take `LoadingButton` molecule. It is deliberately designed for the `Spinner` atom to appear inside the `Button` atom, not on its side. That's a way of enforcing UI control over a molecule. 
+
+On atoms, however, this control doesn't apply the same way. We're following Atomic Design, which means that our atoms should represent core elements of a store, that are the mounting blocks for molecules and organisms. Enforcing tight UI control over an atom may decrease its reusability and increase the cost of maintenance, which are they main reason they exist in the first place. Because of that, it's not recommended to make UI controlled biased atoms, and that's why most of them have the `as` prop to allow users to control even which HTML element should be used by them.
+
+The opinions that guide UI control should be based on research. The goal is to have a a11y and SEO ready component that's also highly reusable and fits most use cases. It's better not to have a component that isn't well researched than having an overly-sized library that will fit most use cases but have poorly engineered atoms, molecules and organisms.
+
+## Build pure components
+// TODO
 
 ## Tests for each component
 
