@@ -1,16 +1,17 @@
 import { create } from '@storybook/theming/create'
 import { version } from '../package.json'
+import Logo from '../static/logo.png'
 
 export default create({
   base: 'light',
 
-  colorPrimary: '#05a0c7',
-  colorSecondary: '#05a0c7',
+  colorPrimary: '#F71963',
+  colorSecondary: '#F71963',
 
   // UI
   appBg: 'white',
   appContentBg: 'white',
-  appBorderColor: '#05a0c7',
+  appBorderColor: '#F71963',
   appBorderRadius: 4,
 
   // Typography
@@ -22,16 +23,17 @@ export default create({
 
   // Toolbar default and active colors
   barTextColor: 'black',
-  barSelectedColor: '#05a0c7',
+  barSelectedColor: '#F71963',
   barBg: 'white',
-  barBorder: '#05a0c7',
+  barBorder: '#F71963',
 
   // Form colors
   inputBg: 'white',
-  inputBorder: '#05a0c7',
+  inputBorder: '#F71963',
   inputTextColor: 'black',
   inputBorderRadius: 4,
 
   brandTitle: `Store UI v${version}`,
   brandUrl: 'https://github.com/vtex/faststore/tree/master/packages/store-ui',
+  brandImage: Logo,
 })
