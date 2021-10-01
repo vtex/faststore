@@ -50,7 +50,7 @@ export interface OrderFormItem {
   }
 }
 
-interface SKUSpecification {
+export interface SKUSpecification {
   fieldName: string
   fieldValues: string[]
 }
@@ -149,7 +149,7 @@ export interface OrderForm {
   itemsOrdination: any | null
 }
 
-interface OrderFormMarketingData {
+export interface OrderFormMarketingData {
   utmCampaign?: string
   utmMedium?: string
   utmSource?: string
@@ -160,7 +160,7 @@ interface OrderFormMarketingData {
   coupon?: string
 }
 
-interface PaymentData {
+export interface PaymentData {
   installmentOptions: Array<{
     paymentSystem: string
     bin: string | null
@@ -213,7 +213,7 @@ interface PaymentData {
   availableTokens: any[]
 }
 
-interface ClientProfileData {
+export interface ClientProfileData {
   email: string
   firstName: string
   lastName: string
@@ -231,7 +231,7 @@ interface ClientProfileData {
   customerClass: string
 }
 
-interface ShippingData {
+export interface ShippingData {
   address: CheckoutAddress | null
   logisticsInfo: LogisticsInfo[]
   selectedAddresses: CheckoutAddress[]
@@ -239,7 +239,7 @@ interface ShippingData {
   pickupPoints: PickupPoint[]
 }
 
-interface PickupPoint {
+export interface PickupPoint {
   friendlyName: string
   address: CheckoutAddress
   additionalInfo: string
@@ -247,13 +247,13 @@ interface PickupPoint {
   businessHours: BusinessHour[]
 }
 
-interface BusinessHour {
+export interface BusinessHour {
   DayOfWeek: number
   ClosingTime: string
   OpeningTime: string
 }
 
-interface LogisticsInfo {
+export interface LogisticsInfo {
   addressId: string | null
   deliveryChannels: DeliveryChannel[]
   itemId: string
@@ -264,7 +264,7 @@ interface LogisticsInfo {
   selectedSla: string | null
 }
 
-interface SLA {
+export interface SLA {
   id: string
   deliveryChannel: string
   name: string
@@ -290,7 +290,7 @@ interface SLA {
   transitTime: string | null
 }
 
-interface DeliveryId {
+export interface DeliveryId {
   courierId: string
   warehouseId: string
   dockId: string
@@ -298,11 +298,11 @@ interface DeliveryId {
   quantity: number
 }
 
-interface DeliveryChannel {
+export interface DeliveryChannel {
   id: string
 }
 
-interface CheckoutAddress {
+export interface CheckoutAddress {
   addressId: string
   addressType: string
   city: string | null
@@ -319,7 +319,7 @@ interface CheckoutAddress {
   isDisposable: boolean
 }
 
-interface MetadataItem {
+export interface MetadataItem {
   id: string
   name: string
   imageUrl: string
@@ -332,13 +332,13 @@ interface MetadataItem {
   ean: string | null
 }
 
-interface AssemblyOption {
+export interface AssemblyOption {
   id: string
   name: string
   composition: Composition | null
 }
 
-interface SubscriptionDataEntry {
+export interface SubscriptionDataEntry {
   executionCount: number
   itemIndex: number
   plan: {
@@ -351,7 +351,7 @@ interface SubscriptionDataEntry {
   }
 }
 
-interface CompositionItem {
+export interface CompositionItem {
   id: string
   minQuantity: number
   maxQuantity: number
@@ -360,12 +360,12 @@ interface CompositionItem {
   seller: string
 }
 
-interface Composition {
+export interface Composition {
   minQuantity: number
   maxQuantity: number
   items: CompositionItem[]
 }
 
-interface SubscriptionData {
+export interface SubscriptionData {
   subscriptions: SubscriptionDataEntry[]
 }
