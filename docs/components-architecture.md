@@ -62,14 +62,17 @@ On atoms, however, this control doesn't apply the same way. We're following Atom
 
 The opinions that guide UI control should be based on research. The goal is to have an a11y and SEO-ready component that's also highly reusable and fits most use cases. It's better not to have a component that isn't well researched than having an overly-sized library that will fit most use cases but has poorly engineered atoms, molecules, and organisms.
 
-A store-ui component structures how the its inner elements are arranged. This means that our atoms, molecules and organisms can (and often will) control how the UI is displayed and arranged. Understand UI control as the opinions on how different elements should be displayed together. As an example, take `LoadingButton` molecule. It is deliberately designed for the `Spinner` atom to appear inside the `Button` atom, not on its side. That's a way of enforcing UI control over a molecule. 
+## Build Pure versions of complex molecules and organisms
 
-On atoms, however, this control doesn't apply the same way. We're following Atomic Design, which means that our atoms should represent core elements of a store, that are the mounting blocks for molecules and organisms. Enforcing tight UI control over an atom may decrease its reusability and increase the cost of maintenance, which are they main reason they exist in the first place. Because of that, it's not recommended to make UI controlled biased atoms, and that's why most of them have the `as` prop to allow users to control even which HTML element should be used by them.
+Dan Abramov, one of React's maintainers, wrote a great [article](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) in 2015 about what he then called Smart and Dumb components. He later renamed them to Presentational and Container Components, but the idea is the same: to increase UI reusability, people should build two components: one that deals with UI and one that deals with logic.
 
-The opinions that guide UI control should be based on research. The goal is to have a a11y and SEO ready component that's also highly reusable and fits most use cases. It's better not to have a component that isn't well researched than having an overly-sized library that will fit most use cases but have poorly engineered atoms, molecules and organisms.
+When building more complex molecules or organisms, we should follow that pattern. In store-ui, a component that's concerned about UI is called a Pure component. As Dan Abramov wrote in his article, Pure components often don't depend on other parts of the code and rarely have any state inside themselves. It's a way to guide users on how a certain element of the screen should look (UI control), but not how it should behave.
 
-## Build pure components
-// TODO
+By following this pattern, we're building a library that focuses on the UI (hence store-_ui_) elements, not on the behavior. Users shouldn't need to fork store-ui's code because it limits them behavior-wise. Components can - and should - enforce UI control when needed, but they shouldn't do the same when it comes to their functionality.
+
+That doesn't mean store-ui components can't contain any behavior, state, or logic: they can, but these qualities should be separate from Pure components. Take the Modal molecule as an example: there's a ModalPure component, that contains only jsx tags with simple definitions on how the component should look, and a Modal component, that uses the ModalPure component and its callback props to control how it should behave.
+
+> :information: Although Pure components are being built, they shouldn't be exported. Store-ui wants to have a cohesive API, which is hard to have if its size increases rapidly without any real use data to base these decisions. Research is being done on when Pure components should be released and available to the public and how users will leverage them. Until then, only the regular versions of the components should be exported (containing behavior and logic).
 
 ## Tests for each component
 
