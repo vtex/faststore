@@ -17,3 +17,9 @@ type StoreProduct {
   aggregateRating: StoreAggregateRating!
   isVariantOf: StoreProductGroup!
 }
+
+input IStoreProduct {
+  sku: String!
+  name: String!
+  image: [IStoreImage!]!
+}

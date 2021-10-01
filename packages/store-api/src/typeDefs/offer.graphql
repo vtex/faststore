@@ -8,4 +8,14 @@ type StoreOffer {
   itemCondition: String!
   availability: String!
   seller: StoreOrganization!
+  itemOffered: StoreProduct!
+  quantity: Int!
+}
+
+input IStoreOffer {
+  price: Float!
+  listPrice: Float!
+  seller: IStoreOrganization!
+  itemOffered: IStoreProduct!
+  quantity: Int!
 }

@@ -1,6 +1,7 @@
-import type { Simulation } from '../clients/commerce/types/Checkout'
+import type { EnhancedSku } from '../utils/enhanceSku'
+import type { Simulation } from '../clients/commerce/types/Simulation'
 
-type Resolvers = (root: Simulation) => unknown
+type Resolvers = (root: Simulation & { product: EnhancedSku }) => unknown
 
 export const StoreAggregateOffer: Record<string, Resolvers> = {
   highPrice: ({ items }) =>
@@ -15,5 +16,5 @@ export const StoreAggregateOffer: Record<string, Resolvers> = {
     ) / 1e2,
   offerCount: ({ items }) => items.length,
   priceCurrency: () => '',
-  offers: ({ items }) => items,
+  offers: ({ items, product }) => items.map((item) => ({ ...item, product })),
 }

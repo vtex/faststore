@@ -3,16 +3,25 @@ import type {
   Simulation,
   SimulationArgs,
   SimulationOptions,
-} from './types/Checkout'
+} from './types/Simulation'
 import type { CategoryTree } from './types/CategoryTree'
 import type { Options } from '../..'
 import type { Brand } from './types/Brand'
+import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+
+const BASE_INIT = {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json',
+  },
+}
 
 const getBase = ({ account, environment }: Options) =>
   `http://${account}.${environment}.com.br`
 
-export const VtexCommerce = (opts: Options) => {
-  const base = getBase(opts)
+export const VtexCommerce = (options: Options) => {
+  const { channel } = options
+  const base = getBase(options)
 
   return {
     catalog: {
@@ -28,18 +37,61 @@ export const VtexCommerce = (opts: Options) => {
     checkout: {
       simulation: (
         args: SimulationArgs,
-        options: SimulationOptions = { sc: '1' }
+        { salesChannel }: SimulationOptions = { salesChannel: channel }
       ): Promise<Simulation> => {
-        const params = new URLSearchParams({ ...options })
+        const params = new URLSearchParams({
+          sc: salesChannel,
+        })
 
         return fetchAPI(
           `${base}/api/checkout/pub/orderForms/simulation?${params.toString()}`,
           {
-            method: 'POST',
+            ...BASE_INIT,
             body: JSON.stringify(args),
-            headers: {
-              'content-type': 'application/json',
-            },
+          }
+        )
+      },
+      orderForm: ({
+        id,
+        refreshOutdatedData = true,
+        salesChannel = channel,
+      }: {
+        id: string
+        refreshOutdatedData?: boolean
+        salesChannel?: string
+      }): Promise<OrderForm> => {
+        const params = new URLSearchParams({
+          refreshOutdatedData: refreshOutdatedData.toString(),
+          sc: salesChannel,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}?${params.toString()}`,
+          BASE_INIT
+        )
+      },
+      updateOrderFormItems: ({
+        id,
+        orderItems,
+        allowOutdatedData = 'paymentData',
+        salesChannel = channel,
+      }: {
+        id: string
+        orderItems: OrderFormInputItem[]
+        allowOutdatedData?: 'paymentData'
+        salesChannel?: string
+      }): Promise<OrderForm> => {
+        const params = new URLSearchParams({
+          allowOutdatedData,
+          sc: salesChannel,
+        })
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/items?${params}`,
+          {
+            ...BASE_INIT,
+            body: JSON.stringify({ orderItems }),
+            method: 'PATCH',
           }
         )
       },

@@ -1,0 +1,9 @@
+type StoreOrder {
+  orderNumber: String!
+  acceptedOffer: [StoreOffer!]!
+}
+
+input IStoreOrder {
+  orderNumber: String!
+  acceptedOffer: [IStoreOffer!]!
+}

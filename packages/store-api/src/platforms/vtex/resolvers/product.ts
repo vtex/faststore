@@ -52,10 +52,12 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
   gtin: ({ reference }) => reference ?? '',
   review: () => [],
   aggregateRating: () => ({}),
-  offers: async ({ sellers, id }, _, ctx) => {
+  offers: async (product, _, ctx) => {
     const {
-      clients: { commerce },
+      loaders: { simulationLoader },
     } = ctx
+
+    const { sellers, id } = product
 
     // Unique seller ids
     const sellerIds = sellers.map((seller) => seller.id)
@@ -65,9 +67,9 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
       id,
     }))
 
-    return commerce.checkout.simulation({
-      items,
-    })
+    const simulation = await simulationLoader.load(items)
+
+    return { ...simulation, product }
   },
   isVariantOf: ({ isVariantOf }) => isVariantOf,
 }

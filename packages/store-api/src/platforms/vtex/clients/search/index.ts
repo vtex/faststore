@@ -33,16 +33,17 @@ export interface ProductLocator {
   value: string
 }
 
-// TODO: change here once supporting sales channel
-const defaultFacets = [
-  {
-    key: 'trade-policy',
-    value: '1',
-  },
-]
+export const IntelligentSearch = (options: Options) => {
+  const { channel } = options
+  const base = `http://search.biggylabs.com.br/search-api/v1/${options.account}`
 
-export const IntelligentSearch = (opts: Options) => {
-  const base = `http://search.biggylabs.com.br/search-api/v1/${opts.account}`
+  // TODO: change here once supporting sales channel
+  const defaultFacets = [
+    {
+      key: 'trade-policy',
+      value: channel,
+    },
+  ]
 
   const search = <T>({
     query = '',

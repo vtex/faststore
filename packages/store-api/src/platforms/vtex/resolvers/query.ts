@@ -32,7 +32,7 @@ export const Query = {
     ctx: Context
   ) => {
     const {
-      clients: { search },
+      loaders: { skuLoader },
     } = ctx
 
     const skuId =
@@ -40,19 +40,7 @@ export const Query = {
         ? locator.value
         : locator.value.split('-').reverse()[0]
 
-    const {
-      products: [product],
-    } = await search.products({ query: `sku:${skuId}`, page: 0, count: 1 })
-
-    const sku = product.skus.find((x) => x.id === skuId)
-
-    if (sku == null) {
-      throw new Error(
-        `Could not find sku of id: ${skuId} for locator field: ${locator.field}, value: ${locator.value}`
-      )
-    }
-
-    return enhanceSku(sku, product)
+    return skuLoader.load(skuId)
   },
   search: async (
     _: unknown,

@@ -11,6 +11,48 @@ export type Scalars = {
   Float: number;
 };
 
+export type IStoreCart = {
+  order: IStoreOrder;
+};
+
+export type IStoreImage = {
+  alternateName: Scalars['String'];
+  url: Scalars['String'];
+};
+
+export type IStoreOffer = {
+  itemOffered: IStoreProduct;
+  listPrice: Scalars['Float'];
+  price: Scalars['Float'];
+  quantity: Scalars['Int'];
+  seller: IStoreOrganization;
+};
+
+export type IStoreOrder = {
+  acceptedOffer: Array<IStoreOffer>;
+  orderNumber: Scalars['String'];
+};
+
+export type IStoreOrganization = {
+  identifier: Scalars['String'];
+};
+
+export type IStoreProduct = {
+  image: Array<IStoreImage>;
+  name: Scalars['String'];
+  sku: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  validateCart?: Maybe<StoreCart>;
+};
+
+
+export type MutationValidateCartArgs = {
+  cart: IStoreCart;
+};
+
 export type Query = {
   __typename?: 'Query';
   allCollections: StoreCollectionConnection;
@@ -74,6 +116,18 @@ export type StoreBreadcrumbList = {
   __typename?: 'StoreBreadcrumbList';
   itemListElement: Array<StoreListItem>;
   numberOfItems: Scalars['Int'];
+};
+
+export type StoreCart = {
+  __typename?: 'StoreCart';
+  messages: Array<StoreCartMessage>;
+  order: StoreOrder;
+};
+
+export type StoreCartMessage = {
+  __typename?: 'StoreCartMessage';
+  status: StoreStatus;
+  text: Scalars['String'];
 };
 
 export type StoreCollection = {
@@ -154,12 +208,20 @@ export type StoreOffer = {
   __typename?: 'StoreOffer';
   availability: Scalars['String'];
   itemCondition: Scalars['String'];
+  itemOffered: StoreProduct;
   listPrice: Scalars['Float'];
   price: Scalars['Float'];
   priceCurrency: Scalars['String'];
   priceValidUntil: Scalars['String'];
+  quantity: Scalars['Int'];
   seller: StoreOrganization;
   sellingPrice: Scalars['Float'];
+};
+
+export type StoreOrder = {
+  __typename?: 'StoreOrder';
+  acceptedOffer: Array<StoreOffer>;
+  orderNumber: Scalars['String'];
 };
 
 export type StoreOrganization = {
@@ -263,4 +325,10 @@ export const enum StoreSort {
   PriceDesc = 'price_desc',
   ReleaseDesc = 'release_desc',
   ScoreDesc = 'score_desc'
+};
+
+export const enum StoreStatus {
+  Error = 'ERROR',
+  Info = 'INFO',
+  Warning = 'WARNING'
 };

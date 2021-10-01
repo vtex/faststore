@@ -1,26 +1,32 @@
-import { StoreSearchResult } from './resolvers/searchResult'
 import { getClients } from './clients'
+import { getLoaders } from './loaders'
 import { StoreAggregateOffer } from './resolvers/aggregateOffer'
 import { StoreAggregateRating } from './resolvers/aggregateRating'
 import { StoreCollection } from './resolvers/collection'
 import { StoreFacet } from './resolvers/facet'
 import { StoreFacetValue } from './resolvers/facetValue'
+import { Mutation } from './resolvers/mutation'
 import { StoreOffer } from './resolvers/offer'
 import { StoreProduct } from './resolvers/product'
 import { StoreProductGroup } from './resolvers/productGroup'
 import { Query } from './resolvers/query'
 import { StoreReview } from './resolvers/review'
+import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
+import type { Loaders } from './loaders'
 import type { Clients } from './clients'
 
 export interface Options {
   platform: 'vtex'
   account: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
+  // Default sales channel to use for fetching products
+  channel: string
 }
 
 export interface Context {
   clients: Clients
+  loaders: Loaders
 }
 
 export type Resolver<R = unknown, A = unknown> = (
@@ -43,10 +49,12 @@ const Resolvers = {
   StoreProductGroup,
   StoreSearchResult,
   Query,
+  Mutation,
 }
 
 export const getContextFactory = (options: Options) => (ctx: any) => {
   ctx.clients = getClients(options)
+  ctx.loaders = getLoaders(options, ctx.clients)
 
   return ctx
 }
