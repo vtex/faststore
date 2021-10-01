@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.15 (2021-10-01)
+
+
+### Features
+
+* Configure storybook theme ([#979](https://github.com/vtex/faststore/issues/979)) ([736811f](https://github.com/vtex/faststore/commit/736811f6381b4fd5f3f6d976198262216fe3ebcb))
+
+
+
+
+
 ## 1.1.14 (2021-09-28)
 
 
