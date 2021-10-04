@@ -1,32 +1,17 @@
-import { transformSelectedFacet } from '../utils/facets'
 import { enhanceSku } from '../utils/enhanceSku'
+import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
-import type { SelectedFacet } from '../utils/facets'
+import type {
+  QueryProductArgs,
+  QueryAllCollectionsArgs,
+  QueryAllProductsArgs,
+  QuerySearchArgs,
+} from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
 
-export interface SearchArgs {
-  term?: string
-  first: number
-  after?: string
-  sort:
-    | 'price_desc'
-    | 'price_asc'
-    | 'orders_desc'
-    | 'name_desc'
-    | 'name_asc'
-    | 'release_desc'
-    | 'discount_desc'
-    | 'score_desc'
-  selectedFacets: SelectedFacet[]
-}
-
 export const Query = {
-  product: async (
-    _: unknown,
-    { locator }: { locator: SelectedFacet[] },
-    ctx: Context
-  ) => {
+  product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
     const {
       loaders: { skuLoader },
     } = ctx
@@ -35,22 +20,22 @@ export const Query = {
   },
   search: async (
     _: unknown,
-    { first, after: maybeAfter, sort, term, selectedFacets }: SearchArgs
+    { first, after: maybeAfter, sort, term, selectedFacets }: QuerySearchArgs
   ) => {
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs = {
       page: Math.ceil(after / first),
       count: first,
       query: term,
-      sort: SORT_MAP[sort],
-      selectedFacets: selectedFacets.map(transformSelectedFacet),
+      sort: SORT_MAP[sort ?? 'score_desc'],
+      selectedFacets: selectedFacets?.map(transformSelectedFacet) ?? [],
     }
 
     return searchArgs
   },
   allProducts: async (
     _: unknown,
-    { first, after: maybeAfter }: { first: number; after: string | null },
+    { first, after: maybeAfter }: QueryAllProductsArgs,
     ctx: Context
   ) => {
     const {
@@ -82,7 +67,11 @@ export const Query = {
       })),
     }
   },
-  allCollections: async (_: unknown, __: unknown, ctx: Context) => {
+  allCollections: async (
+    _: unknown,
+    __: QueryAllCollectionsArgs,
+    ctx: Context
+  ) => {
     const {
       clients: { commerce },
     } = ctx
