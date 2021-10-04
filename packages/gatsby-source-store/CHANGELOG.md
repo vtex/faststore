@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.16 (2021-10-04)
+
+
+### Features
+
+* **store-api:** Add cart to store-api ([#963](https://github.com/vtex/faststore/issues/963)) ([0607d82](https://github.com/vtex/faststore/commit/0607d82f9f17de0b4045a7efbe99004d43e87056))
+
+
+
+
+
 ## 1.1.15 (2021-10-01)
 
 
