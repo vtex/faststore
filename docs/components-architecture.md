@@ -5,14 +5,18 @@
 We decided to use data attributes for styling with this pattern: `data-store-component-kebab-case-name`.
 
 So, for example, if you want to create a new molecule component called CheckboxGroup:
+
 ```tsx
 interface CheckboxGroupProps {}
+
 const CheckboxGroup = ({ onChange, testId, ...props }: CheckboxGroupProps) => {
   return (
     <div data-store-checkbox-group data-testid={testId}> {/* Pay attention on data-attribute */}
       <Checkbox data-store-checkbox-group onChange={onChange} {...props} /> {/* Pay attention on data-attribute */}
       <List data-list>
-        <li data-list-item><Checkbox data-checkbox onChange={onChange} /></li>
+        <li data-list-item>
+          <Checkbox data-checkbox onChange={onChange} />
+        </li>
       </List>
     </div>
   )
@@ -52,6 +56,8 @@ So, if you want to style the disable state, you can do by doing this:
 }
 ```
 
+// TODO: more examples
+
 For more information look at the [styling discussion](https://github.com/vtex/faststore/discussions/919).
 
 ## Control the UI
@@ -62,7 +68,9 @@ On atoms, however, this control doesn't apply the same way. We're following Atom
 
 The opinions that guide UI control should be based on research. The goal is to have an a11y and SEO-ready component that's also highly reusable and fits most use cases. It's better not to have a component that isn't well researched than having an overly-sized library that will fit most use cases but has poorly engineered atoms, molecules, and organisms.
 
-## Build Pure versions of complex molecules and organisms
+// TODO: more examples and trade-off about controlled or uncontrolled component
+
+### Build Pure versions of complex molecules and organisms
 
 Dan Abramov, one of React's maintainers, wrote a great [article](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) in 2015 about what he then called Smart and Dumb components. He later renamed them to Presentational and Container Components, but the idea is the same: to increase UI reusability, people should build two components: one that deals with UI and one that deals with logic.
 
@@ -78,11 +86,12 @@ That doesn't mean store-ui components can't contain any behavior, state, or logi
 
 Each component should have your test for each property, behavior, and data-attributes for styles.
 
-### Add accessibility tests
+### Accessibility tests
 
-Each component should have tests for accessibility using jest-axe. Also, you should implement tests to check the specifications for described components on [w3 best practices](https://www.w3.org/TR/wai-aria-practices-1.1).
+Each component should have tests for accessibility using jest-axe. Also, you should implement tests to check the specifications for described components on [W3 best practices](https://www.w3.org/TR/wai-aria-practices-1.1).
 
 For example, tests for Modal Dialog component: 
+
 ```tsx
 import { axe } from 'jest-axe'
 
@@ -108,10 +117,10 @@ describe('Modal', () => {
 ```
 
 ## Use slots or not. When use?
-TODO
+TODO: 
 
 ## Export hook vs export UI
-TODO
+TODO: examples to export the UI and don't exports any hooks
 
 ## Storybook
 
