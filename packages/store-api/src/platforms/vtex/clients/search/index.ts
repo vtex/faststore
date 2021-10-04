@@ -1,4 +1,5 @@
-import { fetchAPI } from '../common'
+import { fetchAPI } from '../fetch'
+import type { SelectedFacet } from '../../utils/facets'
 import type { Options } from '../..'
 import type { ProductSearchResult } from './types/ProductSearchResult'
 import type { AttributeSearchResult } from './types/AttributeSearchResult'
@@ -12,11 +13,6 @@ export type Sort =
   | 'release:desc'
   | 'discount:desc'
   | ''
-
-export interface SelectedFacet {
-  key: string
-  value: string
-}
 
 export interface SearchArgs {
   query?: string
@@ -33,17 +29,20 @@ export interface ProductLocator {
   value: string
 }
 
-export const IntelligentSearch = (options: Options) => {
-  const { channel } = options
-  const base = `http://search.biggylabs.com.br/search-api/v1/${options.account}`
+export const IntelligentSearch = (opts: Options) => {
+  const { channel } = opts
+  const base = `http://search.biggylabs.com.br/search-api/v1/${opts.account}`
 
-  // TODO: change here once supporting sales channel
-  const defaultFacets = [
-    {
-      key: 'trade-policy',
-      value: channel,
-    },
-  ]
+  const addDefaults = (facets: SelectedFacet[]) => {
+    const facetsObj = Object.fromEntries(
+      facets.map(({ key, value }) => [key, value])
+    )
+
+    return Object.entries({
+      'trade-policy': channel,
+      ...facetsObj,
+    }).map(([key, value]) => ({ key, value }))
+  }
 
   const search = <T>({
     query = '',
@@ -62,7 +61,7 @@ export const IntelligentSearch = (options: Options) => {
       fuzzy,
     })
 
-    const pathname = [...defaultFacets, ...selectedFacets]
+    const pathname = addDefaults(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 

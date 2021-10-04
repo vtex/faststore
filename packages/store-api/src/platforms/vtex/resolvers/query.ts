@@ -1,13 +1,9 @@
+import { transformSelectedFacet } from '../utils/facets'
 import { enhanceSku } from '../utils/enhanceSku'
 import { SORT_MAP } from '../utils/sort'
-import type { ProductLocator } from '../clients/search'
+import type { SelectedFacet } from '../utils/facets'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
-
-export interface SelectedFacets {
-  key: string
-  value: string
-}
 
 export interface SearchArgs {
   term?: string
@@ -22,25 +18,20 @@ export interface SearchArgs {
     | 'release_desc'
     | 'discount_desc'
     | 'score_desc'
-  selectedFacets: SelectedFacets[]
+  selectedFacets: SelectedFacet[]
 }
 
 export const Query = {
   product: async (
     _: unknown,
-    { locator }: { locator: ProductLocator },
+    { locator }: { locator: SelectedFacet[] },
     ctx: Context
   ) => {
     const {
       loaders: { skuLoader },
     } = ctx
 
-    const skuId =
-      locator.field === 'id'
-        ? locator.value
-        : locator.value.split('-').reverse()[0]
-
-    return skuLoader.load(skuId)
+    return skuLoader.load(locator.map(transformSelectedFacet))
   },
   search: async (
     _: unknown,
@@ -52,7 +43,7 @@ export const Query = {
       count: first,
       query: term,
       sort: SORT_MAP[sort],
-      selectedFacets,
+      selectedFacets: selectedFacets.map(transformSelectedFacet),
     }
 
     return searchArgs

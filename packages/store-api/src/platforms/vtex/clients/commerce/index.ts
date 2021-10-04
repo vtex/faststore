@@ -1,4 +1,4 @@
-import { fetchAPI } from '../common'
+import { fetchAPI } from '../fetch'
 import type {
   Simulation,
   SimulationArgs,

@@ -43,6 +43,11 @@ export type IStoreProduct = {
   sku: Scalars['String'];
 };
 
+export type IStoreSelectedFacet = {
+  key: Scalars['String'];
+  value: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   validateCart?: Maybe<StoreCart>;
@@ -75,14 +80,14 @@ export type QueryAllProductsArgs = {
 
 
 export type QueryProductArgs = {
-  locator: StoreProductId;
+  locator: Array<IStoreSelectedFacet>;
 };
 
 
 export type QuerySearchArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
-  selectedFacets?: Maybe<Array<StoreSelectedFacet>>;
+  selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
 };
@@ -275,16 +280,6 @@ export type StoreProductGroup = {
   productGroupID: Scalars['String'];
 };
 
-export type StoreProductId = {
-  field: StoreProductIdField;
-  value: Scalars['ID'];
-};
-
-export const enum StoreProductIdField {
-  Id = 'id',
-  Slug = 'slug'
-};
-
 export type StoreReview = {
   __typename?: 'StoreReview';
   author: StoreAuthor;
@@ -301,11 +296,6 @@ export type StoreSearchResult = {
   __typename?: 'StoreSearchResult';
   facets: Array<StoreFacet>;
   products: StoreProductConnection;
-};
-
-export type StoreSelectedFacet = {
-  key: Scalars['String'];
-  value: Scalars['String'];
 };
 
 export type StoreSeo = {

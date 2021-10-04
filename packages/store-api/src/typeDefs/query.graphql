@@ -19,16 +19,6 @@ type StoreCollectionConnection {
   edges: [StoreCollectionEdge!]!
 }
 
-enum StoreProductIDField {
-  id
-  slug
-}
-
-input StoreProductID {
-  field: StoreProductIDField!
-  value: ID!
-}
-
 enum StoreSort {
   price_desc
   price_asc
@@ -40,7 +30,7 @@ enum StoreSort {
   score_desc
 }
 
-input StoreSelectedFacet {
+input IStoreSelectedFacet {
   key: String!
   value: String!
 }
@@ -56,7 +46,7 @@ type StoreSearchResult {
 }
 
 type Query {
-  product(locator: StoreProductID!): StoreProduct!
+  product(locator: [IStoreSelectedFacet!]!): StoreProduct!
 
   search(
     # Relay style pagination args. To know more: https://relay.dev/graphql/connections.htm
@@ -65,7 +55,7 @@ type Query {
     after: String
     sort: StoreSort = score_desc
     term: String = ""
-    selectedFacets: [StoreSelectedFacet!]
+    selectedFacets: [IStoreSelectedFacet!]
   ): StoreSearchResult!
 
   allProducts(first: Int!, after: String): StoreProductConnection!

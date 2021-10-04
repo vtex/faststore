@@ -155,7 +155,7 @@ export const validateCart = async (
       orderNumber: updatedOrderForm.orderFormId,
       acceptedOffer: updatedOrderForm.items.map((item) => ({
         ...item,
-        product: skuLoader.load(item.id),
+        product: skuLoader.load([{ key: 'id', value: item.id }]), // TODO: add channel
       })),
     },
     messages: updatedOrderForm.messages.map(({ text, status }) => ({
