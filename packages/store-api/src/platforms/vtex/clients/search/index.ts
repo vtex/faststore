@@ -33,7 +33,7 @@ export const IntelligentSearch = (opts: Options) => {
   const { channel } = opts
   const base = `http://search.biggylabs.com.br/search-api/v1/${opts.account}`
 
-  const addDefaults = (facets: SelectedFacet[]) => {
+  const addDefaultFacets = (facets: SelectedFacet[]) => {
     const facetsObj = Object.fromEntries(
       facets.map(({ key, value }) => [key, value])
     )
@@ -61,7 +61,7 @@ export const IntelligentSearch = (opts: Options) => {
       fuzzy,
     })
 
-    const pathname = addDefaults(selectedFacets)
+    const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
       .join('/')
 

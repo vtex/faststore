@@ -13,7 +13,7 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
       return { key: 'trade-policy', value }
 
     case 'slug':
-      return { key: 'id', value: value.split('-').reverse()[0] }
+      return { key: 'id', value: value.split('-').pop() }
 
     default:
       return { key, value }
