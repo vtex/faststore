@@ -9,6 +9,5 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
 
   const text = await response.text()
 
-  console.error(text)
   throw new Error(text)
 }

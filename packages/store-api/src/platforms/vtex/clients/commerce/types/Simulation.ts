@@ -21,7 +21,7 @@ export interface SimulationArgs {
 }
 
 export interface SimulationOptions {
-  sc: string
+  salesChannel: string
 }
 
 export interface Simulation {

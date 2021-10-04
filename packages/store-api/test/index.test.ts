@@ -6,6 +6,7 @@ describe('Schema', () => {
       platform: 'vtex',
       account: 'storecomponents',
       environment: 'vtexcommercestable',
+      channel: '1',
     })
 
     expect(schema).not.toBeNull()
