@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.17 (2021-10-05)
+
+
+### Features
+
+* **store-api:** Add channel support for products ([#968](https://github.com/vtex/faststore/issues/968)) ([923d343](https://github.com/vtex/faststore/commit/923d343bcde8fbebfff9d32ba52ac26cd0504484))
+
+
+
+
+
 ## 1.1.16 (2021-10-04)
 
 
