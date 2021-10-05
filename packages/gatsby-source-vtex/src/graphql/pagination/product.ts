@@ -13,7 +13,7 @@ interface IPage {
 
 // Current max page size supported by VTEX API
 // TODO: Increasing this number could help on our build times
-const PAGE_SIZE = 90
+const PAGE_SIZE = 50
 
 // VTEX Search API hard limits us to 2500 products at most
 // Increasing this hard limit on the API may help us fetch more products
