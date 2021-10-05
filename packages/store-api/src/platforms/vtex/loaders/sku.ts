@@ -4,9 +4,22 @@ import { enhanceSku } from '../utils/enhanceSku'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import type { Options } from '..'
 import type { Clients } from '../clients'
+import type { SelectedFacet } from '../utils/facets'
 
 export const getSkuLoader = (_: Options, clients: Clients) => {
-  const loader = async (skuIds: readonly string[]) => {
+  const loader = async (facetsList: readonly SelectedFacet[][]) => {
+    const skuIds = facetsList.map((facets) => {
+      const maybeFacet = facets.find(({ key }) => key === 'id')
+
+      if (!maybeFacet) {
+        throw new Error(
+          'Error while loading SKU. Needs to pass an id to selected facets'
+        )
+      }
+
+      return maybeFacet.value
+    })
+
     const indexById = skuIds.reduce(
       (acc, id, index) => ({ ...acc, [id]: index }),
       {} as Record<string, number>
@@ -42,7 +55,7 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
     return sorted
   }
 
-  return new DataLoader<string, EnhancedSku>(loader, {
-    maxBatchSize: 50, // Warning: Don't change this value, this the max allowed batch size of Search API
+  return new DataLoader<SelectedFacet[], EnhancedSku>(loader, {
+    maxBatchSize: 99, // Max allowed batch size of Search API
   })
 }
