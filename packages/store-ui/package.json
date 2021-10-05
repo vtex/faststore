@@ -51,7 +51,6 @@
     }
   ],
   "dependencies": {
-    "@reach/accordion": "^0.16.1",
     "@reach/popover": "^0.16.0",
     "react-swipeable": "^6.1.2",
     "tabbable": "^5.2.1"

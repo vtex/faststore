@@ -1,5 +1,5 @@
 import type { Story } from '@storybook/react'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { AccordionButton, AccordionItem, AccordionPanel } from '..'
 import type { AccordionProps } from '..'
@@ -7,7 +7,7 @@ import Component from '../Accordion'
 import mdx from './Accordion.mdx'
 
 const Clothing = () => (
-  <AccordionItem>
+  <AccordionItem index={0}>
     <AccordionButton>Clothing</AccordionButton>
     <AccordionPanel>
       <ul>
@@ -24,8 +24,9 @@ const Clothing = () => (
     </AccordionPanel>
   </AccordionItem>
 )
-const Sale = ({ disabled }: { disabled?: boolean }) => (
-  <AccordionItem disabled={disabled}>
+
+const Sale = () => (
+  <AccordionItem index={1}>
     <AccordionButton>Sale</AccordionButton>
     <AccordionPanel>
       <ul>
@@ -39,9 +40,20 @@ const Sale = ({ disabled }: { disabled?: boolean }) => (
     </AccordionPanel>
   </AccordionItem>
 )
-const AccordionTemplate: Story<AccordionProps> = ({ testId, ...props }) => {
+
+const AccordionTemplate: Story<AccordionProps> = ({ testId }) => {
+  const [indices, setIndices] = useState<number[]>([])
+  const onChange = (index: number) => {
+    console.log(index)
+    if (indices.includes(index)) {
+      setIndices(indices.filter((currentIndex) => currentIndex !== index))
+    } else {
+      setIndices([...indices, index])
+    }
+  }
+
   return (
-    <Component testId={testId} {...props}>
+    <Component testId={testId} indices={indices} onChange={onChange}>
       <Clothing />
       <Sale />
     </Component>
@@ -59,17 +71,6 @@ export const Multiple = AccordionTemplate.bind({})
 Multiple.args = {
   multiple: true,
 }
-
-const AccordionDisabledTemplate: Story<AccordionProps> = ({ testId }) => {
-  return (
-    <Component testId={testId}>
-      <Clothing />
-      <Sale disabled />
-    </Component>
-  )
-}
-
-export const Disabled = AccordionDisabledTemplate.bind({})
 
 export default {
   title: 'Molecules/Accordion',
