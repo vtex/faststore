@@ -23,7 +23,7 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
       return { key: 'trade-policy', value }
 
     case 'slug':
-      return { key: 'id', value: getIdFromSlug(key) }
+      return { key: 'id', value: getIdFromSlug(value) }
 
     default:
       return { key, value }
