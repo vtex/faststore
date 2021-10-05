@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-cms",
-  "version": "0.373.40",
+  "version": "0.373.41",
   "description": "Gatsby plugin for building pages with VTEX CMS.",
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.12.7",
     "@babel/register": "^7.12.1",
-    "@vtex/gatsby-source-vtex": "^0.373.40",
+    "@vtex/gatsby-source-vtex": "^0.373.41",
     "camelcase": "^6.2.0",
     "chokidar": "^3.5.0",
     "fetch-retry": "^4.1.1",

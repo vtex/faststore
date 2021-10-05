@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.41 (2021-10-05)
+
+**Note:** Version bump only for package @vtex/gatsby-theme-store
+
+
+
+
+
 ## 0.373.40 (2021-09-23)
 
 
