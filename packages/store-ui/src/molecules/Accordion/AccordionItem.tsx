@@ -13,6 +13,8 @@ export interface AccordionItemProps {
 
 interface AccordionItemContext {
   index: number
+  panel: string
+  button: string
 }
 
 const AccordionItemContext = createContext<AccordionItemContext | undefined>(
@@ -24,7 +26,11 @@ export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
     { testId = 'store-accordion-item', children, index, ...props },
     ref
   ) {
-    const context = { index }
+    const context = {
+      index,
+      panel: `panel--${index}`,
+      button: `button--${index}`,
+    }
 
     return (
       <AccordionItemContext.Provider value={context}>

@@ -18,11 +18,14 @@ export const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
     ref
   ) {
     const { openPanels } = useAccordion()
-    const { index } = useAccordionItem()
+    const { index, button, panel } = useAccordionItem()
 
     return (
       <div
         ref={ref}
+        id={panel}
+        aria-labelledby={button}
+        role="region"
         data-store-accordion-panel
         data-testid={testId}
         {...props}

@@ -5,10 +5,30 @@ import { AccordionButton, AccordionItem, AccordionPanel } from '..'
 import type { AccordionProps } from '..'
 import Component from '../Accordion'
 import mdx from './Accordion.mdx'
+import { Icon } from '../../..'
 
-const Clothing = () => (
+const Caret = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="feather feather-chevron-down"
+  >
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+)
+
+const Clothing = ({ icon }: { icon?: boolean }) => (
   <AccordionItem index={0}>
-    <AccordionButton>Clothing</AccordionButton>
+    <AccordionButton>
+      Clothing {icon ? <Icon component={<Caret />} /> : null}
+    </AccordionButton>
     <AccordionPanel>
       <ul>
         <li>
@@ -25,9 +45,11 @@ const Clothing = () => (
   </AccordionItem>
 )
 
-const Sale = () => (
+const Sale = ({ icon }: { icon?: boolean }) => (
   <AccordionItem index={1}>
-    <AccordionButton>Sale</AccordionButton>
+    <AccordionButton>
+      Sale {icon ? <Icon component={<Caret />} /> : null}
+    </AccordionButton>
     <AccordionPanel>
       <ul>
         <li>
@@ -44,7 +66,6 @@ const Sale = () => (
 const AccordionTemplate: Story<AccordionProps> = ({ testId }) => {
   const [indices, setIndices] = useState<number[]>([])
   const onChange = (index: number) => {
-    console.log(index)
     if (indices.includes(index)) {
       setIndices(indices.filter((currentIndex) => currentIndex !== index))
     } else {
@@ -60,20 +81,27 @@ const AccordionTemplate: Story<AccordionProps> = ({ testId }) => {
   )
 }
 
-export const Default = AccordionTemplate.bind({})
+export const MultipleAndCollapsible = AccordionTemplate.bind({})
 
-export const Collapsible = AccordionTemplate.bind({})
-Collapsible.args = {
-  collapsible: true,
+const ToggleWithIconTemplate: Story<AccordionProps> = ({ testId }) => {
+  const [indices, setIndices] = useState<number[]>([0])
+  const onChange = (index: number) => {
+    setIndices([index])
+  }
+
+  return (
+    <Component testId={testId} indices={indices} onChange={onChange}>
+      <Clothing icon />
+      <Sale icon />
+    </Component>
+  )
 }
 
-export const Multiple = AccordionTemplate.bind({})
-Multiple.args = {
-  multiple: true,
-}
+export const ToggleWithIcon = ToggleWithIconTemplate.bind({})
 
 export default {
   title: 'Molecules/Accordion',
+  component: MultipleAndCollapsible,
   parameters: {
     docs: {
       page: mdx,

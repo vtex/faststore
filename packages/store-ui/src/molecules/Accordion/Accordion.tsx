@@ -30,7 +30,13 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
 
   return (
     <AccordionContext.Provider value={context}>
-      <div ref={ref} data-store-accordion data-testid={testId} {...props}>
+      <div
+        ref={ref}
+        data-store-accordion
+        data-testid={testId}
+        role="region"
+        {...props}
+      >
         {children}
       </div>
     </AccordionContext.Provider>
