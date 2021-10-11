@@ -21,7 +21,7 @@ const TestAccordion = () => {
       indices={indices}
       onChange={onChange}
     >
-      <AccordionItem index={0}>
+      <AccordionItem>
         <AccordionButton>Clothing</AccordionButton>
         <AccordionPanel>
           <ul>
@@ -38,7 +38,7 @@ const TestAccordion = () => {
         </AccordionPanel>
       </AccordionItem>
 
-      <AccordionItem index={1}>
+      <AccordionItem>
         <AccordionButton>Sale</AccordionButton>
         <AccordionPanel>
           <ul>

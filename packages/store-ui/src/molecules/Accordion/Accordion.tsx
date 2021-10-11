@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from 'react'
-import React, { forwardRef, createContext } from 'react'
+import type { HTMLAttributes, ReactElement } from 'react'
+import React, { cloneElement, forwardRef, createContext } from 'react'
 
 export interface AccordionProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
@@ -8,13 +8,19 @@ export interface AccordionProps
    * testing-library, and jest).
    */
   testId?: string
+  /**
+   * Array of indices that indicate which accordion items are opened
+   */
   indices: number[]
+  /**
+   * Function that is triggered when an accordion item is opened/closed
+   */
   onChange: (index: number) => void
 }
 
 interface AccordionContext {
-  openPanels: number[]
-  onSelectPanel: (index: number) => void
+  indices: number[]
+  onChange: (index: number) => void
 }
 
 const AccordionContext = createContext<AccordionContext | undefined>(undefined)
@@ -23,10 +29,12 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
   { testId = 'store-accordion', indices, onChange, children, ...props },
   ref
 ) {
-  const context = {
-    openPanels: indices,
-    onSelectPanel: onChange,
-  }
+  const context = { indices, onChange }
+
+  const childrenWithIndex = React.Children.map(
+    children as ReactElement,
+    (child, index) => cloneElement(child, { index: child.props.index ?? index })
+  )
 
   return (
     <AccordionContext.Provider value={context}>
@@ -37,7 +45,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
         role="region"
         {...props}
       >
-        {children}
+        {childrenWithIndex}
       </div>
     </AccordionContext.Provider>
   )

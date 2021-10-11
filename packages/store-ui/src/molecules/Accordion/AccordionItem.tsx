@@ -1,14 +1,16 @@
-import type { ReactNode } from 'react'
+import type { HTMLAttributes } from 'react'
 import React, { forwardRef, createContext } from 'react'
 
-export interface AccordionItemProps {
+export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
    */
   testId?: string
-  children: ReactNode
-  index: number
+  /**
+   * Index of the current accordion item within the accordion
+   */
+  index?: number
 }
 
 interface AccordionItemContext {
@@ -23,7 +25,7 @@ const AccordionItemContext = createContext<AccordionItemContext | undefined>(
 
 export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   function AccordionItem(
-    { testId = 'store-accordion-item', children, index, ...props },
+    { testId = 'store-accordion-item', children, index = 0, ...props },
     ref
   ) {
     const context = {

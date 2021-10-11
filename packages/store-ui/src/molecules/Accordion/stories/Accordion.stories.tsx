@@ -24,8 +24,8 @@ const Caret = () => (
   </svg>
 )
 
-const Clothing = ({ icon }: { icon?: boolean }) => (
-  <AccordionItem index={0}>
+const Clothing = ({ icon, ...props }: { icon?: boolean }) => (
+  <AccordionItem {...props}>
     <AccordionButton>
       Clothing {icon ? <Icon component={<Caret />} /> : null}
     </AccordionButton>
@@ -45,8 +45,8 @@ const Clothing = ({ icon }: { icon?: boolean }) => (
   </AccordionItem>
 )
 
-const Sale = ({ icon }: { icon?: boolean }) => (
-  <AccordionItem index={1}>
+const Sale = ({ icon, ...props }: { icon?: boolean }) => (
+  <AccordionItem {...props}>
     <AccordionButton>
       Sale {icon ? <Icon component={<Caret />} /> : null}
     </AccordionButton>

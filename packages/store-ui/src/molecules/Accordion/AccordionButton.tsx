@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import type { ButtonHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 import { Button } from '../..'
@@ -11,7 +11,6 @@ export interface AccordionButtonProps
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-  children: ReactNode
 }
 
 export const AccordionButton = forwardRef<
@@ -21,19 +20,19 @@ export const AccordionButton = forwardRef<
   { testId = 'store-accordion-button', children, ...props },
   ref
 ) {
-  const { onSelectPanel, openPanels } = useAccordion()
+  const { indices, onChange } = useAccordion()
   const { index, panel, button } = useAccordionItem()
 
   return (
     <Button
       ref={ref}
       id={button}
-      aria-expanded={openPanels.includes(index)}
+      aria-expanded={indices.includes(index)}
       aria-controls={panel}
       data-store-accordion-button
       data-testid={testId}
       onClick={() => {
-        onSelectPanel(index)
+        onChange(index)
       }}
       {...props}
     >
