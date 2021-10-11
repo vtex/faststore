@@ -56,7 +56,13 @@ So, if you want to style the disable state, you can do by doing this:
 }
 ```
 
-// TODO: more examples
+Another example for a carousel component:
+
+```css
+[data-store-carousel] {}
+[data-store-carousel-arrows="left"] {}
+[data-store-carousel-arrows="right"] {}
+```
 
 For more information look at the [styling discussion](https://github.com/vtex/faststore/discussions/919).
 
@@ -116,15 +122,57 @@ describe('Modal', () => {
 })
 ```
 
-## Use slots or not. When use?
-TODO: 
+## Use slots or not?
+
+Don't use slots on organisms. It is desired that the organisms should be more like documentation about using atoms and molecules components.
+
+### When use slots?
+TODO:
 
 ## Export hook vs export UI
-TODO: examples to export the UI and don't exports any hooks
+
+Should export the controlled component. When having the necessity of uncontrolled components, the uncontrolled component can be exported, but not the hooks if it exists.
 
 ## Storybook
 
-Each component should have a story and doc. We have a default template for the story `.mdx` file:
+Each component should have a story and doc.
+
+The component example should be written on `ComponentName.stories.tsx` file. For example:
+
+```tsx
+// Button.stories.tsx
+const ButtonTemplate: Story<ButtonProps> = ({ children, onClick, testId }) => (
+  <Component onClick={onClick} testId={testId}>
+    {children}
+  </Component>
+)
+
+export const Button = ButtonTemplate.bind({})
+
+const argTypes: ComponentArgTypes<ButtonProps> = {
+  children: {
+    control: { type: 'text' },
+    defaultValue: 'Button',
+  },
+  onClick: {
+    action: 'Button clicked',
+    table: { disable: true },
+  },
+}
+
+export default {
+  title: 'Atoms/Button',
+  argTypes,
+  parameters: {
+    docs: {
+      page: mdx,
+    },
+  },
+} as Meta
+```
+> Don't spread the props on component template.
+
+A default template for the story `.mdx` file:
 
 ```mdx
 # Component name Here
@@ -149,3 +197,5 @@ Each component should have a story and doc. We have a default template for the s
 [data-attribute] {}
 
 ```
+
+Write everything that's important for your component inside the `.mdx`.
