@@ -64,12 +64,13 @@ const Sale = ({ icon, ...props }: { icon?: boolean }) => (
 )
 
 const AccordionTemplate: Story<AccordionProps> = ({ testId }) => {
-  const [indices, setIndices] = useState<number[]>([])
+  const [indices, setIndices] = useState<Set<number>>(new Set([]))
   const onChange = (index: number) => {
-    if (indices.includes(index)) {
-      setIndices(indices.filter((currentIndex) => currentIndex !== index))
+    if (indices.has(index)) {
+      indices.delete(index)
+      setIndices(new Set(indices))
     } else {
-      setIndices([...indices, index])
+      setIndices(new Set(indices.add(index)))
     }
   }
 

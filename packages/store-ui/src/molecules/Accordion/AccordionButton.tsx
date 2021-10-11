@@ -27,7 +27,7 @@ export const AccordionButton = forwardRef<
     <Button
       ref={ref}
       id={button}
-      aria-expanded={indices.includes(index)}
+      aria-expanded={indices.has(index)}
       aria-controls={panel}
       data-store-accordion-button
       data-testid={testId}

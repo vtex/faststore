@@ -27,7 +27,7 @@ export const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
         role="region"
         data-store-accordion-panel
         data-testid={testId}
-        hidden={!indices.includes(index)}
+        hidden={!indices.has(index)}
         {...props}
       >
         {children}

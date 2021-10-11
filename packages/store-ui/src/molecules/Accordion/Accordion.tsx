@@ -9,9 +9,9 @@ export interface AccordionProps
    */
   testId?: string
   /**
-   * Array of indices that indicate which accordion items are opened
+   * Indices that indicate which accordion items are opened
    */
-  indices: number[]
+  indices: Iterable<number>
   /**
    * Function that is triggered when an accordion item is opened/closed
    */
@@ -19,7 +19,7 @@ export interface AccordionProps
 }
 
 interface AccordionContext {
-  indices: number[]
+  indices: Set<number>
   onChange: (index: number) => void
 }
 
@@ -29,7 +29,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
   { testId = 'store-accordion', indices, onChange, children, ...props },
   ref
 ) {
-  const context = { indices, onChange }
+  const context = { indices: new Set(indices), onChange }
 
   const childrenWithIndex = React.Children.map(
     children as ReactElement,
