@@ -4,7 +4,7 @@
 
 We decided to use data attributes for styling with this pattern: `data-store-component-kebab-case-name`.
 
-So, for example, if you want to create a new molecule component called CheckboxGroup:
+Creating a new molecule component called CheckboxGroup:
 
 ```tsx
 interface CheckboxGroupProps {}
@@ -23,11 +23,11 @@ const CheckboxGroup = ({ onChange, testId, ...props }: CheckboxGroupProps) => {
 }
 ```
 
-As you can see, internal element has data-attributes for styling too.
+> Internal element has data-attributes for styling too.
 
 ### Data attributes for pseudo selectors
 
-For styling pseudo selectors we use this pattern: `data-pseudo-selector-name`
+For styling pseudo selectors, use this pattern: `data-pseudo-selector-name`
 
 Continue the previous example, we can add the disable property for the CheckboxGroup. So how can we add this data-attribute for this case?
 
@@ -48,7 +48,7 @@ const CheckboxGroup = ({ onChange, testId, disabled, ...props }: CheckboxGroupPr
 }
 ```
 
-So, if you want to style the disable state, you can do by doing this:
+Styling the disable state:
 
 ```css
 [data-checkbox][data-disabled] { 
@@ -94,7 +94,7 @@ Each component should have your test for each property, behavior, and data-attri
 
 ### Accessibility tests
 
-Each component should have tests for accessibility using jest-axe. Also, you should implement tests to check the specifications for described components on [W3 best practices](https://www.w3.org/TR/wai-aria-practices-1.1).
+Each component should have tests for accessibility using jest-axe. Also, implement tests to check the specifications for described components on [W3 best practices](https://www.w3.org/TR/wai-aria-practices-1.1).
 
 For example, tests for Modal Dialog component: 
 
