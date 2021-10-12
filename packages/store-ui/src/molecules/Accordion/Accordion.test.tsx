@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import React, { useState } from 'react'
 
@@ -56,23 +56,137 @@ const TestAccordion = () => {
 }
 
 describe('Accordion', () => {
-  it('should have `data-store-accordion` attribute', () => {
-    const { getByTestId } = render(<TestAccordion />)
+  let accordion: HTMLElement
+  let items: HTMLElement[]
+  let buttons: HTMLElement[]
+  let panels: HTMLElement[]
 
-    expect(getByTestId('store-accordion')).toHaveAttribute(
-      'data-store-accordion'
-    )
+  beforeEach(() => {
+    const { getByTestId, getAllByTestId } = render(<TestAccordion />)
+
+    accordion = getByTestId('store-accordion')
+    items = getAllByTestId('store-accordion-item')
+    buttons = getAllByTestId('store-accordion-button')
+    panels = getAllByTestId('store-accordion-panel')
   })
 
-  it('should not have ARIA violations', async () => {
-    const { queryAllByTestId } = render(<TestAccordion />)
+  afterEach(cleanup)
 
-    expect(await axe(document.body)).toHaveNoViolations()
+  it('should show panel specified by `indices`', () => {
+    const { getAllByTestId } = render(
+      <Accordion indices={[1]} onChange={() => {}}>
+        <AccordionItem>
+          <AccordionButton />
+          <AccordionPanel testId="store-accordion-panel-mock" />
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton />
+          <AccordionPanel testId="store-accordion-panel-mock" />
+        </AccordionItem>
+      </Accordion>
+    )
 
-    // Open a panel and check again
-    const buttons = queryAllByTestId('store-accordion-button')
+    const panelsMock = getAllByTestId('store-accordion-panel-mock')
 
-    fireEvent.click(buttons[1])
-    expect(await axe(document.body)).toHaveNoViolations()
+    expect(panelsMock[0]).not.toBeVisible()
+    expect(panelsMock[1]).toBeVisible()
+  })
+
+  describe('Data attributes', () => {
+    it('`Accordion` component should have `data-store-accordion` attribute', () => {
+      expect(accordion).toHaveAttribute('data-store-accordion')
+    })
+
+    it('`AccordionItem` component should have `data-store-accordion-item` attribute', () => {
+      for (const item of items) {
+        expect(item).toHaveAttribute('data-store-accordion-item')
+      }
+    })
+
+    it('`AccordionButton` component should have `data-store-accordion-button` attribute', () => {
+      for (const button of buttons) {
+        expect(button).toHaveAttribute('data-store-accordion-button')
+      }
+    })
+
+    it('`AccordionPanel` component should have `data-store-accordion-panel` attribute', () => {
+      for (const panel of panels) {
+        expect(panel).toHaveAttribute('data-store-accordion-panel')
+      }
+    })
+  })
+
+  describe('User actions', () => {
+    it('clicking item should call `onChange` function', () => {
+      const mockOnChange = jest.fn()
+      const { getByTestId } = render(
+        <Accordion onChange={mockOnChange} indices={[]}>
+          <AccordionItem>
+            <AccordionButton testId="store-accordion-button-mock" />
+          </AccordionItem>
+        </Accordion>
+      )
+
+      const button = getByTestId('store-accordion-button-mock')
+
+      fireEvent.click(button)
+      expect(mockOnChange).toHaveBeenCalledTimes(1)
+    })
+
+    it('should move focus to the next focusable button on `ArrowDown` press', () => {
+      buttons[1].focus()
+      expect(buttons[1]).toHaveFocus()
+      fireEvent.keyDown(document.activeElement!, { key: 'ArrowDown' })
+      expect(buttons[0]).toHaveFocus()
+    })
+
+    it('should move focus to the previous focusable button on `ArrowUp` press', () => {
+      buttons[1].focus()
+      expect(buttons[1]).toHaveFocus()
+      fireEvent.keyDown(document.activeElement!, { key: 'ArrowUp' })
+      expect(buttons[0]).toHaveFocus()
+    })
+  })
+
+  describe('Acessibility', () => {
+    // WAI-ARIA tests
+    // https://www.w3.org/TR/wai-aria-practices-1.2/#accordion
+    it('should not have violations', async () => {
+      expect(await axe(document.body)).toHaveNoViolations()
+
+      // Open a panel and check again
+      fireEvent.click(buttons[0])
+      expect(await axe(document.body)).toHaveNoViolations()
+    })
+
+    it('`role` should be set to `region` for panel elements', () => {
+      for (const panel of panels) {
+        expect(panel).toHaveAttribute('role', 'region')
+      }
+    })
+
+    it('`aria-labelledby` for panel elements should point to the corresponding button', () => {
+      panels.forEach((panel, index) => {
+        expect(panel).toHaveAttribute(
+          'aria-labelledby',
+          buttons[index].getAttribute('id')
+        )
+      })
+    })
+
+    it('`aria-controls` for button elements should point to the corresponding panel', () => {
+      buttons.forEach((button, index) => {
+        expect(button).toHaveAttribute(
+          'aria-controls',
+          panels[index].getAttribute('id')
+        )
+      })
+    })
+
+    it('`aria-expanded` should be true only for active button', () => {
+      expect(buttons[0]).toHaveAttribute('aria-expanded', 'false')
+      fireEvent.click(buttons[0])
+      expect(buttons[0]).toHaveAttribute('aria-expanded', 'true')
+    })
   })
 })

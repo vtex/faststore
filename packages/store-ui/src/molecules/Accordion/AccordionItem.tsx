@@ -8,7 +8,7 @@ export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
    */
   testId?: string
   /**
-   * Index of the current accordion item within the accordion
+   * Index of the current accordion item within the accordion.
    */
   index?: number
 }

@@ -45,6 +45,24 @@ const Clothing = ({ icon, ...props }: { icon?: boolean }) => (
   </AccordionItem>
 )
 
+const Bags = ({ icon, ...props }: { icon?: boolean }) => (
+  <AccordionItem {...props}>
+    <AccordionButton>
+      Bags {icon ? <Icon component={<Caret />} /> : null}
+    </AccordionButton>
+    <AccordionPanel>
+      <ul>
+        <li>
+          <a href="/">Backpacks</a>
+        </li>
+        <li>
+          <a href="/">Necessaire</a>
+        </li>
+      </ul>
+    </AccordionPanel>
+  </AccordionItem>
+)
+
 const Sale = ({ icon, ...props }: { icon?: boolean }) => (
   <AccordionItem {...props}>
     <AccordionButton>
@@ -77,6 +95,7 @@ const AccordionTemplate: Story<AccordionProps> = ({ testId }) => {
   return (
     <Component testId={testId} indices={indices} onChange={onChange}>
       <Clothing />
+      <Bags />
       <Sale />
     </Component>
   )
@@ -93,6 +112,7 @@ const ToggleWithIconTemplate: Story<AccordionProps> = ({ testId }) => {
   return (
     <Component testId={testId} indices={indices} onChange={onChange}>
       <Clothing icon />
+      <Bags icon />
       <Sale icon />
     </Component>
   )

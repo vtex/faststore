@@ -9,11 +9,11 @@ export interface AccordionProps
    */
   testId?: string
   /**
-   * Indices that indicate which accordion items are opened
+   * Indices that indicate which accordion items are opened.
    */
   indices: Iterable<number>
   /**
-   * Function that is triggered when an accordion item is opened/closed
+   * Function that is triggered when an accordion item is opened/closed.
    */
   onChange: (index: number) => void
 }
@@ -21,6 +21,7 @@ export interface AccordionProps
 interface AccordionContext {
   indices: Set<number>
   onChange: (index: number) => void
+  numberOfItems: number
 }
 
 const AccordionContext = createContext<AccordionContext | undefined>(undefined)
@@ -29,12 +30,16 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
   { testId = 'store-accordion', indices, onChange, children, ...props },
   ref
 ) {
-  const context = { indices: new Set(indices), onChange }
-
   const childrenWithIndex = React.Children.map(
     children as ReactElement,
     (child, index) => cloneElement(child, { index: child.props.index ?? index })
   )
+
+  const context = {
+    indices: new Set(indices),
+    onChange,
+    numberOfItems: childrenWithIndex.length,
+  }
 
   return (
     <AccordionContext.Provider value={context}>
