@@ -6,7 +6,9 @@ import type {
 } from 'react'
 import React, { forwardRef } from 'react'
 
-export type BreadcrumbLevel = {
+import Icon from '../../atoms/Icon'
+
+export type BreadcrumbLevelType = {
   href: string
   text: string
 }
@@ -16,7 +18,7 @@ export interface BreadcrumbProps<T = HTMLDivElement>
   /**
    * Array with each level of the breadcrumb, containing link and text.
    */
-  breadcrumb: BreadcrumbLevel[]
+  breadcrumb: BreadcrumbLevelType[]
   /**
    * A React component that will be rendered as the Divider icon.
    */
@@ -81,11 +83,11 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
           href="/"
           to="/"
         >
-          {HomeIcon}
+          {<Icon component={HomeIcon} />}
         </LinkComponent>
         {breadcrumb.map(({ href, text }, index) => (
           <>
-            {DividerIcon}
+            {<Icon component={DividerIcon} />}
             <LinkComponent
               data-testid={`${testId}-item`}
               data-store-breadcrumb-item
