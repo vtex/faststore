@@ -47,38 +47,36 @@ const options = [
   },
 ]
 
-const TableTemplate: Story<TableProps> = () => {
-  return (
-    <TableComponent>
-      <TableHead>
-        <TableRow>
-          <TableCell scope="col" variant="header">
-            Installments
+const TableTemplate: Story<TableProps> = () => (
+  <TableComponent>
+    <TableHead>
+      <TableRow>
+        <TableCell scope="col" variant="header">
+          Installments
+        </TableCell>
+        <TableCell scope="col" variant="header">
+          Amount
+        </TableCell>
+        <TableCell scope="col" variant="header">
+          Total
+        </TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {options.map((option) => (
+        <TableRow key={option.numberOfInstallments}>
+          <TableCell>{option.numberOfInstallments}x</TableCell>
+          <TableCell>
+            <Price formatter={priceFormatter} value={option.monthlyPayment} />
           </TableCell>
-          <TableCell scope="col" variant="header">
-            Amount
-          </TableCell>
-          <TableCell scope="col" variant="header">
-            Total
+          <TableCell>
+            <Price formatter={priceFormatter} value={option.total} />
           </TableCell>
         </TableRow>
-      </TableHead>
-      <TableBody>
-        {options.map((option) => (
-          <TableRow key={option.numberOfInstallments}>
-            <TableCell>{option.numberOfInstallments}x</TableCell>
-            <TableCell>
-              <Price formatter={priceFormatter} value={option.monthlyPayment} />
-            </TableCell>
-            <TableCell>
-              <Price formatter={priceFormatter} value={option.total} />
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </TableComponent>
-  )
-}
+      ))}
+    </TableBody>
+  </TableComponent>
+)
 
 export const Table = TableTemplate.bind({})
 
