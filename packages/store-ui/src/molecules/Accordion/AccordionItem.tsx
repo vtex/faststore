@@ -1,5 +1,15 @@
 import type { HTMLAttributes } from 'react'
-import React, { forwardRef, createContext } from 'react'
+import React, { useContext, forwardRef, createContext } from 'react'
+
+interface AccordionItemContext {
+  index: number
+  panel: string
+  button: string
+}
+
+const AccordionItemContext = createContext<AccordionItemContext | undefined>(
+  undefined
+)
 
 export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -12,16 +22,6 @@ export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
    */
   index?: number
 }
-
-interface AccordionItemContext {
-  index: number
-  panel: string
-  button: string
-}
-
-const AccordionItemContext = createContext<AccordionItemContext | undefined>(
-  undefined
-)
 
 export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   function AccordionItem(
@@ -50,7 +50,7 @@ export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
 )
 
 export function useAccordionItem() {
-  const context = React.useContext(AccordionItemContext)
+  const context = useContext(AccordionItemContext)
 
   if (context === undefined) {
     throw new Error(

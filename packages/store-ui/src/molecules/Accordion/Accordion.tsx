@@ -1,5 +1,18 @@
 import type { HTMLAttributes, ReactElement } from 'react'
-import React, { cloneElement, forwardRef, createContext } from 'react'
+import React, {
+  useContext,
+  cloneElement,
+  forwardRef,
+  createContext,
+} from 'react'
+
+interface AccordionContext {
+  indices: Set<number>
+  onChange: (index: number) => void
+  numberOfItems: number
+}
+
+const AccordionContext = createContext<AccordionContext | undefined>(undefined)
 
 export interface AccordionProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
@@ -17,14 +30,6 @@ export interface AccordionProps
    */
   onChange: (index: number) => void
 }
-
-interface AccordionContext {
-  indices: Set<number>
-  onChange: (index: number) => void
-  numberOfItems: number
-}
-
-const AccordionContext = createContext<AccordionContext | undefined>(undefined)
 
 const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
   { testId = 'store-accordion', indices, onChange, children, ...props },
@@ -57,7 +62,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
 })
 
 export function useAccordion() {
-  const context = React.useContext(AccordionContext)
+  const context = useContext(AccordionContext)
 
   if (context === undefined) {
     throw new Error(

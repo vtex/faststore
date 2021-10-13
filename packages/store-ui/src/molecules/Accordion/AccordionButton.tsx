@@ -64,7 +64,7 @@ export const AccordionButton = forwardRef<
       aria-controls={panel}
       data-store-accordion-button
       data-testid={testId}
-      onKeyDown={props.onKeyDown ?? onKeyDown}
+      onKeyDown={onKeyDown}
       onClick={() => {
         onChange(index)
       }}

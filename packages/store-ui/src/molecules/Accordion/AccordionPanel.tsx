@@ -4,7 +4,8 @@ import React, { forwardRef } from 'react'
 import { useAccordion } from './Accordion'
 import { useAccordionItem } from './AccordionItem'
 
-export interface AccordionPanelProps extends HTMLAttributes<HTMLDivElement> {
+export interface AccordionPanelProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
