@@ -14,7 +14,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   ref
 ) {
   return (
-    <button ref={ref} data-store-button data-testid={testId} {...props}>
+    <button
+      style={{ minWidth: '48px', minHeight: '48px' }}
+      ref={ref}
+      data-store-button
+      data-testid={testId}
+      {...props}
+    >
       {children}
     </button>
   )
