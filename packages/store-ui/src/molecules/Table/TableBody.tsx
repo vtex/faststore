@@ -8,7 +8,7 @@ export interface TableBodyProps
 }
 
 const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
-  function TableBody({ children, testId, ...rest }, ref) {
+  function TableBody({ children, testId = 'store-table-body', ...rest }, ref) {
     return (
       <tbody ref={ref} data-testid={testId} data-store-table-body {...rest}>
         {children}
