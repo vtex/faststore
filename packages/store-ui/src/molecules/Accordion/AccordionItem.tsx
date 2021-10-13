@@ -25,7 +25,7 @@ export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
 
 export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   function AccordionItem(
-    { testId = 'store-accordion-item', children, index = 0, ...props },
+    { testId = 'store-accordion-item', children, index = 0, ...otherProps },
     ref
   ) {
     const context = {
@@ -40,7 +40,7 @@ export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
           ref={ref}
           data-store-accordion-item
           data-testid={testId}
-          {...props}
+          {...otherProps}
         >
           {children}
         </div>

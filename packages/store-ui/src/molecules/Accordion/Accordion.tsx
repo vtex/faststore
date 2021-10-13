@@ -32,7 +32,7 @@ export interface AccordionProps
 }
 
 const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
-  { testId = 'store-accordion', indices, onChange, children, ...props },
+  { testId = 'store-accordion', indices, onChange, children, ...otherProps },
   ref
 ) {
   const childrenWithIndex = React.Children.map(
@@ -53,7 +53,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
         data-store-accordion
         data-testid={testId}
         role="region"
-        {...props}
+        {...otherProps}
       >
         {childrenWithIndex}
       </div>

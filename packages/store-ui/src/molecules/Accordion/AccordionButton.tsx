@@ -17,7 +17,7 @@ export const AccordionButton = forwardRef<
   HTMLButtonElement,
   AccordionButtonProps
 >(function AccordionButton(
-  { testId = 'store-accordion-button', children, ...props },
+  { testId = 'store-accordion-button', children, ...otherProps },
   ref
 ) {
   const { indices, onChange, numberOfItems } = useAccordion()
@@ -68,7 +68,7 @@ export const AccordionButton = forwardRef<
       onClick={() => {
         onChange(index)
       }}
-      {...props}
+      {...otherProps}
     >
       {children}
     </Button>

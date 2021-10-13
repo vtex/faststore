@@ -14,7 +14,7 @@ export interface AccordionPanelProps
 
 export const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
   function AccordionPanel(
-    { testId = 'store-accordion-panel', children, ...props },
+    { testId = 'store-accordion-panel', children, ...otherProps },
     ref
   ) {
     const { indices } = useAccordion()
@@ -29,7 +29,7 @@ export const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
         data-store-accordion-panel
         data-testid={testId}
         hidden={!indices.has(index)}
-        {...props}
+        {...otherProps}
       >
         {children}
       </div>
