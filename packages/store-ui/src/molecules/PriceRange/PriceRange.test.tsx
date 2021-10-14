@@ -49,11 +49,11 @@ describe('PriceRange', () => {
 
       expect(
         getByTestId('store-price-range').querySelector('[aria-valuenow="0"]')
-      ).toBeInTheDOM()
+      ).toBeInTheDocument()
 
       expect(
         getByTestId('store-price-range').querySelector('[aria-valuenow="100"]')
-      ).toBeInTheDOM()
+      ).toBeInTheDocument()
 
       // check role slider. input type=range has implicit role slider
       expect(
