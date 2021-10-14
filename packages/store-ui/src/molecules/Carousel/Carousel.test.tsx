@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent, act } from '@testing-library/react'
+import { axe } from 'jest-axe'
 
 import Carousel from './Carousel'
 
@@ -253,5 +254,63 @@ describe('Carousel component', () => {
     expect(items[2]).toHaveAttribute('data-visible')
     expect(items[3]).not.toHaveAttribute('data-visible')
     expect(items[4]).not.toHaveAttribute('data-visible')
+  })
+
+  describe('Accessibility', () => {
+    it('should have no violations', async () => {
+      const { container } = render(
+        <Carousel>
+          <div>Slide 1</div>
+          <div>Slide 2</div>
+          <div>Slide 3</div>
+        </Carousel>
+      )
+
+      expect(await axe(container)).toHaveNoViolations()
+    })
+
+    it('should have no violations with infiniteMode false', async () => {
+      const { container } = render(
+        <Carousel infiniteMode={false}>
+          <div>Slide 1</div>
+          <div>Slide 2</div>
+          <div>Slide 3</div>
+        </Carousel>
+      )
+
+      expect(await axe(container)).toHaveNoViolations()
+    })
+
+    it('check roles, aria-roledescriptions attributes', () => {
+      const { getByTestId, getAllByRole } = render(
+        <Carousel infiniteMode={false}>
+          <div>Slide 1</div>
+          <div>Slide 2</div>
+          <div>Slide 3</div>
+        </Carousel>
+      )
+
+      // Check aria-roledescriptions
+      expect(getByTestId('store-carousel')).toHaveAttribute(
+        'aria-roledescription',
+        'carousel'
+      )
+      expect(
+        getByTestId('store-carousel').querySelectorAll(
+          '[aria-roledescription="slide"]'
+        )
+      ).toHaveLength(3)
+
+      // Check roles
+      expect(getAllByRole('tablist')).toHaveLength(1)
+      expect(getAllByRole('tab')).toHaveLength(3)
+      expect(getAllByRole('tab', { selected: true })).toHaveLength(1)
+      expect(getAllByRole('tabpanel')).toHaveLength(3)
+
+      // Check bullets aria-controls
+      expect(
+        getByTestId('store-bullets').querySelectorAll('[aria-controls]')
+      ).toHaveLength(3)
+    })
   })
 })

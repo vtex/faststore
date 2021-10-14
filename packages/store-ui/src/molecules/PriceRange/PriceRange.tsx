@@ -28,6 +28,7 @@ const PriceRange = ({
   onChange,
   testId = 'store-price-range',
   variant,
+  ariaLabel,
 }: PriceRangeProps) => {
   const [minVal, setMinVal] = useState(min)
   const [maxVal, setMaxVal] = useState(max)
@@ -46,7 +47,12 @@ const PriceRange = ({
 
   return (
     <div data-store-price-range data-testid={testId} className={className}>
-      <Slider min={min} max={max} onChange={handleChange} />
+      <Slider
+        min={min}
+        max={max}
+        onChange={handleChange}
+        ariaLabel={ariaLabel}
+      />
       <div data-store-price-range-values>
         <Price
           formatter={formatter}
