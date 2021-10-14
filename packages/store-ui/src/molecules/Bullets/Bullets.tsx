@@ -28,6 +28,11 @@ export interface BulletsProps {
    * argument so that it can be interpolated in the generated string.
    */
   ariaLabelGenerator?: (index: number, isActive: boolean) => string
+  /**
+   * Function that should be used to generate the aria-controls attribute added
+   * to each bullet. It receives the bullet index as argument and should return a string.
+   */
+  ariaControlsGenerator?: (index: number) => string
 }
 
 const defaultAriaLabel = (idx: number, isActive: boolean) =>
@@ -39,6 +44,7 @@ function Bullets({
   onClick,
   testId = 'store-bullets',
   ariaLabelGenerator = defaultAriaLabel,
+  ariaControlsGenerator,
 }: BulletsProps) {
   const bulletIndexes = useMemo(() => Array(totalQuantity).fill(0), [
     totalQuantity,
@@ -59,6 +65,7 @@ function Bullets({
             disabled={isActive}
             onClick={(e) => onClick(e, idx)}
             aria-label={ariaLabelGenerator(idx, isActive)}
+            aria-controls={ariaControlsGenerator?.(idx)}
             aria-selected={isActive}
           />
         )

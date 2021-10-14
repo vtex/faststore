@@ -92,6 +92,7 @@ function Carousel({
       data-store-carousel
       data-testid={testId}
       aria-label="carousel"
+      aria-roledescription="carousel"
     >
       <div
         data-carousel-track-container
@@ -137,7 +138,10 @@ function Carousel({
         >
           {slides.map((currentSlide, idx) => (
             <div
+              role="tabpanel"
+              aria-roledescription="slide"
               key={idx}
+              id={`carousel-item-${idx}`}
               data-carousel-item
               style={{ width: '100%' }}
               data-visible={
@@ -195,6 +199,7 @@ function Carousel({
 
               slide(idx, sliderDispatch)
             }}
+            ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
           />
         </div>
       )}
