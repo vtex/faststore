@@ -1,0 +1,19 @@
+[data-store-accordion-button] {
+  @apply bg-transparent text-gray-800;
+  @apply hover:text-pink-600;
+}
+[data-store-icon] {
+  @apply align-top ml-2;
+}
+[data-store-accordion-button][aria-expanded='true'] {
+  @apply text-pink-600;
+}
+[data-store-accordion-button][aria-expanded='true'] [data-store-icon] {
+  @apply transform rotate-180;
+}
+[data-store-accordion-panel] > ul {
+  @apply list-none my-0;
+}
+[data-store-accordion-panel] a {
+  @apply text-gray-500 no-underline hover:text-blue-700;
+}
