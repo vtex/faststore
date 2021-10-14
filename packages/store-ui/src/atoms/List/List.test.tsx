@@ -85,7 +85,7 @@ describe('List', () => {
   })
 
   describe('Accessibility', () => {
-    it('default variant should not have violations with', async () => {
+    it('should have no violations when rendering the default variant', async () => {
       const { getByTestId } = render(
         <List>
           {optionsArray.map((option, index) => (
@@ -97,7 +97,7 @@ describe('List', () => {
       expect(await axe(getByTestId('store-list'))).toHaveNoViolations()
     })
 
-    it('unordered variant should not have violations with', async () => {
+    it('should have no violations when rendering the unordered variant', async () => {
       const { getByTestId } = render(
         <List variant="unordered">
           {optionsArray.map((option, index) => (
@@ -109,7 +109,7 @@ describe('List', () => {
       expect(await axe(getByTestId('store-list'))).toHaveNoViolations()
     })
 
-    it('ordered variant should not have violations with', async () => {
+    it('should have no violations when rendering the ordered variant', async () => {
       const { getByTestId } = render(
         <List variant="ordered">
           {optionsArray.map((option, index) => (
@@ -121,7 +121,7 @@ describe('List', () => {
       expect(await axe(getByTestId('store-list'))).toHaveNoViolations()
     })
 
-    it('description variant should not have violations with', async () => {
+    it('should have no violations when rendering the description variant', async () => {
       const { getByTestId } = render(
         <List variant="description">
           {optionsArray.map((option, index) => (
