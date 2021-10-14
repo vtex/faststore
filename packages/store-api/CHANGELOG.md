@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.4 (2021-10-14)
+
+
+### Features
+
+* **store-ui:** Accordion molecule ([#985](https://github.com/vtex/faststore/issues/985)) ([a35fb51](https://github.com/vtex/faststore/commit/a35fb51b675e41af6070da8b521a3a4da25a0d65))
+
+
+
+
+
 ## 1.2.3 (2021-10-14)
 
 **Note:** Version bump only for package @vtex/store-api
