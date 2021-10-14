@@ -24,10 +24,6 @@ export type SliderProps = {
    */
   onChange?: (value: { min: number; max: number }) => void
   /**
-   * Set a human-readable name for the slider.
-   */
-  ariaLabel?: string
-  /**
    * A function used to set a human-readable value text based on the slider's current value.
    */
   getAriaValueText?(value: number, thumb?: 'min' | 'max'): string
@@ -42,7 +38,6 @@ const Slider = ({
   max,
   onChange,
   testId = 'store-slider',
-  ariaLabel,
   getAriaValueText,
   className,
 }: SliderProps) => {
@@ -84,14 +79,7 @@ const Slider = ({
   }, [minVal, maxVal, onChange])
 
   return (
-    <div
-      data-store-slider
-      data-testid={testId}
-      aria-label={ariaLabel}
-      // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
-      role="slider"
-      className={className}
-    >
+    <div data-store-slider data-testid={testId} className={className}>
       <div ref={range} data-store-slider-range />
       <input
         type="range"

@@ -12,8 +12,7 @@ describe('Slider', () => {
   })
 
   describe('Accessibility', () => {
-    // Fix the Slider component
-    it.skip('should have no violations', async () => {
+    it('should have no violations', async () => {
       const { getByTestId } = render(<Slider min={0} max={100} />)
 
       expect(await axe(getByTestId('store-slider'))).toHaveNoViolations()
