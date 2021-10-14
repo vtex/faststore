@@ -15,7 +15,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 ) {
   return (
     <button
-      style={{ minWidth: '48px', minHeight: '48px' }}
+      style={{ minWidth: '48px', minHeight: '48px', paddingLeft: '8px' }}
       ref={ref}
       data-store-button
       data-testid={testId}
