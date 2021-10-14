@@ -1,4 +1,4 @@
-import type { MouseEvent, PropsWithChildren } from 'react'
+import type { MouseEvent } from 'react'
 import React, { useMemo } from 'react'
 
 import Button from '../../atoms/Button'
@@ -30,27 +30,6 @@ export interface BulletsProps {
   ariaLabelGenerator?: (index: number, isActive: boolean) => string
 }
 
-interface BulletProps {
-  isActive: boolean
-  testId: string
-}
-
-function Bullet({
-  isActive,
-  testId,
-  children,
-}: PropsWithChildren<BulletProps>) {
-  return (
-    <li
-      data-testid={testId}
-      data-bullet-item
-      data-active={isActive || undefined}
-    >
-      {children}
-    </li>
-  )
-}
-
 const defaultAriaLabel = (idx: number, isActive: boolean) =>
   isActive ? 'Current page' : `Go to page ${idx + 1}`
 
@@ -66,21 +45,25 @@ function Bullets({
   ])
 
   return (
-    <ol data-store-bullets data-testid={testId}>
+    <div data-store-bullets data-testid={testId} role="tablist">
       {bulletIndexes.map((_, idx) => {
         const isActive = activeBullet === idx
 
         return (
-          <Bullet key={idx} testId={`${testId}-item`} isActive={isActive}>
-            <Button
-              aria-label={ariaLabelGenerator(idx, isActive)}
-              onClick={(e) => onClick(e, idx)}
-              disabled={isActive}
-            />
-          </Bullet>
+          <Button
+            data-bullet-item
+            role="tab"
+            tabIndex={-1}
+            key={idx}
+            testId={`${testId}-item`}
+            disabled={isActive}
+            onClick={(e) => onClick(e, idx)}
+            aria-label={ariaLabelGenerator(idx, isActive)}
+            aria-selected={isActive}
+          />
         )
       })}
-    </ol>
+    </div>
   )
 }
 
