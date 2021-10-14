@@ -148,7 +148,7 @@ describe('Accordion', () => {
     })
   })
 
-  describe('Acessibility', () => {
+  describe('Accessibility', () => {
     // WAI-ARIA tests
     // https://www.w3.org/TR/wai-aria-practices-1.2/#accordion
     it('should not have violations', async () => {
