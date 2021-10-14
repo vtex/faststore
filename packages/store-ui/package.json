@@ -43,11 +43,11 @@
   "size-limit": [
     {
       "path": "dist/store-ui.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "20 KB"
     },
     {
       "path": "dist/store-ui.esm.js",
-      "limit": "10 KB"
+      "limit": "20 KB"
     }
   ],
   "dependencies": {
