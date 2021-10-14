@@ -24,63 +24,6 @@ const Caret = () => (
   </svg>
 )
 
-const Clothing = ({ icon, ...props }: { icon?: boolean }) => (
-  <AccordionItem {...props}>
-    <AccordionButton>
-      Clothing {icon ? <Icon component={<Caret />} /> : null}
-    </AccordionButton>
-    <AccordionPanel>
-      <ul>
-        <li>
-          <a href="/">Shorts</a>
-        </li>
-        <li>
-          <a href="/">Sweatshirt</a>
-        </li>
-        <li>
-          <a href="/">Tank tops</a>
-        </li>
-      </ul>
-    </AccordionPanel>
-  </AccordionItem>
-)
-
-const Bags = ({ icon, ...props }: { icon?: boolean }) => (
-  <AccordionItem {...props}>
-    <AccordionButton>
-      Bags {icon ? <Icon component={<Caret />} /> : null}
-    </AccordionButton>
-    <AccordionPanel>
-      <ul>
-        <li>
-          <a href="/">Backpacks</a>
-        </li>
-        <li>
-          <a href="/">Necessaire</a>
-        </li>
-      </ul>
-    </AccordionPanel>
-  </AccordionItem>
-)
-
-const Sale = ({ icon, ...props }: { icon?: boolean }) => (
-  <AccordionItem {...props}>
-    <AccordionButton>
-      Sale {icon ? <Icon component={<Caret />} /> : null}
-    </AccordionButton>
-    <AccordionPanel>
-      <ul>
-        <li>
-          <a href="/">Smartphones</a>
-        </li>
-        <li>
-          <a href="/">TVs</a>
-        </li>
-      </ul>
-    </AccordionPanel>
-  </AccordionItem>
-)
-
 const AccordionTemplate: Story<AccordionProps> = ({ testId }) => {
   const [indices, setIndices] = useState<Set<number>>(new Set([]))
   const onChange = (index: number) => {
@@ -94,9 +37,48 @@ const AccordionTemplate: Story<AccordionProps> = ({ testId }) => {
 
   return (
     <Component testId={testId} indices={indices} onChange={onChange}>
-      <Clothing />
-      <Bags />
-      <Sale />
+      <AccordionItem>
+        <AccordionButton>Clothing</AccordionButton>
+        <AccordionPanel>
+          <ul>
+            <li>
+              <a href="/">Shorts</a>
+            </li>
+            <li>
+              <a href="/">Sweatshirt</a>
+            </li>
+            <li>
+              <a href="/">Tank tops</a>
+            </li>
+          </ul>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Bags</AccordionButton>
+        <AccordionPanel>
+          <ul>
+            <li>
+              <a href="/">Backpacks</a>
+            </li>
+            <li>
+              <a href="/">Necessaire</a>
+            </li>
+          </ul>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>Sale</AccordionButton>
+        <AccordionPanel>
+          <ul>
+            <li>
+              <a href="/">Smartphones</a>
+            </li>
+            <li>
+              <a href="/">TVs</a>
+            </li>
+          </ul>
+        </AccordionPanel>
+      </AccordionItem>
     </Component>
   )
 }
@@ -111,9 +93,54 @@ const ToggleWithIconTemplate: Story<AccordionProps> = ({ testId }) => {
 
   return (
     <Component testId={testId} indices={indices} onChange={onChange}>
-      <Clothing icon />
-      <Bags icon />
-      <Sale icon />
+      <AccordionItem>
+        <AccordionButton>
+          Clothing <Icon component={<Caret />} />
+        </AccordionButton>
+        <AccordionPanel>
+          <ul>
+            <li>
+              <a href="/">Shorts</a>
+            </li>
+            <li>
+              <a href="/">Sweatshirt</a>
+            </li>
+            <li>
+              <a href="/">Tank tops</a>
+            </li>
+          </ul>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>
+          Bags <Icon component={<Caret />} />
+        </AccordionButton>
+        <AccordionPanel>
+          <ul>
+            <li>
+              <a href="/">Backpacks</a>
+            </li>
+            <li>
+              <a href="/">Necessaire</a>
+            </li>
+          </ul>
+        </AccordionPanel>
+      </AccordionItem>
+      <AccordionItem>
+        <AccordionButton>
+          Sale <Icon component={<Caret />} />
+        </AccordionButton>
+        <AccordionPanel>
+          <ul>
+            <li>
+              <a href="/">Smartphones</a>
+            </li>
+            <li>
+              <a href="/">TVs</a>
+            </li>
+          </ul>
+        </AccordionPanel>
+      </AccordionItem>
     </Component>
   )
 }
