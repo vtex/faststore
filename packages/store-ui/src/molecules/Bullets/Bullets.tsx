@@ -1,9 +1,10 @@
-import type { MouseEvent } from 'react'
-import React, { useMemo } from 'react'
+import type { HTMLAttributes, MouseEvent } from 'react'
+import React, { forwardRef, useMemo } from 'react'
 
 import Button from '../../atoms/Button'
 
-export interface BulletsProps {
+export interface BulletsProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick' | 'role'> {
   /**
    * Number of bullets that should be rendered.
    */
@@ -38,20 +39,30 @@ export interface BulletsProps {
 const defaultAriaLabel = (idx: number, isActive: boolean) =>
   isActive ? 'Current page' : `Go to page ${idx + 1}`
 
-function Bullets({
-  totalQuantity,
-  activeBullet,
-  onClick,
-  testId = 'store-bullets',
-  ariaLabelGenerator = defaultAriaLabel,
-  ariaControlsGenerator,
-}: BulletsProps) {
+const Bullets = forwardRef<HTMLDivElement, BulletsProps>(function Bullets(
+  {
+    totalQuantity,
+    activeBullet,
+    onClick,
+    testId = 'store-bullets',
+    ariaLabelGenerator = defaultAriaLabel,
+    ariaControlsGenerator,
+    ...rest
+  },
+  ref
+) {
   const bulletIndexes = useMemo(() => Array(totalQuantity).fill(0), [
     totalQuantity,
   ])
 
   return (
-    <div data-store-bullets data-testid={testId} role="tablist">
+    <div
+      ref={ref}
+      data-store-bullets
+      data-testid={testId}
+      role="tablist"
+      {...rest}
+    >
       {bulletIndexes.map((_, idx) => {
         const isActive = activeBullet === idx
 
@@ -62,7 +73,6 @@ function Bullets({
             tabIndex={-1}
             key={idx}
             testId={`${testId}-item`}
-            disabled={isActive}
             onClick={(e) => onClick(e, idx)}
             aria-label={ariaLabelGenerator(idx, isActive)}
             aria-controls={ariaControlsGenerator?.(idx)}
@@ -72,6 +82,6 @@ function Bullets({
       })}
     </div>
   )
-}
+})
 
 export default Bullets
