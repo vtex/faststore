@@ -87,6 +87,28 @@ function Carousel({
 
   const slides = preRenderedSlides.concat(children ?? [], postRenderedSlides)
 
+  const slidePrevious = () => {
+    if (
+      sliderState.sliding ||
+      (!infiniteMode && sliderState.currentPage === 0)
+    ) {
+      return
+    }
+
+    slide('previous', sliderDispatch)
+  }
+
+  const slideNext = () => {
+    if (
+      sliderState.sliding ||
+      (!infiniteMode && sliderState.currentPage === childrenCount - 1)
+    ) {
+      return
+    }
+
+    slide('next', sliderDispatch)
+  }
+
   // accessible behavior for tablist
   useEffect(() => {
     if (!bulletsRef.current) {
@@ -124,12 +146,12 @@ function Carousel({
   const handleBulletsKeyDown = (event: KeyboardEvent) => {
     switch (event.key) {
       case 'ArrowLeft': {
-        slide('previous', sliderDispatch)
+        slidePrevious()
         break
       }
 
       case 'ArrowRight': {
-        slide('next', sliderDispatch)
+        slideNext()
         break
       }
 
@@ -226,26 +248,14 @@ function Carousel({
             data-arrow="left"
             aria-controls={id}
             aria-label="previous"
-            onClick={() => {
-              if (sliderState.sliding) {
-                return
-              }
-
-              slide('previous', sliderDispatch)
-            }}
+            onClick={slidePrevious}
             icon={<LeftArrowIcon />}
           />
           <IconButton
             data-arrow="right"
             aria-controls={id}
             aria-label="next"
-            onClick={() => {
-              if (sliderState.sliding) {
-                return
-              }
-
-              slide('next', sliderDispatch)
-            }}
+            onClick={slideNext}
             icon={<RightArrowIcon />}
           />
         </div>
