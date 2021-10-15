@@ -2,6 +2,9 @@ import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 export interface TableProps extends HTMLAttributes<HTMLTableElement> {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId?: string
   children: React.ReactNode
 }

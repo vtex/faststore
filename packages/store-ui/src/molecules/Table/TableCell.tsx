@@ -4,9 +4,15 @@ import React, { forwardRef } from 'react'
 type TableCellVariant = 'data' | 'header'
 
 export interface TableCellProps extends HTMLAttributes<HTMLTableCellElement> {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId?: string
   variant?: TableCellVariant
-  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attr-scope
+  /**
+   * Defines the cells that the header element (`<th>`) relates to.
+   * @see scope https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attr-scope
+   */
   scope?: 'col' | 'row' | 'rowgroup' | 'colgroup'
 }
 
