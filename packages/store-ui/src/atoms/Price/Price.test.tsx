@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import { axe } from 'jest-axe'
 import React from 'react'
 
 import Price from './Price'
@@ -44,5 +45,13 @@ describe('Price', () => {
     )
 
     expect(getByTestId('store-price')).toHaveTextContent(formatterResult)
+  })
+
+  describe('Accessibility', () => {
+    it('should have no violations', async () => {
+      const { getByTestId } = render(<Price value={32.2} />)
+
+      expect(await axe(getByTestId('store-price'))).toHaveNoViolations()
+    })
   })
 })

@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
-import React from 'react'
+import { axe } from 'jest-axe'
+import React, { Fragment } from 'react'
 
 import List from './List'
 
@@ -69,12 +70,70 @@ describe('List', () => {
 
     rerender(
       <List variant="description">
-        {optionsArray.map((value) => {
-          return <li key={value}>{value}</li>
+        {optionsArray.map((value, index) => {
+          return (
+            <Fragment key={index}>
+              <dt key={`${index}--term`}>{value}</dt>
+              <dd key={`${index}--details`}>option</dd>
+            </Fragment>
+          )
         })}
       </List>
     )
 
     expect(getByTestId('store-list')).toBeInstanceOf(HTMLDListElement)
+  })
+
+  describe('Accessibility', () => {
+    it('should have no violations when rendering the default variant', async () => {
+      const { getByTestId } = render(
+        <List>
+          {optionsArray.map((option, index) => (
+            <li key={index}>{option}</li>
+          ))}
+        </List>
+      )
+
+      expect(await axe(getByTestId('store-list'))).toHaveNoViolations()
+    })
+
+    it('should have no violations when rendering the unordered variant', async () => {
+      const { getByTestId } = render(
+        <List variant="unordered">
+          {optionsArray.map((option, index) => (
+            <li key={index}>{option}</li>
+          ))}
+        </List>
+      )
+
+      expect(await axe(getByTestId('store-list'))).toHaveNoViolations()
+    })
+
+    it('should have no violations when rendering the ordered variant', async () => {
+      const { getByTestId } = render(
+        <List variant="ordered">
+          {optionsArray.map((option, index) => (
+            <li key={index}>{option}</li>
+          ))}
+        </List>
+      )
+
+      expect(await axe(getByTestId('store-list'))).toHaveNoViolations()
+    })
+
+    it('should have no violations when rendering the description variant', async () => {
+      const { getByTestId } = render(
+        <List variant="description">
+          {optionsArray.map((option, index) => (
+            <Fragment key={index}>
+              <dt key={`${index}--term`}>{option}</dt>
+              <dd key={`${index}--details`}>option</dd>
+            </Fragment>
+          ))}
+        </List>
+      )
+
+      expect(await axe(getByTestId('store-list'))).toHaveNoViolations()
+    })
   })
 })

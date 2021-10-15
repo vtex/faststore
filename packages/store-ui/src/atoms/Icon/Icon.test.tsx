@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import { axe } from 'jest-axe'
 import React from 'react'
 
 import Icon from './Icon'
@@ -24,9 +25,19 @@ const ShoppingCart = () => (
 describe('Icon', () => {
   it('`data-store-icon` is present', () => {
     const { getByTestId } = render(
-      <Icon data-testid="icon" component={<ShoppingCart />} />
+      <Icon data-testid="store-icon" component={<ShoppingCart />} />
     )
 
-    expect(getByTestId('icon')).toHaveAttribute('data-store-icon')
+    expect(getByTestId('store-icon')).toHaveAttribute('data-store-icon')
+  })
+
+  describe('Accessibility', () => {
+    it('should have no violations', async () => {
+      const { container } = render(
+        <Icon data-testid="store-icon" component={<ShoppingCart />} />
+      )
+
+      expect(await axe(container)).toHaveNoViolations()
+    })
   })
 })
