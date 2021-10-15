@@ -67,6 +67,7 @@ function Bullets({
             aria-label={ariaLabelGenerator(idx, isActive)}
             aria-controls={ariaControlsGenerator?.(idx)}
             aria-selected={isActive}
+            data-active={isActive || undefined}
           />
         )
       })}
