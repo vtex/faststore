@@ -7,6 +7,11 @@
 ## How to test it?
 <!--- Describe the steps with bullet points. Is there any external link that can be used to better test it or an example? --->
 
+### `base.store` Deploy Preview
+<!--- Add a link to a deploy preview from `base.store` with this branch being used. --->
+
+<!--- Tip: You can get an installable version of this branch from the CodeSandbox generated when this PR is created. --->
+
 ## References
 <!--- Spread the knowledge: is there any content you used to create this PR that is worth sharing? --->
 
