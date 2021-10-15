@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react'
+import type { KeyboardEvent, PropsWithChildren } from 'react'
 import React, { useEffect, useRef, useMemo } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
@@ -87,7 +87,7 @@ function Carousel({
 
   const slides = preRenderedSlides.concat(children ?? [], postRenderedSlides)
 
-  // accessibility for tablist
+  // accessible behavior for tablist
   useEffect(() => {
     if (!bulletsRef.current) {
       return
@@ -120,6 +120,35 @@ function Carousel({
       bulletsElement.removeEventListener('focusout', handleBlur)
     }
   }, [bulletsRef])
+
+  const handleBulletsKeyDown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case 'ArrowLeft': {
+        slide('previous', sliderDispatch)
+        break
+      }
+
+      case 'ArrowRight': {
+        slide('next', sliderDispatch)
+        break
+      }
+
+      case 'Home': {
+        slide(0, sliderDispatch)
+        break
+      }
+
+      case 'End': {
+        slide(childrenCount - 1, sliderDispatch)
+        break
+      }
+
+      default:
+    }
+
+    event.stopPropagation()
+    event.preventDefault()
+  }
 
   return (
     <section
@@ -237,6 +266,7 @@ function Carousel({
               slide(idx, sliderDispatch)
             }}
             ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
+            onKeyDown={handleBulletsKeyDown}
           />
         </div>
       )}
