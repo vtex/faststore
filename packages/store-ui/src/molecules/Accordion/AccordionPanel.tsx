@@ -12,7 +12,7 @@ export interface AccordionPanelProps
   testId?: string
 }
 
-export const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
+const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
   function AccordionPanel(
     { testId = 'store-accordion-panel', children, ...otherProps },
     ref
@@ -36,3 +36,5 @@ export const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
     )
   }
 )
+
+export default AccordionPanel
