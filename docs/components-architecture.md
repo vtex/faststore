@@ -88,6 +88,17 @@ That doesn't mean store-ui components can't contain any behavior, state, or logi
 
 > :information: Although Pure components are being built, they shouldn't be exported. Store-ui wants to have a cohesive API, which is hard to have if its size increases rapidly without any real use data to base these decisions. Research is being done on when Pure components should be released and available to the public and how users will leverage them. Until then, only the regular versions of the components should be exported (containing behavior and logic).
 
+## Accessibility requirements
+
+### Useful W3C accessibility guidelines links
+
+- [Understanding WCAG 2.1](https://www.w3.org/WAI/WCAG21/Understanding/) has an informative guide to understanding and using [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/TR/WCAG21/), providing a non-normative extended commentary on each guideline and their success criteria with useful examples.
+A brief guide containing these requirements and techniques can be accessed in this [quick reference](https://www.w3.org/WAI/WCAG21/quickref/).
+
+- In this [WAI-ARIA Authoring Practices 1.1 - Example's Section](https://www.w3.org/TR/wai-aria-practices/#aria_ex), it's possible to check design patterns and widgets to be used as a basis for implementing accessible UI components.
+
+// TODO: accessibility checklist
+
 ## Tests for each component
 
 Each component should have your test for each property, behavior, and data-attributes for styles.
