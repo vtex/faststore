@@ -53,11 +53,11 @@ export const sourceNodes = async (
 
   if (lastBuildTime) {
     reporter.info(
-      '[gatsby-source-vtex]: CACHE FOUND! We are about to go FAST! Skipping FETCH'
+      '[gatsby-source-store]: CACHE FOUND! We are about to go FAST! Skipping FETCH'
     )
   } else {
     reporter.info(
-      '[gatsby-source-vtex]: No cache found. Sourcing all data from scratch'
+      '[gatsby-source-store]: No cache found. Sourcing all data from scratch'
     )
   }
 
