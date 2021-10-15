@@ -15,6 +15,7 @@ module.exports = {
       options: {
         tenant,
         workspace,
+        environment
       },
     }
   ],
@@ -36,6 +37,7 @@ module.exports = {
       options: {
         tenant: 'storecomponents',
         workspace: 'master',
+        environment: 'vtexcommercestable'
       },
     }
   ],
