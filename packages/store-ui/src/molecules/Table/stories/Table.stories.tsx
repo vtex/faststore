@@ -7,6 +7,7 @@ import TableHead from '../TableHead'
 import TableRow from '../TableRow'
 import TableBody from '../TableBody'
 import TableCell from '../TableCell'
+import TableFooter from '../TableFooter'
 import Price from '../../../atoms/Price'
 import mdx from './Table.mdx'
 
@@ -75,6 +76,13 @@ const TableTemplate: Story<TableProps> = () => (
         </TableRow>
       ))}
     </TableBody>
+    <TableFooter>
+      <TableRow>
+        <TableCell>Installments</TableCell>
+        <TableCell>Amount</TableCell>
+        <TableCell>Total</TableCell>
+      </TableRow>
+    </TableFooter>
   </TableComponent>
 )
 
