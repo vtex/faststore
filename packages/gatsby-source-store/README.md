@@ -4,7 +4,7 @@ Plugin for sourcing the store-api data layer into Gatsby.
 
 ## Install
 ```
-yarn add @vtex/gatsby-source-vtex @vtex/store-api
+yarn add @vtex/gatsby-source-store @vtex/store-api
 ```
 
 # How to use
@@ -59,7 +59,7 @@ module.exports = {
       resolve: '@vtex/gatsby-source-store',
       options: {
         getSchema: () => getSchema(options)
-        // Source less products is development for better DX
+        // Sourcing less products in development for better DX
         maxNumProducts: isProduction ? undefined : 100,
         maxNumCollections: isProduction ? undefined : 100,
       }
