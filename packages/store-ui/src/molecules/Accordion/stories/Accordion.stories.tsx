@@ -1,9 +1,11 @@
 import type { Story } from '@storybook/react'
 import React, { useState } from 'react'
 
-import { AccordionButton, AccordionItem, AccordionPanel } from '..'
+import Accordion from '../Accordion'
+import AccordionItem from '../AccordionItem'
+import AccordionButton from '../AccordionButton'
+import AccordionPanel from '../AccordionPanel'
 import type { AccordionProps } from '..'
-import Component from '../Accordion'
 import mdx from './Accordion.mdx'
 import { Icon } from '../../..'
 
@@ -36,7 +38,7 @@ const AccordionTemplate: Story<AccordionProps> = ({ testId }) => {
   }
 
   return (
-    <Component testId={testId} indices={indices} onChange={onChange}>
+    <Accordion testId={testId} indices={indices} onChange={onChange}>
       <AccordionItem>
         <AccordionButton>Clothing</AccordionButton>
         <AccordionPanel>
@@ -79,7 +81,7 @@ const AccordionTemplate: Story<AccordionProps> = ({ testId }) => {
           </ul>
         </AccordionPanel>
       </AccordionItem>
-    </Component>
+    </Accordion>
   )
 }
 
@@ -92,7 +94,7 @@ const ToggleWithIconTemplate: Story<AccordionProps> = ({ testId }) => {
   }
 
   return (
-    <Component testId={testId} indices={indices} onChange={onChange}>
+    <Accordion testId={testId} indices={indices} onChange={onChange}>
       <AccordionItem>
         <AccordionButton>
           Clothing <Icon component={<Caret />} />
@@ -141,7 +143,7 @@ const ToggleWithIconTemplate: Story<AccordionProps> = ({ testId }) => {
           </ul>
         </AccordionPanel>
       </AccordionItem>
-    </Component>
+    </Accordion>
   )
 }
 

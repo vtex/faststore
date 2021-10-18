@@ -13,64 +13,65 @@ export interface AccordionButtonProps
   testId?: string
 }
 
-export const AccordionButton = forwardRef<
-  HTMLButtonElement,
-  AccordionButtonProps
->(function AccordionButton(
-  { testId = 'store-accordion-button', children, ...otherProps },
-  ref
-) {
-  const { indices, onChange, numberOfItems } = useAccordion()
-  const { index, panel, button } = useAccordionItem()
+const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
+  function AccordionButton(
+    { testId = 'store-accordion-button', children, ...otherProps },
+    ref
+  ) {
+    const { indices, onChange, numberOfItems } = useAccordion()
+    const { index, panel, button } = useAccordionItem()
 
-  const onKeyDown = (event: React.KeyboardEvent) => {
-    if (!['ArrowDown', 'ArrowUp'].includes(event.key)) {
-      return
+    const onKeyDown = (event: React.KeyboardEvent) => {
+      if (!['ArrowDown', 'ArrowUp'].includes(event.key)) {
+        return
+      }
+
+      const getNext = () => {
+        const next = Number(index) + 1 === numberOfItems ? 0 : Number(index) + 1
+
+        return document.getElementById(`button--${next}`)
+      }
+
+      const getPrevious = () => {
+        const previous =
+          Number(index) - 1 < 0 ? numberOfItems - 1 : Number(index) - 1
+
+        return document.getElementById(`button--${previous}`)
+      }
+
+      switch (event.key) {
+        case 'ArrowDown':
+          event.preventDefault()
+          getNext()?.focus()
+          break
+
+        case 'ArrowUp':
+          event.preventDefault()
+          getPrevious()?.focus()
+          break
+
+        default:
+      }
     }
 
-    const getNext = () => {
-      const next = Number(index) + 1 === numberOfItems ? 0 : Number(index) + 1
-
-      return document.getElementById(`button--${next}`)
-    }
-
-    const getPrevious = () => {
-      const previous =
-        Number(index) - 1 < 0 ? numberOfItems - 1 : Number(index) - 1
-
-      return document.getElementById(`button--${previous}`)
-    }
-
-    switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault()
-        getNext()?.focus()
-        break
-
-      case 'ArrowUp':
-        event.preventDefault()
-        getPrevious()?.focus()
-        break
-
-      default:
-    }
+    return (
+      <Button
+        ref={ref}
+        id={button}
+        aria-expanded={indices.has(index)}
+        aria-controls={panel}
+        data-store-accordion-button
+        data-testid={testId}
+        onKeyDown={onKeyDown}
+        onClick={() => {
+          onChange(index)
+        }}
+        {...otherProps}
+      >
+        {children}
+      </Button>
+    )
   }
+)
 
-  return (
-    <Button
-      ref={ref}
-      id={button}
-      aria-expanded={indices.has(index)}
-      aria-controls={panel}
-      data-store-accordion-button
-      data-testid={testId}
-      onKeyDown={onKeyDown}
-      onClick={() => {
-        onChange(index)
-      }}
-      {...otherProps}
-    >
-      {children}
-    </Button>
-  )
-})
+export default AccordionButton

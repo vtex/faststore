@@ -1,11 +1,11 @@
 export { default } from './Accordion'
 export type { AccordionProps } from './Accordion'
 
-export { AccordionItem } from './AccordionItem'
+export { default as AccordionItem } from './AccordionItem'
 export type { AccordionItemProps } from './AccordionItem'
 
-export { AccordionButton } from './AccordionButton'
+export { default as AccordionButton } from './AccordionButton'
 export type { AccordionButtonProps } from './AccordionButton'
 
-export { AccordionPanel } from './AccordionPanel'
+export { default as AccordionPanel } from './AccordionPanel'
 export type { AccordionPanelProps } from './AccordionPanel'

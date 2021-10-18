@@ -2,8 +2,10 @@ import { render, fireEvent, cleanup } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import React, { useState } from 'react'
 
-import { AccordionButton, AccordionItem, AccordionPanel } from '.'
 import Accordion from './Accordion'
+import AccordionItem from './AccordionItem'
+import AccordionButton from './AccordionButton'
+import AccordionPanel from './AccordionPanel'
 
 const TestAccordion = () => {
   const [indices, setIndices] = useState<number[]>([])
