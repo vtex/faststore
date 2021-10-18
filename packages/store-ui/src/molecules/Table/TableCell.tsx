@@ -8,6 +8,9 @@ export interface TableCellProps extends HTMLAttributes<HTMLTableCellElement> {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Specify if this component should be rendered as a header (`<th>`) or as a data cell (`<td>`).
+   */
   variant?: TableCellVariant
   /**
    * Defines the cells that the header element (`<th>`) relates to.
