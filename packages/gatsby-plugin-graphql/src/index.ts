@@ -69,6 +69,10 @@ export const request = async <V = any, D = any>(
     method,
     body,
     ...fetchOptions,
+    headers: {
+      'Content-Type': 'application/json',
+      ...fetchOptions?.headers,
+    },
   })
 
   return response.json()
