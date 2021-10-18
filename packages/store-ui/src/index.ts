@@ -60,17 +60,35 @@ export type { IconButtonProps } from './molecules/IconButton'
 export { default as Modal } from './molecules/Modal'
 export type { ModalProps } from './molecules/Modal'
 
-export { default as Accordion } from './molecules/Accordion'
-export type { AccordionProps } from './molecules/Accordion'
+export {
+  default as Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+} from './molecules/Accordion'
+export type {
+  AccordionProps,
+  AccordionItemProps,
+  AccordionButtonProps,
+  AccordionPanelProps,
+} from './molecules/Accordion'
 
-export { AccordionItem } from './molecules/Accordion'
-export type { AccordionItemProps } from './molecules/Accordion'
-
-export { AccordionButton } from './molecules/Accordion'
-export type { AccordionButtonProps } from './molecules/Accordion'
-
-export { AccordionPanel } from './molecules/Accordion'
-export type { AccordionPanelProps } from './molecules/Accordion'
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableRow,
+} from './molecules/Table'
+export type {
+  TableProps,
+  TableBodyProps,
+  TableCellProps,
+  TableFooterProps,
+  TableHeadProps,
+  TableRowProps,
+} from './molecules/Table'
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
