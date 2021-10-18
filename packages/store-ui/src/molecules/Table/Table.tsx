@@ -10,11 +10,11 @@ export interface TableProps extends HTMLAttributes<HTMLTableElement> {
 }
 
 const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
-  { testId = 'store-table', children, ...rest },
+  { testId = 'store-table', children, ...otherProps },
   ref
 ) {
   return (
-    <table ref={ref} data-store-table data-testid={testId} {...rest}>
+    <table ref={ref} data-store-table data-testid={testId} {...otherProps}>
       {children}
     </table>
   )

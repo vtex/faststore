@@ -21,7 +21,13 @@ export interface TableCellProps extends HTMLAttributes<HTMLTableCellElement> {
 
 const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
   function TableCell(
-    { testId = 'store-table-cell', children, variant = 'data', scope, ...rest },
+    {
+      testId = 'store-table-cell',
+      children,
+      variant = 'data',
+      scope,
+      ...otherProps
+    },
     ref
   ) {
     const Cell = variant === 'header' ? 'th' : 'td'
@@ -32,7 +38,7 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
         data-store-table-cell={variant}
         data-testid={testId}
         scope={scope}
-        {...rest}
+        {...otherProps}
       >
         {children}
       </Cell>
