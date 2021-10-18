@@ -11,6 +11,6 @@
   @apply bg-gray-400;
 }
 
-[data-store-bullets] > [data-bullet-item][aria-selected="true"] {
+[data-store-bullets] [data-bullet-item][aria-selected="true"] {
   @apply bg-pink-700;
 }
