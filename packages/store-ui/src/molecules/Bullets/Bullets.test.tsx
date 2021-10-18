@@ -76,7 +76,7 @@ describe('Bullets', () => {
   })
 
   describe('Accessibility', () => {
-    it('should have no violations', async () => {
+    it('should have no violations on a default use case', async () => {
       const { getByTestId } = render(
         <Bullets totalQuantity={5} activeBullet={2} onClick={() => {}} />
       )
@@ -100,7 +100,7 @@ describe('Bullets', () => {
       expect(await axe(container)).toHaveNoViolations()
     })
 
-    it('check roles and aria-controls attributes', () => {
+    it('shuld have expected roles and aria-controls attributes', () => {
       const { getAllByRole, getByTestId } = render(
         <>
           <div id="item-1">content for bullets</div>

@@ -34,7 +34,7 @@ describe('PriceRange', () => {
       expect(await axe(container)).toHaveNoViolations()
     })
 
-    it('check aria, role attributes', () => {
+    it('should have expected aria and role attributes', () => {
       const { getByTestId } = render(<PriceRange {...props} />)
 
       // check aria-valuemin, aria-valuemax

@@ -257,7 +257,7 @@ describe('Carousel component', () => {
   })
 
   describe('Accessibility', () => {
-    it('should have no violations', async () => {
+    it('should have no violations on a default use case', async () => {
       const { container } = render(
         <Carousel>
           <div>Slide 1</div>
@@ -281,7 +281,7 @@ describe('Carousel component', () => {
       expect(await axe(container)).toHaveNoViolations()
     })
 
-    it('check roles, aria-roledescriptions attributes', () => {
+    it('should have necessary roles and aria-roledescriptions attributes', () => {
       const { getByTestId, getAllByRole } = render(
         <Carousel infiniteMode={false}>
           <div>Slide 1</div>
