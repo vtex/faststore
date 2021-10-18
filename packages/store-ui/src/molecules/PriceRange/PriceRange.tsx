@@ -1,3 +1,4 @@
+import type { AriaAttributes } from 'react'
 import React, { useState } from 'react'
 
 import type { PriceProps } from '../../atoms/Price'
@@ -18,6 +19,10 @@ export type PriceRangeProps = SliderProps & {
    * Returns the value of element's class content attribute.
    */
   className?: string
+  /**
+   * Defines a string value that labels the current element.
+   */
+  'aria-label'?: AriaAttributes['aria-label']
 }
 
 const PriceRange = ({
@@ -28,7 +33,7 @@ const PriceRange = ({
   onChange,
   testId = 'store-price-range',
   variant,
-  ariaLabel,
+  'aria-label': ariaLabel,
 }: PriceRangeProps) => {
   const [minVal, setMinVal] = useState(min)
   const [maxVal, setMaxVal] = useState(max)
@@ -51,7 +56,7 @@ const PriceRange = ({
         min={min}
         max={max}
         onChange={handleChange}
-        ariaLabel={ariaLabel}
+        aria-label={ariaLabel}
       />
       <div data-store-price-range-values>
         <Price
