@@ -34,6 +34,10 @@ export interface SearchInputProps extends InputProps {
    */
   icon?: ReactNode
   /**
+   * Label text for the input
+   */
+  labelText?: string
+  /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
@@ -41,7 +45,13 @@ export interface SearchInputProps extends InputProps {
 
 const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
   function SearchInput(
-    { onSubmit, icon, testId = 'store-search-input', ...props },
+    {
+      onSubmit,
+      icon,
+      labelText = 'search',
+      testId = 'store-search-input',
+      ...props
+    },
     ref
   ) {
     const valueRef = useRef<HTMLInputElement>(null)
@@ -61,10 +71,8 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
         data-testid={testId}
         onSubmit={handleSubmit}
       >
-        <label data-store-label>
-          search
-          <Input ref={valueRef} {...props} />
-        </label>
+        <label htmlFor="search-input">{labelText}</label>
+        <Input id="search-input" ref={valueRef} {...props} />
         <Button type="submit" aria-label="Search">
           <Icon component={icon ?? <SearchIcon />} />
         </Button>
