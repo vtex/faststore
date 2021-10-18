@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.10 (2021-10-18)
+
+
+### Bug Fixes
+
+* **store-ui:** Component Architecture doc's code snippets ([#997](https://github.com/vtex/faststore/issues/997)) ([7f0d5f3](https://github.com/vtex/faststore/commit/7f0d5f307014f794063dd8d94d873478803888c0))
+
+
+
+
+
 ## 1.2.9 (2021-10-18)
 
 **Note:** Version bump only for package @vtex/theme-b2c-tailwind
