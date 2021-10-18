@@ -27,7 +27,7 @@ describe('Bullets', () => {
     )
   })
 
-  it('should render only the currently active bullet with a `data-active` attribute', () => {
+  it('should render only the currently active bullet with an `aria-selected` equal to true', () => {
     const { queryAllByTestId } = render(
       <Bullets totalQuantity={5} activeBullet={2} onClick={() => {}} />
     )
@@ -42,7 +42,7 @@ describe('Bullets', () => {
 
     // Remove the currently active bullet, at index 2
     bulletItems.splice(2, 1)
-    // Validate that no other element has the 'data-selected' attribute
+    // Validate that no other element has the 'aria-selected' equal to true
     bulletItems.forEach((bullet) => {
       expect(bullet).toHaveAttribute('aria-selected', 'false')
     })
