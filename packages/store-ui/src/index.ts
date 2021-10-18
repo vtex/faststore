@@ -72,6 +72,23 @@ export type { AccordionButtonProps } from './molecules/Accordion'
 export { AccordionPanel } from './molecules/Accordion'
 export type { AccordionPanelProps } from './molecules/Accordion'
 
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableRow,
+} from './molecules/Table'
+export type {
+  TableProps,
+  TableBodyProps,
+  TableCellProps,
+  TableFooterProps,
+  TableHeadProps,
+  TableRowProps,
+} from './molecules/Table'
+
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
 export type {

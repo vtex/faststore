@@ -13,5 +13,5 @@ export type { TableBodyProps } from './TableBody'
 export { default as TableHead } from './TableHead'
 export type { TableHeadProps } from './TableHead'
 
-export { default as TableFoot } from './TableFooter'
+export { default as TableFooter } from './TableFooter'
 export type { TableFooterProps } from './TableFooter'
