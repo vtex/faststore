@@ -42,7 +42,7 @@ describe('Bullets', () => {
 
     // Remove the currently active bullet, at index 2
     bulletItems.splice(2, 1)
-    // Validate that no other element has the 'data-active' attribute
+    // Validate that no other element has the 'data-selected' attribute
     bulletItems.forEach((bullet) => {
       expect(bullet).toHaveAttribute('aria-selected', 'false')
     })
@@ -63,7 +63,7 @@ describe('Bullets', () => {
 
     expect(bulletItems).toHaveLength(5)
 
-    // Each bullet is rendered with an <Button /> inside, and the button gets
+    // Each bullet is rendered with a <Button /> inside, and the button gets
     // the onClick handler.
 
     act(() => {
@@ -100,7 +100,7 @@ describe('Bullets', () => {
       expect(await axe(container)).toHaveNoViolations()
     })
 
-    it('shuld have expected roles and aria-controls attributes', () => {
+    it('should have expected roles and aria-controls attributes', () => {
       const { getAllByRole, getByTestId } = render(
         <>
           <div id="item-1">content for bullets</div>
