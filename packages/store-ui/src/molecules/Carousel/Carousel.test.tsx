@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, act } from '@testing-library/react'
+import { render, fireEvent, act, createEvent } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
 import Carousel from './Carousel'
@@ -556,6 +556,27 @@ describe('Carousel component', () => {
 
         expect(tabs[0]).toHaveAttribute('aria-selected', 'false')
         expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
+      })
+
+      it('check the tablist event is not prevented and stopped to propagate', () => {
+        const mockPreventDefault = jest.fn()
+        const { getByRole } = render(
+          <Carousel>
+            <div>Slide 1</div>
+            <div>Slide 2</div>
+            <div>Slide 3</div>
+          </Carousel>
+        )
+
+        const tablist = getByRole('tablist')
+        const event = createEvent.keyDown(tablist, { key: 'Tab' })
+
+        event.preventDefault = mockPreventDefault
+
+        fireEvent.focus(tablist)
+        fireEvent(tablist, event)
+
+        expect(mockPreventDefault).not.toHaveBeenCalled()
       })
     })
   })

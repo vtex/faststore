@@ -167,9 +167,6 @@ function Carousel({
 
       default:
     }
-
-    event.stopPropagation()
-    event.preventDefault()
   }
 
   return (
