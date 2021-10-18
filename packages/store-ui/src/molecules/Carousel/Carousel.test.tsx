@@ -312,5 +312,38 @@ describe('Carousel component', () => {
         getByTestId('store-bullets').querySelectorAll('[aria-controls]')
       ).toHaveLength(3)
     })
+
+    describe('Tablist', () => {
+      it('should have data-focused when tablist or tab is focused', () => {
+        const { getByRole, getAllByRole } = render(
+          <Carousel>
+            <div>Slide 1</div>
+            <div>Slide 2</div>
+            <div>Slide 3</div>
+          </Carousel>
+        )
+
+        const tablist = getByRole('tablist')
+
+        fireEvent.focus(tablist)
+
+        expect(tablist).toHaveFocus()
+        expect(tablist).toHaveAttribute('data-focused')
+
+        const [, sndTab] = getAllByRole('tab')
+
+        fireEvent.focus(sndTab)
+        expect(tablist).toHaveFocus()
+      })
+
+      it.todo('Test keyboard right arrow')
+
+      it.todo('Test keyboard right arrow when infiniteMode is false')
+
+      it.todo('Test keyboard left arrow')
+      it.todo('Test keyboard left arrow when infiniteMode is false')
+      it.todo('Test keyboard home')
+      it.todo('Test keyboard end')
+    })
   })
 })
