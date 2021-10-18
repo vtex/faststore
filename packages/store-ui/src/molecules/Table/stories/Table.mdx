@@ -1,7 +1,11 @@
 import { Story, Canvas, ArgsTable } from '@storybook/addon-docs'
 
 import Table from '../Table'
+import TableBody from '../TableBody'
 import TableCell from '../TableCell'
+import TableHead from '../TableHead'
+import TableRow from '../TableRow'
+import TableFooter from '../TableFooter'
 
 # Table
 
@@ -10,6 +14,8 @@ import TableCell from '../TableCell'
 </Canvas>
 
 ## Components
+
+The `Table` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
 
 - `Table`, renders a `<table>` tag.
 - `TableBody`, renders a `<tbody>` tag.
@@ -24,9 +30,25 @@ All table-related components support all attributes also supported by their resp
 
 Besides those attributes, the following props are also supported:
 
-### `Table`, `TableBody`, `TableHead`, `TableRow` and `TableFooter` components
+### `Table` component
 
 <ArgsTable of={Table} />
+
+### `TableBody` component
+
+<ArgsTable of={TableBody} />
+
+### `TableHead` component
+
+<ArgsTable of={TableHead} />
+
+### `TableRow` component
+
+<ArgsTable of={TableRow} />
+
+### `TableFooter` component
+
+<ArgsTable of={TableFooter} />
 
 ### `TableCell` component
 
