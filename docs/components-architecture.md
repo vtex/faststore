@@ -11,8 +11,8 @@ interface CheckboxGroupProps {}
 
 const CheckboxGroup = ({ onChange, testId, ...props }: CheckboxGroupProps) => {
   return (
-    <div data-store-checkbox-group data-testid={testId}> {/* Pay attention on data-attribute */}
-      <Checkbox data-store-checkbox-group onChange={onChange} {...props} /> {/* Pay attention on data-attribute */}
+    <div data-store-checkbox-group data-testid={testId}> {/* Pay attention to the data-attribute */}
+      <Checkbox data-checkbox-group onChange={onChange} {...props} /> {/* Pay attention to the data-attribute */}
       <List data-list>
         <li data-list-item>
           <Checkbox data-checkbox onChange={onChange} />
@@ -29,7 +29,7 @@ const CheckboxGroup = ({ onChange, testId, ...props }: CheckboxGroupProps) => {
 
 For styling pseudo selectors, use this pattern: `data-pseudo-selector-name`
 
-Continue the previous example, we can add the disable property for the CheckboxGroup. So how can we add this data-attribute for this case?
+Continue the previous example, we can add the disabled property for the CheckboxGroup. So how can we add this data-attribute for this case?
 
 ```tsx
 const CheckboxGroup = ({ onChange, testId, disabled, ...props }: CheckboxGroupProps) => {
@@ -38,17 +38,19 @@ const CheckboxGroup = ({ onChange, testId, disabled, ...props }: CheckboxGroupPr
   }
   return (
     ...
-      {/* Pay attention on data-attribute below */}
-      <Checkbox data-checkbox onChange={onChange} {...dataAttributes} {...props}  />
+      {/* Pay attention to the data-attributes below */}
+      <Checkbox data-checkbox-group onChange={onChange} {...dataAttributes} {...props}  />
       <List data-list>
-        <li data-list-item><Checkbox data-checkbox onChange={onChange} {...dataAttributes} /></li>
+        <li data-list-item>
+          <Checkbox data-checkbox onChange={onChange} {...dataAttributes} />
+        </li>
       </List>
     ...
   )
 }
 ```
 
-Styling the disable state:
+Styling the disabled state:
 
 ```css
 [data-checkbox][data-disabled] { 
@@ -68,7 +70,7 @@ For more information look at the [styling discussion](https://github.com/vtex/fa
 
 ## Control the UI
 
-A store-ui component structures how its inner elements are arranged. This means that our atoms, molecules, and organisms can (and often will) control how the UI is displayed and arranged. Understand UI control as the opinions on how different elements should be displayed together. As an example, take `LoadingButton` molecule. It is deliberately designed for the `Spinner` atom to appear inside the `Button` atom, not on its side. That's a way of enforcing UI control over a molecule.
+A store-ui component structures how its inner elements are arranged. This means that our atoms, molecules, and organisms can (and often will) control how the UI is displayed and arranged. Understand UI control as the opinions on how different elements should be displayed together. As an example, take the `LoadingButton` molecule. It is deliberately designed for the `Spinner` atom to appear inside the `Button` atom, not on its side. That's a way of enforcing UI control over a molecule.
 
 On atoms, however, this control doesn't apply the same way. We're following Atomic Design, which means that our atoms should represent core elements of a store, that are the mounting blocks for molecules and organisms. Enforcing tight UI control over an atom may decrease its reusability and increase the cost of maintenance, which are the main reasons they exist in the first place. Because of that, it's not recommended to make UI-controlled biased atoms, and that's why most of them have the `as` prop to allow users to control even which HTML element should be used by them.
 
@@ -86,7 +88,7 @@ By following this pattern, we're building a library that focuses on the UI (henc
 
 That doesn't mean store-ui components can't contain any behavior, state, or logic: they can, but these qualities should be separate from Pure components. Take the Modal molecule as an example: there's a ModalPure component, that contains only jsx tags with simple definitions on how the component should look, and a Modal component, that uses the ModalPure component and its callback props to control how it should behave.
 
-> :information: Although Pure components are being built, they shouldn't be exported. Store-ui wants to have a cohesive API, which is hard to have if its size increases rapidly without any real use data to base these decisions. Research is being done on when Pure components should be released and available to the public and how users will leverage them. Until then, only the regular versions of the components should be exported (containing behavior and logic).
+> :information: Although Pure components are being built, they shouldn't be exported. Store-ui wants to have a cohesive API, which is hard to have if its size increases rapidly without any real user data to base these decisions. Research is being done on when Pure components should be released and available to the public and how users will leverage them. Until then, only the regular versions of the components should be exported (containing behavior and logic).
 
 ## Tests for each component
 
@@ -137,7 +139,7 @@ Should export the controlled component. When having the necessity of uncontrolle
 
 Each component should have a story and doc.
 
-The component example should be written on `ComponentName.stories.tsx` file. For example:
+The component example should be written on the `ComponentName.stories.tsx` file. For example:
 
 ```tsx
 // Button.stories.tsx
@@ -156,7 +158,7 @@ const argTypes: ComponentArgTypes<ButtonProps> = {
   },
   onClick: {
     action: 'Button clicked',
-    table: { disable: true },
+    table: { disabled: true },
   },
 }
 
@@ -170,7 +172,7 @@ export default {
   },
 } as Meta
 ```
-> Don't spread the props on component template.
+> Don't spread the props on the component template.
 
 A default template for the story `.mdx` file:
 
