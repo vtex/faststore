@@ -21,3 +21,11 @@
 [data-store-table-cell] > [data-store-price][data-selling] {
   @apply text-sm font-medium text-gray-900;
 }
+
+[data-store-table-footer]{
+  @apply bg-gray-50;
+}
+
+[data-store-table-footer] [data-store-table-cell="data"]{
+  @apply px-6 py-3 text-left text-xs text-gray-900 font-bold uppercase tracking-wider;
+}
