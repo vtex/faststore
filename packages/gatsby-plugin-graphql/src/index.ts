@@ -68,10 +68,11 @@ export const request = async <V = any, D = any>(
   const response = await fetch(url, {
     method,
     body,
+    ...fetchOptions,
     headers: {
       'Content-Type': 'application/json',
+      ...fetchOptions?.headers,
     },
-    ...fetchOptions,
   })
 
   return response.json()
