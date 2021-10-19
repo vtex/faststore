@@ -6,15 +6,19 @@ import Component from '../IconButton'
 import ShoppingCartIcon from '../../../atoms/Icon/stories/assets/ShoppingCart'
 import mdx from './IconButton.mdx'
 
-const IconButtonTemplate: Story<IconButtonProps> = (props) => (
-  <Component {...props} icon={<ShoppingCartIcon />} />
+const IconButtonTemplate: Story<IconButtonProps> = (otherProps) => (
+  <Component {...otherProps} icon={<ShoppingCartIcon />} />
 )
 
 export const Default = IconButtonTemplate.bind({})
 
-const IconButtonCustomTemplate: Story<IconButtonProps> = (props) => {
+const IconButtonCustomTemplate: Story<IconButtonProps> = (otherProps) => {
   return (
-    <Component {...props} className="iconButton" icon={<ShoppingCartIcon />} />
+    <Component
+      {...otherProps}
+      className="iconButton"
+      icon={<ShoppingCartIcon />}
+    />
   )
 }
 

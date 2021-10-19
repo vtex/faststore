@@ -19,7 +19,7 @@ const Popover = ({
   targetRef,
   testId = 'store-popover',
   children,
-  ...props
+  ...otherProps
 }: PopoverProps) => {
   return (
     <ReachPopover
@@ -27,7 +27,7 @@ const Popover = ({
       data-testid={testId}
       position={positionDefault}
       targetRef={targetRef}
-      {...props}
+      {...otherProps}
     >
       {children}
     </ReachPopover>

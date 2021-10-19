@@ -9,7 +9,7 @@ import mdx from './Checkbox.mdx'
 const CheckboxTemplate: Story<CheckboxProps> = ({
   checked,
   onClick,
-  ...props
+  ...otherProps
 }) => {
   const [localChecked, setLocalChecked] = useState(checked)
 
@@ -19,7 +19,7 @@ const CheckboxTemplate: Story<CheckboxProps> = ({
 
   return (
     <Component
-      {...props}
+      {...otherProps}
       checked={localChecked}
       onClick={(e) => {
         onClick?.(e)
