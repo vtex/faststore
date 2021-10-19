@@ -1,8 +1,6 @@
-const isProduction = process.env.NODE_ENV === 'production'
-
 export const gql = (_: TemplateStringsArray) => {
   throw new Error(
-    `[gatsby-plugin-graphql]: This should have been removed by the babel plugin`
+    `[graphql-utils]: This should have been removed by the babel plugin. Please make sure the babel plugin is configured correctly`
   )
 }
 
@@ -12,65 +10,51 @@ export interface GraphQLResponse<D = any> {
 }
 
 export interface RequestOptions<V = any> {
-  query?: string
-  sha256Hash: string
   operationName: string
   variables: V
   fetchOptions?: RequestInit
 }
 
+const DEFAULT_HEADERS = {
+  'Content-Type': 'application/json',
+}
+
 export const request = async <V = any, D = any>(
   endpoint: string,
-  {
-    query,
-    sha256Hash,
-    operationName,
-    variables,
-    fetchOptions,
-  }: RequestOptions<V>
+  { operationName, variables, fetchOptions }: RequestOptions<V>
 ): Promise<GraphQLResponse<D>> => {
   // Uses method from fetchOptions.
   // If no one is passed, figure out with via heuristic
   const method =
     fetchOptions?.method !== undefined
       ? fetchOptions.method
-      : isProduction && operationName.endsWith('Query')
+      : operationName.endsWith('Query')
       ? 'GET'
       : 'POST'
 
-  const extensions = {
-    persistedQuery: {
-      sha256Hash,
-    },
-  }
-
   const params = new URLSearchParams({
     operationName,
-    extensions:
-      method === 'GET' && isProduction ? JSON.stringify(extensions) : undefined,
-    variables:
-      method === 'GET' && isProduction ? JSON.stringify(variables) : undefined,
-  } as any)
-
-  const url = `${endpoint}?${params.toString()}`
+    ...(method === 'GET' && { variables: JSON.stringify(variables) }),
+  })
 
   const body =
     method === 'POST'
       ? JSON.stringify({
           operationName,
-          extensions:
-            process.env.NODE_ENV === 'production' ? extensions : undefined,
           variables,
-          query: process.env.NODE_ENV === 'production' ? undefined : query,
         })
       : undefined
+
+  const headers = method === 'POST' ? DEFAULT_HEADERS : undefined
+
+  const url = `${endpoint}?${params.toString()}`
 
   const response = await fetch(url, {
     method,
     body,
     ...fetchOptions,
     headers: {
-      'Content-Type': 'application/json',
+      ...headers,
       ...fetchOptions?.headers,
     },
   })
