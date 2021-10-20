@@ -47,7 +47,7 @@ const Bullets = forwardRef<HTMLDivElement, BulletsProps>(function Bullets(
     testId = 'store-bullets',
     ariaLabelGenerator = defaultAriaLabel,
     ariaControlsGenerator,
-    ...rest
+    ...otherProps
   },
   ref
 ) {
@@ -61,7 +61,7 @@ const Bullets = forwardRef<HTMLDivElement, BulletsProps>(function Bullets(
       data-store-bullets
       data-testid={testId}
       role="tablist"
-      {...rest}
+      {...otherProps}
     >
       {bulletIndexes.map((_, idx) => {
         const isActive = activeBullet === idx
