@@ -1,4 +1,9 @@
-import type { FormEvent, InputHTMLAttributes, ReactNode } from 'react'
+import type {
+  AriaAttributes,
+  FormEvent,
+  InputHTMLAttributes,
+  ReactNode,
+} from 'react'
 import React, { forwardRef, useRef } from 'react'
 
 import Button from '../../atoms/Button'
@@ -36,7 +41,11 @@ export interface SearchInputProps extends InputProps {
   /**
    * Custom aria-label for input and button.
    */
-  ariaLabel?: string
+  'aria-label'?: AriaAttributes['aria-label']
+  /**
+   * Custom aria-labelledby for input.
+   */
+  'aria-labelledby'?: AriaAttributes['aria-labelledby']
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -48,7 +57,8 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
     {
       onSubmit,
       icon,
-      ariaLabel = 'search',
+      'aria-label': ariaLabel = 'search',
+      'aria-labelledby': ariaLabelledBy,
       testId = 'store-search-input',
       ...props
     },
@@ -71,7 +81,12 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
         data-testid={testId}
         onSubmit={handleSubmit}
       >
-        <Input ref={valueRef} aria-label={ariaLabel} {...props} />
+        <Input
+          ref={valueRef}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          {...props}
+        />
         <Button type="submit" aria-label={`button-${ariaLabel}`}>
           <Icon component={icon ?? <SearchIcon />} />
         </Button>
