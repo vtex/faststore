@@ -17,12 +17,12 @@ describe('SearchInput', () => {
       'data-store-search-input'
     )
   })
-})
 
-describe('Accessibility', () => {
-  it('should have no violations', async () => {
-    const { getByTestId } = render(<Wrapper />)
+  describe('Accessibility', () => {
+    it('should have no violations', async () => {
+      const { getByTestId } = render(<Wrapper />)
 
-    expect(await axe(getByTestId('search-input'))).toHaveNoViolations()
+      expect(await axe(getByTestId('search-input'))).toHaveNoViolations()
+    })
   })
 })
