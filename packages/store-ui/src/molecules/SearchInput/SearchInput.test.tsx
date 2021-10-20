@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import { axe } from 'jest-axe'
 import React from 'react'
 
 import type { SearchInputProps } from './SearchInput'
@@ -15,5 +16,13 @@ describe('SearchInput', () => {
     expect(getByTestId('search-input')).toHaveAttribute(
       'data-store-search-input'
     )
+  })
+})
+
+describe('Accessibility', () => {
+  it('should have no violations', async () => {
+    const { getByTestId } = render(<Wrapper />)
+
+    expect(await axe(getByTestId('search-input'))).toHaveNoViolations()
   })
 })
