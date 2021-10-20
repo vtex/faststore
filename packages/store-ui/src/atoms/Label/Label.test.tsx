@@ -19,27 +19,53 @@ describe('Label', () => {
     })
 
     it('should have no violations when using `for` attribute', async () => {
-      const { container } = render(
+      const { container: inputContainer } = render(
         <>
-          <Label htmlFor="subscribe_newsletter">
-            Subscribe to our newsletter
-          </Label>
-          <input id="subscribe_newsletter" />
+          <Label htmlFor="input_newsletter">Subscribe to our newsletter</Label>
+          <input id="input_newsletter" />
         </>
       )
 
-      expect(await axe(container)).toHaveNoViolations()
+      expect(await axe(inputContainer)).toHaveNoViolations()
+
+      const { container: selectContainer } = render(
+        <>
+          <Label htmlFor="interest">Select your main interest</Label>
+          <select id="interest">
+            <option value="clothing">Clothing</option>
+            <option value="electronics">Electronics</option>
+            <option value="sale">Sale</option>
+          </select>
+        </>
+      )
+
+      expect(await axe(selectContainer)).toHaveNoViolations()
     })
 
-    it('should have no violations when wrapping the `input` element and the labeling text', async () => {
-      const { container } = render(
+    it('should have no violations when wrapping a control element and the labeling text', async () => {
+      // Using input element
+      const { container: inputContainer } = render(
         <Label>
           Subscribe to our newsletter
           <input />
         </Label>
       )
 
-      expect(await axe(container)).toHaveNoViolations()
+      expect(await axe(inputContainer)).toHaveNoViolations()
+
+      // Using select element
+      const { container: selectContainer } = render(
+        <Label>
+          Select your main interest
+          <select id="interest">
+            <option value="clothing">Clothing</option>
+            <option value="electronics">Electronics</option>
+            <option value="sale">Sale</option>
+          </select>
+        </Label>
+      )
+
+      expect(await axe(selectContainer)).toHaveNoViolations()
     })
   })
 })
