@@ -1,0 +1,32 @@
+{
+  "name": "@vtex/graphql-utils",
+  "version": "1.2.9",
+  "description": "GraphQL utilities",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/graphql-utils"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "browser": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsc",
+    "develop": "tsc --watch"
+  },
+  "peerDependencies": {
+    "graphql": "^15.6.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@babel/traverse": "^7.15.4",
+    "@babel/types": "^7.15.6",
+    "@graphql-codegen/plugin-helpers": "^2.2.0",
+    "@graphql-tools/relay-operation-optimizer": "^6.4.0"
+  }
+}
