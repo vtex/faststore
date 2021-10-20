@@ -34,6 +34,10 @@ export interface SearchInputProps extends InputProps {
    */
   icon?: ReactNode
   /**
+   * Custom aria-label for input and button.
+   */
+  ariaLabel?: string
+  /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
@@ -41,7 +45,13 @@ export interface SearchInputProps extends InputProps {
 
 const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
   function SearchInput(
-    { onSubmit, icon, testId = 'store-search-input', ...props },
+    {
+      onSubmit,
+      icon,
+      ariaLabel = 'search',
+      testId = 'store-search-input',
+      ...props
+    },
     ref
   ) {
     const valueRef = useRef<HTMLInputElement>(null)
@@ -61,8 +71,8 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
         data-testid={testId}
         onSubmit={handleSubmit}
       >
-        <Input ref={valueRef} {...props} />
-        <Button type="submit">
+        <Input ref={valueRef} aria-label={ariaLabel} {...props} />
+        <Button type="submit" aria-label={`button-${ariaLabel}`}>
           <Icon component={icon ?? <SearchIcon />} />
         </Button>
       </form>
