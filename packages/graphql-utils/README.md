@@ -14,14 +14,14 @@ This module solves the transport layer of GraphQL queries. For this reason, we o
 This library solves the GraphQL over HTTP problem. This means you need access to both the frontend and the backend to use this library.
 It has 3 main components: A `gql` tag and `request` function to allow you to declare and fetch data from your graphql server in your frontend. A `babel` plugin to optimize your JS/TS assets so your graphql queries add ZERO bytes to your final bundle. A [codegen](https://www.graphql-code-generator.com/) plugin to generate persisted queries to your [persisted query ready graphql server](https://www.apollographql.com/docs/apollo-server/performance/apq/)
 
-The main idea behind this module is to preprocess and aggregate all graphql queries of your frontend into a single json file. This file is then uploaded to the graphql server so that, when your frontend needs to query any data, it asks for the graphql server to execute a given query, instead of having to send the whole query. This is really similiar to Apollo's [automatic persisted queries](https://www.apollographql.com/docs/apollo-server/performance/apq/), however, instead of gathering the queries dynamicaly, we preprocess and upload the queries to the server before we deploy the website. This makes some optimizations possible, like:
+The main idea behind this module is to preprocess and aggregate all graphql queries of your frontend into a single JSON file. This file is then uploaded to the graphql server so that, when your frontend needs to query any data, it asks for the graphql server to execute a given query, instead of having to send the whole query. This is really similar to Apollo's [automatic persisted queries](https://www.apollographql.com/docs/apollo-server/performance/apq/), however, instead of gathering the queries dynamically, we preprocess and upload the queries to the server before we deploy the website. This makes some optimizations possible, like:
 - ZERO bundle sizes
 - Inline Fragments
 - Flattened Transforms
 - Redundant Node Skipping.
 
 # Installing
-Installing this plugin may vary depending on your setup. The instructions below are recommended if you are usign graphql-codegen cli. If you are using graphql-codegen in a different way please refer to their docs on how to add plugins instead.
+Installing this plugin may vary depending on your setup. The instructions below are recommended if you are using graphql-codegen cli. If you are using graphql-codegen in a different way please refer to their docs on how to add plugins instead.
 
 To install, just
 
@@ -65,7 +65,7 @@ exports.onCreateBabelConfig = ({ actions }) => {
 Now you should be good to go and create your queries.
 
 # Usage
-Now that you have successfully installed and configured both babel and codegen plugins, you can start writting your queries. Let's start by declaring the following code:
+Now that you have successfully installed and configured both babel and codegen plugins, you can start writing your queries. Let's start by declaring the following code:
 
 ```tsx
 import { gql, request } from '@vtex/graphql-utils'
@@ -81,8 +81,8 @@ request({ operationName: MyQuery, variables: {} }).then(response => {
 })
 ```
 
-This code import two helpers from our lib, `gql` and `request`. Use the first one to wrap query declarations. Use the result of this expression to feed te `operationName` parameter of `request`. 
-That's it! you can use this in most GraphQL Clients, like Apollo Client, SWR and React Query. Also, this is compatible with your favorite frameworks like Next.JS and Gatsby.
+This code import two helpers from our lib, `gql` and `request`. Use the first one to wrap query declarations. Use the result of this expression to feed the `operationName` parameter of `request`. 
+That's it! you can use this in most GraphQL Clients, like Apollo Client, SWR, and React Query. Also, this is compatible with your favorite frameworks like Next.JS and Gatsby.
 
 For instance, to use it with SWR, you can declare a useQuery hook:
 
