@@ -1,5 +1,5 @@
 import type { KeyboardEvent, PropsWithChildren } from 'react'
-import React, { useEffect, useRef, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
@@ -47,7 +47,6 @@ function Carousel({
   id = 'store-carousel',
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
-  const bulletsRef = useRef<HTMLDivElement>(null)
   const childrenArray = React.Children.toArray(children)
   const childrenCount = childrenArray.length
   const numberOfSlides = infiniteMode ? childrenCount + 2 : childrenCount
@@ -110,39 +109,6 @@ function Carousel({
   }
 
   // accessible behavior for tablist
-  useEffect(() => {
-    if (!bulletsRef.current) {
-      return
-    }
-
-    const bulletsElement = bulletsRef.current
-
-    const handleFocus = () => {
-      bulletsElement.setAttribute('data-focused', 'true')
-      bulletsElement.focus()
-    }
-
-    const handleBlur = (event: FocusEvent) => {
-      if (
-        !event.target ||
-        (bulletsElement !== event.target &&
-          bulletsElement.contains(event.target as Node))
-      ) {
-        return
-      }
-
-      bulletsElement.removeAttribute('data-focused')
-    }
-
-    bulletsElement.addEventListener('focusin', handleFocus)
-    bulletsElement.addEventListener('focusout', handleBlur)
-
-    return () => {
-      bulletsElement.removeEventListener('focusin', handleFocus)
-      bulletsElement.removeEventListener('focusout', handleBlur)
-    }
-  }, [bulletsRef])
-
   const handleBulletsKeyDown = (event: KeyboardEvent) => {
     switch (event.key) {
       case 'ArrowLeft': {
@@ -262,7 +228,6 @@ function Carousel({
         <div data-carousel-bullets>
           <Bullets
             tabIndex={0}
-            ref={bulletsRef}
             totalQuantity={childrenCount}
             activeBullet={sliderState.currentPage}
             onClick={(_, idx) => {
@@ -274,6 +239,23 @@ function Carousel({
             }}
             ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
             onKeyDown={handleBulletsKeyDown}
+            onFocus={(event) => {
+              event.currentTarget.setAttribute('data-focused', 'true')
+              event.currentTarget.focus()
+            }}
+            onBlur={(event) => {
+              const bulletsElement = event.currentTarget
+
+              if (
+                !event.target ||
+                (event.currentTarget !== event.target &&
+                  event.currentTarget.contains(event.target as Node))
+              ) {
+                return
+              }
+
+              bulletsElement.removeAttribute('data-focused')
+            }}
           />
         </div>
       )}
