@@ -17,10 +17,10 @@ const getOperationName = (query: string) => {
 
   visit(parse(query), {
     OperationDefinition: (node) => {
-      const op = node.name?.value
+      const operation = node.name?.value
 
-      if (typeof op === 'string') {
-        operationName = op
+      if (typeof operation === 'string') {
+        operationName = operation
       }
 
       return BREAK
@@ -31,12 +31,12 @@ const getOperationName = (query: string) => {
 }
 
 export default function babelGQLPlugin(babel: Babel): BabelPlugin {
-  const t = babel.types
+  const { types } = babel
 
   return {
     visitor: {
-      Program: (p) => {
-        p.traverse({
+      Program: (program) => {
+        program.traverse({
           TaggedTemplateExpression: (path) => {
             if (!path.node.loc) {
               return
@@ -44,7 +44,7 @@ export default function babelGQLPlugin(babel: Babel): BabelPlugin {
 
             const { tag } = path.node
 
-            if (!t.isIdentifier(tag) || !GQL_TAGS.has(tag.name)) {
+            if (!types.isIdentifier(tag) || !GQL_TAGS.has(tag.name)) {
               return
             }
 

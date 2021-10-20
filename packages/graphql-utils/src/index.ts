@@ -15,8 +15,10 @@ export interface RequestOptions<V = any> {
   fetchOptions?: RequestInit
 }
 
-const DEFAULT_HEADERS = {
-  'Content-Type': 'application/json',
+const DEFAULT_HEADERS_BY_VERB: Record<string, Record<string, string>> = {
+  POST: {
+    'Content-Type': 'application/json',
+  },
 }
 
 export const request = async <V = any, D = any>(
@@ -27,7 +29,7 @@ export const request = async <V = any, D = any>(
   // If no one is passed, figure out with via heuristic
   const method =
     fetchOptions?.method !== undefined
-      ? fetchOptions.method
+      ? fetchOptions.method.toUpperCase()
       : operationName.endsWith('Query')
       ? 'GET'
       : 'POST'
@@ -45,8 +47,6 @@ export const request = async <V = any, D = any>(
         })
       : undefined
 
-  const headers = method === 'POST' ? DEFAULT_HEADERS : undefined
-
   const url = `${endpoint}?${params.toString()}`
 
   const response = await fetch(url, {
@@ -54,7 +54,7 @@ export const request = async <V = any, D = any>(
     body,
     ...fetchOptions,
     headers: {
-      ...headers,
+      ...DEFAULT_HEADERS_BY_VERB[method],
       ...fetchOptions?.headers,
     },
   })
