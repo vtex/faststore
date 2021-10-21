@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.16 (2021-10-21)
+
+
+### Features
+
+* **store-ui:** Label atom ([#1001](https://github.com/vtex/faststore/issues/1001)) ([3306ea6](https://github.com/vtex/faststore/commit/3306ea6b9b48996574eac4b8c1b737dff94a438e))
+
+
+
+
+
 ## 1.2.15 (2021-10-21)
 
 
