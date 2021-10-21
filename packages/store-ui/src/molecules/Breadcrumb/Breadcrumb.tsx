@@ -1,7 +1,7 @@
 import type {
   HTMLAttributes,
   AnchorHTMLAttributes,
-  FC,
+  ElementType,
   ReactNode,
   PropsWithChildren,
 } from 'react'
@@ -17,9 +17,7 @@ export type BreadcrumbLevelType = {
 const DefaultLink = ({
   children,
   ...otherProps
-}: PropsWithChildren<AnchorHTMLAttributes<HTMLAnchorElement>>) => (
-  <a {...otherProps}>{children}</a>
-)
+}: AnchorHTMLAttributes<HTMLAnchorElement>) => <a {...otherProps}>{children}</a>
 
 const DefaultHomeIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24">
@@ -48,17 +46,17 @@ export interface BreadcrumbProps extends HTMLAttributes<HTMLDivElement> {
    */
   breadcrumb: BreadcrumbLevelType[]
   /**
-   * A React component that will be rendered as the Divider icon.
+   * A component that will be rendered as the Divider icon.
    */
-  DividerIcon?: ReactNode
+  dividerIcon?: ReactNode
   /**
-   * A React component that will be rendered as the Home icon.
+   * A component that will be rendered as the Home icon.
    */
-  HomeIcon?: ReactNode
+  homeIcon?: ReactNode
   /**
-   * Custom Link component when using custom routing.
+   * A component link that will replace the HTML Anchor.
    */
-  LinkComponent?: FC<
+  linkComponent?: ElementType<
     PropsWithChildren<{ href?: string; to?: string; 'data-testid'?: string }>
   >
   /**
@@ -72,9 +70,9 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
     {
       breadcrumb,
       children,
-      HomeIcon = <DefaultHomeIcon />,
-      DividerIcon = <DefaultDividerIcon />,
-      LinkComponent = DefaultLink,
+      homeIcon = <DefaultHomeIcon />,
+      dividerIcon = <DefaultDividerIcon />,
+      linkComponent: Link = DefaultLink,
       testId = 'store-breadcrumb',
       ...otherProps
     },
@@ -82,18 +80,18 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
   ) {
     return (
       <div ref={ref} data-store-breadcrumb data-testid={testId} {...otherProps}>
-        <LinkComponent
+        <Link
           data-testid={`${testId}-home`}
           data-store-breadcrumb-home
           href="/"
           to="/"
         >
-          <Icon component={HomeIcon} />
-        </LinkComponent>
+          <Icon component={homeIcon} />
+        </Link>
         {breadcrumb.map(({ href, text }, index) => (
           <Fragment key={index}>
-            <Icon component={DividerIcon} />
-            <LinkComponent
+            <Icon component={dividerIcon} />
+            <Link
               data-testid={`${testId}-item`}
               data-store-breadcrumb-item
               data-store-breadcrumb-item-active={
@@ -104,7 +102,7 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
               to={href}
             >
               {text}
-            </LinkComponent>
+            </Link>
           </Fragment>
         ))}
       </div>
