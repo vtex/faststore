@@ -1,13 +1,13 @@
 [data-store-breadcrumb] {
-    @apply flex items-center;
+  @apply flex items-center;
 }
 
 [data-store-breadcrumb-home] {
-    @apply mr-2;
+  @apply mr-2;
 }
 
 [data-store-breadcrumb-item] {
-    @apply flex text-black no-underline hover:underline mx-2;
+  @apply flex text-black no-underline hover:underline mx-2;
 }
 
 [data-store-breadcrumb-item-active] {

@@ -1,10 +1,11 @@
 import type {
-  AllHTMLAttributes,
+  HTMLAttributes,
   AnchorHTMLAttributes,
   FC,
   ReactNode,
+  PropsWithChildren,
 } from 'react'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, Fragment } from 'react'
 
 import Icon from '../../atoms/Icon'
 
@@ -13,32 +14,11 @@ export type BreadcrumbLevelType = {
   text: string
 }
 
-export interface BreadcrumbProps<T = HTMLDivElement>
-  extends AllHTMLAttributes<T> {
-  /**
-   * Array with each level of the breadcrumb, containing link and text.
-   */
-  breadcrumb: BreadcrumbLevelType[]
-  /**
-   * A React component that will be rendered as the Divider icon.
-   */
-  DividerIcon?: ReactNode
-  /**
-   * A React component that will be rendered as the Home icon.
-   */
-  HomeIcon?: ReactNode
-  /**
-   * Custom Link component when using custom routing.
-   */
-  LinkComponent?: FC<{ href?: string; to?: string; 'data-testid': string }>
-  /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
-   */
-  testId?: string
-}
-
-const DefaultLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = (props) => (
-  <a {...props}>{props.children}</a>
+const DefaultLink = ({
+  children,
+  ...otherProps
+}: PropsWithChildren<AnchorHTMLAttributes<HTMLAnchorElement>>) => (
+  <a {...otherProps}>{children}</a>
 )
 
 const DefaultHomeIcon = () => (
@@ -62,6 +42,31 @@ const DefaultDividerIcon = () => (
   </svg>
 )
 
+export interface BreadcrumbProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Array with each level of the breadcrumb, containing link and text.
+   */
+  breadcrumb: BreadcrumbLevelType[]
+  /**
+   * A React component that will be rendered as the Divider icon.
+   */
+  DividerIcon?: ReactNode
+  /**
+   * A React component that will be rendered as the Home icon.
+   */
+  HomeIcon?: ReactNode
+  /**
+   * Custom Link component when using custom routing.
+   */
+  LinkComponent?: FC<
+    PropsWithChildren<{ href?: string; to?: string; 'data-testid'?: string }>
+  >
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+}
+
 const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
   function Breadcrumb(
     {
@@ -71,23 +76,23 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
       DividerIcon = <DefaultDividerIcon />,
       LinkComponent = DefaultLink,
       testId = 'store-breadcrumb',
-      ...props
+      ...otherProps
     },
     ref
   ) {
     return (
-      <div ref={ref} data-store-breadcrumb data-testid={testId} {...props}>
+      <div ref={ref} data-store-breadcrumb data-testid={testId} {...otherProps}>
         <LinkComponent
           data-testid={`${testId}-home`}
           data-store-breadcrumb-home
           href="/"
           to="/"
         >
-          {<Icon component={HomeIcon} />}
+          <Icon component={HomeIcon} />
         </LinkComponent>
         {breadcrumb.map(({ href, text }, index) => (
-          <>
-            {<Icon component={DividerIcon} />}
+          <Fragment key={index}>
+            <Icon component={DividerIcon} />
             <LinkComponent
               data-testid={`${testId}-item`}
               data-store-breadcrumb-item
@@ -100,7 +105,7 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
             >
               {text}
             </LinkComponent>
-          </>
+          </Fragment>
         ))}
       </div>
     )

@@ -35,7 +35,6 @@ const argTypes: ComponentArgTypes<BreadcrumbProps> = {
 
 export default {
   title: 'Molecules/Breadcrumb',
-  component: Breadcrumb,
   argTypes,
   parameters: {
     docs: {
