@@ -17,11 +17,16 @@ export interface LoadingButtonProps extends ButtonProps {
 
 const LoadingButton = forwardRef<HTMLButtonElement, LoadingButtonProps>(
   function LoadingButton(
-    { children, loading, testId = 'store-loading-button', ...props },
+    { children, loading, testId = 'store-loading-button', ...otherProps },
     ref
   ) {
     return (
-      <Button ref={ref} data-store-loading-button testId={testId} {...props}>
+      <Button
+        ref={ref}
+        data-store-loading-button
+        testId={testId}
+        {...otherProps}
+      >
         {loading ? <Spinner /> : children}
       </Button>
     )
