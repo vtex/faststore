@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.17 (2021-10-21)
+
+
+### Features
+
+* **store-ui:** Loading Button molecule ([#962](https://github.com/vtex/faststore/issues/962)) ([6083ea0](https://github.com/vtex/faststore/commit/6083ea0273646a09e66ceedfab4b17c3960ac9fc)), closes [#918](https://github.com/vtex/faststore/issues/918) [#911](https://github.com/vtex/faststore/issues/911)
+
+
+### BREAKING CHANGES
+
+* **store-ui:** Remove deprecated folders (#927)
+
+
+
+
+
 ## 1.2.16 (2021-10-21)
 
 
