@@ -75,12 +75,12 @@ const getRemoteVariant = (node: RemotePageContent, preview = false) => {
     .sort((e1, e2) => ordering[e1.node.status] - ordering[e2.node.status])
     .find((x) => allowedStatus.has(x.node.status))
 
-  return (
-    edge && {
-      ...rest,
-      variant: edge.node,
-    }
-  )
+  return edge
+    ? {
+        ...rest,
+        variant: edge.node,
+      }
+    : undefined
 }
 
 export type TransformedContent = NonNullable<
