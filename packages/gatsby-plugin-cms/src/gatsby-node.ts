@@ -75,6 +75,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
       .required()
       .valid('vtexcommercestable', 'vtexcommercebeta'),
     itemsPerPage: Joi.number(),
+    preview: Joi.boolean(),
   })
 
 interface CollectionsByType {
