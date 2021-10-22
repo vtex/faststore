@@ -33,8 +33,6 @@ import type {
 interface CMSContentType {
   id: string
   name: string
-  beforeBlocks: Array<{ name: string; schema: JSONSchema6 }>
-  afterBlocks: Array<{ name: string; schema: JSONSchema6 }>
   extraBlocks: Array<{
     name: string
     blocks: Array<{ name: string; schema: JSONSchema6 }>
@@ -66,6 +64,7 @@ export interface Options {
   workspace: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
   itemsPerPage?: number
+  preview?: boolean
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
@@ -76,6 +75,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
       .required()
       .valid('vtexcommercestable', 'vtexcommercebeta'),
     itemsPerPage: Joi.number(),
+    preview: Joi.boolean(),
   })
 
 interface CollectionsByType {
@@ -236,20 +236,6 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
     (acc, contentTypeName) => {
       const contentType = userContentTypes[contentTypeName]
 
-      const beforeBlocks = Object.keys(contentType.beforeBlocks).map(
-        (blockName) => ({
-          name: blockName,
-          schema: contentType.beforeBlocks[blockName],
-        })
-      )
-
-      const afterBlocks = Object.keys(contentType.afterBlocks).map(
-        (blockName) => ({
-          name: blockName,
-          schema: contentType.afterBlocks[blockName],
-        })
-      )
-
       const extraBlocks = Object.keys(contentType.extraBlocks).map(
         (sectionName) => ({
           name: sectionName,
@@ -265,8 +251,6 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
       acc.push({
         ...contentType,
         id: contentTypeName,
-        beforeBlocks,
-        afterBlocks,
         extraBlocks,
       })
 

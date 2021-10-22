@@ -3,8 +3,6 @@ import type { ContentType } from '../../index'
 
 export const PLP = ({
   extraBlocks = {},
-  beforeBlocks = {},
-  afterBlocks = {},
 }: Partial<Omit<ContentType, 'name'>>) => ({
   plp: {
     name: 'PLP',
@@ -15,7 +13,5 @@ export const PLP = ({
         Collection,
       },
     },
-    beforeBlocks,
-    afterBlocks,
   },
 })
