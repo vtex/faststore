@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.373.41-alpha.0](https://github.com/vtex/faststore/compare/v0.373.40...v0.373.41-alpha.0) (2021-10-22)
+
+**Note:** Version bump only for package @vtex/gatsby-plugin-cms
+
+
+
+
+
 ## 0.373.40 (2021-09-23)
 
 
