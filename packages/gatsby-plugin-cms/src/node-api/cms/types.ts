@@ -3,23 +3,36 @@ export interface Block {
   props: Record<string, unknown>
 }
 
+export interface RelayPagination<Node> {
+  pageInfo: {
+    hasNextPage: boolean
+  }
+  edges: Array<{
+    cursor: string
+    node: Node
+  }>
+}
+
 export interface RemotePageContent {
   remoteId: string
   id: string
   name: string
-  type: string
-  builderId: 'faststore'
-  author: {
+  contentType: {
     id: string
-    email: string
   }
-  lastUpdatedAt: string
-  blocks: Block[]
-  beforeBlocks: Block[]
-  afterBlocks: Block[]
-  extraBlocks: Array<{
-    name: string
-    blocks: Block[]
+  variants: RelayPagination<{
+    status: 'draft' | 'live' | 'publishing' | 'unpublishing'
+    sections: Array<{
+      name: string
+      props: any
+    }>
+    configurationDataSets: Array<{
+      name: string
+      configurations: Array<{
+        name: string
+        props: any
+      }>
+    }>
   }>
 }
 
