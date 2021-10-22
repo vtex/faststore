@@ -18,8 +18,6 @@ export type Schemas = Record<string, Schema>
 export interface ContentType {
   name: string
   extraBlocks: Record<string, Schemas>
-  beforeBlocks: Schemas
-  afterBlocks: Schemas
 }
 
 export type ContentTypes = Record<string, ContentType>
