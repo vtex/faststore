@@ -161,7 +161,7 @@ export const fetchAllNodes = async (
       const { edges, pageInfo } = contents
       const nodes = edges
         .map((x) => getRemoteVariant(x.node, preview))
-        .filter((x): x is TransformedContent => !!x)
+        .filter((x): x is TransformedContent => Boolean(x))
 
       after = edges[edges.length - 1]?.cursor
       hasNextPage = pageInfo.hasNextPage
