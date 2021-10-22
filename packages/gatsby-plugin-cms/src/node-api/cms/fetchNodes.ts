@@ -147,6 +147,14 @@ export const fetchAllNodes = async (
       operationName: 'LIST_PAGES',
     })
 
+    if (Array.isArray(response.errors)) {
+      for (const error of response.errors) {
+        console.error(error)
+      }
+
+      throw new Error('Something went wrong while fetching data from the CMS')
+    }
+
     const contents = response.data?.vtex.contents
 
     if (contents) {
