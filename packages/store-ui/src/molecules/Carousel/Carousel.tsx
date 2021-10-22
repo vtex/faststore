@@ -240,21 +240,7 @@ function Carousel({
             ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
             onKeyDown={handleBulletsKeyDown}
             onFocus={(event) => {
-              event.currentTarget.setAttribute('data-focused', 'true')
               event.currentTarget.focus()
-            }}
-            onBlur={(event) => {
-              const bulletsElement = event.currentTarget
-
-              if (
-                !event.target ||
-                (event.currentTarget !== event.target &&
-                  event.currentTarget.contains(event.target as Node))
-              ) {
-                return
-              }
-
-              bulletsElement.removeAttribute('data-focused')
             }}
           />
         </div>

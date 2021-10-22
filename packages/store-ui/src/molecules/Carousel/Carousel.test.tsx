@@ -314,7 +314,7 @@ describe('Carousel component', () => {
     })
 
     describe('Tablist', () => {
-      it('should have data-focused when tablist or tab is focused', () => {
+      it('should have been focused when tablist or tab is focused', () => {
         const { getByRole, getAllByRole } = render(
           <Carousel>
             <div>Slide 1</div>
@@ -328,7 +328,6 @@ describe('Carousel component', () => {
         fireEvent.focus(tablist)
 
         expect(tablist).toHaveFocus()
-        expect(tablist).toHaveAttribute('data-focused')
 
         const [, sndTab] = getAllByRole('tab')
 
