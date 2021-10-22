@@ -1,7 +1,6 @@
 import {
   buildNodeDefinitions,
   compileNodeQueries,
-  createSchemaCustomization as toolkitCreateSchemaCustomization,
   generateDefaultFragments,
   sourceAllNodes,
   sourceNodeChanges,
@@ -70,10 +69,7 @@ export const sourceStoreType = async ({
     paginationAdapters: [RelayForward(maxItems)],
   }
 
-  // Step5. Add explicit types to gatsby schema
-  await toolkitCreateSchemaCustomization(config)
-
-  // Step6. Source nodes
+  // Step5. Source nodes
   if (lastBuildTime) {
     await sourceNodeChanges(config, { nodeEvents: [] })
   } else {
