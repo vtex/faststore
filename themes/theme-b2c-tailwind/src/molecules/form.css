@@ -1,0 +1,23 @@
+[data-store-form] {
+  @apply bg-pink-100 max-w-xl p-10 text-center rounded-lg;
+}
+
+[data-store-form]>h2 {
+  @apply text-sm;
+}
+
+[data-store-form] [data-store-label] {
+  @apply px-4;
+}
+
+[data-store-form] [data-store-input] {
+  @apply max-w-min;
+}
+
+[data-store-form] [data-store-checkbox] {
+  @apply my-4;
+}
+
+[data-store-form] [data-store-button] {
+  @apply bg-pink-700;
+}
