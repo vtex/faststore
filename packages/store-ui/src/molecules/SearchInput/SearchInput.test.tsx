@@ -5,12 +5,8 @@ import React from 'react'
 import type { SearchInputProps } from './SearchInput'
 import SearchInput from './SearchInput'
 
-const Wrapper = (otherProps: Partial<SearchInputProps>) => (
-  <SearchInput
-    {...otherProps}
-    onSubmit={(value) => value}
-    testId="search-input"
-  />
+const Wrapper = (props: Partial<SearchInputProps>) => (
+  <SearchInput {...props} onSubmit={(value) => value} testId="search-input" />
 )
 
 describe('SearchInput', () => {
