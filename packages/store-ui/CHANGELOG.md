@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.18 (2021-10-25)
+
+
+### Features
+
+* **store-ui:** Breadcrumb molecule ([#986](https://github.com/vtex/faststore/issues/986)) ([325c738](https://github.com/vtex/faststore/commit/325c7387089d2f2c7152191b54fc3cb4918f1c68))
+
+
+
+
+
 ## 1.2.17 (2021-10-21)
 
 
