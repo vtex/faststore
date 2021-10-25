@@ -2,7 +2,7 @@
   @apply bg-pink-100 max-w-xl p-10 text-center rounded-lg;
 }
 
-[data-store-form]>h2 {
+[data-store-form] > h2 {
   @apply text-sm;
 }
 

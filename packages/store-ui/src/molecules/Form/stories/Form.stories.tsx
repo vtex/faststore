@@ -57,7 +57,6 @@ export const Form = FormTemplate.bind({})
 
 export default {
   title: 'Molecules/Form',
-  component: Form,
   parameters: {
     docs: {
       page: mdx,
