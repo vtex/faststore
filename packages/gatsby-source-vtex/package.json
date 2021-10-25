@@ -35,7 +35,7 @@
     "slugify": "^1.4.6"
   },
   "peerDependencies": {
-    "gatsby": "^3.11.1",
+    "gatsby": "^3.11.1 || ^4.0.0",
     "graphql": "^15.0.0"
   },
   "devDependencies": {
