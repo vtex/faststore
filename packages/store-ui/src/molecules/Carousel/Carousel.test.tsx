@@ -314,7 +314,7 @@ describe('Carousel component', () => {
     })
 
     describe('Tablist', () => {
-      it('should have been focused when tablist or tab is focused', () => {
+      it('should be focused when a component with role `tablist` or `tab` is focused', () => {
         const { getByRole, getAllByRole } = render(
           <Carousel>
             <div>Slide 1</div>
@@ -558,7 +558,7 @@ describe('Carousel component', () => {
           expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
         })
 
-        it('check the tablist event is not prevented and stopped to propagate', () => {
+        it('check the tablist event is not prevented from propagating', () => {
           const mockPreventDefault = jest.fn()
           const { getByRole } = render(
             <Carousel>
