@@ -33,7 +33,7 @@
     "gatsby-plugin-nginx"
   ],
   "peerDependencies": {
-    "gatsby": "^3.11.1"
+    "gatsby": "^3.11.1 || ^4.0.0"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
