@@ -42,22 +42,18 @@ export const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
       value,
       formatter = (price) => price,
       variant = 'selling',
-      ...rawOtherProps
+      ...otherProps
     },
     ref
   ) {
     const formattedPrice = formatter(value, variant)
-
-    const otherProps = {
-      [`data-${variant}`]: true,
-      ...rawOtherProps,
-    }
 
     return (
       <Component
         ref={ref}
         data-store-price
         data-testid={testId}
+        data-variant={variant}
         {...otherProps}
       >
         {formattedPrice}

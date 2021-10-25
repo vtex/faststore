@@ -2,25 +2,25 @@
   @apply text-base;
 }
 
-[data-store-price][data-listing] {
+[data-store-price][data-variant='listing'] {
   @apply text-gray-400;
   @apply line-through;
 }
 
-[data-store-price][data-savings] {
+[data-store-price][data-variant='savings'] {
   @apply text-green-500;
 }
 
-[data-store-price][data-selling] {
+[data-store-price][data-variant='selling'] {
   @apply text-gray-400;
   @apply font-normal;
 }
 
-[data-store-price][data-spot] {
+[data-store-price][data-variant='spot'] {
   @apply font-bold text-4xl;
 }
 
-[data-store-price][data-installment] {
+[data-store-price][data-variant='installment'] {
   @apply text-gray-400;
   @apply font-normal;
 }
