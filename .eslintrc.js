@@ -16,8 +16,8 @@ module.exports = {
         'hooks.ts',
         // themes
         'theme.ts',
-        // store-ui is browser-only
-        'packages/store-ui/**/*',
+        // ui is browser-only
+        'packages/ui/**/*',
       ],
       extends: ['vtex-react/gatsby'],
     },

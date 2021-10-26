@@ -34,6 +34,6 @@ export default create({
   inputBorderRadius: 4,
 
   brandTitle: `Store UI v${version}`,
-  brandUrl: 'https://github.com/vtex/faststore/tree/master/packages/store-ui',
+  brandUrl: 'https://github.com/vtex/faststore/tree/master/packages/ui',
   brandImage: Logo,
 })

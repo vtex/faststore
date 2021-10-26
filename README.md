@@ -51,7 +51,7 @@ The priorities are all about the stores' user experience and retailer satisfacti
 ## Basic Architecture
 
 FastStore core is composed of two main packages:
-1. [`store-ui`](https://storeui.netlify.app/): A performant ecommerce ready component library
+1. [`ui`](https://storeui.netlify.app/): A performant ecommerce ready component library
 2. `store-sdk`: An SDK for ecommerce to solve your basic ecommerce needs, like cart, pixel management, session etc.
 
 These packages have bindings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc.
@@ -113,7 +113,7 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 | @vtex/gatsby-theme-store     | Creates the base infrastructure for the Store site                                  |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store)     |
 | @vtex/gatsby-plugin-thumbor  | Integrates thumbor service with gatsby-plugin-image                                  |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-thumbor.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-thumbor)     |
 | @vtex/lighthouse-config      | Exports a Lighthouse CI configuration to allow automatic tests on each Pull Request |      [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)      |
-| @vtex/store-ui               | Exports basic Store components. Checkout our [storybook](https://storeui.netlify.app/)                                                      |               [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-ui.svg)](https://badge.fury.io/js/%40vtex%2Fstore-ui)               |
+| @faststore/ui               | Exports basic Store components. Checkout our [storybook](https://storeui.netlify.app/)                                                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fui.svg)](https://badge.fury.io/js/%40faststore%2Fui)               |
 | @vtex/store-sdk               | Exports basic logic hooks for creating your custom ecommerce                      |               [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-sdk.svg)](https://badge.fury.io/js/%40vtex%2Fstore-sdk)               |
 
 
@@ -138,7 +138,7 @@ These are the clients running in production with FastStore:
 **Question:** I'm trying to add a dependency inside a specific package with `yarn add <package>`, but it's not working.
 
 **Answer:** Each package has a workspace, so you need to add libraries like this: `yarn workspace <workspace> add <package>`
-Example: `yarn workspace @vtex/store-ui add react-modal`
+Example: `yarn workspace @faststore/ui add react-modal`
 
 ## Getting help
 
