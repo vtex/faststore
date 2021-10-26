@@ -70,7 +70,7 @@ For more information look at the [styling discussion](https://github.com/vtex/fa
 
 ## Control the UI
 
-A ui component structures how its inner elements are arranged. This means that our atoms, molecules, and organisms can (and often will) control how the UI is displayed and arranged. Understand UI control as the opinions on how different elements should be displayed together. As an example, take the `LoadingButton` molecule. It is deliberately designed for the `Spinner` atom to appear inside the `Button` atom, not on its side. That's a way of enforcing UI control over a molecule.
+A FastStore UI component structures how its inner elements are arranged. This means that our atoms, molecules, and organisms can (and often will) control how the UI is displayed and arranged. Understand UI control as the opinions on how different elements should be displayed together. As an example, take the `LoadingButton` molecule. It is deliberately designed for the `Spinner` atom to appear inside the `Button` atom, not on its side. That's a way of enforcing UI control over a molecule.
 
 On atoms, however, this control doesn't apply the same way. We're following Atomic Design, which means that our atoms should represent core elements of a store, that are the mounting blocks for molecules and organisms. Enforcing tight UI control over an atom may decrease its reusability and increase the cost of maintenance, which are the main reasons they exist in the first place. Because of that, it's not recommended to make UI-controlled biased atoms, and that's why most of them have the `as` prop to allow users to control even which HTML element should be used by them.
 
