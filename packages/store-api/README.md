@@ -1,4 +1,4 @@
-# @vtex/store-api
+# @faststore/api
 
 The only API you need for building your next ecommerce. 
 
@@ -19,13 +19,13 @@ With the typedefs and resolvers, you can create an executable schema and deploy 
 ## Install
 
 ```bash
-yarn add @vtex/store-api
+yarn add @faststore/api
 ```
 
 ## Usage
 GraphQL is very versatile and can run in many places. To setup the schema in an apollo server, just:
 ```ts
-import { getSchema } from '@vtex/store-api'
+import { getSchema } from '@faststore/api'
 import { ApolloServer } from 'apollo-server'
 
 // Get the Store schema
@@ -45,7 +45,7 @@ GraphQL is a very versatile language. By using the exported `getSchema` function
 
 To extend the schema, one can:
 ```ts
-import { getSchema } from '@vtex/store-api'
+import { getSchema } from '@faststore/api'
 import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
 import { ApolloServer } from 'apollo-server'
 
@@ -91,11 +91,11 @@ If your ecommerce platform is not supported you have two options.
 1. Make a contribution
 2. Create inline resolvers for your platform
 
-Inline resolves means you are going to write all resolvers for the store-api schema in your project or in an external library. This is recommended if you are supporting a niche platform and want to have full control over how each field is processed.
+Inline resolves means you are going to write all resolvers for the api schema in your project or in an external library. This is recommended if you are supporting a niche platform and want to have full control over how each field is processed.
 
 To create your own resolvers, you can:
 ```ts
-import { getTypeDefs } from '@vtex/store-api'
+import { getTypeDefs } from '@faststore/api'
 import { ApolloServer } from 'apollo-server'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 

@@ -1,10 +1,10 @@
 {
-  "name": "@vtex/store-api",
+  "name": "@faststore/api",
   "version": "1.2.21",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "module": "dist/store-api.esm.js",
+  "module": "dist/api.esm.js",
   "files": [
     "dist",
     "src"

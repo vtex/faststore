@@ -1,16 +1,16 @@
 # gatsby-source-store
 
-Plugin for sourcing the store-api data layer into Gatsby.
+Plugin for sourcing the api data layer into Gatsby.
 
 ## Install
 ```
-yarn add @vtex/gatsby-source-store @vtex/store-api
+yarn add @vtex/gatsby-source-store @faststore/api
 ```
 
 # How to use
 ```js
 // In your gatsby-config.js
-const { getSchema } = require('@vtex/store-api')
+const { getSchema } = require('@faststore/api')
 
 const options = {
   platform: 'vtex',
@@ -42,7 +42,7 @@ This plugin brings additional options for you to control how the nodes are sourc
 
 > Tip: While sourcing large ecommerces, add the maxNumProducts and maxNumCollections so you can develop without waiting for the whole dataset to be downloaded. Maybe try something like:
 ```js
-const { getSchema } = require('@vtex/store-api')
+const { getSchema } = require('@faststore/api')
 
 const options = {
   platform: 'vtex',
