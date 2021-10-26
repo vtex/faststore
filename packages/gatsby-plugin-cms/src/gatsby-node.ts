@@ -72,6 +72,7 @@ export interface Options {
   workspace: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
   itemsPerPage?: number
+  preview?: boolean
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
@@ -82,6 +83,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
       .required()
       .valid('vtexcommercestable', 'vtexcommercebeta'),
     itemsPerPage: Joi.number(),
+    preview: Joi.boolean(),
   })
 
 interface CollectionsByType {
