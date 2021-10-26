@@ -5,7 +5,7 @@ The cart module lets you manage a platform agnostic, marketplace/coupon/gift/pro
 The `pure` mode is the simplest way of using the cart because it works entirely in the browser. The `pure` name was inspired in functional programming and stands for not causing side effects in the system. For every change to the cart, we store the cart's state in the browser's IndexedDB. Next time the user opens the site, their cart will hydrate from its last state.
 To use the cart, you need to add our cart provider and call the `useCart` hook like:
 ```tsx
-import { CartProvider, useCart } from '@vtex/store-sdk'
+import { CartProvider, useCart } from '@faststore/sdk'
 
 // In the App's root component:
 const App = ({children}) => {
@@ -24,7 +24,7 @@ const MyComponent = () => {
 The `optimistic` mode may cause side effects. This mode gives the developer a callback function where the developer can make requests and cause side effects to the cart. If this function returns `null`, this means the cart is good and nothing will be changed. If the developer wishes to change the state of the cart, he needs to return the new cart state on this function.
 To use the optimistic cart:
 ```tsx
-import { CartProvider, useCart, Cart } from '@vtex/store-sdk'
+import { CartProvider, useCart, Cart } from '@faststore/sdk'
 
 // In the App's root component:
 const validateCart = async (cart: Cart) => {

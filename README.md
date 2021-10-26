@@ -52,7 +52,7 @@ The priorities are all about the stores' user experience and retailer satisfacti
 
 FastStore core is composed of two main packages:
 1. [`ui`](https://storeui.netlify.app/): A performant ecommerce ready component library
-2. `store-sdk`: An SDK for ecommerce to solve your basic ecommerce needs, like cart, pixel management, session etc.
+2. `sdk`: An SDK for ecommerce to solve your basic ecommerce needs, like cart, pixel management, session etc.
 
 These packages have bindings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc.
 We also want to support other React frameworks in the future, such as Next.JS, or even React applications bootstrapped using Create React App
@@ -114,7 +114,7 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 | @vtex/gatsby-plugin-thumbor  | Integrates thumbor service with gatsby-plugin-image                                  |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-thumbor.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-thumbor)     |
 | @vtex/lighthouse-config      | Exports a Lighthouse CI configuration to allow automatic tests on each Pull Request |      [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)      |
 | @faststore/ui               | Exports basic Store components. Checkout our [storybook](https://storeui.netlify.app/)                                                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fui.svg)](https://badge.fury.io/js/%40faststore%2Fui)               |
-| @vtex/store-sdk               | Exports basic logic hooks for creating your custom ecommerce                      |               [![npm version](https://badge.fury.io/js/%40vtex%2Fstore-sdk.svg)](https://badge.fury.io/js/%40vtex%2Fstore-sdk)               |
+| @faststore/sdk               | Exports basic logic hooks for creating your custom ecommerce                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fsdk.svg)](https://badge.fury.io/js/%40faststore%2Fsdk)               |
 
 
 ## Who's using FastStore?
