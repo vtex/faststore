@@ -22,7 +22,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "gatsby": "^3.11.1"
+    "gatsby": "^3.11.1 || ^4.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.4",

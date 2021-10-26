@@ -4,8 +4,8 @@ import globby from 'globby'
 import { readJSON } from 'fs-extra'
 import type { ParentSpanPluginArgs } from 'gatsby'
 
+import type { TransformedContent } from './fetchNodes'
 import { PLUGIN } from '../../constants'
-import type { RemotePageContent } from './types'
 
 const localNodeKey = (path: string) => `${PLUGIN}:fixture:${path}`
 
@@ -28,7 +28,7 @@ export const fetchAllNodes = async (gatsbyApi: ParentSpanPluginArgs) => {
       const json = await readJSON(join(root, file))
       const id = localNodeKey(file)
 
-      return { ...json, remoteId: id, id } as RemotePageContent
+      return { ...json, remoteId: id, id } as TransformedContent
     })
   )
 

@@ -1,7 +1,7 @@
 import type { ParentSpanPluginArgs } from 'gatsby'
 
+import type { TransformedContent } from '../cms/fetchNodes'
 import { nodeId } from '../cms/sourceNode'
-import type { RemotePageContent } from '../cms/types'
 import type {
   ICollection,
   ICategoryCollection,
@@ -18,18 +18,20 @@ export type WithPLP<T> = T & { plp: string }
 
 export const getCollectionsFromPageContent = (
   gatsbyApi: ParentSpanPluginArgs,
-  nodes: RemotePageContent[]
+  nodes: TransformedContent[]
 ) => {
   const collectionBlocks: Array<WithPLP<ICollection>> = []
 
   for (const node of nodes) {
     // We only allow plp content types
-    if (node.type !== 'plp') {
+    if (node.contentType.id !== 'plp') {
       continue
     }
 
-    for (const extraBlock of node.extraBlocks) {
-      const block = extraBlock.blocks.find((x) => x.name === 'Collection')
+    for (const extraBlock of node.variant.configurationDataSets) {
+      const block = extraBlock.configurations.find(
+        (x) => x.name === 'Collection'
+      )
 
       if (block) {
         const props = (block.props as unknown) as ICollection
