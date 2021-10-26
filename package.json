@@ -1,7 +1,7 @@
 {
-  "name": "openstore",
+  "name": "faststore",
   "version": "0.0.0",
-  "description": "Plugins and libraries for building a lightning fast ecommerce in JAMStack",
+  "description": "Digital commerce toolkit for frontend developers.",
   "main": "index.js",
   "repository": "git@github.com:vtex/faststore.git",
   "license": "MIT",
