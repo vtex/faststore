@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.21 (2021-10-26)
+
+
+### Features
+
+* **store-ui:** Form molecule ([#1004](https://github.com/vtex/faststore/issues/1004)) ([c584ef6](https://github.com/vtex/faststore/commit/c584ef693d111ede70d27730ecb3cce613b9aba3))
+
+
+
+
+
 ## 1.2.20 (2021-10-26)
 
 **Note:** Version bump only for package @vtex/gatsby-source-store
