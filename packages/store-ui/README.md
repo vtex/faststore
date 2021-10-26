@@ -1,4 +1,4 @@
-# @vtex/store-ui
+# @faststore/ui
 
 > Next store component library
 
@@ -6,12 +6,12 @@
 
 ## Installation
 
-From the command line in your project directory, run npm install `@vtex/store-ui` or yarn add `@vtex/store-ui`.
+From the command line in your project directory, run npm install `@faststore/ui` or yarn add `@faststore/ui`.
 
 ```cmd
-npm install @vtex/store-ui
+npm install @faststore/ui
 # or
-yarn add @vtex/store-ui
+yarn add @faststore/ui
 ```
 
 For style, you can use our default theme. To install:
@@ -25,14 +25,14 @@ yarn add @vtex/theme-b2c-tailwind
 ## Usage
 
 ```tsx
-import { Button } from '@vtex/store-ui'
+import { Button } from '@faststore/ui'
 import '@vtex/theme-b2c-tailwind/dist/index.css'
 ```
 
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from '@vtex/store-ui'
+import MyComponent from '@faststore/ui'
 
 class Example extends Component {
   render() {
