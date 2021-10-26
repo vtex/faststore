@@ -2,7 +2,7 @@
 
 > Next store component library
 
-[![NPM](https://img.shields.io/npm/v/@vtex/store-ui.svg)](https://www.npmjs.com/package/@vtex/store-ui) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/@faststore/ui.svg)](https://www.npmjs.com/package/@faststore/ui) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Installation
 

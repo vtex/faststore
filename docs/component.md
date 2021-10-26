@@ -63,7 +63,7 @@ Components must be composable and should have a single responsibility ([SRP](htt
 ```tsx
 // ProductList.tsx
 import React, { FC } from 'react'
-import { Box } from '@vtex/store-ui'
+import { Box } from '@faststore/ui'
 
 interface Product {
   name: string

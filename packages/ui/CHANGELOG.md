@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Form molecule ([#1004](https://github.com/vtex/faststore/issues/1004)) ([c584ef6](https://github.com/vtex/faststore/commit/c584ef693d111ede70d27730ecb3cce613b9aba3))
+* **ui:** Form molecule ([#1004](https://github.com/vtex/faststore/issues/1004)) ([c584ef6](https://github.com/vtex/faststore/commit/c584ef693d111ede70d27730ecb3cce613b9aba3))
 
 
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.20 (2021-10-26)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.19 (2021-10-25)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -54,7 +54,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Breadcrumb molecule ([#986](https://github.com/vtex/faststore/issues/986)) ([325c738](https://github.com/vtex/faststore/commit/325c7387089d2f2c7152191b54fc3cb4918f1c68))
+* **ui:** Breadcrumb molecule ([#986](https://github.com/vtex/faststore/issues/986)) ([325c738](https://github.com/vtex/faststore/commit/325c7387089d2f2c7152191b54fc3cb4918f1c68))
 
 
 
@@ -65,12 +65,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Loading Button molecule ([#962](https://github.com/vtex/faststore/issues/962)) ([6083ea0](https://github.com/vtex/faststore/commit/6083ea0273646a09e66ceedfab4b17c3960ac9fc)), closes [#918](https://github.com/vtex/faststore/issues/918) [#911](https://github.com/vtex/faststore/issues/911)
+* **ui:** Loading Button molecule ([#962](https://github.com/vtex/faststore/issues/962)) ([6083ea0](https://github.com/vtex/faststore/commit/6083ea0273646a09e66ceedfab4b17c3960ac9fc)), closes [#918](https://github.com/vtex/faststore/issues/918) [#911](https://github.com/vtex/faststore/issues/911)
 
 
 ### BREAKING CHANGES
 
-* **store-ui:** Remove deprecated folders (#927)
+* **ui:** Remove deprecated folders (#927)
 
 
 
@@ -81,7 +81,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Label atom ([#1001](https://github.com/vtex/faststore/issues/1001)) ([3306ea6](https://github.com/vtex/faststore/commit/3306ea6b9b48996574eac4b8c1b737dff94a438e))
+* **ui:** Label atom ([#1001](https://github.com/vtex/faststore/issues/1001)) ([3306ea6](https://github.com/vtex/faststore/commit/3306ea6b9b48996574eac4b8c1b737dff94a438e))
 
 
 
@@ -92,7 +92,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **store-ui:** Fix search-input a11y ([#1000](https://github.com/vtex/faststore/issues/1000)) ([f052f46](https://github.com/vtex/faststore/commit/f052f465e21aa4e2ca047327eeb0610b9b979f10))
+* **ui:** Fix search-input a11y ([#1000](https://github.com/vtex/faststore/issues/1000)) ([f052f46](https://github.com/vtex/faststore/commit/f052f465e21aa4e2ca047327eeb0610b9b979f10))
 
 
 
@@ -111,7 +111,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.13 (2021-10-20)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -119,7 +119,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.12 (2021-10-18)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -127,7 +127,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.11 (2021-10-18)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -138,7 +138,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **store-ui:** Component Architecture doc's code snippets ([#997](https://github.com/vtex/faststore/issues/997)) ([7f0d5f3](https://github.com/vtex/faststore/commit/7f0d5f307014f794063dd8d94d873478803888c0))
+* **ui:** Component Architecture doc's code snippets ([#997](https://github.com/vtex/faststore/issues/997)) ([7f0d5f3](https://github.com/vtex/faststore/commit/7f0d5f307014f794063dd8d94d873478803888c0))
 
 
 
@@ -146,7 +146,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.9 (2021-10-18)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -154,7 +154,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.8 (2021-10-15)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -162,7 +162,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.7 (2021-10-15)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -170,7 +170,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.6 (2021-10-15)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -178,7 +178,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.5 (2021-10-15)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -189,7 +189,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Accordion molecule ([#985](https://github.com/vtex/faststore/issues/985)) ([a35fb51](https://github.com/vtex/faststore/commit/a35fb51b675e41af6070da8b521a3a4da25a0d65))
+* **ui:** Accordion molecule ([#985](https://github.com/vtex/faststore/issues/985)) ([a35fb51](https://github.com/vtex/faststore/commit/a35fb51b675e41af6070da8b521a3a4da25a0d65))
 
 
 
@@ -197,7 +197,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.3 (2021-10-14)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -205,7 +205,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.2 (2021-10-13)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -213,7 +213,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.2.1 (2021-10-08)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -221,7 +221,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.1.18 (2021-10-05)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -265,7 +265,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Add Modal molecule ([#957](https://github.com/vtex/faststore/issues/957)) ([530b308](https://github.com/vtex/faststore/commit/530b3085a5707be459b37757844ce2e52b2f2981))
+* **ui:** Add Modal molecule ([#957](https://github.com/vtex/faststore/issues/957)) ([530b308](https://github.com/vtex/faststore/commit/530b3085a5707be459b37757844ce2e52b2f2981))
 
 
 
@@ -273,7 +273,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.1.13 (2021-09-23)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -295,12 +295,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Spinner atom ([#961](https://github.com/vtex/faststore/issues/961)) ([59034b7](https://github.com/vtex/faststore/commit/59034b726ac83c79f591cd24739a8c15316c92b3)), closes [#918](https://github.com/vtex/faststore/issues/918) [#911](https://github.com/vtex/faststore/issues/911)
+* **ui:** Spinner atom ([#961](https://github.com/vtex/faststore/issues/961)) ([59034b7](https://github.com/vtex/faststore/commit/59034b726ac83c79f591cd24739a8c15316c92b3)), closes [#918](https://github.com/vtex/faststore/issues/918) [#911](https://github.com/vtex/faststore/issues/911)
 
 
 ### BREAKING CHANGES
 
-* **store-ui:** Remove deprecated folders (#927)
+* **ui:** Remove deprecated folders (#927)
 
 
 
@@ -319,7 +319,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.1.9 (2021-09-15)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -341,7 +341,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Add Skeleton Atom ([#911](https://github.com/vtex/faststore/issues/911)) ([ef25cde](https://github.com/vtex/faststore/commit/ef25cdea6f6e344b4005ecd2ec0c80d959df35b0))
+* **ui:** Add Skeleton Atom ([#911](https://github.com/vtex/faststore/issues/911)) ([ef25cde](https://github.com/vtex/faststore/commit/ef25cdea6f6e344b4005ecd2ec0c80d959df35b0))
 
 
 
@@ -349,7 +349,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.1.6 (2021-09-09)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -379,7 +379,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.1.3 (2021-09-08)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -390,7 +390,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** adding list atom ([#918](https://github.com/vtex/faststore/issues/918)) ([72c3b2e](https://github.com/vtex/faststore/commit/72c3b2eeac85c784bbee310898b24823c2c18c3a))
+* **ui:** adding list atom ([#918](https://github.com/vtex/faststore/issues/918)) ([72c3b2e](https://github.com/vtex/faststore/commit/72c3b2eeac85c784bbee310898b24823c2c18c3a))
 
 
 
@@ -398,7 +398,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.1.1 (2021-09-01)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -406,7 +406,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [1.0.3](https://github.com/vtex/faststore/compare/v1.1.0...v1.0.3) (2021-09-01)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -414,7 +414,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.0.2 (2021-09-01)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -422,7 +422,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.0.1 (2021-08-31)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -430,7 +430,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.36 (2021-08-31)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -438,7 +438,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.35 (2021-08-30)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -449,7 +449,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** price range ([#924](https://github.com/vtex/faststore/issues/924)) ([e5c5d9a](https://github.com/vtex/faststore/commit/e5c5d9aade59d91aead75af6a09d7db3cc67348e))
+* **ui:** price range ([#924](https://github.com/vtex/faststore/issues/924)) ([e5c5d9a](https://github.com/vtex/faststore/commit/e5c5d9aade59d91aead75af6a09d7db3cc67348e))
 
 
 
@@ -460,7 +460,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** slider ([#917](https://github.com/vtex/faststore/issues/917)) ([15a5f82](https://github.com/vtex/faststore/commit/15a5f826f3ad0054934c5092a2def4cd8d2a7c3c))
+* **ui:** slider ([#917](https://github.com/vtex/faststore/issues/917)) ([15a5f82](https://github.com/vtex/faststore/commit/15a5f826f3ad0054934c5092a2def4cd8d2a7c3c))
 
 
 
@@ -468,7 +468,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.32 (2021-08-27)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -476,7 +476,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.31 (2021-08-27)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -509,7 +509,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Add IconButton Molecule ([#900](https://github.com/vtex/faststore/issues/900)) ([0114409](https://github.com/vtex/faststore/commit/0114409d7efb8e5146d2b17b5fc5500ceb16b7bf))
+* **ui:** Add IconButton Molecule ([#900](https://github.com/vtex/faststore/issues/900)) ([0114409](https://github.com/vtex/faststore/commit/0114409d7efb8e5146d2b17b5fc5500ceb16b7bf))
 
 
 
@@ -520,7 +520,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Create Badge component ([#894](https://github.com/vtex/faststore/issues/894)) ([1438be3](https://github.com/vtex/faststore/commit/1438be37e9670028b263b2331bb7671cebcf4392))
+* **ui:** Create Badge component ([#894](https://github.com/vtex/faststore/issues/894)) ([1438be3](https://github.com/vtex/faststore/commit/1438be37e9670028b263b2331bb7671cebcf4392))
 
 
 
@@ -528,7 +528,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.26 (2021-08-24)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -550,7 +550,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** radio component ([#906](https://github.com/vtex/faststore/issues/906)) ([06ef1dd](https://github.com/vtex/faststore/commit/06ef1dd3aa0cda304f4341697859c9b0fc16cfc2))
+* **ui:** radio component ([#906](https://github.com/vtex/faststore/issues/906)) ([06ef1dd](https://github.com/vtex/faststore/commit/06ef1dd3aa0cda304f4341697859c9b0fc16cfc2))
 
 
 
@@ -561,7 +561,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Adding select atom ([#876](https://github.com/vtex/faststore/issues/876)) ([3276269](https://github.com/vtex/faststore/commit/3276269813b6208b88d7178293b9550b2b05cc77))
+* **ui:** Adding select atom ([#876](https://github.com/vtex/faststore/issues/876)) ([3276269](https://github.com/vtex/faststore/commit/3276269813b6208b88d7178293b9550b2b05cc77))
 
 
 
@@ -569,7 +569,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.22 (2021-08-23)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -580,7 +580,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **store-ui:** Remove unnecessary ID and improve a11y ([#915](https://github.com/vtex/faststore/issues/915)) ([7ee629d](https://github.com/vtex/faststore/commit/7ee629d6b738ed67332000e47ebdb9fcb5dc2883))
+* **ui:** Remove unnecessary ID and improve a11y ([#915](https://github.com/vtex/faststore/issues/915)) ([7ee629d](https://github.com/vtex/faststore/commit/7ee629d6b738ed67332000e47ebdb9fcb5dc2883))
 
 
 
@@ -588,7 +588,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.20 (2021-08-18)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -607,7 +607,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.18 (2021-08-18)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -618,7 +618,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Overlay Atom Component ([#890](https://github.com/vtex/faststore/issues/890)) ([a0757bc](https://github.com/vtex/faststore/commit/a0757bcf1155084f5b66f4625f47c8efa18285b3))
+* **ui:** Overlay Atom Component ([#890](https://github.com/vtex/faststore/issues/890)) ([a0757bc](https://github.com/vtex/faststore/commit/a0757bcf1155084f5b66f4625f47c8efa18285b3))
 
 
 
@@ -626,7 +626,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.16 (2021-08-17)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -637,7 +637,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Create Carousel component and useSlider hook ([#815](https://github.com/vtex/faststore/issues/815)) ([f46108c](https://github.com/vtex/faststore/commit/f46108c038402f003c7157833efb052554d339d4))
+* **ui:** Create Carousel component and useSlider hook ([#815](https://github.com/vtex/faststore/issues/815)) ([f46108c](https://github.com/vtex/faststore/commit/f46108c038402f003c7157833efb052554d339d4))
 
 
 
@@ -659,7 +659,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Basic CSS theme and theme-addon for Storybook  ([#828](https://github.com/vtex/faststore/issues/828)) ([e7338ad](https://github.com/vtex/faststore/commit/e7338adda76a090b0cd55c72a2e0867c92e15fb0))
+* **ui:** Basic CSS theme and theme-addon for Storybook  ([#828](https://github.com/vtex/faststore/issues/828)) ([e7338ad](https://github.com/vtex/faststore/commit/e7338adda76a090b0cd55c72a2e0867c92e15fb0))
 
 
 
@@ -667,7 +667,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.12 (2021-08-12)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -675,7 +675,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.11 (2021-08-12)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -683,7 +683,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.10 (2021-08-12)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -691,7 +691,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.9 (2021-08-12)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -699,7 +699,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.8 (2021-08-11)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -707,7 +707,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.7 (2021-08-11)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -715,7 +715,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.6 (2021-08-11)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -723,7 +723,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.5 (2021-08-10)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -731,7 +731,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.4 (2021-08-10)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -739,7 +739,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.3 (2021-08-10)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -747,7 +747,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.2 (2021-08-05)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -755,7 +755,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.373.1 (2021-08-05)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -774,7 +774,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.372.21 (2021-07-29)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -804,7 +804,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.372.18 (2021-07-27)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -826,7 +826,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **store-ui:** Fix bullets iterator ([#824](https://github.com/vtex/faststore/issues/824)) ([74034a6](https://github.com/vtex/faststore/commit/74034a667a6b4f40602ec179575bcedaf18c4af4))
+* **ui:** Fix bullets iterator ([#824](https://github.com/vtex/faststore/issues/824)) ([74034a6](https://github.com/vtex/faststore/commit/74034a667a6b4f40602ec179575bcedaf18c4af4))
 
 
 
@@ -834,7 +834,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.372.15 (2021-07-15)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -845,7 +845,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** update accordion version ([#820](https://github.com/vtex/faststore/issues/820)) ([624060a](https://github.com/vtex/faststore/commit/624060a1a88740794f82bb4d5782f896dc80695f))
+* **ui:** update accordion version ([#820](https://github.com/vtex/faststore/issues/820)) ([624060a](https://github.com/vtex/faststore/commit/624060a1a88740794f82bb4d5782f896dc80695f))
 
 
 
@@ -853,7 +853,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.372.13 (2021-07-14)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -861,7 +861,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.372.12 (2021-07-14)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -869,7 +869,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.372.11 (2021-07-14)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -888,7 +888,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.372.9 (2021-07-12)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -910,7 +910,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Adding data-testid to our components  ([#530](https://github.com/vtex/faststore/issues/530)) ([eed2760](https://github.com/vtex/faststore/commit/eed2760438b3f83fd997ebb76e2794cfd56449aa))
+* **ui:** Adding data-testid to our components  ([#530](https://github.com/vtex/faststore/issues/530)) ([eed2760](https://github.com/vtex/faststore/commit/eed2760438b3f83fd997ebb76e2794cfd56449aa))
 
 
 
@@ -921,7 +921,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** Checkbox atom component ([#813](https://github.com/vtex/faststore/issues/813)) ([36834fa](https://github.com/vtex/faststore/commit/36834fa572305ca26c1fea8e60e011ff768bc13e))
+* **ui:** Checkbox atom component ([#813](https://github.com/vtex/faststore/issues/813)) ([36834fa](https://github.com/vtex/faststore/commit/36834fa572305ca26c1fea8e60e011ff768bc13e))
 
 
 
@@ -940,7 +940,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.372.4 (2021-07-08)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -981,7 +981,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.371.38 (2021-07-06)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -1000,7 +1000,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.371.36 (2021-07-05)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -1008,7 +1008,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.371.35 (2021-07-05)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -1038,7 +1038,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.371.32 (2021-07-01)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -1049,7 +1049,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **store-ui:** components migration to .tsx + .mdx and update storybook version to v6.3 ([#782](https://github.com/vtex/faststore/issues/782)) ([9c8da3c](https://github.com/vtex/faststore/commit/9c8da3cc050e30916303b495b00532bde6c6328d))
+* **ui:** components migration to .tsx + .mdx and update storybook version to v6.3 ([#782](https://github.com/vtex/faststore/issues/782)) ([9c8da3c](https://github.com/vtex/faststore/commit/9c8da3cc050e30916303b495b00532bde6c6328d))
 
 
 
@@ -1079,7 +1079,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.371.28 (2021-06-30)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -1087,7 +1087,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.371.27 (2021-06-30)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -1095,7 +1095,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.371.26 (2021-06-29)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -1136,7 +1136,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.373.0-alpha.3](https://github.com/vtex/faststore/compare/v0.373.0-alpha.2...v0.373.0-alpha.3) (2021-06-25)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui
 
 
 
@@ -1144,4 +1144,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.373.0-alpha.2](https://github.com/vtex/faststore/compare/v0.373.0-alpha.1...v0.373.0-alpha.2) (2021-06-25)
 
-**Note:** Version bump only for package @vtex/store-ui
+**Note:** Version bump only for package @faststore/ui

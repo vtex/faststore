@@ -59,7 +59,7 @@ The SFJ Store Components starter is set up as in the following:
 
 - In the [`faststore/packages/gatsby-theme-store`](https://github.com/vtex/faststore/tree/master/packages/gatsby-theme-store/src) folder, you'll find a basic store pages structure.
 
-- In the [store-ui](https://github.com/vtex/faststore/tree/master/packages/store-ui/src) folder, you'll find the building blocks components.
+- In the [ui](https://github.com/vtex/faststore/tree/master/packages/ui/src) folder, you'll find the building blocks components.
 
 Additionally, you will find a piece of information inside many of our theme components, which aims to quickly guide you on how to use that component/page.
 
