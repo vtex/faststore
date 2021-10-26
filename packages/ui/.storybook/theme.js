@@ -33,7 +33,7 @@ export default create({
   inputTextColor: 'black',
   inputBorderRadius: 4,
 
-  brandTitle: `Store UI v${version}`,
+  brandTitle: `FastStore UI v${version}`,
   brandUrl: 'https://github.com/vtex/faststore/tree/master/packages/ui',
   brandImage: Logo,
 })
