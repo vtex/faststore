@@ -93,6 +93,9 @@ export type {
   TableRowProps,
 } from './molecules/Table'
 
+export { default as Form } from './molecules/Form'
+export type { FormProps } from './molecules/Form'
+
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
 export type {

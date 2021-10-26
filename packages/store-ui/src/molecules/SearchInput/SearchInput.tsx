@@ -9,6 +9,7 @@ import React, { forwardRef, useRef } from 'react'
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 import Input from '../../atoms/Input'
+import Form from '../Form'
 
 const SearchIcon = () => (
   <svg
@@ -71,7 +72,7 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
     }
 
     return (
-      <form
+      <Form
         ref={ref}
         data-store-search-input
         data-testid={testId}
@@ -81,7 +82,7 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
         <Button type="submit" aria-label={`button-${ariaLabel}`}>
           <Icon component={icon ?? <SearchIcon />} />
         </Button>
-      </form>
+      </Form>
     )
   }
 )
