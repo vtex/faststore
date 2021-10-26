@@ -82,7 +82,7 @@ The opinions that guide UI control should be based on research. The goal is to h
 
 Dan Abramov, one of React's maintainers, wrote a great [article](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) in 2015 about what he then called Smart and Dumb components. He later renamed them to Presentational and Container Components, but the idea is the same: to increase UI reusability, people should build two components: one that deals with UI and one that deals with logic.
 
-When building more complex molecules or organisms, we should follow that pattern. In ui, a component that's concerned about UI is called a Pure component. As Dan Abramov wrote in his article, Pure components often don't depend on other parts of the code and rarely have any state inside themselves. It's a way to guide users on how a certain element of the screen should look (UI control), but not how it should behave.
+When building more complex molecules or organisms, we should follow that pattern. In the UI package, a component that's concerned about UI is called a Pure component. As Dan Abramov wrote in his article, Pure components often don't depend on other parts of the code and rarely have any state inside themselves. It's a way to guide users on how a certain element of the screen should look (UI control), but not how it should behave.
 
 By following this pattern, we're building a library that focuses on the UI elements, not on the behavior. Users shouldn't need to fork ui's code because it limits them behavior-wise. Components can - and should - enforce UI control when needed, but they shouldn't do the same when it comes to their functionality.
 
