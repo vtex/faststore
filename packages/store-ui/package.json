@@ -7,10 +7,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",
-    "directory": "packages/store-ui"
+    "directory": "packages/ui"
   },
   "main": "dist/index.js",
-  "module": "dist/store-ui.esm.js",
+  "module": "dist/ui.esm.js",
   "typings": "dist/index.d.ts",
   "sideEffects": false,
   "engines": {
@@ -42,11 +42,11 @@
   },
   "size-limit": [
     {
-      "path": "dist/store-ui.cjs.production.min.js",
+      "path": "dist/ui.cjs.production.min.js",
       "limit": "20 KB"
     },
     {
-      "path": "dist/store-ui.esm.js",
+      "path": "dist/ui.esm.js",
       "limit": "20 KB"
     }
   ],
