@@ -7,7 +7,7 @@ export interface RadioProps
 }
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
-  { testId = 'store-radio', ...props }: RadioProps,
+  { testId = 'store-radio', ...otherProps }: RadioProps,
   ref
 ) {
   return (
@@ -16,7 +16,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
       data-store-radio
       data-testid={testId}
       type="radio"
-      {...props}
+      {...otherProps}
     />
   )
 })

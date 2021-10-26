@@ -56,7 +56,7 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
       icon,
       'aria-label': ariaLabel = 'search',
       testId = 'store-search-input',
-      ...props
+      ...otherProps
     },
     ref
   ) {
@@ -77,7 +77,7 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
         data-testid={testId}
         onSubmit={handleSubmit}
       >
-        <Input ref={valueRef} aria-label={ariaLabel} {...props} />
+        <Input ref={valueRef} aria-label={ariaLabel} {...otherProps} />
         <Button type="submit" aria-label={`button-${ariaLabel}`}>
           <Icon component={icon ?? <SearchIcon />} />
         </Button>

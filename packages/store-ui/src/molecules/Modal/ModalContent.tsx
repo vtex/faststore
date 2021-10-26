@@ -26,7 +26,7 @@ const ModalContentPure = ({
   afterElementRef,
   testId = 'store-modal-content',
   children,
-  ...props
+  ...otherProps
 }: ModalContentPureProps) => {
   return (
     <>
@@ -38,7 +38,7 @@ const ModalContentPure = ({
       />
       <div
         data-store-modal-content
-        {...props}
+        {...otherProps}
         data-testid={testId}
         ref={trapFocusRef}
         aria-modal="true"
@@ -62,7 +62,7 @@ export type ModalContentProps = Omit<
   'trapFocusRef' | 'onClick' | 'beforeElementRef' | 'afterElementRef'
 >
 
-const ModalContent = ({ children, ...props }: ModalContentProps) => {
+const ModalContent = ({ children, ...otherProps }: ModalContentProps) => {
   const trapFocusRef = useRef<HTMLDivElement>(null)
   const beforeElementRef = useRef<HTMLDivElement>(null)
   const afterElementRef = useRef<HTMLDivElement>(null)
@@ -75,7 +75,7 @@ const ModalContent = ({ children, ...props }: ModalContentProps) => {
 
   return (
     <ModalContentPure
-      {...props}
+      {...otherProps}
       trapFocusRef={trapFocusRef}
       beforeElementRef={beforeElementRef}
       afterElementRef={afterElementRef}

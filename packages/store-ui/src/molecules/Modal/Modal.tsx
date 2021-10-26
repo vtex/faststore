@@ -44,7 +44,7 @@ const Modal = ({
   children,
   onDismiss,
   testId = 'store-modal',
-  ...props
+  ...otherProps
 }: PropsWithChildren<ModalProps>) => {
   const handleBackdropClick = (event: MouseEvent) => {
     if (event.defaultPrevented) {
@@ -71,7 +71,7 @@ const Modal = ({
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
         >
-          <ModalContent {...props} testId={testId}>
+          <ModalContent {...otherProps} testId={testId}>
             {children}
           </ModalContent>
         </Overlay>,

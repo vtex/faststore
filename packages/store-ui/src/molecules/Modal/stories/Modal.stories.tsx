@@ -9,7 +9,7 @@ import mdx from './Modal.mdx'
 
 const ModalTemplate: Story<PropsWithChildren<ModalProps>> = ({
   children,
-  ...props
+  ...otherProps
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const handleClose = () => setIsOpen(false)
@@ -18,7 +18,7 @@ const ModalTemplate: Story<PropsWithChildren<ModalProps>> = ({
     <>
       <Button onClick={() => setIsOpen(!isOpen)}>Open Modal</Button>
       <Component
-        {...props}
+        {...otherProps}
         isOpen={isOpen}
         aria-label="Storybook Modal"
         onDismiss={handleClose}

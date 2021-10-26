@@ -9,11 +9,11 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { children, testId = 'store-select', ...props },
+  { children, testId = 'store-select', ...otherProps },
   ref
 ) {
   return (
-    <select ref={ref} data-store-select data-testid={testId} {...props}>
+    <select ref={ref} data-store-select data-testid={testId} {...otherProps}>
       {children}
     </select>
   )

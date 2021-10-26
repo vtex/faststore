@@ -10,11 +10,11 @@ export interface ButtonProps<T = HTMLButtonElement>
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { children, testId = 'store-button', ...props },
+  { children, testId = 'store-button', ...otherProps },
   ref
 ) {
   return (
-    <button ref={ref} data-store-button data-testid={testId} {...props}>
+    <button ref={ref} data-store-button data-testid={testId} {...otherProps}>
       {children}
     </button>
   )

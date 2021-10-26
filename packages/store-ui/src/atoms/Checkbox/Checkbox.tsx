@@ -10,7 +10,7 @@ export interface CheckboxProps
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
-  { testId = 'store-checkbox', ...props }: CheckboxProps,
+  { testId = 'store-checkbox', ...otherProps }: CheckboxProps,
   ref
 ) {
   return (
@@ -19,7 +19,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
       data-store-checkbox
       data-testid={testId}
       type="checkbox"
-      {...props}
+      {...otherProps}
     />
   )
 })

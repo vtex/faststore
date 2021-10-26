@@ -9,10 +9,12 @@ export interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton(
-  { testId = 'store-skeleton', ...props },
+  { testId = 'store-skeleton', ...otherProps },
   ref
 ) {
-  return <div ref={ref} data-store-skeleton data-testid={testId} {...props} />
+  return (
+    <div ref={ref} data-store-skeleton data-testid={testId} {...otherProps} />
+  )
 })
 
 export default Skeleton

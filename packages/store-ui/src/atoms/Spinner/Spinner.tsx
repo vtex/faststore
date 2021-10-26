@@ -8,10 +8,12 @@ export type SpinnerProps = {
 }
 
 const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(function Spinner(
-  { children, testId = 'store-spinner', ...props },
+  { children, testId = 'store-spinner', ...otherProps },
   ref
 ) {
-  return <span ref={ref} data-store-spinner data-testid={testId} {...props} />
+  return (
+    <span ref={ref} data-store-spinner data-testid={testId} {...otherProps} />
+  )
 })
 
 export default Spinner

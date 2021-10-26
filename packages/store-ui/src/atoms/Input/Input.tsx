@@ -14,7 +14,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { variant, testId = 'store-input', ...props },
+  { variant, testId = 'store-input', ...otherProps },
   ref
 ) {
   const variants = {
@@ -28,7 +28,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       data-store-input
       data-testid={testId}
       {...variants}
-      {...props}
+      {...otherProps}
     />
   )
 })

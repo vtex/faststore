@@ -14,7 +14,10 @@ export interface TextAreaProps
 }
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  function TextArea({ variant, testId = 'store-textarea', ...props }, ref) {
+  function TextArea(
+    { variant, testId = 'store-textarea', ...otherProps },
+    ref
+  ) {
     const variants = {
       'data-success': variant === 'success' || undefined,
       'data-error': variant === 'error' || undefined,
@@ -26,7 +29,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         data-store-textarea
         data-testid={testId}
         {...variants}
-        {...props}
+        {...otherProps}
       />
     )
   }

@@ -11,7 +11,7 @@ type OverlayStoryProps = OverlayProps & { color: ColorType }
 
 const OverlayTemplate: Story<OverlayStoryProps> = ({
   color = 'black',
-  ...props
+  ...otherProps
 }) => {
   const dataColor =
     color === 'black' ? { 'data-black': true } : { 'data-green': true }
@@ -19,7 +19,7 @@ const OverlayTemplate: Story<OverlayStoryProps> = ({
   return (
     <div data-story-overlay-out-container>
       A content outside me
-      <Component {...props} {...dataColor} />
+      <Component {...otherProps} {...dataColor} />
     </div>
   )
 }

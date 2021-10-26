@@ -11,16 +11,22 @@ describe('Price', () => {
     expect(getByTestId('store-price')).toHaveAttribute('data-store-price')
   })
 
-  it('`data-selling` is present if no variant is defined', () => {
+  it('`data-variant` is equal to `selling` if no variant is defined', () => {
     const { getByTestId } = render(<Price value={32.5} />)
 
-    expect(getByTestId('store-price')).toHaveAttribute('data-selling')
+    expect(getByTestId('store-price')).toHaveAttribute(
+      'data-variant',
+      'selling'
+    )
   })
 
-  it('`data-listing` is present if variant is listing', () => {
+  it('`data-variant` is equal to `listing` if variant is listing', () => {
     const { getByTestId } = render(<Price value={32.5} variant="listing" />)
 
-    expect(getByTestId('store-price')).toHaveAttribute('data-listing')
+    expect(getByTestId('store-price')).toHaveAttribute(
+      'data-variant',
+      'listing'
+    )
   })
 
   it('returns unaltered value if no formatter is provided', () => {
