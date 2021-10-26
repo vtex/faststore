@@ -84,7 +84,7 @@ Dan Abramov, one of React's maintainers, wrote a great [article](https://medium.
 
 When building more complex molecules or organisms, we should follow that pattern. In ui, a component that's concerned about UI is called a Pure component. As Dan Abramov wrote in his article, Pure components often don't depend on other parts of the code and rarely have any state inside themselves. It's a way to guide users on how a certain element of the screen should look (UI control), but not how it should behave.
 
-By following this pattern, we're building a library that focuses on the UI (hence store-_ui_) elements, not on the behavior. Users shouldn't need to fork ui's code because it limits them behavior-wise. Components can - and should - enforce UI control when needed, but they shouldn't do the same when it comes to their functionality.
+By following this pattern, we're building a library that focuses on the UI elements, not on the behavior. Users shouldn't need to fork ui's code because it limits them behavior-wise. Components can - and should - enforce UI control when needed, but they shouldn't do the same when it comes to their functionality.
 
 That doesn't mean ui components can't contain any behavior, state, or logic: they can, but these qualities should be separate from Pure components. Take the Modal molecule as an example: there's a ModalPure component, that contains only jsx tags with simple definitions on how the component should look, and a Modal component, that uses the ModalPure component and its callback props to control how it should behave.
 
