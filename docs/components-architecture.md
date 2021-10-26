@@ -86,7 +86,7 @@ When building more complex molecules or organisms, we should follow that pattern
 
 By following this pattern, we're building a library that focuses on the UI elements, not on the behavior. Users shouldn't need to fork UI package's code because it limits them behavior-wise. Components can - and should - enforce UI control when needed, but they shouldn't do the same when it comes to their functionality.
 
-That doesn't mean ui components can't contain any behavior, state, or logic: they can, but these qualities should be separate from Pure components. Take the Modal molecule as an example: there's a ModalPure component, that contains only jsx tags with simple definitions on how the component should look, and a Modal component, that uses the ModalPure component and its callback props to control how it should behave.
+That doesn't mean UI components can't contain any behavior, state, or logic: they can, but these qualities should be separate from Pure components. Take the Modal molecule as an example: there's a ModalPure component, that contains only jsx tags with simple definitions on how the component should look, and a Modal component, that uses the ModalPure component and its callback props to control how it should behave.
 
 > :information: Although Pure components are being built, they shouldn't be exported. ui wants to have a cohesive API, which is hard to have if its size increases rapidly without any real user data to base these decisions. Research is being done on when Pure components should be released and available to the public and how users will leverage them. Until then, only the regular versions of the components should be exported (containing behavior and logic).
 
