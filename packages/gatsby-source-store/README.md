@@ -1,6 +1,6 @@
 # gatsby-source-store
 
-Plugin for sourcing the api data layer into Gatsby.
+Plugin for sourcing the API data layer into Gatsby.
 
 ## Install
 ```
