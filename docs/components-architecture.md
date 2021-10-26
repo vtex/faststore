@@ -1,4 +1,4 @@
-# Conditions of satisfaction for a ui component
+# Conditions of satisfaction for the components on the UI package
 
 ## Data Attributes for styling
 
