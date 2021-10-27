@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react'
+import type { KeyboardEvent, PropsWithChildren } from 'react'
 import React, { useMemo } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
@@ -86,6 +86,55 @@ function Carousel({
 
   const slides = preRenderedSlides.concat(children ?? [], postRenderedSlides)
 
+  const slidePrevious = () => {
+    if (
+      sliderState.sliding ||
+      (!infiniteMode && sliderState.currentPage === 0)
+    ) {
+      return
+    }
+
+    slide('previous', sliderDispatch)
+  }
+
+  const slideNext = () => {
+    if (
+      sliderState.sliding ||
+      (!infiniteMode && sliderState.currentPage === childrenCount - 1)
+    ) {
+      return
+    }
+
+    slide('next', sliderDispatch)
+  }
+
+  // accessible behavior for tablist
+  const handleBulletsKeyDown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case 'ArrowLeft': {
+        slidePrevious()
+        break
+      }
+
+      case 'ArrowRight': {
+        slideNext()
+        break
+      }
+
+      case 'Home': {
+        slide(0, sliderDispatch)
+        break
+      }
+
+      case 'End': {
+        slide(childrenCount - 1, sliderDispatch)
+        break
+      }
+
+      default:
+    }
+  }
+
   return (
     <section
       id={id}
@@ -162,26 +211,14 @@ function Carousel({
             data-arrow="left"
             aria-controls={id}
             aria-label="previous"
-            onClick={() => {
-              if (sliderState.sliding) {
-                return
-              }
-
-              slide('previous', sliderDispatch)
-            }}
+            onClick={slidePrevious}
             icon={<LeftArrowIcon />}
           />
           <IconButton
             data-arrow="right"
             aria-controls={id}
             aria-label="next"
-            onClick={() => {
-              if (sliderState.sliding) {
-                return
-              }
-
-              slide('next', sliderDispatch)
-            }}
+            onClick={slideNext}
             icon={<RightArrowIcon />}
           />
         </div>
@@ -190,6 +227,7 @@ function Carousel({
       {showPaginationBullets && (
         <div data-carousel-bullets>
           <Bullets
+            tabIndex={0}
             totalQuantity={childrenCount}
             activeBullet={sliderState.currentPage}
             onClick={(_, idx) => {
@@ -200,6 +238,10 @@ function Carousel({
               slide(idx, sliderDispatch)
             }}
             ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
+            onKeyDown={handleBulletsKeyDown}
+            onFocus={(event) => {
+              event.currentTarget.focus()
+            }}
           />
         </div>
       )}

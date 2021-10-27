@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, act } from '@testing-library/react'
+import { render, fireEvent, act, createEvent } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
 import Carousel from './Carousel'
@@ -311,6 +311,274 @@ describe('Carousel component', () => {
       expect(
         getByTestId('store-bullets').querySelectorAll('[aria-controls]')
       ).toHaveLength(3)
+    })
+
+    describe('Tablist', () => {
+      it('should be focused when a component with role `tablist` or `tab` is focused', () => {
+        const { getByRole, getAllByRole } = render(
+          <Carousel>
+            <div>Slide 1</div>
+            <div>Slide 2</div>
+            <div>Slide 3</div>
+          </Carousel>
+        )
+
+        const tablist = getByRole('tablist')
+
+        fireEvent.focus(tablist)
+
+        expect(tablist).toHaveFocus()
+
+        const [, sndTab] = getAllByRole('tab')
+
+        fireEvent.focus(sndTab)
+        expect(tablist).toHaveFocus()
+      })
+
+      describe('Keyboard navigation', () => {
+        it('should slide to the next page on `ArrowRight` press', async () => {
+          const { getAllByRole, getByRole, getByTestId } = render(
+            <Carousel
+              transition={{
+                duration: 0,
+                property: 'transform',
+              }}
+            >
+              <div>Slide 1</div>
+              <div>Slide 2</div>
+              <div>Slide 3</div>
+            </Carousel>
+          )
+
+          const carouselTrack = getByTestId('store-carousel').querySelector(
+            '[data-carousel-track]'
+          ) as Element
+
+          const tabs = getAllByRole('tab')
+
+          // Select last tab
+          fireEvent.click(tabs[2])
+          fireEvent.transitionEnd(carouselTrack)
+
+          expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
+
+          const tablist = getByRole('tablist')
+
+          fireEvent.focus(tablist)
+          // Loop
+          fireEvent.keyDown(tablist, {
+            key: 'ArrowRight',
+          })
+          fireEvent.transitionEnd(carouselTrack)
+
+          expect(tabs[2]).toHaveAttribute('aria-selected', 'false')
+          expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+        })
+
+        it('should not slide to the next page on `ArrowRight` when infiniteMode is false', () => {
+          const { getAllByRole, getByRole, getByTestId } = render(
+            <Carousel
+              transition={{
+                duration: 0,
+                property: 'transform',
+              }}
+              infiniteMode={false}
+            >
+              <div>Slide 1</div>
+              <div>Slide 2</div>
+              <div>Slide 3</div>
+            </Carousel>
+          )
+
+          const carouselTrack = getByTestId('store-carousel').querySelector(
+            '[data-carousel-track]'
+          ) as Element
+
+          const tabs = getAllByRole('tab')
+
+          // Select last tab
+          fireEvent.click(tabs[2])
+          fireEvent.transitionEnd(carouselTrack)
+
+          expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
+
+          const tablist = getByRole('tablist')
+
+          fireEvent.focus(tablist)
+          // Try to loop
+          fireEvent.keyDown(tablist, {
+            key: 'ArrowRight',
+          })
+          fireEvent.transitionEnd(carouselTrack)
+
+          expect(tabs[0]).toHaveAttribute('aria-selected', 'false')
+          expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
+        })
+
+        it('should slide to the next page on `ArrowLeft` press', () => {
+          const { getAllByRole, getByRole, getByTestId } = render(
+            <Carousel
+              transition={{
+                duration: 0,
+                property: 'transform',
+              }}
+            >
+              <div>Slide 1</div>
+              <div>Slide 2</div>
+              <div>Slide 3</div>
+            </Carousel>
+          )
+
+          const carouselTrack = getByTestId('store-carousel').querySelector(
+            '[data-carousel-track]'
+          ) as Element
+
+          const tabs = getAllByRole('tab')
+
+          expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+
+          const tablist = getByRole('tablist')
+
+          fireEvent.focus(tablist)
+          // Loop back. From first to last
+          fireEvent.keyDown(tablist, {
+            key: 'ArrowLeft',
+          })
+          fireEvent.transitionEnd(carouselTrack)
+
+          expect(tabs[0]).toHaveAttribute('aria-selected', 'false')
+          expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
+        })
+
+        it('should not slide to the next page on `ArrowLeft` press when infiniteMode is false', () => {
+          const { getAllByRole, getByRole, getByTestId } = render(
+            <Carousel
+              transition={{
+                duration: 0,
+                property: 'transform',
+              }}
+              infiniteMode={false}
+            >
+              <div>Slide 1</div>
+              <div>Slide 2</div>
+              <div>Slide 3</div>
+            </Carousel>
+          )
+
+          const carouselTrack = getByTestId('store-carousel').querySelector(
+            '[data-carousel-track]'
+          ) as Element
+
+          const tabs = getAllByRole('tab')
+
+          expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+
+          const tablist = getByRole('tablist')
+
+          fireEvent.focus(tablist)
+          // Try to loop back. From first to last
+          fireEvent.keyDown(tablist, {
+            key: 'ArrowLeft',
+          })
+          fireEvent.transitionEnd(carouselTrack)
+
+          expect(tabs[2]).toHaveAttribute('aria-selected', 'false')
+          expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+        })
+
+        it('should slide to the first slide on `Home` press', () => {
+          const { getAllByRole, getByRole, getByTestId } = render(
+            <Carousel
+              transition={{
+                duration: 0,
+                property: 'transform',
+              }}
+            >
+              <div>Slide 1</div>
+              <div>Slide 2</div>
+              <div>Slide 3</div>
+            </Carousel>
+          )
+
+          const carouselTrack = getByTestId('store-carousel').querySelector(
+            '[data-carousel-track]'
+          ) as Element
+
+          const tabs = getAllByRole('tab')
+
+          // Select last tab
+          fireEvent.click(tabs[2])
+          fireEvent.transitionEnd(carouselTrack)
+
+          expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
+
+          const tablist = getByRole('tablist')
+
+          fireEvent.focus(tablist)
+          fireEvent.keyDown(tablist, {
+            key: 'Home',
+          })
+          fireEvent.transitionEnd(carouselTrack)
+
+          expect(tabs[2]).toHaveAttribute('aria-selected', 'false')
+          expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+        })
+
+        it('should slide to the last slide on `End` press', () => {
+          const { getAllByRole, getByRole, getByTestId } = render(
+            <Carousel
+              transition={{
+                duration: 0,
+                property: 'transform',
+              }}
+            >
+              <div>Slide 1</div>
+              <div>Slide 2</div>
+              <div>Slide 3</div>
+            </Carousel>
+          )
+
+          const carouselTrack = getByTestId('store-carousel').querySelector(
+            '[data-carousel-track]'
+          ) as Element
+
+          const tabs = getAllByRole('tab')
+
+          expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+
+          const tablist = getByRole('tablist')
+
+          fireEvent.focus(tablist)
+          fireEvent.keyDown(tablist, {
+            key: 'End',
+          })
+          fireEvent.transitionEnd(carouselTrack)
+
+          expect(tabs[0]).toHaveAttribute('aria-selected', 'false')
+          expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
+        })
+
+        it('check the tablist event is not prevented from propagating', () => {
+          const mockPreventDefault = jest.fn()
+          const { getByRole } = render(
+            <Carousel>
+              <div>Slide 1</div>
+              <div>Slide 2</div>
+              <div>Slide 3</div>
+            </Carousel>
+          )
+
+          const tablist = getByRole('tablist')
+          const event = createEvent.keyDown(tablist, { key: 'Tab' })
+
+          event.preventDefault = mockPreventDefault
+
+          fireEvent.focus(tablist)
+          fireEvent(tablist, event)
+
+          expect(mockPreventDefault).not.toHaveBeenCalled()
+        })
+      })
     })
   })
 })
