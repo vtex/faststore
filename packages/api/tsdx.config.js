@@ -1,4 +1,4 @@
-const graphql = require('rollup-plugin-graphql')
+const graphql = require('@rollup/plugin-graphql')
 
 module.exports = {
   rollup(config) {
