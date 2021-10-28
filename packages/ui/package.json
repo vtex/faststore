@@ -1,5 +1,5 @@
 {
-  "name": "@vtex/store-ui",
+  "name": "@faststore/ui",
   "version": "1.2.23",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
