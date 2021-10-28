@@ -9,7 +9,7 @@ Analytics events can be sent by using the `sendAnalyticsEvent` function and it's
 To fire a standard GA4 event:
 ```tsx
 import { useCallback } from 'react'
-import { sendAnalyticsEvent } from '@vtex/store-sdk'
+import { sendAnalyticsEvent } from '@faststore/sdk'
 
 const MyComponent = () => {
   const addToCartCallback = useCallback(() => {
@@ -37,7 +37,7 @@ To fire a custom event:
 
 ```tsx
 import { useCallback } from 'react'
-import { sendAnalyticsEvent } from '@vtex/store-sdk'
+import { sendAnalyticsEvent } from '@faststore/sdk'
 
 interface CustomEvent {
   type: 'custom_event',
@@ -71,8 +71,8 @@ It's possible to receive analytics events by using the `useAnalyticsEvent` hook.
 To use the `useAnalyticsEvent` hook:
 
 ```tsx
-import { useAnalyticsEvent } from '@vtex/store-sdk'
-import type { AnalyticsEvent } from '@vtex/store-sdk'
+import { useAnalyticsEvent } from '@faststore/sdk'
+import type { AnalyticsEvent } from '@faststore/sdk'
 
 /**
  *  Notice that we typed it as AnalyticsEvent, but there may be events that are not from this type.

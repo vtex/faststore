@@ -4,8 +4,8 @@ In the Store Framework Jamstack (SFJ), styling can be achieved by:
 
 - [Styling](#styling)
   - [Step by step](#step-by-step)
-    - [Overwriting CSS styles of the Store UI components](#overwriting-css-styles-of-the-store-ui-components)
-    - [Adding styles to React components from the Store UI library](#adding-styles-to-react-components-from-the-store-ui-library)
+    - [Overwriting CSS styles of the Store UI components](#overwriting-css-styles-of-the-ui-components)
+    - [Adding styles to React components from the Store UI library](#adding-styles-to-react-components-from-the-ui-library)
     - [Creating your own components and styles](#creating-your-own-components-and-styles)
 
 In the following sections, you'll find out more about each one of these topics.
@@ -55,7 +55,7 @@ Once you [set up your SFJ project](getting-started.md) from our [SFJ starter](ht
 4. Import the `createTheme` function and the pre-defined style sheet of the component you want to style.
 
 ```ts
-import { createTheme, SxStyleProp } from '@vtex/store-ui'
+import { createTheme, SxStyleProp } from '@faststore/ui'
 ```
 
 >⚠️  *Ideally, all default style sheets should be defined within the Store UI library. However, you'll notice some styles are defined within the SFJ Store Theme. We are aware of this situation and already working on it.*
@@ -113,7 +113,7 @@ To customize this style, we must stick to this hierarchy. Take the following exa
 
 ```ts
 // "src/@vtex/gatsby-plugin-theme-ui/searchSuggestions.ts"
-import { createTheme, SxStyleProp } from '@vtex/store-ui'
+import { createTheme, SxStyleProp } from '@faststore/ui'
 import searchSuggestionsTheme from '@vtex/gatsby-theme-store/components/SearchSuggestions/theme'
 
 const custom{
@@ -160,7 +160,7 @@ export default createTheme(
 
 ### Adding styles to React components from the Store UI library
 
-Leveraging from the [Theme UI](https://theme-ui.com/), the `@vtex/gatsby-plugin-theme-ui` plugin incorporates the [Store UI library](https://github.com/vtex/faststore/tree/master/packages/store-ui) - a library that contains storefront components, such as the [Minicart](https://github.com/vtex/faststore/tree/master/packages/store-ui/src/Minicart).
+Leveraging from the [Theme UI](https://theme-ui.com/), the `@vtex/gatsby-plugin-theme-ui` plugin incorporates the [Store UI library](https://github.com/vtex/faststore/tree/master/packages/ui) - a library that contains storefront components, such as the [Minicart](https://github.com/vtex/faststore/tree/master/packages/ui/src/Minicart).
 
 In this sense, we can benefit from the [Variants](https://theme-ui.com/guides/variants/) feature from the Theme UI library.
 
@@ -209,12 +209,12 @@ Therefore, to add new styles to a Store UI component, check the name of its vari
 2. Go to the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
 3. Import the style of the component you want to style.
 
->ℹ️  *Use the [SFJ Store UI library](https://github.com/vtex/faststore/tree/master/packages/store-ui) as a reference.*
+>ℹ️  *Use the [SFJ Store UI library](https://github.com/vtex/faststore/tree/master/packages/ui) as a reference.*
 
 Take the following example:
 
 ```js
-import headerTheme from '@vtex/store-ui'
+import headerTheme from '@faststore/ui'
 ```
 
 4. Define styles inside the `src/@vtex/gatsby-plugin-theme-ui/index.js` file.
