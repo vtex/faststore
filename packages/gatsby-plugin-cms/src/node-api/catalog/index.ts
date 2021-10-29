@@ -47,23 +47,47 @@ export const getCollectionsFromPageContent = (
   return collectionBlocks
 }
 
+export const getCollectionRemoteId = (cluster: IClusterCollection) =>
+  `${cluster.clusterId}:${cluster.seo.slug}`
+
 export const splitCollections = (collections: Array<WithPLP<ICollection>>) => ({
   categories: collections
     .filter((x): x is WithPLP<ICategoryCollection> => isCategoryCollection(x))
-    .reduce(
-      (acc, curr) => ({ ...acc, [curr.categoryId]: curr }),
-      {} as Record<string, WithPLP<ICategoryCollection>>
-    ),
+    .reduce((acc, curr) => {
+      const id = curr.categoryId
+
+      if (acc[id]) {
+        console.warn(
+          `[gatsby-plugin-cms]: You have two or more pages on your cms pointing to the same Category(${id}). Delete one of them to avoid conflicts`
+        )
+      }
+
+      return { ...acc, [id]: curr }
+    }, {} as Record<string, WithPLP<ICategoryCollection>>),
   brands: collections
     .filter((x): x is WithPLP<IBrandCollection> => isBrandCollection(x))
-    .reduce(
-      (acc, curr) => ({ ...acc, [curr.brandId]: curr }),
-      {} as Record<string, WithPLP<IBrandCollection>>
-    ),
+    .reduce((acc, curr) => {
+      const id = curr.brandId
+
+      if (acc[id]) {
+        console.warn(
+          `[gatsby-plugin-cms]: You have two or more pages on your cms pointing to the same Brand(${id}). Delete one of them to avoid conflicts`
+        )
+      }
+
+      return { ...acc, [id]: curr }
+    }, {} as Record<string, WithPLP<IBrandCollection>>),
   clusters: collections
     .filter((x): x is WithPLP<IClusterCollection> => isClusterCollection(x))
-    .reduce(
-      (acc, curr) => ({ ...acc, [curr.clusterId]: curr }),
-      {} as Record<string, WithPLP<IClusterCollection>>
-    ),
+    .reduce((acc, curr) => {
+      const id = getCollectionRemoteId(curr)
+
+      if (acc[id]) {
+        console.warn(
+          `[gatsby-plugin-cms]: You have two or more pages on your cms pointing to the same Collection(${id}). Delete one of them to avoid conflicts`
+        )
+      }
+
+      return { ...acc, [id]: curr }
+    }, {} as Record<string, WithPLP<IClusterCollection>>),
 })
