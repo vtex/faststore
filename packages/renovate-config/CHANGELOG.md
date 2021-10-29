@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.26 (2021-10-29)
+
+
+### Bug Fixes
+
+* **store-ui:** Remove circular dependency ([#1011](https://github.com/vtex/faststore/issues/1011)) ([b9f08c9](https://github.com/vtex/faststore/commit/b9f08c95ae33bdbb09ffc044d6ad831fd6608144))
+
+
+
+
+
 ## 1.2.25 (2021-10-28)
 
 **Note:** Version bump only for package @vtex/renovate-config
