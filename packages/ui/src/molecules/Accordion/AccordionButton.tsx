@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Button } from '../..'
+import Button from '../../atoms/Button'
 import { useAccordion } from './Accordion'
 import { useAccordionItem } from './AccordionItem'
 
