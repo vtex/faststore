@@ -16,12 +16,23 @@ export const Query = {
       loaders: { skuLoader },
     } = ctx
 
+    // Insert channel in context for later usage
+    ctx.storage.channel =
+      locator.find((facet) => facet.key === 'channel')?.value ??
+      ctx.storage.channel
+
     return skuLoader.load(locator.map(transformSelectedFacet))
   },
   search: async (
     _: unknown,
-    { first, after: maybeAfter, sort, term, selectedFacets }: QuerySearchArgs
+    { first, after: maybeAfter, sort, term, selectedFacets }: QuerySearchArgs,
+    ctx: Context
   ) => {
+    // Insert channel in context for later usage
+    ctx.storage.channel =
+      selectedFacets?.find((facet) => facet.key === 'channel')?.value ??
+      ctx.storage.channel
+
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs = {
       page: Math.ceil(after / first),

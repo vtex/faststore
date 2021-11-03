@@ -27,6 +27,15 @@ export interface Options {
 export interface Context {
   clients: Clients
   loaders: Loaders
+  /**
+   * @description Storage updated at each request.
+   *
+   * Use this datastructure to store and share small values in the context.
+   * Use it with caution since dependecy injection leads to a more complex code
+   * */
+  storage: {
+    channel: string
+  }
 }
 
 export type Resolver<R = unknown, A = unknown> = (
@@ -55,6 +64,9 @@ const Resolvers = {
 export const getContextFactory = (options: Options) => (ctx: any) => {
   ctx.clients = getClients(options)
   ctx.loaders = getLoaders(options, ctx.clients)
+  ctx.storage = {
+    channel: options.channel,
+  }
 
   return ctx
 }
