@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { FC, HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef, Fragment } from 'react'
 
 import List from '../../atoms/List'
@@ -14,10 +14,7 @@ export interface BreadcrumbProps extends HTMLAttributes<HTMLDivElement> {
   testId?: string
 }
 
-const getDividerWithProps = (
-  divider: BreadcrumbProps['divider'],
-  testId: string
-) => {
+const Divider: FC<BreadcrumbProps> = ({ divider, testId }) => {
   const props = {
     'data-store-breadcrumb-divider': true,
     'aria-hidden': true,
@@ -31,26 +28,28 @@ const getDividerWithProps = (
   return <span {...props}>{divider ?? '/'}</span>
 }
 
-const getChildWithProps = (
-  child: ReactNode,
-  isLastItem: boolean,
+type ListItemProps = {
+  children: ReactNode
+  isLastItem: boolean
   testId: string
-) => {
+}
+
+const ListItem: FC<ListItemProps> = ({ children, isLastItem, testId }) => {
   const props = {
     'data-testid': `${testId}-item`,
     'data-store-breadcrumb-item': isLastItem ? 'current' : true,
     'aria-current': isLastItem ? ('page' as const) : undefined,
   }
 
-  if (!React.isValidElement(child)) {
+  if (!React.isValidElement(children)) {
     return (
       <li>
-        <span {...props}>{child}</span>
+        <span {...props}>{children}</span>
       </li>
     )
   }
 
-  return <li>{React.cloneElement(child, props)}</li>
+  return <li>{React.cloneElement(children, props)}</li>
 }
 
 const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
@@ -65,8 +64,6 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
   ) {
     const lastIndex = React.Children.count(children)
 
-    const divider = getDividerWithProps(rawDivider, testId)
-
     return (
       <nav
         aria-label="Breadcrumb"
@@ -80,12 +77,14 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
           {React.Children.map(children, (child, index) => {
             const isLastItem = index === lastIndex - 1
 
-            const listItem = getChildWithProps(child, isLastItem, testId)
-
             return (
               <Fragment key={`breadcrumb-${index}`}>
-                {listItem}
-                {isLastItem ? null : divider}
+                <ListItem isLastItem={isLastItem} testId={testId}>
+                  {child}
+                </ListItem>
+                {isLastItem ? null : (
+                  <Divider divider={rawDivider} testId={testId} />
+                )}
               </Fragment>
             )
           })}
