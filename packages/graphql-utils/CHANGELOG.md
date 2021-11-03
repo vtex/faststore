@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.30 (2021-11-03)
+
+
+### Bug Fixes
+
+* Channel simulation ([#1014](https://github.com/vtex/faststore/issues/1014)) ([b45406b](https://github.com/vtex/faststore/commit/b45406b2b7ee8deb2b6e256629ba6df89d1b5940))
+
+
+
+
+
 ## 1.2.29 (2021-11-03)
 
 **Note:** Version bump only for package @vtex/graphql-utils
