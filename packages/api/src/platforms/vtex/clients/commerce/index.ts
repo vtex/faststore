@@ -1,3 +1,4 @@
+import type { Context, Options } from '../../index'
 import { fetchAPI } from '../fetch'
 import type {
   Simulation,
@@ -5,7 +6,6 @@ import type {
   SimulationOptions,
 } from './types/Simulation'
 import type { CategoryTree } from './types/CategoryTree'
-import type { Options } from '../..'
 import type { Brand } from './types/Brand'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 
@@ -16,12 +16,11 @@ const BASE_INIT = {
   },
 }
 
-const getBase = ({ account, environment }: Options) =>
-  `http://${account}.${environment}.com.br`
-
-export const VtexCommerce = (options: Options) => {
-  const { channel } = options
-  const base = getBase(options)
+export const VtexCommerce = (
+  { account, environment }: Options,
+  ctx: Context
+) => {
+  const base = `http://${account}.${environment}.com.br`
 
   return {
     catalog: {
@@ -37,7 +36,9 @@ export const VtexCommerce = (options: Options) => {
     checkout: {
       simulation: (
         args: SimulationArgs,
-        { salesChannel }: SimulationOptions = { salesChannel: channel }
+        { salesChannel }: SimulationOptions = {
+          salesChannel: ctx.storage.channel,
+        }
       ): Promise<Simulation> => {
         const params = new URLSearchParams({
           sc: salesChannel,
@@ -54,7 +55,7 @@ export const VtexCommerce = (options: Options) => {
       orderForm: ({
         id,
         refreshOutdatedData = true,
-        salesChannel = channel,
+        salesChannel = ctx.storage.channel,
       }: {
         id: string
         refreshOutdatedData?: boolean
@@ -74,7 +75,7 @@ export const VtexCommerce = (options: Options) => {
         id,
         orderItems,
         allowOutdatedData = 'paymentData',
-        salesChannel = channel,
+        salesChannel = ctx.storage.channel,
       }: {
         id: string
         orderItems: OrderFormInputItem[]

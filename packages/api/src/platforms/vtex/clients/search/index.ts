@@ -1,6 +1,6 @@
+import type { Context, Options } from '../../index'
 import { fetchAPI } from '../fetch'
 import type { SelectedFacet } from '../../utils/facets'
-import type { Options } from '../..'
 import type { ProductSearchResult } from './types/ProductSearchResult'
 import type { AttributeSearchResult } from './types/AttributeSearchResult'
 
@@ -29,9 +29,8 @@ export interface ProductLocator {
   value: string
 }
 
-export const IntelligentSearch = (opts: Options) => {
-  const { channel } = opts
-  const base = `http://search.biggylabs.com.br/search-api/v1/${opts.account}`
+export const IntelligentSearch = ({ account }: Options, ctx: Context) => {
+  const base = `http://search.biggylabs.com.br/search-api/v1/${account}`
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
     const facetsObj = Object.fromEntries(
@@ -39,7 +38,7 @@ export const IntelligentSearch = (opts: Options) => {
     )
 
     return Object.entries({
-      'trade-policy': channel,
+      'trade-policy': ctx.storage.channel,
       ...facetsObj,
     }).map(([key, value]) => ({ key, value }))
   }
