@@ -11,6 +11,8 @@ const DEFAULT_IMAGE = {
 
 const getSlug = (link: string, id: string) => `${link}-${id}`
 const getPath = (link: string, id: string) => `/${getSlug(link, id)}/p`
+const nonEmptyArray = <T>(array: T[] | null | undefined) =>
+  Array.isArray(array) && array.length > 0 ? array : null
 
 export const StoreProduct: Record<string, Resolver<Root>> = {
   productID: ({ id }) => id,
@@ -38,12 +40,13 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     numberOfItems: categoryTrees.length,
   }),
   image: ({ isVariantOf, images }) =>
-    (images ?? isVariantOf.images ?? [DEFAULT_IMAGE]).map(
-      ({ name, value }) => ({
-        alternateName: name ?? '',
-        url: value.replace('vteximg.com.br', 'vtexassets.com'),
-      })
-    ),
+    (
+      nonEmptyArray(images) ??
+      nonEmptyArray(isVariantOf.images) ?? [DEFAULT_IMAGE]
+    ).map(({ name, value }) => ({
+      alternateName: name ?? '',
+      url: value.replace('vteximg.com.br', 'vtexassets.com'),
+    })),
   sku: ({
     isVariantOf: {
       skus: [sku],

@@ -62,11 +62,11 @@ const Resolvers = {
 }
 
 export const getContextFactory = (options: Options) => (ctx: any) => {
-  ctx.clients = getClients(options)
-  ctx.loaders = getLoaders(options, ctx.clients)
   ctx.storage = {
     channel: options.channel,
   }
+  ctx.clients = getClients(options, ctx)
+  ctx.loaders = getLoaders(options, ctx)
 
   return ctx
 }
