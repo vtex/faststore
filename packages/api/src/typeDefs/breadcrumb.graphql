@@ -1,0 +1,10 @@
+type StoreListItem {
+  item: String!
+  name: String!
+  position: Int!
+}
+
+type StoreBreadcrumbList {
+  itemListElement: [StoreListItem!]!
+  numberOfItems: Int!
+}

@@ -1,7 +1,7 @@
 {
-  "name": "openstore",
+  "name": "faststore",
   "version": "0.0.0",
-  "description": "Plugins and libraries for building a lightning fast ecommerce in JAMStack",
+  "description": "Digital commerce toolkit for frontend developers.",
   "main": "index.js",
   "repository": "git@github.com:vtex/faststore.git",
   "license": "MIT",
@@ -9,7 +9,8 @@
   "scripts": {
     "build": "lerna run build",
     "build-themes": "lerna run build --scope '@vtex/theme-*' || true",
-    "build-storybook": "yarn build-themes && yarn workspace @vtex/store-ui build-storybook",
+    "build-storybook": "yarn build-themes && yarn workspace @faststore/ui build-storybook",
+    "storybook": "yarn workspace @faststore/ui storybook",
     "clean": "lerna clean && lerna run clean",
     "format": "prettier --write \"packages/**/*.{ts,tsx,json}\"",
     "lint": "eslint packages/ --ext .ts,.tsx",

@@ -1,0 +1,9 @@
+type StoreImage {
+  url: String!
+  alternateName: String!
+}
+
+input IStoreImage {
+  url: String!
+  alternateName: String!
+}

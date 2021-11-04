@@ -6,11 +6,11 @@
   @apply inline-block;
 }
 
-[data-store-bullets] [data-bullet-item] [data-store-button] {
+[data-store-bullets] [data-bullet-item][data-store-button] {
   @apply box-border min-w-0 cursor-pointer inline-block rounded-full m-3 border-0 outline-none h-3 w-3 min-h-0 p-0;
   @apply bg-gray-400;
 }
 
-[data-store-bullets] > [data-bullet-item][data-active] > [data-store-button] {
+[data-store-bullets] [data-bullet-item][aria-selected="true"] {
   @apply bg-pink-700;
 }

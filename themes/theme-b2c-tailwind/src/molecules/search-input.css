@@ -1,5 +1,5 @@
 [data-store-search-input] {
-  @apply box-border m-0 min-w-0 max-w-sm min-h-0 items-center relative w-60 h-11 flex;
+  @apply box-border m-0 min-w-0 max-w-sm min-h-0 items-center relative w-60 h-11 p-0 flex;
   @apply bg-white border border-gray-400;
 }
 

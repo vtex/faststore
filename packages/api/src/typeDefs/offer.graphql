@@ -1,0 +1,21 @@
+type StoreOffer {
+  listPrice: Float!
+  sellingPrice: Float!
+  priceCurrency: String!
+  # Also known as spotPrice
+  price: Float!
+  priceValidUntil: String!
+  itemCondition: String!
+  availability: String!
+  seller: StoreOrganization!
+  itemOffered: StoreProduct!
+  quantity: Int!
+}
+
+input IStoreOffer {
+  price: Float!
+  listPrice: Float!
+  seller: IStoreOrganization!
+  itemOffered: IStoreProduct!
+  quantity: Int!
+}

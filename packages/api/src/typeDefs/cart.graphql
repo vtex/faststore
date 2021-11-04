@@ -1,0 +1,13 @@
+type StoreCartMessage {
+  text: String!
+  status: StoreStatus!
+}
+
+type StoreCart {
+  order: StoreOrder!
+  messages: [StoreCartMessage!]!
+}
+
+input IStoreCart {
+  order: IStoreOrder!
+}

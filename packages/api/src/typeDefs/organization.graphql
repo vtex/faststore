@@ -1,0 +1,7 @@
+type StoreOrganization {
+  identifier: String!
+}
+
+input IStoreOrganization {
+  identifier: String!
+}

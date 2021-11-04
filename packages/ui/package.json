@@ -1,0 +1,87 @@
+{
+  "name": "@faststore/ui",
+  "version": "1.2.31",
+  "description": "A lightweight, framework agnostic component library for React",
+  "author": "emersonlaurentino",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/ui"
+  },
+  "main": "dist/index.js",
+  "module": "dist/ui.esm.js",
+  "typings": "dist/index.d.ts",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "develop": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "storybook": "start-storybook -s ../../themes -p 6006 --no-manager-cache",
+    "build-storybook": "build-storybook -s ../../themes",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
+    "modulePaths": [
+      "<rootDir>/src"
+    ]
+  },
+  "size-limit": [
+    {
+      "path": "dist/ui.cjs.production.min.js",
+      "limit": "20 KB"
+    },
+    {
+      "path": "dist/ui.esm.js",
+      "limit": "20 KB"
+    }
+  ],
+  "dependencies": {
+    "@reach/popover": "^0.16.0",
+    "react-swipeable": "^6.1.2",
+    "tabbable": "^5.2.1"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.11.0",
+    "@storybook/addon-actions": "^6.3.7",
+    "@storybook/addon-docs": "^6.3.7",
+    "@storybook/addon-essentials": "^6.3.7",
+    "@storybook/addon-links": "^6.3.7",
+    "@storybook/addons": "^6.3.7",
+    "@storybook/react": "^6.3.7",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.8",
+    "@types/jest-axe": "^3.5.3",
+    "@types/tabbable": "^3.1.1",
+    "@types/testing-library__jest-dom": "^5.9.5",
+    "@vtex/theme-b2c-tailwind": "^1.2.31",
+    "@vtex/tsconfig": "^0.5.0",
+    "jest-axe": "^5.0.1",
+    "react": "^17.0.2",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "react-dom": "^17.0.2",
+    "size-limit": "^4.11.0",
+    "storybook-addon-themes": "^6.1.0",
+    "tsdx": "^0.14.1",
+    "typescript": "^4.2.4"
+  }
+}

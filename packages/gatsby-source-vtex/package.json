@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-source-vtex",
-  "version": "1.1.7",
+  "version": "1.2.31",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "author": "Store Framework",
   "license": "MIT",
@@ -35,13 +35,13 @@
     "slugify": "^1.4.6"
   },
   "peerDependencies": {
-    "gatsby": "^3.11.1",
+    "gatsby": "^3.11.1 || ^4.0.0",
     "graphql": "^15.0.0"
   },
   "devDependencies": {
     "gatsby": "^3.11.1",
     "tsdx": "^0.14.1",
-    "tslib": "^2.3.0",
+    "tslib": "^2.3.1",
     "typescript": "^4.3.3"
   }
 }

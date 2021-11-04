@@ -19,6 +19,7 @@ import {
 } from './node-api/cms/sourceNode'
 import { fetchAllNodes as fetchAllLocalNodes } from './node-api/cms/sourceLocalNodes'
 import {
+  getCollectionRemoteId,
   getCollectionsFromPageContent,
   splitCollections,
 } from './node-api/catalog'
@@ -72,6 +73,7 @@ export interface Options {
   workspace: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
   itemsPerPage?: number
+  preview?: boolean
 }
 
 export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
@@ -82,6 +84,7 @@ export const pluginOptionsSchema = ({ Joi }: PluginOptionsSchemaArgs) =>
       .required()
       .valid('vtexcommercestable', 'vtexcommercebeta'),
     itemsPerPage: Joi.number(),
+    preview: Joi.boolean(),
   })
 
 interface CollectionsByType {
@@ -131,7 +134,7 @@ export const sourceNodes = async (
   for (const cluster of Object.values(splitted.clusters)) {
     const node: StoreCollection = {
       id: `${cluster.clusterId}:${cluster.seo.slug}`,
-      remoteId: cluster.clusterId,
+      remoteId: getCollectionRemoteId(cluster),
       slug: cluster.seo.slug,
       seo: {
         title: cluster.seo.title,

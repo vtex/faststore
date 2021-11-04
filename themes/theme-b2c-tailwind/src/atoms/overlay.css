@@ -11,6 +11,6 @@
   @apply bg-green-500 bg-opacity-50;
 }
 
-[data-store-overlay][data-black] {
+[data-store-overlay][data-black], [data-modal-overlay] {
   @apply bg-gray-500 bg-opacity-50;
 }

@@ -1,0 +1,62 @@
+import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Accordion from '../Accordion'
+import AccordionItem from '../AccordionItem'
+import AccordionButton from '../AccordionButton'
+import AccordionPanel from '../AccordionPanel'
+
+# Accordion
+
+## Multiple And Collapsible
+
+<Canvas>
+  <Story id="molecules-accordion--multiple-and-collapsible" />
+</Canvas>
+
+## Toggle With Icon
+
+<Canvas>
+  <Story id="molecules-accordion--toggle-with-icon" />
+</Canvas>
+
+## Components
+
+The `Accordion` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
+
+- `Accordion`: the wrapper component.
+- `AccordionItem`: the component that wraps an item of the `Accordion`, which is composed of an `AccordionButton` and an `AccordionPanel`.
+- `AccordionButton`: the button used to interact with its related `AccordionItem`, opening or closing the `AccordionPanel`.
+- `AccordionPanel`: the panel that contains the contents of the `AccordionItem`.
+
+## Props
+
+All accordion-related components support all attributes also supported by the `<div>` tag, except for the `AccordionButton`, which renders the `<button>` tag.
+
+Besides those attributes, the following props are also supported:
+
+### `Accordion`
+
+<ArgsTable of={Accordion} />
+
+### `AccordionItem`
+
+<ArgsTable of={AccordionItem} />
+
+### `AccordionButton`
+
+<ArgsTable of={AccordionButton} />
+
+### `AccordionPanel`
+
+<ArgsTable of={AccordionPanel} />
+
+## CSS Selectors
+
+```css
+[data-store-accordion] {}
+[data-store-accordion-item] {}
+[data-store-accordion-button] {}
+[data-store-accordion-panel] {}
+```
+
+The `AccordionButton` component inherits [Button](?path=/docs/atoms-button--button#css-selectors) css selectors.

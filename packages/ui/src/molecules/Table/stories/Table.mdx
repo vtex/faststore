@@ -1,0 +1,73 @@
+import { Story, Canvas, ArgsTable } from '@storybook/addon-docs'
+
+import Table from '../Table'
+import TableBody from '../TableBody'
+import TableCell from '../TableCell'
+import TableHead from '../TableHead'
+import TableRow from '../TableRow'
+import TableFooter from '../TableFooter'
+
+# Table
+
+<Canvas>
+  <Story id="molecules-table--table" />
+</Canvas>
+
+## Components
+
+The `Table` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
+
+- `Table`, renders a `<table>` tag.
+- `TableBody`, renders a `<tbody>` tag.
+- `TableHead`, renders a `<thead>` tag.
+- `TableRow`, renders a `<tr>` tag.
+- `TableFooter`, renders a `<tfoot>` tag.
+- `TableCell`, can render a `<th>` or `<td>` tag, according to a `variant` prop that supports values `"header"` and `"data"`.
+
+## Props
+
+All table-related components support all attributes also supported by their respective HTML tags.
+
+Besides those attributes, the following props are also supported:
+
+### `Table` component
+
+<ArgsTable of={Table} />
+
+### `TableBody` component
+
+<ArgsTable of={TableBody} />
+
+### `TableHead` component
+
+<ArgsTable of={TableHead} />
+
+### `TableRow` component
+
+<ArgsTable of={TableRow} />
+
+### `TableFooter` component
+
+<ArgsTable of={TableFooter} />
+
+### `TableCell` component
+
+<ArgsTable of={TableCell} />
+
+## CSS Selectors
+
+```css
+[data-store-table] {}
+
+[data-store-table-head] {}
+
+[data-store-table-row] {}
+
+[data-store-table-footer] {}
+
+[data-store-table-body] {}
+
+[data-store-table-cell='head'] {}
+
+[data-store-table-cell='data'] {}
+```
