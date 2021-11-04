@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.31 (2021-11-04)
+
+
+### Features
+
+* **store-ui:** Breadcrumb improvements ([#1010](https://github.com/vtex/faststore/issues/1010)) ([8b4bf37](https://github.com/vtex/faststore/commit/8b4bf37316d6057683680de36493b63709bb1012))
+
+
+
+
+
 ## 1.2.30 (2021-11-03)
 
 
