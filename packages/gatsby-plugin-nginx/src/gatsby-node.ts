@@ -1,16 +1,11 @@
-import { writeFileSync, readFileSync, existsSync } from 'fs'
+import { writeFileSync } from 'fs'
 import { join } from 'path'
 
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import type { GatsbyNode } from 'gatsby'
 
 import { rankRoutes } from './pathRanking'
-import {
-  BUILD_HTML_STAGE,
-  VTEX_NGINX_CONF_FILENAME,
-  FUNCTIONS_REDIRECTS_FILENAME,
-  FUNCTIONS_URL_PATH,
-} from './constants'
+import { BUILD_HTML_STAGE, VTEX_NGINX_CONF_FILENAME } from './constants'
 import {
   addPublicCachingHeader,
   addStaticCachingHeader,
@@ -25,20 +20,21 @@ import { pluginOptions } from './pluginOptions'
 
 const assetsManifest: Record<string, string> = {}
 
-function getFunctionsRedirects(basedir: string): Redirect[] {
-  const redirectsFile = join(basedir, 'public', FUNCTIONS_REDIRECTS_FILENAME)
-
-  if (!existsSync(redirectsFile)) {
+function getFunctionsRedirect(
+  functions?: GatsbyFunction[],
+  functionsGateway?: string
+): Redirect[] {
+  if (!Array.isArray(functions) || functions.length == 0) {
     return []
   }
 
-  const contents = readFileSync(redirectsFile).toString()
-  const file = JSON.parse(contents) as Record<string, string>
+  if (!functionsGateway) {
+    return []
+  }
 
-  return Object.entries(file).map(([key, value]) => ({
-    fromPath: join(FUNCTIONS_URL_PATH, key),
-    toPath: value,
-  }))
+  return [
+    { fromPath: '/api/*', toPath: functionsGateway, _internalType: 'proxy' },
+  ]
 }
 
 function mapObjectValues<V, T>(
@@ -78,10 +74,16 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async (
 
   timer.start()
 
-  const { program, pages: pagesMap, redirects } = store.getState() as {
+  const {
+    program,
+    pages: pagesMap,
+    redirects,
+    functions,
+  } = store.getState() as {
     pages: Map<string, Page>
     program: { directory: string }
     redirects: Redirect[]
+    functions?: GatsbyFunction[]
   }
 
   const pages = Array.from(pagesMap.values())
@@ -99,7 +101,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async (
   const rewrites = rankRoutes([
     ...pageRewrites,
     ...redirects,
-    ...getFunctionsRedirects(program.directory),
+    ...getFunctionsRedirect(functions, options.functionsGateway),
   ])
 
   const publicFolder = join(program.directory, 'public')

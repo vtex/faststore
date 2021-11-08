@@ -244,7 +244,12 @@ function parseRewrite({
   toPath,
   statusCode = 200,
   isPermanent,
+  _internalType,
 }: Redirect): 'proxy' | 'rewrite' | 'redirect' | 'error_page' {
+  if (_internalType) {
+    return _internalType
+  }
+
   try {
     new URL(toPath)
 

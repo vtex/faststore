@@ -2,6 +2,7 @@ import {
   LOCATIONS_ONLY_ENV_VAR,
   FILE_SERVE_DIRECTIVE_ENV_VAR,
   DISABLE_BROTLI_ENV_VAR,
+  FUNCTIONS_GATEWAY_ENV_VAR,
 } from './constants'
 
 const defaultOptions: PluginOptions = {
@@ -12,6 +13,7 @@ const defaultOptions: PluginOptions = {
   plugins: [],
   httpOptions: [['proxy_http_version', '1.1']],
   serverOptions: [['resolver', '8.8.8.8']],
+  functionsGateway: undefined,
 }
 
 export function pluginOptions(options: Partial<PluginOptions>): PluginOptions {
@@ -37,6 +39,10 @@ export function pluginOptions(options: Partial<PluginOptions>): PluginOptions {
     plugins: options.plugins ?? defaultOptions.plugins,
     httpOptions: options.httpOptions ?? defaultOptions.httpOptions,
     serverOptions: options.serverOptions ?? defaultOptions.serverOptions,
+    functionsGateway:
+      process.env[FUNCTIONS_GATEWAY_ENV_VAR] ??
+      options.functionsGateway ??
+      defaultOptions.functionsGateway,
   }
 }
 

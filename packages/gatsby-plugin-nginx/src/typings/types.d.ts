@@ -9,10 +9,20 @@ declare global {
   type Manifest = Record<string, string[]>
 
   type Redirect = Actions['createRedirect'] extends (redirect: infer R) => any
-    ? R
+    ? R & { _internalType?: 'proxy' | 'rewrite' | 'redirect' | 'error_page' }
     : never
 
   type Page = PageProps['pageResources']['page']
+
+  interface GatsbyFunction {
+    functionRoute: string
+    pluginName: string
+    originalAbsoluteFilePath: string
+    originalRelativeFilePath: string
+    relativeCompiledFilePath: string
+    absoluteCompiledFilePath: string
+    matchPath?: string
+  }
 
   interface Header {
     name: string
@@ -74,5 +84,15 @@ declare global {
      * * @default [['proxy_http_version', '1.1']]
      */
     httpOptions: string[][]
+
+    /**
+     * Creates a proxy_pass rule from `/api/*` to the URL defined in this option, when there are functions.
+     * The path variable `:splat` is available.
+     * May be overriden with environment variable NGINX_FUNCTIONS_GATEWAY
+     *
+     * @example
+     * functionsGateway: 'http://my-api-backend.com/:splat'
+     */
+    functionsGateway?: string
   }
 }
