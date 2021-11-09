@@ -24,7 +24,7 @@ function getFunctionsRedirect(
   functions?: GatsbyFunction[],
   functionsGateway?: string
 ): Redirect[] {
-  if (!Array.isArray(functions) || functions.length == 0) {
+  if (!Array.isArray(functions) || functions.length === 0) {
     return []
   }
 
