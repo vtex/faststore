@@ -8,31 +8,34 @@ import type { Options } from '..'
 import type { Clients } from '../clients'
 
 export const getSimulationLoader = (_: Options, clients: Clients) => {
-  const loader = async (items: readonly PayloadItem[][]) => {
-    const simulated = await clients.commerce.checkout.simulation({
-      items: [...items.flat()],
+  const loader = async (allItems: readonly PayloadItem[][]) => {
+    const items = [...allItems.flat()]
+    const simulation = await clients.commerce.checkout.simulation({
+      items,
     })
 
-    const itemsIndices = items.reduce(
+    // Sort and filter simulation since Checkout API may return
+    // items that we didn't ask for
+    const simulated = simulation.items.reduce((acc, item) => {
+      const index = item.requestIndex
+
+      if (typeof index === 'number' && index < acc.length) {
+        acc[index] = item
+      }
+
+      return acc
+    }, Array(items.length).fill(null) as Simulation['items'])
+
+    const itemsIndices = allItems.reduce(
       (acc, curr) => [...acc, curr.length + acc[acc.length - 1]],
       [0]
     )
 
-    if (simulated.items.length !== itemsIndices[itemsIndices.length - 1]) {
-      const askedItems = itemsIndices[itemsIndices.length - 1]
-      const returnedItems = simulated.items.length
-
-      throw new Error(
-        `Simulation asked for ${askedItems}, but received ${returnedItems} items`
-      )
-    }
-
-    return items.map((__, index) => ({
-      ...simulated,
-      items: simulated.items.slice(
-        itemsIndices[index],
-        itemsIndices[index + 1]
-      ),
+    return allItems.map((__, index) => ({
+      ...simulation,
+      items: simulated
+        .slice(itemsIndices[index], itemsIndices[index + 1])
+        .filter((item) => Boolean(item)),
     }))
   }
 
