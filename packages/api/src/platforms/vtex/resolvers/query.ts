@@ -9,6 +9,7 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
+import { slugify } from '../utils/slugify'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -123,10 +124,12 @@ export const Query = {
         startCursor: '0',
         endCursor: '0',
       },
-      edges: collections.map((node, index) => ({
-        node,
-        cursor: index.toString(),
-      })),
+      edges: collections
+        .filter(({ name }) => Boolean(slugify(name))) // Filter nullable routes to avoid creatig catch all routes
+        .map((node, index) => ({
+          node,
+          cursor: index.toString(),
+        })),
     }
   },
 }
