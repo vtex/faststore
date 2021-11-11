@@ -1,14 +1,14 @@
 import type { SourceNodesArgs } from 'gatsby'
 
 import { sourceStoreType } from './sourceStore'
-import type { Options } from './gatsby-node'
+import type { Options } from './index'
 
 export const sourceProducts = async (
   gatsbyApi: SourceNodesArgs,
   options: Options,
   lastBuildTime?: number
 ) => {
-  const { maxNumProducts = Infinity } = options
+  const { maxNumItems = Infinity } = options
   const gatsbyNodeTypes = [
     {
       remoteTypeName: `StoreProduct`,
@@ -38,7 +38,7 @@ export const sourceProducts = async (
     gatsbyApi,
     pluginOptions: options,
     gatsbyNodeTypes,
-    maxItems: maxNumProducts,
+    maxItems: maxNumItems,
     lastBuildTime,
   })
 }

@@ -13,7 +13,7 @@ import type {
 } from 'gatsby-graphql-source-toolkit/dist/types'
 
 import { RelayForward } from './paginate'
-import type { Options } from './gatsby-node'
+import type { Options } from './index'
 
 interface Args {
   gatsbyApi: SourceNodesArgs
