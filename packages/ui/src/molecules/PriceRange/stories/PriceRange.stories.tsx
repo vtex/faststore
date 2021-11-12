@@ -11,6 +11,7 @@ const PriceRangeTemplate: Story<PriceRangeProps> = (props) => (
 )
 
 export const PriceRange = PriceRangeTemplate.bind({})
+PriceRange.storyName = 'PriceRange'
 
 function formatter(price: number) {
   return new Intl.NumberFormat('en-US', {
