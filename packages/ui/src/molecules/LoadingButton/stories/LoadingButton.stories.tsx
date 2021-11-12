@@ -16,6 +16,7 @@ const LoadingButtonTemplate: Story<LoadingButtonProps> = ({
 )
 
 export const LoadingButton = LoadingButtonTemplate.bind({})
+LoadingButton.storyName = 'LoadingButton'
 
 const argTypes: ComponentArgTypes<LoadingButtonProps> = {
   loading: {
