@@ -29,7 +29,7 @@ export interface ProductLocator {
   value: string
 }
 
-export const IntelligentSearch = ({ account }: Options, ctx: Context) => {
+export const IntelligentSearch = ({ account, environment }: Options, ctx: Context) => {
   const base = `http://portal.vtexcommercestable.com.br/search-api/v1/${account}`
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
