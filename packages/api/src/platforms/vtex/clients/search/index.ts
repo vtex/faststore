@@ -30,7 +30,7 @@ export interface ProductLocator {
 }
 
 export const IntelligentSearch = ({ account, environment }: Options, ctx: Context) => {
-  const base = `http://portal.vtexcommercestable.com.br/search-api/v1/${account}`
+  const base = `http://portal.${environment}.com.br/search-api/v1/${account}`
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
     const facetsObj = Object.fromEntries(
