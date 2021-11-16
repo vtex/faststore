@@ -8,7 +8,7 @@
     "url": "https://github.com/vtex/faststore",
     "directory": "packages/sdk"
   },
-  "browserslist": "last 2 chrome version",
+  "browserslist": "supports es6-module and not dead and last 2 version",
   "main": "dist/index.js",
   "module": "dist/sdk.esm.js",
   "typings": "dist/index.d.ts",
