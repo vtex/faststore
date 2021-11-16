@@ -9,8 +9,9 @@
     "dist",
     "src"
   ],
+  "browserslist": "node 12",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "develop": "concurrently \"yarn generate -w\" \"tsdx watch\"",

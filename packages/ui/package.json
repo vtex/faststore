@@ -9,6 +9,7 @@
     "url": "https://github.com/vtex/faststore",
     "directory": "packages/ui"
   },
+  "browserslist": "last 2 chrome version",
   "main": "dist/index.js",
   "module": "dist/ui.esm.js",
   "typings": "dist/index.d.ts",
