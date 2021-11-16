@@ -1,4 +1,4 @@
-import rawSlugify from 'slugify'
+import rawSlugify from '@sindresorhus/slugify'
 
 export const slugify = (path: string) =>
-  rawSlugify(path, { replacement: '-', lower: true })
+  rawSlugify(path, { separator: '-', lowercase: true })

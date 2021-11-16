@@ -1,7 +1,7 @@
+import { slugify } from '../utils/slugify'
 import type { Resolver } from '..'
 import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
-import { slugify } from '../utils/slugify'
 
 type Root = Brand | (CategoryTree & { level: number })
 
