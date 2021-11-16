@@ -39,10 +39,6 @@ export const setSearchParam = (
       state.sort = param.value
       break
 
-    case 'personalized':
-      state.personalized = !!param.value
-      break
-
     case 'term':
       state.term = param.value
       break

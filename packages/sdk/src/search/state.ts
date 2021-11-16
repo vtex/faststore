@@ -26,7 +26,6 @@ export interface SearchParamsState {
    * @description the base path url for the search context
    * */
   base: string
-  personalized: boolean
   /**
    * @description current pagination cursor
    */
@@ -36,14 +35,12 @@ export interface SearchParamsState {
 export const initialize = ({
   sort = 'score_desc',
   selectedFacets = [],
-  personalized = false,
   term = null,
   base = '/',
   page = 0,
 }: Partial<SearchParamsState> | undefined = {}) => ({
   sort,
   selectedFacets,
-  personalized,
   term,
   base: base.endsWith('/') ? base : `${base}/`,
   page,
