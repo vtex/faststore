@@ -29,8 +29,11 @@ export interface ProductLocator {
   value: string
 }
 
-export const IntelligentSearch = ({ account }: Options, ctx: Context) => {
-  const base = `http://search.biggylabs.com.br/search-api/v1/${account}`
+export const IntelligentSearch = (
+  { account, environment }: Options,
+  ctx: Context
+) => {
+  const base = `http://portal.${environment}.com.br/search-api/v1/${account}`
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
     const facetsObj = Object.fromEntries(
