@@ -9,7 +9,7 @@ export interface PaymentMethodsProps {
 }
 
 const PaymentMethods = ({
-  testId = 'store-PaymentMethods',
+  testId = 'store-payment-methods',
 }: PaymentMethodsProps) => {
   return <div data-testid={testId}>Payment Methods</div>
 }
