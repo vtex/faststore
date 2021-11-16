@@ -1,6 +1,7 @@
 import { enhanceSku } from '../utils/enhanceSku'
 import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
+import { StoreCollection } from './collection'
 import type {
   QueryProductArgs,
   QueryAllCollectionsArgs,
@@ -9,7 +10,6 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
-import { slugify } from '../utils/slugify'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -125,7 +125,8 @@ export const Query = {
         endCursor: '0',
       },
       edges: collections
-        .filter(({ name }) => Boolean(slugify(name))) // Nullable slugs may cause one route to override the other
+        // Nullable slugs may cause one route to override the other
+        .filter((node) => Boolean(StoreCollection.slug(node, null, ctx, null)))
         .map((node, index) => ({
           node,
           cursor: index.toString(),
