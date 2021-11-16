@@ -125,7 +125,7 @@ export const Query = {
         endCursor: '0',
       },
       edges: collections
-        .filter(({ name }) => Boolean(slugify(name))) // Filter nullable routes to avoid creatig catch all routes
+        .filter(({ name }) => Boolean(slugify(name))) // Nullable slugs may cause one route to override the other
         .map((node, index) => ({
           node,
           cursor: index.toString(),
