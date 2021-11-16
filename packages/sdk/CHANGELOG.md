@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.34 (2021-11-16)
+
+
+### Bug Fixes
+
+* Filter collection slugs in api ([#1022](https://github.com/vtex/faststore/issues/1022)) ([cdcfcff](https://github.com/vtex/faststore/commit/cdcfcff642561dd73b1f85557e101271d10ca930))
+
+
+
+
+
 ## 1.2.33 (2021-11-12)
 
 **Note:** Version bump only for package @faststore/sdk
