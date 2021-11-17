@@ -34,16 +34,16 @@ export const IntelligentSearch = (
   ctx: Context
 ) => {
   const base = `http://portal.${environment}.com.br/search-api/v1/${account}`
+  const policyFacet = { key: 'trade-policy', value: ctx.storage.channel }
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
-    const facetsObj = Object.fromEntries(
-      facets.map(({ key, value }) => [key, value])
-    )
+    const facet = facets.find(({ key }) => key === policyFacet.key)
 
-    return Object.entries({
-      'trade-policy': ctx.storage.channel,
-      ...facetsObj,
-    }).map(([key, value]) => ({ key, value }))
+    if (facet === undefined) {
+      return [...facets, policyFacet]
+    }
+
+    return facets
   }
 
   const search = <T>({
