@@ -22505,11 +22505,6 @@ slugify@^1.4.4, slugify@^1.4.6:
   resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.5.0.tgz#5f3c8e2a84105b54eb51486db1b468a599b3c9b8"
   integrity sha512-Q2UPZ2udzquy1ElHfOLILMBMqBEXkiD3wE75qtBvV+FsDdZZjUqPZ44vqLTejAVq+wLLHacOMcENnP8+ZbzmIA==
 
-slugify@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.0.tgz#6bdf8ed01dabfdc46425b67e3320b698832ff893"
-  integrity sha512-FkMq+MQc5hzYgM86nLuHI98Acwi3p4wX+a5BO9Hhw4JdK4L7WueIiZ4tXEobImPqBz2sVcV0+Mu3GRB30IGang==
-
 smart-buffer@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.1.0.tgz#91605c25d91652f4661ea69ccf45f1b331ca21ba"

@@ -1,6 +1,7 @@
 import { enhanceSku } from '../utils/enhanceSku'
 import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
+import { StoreCollection } from './collection'
 import type {
   QueryProductArgs,
   QueryAllCollectionsArgs,
@@ -123,10 +124,13 @@ export const Query = {
         startCursor: '0',
         endCursor: '0',
       },
-      edges: collections.map((node, index) => ({
-        node,
-        cursor: index.toString(),
-      })),
+      edges: collections
+        // Nullable slugs may cause one route to override the other
+        .filter((node) => Boolean(StoreCollection.slug(node, null, ctx, null)))
+        .map((node, index) => ({
+          node,
+          cursor: index.toString(),
+        })),
     }
   },
 }

@@ -1,6 +1,6 @@
 {
   "name": "@faststore/sdk",
-  "version": "1.2.33",
+  "version": "1.2.37",
   "description": "Hooks for creating your next component library",
   "license": "MIT",
   "repository": {
@@ -8,6 +8,7 @@
     "url": "https://github.com/vtex/faststore",
     "directory": "packages/sdk"
   },
+  "browserslist": "supports es6-module and not dead and last 2 version",
   "main": "dist/index.js",
   "module": "dist/sdk.esm.js",
   "typings": "dist/index.d.ts",

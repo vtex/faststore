@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "1.2.33",
+  "version": "1.2.37",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -9,6 +9,7 @@
     "url": "https://github.com/vtex/faststore",
     "directory": "packages/ui"
   },
+  "browserslist": "supports es6-module and not dead and last 2 version",
   "main": "dist/index.js",
   "module": "dist/ui.esm.js",
   "typings": "dist/index.d.ts",
@@ -73,7 +74,7 @@
     "@types/jest-axe": "^3.5.3",
     "@types/tabbable": "^3.1.1",
     "@types/testing-library__jest-dom": "^5.9.5",
-    "@vtex/theme-b2c-tailwind": "^1.2.33",
+    "@vtex/theme-b2c-tailwind": "^1.2.37",
     "@vtex/tsconfig": "^0.5.0",
     "jest-axe": "^5.0.1",
     "react": "^17.0.2",
