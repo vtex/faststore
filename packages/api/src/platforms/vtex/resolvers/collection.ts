@@ -1,11 +1,13 @@
-import { slugify } from '../utils/slugify'
 import type { Resolver } from '..'
 import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
+import type { PortalPagetype } from '../clients/commerce/types/Portal'
+import { slugify } from '../utils/slugify'
 
-type Root = Brand | (CategoryTree & { level: number })
+type Root = Brand | (CategoryTree & { level: number }) | PortalPagetype
 
-const isBrand = (x: any): x is Brand => x.type === 'brand'
+const isBrand = (x: any): x is Brand | PortalPagetype =>
+  x.type === 'brand' || x.pageType === 'Brand'
 
 export const StoreCollection: Record<string, Resolver<Root>> = {
   id: ({ id }) => id.toString(),
