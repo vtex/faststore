@@ -7,6 +7,7 @@ import type {
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
   QuerySearchArgs,
+  QueryCollectionArgs,
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
@@ -26,6 +27,17 @@ export const Query = {
     } = ctx
 
     return skuLoader.load(locator.map(transformSelectedFacet))
+  },
+  collection: async (
+    _: unknown,
+    { slug }: QueryCollectionArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    return commerce.catalog.portal.pagetype(slug)
   },
   search: async (
     _: unknown,
