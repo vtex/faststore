@@ -1,5 +1,5 @@
-import type { Context, Options } from '../../index'
 import { fetchAPI } from '../fetch'
+import type { Context, Options } from '../../index'
 import type { SelectedFacet } from '../../utils/facets'
 import type { ProductSearchResult } from './types/ProductSearchResult'
 import type { AttributeSearchResult } from './types/AttributeSearchResult'
@@ -36,14 +36,13 @@ export const IntelligentSearch = (
   const base = `http://portal.${environment}.com.br/search-api/v1/${account}`
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
-    const facetsObj = Object.fromEntries(
-      facets.map(({ key, value }) => [key, value])
-    )
+    const facet = facets.find(({ key }) => key === 'trade-policy')
 
-    return Object.entries({
-      'trade-policy': ctx.storage.channel,
-      ...facetsObj,
-    }).map(([key, value]) => ({ key, value }))
+    if (facet === undefined) {
+      return [...facets, { key: 'trade-policy', value: ctx.storage.channel }]
+    }
+
+    return facets
   }
 
   const search = <T>({
