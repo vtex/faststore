@@ -47,6 +47,8 @@ type StoreSearchResult {
 type Query {
   product(locator: [IStoreSelectedFacet!]!): StoreProduct!
 
+  collection(slug: String!): StoreCollection!
+
   search(
     first: Int!
     after: String
