@@ -48,13 +48,14 @@ AlertWithAction.args = {
 
 const argTypes: ComponentArgTypes<AlertProps> = {
   icon: {
-    options: Object.keys(icons), // An array of serializable values
+    options: [null, ...Object.keys(icons)], // An array of serializable values
     mapping: icons, // Maps serializable option values to complex arg values
     control: {
       type: 'select',
       labels: {
         // 'labels' maps option values to string labels
-        ShoppingCartIcon: 'ShoppingCartIcon',
+        null: 'Without icon',
+        ShoppingCartIcon: 'Shopping Cart Icon',
       },
     },
   },
