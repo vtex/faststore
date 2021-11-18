@@ -24,6 +24,8 @@ const AlertTemplate: Story<AlertProps> = ({
   </Component>
 )
 
+const icons = { ShoppingCartIcon: <ShoppingCartIcon /> }
+
 export const Alert = AlertTemplate.bind({})
 Alert.args = {
   icon: <ShoppingCartIcon />,
@@ -46,9 +48,15 @@ AlertWithAction.args = {
 
 const argTypes: ComponentArgTypes<AlertProps> = {
   icon: {
-    control: { type: 'select' },
-    // eslint-disable-next-line react/jsx-key
-    options: [<ShoppingCartIcon />],
+    options: Object.keys(icons), // An array of serializable values
+    mapping: icons, // Maps serializable option values to complex arg values
+    control: {
+      type: 'select',
+      labels: {
+        // 'labels' maps option values to string labels
+        ShoppingCartIcon: 'ShoppingCartIcon',
+      },
+    },
   },
   dismissible: {
     control: {
