@@ -57,7 +57,6 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
       {dismissible && (
         <Button
-          data-dismiss="alert"
           aria-label="Close"
           data-store-alert-button
           data-testid={`${testId}-button`}
