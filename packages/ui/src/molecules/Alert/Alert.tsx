@@ -1,11 +1,12 @@
-import type { HTMLAttributes, MouseEvent, ReactNode } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
+import type { AlertPureProps } from './AlertPure'
+import AlertPure from './AlertPure'
 import Icon from '../../atoms/Icon'
 import Button from '../../atoms/Button'
 
-export interface AlertProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onClose' | 'role'> {
+export interface AlertProps extends Omit<AlertPureProps, 'onClose'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -23,7 +24,7 @@ export interface AlertProps
   dismissible?: boolean
 
   /**
-   * Function that is triggered when the alert is closed.
+   * This function is called whenever the user hits the close button.
    */
   onClose?: (event: MouseEvent) => void
 }
@@ -40,17 +41,16 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
   ref
 ) {
   const handleClose = (event: MouseEvent) => {
+    if (event.defaultPrevented) {
+      return
+    }
+
+    event.stopPropagation()
     onClose?.(event)
   }
 
   return (
-    <div
-      ref={ref}
-      role="alert"
-      data-store-alert
-      data-testid={testId}
-      {...otherProps}
-    >
+    <AlertPure ref={ref} testId={testId} {...otherProps}>
       {icon && <Icon component={icon} />}
 
       {children}
@@ -65,7 +65,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
           <span>&times;</span>
         </Button>
       )}
-    </div>
+    </AlertPure>
   )
 })
 
