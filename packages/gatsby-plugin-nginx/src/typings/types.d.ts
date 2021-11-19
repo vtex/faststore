@@ -88,7 +88,7 @@ declare global {
     /**
      * Creates a proxy_pass rule from `/api/*` to the URL defined in this option, when there are functions.
      * The path variable `:splat` is available.
-     * May be overriden with environment variable NGINX_FUNCTIONS_GATEWAY
+     * May be overridden with environment variable NGINX_FUNCTIONS_GATEWAY
      *
      * @example
      * functionsGateway: 'http://my-api-backend.com/:splat'
