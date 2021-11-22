@@ -63,6 +63,9 @@ export type { IconButtonProps } from './molecules/IconButton'
 export { default as Modal } from './molecules/Modal'
 export type { ModalProps } from './molecules/Modal'
 
+export { default as Incentives } from './molecules/Incentives'
+export type { IncentivesProps } from './molecules/Incentives'
+
 export {
   default as Accordion,
   AccordionItem,
