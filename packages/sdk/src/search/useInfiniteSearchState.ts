@@ -30,8 +30,10 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-export const useSearchInfiniteState = (page: number) => {
-  const [pages, dispatch] = useReducer(reducer, page, () => [page])
+export const useSearchInfiniteState = (initialPage: number) => {
+  const [pages, dispatch] = useReducer(reducer, initialPage, () => [
+    initialPage,
+  ])
 
   return {
     pages,
