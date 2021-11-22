@@ -1,5 +1,4 @@
-/* eslint-disable no-case-declarations */
-import { useReducer } from 'react'
+import { useMemo, useReducer } from 'react'
 
 import { SDKError } from '../utils/error'
 
@@ -205,22 +204,28 @@ export const reducer = (state: State, action: Action) => {
 export const useSearchState = (initialState: Partial<State>) => {
   const [state, dispatch] = useReducer(reducer, initialState, initialize)
 
-  return {
-    state,
-    setSort: (sort: SearchSort) => dispatch({ type: 'setSort', payload: sort }),
-    setTerm: (term: string | null) =>
-      dispatch({ type: 'setTerm', payload: term }),
-    setPage: (page: number) => dispatch({ type: 'setPage', payload: page }),
-    setFacet: (facet: Facet, unique = false) =>
-      dispatch({ type: 'setFacet', payload: { facet, unique } }),
-    removeFacet: (facet: Facet) =>
-      dispatch({ type: 'removeFacet', payload: facet }),
-    toggleFacet: (facet: Facet) =>
-      dispatch({
-        type: 'toggleFacet',
-        payload: facet,
-      }),
-    toggleFacets: (facets: Facet[]) =>
-      dispatch({ type: 'toggleFacets', payload: facets }),
-  }
+  return useMemo(
+    () => ({
+      state,
+      setSort: (sort: SearchSort) =>
+        dispatch({ type: 'setSort', payload: sort }),
+      setTerm: (term: string | null) =>
+        dispatch({ type: 'setTerm', payload: term }),
+      setPage: (page: number) => dispatch({ type: 'setPage', payload: page }),
+      setFacet: (facet: Facet, unique = false) =>
+        dispatch({ type: 'setFacet', payload: { facet, unique } }),
+      removeFacet: (facet: Facet) =>
+        dispatch({ type: 'removeFacet', payload: facet }),
+      toggleFacet: (facet: Facet) =>
+        dispatch({
+          type: 'toggleFacet',
+          payload: facet,
+        }),
+      toggleFacets: (facets: Facet[]) =>
+        dispatch({ type: 'toggleFacets', payload: facets }),
+    }),
+    [state]
+  )
 }
+
+export type UseSearchState = ReturnType<typeof useSearchState>

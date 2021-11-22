@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { useReducer } from 'react'
+import { useMemo, useReducer } from 'react'
 
 import { SDKError } from '../utils/error'
 
@@ -35,9 +35,14 @@ export const useSearchInfiniteState = (initialPage: number) => {
     initialPage,
   ])
 
-  return {
-    pages,
-    addPrevPage: () => dispatch({ type: 'addPrev' }),
-    addNextPage: () => dispatch({ type: 'addNext' }),
-  }
+  return useMemo(
+    () => ({
+      pages,
+      addPrevPage: () => dispatch({ type: 'addPrev' }),
+      addNextPage: () => dispatch({ type: 'addNext' }),
+    }),
+    [pages]
+  )
 }
+
+export type UseSearchInfiniteState = ReturnType<typeof useSearchInfiniteState>

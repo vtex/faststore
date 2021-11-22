@@ -4,11 +4,10 @@ import type { FC } from 'react'
 import { format } from './serializer'
 import { useSearchInfiniteState } from './useInfiniteSearchState'
 import { useSearchState } from './useSearchState'
-import type { State as SearchState } from './useSearchState'
+import type { UseSearchInfiniteState } from './useInfiniteSearchState'
+import type { State as SearchState, UseSearchState } from './useSearchState'
 
-export interface SearchContext
-  extends ReturnType<typeof useSearchInfiniteState>,
-    ReturnType<typeof useSearchState> {
+export interface SearchContext extends UseSearchInfiniteState, UseSearchState {
   itemsPerPage: number
 }
 
