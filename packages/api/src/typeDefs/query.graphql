@@ -8,7 +8,6 @@ type StoreProductConnection {
   edges: [StoreProductEdge!]!
 }
 
-
 type StoreCollectionEdge {
   node: StoreCollection!
   cursor: String!
@@ -48,10 +47,10 @@ type StoreSearchResult {
 type Query {
   product(locator: [IStoreSelectedFacet!]!): StoreProduct!
 
+  collection(slug: String!): StoreCollection!
+
   search(
-    # Relay style pagination args. To know more: https://relay.dev/graphql/connections.htm
     first: Int!
-     # Relay style pagination args. To know more: https://relay.dev/graphql/connections.htm
     after: String
     sort: StoreSort = score_desc
     term: String = ""
