@@ -19,7 +19,10 @@ export interface RadioOptionChildrenProps {
 }
 
 const RadioOption = forwardRef<HTMLInputElement, RadioOptionProps>(
-  function RadioOption({ label, value, children, ...otherOptions }, ref) {
+  function RadioOption(
+    { label, value, children, testId = 'store-radio-option', ...otherOptions },
+    ref
+  ) {
     const { name, option, onChange } = useRadioOption()
 
     const checked = value === option
@@ -34,6 +37,7 @@ const RadioOption = forwardRef<HTMLInputElement, RadioOptionProps>(
           onChange={() => {
             onChange?.(value)
           }}
+          testId={testId}
         />
         {children}
       </label>
