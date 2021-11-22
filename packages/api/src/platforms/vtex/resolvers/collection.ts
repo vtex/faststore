@@ -25,14 +25,22 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
           description: root.MetaTagDescription,
         },
   type: (root) =>
-    isBrand(root) ? 'Brand' : root.level === 0 ? 'Department' : 'Category',
+    isBrand(root)
+      ? 'Brand'
+      : isPortalPageType(root)
+      ? root.pageType
+      : root.level === 0
+      ? 'Department'
+      : 'Category',
   meta: (root) =>
     isBrand(root)
       ? {
           selectedFacets: [{ key: 'brand', value: slugify(root.name) }],
         }
       : {
-          selectedFacets: new URL(root.url).pathname
+          selectedFacets: new URL(
+            isPortalPageType(root) ? `https://${root.url}` : root.url
+          ).pathname
             .slice(1)
             .split('/')
             .map((segment, index) => ({
