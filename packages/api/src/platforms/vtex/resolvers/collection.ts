@@ -6,14 +6,16 @@ import { slugify } from '../utils/slugify'
 
 type Root = Brand | (CategoryTree & { level: number }) | PortalPagetype
 
-const isBrand = (x: any): x is Brand | PortalPagetype =>
-  x.type === 'brand' || x.pageType === 'Brand'
+const isBrand = (x: any): x is Brand => x.type === 'brand'
+
+const isPortalPageType = (x: any): x is PortalPagetype =>
+  typeof x.pageType === 'string'
 
 export const StoreCollection: Record<string, Resolver<Root>> = {
   id: ({ id }) => id.toString(),
   slug: ({ name }) => slugify(name),
   seo: (root) =>
-    isBrand(root)
+    isBrand(root) || isPortalPageType(root)
       ? {
           title: root.title,
           description: root.metaTagDescription,
