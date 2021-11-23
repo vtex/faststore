@@ -1,4 +1,4 @@
-import { BadRequestError } from "./errors"
+import { BadRequestError } from './errors'
 
 export interface SelectedFacet {
   key: string
