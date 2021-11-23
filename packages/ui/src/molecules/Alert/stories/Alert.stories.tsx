@@ -40,9 +40,9 @@ AlertWithDismissButton.args = { dismissible: true }
 export const AlertWithAction = AlertTemplate.bind({})
 AlertWithAction.args = {
   children: (
-    <>
+    <span>
       Alert <a href="/">Action</a>
-    </>
+    </span>
   ),
 }
 
