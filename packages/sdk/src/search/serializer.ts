@@ -1,9 +1,8 @@
 import { SDKError } from '../utils/error'
-import { setSearchParam } from './reducer'
-import { initialize } from './state'
-import type { SearchParamsState } from './state'
+import { initialize, reducer } from './useSearchState'
+import type { State as SearchState, SearchSort } from './useSearchState'
 
-export const format = (params: SearchParamsState): URL => {
+export const format = (params: SearchState): URL => {
   const map: string[] = []
   const query: string[] = []
 
@@ -20,11 +19,6 @@ export const format = (params: SearchParamsState): URL => {
   map.push('sort')
   query.push(params.sort)
 
-  if (params.personalized !== false) {
-    map.push('personalized')
-    query.push('per')
-  }
-
   if (typeof params.page === 'number') {
     map.push('page')
     query.push(params.page.toString())
@@ -37,7 +31,7 @@ export const format = (params: SearchParamsState): URL => {
   return url
 }
 
-export const parse = ({ pathname, searchParams }: URL): SearchParamsState => {
+export const parse = ({ pathname, searchParams }: URL): SearchState => {
   const spath = pathname.split('/').slice(1)
   const smap = searchParams.get('map')?.split(',')
 
@@ -64,8 +58,28 @@ export const parse = ({ pathname, searchParams }: URL): SearchParamsState => {
   for (let it = 0; it < nfacets; it++) {
     const key = smap[it]
     const value = spath[it + offset]
+    const action =
+      key === 'sort'
+        ? {
+            type: 'setSort' as const,
+            payload: value as SearchSort,
+          }
+        : key === 'term'
+        ? {
+            type: 'setTerm' as const,
+            payload: value,
+          }
+        : key === 'page'
+        ? {
+            type: 'setPage' as const,
+            payload: Number(value),
+          }
+        : {
+            type: 'setFacet' as const,
+            payload: { facet: { key, value }, unique: false },
+          }
 
-    state = setSearchParam(state, { key, value, unique: false })
+    state = reducer(state, action)
   }
 
   return state
