@@ -5,6 +5,7 @@ import type { EnhancedSku } from '../utils/enhanceSku'
 import type { Options } from '..'
 import type { Clients } from '../clients'
 import type { SelectedFacet } from '../utils/facets'
+import { BadRequestError } from '../utils/errors'
 
 export const getSkuLoader = (_: Options, clients: Clients) => {
   const loader = async (facetsList: readonly SelectedFacet[][]) => {
@@ -12,7 +13,7 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
       const maybeFacet = facets.find(({ key }) => key === 'id')
 
       if (!maybeFacet) {
-        throw new Error(
+        throw new BadRequestError(
           'Error while loading SKU. Needs to pass an id to selected facets'
         )
       }
@@ -32,7 +33,7 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
     })
 
     if (products.length !== skuIds.length) {
-      throw new Error(
+      throw new BadRequestError(
         `Sku batching went wrong. Asked for ${skuIds.length} sku(s) but search api returned ${products.length} sku(s)`
       )
     }

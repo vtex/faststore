@@ -1,3 +1,5 @@
+import { BadRequestError } from "./errors"
+
 export interface SelectedFacet {
   key: string
   value: string
@@ -7,7 +9,7 @@ const getIdFromSlug = (slug: string) => {
   const id = slug.split('-').pop()
 
   if (id == null) {
-    throw new Error('Error while extracting sku id from product slug')
+    throw new BadRequestError('Error while extracting sku id from product slug')
   }
 
   return id
