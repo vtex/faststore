@@ -12,7 +12,7 @@ describe('Alert', () => {
       expect(getByTestId('store-alert')).toHaveAttribute('data-store-alert')
     })
 
-    it('should have `data-store-alert-button` attribute', () => {
+    it('should have `data-store-alert-button` attribute when dismissible', () => {
       const { getByTestId } = render(<Alert dismissible>Testing</Alert>)
 
       expect(getByTestId('store-alert-button')).toHaveAttribute(
@@ -21,7 +21,7 @@ describe('Alert', () => {
     })
   })
 
-  it('icon is present', () => {
+  it('should render icon when the icon prop is present', () => {
     const { getByTestId } = render(
       <Alert icon={<div data-testid="icon">foo</div>}>Testing</Alert>
     )
