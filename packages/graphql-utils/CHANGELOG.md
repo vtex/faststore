@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.3 (2021-11-23)
+
+
+### Features
+
+* **gatsby-plugin-nginx:** support to augment the generateRewrites ([#1017](https://github.com/vtex/faststore/issues/1017)) ([46587b0](https://github.com/vtex/faststore/commit/46587b0280d7f8dd733a0dca29909f041c944897))
+
+
+
+
+
 ## 1.3.2 (2021-11-22)
 
 **Note:** Version bump only for package @vtex/graphql-utils
