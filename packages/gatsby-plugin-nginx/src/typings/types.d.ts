@@ -8,9 +8,21 @@ import {
 declare global {
   type Manifest = Record<string, string[]>
 
-  type Redirect = Actions['createRedirect'] extends (redirect: infer R) => any
-    ? R
-    : never
+  interface NginxDirective {
+    cmd: string[]
+    children?: NginxDirective[]
+  }
+
+  type NginxRewriteType = 'proxy' | 'rewrite' | 'redirect' | 'error_page'
+
+  type RedirectNginxOptions = {
+    onGenerateNginxRewrites?: (
+      commands: NginxDirective[],
+      type: NginxRewriteType
+    ) => NginxDirective[]
+  }
+
+  type Redirect = Parameters<Actions['createRedirect']>[0] & RedirectNginxOptions
 
   type Page = PageProps['pageResources']['page']
 
