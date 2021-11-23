@@ -8,13 +8,15 @@ import { RadioGroup, RadioOption, useRadioOption } from '.'
 
 describe('RadioGroup', () => {
   it('Should render radio group with radio option', () => {
-    const { getByTestId, getByLabelText } = render(
+    const { getByTestId, getAllByLabelText } = render(
       <RadioGroup name="radio-group" value="radio">
-        <RadioOption value="radio" label="Radio" />
+        <RadioOption value="radio" label="Radio 1" />
       </RadioGroup>
     )
 
-    expect(getByLabelText(/Radio/i)).toBeInTheDocument()
+    const [radio] = getAllByLabelText(/Radio 1/i)
+
+    expect(radio).toBeInTheDocument()
     expect(getByTestId('store-radio-option')).toBeInTheDocument()
   })
   it('Should render RadioOption Children', () => {
