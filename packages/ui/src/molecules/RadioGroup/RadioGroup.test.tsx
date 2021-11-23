@@ -44,18 +44,22 @@ describe('RadioGroup', () => {
   it('Should emit onChange with rigth value', () => {
     const onChange = jest.fn()
 
-    const { getAllByTestId } = render(
+    const { getByTestId } = render(
       <RadioGroup name="radio-group" value="radio-1" onChange={onChange}>
         <RadioOption value="radio-1" label="Radio 1">
           Radio 1
         </RadioOption>
-        <RadioOption value="radio-2" label="Radio 1">
+        <RadioOption
+          value="radio-2"
+          label="Radio 1"
+          testId="store-radio2-option"
+        >
           Radio 2
         </RadioOption>
       </RadioGroup>
     )
 
-    const [, radio2] = getAllByTestId('store-radio-option')
+    const radio2 = getByTestId('store-radio2-option')
 
     userEvent.click(radio2)
 
@@ -75,6 +79,6 @@ describe('RadioGroup', () => {
     })
 
     expect(result.current.name).toEqual('radio-group')
-    expect(result.current.option).toEqual('radio-1')
+    expect(result.current.value).toEqual('radio-1')
   })
 })

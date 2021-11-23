@@ -6,16 +6,23 @@ import { useRadioOption } from './useRadioOption'
 
 export interface RadioOptionProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress,
+   * testing-library, and jest).
+   */
   testId?: string
+  /**
+   * Attribute to set aria-label option as required.
+   */
   label: string
+  /**
+   * Value to be emitted when radio is clicked.
+   */
   value: string | number
+  /**
+   * Children to show in radio.
+   */
   children?: React.ReactNode
-}
-
-export interface RadioOptionChildrenProps {
-  checked: boolean
-  label: string
-  value: string | number
 }
 
 const RadioOption = forwardRef<HTMLInputElement, RadioOptionProps>(
@@ -23,7 +30,7 @@ const RadioOption = forwardRef<HTMLInputElement, RadioOptionProps>(
     { label, value, children, testId = 'store-radio-option', ...otherOptions },
     ref
   ) {
-    const { name, option, onChange } = useRadioOption()
+    const { name, value: option, onChange } = useRadioOption()
 
     const checked = value === option
 
@@ -39,7 +46,7 @@ const RadioOption = forwardRef<HTMLInputElement, RadioOptionProps>(
           }}
           testId={testId}
         />
-        {children}
+        {children ?? <span>{label}</span>}
       </label>
     )
   }

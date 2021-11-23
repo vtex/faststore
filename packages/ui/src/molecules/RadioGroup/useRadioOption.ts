@@ -1,9 +1,18 @@
 import { createContext, useContext } from 'react'
 
-interface RadioGroupContext {
+export interface RadioGroupContext {
+  /**
+   * Name to link children by context.
+   */
   name: string
-  option: string | number
-  onChange?: (option: string | number) => void
+  /**
+   * Value of checked child.
+   */
+  value: string | number
+  /**
+   * Function that is triggered when any children is checked.
+   */
+  onChange?: (value: string | number) => void
 }
 
 export const RadioGroupContext = createContext<RadioGroupContext | undefined>(
@@ -15,7 +24,7 @@ export function useRadioOption() {
 
   if (!context) {
     throw new Error(
-      `RadioOption component cannot be rendered outside the RadioGroup component`
+      `useRadioOption hook cannot be used outside the RadioGroup context`
     )
   }
 

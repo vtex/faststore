@@ -22,12 +22,8 @@ export const RadioGroupSimple: Story<RadioGroupProps & RadioOptionProps> = ({
         }}
         value={option}
       >
-        <RadioOption value="radio-1" label="Radio 1">
-          Radio 1
-        </RadioOption>
-        <RadioOption value="radio-2" label="Radio 2">
-          Radio 2
-        </RadioOption>
+        <RadioOption value="radio-1" label="Radio 1" />
+        <RadioOption value="radio-2" label="Radio 2" />
       </RadioGroup>
     </>
   )
@@ -50,10 +46,13 @@ export const RadioOptionWithChildren: Story<
         value={option}
       >
         <RadioOption value="radio-1" label="Radio 1">
-          Radio 1
+          <div>Radio 1</div>
         </RadioOption>
         <RadioOption value="radio-2" label="Radio 2">
-          <h2>Radio 2</h2>
+          <div>Radio 2</div>
+        </RadioOption>
+        <RadioOption value="radio-3" label="Radio 3">
+          <div>Radio 3</div>
         </RadioOption>
       </RadioGroup>
     </>
@@ -77,12 +76,9 @@ export const RadioGroupControled: Story<RadioGroupProps & RadioOptionProps> = ({
         }}
         value={option}
       >
-        <RadioOption value="radio-1" label="Radio 1">
-          Radio 1
-        </RadioOption>
-        <RadioOption value="radio-2" label="Radio 2">
-          Radio 2
-        </RadioOption>
+        <RadioOption value="radio-1" label="Radio 1" />
+        <RadioOption value="radio-2" label="Radio 2" />
+        <RadioOption value="radio-3" label="Radio 3" />
       </RadioGroup>
       <br />
       <button
