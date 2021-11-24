@@ -63,6 +63,9 @@ export type { IconButtonProps } from './molecules/IconButton'
 export { default as Modal } from './molecules/Modal'
 export type { ModalProps } from './molecules/Modal'
 
+export { default as Banner } from './molecules/Banner'
+export type { BannerProps } from './molecules/Banner'
+
 export {
   default as Accordion,
   AccordionItem,
