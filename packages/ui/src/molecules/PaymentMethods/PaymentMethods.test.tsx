@@ -4,11 +4,9 @@ import React from 'react'
 
 import PaymentMethods from './PaymentMethods'
 
-const TestPaymentMethods = () => <PaymentMethods />
-
 describe('Payment methods', () => {
   it('should have `data-store-payment-methods` attribute', () => {
-    const { getByTestId } = render(<TestPaymentMethods />)
+    const { getByTestId } = render(<PaymentMethods>Testing</PaymentMethods>)
 
     expect(getByTestId('store-payment-methods')).toHaveAttribute(
       'data-store-payment-methods'
@@ -17,7 +15,7 @@ describe('Payment methods', () => {
 
   describe('Accessibility', () => {
     it('should have no violations', async () => {
-      const { getByTestId } = render(<TestPaymentMethods />)
+      const { getByTestId } = render(<PaymentMethods>Testing</PaymentMethods>)
 
       expect(
         await axe(getByTestId('store-payment-methods'))

@@ -6,12 +6,18 @@ export interface PaymentMethodsProps {
    * testing-library, and jest).
    */
   testId?: string
+  children: React.ReactNode
 }
 
 const PaymentMethods = ({
   testId = 'store-payment-methods',
+  children,
 }: PaymentMethodsProps) => {
-  return <div data-testid={testId}>Payment Methods</div>
+  return (
+    <div data-store-payment-methods data-testid={testId}>
+      {children}
+    </div>
+  )
 }
 
 export default PaymentMethods
