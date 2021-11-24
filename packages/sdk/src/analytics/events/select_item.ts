@@ -7,6 +7,6 @@ export interface SelectItemData {
 }
 
 export interface SelectItemEvent {
-  type: 'select_item'
-  data: SelectItemData
+  name: 'select_item'
+  params: SelectItemData
 }

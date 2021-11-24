@@ -9,6 +9,6 @@ export interface AddPaymentInfoData {
 }
 
 export interface AddPaymentInfoEvent {
-  type: 'add_payment_info'
-  data: AddPaymentInfoData
+  name: 'add_payment_info'
+  params: AddPaymentInfoData
 }

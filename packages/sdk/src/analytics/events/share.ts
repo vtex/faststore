@@ -7,6 +7,6 @@ export interface ShareData {
 }
 
 export interface ShareEvent {
-  type: 'share'
-  data: ShareData
+  name: 'share'
+  params: ShareData
 }

@@ -41,22 +41,22 @@ export type AnalyticsEvent =
   | ShareEvent
 
 export interface UnknownEvent {
-  type: string
-  data: unknown
+  name: string
+  params: unknown
 }
 
 export type WrappedAnalyticsEventData<T extends UnknownEvent> = Omit<
   T,
-  'type'
+  'name'
 > & {
   // Sadly tsdx doesn't support typescript 4.x yet. We should change this type to this when it does:
-  // type: `store:${T['type']}`
-  type: string
+  // name: `store:${T['name']}`
+  name: string
 }
 
 export interface WrappedAnalyticsEvent<T extends UnknownEvent> {
-  type: 'AnalyticsEvent'
-  data: WrappedAnalyticsEventData<T>
+  name: 'AnalyticsEvent'
+  params: WrappedAnalyticsEventData<T>
 }
 
 export const STORE_EVENT_PREFIX = 'store:'
@@ -66,10 +66,10 @@ export const wrap = <T extends UnknownEvent>(
   event: T
 ): WrappedAnalyticsEvent<T> =>
   ({
-    type: ANALYTICS_EVENT_TYPE,
-    data: {
+    name: ANALYTICS_EVENT_TYPE,
+    params: {
       ...event,
-      type: `${STORE_EVENT_PREFIX}${event.type}`,
+      name: `${STORE_EVENT_PREFIX}${event.name}`,
     },
   } as WrappedAnalyticsEvent<T>)
 
@@ -77,10 +77,10 @@ export const unwrap = <T extends UnknownEvent>(
   event: WrappedAnalyticsEvent<T>
 ): T => {
   return {
-    ...event.data,
-    type: event.data.type.slice(
+    ...event.params,
+    name: event.params.name.slice(
       STORE_EVENT_PREFIX.length,
-      event.data.type.length
+      event.params.name.length
     ),
   } as T
 }

@@ -7,6 +7,6 @@ export interface AddToWishlistData {
 }
 
 export interface AddToWishlistEvent {
-  type: 'add_to_wishlist'
-  data: AddToWishlistData
+  name: 'add_to_wishlist'
+  params: AddToWishlistData
 }

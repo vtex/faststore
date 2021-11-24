@@ -8,6 +8,6 @@ export interface BeginCheckoutData {
 }
 
 export interface BeginCheckoutEvent {
-  type: 'begin_checkout'
-  data: BeginCheckoutData
+  name: 'begin_checkout'
+  params: BeginCheckoutData
 }

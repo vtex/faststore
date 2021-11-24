@@ -7,6 +7,6 @@ export interface ViewCartData {
 }
 
 export interface ViewCartEvent {
-  type: 'view_cart'
-  data: ViewCartData
+  name: 'view_cart'
+  params: ViewCartData
 }

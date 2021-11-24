@@ -5,6 +5,6 @@ export interface SearchData {
 }
 
 export interface SearchEvent {
-  type: 'search'
-  data: SearchData
+  name: 'search'
+  params: SearchData
 }

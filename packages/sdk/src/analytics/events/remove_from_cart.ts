@@ -7,6 +7,6 @@ export interface RemoveFromCartData {
 }
 
 export interface RemoveFromCartEvent {
-  type: 'remove_from_cart'
-  data: RemoveFromCartData
+  name: 'remove_from_cart'
+  params: RemoveFromCartData
 }

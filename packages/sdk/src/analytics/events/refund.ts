@@ -12,6 +12,6 @@ export interface RefundData {
 }
 
 export interface RefundEvent {
-  type: 'refund'
-  data: RefundData
+  name: 'refund'
+  params: RefundData
 }

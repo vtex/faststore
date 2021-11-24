@@ -7,6 +7,6 @@ export interface ViewPromotionItems {
 export type ViewPromotionData = PromotionProperties & ViewPromotionItems
 
 export interface ViewPromotionEvent {
-  type: 'view_promotion'
-  data: ViewPromotionData
+  name: 'view_promotion'
+  params: ViewPromotionData
 }

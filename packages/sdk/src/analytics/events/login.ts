@@ -5,6 +5,6 @@ export interface LoginData {
 }
 
 export interface LoginEvent {
-  type: 'login'
-  data: LoginData
+  name: 'login'
+  params: LoginData
 }

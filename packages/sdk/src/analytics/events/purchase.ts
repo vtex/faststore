@@ -12,6 +12,6 @@ export interface PurchaseData {
 }
 
 export interface PurchaseEvent {
-  type: 'purchase'
-  data: PurchaseData
+  name: 'purchase'
+  params: PurchaseData
 }

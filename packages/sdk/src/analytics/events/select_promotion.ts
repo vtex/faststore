@@ -7,6 +7,6 @@ export interface SelectPromotionItems {
 export type SelectPromotionData = PromotionProperties & SelectPromotionItems
 
 export interface SelectPromotionEvent {
-  type: 'select_promotion'
-  data: SelectPromotionData
+  name: 'select_promotion'
+  params: SelectPromotionData
 }

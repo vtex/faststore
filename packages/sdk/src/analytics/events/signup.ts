@@ -5,6 +5,6 @@ export interface SignupData {
 }
 
 export interface SignupEvent {
-  type: 'signup'
-  data: SignupData
+  name: 'signup'
+  params: SignupData
 }

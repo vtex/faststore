@@ -7,6 +7,6 @@ export interface AddToCartData {
 }
 
 export interface AddToCartEvent {
-  type: 'add_to_cart'
-  data: AddToCartData
+  name: 'add_to_cart'
+  params: AddToCartData
 }

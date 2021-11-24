@@ -7,6 +7,6 @@ export interface ViewItemListData {
 }
 
 export interface ViewItemListEvent {
-  type: 'view_item_list'
-  data: ViewItemListData
+  name: 'view_item_list'
+  params: ViewItemListData
 }
