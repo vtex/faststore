@@ -1,3 +1,4 @@
+import type { ChangeEventHandler } from 'react'
 import { createContext, useContext } from 'react'
 
 export interface RadioGroupContext {
@@ -8,18 +9,18 @@ export interface RadioGroupContext {
   /**
    * Value of checked child.
    */
-  value: string | number
+  selectedValue?: string | number
   /**
    * Function that is triggered when any children is checked.
    */
-  onChange?: (value: string | number) => void
+  onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
 export const RadioGroupContext = createContext<RadioGroupContext | undefined>(
   undefined
 )
 
-export function useRadioOption() {
+export function useRadioGroup() {
   const context = useContext(RadioGroupContext)
 
   if (!context) {

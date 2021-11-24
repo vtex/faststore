@@ -2,7 +2,7 @@ import type { InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 import { Radio } from '../..'
-import { useRadioOption } from './useRadioOption'
+import { useRadioGroup } from './useRadioGroup'
 
 export interface RadioOptionProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -19,34 +19,28 @@ export interface RadioOptionProps
    * Value to be emitted when radio is clicked.
    */
   value: string | number
-  /**
-   * Children to show in radio.
-   */
-  children?: React.ReactNode
 }
 
 const RadioOption = forwardRef<HTMLInputElement, RadioOptionProps>(
   function RadioOption(
-    { label, value, children, testId = 'store-radio-option', ...otherOptions },
+    { label, value, children, testId = 'store-radio-option', ...otherProps },
     ref
   ) {
-    const { name, value: option, onChange } = useRadioOption()
-
-    const checked = value === option
+    const { name, selectedValue, onChange } = useRadioGroup()
 
     return (
       <label aria-label={label} data-store-radio-option>
         <Radio
-          {...otherOptions}
+          data-store-radio-option-item
           ref={ref}
           name={name}
-          checked={checked}
-          onChange={() => {
-            onChange?.(value)
-          }}
+          checked={value === selectedValue}
+          onChange={onChange}
+          value={value}
           testId={testId}
+          {...otherProps}
         />
-        {children ?? <span>{label}</span>}
+        {children}
       </label>
     )
   }

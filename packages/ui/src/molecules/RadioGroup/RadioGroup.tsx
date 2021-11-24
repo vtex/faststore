@@ -1,18 +1,19 @@
+import type { PropsWithChildren } from 'react'
 import React from 'react'
 
-import { RadioGroupContext } from './useRadioOption'
+import { RadioGroupContext } from './useRadioGroup'
 
-export interface RadioGroupProps extends RadioGroupContext {
-  /**
-   * Children to use RadioGroup provider.
-   */
-  children: React.ReactNode
-}
+export type RadioGroupProps = PropsWithChildren<RadioGroupContext>
 
-const RadioGroup = ({ name, onChange, children, value }: RadioGroupProps) => {
+const RadioGroup = ({
+  name,
+  onChange,
+  children,
+  selectedValue,
+}: RadioGroupProps) => {
   const contextValues = React.useMemo(() => {
-    return { name, value, onChange }
-  }, [name, value, onChange])
+    return { name, selectedValue, onChange }
+  }, [name, selectedValue, onChange])
 
   return (
     <RadioGroupContext.Provider value={contextValues}>

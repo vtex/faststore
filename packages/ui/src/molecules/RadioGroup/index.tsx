@@ -1,11 +1,11 @@
 import RadioGroup, { RadioGroupProps } from './RadioGroup'
 import RadioOption, { RadioOptionProps } from './RadioOption'
-import { useRadioOption } from './useRadioOption'
+import { useRadioGroup } from './useRadioGroup'
 
 export {
   RadioGroup,
   RadioOption,
-  useRadioOption,
+  useRadioGroup,
   RadioGroupProps,
   RadioOptionProps,
 }

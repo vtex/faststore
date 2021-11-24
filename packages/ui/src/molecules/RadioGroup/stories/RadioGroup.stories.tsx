@@ -5,10 +5,9 @@ import type { RadioGroupProps, RadioOptionProps } from '..'
 import { RadioGroup, RadioOption } from '..'
 import mdx from './RadioGroup.mdx'
 
-export const RadioGroupSimple: Story<RadioGroupProps & RadioOptionProps> = ({
-  onChange,
-  ...args
-}) => {
+export const RadioGroupSimple: Story<RadioGroupProps & RadioOptionProps> = (
+  args
+) => {
   const [option, setOption] = useState<string | number>('')
 
   return (
@@ -17,13 +16,16 @@ export const RadioGroupSimple: Story<RadioGroupProps & RadioOptionProps> = ({
         {...args}
         name="radio-group"
         onChange={(v) => {
-          setOption(v)
-          onChange?.(v)
+          setOption(v.currentTarget.value)
         }}
-        value={option}
+        selectedValue={option}
       >
-        <RadioOption value="radio-1" label="Radio 1" />
-        <RadioOption value="radio-2" label="Radio 2" />
+        <RadioOption value="radio-1" label="Radio 1">
+          <span>Radio 1</span>
+        </RadioOption>
+        <RadioOption value="radio-2" label="Radio 2">
+          <span>Radio 2</span>
+        </RadioOption>
       </RadioGroup>
     </>
   )
@@ -31,19 +33,18 @@ export const RadioGroupSimple: Story<RadioGroupProps & RadioOptionProps> = ({
 
 export const RadioOptionWithChildren: Story<
   RadioGroupProps & RadioOptionProps
-> = ({ onChange, ...args }) => {
+> = (args) => {
   const [option, setOption] = useState<string | number>('')
 
   return (
     <>
       <RadioGroup
         {...args}
-        name="radio-group"
+        name="radio-group-with-children"
         onChange={(v) => {
-          setOption(v)
-          onChange?.(v)
+          setOption(v.currentTarget.value)
         }}
-        value={option}
+        selectedValue={option}
       >
         <RadioOption value="radio-1" label="Radio 1">
           <div>Radio 1</div>
@@ -59,26 +60,30 @@ export const RadioOptionWithChildren: Story<
   )
 }
 
-export const RadioGroupControled: Story<RadioGroupProps & RadioOptionProps> = ({
-  onChange,
-  ...args
-}) => {
+export const RadioGroupControlled: Story<RadioGroupProps & RadioOptionProps> = (
+  args
+) => {
   const [option, setOption] = useState<string | number>('')
 
   return (
     <>
       <RadioGroup
         {...args}
-        name="radio-group"
+        name="radio-group-controlled"
         onChange={(v) => {
-          setOption(v)
-          onChange?.(v)
+          setOption(v.currentTarget.value)
         }}
-        value={option}
+        selectedValue={option}
       >
-        <RadioOption value="radio-1" label="Radio 1" />
-        <RadioOption value="radio-2" label="Radio 2" />
-        <RadioOption value="radio-3" label="Radio 3" />
+        <RadioOption value="radio-1" label="Radio 1">
+          <span>Radio 1</span>
+        </RadioOption>
+        <RadioOption value="radio-2" label="Radio 2">
+          <span>Radio 2</span>
+        </RadioOption>
+        <RadioOption value="radio-3" label="Radio 3">
+          <span>Radio 3</span>
+        </RadioOption>
       </RadioGroup>
       <br />
       <button
@@ -94,9 +99,6 @@ export const RadioGroupControled: Story<RadioGroupProps & RadioOptionProps> = ({
 
 export default {
   title: 'Molecules/RadioGroup',
-  argTypes: {
-    onChange: { action: 'Selected Value' },
-  },
   parameters: {
     docs: {
       page: mdx,

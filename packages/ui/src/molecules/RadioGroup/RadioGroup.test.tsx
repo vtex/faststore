@@ -4,24 +4,31 @@ import userEvent from '@testing-library/user-event'
 import type { ReactNode } from 'react'
 import React from 'react'
 
-import { RadioGroup, RadioOption, useRadioOption } from '.'
+import { RadioGroup, RadioOption, useRadioGroup } from '.'
 
 describe('RadioGroup', () => {
   it('Should render radio group with radio option', () => {
-    const { getByTestId, getAllByLabelText } = render(
-      <RadioGroup name="radio-group" value="radio">
+    const onChange = jest.fn()
+
+    const { getByTestId, getByRole } = render(
+      <RadioGroup name="radio-group" selectedValue="radio" onChange={onChange}>
         <RadioOption value="radio" label="Radio 1" />
       </RadioGroup>
     )
 
-    const [radio] = getAllByLabelText(/Radio 1/i)
+    const radio = getByRole('radio', { name: 'Radio 1' })
 
     expect(radio).toBeInTheDocument()
     expect(getByTestId('store-radio-option')).toBeInTheDocument()
   })
   it('Should render RadioOption Children', () => {
+    const onChange = jest.fn()
     const { getByRole } = render(
-      <RadioGroup name="radio-group" value="radio-1">
+      <RadioGroup
+        name="radio-group"
+        selectedValue="radio-1"
+        onChange={onChange}
+      >
         <RadioOption value="radio-1" label="Radio 1">
           <h1>Radio Group 1</h1>
         </RadioOption>
@@ -31,10 +38,16 @@ describe('RadioGroup', () => {
     expect(getByRole('heading')).toHaveTextContent('Radio Group 1')
   })
   it('Should pass name from RadioGroup to RadioOptions', () => {
+    const onChange = jest.fn()
+
     const { container } = render(
-      <RadioGroup name="radio-group" value="radio-1">
+      <RadioGroup
+        name="radio-group"
+        selectedValue="radio-1"
+        onChange={onChange}
+      >
         <RadioOption value="radio-1" label="Radio 1" />
-        <RadioOption value="radio-1" label="Radio 1" />
+        <RadioOption value="radio-2" label="Radio 2" />
       </RadioGroup>
     )
 
@@ -43,17 +56,21 @@ describe('RadioGroup', () => {
     expect(options).toHaveLength(2)
   })
 
-  it('Should emit onChange with rigth value', () => {
+  it('Should emit onChange with right value', () => {
     const onChange = jest.fn()
 
     const { getByTestId } = render(
-      <RadioGroup name="radio-group" value="radio-1" onChange={onChange}>
+      <RadioGroup
+        name="radio-group"
+        selectedValue="radio-1"
+        onChange={onChange}
+      >
         <RadioOption value="radio-1" label="Radio 1">
           Radio 1
         </RadioOption>
         <RadioOption
           value="radio-2"
-          label="Radio 1"
+          label="Radio 2"
           testId="store-radio2-option"
         >
           Radio 2
@@ -65,22 +82,24 @@ describe('RadioGroup', () => {
 
     userEvent.click(radio2)
 
+    const [[event]] = onChange.mock.calls
+
     expect(onChange).toHaveBeenCalledTimes(1)
-    expect(onChange).toHaveBeenCalledWith('radio-2')
+    expect(event.target.value).toEqual('radio-2')
   })
 
-  it('Should render useRadioGroup hook', async () => {
+  it('Should render useRadioGroup hook', () => {
     const WrapperRadioGroup = ({ children }: { children: ReactNode }) => (
-      <RadioGroup name="radio-group" value="radio-1">
+      <RadioGroup name="radio-group" selectedValue="radio-1">
         {children}
       </RadioGroup>
     )
 
-    const { result } = renderHook(() => useRadioOption(), {
+    const { result } = renderHook(() => useRadioGroup(), {
       wrapper: WrapperRadioGroup,
     })
 
     expect(result.current.name).toEqual('radio-group')
-    expect(result.current.value).toEqual('radio-1')
+    expect(result.current.selectedValue).toEqual('radio-1')
   })
 })

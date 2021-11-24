@@ -2,26 +2,26 @@
   @apply m-4;
 }
 
-[data-store-radio-option] input[type='radio'] {
+[data-store-radio-option-item] {
   @apply opacity-0 absolute;
 }
 
-[data-store-radio-option] input[type='radio']:focus + span {
+[data-store-radio-option-item]:focus + span {
   @apply border-2 border-pink-300;
 }
 
-[data-store-radio-option] input[type='radio']:checked + span {
+[data-store-radio-option-item]:checked + span {
   @apply text-pink-600;
 }
 
-[data-store-radio-option] input[type='radio'] + div {
+[data-store-radio-option-item] + div {
   @apply inline-block h-16 w-16 border-2 border-gray-300 m-0;
 }
 
-[data-store-radio-option] input[type='radio']:checked + div {
+[data-store-radio-option-item]:checked + div {
   @apply bg-pink-600 text-white border-0;
 }
 
-[data-store-radio-option] input[type='radio']:focus + div {
+[data-store-radio-option-item]:focus + div {
   @apply border-2 border-pink-300;
 }
