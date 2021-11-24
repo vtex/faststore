@@ -32,15 +32,17 @@ const Incentives = forwardRef<HTMLDivElement, IncentivesProps>(
   ) {
     return (
       <IncentivesPure ref={ref} testId={testId} {...otherProps}>
-        {incentives.map(({ icon, title, description }, index) => {
-          return (
-            <List key={`incentive-${index}`}>
-              {icon && <Icon component={icon} />}
-              {title && <Label data-store-incentive-label>{title}</Label>}
-              <span>{description}</span>
-            </List>
-          )
-        })}
+        <List role="list">
+          {incentives.map(({ icon, title, description }, index) => {
+            return (
+              <li key={`incentive-${index}`}>
+                {icon && <Icon component={icon} />}
+                {title && <Label data-store-incentive-label>{title}</Label>}
+                <span>{description}</span>
+              </li>
+            )
+          })}
+        </List>
       </IncentivesPure>
     )
   }
