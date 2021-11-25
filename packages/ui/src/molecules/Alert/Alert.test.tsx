@@ -30,7 +30,7 @@ describe('Alert', () => {
   })
 
   describe('User actions', () => {
-    it('clicking close button should trigger `onClose` function', () => {
+    it('should trigger `onClose` function when user hit close button', () => {
       const mockOnClose = jest.fn()
       const { getByTestId } = render(
         <Alert dismissible onClose={mockOnClose}>
@@ -42,6 +42,20 @@ describe('Alert', () => {
 
       fireEvent.click(button)
       expect(mockOnClose).toHaveBeenCalledTimes(1)
+    })
+
+    it('should not trigger `onClose` function when user hit inside the alert', () => {
+      const mockOnClose = jest.fn()
+      const { getByTestId } = render(
+        <Alert dismissible onClose={mockOnClose}>
+          Testing
+        </Alert>
+      )
+
+      const alert = getByTestId('store-alert')
+
+      fireEvent.click(alert)
+      expect(mockOnClose).not.toHaveBeenCalled()
     })
   })
 
