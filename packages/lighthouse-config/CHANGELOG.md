@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.5 (2021-11-25)
+
+
+### Features
+
+* **ui:** RadioGroup Component ([#1033](https://github.com/vtex/faststore/issues/1033)) ([60f306d](https://github.com/vtex/faststore/commit/60f306d97257a8cc65ec67bf1f1cc16376ad1654))
+
+
+
+
+
 ## 1.3.4 (2021-11-23)
 
 **Note:** Version bump only for package @vtex/lighthouse-config
