@@ -12,11 +12,11 @@ describe('Alert', () => {
       expect(getByTestId('store-alert')).toHaveAttribute('data-store-alert')
     })
 
-    it('should have `data-store-alert-button` attribute when dismissible', () => {
+    it('should have `data-alert-button` attribute when dismissible', () => {
       const { getByTestId } = render(<Alert dismissible>Testing</Alert>)
 
       expect(getByTestId('store-alert-button')).toHaveAttribute(
-        'data-store-alert-button'
+        'data-alert-button'
       )
     })
   })

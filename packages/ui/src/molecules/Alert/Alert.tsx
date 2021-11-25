@@ -51,14 +51,14 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
   return (
     <AlertPure ref={ref} testId={testId} {...otherProps}>
-      {icon && <Icon component={icon} />}
+      {icon && <Icon component={icon} data-alert-icon />}
 
       {children}
 
       {dismissible && (
         <Button
           aria-label="Close"
-          data-store-alert-button
+          data-alert-button
           data-testid={`${testId}-button`}
           onClick={handleClose}
         >
