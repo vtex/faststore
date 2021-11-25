@@ -6,3 +6,6 @@ export type { BannerImageProps } from './BannerImage'
 
 export { default as BannerContent } from './BannerContent'
 export type { BannerContentProps } from './BannerContent'
+
+export { default as BannerTitle } from './BannerTitle'
+export type { BannerTitleProps } from './BannerTitle'
