@@ -11,9 +11,9 @@ export interface BannerProps {
 
 const Banner = ({ testId = 'store-banner', children }: BannerProps) => {
   return (
-    <div data-store-banner data-testid={testId}>
+    <section data-store-banner data-testid={testId}>
       {children}
-    </div>
+    </section>
   )
 }
 
