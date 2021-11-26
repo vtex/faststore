@@ -6,8 +6,3 @@
 [data-store-alert] [data-alert-icon] {
   @apply m-0 px-2;
 }
-
-[data-store-alert] [data-alert-button] {
-  @apply ml-auto py-0 px-2 leading-none;
-  @apply border-none bg-none bg-transparent;
-}

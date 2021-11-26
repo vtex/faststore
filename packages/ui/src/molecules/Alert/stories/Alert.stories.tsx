@@ -9,17 +9,11 @@ import mdx from './Alert.mdx'
 
 const AlertTemplate: Story<AlertProps> = ({
   testId,
-  dismissible,
   icon,
   children,
   onClose,
 }) => (
-  <Component
-    testId={testId}
-    icon={icon}
-    dismissible={dismissible}
-    onClose={onClose}
-  >
+  <Component testId={testId} icon={icon} onClose={onClose}>
     {children}
   </Component>
 )
@@ -34,18 +28,6 @@ Alert.args = {
 export const AlertWithoutIcon = AlertTemplate.bind({})
 AlertWithoutIcon.args = {}
 
-export const AlertWithDismissButton = AlertTemplate.bind({})
-AlertWithDismissButton.args = { dismissible: true }
-
-export const AlertWithAction = AlertTemplate.bind({})
-AlertWithAction.args = {
-  children: (
-    <span>
-      Alert <a href="/">Action</a>
-    </span>
-  ),
-}
-
 const argTypes: ComponentArgTypes<AlertProps> = {
   icon: {
     options: [null, ...Object.keys(icons)], // An array of serializable values
@@ -59,17 +41,9 @@ const argTypes: ComponentArgTypes<AlertProps> = {
       },
     },
   },
-  dismissible: {
-    control: {
-      type: 'boolean',
-    },
-  },
   children: {
     control: { type: 'text' },
     defaultValue: 'Alert',
-  },
-  onClose: {
-    action: 'Alert closed',
   },
 }
 

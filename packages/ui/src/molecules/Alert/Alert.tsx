@@ -4,7 +4,6 @@ import React, { forwardRef } from 'react'
 import type { AlertPureProps } from './AlertPure'
 import AlertPure from './AlertPure'
 import Icon from '../../atoms/Icon'
-import Button from '../../atoms/Button'
 
 export interface AlertProps extends Omit<AlertPureProps, 'onClose'> {
   /**
@@ -19,52 +18,20 @@ export interface AlertProps extends Omit<AlertPureProps, 'onClose'> {
   icon?: ReactNode
 
   /**
-   * Boolean that controls the close button.
-   */
-  dismissible?: boolean
-
-  /**
    * This function is called whenever the user hits the close button.
    */
   onClose?: (event: MouseEvent) => void
 }
 
 const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  {
-    testId = 'store-alert',
-    children,
-    icon,
-    dismissible,
-    onClose,
-    ...otherProps
-  },
+  { testId = 'store-alert', children, icon, ...otherProps },
   ref
 ) {
-  const handleClose = (event: MouseEvent) => {
-    if (event.defaultPrevented) {
-      return
-    }
-
-    event.stopPropagation()
-    onClose?.(event)
-  }
-
   return (
     <AlertPure ref={ref} testId={testId} {...otherProps}>
       {icon && <Icon component={icon} data-alert-icon />}
 
       {children}
-
-      {dismissible && (
-        <Button
-          aria-label="Close"
-          data-alert-button
-          data-testid={`${testId}-button`}
-          onClick={handleClose}
-        >
-          <span>&times;</span>
-        </Button>
-      )}
     </AlertPure>
   )
 })
