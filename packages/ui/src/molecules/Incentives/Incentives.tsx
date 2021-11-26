@@ -1,11 +1,9 @@
-import type { ReactNode } from 'react'
 import React, { forwardRef } from 'react'
+import type { FC, ReactNode } from 'react'
 
 import type { IncentivesPureProps } from './IncentivesPure'
 import IncentivesPure from './IncentivesPure'
-import Icon from '../../atoms/Icon'
 import List from '../../atoms/List'
-import Label from '../../atoms/Label'
 
 export interface IncentivesProps extends IncentivesPureProps {
   /**
@@ -13,35 +11,34 @@ export interface IncentivesProps extends IncentivesPureProps {
    * testing-library, and jest).
    */
   testId?: string
-  incentives: IncentivesType[]
 }
 
-interface IncentivesType {
-  /**
-   * A React component that will be rendered as an icon.
-   */
-  icon?: ReactNode
-  title?: string
-  description?: string
+interface ListItemProps {
+  testId: string
+  children: ReactNode
+}
+
+const ListItem: FC<ListItemProps> = ({ children }, props) => {
+  if (React.isValidElement(children)) {
+    return <li>{React.cloneElement(children, props)}</li>
+  }
+
+  return <li>{children}</li>
 }
 
 const Incentives = forwardRef<HTMLDivElement, IncentivesProps>(
   function Incentives(
-    { testId = 'store-incentives', incentives, ...otherProps },
+    { testId = 'store-incentives', children, ...otherProps },
     ref
   ) {
     return (
       <IncentivesPure ref={ref} testId={testId} {...otherProps}>
-        <List role="list">
-          {incentives.map(({ icon, title, description }, index) => {
-            return (
-              <li key={`incentive-${index}`}>
-                {icon && <Icon component={icon} />}
-                {title && <Label data-store-incentive-label>{title}</Label>}
-                <span>{description}</span>
-              </li>
-            )
-          })}
+        <List data-list variant="unordered">
+          {React.Children.map(children, (child, index) => (
+            <ListItem key={`incentive-${index}`} testId={testId}>
+              {child}
+            </ListItem>
+          ))}
         </List>
       </IncentivesPure>
     )
