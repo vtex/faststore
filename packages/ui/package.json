@@ -53,6 +53,7 @@
   ],
   "dependencies": {
     "@reach/popover": "^0.16.0",
+    "@storybook/addon-a11y": "^6.3.12",
     "react-swipeable": "^6.1.2",
     "tabbable": "^5.2.1"
   },
