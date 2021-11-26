@@ -1,4 +1,4 @@
-import type { MouseEvent, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
 import type { AlertPureProps } from './AlertPure'
@@ -16,11 +16,6 @@ export interface AlertProps extends Omit<AlertPureProps, 'onClose'> {
    * A React component that will be rendered as an icon.
    */
   icon?: ReactNode
-
-  /**
-   * This function is called whenever the user hits the close button.
-   */
-  onClose?: (event: MouseEvent) => void
 }
 
 const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(

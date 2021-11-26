@@ -7,13 +7,8 @@ import Component from '../Alert'
 import ShoppingCartIcon from '../../../atoms/Icon/stories/assets/ShoppingCart'
 import mdx from './Alert.mdx'
 
-const AlertTemplate: Story<AlertProps> = ({
-  testId,
-  icon,
-  children,
-  onClose,
-}) => (
-  <Component testId={testId} icon={icon} onClose={onClose}>
+const AlertTemplate: Story<AlertProps> = ({ testId, icon, children }) => (
+  <Component testId={testId} icon={icon}>
     {children}
   </Component>
 )
