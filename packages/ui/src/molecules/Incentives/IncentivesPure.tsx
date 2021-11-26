@@ -15,7 +15,14 @@ const IncentivesPure = forwardRef<HTMLDivElement, IncentivesPureProps>(
     ref
   ) {
     return (
-      <div ref={ref} data-store-incentives data-testid={testId} {...otherProps}>
+      <div
+        ref={ref}
+        role="region"
+        aria-label="Incentives"
+        data-store-incentives
+        data-testid={testId}
+        {...otherProps}
+      >
         {children}
       </div>
     )
