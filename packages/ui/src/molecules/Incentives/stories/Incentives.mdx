@@ -1,6 +1,7 @@
 import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
 
 import Incentives from '../Incentives'
+import IncentivesItem from '../IncentivesItem'
 
 # Incentives
 
@@ -8,13 +9,36 @@ import Incentives from '../Incentives'
   <Story id="molecules-incentives--incentives" />
 </Canvas>
 
+## Components
+
+The `Incentives` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
+
+- `Incentives`: the wrapper component.
+- `IncentivesItem`: the component that wraps an item of the `Incentives`.
+
 ## Props
 
+`Incentives` and `IncentivesItem` components support all attributes also supported by the `<div>` tag.
+
+Besides those attributes, the following props are also supported:
+
+### `Incentives`
+
 <ArgsTable of={Incentives} />
+
+### `IncentivesItem`
+
+<ArgsTable of={IncentivesItem} />
 
 ## CSS Selectors
 
 ```css
 [data-store-incentives] {
+}
+
+[data-store-incentives] [data-list] {
+}
+
+[data-store-incentives-item] {
 }
 ```
