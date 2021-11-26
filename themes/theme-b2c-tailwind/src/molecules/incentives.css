@@ -1,0 +1,11 @@
+[data-store-incentives] {
+  @apply max-w-full;
+}
+
+[data-store-incentives] [data-list] {
+  @apply flex flex-row justify-around;
+}
+
+[data-store-incentives-item] {
+  @apply flex flex-col m-2 items-center;
+}
