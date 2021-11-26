@@ -1,9 +1,8 @@
+import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import type { AlertPureProps } from './AlertPure'
-import AlertPure from './AlertPure'
-
-export interface AlertProps extends Omit<AlertPureProps, 'onClose'> {
+export interface AlertProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -16,9 +15,15 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
   ref
 ) {
   return (
-    <AlertPure ref={ref} testId={testId} {...otherProps}>
+    <div
+      ref={ref}
+      role="alert"
+      data-store-alert
+      data-testid={testId}
+      {...otherProps}
+    >
       {children}
-    </AlertPure>
+    </div>
   )
 })
 

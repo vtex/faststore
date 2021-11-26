@@ -7,8 +7,8 @@ import ShoppingCartIcon from '../../../atoms/Icon/stories/assets/ShoppingCart'
 import mdx from './Alert.mdx'
 import { Icon } from '../../..'
 
-const AlertTemplate: Story<AlertProps> = ({ testId, children }) => (
-  <Component testId={testId}>{children}</Component>
+const AlertTemplate: Story<AlertProps> = ({ children }) => (
+  <Component>{children}</Component>
 )
 
 export const Alert = AlertTemplate.bind({})
