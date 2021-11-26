@@ -34,13 +34,13 @@ describe('Incentives', () => {
   afterEach(cleanup)
 
   describe('Data attributes', () => {
-    it('`Incentives` component should have `data-incentives` attribute', () => {
-      expect(incentives).toHaveAttribute('data-incentives')
+    it('`Incentives` component should have `data-store-incentives` attribute', () => {
+      expect(incentives).toHaveAttribute('data-store-incentives')
     })
 
-    it('`IncentivesItem` component should have `data-incentives-item` attribute', () => {
+    it('`IncentivesItem` component should have `data-store-incentives-item` attribute', () => {
       for (const item of incentivesItems) {
-        expect(item).toHaveAttribute('data-incentives-item')
+        expect(item).toHaveAttribute('data-store-incentives-item')
       }
     })
   })
