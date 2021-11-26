@@ -13,14 +13,6 @@ describe('Alert', () => {
     })
   })
 
-  it('should render icon when the icon prop is present', () => {
-    const { getByTestId } = render(
-      <Alert icon={<div data-testid="icon">foo</div>}>Testing</Alert>
-    )
-
-    expect(getByTestId('icon')).toBeInTheDocument()
-  })
-
   describe('Accessibility', () => {
     it('should have no violations', async () => {
       const { getByTestId } = render(<Alert />)

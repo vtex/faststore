@@ -3,6 +3,6 @@
   @apply bg-pink-700 text-white text-sm;
 }
 
-[data-store-alert] [data-alert-icon] {
+[data-store-alert] [data-store-icon] {
   @apply m-0 px-2;
 }
