@@ -18,9 +18,9 @@ interface ListItemProps {
   children: ReactNode
 }
 
-const ListItem: FC<ListItemProps> = ({ children }, props) => {
+const ListItem: FC<ListItemProps> = ({ children, ...otherProps }) => {
   if (React.isValidElement(children)) {
-    return <li>{React.cloneElement(children, props)}</li>
+    return <li>{React.cloneElement(children, otherProps)}</li>
   }
 
   return <li>{children}</li>
