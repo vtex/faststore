@@ -5,6 +5,7 @@ import BannerComponent from '../Banner'
 import BannerImage from '../BannerImage'
 import BannerContent from '../BannerContent'
 import BannerTitle from '../BannerTitle'
+import BannerDescription from '../BannerDescription'
 import type { BannerProps } from '../Banner'
 import mdx from './Banner.mdx'
 
@@ -18,12 +19,12 @@ const BannerTemplate: Story<BannerProps> = ({ testId }) => (
     />
     <BannerContent>
       <BannerTitle>
-        <p>Get yo know our next release</p>
+        <h3>Get yo know our next release</h3>
       </BannerTitle>
-      {/* <BannerDescription>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.{' '}
+      <BannerDescription>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </BannerDescription>
-      <BannerCTAButton>
+      {/* <BannerCTAButton>
         <button>Shop now</button>
       </BannerCTAButton> */}
     </BannerContent>
