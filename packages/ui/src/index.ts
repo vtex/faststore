@@ -66,6 +66,9 @@ export type { ModalProps } from './molecules/Modal'
 export { default as Incentives } from './molecules/Incentives'
 export type { IncentivesProps } from './molecules/Incentives'
 
+export { default as IncentivesItem } from './molecules/Incentives/IncentivesItem'
+export type { IncentivesItemProps } from './molecules/Incentives/IncentivesItem'
+
 export {
   default as Accordion,
   AccordionItem,
