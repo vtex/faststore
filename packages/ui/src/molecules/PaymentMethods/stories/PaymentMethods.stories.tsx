@@ -4,13 +4,31 @@ import React from 'react'
 import type { PaymentMethodsProps } from '../PaymentMethods'
 import Component from '../PaymentMethods'
 import mdx from './PaymentMethods.mdx'
-import { VisaCard, MasterCard } from './assets/Icons'
+import {
+  VisaCard,
+  MasterCard,
+  MaestroCard,
+  AmericanExpressCard,
+  HiperCard,
+  EloCard,
+  DinersClub,
+  PayPal,
+} from './assets/Icons'
 
 const PaymentMethodsTemplate: Story<PaymentMethodsProps> = ({ testId }) => (
   <Component
     testId={testId}
     title="Payment Methods"
-    flags={[<VisaCard key="visa" />, <MasterCard key="mastercard" />]}
+    flags={[
+      <VisaCard key="visa" />,
+      <MasterCard key="mastercard" />,
+      <MaestroCard key="maestro" />,
+      <AmericanExpressCard key="american express" />,
+      <HiperCard key="hipercard" />,
+      <EloCard key="elo" />,
+      <DinersClub key="diners club" />,
+      <PayPal key="paypal" />,
+    ]}
   >
     {}
   </Component>

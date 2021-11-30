@@ -11,7 +11,7 @@ export interface PaymentMethodsProps {
   testId?: string
   /**
    * Title of the payment methods section (e.g.: "Payment methods",
-   * "Payment  methods available").
+   * "Accepted Cards").
    */
   title?: ReactNode
   /**
