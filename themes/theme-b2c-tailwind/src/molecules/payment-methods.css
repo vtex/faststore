@@ -1,0 +1,9 @@
+[data-store-payment-methods] {
+    @apply mt-8 flex justify-between;
+}
+  
+/* [data-store-payment-methods-flags] {
+    display: grid;
+    grid-template: repeat(4, 1fr);
+    gap: 50px;
+} */
