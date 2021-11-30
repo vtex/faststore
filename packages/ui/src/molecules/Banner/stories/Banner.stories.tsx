@@ -4,8 +4,6 @@ import React from 'react'
 import BannerComponent from '../Banner'
 import BannerImage from '../BannerImage'
 import BannerContent from '../BannerContent'
-import BannerTitle from '../BannerTitle'
-import BannerDescription from '../BannerDescription'
 import BannerButton from '../BannerButton'
 import type { BannerProps } from '../Banner'
 import { Icon } from '../../..'
@@ -34,12 +32,10 @@ const BannerTemplate: Story<BannerProps> = ({ testId, variant }) => (
       src="https://storecomponents.vtex.app/assets/fit-in/1280x613/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Fassets%2Fvtex.file-manager-graphql%2Fimages%2F331632a0-fa52-4f08-8e45-df762d97a289___167e4c8385c3129b1a2ddab9156510ba.jpg"
     />
     <BannerContent>
-      <BannerTitle>
+      <div>
         <h3>Get yo know our next release</h3>
-      </BannerTitle>
-      <BannerDescription>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </BannerDescription>
+      </div>
       <BannerButton>
         Shop now <Icon component={<RightArrow />} />
       </BannerButton>

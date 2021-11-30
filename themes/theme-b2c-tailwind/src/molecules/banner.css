@@ -3,19 +3,31 @@
 }
 
 [data-store-banner-content] {
-  @apply p-7;
+  @apply flex p-7;
+}
+
+[data-store-banner-content] h3 {
+  @apply font-medium text-xl;
 }
 
 [data-store-banner='vertical'] {
   @apply flex flex-col;
 }
 
-[data-store-banner='vertical'] [data-store-banner-content] {
-  @apply flex;
+[data-store-banner='vertical'] [data-store-banner-button] {
+  @apply ml-auto;
 }
 
 [data-store-banner='horizontal'] {
   @apply grid grid-cols-2;
+}
+
+[data-store-banner='horizontal'] [data-store-banner-content] {
+  @apply flex-col justify-between;
+}
+
+[data-store-banner='horizontal'] [data-store-banner-button] {
+  @apply mr-auto;
 }
 
 [data-store-banner-button] [data-store-icon] {
