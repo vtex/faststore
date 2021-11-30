@@ -23,12 +23,16 @@ const TestIncentives = () => {
 describe('Incentives', () => {
   let incentives: HTMLElement
   let incentivesItems: HTMLElement[]
+  let incentivesPure: Element | null
 
   beforeEach(() => {
-    const { getByTestId, getAllByTestId } = render(<TestIncentives />)
+    const { getByTestId, getAllByTestId, container } = render(
+      <TestIncentives />
+    )
 
     incentives = getByTestId('store-incentives')
     incentivesItems = getAllByTestId('store-incentives-item')
+    incentivesPure = container.querySelector('section')
   })
 
   afterEach(cleanup)
@@ -48,6 +52,10 @@ describe('Incentives', () => {
   describe('Accessibility', () => {
     it('should not have violations', async () => {
       expect(await axe(document.body)).toHaveNoViolations()
+    })
+
+    it('ensures section tag is being rendered', () => {
+      expect(incentivesPure).toBeInTheDocument()
     })
   })
 })
