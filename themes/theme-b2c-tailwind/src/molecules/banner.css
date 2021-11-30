@@ -1,3 +1,15 @@
 [data-store-banner-image] {
   @apply object-cover;
 }
+
+[data-store-banner-content] {
+  @apply p-7;
+}
+
+[data-store-banner='vertical'] {
+  @apply flex flex-col;
+}
+
+[data-store-banner='horizontal'] {
+  @apply grid grid-cols-2;
+}

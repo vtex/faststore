@@ -1,5 +1,6 @@
 import React from 'react'
 
+type BannerDirectionVariant = 'vertical' | 'horizontal'
 export interface BannerProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
@@ -7,11 +8,16 @@ export interface BannerProps {
    */
   testId?: string
   children: React.ReactNode
+  variant?: BannerDirectionVariant
 }
 
-const Banner = ({ testId = 'store-banner', children }: BannerProps) => {
+const Banner = ({
+  testId = 'store-banner',
+  children,
+  variant = 'vertical',
+}: BannerProps) => {
   return (
-    <section data-store-banner data-testid={testId}>
+    <section data-store-banner={variant} data-testid={testId}>
       {children}
     </section>
   )
