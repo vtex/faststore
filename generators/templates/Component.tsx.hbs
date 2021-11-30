@@ -1,13 +1,20 @@
 import React from 'react'
 
-export type {{pascalCase name}}Props = {
-
+export interface {{pascalCase name}}Props {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress,
+   * testing-library, and jest).
+   */
+  testId?: string
+  children?: React.ReactNode
 }
 
-const {{pascalCase name}} = ({  }: {{pascalCase name}}Props) => (
-  <div>
-    <p>{{pascalCase name}}</p>
-  </div>
-)
+const {{pascalCase name}} = ({ testId = 'store-{{kebabCase name}}', children }: {{pascalCase name}}Props) => {
+  return (
+    <div data-store-{{kebabCase name}} data-testid={testId}>
+      {children}
+    </div>
+  )
+}
 
 export default {{pascalCase name}}
