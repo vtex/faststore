@@ -7,5 +7,5 @@
 }
 
 [data-store-incentives-item] {
-  @apply flex flex-col m-2 items-center;
+  @apply flex flex-col m-2 text-center items-center;
 }
