@@ -15,15 +15,14 @@ const IncentivesPure = forwardRef<HTMLDivElement, IncentivesPureProps>(
     ref
   ) {
     return (
-      <div
+      <section
         ref={ref}
-        role="contentinfo"
         data-store-incentives
         data-testid={testId}
         {...otherProps}
       >
         {children}
-      </div>
+      </section>
     )
   }
 )
