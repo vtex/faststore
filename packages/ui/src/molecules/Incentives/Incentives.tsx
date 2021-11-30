@@ -47,7 +47,7 @@ const Incentives = forwardRef<HTMLDivElement, IncentivesProps>(
         aria-label={ariaLabel}
         {...otherProps}
       >
-        <List data-incentives-list role="list" variant="unordered">
+        <List data-incentives-list variant="unordered">
           {React.Children.map(children, (child, index) => (
             <ListItem key={`incentive-${index}`} testId={`${testId}-item`}>
               {child}
