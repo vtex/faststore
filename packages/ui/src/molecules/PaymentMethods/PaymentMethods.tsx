@@ -1,4 +1,7 @@
+import type { ReactNode } from 'react'
 import React from 'react'
+
+import Label from '../../atoms/Label'
 
 export interface PaymentMethodsProps {
   /**
@@ -6,15 +9,17 @@ export interface PaymentMethodsProps {
    * testing-library, and jest).
    */
   testId?: string
-  children: React.ReactNode
+  title?: ReactNode
 }
 
 const PaymentMethods = ({
   testId = 'store-payment-methods',
+  title,
   children,
-}: PaymentMethodsProps) => {
+}: PaymentMethodsProps & { children: ReactNode }) => {
   return (
     <div data-store-payment-methods data-testid={testId}>
+      <Label>{title}</Label>
       {children}
     </div>
   )

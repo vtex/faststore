@@ -5,10 +5,9 @@ import type { PaymentMethodsProps } from '../PaymentMethods'
 import Component from '../PaymentMethods'
 import mdx from './PaymentMethods.mdx'
 
-const PaymentMethodsTemplate: Story<PaymentMethodsProps> = ({
-  testId,
-  children,
-}) => <Component testId={testId}>{children}</Component>
+const PaymentMethodsTemplate: Story<PaymentMethodsProps> = ({ testId }) => (
+  <Component testId={testId}>{}</Component>
+)
 
 export const PaymentMethods = PaymentMethodsTemplate.bind({})
 PaymentMethods.storyName = 'PaymentMethods'
