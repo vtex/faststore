@@ -10,6 +10,14 @@
   @apply flex flex-col;
 }
 
+[data-store-banner='vertical'] [data-store-banner-content] {
+  @apply flex;
+}
+
 [data-store-banner='horizontal'] {
   @apply grid grid-cols-2;
+}
+
+[data-store-banner-button] [data-store-icon] {
+  @apply m-auto ml-2 align-middle;
 }

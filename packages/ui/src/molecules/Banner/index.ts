@@ -12,3 +12,6 @@ export type { BannerTitleProps } from './BannerTitle'
 
 export { default as BannerDescription } from './BannerDescription'
 export type { BannerDescriptionProps } from './BannerDescription'
+
+export { default as BannerButton } from './BannerButton'
+export type { BannerButtonProps } from './BannerButton'
