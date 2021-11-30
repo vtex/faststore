@@ -1,29 +1,28 @@
-import type { ImgHTMLAttributes } from 'react'
+import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export interface BannerImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+export interface BannerImageProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-  src: string
-  alt: string
+  children: React.ReactNode
 }
 
-const BannerImage = forwardRef<HTMLImageElement, BannerImageProps>(
+const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>(
   function BannerImage(
-    { testId = 'store-banner-image', src, alt, ...otherProps },
+    { testId = 'store-banner-image', children, ...otherProps },
     ref
   ) {
     return (
-      <img
+      <div
         ref={ref}
-        src={src}
-        alt={alt}
         data-store-banner-image
         data-testid={testId}
         {...otherProps}
-      />
+      >
+        {children}
+      </div>
     )
   }
 )

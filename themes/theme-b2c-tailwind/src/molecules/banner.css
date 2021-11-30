@@ -1,5 +1,10 @@
 [data-store-banner-image] {
-  @apply object-cover;
+  @apply w-full;
+  height: 250px;
+}
+
+[data-store-banner-image] img {
+  @apply object-cover w-full h-full;
 }
 
 [data-store-banner-content] {
