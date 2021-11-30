@@ -9,7 +9,15 @@ export interface PaymentMethodsProps {
    * testing-library, and jest).
    */
   testId?: string
+  /**
+   * Title of the payment methods section (e.g.: "Payment methods",
+   * "Payment  methods available").
+   */
   title?: ReactNode
+  /**
+   * An array with the flags to be displayed in the payment methods
+   * section (e.g.:, visa, mastercard, etc).
+   */
   flags?: ReactNodeArray
 }
 
