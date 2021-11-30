@@ -1,17 +1,9 @@
 import React, { forwardRef } from 'react'
-import type { FC, ReactNode } from 'react'
+import type { FC, ReactNode, AriaAttributes } from 'react'
 
 import type { IncentivesPureProps } from './IncentivesPure'
 import IncentivesPure from './IncentivesPure'
 import List from '../../atoms/List'
-
-export interface IncentivesProps extends IncentivesPureProps {
-  /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
-   */
-  testId?: string
-}
 
 interface ListItemProps {
   testId: string
@@ -26,16 +18,38 @@ const ListItem: FC<ListItemProps> = ({ children, ...otherProps }) => {
   return <li>{children}</li>
 }
 
+export interface IncentivesProps extends IncentivesPureProps {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress,
+   * testing-library, and jest).
+   */
+  testId?: string
+  /**
+   * Defines a string value that labels the current element.
+   */
+  'aria-label'?: AriaAttributes['aria-label']
+}
+
 const Incentives = forwardRef<HTMLDivElement, IncentivesProps>(
   function Incentives(
-    { testId = 'store-incentives', children, ...otherProps },
+    {
+      testId = 'store-incentives',
+      'aria-label': ariaLabel = 'Incentives',
+      children,
+      ...otherProps
+    },
     ref
   ) {
     return (
-      <IncentivesPure ref={ref} testId={testId} {...otherProps}>
-        <List data-list variant="unordered">
+      <IncentivesPure
+        ref={ref}
+        testId={testId}
+        aria-label={ariaLabel}
+        {...otherProps}
+      >
+        <List data-incentives-list role="list" variant="unordered">
           {React.Children.map(children, (child, index) => (
-            <ListItem key={`incentive-${index}`} testId={testId}>
+            <ListItem key={`incentive-${index}`} testId={`${testId}-item`}>
               {child}
             </ListItem>
           ))}
