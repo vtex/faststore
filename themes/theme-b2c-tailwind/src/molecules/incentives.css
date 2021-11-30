@@ -2,7 +2,7 @@
   @apply max-w-full;
 }
 
-[data-store-incentives] [data-list] {
+[data-store-incentives] [data-incentives-list] {
   @apply flex flex-row justify-around;
 }
 
