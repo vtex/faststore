@@ -4,9 +4,16 @@ import React from 'react'
 import type { PaymentMethodsProps } from '../PaymentMethods'
 import Component from '../PaymentMethods'
 import mdx from './PaymentMethods.mdx'
+import { VisaCard, MasterCard } from './assets/Icons'
 
 const PaymentMethodsTemplate: Story<PaymentMethodsProps> = ({ testId }) => (
-  <Component testId={testId}>{}</Component>
+  <Component
+    testId={testId}
+    title="Payment Methods"
+    flags={[<VisaCard key="visa" />, <MasterCard key="mastercard" />]}
+  >
+    {}
+  </Component>
 )
 
 export const PaymentMethods = PaymentMethodsTemplate.bind({})

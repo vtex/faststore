@@ -30,7 +30,7 @@ const PaymentMethods = ({
   return (
     <div data-store-payment-methods data-testid={testId}>
       <Label>{title}</Label>
-      {flags}
+      <div data-store-payment-methods-flags>{flags}</div>
       {children}
     </div>
   )
