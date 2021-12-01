@@ -124,6 +124,13 @@ describe('Modal', () => {
 })
 ```
 
+### References
+
+- [w3 wai aria roles 1.1](https://www.w3.org/TR/wai-aria-1.1/#roles)
+- [MDN ARIA Roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
+- [w3 wai aria best practices 1.1](https://www.w3.org/TR/wai-aria-practices-1.1/)
+- [MDN HTML Elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
+
 ## Use slots or not?
 
 Don't use slots on organisms. It is desired that the organisms should be more like documentation about using atoms and molecules components.
