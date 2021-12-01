@@ -22,9 +22,12 @@ declare global {
     ) => NginxDirective[]
   }
 
-  type Redirect = Parameters<Actions['createRedirect']>[0] & RedirectNginxOptions
+  type Redirect = Parameters<Actions['createRedirect']>[0] &
+    RedirectNginxOptions
 
-  type Page = PageProps['pageResources']['page']
+  type Page = PageProps['pageResources']['page'] & {
+    mode?: 'SSG' | 'SSR' | 'DSG'
+  }
 
   interface Header {
     name: string
@@ -86,5 +89,41 @@ declare global {
      * * @default [['proxy_http_version', '1.1']]
      */
     httpOptions: string[][]
+    /**
+     * Add attributes to nginx's locations
+     *
+     * @example
+     * // Serve local files by url
+     * locations: {
+     *    append: {
+     *      cmd: ['location', '/'],
+     *      children: [
+     *        {
+     *          cmd: [
+     *            'add_header',
+     *            'Cache-Control',
+     *            '"public, max-age=0, must-revalidate"',
+     *          ],
+     *        },
+     *        {
+     *          cmd: [
+     *            'try_files',
+     *            '$uri',
+     *            '$uri/',
+     *            '$uri/index.html',
+     *            '$uri.html',
+     *            '=404',
+     *          ],
+     *        },
+     *      ],
+     *    },
+     *  },
+     *
+     * * @default { append: [], prepend: [] }
+     */
+    locations: {
+      append: NginxDirective[]
+      prepend: NginxDirective[]
+    }
   }
 }
