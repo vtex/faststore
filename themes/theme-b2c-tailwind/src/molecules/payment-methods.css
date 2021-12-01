@@ -3,5 +3,5 @@
 }
 
 [data-store-payment-methods-flags] {
-    @apply grid grid-cols-4 gap-0.5 items-center;
+    @apply grid grid-cols-4 gap-0.5 items-center justify-items-center;
 }
