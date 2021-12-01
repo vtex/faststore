@@ -36,7 +36,7 @@ Example:
 
 ### Creating Components on the `faststore/ui`
 
-You can create "boilerplates files" for your new component using the following command:
+You can generate the boilerplate files for your new component using the following command:
 
 - run `yarn generate`
 
