@@ -1,9 +1,7 @@
 [data-store-payment-methods] {
-    @apply mt-8 flex justify-between;
+    @apply mt-1 flex-col justify-between text-center;
 }
-  
-/* [data-store-payment-methods-flags] {
-    display: grid;
-    grid-template: repeat(4, 1fr);
-    gap: 50px;
-} */
+
+[data-store-payment-methods-flags] {
+    @apply grid grid-cols-4 gap-0.5 items-center;
+}

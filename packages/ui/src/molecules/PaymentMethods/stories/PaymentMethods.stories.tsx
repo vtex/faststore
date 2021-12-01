@@ -16,21 +16,15 @@ import {
 } from './assets/Icons'
 
 const PaymentMethodsTemplate: Story<PaymentMethodsProps> = ({ testId }) => (
-  <Component
-    testId={testId}
-    title="Payment Methods"
-    flags={[
-      <VisaCard key="visa" />,
-      <MasterCard key="mastercard" />,
-      <MaestroCard key="maestro" />,
-      <AmericanExpressCard key="american express" />,
-      <HiperCard key="hipercard" />,
-      <EloCard key="elo" />,
-      <DinersClub key="diners club" />,
-      <PayPal key="paypal" />,
-    ]}
-  >
-    {}
+  <Component testId={testId} title="Payment Methods">
+    <VisaCard key="visa" />
+    <MasterCard key="mastercard" />
+    <MaestroCard key="maestro" />
+    <AmericanExpressCard key="american express" />
+    <HiperCard key="hipercard" />
+    <EloCard key="elo" />
+    <DinersClub key="diners club" />
+    <PayPal key="paypal" />
   </Component>
 )
 
