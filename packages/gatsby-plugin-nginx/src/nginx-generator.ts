@@ -12,30 +12,6 @@ export {
   generateNginxConfiguration,
 }
 
-// Try fetching files from local filesystem. If nothing is found, return =404
-const catchAllLocation = {
-  cmd: ['location', '/'],
-  children: [
-    {
-      cmd: [
-        'add_header',
-        'Cache-Control',
-        '"public, max-age=0, must-revalidate"',
-      ],
-    },
-    {
-      cmd: [
-        'try_files',
-        '$uri',
-        '$uri/',
-        '$uri/index.html',
-        '$uri.html',
-        '=404',
-      ],
-    },
-  ],
-}
-
 function generateNginxConfiguration({
   rewrites,
   headersMap,
@@ -66,7 +42,6 @@ function generateNginxConfiguration({
         }
       ),
     ...generateRewrites(rewrites),
-    catchAllLocation,
   ]
 
   const brotliConf = disableBrotliEncoding
