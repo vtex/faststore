@@ -37,7 +37,15 @@ export const Query = {
       clients: { commerce },
     } = ctx
 
-    return commerce.catalog.portal.pagetype(slug)
+    const result = await commerce.catalog.portal.pagetype(slug)
+
+    const whitelist = ['Brand', 'Category', 'Department', 'Subcategory']
+
+    if (whitelist.includes(result.pageType)) {
+      return result
+    }
+
+    throw new Error(`Not Found: ${slug}`)
   },
   search: async (
     _: unknown,

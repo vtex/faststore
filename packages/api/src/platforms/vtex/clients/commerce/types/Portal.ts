@@ -4,5 +4,11 @@ export interface PortalPagetype {
   url: string
   title: string
   metaTagDescription: string
-  pageType: 'Brand' | 'Category' | 'Department' | 'Subcategory' | 'FullText'
+  pageType:
+    | 'Brand'
+    | 'Category'
+    | 'Department'
+    | 'Subcategory'
+    | 'FullText'
+    | 'NotFound'
 }
