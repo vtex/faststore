@@ -2,6 +2,7 @@ import { posix } from 'path'
 
 import { INDEX_HTML, LOCATION_MODIFIERS } from './constants'
 import { normalizePath } from './headers'
+import { identity } from './utils/functions'
 
 export {
   stringify,
@@ -9,11 +10,6 @@ export {
   generateRewrites,
   generatePathLocation,
   generateNginxConfiguration,
-}
-
-export interface NginxDirective {
-  cmd: string[]
-  children?: NginxDirective[]
 }
 
 function generateNginxConfiguration({
@@ -244,7 +240,7 @@ function parseRewrite({
   toPath,
   statusCode = 200,
   isPermanent,
-}: Redirect): 'proxy' | 'rewrite' | 'redirect' | 'error_page' {
+}: Redirect): NginxRewriteType {
   try {
     new URL(toPath)
 
@@ -335,6 +331,7 @@ function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
   return rewrites.map((rewrite) => {
     const { fromPath } = rewrite
     const type = parseRewrite(rewrite)
+    const onGenerateNginxRewrites = rewrite.onGenerateNginxRewrites ?? identity
 
     /**
      * https://www.getpagespeed.com/server-setup/nginx-locations-performance-impact-and-optimizations
@@ -354,9 +351,11 @@ function generateRewrites(rewrites: Redirect[]): NginxDirective[] {
         ? fromPath
         : convertToRegExp(fromPath)
 
+    const children = childrenByType[type](rewrite)
+
     return {
       cmd: ['location', modifier, `"${match}"`],
-      children: childrenByType[type](rewrite),
+      children: children && onGenerateNginxRewrites(children, type),
     }
   })
 }
