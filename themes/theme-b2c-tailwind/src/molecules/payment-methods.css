@@ -2,6 +2,6 @@
     @apply mt-1 flex-col justify-between text-center;
 }
 
-[data-store-payment-methods-flags] {
+[data-payment-methods-flags] {
     @apply grid grid-cols-4 gap-0.5 items-center justify-items-center;
 }
