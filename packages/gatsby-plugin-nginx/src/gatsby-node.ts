@@ -89,7 +89,12 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async (
   const pageRewrites: Redirect[] = pages
     .filter(
       (page) =>
-        typeof page.matchPath === 'string' && page.matchPath !== page.path
+        typeof page.matchPath === 'string' &&
+        page.matchPath !== page.path &&
+        // Remove DSG and SSR from nginx config.
+        // TODO: in the future allow adding a custom rule for these pages
+        page.mode !== 'DSG' &&
+        page.mode !== 'SSR'
     )
     .map((page) => ({
       fromPath: page.matchPath!,
