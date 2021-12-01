@@ -22,9 +22,12 @@ declare global {
     ) => NginxDirective[]
   }
 
-  type Redirect = Parameters<Actions['createRedirect']>[0] & RedirectNginxOptions
+  type Redirect = Parameters<Actions['createRedirect']>[0] &
+    RedirectNginxOptions
 
-  type Page = PageProps['pageResources']['page']
+  type Page = PageProps['pageResources']['page'] & {
+    mode?: 'SSG' | 'SSR' | 'DSG'
+  }
 
   interface Header {
     name: string

@@ -318,6 +318,10 @@ describe('generateNginxConfiguration', () => {
             add_header a \\"b\\";
             try_files /bar/index.html =404;
           }
+          location / {
+            add_header Cache-Control \\"public, max-age=0, must-revalidate\\";
+            try_files $uri $uri/ $uri/index.html $uri.html =404;
+          }
         }
       }"
     `)
