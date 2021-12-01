@@ -22,7 +22,7 @@ test('usePagination: paginates forwards', async () => {
   expect(result.current.prev).toBe(false)
   expect(result.current.next).toEqual({
     cursor: 1,
-    link: '/score_desc/1?map=sort%2Cpage',
+    link: '/?sort=score_desc&page=1',
   })
 })
 
@@ -45,6 +45,6 @@ test('usePagination: paginates backwards', async () => {
   expect(result.current.next).toBe(false)
   expect(result.current.prev).toEqual({
     cursor: 0,
-    link: '/score_desc/0?map=sort%2Cpage',
+    link: '/?sort=score_desc&page=0',
   })
 })

@@ -1,7 +1,6 @@
-import React, { createContext, useEffect, useMemo } from 'react'
+import React, { createContext, useMemo } from 'react'
 import type { FC } from 'react'
 
-import { format } from './serializer'
 import { useSearchInfiniteState } from './useInfiniteSearchState'
 import { useSearchState } from './useSearchState'
 import type { UseSearchInfiniteState } from './useInfiniteSearchState'
@@ -24,12 +23,8 @@ export const Provider: FC<Props> = ({
   onChange,
   ...rest
 }) => {
-  const { state, ...searchActions } = useSearchState(rest)
+  const { state, ...searchActions } = useSearchState(rest, onChange)
   const { pages, ...infiniteActions } = useSearchInfiniteState(state.page)
-
-  useEffect(() => {
-    onChange(format(state))
-  }, [onChange, state])
 
   const value = useMemo(
     (): SearchContext => ({
