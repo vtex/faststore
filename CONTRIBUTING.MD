@@ -66,7 +66,7 @@ ComponentName
 
 And that is it! You will be ready to work on your component. 🎉
 
-> For the component name, please follow CamelCase pattern, and do not use `-`, i.e., Component-Name.
+> For the component name, please follow the Pascal Case pattern, and do not use `-`, i.e., Component-Name.
 
 > Please do not edit `// Atoms`, `// Molecules` and `// Organisms` comments on `packages/ui/scr/index.ts` [file](https://github.com/vtex/faststore/blob/b1badead35dc43b41f25480a66f4e81cc9a8e22a/packages/ui/src/index.ts), because we are using it as a [pattern](https://github.com/vtex/faststore/blob/443cbd117e34ea1702a2994ca4ad0b2733f17189/generators/plopfile.ts#L62) to update the file. For more details, check [here](https://github.com/vtex/faststore/pull/1039).
 
