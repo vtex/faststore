@@ -5,6 +5,7 @@ import kebabHash from 'kebab-hash'
 import {
   CACHING_HEADERS,
   COMMON_BUNDLES,
+  ENV_VAR_HEADER_PREVIX,
   IMMUTABLE_CACHING_HEADER,
   INDEX_HTML,
   PAGE_DATA_DIR,
@@ -155,6 +156,28 @@ function headerFromString(header: string): Header {
 function emptyHeadersMapForFiles(files: string[]): PathHeadersMap {
   return Object.fromEntries(
     files.map((file) => [normalizePath(`/${removeIndexSuffix(file)}`), []])
+  )
+}
+
+export function addHeadersFromEnvVars(headersMap: PathHeadersMap) {
+  const headersFromEnv = Object.keys(process.env).reduce((acc, envVar) => {
+    if (
+      envVar.startsWith(ENV_VAR_HEADER_PREVIX) &&
+      envVar.length > ENV_VAR_HEADER_PREVIX.length
+    ) {
+      acc.push({
+        name: envVar.slice(ENV_VAR_HEADER_PREVIX.length),
+        value: process.env[envVar]!,
+      })
+    }
+
+    return acc
+  }, [] as Header[])
+
+  return Object.fromEntries(
+    Object.entries(headersMap).map(([path, headers]) => {
+      return [path, [...headers, ...headersFromEnv]]
+    })
   )
 }
 
