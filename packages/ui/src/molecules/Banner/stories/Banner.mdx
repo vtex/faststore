@@ -2,6 +2,8 @@ import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
 
 import Banner from '../Banner'
 import BannerImage from '../BannerImage'
+import BannerContent from '../BannerContent'
+import BannerButton from '../BannerButton'
 
 # Banner
 
@@ -13,19 +15,39 @@ import BannerImage from '../BannerImage'
 
 The `Banner` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
 
-- `Banner`: the wrapper component.
-- `BannerImage`: its wrapper the image displayed in the component.
-- `BannerContent`
-- `BannerButton`
+- `Banner`: the wrapper component, it can receive a `variant` prop to set its direction, supports `"vertical"` and `"horizontal"` values.
+- `BannerImage`: the component that wraps the image displayed in the component.
+- `BannerContent`: the component that can receive a title, description and a `BannerButton`
+- `BannerButton`: the banner's call to action button
 
 ## Props
 
+All banner-related components support all attributes also supported by the `<div>` tag, except for the `BannerButton`, which renders the `<button>` tag.
+
+### `Banner`
+
 <ArgsTable of={Banner} />
+
+### `BannerImage`
+
+<ArgsTable of={BannerImage} />
+
+### `BannerContent`
+
+<ArgsTable of={BannerContent} />
+
+### `BannerButton`
+
+<ArgsTable of={BannerButton} />
 
 ## CSS Selectors
 
 ```css
 [data-store-banner] {
+}
+[data-store-banner='vertical'] {
+}
+[data-store-banner='horizontal'] {
 }
 [data-store-banner-image] {
 }
@@ -34,3 +56,5 @@ The `Banner` uses the [Compound Component](https://kentcdodds.com/blog/compound-
 [data-store-banner-button] {
 }
 ```
+
+The `BannerButton` component inherits [Button](?path=/docs/atoms-button--button#css-selectors) css selectors.
