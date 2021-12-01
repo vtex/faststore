@@ -1,11 +1,11 @@
 import DataLoader from 'dataloader'
 
+import { BadRequestError } from '../utils/errors'
 import { enhanceSku } from '../utils/enhanceSku'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import type { Options } from '..'
 import type { Clients } from '../clients'
 import type { SelectedFacet } from '../utils/facets'
-import { BadRequestError } from '../utils/errors'
 
 export const getSkuLoader = (_: Options, clients: Clients) => {
   const loader = async (facetsList: readonly SelectedFacet[][]) => {
