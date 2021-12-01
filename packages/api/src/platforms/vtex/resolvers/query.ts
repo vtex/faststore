@@ -1,4 +1,5 @@
 import { enhanceSku } from '../utils/enhanceSku'
+import { NotFoundError } from '../utils/errors'
 import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
 import { StoreCollection } from './collection'
@@ -45,7 +46,7 @@ export const Query = {
       return result
     }
 
-    throw new Error(`Not Found: ${slug}`)
+    throw new NotFoundError(`Not Found: ${slug}`)
   },
   search: async (
     _: unknown,
