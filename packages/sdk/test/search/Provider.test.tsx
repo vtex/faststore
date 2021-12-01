@@ -3,8 +3,12 @@ import { act, renderHook } from '@testing-library/react-hooks'
 import React from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { initSearchState, SearchProvider, useSearch } from '../../src'
-import { SDKError } from '../../src/utils/error'
+import {
+  formatSearchState,
+  initSearchState,
+  SearchProvider,
+  useSearch,
+} from '../../src'
 
 function Wrapper(
   props: Partial<ComponentPropsWithoutRef<typeof SearchProvider>>
@@ -20,52 +24,81 @@ function Wrapper(
 }
 
 test('SearchProvider: change sort ordering', async () => {
+  const state = initSearchState()
+  const mock = jest.fn(() => {})
   const { result } = renderHook(useSearch, {
-    wrapper: Wrapper,
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
   })
 
   expect(result.current.state.sort).toBe('score_desc')
 
   act(() => result.current.setSort('name_asc'))
 
-  expect(result.current.state.sort).toBe('name_asc')
-
-  act(() => result.current.setSort('NotAValidSortValue' as any))
-
-  expect(result.error).toBeInstanceOf(SDKError)
+  expect(mock).toBeCalledWith(formatSearchState({ ...state, sort: 'name_asc' }))
 })
 
 test('SearchProvider: Set full text term', async () => {
   const fullTextTerm = 'Full Text Term'
+  const state = initSearchState()
+  const mock = jest.fn(() => {})
   const { result } = renderHook(useSearch, {
-    wrapper: Wrapper,
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
   })
 
   expect(result.current.state.term).toBeNull()
 
-  act(() => result.current.setTerm(fullTextTerm))
-
-  expect(result.current.state.term).toBe(fullTextTerm)
-
   act(() => result.current.setTerm(null))
+  expect(mock).not.toHaveBeenCalled()
 
-  expect(result.current.state.term).toBeNull()
+  act(() => result.current.setTerm(fullTextTerm))
+  expect(mock).toBeCalledWith(
+    formatSearchState({ ...state, term: fullTextTerm })
+  )
 })
 
 test('SearchProvider: Set current page', async () => {
   const page = 10
+  const state = initSearchState()
+  const mock = jest.fn(() => {})
   const { result } = renderHook(useSearch, {
-    wrapper: Wrapper,
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
   })
 
   expect(result.current.state.page).toBe(0)
 
   act(() => result.current.setPage(page))
-
-  expect(result.current.state.page).toBe(page)
+  expect(mock).toBeCalledWith(formatSearchState({ ...state, page }))
 })
 
-test('SearchProvider: Select a facet', async () => {
+test('SearchProvider: selects a simple faect', async () => {
+  const facet1 = {
+    key: 'priceRange',
+    value: '10-to-100',
+  }
+
+  const mock = jest.fn(() => {})
+  const state = initSearchState()
+  const { result } = renderHook(useSearch, {
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
+  })
+
+  expect(result.current.state.selectedFacets).toHaveLength(0)
+
+  act(() => result.current.setFacet(facet1))
+  expect(mock).toBeCalledWith(
+    formatSearchState({ ...state, selectedFacets: [facet1] })
+  )
+})
+
+test('SearchProvider: selects a simple facet when more facets are inside the state', () => {
   const facet1 = {
     key: 'priceRange',
     value: '10-to-100',
@@ -76,20 +109,21 @@ test('SearchProvider: Select a facet', async () => {
     value: 'awesome',
   }
 
-  const { result } = renderHook(useSearch, {
-    wrapper: Wrapper,
+  const mock = jest.fn(() => {})
+  const state = initSearchState({
+    selectedFacets: [facet1],
   })
 
-  expect(result.current.state.selectedFacets).toHaveLength(0)
-
-  act(() => result.current.setFacet(facet1))
-  expect(result.current.state.selectedFacets).toEqual([facet1])
-
-  act(() => result.current.setFacet(facet2))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
+  const { result } = renderHook(useSearch, {
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
+  })
 
   act(() => result.current.setFacet(facet2))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2, facet2])
+  expect(mock).toBeCalledWith(
+    formatSearchState({ ...state, selectedFacets: [facet1, facet2] })
+  )
 })
 
 test('SearchProvider: Facet uniqueness', async () => {
@@ -103,20 +137,24 @@ test('SearchProvider: Facet uniqueness', async () => {
     value: 'awesome',
   }
 
-  const { result } = renderHook(useSearch, {
-    wrapper: Wrapper,
+  const state = initSearchState({
+    selectedFacets: [facet2],
   })
 
-  expect(result.current.state.selectedFacets).toHaveLength(0)
+  const mock = jest.fn(() => {})
+  const { result } = renderHook(useSearch, {
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
+  })
+
+  act(() => result.current.setFacet(facet2, true))
+  expect(mock).not.toHaveBeenCalled()
 
   act(() => result.current.setFacet(facet1))
-  expect(result.current.state.selectedFacets).toEqual([facet1])
-
-  act(() => result.current.setFacet(facet2, true))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
-
-  act(() => result.current.setFacet(facet2, true))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
+  expect(mock).toBeCalledWith(
+    formatSearchState({ ...state, selectedFacets: [facet2, facet1] })
+  )
 })
 
 test('SearchProvider: Remove facet selection', async () => {
@@ -130,19 +168,21 @@ test('SearchProvider: Remove facet selection', async () => {
     value: 'awesome',
   }
 
-  const { result } = renderHook(useSearch, {
-    wrapper: Wrapper,
+  const state = initSearchState({
+    selectedFacets: [facet1, facet2, facet2],
   })
 
-  expect(result.current.state.selectedFacets).toHaveLength(0)
-
-  act(() => result.current.setFacet(facet1))
-  act(() => result.current.setFacet(facet2))
-  act(() => result.current.setFacet(facet2))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2, facet2])
+  const mock = jest.fn(() => {})
+  const { result } = renderHook(useSearch, {
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
+  })
 
   act(() => result.current.removeFacet(facet2))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
+  expect(mock).toBeCalledWith(
+    formatSearchState({ ...state, selectedFacets: [facet1, facet2] })
+  )
 })
 
 test('SearchProvider: Remove initial facet', async () => {
@@ -156,19 +196,20 @@ test('SearchProvider: Remove initial facet', async () => {
     value: 'awesome',
   }
 
-  const { result } = renderHook(useSearch, {
-    wrapper: Wrapper,
+  const state = initSearchState({
+    selectedFacets: [facet1, facet2],
   })
 
-  expect(result.current.state.selectedFacets).toHaveLength(0)
-
-  act(() => result.current.setFacet(facet1))
-  act(() => result.current.setFacet(facet2))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
+  const mock = jest.fn(() => {})
+  const { result } = renderHook(useSearch, {
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
+  })
 
   /** Cannot remove the first facet */
   act(() => result.current.removeFacet(facet1))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
+  expect(mock).not.toHaveBeenCalled()
 })
 
 test('SearchProvider: Toggle Facet', async () => {
@@ -187,26 +228,32 @@ test('SearchProvider: Toggle Facet', async () => {
     value: 'more awesomeness',
   }
 
-  const { result } = renderHook(useSearch, {
-    wrapper: Wrapper,
+  const state = initSearchState({
+    selectedFacets: [facet1, facet2],
   })
 
-  expect(result.current.state.selectedFacets).toHaveLength(0)
+  const mock = jest.fn(() => {})
+  const { result } = renderHook(useSearch, {
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
+  })
 
-  act(() => result.current.toggleFacet(facet1))
-  act(() => result.current.toggleFacet(facet2))
-  act(() => result.current.toggleFacet(facet3))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2, facet3])
+  expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
 
   /** Cannot remove the first facet */
   act(() => result.current.toggleFacet(facet1))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2, facet3])
+  expect(mock).not.toHaveBeenCalled()
 
   act(() => result.current.toggleFacet(facet2))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet3])
+  expect(mock).toBeCalledWith(
+    formatSearchState({ ...state, selectedFacets: [facet1] })
+  )
 
-  act(() => result.current.toggleFacet(facet2))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet3, facet2])
+  act(() => result.current.toggleFacet(facet3))
+  expect(mock).toBeCalledWith(
+    formatSearchState({ ...state, selectedFacets: [facet1, facet2, facet3] })
+  )
 })
 
 test('SearchProvider: Toggle Facets', async () => {
@@ -225,17 +272,26 @@ test('SearchProvider: Toggle Facets', async () => {
     value: '50-to-60',
   }
 
-  const { result } = renderHook(useSearch, {
-    wrapper: Wrapper,
+  const state = initSearchState({
+    selectedFacets: [facet1, facet2, facet3],
   })
 
-  expect(result.current.state.selectedFacets).toHaveLength(0)
-
-  act(() => result.current.toggleFacets([facet1, facet2]))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
+  const mock = jest.fn(() => {})
+  const { result } = renderHook(useSearch, {
+    wrapper: ({ ...props }) => (
+      <Wrapper {...props} onChange={mock} {...state} />
+    ),
+  })
 
   act(() => result.current.toggleFacets([facet2, facet3]))
-  expect(result.current.state.selectedFacets).toEqual([facet1, facet3])
+  expect(mock).toBeCalledWith(
+    formatSearchState({ ...state, selectedFacets: [facet1] })
+  )
+
+  act(() => result.current.toggleFacets([facet1, facet2]))
+  expect(mock).toBeCalledWith(
+    formatSearchState({ ...state, selectedFacets: [facet1] })
+  )
 })
 
 test('SearchProvider: Infinite Scroll Pagination', async () => {
@@ -258,10 +314,10 @@ test('SearchProvider: onChange is called', async () => {
     wrapper: ({ ...props }) => <Wrapper {...props} onChange={mock} />,
   })
 
-  expect(mock).toHaveBeenCalledTimes(1)
+  expect(mock).toHaveBeenCalledTimes(0)
 
   act(() => result.current.setSort('name_asc'))
   act(() => result.current.setFacet({ key: 'size', value: 'xm' }))
   act(() => result.current.setPage(10))
-  expect(mock).toHaveBeenCalledTimes(4)
+  expect(mock).toHaveBeenCalledTimes(3)
 })

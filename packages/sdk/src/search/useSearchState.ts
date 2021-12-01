@@ -1,5 +1,6 @@
-import { useMemo, useReducer } from 'react'
+import { useMemo } from 'react'
 
+import { format } from './serializer'
 import { SDKError } from '../utils/error'
 
 export type SearchSort =
@@ -92,6 +93,8 @@ type Action =
       type: 'toggleFacets'
       payload: Facet[]
     }
+
+const equals = (s1: State, s2: State) => format(s1).href === format(s2).href
 
 const removeFacet = (state: State, facet: Facet): State => {
   const { value } = facet
@@ -201,11 +204,26 @@ export const reducer = (state: State, action: Action) => {
   }
 }
 
-export const useSearchState = (initialState: Partial<State>) => {
-  const [state, dispatch] = useReducer(reducer, initialState, initialize)
+const dispatcher = (onChange: (url: URL) => void, state: State) => (
+  action: Action
+) => {
+  const newState = reducer(state, action)
 
-  return useMemo(
-    () => ({
+  if (!equals(newState, state)) {
+    onChange(format(newState))
+  }
+}
+
+export const useSearchState = (
+  initialState: Partial<State>,
+  onChange: (url: URL) => void
+) => {
+  const state = useMemo(() => initialize(initialState), [initialState])
+
+  return useMemo(() => {
+    const dispatch = dispatcher(onChange, state)
+
+    return {
       state,
       setSort: (sort: SearchSort) =>
         dispatch({ type: 'setSort', payload: sort }),
@@ -223,9 +241,8 @@ export const useSearchState = (initialState: Partial<State>) => {
         }),
       toggleFacets: (facets: Facet[]) =>
         dispatch({ type: 'toggleFacets', payload: facets }),
-    }),
-    [state]
-  )
+    }
+  }, [onChange, state])
 }
 
 export type UseSearchState = ReturnType<typeof useSearchState>
