@@ -28,6 +28,10 @@ function generateNginxConfiguration({
     writeOnlyLocations,
     serverOptions,
     httpOptions,
+    locations: {
+      append: appendLocations = [],
+      prepend: prependLocations = [],
+    } = {},
   } = options
 
   const filesSet = new Set(files)
@@ -168,7 +172,9 @@ function generateNginxConfiguration({
                   ],
                 },
 
+                ...prependLocations,
                 ...locations,
+                ...appendLocations,
               ],
             },
           ],
