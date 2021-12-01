@@ -1,4 +1,5 @@
 import { enhanceSku } from '../utils/enhanceSku'
+import { NotFoundError } from '../utils/errors'
 import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
 import { StoreCollection } from './collection'
@@ -37,7 +38,15 @@ export const Query = {
       clients: { commerce },
     } = ctx
 
-    return commerce.catalog.portal.pagetype(slug)
+    const result = await commerce.catalog.portal.pagetype(slug)
+
+    const whitelist = ['Brand', 'Category', 'Department', 'Subcategory']
+
+    if (whitelist.includes(result.pageType)) {
+      return result
+    }
+
+    throw new NotFoundError(`Not Found: ${slug}`)
   },
   search: async (
     _: unknown,
