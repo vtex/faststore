@@ -3,17 +3,59 @@ import { axe } from 'jest-axe'
 import React from 'react'
 
 import Banner from './Banner'
+import BannerImage from './BannerImage'
+import BannerContent from './BannerContent'
+import BannerButton from './BannerButton'
+
+const BannerTest = () => {
+  return (
+    <Banner>
+      <BannerImage>
+        <img
+          alt="A person with hands on the pocket, carrying a round straw bag"
+          src="https://storecomponents.vtex.app/assets/fit-in/1280x613/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Fassets%2Fvtex.file-manager-graphql%2Fimages%2Fedce348c-068c-4fb9-91f2-7d235d596e0f___b2822f893b14f87337d08f07f0e520ab.jpg"
+        />
+      </BannerImage>
+      <BannerContent>
+        <div>
+          <h3>Get yo know our next release</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <BannerButton>Shop now</BannerButton>
+      </BannerContent>
+    </Banner>
+  )
+}
 
 describe('Banner', () => {
-  it('should have `data-store-banner` attribute', () => {
-    const { getByTestId } = render(<Banner>Testing</Banner>)
+  describe('Data attributes', () => {
+    const { getByTestId } = render(<BannerTest />)
 
-    expect(getByTestId('store-banner')).toHaveAttribute('data-store-banner')
+    const banner = getByTestId('store-banner')
+    const bannerImage = getByTestId('store-banner-image')
+    const bannerContent = getByTestId('store-banner-content')
+    const bannerButton = getByTestId('store-banner-button')
+
+    it('`Banner` component should have `data-store-banner` attribute', () => {
+      expect(banner).toHaveAttribute('data-store-banner')
+    })
+
+    it('`BannerImage` component should have `data-store-banner-image` attribute', () => {
+      expect(bannerImage).toHaveAttribute('data-store-banner-image')
+    })
+
+    it('`BannerContent` component should have `data-store-banner-content` attribute', () => {
+      expect(bannerContent).toHaveAttribute('data-store-banner-content')
+    })
+
+    it('`BannerButton` component should have `data-store-banner-button` attribute', () => {
+      expect(bannerButton).toHaveAttribute('data-store-banner-button')
+    })
   })
 
   describe('Accessibility', () => {
     it('should have no violations', async () => {
-      const { getByTestId } = render(<Banner>Testing</Banner>)
+      const { getByTestId } = render(<BannerTest />)
 
       expect(await axe(getByTestId('store-banner'))).toHaveNoViolations()
     })
