@@ -4,7 +4,7 @@ import React from 'react'
 import BannerComponent from '../Banner'
 import BannerImage from '../BannerImage'
 import BannerContent from '../BannerContent'
-import BannerButton from '../BannerButton'
+import BannerLink from '../BannerLink'
 import type { BannerProps } from '../Banner'
 import { Icon } from '../../..'
 import mdx from './Banner.mdx'
@@ -25,7 +25,6 @@ const RightArrow = () => (
 
 const BannerTemplate: Story<BannerProps> = ({ testId, variant }) => (
   <BannerComponent testId={testId} variant={variant}>
-    {/* role=presentation? */}
     <BannerImage>
       <img
         alt="A person with hands on the pocket, carrying a round straw bag"
@@ -37,9 +36,11 @@ const BannerTemplate: Story<BannerProps> = ({ testId, variant }) => (
         <h3>Get yo know our next release</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
-      <BannerButton>
-        Shop now <Icon component={<RightArrow />} />
-      </BannerButton>
+      <BannerLink>
+        <a href="/">
+          Shop now <Icon component={<RightArrow />} />
+        </a>
+      </BannerLink>
     </BannerContent>
   </BannerComponent>
 )

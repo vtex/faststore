@@ -7,5 +7,5 @@ export type { BannerImageProps } from './BannerImage'
 export { default as BannerContent } from './BannerContent'
 export type { BannerContentProps } from './BannerContent'
 
-export { default as BannerButton } from './BannerButton'
-export type { BannerButtonProps } from './BannerButton'
+export { default as BannerLink } from './BannerLink'
+export type { BannerLinkProps } from './BannerLink'

@@ -19,7 +19,7 @@
   @apply flex flex-col;
 }
 
-[data-store-banner='vertical'] [data-store-banner-button] {
+[data-store-banner='vertical'] [data-store-banner-link] {
   @apply ml-auto;
 }
 
@@ -31,10 +31,16 @@
   @apply flex-col justify-between;
 }
 
-[data-store-banner='horizontal'] [data-store-banner-button] {
+[data-store-banner='horizontal'] [data-store-banner-link] {
   @apply mr-auto;
 }
 
-[data-store-banner-button] [data-store-icon] {
+[data-store-banner-link] {
+  @apply px-6 py-2 rounded border-0 cursor-pointer inline-flex items-center;
+  @apply bg-blue-800 text-white;
+  @apply text-lg;
+}
+
+[data-store-banner-link] [data-store-icon] {
   @apply m-auto ml-2 align-middle;
 }

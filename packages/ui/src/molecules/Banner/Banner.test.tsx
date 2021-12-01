@@ -5,7 +5,7 @@ import React from 'react'
 import Banner from './Banner'
 import BannerImage from './BannerImage'
 import BannerContent from './BannerContent'
-import BannerButton from './BannerButton'
+import BannerLink from './BannerLink'
 
 const BannerTest = () => {
   return (
@@ -21,7 +21,7 @@ const BannerTest = () => {
           <h3>Get yo know our next release</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
-        <BannerButton>Shop now</BannerButton>
+        <BannerLink>Shop now</BannerLink>
       </BannerContent>
     </Banner>
   )
@@ -34,7 +34,7 @@ describe('Banner', () => {
     const banner = getByTestId('store-banner')
     const bannerImage = getByTestId('store-banner-image')
     const bannerContent = getByTestId('store-banner-content')
-    const bannerButton = getByTestId('store-banner-button')
+    const bannerLink = getByTestId('store-banner-link')
 
     it('`Banner` component should have `data-store-banner` attribute', () => {
       expect(banner).toHaveAttribute('data-store-banner')
@@ -48,8 +48,8 @@ describe('Banner', () => {
       expect(bannerContent).toHaveAttribute('data-store-banner-content')
     })
 
-    it('`BannerButton` component should have `data-store-banner-button` attribute', () => {
-      expect(bannerButton).toHaveAttribute('data-store-banner-button')
+    it('`BannerLink` component should have `data-store-banner-link` attribute', () => {
+      expect(bannerLink).toHaveAttribute('data-store-banner-link')
     })
   })
 
