@@ -25,7 +25,7 @@ const PaymentMethods = ({
   testId = 'store-payment-methods',
   title,
   children,
-}: PaymentMethodsProps & { children: ReactNode }) => {
+}: PaymentMethodsProps) => {
   return (
     <div data-store-payment-methods data-testid={testId}>
       <Label>{title}</Label>
