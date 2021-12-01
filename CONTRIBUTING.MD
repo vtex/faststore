@@ -34,7 +34,7 @@ Example:
 }
 ```
 
-### Creating Components on the `fastore/ui`
+### Creating Components on the `faststore/ui`
 
 You can create "boilerplates files" for your new component using the following command:
 
