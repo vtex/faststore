@@ -1,27 +1,29 @@
 import type { Meta, Story } from '@storybook/react'
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 
-import type { QuantitySelectorProps } from '../QuantitySelector'
-import Component from '../QuantitySelector'
+import type {
+  QuantitySelectorProps,
+  QuantitySelectorButtonProps,
+  QuantitySelectorInputProps,
+} from '..'
+import {
+  QuantitySelector,
+  QuantitySelectorButton,
+  QuantitySelectorInput,
+} from '..'
 import { PlusIcon, MinusIcon } from './assets/Icons'
 import mdx from './QuantitySelector.mdx'
 
 const MAX_QUANTITY = 10
 const MIN_QUANTITY = 1
-const QuantitySelectorStylelessTemplate: Story<QuantitySelectorProps> = (_) => {
+
+type QuantitySelectorCompoundProps = QuantitySelectorProps &
+  QuantitySelectorButtonProps &
+  QuantitySelectorInputProps
+const QuantitySelectorStylelessTemplate: Story<QuantitySelectorCompoundProps> = (
+  args
+) => {
   const [quantity, setQuantity] = useState(MIN_QUANTITY)
-
-  function increase() {
-    setQuantity((currentQuantity) =>
-      Math.min(currentQuantity + 1, MAX_QUANTITY)
-    )
-  }
-
-  function decrease() {
-    setQuantity((currentQuantity) =>
-      Math.max(currentQuantity - 1, MIN_QUANTITY)
-    )
-  }
 
   function isLeftDisabled() {
     return quantity === MIN_QUANTITY
@@ -32,38 +34,54 @@ const QuantitySelectorStylelessTemplate: Story<QuantitySelectorProps> = (_) => {
   }
 
   return (
-    <Component
-      quantity={quantity}
-      onClickLeft={decrease}
-      onClickRight={increase}
-      leftDisabled={isLeftDisabled()}
-      rightDisabled={isRightDisabled()}
-      readOnly
-    />
+    <QuantitySelector
+      {...args}
+      name="quantity-selector"
+      currentValue={quantity}
+      onClick={(v) => {
+        if (v.currentTarget.name === 'quantity-selector-increase-button') {
+          setQuantity((currentQuantity) =>
+            Math.min(currentQuantity + 1, MAX_QUANTITY)
+          )
+        } else if (
+          v.currentTarget.name === 'quantity-selector-decrease-button'
+        ) {
+          setQuantity((currentQuantity) =>
+            Math.max(currentQuantity - 1, MIN_QUANTITY)
+          )
+        }
+      }}
+    >
+      <QuantitySelectorButton
+        name="quantity-selector-decrease-button"
+        icon={<MinusIcon color="#fff" />}
+        disabled={isLeftDisabled()}
+      />
+      <QuantitySelectorInput name="'quantity-selector-input'" readOnly />
+      <QuantitySelectorButton
+        name="quantity-selector-increase-button"
+        icon={<PlusIcon color="#fff" />}
+        disabled={isRightDisabled()}
+      />
+    </QuantitySelector>
   )
 }
 
-const QuantitySelectorDefaultTemplate: Story<QuantitySelectorProps> = (_) => {
+const QuantitySelectorDefaultTemplate: Story<QuantitySelectorCompoundProps> = (
+  args
+) => {
   const [quantity, setQuantity] = useState(MIN_QUANTITY)
+  const { plusColor, minusColor } = useMemo(() => {
+    return {
+      plusColor: quantity === MAX_QUANTITY ? '#898F9E' : '#2953B2',
+      minusColor: quantity === MIN_QUANTITY ? '#898F9E' : '#2953B2',
+    }
+  }, [quantity])
 
-  function increase() {
+  function addQuantity(value: number) {
     setQuantity((currentQuantity) =>
-      validateQuantityBounds(currentQuantity + 1)
+      validateQuantityBounds(currentQuantity + value)
     )
-  }
-
-  function decrease() {
-    setQuantity((currentQuantity) =>
-      validateQuantityBounds(currentQuantity - 1)
-    )
-  }
-
-  function isLeftDisabled(): boolean {
-    return quantity === MIN_QUANTITY
-  }
-
-  function isRightDisabled(): boolean {
-    return quantity === MAX_QUANTITY
   }
 
   function validateQuantityBounds(n: number): number {
@@ -79,18 +97,38 @@ const QuantitySelectorDefaultTemplate: Story<QuantitySelectorProps> = (_) => {
   }
 
   return (
-    <Component
-      className="quantitySelector"
-      quantity={quantity}
-      onClickLeft={decrease}
-      onClickRight={increase}
-      leftDisabled={isLeftDisabled()}
-      rightDisabled={isRightDisabled()}
-      rightIcon={<PlusIcon color={isRightDisabled() ? '#898F9E' : '#2953B2'} />}
-      leftIcon={<MinusIcon color={isLeftDisabled() ? '#898F9E' : '#2953B2'} />}
-      onChange={validateInput}
-      readOnly={false}
-    />
+    <div className="quantitySelector">
+      <QuantitySelector
+        {...args}
+        name="quantity-selector"
+        currentValue={quantity}
+        onClick={(v) => {
+          if (v.currentTarget.name === 'quantity-selector-increase-button') {
+            addQuantity(1)
+            v.currentTarget.disabled = quantity === MAX_QUANTITY
+          } else if (
+            v.currentTarget.name === 'quantity-selector-decrease-button'
+          ) {
+            addQuantity(-1)
+            v.currentTarget.disabled = quantity === MIN_QUANTITY
+          }
+        }}
+      >
+        <QuantitySelectorButton
+          name="quantity-selector-decrease-button"
+          icon={<MinusIcon color={minusColor} />}
+        />
+        <QuantitySelectorInput
+          name="quantity-selector-input"
+          onChange={validateInput}
+          readOnly={false}
+        />
+        <QuantitySelectorButton
+          name="quantity-selector-increase-button"
+          icon={<PlusIcon color={plusColor} />}
+        />
+      </QuantitySelector>
+    </div>
   )
 }
 
