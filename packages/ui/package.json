@@ -53,7 +53,7 @@
   ],
   "dependencies": {
     "@reach/popover": "^0.16.0",
-    "@storybook/addon-a11y": "^6.3.12",
+    "@storybook/addon-a11y": "^6.4.4",
     "react-swipeable": "^6.1.2",
     "tabbable": "^5.2.1"
   },
@@ -63,12 +63,12 @@
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.11.0",
-    "@storybook/addon-actions": "^6.3.7",
-    "@storybook/addon-docs": "^6.3.7",
-    "@storybook/addon-essentials": "^6.3.7",
-    "@storybook/addon-links": "^6.3.7",
-    "@storybook/addons": "^6.3.7",
-    "@storybook/react": "^6.3.7",
+    "@storybook/addon-actions": "^6.4.4",
+    "@storybook/addon-docs": "^6.4.4",
+    "@storybook/addon-essentials": "^6.4.4",
+    "@storybook/addon-links": "^6.4.4",
+    "@storybook/addons": "^6.4.4",
+    "@storybook/react": "^6.4.4",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^7.0.2",
