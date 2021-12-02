@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 import Label from '../../atoms/Label'
 
@@ -21,17 +21,18 @@ export interface PaymentMethodsProps {
   children: ReactNode
 }
 
-const PaymentMethods = ({
-  testId = 'store-payment-methods',
-  title,
-  children,
-}: PaymentMethodsProps) => {
-  return (
-    <div data-store-payment-methods data-testid={testId}>
-      <Label>{title}</Label>
-      <div data-payment-methods-flags>{children}</div>
-    </div>
-  )
-}
+const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
+  function PaymentMethods(
+    { testId = 'store-payment-methods', title, children },
+    ref
+  ) {
+    return (
+      <div ref={ref} data-store-payment-methods data-testid={testId}>
+        <Label>{title}</Label>
+        <div data-payment-methods-flags>{children}</div>
+      </div>
+    )
+  }
+)
 
 export default PaymentMethods
