@@ -18,7 +18,7 @@
     "bootstrap": "lerna bootstrap",
     "release": "lerna version minor --yes && lerna publish from-git --yes",
     "size": "lerna run size",
-    "generate": "yarn plop --plopfile generators/plopfile.ts"
+    "generate-ui-component": "yarn plop --plopfile generators/plopfile.ts"
   },
   "workspaces": [
     "packages/*",

@@ -38,7 +38,7 @@ Example:
 
 You can generate the boilerplate files for your new component using the following command:
 
-- run `yarn generate`
+- run `yarn generate-ui-component`
 
 ```bash
 # What is your component name?

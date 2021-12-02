@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
+import type { HTMLAttributes } from 'react'
 
-export interface {{pascalCase name}}Props {
+export interface {{pascalCase name}}Props extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -8,12 +9,22 @@ export interface {{pascalCase name}}Props {
   testId?: string
 }
 
-const {{pascalCase name}} = ({ testId = 'store-{{kebabCase name}}', children }: {{pascalCase name}}Props) => {
-  return (
-    <div data-store-{{kebabCase name}} data-testid={testId}>
-      {children}
-    </div>
-  )
-}
+const {{pascalCase name}} = forwardRef<HTMLDivElement, {{pascalCase name}}Props>(
+  function {{pascalCase name}}(
+    { testId = 'store-{{kebabCase name}}', children, ...otherProps },
+    ref
+  ) {
+    return (
+      <div
+        ref={ref}
+        data-store-{{kebabCase name}}
+        data-testid={testId}
+        {...otherProps}
+      >
+        {children}
+      </div>
+    )
+  }
+)
 
 export default {{pascalCase name}}
