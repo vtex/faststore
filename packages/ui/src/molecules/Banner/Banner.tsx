@@ -17,9 +17,9 @@ const Banner = ({
   variant = 'vertical',
 }: BannerProps) => {
   return (
-    <section data-store-banner={variant} data-testid={testId}>
+    <article data-store-banner={variant} data-testid={testId}>
       {children}
-    </section>
+    </article>
   )
 }
 
