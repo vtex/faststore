@@ -28,7 +28,11 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
   ) {
     return (
       <div ref={ref} data-store-payment-methods data-testid={testId}>
-        <Label htmlFor="payment-methods">{title}</Label>
+        {Boolean(title) && (
+          <Label data-payment-methods-title htmlFor="payment-methods">
+            {title}
+          </Label>
+        )}
         <div id="payment-methods" data-payment-methods-flags>
           {children}
         </div>
