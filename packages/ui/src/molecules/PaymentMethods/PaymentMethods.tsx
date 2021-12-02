@@ -28,8 +28,10 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
   ) {
     return (
       <div ref={ref} data-store-payment-methods data-testid={testId}>
-        <Label>{title}</Label>
-        <div data-payment-methods-flags>{children}</div>
+        <Label htmlFor="title">{title}</Label>
+        <div id="flags" data-payment-methods-flags>
+          {children}
+        </div>
       </div>
     )
   }
