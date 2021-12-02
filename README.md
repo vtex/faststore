@@ -122,7 +122,6 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 These are the clients running in production with FastStore:
 
 - [Marin Brasil](https://www.marinbrasil.com.br/)
-- [Boticario](https://www.boticario.com/)
 - [Carrefour](https://mercado.carrefour.com.br/)
 
 ## Troubleshooting
