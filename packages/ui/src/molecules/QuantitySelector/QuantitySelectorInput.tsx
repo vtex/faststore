@@ -28,6 +28,7 @@ const QuantitySelectorInput = forwardRef<
       data-store-quantity-selector-input
       name={name}
       ref={ref}
+      role="spinbutton"
       testId={testId}
       value={currentValue}
       {...otherProps}
