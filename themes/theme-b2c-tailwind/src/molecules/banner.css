@@ -1,6 +1,5 @@
 [data-store-banner-image] {
-  @apply w-full;
-  height: 250px;
+  @apply w-full h-64;
 }
 
 [data-store-banner-image] img {
