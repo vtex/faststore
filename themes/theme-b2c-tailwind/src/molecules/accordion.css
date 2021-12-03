@@ -12,7 +12,7 @@
   @apply transform rotate-180;
 }
 [data-store-accordion-panel] > ul {
-  @apply list-none my-0;
+  @apply list-none my-0 pl-10;
 }
 [data-store-accordion-panel] a {
   @apply text-gray-500 no-underline hover:text-blue-700;
