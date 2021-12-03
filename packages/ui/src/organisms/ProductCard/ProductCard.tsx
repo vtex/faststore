@@ -1,8 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
 
-export interface ProductCardProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
+export interface ProductCardProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
