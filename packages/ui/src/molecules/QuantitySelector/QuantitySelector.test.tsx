@@ -3,6 +3,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import React, { useState } from 'react'
 import userEvent from '@testing-library/user-event'
 import type { ReactNode } from 'react'
+import { axe } from 'jest-axe'
 
 import {
   QuantitySelector,
@@ -102,5 +103,17 @@ describe('QuantitySelector', () => {
 
     expect(result.current.name).toEqual('quantity-selector')
     expect(result.current.currentValue).toEqual(5)
+  })
+
+  describe('QuantitySelector Accessibility Tests', () => {
+    it('Should pass the Accessibility test with AXE', async () => {
+      render(
+        <main>
+          <QuantitySelectorTest />
+        </main>
+      )
+
+      expect(await axe(document.body)).toHaveNoViolations()
+    })
   })
 })
