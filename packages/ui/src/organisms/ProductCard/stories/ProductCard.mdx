@@ -1,0 +1,78 @@
+import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
+
+import ProductCard from '../ProductCard'
+import ProductCardImage from '../ProductCardImage'
+import ProductCardInfo from '../ProductCardInfo'
+import ProductCardTitle from '../ProductCardTitle'
+import ProductCardPrice from '../ProductCardPrice'
+import ProductCardTags from '../ProductCardTags'
+import ProductCardLink from '../ProductCardLink'
+
+# ProductCard
+
+<Canvas>
+  <Story id="organisms-productcard--product-card" />
+</Canvas>
+
+## Components
+
+The `ProductCard` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
+
+- `ProductCard`: the wrapper component;
+- `ProductCardImage`: the wrapper component for the product's image;
+- `ProductCardInfo`: the wrapper component that can receive a `ProductCardTitle`, `ProductCardPrice` or `ProductCardTags`;
+- `ProductCardTitle`: the wrapper component for the product's title/description;
+- `ProductCardPrice`: the wrapper component for the product's price;
+- `ProductCardTags`: the wrapper component for the product's tags, i.e. discount tags;
+- `ProductCardLink`: the wrapper component for the call to action link.
+
+## Props
+
+All ProductCard-related components support all attributes also supported by the `<div>` tag.
+
+### `ProductCard`
+
+<ArgsTable of={ProductCard} />
+
+### `ProductCardImage`
+
+<ArgsTable of={ProductCardImage} />
+
+### `ProductCardInfo`
+
+<ArgsTable of={ProductCardInfo} />
+
+### `ProductCardTitle`
+
+<ArgsTable of={ProductCardTitle} />
+
+### `ProductCardPrice`
+
+<ArgsTable of={ProductCardPrice} />
+
+### `ProductCardTags`
+
+<ArgsTable of={ProductCardTags} />
+
+### `ProductCardLink`
+
+<ArgsTable of={ProductCardLink} />
+
+## CSS Selectors
+
+```css
+[data-store-product-card] {
+}
+[data-store-product-card-image] {
+}
+[data-store-product-card-info] {
+}
+[data-store-product-card-title] {
+}
+[data-store-product-card-price] {
+}
+[data-store-product-card-tags] {
+}
+[data-store-product-card-link] {
+}
+```
