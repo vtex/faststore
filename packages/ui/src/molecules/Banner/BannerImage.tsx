@@ -6,7 +6,6 @@ export interface BannerImageProps extends HTMLAttributes<HTMLDivElement> {
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-  children: React.ReactNode
 }
 
 const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>(
