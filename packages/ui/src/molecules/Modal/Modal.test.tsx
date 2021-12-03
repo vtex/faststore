@@ -75,7 +75,10 @@ describe('Modal WAI-ARIA Specifications', () => {
       </Modal>
     )
 
-    expect(await axe(document.body)).toHaveNoViolations()
+    const axeResult = await axe(document.body, {})
+
+    expect(axeResult).toHaveNoViolations()
+    expect(axeResult).toHaveNoIncompletes()
   })
 
   it('Focus first element', () => {
