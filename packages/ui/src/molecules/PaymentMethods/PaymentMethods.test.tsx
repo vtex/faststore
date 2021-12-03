@@ -5,43 +5,33 @@ import React from 'react'
 import PaymentMethods from './PaymentMethods'
 
 describe('Payment methods', () => {
-  it('should have `data-store-payment-methods` attribute', () => {
-    const { getByTestId } = render(<PaymentMethods>Testing</PaymentMethods>)
+  let paymentMethodsData: HTMLElement
 
-    expect(getByTestId('store-payment-methods')).toHaveAttribute(
-      'data-store-payment-methods'
-    )
-  })
-
-  it('Should render PaymentMethods Children', () => {
+  beforeEach(() => {
     const { getByTestId } = render(
-      <PaymentMethods title="Payment Methods">
+      <PaymentMethods title="I am a title">
         <h3>I am a flag</h3>
       </PaymentMethods>
     )
 
-    expect(getByTestId('store-payment-methods')).toHaveTextContent(
-      'I am a flag'
-    )
+    paymentMethodsData = getByTestId('store-payment-methods')
+  })
+
+  it('should have `data-store-payment-methods` attribute', () => {
+    expect(paymentMethodsData).toHaveAttribute('data-store-payment-methods')
+  })
+
+  it('Should render PaymentMethods Children', () => {
+    expect(paymentMethodsData).toHaveTextContent('I am a flag')
   })
 
   it('Should render PaymentMethods title', () => {
-    const { getByTestId } = render(
-      <PaymentMethods title="I am a title">Testing</PaymentMethods>
-    )
-
-    expect(getByTestId('store-payment-methods')).toHaveTextContent(
-      'I am a title'
-    )
+    expect(paymentMethodsData).toHaveTextContent('I am a title')
   })
 
   describe('Accessibility', () => {
     it('should have no violations', async () => {
-      const { getByTestId } = render(<PaymentMethods>Testing</PaymentMethods>)
-
-      expect(
-        await axe(getByTestId('store-payment-methods'))
-      ).toHaveNoViolations()
+      expect(await axe(paymentMethodsData)).toHaveNoViolations()
     })
   })
 })
