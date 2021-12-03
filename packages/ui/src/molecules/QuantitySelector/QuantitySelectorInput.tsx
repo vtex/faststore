@@ -24,17 +24,14 @@ const QuantitySelectorInput = forwardRef<
   const { name, currentValue } = useQuantitySelector()
 
   return (
-    <>
-      <Input
-        data-store-quantity-selector-input
-        name={name}
-        ref={ref}
-        testId={testId}
-        value={currentValue}
-        {...otherProps}
-      />
-      {children}
-    </>
+    <Input
+      data-store-quantity-selector-input
+      name={name}
+      ref={ref}
+      testId={testId}
+      value={currentValue}
+      {...otherProps}
+    />
   )
 })
 

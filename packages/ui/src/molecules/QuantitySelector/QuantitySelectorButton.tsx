@@ -26,18 +26,15 @@ const QuantitySelectorButton = forwardRef<
   const { name, onClick } = useQuantitySelector()
 
   return (
-    <>
-      <IconButton
-        data-store-quantity-selector-button
-        icon={icon}
-        name={name}
-        onClick={onClick}
-        ref={ref}
-        testId={testId}
-        {...otherProps}
-      />
-      {children}
-    </>
+    <IconButton
+      data-store-quantity-selector-button
+      icon={icon}
+      name={name}
+      onClick={onClick}
+      ref={ref}
+      testId={testId}
+      {...otherProps}
+    />
   )
 })
 
