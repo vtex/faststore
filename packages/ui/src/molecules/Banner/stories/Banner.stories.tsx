@@ -33,8 +33,8 @@ const BannerTemplate: Story<BannerProps> = ({ testId, variant }) => (
     </BannerImage>
     <BannerContent>
       <div>
-        <h3>Get yo know our next release</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <h3>Get to know our new release</h3>
+        <p>Your one-stop shop for making this summer season the best of all.</p>
       </div>
       <BannerLink>
         <a href="/">
