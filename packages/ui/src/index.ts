@@ -97,8 +97,24 @@ export { default as Form } from './molecules/Form'
 export type { FormProps } from './molecules/Form'
 
 // Organisms
-export { default as ProductCard } from './organisms/ProductCard'
-export type { ProductCardProps } from './organisms/ProductCard'
+export {
+  default as ProductCard,
+  ProductCardImage,
+  ProductCardInfo,
+  ProductCardLink,
+  ProductCardPrice,
+  ProductCardTags,
+  ProductCardTitle,
+} from './organisms/ProductCard'
+export type {
+  ProductCardProps,
+  ProductCardImageProps,
+  ProductCardInfoProps,
+  ProductCardLinkProps,
+  ProductCardPriceProps,
+  ProductCardTagsProps,
+  ProductCardTitleProps,
+} from './organisms/ProductCard'
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'

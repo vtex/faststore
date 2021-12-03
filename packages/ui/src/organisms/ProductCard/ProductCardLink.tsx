@@ -1,30 +1,29 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes } from 'react'
 
-export interface ProductCardProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
+export interface ProductCardLinkProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
 }
 
-const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
-  function ProductCard(
-    { testId = 'store-product-card', children, ...otherProps },
+const ProductCardLink = forwardRef<HTMLDivElement, ProductCardLinkProps>(
+  function ProductCardLink(
+    { testId = 'store-product-card-link', children, ...otherProps },
     ref
   ) {
     return (
-      <article
+      <div
         ref={ref}
-        data-store-product-card
+        data-store-product-card-link
         data-testid={testId}
         {...otherProps}
       >
         {children}
-      </article>
+      </div>
     )
   }
 )
 
-export default ProductCard
+export default ProductCardLink
