@@ -13,6 +13,28 @@ describe('Payment methods', () => {
     )
   })
 
+  it('Should render PaymentMethods Children', () => {
+    const { getByTestId } = render(
+      <PaymentMethods title="Payment Methods">
+        <h3>I am a flag</h3>
+      </PaymentMethods>
+    )
+
+    expect(getByTestId('store-payment-methods')).toHaveTextContent(
+      'I am a flag'
+    )
+  })
+
+  it('Should render PaymentMethods title', () => {
+    const { getByTestId } = render(
+      <PaymentMethods title="I am a title">Testing</PaymentMethods>
+    )
+
+    expect(getByTestId('store-payment-methods')).toHaveTextContent(
+      'I am a title'
+    )
+  })
+
   describe('Accessibility', () => {
     it('should have no violations', async () => {
       const { getByTestId } = render(<PaymentMethods>Testing</PaymentMethods>)
