@@ -1,9 +1,10 @@
-import React, { forwardRef, Fragment } from 'react'
-import type { FC, HTMLAttributes, ReactNode } from 'react'
+import React, { forwardRef } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 import List from '../../atoms/List'
+import type { ListProps } from '../../atoms/List'
 
-export interface AggregateRatingProps extends HTMLAttributes<HTMLUListElement> {
+export interface AggregateRatingProps extends ListProps<'ul'> {
   /**
    * The current value of the rating, based on the quantity of child elements.
    */
@@ -14,13 +15,15 @@ export interface AggregateRatingProps extends HTMLAttributes<HTMLUListElement> {
   testId?: string
 }
 
-export type RatingItemProps = {
-  children?: ReactNode
-  'data-store-aggregate-rating-item'?: 'full' | 'half' | 'empty'
+export interface RatingItemProps {
+  'data-store-aggregate-rating-item'?: 'full' | 'partial' | 'empty'
   'data-testid'?: string
 }
 
-const RatingItem: FC<RatingItemProps> = ({ children, ...otherProps }) => {
+const RatingItem: FC<PropsWithChildren<RatingItemProps>> = ({
+  children,
+  ...otherProps
+}) => {
   if (!React.isValidElement(children)) {
     return <li {...otherProps}>{children}</li>
   }
@@ -30,7 +33,13 @@ const RatingItem: FC<RatingItemProps> = ({ children, ...otherProps }) => {
 
 const AggregateRating = forwardRef<HTMLUListElement, AggregateRatingProps>(
   function AggregateRating(
-    { children, testId = 'store-aggregate-rating', value, ...otherProps },
+    {
+      children,
+      testId = 'store-aggregate-rating',
+      value,
+      variant = 'unordered',
+      ...otherProps
+    },
     ref
   ) {
     const fillCheck = (itemValue: number) => {
@@ -39,7 +48,7 @@ const AggregateRating = forwardRef<HTMLUListElement, AggregateRatingProps>(
       }
 
       if (0 < itemValue && itemValue < 1) {
-        return 'half'
+        return 'partial'
       }
 
       return 'empty'
@@ -48,24 +57,23 @@ const AggregateRating = forwardRef<HTMLUListElement, AggregateRatingProps>(
     return (
       <List
         data-store-aggregate-rating
-        variant="unordered"
+        variant={variant}
         ref={ref}
         data-testid={testId}
         {...otherProps}
       >
         {React.Children.map(children, (child, index: number) => {
-          const currentItemNumber = index + 1
+          const currentItemNumber = index
           const fill = fillCheck(value - currentItemNumber)
 
           return (
-            <Fragment key={`aggregate-rating-${index}`}>
-              <RatingItem
-                data-store-aggregate-rating-item={fill}
-                data-testid={`${testId}-item`}
-              >
-                {child}
-              </RatingItem>
-            </Fragment>
+            <RatingItem
+              key={`aggregate-rating-${index}`}
+              data-store-aggregate-rating-item={fill}
+              data-testid={`${testId}-item`}
+            >
+              {child}
+            </RatingItem>
           )
         })}
       </List>

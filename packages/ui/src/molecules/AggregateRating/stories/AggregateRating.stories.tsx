@@ -10,7 +10,7 @@ import mdx from './AggregateRating.mdx'
 const RatingIcon: FC<RatingItemProps> = (props) => {
   const fillColor = {
     empty: 'transparent',
-    half: 'url(#half)',
+    partial: 'url(#partial)',
     full: '#ffb100',
   }
 
@@ -22,7 +22,7 @@ const RatingIcon: FC<RatingItemProps> = (props) => {
       {...props}
     >
       <defs>
-        <linearGradient id="half">
+        <linearGradient id="partial">
           <stop offset="50%" stopColor="#ffb100" />
           <stop offset="50%" stopColor="transparent" stopOpacity="1" />
         </linearGradient>
@@ -65,8 +65,6 @@ const AggregateRatingWithoutIconTemplate: Story<AggregateRatingProps> = ({
     <Component value={value} testId={testId}>
       {Array.from({ length: 5 }).map((_, index) => {
         const isFullRating = value - index >= 1
-
-        console.log(isFullRating ? '★' : '☆')
 
         return isFullRating ? '★' : '☆'
       })}

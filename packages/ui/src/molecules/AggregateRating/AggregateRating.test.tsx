@@ -10,13 +10,13 @@ const fillCheck = (value: number) => {
   }
 
   if (0 < value && value < 1) {
-    return 'half'
+    return 'partial'
   }
 
   return 'empty'
 }
 
-describe('Breadcrumb', () => {
+describe('AggregateRating', () => {
   it('`data-store-aggregate-rating` is present', () => {
     const { getByTestId } = render(
       <AggregateRating value={2}>
