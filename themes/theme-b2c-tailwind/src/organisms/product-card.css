@@ -10,7 +10,7 @@
   @apply pt-2;
 }
 
-[data-store-product-card-title] {
+[data-store-product-card-header] {
   @apply flex flex-col min-w-full;
 }
 

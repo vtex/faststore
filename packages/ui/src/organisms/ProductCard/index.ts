@@ -16,5 +16,5 @@ export type { ProductCardPriceProps } from './ProductCardPrice'
 export { default as ProductCardTags } from './ProductCardTags'
 export type { ProductCardTagsProps } from './ProductCardTags'
 
-export { default as ProductCardTitle } from './ProductCardTitle'
-export type { ProductCardTitleProps } from './ProductCardTitle'
+export { default as ProductCardHeader } from './ProductCardHeader'
+export type { ProductCardHeaderProps } from './ProductCardHeader'

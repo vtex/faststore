@@ -8,7 +8,7 @@ import Badge from '../../../atoms/Badge'
 import ProductCardComponent from '../ProductCard'
 import ProductCardImage from '../ProductCardImage'
 import ProductCardInfo from '../ProductCardInfo'
-import ProductCardTitle from '../ProductCardTitle'
+import ProductCardHeader from '../ProductCardHeader'
 import ProductCardPrice from '../ProductCardPrice'
 import ProductCardTags from '../ProductCardTags'
 import ProductCardLink from '../ProductCardLink'
@@ -24,9 +24,9 @@ const ProductCardTemplate: Story<ProductCardProps> = ({ testId }) => (
       />
     </ProductCardImage>
     <ProductCardInfo>
-      <ProductCardTitle>
+      <ProductCardHeader>
         <h3>Vintage Top Camera</h3>
-      </ProductCardTitle>
+      </ProductCardHeader>
       <ProductCardPrice>
         <Price
           value={89.9}

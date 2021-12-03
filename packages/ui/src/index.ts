@@ -104,7 +104,7 @@ export {
   ProductCardLink,
   ProductCardPrice,
   ProductCardTags,
-  ProductCardTitle,
+  ProductCardHeader,
 } from './organisms/ProductCard'
 export type {
   ProductCardProps,
@@ -113,7 +113,7 @@ export type {
   ProductCardLinkProps,
   ProductCardPriceProps,
   ProductCardTagsProps,
-  ProductCardTitleProps,
+  ProductCardHeaderProps,
 } from './organisms/ProductCard'
 
 // Hooks

@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes, AriaAttributes } from 'react'
 
-export interface ProductCardTitleProps extends HTMLAttributes<HTMLDivElement> {
+export interface ProductCardHeaderProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -9,11 +9,11 @@ export interface ProductCardTitleProps extends HTMLAttributes<HTMLDivElement> {
   'aria-label'?: AriaAttributes['aria-label']
 }
 
-const ProductCardTitle = forwardRef<HTMLDivElement, ProductCardTitleProps>(
-  function ProductCardTitle(
+const ProductCardHeader = forwardRef<HTMLDivElement, ProductCardHeaderProps>(
+  function ProductCardHeader(
     {
-      testId = 'store-product-card-title',
-      'aria-label': ariaLabel = 'Product title',
+      testId = 'store-product-card-header',
+      'aria-label': ariaLabel,
       children,
       ...otherProps
     },
@@ -23,7 +23,7 @@ const ProductCardTitle = forwardRef<HTMLDivElement, ProductCardTitleProps>(
       <div
         ref={ref}
         aria-label={ariaLabel}
-        data-store-product-card-title
+        data-store-product-card-header
         data-testid={testId}
         {...otherProps}
       >
@@ -33,4 +33,4 @@ const ProductCardTitle = forwardRef<HTMLDivElement, ProductCardTitleProps>(
   }
 )
 
-export default ProductCardTitle
+export default ProductCardHeader

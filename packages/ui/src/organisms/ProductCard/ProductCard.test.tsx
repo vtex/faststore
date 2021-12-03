@@ -5,7 +5,7 @@ import React from 'react'
 import ProductCard from './ProductCard'
 import ProductCardInfo from './ProductCardInfo'
 import ProductCardImage from './ProductCardImage'
-import ProductCardTitle from './ProductCardTitle'
+import ProductCardHeader from './ProductCardHeader'
 import ProductCardPrice from './ProductCardPrice'
 import ProductCardTags from './ProductCardTags'
 import ProductCardLink from './ProductCardLink'
@@ -17,9 +17,9 @@ const TestProductCard = () => {
         <div>An image</div>
       </ProductCardImage>
       <ProductCardInfo>
-        <ProductCardTitle>
+        <ProductCardHeader>
           <h3>A title</h3>
-        </ProductCardTitle>
+        </ProductCardHeader>
         <ProductCardPrice>89.90</ProductCardPrice>
         <ProductCardTags>
           <div>A tag</div>
@@ -36,7 +36,7 @@ describe('ProductCard', () => {
   let productCard: HTMLElement
   let productCardInfo: HTMLElement
   let productCardImage: HTMLElement
-  let productCardTitle: HTMLElement
+  let productCardHeader: HTMLElement
   let productCardPrice: HTMLElement
   let productCardTags: HTMLElement
   let productCardLink: HTMLElement
@@ -48,7 +48,7 @@ describe('ProductCard', () => {
     productCard = getByTestId('store-product-card')
     productCardInfo = getByTestId('store-product-card-info')
     productCardImage = getByTestId('store-product-card-image')
-    productCardTitle = getByTestId('store-product-card-title')
+    productCardHeader = getByTestId('store-product-card-header')
     productCardPrice = getByTestId('store-product-card-price')
     productCardTags = getByTestId('store-product-card-tags')
     productCardLink = getByTestId('store-product-card-link')
@@ -70,8 +70,10 @@ describe('ProductCard', () => {
       expect(productCardImage).toHaveAttribute('data-store-product-card-image')
     })
 
-    it('`ProductCardTitle` component should have `data-store-product-card-title` attribute', () => {
-      expect(productCardTitle).toHaveAttribute('data-store-product-card-title')
+    it('`ProductCardHeader` component should have `data-store-product-card-header` attribute', () => {
+      expect(productCardHeader).toHaveAttribute(
+        'data-store-product-card-header'
+      )
     })
 
     it('`ProductCardPrice` component should have `data-store-product-card-price` attribute', () => {

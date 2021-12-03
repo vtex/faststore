@@ -3,7 +3,7 @@ import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
 import ProductCard from '../ProductCard'
 import ProductCardImage from '../ProductCardImage'
 import ProductCardInfo from '../ProductCardInfo'
-import ProductCardTitle from '../ProductCardTitle'
+import ProductCardHeader from '../ProductCardHeader'
 import ProductCardPrice from '../ProductCardPrice'
 import ProductCardTags from '../ProductCardTags'
 import ProductCardLink from '../ProductCardLink'
@@ -20,8 +20,8 @@ The `ProductCard` uses the [Compound Component](https://kentcdodds.com/blog/comp
 
 - `ProductCard`: the wrapper component;
 - `ProductCardImage`: the wrapper component for the product's image;
-- `ProductCardInfo`: the wrapper component that can receive a `ProductCardTitle`, `ProductCardPrice` or `ProductCardTags`;
-- `ProductCardTitle`: the wrapper component for the product's title/description;
+- `ProductCardInfo`: the wrapper component that can receive a `ProductCardHeader`, `ProductCardPrice` or `ProductCardTags`;
+- `ProductCardHeader`: the wrapper component for the product's title and description;
 - `ProductCardPrice`: the wrapper component for the product's price;
 - `ProductCardTags`: the wrapper component for the product's tags, i.e. discount tags;
 - `ProductCardLink`: the wrapper component for the call to action link.
@@ -42,9 +42,9 @@ All ProductCard-related components support all attributes also supported by the 
 
 <ArgsTable of={ProductCardInfo} />
 
-### `ProductCardTitle`
+### `ProductCardHeader`
 
-<ArgsTable of={ProductCardTitle} />
+<ArgsTable of={ProductCardHeader} />
 
 ### `ProductCardPrice`
 
@@ -67,7 +67,7 @@ All ProductCard-related components support all attributes also supported by the 
 }
 [data-store-product-card-info] {
 }
-[data-store-product-card-title] {
+[data-store-product-card-header] {
 }
 [data-store-product-card-price] {
 }
