@@ -97,38 +97,37 @@ const QuantitySelectorDefaultTemplate: Story<QuantitySelectorCompoundProps> = (
   }
 
   return (
-    <div className="quantitySelector">
-      <QuantitySelector
-        {...args}
-        name="quantity-selector"
-        currentValue={quantity}
-        onClick={(v) => {
-          if (v.currentTarget.name === 'quantity-selector-increase-button') {
-            addQuantity(1)
-            v.currentTarget.disabled = quantity === MAX_QUANTITY
-          } else if (
-            v.currentTarget.name === 'quantity-selector-decrease-button'
-          ) {
-            addQuantity(-1)
-            v.currentTarget.disabled = quantity === MIN_QUANTITY
-          }
-        }}
-      >
-        <QuantitySelectorButton
-          name="quantity-selector-decrease-button"
-          icon={<MinusIcon color={minusColor} />}
-        />
-        <QuantitySelectorInput
-          name="quantity-selector-input"
-          onChange={validateInput}
-          readOnly={false}
-        />
-        <QuantitySelectorButton
-          name="quantity-selector-increase-button"
-          icon={<PlusIcon color={plusColor} />}
-        />
-      </QuantitySelector>
-    </div>
+    <QuantitySelector
+      {...args}
+      name="quantity-selector"
+      className="quantitySelector"
+      currentValue={quantity}
+      onClick={(v) => {
+        if (v.currentTarget.name === 'quantity-selector-increase-button') {
+          addQuantity(1)
+          v.currentTarget.disabled = quantity === MAX_QUANTITY
+        } else if (
+          v.currentTarget.name === 'quantity-selector-decrease-button'
+        ) {
+          addQuantity(-1)
+          v.currentTarget.disabled = quantity === MIN_QUANTITY
+        }
+      }}
+    >
+      <QuantitySelectorButton
+        name="quantity-selector-decrease-button"
+        icon={<MinusIcon color={minusColor} />}
+      />
+      <QuantitySelectorInput
+        name="quantity-selector-input"
+        onChange={validateInput}
+        readOnly={false}
+      />
+      <QuantitySelectorButton
+        name="quantity-selector-increase-button"
+        icon={<PlusIcon color={plusColor} />}
+      />
+    </QuantitySelector>
   )
 }
 

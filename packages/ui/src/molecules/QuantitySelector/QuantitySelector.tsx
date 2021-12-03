@@ -1,15 +1,17 @@
-import type { PropsWithChildren } from 'react'
+import type { HTMLAttributes } from 'react'
 import React from 'react'
 
 import { QuantitySelectorContext } from './useQuantitySelector'
 
-export type QuantitySelectorProps = PropsWithChildren<QuantitySelectorContext>
+export type QuantitySelectorProps = QuantitySelectorContext &
+  Omit<HTMLAttributes<HTMLDivElement>, 'onClick'>
 
 const QuantitySelector = ({
   name,
   onClick,
   children,
   currentValue,
+  ...otherProps
 }: QuantitySelectorProps) => {
   const contextValues = React.useMemo(() => {
     return { name, currentValue, onClick }
@@ -17,7 +19,7 @@ const QuantitySelector = ({
 
   return (
     <QuantitySelectorContext.Provider value={contextValues}>
-      {children}
+      <div {...otherProps}>{children}</div>
     </QuantitySelectorContext.Provider>
   )
 }
