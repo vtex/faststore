@@ -1,4 +1,5 @@
-@import "./atoms/index.css";
-@import "./molecules/index.css";
-@import "./utils/base.css";
-@import "./utils/utilities.css";
+@import './atoms/index.css';
+@import './molecules/index.css';
+@import './organisms/index.css';
+@import './utils/base.css';
+@import './utils/utilities.css';
