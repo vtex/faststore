@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.16 (2021-12-06)
+
+
+### Bug Fixes
+
+* add fallback to prevent null facets attribute StoreSearchResult query ([#1056](https://github.com/vtex/faststore/issues/1056)) ([ae1483f](https://github.com/vtex/faststore/commit/ae1483fdb901328a7a7348746fd241b9ce7ea1da))
+
+
+
+
+
 ## 1.3.15 (2021-12-03)
 
 **Note:** Version bump only for package @vtex/lighthouse-config
