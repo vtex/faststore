@@ -1,0 +1,8 @@
+[data-store-alert] {
+  @apply flex items-center p-1;
+  @apply bg-pink-700 text-white text-sm;
+}
+
+[data-store-alert] [data-store-icon] {
+  @apply m-0 px-2;
+}

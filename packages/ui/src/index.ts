@@ -96,6 +96,9 @@ export type {
 export { default as Form } from './molecules/Form'
 export type { FormProps } from './molecules/Form'
 
+export { default as Alert } from './molecules/Alert'
+export type { AlertProps } from './molecules/Alert'
+
 // Organisms
 
 // Hooks
