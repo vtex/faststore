@@ -1,6 +1,6 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface AddPaymentInfoData {
+export interface AddPaymentInfoParams {
   currency?: CurrencyCode
   value?: number
   coupon?: string
@@ -9,6 +9,6 @@ export interface AddPaymentInfoData {
 }
 
 export interface AddPaymentInfoEvent {
-  type: 'add_payment_info'
-  data: AddPaymentInfoData
+  name: 'add_payment_info'
+  params: AddPaymentInfoParams
 }

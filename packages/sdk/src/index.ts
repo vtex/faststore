@@ -1,52 +1,58 @@
-export type { ShareEvent, ShareData } from './analytics/events/share'
-export type { SearchEvent, SearchData } from './analytics/events/search'
-export type { SignupEvent, SignupData } from './analytics/events/signup'
-export type { LoginEvent, LoginData } from './analytics/events/login'
-export type { RefundEvent, RefundData } from './analytics/events/refund'
-export type { PurchaseEvent, PurchaseData } from './analytics/events/purchase'
+export type { ShareEvent, ShareParams } from './analytics/events/share'
+export type { SearchEvent, SearchParams } from './analytics/events/search'
+export type { SignupEvent, SignupParams } from './analytics/events/signup'
+export type { LoginEvent, LoginParams } from './analytics/events/login'
+export type { RefundEvent, RefundParams } from './analytics/events/refund'
+export type { PurchaseEvent, PurchaseParams } from './analytics/events/purchase'
 export type {
   AddShippingInfoEvent,
-  AddShippingInfoData,
+  AddShippingInfoParams,
 } from './analytics/events/add_shipping_info'
 export type {
   AddPaymentInfoEvent,
-  AddPaymentInfoData,
+  AddPaymentInfoParams,
 } from './analytics/events/add_payment_info'
 export type {
   BeginCheckoutEvent,
-  BeginCheckoutData,
+  BeginCheckoutParams,
 } from './analytics/events/begin_checkout'
-export type { ViewCartEvent, ViewCartData } from './analytics/events/view_cart'
+export type {
+  ViewCartEvent,
+  ViewCartParams,
+} from './analytics/events/view_cart'
 export type {
   RemoveFromCartEvent,
-  RemoveFromCartData,
+  RemoveFromCartParams,
 } from './analytics/events/remove_from_cart'
 export type {
   AddToCartEvent,
-  AddToCartData,
+  AddToCartParams,
 } from './analytics/events/add_to_cart'
 export type {
   SelectItemEvent,
-  SelectItemData,
+  SelectItemParams,
 } from './analytics/events/select_item'
 export type {
   AddToWishlistEvent,
-  AddToWishlistData,
+  AddToWishlistParams,
 } from './analytics/events/add_to_wishlist'
 export type {
   SelectPromotionEvent,
-  SelectPromotionData,
+  SelectPromotionParams,
   SelectPromotionItems,
 } from './analytics/events/select_promotion'
 export type {
   ViewPromotionEvent,
-  ViewPromotionData,
+  ViewPromotionParams,
   ViewPromotionItems,
 } from './analytics/events/view_promotion'
-export type { ViewItemEvent, ViewItemData } from './analytics/events/view_item'
+export type {
+  ViewItemEvent,
+  ViewItemParams,
+} from './analytics/events/view_item'
 export type {
   ViewItemListEvent,
-  ViewItemListData,
+  ViewItemListParams,
 } from './analytics/events/view_item_list'
 export type {
   ItemId,
@@ -54,14 +60,14 @@ export type {
   ItemUniqueIdentifier,
   ItemWithoutIdentifier,
   Item,
-  PromotionProperties,
+  PromotionParams,
   PromotionItem,
   CurrencyCode,
 } from './analytics/events/common'
 export type {
   AnalyticsEvent,
   WrappedAnalyticsEvent,
-  WrappedAnalyticsEventData,
+  WrappedAnalyticsEventParams,
   UnknownEvent,
 } from './analytics/wrap'
 export { STORE_EVENT_PREFIX, ANALYTICS_EVENT_TYPE } from './analytics/wrap'

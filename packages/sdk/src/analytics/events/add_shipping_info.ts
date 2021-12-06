@@ -1,6 +1,6 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface AddShippingInfoData {
+export interface AddShippingInfoParams {
   currency?: CurrencyCode
   value?: number
   coupon?: string
@@ -9,6 +9,6 @@ export interface AddShippingInfoData {
 }
 
 export interface AddShippingInfoEvent {
-  type: 'add_shipping_info'
-  data: AddShippingInfoData
+  name: 'add_shipping_info'
+  params: AddShippingInfoParams
 }
