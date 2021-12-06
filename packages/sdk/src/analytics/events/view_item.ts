@@ -1,6 +1,6 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface ViewItemData {
+export interface ViewItemParams {
   currency?: CurrencyCode
   value?: number
   items?: Item[]
@@ -8,5 +8,5 @@ export interface ViewItemData {
 
 export interface ViewItemEvent {
   name: 'view_item'
-  params: ViewItemData
+  params: ViewItemParams
 }

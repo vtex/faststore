@@ -45,7 +45,7 @@ export interface UnknownEvent {
   params: unknown
 }
 
-export type WrappedAnalyticsEventData<T extends UnknownEvent> = Omit<
+export type WrappedAnalyticsEventParams<T extends UnknownEvent> = Omit<
   T,
   'name'
 > & {
@@ -56,7 +56,7 @@ export type WrappedAnalyticsEventData<T extends UnknownEvent> = Omit<
 
 export interface WrappedAnalyticsEvent<T extends UnknownEvent> {
   name: 'AnalyticsEvent'
-  params: WrappedAnalyticsEventData<T>
+  params: WrappedAnalyticsEventParams<T>
 }
 
 export const STORE_EVENT_PREFIX = 'store:'

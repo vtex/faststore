@@ -1,6 +1,6 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface RemoveFromCartData {
+export interface RemoveFromCartParams {
   currency?: CurrencyCode
   value?: number
   items?: Item[]
@@ -8,5 +8,5 @@ export interface RemoveFromCartData {
 
 export interface RemoveFromCartEvent {
   name: 'remove_from_cart'
-  params: RemoveFromCartData
+  params: RemoveFromCartParams
 }

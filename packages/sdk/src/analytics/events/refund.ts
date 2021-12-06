@@ -1,6 +1,6 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface RefundData {
+export interface RefundParams {
   currency?: CurrencyCode
   transaction_id?: string
   value?: number
@@ -13,5 +13,5 @@ export interface RefundData {
 
 export interface RefundEvent {
   name: 'refund'
-  params: RefundData
+  params: RefundParams
 }

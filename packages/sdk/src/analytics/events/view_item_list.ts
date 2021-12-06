@@ -1,6 +1,6 @@
 import type { Item } from './common'
 
-export interface ViewItemListData {
+export interface ViewItemListParams {
   item_list_id?: string
   item_list_name?: string
   items?: Item[]
@@ -8,5 +8,5 @@ export interface ViewItemListData {
 
 export interface ViewItemListEvent {
   name: 'view_item_list'
-  params: ViewItemListData
+  params: ViewItemListParams
 }

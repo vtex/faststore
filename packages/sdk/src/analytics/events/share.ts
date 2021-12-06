@@ -1,6 +1,6 @@
 // This isn't an ecommerce exclusive event, but it makes sense to include it in stores
 
-export interface ShareData {
+export interface ShareParams {
   method?: string
   content_type?: string
   item_id?: string
@@ -8,5 +8,5 @@ export interface ShareData {
 
 export interface ShareEvent {
   name: 'share'
-  params: ShareData
+  params: ShareParams
 }
