@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.18 (2021-12-06)
+
+
+### Features
+
+* **store-ui:** Alert molecule  ([#1020](https://github.com/vtex/faststore/issues/1020)) ([7764e0d](https://github.com/vtex/faststore/commit/7764e0d08270a3bb836038c4a9cd27e5cbef9667))
+
+
+
+
+
 ## 1.3.17 (2021-12-06)
 
 **Note:** Version bump only for package @vtex/gatsby-source-store
