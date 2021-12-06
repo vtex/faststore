@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-import Label from '../../atoms/Label'
-
 export interface PaymentMethodsProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
@@ -28,8 +26,12 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
   ) {
     return (
       <div ref={ref} data-store-payment-methods data-testid={testId}>
-        {!!title && <Label htmlFor="payment-methods">{title}</Label>}
-        <div id="payment-methods" data-payment-methods-flags>
+        {!!title && <div id="payment-methods">{title}</div>}
+        <div
+          data-payment-methods-flags
+          aria-labelledby={title ? 'payment-methods' : undefined}
+          aria-label={title ? undefined : 'payment-methods'}
+        >
           {children}
         </div>
       </div>
