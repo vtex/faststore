@@ -61,3 +61,16 @@ export const toHaveNoIncompletes = {
     return { actual: incompletes, message, pass }
   },
 }
+
+declare global {
+  // eslint-disable-next-line
+  namespace jest {
+    interface Matchers<R, T> {
+      toHaveNoIncompletes(): R
+    }
+  }
+
+  // axe-core depends on a global Node
+  // eslint-disable-next-line
+  interface Node {}
+}
