@@ -3,6 +3,205 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.17 (2021-12-06)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.16 (2021-12-06)
+
+
+### Bug Fixes
+
+* add fallback to prevent null facets attribute StoreSearchResult query ([#1056](https://github.com/vtex/faststore/issues/1056)) ([ae1483f](https://github.com/vtex/faststore/commit/ae1483fdb901328a7a7348746fd241b9ce7ea1da))
+
+
+
+
+
+## 1.3.15 (2021-12-03)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.14 (2021-12-03)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.13 (2021-12-03)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.12 (2021-12-02)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.11 (2021-12-02)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.10 (2021-12-01)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.9 (2021-12-01)
+
+
+### Bug Fixes
+
+* **api:** Throws NotFoundError when collection is not found ([#1047](https://github.com/vtex/faststore/issues/1047)) ([9535ec3](https://github.com/vtex/faststore/commit/9535ec3d67a64f98b4d4e914e7bae81e06935e2a))
+
+
+
+
+
+## 1.3.8 (2021-12-01)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.7 (2021-12-01)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.6 (2021-11-26)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.5 (2021-11-25)
+
+
+### Features
+
+* **ui:** RadioGroup Component ([#1033](https://github.com/vtex/faststore/issues/1033)) ([60f306d](https://github.com/vtex/faststore/commit/60f306d97257a8cc65ec67bf1f1cc16376ad1654))
+
+
+
+
+
+## 1.3.4 (2021-11-23)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.3 (2021-11-23)
+
+
+### Features
+
+* **gatsby-plugin-nginx:** support to augment the generateRewrites ([#1017](https://github.com/vtex/faststore/issues/1017)) ([46587b0](https://github.com/vtex/faststore/commit/46587b0280d7f8dd733a0dca29909f041c944897))
+
+
+
+
+
+## 1.3.2 (2021-11-22)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.3.1 (2021-11-18)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.2.37 (2021-11-17)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.2.36 (2021-11-16)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.2.35 (2021-11-16)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.2.34 (2021-11-16)
+
+
+### Bug Fixes
+
+* Filter collection slugs in api ([#1022](https://github.com/vtex/faststore/issues/1022)) ([cdcfcff](https://github.com/vtex/faststore/commit/cdcfcff642561dd73b1f85557e101271d10ca930))
+
+
+
+
+
+## 1.2.33 (2021-11-12)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.2.32 (2021-11-11)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
 ## 1.2.31 (2021-11-04)
 
 

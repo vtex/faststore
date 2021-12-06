@@ -99,6 +99,8 @@ export type { FormProps } from './molecules/Form'
 export { default as Alert } from './molecules/Alert'
 export type { AlertProps } from './molecules/Alert'
 
+// Organisms
+
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
 export type {

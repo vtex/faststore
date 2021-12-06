@@ -1,13 +1,14 @@
 import type { Context, Options } from '../../index'
 import { fetchAPI } from '../fetch'
+import type { Brand } from './types/Brand'
+import type { CategoryTree } from './types/CategoryTree'
+import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
+import type { PortalPagetype } from './types/Portal'
 import type {
   Simulation,
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
-import type { CategoryTree } from './types/CategoryTree'
-import type { Brand } from './types/Brand'
-import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 
 const BASE_INIT = {
   method: 'POST',
@@ -31,6 +32,10 @@ export const VtexCommerce = (
       category: {
         tree: (depth = 3): Promise<CategoryTree[]> =>
           fetchAPI(`${base}/api/catalog_system/pub/category/tree/${depth}`),
+      },
+      portal: {
+        pagetype: (slug: string): Promise<PortalPagetype> =>
+          fetchAPI(`${base}/api/catalog_system/pub/portal/pagetype/${slug}`),
       },
     },
     checkout: {

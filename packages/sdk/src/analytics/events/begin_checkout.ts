@@ -1,6 +1,6 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface BeginCheckoutData {
+export interface BeginCheckoutParams {
   currency?: CurrencyCode
   value?: number
   coupon?: string
@@ -8,6 +8,6 @@ export interface BeginCheckoutData {
 }
 
 export interface BeginCheckoutEvent {
-  type: 'begin_checkout'
-  data: BeginCheckoutData
+  name: 'begin_checkout'
+  params: BeginCheckoutParams
 }

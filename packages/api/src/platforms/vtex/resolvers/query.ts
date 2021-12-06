@@ -1,11 +1,14 @@
 import { enhanceSku } from '../utils/enhanceSku'
+import { NotFoundError } from '../utils/errors'
 import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
+import { StoreCollection } from './collection'
 import type {
   QueryProductArgs,
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
   QuerySearchArgs,
+  QueryCollectionArgs,
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
@@ -25,6 +28,25 @@ export const Query = {
     } = ctx
 
     return skuLoader.load(locator.map(transformSelectedFacet))
+  },
+  collection: async (
+    _: unknown,
+    { slug }: QueryCollectionArgs,
+    ctx: Context
+  ) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const result = await commerce.catalog.portal.pagetype(slug)
+
+    const whitelist = ['Brand', 'Category', 'Department', 'Subcategory']
+
+    if (whitelist.includes(result.pageType)) {
+      return result
+    }
+
+    throw new NotFoundError(`Not Found: ${slug}`)
   },
   search: async (
     _: unknown,
@@ -123,10 +145,13 @@ export const Query = {
         startCursor: '0',
         endCursor: '0',
       },
-      edges: collections.map((node, index) => ({
-        node,
-        cursor: index.toString(),
-      })),
+      edges: collections
+        // Nullable slugs may cause one route to override the other
+        .filter((node) => Boolean(StoreCollection.slug(node, null, ctx, null)))
+        .map((node, index) => ({
+          node,
+          cursor: index.toString(),
+        })),
     }
   },
 }

@@ -132,6 +132,41 @@ describe('generateRewrites', () => {
       ])
     ).toEqual(expected)
   })
+
+  it('uses onGenerateNginxRewrites to augment the children commands', () => {
+    const expected = [
+      {
+        children: [
+          {
+            cmd: [
+              'proxy_pass',
+              'https://other-domain.com/api/auth/$1$is_args$args',
+            ],
+          },
+          { cmd: ['proxy_ssl_server_name', 'on'] },
+          { cmd: ['proxy_cookie_domain', 'other-domain.com', '$host'] },
+          { cmd: ['proxy_cookie_path', '/api/auth', '/'] },
+        ],
+        cmd: ['location', '~*', '"^/api/auth/(.*)$"'],
+      },
+    ]
+
+    expect(
+      generateRewrites([
+        {
+          fromPath: '/api/auth/*',
+          toPath: 'https://other-domain.com/api/auth/:splat',
+          onGenerateNginxRewrites: (commands) => {
+            return [
+              ...commands,
+              { cmd: ['proxy_cookie_domain', 'other-domain.com', '$host'] },
+              { cmd: ['proxy_cookie_path', '/api/auth', '/'] },
+            ]
+          },
+        },
+      ])
+    ).toEqual(expected)
+  })
 })
 
 describe('generateRedirects', () => {
@@ -224,6 +259,10 @@ describe('generateNginxConfiguration', () => {
       writeOnlyLocations: false,
       serverOptions: [],
       httpOptions: [],
+      locations: {
+        prepend: [],
+        append: [],
+      },
     }
 
     expect(
@@ -318,6 +357,10 @@ describe('generateNginxConfiguration', () => {
       writeOnlyLocations: false,
       serverOptions: [],
       httpOptions: [],
+      locations: {
+        prepend: [],
+        append: [],
+      },
     }
 
     const start = performance.now()

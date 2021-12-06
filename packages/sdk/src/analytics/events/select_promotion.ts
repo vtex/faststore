@@ -1,12 +1,12 @@
-import type { PromotionItem, PromotionProperties } from './common'
+import type { PromotionItem, PromotionParams } from './common'
 
 export interface SelectPromotionItems {
   items?: PromotionItem[]
 }
 
-export type SelectPromotionData = PromotionProperties & SelectPromotionItems
+export type SelectPromotionParams = PromotionParams & SelectPromotionItems
 
 export interface SelectPromotionEvent {
-  type: 'select_promotion'
-  data: SelectPromotionData
+  name: 'select_promotion'
+  params: SelectPromotionParams
 }

@@ -94,10 +94,23 @@ This is still a work in progress, however, if you are also an adventurous person
 
 `graphql-js` package is cumbersome when using `yarn link` because it requires only one instance of the package and there are two.
 
-To solve this problem you can deduplicate the instances by going into this project's `node_modules` and changing the file `node_modules/graphql/index.js` to:
+For this reason, to be able to see our changes at faststore running on a local store we need to use [wml](https://github.com/wix/wml).
 
-```js
-module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.js>')
+So, suppose you want to make changes into the api package and test it at your local base.store, wml is used to copy all files from `packages/api` to `<path-to-base.store>/node_modules/@faststore/api`. It also watches for changes to copy/paste on the go.
+
+To do this:
+
+```
+## At faststore api package folder
+(faststore/packages/api) $ yarn develop
+
+## These can be executed anywhere
+$ npm install -g wml
+$ wml add <faststore>/packages/api <path-to>.store/node_modules/@faststore/api
+$ wml start
+
+## Finally, at the base.store folder
+(base.store) $ yarn clean && yarn develop
 ```
 
 ## Packages
@@ -122,7 +135,6 @@ module.exports = require('<path/to/the/tenant.store/node_modules/graphql/index.j
 These are the clients running in production with FastStore:
 
 - [Marin Brasil](https://www.marinbrasil.com.br/)
-- [Boticario](https://www.boticario.com/)
 - [Carrefour](https://mercado.carrefour.com.br/)
 
 ## Troubleshooting

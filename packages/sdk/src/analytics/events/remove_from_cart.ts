@@ -1,12 +1,12 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface RemoveFromCartData {
+export interface RemoveFromCartParams {
   currency?: CurrencyCode
   value?: number
   items?: Item[]
 }
 
 export interface RemoveFromCartEvent {
-  type: 'remove_from_cart'
-  data: RemoveFromCartData
+  name: 'remove_from_cart'
+  params: RemoveFromCartParams
 }

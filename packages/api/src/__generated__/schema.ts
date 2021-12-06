@@ -62,6 +62,7 @@ export type Query = {
   __typename?: 'Query';
   allCollections: StoreCollectionConnection;
   allProducts: StoreProductConnection;
+  collection: StoreCollection;
   product: StoreProduct;
   search: StoreSearchResult;
 };
@@ -76,6 +77,11 @@ export type QueryAllCollectionsArgs = {
 export type QueryAllProductsArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
+};
+
+
+export type QueryCollectionArgs = {
+  slug: Scalars['String'];
 };
 
 

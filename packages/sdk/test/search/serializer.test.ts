@@ -1,117 +1,120 @@
-import {
-  setSearchParam,
-  formatSearchParamsState,
-  parseSearchParamsState,
-  initSearchParamsState,
-} from '../../src'
+import { formatSearchState, parseSearchState, initSearchState } from '../../src'
 
 test('Search State Serializer: Basic serialization', async () => {
-  const state = initSearchParamsState()
+  let state = initSearchState()
 
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/score_desc/0?map=sort%2Cpage'
+  expect(`${formatSearchState(state)}`).toBe(
+    'http://localhost/?sort=score_desc&page=0'
   )
 
-  setSearchParam(state, { key: 'term', value: 'Hello Wolrd' })
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/Hello%20Wolrd/score_desc/0?map=term%2Csort%2Cpage'
+  state = {
+    ...state,
+    term: 'Hello Wolrd',
+  }
+  expect(`${formatSearchState(state)}`).toBe(
+    'http://localhost/?q=Hello+Wolrd&sort=score_desc&page=0'
   )
 
-  setSearchParam(state, { key: 'personalized', value: true })
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/Hello%20Wolrd/score_desc/per/0?map=term%2Csort%2Cpersonalized%2Cpage'
+  state = {
+    ...state,
+    selectedFacets: [
+      ...state.selectedFacets,
+      { key: 'priceRange', value: '10-to-100' },
+    ],
+  }
+  expect(`${formatSearchState(state)}`).toBe(
+    'http://localhost/?q=Hello+Wolrd&priceRange=10-to-100&facets=priceRange&sort=score_desc&page=0'
   )
 
-  setSearchParam(state, { key: 'personalized', value: false })
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/Hello%20Wolrd/score_desc/0?map=term%2Csort%2Cpage'
-  )
-
-  setSearchParam(state, { key: 'priceRange', value: '10-to-100', unique: true })
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/Hello%20Wolrd/10-to-100/score_desc/0?map=term%2CpriceRange%2Csort%2Cpage'
+  state = {
+    ...state,
+    sort: 'price_desc',
+  }
+  expect(`${formatSearchState(state)}`).toBe(
+    'http://localhost/?q=Hello+Wolrd&priceRange=10-to-100&facets=priceRange&sort=price_desc&page=0'
   )
 })
 
 test('Search State Serializer: serialization with base path', async () => {
-  const state = initSearchParamsState({
+  let state = initSearchState({
     base: '/pt-br/sale',
   })
 
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/score_desc/0?map=sort%2Cpage'
+  expect(`${formatSearchState(state)}`).toBe(
+    'http://localhost/pt-br/sale/?sort=score_desc&page=0'
   )
 
-  setSearchParam(state, { key: 'term', value: 'Hello Wolrd' })
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/Hello%20Wolrd/score_desc/0?map=term%2Csort%2Cpage'
+  state = {
+    ...state,
+    term: 'Hello Wolrd',
+  }
+  expect(`${formatSearchState(state)}`).toBe(
+    'http://localhost/pt-br/sale/?q=Hello+Wolrd&sort=score_desc&page=0'
   )
 
-  setSearchParam(state, { key: 'personalized', value: true })
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/Hello%20Wolrd/score_desc/per/0?map=term%2Csort%2Cpersonalized%2Cpage'
+  state = {
+    ...state,
+    selectedFacets: [
+      ...state.selectedFacets,
+      { key: 'priceRange', value: '10-to-100' },
+    ],
+  }
+  expect(`${formatSearchState(state)}`).toBe(
+    'http://localhost/pt-br/sale/?q=Hello+Wolrd&priceRange=10-to-100&facets=priceRange&sort=score_desc&page=0'
   )
 
-  setSearchParam(state, { key: 'personalized', value: false })
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/Hello%20Wolrd/score_desc/0?map=term%2Csort%2Cpage'
-  )
-
-  setSearchParam(state, { key: 'priceRange', value: '10-to-100', unique: true })
-  expect(`${formatSearchParamsState(state)}`).toBe(
-    'http://localhost/pt-br/sale/Hello%20Wolrd/10-to-100/score_desc/0?map=term%2CpriceRange%2Csort%2Cpage'
+  state = {
+    ...state,
+    sort: 'price_desc',
+  }
+  expect(`${formatSearchState(state)}`).toBe(
+    'http://localhost/pt-br/sale/?q=Hello+Wolrd&priceRange=10-to-100&facets=priceRange&sort=price_desc&page=0'
   )
 })
 
 test('Search State Serializer: Basic parsing', async () => {
   expect(
-    parseSearchParamsState(
+    parseSearchState(
       new URL(
-        'http://localhost/pt-br/sale/Hello%20Wolrd/10-to-100/score_desc/0?map=term%2CpriceRange%2Csort%2Cpage'
+        'http://localhost/pt-br/sale/?q=Hello+Wolrd&&sort=score_desc&priceRange=10-to-100&page=0&facets=priceRange'
       )
     )
   ).toEqual({
     base: '/pt-br/sale/',
-    personalized: false,
     selectedFacets: [
       {
         key: 'priceRange',
-        unique: false,
         value: '10-to-100',
       },
     ],
     sort: 'score_desc',
-    term: 'Hello%20Wolrd',
+    term: 'Hello Wolrd',
     page: 0,
   })
 
   expect(
-    parseSearchParamsState(
+    parseSearchState(
       new URL(
-        'http://localhost/pt-br/sale/Hello%20Wolrd/score_desc/per/1?map=term%2Csort%2Cpersonalized%2Cpage'
+        'http://localhost/pt-br/sale/?q=Hello+Wolrd&sort=score_desc&page=1'
       )
     )
   ).toEqual({
     base: '/pt-br/sale/',
-    personalized: true,
     selectedFacets: [],
     sort: 'score_desc',
-    term: 'Hello%20Wolrd',
+    term: 'Hello Wolrd',
     page: 1,
   })
 
   expect(
-    parseSearchParamsState(
-      new URL(
-        'http://localhost/Hello%20Wolrd/score_desc/per/10?map=term%2Csort%2Cpersonalized%2Cpage'
-      )
+    parseSearchState(
+      new URL('http://localhost/?q=Hello+Wolrd&sort=score_desc&page=10')
     )
   ).toEqual({
     base: '/',
-    personalized: true,
     selectedFacets: [],
     sort: 'score_desc',
-    term: 'Hello%20Wolrd',
+    term: 'Hello Wolrd',
     page: 10,
   })
 })
