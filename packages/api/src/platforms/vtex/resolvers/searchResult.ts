@@ -41,6 +41,6 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const facets = await is.facets(searchArgs)
 
-    return facets.attributes
+    return facets.attributes ?? []
   },
 }

@@ -7,7 +7,7 @@ export interface AttributeSearchResult {
   query: string
   operator: string
   fuzzy: string
-  attributes: Attribute[]
+  attributes: Attribute[] | null
 }
 
 export interface Attribute {
