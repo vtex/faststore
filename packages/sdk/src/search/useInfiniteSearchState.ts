@@ -35,14 +35,15 @@ export const useSearchInfiniteState = (initialPage: number) => {
     initialPage,
   ])
 
-  return useMemo(
+  const actions = useMemo(
     () => ({
-      pages,
       addPrevPage: () => dispatch({ type: 'addPrev' }),
       addNextPage: () => dispatch({ type: 'addNext' }),
     }),
-    [pages]
+    []
   )
+
+  return { pages, ...actions }
 }
 
 export type UseSearchInfiniteState = ReturnType<typeof useSearchInfiniteState>

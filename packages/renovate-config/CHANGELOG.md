@@ -3,6 +3,65 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.15 (2021-12-03)
+
+**Note:** Version bump only for package @vtex/renovate-config
+
+
+
+
+
+## 1.3.14 (2021-12-03)
+
+**Note:** Version bump only for package @vtex/renovate-config
+
+
+
+
+
+## 1.3.13 (2021-12-03)
+
+**Note:** Version bump only for package @vtex/renovate-config
+
+
+
+
+
+## 1.3.12 (2021-12-02)
+
+**Note:** Version bump only for package @vtex/renovate-config
+
+
+
+
+
+## 1.3.11 (2021-12-02)
+
+**Note:** Version bump only for package @vtex/renovate-config
+
+
+
+
+
+## 1.3.10 (2021-12-01)
+
+**Note:** Version bump only for package @vtex/renovate-config
+
+
+
+
+
+## 1.3.9 (2021-12-01)
+
+
+### Bug Fixes
+
+* **api:** Throws NotFoundError when collection is not found ([#1047](https://github.com/vtex/faststore/issues/1047)) ([9535ec3](https://github.com/vtex/faststore/commit/9535ec3d67a64f98b4d4e914e7bae81e06935e2a))
+
+
+
+
+
 ## 1.3.8 (2021-12-01)
 
 **Note:** Version bump only for package @vtex/renovate-config

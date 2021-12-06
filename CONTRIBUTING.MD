@@ -34,6 +34,42 @@ Example:
 }
 ```
 
+### Creating Components on the `faststore/ui`
+
+You can generate the boilerplate files for your new component using the following command:
+
+- run `yarn generate-ui-component`
+
+```bash
+# What is your component name?
+
+ComponentName
+
+#  What is your component atomic group?  (Use arrow keys)
+
+> atoms
+> molecules
+> organisms
+```
+
+- It will automatically generate the files below:
+
+```
+✔  ++ faststore/packages/ui/src/atoms/ComponentName/ComponentName.tsx
+✔  ++ faststore/packages/ui/src/atoms/ComponentName/index.tsx
+✔  ++ faststore/themes/theme-b2c-tailwind/src/atoms/component-name.css
+✔  ++ faststore/packages/ui/src/atoms/ComponentName/ComponentName.test.tsx
+✔  ++ faststore/packages/ui/src/atoms/ComponentName/stories/ComponentName.stories.tsx
+✔  ++ faststore/packages/ui/src/atoms/ComponentName/stories/ComponentName.mdx
+✔  _+ faststore/packages/ui/src/index.ts
+```
+
+And that is it! You will be ready to work on your component. 🎉
+
+> For the component name, please follow the Pascal Case pattern, and do not use `-`, i.e., Component-Name.
+
+> Please do not edit `// Atoms`, `// Molecules` and `// Organisms` comments on `packages/ui/scr/index.ts` [file](https://github.com/vtex/faststore/blob/b1badead35dc43b41f25480a66f4e81cc9a8e22a/packages/ui/src/index.ts), because we are using it as a [pattern](https://github.com/vtex/faststore/blob/443cbd117e34ea1702a2994ca4ad0b2733f17189/generators/plopfile.ts#L62) to update the file. For more details, check [here](https://github.com/vtex/faststore/pull/1039).
+
 ## Creating Pull Requests
 
 1. Create a production build by running `yarn build` at the root of the package that you are developing
@@ -59,16 +95,19 @@ Example:
 > `git clean -fdx && yarn && lerna run build && lerna publish patch --yes`
 
 3. Update `package.json` of the `storecomponents` with:
+
 ```
 yarn upgrade -L --scope @vtex
 ```
 
 4. Stage, commit and push your changes with:
+
 ```
 git add . && git commit -m "upgrade deps" && git push
 ```
 
 5. Rebase with master
+
 ```
 git rebase origin/master && git push --force
 ```

@@ -259,6 +259,10 @@ describe('generateNginxConfiguration', () => {
       writeOnlyLocations: false,
       serverOptions: [],
       httpOptions: [],
+      locations: {
+        prepend: [],
+        append: [],
+      },
     }
 
     expect(
@@ -353,6 +357,10 @@ describe('generateNginxConfiguration', () => {
       writeOnlyLocations: false,
       serverOptions: [],
       httpOptions: [],
+      locations: {
+        prepend: [],
+        append: [],
+      },
     }
 
     const start = performance.now()

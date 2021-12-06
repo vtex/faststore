@@ -9,4 +9,5 @@ module.exports = {
     '@storybook/addon-a11y',
     'storybook-addon-themes',
   ],
+  staticDirs: ['../../../themes'],
 }
