@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 export interface PaymentMethodsProps {
@@ -13,6 +13,11 @@ export interface PaymentMethodsProps {
    */
   title?: ReactNode
   /**
+   * Defines a string value that labels the current element when
+   * title is not used.
+   */
+  'aria-label'?: AriaAttributes['aria-label']
+  /**
    * Children will receive the flags to be displayed in the payment
    * methods section (e.g.:, visa, mastercard, etc).
    */
@@ -21,7 +26,12 @@ export interface PaymentMethodsProps {
 
 const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
   function PaymentMethods(
-    { testId = 'store-payment-methods', title, children },
+    {
+      testId = 'store-payment-methods',
+      title,
+      'aria-label': ariaLabel = 'Payment Methods',
+      children,
+    },
     ref
   ) {
     return (
@@ -30,7 +40,7 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
         <div
           data-payment-methods-flags
           aria-labelledby={title ? 'payment-methods' : undefined}
-          aria-label={title ? undefined : 'payment-methods'}
+          aria-label={title ? undefined : ariaLabel}
         >
           {children}
         </div>
