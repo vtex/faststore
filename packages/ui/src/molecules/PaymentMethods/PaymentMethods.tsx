@@ -31,11 +31,17 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
       title,
       'aria-label': ariaLabel = 'Payment Methods',
       children,
+      ...otherProps
     },
     ref
   ) {
     return (
-      <div ref={ref} data-store-payment-methods data-testid={testId}>
+      <div
+        ref={ref}
+        data-store-payment-methods
+        data-testid={testId}
+        {...otherProps}
+      >
         {!!title && <div id="payment-methods">{title}</div>}
         <div
           data-payment-methods-flags
