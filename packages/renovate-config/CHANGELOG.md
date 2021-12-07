@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.20 (2021-12-07)
+
+
+### Features
+
+* **store-ui:** Banner component ([#1048](https://github.com/vtex/faststore/issues/1048)) ([b65d8e5](https://github.com/vtex/faststore/commit/b65d8e574598f8bf8494aac478e4bec4d774ec86))
+
+
+
+
+
 ## 1.3.19 (2021-12-07)
 
 
