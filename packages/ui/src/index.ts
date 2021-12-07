@@ -63,6 +63,9 @@ export type { IconButtonProps } from './molecules/IconButton'
 export { default as Modal } from './molecules/Modal'
 export type { ModalProps } from './molecules/Modal'
 
+export { default as PaymentMethods } from './molecules/PaymentMethods'
+export type { PaymentMethodsProps } from './molecules/PaymentMethods'
+
 export {
   default as Accordion,
   AccordionItem,
