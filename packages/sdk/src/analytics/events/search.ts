@@ -1,10 +1,10 @@
 // This isn't an ecommerce exclusive event, but it makes sense to include it in stores
 
-export interface SearchData {
+export interface SearchParams {
   search_term: string
 }
 
 export interface SearchEvent {
-  type: 'search'
-  data: SearchData
+  name: 'search'
+  params: SearchParams
 }
