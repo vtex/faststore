@@ -34,12 +34,10 @@ const ProductCardTemplate: Story<ProductCardProps> = ({ testId }) => {
             src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
           />
         </ProductCardImage>
-
         <ProductCardInfo>
           <ProductCardHeader>
             <h3>Vintage Top Camera</h3>
           </ProductCardHeader>
-
           <ProductCardPrice>
             <Price
               value={89.9}
@@ -49,13 +47,11 @@ const ProductCardTemplate: Story<ProductCardProps> = ({ testId }) => {
             />
             <Price value={68.9} variant="selling" formatter={formatter} />
           </ProductCardPrice>
-
           <ProductCardTags>
             <Badge>15% OFF</Badge>
           </ProductCardTags>
-
-          <Button onClick={onClick}>Add to Cart</Button>
         </ProductCardInfo>
+        <Button onClick={onClick}>Add to Cart</Button>
       </ProductCardLink>
     </ProductCardComponent>
   )
