@@ -2,10 +2,6 @@
   @apply w-60 h-96 relative;
 }
 
-[data-store-product-card-link] {
-  @apply border-2;
-}
-
 [data-store-product-card-image] img {
   @apply h-56 w-full;
 }
