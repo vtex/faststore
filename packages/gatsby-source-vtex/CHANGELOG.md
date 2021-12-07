@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.19 (2021-12-07)
+
+
+### Features
+
+* **ui:** PaymentMethods Component ([#1024](https://github.com/vtex/faststore/issues/1024)) ([f093025](https://github.com/vtex/faststore/commit/f093025c5b010b01f16349e2460611792cfff67f))
+
+
+
+
+
 ## 1.3.18 (2021-12-06)
 
 
