@@ -1,0 +1,7 @@
+[data-store-payment-methods] {
+    @apply mt-1 flex-col justify-between text-center;
+}
+
+[data-payment-methods-flags] {
+    @apply grid grid-cols-4 gap-0.5 items-center justify-items-center;
+}

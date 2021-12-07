@@ -8,8 +8,5 @@
     }
   },
   "changelogPreset": "angular",
-  "packages": [
-    "packages/*",
-    "themes/*"
-  ]
+  "packages": ["packages/*", "themes/*"]
 }

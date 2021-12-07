@@ -66,6 +66,9 @@ export type { ModalProps } from './molecules/Modal'
 export { default as Banner } from './molecules/Banner'
 export type { BannerProps } from './molecules/Banner'
 
+export { default as PaymentMethods } from './molecules/PaymentMethods'
+export type { PaymentMethodsProps } from './molecules/PaymentMethods'
+
 export {
   default as Accordion,
   AccordionItem,
