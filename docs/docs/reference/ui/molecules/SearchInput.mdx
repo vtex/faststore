@@ -1,0 +1,61 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# SearchInput
+
+The Search Input component allows users to enter an input and query results from a database.
+
+## Import
+
+```tsx
+import { SearchInput } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<SearchInput
+  placeholder="Search"
+/>
+```
+
+## With custom icon
+
+```tsx live
+<SearchInput
+  icon={<CustomIcon />}
+  placeholder="Search"
+/>
+```
+
+
+## Props
+
+<PropsComponent
+    name="onSubmit"
+    type= "(value: string) => void"
+    description="Callback function when submitted."
+    required="true"
+/>
+<PropsComponent
+    name="icon"
+    type= "ReactNode"
+    description="Custom icon inside the submit button."
+    required="true"
+/>
+<PropsComponent
+    name="aria-label"
+    type= "string"
+    description="Custom aria-label for input and button."
+/>
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-search-input"
+/>
+
+## Customization 
+
+`data-store-search-input`
+
+This component inherits [Input](/reference/ui/atoms/Input), [Button](/reference/ui/atoms/Button), [Icon](/reference/ui/atoms/Icon) css selectors.

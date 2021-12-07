@@ -1,0 +1,56 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Popover
+
+Popovers are used along with a clickable trigger element to display contextual information on top of that component.
+
+## Import
+
+```tsx
+import { Popover } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+function() {
+  const ref = useRef(null)
+  const [value, setValue] = useState('')
+
+  return (
+    <div>
+      <label>
+        <span>Type for a special message</span>
+        <Input
+          variant={value.length > 0 ? 'success' : undefined}
+          type="text"
+          onChange={(event) => setValue(event.target.value)}
+          ref={ref}
+        />
+      </label>
+      {value.length > 0 && <Popover children='Whoa! Look at me!' targetRef={ref}/>}
+    </div>
+  )
+}
+```
+
+## Props
+
+<PropsComponent
+    name="targetRef"
+    type= "string"
+    description="Ref for the component initial position."
+    possibleValues="RefObject<PossibleNode>"
+    required="true"
+/>
+
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-popover"
+/>
+
+## Customization
+
+`data-store-popover`

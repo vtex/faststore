@@ -1,0 +1,117 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Carousel
+
+Carousels are a set of rotating banners. They contain navigational controls which allow users to alternate between multiple images and content in the same section.
+
+## Import
+
+```tsx
+import { Carousel } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Carousel
+  controls="complete"
+  transition={{
+    duration: 400,
+    property: 'transform'
+  }}
+>
+  <img
+    alt=""
+    height={614}
+    src="https://storecomponents.vtex.app/assets/fit-in/1280x613/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Fassets%2Fvtex.file-manager-graphql%2Fimages%2F331632a0-fa52-4f08-8e45-df762d97a289___167e4c8385c3129b1a2ddab9156510ba.jpg"
+    width="100%"
+  />
+  <img
+    alt=""
+    height={614}
+    src="https://storecomponents.vtex.app/assets/fit-in/1280x613/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Fassets%2Fvtex.file-manager-graphql%2Fimages%2Fedce348c-068c-4fb9-91f2-7d235d596e0f___b2822f893b14f87337d08f07f0e520ab.jpg"
+    width="100%"
+  />
+</Carousel>
+```
+
+## Props
+
+<PropsComponent
+    name="id"
+    type= "string"
+    defaultValue="store-carousel"
+/>
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-carousel"
+/>
+<PropsComponent
+    name="infiniteMode"
+    type= "boolean"
+    defaultValue="true"
+/>
+<PropsComponent
+    name="controls"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    possibleValues="complete | navigationArrows | paginationBullets"
+    defaultValue="complete"
+/>
+<PropsComponent
+    name="transition"
+    type= "{ duration: number; property: string; delay?: number; timing?: string; } | undefined"
+    defaultValue="{ duration: 400, property: 'transform' }"
+/>
+<PropsComponent
+    name="onSwipeStart"
+    type= "SwipeCallback"
+/>
+<PropsComponent
+    name="onSwiped"
+    type= "SwipeCallback"
+/>
+<PropsComponent
+    name="onSwipedDown"
+    type= "SwipeCallback"
+/>
+<PropsComponent
+    name="onSwipedLeft"
+    type= "SwipeCallback"
+/>
+<PropsComponent
+    name="onSwipedRight"
+    type= "SwipeCallback"
+/>
+<PropsComponent
+    name="onSwipedUp"
+    type= "SwipeCallback"
+/>
+<PropsComponent
+    name="onSwiping"
+    type= "SwipeCallback"
+/>
+<PropsComponent
+    name="onTap"
+    type= "TapCallback"
+/>
+
+## Customization
+
+`data-store-carousel`
+
+`data-carousel-track-container`
+
+`data-carousel-track`
+
+`data-carousel-item`
+
+`data-carousel-controls`
+
+`data-arrow="left|right"`
+
+`data-carousel-bullets`
+
+`[data-carousel-bullets] [data-store-bullets]`

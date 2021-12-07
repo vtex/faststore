@@ -1,0 +1,77 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# RadioGroup
+
+The Radio Group component allows users to select a single option from a list of two or more mutually exclusive options.
+
+## Import
+
+```tsx
+import { RadioGroup, RadioOptions } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx
+<RadioGroup
+    name="radio-group"
+    onChange={(v) => {
+        setOption(v.currentTarget.value)
+    }}
+    selectedValue={option}>
+    <RadioOption value="radio-1" label="Radio 1">
+        <span>Radio 1</span>
+    </RadioOption>
+    <RadioOption value="radio-2" label="Radio 2">
+        <span>Radio 2</span>
+    </RadioOption>
+</RadioGroup>
+```
+
+## Props
+
+### RadioGroup
+<PropsComponent
+    name="name"
+    type= "string"
+    description="Name to link children by context."
+    required="true"
+/>
+<PropsComponent
+    name="selectedValue"
+    type= "string | number"
+    description="Value of checked child."
+/>
+<PropsComponent
+    name="onChange"
+    type= "ChangeEventHandler<HTMLInputElement>"
+    description="Function that is triggered when any children is checked."
+/>
+
+
+### RadioOption
+
+<PropsComponent
+    name="label"
+    type= "string"
+    description="Attribute to set aria-label option as required."
+    required="true"
+/>
+<PropsComponent
+    name="value"
+    type= "string | number"
+    description="Value to be emitted when radio is clicked."
+    required="true"
+/>
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-radio-option"
+/>
+
+## Customization
+
+`data-store-radio-option`
+
+`data-store-radio-option-item`

@@ -1,0 +1,58 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+.sidebar {
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow-y: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 2rem);
+}
+
+.sidebarItemTitle {
+  @apply pt-8 capitalize;
+  font-size: var(--ifm-h3-font-size);
+  font-weight: var(--ifm-font-weight-bold);
+}
+
+.sidebarItemList {
+  @apply pb-5 pl-0 text-sm;
+}
+
+.sidebarItem {
+  @apply mt-2.5;
+}
+
+.sidebarItemLink:hover {
+  text-decoration: none;
+}
+.sidebarItemLinkActive {
+  @apply text-rebelPink;
+}
+
+.tagLink {
+  @apply bg-softPink text-rebelPink inline-flex items-center my-3 mx-2 rounded-full py-0.5 px-3;
+}
+
+.tagLink:hover{
+  @apply opacity-50;
+}
+
+.docTag{
+  @apply capitalize mr-2 bg-whiteIce py-0.5 px-2 rounded-full;
+  font-size: 0.7rem;
+}
+
+.docTag:hover{
+  @apply text-seriousBlack opacity-80;
+  text-decoration: none;  
+}
+
+@media only screen and (max-width: 996px) {
+  .sidebar {
+    display: none;
+  }
+}

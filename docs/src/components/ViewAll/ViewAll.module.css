@@ -1,0 +1,8 @@
+.viewAll {
+  @apply tracking-wider uppercase text-sm text-rebelPink relative inline-block pr-5 mt-4 pb-7 font-medium;
+}
+
+.viewAll svg {
+  @apply absolute right-0 cursor-pointer h-3;
+  top: 3px;
+}

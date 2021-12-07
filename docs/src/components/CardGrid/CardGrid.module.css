@@ -1,0 +1,76 @@
+/* Cards with icons */
+.homeGrid > * {
+    @apply relative m-0 border;
+    border-radius: var(--ifm-pagination-nav-border-radius);;
+  }
+  
+  .homeGrid a {
+    @apply block text-text;
+    padding: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
+    padding-left: 98px;
+  }
+  
+  .homeGrid > *:active,
+  .homeGrid > *:hover {
+    @apply border-seriousBlack
+  }
+  .homeGrid a:active,
+  .homeGrid a:hover {
+    @apply no-underline;
+  }
+  
+  .homeGrid a img {
+    @apply absolute border-0 bg-transparent rounded-none top-5 left-6 h-12 w-12;
+    box-shadow: none;
+  }
+  
+  .cardGrid a strong,
+  .homeGrid a strong {
+    @apply block mb-2;
+    color: var(--ifm-color-label);
+  }
+  
+  /* Plain cards without icons */
+  .cardGrid > * {
+    @apply m-0 border rounded-md;
+  }
+  .cardGrid a {
+    @apply block;
+    color: inherit;
+    padding: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
+  }
+  
+  .cardGrid > *:active,
+  .cardGrid > *:hover {
+    @apply border;
+  }
+  
+  .cardGrid a:active,
+  .cardGrid a:hover {
+    @apply no-underline;
+  }
+  
+  /* Make grids responsive*/
+  @media only screen and (min-width: 1240px) {
+    .cardGrid,
+    .homeGrid {
+      @apply grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
+    }
+  }
+  
+  /* Add spacing between grids and sections */
+  h2 + .cardGrid,
+  h2 + .homeGrid {
+    margin-top: var(--ifm-spacing-vertical);
+  }
+  
+  .cardGrid + h2,
+  .homeGrid + h2 {
+    @apply pt-5;
+  }
+  
+  .homeGrid > p {
+    margin-top: var(--ifm-spacing-vertical) !important;
+  }

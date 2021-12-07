@@ -13,3 +13,5 @@ __generated__/
 
 # declaration files
 packages/gatsby-*/**/*.d.ts
+
+docs/*

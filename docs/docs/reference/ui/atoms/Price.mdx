@@ -1,0 +1,139 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Price
+
+Prices are used to display the price of a given product, discount and total values.
+
+## Import
+
+```tsx
+import { Price } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Price 
+  value={62.5} 
+/>
+```
+
+## Examples
+
+### INTL Formatted to parts
+
+```tsx live
+<Price
+  formatter={function useIntlPartsFormatter(price) {
+    return useMemo(() => {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      })
+        .formatToParts(price)
+        .map((part) => {
+          const props = {
+            [`data-store-price-${part.type}`]: true,
+          }
+
+          if (part.type === 'integer') {
+            props.style = { fontWeight: 700 }
+          }
+
+          return (
+            <span key={part.type} {...props}>
+              {part.value}
+            </span>
+          )
+        })
+    })
+  }}
+  value={62.5}
+  variant="selling"
+/>
+```
+
+### INTL Formatted
+
+```tsx live
+<Price
+  formatter={function useIntlFormatter(price) {
+    return useMemo(() => {
+      const formattedPrice = new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: 'EUR',
+      }).format(price)
+
+      return formattedPrice
+    })
+  }}
+  value={62.5}
+  variant="savings"
+/>
+```
+
+### Custom
+
+```tsx live
+<Price
+  formatter={function customFormatter(price) {
+    const unformattedPrice = `${price}`
+    const formattedPrice = `${unformattedPrice.replace('.', ',')} reais`
+
+    return formattedPrice
+  }}
+  value={62.5}
+  variant="spot"
+/>
+```
+
+## Props
+
+<PropsComponent
+    name="value"
+    type= "number"
+    description="The raw price value."
+    required="true"
+/>
+<PropsComponent
+    name="as"
+    type= "string"
+    description="Set the HTML element tag of this component."
+    possibleValues="ElementType<any>"
+/>
+<PropsComponent
+    name="formatter"
+    type= "PriceFormatter"
+    description="Formatter function that transforms the raw price value and render the result."
+    defaultValue="price => price"
+/>
+<PropsComponent
+    name="variant"
+    type= "string"
+    description="The current use case variant for prices."
+    defaultValue="selling"
+    possibleValues="selling | listing | spot | savings | installment"
+/>
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-price"
+/>
+
+## Customization
+
+`data-store-price`
+
+`data-variant`
+
+## Formatter function example
+
+```tsx
+function customFormatter(price: number) {
+  const unformattedPrice = `${price}`
+  const formattedPrice = `${unformattedPrice.replace('.', ',')} reais`
+
+  return formattedPrice
+},
+```
