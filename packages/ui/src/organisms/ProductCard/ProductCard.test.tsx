@@ -13,20 +13,19 @@ import ProductCardLink from './ProductCardLink'
 const TestProductCard = () => {
   return (
     <ProductCard>
-      <ProductCardImage>
-        <div>An image</div>
-      </ProductCardImage>
-      <ProductCardInfo>
-        <ProductCardHeader>
-          <h3>A title</h3>
-        </ProductCardHeader>
-        <ProductCardPrice>89.90</ProductCardPrice>
-        <ProductCardTags>
-          <div>A tag</div>
-        </ProductCardTags>
-      </ProductCardInfo>
-      <ProductCardLink>
-        <a href="/">A link</a>
+      <ProductCardLink href="/">
+        <ProductCardImage>
+          <div>An image</div>
+        </ProductCardImage>
+        <ProductCardInfo>
+          <ProductCardHeader>
+            <h3>A title</h3>
+          </ProductCardHeader>
+          <ProductCardPrice>89.90</ProductCardPrice>
+          <ProductCardTags>
+            <div>A tag</div>
+          </ProductCardTags>
+        </ProductCardInfo>
       </ProductCardLink>
     </ProductCard>
   )

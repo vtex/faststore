@@ -1,9 +1,5 @@
 [data-store-product-card] {
-  @apply max-w-xs;
-}
-
-[data-store-product-card-image] img {
-  @apply rounded w-full;
+  @apply max-w-xs relative;
 }
 
 [data-store-product-card-info] {
@@ -11,11 +7,7 @@
 }
 
 [data-store-product-card-header] {
-  @apply flex flex-col min-w-full;
-}
-
-[data-store-product-card-price] {
-  @apply min-w-min;
+  @apply flex-col;
 }
 
 [data-store-product-card-price] [data-store-price] {
@@ -23,17 +15,13 @@
 }
 
 [data-store-product-card-tags] {
-  @apply mt-2 mb-3 min-w-full;
+  @apply mt-2 mb-2;
 }
 
 [data-store-product-card-tags] [data-store-badge] {
   @apply text-xs rounded-full text-gray-800 bg-green-100;
 }
 
-[data-store-product-card-link] {
-  @apply mt-4;
-}
-
-[data-store-product-card-link] a {
-  @apply px-2 py-2 rounded cursor-pointer bg-blue-900 text-white;
+[data-store-product-card] [data-store-button] {
+  @apply text-sm relative z-10 float-right;
 }

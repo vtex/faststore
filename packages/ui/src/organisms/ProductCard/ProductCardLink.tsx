@@ -1,29 +1,40 @@
-import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
+import React from 'react'
+import type { AnchorHTMLAttributes, PropsWithChildren } from 'react'
 
-export interface ProductCardLinkProps extends HTMLAttributes<HTMLDivElement> {
+export interface ProductCardLinkProps
+  extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * The URL the link points to
+   */
+  href: string
 }
 
-const ProductCardLink = forwardRef<HTMLDivElement, ProductCardLinkProps>(
-  function ProductCardLink(
-    { testId = 'store-product-card-link', children, ...otherProps },
-    ref
-  ) {
-    return (
-      <div
-        ref={ref}
-        data-store-product-card-link
-        data-testid={testId}
-        {...otherProps}
-      >
-        {children}
-      </div>
-    )
-  }
-)
+const ProductCardLink = ({
+  href,
+  children,
+  testId = 'store-product-card-link',
+  ...otherProps
+}: PropsWithChildren<ProductCardLinkProps>) => {
+  return (
+    <a
+      href={href}
+      data-testid={testId}
+      data-store-product-card-link
+      style={{
+        zIndex: 1,
+        width: '100%',
+        minHeight: '100%',
+        position: 'absolute',
+      }}
+      {...otherProps}
+    >
+      {children}
+    </a>
+  )
+}
 
 export default ProductCardLink

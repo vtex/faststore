@@ -19,12 +19,12 @@ import ProductCardLink from '../ProductCardLink'
 The `ProductCard` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
 
 - `ProductCard`: the wrapper component;
+- `ProductCardLink`: the component that handles call-to-action link;
 - `ProductCardImage`: the wrapper component for the product's image;
 - `ProductCardInfo`: the wrapper component that can receive a `ProductCardHeader`, `ProductCardPrice` or `ProductCardTags`;
 - `ProductCardHeader`: the wrapper component for the product's title and description;
 - `ProductCardPrice`: the wrapper component for the product's price;
-- `ProductCardTags`: the wrapper component for the product's tags, i.e. discount tags;
-- `ProductCardLink`: the wrapper component for the call to action link.
+- `ProductCardTags`: the wrapper component for the product's tags, i.e. discount tags.
 
 ## Props
 
@@ -63,6 +63,8 @@ All ProductCard-related components support all attributes also supported by the 
 ```css
 [data-store-product-card] {
 }
+[data-store-product-card-link] {
+}
 [data-store-product-card-image] {
 }
 [data-store-product-card-info] {
@@ -72,7 +74,5 @@ All ProductCard-related components support all attributes also supported by the 
 [data-store-product-card-price] {
 }
 [data-store-product-card-tags] {
-}
-[data-store-product-card-link] {
 }
 ```
