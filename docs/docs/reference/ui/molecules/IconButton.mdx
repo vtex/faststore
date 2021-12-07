@@ -1,0 +1,49 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# IconButton
+
+Icon Buttons are icons that trigger some sort of action, such as adding an item to the cart. 
+
+## Import
+
+```tsx
+import { IconButton } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<IconButton
+  icon={<ShoppingCart/>}
+/>
+```
+
+## Custom Style
+
+```tsx live
+<IconButton
+  className="iconButton"
+  icon={<ShoppingCart />}
+/>
+```
+
+## Props
+
+<PropsComponent
+    name="icon"
+    type= "ReactNode"
+    description="A React component that will be rendered as an icon."
+    required="true"
+/>
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-icon-button"
+/>
+
+## Customization 
+
+`data-store-icon-button`
+
+This component inherits [Button](/reference/ui/atoms/Button) css selectors.

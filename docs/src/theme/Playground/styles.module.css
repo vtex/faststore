@@ -1,0 +1,26 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+.playgroundCode > * {
+  @apply bg-whiteIce !important;
+  font-size: 12px;
+}
+
+.playgroundPreview {
+  @apply p-4 border rounded-md bg-white;
+}
+
+.playgroundControls {
+  @apply float-right;
+}
+
+.playgroundButton {
+  @apply px-6 py-2 cursor-pointer text-white;
+  @apply text-xs bg-seriousBlack rounded-none rounded-b-md border;
+}
+.IconCode {
+  @apply w-5 inline pr-1 align-bottom;
+}

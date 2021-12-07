@@ -1,0 +1,52 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Input
+
+Input are text fields used to get user inputs.
+
+## Import
+
+```tsx
+import { Input } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Input 
+  placeholder="Input"
+/>
+```
+
+## Variants
+
+```tsx live
+<>
+<Input variant="success" placeholder="Success"/>
+<Input variant="error" placeholder="Error"/>
+</>
+```
+
+## Props
+
+<PropsComponent
+    name="variant"
+    type= "string"
+    description="Current variant of the input."
+    possibleValues="success | error"
+/>
+
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-input"
+/>
+
+## Customization
+
+`data-store-input`
+
+`data-success`
+
+`data-error`

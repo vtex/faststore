@@ -1,0 +1,46 @@
+---
+id: 0
+---
+
+# Introduction 
+
+*Learn how we help you build future-proof ecommerce websites with the VTEX IO WebOps CI pipeline and Faststore library.*
+
+---
+
+## How to build an ecommerce store
+
+Modern digital commerce requires composable pieces of **Packaged Business Capabilities (PBC)** to create unique experiences. For example, an ecommerce site may want to use [Algolia](https://www.algolia.com/) as their search engine, [VTEX](https://vtex.com/) for checkout, [Bazaarvoice](https://www.bazaarvoice.com) for reviews, and other specific modules to satisfy particular business needs.
+
+That means companies now have an open ecosystem with data coming from various sources. In this sense, an API gateway that adapts the incoming data for the frontend might be necessary.
+
+![](/img/introduction/arch1.png)
+
+Once this gateway is set up, it is necessary to determine which technology you'll use for your store frontend. Independently from this choice, a frontend server that consumes the API gateway will always be required. Notice that, to present the dynamic data of your ecommerce (e.g., price, number of available items), you'll also need to handle Server-Side Rendering (SSR), which will also consume the API gateway. Hence, you'll end up with the following:
+
+![](/img/introduction/arch2.png)
+
+That's enough for the basics. However, to keep evolving an ecommerce, you'll need new deployments. Here is where we have a Control Plane - the part of the architecture that compiles and handles which version of the store is online. 
+
+![](/img/introduction/arch3.png)
+
+## How we help you
+
+To allow a technology-agnostic backend, we simply established that our Frontend Server is the CDN itself. Just like that, we permit the indirect communication between the frontend and the API gateway via a more powerful Control Plane, which becomes responsible for serving the CDN with the appropriate assets.  In summary, our Control Plane is composed of two main parts:
+
+- The [Store VTEX IO WebOps](/tutorials/architecture/1): a CI pipeline focused on crucial ecommerce metrics values and code quality. 
+- A Static Site Generator (SSG): a tool that generates static HTML pages from templates and raw data at build-time instead of real-time. There are plenty of SSGs available in the market (e.g., Gatsby, Next.js, Hugo), and you are free to choose the one you prefer.
+
+This explains the autonomy we give developers to choose their favorite tech stack. Since the Frontend Server is not directly tied to the API gateway, even using React becomes optional. 
+
+:::tip
+We understand, however, that freedom can be scary sometimes. That's why, to help you build your store frontend, we deliver the [Faststore](/tutorials/architecture/2) - a set of libraries that supports integrations with headless ecommerce platforms, provides ecommerce-focused React components and GA4 compatible analytics functions.
+:::
+
+Our architecture also gives developers full power over the API Gateway.  This layer is built with a Node.js server. In practice, this means that, as a technology-agnostic solution, you can choose your own communication protocol - GraphQL is no longer obligatory. Notice that here you are single-tenant, i.e., you have your own independent server instance.
+
+![](/img/introduction/arch4.png)
+
+With so much creativity and freedom space, what we offer is a safe environment for experimenting. By connecting with a Git provider and thanks to our team of QA robots, our Control Plane is apt to run E2E tests, evaluate code quality, and measure the impact of each Pull Request on a store's performance. 
+Don't forget: performance implies an increase in the store's SEO score, conversion rate, and navigation experience!
+

@@ -1,0 +1,74 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Form
+
+Forms contain interactive components that are used to collect user input.
+
+## Import
+
+```tsx
+import { Form } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Form>
+  <h1>
+    Sign up & save 15% off your first order
+  </h1>
+  <h2>
+    Be the first to hear about special offers, new product launches, gift ideas and more.
+  </h2>
+  <div>
+    <Label htmlFor="name">
+      Name:
+    </Label>
+    <Input
+      id="name"
+      onChange={function noRefCheck(){}}
+      placeholder="Enter your name"
+      required
+    />
+  </div>
+  <div>
+    <Label htmlFor="email">
+      Email:
+    </Label>
+    <Input
+      id="email"
+      onChange={function noRefCheck(){}}
+      placeholder="Enter your email"
+      required
+    />
+  </div>
+  <div>
+    <Label>
+      <Checkbox required />
+      I agree to receive emails from Brand. View our{' '}
+      <a href="/">
+        Privacy Policy
+      </a>
+      .
+    </Label>
+  </div>
+  <Button type="submit">
+    Subscribe
+  </Button>
+</Form>
+```
+
+## Props
+
+The Form component supports all attributes also supported by the `<form>` HTML tag. Besides those attributes, the following prop is also supported:
+
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-form"
+/>
+
+## Customization 
+
+`data-store-form`

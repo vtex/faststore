@@ -1,0 +1,57 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# TextArea
+
+TextArea components allow users to enter and edit text in a given field.
+
+## Import
+
+```tsx
+import { TextArea } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<TextArea
+  defaultValue="Write something here"
+/>
+```
+
+## Variant
+
+```tsx live
+<>
+<TextArea
+  defaultValue="Success"
+  variant="success"
+/>
+<TextArea
+  defaultValue="Error"
+  variant="error"
+/>
+</>
+```
+
+## Props
+
+<PropsComponent
+    name="variant"
+    type= "string"
+    description="Current variant of the input."
+    possibleValues= "success | error"
+/>
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-textarea"
+/>
+
+## Customization
+
+`data-store-textarea`
+
+`data-success`
+
+`data-error`

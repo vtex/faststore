@@ -1,0 +1,95 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# List
+
+Lists group related content. They can be ordered or unordered.
+
+## Import
+
+```tsx
+import { List } from '@faststore/ui'
+```
+
+## Variants
+
+### Unordered
+
+```tsx live
+<List variant="unordered">
+  <li>
+    Great
+  </li>
+  <li>
+    Ok
+  </li>
+  <li>
+    Bad
+  </li>
+</List>
+```
+
+### Ordered
+
+```tsx live
+<List variant="ordered">
+  <li>
+    Great
+  </li>
+  <li>
+    Ok
+  </li>
+  <li>
+    Bad
+  </li>
+</List>
+```
+
+### Description
+
+```tsx live
+<List variant="description">
+  <dt>
+    Ok
+  </dt>
+  <dd>
+    An ok item
+  </dd>
+  <dt>
+    Good
+  </dt>
+  <dd>
+    A good item
+  </dd>
+  <dt>
+    Bad
+  </dt>
+  <dd>
+    A bad item
+  </dd>
+</List>
+```
+
+## Props
+
+<PropsComponent
+    name="variant"
+    type= "string"
+    possibleValues="description | ordered | unordered | unordered"
+/>
+
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-list"
+/>
+
+## Customization
+
+`data-store-list`
+
+`data-unordered`
+
+`data-ordered`
+
+`data-description`

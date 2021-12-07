@@ -1,0 +1,50 @@
+.FaqDetails[open] summary ~ * {
+  animation: open 0.3s ease-in-out;
+}
+
+@keyframes open {
+  0% {
+    @apply opacity-0;
+  }
+  100% {
+    @apply opacity-100
+  }
+}
+.FaqDetails summary::-webkit-details-marker {
+  @apply hidden;
+}
+
+.FaqDetails {
+  @apply w-full my-0 mx-auto;
+  --parentWidth: 35vw;
+}
+
+.FaqDetails summary {
+  @apply relative cursor-pointer font-light text-lg border-b py-2 px-0 list-none;
+  width: var(--parentWidth);
+}
+
+.FaqDetails summary:after {
+  @apply absolute text-black mt-3 font-extralight origin-center text-2xl;
+  content: '+';
+  line-height: 0;
+  left: 95%;
+  transition: 200ms linear;
+}
+.FaqDetails[open] summary:after {
+  transform: rotate(45deg);
+  font-size: 2rem;
+}
+.FaqDetails summary {
+  outline: 0;
+}
+.FaqDetails p {
+  @apply pt-4 mt-0 mx-0 mb-4;
+  width: var(--parentWidth);
+}
+
+@media screen and (max-width: 1220px) {
+  .FaqDetails {
+    --parentWidth: 90vw;
+  }
+}

@@ -1,0 +1,39 @@
+.section {
+  @apply pt-8 flex justify-between mb-16;
+}
+
+.sectionContent {
+  @apply flex justify-between items-center;
+  width: 45%
+}
+
+.contentTag {
+  @apply mb-4 tracking-wider uppercase ;
+}
+
+.sectionContent h3 {
+  @apply leading-tight text-4xl font-normal;
+  font-family: "VTEX Trust Regular";
+}
+
+.contentDescription {
+  @apply leading-relaxed mt-3 text-lg;
+  color: #717786;
+}
+
+.section img {
+  @apply w-1/3;
+}
+
+@media screen and (max-width: 1220px) {
+  .section {
+    @apply flex-col;
+  }
+  .sectionContent {
+    @apply w-full;
+  }
+  .section img {
+    @apply block m-auto;
+    width: 450px;
+  }
+}

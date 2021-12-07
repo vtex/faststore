@@ -1,0 +1,91 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# PriceRange
+
+The Price Range component is a slider that allows users to select a maximum and minimum price from a range.
+
+## Import
+
+```tsx
+import { PriceRange } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx
+<PriceRange
+    max = "500"
+    min = "0"
+    formatter={function useIntlFormatter(price) {
+    return useMemo(() => {
+      const formattedPrice = new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: 'EUR',
+      }).format(price)
+      return formattedPrice
+    })
+  }}
+/>
+```
+
+## Props
+
+<PropsComponent
+    name="min"
+    type= "number"
+    description="The minimum value of the slider."
+    required="true"
+/>
+<PropsComponent
+    name="max"
+    type= "number"
+    description="The maximum value of the slider."
+    required="true"
+/>
+<PropsComponent
+    name="formatter"
+    type= "string"
+    description="Formatter function that transforms the raw price value and render the result."
+    required="true"
+    possibleValues="PriceFormatter | undefined"
+/>
+<PropsComponent
+    name="onChange"
+    type= "((value: { min: number; max: number; }) => void)"
+    description="Callback that fires when the slider value changes."
+/>
+<PropsComponent
+    name="getAriaValueText"
+    type= '((value: number, thumb?: "max" | "min") => string)'
+    description="A function used to set a human-readable value text based on the slider's current value."
+/>
+<PropsComponent
+    name="className"
+    type= "string"
+    description="Returns the value of element's class content attribute."
+/>
+<PropsComponent
+    name="variant"
+    type= "string"
+    description="The current use case variant for prices."
+    possibleValues="selling | listing | spot | savings | installment"
+/>
+<PropsComponent
+    name="aria-label"
+    type= "string"
+    description="Defines a string value that labels the current element."
+/>
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-price-range"
+/>
+
+## Customization
+
+`data-store-price-range`
+
+`data-store-price-range-values`
+
+`data-store-price-range-values = '(min|max)'`

@@ -1,0 +1,63 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Modal
+
+Modals are dialog windows that sit on top of an application's main view. Once a Modal is open, interactions with the content behind it are blocked.
+
+## Import
+
+```tsx
+import { Modal } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+function (){
+const [isOpen, setIsOpen] = useState(false)
+const handleClose = () => setIsOpen(false)
+return(
+
+<>
+  <Button onClick={() => setIsOpen(!isOpen)}>Open Modal</Button>
+  <Modal isOpen={isOpen} onDismiss={handleClose}>
+    My Modal Content
+    <br />
+    <div data-action-container>
+      <Button onClick={handleClose}>close</Button>
+    </div>
+  </Modal>
+</>
+)}
+```
+
+## Props
+
+<PropsComponent
+    name="isOpen"
+    type= "boolean"
+    description="Controls whether or not the dialog is open."
+    required="true"
+/>
+<PropsComponent
+    name="aria-labelledby"
+    type= "string"
+    description="Identifies the element (or elements) that labels the current element."
+/>
+<PropsComponent
+    name="onDismiss"
+    type= "((event: MouseEvent<Element, MouseEvent> | KeyboardEvent<Element>) => void)"
+    description="This function is called whenever the user hits Escape or clicks outside the dialog."
+/>
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-modal"
+/>
+
+## Customization 
+
+`data-store-modal-content`
+
+`data-modal-overlay`

@@ -5,3 +5,4 @@ coverage/
 .vscode/
 .cache/
 __generated__/
+docs/

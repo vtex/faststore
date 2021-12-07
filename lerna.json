@@ -10,6 +10,7 @@
   "changelogPreset": "angular",
   "packages": [
     "packages/*",
-    "themes/*"
+    "themes/*",
+    "docs"
   ]
 }

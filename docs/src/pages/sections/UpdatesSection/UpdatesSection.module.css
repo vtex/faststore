@@ -1,0 +1,33 @@
+.updatesSection li{
+  list-style-type: none;
+}
+.updatesSection {
+  @apply py-20;
+}
+
+.section {
+  @apply flex justify-between;
+}
+
+.sectionTitle {
+  @apply flex items-center;
+}
+
+.sectionTitle h3 {
+  @apply leading-tight text-3xl;
+  font-family: 'VTEX Trust Regular', sans-serif;
+  font-weight: 400;
+}
+
+.releases{
+  width: 1000px;
+}
+
+@media screen and (max-width: 1220px) {
+  .section {
+    @apply flex-col mt-10;
+  }
+  .releases{
+    @apply w-full hidden;
+  }
+}

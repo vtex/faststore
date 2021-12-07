@@ -1,0 +1,75 @@
+.changelogList {
+  @apply rounded-full;
+}
+
+.changelogList a {
+  @apply grid items-start overflow-hidden p-6 rounded-xl text-text no-underline;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.changelogList a:hover {
+  @apply bg-whiteIce;
+  background-color: rgba(248, 247, 252, 0.5);
+}
+
+.changelogTitle {
+  grid-column: span 3 / span 3;
+}
+
+.changelogTitle h4 {
+  @apply inline-block mr-2 text-seriousBlack;
+  font-weight: 600;
+}
+
+.changelogTitle p {
+  @apply inline-block px-2 rounded-full align-middle uppercase tracking-widest;
+  font-size: 10px;
+}
+
+.faststore {
+  @apply bg-seriousBlack text-white;
+}
+
+.webops {
+  @apply bg-rebelPink text-white;
+}
+
+.descriptionChangelog {
+  @apply text-justify;
+  grid-column: span 3 / span 3;
+}
+
+.changelogList time {
+  @apply flex items-center mx-6;
+  grid-row-start: 1;
+  grid-column: 1 / span 2;
+  grid-row-end: 3;
+}
+
+.changelogList li {
+  @apply m-0 !important;
+}
+.changelogList li:first-child time {
+  @apply pt-4;
+}
+
+.changelogList time svg {
+  @apply mr-6 w-3 overflow-visible text-seriousBlack;
+}
+
+li:first-child svg circle {
+  @apply text-rebelPink;
+}
+
+@media only screen and (max-width: 721px) {
+  .changelogList a {
+    grid-template-columns: auto;
+  }
+  .changelogTitle {
+    @apply ml-14;
+  }
+
+  .descriptionChangelog {
+    @apply ml-14;
+  }
+}

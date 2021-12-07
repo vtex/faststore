@@ -1,0 +1,37 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Icon
+
+## Import
+
+```tsx
+import { Icon } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Icon
+  component={<ShoppingCart />}
+/>
+```
+
+## Props
+
+<PropsComponent
+    name="component"
+    type= "ReactNode"
+    description="A React component that will be rendered as an icon."
+    required="true"
+/>
+
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-icon"
+/>
+
+## Customization
+
+`data-store-icon`

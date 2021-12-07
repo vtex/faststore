@@ -1,0 +1,116 @@
+---
+id: 1
+title: "Part 0: Introducing Gatsby"
+sidebar_label: "0. Introducing Gatsby"
+hide_title: true
+---
+
+# Part 0: Introducing Gatsby
+
+*If you are new to FastStore and feeling a bit overwhelmed, don't worry. We've got you covered. In this section, you'll learn how we will use Gatsby to build the fastest stores in the market.*
+
+---
+
+:::caution WIP
+This documentation is currently under development.
+:::
+
+
+![](/img/tutorials/gatsby/technologies.png)
+
+<br/>
+
+## Gatsby
+
+[**Gatsby**](https://www.gatsbyjs.com/docs/) is a front‑end framework that combines functionalities from [**React**](https://reactjs.org/), [**GraphQL**](https://graphql.org/), and [**Webpack**](https://webpack.js.org/) into a single tool for building all sorts of websites and web applications.
+
+<!----
+- Static websites.
+- Hybrid websites - websites that are partially static but use hydration to fetch data from external APIs at runtime.
+- Progressive Web Applications (PWA).
+- Static web applications.
+----->
+
+At its core, Gatsby is a **Static Site Generator** - a tool that interprets your code and transforms your project's raw data and templates into a directory with plain HTML pages and static assets.
+
+![SFJ Gatsby](/img/tutorials/gatsby/sfj-gatsby.png)
+
+Gatsby works by fetching data for your website from different sources, such as APIs and static files, using GraphQL, and it then builds your website based on the configuration settings you predefined. Once Gatsby's task is done, you can upload its output to the hosting provider of your preference and serve your website to your clients.
+
+<!---
+- Prebuilt HTML pages
+- CSS
+- JavaScript
+- images
+- and other static content. 
+----->
+
+### Gatsby and React
+
+To build user interfaces, Gatsby uses React, a front-end JavaScript library that allows you to design your site in terms of components. Components are small pieces of user interface and functionality that you can reuse throughout your application. Take the example below of a component that displays a product's name, image, price, and details. 
+
+![React](/img/tutorials/gatsby/react-component.png)
+
+When building your store, besides a product summary, you may need to add other specific React components that offer the proper functionalities for your business needs. In the end, your website's overall look and feel will comprise a series of React components. 
+
+Throughout this tutorial, you will find out that React counts with a huge community of developers worldwide and that you can easily find and use out-of-the-box React components available online.
+
+For now, keep in mind that, since Gatsby is React-powered, Gatsby apps are, in essence, React apps. Hence, everything you can do with React, you can also do with Gatsby.
+
+### Gatsby and GraphQL
+
+To build its data layer, Gatsby uses GraphQL, a query language that allows you to express your data needs declaratively. GraphQL is database agnostic and can be used in any context you would use an API. With GraphQL, you can query for data from various data sources, such as: 
+
+- REST endpoints
+- Headless CMSs
+- Static files
+
+The main advantage of using a GraphQL server is that, instead of fetching data from multiple endpoints with fixed data structures, you can send query requests for a single endpoint that responds precisely with the specific data you need. Take the following example in which we query for product details. 
+
+![](/img/tutorials/gatsby/gatsby-graphql.png)
+
+Notice how the query schema matches with the returned JSON. This is possible because we are querying against a schema that represents our available data. For this tutorial, you don't need to worry about where this schema comes from. Gatsby and VTEX make sure all the data you need to build your store's website is available and discoverable via a tool called GraphiQL.
+
+#### Implementation example
+
+Let's suppose you want to create a page that shows details of your store's products. For that, we will use a reusable **React** component called *Product Summary* that displays a card with a product's name, images, and price. As this data is dynamic and changes depending on the availability of the product and your store's campaigns, it resides in a database. You may assume, therefore, that the content for each product is available via some API endpoint. Hence, we may need to access this data in order to create a static HTML page that displays our Product Summary component with proper information about our product.
+
+![](/img/tutorials/gatsby/query-data.png)
+
+To this end, Gatsby will use **GraphQL** to query our store's products and data from **VTEX APIs**. Once Gatsby gathers the data we requested, we can use it inside our Product Summary component to display a card with the product information in a pleasing format.
+
+After the development, and once we feel ready to build our website, we can tell Gatsby to create a static HTML page that uses this component. Notice that the products data is only queried once - at build time, and it is then served in a prebuilt HTML file. 
+
+### Gatsby and dynamic sites
+
+Now that we understand a bit better how Gatsby works, let's briefly investigate its rendering process. As a Static Site Generator, Gatsby is responsible for creating, at build time, the pages that compose our website as static pages. Since these pages are static, we do not need a web server anymore, and we can use a CDN to host our website.
+
+Notice, however, that it is not because Gatsby creates static files that we can't have an interactive website. Remember that Gatsby is React-based, so everything we can do with React, we can also do with Gatsby. This includes adding all sorts of interactivity to your website, such as:
+
+- Animated components.
+- Querying data sources at request time.
+- Displaying new data at request time via React hydration.
+
+## Why choose Gatsby?
+
+When building your storefront with FastStore, you can choose to work with the Static Site Generator of your preference. In this section, we listed the main reasons why you should go for Gatsby.
+
+### Tech stack and developer career
+
+As we saw, Gatsby is powered by JavaScript. It uses React to create user interfaces and GraphQL to build its data layer. You should, therefore, analyze if you are already familiar with these technologies or interested in learning them.
+
+Anyway, you don't need to be an expert in any of these technologies to start using Gatsby. In fact, Gatsby is a great entry point for front-end development since it abstracts away many complexities of setting up a modern workflow.
+
+We also highlight that JavaScript and React are two solid technologies backed by a huge active community. So, thinking about your career as a developer, learning how to develop an FastStore + Gatsby store might be a good option.
+
+### Community and extensible architecture
+
+Another differential of Gatsby is that it offers comprehensive documentation and an active community that maintains thousands of plugins. Notice that, since plugins can add new functionalities to your website, a critical aspect to consider when choosing a Static Site Generator is to make sure that you have available the right ones for your business needs. 
+
+Therefore, remember, Gatsby's extensive documentation and rich [Plugin Library](https://www.gatsbyjs.com/plugins) might help you build more complex websites.
+
+<!----
+### Data integration
+
+By being GraphQL-based, Gatsby allows you to collect data from any source of your choosing: Markdown, JSON, third-party APIs, and headless CMSs, such as VTEX's.  
+----->

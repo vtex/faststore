@@ -1,0 +1,21 @@
+[
+
+  {
+    "title": "November",
+    "product": "FastStore",
+    "fileName": "2021-11-18-faststore",
+    "description": "New Accordion, Breadcrumb, and Table components now available in the FastStore UI. We've also updated the Lighthouse CI to support Google Lighthouse v8."
+  },
+  {
+    "title": "October",
+    "product": "FastStore",
+    "fileName": "2021-10-08-faststore",
+    "description": "We've created a new plugin to source products and collections into the Gatsby's GraphQL layer! Also, you can now send and receive custom events via the Analytics module."
+  },
+  {
+    "title": "September",
+    "product": "FastStore",
+    "fileName": "2021-09-01-faststore",
+    "description": "FastStore UI was reduced to 10kb!  We've also enabled the analytics layer to be fully integrated with Google Analytics 4. "
+  }
+]

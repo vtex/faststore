@@ -1,0 +1,45 @@
+.FaqPage {
+  @apply w-4/5 mx-auto my-2 p-20 leading-relaxed;
+}
+
+.sectionContent {
+  @apply flex justify-around items-start;
+}
+
+.FaqHeader {
+  @apply sticky top-28 mr-36;
+  position: -webkit-sticky;
+}
+
+.FaqHeader h3 {
+  @apply text-5xl mb-4;
+}
+.FaqPage h2 {
+  @apply mb-5 text-xl font-bold;
+}
+.FaqPage h2:not(:first-child) {
+  @apply mt-10 mb-5 text-xl font-bold;
+}
+
+.FaqPage ul{
+  @apply list-disc ml-8 my-2 
+}
+
+.FaqPage a{
+  @apply text-rebelPink 
+}
+
+@media screen and (max-width: 1220px) {
+  .sectionContent {
+    flex-direction: column;
+  }
+  .FaqHeader {
+    position: relative;
+    top:0;    
+    margin:0
+  }
+  .FaqPage {
+    width: 100%;
+    padding: 1rem;
+  }
+}

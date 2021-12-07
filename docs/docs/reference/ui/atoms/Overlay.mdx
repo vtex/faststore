@@ -1,0 +1,33 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Overlay
+
+Overlays provide contextual information on top of the current layer of the interface. They can be interruptive like modals or augmenting like popovers and tooltips.
+
+## Import
+
+```tsx
+import { Overlay } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<div data-story-overlay-out-container>
+      A content outside me
+      <Overlay  />
+    </div>
+```
+
+## Props
+
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-overlay"
+/>
+
+## Customization
+
+`data-store-overlay`

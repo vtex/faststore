@@ -1,0 +1,52 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Breadcrumb
+
+Breadcrumbs indicate the user's location in a website hierarchy, facilitating the navigation to previous page levels.
+
+## Import
+
+```tsx
+import { Breadcrumb } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx
+<Breadcrumb divider="/">
+  <a href="/?path=/story/molecules-breadcrumb--breadcrumb-with-icon">
+    Home
+  </a>
+  <a href="/?path=/story/molecules-breadcrumb--breadcrumb-with-icon">
+    Level 1
+  </a>
+  <a href="/?path=/story/molecules-breadcrumb--breadcrumb-with-icon">
+    Level 2
+  </a>
+  <a href="/?path=/story/molecules-breadcrumb--breadcrumb-with-icon">
+    Level 3
+  </a>
+</Breadcrumb>
+```
+
+## Props
+
+<PropsComponent
+    name="divider"
+    type= "ReactNode"
+    description="A ReactNode that will be rendered as the Divider icon."
+/>
+<PropsComponent
+    name="testId"
+    type= "string"
+    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
+    defaultValue="store-breadcrumb"
+/>
+
+## Customization
+
+`data-store-breadcrumb`
+
+`data-breadcrumb-item`
+
+`data-breadcrumb-item-active`

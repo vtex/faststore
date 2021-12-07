@@ -91,3 +91,7 @@ packages/gatsby-**/**/*.json
 
 # Watchman
 **/.watchmanconfig
+
+docs/build
+docs/.docusaurus
+docs/.cache-loader

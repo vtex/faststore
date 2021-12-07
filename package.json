@@ -9,6 +9,7 @@
   "scripts": {
     "build": "lerna run build",
     "build-themes": "lerna run build --scope '@vtex/theme-*' || true",
+    "build-docs": "lerna run build --include-dependencies --scope docs",
     "build-storybook": "yarn build-themes && yarn workspace @faststore/ui build-storybook",
     "storybook": "yarn workspace @faststore/ui storybook",
     "clean": "lerna clean && lerna run clean",
@@ -22,7 +23,8 @@
   },
   "workspaces": [
     "packages/*",
-    "themes/*"
+    "themes/*",
+    "docs"
   ],
   "husky": {
     "hooks": {
