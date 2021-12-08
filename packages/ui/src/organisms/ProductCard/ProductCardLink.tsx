@@ -24,12 +24,6 @@ const ProductCardLink = ({
       href={href}
       data-testid={testId}
       data-store-product-card-link
-      style={{
-        zIndex: 1,
-        width: '100%',
-        minHeight: '100%',
-        position: 'absolute',
-      }}
       {...otherProps}
     >
       {children}
