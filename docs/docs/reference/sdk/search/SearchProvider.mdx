@@ -1,0 +1,71 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# SearchProvider
+
+SearchContext provider for Faceted Search
+
+## Import
+
+```tsx
+import { SearchProvider } from '@faststore/sdk'
+```
+
+## Usage
+
+```tsx
+<SearchProvider
+  onChange={(url: URL) => window.location.href = url.href}
+  itemsPerPage={2}
+  sort="score_desc"
+  term={null}
+  page={0}
+  base=""
+  selectedFacets={}
+>
+  {children}
+</SearchProvider>
+```
+
+## Props
+
+<PropsComponent
+    name="onChange"
+    type="(url: URL) => void"
+    description="Callback function when the search state is changed"
+/>
+
+<PropsComponent
+    name="itemsPerPage"
+    type="number"
+    description="Number of items in a given page"
+/>
+
+<PropsComponent
+    name="sort"
+    type="SearchSort"
+    description="Ordering of search results"
+/>
+
+<PropsComponent
+    name="term"
+    type="string | null"
+    description="Full text term used on the search"
+/>
+
+<PropsComponent
+    name="page"
+    type="number"
+    description="Current page index of search pagination"
+/>
+
+<PropsComponent
+    name="base"
+    type="string"
+    description="Base path of the search page. Usefull when dealing with localization and prefixing paths by the locale, e.g.: /pt-br/"
+/>
+
+<PropsComponent
+    name="selectedFacets"
+    type="Array<{ key: string, value: string }>"
+    description="Array of selected facets on the search. Make sure NOT to include personalization facets, like channel or price tables"
+/>

@@ -1,0 +1,47 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# usePagination
+
+This hooks gives you the links to next/prev pages on the search pagination.
+This is helpfull for creating pagination markers like `<link rel="next"/>` and `<link rel="prev"/>` tags and buttons in the UI
+
+## Import
+
+```tsx
+import { usePagination } from '@faststore/sdk'
+```
+
+## Usage
+
+```tsx
+function Component () {
+  const totalProducts = 100
+  const { next, prev } = usePagination(totalProducts)
+
+  return (
+    <>
+      {prev && <a href={prev.link}>Previous Page</a>}
+      {next && <a href={next.link}>Next Page</a>}
+    </>
+  )
+}
+```
+
+## Props
+<PropsComponent
+  type="number"
+  description="Total number of products in the search result"
+/>
+
+## Return
+<PropsComponent
+    name="prev"
+    type="{ cursor: number; link: string} | false"
+    description="Link and cursor for previous page on search pagination"
+/>
+
+<PropsComponent
+    name="next"
+    type="{ cursor: number; link: string} | false"
+    description="Link and cursor for next page on search pagination"
+/>

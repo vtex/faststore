@@ -1,0 +1,115 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# useSearch
+
+This hook allows you to consume `SearchContext`. This context allows you to apply changes to the search state as well as consume its values
+
+## Import
+
+```tsx
+import { useSearch } from '@faststore/sdk'
+```
+
+## Usage
+
+```tsx
+// Create a selection sort button
+
+const keyMap = {
+  price_desc: 'Price, descending',
+  price_asc: 'Price, ascending',
+  orders_desc: 'Top sales',
+  name_asc: 'Name, A-Z',
+  name_desc: 'Name, Z-A',
+  release_desc: 'Release date',
+  discount_desc: 'Discount',
+  score_desc: 'Relevance',
+}
+
+const keys = Object.keys(keyMap)
+
+function Component () {
+  const {
+    setSort,
+    state: { sort },
+  } = useSearch()
+
+  return (
+    <select
+      onChange={(e) => setSort(keys[e.target.selectedIndex])}
+      value={sort}
+    >
+      {keys.map((key) => (
+        <option key={key} value={key}>
+          {keyMap[key]}
+        </option>
+      ))}
+    </select>
+  )
+}
+```
+
+## Return
+
+<PropsComponent
+    name="itemsPerPage"
+    type="number"
+    description="Number of items in a search page"
+/>
+
+<PropsComponent
+    name="state"
+    type="SearchState"
+    description="Current state of search"
+/>
+
+<PropsComponent
+    name="setSort"
+    type="(sort: SearchSort) => void"
+    description="Set the sorting option of the search"
+/>
+
+<PropsComponent
+    name="setTerm"
+    type="(term: string | null) => void"
+    description="Set the full text term"
+/>
+
+<PropsComponent
+    name="setPage"
+    type="(page: number) => void"
+    description="Set the current page on search pagination"
+/>
+
+<PropsComponent
+    name="setFacet"
+    type="(facet: Facet, unique?: boolean) => void"
+    description="Select a facet"
+/>
+
+<PropsComponent
+  name="removeFacet"
+  type="(facet: Facet) => void"
+/>
+
+<PropsComponent
+  name="toggleFacet"
+  type="(facet: Facet) => void"
+/>
+
+<PropsComponent
+  name="toggleFacets"
+  type="(facets: Facet[]) => void"
+/>
+
+<PropsComponent
+  name="addPrevPage"
+  type="() => void"
+  description="Prepend a page to infinite scroll pagination"
+/>
+
+<PropsComponent
+  name="addNextPage"
+  type="() => void"
+  description="Append a page to infinite scroll pagination"
+/>

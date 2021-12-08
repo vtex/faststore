@@ -1,4 +1,4 @@
-# Faceted Search
+# Overview
 This module defines a standard for creating and modifying faceted search state. This state can be serialized into a `URL` object so UI developers can use the browser's History API to actively store their faceted search state. This way, one can create a rich, router-independent way for applying and removing facets. 
 
 ## What is a faceted search?
