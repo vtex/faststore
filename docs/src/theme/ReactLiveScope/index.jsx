@@ -7,7 +7,7 @@
 import '@vtex/theme-b2c-tailwind'
 
 import React, { useEffect, useState } from 'react'
-import * as UI from '@faststore/ui'
+import UI from '@faststore/ui'
 
 const ShoppingCart = () => (
   <svg
