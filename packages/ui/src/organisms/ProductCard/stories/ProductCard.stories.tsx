@@ -19,7 +19,7 @@ import mdx from './ProductCard.mdx'
 const ProductCardTemplate: Story<ProductCardProps> = ({ testId }) => {
   return (
     <ProductCardComponent testId={testId}>
-      <ProductCardLink href="#">
+      <ProductCardLink href="/">
         <ProductCardImage>
           <img
             alt="A vintage camera"
