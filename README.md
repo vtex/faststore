@@ -17,22 +17,22 @@
 
 - <strong>Performance</strong>: Keep yourself calm. We use strict budgets to ensure our libs are always light and fast.
 - <strong>Stability</strong>: Generate your pages ahead by using a Jamstack ready toolkit.
-- <strong>SEO/Analytcs</strong>: Connect to your favorite analytics provider
+- <strong>SEO/Analytics</strong>: Connect to your favorite analytics provider.
 - <strong>Freedom</strong>: Use our API/SDK/UI components to connect, manage and display your ecommerce in your favorite React framework 
 (Gatsby, Next.JS, Remix etc)
-- <strong>Speed</strong>: Customize one of our starters to your needs. Do not spend time creating tests, thinkig about architecture or infrastructure.
+- <strong>Speed</strong>: Customize one of our starters to your needs. Do not waste time creating tests, thinking about architecture or infrastructure, it's all taken care of.
 
 ## Getting started
-[Checkout the docs](https://faststore.dev/quickstart) to quickstart from one of our official starters or create your own.
+[Check out the docs](https://faststore.dev/quickstart) to quickstart from one of our official starters or create your own.
 
 ## Official Starters
 - [Base](https://github.com/vtex-sites/base.store): Basic starter with generic store.
 
 ## Learn
-Check out our [Tutorials](https://faststore.dev/tutorials/overview), [How-to Guides](https://faststore.dev/how-to-guides/overview), [API References](https://faststore.dev/reference/overview) and [Conceptual guides](https://faststore.dev/conceptual-guides/overview) to deep dive in the world of building FastStores
+Check out our [Tutorials](https://faststore.dev/tutorials/overview), [How-to Guides](https://faststore.dev/how-to-guides/overview), [API References](https://faststore.dev/reference/overview) and [Conceptual guides](https://faststore.dev/conceptual-guides/overview) to deep dive in the world of building FastStores.
 
 ## Release Notes
-Follow our montly release notes at: https://faststore.dev/releases
+Follow our monthly release notes at: https://faststore.dev/releases
 
 ## Who's using FastStore?
 
@@ -46,13 +46,13 @@ This is still a work in progress, however, if you are also an adventurous person
 
 ## Getting help
 
-If you find any issues on the project you would like to report, please create an [issue](https://github.com/vtex/faststore/issues) on the repository. If you have a question, idea or want to show us something cool you have built, feel free to create a [discussion](https://github.com/vtex/faststore/discussions).
+If you find any issues on the project you would like to report, please create an [issue](https://github.com/vtex/faststore/issues) on the repository. If you have a question, idea, or want to show us something cool you have built, feel free to create a [discussion](https://github.com/vtex/faststore/discussions).
 
 ## Packages
 
 | Package                      | Description                                                                         |                                                                  Status                                                                   |
 | :--------------------------- | :---------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------: |
-| @faststore/ui               | Exports basic Store components. Checkout our [storybook](https://faststoreui.netlify.app/)                                                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fui.svg)](https://badge.fury.io/js/%40faststore%2Fui)  [![size minzip](https://badgen.net/bundlephobia/minzip/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui) [![three shakig](https://badgen.net/bundlephobia/tree-shaking/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui) [![three shakig](https://badgen.net/bundlephobia/dependency-count/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui)            |
+| @faststore/ui               | Exports basic Store components. Check out our [storybook](https://faststoreui.netlify.app/)                                                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fui.svg)](https://badge.fury.io/js/%40faststore%2Fui)  [![size minzip](https://badgen.net/bundlephobia/minzip/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui) [![three shakig](https://badgen.net/bundlephobia/tree-shaking/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui) [![three shakig](https://badgen.net/bundlephobia/dependency-count/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui)            |
 | @faststore/sdk               | Exports basic logic hooks for creating your custom ecommerce                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fsdk.svg)](https://badge.fury.io/js/%40faststore%2Fsdk) [![size minzip](https://badgen.net/bundlephobia/minzip/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) [![tree shaking](https://badgen.net/bundlephobia/tree-shaking/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) [![three shakig](https://badgen.net/bundlephobia/dependency-count/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk)  
 | @faststore/api               | Connect your site to your ecommerce provider                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fapi.svg)](https://badge.fury.io/js/%40faststore%2Fapi) [![npm version](https://badgen.net/bundlephobia/dependency-count/@faststore/api)](https://bundlephobia.com/package/@faststore/api)     
 
