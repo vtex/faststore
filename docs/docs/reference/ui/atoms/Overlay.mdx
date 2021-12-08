@@ -13,10 +13,25 @@ import { Overlay } from '@faststore/ui'
 ## Usage
 
 ```tsx live
-<div data-story-overlay-out-container>
+function Component () {
+  const styles = {
+    container: {
+      position: "relative",
+      height: "8rem"
+    },
+    overlay: {
+      backgroundColor: "rgba(107,114,128,0.3)",
+      position: "absolute"
+    }
+  }
+
+  return (
+    <div style={styles.container} >
       A content outside me
-      <Overlay  />
+      <Overlay style={styles.overlay} />
     </div>
+  )
+}
 ```
 
 ## Props
