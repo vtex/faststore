@@ -1,13 +1,9 @@
 [data-store-product-card] {
-  @apply w-60 h-96 relative;
-}
-
-[data-store-product-card-image] img {
-  @apply h-56 w-full;
+  @apply h-full max-w-xs;
 }
 
 [data-store-product-card-info] {
-  @apply pt-2 ml-2;
+  @apply pt-2 pl-2;
 }
 
 [data-store-product-card-price] [data-store-price] {
@@ -22,6 +18,6 @@
   @apply text-xs rounded-full text-gray-800 bg-green-100;
 }
 
-[data-store-product-card-link] [data-store-button] {
-  @apply mr-2 mt-4 text-sm float-right;
+[data-store-product-card] [data-store-button] {
+  @apply mr-2 mt-2 text-sm float-right;
 }

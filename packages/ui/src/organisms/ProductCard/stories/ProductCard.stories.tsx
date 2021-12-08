@@ -1,5 +1,4 @@
 import type { Story, Meta } from '@storybook/react'
-import type { MouseEvent } from 'react'
 import React from 'react'
 
 // Atoms
@@ -18,16 +17,9 @@ import type { ProductCardProps } from '../ProductCard'
 import mdx from './ProductCard.mdx'
 
 const ProductCardTemplate: Story<ProductCardProps> = ({ testId }) => {
-  function onClick(event: MouseEvent) {
-    event.stopPropagation()
-    event.preventDefault()
-
-    // Do something here
-  }
-
   return (
     <ProductCardComponent testId={testId}>
-      <ProductCardLink href="/">
+      <ProductCardLink href="#">
         <ProductCardImage>
           <img
             alt="A vintage camera"
@@ -51,8 +43,8 @@ const ProductCardTemplate: Story<ProductCardProps> = ({ testId }) => {
             <Badge>15% OFF</Badge>
           </ProductCardTags>
         </ProductCardInfo>
-        <Button onClick={onClick}>Add to Cart</Button>
       </ProductCardLink>
+      <Button onClick={() => null}>Add to Cart</Button>
     </ProductCardComponent>
   )
 }
