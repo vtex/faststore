@@ -1,0 +1,30 @@
+import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Link from '../Link'
+
+# Link
+
+The `Link` component can be used both as a regular `<a/>` tag and as a wrapper for any external Link component (i.e., Next.js Link or Gatsby Link).
+
+## Link as Div
+
+<Canvas>
+  <Story id="atoms-link--link-as-div" />
+</Canvas>
+
+## Link as Anchor
+
+<Canvas>
+  <Story id="atoms-link--link-as-anchor" />
+</Canvas>
+
+## Props
+
+<ArgsTable of={Link} />
+
+## CSS Selectors
+
+```css
+[data-store-link] {
+}
+```
