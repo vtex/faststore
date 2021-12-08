@@ -1,134 +1,38 @@
-# FastStore
+<p align="center">
+  <a href="https://faststore.dev">
+    <img alt="Faststore" src="./packages/ui/static/logo.png" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  FastStore
+</h1>
+<p align="center">
+  <strong>
+    Fullstack ecommerce toolkit
+  </strong>
+</p>
+<p align="center">
+  FastStore is a fullstack toolkit based on React that helps developers build Performant, Stable, SEO and Analytics ready ecommerces in a matter of days.
+</p>
 
-## Table of contents
+- <strong>Performance</strong>: Keep yourself calm. We use strict budgets to ensure our libs are always light and fast.
+- <strong>Stability</strong>: Generate your pages ahead by using a Jamstack ready toolkit.
+- <strong>SEO/Analytcs</strong>: Connect to your favorite analytics provider
+- <strong>Freedom</strong>: Use our API/SDK/UI components to connect, manage and display your ecommerce in your favorite React framework 
+(Gatsby, Next.JS, Remix etc)
+- <strong>Speed</strong>: Customize one of our starters to your needs. Do not spend time creating tests, thinkig about architecture or infrastructure.
 
-- [FastStore](#faststore)
-  - [Table of contents](#table-of-contents)
-  - [An open ecommerce framework](#an-open-ecommerce-framework)
-  - [Why building FastStore?](#why-building-faststore)
-  - [Project Philosophy](#project-philosophy)
-  - [Basic Architecture](#basic-architecture)
-  - [Why Jamstack?](#why-jamstack)
-  - [Continuous Performance and Stability](#continuous-performance-and-stability)
-  - [Docs](#docs)
-  - [Contributing](#contributing)
-    - [How to develop](#how-to-develop)
-  - [Packages](#packages)
-  - [Who's using FastStore?](#whos-using-faststore)
-  - [Troubleshooting](#troubleshooting)
+## Getting started
+[Checkout the docs](https://faststore.dev/quickstart) to quickstart from one of our official starters or create your own.
 
-## An open ecommerce framework
+## Official Starters
+- [Base](https://github.com/vtex-sites/base.store): Basic starter with generic store.
 
-FastStore is an open ecommerce framework built using modern technologies that aims to deliver the building blocks necessary for creating your custom ecommerce experience. With these building blocks you can achieve:
+## Learn
+Check out our [Tutorials](https://faststore.dev/tutorials/overview), [How-to Guides](https://faststore.dev/how-to-guides/overview), [API References](https://faststore.dev/reference/overview) and [Conceptual guides](https://faststore.dev/conceptual-guides/overview) to deep dive in the world of building FastStores
 
-- Multiregion stores with native internationalization support
-- Great Performance (90+ on Google's page speed insights)
-- SEO ready pages with Google's Rich Results support
-- CMS managed content
-- Jamstack based (deploy with Netlify, Vercel and any other JAMStack platform)
-- Marketplace ready with support to millions of skus
-- Intelligence via Google Analytics and GTM
-- Evergreen stores
-
-## Why building FastStore?
-
-The web is a wild and noisy environment. Many projects claim to solve many different aspects of web development but none of them solves the ecommerce problem satisfactorily. Ecommerce is a very complex case where performance is a must, but personalization is the key.
-
-After years of developing ecommerces, FastStore creators packaged all of this knowledge into easy, ready to use building blocks for crafting production-ready, multi-region marketplaces.
-
-FastStore not only contains code, but knowledge and guidelines to change the way you think and build ecommerces
-
-## Project Philosophy
-
-This project has a very well defined list of priorities. When solving an issue, a lower-ranking priority must not degrade or override an upper ranking priority.
-The priorities are all about the stores' user experience and retailer satisfaction about it. For us that means:
-
-1. Performance - Great score on Lighthouse and Core Web Vitals
-2. Stability - E2E tests are complete and make sure the critical paths are covered
-3. SEO - Stores should pass on all aspects of the Google search console, like complete structured data and web vitals
-4. Feature completion - Enable you to craft your custom ecommerce experience
-
-## Basic Architecture
-
-FastStore core is composed of two main packages:
-1. [`ui`](https://faststoreui.netlify.app/): A performant ecommerce ready component library
-2. `sdk`: An SDK for ecommerce to solve your basic ecommerce needs, like cart, pixel management, session etc.
-
-These packages have bindings to popular frameworks, like Gatsby. These bindings are listed in this monorepo and help you create stores with Multiregion, Internationalization etc.
-We also want to support other React frameworks in the future, such as Next.JS, or even React applications bootstrapped using Create React App
-
-## Why Jamstack?
-
-Jamstack focuses on performance and stability, which is part of our core philosophy.
-
-## Continuous Performance and Stability
-
-Maintaining the FastStore performance and stability is a key element. For this, using Lighthouse CI and Cypress in your CI/CD pipeline is **highly** recommended.
-
-We provide a base setup for both platforms so you can easily add them to your CI/CD platform.
-
-## Docs
-
-FastStore docs are under development. If you are not sure where to start, make sure to check the [Getting Started](./docs/getting-started.md). Check out the available docs below:
-
-- Concepts
-  - [What is Jamstack](./docs/what-is-jamstack.md)
-  - [What is Gatsby](./docs/what-is-gatsby.md)
-  - [SFJ Architecture](./docs/architecture.md)
-  - [Build Pipeline](./docs/build-pipeline.md)
-  - [Page Rendering](./docs/rendering.md)
-  - [Data structure](./docs/data-structure.md)
-  - [SFJ Theme](./docs/sfj-theme.md)
-  - [Sonarqube](./docs/sonarqube.md)
-- How-to Guides
-  - [How to Create a Component](./docs/component.md)
-  - [How to Fetch Data](./docs/data-fetching.md)
-  - [How to Create an E2E Test](./docs/e2e-testing.md)
-  - [How to Style the UI](./docs/styling.md)
-
-## Contributing
-
-This is still a work in progress, however, if you are also an adventurous person, you can read the code and have some fun!
-
-### How to develop
-
-`graphql-js` package is cumbersome when using `yarn link` because it requires only one instance of the package and there are two.
-
-For this reason, to be able to see our changes at faststore running on a local store we need to use [wml](https://github.com/wix/wml).
-
-So, suppose you want to make changes into the api package and test it at your local base.store, wml is used to copy all files from `packages/api` to `<path-to-base.store>/node_modules/@faststore/api`. It also watches for changes to copy/paste on the go.
-
-To do this:
-
-```
-## At faststore api package folder
-(faststore/packages/api) $ yarn develop
-
-## These can be executed anywhere
-$ npm install -g wml
-$ wml add <faststore>/packages/api <path-to>.store/node_modules/@faststore/api
-$ wml start
-
-## Finally, at the base.store folder
-(base.store) $ yarn clean && yarn develop
-```
-
-## Packages
-
-| Package                      | Description                                                                         |                                                                  Version                                                                   |
-| :--------------------------- | :---------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------: |
-| @vtex/gatsby-plugin-cms      | Connects the Store to our CMS solution                                              |      [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-cms)      |
-| @vtex/gatsby-plugin-graphql  | Builds and preprocess the store's GraphQL queries                                   |  [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-graphql)  |
-| @vtex/gatsby-plugin-i18n     | Allows internationalization on Stores                                               |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-i18n)     |
-| @vtex/gatsby-plugin-nginx    | Exports a Nginx configuration base on the Store's routes                            |    [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-nginx)    |
-| @vtex/gatsby-plugin-theme-ui | Allows style theming on the Store                                                   | [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-theme-ui) |
-| @vtex/gatsby-source-vtex     | Fetchs and exports ecommerce information from VTEX APIs                             |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-source-vtex)     |
-| @vtex/gatsby-theme-store     | Creates the base infrastructure for the Store site                                  |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-theme-store)     |
-| @vtex/gatsby-plugin-thumbor  | Integrates thumbor service with gatsby-plugin-image                                  |     [![npm version](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-thumbor.svg)](https://badge.fury.io/js/%40vtex%2Fgatsby-plugin-thumbor)     |
-| @vtex/lighthouse-config      | Exports a Lighthouse CI configuration to allow automatic tests on each Pull Request |      [![npm version](https://badge.fury.io/js/%40vtex%2Flighthouse-config.svg)](https://badge.fury.io/js/%40vtex%2Flighthouse-config)      |
-| @faststore/ui               | Exports basic Store components. Checkout our [storybook](https://faststoreui.netlify.app/)                                                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fui.svg)](https://badge.fury.io/js/%40faststore%2Fui)               |
-| @faststore/sdk               | Exports basic logic hooks for creating your custom ecommerce                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fsdk.svg)](https://badge.fury.io/js/%40faststore%2Fsdk)               |
-
+## Release Notes
+Follow our montly release notes at: https://faststore.dev/releases
 
 ## Who's using FastStore?
 
@@ -137,21 +41,20 @@ These are the clients running in production with FastStore:
 - [Marin Brasil](https://www.marinbrasil.com.br/)
 - [Carrefour](https://mercado.carrefour.com.br/)
 
-## Troubleshooting
-
----
-
-**Question:** I'm having errors while running/building a store. There are the following log `Cannot query field "vtexCms" on type "Query"` or an error with `Status Code 403`.
-
-**Answer:** You need to log in VTEX by `vtex login <account>`
-
----
-
-**Question:** I'm trying to add a dependency inside a specific package with `yarn add <package>`, but it's not working.
-
-**Answer:** Each package has a workspace, so you need to add libraries like this: `yarn workspace <workspace> add <package>`
-Example: `yarn workspace @faststore/ui add react-modal`
+## Contributing
+This is still a work in progress, however, if you are also an adventurous person, you can read the code and have some fun!
 
 ## Getting help
 
 If you find any issues on the project you would like to report, please create an [issue](https://github.com/vtex/faststore/issues) on the repository. If you have a question, idea or want to show us something cool you have built, feel free to create a [discussion](https://github.com/vtex/faststore/discussions).
+
+## Packages
+
+| Package                      | Description                                                                         |                                                                  Status                                                                   |
+| :--------------------------- | :---------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| @faststore/ui               | Exports basic Store components. Checkout our [storybook](https://faststoreui.netlify.app/)                                                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fui.svg)](https://badge.fury.io/js/%40faststore%2Fui)  [![size minzip](https://badgen.net/bundlephobia/minzip/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui) [![three shakig](https://badgen.net/bundlephobia/tree-shaking/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui) [![three shakig](https://badgen.net/bundlephobia/dependency-count/@faststore/ui)](https://bundlephobia.com/package/@faststore/ui)            |
+| @faststore/sdk               | Exports basic logic hooks for creating your custom ecommerce                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fsdk.svg)](https://badge.fury.io/js/%40faststore%2Fsdk) [![size minzip](https://badgen.net/bundlephobia/minzip/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) [![tree shaking](https://badgen.net/bundlephobia/tree-shaking/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk) [![three shakig](https://badgen.net/bundlephobia/dependency-count/@faststore/sdk)](https://bundlephobia.com/package/@faststore/sdk)  
+| @faststore/api               | Connect your site to your ecommerce provider                      |               [![npm version](https://badge.fury.io/js/%40faststore%2Fapi.svg)](https://badge.fury.io/js/%40faststore%2Fapi) [![npm version](https://badgen.net/bundlephobia/dependency-count/@faststore/api)](https://bundlephobia.com/package/@faststore/api)     
+
+## License
+Licensed under the [MIT license](https://github.com/vtex/faststore/blob/master/LICENSE)
