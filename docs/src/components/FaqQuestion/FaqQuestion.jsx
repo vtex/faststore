@@ -5,9 +5,7 @@ const FaqQuestion = ({ question, answer }) => {
     return (
         <details className={styles.FaqDetails}>
             <summary>{question}</summary>
-            <p>
-                {answer}
-            </p>
+            <p dangerouslySetInnerHTML={{__html: answer}} />
         </details>
     );
 };
