@@ -1,5 +1,5 @@
 [data-store-breadcrumb-list] {
-  @apply flex items-center;
+  @apply flex items-center list-none !important;
 }
 
 [data-store-breadcrumb-item] {

@@ -1,11 +1,5 @@
-import RadioGroup, { RadioGroupProps } from './RadioGroup'
-import RadioOption, { RadioOptionProps } from './RadioOption'
-import { useRadioGroup } from './useRadioGroup'
+export { default } from './RadioGroup'
+export type { RadioGroupProps } from './RadioGroup'
 
-export {
-  RadioGroup,
-  RadioOption,
-  useRadioGroup,
-  RadioGroupProps,
-  RadioOptionProps,
-}
+export { default as RadioOption } from './RadioOption'
+export type { RadioOptionProps } from './RadioOption'
