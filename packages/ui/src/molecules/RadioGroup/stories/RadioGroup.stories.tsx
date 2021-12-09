@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import type { Story } from '@storybook/react'
 
 import type { RadioGroupProps, RadioOptionProps } from '..'
-import { RadioGroup, RadioOption } from '..'
+import RadioGroup from '../RadioGroup'
+import RadioOption from '../RadioOption'
 import mdx from './RadioGroup.mdx'
 
 export const RadioGroupSimple: Story<RadioGroupProps & RadioOptionProps> = (
