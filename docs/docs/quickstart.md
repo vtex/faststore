@@ -34,10 +34,10 @@ yarn install
 
 Open the `store.config.js` file using the code editor of your choice and set up the config to you store.
 
-1. Change storeId to your account.
-2. Add storeUrl and checkoutUrl for the production url of your store
-3. Change pages in lighthouse config to track the performance of these pages over time
-4. Change pages in cypress config to end-to-end test these pages before each release
+1. Replace  the`storeId` value with the id of your account.
+2. Replace the `storeUrl` and `checkoutUrl` values with the corresponding production URLs of your store.
+3. Go to the `lighthouse.pages` property and add the paths of the pages you want to track performance over time.
+4. Go to the `cypress.pages` property and add the paths of the pages you want to end-to-end test before each release.
 
 ### Step 4. Running your store locally
 
