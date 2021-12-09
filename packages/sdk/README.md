@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://faststore.dev">
-    <img alt="Faststore" src="./static/logo.png" width="60" />
+    <img alt="Faststore" src="../ui/static/logo.png" width="60" />
   </a>
 </p>
 <h1 align="center">
