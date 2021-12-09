@@ -16,6 +16,7 @@ module.exports = {
   ],
   customFields: {
     events: require("./static/data/releases"),
+    starters: require("./static/data/starters"),
   },
   themeConfig: {
     zoom: {
@@ -72,12 +73,19 @@ module.exports = {
           label: 'Concepts',
         },
         {
-          href: "/faq",
-          label: "FAQ",
+          href: "/starters",
+          label: "Starters",
           position: "left",
           target: "_self",
           className: "FAQbar"
         },
+        {
+          href: "/faq",
+          label: "FAQ",
+          position: "left",
+          target: "_self",
+        },
+
         {
           label: 'Release Notes',
           to: 'releases',
