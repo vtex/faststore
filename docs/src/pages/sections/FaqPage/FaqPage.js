@@ -52,16 +52,16 @@ const FaqPage = () => {
               <h2>Didn't find your answers?</h2> Don’t hesitate to get in touch! Find us at:
               <ul>
                 <li>
-                  <a href="https://community.vtex.com/">VTEX Community</a>
-                </li>
-                <li>
                   <a href="https://www.youtube.com/channel/UCReNhDqLOVL4edqENJ4k7Fg">
                     Office Hours
                   </a>
                 </li>
                 <li>
-                  <a href="https://support.vtex.com/hc/en-us/requests">
-                    Support
+                  <a href="https://github.com/vtex/faststore/issues">Github Issues</a>
+                </li>
+                <li>
+                  <a href="https://github.com/vtex/faststore/discussions">
+                    Github Discussions
                   </a>
                 </li>
               </ul>
