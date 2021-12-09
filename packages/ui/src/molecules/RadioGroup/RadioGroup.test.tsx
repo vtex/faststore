@@ -4,7 +4,9 @@ import userEvent from '@testing-library/user-event'
 import type { ReactNode } from 'react'
 import React from 'react'
 
-import { RadioGroup, RadioOption, useRadioGroup } from '.'
+import RadioGroup from './RadioGroup'
+import RadioOption from './RadioOption'
+import { useRadioGroup } from './useRadioGroup'
 
 describe('RadioGroup', () => {
   it('Should render radio group with radio option', () => {

@@ -12,20 +12,25 @@ import { RadioGroup, RadioOptions } from '@faststore/ui'
 
 ## Usage
 
-```tsx
-<RadioGroup
-    name="radio-group"
-    onChange={(v) => {
-        setOption(v.currentTarget.value)
-    }}
-    selectedValue={option}>
-    <RadioOption value="radio-1" label="Radio 1">
-        <span>Radio 1</span>
-    </RadioOption>
-    <RadioOption value="radio-2" label="Radio 2">
-        <span>Radio 2</span>
-    </RadioOption>
-</RadioGroup>
+```tsx live
+function Component () {
+  const [option, setOption] = useState('radio-1')
+
+  return (
+    <RadioGroup
+      name="radio-group"
+      selectedValue={option}
+      onChange={(v) => setOption(v.currentTarget.value)}
+    >
+      <RadioOption value="radio-1" label="Radio 1">
+          <span>Radio 1</span>
+      </RadioOption>
+      <RadioOption value="radio-2" label="Radio 2">
+          <span>Radio 2</span>
+      </RadioOption>
+    </RadioGroup>
+  )
+}
 ```
 
 ## Props

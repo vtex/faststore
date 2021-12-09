@@ -12,20 +12,21 @@ import { PriceRange } from '@faststore/ui'
 
 ## Usage
 
-```tsx
-<PriceRange
-    max = "500"
-    min = "0"
-    formatter={function useIntlFormatter(price) {
-    return useMemo(() => {
-      const formattedPrice = new Intl.NumberFormat('en-GB', {
-        style: 'currency',
-        currency: 'EUR',
-      }).format(price)
-      return formattedPrice
-    })
-  }}
-/>
+```tsx live
+function Component () {
+  const formatter = useCallback((price) => new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(price), [])
+
+  return (
+    <PriceRange
+      max = "500"
+      min = "0"
+      formatter={formatter}
+    />
+  )
+}
 ```
 
 ## Props
