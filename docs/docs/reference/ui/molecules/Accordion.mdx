@@ -1,4 +1,4 @@
-import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # Accordion
 
@@ -165,7 +165,7 @@ function() {
         </ul>
       </AccordionPanel>
     </AccordionItem>
-  </Accordion>  
+  </Accordion>
   );
 }
 ```
@@ -178,57 +178,15 @@ Besides those attributes, the following props are also supported:
 
 ### Accordion
 
-<PropsComponent
-    name="onChange"
-    type= "(index: number) => void"
-    description="Function that is triggered when an accordion item is opened/closed."
-    required="true"
-/>
-<PropsComponent
-    name="indices"
-    type= "Iterable<number>"
-    description="Indices that indicate which accordion items are opened."
-    required="true"
-/>
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-accordion"
-/>
+<PropsSection name="Accordion" />
 
 ### AccordionItem
 
-<PropsComponent
-    name="index"
-    type= "number"
-    description="Index of the current accordion item within the accordion."
-    defaultValue="0"
-/>
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-accordion-item"
-/>
-
-### AccordionButton
-
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-accordion-button"
-/>
+<PropsSection name="AccordionItem" />
 
 ### AccordionPanel
 
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-accordion-panel"
-/>
+<PropsSection name="AccordionPanel" />
 
 ## Customization
 

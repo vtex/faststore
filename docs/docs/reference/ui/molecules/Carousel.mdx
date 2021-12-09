@@ -1,4 +1,4 @@
-import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # Carousel
 
@@ -37,66 +37,7 @@ import { Carousel } from '@faststore/ui'
 
 ## Props
 
-<PropsComponent
-    name="id"
-    type= "string"
-    defaultValue="store-carousel"
-/>
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-carousel"
-/>
-<PropsComponent
-    name="infiniteMode"
-    type= "boolean"
-    defaultValue="true"
-/>
-<PropsComponent
-    name="controls"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    possibleValues="complete | navigationArrows | paginationBullets"
-    defaultValue="complete"
-/>
-<PropsComponent
-    name="transition"
-    type= "{ duration: number; property: string; delay?: number; timing?: string; } | undefined"
-    defaultValue="{ duration: 400, property: 'transform' }"
-/>
-<PropsComponent
-    name="onSwipeStart"
-    type= "SwipeCallback"
-/>
-<PropsComponent
-    name="onSwiped"
-    type= "SwipeCallback"
-/>
-<PropsComponent
-    name="onSwipedDown"
-    type= "SwipeCallback"
-/>
-<PropsComponent
-    name="onSwipedLeft"
-    type= "SwipeCallback"
-/>
-<PropsComponent
-    name="onSwipedRight"
-    type= "SwipeCallback"
-/>
-<PropsComponent
-    name="onSwipedUp"
-    type= "SwipeCallback"
-/>
-<PropsComponent
-    name="onSwiping"
-    type= "SwipeCallback"
-/>
-<PropsComponent
-    name="onTap"
-    type= "TapCallback"
-/>
+<PropsSection name="Carousel" />
 
 ## Customization
 
