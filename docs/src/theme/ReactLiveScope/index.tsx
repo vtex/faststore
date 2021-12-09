@@ -4,10 +4,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+import '@vtex/theme-b2c-tailwind'
 
-import React, { useRef, forwardRef, useEffect, useMemo, useState } from 'react'
-import { Badge, Button, Checkbox, Icon, Input, Label, List, Overlay, Popover, Price, Radio, Select, Skeleton, Slider, Spinner, TextArea, Accordion, AccordionProps, AccordionButton, AccordionItem, AccordionPanel, Bullets, Carousel, Form, IconButton, Modal, SearchInput, Table, TableBody, TableCell, TableFooter, TableHead, TableRow } from '@faststore/ui';
-import './styles.css'
+import React, { useEffect, useState } from 'react'
+import * as UI from '@faststore/ui'
 
 const ShoppingCart = () => (
   <svg
@@ -90,7 +90,7 @@ const BulletsComponent = ({
   }, [activeBullet, setLocalActiveBullet])
 
   return (
-    <Bullets
+    <UI.Bullets
       onClick={(e, idx) => {
         onClick?.(e, idx)
         setLocalActiveBullet(idx)
@@ -107,8 +107,8 @@ export const BulletsTemplate = BulletsComponent.bind({})
 
 /* Accordion */
 const AccordionTemplate = ({ testId }) => {
-  const [indices, setIndices] = useState<Set<number>>(new Set([]))
-  const onChange = (index: number) => {
+  const [indices, setIndices] = useState(new Set([]))
+  const onChange = (index) => {
     if (indices.has(index)) {
       indices.delete(index)
       setIndices(new Set(indices))
@@ -118,10 +118,10 @@ const AccordionTemplate = ({ testId }) => {
   }
 
   return (
-    <Accordion testId={testId} indices={indices} onChange={onChange}>
-      <AccordionItem>
-        <AccordionButton>Clothing</AccordionButton>
-        <AccordionPanel>
+    <UI.Accordion testId={testId} indices={indices} onChange={onChange}>
+      <UI.AccordionItem>
+        <UI.AccordionButton>Clothing</UI.AccordionButton>
+        <UI.AccordionPanel>
           <ul>
             <li>
               <a href="/">Shorts</a>
@@ -133,11 +133,11 @@ const AccordionTemplate = ({ testId }) => {
               <a href="/">Tank tops</a>
             </li>
           </ul>
-        </AccordionPanel>
-      </AccordionItem>
-      <AccordionItem>
-        <AccordionButton>Bags</AccordionButton>
-        <AccordionPanel>
+        </UI.AccordionPanel>
+      </UI.AccordionItem>
+      <UI.AccordionItem>
+        <UI.AccordionButton>Bags</UI.AccordionButton>
+        <UI.AccordionPanel>
           <ul>
             <li>
               <a href="/">Backpacks</a>
@@ -146,11 +146,11 @@ const AccordionTemplate = ({ testId }) => {
               <a href="/">Necessaire</a>
             </li>
           </ul>
-        </AccordionPanel>
-      </AccordionItem>
-      <AccordionItem>
-        <AccordionButton>Sale</AccordionButton>
-        <AccordionPanel>
+        </UI.AccordionPanel>
+      </UI.AccordionItem>
+      <UI.AccordionItem>
+        <UI.AccordionButton>Sale</UI.AccordionButton>
+        <UI.AccordionPanel>
           <ul>
             <li>
               <a href="/">Smartphones</a>
@@ -159,9 +159,9 @@ const AccordionTemplate = ({ testId }) => {
               <a href="/">TVs</a>
             </li>
           </ul>
-        </AccordionPanel>
-      </AccordionItem>
-    </Accordion>
+        </UI.AccordionPanel>
+      </UI.AccordionItem>
+    </UI.Accordion>
   )
 }
 
@@ -172,43 +172,14 @@ export const MultipleAndCollapsible = AccordionTemplate.bind({})
  const ReactLiveScope = {
    React,
    ...React,
-   Badge,
-   Button,
-   Checkbox,
-   Icon,
-   Input,
-   Label,
-   List,
-   Overlay,
-   Popover,
-   Price,
-   Radio, 
-   Select, 
-   Skeleton,
-   Slider, 
-   Spinner,
-   TextArea,
+   ...UI,
+
    ShoppingCart,
-   Accordion,
    MultipleAndCollapsible,
-   AccordionButton,
-   AccordionItem,
-   AccordionPanel,
    Caret,
-   BulletsTemplate, 
-   Carousel,
-   Form,
-   IconButton,
-   Modal,
-   SearchInput,
+   BulletsTemplate,
    CustomIcon,
-   Table,
-   TableBody,
-   TableCell,
-   TableFooter,
-   TableHead,
-   TableRow,
    priceFormatter
  };
- 
+
  export default ReactLiveScope;

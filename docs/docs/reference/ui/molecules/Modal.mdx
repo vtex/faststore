@@ -13,22 +13,23 @@ import { Modal } from '@faststore/ui'
 ## Usage
 
 ```tsx live
-function (){
-const [isOpen, setIsOpen] = useState(false)
-const handleClose = () => setIsOpen(false)
-return(
+function Component() {
+  const [isOpen, setIsOpen] = useState(false)
+  const handleClose = () => setIsOpen(false)
 
-<>
-  <Button onClick={() => setIsOpen(!isOpen)}>Open Modal</Button>
-  <Modal isOpen={isOpen} onDismiss={handleClose}>
-    My Modal Content
-    <br />
-    <div data-action-container>
-      <Button onClick={handleClose}>close</Button>
-    </div>
-  </Modal>
-</>
-)}
+  return (
+    <>
+      <Button onClick={() => setIsOpen(!isOpen)}>Open Modal</Button>
+      <Modal isOpen={isOpen} onDismiss={handleClose}>
+        My Modal Content
+        <br />
+        <div data-action-container>
+          <Button onClick={handleClose}>close</Button>
+        </div>
+      </Modal>
+    </>
+  )
+}
 ```
 
 ## Props
@@ -56,7 +57,7 @@ return(
     defaultValue="store-modal"
 />
 
-## Customization 
+## Customization
 
 `data-store-modal-content`
 

@@ -1,5 +1,3 @@
-import { Button } from '@faststore/ui'
-
 import styles from './styles.module.css'
 
 import React, { useState } from 'react'
@@ -28,12 +26,12 @@ function LiveCode({ defaultShowCode, refreshPreview, onChangeCode }) {
                 </div>
             )}
             <div className={styles.playgroundControls}>
-                <Button
+                <button
                     className={styles.playgroundButton}
                     onClick={() => setShowCode((prevShowCode) => !prevShowCode)}
                 >
                     <CodeIcon /> {showCode ? 'HIDE' : 'SHOW'} CODE
-                </Button>
+                </button>
             </div>
         </div>
     )

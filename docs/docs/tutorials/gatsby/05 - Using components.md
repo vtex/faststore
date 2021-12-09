@@ -81,8 +81,8 @@ Now that we are familiar with the structure of FastStore UI components, let's ge
         <div>
           <h1>{title}</h1>
           <div>
-            <Button children="WOMEN" />
-            <Button children="MEN" />
+            <Button>WOMEN</Button>
+            <Button>MEN</Button>
           </div>
         </div>
         <Carousel

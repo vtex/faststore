@@ -1,5 +1,9 @@
+[data-store-overlay][data-modal-overlay] {
+  z-index: 999;
+}
+
 [data-store-modal-content] {
-  @apply bg-white w-96 font-sans; 
+  @apply bg-white w-96 font-sans;
   @apply p-5 rounded;
 }
 

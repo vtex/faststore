@@ -1,15 +1,15 @@
 [data-store-textarea] {
-  @apply w-80 border-solid px-4 py-1 my-2;
-  @apply text-gray-700 border-black;
+  @apply w-80 border-solid border-2 px-4 py-1 my-2;
+  @apply text-gray-700 border-black border-opacity-5;
   @apply font-normal text-base;
 }
 
 [data-store-textarea][data-success], [data-store-textarea][data-success]:focus {
   @apply outline-none;
-  @apply border-green-600;
+  @apply border-green-600 border-opacity-20;
 }
 
 [data-store-textarea][data-error], [data-store-textarea][data-error]:focus {
   @apply outline-none;
-  @apply border-red-600;
+  @apply border-red-600 border-opacity-20;
 }
