@@ -30,7 +30,7 @@ Install dependencies using yarn.
 yarn install
 ```
 
-### Step 3. Setting up environment variables
+### Step 3. Configuring your project settings
 
 Open the `store.config.js` file using the code editor of your choice and set up the config to you store.
 
