@@ -1,0 +1,36 @@
+.StarterPage {
+  @apply w-4/5 mx-auto my-2 p-20 flex justify-between items-start;
+}
+
+.StarterHeader {
+  @apply sticky top-28 mr-36 w-4/6;
+  position: -webkit-sticky;
+}
+.StarterHeader h1 {
+  @apply text-5xl mb-4;
+  font-family:"VTEX Trust Medium";
+}
+.Subtitle {
+  @apply text-2xl italic border-b mb-5 pb-4;
+}
+.StarterHeader p {
+  @apply text-xl mt-8;
+}
+.StarterContent {
+  @apply w-full;
+}
+.StarterContent h2 {
+  @apply font-bold text-xl border-b pb-2 mb-5;
+}
+.StarterLib {
+  @apply flex flex-wrap justify-around;
+}
+
+@media screen and (max-width: 1220px) {
+  .StarterHeader {
+    @apply relative top-0 m-0;
+  }
+  .StarterPage {
+    @apply w-full p-4 flex-col;
+  }
+}
