@@ -30,15 +30,14 @@ Install dependencies using yarn.
 yarn install
 ```
 
-### Step 3. Setting up environment variables
+### Step 3. Configuring your project settings
 
-Open the `vtex.env` file using the code editor of your choice and set up the following environment variables:
+Open the `store.config.js` file using the code editor of your choice and set up the config to you store.
 
-```shell
-GATSBY_STORE_ID={vtexAccount} # Replace with the name of your VTEX account
-GATSBY_VTEX_ENVIRONMENT={vtexEnvironment} # Replace with the VTEX environment you'll use to deploy your store. For most cases, use vtexcommercestable.
-GATSBY_VTEX_IO_WORKSPACE={vtexWorkspace} # Replace with the name of the VTEX workspace you'll use to develop your store. For most cases, use master.
-```
+1. Replace  the`storeId` value with the id of your account.
+2. Replace the `storeUrl` and `checkoutUrl` values with the corresponding production URLs of your store.
+3. Go to the `lighthouse.pages` property and add the paths of the pages you want to track performance over time.
+4. Go to the `cypress.pages` property and add the paths of the pages you want to end-to-end test before each release.
 
 ### Step 4. Running your store locally
 
