@@ -167,7 +167,7 @@ module.exports = {
           routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
-            'https://github.com/vtex/faststore/edit/main/',
+            'https://github.com/vtex/faststore/edit/master/docs/docs',
         },
         blog: {
           routeBasePath: 'releases',
