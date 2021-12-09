@@ -65,7 +65,7 @@ describe('AggregateRating', () => {
       ) {
         expect(ratingItems[currentItemNumber]).toHaveAttribute(
           'data-store-aggregate-rating-item',
-          fillCheck(value - (currentItemNumber + 1))
+          fillCheck(value - currentItemNumber)
         )
       }
     }

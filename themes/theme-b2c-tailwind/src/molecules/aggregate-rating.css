@@ -13,7 +13,7 @@ li[data-store-aggregate-rating-item], span[data-store-aggregate-rating-item] {
 /* Using CSS to insert icons */
 
 [data-store-aggregate-rating] span[data-store-aggregate-rating-item="full"]:after,
-[data-store-aggregate-rating] span[data-store-aggregate-rating-item="half"]:after {
+[data-store-aggregate-rating] span[data-store-aggregate-rating-item="partial"]:after {
   content: "★";
   display: block;
 }
