@@ -49,6 +49,11 @@ module.exports = {
       },
       items: [
         {
+          href: '/quickstart',
+          label: 'Quickstart',
+          position: 'left',
+        },
+        {
           type: 'doc',
           docId: 'tutorials/overview',
           position: 'left',
@@ -73,38 +78,36 @@ module.exports = {
           label: 'Concepts',
         },
         {
-          href: "/starters",
-          label: "Starters",
-          position: "left",
+          href: "/faq",
+          label: "FAQ",
+          position: "right",
           target: "_self",
           className: "FAQbar"
         },
-        {
-          href: "/faq",
-          label: "FAQ",
-          position: "left",
-          target: "_self",
-        },
-
         {
           label: 'Release Notes',
           to: 'releases',
           position: 'right',
         },
         {
-          href: '/quickstart',
-          label: 'Quickstart',
+          type: 'dropdown',
+          label: 'Other links',
           position: 'right',
-        },
-        {
-          href: 'https://community.vtex.com/',
-          label: 'Community',
-          position: 'right',
-        },
-        {
-          href: 'https://github.com/vtex/faststore',
-          label: 'GitHub',
-          position: 'right',
+          items: [
+            {
+              href: "/starters",
+              label: "Starters",
+              target: "_self",
+            },
+            {
+              href: 'https://community.vtex.com/',
+              label: 'Community',
+            },
+            {
+              href: 'https://github.com/vtex/faststore',
+              label: 'GitHub',
+            },
+          ],
         },
       ],
     },
@@ -123,6 +126,10 @@ module.exports = {
         {
           title: 'Docs',
           items: [
+            {
+              label: 'Quickstart',
+              to: 'quickstart',
+            },
             {
               label: 'Tutorials',
               to: '/tutorials/overview',
@@ -144,6 +151,14 @@ module.exports = {
         {
           title: 'More',
           items: [
+            {
+              label: 'Starters',
+              to: '/starters',
+            },
+            {
+              label: 'Frequently asked question',
+              to: '/faq',
+            },
             {
               label: 'Release Notes',
               to: '/releases',
@@ -196,19 +211,19 @@ module.exports = {
     [
       'docusaurus-plugin-react-docgen-typescript',
       {
-          // pass in a single string or an array of strings
-          src: ['../packages/ui/src/**/*.tsx', '!../packages/ui/src/**/*.test.*', '!../packages/ui/src/**/*.stories.*'],
-          parserOptions: {
-              // pass parserOptions to react-docgen-typescript
-              // here is a good starting point which filters all .tsx files
-              propFilter: (prop, component) => {
-                  if (prop.declarations[0]) {
-                      return prop.declarations[0].fileName.endsWith('.tsx')
-                  }
+        // pass in a single string or an array of strings
+        src: ['../packages/ui/src/**/*.tsx', '!../packages/ui/src/**/*.test.*', '!../packages/ui/src/**/*.stories.*'],
+        parserOptions: {
+          // pass parserOptions to react-docgen-typescript
+          // here is a good starting point which filters all .tsx files
+          propFilter: (prop, component) => {
+            if (prop.declarations[0]) {
+              return prop.declarations[0].fileName.endsWith('.tsx')
+            }
 
-                  return false;
-              },
+            return false;
           },
+        },
       },
     ]
   ],
