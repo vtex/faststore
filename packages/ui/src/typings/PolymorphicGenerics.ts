@@ -44,3 +44,8 @@ export type PolymorphicComponentPropsWithRef<
   C extends ElementType,
   P = Record<string, never>
 > = PolymorphicComponentProps<C, P> & { ref?: ComponentPropsWithRef<C>['ref'] }
+
+// Extract the `ref` prop from a polymorphic component
+export type PolymorphicRef<
+  C extends ElementType
+> = PolymorphicComponentPropsWithRef<C>['ref']
