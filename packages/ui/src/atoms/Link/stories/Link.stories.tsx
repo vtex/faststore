@@ -6,15 +6,13 @@ import LinkComponent from '../Link'
 import mdx from './Link.mdx'
 
 const LinkDefaultTemplate: Story<LinkProps<'a'>> = () => (
-  <LinkComponent id="as-anchor" href="/">
-    A default link
-  </LinkComponent>
+  <LinkComponent href="/">A default link</LinkComponent>
 )
 
 export const Default = LinkDefaultTemplate.bind({})
 
 const LinkAsDivTemplate: Story<LinkProps<'div'>> = () => (
-  <LinkComponent id="as-div" as="div">
+  <LinkComponent as="div">
     <span>A span inside the Link component</span>
     <a href="/">A link inside the Link component</a>
   </LinkComponent>

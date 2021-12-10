@@ -1,8 +1,8 @@
-[data-store-link][id='as-anchor'] {
-  @apply px-2 py-1 text-center rounded border-2 border-green-100 bg-green-100 text-sm;
+a[data-store-link] {
+  @apply underline;
 }
 
-[data-store-link][id='as-div'] {
+div[data-store-link] {
   @apply flex flex-col;
 }
 
