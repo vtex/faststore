@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.27 (2021-12-10)
+
+
+### Bug Fixes
+
+* Add Banner Components exportation ([#1072](https://github.com/vtex/faststore/issues/1072)) ([4024104](https://github.com/vtex/faststore/commit/4024104f9804c8762037f03d986a4334af819b3c))
+
+
+
+
+
 ## 1.3.26 (2021-12-09)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-onesignal
