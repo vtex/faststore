@@ -36,22 +36,6 @@ module.exports = {
         'tutorials/gatsby/6',
       ],
     },
-    {
-      type: 'category',
-      label: 'Integrating your storefront with VTEX Headless CMS',
-      collapsed: false,
-      items: [
-        'tutorials/VTEX-CMS/overview',
-        'tutorials/VTEX-CMS/0',
-        'tutorials/VTEX-CMS/1',
-        'tutorials/VTEX-CMS/2',
-        'tutorials/VTEX-CMS/3',
-        'tutorials/VTEX-CMS/4',
-        'tutorials/VTEX-CMS/5',
-        'tutorials/VTEX-CMS/6',
-        'tutorials/VTEX-CMS/7',
-      ],
-    },
   ],
   howToGuidesSidebar: ['how-to-guides/overview',
   {
