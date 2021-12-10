@@ -1,0 +1,53 @@
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
+
+# Alert
+
+Alerts display short messages related to the behavior of a system, feature or page.
+
+## Import
+
+```tsx
+import { Alert } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Alert>
+  Alert
+</Alert>
+```
+
+## Alert with icon
+
+```tsx live
+function Component() {
+  const styles = {
+    warning: {
+      backgroundColor: '#fff2d4',
+      color: "#eea236",
+      borderRadius: "0.5rem",
+      padding: "1rem"
+    },
+  }
+
+  return (
+    <Alert style={styles.warning}>
+    <React.Fragment key=".0">
+      <Icon component={<Warning />} />
+      <span>
+        This is an example of how you can use the Alert component along with icons!
+      </span>
+    </React.Fragment>
+  </Alert>
+  )
+}
+```
+
+## Props
+
+<PropsSection name="Alert" />
+
+## Customization
+
+`data-store-alert`
