@@ -2,31 +2,25 @@ import type { Story, Meta } from '@storybook/react'
 import React from 'react'
 
 import type { LinkProps } from '../Link'
-import Component from '../Link'
+import LinkComponent from '../Link'
 import mdx from './Link.mdx'
 
-const LinkAsDivTemplate: Story<LinkProps> = ({ as }) => (
-  <Component id="link-as-div" as={as}>
-    <span>I am a span</span>
-    <a href="/">Click here</a>
-  </Component>
+const LinkDefaultTemplate: Story<LinkProps<'a'>> = () => (
+  <LinkComponent id="as-anchor" href="/">
+    A default link
+  </LinkComponent>
 )
 
-export const LinkAsDiv = LinkAsDivTemplate.bind({})
-LinkAsDiv.args = {
-  as: 'div',
-}
+export const Default = LinkDefaultTemplate.bind({})
 
-const LinkAsAnchorTemplate: Story<LinkProps> = ({ href }) => (
-  <Component id="link-as-anchor" href={href}>
-    Click here
-  </Component>
+const LinkAsDivTemplate: Story<LinkProps<'div'>> = () => (
+  <LinkComponent id="as-div" as="div">
+    <span>A span inside the Link component</span>
+    <a href="/">A link inside the Link component</a>
+  </LinkComponent>
 )
 
-export const LinkAsAnchor = LinkAsAnchorTemplate.bind({})
-LinkAsAnchor.args = {
-  href: '/',
-}
+export const AsDiv = LinkAsDivTemplate.bind({})
 
 export default {
   title: 'Atoms/Link',

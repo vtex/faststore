@@ -1,28 +1,31 @@
 import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
-
-import Link from '../Link'
+import { StorybookLink } from '../Link'
 
 # Link
 
-`Link` component can be used both as a regular anchor tag and as a wrapper for any external Link component (i.e., Next.js Link or Gatsby Link).
+`Link` component performs the same behavior of a regular anchor tag (`<a>`), but can be used as any HTML tag.
 
-## Link as Div
+## Default
 
 <Canvas>
-  <Story id="atoms-link--link-as-div" />
+  <Story id="atoms-link--default" />
 </Canvas>
 
-## Link as Anchor
+## As Div
 
 <Canvas>
-  <Story id="atoms-link--link-as-anchor" />
+  <Story id="atoms-link--as-div" />
 </Canvas>
 
 ## Props
 
-The component supports all attributes also supported by the `<div>` tag (when working as a wrapper) and the `<a>` tag (when working as an anchor).
+The component supports all attributes also supported by the choosen tag (through the prop `as`).
 
-<ArgsTable of={Link} />
+For example, in cases it is wanted to be used as a wrapper for any external link component (i.e., Next.js Link or Gatsby Link), the component can be used with the prop `as="div"`.
+
+Besides those attributes, the following props are also supported:
+
+<ArgsTable of={StorybookLink} />
 
 ## CSS Selectors
 

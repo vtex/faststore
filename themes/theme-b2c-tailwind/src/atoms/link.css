@@ -1,11 +1,11 @@
-[data-store-link][id='link-as-div'] {
-  @apply w-36 flex flex-col py-1 text-center;
+[data-store-link][id='as-anchor'] {
+  @apply px-2 py-1 text-center rounded border-2 border-green-100 bg-green-100 text-sm;
+}
+
+[data-store-link][id='as-div'] {
+  @apply flex flex-col;
 }
 
 [data-store-link] a {
-  @apply w-7/12 self-center mt-2 rounded border-2 border-green-100 bg-green-100 text-sm;
-}
-
-[data-store-link][id='link-as-anchor'] {
-  @apply px-2 py-1 rounded border-2 border-green-100 bg-green-100 text-sm;
+  @apply whitespace-nowrap max-w-min px-2 py-1 mt-2 rounded border-2 border-green-100 bg-green-100 text-sm;
 }
