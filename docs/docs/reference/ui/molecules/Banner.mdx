@@ -1,0 +1,59 @@
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
+
+# Banner
+
+Banners are used for advertising brands, products, and/or collections. They comprise an image, some text content, and a call-to-action button.
+
+## Import
+
+```tsx
+import { Banner, BannerImage, BannerContent, BannerLink } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+function Component() {
+  const styles = {
+    link: {
+      color: '#fff',
+    },
+  }
+
+  return (
+    <Banner>
+      <BannerImage>
+        <img
+          alt="A person with hands on the pocket, carrying a round straw bag"
+          src="https://storecomponents.vtex.app/assets/fit-in/1280x613/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Fassets%2Fvtex.file-manager-graphql%2Fimages%2Fedce348c-068c-4fb9-91f2-7d235d596e0f___b2822f893b14f87337d08f07f0e520ab.jpg"
+        />
+      </BannerImage>
+      <BannerContent>
+        <div>
+          <h3>Get to know our new release</h3>
+          <p>
+            Your one-stop shop for making this summer season the best of all.
+          </p>
+        </div>
+        <BannerLink>
+          <a style={styles.link} href="/">
+            Shop now <Icon component={<RightArrow />} />
+          </a>
+        </BannerLink>
+      </BannerContent>
+    </Banner>
+  )
+}
+```
+
+## Props
+
+<PropsSection name="Banner" />
+
+## Customization
+
+`data-store-breadcrumb`
+
+`data-breadcrumb-item`
+
+`data-breadcrumb-item-active`
