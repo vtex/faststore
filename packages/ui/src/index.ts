@@ -63,8 +63,18 @@ export type { IconButtonProps } from './molecules/IconButton'
 export { default as Modal } from './molecules/Modal'
 export type { ModalProps } from './molecules/Modal'
 
-export { default as Banner } from './molecules/Banner'
-export type { BannerProps } from './molecules/Banner'
+export {
+  default as Banner,
+  BannerContent,
+  BannerImage,
+  BannerLink,
+} from './molecules/Banner'
+export type {
+  BannerProps,
+  BannerContentProps,
+  BannerImageProps,
+  BannerLinkProps,
+} from './molecules/Banner'
 
 export { default as PaymentMethods } from './molecules/PaymentMethods'
 export type { PaymentMethodsProps } from './molecules/PaymentMethods'
