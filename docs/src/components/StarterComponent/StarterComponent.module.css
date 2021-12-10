@@ -1,0 +1,15 @@
+.StarterCard:hover{
+    @apply opacity-80 no-underline;
+}
+
+.StarterCard{
+    @apply text-rebelPink font-bold bg-whiteIce rounded-lg shadow-md border w-80 my-5;
+}
+
+.StarterCard img{
+    @apply pl-16;
+}
+
+.StarterInfo{
+    @apply p-5 m-0 bg-white rounded-b-lg
+}

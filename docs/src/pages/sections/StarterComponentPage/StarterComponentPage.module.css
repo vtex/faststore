@@ -1,0 +1,62 @@
+.BackNavigation {
+  @apply text-text ml-28 my-5;
+}
+
+.StarterCard {
+  @apply flex bg-whiteIce container mb-20 mx-auto text-seriousBlack rounded-lg justify-between;
+}
+
+.CardInfo {
+  @apply w-3/6 p-20 pr-0;
+}
+
+.CardInfo h1 {
+  @apply text-4xl;
+}
+
+.StarterCardDescription {
+  @apply mt-3 text-lg;
+}
+
+.Features p {
+  @apply font-bold text-lg pt-6 pb-2;
+}
+
+.Features li {
+  @apply ml-5 list-disc;
+}
+
+.Price {
+  @apply my-6 text-2xl;
+}
+
+.Buttons > * {
+  @apply px-4 py-2 rounded font-bold uppercase inline-block;
+}
+.ViewSource {
+  @apply bg-rebelPink  text-white;
+}
+.ViewSource:hover {
+  @apply text-white;
+}
+
+.Buttons > *:hover {
+  @apply opacity-80 no-underline;
+}
+
+.VisitDemo {
+  @apply ml-2 text-rebelPink border-rebelPink border;
+}
+
+.CardImage {
+  @apply w-2/5 items-end;
+}
+
+@media screen and (max-width: 1220px) {
+  .CardImage {
+    @apply hidden;
+  }
+  .CardInfo {
+    @apply w-full pr-20;
+  }
+}
