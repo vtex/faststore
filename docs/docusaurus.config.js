@@ -112,9 +112,9 @@ module.exports = {
       ],
     },
     algolia: {
-      apiKey: '79744e3bf4fb1dc69e0d119fef45b387',
+      apiKey: 'b569ca818413cccb8e41edbcb1dd5161',
       indexName: 'devportal',
-      appId: 'ZPZLI8RWVM',
+      appId: 'OAXP53H7GY',
     },
     footer: {
       logo: {
