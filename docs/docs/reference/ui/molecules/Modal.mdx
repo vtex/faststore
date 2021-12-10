@@ -1,4 +1,4 @@
-import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # Modal
 
@@ -34,28 +34,7 @@ function Component() {
 
 ## Props
 
-<PropsComponent
-    name="isOpen"
-    type= "boolean"
-    description="Controls whether or not the dialog is open."
-    required="true"
-/>
-<PropsComponent
-    name="aria-labelledby"
-    type= "string"
-    description="Identifies the element (or elements) that labels the current element."
-/>
-<PropsComponent
-    name="onDismiss"
-    type= "((event: MouseEvent<Element, MouseEvent> | KeyboardEvent<Element>) => void)"
-    description="This function is called whenever the user hits Escape or clicks outside the dialog."
-/>
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-modal"
-/>
+<PropsSection name="Modal" />
 
 ## Customization
 

@@ -1,8 +1,8 @@
-import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # IconButton
 
-Icon Buttons are icons that trigger some sort of action, such as adding an item to the cart. 
+Icon Buttons are icons that trigger some sort of action, such as adding an item to the cart.
 
 ## Import
 
@@ -29,20 +29,9 @@ import { IconButton } from '@faststore/ui'
 
 ## Props
 
-<PropsComponent
-    name="icon"
-    type= "ReactNode"
-    description="A React component that will be rendered as an icon."
-    required="true"
-/>
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-icon-button"
-/>
+<PropsSection name="IconButton" />
 
-## Customization 
+## Customization
 
 `data-store-icon-button`
 
