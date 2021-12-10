@@ -1,68 +1,35 @@
-import { render, cleanup } from '@testing-library/react'
+// Just to test with elements without 'href' attribute
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { render } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import React from 'react'
 
-import Component from '.'
-import type { LinkProps } from '.'
+import Link from '.'
 
-const TestLinkAsAnchor = ({ href }: Pick<LinkProps, 'href'>) => {
-  return <Component href={href}>Click here</Component>
-}
-
-const TestLinkAsDiv = ({ as }: Pick<LinkProps, 'as'>) => {
-  return (
-    <Component as={as}>
-      <p>Some Link component</p>
-      <a href="/">Click here</a>
-    </Component>
-  )
+const TestLink = () => {
+  return <Link href="/">Link</Link>
 }
 
 describe('Link', () => {
-  let linkAsDiv: HTMLElement
-  let linkAsAnchor: HTMLElement
+  let link: HTMLElement
+  let linkContainer: HTMLElement
 
-  describe('Link as Div', () => {
-    beforeEach(() => {
-      const { getByTestId } = render(<TestLinkAsDiv as="div" />)
+  beforeEach(() => {
+    const { getByTestId, container } = render(<TestLink />)
 
-      linkAsDiv = getByTestId('store-link')
-    })
+    link = getByTestId('store-link')
+    linkContainer = container
+  })
 
-    afterEach(cleanup)
-
-    describe('Data Attributes', () => {
-      it('`Link` should have `data-store-link` attribute', () => {
-        expect(linkAsDiv).toHaveAttribute('data-store-link')
-      })
-    })
-
-    describe('Accessibility', () => {
-      it('`Link` should have no violations', async () => {
-        expect(await axe(linkAsDiv)).toHaveNoViolations()
-      })
+  describe('Data Attributes', () => {
+    it('`Link` should have `data-store-link` attribute', () => {
+      expect(link).toHaveAttribute('data-store-link')
     })
   })
 
-  describe('Link as Anchor', () => {
-    beforeEach(() => {
-      const { getByTestId } = render(<TestLinkAsAnchor href="/" />)
-
-      linkAsAnchor = getByTestId('store-link')
-    })
-
-    afterEach(cleanup)
-
-    describe('Data Attributes', () => {
-      it('`Link` should have `data-store-link` attribute', () => {
-        expect(linkAsAnchor).toHaveAttribute('data-store-link')
-      })
-    })
-
-    describe('Accessibility', () => {
-      it('`Link` should have no violations', async () => {
-        expect(await axe(linkAsAnchor)).toHaveNoViolations()
-      })
+  describe('Accessibility', () => {
+    it('`Link` should have no violations', async () => {
+      expect(await axe(linkContainer)).toHaveNoViolations()
     })
   })
 })
