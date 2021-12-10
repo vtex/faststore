@@ -20,7 +20,7 @@ const List = forwardRef<HTMLUListElement, ListProps>(function List(
   {
     testId = 'store-list',
     variant = 'unordered',
-    as: MaybeComponent = 'ul',
+    as: MaybeComponent,
     ...otherProps
   },
   ref
