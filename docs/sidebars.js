@@ -17,10 +17,9 @@ module.exports = {
       label: 'Fundamentals',
       collapsed: false,
       items: [
-        'tutorials/architecture/0',
-        'tutorials/architecture/1',
-        'tutorials/architecture/2',
-        'tutorials/architecture/3',
+        'tutorials/fundamentals/0',
+        'tutorials/fundamentals/1',
+        'tutorials/fundamentals/2',
       ],
     },
     {
@@ -120,7 +119,7 @@ module.exports = {
             'reference/sdk/Analytics',
             'reference/sdk/Cart',
             'reference/sdk/Search',
-            'reference/sdk/UI',          
+            'reference/sdk/UI',
       ],
     },
     {
@@ -128,7 +127,7 @@ module.exports = {
       label: 'API',
       collapsed: false,
           items: [
-            'reference/api/faststore-api',       
+            'reference/api/faststore-api',
       ],
     },
   ],

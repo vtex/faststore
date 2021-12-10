@@ -2,7 +2,7 @@
 id: 0
 ---
 
-# Introduction 
+# Introduction
 
 *Learn how we help you build future-proof ecommerce websites with the VTEX IO WebOps CI pipeline and Faststore library.*
 
@@ -20,18 +20,18 @@ Once this gateway is set up, it is necessary to determine which technology you'l
 
 ![](/img/introduction/arch2.png)
 
-That's enough for the basics. However, to keep evolving an ecommerce, you'll need new deployments. Here is where we have a Control Plane - the part of the architecture that compiles and handles which version of the store is online. 
+That's enough for the basics. However, to keep evolving an ecommerce, you'll need new deployments. Here is where we have a Control Plane - the part of the architecture that compiles and handles which version of the store is online.
 
 ![](/img/introduction/arch3.png)
 
 ## How we help you
 
-To allow a technology-agnostic backend, we simply established that our Frontend Server is the CDN itself. Just like that, we permit the indirect communication between the frontend and the API gateway via a more powerful Control Plane, which becomes responsible for serving the CDN with the appropriate assets.  In summary, our Control Plane is composed of two main parts:
+To allow a technology-agnostic backend, we simply established that our Frontend Server is the CDN itself. Just like that, we permit the indirect communication between the frontend and the API gateway via a more powerful Control Plane, which becomes responsible for serving the CDN with the appropriate assets.  In summary, the Control Plane is composed of two main parts:
 
-- The [Store VTEX IO WebOps](/tutorials/architecture/1): a CI pipeline focused on crucial ecommerce metrics values and code quality. 
 - A Static Site Generator (SSG): a tool that generates static HTML pages from templates and raw data at build-time instead of real-time. There are plenty of SSGs available in the market (e.g., Gatsby, Next.js, Hugo), and you are free to choose the one you prefer.
+- A Jamstack CDN Provider: a CI pipeline focused on stability and performance for the web. There are also plenty of CDN providers, like Netlify, Gatsby Cloud, Vercell and WebOps
 
-This explains the autonomy we give developers to choose their favorite tech stack. Since the Frontend Server is not directly tied to the API gateway, even using React becomes optional. 
+This explains the autonomy we give developers to choose their favorite tech stack. Since the Frontend Server is not directly tied to the API gateway, even using React becomes optional.
 
 :::tip
 We understand, however, that freedom can be scary sometimes. That's why, to help you build your store frontend, we deliver the [Faststore](/tutorials/architecture/2) - a set of libraries that supports integrations with headless ecommerce platforms, provides ecommerce-focused React components and GA4 compatible analytics functions.
@@ -41,6 +41,9 @@ Our architecture also gives developers full power over the API Gateway.  This la
 
 ![](/img/introduction/arch4.png)
 
-With so much creativity and freedom space, what we offer is a safe environment for experimenting. By connecting with a Git provider and thanks to our team of QA robots, our Control Plane is apt to run E2E tests, evaluate code quality, and measure the impact of each Pull Request on a store's performance. 
+With so much creativity and freedom space, what we offer is a safe environment for experimenting. By connecting with a Git provider, it's possible to create a team of QA robots that run E2E tests, evaluate code quality, and measure the impact of each Pull Request on a store's performance.
 Don't forget: performance implies an increase in the store's SEO score, conversion rate, and navigation experience!
 
+:::tip
+Faststore is supported right out of the box at WebOps. Use their QA bots to analyse performance, avoid regressions and detect code smells before even deploying anything to production
+:::
