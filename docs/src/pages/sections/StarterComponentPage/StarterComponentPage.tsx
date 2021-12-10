@@ -13,7 +13,6 @@ const data = {
     'Intelligent search',
     'Filters for categories',
     'Optimistic shopping cart',
-    'CSS modules abd Tailwind for straight-forward customization',
     'Google Analytics',
   ],
   demoURL: 'https://base.vtex.app/',
