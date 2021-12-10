@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.30 (2021-12-10)
+
+**Note:** Version bump only for package @vtex/graphql-utils
+
+
+
+
+
 ## 1.3.29 (2021-12-10)
 
 **Note:** Version bump only for package @vtex/graphql-utils
