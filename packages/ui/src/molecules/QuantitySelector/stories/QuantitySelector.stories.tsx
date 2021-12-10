@@ -20,54 +20,8 @@ const MIN_QUANTITY = 1
 type QuantitySelectorCompoundProps = QuantitySelectorProps &
   QuantitySelectorButtonProps &
   QuantitySelectorInputProps
-const QuantitySelectorStylelessTemplate: Story<QuantitySelectorCompoundProps> = (
-  args
-) => {
-  const [quantity, setQuantity] = useState(MIN_QUANTITY)
 
-  function isLeftDisabled() {
-    return quantity === MIN_QUANTITY
-  }
-
-  function isRightDisabled() {
-    return quantity === MAX_QUANTITY
-  }
-
-  return (
-    <QuantitySelector
-      {...args}
-      name="quantity-selector"
-      currentValue={quantity}
-      onClick={(v) => {
-        if (v.currentTarget.name === 'quantity-selector-increase-button') {
-          setQuantity((currentQuantity) =>
-            Math.min(currentQuantity + 1, MAX_QUANTITY)
-          )
-        } else if (
-          v.currentTarget.name === 'quantity-selector-decrease-button'
-        ) {
-          setQuantity((currentQuantity) =>
-            Math.max(currentQuantity - 1, MIN_QUANTITY)
-          )
-        }
-      }}
-    >
-      <QuantitySelectorButton
-        name="quantity-selector-decrease-button"
-        icon={<MinusIcon color="#fff" />}
-        disabled={isLeftDisabled()}
-      />
-      <QuantitySelectorInput name="'quantity-selector-input'" readOnly />
-      <QuantitySelectorButton
-        name="quantity-selector-increase-button"
-        icon={<PlusIcon color="#fff" />}
-        disabled={isRightDisabled()}
-      />
-    </QuantitySelector>
-  )
-}
-
-const QuantitySelectorDefaultTemplate: Story<QuantitySelectorCompoundProps> = (
+export const QuantitySelectorDefault: Story<QuantitySelectorCompoundProps> = (
   args
 ) => {
   const [quantity, setQuantity] = useState(MIN_QUANTITY)
@@ -115,24 +69,28 @@ const QuantitySelectorDefaultTemplate: Story<QuantitySelectorCompoundProps> = (
       }}
     >
       <QuantitySelectorButton
+        aria-controls="quantity-selector-input"
         name="quantity-selector-decrease-button"
+        aria-label="Decrement"
         icon={<MinusIcon color={minusColor} />}
       />
       <QuantitySelectorInput
+        id="quantity-selector-input"
         name="quantity-selector-input"
         onChange={validateInput}
         readOnly={false}
       />
       <QuantitySelectorButton
+        aria-controls="quantity-selector-input"
         name="quantity-selector-increase-button"
+        aria-label="Increment"
         icon={<PlusIcon color={plusColor} />}
       />
     </QuantitySelector>
   )
 }
 
-export const Styleless = QuantitySelectorStylelessTemplate.bind({})
-export const DefaultStyle = QuantitySelectorDefaultTemplate.bind({})
+QuantitySelectorDefault.storyName = 'QuantitySelector'
 
 export default {
   title: 'Molecules/QuantitySelector',

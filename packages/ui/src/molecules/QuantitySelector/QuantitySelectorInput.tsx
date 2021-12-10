@@ -31,6 +31,7 @@ const QuantitySelectorInput = forwardRef<
       role="spinbutton"
       testId={testId}
       value={currentValue}
+      aria-label="Quantity Selector"
       {...otherProps}
     />
   )
