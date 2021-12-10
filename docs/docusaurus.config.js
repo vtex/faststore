@@ -2,7 +2,7 @@
 module.exports = {
   title: 'FastStore',
   tagline: 'Documentation Portal',
-  url: 'https://faststore.netlify.app',
+  url: 'https://faststore.dev',
   baseUrl: '/',
   trailingSlash: false,
   onBrokenLinks: 'throw',
@@ -184,6 +184,24 @@ module.exports = {
   ],
   plugins: [
     'docusaurus-tailwindcss-loader',
-    require.resolve('docusaurus-plugin-image-zoom')
+    require.resolve('docusaurus-plugin-image-zoom'),
+    [
+      'docusaurus-plugin-react-docgen-typescript',
+      {
+          // pass in a single string or an array of strings
+          src: ['../packages/ui/src/**/*.tsx', '!../packages/ui/src/**/*.test.*', '!../packages/ui/src/**/*.stories.*'],
+          parserOptions: {
+              // pass parserOptions to react-docgen-typescript
+              // here is a good starting point which filters all .tsx files
+              propFilter: (prop, component) => {
+                  if (prop.declarations[0]) {
+                      return prop.declarations[0].fileName.endsWith('.tsx')
+                  }
+
+                  return false;
+              },
+          },
+      },
+    ]
   ],
 };

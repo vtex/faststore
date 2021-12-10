@@ -1,4 +1,4 @@
-import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # SearchInput
 
@@ -30,31 +30,9 @@ import { SearchInput } from '@faststore/ui'
 
 ## Props
 
-<PropsComponent
-    name="onSubmit"
-    type= "(value: string) => void"
-    description="Callback function when submitted."
-    required="true"
-/>
-<PropsComponent
-    name="icon"
-    type= "ReactNode"
-    description="Custom icon inside the submit button."
-    required="true"
-/>
-<PropsComponent
-    name="aria-label"
-    type= "string"
-    description="Custom aria-label for input and button."
-/>
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-search-input"
-/>
+<PropsSection name="SearchInput" />
 
-## Customization 
+## Customization
 
 `data-store-search-input`
 

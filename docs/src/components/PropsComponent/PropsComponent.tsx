@@ -7,7 +7,6 @@ const PropsComponent = ({
   type,
   description,
   defaultValue,
-  possibleValues,
   required,
 }) => (
   <div className={styles.propsComponent}>
@@ -17,26 +16,19 @@ const PropsComponent = ({
       <code className={styles.propsType}>{type}</code>
     </div>
     <div>
-      <div className={styles.propsDetails}>
+      {description && <div className={styles.propsDetails}>
         <div className={styles.propsDetailsTitle}>Description</div>
         <div className={styles.propsDetailsDescription}>
           <p>{description}</p>
         </div>
-      </div>
-      {defaultValue ?
+      </div>}
+      {defaultValue &&
       <div className={styles.propsDetails}>
         <div className={styles.propsDetailsTitle}>Default value</div>
         <div className={styles.propsDetailsDescription}>
           <code>{defaultValue}</code>
         </div>
-      </div>: false}
-      {possibleValues ?
-      <div className={styles.propsDetails}>
-        <div className={styles.propsDetailsTitle}>Possible values</div>
-        <div className={styles.propsDetailsDescription}>
-          <code>{possibleValues}</code>
-        </div>
-      </div>: false}
+      </div>}
     </div>
   </div>
 )

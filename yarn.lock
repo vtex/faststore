@@ -13100,6 +13100,13 @@ docusaurus-plugin-image-zoom@^0.0.2:
   dependencies:
     medium-zoom "^1.0.6"
 
+docusaurus-plugin-react-docgen-typescript@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/docusaurus-plugin-react-docgen-typescript/-/docusaurus-plugin-react-docgen-typescript-0.1.0.tgz#4a377a3ee54ed898c7cc5e84787ee450ec45a62c"
+  integrity sha512-1TFBV2ouah6OA8ISJ0wgfzzYXBpfKeowyF1eTfr9KsS/6Ki98xdOei7nGgD56MHW+cg3fDm5W4UUWvO72B7KWQ==
+  dependencies:
+    globby "^11.0.0"
+
 "docusaurus-tailwindcss-loader@file:docs/plugins/docusaurus-tailwindcss-loader":
   version "0.0.0"
 
@@ -24497,6 +24504,11 @@ react-docgen-typescript@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-2.0.0.tgz#0f684350159ae4d2d556f8bc241a74669753944b"
   integrity sha512-lPf+KJKAo6a9klKyK4y8WwgaX+6t5/HkVjHOpJDMbmaXfXcV7zP0QgWtnEOc3ccEUXKvlHMGUMIS9f6Zgo1BSw==
+
+react-docgen-typescript@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-2.2.1.tgz#608ef48bd54661c2e59cc094ce5726c9e9636e30"
+  integrity sha512-ycVaidV55GOeDOKRP6PCw1i1502dElQ1KG/IInj8sOg50imG+Pmv6LY6DG2xlAF0asd8zXLcyFlWNnICKWP1LA==
 
 react-docgen@^5.0.0:
   version "5.3.1"

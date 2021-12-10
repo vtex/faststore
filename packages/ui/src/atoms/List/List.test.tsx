@@ -84,6 +84,43 @@ describe('List', () => {
     expect(getByTestId('store-list')).toBeInstanceOf(HTMLDListElement)
   })
 
+  it('should respect the HTML tag passed as "as" prop', () => {
+    const { getByTestId, rerender } = render(
+      <List variant="unordered" as="div">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toBeInstanceOf(HTMLDivElement)
+
+    rerender(
+      <List variant="ordered" as="div">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toBeInstanceOf(HTMLDivElement)
+
+    rerender(
+      <List variant="description" as="div">
+        {optionsArray.map((value, index) => {
+          return (
+            <Fragment key={index}>
+              <dt key={`${index}--term`}>{value}</dt>
+              <dd key={`${index}--details`}>option</dd>
+            </Fragment>
+          )
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toBeInstanceOf(HTMLDivElement)
+  })
+
   describe('Accessibility', () => {
     it('should have no violations when rendering the default variant', async () => {
       const { getByTestId } = render(

@@ -1,4 +1,4 @@
-import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # Popover
 
@@ -36,20 +36,7 @@ function() {
 
 ## Props
 
-<PropsComponent
-    name="targetRef"
-    type= "string"
-    description="Ref for the component initial position."
-    possibleValues="RefObject<PossibleNode>"
-    required="true"
-/>
-
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-popover"
-/>
+<PropsSection name="Popover" />
 
 ## Customization
 

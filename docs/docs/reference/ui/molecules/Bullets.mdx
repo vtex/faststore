@@ -1,4 +1,4 @@
-import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # Bullets
 
@@ -22,46 +22,7 @@ import { Bullets } from '@faststore/ui'
 
 ## Props
 
-<PropsComponent
-    name="totalQuantity"
-    type= "number"
-    description="Number of bullets that should be rendered."
-    required="true"
-/>
-<PropsComponent
-    name="activeBullet"
-    type= "number"
-    description="The currently active bullet (zero-indexed)."
-    required="true"
-/>
-<PropsComponent
-    name="onClick"
-    type= "(e: MouseEvent<Element, MouseEvent>, bulletIdx: number) => void"
-    description="Event handler for clicks on each bullet. The handler will be called with the index of the bullet that received the click."
-    required="true"
-/>
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-bullets"
-/>
-<PropsComponent
-    name="ariaLabelGenerator"
-    type= "((index: number, isActive: boolean) => string)"
-    description="Function that should be used to generate the aria-label attribute added to each bullet that is inactive. It receives the bullet index as an argument so that it can be interpolated in the generated string."
-    defaultValue="(idx: number, isActive: boolean) => isActive ? 'Current page' : `Go to page ${idx + 1}`"
-/><PropsComponent
-    name="ariaControlsGenerator"
-    type= "((index: number) => string)"
-    description="Function that should be used to generate the aria-controls attribute added to each bullet. It receives the bullet index as argument and should return a string."
-/>
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-bullets"
-/>
+<PropsSection name="Bullets" />
 
 ## Customization
 

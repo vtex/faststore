@@ -1,4 +1,4 @@
-import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # Table
 
@@ -94,72 +94,25 @@ All table-related components support all attributes also supported by their resp
 
 ### Table
 
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-table"
-/>
-
-### TableHead
-
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-table-head"
-/>
+<PropsSection name="Table" />
 
 ### TableBody
 
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-table-body"
-/>
+<PropsSection name="TableBody" />
 
 ### TableRow
 
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-table-row"
-/>
+<PropsSection name="TableRow" />
 
 ### TableFooter
 
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-table-footer"
-/>
+<PropsSection name="TableFooter" />
 
 ### TableCell
 
-<PropsComponent
-    name="variant"
-    type= "string"
-    description="Specify if this component should be rendered as a header (<th>) or as a data cell (<td>)."
-    defaultValue="data"
-    possibleValues="data | header"
-/>
-<PropsComponent
-    name="scope"
-    type= "string"
-    description="	Defines the cells that the header element (<th>) relates to.."
-    possibleValues="col | row | rowgroup | colgroup"
-/>
-<PropsComponent
-    name="testId"
-    type= "string"
-    description="ID to find this component in testing tools (e.g.: cypress, testing library, and jest)."
-    defaultValue="store-table-cell"
-/>
+<PropsSection name="TableCell" />
 
-## Customization 
+## Customization
 
 `data-store-table`
 
