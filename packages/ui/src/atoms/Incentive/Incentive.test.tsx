@@ -1,4 +1,4 @@
-import { render, cleanup } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import React from 'react'
 
@@ -21,8 +21,6 @@ describe('Incentive', () => {
 
     incentive = getByTestId('store-incentive')
   })
-
-  afterEach(cleanup)
 
   describe('Data attributes', () => {
     it('should have `data-store-incentive` attribute', () => {
