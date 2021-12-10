@@ -31,7 +31,7 @@ const Link: LinkComponent = forwardRef(function Link<
   const Component = as ?? 'a'
 
   return (
-    <Component ref={ref} data-store-link testId={testId} {...otherProps}>
+    <Component ref={ref} data-store-link data-testid={testId} {...otherProps}>
       {children}
     </Component>
   )
