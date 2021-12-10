@@ -156,7 +156,7 @@ module.exports = {
               to: '/starters',
             },
             {
-              label: 'Frequently asked question',
+              label: 'Frequently asked questions',
               to: '/faq',
             },
             {
