@@ -13,10 +13,10 @@ const PropsSection = ({ name }) => {
   return Object.keys(props).map(key => (
     <PropsComponent
       name={key}
-      required={props[key].required}
       type={props[key].type?.name}
       defaultValue={props[key].defaultValue?.value ?? null}
       description={props[key].description}
+      required={props[key].required}
     />
   ))
 };
