@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.34 (2021-12-11)
+
+
+### Bug Fixes
+
+* **docs:** Fix algolia search ([#1078](https://github.com/vtex/faststore/issues/1078)) ([986074f](https://github.com/vtex/faststore/commit/986074f061365d812650a82748ca5a9fc1dac6d5))
+
+
+
+
+
 ## 1.3.33 (2021-12-10)
 
 **Note:** Version bump only for package @faststore/ui
