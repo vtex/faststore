@@ -1,10 +1,10 @@
 {
     "index_name": "devportal",
     "start_urls": [
-      "https://faststore-docs.netlify.app/"
+      "https://faststore.dev/"
     ],
     "sitemap_urls": [
-      "https://faststore-docs.netlify.app/sitemap.xml"
+      "https://faststore.dev/sitemap.xml"
     ],
     "sitemap_alternate_links": true,
     "stop_urls": [

@@ -112,9 +112,9 @@ module.exports = {
       ],
     },
     algolia: {
-      apiKey: '79744e3bf4fb1dc69e0d119fef45b387',
-      indexName: 'netlify_dbea2a80-1c6e-4ef0-97b2-556116ab4476_master_all',
-      appId: 'ZPZLI8RWVM',
+      apiKey: 'b569ca818413cccb8e41edbcb1dd5161',
+      indexName: 'devportal',
+      appId: 'OAXP53H7GY',
     },
     footer: {
       logo: {
