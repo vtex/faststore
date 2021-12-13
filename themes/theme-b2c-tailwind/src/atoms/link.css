@@ -7,5 +7,5 @@ div[data-store-link] {
 }
 
 [data-store-link] a {
-  @apply whitespace-nowrap max-w-min px-2 py-1 mt-2 rounded border-2 border-green-100 bg-green-100 text-sm;
+  @apply whitespace-nowrap max-w-min px-2 py-1 mt-2 underline;
 }
