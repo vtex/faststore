@@ -1,6 +1,5 @@
 import type { Story, Meta } from '@storybook/react'
 import React from 'react'
-import type { MouseEvent } from 'react'
 
 // Atoms
 import Price from '../../../atoms/Price'
@@ -12,7 +11,6 @@ import CardImage from '../CardImage'
 import CardContent from '../CardContent'
 import CardActions from '../CardActions'
 import type { CardProps } from '../Card'
-import type { ComponentArgTypes } from '../../../typings/utils'
 import mdx from './Card.mdx'
 
 const CardTemplate: Story<CardProps> = ({ testId }) => {
