@@ -76,6 +76,14 @@ describe('Modal WAI-ARIA Specifications', () => {
     )
 
     expect(await axe(document.body)).toHaveNoViolations()
+    // This is disabled because the useTrapFocus use sentinel div elements
+    // with tabindex and aria-hidden true. This is intentionally, because
+    // these divs shouldn't be considered to accessibility API.
+    expect(
+      await axe(document.body, {
+        rules: { 'aria-hidden-focus': { enabled: false } },
+      })
+    ).toHaveNoIncompletes()
   })
 
   it('Focus first element', () => {
