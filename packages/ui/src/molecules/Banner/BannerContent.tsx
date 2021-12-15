@@ -1,8 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export interface BannerContentProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
+export interface BannerContentProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -17,7 +16,6 @@ const BannerContent = forwardRef<HTMLDivElement, BannerContentProps>(
     return (
       <div
         ref={ref}
-        role="region"
         data-store-banner-content
         data-testid={testId}
         {...otherProps}
