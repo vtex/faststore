@@ -42,6 +42,7 @@ describe('Link', () => {
   describe('Accessibility', () => {
     it('`Link` should have no violations', async () => {
       expect(await axe(document.body)).toHaveNoViolations()
+      expect(await axe(document.body)).toHaveNoIncompletes()
     })
   })
 })
