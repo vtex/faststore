@@ -3,7 +3,6 @@
 import { render } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import React from 'react'
-import type { ElementType } from 'react'
 
 import type { LinkProps } from '.'
 import LinkComponent from '.'
@@ -27,14 +26,18 @@ describe('Link', () => {
     it('`Link` should receive a custom component', () => {
       const { getByTestId } = render(
         <LinkComponent
-          as={(props: ElementType) => (
-            <div {...props} data-testid="container">
-              <a href="/">Link</a>
-            </div>
-          )}
+          href="/"
+          as={(props: { href: string }) => {
+            return (
+              <div {...props} data-testid="container">
+                <a href={props.href}>Link</a>
+              </div>
+            )
+          }}
         />
       )
 
+      expect(getByTestId('container')).toHaveAttribute('href', '/')
       expect(getByTestId('container')).toHaveAttribute('data-store-link')
     })
   })
