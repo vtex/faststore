@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.36 (2021-12-15)
+
+
+### Bug Fixes
+
+* expose JS files only ([#1081](https://github.com/vtex/faststore/issues/1081)) ([e363c12](https://github.com/vtex/faststore/commit/e363c120f22b10da81ceb3e2d8fcc58c1b4665af))
+
+
+
+
+
 ## 1.3.35 (2021-12-14)
 
 **Note:** Version bump only for package @faststore/api

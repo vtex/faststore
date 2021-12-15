@@ -1,6 +1,6 @@
 {
   "name": "@vtex/renovate-config",
-  "version": "1.3.35",
+  "version": "1.3.36",
   "description": "A plugin that holds the Renovate preset config for updating VTEX dependencies in our stores",
   "author": "VTEX",
   "license": "MIT",
