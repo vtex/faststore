@@ -128,6 +128,18 @@ export { default as Alert } from './molecules/Alert'
 export type { AlertProps } from './molecules/Alert'
 
 // Organisms
+export {
+  default as Card,
+  CardImage,
+  CardContent,
+  CardActions,
+} from './organisms/Card'
+export type {
+  CardProps,
+  CardImageProps,
+  CardContentProps,
+  CardActionsProps,
+} from './organisms/Card'
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
