@@ -65,7 +65,7 @@ export const toHaveNoIncompletes = {
 declare global {
   // eslint-disable-next-line
   namespace jest {
-    interface Matchers<R, T> {
+    interface Matchers<R> {
       toHaveNoIncompletes(): R
     }
   }
