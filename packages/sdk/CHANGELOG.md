@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.37 (2021-12-15)
+
+
+### Features
+
+* **ui:** Card component ([#1079](https://github.com/vtex/faststore/issues/1079)) ([7f10a5d](https://github.com/vtex/faststore/commit/7f10a5dcec21f7c9d59ba645755fe298e96269df))
+
+
+
+
+
 ## 1.3.36 (2021-12-15)
 
 
