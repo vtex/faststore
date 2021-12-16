@@ -1,9 +1,4 @@
-import type {
-  AriaAttributes,
-  ReactNode,
-  InputHTMLAttributes,
-  MouseEventHandler,
-} from 'react'
+import type { InputHTMLAttributes } from 'react'
 import React from 'react'
 
 import type { InputProps } from '../../atoms/Input'
