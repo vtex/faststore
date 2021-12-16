@@ -6,7 +6,7 @@ const data = [
   {
     question: "What is FastStore?",
     answer: `
-FastStore is a full-stack toolkit composed of three independent packages <strong>(UI, SDK, and API)</strong> that help you create performant ecommerce experiences. Use <strong>FastStore UI</strong> to add accessibility-ready components to your ecommerce, <strong>FastStore SDK</strong> to manage the states related to your store behavior, and <strong>FastStore API</strong> to connect to your favorite ecommerce platform. Notice that you can use these three packages individually or combined with other solutions on the web. <br/><br/><em>Please refer to <a href="/reference/overview">our documentation</a> for more information.</em>
+FastStore is a full-stack toolkit composed of three independent packages <strong>(UI, SDK, and API)</strong> that help you create performant ecommerce experiences. Use <strong>FastStore UI</strong> to add accessibility-ready components to your ecommerce, <strong>FastStore SDK</strong> to manage the states related to your store behavior, and <strong>FastStore API</strong> to connect to your favorite ecommerce platform. Notice that you can use these three packages individually or combined with other solutions on the web. <br/><br/><em>Please refer to <a href="/reference/faststore">our documentation</a> for more information.</em>
     `,
   },
   {

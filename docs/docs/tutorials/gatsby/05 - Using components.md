@@ -18,7 +18,7 @@ Let's now discover and use some of the components of **FastStore UI**.
 
 ## Before you start
 
-In this tutorial, you'll use [**FastStore UI**](/reference/ui/overview). FastStore UI is already installed in your project and you can start using it straight away.
+In this tutorial, you'll use [**FastStore UI**](/reference/ui/faststore-ui). FastStore UI is already installed in your project and you can start using it straight away.
  
 :::info
 Both Gatsby and FastStore are not strict to any React framework. If you prefer, you can uninstall `@faststore/ui` and pick any React library of your preference. Unfortunately, many component libraries out there are not built with performance as a priority. Components are bloated and framework-dependent, leading to larger bundle sizes and loading times. That's why we highly recommend using **FastStore UI**.
@@ -28,7 +28,7 @@ Both Gatsby and FastStore are not strict to any React framework. If you prefer, 
 
 ## Getting started with FastStore UI
 
-FastStore UI library follows the Atomic Design pattern. Atomic Design breaks user interfaces hierarchically into smaller and simpler components. There are five distinct levels in Atomic design: atoms, molecules, organisms, templates, and pages. This is why you will see atoms and molecules as headers in [FastStore UI Reference documentation](/reference/ui/overview). The image below can be used as a visual overview of how different UI elements are grouped together in Atomic Design:
+FastStore UI library follows the Atomic Design pattern. Atomic Design breaks user interfaces hierarchically into smaller and simpler components. There are five distinct levels in Atomic design: atoms, molecules, organisms, templates, and pages. This is why you will see atoms and molecules as headers in [FastStore UI Reference documentation](/reference/ui/faststore-ui). The image below can be used as a visual overview of how different UI elements are grouped together in Atomic Design:
 
 ![atomic-design](/img/tutorials/gatsby/atomic-design.png)
 
@@ -41,7 +41,7 @@ FastStore UI library follows the Atomic Design pattern. Atomic Design breaks use
 The Atomic Design classifies components according to their level of abstraction and reusability. For example, a page is not reusable and does not appear more than once in an app. On the other hand, simpler components, such as atoms, molecules, and organisms may appear multiple times in the same app.
 
 :::tip
-Check the documentation of all components availalble in the FastStore UI [here](/reference/ui/overview).
+Check the documentation of all components availalble in the FastStore UI [here](/reference/ui/faststore-ui).
 :::
 
 ## Adding components to the Homepage
@@ -117,4 +117,4 @@ Now, you're probably wondering how to add styles and make this carousel section 
 
 ## Related resources
 
-- [FastStore UI Reference](/reference/ui/overview)
+- [FastStore UI Reference](/reference/ui/faststore-ui)
