@@ -1,10 +1,7 @@
-[data-store-quantity-selector-input] {
+[data-quantity-selector-input] {
 }
 
-[data-store-quantity-selector-button] {
-}
-
-[data-store-icon] {
+[data-quantity-selector-button] {
 }
 
 [data-store-quantity-selector] {
@@ -14,15 +11,15 @@
   @apply m-0;
 }
 
-.quantitySelector [data-store-quantity-selector-input]:focus-visible {
+.quantitySelector [data-quantity-selector-input]:focus-visible {
   @apply outline-none;
 }
 
-.quantitySelector [data-store-quantity-selector-input] {
+.quantitySelector [data-quantity-selector-input] {
   @apply text-center bg-transparent w-full h-full border-0 p-0;
 }
 
-.quantitySelector [data-store-quantity-selector-button] {
+.quantitySelector [data-quantity-selector-button] {
   @apply bg-transparent w-full h-full p-0 flex items-center justify-center;
 }
 

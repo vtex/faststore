@@ -6,88 +6,76 @@ import type {
 } from 'react'
 import React from 'react'
 
+import type { InputProps } from '../../atoms/Input'
 import Input from '../../atoms/Input'
+import type { IconButtonProps } from '../IconButton'
 import IconButton from '../IconButton'
-import { PlusIcon, MinusIcon } from './stories/assets/Icons'
 
 export interface QuantitySelectorProps
-  extends InputHTMLAttributes<HTMLInputElement> {
-  /**
-   * Returns the value of element's class content attribute.
-   */
-  className?: string
+  extends InputHTMLAttributes<HTMLDivElement> {
   /**
    * Sets the current value that should be displayed on the input at the center of the quantity selector.
    */
   quantity: number | string
+
   /**
-   * Callback for handling the onClick event - triggered when the left IconButton of the quantity selector is pressed.
+   * Object with properties that will be passed forward the inner IconButton atom at the left of the input.
    */
-  onClickLeft?: MouseEventHandler<HTMLButtonElement>
+  leftButtonProps: IconButtonProps
+
   /**
-   * Callback for handling the onClick event - triggered when the right IconButton of the quantity selector is pressed.
+   * Object with properties that will be passed forward the inner Input atom between the two buttons.
    */
-  onClickRight?: MouseEventHandler<HTMLButtonElement>
+  inputProps: InputProps
+
   /**
-   * Sets the disabled state of the left IconButton of the quantity selector.
+   * Object with properties that will be passed forward the inner IconButton atom at the right of the input.
    */
-  leftDisabled?: boolean
-  /**
-   * Sets the disabled state of the right IconButton of the quantity selector.
-   */
-  rightDisabled?: boolean
-  /**
-   * A React component that will be rendered in the IconButton at the left of the input.
-   */
-  leftIcon?: ReactNode
-  /**
-   * A React component that will be rendered in the IconButton at the right of the input.
-   */
-  rightIcon?: ReactNode
+  rightButtonProps: IconButtonProps
+
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    *
    * @default 'store-quantity-selector'
    */
   testId?: string
-
-  'aria-label'?: AriaAttributes['aria-label']
 }
 
 const QuantitySelector = ({
   quantity,
-  onClickLeft,
-  onClickRight,
-  leftDisabled,
-  rightDisabled,
-  leftIcon = <MinusIcon color="#fff" />,
-  rightIcon = <PlusIcon color="#fff" />,
   className,
   testId = 'store-quantity-selector',
-  ...otherProps
+  leftButtonProps,
+  inputProps,
+  rightButtonProps,
+  ...otherDivProps
 }: QuantitySelectorProps) => {
   return (
     <div
+      aria-label="Quantity Selector"
+      className={className}
       data-store-quantity-selector
       data-testid={testId}
-      className={className}
+      {...otherDivProps}
     >
       <IconButton
-        data-store-quantity-selector-button="left"
-        icon={leftIcon}
-        onClick={onClickLeft}
-        disabled={leftDisabled}
+        aria-controls="quantity-selector-input"
+        aria-label="Decrement Quantity"
+        data-quantity-selector-button="left"
+        {...leftButtonProps}
       />
       <Input
-        data-store-quantity-selector-input
+        aria-label="Quantity"
+        data-quantity-selector-input
+        id="quantity-selector-input"
         value={quantity}
-        {...otherProps}
+        {...inputProps}
       />
       <IconButton
-        data-store-quantity-selector-button="right"
-        icon={rightIcon}
-        onClick={onClickRight}
-        disabled={rightDisabled}
+        aria-controls="quantity-selector-input"
+        aria-label="Increment Quantity"
+        data-quantity-selector-button="right"
+        {...rightButtonProps}
       />
     </div>
   )

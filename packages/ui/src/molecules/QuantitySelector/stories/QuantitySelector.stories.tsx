@@ -8,42 +8,8 @@ import mdx from './QuantitySelector.mdx'
 
 const MAX_QUANTITY = 10
 const MIN_QUANTITY = 1
-const QuantitySelectorStylelessTemplate: Story<QuantitySelectorProps> = (_) => {
-  const [quantity, setQuantity] = useState(MIN_QUANTITY)
 
-  function increase() {
-    setQuantity((currentQuantity) =>
-      Math.min(currentQuantity + 1, MAX_QUANTITY)
-    )
-  }
-
-  function decrease() {
-    setQuantity((currentQuantity) =>
-      Math.max(currentQuantity - 1, MIN_QUANTITY)
-    )
-  }
-
-  function isLeftDisabled() {
-    return quantity === MIN_QUANTITY
-  }
-
-  function isRightDisabled() {
-    return quantity === MAX_QUANTITY
-  }
-
-  return (
-    <Component
-      quantity={quantity}
-      onClickLeft={decrease}
-      onClickRight={increase}
-      leftDisabled={isLeftDisabled()}
-      rightDisabled={isRightDisabled()}
-      readOnly
-    />
-  )
-}
-
-const QuantitySelectorDefaultTemplate: Story<QuantitySelectorProps> = (_) => {
+export const QuantitySelector: Story<QuantitySelectorProps> = () => {
   const [quantity, setQuantity] = useState(MIN_QUANTITY)
 
   function increase() {
@@ -82,20 +48,25 @@ const QuantitySelectorDefaultTemplate: Story<QuantitySelectorProps> = (_) => {
     <Component
       className="quantitySelector"
       quantity={quantity}
-      onClickLeft={decrease}
-      onClickRight={increase}
-      leftDisabled={isLeftDisabled()}
-      rightDisabled={isRightDisabled()}
-      rightIcon={<PlusIcon color={isRightDisabled() ? '#898F9E' : '#2953B2'} />}
-      leftIcon={<MinusIcon color={isLeftDisabled() ? '#898F9E' : '#2953B2'} />}
-      onChange={validateInput}
-      readOnly={false}
+      leftButtonProps={{
+        onClick: decrease,
+        disabled: isLeftDisabled(),
+        icon: <MinusIcon color={isLeftDisabled() ? '#898F9E' : '#2953B2'} />,
+      }}
+      rightButtonProps={{
+        onClick: increase,
+        disabled: isRightDisabled(),
+        icon: <PlusIcon color={isRightDisabled() ? '#898F9E' : '#2953B2'} />,
+      }}
+      inputProps={{
+        onChange: validateInput,
+        readOnly: false,
+      }}
     />
   )
 }
 
-export const Styleless = QuantitySelectorStylelessTemplate.bind({})
-export const DefaultStyle = QuantitySelectorDefaultTemplate.bind({})
+QuantitySelector.storyName = 'QuantitySelector'
 
 export default {
   title: 'Molecules/QuantitySelector',
