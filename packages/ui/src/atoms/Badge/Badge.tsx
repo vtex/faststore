@@ -10,11 +10,11 @@ export interface BadgeProps {
 }
 
 const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
-  { testId = 'store-badge', children }: BadgeProps,
+  { testId = 'store-badge', children, ...otherProps }: BadgeProps,
   ref
 ) {
   return (
-    <div ref={ref} data-testid={testId} data-store-badge>
+    <div ref={ref} data-store-badge data-testid={testId} {...otherProps}>
       {children}
     </div>
   )
