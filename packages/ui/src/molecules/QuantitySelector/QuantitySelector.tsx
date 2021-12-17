@@ -38,7 +38,6 @@ export interface QuantitySelectorProps
 
 const QuantitySelector = ({
   quantity,
-  className,
   testId = 'store-quantity-selector',
   leftButtonProps,
   inputProps,
@@ -48,7 +47,6 @@ const QuantitySelector = ({
   return (
     <div
       aria-label="Quantity Selector"
-      className={className}
       data-store-quantity-selector
       data-testid={testId}
       {...otherDivProps}

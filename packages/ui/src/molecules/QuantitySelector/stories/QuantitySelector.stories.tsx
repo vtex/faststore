@@ -46,7 +46,6 @@ export const QuantitySelector: Story<QuantitySelectorProps> = () => {
 
   return (
     <Component
-      className="quantitySelector"
       quantity={quantity}
       leftButtonProps={{
         onClick: decrease,
