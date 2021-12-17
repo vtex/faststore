@@ -107,7 +107,7 @@ module.exports = {
           label: 'Search',
           collapsed: true,
           items: [
-            'reference/sdk/faststore-sdk',
+            'reference/sdk/overview',
             'reference/sdk/Analytics',
             'reference/sdk/Cart',
             {
