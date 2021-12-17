@@ -1,5 +1,3 @@
-// Just to test with elements without 'href' attribute
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { render } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import React from 'react'
@@ -29,16 +27,18 @@ describe('Link', () => {
           href="/"
           as={(props: { href: string }) => {
             return (
-              <div {...props} data-testid="container">
-                <a href={props.href}>Link</a>
+              <div {...props}>
+                <a data-testid="custom-anchor" href={props.href}>
+                  Link
+                </a>
               </div>
             )
           }}
         />
       )
 
-      expect(getByTestId('container')).toHaveAttribute('href', '/')
-      expect(getByTestId('container')).toHaveAttribute('data-store-link')
+      expect(getByTestId('custom-anchor')).toHaveAttribute('href', '/')
+      expect(getByTestId('store-link')).toHaveAttribute('data-store-link')
     })
   })
 
