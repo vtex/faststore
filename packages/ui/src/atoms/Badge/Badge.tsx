@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export interface BadgeProps {
+export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
