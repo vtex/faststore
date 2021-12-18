@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.40 (2021-12-18)
+
+
+### Features
+
+* **ui:** Link atom ([#1067](https://github.com/vtex/faststore/issues/1067)) ([c49b2dd](https://github.com/vtex/faststore/commit/c49b2ddc31ba4184bed19a8934fbf4d5f0b47a5f))
+
+
+
+
+
 ## 1.3.39 (2021-12-17)
 
 **Note:** Version bump only for package @vtex/gatsby-source-store
