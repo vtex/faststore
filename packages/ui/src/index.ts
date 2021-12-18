@@ -1,4 +1,7 @@
 // Atoms
+export { default as Link } from './atoms/Link'
+export type { LinkProps } from './atoms/Link'
+
 export { default as Button } from './atoms/Button'
 export type { ButtonProps } from './atoms/Button'
 
