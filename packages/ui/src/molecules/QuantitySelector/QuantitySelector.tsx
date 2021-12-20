@@ -42,14 +42,14 @@ const QuantitySelector = ({
   leftButtonProps,
   inputProps,
   rightButtonProps,
-  ...otherDivProps
+  ...otherProps
 }: QuantitySelectorProps) => {
   return (
     <div
       aria-label="Quantity Selector"
       data-store-quantity-selector
       data-testid={testId}
-      {...otherDivProps}
+      {...otherProps}
     >
       <IconButton
         aria-controls="quantity-selector-input"
