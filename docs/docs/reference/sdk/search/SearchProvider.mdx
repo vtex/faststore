@@ -2,7 +2,7 @@ import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
 
 # SearchProvider
 
-SearchContext provider for Faceted Search
+`SearchProvider` is a React component that wraps an entire page, such as a product listing page, in a way to provide the necessary context for the Faceted Search.
 
 ## Import
 
@@ -31,37 +31,37 @@ import { SearchProvider } from '@faststore/sdk'
 <PropsComponent
     name="onChange"
     type="(url: URL) => void"
-    description="Callback function when the search state is changed"
+    description="Callback function responsible for handling changes in the facet state."
 />
 
 <PropsComponent
     name="itemsPerPage"
     type="number"
-    description="Number of items in a given page"
+    description="Number of product items displayed on a given page."
 />
 
 <PropsComponent
     name="sort"
     type="SearchSort"
-    description="Ordering of search results"
+    description="Sorting criteria of the search result (e.g., price_asc, orders_desc, discount_desc, etc.)."
 />
 
 <PropsComponent
     name="term"
     type="string | null"
-    description="Full text term used on the search"
+    description="Full-text term used on the search."
 />
 
 <PropsComponent
     name="page"
     type="number"
-    description="Current page index of search pagination"
+    description="Current page index of search pagination."
 />
 
 <PropsComponent
     name="base"
     type="string"
-    description="Base path of the search page. Usefull when dealing with localization and prefixing paths by the locale, e.g.: /pt-br/"
+    description="Base URL path of the search page. Useful when dealing with localization and prefixing paths by locale (e.g., /pt-br/)."
 />
 
 <PropsComponent

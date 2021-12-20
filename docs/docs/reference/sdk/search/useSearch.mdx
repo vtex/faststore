@@ -2,7 +2,7 @@ import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
 
 # useSearch
 
-This hook allows you to consume `SearchContext`. This context allows you to apply changes to the search state as well as consume its values
+The `useSearch` hook consumes the search context provided by the `SearchProvider` component. You can use this context to change the search state and consume its values.
 
 ## Import
 
@@ -54,7 +54,7 @@ function Component () {
 <PropsComponent
     name="itemsPerPage"
     type="number"
-    description="Number of items in a search page"
+    description="Number of items per page."
 />
 
 <PropsComponent
@@ -66,35 +66,37 @@ function Component () {
 <PropsComponent
     name="setSort"
     type="(sort: SearchSort) => void"
-    description="Set the sorting option of the search"
+    description="Sets the sorting criteria of the search results."
 />
 
 <PropsComponent
     name="setTerm"
     type="(term: string | null) => void"
-    description="Set the full text term"
+    description="Sets the full-text term."
 />
 
 <PropsComponent
     name="setPage"
     type="(page: number) => void"
-    description="Set the current page on search pagination"
+    description="Sets the current page on search pagination."
 />
 
 <PropsComponent
     name="setFacet"
     type="(facet: Facet, unique?: boolean) => void"
-    description="Select a facet"
+    description="Selects a specific facet."
 />
 
 <PropsComponent
   name="removeFacet"
   type="(facet: Facet) => void"
+  description="Removes a specific facet."
 />
 
 <PropsComponent
   name="toggleFacet"
   type="(facet: Facet) => void"
+  description="Replaces a specific facet."
 />
 
 <PropsComponent
@@ -105,11 +107,11 @@ function Component () {
 <PropsComponent
   name="addPrevPage"
   type="() => void"
-  description="Prepend a page to infinite scroll pagination"
+  description="Prepends a page to the infinite scroll pagination."
 />
 
 <PropsComponent
   name="addNextPage"
   type="() => void"
-  description="Append a page to infinite scroll pagination"
+  description="Appends a page to the infinite scroll pagination."
 />

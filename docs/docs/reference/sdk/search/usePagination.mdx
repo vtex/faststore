@@ -2,8 +2,7 @@ import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
 
 # usePagination
 
-This hooks gives you the links to next/prev pages on the search pagination.
-This is helpfull for creating pagination markers like `<link rel="next"/>` and `<link rel="prev"/>` tags and buttons in the UI
+The `usePagination` hook provides the pagination links (i.e., `next`/`prev`) of a search result. You can use the `rel="next"` and `rel="prev"` links along with the `<link />` tag to add navigation buttons to your search result pages.
 
 ## Import
 
@@ -30,18 +29,18 @@ function Component () {
 ## Props
 <PropsComponent
   type="number"
-  description="Total number of products in the search result"
+  description="Total number of products returned by the search query."
 />
 
 ## Return
 <PropsComponent
     name="prev"
     type="{ cursor: number; link: string} | false"
-    description="Link and cursor for previous page on search pagination"
+    description="Cursor position and corresponding link for the previous page of the search result."
 />
 
 <PropsComponent
     name="next"
     type="{ cursor: number; link: string} | false"
-    description="Link and cursor for next page on search pagination"
+    description="Cursor position and corresponding link for the next page of the search result."
 />
