@@ -50,7 +50,6 @@ const QuantitySelector = forwardRef<HTMLDivElement, QuantitySelectorProps>(
   ) {
     return (
       <div
-        aria-label="Quantity Selector"
         data-store-quantity-selector
         data-testid={testId}
         ref={ref}
