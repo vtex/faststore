@@ -1,4 +1,7 @@
 // Atoms
+export { default as Link } from './atoms/Link'
+export type { LinkProps } from './atoms/Link'
+
 export { default as Button } from './atoms/Button'
 export type { ButtonProps } from './atoms/Button'
 
@@ -46,6 +49,9 @@ export type { SpinnerProps } from './atoms/Spinner'
 
 export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
+
+export { default as Incentive } from './atoms/Incentive'
+export type { IncentiveProps } from './atoms/Incentive'
 
 // Molecules
 export { default as Bullets } from './molecules/Bullets'

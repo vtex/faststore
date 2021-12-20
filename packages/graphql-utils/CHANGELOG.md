@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.41 (2021-12-20)
+
+
+### Features
+
+* **ui:** Incentive atom ([#1064](https://github.com/vtex/faststore/issues/1064)) ([1b136c7](https://github.com/vtex/faststore/commit/1b136c7d7fc8f2b99259ef1908286713697e03da))
+
+
+
+
+
+## 1.3.40 (2021-12-18)
+
+
+### Features
+
+* **ui:** Link atom ([#1067](https://github.com/vtex/faststore/issues/1067)) ([c49b2dd](https://github.com/vtex/faststore/commit/c49b2ddc31ba4184bed19a8934fbf4d5f0b47a5f))
+
+
+
+
+
+## 1.3.39 (2021-12-17)
+
+**Note:** Version bump only for package @vtex/graphql-utils
+
+
+
+
+
 ## 1.3.38 (2021-12-16)
 
 **Note:** Version bump only for package @vtex/graphql-utils
