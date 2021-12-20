@@ -1,8 +1,4 @@
----
-id: overview
----
-
-# Usage
+# FastStore SDK
 
 :::caution WIP
 This documentation is currently under development.
@@ -12,7 +8,7 @@ A simple, framework agnostic implementation of Commerce APIs to help you create 
 
 [![NPM](https://img.shields.io/npm/v/@faststore/sdk.svg)](https://www.npmjs.com/package/@faststore/sdk) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-## Install
+## Installation
 
 ```bash
 yarn add @faststore/sdk

@@ -10,9 +10,12 @@
 }
 
 .playgroundPreview {
-  @apply p-4 border rounded-md bg-white;
+  @apply p-4 border rounded-md bg-white overflow-hidden;
 }
 
+.playgroundPreview article, .playgroundPreview article img {
+  @apply m-0 overflow-hidden;
+}
 .playgroundControls {
   @apply float-right;
 }

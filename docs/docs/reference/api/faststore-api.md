@@ -1,8 +1,4 @@
----
-id: overview
----
-
-# Usage 
+# FastStore API
 
 :::caution WIP
 This documentation is currently under development.

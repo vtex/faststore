@@ -1,0 +1,38 @@
+/* Cards with icons */
+.homeGrid > * {
+  @apply relative m-0 border rounded-lg;
+}
+
+.homeGrid a {
+  @apply block text-text pl-24 py-6 pr-8;
+}
+
+.homeGrid > *:active,
+.homeGrid > *:hover {
+  @apply border-seriousBlack;
+}
+.homeGrid a:active,
+.homeGrid a:hover {
+  @apply no-underline;
+}
+
+.homeGrid a img {
+  @apply absolute border-0 bg-transparent rounded-none top-5 left-6 h-8;
+}
+
+.homeGrid a strong {
+  @apply block mb-2 text-xl;
+  color: var(--ifm-color-label);
+}
+
+/* Make grids responsive*/
+@media only screen and (min-width: 1240px) {
+  .homeGrid {
+    @apply grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
+  }
+  .homeGrid p:last-child{
+      @apply mb-8
+  }
+}

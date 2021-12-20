@@ -25,7 +25,7 @@ import UpdatesSection from "@site/src/pages/sections/UpdatesSection/UpdatesSecti
 
 [ **How-to Guides** Solve real-world issues by following our goal-oriented step-by-step guides.](/how-to-guides/overview)
 
-[**Reference** Check the technical descriptions of a storefront project and Faststore's SDKs, APIs.](/reference/overview)
+[**Reference** Check the technical descriptions of a storefront project and Faststore's SDKs, APIs.](/reference/faststore)
 
 [**Concepts** Dive into our core concepts and build a comprehensive understanding of the project.](/conceptual-guides/overview)
 

@@ -20,7 +20,7 @@ module.exports = {
   },
   themeConfig: {
     zoom: {
-      selector: '.markdown :not(em) > img',
+      selector: '.markdown :not(a) > img',
       config: {
         // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
         background: {
@@ -67,7 +67,7 @@ module.exports = {
         },
         {
           type: 'doc',
-          docId: 'reference/overview',
+          docId: 'reference/faststore',
           position: 'left',
           label: 'References',
         },
@@ -91,7 +91,7 @@ module.exports = {
         },
         {
           type: 'dropdown',
-          label: 'Other links',
+          label: 'More',
           position: 'right',
           items: [
             {
@@ -140,7 +140,7 @@ module.exports = {
             },
             {
               label: 'References',
-              to: '/reference/overview',
+              to: '/reference/faststore',
             },
             {
               label: 'Concepts',
@@ -186,6 +186,9 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+          ],
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           // Please change this to your repo.

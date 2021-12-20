@@ -8,7 +8,6 @@
 
 .propsName {
   @apply bg-white p-0 border-none font-bold;
-  font-size:14px!important;
 }
 
 .propsRequired{
