@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.43 (2021-12-20)
+
+
+### Features
+
+* QuantitySelector component ([#1083](https://github.com/vtex/faststore/issues/1083)) ([6ade6c0](https://github.com/vtex/faststore/commit/6ade6c02b06fdb74ba2cd2978d8ac4bda35672d2))
+
+
+
+
+
 ## 1.3.42 (2021-12-20)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-onesignal
