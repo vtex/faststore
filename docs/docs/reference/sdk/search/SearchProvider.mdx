@@ -13,6 +13,8 @@ import { SearchProvider } from '@faststore/sdk'
 ## Usage
 
 ```tsx
+import { SearchProvider, parseSearchState } from '@faststore/sdk'
+
 function Page () {
   const params = useMemo(() => parseSearchState(new URL(window.href)), [])
 
