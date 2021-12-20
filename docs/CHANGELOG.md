@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.41 (2021-12-20)
+
+
+### Features
+
+* **ui:** Incentive atom ([#1064](https://github.com/vtex/faststore/issues/1064)) ([1b136c7](https://github.com/vtex/faststore/commit/1b136c7d7fc8f2b99259ef1908286713697e03da))
+
+
+
+
+
 ## 1.3.40 (2021-12-18)
 
 
