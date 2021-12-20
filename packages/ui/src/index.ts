@@ -133,6 +133,9 @@ export type { FormProps } from './molecules/Form'
 export { default as Alert } from './molecules/Alert'
 export type { AlertProps } from './molecules/Alert'
 
+export { default as QuantitySelector } from './molecules/QuantitySelector'
+export type { QuantitySelectorProps } from './molecules/QuantitySelector'
+
 // Organisms
 export {
   default as Card,

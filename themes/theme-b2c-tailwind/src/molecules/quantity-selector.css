@@ -1,0 +1,29 @@
+[data-store-quantity-selector] [data-store-icon] {
+  @apply m-0;
+}
+
+[data-store-quantity-selector] [data-quantity-selector-input]:focus-visible {
+  @apply outline-none;
+}
+
+[data-store-quantity-selector] [data-quantity-selector-input] {
+  @apply text-center bg-transparent w-full h-full border-0 p-0;
+}
+
+[data-store-quantity-selector] [data-quantity-selector-button] {
+  @apply bg-transparent w-full h-full p-0 flex items-center justify-center;
+}
+
+[data-store-quantity-selector] {
+  @apply h-12 rounded bg-white flex flex-row justify-center items-center;
+  width: 8.125rem;
+  outline: 1px solid #c4c5ca;
+}
+
+[data-store-quantity-selector]:hover {
+  outline: 0.125rem solid #2953b2;
+}
+
+[data-store-quantity-selector]:focus-within {
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px #8db6fa;
+}
