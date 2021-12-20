@@ -5,32 +5,8 @@ import { axe } from 'jest-axe'
 
 import QuantitySelector from '.'
 
-const QuantitySelectorTest = () => {
-  const [quantity, setQuantity] = useState(1)
-
-  return (
-    <QuantitySelector
-      name="quantity-selector"
-      quantity={quantity}
-      leftButtonProps={{
-        icon: <span>-</span>,
-        onClick: () => {
-          setQuantity((curr) => curr - 1)
-        },
-      }}
-      rightButtonProps={{
-        icon: <span>+</span>,
-        onClick: () => {
-          setQuantity((curr) => curr + 1)
-        },
-      }}
-      inputProps={{ readOnly: true }}
-    />
-  )
-}
-
 describe('QuantitySelector', () => {
-  it('should render QuantitySelector with its children', () => {
+  it('should render', () => {
     const { getByTestId } = render(
       <QuantitySelector
         name="quantity-selector"
@@ -44,7 +20,7 @@ describe('QuantitySelector', () => {
     expect(getByTestId('store-quantity-selector')).toBeInTheDocument()
   })
 
-  it('should render QuantitySelector with the correct quantity', () => {
+  it('should render with the correct quantity', () => {
     const { getByLabelText } = render(
       <QuantitySelector
         name="quantity-selector"
@@ -58,7 +34,31 @@ describe('QuantitySelector', () => {
     expect(getByLabelText('Quantity')).toHaveValue('123')
   })
 
-  it('Should update correctly according to event changes', () => {
+  it('should update correctly according to event changes', () => {
+    const QuantitySelectorTest = () => {
+      const [quantity, setQuantity] = useState(1)
+
+      return (
+        <QuantitySelector
+          name="quantity-selector"
+          quantity={quantity}
+          leftButtonProps={{
+            icon: <span>-</span>,
+            onClick: () => {
+              setQuantity((curr) => curr - 1)
+            },
+          }}
+          rightButtonProps={{
+            icon: <span>+</span>,
+            onClick: () => {
+              setQuantity((curr) => curr + 1)
+            },
+          }}
+          inputProps={{ readOnly: true }}
+        />
+      )
+    }
+
     const { getByLabelText } = render(<QuantitySelectorTest />)
 
     expect(getByLabelText('Quantity')).toHaveValue('1')
@@ -72,8 +72,8 @@ describe('QuantitySelector', () => {
     expect(getByLabelText('Quantity')).toHaveValue('1')
   })
 
-  describe('QuantitySelector Accessibility Tests', () => {
-    it('Should pass the Accessibility test with AXE', async () => {
+  describe('QuantitySelector Accessibility', () => {
+    it('should pass the AXE tests', async () => {
       render(
         <main>
           <QuantitySelector
