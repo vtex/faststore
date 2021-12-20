@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from 'react'
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 import type { InputProps } from '../../atoms/Input'
 import Input from '../../atoms/Input'
@@ -36,42 +36,48 @@ export interface QuantitySelectorProps
   testId?: string
 }
 
-const QuantitySelector = ({
-  quantity,
-  testId = 'store-quantity-selector',
-  leftButtonProps,
-  inputProps,
-  rightButtonProps,
-  ...otherProps
-}: QuantitySelectorProps) => {
-  return (
-    <div
-      aria-label="Quantity Selector"
-      data-store-quantity-selector
-      data-testid={testId}
-      {...otherProps}
-    >
-      <IconButton
-        aria-controls="quantity-selector-input"
-        aria-label="Decrement Quantity"
-        data-quantity-selector-button="left"
-        {...leftButtonProps}
-      />
-      <Input
-        aria-label="Quantity"
-        data-quantity-selector-input
-        id="quantity-selector-input"
-        value={quantity}
-        {...inputProps}
-      />
-      <IconButton
-        aria-controls="quantity-selector-input"
-        aria-label="Increment Quantity"
-        data-quantity-selector-button="right"
-        {...rightButtonProps}
-      />
-    </div>
-  )
-}
+const QuantitySelector = forwardRef<HTMLDivElement, QuantitySelectorProps>(
+  function QuantitySelector(
+    {
+      quantity,
+      testId = 'store-quantity-selector',
+      leftButtonProps,
+      inputProps,
+      rightButtonProps,
+      ...otherProps
+    }: QuantitySelectorProps,
+    ref
+  ) {
+    return (
+      <div
+        aria-label="Quantity Selector"
+        data-store-quantity-selector
+        data-testid={testId}
+        ref={ref}
+        {...otherProps}
+      >
+        <IconButton
+          aria-controls="quantity-selector-input"
+          aria-label="Decrement Quantity"
+          data-quantity-selector-button="left"
+          {...leftButtonProps}
+        />
+        <Input
+          aria-label="Quantity"
+          data-quantity-selector-input
+          id="quantity-selector-input"
+          value={quantity}
+          {...inputProps}
+        />
+        <IconButton
+          aria-controls="quantity-selector-input"
+          aria-label="Increment Quantity"
+          data-quantity-selector-button="right"
+          {...rightButtonProps}
+        />
+      </div>
+    )
+  }
+)
 
 export default QuantitySelector
