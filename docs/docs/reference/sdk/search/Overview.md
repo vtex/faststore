@@ -37,8 +37,8 @@ The main `State` interface allows you to handle the following variables:
 
 |Argument|Type        |Description|
 |--------|------------|---------------------------------------------------|
-|`base`  |`string`    | Base URL path for the search context. This is important when the search context is a subset of what the browser is currently showing to the user, like in an internationalized context where your pages are scoped by a `/locale` param like in `/en` or `/pt`|
-|`page`  |`number`    ||
+|`base`  |`string`    | Base URL path to be ignored by the search context. Use `/en` to ignore the locale specific part of the url on the search context. |
+|`page`  |`number`    | Index of the current page in the pagination context. Use `0` if it's the first page in the pagination result. `1` if it's the second and so on. |
 |`selectedFacets`|`Facet[]`|All selected facets.|
 |`sort`  | `SearchSort`|Selected sorting criteria for the search (e.g, ascending/descending price, number of reviews)|
 |`term`  |`string`    | Terms of the full text search.|
