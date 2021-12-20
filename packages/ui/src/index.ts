@@ -50,6 +50,9 @@ export type { SpinnerProps } from './atoms/Spinner'
 export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
 
+export { default as Incentive } from './atoms/Incentive'
+export type { IncentiveProps } from './atoms/Incentive'
+
 // Molecules
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
