@@ -13,17 +13,19 @@ import { SearchProvider } from '@faststore/sdk'
 ## Usage
 
 ```tsx
-<SearchProvider
-  onChange={(url: URL) => window.location.href = url.href}
-  itemsPerPage={2}
-  sort="score_desc"
-  term={null}
-  page={0}
-  base=""
-  selectedFacets={}
->
-  {children}
-</SearchProvider>
+function Page () {
+  const params = useMemo(() => parseSearchState(new URL(window.href)), [])
+
+  return (
+    <SearchProvider
+      onChange={(url: URL) => window.location.href = url.href}
+      itemsPerPage={12}
+      {...params}
+    >
+      {children}
+    </SearchProvider>
+  )
+}
 ```
 
 ## Props
