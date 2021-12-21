@@ -18,14 +18,7 @@ const LatestUpdates = () => {
               .join("/")}/${item.fileName.split("-").slice(3).join("-")}`} >
               <div className={styles.changelogTitle}>
                 <h4>{item.title}</h4>
-                {item.product === "FastStore" && (
-                  <p className={styles.faststore}>{item.product}</p>
-                )}
-                {item.product === "WebOps" && (
-                  <p className={styles.webops}>{item.product}</p>
-                )}
               </div>
-
               <p className={styles.descriptionChangelog}>
                 {item.description}
               </p>
