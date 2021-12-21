@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook, act } from '@testing-library/react-hooks'
 import { set } from 'idb-keyval'
 
 import { SessionProvider, useSession } from '../../src'
@@ -26,4 +26,14 @@ test('Session Provider: Hydrate values from storage', async () => {
   await run.waitForValueToChange(() => run.result.current.channel)
 
   expect(run.result.current.channel).toBe(storedState.channel)
+})
+
+test('Session Provider: sets Region successfully', async () => {
+  const { result } = renderHook(useSession, {
+    wrapper: SessionProvider,
+  })
+
+  act(() => result.current.setSession({ ...result.current, region: 'abc123' }))
+
+  expect(result.current.region).toBe('abc123')
 })

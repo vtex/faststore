@@ -18,6 +18,7 @@ export interface Session {
   country: string // BRA
   channel: string | null
   postalCode: string | null
+  region: string | null
   user: User | null
 }
 
@@ -35,8 +36,9 @@ const baseInitialState: Session = {
   },
   country: 'USA',
   locale: 'en',
-  postalCode: null,
   channel: null,
+  postalCode: null,
+  region: null,
   user: null,
 }
 
