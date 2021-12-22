@@ -98,6 +98,11 @@ export type QuerySearchArgs = {
   term?: Maybe<Scalars['String']>;
 };
 
+export type Region = {
+  __typename?: 'Region';
+  id: Scalars['String'];
+};
+
 export type StoreAggregateOffer = {
   __typename?: 'StoreAggregateOffer';
   highPrice: Scalars['Float'];
