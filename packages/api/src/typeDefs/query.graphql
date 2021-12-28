@@ -61,5 +61,5 @@ type Query {
 
   allCollections(first: Int!, after: String): StoreCollectionConnection!
 
-  storeRegion(postalCode: String!): Region!
+  storeRegion(postalCode: String!): StoreRegion!
 }

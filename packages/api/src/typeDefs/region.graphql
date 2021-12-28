@@ -1,3 +1,0 @@
-type Region {
-  id: String!
-}
