@@ -64,8 +64,8 @@ export type Query = {
   allProducts: StoreProductConnection;
   collection: StoreCollection;
   product: StoreProduct;
-  region: Region;
   search: StoreSearchResult;
+  storeRegion: Region;
 };
 
 
@@ -91,17 +91,17 @@ export type QueryProductArgs = {
 };
 
 
-export type QueryRegionArgs = {
-  postalCode: Scalars['String'];
-};
-
-
 export type QuerySearchArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryStoreRegionArgs = {
+  postalCode: Scalars['String'];
 };
 
 export type Region = {
