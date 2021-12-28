@@ -4,7 +4,7 @@ import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 import type { PortalPagetype } from './types/Portal'
-// import type { Region } from './types/Region'
+import type { StoreRegion } from './types/StoreRegion'
 import type {
   Simulation,
   SimulationArgs,
@@ -106,14 +106,13 @@ export const VtexCommerce = (
         postalCode,
       }: {
         postalCode: string
-      }): [object] => {
-        // const params = new URLSearchParams({
-        //   country: 'BRA',
-        //   postalCode,
-        // })
-        //
-        // fetchAPI(`${base}/api/checkout/pub/regions?${params}`)
-        return [{ id: postalCode }]
+      }): Promise<StoreRegion> => {
+        const params = new URLSearchParams({
+          country: 'BRA',
+          postalCode,
+        })
+
+        return fetchAPI(`${base}/api/checkout/pub/regions?${params}`)
       },
     },
   }

@@ -1,5 +1,5 @@
 import type { Resolver } from '..'
-import type { Region as Root } from '../clients/commerce/types/Region'
+import type { StoreRegion as Root } from '../clients/commerce/types/StoreRegion'
 
 export const Region: Record<string, Resolver<Root>> = {
   id: ({ id }) => id,
