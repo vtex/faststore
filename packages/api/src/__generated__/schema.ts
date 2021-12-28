@@ -64,7 +64,7 @@ export type Query = {
   allProducts: StoreProductConnection;
   collection: StoreCollection;
   product: StoreProduct;
-  regionForPostalCode: Region;
+  region: Region;
   search: StoreSearchResult;
 };
 
@@ -91,7 +91,7 @@ export type QueryProductArgs = {
 };
 
 
-export type QueryRegionForPostalCodeArgs = {
+export type QueryRegionArgs = {
   postalCode: Scalars['String'];
 };
 

@@ -106,14 +106,14 @@ export const VtexCommerce = (
         postalCode,
       }: {
         postalCode: string
-      }): Promise<string> => {
+      }): [object] => {
         // const params = new URLSearchParams({
         //   country: 'BRA',
         //   postalCode,
         // })
         //
-
-        return new Promise(() => JSON.stringify([{id: postalCode}]))// fetchAPI(`${base}/api/checkout/pub/regions?${params}`)
+        // fetchAPI(`${base}/api/checkout/pub/regions?${params}`)
+        return [{ id: postalCode }]
       },
     },
   }

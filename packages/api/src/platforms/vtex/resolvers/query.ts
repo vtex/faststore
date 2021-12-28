@@ -155,7 +155,7 @@ export const Query = {
         })),
     }
   },
-  regionForPostalCode: async (
+  region: async (
     _: unknown,
     { postalCode }: QueryRegionArgs,
     ctx: Context
@@ -163,9 +163,9 @@ export const Query = {
     const {
       clients: { commerce },
     } = ctx
+    console.log("Passing through here")
+    const region = commerce.checkout.getRegionID({ postalCode })
 
-    const region = await commerce.checkout.getRegionID({ postalCode })
-
-    return JSON.parse(region)
+    return region
   },
 }
