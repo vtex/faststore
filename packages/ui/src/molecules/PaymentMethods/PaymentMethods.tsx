@@ -42,7 +42,7 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
         data-testid={testId}
         {...otherProps}
       >
-        {!!title && <div id="payment-methods">{title}</div>}
+        {!!title && <div>{title}</div>}
         <div
           data-payment-methods-flags
           aria-label={title ? undefined : ariaLabel}
