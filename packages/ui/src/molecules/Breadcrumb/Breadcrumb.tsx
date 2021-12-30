@@ -16,7 +16,7 @@ export interface BreadcrumbProps extends HTMLAttributes<HTMLDivElement> {
 
 const Divider: FC<BreadcrumbProps> = ({ divider, testId }) => {
   const props = {
-    'data-store-breadcrumb-divider': true,
+    'data-breadcrumb-divider': true,
     'aria-hidden': true,
     'data-testid': `${testId}-divider`,
   }
@@ -37,7 +37,7 @@ type ListItemProps = {
 const ListItem: FC<ListItemProps> = ({ children, isLastItem, testId }) => {
   const props = {
     'data-testid': `${testId}-item`,
-    'data-store-breadcrumb-item': isLastItem ? 'current' : true,
+    'data-breadcrumb-item': isLastItem ? 'current' : true,
     'aria-current': isLastItem ? ('page' as const) : undefined,
   }
 
@@ -73,7 +73,7 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
         data-testid={testId}
         {...otherProps}
       >
-        <List data-store-breadcrumb-list variant="ordered">
+        <List data-breadcrumb-list variant="ordered">
           {React.Children.map(children, (child, index) => {
             const isLastItem = index === lastIndex - 1
 
