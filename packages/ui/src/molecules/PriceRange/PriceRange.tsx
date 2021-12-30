@@ -58,16 +58,16 @@ const PriceRange = ({
         onChange={handleChange}
         aria-label={ariaLabel}
       />
-      <div data-store-price-range-values>
+      <div data-price-range-values>
         <Price
           formatter={formatter}
-          data-store-price-range-value="min"
+          data-price-range-value="min"
           value={minVal}
           variant={variant}
         />
         <Price
           formatter={formatter}
-          data-store-price-range-value="max"
+          data-price-range-value="max"
           value={maxVal}
           variant={variant}
         />
