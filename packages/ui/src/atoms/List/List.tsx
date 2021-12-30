@@ -27,8 +27,7 @@ const List = forwardRef<HTMLUListElement, ListProps>(function List(
 ) {
   const dataAttributes = {
     'data-testid': testId,
-    'data-store-list': true,
-    [`data-${variant}`]: true,
+    'data-store-list': variant,
   }
 
   const Component = MaybeComponent ?? variantToElement[variant] ?? 'ul'
