@@ -10,7 +10,6 @@ import { StoreOffer } from './resolvers/offer'
 import { StoreProduct } from './resolvers/product'
 import { StoreProductGroup } from './resolvers/productGroup'
 import { Query } from './resolvers/query'
-import { Region } from './resolvers/region'
 import { StoreReview } from './resolvers/review'
 import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
@@ -60,7 +59,6 @@ const Resolvers = {
   StoreSearchResult,
   Query,
   Mutation,
-  Region,
 }
 
 export const getContextFactory = (options: Options) => (ctx: any) => {

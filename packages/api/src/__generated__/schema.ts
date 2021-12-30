@@ -65,7 +65,7 @@ export type Query = {
   collection: StoreCollection;
   product: StoreProduct;
   search: StoreSearchResult;
-  storeRegion: Region;
+  storeRegion: StoreRegion;
 };
 
 
@@ -102,11 +102,6 @@ export type QuerySearchArgs = {
 
 export type QueryStoreRegionArgs = {
   postalCode: Scalars['String'];
-};
-
-export type Region = {
-  __typename?: 'Region';
-  id: Scalars['String'];
 };
 
 export type StoreAggregateOffer = {
@@ -295,6 +290,11 @@ export type StoreProductGroup = {
   hasVariant: Array<StoreProduct>;
   name: Scalars['String'];
   productGroupID: Scalars['String'];
+};
+
+export type StoreRegion = {
+  __typename?: 'StoreRegion';
+  id: Scalars['String'];
 };
 
 export type StoreReview = {
