@@ -16,12 +16,7 @@ const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(
     ref
   ) {
     return (
-      <tfoot
-        ref={ref}
-        data-testid={testId}
-        data-store-table-footer
-        {...otherProps}
-      >
+      <tfoot ref={ref} data-testid={testId} data-table-footer {...otherProps}>
         {children}
       </tfoot>
     )

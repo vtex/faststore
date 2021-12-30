@@ -35,7 +35,7 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
     return (
       <Cell
         ref={ref}
-        data-store-table-cell={variant}
+        data-table-cell={variant}
         data-testid={testId}
         scope={scope}
         {...otherProps}

@@ -16,12 +16,7 @@ const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
     ref
   ) {
     return (
-      <tbody
-        ref={ref}
-        data-testid={testId}
-        data-store-table-body
-        {...otherProps}
-      >
+      <tbody ref={ref} data-testid={testId} data-table-body {...otherProps}>
         {children}
       </tbody>
     )
