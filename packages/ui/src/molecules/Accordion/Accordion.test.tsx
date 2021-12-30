@@ -99,21 +99,21 @@ describe('Accordion', () => {
       expect(accordion).toHaveAttribute('data-store-accordion')
     })
 
-    it('`AccordionItem` component should have `data-store-accordion-item` attribute', () => {
+    it('`AccordionItem` component should have `data-accordion-item` attribute', () => {
       for (const item of items) {
-        expect(item).toHaveAttribute('data-store-accordion-item')
+        expect(item).toHaveAttribute('data-accordion-item')
       }
     })
 
-    it('`AccordionButton` component should have `data-store-accordion-button` attribute', () => {
+    it('`AccordionButton` component should have `data-accordion-button` attribute', () => {
       for (const button of buttons) {
-        expect(button).toHaveAttribute('data-store-accordion-button')
+        expect(button).toHaveAttribute('data-accordion-button')
       }
     })
 
-    it('`AccordionPanel` component should have `data-store-accordion-panel` attribute', () => {
+    it('`AccordionPanel` component should have `data-accordion-panel` attribute', () => {
       for (const panel of panels) {
-        expect(panel).toHaveAttribute('data-store-accordion-panel')
+        expect(panel).toHaveAttribute('data-accordion-panel')
       }
     })
   })
