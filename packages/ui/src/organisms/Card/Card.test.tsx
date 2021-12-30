@@ -47,16 +47,16 @@ describe('Card', () => {
       expect(card).toHaveAttribute('data-store-card')
     })
 
-    it('`CardContent` component should have `data-store-card-content` attribute', () => {
-      expect(cardContent).toHaveAttribute('data-store-card-content')
+    it('`CardContent` component should have `data-card-content` attribute', () => {
+      expect(cardContent).toHaveAttribute('data-card-content')
     })
 
-    it('`CardImage` component should have `data-store-card-image` attribute', () => {
-      expect(cardImage).toHaveAttribute('data-store-card-image')
+    it('`CardImage` component should have `data-card-image` attribute', () => {
+      expect(cardImage).toHaveAttribute('data-card-image')
     })
 
-    it('`CardActions` component should have `data-store-card-actions` attribute', () => {
-      expect(cardActions).toHaveAttribute('data-store-card-actions')
+    it('`CardActions` component should have `data-card-actions` attribute', () => {
+      expect(cardActions).toHaveAttribute('data-card-actions')
     })
   })
 

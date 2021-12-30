@@ -13,7 +13,7 @@ const CardImage = forwardRef<HTMLDivElement, CardImageProps>(function CardImage(
   ref
 ) {
   return (
-    <div ref={ref} data-store-card-image data-testid={testId} {...otherProps}>
+    <div ref={ref} data-card-image data-testid={testId} {...otherProps}>
       {children}
     </div>
   )

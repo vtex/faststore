@@ -14,12 +14,7 @@ const CardContent = forwardRef<HTMLElement, CardContentProps>(
     ref
   ) {
     return (
-      <section
-        ref={ref}
-        data-store-card-content
-        data-testid={testId}
-        {...otherProps}
-      >
+      <section ref={ref} data-card-content data-testid={testId} {...otherProps}>
         {children}
       </section>
     )
