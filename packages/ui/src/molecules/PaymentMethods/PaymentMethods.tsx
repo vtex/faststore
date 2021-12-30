@@ -45,7 +45,6 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
         {!!title && <div id="payment-methods">{title}</div>}
         <div
           data-payment-methods-flags
-          aria-labelledby={title ? 'payment-methods' : undefined}
           aria-label={title ? undefined : ariaLabel}
         >
           {children}
