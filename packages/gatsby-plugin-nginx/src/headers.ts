@@ -159,24 +159,37 @@ function emptyHeadersMapForFiles(files: string[]): PathHeadersMap {
   )
 }
 
-export function addHeadersFromEnvVars(headersMap: PathHeadersMap) {
-  const headersFromEnv = Object.keys(process.env).reduce((acc, envVar) => {
-    if (
+export function addGlobalHeaders(
+  headersMap: PathHeadersMap,
+  customGlobalHeaders: PluginOptions['customGlobalHeaders']
+) {
+  const rawGlobalHeaders: Record<string, string> = {}
+
+  Object.keys(process.env).forEach((envVar) => {
+    const isEnvVarHeader =
       envVar.startsWith(ENV_VAR_HEADER_PREVIX) &&
       envVar.length > ENV_VAR_HEADER_PREVIX.length
-    ) {
-      acc.push({
-        name: envVar.slice(ENV_VAR_HEADER_PREVIX.length),
-        value: process.env[envVar]!,
-      })
+
+    if (!isEnvVarHeader) {
+      return
     }
 
-    return acc
-  }, [] as Header[])
+    rawGlobalHeaders[envVar.slice(ENV_VAR_HEADER_PREVIX.length)] = process.env[
+      envVar
+    ]!
+  })
+
+  customGlobalHeaders.forEach((header) => {
+    rawGlobalHeaders[header.name] = header.value
+  })
+
+  const globalHeaders: Header[] = Object.entries(
+    rawGlobalHeaders
+  ).map(([name, value]) => ({ name, value }))
 
   return Object.fromEntries(
     Object.entries(headersMap).map(([path, headers]) => {
-      return [path, [...headers, ...headersFromEnv]]
+      return [path, [...headers, ...globalHeaders]]
     })
   )
 }

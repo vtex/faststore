@@ -12,7 +12,7 @@ import {
   FUNCTIONS_URL_PATH,
 } from './constants'
 import {
-  addHeadersFromEnvVars,
+  addGlobalHeaders,
   addPublicCachingHeader,
   addStaticCachingHeader,
   applyUserHeadersTransform,
@@ -137,7 +137,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async (
 
   headers = addPublicCachingHeader(headers)
 
-  headers = addHeadersFromEnvVars(headers)
+  headers = addGlobalHeaders(headers, options.customGlobalHeaders)
 
   writeFileSync(
     join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
