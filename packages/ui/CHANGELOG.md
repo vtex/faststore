@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.2 (2022-01-03)
+
+
+### Bug Fixes
+
+* **ui:** removing aria-labelledby from payment methods component ([#1092](https://github.com/vtex/faststore/issues/1092)) ([bf4c7a9](https://github.com/vtex/faststore/commit/bf4c7a981c379ffb1777a2fd8cae787f735f7d2d))
+
+
+
+
+
 ## 1.4.1 (2022-01-03)
 
 **Note:** Version bump only for package @faststore/ui
