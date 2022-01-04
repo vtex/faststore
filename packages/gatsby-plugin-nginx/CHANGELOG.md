@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.4 (2022-01-04)
+
+
+### Bug Fixes
+
+* adjust data attributes pattern on multiple components ([#1093](https://github.com/vtex/faststore/issues/1093)) ([ca9172f](https://github.com/vtex/faststore/commit/ca9172fb353cfce7011f9144c1e94ed7e6b73f5f))
+
+
+
+
+
 ## 1.4.3 (2022-01-03)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-nginx
