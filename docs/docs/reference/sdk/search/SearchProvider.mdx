@@ -74,6 +74,6 @@ function Page () {
     description="Array of selected facets on the search."
 />
 
-:::caution WIP
-Make sure NOT to include personalization facets, like channel or price tables on selectedFacets. If you do, these facets, alongside their values, will be serialized in the url. This means that a user may end up having two channels, one from the Session context and another from the url, causing all sorts of weird bugs
+:::caution
+Don't include personalization facets, such as sales channel and price tables, on the `selectedFacets` property. If you do so, users may end up having two channels: one from the Session context and another from the URL, which may cause all sorts of unexpected bugs.
 :::

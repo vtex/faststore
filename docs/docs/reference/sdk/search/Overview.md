@@ -52,7 +52,7 @@ To change the facet state, the following functions are also available:
 The `serializer` file handles URL parsing to create a serialized URL for every facet combination.
 
 ## Example
-Suppose we want to create a full text search page that renders a checkbox. This checkbox toggles a facet for the brand `faststore`.
+Suppose we want to create a full-text search page that renders a checkbox, which toggles a facet for the `faststore` brand. To build this feature, we will use the browser's URL to keep the state of the faceted search. Then, whenever someone selects the `faststore` facet, we will redirect them to the corresponding URL, updating the UI and re-rendering the necessary components to display all product items from the `faststore` brand.
 ```tsx
 import { SearchProvider, parseSearchState } from '@faststore/sdk'
 
@@ -82,9 +82,10 @@ function Checkbox () {
 }
 ```
 
-The idea here is to use the browser's URL to keep the state of the faceted search. Whenever a new facet is toggled, we navigate the user to this new URL, where the components will re-render, updating the UI. 
+This example has two components: `Page` and `Checkbox`. 
 
-This example has two components. One that is the page itself and a `Checkbox`. The page component uses `parseSearchState` for parsing the search state from the url and using the output into `SearchProvider`. 
-Also, `Page` configures `SearchProvider` for displaying `12` products per page and creates an inline `onChange` function. This function is called whenever someone clicks on the `Checkbox`, and navigates the user to the new url with the facets applied. 
+The `Page` component parses the search state from the browser's URL using `parseSearchState` and provides the parsed output to the `SearchProvider` component. The `SearchProvider` wraps the entire page, providing the necessary context for the Faceted Search.
 
-For a full implementation, please refer to our official starters. Also, you can find more examples and boundary conditions [in our tests.](https://github.com/vtex/faststore/tree/master/packages/sdk/test/search)
+In this example, the inline `onChange` function defined for the `SearchProvider` component is called whenever someone selects the `Checkbox` to apply a new facet. This function uses the parsed output from `parseSearchState` to redirect users to the new URL corresponding to the recently applied facets. Also, the `itemsPerPage` prop is configured to make the `SearchProvider` display 12 products per page.
+
+For practical examples, please refer to our official starters. Also, you can find more examples and boundary conditions [in our tests.](https://github.com/vtex/faststore/tree/master/packages/sdk/test/search)
