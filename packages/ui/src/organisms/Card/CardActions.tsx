@@ -14,12 +14,7 @@ const CardActions = forwardRef<HTMLDivElement, CardActionsProps>(
     ref
   ) {
     return (
-      <div
-        ref={ref}
-        data-store-card-actions
-        data-testid={testId}
-        {...otherProps}
-      >
+      <div ref={ref} data-card-actions data-testid={testId} {...otherProps}>
         {children}
       </div>
     )

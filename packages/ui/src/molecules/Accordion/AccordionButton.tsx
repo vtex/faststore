@@ -60,7 +60,7 @@ const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
         id={button}
         aria-expanded={indices.has(index)}
         aria-controls={panel}
-        data-store-accordion-button
+        data-accordion-button
         data-testid={testId}
         onKeyDown={onKeyDown}
         onClick={() => {

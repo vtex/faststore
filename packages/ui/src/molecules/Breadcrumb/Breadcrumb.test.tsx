@@ -38,19 +38,24 @@ describe('Breadcrumb', () => {
 
       // Validate that breadcrumb is rendering with the correct size.
       expect(breadcrumbItems).toHaveLength(breadcrumbSize)
-      // Validate if the last element has the active attribute.
+      // Validate if the last element has the 'data-breadcrumb-item=current' active attribute.
       expect(breadcrumbItems[breadcrumbSize - 1]).toHaveAttribute(
-        'data-store-breadcrumb-item'
+        'data-breadcrumb-item',
+        'current'
       )
 
       // Get all elements except the last one.
       breadcrumbItems.pop()
-      // Validate that no other element has the 'data-store-breadcrumb-item-active' attribute
+
+      // Validate that no other element has the 'data-breadcrumb-item=current' attribute
       breadcrumbItems.forEach((item) => {
-        expect(item).not.toHaveAttribute(
-          'data-store-breadcrumb-item',
-          'current'
-        )
+        expect(item).not.toHaveAttribute('data-breadcrumb-item', 'current')
+      })
+
+      // Validate that all elements have the 'data-breadcrumb-item' attribute,
+      // regardless of value
+      breadcrumbItems.forEach((item) => {
+        expect(item).toHaveAttribute('data-breadcrumb-item')
       })
     }
   })
