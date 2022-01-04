@@ -71,5 +71,9 @@ function Page () {
 <PropsComponent
     name="selectedFacets"
     type="Array<{ key: string, value: string }>"
-    description="Array of selected facets on the search. Make sure NOT to include personalization facets, like channel or price tables"
+    description="Array of selected facets on the search."
 />
+
+:::caution WIP
+Make sure NOT to include personalization facets, like channel or price tables on selectedFacets. If you do, these facets, alongside their values, will be serialized in the url. This means that a user may end up having two channels, one from the Session context and another from the url, causing all sorts of weird bugs
+:::
