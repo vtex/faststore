@@ -1,0 +1,96 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# useCart
+
+The `useCart` hook gives you access to the cart, as well as helper functions for applying changes to it, like `addToItem`, `removeItem` etc.
+
+## Import
+
+```tsx
+import { useCart } from '@faststore/sdk'
+```
+
+## Usage
+
+```tsx
+function Cart () {
+  const { items, isValidating } = useCart()
+
+  return (
+    <>
+      {items.map(item => (
+        <div>name: {item.itemOffered.name}</div>
+        <div>Price: {item.price}</div>
+      ))}
+      <a href="/checkout">{isValidating ? 'loading...' : 'Checkout'}</a>
+    </>
+  )
+}
+```
+
+## Return
+<PropsComponent
+    name="isValidating"
+    type="boolean"
+    description="True if optimistic cart is validating the cart"
+/>
+
+<PropsComponent
+    name="items"
+    type="Item"
+    description="Itens on cart"
+/>
+
+<PropsComponent
+    name="isEmpty"
+    type="boolean"
+    description="Whether the cart is empty"
+/>
+
+<PropsComponent
+    name="addItem"
+    type="(item: T) => void"
+    description="Add item to cart"
+/>
+
+<PropsComponent
+    name="removeItem"
+    type="(id: string) => void"
+    description="Remove item from cart"
+/>
+
+<PropsComponent
+    name="updateItemQuantity"
+    type="(id: string, quantity: number) => void"
+    description="Update the quantity of a given item is present on cart"
+/>
+
+<PropsComponent
+    name="emptyCart"
+    type="() => void"
+    description="Clear all items from cart"
+/>
+
+<PropsComponent
+    name="getItem"
+    type="(id: string) => T | undefined"
+    description="Get a given item from cart"
+/>
+
+<PropsComponent
+    name="inCart"
+    type="(id: string) => boolean"
+    description="Check if an item is in cart"
+/>
+
+<PropsComponent
+    name="setCart"
+    type="(cart: Cart) => void"
+    description="Replaces the cart with a new one"
+/>
+
+<PropsComponent
+    name="id"
+    type="string"
+    description="Cart's id"
+/>
