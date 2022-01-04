@@ -7,7 +7,7 @@ import mdx from './TextArea.mdx'
 import type { ComponentArgTypes } from '../../../typings/utils'
 
 const TextAreaTemplate: Story<TextAreaProps> = (props) => (
-  <Component {...props} />
+  <Component {...props} aria-label="Textarea" />
 )
 
 export const Textarea = TextAreaTemplate.bind({})

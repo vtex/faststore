@@ -8,7 +8,7 @@ describe('IconButton', () => {
 
   it('data-store-icon-button is present', () => {
     const { getByTestId } = render(
-      <IconButton testId={testId} icon={<div>foo</div>} />
+      <IconButton testId={testId} label="foo" icon={<div>foo</div>} />
     )
 
     const iconButton = getByTestId(testId)
@@ -19,7 +19,11 @@ describe('IconButton', () => {
 
   it('icon is present', () => {
     const { getByTestId } = render(
-      <IconButton testId={testId} icon={<div data-testid="icon">foo</div>} />
+      <IconButton
+        testId={testId}
+        label="foo"
+        icon={<div data-testid="icon">foo</div>}
+      />
     )
 
     expect(getByTestId('icon')).toBeInTheDocument()
