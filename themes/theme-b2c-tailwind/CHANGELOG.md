@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.7 (2022-01-05)
+
+
+### Bug Fixes
+
+* fix accessibility on storybook ([#1096](https://github.com/vtex/faststore/issues/1096)) ([55805b1](https://github.com/vtex/faststore/commit/55805b1b2cffd111ef64857321c20e0a001a93b2))
+
+
+
+
+
 ## 1.4.6 (2022-01-05)
 
 **Note:** Version bump only for package @vtex/theme-b2c-tailwind
