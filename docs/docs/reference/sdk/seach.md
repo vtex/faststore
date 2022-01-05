@@ -1,6 +1,6 @@
 ---
+id: search
 sidebar_label: Overview
-sidebar_position: 1
 keywords: [faceted search, faceted navigation, search, product listing page, plp]
 ---
 

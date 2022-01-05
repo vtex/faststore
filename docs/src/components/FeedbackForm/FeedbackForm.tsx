@@ -141,7 +141,7 @@ class FeedbackForm extends React.Component {
               <textarea
                 className={styles.formText}
                 name="message"
-                placeholder="How we can we improve your documentation and learning experience?"
+                placeholder="How can we improve your documentation and learning experience?"
                 value={this.state.message}
                 onChange={this.handleChange}
               />
