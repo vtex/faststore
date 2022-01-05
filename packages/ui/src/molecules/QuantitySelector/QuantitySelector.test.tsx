@@ -11,8 +11,8 @@ describe('QuantitySelector', () => {
       <QuantitySelector
         name="quantity-selector"
         quantity={1}
-        leftButtonProps={{ icon: <span>-</span> }}
-        rightButtonProps={{ icon: <span>+</span> }}
+        leftButtonProps={{ icon: <span>-</span>, label: '-' }}
+        rightButtonProps={{ icon: <span>+</span>, label: '+' }}
         inputProps={{ readOnly: true }}
       />
     )
@@ -25,8 +25,8 @@ describe('QuantitySelector', () => {
       <QuantitySelector
         name="quantity-selector"
         quantity={123}
-        leftButtonProps={{ icon: <span>-</span> }}
-        rightButtonProps={{ icon: <span>+</span> }}
+        leftButtonProps={{ icon: <span>-</span>, label: '-' }}
+        rightButtonProps={{ icon: <span>+</span>, label: '+' }}
         inputProps={{ readOnly: true }}
       />
     )
@@ -44,12 +44,14 @@ describe('QuantitySelector', () => {
           quantity={quantity}
           leftButtonProps={{
             icon: <span>-</span>,
+            label: '-',
             onClick: () => {
               setQuantity((curr) => curr - 1)
             },
           }}
           rightButtonProps={{
             icon: <span>+</span>,
+            label: '+',
             onClick: () => {
               setQuantity((curr) => curr + 1)
             },
@@ -79,8 +81,8 @@ describe('QuantitySelector', () => {
           <QuantitySelector
             name="quantity-selector"
             quantity={1}
-            leftButtonProps={{ icon: <span>-</span> }}
-            rightButtonProps={{ icon: <span>+</span> }}
+            leftButtonProps={{ icon: <span>-</span>, label: '-' }}
+            rightButtonProps={{ icon: <span>+</span>, label: '+' }}
             inputProps={{ readOnly: true }}
           />
         </main>
