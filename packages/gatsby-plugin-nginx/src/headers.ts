@@ -159,10 +159,9 @@ function emptyHeadersMapForFiles(files: string[]): PathHeadersMap {
   )
 }
 
-export function addGlobalHeaders(
-  headersMap: PathHeadersMap,
+export function getGlobalHeaders(
   customGlobalHeaders: PluginOptions['customGlobalHeaders']
-) {
+): Header[] {
   const rawGlobalHeaders: Record<string, string> = {}
 
   Object.keys(process.env).forEach((envVar) => {
@@ -183,10 +182,16 @@ export function addGlobalHeaders(
     rawGlobalHeaders[header.name] = header.value
   })
 
-  const globalHeaders: Header[] = Object.entries(
-    rawGlobalHeaders
-  ).map(([name, value]) => ({ name, value }))
+  return Object.entries(rawGlobalHeaders).map(([name, value]) => ({
+    name,
+    value,
+  }))
+}
 
+export function addGlobalHeaders(
+  headersMap: PathHeadersMap,
+  globalHeaders: Header[]
+) {
   return Object.fromEntries(
     Object.entries(headersMap).map(([path, headers]) => {
       return [path, [...headers, ...globalHeaders]]

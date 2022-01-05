@@ -15,11 +15,13 @@ export {
 function generateNginxConfiguration({
   rewrites,
   headersMap,
+  globalHeaders,
   files,
   options,
 }: {
   rewrites: Redirect[]
   headersMap: PathHeadersMap
+  globalHeaders: Header[]
   files: string[]
   options: PluginOptions
 }): string {
@@ -155,6 +157,10 @@ function generateNginxConfiguration({
                 'image/svg+xml',
               ],
             },
+            // Adds custom global headers
+            ...globalHeaders.map(({ name, value }) => ({
+              cmd: ['add_header', name, `"${value}"`],
+            })),
             {
               cmd: ['server'],
               children: [

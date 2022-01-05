@@ -131,7 +131,7 @@ declare global {
      *
      * @example
      * // Adds custom header to every response to identify sender's version
-     * httpOptions: [{name: 'x-vtex-renderer', value: 'faststore@1'}]
+     * customGlobalHeaders: [{name: 'x-vtex-renderer', value: 'faststore@1'}]
      *
      * * @default []
      */
