@@ -11,6 +11,7 @@ import {
   PAGE_DATA_DIR,
   PUBLIC_CACHING_HEADER,
 } from './constants'
+import { addHeaderDirective } from './nginx-generator'
 
 function preloadHeadersByPath(
   pages: Page[],
@@ -161,7 +162,7 @@ function emptyHeadersMapForFiles(files: string[]): PathHeadersMap {
 
 export function getGlobalHeaders(
   customGlobalHeaders: PluginOptions['customGlobalHeaders']
-): Header[] {
+): NginxDirective[] {
   const rawGlobalHeaders: Record<string, string> = {}
 
   Object.keys(process.env).forEach((envVar) => {
@@ -182,19 +183,10 @@ export function getGlobalHeaders(
     rawGlobalHeaders[header.name] = header.value
   })
 
-  return Object.entries(rawGlobalHeaders).map(([name, value]) => ({
-    name,
-    value,
-  }))
-}
-
-export function addGlobalHeaders(
-  headersMap: PathHeadersMap,
-  globalHeaders: Header[]
-) {
-  return Object.fromEntries(
-    Object.entries(headersMap).map(([path, headers]) => {
-      return [path, [...headers, ...globalHeaders]]
+  return Object.entries(rawGlobalHeaders).map(([name, value]) =>
+    addHeaderDirective({
+      name,
+      value,
     })
   )
 }

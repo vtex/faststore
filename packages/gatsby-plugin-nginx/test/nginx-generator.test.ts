@@ -250,11 +250,6 @@ describe('generateNginxConfiguration', () => {
       '/bar': [{ name: `a`, value: `b` }],
     }
 
-    const globalHeaders: Header[] = [
-      { name: `a`, value: `b` },
-      { name: `c`, value: `d` },
-    ]
-
     const files: string[] = [`foo/index.html`, `bar/index.html`]
     const options: PluginOptions = {
       plugins: [],
@@ -268,14 +263,16 @@ describe('generateNginxConfiguration', () => {
         prepend: [],
         append: [],
       },
-      customGlobalHeaders: [],
+      customGlobalHeaders: [
+        { name: `c`, value: `d` },
+        { name: `e`, value: `f` },
+      ],
     }
 
     expect(
       generateNginxConfiguration({
         rewrites,
         headersMap,
-        globalHeaders,
         files,
         options,
       })
@@ -314,22 +311,26 @@ describe('generateNginxConfiguration', () => {
         brotli_types text/xml image/svg+xml application/x-font-ttf image/vnd.microsoft.icon application/x-font-opentype application/json font/eot application/vnd.ms-fontobject application/javascript font/otf application/xml application/xhtml+xml text/javascript application/x-javascript text/plain application/x-font-truetype application/xml+rss image/x-icon font/opentype text/css image/x-win-bitmap;
         gzip on;
         gzip_types text/plain text/css text/xml application/javascript application/x-javascript application/xml application/xml+rss application/emacscript application/json image/svg+xml;
-        add_header a \\"b\\";
-        add_header c \\"d\\";
         server {
           listen 0.0.0.0:$PORT default_server;
           error_page 404 /404.html;
           location /nginx.conf {
             deny all;
             return 404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
           }
           location = /foo {
             add_header a \\"b\\";
             try_files /foo/index.html =404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
           }
           location = /bar {
             add_header a \\"b\\";
             try_files /bar/index.html =404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
           }
         }
       }"
@@ -375,7 +376,7 @@ describe('generateNginxConfiguration', () => {
         prepend: [],
         append: [],
       },
-      customGlobalHeaders: [],
+      customGlobalHeaders: globalHeaders,
     }
 
     const start = performance.now()
@@ -383,7 +384,6 @@ describe('generateNginxConfiguration', () => {
     generateNginxConfiguration({
       rewrites,
       headersMap,
-      globalHeaders,
       files,
       options,
     })

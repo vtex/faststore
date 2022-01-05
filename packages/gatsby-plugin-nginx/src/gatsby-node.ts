@@ -12,13 +12,11 @@ import {
   FUNCTIONS_URL_PATH,
 } from './constants'
 import {
-  addGlobalHeaders,
   addPublicCachingHeader,
   addStaticCachingHeader,
   applyUserHeadersTransform,
   cacheHeadersByPath,
   emptyHeadersMapForFiles,
-  getGlobalHeaders,
   preloadHeadersByPath,
 } from './headers'
 import { listFilesRecursively } from './listFiles'
@@ -138,19 +136,11 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async (
 
   headers = addPublicCachingHeader(headers)
 
-  const globalHeaders = getGlobalHeaders(options.customGlobalHeaders)
-
-  // Required according to nginx <http://nginx.org/en/docs/http/ngx_http_headers_module.html>
-  // If add_header is used on the location directive, it overrides server or http add_header,
-  // what would erase global headers applied on those directives.
-  headers = addGlobalHeaders(headers, globalHeaders)
-
   writeFileSync(
     join(program.directory, 'public', VTEX_NGINX_CONF_FILENAME),
     generateNginxConfiguration({
       rewrites,
       headersMap: headers,
-      globalHeaders,
       files,
       options,
     })

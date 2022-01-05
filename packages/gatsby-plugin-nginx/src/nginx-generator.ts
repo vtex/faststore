@@ -1,7 +1,7 @@
 import { posix } from 'path'
 
 import { INDEX_HTML, LOCATION_MODIFIERS } from './constants'
-import { normalizePath } from './headers'
+import { getGlobalHeaders, normalizePath } from './headers'
 import { identity } from './utils/functions'
 
 export {
@@ -15,13 +15,11 @@ export {
 function generateNginxConfiguration({
   rewrites,
   headersMap,
-  globalHeaders,
   files,
   options,
 }: {
   rewrites: Redirect[]
   headersMap: PathHeadersMap
-  globalHeaders: Header[]
   files: string[]
   options: PluginOptions
 }): string {
@@ -34,10 +32,19 @@ function generateNginxConfiguration({
       append: appendLocations = [],
       prepend: prependLocations = [],
     } = {},
+    customGlobalHeaders,
   } = options
+
+  const globalHeaderDirectives = getGlobalHeaders(customGlobalHeaders)
 
   const filesSet = new Set(files)
   const locations = [
+    // Block nginx.conf
+    {
+      cmd: ['location', '/nginx.conf'],
+      children: [{ cmd: ['deny', 'all'] }, { cmd: ['return', '404'] }],
+    },
+    ...prependLocations,
     ...Object.entries(headersMap)
       .map(([path, headers]) =>
         generatePathLocation({ path, headers, files: filesSet, options })
@@ -48,7 +55,8 @@ function generateNginxConfiguration({
         }
       ),
     ...generateRewrites(rewrites),
-  ]
+    ...appendLocations,
+  ].map((location) => addGlobalHeaders(location, globalHeaderDirectives))
 
   const brotliConf = disableBrotliEncoding
     ? []
@@ -157,10 +165,6 @@ function generateNginxConfiguration({
                 'image/svg+xml',
               ],
             },
-            // Adds custom global headers
-            ...globalHeaders.map(({ name, value }) => ({
-              cmd: ['add_header', name, `"${value}"`],
-            })),
             {
               cmd: ['server'],
               children: [
@@ -169,18 +173,7 @@ function generateNginxConfiguration({
                 // https://www.gatsbyjs.com/docs/how-to/adding-common-features/add-404-page/
                 { cmd: ['error_page', '404', '/404.html'] },
 
-                // Block nginx.conf
-                {
-                  cmd: ['location', '/nginx.conf'],
-                  children: [
-                    { cmd: ['deny', 'all'] },
-                    { cmd: ['return', '404'] },
-                  ],
-                },
-
-                ...prependLocations,
                 ...locations,
-                ...appendLocations,
               ],
             },
           ],
@@ -418,12 +411,26 @@ function generatePathLocation({
   return {
     cmd: ['location', '=', path],
     children: [
-      ...headers.map(({ name, value }) => ({
-        cmd: ['add_header', name, `"${value}"`],
-      })),
+      ...headers.map(addHeaderDirective),
       proxyPassDirective,
       ...returnDirective,
     ],
+  }
+}
+
+export function addHeaderDirective({ name, value }: Header) {
+  return {
+    cmd: ['add_header', name, `"${value}"`],
+  }
+}
+
+export function addGlobalHeaders(
+  location: NginxDirective,
+  globalHeadersDirectives: NginxDirective[]
+) {
+  return {
+    ...location,
+    children: [...(location.children ?? []), ...globalHeadersDirectives],
   }
 }
 
