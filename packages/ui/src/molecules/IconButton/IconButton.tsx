@@ -5,7 +5,7 @@ import Button from '../../atoms/Button'
 import type { ButtonProps } from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 
-export interface Props extends Omit<ButtonProps, 'children'> {
+export interface Props extends Omit<ButtonProps, 'children' | 'aria-label'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -16,23 +16,17 @@ export interface Props extends Omit<ButtonProps, 'children'> {
   icon: ReactNode
 
   /**
-   * Label to accessibility.
+   * Label to be required for accessibility.
    */
-  label: string
+  'aria-label': string
 }
 
 const IconButton = forwardRef<HTMLButtonElement, Props>(function IconButton(
-  { icon, label, testId = 'store-icon-button', ...buttonProps },
+  { icon, testId = 'store-icon-button', ...buttonProps },
   ref
 ) {
   return (
-    <Button
-      ref={ref}
-      data-store-icon-button
-      testId={testId}
-      aria-label={label}
-      {...buttonProps}
-    >
+    <Button ref={ref} data-store-icon-button testId={testId} {...buttonProps}>
       <Icon component={icon} />
     </Button>
   )

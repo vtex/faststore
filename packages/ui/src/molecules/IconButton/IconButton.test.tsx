@@ -8,7 +8,7 @@ describe('IconButton', () => {
 
   it('data-store-icon-button is present', () => {
     const { getByTestId } = render(
-      <IconButton testId={testId} label="foo" icon={<div>foo</div>} />
+      <IconButton testId={testId} aria-label="foo" icon={<div>foo</div>} />
     )
 
     const iconButton = getByTestId(testId)
@@ -21,7 +21,7 @@ describe('IconButton', () => {
     const { getByTestId } = render(
       <IconButton
         testId={testId}
-        label="foo"
+        aria-label="foo"
         icon={<div data-testid="icon">foo</div>}
       />
     )

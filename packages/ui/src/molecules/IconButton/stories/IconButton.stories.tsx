@@ -7,7 +7,7 @@ import ShoppingCartIcon from '../../../atoms/Icon/stories/assets/ShoppingCart'
 import mdx from './IconButton.mdx'
 
 const IconButtonTemplate: Story<IconButtonProps> = (props) => (
-  <Component {...props} icon={<ShoppingCartIcon />} label="Buy" />
+  <Component {...props} icon={<ShoppingCartIcon />} aria-label="Buy" />
 )
 
 export const Default = IconButtonTemplate.bind({})
@@ -18,7 +18,7 @@ const IconButtonCustomTemplate: Story<IconButtonProps> = (props) => {
       {...props}
       className="iconButton"
       icon={<ShoppingCartIcon />}
-      label="Buy"
+      aria-label="Buy"
     />
   )
 }
