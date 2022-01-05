@@ -174,9 +174,12 @@ export function getGlobalHeaders(
       return
     }
 
-    rawGlobalHeaders[envVar.slice(ENV_VAR_HEADER_PREVIX.length)] = process.env[
-      envVar
-    ]!
+    // Normalizes header name. Headers with underscores are ignored by nginx anyway.
+    const headerName = envVar
+      .slice(ENV_VAR_HEADER_PREVIX.length)
+      .replaceAll('_', '-')
+
+    rawGlobalHeaders[headerName] = process.env[envVar]!
   })
 
   customGlobalHeaders.forEach((header) => {
