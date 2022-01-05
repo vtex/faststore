@@ -3,16 +3,16 @@
 }
 
 [data-store-price][data-variant='listing'] {
-  @apply text-gray-400;
+  @apply text-gray-700;
   @apply line-through;
 }
 
 [data-store-price][data-variant='savings'] {
-  @apply text-green-500;
+  @apply text-green-800;
 }
 
 [data-store-price][data-variant='selling'] {
-  @apply text-gray-400;
+  @apply text-gray-700;
   @apply font-normal;
 }
 
@@ -21,7 +21,7 @@
 }
 
 [data-store-price][data-variant='installment'] {
-  @apply text-gray-400;
+  @apply text-gray-700;
   @apply font-normal;
 }
 
