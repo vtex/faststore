@@ -1,3 +1,0 @@
-type StoreRegion {
-  id: String!
-}

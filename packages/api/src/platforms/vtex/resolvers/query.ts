@@ -7,7 +7,6 @@ import type {
   QueryProductArgs,
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
-  QueryStoreRegionArgs,
   QuerySearchArgs,
   QueryCollectionArgs,
 } from '../../../__generated__/schema'
@@ -154,17 +153,5 @@ export const Query = {
           cursor: index.toString(),
         })),
     }
-  },
-  storeRegion: async (
-    _: unknown,
-    { postalCode }: QueryStoreRegionArgs,
-    ctx: Context
-  ) => {
-    const {
-      clients: { commerce },
-    } = ctx
-    const region = commerce.checkout.getRegionID({ postalCode })
-
-    return region
   },
 }

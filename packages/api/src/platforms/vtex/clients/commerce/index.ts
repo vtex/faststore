@@ -102,18 +102,6 @@ export const VtexCommerce = (
           }
         )
       },
-      getRegionID: ({
-        postalCode,
-      }: {
-        postalCode: string
-      }): Promise<StoreRegion> => {
-        const params = new URLSearchParams({
-          country: 'BRA',
-          postalCode,
-        })
-
-        return fetchAPI(`${base}/api/checkout/pub/regions?${params}`)
-      },
     },
   }
 }

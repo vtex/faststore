@@ -16,7 +16,6 @@ import PageInfo from './pageInfo.graphql'
 import Product from './product.graphql'
 import ProductGroup from './productGroup.graphql'
 import Query from './query.graphql'
-import StoreRegion from './store_region.graphql'
 import Review from './review.graphql'
 import Seo from './seo.graphql'
 import Cart from './cart.graphql'
@@ -36,7 +35,6 @@ export const typeDefs = [
   Offer,
   AggregateRating,
   Review,
-  StoreRegion,
   Author,
   ProductGroup,
   Organization,
