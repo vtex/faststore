@@ -21,39 +21,30 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
       return maybeFacet.value
     })
 
-    const indexById = skuIds.reduce(
-      (acc, id, index) => ({ ...acc, [id]: index }),
-      {} as Record<string, number>
-    )
-
     const { products } = await clients.search.products({
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,
     })
 
-    if (products.length !== skuIds.length) {
-      throw new BadRequestError(
-        `Sku batching went wrong. Asked for ${skuIds.length} sku(s) but search api returned ${products.length} sku(s)`
+    const skuBySkuId = products.reduce((acc, product) => {
+      for (const sku of product.skus) {
+        acc[sku.id] = enhanceSku(sku, product)
+      }
+
+      return acc
+    }, {} as Record<string, EnhancedSku>)
+
+    const skus = skuIds.map((skuId) => skuBySkuId[skuId])
+    const missingSkus = skus.filter((sku) => !sku)
+
+    if (missingSkus.length > 0) {
+      throw new Error(
+        `Search API did not return the following skus: ${missingSkus.join(',')}`
       )
     }
 
-    const sorted = new Array<EnhancedSku>(products.length)
-
-    // O(n*m) sort, where n = skuIds.length and m is the number of skus per product
-    for (const product of products) {
-      const sku = product.skus.find((item) => indexById[item.id] != null)
-
-      if (sku == null) {
-        throw new Error(`Could not find sku for product ${product.id}`)
-      }
-
-      const index = indexById[sku.id]
-
-      sorted[index] = enhanceSku(sku, product)
-    }
-
-    return sorted
+    return skus
   }
 
   return new DataLoader<SelectedFacet[], EnhancedSku>(loader, {
