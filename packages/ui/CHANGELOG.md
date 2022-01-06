@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.9 (2022-01-06)
+
+
+### Features
+
+* add headers to nginx via env vars ([#1049](https://github.com/vtex/faststore/issues/1049)) ([3553372](https://github.com/vtex/faststore/commit/355337273ce03660db9fd14482818cc24c99f4e2))
+
+
+
+
+
 ## 1.4.8 (2022-01-05)
 
 **Note:** Version bump only for package @faststore/ui
