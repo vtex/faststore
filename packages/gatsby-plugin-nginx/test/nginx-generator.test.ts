@@ -263,6 +263,10 @@ describe('generateNginxConfiguration', () => {
         prepend: [],
         append: [],
       },
+      customGlobalHeaders: [
+        { name: `c`, value: `d` },
+        { name: `e`, value: `f` },
+      ],
     }
 
     expect(
@@ -313,14 +317,20 @@ describe('generateNginxConfiguration', () => {
           location /nginx.conf {
             deny all;
             return 404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
           }
           location = /foo {
             add_header a \\"b\\";
             try_files /foo/index.html =404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
           }
           location = /bar {
             add_header a \\"b\\";
             try_files /bar/index.html =404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
           }
         }
       }"
@@ -331,21 +341,26 @@ describe('generateNginxConfiguration', () => {
     function generateLargeConfig(numFiles: number) {
       const headersMap: PathHeadersMap = {}
       const files: string[] = []
+      const globalHeaders: Header[] = []
+
+      const header = { name: `a`, value: `b` }
 
       for (let i = 0; i < numFiles; i++) {
-        headersMap[`/page-${i}`] = [{ name: `a`, value: `b` }]
+        globalHeaders.push(header)
+        headersMap[`/page-${i}`] = [header]
         files.push(`page-${i}/index.html`)
       }
 
       return {
         headersMap,
+        globalHeaders,
         files,
       }
     }
 
     const rewrites: Redirect[] = []
 
-    const { headersMap, files } = generateLargeConfig(10000)
+    const { headersMap, globalHeaders, files } = generateLargeConfig(10000)
     const options: PluginOptions = {
       plugins: [],
       disableBrotliEncoding: false,
@@ -361,6 +376,7 @@ describe('generateNginxConfiguration', () => {
         prepend: [],
         append: [],
       },
+      customGlobalHeaders: globalHeaders,
     }
 
     const start = performance.now()

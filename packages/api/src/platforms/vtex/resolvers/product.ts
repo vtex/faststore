@@ -26,7 +26,7 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),
   breadcrumbList: ({ isVariantOf: { categoryTrees, name, link }, id }) => ({
     itemListElement: [
-      ...categoryTrees.map(({ categoryNames }, index) => ({
+      ...categoryTrees.reverse().map(({ categoryNames }, index) => ({
         name: categoryNames[categoryNames.length - 1],
         item: `/${categoryNames.join('/').toLowerCase()}`,
         position: index + 1,

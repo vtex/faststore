@@ -208,16 +208,16 @@ function Carousel({
       {showNavigationArrows && (
         <div data-carousel-controls>
           <IconButton
+            aria-label="previous"
             data-arrow="left"
             aria-controls={id}
-            aria-label="previous"
             onClick={slidePrevious}
             icon={<LeftArrowIcon />}
           />
           <IconButton
+            aria-label="next"
             data-arrow="right"
             aria-controls={id}
-            aria-label="next"
             onClick={slideNext}
             icon={<RightArrowIcon />}
           />

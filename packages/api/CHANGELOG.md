@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.11 (2022-01-06)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.4.10 (2022-01-06)
+
+
+### Bug Fixes
+
+* **api:** Sku loader ([#1100](https://github.com/vtex/faststore/issues/1100)) ([82d029f](https://github.com/vtex/faststore/commit/82d029fbb4fd7613c80d099587b00812c410e448))
+
+
+
+
+
+## 1.4.9 (2022-01-06)
+
+
+### Features
+
+* add headers to nginx via env vars ([#1049](https://github.com/vtex/faststore/issues/1049)) ([3553372](https://github.com/vtex/faststore/commit/355337273ce03660db9fd14482818cc24c99f4e2))
+
+
+
+
+
+## 1.4.8 (2022-01-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.4.7 (2022-01-05)
+
+
+### Bug Fixes
+
+* fix accessibility on storybook ([#1096](https://github.com/vtex/faststore/issues/1096)) ([55805b1](https://github.com/vtex/faststore/commit/55805b1b2cffd111ef64857321c20e0a001a93b2))
+
+
+
+
+
+## 1.4.6 (2022-01-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.4.5 (2022-01-04)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
 ## 1.4.4 (2022-01-04)
 
 

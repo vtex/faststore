@@ -16,7 +16,7 @@ export interface QuantitySelectorProps
   /**
    * Object with properties that will be passed forward the inner IconButton atom at the left of the input.
    */
-  leftButtonProps: IconButtonProps
+  leftButtonProps: Omit<IconButtonProps, 'aria-label'>
 
   /**
    * Object with properties that will be passed forward the inner Input atom between the two buttons.
@@ -26,7 +26,7 @@ export interface QuantitySelectorProps
   /**
    * Object with properties that will be passed forward the inner IconButton atom at the right of the input.
    */
-  rightButtonProps: IconButtonProps
+  rightButtonProps: Omit<IconButtonProps, 'aria-label'>
 
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).

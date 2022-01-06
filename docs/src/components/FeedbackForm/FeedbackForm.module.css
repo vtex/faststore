@@ -1,0 +1,57 @@
+.submitMessage{
+  @apply mt-5 mb-10 text-seriousBlack;
+}
+
+.feedbackForm {
+  @apply mb-5 text-seriousBlack;
+}
+
+.feedbackForm p {
+  @apply text-lg;
+}
+
+.submit {
+  @apply font-bold float-right py-1 px-3 mx-1 rounded-lg;
+}
+
+.submit:hover {
+  @apply bg-whiteIce;
+}
+
+.feedbackForm label {
+  @apply pr-2;
+}
+
+.formText {
+  @apply w-full p-4 rounded-md shadow-lg my-4;
+}
+
+.formRadio {
+  @apply  my-5 text-seriousBlack;
+}
+
+.formRadio label + label {
+  @apply cursor-pointer relative;
+}
+
+.formRadio input[type='radio'] {
+  @apply hidden absolute;
+}
+
+.formRadio input[type='radio'] + span {
+  @apply text-gray-400 p-2 rounded-full;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+}
+
+.yes input[type='radio']:checked + span {
+  @apply text-blue-600;
+}
+
+.no input[type='radio']:checked + span {
+  @apply text-red-600;
+}
+
+.formRadio input[type='radio']:hover + span {
+  @apply opacity-60;
+}

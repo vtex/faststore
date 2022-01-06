@@ -16,6 +16,7 @@ const defaultOptions: PluginOptions = {
     append: [],
     prepend: [],
   },
+  customGlobalHeaders: [],
 }
 
 export function pluginOptions(options: Partial<PluginOptions>): PluginOptions {
@@ -45,6 +46,8 @@ export function pluginOptions(options: Partial<PluginOptions>): PluginOptions {
       prepend: options.locations?.prepend ?? [],
       append: options.locations?.append ?? [],
     },
+    customGlobalHeaders:
+      options.customGlobalHeaders ?? defaultOptions.customGlobalHeaders,
   }
 }
 

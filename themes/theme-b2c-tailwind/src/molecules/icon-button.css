@@ -1,5 +1,5 @@
 [data-store-icon-button] {
-  @apply inline-flex;
+  @apply inline-flex items-center;
 }
 
 .iconButton {
