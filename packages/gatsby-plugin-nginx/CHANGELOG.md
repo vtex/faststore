@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.10 (2022-01-06)
+
+
+### Bug Fixes
+
+* **api:** Sku loader ([#1100](https://github.com/vtex/faststore/issues/1100)) ([82d029f](https://github.com/vtex/faststore/commit/82d029fbb4fd7613c80d099587b00812c410e448))
+
+
+
+
+
 ## 1.4.9 (2022-01-06)
 
 
