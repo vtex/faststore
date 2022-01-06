@@ -38,3 +38,5 @@ export const LOCATION_MODIFIERS = {
 export const FUNCTIONS_REDIRECTS_FILENAME = 'functions-redirects.json'
 
 export const FUNCTIONS_URL_PATH = '/functions'
+
+export const ENV_VAR_HEADER_PREVIX = 'NGINX_HEADER_'
