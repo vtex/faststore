@@ -1,3 +1,9 @@
+---
+sidebar_label: Overview
+sidebar_position: 1
+keywords: [cart, minicart, checkout]
+---
+
 # Cart
 The cart module lets you manage a platform agnostic, marketplace/coupon/gift/promotion ready cart for your next ecommerce. The cart state is saved on the browser's IndexedDB for supporting large orders. Also, the cart has an `optimistic` mode where the cart state can be validated by a server using debounced requests for smaller server loads.
 

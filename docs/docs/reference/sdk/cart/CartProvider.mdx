@@ -1,0 +1,70 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# CartProvider
+
+`CartProvider` is a React component that wraps an entire app, in a way to provide the necessary context for Cart operations, like addItem, removeItem, etc.
+
+## Import
+
+```tsx
+import { CartProvider } from '@faststore/sdk'
+```
+
+## Usage
+
+```tsx
+import { CartProvider } from '@faststore/sdk'
+
+function App () {
+  return (
+    <CartProvider mode="pure">
+      {children}
+    </CartProvider>
+  )
+}
+```
+
+## Props
+
+<PropsComponent
+    name="mode"
+    type="'optimistic' | 'pure'"
+    description="Cart operation mode."
+    required="true"
+/>
+
+<PropsComponent
+    name="onValidateCart"
+    type="(cart: Cart) => Promise<Cart | null>"
+    description="Callback function called whenever the cart changes and mode='optimistic'"
+/>
+
+<PropsComponent
+    name="namespace"
+    type="string"
+    description="Namespace of the cart. Used to avoid cart colisions in IndexedDB"
+/>
+
+<PropsComponent
+    name="initialCart"
+    type="Cart"
+    description="Initial cart to use before hydrating cart from IndexedDB"
+/>
+
+<PropsComponent
+    name="onItemAdd"
+    type="(newItem: Item, oldItem?: Item) => void"
+    description="Callback function called when an item is added to cart"
+/>
+
+<PropsComponent
+    name="onItemUpdate"
+    type="(newItem: Item, oldItem?: Item) => void"
+    description="Callback function called when an item is updated"
+/>
+
+<PropsComponent
+    name="onItemRemove"
+    type="(item?: Item) => void;"
+    description="Callback function called when an item is removed from cart"
+/>
