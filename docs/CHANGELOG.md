@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.14 (2022-01-07)
+
+
+### Features
+
+* add item generics to analytics types for easy customization ([#1101](https://github.com/vtex/faststore/issues/1101)) ([51e9d96](https://github.com/vtex/faststore/commit/51e9d96b82062113a96a95159963ff85a22086fc))
+
+
+
+
+
 ## 1.4.13 (2022-01-07)
 
 **Note:** Version bump only for package docs
