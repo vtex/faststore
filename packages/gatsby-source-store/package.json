@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-source-store",
-  "version": "1.4.12",
+  "version": "1.4.13",
   "description": "Gatsby source plugin for building websites using a FastStore compatible server",
   "author": "Store Framework",
   "license": "MIT",
