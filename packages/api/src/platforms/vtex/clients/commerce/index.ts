@@ -4,7 +4,6 @@ import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 import type { PortalPagetype } from './types/Portal'
-import type { StoreRegion } from './types/StoreRegion'
 import type {
   Simulation,
   SimulationArgs,
