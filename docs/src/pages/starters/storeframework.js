@@ -6,9 +6,9 @@ const data = {
   name: 'Storeframework Store',
   owner: 'VTEX',
   description:
-    'This starter integrates Base.Store with VTEX CMS as a first class citizen to empower the business user tweaking the store',
+    'This modern and clean starter integrates the Base store with VTEX Headless CMS, giving business users the autonomy to customize their stores.',
   features: [
-    'VTEX CMS integration',
+    'VTEX Headless CMS integration',
     'Landing page',
     'Product page',
     'Intelligent search',
