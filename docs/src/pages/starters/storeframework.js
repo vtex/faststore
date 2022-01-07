@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import StarterComponentPage from '../sections/StarterComponentPage/StarterComponentPage'
 
 const data = {
-  name: 'Storeframework Store',
+  name: 'CMS Store',
   owner: 'VTEX',
   description:
     'This modern and clean starter integrates the Base store with VTEX Headless CMS, giving business users the autonomy to customize their stores.',
