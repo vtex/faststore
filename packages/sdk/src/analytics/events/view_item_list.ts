@@ -1,12 +1,12 @@
 import type { Item } from './common'
 
-export interface ViewItemListParams {
+export interface ViewItemListParams<T extends Item = Item> {
   item_list_id?: string
   item_list_name?: string
-  items?: Item[]
+  items?: T[]
 }
 
-export interface ViewItemListEvent {
+export interface ViewItemListEvent<T extends Item = Item> {
   name: 'view_item_list'
-  params: ViewItemListParams
+  params: ViewItemListParams<T>
 }
