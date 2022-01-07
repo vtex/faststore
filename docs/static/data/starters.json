@@ -1,8 +1,12 @@
 [
-    {
-      "name": "Base Store",
-      "imgPath": "/img/base-starter.png",
-      "url": "/starters/base"
-    }
-  ]
-  
+  {
+    "name": "Base Store",
+    "imgPath": "/img/base-starter.png",
+    "url": "/starters/base"
+  },
+  {
+    "name": "CMS Base Store",
+    "imgPath": "/img/base-starter.png",
+    "url": "/starters/storeframework"
+  }
+]

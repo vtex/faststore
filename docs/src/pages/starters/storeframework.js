@@ -3,11 +3,12 @@ import Layout from '@theme/Layout';
 import StarterComponentPage from '../sections/StarterComponentPage/StarterComponentPage'
 
 const data = {
-  name: 'Base Store',
+  name: 'CMS Base Store',
   owner: 'VTEX',
   description:
-    'Kickoff your store with this boilerplate. This starter ships with the main FastStore configuration files you need to get up and running blazing fast.',
+    'This modern and clean starter integrates the Base store with VTEX Headless CMS, giving business users the autonomy to customize their stores.',
   features: [
+    'VTEX Headless CMS integration',
     'Landing page',
     'Product page',
     'Intelligent search',
@@ -15,8 +16,8 @@ const data = {
     'Optimistic shopping cart',
     'Google Analytics',
   ],
-  demoURL: 'https://base.vtex.app/',
-  gitHubURL: 'https://github.com/vtex-sites/base.store',
+  demoURL: 'https://storeframework.vtex.app/',
+  gitHubURL: 'https://github.com/vtex-sites/storeframework.store',
   price: 'Free',
   img: '/img/base-starter.png',
 }
