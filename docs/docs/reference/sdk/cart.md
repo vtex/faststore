@@ -18,7 +18,7 @@ The Cart module provides two modes:
 
 In the Pure mode, the shopping cart works entirely on the client-side. Hence, every time a user changes their shopping cart, the new cart's state is stored in the browser's IndexedDB. This way, the next time the user opens your store website, their cart will hydrate from its last state. 
 
-Notice that, because of how it was built, the Pure cart can also work offline. However, the Pure cart is deterministic, meaning that, given an input, they always return the same output. Hence, the pure cart can't cause side effects.
+Notice that, because of how it was built, the Pure cart can also work offline. However, the Pure cart is deterministic, meaning that, given an input, it always returns the same output. Hence, the Pure mode can't cause side effects on the commerce platform to correct undesired behaviors such as adding unavailable items to the cart.
 
 To use the Pure cart, you must use the `CartProvider` component and call the `useCart` hook as in the following example:
 
