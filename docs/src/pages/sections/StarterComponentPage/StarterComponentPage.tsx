@@ -2,26 +2,7 @@ import React from 'react'
 import styles from './StarterComponentPage.module.css'
 import Link from '@docusaurus/Link'
 
-const data = {
-  name: 'Base Store',
-  owner: 'VTEX',
-  description:
-    'Kickoff your store with this boilerplate. This starter ships with the main FastStore configuration files you need to get up and running blazing fast.',
-  features: [
-    'Landing page',
-    'Product page',
-    'Intelligent search',
-    'Filters for categories',
-    'Optimistic shopping cart',
-    'Google Analytics',
-  ],
-  demoURL: 'https://base.vtex.app/',
-  gitHubURL: 'https://github.com/vtex-sites/base.store',
-  price: 'Free',
-  img: '/img/base-starter.png',
-}
-
-const StarterComponentPage = () => {
+const StarterComponentPage = ({ data }) => {
   return (
     <>
     <div className={styles.BackNavigation}><Link href="/starters"><i className="fas fa-long-arrow-alt-left"></i> Back</Link></div>
