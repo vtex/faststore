@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './StarterComponentPage.module.css'
 import Link from '@docusaurus/Link'
 
-const StarterComponentPage = ({ data }) => {
+const StarterComponentPage = ({ data = {} }) => {
   return (
     <>
     <div className={styles.BackNavigation}><Link href="/starters"><i className="fas fa-long-arrow-alt-left"></i> Back</Link></div>
@@ -14,7 +14,7 @@ const StarterComponentPage = ({ data }) => {
         <div className={styles.Features}>
           <p>Features:</p>
           <ul>
-          {data.features.map((feature) => (
+          {data.features?.map((feature) => (
               <li>{feature}</li>
           ))}
           </ul>
