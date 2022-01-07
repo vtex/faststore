@@ -124,6 +124,7 @@ module.exports = {
         {
           type: 'category',
           label: 'Cart',
+          link: {type: 'doc', id: 'reference/sdk/cart'},
           collapsed: true,
           items: [
             {
