@@ -6,7 +6,7 @@ sidebar_position: 1
 
 In this guide, you'll learn how to initially set up your VTEX account so you can later edit the Secrets of your FastStore project.
 
-To set up your account, you will first need to install the WebOps Secrets (WOS) plugin on your VTEX IO CLI. WOS provides great autonomy and easy management over Secrets, besides guaranteeing the safe storage of your Secrets in your FastStore repository. With WOS, Secrets are saved in an encrypted file, which we'll learn how to manipulate later in the [Managing secrets](/how-to-guides/webops/secrets/managing-secrets) doc.
+To set up your account, you will first need to install the WebOps Secrets (WOS) plugin on your VTEX IO CLI. WOS provides great autonomy and easy management over Secrets, besides guaranteeing the safe storage of your Secrets in your FastStore repository. With WOS, Secrets are saved in an encrypted file, which we'll learn how to manipulate later in the [Managing secrets](/how-to-guides/webops/security/managing-secrets) doc.
 
 ## Before you start
 
@@ -58,4 +58,4 @@ Before proceeding any further with this guide, make sure you have:
 
 After running the `vtex secrets setup` command, the `secrets.revealed.json` file will be created in the root of your repository. Also, the `.gitignore` file will be updated with the `secrets.revealed.json` file to avoid any risks of exposing your Secrets by mistake on the remote repository.
 
-Now that your VTEX account and your FastStore project are ready to receive secrets, check the [Managing secrets](/how-to-guides/webops/secrets/managing-secrets) doc to learn how to encrypt and decrypt the Secrets file.
+Now that your VTEX account and your FastStore project are ready to receive secrets, check the [Managing secrets](/how-to-guides/webops/security/managing-secrets) doc to learn how to encrypt and decrypt the Secrets file.
