@@ -14,7 +14,7 @@ After committing your code changes into the repository, VTEX IO WebOps will be a
 
 Before proceeding any further with this guide, make sure you have performed the initial setup needed to manage your store secrets. If you're not sure about this prerequisite, check for the `secrets.revealed.json` file at the root of your FastStore project.
 
-For more information, please refer to [Setting up the secrets file](/how-to-guides/development/setting-up-secrets).
+For more information, please refer to [Setting up the secrets file](/how-to-guides/webops/security/setting-up-secrets).
 
 ## Step by step
 
