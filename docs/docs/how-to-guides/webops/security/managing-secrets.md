@@ -22,7 +22,7 @@ For more information, please refer to [Setting up the secrets file](/how-to-guid
 
 1. Open your FastStore project in any code editor of your choice.
 2. Open the `secrets.revealed.json` file. Notice that the `account` key-value pair is already defined in the `secrets.revealed.json` file.
-3. According to your scenario, add, modify or delete secrets in the `secrets.revealed.json` file. Notice that secrets must be defined as key-value items as in the following example:
+3. According to your scenario, add, modify or delete secrets in the `secrets.revealed.json` file. Keep in mind that secret names must obey the following javascript pattern: `^[a-zA-Z_][a-zA-Z0-9_]*$`. Also, remember that secrets must be defined as key-value items as in the following example:
    
     ```json
     {
