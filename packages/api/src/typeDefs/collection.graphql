@@ -21,6 +21,9 @@ type StoreCollection {
   breadcrumbList: StoreBreadcrumbList!
   meta: StoreCollectionMeta!
   id: ID!
+  name: String!
   slug: String!
   type: StoreCollectionType!
+  level: Int
+  parentId: String
 }

@@ -11,6 +11,9 @@ const isBrand = (x: any): x is Brand => x.type === 'brand'
 const isPortalPageType = (x: any): x is PortalPagetype =>
   typeof x.pageType === 'string'
 
+const isCategoryTree = (x: any): x is CategoryTree =>
+  typeof x.level === 'number'
+
 const slugify = (root: Root) => {
   if (isBrand(root)) {
     return baseSlugify(root.name)
@@ -26,6 +29,7 @@ const slugify = (root: Root) => {
 export const StoreCollection: Record<string, Resolver<Root>> = {
   id: ({ id }) => id.toString(),
   slug: (root) => slugify(root),
+  name: ({ name }) => name,
   seo: (root) =>
     isBrand(root) || isPortalPageType(root)
       ? {
@@ -91,4 +95,5 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
       numberOfItems: pageTypes.length,
     }
   },
+  level: (root) => (isCategoryTree(root) ? root.level : null),
 }
