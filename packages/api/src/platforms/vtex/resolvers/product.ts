@@ -88,4 +88,27 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     return { ...simulation, product }
   },
   isVariantOf: ({ isVariantOf }) => isVariantOf,
+  additionalProperty: (root) => {
+    const {
+      isVariantOf: { textAttributes = [], productSpecifications },
+      attributes = [],
+    } = root
+
+    // Product specifications
+    const specs = new Set(productSpecifications)
+    const productAttributes = textAttributes
+      .filter((attribute) => specs.has(attribute.labelKey))
+      .map((attribute) => ({
+        name: attribute.labelKey,
+        value: attribute.labelValue,
+      }))
+
+    // Sku specifications
+    const skuAttributes = attributes.map((attribute) => ({
+      name: attribute.key,
+      value: attribute.value,
+    }))
+
+    return [...skuAttributes, ...productAttributes]
+  },
 }
