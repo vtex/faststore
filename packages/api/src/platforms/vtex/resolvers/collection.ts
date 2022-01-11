@@ -11,9 +11,6 @@ const isBrand = (x: any): x is Brand => x.type === 'brand'
 const isPortalPageType = (x: any): x is PortalPagetype =>
   typeof x.pageType === 'string'
 
-const isCategoryTree = (x: any): x is CategoryTree =>
-  typeof x.level === 'number'
-
 const slugify = (root: Root) => {
   if (isBrand(root)) {
     return baseSlugify(root.name)
