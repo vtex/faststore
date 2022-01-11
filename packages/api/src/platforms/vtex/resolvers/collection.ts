@@ -15,11 +15,11 @@ const slugify = (root: Root) => {
   if (isBrand(root)) {
     return baseSlugify(root.name)
   }
-  
+
   if (isPortalPageType(root)) {
     return new URL(`https://${root.url}`).pathname.slice(1)
   }
-  
+
   return new URL(root.url).pathname.slice(1)
 }
 
