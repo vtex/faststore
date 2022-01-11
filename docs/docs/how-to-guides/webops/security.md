@@ -10,7 +10,7 @@ When developing your FastStore project, you may use private services and depende
 
 A **Secret** is an API object used to hold confidential data, such as credentials, passwords, and tokens that access private APIs and dependencies necessaries for your store build. Henceforth, you can use Secrets to avoid exposing sensitive data in your **FastStore** code. 
 
-Secrets are encrypted and saved directly in the **VTEX IO WebOps** infrastructure, guaranteeing the safe storage of your data. **VTEX IO WebOps** then decrypts and consumes your Secrets as environment variables to build your store.
+Secrets are encrypted and saved directly in the FastStore project, guaranteeing the safe storage of your data. **VTEX IO WebOps** then decrypts and consumes your Secrets as environment variables to build your store.
 
 ![](/img/how-to-guides/secrets-diagram.png)
 
