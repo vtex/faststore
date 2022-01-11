@@ -11,12 +11,17 @@ const isBrand = (x: any): x is Brand => x.type === 'brand'
 const isPortalPageType = (x: any): x is PortalPagetype =>
   typeof x.pageType === 'string'
 
-const slugify = (root: Root) =>
-  isBrand(root)
-    ? baseSlugify(root.name)
-    : isPortalPageType(root)
-    ? new URL(`https://${root.url}`).pathname.slice(1)
-    : new URL(root.url).pathname.slice(1)
+const slugify = (root: Root) => {
+  if (isBrand(root)) {
+    return baseSlugify(root.name)
+  }
+  
+  if (isPortalPageType(root)) {
+    return new URL(`https://${root.url}`).pathname.slice(1)
+  }
+  
+  return new URL(root.url).pathname.slice(1)
+}
 
 export const StoreCollection: Record<string, Resolver<Root>> = {
   id: ({ id }) => id.toString(),
