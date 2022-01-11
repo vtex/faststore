@@ -6,10 +6,7 @@ export const StoreProductGroup: Record<string, Resolver<Product>> = {
   hasVariant: (root) => root.skus.map((sku) => enhanceSku(sku, root)),
   productGroupID: ({ product }) => product,
   name: ({ name }) => name,
-  additionalProperty: (root) => {
-    const { textAttributes = [], productSpecifications } = root
-
-    // Product specifications
+  additionalProperty: ({ textAttributes = [], productSpecifications = [] }) => {
     const specs = new Set(productSpecifications)
 
     return textAttributes

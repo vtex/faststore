@@ -88,13 +88,9 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     return { ...simulation, product }
   },
   isVariantOf: ({ isVariantOf }) => isVariantOf,
-  additionalProperty: (root) => {
-    const { attributes = [] } = root
-
-    // Sku specifications
-    return attributes.map((attribute) => ({
+  additionalProperty: ({ attributes = [] }) =>
+    attributes.map((attribute) => ({
       name: attribute.key,
       value: attribute.value,
-    }))
-  },
+    })),
 }
