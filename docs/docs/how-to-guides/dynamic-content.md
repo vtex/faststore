@@ -1,4 +1,4 @@
-# Rendering Dynamic Content
+# Dynamic Content
 
 Static Site Generation (SSG) is awesome because of the performance and stability it offers. However, an ecommerce is much more than a static product catalog. Ecommerces offer the possibility of creating a personalized experience for the final customer by offering personalized prices, availability and search results.
 This level of customization used to be really difficult to achieve in a static website. However, with the advancements of React, it's possible now to use hybrid rendering techniques to create custom digital experiences for your customer.
