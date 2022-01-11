@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.15 (2022-01-11)
+
+
+### Bug Fixes
+
+* **api:** Breadcrumb data on collection pages ([#1104](https://github.com/vtex/faststore/issues/1104)) ([25d3c2b](https://github.com/vtex/faststore/commit/25d3c2bd07158ffca75bfe377a5b932c8fb36ae5))
+
+
+
+
+
 ## 1.4.14 (2022-01-07)
 
 
