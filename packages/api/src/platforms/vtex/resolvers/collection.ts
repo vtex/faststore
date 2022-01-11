@@ -29,7 +29,6 @@ const slugify = (root: Root) => {
 export const StoreCollection: Record<string, Resolver<Root>> = {
   id: ({ id }) => id.toString(),
   slug: (root) => slugify(root),
-  name: ({ name }) => name,
   seo: (root) =>
     isBrand(root) || isPortalPageType(root)
       ? {
@@ -95,5 +94,4 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
       numberOfItems: pageTypes.length,
     }
   },
-  level: (root) => (isCategoryTree(root) ? root.level : null),
 }
