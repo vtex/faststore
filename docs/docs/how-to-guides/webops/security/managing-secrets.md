@@ -21,7 +21,7 @@ For more information, please refer to [Setting up the secrets file](/how-to-guid
 ### Step 1 - Editing your store secrets
 
 1. Open your FastStore project in any code editor of your choice.
-2. Open the `secrets.revealed.json` file. Notice that the `account` and its encryption-decryption key alias are already defined in the `secrets.revealed.json` file.
+2. Open the `secrets.revealed.json` file. Notice that the `account` key-value pair is already defined in the `secrets.revealed.json` file.
 3. According to your scenario, add, modify or delete secrets in the `secrets.revealed.json` file. Notice that secrets must be defined as key-value items as in the following example:
    
     ```json
