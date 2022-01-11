@@ -27,7 +27,7 @@ For more information, please refer to [Setting up the secrets file](/how-to-guid
     ```json
     {
         "account": "account-name",
-        "name of the secret": "value of the secret"
+        "name_of_the_secret": "value of the secret"
     }
     ```
 
