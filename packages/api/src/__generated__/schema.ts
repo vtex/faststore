@@ -282,6 +282,7 @@ export type StoreProductEdge = {
 
 export type StoreProductGroup = {
   __typename?: 'StoreProductGroup';
+  additionalProperty: Array<StorePropertyValue>;
   hasVariant: Array<StoreProduct>;
   name: Scalars['String'];
   productGroupID: Scalars['String'];
