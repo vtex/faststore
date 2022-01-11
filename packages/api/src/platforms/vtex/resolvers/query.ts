@@ -121,11 +121,15 @@ export const Query = {
     ])
 
     const categories: Array<CategoryTree & { level: number }> = []
-    const dfs = (node: CategoryTree, level: number) => {
-      categories.push({ ...node, level })
+    const dfs = (
+      node: CategoryTree,
+      level: number,
+      parentId: number | null = null
+    ) => {
+      categories.push({ ...node, level, parentId })
 
       for (const child of node.children) {
-        dfs(child, level + 1)
+        dfs(child, level + 1, node.id)
       }
     }
 
