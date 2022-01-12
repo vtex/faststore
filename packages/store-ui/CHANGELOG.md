@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.44 (2022-01-12)
+
+**Note:** Version bump only for package @vtex/store-ui
+
+
+
+
+
 ## 0.373.43 (2021-10-22)
 
 **Note:** Version bump only for package @vtex/store-ui
