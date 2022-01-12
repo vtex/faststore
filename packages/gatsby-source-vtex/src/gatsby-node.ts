@@ -128,6 +128,7 @@ export const createResolvers = ({
         args: {
           slug: 'String!',
           regionId: 'String',
+          salesChannel: 'Int',
         },
         resolve: () => {
           throw new Error('Client-side only route. Can not be used on SSG')
