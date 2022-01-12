@@ -150,6 +150,7 @@ export interface Props {
    * @memberof Props
    */
   openMinicart?: boolean
+  salesChannel?: string
 }
 
 /**
@@ -168,6 +169,7 @@ export const useBuyButton = ({
   quantity,
   oneClickBuy = false,
   openMinicart: shouldOpenMinicart = true,
+  salesChannel,
 }: Props) => {
   const { openMinicart } = useGlobalUIState()
   const seller = useBestSeller(sku) as Seller
@@ -224,6 +226,7 @@ export const useBuyButton = ({
 
       const addItemsPromise = addItems(items, {
         allowedOutdatedData: ['paymentData'],
+        salesChannel,
       })
 
       if (shouldOpenMinicart) {
