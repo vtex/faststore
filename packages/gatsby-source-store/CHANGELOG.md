@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.17 (2022-01-13)
+
+
+### Bug Fixes
+
+* replaceAll crashing build with env vars ([#1109](https://github.com/vtex/faststore/issues/1109)) ([801b62e](https://github.com/vtex/faststore/commit/801b62e118238b6828d8cdaa2aff96d6c40278a8))
+
+
+
+
+
 ## 1.4.16 (2022-01-11)
 
 **Note:** Version bump only for package @vtex/gatsby-source-store
