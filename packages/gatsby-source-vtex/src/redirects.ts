@@ -14,9 +14,9 @@ export const assertRedirects = (redirects: Redirect[]) => {
       )
     }
 
-    if (!fromPath.startsWith('/') || !toPath.startsWith('/')) {
+    if (!fromPath.startsWith('/')) {
       throw new Error(
-        `[gatsby-source-vtex]: The redirect ${fromPath} -> ${toPath} is not valid in redirects:${line}. The urls must start with "/"`
+        `[gatsby-source-vtex]: The redirect ${fromPath} -> ${toPath} is not valid in redirects:${line}. The "fromPath" must start with "/"`
       )
     }
 
