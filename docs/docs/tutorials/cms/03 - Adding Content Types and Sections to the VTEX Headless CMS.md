@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem'
 
 ## Introduction
 
-Now that you have created your `src/cms` folder and have an overall understanding of how you'll use it, let's learn how to structure the Content Type, Section, and Translation Key files so you can create any integrations you desire. You'll also learn to use the `--watch` argument to automatically sync your changes with the VTEX Headless CMS app while developing your schemas.
+Now that you have created your `cms` folder and have an overall understanding of how you'll use it, let's learn how to structure the Content Type, Section, and Translation Key files so you can create any integrations you desire. You'll also learn to use the `--watch` argument to automatically sync your changes with the VTEX Headless CMS app while developing your schemas.
 
 ---
 
@@ -40,7 +40,7 @@ values={[
 
 <div>
 
-```json title=src/cms/content-types.json
+```json title="cms/content-types.json"
 [
   {
     "id": "home",
@@ -131,7 +131,7 @@ After editing the `cms/content-tyoes.json` file, remember to save your changes a
 <summary>Try our generic Content Type definition.
 </summary>
 
-Copy and paste the following code in the `src/cms/content-types.json` file to try our generic Content Type definitions. Remember to save your changes.
+Copy and paste the following code in the `cms/content-types.json` file to try our generic Content Type definitions. Remember to save your changes.
 
 ```json title="cms/content-types.json"
 [
@@ -442,7 +442,7 @@ values={[
 
 <div>
 
-```json title=src/cms/sections.json
+```json title="cms/sections.json"
 [
   {
     "name": "Shelf",
@@ -573,7 +573,7 @@ In our example, the **Shelf** Section would be already available for use.
 <summary>Try our generic Section definitions.
 </summary>
 
-Copy and paste the following code in the `src/cms/sections.json` file to try our generic Section definitions. Remember to save your changes.
+Copy and paste the following code in the `cms/sections.json` file to try our generic Section definitions. Remember to save your changes.
 
 ```json title="cms/sections.json"
 [
@@ -844,7 +844,7 @@ Copy and paste the following code in the `src/cms/sections.json` file to try our
 
 After creating our Section schemas and Content Types, we will declare the Translation Keys in the `translation-keys.json` file. Translation Keys are used to translate the form presented for editors to any locale you'd like.
 
-```json title=src/cms/translation-keys.json
+```json title="cms/translation-keys.json"
 {
   "admin/siteMetadataWithSlug": "Site Metadata",
   "admin/siteMetadataWithSlugDescription": "Configure global site metadata",
@@ -861,7 +861,7 @@ After creating our Section schemas and Content Types, we will declare the Transl
 <summary>Try our generic Translation Key definition.
 </summary>
  
-Copy and paste the following code in the `src/cms/translation-keys.json` file to try our generic Translation Key definitions. Remember to save your changes.
+Copy and paste the following code in the `cms/translation-keys.json` file to try our generic Translation Key definitions. Remember to save your changes.
 
 
 ```json title="cms/translation-keys.json"

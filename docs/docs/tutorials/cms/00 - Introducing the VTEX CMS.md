@@ -16,6 +16,10 @@ In this tutorial, you'll learn how to integrate your FastStore project with the 
 
 ## Before you start
 
+:::caution
+This tutorial is intended for those who started their FastStore project with the Base Store starter. If you started your project with the Store Components starter, please refer to [this](/tutorials/cms-storecomponents/overview) tutorial instead.
+:::
+
 Before you start this tutorial, make sure you have:
 
 - Access to a VTEX account.
