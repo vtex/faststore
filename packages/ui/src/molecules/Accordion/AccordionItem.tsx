@@ -21,17 +21,27 @@ export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
    * Index of the current accordion item within the accordion.
    */
   index?: number
+  /**
+   * ID for the current Accordion item's panel and button
+   */
+  prefixId?: string
 }
 
 const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   function AccordionItem(
-    { testId = 'store-accordion-item', children, index = 0, ...otherProps },
+    {
+      testId = 'store-accordion-item',
+      children,
+      prefixId = '',
+      index = 0,
+      ...otherProps
+    },
     ref
   ) {
     const context = {
       index,
-      panel: `panel--${index}`,
-      button: `button--${index}`,
+      panel: `${prefixId && `${prefixId}-`}panel--${index}`,
+      button: `${prefixId && `${prefixId}-`}button--${index}`,
     }
 
     return (
