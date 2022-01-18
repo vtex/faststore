@@ -38,7 +38,7 @@ export interface ModalProps extends ModalContentProps {
   /**
    * Returns the value of overlay's class attribute.
    */
-  className?: string
+  overlayClassName?: string
 }
 
 /*
@@ -80,7 +80,7 @@ const Modal = ({
           data-modal-overlay={overlayId}
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
-          className={className}
+          className={overlayClassName}
         >
           <ModalContent {...otherProps} testId={testId}>
             {children}
