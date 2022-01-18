@@ -31,6 +31,14 @@ export interface ModalProps extends ModalContentProps {
    * Controls whether or not the dialog is open.
    */
   isOpen: boolean
+  /**
+   * ID to identify overlay
+   */
+  overlayId?: string
+  /**
+   * Returns the value of overlay's class attribute.
+   */
+  className?: string
 }
 
 /*
@@ -44,6 +52,8 @@ const Modal = ({
   children,
   onDismiss,
   testId = 'store-modal',
+  overlayId,
+  className,
   ...otherProps
 }: PropsWithChildren<ModalProps>) => {
   const handleBackdropClick = (event: MouseEvent) => {
@@ -67,9 +77,10 @@ const Modal = ({
   return isOpen
     ? createPortal(
         <Overlay
-          data-modal-overlay
+          data-modal-overlay={overlayId}
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
+          className={className}
         >
           <ModalContent {...otherProps} testId={testId}>
             {children}
