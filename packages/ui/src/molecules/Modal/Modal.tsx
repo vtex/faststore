@@ -35,10 +35,6 @@ export interface ModalProps extends ModalContentProps {
    * ID to identify overlay
    */
   overlayId?: string
-  /**
-   * Returns the value of overlay's class attribute.
-   */
-  overlayClassName?: string
 }
 
 /*
@@ -53,7 +49,6 @@ const Modal = ({
   onDismiss,
   testId = 'store-modal',
   overlayId,
-  overlayClassName,
   ...otherProps
 }: PropsWithChildren<ModalProps>) => {
   const handleBackdropClick = (event: MouseEvent) => {
@@ -78,9 +73,9 @@ const Modal = ({
     ? createPortal(
         <Overlay
           data-modal-overlay={overlayId}
+          data-modal-overlay-open={isOpen}
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
-          className={overlayClassName}
         >
           <ModalContent {...otherProps} testId={testId}>
             {children}
