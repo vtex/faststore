@@ -53,7 +53,7 @@ const Modal = ({
   onDismiss,
   testId = 'store-modal',
   overlayId,
-  className,
+  overlayClassName,
   ...otherProps
 }: PropsWithChildren<ModalProps>) => {
   const handleBackdropClick = (event: MouseEvent) => {
