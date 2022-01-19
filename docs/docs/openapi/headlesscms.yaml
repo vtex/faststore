@@ -1,0 +1,332 @@
+openapi: 3.0.1
+info:
+  title: VTEX Headless CMS
+  description: |
+    
+    The VTEX Headless CMS is a no-code management system for storefront content. 
+    That means you can store your content as structured data in a layer decoupled from the frontend and 
+    use the VTEX Headless CMS to access and deliver your content to your storefront project.
+    
+    Notice that the VTEX Headless CMS typically works with **FastStore** projects only. In this case, you can use this API
+    to fetch data using SSR (NextJS and Gatsby v4+) or SSG (NextJS).
+
+    **Servers**
+    - `https://{account}.myvtex.com/`
+    - `https://{workspace}--{account}.myvtex.com/`
+
+    **Server variables**
+    - `accountName`: Name of your VTEX account.
+    - `workspace`: Name of your VTEX workspace.
+    
+  version: 0.31.2
+servers:
+- url: https://{account}.myvtex.com
+  variables:
+        account:
+          default: storeframework
+          description: Name of the VTEX account. Used as part of the URL.
+- url: https://{workspace}--{account}.myvtex.com
+  variables:
+        account:
+          default: storeframework
+          description: Name of the VTEX account. Used as part of the URL.
+        workspace:
+          default: test
+          description: Name of the VTEX workspace. Used as part of the URL.
+paths:
+  /_v/cms/api/{builderId}/{content-type}/:
+    get:
+      summary: Get all CMS pages
+      description:  Gets all data from all CMS pages.
+      parameters:
+      - name: builderId
+        in: path
+        description: Builder ID specified in the settings of the CMS app.
+        required: true
+        schema:
+          type: string          
+          example: faststore
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contentTypes:
+                    type: array
+                    description: An array containing the data from all CMS pages.
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: string
+                          description: Content Type ID defined in the FastStore project.
+                          example: plp
+                        name: 
+                          type: string
+                          description: Name of the Content Type defined in the FastStore project.
+                          example: PLP
+                        configurationSchemaSets:
+                          type: object
+                          description: The schema varies according to the Content Type definition.
+                          properties:
+                            name: 
+                              type: string
+                              example: Parameters
+                            configurations:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                  example:  Collection
+                                schema:
+                                  type: object
+                                  properties:
+                                    title:
+                                      type: string
+                                      example: Collection
+                                    description: 
+                                      type: string
+                                      example: Definition of a Collection for the CMS
+                                    oneOf:
+                                        type: array
+                                        items:
+                                          type: object
+                                          properties:
+                                            title: 
+                                              type: string
+                                              example: Category
+                                            description:
+                                              type: string
+                                              example: Configure a Category
+                                            type: 
+                                              type: string
+                                              example: object
+                                            required:
+                                              type: array
+                                              example:
+                                                - categoryId
+                                                - sort
+                                            properties:
+                                              type: object
+                                              properties:
+                                                categoryId:
+                                                  type: object
+                                                  properties:
+                                                    title:
+                                                      type: string
+                                                      example: Category ID
+                                                    type: 
+                                                      type: string
+                                                      example: 'string'
+                                                sort:
+                                                  type: object
+                                                  properties:
+                                                    title: 
+                                                      type: string
+                                                      example: Default ordering
+                                                    type: 
+                                                      type: string
+                                                      example: string
+                                                    default:
+                                                      type: string
+                                                      example: '""'
+                                                    enum:
+                                                      type: array
+                                                      example:
+                                                      - '""'
+                                                      - discount:desc
+                                                      - release:desc
+                                                      - name:asc
+                                                      - name:desc
+                                                      - orders:desc
+                                                      - price:asc
+                                                      - price:desc
+                                                    enumNames:
+                                                      type: array
+                                                      example:
+                                                        - Relevance
+                                                        - Discount
+                                                        - Release date
+                                                        - Name, ascending
+                                                        - Name, descending
+                                                        - Sales
+                                                        - 'Price: Low to High'
+                                                        - 'Price: High to Low'
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error      
+  /_v/cms/api/{builderId}/{content-type}/{document-id}/:
+    get:
+      summary: Get CMS page      
+      description: |
+        Gets all data from a given page or Content Type.
+        
+        **Usage**
+
+        Check the following suggestions on how to use this endpoint:
+
+        - Get data by document ID: `/_v/cms/api/:builderId/:content-type/:document-id`
+          - Example: [https://filters--storecomponents.myvtex.com/_v/cms/api/faststore/plp/5af643b5-9a6d-48f2-9b34-919dd762c908](https://filters--storecomponents.myvtex.com/_v/cms/api/faststore/plp/5af643b5-9a6d-48f2-9b34-919dd762c908)
+        - Get an specific version of the document: `/_v/cms/api/:builderId/:content-type/:document-id?versionId=:version-id`
+          - Example: [https://filters--storecomponents.myvtex.com/_v/cms/api/faststore/plp/5af643b5-9a6d-48f2-9b34-919dd762c908?versionId=e7263fc8-bc68-4052-9e25-dd5a2572d3bb](https://filters--storecomponents.myvtex.com/_v/cms/api/faststore/plp/5af643b5-9a6d-48f2-9b34-919dd762c908)
+        - Get the content of a release: `/_v/cms/api/:builderId/:content-type/:document-id?releaseId=:release-id`
+          - Example: [https://filters--storecomponents.myvtex.com/_v/cms/api/faststore/plp/5af643b5-9a6d-48f2-9b34-919dd762c908?releaseId=6196c277c6dce15f9709a2a7](https://filters--storecomponents.myvtex.com/_v/cms/api/faststore/plp/5af643b5-9a6d-48f2-9b34-919dd762c908)
+
+        Use filters on the URL to get only what you need.
+        - Filter by props on the first level of the document: `/_v/cms/api/faststore/plp?filters[status]=published`
+        - Filter results by nested props
+          - SEO Slug: `/_v/cms/api/faststore/plp?filters[parameters.collection.seo.slug]=/summer`
+          - SEO Title: `/_v/cms/api/faststore/plp?filters[parameters.collection.seo.title]=Summer%20Deals`
+          - Category ID: `/_v/cms/api/faststore/plp?filters[parameters.collection.categoryId]=25`
+        - Filter by multiple fields: `/_v/cms/api/faststore/plp?filters[parameters.collection.clusterId]=1970&filters[name]=Summer`
+      parameters:  
+      - name: builderId
+        in: path
+        description: Builder ID specified in the settings of the CMS app.
+        required: true
+        schema:
+          type: string          
+          example: faststore        
+      - name: content-type
+        in: path
+        description: Content Type ID defined in the FastStore project.
+        required: true    
+        schema:
+          type: string
+          example: plp
+      - name: document-id
+        in: path
+        description: Document ID presented in the URL path of a CMS preview.
+        required: false
+        schema:
+          type: string
+          example: 5af643b5-9a6d-48f2-9b34-919dd762c908 
+      - name: versionId
+        in: query
+        description: Version ID presented in the URL path of a CMS preview.
+        required: false
+        schema:
+          type: string
+          example: e7263fc8-bc68-4052-9e25-dd5a2572d3bb
+      - name: releaseId
+        in: query
+        description: Release ID presented in the URL path of a CMS preview.
+        required: false
+        schema:
+          type: string 
+          example: 6196c277c6dce15f9709a2a7
+      - name: filters[status]
+        in: query
+        description: Filter by the status of the page.
+        required: false
+        schema:
+          type: string 
+          example: 
+            - draft
+            - published
+            - publishing
+            - unpublishing
+      - name: filters[parameters.collection.seo.slug]
+        in: query
+        description: Filter by the SEO slug of a collection.
+        required: false
+        schema:
+          type: string 
+          example: Summer%20Deals
+      - name: filters[parameters.collection.seo.title]
+        in: query
+        description: Filter by the SEO title of a collection.
+        required: false
+        schema:
+          type: string 
+          example: Summer%20Deals
+      - name: filters[parameters.collection.categoryId]
+        in: query
+        description: Filter by the category ID of a collection.
+        required: false
+        schema:
+          type: string 
+          example: 25    
+      - name: filters[name]
+        in: query
+        description: Filter by the page name.
+        required: false
+        schema:
+          type: string 
+          example: Summer    
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: string
+                    description: Document ID.
+                    example: 7db1406b-f5fd-486c-b549-25cda55b308c
+                  name: 
+                    type: string
+                    description: Name of the page created in the CMS app.
+                    example: Home Page
+                  type: 
+                    type: string
+                    description: Content Type.
+                    example: home
+                  status: 
+                    type: string
+                    description: Current status of the page.
+                    example: published
+                  versionId: 
+                    type: string
+                    description: Version ID.
+                    example: 4e840369-505a-49ab-98aa-dc0c27f53e1e
+                  versionStatus: 
+                    type: string
+                    description: Version status.
+                    example: published
+                  sections:
+                    type: object
+                    description: Sections that compose the page.
+                    properties: 
+                      id: 
+                        type: string
+                        description: Section ID.
+                        example: 1641388937280
+                      name: 
+                        type: string
+                        description: Section name.
+                        example: Hero
+                      data:
+                        type: object
+                        description: Content of the Section. Varies depending on the Section schema defined in the FastStore project.
+                        properties:
+                          title: 
+                           type: string
+                           example: New Products Available
+                          subtitle: 
+                           type: string
+                           example: Lorem ipsum dolor amet, consectetur adipiscing elit. Lorem ipsum.
+                          linkText:
+                           type: string
+                           example:  See all
+                          link:
+                           type: string
+                           example:  "/"
+                          imageSrc: 
+                           type: string
+                           example: https://storeframework.vtexassets.com/assets/faststore/images/banner-1___7aca7661f2b2996afaf4ccfc8096b102.jpg
+                          imageAlt: 
+                           type: string
+                           example: Gadgets
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error  
+          
+    

@@ -207,6 +207,18 @@ module.exports = {
         },
       },
     ],
+
+    [
+      'redocusaurus',
+      {
+        specs: [
+          {
+            spec: 'docs/openapi/headlesscms.yaml',
+            routePath: '/vtex-headless-cms-api',
+          },
+        ],
+      },
+    ],
   ],
   plugins: [
     'docusaurus-tailwindcss-loader',

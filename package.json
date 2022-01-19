@@ -21,11 +21,16 @@
     "size": "lerna run size",
     "generate-ui-component": "yarn plop --plopfile generators/plopfile.ts"
   },
-  "workspaces": [
-    "packages/*",
-    "themes/*",
-    "docs"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "themes/*",
+      "docs"
+    ],
+    "nohoist": [
+      "docs/**"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
