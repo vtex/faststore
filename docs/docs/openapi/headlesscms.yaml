@@ -34,7 +34,7 @@ servers:
           default: test
           description: Name of the VTEX workspace. Used as part of the URL.
 paths:
-  /_v/cms/api/{builderId}/{content-type}/:
+  /_v/cms/api/{builderId}/:
     get:
       summary: Get all CMS pages
       description:  Gets all data from all CMS pages.
