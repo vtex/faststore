@@ -22,7 +22,8 @@ export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
    */
   index?: number
   /**
-   * ID for the current Accordion item's panel and button
+   * Namespace ID prefix for the current Accordion item's panel and button
+   * to avoid ID duplication when multiple instances are on the same page.
    */
   prefixId?: string
 }
