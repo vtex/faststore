@@ -41,3 +41,19 @@ export type PageContent = {
   name: string
   sections: Block[]
 } & Record<string, Record<string, Block['props']>>
+
+export type RemoteRESTPageContent = {
+  id: string
+  name: string
+  status: string
+  type: string
+  versionId: string
+  sections: Section[]
+  children?: string[]
+  parent?: string
+} & Record<string, unknown>
+
+export interface Section {
+  name: string
+  data: unknown
+}
