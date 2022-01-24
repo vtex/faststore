@@ -3,25 +3,24 @@ import styles from './FastStore.module.css'
 import ViewAll from '../ViewAll/ViewAll'
 import FeatureCard from '../FeatureCard/FeatureCard'
 import fastImg from '/img/performance.png'
-import perfImg from '/img/performance-icon.png'
 import gaImg from '/img/analytics-icon.png'
 import devImg from '/img/code.png'
 import SearchBar from '@theme/SearchBar'
 
 function FastStore() {
   return (
-    <div className={styles.faststore}>
-      <div className={styles.faststoreSection}>
-        <div className={styles.faststoreContent}>
+    <div className="text-text border-b pt-16 pb-10">
+      <div className="flex justify-between mb-12 flex-col sm:flex-row">
+        <div className="w-full flex justify-between items-center pr-10 mt-20 sm:w-3/5">
           <div>
-            <h1>FastStore</h1>
-            <h2>The fullstack toolkit for building high-performance stores.</h2>
+            <h1 className='leading-6 text-5xl font-VTEXMedium'>FastStore</h1>
+            <h2 className='leading-tight text-4xl font-VTEXTrust'>The fullstack toolkit for building high-performance stores.</h2>
             <ViewAll
               linkTo="https://storecomponents.vtex.app/"
               message="View demo"
             />
 
-            <div className={styles.features}>
+            <div className="flex flex-wrap justify-between mt-5">
               <FeatureCard
                 img={devImg}
                 title="Use the technologies you already know"
@@ -36,12 +35,12 @@ function FastStore() {
             </div>
           </div>
         </div>
-        <img src={fastImg} />
+        <img className='block sm:w-1/3 sm:object-contain w-11/12' src={fastImg} />
       </div>
       <div className={styles.search}>
         <SearchBar />
       </div>
-      <blockquote >
+      <blockquote className='hidden sm:block m-5 mt-8' >
         <p>
           🗞️ Wanna stay up-to-date with the latest news from FastStore? Check
           our <a href="/releases/tags/faststore">Release Notes!</a>

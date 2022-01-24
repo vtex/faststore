@@ -6,7 +6,8 @@ const COLORS = {
   WHITEICE: '#F8F7FC',
   SERIOUSBLACK: '#142032',
   YOGURTPINK: '#FFE0EF',
-  TEXT: '#4A4A4A'
+  TEXT: '#4A4A4A',
+  DETAILS: '#A1A8B3'
 }
 
 function generateColors(color) {
@@ -24,6 +25,11 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        VTEXTrust: ['VTEX Trust', 'sans-serif'],
+        VTEXRegular: ['VTEX Trust Regular', 'sans-serif'],
+        VTEXMedium: ['VTEX Trust Medium', 'sans-serif']
+      },
       colors: {
         rebelPink: generateColors(COLORS.REBELPINK),
         softPink: generateColors(COLORS.SOFTPINK),     
@@ -31,6 +37,7 @@ module.exports = {
         seriousBlack: generateColors(COLORS.SERIOUSBLACK),     
         yogurtPink: generateColors(COLORS.YOGURTPINK),     
         text: generateColors(COLORS.TEXT),     
+        details: generateColors(COLORS.DETAILS),     
       }
     },
   },
