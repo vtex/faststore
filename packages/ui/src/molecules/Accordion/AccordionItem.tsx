@@ -5,6 +5,7 @@ interface AccordionItemContext {
   index: number
   panel: string
   button: string
+  prefixId: string
 }
 
 const AccordionItemContext = createContext<AccordionItemContext | undefined>(
@@ -41,6 +42,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   ) {
     const context = {
       index,
+      prefixId,
       panel: `${prefixId && `${prefixId}-`}panel--${index}`,
       button: `${prefixId && `${prefixId}-`}button--${index}`,
     }
