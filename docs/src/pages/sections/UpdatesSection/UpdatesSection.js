@@ -1,24 +1,21 @@
 import React from 'react'
 import LatestUpdates from '../../../components/LatestUpdates/LatestUpdates.js'
-import styles from './UpdatesSection.module.css'
 import ViewAll from '../../../components/ViewAll/ViewAll'
 
 const UpdatesSection = () => {
   return (
-    <section className={styles.updatesSection}>
-      <div className="container">
-        <div className={styles.section}>
-          <div className={styles.sectionTitle}>
+    <section className="border-b py-20 text-text">
+        <div className="flex justify-between">
+          <div className="flex items-center">
             <div>
-              <h3>Stay up-to-date with our latest releases</h3>
+              <h3 className='pt-10 leading-tight text-3xl font-VTEXRegular font-light lg:pt-0'>Stay up-to-date with our latest releases</h3>
               <ViewAll message="View all" linkTo="/releases" />
             </div>
           </div>
-          <div className={styles.releases}>
+          <div className="hidden lg:block lg:w-10/12">
             <LatestUpdates />
           </div>
         </div>
-      </div>
     </section>
   )
 }
