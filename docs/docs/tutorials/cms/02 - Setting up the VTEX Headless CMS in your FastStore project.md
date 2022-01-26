@@ -101,7 +101,7 @@ By the end of this part of this tutorial, you will be able to see your first def
   Don't worry about the structure of this file for now, as we'll learn more about it later in this tutorial. However, notice that we have defined two different Content Types: the **Home Page** and the **Institutional Page**.
   :::
 
-5. Save your changes in the `content-types.json` file.
+7. Save your changes in the `content-types.json` file.
 
 ### Step 2 - Syncing your changes
 
