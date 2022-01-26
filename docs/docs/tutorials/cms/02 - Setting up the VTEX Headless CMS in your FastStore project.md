@@ -41,7 +41,7 @@ By the end of this part of this tutorial, you will be able to see your first def
    []
    ```
 5. Save your changes in both files.
-7. Now, open the `content-types.json` file and add the following code:
+6. Now, open the `content-types.json` file and add the following code:
   ```json title="cms/content-types.json"
   [
     {
