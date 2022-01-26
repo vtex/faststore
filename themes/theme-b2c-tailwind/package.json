@@ -1,6 +1,6 @@
 {
   "name": "@vtex/theme-b2c-tailwind",
-  "version": "1.4.21",
+  "version": "1.4.22",
   "description": "Basic theme for our Store UI components.",
   "author": "VTEX <gabriel.antiqueira@vtex.com.br>",
   "license": "MIT",
