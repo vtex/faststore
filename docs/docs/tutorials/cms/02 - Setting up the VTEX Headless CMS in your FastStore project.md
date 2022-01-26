@@ -17,31 +17,30 @@ By the end of this part of this tutorial, you will be able to see your first def
 
 ### Step 1 - Creating the CMS folder
 
-1. Open up your FastStore project in any code editor of your choice.
-2. Create a new folder named `cms` at the root of your FastStore project. 
+1. Open the terminal and change to the root directory of your FastStore project.
+2. Create a new folder named `cms` at the root of your FastStore project:
+   ```
+   mkdir cms
+   ```
 3. Inside the `cms` folder, create the three following files: 
 
   - `content-types.json` - an array of JSON objects that describes the **Content Types** available for customization at the VTEX Headless CMS app.
   - `sections.json` - an array of JSON objects  that describes the content structure of the frontend **Section** components available for customization at the VTEX Headless CMS app.
   - `translation-keys.json` - an array of JSON objects  that defines the translation keys of the Sections descriptions.
   
-  By the end of this step, your folder structure should look like the following:
-
   ```
-  ...
-  ├── src
-  ├── cms
-  │   ├── content-types.json
-  │   ├── sections.json
-  │   └── translation-keys.json
-  │...
-  ```  
-4. Open the `sections.json` and `translation-keys.json` files and add the following code to each one of them:
+  touch cms/content-types.json cms/sections.json cms/translation-keys.json
+  ```
+
+4. Update the `sections.json` file with an empty array:
    ```
-   []
+   echo "[]" > cms/sections.json 
    ```
-5. Save your changes in both files.
-6. Now, open the `content-types.json` file and add the following code:
+5. Update the `translation-keys.json` file with an empty object:
+   ```
+   echo "{}" > cms/translation-keys.json
+   ```
+6. Now, open the `content-types.json` file in any code editor of your choice and add the following code:
   ```json title="cms/content-types.json"
   [
     {
