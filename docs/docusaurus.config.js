@@ -16,6 +16,7 @@ module.exports = {
   ],
   customFields: {
     events: require("./static/data/releases"),
+    updatesData: require("./static/data/doc-update"),
     starters: require("./static/data/starters"),
   },
   themeConfig: {
@@ -37,7 +38,7 @@ module.exports = {
     announcementBar: {
       id: 'support_us',
       content:
-        `📢 <span style="color:#F71963; background-color:#FFF3F6; padding:0.5em; margin:0.3em; border-radius:5px; font-weight: bold" >COMING SOON</span> <strong>VTEX Developers</strong> - YouTube channel with live demos, code walkthroughs, and interviews for developers. <a style="color:#F71963" href="https://www.youtube.com/channel/UCReNhDqLOVL4edqENJ4k7Fg">Subscribe now</a>`,
+        `📢 <span style="color:#F71963; background-color:#FFF3F6; padding:0.5em; margin:0.3em; border-radius:5px; font-weight: bold" >NEW</span> <strong>VTEX Developers</strong> - YouTube channel with live demos, code walkthroughs, and interviews for developers. <a style="color:#F71963" href="https://www.youtube.com/channel/UCReNhDqLOVL4edqENJ4k7Fg">Subscribe now</a>`,
       textColor: "#142032",
       isCloseable: false,
     },

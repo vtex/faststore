@@ -1,15 +1,22 @@
 import type { ParentSpanPluginArgs } from 'gatsby'
 
-import fetch from '../../utils/fetch'
+import { fetch, fetchAPI } from '../../utils/fetch'
 import { PLUGIN } from '../../constants'
 import type { Options } from '../../gatsby-node'
-import type { RelayPagination, RemotePageContent } from './types'
+import type {
+  RelayPagination,
+  RemotePageContent,
+  RemoteRESTPageContent,
+} from './types'
 
 interface Query {
   vtex: {
     contents: RelayPagination<RemotePageContent>
   }
 }
+
+const getApiUrl = ({ tenant, workspace }: Options) =>
+  `https://${workspace}--${tenant}.myvtex.com/_v/cms/api/faststore`
 
 const LIST_PAGES_QUERY = `
 query LIST_PAGES ($first: Int!, $after: String, $orderBy: VTEX_ContentsOrderInput, $filters: VTEX_ContentsFiltersInput) {
@@ -172,4 +179,59 @@ export const fetchAllNodes = async (
   activity.end()
 
   return data
+}
+
+type ReleaseLocator = {
+  id: string
+  contentType: string
+  releaseId: string
+}
+
+type DraftLocator = {
+  id: string
+  contentType: string
+  versionId: string
+}
+
+const isReleaseLocator = (x: NodeLocator): x is ReleaseLocator =>
+  typeof (x as any).releaseId === 'string'
+
+const isDraftLocator = (x: NodeLocator): x is DraftLocator =>
+  typeof (x as any).versionId === 'string'
+
+export type NodeLocator = ReleaseLocator | DraftLocator
+
+// Fetch the node on the REST API and transform it to the plugin
+export const fetchNodeById = async (
+  gatsbyApi: ParentSpanPluginArgs,
+  options: Options,
+  locator: NodeLocator
+) => {
+  const url = getApiUrl(options)
+
+  const activity = gatsbyApi.reporter.activityTimer(
+    `[${PLUGIN}]: fetching Node from remote`
+  )
+
+  activity.start()
+
+  const { id, contentType } = locator
+
+  const params = new URLSearchParams()
+
+  if (isReleaseLocator(locator)) {
+    params.set('releaseId', locator.releaseId)
+  }
+
+  if (isDraftLocator(locator)) {
+    params.set('versionId', locator.versionId)
+  }
+
+  const response = await fetchAPI<RemoteRESTPageContent>(
+    `${url}/${contentType}/${id}?${params.toString()}`
+  )
+
+  activity.end()
+
+  return response
 }

@@ -25,7 +25,6 @@ const LatestUpdates = () => {
               <time>
                 <svg
                   viewBox="0 0 12 12"
-                  className={styles.listIcon}
                 >
                   <circle cx="6" cy="6" r="6" fill="currentColor" />
                   {i === 0 && (
