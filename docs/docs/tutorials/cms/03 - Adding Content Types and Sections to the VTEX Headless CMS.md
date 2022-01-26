@@ -527,7 +527,7 @@ values={[
 
 <div>
 
-```json {8-24} title="cms/content-types.json"
+```json {8-24} title="cms/sections.json"
 [
   {
     "name": "Shelf",

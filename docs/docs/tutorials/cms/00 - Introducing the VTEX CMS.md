@@ -23,6 +23,7 @@ This tutorial is intended for those who started their FastStore project with the
 Before you start this tutorial, make sure you have:
 
 - Access to a VTEX account.
+- The **VTEX IO Admin** role set up for your VTEX user. For more information, see [VTEX Roles](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc).
 - Cloned your [Gatsby + FastStore project](/tutorials/gatsby-overview) into your local files.
 
 :::info
