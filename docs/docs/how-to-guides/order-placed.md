@@ -9,8 +9,7 @@ Make sure you have the `vtex.order-placed` app installed in your VTEX account.
 1. Go into your store's admin page at: `https://{accountName}.myvtex.com/admin`;
 2. In the left-side navigation menu, find the *Checkout* option, under *Store Setup.* You should see this UI
     
-    <!-- ![Screen Shot 2022-01-27 at 10.44.50.png](OrderPlaced%20FastStore%20integration%20c67c479f3c054efdb5b9bdd2d6a436a4/Screen_Shot_2022-01-27_at_10.44.50.png) -->
-    ![Checkout Admin](/img/how-to-guides/checkout-admin.png)
+  ![Checkout Admin](/img/how-to-guides/checkout-admin.png)
     
 3. Now click on the blue button with a gear inside, and switch to the `Code` part;
 4. Select `checkout-confirmation-custom.js` under *files.* This is where you need to add a bit of JavaScript to ensure that clients are redirected to the newest OrderPlaced available.
