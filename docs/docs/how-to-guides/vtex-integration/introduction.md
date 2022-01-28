@@ -27,7 +27,7 @@ Your store has to be active and in production for your VTEX integration to work.
 
 Configure your store so that it points to the right addresses. In the `store.config.js` file, change the `storeUrl` property so that it points to your main domain and change the `secureSubdomain`, `checkoutUrl`, `loginUrl`, and `accountUrl` property so that they match `https://{subdomain}.{maindomain}`, `https://{subdomain}.{maindomain}/checkout`, `https://{subdomain}.{maindomain}/api/io/login`, and `https://{subdomain}.{maindomain}/api/io/account` respectively.
 
-Here's an example of how this code block would look after configuring a store with main domain as `vtexfaststore.com` and subdomain `secure`:
+Here's an example of how this code block would look after configuring a store with the main domain as `vtexfaststore.com` and subdomain `secure`:
 
 ```js
   // Production URLs
