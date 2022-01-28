@@ -65,6 +65,7 @@ module.exports = {
   ],
   howToGuidesSidebar: [
     'how-to-guides/overview',
+    'how-to-guides/order-placed',
     {
       type: 'category',
       label: 'Platform Integration',
