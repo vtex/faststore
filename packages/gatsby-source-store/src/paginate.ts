@@ -14,13 +14,18 @@ export const RelayForward = (
   expectedVariableNames: [`first`, `after`],
   start() {
     return {
-      variables: { first: DEFAULT_PAGE_SIZE, after: undefined },
+      variables: {
+        first: Math.min(DEFAULT_PAGE_SIZE, maxItems),
+        after: undefined,
+      },
       hasNextPage: true,
     }
   },
   next(state, page) {
     const tail = page.edges[page.edges.length - 1]
-    const first = Number(state.variables.first) ?? DEFAULT_PAGE_SIZE
+    const first =
+      Number(state.variables.first) ?? Math.min(DEFAULT_PAGE_SIZE, maxItems)
+
     const after = tail?.cursor
 
     return {

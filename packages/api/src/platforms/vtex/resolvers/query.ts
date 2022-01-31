@@ -108,12 +108,14 @@ export const Query = {
   },
   allCollections: async (
     _: unknown,
-    __: QueryAllCollectionsArgs,
+    { first, after: maybeAfter }: QueryAllCollectionsArgs,
     ctx: Context
   ) => {
     const {
       clients: { commerce },
     } = ctx
+
+    const after = maybeAfter ? Number(maybeAfter) : 0
 
     const [brands, tree] = await Promise.all([
       commerce.catalog.brand.list(),
@@ -148,6 +150,7 @@ export const Query = {
       edges: collections
         // Nullable slugs may cause one route to override the other
         .filter((node) => Boolean(StoreCollection.slug(node, null, ctx, null)))
+        .slice(after, first)
         .map((node, index) => ({
           node,
           cursor: index.toString(),
