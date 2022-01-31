@@ -1,6 +1,6 @@
 type StoreListItem {
   item: String!
-  name: String
+  name: String!
   position: Int!
 }
 
