@@ -211,7 +211,7 @@ export type StoreImage = {
 export type StoreListItem = {
   __typename?: 'StoreListItem';
   item: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
   position: Scalars['Int'];
 };
 
