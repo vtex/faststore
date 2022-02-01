@@ -6,9 +6,9 @@ A few additional steps are required to make the login flow work as expected. Fol
 
 As defined in the introduction's [step 2](/how-to-guides/integrations/vtex/Introduction#step-2---configure-your-vtex-integration-subdomain), the Login that is being rendered is from the `vtexcommercestable` environment. Therefore, it's necessary to add a redirect back to the FastStore environment after the login conclusion.
 
-1. Access the old CMS. In the left-side navigation menu, find the *CMS* option under *Store Setup*. You should see this UI:
+1. Access the legacy CMS. In the left-side navigation menu, find the *CMS* option under *Store Setup*. You should see this UI:
 
-  ![Old CMS Admin](old-cms-admin.png)
+  ![Legacy CMS Admin](legacy-cms-admin.png)
 
 2. Navigate through the folders: click on CMS, then HTML Templates and open the Home file.
 
