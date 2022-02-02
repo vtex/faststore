@@ -3,9 +3,9 @@ title: Hosting a FastStore + VTEX website
 sidebar_position: 1
 ---
 
-In this guide, you will learn how to integrate your **FastStore** storefront project with **VTEX** and how to make it publicly available to end-users.
+In this guide, you will learn how to integrate your **FastStore** storefront project with **VTEX** and how to make it publicly available to end-users. Besides that, you'll have the VTEX Checkout functioning by the end of this guide.
 
-Notice that we strongly recommend taking this guide as a first step when integrating your storefront project with VTEX. This way, by the end of this guide, you will be able to continue configuring other VTEX solutions (**Checkout**, **Order Placed**, **Login**, and **My Account**) and check them working in production as you integrate them with your project.
+Notice that we strongly recommend taking this guide as a first step when integrating your storefront project with VTEX. This way, by the end of this guide, you will be able to continue configuring other VTEX solutions (**Order Placed**, **Login**, and **My Account**) and check them working in production as you integrate them with your project.
 
 ---
 
@@ -17,7 +17,7 @@ Before proceeding any further, make sure you have access to a **VTEX** account a
 
 ## Step by step
 
-By the end of these steps, you'll host your FastStore website on the internet. Hence, if you'll configure other VTEX solutions (**Checkout**, **Order Placed**, **Login**, and **My Account**) afterward, make sure to use a fictitious domain in the following steps. Then, once you set up all the desired integrations, repeat this guide procedure using your final domain to make your website publicly available to end-users.
+By the end of these steps, you'll host your FastStore website on the internet. Hence, if you'll configure other VTEX solutions (**Order Placed**, **Login**, and **My Account**) afterward, make sure to use a fictitious domain in the following steps. Then, once you set up all the desired integrations, repeat this guide procedure using your final domain to make your website publicly available to end-users.
 
 ### Step 1 - Configuring your website domain
 
@@ -91,5 +91,4 @@ To provide shoppers with a full checkout and post-purchase experience, make sure
 
 1. Integrating your FastStore project with VTEX Login (*Docs coming soon*).
 2. Integrating your FastStore project with VTEX Order Placed (*Docs coming soon*).
-3. Integrating your FastStore project with VTEX Checkout (*Docs coming soon*).
-4. Integrating your FastStore project with VTEX My Account (*Docs coming soon*).
+3. Integrating your FastStore project with VTEX My Account (*Docs coming soon*).
