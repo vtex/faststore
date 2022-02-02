@@ -1,22 +1,23 @@
 ---
 title: Hosting a FastStore + VTEX website
+sidebar_position: 1
 ---
 
-In this guide, you will learn how to integrate your FastStore storefront project with VTEX and how to make it publicly available to end-users.
+In this guide, you will learn how to integrate your **FastStore** storefront project with **VTEX** and how to make it publicly available to end-users.
 
-By the end of this guide, you will be able to provide shoppers with a full checkout and post-purchase experience.
+Notice that we strongly recommend taking this guide as a first step when integrating your storefront project with VTEX. This way, by the end of this guide, you will be able to continue configuring other VTEX solutions (**Checkout**, **Order Placed**, **Login**, and **My Account**) and check them working in production as you integrate them with your project.
+
+---
 
 ## Before you start
 
-Before proceeding any further, make sure you already have:
+Before proceeding any further, make sure you have access to a **VTEX** account and have already [developed your storefront project with **FastStore**.](/tutorials/gatsby-overview)
 
-1. [Developed your storefront project with FastStore.](/tutorials/gatsby-overview)
-2. Integrated your FastStore project with VTEX Login (*Docs coming soon*).
-3. Integrated your FastStore project with VTEX Order Placed (*Docs coming soon*).
-3. Integrated your FastStore project with VTEX Checkout (*Docs coming soon*).
-3. Integrated your FastStore project with VTEX My Account (*Docs coming soon*).
+---
 
 ## Step by step
+
+By the end of these steps, you'll host your FastStore website on the internet. Hence, if you'll configure other VTEX solutions (**Checkout**, **Order Placed**, **Login**, and **My Account**) afterward, make sure to use a fictitious domain in the following steps. Then, once you set up all the desired integrations, repeat this guide procedure using your final domain to make your website publicly available to end-users.
 
 ### Step 1 - Configuring your website domain
 
@@ -81,3 +82,14 @@ Back to your FastStore project, you must also configure your project to point to
 
 5. Save your changes.
 6. Open a Pull Request and commit your changes.
+
+---
+
+## Next steps
+
+To provide shoppers with a full checkout and post-purchase experience, make sure to check the following documents:
+
+1. Integrating your FastStore project with VTEX Login (*Docs coming soon*).
+2. Integrating your FastStore project with VTEX Order Placed (*Docs coming soon*).
+3. Integrating your FastStore project with VTEX Checkout (*Docs coming soon*).
+4. Integrating your FastStore project with VTEX My Account (*Docs coming soon*).
