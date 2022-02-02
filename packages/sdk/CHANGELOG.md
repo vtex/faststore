@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.4.25 (2022-02-02)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.4.24 (2022-02-02)
+
+**Note:** Version bump only for package @faststore/sdk
+
+
+
+
+
+## 1.4.23 (2022-02-01)
+
+
+### Bug Fixes
+
+* unfiltered allCollections query ([#1131](https://github.com/vtex/faststore/issues/1131)) ([4a1744a](https://github.com/vtex/faststore/commit/4a1744ad267517bfb6d3b7d7747725da0533d13f))
+
+
+
+
+
 ## 1.4.22 (2022-01-26)
 
 **Note:** Version bump only for package @faststore/sdk

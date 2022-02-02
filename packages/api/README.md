@@ -54,4 +54,4 @@ app.get('/graphql', async (req, res) => {
 ```
 
 ## Docs
-For more information, please refer to our documentation: https://faststore.dev/reference/api/overview
+For more information, please refer to our documentation: https://faststore.dev/reference/api/faststore-api

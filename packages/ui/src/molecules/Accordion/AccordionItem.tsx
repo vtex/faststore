@@ -5,6 +5,7 @@ interface AccordionItemContext {
   index: number
   panel: string
   button: string
+  prefixId: string
 }
 
 const AccordionItemContext = createContext<AccordionItemContext | undefined>(
@@ -21,17 +22,29 @@ export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
    * Index of the current accordion item within the accordion.
    */
   index?: number
+  /**
+   * Namespace ID prefix for the current Accordion item's panel and button
+   * to avoid ID duplication when multiple instances are on the same page.
+   */
+  prefixId?: string
 }
 
 const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   function AccordionItem(
-    { testId = 'store-accordion-item', children, index = 0, ...otherProps },
+    {
+      testId = 'store-accordion-item',
+      children,
+      prefixId = '',
+      index = 0,
+      ...otherProps
+    },
     ref
   ) {
     const context = {
       index,
-      panel: `panel--${index}`,
-      button: `button--${index}`,
+      prefixId,
+      panel: `${prefixId && `${prefixId}-`}panel--${index}`,
+      button: `${prefixId && `${prefixId}-`}button--${index}`,
     }
 
     return (

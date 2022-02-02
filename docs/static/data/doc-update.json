@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-02-02",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Platform Integration",
+    "path": "/how-to-guides/platform-integration",
+    "docs": [
+      {
+        "path": "/how-to-guides/platform-integration/vtex",
+        "title": "Integrating FastStore with VTEX"
+      }
+    ]
+  },
+  {
     "date": "2022-01-26",
     "type": "Fixed",
     "menu": "Tutorials",
