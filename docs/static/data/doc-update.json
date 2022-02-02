@@ -7,8 +7,12 @@
     "path": "/how-to-guides/platform-integration",
     "docs": [
       {
-        "path": "/how-to-guides/platform-integration/vtex",
-        "title": "Integrating FastStore with VTEX"
+        "path": "/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website",
+        "title": "Hosting a FastStore + VTEX website"
+      },
+      {
+        "path": "/how-to-guides/platform-integration/vtex/integrating-the-vtex-login",
+        "title": "Integrating the VTEX login"
       }
     ]
   },
