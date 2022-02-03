@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-source-vtex",
-  "version": "1.4.26",
+  "version": "1.4.27",
   "description": "Gatsby source plugin for building websites using VTEX as a data source.",
   "author": "Store Framework",
   "license": "MIT",
