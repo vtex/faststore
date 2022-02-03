@@ -18,7 +18,7 @@ const data = {
   demoURL: 'https://base.vtex.app/',
   gitHubURL: 'https://github.com/vtex-sites/base.store',
   price: 'Free',
-  img: '/img/base-starter.png',
+  img: '/img/starters/base-starter.png',
 }
 
 function STARTERS() {

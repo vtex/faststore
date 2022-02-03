@@ -19,7 +19,7 @@ const data = {
   demoURL: 'https://storeframework.vtex.app/',
   gitHubURL: 'https://github.com/vtex-sites/storeframework.store',
   price: 'Free',
-  img: '/img/base-starter.png',
+  img: '/img/starters/cms-base-starter.png',
 }
 
 function STARTERS() {
