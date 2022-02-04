@@ -65,7 +65,7 @@ The `PaymentMethods` component is no longer returning an accessibility error on 
 ### Contributing
 
 
-- 🎉**New [issue templates](https://github.com/vtex/faststore/issues/new/choose)** - [#1086](https://github.com/vtex/faststore/pull/1086)
+- 🎉 **New [issue templates](https://github.com/vtex/faststore/issues/new/choose)** - [#1086](https://github.com/vtex/faststore/pull/1086)
 Now you can use the templates to open issues or describe the proposed changes in your pull requests. For more info, refer to our *[Contribution guide](https://github.com/vtex/faststore/blob/master/CONTRIBUTING.MD#creating-pull-requests).*
 
 ## FastStore SDK
@@ -77,16 +77,22 @@ Now you can use the templates to open issues or describe the proposed changes in
 
 - 🎉 **Add Sales channel to product query** - [#1108](https://github.com/vtex/faststore/pull/1108)
 The `salesChannel` is now available in the product query. 
+
 - 🐛 **Fix JS files exposure** - [#1081](https://github.com/vtex/faststore/pull/1081) 
 This fix makes the `graphql-utils` package compatible with other frameworks.
+
 - 🐛 **Fix ordering of breadcrumbList** - [#1094](https://github.com/vtex/faststore/pull/1094) 
 The `categoryTrees` of the Breadcrumb component is now reversed and displaying the right category and subcategories in the store.
+
 - 🐛 **Fix SKU loader** - [#1100](https://github.com/vtex/faststore/pull/1100) 
 The SKU `dataLoader` algorithm is now fixed and can avoid potential errors, such as the *Could not find SKU for product* message.
+
 - 🐛 **Fix Breadcrumb data on collection pages** - [#1104](https://github.com/vtex/faststore/pull/1104) 
 Breadcrumb lists no longer return empty, now the catalog data fills the Breadcrumb information.
+
 - 🐛 **Fix redirect to external pages** - [#1114](https://github.com/vtex/faststore/pull/1114) 
 The `redirect.csv` file now allows redirecting to an external page.
+
 - 🐛 **Fix unfiltered allCollections query** - [#1131](https://github.com/vtex/faststore/pull/1131) 
 The collection query no longer opens to many requests to fetch categories, brands, and landing pages, since the collection field resolver respects the first and after parameters to not open to many requests.
 
@@ -96,34 +102,34 @@ The collection query no longer opens to many requests to fetch categories, brand
 
 ## Documentation 
 
-- 📑**New SDK Search reference** - [#1065](https://github.com/vtex/faststore/pull/1065)
+- 📑 **New SDK Search reference** - [#1065](https://github.com/vtex/faststore/pull/1065)
 Check out the new [`Search` SDK](https://faststore.dev/reference/sdk/search) module documentation and learn how to increase product discoverability by implementing a faceted search in your store.
 
-- 📑**Updated the [Quickstart documentation](https://faststore.dev/quickstart#step-3-configuring-your-project-settings)** - [#1066](https://github.com/vtex/faststore/pull/1066) Now you configure your FastStore project settings in the `store.config.js` file, an easy way to set up the repo without creating environment variables.
+- 📑 **Updated the [Quickstart documentation](https://faststore.dev/quickstart#step-3-configuring-your-project-settings)** - [#1066](https://github.com/vtex/faststore/pull/1066) Now you configure your FastStore project settings in the `store.config.js` file, an easy way to set up the repo without creating environment variables.
 
-- 📑**New FasStore FAQ** - [#1068](https://github.com/vtex/faststore/pull/1068)
+- 📑 **New FasStore FAQ** - [#1068](https://github.com/vtex/faststore/pull/1068)
 Check out the [Frequently Asked Questions on FastStore Portal](https://faststore.dev/faq).
 
-- 📑**New Starters Library** - [#1065](https://github.com/vtex/faststore/pull/1066)
+- 📑 **New Starters Library** - [#1065](https://github.com/vtex/faststore/pull/1066)
 Check out the new [Starter Library](https://faststore.dev/starters) and quickly start your FastStore website with the templates.
 
-- 📑**New SDK Cart documentation** - [#1095](https://github.com/vtex/faststore/pull/1095)
+- 📑 **New SDK Cart documentation** - [#1095](https://github.com/vtex/faststore/pull/1095)
 Check out the new [SDK Card documentation](https://faststore.dev/reference/sdk/cart) and start managing your store’s shopping cart.
 
 
-- 📑**New VTEX IO WebOps Secrets guides** - [#1105](https://github.com/vtex/faststore/pull/1105)
+- 📑 **New VTEX IO WebOps Secrets guides** - [#1105](https://github.com/vtex/faststore/pull/1105)
 Check out the new [Security documentation](https://faststore.dev/how-to-guides/webops/security) and learn how to use the Secrets API. Use it to hold confidential data and avoid exposing sensitive data in your FastStore code..
 
-- 📑**New VTEX Headless CMS documentation** - [#1111](https://github.com/vtex/faststore/pull/1111) Check out the new track for [VTEX Headless CMS](https://faststore.dev/tutorials/cms-overview) and learn how to integrate your FastStore project with VTEX Headless CMS, our preferred solution for content management.
+- 📑 **New VTEX Headless CMS documentation** - [#1111](https://github.com/vtex/faststore/pull/1111) Check out the new track for [VTEX Headless CMS](https://faststore.dev/tutorials/cms-overview) and learn how to integrate your FastStore project with VTEX Headless CMS, our preferred solution for content management.
 
-- 📑**New Migrating from gatsby-plugin-cms to gatsby-source-cms guide** - [#1126](https://github.com/vtex/faststore/pull/1126)
+- 📑 **New Migrating from gatsby-plugin-cms to gatsby-source-cms guide** - [#1126](https://github.com/vtex/faststore/pull/1126)
 Check out the new **[Migrating from gatsby-plugin-cms to gatsby-source-cms guide](https://faststore.dev/how-to-guides/cms/vtex-headless-cms/Migrating%20from%20gatsby-plugin-cms%20to%20gatsby-source-cms)** and learn how to migrate to the newer `gatsby-source-cms` plugin that uses a dedicated API to fetch the content from the VTEX Headless CMS. Also it lets you use the Gatsby Preview Server to build and preview your pages before publishing them.
 
 
-- 📑**New on VTEX Platform integration - Hosting a FastStore + VTEX website** - [#1129](https://github.com/vtex/faststore/pull/1129)
+- 📑 **New on VTEX Platform integration - Hosting a FastStore + VTEX website** - [#1129](https://github.com/vtex/faststore/pull/1129)
 Check out the new **[Hosting a FastStore + VTEX website](https://faststore.dev/how-to-guides/cms/vtex-headless-cms/Migrating%20from%20gatsby-plugin-cms%20to%20gatsby-source-cms)** guide and learn how to integrate your FastStore storefront project with VTEX, how to make it publicly available to end-users and have the VTEX Checkout functioning in your store.
 
-- 📑**New on VTEX Platform integration - Integrating VTEX login** - [#1132](https://github.com/vtex/faststore/pull/1132)
+- 📑 **New on VTEX Platform integration - Integrating VTEX login** - [#1132](https://github.com/vtex/faststore/pull/1132)
 Check out the new **[Integrating VTEX login](https://faststore.dev/how-to-guides/platform-integration/vtex/integrating-the-vtex-login)** guide and learn how to integrate the **VTEX Login** with your **FastStore** project.
 
 
