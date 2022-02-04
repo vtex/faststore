@@ -1,11 +1,11 @@
-[data-store-breadcrumb-list] {
+[data-breadcrumb-list] {
   @apply flex items-center list-none !important;
 }
 
-[data-store-breadcrumb-item] {
+[data-breadcrumb-item] {
   @apply flex text-black no-underline hover:underline mx-2;
 }
 
-[data-store-breadcrumb-item="current"] {
+[data-breadcrumb-item="current"] {
   @apply font-bold text-xl;
 }
