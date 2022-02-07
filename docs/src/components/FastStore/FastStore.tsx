@@ -16,7 +16,7 @@ function FastStore() {
             <h1 className='leading-6 text-5xl font-VTEXMedium'>FastStore</h1>
             <h2 className='leading-tight text-4xl font-VTEXTrust'>The fullstack toolkit for building high-performance stores.</h2>
             <ViewAll
-              linkTo="https://storecomponents.vtex.app/"
+              linkTo="https://vtexfaststore.com/"
               message="View demo"
             />
 
