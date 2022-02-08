@@ -44,6 +44,10 @@ type StoreSearchResult {
   facets: [StoreFacet!]!
 }
 
+type Session {
+  id: String!
+}
+
 type Query {
   product(locator: [IStoreSelectedFacet!]!): StoreProduct!
 
@@ -60,4 +64,6 @@ type Query {
   allProducts(first: Int!, after: String): StoreProductConnection!
 
   allCollections(first: Int!, after: String): StoreCollectionConnection!
+
+  session: Session!
 }

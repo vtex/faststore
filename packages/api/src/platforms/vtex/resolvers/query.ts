@@ -151,4 +151,15 @@ export const Query = {
         })),
     }
   },
+  session: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const session = await commerce.session('vtex_session=') // TODO: get req cookie
+
+    return {
+      id: session.id || '',
+    }
+  },
 }

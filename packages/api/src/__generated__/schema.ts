@@ -65,6 +65,7 @@ export type Query = {
   collection: StoreCollection;
   product: StoreProduct;
   search: StoreSearchResult;
+  session: Session;
 };
 
 
@@ -96,6 +97,11 @@ export type QuerySearchArgs = {
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
+};
+
+export type Session = {
+  __typename?: 'Session';
+  id: Scalars['String'];
 };
 
 export type StoreAggregateOffer = {
