@@ -107,7 +107,7 @@ Check out the new [`Search` SDK](https://faststore.dev/reference/sdk/search) mod
 
 - 📑 **Updated the [Quickstart documentation](https://faststore.dev/quickstart#step-3-configuring-your-project-settings)** - [#1066](https://github.com/vtex/faststore/pull/1066) Now you configure your FastStore project settings in the `store.config.js` file, an easy way to set up the repo without creating environment variables.
 
-- 📑 **New FasStore FAQ** - [#1068](https://github.com/vtex/faststore/pull/1068)
+- 📑 **New FastStore FAQ** - [#1068](https://github.com/vtex/faststore/pull/1068)
 Check out the [Frequently Asked Questions on FastStore Portal](https://faststore.dev/faq).
 
 - 📑 **New Starters Library** - [#1065](https://github.com/vtex/faststore/pull/1066)
