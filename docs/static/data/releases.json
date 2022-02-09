@@ -1,6 +1,6 @@
 [
   {
-    "title": "Improved WebOps pipeline execution time",
+    "title": "Improved WebOps build time",
     "product": "WebOps",
     "fileName": "2022-02-08-webops",
     "description": "With the increased number of concurrent users of the WebOps platform, we noticed WebOps pipelines were taking longer to execute. Actions have already been taken."
