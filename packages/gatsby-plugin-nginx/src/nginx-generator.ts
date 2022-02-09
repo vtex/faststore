@@ -44,6 +44,11 @@ function generateNginxConfiguration({
       cmd: ['location', '/nginx.conf'],
       children: [{ cmd: ['deny', 'all'] }, { cmd: ['return', '404'] }],
     },
+    // Remove trailing slash if present
+    {
+      cmd: ['location', '~', '^(?<no_slash>.+)/$'],
+      children: [{ cmd: ['rewrite', '.+', '$no_slash'] }],
+    },
     ...prependLocations,
     ...Object.entries(headersMap)
       .map(([path, headers]) =>
@@ -196,6 +201,7 @@ function stringify(directives: NginxDirective[]): string {
 
 const wildcard = /\*/g
 const namedSegment = /:[^/]+/g
+const catchAll = '/(.*)'
 
 // Converts a gatsby path to nginx location path
 // Ex:
@@ -203,9 +209,16 @@ const namedSegment = /:[^/]+/g
 //  '/:splat' => '^/([^/]+)$'
 //  '/foo/bar/:splat' => '^/foo/bar/([^/]+)$'
 export function convertToRegExp(path: string) {
-  const converted = path
+  let converted = path
     .replace(wildcard, '(.*)') // replace * with (.*)
     .replace(namedSegment, '([^/]+)') // replace :param like with url component like regex ([^/]+)
+
+  if (converted.endsWith(catchAll) && converted.length > catchAll.length) {
+    // allows '<path>/*' to serve '<path>' (without trailing slash)
+    // this is necessary because we are now removing trailing slashes from incoming requests
+    // so exact matches can work when there is a trailing slash
+    converted = converted.slice(0, -catchAll.length) + '(?:/(.*))?'
+  }
 
   const noTrailingSlashes = normalizePath(converted)
 
