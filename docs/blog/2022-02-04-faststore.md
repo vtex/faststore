@@ -6,6 +6,10 @@ hide_table_of_contents: false
 ---
 # January 2022
 
+New Incentive, Link, Card and QuantitySelector components now available in the FastStore UI. Also, new Platform integration, VTEX Headless CMS and Security guides.
+
+<!--truncate-->
+
 ## FastStore UI
 ### Incentive 
 - 🎉 **New [Incentive](https://faststore.dev/reference/ui/atoms/Incentive) atom** - [#1064](https://github.com/vtex/faststore/pull/1064) Use the `Incentive` component to display a trust badge for your store’s website.

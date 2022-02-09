@@ -5,6 +5,10 @@ tags: [faststore]
 hide_table_of_contents: false
 ---
 
+We've created a new plugin to source products and collections into the Gatsby's GraphQL layer! Also, you can now send and receive custom events via the Analytics module.
+
+<!--truncate-->
+
 ## Features 
 
 - 🚀 **Send and receive custom events via the Analytics module** [#937](https://github.com/vtex/faststore/pull/937)
@@ -12,8 +16,6 @@ hide_table_of_contents: false
     We've added the `UknownEvent` event type to [the Analytics module](https://github.com/vtex/faststore/tree/master/packages/store-sdk/docs/analytics)\ This is a minimal event sent via the `sendAnalyticsEvent` function, which can be overwritten by other event types, such as [pre-purchase interactions](https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?client_type=gtag#pre-purchase_interactions). 
 
     - Check out the details on how to manage analytics events in [the Analytics module documentation](https://github.com/vtex/faststore/tree/master/packages/store-sdk/docs/analytics) and [the Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events).
-
-<!--truncate-->
 
 - 🚀 **Source store plugin** [#944](https://github.com/vtex/faststore/pull/944)
 

@@ -7,13 +7,15 @@ hide_table_of_contents: false
 
 # December 2021
 
+New FastStore Documentation Portal and enhanced contributing processes for FastStore UI. Also, new components are now available in the FastStore UI.
+
+<!--truncate-->
+
 ## General 
 
 - 🎉 **New FastStore Documentation Portal**. - [#1061](https://github.com/vtex/faststore/pull/1061)
   
   The first iteration of the FastStore Documentation Portal is now available at [https://faststore.dev](https://faststore.dev). Send feedback and open documentation requests via [GitHub issues](https://github.com/vtex/faststore/issues/new/choose). *Bear in mind that this is still a work in progress.*
-
-<!--truncate-->
 
 ## FastStore UI
 
