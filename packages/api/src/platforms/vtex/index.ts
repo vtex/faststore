@@ -37,6 +37,7 @@ export interface Context {
   storage: {
     channel: string
   }
+  headers: HeadersInit
 }
 
 export type Resolver<R = unknown, A = unknown> = (
@@ -68,6 +69,7 @@ export const getContextFactory = (options: Options) => (ctx: any) => {
   }
   ctx.clients = getClients(options, ctx)
   ctx.loaders = getLoaders(options, ctx)
+  ctx.headers = options.headers
 
   return ctx
 }

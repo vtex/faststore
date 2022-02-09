@@ -154,9 +154,10 @@ export const Query = {
   session: async (_: unknown, __: unknown, ctx: Context) => {
     const {
       clients: { commerce },
+      headers,
     } = ctx
 
-    const session = await commerce.session()
+    const session = await commerce.session(headers)
 
     return {
       id: session.id || '',

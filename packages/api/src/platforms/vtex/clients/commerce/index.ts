@@ -19,7 +19,7 @@ const BASE_INIT = {
 }
 
 export const VtexCommerce = (
-  { account, environment, headers }: Options,
+  { account, environment }: Options,
   ctx: Context
 ) => {
   const base = `http://${account}.${environment}.com.br`
@@ -103,7 +103,7 @@ export const VtexCommerce = (
         )
       },
     },
-    session: (): Promise<Session> => {
+    session: (headers: HeadersInit): Promise<Session> => {
       const items =
         'account.id,account.accountName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,store.admin_cultureInfo,creditControl.creditAccounts,creditControl.deadlines,creditControl.minimumInstallmentValue,authentication.storeUserId,authentication.storeUserEmail,profile.firstName,profile.document,profile.email,profile.id,profile.isAuthenticated,profile.lastName,profile.phone,public.favoritePickup,public.utm_source,public.utm_medium,public.utm_campaign,public.utmi_cp,public.utmi_p,public.utmi_pc'
 
