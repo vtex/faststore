@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { enhanceSku } from '../utils/enhanceSku'
 import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
@@ -157,7 +158,10 @@ export const Query = {
       headers,
     } = ctx
 
+    console.log('headers: ', headers)
     const session = await commerce.session(headers)
+
+    console.log('session: ', session)
 
     return {
       id: session.id || '',
