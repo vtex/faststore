@@ -156,7 +156,7 @@ export const Query = {
       clients: { commerce },
     } = ctx
 
-    const session = await commerce.session('vtex_session=') // TODO: get req cookie
+    const session = await commerce.session()
 
     return {
       id: session.id || '',
