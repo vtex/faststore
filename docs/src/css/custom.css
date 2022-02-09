@@ -164,7 +164,7 @@ code {
 }
 
 .alert--secondary {
-  @apply box-border rounded;
+  @apply box-border rounded flex;
   background: #f8f7fc;
   border: 1px solid #ccced8;
 }
@@ -183,7 +183,7 @@ code {
 }
 
 .admonition-note {
-  @apply box-border rounded;
+  @apply box-border rounded flex;
   background: #fdfcff;
   border: 1px solid #dcdfe0;
 }
@@ -196,7 +196,7 @@ code {
 }
 
 .admonition-tip {
-  @apply box-border rounded;
+  @apply box-border rounded flex;
   background: #e3f1eb;
   border: 1px solid #adc7bd;
 }
@@ -209,7 +209,7 @@ code {
 }
 
 .admonition-caution {
-  @apply box-border rounded;
+  @apply box-border rounded flex;
   background: #fff2d4;
   border: 1px solid #eea236;
 }
