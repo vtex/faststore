@@ -135,7 +135,7 @@ Check out the new **[Integrating VTEX login](https://faststore.dev/how-to-guides
 
 ## Internal
 
-- ✨ **Auto generate reference documentation for FastStore UI comoponents with `react-docgen-typescript` plugin** - [#1070](https://github.com/vtex/faststore/pull/1070)
+- ✨ **Auto generate reference documentation for FastStore UI components with `react-docgen-typescript` plugin** - [#1070](https://github.com/vtex/faststore/pull/1070)
 
 - 🎉 **Send feedback for any documentation available on [FastStore Portal](https://faststore.dev/).** - [#1097](https://github.com/vtex/faststore/pull/1097)
 To submit the feedback, look for *Was this page helpful?* at the end of any documentation on the Portal.
