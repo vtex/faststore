@@ -22,7 +22,6 @@ export interface Options {
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
   // Default sales channel to use for fetching products
   channel: string
-  headers: HeadersInit
 }
 
 export interface Context {
@@ -69,7 +68,6 @@ export const getContextFactory = (options: Options) => (ctx: any) => {
   }
   ctx.clients = getClients(options, ctx)
   ctx.loaders = getLoaders(options, ctx)
-  ctx.headers = options.headers
 
   return ctx
 }
