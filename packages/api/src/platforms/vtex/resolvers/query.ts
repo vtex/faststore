@@ -12,6 +12,7 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
+import type { ValidPortalPagetype } from '../clients/commerce/types/Portal'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -35,15 +36,15 @@ export const Query = {
     ctx: Context
   ) => {
     const {
-      clients: { commerce },
+      loaders: { pagetypeLoader },
     } = ctx
 
-    const result = await commerce.catalog.portal.pagetype(slug)
+    const result = await pagetypeLoader.load(slug)
 
     const whitelist = ['Brand', 'Category', 'Department', 'Subcategory']
 
     if (whitelist.includes(result.pageType)) {
-      return result
+      return result as ValidPortalPagetype
     }
 
     throw new NotFoundError(`Not Found: ${slug}`)
@@ -100,6 +101,7 @@ export const Query = {
         endCursor: products.total.toString(),
         totalCount: products.total,
       },
+      // after + index is bigger than after+first itself because of the array flat() above
       edges: skus.map((sku, index) => ({
         node: sku,
         cursor: (after + index).toString(),
@@ -140,20 +142,24 @@ export const Query = {
       ...categories,
     ]
 
+    const validCollections = collections
+      // Nullable slugs may cause one route to override the other
+      .filter((node) => Boolean(StoreCollection.slug(node, null, ctx, null)))
+
     return {
       pageInfo: {
-        hasNextPage: false,
-        hasPreviousPage: false,
+        hasNextPage: validCollections.length - after > first,
+        hasPreviousPage: after > 0,
         startCursor: '0',
-        endCursor: '0',
+        endCursor: (
+          Math.min(first, validCollections.length - after) - 1
+        ).toString(),
       },
-      edges: collections
-        // Nullable slugs may cause one route to override the other
-        .filter((node) => Boolean(StoreCollection.slug(node, null, ctx, null)))
-        .slice(after, first)
+      edges: validCollections
+        .slice(after, after + first)
         .map((node, index) => ({
           node,
-          cursor: index.toString(),
+          cursor: (after + index).toString(),
         })),
     }
   },

@@ -22,11 +22,14 @@ export const RelayForward = (
     }
   },
   next(state, page) {
-    const tail = page.edges[page.edges.length - 1]
-    const first =
-      Number(state.variables.first) ?? Math.min(DEFAULT_PAGE_SIZE, maxItems)
+    const { first: rawFirst, after: maybeStateAfter } = state.variables
 
-    const after = tail?.cursor
+    const stateAfter = Number.isNaN(Number(maybeStateAfter))
+      ? 0
+      : Number(maybeStateAfter)
+
+    const first = Number(rawFirst) ?? DEFAULT_PAGE_SIZE
+    const after = (stateAfter + first).toString()
 
     return {
       variables: { first, after },
