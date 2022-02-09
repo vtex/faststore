@@ -28,6 +28,10 @@ export default function BlogSidebar({ sidebar, product }) {
       title: 'FastStore ',
       url: '/releases/tags/faststore',
     },
+    {
+      title: 'WebOps ',
+      url: '/releases/tags/webops',
+    },
   ]
 
   return (
