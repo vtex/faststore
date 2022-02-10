@@ -43,7 +43,7 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
       if (data.state === 'initial') {
         const item = (await getItem<T>(key)) ?? data.payload
 
-        if (!cancel) {
+        if (!cancel && JSON.stringify(item) !== JSON.stringify(data.payload)) {
           setData({ payload: item, state: 'hydrated' })
         }
       } else if (!cancel) {

@@ -66,10 +66,10 @@ export const CartProvider: FC<Props> = ({
   namespace: nspc = 'main',
 }) => {
   const namespace = `${nspc}::store::cart`
-  const [cart, setCart] = useStorage(namespace, {
+  const [cart, setCart] = useStorage(namespace, () => ({
     ...initialState,
     ...initialCart,
-  })
+  }))
 
   const value = useMemo((): ContextValue => {
     const items = Object.values(cart.items)
