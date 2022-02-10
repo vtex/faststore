@@ -120,7 +120,7 @@ export const Query = {
       commerce.catalog.category.tree(),
     ])
 
-    const categories: Array<CategoryTree & { level: number }> = []
+    const categories: Array<CategoryTree & { level: number, parendId: number | null }> = []
     const dfs = (
       node: CategoryTree,
       level: number,
