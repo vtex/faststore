@@ -110,6 +110,7 @@ export const VtexCommerce = (
       return fetchAPI(
         `https://${account}.${environment}.com.br/api/sessions?items=${items}`,
         {
+          credentials: 'same-origin',
           headers,
         }
       )
