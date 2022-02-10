@@ -57,7 +57,8 @@ describe('convert Gatsby paths into nginx RegExp', () => {
   it('handles wildcard (*)', () => {
     expect(convertToRegExp('/*')).toEqual('^/(.*)$')
     expect(convertToRegExp('/*/')).toEqual('^/(.*)$')
-    expect(convertToRegExp('/pt/*')).toEqual('^/pt/(.*)$')
+    expect(convertToRegExp('/*/*')).toEqual('^/(.*)(?:/(.*))?$')
+    expect(convertToRegExp('/pt/*')).toEqual('^/pt(?:/(.*))?$')
   })
 })
 
@@ -109,7 +110,7 @@ describe('generateRewrites', () => {
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/pt/__client-side-search__'] }],
-        cmd: ['location', '~*', '"^/pt/(.*)$"'],
+        cmd: ['location', '~*', '"^/pt(?:/(.*))?$"'],
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/foo-path'] }],
@@ -147,7 +148,7 @@ describe('generateRewrites', () => {
           { cmd: ['proxy_cookie_domain', 'other-domain.com', '$host'] },
           { cmd: ['proxy_cookie_path', '/api/auth', '/'] },
         ],
-        cmd: ['location', '~*', '"^/api/auth/(.*)$"'],
+        cmd: ['location', '~*', '"^/api/auth(?:/(.*))?$"'],
       },
     ]
 
@@ -173,7 +174,7 @@ describe('generateRedirects', () => {
   it('correctly translates into NginxDirectives', () => {
     const expected = [
       {
-        cmd: ['location', '~*', '"^/api/(.*)$"'],
+        cmd: ['location', '~*', '"^/api(?:/(.*))?$"'],
         children: [
           {
             cmd: [
@@ -185,7 +186,7 @@ describe('generateRedirects', () => {
         ],
       },
       {
-        cmd: ['location', '~*', '"^/graphql/(.*)$"'],
+        cmd: ['location', '~*', '"^/graphql(?:/(.*))?$"'],
         children: [
           {
             cmd: [
@@ -317,6 +318,11 @@ describe('generateNginxConfiguration', () => {
           location /nginx.conf {
             deny all;
             return 404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
+          }
+          location ~ ^(?<no_slash>.+)/$ {
+            rewrite .+ $no_slash;
             add_header c \\"d\\";
             add_header e \\"f\\";
           }
