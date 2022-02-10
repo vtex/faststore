@@ -1,5 +1,6 @@
 import type { Resolver } from '..'
 import type { EnhancedSku } from '../utils/enhanceSku'
+import { slugify } from '../utils/slugify'
 
 type Root = EnhancedSku
 
@@ -28,7 +29,9 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     itemListElement: [
       ...categoryTrees.reverse().map(({ categoryNames }, index) => ({
         name: categoryNames[categoryNames.length - 1],
-        item: `/${categoryNames.join('/').toLowerCase()}`,
+        item: `/${categoryNames
+          .map((categoryName) => slugify(categoryName))
+          .join('/')}`,
         position: index + 1,
       })),
       {
