@@ -5,7 +5,6 @@ export interface CategoryTree {
   hasChildren: boolean
   url: string
   children: CategoryTree[]
-  parentId?: number | null
   Title: string
   MetaTagDescription: string
 }
