@@ -41,9 +41,9 @@ export const Query = {
 
     const result = await pagetypeLoader.load(slug)
 
-    const whitelist = ['Brand', 'Category', 'Department', 'Subcategory']
+    const allowList = ['Brand', 'Category', 'Department', 'Subcategory']
 
-    if (whitelist.includes(result.pageType)) {
+    if (allowList.includes(result.pageType)) {
       return result as ValidPortalPagetype
     }
 
