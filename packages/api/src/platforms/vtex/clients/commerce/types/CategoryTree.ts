@@ -1,6 +1,5 @@
 export interface CategoryTree {
   id: number
-  level?: number
   name: string
   hasChildren: boolean
   url: string
