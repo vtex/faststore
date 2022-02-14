@@ -48,7 +48,8 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
             { maxNumericValue: 100 },
           ],
 
-          // Resource sizes Budgeets
+          // Resource sizes Budgets
+          // To learn where this 1024 comes from: https://github.com/GoogleChrome/lighthouse-ci/blob/fe181b61b20205dba5962c40094b1c90983f1c5e/packages/utils/src/budgets-converter.js#L49
           'resource-summary:document:size': [
             'error',
             { maxNumericValue: 20 * 1024 },
