@@ -32,6 +32,7 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
   const [data, setData] = useState(init)
 
   useEffect(() => {
+    // Avoids race condition between this and next effect hook.
     if (data !== init) {
       setItem(key, data)
     }
@@ -41,7 +42,6 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
     let cancel = false
 
     const effect = async () => {
-      console.info('effect', key)
       const item = await getItem<T>(key)
 
       if (!cancel && item !== null) {
