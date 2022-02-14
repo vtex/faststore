@@ -16,72 +16,71 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
     ci: {
       collect: {
         url,
-        settings: {
-          formFactor: 'mobile',
-          throttling: {
-            rttMs: 150,
-            throughputKbps: 1638.4,
-            requestLatencyMs: 562.5,
-            downloadThroughputKbps: 1474.56,
-            uploadThroughputKbps: 675,
-            cpuSlowdownMultiplier: 4,
-          },
-          throttlingMethod: 'simulate',
-          screenEmulation: {
-            mobile: true,
-            width: 360,
-            height: 640,
-            deviceScaleFactor: 2.625,
-            disabled: false,
-          },
-          emulatedUserAgent:
-            'Mozilla/5.0 (Linux; Android 7.0; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4143.7 Mobile Safari/537.36 Chrome-Lighthouse',
-          skipAudits: ['is-on-https'],
-          budgets: [
-            {
-              path: '/*',
-              timings: [
-                { metric: 'interactive', budget: 4000 },
-                { metric: 'first-meaningful-paint', budget: 2500 },
-                { metric: 'largest-contentful-paint', budget: 3500 },
-              ],
-              resourceSizes: [
-                { resourceType: 'document', budget: 20 },
-                { resourceType: 'font', budget: 70 },
-                { resourceType: 'image', budget: 500 },
-                { resourceType: 'script', budget: 200 },
-                { resourceType: 'stylesheet', budget: 100 },
-                { resourceType: 'third-party', budget: 500 },
-                { resourceType: 'total', budget: 600 },
-              ],
-              resourceCounts: [
-                { resourceType: 'font', budget: 3 },
-                { resourceType: 'image', budget: 20 },
-                { resourceType: 'script', budget: 15 },
-                { resourceType: 'stylesheet', budget: 3 },
-                { resourceType: 'third-party', budget: 100 },
-              ],
-            },
-          ],
-        },
       },
       assert: {
         preset: 'lighthouse:no-pwa',
         assertions: {
+          // Final Ligthouse score Budgets
           'categories:accessibility': ['error', { minScore: 0.95 }],
           'categories:best-practices': ['error', { minScore: 0.95 }],
           'categories:performance': ['error', { minScore: 0.95 }],
-          'categories:pwa': 'off',
           'categories:seo': ['error', { minScore: 0.9 }],
-          'cumulative-layout-shift': ['error', { maxNumericValue: 0.2 }],
-          'first-contentful-paint': ['error', { maxNumericValue: 2000 }],
-          'largest-contentful-paint': ['error', { maxNumericValue: 3500 }],
-          'max-potential-fid': ['error', { maxNumericValue: 300 }],
+          'categories:pwa': 'off',
+
+          // Lighthouse Metrics Budgets
+          'first-contentful-paint': ['error', { maxNumericValue: 1800 }],
+          'speed-index': ['error', { maxNumericValue: 3387 }],
+          'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
+          interactive: ['error', { maxNumericValue: 3785 }],
           'total-blocking-time': ['error', { maxNumericValue: 200 }],
+          'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
+
+          // Number of Requests Budgets
+          'resource-summary:font:count': ['error', { maxNumericValue: 3 }],
+          'resource-summary:image:count': ['error', { maxNumericValue: 20 }],
+          'resource-summary:script:count': ['error', { maxNumericValue: 15 }],
+          'resource-summary:stylesheet:count': [
+            'error',
+            { maxNumericValue: 3 },
+          ],
+          'resource-summary:third-party:count': [
+            'error',
+            { maxNumericValue: 100 },
+          ],
+
+          // Resource sizes Budgeets
+          'resource-summary:document:size': [
+            'error',
+            { maxNumericValue: 20 * 1024 },
+          ],
+          'resource-summary:font:size': [
+            'error',
+            { maxNumericValue: 70 * 1024 },
+          ],
+          'resource-summary:image:size': [
+            'error',
+            { maxNumericValue: 500 * 1024 },
+          ],
+          'resource-summary:script:size': [
+            'error',
+            { maxNumericValue: 200 * 1024 },
+          ],
+          'resource-summary:stylesheet:size': [
+            'error',
+            { maxNumericValue: 100 * 1024 },
+          ],
+          'resource-summary:third-party:size': [
+            'error',
+            { maxNumericValue: 500 * 1024 },
+          ],
+          'resource-summary:total:size': [
+            'error',
+            { maxNumericValue: 600 * 1024 },
+          ],
+
+          // Extra Lighthouse Assertion rules
           'unused-javascript': ['error', { maxLength: 10 }],
-          'uses-long-cache-ttl': 'off',
-          'uses-text-compression': ['warn', { maxLength: 1 }],
-          interactive: ['error', { maxNumericValue: 3000 }],
+
           ...assertions,
         },
       },
