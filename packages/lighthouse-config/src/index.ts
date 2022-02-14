@@ -47,7 +47,7 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
                 { resourceType: 'script', budget: 200 },
                 { resourceType: 'stylesheet', budget: 100 },
                 { resourceType: 'third-party', budget: 500 },
-                { resourceType: 'total', budget: 600 },
+                { resourceType: 'total', budget: 450 },
               ],
               resourceCounts: [
                 { resourceType: 'font', budget: 3 },
@@ -66,20 +66,20 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
           'categories:accessibility': ['error', { minScore: 0.95 }],
           'categories:best-practices': ['error', { minScore: 0.95 }],
           'categories:performance': ['error', { minScore: 0.95 }],
-          'categories:seo': ['error', { minScore: 0.9 }],
           'categories:pwa': 'off',
+          'categories:seo': ['error', { minScore: 0.9 }],
           'cumulative-layout-shift': ['error', { maxNumericValue: 0.2 }],
           'first-contentful-paint': ['error', { maxNumericValue: 2000 }],
+          'is-crawlable': 'off', // preview pages are not crawlable
           'largest-contentful-paint': ['error', { maxNumericValue: 3500 }],
           'max-potential-fid': ['error', { maxNumericValue: 300 }],
           'total-blocking-time': ['error', { maxNumericValue: 200 }],
           'unused-javascript': ['error', { maxLength: 10 }],
-          'uses-text-compression': ['warn', { maxLength: 1 }],
-          interactive: ['error', { maxNumericValue: 3000 }],
           'uses-long-cache-ttl': 'off',
-          'is-crawlable': 'off', // preview pages are not crawlable
           'uses-rel-preconnect': 'warn', // somehow lighthouse ci can't find the dns-prefetch tags we are adding
+          'uses-text-compression': ['warn', { maxLength: 1 }],
           bypass: 'off',
+          interactive: ['error', { maxNumericValue: 3000 }],
           ...assertions,
         },
       },
