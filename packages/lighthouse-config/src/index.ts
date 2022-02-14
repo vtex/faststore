@@ -17,6 +17,26 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
       collect: {
         url,
         settings: {
+          formFactor: 'mobile',
+          throttling: {
+            rttMs: 150,
+            throughputKbps: 1638.4,
+            requestLatencyMs: 562.5,
+            downloadThroughputKbps: 1474.56,
+            uploadThroughputKbps: 675,
+            cpuSlowdownMultiplier: 4,
+          },
+          throttlingMethod: 'simulate',
+          screenEmulation: {
+            mobile: true,
+            width: 360,
+            height: 640,
+            deviceScaleFactor: 2.625,
+            disabled: false,
+          },
+          emulatedUserAgent:
+            'Mozilla/5.0 (Linux; Android 7.0; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4143.7 Mobile Safari/537.36 Chrome-Lighthouse',
+          skipAudits: ['is-on-https'],
           budgets: [
             {
               path: '/*',
