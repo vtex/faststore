@@ -28,6 +28,7 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
           'categories:pwa': 'off',
 
           // Lighthouse Metrics Budgets
+          // Minimal score for perf 90 on each metric
           'first-contentful-paint': ['error', { maxNumericValue: 1800 }],
           'speed-index': ['error', { maxNumericValue: 3387 }],
           'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
