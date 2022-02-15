@@ -84,7 +84,7 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
 
     return {
       itemListElement: pageTypes.map((pageType, index) => ({
-        item: new URL(`https://${pageType.url}`).pathname,
+        item: new URL(`https://${pageType.url}`).pathname.toLowerCase(),
         name: pageType.name,
         position: index + 1,
       })),
