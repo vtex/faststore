@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.8 (2022-02-15)
+
+
+### Bug Fixes
+
+* **api:** PDP and PLP breadcrumb list item's URL paths ([#1148](https://github.com/vtex/faststore/issues/1148)) ([ea1790a](https://github.com/vtex/faststore/commit/ea1790a0069b5e19f656d7df0051f391c3c3c611))
+
+
+
+
+
 ## 1.5.7 (2022-02-15)
 
 **Note:** Version bump only for package @vtex/gatsby-source-vtex
