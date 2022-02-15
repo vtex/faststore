@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.6 (2022-02-15)
+
+
+### Features
+
+* Add budgets lighthouse config ([#1150](https://github.com/vtex/faststore/issues/1150)) ([60de848](https://github.com/vtex/faststore/commit/60de84897cb25fe775a3197adf8035610882ced8))
+
+
+
+
+
 ## 1.5.5 (2022-02-09)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-nginx

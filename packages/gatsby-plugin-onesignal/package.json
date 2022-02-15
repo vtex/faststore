@@ -1,6 +1,6 @@
 {
   "name": "@vtex/gatsby-plugin-onesignal",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "Gatsby plugin for a simple OneSignal use case.",
   "main": "index.js",
   "scripts": {
