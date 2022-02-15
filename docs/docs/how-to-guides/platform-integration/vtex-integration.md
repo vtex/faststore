@@ -26,7 +26,9 @@ Therefore, to provide shoppers with a full checkout and post-purchase experience
         <li>Open your store website and log into it. Check if you are indeed logged in and that you are redirected to your store's Home Page after logging in.</li>
     </ul>
 <input type="checkbox" id="4" name="4"/>
-<label for="4"> Clone, edit, and install the <a href="https://github.com/vtex/storeframework.store-theme/"><code>faststore-vtex-integrations</code></a> app on your VTEX account. <i>See <a href="/how-to-guides/platform-integration/vtex/integrating-vtex-orderplaced-myaccount">this doc</a> for more info.</i></label><br/> 
+<label for="4"> Adjust the Header links with the appropriate links to the Checkout and MyAccount pages. <i>See <a href="/how-to-guides/platform-integration/vtex/integrating-vtex-checkout">this doc</a> for more info.</i></label><br/>     
+<input type="checkbox" id="5" name="5"/>
+<label for="5"> Clone, edit, and install the <a href="https://github.com/vtex/faststore-vtex-integrations/"><code>faststore-vtex-integrations</code></a> app on your VTEX account. <i>See <a href="/how-to-guides/platform-integration/vtex/integrating-vtex-orderplaced-myaccount">this doc</a> for more info.</i></label><br/> 
     <ul className="pl-5">
         <li>Open your store website and add an item to the shopping cart. Then, go to the Checkout and check if:
             <ol className="pl-5">
@@ -36,8 +38,6 @@ Therefore, to provide shoppers with a full checkout and post-purchase experience
         </li>
         <li>Open your store website and click on <strong>My Orders</strong>. Check if you are redirected to the MyAccount page.</li>
     </ul>
-<input type="checkbox" id="5" name="5"/>
-<label for="5"> Adjust the Header links with the appropriate links to the Checkout and MyAccount pages.<i>See <a href="/">this doc</a> for more info (Coming Soon.)</i></label><br/> 
 <input type="checkbox" id="6" name="6"/>
 <label for="6"> Test your website links to pages being rendered in a subdomain, such as the Login, Checkout, My Account, and Order Placed pages.</label><br/> 
 

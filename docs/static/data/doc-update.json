@@ -11,6 +11,10 @@
         "title": "VTEX Integration"
       },
       {
+        "path": "/how-to-guides/platform-integration/vtex/integrating-vtex-checkout",
+        "title": "Implementing the VTEX Checkout"
+      },
+      {
         "path": "/how-to-guides/platform-integration/vtex/integrating-vtex-orderplaced-myaccount",
         "title": "Implementing VTEX Order Placed and My Account"
       }
@@ -24,11 +28,11 @@
     "path": "/how-to-guides/platform-integration",
     "docs": [
       {
-        "path": "/how-to-guides/platform-integration/vtex-integration/hosting-a-faststore-vtex-website",
+        "path": "/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website",
         "title": "Hosting a FastStore + VTEX website"
       },
       {
-        "path": "/how-to-guides/platform-integration/vtex-integration/integrating-the-vtex-login",
+        "path": "/how-to-guides/platform-integration/vtex/integrating-the-vtex-login",
         "title": "Integrating the VTEX login"
       }
     ]

@@ -1,21 +1,20 @@
 ---
-sidebar_position: 3
-toc_max_heading_level: 4
+sidebar_position: 4
 ---
 
 # Implementing VTEX Order Placed and My Account
 
 To create a complete digital commerce experience for your FastStore project, you need to provide shoppers with a Checkout and My Account space, for example. In this guide, we'll teach you how to implement the **Order Placed** page, which displays a successful message right after the checkout process is completed, and a **My Account** space, which allows customers to manage their orders and personal data (e.g., profile info, password, addresses, and credit cards) on a single page. 
 
-Notice that, since we're using a subdomain unrelated to FastStore itself for these integrations, we'll use VTEX IO in this guide. VTEX IO is a VTEX solution to create VTEX apps. But don't worry: to finish this guide, you won't need to dive into VTEX IO concepts.
+Notice that, since we're using a subdomain for these integrations that is unrelated to FastStore itself, we'll use VTEX IO in this guide. VTEX IO is a VTEX solution to create VTEX apps. But don't worry: to finish this guide, you won't need to dive into VTEX IO concepts.
 
 ---
 
 ## Before you start
 
 Before proceeding any further, make sure you already have:
-- The VTEX IO CLI installed on your machine.
-- [Your FastStore + VTEX website hosted on the internet](/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website).
+- Integrated your FastStore project with the VTEX Checkout. See [this](/how-to-guides/platform-integration/vtex/integrating-vtex-checkout) doc for more info.
+- The VTEX IO CLI installed on your machine. See [this](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference) doc for more info.
 - The `vtex.edition-store` `3.x` or greater app version installed on your VTEX account. 
   - *Run `vtex edition get` to check if the `vtex.edition-store` app is installed on your account. If not, [open a support ticket](https://help.vtex.com/en/support) communicating you need the `vtex.edition-store@3.x` to be installed on your account so you can integrate your FastStore project with the VTEX platform.*
 
@@ -23,34 +22,7 @@ Before proceeding any further, make sure you already have:
 
 ## Step by step
 
-### Step 1 - Setting up the Order Placed page
-
-Take the following steps to guarantee shoppers will be redirected to the newest version of the **Order Placed** page in your store:
-
-1. Access the **VTEX Admin**.
-2. Go to **Store Setup > Checkout**.
-3. Click on the **gear button** <img class="inline w-8" src="/img/how-to-guides/gear-button.png"/> in the **Default** card.
-4. Change to the `Code` tab. 
-5. Select `checkout-confirmation-custom.js` under **Files**. 
-6. Add the following JavaScript code in the editor:
-
-  ```jsx {4-5} title="checkout-confirmation-custom.js"
-  // WARNING: THE USAGE OF CUSTOM SCRIPTS IS NOT SUPPORTED. VTEX IS NOT LIABLE FOR ANY DAMAGES THIS MAY CAUSE.
-  // THIS MAY BREAK YOUR STORE AND STOP SALES. IN CASE OF ERRORS, PLEASE DELETE THE CONTENT OF THIS SCRIPT.
-
-  const og = new URLSearchParams(location.search).get('og')
-  window.location.assign(`${window.location.origin}/api/io${window.location.pathname}?og=${og}`)
-  ```
-    
-7. Click on **Save**. Notice that, as soon as you hit the *Save* button, your changes will be live to all clients.
-
-![](/img/how-to-guides/orderplacedversion.png)
-
-### Step 2 - Creating the Order Placed and My Account pages
-
-Now, let's set up the Order Placed and My Account apps using VTEX IO - a VTEX solution to create VTEX apps. But don't worry: you won't need to dive into VTEX IO concepts to complete the following steps.
-
-#### Creating your app 
+### Step 1 - Creating your app 
 
 1. Open the terminal and clone the [`faststore-vtex-integrations`](https://github.com/vtex/faststore-vtex-integrations/) project into your local files.
    ```sh
@@ -87,7 +59,7 @@ Now, let's set up the Order Placed and My Account apps using VTEX IO - a VTEX so
 
   ![Order Placed page](/img/how-to-guides/order-placed-page.png)
 
-#### Updating the store logo
+### Step 2 - Updating the store logo
 
 After accessing the Order Placed page, you probably noticed the FastStore logo. Let's update it, so the **Order Placed** and **My Account** pages are presented with your store logo.
 
@@ -115,11 +87,11 @@ After accessing the Order Placed page, you probably noticed the FastStore logo. 
   ```
 3. Save your changes.
 
-#### (Optional) Styling the Order Placed and My Account header
+### Step 3 - (Optional) Styling the Order Placed and My Account header
 
 If you want to change the style of the header presented in the **Order Placed** and **My Account** pages, you can update the `vtex.flex-layout.css` and `vtex.store-header.css` files contained in the `styles/css` folder. For more info, please refer to [this](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-using-css-handles-for-store-customization) guide.
 
-#### Publishing your app
+### Step 4 - Publishing your app
 
 Now that everything is as expected, you need to make your changes publicly available to your store shoppers. To do that, take the following steps:
 
