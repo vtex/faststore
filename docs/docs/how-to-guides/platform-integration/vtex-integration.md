@@ -26,7 +26,7 @@ Therefore, to provide shoppers with a full checkout and post-purchase experience
         <li>Open your store website and log into it. Check if you are indeed logged in and that you are redirected to your store's Home Page after logging in.</li>
     </ul>
 <input type="checkbox" id="4" name="4"/>
-<label for="4"> Clone, edit, and install the <a href="https://github.com/vtex/storeframework.store-theme/"><code>faststore-integrations</code></a> app on your VTEX account. <i>See <a href="/">this doc</a> for more info (Coming Soon.)</i></label><br/> 
+<label for="4"> Clone, edit, and install the <a href="https://github.com/vtex/storeframework.store-theme/"><code>faststore-vtex-integrations</code></a> app on your VTEX account. <i>See <a href="/how-to-guides/platform-integration/vtex/integrating-vtex-orderplaced-myaccount">this doc</a> for more info.</i></label><br/> 
     <ul className="pl-5">
         <li>Open your store website and add an item to the shopping cart. Then, go to the Checkout and check if:
             <ol className="pl-5">
