@@ -89,6 +89,5 @@ Back to your FastStore project, you must also configure your project to point to
 
 To provide shoppers with a full checkout and post-purchase experience, make sure to check the following documents:
 
-1. Integrating your FastStore project with VTEX Login (*Docs coming soon*).
-2. Integrating your FastStore project with VTEX Order Placed (*Docs coming soon*).
-3. Integrating your FastStore project with VTEX My Account (*Docs coming soon*).
+1. [Integrating your FastStore project with VTEX Login](/how-to-guides/platform-integration/vtex/integrating-the-vtex-login).
+2. [Integrating your FastStore project with VTEX Order Placed and My Account](/how-to-guides/platform-integration/vtex/integrating-vtex-orderplaced-myaccount).
