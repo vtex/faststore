@@ -1,75 +1,94 @@
-export type { ShareEvent, ShareParams } from './analytics/events/share'
-export type { SearchEvent, SearchParams } from './analytics/events/search'
-export type { SignupEvent, SignupParams } from './analytics/events/signup'
-export type { LoginEvent, LoginParams } from './analytics/events/login'
-export type { RefundEvent, RefundParams } from './analytics/events/refund'
-export type { PurchaseEvent, PurchaseParams } from './analytics/events/purchase'
 export type {
-  AddShippingInfoEvent,
-  AddShippingInfoParams,
-} from './analytics/events/add_shipping_info'
+  ShareEvent as GA4ShareEvent,
+  ShareParams as GA4ShareParams,
+} from './analytics/events/ga4/share'
 export type {
-  AddPaymentInfoEvent,
-  AddPaymentInfoParams,
-} from './analytics/events/add_payment_info'
+  SearchEvent as GA4SearchEvent,
+  SearchParams as GA4SearchParams,
+} from './analytics/events/ga4/search'
 export type {
-  BeginCheckoutEvent,
-  BeginCheckoutParams,
-} from './analytics/events/begin_checkout'
+  SignupEvent as GA4SignupEvent,
+  SignupParams as GA4SignupParams,
+} from './analytics/events/ga4/signup'
 export type {
-  ViewCartEvent,
-  ViewCartParams,
-} from './analytics/events/view_cart'
+  LoginEvent as GA4LoginEvent,
+  LoginParams as GA4LoginParams,
+} from './analytics/events/ga4/login'
 export type {
-  RemoveFromCartEvent,
-  RemoveFromCartParams,
-} from './analytics/events/remove_from_cart'
+  RefundEvent as GA4RefundEvent,
+  RefundParams as GA4RefundParams,
+} from './analytics/events/ga4/refund'
 export type {
-  AddToCartEvent,
-  AddToCartParams,
-} from './analytics/events/add_to_cart'
+  PurchaseEvent as GA4PurchaseEvent,
+  PurchaseParams as GA4PurchaseParams,
+} from './analytics/events/ga4/purchase'
 export type {
-  SelectItemEvent,
-  SelectItemParams,
-} from './analytics/events/select_item'
+  AddShippingInfoEvent as GA4AddShippingInfoEvent,
+  AddShippingInfoParams as GA4AddShippingInfoParams,
+} from './analytics/events/ga4/add_shipping_info'
 export type {
-  AddToWishlistEvent,
-  AddToWishlistParams,
-} from './analytics/events/add_to_wishlist'
+  AddPaymentInfoEvent as GA4AddPaymentInfoEvent,
+  AddPaymentInfoParams as GA4AddPaymentInfoParams,
+} from './analytics/events/ga4/add_payment_info'
 export type {
-  SelectPromotionEvent,
-  SelectPromotionParams,
-  SelectPromotionItems,
-} from './analytics/events/select_promotion'
+  BeginCheckoutEvent as GA4BeginCheckoutEvent,
+  BeginCheckoutParams as GA4BeginCheckoutParams,
+} from './analytics/events/ga4/begin_checkout'
 export type {
-  ViewPromotionEvent,
-  ViewPromotionParams,
-  ViewPromotionItems,
-} from './analytics/events/view_promotion'
+  ViewCartEvent as GA4ViewCartEvent,
+  ViewCartParams as GA4ViewCartParams,
+} from './analytics/events/ga4/view_cart'
 export type {
-  ViewItemEvent,
-  ViewItemParams,
-} from './analytics/events/view_item'
+  RemoveFromCartEvent as GA4RemoveFromCartEvent,
+  RemoveFromCartParams as GA4RemoveFromCartParams,
+} from './analytics/events/ga4/remove_from_cart'
 export type {
-  ViewItemListEvent,
-  ViewItemListParams,
-} from './analytics/events/view_item_list'
+  AddToCartEvent as GA4AddToCartEvent,
+  AddToCartParams as GA4AddToCartParams,
+} from './analytics/events/ga4/add_to_cart'
 export type {
-  ItemId,
-  ItemName,
-  ItemUniqueIdentifier,
-  ItemWithoutIdentifier,
-  Item,
-  PromotionParams,
-  PromotionItem,
-  CurrencyCode,
-} from './analytics/events/common'
+  SelectItemEvent as GA4SelectItemEvent,
+  SelectItemParams as GA4SelectItemParams,
+} from './analytics/events/ga4/select_item'
 export type {
-  AnalyticsEvent,
+  AddToWishlistEvent as GA4AddToWishlistEvent,
+  AddToWishlistParams as GA4AddToWishlistParams,
+} from './analytics/events/ga4/add_to_wishlist'
+export type {
+  SelectPromotionEvent as GA4SelectPromotionEvent,
+  SelectPromotionParams as GA4SelectPromotionParams,
+  SelectPromotionItems as GA4SelectPromotionItems,
+} from './analytics/events/ga4/select_promotion'
+export type {
+  ViewPromotionEvent as GA4ViewPromotionEvent,
+  ViewPromotionParams as GA4ViewPromotionParams,
+  ViewPromotionItems as GA4ViewPromotionItems,
+} from './analytics/events/ga4/view_promotion'
+export type {
+  ViewItemEvent as GA4ViewItemEvent,
+  ViewItemParams as GA4ViewItemParams,
+} from './analytics/events/ga4/view_item'
+export type {
+  ViewItemListEvent as GA4ViewItemListEvent,
+  ViewItemListParams as GA4ViewItemListParams,
+} from './analytics/events/ga4/view_item_list'
+export type {
+  ItemId as GA4ItemId,
+  ItemName as GA4ItemName,
+  ItemUniqueIdentifier as GA4ItemUniqueIdentifier,
+  ItemWithoutIdentifier as GA4ItemWithoutIdentifier,
+  Item as GA4Item,
+  PromotionParams as GA4PromotionParams,
+  PromotionItem as GA4PromotionItem,
+  CurrencyCode as GA4CurrencyCode,
+  GA4Event,
+} from './analytics/events/ga4/common'
+export type {
   WrappedAnalyticsEvent,
   WrappedAnalyticsEventParams,
   UnknownEvent,
 } from './analytics/wrap'
+export { eventNames as GA4EventNames } from './analytics/events/ga4/common'
 export { STORE_EVENT_PREFIX, ANALYTICS_EVENT_TYPE } from './analytics/wrap'
 export { sendAnalyticsEvent } from './analytics/sendAnalyticsEvent'
 export { useAnalyticsEvent } from './analytics/useAnalyticsEvent'

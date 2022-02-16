@@ -1,8 +1,9 @@
 import { wrap } from './wrap'
-import type { UnknownEvent, AnalyticsEvent } from './wrap'
+import type { UnknownEvent } from './wrap'
+import type { GA4Event } from './events/ga4/common'
 
 export const sendAnalyticsEvent = <
-  K extends UnknownEvent = AnalyticsEvent,
+  K extends UnknownEvent = GA4Event,
   /** This generic is here so users get the IntelliSense for event type options from AnalyticsEvent */
   T extends K = K
 >(

@@ -1,3 +1,66 @@
+import type { ShareEvent } from './share'
+import type { SearchEvent } from './search'
+import type { SignupEvent } from './signup'
+import type { LoginEvent } from './login'
+import type { RefundEvent } from './refund'
+import type { PurchaseEvent } from './purchase'
+import type { AddShippingInfoEvent } from './add_shipping_info'
+import type { AddPaymentInfoEvent } from './add_payment_info'
+import type { BeginCheckoutEvent } from './begin_checkout'
+import type { ViewCartEvent } from './view_cart'
+import type { RemoveFromCartEvent } from './remove_from_cart'
+import type { AddToCartEvent } from './add_to_cart'
+import type { SelectItemEvent } from './select_item'
+import type { AddToWishlistEvent } from './add_to_wishlist'
+import type { SelectPromotionEvent } from './select_promotion'
+import type { ViewPromotionEvent } from './view_promotion'
+import type { ViewItemEvent } from './view_item'
+import type { ViewItemListEvent } from './view_item_list'
+
+export const eventNames = [
+  'add_payment_info',
+  'add_shipping_info',
+  'add_to_cart',
+  'add_to_wishlist',
+  'begin_checkout',
+  'login',
+  'purchase',
+  'refund',
+  'remove_from_cart',
+  'search',
+  'select_item',
+  'select_promotion',
+  'share',
+  'signup',
+  'view_cart',
+  'view_item_list',
+  'view_item',
+  'view_promotion',
+] as const
+
+/**
+ * All these events are based on the official GA4 docs. https://developers.google.com/gtagjs/reference/ga4-events
+ */
+export type GA4Event =
+  | ViewItemListEvent
+  | ViewItemEvent
+  | SelectItemEvent
+  | ViewPromotionEvent
+  | SelectPromotionEvent
+  | AddToWishlistEvent
+  | AddToCartEvent
+  | RemoveFromCartEvent
+  | ViewCartEvent
+  | BeginCheckoutEvent
+  | AddPaymentInfoEvent
+  | AddShippingInfoEvent
+  | PurchaseEvent
+  | RefundEvent
+  | SearchEvent
+  | LoginEvent
+  | SignupEvent
+  | ShareEvent
+
 export interface ItemId {
   item_id: string
 }

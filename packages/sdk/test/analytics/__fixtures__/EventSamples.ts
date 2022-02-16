@@ -1,5 +1,5 @@
-import type { AddToCartEvent } from '../../../src/analytics/events/add_to_cart'
-import type { WrappedAnalyticsEvent } from '../../../src/analytics/wrap'
+import type { GA4AddToCartEvent } from '../../../src'
+import type { WrappedAnalyticsEvent } from '../../../src'
 
 export interface CustomEvent {
   name: 'custom_event'
@@ -28,14 +28,14 @@ export const WRAPPED_CUSTOM_EVENT_SAMPLE: WrappedAnalyticsEvent<CustomEvent> = {
   },
 }
 
-export const ADD_TO_CART_SAMPLE: AddToCartEvent = {
+export const ADD_TO_CART_SAMPLE: GA4AddToCartEvent = {
   name: 'add_to_cart',
   params: {
     items: [{ item_id: 'PRODUCT_ID' }],
   },
 }
 
-export const WRAPPED_ADD_TO_CART_SAMPLE: WrappedAnalyticsEvent<AddToCartEvent> = {
+export const WRAPPED_ADD_TO_CART_SAMPLE: WrappedAnalyticsEvent<GA4AddToCartEvent> = {
   name: 'AnalyticsEvent',
   params: {
     name: 'store:add_to_cart',
