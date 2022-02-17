@@ -88,4 +88,9 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     return { ...simulation, product }
   },
   isVariantOf: ({ isVariantOf }) => isVariantOf,
+  additionalProperty: ({ attributes = [] }) =>
+    attributes.map((attribute) => ({
+      name: attribute.key,
+      value: attribute.value,
+    })),
 }

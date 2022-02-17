@@ -2,4 +2,5 @@ type StoreProductGroup {
   hasVariant: [StoreProduct!]!
   productGroupID: String!
   name: String!
+  additionalProperty: [StorePropertyValue!]!
 }
