@@ -3,12 +3,13 @@ import type { Resolver } from '..'
 import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { ValidPortalPagetype } from '../clients/commerce/types/Portal'
+import { throwIfPageTypeNotFound } from '../loaders/pagetype'
 
 type Root = Brand | (CategoryTree & { level: number }) | ValidPortalPagetype
 
 const isBrand = (x: any): x is Brand => x.type === 'brand'
 
-const isValidPortalPageType = (x: any): x is ValidPortalPagetype =>
+export const isValidPortalPageType = (x: any): x is ValidPortalPagetype =>
   typeof x.pageType === 'string' && x.pageType !== 'NotFound'
 
 const slugify = (root: Root) => {
@@ -78,17 +79,23 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
       segments.slice(0, index + 1).join('/')
     )
 
-    const validPageTypes = (await pagetypeLoader.loadMany(slugs)).filter(
-      isValidPortalPageType
+    const pageTypePromises = await Promise.allSettled(
+      slugs.map((slugSegment) => pagetypeLoader.load(slugSegment))
     )
 
+    throwIfPageTypeNotFound(pageTypePromises, slugs)
+
+    const pageTypes = (pageTypePromises as Array<
+      PromiseFulfilledResult<ValidPortalPagetype>
+    >).map((pageType) => pageType.value)
+
     return {
-      itemListElement: validPageTypes.map((pageType, index) => ({
+      itemListElement: pageTypes.map((pageType, index) => ({
         item: new URL(`https://${pageType.url}`).pathname.toLowerCase(),
         name: pageType.name,
         position: index + 1,
       })),
-      numberOfItems: validPageTypes.length,
+      numberOfItems: pageTypes.length,
     }
   },
 }
