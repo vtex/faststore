@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.10 (2022-02-17)
+
+
+### Features
+
+* **api:** Add additional property ([#1107](https://github.com/vtex/faststore/issues/1107)) ([bbcfc4a](https://github.com/vtex/faststore/commit/bbcfc4af68148adb54d66a3f1d28a9817ad2956c))
+
+
+
+
+
 ## 1.5.9 (2022-02-16)
 
 **Note:** Version bump only for package faststore
