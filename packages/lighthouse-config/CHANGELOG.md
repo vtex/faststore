@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.11 (2022-02-18)
+
+
+### Bug Fixes
+
+* **gatsby-plugin-nginx:** remove trailing slash from incoming requests ([#1145](https://github.com/vtex/faststore/issues/1145)) ([db6f1e1](https://github.com/vtex/faststore/commit/db6f1e173ec43747bf9cfa244b81d86db8a25ce3))
+
+
+
+
+
 ## 1.5.10 (2022-02-17)
 
 
