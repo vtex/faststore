@@ -1,23 +1,20 @@
+import { isCollectionPageType } from '../loaders/collection'
 import { slugify as baseSlugify } from '../utils/slugify'
 import type { Resolver } from '..'
 import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
-import type { ValidPortalPagetype } from '../clients/commerce/types/Portal'
-import { throwIfPageTypeNotFound } from '../loaders/pagetype'
+import type { CollectionPageType } from '../clients/commerce/types/Portal'
 
-type Root = Brand | (CategoryTree & { level: number }) | ValidPortalPagetype
+type Root = Brand | (CategoryTree & { level: number }) | CollectionPageType
 
 const isBrand = (x: any): x is Brand => x.type === 'brand'
 
-export const isValidPortalPageType = (x: any): x is ValidPortalPagetype =>
-  typeof x.pageType === 'string' && x.pageType !== 'NotFound'
-
 const slugify = (root: Root) => {
   if (isBrand(root)) {
-    return baseSlugify(root.name)
+    return baseSlugify(root.name.toLowerCase())
   }
 
-  if (isValidPortalPageType(root)) {
+  if (isCollectionPageType(root)) {
     return new URL(`https://${root.url}`).pathname.slice(1)
   }
 
@@ -28,7 +25,7 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
   id: ({ id }) => id.toString(),
   slug: (root) => slugify(root),
   seo: (root) =>
-    isBrand(root) || isValidPortalPageType(root)
+    isBrand(root) || isCollectionPageType(root)
       ? {
           title: root.title,
           description: root.metaTagDescription,
@@ -40,7 +37,7 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
   type: (root) =>
     isBrand(root)
       ? 'Brand'
-      : isValidPortalPageType(root)
+      : isCollectionPageType(root)
       ? root.pageType
       : root.level === 0
       ? 'Department'
@@ -52,7 +49,7 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
         }
       : {
           selectedFacets: new URL(
-            isValidPortalPageType(root) ? `https://${root.url}` : root.url
+            isCollectionPageType(root) ? `https://${root.url}` : root.url
           ).pathname
             .slice(1)
             .split('/')
@@ -63,7 +60,7 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
         },
   breadcrumbList: async (root, _, ctx) => {
     const {
-      loaders: { pagetypeLoader },
+      loaders: { collectionLoader },
     } = ctx
 
     const slug = slugify(root)
@@ -79,23 +76,23 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
       segments.slice(0, index + 1).join('/')
     )
 
-    const pageTypePromises = await Promise.allSettled(
-      slugs.map((slugSegment) => pagetypeLoader.load(slugSegment))
-    )
+    try {
+      const collections = await Promise.all(
+        slugs.map((s) => collectionLoader.load(s))
+      )
 
-    throwIfPageTypeNotFound(pageTypePromises, slugs)
+      return {
+        itemListElement: collections.map((collection, index) => ({
+          item: new URL(`https://${collection.url}`).pathname.toLowerCase(),
+          name: collection.name,
+          position: index + 1,
+        })),
+        numberOfItems: collections.length,
+      }
+    } catch (err) {
+      console.error({ slug, root, segments, slugs })
 
-    const pageTypes = (pageTypePromises as Array<
-      PromiseFulfilledResult<ValidPortalPagetype>
-    >).map((pageType) => pageType.value)
-
-    return {
-      itemListElement: pageTypes.map((pageType, index) => ({
-        item: new URL(`https://${pageType.url}`).pathname.toLowerCase(),
-        name: pageType.name,
-        position: index + 1,
-      })),
-      numberOfItems: pageTypes.length,
+      throw err
     }
   },
 }

@@ -1,19 +1,19 @@
-export type PortalPagetype = ValidPortalPagetype | NotFoundPortalPagetype
+export type PortalPagetype = CollectionPageType | FallbackPageType
 
-export interface ValidPortalPagetype {
+export interface CollectionPageType {
   id: number
   name: string
   url: string
   title: string
   metaTagDescription: string
-  pageType: 'Brand' | 'Category' | 'Department' | 'Subcategory' | 'FullText'
+  pageType: 'Brand' | 'Category' | 'Department' | 'Subcategory'
 }
 
-export interface NotFoundPortalPagetype {
+export interface FallbackPageType {
   id: null
-  name: null
-  url: null
+  name: null | string
+  url: null | string
   title: null
   metaTagDescription: null
-  pageType: 'NotFound'
+  pageType: 'NotFound' | 'FullText'
 }

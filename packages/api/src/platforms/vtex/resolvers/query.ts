@@ -1,5 +1,4 @@
 import { enhanceSku } from '../utils/enhanceSku'
-import { NotFoundError } from '../utils/errors'
 import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
 import { StoreCollection } from './collection'
@@ -12,7 +11,6 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
-import type { ValidPortalPagetype } from '../clients/commerce/types/Portal'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -30,24 +28,12 @@ export const Query = {
 
     return skuLoader.load(locator.map(transformSelectedFacet))
   },
-  collection: async (
-    _: unknown,
-    { slug }: QueryCollectionArgs,
-    ctx: Context
-  ) => {
+  collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
     const {
-      loaders: { pagetypeLoader },
+      loaders: { collectionLoader },
     } = ctx
 
-    const result = await pagetypeLoader.load(slug)
-
-    const allowList = ['Brand', 'Category', 'Department', 'Subcategory']
-
-    if (allowList.includes(result.pageType)) {
-      return result as ValidPortalPagetype
-    }
-
-    throw new NotFoundError(`Not Found: ${slug}`)
+    return collectionLoader.load(slug)
   },
   search: async (
     _: unknown,
