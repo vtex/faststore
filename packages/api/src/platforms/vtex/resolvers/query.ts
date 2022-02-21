@@ -1,5 +1,4 @@
 import { enhanceSku } from '../utils/enhanceSku'
-import { NotFoundError } from '../utils/errors'
 import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
 import { StoreCollection } from './collection'
@@ -29,24 +28,12 @@ export const Query = {
 
     return skuLoader.load(locator.map(transformSelectedFacet))
   },
-  collection: async (
-    _: unknown,
-    { slug }: QueryCollectionArgs,
-    ctx: Context
-  ) => {
+  collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
     const {
-      clients: { commerce },
+      loaders: { collectionLoader },
     } = ctx
 
-    const result = await commerce.catalog.portal.pagetype(slug)
-
-    const whitelist = ['Brand', 'Category', 'Department', 'Subcategory']
-
-    if (whitelist.includes(result.pageType)) {
-      return result
-    }
-
-    throw new NotFoundError(`Not Found: ${slug}`)
+    return collectionLoader.load(slug)
   },
   search: async (
     _: unknown,
@@ -100,6 +87,7 @@ export const Query = {
         endCursor: products.total.toString(),
         totalCount: products.total,
       },
+      // after + index is bigger than after+first itself because of the array flat() above
       edges: skus.map((sku, index) => ({
         node: sku,
         cursor: (after + index).toString(),
@@ -140,20 +128,24 @@ export const Query = {
       ...categories,
     ]
 
+    const validCollections = collections
+      // Nullable slugs may cause one route to override the other
+      .filter((node) => Boolean(StoreCollection.slug(node, null, ctx, null)))
+
     return {
       pageInfo: {
-        hasNextPage: false,
-        hasPreviousPage: false,
+        hasNextPage: validCollections.length - after > first,
+        hasPreviousPage: after > 0,
         startCursor: '0',
-        endCursor: '0',
+        endCursor: (
+          Math.min(first, validCollections.length - after) - 1
+        ).toString(),
       },
-      edges: collections
-        // Nullable slugs may cause one route to override the other
-        .filter((node) => Boolean(StoreCollection.slug(node, null, ctx, null)))
-        .slice(after, first)
+      edges: validCollections
+        .slice(after, after + first)
         .map((node, index) => ({
           node,
-          cursor: index.toString(),
+          cursor: (after + index).toString(),
         })),
     }
   },
