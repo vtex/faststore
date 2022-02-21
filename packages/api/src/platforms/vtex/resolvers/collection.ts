@@ -76,23 +76,17 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
       segments.slice(0, index + 1).join('/')
     )
 
-    try {
-      const collections = await Promise.all(
-        slugs.map((s) => collectionLoader.load(s))
-      )
+    const collections = await Promise.all(
+      slugs.map((s) => collectionLoader.load(s))
+    )
 
-      return {
-        itemListElement: collections.map((collection, index) => ({
-          item: new URL(`https://${collection.url}`).pathname.toLowerCase(),
-          name: collection.name,
-          position: index + 1,
-        })),
-        numberOfItems: collections.length,
-      }
-    } catch (err) {
-      console.error({ slug, root, segments, slugs })
-
-      throw err
+    return {
+      itemListElement: collections.map((collection, index) => ({
+        item: new URL(`https://${collection.url}`).pathname.toLowerCase(),
+        name: collection.name,
+        position: index + 1,
+      })),
+      numberOfItems: collections.length,
     }
   },
 }
