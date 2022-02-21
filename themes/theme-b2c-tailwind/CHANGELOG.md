@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.12 (2022-02-21)
+
+
+### Bug Fixes
+
+* allCollections query pagination and pagetype timeout errors ([#1140](https://github.com/vtex/faststore/issues/1140)) ([0150222](https://github.com/vtex/faststore/commit/01502220fb903c62f0b33b9a703fb45daafae141))
+
+
+
+
+
 ## 1.5.11 (2022-02-18)
 
 
