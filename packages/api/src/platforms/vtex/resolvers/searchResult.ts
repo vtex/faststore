@@ -50,12 +50,10 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         currentFacet.key
       )
 
-      const shouldFilterFromCollectionPage =
+      const shouldRemoveFacetFromCollectionPage =
         isCollectionPage && shouldFilterFacet
 
-      const isText = currentFacet.type === 'text'
-
-      if (shouldFilterFromCollectionPage || !isText) {
+      if (shouldRemoveFacetFromCollectionPage) {
         return acc
       }
 
