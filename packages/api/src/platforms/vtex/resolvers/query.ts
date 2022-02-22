@@ -124,7 +124,9 @@ export const Query = {
     }
 
     const collections = [
-      ...brands.map((x) => ({ ...x, type: 'brand' })),
+      ...brands
+        .filter((brand) => brand.isActive)
+        .map((x) => ({ ...x, type: 'brand' })),
       ...categories,
     ]
 
