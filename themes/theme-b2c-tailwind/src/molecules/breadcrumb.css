@@ -6,6 +6,10 @@
   @apply flex text-black no-underline hover:underline mx-2;
 }
 
+[data-breadcrumb-list-item] {
+  @apply flex;
+}
+
 [data-breadcrumb-item="current"] {
   @apply font-bold text-xl;
 }
