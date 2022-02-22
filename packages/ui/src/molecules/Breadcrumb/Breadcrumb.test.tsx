@@ -70,5 +70,6 @@ describe('Breadcrumb', () => {
     )
 
     expect(await axe(document.body)).toHaveNoViolations()
+    expect(await axe(document.body)).toHaveNoIncompletes()
   })
 })
