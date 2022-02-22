@@ -58,7 +58,7 @@ export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
 
 export { default as SearchInput } from './molecules/SearchInput'
-export type { SearchInputProps } from './molecules/SearchInput'
+export type { SearchInputProps, SearchInputRef } from './molecules/SearchInput'
 
 export { default as Carousel } from './molecules/Carousel'
 export type { CarouselProps } from './molecules/Carousel'
