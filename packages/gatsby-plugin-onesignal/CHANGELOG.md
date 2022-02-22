@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.17 (2022-02-22)
+
+
+### Features
+
+* Moves some Filter logic to api ([#1154](https://github.com/vtex/faststore/issues/1154)) ([5a591f7](https://github.com/vtex/faststore/commit/5a591f7b42e947577597cc82d8df6a15d2994780))
+
+
+
+
+
 ## 1.5.16 (2022-02-22)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-onesignal
