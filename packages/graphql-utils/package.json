@@ -1,6 +1,6 @@
 {
   "name": "@vtex/graphql-utils",
-  "version": "1.5.13",
+  "version": "1.5.14",
   "description": "GraphQL utilities",
   "repository": {
     "type": "git",
