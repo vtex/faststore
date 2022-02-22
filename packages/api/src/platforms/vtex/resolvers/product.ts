@@ -50,11 +50,7 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
       alternateName: name ?? '',
       url: value.replace('vteximg.com.br', 'vtexassets.com'),
     })),
-  sku: ({
-    isVariantOf: {
-      skus: [sku],
-    },
-  }) => sku.id,
+  sku: ({ id }) => id,
   gtin: ({ reference }) => reference ?? '',
   review: () => [],
   aggregateRating: () => ({}),
