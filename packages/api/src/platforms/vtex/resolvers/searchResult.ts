@@ -4,7 +4,7 @@ import type { SearchArgs } from '../clients/search'
 import type { Attribute } from '../clients/search/types/AttributeSearchResult'
 
 type Root = Omit<SearchArgs, 'type'>
-const FILTERED_FACETS_FROM_COLLECTION_PAGE = ['departamento']
+const REMOVED_FACETS_FROM_COLLECTION_PAGE = ['departamento']
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   products: async (searchArgs, _, ctx) => {
@@ -45,7 +45,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const isCollectionPage = !searchArgs.query
     const filteredFacets = facets?.attributes?.reduce((acc, currentFacet) => {
-      const shouldFilterFacet = FILTERED_FACETS_FROM_COLLECTION_PAGE.includes(
+      const shouldFilterFacet = REMOVED_FACETS_FROM_COLLECTION_PAGE.includes(
         currentFacet.key
       )
 
