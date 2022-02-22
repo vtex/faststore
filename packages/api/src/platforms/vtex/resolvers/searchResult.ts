@@ -4,6 +4,7 @@ import type { SearchArgs } from '../clients/search'
 import type { Attribute } from '../clients/search/types/AttributeSearchResult'
 
 type Root = Omit<SearchArgs, 'type'>
+
 const REMOVED_FACETS_FROM_COLLECTION_PAGE = ['departamento']
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
