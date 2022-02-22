@@ -36,7 +36,7 @@ export interface Context {
   storage: {
     channel: string
   }
-  headers: HeadersInit
+  headers: Headers
 }
 
 export type Resolver<R = unknown, A = unknown> = (
