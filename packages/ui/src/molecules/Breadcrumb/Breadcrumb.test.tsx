@@ -60,6 +60,22 @@ describe('Breadcrumb', () => {
     }
   })
 
+  it('renders an <ol> with valid HTML as children (only <li>s)', () => {
+    const { getByRole } = render(
+      <Breadcrumb divider="/">
+        <a href="/office">Office</a>
+        <a href="/office/chairs">Chairs</a>
+      </Breadcrumb>
+    )
+
+    const listItems = getByRole('list').children
+
+    for (const item of Array.from(listItems)) {
+      expect(item.nodeName).toEqual('LI')
+    }
+    expect(listItems).toHaveLength(2)
+  })
+
   it('AXE Test', async () => {
     render(
       <Breadcrumb aria-label="test modal" divider="/">
