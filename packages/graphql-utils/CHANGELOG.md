@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.13 (2022-02-22)
+
+
+### Features
+
+* Ajust SearchInput reference ([#1153](https://github.com/vtex/faststore/issues/1153)) ([c2ee199](https://github.com/vtex/faststore/commit/c2ee199402bc4e9d5846dc50778778e940ac7124))
+
+
+
+
+
 ## 1.5.12 (2022-02-21)
 
 
