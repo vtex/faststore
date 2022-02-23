@@ -9,7 +9,7 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
-import type { Session } from './types/Session'
+import type { Person } from './types/Person'
 
 const BASE_INIT = {
   method: 'POST',
@@ -22,7 +22,7 @@ export const VtexCommerce = (
   { account, environment }: Options,
   ctx: Context
 ) => {
-  const base = `http://${account}.${environment}.com.br`
+  const base = `https://${account}.${environment}.com.br`
 
   return {
     catalog: {
@@ -103,16 +103,17 @@ export const VtexCommerce = (
         )
       },
     },
-    session: (headers: Headers): Promise<Session> => {
-      const items =
-        'account.id,account.accountName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol,store.admin_cultureInfo,creditControl.creditAccounts,creditControl.deadlines,creditControl.minimumInstallmentValue,authentication.storeUserId,authentication.storeUserEmail,profile.firstName,profile.document,profile.email,profile.id,profile.isAuthenticated,profile.lastName,profile.phone,public.favoritePickup,public.utm_source,public.utm_medium,public.utm_campaign,public.utmi_cp,public.utmi_p,public.utmi_pc'
-
-      return fetchAPI(
-        `https://${account}.${environment}.com.br/api/sessions?items=${items}`,
+    person: (): Promise<Person> =>
+      fetchAPI(
+        `${base}/api/sessions?items=profile.firstName,profile.email,profile.id,profile.isAuthenticated,profile.lastName`,
         {
-          headers: { cookie: headers.get('cookie') ?? '' },
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          },
+          body: '{}',
         }
-      )
-    },
+      ),
   }
 }

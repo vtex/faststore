@@ -9,7 +9,11 @@ export interface Currency {
 }
 
 export interface User {
-  id: string // user id
+  id?: string
+  email?: string
+  firstName?: string
+  lastName?: string
+  isAuthenticated?: string
 }
 
 export interface Session {

@@ -44,8 +44,12 @@ type StoreSearchResult {
   facets: [StoreFacet!]!
 }
 
-type Session {
-  id: String!
+type StorePerson {
+  id: String
+  email: String
+  givenName: String
+  familyName: String
+  isAuthenticated: Boolean
 }
 
 type Query {
@@ -65,5 +69,5 @@ type Query {
 
   allCollections(first: Int!, after: String): StoreCollectionConnection!
 
-  session: Session!
+  person: StorePerson
 }

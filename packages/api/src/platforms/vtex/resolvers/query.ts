@@ -152,19 +152,21 @@ export const Query = {
         })),
     }
   },
-  session: async (_: unknown, __: unknown, ctx: Context) => {
+  person: async (_: unknown, __: unknown, ctx: Context) => {
     const {
       clients: { commerce },
-      headers,
     } = ctx
 
-    console.log('headers: ', headers)
-    const session = await commerce.session(headers)
-
-    console.log('session: ', session)
+    const {
+      namespaces: { profile },
+    } = await commerce.person()
 
     return {
-      id: session.id || '',
+      id: profile?.id?.value,
+      email: profile?.email?.value,
+      givenName: profile?.firstName?.value,
+      familyName: profile?.lastName?.value,
+      isAuthenticated: profile?.isAuthenticated?.value,
     }
   },
 }

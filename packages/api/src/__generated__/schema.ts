@@ -63,9 +63,9 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   allProducts: StoreProductConnection;
   collection: StoreCollection;
+  person?: Maybe<StorePerson>;
   product: StoreProduct;
   search: StoreSearchResult;
-  session: Session;
 };
 
 
@@ -97,11 +97,6 @@ export type QuerySearchArgs = {
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
-};
-
-export type Session = {
-  __typename?: 'Session';
-  id: Scalars['String'];
 };
 
 export type StoreAggregateOffer = {
@@ -253,6 +248,15 @@ export type StorePageInfo = {
   hasPreviousPage: Scalars['Boolean'];
   startCursor: Scalars['String'];
   totalCount: Scalars['Int'];
+};
+
+export type StorePerson = {
+  __typename?: 'StorePerson';
+  email?: Maybe<Scalars['String']>;
+  familyName?: Maybe<Scalars['String']>;
+  givenName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  isAuthenticated?: Maybe<Scalars['Boolean']>;
 };
 
 export type StoreProduct = {
