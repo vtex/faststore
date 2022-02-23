@@ -60,6 +60,39 @@ describe('Breadcrumb', () => {
     }
   })
 
+  it('renders an <ol> with valid HTML as children (only <li>s)', () => {
+    const { getByRole } = render(
+      <Breadcrumb divider="/">
+        <a href="/office">Office</a>
+        <a href="/office/chairs">Chairs</a>
+      </Breadcrumb>
+    )
+
+    const listItems = getByRole('list').children
+
+    for (const item of Array.from(listItems)) {
+      expect(item.nodeName).toEqual('LI')
+    }
+    expect(listItems).toHaveLength(2)
+  })
+
+  it('renders `n - 1` dividers, where `n` is the number of list items', () => {
+    const { queryAllByText } = render(
+      <Breadcrumb divider={<span>~</span>}>
+        <a href="/office">Office</a>
+        <a href="/office/chairs">Chairs</a>
+        <a href="/office/chairs/tulip">Tulip</a>
+      </Breadcrumb>
+    )
+
+    const dividers = queryAllByText('~')
+
+    for (const divider of Array.from(dividers)) {
+      expect(divider).toHaveAttribute('aria-hidden', 'true')
+    }
+    expect(dividers).toHaveLength(2)
+  })
+
   it('AXE Test', async () => {
     render(
       <Breadcrumb aria-label="test modal" divider="/">
@@ -70,5 +103,6 @@ describe('Breadcrumb', () => {
     )
 
     expect(await axe(document.body)).toHaveNoViolations()
+    expect(await axe(document.body)).toHaveNoIncompletes()
   })
 })
