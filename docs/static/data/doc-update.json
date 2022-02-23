@@ -1,4 +1,25 @@
 [
+    {
+    "date": "2022-02-15",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Platform Integration",
+    "path": "/how-to-guides/platform-integration",
+    "docs": [
+      {
+        "path": "/how-to-guides/platform-integration/vtex-integration",
+        "title": "VTEX Integration"
+      },
+      {
+        "path": "/how-to-guides/platform-integration/vtex/integrating-vtex-checkout",
+        "title": "Implementing the VTEX Checkout"
+      },
+      {
+        "path": "/how-to-guides/platform-integration/vtex/integrating-vtex-orderplaced-myaccount",
+        "title": "Implementing VTEX Order Placed and My Account"
+      }
+    ]
+  },
   {
     "date": "2022-02-02",
     "type": "Added",

@@ -6,7 +6,7 @@
  * between server/browser. When state is 'hydrated', the value in the heap
  * is the same as the value in IDB
  */
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { get, set } from 'idb-keyval'
 
 const getItem = async <T>(key: string) => {
@@ -27,27 +27,25 @@ const setItem = async <T>(key: string, value: T | null) => {
   }
 }
 
-const isFunction = <T>(x: T | (() => T)): x is () => T =>
-  typeof x === 'function'
-
 export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
-  const [data, setData] = useState(() => ({
-    payload: isFunction(initialValue) ? initialValue() : initialValue,
-    state: 'initial',
-  }))
+  const [init] = useState(initialValue)
+  const [data, setData] = useState(init)
+
+  useEffect(() => {
+    // Avoids race condition between this and next effect hook.
+    if (data !== init) {
+      setItem(key, data)
+    }
+  }, [data, init, key])
 
   useEffect(() => {
     let cancel = false
 
     const effect = async () => {
-      if (data.state === 'initial') {
-        const item = (await getItem<T>(key)) ?? data.payload
+      const item = await getItem<T>(key)
 
-        if (!cancel) {
-          setData({ payload: item, state: 'hydrated' })
-        }
-      } else if (!cancel) {
-        setItem(key, data.payload)
+      if (!cancel && item !== null) {
+        setData(item)
       }
     }
 
@@ -56,16 +54,7 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
     return () => {
       cancel = true
     }
-  }, [data.payload, data.state, key])
+  }, [key])
 
-  const memoized = useMemo(
-    () =>
-      [
-        data.payload,
-        (value: T) => setData({ state: 'hydrated', payload: value }),
-      ] as const,
-    [data.payload]
-  )
-
-  return memoized
+  return [data, setData] as const
 }

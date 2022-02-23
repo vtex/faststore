@@ -3,6 +3,142 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.17 (2022-02-22)
+
+
+### Features
+
+* Moves some Filter logic to api ([#1154](https://github.com/vtex/faststore/issues/1154)) ([5a591f7](https://github.com/vtex/faststore/commit/5a591f7b42e947577597cc82d8df6a15d2994780))
+
+
+
+
+
+## 1.5.16 (2022-02-22)
+
+**Note:** Version bump only for package @vtex/graphql-utils
+
+
+
+
+
+## 1.5.15 (2022-02-22)
+
+**Note:** Version bump only for package @vtex/graphql-utils
+
+
+
+
+
+## 1.5.14 (2022-02-22)
+
+
+### Features
+
+* Ajust SearchInput reference export ([#1155](https://github.com/vtex/faststore/issues/1155)) ([22d632d](https://github.com/vtex/faststore/commit/22d632d02657be5bef7595ad4179e5086eef7580))
+
+
+
+
+
+## 1.5.13 (2022-02-22)
+
+
+### Features
+
+* Ajust SearchInput reference ([#1153](https://github.com/vtex/faststore/issues/1153)) ([c2ee199](https://github.com/vtex/faststore/commit/c2ee199402bc4e9d5846dc50778778e940ac7124))
+
+
+
+
+
+## 1.5.12 (2022-02-21)
+
+
+### Bug Fixes
+
+* allCollections query pagination and pagetype timeout errors ([#1140](https://github.com/vtex/faststore/issues/1140)) ([0150222](https://github.com/vtex/faststore/commit/01502220fb903c62f0b33b9a703fb45daafae141))
+
+
+
+
+
+## 1.5.11 (2022-02-18)
+
+
+### Bug Fixes
+
+* **gatsby-plugin-nginx:** remove trailing slash from incoming requests ([#1145](https://github.com/vtex/faststore/issues/1145)) ([db6f1e1](https://github.com/vtex/faststore/commit/db6f1e173ec43747bf9cfa244b81d86db8a25ce3))
+
+
+
+
+
+## 1.5.10 (2022-02-17)
+
+
+### Features
+
+* **api:** Add additional property ([#1107](https://github.com/vtex/faststore/issues/1107)) ([bbcfc4a](https://github.com/vtex/faststore/commit/bbcfc4af68148adb54d66a3f1d28a9817ad2956c))
+
+
+
+
+
+## 1.5.9 (2022-02-16)
+
+**Note:** Version bump only for package @vtex/graphql-utils
+
+
+
+
+
+## 1.5.8 (2022-02-15)
+
+
+### Bug Fixes
+
+* **api:** PDP and PLP breadcrumb list item's URL paths ([#1148](https://github.com/vtex/faststore/issues/1148)) ([ea1790a](https://github.com/vtex/faststore/commit/ea1790a0069b5e19f656d7df0051f391c3c3c611))
+
+
+
+
+
+## 1.5.7 (2022-02-15)
+
+**Note:** Version bump only for package @vtex/graphql-utils
+
+
+
+
+
+## 1.5.6 (2022-02-15)
+
+
+### Features
+
+* Add budgets lighthouse config ([#1150](https://github.com/vtex/faststore/issues/1150)) ([60de848](https://github.com/vtex/faststore/commit/60de84897cb25fe775a3197adf8035610882ced8))
+
+
+
+
+
+## 1.5.5 (2022-02-09)
+
+**Note:** Version bump only for package @vtex/graphql-utils
+
+
+
+
+
+## 1.5.4 (2022-02-09)
+
+**Note:** Version bump only for package @vtex/graphql-utils
+
+
+
+
+
 ## 1.5.3 (2022-02-07)
 
 **Note:** Version bump only for package @vtex/graphql-utils

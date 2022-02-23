@@ -20,6 +20,7 @@ import Review from './review.graphql'
 import Seo from './seo.graphql'
 import Cart from './cart.graphql'
 import Status from './status.graphql'
+import PropertyValue from './propertyValue.graphql'
 
 export const typeDefs = [
   Query,
@@ -42,6 +43,7 @@ export const typeDefs = [
   Order,
   Cart,
   Status,
+  PropertyValue,
 ]
   .map(print)
   .join('\n')

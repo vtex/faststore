@@ -6,6 +6,10 @@ hide_table_of_contents: false
 ---
 # January 2022
 
+New Incentive, Link, Card and QuantitySelector components now available in the FastStore UI. Also, new Platform integration, VTEX Headless CMS and Security guides.
+
+<!--truncate-->
+
 ## FastStore UI
 ### Incentive 
 - 🎉 **New [Incentive](https://faststore.dev/reference/ui/atoms/Incentive) atom** - [#1064](https://github.com/vtex/faststore/pull/1064) Use the `Incentive` component to display a trust badge for your store’s website.
@@ -107,7 +111,7 @@ Check out the new [`Search` SDK](https://faststore.dev/reference/sdk/search) mod
 
 - 📑 **Updated the [Quickstart documentation](https://faststore.dev/quickstart#step-3-configuring-your-project-settings)** - [#1066](https://github.com/vtex/faststore/pull/1066) Now you configure your FastStore project settings in the `store.config.js` file, an easy way to set up the repo without creating environment variables.
 
-- 📑 **New FasStore FAQ** - [#1068](https://github.com/vtex/faststore/pull/1068)
+- 📑 **New FastStore FAQ** - [#1068](https://github.com/vtex/faststore/pull/1068)
 Check out the [Frequently Asked Questions on FastStore Portal](https://faststore.dev/faq).
 
 - 📑 **New Starters Library** - [#1065](https://github.com/vtex/faststore/pull/1066)
@@ -135,7 +139,7 @@ Check out the new **[Integrating VTEX login](https://faststore.dev/how-to-guides
 
 ## Internal
 
-- ✨ **Auto generate reference documentation for FastStore UI comoponents with `react-docgen-typescript` plugin** - [#1070](https://github.com/vtex/faststore/pull/1070)
+- ✨ **Auto generate reference documentation for FastStore UI components with `react-docgen-typescript` plugin** - [#1070](https://github.com/vtex/faststore/pull/1070)
 
 - 🎉 **Send feedback for any documentation available on [FastStore Portal](https://faststore.dev/).** - [#1097](https://github.com/vtex/faststore/pull/1097)
 To submit the feedback, look for *Was this page helpful?* at the end of any documentation on the Portal.
