@@ -166,7 +166,7 @@ export const Query = {
       email: profile?.email?.value,
       givenName: profile?.firstName?.value,
       familyName: profile?.lastName?.value,
-      isAuthenticated: profile?.isAuthenticated?.value,
+      isAuthenticated: profile?.isAuthenticated?.value === 'true',
     }
   },
 }

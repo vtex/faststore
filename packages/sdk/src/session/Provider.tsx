@@ -9,11 +9,11 @@ export interface Currency {
 }
 
 export interface User {
-  id?: string
-  email?: string
-  firstName?: string
-  lastName?: string
-  isAuthenticated?: string
+  id?: string | null
+  email?: string | null
+  givenName?: string | null
+  familyName?: string | null
+  isAuthenticated?: boolean | null
 }
 
 export interface Session {
