@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.18 (2022-02-23)
+
+
+### Bug Fixes
+
+* **ui:** Use valid HTML for the Breadcrumb's divider ([#1143](https://github.com/vtex/faststore/issues/1143)) ([b40c3b1](https://github.com/vtex/faststore/commit/b40c3b1405e6aa9a0f2006de9f37a903e40a2103))
+
+
+
+
+
 ## 1.5.17 (2022-02-22)
 
 
