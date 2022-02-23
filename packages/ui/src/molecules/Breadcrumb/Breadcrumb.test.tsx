@@ -73,6 +73,7 @@ describe('Breadcrumb', () => {
     for (const item of Array.from(listItems)) {
       expect(item.nodeName).toEqual('LI')
     }
+
     expect(listItems).toHaveLength(2)
   })
 
@@ -90,6 +91,7 @@ describe('Breadcrumb', () => {
     for (const divider of Array.from(dividers)) {
       expect(divider).toHaveAttribute('aria-hidden', 'true')
     }
+
     expect(dividers).toHaveLength(2)
   })
 
