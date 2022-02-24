@@ -63,14 +63,10 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
   const orderFormItems = orderForm.items.map(orderFormItemToOffer).map(pick)
   const storeOrderItems = storeOrder.acceptedOffer.map(pick)
 
-  if (
-    storeOrder.orderNumber !== orderForm.orderFormId ||
-    !deepEquals(orderFormItems, storeOrderItems)
-  ) {
-    return false
-  }
+  const isSameOrder = storeOrder.orderNumber === orderForm.orderFormId
+  const orderItensAreSync = deepEquals(orderFormItems, storeOrderItems)
 
-  return true
+  return isSameOrder && orderItensAreSync
 }
 
 /**
