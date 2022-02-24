@@ -1,6 +1,10 @@
 import deepEquals from 'fast-deep-equal'
 
-import type { IStoreCart, IStoreOffer } from '../../../__generated__/schema'
+import type {
+  IStoreOrder,
+  IStoreCart,
+  IStoreOffer,
+} from '../../../__generated__/schema'
 import type {
   OrderForm,
   OrderFormItem,
@@ -47,23 +51,26 @@ const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer> =>
     return acc
   }, new Map<string, IStoreOffer>())
 
-const equals = (of1: OrderForm, of2: OrderForm) => {
-  const pick = ({ orderFormId, messages, items, salesChannel }: OrderForm) => ({
-    orderFormId,
-    messages,
-    salesChannel,
-    items: items.map(
-      ({ uniqueId, quantity, seller, sellingPrice, availability }) => ({
-        uniqueId,
-        quantity,
-        seller,
-        sellingPrice,
-        availability,
-      })
-    ),
+const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
+  const pick = (item: Indexed<IStoreOffer>, index: number) => ({
+    ...item,
+    itemOffered: {
+      sku: item.itemOffered.sku,
+    },
+    index,
   })
 
-  return deepEquals(pick(of1), pick(of2))
+  const orderFormItems = orderForm.items.map(orderFormItemToOffer).map(pick)
+  const storeOrderItems = storeOrder.acceptedOffer.map(pick)
+
+  if (
+    storeOrder.orderNumber !== orderForm.orderFormId ||
+    !deepEquals(orderFormItems, storeOrderItems)
+  ) {
+    return false
+  }
+
+  return true
 }
 
 /**
@@ -81,13 +88,10 @@ const equals = (of1: OrderForm, of2: OrderForm) => {
  */
 export const validateCart = async (
   _: unknown,
-  {
-    cart: {
-      order: { orderNumber, acceptedOffer },
-    },
-  }: { cart: IStoreCart },
+  { cart: { order } }: { cart: IStoreCart },
   ctx: Context
 ) => {
+  const { orderNumber, acceptedOffer } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
@@ -145,7 +149,7 @@ export const validateCart = async (
   })
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
-  if (equals(orderForm, updatedOrderForm)) {
+  if (equals(order, updatedOrderForm)) {
     return null
   }
 
