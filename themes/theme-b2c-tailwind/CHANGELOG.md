@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.20 (2022-02-25)
+
+
+### Bug Fixes
+
+* Cart item availability ([#1160](https://github.com/vtex/faststore/issues/1160)) ([fd1be18](https://github.com/vtex/faststore/commit/fd1be18b09e8e5141a2a899e786e7caf08b3ff62))
+
+
+
+
+
 ## 1.5.19 (2022-02-24)
 
 **Note:** Version bump only for package @vtex/theme-b2c-tailwind
