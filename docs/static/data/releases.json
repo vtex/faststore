@@ -3,7 +3,7 @@
     "title": "February",
     "product": "FastStore",
     "fileName": "2022-03-04-faststore",
-    "description": "Adjustments in the `SearchInput` reference and `useStorage` hook. Fixes in `StoreProduct` values and trailing slash from incoming requests. Also, new Performance Budgets section to the lighthouse report."
+    "description": "Adjustments in the SearchInput reference and useStorage hook. Fixes in StoreProduct values and trailing slash from incoming requests. Also, new Performance Budgets section to the lighthouse report."
   },
   {
     "title": "Improved WebOps build time",
