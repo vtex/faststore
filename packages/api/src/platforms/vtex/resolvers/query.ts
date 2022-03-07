@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { enhanceSku } from '../utils/enhanceSku'
 import { transformSelectedFacet } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
