@@ -1,0 +1,41 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Link
+
+The `Link` component behaves as a regular anchor tag (`<a>`), but can be used as any HTML tag.
+
+## Import
+
+```tsx
+import { Link } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Link href="/">
+    A default link
+</Link>
+```
+
+### As `div`
+
+```tsx live
+<Link as="div">
+    <span>A span inside the Link component</span>
+    <a href="/">A link inside the Link component</a>
+</Link>
+```
+
+## Props
+
+The `Link` component supports all attributes supported by the tag chosen through the `as` prop. 
+For example, if someone wants to use a wrapper for any external link component (i.e., Next.js `Link` or Gatsby `Link`), the FastStore UI `Link` component can be used with the `as="div"` prop.
+
+Besides those attributes, the following props are also supported:
+
+<PropsSection name="StorybookLink" />
+
+## Customization
+
+`data-store-link`

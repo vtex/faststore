@@ -40,16 +40,16 @@ describe('Banner', () => {
       expect(banner).toHaveAttribute('data-store-banner')
     })
 
-    it('`BannerImage` component should have `data-store-banner-image` attribute', () => {
-      expect(bannerImage).toHaveAttribute('data-store-banner-image')
+    it('`BannerImage` component should have `data-banner-image` attribute', () => {
+      expect(bannerImage).toHaveAttribute('data-banner-image')
     })
 
-    it('`BannerContent` component should have `data-store-banner-content` attribute', () => {
-      expect(bannerContent).toHaveAttribute('data-store-banner-content')
+    it('`BannerContent` component should have `data-banner-content` attribute', () => {
+      expect(bannerContent).toHaveAttribute('data-banner-content')
     })
 
-    it('`BannerLink` component should have `data-store-banner-link` attribute', () => {
-      expect(bannerLink).toHaveAttribute('data-store-banner-link')
+    it('`BannerLink` component should have `data-banner-link` attribute', () => {
+      expect(bannerLink).toHaveAttribute('data-banner-link')
     })
   })
 

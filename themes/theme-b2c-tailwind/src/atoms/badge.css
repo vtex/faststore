@@ -1,7 +1,6 @@
 [data-store-badge] {
+  @apply bg-pink-700 text-white;
   display: inline-block;
-  color: #ffffff;
-  background-color: #f71963;
   padding: 0.4rem;
   border-radius: 0.2rem;
   font-size: 0.9rem;

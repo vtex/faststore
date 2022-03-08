@@ -90,7 +90,7 @@ export interface Product {
   timestamp: number
   product: string
   oldPrice: number
-  productSpecifications: any[]
+  productSpecifications: string[]
   url: string
   measurementUnit: string
   categoryIDS: string[]

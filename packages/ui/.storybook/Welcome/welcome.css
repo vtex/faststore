@@ -8,3 +8,7 @@
   height: 100vh;
   padding: 3rem;
 }
+
+.welcome__heading {
+  font-size: xx-large;
+}

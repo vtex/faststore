@@ -2,13 +2,13 @@ import { useCallback } from 'react'
 
 import { useContext } from './Provider'
 import { getThumborImageData } from './utils/getImageData'
-import type { ThumborImageDataOptions } from './utils/getImageData'
+import type { ThumborImageOptions } from './useThumborImageData'
 
 export const useGetThumborImageData = () => {
   const { server, basePath } = useContext()
 
   const getImageData = useCallback(
-    (options: ThumborImageDataOptions) =>
+    (options: ThumborImageOptions) =>
       getThumborImageData({
         ...options,
         options: {

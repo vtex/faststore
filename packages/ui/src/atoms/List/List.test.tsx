@@ -34,7 +34,10 @@ describe('List', () => {
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-ordered')
+    expect(getByTestId('store-list')).toHaveAttribute(
+      'data-store-list',
+      'ordered'
+    )
 
     rerender(
       <List variant="unordered">
@@ -44,7 +47,23 @@ describe('List', () => {
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-unordered')
+    expect(getByTestId('store-list')).toHaveAttribute(
+      'data-store-list',
+      'unordered'
+    )
+
+    rerender(
+      <List variant="description">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toHaveAttribute(
+      'data-store-list',
+      'description'
+    )
   })
 
   it('should render the expected HTML tag for each variant', () => {

@@ -125,5 +125,16 @@ declare global {
       append: NginxDirective[]
       prepend: NginxDirective[]
     }
+
+    /**
+     * Adds headers to all nginx responses
+     *
+     * @example
+     * // Adds custom header to every response to identify sender's version
+     * customGlobalHeaders: [{name: 'x-vtex-renderer', value: 'faststore@1'}]
+     *
+     * * @default []
+     */
+    customGlobalHeaders: Header[]
   }
 }

@@ -1,5 +1,5 @@
 .changelogList {
-  @apply rounded-full;
+  @apply rounded-full ml-8;
 }
 
 .changelogList a {
@@ -8,53 +8,42 @@
 }
 
 .changelogList a:hover {
-  @apply bg-whiteIce;
   background-color: rgba(248, 247, 252, 0.5);
 }
 
 .changelogTitle {
-  grid-column: span 3 / span 3;
+  @apply col-span-3;
 }
 
 .changelogTitle h4 {
-  @apply inline-block mr-2 text-seriousBlack;
-  font-weight: 600;
+  @apply inline-block mr-2 text-seriousBlack text-lg leading-loose font-VTEXMedium;
 }
 
-.changelogTitle p {
-  @apply inline-block px-2 rounded-full align-middle uppercase tracking-widest;
-  font-size: 10px;
-}
-
-.faststore {
-  @apply bg-seriousBlack text-white;
-}
-
-.webops {
-  @apply bg-rebelPink text-white;
+.changelogList li:first-child h4::after {
+  content: "NEW";
+  @apply px-2 py-1 rounded-md uppercase tracking-widest bg-pink-50 text-rebelPink text-xs ml-2;
 }
 
 .descriptionChangelog {
-  @apply text-justify;
-  grid-column: span 3 / span 3;
+  @apply text-justify col-span-3;
 }
 
 .changelogList time {
-  @apply flex items-center mx-6;
+  @apply flex items-center mx-6 text-details;
   grid-row-start: 1;
   grid-column: 1 / span 2;
   grid-row-end: 3;
 }
 
 .changelogList li {
-  @apply m-0 !important;
+  @apply list-none m-0 !important;
 }
 .changelogList li:first-child time {
   @apply pt-4;
 }
 
 .changelogList time svg {
-  @apply mr-6 w-3 overflow-visible text-seriousBlack;
+  @apply mr-6 w-2.5 h-6 overflow-visible text-details;
 }
 
 li:first-child svg circle {

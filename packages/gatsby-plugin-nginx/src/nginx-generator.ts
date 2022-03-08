@@ -1,7 +1,7 @@
 import { posix } from 'path'
 
 import { INDEX_HTML, LOCATION_MODIFIERS } from './constants'
-import { normalizePath } from './headers'
+import { getGlobalHeaders, normalizePath } from './headers'
 import { identity } from './utils/functions'
 
 export {
@@ -32,10 +32,24 @@ function generateNginxConfiguration({
       append: appendLocations = [],
       prepend: prependLocations = [],
     } = {},
+    customGlobalHeaders,
   } = options
+
+  const globalHeaderDirectives = getGlobalHeaders(customGlobalHeaders)
 
   const filesSet = new Set(files)
   const locations = [
+    // Block nginx.conf
+    {
+      cmd: ['location', '/nginx.conf'],
+      children: [{ cmd: ['deny', 'all'] }, { cmd: ['return', '404'] }],
+    },
+    // Remove trailing slash if present
+    {
+      cmd: ['location', '~', '^(?<no_slash>.+)/$'],
+      children: [{ cmd: ['rewrite', '.+', '$no_slash'] }],
+    },
+    ...prependLocations,
     ...Object.entries(headersMap)
       .map(([path, headers]) =>
         generatePathLocation({ path, headers, files: filesSet, options })
@@ -46,7 +60,8 @@ function generateNginxConfiguration({
         }
       ),
     ...generateRewrites(rewrites),
-  ]
+    ...appendLocations,
+  ].map((location) => addGlobalHeaders(location, globalHeaderDirectives))
 
   const brotliConf = disableBrotliEncoding
     ? []
@@ -163,18 +178,7 @@ function generateNginxConfiguration({
                 // https://www.gatsbyjs.com/docs/how-to/adding-common-features/add-404-page/
                 { cmd: ['error_page', '404', '/404.html'] },
 
-                // Block nginx.conf
-                {
-                  cmd: ['location', '/nginx.conf'],
-                  children: [
-                    { cmd: ['deny', 'all'] },
-                    { cmd: ['return', '404'] },
-                  ],
-                },
-
-                ...prependLocations,
                 ...locations,
-                ...appendLocations,
               ],
             },
           ],
@@ -197,6 +201,7 @@ function stringify(directives: NginxDirective[]): string {
 
 const wildcard = /\*/g
 const namedSegment = /:[^/]+/g
+const catchAll = '/(.*)'
 
 // Converts a gatsby path to nginx location path
 // Ex:
@@ -204,9 +209,16 @@ const namedSegment = /:[^/]+/g
 //  '/:splat' => '^/([^/]+)$'
 //  '/foo/bar/:splat' => '^/foo/bar/([^/]+)$'
 export function convertToRegExp(path: string) {
-  const converted = path
+  let converted = path
     .replace(wildcard, '(.*)') // replace * with (.*)
     .replace(namedSegment, '([^/]+)') // replace :param like with url component like regex ([^/]+)
+
+  if (converted.endsWith(catchAll) && converted.length > catchAll.length) {
+    // allows '<path>/*' to serve '<path>' (without trailing slash)
+    // this is necessary because we are now removing trailing slashes from incoming requests
+    // so exact matches can work when there is a trailing slash
+    converted = converted.slice(0, -catchAll.length) + '(?:/(.*))?'
+  }
 
   const noTrailingSlashes = normalizePath(converted)
 
@@ -412,12 +424,26 @@ function generatePathLocation({
   return {
     cmd: ['location', '=', path],
     children: [
-      ...headers.map(({ name, value }) => ({
-        cmd: ['add_header', name, `"${value}"`],
-      })),
+      ...headers.map(addHeaderDirective),
       proxyPassDirective,
       ...returnDirective,
     ],
+  }
+}
+
+export function addHeaderDirective({ name, value }: Header) {
+  return {
+    cmd: ['add_header', name, `"${value}"`],
+  }
+}
+
+export function addGlobalHeaders(
+  location: NginxDirective,
+  globalHeadersDirectives: NginxDirective[]
+) {
+  return {
+    ...location,
+    children: [...(location.children ?? []), ...globalHeadersDirectives],
   }
 }
 

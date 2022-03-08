@@ -159,27 +159,23 @@ code {
   @apply bg-whiteIce bg-opacity-50;
 }
 
-.admonition-content {
-  @apply flex;
-}
-
 .admonition-heading {
   @apply hidden;
 }
 
 .alert--secondary {
-  @apply box-border rounded;
+  @apply box-border rounded flex;
   background: #f8f7fc;
   border: 1px solid #ccced8;
 }
 
 .admonition-info {
-  @apply box-border rounded;
+  @apply box-border rounded flex;
   background: #e3edf1;
   border: 1px solid #5bc1de;
 }
 
-.admonition-info .admonition-content::before {
+.admonition-info::before {
   @apply flex items-center pr-4 font-black;
   color: #5bc1de;
   font-family: 'Font Awesome\ 5 Free';
@@ -187,12 +183,12 @@ code {
 }
 
 .admonition-note {
-  @apply box-border rounded;
+  @apply box-border rounded flex;
   background: #fdfcff;
   border: 1px solid #dcdfe0;
 }
 
-.admonition-note .admonition-content::before {
+.admonition-note::before {
   @apply flex items-center pr-4 font-black;
   color: #dcdfe0;
   font-family: 'Font Awesome\ 5 Free';
@@ -200,12 +196,12 @@ code {
 }
 
 .admonition-tip {
-  @apply box-border rounded;
+  @apply box-border rounded flex;
   background: #e3f1eb;
   border: 1px solid #adc7bd;
 }
 
-.admonition-tip .admonition-content::before {
+.admonition-tip::before {
   @apply flex items-center pr-4 ;
   color: #adc7bd;
   font-family: 'Font Awesome\ 5 Free';
@@ -213,12 +209,12 @@ code {
 }
 
 .admonition-caution {
-  @apply box-border rounded;
+  @apply box-border rounded flex;
   background: #fff2d4;
   border: 1px solid #eea236;
 }
 
-.admonition-caution .admonition-content::before {
+.admonition-caution::before {
   @apply flex items-center pr-4 font-black;
   color: #eea236;
   font-family: 'Font Awesome\ 5 Free';

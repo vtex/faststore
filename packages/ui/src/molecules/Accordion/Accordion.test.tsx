@@ -94,26 +94,58 @@ describe('Accordion', () => {
     expect(panelsMock[1]).toBeVisible()
   })
 
+  it('should prevent duplicate IDs when using the `prefixID` attribute', () => {
+    const { getAllByTestId } = render(
+      <>
+        <Accordion indices={[]} onChange={() => {}}>
+          <AccordionItem prefixId="filter">
+            <AccordionButton testId="data-accordion-button" />
+            <AccordionPanel testId="data-accordion-panel" />
+          </AccordionItem>
+        </Accordion>
+        <Accordion indices={[]} onChange={() => {}}>
+          <AccordionItem prefixId="footer">
+            <AccordionButton testId="data-accordion-button" />
+            <AccordionPanel testId="data-accordion-panel" />
+          </AccordionItem>
+        </Accordion>
+      </>
+    )
+
+    const allPanels = getAllByTestId('data-accordion-panel')
+    const allButtons = getAllByTestId('data-accordion-button')
+
+    // Attributes
+    expect(allPanels[0]).toHaveAttribute('id', 'filter-panel--0')
+    expect(allPanels[1]).toHaveAttribute('id', 'footer-panel--0')
+    expect(allButtons[0]).toHaveAttribute('id', 'filter-button--0')
+    expect(allButtons[1]).toHaveAttribute('id', 'footer-button--0')
+
+    // Equality assertions
+    expect(allPanels[0].id).not.toEqual(allPanels[1].id)
+    expect(allButtons[0].id).not.toEqual(allButtons[1].id)
+  })
+
   describe('Data attributes', () => {
     it('`Accordion` component should have `data-store-accordion` attribute', () => {
       expect(accordion).toHaveAttribute('data-store-accordion')
     })
 
-    it('`AccordionItem` component should have `data-store-accordion-item` attribute', () => {
+    it('`AccordionItem` component should have `data-accordion-item` attribute', () => {
       for (const item of items) {
-        expect(item).toHaveAttribute('data-store-accordion-item')
+        expect(item).toHaveAttribute('data-accordion-item')
       }
     })
 
-    it('`AccordionButton` component should have `data-store-accordion-button` attribute', () => {
+    it('`AccordionButton` component should have `data-accordion-button` attribute', () => {
       for (const button of buttons) {
-        expect(button).toHaveAttribute('data-store-accordion-button')
+        expect(button).toHaveAttribute('data-accordion-button')
       }
     })
 
-    it('`AccordionPanel` component should have `data-store-accordion-panel` attribute', () => {
+    it('`AccordionPanel` component should have `data-accordion-panel` attribute', () => {
       for (const panel of panels) {
-        expect(panel).toHaveAttribute('data-store-accordion-panel')
+        expect(panel).toHaveAttribute('data-accordion-panel')
       }
     })
   })

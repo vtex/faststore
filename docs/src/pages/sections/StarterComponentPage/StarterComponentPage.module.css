@@ -3,11 +3,15 @@
 }
 
 .StarterCard {
-  @apply flex bg-whiteIce container mb-20 mx-auto text-seriousBlack rounded-lg justify-between;
+  @apply grid grid-cols-2 overflow-hidden w-10/12 relative bg-whiteIce container mb-20 mx-auto text-seriousBlack rounded-lg justify-between;
+}
+
+.CardImage {
+  @apply w-6/12 absolute bottom-0 right-0;
 }
 
 .CardInfo {
-  @apply w-3/6 p-20 pr-0;
+  @apply pt-14 pb-10 px-20;
 }
 
 .CardInfo h1 {
@@ -46,10 +50,6 @@
 
 .VisitDemo {
   @apply ml-2 text-rebelPink border-rebelPink border;
-}
-
-.CardImage {
-  @apply w-2/5 items-end;
 }
 
 @media screen and (max-width: 1220px) {

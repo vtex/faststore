@@ -7,6 +7,7 @@ export const fetchAPI = async (info: RequestInfo, init?: RequestInit) => {
     return response.json()
   }
 
+  console.error(info, init, response)
   const text = await response.text()
 
   throw new Error(text)

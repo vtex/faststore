@@ -16,12 +16,7 @@ const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
     ref
   ) {
     return (
-      <thead
-        ref={ref}
-        data-testid={testId}
-        data-store-table-head
-        {...otherProps}
-      >
+      <thead ref={ref} data-testid={testId} data-table-head {...otherProps}>
         {children}
       </thead>
     )

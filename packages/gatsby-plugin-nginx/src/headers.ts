@@ -5,11 +5,13 @@ import kebabHash from 'kebab-hash'
 import {
   CACHING_HEADERS,
   COMMON_BUNDLES,
+  ENV_VAR_HEADER_PREVIX,
   IMMUTABLE_CACHING_HEADER,
   INDEX_HTML,
   PAGE_DATA_DIR,
   PUBLIC_CACHING_HEADER,
 } from './constants'
+import { addHeaderDirective } from './nginx-generator'
 
 function preloadHeadersByPath(
   pages: Page[],
@@ -155,6 +157,40 @@ function headerFromString(header: string): Header {
 function emptyHeadersMapForFiles(files: string[]): PathHeadersMap {
   return Object.fromEntries(
     files.map((file) => [normalizePath(`/${removeIndexSuffix(file)}`), []])
+  )
+}
+
+export function getGlobalHeaders(
+  customGlobalHeaders: PluginOptions['customGlobalHeaders']
+): NginxDirective[] {
+  const rawGlobalHeaders: Record<string, string> = {}
+
+  Object.keys(process.env).forEach((envVar) => {
+    const isEnvVarHeader =
+      envVar.startsWith(ENV_VAR_HEADER_PREVIX) &&
+      envVar.length > ENV_VAR_HEADER_PREVIX.length
+
+    if (!isEnvVarHeader) {
+      return
+    }
+
+    // Normalizes header name. Headers with underscores are ignored by nginx anyway.
+    const headerName = envVar
+      .slice(ENV_VAR_HEADER_PREVIX.length)
+      .replace(/_/g, '-')
+
+    rawGlobalHeaders[headerName] = process.env[envVar]!
+  })
+
+  customGlobalHeaders.forEach((header) => {
+    rawGlobalHeaders[header.name] = header.value
+  })
+
+  return Object.entries(rawGlobalHeaders).map(([name, value]) =>
+    addHeaderDirective({
+      name,
+      value,
+    })
   )
 }
 

@@ -1,0 +1,4 @@
+type StorePropertyValue {
+  value: String!
+  name: String!
+}

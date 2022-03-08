@@ -5,7 +5,7 @@ import Button from '../../atoms/Button'
 import type { ButtonProps } from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
 
-export interface Props extends Omit<ButtonProps, 'children'> {
+export interface Props extends Omit<ButtonProps, 'children' | 'aria-label'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -14,6 +14,11 @@ export interface Props extends Omit<ButtonProps, 'children'> {
    * A React component that will be rendered as an icon.
    */
   icon: ReactNode
+
+  /**
+   * Label to be required for accessibility.
+   */
+  'aria-label': string
 }
 
 const IconButton = forwardRef<HTMLButtonElement, Props>(function IconButton(

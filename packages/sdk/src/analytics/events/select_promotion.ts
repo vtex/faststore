@@ -1,12 +1,14 @@
 import type { PromotionItem, PromotionParams } from './common'
 
-export interface SelectPromotionItems {
-  items?: PromotionItem[]
+export interface SelectPromotionItems<T extends PromotionItem = PromotionItem> {
+  items?: T[]
 }
 
-export type SelectPromotionParams = PromotionParams & SelectPromotionItems
+export type SelectPromotionParams<
+  T extends PromotionItem = PromotionItem
+> = PromotionParams & SelectPromotionItems<T>
 
-export interface SelectPromotionEvent {
+export interface SelectPromotionEvent<T extends PromotionItem = PromotionItem> {
   name: 'select_promotion'
-  params: SelectPromotionParams
+  params: SelectPromotionParams<T>
 }

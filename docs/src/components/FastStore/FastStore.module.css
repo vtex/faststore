@@ -1,53 +1,7 @@
-.faststore {
-  @apply pb-10 border-b;
-}
-.faststoreSection {
-  @apply flex justify-between mt-16 mb-12;
-}
-
-.faststoreContent {
-  @apply flex justify-between items-center pr-10 mt-20;
-  width: 60%;
-}
-
-.faststoreContent h1 {
-  @apply leading-6 text-5xl;
-  font-family: 'VTEX Trust Medium', sans-serif;
-}
-
-.faststoreContent h2 {
-  @apply leading-tight text-4xl mb-3;
-  font-family: 'VTEX Trust', sans-serif;
-}
-
-.faststoreContent p {
-  @apply leading-tight;
-}
-
-.faststoreSection img {
-  @apply w-1/3 object-contain;
-}
-
 @media screen and (max-width: 1220px) {
-  .faststoreSection {
-    @apply flex-col;
-  }
-  .faststoreContent {
-    @apply w-full;
-  }
-  .faststoreSection img {
-    @apply block w-11/12;
-  }
   .search [class^='DocSearch'] {
     @apply hidden;
   }
-  .faststore blockquote{
-    @apply hidden;
-  }
-}
-
-.features {
-  @apply flex flex-wrap justify-between;
 }
 
 .search [class^='DocSearch'] {

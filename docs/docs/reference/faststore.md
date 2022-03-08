@@ -10,7 +10,7 @@ import FastStorePackages from "@site/src/components/FastStorePackages/FastStoreP
 
 FastStore is a **light yet powerful set of libraries** made for developers who want to explore their knowledge and creativity building comprehensive ecommerce solutions. FastStore supports integration with **headless ecommerce platforms** and delivers all the necessary building blocks for creating custom ecommerce experiences. 
 
-FastStore architecture is **Jamstack-based**, meaning FastStore projects can be deployed with [VTEX IO WebOps](/tutorials/architecture/1), Netlify, Vercel, or any other Jamstack platform in the market. 
+FastStore architecture is **Jamstack-based**, meaning FastStore projects can be deployed with VTEX IO WebOps, Netlify, Vercel, or any other Jamstack platform in the market. 
 
 With FastStore and by following our recommended practices, you can achieve outstanding performance on your store website (**90+ on [Google PageSpeed Insights](https://pagespeed.web.dev/)**). In addition, FastStore also delivers:
 

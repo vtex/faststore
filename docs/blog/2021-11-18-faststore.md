@@ -5,12 +5,14 @@ tags: [faststore]
 hide_table_of_contents: false
 ---
 
+New Accordion, Breadcrumb, and Table components now available in the FastStore UI. We've also updated the Lighthouse CI to support Google Lighthouse v8.
+
+<!--truncate-->
+
 ##  Features 🚀
 
 - **New component: Accordion molecule** [(#985)](https://github.com/vtex/faststore/pull/985)
 We have added the [Accordion component](https://faststoreui.netlify.app/?path=/docs/molecules-accordion--multiple-and-collapsible) to the FastStore UI. The Accordion component hides its content by default.
-
-<!--truncate-->
 
 ![accordion](https://user-images.githubusercontent.com/67270558/139713271-b44c5724-c65e-4030-b660-a172410b6034.gif)
 

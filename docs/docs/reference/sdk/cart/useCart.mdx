@@ -1,0 +1,97 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# useCart
+
+The `useCart` hook gives access to the `Cart` object and helper functions, such as `addToItem` and `removeItem`, for applying changes in the cart.
+
+## Import
+
+```tsx
+import { useCart } from '@faststore/sdk'
+```
+
+## Usage
+
+```tsx
+function Cart () {
+  const { items, isValidating } = useCart()
+
+  return (
+    <>
+      {items.map(item => (
+        <div>name: {item.itemOffered.name}</div>
+        <div>Price: {item.price}</div>
+      ))}
+      <a href="/checkout">{isValidating ? 'loading...' : 'Checkout'}</a>
+    </>
+  )
+}
+```
+
+## Return
+
+<PropsComponent
+    name="addItem"
+    type="(item: T) => void"
+    description="Adds items to the cart."
+/>
+
+<PropsComponent
+    name="emptyCart"
+    type="() => void"
+    description="Removes all items from the cart."
+/>
+
+<PropsComponent
+    name="getItem"
+    type="(id: string) => T | undefined"
+    description="Gets a given item from the cart."
+/>
+
+<PropsComponent
+    name="id"
+    type="string"
+    description="Gets the cart's id."
+/>
+
+<PropsComponent
+    name="inCart"
+    type="(id: string) => boolean"
+    description="Checks if an item is in the cart."
+/>
+
+<PropsComponent
+    name="isEmpty"
+    type="boolean"
+    description="Checks if the cart is empty."
+/>
+
+<PropsComponent
+    name="isValidating"
+    type="boolean"
+    description="Returns `true` if the optimistic cart is validating the cart."
+/>
+
+<PropsComponent
+    name="items"
+    type="Item"
+    description="Gets the current items in the cart."
+/>
+
+<PropsComponent
+    name="removeItem"
+    type="(id: string) => void"
+    description="Removes an item from the cart."
+/>
+
+<PropsComponent
+    name="setCart"
+    type="(cart: Cart) => void"
+    description="Replaces the cart with a new one."
+/>
+
+<PropsComponent
+    name="updateItemQuantity"
+    type="(id: string, quantity: number) => void"
+    description="Updates the quantity of a given item in the cart."
+/>

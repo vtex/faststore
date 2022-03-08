@@ -14,12 +14,7 @@ const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>(
     ref
   ) {
     return (
-      <div
-        ref={ref}
-        data-store-banner-image
-        data-testid={testId}
-        {...otherProps}
-      >
+      <div ref={ref} data-banner-image data-testid={testId} {...otherProps}>
         {children}
       </div>
     )

@@ -4,17 +4,25 @@
 This documentation is currently under development.
 :::
 
-A simple, framework agnostic implementation of Commerce APIs to help you create you next React-based store with world class performance in record time
+FastStore SDK is a simple, framework-agnostic implementation of Commerce APIs to help you create your next React-based store with world-class performance in record time.
 
-[![NPM](https://img.shields.io/npm/v/@faststore/sdk.svg)](https://www.npmjs.com/package/@faststore/sdk) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+## Key features
 
-## Installation
+### Analytics
 
-```bash
-yarn add @faststore/sdk
+The analytics data layer is based on [the official GA4 specification](https://developers.google.com/gtagjs/reference/ga4-events).
+
+##  Get started
+
+### Installation
+
+Install `@faststore/sdk` as a dependency of your FastStore project via the command line:
+
+```bash npm2yarn
+npm install @faststore/sdk
 ```
 
-## Usage
+### Usage
 
 ```tsx
 import React from 'react'
@@ -28,11 +36,3 @@ const MyStoreComponent: FC = () => {
   return <MyComponent props>Hello Commerce</MyComponent>
 }
 ```
-
-## Analytics
-
-The analytics data layer is based on [the official GA4 specification](https://developers.google.com/gtagjs/reference/ga4-events).
-
-## License
-
-MIT © [VTEX](https://github.com/vtex/faststore)
