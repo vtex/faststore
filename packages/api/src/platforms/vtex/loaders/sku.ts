@@ -26,10 +26,15 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
       {} as Record<string, number>
     )
 
+    const nonSkuFacets = facetsList.flatMap((facets) =>
+      facets.filter(({ key }) => key !== 'id')
+    )
+
     const { products } = await clients.search.products({
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,
+      selectedFacets: nonSkuFacets,
     })
 
     if (products.length !== skuIds.length) {
