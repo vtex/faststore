@@ -4,7 +4,7 @@ import type {
   InputHTMLAttributes,
   ReactNode,
 } from 'react'
-import React, { forwardRef, useRef } from 'react'
+import React, { useImperativeHandle, forwardRef, useRef } from 'react'
 
 import Button from '../../atoms/Button'
 import Icon from '../../atoms/Icon'
@@ -50,7 +50,12 @@ export interface SearchInputProps extends InputProps {
   testId?: string
 }
 
-const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
+export interface SearchInputRef {
+  inputRef?: HTMLInputElement | null
+  formRef?: HTMLFormElement | null
+}
+
+const SearchInput = forwardRef<SearchInputRef | null, SearchInputProps>(
   function SearchInput(
     {
       onSubmit,
@@ -61,25 +66,32 @@ const SearchInput = forwardRef<HTMLFormElement, SearchInputProps>(
     },
     ref
   ) {
-    const valueRef = useRef<HTMLInputElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
+    const formRef = useRef<HTMLFormElement>(null)
 
     const handleSubmit = (event: FormEvent) => {
       event.preventDefault()
 
-      if (valueRef.current?.value !== '') {
-        onSubmit(valueRef.current!.value)
+      if (inputRef.current?.value !== '') {
+        onSubmit(inputRef.current!.value)
       }
     }
 
+    useImperativeHandle(ref, () => ({
+      inputRef: inputRef.current,
+      formRef: formRef.current,
+    }))
+
     return (
       <Form
-        ref={ref}
+        ref={formRef}
         data-store-search-input
         data-testid={testId}
         onSubmit={handleSubmit}
+        role="search"
       >
-        <Input ref={valueRef} aria-label={ariaLabel} {...otherProps} />
-        <Button type="submit" aria-label={`button-${ariaLabel}`}>
+        <Input ref={inputRef} aria-label={ariaLabel} {...otherProps} />
+        <Button type="submit" aria-label="Submit Search">
           <Icon component={icon ?? <SearchIcon />} />
         </Button>
       </Form>

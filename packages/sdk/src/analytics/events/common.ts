@@ -132,7 +132,7 @@ export interface ItemWithoutIdentifier {
 
 export type Item = ItemUniqueIdentifier & ItemWithoutIdentifier
 
-export interface PromotionProperties {
+export interface PromotionParams {
   creative_name?: string
   creative_slot?: string
   location_id?: string
@@ -140,7 +140,7 @@ export interface PromotionProperties {
   promotion_name?: string
 }
 
-export type PromotionItem = Item & PromotionProperties
+export type PromotionItem = Item & PromotionParams
 
 /**
  * The values for this type were taken from https://github.com/freeall/currency-codes/blob/master/iso-4217-list-one.xml

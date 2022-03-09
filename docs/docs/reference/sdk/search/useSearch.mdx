@@ -1,0 +1,118 @@
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# useSearch
+
+The `useSearch` hook consumes the search context provided by the `SearchProvider` component. You can use this context to change the search state and consume its values.
+
+## Import
+
+```tsx
+import { useSearch } from '@faststore/sdk'
+```
+
+## Usage
+
+```tsx
+// Create a selection sort button
+
+const keyMap = {
+  price_desc: 'Price, descending',
+  price_asc: 'Price, ascending',
+  orders_desc: 'Top sales',
+  name_asc: 'Name, A-Z',
+  name_desc: 'Name, Z-A',
+  release_desc: 'Release date',
+  discount_desc: 'Discount',
+  score_desc: 'Relevance',
+}
+
+const keys = Object.keys(keyMap)
+
+function Component () {
+  const {
+    setSort,
+    state: { sort },
+  } = useSearch()
+
+  return (
+    <select
+      onChange={(e) => setSort(keys[e.target.selectedIndex])}
+      value={sort}
+    >
+      {keys.map((key) => (
+        <option key={key} value={key}>
+          {keyMap[key]}
+        </option>
+      ))}
+    </select>
+  )
+}
+```
+
+## Return
+
+<PropsComponent
+    name="itemsPerPage"
+    type="number"
+    description="Number of items per page."
+/>
+
+<PropsComponent
+    name="state"
+    type="SearchState"
+    description="Current state of the search represented by the selected facets, sort option, and URL path."
+/>
+
+<PropsComponent
+    name="setSort"
+    type="(sort: SearchSort) => void"
+    description="Sets the sorting criteria of the search results."
+/>
+
+<PropsComponent
+    name="setTerm"
+    type="(term: string | null) => void"
+    description="Sets the full-text term."
+/>
+
+<PropsComponent
+    name="setPage"
+    type="(page: number) => void"
+    description="Sets the current page on search pagination."
+/>
+
+<PropsComponent
+    name="setFacet"
+    type="(facet: Facet, unique?: boolean) => void"
+    description="Selects a specific facet."
+/>
+
+<PropsComponent
+  name="removeFacet"
+  type="(facet: Facet) => void"
+  description="Removes a specific facet."
+/>
+
+<PropsComponent
+  name="toggleFacet"
+  type="(facet: Facet) => void"
+  description="Replaces a specific facet."
+/>
+
+<PropsComponent
+  name="toggleFacets"
+  type="(facets: Facet[]) => void"
+  description="Toggles a specific facet."
+/>
+
+<PropsComponent
+  name="addPrevPage"
+  type="() => void"
+  description="Prepends a page to the infinite scroll pagination."
+/>
+
+<PropsComponent
+  name="addNextPage"
+  type="() => void"
+  description="Appends a page to the infinite scroll pagination."
+/>

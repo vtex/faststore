@@ -1,0 +1,112 @@
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
+
+# PaymentMethods
+
+The PaymentMethods component displays the logos of the available payment options in a store.
+
+## Import
+
+```tsx
+import { PaymentMethods } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+function Component() {
+  const VisaCard = () => (
+    <img
+      alt= "Visa logo"
+      width = { 50}
+      height = { 50}
+      src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png"
+    />
+  )
+
+  const MasterCard = () => (
+    <img
+      alt= "Mastercard logo"
+      width = { 50}
+      height = { 50}
+      src = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1544px-Mastercard-logo.svg.png"
+    />
+  )
+
+  const AmericanExpressCard = () => (
+    <img
+      alt= "American express logo"
+      width = { 50}
+      height = { 50}
+      src = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png"
+    />
+  )
+
+  const MaestroCard = () => (
+    <img
+      alt= "Maestro logo"
+      width = { 50}
+      height = { 50}
+      src = "https://upload.wikimedia.org/wikipedia/commons/4/4d/Maestro_logo.png"
+    />
+  )
+
+  const EloCard = () => (
+    <img
+      alt= "Elo logo"
+      width = { 50}
+      height = { 50}
+      src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Elo_card_association_logo_-_black_text.svg/1024px-Elo_card_association_logo_-_black_text.svg.png"
+    />
+  )
+
+  const HiperCard = () => (
+    <img
+      alt= "Hipercard logo"
+      width = { 50}
+      height = { 50}
+      src = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Hipercard_logo.svg/2000px-Hipercard_logo.svg.png"
+    />
+  )
+
+  const PayPal = () => (
+    <img
+      alt= "PayPal brand"
+      width = { 50}
+      height = { 50}
+      src = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/PayPal_logo.svg/2560px-PayPal_logo.svg.png"
+    />
+  )
+
+  const DinersClub = () => (
+    <img
+      alt= "Diners club logo"
+      width = { 50}
+      height = { 50}
+      src = "https://upload.wikimedia.org/wikipedia/commons/a/a6/Diners_Club_Logo3.svg"
+    />
+  )
+
+  return (
+    <PaymentMethods title= "Payment Methods" >
+      <VisaCard />
+      <MasterCard />
+      <MaestroCard />
+      <AmericanExpressCard />
+      <HiperCard />
+      <EloCard />
+      <DinersClub />
+      <PayPal />
+    </PaymentMethods>
+  )
+}
+```
+
+## Props
+
+<PropsSection name="PaymentMethods" />
+
+## Customization
+
+`data-store-payment-methods`
+
+`data-payment-methods-flags`

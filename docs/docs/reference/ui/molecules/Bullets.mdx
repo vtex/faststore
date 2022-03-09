@@ -1,0 +1,33 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Bullets
+
+The Bullets component displays a set of bullets, which allow users to alternate between different screens.
+
+## Import
+
+```tsx
+import { Bullets } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<BulletsTemplate
+  activeBullet={3}
+  onClick={(e, idx) => {}}
+  totalQuantity={5}
+/>
+```
+
+## Props
+
+<PropsSection name="Bullets" />
+
+## Customization
+
+`data-store-bullets`
+
+`data-bullet-item`
+
+`[data-bullet-item][aria-selected="true"]`

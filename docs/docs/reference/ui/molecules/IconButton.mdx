@@ -1,0 +1,38 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# IconButton
+
+Icon Buttons are icons that trigger some sort of action, such as adding an item to the cart.
+
+## Import
+
+```tsx
+import { IconButton } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<IconButton
+  icon={<ShoppingCart/>}
+/>
+```
+
+## Custom Style
+
+```tsx live
+<IconButton
+  className="iconButton"
+  icon={<ShoppingCart />}
+/>
+```
+
+## Props
+
+<PropsSection name="IconButton" />
+
+## Customization
+
+`data-store-icon-button`
+
+This component inherits [Button](/reference/ui/atoms/Button) css selectors.

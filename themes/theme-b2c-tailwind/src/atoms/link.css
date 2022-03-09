@@ -1,0 +1,11 @@
+a[data-store-link] {
+  @apply underline;
+}
+
+div[data-store-link] {
+  @apply flex flex-col;
+}
+
+[data-store-link] a {
+  @apply whitespace-nowrap max-w-min px-2 py-1 mt-2 underline;
+}

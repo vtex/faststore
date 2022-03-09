@@ -1,1 +1,0 @@
-## walkthrough emerson's video

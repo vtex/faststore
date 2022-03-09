@@ -1,0 +1,19 @@
+[data-store-card] {
+  @apply h-full max-w-xs;
+}
+
+[data-store-card-content] {
+  @apply pt-2 pl-2;
+}
+
+[data-store-card-content] [data-store-price] {
+  @apply mr-1 text-gray-500;
+}
+
+[data-store-card-content] [data-store-badge] {
+  @apply mt-2 text-xs rounded-full text-gray-800 bg-green-100;
+}
+
+[data-store-card-actions] [data-store-button] {
+  @apply mr-2 mt-2 text-sm float-right;
+}

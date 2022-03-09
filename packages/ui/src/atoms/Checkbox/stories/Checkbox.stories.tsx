@@ -18,14 +18,19 @@ const CheckboxTemplate: Story<CheckboxProps> = ({
   }, [checked])
 
   return (
-    <Component
-      {...otherProps}
-      checked={localChecked}
-      onClick={(e) => {
-        onClick?.(e)
-        setLocalChecked(!localChecked)
-      }}
-    />
+    <>
+      <Component
+        {...otherProps}
+        checked={localChecked}
+        onClick={(e) => {
+          onClick?.(e)
+          setLocalChecked(!localChecked)
+        }}
+        id="checkbox"
+      />
+
+      <label htmlFor="checkbox">Checkbox</label>
+    </>
   )
 }
 

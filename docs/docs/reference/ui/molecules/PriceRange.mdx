@@ -1,0 +1,42 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# PriceRange
+
+The Price Range component is a slider that allows users to select a maximum and minimum price from a range.
+
+## Import
+
+```tsx
+import { PriceRange } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+function Component () {
+  const formatter = useCallback((price) => new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(price), [])
+
+  return (
+    <PriceRange
+      max = "500"
+      min = "0"
+      formatter={formatter}
+    />
+  )
+}
+```
+
+## Props
+
+<PropsSection name="PriceRange" />
+
+## Customization
+
+`data-store-price-range`
+
+`data-store-price-range-values`
+
+`data-store-price-range-values = '(min|max)'`

@@ -12,6 +12,11 @@ const defaultOptions: PluginOptions = {
   plugins: [],
   httpOptions: [['proxy_http_version', '1.1']],
   serverOptions: [['resolver', '8.8.8.8']],
+  locations: {
+    append: [],
+    prepend: [],
+  },
+  customGlobalHeaders: [],
 }
 
 export function pluginOptions(options: Partial<PluginOptions>): PluginOptions {
@@ -37,6 +42,12 @@ export function pluginOptions(options: Partial<PluginOptions>): PluginOptions {
     plugins: options.plugins ?? defaultOptions.plugins,
     httpOptions: options.httpOptions ?? defaultOptions.httpOptions,
     serverOptions: options.serverOptions ?? defaultOptions.serverOptions,
+    locations: {
+      prepend: options.locations?.prepend ?? [],
+      append: options.locations?.append ?? [],
+    },
+    customGlobalHeaders:
+      options.customGlobalHeaders ?? defaultOptions.customGlobalHeaders,
   }
 }
 

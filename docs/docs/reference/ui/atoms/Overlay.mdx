@@ -1,0 +1,43 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Overlay
+
+Overlays provide contextual information on top of the current layer of the interface. They can be interruptive like modals or augmenting like popovers and tooltips.
+
+## Import
+
+```tsx
+import { Overlay } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+function Component () {
+  const styles = {
+    container: {
+      position: "relative",
+      height: "8rem"
+    },
+    overlay: {
+      backgroundColor: "rgba(107,114,128,0.3)",
+      position: "absolute"
+    }
+  }
+
+  return (
+    <div style={styles.container} >
+      A content outside me
+      <Overlay style={styles.overlay} />
+    </div>
+  )
+}
+```
+
+## Props
+
+<PropsSection name="Overlay" />
+
+## Customization
+
+`data-store-overlay`

@@ -1,0 +1,83 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Card
+
+Cards are used to present the summarized information of a product. The `Card` component is a compound of the following:
+- `CardImage` - wraps the product image.
+- `CardContent` - wraps the product details.
+- `CardActions` - wraps the call-to-action button of the product card.
+
+## Import
+
+```tsx
+import { Badge, Card, CardActions, CardImage, CardContent, Price } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Card>
+  <CardImage>
+    <img
+      alt="A vintage camera"
+      src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
+    />
+  </CardImage>
+  <CardContent>
+    <h3>
+      Vintage Top Camera
+    </h3>
+    <div>
+      <Price
+        style={{
+          textDecoration: 'line-through'
+        }}
+        value={89.9}
+        variant="selling"
+      />
+      <Price
+        value={68.9}
+        variant="selling"
+      />
+    </div>
+    <Badge>
+      15% OFF
+    </Badge>
+  </CardContent>
+  <CardActions>
+    <Button onClick={function noRefCheck(){}}>
+      Add to Cart
+    </Button>
+  </CardActions>
+</Card>
+```
+
+## Props
+
+All Card-related components support all attributes also supported by the `<div>` tag.
+
+### Card
+
+<PropsSection name="Card" />
+
+### CardActions
+
+<PropsSection name="CardActions" />
+
+### CardContent
+
+<PropsSection name="CardContent" />
+
+### CardImage
+
+<PropsSection name="CardImage" />
+
+## Customization
+
+`data-store-card`
+
+`data-store-card-image`
+
+`data-store-card-content`
+
+`data-store-card-actions`

@@ -19,7 +19,7 @@ const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
     ref
   ) {
     const { indices, onChange, numberOfItems } = useAccordion()
-    const { index, panel, button } = useAccordionItem()
+    const { index, panel, button, prefixId } = useAccordionItem()
 
     const onKeyDown = (event: React.KeyboardEvent) => {
       if (!['ArrowDown', 'ArrowUp'].includes(event.key)) {
@@ -29,14 +29,18 @@ const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
       const getNext = () => {
         const next = Number(index) + 1 === numberOfItems ? 0 : Number(index) + 1
 
-        return document.getElementById(`button--${next}`)
+        return document.getElementById(
+          `${prefixId && `${prefixId}-`}button--${next}`
+        )
       }
 
       const getPrevious = () => {
         const previous =
           Number(index) - 1 < 0 ? numberOfItems - 1 : Number(index) - 1
 
-        return document.getElementById(`button--${previous}`)
+        return document.getElementById(
+          `${prefixId && `${prefixId}-`}button--${previous}`
+        )
       }
 
       switch (event.key) {
@@ -60,7 +64,7 @@ const AccordionButton = forwardRef<HTMLButtonElement, AccordionButtonProps>(
         id={button}
         aria-expanded={indices.has(index)}
         aria-controls={panel}
-        data-store-accordion-button
+        data-accordion-button
         data-testid={testId}
         onKeyDown={onKeyDown}
         onClick={() => {

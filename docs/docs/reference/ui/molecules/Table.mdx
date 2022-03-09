@@ -1,0 +1,129 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Table
+
+Tables display information in a friendly way, allowing users to scan for details quickly. The Table component is a compound of the following:
+
+- `Table` -  renders a `<table>` tag.
+- `TableBody` - renders a `<tbody>` tag.
+- `TableHead` - renders a `<thead>` tag.
+- `TableRow` - renders a `<tr>` tag.
+- `TableFooter` - renders a `<tfoot>` tag.
+- `TableCell` - renders a `<th>` or `<td>` tag depending on the value of the `variant` prop.
+
+## Import
+
+```tsx
+import { Table } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+function(){
+  const options = [
+    {
+      numberOfInstallments: 1,
+      monthlyPayment: 200,
+      total: 200,
+    },
+    {
+      numberOfInstallments: 2,
+      monthlyPayment: 100,
+      total: 200,
+    },
+    {
+      numberOfInstallments: 3,
+      monthlyPayment: 68,
+      total: 204,
+    },
+    {
+      numberOfInstallments: 4,
+      monthlyPayment: 52,
+      total: 208,
+    },
+    {
+      numberOfInstallments: 5,
+      monthlyPayment: 43,
+      total: 215,
+    },
+  ]
+
+    return(
+        <Table>
+            <TableHead>
+                <TableRow>
+                <TableCell scope="col" variant="header">
+                    Installments
+                </TableCell>
+                <TableCell scope="col" variant="header">
+                    Amount
+                </TableCell>
+                <TableCell scope="col" variant="header">
+                    Total
+                </TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {options.map((option) => (
+                <TableRow key={option.numberOfInstallments}>
+                    <TableCell>{option.numberOfInstallments}x</TableCell>
+                    <TableCell>
+                    <Price formatter={priceFormatter} value={option.monthlyPayment} />
+                    </TableCell>
+                    <TableCell>
+                    <Price formatter={priceFormatter} value={option.total} />
+                    </TableCell>
+                </TableRow>
+                ))}
+            </TableBody>
+            <TableFooter>
+                <TableRow>
+                <TableCell>Installments</TableCell>
+                <TableCell>Amount</TableCell>
+                <TableCell>Total</TableCell>
+                </TableRow>
+            </TableFooter>
+        </Table>
+)}
+```
+
+## Props
+
+All table-related components support all attributes also supported by their respective HTML tags. Besides those attributes, the following props are also supported:
+
+### Table
+
+<PropsSection name="Table" />
+
+### TableBody
+
+<PropsSection name="TableBody" />
+
+### TableRow
+
+<PropsSection name="TableRow" />
+
+### TableFooter
+
+<PropsSection name="TableFooter" />
+
+### TableCell
+
+<PropsSection name="TableCell" />
+
+## Customization
+
+`data-store-table`
+
+`data-store-table-head`
+
+`data-store-table-row`
+
+`data-store-table-footer`
+
+`data-store-table-body`
+
+`data-store-table-cell='head'`
+
+`data-store-table-cell='data'`

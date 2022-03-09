@@ -9,7 +9,7 @@ export const useAnalyticsEvent = <T extends UnknownEvent = UnknownEvent>(
   const callback = useCallback(
     (message: MessageEvent) => {
       try {
-        if (message.data.type !== ANALYTICS_EVENT_TYPE) {
+        if ((message.data as UnknownEvent).name !== ANALYTICS_EVENT_TYPE) {
           return
         }
 

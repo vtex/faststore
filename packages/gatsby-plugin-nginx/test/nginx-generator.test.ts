@@ -57,7 +57,8 @@ describe('convert Gatsby paths into nginx RegExp', () => {
   it('handles wildcard (*)', () => {
     expect(convertToRegExp('/*')).toEqual('^/(.*)$')
     expect(convertToRegExp('/*/')).toEqual('^/(.*)$')
-    expect(convertToRegExp('/pt/*')).toEqual('^/pt/(.*)$')
+    expect(convertToRegExp('/*/*')).toEqual('^/(.*)(?:/(.*))?$')
+    expect(convertToRegExp('/pt/*')).toEqual('^/pt(?:/(.*))?$')
   })
 })
 
@@ -109,7 +110,7 @@ describe('generateRewrites', () => {
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/pt/__client-side-search__'] }],
-        cmd: ['location', '~*', '"^/pt/(.*)$"'],
+        cmd: ['location', '~*', '"^/pt(?:/(.*))?$"'],
       },
       {
         children: [{ cmd: ['rewrite', '.+', '/foo-path'] }],
@@ -147,7 +148,7 @@ describe('generateRewrites', () => {
           { cmd: ['proxy_cookie_domain', 'other-domain.com', '$host'] },
           { cmd: ['proxy_cookie_path', '/api/auth', '/'] },
         ],
-        cmd: ['location', '~*', '"^/api/auth/(.*)$"'],
+        cmd: ['location', '~*', '"^/api/auth(?:/(.*))?$"'],
       },
     ]
 
@@ -173,7 +174,7 @@ describe('generateRedirects', () => {
   it('correctly translates into NginxDirectives', () => {
     const expected = [
       {
-        cmd: ['location', '~*', '"^/api/(.*)$"'],
+        cmd: ['location', '~*', '"^/api(?:/(.*))?$"'],
         children: [
           {
             cmd: [
@@ -185,7 +186,7 @@ describe('generateRedirects', () => {
         ],
       },
       {
-        cmd: ['location', '~*', '"^/graphql/(.*)$"'],
+        cmd: ['location', '~*', '"^/graphql(?:/(.*))?$"'],
         children: [
           {
             cmd: [
@@ -259,6 +260,14 @@ describe('generateNginxConfiguration', () => {
       writeOnlyLocations: false,
       serverOptions: [],
       httpOptions: [],
+      locations: {
+        prepend: [],
+        append: [],
+      },
+      customGlobalHeaders: [
+        { name: `c`, value: `d` },
+        { name: `e`, value: `f` },
+      ],
     }
 
     expect(
@@ -309,14 +318,25 @@ describe('generateNginxConfiguration', () => {
           location /nginx.conf {
             deny all;
             return 404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
+          }
+          location ~ ^(?<no_slash>.+)/$ {
+            rewrite .+ $no_slash;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
           }
           location = /foo {
             add_header a \\"b\\";
             try_files /foo/index.html =404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
           }
           location = /bar {
             add_header a \\"b\\";
             try_files /bar/index.html =404;
+            add_header c \\"d\\";
+            add_header e \\"f\\";
           }
         }
       }"
@@ -327,21 +347,26 @@ describe('generateNginxConfiguration', () => {
     function generateLargeConfig(numFiles: number) {
       const headersMap: PathHeadersMap = {}
       const files: string[] = []
+      const globalHeaders: Header[] = []
+
+      const header = { name: `a`, value: `b` }
 
       for (let i = 0; i < numFiles; i++) {
-        headersMap[`/page-${i}`] = [{ name: `a`, value: `b` }]
+        globalHeaders.push(header)
+        headersMap[`/page-${i}`] = [header]
         files.push(`page-${i}/index.html`)
       }
 
       return {
         headersMap,
+        globalHeaders,
         files,
       }
     }
 
     const rewrites: Redirect[] = []
 
-    const { headersMap, files } = generateLargeConfig(10000)
+    const { headersMap, globalHeaders, files } = generateLargeConfig(10000)
     const options: PluginOptions = {
       plugins: [],
       disableBrotliEncoding: false,
@@ -353,6 +378,11 @@ describe('generateNginxConfiguration', () => {
       writeOnlyLocations: false,
       serverOptions: [],
       httpOptions: [],
+      locations: {
+        prepend: [],
+        append: [],
+      },
+      customGlobalHeaders: globalHeaders,
     }
 
     const start = performance.now()

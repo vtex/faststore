@@ -1,0 +1,39 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# SearchInput
+
+The Search Input component allows users to enter an input and query results from a database.
+
+## Import
+
+```tsx
+import { SearchInput } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<SearchInput
+  placeholder="Search"
+/>
+```
+
+## With custom icon
+
+```tsx live
+<SearchInput
+  icon={<CustomIcon />}
+  placeholder="Search"
+/>
+```
+
+
+## Props
+
+<PropsSection name="SearchInput" />
+
+## Customization
+
+`data-store-search-input`
+
+This component inherits [Input](/reference/ui/atoms/Input), [Button](/reference/ui/atoms/Button), [Icon](/reference/ui/atoms/Icon) css selectors.

@@ -1,6 +1,6 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface PurchaseData {
+export interface PurchaseParams<T extends Item = Item> {
   currency?: CurrencyCode
   transaction_id?: string
   value?: number
@@ -8,10 +8,10 @@ export interface PurchaseData {
   coupon?: string
   shipping?: number
   tax?: number
-  items?: Item[]
+  items?: T[]
 }
 
-export interface PurchaseEvent {
-  type: 'purchase'
-  data: PurchaseData
+export interface PurchaseEvent<T extends Item = Item> {
+  name: 'purchase'
+  params: PurchaseParams<T>
 }

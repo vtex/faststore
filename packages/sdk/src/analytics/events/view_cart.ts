@@ -1,12 +1,12 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface ViewCartData {
+export interface ViewCartParams<T extends Item = Item> {
   currency?: CurrencyCode
   value?: number
-  items?: Item[]
+  items?: T[]
 }
 
-export interface ViewCartEvent {
-  type: 'view_cart'
-  data: ViewCartData
+export interface ViewCartEvent<T extends Item = Item> {
+  name: 'view_cart'
+  params: ViewCartParams<T>
 }

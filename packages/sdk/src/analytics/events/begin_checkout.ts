@@ -1,13 +1,13 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface BeginCheckoutData {
+export interface BeginCheckoutParams<T extends Item = Item> {
   currency?: CurrencyCode
   value?: number
   coupon?: string
-  items?: Item[]
+  items?: T[]
 }
 
-export interface BeginCheckoutEvent {
-  type: 'begin_checkout'
-  data: BeginCheckoutData
+export interface BeginCheckoutEvent<T extends Item = Item> {
+  name: 'begin_checkout'
+  params: BeginCheckoutParams<T>
 }

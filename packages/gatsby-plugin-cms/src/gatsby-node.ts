@@ -12,10 +12,14 @@ import type {
 import type { StoreCollection } from '@vtex/gatsby-source-vtex'
 
 import { Barrier } from './utils/barrier'
-import { fetchAllNodes as fetchAllRemoteNodes } from './node-api/cms/fetchNodes'
+import {
+  fetchNodeById,
+  fetchAllNodes as fetchAllRemoteNodes,
+} from './node-api/cms/fetchNodes'
 import {
   createSchemaCustomization as createCmsSchemaCustomization,
   sourceNode as sourceCmsNode,
+  sourceRestNode,
 } from './node-api/cms/sourceNode'
 import { fetchAllNodes as fetchAllLocalNodes } from './node-api/cms/sourceLocalNodes'
 import {
@@ -30,6 +34,7 @@ import type {
   IClusterCollection,
   IBrandCollection,
 } from './native-types/blocks/collection'
+import { PLUGIN } from './constants'
 
 interface CMSContentType {
   id: string
@@ -100,6 +105,9 @@ export const sourceNodes = async (
   gatsbyApi: SourceNodesArgs,
   options: Options
 ) => {
+  const { webhookBody }: any = gatsbyApi
+
+  // Fresh build. Let's source all data
   // Warning: Do not source remote and local nodes in a different order since this
   // is important for the local nodes not to overrider remote ones
   const nodes = await Promise.all([
@@ -111,6 +119,21 @@ export const sourceNodes = async (
 
   for (const node of nodes) {
     sourceCmsNode(gatsbyApi, node)
+  }
+
+  // Preview was triggered
+  if (webhookBody?.id && webhookBody.contentType) {
+    gatsbyApi.reporter.info(
+      `[${PLUGIN}]: Updating data from CMS: ${JSON.stringify(webhookBody)}`
+    )
+
+    const node = await fetchNodeById(gatsbyApi, options, webhookBody)
+
+    // Delete existing nodes
+    gatsbyApi.actions.deleteNode(gatsbyApi.getNode(node.id))
+
+    // Source the new node
+    sourceRestNode(gatsbyApi, node)
   }
 
   /**

@@ -1,0 +1,156 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Price
+
+Prices are used to display the price of a given product, discount and total values.
+
+## Import
+
+```tsx
+import { Price } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Price
+  value={62.5}
+/>
+```
+
+## Variants
+
+### Installment
+
+```tsx live
+<Price
+  value={62.5}
+  variant="installment"
+/>
+```
+
+### Listing
+
+```tsx live
+<Price
+  value={62.5}
+  variant="listing"
+/>
+```
+
+### Savings
+
+```tsx live
+<Price
+  value={62.5}
+  variant="savings"
+/>
+```
+
+### Selling
+
+```tsx live
+<Price
+  value={62.5}
+  variant="selling"
+/>
+```
+
+### Spot 
+
+```tsx live
+<Price
+  value={62.5}
+  variant="spot"
+/>
+```
+
+## Examples
+
+### INTL Formatted to parts
+
+```tsx live
+<Price
+  formatter={function useIntlPartsFormatter(price) {
+    return useMemo(() => {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      })
+        .formatToParts(price)
+        .map((part) => {
+          const props = {
+            [`data-store-price-${part.type}`]: true,
+          }
+
+          if (part.type === 'integer') {
+            props.style = { fontWeight: 700 }
+          }
+
+          return (
+            <span key={part.type} {...props}>
+              {part.value}
+            </span>
+          )
+        })
+    })
+  }}
+  value={62.5}
+  variant="selling"
+/>
+```
+
+### INTL Formatted
+
+```tsx live
+<Price
+  formatter={function useIntlFormatter(price) {
+    return useMemo(() => {
+      const formattedPrice = new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: 'EUR',
+      }).format(price)
+
+      return formattedPrice
+    })
+  }}
+  value={62.5}
+  variant="savings"
+/>
+```
+
+### Custom
+
+```tsx live
+<Price
+  formatter={function customFormatter(price) {
+    const unformattedPrice = `${price}`
+    const formattedPrice = `${unformattedPrice.replace('.', ',')} reais`
+
+    return formattedPrice
+  }}
+  value={62.5}
+  variant="spot"
+/>
+```
+
+## Props
+
+<PropsSection name="Price" />
+
+## Customization
+
+`data-store-price`
+
+`data-variant`
+
+## Formatter function example
+
+```tsx
+function customFormatter(price: number) {
+  const unformattedPrice = `${price}`
+  const formattedPrice = `${unformattedPrice.replace('.', ',')} reais`
+
+  return formattedPrice
+},
+```

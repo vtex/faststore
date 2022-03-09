@@ -1,0 +1,45 @@
+[data-store-banner-image] {
+  @apply w-full h-64;
+}
+
+[data-store-banner-image] img {
+  @apply object-cover w-full h-full;
+}
+
+[data-store-banner-content] {
+  @apply flex p-7;
+}
+
+[data-store-banner-content] h3 {
+  @apply font-medium text-xl;
+}
+
+[data-store-banner='vertical'] {
+  @apply flex flex-col;
+}
+
+[data-store-banner='vertical'] [data-store-banner-link] {
+  @apply ml-auto;
+}
+
+[data-store-banner='horizontal'] {
+  @apply grid grid-cols-2;
+}
+
+[data-store-banner='horizontal'] [data-store-banner-content] {
+  @apply flex-col justify-between;
+}
+
+[data-store-banner='horizontal'] [data-store-banner-link] {
+  @apply mr-auto;
+}
+
+[data-store-banner-link] {
+  @apply px-6 py-2 rounded border-0 cursor-pointer inline-flex items-center;
+  @apply bg-blue-800 text-white;
+  @apply text-lg;
+}
+
+[data-store-banner-link] [data-store-icon] {
+  @apply m-auto ml-2 align-middle;
+}

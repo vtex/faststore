@@ -1,0 +1,126 @@
+---
+id: 2
+title: "Part 1: Setting up your development environment"
+sidebar_label: "1. Setting up your development environment"
+---
+
+*Discover the core technologies we will use in this tutorial and set up all the necessary tools to implement your very first FastStore storefront.*
+
+***
+
+Before we really get started, let's set up your development environment and make sure that you have all the necessary tools to start building your very first FastStore storefront. 
+
+In this part of the tutorial, you will:
+
+- Install all the necessary tools to build a storefront with FastStore.
+- Set up your GitHub account permissions.
+- Set up your VTEX environment.
+
+## Step 1: Installing prerequisite tools
+
+To complete this tutorial, you will need to have the following tools installed on your machine. Click the header to expand the section and get more information on how to install the respective tool.
+
+><span class="fab fa-apple"></span><strong> macOS Users - </strong> If you're a macOS user, make sure to <a href="https://brew.sh/index" target="_blank" rel="noopener noreferrer">install Homebrew</a> before proceeding any further. Homebrew is a package manager that simplifies the installation of different software on Apple's operating system.
+
+<details>
+<summary>
+<strong>Node.js</strong> - an open-source runtime environment that executes JavaScript code directly in a computer process instead of in a browser.
+</summary>
+To run your FastStore project, you must have <a href="https://nodejs.org/en/">Node.js</a> version 12.13 or later installed on your computer.
+
+<ul>
+<li><a href="https://nodejs.org/tr/download/package-manager/#macos">Install Node.js on macOS using Homebrew</a></li>
+<li><a href="https://nodejs.org/tr/download/package-manager/#windows-1">Install Node.js on Windows</a> </li>
+<li><a href="https://nodejs.org/tr/download/package-manager/#debian-and-ubuntu-based-linux-distributions">Install Node.js on Linux</a> </li>
+</ul>
+</details>
+
+<details>
+<summary>
+<strong>Yarn</strong> - a package manager for Javascript that allows you to use and share code with other developers from around the world.
+</summary>
+When building storefronts with FastStore, we'll use the <a href="https://yarnpkg.com/">yarn</a> command-line interface to add Gatsby plugins and custom functionalities to our store. We'll also use yarn to run tasks, such as starting a development server.
+
+<ul>
+<li>Install Yarn on macOS by running <pre>brew install yarn</pre></li>
+<li>Install Yarn on Windows by running <pre>npm install -g yarn</pre> </li>
+</ul>
+</details>
+
+:::note
+Notice that [yarn](https://yarnpkg.com) is an alternative to standard [npm](https://www.npmjs.com/). And although you might consider using **npm**, we strongly recommend that you use **yarn** to follow along with this tutorial, as it is faster and more secure to install new libraries.
+:::
+
+<details>
+<summary>
+<strong>Git</strong> - a distributed version control system that helps teammates work together on the same codebase and keeps track of different versions of your code.  
+</summary>
+When developing your store's website, you will use Git to push your code to the cloud, making it possible for the VTEX IO WebOps to run its QA bots and deploy your site. Gatsby will also use Git to download and install the required files for your project. 
+<ul>
+<li><a href="https://git-scm.com/download/mac">Install Git on macOS using Homebrew</a></li>
+<li><a href="https://git-scm.com/download/mac">Install Git on Windows</a> </li>
+<li><a href="https://git-scm.com/download/linux">Install Git on Linux</a> </li>
+</ul>
+</details>
+
+
+<details>
+<summary>
+<strong>VTEX IO CLI</strong> - a command-line interface that gives you access to all of the features in the VTEX platform. 
+</summary>
+We'll use the <a href="https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference">VTEX IO CLI</a> to set up your VTEX environment before you start developing your FastStore storefront.
+<ul>
+<li>Install VTEX IO CLI by running <pre>yarn global add vtex</pre></li>
+</ul>
+<br/>
+<img src="/img/tutorials/gatsby/vtex-cli.png"/>
+
+</details>
+
+<details>
+<summary>
+<strong>Visual Studio Code</strong> - a free, streamlined code editor with support for development operations like debugging, task running, and version control.
+</summary>
+When developing your store's website, you will use <a href="https://code.visualstudio.com/">Visual Studio Code</a> (a.k.a., VS Code) to write code for your project. Visit the <a href="https://code.visualstudio.com/">VS Code</a> website, download and install the version appropriate to your operating system.
+</details>
+
+:::note
+Although you might opt to use an alternative code editor, note that using VS Code might help you follow along with the FastStore documentation since our docs include many screenshots from VS Code.
+:::
+
+## Step 2: Setting up your GitHub account
+
+Contact us to manifest your interest in developing with FastStore and request to be added as a member of the [VTEX Sites](https://github.com/vtex-sites) GitHub organization.
+
+![VTEX Sites](/img/tutorials/gatsby/vtex-sites.png)
+
+:::note
+If you don't have a GitHub account, first go [here](https://github.com/join) and sign up for a free one.
+:::
+
+## Step 3: Setting up your VTEX environment
+
+1. Open up the terminal and log in to your VTEX account.
+
+    ```shell
+    vtex login {account}
+    ```
+
+    :::caution 
+    Replace the value between curly braces according to your scenario.
+    :::
+    
+![vtex login](/img/tutorials/gatsby/vtex-login.png)
+
+2. Run the following command to setup the environment and install all the necessary apps to start developing with FastStore.
+
+    ```shell
+    vtex install vtex.admin-search@1.x vtex.search-resolver@1.x vtex.admin-cms@0.x vtex.graphql-gateway@0.x vtex.store-sitemap@2.x vtex.store@2.x vtex.messages@1.x vtex.cms-builder-sf-jamstack@0.x && vtex settings set vtex.store enableOrderFormOptimization true && vtex settings set vtex.messages automaticTranslation false && vtex settings set vtex.search-resolver slugifyLinks true
+    ```
+
+![vtex install](/img/tutorials/gatsby/vtex-install.png)
+
+3. Access your account admin at `https://{account}.myvtex.com/admin`.
+4. Go to *Store Setup > Search > Integration Settings* and check if the [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search) app (`vtex.search-resolver@1.x`) [indexing](https://help.vtex.com/tracks/vtex-intelligent-search) has started. If not, click on **Start Integration**. [Check our docs for more info on the Intelligent Search.](https://help.vtex.com/tracks/vtex-intelligent-search)
+
+![Intelligent Search](/img/tutorials/gatsby/integration-settings.png)

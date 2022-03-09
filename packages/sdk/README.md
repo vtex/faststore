@@ -1,34 +1,56 @@
-# @faststore/sdk
+<p align="center">
+  <a href="https://faststore.dev">
+    <img alt="Faststore" src="../ui/static/logo.png" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  FastStore SDK
+</h1>
+<p align="center">
+  <strong>
+    Lightweight ecommerce state managment library
+  </strong>
+</p>
 
-A simple, framework agnostic implementation of Commerce APIs to help you create you next React-based store with world class performance in record time
+<div style="display: flex; justify-content: center; width: 100%">
+  <a href="https://www.npmjs.com/package/@faststore/sdk" style="padding: 0px 2px 0px 0px">
+    <img src="https://badge.fury.io/js/%40faststore%2Fui.svg" />
+  </a>
+  <a href="https://bundlephobia.com/package/@faststore/sdk" style="padding: 0px 2px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/minzip/@faststore/sdk" />
+  </a>
+  <a href="https://bundlephobia.com/package/@faststore/sdk" style="padding: 0px 2px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/tree-shaking/@faststore/sdk" />
+  </a>
+  <a href="https://bundlephobia.com/package/@faststore/sdk" style="padding: 0px 0px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/dependency-count/@faststore/sdk" />
+  </a>
+</div>
 
-[![NPM](https://img.shields.io/npm/v/@faststore/sdk.svg)](https://www.npmjs.com/package/@faststore/sdk) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+## Installation
 
-## Install
+From the command line in your project directory, run yarn add `@faststore/sdk`.
 
-```bash
+```cmd
 yarn add @faststore/sdk
 ```
-
 ## Usage
 
 ```tsx
-import React from 'react'
-import type { FC } from 'react'
+import React, { Component } from 'react'
 
-import { useHook } from '@faststore/sdk'
+import { useUI } from '@faststore/sdk'
 
-const MyStoreComponent: FC = () => {
-  const props = useHook()
+function MyComponent {
+  const { displayMinicart } = useUI()
 
-  return <MyComponent props>Hello Commerce</MyComponent>
+  if (displayMinicart) {
+    return <div>Minicart</div>
+  }
+
+  return null
 }
 ```
 
-## Analytics
-
-The analytics data layer is based on [the official GA4 specification](https://developers.google.com/gtagjs/reference/ga4-events).
-
-## License
-
-MIT © [VTEX](https://github.com/vtex/faststore)
+## Docs
+For more information, please refer to our documentation: https://faststore.dev/reference/sdk/overview

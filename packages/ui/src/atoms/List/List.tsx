@@ -1,72 +1,38 @@
-import type {
-  ElementType,
-  ComponentPropsWithRef,
-  ReactElement,
-  FC,
-} from 'react'
 import React, { forwardRef } from 'react'
+import type { ElementType, HTMLAttributes } from 'react'
 
-import type { PolymorphicComponentPropsWithRef } from '../../typings'
-
-export type ListVariant = 'description' | 'ordered' | 'unordered'
-
-const variantToType = (variant: ListVariant) => {
-  switch (variant) {
-    case 'description':
-      return 'dl'
-
-    case 'unordered':
-      return 'ul'
-
-    case 'ordered':
-      return 'ol'
-
-    default:
-      return 'ul'
-  }
+const variantToElement = {
+  description: 'dl',
+  unordered: 'ul',
+  ordered: 'ol',
 }
 
-interface Props {
+export interface ListProps<T = HTMLElement> extends HTMLAttributes<T> {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId?: string
-  variant?: ListVariant
+  variant?: 'description' | 'ordered' | 'unordered'
+  as?: ElementType
 }
 
-export type ListProps<C extends ElementType> = PolymorphicComponentPropsWithRef<
-  C,
-  Props
->
-
-type ListComponent = <C extends ElementType = 'ul'>(
-  props: ListProps<C>
-) => ReactElement | null
-
-const List: ListComponent = forwardRef(function List<
-  C extends ElementType = 'ul'
->(
+const List = forwardRef<HTMLUListElement, ListProps>(function List(
   {
     testId = 'store-list',
     variant = 'unordered',
-    as,
-    ...rawProps
-  }: ListProps<C>,
-  ref: ComponentPropsWithRef<C>['ref']
+    as: MaybeComponent,
+    ...otherProps
+  },
+  ref
 ) {
   const dataAttributes = {
     'data-testid': testId,
-    'data-store-list': true,
-    [`data-${variant}`]: true,
+    'data-store-list': variant,
   }
 
-  const Component = as ?? variantToType(variant)
+  const Component = MaybeComponent ?? variantToElement[variant] ?? 'ul'
 
-  return <Component ref={ref} {...dataAttributes} {...rawProps} />
+  return <Component ref={ref} {...dataAttributes} {...otherProps} />
 })
-
-/**
- * This is only being exported to make it easier to use in Storybook.
- * **DON'T** import this directly to use this component, use the default export
- * instead.
- */
-export const StorybookList = List as FC<Props>
 
 export default List

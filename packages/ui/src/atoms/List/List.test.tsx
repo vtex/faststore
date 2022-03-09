@@ -34,7 +34,10 @@ describe('List', () => {
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-ordered')
+    expect(getByTestId('store-list')).toHaveAttribute(
+      'data-store-list',
+      'ordered'
+    )
 
     rerender(
       <List variant="unordered">
@@ -44,7 +47,23 @@ describe('List', () => {
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-unordered')
+    expect(getByTestId('store-list')).toHaveAttribute(
+      'data-store-list',
+      'unordered'
+    )
+
+    rerender(
+      <List variant="description">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toHaveAttribute(
+      'data-store-list',
+      'description'
+    )
   })
 
   it('should render the expected HTML tag for each variant', () => {
@@ -82,6 +101,43 @@ describe('List', () => {
     )
 
     expect(getByTestId('store-list')).toBeInstanceOf(HTMLDListElement)
+  })
+
+  it('should respect the HTML tag passed as "as" prop', () => {
+    const { getByTestId, rerender } = render(
+      <List variant="unordered" as="div">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toBeInstanceOf(HTMLDivElement)
+
+    rerender(
+      <List variant="ordered" as="div">
+        {optionsArray.map((value) => {
+          return <li key={value}>{value}</li>
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toBeInstanceOf(HTMLDivElement)
+
+    rerender(
+      <List variant="description" as="div">
+        {optionsArray.map((value, index) => {
+          return (
+            <Fragment key={index}>
+              <dt key={`${index}--term`}>{value}</dt>
+              <dd key={`${index}--details`}>option</dd>
+            </Fragment>
+          )
+        })}
+      </List>
+    )
+
+    expect(getByTestId('store-list')).toBeInstanceOf(HTMLDivElement)
   })
 
   describe('Accessibility', () => {

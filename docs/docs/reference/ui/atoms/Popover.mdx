@@ -1,0 +1,43 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Popover
+
+Popovers are used along with a clickable trigger element to display contextual information on top of that component.
+
+## Import
+
+```tsx
+import { Popover } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+function() {
+  const ref = useRef(null)
+  const [value, setValue] = useState('')
+
+  return (
+    <div>
+      <label>
+        <span>Type for a special message</span>
+        <Input
+          variant={value.length > 0 ? 'success' : undefined}
+          type="text"
+          onChange={(event) => setValue(event.target.value)}
+          ref={ref}
+        />
+      </label>
+      {value.length > 0 && <Popover targetRef={ref}>Whoa! Look at me!</Popover>}
+    </div>
+  )
+}
+```
+
+## Props
+
+<PropsSection name="Popover" />
+
+## Customization
+
+`data-store-popover`

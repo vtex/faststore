@@ -1,0 +1,43 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Modal
+
+Modals are dialog windows that sit on top of an application's main view. Once a Modal is open, interactions with the content behind it are blocked.
+
+## Import
+
+```tsx
+import { Modal } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+function Component() {
+  const [isOpen, setIsOpen] = useState(false)
+  const handleClose = () => setIsOpen(false)
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(!isOpen)}>Open Modal</Button>
+      <Modal isOpen={isOpen} onDismiss={handleClose}>
+        My Modal Content
+        <br />
+        <div data-action-container>
+          <Button onClick={handleClose}>close</Button>
+        </div>
+      </Modal>
+    </>
+  )
+}
+```
+
+## Props
+
+<PropsSection name="Modal" />
+
+## Customization
+
+`data-store-modal-content`
+
+`data-modal-overlay`

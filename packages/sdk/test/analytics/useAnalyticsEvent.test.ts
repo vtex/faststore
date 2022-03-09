@@ -31,7 +31,7 @@ describe('useAnalyticsEvent', () => {
       if (typeof fn === 'function') {
         fn(
           new MessageEvent('message', {
-            data: { ...wrap(ADD_TO_CART_SAMPLE), type: 'OtherEventType' },
+            data: { ...wrap(ADD_TO_CART_SAMPLE), name: 'OtherEventType' },
           })
         )
       }

@@ -3,7 +3,7 @@ import type { ParentSpanPluginArgs } from 'gatsby'
 
 import { PLUGIN } from '../../constants'
 import type { TransformedContent } from './fetchNodes'
-import type { PageContent } from './types'
+import type { PageContent, RemoteRESTPageContent } from './types'
 
 export const getTypeName = (name: string) =>
   camelcase(['cms', name], { pascalCase: true })
@@ -43,7 +43,7 @@ export const sourceNode = (
   gatsbyApi: ParentSpanPluginArgs,
   node: TransformedContent
 ) => {
-  const extra = node.variant.configurationDataSets?.reduce(
+  const extraBlocks = node.variant.configurationDataSets?.reduce(
     (acc, { name, configurations }) => ({
       ...acc,
       [camelcase(name)]: configurations?.reduce(
@@ -58,7 +58,7 @@ export const sourceNode = (
     id: gatsbyApi.createNodeId(nodeId(node)),
     name: node.name,
     sections: node.variant.sections,
-    ...extra,
+    ...extraBlocks,
   } as PageContent
 
   gatsbyApi.actions.createNode(
@@ -66,6 +66,40 @@ export const sourceNode = (
       ...data,
       internal: {
         type: getTypeName(node.contentType.id),
+        content: JSON.stringify(data),
+        contentDigest: gatsbyApi.createContentDigest(data),
+      },
+    },
+    { name: PLUGIN }
+  )
+}
+
+export const sourceRestNode = (
+  gatsbyApi: ParentSpanPluginArgs,
+  node: RemoteRESTPageContent
+) => {
+  const sections = node.sections?.reduce(
+    (acc, section) => [
+      ...acc,
+      {
+        name: section.name,
+        props: section.data,
+      },
+    ],
+    [] as Array<{ name: string; props: any }>
+  )
+
+  const data = ({
+    ...node,
+    sections,
+    id: gatsbyApi.createNodeId(`${getTypeName(node.type)}:${node.id}`),
+  } as unknown) as PageContent
+
+  gatsbyApi.actions.createNode(
+    {
+      ...data,
+      internal: {
+        type: getTypeName(node.type),
         content: JSON.stringify(data),
         contentDigest: gatsbyApi.createContentDigest(data),
       },

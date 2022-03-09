@@ -15,7 +15,7 @@ const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
     ref
   ) {
     return (
-      <tr ref={ref} data-store-table-row data-testid={testId} {...otherProps}>
+      <tr ref={ref} data-table-row data-testid={testId} {...otherProps}>
         {children}
       </tr>
     )

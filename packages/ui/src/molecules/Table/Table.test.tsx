@@ -45,21 +45,21 @@ describe('Table', () => {
 
       const tableHead = getByTestId('store-table-head')
 
-      expect(tableHead).toHaveAttribute('data-store-table-head')
+      expect(tableHead).toHaveAttribute('data-table-head')
 
       const tableBody = getByTestId('store-table-body')
 
-      expect(tableBody).toHaveAttribute('data-store-table-body')
+      expect(tableBody).toHaveAttribute('data-table-body')
 
       const tableFooter = getByTestId('store-table-footer')
 
-      expect(tableFooter).toHaveAttribute('data-store-table-footer')
+      expect(tableFooter).toHaveAttribute('data-table-footer')
 
       const tableRows = queryAllByTestId('store-table-row')
 
       expect(tableRows).toHaveLength(4)
       tableRows.forEach((row) => {
-        expect(row).toHaveAttribute('data-store-table-row')
+        expect(row).toHaveAttribute('data-table-row')
       })
 
       const tableCells = queryAllByTestId('store-table-cell')
@@ -68,17 +68,13 @@ describe('Table', () => {
       // data-store-table-cell attribute.
       expect(tableCells).toHaveLength(8)
       tableCells.forEach((row) => {
-        expect(row).toHaveAttribute('data-store-table-cell')
+        expect(row).toHaveAttribute('data-table-cell')
       })
 
       // Make sure that 2 header cells and 6 data cells were rendered, with their
       // corresponding attributes.
-      expect(
-        table.querySelectorAll('[data-store-table-cell=header]')
-      ).toHaveLength(2)
-      expect(
-        table.querySelectorAll('[data-store-table-cell=data]')
-      ).toHaveLength(6)
+      expect(table.querySelectorAll('[data-table-cell=header]')).toHaveLength(2)
+      expect(table.querySelectorAll('[data-table-cell=data]')).toHaveLength(6)
     })
   })
 

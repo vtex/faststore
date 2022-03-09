@@ -1,0 +1,29 @@
+.StarterPage {
+  @apply w-6/12 mx-auto py-16;
+}
+
+.StarterHeader h1 {
+  @apply text-4xl mb-3 font-VTEXTrust;
+}
+.Subtitle {
+  @apply text-lg pb-2 mb-8;
+}
+.StarterContent {
+  @apply w-full;
+}
+.StarterContent h2 {
+  @apply font-VTEXMedium text-xl;
+}
+.StarterLib {
+  @apply flex flex-wrap justify-around pb-10 border-b;
+}
+
+.Filters {
+  @apply border-b pb-2 mb-10 
+}
+
+@media screen and (max-width: 1220px) {
+  .StarterPage {
+    @apply w-full p-10 flex-col;
+  }
+}

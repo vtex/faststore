@@ -1,0 +1,85 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Select
+
+Select components allow users to pick an option from a predefined list. The Select component should be used when there are more than 5 options available. Otherwise, consider using the Radio Group component.
+
+## Import
+
+```tsx
+import { Select } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Select>
+  <option value="great">
+    Great
+  </option>
+  <option value="ok">
+    Ok
+  </option>
+  <option value="bad">
+    Bad
+  </option>
+</Select>
+```
+
+## Variants
+
+### Disabled
+
+```tsx live
+<Select disabled>
+  <option value="great">
+    Great
+  </option>
+  <option value="ok">
+    Ok
+  </option>
+  <option value="bad">
+    Bad
+  </option>
+</Select>
+```
+
+### Multiple
+
+```tsx live
+<Select multiple>
+  <option value="great">
+    Great
+  </option>
+  <option value="ok">
+    Ok
+  </option>
+  <option value="bad">
+    Bad
+  </option>
+</Select>
+```
+
+## Default value
+
+```tsx live
+<Select defaultValue="ok">
+  <option value="great">
+    Great
+  </option>
+  <option value="ok">
+    Ok
+  </option>
+  <option value="bad">
+    Bad
+  </option>
+</Select>
+```
+
+## Props
+
+<PropsSection name="Select" />
+
+## Customization
+
+`data-store-select`

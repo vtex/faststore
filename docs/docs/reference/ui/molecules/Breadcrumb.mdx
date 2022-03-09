@@ -1,0 +1,46 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Breadcrumb
+
+Breadcrumbs indicate the user's location in a website hierarchy, facilitating the navigation to previous page levels.
+
+## Import
+
+```tsx
+import { Breadcrumb } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+<Breadcrumb divider="/">
+  <a href="/?path=/story/molecules-breadcrumb--breadcrumb-with-icon">
+    Home
+  </a>
+  <a href="/?path=/story/molecules-breadcrumb--breadcrumb-with-icon">
+    Level 1
+  </a>
+  <a href="/?path=/story/molecules-breadcrumb--breadcrumb-with-icon">
+    Level 2
+  </a>
+  <a href="/?path=/story/molecules-breadcrumb--breadcrumb-with-icon">
+    Level 3
+  </a>
+</Breadcrumb>
+```
+
+## Props
+
+<PropsSection name="Breadcrumb" />
+
+## Customization
+
+`data-store-breadcrumb`
+
+`data-breadcrumb-item`
+
+`data-breadcrumb-list-item`
+
+`data-breadcrumb-item="(current|true)"`
+
+`data-breadcrumb-divider`

@@ -251,6 +251,7 @@ export type StorePageInfo = {
 
 export type StoreProduct = {
   __typename?: 'StoreProduct';
+  additionalProperty: Array<StorePropertyValue>;
   aggregateRating: StoreAggregateRating;
   brand: StoreBrand;
   breadcrumbList: StoreBreadcrumbList;
@@ -281,9 +282,16 @@ export type StoreProductEdge = {
 
 export type StoreProductGroup = {
   __typename?: 'StoreProductGroup';
+  additionalProperty: Array<StorePropertyValue>;
   hasVariant: Array<StoreProduct>;
   name: Scalars['String'];
   productGroupID: Scalars['String'];
+};
+
+export type StorePropertyValue = {
+  __typename?: 'StorePropertyValue';
+  name: Scalars['String'];
+  value: Scalars['String'];
 };
 
 export type StoreReview = {

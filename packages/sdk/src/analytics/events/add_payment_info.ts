@@ -1,14 +1,14 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface AddPaymentInfoData {
+export interface AddPaymentInfoParams<T extends Item = Item> {
   currency?: CurrencyCode
   value?: number
   coupon?: string
   payment_type?: string
-  items?: Item[]
+  items?: T[]
 }
 
-export interface AddPaymentInfoEvent {
-  type: 'add_payment_info'
-  data: AddPaymentInfoData
+export interface AddPaymentInfoEvent<T extends Item = Item> {
+  name: 'add_payment_info'
+  params: AddPaymentInfoParams<T>
 }

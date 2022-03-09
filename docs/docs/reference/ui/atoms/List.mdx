@@ -1,0 +1,84 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# List
+
+Lists group related content. They can be ordered or unordered.
+
+## Import
+
+```tsx
+import { List } from '@faststore/ui'
+```
+
+## Variants
+
+### Unordered
+
+```tsx live
+<List variant="unordered">
+  <li>
+    Great
+  </li>
+  <li>
+    Ok
+  </li>
+  <li>
+    Bad
+  </li>
+</List>
+```
+
+### Ordered
+
+```tsx live
+<List variant="ordered">
+  <li>
+    Great
+  </li>
+  <li>
+    Ok
+  </li>
+  <li>
+    Bad
+  </li>
+</List>
+```
+
+### Description
+
+```tsx live
+<List variant="description">
+  <dt>
+    Ok
+  </dt>
+  <dd>
+    An ok item
+  </dd>
+  <dt>
+    Good
+  </dt>
+  <dd>
+    A good item
+  </dd>
+  <dt>
+    Bad
+  </dt>
+  <dd>
+    A bad item
+  </dd>
+</List>
+```
+
+## Props
+
+<PropsSection name="List" />
+
+## Customization
+
+`data-store-list`
+
+`data-unordered`
+
+`data-ordered`
+
+`data-description`

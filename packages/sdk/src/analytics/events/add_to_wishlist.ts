@@ -1,12 +1,12 @@
 import type { CurrencyCode, Item } from './common'
 
-export interface AddToWishlistData {
+export interface AddToWishlistParams<T extends Item = Item> {
   currency?: CurrencyCode
   value?: number
-  items?: Item[]
+  items?: T[]
 }
 
-export interface AddToWishlistEvent {
-  type: 'add_to_wishlist'
-  data: AddToWishlistData
+export interface AddToWishlistEvent<T extends Item = Item> {
+  name: 'add_to_wishlist'
+  params: AddToWishlistParams<T>
 }

@@ -1,12 +1,14 @@
-import type { PromotionItem, PromotionProperties } from './common'
+import type { PromotionItem, PromotionParams } from './common'
 
-export interface ViewPromotionItems {
-  items?: PromotionItem[]
+export interface ViewPromotionItems<T extends PromotionItem = PromotionItem> {
+  items?: T[]
 }
 
-export type ViewPromotionData = PromotionProperties & ViewPromotionItems
+export type ViewPromotionParams<
+  T extends PromotionItem = PromotionItem
+> = PromotionParams & ViewPromotionItems<T>
 
-export interface ViewPromotionEvent {
-  type: 'view_promotion'
-  data: ViewPromotionData
+export interface ViewPromotionEvent<T extends PromotionItem = PromotionItem> {
+  name: 'view_promotion'
+  params: ViewPromotionParams<T>
 }

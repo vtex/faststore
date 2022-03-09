@@ -1,0 +1,14 @@
+@media screen and (max-width: 1220px) {
+  .search [class^='DocSearch'] {
+    @apply hidden;
+  }
+}
+
+.search [class^='DocSearch'] {
+  @apply w-full;
+}
+
+.search [class^='DocSearch-Button-Key'],
+.search [class^='DocSearch-Search-Icon'] {
+  @apply w-6;
+}

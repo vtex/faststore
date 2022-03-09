@@ -1,0 +1,64 @@
+.changelogList {
+  @apply rounded-full ml-8;
+}
+
+.changelogList a {
+  @apply grid items-start overflow-hidden p-6 rounded-xl text-text no-underline;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.changelogList a:hover {
+  background-color: rgba(248, 247, 252, 0.5);
+}
+
+.changelogTitle {
+  @apply col-span-3;
+}
+
+.changelogTitle h4 {
+  @apply inline-block mr-2 text-seriousBlack text-lg leading-loose font-VTEXMedium;
+}
+
+.changelogList li:first-child h4::after {
+  content: "NEW";
+  @apply px-2 py-1 rounded-md uppercase tracking-widest bg-pink-50 text-rebelPink text-xs ml-2;
+}
+
+.descriptionChangelog {
+  @apply text-justify col-span-3;
+}
+
+.changelogList time {
+  @apply flex items-center mx-6 text-details;
+  grid-row-start: 1;
+  grid-column: 1 / span 2;
+  grid-row-end: 3;
+}
+
+.changelogList li {
+  @apply list-none m-0 !important;
+}
+.changelogList li:first-child time {
+  @apply pt-4;
+}
+
+.changelogList time svg {
+  @apply mr-6 w-2.5 h-6 overflow-visible text-details;
+}
+
+li:first-child svg circle {
+  @apply text-rebelPink;
+}
+
+@media only screen and (max-width: 721px) {
+  .changelogList a {
+    grid-template-columns: auto;
+  }
+  .changelogTitle {
+    @apply ml-14;
+  }
+
+  .descriptionChangelog {
+    @apply ml-14;
+  }
+}

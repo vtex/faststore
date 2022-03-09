@@ -1,0 +1,201 @@
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+# Accordion
+
+Accordions display an expandable/collapsible list of items. The final Accordion component is a compound of the following:
+
+- `Accordion`: wraps a series of `AccordionItem`s in a single component.
+  - `AccordionItem`:  wraps an `AccordionButton` and an `AccordionPanel`.
+    - `AccordionButton`: contains the top-level items of the Accordion list. It is a clickable button that shows or hides the child items of a given `AccordionItem`.
+    - `AccordionPanel`: contains the child items of a given `AccordionItem`.
+
+## Import
+
+```tsx
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel } from '@faststore/ui'
+```
+
+## Usage
+
+### Multiple and collapsible
+
+```tsx live
+<MultipleAndCollapsible>
+  <AccordionItem>
+    <AccordionButton>
+      Clothing
+    </AccordionButton>
+    <AccordionPanel>
+      <ul>
+        <li>
+          <a href="/">
+            Shorts
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            Sweatshirt
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            Tank tops
+          </a>
+        </li>
+      </ul>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem>
+    <AccordionButton>
+      Bags
+    </AccordionButton>
+    <AccordionPanel>
+      <ul>
+        <li>
+          <a href="/">
+            Backpacks
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            Necessaire
+          </a>
+        </li>
+      </ul>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem>
+    <AccordionButton>
+      Sale
+    </AccordionButton>
+    <AccordionPanel>
+      <ul>
+        <li>
+          <a href="/">
+            Smartphones
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            TVs
+          </a>
+        </li>
+      </ul>
+    </AccordionPanel>
+  </AccordionItem>
+</MultipleAndCollapsible>
+```
+
+### Toggle with icon
+
+```tsx live
+function() {
+  const [indices, setIndices] = useState([0])
+  const onChange = (index) => {
+    setIndices([index])
+  }
+  return (
+
+  <Accordion
+    indices={indices}
+    onChange={onChange}
+  >
+    <AccordionItem>
+      <AccordionButton>
+        Clothing{' '}
+        <Icon component={<Caret />} />
+      </AccordionButton>
+      <AccordionPanel>
+        <ul>
+          <li>
+            <a href="/">
+              Shorts
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              Sweatshirt
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              Tank tops
+            </a>
+          </li>
+        </ul>
+      </AccordionPanel>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionButton>
+        Bags{' '}
+        <Icon component={<Caret />} />
+      </AccordionButton>
+      <AccordionPanel>
+        <ul>
+          <li>
+            <a href="/">
+              Backpacks
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              Necessaire
+            </a>
+          </li>
+        </ul>
+      </AccordionPanel>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionButton>
+        Sale{' '}
+        <Icon component={<Caret />} />
+      </AccordionButton>
+      <AccordionPanel>
+        <ul>
+          <li>
+            <a href="/">
+              Smartphones
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              TVs
+            </a>
+          </li>
+        </ul>
+      </AccordionPanel>
+    </AccordionItem>
+  </Accordion>
+  );
+}
+```
+
+## Props
+
+All accordion-related components support all attributes also supported by the `<div>` tag, except for the `AccordionButton`, which renders the `<button>` tag.
+
+Besides those attributes, the following props are also supported:
+
+### Accordion
+
+<PropsSection name="Accordion" />
+
+### AccordionItem
+
+<PropsSection name="AccordionItem" />
+
+### AccordionPanel
+
+<PropsSection name="AccordionPanel" />
+
+## Customization
+
+`data-store-accordion`
+
+`data-store-accordion-item`
+
+`data-store-accordion-button`
+
+`data-store-accordion-panel`
+
+The `AccordionButton` component inherits [Button](/reference/ui/atoms/Button) css selectors.

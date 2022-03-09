@@ -9,6 +9,7 @@
   "scripts": {
     "build": "lerna run build",
     "build-themes": "lerna run build --scope '@vtex/theme-*' || true",
+    "build-docs": "lerna run build --include-dependencies --scope docs",
     "build-storybook": "yarn build-themes && yarn workspace @faststore/ui build-storybook",
     "storybook": "yarn workspace @faststore/ui storybook",
     "clean": "lerna clean && lerna run clean",
@@ -17,11 +18,13 @@
     "test": "lerna run test --",
     "bootstrap": "lerna bootstrap",
     "release": "lerna version minor --yes && lerna publish from-git --yes",
-    "size": "lerna run size"
+    "size": "lerna run size",
+    "generate-ui-component": "yarn plop --plopfile generators/plopfile.ts"
   },
   "workspaces": [
     "packages/*",
-    "themes/*"
+    "themes/*",
+    "docs"
   ],
   "husky": {
     "hooks": {
@@ -48,6 +51,7 @@
     "husky": "^4.3.0",
     "lerna": "^3.22.1",
     "lint-staged": "^10.5.1",
+    "plop": "^2.7.6",
     "prettier": "^2.2.1",
     "typescript": "^4.1.2"
   },
@@ -56,4 +60,3 @@
     "@typescript-eslint/parser": "^4"
   }
 }
-

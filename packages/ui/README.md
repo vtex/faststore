@@ -1,46 +1,50 @@
-# @faststore/ui
+<p align="center">
+  <a href="https://faststore.dev">
+    <img alt="Faststore" src="./static/logo.png" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  FastStore UI
+</h1>
+<p align="center">
+  <strong>
+    Lightweight ecommerce component library
+  </strong>
+</p>
 
-> Next store component library
-
-[![NPM](https://img.shields.io/npm/v/@faststore/ui.svg)](https://www.npmjs.com/package/@faststore/ui) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+<div style="display: flex; justify-content: center; width: 100%">
+  <a href="https://www.npmjs.com/package/@faststore/ui" style="padding: 0px 2px 0px 0px">
+    <img src="https://badge.fury.io/js/%40faststore%2Fui.svg" />
+  </a>
+  <a href="https://bundlephobia.com/package/@faststore/ui" style="padding: 0px 2px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/minzip/@faststore/ui" />
+  </a>
+  <a href="https://bundlephobia.com/package/@faststore/ui" style="padding: 0px 2px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/tree-shaking/@faststore/ui" />
+  </a>
+  <a href="https://bundlephobia.com/package/@faststore/ui" style="padding: 0px 0px 0px 2px">
+    <img src="https://badgen.net/bundlephobia/dependency-count/@faststore/ui" />
+  </a>
+</div>
 
 ## Installation
 
-From the command line in your project directory, run npm install `@faststore/ui` or yarn add `@faststore/ui`.
+From the command line in your project directory, run yarn add `@faststore/ui`.
 
 ```cmd
-npm install @faststore/ui
-# or
 yarn add @faststore/ui
 ```
-
-For style, you can use our default theme. To install:
-
-```cmd
-npm install @vtex/theme-b2c-tailwind
-# or
-yarn add @vtex/theme-b2c-tailwind
-```
-
 ## Usage
-
-```tsx
-import { Button } from '@faststore/ui'
-import '@vtex/theme-b2c-tailwind/dist/index.css'
-```
 
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from '@faststore/ui'
+import { Button } from '@faststore/ui'
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+function MyComponent {
+  return <Button>Click Me</Button>
 }
 ```
 
-## License
-
-MIT © [emersonlaurentino](https://github.com/emersonlaurentino)
+## Docs
+For more information, please refer to our documentation: https://faststore.dev/reference/ui/overview

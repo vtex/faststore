@@ -1,4 +1,4 @@
-import React, { forwardRef, Fragment } from 'react'
+import React, { forwardRef } from 'react'
 import type { FC, HTMLAttributes, ReactNode } from 'react'
 
 import List from '../../atoms/List'
@@ -16,7 +16,7 @@ export interface BreadcrumbProps extends HTMLAttributes<HTMLDivElement> {
 
 const Divider: FC<BreadcrumbProps> = ({ divider, testId }) => {
   const props = {
-    'data-store-breadcrumb-divider': true,
+    'data-breadcrumb-divider': true,
     'aria-hidden': true,
     'data-testid': `${testId}-divider`,
   }
@@ -31,25 +31,39 @@ const Divider: FC<BreadcrumbProps> = ({ divider, testId }) => {
 type ListItemProps = {
   children: ReactNode
   isLastItem: boolean
+  divider: BreadcrumbProps['divider']
   testId: string
 }
 
-const ListItem: FC<ListItemProps> = ({ children, isLastItem, testId }) => {
+const ListItem: FC<ListItemProps> = ({
+  children,
+  isLastItem,
+  divider,
+  testId,
+}) => {
   const props = {
     'data-testid': `${testId}-item`,
-    'data-store-breadcrumb-item': isLastItem ? 'current' : true,
+    'data-breadcrumb-item': isLastItem ? 'current' : true,
     'aria-current': isLastItem ? ('page' as const) : undefined,
   }
 
   if (!React.isValidElement(children)) {
     return (
-      <li>
-        <span {...props}>{children}</span>
+      <li data-breadcrumb-list-item>
+        <span {...props}>
+          {children}
+          {isLastItem ? null : <Divider divider={divider} testId={testId} />}
+        </span>
       </li>
     )
   }
 
-  return <li>{React.cloneElement(children, props)}</li>
+  return (
+    <li data-breadcrumb-list-item>
+      {React.cloneElement(children, props)}
+      {isLastItem ? null : <Divider divider={divider} testId={testId} />}
+    </li>
+  )
 }
 
 const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
@@ -73,19 +87,19 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
         data-testid={testId}
         {...otherProps}
       >
-        <List data-store-breadcrumb-list variant="ordered">
+        <List data-breadcrumb-list variant="ordered">
           {React.Children.map(children, (child, index) => {
             const isLastItem = index === lastIndex - 1
 
             return (
-              <Fragment key={`breadcrumb-${index}`}>
-                <ListItem isLastItem={isLastItem} testId={testId}>
-                  {child}
-                </ListItem>
-                {isLastItem ? null : (
-                  <Divider divider={rawDivider} testId={testId} />
-                )}
-              </Fragment>
+              <ListItem
+                isLastItem={isLastItem}
+                divider={rawDivider}
+                key={`breadcrumb-${index}`}
+                testId={testId}
+              >
+                {child}
+              </ListItem>
             )
           })}
         </List>

@@ -9,15 +9,18 @@ import mdx from './Select.mdx'
 type SelectStoryProps = SelectProps & { options: string[][] }
 const SelectTemplate: Story<SelectStoryProps> = ({ options, ...props }) => {
   return (
-    <Component {...props}>
-      {options.map(([value, label]) => {
-        return (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        )
-      })}
-    </Component>
+    <>
+      <label htmlFor="select">Select:</label>
+      <Component {...props} name="select" id="select">
+        {options.map(([value, label]) => {
+          return (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          )
+        })}
+      </Component>
+    </>
   )
 }
 

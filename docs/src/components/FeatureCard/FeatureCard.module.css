@@ -1,0 +1,27 @@
+.featureCard {
+  @apply w-60 mb-14;
+}
+
+.featureCard img {
+  @apply w-7 mr-3 inline-block mb-2;
+}
+
+.featureCard h2 {
+  @apply text-xl mb-1;
+}
+
+.featureCard a {
+  @apply inline-block text-xs;
+}
+
+.featureCard p {
+  @apply text-sm mr-1;
+}
+
+
+@media screen and (max-width: 1220px) {
+  .featureCard img {
+    @apply hidden;
+  }
+  
+}
