@@ -64,7 +64,7 @@ nav {
 }
 
 .FAQbar {
-  @apply pr-6 border-l;
+  @apply pl-4 border-l;
 }
 
 article {
@@ -120,9 +120,18 @@ article footer svg {
   @apply list-disc ml-8;
 }
 
-[class^='docMainContainer'] .markdown {
-  @apply leading-relaxed mx-auto;
+[class^='docItemContainer'] {
+  @apply mx-auto sm:mx-32;
   width: 75%;
+}
+
+[class^='generatedIndexPage'] {
+  @apply mx-auto sm:mx-32 mt-6;
+  width: 75%;
+}
+
+[class^='tableOfContents'] {
+  @apply mt-16;
 }
 
 main h1 {

@@ -1,7 +1,3 @@
----
-id: J-jamstack
----
-
 # Jamstack
 
 :::caution WIP
