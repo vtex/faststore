@@ -1,4 +1,17 @@
 [
+  {
+    "date": "2022-03-10",
+    "type": "Added",
+    "menu": "API Reference",
+    "category": "VTEX Headless CMS",
+    "path": "/vtex-headless-cms-api",
+    "docs": [
+      {
+        "path": "/vtex-headless-cms-api",
+        "title": "VTEX Headless CMS API"
+      }
+    ]
+  },
     {
     "date": "2022-02-15",
     "type": "Added",
