@@ -30,11 +30,11 @@
   text-decoration: none;
 }
 .sidebarItemLinkActive {
-  @apply text-rebelPink;
+  @apply text-primary;
 }
 
 .tagLink {
-  @apply bg-softPink text-rebelPink inline-flex items-center my-3 mx-2 rounded-full py-0.5 px-3;
+  @apply bg-tag text-primary inline-flex items-center my-3 mx-2 rounded-full py-0.5 px-3;
 }
 
 .tagLink:hover{
@@ -42,12 +42,12 @@
 }
 
 .docTag{
-  @apply capitalize mr-2 bg-whiteIce py-0.5 px-2 rounded-full;
+  @apply capitalize mr-2 bg-code py-0.5 px-2 rounded-full;
   font-size: 0.7rem;
 }
 
 .docTag:hover{
-  @apply text-seriousBlack opacity-80;
+  @apply text-secondary opacity-80;
   text-decoration: none;  
 }
 

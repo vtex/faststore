@@ -1,18 +1,21 @@
 /* Cards with icons */
 .homeGrid > * {
     @apply relative m-0 border;
-    border-radius: var(--ifm-pagination-nav-border-radius);;
+    border-radius: var(--ifm-pagination-nav-border-radius);
+    background-color: var(--ifm-card-background-color)
+
   }
-  
+
   .homeGrid a {
-    @apply block text-text;
+    @apply block;
+    color: var(--ifm-font-color-base);
     padding: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
     padding-left: 98px;
-  }
+}
   
   .homeGrid > *:active,
   .homeGrid > *:hover {
-    @apply border-seriousBlack
+    border-color: var(--ifm-font-color-secondary)
   }
   .homeGrid a:active,
   .homeGrid a:hover {

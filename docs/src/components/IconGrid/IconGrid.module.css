@@ -3,7 +3,8 @@
 }
 
 .homeGrid a {
-  @apply block text-text;
+  @apply block;
+  color: var(--ifm-font-color-base);
   padding: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
   padding-left: 98px;
 }

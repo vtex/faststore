@@ -29,3 +29,9 @@ Now, if you are happy with your Content Type, Section and Translation Keys defin
    ```
 
 🎉 Congratulations! Your FastStore project is now completed integrated with the VTEX Headless CMS, and editors will now have the autonomy to create, edit, and publish web content via the VTEX Admin with the VTEX Headless CMS app.
+
+--- 
+
+## See more
+
+- [VTEX Headless CMS API Reference](/vtex-headless-cms-api)

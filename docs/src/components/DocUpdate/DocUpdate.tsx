@@ -45,7 +45,7 @@ const DocUpdate = () => {
           <h3 className="inline-block mr-3 text-2xl font-VTEXRegular font-extralight align-middle">
             Documentation Updates
           </h3>
-          <p className="inline-block px-2 rounded-full bg-pink-50 text-rebelPink">
+          <p className="inline-block px-2 rounded-full bg-tag text-primary">
             {totalUpdates}
           </p>
         </div>
@@ -80,7 +80,7 @@ const DocUpdate = () => {
                   </svg>
                 )}
                 <p className="inline-block align-middle font-medium">{item.type}</p>
-                <p className="inline-block align-middle uppercase py-1 px-2 bg-whiteIce rounded-lg text-xs ml-3">{item.menu}</p>
+                <p className="inline-block align-middle uppercase py-1 px-2 bg-code rounded-lg text-xs ml-3">{item.menu}</p>
               </div>
 
               <div className='pl-4 border-l ml-2 mb-4'>

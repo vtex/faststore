@@ -12,12 +12,13 @@
 }
 
 .homeGrid a {
-  @apply block text-text pl-20 py-6 pr-8;
+  @apply block pl-20 py-6 pr-8;
+  color: var(--ifm-font-color-base);
 }
 
 .homeGrid > *:active,
 .homeGrid > *:hover {
-  @apply border-seriousBlack;
+  @apply border-secondary;
 }
 .homeGrid a:active,
 .homeGrid a:hover {

@@ -25,8 +25,23 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #f71963;
-  --ifm-font-size-base: 15px;
+  --ifm-color-rebel-pink: #F71963;
+  --ifm-color-soft-pink: #FFF3F6;
+  --ifm-color-serious-black: #142032;
+  --ifm-color-white-ice: #F8F7FC;
+
+  --ifm-hover-overlay: var(--ifm-color-white-ice);
+
+  --ifm-breadcrumb-padding-horizontal: 0.1em;
+  --ifm-breadcrumb-size-multiplier: 0.8;
+  --ifm-font-size-base: 1.1rem;
+
+  --ifm-color-primary: var(--ifm-color-rebel-pink);
+  --ifm-color-secondary: var(--ifm-color-serious-black);
+  --ifm-font-color-secondary: var(--ifm-color-serious-black);
+  
+  --ifm-font-color-base: #4A4A4A;
+  --ifm-color-border: #f3f4f6;
   --ifm-heading-font-family: 'VTEX Trust Regular', -apple-system, system-ui,
     BlinkMacSystemFont, sans-serif;
   --ifm-font-family-base: 'VTEX Trust Regular', -apple-system, system-ui,
@@ -34,14 +49,49 @@
   --ifm-global-shadow-lw: 0;
   --ifm-navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   --ifm-table-border-color: #e7e9ee;
-  --ifm-table-stripe-background: #f8f7fc;
+  --ifm-table-stripe-background: var(--ifm-color-white-ice);
   --ifm-table-head-font-weight: normal;
   --ifm-table-head-color: #a1a8b3;
   --docusaurus-announcement-bar-height: 45px !important;
-  --ifm-footer-background-color: #142032;
+  --ifm-footer-background-color: var(--ifm-color-serious-black);
   --ifm-footer-color: white;
   --ifm-footer-link-color: white;
-  --docsearch-searchbox-background:#F8F7FC!important;
+  --docsearch-searchbox-background:var(--ifm-color-white-ice)!important;
+  --ifm-code-background: var(--ifm-color-white-ice) !important;
+  --ifm-tag-background: var(--ifm-color-soft-pink) !important;
+  --ifm-color-warning-contrast-background: rgba(255, 186, 0, 0.2) !important;
+  --ifm-color-info-contrast-background: rgba(84, 199, 236, 0.2) !important;
+  --ifm-color-success-contrast-background: rgba(	122, 189, 160, 0.2) !important
+}
+
+[data-theme='dark'] {
+  --ifm-background-color: #121212!important;
+  --ifm-background-surface-color: #1d1d1f!important;
+  --docsearch-searchbox-background:var(--ifm-background-surface-color)!important;
+  --ifm-code-background: #18191a!important;
+  --ifm-tag-background: var(--ifm-code-background) !important;
+  --ifm-footer-background-color: rgb(37 37 38);
+  --ifm-color-primary: #86868b !important;
+  --ifm-color-secondary: white !important;
+  --ifm-link-color: #2798fe !important;
+  --ifm-font-color-base: #f5f5f7;
+  --ifm-font-color-secondary: #f5f5f7;
+  --ifm-table-border-color: var(--ifm-footer-background-color);
+  --ifm-table-stripe-background: var(--ifm-background-surface-color);
+  --ifm-table-head-color: #a1a8b3;
+}
+
+
+[class^='breadcrumbs__link']{
+  @apply bg-transparent !important
+}
+
+[data-theme='dark'] code {
+  @apply border-none;  
+}
+
+[data-theme='dark'] [class^='codeBlockLines'] {
+  @apply bg-code border-none;
 }
 
 body {
@@ -68,11 +118,13 @@ nav {
 }
 
 article {
-  @apply mt-6 text-text;
+  @apply mt-6;
 }
 
 main hr {
-  @apply border-gray-100 my-5;
+  @apply my-5;
+  border-width: 0.5px;
+  color: var(--ifm-color-border)
 }
 
 .markdown ol {
@@ -89,11 +141,12 @@ main hr {
 }
 
 main a {
-  @apply text-rebelPink;
+  color: var(--ifm-link-color)
 }
 
 article footer {
-  @apply text-rebelPink max-w-2xl mx-auto;
+  @apply max-w-2xl mx-auto;
+  color: var(--ifm-link-color)
 }
 
 [class^='navbar__item'] svg {
@@ -108,10 +161,6 @@ article footer svg {
   @apply float-left;
 }
 
-.pagination-nav {
-  @apply text-rebelPink max-w-2xl mx-auto;
-}
-
 .markdown img {
   @apply my-5;
 }
@@ -122,12 +171,12 @@ article footer svg {
 
 [class^='docItemContainer'] {
   @apply mx-auto sm:mx-32;
-  width: 75%;
+  width: 78%;
 }
 
 [class^='generatedIndexPage'] {
   @apply mx-auto sm:mx-32 mt-6;
-  width: 75%;
+  width: 78%;
 }
 
 [class^='tableOfContents'] {
@@ -159,13 +208,8 @@ main h4 {
 }
 
 code {
-  @apply p-1 bg-whiteIce rounded-md leading-4;
-  border: 1px solid #e7e9ee;
+  @apply p-1 rounded-md leading-4;
   font-size: 0.8em !important;
-}
-
-.admonition-content code {
-  @apply bg-whiteIce bg-opacity-50;
 }
 
 .admonition-heading {
@@ -174,13 +218,11 @@ code {
 
 .alert--secondary {
   @apply box-border rounded flex;
-  background: #f8f7fc;
   border: 1px solid #ccced8;
 }
 
 .admonition-info {
   @apply box-border rounded flex;
-  background: #e3edf1;
   border: 1px solid #5bc1de;
 }
 
@@ -193,7 +235,6 @@ code {
 
 .admonition-note {
   @apply box-border rounded flex;
-  background: #fdfcff;
   border: 1px solid #dcdfe0;
 }
 
@@ -206,7 +247,6 @@ code {
 
 .admonition-tip {
   @apply box-border rounded flex;
-  background: #e3f1eb;
   border: 1px solid #adc7bd;
 }
 
@@ -218,8 +258,7 @@ code {
 }
 
 .admonition-caution {
-  @apply box-border rounded flex;
-  background: #fff2d4;
+  @apply box-border rounded flex;  
   border: 1px solid #eea236;
 }
 
@@ -230,18 +269,25 @@ code {
   content: '\f071';
 }
 
+[data-theme='dark'] [class^='codeBlockTitle'] {
+  @apply border-b border-gray-50;
+  background-color: var(--ifm-code-background) !important
+}
+
+
 [class^='codeBlockTitle'] {
-  @apply border-none bg-whiteIce !important;
+  @apply border-none bg-code !important;
 }
 
 [class^='codeBlockLines'] {
-  @apply bg-whiteIce box-border;
+  @apply bg-code box-border;
   border: 1px solid #e7e9ee;
   font-size: 12px !important;
 }
 
 .docusaurus-highlight-code-line {
-  @apply bg-whiteIce-light block;
+  background-color: var(--ifm-code-background) !important;
+  filter: brightness(120%);
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
 }
