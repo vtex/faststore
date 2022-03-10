@@ -29,7 +29,7 @@
 - [Base](https://github.com/vtex-sites/base.store): Basic starter with generic store.
 
 ## Learn
-Check out our [Tutorials](https://faststore.dev/tutorials/overview), [How-to Guides](https://faststore.dev/how-to-guides/overview), [API References](https://faststore.dev/reference/overview) and [Conceptual guides](https://faststore.dev/conceptual-guides/overview) to deep dive in the world of building FastStores.
+Check out our [Tutorials](https://faststore.dev/tutorials), [How-to Guides](https://faststore.dev/how-to-guides), [API References](https://faststore.dev/reference) and [Conceptual guides](https://faststore.dev/conceptual-guides) to deep dive in the world of building FastStores.
 
 ## Release Notes
 Follow our monthly release notes at: https://faststore.dev/releases

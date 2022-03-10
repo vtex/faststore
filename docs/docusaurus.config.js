@@ -56,25 +56,25 @@ module.exports = {
         },
         {
           type: 'doc',
-          docId: 'tutorials/overview',
+          docId: 'tutorials',
           position: 'left',
           label: 'Tutorials',
         },
         {
           type: 'doc',
-          docId: 'how-to-guides/overview',
+          docId: 'how-to-guides',
           position: 'left',
           label: 'How-to Guides',
         },
         {
           type: 'doc',
-          docId: 'reference/faststore',
+          docId: 'reference',
           position: 'left',
           label: 'References',
         },
         {
           type: 'doc',
-          docId: 'conceptual-guides/overview',
+          docId: 'conceptual-guides',
           position: 'left',
           label: 'Concepts',
         },
@@ -133,19 +133,19 @@ module.exports = {
             },
             {
               label: 'Tutorials',
-              to: '/tutorials/overview',
+              to: '/tutorials',
             },
             {
               label: 'How-to guides',
-              to: '/how-to-guides/overview',
+              to: '/how-to-guides',
             },
             {
               label: 'References',
-              to: '/reference/faststore',
+              to: '/reference',
             },
             {
               label: 'Concepts',
-              to: '/conceptual-guides/overview',
+              to: '/conceptual-guides',
             },
           ],
         },

@@ -1,8 +1,4 @@
----
-id: J-jamstack
----
-
-# Jamstack
+# Jamstack 
 
 :::caution WIP
 This documentation is currently under development.
