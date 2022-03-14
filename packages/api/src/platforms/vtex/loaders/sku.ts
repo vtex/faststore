@@ -21,15 +21,11 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
       return maybeFacet.value
     })
 
-    const nonSkuFacets = facetsList.flatMap((facets) =>
-      facets.filter(({ key }) => key !== 'id')
-    )
-
     const { products } = await clients.search.products({
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,
-      selectedFacets: nonSkuFacets,
+      selectedFacets: facetsList.flat(),
     })
 
     const skuBySkuId = products.reduce((acc, product) => {
