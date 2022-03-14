@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.6 (2022-03-14)
+
+**Note:** Version bump only for package @vtex/gatsby-plugin-cms
+
+
+
+
+
 ## 1.6.5 (2022-03-10)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-cms
