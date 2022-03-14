@@ -9,7 +9,7 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
-import type { Person } from './types/Person'
+import type { Session } from './types/Session'
 
 const BASE_INIT = {
   method: 'POST',
@@ -103,9 +103,9 @@ export const VtexCommerce = (
         )
       },
     },
-    person: (): Promise<Person> =>
+    session: (): Promise<Session> =>
       fetchAPI(
-        `${base}/api/sessions?items=profile.firstName,profile.email,profile.id,profile.isAuthenticated,profile.lastName`,
+        `${base}/api/sessions?items=profile.id,profile.email,profile.firstName,profile.lastName`,
         {
           method: 'POST',
           headers: {

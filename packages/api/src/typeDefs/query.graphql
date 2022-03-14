@@ -49,7 +49,6 @@ type StorePerson {
   email: String
   givenName: String
   familyName: String
-  isAuthenticated: Boolean
 }
 
 type Query {
@@ -69,5 +68,5 @@ type Query {
 
   allCollections(first: Int!, after: String): StoreCollectionConnection!
 
-  person: StorePerson
+  person: StorePerson!
 }

@@ -1,4 +1,4 @@
-export interface Person {
+export interface Session {
   id: string
   namespaces: Namespaces
 }
@@ -16,5 +16,4 @@ export interface Profile {
   email?: Value
   firstName?: Value
   lastName?: Value
-  isAuthenticated?: Value
 }

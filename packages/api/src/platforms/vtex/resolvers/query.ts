@@ -158,14 +158,13 @@ export const Query = {
 
     const {
       namespaces: { profile },
-    } = await commerce.person()
+    } = await commerce.session()
 
     return {
       id: profile?.id?.value,
       email: profile?.email?.value,
       givenName: profile?.firstName?.value,
       familyName: profile?.lastName?.value,
-      isAuthenticated: profile?.isAuthenticated?.value === 'true',
     }
   },
 }

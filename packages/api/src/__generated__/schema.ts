@@ -63,7 +63,7 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   allProducts: StoreProductConnection;
   collection: StoreCollection;
-  person?: Maybe<StorePerson>;
+  person: StorePerson;
   product: StoreProduct;
   search: StoreSearchResult;
 };
@@ -256,7 +256,6 @@ export type StorePerson = {
   familyName?: Maybe<Scalars['String']>;
   givenName?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
-  isAuthenticated?: Maybe<Scalars['Boolean']>;
 };
 
 export type StoreProduct = {
