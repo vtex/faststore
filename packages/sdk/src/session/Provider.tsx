@@ -9,10 +9,10 @@ export interface Currency {
 }
 
 export interface User {
-  id: string | null
-  email: string | null
-  givenName: string | null
-  familyName: string | null
+  id: string
+  email: string
+  givenName: string
+  familyName: string
 }
 
 export interface Session {

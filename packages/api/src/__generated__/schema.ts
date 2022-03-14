@@ -252,10 +252,10 @@ export type StorePageInfo = {
 
 export type StorePerson = {
   __typename?: 'StorePerson';
-  email?: Maybe<Scalars['String']>;
-  familyName?: Maybe<Scalars['String']>;
-  givenName?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  familyName: Scalars['String'];
+  givenName: Scalars['String'];
+  id: Scalars['String'];
 };
 
 export type StoreProduct = {

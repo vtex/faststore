@@ -45,10 +45,10 @@ type StoreSearchResult {
 }
 
 type StorePerson {
-  id: String
-  email: String
-  givenName: String
-  familyName: String
+  id: String!
+  email: String!
+  givenName: String!
+  familyName: String!
 }
 
 type Query {

@@ -161,10 +161,10 @@ export const Query = {
     } = await commerce.session()
 
     return {
-      id: profile?.id?.value,
-      email: profile?.email?.value,
-      givenName: profile?.firstName?.value,
-      familyName: profile?.lastName?.value,
+      id: profile?.id?.value ?? '',
+      email: profile?.email?.value ?? '',
+      givenName: profile?.firstName?.value ?? '',
+      familyName: profile?.lastName?.value ?? '',
     }
   },
 }
