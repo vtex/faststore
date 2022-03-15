@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.8 (2022-03-15)
+
+
+### Features
+
+* Add Person Query ([#1139](https://github.com/vtex/faststore/issues/1139)) ([9ec28c2](https://github.com/vtex/faststore/commit/9ec28c21cc6412c5366d1a1c71ef043603cd50c7))
+
+
+
+
+
 ## 1.6.7 (2022-03-14)
 
 **Note:** Version bump only for package @faststore/sdk
