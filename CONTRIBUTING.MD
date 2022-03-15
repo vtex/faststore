@@ -36,7 +36,7 @@ Example:
 
 #### Linking local changes from `@faststore/api`
 
-`graphql-js` package is cumbersome when using `yarn link` because it requires only one instance of the package and there are two.
+Sometimes symbolic links aren't enough (e.g., dealing with the local `graphql-js` package is cumbersome when using `yarn link` because it requires only one instance of the package, and there are two).
 
 For this reason, to see our changes at FastStore running on a local store, we need to use [wml](https://github.com/wix/wml).
 
@@ -49,7 +49,7 @@ To do this:
 $ yarn develop
 
 ## These can be executed anywhere
-$ npm install -g wml
+$ yarn global add wml
 $ wml add <faststore>/packages/api <path-to>.store/node_modules/@faststore/api
 $ wml start
 
