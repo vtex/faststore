@@ -151,4 +151,20 @@ export const Query = {
         })),
     }
   },
+  person: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const {
+      namespaces: { profile },
+    } = await commerce.session()
+
+    return {
+      id: profile?.id?.value ?? '',
+      email: profile?.email?.value ?? '',
+      givenName: profile?.firstName?.value ?? '',
+      familyName: profile?.lastName?.value ?? '',
+    }
+  },
 }

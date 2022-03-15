@@ -44,6 +44,13 @@ type StoreSearchResult {
   facets: [StoreFacet!]!
 }
 
+type StorePerson {
+  id: String!
+  email: String!
+  givenName: String!
+  familyName: String!
+}
+
 type Query {
   product(locator: [IStoreSelectedFacet!]!): StoreProduct!
 
@@ -60,4 +67,6 @@ type Query {
   allProducts(first: Int!, after: String): StoreProductConnection!
 
   allCollections(first: Int!, after: String): StoreCollectionConnection!
+
+  person: StorePerson!
 }

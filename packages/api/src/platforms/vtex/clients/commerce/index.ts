@@ -9,6 +9,7 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
+import type { Session } from './types/Session'
 
 const BASE_INIT = {
   method: 'POST',
@@ -21,7 +22,7 @@ export const VtexCommerce = (
   { account, environment }: Options,
   ctx: Context
 ) => {
-  const base = `http://${account}.${environment}.com.br`
+  const base = `https://${account}.${environment}.com.br`
 
   return {
     catalog: {
@@ -102,5 +103,17 @@ export const VtexCommerce = (
         )
       },
     },
+    session: (): Promise<Session> =>
+      fetchAPI(
+        `${base}/api/sessions?items=profile.id,profile.email,profile.firstName,profile.lastName`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          },
+          body: '{}',
+        }
+      ),
   }
 }

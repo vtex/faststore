@@ -63,6 +63,7 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   allProducts: StoreProductConnection;
   collection: StoreCollection;
+  person: StorePerson;
   product: StoreProduct;
   search: StoreSearchResult;
 };
@@ -247,6 +248,14 @@ export type StorePageInfo = {
   hasPreviousPage: Scalars['Boolean'];
   startCursor: Scalars['String'];
   totalCount: Scalars['Int'];
+};
+
+export type StorePerson = {
+  __typename?: 'StorePerson';
+  email: Scalars['String'];
+  familyName: Scalars['String'];
+  givenName: Scalars['String'];
+  id: Scalars['String'];
 };
 
 export type StoreProduct = {
