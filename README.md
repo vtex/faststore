@@ -42,7 +42,8 @@ These are the clients running in production with FastStore:
 - [Carrefour](https://mercado.carrefour.com.br/)
 
 ## Contributing
-This is still a work in progress, however, if you are also an adventurous person, you can read the code and have some fun!
+
+This is still a work in progress, however, if you are also an adventurous person, you can read the code and have some fun! See [CONTRIBUTING.MD](https://github.com/vtex/faststore/blob/master/CONTRIBUTING.MD) for more information.
 
 ## Getting help
 
