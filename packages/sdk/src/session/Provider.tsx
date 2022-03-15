@@ -22,7 +22,7 @@ export interface Session {
 }
 
 export interface ContextValue extends Session {
-  setSession: (session: Session) => void
+  setSession: (session: Partial<Session>) => void
 }
 
 export const Context = createContext<ContextValue | undefined>(undefined)
@@ -58,10 +58,10 @@ export const Provider: FC<Props> = ({
     })
   )
 
-  const value = useMemo(
+  const value = useMemo<ContextValue>(
     () => ({
       ...session,
-      setSession: (data: Session) => setSession({ ...session, ...data }),
+      setSession: (data) => setSession({ ...session, ...data }),
     }),
     [session, setSession]
   )
