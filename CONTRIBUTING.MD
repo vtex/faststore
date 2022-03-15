@@ -34,6 +34,29 @@ Example:
 }
 ```
 
+#### Linking local changes from `@faststore/api`
+
+`graphql-js` package is cumbersome when using `yarn link` because it requires only one instance of the package and there are two.
+
+For this reason, to see our changes at FastStore running on a local store, we need to use [wml](https://github.com/wix/wml).
+
+So, suppose you want to make changes into the API package and test it at your local base.store, wml is used to copy all files from `packages/api` to `<path-to-base.store>/node_modules/@faststore/api`. It also watches for changes to copy/paste on the go.
+
+To do this:
+
+```bash
+## At FastStore `/api` package folder (faststore/packages/api)
+$ yarn develop
+
+## These can be executed anywhere
+$ npm install -g wml
+$ wml add <faststore>/packages/api <path-to>.store/node_modules/@faststore/api
+$ wml start
+
+## Finally, at the base.store folder (base.store)
+$ yarn clean && yarn develop
+```
+
 ### Creating Components on the `faststore/ui`
 
 You can generate the boilerplate files for your new component using the following command:
