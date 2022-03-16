@@ -1,0 +1,19 @@
+[data-store-dropdown-button] {
+  @apply bg-pink-500 text-white text-base w-36 rounded-md p-1;
+  @apply focus:bg-pink-700
+}
+
+[data-store-dropdown-item] {
+  @apply bg-gray-300 p-2 text-base;
+  @apply focus:bg-pink-700 focus:text-white focus:border-2 focus:border-pink-300  focus:outline-none;
+}
+
+[data-store-dropdown-overlay] {
+  @apply bg-transparent;
+}
+
+[data-store-dropdown-menu] {
+  @apply flex flex-col m-0;
+  @apply border border-gray-700;
+  padding: 0 !important;
+}
