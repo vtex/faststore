@@ -1,4 +1,4 @@
-import type { CurrencyCode, Item } from './common'
+import type { CurrencyCode, Item, LocatorParam } from './common'
 
 export interface ViewCartParams<T extends Item = Item> {
   currency?: CurrencyCode
@@ -8,5 +8,5 @@ export interface ViewCartParams<T extends Item = Item> {
 
 export interface ViewCartEvent<T extends Item = Item> {
   name: 'view_cart'
-  params: ViewCartParams<T>
+  params: ViewCartParams<T> & LocatorParam
 }

@@ -1,4 +1,4 @@
-import type { CurrencyCode, Item } from './common'
+import type { CurrencyCode, Item, LocatorParam } from './common'
 
 export interface AddToWishlistParams<T extends Item = Item> {
   currency?: CurrencyCode
@@ -8,5 +8,5 @@ export interface AddToWishlistParams<T extends Item = Item> {
 
 export interface AddToWishlistEvent<T extends Item = Item> {
   name: 'add_to_wishlist'
-  params: AddToWishlistParams<T>
+  params: AddToWishlistParams<T> & LocatorParam
 }
