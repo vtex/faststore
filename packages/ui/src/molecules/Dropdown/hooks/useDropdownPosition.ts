@@ -1,4 +1,4 @@
-import { useDropdown } from '../contexts/DropdownContext'
+import { useDropdown } from './useDropdown'
 
 type DropdownPosition = {
   position: 'absolute'
@@ -6,6 +6,10 @@ type DropdownPosition = {
   left: number
 }
 
+/**
+ * Hook used to find the DropdownMenu position in relation to DropdownButton
+ * @returns Style with positions.
+ */
 export const useDropdownPosition = (): DropdownPosition => {
   const { buttonDropdownRef } = useDropdown()
 

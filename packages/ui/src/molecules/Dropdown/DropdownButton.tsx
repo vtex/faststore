@@ -1,21 +1,39 @@
-import type { ReactNode } from 'react'
-import React from 'react'
+import type { ButtonHTMLAttributes } from 'react'
+import React, { forwardRef, useImperativeHandle } from 'react'
 
-import Button from '../../atoms/Button'
-import { useDropdown } from './contexts/DropdownContext'
+import { useDropdown } from './hooks/useDropdown'
 
-export type DropdownButtonProps = {
-  children: ReactNode
+export interface DropdownButtonProps<T = HTMLButtonElement>
+  extends ButtonHTMLAttributes<T> {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
 }
 
-const DropdownButton = ({ children }: DropdownButtonProps) => {
-  const { toggle, buttonDropdownRef } = useDropdown()
+const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
+  function Button(
+    { children, testId = 'store-dropdown-button', ...otherProps },
+    ref
+  ) {
+    const { toggle, buttonDropdownRef } = useDropdown()
 
-  return (
-    <Button onClick={toggle} ref={buttonDropdownRef}>
-      {children}
-    </Button>
-  )
-}
+    useImperativeHandle(ref, () => buttonDropdownRef!.current!, [
+      buttonDropdownRef,
+    ])
+
+    return (
+      <button
+        data-store-dropdown-button
+        onClick={toggle}
+        data-testid={testId}
+        ref={buttonDropdownRef}
+        {...otherProps}
+      >
+        {children}
+      </button>
+    )
+  }
+)
 
 export default DropdownButton

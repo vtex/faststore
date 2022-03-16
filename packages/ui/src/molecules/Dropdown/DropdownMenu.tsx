@@ -5,18 +5,14 @@ import type {
   PropsWithChildren,
   ReactElement,
 } from 'react'
-import React, { Children, useRef } from 'react'
+import React from 'react'
 import { createPortal } from 'react-dom'
 
 import Overlay from '../../atoms/Overlay'
 import type { ModalContentProps } from '../Modal/ModalContent'
 import ModalContent from '../Modal/ModalContent'
-import { useDropdown } from './contexts/DropdownContext'
+import { useDropdown } from './hooks/useDropdown'
 import { useDropdownPosition } from './hooks/useDropdownPosition'
-
-export type FocusableElement = {
-  focus(): void
-}
 
 export interface ModalProps extends ModalContentProps {
   /**
@@ -47,15 +43,20 @@ export interface ModalProps extends ModalContentProps {
 const Modal = ({
   children,
   testId = 'store-modal',
+  style,
   ...otherProps
 }: PropsWithChildren<ModalProps>) => {
-  const { isOpen, close, onDismiss } = useDropdown()
+  const {
+    isOpen,
+    close,
+    onDismiss,
+    dropdownItensRef,
+    selectedDropdownItemRef,
+  } = useDropdown()
+
   const dropdownPosition = useDropdownPosition()
 
   const childrenLenght = children.length
-
-  const childrenRefs = useRef<FocusableElement[]>([])
-  const selectedChildren = useRef(0)
 
   const handleBackdropClick = (event: MouseEvent) => {
     if (event.defaultPrevented) {
@@ -68,23 +69,23 @@ const Modal = ({
   }
 
   const handlerDownPress = () => {
-    if (selectedChildren.current < childrenLenght - 1) {
-      selectedChildren.current++
+    if (selectedDropdownItemRef!.current < childrenLenght - 1) {
+      selectedDropdownItemRef!.current++
     } else {
-      selectedChildren.current = 0
+      selectedDropdownItemRef!.current = 0
     }
 
-    childrenRefs.current[selectedChildren.current]?.focus()
+    dropdownItensRef?.current[selectedDropdownItemRef!.current]?.focus()
   }
 
   const handlerUpPress = () => {
-    if (selectedChildren.current > 0) {
-      selectedChildren.current--
+    if (selectedDropdownItemRef!.current > 0) {
+      selectedDropdownItemRef!.current--
     } else {
-      selectedChildren.current = childrenLenght - 1
+      selectedDropdownItemRef!.current = childrenLenght - 1
     }
 
-    childrenRefs.current[selectedChildren.current]?.focus()
+    dropdownItensRef?.current[selectedDropdownItemRef!.current]?.focus()
   }
 
   const handlerEscapePress = () => {
@@ -97,33 +98,17 @@ const Modal = ({
       return
     }
 
-    if (event.key === 'Escape') {
-      handlerEscapePress()
-    }
+    event.key === 'Escape' && handlerEscapePress()
 
-    if (event.key === 'ArrowDown') {
-      handlerDownPress()
-    }
+    event.key === 'ArrowDown' && handlerDownPress()
 
-    if (event.key === 'ArrowUp') {
-      handlerUpPress()
-    }
+    event.key === 'ArrowUp' && handlerUpPress()
 
     event.stopPropagation()
   }
 
-  const addToRefs = (el: HTMLButtonElement) => {
-    if (el && !childrenRefs.current.includes(el)) {
-      childrenRefs.current.push(el)
-    }
-  }
-
-  const onFocusItem = (index: number) => {
-    selectedChildren.current = index
-  }
-
   const clearChildrenReferences = () => {
-    childrenRefs.current = []
+    dropdownItensRef!.current = []
 
     return null
   }
@@ -131,22 +116,17 @@ const Modal = ({
   return isOpen
     ? createPortal(
         <Overlay
-          data-dropdown-overlay
+          data-store-dropdown-overlay
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
         >
           <ModalContent
-            {...otherProps}
-            data-dropdown-content
+            data-store-dropdown-menu
             testId={testId}
-            style={{ ...dropdownPosition }}
+            style={{ ...dropdownPosition, ...style }}
+            {...otherProps}
           >
-            {Children.map(children, (child, index) => {
-              return React.cloneElement(child, {
-                ref: addToRefs,
-                onFocus: () => onFocusItem(index),
-              })
-            })}
+            {children}
           </ModalContent>
         </Overlay>,
         document.body

@@ -11,10 +11,12 @@ export type DropdownProps = {
 
 const Dropdown = ({
   children,
-  isOpen: isOpenProp,
+  isOpen: isOpenDefault = false,
   onDismiss,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const dropdownItensRef = useRef<HTMLButtonElement[]>([])
+  const selectedDropdownItemRef = useRef(0)
   const buttonDropdownRef = useRef<HTMLButtonElement>(null)
 
   const close = () => {
@@ -30,13 +32,20 @@ const Dropdown = ({
   }
 
   useEffect(() => {
-    if (isOpenProp !== undefined) {
-      setIsOpen(isOpenProp)
-    }
-  }, [isOpenProp])
+    setIsOpen(isOpenDefault)
+  }, [isOpenDefault])
 
   const value = useMemo(() => {
-    return { isOpen, close, open, toggle, buttonDropdownRef, onDismiss }
+    return {
+      isOpen,
+      close,
+      open,
+      toggle,
+      buttonDropdownRef,
+      onDismiss,
+      selectedDropdownItemRef,
+      dropdownItensRef,
+    }
   }, [isOpen, onDismiss])
 
   return (
