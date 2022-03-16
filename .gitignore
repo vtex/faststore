@@ -80,6 +80,8 @@ packages/gatsby-**/**/*.json
 !packages/gatsby-**/package.json
 !packages/gatsby-**/tsconfig.json
 
+packages/api/local/*.js
+
 # lighthouse CI autogen files
 .lighthouseci
 
