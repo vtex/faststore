@@ -142,6 +142,7 @@ export const Query = {
         endCursor: (
           Math.min(first, validCollections.length - after) - 1
         ).toString(),
+        totalCount: validCollections.length,
       },
       edges: validCollections
         .slice(after, after + first)
