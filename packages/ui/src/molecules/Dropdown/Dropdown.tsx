@@ -7,12 +7,14 @@ export type DropdownProps = {
   children: ReactNode
   onDismiss?(): void
   isOpen?: boolean
+  id?: string
 }
 
 const Dropdown = ({
   children,
   isOpen: isOpenDefault = false,
   onDismiss,
+  id = 'store-dropdown',
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownItensRef = useRef<HTMLButtonElement[]>([])
@@ -35,6 +37,10 @@ const Dropdown = ({
     setIsOpen(isOpenDefault)
   }, [isOpenDefault])
 
+  useEffect(() => {
+    isOpen && dropdownItensRef?.current[0]?.focus()
+  }, [isOpen])
+
   const value = useMemo(() => {
     return {
       isOpen,
@@ -45,8 +51,9 @@ const Dropdown = ({
       onDismiss,
       selectedDropdownItemRef,
       dropdownItensRef,
+      id,
     }
-  }, [isOpen, onDismiss])
+  }, [id, isOpen, onDismiss])
 
   return (
     <DropdownContext.Provider value={value}>

@@ -2,13 +2,10 @@ import React, { useState } from 'react'
 import type { PropsWithChildren } from 'react'
 import type { Meta, Story } from '@storybook/react'
 
-import type { DropdownProps } from '../Dropdown'
-import Dropdown from '../Dropdown'
-import DropdownButton from '../DropdownButton'
-import DropdownItem from '../DropdownItem'
-import DropdownMenu from '../DropdownMenu'
 import { Caret } from './assets/Caret'
 import Button from '../../../atoms/Button'
+import type { DropdownProps } from '..'
+import Dropdown, { DropdownButton, DropdownItem, DropdownMenu } from '..'
 
 const DropdownUncontrolledTemplate: Story<
   PropsWithChildren<DropdownProps>

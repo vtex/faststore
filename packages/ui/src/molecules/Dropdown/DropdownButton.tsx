@@ -16,7 +16,7 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
     { children, testId = 'store-dropdown-button', ...otherProps },
     ref
   ) {
-    const { toggle, buttonDropdownRef } = useDropdown()
+    const { toggle, buttonDropdownRef, isOpen, id } = useDropdown()
 
     useImperativeHandle(ref, () => buttonDropdownRef!.current!, [
       buttonDropdownRef,
@@ -28,6 +28,9 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
         onClick={toggle}
         data-testid={testId}
         ref={buttonDropdownRef}
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+        aria-controls={id}
         {...otherProps}
       >
         {children}

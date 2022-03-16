@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes } from 'react'
-import React, { useImperativeHandle, forwardRef, useRef } from 'react'
+import React, { useImperativeHandle, forwardRef, useRef, useState } from 'react'
 
 import { useDropdown } from './hooks/useDropdown'
 
@@ -17,21 +17,22 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
     ref
   ) {
     const { dropdownItensRef, selectedDropdownItemRef, close } = useDropdown()
-    const itemIndex = useRef(0)
+    const [dropdownItemIndex, setDropdownItemIndex] = useState(0)
     const dropdownItemRef = useRef<HTMLButtonElement>()
 
     const addToRefs = (el: HTMLButtonElement) => {
       if (el && !dropdownItensRef?.current.includes(el)) {
         dropdownItensRef?.current.push(el)
-        itemIndex.current =
+        setDropdownItemIndex(
           dropdownItensRef?.current.findIndex((element) => element === el) ?? 0
+        )
       }
 
       dropdownItemRef.current = el
     }
 
     const onFocusItem = () => {
-      selectedDropdownItemRef!.current = itemIndex.current
+      selectedDropdownItemRef!.current = dropdownItemIndex
       dropdownItensRef?.current[selectedDropdownItemRef!.current]?.focus()
     }
 
@@ -52,6 +53,9 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
         onFocus={onFocusItem}
         onMouseEnter={onFocusItem}
         onClick={handlerOnClickItem}
+        role="menuitem"
+        tabIndex={-1}
+        data-index={dropdownItemIndex}
         {...otherProps}
       >
         {children}

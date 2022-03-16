@@ -38,12 +38,12 @@ const ModalContentPure = ({
       />
       <div
         data-store-modal-content
-        {...otherProps}
         data-testid={testId}
         ref={trapFocusRef}
         aria-modal="true"
         role="dialog"
         tabIndex={-1}
+        {...otherProps}
       >
         {children}
       </div>
