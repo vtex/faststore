@@ -1,6 +1,7 @@
-import supertest from 'supertest'
+import type { GraphQLSchema } from 'graphql'
+import { execute, parse } from 'graphql'
 
-import app from '../local/server'
+import { getSchema, getContextFactory } from '../src'
 import {
   AllCollectionsFirst5Response,
   AllCollectionsQueryFirst5,
@@ -19,71 +20,73 @@ import {
   SearchQueryFirst5Products,
 } from '../mocks/SearchQuery'
 
-const request = supertest(app)
+let schema: GraphQLSchema
+let context: Record<string, any>
 
-describe('Default queries', () => {
-  it('`collection` query', async () => {
-    const response = await request
-      .post('/graphql')
-      .send({
-        query: CollectionDesksQuery,
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
-
-    expect(response.body).toEqual(CollectionDesksResponse)
+beforeAll(async () => {
+  schema = await getSchema({
+    platform: 'vtex',
+    account: 'storecomponents',
+    environment: 'vtexcommercestable',
+    channel: '1',
   })
 
-  it('`product` query', async () => {
-    const response = await request
-      .post('/graphql')
-      .send({
-        query: ProductByIdQuery,
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
-
-    expect(response.body).toEqual(ProductByIdResponse)
+  const contextFactory = getContextFactory({
+    platform: 'vtex',
+    account: 'storeframework',
+    environment: 'vtexcommercestable',
+    channel: '1',
   })
 
-  it('`search` query', async () => {
-    const response = await request
-      .post('/graphql')
-      .send({
-        query: SearchQueryFirst5Products,
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
+  context = contextFactory({})
+})
 
-    expect(response.body).toEqual(Search5FirstProductsResponse)
-  })
+test('`collection` query', async () => {
+  const response = await execute(
+    schema,
+    parse(CollectionDesksQuery),
+    null,
+    context
+  )
 
-  it('`allCollections` query', async () => {
-    const response = await request
-      .post('/graphql')
-      .send({
-        query: AllCollectionsQueryFirst5,
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
+  expect(response).toEqual(CollectionDesksResponse)
+})
 
-    expect(response.body).toEqual(AllCollectionsFirst5Response)
-  })
+test('`product` query', async () => {
+  const response = await execute(schema, parse(ProductByIdQuery), null, context)
 
-  it('`allProducts` query', async () => {
-    const response = await request
-      .post('/graphql')
-      .send({
-        query: AllProductsQueryFirst5,
-      })
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
+  expect(response).toEqual(ProductByIdResponse)
+})
 
-    expect(response.body).toEqual(AllProductsFirst5Response)
-  })
+test('`search` query', async () => {
+  const response = await execute(
+    schema,
+    parse(SearchQueryFirst5Products),
+    null,
+    context
+  )
+
+  expect(response).toEqual(Search5FirstProductsResponse)
+})
+
+test('`allCollections` query', async () => {
+  const response = await execute(
+    schema,
+    parse(AllCollectionsQueryFirst5),
+    null,
+    context
+  )
+
+  expect(response).toEqual(AllCollectionsFirst5Response)
+})
+
+test('`allProducts` query', async () => {
+  const response = await execute(
+    schema,
+    parse(AllProductsQueryFirst5),
+    null,
+    context
+  )
+
+  expect(response).toEqual(AllProductsFirst5Response)
 })
