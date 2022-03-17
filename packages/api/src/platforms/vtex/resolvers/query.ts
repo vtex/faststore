@@ -171,7 +171,7 @@ export const Query = {
   },
   region: async (_: any, { input }: QueryRegionArgs, { clients }: Context) => {
     const removeNonDigits = (postalCode: string) =>
-      postalCode.replaceAll(/\D/, '')
+      postalCode.replace(/\D/g, '')
 
     const data = await clients.commerce.checkout.region({
       ...input,
