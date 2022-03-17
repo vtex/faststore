@@ -1,7 +1,9 @@
 import express from 'express'
 import { graphqlHTTP } from 'express-graphql'
 
-import { getSchema, getContextFactory } from '../dist'
+import { getSchema, getContextFactory } from '../src'
+
+const port = process.env.PORT ?? '4000'
 
 const app = express()
 
@@ -33,4 +35,7 @@ app.use(
   })
 )
 
-export default app
+app.listen(port)
+
+// eslint-disable-next-line no-console
+console.log(`🚀 GraphQL server ready at http://localhost:${port}/graphql`)
