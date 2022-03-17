@@ -1,18 +1,6 @@
-import { BadRequestError } from './errors'
-
 export interface SelectedFacet {
   key: string
   value: string
-}
-
-const getIdFromSlug = (slug: string) => {
-  const id = slug.split('-').pop()
-
-  if (id == null) {
-    throw new BadRequestError('Error while extracting sku id from product slug')
-  }
-
-  return id
 }
 
 /**
@@ -23,9 +11,6 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
   switch (key) {
     case 'channel':
       return { key: 'trade-policy', value }
-
-    case 'slug':
-      return { key: 'id', value: getIdFromSlug(value) }
 
     default:
       return { key, value }
