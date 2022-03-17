@@ -54,7 +54,6 @@ export const AllProductsQueryFirst5 = `query AllProducts {
             listPrice
             price
             priceCurrency
-            priceValidUntil
             quantity
             sellingPrice
             seller {
@@ -134,7 +133,6 @@ export const AllProductsFirst5Response = {
                   listPrice: 69.14,
                   price: 44.24,
                   priceCurrency: '',
-                  priceValidUntil: '2023-03-16T13:55:46Z',
                   quantity: 1,
                   sellingPrice: 44.24,
                   seller: {
@@ -200,7 +198,6 @@ export const AllProductsFirst5Response = {
                   listPrice: 949.45,
                   price: 622.79,
                   priceCurrency: '',
-                  priceValidUntil: '2023-03-16T13:55:46Z',
                   quantity: 1,
                   sellingPrice: 622.79,
                   seller: {
@@ -275,7 +272,6 @@ export const AllProductsFirst5Response = {
                   listPrice: 557.57,
                   price: 349.12,
                   priceCurrency: '',
-                  priceValidUntil: '2023-03-16T13:55:46Z',
                   quantity: 1,
                   sellingPrice: 349.12,
                   seller: {
@@ -350,7 +346,6 @@ export const AllProductsFirst5Response = {
                   listPrice: 687.61,
                   price: 433.23,
                   priceCurrency: '',
-                  priceValidUntil: '2023-03-16T13:55:46Z',
                   quantity: 1,
                   sellingPrice: 433.23,
                   seller: {
@@ -427,7 +422,6 @@ export const AllProductsFirst5Response = {
                   listPrice: 764.06,
                   price: 531.54,
                   priceCurrency: '',
-                  priceValidUntil: '2023-03-16T13:55:46Z',
                   quantity: 1,
                   sellingPrice: 531.54,
                   seller: {
@@ -500,7 +494,6 @@ export const AllProductsFirst5Response = {
                   listPrice: 565.29,
                   price: 399.58,
                   priceCurrency: '',
-                  priceValidUntil: '2023-03-16T13:55:46Z',
                   quantity: 1,
                   sellingPrice: 399.58,
                   seller: {
@@ -573,7 +566,6 @@ export const AllProductsFirst5Response = {
                   listPrice: 518.11,
                   price: 474.77,
                   priceCurrency: '',
-                  priceValidUntil: '2023-03-16T13:55:46Z',
                   quantity: 1,
                   sellingPrice: 474.77,
                   seller: {
@@ -646,7 +638,6 @@ export const AllProductsFirst5Response = {
                   listPrice: 610.36,
                   price: 593.17,
                   priceCurrency: '',
-                  priceValidUntil: '2023-03-16T13:55:46Z',
                   quantity: 1,
                   sellingPrice: 593.17,
                   seller: {
