@@ -65,6 +65,7 @@ export type Query = {
   collection: StoreCollection;
   person: StorePerson;
   product: StoreProduct;
+  region?: Maybe<Scalars['String']>;
   search: StoreSearchResult;
 };
 
@@ -91,12 +92,26 @@ export type QueryProductArgs = {
 };
 
 
+export type QueryRegionArgs = {
+  input: RegionInput;
+};
+
+
 export type QuerySearchArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
+};
+
+export type RegionInput = {
+  /** Three letter country code according to ISO 3166-1 alpha 3. */
+  country: Scalars['String'];
+  /** Postal code */
+  postalCode: Scalars['String'];
+  /** VTEX sales channel ID. */
+  salesChannel?: Maybe<Scalars['Int']>;
 };
 
 export type StoreAggregateOffer = {

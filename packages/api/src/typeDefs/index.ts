@@ -21,7 +21,7 @@ import Seo from './seo.graphql'
 import Cart from './cart.graphql'
 import Status from './status.graphql'
 import PropertyValue from './propertyValue.graphql'
-import VTEXQuery from '../platforms/vtex/customTypeDefs/query.graphql'
+import VTEXQueries from '../platforms/vtex/customTypeDefs/query.graphql'
 import type { Platform } from '../typings'
 
 export const getTypeDefs = (platform?: Platform) =>
@@ -48,6 +48,6 @@ export const getTypeDefs = (platform?: Platform) =>
     Status,
     PropertyValue,
   ]
-    .concat(platform === 'vtex' ? [VTEXQuery] : [])
+    .concat(platform === 'vtex' ? [VTEXQueries] : [])
     .map(print)
     .join('\n')

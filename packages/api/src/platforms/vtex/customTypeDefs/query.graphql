@@ -1,4 +1,7 @@
 input RegionInput {
+  """
+  Postal code
+  """
   postalCode: String!
   """
   Three letter country code according to ISO 3166-1 alpha 3.
@@ -11,5 +14,5 @@ input RegionInput {
 }
 
 extend type Query {
-  region(input: RegionInput): String
+  region(input: RegionInput!): String
 }
