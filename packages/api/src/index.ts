@@ -4,7 +4,7 @@ import {
   getContextFactory as getContextFactoryVTEX,
   getResolvers as getResolversVTEX,
 } from './platforms/vtex'
-import { typeDefs } from './typeDefs'
+import { getTypeDefs } from './typeDefs'
 import type { Options as OptionsVTEX } from './platforms/vtex'
 
 export * from './__generated__/schema'
@@ -18,7 +18,7 @@ const platforms = {
   },
 }
 
-export const getTypeDefs = () => typeDefs
+export { getTypeDefs } from './typeDefs'
 
 export const getResolvers = (options: Options) =>
   platforms[options.platform].getResolvers(options)
@@ -29,5 +29,5 @@ export const getContextFactory = (options: Options) =>
 export const getSchema = async (options: Options) =>
   makeExecutableSchema({
     resolvers: getResolvers(options),
-    typeDefs: getTypeDefs(),
+    typeDefs: getTypeDefs(options.platform),
   })

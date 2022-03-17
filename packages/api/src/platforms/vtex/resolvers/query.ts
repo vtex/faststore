@@ -11,6 +11,7 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
+import type { RegionInput } from '../clients/commerce/types/Region'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -167,5 +168,22 @@ export const Query = {
       givenName: profile?.firstName?.value ?? '',
       familyName: profile?.lastName?.value ?? '',
     }
+  },
+  region: async (
+    _: any,
+    {
+      input,
+    }: {
+      input: RegionInput
+    },
+    { clients }: Context
+  ) => {
+    const data = await clients.commerce.checkout.region(input)
+
+    if (data?.[0]?.id) {
+      return data[0].id
+    }
+
+    return null
   },
 }

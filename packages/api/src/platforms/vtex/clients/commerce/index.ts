@@ -4,6 +4,7 @@ import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 import type { PortalPagetype } from './types/Portal'
+import type { Region, RegionInput } from './types/Region'
 import type {
   Simulation,
   SimulationArgs,
@@ -100,6 +101,17 @@ export const VtexCommerce = (
             body: JSON.stringify({ orderItems }),
             method: 'PATCH',
           }
+        )
+      },
+      region: async ({
+        postalCode,
+        country,
+        salesChannel,
+      }: RegionInput): Promise<Region> => {
+        return fetchAPI(
+          `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${
+            salesChannel ?? ''
+          }`
         )
       },
     },

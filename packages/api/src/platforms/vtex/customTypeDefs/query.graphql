@@ -1,0 +1,15 @@
+input RegionInput {
+  postalCode: String!
+  """
+  Three letter country code according to ISO 3166-1 alpha 3.
+  """
+  country: String!
+  """
+  VTEX sales channel ID.
+  """
+  salesChannel: Int
+}
+
+extend type Query {
+  region(input: RegionInput): String
+}
