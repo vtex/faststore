@@ -48,6 +48,11 @@ export type IStoreSelectedFacet = {
   value: Scalars['String'];
 };
 
+export type IStoreSession = {
+  channel?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   validateCart?: Maybe<StoreCart>;
@@ -62,11 +67,11 @@ export type Query = {
   __typename?: 'Query';
   allCollections: StoreCollectionConnection;
   allProducts: StoreProductConnection;
-  channel: Scalars['String'];
   collection: StoreCollection;
   person: StorePerson;
   product: StoreProduct;
   search: StoreSearchResult;
+  session: StoreSession;
 };
 
 
@@ -79,11 +84,6 @@ export type QueryAllCollectionsArgs = {
 export type QueryAllProductsArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
-};
-
-
-export type QueryChannelArgs = {
-  channel: Scalars['String'];
 };
 
 
@@ -103,6 +103,11 @@ export type QuerySearchArgs = {
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
+};
+
+
+export type QuerySessionArgs = {
+  session: IStoreSession;
 };
 
 export type StoreAggregateOffer = {
@@ -333,6 +338,12 @@ export type StoreSeo = {
   description: Scalars['String'];
   title: Scalars['String'];
   titleTemplate: Scalars['String'];
+};
+
+export type StoreSession = {
+  __typename?: 'StoreSession';
+  channel?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
 };
 
 export const enum StoreSort {

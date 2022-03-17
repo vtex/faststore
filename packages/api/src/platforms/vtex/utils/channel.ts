@@ -1,7 +1,6 @@
 export interface Channel {
   postalCode: string
   regionId: string
-  country: string
   salesChannel: string
 }
 
@@ -20,7 +19,6 @@ export default class ChannelParser {
       this.channel = {
         ...this.channel,
         regionId: parsedChannel.regionId ?? '',
-        country: parsedChannel.country ?? '',
         salesChannel: parsedChannel.salesChannel ?? '',
         postalCode: parsedChannel.postalCode ?? '',
       }

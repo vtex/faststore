@@ -8,7 +8,8 @@ import type {
   QueryAllProductsArgs,
   QuerySearchArgs,
   QueryCollectionArgs,
-  QueryChannelArgs,
+  QuerySessionArgs,
+  StoreSession,
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
@@ -170,19 +171,21 @@ export const Query = {
       familyName: profile?.lastName?.value ?? '',
     }
   },
-  channel: async (
+  session: async (
     _: any,
-    { channel: channelString }: QueryChannelArgs,
+    { session }: QuerySessionArgs,
     { clients }: Context
-  ) => {
-    const channelParser = new ChannelParser(channelString)
-
-    const regionData = await clients.commerce.checkout.region(
-      channelParser.parse()
-    )
+  ): Promise<StoreSession> => {
+    const channelParser = new ChannelParser(session?.channel ?? '')
+    const channel = channelParser.parse()
+    const regionData = await clients.commerce.checkout.region({
+      ...channel,
+      postalCode: String(channel.postalCode ?? '').replace(/\D/g, ''),
+      country: session.country ?? '',
+    })
 
     channelParser.updateChannel({ regionId: regionData?.[0]?.id })
 
-    return channelParser.stringify()
+    return { ...session, channel: channelParser.stringify() }
   },
 }

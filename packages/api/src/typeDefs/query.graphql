@@ -51,6 +51,16 @@ type StorePerson {
   familyName: String!
 }
 
+type StoreSession {
+  channel: String
+  country: String
+}
+
+input IStoreSession {
+  channel: String
+  country: String
+}
+
 type Query {
   product(locator: [IStoreSelectedFacet!]!): StoreProduct!
 
@@ -70,5 +80,5 @@ type Query {
 
   person: StorePerson!
 
-  channel(channel: String!): String!
+  session(session: IStoreSession!): StoreSession!
 }
