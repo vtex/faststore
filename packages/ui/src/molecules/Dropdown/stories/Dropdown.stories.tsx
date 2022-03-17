@@ -6,6 +6,7 @@ import { Caret } from './assets/Caret'
 import Button from '../../../atoms/Button'
 import type { DropdownProps } from '..'
 import Dropdown, { DropdownButton, DropdownItem, DropdownMenu } from '..'
+import mdx from './Dropdown.mdx'
 
 const DropdownUncontrolledTemplate: Story<
   PropsWithChildren<DropdownProps>
@@ -85,4 +86,9 @@ export const Selectable = DropdownSelectableTemplate.bind({})
 
 export default {
   title: 'Molecules/Dropdown',
+  parameters: {
+    docs: {
+      page: mdx,
+    },
+  },
 } as Meta

@@ -1,0 +1,51 @@
+import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Dropdown from '../Dropdown'
+import DropdownButton from '../DropdownButton'
+import DropdownItem from '../DropdownItem'
+import DropdownMenu from '../DropdownMenu'
+
+# Dropdown
+
+<Canvas>
+  <Story id="molecules-dropdown--uncontrolled" />
+</Canvas>
+
+## Components
+
+The `Dropdown` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
+
+- `Dropdown`: the wrapper component, it can receive a `isOpen` and emit the event `onDismiss`, can be used as controleed component.
+- `DropdownButton`: the component that emit the trigger to open de DropdownMenu.
+- `DropdownItem`: Option for DropdownMenu.
+- `DropdownMenu`: the wrapper to DropdownItens.
+
+## Props
+
+### `Dropdown`
+
+<ArgsTable of={Dropdown} />
+
+### `DropdownButton`
+
+<ArgsTable of={DropdownButton} />
+
+### `DropdownItem`
+
+<ArgsTable of={DropdownItem} />
+
+### `DropdownMenu`
+
+<ArgsTable of={DropdownMenu} />
+
+## CSS Selectors
+
+```css
+[data-store-dropdown-button] {}
+
+[data-store-dropdown-item] {}
+
+[data-store-dropdown-overlay] {}
+
+[data-store-dropdown-menu] {}
+```
