@@ -51,6 +51,7 @@ const QUERIES = [
   'search',
   'allProducts',
   'allCollections',
+  'person',
 ]
 
 const MUTATIONS = ['validateCart']
