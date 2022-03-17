@@ -69,4 +69,6 @@ type Query {
   allCollections(first: Int!, after: String): StoreCollectionConnection!
 
   person: StorePerson!
+
+  channel(channel: String!): String!
 }

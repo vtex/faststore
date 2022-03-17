@@ -1,7 +1,7 @@
 export interface RegionInput {
   postalCode: string
   country: string
-  salesChannel?: number | null
+  salesChannel?: string | null
 }
 
 export type Region = Array<{ id: string }>

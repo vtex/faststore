@@ -21,33 +21,29 @@ import Seo from './seo.graphql'
 import Cart from './cart.graphql'
 import Status from './status.graphql'
 import PropertyValue from './propertyValue.graphql'
-import VTEXQueries from '../platforms/vtex/customTypeDefs/query.graphql'
-import type { Platform } from '../typings'
 
-export const getTypeDefs = (platform?: Platform) =>
-  [
-    Query,
-    Mutation,
-    Brand,
-    Breadcrumb,
-    Collection,
-    Facet,
-    Image,
-    PageInfo,
-    Product,
-    Seo,
-    Offer,
-    AggregateRating,
-    Review,
-    Author,
-    ProductGroup,
-    Organization,
-    AggregateOffer,
-    Order,
-    Cart,
-    Status,
-    PropertyValue,
-  ]
-    .concat(platform === 'vtex' ? [VTEXQueries] : [])
-    .map(print)
-    .join('\n')
+export const typeDefs = [
+  Query,
+  Mutation,
+  Brand,
+  Breadcrumb,
+  Collection,
+  Facet,
+  Image,
+  PageInfo,
+  Product,
+  Seo,
+  Offer,
+  AggregateRating,
+  Review,
+  Author,
+  ProductGroup,
+  Organization,
+  AggregateOffer,
+  Order,
+  Cart,
+  Status,
+  PropertyValue,
+]
+  .map(print)
+  .join('\n')

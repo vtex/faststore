@@ -8,10 +8,11 @@ import type {
   QueryAllProductsArgs,
   QuerySearchArgs,
   QueryCollectionArgs,
-  QueryRegionArgs,
+  QueryChannelArgs,
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
+import ChannelParser from '../utils/channel'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -169,19 +170,19 @@ export const Query = {
       familyName: profile?.lastName?.value ?? '',
     }
   },
-  region: async (_: any, { input }: QueryRegionArgs, { clients }: Context) => {
-    const removeNonDigits = (postalCode: string) =>
-      postalCode.replace(/\D/g, '')
+  channel: async (
+    _: any,
+    { channel: channelString }: QueryChannelArgs,
+    { clients }: Context
+  ) => {
+    const channelParser = new ChannelParser(channelString)
 
-    const data = await clients.commerce.checkout.region({
-      ...input,
-      postalCode: removeNonDigits(input.postalCode),
-    })
+    const regionData = await clients.commerce.checkout.region(
+      channelParser.parse()
+    )
 
-    if (!data?.[0]?.id) {
-      return null
-    }
+    channelParser.updateChannel({ regionId: regionData?.[0]?.id })
 
-    return data[0].id
+    return channelParser.stringify()
   },
 }
