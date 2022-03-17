@@ -51,6 +51,7 @@ export type IStoreSelectedFacet = {
 export type IStoreSession = {
   channel?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -344,6 +345,7 @@ export type StoreSession = {
   __typename?: 'StoreSession';
   channel?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
 };
 
 export const enum StoreSort {

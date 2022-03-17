@@ -54,11 +54,13 @@ type StorePerson {
 type StoreSession {
   channel: String
   country: String
+  postalCode: String
 }
 
 input IStoreSession {
   channel: String
   country: String
+  postalCode: String
 }
 
 type Query {

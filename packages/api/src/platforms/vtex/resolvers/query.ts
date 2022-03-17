@@ -177,10 +177,8 @@ export const Query = {
     { clients }: Context
   ): Promise<StoreSession> => {
     const channelParser = new ChannelParser(session?.channel ?? '')
-    const channel = channelParser.parse()
     const regionData = await clients.commerce.checkout.region({
-      ...channel,
-      postalCode: String(channel.postalCode ?? '').replace(/\D/g, ''),
+      postalCode: String(session.postalCode ?? '').replace(/\D/g, ''),
       country: session.country ?? '',
     })
 

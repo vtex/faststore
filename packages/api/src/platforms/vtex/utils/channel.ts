@@ -20,7 +20,6 @@ export default class ChannelParser {
         ...this.channel,
         regionId: parsedChannel.regionId ?? '',
         salesChannel: parsedChannel.salesChannel ?? '',
-        postalCode: parsedChannel.postalCode ?? '',
       }
 
       return this.channel
