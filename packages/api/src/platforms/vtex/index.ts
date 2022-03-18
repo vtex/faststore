@@ -22,6 +22,7 @@ export interface Options {
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
   // Default sales channel to use for fetching products
   channel: string
+  hideUnavailableItems: boolean
 }
 
 export interface Context {

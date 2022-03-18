@@ -31,7 +31,7 @@ export interface ProductLocator {
 }
 
 export const IntelligentSearch = (
-  { account, environment }: Options,
+  { account, environment, hideUnavailableItems }: Options,
   ctx: Context
 ) => {
   const base = `http://portal.${environment}.com.br/search-api/v1/${account}`
@@ -55,7 +55,6 @@ export const IntelligentSearch = (
     selectedFacets = [],
     type,
     fuzzy = '0',
-    hideUnavailableItems,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
