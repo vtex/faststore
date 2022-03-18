@@ -62,6 +62,7 @@ type Query {
     sort: StoreSort = score_desc
     term: String = ""
     selectedFacets: [IStoreSelectedFacet!]
+    hideUnavailableItems: Boolean 
   ): StoreSearchResult!
 
   allProducts(first: Int!, after: String): StoreProductConnection!

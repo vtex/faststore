@@ -94,6 +94,7 @@ export type QueryProductArgs = {
 export type QuerySearchArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
+  hideUnavailableItems?: Maybe<Scalars['Boolean']>;
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;

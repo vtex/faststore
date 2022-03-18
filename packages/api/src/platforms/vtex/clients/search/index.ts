@@ -22,6 +22,7 @@ export interface SearchArgs {
   sort?: Sort
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1'
+  hideUnavailableItems?: boolean
 }
 
 export interface ProductLocator {
@@ -54,6 +55,7 @@ export const IntelligentSearch = (
     selectedFacets = [],
     type,
     fuzzy = '0',
+    hideUnavailableItems,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -62,6 +64,10 @@ export const IntelligentSearch = (
       sort,
       fuzzy,
     })
+
+    if (hideUnavailableItems !== undefined) {
+      params.append('hide-unavailable-items', hideUnavailableItems.toString())
+    }
 
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)
