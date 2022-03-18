@@ -289,80 +289,6 @@ export const AllProductsFirst5Response = {
         {
           cursor: '3',
           node: {
-            description: 'Magnam qui cumque in dolore.',
-            gtin: '9016048553168',
-            image: [
-              {
-                alternateName: 'aspernatur',
-                url:
-                  'http://storeframework.vtexassets.com/arquivos/ids/184703/aliquid.jpg?v=637755551301570000',
-              },
-              {
-                alternateName: 'et',
-                url:
-                  'http://storeframework.vtexassets.com/arquivos/ids/184700/tempora.jpg?v=637755551290970000',
-              },
-              {
-                alternateName: 'voluptatem',
-                url:
-                  'http://storeframework.vtexassets.com/arquivos/ids/184701/dolore.jpg?v=637755551295000000',
-              },
-              {
-                alternateName: 'natus',
-                url:
-                  'http://storeframework.vtexassets.com/arquivos/ids/184702/deleniti.jpg?v=637755551298300000',
-              },
-            ],
-            isVariantOf: {
-              name: 'Handmade Steel Pants Gorgeous',
-              productGroupID: '10833854',
-              hasVariant: [
-                {
-                  name: 'tan',
-                  sku: '30742880',
-                },
-              ],
-            },
-            name: 'tan',
-            productID: '30742880',
-            review: [],
-            seo: {
-              canonical: '',
-              description: 'Magnam qui cumque in dolore.',
-              title: 'Handmade Steel Pants Gorgeous',
-              titleTemplate: '',
-            },
-            sku: '30742880',
-            slug: 'handmade-steel-pants-gorgeous-30742880',
-            offers: {
-              highPrice: 433.23,
-              lowPrice: 433.23,
-              offerCount: 1,
-              priceCurrency: '',
-              offers: [
-                {
-                  availability: 'https://schema.org/InStock',
-                  itemCondition: 'https://schema.org/NewCondition',
-                  listPrice: 687.61,
-                  price: 433.23,
-                  priceCurrency: '',
-                  quantity: 1,
-                  sellingPrice: 433.23,
-                  seller: {
-                    identifier: '1',
-                  },
-                  itemOffered: {
-                    name: 'tan',
-                    sku: '30742880',
-                  },
-                },
-              ],
-            },
-          },
-        },
-        {
-          cursor: '4',
-          node: {
             description:
               'Sed nostrum est nostrum quo ipsum et ut asperiores quasi.',
             gtin: '4454274563902',
@@ -437,7 +363,7 @@ export const AllProductsFirst5Response = {
           },
         },
         {
-          cursor: '5',
+          cursor: '4',
           node: {
             description: 'Laborum non soluta accusamus ut repellat dolorum.',
             gtin: '2084120969524',
@@ -509,7 +435,7 @@ export const AllProductsFirst5Response = {
           },
         },
         {
-          cursor: '6',
+          cursor: '5',
           node: {
             description: 'Laborum non soluta accusamus ut repellat dolorum.',
             gtin: '8869428115906',
@@ -581,7 +507,7 @@ export const AllProductsFirst5Response = {
           },
         },
         {
-          cursor: '7',
+          cursor: '6',
           node: {
             description: 'Laborum non soluta accusamus ut repellat dolorum.',
             gtin: '2864754656701',
@@ -646,6 +572,80 @@ export const AllProductsFirst5Response = {
                   itemOffered: {
                     name: 'lime',
                     sku: '60500870',
+                  },
+                },
+              ],
+            },
+          },
+        },
+        {
+          cursor: '7',
+          node: {
+            description: 'Aut omnis nobis tenetur.',
+            gtin: '1346198062637',
+            image: [
+              {
+                alternateName: 'et',
+                url:
+                  'http://storeframework.vtexassets.com/arquivos/ids/186495/corporis.jpg?v=637755567185370000',
+              },
+              {
+                alternateName: 'in',
+                url:
+                  'http://storeframework.vtexassets.com/arquivos/ids/186492/qui.jpg?v=637755567174570000',
+              },
+              {
+                alternateName: 'consectetur',
+                url:
+                  'http://storeframework.vtexassets.com/arquivos/ids/186493/possimus.jpg?v=637755567178470000',
+              },
+              {
+                alternateName: 'ea',
+                url:
+                  'http://storeframework.vtexassets.com/arquivos/ids/186494/nihil.jpg?v=637755567181900000',
+              },
+            ],
+            isVariantOf: {
+              name: 'Unbranded Concrete Table Small',
+              productGroupID: '29913569',
+              hasVariant: [
+                {
+                  name: 'fuchsia',
+                  sku: '64953394',
+                },
+              ],
+            },
+            name: 'fuchsia',
+            productID: '64953394',
+            review: [],
+            seo: {
+              canonical: '',
+              description: 'Aut omnis nobis tenetur.',
+              title: 'Unbranded Concrete Table Small',
+              titleTemplate: '',
+            },
+            sku: '64953394',
+            slug: 'unbranded-concrete-table-small-64953394',
+            offers: {
+              highPrice: 200.64,
+              lowPrice: 200.64,
+              offerCount: 1,
+              priceCurrency: '',
+              offers: [
+                {
+                  availability: 'https://schema.org/InStock',
+                  itemCondition: 'https://schema.org/NewCondition',
+                  listPrice: 297.7,
+                  price: 200.64,
+                  priceCurrency: '',
+                  quantity: 1,
+                  sellingPrice: 200.64,
+                  seller: {
+                    identifier: '1',
+                  },
+                  itemOffered: {
+                    name: 'fuchsia',
+                    sku: '64953394',
                   },
                 },
               ],
