@@ -1,4 +1,5 @@
 import type { GraphQLSchema } from 'graphql'
+import { assertValidSchema } from 'graphql'
 
 import { getSchema } from '../src'
 
@@ -69,7 +70,9 @@ beforeAll(async () => {
 
 describe('Schema', () => {
   it('should return a valid GraphQL schema for VTEX platform', async () => {
-    expect(schema).not.toBeNull()
+    // `assertValidSchema()` will throw an error if the schema is invalid, and
+    // return nothing if it is valid. That's why we're checking for `undefined`.
+    expect(assertValidSchema(schema)).toBeUndefined()
   })
 
   it('should contain all expected types', async () => {
