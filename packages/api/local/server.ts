@@ -3,7 +3,7 @@ import { graphqlHTTP } from 'express-graphql'
 
 import { getSchema, getContextFactory } from '../src'
 
-const port = process.env.PORT ?? '4000'
+const port = '4000'
 
 const app = express()
 
