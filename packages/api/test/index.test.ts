@@ -7,6 +7,7 @@ describe('Schema', () => {
       account: 'storecomponents',
       environment: 'vtexcommercestable',
       channel: '1',
+      hideUnavailableItems: false,
     })
 
     expect(schema).not.toBeNull()
