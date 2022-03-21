@@ -17,7 +17,7 @@ const Dropdown = ({
   id = 'store-dropdown',
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const dropdownItensRef = useRef<HTMLButtonElement[]>([])
+  const dropdownItemsRef = useRef<HTMLButtonElement[]>([])
   const selectedDropdownItemRef = useRef(0)
   const buttonDropdownRef = useRef<HTMLButtonElement>(null)
 
@@ -38,7 +38,7 @@ const Dropdown = ({
   }, [isOpenDefault])
 
   useEffect(() => {
-    isOpen && dropdownItensRef?.current[0]?.focus()
+    isOpen && dropdownItemsRef?.current[0]?.focus()
   }, [isOpen])
 
   const value = useMemo(() => {
@@ -50,7 +50,7 @@ const Dropdown = ({
       buttonDropdownRef,
       onDismiss,
       selectedDropdownItemRef,
-      dropdownItensRef,
+      dropdownItemsRef,
       id,
     }
   }, [id, isOpen, onDismiss])

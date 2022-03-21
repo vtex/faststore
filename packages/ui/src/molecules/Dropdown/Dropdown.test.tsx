@@ -5,11 +5,11 @@ import React from 'react'
 import Dropdown, { DropdownButton, DropdownItem, DropdownMenu } from '.'
 
 type SimpleDropdownProps = {
-  onDimiss?(): void
+  onDismiss?(): void
 }
 
-const SimpleDropdown = ({ onDimiss }: SimpleDropdownProps) => (
-  <Dropdown onDismiss={onDimiss}>
+const SimpleDropdown = ({ onDismiss }: SimpleDropdownProps) => (
+  <Dropdown onDismiss={onDismiss}>
     <DropdownButton>Dropdown Button</DropdownButton>
     <DropdownMenu>
       <DropdownItem>Dropdown Item 1</DropdownItem>
@@ -26,6 +26,7 @@ describe('Dropdown', () => {
     expect(getByText(/Dropdown Button/g)).toBeInTheDocument()
     expect(queryByTestId('store-dropdown-menu')).not.toBeInTheDocument()
   })
+
   it('Should render DropdownMenu when DropdownButton is clicked', () => {
     const { getByText, queryByTestId } = render(<SimpleDropdown />)
 
@@ -34,7 +35,8 @@ describe('Dropdown', () => {
     fireEvent.click(dropdownButton)
     expect(queryByTestId('store-dropdown-menu')).toBeInTheDocument()
   })
-  it('Should render 3 DropdownItens when DropdownMenu is opened', () => {
+
+  it('Should render 3 dropdownItems when DropdownMenu is opened', () => {
     const { getByText, queryAllByTestId } = render(<SimpleDropdown />)
 
     const dropdownButton = getByText(/Dropdown Button/g)
@@ -47,7 +49,7 @@ describe('Dropdown', () => {
   it('Should close menu and emit onDismiss event when Overlay is clicked', () => {
     const onDismissMock = jest.fn()
     const { getByText, queryByTestId, getByTestId } = render(
-      <SimpleDropdown onDimiss={onDismissMock} />
+      <SimpleDropdown onDismiss={onDismissMock} />
     )
 
     const dropdownButton = getByText(/Dropdown Button/g)
@@ -77,13 +79,11 @@ describe('Accessibility', () => {
 
     fireEvent.click(dropdownButton)
 
-    const dropdownItens = queryAllByTestId('store-dropdown-item')
-
+    const dropdownItems = queryAllByTestId('store-dropdown-item')
     const overlay = getByTestId('store-overlay')
-
     const menu = queryByTestId('store-dropdown-menu')
 
-    return { dropdownItens, overlay, menu }
+    return { dropdownItems, overlay, menu }
   }
 
   it('should not have violations', async () => {
@@ -103,48 +103,48 @@ describe('Accessibility', () => {
   })
 
   it('Should focus on second DropdownItem when ArrowDown key is clicked', async () => {
-    const { overlay, dropdownItens } = getDropdownStructures()
+    const { overlay, dropdownItems } = getDropdownStructures()
 
     fireEvent.keyDown(overlay, {
       key: 'ArrowDown',
     })
 
-    expect(dropdownItens[1]).toHaveFocus()
+    expect(dropdownItems[1]).toHaveFocus()
   })
+
   it('Should focus on second DropdownItem when ArrowUp key is clicked twice', () => {
-    const { overlay, dropdownItens } = getDropdownStructures()
+    const { overlay, dropdownItems } = getDropdownStructures()
 
     fireEvent.keyDown(overlay, {
       key: 'ArrowUp',
     })
-
     fireEvent.keyDown(overlay, {
       key: 'ArrowUp',
     })
 
-    expect(dropdownItens[1]).toHaveFocus()
+    expect(dropdownItems[1]).toHaveFocus()
   })
+
   it('Should focus on last DropdownItem when End key is clicked', () => {
-    const { overlay, dropdownItens } = getDropdownStructures()
+    const { overlay, dropdownItems } = getDropdownStructures()
 
     fireEvent.keyDown(overlay, {
       key: 'End',
     })
 
-    expect(dropdownItens[2]).toHaveFocus()
+    expect(dropdownItems[2]).toHaveFocus()
   })
 
   it('Should focus on last DropdownItem when First key is clicked', () => {
-    const { overlay, dropdownItens } = getDropdownStructures()
+    const { overlay, dropdownItems } = getDropdownStructures()
 
     fireEvent.keyDown(overlay, {
       key: 'ArrowUp',
     })
-
     fireEvent.keyDown(overlay, {
       key: 'Home',
     })
 
-    expect(dropdownItens[0]).toHaveFocus()
+    expect(dropdownItems[0]).toHaveFocus()
   })
 })

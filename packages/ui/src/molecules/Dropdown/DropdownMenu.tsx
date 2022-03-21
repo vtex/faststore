@@ -50,7 +50,7 @@ const DropdownMenu = ({
     isOpen,
     close,
     onDismiss,
-    dropdownItensRef,
+    dropdownItemsRef,
     selectedDropdownItemRef,
     id,
   } = useDropdown()
@@ -76,7 +76,7 @@ const DropdownMenu = ({
       selectedDropdownItemRef!.current = 0
     }
 
-    dropdownItensRef?.current[selectedDropdownItemRef!.current]?.focus()
+    dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
   }
 
   const handlerUpPress = () => {
@@ -86,17 +86,17 @@ const DropdownMenu = ({
       selectedDropdownItemRef!.current = childrenLenght - 1
     }
 
-    dropdownItensRef?.current[selectedDropdownItemRef!.current]?.focus()
+    dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
   }
 
   const handlerHomePress = () => {
     selectedDropdownItemRef!.current = 0
-    dropdownItensRef?.current[selectedDropdownItemRef!.current]?.focus()
+    dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
   }
 
   const handlerEndPress = () => {
     selectedDropdownItemRef!.current = childrenLenght - 1
-    dropdownItensRef?.current[selectedDropdownItemRef!.current]?.focus()
+    dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
   }
 
   const handlerEscapePress = () => {
@@ -125,7 +125,7 @@ const DropdownMenu = ({
   }
 
   const clearChildrenReferences = () => {
-    dropdownItensRef!.current = []
+    dropdownItemsRef!.current = []
 
     return null
   }

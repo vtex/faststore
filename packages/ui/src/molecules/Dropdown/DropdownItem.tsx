@@ -16,15 +16,15 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
     { children, onClick, testId = 'store-dropdown-item', ...otherProps },
     ref
   ) {
-    const { dropdownItensRef, selectedDropdownItemRef, close } = useDropdown()
+    const { dropdownItemsRef, selectedDropdownItemRef, close } = useDropdown()
     const [dropdownItemIndex, setDropdownItemIndex] = useState(0)
     const dropdownItemRef = useRef<HTMLButtonElement>()
 
     const addToRefs = (el: HTMLButtonElement) => {
-      if (el && !dropdownItensRef?.current.includes(el)) {
-        dropdownItensRef?.current.push(el)
+      if (el && !dropdownItemsRef?.current.includes(el)) {
+        dropdownItemsRef?.current.push(el)
         setDropdownItemIndex(
-          dropdownItensRef?.current.findIndex((element) => element === el) ?? 0
+          dropdownItemsRef?.current.findIndex((element) => element === el) ?? 0
         )
       }
 
@@ -33,7 +33,7 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
 
     const onFocusItem = () => {
       selectedDropdownItemRef!.current = dropdownItemIndex
-      dropdownItensRef?.current[selectedDropdownItemRef!.current]?.focus()
+      dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
     }
 
     const handlerOnClickItem = (

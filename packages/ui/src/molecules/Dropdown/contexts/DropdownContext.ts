@@ -14,9 +14,9 @@ export type DropdownContextState = {
    */
   selectedDropdownItemRef: React.MutableRefObject<number> | null
   /**
-   * Array of References to DropdownItens in a DropdownMenu.
+   * Array of References to dropdownItems in a DropdownMenu.
    */
-  dropdownItensRef: React.MutableRefObject<HTMLButtonElement[]> | null
+  dropdownItemsRef: React.MutableRefObject<HTMLButtonElement[]> | null
   /**
    * Close DropdownMenu event inherited from Modal.
    */
@@ -44,7 +44,7 @@ const defaultState: DropdownContextState = {
   isOpen: false,
   buttonDropdownRef: null,
   selectedDropdownItemRef: null,
-  dropdownItensRef: null,
+  dropdownItemsRef: null,
   id: 'store-dropdown',
 }
 
