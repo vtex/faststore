@@ -19,11 +19,11 @@ test('Search State Serializer: Basic serialization', async () => {
     ...state,
     selectedFacets: [
       ...state.selectedFacets,
-      { key: 'priceRange', value: '10-to-100' },
+      { key: 'price', value: '10:100' },
     ],
   }
   expect(`${formatSearchState(state)}`).toBe(
-    'http://localhost/?q=Hello+Wolrd&priceRange=10-to-100&facets=priceRange&sort=score_desc&page=0'
+    'http://localhost/?q=Hello+Wolrd&price=10%3A100&facets=price&sort=score_desc&page=0'
   )
 
   state = {
@@ -31,7 +31,7 @@ test('Search State Serializer: Basic serialization', async () => {
     sort: 'price_desc',
   }
   expect(`${formatSearchState(state)}`).toBe(
-    'http://localhost/?q=Hello+Wolrd&priceRange=10-to-100&facets=priceRange&sort=price_desc&page=0'
+    'http://localhost/?q=Hello+Wolrd&price=10%3A100&facets=price&sort=price_desc&page=0'
   )
 })
 
@@ -56,11 +56,11 @@ test('Search State Serializer: serialization with base path', async () => {
     ...state,
     selectedFacets: [
       ...state.selectedFacets,
-      { key: 'priceRange', value: '10-to-100' },
+      { key: 'price', value: '10:100' },
     ],
   }
   expect(`${formatSearchState(state)}`).toBe(
-    'http://localhost/pt-br/sale/?q=Hello+Wolrd&priceRange=10-to-100&facets=priceRange&sort=score_desc&page=0'
+    'http://localhost/pt-br/sale/?q=Hello+Wolrd&price=10%3A100&facets=price&sort=score_desc&page=0'
   )
 
   state = {
@@ -68,7 +68,7 @@ test('Search State Serializer: serialization with base path', async () => {
     sort: 'price_desc',
   }
   expect(`${formatSearchState(state)}`).toBe(
-    'http://localhost/pt-br/sale/?q=Hello+Wolrd&priceRange=10-to-100&facets=priceRange&sort=price_desc&page=0'
+    'http://localhost/pt-br/sale/?q=Hello+Wolrd&price=10%3A100&facets=price&sort=price_desc&page=0'
   )
 })
 
@@ -76,15 +76,15 @@ test('Search State Serializer: Basic parsing', async () => {
   expect(
     parseSearchState(
       new URL(
-        'http://localhost/pt-br/sale/?q=Hello+Wolrd&&sort=score_desc&priceRange=10-to-100&page=0&facets=priceRange'
+        'http://localhost/pt-br/sale/?q=Hello+Wolrd&&sort=score_desc&price=10%3A100&page=0&facets=price'
       )
     )
   ).toEqual({
     base: '/pt-br/sale/',
     selectedFacets: [
       {
-        key: 'priceRange',
-        value: '10-to-100',
+        key: 'price',
+        value: '10:100',
       },
     ],
     sort: 'score_desc',
