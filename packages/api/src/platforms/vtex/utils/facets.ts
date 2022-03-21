@@ -12,6 +12,9 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
     case 'channel':
       return { key: 'trade-policy', value }
 
+    case 'priceRange':
+      return { key: 'price', value }
+
     default:
       return { key, value }
   }
