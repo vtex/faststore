@@ -3,7 +3,6 @@ import { execute, parse } from 'graphql'
 
 import { getSchema, getContextFactory } from '../src'
 import {
-  ValidateCartMutationCompleteOrderResponse,
   ValidateCartMutation,
   InvalidCart,
   ValidCart,
@@ -51,5 +50,5 @@ test('`validateCart` mutation, returning full order', async () => {
     { cart: InvalidCart }
   )
 
-  expect(response).toEqual(ValidateCartMutationCompleteOrderResponse)
+  expect(response).toMatchSnapshot()
 })

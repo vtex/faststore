@@ -2,23 +2,11 @@ import type { GraphQLSchema } from 'graphql'
 import { execute, parse } from 'graphql'
 
 import { getSchema, getContextFactory } from '../src'
-import {
-  AllCollectionsFirst5Response,
-  AllCollectionsQueryFirst5,
-} from '../mocks/AllCollectionsQuery'
-import {
-  AllProductsFirst5Response,
-  AllProductsQueryFirst5,
-} from '../mocks/AllProductsQuery'
-import {
-  CollectionDesksQuery,
-  CollectionDesksResponse,
-} from '../mocks/CollectionQuery'
-import { ProductByIdQuery, ProductByIdResponse } from '../mocks/ProductQuery'
-import {
-  Search5FirstProductsResponse,
-  SearchQueryFirst5Products,
-} from '../mocks/SearchQuery'
+import { AllCollectionsQueryFirst5 } from '../mocks/AllCollectionsQuery'
+import { AllProductsQueryFirst5 } from '../mocks/AllProductsQuery'
+import { CollectionDesksQuery } from '../mocks/CollectionQuery'
+import { ProductByIdQuery } from '../mocks/ProductQuery'
+import { SearchQueryFirst5Products } from '../mocks/SearchQuery'
 
 let schema: GraphQLSchema
 let context: Record<string, any>
@@ -49,13 +37,13 @@ test('`collection` query', async () => {
     context
   )
 
-  expect(response).toEqual(CollectionDesksResponse)
+  expect(response).toMatchSnapshot()
 })
 
 test('`product` query', async () => {
   const response = await execute(schema, parse(ProductByIdQuery), null, context)
 
-  expect(response).toEqual(ProductByIdResponse)
+  expect(response).toMatchSnapshot()
 })
 
 test('`search` query', async () => {
@@ -66,7 +54,7 @@ test('`search` query', async () => {
     context
   )
 
-  expect(response).toEqual(Search5FirstProductsResponse)
+  expect(response).toMatchSnapshot()
 })
 
 test('`allCollections` query', async () => {
@@ -77,7 +65,7 @@ test('`allCollections` query', async () => {
     context
   )
 
-  expect(response).toEqual(AllCollectionsFirst5Response)
+  expect(response).toMatchSnapshot()
 })
 
 test('`allProducts` query', async () => {
@@ -88,5 +76,5 @@ test('`allProducts` query', async () => {
     context
   )
 
-  expect(response).toEqual(AllProductsFirst5Response)
+  expect(response).toMatchSnapshot()
 })
