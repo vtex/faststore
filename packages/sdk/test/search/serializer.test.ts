@@ -23,7 +23,7 @@ test('Search State Serializer: Basic serialization', async () => {
     ],
   }
   expect(`${formatSearchState(state)}`).toBe(
-    'http://localhost/?q=Hello+Wolrd&price=10:100&facets=price&sort=score_desc&page=0'
+    'http://localhost/?q=Hello+Wolrd&price=10%3A100&facets=price&sort=score_desc&page=0'
   )
 
   state = {
@@ -31,7 +31,7 @@ test('Search State Serializer: Basic serialization', async () => {
     sort: 'price_desc',
   }
   expect(`${formatSearchState(state)}`).toBe(
-    'http://localhost/?q=Hello+Wolrd&price=10:100&facets=price&sort=price_desc&page=0'
+    'http://localhost/?q=Hello+Wolrd&price=10%3A100&facets=price&sort=price_desc&page=0'
   )
 })
 
@@ -60,7 +60,7 @@ test('Search State Serializer: serialization with base path', async () => {
     ],
   }
   expect(`${formatSearchState(state)}`).toBe(
-    'http://localhost/pt-br/sale/?q=Hello+Wolrd&price=10:100&facets=price&sort=score_desc&page=0'
+    'http://localhost/pt-br/sale/?q=Hello+Wolrd&price=10%3A100&facets=price&sort=score_desc&page=0'
   )
 
   state = {
@@ -68,7 +68,7 @@ test('Search State Serializer: serialization with base path', async () => {
     sort: 'price_desc',
   }
   expect(`${formatSearchState(state)}`).toBe(
-    'http://localhost/pt-br/sale/?q=Hello+Wolrd&price=10:100&facets=price&sort=price_desc&page=0'
+    'http://localhost/pt-br/sale/?q=Hello+Wolrd&price=10%3A100&facets=price&sort=price_desc&page=0'
   )
 })
 
@@ -76,7 +76,7 @@ test('Search State Serializer: Basic parsing', async () => {
   expect(
     parseSearchState(
       new URL(
-        'http://localhost/pt-br/sale/?q=Hello+Wolrd&&sort=score_desc&price=10:100&page=0&facets=price'
+        'http://localhost/pt-br/sale/?q=Hello+Wolrd&&sort=score_desc&price=10%3A100&page=0&facets=price'
       )
     )
   ).toEqual({
