@@ -27,6 +27,9 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
     case 'slug':
       return { key: 'id', value: getIdFromSlug(value) }
 
+    case 'priceRange':
+      return { key: 'price', value }
+
     default:
       return { key, value }
   }
