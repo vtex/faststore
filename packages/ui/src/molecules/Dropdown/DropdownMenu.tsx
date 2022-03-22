@@ -56,7 +56,7 @@ const DropdownMenu = ({
 
   const dropdownPosition = useDropdownPosition()
 
-  const childrenLenght = children.length
+  const childrenLength = children.length
 
   const handleBackdropClick = (event: MouseEvent) => {
     if (event.defaultPrevented) {
@@ -68,8 +68,8 @@ const DropdownMenu = ({
     close?.()
   }
 
-  const handlerDownPress = () => {
-    if (selectedDropdownItemIndexRef!.current < childrenLenght - 1) {
+  const handleDownPress = () => {
+    if (selectedDropdownItemIndexRef!.current < childrenLength - 1) {
       selectedDropdownItemIndexRef!.current++
     } else {
       selectedDropdownItemIndexRef!.current = 0
@@ -78,27 +78,27 @@ const DropdownMenu = ({
     dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
   }
 
-  const handlerUpPress = () => {
+  const handleUpPress = () => {
     if (selectedDropdownItemIndexRef!.current > 0) {
       selectedDropdownItemIndexRef!.current--
     } else {
-      selectedDropdownItemIndexRef!.current = childrenLenght - 1
+      selectedDropdownItemIndexRef!.current = childrenLength - 1
     }
 
     dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
   }
 
-  const handlerHomePress = () => {
+  const handleHomePress = () => {
     selectedDropdownItemIndexRef!.current = 0
     dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
   }
 
-  const handlerEndPress = () => {
-    selectedDropdownItemIndexRef!.current = childrenLenght - 1
+  const handleEndPress = () => {
+    selectedDropdownItemIndexRef!.current = childrenLength - 1
     dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
   }
 
-  const handlerEscapePress = () => {
+  const handleEscapePress = () => {
     onDismiss?.()
     close?.()
   }
@@ -108,15 +108,15 @@ const DropdownMenu = ({
       return
     }
 
-    event.key === 'Escape' && handlerEscapePress()
+    event.key === 'Escape' && handleEscapePress()
 
-    event.key === 'ArrowDown' && handlerDownPress()
+    event.key === 'ArrowDown' && handleDownPress()
 
-    event.key === 'ArrowUp' && handlerUpPress()
+    event.key === 'ArrowUp' && handleUpPress()
 
-    event.key === 'Home' && handlerHomePress()
+    event.key === 'Home' && handleHomePress()
 
-    event.key === 'End' && handlerEndPress()
+    event.key === 'End' && handleEndPress()
 
     event.key === 'Tab' && event.preventDefault()
 
