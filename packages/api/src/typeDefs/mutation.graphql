@@ -1,4 +1,18 @@
+type StoreSession {
+  channel: String
+  country: String
+  postalCode: String
+}
+
+input IStoreSession {
+  channel: String
+  country: String
+  postalCode: String
+}
+
 type Mutation {
   # Returns the order if anything changed with the order. Null if the order is valid
   validateCart(cart: IStoreCart!): StoreCart
+
+  session(session: IStoreSession!): StoreSession!
 }

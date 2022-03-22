@@ -56,7 +56,13 @@ export type IStoreSession = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  session: StoreSession;
   validateCart?: Maybe<StoreCart>;
+};
+
+
+export type MutationSessionArgs = {
+  session: IStoreSession;
 };
 
 
@@ -72,7 +78,6 @@ export type Query = {
   person: StorePerson;
   product: StoreProduct;
   search: StoreSearchResult;
-  session: StoreSession;
 };
 
 
@@ -104,11 +109,6 @@ export type QuerySearchArgs = {
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
-};
-
-
-export type QuerySessionArgs = {
-  session: IStoreSession;
 };
 
 export type StoreAggregateOffer = {
