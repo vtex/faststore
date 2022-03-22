@@ -14,9 +14,9 @@
     "node": ">=12"
   },
   "scripts": {
-    "develop": "concurrently \"yarn generate -w\" \"tsdx watch\"",
+    "develop": "tsdx watch --entry ./local/server.ts --target node --onSuccess \"node ./dist\"",
+    "develop:no-server": "concurrently \"yarn generate -w\" \"tsdx watch\"",
     "build": "graphql-codegen --config codegen.yml && tsdx build",
-    "local": "tsdx watch --entry ./local/server.ts --target node --onSuccess \"node ./dist\"",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "generate": "graphql-codegen --config codegen.yml"
