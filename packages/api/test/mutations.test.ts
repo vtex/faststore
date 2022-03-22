@@ -29,7 +29,7 @@ beforeAll(async () => {
   context = contextFactory({})
 })
 
-test('`validateCart` mutation, returning `null`', async () => {
+test('`validateCart` mutation should return `null` when a valid cart is passed', async () => {
   const response = await execute(
     schema,
     parse(ValidateCartMutation),
@@ -41,7 +41,7 @@ test('`validateCart` mutation, returning `null`', async () => {
   expect(response).toEqual({ data: { validateCart: null } })
 })
 
-test('`validateCart` mutation, returning full order', async () => {
+test('`validateCart` mutation should return the full order when an invalid cart is passed', async () => {
   const response = await execute(
     schema,
     parse(ValidateCartMutation),
