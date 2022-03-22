@@ -24,12 +24,14 @@ export const sortOfferByPrice = (
 
 export const StoreAggregateOffer: Record<string, Resolvers> = {
   highPrice: ({ items }) => {
-    const highPrice = items[items.length - 1]?.sellingPrice
+    const availableItems = items.filter(inStock)
+    const highPrice = availableItems.pop()?.sellingPrice
 
     return (highPrice ?? 0) / 1e2
   },
   lowPrice: ({ items }) => {
-    const lowPrice = items[0]?.sellingPrice
+    const availableItems = items.filter(inStock)
+    const lowPrice = availableItems[0]?.sellingPrice
 
     return (lowPrice ?? 0) / 1e2
   },
