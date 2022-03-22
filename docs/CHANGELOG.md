@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.15 (2022-03-22)
+
+
+### Bug Fixes
+
+* Fix some typos ([#1183](https://github.com/vtex/faststore/issues/1183)) ([97fffb0](https://github.com/vtex/faststore/commit/97fffb02d9cc72f07926bc1a9bc684a99d623765))
+
+
+
+
+
 ## 1.6.14 (2022-03-21)
 
 **Note:** Version bump only for package docs
