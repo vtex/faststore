@@ -1,30 +1,28 @@
 import express from 'express'
 import { graphqlHTTP } from 'express-graphql'
 
+import type { Options } from '../src'
 import { getSchema, getContextFactory } from '../src'
 
-const port = '4000'
+const serverPort = '4000'
+
+const apiOptions = {
+  platform: 'vtex',
+  account: 'storeframework',
+  environment: 'vtexcommercestable',
+  channel: '1',
+} as Options
+
+const graphQLContext = getContextFactory(apiOptions)
 
 const app = express()
 
 app.use(express.json())
 
-const graphQLContext = getContextFactory({
-  platform: 'vtex',
-  account: 'storeframework',
-  environment: 'vtexcommercestable',
-  channel: '1',
-})
-
 app.use(
   '/graphql',
   graphqlHTTP(async () => {
-    const schema = await getSchema({
-      platform: 'vtex',
-      account: 'storeframework',
-      environment: 'vtexcommercestable',
-      channel: '1',
-    })
+    const schema = await getSchema(apiOptions)
 
     return {
       schema,
@@ -35,7 +33,7 @@ app.use(
   })
 )
 
-app.listen(port)
+app.listen(serverPort)
 
 // eslint-disable-next-line no-console
-console.log(`🚀 GraphQL server ready at http://localhost:${port}/graphql`)
+console.log(`🚀 GraphQL server ready at http://localhost:${serverPort}/graphql`)
