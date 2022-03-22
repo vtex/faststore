@@ -5,46 +5,46 @@ describe('AggregateOffer', () => {
     const sorted = sortOfferByPrice([
       {
         sellingPrice: 10,
-        availability: 'https://schema.org/InStock',
+        availability: 'available',
       },
       {
         sellingPrice: 20,
-        availability: 'https://schema.org/OutOfStock',
+        availability: 'unavailable',
       },
       {
         sellingPrice: 30,
-        availability: 'https://schema.org/InStock',
+        availability: 'available',
       },
       {
         sellingPrice: 10,
-        availability: 'https://schema.org/OutOfStock',
+        availability: 'unavailable',
       },
       {
         sellingPrice: 1,
-        availability: 'https://schema.org/InStock',
+        availability: 'available',
       },
     ] as any)
 
     expect(sorted).toEqual([
       {
         sellingPrice: 1,
-        availability: 'https://schema.org/InStock',
+        availability: 'available',
       },
       {
         sellingPrice: 10,
-        availability: 'https://schema.org/InStock',
+        availability: 'available',
       },
       {
         sellingPrice: 30,
-        availability: 'https://schema.org/InStock',
+        availability: 'available',
       },
       {
         sellingPrice: 10,
-        availability: 'https://schema.org/OutOfStock',
+        availability: 'unavailable',
       },
       {
         sellingPrice: 20,
-        availability: 'https://schema.org/OutOfStock',
+        availability: 'unavailable',
       },
     ])
   })

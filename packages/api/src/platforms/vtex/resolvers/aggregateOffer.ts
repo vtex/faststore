@@ -4,7 +4,7 @@ import type { Simulation } from '../clients/commerce/types/Simulation'
 type Resolvers = (root: Simulation & { product: EnhancedSku }) => unknown
 
 const inStock = (item: Simulation['items'][0]) =>
-  item.availability === 'https://schema.org/InStock'
+  item.availability === 'available'
 
 // Smallest Available Selling Price First
 export const sortOfferByPrice = (
