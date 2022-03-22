@@ -16,7 +16,12 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
     { children, onClick, testId = 'store-dropdown-item', ...otherProps },
     ref
   ) {
-    const { dropdownItemsRef, selectedDropdownItemRef, close } = useDropdown()
+    const {
+      dropdownItemsRef,
+      selectedDropdownItemIndexRef,
+      close,
+    } = useDropdown()
+
     const [dropdownItemIndex, setDropdownItemIndex] = useState(0)
     const dropdownItemRef = useRef<HTMLButtonElement>()
 
@@ -32,11 +37,11 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
     }
 
     const onFocusItem = () => {
-      selectedDropdownItemRef!.current = dropdownItemIndex
-      dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
+      selectedDropdownItemIndexRef!.current = dropdownItemIndex
+      dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
     }
 
-    const handlerOnClickItem = (
+    const handleOnClickItem = (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
       onClick?.(event)
@@ -52,7 +57,7 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
         ref={addToRefs}
         onFocus={onFocusItem}
         onMouseEnter={onFocusItem}
-        onClick={handlerOnClickItem}
+        onClick={handleOnClickItem}
         role="menuitem"
         tabIndex={-1}
         data-index={dropdownItemIndex}

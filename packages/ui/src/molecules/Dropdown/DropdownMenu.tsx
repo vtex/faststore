@@ -50,7 +50,7 @@ const DropdownMenu = ({
     close,
     onDismiss,
     dropdownItemsRef,
-    selectedDropdownItemRef,
+    selectedDropdownItemIndexRef,
     id,
   } = useDropdown()
 
@@ -69,33 +69,33 @@ const DropdownMenu = ({
   }
 
   const handlerDownPress = () => {
-    if (selectedDropdownItemRef!.current < childrenLenght - 1) {
-      selectedDropdownItemRef!.current++
+    if (selectedDropdownItemIndexRef!.current < childrenLenght - 1) {
+      selectedDropdownItemIndexRef!.current++
     } else {
-      selectedDropdownItemRef!.current = 0
+      selectedDropdownItemIndexRef!.current = 0
     }
 
-    dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
+    dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
   }
 
   const handlerUpPress = () => {
-    if (selectedDropdownItemRef!.current > 0) {
-      selectedDropdownItemRef!.current--
+    if (selectedDropdownItemIndexRef!.current > 0) {
+      selectedDropdownItemIndexRef!.current--
     } else {
-      selectedDropdownItemRef!.current = childrenLenght - 1
+      selectedDropdownItemIndexRef!.current = childrenLenght - 1
     }
 
-    dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
+    dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
   }
 
   const handlerHomePress = () => {
-    selectedDropdownItemRef!.current = 0
-    dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
+    selectedDropdownItemIndexRef!.current = 0
+    dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
   }
 
   const handlerEndPress = () => {
-    selectedDropdownItemRef!.current = childrenLenght - 1
-    dropdownItemsRef?.current[selectedDropdownItemRef!.current]?.focus()
+    selectedDropdownItemIndexRef!.current = childrenLenght - 1
+    dropdownItemsRef?.current[selectedDropdownItemIndexRef!.current]?.focus()
   }
 
   const handlerEscapePress = () => {
