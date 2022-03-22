@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`\`validateCart\` mutation, returning full order 1`] = `
+exports[`\`validateCart\` mutation should return the full order when an invalid cart is passed 1`] = `
 Object {
   "data": Object {
     "validateCart": Object {
