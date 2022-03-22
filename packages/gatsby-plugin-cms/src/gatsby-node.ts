@@ -109,7 +109,7 @@ export const sourceNodes = async (
 
   // Fresh build. Let's source all data
   // Warning: Do not source remote and local nodes in a different order since this
-  // is important for the local nodes not to overrider remote ones
+  // is important for the local nodes not to override remote ones
   const nodes = await Promise.all([
     fetchAllRemoteNodes(gatsbyApi, options),
     fetchAllLocalNodes(gatsbyApi),
@@ -224,7 +224,7 @@ export const createPages = async ({ graphql, reporter }: CreatePagesArgs) => {
 
   if (errors && errors.length > 0) {
     reporter.panicOnBuild(
-      'Seomething went wrong while querying site metadata',
+      'Something went wrong while querying site metadata',
       errors
     )
   }
