@@ -16,10 +16,10 @@ const Dropdown = ({
   onDismiss,
   id = 'store-dropdown',
 }: DropdownProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(isOpenDefault)
   const dropdownItemsRef = useRef<HTMLButtonElement[]>([])
   const selectedDropdownItemRef = useRef(0)
-  const buttonDropdownRef = useRef<HTMLButtonElement>(null)
+  const dropdownButtonRef = useRef<HTMLButtonElement>(null)
 
   const close = () => {
     setIsOpen(false)
@@ -47,7 +47,7 @@ const Dropdown = ({
       close,
       open,
       toggle,
-      buttonDropdownRef,
+      dropdownButtonRef,
       onDismiss,
       selectedDropdownItemRef,
       dropdownItemsRef,

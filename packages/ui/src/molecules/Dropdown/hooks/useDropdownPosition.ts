@@ -11,12 +11,12 @@ type DropdownPosition = {
  * @returns Style with positions.
  */
 export const useDropdownPosition = (): DropdownPosition => {
-  const { buttonDropdownRef } = useDropdown()
+  const { dropdownButtonRef } = useDropdown()
 
-  const topLevel = buttonDropdownRef?.current?.offsetTop ?? 0
-  const topOffset = buttonDropdownRef?.current?.offsetHeight ?? 0
+  const topLevel = dropdownButtonRef?.current?.offsetTop ?? 0
+  const topOffset = dropdownButtonRef?.current?.offsetHeight ?? 0
   const topPosition = topLevel + topOffset
-  const leftPosition = buttonDropdownRef?.current?.offsetLeft ?? 0
+  const leftPosition = dropdownButtonRef?.current?.offsetLeft ?? 0
 
   return {
     position: 'absolute',

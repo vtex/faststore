@@ -10,7 +10,6 @@ import { createPortal } from 'react-dom'
 
 import Overlay from '../../atoms/Overlay'
 import type { ModalContentProps } from '../Modal/ModalContent'
-import ModalContent from '../Modal/ModalContent'
 import { useDropdown } from './hooks/useDropdown'
 import { useDropdownPosition } from './hooks/useDropdownPosition'
 
@@ -137,17 +136,17 @@ const DropdownMenu = ({
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
         >
-          <ModalContent
+          <div
             role="menu"
             aria-orientation="vertical"
             data-store-dropdown-menu
-            testId={testId}
+            data-testid={testId}
             style={{ ...dropdownPosition, ...style }}
             id={id}
             {...otherProps}
           >
             {children}
-          </ModalContent>
+          </div>
         </Overlay>,
         document.body
       )

@@ -20,7 +20,7 @@ const SimpleDropdown = ({ onDismiss }: SimpleDropdownProps) => (
 )
 
 describe('Dropdown', () => {
-  it('Should render de DropdownButton component', () => {
+  it('Should render the DropdownButton component', () => {
     const { getByText, queryByTestId } = render(<SimpleDropdown />)
 
     expect(getByText(/Dropdown Button/g)).toBeInTheDocument()
@@ -86,13 +86,22 @@ describe('Accessibility', () => {
     return { dropdownItems, overlay, menu }
   }
 
-  it('should not have violations', async () => {
-    const { container } = render(<SimpleDropdown />)
+  it('Should not have violations', async () => {
+    const { getByText, getByTestId, container } = render(<SimpleDropdown />)
+
+    const dropdownButton = getByText(/Dropdown Button/g)
+
+    fireEvent.click(dropdownButton)
+
+    const menu = getByTestId('store-dropdown-menu')
 
     expect(await axe(container)).toHaveNoViolations()
+    expect(await axe(container)).toHaveNoIncompletes()
+    expect(await axe(menu)).toHaveNoViolations()
+    expect(await axe(menu)).toHaveNoIncompletes()
   })
 
-  it('Should close Dropdown menu when Escape key is clicked', async () => {
+  it('Should close Dropdown menu when Escape key is pressed', async () => {
     const { overlay, menu } = getDropdownStructures()
 
     fireEvent.keyDown(overlay, {
@@ -102,7 +111,7 @@ describe('Accessibility', () => {
     expect(menu).not.toBeInTheDocument()
   })
 
-  it('Should focus on second DropdownItem when ArrowDown key is clicked', async () => {
+  it('Should focus on second DropdownItem when ArrowDown key is pressed', async () => {
     const { overlay, dropdownItems } = getDropdownStructures()
 
     fireEvent.keyDown(overlay, {
@@ -112,7 +121,7 @@ describe('Accessibility', () => {
     expect(dropdownItems[1]).toHaveFocus()
   })
 
-  it('Should focus on second DropdownItem when ArrowUp key is clicked twice', () => {
+  it('Should focus on second DropdownItem when ArrowUp key is pressed twice', () => {
     const { overlay, dropdownItems } = getDropdownStructures()
 
     fireEvent.keyDown(overlay, {
@@ -125,7 +134,7 @@ describe('Accessibility', () => {
     expect(dropdownItems[1]).toHaveFocus()
   })
 
-  it('Should focus on last DropdownItem when End key is clicked', () => {
+  it('Should focus on last DropdownItem when End key is pressed', () => {
     const { overlay, dropdownItems } = getDropdownStructures()
 
     fireEvent.keyDown(overlay, {
@@ -135,7 +144,7 @@ describe('Accessibility', () => {
     expect(dropdownItems[2]).toHaveFocus()
   })
 
-  it('Should focus on last DropdownItem when First key is clicked', () => {
+  it('Should focus on first DropdownItem when Home key is pressed', () => {
     const { overlay, dropdownItems } = getDropdownStructures()
 
     fireEvent.keyDown(overlay, {

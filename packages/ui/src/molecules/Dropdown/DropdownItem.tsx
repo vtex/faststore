@@ -3,8 +3,8 @@ import React, { useImperativeHandle, forwardRef, useRef, useState } from 'react'
 
 import { useDropdown } from './hooks/useDropdown'
 
-export interface DropdownItemProps<T = HTMLButtonElement>
-  extends ButtonHTMLAttributes<T> {
+export interface DropdownItemProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */

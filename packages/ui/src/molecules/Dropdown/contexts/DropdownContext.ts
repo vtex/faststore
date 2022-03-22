@@ -8,7 +8,7 @@ export type DropdownContextState = {
   /**
    * Reference to DropdownButton, used to calculate a position for the DropdownMenu.
    */
-  buttonDropdownRef: React.RefObject<HTMLButtonElement> | null
+  dropdownButtonRef: React.RefObject<HTMLButtonElement> | null
   /**
    * Reference to a selected DropdownItem, used to manipulate focus.
    */
@@ -42,7 +42,7 @@ export type DropdownContextState = {
 
 const defaultState: DropdownContextState = {
   isOpen: false,
-  buttonDropdownRef: null,
+  dropdownButtonRef: null,
   selectedDropdownItemRef: null,
   dropdownItemsRef: null,
   id: 'store-dropdown',

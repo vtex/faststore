@@ -3,8 +3,8 @@ import React, { forwardRef, useImperativeHandle } from 'react'
 
 import { useDropdown } from './hooks/useDropdown'
 
-export interface DropdownButtonProps<T = HTMLButtonElement>
-  extends ButtonHTMLAttributes<T> {
+export interface DropdownButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -16,10 +16,10 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
     { children, testId = 'store-dropdown-button', ...otherProps },
     ref
   ) {
-    const { toggle, buttonDropdownRef, isOpen, id } = useDropdown()
+    const { toggle, dropdownButtonRef, isOpen, id } = useDropdown()
 
-    useImperativeHandle(ref, () => buttonDropdownRef!.current!, [
-      buttonDropdownRef,
+    useImperativeHandle(ref, () => dropdownButtonRef!.current!, [
+      dropdownButtonRef,
     ])
 
     return (
@@ -27,7 +27,7 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
         data-store-dropdown-button
         onClick={toggle}
         data-testid={testId}
-        ref={buttonDropdownRef}
+        ref={dropdownButtonRef}
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-controls={id}
