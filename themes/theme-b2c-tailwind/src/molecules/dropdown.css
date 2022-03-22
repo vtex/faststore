@@ -15,5 +15,5 @@
 [data-store-dropdown-menu] {
   @apply flex flex-col m-0;
   @apply border border-gray-700;
-  padding: 0 !important;
+  padding: 0;
 }
