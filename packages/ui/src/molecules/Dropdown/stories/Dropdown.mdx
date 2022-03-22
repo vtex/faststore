@@ -15,10 +15,10 @@ import DropdownMenu from '../DropdownMenu'
 
 The `Dropdown` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
 
-- `Dropdown`: the wrapper component, it can receive a `isOpen` and emit the event `onDismiss`, can be used as controleed component.
-- `DropdownButton`: the component that emit the trigger to open de DropdownMenu.
-- `DropdownItem`: Option for DropdownMenu.
-- `DropdownMenu`: the wrapper to dropdownItems.
+- `Dropdown`: the wrapper component, can receive an `isOpen` and emit the event `onDismiss`, which can be used as a controlled component.
+- `DropdownButton`: the button that emits the trigger to open de DropdownMenu.
+- `DropdownItem`: an option on DropdownMenu.
+- `DropdownMenu`: wraps a series of `DropdownItem`s.
 
 ## Props
 
