@@ -74,7 +74,7 @@ By the end of this part of this tutorial, you will be able to see your first def
                   "description": {
                     "title": "Meta tag description",
                     "type": "string",
-                    "default": "A beautifuly designed site for general VTEX stores"
+                    "default": "A beautifully designed site for general VTEX stores"
                   },
                   "titleTemplate": {
                     "title": "Title template to be used in category/product pages",
