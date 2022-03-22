@@ -5,7 +5,7 @@ import kebabHash from 'kebab-hash'
 import {
   CACHING_HEADERS,
   COMMON_BUNDLES,
-  ENV_VAR_HEADER_PREVIX,
+  ENV_VAR_HEADER_PREFIX,
   IMMUTABLE_CACHING_HEADER,
   INDEX_HTML,
   PAGE_DATA_DIR,
@@ -167,8 +167,8 @@ export function getGlobalHeaders(
 
   Object.keys(process.env).forEach((envVar) => {
     const isEnvVarHeader =
-      envVar.startsWith(ENV_VAR_HEADER_PREVIX) &&
-      envVar.length > ENV_VAR_HEADER_PREVIX.length
+      envVar.startsWith(ENV_VAR_HEADER_PREFIX) &&
+      envVar.length > ENV_VAR_HEADER_PREFIX.length
 
     if (!isEnvVarHeader) {
       return
@@ -176,7 +176,7 @@ export function getGlobalHeaders(
 
     // Normalizes header name. Headers with underscores are ignored by nginx anyway.
     const headerName = envVar
-      .slice(ENV_VAR_HEADER_PREVIX.length)
+      .slice(ENV_VAR_HEADER_PREFIX.length)
       .replace(/_/g, '-')
 
     rawGlobalHeaders[headerName] = process.env[envVar]!

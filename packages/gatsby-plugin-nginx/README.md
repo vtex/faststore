@@ -1,8 +1,8 @@
 # gatsby-plugin-nginx
 
-This plugin will output a `nginx.conf` template file at the root directory, containing *nginx* rules for every page, static asset, *createRedirect* call and pages with mistmatched *path*/*matchPath*.
+This plugin will output a `nginx.conf` template file at the root directory, containing *nginx* rules for every page, static asset, *createRedirect* call and pages with mismatched *path*/*matchPath*.
 
-[![NPM](https://img.shields.io/npm/v/@vtex/gatsby-plugin-nginx.svg)](https://www.npmjs.com/package/@vtex/gatsby-plugin-nginx) 
+[![NPM](https://img.shields.io/npm/v/@vtex/gatsby-plugin-nginx.svg)](https://www.npmjs.com/package/@vtex/gatsby-plugin-nginx)
 
 ## Hosting locally
 
@@ -15,6 +15,7 @@ sed -i -e 's/\$PORT/80/' public/nginx.conf && docker run --rm --name local_nginx
 If no errors occur, your site will be available at http://localhost
 
 All this one-liner does is:
+
 - Replace the `$PORT` placeholder with an arbitrary port (80)
 - Mount the generated configuration at `public/nginx.conf` to the default nginx path `/etc/nginx/nginx.conf`
 - Mount the `public` folder to the default nginx root folder at `/etc/nginx/html`
@@ -37,7 +38,6 @@ nginx -V
 
 ## Sample configuration
 
-
 ```js
 // gatsby-config.js
 module.exports = {
@@ -55,10 +55,14 @@ module.exports = {
           ]
 
           return path.includes('/preview')
-            ? [...DEFAULT_SECURITY_HEADERS, 'Content-Security-Policy: frame-src https://*.myvtex.com/', ...headers]
+            ? [
+                ...DEFAULT_SECURITY_HEADERS,
+                'Content-Security-Policy: frame-src https://*.myvtex.com/',
+                ...headers,
+              ]
             : ['X-Frame-Options: DENY', ...DEFAULT_SECURITY_HEADERS, ...headers]
         },
-      }
+      },
     },
   ],
 }
@@ -123,6 +127,7 @@ http {
 ---
 
 Every page and static asset are matched by an *exact match location*:
+
 ```nginx
 location = /gorgeous-watch/p {}
 ```
@@ -140,7 +145,7 @@ location ~* ^/api/.* {
 }
 ```
 
-~~Note that the `proxy_pass` call uses the original request path (the *nginx* variable `$uri` above), so any *createRedirect* call with mistmatching *paths* will cause this plugin to throw an error for now. Let me (@cezar) know if we want/need to support this scenario.~~
+~~Note that the `proxy_pass` call uses the original request path (the *nginx* variable `$uri` above), so any *createRedirect* call with mismatching *paths* will cause this plugin to throw an error for now. Let me (@cezar) know if we want/need to support this scenario.~~
 
 ---
 
@@ -164,7 +169,7 @@ location @s3 {
 }
 ```
 
-This location, similary to the others, will try and proxy the request to our storage, but this time we will intercept proxy errors, and in such case that a file does not exist on storage (i.e, product pages that were not built), S3 returns a status code 403 and the `error_page` directive above will send the request to the location named `@clientSideFallback`:
+This location, similarly to the others, will try and proxy the request to our storage, but this time we will intercept proxy errors, and in such case that a file does not exist on storage (i.e, product pages that were not built), S3 returns a status code 403 and the `error_page` directive above will send the request to the location named `@clientSideFallback`:
 
 ```nginx
 location @clientSideFallback {
@@ -178,12 +183,14 @@ location @clientSideFallback {
 
 This location finally handles pages with mismatching *path* and *matchPath*.
 
-`createRedirect` with relative paths are not yet implemented. 
+`createRedirect` with relative paths are not yet implemented.
 
 ### Adding custom blocks to nginx config
-Our default nginx config may not be suited for all use cases. For those use cases where you need to enable/disable some extra flags in the `server` and `http` block you can use the `serverOptions` and `httpOptions` params respectively. 
+
+Our default nginx config may not be suited for all use cases. For those use cases where you need to enable/disable some extra flags in the `server` and `http` block you can use the `serverOptions` and `httpOptions` params respectively.
 
 For instance, say we don't want to use Google's dns server, but use the AWS one instead. One could configure the plugin like:
+
 ```js
 // gatsby-config.js
 module.exports = {
@@ -195,13 +202,14 @@ module.exports = {
       options: {
         // other options
         serverOptions: [['resolver', '169.254.169.253']],
-      }
+      },
     },
   ],
 }
 ```
 
-This will create an `nginx.conf` file similar to: 
+This will create an `nginx.conf` file similar to:
+
 ```
 ...
  server {

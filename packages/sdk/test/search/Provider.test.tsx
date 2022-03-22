@@ -76,7 +76,7 @@ test('SearchProvider: Set current page', async () => {
   expect(mock).toBeCalledWith(formatSearchState({ ...state, page }))
 })
 
-test('SearchProvider: selects a simple faect', async () => {
+test('SearchProvider: selects a simple facet', async () => {
   const facet1 = {
     key: 'price',
     value: '10:100',

@@ -217,7 +217,7 @@ export function convertToRegExp(path: string) {
     // allows '<path>/*' to serve '<path>' (without trailing slash)
     // this is necessary because we are now removing trailing slashes from incoming requests
     // so exact matches can work when there is a trailing slash
-    converted = converted.slice(0, -catchAll.length) + '(?:/(.*))?'
+    converted = `${converted.slice(0, -catchAll.length)}(?:/(.*))?`
   }
 
   const noTrailingSlashes = normalizePath(converted)
@@ -414,7 +414,7 @@ function generatePathLocation({
 }): NginxDirective | undefined {
   const proxyPassDirective = storagePassTemplate(path, files, options)
 
-  // Enforce returnin 404 status code for /404 page
+  // Enforce returning 404 status code for /404 page
   const returnDirective = path === '/404' ? [{ cmd: ['return', '404'] }] : []
 
   if (proxyPassDirective === undefined) {

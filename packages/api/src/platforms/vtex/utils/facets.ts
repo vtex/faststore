@@ -5,7 +5,7 @@ export interface SelectedFacet {
 
 /**
  * Transform facets from the store to VTEX platform facets.
- * For instance, the channel in Store becames trade-policy in VTEX's realm
+ * For instance, the channel in Store becomes trade-policy in VTEX's realm
  * */
 export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
   switch (key) {

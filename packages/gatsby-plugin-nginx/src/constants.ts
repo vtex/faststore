@@ -29,7 +29,7 @@ export const FILE_SERVE_DIRECTIVE_ENV_VAR = 'NGINX_SERVE_FILE_DIRECTIVE'
 export const DISABLE_BROTLI_ENV_VAR = 'NGINX_DISABLE_BROTLI'
 
 export const LOCATION_MODIFIERS = {
-  EXACT_MATCH: '=', // this block will be cons idered a match if the request URI exactly matches the location given.
+  EXACT_MATCH: '=', // this block will be considered a match if the request URI exactly matches the location given.
   CASE_SENSITIVE_REGEX_MATCH: '~', // this location will be interpreted as a case-sensitive regular expression match.
   CASE_INSENSITIVE_REGEX_MATCH: '~*', // the location block will be interpreted as a case-insensitive regular expression match.
   BEST_NON_REGEX_MATCH: '^~', // if this block is selected as the best non-regular expression match, regular expression matching will not take place.
@@ -39,4 +39,4 @@ export const FUNCTIONS_REDIRECTS_FILENAME = 'functions-redirects.json'
 
 export const FUNCTIONS_URL_PATH = '/functions'
 
-export const ENV_VAR_HEADER_PREVIX = 'NGINX_HEADER_'
+export const ENV_VAR_HEADER_PREFIX = 'NGINX_HEADER_'

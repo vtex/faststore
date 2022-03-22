@@ -76,11 +76,11 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
  * invalid according to the commerce platform, we return the new cart the UI should use
  * instead
  *
- * The algoritm is something like:
+ * The algorithm is something like:
  * 1. Fetch orderForm from VTEX
  * 2. Compute delta changes between the orderForm and the UI's cart
  * 3. Update the orderForm in VTEX platform accordingly
- * 4. If any chages were made, send to the UI the new cart. Null otherwise
+ * 4. If any changes were made, send to the UI the new cart. Null otherwise
  */
 export const validateCart = async (
   _: unknown,

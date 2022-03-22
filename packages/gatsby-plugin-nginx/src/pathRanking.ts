@@ -3,7 +3,7 @@
 //
 // Path ranking is necessary since gatsby uses this order to generate .cache/match-paths.json that is used internally in it's routing system.
 // If we don't use the same order as of gatsby, we risk to serve a different page from what's gatsby router would have served, leading to
-// all sort of wierd bugs
+// all sort of weird bugs
 const paramRe = /^:(.+)/
 
 const SEGMENT_POINTS = 4

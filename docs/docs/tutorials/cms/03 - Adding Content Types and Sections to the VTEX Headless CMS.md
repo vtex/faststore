@@ -73,7 +73,7 @@ values={[
                 "description": {
                   "title": "Meta tag description",
                   "type": "string",
-                  "default": "A beautifuly designed site for general VTEX stores"
+                  "default": "A beautifully designed site for general VTEX stores"
                 },
                 "titleTemplate": {
                   "title": "Title template to be used in category/product pages",
@@ -124,7 +124,7 @@ Also, notice that the `configurationSchemaSets` object must contain a `name`, wr
 For more information on how to write a `schema`, check the [`JSON Schema Reference`](https://json-schema.org/understanding-json-schema/index.html).
 :::
 
-After editing the `cms/content-tyoes.json` file, remember to save your changes and check them live by accessing the VTEX Admin at **CMS (alpha) > Pages (alpha)**. Click on **Create New** and check the available Content Type options. Click on **Institutional Page** to create a new **Institutional Page** and check the SEO tab.
+After editing the `cms/content-types.json` file, remember to save your changes and check them live by accessing the VTEX Admin at **CMS (alpha) > Pages (alpha)**. Click on **Create New** and check the available Content Type options. Click on **Institutional Page** to create a new **Institutional Page** and check the SEO tab.
 
 
 <details>
@@ -326,7 +326,7 @@ Copy and paste the following code in the `cms/content-types.json` file to try ou
                 "description": {
                   "title": "Meta tag description",
                   "type": "string",
-                  "default": "A beautifuly designed site for general VTEX stores"
+                  "default": "A beautifully designed site for general VTEX stores"
                 },
                 "titleTemplate": {
                   "title": "Title template to be used in category/product pages",
@@ -365,7 +365,7 @@ Copy and paste the following code in the `cms/content-types.json` file to try ou
                   "type": "string",
                   "title": "Description",
                   "description": "Site description when sharing on facebook",
-                  "default": "A beautifuly designed site for general VTEX stores"
+                  "default": "A beautifully designed site for general VTEX stores"
                 }
               }
             }
@@ -400,7 +400,7 @@ Copy and paste the following code in the `cms/content-types.json` file to try ou
                 "description": {
                   "title": "Meta tag description",
                   "type": "string",
-                  "default": "A beautifuly designed site for general VTEX stores"
+                  "default": "A beautifully designed site for general VTEX stores"
                 },
                 "titleTemplate": {
                   "title": "Title template to be used in category/product pages",

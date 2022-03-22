@@ -1,7 +1,9 @@
 # gatsby-plugin-cms
+
 This plugin links your gatsby site with VTEX's CMS datalayer.
 
 ## Installation
+
 To install `@vtex/gatsby-plugin-cms` in your project, just open your gatsby-config.js and add:
 
 ```
@@ -47,7 +49,8 @@ module.exports = {
 > Note: The siteUrl property must be defined and not left empty.
 
 ## Configuring CMS
-All CMS configuration is done by shadowing this plugin's `index.ts` file. The shadowing can be done by creating the folowing structure in your gatsby project
+
+All CMS configuration is done by shadowing this plugin's `index.ts` file. The shadowing can be done by creating the following structure in your gatsby project
 
 ```
 src/
@@ -59,6 +62,7 @@ src/
 The shadowed `index.ts` file must export one variable called `contentTypes`. This option is explained in detail below
 
 ### Adding Components and defining ContentTypes
+
 To tell the CMS how to configure and render your components you need to define a component schema. The component schema is written in Json Schema v6, a versatile description language for creating forms.
 
 For instance, a component description is something like:
@@ -118,10 +122,11 @@ export const contentTypes: ContentTypes = {
 You can read more about each property in the [CMS developer docs](https://vtex.io/)
 
 ### Querying data.
+
 After creating contents in the CMS, you will be able to query them into the Gatsby GraphQL layer.
 Each content type will have a corresponding type on the Gatsby GraphQL layer.
 
-For instace, let's supose you are defining the content type for your home page. In your home page you have a banner, 
+For instance, let's suppose you are defining the content type for your home page. In your home page you have a banner,
 and you have some information about the SEO of this page, like title and description tags.
 The following contentType definition is a valid solution:
 
@@ -158,7 +163,7 @@ The following contentType definition is a valid solution:
 }
 ```
 
-This, in turn, would generate types in your Gatsby GraphQL layer. To query these data you can do the follwing query:
+This, in turn, would generate types in your Gatsby GraphQL layer. To query these data you can do the following query:
 
 ```
 query HomePageQuery {
@@ -177,7 +182,8 @@ query HomePageQuery {
 }
 ```
 
-which would return the follwing json:
+which would return the following json:
+
 ```
 {
   data: {
@@ -198,8 +204,10 @@ which would return the follwing json:
 ```
 
 ## Native Types
-CMS plugin has pre-built blocks that speed up your content types creation. Think of this like a component library that you can import and stitch together to create the content type you desire. 
+
+CMS plugin has pre-built blocks that speed up your content types creation. Think of this like a component library that you can import and stitch together to create the content type you desire.
 These types include Carousel, Seo, and much more. To use it on your project, just:
+
 ```ts
 import { Carousel } from '@vtex/gatsby-plugin-cms'
 
@@ -220,16 +228,19 @@ export default {
 Check all available blocks, and their definition, at [`gatsby-plugin-cms/native-types`](https://github.com/vtex/faststore/tree/master/packages/gatsby-plugin-cms/src/native-types)
 
 ### VTEX modules and Native Types
-Some VTEX modules have first-class support in our CMS. To enable this support, you need to create your contentTypes with our native types for that specific module. 
+
+Some VTEX modules have first-class support in our CMS. To enable this support, you need to create your contentTypes with our native types for that specific module.
 Below you can find the doc and how these integrations work for each module.
 
 #### Catalog
-Sourcing Brands/Categories can be achieved by using `@vtex/gatsby-source-vtex` plugin. This plugin sources a `StoreCollection` node into the Gatsby's data layer containing basic info about a category and brand. Although being handy for creating pages using the [File System Route API](https://www.gatsbyjs.com/docs/reference/routing/file-system-route-api/), `StoreCollection` does not have enough data to create a rich PLP, with banners and much more. For this, you need to extend `StoreCollection` with more data. 
+
+Sourcing Brands/Categories can be achieved by using `@vtex/gatsby-source-vtex` plugin. This plugin sources a `StoreCollection` node into the Gatsby's data layer containing basic info about a category and brand. Although being handy for creating pages using the [File System Route API](https://www.gatsbyjs.com/docs/reference/routing/file-system-route-api/), `StoreCollection` does not have enough data to create a rich PLP, with banners and much more. For this, you need to extend `StoreCollection` with more data.
 To help you extend `StoreCollection` for your business users, we created a native type called `PLP` for the Product List Page.
 
 Whenever the CMS finds a node with the `PLP` signature, it will create a customization on the corresponding `StoreCollection` node adding this `PLP` as a foreign key on the `StoreCollection` node. This way, you can easily fetch all sections of the `PLP` when rendering the `StoreCollection` page, thus allowing you to add any information you want to the `PLP`.
 
 To use it, just add this to your cms config:
+
 ```ts
 import { PLP } from '@vtex/gatsby-plugin-cms'
 

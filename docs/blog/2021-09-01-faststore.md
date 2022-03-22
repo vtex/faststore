@@ -71,7 +71,7 @@ Now, we make the route `/{StoreCollection.slug}/`, for example, also respond at 
 - **Remove `gatsby-config.js` from `theme-store`** [#888](https://github.com/vtex/faststore/pull/888):
 To use different styling systems on different stores, we have removed `gatsby-config` from theme-store, virtually making it a plugin. 
 
-- **Upgrade Storybook version** [#905](https://github.com/vtex/faststore/pull/905): Upgrades are always welcoming, mainly when we are talking about bugs! To fix bugs in some storybook versions we have ipgrade the package version.
+- **Upgrade Storybook version** [#905](https://github.com/vtex/faststore/pull/905): Upgrades are always welcome, especially when we are talking about bugs! To fix bugs in some storybook versions we have to upgrade the package version.
 
 
 That's all, folks, for our Release Notes. It should be a cakewalk to keep up the good work! 

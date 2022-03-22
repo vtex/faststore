@@ -158,12 +158,12 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     )
   }
 
-  const promisses = [] as Array<() => Promise<void>>
+  const promises = [] as Array<() => Promise<void>>
 
   /**
    * Add VTEX bindings
    */
-  promisses.push(async () => {
+  promises.push(async () => {
     const activity = reporter.activityTimer(
       '[gatsby-source-vtex]: fetching VTEX Bindings'
     )
@@ -190,7 +190,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
    * Take a look at their docs for more info
    * https://github.com/gatsbyjs/gatsby-graphql-toolkit#how-it-works
    */
-  promisses.push(async () => {
+  promises.push(async () => {
     // Step1. Set up remote schema:
     const gatewaySchema = await options.getSchema()
     const schema = wrapSchema({
@@ -284,7 +284,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   })
 
   if (options.sourceCollections !== false) {
-    promisses.push(async () => {
+    promises.push(async () => {
       const config = { gatsbyApi, options }
 
       // TODO: Implement incremental build
@@ -292,7 +292,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     })
   }
 
-  await Promise.all(promisses.map((x) => x()))
+  await Promise.all(promises.map((x) => x()))
 }
 
 export const createPages = async (

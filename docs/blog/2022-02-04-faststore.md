@@ -58,7 +58,7 @@ The `PaymentMethods` component is no longer returning an accessibility error on 
 
 ### AccordionItem
 
-- ✨ **Add `prefixId` attribute to [AccordionItem](https://faststore.dev/reference/ui/molecules/Accordion#accordionitem)** - [#1118](https://github.com/vtex/faststore/pull/1118) The `prefixId` attribute, avoids the problem of having two Accordio IDs in the same page. 
+- ✨ **Add `prefixId` attribute to [AccordionItem](https://faststore.dev/reference/ui/molecules/Accordion#accordionitem)** - [#1118](https://github.com/vtex/faststore/pull/1118) The `prefixId` attribute, avoids the problem of having two Accordion IDs in the same page. 
 
 
 ### Starters
