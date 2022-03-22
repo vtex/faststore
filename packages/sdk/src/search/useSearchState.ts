@@ -200,7 +200,7 @@ export const reducer = (state: State, action: Action) => {
       return toggleFacets(state, action.payload)
 
     default:
-      throw new SDKError(`Uknown action of search state machine`)
+      throw new SDKError(`Unknown action of search state machine`)
   }
 }
 
