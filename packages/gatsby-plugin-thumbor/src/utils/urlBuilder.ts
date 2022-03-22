@@ -59,13 +59,13 @@ export const urlBuilder = (args: IUrlBuilderArgs<ThumborProps>) => {
     options.basePath ? options.basePath : `${options.server}/unsafe`,
   ]
 
-  // Add the trim parameter after unsafe if appliable
+  // Add the trim parameter after unsafe if applicable
   options.trim && urlComponents.push('trim')
 
   // Add the crop parameter if any
   options.manualCrop && urlComponents.push(cropSection(options.manualCrop))
 
-  // Add the fit-in parameter after crop if appliable
+  // Add the fit-in parameter after crop if applicable
   options.fitIn && urlComponents.push('fit-in')
 
   // Adds the final size parameter
@@ -84,13 +84,13 @@ export const urlBuilder = (args: IUrlBuilderArgs<ThumborProps>) => {
   finalSize += `${args.height}`
   urlComponents.push(finalSize)
 
-  // Adds the horizontal alignement after the size
+  // Adds the horizontal alignment after the size
   urlComponents.push(options.horizontalAlign ?? 'center')
 
-  // Adds the vertical alignement after the size
+  // Adds the vertical alignment after the size
   urlComponents.push(options.verticalAlign ?? 'middle')
 
-  // Adds the smart parameter if appliable
+  // Adds the smart parameter if applicable
   options.smart && urlComponents.push('smart')
 
   // Compile the filters and add them right before the URI
