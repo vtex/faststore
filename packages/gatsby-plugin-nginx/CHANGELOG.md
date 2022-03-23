@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.17 (2022-03-23)
+
+
+### Features
+
+* **UI:** Add dropdown component ([#1178](https://github.com/vtex/faststore/issues/1178)) ([e5153a6](https://github.com/vtex/faststore/commit/e5153a674c37bd2a8b4c65ae6f56eb5cabaf3fc8))
+
+
+
+
+
 ## 1.6.16 (2022-03-23)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-nginx
