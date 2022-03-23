@@ -1,6 +1,7 @@
+import { slugify } from '../utils/slugify'
 import type { Resolver } from '..'
 import type { EnhancedSku } from '../utils/enhanceSku'
-import { slugify } from '../utils/slugify'
+import { sortOfferByPrice } from './aggregateOffer'
 
 type Root = EnhancedSku
 
@@ -81,7 +82,11 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
 
     const simulation = await simulationLoader.load(items)
 
-    return { ...simulation, product }
+    return {
+      ...simulation,
+      items: sortOfferByPrice(simulation.items),
+      product,
+    }
   },
   isVariantOf: ({ isVariantOf }) => isVariantOf,
   additionalProperty: ({ attributes = [] }) =>
