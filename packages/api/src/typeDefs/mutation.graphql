@@ -14,5 +14,5 @@ type Mutation {
   # Returns the order if anything changed with the order. Null if the order is valid
   validateCart(cart: IStoreCart!): StoreCart
 
-  session(session: IStoreSession!): StoreSession!
+  updateSession(session: IStoreSession!): StoreSession!
 }

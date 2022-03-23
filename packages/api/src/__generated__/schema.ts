@@ -56,12 +56,12 @@ export type IStoreSession = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  session: StoreSession;
+  updateSession: StoreSession;
   validateCart?: Maybe<StoreCart>;
 };
 
 
-export type MutationSessionArgs = {
+export type MutationUpdateSessionArgs = {
   session: IStoreSession;
 };
 

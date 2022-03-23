@@ -1,28 +1,17 @@
 export interface Channel {
-  postalCode: string
-  regionId: string
-  salesChannel: string
+  regionId?: string
+  salesChannel?: string
 }
 
-export default class ChannelParser {
-  private _channel: string
-  private channel: Channel
-  constructor(channel: string) {
-    this._channel = channel
-    this.channel = this._parse()
-  }
-
-  private _parse(): Channel {
+export default class ChannelMarshal {
+  public static parse(channelString: string): Channel {
     try {
-      const parsedChannel = JSON.parse(this._channel)
+      const parsedChannel = JSON.parse(channelString) as Channel
 
-      this.channel = {
-        ...this.channel,
+      return {
         regionId: parsedChannel.regionId ?? '',
         salesChannel: parsedChannel.salesChannel ?? '',
       }
-
-      return this.channel
     } catch (error) {
       console.error(error)
 
@@ -30,17 +19,7 @@ export default class ChannelParser {
     }
   }
 
-  public parse(): Channel {
-    return this.channel
-  }
-
-  public stringify(): string {
-    return this._channel
-  }
-
-  public updateChannel(partialChannel: Partial<Channel>) {
-    this.channel = { ...this.channel, ...partialChannel }
-
-    this._channel = JSON.stringify(this.channel)
+  public static stringify(channel: Channel): string {
+    return JSON.stringify(channel)
   }
 }
