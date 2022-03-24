@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.18 (2022-03-24)
+
+
+### Features
+
+* **api:** Add session mutation ([#1176](https://github.com/vtex/faststore/issues/1176)) ([0306167](https://github.com/vtex/faststore/commit/030616739cc62d9b5aa55cdf532ee6dea0bd793c))
+
+
+
+
+
 ## 1.6.17 (2022-03-23)
 
 
