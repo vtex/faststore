@@ -1,0 +1,34 @@
+type WhoSawAlsoBought {
+  name: String!
+  productID: String!
+  slug: String!
+  gtin: String!
+  sku: String!
+  id: String!
+  image: [StoreImage!]!
+  brand: StoreBrand!
+  isVariantOf: StoreProductGroupCrossSelling!
+  offers: StoreProductCrossSellingAggregateOffer!
+}
+
+type StoreProductGroupCrossSelling {
+  productGroupID: String!
+  name: String!
+  additionalProperty: [StorePropertyValue!]!
+}
+
+type StoreProductCrossSellingAggregateOffer {
+  lowPrice: Float!
+  offers: [StoreCrossSellingOffer!]!
+}
+
+type StoreCrossSellingOffer {
+  listPrice: Float!
+  price: Float!
+  seller: StoreOrganization!
+  quantity: Int!
+}
+
+
+
+

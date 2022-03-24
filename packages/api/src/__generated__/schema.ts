@@ -194,6 +194,14 @@ export const enum StoreCollectionType {
   Department = 'Department'
 };
 
+export type StoreCrossSellingOffer = {
+  __typename?: 'StoreCrossSellingOffer';
+  listPrice: Scalars['Float'];
+  price: Scalars['Float'];
+  quantity: Scalars['Int'];
+  seller: StoreOrganization;
+};
+
 export type StoreFacet = {
   __typename?: 'StoreFacet';
   key: Scalars['String'];
@@ -287,12 +295,19 @@ export type StoreProduct = {
   seo: StoreSeo;
   sku: Scalars['String'];
   slug: Scalars['String'];
+  whoSawAlsoBought?: Maybe<Array<Maybe<WhoSawAlsoBought>>>;
 };
 
 export type StoreProductConnection = {
   __typename?: 'StoreProductConnection';
   edges: Array<StoreProductEdge>;
   pageInfo: StorePageInfo;
+};
+
+export type StoreProductCrossSellingAggregateOffer = {
+  __typename?: 'StoreProductCrossSellingAggregateOffer';
+  lowPrice: Scalars['Float'];
+  offers: Array<StoreCrossSellingOffer>;
 };
 
 export type StoreProductEdge = {
@@ -305,6 +320,13 @@ export type StoreProductGroup = {
   __typename?: 'StoreProductGroup';
   additionalProperty: Array<StorePropertyValue>;
   hasVariant: Array<StoreProduct>;
+  name: Scalars['String'];
+  productGroupID: Scalars['String'];
+};
+
+export type StoreProductGroupCrossSelling = {
+  __typename?: 'StoreProductGroupCrossSelling';
+  additionalProperty: Array<StorePropertyValue>;
   name: Scalars['String'];
   productGroupID: Scalars['String'];
 };
@@ -363,4 +385,18 @@ export const enum StoreStatus {
   Error = 'ERROR',
   Info = 'INFO',
   Warning = 'WARNING'
+};
+
+export type WhoSawAlsoBought = {
+  __typename?: 'WhoSawAlsoBought';
+  brand: StoreBrand;
+  gtin: Scalars['String'];
+  id: Scalars['String'];
+  image: Array<StoreImage>;
+  isVariantOf: StoreProductGroupCrossSelling;
+  name: Scalars['String'];
+  offers: StoreProductCrossSellingAggregateOffer;
+  productID: Scalars['String'];
+  sku: Scalars['String'];
+  slug: Scalars['String'];
 };

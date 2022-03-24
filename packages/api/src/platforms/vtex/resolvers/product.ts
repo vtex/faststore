@@ -94,4 +94,15 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
       name: attribute.key,
       value: attribute.value,
     })),
+  whoSawAlsoBought: async (product, _, ctx) => {
+    const products = await ctx.clients.commerce.catalog.whoSawAlsoBought(
+      product.isVariantOf.id
+    )
+
+    if (products) {
+      return products
+    }
+
+    return null
+  },
 }
