@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.20 (2022-03-24)
+
+
+### Bug Fixes
+
+* fix dropdown component bug ([#1192](https://github.com/vtex/faststore/issues/1192)) ([f188ac0](https://github.com/vtex/faststore/commit/f188ac0c59db5a0ef7a95eb2412d0bbcd024ae36))
+
+
+
+
+
 ## 1.6.19 (2022-03-24)
 
 
