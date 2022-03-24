@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.19 (2022-03-24)
+
+
+### Features
+
+* Add exports to dropdown ([#1188](https://github.com/vtex/faststore/issues/1188)) ([f24359a](https://github.com/vtex/faststore/commit/f24359a34439e0ec8d3069483c31a6f62fa6535d))
+
+
+
+
+
 ## 1.6.18 (2022-03-24)
 
 
