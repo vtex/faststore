@@ -44,12 +44,16 @@ export const OptimisticProvider = <T extends Item = Item>({
 
       setIsValidating(false)
       if (newCart != null) {
-        setCart(newCart)
+        setTimeout(() => {
+          setCart(newCart)
+        }, 0)
       }
     }
 
     // Enqueue validation
-    queue = queue.then(revalidate)
+    setTimeout(() => {
+      queue = queue.then(revalidate)
+    }, 0)
 
     return () => {
       cancel = true
