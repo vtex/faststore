@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-03-24",
+    "type": "Fixed",
+    "menu": "API Reference",
+    "category": "Integrating your storefront with the VTEX Headless CMS",
+    "path": "/tutorials/cms-overview",
+    "docs": [
+      {
+        "path": "/tutorials/cms/0",
+        "title": "Introducing the VTEX Headless CMS"
+      },
+    ]
+  },
+  {
     "date": "2022-03-10",
     "type": "Added",
     "menu": "API Reference",
