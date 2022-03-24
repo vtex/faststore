@@ -158,14 +158,16 @@ export const Query = {
     } = ctx
 
     const {
-      namespaces: { profile },
+      namespaces: { profile = null },
     } = await commerce.session()
 
-    return {
-      id: profile?.id?.value ?? '',
-      email: profile?.email?.value ?? '',
-      givenName: profile?.firstName?.value ?? '',
-      familyName: profile?.lastName?.value ?? '',
-    }
+    return (
+      profile && {
+        id: profile.id,
+        email: profile.email?.value ?? '',
+        givenName: profile.firstName?.value ?? '',
+        familyName: profile.lastName?.value ?? '',
+      }
+    )
   },
 }

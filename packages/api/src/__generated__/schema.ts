@@ -75,7 +75,7 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   allProducts: StoreProductConnection;
   collection: StoreCollection;
-  person: StorePerson;
+  person?: Maybe<StorePerson>;
   product: StoreProduct;
   search: StoreSearchResult;
 };
