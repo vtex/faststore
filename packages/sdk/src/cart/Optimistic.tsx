@@ -44,9 +44,7 @@ export const OptimisticProvider = <T extends Item = Item>({
 
       setIsValidating(false)
       if (newCart != null) {
-        setTimeout(() => {
-          setCart(newCart)
-        }, 0)
+        setCart(newCart)
       }
     }
 

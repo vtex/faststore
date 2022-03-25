@@ -45,9 +45,7 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
       const item = await getItem<T>(key)
 
       if (!cancel && item !== null) {
-        setTimeout(() => {
-          setData(item)
-        }, 0)
+        setData(item)
       }
     }
 
