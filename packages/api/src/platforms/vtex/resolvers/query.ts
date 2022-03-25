@@ -163,7 +163,7 @@ export const Query = {
 
     return (
       profile && {
-        id: profile.id,
+        id: profile.id?.value ?? '',
         email: profile.email?.value ?? '',
         givenName: profile.firstName?.value ?? '',
         familyName: profile.lastName?.value ?? '',
