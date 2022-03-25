@@ -49,7 +49,7 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
       }
     }
 
-    effect()
+    setTimeout(effect, 0)
 
     return () => {
       cancel = true
