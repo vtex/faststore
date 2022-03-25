@@ -1,14 +1,13 @@
 import type {
   AriaAttributes,
   KeyboardEvent,
-  MouseEvent,
   PropsWithChildren,
   ReactElement,
+  MouseEvent,
 } from 'react'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
-import Overlay from '../../atoms/Overlay'
 import type { ModalContentProps } from '../Modal/ModalContent'
 import { useDropdown } from './hooks/useDropdown'
 import { useDropdownPosition } from './hooks/useDropdownPosition'
@@ -48,7 +47,6 @@ const DropdownMenu = ({
   const {
     isOpen,
     close,
-    onDismiss,
     dropdownItemsRef,
     selectedDropdownItemIndexRef,
     id,
@@ -57,16 +55,6 @@ const DropdownMenu = ({
   const dropdownPosition = useDropdownPosition()
 
   const childrenLength = children.length
-
-  const handleBackdropClick = (event: MouseEvent) => {
-    if (event.defaultPrevented) {
-      return
-    }
-
-    event.stopPropagation()
-    onDismiss?.()
-    close?.()
-  }
 
   const handleDownPress = () => {
     if (selectedDropdownItemIndexRef!.current < childrenLength - 1) {
@@ -99,7 +87,6 @@ const DropdownMenu = ({
   }
 
   const handleEscapePress = () => {
-    onDismiss?.()
     close?.()
   }
 
@@ -131,9 +118,9 @@ const DropdownMenu = ({
 
   return isOpen
     ? createPortal(
-        <Overlay
+        <div
+          role="presentation"
           data-store-dropdown-overlay
-          onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
         >
           <div
@@ -147,7 +134,7 @@ const DropdownMenu = ({
           >
             {children}
           </div>
-        </Overlay>,
+        </div>,
         document.body
       )
     : clearChildrenReferences()
