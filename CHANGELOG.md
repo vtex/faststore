@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.22 (2022-03-25)
+
+
+### Features
+
+* **sdk:** Improve useStorage and Optimistic revalidate effect ([#1186](https://github.com/vtex/faststore/issues/1186)) ([08c616b](https://github.com/vtex/faststore/commit/08c616be4c6bc5a215da7ab0c37ff2731aa09f9a))
+
+
+
+
+
 ## 1.6.21 (2022-03-25)
 
 **Note:** Version bump only for package faststore
