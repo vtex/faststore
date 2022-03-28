@@ -24,6 +24,7 @@ const Dropdown = ({
   const close = useCallback(() => {
     setIsOpen(false)
     onDismiss?.()
+    dropdownButtonRef.current?.focus()
   }, [onDismiss])
 
   const open = () => {
@@ -32,7 +33,10 @@ const Dropdown = ({
 
   const toggle = useCallback(() => {
     setIsOpen((old) => {
-      old && onDismiss?.()
+      if (old) {
+        onDismiss?.()
+        dropdownButtonRef.current?.focus()
+      }
 
       return !old
     })
