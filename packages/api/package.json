@@ -14,7 +14,8 @@
     "node": ">=12"
   },
   "scripts": {
-    "develop": "concurrently \"yarn generate -w\" \"tsdx watch\"",
+    "develop": "tsdx watch --entry ./local/server.ts --target node --onSuccess \"node ./dist\"",
+    "develop:no-server": "concurrently \"yarn generate -w\" \"tsdx watch\"",
     "build": "graphql-codegen --config codegen.yml && tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
@@ -32,8 +33,9 @@
   "devDependencies": {
     "@graphql-codegen/cli": "2.2.0",
     "@graphql-codegen/typescript": "2.2.2",
-    "babel-jest": "^27.1.1",
     "concurrently": "^6.2.1",
+    "express": "^4.17.3",
+    "express-graphql": "^0.12.0",
     "jest-transform-graphql": "^2.1.0",
     "ts-jest": "25.5.1",
     "tsdx": "^0.14.1",
