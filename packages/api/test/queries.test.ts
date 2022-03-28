@@ -17,6 +17,7 @@ const apiOptions = {
   account: 'storeframework',
   environment: 'vtexcommercestable',
   channel: '1',
+  hideUnavailableItems: false,
 } as Options
 
 beforeAll(async () => {
