@@ -1,6 +1,7 @@
 import type { GraphQLSchema } from 'graphql'
 import { execute, parse } from 'graphql'
 
+import type { Options } from '../src'
 import { getSchema, getContextFactory } from '../src'
 import { AllCollectionsQueryFirst5 } from '../mocks/AllCollectionsQuery'
 import { AllProductsQueryFirst5 } from '../mocks/AllProductsQuery'
@@ -11,20 +12,17 @@ import { SearchQueryFirst5Products } from '../mocks/SearchQuery'
 let schema: GraphQLSchema
 let context: Record<string, any>
 
-beforeAll(async () => {
-  schema = await getSchema({
-    platform: 'vtex',
-    account: 'storecomponents',
-    environment: 'vtexcommercestable',
-    channel: '1',
-  })
+const apiOptions = {
+  platform: 'vtex',
+  account: 'storecomponents',
+  environment: 'vtexcommercestable',
+  channel: '1',
+} as Options
 
-  const contextFactory = getContextFactory({
-    platform: 'vtex',
-    account: 'storeframework',
-    environment: 'vtexcommercestable',
-    channel: '1',
-  })
+beforeAll(async () => {
+  schema = await getSchema(apiOptions)
+
+  const contextFactory = getContextFactory(apiOptions)
 
   context = contextFactory({})
 })
