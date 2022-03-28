@@ -186,130 +186,6 @@ Object {
         Object {
           "cursor": "0",
           "node": Object {
-            "description": "Reprehenderit harum qui odio inventore sit incidunt illo facere.",
-            "gtin": "0969910297117",
-            "image": Array [
-              Object {
-                "alternateName": "ab",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/182417/aut.jpg?v=637755531474870000",
-              },
-            ],
-            "isVariantOf": Object {
-              "hasVariant": Array [
-                Object {
-                  "name": "silver",
-                  "sku": "18643698",
-                },
-                Object {
-                  "name": "red",
-                  "sku": "8665813",
-                },
-              ],
-              "name": "Tasty Granite Towels Tasty",
-              "productGroupID": "55127871",
-            },
-            "name": "silver",
-            "offers": Object {
-              "highPrice": 44.24,
-              "lowPrice": 44.24,
-              "offerCount": 1,
-              "offers": Array [
-                Object {
-                  "availability": "https://schema.org/InStock",
-                  "itemCondition": "https://schema.org/NewCondition",
-                  "itemOffered": Object {
-                    "name": "silver",
-                    "sku": "18643698",
-                  },
-                  "listPrice": 69.14,
-                  "price": 44.24,
-                  "priceCurrency": "",
-                  "quantity": 1,
-                  "seller": Object {
-                    "identifier": "1",
-                  },
-                  "sellingPrice": 44.24,
-                },
-              ],
-              "priceCurrency": "",
-            },
-            "productID": "18643698",
-            "review": Array [],
-            "seo": Object {
-              "canonical": "",
-              "description": "Reprehenderit harum qui odio inventore sit incidunt illo facere.",
-              "title": "Tasty Granite Towels Tasty",
-              "titleTemplate": "",
-            },
-            "sku": "18643698",
-            "slug": "tasty-granite-towels-tasty-18643698",
-          },
-        },
-        Object {
-          "cursor": "1",
-          "node": Object {
-            "description": "Reprehenderit harum qui odio inventore sit incidunt illo facere.",
-            "gtin": "1918904587371",
-            "image": Array [
-              Object {
-                "alternateName": "eligendi",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/182418/et.jpg?v=637755531489400000",
-              },
-            ],
-            "isVariantOf": Object {
-              "hasVariant": Array [
-                Object {
-                  "name": "silver",
-                  "sku": "18643698",
-                },
-                Object {
-                  "name": "red",
-                  "sku": "8665813",
-                },
-              ],
-              "name": "Tasty Granite Towels Tasty",
-              "productGroupID": "55127871",
-            },
-            "name": "red",
-            "offers": Object {
-              "highPrice": 622.79,
-              "lowPrice": 622.79,
-              "offerCount": 1,
-              "offers": Array [
-                Object {
-                  "availability": "https://schema.org/InStock",
-                  "itemCondition": "https://schema.org/NewCondition",
-                  "itemOffered": Object {
-                    "name": "red",
-                    "sku": "8665813",
-                  },
-                  "listPrice": 949.45,
-                  "price": 622.79,
-                  "priceCurrency": "",
-                  "quantity": 1,
-                  "seller": Object {
-                    "identifier": "1",
-                  },
-                  "sellingPrice": 622.79,
-                },
-              ],
-              "priceCurrency": "",
-            },
-            "productID": "8665813",
-            "review": Array [],
-            "seo": Object {
-              "canonical": "",
-              "description": "Reprehenderit harum qui odio inventore sit incidunt illo facere.",
-              "title": "Tasty Granite Towels Tasty",
-              "titleTemplate": "",
-            },
-            "sku": "8665813",
-            "slug": "tasty-granite-towels-tasty-8665813",
-          },
-        },
-        Object {
-          "cursor": "2",
-          "node": Object {
             "description": "Iure eum pariatur provident dolorem et.",
             "gtin": "6464716212392",
             "image": Array [
@@ -378,7 +254,7 @@ Object {
           },
         },
         Object {
-          "cursor": "3",
+          "cursor": "1",
           "node": Object {
             "description": "Sed nostrum est nostrum quo ipsum et ut asperiores quasi.",
             "gtin": "4454274563902",
@@ -448,7 +324,7 @@ Object {
           },
         },
         Object {
-          "cursor": "4",
+          "cursor": "2",
           "node": Object {
             "description": "Laborum non soluta accusamus ut repellat dolorum.",
             "gtin": "2084120969524",
@@ -518,7 +394,7 @@ Object {
           },
         },
         Object {
-          "cursor": "5",
+          "cursor": "3",
           "node": Object {
             "description": "Laborum non soluta accusamus ut repellat dolorum.",
             "gtin": "8869428115906",
@@ -588,7 +464,7 @@ Object {
           },
         },
         Object {
-          "cursor": "6",
+          "cursor": "4",
           "node": Object {
             "description": "Laborum non soluta accusamus ut repellat dolorum.",
             "gtin": "2864754656701",
@@ -658,7 +534,7 @@ Object {
           },
         },
         Object {
-          "cursor": "7",
+          "cursor": "5",
           "node": Object {
             "description": "Aut omnis nobis tenetur.",
             "gtin": "1346198062637",
@@ -725,6 +601,76 @@ Object {
             },
             "sku": "64953394",
             "slug": "unbranded-concrete-table-small-64953394",
+          },
+        },
+        Object {
+          "cursor": "6",
+          "node": Object {
+            "description": "Corporis quasi assumenda ratione.",
+            "gtin": "8942045886814",
+            "image": Array [
+              Object {
+                "alternateName": "alias",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/179022/possimus.jpg?v=637755499912700000",
+              },
+              Object {
+                "alternateName": "ipsum",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/179019/tenetur.jpg?v=637755499903770000",
+              },
+              Object {
+                "alternateName": "cumque",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/179020/vero.jpg?v=637755499907070000",
+              },
+              Object {
+                "alternateName": "facilis",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/179021/maiores.jpg?v=637755499910030000",
+              },
+            ],
+            "isVariantOf": Object {
+              "hasVariant": Array [
+                Object {
+                  "name": "maroon",
+                  "sku": "63114505",
+                },
+              ],
+              "name": "Tasty Rubber Tuna Rustic",
+              "productGroupID": "50513940",
+            },
+            "name": "maroon",
+            "offers": Object {
+              "highPrice": 217.67,
+              "lowPrice": 217.67,
+              "offerCount": 1,
+              "offers": Array [
+                Object {
+                  "availability": "https://schema.org/InStock",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "itemOffered": Object {
+                    "name": "maroon",
+                    "sku": "63114505",
+                  },
+                  "listPrice": 313.9,
+                  "price": 217.67,
+                  "priceCurrency": "",
+                  "quantity": 1,
+                  "seller": Object {
+                    "identifier": "1",
+                  },
+                  "sellingPrice": 217.67,
+                },
+              ],
+              "priceCurrency": "",
+            },
+            "productID": "63114505",
+            "review": Array [],
+            "seo": Object {
+              "canonical": "",
+              "description": "Corporis quasi assumenda ratione.",
+              "title": "Tasty Rubber Tuna Rustic",
+              "titleTemplate": "",
+            },
+            "sku": "63114505",
+            "slug": "tasty-rubber-tuna-rustic-63114505",
           },
         },
       ],
@@ -977,78 +923,6 @@ Object {
                 "reviewCount": 0,
               },
               "brand": Object {
-                "name": "Nike",
-              },
-              "description": "Reprehenderit harum qui odio inventore sit incidunt illo facere.",
-              "gtin": "0969910297117",
-              "image": Array [
-                Object {
-                  "alternateName": "ab",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/182417/aut.jpg?v=637755531474870000",
-                },
-              ],
-              "isVariantOf": Object {
-                "additionalProperty": Array [],
-                "hasVariant": Array [
-                  Object {
-                    "name": "silver",
-                    "productID": "18643698",
-                    "sku": "18643698",
-                    "slug": "tasty-granite-towels-tasty-18643698",
-                  },
-                  Object {
-                    "name": "red",
-                    "productID": "8665813",
-                    "sku": "8665813",
-                    "slug": "tasty-granite-towels-tasty-8665813",
-                  },
-                ],
-                "name": "Tasty Granite Towels Tasty",
-                "productGroupID": "55127871",
-              },
-              "name": "silver",
-              "offers": Object {
-                "highPrice": 44.24,
-                "lowPrice": 44.24,
-                "offerCount": 1,
-                "offers": Array [
-                  Object {
-                    "availability": "https://schema.org/InStock",
-                    "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
-                        "canonical": "",
-                        "description": "Reprehenderit harum qui odio inventore sit incidunt illo facere.",
-                        "title": "Tasty Granite Towels Tasty",
-                        "titleTemplate": "",
-                      },
-                    },
-                    "listPrice": 69.14,
-                    "price": 44.24,
-                    "quantity": 1,
-                    "seller": Object {
-                      "identifier": "1",
-                    },
-                    "sellingPrice": 44.24,
-                  },
-                ],
-                "priceCurrency": "",
-              },
-              "productID": "18643698",
-              "review": Array [],
-              "sku": "18643698",
-              "slug": "tasty-granite-towels-tasty-18643698",
-            },
-          },
-          Object {
-            "cursor": "1",
-            "node": Object {
-              "additionalProperty": Array [],
-              "aggregateRating": Object {
-                "ratingValue": 5,
-                "reviewCount": 0,
-              },
-              "brand": Object {
                 "name": "iRobot",
               },
               "description": "Sed nostrum est nostrum quo ipsum et ut asperiores quasi.",
@@ -1119,7 +993,7 @@ Object {
             },
           },
           Object {
-            "cursor": "2",
+            "cursor": "1",
             "node": Object {
               "additionalProperty": Array [],
               "aggregateRating": Object {
@@ -1197,7 +1071,7 @@ Object {
             },
           },
           Object {
-            "cursor": "3",
+            "cursor": "2",
             "node": Object {
               "additionalProperty": Array [],
               "aggregateRating": Object {
@@ -1267,7 +1141,7 @@ Object {
             },
           },
           Object {
-            "cursor": "4",
+            "cursor": "3",
             "node": Object {
               "additionalProperty": Array [],
               "aggregateRating": Object {
@@ -1336,6 +1210,76 @@ Object {
               "review": Array [],
               "sku": "68237302",
               "slug": "refined-metal-computer-68237302",
+            },
+          },
+          Object {
+            "cursor": "4",
+            "node": Object {
+              "additionalProperty": Array [],
+              "aggregateRating": Object {
+                "ratingValue": 5,
+                "reviewCount": 0,
+              },
+              "brand": Object {
+                "name": "Brand",
+              },
+              "description": "Cumque eos consequatur recusandae voluptatum vero optio.",
+              "gtin": "8187289187417",
+              "image": Array [
+                Object {
+                  "alternateName": "debitis",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/158554/quasi.jpg?v=637752901714930000",
+                },
+                Object {
+                  "alternateName": "voluptatem",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/158553/qui.jpg?v=637752901712270000",
+                },
+              ],
+              "isVariantOf": Object {
+                "additionalProperty": Array [],
+                "hasVariant": Array [
+                  Object {
+                    "name": "salmon",
+                    "productID": "28017861",
+                    "sku": "28017861",
+                    "slug": "incredible-fresh-fish-28017861",
+                  },
+                ],
+                "name": "Incredible Fresh Fish",
+                "productGroupID": "63474268",
+              },
+              "name": "salmon",
+              "offers": Object {
+                "highPrice": 431.48,
+                "lowPrice": 431.48,
+                "offerCount": 1,
+                "offers": Array [
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Cumque eos consequatur recusandae voluptatum vero optio.",
+                        "title": "Incredible Fresh Fish",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 659.7,
+                    "price": 431.48,
+                    "quantity": 1,
+                    "seller": Object {
+                      "identifier": "1",
+                    },
+                    "sellingPrice": 431.48,
+                  },
+                ],
+                "priceCurrency": "",
+              },
+              "productID": "28017861",
+              "review": Array [],
+              "sku": "28017861",
+              "slug": "incredible-fresh-fish-28017861",
             },
           },
         ],
