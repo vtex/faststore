@@ -84,3 +84,4 @@ Now you're ready to start defining which Content Types and Sections will be edit
 ## Related resources
 
 - [VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference)
+
