@@ -55,7 +55,7 @@ const QUERIES = [
   'person',
 ]
 
-const MUTATIONS = ['validateCart']
+const MUTATIONS = ['validateCart', 'updateSession']
 
 let schema: GraphQLSchema
 
