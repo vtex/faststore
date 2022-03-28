@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.23 (2022-03-28)
+
+
+### Bug Fixes
+
+* fix breadcrumb component bug ([#1193](https://github.com/vtex/faststore/issues/1193)) ([f36ba81](https://github.com/vtex/faststore/commit/f36ba814ed679523d8c1f030c31a086a9e5bb190))
+
+
+
+
+
 ## 1.6.22 (2022-03-25)
 
 
