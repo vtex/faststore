@@ -76,8 +76,6 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
     },
     ref
   ) {
-    const lastIndex = React.Children.count(children)
-
     return (
       <nav
         aria-label="Breadcrumb"
@@ -88,20 +86,22 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
         {...otherProps}
       >
         <List data-breadcrumb-list variant="ordered">
-          {React.Children.map(children, (child, index) => {
-            const isLastItem = index === lastIndex - 1
+          {React.Children.toArray(children).map(
+            (child, index, childrenArray) => {
+              const isLastItem = index === childrenArray.length - 1
 
-            return (
-              <ListItem
-                isLastItem={isLastItem}
-                divider={rawDivider}
-                key={`breadcrumb-${index}`}
-                testId={testId}
-              >
-                {child}
-              </ListItem>
-            )
-          })}
+              return (
+                <ListItem
+                  isLastItem={isLastItem}
+                  divider={rawDivider}
+                  key={`breadcrumb-${index}`}
+                  testId={testId}
+                >
+                  {child}
+                </ListItem>
+              )
+            }
+          )}
         </List>
       </nav>
     )

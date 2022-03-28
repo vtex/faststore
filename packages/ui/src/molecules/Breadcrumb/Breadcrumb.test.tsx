@@ -95,6 +95,20 @@ describe('Breadcrumb', () => {
     expect(dividers).toHaveLength(2)
   })
 
+  it('Should not render null values', () => {
+    const { getAllByTestId } = render(
+      <Breadcrumb>
+        <a href="/office">Office</a>
+        <a href="/office/chairs">Chairs</a>
+        <a href="/office/chairs/tulip">Tulip</a>
+        {false && <a href="/office/chairs/tulip/red">Tulip Red</a>}
+        {null}
+      </Breadcrumb>
+    )
+
+    expect(getAllByTestId('store-breadcrumb-item')).toHaveLength(3)
+  })
+
   it('AXE Test', async () => {
     render(
       <Breadcrumb aria-label="test modal" divider="/">
