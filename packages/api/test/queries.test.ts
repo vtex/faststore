@@ -14,7 +14,7 @@ let context: Record<string, any>
 
 const apiOptions = {
   platform: 'vtex',
-  account: 'storecomponents',
+  account: 'storeframework',
   environment: 'vtexcommercestable',
   channel: '1',
 } as Options

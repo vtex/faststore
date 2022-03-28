@@ -62,7 +62,7 @@ let schema: GraphQLSchema
 beforeAll(async () => {
   schema = await getSchema({
     platform: 'vtex',
-    account: 'storecomponents',
+    account: 'storeframework',
     environment: 'vtexcommercestable',
     channel: '1',
   })
