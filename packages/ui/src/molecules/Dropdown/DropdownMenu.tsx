@@ -2,8 +2,8 @@ import type {
   AriaAttributes,
   KeyboardEvent,
   PropsWithChildren,
-  ReactElement,
   MouseEvent,
+  ReactNode,
 } from 'react'
 import React from 'react'
 import { createPortal } from 'react-dom'
@@ -29,7 +29,7 @@ export interface DropdownMenuProps extends ModalContentProps {
    */
   onDismiss?: (event: MouseEvent | KeyboardEvent) => void
 
-  children: ReactElement[] | ReactElement
+  children: ReactNode[] | ReactNode
 }
 
 /*
