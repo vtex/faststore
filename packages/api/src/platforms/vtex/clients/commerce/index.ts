@@ -11,6 +11,7 @@ import type {
   SimulationOptions,
 } from './types/Simulation'
 import type { Session } from './types/Session'
+import ChannelMarshal from '../../utils/channel'
 
 const BASE_INIT = {
   method: 'POST',
@@ -62,12 +63,13 @@ export const VtexCommerce = (
       orderForm: ({
         id,
         refreshOutdatedData = true,
-        salesChannel = ctx.storage.channel,
+        channel = ctx.storage.channel,
       }: {
         id: string
         refreshOutdatedData?: boolean
-        salesChannel?: string
+        channel?: string
       }): Promise<OrderForm> => {
+        const { salesChannel } = ChannelMarshal.parse(channel)
         const params = new URLSearchParams({
           refreshOutdatedData: refreshOutdatedData.toString(),
           sc: salesChannel,

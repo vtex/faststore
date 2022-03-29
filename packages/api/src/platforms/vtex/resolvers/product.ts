@@ -62,6 +62,7 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     } = ctx
 
     const { id, policies } = product
+
     const sellers = policies.find((policy) => policy.id === channel)?.sellers
 
     if (sellers == null) {

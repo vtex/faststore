@@ -4,7 +4,7 @@ export interface Channel {
 }
 
 export default class ChannelMarshal {
-  public static parse(channelString: string): Channel {
+  public static parse(channelString: string): Required<Channel> {
     try {
       const parsedChannel = JSON.parse(channelString) as Channel
 
