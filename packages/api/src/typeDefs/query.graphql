@@ -39,9 +39,14 @@ enum StoreFacetType {
   RANGE
 }
 
+type StoreSuggestion {
+  term: String!
+}
+
 type StoreSearchResult {
-  products: StoreProductConnection!
-  facets: [StoreFacet!]!
+  products: StoreProductConnection
+  facets: [StoreFacet!]
+  suggestions: [StoreSuggestion!]
 }
 
 type Query {
