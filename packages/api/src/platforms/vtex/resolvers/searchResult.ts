@@ -8,6 +8,31 @@ type Root = Omit<SearchArgs, 'type'>
 const REMOVED_FACETS_FROM_COLLECTION_PAGE = ['departamento', 'Departamento']
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
+  suggestions: async (searchArgs, _, ctx) => {
+    const {
+      clients: { search },
+    } = ctx
+
+    const terms = await search.suggestedTerms(searchArgs)
+    const products = await search.suggestedProducts(searchArgs)
+
+    const skus = products.products
+      .map((product) => {
+        const [maybeSku] = product.items
+
+        return maybeSku && enhanceSku(maybeSku, product)
+      })
+      .filter((sku) => !!sku)
+
+    const {
+      suggestion: { searches },
+    } = terms
+
+    return {
+      terms: searches.map((item) => item.term),
+      products: skus,
+    }
+  },
   products: async (searchArgs, _, ctx) => {
     const {
       clients: { search, sp },
