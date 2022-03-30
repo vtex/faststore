@@ -20,11 +20,6 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
         result.push({ key: 'trade-policy', value: channel.salesChannel })
       }
 
-      // TODO: Remove comment when the IS accept regionId facet.
-      // if (channel.regionId) {
-      // result.push({ key: 'regionId', value: channel.regionId })
-      // }
-
       return result
     }
 
