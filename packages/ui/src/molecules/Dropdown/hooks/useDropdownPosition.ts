@@ -1,10 +1,6 @@
 import { useDropdown } from './useDropdown'
 
-type DropdownPosition = {
-  position: 'absolute'
-  top: number
-  left: number
-}
+type DropdownPosition = Pick<React.CSSProperties, 'position' | 'top' | 'left'>
 
 /**
  * Hook used to find the DropdownMenu position in relation to DropdownButton
@@ -24,5 +20,5 @@ export const useDropdownPosition = (): DropdownPosition => {
     position: 'absolute',
     top: topPosition,
     left: leftPosition,
-  } as DropdownPosition
+  }
 }
