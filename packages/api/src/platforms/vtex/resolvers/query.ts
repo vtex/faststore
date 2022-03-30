@@ -38,7 +38,14 @@ export const Query = {
   },
   search: async (
     _: unknown,
-    { first, after: maybeAfter, sort, term, selectedFacets }: QuerySearchArgs,
+    {
+      first,
+      after: maybeAfter,
+      sort,
+      term,
+      selectedFacets,
+      suggestions,
+    }: QuerySearchArgs,
     ctx: Context
   ) => {
     // Insert channel in context for later usage
@@ -52,11 +59,12 @@ export const Query = {
 
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs = {
-      page: Math.ceil(after / first),
+      page: Math.ceil(after / first!),
       count: first,
       query: term,
       sort: SORT_MAP[sort ?? 'score_desc'],
-      selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+      selectedFacets: selectedFacets?.map(transformSelectedFacet) ?? [],
+      suggestions,
     }
 
     return searchArgs
