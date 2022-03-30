@@ -11,15 +11,16 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
+import { mutateChannelContext } from '../utils/channel'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
     // Insert channel in context for later usage
-    ctx.storage = {
-      ...ctx.storage,
-      channel:
-        locator.find((facet) => facet.key === 'channel')?.value ??
-        ctx.storage.channel,
+    const channelString = locator.find((facet) => facet.key === 'channel')
+      ?.value
+
+    if (channelString) {
+      mutateChannelContext(ctx, channelString)
     }
 
     const {
@@ -41,11 +42,12 @@ export const Query = {
     ctx: Context
   ) => {
     // Insert channel in context for later usage
-    ctx.storage = {
-      ...ctx.storage,
-      channel:
-        selectedFacets?.find((facet) => facet.key === 'channel')?.value ??
-        ctx.storage.channel,
+    const channelString = selectedFacets?.find(
+      (facet) => facet.key === 'channel'
+    )?.value
+
+    if (channelString) {
+      mutateChannelContext(ctx, channelString)
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0

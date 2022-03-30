@@ -63,13 +63,15 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
 
     const { id, policies } = product
 
-    const sellers = policies.find((policy) => policy.id === channel)?.sellers
+    const sellers = policies.find(
+      (policy) => policy.id === channel.salesChannel
+    )?.sellers
 
     if (sellers == null) {
       // This error will likely happen when you forget to forward the channel somewhere in your code.
       // Make sure all queries that lead to a product are forwarding the channel in context corectly
       throw new Error(
-        `Product with id ${id} has no sellers for channel ${channel}.`
+        `Product with id ${id} has no sellers for channel ${channel.toString()}.`
       )
     }
 

@@ -11,7 +11,7 @@ import type {
   SimulationOptions,
 } from './types/Simulation'
 import type { Session } from './types/Session'
-import ChannelMarshal from '../../utils/channel'
+import type { Channel } from '../../utils/channel'
 
 const BASE_INIT = {
   method: 'POST',
@@ -44,9 +44,7 @@ export const VtexCommerce = (
     checkout: {
       simulation: (
         args: SimulationArgs,
-        { salesChannel }: SimulationOptions = {
-          salesChannel: ctx.storage.channel,
-        }
+        { salesChannel }: SimulationOptions = ctx.storage.channel
       ): Promise<Simulation> => {
         const params = new URLSearchParams({
           sc: salesChannel,
@@ -67,9 +65,9 @@ export const VtexCommerce = (
       }: {
         id: string
         refreshOutdatedData?: boolean
-        channel?: string
+        channel?: Required<Channel>
       }): Promise<OrderForm> => {
-        const { salesChannel } = ChannelMarshal.parse(channel)
+        const { salesChannel } = channel
         const params = new URLSearchParams({
           refreshOutdatedData: refreshOutdatedData.toString(),
           sc: salesChannel,
@@ -84,7 +82,7 @@ export const VtexCommerce = (
         id,
         orderItems,
         allowOutdatedData = 'paymentData',
-        salesChannel = ctx.storage.channel,
+        salesChannel = ctx.storage.channel.salesChannel,
       }: {
         id: string
         orderItems: OrderFormInputItem[]
