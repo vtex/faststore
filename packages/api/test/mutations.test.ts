@@ -25,15 +25,26 @@ const apiOptions = {
   hideUnavailableItems: false,
 } as Options
 
-const mockedFetch = jest.fn((..._) =>
-  // eslint-disable-next-line no-console
-  console.log(
-    'fetch was called without a mocked implementation.\nThis could be caused by an extra fetch call being fired when a certain mutation was executed.'
+const mockedFetch = jest.fn()
+
+function pickFetchAPICallResult(
+  info: RequestInfo,
+  _: RequestInit | undefined,
+  expectedFetchAPICalls: Array<Record<'info' | 'init' | 'result', unknown>>
+) {
+  for (const call of expectedFetchAPICalls) {
+    if (info === call.info) {
+      return call.result
+    }
+  }
+
+  throw new Error(
+    `fetchAPI was called with an unexpected 'info' argument.\ninfo: ${info}`
   )
-)
+}
 
 jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
-  fetchAPI: (info: any, init?: any) => mockedFetch(info, init),
+  fetchAPI: (info: RequestInfo, init?: RequestInit) => mockedFetch(info, init),
 }))
 
 beforeAll(async () => {
@@ -44,12 +55,19 @@ beforeAll(async () => {
   context = contextFactory({})
 })
 
+// Always clear the mocked fetch before each test so we can count and validate
+// the calls performed by each query independently.
 beforeEach(() => mockedFetch.mockClear())
 
 test('`validateCart` mutation should return `null` when a valid cart is passed', async () => {
-  mockedFetch
-    .mockImplementationOnce(() => checkoutOrderFormValidFetch.result)
-    .mockImplementationOnce(() => checkoutOrderFormItemsValidFetch.result)
+  const fetchAPICalls = [
+    checkoutOrderFormValidFetch,
+    checkoutOrderFormItemsValidFetch,
+  ]
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, fetchAPICalls)
+  )
 
   const response = await execute(
     schema,
@@ -60,23 +78,27 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
   )
 
   expect(mockedFetch).toHaveBeenCalledTimes(2)
-  expect(mockedFetch).toHaveBeenCalledWith(
-    checkoutOrderFormValidFetch.info,
-    checkoutOrderFormValidFetch.init
-  )
-  expect(mockedFetch).toHaveBeenCalledWith(
-    checkoutOrderFormItemsValidFetch.info,
-    checkoutOrderFormItemsValidFetch.init
-  )
+
+  fetchAPICalls.forEach((fetchAPICall) => {
+    expect(mockedFetch).toHaveBeenCalledWith(
+      fetchAPICall.info,
+      fetchAPICall.init
+    )
+  })
 
   expect(response).toEqual({ data: { validateCart: null } })
 })
 
 test('`validateCart` mutation should return the full order when an invalid cart is passed', async () => {
-  mockedFetch
-    .mockImplementationOnce(() => checkoutOrderFormInvalidFetch.result)
-    .mockImplementationOnce(() => checkoutOrderFormItemsInvalidFetch.result)
-    .mockImplementationOnce(() => productSearchPage1Count1Fetch.result)
+  const fetchAPICalls = [
+    checkoutOrderFormInvalidFetch,
+    checkoutOrderFormItemsInvalidFetch,
+    productSearchPage1Count1Fetch,
+  ]
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, fetchAPICalls)
+  )
 
   const response = await execute(
     schema,
@@ -87,18 +109,13 @@ test('`validateCart` mutation should return the full order when an invalid cart 
   )
 
   expect(mockedFetch).toHaveBeenCalledTimes(3)
-  expect(mockedFetch).toHaveBeenCalledWith(
-    checkoutOrderFormInvalidFetch.info,
-    checkoutOrderFormInvalidFetch.init
-  )
-  expect(mockedFetch).toHaveBeenCalledWith(
-    checkoutOrderFormItemsInvalidFetch.info,
-    checkoutOrderFormItemsInvalidFetch.init
-  )
-  expect(mockedFetch).toHaveBeenCalledWith(
-    productSearchPage1Count1Fetch.info,
-    productSearchPage1Count1Fetch.init
-  )
+
+  fetchAPICalls.forEach((fetchAPICall) => {
+    expect(mockedFetch).toHaveBeenCalledWith(
+      fetchAPICall.info,
+      fetchAPICall.init
+    )
+  })
 
   expect(response).toMatchSnapshot()
 })
