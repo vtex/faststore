@@ -24,6 +24,7 @@ export interface SearchArgs {
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1'
   hideUnavailableItems?: boolean
+  suggestions?: boolean
 }
 
 export interface ProductLocator {
@@ -84,11 +85,21 @@ export const IntelligentSearch = (
   const products = (args: Omit<SearchArgs, 'type'>) =>
     search<ProductSearchResult>({ ...args, type: 'product_search' })
 
+  const suggestedProducts = (
+    args: Omit<SearchArgs, 'type'>
+  ): Promise<ProductSearchResult> =>
+    fetchAPI(`${base}/api/suggestion_products/?term=${args.query}`)
+
+  const suggestedTerms = (args: Omit<SearchArgs, 'type'>) =>
+    fetchAPI(`${base}/api/split/suggestion_search/?q=${args.query}`)
+
   const facets = (args: Omit<SearchArgs, 'type'>) =>
     search<FacetSearchResult>({ ...args, type: 'facets' })
 
   return {
     facets,
     products,
+    suggestedTerms,
+    suggestedProducts,
   }
 }
