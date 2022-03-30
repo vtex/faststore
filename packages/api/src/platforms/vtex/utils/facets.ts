@@ -14,13 +14,8 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
     case 'channel': {
       const channel = ChannelMarshal.parse(value)
 
-      const result = []
-
-      if (channel.salesChannel) {
-        result.push({ key: 'trade-policy', value: channel.salesChannel })
-      }
-
-      return result
+      // This array should have all values from channel string
+      return [{ key: 'trade-policy', value: channel.salesChannel }]
     }
 
     default:
