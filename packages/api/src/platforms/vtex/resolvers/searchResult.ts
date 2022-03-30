@@ -1,7 +1,7 @@
-import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
+import { enhanceSku } from '../utils/enhanceSku'
 
 type Root = Omit<SearchArgs, 'type'>
 

@@ -53,6 +53,30 @@ interface Page {
   proxyURL: string
 }
 
+export interface First {
+  index: number
+}
+
+export interface SuggestedTerms {
+  total: number
+  sampling: boolean
+  translated: boolean
+  locale: string
+  query: string
+  operator: string
+  suggestion: Suggestion
+  correction: Correction
+}
+
+export interface Suggestion {
+  searches: Search[]
+}
+
+export interface Search {
+  term: string
+  count: number
+}
+
 export interface Product {
   productId: string
   productName: string

@@ -1,9 +1,12 @@
-import type { Context, Options } from '../../index'
-import { fetchAPI } from '../fetch'
-import type { SelectedFacet } from '../../utils/facets'
-import type { ProductSearchResult } from './types/ProductSearchResult'
-import type { FacetSearchResult } from './types/FacetSearchResult'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
+import type { Context, Options } from '../../index'
+import type { SelectedFacet } from '../../utils/facets'
+import { fetchAPI } from '../fetch'
+import type { FacetSearchResult } from './types/FacetSearchResult'
+import type {
+  ProductSearchResult,
+  SuggestedTerms,
+} from './types/ProductSearchResult'
 
 export type Sort =
   | 'price:desc'
@@ -24,7 +27,6 @@ export interface SearchArgs {
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1'
   hideUnavailableItems?: boolean
-  suggestions?: boolean
 }
 
 export interface ProductLocator {
@@ -90,7 +92,9 @@ export const IntelligentSearch = (
   ): Promise<ProductSearchResult> =>
     fetchAPI(`${base}/api/suggestion_products/?term=${args.query}`)
 
-  const suggestedTerms = (args: Omit<SearchArgs, 'type'>) =>
+  const suggestedTerms = (
+    args: Omit<SearchArgs, 'type'>
+  ): Promise<SuggestedTerms> =>
     fetchAPI(`${base}/api/split/suggestion_search/?q=${args.query}`)
 
   const facets = (args: Omit<SearchArgs, 'type'>) =>
