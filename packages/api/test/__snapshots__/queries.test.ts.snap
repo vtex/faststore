@@ -11,8 +11,8 @@ Object {
             "breadcrumbList": Object {
               "itemListElement": Array [
                 Object {
-                  "item": "/skechers",
-                  "name": "Skechers",
+                  "item": "/brand",
+                  "name": "Brand",
                   "position": 1,
                 },
               ],
@@ -43,8 +43,8 @@ Object {
             "breadcrumbList": Object {
               "itemListElement": Array [
                 Object {
-                  "item": "/adidas",
-                  "name": "adidas",
+                  "item": "/skechers",
+                  "name": "Skechers",
                   "position": 1,
                 },
               ],
@@ -139,8 +139,8 @@ Object {
             "breadcrumbList": Object {
               "itemListElement": Array [
                 Object {
-                  "item": "/brand",
-                  "name": "Brand",
+                  "item": "/adidas",
+                  "name": "adidas",
                   "position": 1,
                 },
               ],
