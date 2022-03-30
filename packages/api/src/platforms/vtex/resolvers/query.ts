@@ -11,7 +11,6 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
-import ChannelMarshal from '../utils/channel'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -19,18 +18,15 @@ export const Query = {
     ctx.storage = {
       ...ctx.storage,
       channel:
-        // TODO: Check if make sense move this parse a layer down or pass the whole parsed channel
-        // TODO: Put the channel from ctx inside the parse
-        ChannelMarshal.parse(
-          locator.find((facet) => facet.key === 'channel')?.value ?? '{}'
-        ).salesChannel || ctx.storage.channel,
+        locator.find((facet) => facet.key === 'channel')?.value ??
+        ctx.storage.channel,
     }
 
     const {
       loaders: { skuLoader },
     } = ctx
 
-    return skuLoader.load(locator.map(transformSelectedFacet).flat())
+    return skuLoader.load(locator.flatMap(transformSelectedFacet))
   },
   collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
     const {
@@ -48,12 +44,8 @@ export const Query = {
     ctx.storage = {
       ...ctx.storage,
       channel:
-        // TODO: Check if make sense move this parse a layer down or pass the whole parsed channel
-        // TODO: Put the channel from ctx inside the parse
-        ChannelMarshal.parse(
-          selectedFacets?.find((facet) => facet.key === 'channel')?.value ??
-            '{}'
-        ).salesChannel || ctx.storage.channel,
+        selectedFacets?.find((facet) => facet.key === 'channel')?.value ??
+        ctx.storage.channel,
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
@@ -62,7 +54,7 @@ export const Query = {
       count: first,
       query: term,
       sort: SORT_MAP[sort ?? 'score_desc'],
-      selectedFacets: selectedFacets?.map(transformSelectedFacet).flat() ?? [],
+      selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
     }
 
     return searchArgs
