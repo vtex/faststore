@@ -55,11 +55,12 @@ type Query {
   collection(slug: String!): StoreCollection!
 
   search(
-    first: Int!
+    first: Int
     after: String
     sort: StoreSort = score_desc
     term: String = ""
     selectedFacets: [IStoreSelectedFacet!]
+    suggestions: Boolean = false
   ): StoreSearchResult!
 
   allProducts(first: Int!, after: String): StoreProductConnection!
