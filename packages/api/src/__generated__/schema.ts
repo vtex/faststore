@@ -105,9 +105,10 @@ export type QueryProductArgs = {
 
 export type QuerySearchArgs = {
   after?: Maybe<Scalars['String']>;
-  first: Scalars['Int'];
+  first?: Maybe<Scalars['Int']>;
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
+  suggestions?: Maybe<Scalars['Boolean']>;
   term?: Maybe<Scalars['String']>;
 };
 
@@ -329,8 +330,9 @@ export type StoreReviewRating = {
 
 export type StoreSearchResult = {
   __typename?: 'StoreSearchResult';
-  facets: Array<StoreFacet>;
-  products: StoreProductConnection;
+  facets?: Maybe<Array<StoreFacet>>;
+  products?: Maybe<StoreProductConnection>;
+  suggestions?: Maybe<Array<StoreSuggestion>>;
 };
 
 export type StoreSeo = {
@@ -363,4 +365,9 @@ export const enum StoreStatus {
   Error = 'ERROR',
   Info = 'INFO',
   Warning = 'WARNING'
+};
+
+export type StoreSuggestion = {
+  __typename?: 'StoreSuggestion';
+  term: Scalars['String'];
 };
