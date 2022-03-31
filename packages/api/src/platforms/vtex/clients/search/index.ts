@@ -3,6 +3,7 @@ import { fetchAPI } from '../fetch'
 import type { SelectedFacet } from '../../utils/facets'
 import type { ProductSearchResult } from './types/ProductSearchResult'
 import type { AttributeSearchResult } from './types/AttributeSearchResult'
+import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 
 export type Sort =
   | 'price:desc'
@@ -35,7 +36,10 @@ export const IntelligentSearch = (
   ctx: Context
 ) => {
   const base = `http://portal.${environment}.com.br/search-api/v1/${account}`
-  const policyFacet = { key: 'trade-policy', value: ctx.storage.channel }
+  const policyFacet: IStoreSelectedFacet = {
+    key: 'trade-policy',
+    value: ctx.storage.channel.salesChannel,
+  }
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
     const facet = facets.find(({ key }) => key === policyFacet.key)

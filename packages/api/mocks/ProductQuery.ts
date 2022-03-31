@@ -1,5 +1,5 @@
 export const ProductByIdQuery = `query ProductQuery {
-  product(locator: [{key: "id", value: "64953394"}, {key: "channel", value: "1"}]) {
+  product(locator: [{key: "id", value: "64953394"}]) {
     slug
     name
     productID
