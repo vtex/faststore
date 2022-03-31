@@ -40,8 +40,8 @@ describe('Dropdown', () => {
   it('Should render DropdownMenu in correct position', () => {
     const { getByText, getByTestId } = render(
       <>
-        <div style={{ height: 200, width: 200 }}>Large element</div>
         <SimpleDropdown />
+        <div style={{ height: 2000, width: 200 }}>Large element</div>
       </>
     )
 
@@ -55,10 +55,15 @@ describe('Dropdown', () => {
 
     const buttonRect = dropdownButton?.getBoundingClientRect()
 
-    const topLevel = buttonRect?.top ?? 0
-    const topOffset = buttonRect?.height ?? 0
-    const topPosition = topLevel + topOffset
-    const leftPosition = buttonRect?.left ?? 0
+    fireEvent.scroll(window, { target: { scrollY: 300 } })
+
+    const topLevel: number = buttonRect?.top ?? 0
+    const topOffset: number = buttonRect?.height ?? 0
+    const topPosition =
+      topLevel + topOffset + document.documentElement.scrollTop
+
+    const leftLevel = buttonRect?.left ?? 0
+    const leftPosition = leftLevel + document.documentElement.scrollLeft
 
     const topMenuPosition = dropdownMenu.style.top
     const leftMenuPosition = dropdownMenu.style.left

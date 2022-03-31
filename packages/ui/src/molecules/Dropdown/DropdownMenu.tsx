@@ -91,9 +91,11 @@ const DropdownMenu = ({
   }
 
   const handleBackdropKeyDown = (event: KeyboardEvent) => {
-    if (event.defaultPrevented) {
+    if (event.defaultPrevented || event.key === 'Enter') {
       return
     }
+
+    event.preventDefault()
 
     event.key === 'Escape' && handleEscapePress()
 
@@ -104,8 +106,6 @@ const DropdownMenu = ({
     event.key === 'Home' && handleHomePress()
 
     event.key === 'End' && handleEndPress()
-
-    event.key === 'Tab' && event.preventDefault()
 
     event.stopPropagation()
   }

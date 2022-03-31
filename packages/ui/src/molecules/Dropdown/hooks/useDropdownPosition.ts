@@ -1,10 +1,6 @@
 import { useDropdown } from './useDropdown'
 
-type DropdownPosition = {
-  position: 'absolute'
-  top: number
-  left: number
-}
+type DropdownPosition = Pick<React.CSSProperties, 'position' | 'top' | 'left'>
 
 /**
  * Hook used to find the DropdownMenu position in relation to DropdownButton
@@ -12,11 +8,15 @@ type DropdownPosition = {
  */
 export const useDropdownPosition = (): DropdownPosition => {
   const { dropdownButtonRef } = useDropdown()
+
   const buttonRect = dropdownButtonRef?.current?.getBoundingClientRect()
   const topLevel: number = buttonRect?.top ?? 0
   const topOffset: number = buttonRect?.height ?? 0
-  const topPosition = topLevel + topOffset
-  const leftPosition = buttonRect?.left ?? 0
+
+  // The scroll properties fix the position of DropdownMenu when the scroll is activated.
+  const topPosition = topLevel + topOffset + document.documentElement.scrollTop
+  const leftLevel = buttonRect?.left ?? 0
+  const leftPosition = leftLevel + document.documentElement.scrollLeft
 
   return {
     position: 'absolute',
