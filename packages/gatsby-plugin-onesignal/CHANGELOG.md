@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.28 (2022-03-31)
+
+
+### Bug Fixes
+
+* fix dropdown menu position with scroll ([#1199](https://github.com/vtex/faststore/issues/1199)) ([98a228e](https://github.com/vtex/faststore/commit/98a228e364ed26e480936406c1988026f9ebaffc))
+
+
+
+
+
 ## 1.6.27 (2022-03-31)
 
 **Note:** Version bump only for package @vtex/gatsby-plugin-onesignal
