@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.26 (2022-03-31)
+
+
+### Features
+
+* **api:** Handle channel as facet for search and product queries ([#1197](https://github.com/vtex/faststore/issues/1197)) ([00556b1](https://github.com/vtex/faststore/commit/00556b199a48617ff89b1a6b951a0c958f5aa018))
+
+
+
+
+
 ## 1.6.25 (2022-03-29)
 
 **Note:** Version bump only for package @vtex/gatsby-source-vtex
