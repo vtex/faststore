@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.29 (2022-03-31)
+
+
+### Bug Fixes
+
+* fix dropdown render in SSR ([#1202](https://github.com/vtex/faststore/issues/1202)) ([60f65b0](https://github.com/vtex/faststore/commit/60f65b0864c2fb59dff61e914c69a326b5229984))
+
+
+
+
+
 ## 1.6.28 (2022-03-31)
 
 
