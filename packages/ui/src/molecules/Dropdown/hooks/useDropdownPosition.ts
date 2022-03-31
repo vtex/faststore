@@ -9,14 +9,21 @@ type DropdownPosition = Pick<React.CSSProperties, 'position' | 'top' | 'left'>
 export const useDropdownPosition = (): DropdownPosition => {
   const { dropdownButtonRef } = useDropdown()
 
+  // Necessary to use this component in SSR
+  const isBrowser = typeof window !== 'undefined'
+
   const buttonRect = dropdownButtonRef?.current?.getBoundingClientRect()
-  const topLevel: number = buttonRect?.top ?? 0
-  const topOffset: number = buttonRect?.height ?? 0
+  const topLevel = buttonRect?.top ?? 0
+  const topOffset = buttonRect?.height ?? 0
+  const leftLevel = buttonRect?.left ?? 0
 
   // The scroll properties fix the position of DropdownMenu when the scroll is activated.
-  const topPosition = topLevel + topOffset + document.documentElement.scrollTop
-  const leftLevel = buttonRect?.left ?? 0
-  const leftPosition = leftLevel + document.documentElement.scrollLeft
+  const scrollTop = isBrowser ? document?.documentElement?.scrollTop : 0
+  const scrollLeft = isBrowser ? document?.documentElement?.scrollLeft : 0
+
+  const topPosition = topLevel + topOffset + scrollTop
+
+  const leftPosition = leftLevel + scrollLeft
 
   return {
     position: 'absolute',
