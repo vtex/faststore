@@ -7,7 +7,7 @@ hide_table_of_contents: false
 
 # March, 2022
 
-New `Dropdown` component, improvements on the performance of `useStorage` hook, a new local server and GraphQL tests, and the addition of VTEX Headless CMS API Reference.
+The FastStore API now includes an Express GraphQL Server, and the FastStore UI now has a new `Dropdown` component. Also, the performance of the `useStorage` hook has been improved.
 
 <!--truncate-->
 
