@@ -1,5 +1,11 @@
 [
   {
+    "title": "March",
+    "product": "FastStore",
+    "fileName": "2022-04-01-faststore",
+    "description": "The FastStore API now includes an Express GraphQL Server, and the FastStore UI now has a new Dropdown component. Also, the performance of the useStorage hook has been improved."
+  },
+  {
     "title": "February",
     "product": "FastStore",
     "fileName": "2022-03-04-faststore",
@@ -10,11 +16,5 @@
     "product": "WebOps",
     "fileName": "2022-02-08-webops",
     "description": "With the increased number of concurrent users of the WebOps platform, we noticed WebOps pipelines were taking longer to execute. Actions have already been taken."
-  },
-  {
-    "title": "January",
-    "product": "FastStore",
-    "fileName": "2022-02-04-faststore",
-    "description": "New Incentive, Link, Card and QuantitySelector components now available in the FastStore UI. Also, new Platform integration, VTEX Headless CMS and Security guides."
   }
 ]
