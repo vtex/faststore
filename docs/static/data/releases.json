@@ -1,12 +1,18 @@
 [
   {
-    "title": "March",
+    "title": "Base Store",
+    "product": "Base Store",
+    "fileName": "2022-04-01-basestore",
+    "description": "The Base Store now has new components: EmptyState, Suggestions and SearchHistory."
+  },
+  {
+    "title": "FastStore",
     "product": "FastStore",
     "fileName": "2022-04-01-faststore",
     "description": "The FastStore API now includes an Express GraphQL Server, and the FastStore UI now has a new Dropdown component. Also, the performance of the useStorage hook has been improved."
   },
   {
-    "title": "February",
+    "title": "FastStore",
     "product": "FastStore",
     "fileName": "2022-03-04-faststore",
     "description": "Adjustments in the SearchInput reference and useStorage hook. Fixes in StoreProduct values and trailing slash from incoming requests. Also, new Performance Budgets section to the lighthouse report."

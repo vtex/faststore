@@ -1,11 +1,10 @@
 ---
-title: March, 2022
 description: FastStore Release Notes 
 tags: [faststore]
 hide_table_of_contents: false
 ---
 
-# March, 2022
+# FastStore - March, 2022
 
 The FastStore API now includes an Express GraphQL Server, and the FastStore UI now has a new `Dropdown` component. Also, the performance of the `useStorage` hook has been improved.
 
