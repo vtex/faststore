@@ -6,7 +6,7 @@ hide_table_of_contents: false
 
 # Base Store - March, 2022
 
-The Base Store now has new components: `EmptyState`, `Suggestions` and `SearchHistory`. 
+The Base Store now has new components: `EmptyState`, `Suggestions`, and `SearchHistory`. Also to improve the page's performance, inline icons were removed from the final bundle.
 
 <!--truncate-->
 ## 🎉 New feature
