@@ -13,31 +13,26 @@ The Base Store now has new components: `EmptyState`, `Suggestions`, and `SearchH
 
 - **New `EmptyState` component** - [#367](https://github.com/vtex-sites/base.store/pull/367)
 Use the `EmptyState`  in the `CartSidebar` and `ProductGallery` components to display a custom page for empty carts and product results.
-
-    ![no results-page](https://user-images.githubusercontent.com/67270558/160859291-211054fd-734a-4d21-b279-09c8c8fd5d40.gif)
+![no results-page](https://user-images.githubusercontent.com/67270558/160859291-211054fd-734a-4d21-b279-09c8c8fd5d40.gif)
 
 -  **Self-contained `sections`** - [#371](https://github.com/vtex-sites/base.store/pull/371)
 The logic developed in the `pages` folder has been moved to the `sections` component. As a result, CMS users can rearrange and reorder each storefront section.
 
 - **New Search `Suggestions` component** - [#372](https://github.com/vtex-sites/base.store/pull/372)
 Use the`Suggestions` component to encapsulate autocomplete suggestions and suggested products.
-
-    ![suggestions-component](https://user-images.githubusercontent.com/15722605/157681906-66b9955a-7232-4885-b71c-565eb6d55fe4.png)
+![suggestions-component](https://user-images.githubusercontent.com/15722605/157681906-66b9955a-7232-4885-b71c-565eb6d55fe4.png)
 
 
 - **New `SearchHistory` component** - [#391](https://github.com/vtex-sites/base.store/pull/391) 
 Use the `SearchHistory` component to show the user's search history in the store page.
-
-
-    ![search-history-gif](https://user-images.githubusercontent.com/67270558/160863310-c6167a36-ec6d-4470-88bc-be9dc0f2e9fb.gif)
+![search-history-gif](https://user-images.githubusercontent.com/67270558/160863310-c6167a36-ec6d-4470-88bc-be9dc0f2e9fb.gif)
     
 -  **New session query** - [#392](https://github.com/vtex-sites/base.store/pull/392)
 Use the `StoreSession` query to get new sales channels when a user changes their postal code.
 
 - **New `interactive` variant added to the `Badge` component** - [#396](https://github.com/vtex-sites/base.store/pull/396)
 Use the `interactive` variant in a `Badge` component to allow users to close the badge.
-
-    ![](https://user-images.githubusercontent.com/15722605/158883971-a04f56a2-b387-49e3-9fe0-636a0122bf6a.png)
+![interactive](https://user-images.githubusercontent.com/15722605/158883971-a04f56a2-b387-49e3-9fe0-636a0122bf6a.png)
     
 - **Added `hideUnavailableItems` to `store.config`** - [#400](https://github.com/vtex-sites/base.store/pull/400) 
 The Search API now has the `hideUnavailableItems` parameter. This parameter either hides (true) or displays (false) an out-of-stock product. 
