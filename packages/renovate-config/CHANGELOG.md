@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.4 (2022-04-01)
+
+
+### Bug Fixes
+
+* release notes images ([#1207](https://github.com/vtex/faststore/issues/1207)) ([279e019](https://github.com/vtex/faststore/commit/279e019bad25581712f73c8fe7a433200d711780))
+
+
+
+
+
 ## 1.7.3 (2022-04-01)
 
 **Note:** Version bump only for package @vtex/renovate-config
