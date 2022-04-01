@@ -1,6 +1,5 @@
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
-# Badge
 
 Badges are status descriptors used to highlight a relevant content.
 
@@ -12,8 +11,29 @@ import { Badge } from '@faststore/ui'
 
 ## Usage
 
+### Default
 ```tsx live
 <Badge>-25%</Badge>
+```
+
+### When to use
+
+Use badges to highlight:
+
+- On-sale products.
+- Product collection, for example, `summer`or `prom`.
+- Product status, for example, `new` or `only 1 left`.
+
+```tsx live
+<Card>
+<Badge>On-sale</Badge>
+  <CardImage>
+    <img
+      alt="Laptop on-sale"
+      src="https://bit.ly/3DcQ6U6"
+    />
+  </CardImage>
+</Card>
 ```
 
 ## Props
@@ -21,5 +41,18 @@ import { Badge } from '@faststore/ui'
 <PropsSection name="Badge" />
 
 ## Customization
+Use the following attribute to customize your component: 
 
 `data-store-badge`
+
+## Best Practices
+
+- Write clear and short labels.
+- Have a clear position of the badge to identify which product the badge is related.
+
+## Accessibility
+
+- Ensure that the badge has sufficient color contrast in comparison to the background, according to 
+the [WCAG 2 AA contrast ratio thresholds](https://dequeuniversity.com/rules/axe/4.3/color-contrast?application=axeAPI).
+
+- Ensure every id attribute value is unique
