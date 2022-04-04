@@ -4,6 +4,8 @@ tags: [base store]
 hide_table_of_contents: false
 ---
 
+[Full Changelog](https://github.com/vtex-sites/base.store/blob/master/CHANGELOG.md)
+
 # Base Store - March, 2022
 
 The Base Store now has new components: `EmptyState`, `Suggestions`, and `SearchHistory`. Also to improve the page's performance, inline icons were removed from the final bundle.
