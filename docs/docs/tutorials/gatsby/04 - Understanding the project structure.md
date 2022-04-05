@@ -12,32 +12,36 @@ sidebar_label: "3. Understanding the project structure"
 
 ```
 /
-├── /__generated__
 ├── /.cache
 ├── /.github
 ├── /.husky
+├── /@generated
 ├── /cypress
 ├── /node_modules
 ├── /public
 └── /src
+    ├── /api
     ├── /components
+    ├── /fonts
     ├── /images
     ├── /pages
     ├── /sdk
+    ├── /server
     ├── /styles
     ├── /typings
-    ├── /views
     ├── constants.ts
-    ├── custom-sw-code.js
-    └── typings.d.ts
-├── /.editorconfig
-├── /.eslintignore
-├── /.gitignore
-├── /.prettierignore
-├── /.prettierrrc
-├── babel.config.js
+    ├── Layout.tsx
+├── /static
+├── .editorconfig
+├── .eslintignore
+├── .eslintirc
+├── .gitignore
+├── .prettierignore
+├── .prettierrrc
+├── .styleignore
+├── CHANGELOG.md
+├── codegen.yml
 ├── cypress.json
-├── .eslintrc
 ├── gatsby-browser.js
 ├── gatsby-config.js
 ├── gatsby-node.js
@@ -45,9 +49,12 @@ sidebar_label: "3. Understanding the project structure"
 ├── LICENSE
 ├── lighthouserc.js
 ├── package.json
+├── postcss.config.js
 ├── pull_request_template.md
 ├── README.md
 ├── renovate.json
+├── store.config.js
+├── stylelint.config.js
 ├── tsconfig.json
 ├── vtex.env
 └── yarn.lock
@@ -61,9 +68,9 @@ In the previous sections of this tutorial, you started your first FastStore + Ga
 
 Since Gatsby is an opinionated front-end framework, it comes with **pre‑defined conventions** for naming files and folders. These conventions are helpful to facilitate our work as web developers. So, take your time to learn some of them and get the big-picture of how an FastStore + Gatsby project is structured.
 
-Let's start taking a look at the structure to the left that represents the source code of our `mystore.store` project.
+Let's start taking a look at the structure to the right that represents the source code of our `mystore.store` project.
 
-Notice that some of these folders, such as `node_modules` and `public`, might be familiar to you. Others, however, are VTEX and Gatsby-specific and might be new for you. Let's investigate them.
+Notice that some of these folders, such as `node_modules` and `public`, might be familiar to you. Others, however, are VTEX and Gatsby-specific and might be new to you. Let's investigate them.
 
 
 ## Basic files and folders 
@@ -84,7 +91,7 @@ The `cache` and `public` folders are *automatically generated* by Gatsby when yo
 
 You'll notice some VTEX and Gatsby-specific files responsible for your project settings at the root of your project:
 
-- [`vtex.env`](#vtexenv) - Configures environment variables to connect to your VTEX account.
+- `store.config.js` - Configures environment variables to connect to your VTEX account.
 - [`gatsby‑browser.js`](#gatsbybrowserjs) - Changes the browser behavior and allows wrapping components around all your store pages.
 - [`gatsby‑config.js`](#gatsbyconfigjs) - Sets up your site metadata.
 - [`gatsby‑node.js`](#gatsbynodejs) - Runs Javascript code during build. 
@@ -93,8 +100,6 @@ You'll notice some VTEX and Gatsby-specific files responsible for your project s
 ### `vtex.env`
 
 The `vtex.env` file stores the environment variables needed for accessing your VTEX account, such as your VTEX account name.
-
-![](/img/tutorials/gatsby/vtexenv-file.png)
 
 ### `gatsby‑browser.js`
 
@@ -225,12 +230,9 @@ Notice that, as a best practice, we recommend that you organize this folder usin
 
 ### Wrapping up
 
-To wrap up how the `src` folder works, let's suppose we're creating a custom Campaign page for Black Friday. 
+To wrap up how the `src` folder works, suppose you are creating a custom Campaign page for Black Friday.
+To start, you would need to create a `blackfriday.tsx` file within `src/pages/` to generate the `https://mystore.vtex.app/blackfriday` route and fetch static data.
+Then, you could develop Campaign-specific React components, such as carousels and info cards, in the `components/sections` folder.
+Then you would need to create a `blackfriday/index.tsx` file within `views` to develop your page's look and feel. In this file, we would import and bring together our recently created `components/sections` components, providing them with static data from `src/pages/blackfriday.tsx` and enriching them with dynamic attributes. Optionally, you could also develop new rules to handle SEO and include them in the `blackfriday/index.tsx` file.
+Finally, you would need to import the `src/views/blackfriday/index.tsx` file into the `src/pages/blackfriday.tsx` file to render the page.
 
-To start, we would need to create a `blackfriday.tsx` file within `src/pages/` to generate the https://mystore.vtex.app/blackfriday route and fetch static data. 
-
-Then, we could develop Campaign-specific React components, such as carousels and info cards, in the `components/sections` folder. 
-
-In the following, we would need to create a `blackfriday/index.tsx` file within `views` to develop our page's look and feel. In this file, we would import and bring together our recently created `components/sections` components, providing them with static data from `src/pages/blackfriday.tsx` and enriching them with dynamic attributes. Optionally, we could also develop new rules to handle SEO and include them in the `blackfriday/index.tsx` file.
-
-Finally, we would need to import the `src/views/blackfriday/index.tsx` file into the `src/pages/blackfriday.tsx` file to render the page.
