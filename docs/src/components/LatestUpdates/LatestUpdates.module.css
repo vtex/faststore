@@ -16,12 +16,12 @@
 }
 
 .changelogTitle h4 {
-  @apply inline-block mr-2 text-seriousBlack text-lg leading-loose font-VTEXMedium;
+  @apply inline-block mr-2 text-secondary text-lg leading-loose font-VTEXMedium;
 }
 
 .changelogList li:first-child h4::after {
   content: "NEW";
-  @apply px-2 py-1 rounded-md uppercase tracking-widest bg-pink-50 text-rebelPink text-xs ml-2;
+  @apply px-2 py-1 rounded-md uppercase tracking-widest bg-pink-50 text-primary text-xs ml-2;
 }
 
 .descriptionChangelog {
@@ -47,7 +47,7 @@
 }
 
 li:first-child svg circle {
-  @apply text-rebelPink;
+  @apply text-primary;
 }
 
 @media only screen and (max-width: 721px) {

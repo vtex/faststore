@@ -12,7 +12,7 @@
   
   .homeGrid > *:active,
   .homeGrid > *:hover {
-    @apply border-seriousBlack
+    @apply border-secondary
   }
   .homeGrid a:active,
   .homeGrid a:hover {
