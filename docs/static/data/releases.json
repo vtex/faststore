@@ -1,5 +1,11 @@
 [
   {
+    "title": "Gatsby 4 now available",
+    "product": "FastStore",
+    "fileName": "2022-05-01-faststore",
+    "description": "Render pages at run-time with Gatsby 4. We updated our infrastructure to allow you to use site generators that support server-side rendering (SSR), such as Next.JS and Gatsby 4."
+  },
+  {
     "title": "Base Store",
     "product": "Base Store",
     "fileName": "2022-04-01-basestore",
