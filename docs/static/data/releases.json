@@ -2,7 +2,7 @@
   {
     "title": "WebOps updated to use Lighthouse 9",
     "product": "WebOps",
-    "fileName": "2022-04-05-faststore",
+    "fileName": "2022-04-05-webops",
     "description": "The WebOps pipeline has been updated to use the newest Lighthouse version. As a result, newer audit reports may slightly differ from those previously issued."
   },
   {
