@@ -1,26 +1,26 @@
 [
   {
-    "title": "Base Store",
+    "title": "WebOps updated to use Lighthouse 9",
+    "product": "WebOps",
+    "fileName": "2022-04-05-webops",
+    "description": "The WebOps pipeline has been updated to use the newest Lighthouse version. As a result, newer audit reports may slightly differ from those previously issued."
+  },
+  {
+    "title": "Gatsby 4 now available",
+    "product": "FastStore",
+    "fileName": "2022-04-05-faststore",
+    "description": "Render pages at run-time with Gatsby 4. We updated our infrastructure to allow you to use site generators that support server-side rendering (SSR), such as Next.JS and Gatsby 4."
+  },
+  {
+    "title": "Base Store - Release Notes",
     "product": "Base Store",
     "fileName": "2022-04-01-basestore",
     "description": "The Base Store now has new components: EmptyState, Suggestions and SearchHistory."
   },
   {
-    "title": "FastStore",
+    "title": "FastStore - Release Notes",
     "product": "FastStore",
     "fileName": "2022-04-01-faststore",
     "description": "The FastStore API now includes an Express GraphQL Server, and the FastStore UI now has a new Dropdown component. Also, the performance of the useStorage hook has been improved."
-  },
-  {
-    "title": "FastStore",
-    "product": "FastStore",
-    "fileName": "2022-03-04-faststore",
-    "description": "Adjustments in the SearchInput reference and useStorage hook. Fixes in StoreProduct values and trailing slash from incoming requests. Also, new Performance Budgets section to the lighthouse report."
-  },
-  {
-    "title": "Improved WebOps build time",
-    "product": "WebOps",
-    "fileName": "2022-02-08-webops",
-    "description": "With the increased number of concurrent users of the WebOps platform, we noticed WebOps pipelines were taking longer to execute. Actions have already been taken."
   }
 ]
