@@ -231,8 +231,12 @@ Notice that, as a best practice, we recommend that you organize this folder usin
 ### Wrapping up
 
 To wrap up how the `src` folder works, suppose you are creating a custom Campaign page for Black Friday.
+
 To start, you would need to create a `blackfriday.tsx` file within `src/pages/` to generate the `https://mystore.vtex.app/blackfriday` route and fetch static data.
+
 Then, you could develop Campaign-specific React components, such as carousels and info cards, in the `components/sections` folder.
+
 Then you would need to create a `blackfriday/index.tsx` file within `views` to develop your page's look and feel. In this file, we would import and bring together our recently created `components/sections` components, providing them with static data from `src/pages/blackfriday.tsx` and enriching them with dynamic attributes. Optionally, you could also develop new rules to handle SEO and include them in the `blackfriday/index.tsx` file.
+
 Finally, you would need to import the `src/views/blackfriday/index.tsx` file into the `src/pages/blackfriday.tsx` file to render the page.
 
