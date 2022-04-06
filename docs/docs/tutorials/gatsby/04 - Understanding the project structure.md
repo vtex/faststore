@@ -91,15 +91,15 @@ The `cache` and `public` folders are *automatically generated* by Gatsby when yo
 
 You'll notice some VTEX and Gatsby-specific files responsible for your project settings at the root of your project:
 
-- `store.config.js` - Configures environment variables to connect to your VTEX account.
+- [`store.config.js`](#storeconfigjs) - Configures environment variables to connect to your VTEX account.
 - [`gatsby‑browser.js`](#gatsbybrowserjs) - Changes the browser behavior and allows wrapping components around all your store pages.
 - [`gatsby‑config.js`](#gatsbyconfigjs) - Sets up your site metadata.
 - [`gatsby‑node.js`](#gatsbynodejs) - Runs Javascript code during build. 
 - [`gatsby‑ssr.js`](#gatsbyssrjs) - Customizes server-side rendering settings.
 
-### `vtex.env`
+### `store.config.js`
 
-The `vtex.env` file stores the environment variables needed for accessing your VTEX account, such as your VTEX account name.
+The `store.config.js` file stores the environment variables needed for accessing your VTEX account, such as your VTEX account name. This files also includes some configurations related to other apps used in your store, such as Lighthouse and Google Tag Manager.
 
 ### `gatsby‑browser.js`
 
