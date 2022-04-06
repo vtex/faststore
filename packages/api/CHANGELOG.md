@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.10 (2022-04-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.9 (2022-04-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.8 (2022-04-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
 ## 1.7.7 (2022-04-05)
 
 **Note:** Version bump only for package @faststore/api

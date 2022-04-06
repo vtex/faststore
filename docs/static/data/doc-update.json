@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-04-05",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "VTEX Headless CMS Integration",
+    "path": "/how-to-guides/cms/vtex",
+    "docs": [
+      {
+        "path": "/how-to-guides/cms/vtex-headless-cms/Sending%20CMS%20updates%20to%20VTEX%20IO%20WebOps",
+        "title": "Sending CMS updates to VTEX IO WebOps"
+      }
+    ]
+  },
+  {
     "date": "2022-03-24",
     "type": "Fixed",
     "menu": "Tutorials",
@@ -25,7 +38,7 @@
       }
     ]
   },
-    {
+  {
     "date": "2022-02-15",
     "type": "Added",
     "menu": "How-to Guides",
@@ -96,7 +109,7 @@
         "title": "Migrating from gatsby-plugin-cms to gatsby-source-cms"
       }
     ]
-  },  
+  },
   {
     "date": "2022-01-17",
     "type": "Added",
@@ -130,7 +143,6 @@
       }
     ]
   },
-
   {
     "date": "2022-01-11",
     "type": "Added",
