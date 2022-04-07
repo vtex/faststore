@@ -17,7 +17,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = products.products
       .map((product) => {
-        const [maybeSku] = product.skus
+        const [maybeSku] = product.items
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
@@ -28,8 +28,8 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         hasNextPage: products.pagination.after.length > 0,
         hasPreviousPage: products.pagination.before.length > 0,
         startCursor: '0',
-        endCursor: products.total.toString(),
-        totalCount: products.total,
+        endCursor: products.recordsFiltered.toString(),
+        totalCount: products.recordsFiltered,
       },
       edges: skus.map((sku, index) => ({
         node: sku,

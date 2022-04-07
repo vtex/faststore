@@ -746,12 +746,12 @@ Object {
       "breadcrumbList": Object {
         "itemListElement": Array [
           Object {
-            "item": "/office",
+            "item": "/office/",
             "name": "Office",
             "position": 1,
           },
           Object {
-            "item": "/office/desks",
+            "item": "/office/desks/",
             "name": "Desks",
             "position": 2,
           },
@@ -767,19 +767,19 @@ Object {
       "image": Array [
         Object {
           "alternateName": "et",
-          "url": "http://storeframework.vtexassets.com/arquivos/ids/186495/corporis.jpg?v=637755567185370000",
+          "url": "https://storeframework.vtexassets.com/arquivos/ids/186495/corporis.jpg?v=637755567185370000",
         },
         Object {
           "alternateName": "in",
-          "url": "http://storeframework.vtexassets.com/arquivos/ids/186492/qui.jpg?v=637755567174570000",
+          "url": "https://storeframework.vtexassets.com/arquivos/ids/186492/qui.jpg?v=637755567174570000",
         },
         Object {
           "alternateName": "consectetur",
-          "url": "http://storeframework.vtexassets.com/arquivos/ids/186493/possimus.jpg?v=637755567178470000",
+          "url": "https://storeframework.vtexassets.com/arquivos/ids/186493/possimus.jpg?v=637755567178470000",
         },
         Object {
           "alternateName": "ea",
-          "url": "http://storeframework.vtexassets.com/arquivos/ids/186494/nihil.jpg?v=637755567181900000",
+          "url": "https://storeframework.vtexassets.com/arquivos/ids/186494/nihil.jpg?v=637755567181900000",
         },
       ],
       "isVariantOf": Object {

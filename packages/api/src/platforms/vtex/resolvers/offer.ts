@@ -1,26 +1,33 @@
-import type { EnhancedSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
-import type { Item } from '../clients/commerce/types/Simulation'
-import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
+import type { StoreAggregateOffer } from './aggregateOffer'
+import { getFirstSeller, inStock } from '../utils/productStock'
+import { getItemPriceByKey } from '../utils/price'
+import type { ArrayElementType } from '../../../typings'
 
-type Root =
-  | (Item & { product: EnhancedSku }) // when querying search/product
-  | (OrderFormItem & { product: Promise<EnhancedSku> }) // when querying order
+// TODO: Add type from orderform
+type Root = ArrayElementType<ReturnType<typeof StoreAggregateOffer.offers>> // when querying search/product
+// | (OrderFormItem & { product: Promise<EnhancedSku> }) // when querying order
 
 export const StoreOffer: Record<string, Resolver<Root>> = {
   priceCurrency: () => '',
-  priceValidUntil: ({ priceValidUntil }) => priceValidUntil ?? '',
+  priceValidUntil: ({ sellers }) =>
+    getFirstSeller(sellers)?.commertialOffer.PriceValidUntil ?? '',
   itemCondition: () => 'https://schema.org/NewCondition',
-  availability: ({ availability }) =>
-    availability === 'available'
+  availability: (item) =>
+    inStock(item)
       ? 'https://schema.org/InStock'
       : 'https://schema.org/OutOfStock',
-  seller: ({ seller }) => ({
-    identifier: seller,
+  seller: ({ sellers }) => ({
+    identifier: getFirstSeller(sellers)?.sellerName ?? '',
   }),
-  price: ({ sellingPrice }) => sellingPrice / 1e2, // TODO add spot price calculation
-  sellingPrice: ({ sellingPrice }) => sellingPrice / 1e2,
-  listPrice: ({ listPrice }) => listPrice / 1e2,
+  price: (item) => getItemPriceByKey(item, 'spotPrice') / 1e2, // TODO add spot price calculation
+  // TODO: Check if Price is SellingPrice
+  sellingPrice: (item) => getItemPriceByKey(item, 'Price') / 1e2,
+  listPrice: (item) => getItemPriceByKey(item, 'ListPrice') / 1e2,
   itemOffered: ({ product }) => product,
-  quantity: ({ quantity }) => quantity,
+  quantity: ({ sellers }) =>
+    sellers.reduce(
+      (quantity, seller) => quantity + seller.commertialOffer.AvailableQuantity,
+      0
+    ),
 }

@@ -1,41 +1,39 @@
+import type { Item } from '../clients/search/types/ProductSearchResult'
+import type { StoreProduct } from './product'
+import type { PromiseType } from '../../../typings'
+import type { Resolver } from '..'
 import type { EnhancedSku } from '../utils/enhanceSku'
-import type { Simulation } from '../clients/commerce/types/Simulation'
+import { inStock } from '../utils/productStock'
+import { getItemPriceByKey } from '../utils/price'
 
-type Resolvers = (root: Simulation & { product: EnhancedSku }) => unknown
+type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
 
-const inStock = (item: Simulation['items'][0]) =>
-  item.availability === 'available'
+const getItemPrice = (item: Item) => getItemPriceByKey(item, 'Price')
 
-// Smallest Available Selling Price First
-export const sortOfferByPrice = (
-  items: Simulation['items']
-): Simulation['items'] =>
-  items.sort((a, b) => {
-    if (inStock(a) && !inStock(b)) {
-      return -1
-    }
-
-    if (!inStock(a) && inStock(b)) {
-      return 1
-    }
-
-    return a.sellingPrice - b.sellingPrice
-  })
-
-export const StoreAggregateOffer: Record<string, Resolvers> = {
+export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
+  offers: Resolver<Root, any, Array<Item & { product: EnhancedSku }>>
+} = {
   highPrice: ({ items }) => {
     const availableItems = items.filter(inStock)
-    const highPrice = availableItems.pop()?.sellingPrice
+    const highPrice =
+      availableItems.length > 0
+        ? getItemPrice(availableItems[availableItems.length - 1])
+        : 0
 
-    return (highPrice ?? 0) / 1e2
+    return highPrice
   },
   lowPrice: ({ items }) => {
     const availableItems = items.filter(inStock)
-    const lowPrice = availableItems[0]?.sellingPrice
+    const lowPrice =
+      availableItems.length > 0 ? getItemPrice(availableItems[0]) : 0
 
-    return (lowPrice ?? 0) / 1e2
+    return lowPrice
   },
   offerCount: ({ items }) => items.length,
   priceCurrency: () => '',
-  offers: ({ items, product }) => items.map((item) => ({ ...item, product })),
+  offers: ({ items, product }) =>
+    items.map((item) => ({
+      ...item,
+      product,
+    })),
 }

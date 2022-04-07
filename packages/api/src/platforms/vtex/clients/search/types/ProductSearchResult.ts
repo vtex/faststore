@@ -1,5 +1,8 @@
 export interface ProductSearchResult {
-  total: number
+  /**
+   * @description Total of products.
+   */
+  recordsFiltered: number
   products: Product[]
   pagination: Pagination
   sampling: boolean
@@ -12,212 +15,175 @@ export interface ProductSearchResult {
   correction: Correction
 }
 
-export interface Correction {
+interface Correction {
   misspelled: boolean
 }
 
-export interface Options {
+interface Options {
   sorts: Sort[]
   counts: Count[]
 }
 
-export interface Count {
+interface Count {
   count: number
   proxyURL: string
 }
 
-export interface Sort {
+interface Sort {
   field: string
   order: string
   active?: boolean
   proxyURL: string
 }
 
-export interface Pagination {
+interface Pagination {
   count: number
-  current: Current
-  before: any[]
-  after: Current[]
+  current: Page
+  before: Page[]
+  after: Page[]
   perPage: number
-  next: Current
-  previous: First
-  first: First
-  last: Current
+  next: Page
+  previous: Page
+  first: Page
+  last: Page
 }
 
-export interface Current {
+interface Page {
   index: number
   proxyURL: string
 }
 
-export interface First {
-  index: number
-}
-
 export interface Product {
-  unitMultiplier: number
-  year: number
-  extraData: ExtraDatum[]
-  release: number
-  discount: number
-  reference: string
-  split: Split
-  collections: Collection[]
-  price: number
-  customSort: number
-  stickers: Sticker[]
-  id: string
-  stock: number
+  productId: string
+  productName: string
   brand: string
-  availableTradePolicies: string[]
-  categoryTrees: CategoryTree[]
-  images: Image[]
-  locationAttributes: any[]
-  tax: number
-  productScore: number
-  storeSplitAttribute: string
-  brandID: string
-  installment: Installment
-  name: string
-  boost: Boost
-  skus: Sku[]
-  link: string
-  wear: number
-  description: string
-  showIfNotAvailable: boolean
-  clusterHighlights: ClusterHighlights
+  brandId: number
+  cacheId?: string
+  linkText: string
+  productReference: string
+  categoryId: string
+  clusterHighlights: Record<string, any>
+  productClusters: Record<string, string>
   categories: string[]
-  timestamp: number
-  product: string
-  oldPrice: number
-  productSpecifications: string[]
-  url: string
-  measurementUnit: string
-  categoryIDS: string[]
-  textAttributes: TextAttribute[]
-  numberAttributes: NumberAttribute[]
-  headSku: string
-  specificationGroups: string
-  extraInfo: ExtraInfo
-  oldPriceText: string
-  priceText: string
+  categoriesIds: string[]
+  link: string
+  description: string
+  /**
+   * @description Product SKUs.
+   */
+  items: Item[]
+  skuSpecifications?: SkuSpecification[]
+  priceRange: PriceRange
+  specificationGroups: SpecificationGroup
+  properties: Array<{ name: string; values: string[] }>
+  selectedProperties: Array<{ key: string; value: string }>
 }
 
-export interface Boost {
-  newness: number
-  image: number
-  revenue: number
-  discount: number
-  productScore: number
-  click: number
-  availableSpecsCount: number
-  promotion: number
-  order: number
+interface Image {
+  imageId: string
+  imageLabel: string | null
+  imageTag: string
+  imageUrl: string
+  imageText: string
 }
 
-export interface CategoryTree {
-  categoryNames: string[]
-  categoryIDS: string[]
+interface Installment {
+  Value: number
+  InterestRate: number
+  TotalValuePlusInterestRate: number
+  NumberOfInstallments: number
+  PaymentSystemName: string
+  PaymentSystemGroupName: string
+  Name: string
 }
 
-export interface ClusterHighlights {
-  the140: string
-}
-
-export interface Collection {
-  id: string
-  position: number
-}
-
-export interface ExtraDatum {
-  value: string
-  key: string
-}
-
-export interface ExtraInfo {
-  sellerID: string
-}
-
-export interface Image {
+export interface Item {
+  itemId: string
   name: string
-  value: string
-}
-
-export interface Installment {
-  interest: boolean
-  count: number
-  paymentGroupName: string
-  value: number
-  paymentName: string
-  valueText?: string
-}
-
-export interface NumberAttribute {
-  labelKey: string
-  value: number
-  key: string
-}
-
-export interface Sku {
-  images: Image[]
   nameComplete: string
   complementName: string
-  policies: Policy[]
-  videos: any[]
-  reference: string
-  idWithSplit: string
   ean: string
-  name: string
-  attributes: ExtraDatum[]
-  id: string
+  referenceId: Array<{ Key: string; Value: string }>
+  measurementUnit: string
+  unitMultiplier: number
+  modalType: any | null
+  images: Image[]
+  Videos: string[]
+  variations: string[]
   sellers: Seller[]
+  attachments: Array<{
+    id: number
+    name: string
+    required: boolean
+    domainValues: string
+  }>
+  isKit: boolean
+  kitItems?: Array<{
+    itemId: string
+    amount: number
+  }>
 }
 
-export interface Policy {
-  id: string
-  sellers: Seller[]
+export interface CommertialOffer {
+  DeliverySlaSamplesPerRegion: Record<
+    string,
+    { DeliverySlaPerTypes: any[]; Region: any | null }
+  >
+  Installments: Installment[]
+  DiscountHighLight: any[]
+  GiftSkuIds: string[]
+  Teasers: Array<Record<string, unknown>>
+  teasers?: Array<Record<string, unknown>>
+  BuyTogether: any[]
+  ItemMetadataAttachment: any[]
+  Price: number
+  ListPrice: number
+  spotPrice?: number
+  PriceWithoutDiscount: number
+  RewardValue: number
+  PriceValidUntil: string
+  AvailableQuantity: number
+  Tax: number
+  DeliverySlaSamples: Array<{
+    DeliverySlaPerTypes: any[]
+    Region: any | null
+  }>
+  GetInfoErrorMessage: any | null
+  CacheVersionUsedToCallCheckout: string
 }
 
 export interface Seller {
-  default: boolean
-  oldPrice?: number
-  price?: number
-  installment?: Installment
+  sellerId: string
+  sellerName: string
+  addToCartLink: string
+  sellerDefault: boolean
+  commertialOffer: CommertialOffer
+}
+
+interface SkuSpecification {
+  field: SKUSpecificationField
+  values: SKUSpecificationValue[]
+}
+interface SKUSpecificationValue {
   name: string
-  tax: number
-  teasers: any[]
-  id: string
+  id?: string
+  fieldId?: string
+  originalName?: string
 }
 
-export interface Split {
-  labelValue: string
-  labelKey: string
-}
-
-export interface Sticker {
-  image: string
+interface SKUSpecificationField {
   name: string
-  location: string
-  target: string
+  originalName?: string
+  id?: string
 }
 
-export interface TextAttribute {
-  joinedValue: string
-  isSku: boolean
-  joinedKey: string
-  joinedKeyTranslations: JoinedTranslations
-  isFilter: boolean
-  labelValue: string
-  id: string[]
-  labelKey: string
-  value: string
-  key: string
-  joinedValueTranslations: JoinedTranslations
-  valueID?: string
+interface PriceRange {
+  sellingPrice: { highPrice: number; lowPrice: number }
+  listPrice: { highPrice: number; lowPrice: number }
 }
 
-export interface JoinedTranslations {
-  spanish: string
-  english: string
-  italian: string
+interface SpecificationGroup {
+  name: string
+  originalName: string
+  specifications: { name: string; originalName: string; values: string[] }
 }

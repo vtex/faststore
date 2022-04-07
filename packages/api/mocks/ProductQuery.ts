@@ -62,11 +62,197 @@ export const ProductByIdQuery = `query ProductQuery {
 
 export const productSearchFetch = {
   info:
-    'http://portal.vtexcommercestable.com.br/search-api/v1/storeframework/api/split/product_search/trade-policy/1?page=1&count=1&query=sku%3A64953394&sort=&fuzzy=0&hide-unavailable-items=false',
+    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A64953394&sort=&fuzzy=0&workspace=brasileiro&hide-unavailable-items=false',
   init: undefined,
-  result: JSON.parse(
-    '{"total":1,"products":[{"unitMultiplier":1,"year":0,"extraData":[{"value":"1","key":"sellerId"}],"release":1638662400000,"discount":33,"reference":"4715709796003","collections":[{"id":"137","position":1}],"price":200.64,"customSort":0,"stickers":[],"id":"29913569","stock":1,"brand":"Brand","availableTradePolicies":["1"],"categoryTrees":[{"categoryNames":["Office","Desks"],"categoryIds":["9282","9295"]},{"categoryNames":["Office"],"categoryIds":["9282"]}],"images":[{"name":"et","value":"http://storeframework.vteximg.com.br/arquivos/ids/186495/corporis.jpg?v=637755567185370000"},{"name":"in","value":"http://storeframework.vteximg.com.br/arquivos/ids/186492/qui.jpg?v=637755567174570000"},{"name":"consectetur","value":"http://storeframework.vteximg.com.br/arquivos/ids/186493/possimus.jpg?v=637755567178470000"},{"name":"ea","value":"http://storeframework.vteximg.com.br/arquivos/ids/186494/nihil.jpg?v=637755567181900000"}],"locationAttributes":[],"tax":0,"productScore":1,"storeSplitAttribute":"__PLACEHOLDER__","brandId":"9280","installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":200.64,"paymentName":"Boleto Bancário","valueText":"$200.64"},"name":"Unbranded Concrete Table Small","boost":{"newness":0.7222222222222222,"image":1,"revenue":1,"discount":0.9879785425636955,"productScore":0,"click":1,"availableSpecsCount":1,"promotion":0,"order":1},"spotPrice":200.64,"skus":[{"images":[{"name":"et","value":"http://storeframework.vteximg.com.br/arquivos/ids/186495/corporis.jpg?v=637755567185370000"},{"name":"in","value":"http://storeframework.vteximg.com.br/arquivos/ids/186492/qui.jpg?v=637755567174570000"},{"name":"consectetur","value":"http://storeframework.vteximg.com.br/arquivos/ids/186493/possimus.jpg?v=637755567178470000"},{"name":"ea","value":"http://storeframework.vteximg.com.br/arquivos/ids/186494/nihil.jpg?v=637755567181900000"}],"nameComplete":"Unbranded Concrete Table Small fuchsia","complementName":"Repellendus ipsum suscipit. Tempore consectetur illo dicta ducimus qui ut tempore. Consequatur non laboriosam aut deleniti doloribus nostrum ab et. Odio molestias hic dolor sunt ipsam non. Blanditiis rerum aut dolorum ratione eveniet voluptatibus. Laborum incidunt velit est est laudantium eos.","policies":[{"id":"1","sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"videos":[],"reference":"1346198062637","idWithSplit":"64953394","name":"fuchsia","attributes":[],"id":"64953394","stock":1,"sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"link":"unbranded-concrete-table-small","wear":0,"description":"Aut omnis nobis tenetur.","aclBlockList":[],"showIfNotAvailable":true,"clusterHighlights":{},"categories":["Office","Desks"],"timestamp":1640818300408,"product":"29913569","oldPrice":297.7,"productSpecifications":[],"url":"/unbranded-concrete-table-small/p","measurementUnit":"un","categoryIds":["9282","9295"],"textAttributes":[{"joinedValue":"brand@@@Brand@@@@@@brand@@@Brand","isSku":false,"joinedKey":"text@@@brand@@@Brand@@@brand@@@Brand","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Brand","id":["9280"],"labelKey":"Brand","value":"brand","key":"brand","joinedValueTranslations":{},"originalKey":"brand","originalValue":"brand","originalLabelKey":"Brand","originalLabelValue":"Brand"},{"valueId":"9282","joinedValue":"office@@@Office@@@9282@@@office@@@Office","isSku":false,"joinedKey":"text@@@category-1@@@Category 1@@@category-1@@@Category 1","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Office","id":[],"labelKey":"Category 1","value":"office","key":"category-1","joinedValueTranslations":{},"originalKey":"category-1","originalValue":"office","originalLabelKey":"Category 1","originalLabelValue":"Office"},{"valueId":"9295","joinedValue":"desks@@@Desks@@@9295@@@desks@@@Desks","isSku":false,"joinedKey":"text@@@category-2@@@Category 2@@@category-2@@@Category 2","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Desks","id":[],"labelKey":"Category 2","value":"desks","key":"category-2","joinedValueTranslations":{},"originalKey":"category-2","originalValue":"desks","originalLabelKey":"Category 2","originalLabelValue":"Desks"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@new-release@@@New Release@@@new-release@@@New Release","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"New Release","value":"yes","key":"new-release","joinedValueTranslations":{},"originalKey":"new-release","originalValue":"yes","originalLabelKey":"New Release","originalLabelValue":"Yes"},{"joinedValue":"137@@@137@@@@@@137@@@137","isSku":false,"joinedKey":"text@@@productclusterids@@@productClusterIds@@@productclusterids@@@productClusterIds","joinedKeyTranslations":{},"isFilter":false,"labelValue":"137","id":[],"labelKey":"productClusterIds","value":"137","key":"productclusterids","joinedValueTranslations":{},"originalKey":"productclusterids","originalValue":"137","originalLabelKey":"productClusterIds","originalLabelValue":"137"},{"valueId":"137","joinedValue":"all@@@All@@@137@@@all@@@All","isSku":false,"joinedKey":"text@@@productclusternames@@@productClusterNames@@@productclusternames@@@productClusterNames","joinedKeyTranslations":{},"isFilter":true,"labelValue":"All","id":[],"labelKey":"productClusterNames","value":"all","key":"productclusternames","joinedValueTranslations":{},"originalKey":"productclusternames","originalValue":"all","originalLabelKey":"productClusterNames","originalLabelValue":"All"},{"joinedValue":"false@@@false@@@@@@false@@@false","isSku":false,"joinedKey":"text@@@subscription@@@subscription@@@subscription@@@subscription","joinedKeyTranslations":{},"isFilter":false,"labelValue":"false","id":[],"labelKey":"subscription","value":"false","key":"subscription","joinedValueTranslations":{},"originalKey":"subscription","originalValue":"false","originalLabelKey":"subscription","originalLabelValue":"false"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@trade-policy@@@Trade Policy@@@trade-policy@@@Trade Policy","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Trade Policy","value":"1","key":"trade-policy","joinedValueTranslations":{},"originalKey":"trade-policy","originalValue":"1","originalLabelKey":"Trade Policy","originalLabelValue":"1"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@seller@@@Seller@@@seller@@@Seller","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Seller","value":"1","key":"seller","joinedValueTranslations":{},"originalKey":"seller","originalValue":"1","originalLabelKey":"Seller","originalLabelValue":"1"},{"valueId":"1","joinedValue":"vtex@@@VTEX@@@1@@@vtex@@@VTEX","isSku":false,"joinedKey":"text@@@sellername@@@sellerName@@@sellername@@@sellerName","joinedKeyTranslations":{},"isFilter":true,"labelValue":"VTEX","id":[],"labelKey":"sellerName","value":"vtex","key":"sellername","joinedValueTranslations":{},"originalKey":"sellername","originalValue":"vtex","originalLabelKey":"sellerName","originalLabelValue":"VTEX"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@promotion@@@Promotion@@@promotion@@@Promotion","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"Promotion","value":"yes","key":"promotion","joinedValueTranslations":{},"originalKey":"promotion","originalValue":"yes","originalLabelKey":"Promotion","originalLabelValue":"Yes"}],"numberAttributes":[{"labelKey":"Price","value":200.64,"key":"price"}],"headSku":"64953394","specificationGroups":"{}","extraInfo":{"sellerId":"1"},"oldPriceText":"$297.70","priceText":"$200.64","spotPriceText":"$200.64"}],"pagination":{"count":1,"current":{"index":1,"proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:64953394&sort=&fuzzy=0&operator=and"},"before":[],"after":[],"perPage":1,"next":{"index":0},"previous":{"index":0},"first":{"index":0},"last":{"index":0}},"sampling":false,"options":{"sorts":[{"field":"relevance","order":"desc","active":true,"proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:64953394&sort=relevance:desc&fuzzy=0&operator=and"},{"field":"orders","order":"desc","proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:64953394&sort=orders:desc&fuzzy=0&operator=and"},{"field":"discount","order":"desc","proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:64953394&sort=discount:desc&fuzzy=0&operator=and"},{"field":"price","order":"asc","proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:64953394&sort=price:asc&fuzzy=0&operator=and"},{"field":"price","order":"desc","proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:64953394&sort=price:desc&fuzzy=0&operator=and"}],"counts":[{"count":24,"proxyUrl":"search/trade-policy/1?page=1&count=24&query=sku:64953394&sort=&fuzzy=0&operator=and"},{"count":48,"proxyUrl":"search/trade-policy/1?page=1&count=48&query=sku:64953394&sort=&fuzzy=0&operator=and"},{"count":72,"proxyUrl":"search/trade-policy/1?page=1&count=72&query=sku:64953394&sort=&fuzzy=0&operator=and"},{"count":96,"proxyUrl":"search/trade-policy/1?page=1&count=96&query=sku:64953394&sort=&fuzzy=0&operator=and"}]},"translated":false,"locale":"en-US","query":"sku:64953394","operator":"and","fuzzy":"0","correction":{"misspelled":true}}'
-  ),
+  result: {
+    products: [
+      {
+        cacheId: 'sp-29913569',
+        productId: '29913569',
+        description: 'Aut omnis nobis tenetur.',
+        productName: 'Unbranded Concrete Table Small',
+        productReference: '4715709796003',
+        linkText: 'unbranded-concrete-table-small',
+        brand: 'Brand',
+        brandId: 9280,
+        link: '/unbranded-concrete-table-small/p',
+        categories: ['/Office/Desks/', '/Office/'],
+        categoryId: '9295',
+        categoriesIds: ['/9282/9295/', '/9282/'],
+        priceRange: {
+          sellingPrice: {
+            highPrice: 200.64,
+            lowPrice: 200.64,
+          },
+          listPrice: {
+            highPrice: 297.7,
+            lowPrice: 297.7,
+          },
+        },
+        specificationGroups: [
+          {
+            originalName: 'allSpecifications',
+            name: 'allSpecifications',
+            specifications: [
+              {
+                originalName: 'sellerId',
+                name: 'sellerId',
+                values: ['1'],
+              },
+            ],
+          },
+        ],
+        skuSpecifications: [],
+        productClusters: [],
+        clusterHighlights: [],
+        properties: [
+          {
+            name: 'sellerId',
+            originalName: 'sellerId',
+            values: ['1'],
+          },
+        ],
+        items: [
+          {
+            sellers: [
+              {
+                sellerId: '1',
+                sellerName: 'VTEX',
+                addToCartLink: '',
+                sellerDefault: true,
+                commertialOffer: {
+                  DeliverySlaSamplesPerRegion: {},
+                  DeliverySlaSamples: [],
+                  AvailableQuantity: 10000,
+                  discountHighlights: [],
+                  Installments: [
+                    {
+                      Value: 200.64,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 200.64,
+                      NumberOfInstallments: 1,
+                      Name: 'Boleto Banc�rio � vista',
+                      PaymentSystemName: 'Boleto Banc�rio',
+                    },
+                    {
+                      Value: 200.64,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 200.64,
+                      NumberOfInstallments: 1,
+                      Name: 'Free � vista',
+                      PaymentSystemName: 'Free',
+                    },
+                  ],
+                  Price: 200.64,
+                  ListPrice: 297.7,
+                  spotPrice: 200.64,
+                  taxPercentage: 0,
+                  PriceWithoutDiscount: 200.64,
+                  Tax: 0,
+                  GiftSkuIds: [],
+                  BuyTogether: [],
+                  ItemMetadataAttachment: [],
+                  RewardValue: 0,
+                  PriceValidUntil: '2023-04-07T14:08:58Z',
+                  GetInfoErrorMessage: null,
+                  CacheVersionUsedToCallCheckout: '',
+                  teasers: [],
+                },
+              },
+            ],
+            images: [
+              {
+                imageId: '186495',
+                cacheId: '186495',
+                imageTag: '',
+                imageLabel: 'et',
+                imageText: 'et',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/186495/corporis.jpg?v=637755567185370000',
+              },
+              {
+                imageId: '186492',
+                cacheId: '186492',
+                imageTag: '',
+                imageLabel: 'in',
+                imageText: 'in',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/186492/qui.jpg?v=637755567174570000',
+              },
+              {
+                imageId: '186493',
+                cacheId: '186493',
+                imageTag: '',
+                imageLabel: 'consectetur',
+                imageText: 'consectetur',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/186493/possimus.jpg?v=637755567178470000',
+              },
+              {
+                imageId: '186494',
+                cacheId: '186494',
+                imageTag: '',
+                imageLabel: 'ea',
+                imageText: 'ea',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/186494/nihil.jpg?v=637755567181900000',
+              },
+            ],
+            itemId: '64953394',
+            name: 'fuchsia',
+            nameComplete: 'Unbranded Concrete Table Small fuchsia',
+            complementName:
+              'Repellendus ipsum suscipit. Tempore consectetur illo dicta ducimus qui ut tempore. Consequatur non laboriosam aut deleniti doloribus nostrum ab et. Odio molestias hic dolor sunt ipsam non. Blanditiis rerum aut dolorum ratione eveniet voluptatibus. Laborum incidunt velit est est laudantium eos.',
+            referenceId: [
+              {
+                Key: 'RefId',
+                Value: '1346198062637',
+              },
+            ],
+            measurementUnit: 'un',
+            unitMultiplier: 1,
+            variations: [],
+            ean: '',
+            modalType: '',
+            videos: [],
+            attachments: [],
+            isKit: false,
+          },
+        ],
+        origin: 'intelligent-search',
+      },
+    ],
+    recordsFiltered: 1,
+    correction: {
+      misspelled: true,
+    },
+    fuzzy: '0',
+    operator: 'and',
+    translated: false,
+    pagination: {
+      count: 1,
+      current: {
+        index: 1,
+        proxyUrl:
+          'search/trade-policy/1?page=1&count=1&query=sku:64953394&sort=&fuzzy=0&operator=and',
+      },
+      before: [],
+      after: [],
+      perPage: 1,
+      next: {
+        index: 0,
+      },
+      previous: {
+        index: 0,
+      },
+      first: {
+        index: 0,
+      },
+      last: {
+        index: 0,
+      },
+    },
+  },
 }
 
 export const checkoutSimulationFetch = {

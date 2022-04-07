@@ -1,8 +1,8 @@
-import type { Product, Sku } from '../clients/search/types/ProductSearchResult'
+import type { Product, Item } from '../clients/search/types/ProductSearchResult'
 
-export type EnhancedSku = Sku & { isVariantOf: Product }
+export type EnhancedSku = Item & { isVariantOf: Product }
 
-export const enhanceSku = (sku: Sku, product: Product): EnhancedSku => ({
-  ...sku,
+export const enhanceSku = (item: Item, product: Product): EnhancedSku => ({
+  ...item,
   isVariantOf: product,
 })

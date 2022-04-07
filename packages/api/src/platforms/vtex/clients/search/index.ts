@@ -35,7 +35,8 @@ export const IntelligentSearch = (
   { account, environment, hideUnavailableItems }: Options,
   ctx: Context
 ) => {
-  const base = `http://portal.${environment}.com.br/search-api/v1/${account}`
+  // TODO: Validate this approach
+  const base = `http://${account}.${environment}.com.br/api/io`
   const policyFacet: IStoreSelectedFacet = {
     key: 'trade-policy',
     value: ctx.storage.channel.salesChannel,
@@ -66,6 +67,8 @@ export const IntelligentSearch = (
       query,
       sort,
       fuzzy,
+      // TODO: remove before deploy
+      workspace: 'brasileiro',
     })
 
     if (hideUnavailableItems !== undefined) {
@@ -77,7 +80,9 @@ export const IntelligentSearch = (
       .join('/')
 
     return fetchAPI(
-      `${base}/api/split/${type}/${pathname}?${params.toString()}`
+      type === 'product_search'
+        ? `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
+        : `http://portal.${environment}.com.br/search-api/v1/${account}/api/split/${type}/${pathname}?${params.toString()}`
     )
   }
 

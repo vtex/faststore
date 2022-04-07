@@ -14,11 +14,7 @@ import {
   pageTypeOfficeDesksFetch,
   pageTypeOfficeFetch,
 } from '../mocks/CollectionQuery'
-import {
-  checkoutSimulationFetch,
-  ProductByIdQuery,
-  productSearchFetch,
-} from '../mocks/ProductQuery'
+import { ProductByIdQuery, productSearchFetch } from '../mocks/ProductQuery'
 import {
   AllCollectionsQueryFirst5,
   catalogBrandListFetch,
@@ -112,7 +108,7 @@ test('`collection` query', async () => {
 })
 
 test('`product` query', async () => {
-  const fetchAPICalls = [productSearchFetch, checkoutSimulationFetch]
+  const fetchAPICalls = [productSearchFetch]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -120,7 +116,7 @@ test('`product` query', async () => {
 
   const response = await execute(schema, parse(ProductByIdQuery), null, context)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(2)
+  expect(mockedFetch).toHaveBeenCalledTimes(1)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(

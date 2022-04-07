@@ -1,50 +1,52 @@
-import { sortOfferByPrice } from '../src/platforms/vtex/resolvers/aggregateOffer'
+import type {
+  CommertialOffer,
+  Item,
+} from '../src/platforms/vtex/clients/search/types/ProductSearchResult'
+import { sortOfferByPrice } from '../src/platforms/vtex/utils/productStock'
+
+type TestItem = {
+  sellers: Array<{
+    commertialOffer: Pick<CommertialOffer, 'AvailableQuantity' | 'Price'>
+  }>
+}
 
 describe('AggregateOffer', () => {
   it('Should return best offers first', () => {
-    const sorted = sortOfferByPrice([
+    const testItems: TestItem[] = [
       {
-        sellingPrice: 10,
-        availability: 'available',
+        sellers: [{ commertialOffer: { AvailableQuantity: 1, Price: 10 } }],
       },
       {
-        sellingPrice: 20,
-        availability: 'unavailable',
+        sellers: [{ commertialOffer: { AvailableQuantity: 0, Price: 20 } }],
       },
       {
-        sellingPrice: 30,
-        availability: 'available',
+        sellers: [{ commertialOffer: { AvailableQuantity: 1, Price: 30 } }],
       },
       {
-        sellingPrice: 10,
-        availability: 'unavailable',
+        sellers: [{ commertialOffer: { AvailableQuantity: 0, Price: 10 } }],
       },
       {
-        sellingPrice: 1,
-        availability: 'available',
+        sellers: [{ commertialOffer: { AvailableQuantity: 1, Price: 1 } }],
       },
-    ] as any)
+    ]
+
+    const sorted = sortOfferByPrice(testItems as Item[])
 
     expect(sorted).toEqual([
       {
-        sellingPrice: 1,
-        availability: 'available',
+        sellers: [{ commertialOffer: { AvailableQuantity: 1, Price: 1 } }],
       },
       {
-        sellingPrice: 10,
-        availability: 'available',
+        sellers: [{ commertialOffer: { AvailableQuantity: 1, Price: 10 } }],
       },
       {
-        sellingPrice: 30,
-        availability: 'available',
+        sellers: [{ commertialOffer: { AvailableQuantity: 1, Price: 30 } }],
       },
       {
-        sellingPrice: 10,
-        availability: 'unavailable',
+        sellers: [{ commertialOffer: { AvailableQuantity: 0, Price: 10 } }],
       },
       {
-        sellingPrice: 20,
-        availability: 'unavailable',
+        sellers: [{ commertialOffer: { AvailableQuantity: 0, Price: 20 } }],
       },
     ])
   })
