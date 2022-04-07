@@ -9,7 +9,7 @@ import BannerLink from './BannerLink'
 
 const BannerTest = () => {
   return (
-    <Banner>
+    <Banner data-custom-attribute>
       <BannerImage>
         <img
           alt="A person with hands on the pocket, carrying a round straw bag"
@@ -38,6 +38,10 @@ describe('Banner', () => {
 
     it('`Banner` component should have `data-store-banner` attribute', () => {
       expect(banner).toHaveAttribute('data-store-banner')
+    })
+
+    it('`Banner` component should have custom data attribute `data-custom-attribute`', () => {
+      expect(banner).toHaveAttribute('data-custom-attribute')
     })
 
     it('`BannerImage` component should have `data-banner-image` attribute', () => {
