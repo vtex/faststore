@@ -724,7 +724,7 @@ Object {
         "title": "Desks",
         "titleTemplate": "",
       },
-      "slug": "Office/Desks",
+      "slug": "office/desks",
       "type": "Category",
     },
   },

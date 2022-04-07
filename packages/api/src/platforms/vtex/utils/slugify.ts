@@ -38,6 +38,7 @@ const slugifySpecialCharacters = (str: string) => {
 export function slugify(str: string) {
   const noCommas = str.replace(/,/g, '')
   const replaced = noCommas.replace(/[*+~.()'"!:@&\[\]`/ %$#?{}|><=_^]/g, '-')
+  const slugified = slugifySpecialCharacters(removeDiacritics(replaced))
 
-  return slugifySpecialCharacters(removeDiacritics(replaced)).toLowerCase()
+  return slugified.toLowerCase()
 }
