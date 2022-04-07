@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.14 (2022-04-07)
+
+
+### Bug Fixes
+
+* Uses catalog slugify ([#1214](https://github.com/vtex/faststore/issues/1214)) ([0b38efc](https://github.com/vtex/faststore/commit/0b38efc96ecab8920cf15f01c29e7f9d5becba3d))
+
+
+
+
+
 ## 1.7.13 (2022-04-07)
 
 **Note:** Version bump only for package @vtex/gatsby-source-store
