@@ -2,6 +2,19 @@
   {
     "date": "2022-04-07",
     "type": "Added",
+    "menu": "Tutorials",
+    "category": "Integrating your storefront with VTEX Headless CMS",
+    "path": "/tutorials/cms-overview",
+    "docs": [
+      {
+        "path": "/tutorials/cms/Troubleshooting",
+        "title": "Troubleshooting"
+      }
+    ]
+  }, 
+  {
+    "date": "2022-04-07",
+    "type": "Added",
     "menu": "How-to Guides",
     "category": "VTEX Headless CMS Integration",
     "path": "/how-to-guides/cms/vtex",

@@ -20,24 +20,25 @@ First, we will install the **VTEX IO CLI**. The VTEX IO CLI will help you during
 1. Install the VTEX IO CLI on your machine. Please refer to [this](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-install) document for more information.
 
 2. Log in to your VTEX account:
+  - *Remember to replace the values between curly brackets according to your scenario.*
 
    ```
    vtex login {account}
    ```
   
-  :::caution
-  Remember to replace the values between curly brackets according to your scenario.
-  :::
-
 3. Install the VTEX Headless CMS plugin:
 
     ```sh
     vtex plugins install cms
     ```
 
-Now, check if the installation of the VTEX Headless CMS plugin was successful and take a look at all the `cms` subcommands by running `vtex cms`.
+Now, check if the installation of the VTEX Headless CMS plugin was successful by running `vtex cms`.
 
    ![VTEX Headless CMS plugin](/img/tutorials/cms/cms-cli-plugin.png)
+
+:::caution
+If you find any problems while installing the plugin, please refer to our [Troubleshooting](/tutorials/cms/Troubleshooting) article.
+:::
 
 
 ### Step 2 - Installing the Headless CMS app on your VTEX account
