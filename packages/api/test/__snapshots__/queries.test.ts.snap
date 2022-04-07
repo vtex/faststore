@@ -119,7 +119,7 @@ Object {
               "selectedFacets": Array [
                 Object {
                   "key": "brand",
-                  "value": "i-robot",
+                  "value": "irobot",
                 },
               ],
             },
@@ -724,7 +724,7 @@ Object {
         "title": "Desks",
         "titleTemplate": "",
       },
-      "slug": "Office/Desks",
+      "slug": "office/desks",
       "type": "Category",
     },
   },
