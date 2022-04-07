@@ -9,7 +9,7 @@ import SearchBar from '@theme/SearchBar'
 
 function FastStore() {
   return (
-    <div className="text-text border-b pt-16 pb-10">
+    <div className="text-text border-b pb-10">
       <div className="flex justify-between mb-12 flex-col sm:flex-row">
         <div className="w-full flex justify-between items-center pr-10 mt-20 sm:w-3/5">
           <div>

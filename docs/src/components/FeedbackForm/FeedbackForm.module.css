@@ -1,9 +1,9 @@
 .submitMessage{
-  @apply mt-5 mb-10 text-seriousBlack;
+  @apply mt-5 mb-10 text-secondary;
 }
 
 .feedbackForm {
-  @apply mb-5 text-seriousBlack;
+  @apply mb-5 text-secondary;
 }
 
 .feedbackForm p {
@@ -15,7 +15,7 @@
 }
 
 .submit:hover {
-  @apply bg-whiteIce;
+  @apply bg-code;
 }
 
 .feedbackForm label {
@@ -27,7 +27,7 @@
 }
 
 .formRadio {
-  @apply  my-5 text-seriousBlack;
+  @apply  my-5 text-secondary;
 }
 
 .formRadio label + label {

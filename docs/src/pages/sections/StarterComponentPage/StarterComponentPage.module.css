@@ -3,7 +3,7 @@
 }
 
 .StarterCard {
-  @apply w-10/12 relative flex bg-whiteIce container mb-20 mx-auto text-seriousBlack rounded-lg justify-between;
+  @apply w-10/12 relative flex bg-code container mb-20 mx-auto text-secondary rounded-lg justify-between;
 }
 
 .CardImage {
@@ -39,7 +39,7 @@
   @apply px-4 py-2 rounded font-bold uppercase inline-block mt-2;
 }
 .ViewSource {
-  @apply bg-rebelPink  text-white;
+  @apply bg-primary  text-white;
 }
 .ViewSource:hover {
   @apply text-white;
@@ -50,7 +50,7 @@
 }
 
 .VisitDemo {
-  @apply sm:ml-2 text-rebelPink border-rebelPink border;
+  @apply sm:ml-2 text-primary border-primary border;
 }
 
 @media screen and (max-width: 1220px) {

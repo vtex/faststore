@@ -41,7 +41,7 @@ const DocStructure = () => {
             className="focus:no-underline hover:no-underline"
             to={useBaseUrl(item.url)}
           >
-            <h4 className="block font-black  text-text hover:text-rebelPink">{item.title}</h4>
+            <h4 className="block font-black  text-text hover:text-primary">{item.title}</h4>
             <p className="text-details">{item.description}</p>
           </Link>
         ))}

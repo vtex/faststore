@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-04-07",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "VTEX Headless CMS Integration",
+    "path": "/how-to-guides/cms/vtex",
+    "docs": [
+      {
+        "path": "/how-to-guides/cms/vtex-headless-cms/Enabling%20private%20CMS%20previews",
+        "title": "Enabling private CMS previews"
+      }
+    ]
+  }, 
+  {
     "date": "2022-04-05",
     "type": "Added",
     "menu": "How-to Guides",

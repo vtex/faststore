@@ -15,7 +15,7 @@
 }
 
 .propsType{
-  @apply bg-softPink text-rebelPink ml-2 py-1;
+  @apply bg-softPink text-primary ml-2 py-1;
   font-size:10px!important;
   border: 1px solid #ffe0ef;
 }
@@ -25,7 +25,7 @@
 }
 
 .propsDetails code {
-    @apply border-none bg-white text-rebelPink p-0;
+    @apply border-none bg-white text-primary p-0;
   }
 
 .propsDetailsTitle {
