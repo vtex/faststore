@@ -2,6 +2,9 @@
 /**
  * VTEX catalog slugify function
  *
+ * Copied from:
+ * https://github.com/vtex/rewriter/blob/1ce2010783e0586cab42534ce2fb7a983d8a3a84/node/clients/catalog.ts#L72
+ *
  * Sometimes, we need to slugify strings for creating urls. An example is the
  * brand urls, where we create them from the brand's name.
  * This slugify function should match exactly what VTEX catalog generates. Any mismatch
@@ -14,6 +17,7 @@
  * - Join those 3 regexs for special characters into a single one.
  * - Replace the regexp of `removeDiacritics` function with a Map. We can make the complexity
  * of this function be O(n) with n=string.length
+ *
  */
 const from =
   'ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa'
