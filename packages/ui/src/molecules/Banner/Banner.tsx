@@ -15,9 +15,10 @@ const Banner = ({
   testId = 'store-banner',
   children,
   variant = 'vertical',
+  ...otherProps
 }: BannerProps) => {
   return (
-    <article data-store-banner={variant} data-testid={testId}>
+    <article data-store-banner={variant} data-testid={testId} {...otherProps}>
       {children}
     </article>
   )
