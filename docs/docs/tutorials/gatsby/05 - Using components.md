@@ -28,7 +28,7 @@ Both Gatsby and FastStore are not strict to any React framework. If you prefer, 
 
 ## Getting started with FastStore UI
 
-FastStore UI library follows the Atomic Design pattern. Atomic Design breaks user interfaces hierarchically into smaller and simpler components. There are five distinct levels in Atomic design: atoms, molecules, organisms, templates, and pages. This is why you will see atoms and molecules as headers in [FastStore UI Reference documentation](/reference/ui/faststore-ui). The image below can be used as a visual overview of how different UI elements are grouped together in Atomic Design:
+FastStore UI library follows the Atomic Design pattern. Atomic Design breaks user interfaces hierarchically into smaller and simpler components. There are five distinct levels in Atomic design: atoms, molecules, organisms, templates, and pages. This is why you can see these terms as headers in [FastStore UI Reference documentation](/reference/ui/faststore-ui). The image below can be used as a visual overview of how different UI elements are grouped together in Atomic Design:
 
 ![atomic-design](/img/tutorials/gatsby/atomic-design.png)
 

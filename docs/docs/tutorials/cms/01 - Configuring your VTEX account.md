@@ -45,7 +45,7 @@ Now, check if the installation of the VTEX Headless CMS plugin was successful an
 In this step, let's install install the VTEX Headless CMS app and all its dependencies in your VTEX account by running the following command:
 
   ```
-  vtex install vtex.admin-cms@0.x vtex.admin-cms-graphql@0.x vtex.admin-cms-graphql-rc@0.x vtex.admin-releases@0.x vtex.cms-builder-sf-jamstack@1.x
+  vtex install vtex.admin-cms@1.x vtex.admin-cms-graphql@0.x vtex.admin-cms-graphql-rc@1.x vtex.admin-releases@0.x vtex.cms-builder-sf-jamstack@1.x
   ```
 
 Now you can check the VTEX Headless CMS interface by accessing the VTEX Admin and then going to **Store Setup > CMS (Alpha) > Pages (Alpha)**.
@@ -61,7 +61,7 @@ Next, let's configure the URLs of the webhooks used by the VTEX Headless CMS app
 5.  Fill in the **Builder ID** field with `faststore`.
 6. Fill in the **Build Webhook URL** field with the following value. *Replace the values between curly brackets according to your scenario.*
    ```
-   https://app.io.vtex.com/vtex.cms-builder-sf-jamstack/v1/{account}/{workspace}/build
+   https://app.io.vtex.com/vtex.cms-builder-sf-jamstack/v1/{account}/{workspace}/build-releases
    ```
 
    :::info
