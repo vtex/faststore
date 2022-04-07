@@ -11,7 +11,7 @@
  * in a hurry for doing these tests now, so I'll leave a small TODO.
  *
  * TODO: Research for better ways of computing this slugify function. Things I'd try are:
- * - Join those 3 regexs for special characters into a sigle one.
+ * - Join those 3 regexs for special characters into a single one.
  * - Replace the regexp of `removeDiacritics` function with a Map. We can make the complexity
  * of this function be O(n) with n=string.length
  */
