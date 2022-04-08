@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-04-08",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Local Development",
+    "path": "/how-to-guides/local-development",
+    "docs": [
+      {
+        "path": "/how-to-guides/local-development/troubleshooting-problems-in-faststore",
+        "title": "Troubleshooting problems in FastStore"
+      }
+    ]
+  }, 
+  {
     "date": "2022-04-07",
     "type": "Added",
     "menu": "Tutorials",
