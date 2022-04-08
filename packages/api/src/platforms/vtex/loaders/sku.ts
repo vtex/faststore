@@ -36,7 +36,7 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
     }, {} as Record<string, EnhancedSku>)
 
     const skus = skuIds.map((skuId) => skuBySkuId[skuId])
-    const missingSkus = skus.filter((sku) => !sku)
+    const missingSkus = skus.filter((sku) => !sku).map((sku) => sku.id)
 
     if (skus.length > 0 && missingSkus.length > 0) {
       throw new Error(
