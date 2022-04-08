@@ -4,7 +4,7 @@ tags:
     - troubleshooting
 ---
 
-# Troubleshooting problems in Faststore
+# Troubleshooting problems in FastStore
 
 While developing with FastStore, you may run into errors. Some of these may require fixes in FastStore libraries, while others may require adjusting your code. 
 
