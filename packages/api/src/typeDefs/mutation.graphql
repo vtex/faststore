@@ -15,4 +15,8 @@ type Mutation {
   validateCart(cart: IStoreCart!): StoreCart
 
   updateSession(session: IStoreSession!): StoreSession!
+
+  # Mutation to add/update offerings
+  addOffering(offering:IStoreOffering!):StoreBundleItems
+  removeOffering(offering:IStoreOffering!):StoreBundleItems
 }

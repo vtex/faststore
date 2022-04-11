@@ -5,11 +5,13 @@ import AggregateRating from './aggregateRating.graphql'
 import Author from './author.graphql'
 import Brand from './brand.graphql'
 import Breadcrumb from './breadcrumb.graphql'
+import BundleItem from './bundleItem.graphql'
 import Collection from './collection.graphql'
 import Facet from './facet.graphql'
 import Image from './image.graphql'
 import Mutation from './mutation.graphql'
 import Offer from './offer.graphql'
+import Offerings from './offerings.graphql'
 import Order from './order.graphql'
 import Organization from './organization.graphql'
 import PageInfo from './pageInfo.graphql'
@@ -35,6 +37,7 @@ export const typeDefs = [
   Product,
   Seo,
   Offer,
+  Offerings,
   AggregateRating,
   Review,
   Author,
@@ -46,6 +49,7 @@ export const typeDefs = [
   Status,
   PropertyValue,
   Person,
+  BundleItem,
 ]
   .map(print)
   .join('\n')

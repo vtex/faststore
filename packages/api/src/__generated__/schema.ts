@@ -28,6 +28,12 @@ export type IStoreOffer = {
   seller: IStoreOrganization;
 };
 
+export type IStoreOffering = {
+  id: Scalars['String'];
+  itemIndex: Scalars['Int'];
+  orderNumber: Scalars['String'];
+};
+
 export type IStoreOrder = {
   acceptedOffer: Array<IStoreOffer>;
   orderNumber: Scalars['String'];
@@ -56,8 +62,20 @@ export type IStoreSession = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addOffering?: Maybe<Array<StoreOffering>>;
+  removeOffering?: Maybe<Array<StoreOffering>>;
   updateSession: StoreSession;
   validateCart?: Maybe<StoreCart>;
+};
+
+
+export type MutationAddOfferingArgs = {
+  offering: IStoreOffering;
+};
+
+
+export type MutationRemoveOfferingArgs = {
+  offering: IStoreOffering;
 };
 
 
@@ -124,6 +142,11 @@ export type StoreAggregateRating = {
   __typename?: 'StoreAggregateRating';
   ratingValue: Scalars['Float'];
   reviewCount: Scalars['Int'];
+};
+
+export type StoreAttachmentOffering = {
+  __typename?: 'StoreAttachmentOffering';
+  name: Scalars['String'];
 };
 
 export type StoreAuthor = {
@@ -234,12 +257,23 @@ export type StoreOffer = {
   itemCondition: Scalars['String'];
   itemOffered: StoreProduct;
   listPrice: Scalars['Float'];
+  offerings: Array<Maybe<StoreOffering>>;
   price: Scalars['Float'];
   priceCurrency: Scalars['String'];
   priceValidUntil: Scalars['String'];
   quantity: Scalars['Int'];
   seller: StoreOrganization;
   sellingPrice: Scalars['Float'];
+};
+
+export type StoreOffering = {
+  __typename?: 'StoreOffering';
+  allowGiftMessage: Scalars['Boolean'];
+  attachmentOfferings: Array<Maybe<StoreAttachmentOffering>>;
+  id: Scalars['String'];
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  type: Scalars['String'];
 };
 
 export type StoreOrder = {

@@ -41,6 +41,8 @@ export interface OrderFormItem {
   seller: string
   sellerChain: string[]
   availability: string
+  bundleItems: BundleItem[]
+  offerings: OfferingItem[]
   unitMultiplier: number
   skuSpecifications: SKUSpecification[]
   priceDefinition: {
@@ -49,7 +51,23 @@ export interface OrderFormItem {
     total: number
   }
 }
+export interface BundleItem {
+  id: string
+  sellingPrice: number
+  price: number
+  name: string
+  isGift: boolean
+  quantity: number
+}
 
+export interface OfferingItem {
+  type: string
+  id: string
+  name: string
+  allowGiftMessage: boolean
+  attachmentOfferings: any[]
+  price: number
+}
 export interface SKUSpecification {
   fieldName: string
   fieldValues: string[]
