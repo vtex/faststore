@@ -29,8 +29,9 @@ export type IStoreOffer = {
 };
 
 export type IStoreOffering = {
+  id: Scalars['String'];
+  itemIndex: Scalars['Int'];
   orderNumber: Scalars['String'];
-  productOfferings: Array<Maybe<IStoreProductOfferings>>;
 };
 
 export type IStoreOrder = {
@@ -48,17 +49,6 @@ export type IStoreProduct = {
   sku: Scalars['String'];
 };
 
-export type IStoreProductOffering = {
-  id: Scalars['String'];
-  name: Scalars['String'];
-};
-
-export type IStoreProductOfferings = {
-  index: Scalars['Int'];
-  offerings: Array<IStoreProductOffering>;
-  sku: Scalars['String'];
-};
-
 export type IStoreSelectedFacet = {
   key: Scalars['String'];
   value: Scalars['String'];
@@ -72,14 +62,20 @@ export type IStoreSession = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  updateOfferings?: Maybe<Array<StoreOffering>>;
+  addOffering?: Maybe<Array<StoreOffering>>;
+  removeOffering?: Maybe<Array<StoreOffering>>;
   updateSession: StoreSession;
   validateCart?: Maybe<StoreCart>;
 };
 
 
-export type MutationUpdateOfferingsArgs = {
-  offerings: IStoreOffering;
+export type MutationAddOfferingArgs = {
+  offering: IStoreOffering;
+};
+
+
+export type MutationRemoveOfferingArgs = {
+  offering: IStoreOffering;
 };
 
 

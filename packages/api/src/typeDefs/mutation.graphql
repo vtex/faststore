@@ -17,5 +17,6 @@ type Mutation {
   updateSession(session: IStoreSession!): StoreSession!
 
   # Mutation to add/update offerings
-  updateOfferings(offerings:IStoreOffering!):[StoreOffering!]
+  addOffering(offering:IStoreOffering!):[StoreOffering!]
+  removeOffering(offering:IStoreOffering!):[StoreOffering!]
 }

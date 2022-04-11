@@ -13,16 +13,6 @@ type StoreAttachmentOffering {
 
 input IStoreOffering {
     orderNumber:String!
-    productOfferings:[IStoreProductOfferings]!
-}
-
-input IStoreProductOfferings{
-    sku:String!
-    index:Int!
-    offerings:[IStoreProductOffering!]!
-}
-
-input IStoreProductOffering {
+    itemIndex:Int!
     id:String!
-    name: String!
 }
