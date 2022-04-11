@@ -1,0 +1,28 @@
+type StoreOffering {
+  type: String!
+  id: String!
+  name: String!
+  allowGiftMessage: Boolean!
+  attachmentOfferings: [StoreAttachmentOffering]!
+  price: Int!
+}
+
+type StoreAttachmentOffering {
+  name: String!
+}
+
+input IStoreOffering {
+    orderNumber:String!
+    productOfferings:[IStoreProductOfferings]!
+}
+
+input IStoreProductOfferings{
+    sku:String!
+    index:Int!
+    offerings:[IStoreProductOffering!]!
+}
+
+input IStoreProductOffering {
+    id:String!
+    name: String!
+}

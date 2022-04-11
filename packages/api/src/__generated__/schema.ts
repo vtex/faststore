@@ -28,6 +28,11 @@ export type IStoreOffer = {
   seller: IStoreOrganization;
 };
 
+export type IStoreOffering = {
+  orderNumber: Scalars['String'];
+  productOfferings: Array<Maybe<IStoreProductOfferings>>;
+};
+
 export type IStoreOrder = {
   acceptedOffer: Array<IStoreOffer>;
   orderNumber: Scalars['String'];
@@ -40,6 +45,17 @@ export type IStoreOrganization = {
 export type IStoreProduct = {
   image: Array<IStoreImage>;
   name: Scalars['String'];
+  sku: Scalars['String'];
+};
+
+export type IStoreProductOffering = {
+  id: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type IStoreProductOfferings = {
+  index: Scalars['Int'];
+  offerings: Array<IStoreProductOffering>;
   sku: Scalars['String'];
 };
 
@@ -56,8 +72,14 @@ export type IStoreSession = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  updateOfferings?: Maybe<Array<StoreOffering>>;
   updateSession: StoreSession;
   validateCart?: Maybe<StoreCart>;
+};
+
+
+export type MutationUpdateOfferingsArgs = {
+  offerings: IStoreOffering;
 };
 
 
@@ -124,6 +146,11 @@ export type StoreAggregateRating = {
   __typename?: 'StoreAggregateRating';
   ratingValue: Scalars['Float'];
   reviewCount: Scalars['Int'];
+};
+
+export type StoreAttachmentOffering = {
+  __typename?: 'StoreAttachmentOffering';
+  name: Scalars['String'];
 };
 
 export type StoreAuthor = {
@@ -234,12 +261,23 @@ export type StoreOffer = {
   itemCondition: Scalars['String'];
   itemOffered: StoreProduct;
   listPrice: Scalars['Float'];
+  offerings: Array<Maybe<StoreOffering>>;
   price: Scalars['Float'];
   priceCurrency: Scalars['String'];
   priceValidUntil: Scalars['String'];
   quantity: Scalars['Int'];
   seller: StoreOrganization;
   sellingPrice: Scalars['Float'];
+};
+
+export type StoreOffering = {
+  __typename?: 'StoreOffering';
+  allowGiftMessage: Scalars['Boolean'];
+  attachmentOfferings: Array<Maybe<StoreAttachmentOffering>>;
+  id: Scalars['String'];
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  type: Scalars['String'];
 };
 
 export type StoreOrder = {

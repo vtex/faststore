@@ -15,4 +15,7 @@ type Mutation {
   validateCart(cart: IStoreCart!): StoreCart
 
   updateSession(session: IStoreSession!): StoreSession!
+
+  # Mutation to add/update offerings
+  updateOfferings(offerings:IStoreOffering!):[StoreOffering!]
 }
