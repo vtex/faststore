@@ -2,9 +2,9 @@ type StoreOffering {
   type: String!
   id: String!
   name: String!
-  allowGiftMessage: Boolean!
-  attachmentOfferings: [StoreAttachmentOffering]!
-  price: Int!
+  allowGiftMessage: Boolean
+  attachmentOfferings: [StoreAttachmentOffering]
+  price: Int
 }
 
 type StoreAttachmentOffering {

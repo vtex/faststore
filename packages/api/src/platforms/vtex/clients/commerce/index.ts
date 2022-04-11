@@ -103,6 +103,52 @@ export const VtexCommerce = (
           }
         )
       },
+      addOffering: ({
+        orderNumber,
+        itemIndex,
+        id,
+      }: {
+        orderNumber: string
+        itemIndex: number
+        id: string
+      }) => {
+        const data = {
+          id,
+          info: null,
+        }
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${orderNumber}/items/${itemIndex}/offerings`,
+          {
+            ...BASE_INIT,
+            body: JSON.stringify(data),
+            method: 'POST',
+          }
+        )
+      },
+      removeOffering: ({
+        orderNumber,
+        itemIndex,
+        id,
+      }: {
+        orderNumber: string
+        itemIndex: number
+        id: string
+      }) => {
+        const data = {
+          id,
+          info: null,
+        }
+
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${orderNumber}/items/${itemIndex}/offerings/${id}/remove`,
+          {
+            ...BASE_INIT,
+            body: JSON.stringify(data),
+            method: 'POST',
+          }
+        )
+      },
       region: async ({
         postalCode,
         country,

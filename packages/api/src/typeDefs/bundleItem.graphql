@@ -1,0 +1,20 @@
+type bundleItem {
+  id: String!
+  sellingPrice: Float
+  price: Float
+  name: String!
+  isGift: Boolean
+  quantity: Float
+}
+
+type StoreBundleItem{
+    id:String!
+    itemIndex:Float!
+    bundleItems:[bundleItem!]!
+    offerings:[StoreOffering!]
+}
+
+type StoreBundleItems{
+    orderNumber:String!
+    items:[StoreBundleItem!]!
+}

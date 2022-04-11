@@ -5,6 +5,7 @@ import AggregateRating from './aggregateRating.graphql'
 import Author from './author.graphql'
 import Brand from './brand.graphql'
 import Breadcrumb from './breadcrumb.graphql'
+import BundleItem from './bundleItem.graphql'
 import Collection from './collection.graphql'
 import Facet from './facet.graphql'
 import Image from './image.graphql'
@@ -48,6 +49,7 @@ export const typeDefs = [
   Status,
   PropertyValue,
   Person,
+  BundleItem,
 ]
   .map(print)
   .join('\n')

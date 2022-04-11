@@ -1,11 +1,16 @@
 import type { Context } from '..'
 import type { MutationAddOfferingArgs } from '../../../__generated__/schema'
+import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
 
 export const addOffering = async (
   _: any,
   { offering: { orderNumber, itemIndex, id } }: MutationAddOfferingArgs,
   ctx: Context
 ) => {
+  const {
+    clients: { commerce },
+  } = ctx
+
   const orderForm = await ctx.clients.commerce.checkout.orderForm({
     id: orderNumber,
   })
@@ -21,20 +26,17 @@ export const addOffering = async (
   if (!originItemOffering)
     throw new Error(`No offering with id ${id} was found`)
 
-  return [
-    {
-      type: 'eae',
-      id: 'teste',
-      name: 'wololo',
-      allowGiftMessage: false,
-      attachmentOfferings: [
-        {
-          name: 'eae',
-        },
-      ],
-      price: 15,
-    },
-  ]
+  const updatedOrderForm = await commerce.checkout.addOffering({
+    orderNumber,
+    itemIndex,
+    id,
+  })
 
-  return { ...orderForm }
+  return {
+    orderNumber: updatedOrderForm.orderFormId,
+    items: updatedOrderForm.items.map((item: OrderFormItem, index: number) => ({
+      ...item,
+      itemIndex: index,
+    })),
+  }
 }
