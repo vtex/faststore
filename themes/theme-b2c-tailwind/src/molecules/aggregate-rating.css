@@ -1,0 +1,24 @@
+[data-store-aggregate-rating] {
+  @apply flex;
+}
+
+[data-store-aggregate-rating] svg[data-store-aggregate-rating-item] {
+  @apply w-6 mr-2;
+}
+
+li[data-store-aggregate-rating-item], span[data-store-aggregate-rating-item] {
+  color: #ffb100;
+}
+
+/* Using CSS to insert icons */
+
+[data-store-aggregate-rating] span[data-store-aggregate-rating-item="full"]:after,
+[data-store-aggregate-rating] span[data-store-aggregate-rating-item="partial"]:after {
+  content: "★";
+  display: block;
+}
+
+[data-store-aggregate-rating] span[data-store-aggregate-rating-item="empty"]:after {
+  content: "☆";
+  display: block;
+}
