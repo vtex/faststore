@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.21 (2022-04-12)
+
+
+### Features
+
+* AggregateRating (Stars) molecule ([#1037](https://github.com/vtex/faststore/issues/1037)) ([23f2fad](https://github.com/vtex/faststore/commit/23f2fad6fd4d58ea369a54a0b6600207016be17e))
+
+
+
+
+
 ## 1.7.20 (2022-04-11)
 
 **Note:** Version bump only for package @vtex/renovate-config
