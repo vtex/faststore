@@ -62,8 +62,8 @@ export type IStoreSession = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addOffering?: Maybe<Array<StoreOffering>>;
-  removeOffering?: Maybe<Array<StoreOffering>>;
+  addOffering?: Maybe<StoreBundleItems>;
+  removeOffering?: Maybe<StoreBundleItems>;
   updateSession: StoreSession;
   validateCart?: Maybe<StoreCart>;
 };
@@ -163,6 +163,20 @@ export type StoreBreadcrumbList = {
   __typename?: 'StoreBreadcrumbList';
   itemListElement: Array<StoreListItem>;
   numberOfItems: Scalars['Int'];
+};
+
+export type StoreBundleItem = {
+  __typename?: 'StoreBundleItem';
+  bundleItems: Array<BundleItem>;
+  id: Scalars['String'];
+  itemIndex: Scalars['Float'];
+  offerings?: Maybe<Array<StoreOffering>>;
+};
+
+export type StoreBundleItems = {
+  __typename?: 'StoreBundleItems';
+  items: Array<StoreBundleItem>;
+  orderNumber: Scalars['String'];
 };
 
 export type StoreCart = {
@@ -268,11 +282,11 @@ export type StoreOffer = {
 
 export type StoreOffering = {
   __typename?: 'StoreOffering';
-  allowGiftMessage: Scalars['Boolean'];
-  attachmentOfferings: Array<Maybe<StoreAttachmentOffering>>;
+  allowGiftMessage?: Maybe<Scalars['Boolean']>;
+  attachmentOfferings?: Maybe<Array<Maybe<StoreAttachmentOffering>>>;
   id: Scalars['String'];
   name: Scalars['String'];
-  price: Scalars['Int'];
+  price?: Maybe<Scalars['Int']>;
   type: Scalars['String'];
 };
 
@@ -397,4 +411,14 @@ export const enum StoreStatus {
   Error = 'ERROR',
   Info = 'INFO',
   Warning = 'WARNING'
+};
+
+export type BundleItem = {
+  __typename?: 'bundleItem';
+  id: Scalars['String'];
+  isGift?: Maybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+  price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
+  sellingPrice?: Maybe<Scalars['Float']>;
 };

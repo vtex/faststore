@@ -55,6 +55,23 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
   gtin: ({ reference }) => reference ?? '',
   review: () => [],
   aggregateRating: () => ({}),
+  productSpecification:({isVariantOf})=>{
+    const {textAttributes,specificationGroups} = isVariantOf
+    const specificationGroupsObject = JSON.parse(specificationGroups)
+    const specificationParsed = Object.keys(specificationGroupsObject).map(groupKey=>{
+        return {
+            groupKey,
+            values:specificationGroupsObject[groupKey].map((specKey:string)=>{
+                const ts = textAttributes.find(textAttribute=>textAttribute.originalLabelKey == specKey)
+                return {
+                    specKey,
+                    value:ts?.originalLabelValue ?? ""
+                }
+            })
+        }
+    })
+    return specificationParsed
+  },
   offers: async (product, _, ctx) => {
     const {
       loaders: { simulationLoader },

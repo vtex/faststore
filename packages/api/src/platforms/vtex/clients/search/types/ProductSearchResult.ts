@@ -171,6 +171,9 @@ export interface Sku {
   attributes: ExtraDatum[]
   id: string
   sellers: Seller[]
+  specificationGroups:String,
+  textAttributes:any[],
+  productSpecifications:any[]
 }
 
 export interface Policy {
@@ -214,6 +217,8 @@ export interface TextAttribute {
   key: string
   joinedValueTranslations: JoinedTranslations
   valueID?: string
+  originalLabelKey?:string
+  originalLabelValue?:string
 }
 
 export interface JoinedTranslations {

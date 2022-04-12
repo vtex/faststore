@@ -1,0 +1,9 @@
+type ProductSpecificationGroup{
+    groupKey:String
+    values:[ProductSpecification]
+}
+
+type ProductSpecification{
+    specKey:String
+    value:String
+}

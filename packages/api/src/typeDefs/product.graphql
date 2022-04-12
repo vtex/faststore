@@ -17,6 +17,7 @@ type StoreProduct {
   aggregateRating: StoreAggregateRating!
   isVariantOf: StoreProductGroup!
   additionalProperty: [StorePropertyValue!]!
+  productSpecification:[ProductSpecificationGroup]
 }
 
 input IStoreProduct {

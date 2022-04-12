@@ -1,5 +1,6 @@
 import { print } from 'graphql'
 
+import ProductSpecificationGroup from  './productSpecificationGroup.graphql'
 import AggregateOffer from './aggregateOffer.graphql'
 import AggregateRating from './aggregateRating.graphql'
 import Author from './author.graphql'
@@ -50,6 +51,7 @@ export const typeDefs = [
   PropertyValue,
   Person,
   BundleItem,
+  ProductSpecificationGroup
 ]
   .map(print)
   .join('\n')
