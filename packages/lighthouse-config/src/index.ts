@@ -21,10 +21,10 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
         preset: 'lighthouse:no-pwa',
         assertions: {
           // Final Ligthouse score Budgets
-          'categories:accessibility': ['error', { minScore: 0.95 }],
-          'categories:best-practices': ['error', { minScore: 0.95 }],
-          'categories:performance': ['error', { minScore: 0.95 }],
-          'categories:seo': ['error', { minScore: 0.9 }],
+          'categories:accessibility': ['error', { minScore: 1 }],
+          'categories:best-practices': ['error', { minScore: 1 }],
+          'categories:performance': ['error', { minScore: 0.9 }],
+          'categories:seo': ['error', { minScore: 1 }],
           'categories:pwa': 'off',
 
           // Lighthouse Metrics Budgets
@@ -33,7 +33,7 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
           'speed-index': ['error', { maxNumericValue: 3387 }],
           'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
           interactive: ['error', { maxNumericValue: 3785 }],
-          'total-blocking-time': ['error', { maxNumericValue: 200 }],
+          'total-blocking-time': ['error', { maxNumericValue: 350 }],
           'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
 
           // Number of Requests Budgets

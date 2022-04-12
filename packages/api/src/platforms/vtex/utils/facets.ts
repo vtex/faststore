@@ -1,31 +1,22 @@
-import { BadRequestError } from './errors'
+import ChannelMarshal from './channel'
 
 export interface SelectedFacet {
   key: string
   value: string
 }
 
-const getIdFromSlug = (slug: string) => {
-  const id = slug.split('-').pop()
-
-  if (id == null) {
-    throw new BadRequestError('Error while extracting sku id from product slug')
-  }
-
-  return id
-}
-
 /**
  * Transform facets from the store to VTEX platform facets.
- * For instance, the channel in Store becames trade-policy in VTEX's realm
+ * For instance, the channel in Store becomes trade-policy and regionId in VTEX's realm
  * */
 export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
   switch (key) {
-    case 'channel':
-      return { key: 'trade-policy', value }
+    case 'channel': {
+      const channel = ChannelMarshal.parse(value)
 
-    case 'slug':
-      return { key: 'id', value: getIdFromSlug(value) }
+      // This array should have all values from channel string
+      return [{ key: 'trade-policy', value: channel.salesChannel }]
+    }
 
     default:
       return { key, value }

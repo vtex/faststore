@@ -4,11 +4,14 @@ import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 import type { PortalPagetype } from './types/Portal'
+import type { Region, RegionInput } from './types/Region'
 import type {
   Simulation,
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
+import type { Session } from './types/Session'
+import type { Channel } from '../../utils/channel'
 
 const BASE_INIT = {
   method: 'POST',
@@ -21,7 +24,7 @@ export const VtexCommerce = (
   { account, environment }: Options,
   ctx: Context
 ) => {
-  const base = `http://${account}.${environment}.com.br`
+  const base = `https://${account}.${environment}.com.br`
 
   return {
     catalog: {
@@ -41,9 +44,7 @@ export const VtexCommerce = (
     checkout: {
       simulation: (
         args: SimulationArgs,
-        { salesChannel }: SimulationOptions = {
-          salesChannel: ctx.storage.channel,
-        }
+        { salesChannel }: SimulationOptions = ctx.storage.channel
       ): Promise<Simulation> => {
         const params = new URLSearchParams({
           sc: salesChannel,
@@ -60,12 +61,13 @@ export const VtexCommerce = (
       orderForm: ({
         id,
         refreshOutdatedData = true,
-        salesChannel = ctx.storage.channel,
+        channel = ctx.storage.channel,
       }: {
         id: string
         refreshOutdatedData?: boolean
-        salesChannel?: string
+        channel?: Required<Channel>
       }): Promise<OrderForm> => {
+        const { salesChannel } = channel
         const params = new URLSearchParams({
           refreshOutdatedData: refreshOutdatedData.toString(),
           sc: salesChannel,
@@ -80,7 +82,7 @@ export const VtexCommerce = (
         id,
         orderItems,
         allowOutdatedData = 'paymentData',
-        salesChannel = ctx.storage.channel,
+        salesChannel = ctx.storage.channel.salesChannel,
       }: {
         id: string
         orderItems: OrderFormInputItem[]
@@ -101,6 +103,29 @@ export const VtexCommerce = (
           }
         )
       },
+      region: async ({
+        postalCode,
+        country,
+        salesChannel,
+      }: RegionInput): Promise<Region> => {
+        return fetchAPI(
+          `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${
+            salesChannel ?? ''
+          }`
+        )
+      },
     },
+    session: (): Promise<Session> =>
+      fetchAPI(
+        `${base}/api/sessions?items=profile.id,profile.email,profile.firstName,profile.lastName`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            cookie: ctx.headers.cookie,
+          },
+          body: '{}',
+        }
+      ),
   }
 }

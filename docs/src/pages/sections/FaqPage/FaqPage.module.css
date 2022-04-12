@@ -26,7 +26,7 @@
 }
 
 .FaqPage a{
-  @apply text-rebelPink 
+  @apply text-primary 
 }
 
 @media screen and (max-width: 1220px) {

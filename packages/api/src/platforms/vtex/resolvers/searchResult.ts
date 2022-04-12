@@ -17,7 +17,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
 
     const skus = products.products
       .map((product) => {
-        const maybeSku = product.skus.find((x) => x.sellers.length > 0)
+        const [maybeSku] = product.skus
 
         return maybeSku && enhanceSku(maybeSku, product)
       })

@@ -48,7 +48,7 @@ Our team has prepared thrilling releases which will brighten your day. Lay back,
 
 - **CI/CD** [#680](https://github.com/vtex/faststore/pull/680): by changing CI/CD it solves two issues on master: building twice the same code and  running the CI workflow twice.
 
-- **Source products using Inteligent Search** [#738](https://github.com/vtex/faststore/pull/738): previously, to speed up the search for products, it was possible to paginate the search and search the pages in parallel. However, the API  would return duplicate products between pages which caused an unreliable build, where consecutive builds would generate a different amount of pages. To fix this issue, we have Intelligent Search (IS). 
+- **Source products using Intelligent Search** [#738](https://github.com/vtex/faststore/pull/738): previously, to speed up the search for products, it was possible to paginate the search and search the pages in parallel. However, the API  would return duplicate products between pages which caused an unreliable build, where consecutive builds would generate a different amount of pages. To fix this issue, we have Intelligent Search (IS). 
 
 - **Handle chunkLoadError** [#771](https://github.com/vtex/faststore/pull/771): After an error, if the page got refreshed way too fast or if the file was not available on the server anymore, webpack would throw a ChunkLoadError, and then you would be redirected to the 500 page. This solves the problem by refreshing the page when a `chunkLoadError` happens on the React tree.
 

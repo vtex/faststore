@@ -10,25 +10,25 @@ sidebar_label: "2. Creating your first FastStore project"
 
 In this part of the Tutorial, you will:
 
-- Clone our [**base store**](https://github.com/vtex-sites/base.store) to your local machine. 
+- Clone our [**base store**](https://github.com/vtex-sites/base.store) to your local machine.
 
-  > 🔎 The **base store** is a boilerplate store theme with *no styling* that contains only the most basic functionalities required to run a VTEX store. 
+  > 🔎 The **base store** is a boilerplate store theme with *no styling* that contains only the most basic functionalities required to run a VTEX store.
 
 - Connect the **base store** to your VTEX account in the `vtex.env` file.
 - Run a local development server at `http://localhost:8000/`.
 - Make the first change in your store frontend.
 
-## Step 1: Cloning the base store 
+## Step 1: Cloning the base store
 
-1. Clone the *base store* to your local machine by running the following command. Remember to replace `mystore` with the name of your store. Notice that your project name **must** end with `.store`.
+Clone the base store to your local machine by running the following command. Notice that your project name must end with `.store`.
 
   ```shell
-  npx degit vtex-sites/base.store mystore.store
+  npx degit vtex-sites/base.store {accountName}.store
   ```
 
-  :::note
-  We strongly recommend using [degit](https://github.com/Rich-Harris/degit) to download only the latest commit from the *base store*. If the prompt displays **"Need to install the following packages: degit. Ok to proceed? (y)"**, enter **"y"**.
-  :::
+:::info
+We strongly recommend using [degit](https://github.com/Rich-Harris/degit) to download only the latest commit from the *base store*. If the prompt displays **"Need to install the following packages: degit. Ok to proceed? (y)"**, enter **"y"**.
+:::
 
 ![](/img/tutorials/gatsby/npxdegitclone.png)
 
@@ -40,7 +40,7 @@ In this part of the Tutorial, you will:
   ```
 
   :::info
-  When you first install your FastStore + Gatsby store's dependencies, [*yarn*](https://yarnpkg.com/) automatically generates the `yarn.lock` file to store the exact version of each dependency needed for your project and the `node_modules` folder to save all the modules installed. Notice that, since the `yarn.lock` file already records the exact versions installed concisely, you do not need to commit the `node_modules` folder into your version-controlled repository. 
+  When you first install your FastStore + Gatsby store's dependencies, [*yarn*](https://yarnpkg.com/) automatically generates the `yarn.lock` file to store the exact version of each dependency needed for your project and the `node_modules` folder to save all the modules installed. Notice that, since the `yarn.lock` file already records the exact versions installed concisely, you do not need to commit the `node_modules` folder into your version-controlled repository.
   :::
 
 ## Step 2: Connecting to your VTEX account
@@ -49,24 +49,37 @@ Now that our boilerplate project is set, it's time to make it your own by connec
 
 1. Open up your FastStore project in any code editor of your choice.
 
-2. Open the `vtex.env` file and replace the `GATSBY_STORE_ID` with the name of your VTEX account. To follow along with this tutorial, you can also opt to use the `fashioneurope` test account.
+2. Open the `store.config.js` file and insert your environment information in these fields in `module.exports`:
 
->🔎 **The `vtex.env` file contains the environment variables needed for accessing your account in VTEX**, i.e., `GATSBY_STORE_ID` - the name of your VTEX account, `GATSBY_VTEX_ENVIRONMENT` - the environment domain used to develop your store, and `GATSBY_VTEX_IO_WORKSPACE` - the [VTEX IO workspace](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-workspace) used to develop your store. 
->
->This file may also contain other individual working environment variables. *To learn more about it, check out Gatsby's documentation on [Environment Variables](https://www.gatsbyjs.com/docs/how-to/local-development/environment-variables/).*
+  `platform` - Ecommerce platform provider of your choice.
+  `api.storeId` - The name of your store or account.
+  `api.environment` - Environment you wish to use.
+
+  For instance, to connect to the VTEX platform on the store `fashioneurope`:
+
+  ```
+  module.exports = {
+    platform: 'vtex',
+
+    api: {
+      storeId: 'fashioneurope'
+      environment: 'vtexcommercestable'
+    }
+  }
+  ```
 
 
-## Step 3: Running a local server 
+## Step 3: Running a local server
 
-Let's check how our project looks like in a web browser so far. 
+Let's check how our project looks like in a web browser so far.
 
-1. Run a local development server to serve your website. 
+1. Run a local development server to serve your website.
 
   ```shell
   yarn develop
   ```
 
-  Once your development server is ready, the command line will output the following message:
+  This may take a few moments. Once your development server is ready, the command line will output the following message:
 
   ```shell
   You can now view base.store in the browser.
@@ -78,10 +91,16 @@ Let's check how our project looks like in a web browser so far.
     http://localhost:8000/___graphql
   ```
 
+  However, this message may be quickly replaced by warnings, depending on some project’s characteristics. In this case, consider that your development server is also ready if you see this message in your command line:
+
+  ```shell
+  success Writing page-data.json files to public directory - 0.012s - 0/19 1604.51/s
+  ```
+
   :::info
-  When you start a development server for your project, yarn automatically generates the `.cache` folder and fills it with cached files to speed up the building process. Hence, you don't need to modify nor commit this folder into your version-controlled repository. 
+  When you start a development server for your project, yarn automatically generates the `.cache` folder and fills it with cached files to speed up the building process. Hence, you don't need to modify nor commit this folder into your version-controlled repository.
   :::
-   
+
 2. Now, open your favorite web browser and navigate to [http://localhost:8000](http://localhost:8000).
 
 ![](/img/tutorials/gatsby/basestore.gif)
@@ -96,36 +115,32 @@ Now that your store is up and running locally, let's make a simple change in the
 
 First, let's add a simple `h1` tag to our home page.
 
-1. Open the `index.tsx` file located in `src/views/home`. This is the home page of your store website.
-2. Replace the sample `TODO` text as in the following:
+1. Open the index.tsx file located in `src/pages`. This is the home page of your store website.
+2. Look for the `Hero` component and edit its title like in the example:
 
 ```diff
--      <div>TODO</div>
-+      <div><h1>Hello World!</h1></div>
+-      <Hero title="See our new products" .../>
++      <Hero title="HELLO WORLD" .../>
 ```
 3. Save your changes.
 
 Now, let's add some CSS customization and see what happens.
 
-4. Open the `global.css` file located in `src/styles`.
+4. Open the typography.css file located in `src/styles/global`.
 
-5. Add the following CSS styles.
+5. Make the following changes to the file.
 
 ```diff
 + @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-* {
-  padding: 0px;
-  margin: 0px;
-  box-sizing: border-box;
+body {
+  font-size: var(--fs-text-size-base);
 +  font-family: 'Roboto', sans-serif;
+  letter-spacing: .01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
-+nav a{
-+  padding: 10px;
-+}
 ```
 
-6. Save your changes.
+6. Save your changes and check your browser to see the changes you have made. You may need to refresh the page.
 
-![](/img/tutorials/gatsby/simple-changes.gif)

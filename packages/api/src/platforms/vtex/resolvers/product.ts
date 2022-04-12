@@ -1,6 +1,7 @@
+import { slugify } from '../utils/slugify'
 import type { Resolver } from '..'
 import type { EnhancedSku } from '../utils/enhanceSku'
-import { slugify } from '../utils/slugify'
+import { sortOfferByPrice } from './aggregateOffer'
 
 type Root = EnhancedSku
 
@@ -61,13 +62,16 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     } = ctx
 
     const { id, policies } = product
-    const sellers = policies.find((policy) => policy.id === channel)?.sellers
 
-    if (sellers == null) {
+    const sellers = policies.find(
+      (policy) => policy.id === channel.salesChannel
+    )?.sellers
+
+    if (sellers === null || sellers === undefined) {
       // This error will likely happen when you forget to forward the channel somewhere in your code.
       // Make sure all queries that lead to a product are forwarding the channel in context corectly
       throw new Error(
-        `Product with id ${id} has no sellers for channel ${channel}.`
+        `Product with id ${id} has no sellers for sales channel ${channel.salesChannel}.`
       )
     }
 
@@ -81,7 +85,11 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
 
     const simulation = await simulationLoader.load(items)
 
-    return { ...simulation, product }
+    return {
+      ...simulation,
+      items: sortOfferByPrice(simulation.items),
+      product,
+    }
   },
   isVariantOf: ({ isVariantOf }) => isVariantOf,
   additionalProperty: ({ attributes = [] }) =>

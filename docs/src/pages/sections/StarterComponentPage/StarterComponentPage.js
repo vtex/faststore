@@ -9,7 +9,7 @@ const StarterComponentPage = ({ data = {} }) => {
     <div className={styles.StarterCard}>
       <div className={styles.CardInfo}>
         <h1>{data.name}</h1>
-        <p className="text-rebelPink">by {data.owner}</p>
+        <p className="text-primary">by {data.owner}</p>
         <p className={styles.StarterCardDescription}>{data.description}</p>
         <div className={styles.Features}>
           <p>Features:</p>

@@ -11,22 +11,23 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
+import { mutateChannelContext } from '../utils/channel'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
     // Insert channel in context for later usage
-    ctx.storage = {
-      ...ctx.storage,
-      channel:
-        locator.find((facet) => facet.key === 'channel')?.value ??
-        ctx.storage.channel,
+    const channelString = locator.find((facet) => facet.key === 'channel')
+      ?.value
+
+    if (channelString) {
+      mutateChannelContext(ctx, channelString)
     }
 
     const {
       loaders: { skuLoader },
     } = ctx
 
-    return skuLoader.load(locator.map(transformSelectedFacet))
+    return skuLoader.load(locator.flatMap(transformSelectedFacet))
   },
   collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
     const {
@@ -41,11 +42,12 @@ export const Query = {
     ctx: Context
   ) => {
     // Insert channel in context for later usage
-    ctx.storage = {
-      ...ctx.storage,
-      channel:
-        selectedFacets?.find((facet) => facet.key === 'channel')?.value ??
-        ctx.storage.channel,
+    const channelString = selectedFacets?.find(
+      (facet) => facet.key === 'channel'
+    )?.value
+
+    if (channelString) {
+      mutateChannelContext(ctx, channelString)
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
@@ -54,7 +56,7 @@ export const Query = {
       count: first,
       query: term,
       sort: SORT_MAP[sort ?? 'score_desc'],
-      selectedFacets: selectedFacets?.map(transformSelectedFacet) ?? [],
+      selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
     }
 
     return searchArgs
@@ -142,6 +144,7 @@ export const Query = {
         endCursor: (
           Math.min(first, validCollections.length - after) - 1
         ).toString(),
+        totalCount: validCollections.length,
       },
       edges: validCollections
         .slice(after, after + first)
@@ -150,5 +153,23 @@ export const Query = {
           cursor: (after + index).toString(),
         })),
     }
+  },
+  person: async (_: unknown, __: unknown, ctx: Context) => {
+    const {
+      clients: { commerce },
+    } = ctx
+
+    const {
+      namespaces: { profile = null },
+    } = await commerce.session()
+
+    return (
+      profile && {
+        id: profile.id?.value ?? '',
+        email: profile.email?.value ?? '',
+        givenName: profile.firstName?.value ?? '',
+        familyName: profile.lastName?.value ?? '',
+      }
+    )
   },
 }

@@ -7,11 +7,11 @@ let docs = [
     title: 'Getting Started',
     description:
       'New to FastStore? Build storefronts from scratch with our learning-oriented tutorials.',
-    url: '/tutorials/overview',
+    url: '/tutorials',
   },
   {
     title: 'How-to Guides',
-    url: '/how-to-guides/overview',
+    url: '/how-to-guides',
     description:
       'Solve real-world issues by following our goal-oriented step-by-step guides.',
   },
@@ -19,13 +19,13 @@ let docs = [
     title: 'Reference',
     description:
       "Check the technical descriptions of a storefront project and Faststore's SDKs, APIs.",
-    url: '/reference/faststore',
+    url: '/reference',
   },
   {
     title: 'Concepts',
     description:
       'Dive into our core concepts and build a comprehensive understanding of the project.',
-    url: '/conceptual-guides/overview',
+    url: '/conceptual-guides',
   },
 ]
 
@@ -41,7 +41,7 @@ const DocStructure = () => {
             className="focus:no-underline hover:no-underline"
             to={useBaseUrl(item.url)}
           >
-            <h4 className="block font-black  text-text hover:text-rebelPink">{item.title}</h4>
+            <h4 className="block font-black  text-text hover:text-primary">{item.title}</h4>
             <p className="text-details">{item.description}</p>
           </Link>
         ))}

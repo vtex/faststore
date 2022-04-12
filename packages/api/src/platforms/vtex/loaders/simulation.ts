@@ -1,4 +1,5 @@
 import DataLoader from 'dataloader'
+import pLimit from 'p-limit'
 
 import type {
   PayloadItem,
@@ -7,7 +8,12 @@ import type {
 import type { Options } from '..'
 import type { Clients } from '../clients'
 
+// Limits concurrent requests to the API per request cycle
+const CONCURRENT_REQUESTS_MAX = 1
+
 export const getSimulationLoader = (_: Options, clients: Clients) => {
+  const limit = pLimit(CONCURRENT_REQUESTS_MAX)
+
   const loader = async (allItems: readonly PayloadItem[][]) => {
     const items = [...allItems.flat()]
     const simulation = await clients.commerce.checkout.simulation({
@@ -39,7 +45,10 @@ export const getSimulationLoader = (_: Options, clients: Clients) => {
     }))
   }
 
-  return new DataLoader<PayloadItem[], Simulation>(loader, {
-    maxBatchSize: 20,
+  const limited = async (allItems: readonly PayloadItem[][]) =>
+    limit(loader, allItems)
+
+  return new DataLoader<PayloadItem[], Simulation>(limited, {
+    maxBatchSize: 50,
   })
 }

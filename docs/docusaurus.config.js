@@ -56,25 +56,25 @@ module.exports = {
         },
         {
           type: 'doc',
-          docId: 'tutorials/overview',
+          docId: 'tutorials',
           position: 'left',
           label: 'Tutorials',
         },
         {
           type: 'doc',
-          docId: 'how-to-guides/overview',
+          docId: 'how-to-guides',
           position: 'left',
           label: 'How-to Guides',
         },
         {
           type: 'doc',
-          docId: 'reference/faststore',
+          docId: 'reference',
           position: 'left',
           label: 'References',
         },
         {
           type: 'doc',
-          docId: 'conceptual-guides/overview',
+          docId: 'conceptual-guides',
           position: 'left',
           label: 'Concepts',
         },
@@ -133,19 +133,19 @@ module.exports = {
             },
             {
               label: 'Tutorials',
-              to: '/tutorials/overview',
+              to: '/tutorials',
             },
             {
               label: 'How-to guides',
-              to: '/how-to-guides/overview',
+              to: '/how-to-guides',
             },
             {
               label: 'References',
-              to: '/reference/faststore',
+              to: '/reference',
             },
             {
               label: 'Concepts',
-              to: '/conceptual-guides/overview',
+              to: '/conceptual-guides',
             },
           ],
         },
@@ -184,8 +184,16 @@ module.exports = {
 
   presets: [
     [
-      '@docusaurus/preset-classic',
+      '@docusaurus/preset-classic',    
       {
+        gtag: {
+          trackingID: 'GTM-PKST2NM',
+          anonymizeIP: true,
+        },
+        googleAnalytics: {
+          trackingID: 'G-WQPXL33BZX',
+          anonymizeIP: true,
+        },
         docs: {
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
@@ -206,6 +214,17 @@ module.exports = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+      },
+    ],
+    [
+      'redocusaurus',
+      {
+        specs: [
+          {
+            spec: 'docs/openapi/headlesscms.yaml',
+            routePath: '/vtex-headless-cms-api',
+          },
+        ],
       },
     ],
   ],

@@ -1,0 +1,1315 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`\`allCollections\` query 1`] = `
+Object {
+  "data": Object {
+    "allCollections": Object {
+      "edges": Array [
+        Object {
+          "cursor": "0",
+          "node": Object {
+            "breadcrumbList": Object {
+              "itemListElement": Array [
+                Object {
+                  "item": "/brand",
+                  "name": "Brand",
+                  "position": 1,
+                },
+              ],
+              "numberOfItems": 1,
+            },
+            "id": "9280",
+            "meta": Object {
+              "selectedFacets": Array [
+                Object {
+                  "key": "brand",
+                  "value": "brand",
+                },
+              ],
+            },
+            "seo": Object {
+              "canonical": "",
+              "description": "Brand",
+              "title": "Brand",
+              "titleTemplate": "",
+            },
+            "slug": "brand",
+            "type": "Brand",
+          },
+        },
+        Object {
+          "cursor": "1",
+          "node": Object {
+            "breadcrumbList": Object {
+              "itemListElement": Array [
+                Object {
+                  "item": "/skechers",
+                  "name": "Skechers",
+                  "position": 1,
+                },
+              ],
+              "numberOfItems": 1,
+            },
+            "id": "2000001",
+            "meta": Object {
+              "selectedFacets": Array [
+                Object {
+                  "key": "brand",
+                  "value": "skechers",
+                },
+              ],
+            },
+            "seo": Object {
+              "canonical": "",
+              "description": "Sport, casual, work, wide, kids' & performance shoes with style, comfort, innovation, quality & value.",
+              "title": "Skechers",
+              "titleTemplate": "",
+            },
+            "slug": "skechers",
+            "type": "Brand",
+          },
+        },
+        Object {
+          "cursor": "2",
+          "node": Object {
+            "breadcrumbList": Object {
+              "itemListElement": Array [
+                Object {
+                  "item": "/acer",
+                  "name": "Acer",
+                  "position": 1,
+                },
+              ],
+              "numberOfItems": 1,
+            },
+            "id": "2000002",
+            "meta": Object {
+              "selectedFacets": Array [
+                Object {
+                  "key": "brand",
+                  "value": "acer",
+                },
+              ],
+            },
+            "seo": Object {
+              "canonical": "",
+              "description": "Acer laptops, desktops as well as servers and storage, personal digital assistance (PDA), peripherals, peripherals and e-business services for government, business, education, and home users.",
+              "title": "Acer",
+              "titleTemplate": "",
+            },
+            "slug": "acer",
+            "type": "Brand",
+          },
+        },
+        Object {
+          "cursor": "3",
+          "node": Object {
+            "breadcrumbList": Object {
+              "itemListElement": Array [
+                Object {
+                  "item": "/irobot",
+                  "name": "iRobot",
+                  "position": 1,
+                },
+              ],
+              "numberOfItems": 1,
+            },
+            "id": "2000003",
+            "meta": Object {
+              "selectedFacets": Array [
+                Object {
+                  "key": "brand",
+                  "value": "irobot",
+                },
+              ],
+            },
+            "seo": Object {
+              "canonical": "",
+              "description": "iRobot, the leading global consumer robot company, designs and builds robots that empower people to do more both inside and outside of the home.",
+              "title": "iRobot",
+              "titleTemplate": "",
+            },
+            "slug": "irobot",
+            "type": "Brand",
+          },
+        },
+        Object {
+          "cursor": "4",
+          "node": Object {
+            "breadcrumbList": Object {
+              "itemListElement": Array [
+                Object {
+                  "item": "/adidas",
+                  "name": "adidas",
+                  "position": 1,
+                },
+              ],
+              "numberOfItems": 1,
+            },
+            "id": "2000004",
+            "meta": Object {
+              "selectedFacets": Array [
+                Object {
+                  "key": "brand",
+                  "value": "adidas",
+                },
+              ],
+            },
+            "seo": Object {
+              "canonical": "",
+              "description": "adidas shoes, clothing and view new collections for adidas Originals, running, football, soccer, training and much more.",
+              "title": "adidas",
+              "titleTemplate": "",
+            },
+            "slug": "adidas",
+            "type": "Brand",
+          },
+        },
+      ],
+      "pageInfo": Object {
+        "endCursor": "4",
+        "hasNextPage": true,
+        "hasPreviousPage": false,
+        "startCursor": "0",
+        "totalCount": 17,
+      },
+    },
+  },
+}
+`;
+
+exports[`\`allProducts\` query 1`] = `
+Object {
+  "data": Object {
+    "allProducts": Object {
+      "edges": Array [
+        Object {
+          "cursor": "0",
+          "node": Object {
+            "description": "Iure eum pariatur provident dolorem et.",
+            "gtin": "6464716212392",
+            "image": Array [
+              Object {
+                "alternateName": "et",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/168396/nihil.jpg?v=637753027573130000",
+              },
+              Object {
+                "alternateName": "similique",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/168393/dolore.jpg?v=637753027558270000",
+              },
+              Object {
+                "alternateName": "deleniti",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/168394/delectus.jpg?v=637753027564530000",
+              },
+              Object {
+                "alternateName": "sunt",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/168395/qui.jpg?v=637753027568900000",
+              },
+            ],
+            "isVariantOf": Object {
+              "hasVariant": Array [
+                Object {
+                  "name": "plum",
+                  "sku": "2737806",
+                },
+              ],
+              "name": "Fantastic Soft Cheese",
+              "productGroupID": "43559243",
+            },
+            "name": "plum",
+            "offers": Object {
+              "highPrice": 349.12,
+              "lowPrice": 349.12,
+              "offerCount": 1,
+              "offers": Array [
+                Object {
+                  "availability": "https://schema.org/InStock",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "itemOffered": Object {
+                    "name": "plum",
+                    "sku": "2737806",
+                  },
+                  "listPrice": 557.57,
+                  "price": 349.12,
+                  "priceCurrency": "",
+                  "quantity": 1,
+                  "seller": Object {
+                    "identifier": "1",
+                  },
+                  "sellingPrice": 349.12,
+                },
+              ],
+              "priceCurrency": "",
+            },
+            "productID": "2737806",
+            "review": Array [],
+            "seo": Object {
+              "canonical": "",
+              "description": "Iure eum pariatur provident dolorem et.",
+              "title": "Fantastic Soft Cheese",
+              "titleTemplate": "",
+            },
+            "sku": "2737806",
+            "slug": "fantastic-soft-cheese-2737806",
+          },
+        },
+        Object {
+          "cursor": "1",
+          "node": Object {
+            "description": "Sed nostrum est nostrum quo ipsum et ut asperiores quasi.",
+            "gtin": "4454274563902",
+            "image": Array [
+              Object {
+                "alternateName": "molestiae",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/166870/sit.jpg?v=637753013266530000",
+              },
+              Object {
+                "alternateName": "occaecati",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/166867/ratione.jpg?v=637753013256670000",
+              },
+              Object {
+                "alternateName": "labore",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/166868/modi.jpg?v=637753013260600000",
+              },
+              Object {
+                "alternateName": "qui",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/166869/quaerat.jpg?v=637753013263570000",
+              },
+            ],
+            "isVariantOf": Object {
+              "hasVariant": Array [
+                Object {
+                  "name": "ivory",
+                  "sku": "97907082",
+                },
+              ],
+              "name": "Licensed Frozen Sausages",
+              "productGroupID": "42751008",
+            },
+            "name": "ivory",
+            "offers": Object {
+              "highPrice": 531.54,
+              "lowPrice": 531.54,
+              "offerCount": 1,
+              "offers": Array [
+                Object {
+                  "availability": "https://schema.org/InStock",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "itemOffered": Object {
+                    "name": "ivory",
+                    "sku": "97907082",
+                  },
+                  "listPrice": 764.06,
+                  "price": 531.54,
+                  "priceCurrency": "",
+                  "quantity": 1,
+                  "seller": Object {
+                    "identifier": "1",
+                  },
+                  "sellingPrice": 531.54,
+                },
+              ],
+              "priceCurrency": "",
+            },
+            "productID": "97907082",
+            "review": Array [],
+            "seo": Object {
+              "canonical": "",
+              "description": "Sed nostrum est nostrum quo ipsum et ut asperiores quasi.",
+              "title": "Licensed Frozen Sausages",
+              "titleTemplate": "",
+            },
+            "sku": "97907082",
+            "slug": "licensed-frozen-sausages-97907082",
+          },
+        },
+        Object {
+          "cursor": "2",
+          "node": Object {
+            "description": "Laborum non soluta accusamus ut repellat dolorum.",
+            "gtin": "2084120969524",
+            "image": Array [
+              Object {
+                "alternateName": "vero",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/169429/deleniti.jpg?v=637753037761670000",
+              },
+              Object {
+                "alternateName": "laborum",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/169428/ratione.jpg?v=637753037756200000",
+              },
+            ],
+            "isVariantOf": Object {
+              "hasVariant": Array [
+                Object {
+                  "name": "violet",
+                  "sku": "9938908",
+                },
+                Object {
+                  "name": "silver",
+                  "sku": "49950097",
+                },
+                Object {
+                  "name": "lime",
+                  "sku": "60500870",
+                },
+              ],
+              "name": "Awesome Plastic Bacon",
+              "productGroupID": "35322334",
+            },
+            "name": "violet",
+            "offers": Object {
+              "highPrice": 399.58,
+              "lowPrice": 399.58,
+              "offerCount": 1,
+              "offers": Array [
+                Object {
+                  "availability": "https://schema.org/InStock",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "itemOffered": Object {
+                    "name": "violet",
+                    "sku": "9938908",
+                  },
+                  "listPrice": 565.29,
+                  "price": 399.58,
+                  "priceCurrency": "",
+                  "quantity": 1,
+                  "seller": Object {
+                    "identifier": "1",
+                  },
+                  "sellingPrice": 399.58,
+                },
+              ],
+              "priceCurrency": "",
+            },
+            "productID": "9938908",
+            "review": Array [],
+            "seo": Object {
+              "canonical": "",
+              "description": "Laborum non soluta accusamus ut repellat dolorum.",
+              "title": "Awesome Plastic Bacon",
+              "titleTemplate": "",
+            },
+            "sku": "9938908",
+            "slug": "awesome-plastic-bacon-9938908",
+          },
+        },
+        Object {
+          "cursor": "3",
+          "node": Object {
+            "description": "Laborum non soluta accusamus ut repellat dolorum.",
+            "gtin": "8869428115906",
+            "image": Array [
+              Object {
+                "alternateName": "vitae",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/169433/consequuntur.jpg?v=637753037805300000",
+              },
+              Object {
+                "alternateName": "repellat",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/169432/voluptatibus.jpg?v=637753037800170000",
+              },
+            ],
+            "isVariantOf": Object {
+              "hasVariant": Array [
+                Object {
+                  "name": "violet",
+                  "sku": "9938908",
+                },
+                Object {
+                  "name": "silver",
+                  "sku": "49950097",
+                },
+                Object {
+                  "name": "lime",
+                  "sku": "60500870",
+                },
+              ],
+              "name": "Awesome Plastic Bacon",
+              "productGroupID": "35322334",
+            },
+            "name": "silver",
+            "offers": Object {
+              "highPrice": 474.77,
+              "lowPrice": 474.77,
+              "offerCount": 1,
+              "offers": Array [
+                Object {
+                  "availability": "https://schema.org/InStock",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "itemOffered": Object {
+                    "name": "silver",
+                    "sku": "49950097",
+                  },
+                  "listPrice": 518.11,
+                  "price": 474.77,
+                  "priceCurrency": "",
+                  "quantity": 1,
+                  "seller": Object {
+                    "identifier": "1",
+                  },
+                  "sellingPrice": 474.77,
+                },
+              ],
+              "priceCurrency": "",
+            },
+            "productID": "49950097",
+            "review": Array [],
+            "seo": Object {
+              "canonical": "",
+              "description": "Laborum non soluta accusamus ut repellat dolorum.",
+              "title": "Awesome Plastic Bacon",
+              "titleTemplate": "",
+            },
+            "sku": "49950097",
+            "slug": "awesome-plastic-bacon-49950097",
+          },
+        },
+        Object {
+          "cursor": "4",
+          "node": Object {
+            "description": "Laborum non soluta accusamus ut repellat dolorum.",
+            "gtin": "2864754656701",
+            "image": Array [
+              Object {
+                "alternateName": "animi",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/169431/commodi.jpg?v=637753037785770000",
+              },
+              Object {
+                "alternateName": "error",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/169430/sit.jpg?v=637753037781870000",
+              },
+            ],
+            "isVariantOf": Object {
+              "hasVariant": Array [
+                Object {
+                  "name": "violet",
+                  "sku": "9938908",
+                },
+                Object {
+                  "name": "silver",
+                  "sku": "49950097",
+                },
+                Object {
+                  "name": "lime",
+                  "sku": "60500870",
+                },
+              ],
+              "name": "Awesome Plastic Bacon",
+              "productGroupID": "35322334",
+            },
+            "name": "lime",
+            "offers": Object {
+              "highPrice": 593.17,
+              "lowPrice": 593.17,
+              "offerCount": 1,
+              "offers": Array [
+                Object {
+                  "availability": "https://schema.org/InStock",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "itemOffered": Object {
+                    "name": "lime",
+                    "sku": "60500870",
+                  },
+                  "listPrice": 610.36,
+                  "price": 593.17,
+                  "priceCurrency": "",
+                  "quantity": 1,
+                  "seller": Object {
+                    "identifier": "1",
+                  },
+                  "sellingPrice": 593.17,
+                },
+              ],
+              "priceCurrency": "",
+            },
+            "productID": "60500870",
+            "review": Array [],
+            "seo": Object {
+              "canonical": "",
+              "description": "Laborum non soluta accusamus ut repellat dolorum.",
+              "title": "Awesome Plastic Bacon",
+              "titleTemplate": "",
+            },
+            "sku": "60500870",
+            "slug": "awesome-plastic-bacon-60500870",
+          },
+        },
+        Object {
+          "cursor": "5",
+          "node": Object {
+            "description": "Aut omnis nobis tenetur.",
+            "gtin": "1346198062637",
+            "image": Array [
+              Object {
+                "alternateName": "et",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/186495/corporis.jpg?v=637755567185370000",
+              },
+              Object {
+                "alternateName": "in",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/186492/qui.jpg?v=637755567174570000",
+              },
+              Object {
+                "alternateName": "consectetur",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/186493/possimus.jpg?v=637755567178470000",
+              },
+              Object {
+                "alternateName": "ea",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/186494/nihil.jpg?v=637755567181900000",
+              },
+            ],
+            "isVariantOf": Object {
+              "hasVariant": Array [
+                Object {
+                  "name": "fuchsia",
+                  "sku": "64953394",
+                },
+              ],
+              "name": "Unbranded Concrete Table Small",
+              "productGroupID": "29913569",
+            },
+            "name": "fuchsia",
+            "offers": Object {
+              "highPrice": 200.64,
+              "lowPrice": 200.64,
+              "offerCount": 1,
+              "offers": Array [
+                Object {
+                  "availability": "https://schema.org/InStock",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "itemOffered": Object {
+                    "name": "fuchsia",
+                    "sku": "64953394",
+                  },
+                  "listPrice": 297.7,
+                  "price": 200.64,
+                  "priceCurrency": "",
+                  "quantity": 1,
+                  "seller": Object {
+                    "identifier": "1",
+                  },
+                  "sellingPrice": 200.64,
+                },
+              ],
+              "priceCurrency": "",
+            },
+            "productID": "64953394",
+            "review": Array [],
+            "seo": Object {
+              "canonical": "",
+              "description": "Aut omnis nobis tenetur.",
+              "title": "Unbranded Concrete Table Small",
+              "titleTemplate": "",
+            },
+            "sku": "64953394",
+            "slug": "unbranded-concrete-table-small-64953394",
+          },
+        },
+        Object {
+          "cursor": "6",
+          "node": Object {
+            "description": "Corporis quasi assumenda ratione.",
+            "gtin": "8942045886814",
+            "image": Array [
+              Object {
+                "alternateName": "alias",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/179022/possimus.jpg?v=637755499912700000",
+              },
+              Object {
+                "alternateName": "ipsum",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/179019/tenetur.jpg?v=637755499903770000",
+              },
+              Object {
+                "alternateName": "cumque",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/179020/vero.jpg?v=637755499907070000",
+              },
+              Object {
+                "alternateName": "facilis",
+                "url": "http://storeframework.vtexassets.com/arquivos/ids/179021/maiores.jpg?v=637755499910030000",
+              },
+            ],
+            "isVariantOf": Object {
+              "hasVariant": Array [
+                Object {
+                  "name": "maroon",
+                  "sku": "63114505",
+                },
+              ],
+              "name": "Tasty Rubber Tuna Rustic",
+              "productGroupID": "50513940",
+            },
+            "name": "maroon",
+            "offers": Object {
+              "highPrice": 217.67,
+              "lowPrice": 217.67,
+              "offerCount": 1,
+              "offers": Array [
+                Object {
+                  "availability": "https://schema.org/InStock",
+                  "itemCondition": "https://schema.org/NewCondition",
+                  "itemOffered": Object {
+                    "name": "maroon",
+                    "sku": "63114505",
+                  },
+                  "listPrice": 313.9,
+                  "price": 217.67,
+                  "priceCurrency": "",
+                  "quantity": 1,
+                  "seller": Object {
+                    "identifier": "1",
+                  },
+                  "sellingPrice": 217.67,
+                },
+              ],
+              "priceCurrency": "",
+            },
+            "productID": "63114505",
+            "review": Array [],
+            "seo": Object {
+              "canonical": "",
+              "description": "Corporis quasi assumenda ratione.",
+              "title": "Tasty Rubber Tuna Rustic",
+              "titleTemplate": "",
+            },
+            "sku": "63114505",
+            "slug": "tasty-rubber-tuna-rustic-63114505",
+          },
+        },
+      ],
+      "pageInfo": Object {
+        "endCursor": "5348",
+        "hasNextPage": true,
+        "hasPreviousPage": false,
+        "startCursor": "0",
+        "totalCount": 5348,
+      },
+    },
+  },
+}
+`;
+
+exports[`\`collection\` query 1`] = `
+Object {
+  "data": Object {
+    "collection": Object {
+      "breadcrumbList": Object {
+        "itemListElement": Array [
+          Object {
+            "item": "/office",
+            "name": "Office",
+            "position": 1,
+          },
+          Object {
+            "item": "/office/desks",
+            "name": "Desks",
+            "position": 2,
+          },
+        ],
+        "numberOfItems": 2,
+      },
+      "id": "9295",
+      "meta": Object {
+        "selectedFacets": Array [
+          Object {
+            "key": "category-1",
+            "value": "office",
+          },
+          Object {
+            "key": "category-2",
+            "value": "desks",
+          },
+        ],
+      },
+      "seo": Object {
+        "canonical": "",
+        "description": "Desks for better productivity",
+        "title": "Desks",
+        "titleTemplate": "",
+      },
+      "slug": "office/desks",
+      "type": "Category",
+    },
+  },
+}
+`;
+
+exports[`\`product\` query 1`] = `
+Object {
+  "data": Object {
+    "product": Object {
+      "additionalProperty": Array [],
+      "aggregateRating": Object {
+        "ratingValue": 5,
+        "reviewCount": 0,
+      },
+      "brand": Object {
+        "name": "Brand",
+      },
+      "breadcrumbList": Object {
+        "itemListElement": Array [
+          Object {
+            "item": "/office",
+            "name": "Office",
+            "position": 1,
+          },
+          Object {
+            "item": "/office/desks",
+            "name": "Desks",
+            "position": 2,
+          },
+          Object {
+            "item": "/unbranded-concrete-table-small-64953394/p",
+            "name": "Unbranded Concrete Table Small",
+            "position": 3,
+          },
+        ],
+      },
+      "description": "Aut omnis nobis tenetur.",
+      "gtin": "1346198062637",
+      "image": Array [
+        Object {
+          "alternateName": "et",
+          "url": "http://storeframework.vtexassets.com/arquivos/ids/186495/corporis.jpg?v=637755567185370000",
+        },
+        Object {
+          "alternateName": "in",
+          "url": "http://storeframework.vtexassets.com/arquivos/ids/186492/qui.jpg?v=637755567174570000",
+        },
+        Object {
+          "alternateName": "consectetur",
+          "url": "http://storeframework.vtexassets.com/arquivos/ids/186493/possimus.jpg?v=637755567178470000",
+        },
+        Object {
+          "alternateName": "ea",
+          "url": "http://storeframework.vtexassets.com/arquivos/ids/186494/nihil.jpg?v=637755567181900000",
+        },
+      ],
+      "isVariantOf": Object {
+        "hasVariant": Array [
+          Object {
+            "name": "fuchsia",
+            "productID": "64953394",
+            "slug": "unbranded-concrete-table-small-64953394",
+          },
+        ],
+      },
+      "name": "fuchsia",
+      "offers": Object {
+        "highPrice": 200.64,
+        "lowPrice": 200.64,
+        "offerCount": 1,
+        "priceCurrency": "",
+      },
+      "productID": "64953394",
+      "review": Array [],
+      "seo": Object {
+        "canonical": "",
+        "description": "Aut omnis nobis tenetur.",
+        "title": "Unbranded Concrete Table Small",
+        "titleTemplate": "",
+      },
+      "sku": "64953394",
+      "slug": "unbranded-concrete-table-small-64953394",
+    },
+  },
+}
+`;
+
+exports[`\`search\` query 1`] = `
+Object {
+  "data": Object {
+    "search": Object {
+      "facets": Array [
+        Object {
+          "key": "preco",
+          "label": "Preço",
+          "type": "RANGE",
+          "values": Array [
+            Object {
+              "label": "unknown",
+              "quantity": 646,
+              "selected": false,
+              "value": "*-to-150",
+            },
+            Object {
+              "label": "unknown",
+              "quantity": 601,
+              "selected": false,
+              "value": "360-to-*",
+            },
+            Object {
+              "label": "unknown",
+              "quantity": 579,
+              "selected": false,
+              "value": "150-to-360",
+            },
+          ],
+        },
+        Object {
+          "key": "categoria",
+          "label": "Categoria",
+          "type": "BOOLEAN",
+          "values": Array [
+            Object {
+              "label": "Chairs",
+              "quantity": 951,
+              "selected": false,
+              "value": "chairs",
+            },
+            Object {
+              "label": "Desks",
+              "quantity": 875,
+              "selected": false,
+              "value": "desks",
+            },
+          ],
+        },
+        Object {
+          "key": "marca",
+          "label": "Marca",
+          "type": "BOOLEAN",
+          "values": Array [
+            Object {
+              "label": "Acer",
+              "quantity": 263,
+              "selected": false,
+              "value": "acer",
+            },
+            Object {
+              "label": "adidas",
+              "quantity": 231,
+              "selected": false,
+              "value": "adidas",
+            },
+            Object {
+              "label": "BLACK+DECKER",
+              "quantity": 254,
+              "selected": false,
+              "value": "black-decker",
+            },
+            Object {
+              "label": "Brand",
+              "quantity": 239,
+              "selected": false,
+              "value": "brand",
+            },
+            Object {
+              "label": "iRobot",
+              "quantity": 284,
+              "selected": false,
+              "value": "irobot",
+            },
+            Object {
+              "label": "Nike",
+              "quantity": 285,
+              "selected": false,
+              "value": "nike",
+            },
+            Object {
+              "label": "Skechers",
+              "quantity": 270,
+              "selected": false,
+              "value": "skechers",
+            },
+          ],
+        },
+      ],
+      "products": Object {
+        "edges": Array [
+          Object {
+            "cursor": "0",
+            "node": Object {
+              "additionalProperty": Array [],
+              "aggregateRating": Object {
+                "ratingValue": 5,
+                "reviewCount": 0,
+              },
+              "brand": Object {
+                "name": "Skechers",
+              },
+              "description": "Consequatur placeat optio adipisci aut voluptate excepturi.",
+              "gtin": "8463905750603",
+              "image": Array [
+                Object {
+                  "alternateName": "repellat",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/181666/ut.jpg?v=637755525053770000",
+                },
+                Object {
+                  "alternateName": "ut",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/181664/qui.jpg?v=637755525048170000",
+                },
+                Object {
+                  "alternateName": "omnis",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/181665/explicabo.jpg?v=637755525050970000",
+                },
+              ],
+              "isVariantOf": Object {
+                "additionalProperty": Array [],
+                "hasVariant": Array [
+                  Object {
+                    "name": "green",
+                    "productID": "2791588",
+                    "sku": "2791588",
+                    "slug": "licensed-cotton-hat-licensed-2791588",
+                  },
+                  Object {
+                    "name": "red",
+                    "productID": "93344885",
+                    "sku": "93344885",
+                    "slug": "licensed-cotton-hat-licensed-93344885",
+                  },
+                ],
+                "name": "Licensed Cotton Hat Licensed",
+                "productGroupID": "6049813",
+              },
+              "name": "green",
+              "offers": Object {
+                "highPrice": 129.09,
+                "lowPrice": 129.09,
+                "offerCount": 1,
+                "offers": Array [
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Consequatur placeat optio adipisci aut voluptate excepturi.",
+                        "title": "Licensed Cotton Hat Licensed",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 185.97,
+                    "price": 129.09,
+                    "quantity": 1,
+                    "seller": Object {
+                      "identifier": "1",
+                    },
+                    "sellingPrice": 129.09,
+                  },
+                ],
+                "priceCurrency": "",
+              },
+              "productID": "2791588",
+              "review": Array [],
+              "sku": "2791588",
+              "slug": "licensed-cotton-hat-licensed-2791588",
+            },
+          },
+          Object {
+            "cursor": "1",
+            "node": Object {
+              "additionalProperty": Array [],
+              "aggregateRating": Object {
+                "ratingValue": 5,
+                "reviewCount": 0,
+              },
+              "brand": Object {
+                "name": "adidas",
+              },
+              "description": "Ipsa in sequi incidunt dolores.",
+              "gtin": "8169125134781",
+              "image": Array [
+                Object {
+                  "alternateName": "impedit",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/184304/a.jpg?v=637755547736000000",
+                },
+              ],
+              "isVariantOf": Object {
+                "additionalProperty": Array [],
+                "hasVariant": Array [
+                  Object {
+                    "name": "red",
+                    "productID": "44903104",
+                    "sku": "44903104",
+                    "slug": "handmade-granite-computer-unbranded-44903104",
+                  },
+                  Object {
+                    "name": "magenta",
+                    "productID": "80744096",
+                    "sku": "80744096",
+                    "slug": "handmade-granite-computer-unbranded-80744096",
+                  },
+                ],
+                "name": "Handmade Granite Computer Unbranded",
+                "productGroupID": "48182547",
+              },
+              "name": "red",
+              "offers": Object {
+                "highPrice": 362.36,
+                "lowPrice": 362.36,
+                "offerCount": 1,
+                "offers": Array [
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Ipsa in sequi incidunt dolores.",
+                        "title": "Handmade Granite Computer Unbranded",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 537.5,
+                    "price": 362.36,
+                    "quantity": 1,
+                    "seller": Object {
+                      "identifier": "1",
+                    },
+                    "sellingPrice": 362.36,
+                  },
+                ],
+                "priceCurrency": "",
+              },
+              "productID": "44903104",
+              "review": Array [],
+              "sku": "44903104",
+              "slug": "handmade-granite-computer-unbranded-44903104",
+            },
+          },
+          Object {
+            "cursor": "2",
+            "node": Object {
+              "additionalProperty": Array [],
+              "aggregateRating": Object {
+                "ratingValue": 5,
+                "reviewCount": 0,
+              },
+              "brand": Object {
+                "name": "Acer",
+              },
+              "description": "Dolor harum perferendis voluptatem tempora voluptatum ut et sapiente iure.",
+              "gtin": "8277738323492",
+              "image": Array [
+                Object {
+                  "alternateName": "debitis",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/178292/ea.jpg?v=637755492251130000",
+                },
+                Object {
+                  "alternateName": "et",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/178290/voluptatum.jpg?v=637755492245200000",
+                },
+                Object {
+                  "alternateName": "itaque",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/178291/non.jpg?v=637755492248300000",
+                },
+              ],
+              "isVariantOf": Object {
+                "additionalProperty": Array [],
+                "hasVariant": Array [
+                  Object {
+                    "name": "olive",
+                    "productID": "96175310",
+                    "sku": "96175310",
+                    "slug": "small-cotton-cheese-3325400227651-96175310",
+                  },
+                  Object {
+                    "name": "grey",
+                    "productID": "47744496",
+                    "sku": "47744496",
+                    "slug": "small-cotton-cheese-3325400227651-47744496",
+                  },
+                  Object {
+                    "name": "indigo",
+                    "productID": "51309679",
+                    "sku": "51309679",
+                    "slug": "small-cotton-cheese-3325400227651-51309679",
+                  },
+                ],
+                "name": "Small Cotton Cheese",
+                "productGroupID": "8172115",
+              },
+              "name": "olive",
+              "offers": Object {
+                "highPrice": 247.01,
+                "lowPrice": 247.01,
+                "offerCount": 1,
+                "offers": Array [
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Dolor harum perferendis voluptatem tempora voluptatum ut et sapiente iure.",
+                        "title": "Small Cotton Cheese",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 339.21,
+                    "price": 247.01,
+                    "quantity": 1,
+                    "seller": Object {
+                      "identifier": "1",
+                    },
+                    "sellingPrice": 247.01,
+                  },
+                ],
+                "priceCurrency": "",
+              },
+              "productID": "96175310",
+              "review": Array [],
+              "sku": "96175310",
+              "slug": "small-cotton-cheese-3325400227651-96175310",
+            },
+          },
+          Object {
+            "cursor": "3",
+            "node": Object {
+              "additionalProperty": Array [],
+              "aggregateRating": Object {
+                "ratingValue": 5,
+                "reviewCount": 0,
+              },
+              "brand": Object {
+                "name": "adidas",
+              },
+              "description": "Recusandae dolores alias.",
+              "gtin": "6486061707855",
+              "image": Array [
+                Object {
+                  "alternateName": "ipsam",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/190604/vel.jpg?v=637755602570270000",
+                },
+              ],
+              "isVariantOf": Object {
+                "additionalProperty": Array [],
+                "hasVariant": Array [
+                  Object {
+                    "name": "fuchsia",
+                    "productID": "12405783",
+                    "sku": "12405783",
+                    "slug": "tasty-frozen-tuna-handmade-12405783",
+                  },
+                  Object {
+                    "name": "azure",
+                    "productID": "68456079",
+                    "sku": "68456079",
+                    "slug": "tasty-frozen-tuna-handmade-68456079",
+                  },
+                ],
+                "name": "Tasty Frozen Tuna Handmade",
+                "productGroupID": "31264637",
+              },
+              "name": "fuchsia",
+              "offers": Object {
+                "highPrice": 1.37,
+                "lowPrice": 1.37,
+                "offerCount": 1,
+                "offers": Array [
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Recusandae dolores alias.",
+                        "title": "Tasty Frozen Tuna Handmade",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 2.01,
+                    "price": 1.37,
+                    "quantity": 1,
+                    "seller": Object {
+                      "identifier": "1",
+                    },
+                    "sellingPrice": 1.37,
+                  },
+                ],
+                "priceCurrency": "",
+              },
+              "productID": "12405783",
+              "review": Array [],
+              "sku": "12405783",
+              "slug": "tasty-frozen-tuna-handmade-12405783",
+            },
+          },
+          Object {
+            "cursor": "4",
+            "node": Object {
+              "additionalProperty": Array [],
+              "aggregateRating": Object {
+                "ratingValue": 5,
+                "reviewCount": 0,
+              },
+              "brand": Object {
+                "name": "Acer",
+              },
+              "description": "Aliquam a cumque ratione voluptatem in.",
+              "gtin": "2231710663034",
+              "image": Array [
+                Object {
+                  "alternateName": "ea",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/155949/voluptas.jpg?v=637752878341070000",
+                },
+                Object {
+                  "alternateName": "dolores",
+                  "url": "http://storeframework.vtexassets.com/arquivos/ids/155948/molestiae.jpg?v=637752878337300000",
+                },
+              ],
+              "isVariantOf": Object {
+                "additionalProperty": Array [],
+                "hasVariant": Array [
+                  Object {
+                    "name": "olive",
+                    "productID": "24041857",
+                    "sku": "24041857",
+                    "slug": "sleek-metal-pizza-24041857",
+                  },
+                  Object {
+                    "name": "green",
+                    "productID": "94486378",
+                    "sku": "94486378",
+                    "slug": "sleek-metal-pizza-94486378",
+                  },
+                ],
+                "name": "Sleek Metal Pizza",
+                "productGroupID": "52016072",
+              },
+              "name": "olive",
+              "offers": Object {
+                "highPrice": 175.38,
+                "lowPrice": 175.38,
+                "offerCount": 1,
+                "offers": Array [
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Aliquam a cumque ratione voluptatem in.",
+                        "title": "Sleek Metal Pizza",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 249.14,
+                    "price": 175.38,
+                    "quantity": 1,
+                    "seller": Object {
+                      "identifier": "1",
+                    },
+                    "sellingPrice": 175.38,
+                  },
+                ],
+                "priceCurrency": "",
+              },
+              "productID": "24041857",
+              "review": Array [],
+              "sku": "24041857",
+              "slug": "sleek-metal-pizza-24041857",
+            },
+          },
+        ],
+        "pageInfo": Object {
+          "endCursor": "1826",
+          "hasNextPage": true,
+          "hasPreviousPage": false,
+          "startCursor": "0",
+          "totalCount": 1826,
+        },
+      },
+    },
+  },
+}
+`;

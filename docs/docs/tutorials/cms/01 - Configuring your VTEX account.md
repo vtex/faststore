@@ -20,24 +20,25 @@ First, we will install the **VTEX IO CLI**. The VTEX IO CLI will help you during
 1. Install the VTEX IO CLI on your machine. Please refer to [this](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-install) document for more information.
 
 2. Log in to your VTEX account:
+  - *Remember to replace the values between curly brackets according to your scenario.*
 
    ```
    vtex login {account}
    ```
   
-  :::caution
-  Remember to replace the values between curly brackets according to your scenario.
-  :::
-
 3. Install the VTEX Headless CMS plugin:
 
     ```sh
     vtex plugins install cms
     ```
 
-Now, check if the installation of the VTEX Headless CMS plugin was successful and take a look at all the `cms` subcommands by running `vtex cms`.
+Now, check if the installation of the VTEX Headless CMS plugin was successful by running `vtex cms`.
 
    ![VTEX Headless CMS plugin](/img/tutorials/cms/cms-cli-plugin.png)
+
+:::caution
+If you find any problems while installing the plugin, please refer to our [Troubleshooting](/tutorials/cms/Troubleshooting) article.
+:::
 
 
 ### Step 2 - Installing the Headless CMS app on your VTEX account
@@ -45,7 +46,7 @@ Now, check if the installation of the VTEX Headless CMS plugin was successful an
 In this step, let's install install the VTEX Headless CMS app and all its dependencies in your VTEX account by running the following command:
 
   ```
-  vtex install vtex.admin-cms@0.x vtex.admin-cms-graphql@0.x vtex.admin-cms-graphql-rc@0.x vtex.cms-builder-sf-jamstack@1.x
+  vtex install vtex.admin-cms@1.x vtex.admin-cms-graphql@0.x vtex.admin-cms-graphql-rc@1.x vtex.admin-releases@0.x vtex.cms-builder-sf-jamstack@1.x
   ```
 
 Now you can check the VTEX Headless CMS interface by accessing the VTEX Admin and then going to **Store Setup > CMS (Alpha) > Pages (Alpha)**.
@@ -61,7 +62,7 @@ Next, let's configure the URLs of the webhooks used by the VTEX Headless CMS app
 5.  Fill in the **Builder ID** field with `faststore`.
 6. Fill in the **Build Webhook URL** field with the following value. *Replace the values between curly brackets according to your scenario.*
    ```
-   https://app.io.vtex.com/vtex.cms-builder-sf-jamstack/v1/{account}/{workspace}/build
+   https://app.io.vtex.com/vtex.cms-builder-sf-jamstack/v1/{account}/{workspace}/build-releases
    ```
 
    :::info
@@ -84,3 +85,4 @@ Now you're ready to start defining which Content Types and Sections will be edit
 ## Related resources
 
 - [VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference)
+

@@ -1,15 +1,23 @@
 /* Cards with icons */
 .homeGrid > * {
-  @apply relative m-0 border rounded-lg;
+  @apply relative border rounded-lg;
+}
+
+.homeGrid > p {
+  margin-top: var(--ifm-spacing-vertical) !important;
+}
+
+.homeGrid p:last-child{
+  @apply mb-8
 }
 
 .homeGrid a {
-  @apply block text-text pl-24 py-6 pr-8;
+  @apply block text-text pl-20 py-6 pr-8;
 }
 
 .homeGrid > *:active,
 .homeGrid > *:hover {
-  @apply border-seriousBlack;
+  @apply border-secondary;
 }
 .homeGrid a:active,
 .homeGrid a:hover {
@@ -17,7 +25,7 @@
 }
 
 .homeGrid a img {
-  @apply absolute border-0 bg-transparent rounded-none top-5 left-6 h-8;
+  @apply absolute left-6 w-8 top-2;
 }
 
 .homeGrid a strong {
@@ -25,14 +33,10 @@
   color: var(--ifm-color-label);
 }
 
-/* Make grids responsive*/
 @media only screen and (min-width: 1240px) {
   .homeGrid {
     @apply grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
-  }
-  .homeGrid p:last-child{
-      @apply mb-8
   }
 }

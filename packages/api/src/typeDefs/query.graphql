@@ -60,4 +60,6 @@ type Query {
   allProducts(first: Int!, after: String): StoreProductConnection!
 
   allCollections(first: Int!, after: String): StoreCollectionConnection!
+
+  person: StorePerson
 }

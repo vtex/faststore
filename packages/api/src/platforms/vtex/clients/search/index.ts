@@ -3,6 +3,7 @@ import { fetchAPI } from '../fetch'
 import type { SelectedFacet } from '../../utils/facets'
 import type { ProductSearchResult } from './types/ProductSearchResult'
 import type { AttributeSearchResult } from './types/AttributeSearchResult'
+import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 
 export type Sort =
   | 'price:desc'
@@ -22,6 +23,7 @@ export interface SearchArgs {
   sort?: Sort
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1'
+  hideUnavailableItems?: boolean
 }
 
 export interface ProductLocator {
@@ -30,11 +32,14 @@ export interface ProductLocator {
 }
 
 export const IntelligentSearch = (
-  { account, environment }: Options,
+  { account, environment, hideUnavailableItems }: Options,
   ctx: Context
 ) => {
   const base = `http://portal.${environment}.com.br/search-api/v1/${account}`
-  const policyFacet = { key: 'trade-policy', value: ctx.storage.channel }
+  const policyFacet: IStoreSelectedFacet = {
+    key: 'trade-policy',
+    value: ctx.storage.channel.salesChannel,
+  }
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
     const facet = facets.find(({ key }) => key === policyFacet.key)
@@ -62,6 +67,10 @@ export const IntelligentSearch = (
       sort,
       fuzzy,
     })
+
+    if (hideUnavailableItems !== undefined) {
+      params.append('hide-unavailable-items', hideUnavailableItems.toString())
+    }
 
     const pathname = addDefaultFacets(selectedFacets)
       .map(({ key, value }) => `${key}/${value}`)

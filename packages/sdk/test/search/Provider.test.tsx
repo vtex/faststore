@@ -76,10 +76,10 @@ test('SearchProvider: Set current page', async () => {
   expect(mock).toBeCalledWith(formatSearchState({ ...state, page }))
 })
 
-test('SearchProvider: selects a simple faect', async () => {
+test('SearchProvider: selects a simple facet', async () => {
   const facet1 = {
-    key: 'priceRange',
-    value: '10-to-100',
+    key: 'price',
+    value: '10:100',
   }
 
   const mock = jest.fn(() => {})
@@ -100,8 +100,8 @@ test('SearchProvider: selects a simple faect', async () => {
 
 test('SearchProvider: selects a simple facet when more facets are inside the state', () => {
   const facet1 = {
-    key: 'priceRange',
-    value: '10-to-100',
+    key: 'price',
+    value: '10:100',
   }
 
   const facet2 = {
@@ -128,8 +128,8 @@ test('SearchProvider: selects a simple facet when more facets are inside the sta
 
 test('SearchProvider: Facet uniqueness', async () => {
   const facet1 = {
-    key: 'priceRange',
-    value: '10-to-100',
+    key: 'price',
+    value: '10:100',
   }
 
   const facet2 = {
@@ -159,8 +159,8 @@ test('SearchProvider: Facet uniqueness', async () => {
 
 test('SearchProvider: Remove facet selection', async () => {
   const facet1 = {
-    key: 'priceRange',
-    value: '10-to-100',
+    key: 'price',
+    value: '10:100',
   }
 
   const facet2 = {
@@ -187,8 +187,8 @@ test('SearchProvider: Remove facet selection', async () => {
 
 test('SearchProvider: Remove initial facet', async () => {
   const facet1 = {
-    key: 'priceRange',
-    value: '10-to-100',
+    key: 'price',
+    value: '10:100',
   }
 
   const facet2 = {
@@ -214,8 +214,8 @@ test('SearchProvider: Remove initial facet', async () => {
 
 test('SearchProvider: Toggle Facet', async () => {
   const facet1 = {
-    key: 'priceRange',
-    value: '10-to-100',
+    key: 'price',
+    value: '10:100',
   }
 
   const facet2 = {
@@ -263,13 +263,13 @@ test('SearchProvider: Toggle Facets', async () => {
   }
 
   const facet2 = {
-    key: 'priceRange',
-    value: '10-to-100',
+    key: 'price',
+    value: '10:100',
   }
 
   const facet3 = {
-    key: 'priceRange',
-    value: '50-to-60',
+    key: 'price',
+    value: '50:60',
   }
 
   const state = initSearchState({

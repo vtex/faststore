@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 .playgroundCode > * {
-  @apply bg-whiteIce !important;
+  @apply bg-code !important;
   font-size: 12px;
 }
 
@@ -22,7 +22,7 @@
 
 .playgroundButton {
   @apply px-6 py-2 cursor-pointer text-white;
-  @apply text-xs bg-seriousBlack rounded-none rounded-b-md border;
+  @apply text-xs bg-secondary rounded-none rounded-b-md border;
 }
 .IconCode {
   @apply w-5 inline pr-1 align-bottom;

@@ -3,15 +3,16 @@
 }
 
 .StarterCard {
-  @apply grid grid-cols-2 overflow-hidden w-10/12 relative bg-whiteIce container mb-20 mx-auto text-seriousBlack rounded-lg justify-between;
+  @apply w-10/12 relative flex bg-code container mb-20 mx-auto text-secondary rounded-lg justify-between;
 }
 
 .CardImage {
   @apply w-6/12 absolute bottom-0 right-0;
 }
 
+
 .CardInfo {
-  @apply pt-14 pb-10 px-20;
+  @apply w-3/6 p-20 pr-0;
 }
 
 .CardInfo h1 {
@@ -35,10 +36,10 @@
 }
 
 .Buttons > * {
-  @apply px-4 py-2 rounded font-bold uppercase inline-block;
+  @apply px-4 py-2 rounded font-bold uppercase inline-block mt-2;
 }
 .ViewSource {
-  @apply bg-rebelPink  text-white;
+  @apply bg-primary  text-white;
 }
 .ViewSource:hover {
   @apply text-white;
@@ -49,7 +50,7 @@
 }
 
 .VisitDemo {
-  @apply ml-2 text-rebelPink border-rebelPink border;
+  @apply sm:ml-2 text-primary border-primary border;
 }
 
 @media screen and (max-width: 1220px) {

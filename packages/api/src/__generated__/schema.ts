@@ -48,9 +48,21 @@ export type IStoreSelectedFacet = {
   value: Scalars['String'];
 };
 
+export type IStoreSession = {
+  channel?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  updateSession: StoreSession;
   validateCart?: Maybe<StoreCart>;
+};
+
+
+export type MutationUpdateSessionArgs = {
+  session: IStoreSession;
 };
 
 
@@ -63,6 +75,7 @@ export type Query = {
   allCollections: StoreCollectionConnection;
   allProducts: StoreProductConnection;
   collection: StoreCollection;
+  person?: Maybe<StorePerson>;
   product: StoreProduct;
   search: StoreSearchResult;
 };
@@ -249,6 +262,14 @@ export type StorePageInfo = {
   totalCount: Scalars['Int'];
 };
 
+export type StorePerson = {
+  __typename?: 'StorePerson';
+  email: Scalars['String'];
+  familyName: Scalars['String'];
+  givenName: Scalars['String'];
+  id: Scalars['String'];
+};
+
 export type StoreProduct = {
   __typename?: 'StoreProduct';
   additionalProperty: Array<StorePropertyValue>;
@@ -318,6 +339,13 @@ export type StoreSeo = {
   description: Scalars['String'];
   title: Scalars['String'];
   titleTemplate: Scalars['String'];
+};
+
+export type StoreSession = {
+  __typename?: 'StoreSession';
+  channel?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
 };
 
 export const enum StoreSort {
