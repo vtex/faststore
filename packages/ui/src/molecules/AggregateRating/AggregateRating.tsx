@@ -4,7 +4,7 @@ import type { FC, PropsWithChildren } from 'react'
 import List from '../../atoms/List'
 import type { ListProps } from '../../atoms/List'
 
-export interface AggregateRatingProps extends ListProps<'ul'> {
+export interface AggregateRatingProps extends ListProps<HTMLUListElement> {
   /**
    * The current value of the rating, based on the quantity of child elements.
    */
