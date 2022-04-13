@@ -28,6 +28,7 @@ yarn add @faststore/api
 
 ## Usage
 GraphQL is very versatile and can run in many places. To setup the schema in an apollo server, just:
+
 ```ts
 import { getSchema } from '@faststore/api'
 import { ApolloServer } from 'apollo-server'
@@ -72,9 +73,6 @@ const resolvers = {
 }
 
 const storeApiSchema = getSchema({ platform: 'vtex', ...})
-
-// Create custom schema
-const customSchema = makeExecutableSchema({ resolvers, typeDefs })
 
 // Merge custom TypeDefs with the ones from @faststore/api
 const mergedTypeDefs = mergeTypeDefs([getTypeDefs(), typeDefs])
