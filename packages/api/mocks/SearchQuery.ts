@@ -1383,11 +1383,185 @@ export const productSearchCategory1Fetch = {
 
 export const attributeSearchCategory1Fetch = {
   info:
-    'http://portal.vtexcommercestable.com.br/search-api/v1/storeframework/api/split/attribute_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&workspace=brasileiro&hide-unavailable-items=false',
+    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&workspace=brasileiro&hide-unavailable-items=false',
   init: undefined,
-  result: JSON.parse(
-    '{"total":1826,"pagination":{"count":50,"current":{"index":1,"proxyUrl":"search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},"before":[],"after":[{"index":2,"proxyUrl":"search/category-1/office/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=0&operator=and"},{"index":3,"proxyUrl":"search/category-1/office/trade-policy/1?page=3&count=5&query=&sort=&fuzzy=0&operator=and"},{"index":4,"proxyUrl":"search/category-1/office/trade-policy/1?page=4&count=5&query=&sort=&fuzzy=0&operator=and"},{"index":5,"proxyUrl":"search/category-1/office/trade-policy/1?page=5&count=5&query=&sort=&fuzzy=0&operator=and"}],"perPage":5,"next":{"index":2,"proxyUrl":"search/category-1/office/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=0&operator=and"},"previous":{"index":0},"first":{"index":0},"last":{"index":50,"proxyUrl":"search/category-1/office/trade-policy/1?page=50&count=5&query=&sort=&fuzzy=0&operator=and"}},"sampling":false,"translated":false,"locale":"en-US","query":"","operator":"and","fuzzy":"0","attributes":[{"ids":[],"visible":true,"values":[{"count":646,"active":false,"from":"*","to":"150","proxyUrl":"search/category-1/office/trade-policy/1/preco/*:150?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"count":601,"active":false,"from":"360","to":"*","proxyUrl":"search/category-1/office/trade-policy/1/preco/360:*?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"count":579,"active":false,"from":"150","to":"360","proxyUrl":"search/category-1/office/trade-policy/1/preco/150:360?page=1&count=5&query=&sort=&fuzzy=0&operator=and"}],"active":false,"key":"preco","originalKey":"price","label":"Preço","originalLabel":"Price","type":"number","minValue":0.23,"maxValue":995.92,"templateUrl":"search/category-1/office/trade-policy/1/preco/{from}:{to}?page=1&count=5&query=&sort=&fuzzy=0&operator=and","proxyUrl":"search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"ids":[],"visible":true,"values":[{"count":951,"active":false,"key":"chairs","label":"Chairs","id":"9296","originalKey":"chairs","originalLabel":"Chairs","proxyUrl":"search/category-1/office/trade-policy/1/categoria/chairs?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"count":875,"active":false,"key":"desks","label":"Desks","id":"9295","originalKey":"desks","originalLabel":"Desks","proxyUrl":"search/category-1/office/trade-policy/1/categoria/desks?page=1&count=5&query=&sort=&fuzzy=0&operator=and"}],"active":false,"key":"categoria","originalKey":"category-2","label":"Categoria","originalLabel":"Category 2","type":"text"},{"ids":[],"visible":false,"values":[{"count":1,"active":true,"key":"office","label":"Office","originalKey":"office","originalLabel":"Office","id":"9282","proxyUrl":"search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&operator=and"}],"active":true,"type":"text","key":"departamento","label":"Departamento","originalKey":"category-1","originalLabel":"Category 1"},{"ids":["2000006","2000003","2000001","2000002","2000005","9280","2000004"],"visible":true,"values":[{"count":285,"active":false,"key":"nike","label":"Nike","id":"","originalKey":"nike","originalLabel":"Nike","proxyUrl":"search/category-1/office/trade-policy/1/marca/nike?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"count":284,"active":false,"key":"irobot","label":"iRobot","id":"","originalKey":"irobot","originalLabel":"iRobot","proxyUrl":"search/category-1/office/trade-policy/1/marca/irobot?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"count":270,"active":false,"key":"skechers","label":"Skechers","id":"","originalKey":"skechers","originalLabel":"Skechers","proxyUrl":"search/category-1/office/trade-policy/1/marca/skechers?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"count":263,"active":false,"key":"acer","label":"Acer","id":"","originalKey":"acer","originalLabel":"Acer","proxyUrl":"search/category-1/office/trade-policy/1/marca/acer?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"count":254,"active":false,"key":"black-decker","label":"BLACK+DECKER","id":"","originalKey":"black-decker","originalLabel":"BLACK+DECKER","proxyUrl":"search/category-1/office/trade-policy/1/marca/black-decker?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"count":239,"active":false,"key":"brand","label":"Brand","id":"","originalKey":"brand","originalLabel":"Brand","proxyUrl":"search/category-1/office/trade-policy/1/marca/brand?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},{"count":231,"active":false,"key":"adidas","label":"adidas","id":"","originalKey":"adidas","originalLabel":"adidas","proxyUrl":"search/category-1/office/trade-policy/1/marca/adidas?page=1&count=5&query=&sort=&fuzzy=0&operator=and"}],"active":false,"key":"marca","originalKey":"brand","label":"Marca","originalLabel":"Brand","type":"text"}]}'
-  ),
+  result: {
+    facets: [
+      {
+        values: [
+          {
+            quantity: 646,
+            name: '',
+            key: 'price',
+            selected: false,
+            range: {
+              from: 0.23,
+              to: 150,
+            },
+          },
+          {
+            quantity: 601,
+            name: '',
+            key: 'price',
+            selected: false,
+            range: {
+              from: 360,
+              to: 995.92,
+            },
+          },
+          {
+            quantity: 579,
+            name: '',
+            key: 'price',
+            selected: false,
+            range: {
+              from: 150,
+              to: 360,
+            },
+          },
+        ],
+        type: 'PRICERANGE',
+        name: 'Pre�o',
+        hidden: false,
+        quantity: 3,
+      },
+      {
+        values: [
+          {
+            id: '9296',
+            quantity: 951,
+            name: 'Chairs',
+            key: 'category-2',
+            value: 'chairs',
+            selected: false,
+            href: 'office/chairs?map=categoria',
+          },
+          {
+            id: '9295',
+            quantity: 875,
+            name: 'Desks',
+            key: 'category-2',
+            value: 'desks',
+            selected: false,
+            href: 'office/desks?map=categoria',
+          },
+        ],
+        type: 'TEXT',
+        name: 'Categoria',
+        hidden: false,
+        quantity: 2,
+      },
+      {
+        values: [
+          {
+            id: '9282',
+            quantity: 1,
+            name: 'Office',
+            key: 'category-1',
+            value: 'office',
+            selected: true,
+            href: 'office/office?map=departamento',
+          },
+        ],
+        type: 'TEXT',
+        name: 'Departamento',
+        hidden: true,
+        quantity: 1,
+      },
+      {
+        values: [
+          {
+            id: '',
+            quantity: 285,
+            name: 'Nike',
+            key: 'brand',
+            value: 'nike',
+            selected: false,
+            href: 'office/nike?map=marca',
+          },
+          {
+            id: '',
+            quantity: 284,
+            name: 'iRobot',
+            key: 'brand',
+            value: 'irobot',
+            selected: false,
+            href: 'office/irobot?map=marca',
+          },
+          {
+            id: '',
+            quantity: 270,
+            name: 'Skechers',
+            key: 'brand',
+            value: 'skechers',
+            selected: false,
+            href: 'office/skechers?map=marca',
+          },
+          {
+            id: '',
+            quantity: 263,
+            name: 'Acer',
+            key: 'brand',
+            value: 'acer',
+            selected: false,
+            href: 'office/acer?map=marca',
+          },
+          {
+            id: '',
+            quantity: 254,
+            name: 'BLACK+DECKER',
+            key: 'brand',
+            value: 'black-decker',
+            selected: false,
+            href: 'office/black-decker?map=marca',
+          },
+          {
+            id: '',
+            quantity: 239,
+            name: 'Brand',
+            key: 'brand',
+            value: 'brand',
+            selected: false,
+            href: 'office/brand?map=marca',
+          },
+          {
+            id: '',
+            quantity: 231,
+            name: 'adidas',
+            key: 'brand',
+            value: 'adidas',
+            selected: false,
+            href: 'office/adidas?map=marca',
+          },
+        ],
+        type: 'TEXT',
+        name: 'Marca',
+        hidden: false,
+        quantity: 7,
+      },
+    ],
+    sampling: false,
+    breadcrumb: [
+      {
+        name: 'Office',
+        href: '/office',
+      },
+    ],
+    queryArgs: {
+      query: '',
+      selectedFacets: [
+        {
+          key: 'category-1',
+          value: 'office',
+        },
+        {
+          key: 'trade-policy',
+          value: '1',
+        },
+      ],
+    },
+    translated: false,
+  },
 }
 
 export const checkoutSimulationFetch = {

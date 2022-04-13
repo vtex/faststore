@@ -619,21 +619,21 @@ Object {
     "search": Object {
       "facets": Array [
         Object {
-          "key": "preco",
-          "label": "Preço",
+          "key": "pre�o",
+          "label": "Pre�o",
           "type": "RANGE",
           "values": Array [
             Object {
               "label": "unknown",
               "quantity": 646,
               "selected": false,
-              "value": "*-to-150",
+              "value": "0.23-to-150",
             },
             Object {
               "label": "unknown",
               "quantity": 601,
               "selected": false,
-              "value": "360-to-*",
+              "value": "360-to-995.92",
             },
             Object {
               "label": "unknown",

@@ -1,11 +1,11 @@
 import type { Resolver } from '..'
-import type { Attribute } from '../clients/search/types/AttributeSearchResult'
+import type { Facet } from '../clients/search/types/FacetSearchResult'
 
-type Root = Attribute
+type Root = Facet
 
 export const StoreFacet: Record<string, Resolver<Root>> = {
-  key: ({ key }) => key,
-  label: ({ label }) => label,
+  key: ({ name }) => name.toLowerCase(),
+  label: ({ name }) => name ?? 'unknown',
   values: ({ values }) => values,
-  type: ({ type }) => (type === 'text' ? 'BOOLEAN' : 'RANGE'),
+  type: ({ type }) => (type === 'TEXT' ? 'BOOLEAN' : 'RANGE'),
 }

@@ -12,7 +12,7 @@ export interface Facet {
   quantity?: number
 }
 
-interface FacetValue {
+export interface FacetValue {
   quantity: number
   name: string
   key: string

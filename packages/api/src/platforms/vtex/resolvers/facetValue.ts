@@ -1,11 +1,12 @@
 import type { Resolver } from '..'
-import type { Value } from '../clients/search/types/AttributeSearchResult'
+import type { FacetValue } from '../clients/search/types/FacetSearchResult'
 
-type Root = Value
+type Root = FacetValue
 
 export const StoreFacetValue: Record<string, Resolver<Root>> = {
-  value: ({ key, from, to }) => key ?? `${from}-to-${to}`,
-  label: ({ label }) => label ?? 'unknown',
-  selected: ({ active }) => active,
-  quantity: ({ count }) => count,
+  value: ({ value, range }) =>
+    value ?? `${range?.from ?? ''}-to-${range?.to ?? ''}`,
+  label: ({ name }) => name || 'unknown',
+  selected: ({ selected }) => selected,
+  quantity: ({ quantity }) => quantity,
 }
