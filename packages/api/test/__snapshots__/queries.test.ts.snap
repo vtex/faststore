@@ -222,7 +222,7 @@ Object {
                   "priceCurrency": "",
                   "quantity": 10000,
                   "seller": Object {
-                    "identifier": "VTEX",
+                    "identifier": "1",
                   },
                   "sellingPrice": 420,
                 },
@@ -280,7 +280,7 @@ Object {
                   "priceCurrency": "",
                   "quantity": 10000,
                   "seller": Object {
-                    "identifier": "VTEX",
+                    "identifier": "1",
                   },
                   "sellingPrice": 130,
                 },
@@ -338,7 +338,7 @@ Object {
                   "priceCurrency": "",
                   "quantity": 10000,
                   "seller": Object {
-                    "identifier": "VTEX",
+                    "identifier": "1",
                   },
                   "sellingPrice": 280,
                 },
@@ -396,7 +396,7 @@ Object {
                   "priceCurrency": "",
                   "quantity": 10000,
                   "seller": Object {
-                    "identifier": "VTEX",
+                    "identifier": "1",
                   },
                   "sellingPrice": 315,
                 },
@@ -454,7 +454,7 @@ Object {
                   "priceCurrency": "",
                   "quantity": 10000,
                   "seller": Object {
-                    "identifier": "VTEX",
+                    "identifier": "1",
                   },
                   "sellingPrice": 950,
                 },
@@ -781,7 +781,7 @@ Object {
                     "price": 129.09,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 129.09,
                   },
@@ -800,7 +800,7 @@ Object {
                     "price": 264.63,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 264.63,
                   },
@@ -872,7 +872,7 @@ Object {
                     "price": 362.36,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 362.36,
                   },
@@ -891,7 +891,7 @@ Object {
                     "price": 770,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 770,
                   },
@@ -977,7 +977,7 @@ Object {
                     "price": 247.01,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 247.01,
                   },
@@ -996,7 +996,7 @@ Object {
                     "price": 333.67,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 333.67,
                   },
@@ -1015,7 +1015,7 @@ Object {
                     "price": 642.91,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 642.91,
                   },
@@ -1087,7 +1087,7 @@ Object {
                     "price": 1.37,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 1.37,
                   },
@@ -1106,7 +1106,7 @@ Object {
                     "price": 582.1,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 582.1,
                   },
@@ -1182,7 +1182,7 @@ Object {
                     "price": 175.38,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 175.38,
                   },
@@ -1201,7 +1201,7 @@ Object {
                     "price": 517.54,
                     "quantity": 10000,
                     "seller": Object {
-                      "identifier": "VTEX",
+                      "identifier": "1",
                     },
                     "sellingPrice": 517.54,
                   },
