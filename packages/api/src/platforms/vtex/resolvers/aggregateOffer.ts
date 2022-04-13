@@ -1,33 +1,45 @@
-import type { Item } from '../clients/search/types/ProductSearchResult'
+import type {
+  CommertialOffer,
+  Item,
+  Seller,
+} from '../clients/search/types/ProductSearchResult'
 import type { StoreProduct } from './product'
 import type { PromiseType } from '../../../typings'
 import type { Resolver } from '..'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import { inStock } from '../utils/productStock'
-import { getItemPriceByKey } from '../utils/price'
 
 type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
 
-const getItemPrice = (item: Item) => getItemPriceByKey(item, 'Price')
+const highestPriceReducer = (priceType: keyof CommertialOffer) => (
+  priceResult: number,
+  seller: Seller
+) =>
+  seller.commertialOffer.ListPrice > priceResult
+    ? seller.commertialOffer[priceType]
+    : priceResult
 
 export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
   offers: Resolver<Root, any, Array<Item & { product: EnhancedSku }>>
 } = {
   highPrice: ({ items }) => {
-    const availableItems = items.filter(inStock)
-    const highPrice =
-      availableItems.length > 0
-        ? getItemPrice(availableItems[availableItems.length - 1])
-        : 0
+    const decreaseComparator = (a: number, b: number) => (a > b ? -1 : 1)
 
-    return highPrice
+    const availableItemsPrice = items
+      .filter(inStock)
+      .map((item) => item.sellers.reduce(highestPriceReducer('ListPrice'), 0))
+      .sort(decreaseComparator)
+
+    return availableItemsPrice[0] ?? 0
   },
   lowPrice: ({ items }) => {
-    const availableItems = items.filter(inStock)
-    const lowPrice =
-      availableItems.length > 0 ? getItemPrice(availableItems[0]) : 0
+    const increaseComparator = (a: number, b: number) => (a < b ? -1 : 1)
+    const availableItemsPrice = items
+      .filter(inStock)
+      .map((item) => item.sellers.reduce(highestPriceReducer('Price'), 0))
+      .sort(increaseComparator)
 
-    return lowPrice
+    return availableItemsPrice[0] ?? 0
   },
   offerCount: ({ items }) => items.length,
   priceCurrency: () => '',

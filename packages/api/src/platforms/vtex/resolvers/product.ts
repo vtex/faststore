@@ -19,7 +19,7 @@ const nonEmptyArray = <T>(array: T[] | null | undefined) =>
   Array.isArray(array) && array.length > 0 ? array : null
 
 export const StoreProduct: Record<string, Resolver<Root>> & {
-  offers: Resolver<Root, any, Promise<{ items: Item[]; product: EnhancedSku }>>
+  offers: Resolver<Root, any, { items: Item[]; product: EnhancedSku }>
   isVariantOf: Resolver<Root, any, Root>
 } = {
   productID: ({ itemId }) => itemId,
@@ -66,11 +66,7 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
   review: () => [],
   aggregateRating: () => ({}),
-  offers: async (
-    product,
-    _,
-    ctx
-  ): Promise<{ items: Item[]; product: Root }> => {
+  offers: (product, _, ctx): { items: Item[]; product: Root } => {
     const {
       storage: { channel },
     } = ctx

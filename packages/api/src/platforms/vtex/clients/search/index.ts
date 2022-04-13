@@ -67,7 +67,7 @@ export const IntelligentSearch = (
       query,
       sort,
       fuzzy,
-      // TODO: remove before deploy
+      // TODO: remove before deploy and update tests URL
       workspace: 'brasileiro',
     })
 
@@ -82,7 +82,8 @@ export const IntelligentSearch = (
     return fetchAPI(
       type === 'product_search'
         ? `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
-        : `http://portal.${environment}.com.br/search-api/v1/${account}/api/split/${type}/${pathname}?${params.toString()}`
+        : // TODO use facets from new API
+          `http://portal.${environment}.com.br/search-api/v1/${account}/api/split/${type}/${pathname}?${params.toString()}`
     )
   }
 

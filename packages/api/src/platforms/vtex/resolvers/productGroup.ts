@@ -8,7 +8,7 @@ type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
 export const StoreProductGroup: Record<string, Resolver<Root>> = {
   hasVariant: (root) =>
     root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
-  productGroupID: ({ itemId }) => itemId,
+  productGroupID: ({ isVariantOf }) => isVariantOf.productId,
   name: ({ isVariantOf }) => isVariantOf.productName,
   // TODO: Check if textAttribute is another property from search
   additionalProperty: ({ isVariantOf: { skuSpecifications = [] } }) =>

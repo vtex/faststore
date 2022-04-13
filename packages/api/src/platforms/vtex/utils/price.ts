@@ -4,5 +4,7 @@ import type {
 } from '../clients/search/types/ProductSearchResult'
 import { getFirstSeller } from './productStock'
 
-export const getItemPriceByKey = (item: Item, key: keyof CommertialOffer) =>
-  getFirstSeller(item.sellers)?.commertialOffer[key] ?? 0
+export const getItemPriceByKey = (
+  item: Item,
+  key: keyof CommertialOffer
+): number => getFirstSeller(item.sellers)?.commertialOffer[key] ?? 0
