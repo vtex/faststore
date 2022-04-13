@@ -64,7 +64,7 @@ beforeAll(async () => {
     platform: 'vtex',
     account: 'storeframework',
     environment: 'vtexcommercestable',
-    channel: '1',
+    channel: '{"salesChannel":"1"}',
     hideUnavailableItems: false,
   })
 })

@@ -186,500 +186,300 @@ Object {
         Object {
           "cursor": "0",
           "node": Object {
-            "description": "Iure eum pariatur provident dolorem et.",
-            "gtin": "6464716212392",
+            "description": "4k Philips Monitor 27\\"",
+            "gtin": "1504",
             "image": Array [
               Object {
-                "alternateName": "et",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/168396/nihil.jpg?v=637753027573130000",
-              },
-              Object {
-                "alternateName": "similique",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/168393/dolore.jpg?v=637753027558270000",
-              },
-              Object {
-                "alternateName": "deleniti",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/168394/delectus.jpg?v=637753027564530000",
-              },
-              Object {
-                "alternateName": "sunt",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/168395/qui.jpg?v=637753027568900000",
+                "alternateName": "Monitor27",
+                "url": "https://storeframework.vtexassets.com/arquivos/ids/190903/unsplash-monitor.jpg?v=637800152494200000",
               },
             ],
             "isVariantOf": Object {
               "hasVariant": Array [
                 Object {
-                  "name": "plum",
-                  "sku": "2737806",
+                  "name": "Monitor 27",
+                  "sku": "99988213",
                 },
               ],
-              "name": "Fantastic Soft Cheese",
-              "productGroupID": "43559243",
+              "name": "4k Philips Monitor 27\\"",
+              "productGroupID": "99995946",
             },
-            "name": "plum",
+            "name": "Monitor 27",
             "offers": Object {
-              "highPrice": 349.12,
-              "lowPrice": 349.12,
+              "highPrice": 490,
+              "lowPrice": 420,
               "offerCount": 1,
               "offers": Array [
                 Object {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
                   "itemOffered": Object {
-                    "name": "plum",
-                    "sku": "2737806",
+                    "name": "Monitor 27",
+                    "sku": "99988213",
                   },
-                  "listPrice": 557.57,
-                  "price": 349.12,
+                  "listPrice": 490,
+                  "price": 420,
                   "priceCurrency": "",
-                  "quantity": 1,
+                  "quantity": 10000,
                   "seller": Object {
-                    "identifier": "1",
+                    "identifier": "VTEX",
                   },
-                  "sellingPrice": 349.12,
+                  "sellingPrice": 420,
                 },
               ],
               "priceCurrency": "",
             },
-            "productID": "2737806",
+            "productID": "99988213",
             "review": Array [],
             "seo": Object {
               "canonical": "",
-              "description": "Iure eum pariatur provident dolorem et.",
-              "title": "Fantastic Soft Cheese",
+              "description": "4k Philips Monitor 27\\"",
+              "title": "4k Philips Monitor 27\\"",
               "titleTemplate": "",
             },
-            "sku": "2737806",
-            "slug": "fantastic-soft-cheese-2737806",
+            "sku": "99988213",
+            "slug": "4k-philips-monitor-99988213",
           },
         },
         Object {
           "cursor": "1",
           "node": Object {
-            "description": "Sed nostrum est nostrum quo ipsum et ut asperiores quasi.",
-            "gtin": "4454274563902",
+            "description": "Aedle VK-1 L Headphone",
+            "gtin": "1502",
             "image": Array [
               Object {
-                "alternateName": "molestiae",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/166870/sit.jpg?v=637753013266530000",
-              },
-              Object {
-                "alternateName": "occaecati",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/166867/ratione.jpg?v=637753013256670000",
-              },
-              Object {
-                "alternateName": "labore",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/166868/modi.jpg?v=637753013260600000",
-              },
-              Object {
-                "alternateName": "qui",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/166869/quaerat.jpg?v=637753013263570000",
+                "alternateName": "aedleheadphone",
+                "url": "https://storeframework.vtexassets.com/arquivos/ids/190901/unsplash-headphone.jpg?v=637800115948430000",
               },
             ],
             "isVariantOf": Object {
               "hasVariant": Array [
                 Object {
-                  "name": "ivory",
-                  "sku": "97907082",
+                  "name": "Leather",
+                  "sku": "99988211",
                 },
               ],
-              "name": "Licensed Frozen Sausages",
-              "productGroupID": "42751008",
+              "name": "Aedle VK-1 L Headphone",
+              "productGroupID": "99995944",
             },
-            "name": "ivory",
+            "name": "Leather",
             "offers": Object {
-              "highPrice": 531.54,
-              "lowPrice": 531.54,
+              "highPrice": 150,
+              "lowPrice": 130,
               "offerCount": 1,
               "offers": Array [
                 Object {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
                   "itemOffered": Object {
-                    "name": "ivory",
-                    "sku": "97907082",
+                    "name": "Leather",
+                    "sku": "99988211",
                   },
-                  "listPrice": 764.06,
-                  "price": 531.54,
+                  "listPrice": 150,
+                  "price": 130,
                   "priceCurrency": "",
-                  "quantity": 1,
+                  "quantity": 10000,
                   "seller": Object {
-                    "identifier": "1",
+                    "identifier": "VTEX",
                   },
-                  "sellingPrice": 531.54,
+                  "sellingPrice": 130,
                 },
               ],
               "priceCurrency": "",
             },
-            "productID": "97907082",
+            "productID": "99988211",
             "review": Array [],
             "seo": Object {
               "canonical": "",
-              "description": "Sed nostrum est nostrum quo ipsum et ut asperiores quasi.",
-              "title": "Licensed Frozen Sausages",
+              "description": "Aedle VK-1 L Headphone",
+              "title": "Aedle VK-1 L Headphone",
               "titleTemplate": "",
             },
-            "sku": "97907082",
-            "slug": "licensed-frozen-sausages-97907082",
+            "sku": "99988211",
+            "slug": "aedle-vk1-headphone-99988211",
           },
         },
         Object {
           "cursor": "2",
           "node": Object {
-            "description": "Laborum non soluta accusamus ut repellat dolorum.",
-            "gtin": "2084120969524",
+            "description": "Echo Dot Smart Speaker",
+            "gtin": "1505",
             "image": Array [
               Object {
-                "alternateName": "vero",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/169429/deleniti.jpg?v=637753037761670000",
-              },
-              Object {
-                "alternateName": "laborum",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/169428/ratione.jpg?v=637753037756200000",
+                "alternateName": "echodotwhite",
+                "url": "https://storeframework.vtexassets.com/arquivos/ids/190904/unsplash-smart-speaker.jpg?v=637800166577500000",
               },
             ],
             "isVariantOf": Object {
               "hasVariant": Array [
                 Object {
-                  "name": "violet",
-                  "sku": "9938908",
-                },
-                Object {
-                  "name": "silver",
-                  "sku": "49950097",
-                },
-                Object {
-                  "name": "lime",
-                  "sku": "60500870",
+                  "name": "Echo dot white",
+                  "sku": "99988214",
                 },
               ],
-              "name": "Awesome Plastic Bacon",
-              "productGroupID": "35322334",
+              "name": "Echo Dot Smart Speaker",
+              "productGroupID": "99995947",
             },
-            "name": "violet",
+            "name": "Echo dot white",
             "offers": Object {
-              "highPrice": 399.58,
-              "lowPrice": 399.58,
+              "highPrice": 310,
+              "lowPrice": 280,
               "offerCount": 1,
               "offers": Array [
                 Object {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
                   "itemOffered": Object {
-                    "name": "violet",
-                    "sku": "9938908",
+                    "name": "Echo dot white",
+                    "sku": "99988214",
                   },
-                  "listPrice": 565.29,
-                  "price": 399.58,
+                  "listPrice": 310,
+                  "price": 280,
                   "priceCurrency": "",
-                  "quantity": 1,
+                  "quantity": 10000,
                   "seller": Object {
-                    "identifier": "1",
+                    "identifier": "VTEX",
                   },
-                  "sellingPrice": 399.58,
+                  "sellingPrice": 280,
                 },
               ],
               "priceCurrency": "",
             },
-            "productID": "9938908",
+            "productID": "99988214",
             "review": Array [],
             "seo": Object {
               "canonical": "",
-              "description": "Laborum non soluta accusamus ut repellat dolorum.",
-              "title": "Awesome Plastic Bacon",
+              "description": "Echo Dot Smart Speaker",
+              "title": "Echo Dot Smart Speaker",
               "titleTemplate": "",
             },
-            "sku": "9938908",
-            "slug": "awesome-plastic-bacon-9938908",
+            "sku": "99988214",
+            "slug": "echo-dot-smart-speaker-99988214",
           },
         },
         Object {
           "cursor": "3",
           "node": Object {
-            "description": "Laborum non soluta accusamus ut repellat dolorum.",
-            "gtin": "8869428115906",
+            "description": "Virtual reality kit",
+            "gtin": "1501",
             "image": Array [
               Object {
-                "alternateName": "vitae",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/169433/consequuntur.jpg?v=637753037805300000",
-              },
-              Object {
-                "alternateName": "repellat",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/169432/voluptatibus.jpg?v=637753037800170000",
+                "alternateName": "oculus",
+                "url": "https://storeframework.vtexassets.com/arquivos/ids/190900/unsplash-vr-glasses.jpg?v=637799586135300000",
               },
             ],
             "isVariantOf": Object {
               "hasVariant": Array [
                 Object {
-                  "name": "violet",
-                  "sku": "9938908",
-                },
-                Object {
-                  "name": "silver",
-                  "sku": "49950097",
-                },
-                Object {
-                  "name": "lime",
-                  "sku": "60500870",
+                  "name": "Oculus VR Headset",
+                  "sku": "99988210",
                 },
               ],
-              "name": "Awesome Plastic Bacon",
-              "productGroupID": "35322334",
+              "name": "Oculus VR Headset",
+              "productGroupID": "99995943",
             },
-            "name": "silver",
+            "name": "Oculus VR Headset",
             "offers": Object {
-              "highPrice": 474.77,
-              "lowPrice": 474.77,
+              "highPrice": 344,
+              "lowPrice": 315,
               "offerCount": 1,
               "offers": Array [
                 Object {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
                   "itemOffered": Object {
-                    "name": "silver",
-                    "sku": "49950097",
+                    "name": "Oculus VR Headset",
+                    "sku": "99988210",
                   },
-                  "listPrice": 518.11,
-                  "price": 474.77,
+                  "listPrice": 344,
+                  "price": 315,
                   "priceCurrency": "",
-                  "quantity": 1,
+                  "quantity": 10000,
                   "seller": Object {
-                    "identifier": "1",
+                    "identifier": "VTEX",
                   },
-                  "sellingPrice": 474.77,
+                  "sellingPrice": 315,
                 },
               ],
               "priceCurrency": "",
             },
-            "productID": "49950097",
+            "productID": "99988210",
             "review": Array [],
             "seo": Object {
               "canonical": "",
-              "description": "Laborum non soluta accusamus ut repellat dolorum.",
-              "title": "Awesome Plastic Bacon",
+              "description": "Virtual reality kit",
+              "title": "Oculus VR Headset",
               "titleTemplate": "",
             },
-            "sku": "49950097",
-            "slug": "awesome-plastic-bacon-49950097",
+            "sku": "99988210",
+            "slug": "oculus-vr-headset-99988210",
           },
         },
         Object {
           "cursor": "4",
           "node": Object {
-            "description": "Laborum non soluta accusamus ut repellat dolorum.",
-            "gtin": "2864754656701",
+            "description": "Apple Magic Mouse",
+            "gtin": "1503",
             "image": Array [
               Object {
-                "alternateName": "animi",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/169431/commodi.jpg?v=637753037785770000",
-              },
-              Object {
-                "alternateName": "error",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/169430/sit.jpg?v=637753037781870000",
+                "alternateName": "Magicwhite",
+                "url": "https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000",
               },
             ],
             "isVariantOf": Object {
               "hasVariant": Array [
                 Object {
-                  "name": "violet",
-                  "sku": "9938908",
-                },
-                Object {
-                  "name": "silver",
-                  "sku": "49950097",
-                },
-                Object {
-                  "name": "lime",
-                  "sku": "60500870",
+                  "name": "Magic white",
+                  "sku": "99988212",
                 },
               ],
-              "name": "Awesome Plastic Bacon",
-              "productGroupID": "35322334",
+              "name": "Apple Magic Mouse",
+              "productGroupID": "99995945",
             },
-            "name": "lime",
+            "name": "Magic white",
             "offers": Object {
-              "highPrice": 593.17,
-              "lowPrice": 593.17,
+              "highPrice": 999,
+              "lowPrice": 950,
               "offerCount": 1,
               "offers": Array [
                 Object {
                   "availability": "https://schema.org/InStock",
                   "itemCondition": "https://schema.org/NewCondition",
                   "itemOffered": Object {
-                    "name": "lime",
-                    "sku": "60500870",
+                    "name": "Magic white",
+                    "sku": "99988212",
                   },
-                  "listPrice": 610.36,
-                  "price": 593.17,
+                  "listPrice": 999,
+                  "price": 950,
                   "priceCurrency": "",
-                  "quantity": 1,
+                  "quantity": 10000,
                   "seller": Object {
-                    "identifier": "1",
+                    "identifier": "VTEX",
                   },
-                  "sellingPrice": 593.17,
+                  "sellingPrice": 950,
                 },
               ],
               "priceCurrency": "",
             },
-            "productID": "60500870",
+            "productID": "99988212",
             "review": Array [],
             "seo": Object {
               "canonical": "",
-              "description": "Laborum non soluta accusamus ut repellat dolorum.",
-              "title": "Awesome Plastic Bacon",
+              "description": "Apple Magic Mouse",
+              "title": "Apple Magic Mouse",
               "titleTemplate": "",
             },
-            "sku": "60500870",
-            "slug": "awesome-plastic-bacon-60500870",
-          },
-        },
-        Object {
-          "cursor": "5",
-          "node": Object {
-            "description": "Aut omnis nobis tenetur.",
-            "gtin": "1346198062637",
-            "image": Array [
-              Object {
-                "alternateName": "et",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/186495/corporis.jpg?v=637755567185370000",
-              },
-              Object {
-                "alternateName": "in",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/186492/qui.jpg?v=637755567174570000",
-              },
-              Object {
-                "alternateName": "consectetur",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/186493/possimus.jpg?v=637755567178470000",
-              },
-              Object {
-                "alternateName": "ea",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/186494/nihil.jpg?v=637755567181900000",
-              },
-            ],
-            "isVariantOf": Object {
-              "hasVariant": Array [
-                Object {
-                  "name": "fuchsia",
-                  "sku": "64953394",
-                },
-              ],
-              "name": "Unbranded Concrete Table Small",
-              "productGroupID": "29913569",
-            },
-            "name": "fuchsia",
-            "offers": Object {
-              "highPrice": 200.64,
-              "lowPrice": 200.64,
-              "offerCount": 1,
-              "offers": Array [
-                Object {
-                  "availability": "https://schema.org/InStock",
-                  "itemCondition": "https://schema.org/NewCondition",
-                  "itemOffered": Object {
-                    "name": "fuchsia",
-                    "sku": "64953394",
-                  },
-                  "listPrice": 297.7,
-                  "price": 200.64,
-                  "priceCurrency": "",
-                  "quantity": 1,
-                  "seller": Object {
-                    "identifier": "1",
-                  },
-                  "sellingPrice": 200.64,
-                },
-              ],
-              "priceCurrency": "",
-            },
-            "productID": "64953394",
-            "review": Array [],
-            "seo": Object {
-              "canonical": "",
-              "description": "Aut omnis nobis tenetur.",
-              "title": "Unbranded Concrete Table Small",
-              "titleTemplate": "",
-            },
-            "sku": "64953394",
-            "slug": "unbranded-concrete-table-small-64953394",
-          },
-        },
-        Object {
-          "cursor": "6",
-          "node": Object {
-            "description": "Corporis quasi assumenda ratione.",
-            "gtin": "8942045886814",
-            "image": Array [
-              Object {
-                "alternateName": "alias",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/179022/possimus.jpg?v=637755499912700000",
-              },
-              Object {
-                "alternateName": "ipsum",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/179019/tenetur.jpg?v=637755499903770000",
-              },
-              Object {
-                "alternateName": "cumque",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/179020/vero.jpg?v=637755499907070000",
-              },
-              Object {
-                "alternateName": "facilis",
-                "url": "http://storeframework.vtexassets.com/arquivos/ids/179021/maiores.jpg?v=637755499910030000",
-              },
-            ],
-            "isVariantOf": Object {
-              "hasVariant": Array [
-                Object {
-                  "name": "maroon",
-                  "sku": "63114505",
-                },
-              ],
-              "name": "Tasty Rubber Tuna Rustic",
-              "productGroupID": "50513940",
-            },
-            "name": "maroon",
-            "offers": Object {
-              "highPrice": 217.67,
-              "lowPrice": 217.67,
-              "offerCount": 1,
-              "offers": Array [
-                Object {
-                  "availability": "https://schema.org/InStock",
-                  "itemCondition": "https://schema.org/NewCondition",
-                  "itemOffered": Object {
-                    "name": "maroon",
-                    "sku": "63114505",
-                  },
-                  "listPrice": 313.9,
-                  "price": 217.67,
-                  "priceCurrency": "",
-                  "quantity": 1,
-                  "seller": Object {
-                    "identifier": "1",
-                  },
-                  "sellingPrice": 217.67,
-                },
-              ],
-              "priceCurrency": "",
-            },
-            "productID": "63114505",
-            "review": Array [],
-            "seo": Object {
-              "canonical": "",
-              "description": "Corporis quasi assumenda ratione.",
-              "title": "Tasty Rubber Tuna Rustic",
-              "titleTemplate": "",
-            },
-            "sku": "63114505",
-            "slug": "tasty-rubber-tuna-rustic-63114505",
+            "sku": "99988212",
+            "slug": "apple-magic-mouse-99988212",
           },
         },
       ],
       "pageInfo": Object {
-        "endCursor": "5348",
+        "endCursor": "5347",
         "hasNextPage": true,
         "hasPreviousPage": false,
         "startCursor": "0",
-        "totalCount": 5348,
+        "totalCount": 5347,
       },
     },
   },
@@ -793,7 +593,7 @@ Object {
       },
       "name": "fuchsia",
       "offers": Object {
-        "highPrice": 200.64,
+        "highPrice": 297.7,
         "lowPrice": 200.64,
         "offerCount": 1,
         "priceCurrency": "",
@@ -930,15 +730,15 @@ Object {
               "image": Array [
                 Object {
                   "alternateName": "repellat",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/181666/ut.jpg?v=637755525053770000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/181666/ut.jpg?v=637755525053770000",
                 },
                 Object {
                   "alternateName": "ut",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/181664/qui.jpg?v=637755525048170000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/181664/qui.jpg?v=637755525048170000",
                 },
                 Object {
                   "alternateName": "omnis",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/181665/explicabo.jpg?v=637755525050970000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/181665/explicabo.jpg?v=637755525050970000",
                 },
               ],
               "isVariantOf": Object {
@@ -962,9 +762,9 @@ Object {
               },
               "name": "green",
               "offers": Object {
-                "highPrice": 129.09,
+                "highPrice": 325.77,
                 "lowPrice": 129.09,
-                "offerCount": 1,
+                "offerCount": 2,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -979,11 +779,30 @@ Object {
                     },
                     "listPrice": 185.97,
                     "price": 129.09,
-                    "quantity": 1,
+                    "quantity": 10000,
                     "seller": Object {
-                      "identifier": "1",
+                      "identifier": "VTEX",
                     },
                     "sellingPrice": 129.09,
+                  },
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Consequatur placeat optio adipisci aut voluptate excepturi.",
+                        "title": "Licensed Cotton Hat Licensed",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 325.77,
+                    "price": 264.63,
+                    "quantity": 10000,
+                    "seller": Object {
+                      "identifier": "VTEX",
+                    },
+                    "sellingPrice": 264.63,
                   },
                 ],
                 "priceCurrency": "",
@@ -1010,7 +829,7 @@ Object {
               "image": Array [
                 Object {
                   "alternateName": "impedit",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/184304/a.jpg?v=637755547736000000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/184304/a.jpg?v=637755547736000000",
                 },
               ],
               "isVariantOf": Object {
@@ -1034,9 +853,9 @@ Object {
               },
               "name": "red",
               "offers": Object {
-                "highPrice": 362.36,
+                "highPrice": 881.98,
                 "lowPrice": 362.36,
-                "offerCount": 1,
+                "offerCount": 2,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -1051,11 +870,30 @@ Object {
                     },
                     "listPrice": 537.5,
                     "price": 362.36,
-                    "quantity": 1,
+                    "quantity": 10000,
                     "seller": Object {
-                      "identifier": "1",
+                      "identifier": "VTEX",
                     },
                     "sellingPrice": 362.36,
+                  },
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Ipsa in sequi incidunt dolores.",
+                        "title": "Handmade Granite Computer Unbranded",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 881.98,
+                    "price": 770,
+                    "quantity": 10000,
+                    "seller": Object {
+                      "identifier": "VTEX",
+                    },
+                    "sellingPrice": 770,
                   },
                 ],
                 "priceCurrency": "",
@@ -1082,15 +920,15 @@ Object {
               "image": Array [
                 Object {
                   "alternateName": "debitis",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/178292/ea.jpg?v=637755492251130000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/178292/ea.jpg?v=637755492251130000",
                 },
                 Object {
                   "alternateName": "et",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/178290/voluptatum.jpg?v=637755492245200000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/178290/voluptatum.jpg?v=637755492245200000",
                 },
                 Object {
                   "alternateName": "itaque",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/178291/non.jpg?v=637755492248300000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/178291/non.jpg?v=637755492248300000",
                 },
               ],
               "isVariantOf": Object {
@@ -1120,9 +958,9 @@ Object {
               },
               "name": "olive",
               "offers": Object {
-                "highPrice": 247.01,
+                "highPrice": 955.48,
                 "lowPrice": 247.01,
-                "offerCount": 1,
+                "offerCount": 3,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -1137,11 +975,49 @@ Object {
                     },
                     "listPrice": 339.21,
                     "price": 247.01,
-                    "quantity": 1,
+                    "quantity": 10000,
                     "seller": Object {
-                      "identifier": "1",
+                      "identifier": "VTEX",
                     },
                     "sellingPrice": 247.01,
+                  },
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Dolor harum perferendis voluptatem tempora voluptatum ut et sapiente iure.",
+                        "title": "Small Cotton Cheese",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 504.39,
+                    "price": 333.67,
+                    "quantity": 10000,
+                    "seller": Object {
+                      "identifier": "VTEX",
+                    },
+                    "sellingPrice": 333.67,
+                  },
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Dolor harum perferendis voluptatem tempora voluptatum ut et sapiente iure.",
+                        "title": "Small Cotton Cheese",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 955.48,
+                    "price": 642.91,
+                    "quantity": 10000,
+                    "seller": Object {
+                      "identifier": "VTEX",
+                    },
+                    "sellingPrice": 642.91,
                   },
                 ],
                 "priceCurrency": "",
@@ -1168,7 +1044,7 @@ Object {
               "image": Array [
                 Object {
                   "alternateName": "ipsam",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/190604/vel.jpg?v=637755602570270000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/190604/vel.jpg?v=637755602570270000",
                 },
               ],
               "isVariantOf": Object {
@@ -1192,9 +1068,9 @@ Object {
               },
               "name": "fuchsia",
               "offers": Object {
-                "highPrice": 1.37,
+                "highPrice": 638.97,
                 "lowPrice": 1.37,
-                "offerCount": 1,
+                "offerCount": 2,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -1209,11 +1085,30 @@ Object {
                     },
                     "listPrice": 2.01,
                     "price": 1.37,
-                    "quantity": 1,
+                    "quantity": 10000,
                     "seller": Object {
-                      "identifier": "1",
+                      "identifier": "VTEX",
                     },
                     "sellingPrice": 1.37,
+                  },
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Recusandae dolores alias.",
+                        "title": "Tasty Frozen Tuna Handmade",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 638.97,
+                    "price": 582.1,
+                    "quantity": 10000,
+                    "seller": Object {
+                      "identifier": "VTEX",
+                    },
+                    "sellingPrice": 582.1,
                   },
                 ],
                 "priceCurrency": "",
@@ -1240,11 +1135,11 @@ Object {
               "image": Array [
                 Object {
                   "alternateName": "ea",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/155949/voluptas.jpg?v=637752878341070000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/155949/voluptas.jpg?v=637752878341070000",
                 },
                 Object {
                   "alternateName": "dolores",
-                  "url": "http://storeframework.vtexassets.com/arquivos/ids/155948/molestiae.jpg?v=637752878337300000",
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/155948/molestiae.jpg?v=637752878337300000",
                 },
               ],
               "isVariantOf": Object {
@@ -1268,9 +1163,9 @@ Object {
               },
               "name": "olive",
               "offers": Object {
-                "highPrice": 175.38,
+                "highPrice": 666.42,
                 "lowPrice": 175.38,
-                "offerCount": 1,
+                "offerCount": 2,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -1285,11 +1180,30 @@ Object {
                     },
                     "listPrice": 249.14,
                     "price": 175.38,
-                    "quantity": 1,
+                    "quantity": 10000,
                     "seller": Object {
-                      "identifier": "1",
+                      "identifier": "VTEX",
                     },
                     "sellingPrice": 175.38,
+                  },
+                  Object {
+                    "availability": "https://schema.org/InStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "itemOffered": Object {
+                      "seo": Object {
+                        "canonical": "",
+                        "description": "Aliquam a cumque ratione voluptatem in.",
+                        "title": "Sleek Metal Pizza",
+                        "titleTemplate": "",
+                      },
+                    },
+                    "listPrice": 666.42,
+                    "price": 517.54,
+                    "quantity": 10000,
+                    "seller": Object {
+                      "identifier": "VTEX",
+                    },
+                    "sellingPrice": 517.54,
                   },
                 ],
                 "priceCurrency": "",

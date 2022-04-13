@@ -73,11 +73,797 @@ export const AllProductsQueryFirst5 = `query AllProducts {
 
 export const productSearchPage1Count5Fetch = {
   info:
-    'http://portal.vtexcommercestable.com.br/search-api/v1/storeframework/api/split/product_search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&hide-unavailable-items=false',
+    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&workspace=brasileiro&hide-unavailable-items=false',
   init: undefined,
-  result: JSON.parse(
-    '{"total":5348,"products":[{"unitMultiplier":1,"year":0,"extraData":[{"value":"1","key":"sellerId"}],"release":1638576000000,"discount":37,"reference":"6327601885574","collections":[],"price":349.12,"customSort":0,"stickers":[],"id":"43559243","stock":1,"brand":"Acer","availableTradePolicies":["1"],"categoryTrees":[{"categoryNames":["Kitchen and Home Appliances","Appliances"],"categoryIds":["9285","9294"]},{"categoryNames":["Kitchen and Home Appliances"],"categoryIds":["9285"]}],"images":[{"name":"et","value":"http://storeframework.vteximg.com.br/arquivos/ids/168396/nihil.jpg?v=637753027573130000"},{"name":"similique","value":"http://storeframework.vteximg.com.br/arquivos/ids/168393/dolore.jpg?v=637753027558270000"},{"name":"deleniti","value":"http://storeframework.vteximg.com.br/arquivos/ids/168394/delectus.jpg?v=637753027564530000"},{"name":"sunt","value":"http://storeframework.vteximg.com.br/arquivos/ids/168395/qui.jpg?v=637753027568900000"}],"locationAttributes":[],"tax":0,"productScore":1,"storeSplitAttribute":"__PLACEHOLDER__","brandId":"2000002","installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":349.12,"paymentName":"Boleto Bancário","valueText":"$349.12"},"name":"Fantastic Soft Cheese","boost":{"newness":0.7111111111111111,"image":1,"revenue":1,"discount":1,"productScore":0,"click":1,"availableSpecsCount":1,"promotion":0,"order":1},"spotPrice":349.12,"skus":[{"images":[{"name":"et","value":"http://storeframework.vteximg.com.br/arquivos/ids/168396/nihil.jpg?v=637753027573130000"},{"name":"similique","value":"http://storeframework.vteximg.com.br/arquivos/ids/168393/dolore.jpg?v=637753027558270000"},{"name":"deleniti","value":"http://storeframework.vteximg.com.br/arquivos/ids/168394/delectus.jpg?v=637753027564530000"},{"name":"sunt","value":"http://storeframework.vteximg.com.br/arquivos/ids/168395/qui.jpg?v=637753027568900000"}],"nameComplete":"Fantastic Soft Cheese plum","complementName":"Explicabo et quibusdam eius excepturi et rem dolorem et. Eligendi ratione et quod error nisi asperiores fugit omnis itaque. Vel officia sapiente autem non. Ut consequatur veniam perspiciatis doloribus nulla saepe.","policies":[{"id":"1","sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"videos":[],"reference":"6464716212392","idWithSplit":"2737806","name":"plum","attributes":[],"id":"2737806","stock":1,"sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"link":"fantastic-soft-cheese","wear":0,"description":"Iure eum pariatur provident dolorem et.","aclBlockList":[],"showIfNotAvailable":true,"clusterHighlights":{},"categories":["Kitchen and Home Appliances","Appliances"],"timestamp":1640818293024,"product":"43559243","oldPrice":557.57,"productSpecifications":[],"url":"/fantastic-soft-cheese/p","measurementUnit":"un","categoryIds":["9285","9294"],"textAttributes":[{"joinedValue":"acer@@@Acer@@@@@@acer@@@Acer","isSku":false,"joinedKey":"text@@@brand@@@Brand@@@brand@@@Brand","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Acer","id":["2000002"],"labelKey":"Brand","value":"acer","key":"brand","joinedValueTranslations":{},"originalKey":"brand","originalValue":"acer","originalLabelKey":"Brand","originalLabelValue":"Acer"},{"valueId":"9285","joinedValue":"kitchen-and-home-appliances@@@Kitchen and Home Appliances@@@9285@@@kitchen-and-home-appliances@@@Kitchen and Home Appliances","isSku":false,"joinedKey":"text@@@category-1@@@Category 1@@@category-1@@@Category 1","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Kitchen and Home Appliances","id":[],"labelKey":"Category 1","value":"kitchen-and-home-appliances","key":"category-1","joinedValueTranslations":{},"originalKey":"category-1","originalValue":"kitchen-and-home-appliances","originalLabelKey":"Category 1","originalLabelValue":"Kitchen and Home Appliances"},{"valueId":"9294","joinedValue":"appliances@@@Appliances@@@9294@@@appliances@@@Appliances","isSku":false,"joinedKey":"text@@@category-2@@@Category 2@@@category-2@@@Category 2","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Appliances","id":[],"labelKey":"Category 2","value":"appliances","key":"category-2","joinedValueTranslations":{},"originalKey":"category-2","originalValue":"appliances","originalLabelKey":"Category 2","originalLabelValue":"Appliances"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@new-release@@@New Release@@@new-release@@@New Release","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"New Release","value":"yes","key":"new-release","joinedValueTranslations":{},"originalKey":"new-release","originalValue":"yes","originalLabelKey":"New Release","originalLabelValue":"Yes"},{"joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusterids@@@productClusterIds@@@productclusterids@@@productClusterIds","joinedKeyTranslations":{},"isFilter":false,"labelValue":"","id":[],"labelKey":"productClusterIds","value":"","key":"productclusterids","joinedValueTranslations":{},"originalKey":"productclusterids","originalValue":"","originalLabelKey":"productClusterIds","originalLabelValue":""},{"valueId":"","joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusternames@@@productClusterNames@@@productclusternames@@@productClusterNames","joinedKeyTranslations":{},"isFilter":true,"labelValue":"","id":[],"labelKey":"productClusterNames","value":"","key":"productclusternames","joinedValueTranslations":{},"originalKey":"productclusternames","originalValue":"","originalLabelKey":"productClusterNames","originalLabelValue":""},{"joinedValue":"false@@@false@@@@@@false@@@false","isSku":false,"joinedKey":"text@@@subscription@@@subscription@@@subscription@@@subscription","joinedKeyTranslations":{},"isFilter":false,"labelValue":"false","id":[],"labelKey":"subscription","value":"false","key":"subscription","joinedValueTranslations":{},"originalKey":"subscription","originalValue":"false","originalLabelKey":"subscription","originalLabelValue":"false"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@trade-policy@@@Trade Policy@@@trade-policy@@@Trade Policy","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Trade Policy","value":"1","key":"trade-policy","joinedValueTranslations":{},"originalKey":"trade-policy","originalValue":"1","originalLabelKey":"Trade Policy","originalLabelValue":"1"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@seller@@@Seller@@@seller@@@Seller","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Seller","value":"1","key":"seller","joinedValueTranslations":{},"originalKey":"seller","originalValue":"1","originalLabelKey":"Seller","originalLabelValue":"1"},{"valueId":"1","joinedValue":"vtex@@@VTEX@@@1@@@vtex@@@VTEX","isSku":false,"joinedKey":"text@@@sellername@@@sellerName@@@sellername@@@sellerName","joinedKeyTranslations":{},"isFilter":true,"labelValue":"VTEX","id":[],"labelKey":"sellerName","value":"vtex","key":"sellername","joinedValueTranslations":{},"originalKey":"sellername","originalValue":"vtex","originalLabelKey":"sellerName","originalLabelValue":"VTEX"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@promotion@@@Promotion@@@promotion@@@Promotion","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"Promotion","value":"yes","key":"promotion","joinedValueTranslations":{},"originalKey":"promotion","originalValue":"yes","originalLabelKey":"Promotion","originalLabelValue":"Yes"}],"numberAttributes":[{"labelKey":"Price","value":349.12,"key":"price"}],"headSku":"2737806","specificationGroups":"{}","extraInfo":{"sellerId":"1"},"oldPriceText":"$557.57","priceText":"$349.12","spotPriceText":"$349.12"},{"unitMultiplier":1,"year":0,"extraData":[{"value":"1","key":"sellerId"}],"release":1639180800000,"discount":30,"reference":"8528464810736","collections":[],"price":531.54,"customSort":0,"stickers":[],"id":"42751008","stock":1,"brand":"iRobot","availableTradePolicies":["1"],"categoryTrees":[{"categoryNames":["Office","Desks"],"categoryIds":["9282","9295"]},{"categoryNames":["Office"],"categoryIds":["9282"]}],"images":[{"name":"molestiae","value":"http://storeframework.vteximg.com.br/arquivos/ids/166870/sit.jpg?v=637753013266530000"},{"name":"occaecati","value":"http://storeframework.vteximg.com.br/arquivos/ids/166867/ratione.jpg?v=637753013256670000"},{"name":"labore","value":"http://storeframework.vteximg.com.br/arquivos/ids/166868/modi.jpg?v=637753013260600000"},{"name":"qui","value":"http://storeframework.vteximg.com.br/arquivos/ids/166869/quaerat.jpg?v=637753013263570000"}],"locationAttributes":[],"tax":0,"productScore":1,"storeSplitAttribute":"__PLACEHOLDER__","brandId":"2000003","installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":531.54,"paymentName":"Boleto Bancário","valueText":"$531.54"},"name":"Licensed Frozen Sausages","boost":{"newness":0.7888888888888889,"image":1,"revenue":1,"discount":0.9221868185823897,"productScore":0,"click":1,"availableSpecsCount":1,"promotion":0,"order":1},"spotPrice":531.54,"skus":[{"images":[{"name":"molestiae","value":"http://storeframework.vteximg.com.br/arquivos/ids/166870/sit.jpg?v=637753013266530000"},{"name":"occaecati","value":"http://storeframework.vteximg.com.br/arquivos/ids/166867/ratione.jpg?v=637753013256670000"},{"name":"labore","value":"http://storeframework.vteximg.com.br/arquivos/ids/166868/modi.jpg?v=637753013260600000"},{"name":"qui","value":"http://storeframework.vteximg.com.br/arquivos/ids/166869/quaerat.jpg?v=637753013263570000"}],"nameComplete":"Licensed Frozen Sausages ivory","complementName":"Suscipit enim cupiditate hic neque velit alias minus fugiat repudiandae. Fuga et ea est provident nulla odit eligendi dolores delectus. Voluptate saepe sunt. Aspernatur libero dolores omnis maxime.","policies":[{"id":"1","sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"videos":[],"reference":"4454274563902","idWithSplit":"97907082","name":"ivory","attributes":[],"id":"97907082","stock":1,"sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"link":"licensed-frozen-sausages","wear":0,"description":"Sed nostrum est nostrum quo ipsum et ut asperiores quasi.","aclBlockList":[],"showIfNotAvailable":true,"clusterHighlights":{},"categories":["Office","Desks"],"timestamp":1640818257572,"product":"42751008","oldPrice":764.06,"productSpecifications":[],"url":"/licensed-frozen-sausages/p","measurementUnit":"un","categoryIds":["9282","9295"],"textAttributes":[{"joinedValue":"irobot@@@iRobot@@@@@@irobot@@@iRobot","isSku":false,"joinedKey":"text@@@brand@@@Brand@@@brand@@@Brand","joinedKeyTranslations":{},"isFilter":true,"labelValue":"iRobot","id":["2000003"],"labelKey":"Brand","value":"irobot","key":"brand","joinedValueTranslations":{},"originalKey":"brand","originalValue":"irobot","originalLabelKey":"Brand","originalLabelValue":"iRobot"},{"valueId":"9282","joinedValue":"office@@@Office@@@9282@@@office@@@Office","isSku":false,"joinedKey":"text@@@category-1@@@Category 1@@@category-1@@@Category 1","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Office","id":[],"labelKey":"Category 1","value":"office","key":"category-1","joinedValueTranslations":{},"originalKey":"category-1","originalValue":"office","originalLabelKey":"Category 1","originalLabelValue":"Office"},{"valueId":"9295","joinedValue":"desks@@@Desks@@@9295@@@desks@@@Desks","isSku":false,"joinedKey":"text@@@category-2@@@Category 2@@@category-2@@@Category 2","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Desks","id":[],"labelKey":"Category 2","value":"desks","key":"category-2","joinedValueTranslations":{},"originalKey":"category-2","originalValue":"desks","originalLabelKey":"Category 2","originalLabelValue":"Desks"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@new-release@@@New Release@@@new-release@@@New Release","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"New Release","value":"yes","key":"new-release","joinedValueTranslations":{},"originalKey":"new-release","originalValue":"yes","originalLabelKey":"New Release","originalLabelValue":"Yes"},{"joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusterids@@@productClusterIds@@@productclusterids@@@productClusterIds","joinedKeyTranslations":{},"isFilter":false,"labelValue":"","id":[],"labelKey":"productClusterIds","value":"","key":"productclusterids","joinedValueTranslations":{},"originalKey":"productclusterids","originalValue":"","originalLabelKey":"productClusterIds","originalLabelValue":""},{"valueId":"","joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusternames@@@productClusterNames@@@productclusternames@@@productClusterNames","joinedKeyTranslations":{},"isFilter":true,"labelValue":"","id":[],"labelKey":"productClusterNames","value":"","key":"productclusternames","joinedValueTranslations":{},"originalKey":"productclusternames","originalValue":"","originalLabelKey":"productClusterNames","originalLabelValue":""},{"joinedValue":"false@@@false@@@@@@false@@@false","isSku":false,"joinedKey":"text@@@subscription@@@subscription@@@subscription@@@subscription","joinedKeyTranslations":{},"isFilter":false,"labelValue":"false","id":[],"labelKey":"subscription","value":"false","key":"subscription","joinedValueTranslations":{},"originalKey":"subscription","originalValue":"false","originalLabelKey":"subscription","originalLabelValue":"false"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@trade-policy@@@Trade Policy@@@trade-policy@@@Trade Policy","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Trade Policy","value":"1","key":"trade-policy","joinedValueTranslations":{},"originalKey":"trade-policy","originalValue":"1","originalLabelKey":"Trade Policy","originalLabelValue":"1"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@seller@@@Seller@@@seller@@@Seller","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Seller","value":"1","key":"seller","joinedValueTranslations":{},"originalKey":"seller","originalValue":"1","originalLabelKey":"Seller","originalLabelValue":"1"},{"valueId":"1","joinedValue":"vtex@@@VTEX@@@1@@@vtex@@@VTEX","isSku":false,"joinedKey":"text@@@sellername@@@sellerName@@@sellername@@@sellerName","joinedKeyTranslations":{},"isFilter":true,"labelValue":"VTEX","id":[],"labelKey":"sellerName","value":"vtex","key":"sellername","joinedValueTranslations":{},"originalKey":"sellername","originalValue":"vtex","originalLabelKey":"sellerName","originalLabelValue":"VTEX"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@promotion@@@Promotion@@@promotion@@@Promotion","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"Promotion","value":"yes","key":"promotion","joinedValueTranslations":{},"originalKey":"promotion","originalValue":"yes","originalLabelKey":"Promotion","originalLabelValue":"Yes"}],"numberAttributes":[{"labelKey":"Price","value":531.54,"key":"price"}],"headSku":"97907082","specificationGroups":"{}","extraInfo":{"sellerId":"1"},"oldPriceText":"$764.06","priceText":"$531.54","spotPriceText":"$531.54"},{"unitMultiplier":1,"year":0,"extraData":[{"value":"1","key":"sellerId"}],"release":1639440000000,"discount":29,"reference":"3063349269130","collections":[],"price":399.58,"customSort":0,"stickers":[],"id":"35322334","stock":1,"brand":"Nike","availableTradePolicies":["1"],"categoryTrees":[{"categoryNames":["Computer and Software","Gadgets"],"categoryIds":["9286","9292"]},{"categoryNames":["Computer and Software"],"categoryIds":["9286"]}],"images":[{"name":"vero","value":"http://storeframework.vteximg.com.br/arquivos/ids/169429/deleniti.jpg?v=637753037761670000"},{"name":"laborum","value":"http://storeframework.vteximg.com.br/arquivos/ids/169428/ratione.jpg?v=637753037756200000"}],"locationAttributes":[],"tax":0,"productScore":1,"storeSplitAttribute":"__PLACEHOLDER__","brandId":"2000006","installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":399.58,"paymentName":"Boleto Bancário","valueText":"$399.58"},"name":"Awesome Plastic Bacon","boost":{"newness":0.8222222222222222,"image":1,"revenue":1,"discount":0.8883077980355484,"productScore":0,"click":1,"availableSpecsCount":1,"promotion":0,"order":1},"spotPrice":399.58,"skus":[{"images":[{"name":"vero","value":"http://storeframework.vteximg.com.br/arquivos/ids/169429/deleniti.jpg?v=637753037761670000"},{"name":"laborum","value":"http://storeframework.vteximg.com.br/arquivos/ids/169428/ratione.jpg?v=637753037756200000"}],"nameComplete":"Awesome Plastic Bacon violet","complementName":"Velit quia ab. Harum fugiat incidunt consequatur. Asperiores esse et distinctio. Magnam et enim aliquam atque cumque. Voluptas numquam modi excepturi hic laborum odit sit consequatur consectetur.","policies":[{"id":"1","sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"videos":[],"reference":"2084120969524","idWithSplit":"9938908","name":"violet","attributes":[],"id":"9938908","stock":1,"sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]},{"image":"http://storeframework.vteximg.com.br/arquivos/ids/169433-55-55/consequuntur.jpg?v=637753037805300000","images":[{"name":"vitae","value":"http://storeframework.vteximg.com.br/arquivos/ids/169433/consequuntur.jpg?v=637753037805300000"},{"name":"repellat","value":"http://storeframework.vteximg.com.br/arquivos/ids/169432/voluptatibus.jpg?v=637753037800170000"}],"spotPrice":474.77,"nameComplete":"Awesome Plastic Bacon silver","complementName":"Velit quia ab. Harum fugiat incidunt consequatur. Asperiores esse et distinctio. Magnam et enim aliquam atque cumque. Voluptas numquam modi excepturi hic laborum odit sit consequatur consectetur.","oldPrice":518.11,"policies":[{"id":"1","sellers":[{"default":true,"installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":474.77,"paymentName":"Boleto Bancário"},"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"icon":"http://storeframework.vteximg.com.br/arquivos/ids/169433-55-55/consequuntur.jpg?v=637753037805300000","videos":[],"reference":"8869428115906","idWithSplit":"49950097","price":474.77,"name":"silver","attributes":[],"id":"49950097","stock":1,"sellers":[{"default":true,"installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":474.77,"paymentName":"Boleto Bancário"},"name":"VTEX","tax":0,"teasers":[],"id":"1"}],"oldPriceText":"$518.11","priceText":"$474.77","spotPriceText":"$474.77"},{"image":"http://storeframework.vteximg.com.br/arquivos/ids/169431-55-55/commodi.jpg?v=637753037785770000","images":[{"name":"animi","value":"http://storeframework.vteximg.com.br/arquivos/ids/169431/commodi.jpg?v=637753037785770000"},{"name":"error","value":"http://storeframework.vteximg.com.br/arquivos/ids/169430/sit.jpg?v=637753037781870000"}],"spotPrice":593.17,"nameComplete":"Awesome Plastic Bacon lime","complementName":"Velit quia ab. Harum fugiat incidunt consequatur. Asperiores esse et distinctio. Magnam et enim aliquam atque cumque. Voluptas numquam modi excepturi hic laborum odit sit consequatur consectetur.","oldPrice":610.36,"policies":[{"id":"1","sellers":[{"default":true,"installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":593.17,"paymentName":"Boleto Bancário"},"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"icon":"http://storeframework.vteximg.com.br/arquivos/ids/169431-55-55/commodi.jpg?v=637753037785770000","videos":[],"reference":"2864754656701","idWithSplit":"60500870","price":593.17,"name":"lime","attributes":[],"id":"60500870","stock":1,"sellers":[{"default":true,"installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":593.17,"paymentName":"Boleto Bancário"},"name":"VTEX","tax":0,"teasers":[],"id":"1"}],"oldPriceText":"$610.36","priceText":"$593.17","spotPriceText":"$593.17"}],"link":"awesome-plastic-bacon","wear":0,"description":"Laborum non soluta accusamus ut repellat dolorum.","aclBlockList":[],"showIfNotAvailable":true,"clusterHighlights":{},"categories":["Computer and Software","Gadgets"],"timestamp":1640818258514,"product":"35322334","oldPrice":565.29,"productSpecifications":[],"url":"/awesome-plastic-bacon/p","measurementUnit":"un","categoryIds":["9286","9292"],"textAttributes":[{"joinedValue":"nike@@@Nike@@@@@@nike@@@Nike","isSku":false,"joinedKey":"text@@@brand@@@Brand@@@brand@@@Brand","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Nike","id":["2000006"],"labelKey":"Brand","value":"nike","key":"brand","joinedValueTranslations":{},"originalKey":"brand","originalValue":"nike","originalLabelKey":"Brand","originalLabelValue":"Nike"},{"valueId":"9286","joinedValue":"computer-and-software@@@Computer and Software@@@9286@@@computer-and-software@@@Computer and Software","isSku":false,"joinedKey":"text@@@category-1@@@Category 1@@@category-1@@@Category 1","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Computer and Software","id":[],"labelKey":"Category 1","value":"computer-and-software","key":"category-1","joinedValueTranslations":{},"originalKey":"category-1","originalValue":"computer-and-software","originalLabelKey":"Category 1","originalLabelValue":"Computer and Software"},{"valueId":"9292","joinedValue":"gadgets@@@Gadgets@@@9292@@@gadgets@@@Gadgets","isSku":false,"joinedKey":"text@@@category-2@@@Category 2@@@category-2@@@Category 2","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Gadgets","id":[],"labelKey":"Category 2","value":"gadgets","key":"category-2","joinedValueTranslations":{},"originalKey":"category-2","originalValue":"gadgets","originalLabelKey":"Category 2","originalLabelValue":"Gadgets"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@new-release@@@New Release@@@new-release@@@New Release","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"New Release","value":"yes","key":"new-release","joinedValueTranslations":{},"originalKey":"new-release","originalValue":"yes","originalLabelKey":"New Release","originalLabelValue":"Yes"},{"joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusterids@@@productClusterIds@@@productclusterids@@@productClusterIds","joinedKeyTranslations":{},"isFilter":false,"labelValue":"","id":[],"labelKey":"productClusterIds","value":"","key":"productclusterids","joinedValueTranslations":{},"originalKey":"productclusterids","originalValue":"","originalLabelKey":"productClusterIds","originalLabelValue":""},{"valueId":"","joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusternames@@@productClusterNames@@@productclusternames@@@productClusterNames","joinedKeyTranslations":{},"isFilter":true,"labelValue":"","id":[],"labelKey":"productClusterNames","value":"","key":"productclusternames","joinedValueTranslations":{},"originalKey":"productclusternames","originalValue":"","originalLabelKey":"productClusterNames","originalLabelValue":""},{"joinedValue":"false@@@false@@@@@@false@@@false","isSku":false,"joinedKey":"text@@@subscription@@@subscription@@@subscription@@@subscription","joinedKeyTranslations":{},"isFilter":false,"labelValue":"false","id":[],"labelKey":"subscription","value":"false","key":"subscription","joinedValueTranslations":{},"originalKey":"subscription","originalValue":"false","originalLabelKey":"subscription","originalLabelValue":"false"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@trade-policy@@@Trade Policy@@@trade-policy@@@Trade Policy","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Trade Policy","value":"1","key":"trade-policy","joinedValueTranslations":{},"originalKey":"trade-policy","originalValue":"1","originalLabelKey":"Trade Policy","originalLabelValue":"1"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@seller@@@Seller@@@seller@@@Seller","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Seller","value":"1","key":"seller","joinedValueTranslations":{},"originalKey":"seller","originalValue":"1","originalLabelKey":"Seller","originalLabelValue":"1"},{"valueId":"1","joinedValue":"vtex@@@VTEX@@@1@@@vtex@@@VTEX","isSku":false,"joinedKey":"text@@@sellername@@@sellerName@@@sellername@@@sellerName","joinedKeyTranslations":{},"isFilter":true,"labelValue":"VTEX","id":[],"labelKey":"sellerName","value":"vtex","key":"sellername","joinedValueTranslations":{},"originalKey":"sellername","originalValue":"vtex","originalLabelKey":"sellerName","originalLabelValue":"VTEX"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@promotion@@@Promotion@@@promotion@@@Promotion","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"Promotion","value":"yes","key":"promotion","joinedValueTranslations":{},"originalKey":"promotion","originalValue":"yes","originalLabelKey":"Promotion","originalLabelValue":"Yes"}],"numberAttributes":[{"labelKey":"Price","value":399.58,"key":"price"}],"headSku":"9938908","specificationGroups":"{}","extraInfo":{"sellerId":"1"},"oldPriceText":"$565.29","priceText":"$399.58","spotPriceText":"$399.58"},{"unitMultiplier":1,"year":0,"extraData":[{"value":"1","key":"sellerId"}],"release":1638662400000,"discount":33,"reference":"4715709796003","collections":[{"id":"137","position":1}],"price":200.64,"customSort":0,"stickers":[],"id":"29913569","stock":1,"brand":"Brand","availableTradePolicies":["1"],"categoryTrees":[{"categoryNames":["Office","Desks"],"categoryIds":["9282","9295"]},{"categoryNames":["Office"],"categoryIds":["9282"]}],"images":[{"name":"et","value":"http://storeframework.vteximg.com.br/arquivos/ids/186495/corporis.jpg?v=637755567185370000"},{"name":"in","value":"http://storeframework.vteximg.com.br/arquivos/ids/186492/qui.jpg?v=637755567174570000"},{"name":"consectetur","value":"http://storeframework.vteximg.com.br/arquivos/ids/186493/possimus.jpg?v=637755567178470000"},{"name":"ea","value":"http://storeframework.vteximg.com.br/arquivos/ids/186494/nihil.jpg?v=637755567181900000"}],"locationAttributes":[],"tax":0,"productScore":1,"storeSplitAttribute":"__PLACEHOLDER__","brandId":"9280","installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":200.64,"paymentName":"Boleto Bancário","valueText":"$200.64"},"name":"Unbranded Concrete Table Small","boost":{"newness":0.7222222222222222,"image":1,"revenue":1,"discount":0.9879785425636955,"productScore":0,"click":1,"availableSpecsCount":1,"promotion":0,"order":1},"spotPrice":200.64,"skus":[{"images":[{"name":"et","value":"http://storeframework.vteximg.com.br/arquivos/ids/186495/corporis.jpg?v=637755567185370000"},{"name":"in","value":"http://storeframework.vteximg.com.br/arquivos/ids/186492/qui.jpg?v=637755567174570000"},{"name":"consectetur","value":"http://storeframework.vteximg.com.br/arquivos/ids/186493/possimus.jpg?v=637755567178470000"},{"name":"ea","value":"http://storeframework.vteximg.com.br/arquivos/ids/186494/nihil.jpg?v=637755567181900000"}],"nameComplete":"Unbranded Concrete Table Small fuchsia","complementName":"Repellendus ipsum suscipit. Tempore consectetur illo dicta ducimus qui ut tempore. Consequatur non laboriosam aut deleniti doloribus nostrum ab et. Odio molestias hic dolor sunt ipsam non. Blanditiis rerum aut dolorum ratione eveniet voluptatibus. Laborum incidunt velit est est laudantium eos.","policies":[{"id":"1","sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"videos":[],"reference":"1346198062637","idWithSplit":"64953394","name":"fuchsia","attributes":[],"id":"64953394","stock":1,"sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"link":"unbranded-concrete-table-small","wear":0,"description":"Aut omnis nobis tenetur.","aclBlockList":[],"showIfNotAvailable":true,"clusterHighlights":{},"categories":["Office","Desks"],"timestamp":1640818300408,"product":"29913569","oldPrice":297.7,"productSpecifications":[],"url":"/unbranded-concrete-table-small/p","measurementUnit":"un","categoryIds":["9282","9295"],"textAttributes":[{"joinedValue":"brand@@@Brand@@@@@@brand@@@Brand","isSku":false,"joinedKey":"text@@@brand@@@Brand@@@brand@@@Brand","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Brand","id":["9280"],"labelKey":"Brand","value":"brand","key":"brand","joinedValueTranslations":{},"originalKey":"brand","originalValue":"brand","originalLabelKey":"Brand","originalLabelValue":"Brand"},{"valueId":"9282","joinedValue":"office@@@Office@@@9282@@@office@@@Office","isSku":false,"joinedKey":"text@@@category-1@@@Category 1@@@category-1@@@Category 1","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Office","id":[],"labelKey":"Category 1","value":"office","key":"category-1","joinedValueTranslations":{},"originalKey":"category-1","originalValue":"office","originalLabelKey":"Category 1","originalLabelValue":"Office"},{"valueId":"9295","joinedValue":"desks@@@Desks@@@9295@@@desks@@@Desks","isSku":false,"joinedKey":"text@@@category-2@@@Category 2@@@category-2@@@Category 2","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Desks","id":[],"labelKey":"Category 2","value":"desks","key":"category-2","joinedValueTranslations":{},"originalKey":"category-2","originalValue":"desks","originalLabelKey":"Category 2","originalLabelValue":"Desks"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@new-release@@@New Release@@@new-release@@@New Release","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"New Release","value":"yes","key":"new-release","joinedValueTranslations":{},"originalKey":"new-release","originalValue":"yes","originalLabelKey":"New Release","originalLabelValue":"Yes"},{"joinedValue":"137@@@137@@@@@@137@@@137","isSku":false,"joinedKey":"text@@@productclusterids@@@productClusterIds@@@productclusterids@@@productClusterIds","joinedKeyTranslations":{},"isFilter":false,"labelValue":"137","id":[],"labelKey":"productClusterIds","value":"137","key":"productclusterids","joinedValueTranslations":{},"originalKey":"productclusterids","originalValue":"137","originalLabelKey":"productClusterIds","originalLabelValue":"137"},{"valueId":"137","joinedValue":"all@@@All@@@137@@@all@@@All","isSku":false,"joinedKey":"text@@@productclusternames@@@productClusterNames@@@productclusternames@@@productClusterNames","joinedKeyTranslations":{},"isFilter":true,"labelValue":"All","id":[],"labelKey":"productClusterNames","value":"all","key":"productclusternames","joinedValueTranslations":{},"originalKey":"productclusternames","originalValue":"all","originalLabelKey":"productClusterNames","originalLabelValue":"All"},{"joinedValue":"false@@@false@@@@@@false@@@false","isSku":false,"joinedKey":"text@@@subscription@@@subscription@@@subscription@@@subscription","joinedKeyTranslations":{},"isFilter":false,"labelValue":"false","id":[],"labelKey":"subscription","value":"false","key":"subscription","joinedValueTranslations":{},"originalKey":"subscription","originalValue":"false","originalLabelKey":"subscription","originalLabelValue":"false"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@trade-policy@@@Trade Policy@@@trade-policy@@@Trade Policy","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Trade Policy","value":"1","key":"trade-policy","joinedValueTranslations":{},"originalKey":"trade-policy","originalValue":"1","originalLabelKey":"Trade Policy","originalLabelValue":"1"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@seller@@@Seller@@@seller@@@Seller","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Seller","value":"1","key":"seller","joinedValueTranslations":{},"originalKey":"seller","originalValue":"1","originalLabelKey":"Seller","originalLabelValue":"1"},{"valueId":"1","joinedValue":"vtex@@@VTEX@@@1@@@vtex@@@VTEX","isSku":false,"joinedKey":"text@@@sellername@@@sellerName@@@sellername@@@sellerName","joinedKeyTranslations":{},"isFilter":true,"labelValue":"VTEX","id":[],"labelKey":"sellerName","value":"vtex","key":"sellername","joinedValueTranslations":{},"originalKey":"sellername","originalValue":"vtex","originalLabelKey":"sellerName","originalLabelValue":"VTEX"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@promotion@@@Promotion@@@promotion@@@Promotion","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"Promotion","value":"yes","key":"promotion","joinedValueTranslations":{},"originalKey":"promotion","originalValue":"yes","originalLabelKey":"Promotion","originalLabelValue":"Yes"}],"numberAttributes":[{"labelKey":"Price","value":200.64,"key":"price"}],"headSku":"64953394","specificationGroups":"{}","extraInfo":{"sellerId":"1"},"oldPriceText":"$297.70","priceText":"$200.64","spotPriceText":"$200.64"},{"unitMultiplier":1,"year":0,"extraData":[{"value":"1","key":"sellerId"}],"release":1639094400000,"discount":31,"reference":"3220358025863","collections":[],"price":217.67,"customSort":0,"stickers":[],"id":"50513940","stock":1,"brand":"Skechers","availableTradePolicies":["1"],"categoryTrees":[{"categoryNames":["Computer and Software","Gadgets"],"categoryIds":["9286","9292"]},{"categoryNames":["Computer and Software"],"categoryIds":["9286"]}],"images":[{"name":"alias","value":"http://storeframework.vteximg.com.br/arquivos/ids/179022/possimus.jpg?v=637755499912700000"},{"name":"ipsum","value":"http://storeframework.vteximg.com.br/arquivos/ids/179019/tenetur.jpg?v=637755499903770000"},{"name":"cumque","value":"http://storeframework.vteximg.com.br/arquivos/ids/179020/vero.jpg?v=637755499907070000"},{"name":"facilis","value":"http://storeframework.vteximg.com.br/arquivos/ids/179021/maiores.jpg?v=637755499910030000"}],"locationAttributes":[],"tax":0,"productScore":1,"storeSplitAttribute":"__PLACEHOLDER__","brandId":"2000001","installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":217.67,"paymentName":"Boleto Bancário","valueText":"$217.67"},"name":"Tasty Rubber Tuna Rustic","boost":{"newness":0.7777777777777778,"image":1,"revenue":1,"discount":0.9289775744060549,"productScore":0,"click":1,"availableSpecsCount":1,"promotion":0,"order":1},"spotPrice":217.67,"skus":[{"images":[{"name":"alias","value":"http://storeframework.vteximg.com.br/arquivos/ids/179022/possimus.jpg?v=637755499912700000"},{"name":"ipsum","value":"http://storeframework.vteximg.com.br/arquivos/ids/179019/tenetur.jpg?v=637755499903770000"},{"name":"cumque","value":"http://storeframework.vteximg.com.br/arquivos/ids/179020/vero.jpg?v=637755499907070000"},{"name":"facilis","value":"http://storeframework.vteximg.com.br/arquivos/ids/179021/maiores.jpg?v=637755499910030000"}],"nameComplete":"Tasty Rubber Tuna Rustic maroon","complementName":"Placeat accusamus similique praesentium temporibus vitae sit accusamus facilis. Dolore recusandae quis consequatur vero quae. Assumenda placeat magnam eveniet accusamus molestiae aut sed quaerat ratione.","policies":[{"id":"1","sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"videos":[],"reference":"8942045886814","idWithSplit":"63114505","name":"maroon","attributes":[],"id":"63114505","stock":1,"sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"link":"tasty-rubber-tuna-rustic","wear":0,"description":"Corporis quasi assumenda ratione.","aclBlockList":[],"showIfNotAvailable":true,"clusterHighlights":{},"categories":["Computer and Software","Gadgets"],"timestamp":1640818300585,"product":"50513940","oldPrice":313.9,"productSpecifications":[],"url":"/tasty-rubber-tuna-rustic/p","measurementUnit":"un","categoryIds":["9286","9292"],"textAttributes":[{"joinedValue":"skechers@@@Skechers@@@@@@skechers@@@Skechers","isSku":false,"joinedKey":"text@@@brand@@@Brand@@@brand@@@Brand","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Skechers","id":["2000001"],"labelKey":"Brand","value":"skechers","key":"brand","joinedValueTranslations":{},"originalKey":"brand","originalValue":"skechers","originalLabelKey":"Brand","originalLabelValue":"Skechers"},{"valueId":"9286","joinedValue":"computer-and-software@@@Computer and Software@@@9286@@@computer-and-software@@@Computer and Software","isSku":false,"joinedKey":"text@@@category-1@@@Category 1@@@category-1@@@Category 1","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Computer and Software","id":[],"labelKey":"Category 1","value":"computer-and-software","key":"category-1","joinedValueTranslations":{},"originalKey":"category-1","originalValue":"computer-and-software","originalLabelKey":"Category 1","originalLabelValue":"Computer and Software"},{"valueId":"9292","joinedValue":"gadgets@@@Gadgets@@@9292@@@gadgets@@@Gadgets","isSku":false,"joinedKey":"text@@@category-2@@@Category 2@@@category-2@@@Category 2","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Gadgets","id":[],"labelKey":"Category 2","value":"gadgets","key":"category-2","joinedValueTranslations":{},"originalKey":"category-2","originalValue":"gadgets","originalLabelKey":"Category 2","originalLabelValue":"Gadgets"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@new-release@@@New Release@@@new-release@@@New Release","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"New Release","value":"yes","key":"new-release","joinedValueTranslations":{},"originalKey":"new-release","originalValue":"yes","originalLabelKey":"New Release","originalLabelValue":"Yes"},{"joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusterids@@@productClusterIds@@@productclusterids@@@productClusterIds","joinedKeyTranslations":{},"isFilter":false,"labelValue":"","id":[],"labelKey":"productClusterIds","value":"","key":"productclusterids","joinedValueTranslations":{},"originalKey":"productclusterids","originalValue":"","originalLabelKey":"productClusterIds","originalLabelValue":""},{"valueId":"","joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusternames@@@productClusterNames@@@productclusternames@@@productClusterNames","joinedKeyTranslations":{},"isFilter":true,"labelValue":"","id":[],"labelKey":"productClusterNames","value":"","key":"productclusternames","joinedValueTranslations":{},"originalKey":"productclusternames","originalValue":"","originalLabelKey":"productClusterNames","originalLabelValue":""},{"joinedValue":"false@@@false@@@@@@false@@@false","isSku":false,"joinedKey":"text@@@subscription@@@subscription@@@subscription@@@subscription","joinedKeyTranslations":{},"isFilter":false,"labelValue":"false","id":[],"labelKey":"subscription","value":"false","key":"subscription","joinedValueTranslations":{},"originalKey":"subscription","originalValue":"false","originalLabelKey":"subscription","originalLabelValue":"false"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@trade-policy@@@Trade Policy@@@trade-policy@@@Trade Policy","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Trade Policy","value":"1","key":"trade-policy","joinedValueTranslations":{},"originalKey":"trade-policy","originalValue":"1","originalLabelKey":"Trade Policy","originalLabelValue":"1"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@seller@@@Seller@@@seller@@@Seller","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Seller","value":"1","key":"seller","joinedValueTranslations":{},"originalKey":"seller","originalValue":"1","originalLabelKey":"Seller","originalLabelValue":"1"},{"valueId":"1","joinedValue":"vtex@@@VTEX@@@1@@@vtex@@@VTEX","isSku":false,"joinedKey":"text@@@sellername@@@sellerName@@@sellername@@@sellerName","joinedKeyTranslations":{},"isFilter":true,"labelValue":"VTEX","id":[],"labelKey":"sellerName","value":"vtex","key":"sellername","joinedValueTranslations":{},"originalKey":"sellername","originalValue":"vtex","originalLabelKey":"sellerName","originalLabelValue":"VTEX"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@promotion@@@Promotion@@@promotion@@@Promotion","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"Promotion","value":"yes","key":"promotion","joinedValueTranslations":{},"originalKey":"promotion","originalValue":"yes","originalLabelKey":"Promotion","originalLabelValue":"Yes"}],"numberAttributes":[{"labelKey":"Price","value":217.67,"key":"price"}],"headSku":"63114505","specificationGroups":"{}","extraInfo":{"sellerId":"1"},"oldPriceText":"$313.90","priceText":"$217.67","spotPriceText":"$217.67"}],"pagination":{"count":50,"current":{"index":1,"proxyUrl":"search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&operator=and"},"before":[],"after":[{"index":2,"proxyUrl":"search/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=0&operator=and"},{"index":3,"proxyUrl":"search/trade-policy/1?page=3&count=5&query=&sort=&fuzzy=0&operator=and"},{"index":4,"proxyUrl":"search/trade-policy/1?page=4&count=5&query=&sort=&fuzzy=0&operator=and"},{"index":5,"proxyUrl":"search/trade-policy/1?page=5&count=5&query=&sort=&fuzzy=0&operator=and"}],"perPage":5,"next":{"index":2,"proxyUrl":"search/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=0&operator=and"},"previous":{"index":0},"first":{"index":0},"last":{"index":50,"proxyUrl":"search/trade-policy/1?page=50&count=5&query=&sort=&fuzzy=0&operator=and"}},"sampling":false,"options":{"sorts":[{"field":"relevance","order":"desc","active":true,"proxyUrl":"search/trade-policy/1?page=1&count=5&query=&sort=relevance:desc&fuzzy=0&operator=and"},{"field":"orders","order":"desc","proxyUrl":"search/trade-policy/1?page=1&count=5&query=&sort=orders:desc&fuzzy=0&operator=and"},{"field":"discount","order":"desc","proxyUrl":"search/trade-policy/1?page=1&count=5&query=&sort=discount:desc&fuzzy=0&operator=and"},{"field":"price","order":"asc","proxyUrl":"search/trade-policy/1?page=1&count=5&query=&sort=price:asc&fuzzy=0&operator=and"},{"field":"price","order":"desc","proxyUrl":"search/trade-policy/1?page=1&count=5&query=&sort=price:desc&fuzzy=0&operator=and"}],"counts":[{"count":24,"proxyUrl":"search/trade-policy/1?page=1&count=24&query=&sort=&fuzzy=0&operator=and"},{"count":48,"proxyUrl":"search/trade-policy/1?page=1&count=48&query=&sort=&fuzzy=0&operator=and"},{"count":72,"proxyUrl":"search/trade-policy/1?page=1&count=72&query=&sort=&fuzzy=0&operator=and"},{"count":96,"proxyUrl":"search/trade-policy/1?page=1&count=96&query=&sort=&fuzzy=0&operator=and"}]},"translated":false,"locale":"en-US","query":"","operator":"and","fuzzy":"0","correction":{"misspelled":true}}'
-  ),
+  result: {
+    products: [
+      {
+        cacheId: 'sp-99995946',
+        productId: '99995946',
+        description: '4k Philips Monitor 27"',
+        productName: '4k Philips Monitor 27"',
+        linkText: '4k-philips-monitor',
+        brand: 'adidas',
+        brandId: 2000004,
+        link: '/4k-philips-monitor/p',
+        categories: ['/Technology/'],
+        categoryId: '9297',
+        categoriesIds: ['/9297/'],
+        priceRange: {
+          sellingPrice: {
+            highPrice: 420,
+            lowPrice: 420,
+          },
+          listPrice: {
+            highPrice: 490,
+            lowPrice: 490,
+          },
+        },
+        specificationGroups: [
+          {
+            originalName: 'Specifications',
+            name: 'Specifications',
+            specifications: [],
+          },
+          {
+            originalName: 'allSpecifications',
+            name: 'allSpecifications',
+            specifications: [
+              {
+                originalName: 'Specification 01',
+                name: 'Specification 01',
+                values: ['Monitor 27'],
+              },
+              {
+                originalName: 'sellerId',
+                name: 'sellerId',
+                values: ['1'],
+              },
+            ],
+          },
+        ],
+        skuSpecifications: [],
+        productClusters: [
+          {
+            id: '140',
+            name: 'Most Wanted',
+          },
+        ],
+        clusterHighlights: [],
+        properties: [
+          {
+            name: 'Specification 01',
+            originalName: 'Specification 01',
+            values: ['Monitor 27'],
+          },
+          {
+            name: 'sellerId',
+            originalName: 'sellerId',
+            values: ['1'],
+          },
+        ],
+        items: [
+          {
+            sellers: [
+              {
+                sellerId: '1',
+                sellerName: 'VTEX',
+                addToCartLink: '',
+                sellerDefault: true,
+                commertialOffer: {
+                  DeliverySlaSamplesPerRegion: {},
+                  DeliverySlaSamples: [],
+                  AvailableQuantity: 10000,
+                  discountHighlights: [],
+                  Installments: [
+                    {
+                      Value: 420,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 420,
+                      NumberOfInstallments: 1,
+                      Name: 'Boleto Banc�rio � vista',
+                      PaymentSystemName: 'Boleto Banc�rio',
+                    },
+                    {
+                      Value: 420,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 420,
+                      NumberOfInstallments: 1,
+                      Name: 'Free � vista',
+                      PaymentSystemName: 'Free',
+                    },
+                  ],
+                  Price: 420,
+                  ListPrice: 490,
+                  spotPrice: 420,
+                  taxPercentage: 0,
+                  PriceWithoutDiscount: 420,
+                  Tax: 0,
+                  GiftSkuIds: [],
+                  BuyTogether: [],
+                  ItemMetadataAttachment: [],
+                  RewardValue: 0,
+                  PriceValidUntil: '2023-04-12T17:40:12Z',
+                  GetInfoErrorMessage: null,
+                  CacheVersionUsedToCallCheckout: '',
+                  teasers: [],
+                },
+              },
+            ],
+            images: [
+              {
+                imageId: '190903',
+                cacheId: '190903',
+                imageTag: '',
+                imageLabel: 'Monitor27',
+                imageText: 'Monitor27',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/190903/unsplash-monitor.jpg?v=637800152494200000',
+              },
+            ],
+            itemId: '99988213',
+            name: 'Monitor 27',
+            nameComplete: '4k Philips Monitor 27� Monitor 27',
+            complementName: '',
+            referenceId: [
+              {
+                Key: 'RefId',
+                Value: '1504',
+              },
+            ],
+            measurementUnit: 'un',
+            unitMultiplier: 1,
+            variations: [],
+            ean: '',
+            modalType: '',
+            videos: [],
+            attachments: [],
+            isKit: false,
+          },
+        ],
+        origin: 'intelligent-search',
+      },
+      {
+        cacheId: 'sp-99995944',
+        productId: '99995944',
+        description: 'Aedle VK-1 L Headphone',
+        productName: 'Aedle VK-1 L Headphone',
+        linkText: 'aedle-vk1-headphone',
+        brand: 'adidas',
+        brandId: 2000004,
+        link: '/aedle-vk1-headphone/p',
+        categories: ['/Technology/'],
+        categoryId: '9297',
+        categoriesIds: ['/9297/'],
+        priceRange: {
+          sellingPrice: {
+            highPrice: 130,
+            lowPrice: 130,
+          },
+          listPrice: {
+            highPrice: 150,
+            lowPrice: 150,
+          },
+        },
+        specificationGroups: [
+          {
+            originalName: 'Specifications',
+            name: 'Specifications',
+            specifications: [],
+          },
+          {
+            originalName: 'allSpecifications',
+            name: 'allSpecifications',
+            specifications: [
+              {
+                originalName: 'Specification 01',
+                name: 'Specification 01',
+                values: ['Leather version'],
+              },
+              {
+                originalName: 'sellerId',
+                name: 'sellerId',
+                values: ['1'],
+              },
+            ],
+          },
+        ],
+        skuSpecifications: [],
+        productClusters: [
+          {
+            id: '140',
+            name: 'Most Wanted',
+          },
+        ],
+        clusterHighlights: [],
+        properties: [
+          {
+            name: 'Specification 01',
+            originalName: 'Specification 01',
+            values: ['Leather version'],
+          },
+          {
+            name: 'sellerId',
+            originalName: 'sellerId',
+            values: ['1'],
+          },
+        ],
+        items: [
+          {
+            sellers: [
+              {
+                sellerId: '1',
+                sellerName: 'VTEX',
+                addToCartLink: '',
+                sellerDefault: true,
+                commertialOffer: {
+                  DeliverySlaSamplesPerRegion: {},
+                  DeliverySlaSamples: [],
+                  AvailableQuantity: 10000,
+                  discountHighlights: [],
+                  Installments: [
+                    {
+                      Value: 130,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 130,
+                      NumberOfInstallments: 1,
+                      Name: 'Boleto Banc�rio � vista',
+                      PaymentSystemName: 'Boleto Banc�rio',
+                    },
+                    {
+                      Value: 130,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 130,
+                      NumberOfInstallments: 1,
+                      Name: 'Free � vista',
+                      PaymentSystemName: 'Free',
+                    },
+                  ],
+                  Price: 130,
+                  ListPrice: 150,
+                  spotPrice: 130,
+                  taxPercentage: 0,
+                  PriceWithoutDiscount: 130,
+                  Tax: 0,
+                  GiftSkuIds: [],
+                  BuyTogether: [],
+                  ItemMetadataAttachment: [],
+                  RewardValue: 0,
+                  PriceValidUntil: '2023-04-12T17:40:12Z',
+                  GetInfoErrorMessage: null,
+                  CacheVersionUsedToCallCheckout: '',
+                  teasers: [],
+                },
+              },
+            ],
+            images: [
+              {
+                imageId: '190901',
+                cacheId: '190901',
+                imageTag: '',
+                imageLabel: 'aedleheadphone',
+                imageText: 'aedleheadphone',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/190901/unsplash-headphone.jpg?v=637800115948430000',
+              },
+            ],
+            itemId: '99988211',
+            name: 'Leather',
+            nameComplete: 'Aedle VK-1 L Headphone Leather',
+            complementName: '',
+            referenceId: [
+              {
+                Key: 'RefId',
+                Value: '1502',
+              },
+            ],
+            measurementUnit: 'un',
+            unitMultiplier: 1,
+            variations: [],
+            ean: '',
+            modalType: '',
+            videos: [],
+            attachments: [],
+            isKit: false,
+          },
+        ],
+        origin: 'intelligent-search',
+      },
+      {
+        cacheId: 'sp-99995947',
+        productId: '99995947',
+        description: 'Echo Dot Smart Speaker',
+        productName: 'Echo Dot Smart Speaker',
+        linkText: 'echo-dot-smart-speaker',
+        brand: 'adidas',
+        brandId: 2000004,
+        link: '/echo-dot-smart-speaker/p',
+        categories: ['/Technology/'],
+        categoryId: '9297',
+        categoriesIds: ['/9297/'],
+        priceRange: {
+          sellingPrice: {
+            highPrice: 280,
+            lowPrice: 280,
+          },
+          listPrice: {
+            highPrice: 310,
+            lowPrice: 310,
+          },
+        },
+        specificationGroups: [
+          {
+            originalName: 'Specifications',
+            name: 'Specifications',
+            specifications: [],
+          },
+          {
+            originalName: 'allSpecifications',
+            name: 'allSpecifications',
+            specifications: [
+              {
+                originalName: 'Specification 01',
+                name: 'Specification 01',
+                values: ['Echo dot white'],
+              },
+              {
+                originalName: 'sellerId',
+                name: 'sellerId',
+                values: ['1'],
+              },
+            ],
+          },
+        ],
+        skuSpecifications: [],
+        productClusters: [
+          {
+            id: '140',
+            name: 'Most Wanted',
+          },
+        ],
+        clusterHighlights: [],
+        properties: [
+          {
+            name: 'Specification 01',
+            originalName: 'Specification 01',
+            values: ['Echo dot white'],
+          },
+          {
+            name: 'sellerId',
+            originalName: 'sellerId',
+            values: ['1'],
+          },
+        ],
+        items: [
+          {
+            sellers: [
+              {
+                sellerId: '1',
+                sellerName: 'VTEX',
+                addToCartLink: '',
+                sellerDefault: true,
+                commertialOffer: {
+                  DeliverySlaSamplesPerRegion: {},
+                  DeliverySlaSamples: [],
+                  AvailableQuantity: 10000,
+                  discountHighlights: [],
+                  Installments: [
+                    {
+                      Value: 280,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 280,
+                      NumberOfInstallments: 1,
+                      Name: 'Boleto Banc�rio � vista',
+                      PaymentSystemName: 'Boleto Banc�rio',
+                    },
+                    {
+                      Value: 280,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 280,
+                      NumberOfInstallments: 1,
+                      Name: 'Free � vista',
+                      PaymentSystemName: 'Free',
+                    },
+                  ],
+                  Price: 280,
+                  ListPrice: 310,
+                  spotPrice: 280,
+                  taxPercentage: 0,
+                  PriceWithoutDiscount: 280,
+                  Tax: 0,
+                  GiftSkuIds: [],
+                  BuyTogether: [],
+                  ItemMetadataAttachment: [],
+                  RewardValue: 0,
+                  PriceValidUntil: '2023-04-12T17:40:12Z',
+                  GetInfoErrorMessage: null,
+                  CacheVersionUsedToCallCheckout: '',
+                  teasers: [],
+                },
+              },
+            ],
+            images: [
+              {
+                imageId: '190904',
+                cacheId: '190904',
+                imageTag: '',
+                imageLabel: 'echodotwhite',
+                imageText: 'echodotwhite',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/190904/unsplash-smart-speaker.jpg?v=637800166577500000',
+              },
+            ],
+            itemId: '99988214',
+            name: 'Echo dot white',
+            nameComplete: 'Echo Dot Smart Speaker Echo dot white',
+            complementName: '',
+            referenceId: [
+              {
+                Key: 'RefId',
+                Value: '1505',
+              },
+            ],
+            measurementUnit: 'un',
+            unitMultiplier: 1,
+            variations: [],
+            ean: '',
+            modalType: '',
+            videos: [],
+            attachments: [],
+            isKit: false,
+          },
+        ],
+        origin: 'intelligent-search',
+      },
+      {
+        cacheId: 'sp-99995943',
+        productId: '99995943',
+        description: 'Virtual reality kit',
+        productName: 'Oculus VR Headset',
+        linkText: 'oculus-vr-headset',
+        brand: 'adidas',
+        brandId: 2000004,
+        link: '/oculus-vr-headset/p',
+        categories: ['/Technology/'],
+        categoryId: '9297',
+        categoriesIds: ['/9297/'],
+        priceRange: {
+          sellingPrice: {
+            highPrice: 315,
+            lowPrice: 315,
+          },
+          listPrice: {
+            highPrice: 344,
+            lowPrice: 344,
+          },
+        },
+        specificationGroups: [
+          {
+            originalName: 'Specifications',
+            name: 'Specifications',
+            specifications: [],
+          },
+          {
+            originalName: 'allSpecifications',
+            name: 'allSpecifications',
+            specifications: [
+              {
+                originalName: 'Specification 01',
+                name: 'Specification 01',
+                values: ['Spec 01 filled'],
+              },
+              {
+                originalName: 'sellerId',
+                name: 'sellerId',
+                values: ['1'],
+              },
+            ],
+          },
+        ],
+        skuSpecifications: [],
+        productClusters: [
+          {
+            id: '140',
+            name: 'Most Wanted',
+          },
+        ],
+        clusterHighlights: [],
+        properties: [
+          {
+            name: 'Specification 01',
+            originalName: 'Specification 01',
+            values: ['Spec 01 filled'],
+          },
+          {
+            name: 'sellerId',
+            originalName: 'sellerId',
+            values: ['1'],
+          },
+        ],
+        items: [
+          {
+            sellers: [
+              {
+                sellerId: '1',
+                sellerName: 'VTEX',
+                addToCartLink: '',
+                sellerDefault: true,
+                commertialOffer: {
+                  DeliverySlaSamplesPerRegion: {},
+                  DeliverySlaSamples: [],
+                  AvailableQuantity: 10000,
+                  discountHighlights: [],
+                  Installments: [
+                    {
+                      Value: 315,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 315,
+                      NumberOfInstallments: 1,
+                      Name: 'Boleto Banc�rio � vista',
+                      PaymentSystemName: 'Boleto Banc�rio',
+                    },
+                    {
+                      Value: 315,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 315,
+                      NumberOfInstallments: 1,
+                      Name: 'Free � vista',
+                      PaymentSystemName: 'Free',
+                    },
+                  ],
+                  Price: 315,
+                  ListPrice: 344,
+                  spotPrice: 315,
+                  taxPercentage: 0,
+                  PriceWithoutDiscount: 315,
+                  Tax: 0,
+                  GiftSkuIds: [],
+                  BuyTogether: [],
+                  ItemMetadataAttachment: [],
+                  RewardValue: 0,
+                  PriceValidUntil: '2023-04-12T17:40:12Z',
+                  GetInfoErrorMessage: null,
+                  CacheVersionUsedToCallCheckout: '',
+                  teasers: [],
+                },
+              },
+            ],
+            images: [
+              {
+                imageId: '190900',
+                cacheId: '190900',
+                imageTag: '',
+                imageLabel: 'oculus',
+                imageText: 'oculus',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/190900/unsplash-vr-glasses.jpg?v=637799586135300000',
+              },
+            ],
+            itemId: '99988210',
+            name: 'Oculus VR Headset',
+            nameComplete: 'Oculus VR Headset',
+            complementName: '',
+            referenceId: [
+              {
+                Key: 'RefId',
+                Value: '1501',
+              },
+            ],
+            measurementUnit: 'un',
+            unitMultiplier: 1,
+            variations: [],
+            ean: '',
+            modalType: '',
+            videos: [],
+            attachments: [],
+            isKit: false,
+          },
+        ],
+        origin: 'intelligent-search',
+      },
+      {
+        cacheId: 'sp-99995945',
+        productId: '99995945',
+        description: 'Apple Magic Mouse',
+        productName: 'Apple Magic Mouse',
+        linkText: 'apple-magic-mouse',
+        brand: 'adidas',
+        brandId: 2000004,
+        link: '/apple-magic-mouse/p',
+        categories: ['/Technology/'],
+        categoryId: '9297',
+        categoriesIds: ['/9297/'],
+        priceRange: {
+          sellingPrice: {
+            highPrice: 950,
+            lowPrice: 950,
+          },
+          listPrice: {
+            highPrice: 999,
+            lowPrice: 999,
+          },
+        },
+        specificationGroups: [
+          {
+            originalName: 'Specifications',
+            name: 'Specifications',
+            specifications: [],
+          },
+          {
+            originalName: 'allSpecifications',
+            name: 'allSpecifications',
+            specifications: [
+              {
+                originalName: 'Specification 01',
+                name: 'Specification 01',
+                values: ['Magic mouse'],
+              },
+              {
+                originalName: 'sellerId',
+                name: 'sellerId',
+                values: ['1'],
+              },
+            ],
+          },
+        ],
+        skuSpecifications: [],
+        productClusters: [
+          {
+            id: '140',
+            name: 'Most Wanted',
+          },
+        ],
+        clusterHighlights: [],
+        properties: [
+          {
+            name: 'Specification 01',
+            originalName: 'Specification 01',
+            values: ['Magic mouse'],
+          },
+          {
+            name: 'sellerId',
+            originalName: 'sellerId',
+            values: ['1'],
+          },
+        ],
+        items: [
+          {
+            sellers: [
+              {
+                sellerId: '1',
+                sellerName: 'VTEX',
+                addToCartLink: '',
+                sellerDefault: true,
+                commertialOffer: {
+                  DeliverySlaSamplesPerRegion: {},
+                  DeliverySlaSamples: [],
+                  AvailableQuantity: 10000,
+                  discountHighlights: [],
+                  Installments: [
+                    {
+                      Value: 950,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 950,
+                      NumberOfInstallments: 1,
+                      Name: 'Boleto Banc�rio � vista',
+                      PaymentSystemName: 'Boleto Banc�rio',
+                    },
+                    {
+                      Value: 950,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 950,
+                      NumberOfInstallments: 1,
+                      Name: 'Free � vista',
+                      PaymentSystemName: 'Free',
+                    },
+                  ],
+                  Price: 950,
+                  ListPrice: 999,
+                  spotPrice: 950,
+                  taxPercentage: 0,
+                  PriceWithoutDiscount: 950,
+                  Tax: 0,
+                  GiftSkuIds: [],
+                  BuyTogether: [],
+                  ItemMetadataAttachment: [],
+                  RewardValue: 0,
+                  PriceValidUntil: '2023-04-12T17:40:12Z',
+                  GetInfoErrorMessage: null,
+                  CacheVersionUsedToCallCheckout: '',
+                  teasers: [],
+                },
+              },
+            ],
+            images: [
+              {
+                imageId: '190902',
+                cacheId: '190902',
+                imageTag: '',
+                imageLabel: 'Magicwhite',
+                imageText: 'Magicwhite',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+              },
+            ],
+            itemId: '99988212',
+            name: 'Magic white',
+            nameComplete: 'Apple Magic Mouse Magic white',
+            complementName: '',
+            referenceId: [
+              {
+                Key: 'RefId',
+                Value: '1503',
+              },
+            ],
+            measurementUnit: 'un',
+            unitMultiplier: 1,
+            variations: [],
+            ean: '',
+            modalType: '',
+            videos: [],
+            attachments: [],
+            isKit: false,
+          },
+        ],
+        origin: 'intelligent-search',
+      },
+    ],
+    recordsFiltered: 5347,
+    correction: {
+      misspelled: true,
+    },
+    fuzzy: '0',
+    operator: 'and',
+    translated: false,
+    pagination: {
+      count: 50,
+      current: {
+        index: 1,
+        proxyUrl:
+          'search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&operator=and',
+      },
+      before: [],
+      after: [
+        {
+          index: 2,
+          proxyUrl:
+            'search/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=0&operator=and',
+        },
+        {
+          index: 3,
+          proxyUrl:
+            'search/trade-policy/1?page=3&count=5&query=&sort=&fuzzy=0&operator=and',
+        },
+        {
+          index: 4,
+          proxyUrl:
+            'search/trade-policy/1?page=4&count=5&query=&sort=&fuzzy=0&operator=and',
+        },
+        {
+          index: 5,
+          proxyUrl:
+            'search/trade-policy/1?page=5&count=5&query=&sort=&fuzzy=0&operator=and',
+        },
+      ],
+      perPage: 5,
+      next: {
+        index: 2,
+        proxyUrl:
+          'search/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=0&operator=and',
+      },
+      previous: {
+        index: 0,
+      },
+      first: {
+        index: 0,
+      },
+      last: {
+        index: 50,
+        proxyUrl:
+          'search/trade-policy/1?page=50&count=5&query=&sort=&fuzzy=0&operator=and',
+      },
+    },
+  },
 }
 
 export const checkoutSimulationFetch = {

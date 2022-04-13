@@ -334,9 +334,198 @@ export const checkoutOrderFormItemsInvalidFetch = {
 
 export const productSearchPage1Count1Fetch = {
   info:
-    'http://portal.vtexcommercestable.com.br/search-api/v1/storeframework/api/split/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&fuzzy=0&hide-unavailable-items=false',
+    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&fuzzy=0&workspace=brasileiro&hide-unavailable-items=false',
   init: undefined,
-  result: JSON.parse(
-    '{"total":1,"products":[{"unitMultiplier":1,"year":0,"extraData":[{"value":"1","key":"sellerId"}],"release":1638576000000,"discount":37,"reference":"6327601885574","collections":[],"price":349.12,"customSort":0,"stickers":[],"id":"43559243","stock":1,"brand":"Acer","availableTradePolicies":["1"],"categoryTrees":[{"categoryNames":["Kitchen and Home Appliances","Appliances"],"categoryIds":["9285","9294"]},{"categoryNames":["Kitchen and Home Appliances"],"categoryIds":["9285"]}],"images":[{"name":"et","value":"http://storeframework.vteximg.com.br/arquivos/ids/168396/nihil.jpg?v=637753027573130000"},{"name":"similique","value":"http://storeframework.vteximg.com.br/arquivos/ids/168393/dolore.jpg?v=637753027558270000"},{"name":"deleniti","value":"http://storeframework.vteximg.com.br/arquivos/ids/168394/delectus.jpg?v=637753027564530000"},{"name":"sunt","value":"http://storeframework.vteximg.com.br/arquivos/ids/168395/qui.jpg?v=637753027568900000"}],"locationAttributes":[],"tax":0,"productScore":1,"storeSplitAttribute":"__PLACEHOLDER__","brandId":"2000002","installment":{"interest":false,"count":1,"paymentGroupName":"bankInvoicePaymentGroup","value":349.12,"paymentName":"Boleto Bancário","valueText":"$349.12"},"name":"Fantastic Soft Cheese","boost":{"newness":0.7111111111111111,"image":1,"revenue":1,"discount":1,"productScore":0,"click":1,"availableSpecsCount":1,"promotion":0,"order":1},"spotPrice":349.12,"skus":[{"images":[{"name":"et","value":"http://storeframework.vteximg.com.br/arquivos/ids/168396/nihil.jpg?v=637753027573130000"},{"name":"similique","value":"http://storeframework.vteximg.com.br/arquivos/ids/168393/dolore.jpg?v=637753027558270000"},{"name":"deleniti","value":"http://storeframework.vteximg.com.br/arquivos/ids/168394/delectus.jpg?v=637753027564530000"},{"name":"sunt","value":"http://storeframework.vteximg.com.br/arquivos/ids/168395/qui.jpg?v=637753027568900000"}],"nameComplete":"Fantastic Soft Cheese plum","complementName":"Explicabo et quibusdam eius excepturi et rem dolorem et. Eligendi ratione et quod error nisi asperiores fugit omnis itaque. Vel officia sapiente autem non. Ut consequatur veniam perspiciatis doloribus nulla saepe.","policies":[{"id":"1","sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"videos":[],"reference":"6464716212392","idWithSplit":"2737806","name":"plum","attributes":[],"id":"2737806","stock":1,"sellers":[{"default":true,"name":"VTEX","tax":0,"teasers":[],"id":"1"}]}],"link":"fantastic-soft-cheese","wear":0,"description":"Iure eum pariatur provident dolorem et.","aclBlockList":[],"showIfNotAvailable":true,"clusterHighlights":{},"categories":["Kitchen and Home Appliances","Appliances"],"timestamp":1640818293024,"product":"43559243","oldPrice":557.57,"productSpecifications":[],"url":"/fantastic-soft-cheese/p","measurementUnit":"un","categoryIds":["9285","9294"],"textAttributes":[{"joinedValue":"acer@@@Acer@@@@@@acer@@@Acer","isSku":false,"joinedKey":"text@@@brand@@@Brand@@@brand@@@Brand","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Acer","id":["2000002"],"labelKey":"Brand","value":"acer","key":"brand","joinedValueTranslations":{},"originalKey":"brand","originalValue":"acer","originalLabelKey":"Brand","originalLabelValue":"Acer"},{"valueId":"9285","joinedValue":"kitchen-and-home-appliances@@@Kitchen and Home Appliances@@@9285@@@kitchen-and-home-appliances@@@Kitchen and Home Appliances","isSku":false,"joinedKey":"text@@@category-1@@@Category 1@@@category-1@@@Category 1","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Kitchen and Home Appliances","id":[],"labelKey":"Category 1","value":"kitchen-and-home-appliances","key":"category-1","joinedValueTranslations":{},"originalKey":"category-1","originalValue":"kitchen-and-home-appliances","originalLabelKey":"Category 1","originalLabelValue":"Kitchen and Home Appliances"},{"valueId":"9294","joinedValue":"appliances@@@Appliances@@@9294@@@appliances@@@Appliances","isSku":false,"joinedKey":"text@@@category-2@@@Category 2@@@category-2@@@Category 2","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Appliances","id":[],"labelKey":"Category 2","value":"appliances","key":"category-2","joinedValueTranslations":{},"originalKey":"category-2","originalValue":"appliances","originalLabelKey":"Category 2","originalLabelValue":"Appliances"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@new-release@@@New Release@@@new-release@@@New Release","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"New Release","value":"yes","key":"new-release","joinedValueTranslations":{},"originalKey":"new-release","originalValue":"yes","originalLabelKey":"New Release","originalLabelValue":"Yes"},{"joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusterids@@@productClusterIds@@@productclusterids@@@productClusterIds","joinedKeyTranslations":{},"isFilter":false,"labelValue":"","id":[],"labelKey":"productClusterIds","value":"","key":"productclusterids","joinedValueTranslations":{},"originalKey":"productclusterids","originalValue":"","originalLabelKey":"productClusterIds","originalLabelValue":""},{"valueId":"","joinedValue":"@@@@@@@@@@@@","isSku":false,"joinedKey":"text@@@productclusternames@@@productClusterNames@@@productclusternames@@@productClusterNames","joinedKeyTranslations":{},"isFilter":true,"labelValue":"","id":[],"labelKey":"productClusterNames","value":"","key":"productclusternames","joinedValueTranslations":{},"originalKey":"productclusternames","originalValue":"","originalLabelKey":"productClusterNames","originalLabelValue":""},{"joinedValue":"false@@@false@@@@@@false@@@false","isSku":false,"joinedKey":"text@@@subscription@@@subscription@@@subscription@@@subscription","joinedKeyTranslations":{},"isFilter":false,"labelValue":"false","id":[],"labelKey":"subscription","value":"false","key":"subscription","joinedValueTranslations":{},"originalKey":"subscription","originalValue":"false","originalLabelKey":"subscription","originalLabelValue":"false"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@trade-policy@@@Trade Policy@@@trade-policy@@@Trade Policy","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Trade Policy","value":"1","key":"trade-policy","joinedValueTranslations":{},"originalKey":"trade-policy","originalValue":"1","originalLabelKey":"Trade Policy","originalLabelValue":"1"},{"joinedValue":"1@@@1@@@@@@1@@@1","isSku":false,"joinedKey":"text@@@seller@@@Seller@@@seller@@@Seller","joinedKeyTranslations":{},"isFilter":false,"labelValue":"1","id":[],"labelKey":"Seller","value":"1","key":"seller","joinedValueTranslations":{},"originalKey":"seller","originalValue":"1","originalLabelKey":"Seller","originalLabelValue":"1"},{"valueId":"1","joinedValue":"vtex@@@VTEX@@@1@@@vtex@@@VTEX","isSku":false,"joinedKey":"text@@@sellername@@@sellerName@@@sellername@@@sellerName","joinedKeyTranslations":{},"isFilter":true,"labelValue":"VTEX","id":[],"labelKey":"sellerName","value":"vtex","key":"sellername","joinedValueTranslations":{},"originalKey":"sellername","originalValue":"vtex","originalLabelKey":"sellerName","originalLabelValue":"VTEX"},{"joinedValue":"yes@@@Yes@@@@@@yes@@@Yes","isSku":false,"joinedKey":"text@@@promotion@@@Promotion@@@promotion@@@Promotion","joinedKeyTranslations":{},"isFilter":true,"labelValue":"Yes","id":[],"labelKey":"Promotion","value":"yes","key":"promotion","joinedValueTranslations":{},"originalKey":"promotion","originalValue":"yes","originalLabelKey":"Promotion","originalLabelValue":"Yes"}],"numberAttributes":[{"labelKey":"Price","value":349.12,"key":"price"}],"headSku":"2737806","specificationGroups":"{}","extraInfo":{"sellerId":"1"},"oldPriceText":"$557.57","priceText":"$349.12","spotPriceText":"$349.12"}],"pagination":{"count":1,"current":{"index":1,"proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=&fuzzy=0&operator=and"},"before":[],"after":[],"perPage":1,"next":{"index":0},"previous":{"index":0},"first":{"index":0},"last":{"index":0}},"sampling":false,"options":{"sorts":[{"field":"relevance","order":"desc","active":true,"proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=relevance:desc&fuzzy=0&operator=and"},{"field":"orders","order":"desc","proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=orders:desc&fuzzy=0&operator=and"},{"field":"discount","order":"desc","proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=discount:desc&fuzzy=0&operator=and"},{"field":"price","order":"asc","proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=price:asc&fuzzy=0&operator=and"},{"field":"price","order":"desc","proxyUrl":"search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=price:desc&fuzzy=0&operator=and"}],"counts":[{"count":24,"proxyUrl":"search/trade-policy/1?page=1&count=24&query=sku:2737806&sort=&fuzzy=0&operator=and"},{"count":48,"proxyUrl":"search/trade-policy/1?page=1&count=48&query=sku:2737806&sort=&fuzzy=0&operator=and"},{"count":72,"proxyUrl":"search/trade-policy/1?page=1&count=72&query=sku:2737806&sort=&fuzzy=0&operator=and"},{"count":96,"proxyUrl":"search/trade-policy/1?page=1&count=96&query=sku:2737806&sort=&fuzzy=0&operator=and"}]},"translated":false,"locale":"en-US","query":"sku:2737806","operator":"and","fuzzy":"0","correction":{"misspelled":true}}'
-  ),
+  result: {
+    products: [
+      {
+        cacheId: 'sp-43559243',
+        productId: '43559243',
+        description: 'Iure eum pariatur provident dolorem et.',
+        productName: 'Fantastic Soft Cheese',
+        productReference: '6327601885574',
+        linkText: 'fantastic-soft-cheese',
+        brand: 'Acer',
+        brandId: 2000002,
+        link: '/fantastic-soft-cheese/p',
+        categories: [
+          '/Kitchen & Home Appliances/Appliances/',
+          '/Kitchen & Home Appliances/',
+        ],
+        categoryId: '9294',
+        categoriesIds: ['/9285/9294/', '/9285/'],
+        priceRange: {
+          sellingPrice: {
+            highPrice: 349.12,
+            lowPrice: 349.12,
+          },
+          listPrice: {
+            highPrice: 557.57,
+            lowPrice: 557.57,
+          },
+        },
+        specificationGroups: [
+          {
+            originalName: 'allSpecifications',
+            name: 'allSpecifications',
+            specifications: [
+              {
+                originalName: 'sellerId',
+                name: 'sellerId',
+                values: ['1'],
+              },
+            ],
+          },
+        ],
+        skuSpecifications: [],
+        productClusters: [],
+        clusterHighlights: [],
+        properties: [
+          {
+            name: 'sellerId',
+            originalName: 'sellerId',
+            values: ['1'],
+          },
+        ],
+        items: [
+          {
+            sellers: [
+              {
+                sellerId: '1',
+                sellerName: 'VTEX',
+                addToCartLink: '',
+                sellerDefault: true,
+                commertialOffer: {
+                  DeliverySlaSamplesPerRegion: {},
+                  DeliverySlaSamples: [],
+                  AvailableQuantity: 10000,
+                  discountHighlights: [],
+                  Installments: [
+                    {
+                      Value: 349.12,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 349.12,
+                      NumberOfInstallments: 1,
+                      Name: 'Boleto Banc�rio � vista',
+                      PaymentSystemName: 'Boleto Banc�rio',
+                    },
+                    {
+                      Value: 349.12,
+                      InterestRate: 0,
+                      TotalValuePlusInterestRate: 349.12,
+                      NumberOfInstallments: 1,
+                      Name: 'Free � vista',
+                      PaymentSystemName: 'Free',
+                    },
+                  ],
+                  Price: 349.12,
+                  ListPrice: 557.57,
+                  spotPrice: 349.12,
+                  taxPercentage: 0,
+                  PriceWithoutDiscount: 349.12,
+                  Tax: 0,
+                  GiftSkuIds: [],
+                  BuyTogether: [],
+                  ItemMetadataAttachment: [],
+                  RewardValue: 0,
+                  PriceValidUntil: '2023-04-12T17:35:11Z',
+                  GetInfoErrorMessage: null,
+                  CacheVersionUsedToCallCheckout: '',
+                  teasers: [],
+                },
+              },
+            ],
+            images: [
+              {
+                imageId: '168396',
+                cacheId: '168396',
+                imageTag: '',
+                imageLabel: 'et',
+                imageText: 'et',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/168396/nihil.jpg?v=637753027573130000',
+              },
+              {
+                imageId: '168393',
+                cacheId: '168393',
+                imageTag: '',
+                imageLabel: 'similique',
+                imageText: 'similique',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/168393/dolore.jpg?v=637753027558270000',
+              },
+              {
+                imageId: '168394',
+                cacheId: '168394',
+                imageTag: '',
+                imageLabel: 'deleniti',
+                imageText: 'deleniti',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/168394/delectus.jpg?v=637753027564530000',
+              },
+              {
+                imageId: '168395',
+                cacheId: '168395',
+                imageTag: '',
+                imageLabel: 'sunt',
+                imageText: 'sunt',
+                imageUrl:
+                  'https://storeframework.vtexassets.com/arquivos/ids/168395/qui.jpg?v=637753027568900000',
+              },
+            ],
+            itemId: '2737806',
+            name: 'plum',
+            nameComplete: 'Fantastic Soft Cheese plum',
+            complementName:
+              'Explicabo et quibusdam eius excepturi et rem dolorem et. Eligendi ratione et quod error nisi asperiores fugit omnis itaque. Vel officia sapiente autem non. Ut consequatur veniam perspiciatis doloribus nulla saepe.',
+            referenceId: [
+              {
+                Key: 'RefId',
+                Value: '6464716212392',
+              },
+            ],
+            measurementUnit: 'un',
+            unitMultiplier: 1,
+            variations: [],
+            ean: '',
+            modalType: '',
+            videos: [],
+            attachments: [],
+            isKit: false,
+          },
+        ],
+        origin: 'intelligent-search',
+      },
+    ],
+    recordsFiltered: 1,
+    correction: {
+      misspelled: true,
+    },
+    fuzzy: '0',
+    operator: 'and',
+    translated: false,
+    pagination: {
+      count: 1,
+      current: {
+        index: 1,
+        proxyUrl:
+          'search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=&fuzzy=0&operator=and',
+      },
+      before: [],
+      after: [],
+      perPage: 1,
+      next: {
+        index: 0,
+      },
+      previous: {
+        index: 0,
+      },
+      first: {
+        index: 0,
+      },
+      last: {
+        index: 0,
+      },
+    },
+  },
 }

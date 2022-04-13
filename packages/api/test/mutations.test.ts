@@ -110,8 +110,9 @@ test('`validateCart` mutation should return the full order when an invalid cart 
 
   expect(mockedFetch).toHaveBeenCalledTimes(3)
 
-  fetchAPICalls.forEach((fetchAPICall) => {
-    expect(mockedFetch).toHaveBeenCalledWith(
+  fetchAPICalls.forEach((fetchAPICall, index) => {
+    expect(mockedFetch).toHaveBeenNthCalledWith(
+      index + 1,
       fetchAPICall.info,
       fetchAPICall.init
     )
