@@ -52,7 +52,6 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
   seller: (item) => {
     if (isSearchItem(item)) {
       return {
-        // TODO: Check if identifier is the ID(1) or the name of seller (VTEX)
         identifier: getFirstSeller(item.sellers)?.sellerId ?? '',
       }
     }

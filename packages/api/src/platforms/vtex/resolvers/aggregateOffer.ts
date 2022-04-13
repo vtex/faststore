@@ -11,11 +11,11 @@ import { inStock } from '../utils/productStock'
 
 type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
 
-const highestPriceReducer = (priceType: keyof CommertialOffer) => (
-  priceResult: number,
-  seller: Seller
-) =>
-  seller.commertialOffer.ListPrice > priceResult
+const priceReducerByKey = (
+  priceType: keyof CommertialOffer,
+  priceComparator: (newPrice: number, currentPrice: number) => boolean
+) => (priceResult: number, seller: Seller) =>
+  priceComparator(seller.commertialOffer.ListPrice, priceResult)
     ? seller.commertialOffer[priceType]
     : priceResult
 
@@ -27,7 +27,15 @@ export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
 
     const availableItemsPrice = items
       .filter(inStock)
-      .map((item) => item.sellers.reduce(highestPriceReducer('ListPrice'), 0))
+      .map((item) =>
+        item.sellers.reduce(
+          priceReducerByKey(
+            'ListPrice',
+            (newPrice, current) => newPrice > current
+          ),
+          0
+        )
+      )
       .sort(decreaseComparator)
 
     return availableItemsPrice[0] ?? 0
@@ -36,7 +44,12 @@ export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
     const increaseComparator = (a: number, b: number) => (a < b ? -1 : 1)
     const availableItemsPrice = items
       .filter(inStock)
-      .map((item) => item.sellers.reduce(highestPriceReducer('Price'), 0))
+      .map((item) =>
+        item.sellers.reduce(
+          priceReducerByKey('Price', (newPrice, current) => newPrice < current),
+          Infinity
+        )
+      )
       .sort(increaseComparator)
 
     return availableItemsPrice[0] ?? 0
