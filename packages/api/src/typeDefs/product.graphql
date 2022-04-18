@@ -17,7 +17,7 @@ type StoreProduct {
   aggregateRating: StoreAggregateRating!
   isVariantOf: StoreProductGroup!
   additionalProperty: [StorePropertyValue!]!
-  whoSawAlsoBought: [WhoSawAlsoBought]
+  whoSawAlsoBought: [StoreCrossSelling]
 }
 
 input IStoreProduct {

@@ -1,0 +1,16 @@
+type StoreCrossSelling {
+  slug: String!
+  name: String!
+  productID: String!
+  brand: StoreBrand!
+  image: [StoreImage!]!
+  offers: StoreAggregateOffer!
+  sku: String!
+  gtin: String!
+  isVariantOf: StoreProductGroup!
+  additionalProperty: [StorePropertyValue!]!
+}
+
+
+
+

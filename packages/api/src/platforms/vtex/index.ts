@@ -2,6 +2,7 @@ import { getClients } from './clients'
 import { getLoaders } from './loaders'
 import { StoreAggregateOffer } from './resolvers/aggregateOffer'
 import { StoreAggregateRating } from './resolvers/aggregateRating'
+import { StoreCrossSelling } from './resolvers/crossSelling'
 import { StoreCollection } from './resolvers/collection'
 import { StoreFacet } from './resolvers/facet'
 import { StoreFacetValue } from './resolvers/facetValue'
@@ -49,6 +50,7 @@ export type Resolver<R = unknown, A = unknown> = (
 
 const Resolvers = {
   StoreCollection,
+  StoreCrossSelling,
   StoreAggregateOffer,
   StoreProduct,
   StoreSeo,

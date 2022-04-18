@@ -21,7 +21,7 @@ import Seo from './seo.graphql'
 import Cart from './cart.graphql'
 import Status from './status.graphql'
 import PropertyValue from './propertyValue.graphql'
-import WhoSawAlsoBought from './whoSawAlsoBought.graphql'
+import CrossSelling from './crossSelling.graphql'
 
 export const typeDefs = [
   Query,
@@ -45,7 +45,7 @@ export const typeDefs = [
   Cart,
   Status,
   PropertyValue,
-  WhoSawAlsoBought,
+  CrossSelling,
 ]
   .map(print)
   .join('\n')

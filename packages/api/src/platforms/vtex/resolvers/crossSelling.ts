@@ -1,9 +1,6 @@
-import { slugify } from '../utils/slugify'
-import type { Resolver } from '..'
 import type { EnhancedSku } from '../utils/enhanceSku'
+import type { Resolver } from '..'
 import { sortOfferByPrice } from './aggregateOffer'
-
-type Root = EnhancedSku
 
 const DEFAULT_IMAGE = {
   name: 'image',
@@ -12,37 +9,16 @@ const DEFAULT_IMAGE = {
 }
 
 const getSlug = (link: string, id: string) => `${link}-${id}`
-const getPath = (link: string, id: string) => `/${getSlug(link, id)}/p`
 const nonEmptyArray = <T>(array: T[] | null | undefined) =>
   Array.isArray(array) && array.length > 0 ? array : null
 
-export const StoreProduct: Record<string, Resolver<Root>> = {
+type Root = EnhancedSku
+
+export const StoreCrossSelling: Record<string, Resolver<Root>> = {
   productID: ({ id }) => id,
   name: ({ isVariantOf, name }) => name ?? isVariantOf.name,
   slug: ({ isVariantOf: { link }, id }) => getSlug(link, id),
-  description: ({ isVariantOf: { description } }) => description,
-  seo: ({ isVariantOf: { name, description } }) => ({
-    title: name,
-    description,
-  }),
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),
-  breadcrumbList: ({ isVariantOf: { categoryTrees, name, link }, id }) => ({
-    itemListElement: [
-      ...categoryTrees.reverse().map(({ categoryNames }, index) => ({
-        name: categoryNames[categoryNames.length - 1],
-        item: `/${categoryNames
-          .map((categoryName) => slugify(categoryName))
-          .join('/')}`,
-        position: index + 1,
-      })),
-      {
-        name,
-        item: getPath(link, id),
-        position: categoryTrees.length + 1,
-      },
-    ],
-    numberOfItems: categoryTrees.length,
-  }),
   image: ({ isVariantOf, images }) =>
     (
       nonEmptyArray(images) ??
@@ -53,8 +29,6 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     })),
   sku: ({ id }) => id,
   gtin: ({ reference }) => reference ?? '',
-  review: () => [],
-  aggregateRating: () => ({}),
   offers: async (product, _, ctx) => {
     const {
       loaders: { simulationLoader },
@@ -94,24 +68,4 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
       name: attribute.key,
       value: attribute.value,
     })),
-  whoSawAlsoBought: async (product, _, ctx) => {
-    const {
-      loaders: { crossSellingLoader, skuLoader },
-    } = ctx
-
-    const products = await crossSellingLoader.load({
-      productId: product.isVariantOf.id,
-      type: 'whoSawAlsoBought',
-    })
-
-    const result = await skuLoader.load([
-      { key: 'id', value: products.productID },
-    ])
-
-    if (result) {
-      return result
-    }
-
-    return null
-  },
 }

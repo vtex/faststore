@@ -10,7 +10,6 @@ import type {
   SimulationArgs,
   SimulationOptions,
 } from './types/Simulation'
-import type { WhoSawAlsoBought } from './types/WhoSawAlsoBought'
 import type { Session } from './types/Session'
 
 const BASE_INIT = {
@@ -40,74 +39,11 @@ export const VtexCommerce = (
         pagetype: (slug: string): Promise<PortalPagetype> =>
           fetchAPI(`${base}/api/catalog_system/pub/portal/pagetype/${slug}`),
       },
-      whoSawAlsoBought: async (
-        productId: string
-      ): Promise<WhoSawAlsoBought[] | null> => {
-        const products: any = await fetchAPI(
-          `${base}/api/catalog_system/pub/products/crossselling/whosawalsobought/${productId}`
-        )
-
-        if (products[0]) {
-          return products.map((product: any) => {
-            return {
-              name: product.productName,
-              productID: product.items[0].itemId,
-              id: `${product.items[0].itemId}:StoreProduct`,
-              sku: product.items[0].itemId,
-              slug: `${product.linkText}-${product.items[0].itemId}`,
-              gtin: product.items[0].referenceId[0].Value,
-              image: product.items[0].images.map((image: any) => {
-                return {
-                  url: image.imageUrl.replace(
-                    'vteximg.com.br',
-                    'vtexassets.com'
-                  ),
-                  alternateName: image.imageText,
-                }
-              }),
-              brand: {
-                name: product.brand,
-              },
-              isVariantOf: {
-                name: product.productName,
-                productGroupID: product.items[0].itemId,
-                additionalProperty: product?.allSpecifications
-                  ? product?.allSpecifications?.reduce(
-                      (acc: any, curr: any) => {
-                        const insideSpecifications = product[`${curr}`].map(
-                          (specification: string) => {
-                            return {
-                              name: curr,
-                              value: specification,
-                            }
-                          }
-                        )
-
-                        return [...acc, ...insideSpecifications]
-                      },
-                      []
-                    )
-                  : [],
-              },
-              offers: {
-                lowPrice: product.items[0].sellers[0].commertialOffer.Price,
-                offers: [
-                  {
-                    price: product.items[0].sellers[0].commertialOffer.Price,
-                    listPrice:
-                      product.items[0].sellers[0].commertialOffer.ListPrice,
-                    quantity: 1,
-                    seller: {
-                      identifier: product.items[0].sellers[0].sellerId,
-                    },
-                  },
-                ],
-              },
-            }
-          })
-        }
-
-        return null
+      crossseling: {
+        whoSawAlsoBought: (id: string): Promise<any[]> =>
+          fetchAPI(
+            `${base}/api/catalog_system/pub/products/crossselling/whosawalsobought/${id}`
+          ),
       },
     },
     checkout: {
