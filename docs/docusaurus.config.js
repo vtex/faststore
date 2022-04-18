@@ -191,7 +191,7 @@ module.exports = {
           anonymizeIP: true,
         },
         googleAnalytics: {
-          trackingID: 'G-WQPXL33BZX',
+          trackingID: 'UA-225353622-2',
           anonymizeIP: true,
         },
         docs: {
