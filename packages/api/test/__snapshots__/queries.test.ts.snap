@@ -206,7 +206,7 @@ Object {
             },
             "name": "Monitor 27",
             "offers": Object {
-              "highPrice": 490,
+              "highPrice": 420,
               "lowPrice": 420,
               "offerCount": 1,
               "offers": Array [
@@ -264,7 +264,7 @@ Object {
             },
             "name": "Leather",
             "offers": Object {
-              "highPrice": 150,
+              "highPrice": 130,
               "lowPrice": 130,
               "offerCount": 1,
               "offers": Array [
@@ -322,7 +322,7 @@ Object {
             },
             "name": "Echo dot white",
             "offers": Object {
-              "highPrice": 310,
+              "highPrice": 280,
               "lowPrice": 280,
               "offerCount": 1,
               "offers": Array [
@@ -380,7 +380,7 @@ Object {
             },
             "name": "Oculus VR Headset",
             "offers": Object {
-              "highPrice": 344,
+              "highPrice": 315,
               "lowPrice": 315,
               "offerCount": 1,
               "offers": Array [
@@ -438,7 +438,7 @@ Object {
             },
             "name": "Magic white",
             "offers": Object {
-              "highPrice": 999,
+              "highPrice": 950,
               "lowPrice": 950,
               "offerCount": 1,
               "offers": Array [
@@ -593,7 +593,7 @@ Object {
       },
       "name": "fuchsia",
       "offers": Object {
-        "highPrice": 297.7,
+        "highPrice": 200.64,
         "lowPrice": 200.64,
         "offerCount": 1,
         "priceCurrency": "",
@@ -619,7 +619,7 @@ Object {
     "search": Object {
       "facets": Array [
         Object {
-          "key": "pre�o",
+          "key": "price",
           "label": "Pre�o",
           "type": "RANGE",
           "values": Array [
@@ -644,7 +644,7 @@ Object {
           ],
         },
         Object {
-          "key": "categoria",
+          "key": "category-2",
           "label": "Categoria",
           "type": "BOOLEAN",
           "values": Array [
@@ -663,7 +663,7 @@ Object {
           ],
         },
         Object {
-          "key": "marca",
+          "key": "brand",
           "label": "Marca",
           "type": "BOOLEAN",
           "values": Array [
@@ -762,7 +762,7 @@ Object {
               },
               "name": "green",
               "offers": Object {
-                "highPrice": 325.77,
+                "highPrice": 264.63,
                 "lowPrice": 129.09,
                 "offerCount": 2,
                 "offers": Array [
@@ -853,7 +853,7 @@ Object {
               },
               "name": "red",
               "offers": Object {
-                "highPrice": 881.98,
+                "highPrice": 770,
                 "lowPrice": 362.36,
                 "offerCount": 2,
                 "offers": Array [
@@ -958,7 +958,7 @@ Object {
               },
               "name": "olive",
               "offers": Object {
-                "highPrice": 955.48,
+                "highPrice": 642.91,
                 "lowPrice": 247.01,
                 "offerCount": 3,
                 "offers": Array [
@@ -1068,7 +1068,7 @@ Object {
               },
               "name": "fuchsia",
               "offers": Object {
-                "highPrice": 638.97,
+                "highPrice": 582.1,
                 "lowPrice": 1.37,
                 "offerCount": 2,
                 "offers": Array [
@@ -1163,7 +1163,7 @@ Object {
               },
               "name": "olive",
               "offers": Object {
-                "highPrice": 666.42,
+                "highPrice": 517.54,
                 "lowPrice": 175.38,
                 "offerCount": 2,
                 "offers": Array [

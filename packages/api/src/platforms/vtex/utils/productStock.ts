@@ -18,7 +18,6 @@ export const sortOfferByPrice = (items: Item[]): Item[] =>
       return 1
     }
 
-    // TODO: Check if the commertialOffer.Price is the sellingPrice
     return getItemPriceByKey(a, 'Price') - getItemPriceByKey(b, 'Price')
   })
 

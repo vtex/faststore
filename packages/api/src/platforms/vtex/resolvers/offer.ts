@@ -77,7 +77,6 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
   },
   sellingPrice: (item) => {
     if (isSearchItem(item)) {
-      // TODO: Check if Price is SellingPrice
       return getItemPriceByKey(item, 'Price')
     }
 

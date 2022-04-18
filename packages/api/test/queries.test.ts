@@ -71,7 +71,7 @@ beforeAll(async () => {
   context = contextFactory({})
 })
 
-// Always clear the mocked fetch before each test.skip so we can count and validate
+// Always clear the mocked fetch before each test so we can count and validate
 // the calls performed by each query independently.
 beforeEach(() => mockedFetch.mockClear())
 
