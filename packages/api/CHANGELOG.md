@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.23 (2022-04-18)
+
+
+### Features
+
+* Add url to events ([#1174](https://github.com/vtex/faststore/issues/1174)) ([0e2befe](https://github.com/vtex/faststore/commit/0e2befe3cb5dc99521a470c4096e31237b93a9c0))
+
+
+
+
+
 ## 1.7.22 (2022-04-13)
 
 **Note:** Version bump only for package @faststore/api
