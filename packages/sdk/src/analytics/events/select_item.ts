@@ -1,4 +1,4 @@
-import type { Item } from './common'
+import type { Item, LocatorParam } from './common'
 
 export interface SelectItemParams<T extends Item = Item> {
   item_list_id?: string
@@ -8,5 +8,5 @@ export interface SelectItemParams<T extends Item = Item> {
 
 export interface SelectItemEvent<T extends Item = Item> {
   name: 'select_item'
-  params: SelectItemParams<T>
+  params: SelectItemParams<T> & LocatorParam
 }
