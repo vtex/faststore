@@ -1,5 +1,5 @@
 import { isCollectionPageType } from '../loaders/collection'
-import { slugify as baseSlugify } from '../utils/slugify'
+import { slugify } from '../utils/slugify'
 import type { Resolver } from '..'
 import type { Brand } from '../clients/commerce/types/Brand'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
@@ -7,23 +7,25 @@ import type { CollectionPageType } from '../clients/commerce/types/Portal'
 
 type Root = Brand | (CategoryTree & { level: number }) | CollectionPageType
 
-const isBrand = (x: any): x is Brand => x.type === 'brand'
+const isBrand = (x: any): x is Brand | CollectionPageType =>
+  x.type === 'brand' ||
+  (isCollectionPageType(x) && x.pageType.toLowerCase() === 'brand')
 
-const slugify = (root: Root) => {
+const slugifyRoot = (root: Root) => {
   if (isBrand(root)) {
-    return baseSlugify(root.name.toLowerCase())
+    return slugify(root.name)
   }
 
   if (isCollectionPageType(root)) {
-    return new URL(`https://${root.url}`).pathname.slice(1)
+    return new URL(`https://${root.url}`).pathname.slice(1).toLowerCase()
   }
 
-  return new URL(root.url).pathname.slice(1)
+  return new URL(root.url).pathname.slice(1).toLowerCase()
 }
 
 export const StoreCollection: Record<string, Resolver<Root>> = {
   id: ({ id }) => id.toString(),
-  slug: (root) => slugify(root),
+  slug: (root) => slugifyRoot(root),
   seo: (root) =>
     isBrand(root) || isCollectionPageType(root)
       ? {
@@ -42,28 +44,26 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
       : root.level === 0
       ? 'Department'
       : 'Category',
-  meta: (root) =>
-    isBrand(root)
+  meta: (root) => {
+    const slug = slugifyRoot(root)
+
+    return isBrand(root)
       ? {
-          selectedFacets: [{ key: 'brand', value: baseSlugify(root.name) }],
+          selectedFacets: [{ key: 'brand', value: slug }],
         }
       : {
-          selectedFacets: new URL(
-            isCollectionPageType(root) ? `https://${root.url}` : root.url
-          ).pathname
-            .slice(1)
-            .split('/')
-            .map((segment, index) => ({
-              key: `category-${index + 1}`,
-              value: baseSlugify(segment),
-            })),
-        },
+          selectedFacets: slug.split('/').map((segment, index) => ({
+            key: `category-${index + 1}`,
+            value: segment,
+          })),
+        }
+  },
   breadcrumbList: async (root, _, ctx) => {
     const {
       loaders: { collectionLoader },
     } = ctx
 
-    const slug = slugify(root)
+    const slug = slugifyRoot(root)
 
     /**
      * Split slug into segments so we fetch all data for

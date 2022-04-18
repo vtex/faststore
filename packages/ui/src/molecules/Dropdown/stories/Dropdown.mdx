@@ -1,0 +1,63 @@
+import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Dropdown from '../Dropdown'
+import DropdownButton from '../DropdownButton'
+import DropdownItem from '../DropdownItem'
+import DropdownMenu from '../DropdownMenu'
+
+# DropdownUncontrolled
+
+<Canvas>
+  <Story id="molecules-dropdown--uncontrolled" />
+</Canvas>
+
+# DropdownControlled
+
+<Canvas>
+  <Story id="molecules-dropdown--controlled" />
+</Canvas>
+
+# DropdownSelectable
+
+<Canvas>
+  <Story id="molecules-dropdown--selectable" />
+</Canvas>
+
+## Components
+
+The `Dropdown` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
+
+- `Dropdown`: the wrapper component, can receive an `isOpen` and emit the event `onDismiss`, which can be used as a controlled component.
+- `DropdownButton`: the button that emits the trigger to open de DropdownMenu.
+- `DropdownItem`: an option on DropdownMenu.
+- `DropdownMenu`: wraps a series of `DropdownItem`s.
+
+## Props
+
+### `Dropdown`
+
+<ArgsTable of={Dropdown} />
+
+### `DropdownButton`
+
+<ArgsTable of={DropdownButton} />
+
+### `DropdownItem`
+
+<ArgsTable of={DropdownItem} />
+
+### `DropdownMenu`
+
+<ArgsTable of={DropdownMenu} />
+
+## CSS Selectors
+
+```css
+[data-store-dropdown-button] {}
+
+[data-store-dropdown-item] {}
+
+[data-store-dropdown-overlay] {}
+
+[data-store-dropdown-menu] {}
+```

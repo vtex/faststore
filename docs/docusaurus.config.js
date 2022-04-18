@@ -184,8 +184,16 @@ module.exports = {
 
   presets: [
     [
-      '@docusaurus/preset-classic',
+      '@docusaurus/preset-classic',    
       {
+        gtag: {
+          trackingID: 'GTM-PKST2NM',
+          anonymizeIP: true,
+        },
+        googleAnalytics: {
+          trackingID: 'UA-225353622-2',
+          anonymizeIP: true,
+        },
         docs: {
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],

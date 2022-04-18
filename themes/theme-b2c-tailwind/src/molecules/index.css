@@ -1,9 +1,11 @@
 @import './accordion.css';
+@import './aggregate-rating.css';
 @import './alert.css';
 @import './banner.css';
 @import './bullets.css';
 @import './breadcrumb.css';
 @import './carousel.css';
+@import './dropdown.css';
 @import './form.css';
 @import './icon-button.css';
 @import './loading-button.css';

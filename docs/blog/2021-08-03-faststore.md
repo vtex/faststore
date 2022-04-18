@@ -148,7 +148,7 @@ type CmsHomePage = {
 
 
 ```
-And then query this data on React components by writting the following graphql query:
+And then query this data on React components by writing the following graphql query:
 
 ```sh
 query HomePageQuery {

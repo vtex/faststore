@@ -1,4 +1,4 @@
-import type { CurrencyCode, Item } from './common'
+import type { CurrencyCode, Item, LocatorParam } from './common'
 
 export interface RefundParams<T extends Item = Item> {
   currency?: CurrencyCode
@@ -13,5 +13,5 @@ export interface RefundParams<T extends Item = Item> {
 
 export interface RefundEvent<T extends Item = Item> {
   name: 'refund'
-  params: RefundParams<T>
+  params: RefundParams<T> & LocatorParam
 }

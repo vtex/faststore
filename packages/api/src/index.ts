@@ -29,5 +29,5 @@ export const getContextFactory = (options: Options) =>
 export const getSchema = async (options: Options) =>
   makeExecutableSchema({
     resolvers: getResolvers(options),
-    typeDefs: getTypeDefs(),
+    typeDefs,
   })

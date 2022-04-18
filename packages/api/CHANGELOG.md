@@ -3,6 +3,363 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.24 (2022-04-18)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.23 (2022-04-18)
+
+
+### Features
+
+* Add url to events ([#1174](https://github.com/vtex/faststore/issues/1174)) ([0e2befe](https://github.com/vtex/faststore/commit/0e2befe3cb5dc99521a470c4096e31237b93a9c0))
+
+
+
+
+
+## 1.7.22 (2022-04-13)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.21 (2022-04-12)
+
+
+### Features
+
+* AggregateRating (Stars) molecule ([#1037](https://github.com/vtex/faststore/issues/1037)) ([23f2fad](https://github.com/vtex/faststore/commit/23f2fad6fd4d58ea369a54a0b6600207016be17e))
+
+
+
+
+
+## 1.7.20 (2022-04-11)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.19 (2022-04-09)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.18 (2022-04-08)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.17 (2022-04-08)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.16 (2022-04-07)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.15 (2022-04-07)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.14 (2022-04-07)
+
+
+### Bug Fixes
+
+* Uses catalog slugify ([#1214](https://github.com/vtex/faststore/issues/1214)) ([0b38efc](https://github.com/vtex/faststore/commit/0b38efc96ecab8920cf15f01c29e7f9d5becba3d))
+
+
+
+
+
+## 1.7.13 (2022-04-07)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.12 (2022-04-06)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.11 (2022-04-06)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.10 (2022-04-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.9 (2022-04-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.8 (2022-04-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.7 (2022-04-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.6 (2022-04-05)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.5 (2022-04-04)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.4 (2022-04-01)
+
+
+### Bug Fixes
+
+* release notes images ([#1207](https://github.com/vtex/faststore/issues/1207)) ([279e019](https://github.com/vtex/faststore/commit/279e019bad25581712f73c8fe7a433200d711780))
+
+
+
+
+
+## 1.7.3 (2022-04-01)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.2 (2022-04-01)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.7.1 (2022-04-01)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.6.29 (2022-03-31)
+
+
+### Bug Fixes
+
+* fix dropdown render in SSR ([#1202](https://github.com/vtex/faststore/issues/1202)) ([60f65b0](https://github.com/vtex/faststore/commit/60f65b0864c2fb59dff61e914c69a326b5229984))
+
+
+
+
+
+## 1.6.28 (2022-03-31)
+
+
+### Bug Fixes
+
+* fix dropdown menu position with scroll ([#1199](https://github.com/vtex/faststore/issues/1199)) ([98a228e](https://github.com/vtex/faststore/commit/98a228e364ed26e480936406c1988026f9ebaffc))
+
+
+
+
+
+## 1.6.27 (2022-03-31)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.6.26 (2022-03-31)
+
+
+### Features
+
+* **api:** Handle channel as facet for search and product queries ([#1197](https://github.com/vtex/faststore/issues/1197)) ([00556b1](https://github.com/vtex/faststore/commit/00556b199a48617ff89b1a6b951a0c958f5aa018))
+
+
+
+
+
+## 1.6.25 (2022-03-29)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.6.24 (2022-03-29)
+
+
+### Bug Fixes
+
+* fix dropdown click bug ([#1196](https://github.com/vtex/faststore/issues/1196)) ([55202ea](https://github.com/vtex/faststore/commit/55202ead64933b71688ac7399211cc2f086596f2))
+
+
+
+
+
+## 1.6.23 (2022-03-28)
+
+
+### Bug Fixes
+
+* fix breadcrumb component bug ([#1193](https://github.com/vtex/faststore/issues/1193)) ([f36ba81](https://github.com/vtex/faststore/commit/f36ba814ed679523d8c1f030c31a086a9e5bb190))
+
+
+
+
+
+## 1.6.22 (2022-03-25)
+
+
+### Features
+
+* **sdk:** Improve useStorage and Optimistic revalidate effect ([#1186](https://github.com/vtex/faststore/issues/1186)) ([08c616b](https://github.com/vtex/faststore/commit/08c616be4c6bc5a215da7ab0c37ff2731aa09f9a))
+
+
+
+
+
+## 1.6.21 (2022-03-25)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.6.20 (2022-03-24)
+
+
+### Bug Fixes
+
+* fix dropdown component bug ([#1192](https://github.com/vtex/faststore/issues/1192)) ([f188ac0](https://github.com/vtex/faststore/commit/f188ac0c59db5a0ef7a95eb2412d0bbcd024ae36))
+
+
+
+
+
+## 1.6.19 (2022-03-24)
+
+
+### Features
+
+* Add exports to dropdown ([#1188](https://github.com/vtex/faststore/issues/1188)) ([f24359a](https://github.com/vtex/faststore/commit/f24359a34439e0ec8d3069483c31a6f62fa6535d))
+
+
+
+
+
+## 1.6.18 (2022-03-24)
+
+
+### Features
+
+* **api:** Add session mutation ([#1176](https://github.com/vtex/faststore/issues/1176)) ([0306167](https://github.com/vtex/faststore/commit/030616739cc62d9b5aa55cdf532ee6dea0bd793c))
+
+
+
+
+
+## 1.6.17 (2022-03-23)
+
+
+### Features
+
+* **UI:** Add dropdown component ([#1178](https://github.com/vtex/faststore/issues/1178)) ([e5153a6](https://github.com/vtex/faststore/commit/e5153a674c37bd2a8b4c65ae6f56eb5cabaf3fc8))
+
+
+
+
+
+## 1.6.16 (2022-03-23)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.6.15 (2022-03-22)
+
+
+### Bug Fixes
+
+* Fix some typos ([#1183](https://github.com/vtex/faststore/issues/1183)) ([97fffb0](https://github.com/vtex/faststore/commit/97fffb02d9cc72f07926bc1a9bc684a99d623765))
+
+
+
+
+
 ## 1.6.14 (2022-03-21)
 
 **Note:** Version bump only for package @faststore/api

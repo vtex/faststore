@@ -1,3 +1,8 @@
+export interface LocatorParam {
+  /** @description url where this event was emitted. Helps tracking event origin */
+  url: string
+}
+
 export interface ItemId {
   item_id: string
 }
@@ -6,7 +11,7 @@ export interface ItemName {
   item_name: string
 }
 
-export type ItemUniqueIdentifier = ItemId | ItemName
+export type ItemUniqueIdentifier = ItemId & ItemName
 
 export interface ItemWithoutIdentifier {
   /**

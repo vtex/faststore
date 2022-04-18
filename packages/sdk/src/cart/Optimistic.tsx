@@ -49,7 +49,9 @@ export const OptimisticProvider = <T extends Item = Item>({
     }
 
     // Enqueue validation
-    queue = queue.then(revalidate)
+    setTimeout(() => {
+      queue = queue.then(revalidate)
+    }, 0)
 
     return () => {
       cancel = true

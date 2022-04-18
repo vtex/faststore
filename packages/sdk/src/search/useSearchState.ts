@@ -82,6 +82,10 @@ type Action =
       payload: { facet: Facet; unique: boolean }
     }
   | {
+      type: 'setFacets'
+      payload: Facet[]
+    }
+  | {
       type: 'removeFacet'
       payload: Facet
     }
@@ -190,6 +194,11 @@ export const reducer = (state: State, action: Action) => {
     case 'setFacet':
       return setFacet(state, action.payload.facet, action.payload.unique)
 
+    case 'setFacets':
+      return state.selectedFacets !== action.payload
+        ? { ...state, selectedFacets: action.payload }
+        : state
+
     case 'removeFacet':
       return removeFacet(state, action.payload)
 
@@ -200,7 +209,7 @@ export const reducer = (state: State, action: Action) => {
       return toggleFacets(state, action.payload)
 
     default:
-      throw new SDKError(`Uknown action of search state machine`)
+      throw new SDKError(`Unknown action of search state machine`)
   }
 }
 
@@ -232,6 +241,8 @@ export const useSearchState = (
       setPage: (page: number) => dispatch({ type: 'setPage', payload: page }),
       setFacet: (facet: Facet, unique = false) =>
         dispatch({ type: 'setFacet', payload: { facet, unique } }),
+      setFacets: (facets: Facet[]) =>
+        dispatch({ type: 'setFacets', payload: facets }),
       removeFacet: (facet: Facet) =>
         dispatch({ type: 'removeFacet', payload: facet }),
       toggleFacet: (facet: Facet) =>

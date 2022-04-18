@@ -136,6 +136,19 @@ export type { AlertProps } from './molecules/Alert'
 export { default as QuantitySelector } from './molecules/QuantitySelector'
 export type { QuantitySelectorProps } from './molecules/QuantitySelector'
 
+export {
+  default as Dropdown,
+  DropdownButton,
+  DropdownItem,
+  DropdownMenu,
+} from './molecules/Dropdown'
+export type {
+  DropdownProps,
+  DropdownButtonProps,
+  DropdownItemProps,
+  DropdownMenuProps,
+} from './molecules/Dropdown'
+
 // Organisms
 export {
   default as Card,

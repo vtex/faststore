@@ -15,6 +15,8 @@ import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
 import type { Loaders } from './loaders'
 import type { Clients } from './clients'
+import type { Channel } from './utils/channel'
+import ChannelMarshal from './utils/channel'
 
 export interface Options {
   platform: 'vtex'
@@ -35,7 +37,7 @@ export interface Context {
    * Use it with caution since dependecy injection leads to a more complex code
    * */
   storage: {
-    channel: string
+    channel: Required<Channel>
   }
   headers: Record<string, string>
 }
@@ -63,9 +65,9 @@ const Resolvers = {
   Mutation,
 }
 
-export const getContextFactory = (options: Options) => (ctx: any) => {
+export const getContextFactory = (options: Options) => (ctx: any): Context => {
   ctx.storage = {
-    channel: options.channel,
+    channel: ChannelMarshal.parse(options.channel),
   }
   ctx.clients = getClients(options, ctx)
   ctx.loaders = getLoaders(options, ctx)

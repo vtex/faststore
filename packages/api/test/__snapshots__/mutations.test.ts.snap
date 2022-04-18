@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`\`validateCart\` mutation should return the full order when an invalid cart is passed 1`] = `
+Object {
+  "data": Object {
+    "validateCart": Object {
+      "messages": Array [],
+      "order": Object {
+        "acceptedOffer": Array [
+          Object {
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "itemOffered": Object {
+              "name": "plum",
+            },
+            "listPrice": 557.57,
+            "price": 349.12,
+            "priceCurrency": "",
+            "quantity": 2,
+            "seller": Object {
+              "identifier": "1",
+            },
+            "sellingPrice": 349.12,
+          },
+        ],
+        "orderNumber": "edbe3b03c8c94827a37ec5a6a4648fd2",
+      },
+    },
+  },
+}
+`;

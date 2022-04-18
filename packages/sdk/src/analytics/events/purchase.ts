@@ -1,4 +1,4 @@
-import type { CurrencyCode, Item } from './common'
+import type { CurrencyCode, Item, LocatorParam } from './common'
 
 export interface PurchaseParams<T extends Item = Item> {
   currency?: CurrencyCode
@@ -13,5 +13,5 @@ export interface PurchaseParams<T extends Item = Item> {
 
 export interface PurchaseEvent<T extends Item = Item> {
   name: 'purchase'
-  params: PurchaseParams<T>
+  params: PurchaseParams<T> & LocatorParam
 }

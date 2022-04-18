@@ -1,0 +1,33 @@
+import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
+
+import AggregateRating from '../AggregateRating'
+
+# Default Aggregate Rating
+
+<Canvas>
+  <Story id="molecules-aggregaterating--aggregate-rating" />
+</Canvas>
+
+# Aggregate Rating Without Icon
+
+<Canvas>
+  <Story id="molecules-aggregaterating--aggregate-rating-without-icon" />
+</Canvas>
+
+# Aggregate Rating With CSS
+
+<Canvas>
+  <Story id="molecules-aggregaterating--aggregate-rating-with-css" />
+</Canvas>
+
+## Props
+
+<ArgsTable of={AggregateRating} />
+
+## CSS Selectors
+
+```css
+[data-store-aggregate-rating] {}
+
+[data-aggregate-rating-item=(full|partial|empty)] {}
+```

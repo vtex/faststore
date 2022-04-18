@@ -1,0 +1,6 @@
+type StorePerson {
+  id: String!
+  email: String!
+  givenName: String!
+  familyName: String!
+}
