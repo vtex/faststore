@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.26 (2022-04-19)
+
+
+### Reverts
+
+* Revert "feat: Add url to events (#1174)" (#1228) ([67ec438](https://github.com/vtex/faststore/commit/67ec4386b876a4de08bfd96df5147efa958d5496)), closes [#1174](https://github.com/vtex/faststore/issues/1174) [#1228](https://github.com/vtex/faststore/issues/1228)
+
+
+
+
+
 ## 1.7.25 (2022-04-19)
 
 **Note:** Version bump only for package @faststore/api
