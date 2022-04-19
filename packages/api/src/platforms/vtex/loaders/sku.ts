@@ -35,12 +35,17 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
       return acc
     }, {} as Record<string, EnhancedSku>)
 
-    const skus = skuIds.map((skuId) => skuBySkuId[skuId])
+    const skus = skuIds.map((skuId) => {
+      return skuBySkuId[skuId]
+    })
+
     const missingSkus = skus.filter((sku) => !sku)
 
     if (missingSkus.length > 0) {
       throw new Error(
-        `Search API did not return the following skus: ${missingSkus.join(',')}`
+        `Search API did not return the following skus: ${missingSkus.join(
+          ','
+        )} `
       )
     }
 

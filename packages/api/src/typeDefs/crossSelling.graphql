@@ -8,7 +8,6 @@ type StoreCrossSelling {
   sku: String!
   gtin: String!
   isVariantOf: StoreProductGroup!
-  additionalProperty: [StorePropertyValue!]!
 }
 
 

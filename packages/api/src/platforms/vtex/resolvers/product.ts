@@ -96,20 +96,76 @@ export const StoreProduct: Record<string, Resolver<Root>> = {
     })),
   whoSawAlsoBought: async (product, _, ctx) => {
     const {
-      loaders: { crossSellingLoader, skuLoader },
+      loaders: { skuLoader },
     } = ctx
 
-    const products = await crossSellingLoader.load({
-      productId: product.isVariantOf.id,
-      type: 'whoSawAlsoBought',
-    })
+    const products = await ctx.clients.commerce.catalog.crossseling.whoSawAlsoBought(
+      product.isVariantOf.id
+    )
 
-    const result = await skuLoader.load([
-      { key: 'id', value: products.productID },
-    ])
+    if (products) {
+      return Promise.all(
+        products.map(async ({ productId }) => {
+          const result = await skuLoader.load([{ key: 'id', value: productId }])
 
-    if (result) {
-      return result
+          if (result) {
+            return {
+              slug: () =>
+                getSlug(result.isVariantOf.link, result.isVariantOf.id),
+              name: () => result.name ?? result.isVariantOf.name,
+              productID: () => result.id,
+              brand: () => ({ name: result.isVariantOf.brand }),
+              image: () =>
+                (
+                  nonEmptyArray(result.images) ??
+                  nonEmptyArray(result.isVariantOf.images) ?? [DEFAULT_IMAGE]
+                ).map(({ name, value }) => ({
+                  alternateName: name ?? '',
+                  url: value.replace('vteximg.com.br', 'vtexassets.com'),
+                })),
+              offers: async () => {
+                const {
+                  loaders: { simulationLoader },
+                  storage: { channel },
+                } = ctx
+
+                const { id, policies } = result
+                const sellers = policies.find((policy) => policy.id === channel)
+                  ?.sellers
+
+                if (sellers == null) {
+                  // This error will likely happen when you forget to forward the channel somewhere in your code.
+                  // Make sure all queries that lead to a product are forwarding the channel in context corectly
+                  throw new Error(
+                    `Product with id ${id} has no sellers for channel ${channel}.`
+                  )
+                }
+
+                // Unique seller ids
+                const sellerIds = sellers.map((seller) => seller.id)
+                const items = Array.from(new Set(sellerIds)).map((seller) => ({
+                  quantity: 1,
+                  seller,
+                  id,
+                }))
+
+                const simulation = await simulationLoader.load(items)
+
+                return {
+                  ...simulation,
+                  items: sortOfferByPrice(simulation.items),
+                  product,
+                }
+              },
+              sku: () => result.id,
+              gtin: () => result.reference ?? '',
+              isVariantOf: () => result.isVariantOf,
+            }
+          }
+
+          return null
+        })
+      )
     }
 
     return null

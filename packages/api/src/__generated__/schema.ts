@@ -196,7 +196,6 @@ export const enum StoreCollectionType {
 
 export type StoreCrossSelling = {
   __typename?: 'StoreCrossSelling';
-  additionalProperty: Array<StorePropertyValue>;
   brand: StoreBrand;
   gtin: Scalars['String'];
   image: Array<StoreImage>;

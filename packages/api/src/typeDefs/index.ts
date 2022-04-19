@@ -6,6 +6,7 @@ import Author from './author.graphql'
 import Brand from './brand.graphql'
 import Breadcrumb from './breadcrumb.graphql'
 import Collection from './collection.graphql'
+import CrossSelling from './crossSelling.graphql'
 import Facet from './facet.graphql'
 import Image from './image.graphql'
 import Mutation from './mutation.graphql'
@@ -21,7 +22,6 @@ import Seo from './seo.graphql'
 import Cart from './cart.graphql'
 import Status from './status.graphql'
 import PropertyValue from './propertyValue.graphql'
-import CrossSelling from './crossSelling.graphql'
 
 export const typeDefs = [
   Query,
@@ -29,6 +29,7 @@ export const typeDefs = [
   Brand,
   Breadcrumb,
   Collection,
+  CrossSelling,
   Facet,
   Image,
   PageInfo,
@@ -45,7 +46,6 @@ export const typeDefs = [
   Cart,
   Status,
   PropertyValue,
-  CrossSelling,
 ]
   .map(print)
   .join('\n')

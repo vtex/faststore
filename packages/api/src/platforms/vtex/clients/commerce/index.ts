@@ -5,6 +5,7 @@ import type { CategoryTree } from './types/CategoryTree'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
 import type { PortalPagetype } from './types/Portal'
 import type { Region, RegionInput } from './types/Region'
+import type { CrossSellingItem } from './types/CrossSelling'
 import type {
   Simulation,
   SimulationArgs,
@@ -40,7 +41,7 @@ export const VtexCommerce = (
           fetchAPI(`${base}/api/catalog_system/pub/portal/pagetype/${slug}`),
       },
       crossseling: {
-        whoSawAlsoBought: (id: string): Promise<any[]> =>
+        whoSawAlsoBought: (id: string): Promise<CrossSellingItem[]> =>
           fetchAPI(
             `${base}/api/catalog_system/pub/products/crossselling/whosawalsobought/${id}`
           ),
