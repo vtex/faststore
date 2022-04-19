@@ -1,4 +1,4 @@
-import type { CurrencyCode, Item, LocatorParam } from './common'
+import type { CurrencyCode, Item } from './common'
 
 export interface RemoveFromCartParams<T extends Item = Item> {
   currency?: CurrencyCode
@@ -8,5 +8,5 @@ export interface RemoveFromCartParams<T extends Item = Item> {
 
 export interface RemoveFromCartEvent<T extends Item = Item> {
   name: 'remove_from_cart'
-  params: RemoveFromCartParams<T> & LocatorParam
+  params: RemoveFromCartParams<T>
 }

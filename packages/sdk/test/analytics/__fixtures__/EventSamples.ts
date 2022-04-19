@@ -31,8 +31,7 @@ export const WRAPPED_CUSTOM_EVENT_SAMPLE: WrappedAnalyticsEvent<CustomEvent> = {
 export const ADD_TO_CART_SAMPLE: AddToCartEvent = {
   name: 'add_to_cart',
   params: {
-    url: 'http://localhost/',
-    items: [{ item_id: 'PRODUCT_ID', item_name: 'Amazing Product' }],
+    items: [{ item_id: 'PRODUCT_ID' }],
   },
 }
 
@@ -41,8 +40,7 @@ export const WRAPPED_ADD_TO_CART_SAMPLE: WrappedAnalyticsEvent<AddToCartEvent> =
   params: {
     name: 'store:add_to_cart',
     params: {
-      url: 'http://localhost/',
-      items: [{ item_id: 'PRODUCT_ID', item_name: 'Amazing Product' }],
+      items: [{ item_id: 'PRODUCT_ID' }],
     },
   },
 }
