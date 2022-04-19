@@ -67,8 +67,6 @@ export const IntelligentSearch = (
       query,
       sort,
       fuzzy,
-      // TODO: remove before deploy and update tests URL
-      workspace: 'brasileiro',
     })
 
     if (hideUnavailableItems !== undefined) {

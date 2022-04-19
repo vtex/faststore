@@ -100,7 +100,7 @@ export const SearchQueryFirst5Products = `query SearchQuery {
 
 export const productSearchCategory1Fetch = {
   info:
-    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&workspace=brasileiro&hide-unavailable-items=false',
+    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&hide-unavailable-items=false',
   init: undefined,
   result: {
     products: [
@@ -1383,7 +1383,7 @@ export const productSearchCategory1Fetch = {
 
 export const attributeSearchCategory1Fetch = {
   info:
-    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&workspace=brasileiro&hide-unavailable-items=false',
+    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&hide-unavailable-items=false',
   init: undefined,
   result: {
     facets: [

@@ -334,7 +334,7 @@ export const checkoutOrderFormItemsInvalidFetch = {
 
 export const productSearchPage1Count1Fetch = {
   info:
-    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&fuzzy=0&workspace=brasileiro&hide-unavailable-items=false',
+    'http://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&fuzzy=0&hide-unavailable-items=false',
   init: undefined,
   result: {
     products: [
