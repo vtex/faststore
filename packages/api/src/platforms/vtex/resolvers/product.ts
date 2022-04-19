@@ -66,25 +66,7 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
   review: () => [],
   aggregateRating: () => ({}),
-  offers: (product, _, ctx): { items: Item[]; product: Root } => {
-    const {
-      storage: { channel },
-    } = ctx
-
-    const { itemId, sellers } = product
-
-    const sellerFromChannel = sellers.find(
-      (seller) => seller.sellerId === channel.salesChannel
-    )
-
-    if (sellerFromChannel === null || sellerFromChannel === undefined) {
-      // This error will likely happen when you forget to forward the channel somewhere in your code.
-      // Make sure all queries that lead to a product are forwarding the channel in context corectly
-      throw new Error(
-        `Product with id ${itemId} has no sellers for sales channel ${channel.salesChannel}.`
-      )
-    }
-
+  offers: (product): { items: Item[]; product: Root } => {
     return {
       items: sortOfferByPrice(product.isVariantOf.items),
       product,

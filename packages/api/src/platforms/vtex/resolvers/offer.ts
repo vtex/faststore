@@ -66,7 +66,7 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
   },
   price: (item) => {
     if (isSearchItem(item)) {
-      return getItemPriceByKey(item, 'spotPrice') // TODO add spot price calculation
+      return getItemPriceByKey(item, 'spotPrice')
     }
 
     if (isOrderFormItem(item)) {
