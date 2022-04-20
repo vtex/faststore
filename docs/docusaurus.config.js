@@ -20,6 +20,7 @@ module.exports = {
     starters: require("./static/data/starters"),
   },
   themeConfig: {
+    image: "img/faststore_thumbnail.png",
     zoom: {
       selector: '.markdown :not(a) > img',
       config: {
