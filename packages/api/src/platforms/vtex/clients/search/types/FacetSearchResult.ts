@@ -10,6 +10,7 @@ export interface Facet {
   hidden: boolean
   values: FacetValue[]
   quantity?: number
+  key?: string
 }
 
 export interface FacetValue {
