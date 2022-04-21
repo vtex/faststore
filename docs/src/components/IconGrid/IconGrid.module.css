@@ -14,6 +14,11 @@
   @apply no-underline;
 }
 
+.homeGrid a:active strong,
+.homeGrid a:hover strong{
+  @apply text-rebelPink;
+}
+
 .homeGrid a img, .homeGrid a svg {
   @apply absolute m-0 left-6 h-12 w-12;
 }

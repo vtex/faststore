@@ -8,8 +8,8 @@
 }
 
 .changelogList a:hover {
-  @apply bg-code no-underline;
-  filter: brightness(102%);
+  @apply bg-code no-underline !important;
+  filter: brightness(101%);
 }
 
 .changelogTitle {
@@ -17,12 +17,12 @@
 }
 
 .changelogTitle h4 {
-  @apply inline-block mr-2 text-secondary text-lg leading-loose font-VTEXMedium;
+  @apply inline-block mr-2 text-lg leading-loose font-VTEXMedium;
 }
 
 .changelogList li:first-child h4::after {
   content: "NEW";
-  @apply px-2 py-1 rounded-md uppercase tracking-widest bg-tag text-primary text-xs ml-2;
+  @apply px-2 py-1 rounded-md uppercase tracking-widest bg-tagHighlight text-rebelPink text-xs ml-2;
 }
 
 .descriptionChangelog {

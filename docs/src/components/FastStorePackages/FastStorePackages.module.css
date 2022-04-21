@@ -1,6 +1,6 @@
 /* Cards with icons */
 .homeGrid > * {
-  @apply relative border rounded-lg;
+  @apply relative border border-border rounded-lg;
 }
 
 .homeGrid > p {
@@ -15,10 +15,6 @@
   @apply block pl-20 py-6 pr-8 text-text;
 }
 
-.homeGrid > *:active,
-.homeGrid > *:hover {
-  @apply border-secondary;
-}
 .homeGrid a:active,
 .homeGrid a:hover{
   @apply no-underline;
@@ -33,7 +29,7 @@
 }
 
 .homeGrid a:hover  strong{
-  @apply text-link;
+  @apply text-rebelPink;
 }
 
 @media only screen and (min-width: 1240px) {

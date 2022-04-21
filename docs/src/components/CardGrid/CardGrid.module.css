@@ -1,8 +1,7 @@
 /* Cards with icons */
 .homeGrid > * {
-  @apply relative m-0 border;
+  @apply relative m-0 border border-border;
   border-radius: var(--ifm-pagination-nav-border-radius);
-  background-color: var(--ifm-card-background-color);
 }
 
 .homeGrid a {
@@ -12,13 +11,14 @@
   padding-left: 98px;
 }
 
-.homeGrid > *:active,
-.homeGrid > *:hover {
-  border-color: var(--ifm-font-color-secondary);
-}
 .homeGrid a:active,
 .homeGrid a:hover {
   @apply no-underline;
+}
+
+.homeGrid a:active strong,
+.homeGrid a:hover strong {
+  @apply no-underline text-rebelPink;
 }
 
 .homeGrid a img,
@@ -43,31 +43,21 @@
   color: inherit;
   display: block;
   padding: 30px 30px;
-  background-color: hsla(0, 100%, 100%, 0.08);
-	box-shadow:
-		2px 2px 10px 0px hsla(0,0%,0%,0.1);
-  border-radius: 10px;
+  @apply border-border rounded border;
 }
 
 .cardGrid a:active,
 .cardGrid a:hover {
-  background-color: hsla(0, 100%, 100%, 0.11);	
-	box-shadow:
-		2px 2px 10px 0px hsla(0,0%,0%,0.2);
+  @apply no-underline;
 }
-.cardGrid a:active,
-.cardGrid a:hover {
-  text-decoration: none;
+
+.cardGrid a:active strong,
+.cardGrid a:hover strong{
+  @apply text-rebelPink;
 }
 
 .cardGrid a strong {
-  display: block;
-  color: var(--ifm-color-label);
-  margin-bottom: 0.5rem;
-}
-
-.cardGrid a:hover strong {
-  @apply text-link;
+  @apply block mb-2;
 }
 
 /* Make grids responsive*/

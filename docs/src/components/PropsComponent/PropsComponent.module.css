@@ -3,7 +3,7 @@
 }
 
 .propsHeader {
-  @apply border-b pb-4 mb-4;
+  @apply border-b pb-4 mb-4 border-border;
 }
 
 .propsName {
@@ -16,11 +16,8 @@
 }
 
 .propsType {
-  @apply ml-2 py-1;
-  background-color: var(--ifm-tag-background);
-  color: var(--ifm-color-primary);
+  @apply ml-2 py-1 border-none bg-tag text-primary;
   font-size: 10px !important;
-  border: 1px solid #ffe0ef;
 }
 
 .propsDetails {

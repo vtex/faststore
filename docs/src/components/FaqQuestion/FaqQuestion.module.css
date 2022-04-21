@@ -20,7 +20,7 @@
 }
 
 .FaqDetails summary {
-  @apply relative cursor-pointer font-light text-lg border-b py-2 px-0 list-none;
+  @apply relative cursor-pointer font-light text-lg border-b border-border py-2 px-0 list-none;
   width: var(--parentWidth);
 }
 

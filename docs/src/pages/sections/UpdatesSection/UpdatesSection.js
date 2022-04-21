@@ -4,7 +4,7 @@ import ViewAll from '../../../components/ViewAll/ViewAll'
 
 const UpdatesSection = () => {
   return (
-    <section className="border-b py-20 text-text">
+    <section className="border-b border-border py-20 text-text">
         <div className="flex justify-between">
           <div className="flex items-center">
             <div>

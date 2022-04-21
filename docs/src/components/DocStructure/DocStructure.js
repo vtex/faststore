@@ -31,7 +31,7 @@ let docs = [
 
 const DocStructure = () => {
   return (
-    <section className="pt-20 border-t sm:pl-10 sm:border-l sm:pt-0 sm:border-t-0">
+    <section className="pt-20 border-t border-border sm:pl-10 sm:border-l sm:pt-0 sm:border-t-0">
       <h3 className="mb-6 inline-block text-2xl font-VTEXRegular font-extralight align-middle">
         Explore our documentation
       </h3>
@@ -41,7 +41,7 @@ const DocStructure = () => {
             className="focus:no-underline hover:no-underline"
             to={useBaseUrl(item.url)}
           >
-            <h4 className="block font-black  text-text hover:text-link">{item.title}</h4>
+            <h4 className="block font-black  text-text hover:text-rebelPink">{item.title}</h4>
             <p className="text-details">{item.description}</p>
           </Link>
         ))}

@@ -21,7 +21,7 @@
 }
 
 .playgroundPreview {
-  @apply p-4 border rounded-md overflow-hidden;
+  @apply p-4 border border-border rounded-md overflow-hidden;
 }
 
 .playgroundControls {
