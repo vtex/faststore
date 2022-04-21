@@ -8,7 +8,7 @@
 }
 
 .changelogList a:hover {
-  @apply bg-code;
+  @apply bg-code no-underline;
   filter: brightness(102%);
 }
 
