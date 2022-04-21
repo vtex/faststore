@@ -20,7 +20,7 @@ theme: {
       primary: infima('--ifm-color-primary'),
       softPink: infima('--ifm-color-soft-pink'),     
       text: infima('--ifm-font-color-base'),     
-      details: '#A1A8B3',     
+      details: '#86868b',     
     }
   },
 },

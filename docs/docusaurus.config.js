@@ -33,14 +33,15 @@ module.exports = {
     },
     colorMode: {
       defaultMode: 'light',
-      disableSwitch: true,
+      disableSwitch: false,
       respectPrefersColorScheme: false
     },
     announcementBar: {
       id: 'support_us',
       content:
-        `📢 <span style="color:#F71963; background-color:#FFF3F6; padding:0.5em; margin:0.3em; border-radius:5px; font-weight: bold" >NEW</span> <strong>VTEX Developers</strong> - YouTube channel with live demos, code walkthroughs, and interviews for developers. <a style="color:#F71963" href="https://www.youtube.com/channel/UCReNhDqLOVL4edqENJ4k7Fg">Subscribe now</a>`,
-      textColor: "#142032",
+        `📢 <span style="color:var(--ifm-color-primary); background-color:var(--ifm-tag-background); padding:0.5em; margin:0.3em; border-radius:5px; font-weight: bold" >NEW</span> <strong>VTEX Developers</strong> - YouTube channel with live demos, code walkthroughs, and interviews for developers. <a style="color:var(--ifm-link-color)" href="https://www.youtube.com/channel/UCReNhDqLOVL4edqENJ4k7Fg">Subscribe now</a>`,
+      textColor: "var(--ifm-color-secondary)",
+      backgroundColor: "var(--ifm-background-color)",
       isCloseable: false,
     },
     navbar: {
@@ -104,12 +105,14 @@ module.exports = {
             {
               href: 'https://community.vtex.com/',
               label: 'Community',
-            },
-            {
-              href: 'https://github.com/vtex/faststore',
-              label: 'GitHub',
-            },
+            }
           ],
+        },
+        {
+          href: 'https://github.com/vtex/faststore',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
         },
       ],
     },
@@ -179,13 +182,14 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} FastStore Docs, Inc. Built with Docusaurus.`,
     },
     prism: {
-      theme: require('prism-react-renderer/themes/nightOwlLight')
+      theme: require('prism-react-renderer/themes/nightOwlLight'),
+      darkTheme: require('prism-react-renderer/themes/dracula')
     },
   },
 
   presets: [
     [
-      '@docusaurus/preset-classic',    
+      '@docusaurus/preset-classic',
       {
         gtag: {
           trackingID: 'GTM-PKST2NM',

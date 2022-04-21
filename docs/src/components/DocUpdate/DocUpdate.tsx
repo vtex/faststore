@@ -45,7 +45,7 @@ const DocUpdate = () => {
           <h3 className="inline-block mr-3 text-2xl font-VTEXRegular font-extralight align-middle">
             Documentation Updates
           </h3>
-          <p className="inline-block px-2 rounded-full bg-pink-50 text-primary">
+          <p className="inline-block px-2 rounded-full bg-tag text-primary">
             {totalUpdates}
           </p>
         </div>

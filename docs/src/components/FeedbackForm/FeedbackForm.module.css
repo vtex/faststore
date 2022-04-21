@@ -3,7 +3,7 @@
 }
 
 .feedbackForm {
-  @apply mb-5 text-secondary;
+  @apply mb-5 text-text;
 }
 
 .feedbackForm p {
@@ -18,8 +18,8 @@
   @apply bg-code;
 }
 
-.feedbackForm label {
-  @apply pr-2;
+.formRadio label {
+  color: var(--ifm-font-color-secondary)
 }
 
 .formText {
@@ -27,7 +27,7 @@
 }
 
 .formRadio {
-  @apply  my-5 text-secondary;
+  @apply  my-5 text-secondary text-left;
 }
 
 .formRadio label + label {

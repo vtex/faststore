@@ -12,7 +12,7 @@
 }
 
 .homeGrid a {
-  @apply block text-text pl-20 py-6 pr-8;
+  @apply block pl-20 py-6 pr-8 text-text;
 }
 
 .homeGrid > *:active,
@@ -20,17 +20,20 @@
   @apply border-secondary;
 }
 .homeGrid a:active,
-.homeGrid a:hover {
+.homeGrid a:hover{
   @apply no-underline;
 }
 
-.homeGrid a img {
-  @apply absolute left-6 w-8 top-2;
+.homeGrid a svg {
+  @apply absolute left-6 w-8 top-6;
 }
 
 .homeGrid a strong {
   @apply block mb-2 text-xl;
-  color: var(--ifm-color-label);
+}
+
+.homeGrid a:hover  strong{
+  @apply text-link;
 }
 
 @media only screen and (min-width: 1240px) {

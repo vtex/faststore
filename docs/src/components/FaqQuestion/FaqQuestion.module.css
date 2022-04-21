@@ -25,7 +25,8 @@
 }
 
 .FaqDetails summary:after {
-  @apply absolute text-black mt-3 font-extralight origin-center text-2xl;
+  @apply absolute mt-3 font-extralight origin-center text-2xl;
+  color: var(--ifm-font-color-base);
   content: '+';
   line-height: 0;
   left: 95%;
@@ -37,6 +38,9 @@
 }
 .FaqDetails summary {
   outline: 0;
+}
+.FaqDetails a {
+  color: var(--ifm-link-color);
 }
 .FaqDetails p {
   @apply pt-4 mt-0 mx-0 mb-4;

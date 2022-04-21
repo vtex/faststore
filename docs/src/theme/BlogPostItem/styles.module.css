@@ -5,9 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-.blogPostData {
-  @apply text-sm py-1 pb-4;
-  color:#5B6E84;
+ .blogPostData {
+  @apply text-sm py-1 pb-4 text-details;
 }
 
 .blogPostDetailsFull {

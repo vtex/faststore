@@ -1,76 +1,97 @@
 /* Cards with icons */
 .homeGrid > * {
-    @apply relative m-0 border;
-    border-radius: var(--ifm-pagination-nav-border-radius);;
+  @apply relative m-0 border;
+  border-radius: var(--ifm-pagination-nav-border-radius);
+  background-color: var(--ifm-card-background-color);
+}
+
+.homeGrid a {
+  @apply block;
+  color: var(--ifm-font-color-base);
+  padding: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
+  padding-left: 98px;
+}
+
+.homeGrid > *:active,
+.homeGrid > *:hover {
+  border-color: var(--ifm-font-color-secondary);
+}
+.homeGrid a:active,
+.homeGrid a:hover {
+  @apply no-underline;
+}
+
+.homeGrid a img,
+.homeGrid a svg {
+  @apply absolute border-0 bg-transparent rounded-none top-5 left-6 h-12 w-12;
+  box-shadow: none;
+}
+
+.cardGrid a strong,
+.homeGrid a strong {
+  @apply block mb-2;
+  color: var(--ifm-color-label);
+}
+
+/* Plain cards without icons */
+.cardGrid > * {
+  margin: 0;
+  position: relative;
+}
+
+.cardGrid a {
+  color: inherit;
+  display: block;
+  padding: 30px 30px;
+  background-color: hsla(0, 100%, 100%, 0.08);
+	box-shadow:
+		2px 2px 10px 0px hsla(0,0%,0%,0.1);
+  border-radius: 10px;
+}
+
+.cardGrid a:active,
+.cardGrid a:hover {
+  background-color: hsla(0, 100%, 100%, 0.11);	
+	box-shadow:
+		2px 2px 10px 0px hsla(0,0%,0%,0.2);
+}
+.cardGrid a:active,
+.cardGrid a:hover {
+  text-decoration: none;
+}
+
+.cardGrid a strong {
+  display: block;
+  color: var(--ifm-color-label);
+  margin-bottom: 0.5rem;
+}
+
+.cardGrid a:hover strong {
+  @apply text-link;
+}
+
+/* Make grids responsive*/
+@media only screen and (min-width: 1240px) {
+  .cardGrid,
+  .homeGrid {
+    @apply grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
   }
-  
-  .homeGrid a {
-    @apply block text-text;
-    padding: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
-    padding-left: 98px;
-  }
-  
-  .homeGrid > *:active,
-  .homeGrid > *:hover {
-    @apply border-secondary
-  }
-  .homeGrid a:active,
-  .homeGrid a:hover {
-    @apply no-underline;
-  }
-  
-  .homeGrid a img {
-    @apply absolute border-0 bg-transparent rounded-none top-5 left-6 h-12 w-12;
-    box-shadow: none;
-  }
-  
-  .cardGrid a strong,
-  .homeGrid a strong {
-    @apply block mb-2;
-    color: var(--ifm-color-label);
-  }
-  
-  /* Plain cards without icons */
-  .cardGrid > * {
-    @apply m-0 border rounded-md;
-  }
-  .cardGrid a {
-    @apply block;
-    color: inherit;
-    padding: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
-  }
-  
-  .cardGrid > *:active,
-  .cardGrid > *:hover {
-    @apply border;
-  }
-  
-  .cardGrid a:active,
-  .cardGrid a:hover {
-    @apply no-underline;
-  }
-  
-  /* Make grids responsive*/
-  @media only screen and (min-width: 1240px) {
-    .cardGrid,
-    .homeGrid {
-      @apply grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
-    }
-  }
-  
-  /* Add spacing between grids and sections */
-  h2 + .cardGrid,
-  h2 + .homeGrid {
-    margin-top: var(--ifm-spacing-vertical);
-  }
-  
-  .cardGrid + h2,
-  .homeGrid + h2 {
-    @apply pt-5;
-  }
-  
-  .homeGrid > p {
-    margin-top: var(--ifm-spacing-vertical) !important;
-  }
+}
+
+/* Add spacing between grids and sections */
+h2 + .cardGrid,
+h2 + .homeGrid {
+  margin-top: var(--ifm-spacing-vertical);
+}
+
+.cardGrid + h2,
+.homeGrid + h2 {
+  @apply pt-5;
+}
+
+.cardGrid > p,
+.homeGrid > p {
+  margin-top: var(--ifm-spacing-vertical) !important;
+}

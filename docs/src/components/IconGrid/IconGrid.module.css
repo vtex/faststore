@@ -3,7 +3,8 @@
 }
 
 .homeGrid a {
-  @apply block text-text;
+  @apply block;
+  color: var(--ifm-font-color-base);
   padding: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
   padding-left: 98px;
 }
@@ -13,7 +14,7 @@
   @apply no-underline;
 }
 
-.homeGrid a img {
+.homeGrid a img, .homeGrid a svg {
   @apply absolute m-0 left-6 h-12 w-12;
 }
 

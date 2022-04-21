@@ -2,7 +2,7 @@
   @apply w-60 mb-14;
 }
 
-.featureCard img {
+.featureCard svg {
   @apply w-7 mr-3 inline-block mb-2;
 }
 
@@ -15,12 +15,12 @@
 }
 
 .featureCard p {
-  @apply text-sm mr-1;
+  @apply text-details mr-1;
 }
 
 
 @media screen and (max-width: 1220px) {
-  .featureCard img {
+  .featureCard svg {
     @apply hidden;
   }
   

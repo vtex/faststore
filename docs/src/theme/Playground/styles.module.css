@@ -4,26 +4,35 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-.playgroundCode > * {
+
+ .playgroundContainer {
+  margin-bottom: var(--ifm-leading);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: var(--ifm-global-shadow-lw);
+  overflow: hidden;
+}
+
+.playgroundEditor {
   @apply bg-code !important;
-  font-size: 12px;
+  font: var(--ifm-code-font-size) / var(--ifm-pre-line-height)
+    var(--ifm-font-family-monospace) !important;
+  /*rtl:ignore*/
+  direction: ltr;
 }
 
 .playgroundPreview {
-  @apply p-4 border rounded-md bg-white overflow-hidden;
+  @apply p-4 border rounded-md overflow-hidden;
 }
 
-.playgroundPreview article, .playgroundPreview article img {
-  @apply m-0 overflow-hidden;
-}
 .playgroundControls {
   @apply float-right;
 }
 
 .playgroundButton {
   @apply px-6 py-2 cursor-pointer text-white;
-  @apply text-xs bg-secondary rounded-none rounded-b-md border;
+  @apply text-xs bg-secondary rounded-none rounded-b-md;
 }
+
 .IconCode {
   @apply w-5 inline pr-1 align-bottom;
 }

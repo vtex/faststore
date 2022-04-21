@@ -1,22 +1,25 @@
-.propsComponent{
-  @apply mb-8
+.propsComponent {
+  @apply mb-8;
 }
 
 .propsHeader {
-  @apply border-b pb-4 mb-4  ;
+  @apply border-b pb-4 mb-4;
 }
 
 .propsName {
-  @apply bg-white p-0 border-none font-bold;
+  @apply p-0 border-none font-bold;
+  background-color: transparent;
 }
 
-.propsRequired{
+.propsRequired {
   @apply text-red-500 font-extrabold;
 }
 
-.propsType{
-  @apply bg-softPink text-primary ml-2 py-1;
-  font-size:10px!important;
+.propsType {
+  @apply ml-2 py-1;
+  background-color: var(--ifm-tag-background);
+  color: var(--ifm-color-primary);
+  font-size: 10px !important;
   border: 1px solid #ffe0ef;
 }
 
@@ -25,8 +28,10 @@
 }
 
 .propsDetails code {
-    @apply border-none bg-white text-primary p-0;
-  }
+  @apply border-none p-0;
+  background-color: transparent;
+  color: var(--ifm-color-primary);
+}
 
 .propsDetailsTitle {
   @apply pr-5 w-36 whitespace-nowrap align-baseline text-sm;

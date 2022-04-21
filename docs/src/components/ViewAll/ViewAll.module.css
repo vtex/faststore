@@ -1,5 +1,5 @@
 .viewAll {
-  @apply tracking-wider uppercase text-sm text-primary relative inline-block pr-5 mt-4 pb-7 font-medium;
+  @apply tracking-wider uppercase text-sm text-link relative inline-block pr-5 mt-4 pb-7 font-medium;
 }
 
 .viewAll svg {
