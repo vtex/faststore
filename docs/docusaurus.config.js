@@ -39,10 +39,10 @@ module.exports = {
     announcementBar: {
       id: 'support_us',
       content:
-        `📢 <span style="color:var(--ifm-color-rebel-pink); background-color:var(--ifm-tag-highlight); padding:0.5em; margin:0.3em; border-radius:5px; font-weight: bold" >NEW</span> <strong>VTEX Developers</strong> - YouTube channel with live demos, code walkthroughs, and interviews for developers. <a style="color:var(--ifm-link-color)" href="https://www.youtube.com/channel/UCReNhDqLOVL4edqENJ4k7Fg">Subscribe now</a>`,
+        `📢 <span style="color:var(--ifm-color-rebel-pink); background-color:var(--ifm-tag-highlight); padding:0.5em; margin:0.3em; border-radius:5px; font-weight: bold" >NEW WEBINAR</span> VTEX and Google on how to build blazing-fast storefronts. <a style="color:var(--ifm-link-color)" href="https://www.youtube.com/watch?v=CwBMVOwjghc">Join us on April 27th!</a>`,
       textColor: "var(--ifm-color-details)",
       backgroundColor: "var(--ifm-background-color)",
-      isCloseable: true,
+      isCloseable: false,
     },
     navbar: {
       title: 'FastStore',
