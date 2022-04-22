@@ -36,7 +36,7 @@ export const IntelligentSearch = (
   ctx: Context
 ) => {
   // TODO: Validate this approach
-  const base = `http://${account}.${environment}.com.br/api/io`
+  const base = `https://${account}.${environment}.com.br/api/io`
   const policyFacet: IStoreSelectedFacet = {
     key: 'trade-policy',
     value: ctx.storage.channel.salesChannel,
@@ -70,7 +70,7 @@ export const IntelligentSearch = (
     })
 
     if (hideUnavailableItems !== undefined) {
-      params.append('hide-unavailable-items', hideUnavailableItems.toString())
+      params.append('hideUnavailableItems', hideUnavailableItems.toString())
     }
 
     const pathname = addDefaultFacets(selectedFacets)

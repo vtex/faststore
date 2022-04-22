@@ -10,9 +10,9 @@ export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
   offers: Resolver<Root, any, Array<Item & { product: EnhancedSku }>>
 } = {
   highPrice: ({ product }) =>
-    product.isVariantOf.priceRange.sellingPrice.highPrice,
-  lowPrice: ({ product }) =>
-    product.isVariantOf.priceRange.sellingPrice.lowPrice,
+    product.isVariantOf.priceRange.sellingPrice.highPrice ?? 0,
+  lowPrice: (root) =>
+    root.product.isVariantOf.priceRange.sellingPrice.lowPrice ?? 0,
   offerCount: ({ items }) => items.length,
   priceCurrency: () => '',
   offers: ({ items, product }) =>

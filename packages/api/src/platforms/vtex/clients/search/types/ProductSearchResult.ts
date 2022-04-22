@@ -177,9 +177,14 @@ interface SKUSpecificationField {
   id?: string
 }
 
+interface Price {
+  highPrice: number | null
+  lowPrice: number | null
+}
+
 interface PriceRange {
-  sellingPrice: { highPrice: number; lowPrice: number }
-  listPrice: { highPrice: number; lowPrice: number }
+  sellingPrice: Price
+  listPrice: Price
 }
 
 interface SpecificationGroup {
