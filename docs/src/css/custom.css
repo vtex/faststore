@@ -85,17 +85,26 @@
   --docsearch-searchbox-background: var(
     --ifm-background-surface-color
   ) !important;
-  --docsearch-hit-background: var(--ifm-background-color) !important;
-  --docsearch-hit-active-color: var(--ifm-background-color) !important;
-  --docsearch-modal-background: var(--ifm-background-surface-color) !important;
-  --docsearch-footer-background: var(--ifm-background-color) !important;
+  --docsearch-hit-background: #060F1D !important;
+
+  --docsearch-hit-active-color: var(--ifm-color-primary) !important;
+  
+  --docsearch-modal-background: var(--ifm-background-color) !important;
+
+  --docsearch-footer-background: var(--ifm-background-surface-color) !important;
+  
   --docsearch-searchbox-focus-background: var(
     --ifm-background-color
   ) !important;
+  
   --docsearch-key-gradient: var(--ifm-background-surface-color) !important;
+  
   --docsearch-key-shadow: var(--ifm-background-color) !important;
-  --docsearch-primary-color: var(--ifm-background-color) !important;
-  --docsearch-highlight-color: var(--ifm-color-secondary) !important;
+  
+  --docsearch-primary-color: var(--ifm-background-surface-color) !important;
+  
+  --docsearch-highlight-color: var(--ifm-tag-highlight) !important;
+  
   --ifm-code-background: #060f1d !important;
   --ifm-tag-background: #070f1d !important;
   --ifm-footer-background-color: var(--ifm-color-secondary);
@@ -106,6 +115,14 @@
   --ifm-table-border-color: var(--ifm-footer-background-color);
   --ifm-table-stripe-background: var(--ifm-background-surface-color);
   --ifm-table-head-color: #a1a8b3;
+}
+
+[class^='DocSearch-Hit-source'], [class^='DocSearch-Search-Icon'] {
+  @apply text-primary !important;
+}
+
+[class^='DocSearch-Hits'] mark {
+  @apply text-rebelPink !important;
 }
 
 [class^='breadcrumbs__link'] {
