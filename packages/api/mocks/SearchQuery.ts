@@ -1394,35 +1394,27 @@ export const attributeSearchCategory1Fetch = {
             name: '',
             key: 'price',
             selected: false,
-            range: {
-              from: 0.23,
-              to: 150,
-            },
+            range: { from: 0.23, to: 150 },
           },
           {
             quantity: 601,
             name: '',
             key: 'price',
             selected: false,
-            range: {
-              from: 360,
-              to: 995.92,
-            },
+            range: { from: 360, to: 995.92 },
           },
           {
             quantity: 579,
             name: '',
             key: 'price',
             selected: false,
-            range: {
-              from: 150,
-              to: 360,
-            },
+            range: { from: 150, to: 360 },
           },
         ],
         type: 'PRICERANGE',
-        name: 'Preï¿½o',
+        name: 'Pre¿o',
         hidden: false,
+        key: 'price',
         quantity: 3,
       },
       {
@@ -1449,6 +1441,7 @@ export const attributeSearchCategory1Fetch = {
         type: 'TEXT',
         name: 'Categoria',
         hidden: false,
+        key: 'category-2',
         quantity: 2,
       },
       {
@@ -1466,6 +1459,7 @@ export const attributeSearchCategory1Fetch = {
         type: 'TEXT',
         name: 'Departamento',
         hidden: true,
+        key: 'category-1',
         quantity: 1,
       },
       {
@@ -1537,27 +1531,17 @@ export const attributeSearchCategory1Fetch = {
         type: 'TEXT',
         name: 'Marca',
         hidden: false,
+        key: 'brand',
         quantity: 7,
       },
     ],
     sampling: false,
-    breadcrumb: [
-      {
-        name: 'Office',
-        href: '/office',
-      },
-    ],
+    breadcrumb: [{ name: 'Office', href: '/office' }],
     queryArgs: {
       query: '',
       selectedFacets: [
-        {
-          key: 'category-1',
-          value: 'office',
-        },
-        {
-          key: 'trade-policy',
-          value: '1',
-        },
+        { key: 'category-1', value: 'office' },
+        { key: 'trade-policy', value: '1' },
       ],
     },
     translated: false,
