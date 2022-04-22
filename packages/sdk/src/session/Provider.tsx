@@ -1,5 +1,5 @@
 import React, { createContext, useMemo } from 'react'
-import type { FC } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 import { useStorage } from '../storage/useStorage'
 
@@ -48,7 +48,7 @@ interface Props {
   namespace?: string
 }
 
-export const Provider: FC<Props> = ({
+export const Provider: FC<PropsWithChildren<Props>> = ({
   children,
   initialState,
   namespace = 'main',

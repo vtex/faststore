@@ -1,5 +1,5 @@
 import React, { createContext, useMemo } from 'react'
-import type { FC } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 import { useSearchInfiniteState } from './useInfiniteSearchState'
 import { useSearchState } from './useSearchState'
@@ -17,7 +17,7 @@ type Props = SearchState & {
   itemsPerPage: number
 }
 
-export const Provider: FC<Props> = ({
+export const Provider: FC<PropsWithChildren<Props>> = ({
   children,
   itemsPerPage,
   onChange,
