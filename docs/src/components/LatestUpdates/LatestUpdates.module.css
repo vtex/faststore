@@ -26,7 +26,7 @@
 }
 
 .descriptionChangelog {
-  @apply text-justify col-span-3 text-details;
+  @apply col-span-3 text-details;
 }
 
 .changelogList time {

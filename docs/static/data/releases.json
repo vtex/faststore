@@ -1,5 +1,11 @@
 [
   {
+    "title": "Automated Lighthouse reports for deploy previews",
+    "product": "WebOps",
+    "fileName": "2022-04-22-webops",
+    "description": "With these new updates, you won’t have to put in any extra effort to generate Lighthouse reports. WebOps will do it automatically for you, providing reports for every deploy's Home Page, PDP and PLP."
+  },
+  {
     "title": "WebOps updated to use Lighthouse 9",
     "product": "WebOps",
     "fileName": "2022-04-05-webops",
@@ -16,11 +22,5 @@
     "product": "Base Store",
     "fileName": "2022-04-01-basestore",
     "description": "The Base Store now has new components: EmptyState, Suggestions and SearchHistory."
-  },
-  {
-    "title": "FastStore - Release Notes",
-    "product": "FastStore",
-    "fileName": "2022-04-01-faststore",
-    "description": "The FastStore API now includes an Express GraphQL Server, and the FastStore UI now has a new Dropdown component. Also, the performance of the useStorage hook has been improved."
   }
 ]
