@@ -1,5 +1,5 @@
 import React, { createContext, useMemo, useReducer } from 'react'
-import type { FC, Dispatch } from 'react'
+import type { FC, Dispatch, PropsWithChildren } from 'react'
 
 interface BaseState {
   displayMinicart: boolean
@@ -75,7 +75,7 @@ interface Props {
 
 const defaultEffects: Effects = () => ({})
 
-export const Provider: FC<Props> = ({
+export const Provider: FC<PropsWithChildren<Props>> = ({
   children,
   actions = {},
   effects = defaultEffects,

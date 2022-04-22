@@ -1,5 +1,5 @@
 import React, { createContext, useMemo } from 'react'
-import type { FC } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 
 import { useStorage } from '../storage/useStorage'
 import { SDKError } from '../utils/error'
@@ -57,7 +57,7 @@ export interface Props {
   onItemRemove?: (item?: Item) => void
 }
 
-export const CartProvider: FC<Props> = ({
+export const CartProvider: FC<PropsWithChildren<Props>> = ({
   children,
   onItemAdd,
   initialCart,
