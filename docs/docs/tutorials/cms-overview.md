@@ -3,7 +3,7 @@ id: cms-overview
 pagination_prev: null
 ---
 
-import StepCard from "@site/src/components/StepCard/StepCard"
+import CardGrid from "@site/src/components/CardGrid/CardGrid"
 
 # Overview
 
@@ -13,7 +13,7 @@ import StepCard from "@site/src/components/StepCard/StepCard"
 
 > This tutorial is designed for those who prefer to learn by doing. For a deeper understanding of the concepts in this section, you can check the [Concepts](/conceptual-guides) section. Instead, if you want to solve real-world issues, check our [How-to guides](/how-to-guides). 
 
-<StepCard home>
+<CardGrid>
 
 [ **0. Introducing the VTEX Headless CMS** Discover the advantages of integrating your FastStore project with a CMS and get to know the VTEX Headless CMS.](/tutorials/cms/0)
 
@@ -27,4 +27,4 @@ import StepCard from "@site/src/components/StepCard/StepCard"
 
 [**5. Promoting your changes** Promote your changes to production after integrating your project with the VTEX Headless CMS.](/tutorials/cms/5)
 
-</StepCard>
+</CardGrid>

@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './FeatureCard.module.css'
 
-function FeatureCard({ title, description, img }) {
+function FeatureCard({ title, description, children }) {
   return (
     <div className={styles.featureCard}>
-      <img src={img} />
+      {children}
       <div className={styles.communityText}>
         <h2>{title}</h2>
         <p>{description}</p>

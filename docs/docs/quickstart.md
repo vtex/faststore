@@ -8,7 +8,7 @@ sidebar_position: 3
 
 ---
 
-:::note 
+:::info 
 This guide is for intermediate to advanced developers. For a comprehensive intro to FastStore, head to our [getting started tutorial](/tutorials/fundamentals/0)!
 :::
 

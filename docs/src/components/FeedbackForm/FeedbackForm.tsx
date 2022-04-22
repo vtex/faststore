@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { render } from 'react-dom'
 import styles from './FeedbackForm.module.css'
 
 class FeedbackForm extends React.Component {
@@ -110,7 +109,7 @@ class FeedbackForm extends React.Component {
     return (
       <React.Fragment>
         <div className={styles.formRadio}>
-          <label>Was this page helpful?</label>
+          <label>Was this helpful?</label>
           <label className={styles.yes}>
             <input
               id="yes"
