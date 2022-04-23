@@ -1,12 +1,12 @@
 .StarterCard:hover{
-    @apply opacity-80 no-underline;
+    @apply shadow-md no-underline;
 }
 
 .StarterCard{
-    @apply text-primary font-bold bg-code rounded-lg shadow-md w-80 my-5;
+    @apply bg-code w-80 my-5;
 }
 
 .StarterInfo h3{
-    @apply p-5 rounded-b-lg;
+    @apply text-lg font-bold p-5;
     background-color: var(--ifm-background-surface-color)
 }
