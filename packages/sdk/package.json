@@ -14,7 +14,7 @@
   "typings": "dist/index.d.ts",
   "sideEffects": false,
   "engines": {
-    "node": ">=12"
+    "node": ">=10"
   },
   "files": [
     "dist",
@@ -39,7 +39,7 @@
     }
   ],
   "peerDependencies": {
-    "react": "^18.0.0"
+    "react": "^17.0.0"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
