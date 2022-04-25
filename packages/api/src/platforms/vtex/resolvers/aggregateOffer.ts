@@ -1,41 +1,23 @@
+import type { Item } from '../clients/search/types/ProductSearchResult'
+import type { StoreProduct } from './product'
+import type { PromiseType } from '../../../typings'
+import type { Resolver } from '..'
 import type { EnhancedSku } from '../utils/enhanceSku'
-import type { Simulation } from '../clients/commerce/types/Simulation'
 
-type Resolvers = (root: Simulation & { product: EnhancedSku }) => unknown
+type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
 
-const inStock = (item: Simulation['items'][0]) =>
-  item.availability === 'available'
-
-// Smallest Available Selling Price First
-export const sortOfferByPrice = (
-  items: Simulation['items']
-): Simulation['items'] =>
-  items.sort((a, b) => {
-    if (inStock(a) && !inStock(b)) {
-      return -1
-    }
-
-    if (!inStock(a) && inStock(b)) {
-      return 1
-    }
-
-    return a.sellingPrice - b.sellingPrice
-  })
-
-export const StoreAggregateOffer: Record<string, Resolvers> = {
-  highPrice: ({ items }) => {
-    const availableItems = items.filter(inStock)
-    const highPrice = availableItems.pop()?.sellingPrice
-
-    return (highPrice ?? 0) / 1e2
-  },
-  lowPrice: ({ items }) => {
-    const availableItems = items.filter(inStock)
-    const lowPrice = availableItems[0]?.sellingPrice
-
-    return (lowPrice ?? 0) / 1e2
-  },
+export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
+  offers: Resolver<Root, any, Array<Item & { product: EnhancedSku }>>
+} = {
+  highPrice: ({ product }) =>
+    product.isVariantOf.priceRange.sellingPrice.highPrice ?? 0,
+  lowPrice: (root) =>
+    root.product.isVariantOf.priceRange.sellingPrice.lowPrice ?? 0,
   offerCount: ({ items }) => items.length,
   priceCurrency: () => '',
-  offers: ({ items, product }) => items.map((item) => ({ ...item, product })),
+  offers: ({ items, product }) =>
+    items.map((item) => ({
+      ...item,
+      product,
+    })),
 }

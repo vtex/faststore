@@ -1,19 +1,28 @@
 import { enhanceSku } from '../utils/enhanceSku'
-import type { Product } from '../clients/search/types/ProductSearchResult'
 import type { Resolver } from '..'
+import type { PromiseType } from '../../../typings'
+import type { StoreProduct } from './product'
 
-export const StoreProductGroup: Record<string, Resolver<Product>> = {
-  hasVariant: (root) => root.skus.map((sku) => enhanceSku(sku, root)),
-  productGroupID: ({ product }) => product,
-  name: ({ name }) => name,
-  additionalProperty: ({ textAttributes = [], productSpecifications = [] }) => {
-    const specs = new Set(productSpecifications)
+type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
 
-    return textAttributes
-      .filter((attribute) => specs.has(attribute.labelKey))
-      .map((attribute) => ({
-        name: attribute.labelKey,
-        value: attribute.labelValue,
+const BLOCKED_PROPERTIES: Record<string, boolean> = {
+  sellerId: true,
+}
+
+export const StoreProductGroup: Record<string, Resolver<Root>> = {
+  hasVariant: (root) =>
+    root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
+  productGroupID: ({ isVariantOf }) => isVariantOf.productId,
+  name: ({ isVariantOf }) => isVariantOf.productName,
+  additionalProperty: ({ isVariantOf: { properties } }) =>
+    properties.flatMap((property) => {
+      if (BLOCKED_PROPERTIES[property.name]) {
+        return []
+      }
+
+      return property.values.map((propertyValue) => ({
+        name: property.name,
+        value: propertyValue,
       }))
-  },
+    }),
 }

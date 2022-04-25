@@ -6,7 +6,6 @@ import { getSchema, getContextFactory } from '../src'
 import {
   AllProductsQueryFirst5,
   productSearchPage1Count5Fetch,
-  checkoutSimulationFetch as allProductsCheckoutSimulationFetch,
 } from '../mocks/AllProductsQuery'
 import {
   CollectionDesksQuery,
@@ -14,11 +13,7 @@ import {
   pageTypeOfficeDesksFetch,
   pageTypeOfficeFetch,
 } from '../mocks/CollectionQuery'
-import {
-  checkoutSimulationFetch,
-  ProductByIdQuery,
-  productSearchFetch,
-} from '../mocks/ProductQuery'
+import { ProductByIdQuery, productSearchFetch } from '../mocks/ProductQuery'
 import {
   AllCollectionsQueryFirst5,
   catalogBrandListFetch,
@@ -33,7 +28,6 @@ import {
   SearchQueryFirst5Products,
   productSearchCategory1Fetch,
   attributeSearchCategory1Fetch,
-  checkoutSimulationFetch as searchCheckoutSimulationFetch,
 } from '../mocks/SearchQuery'
 
 let schema: GraphQLSchema
@@ -112,7 +106,7 @@ test('`collection` query', async () => {
 })
 
 test('`product` query', async () => {
-  const fetchAPICalls = [productSearchFetch, checkoutSimulationFetch]
+  const fetchAPICalls = [productSearchFetch]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -120,7 +114,7 @@ test('`product` query', async () => {
 
   const response = await execute(schema, parse(ProductByIdQuery), null, context)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(2)
+  expect(mockedFetch).toHaveBeenCalledTimes(1)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
@@ -167,10 +161,7 @@ test('`allCollections` query', async () => {
 })
 
 test('`allProducts` query', async () => {
-  const fetchAPICalls = [
-    productSearchPage1Count5Fetch,
-    allProductsCheckoutSimulationFetch,
-  ]
+  const fetchAPICalls = [productSearchPage1Count5Fetch]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -183,7 +174,7 @@ test('`allProducts` query', async () => {
     context
   )
 
-  expect(mockedFetch).toHaveBeenCalledTimes(2)
+  expect(mockedFetch).toHaveBeenCalledTimes(1)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
@@ -199,7 +190,6 @@ test('`search` query', async () => {
   const fetchAPICalls = [
     productSearchCategory1Fetch,
     attributeSearchCategory1Fetch,
-    searchCheckoutSimulationFetch,
   ]
 
   mockedFetch.mockImplementation((info, init) =>
@@ -213,7 +203,7 @@ test('`search` query', async () => {
     context
   )
 
-  expect(mockedFetch).toHaveBeenCalledTimes(3)
+  expect(mockedFetch).toHaveBeenCalledTimes(2)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
