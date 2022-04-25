@@ -35,7 +35,6 @@ export const IntelligentSearch = (
   { account, environment, hideUnavailableItems }: Options,
   ctx: Context
 ) => {
-  // TODO: Validate this approach
   const base = `https://${account}.${environment}.com.br/api/io`
   const policyFacet: IStoreSelectedFacet = {
     key: 'trade-policy',
