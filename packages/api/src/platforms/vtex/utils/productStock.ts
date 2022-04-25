@@ -1,11 +1,19 @@
-import type { Item, Seller } from '../clients/search/types/ProductSearchResult'
-import { getItemPriceByKey } from './price'
+import type {
+  Item,
+  Seller,
+  CommertialOffer,
+} from '../clients/search/types/ProductSearchResult'
 
 export const inStock = (item: Item) =>
   item.sellers.find((seller) => seller.commertialOffer.AvailableQuantity > 0)
 
 export const getFirstSeller = (sellers: Seller[]): Seller | undefined =>
   sellers[0]
+
+export const getItemPriceByKey = (
+  item: Item,
+  key: keyof CommertialOffer
+): number => getFirstSeller(item.sellers)?.commertialOffer[key] ?? 0
 
 // Smallest Available Selling Price First
 export const sortOfferByPrice = (items: Item[]): Item[] =>
