@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-  A starter powered by FastStore and Gatsby
+  A starter powered by FastStore and NextJS
 </h1>
 
 Kickoff your store with this boilerplate. This starter ships with the main FastStore configuration files you might need to get up and running blazing fast with the blazing-fast store for React.
@@ -71,9 +71,7 @@ As of Dec, 22, 2021, this starter is still far from covering most basic cases fo
 
 4. **Open the source code and start editing!**
 
-   Your site is now running at `http://localhost:8000`!
-
-> Note: You'll also see a second link: `http://localhost:8000/___graphql`. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.com/docs/tutorial/part-4/#use-graphiql-to-explore-the-data-layer-and-write-graphql-queries). Also, if you want to query for dynamic data (allProducts, allCollections, search etc), you can use tools like [GraphQL Playground](https://github.com/graphql/graphql-playground) and configure it to query `http://localhost:8000/api/graphql`
+   Your site is now running at `http://localhost:3000`!
 
     Open the `awesome.store` directory in your code editor of choice and edit `src/pages/index.tsx`. Save your changes and the browser will update in real-time!
 
@@ -85,7 +83,7 @@ As of Dec, 22, 2021, this starter is still far from covering most basic cases fo
 
 ## 🧐 What's inside?
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+A quick look at the top-level files and directories you'll see in a NextJS project.
 
     ./
     ├── node_modules
@@ -95,8 +93,6 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
     ├── .prettierignore
     ├── .prettierrrc
     ├── .eslintrc
-    ├── gatsby-config.js
-    ├── gatsby-node.js
     ├── LICENSE
     └── yarn.lock
     ├── package.json
@@ -108,8 +104,6 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
     ├── babel.config.js
     ├── cypress
     ├── cypress.json
-    ├── gatsby-browser.js
-    ├── gatsby-ssr.js
     ├── lighthouserc.js
     ├── public
     ├── pull_request_template.md
@@ -125,45 +119,37 @@ A quick look at the top-level files and directories you'll see in a Gatsby proje
 
 5.  **`.eslintrc.js`**: This is a configuration file for [ESLint](https://eslint.org/). ESlint is a tool to find and fix problems in your JavaScript code.
 
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
+6.  **`LICENSE`**: NextJS is licensed under the MIT license.
 
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
+7.  **`yarn.lock`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
 
-8.  **`LICENSE`**: Gatsby is licensed under the MIT license.
+8. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
 
-9.  **`yarn.lock`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
+9. **`tsconfig.json`**: The configuration file for the typescript compiler. This will statically analyze your code for errors and bugs before releasing them into production
 
-10. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+10. **`store.config.js`**: Configure your e-commerce platform, default sales channel etc.
 
-11. **`tsconfig.json`**: The configuration file for the typescript compiler. This will statically analyze your code for errors and bugs before releasing them into production
+11. **`README.md`**: A text file containing useful reference information about your project.
 
-12. **`store.config.js`**: Configure your e-commerce platform, default sales channel etc.
+12. **`CHANGELOG.md`**: A text file containing all notable changes to the project.
 
-13. **`README.md`**: A text file containing useful reference information about your project.
+13. **`__generated__`**: Where TypeScript typings are generated for your GraphQL queries. You can use these files for strongly typing your App
 
-14. **`CHANGELOG.md`**: A text file containing all notable changes to the project.
+14. **`babel.config.js`**: [Babel configurations](https://babeljs.io/docs/en/configuration#babelrcjson) for you app. This is where you can change the targeted browsers.
 
-15. **`__generated__`**: Where TypeScript typings are generated for your GraphQL queries. You can use these files for strongly typing your App
+15. **`cypress`**: End to End(e2e) tests using Cypress. Most of the scenarios are covered here. Add your custom flows to avoid regressions
 
-16. **`babel.config.js`**: [Babel configurations](https://babeljs.io/docs/en/configuration#babelrcjson) for you app. This is where you can change the targeted browsers.
+16. **`cypress.json`**: [Cypress configuration file](https://docs.cypress.io/guides/references/configuration)
 
-17. **`cypress`**: End to End(e2e) tests using Cypress. Most of the scenarios are covered here. Add your custom flows to avoid regressions
+17. **`lighthouserc.js`**: Configures [Google Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci). This is where you can turn on/off lighthouse assertions to be used by Lighthouse CI Bot/hook
 
-18. **`cypress.json`**: [Cypress configuration file](https://docs.cypress.io/guides/references/configuration)
+18. **`pull_request_template.md`**: Template used when creating your Pull Requests
 
-19. **`gatsby-browser.js`**: Lets you respond to Gatsby-specific events within the browser, and wrap your page components in additional global components. The Gatsby Browser API gives you many options for interacting with the client-side of Gatsby. More info at: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-browser/
+19. **`renovate.json`**: Renovate configuration file to keep your store always fresh with FastStore's latest versions
 
-20. **`gatsby-ssr.js`**: Lets you respond to Gatsby-specific events during SSG and SSR, and wrap your page components in additional global components. More info at: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-ssr/
+20. **`.prettierignore`**: Ignore listed files when applying prettier rules
 
-21. **`lighthouserc.js`**: Configures [Google Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci). This is where you can turn on/off lighthouse assertions to be used by Lighthouse CI Bot/hook
-
-22. **`pull_request_template.md`**: Template used when creating your Pull Requests
-
-23. **`renovate.json`**: Renovate configuration file to keep your store always fresh with FastStore's latest versions
-
-24. **`.prettierignore`**: Ignore listed files when applying prettier rules
-
-25. **`.eslintignore`**: Ignore listed files when applying eslint rules
+21. **`.eslintignore`**: Ignore listed files when applying eslint rules
 
 ## 💻 Code Structure
 
@@ -174,7 +160,7 @@ The `controller` is inside the `src/sdk` folder. This is where you will find mos
 The `views` are written in the `src/components` folder and are subdivided into domain-specific components. Cart related items are inside the `src/components/cart` folder. Search and Product related components like facets, product summary, and search results are in their respective folders. Basic building blocks components are inside the UI folder. Components like button, checkbox, and modal are good candidates for the UI folder.
 Section components are those components that occupy a whole slice on the webpage and are desirable to be changed by a CMS. Section components are Product Gallery, Carousel, Shelf and Product description.
 
-The `model`, in a website, is where the data fetching occurs. Since this project uses Jamstack, a crucial design decision was made to explicitly split where Static and Dynamic data are fetched. The files inside the `src/pages` folder use [Gatsby's File System Route API](https://www.gatsbyjs.com/docs/reference/routing/file-system-route-api/) to declare routes and fetch static data. The files inside the `src/views` folder revalidate and enrich static data with dynamic attributes.
+The `model`, in a website, is where the data fetching occurs. Since this project uses Jamstack, a crucial design decision was made to explicitly split where Static and Dynamic data are fetched. The files inside the `src/pages` folder use [NextJS's File System Route API](https://nextjs.org/docs/routing/introduction) to declare routes and fetch static data.
 
 To summarize:
 
@@ -421,7 +407,7 @@ This means we can statically analyse your code in search of bugs and secure your
 $ yarn develop
 ```
 
-Now, after the gatsby development server is up and running, open another terminal and run
+Now, after the nextjs development server is up and running, open another terminal and run
 
 ```sh
 $ yarn generate
@@ -433,21 +419,11 @@ That's it! you have just regenerated all graphql queries/fragments for your appl
 
 ## 🎓 Learning the Frameworks
 
-Looking for more guidance? Full documentation for FastStore lives [on this GitHub repository](https://github.com/vtex/faststore). Also, for learning Gatsby, take a look at the [Gatsby Website](https://www.gatsbyjs.com/), they have plenty of tutorials and examples in there.
+Looking for more guidance? Full documentation for FastStore lives [on this GitHub repository](https://github.com/vtex/faststore). Also, for learning NextJS, take a look at the [NextJS Website](https://nextjs.org/docs/getting-started), they have plenty of tutorials and examples in there.
 
 ## ⚡ Performance & QA
 
 This project has strict performance budgets. Right out of the box, this project performs around 95 on Google's Page Speed Insights website, which usually is way more strict than your laptop's chrome lighthouse. Every time you commit to the repository, our QA bots will run and evaluate your code quality. We recommend you NEVER put in production a code that breaks any of the bots. If a bot breaks and still you need to put the code into production, change the bot config (`lighthouserc.js`, `cypress.json`) to make it pass and merge. This way you ensure your website will keep performing well during the years to come.
-
-### Lazy loading components
-
-[According to Gatsby](https://www.gatsbyjs.com/docs/how-to/performance/improving-site-performance/#step-5-on-critical-paths-lazy-load-below-the-fold-components):
-
-> `loadable-components` is the recommended lazy-loading solution for all server-side-rendered React applications, including Gatsby websites.
-
-So First, try to use the native `lazy`/`Suspense` alternative. But if there is some Server Side Rendered dependency, switch to using the `loadable-components`.
-
-Finally, for that pages that can use both `lazy` and `loadable`, keep the preference to use only `loadable` for the sake of avoiding loading two different things for the same purpose.
 
 ## Adding third party scripts
 
