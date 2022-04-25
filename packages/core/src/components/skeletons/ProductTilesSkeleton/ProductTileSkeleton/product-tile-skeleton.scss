@@ -1,0 +1,170 @@
+@import "src/styles/scaffold";
+
+[data-store-product-tile-skeleton] {
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+
+  &[data-tile-index="1"] {
+    min-width: 9rem;
+    height: 24rem;
+
+    @include media(">=tablet") { height: 28rem; }
+  }
+
+  &[data-variant="wide"] {
+    [data-product-tile-skeleton-content] {
+      background-color: var(--fs-color-neutral-bkg);
+
+      @include media(">=tablet") {
+        padding: var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-3);
+      }
+    }
+  }
+
+  [data-product-tile-skeleton-image] {
+    height: 60%;
+    min-height: 60%;
+    border-radius: var(--fs-border-radius-default) var(--fs-border-radius-default) 0 0;
+
+    @include media(">=tablet") {
+      height: 70%;
+      min-height: 70%;
+    }
+
+    @include media(">=notebook") {
+      height: 80%;
+      min-height: 80%;
+    }
+
+    &[data-tile-index="1"] {
+      height: 80%;
+
+      @include media(">=tablet") {
+        height: 70%;
+        min-height: 70%;
+      }
+
+      @include media(">=notebook") {
+        height: 80%;
+        min-height: 80%;
+      }
+    }
+
+    [data-store-skeleton-element] { height: 100%; }
+
+    [data-element-variant="image"] {
+      width: 100%;
+      height: 100%;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  [data-product-tile-skeleton-content] {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 40%;
+    padding: var(--fs-spacing-3);
+    border-bottom-right-radius: var(--fs-border-radius-default);
+    border-bottom-left-radius: var(--fs-border-radius-default);
+
+    @include media(">=tablet") {
+      flex-flow: row wrap;
+      height: 30%;
+    }
+
+    @include media(">=notebook") {
+      flex-flow: row wrap;
+      height: 20%;
+    }
+
+    &[data-tile-index="1"] {
+      height: 20%;
+      padding: var(--fs-spacing-2) var(--fs-spacing-3);
+
+      @include media(">=tablet") {
+        flex-flow: row wrap;
+        height: 30%;
+      }
+
+      @include media(">=notebook") { height: 20%; }
+    }
+
+    [data-product-tile-skeleton-text] {
+      width: 70%;
+
+      @include media(">=tablet") {
+        width: 50%;
+
+        &[data-tile-index="2"],
+        &[data-tile-index="3"] { width: 100%; }
+      }
+
+      @include media(">=notebook") {
+        width: 60%;
+
+        &[data-tile-index="2"],
+        &[data-tile-index="3"] { width: 60%; }
+      }
+
+      [data-element-variant="text"] { margin-bottom: var(--fs-spacing-1); }
+
+      [data-product-tile-skeleton-price] {
+        width: 60%;
+
+        @include media(">=tablet") { width: 100%; }
+      }
+    }
+
+    [data-product-tile-skeleton-badge] {
+      position: absolute;
+      right: var(--fs-spacing-1);
+      width: 20%;
+
+      @include media(">=tablet") { width: 20%; }
+
+      &[data-tile-index="2"],
+      &[data-tile-index="3"] {
+        bottom: var(--fs-spacing-2);
+        left: var(--fs-spacing-3);
+        width: 30%;
+
+        @include media(">=tablet") {
+          position: relative;
+          bottom: 0;
+          left: var(--fs-spacing-2);
+          width: 50%;
+        }
+
+        @include media(">=notebook") {
+          position: absolute;
+          right: var(--fs-spacing-1);
+          bottom: unset;
+          left: unset;
+          width: 30%;
+        }
+      }
+
+      [data-element-variant="badge"] {
+        width: 100%;
+        height: var(--fs-spacing-4);
+
+        @include media(">=tablet") {
+          position: absolute;
+          right: var(--fs-spacing-1);
+        }
+
+        @include media(">=notebook") {
+          position: relative;
+          right: var(--fs-spacing-0);
+        }
+      }
+    }
+  }
+}

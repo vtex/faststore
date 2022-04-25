@@ -1,0 +1,47 @@
+@import "src/styles/scaffold";
+
+.cart-item {
+  padding: var(--fs-spacing-3);
+  background-color: var(--fs-color-neutral-0);
+  border: var(--fs-border-width-default) solid var(--fs-border-color-light);
+  border-radius: var(--fs-border-radius-default);
+
+  [data-card-content] {
+    display: grid;
+    grid-template-columns: rem(72px) repeat(4, 1fr);
+    column-gap: var(--fs-grid-gap-2);
+    align-items: center;
+  }
+
+  [data-gatsby-image-wrapper] {
+    flex-shrink: 0;
+    margin-bottom: auto;
+    border-radius: var(--fs-border-radius-default);
+  }
+
+  [data-cart-item-summary] {
+    flex-direction: column;
+    grid-column: 2 / span 4;
+  }
+
+  [data-cart-item-title] {
+    margin-bottom: var(--fs-spacing-0);
+    line-height: 1.2;
+    color: inherit;
+    text-decoration: none;
+    outline: none;
+
+    @include truncate-title;
+  }
+
+  [data-cart-item-prices] {
+    display: flex;
+    align-items: baseline;
+  }
+
+  [data-card-actions] {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--fs-spacing-3);
+  }
+}

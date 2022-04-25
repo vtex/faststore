@@ -1,0 +1,166 @@
+@import "src/styles/scaffold";
+
+[data-fs-hero] {
+  // --------------------------------------------------------
+  // Design Tokens for Hero Section
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-hero-title-line-height          : 1.1;
+
+  --fs-hero-text-size                  : var(--fs-text-size-lead);
+  --fs-hero-text-line-height           : 1.33;
+
+  // Primary
+  --fs-hero-primary-img-height-mob     : #{rem(240px)};
+  --fs-hero-primary-img-height-desk    : #{rem(464px)};
+  --fs-hero-primary-title-size         : var(--fs-text-size-title-huge);
+
+  // Secondary
+  --fs-hero-secondary-img-height-mob   : #{rem(180px)};
+  --fs-hero-secondary-img-height-desk  : #{rem(227px)};
+  --fs-hero-secondary-title-size       : var(--fs-text-size-title-page);
+
+  // Main
+  --fs-hero-main-bkg-color             : var(--fs-color-primary-bkg);
+  --fs-hero-main-text-color            : var(--fs-color-primary-text);
+
+  // Light
+  --fs-hero-light-bkg-color            : var(--fs-color-secondary-bkg-light);
+  --fs-hero-light-text-color           : var(--fs-color-secondary-text);
+
+  // Accent
+  --fs-hero-accent-bkg-color           : var(--fs-color-highlight-bkg);
+  --fs-hero-accent-text-color          : var(--fs-hero-light-text-color);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @include media(">=tablet") {
+    position: relative;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+}
+
+[data-fs-hero-content] {
+  width: 100%;
+  padding: var(--fs-spacing-5) 0 var(--fs-spacing-6);
+
+  h1 {
+    font-weight: var(--fs-text-weight-black);
+    line-height: var(--fs-hero-title-line-height);
+  }
+
+  p {
+    margin-top: var(--fs-spacing-2);
+    font-size: var(--fs-hero-text-size);
+    line-height: var(--fs-hero-text-line-height);
+
+    @include media(">=tablet") { margin-top: var(--fs-spacing-4); }
+  }
+
+  [data-fs-button] {
+    justify-content: space-between;
+    min-width: 11.25rem;
+    margin-top: var(--fs-spacing-6);
+  }
+}
+
+[data-fs-hero-wrapper] {
+  display: flex;
+  gap: var(--fs-spacing-3);
+  justify-content: space-between;
+
+  @include media(">=tablet") {
+    gap: var(--fs-spacing-1);
+    justify-content: flex-start;
+  }
+}
+
+[data-fs-hero-icon] { color: var(--fs-hero-text-color); }
+
+[data-fs-hero-image] {
+  @include media(">=tablet") {
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+// --------------------------------------------------------
+// Variants Styles
+// --------------------------------------------------------
+
+[data-fs-hero-variant="primary"] {
+  @include media(">=tablet") { min-height: var(--fs-hero-primary-img-height-desk); }
+
+  h1 { font-size: var(--fs-hero-primary-title-size); }
+
+  [data-fs-hero-content] {
+    @include media(">=tablet") {
+      display: flex;
+      align-items: center;
+      padding: var(--fs-spacing-9) 0;
+    }
+  }
+
+  [data-fs-button] {
+    @include media(">=tablet") { margin-top: var(--fs-spacing-8); }
+  }
+
+  [data-fs-hero-image] {
+    @include media("<tablet") { height: var(--fs-hero-primary-img-height-mob); }
+  }
+
+  [data-fs-hero-info] {
+    @include media(">=tablet") {
+      width: 46%;
+      padding-right: var(--fs-spacing-9);
+    }
+  }
+}
+
+[data-fs-hero-variant="secondary"] {
+  @include media(">=tablet") { min-height: var(--fs-hero-secondary-img-height-desk); }
+
+  h1 { font-size: var(--fs-hero-secondary-title-size); }
+
+  [data-fs-hero-info] {
+    @include media(">=tablet") {
+      width: 42%;
+    }
+  }
+
+  [data-fs-hero-content] {
+    padding: var(--fs-spacing-4) 0 var(--fs-spacing-5);
+
+    @include media(">=tablet") { padding: var(--fs-spacing-5) 0; }
+  }
+
+  [data-fs-hero-image] {
+    @include media("<tablet") { height: var(--fs-hero-secondary-img-height-mob); }
+  }
+}
+
+[data-fs-hero-color-variant="main"] {
+  color: var(--fs-hero-main-text-color);
+  background-color: var(--fs-hero-main-bkg-color);
+}
+
+[data-fs-hero-color-variant="light"] {
+  color: var(--fs-hero-light-text-color);
+  background-color: var(--fs-hero-light-bkg-color);
+}
+
+[data-fs-hero-color-variant="accent"] {
+  color: var(--fs-hero-accent-text-color);
+  background-color: var(--fs-hero-accent-bkg-color);
+}

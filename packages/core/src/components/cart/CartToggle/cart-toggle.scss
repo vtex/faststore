@@ -1,0 +1,25 @@
+@import "src/styles/scaffold";
+
+[data-fs-button-cart] {
+  position: relative;
+
+  &::after {
+    --cart-toggle-size: var(--fs-spacing-3);
+
+    position: absolute;
+    top: rem(6px);
+    left: rem(26px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--cart-toggle-size);
+    height: var(--cart-toggle-size);
+    padding: var(--fs-spacing-0);
+    font-size: var(--fs-text-size-0);
+    font-weight: var(--fs-text-weight-bold);
+    color: var(--fs-color-text-inverse);
+    content: attr(data-items);
+    background: var(--fs-color-primary-bkg);
+    border-radius: var(--fs-border-radius-pill);
+  }
+}

@@ -1,0 +1,11 @@
+@import "src/styles/scaffold";
+
+[data-fs-regionalization-button] {
+  padding-right: var(--fs-spacing-1);
+  margin-left: calc(-1 * var(--fs-spacing-2));
+  border-right: var(--fs-border-width-default) solid var(--fs-border-color-light);
+
+  [data-fs-button][data-fs-button-variant="tertiary"] {
+    color: var(--fs-color-text-display);
+  }
+}

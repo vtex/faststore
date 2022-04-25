@@ -1,0 +1,60 @@
+@import "src/styles/scaffold";
+
+[data-modal-overlay] {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  background-color: rgb(0 0 0 / 20%);
+}
+
+[data-slide-over] {
+  position: fixed;
+  height: 100vh;
+  background-color: var(--fs-color-neutral-0);
+}
+
+[data-slide-over-size="full"] {
+  width: 100vw;
+}
+
+[data-slide-over-size="partial"] {
+  --gap-out: 48px;
+
+  width: calc(100vw - var(--gap-out));
+
+  @include media(">=notebook") {
+    width: calc(100% / 3);
+    max-width: calc(var(--fs-grid-breakpoint-notebook) / 3);
+  }
+}
+
+[data-slide-over-direction="leftSide"] {
+  left: 0;
+}
+
+[data-slide-over-direction="leftSide"][data-slide-over-state="in"] {
+  transition: transform .25s ease-in;
+  transform: translateX(0);
+}
+
+[data-slide-over-direction="leftSide"][data-slide-over-state="out"] {
+  transition: transform .25s ease-out;
+  transform: translateX(-100%);
+}
+
+[data-slide-over-direction="rightSide"] {
+  right: 0;
+}
+
+[data-slide-over-direction="rightSide"][data-slide-over-state="in"] {
+  transition: transform .25s ease-in;
+  transform: translateX(0);
+}
+
+[data-slide-over-direction="rightSide"][data-slide-over-state="out"] {
+  transition: transform .25s ease-out;
+  transform: translateX(100%);
+}

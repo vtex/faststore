@@ -1,0 +1,24 @@
+[data-store-shimmer] {
+  /*
+   * Parent must have `position: relative` and `overflow: hidden`
+   * in order to the effect to work properly.
+   */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  animation: loading 800ms infinite linear;
+
+  [data-shimmer] {
+    width: 50%;
+    height: 100%;
+    background: rgb(255 255 255 / 20%);
+    box-shadow: 0 0 var(--fs-spacing-5) var(--fs-spacing-5) rgb(255 255 255 / 20%);
+  }
+}
+
+@keyframes loading {
+  0% { transform: translate3d(-50vw, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}

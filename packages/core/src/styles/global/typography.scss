@@ -1,0 +1,72 @@
+// ----------------------------------------------------------
+// GLOBAL STYLES
+// Typography (Text)
+// ----------------------------------------------------------
+
+@import "src/styles/scaffold";
+
+body {
+  font-family: var(--fs-text-face-body);
+  font-size: var(--fs-text-size-base);
+  letter-spacing: .01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+  padding: 0;
+  margin: 0;
+}
+
+.text__title-product {
+  font-size: var(--fs-text-size-4);
+  font-weight: var(--fs-text-weight-regular);
+  line-height: 1.12;
+}
+
+.text__title-section {
+  font-size: var(--fs-text-size-4);
+  font-weight: var(--fs-text-weight-bold);
+  line-height: 1.16;
+
+  @include media(">=notebook") { font-size: var(--fs-text-size-5); }
+}
+
+.text__title-subsection {
+  font-size: var(--fs-text-size-3);
+  font-weight: var(--fs-text-weight-bold);
+  line-height: 1.2;
+}
+
+.text__title-mini {
+  font-size: var(--fs-text-size-2);
+  font-weight: var(--fs-text-weight-bold);
+  line-height: 1.25;
+}
+
+// TODO: Can we replace this with `.text__body`?
+.text__title-mini-alt {
+  font-size: var(--fs-text-size-2);
+  line-height: 1.25;
+}
+
+.text__lead {
+  font-size: var(--fs-text-size-4);
+  font-weight: var(--fs-text-weight-bold);
+  line-height: 1.12;
+}
+
+.text__body {
+  font-size: var(--fs-text-size-2);
+  line-height: 1.5;
+}
+
+.text__legend {
+  font-size: var(--fs-text-size-1);
+  line-height: 1.7;
+}
+
+.text__tiny {
+  font-size: var(--fs-text-size-0);
+  line-height: 1.5;
+}

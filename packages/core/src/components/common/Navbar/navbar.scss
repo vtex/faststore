@@ -1,0 +1,204 @@
+@import "src/styles/scaffold";
+
+.navbar {
+  padding: 0;
+  border-bottom: var(--fs-border-width-default) solid var(--fs-color-neutral-2);
+  box-shadow: 0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%);
+
+  [data-store-search-input] {
+    flex: 1 0 100%;
+    order: 2;
+
+    @include media("<notebook") {
+      display: none;
+    }
+  }
+}
+
+.navbar__row {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  @include media(">=notebook") {
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 37.5rem) 1fr;
+  }
+
+  @include media("<notebook") {
+    + .navlinks__list {
+      display: none;
+    }
+  }
+
+  [data-fs-button-menu] {
+    @include media(">=notebook") { display: none; }
+  }
+}
+
+.navbar__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  [data-fs-button-collapse] {
+    margin-left: calc(-1 * var(--fs-spacing-3));
+  }
+
+  [data-fs-button-signin-link] {
+    display: none;
+  }
+
+  @include media(">=notebook") {
+    order: 2;
+
+    [data-fs-button-signin-link] {
+      display: inline-flex;
+    }
+  }
+
+  [data-store-search-input] {
+    display: none;
+    transition: flex 0.3s ease-in;
+
+    @include media("<notebook") {
+      display: inline-flex;
+      flex: 0;
+      order: 0;
+      width: min-content;
+
+      [data-store-input] {
+        width: 0;
+        padding: 0;
+        border-width: 0;
+
+        &:hover, &:focus, &:focus-visible &:hover:focus-visible {
+          border-width: 0;
+          box-shadow: 0 0;
+        }
+      }
+
+      [data-store-icon] {
+        margin-right: 0;
+        line-height: 0;
+
+        svg {
+          width: var(--fs-spacing-5);
+          height: var(--fs-spacing-5);
+        }
+      }
+    }
+  }
+
+  &[data-store-search-expanded="true"] {
+    width: 100%;
+
+    [data-store-search-input] {
+      flex: 1 1;
+      margin-right: 0.625rem;
+      margin-left: var(--fs-spacing-9);
+
+      [data-store-input] {
+        width: calc(100% - var(--fs-spacing-7));
+      }
+
+      [data-store-icon] {
+        margin-right: 0;
+      }
+    }
+
+    [data-fs-button-icon] {
+      margin-right: -4.063rem;
+      transition: margin 0.3s ease-in;
+    }
+  }
+}
+
+.navbar__header {
+  padding-top: var(--fs-spacing-1);
+  padding-bottom: var(--fs-spacing-2);
+  overflow: hidden;
+
+  @include media(">=notebook") {
+    padding-top: var(--fs-spacing-1);
+    padding-bottom: var(--fs-spacing-1);
+  }
+}
+
+.navbar__logo {
+  width: 11rem;
+  height: 2.375rem;
+  min-height: 2.375rem;
+  padding: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  @include media("<tablet") {
+    margin-right: var(--fs-spacing-5);
+  }
+}
+
+.navbar__modal-body {
+  padding: var(--fs-spacing-3);
+}
+
+.navbar__modal-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--fs-spacing-2);
+
+  [data-fs-button-icon] {
+    margin-right: calc(-1 * var(--fs-spacing-1));
+  }
+}
+
+.navlinks {
+  .navlinks__signin {
+    padding-top: var(--fs-spacing-2);
+    margin-top: var(--fs-spacing-2);
+
+    .signin-link[data-fs-button-signin-link] {
+      width: fit-content;
+      padding-left: 0;
+
+      @include media(">=notebook") { display: none; }
+    }
+  }
+}
+
+.navlinks__list {
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    display: block;
+    width: 100%;
+  }
+
+  @include media(">=notebook") {
+    ul {
+      display: flex;
+      column-gap: var(--fs-spacing-3);
+      padding-top: var(--fs-spacing-1);
+    }
+
+    a {
+      width: auto;
+      padding: var(--fs-spacing-0) 0;
+    }
+  }
+
+  @include media("<notebook") {
+    border-top: var(--fs-border-width-default) solid var(--fs-color-neutral-2);
+    border-bottom: var(--fs-border-width-default) solid var(--fs-color-neutral-2);
+  }
+}

@@ -1,0 +1,48 @@
+@import "src/styles/scaffold";
+
+a, [data-fs-link] {
+  border-radius: var(--fs-border-radius-default);
+  transition: box-shadow .5s ease;
+
+  @include focus-ring-visible;
+}
+
+[data-fs-link] {
+  min-width: auto;
+  min-height: auto;
+  padding: var(--fs-spacing-2) var(--fs-spacing-0);
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+  &:visited { color: var(--fs-color-link-visited); }
+}
+
+// Links ////////////////////////////
+
+[data-fs-link-variant="default"] {
+  line-height: 1.5;
+  color: var(--fs-color-link);
+}
+
+[data-fs-link-variant="display"] {
+  line-height: 1.5;
+  color: var(--fs-color-text-display);
+  &:visited { color: var(--fs-color-text-display); }
+}
+
+[data-fs-link-variant="inline"] {
+  display: inline-block;
+  padding: 0;
+  text-decoration: underline;
+}
+
+[data-fs-link-variant="footer"] {
+  font-size: var(--fs-text-size-1);
+  color: var(--fs-color-text);
+
+  @include media(">=notebook") { padding: var(--fs-spacing-1) var(--fs-spacing-0); }
+}
+
+[data-fs-link-inverse] {
+  color: var(--fs-color-link-inverse);
+  &:visited { color: var(--fs-color-link-inverse); }
+}

@@ -1,0 +1,15 @@
+@import "src/styles/scaffold";
+
+.regionalization-input {
+  // Lighthouse
+  margin-top: var(--fs-spacing-3);
+
+  [data-store-input] {
+    border: var(--fs-border-width-default) solid var(--fs-border-color-default);
+    border-radius: var(--fs-border-radius-default);
+
+    // Lighthouse
+    height: var(--fs-control-tap-size); /* stylelint-disable-line */
+    margin-left: var(--fs-spacing-3);
+  }
+}

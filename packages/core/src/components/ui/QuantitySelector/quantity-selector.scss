@@ -1,0 +1,160 @@
+@import "src/styles/scaffold";
+
+[data-fs-quantity-selector] {
+  // --------------------------------------------------------
+  // Design Tokens for Quantity Selector
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-qty-selector-width                     : calc(var(--fs-control-tap-size) * 2.7);
+  --fs-qty-selector-height                    : calc(var(--fs-control-tap-size) + (var(--fs-qty-selector-border-width) * 2));
+
+  --fs-qty-selector-shadow                    : none;
+  --fs-qty-selector-shadow-hover              : 0 0 0 var(--fs-border-width-default) var(--fs-border-color-default-active);
+
+  --fs-qty-selector-bkg-color                 : var(--fs-color-body-bkg);
+  --fs-qty-selector-bkg-color-hover           : var(--fs-qty-selector-bkg-color);
+
+  --fs-qty-selector-text-size                 : var(--fs-text-size-base);
+  --fs-qty-selector-text-color                : var(--fs-color-text);
+  --fs-qty-selector-text-color-hover          : var(--fs-qty-selector-text-color);
+
+  --fs-qty-selector-icon-color                : var(--fs-color-link);
+  --fs-qty-selector-icon-color-hover          : var(--fs-border-color-default-active);
+
+  --fs-qty-selector-border-radius             : var(--fs-border-radius-default);
+  --fs-qty-selector-border-width              : var(--fs-border-width-default);
+  --fs-qty-selector-border-width-hover        : var(--fs-border-width-default);
+  --fs-qty-selector-border-color              : var(--fs-border-color-default);
+  --fs-qty-selector-border-color-hover        : var(--fs-border-color-default-active);
+
+  --fs-qty-selector-button-shadow             : none;
+  --fs-qty-selector-button-shadow-hover       : none;
+  --fs-qty-selector-button-bkg-color          : transparent;
+  --fs-qty-selector-button-bkg-color-hover    : var(--fs-color-primary-bkg-light);
+  --fs-qty-selector-button-bkg-color-focus    : var(--fs-qty-selector-button-bkg-color-hover);
+  --fs-qty-selector-button-border-radius      : var(--fs-qty-selector-border-radius);
+
+  --fs-qty-selector-transition-function       : var(--fs-transition-function);
+  --fs-qty-selector-transition-property       : var(--fs-transition-property);
+  --fs-qty-selector-transition-timing         : var(--fs-transition-timing);
+
+  // Disabled properties
+  --fs-qty-selector-disabled-bkg-color        : var(--fs-color-disabled-bkg);
+  --fs-qty-selector-disabled-text-color       : var(--fs-color-disabled-text);
+  --fs-qty-selector-disabled-icon-color       : var(--fs-border-color-light-disabled);
+  --fs-qty-selector-disabled-border-color     : var(--fs-qty-selector-disabled-bkg-color);
+  --fs-qty-selector-disabled-button-bkg-color : var(--fs-qty-selector-button-bkg-color-hover);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: var(--fs-qty-selector-width);
+  height: var(--fs-qty-selector-height);
+  border-radius: var(--fs-qty-selector-border-radius);
+  box-shadow: var(--fs-qty-selector-shadow);
+
+  [data-store-icon] {
+    margin: 0;
+    line-height: 0;
+    color: var(--fs-qty-selector-icon-color);
+  }
+
+  [data-quantity-selector-input] {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    font-size: var(--fs-qty-selector-text-size);
+    color: var(--fs-qty-selector-text-color);
+    text-align: center;
+    background-color: var(--fs-qty-selector-bkg-color);
+    border: var(--fs-qty-selector-border-width) solid var(--fs-qty-selector-border-color);
+    border-radius: var(--fs-qty-selector-border-radius);
+    transition:
+      var(--fs-qty-selector-transition-property)
+      var(--fs-qty-selector-transition-timing)
+      var(--fs-qty-selector-transition-function);
+
+    @include input-focus-ring;
+  }
+
+  [data-quantity-selector-button] {
+    position: absolute;
+    min-width: var(--fs-control-tap-size);
+    height: 100%;
+    min-height: var(--fs-control-tap-size);
+    padding: var(--fs-spacing-1);
+    background-color: var(--fs-qty-selector-button-bkg-color);
+    border: 0;
+    border-radius: var(--fs-qty-selector-button-border-radius);
+
+    [data-store-icon] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--fs-qty-selector-button-border-radius);
+      box-shadow: var(--fs-qty-selector-button-shadow);
+      transition:
+        var(--fs-qty-selector-transition-property)
+        var(--fs-qty-selector-transition-timing)
+        var(--fs-qty-selector-transition-function);
+    }
+
+    &:first-of-type { left: 0; }
+
+    &:last-of-type { right: 0; }
+
+    &:hover:not(:disabled) [data-store-icon] {
+      background-color: var(--fs-qty-selector-button-bkg-color-hover);
+      box-shadow: var(--fs-qty-selector-button-shadow-hover);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+
+      [data-store-icon] {
+        color: var(--fs-qty-selector-disabled-icon-color);
+      }
+    }
+
+    &:focus-visible {
+      outline: none;
+
+      [data-store-icon] {
+        @include focus-ring;
+
+        background-color: var(--fs-qty-selector-button-bkg-color-focus);
+      }
+    }
+  }
+
+  &:hover {
+    [data-quantity-selector-input]:not(:disabled):not(:focus) {
+      color: var(--fs-qty-selector-text-color-hover);
+      background-color: var(--fs-qty-selector-bkg-color-hover);
+      border-color: var(--fs-qty-selector-border-color-hover);
+      border-width: var(--fs-qty-selector-border-width-hover);
+      box-shadow: var(--fs-qty-selector-shadow-hover);
+    }
+  }
+}
+
+// --------------------------------------------------------
+// Variants Styles
+// --------------------------------------------------------
+
+[data-fs-quantity-selector="disabled"] {
+  [data-quantity-selector-input] {
+    background-color: var(--fs-qty-selector-disabled-bkg-color);
+    border-color: var(--fs-qty-selector-disabled-border-color);
+  }
+  [data-quantity-selector-button]:hover [data-store-icon] { background-color: transparent; }
+}

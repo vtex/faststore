@@ -1,0 +1,115 @@
+@import "src/styles/scaffold";
+
+.filter[data-store-filter] {
+  > .text__title-mini-alt {
+    display: flex;
+    align-items: center;
+    height: var(--product-listing-row-height);
+    margin-bottom: var(--fs-spacing-0);
+
+    @include media("<notebook") {
+      display: none;
+    }
+  }
+
+  [data-store-accordion] {
+    [data-store-list] {
+      padding-bottom: var(--fs-spacing-3);
+
+      li:not(:last-child) {
+        margin-bottom: var(--fs-spacing-3);
+      }
+    }
+
+    @include media(">=notebook") {
+      border: 1px solid var(--fs-border-color-light);
+      border-radius: var(--fs-border-radius-default);
+    }
+  }
+
+  [data-accordion-item] [data-store-button] {
+    font-size: var(--fs-text-size-3);
+    font-weight: var(--fs-text-weight-regular);
+    line-height: 1.5;
+
+    @include media(">=notebook") {
+      font-size: var(--fs-text-size-2);
+      line-height: 1.25;
+    }
+
+    [data-store-icon] [data-icon] {
+      display: none;
+    }
+
+    [data-store-icon] [data-icon="expanded"] {
+      display: initial;
+    }
+
+    [data-store-icon] [data-icon="collapsed"] {
+      display: initial;
+    }
+  }
+}
+
+.filter__item {
+  display: flex;
+  align-items: center;
+
+  [data-store-checkbox] {
+    flex-shrink: 0;
+    width: rem(20px);
+    height: rem(20px);
+  }
+
+  [data-store-label] {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-left: var(--fs-spacing-1);
+  }
+
+  [data-store-badge] {
+    margin-left: var(--fs-spacing-1);
+  }
+}
+
+.filter-modal__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  [data-fs-button-icon] {
+    margin-right: calc(-1 * var(--fs-spacing-1));
+  }
+}
+
+.filter-modal__body {
+  --filter-footer-height: 80px;
+
+  height: calc(100vh - var(--filter-footer-height));
+  padding: var(--fs-spacing-3) var(--fs-spacing-3) calc(var(--filter-footer-height) + var(--fs-spacing-3));
+  overflow-y: auto;
+}
+
+.filter-modal__footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--fs-spacing-3);
+  background-color: var(--fs-color-neutral-0);
+  box-shadow: 0 0 6px rgb(0 0 0 / 20%);
+
+  [data-fs-button] {
+    &[data-fs-button-variant="secondary"] {
+      width: 40%;
+      margin-right: var(--fs-spacing-3);
+    }
+
+    &[data-fs-button-variant="primary"] {
+      width: 60%;
+    }
+  }
+}

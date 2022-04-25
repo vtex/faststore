@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "vtex-react/gatsby",
+    "next/core-web-vitals"
+  ],
+  "root": true,
+  "rules": {
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/anchor-is-valid": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "ignorePatterns": [
+    "public/~partytown/*",
+    "next-env.d.ts"
+  ]
+}

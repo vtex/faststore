@@ -1,0 +1,69 @@
+// ----------------------------------------------------------
+// GLOBAL STYLES
+// Utilities
+// ----------------------------------------------------------
+
+/* SQ-DISABLE */
+@use "sass:math";
+
+/* SQ-ENABLE */
+
+// Px to rem.
+$base: 16px !default;
+
+@function rem($size) {
+  $rem: math.div($size, $base);
+
+  @return #{$rem}rem;
+}
+
+@mixin input-focus-ring($outline: #{var(--fs-color-focus-ring)}, $border: #{var(--fs-border-color-default-active)}) {
+  @media not all and (min-resolution: .001dpcm) { // Target only Safari browsers
+    @supports (-webkit-appearance:none) {         // Use `focus` instead of `focus-visible`
+      &:hover:focus,                              // due to Safari's lack of support
+      &:focus {
+        border-color: $border;
+        outline: none;
+        box-shadow:
+          0 0 0 1px var(--fs-color-body-bkg),
+          0 0 0 var(--fs-border-width-thickest) $outline,
+          inset 0 0 0 var(--fs-border-width-default) $border;
+      }
+    }
+  }
+
+  &:focus-visible,
+  &:hover:focus-visible {
+    border-color: $border;
+    outline: none;
+    box-shadow:
+      0 0 0 1px var(--fs-color-body-bkg),
+      0 0 0 var(--fs-border-width-thickest) $outline,
+      inset 0 0 0 var(--fs-border-width-default) $border;
+  }
+}
+
+@mixin focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--fs-color-body-bkg), 0 0 0 var(--fs-border-width-thickest) var(--fs-color-focus-ring);
+}
+
+@mixin focus-ring-visible {
+  @media not all and (min-resolution: .001dpcm) { // Target only Safari browsers
+    @supports (-webkit-appearance:none) {         // Use `focus` instead of `focus-visible`
+      &:focus { @include focus-ring; }            // due to Safari's lack of support
+    }
+  }
+  &:focus-visible { @include focus-ring; }
+}
+
+@mixin truncate-title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  text-overflow: -o-ellipsis-lastline;
+  text-overflow: ellipsis;
+}

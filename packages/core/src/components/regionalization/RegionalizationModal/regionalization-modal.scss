@@ -1,0 +1,95 @@
+@import "src/styles/scaffold";
+
+[data-modal-overlay] {
+  background-color: rgb(0 0 0 / 25%);
+}
+
+[data-regionalization-modal] {
+  position: fixed;
+  top: 30vh;
+  right: rem(24px);
+  left: rem(24px);
+  max-width: calc(var(--fs-grid-breakpoint-desktop) / 3);
+  margin: auto;
+  background-color: var(--fs-color-body-bkg);
+  border-radius: var(--fs-spacing-0);
+
+  @include media(">=tablet") {
+    width: calc(100vw / 3);
+    min-width: calc(var(--fs-grid-breakpoint-desktop) / 3);
+  }
+
+  &[data-regionalization-modal-state="in"] {
+    transition: transform .2s ease-in;
+    transform: translate3d(0, 0, 0);
+  }
+
+  &[data-regionalization-modal-state="out"] {
+    transition: transform .2s ease-out;
+    transform: translate3d(0, 50%, 0);
+  }
+
+  .regionalization-modal__header {
+    padding: var(--fs-spacing-4) var(--fs-spacing-7) var(--fs-spacing-4) var(--fs-spacing-4);
+
+    [data-regionalization-modal-title] {
+      margin-bottom: rem(10px);
+    }
+
+    [data-regionalization-modal-description] {
+      color: var(--fs-color-text-light);
+    }
+
+    [data-fs-regionalization-modal-button] {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .regionalization-modal__body {
+    padding: var(--fs-spacing-1) var(--fs-spacing-4) var(--fs-spacing-5);
+
+    [data-regionalization-modal-input] {
+      margin-bottom: var(--fs-spacing-6);
+    }
+
+    [data-store-link] {
+      display: flex;
+      flex-direction: row;
+      align-content: flex-start;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0;
+      color: var(--fs-color-link);
+
+      [data-regionalization-modal-link] {
+        margin-right: var(--fs-spacing-0);
+      }
+    }
+  }
+}
+
+@keyframes motion-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 50%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes motion-out {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 50%, 0);
+  }
+}

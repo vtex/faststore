@@ -1,0 +1,45 @@
+@import "src/styles/scaffold";
+
+[data-store-search-history-header] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: var(--fs-spacing-3);
+  padding-left: var(--fs-spacing-3);
+  margin-bottom: var(--fs-spacing-1);
+}
+
+[data-store-search-history-title] {
+  font-size: var(--fs-text-size-3);
+}
+
+[data-store-search-history] {
+  padding: var(--fs-spacing-1) var(--fs-spacing-3) var(--fs-spacing-2);
+  background-color: var(--bg-neutral-lightest);
+}
+
+[data-store-search-history-item] {
+  [data-store-link] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: var(--fs-spacing-3);
+    padding-left: var(--fs-spacing-3);
+    font-size: var(--fs-text-size-2);
+    color: var(--color-neutral-6);
+  }
+
+  [data-store-icon] {
+    display: flex;
+    &:first-of-type { margin-right: var(--fs-spacing-1); }
+  }
+}
+
+[data-store-search-history-arrow] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fs-spacing-4);
+  height: var(--fs-spacing-4);
+  margin-left: auto;
+}

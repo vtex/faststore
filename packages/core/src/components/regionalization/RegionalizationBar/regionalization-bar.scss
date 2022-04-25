@@ -1,0 +1,25 @@
+@import "src/styles/scaffold";
+
+[data-fs-regionalization-bar] {
+  width: 100%;
+
+  [data-fs-button] {
+    width: 100%;
+    padding: var(--fs-spacing-0) var(--fs-spacing-3);
+    color: var(--fs-color-text-display);
+    background-color: var(--fs-color-neutral-0);
+    border: 0;
+  }
+
+  span {
+    &:first-of-type {
+      margin-right: auto;
+      font-weight: var(--fs-text-weight-regular);
+    }
+
+    &:not(:first-of-type) {
+      margin-left: auto;
+      text-decoration: underline;
+    }
+  }
+}

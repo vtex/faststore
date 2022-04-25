@@ -1,0 +1,28 @@
+@import "src/styles/scaffold";
+
+[data-store-filter-skeleton] {
+  margin-top: var(--fs-spacing-1);
+
+  @include media("<notebook") { display: none; }
+
+  [data-filter-skeleton-content] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-0);
+    overflow: hidden;
+    border: var(--fs-border-width-default) solid var(--fs-border-color-light);
+    border-radius: var(--fs-border-radius-default);
+
+    [data-element-variant="text"] {
+      min-width: 100%;
+      min-height: var(--fs-spacing-8);
+      margin-bottom: var(--fs-spacing-0);
+    }
+  }
+
+  [data-element-variant="text"] {
+    max-width: 30%;
+    margin-bottom: var(--fs-spacing-2);
+  }
+}

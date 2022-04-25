@@ -1,0 +1,22 @@
+@import "src/styles/scaffold";
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--fs-grid-gap-0);
+
+  @include media(">=notebook") {
+    $pagination-start-index: 2;
+
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--fs-grid-gap-2);
+
+    &:nth-of-type(n + #{$pagination-start-index}) {
+      margin-top: var(--fs-grid-gap-2);
+    }
+  }
+
+  li {
+    background-color: var(--fs-color-neutral-0);
+  }
+}

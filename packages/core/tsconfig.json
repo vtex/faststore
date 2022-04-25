@@ -1,0 +1,25 @@
+{
+  "extends": "@vtex/tsconfig",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "jsxImportSource": "react",
+    "resolveJsonModule": true,
+    "module": "esnext",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "noEmit": true,
+    "allowJs": true,
+    "paths": {
+      "src/*": ["src/*"],
+      "@generated/*": ["@generated/*"]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "incremental": true,
+    "isolatedModules": true
+  },
+  "include": ["*.d.ts", "src/**/*.ts", "src/**/*.tsx", "@generated/**/*.ts"],
+  "exclude": ["node_modules", "public"]
+}

@@ -1,0 +1,47 @@
+@import "src/styles/scaffold";
+
+[data-select] {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  label {
+    margin-right: var(--fs-spacing-1);
+    color: var(--fs-color-text-light);
+  }
+
+  [data-store-select] {
+    padding: var(--fs-spacing-1) var(--fs-spacing-5) var(--fs-spacing-1) var(--fs-spacing-2);
+    color: var(--fs-color-link);
+    background: transparent;
+    border: 0;
+    border-radius: var(--fs-border-radius-default);
+    box-shadow: 0;
+    transition: box-shadow .2s ease, background-color .2s ease;
+    appearance: none;
+
+    @include focus-ring-visible;
+
+    &:focus { background-color: var(--fs-color-primary-bkg-light); }
+
+    &:hover:not(:disabled) { background-color: var(--fs-color-primary-bkg-light); }
+
+    &:disabled {
+      color: var(--fs-color-disabled-text);
+      cursor: not-allowed;
+      opacity: 1;
+      + svg { display: none; }
+    }
+
+    @include media("<notebook") { min-height: var(--fs-control-tap-size); }
+
+    @include media(">=notebook") { height: var(--fs-spacing-6); }
+  }
+
+  svg {
+    position: absolute;
+    right: var(--fs-spacing-2);
+    color: var(--fs-color-link);
+    pointer-events: none;
+  }
+}

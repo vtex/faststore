@@ -1,0 +1,45 @@
+@import "src/styles/scaffold";
+
+.accordion[data-store-accordion] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  [data-accordion-item] {
+    border-bottom: 1px solid var(--fs-border-color-light);
+
+    @include media(">=notebook") {
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  [data-accordion-panel] {
+    @include media(">=notebook") {
+      padding-right: var(--fs-spacing-4);
+      padding-left: var(--fs-spacing-4);
+    }
+  }
+
+  [data-store-button] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--fs-spacing-3) 0;
+    color: var(--fs-color-text);
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+
+    @include media(">=notebook") {
+      padding-right: var(--fs-spacing-4);
+      padding-left: var(--fs-spacing-4);
+    }
+  }
+
+  [data-store-icon] {
+    display: flex;
+  }
+}

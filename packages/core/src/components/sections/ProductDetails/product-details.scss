@@ -1,0 +1,101 @@
+@import "src/styles/scaffold";
+
+.product-details { margin-top: var(--fs-spacing-3); }
+
+.product-details__body {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--fs-spacing-4);
+  margin-top: var(--fs-spacing-3);
+
+  @include media(">=tablet") {
+    display: grid;
+    grid-template-rows: repeat(4, minmax(0, max-content));
+    grid-template-columns: repeat(12, 1fr);
+    row-gap: 0;
+    column-gap: var(--fs-spacing-4);
+  }
+}
+
+.product-details__image {
+  position: relative;
+  left: calc(-1 * var(--fs-grid-padding));
+  width: calc(100% + (2 * var(--fs-grid-padding)));
+
+  [data-gatsby-image-wrapper] {
+    @include media(">=tablet") {
+      border-radius: var(--fs-border-radius-default);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @include media(">=tablet") {
+    left: 0;
+    grid-row: 1 / span 2;
+    grid-column: span 7;
+    width: 100%;
+    margin-bottom: var(--fs-spacing-7);
+  }
+
+  @include media(">=notebook") { grid-column: span 8; }
+}
+
+.product-details__content {
+  margin-top: var(--fs-spacing-3);
+  .product-details__description .text__title-subsection { margin-bottom: var(--fs-spacing-3); }
+
+  @include media(">=tablet") {
+    grid-column: span 7;
+    margin-top: 0;
+  }
+
+  @include media(">=notebook") { grid-column: span 8; }
+}
+
+.product-details__title {
+  @include media(">=tablet") {
+    grid-row: 1;
+    grid-column: 8 / span 5;
+    border: 1px solid var(--fs-border-color-light);
+    border-radius: var(--fs-border-radius-default) var(--fs-border-radius-default) 0 0;
+  }
+
+  @include media(">=notebook") { grid-column: 9 / span 4; }
+}
+
+.product-details__settings {
+  height: fit-content;
+
+  [data-store-sku-selector] {
+    margin-bottom: var(--fs-spacing-4);
+    &:last-of-type { margin-bottom: var(--fs-spacing-7); }
+  }
+
+  [data-store-buy-button] { width: 100%; }
+
+  .price[data-store-price] {
+    display: block;
+
+    &[data-variant="spot"] {
+      margin: 0;
+      font-weight: var(--fs-text-weight-black);
+    }
+  }
+
+  @include media(">=tablet") {
+    grid-row: 2 / span 3;
+    grid-column: 8 / span 5;
+    padding: var(--fs-spacing-5);
+    border: 1px solid var(--fs-border-color-light);
+    border-top: 0;
+    border-radius: 0 0 var(--fs-border-radius-default) var(--fs-border-radius-default);
+  }
+
+  @include media(">=notebook") { grid-column: 9 / span 4; }
+}
+
+.product-details__values {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--fs-spacing-4);
+}
