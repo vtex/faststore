@@ -22,7 +22,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         type: 'search.query',
         text: searchArgs.query,
         misspelled: products.correction.misspelled,
-        match: products.total,
+        match: products.recordsFiltered,
         operator: products.operator,
       }).catch(console.error)
     }
