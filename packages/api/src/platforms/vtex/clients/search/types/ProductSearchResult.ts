@@ -7,7 +7,7 @@ export interface ProductSearchResult {
   translated: boolean
   locale: string
   query: string
-  operator: string
+  operator: 'and' | 'or'
   fuzzy: string
   correction: Correction
 }

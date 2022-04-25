@@ -10,10 +10,22 @@ const REMOVED_FACETS_FROM_COLLECTION_PAGE = ['departamento']
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   products: async (searchArgs, _, ctx) => {
     const {
-      clients: { search },
+      clients: { search, sp },
     } = ctx
 
     const products = await search.products(searchArgs)
+
+    // Raise event on search's analytics API when performing
+    // a full text search.
+    if (searchArgs.query) {
+      sp.sendEvent({
+        type: 'search.query',
+        text: searchArgs.query,
+        misspelled: products.correction.misspelled,
+        match: products.total,
+        operator: products.operator,
+      }).catch(console.error)
+    }
 
     const skus = products.products
       .map((product) => {
