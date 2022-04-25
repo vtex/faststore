@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Integrates with search.query event api (#2)
 - Applies new local tokens to `Badge` (#462)
 - Applies new local tokens to `Hero` (#435)
 - Applies new local tokens to `Quantity Selector` (#448)
