@@ -7,8 +7,8 @@
 ## How to test it?
 <!--- Describe the steps with bullet points. Is there any external link that can be used to better test it or an example? --->
 
-### `base.store` Deploy Preview
-<!--- Add a link to a deploy preview from `base.store` with this branch being used. --->
+### Starters Deploy Preview
+<!--- Add a link to a deploy preview from `gatsby.store` AND `nextjs.store` with this branch being used. --->
 
 <!--- Tip: You can get an installable version of this branch from the CodeSandbox generated when this PR is created. --->
 

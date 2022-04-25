@@ -1,8 +1,13 @@
 [
   {
-    "name": "Base Store",
+    "name": "Gatsby Store",
     "imgPath": "/img/starters/base-store-thumbnail.png",
-    "url": "/starters/base"
+    "url": "/starters/gatsby"
+  },
+  {
+    "name": "NextJS Store",
+    "imgPath": "/img/starters/base-store-thumbnail.png",
+    "url": "/starters/nextjs"
   },
   {
     "name": "CMS Base Store",

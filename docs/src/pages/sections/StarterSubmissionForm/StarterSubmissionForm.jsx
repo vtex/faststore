@@ -44,7 +44,7 @@ function StarterSubmissionForm() {
         <label htmlFor="GitHubRepo">Github repository URL</label>
         <input
             required
-            placeholder="https://github.com/vtex-sites/base.store"
+            placeholder="https://github.com/vtex-sites/gatsby.store"
             type="url"
             name="GitHubRepo"
             value={GitHubRepo}

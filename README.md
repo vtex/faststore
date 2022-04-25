@@ -26,7 +26,8 @@
 [Check out the docs](https://faststore.dev/quickstart) to quickstart from one of our official starters or create your own.
 
 ## Official Starters
-- [Base](https://github.com/vtex-sites/base.store): Basic starter with generic store.
+- [Gatsby](https://github.com/vtex-sites/gatsby.store): Basic starter with a generic store.
+- [NextJS](https://github.com/vtex-sites/nextjs.store): Basic starter with a generic store.
 
 ## Learn
 Check out our [Tutorials](https://faststore.dev/tutorials), [How-to Guides](https://faststore.dev/how-to-guides), [API References](https://faststore.dev/reference) and [Conceptual guides](https://faststore.dev/conceptual-guides) to deep dive in the world of building FastStores.
