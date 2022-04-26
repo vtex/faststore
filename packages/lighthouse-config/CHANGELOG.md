@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.35 (2022-04-26)
+
+**Note:** Version bump only for package @vtex/lighthouse-config
+
+
+
+
+
 ## 1.7.34 (2022-04-25)
 
 **Note:** Version bump only for package @vtex/lighthouse-config
