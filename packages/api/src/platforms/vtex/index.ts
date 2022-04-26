@@ -22,6 +22,7 @@ export interface Options {
   platform: 'vtex'
   account: string
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
+  workspace?: string
   // Default sales channel to use for fetching products
   channel: string
   hideUnavailableItems: boolean

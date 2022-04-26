@@ -32,10 +32,11 @@ export interface ProductLocator {
 }
 
 export const IntelligentSearch = (
-  { account, environment, hideUnavailableItems }: Options,
+  { account, environment, hideUnavailableItems, workspace }: Options,
   ctx: Context
 ) => {
-  const base = `https://${account}.${environment}.com.br/api/io`
+  const accountBase = [workspace ?? 'master', account].join('--')
+  const base = `https://${accountBase}.${environment}.com.br/api/io`
   const policyFacet: IStoreSelectedFacet = {
     key: 'trade-policy',
     value: ctx.storage.channel.salesChannel,

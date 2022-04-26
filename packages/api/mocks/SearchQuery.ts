@@ -100,7 +100,7 @@ export const SearchQueryFirst5Products = `query SearchQuery {
 
 export const productSearchCategory1Fetch = {
   info:
-    'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&hideUnavailableItems=false',
+    'https://master--storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&hideUnavailableItems=false',
   init: undefined,
   result: {
     products: [
@@ -1383,7 +1383,7 @@ export const productSearchCategory1Fetch = {
 
 export const attributeSearchCategory1Fetch = {
   info:
-    'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&hideUnavailableItems=false',
+    'https://master--storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&hideUnavailableItems=false',
   init: undefined,
   result: {
     facets: [
@@ -1412,7 +1412,7 @@ export const attributeSearchCategory1Fetch = {
           },
         ],
         type: 'PRICERANGE',
-        name: 'Pre¿o',
+        name: 'Preï¿½o',
         hidden: false,
         key: 'price',
         quantity: 3,
