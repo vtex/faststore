@@ -4,8 +4,8 @@ import {
   getFirstSeller,
   inStock,
   inStockOrderFormItem,
+  getItemPriceByKey,
 } from '../utils/productStock'
-import { getItemPriceByKey } from '../utils/price'
 import type { ArrayElementType } from '../../../typings'
 import type { Item } from '../clients/search/types/ProductSearchResult'
 import type { EnhancedSku } from '../utils/enhanceSku'
