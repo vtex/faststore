@@ -16,7 +16,7 @@
 
 .FaqDetails {
   @apply w-full my-0 mx-auto;
-  --parentWidth: 35vw;
+  --parentWidth: 75%;
 }
 
 .FaqDetails summary {
@@ -39,9 +39,6 @@
 .FaqDetails summary {
   outline: 0;
 }
-.FaqDetails a {
-  color: var(--ifm-link-color);
-}
 .FaqDetails p {
   @apply pt-4 mt-0 mx-0 mb-4;
   width: var(--parentWidth);
@@ -49,6 +46,6 @@
 
 @media screen and (max-width: 1220px) {
   .FaqDetails {
-    --parentWidth: 90vw;
+    --parentWidth: 100%;
   }
 }
