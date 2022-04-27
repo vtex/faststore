@@ -1,5 +1,5 @@
 .submissionForm {
-  @apply grid grid-cols-1 gap-4 text-secondary;
+  @apply grid grid-cols-1 gap-4 text-seriousBlack;
 }
 
 .submissionForm label {

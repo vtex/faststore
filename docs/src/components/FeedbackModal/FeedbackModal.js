@@ -182,7 +182,7 @@ function Step1(props) {
           <input
             type="submit"
             value="Share"
-            className="hover:text-white mx-auto py-3 px-4 rounded text-white uppercase font-VTEXMedium text-sm bg-secondary inline-block"
+            className="hover:text-white mx-auto py-3 px-4 rounded text-white uppercase font-VTEXMedium text-sm bg-seriousBlack inline-block"
           />
         </div>
       </form>
@@ -245,7 +245,7 @@ function Step2(props) {
           <input
             type="submit"
             value="Submit"
-            className="hover:text-white mx-auto py-3 px-4 rounded text-white uppercase font-VTEXMedium text-sm bg-secondary inline-block"
+            className="hover:text-white mx-auto py-3 px-4 rounded text-white uppercase font-VTEXMedium text-sm bg-seriousBlack inline-block"
           />
         </form>
       </div>

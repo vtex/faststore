@@ -27,7 +27,7 @@
 :root {
   --ifm-color-black: #000;
   --ifm-background-color: #fff !important;
-  --ifm-color-rebel-pink: #f71963;
+  --ifm-color-rebel-pink: #e31c58;
   --ifm-color-soft-pink: #fff3f6;
   --ifm-color-serious-black: #142032;
   --ifm-color-white-ice: #f8f7fc;
@@ -41,7 +41,7 @@
   --ifm-font-size-base: 1.1rem;
 
   --ifm-color-primary: var(--ifm-color-rebel-pink);
-  --ifm-color-secondary: var(--ifm-color-serious-black);
+  --ifm-color-secondary: var(--ifm-color-rebel-pink);
   --ifm-font-color-secondary: var(--ifm-color-serious-black);
 
   --ifm-font-color-base: #4a4a4a;
@@ -72,7 +72,7 @@
 [data-theme='dark'] {
   --ifm-color-primary: rgba(256, 256, 256, 0.7) !important;
   --ifm-color-secondary: #142032 !important;
-  --ifm-color-serious-black: #E7E9EE;
+  --ifm-font-color-secondary: #E7E9EE;
 
   --ifm-menu-color-background-hover: var(--ifm-color-secondary);
 

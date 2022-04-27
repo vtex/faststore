@@ -30,7 +30,7 @@ function StarterSubmissionForm() {
         ).then(() => setIsSent(true))
         .catch(() => alert("There was an error, please try again"))
     }
-    const thankYouMessage = <p className="text-secondary">Thank you for submitting your Starter! We'll get in touch with you as soon as possible!</p>
+    const thankYouMessage = <p className="text-seriousBlack">Thank you for submitting your Starter! We'll get in touch with you as soon as possible!</p>
     const form = <form className={styles.submissionForm} onSubmit={submitStarter}>
         <label htmlFor="ContactEmail">Contact Email</label>
         <input
@@ -88,7 +88,7 @@ function StarterSubmissionForm() {
         />
 
 
-        <button type="submit" className="hover:text-white mx-auto mt-4 py-3 px-4 rounded text-white uppercase font-VTEXMedium text-sm bg-secondary inline-block">SUBMIT STARTER</button>
+        <button type="submit" className="hover:text-white mx-auto mt-4 py-3 px-4 rounded text-white uppercase font-VTEXMedium text-sm bg-seriousBlack inline-block">SUBMIT STARTER</button>
     </form>
     return isSent ? thankYouMessage : form;
 }
