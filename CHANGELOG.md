@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.36 (2022-04-27)
+
+
+### Bug Fixes
+
+* **api:** Remove circular dependencies ([#1243](https://github.com/vtex/faststore/issues/1243)) ([e988621](https://github.com/vtex/faststore/commit/e988621c77b946e397ecc33b82be65b04fa119ec))
+
+
+
+
+
 ## 1.7.35 (2022-04-26)
 
 **Note:** Version bump only for package faststore
