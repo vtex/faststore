@@ -37,7 +37,7 @@ module.exports = {
       respectPrefersColorScheme: false
     },
     announcementBar: {
-      id: 'support_us',
+      id: 'csat',
       content:
         `Hey! 👋🏼 Your feedback means the world to us!`,
       textColor: "var(--ifm-color-details)",
