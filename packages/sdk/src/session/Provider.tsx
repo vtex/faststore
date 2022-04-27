@@ -1,10 +1,10 @@
-import React from 'react'
 import type { PropsWithChildren } from 'react'
+import React from 'react'
 
-import { SessionProvider } from './Session'
+import type { Props as RevalidateProps } from './Revalidate'
 import { RevalidateProvider } from './Revalidate'
 import type { Props as SessionProps } from './Session'
-import type { Props as RevalidateProps } from './Revalidate'
+import { SessionProvider } from './Session'
 
 interface Props extends SessionProps, RevalidateProps {}
 
