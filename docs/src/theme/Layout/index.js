@@ -30,7 +30,10 @@ export default function Layout(props) {
     description,
   } = props
   useKeyboardNavigation()
-
+  let csatSubmit = false
+  if (typeof window !== 'undefined') {
+    csatSubmit = localStorage.getItem('csat-submit-1')
+  }
   return (
     <LayoutProviders>
       <PageMetadata title={title} description={description} />
@@ -39,7 +42,7 @@ export default function Layout(props) {
 
       <Navbar />
 
-      {localStorage.getItem('csat-submit-1') != "true" && (
+      {csatSubmit != "true" && (
         <>
           <AnnouncementBar />
           <FeedbackButton />
