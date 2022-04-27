@@ -9,12 +9,10 @@ import clsx from 'clsx'
 import Link from '@docusaurus/Link'
 import styles from './styles.module.css'
 import { translate } from '@docusaurus/Translate'
-export default function BlogSidebar({ sidebar, product }) {
+export default function BlogSidebar({ sidebar }) {
   var filteredSidebar = sidebar.items.filter(
-    (item) => item.permalink.split('/')[5] === product,
+    (item) => item.permalink.split('/')[5] === sidebar.tag
   )
-  typeof product === 'undefined' && (filteredSidebar = sidebar.items)
-
   if (sidebar.items.length === 0) {
     return null
   }
@@ -32,6 +30,10 @@ export default function BlogSidebar({ sidebar, product }) {
       title: 'WebOps ',
       url: '/releases/tags/webops',
     },
+    {
+      title: 'Base Store ',
+      url: '/releases/tags/base-store',
+    },
   ]
 
   return (
@@ -43,11 +45,22 @@ export default function BlogSidebar({ sidebar, product }) {
         description: 'The ARIA label for recent posts in the blog sidebar',
       })}
     >
-      {typeof product !== 'undefined' && (
+      <div>
+        <h3 className={styles.sidebarItemTitle}>Filter by tag</h3>
+        {
+          <span>
+            {tags.map(({ title, url }) => (
+              <Link key={url} to={url} className={styles.tagLink}>
+                {title}
+              </Link>
+            ))}
+          </span>
+        }
+      </div>
+
+      {sidebar.tag !== undefined && (
         <div>
-          <h3 className={styles.sidebarItemTitle}>
-            {sidebar.title}
-          </h3>
+          <h3 className={styles.sidebarItemTitle}>{sidebar.tag} releases</h3>
           <ul className={styles.sidebarItemList}>
             {filteredSidebar.map((item) => {
               return (
@@ -67,48 +80,26 @@ export default function BlogSidebar({ sidebar, product }) {
         </div>
       )}
 
-      <div>
-        <h3 className={styles.sidebarItemTitle}>
-          All Releases
-        </h3>
-        <ul className={styles.sidebarItemList}>
-          {sidebar.items.map((item) => {
-            return (
-              <li key={item.permalink} className={styles.sidebarItem}>
-                <Link
-                  isNavLink
-                  to={item.permalink}
-                  className={styles.docTag}
-                  activeClassName={styles.sidebarItemLinkActive}
-                >{item.permalink.split('/')[5]}</Link>
-                <Link
-                  isNavLink
-                  to={item.permalink}
-                  className={styles.sidebarItemLink}
-                  activeClassName={styles.sidebarItemLinkActive}
-                >
-                {item.title}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
+      <div className={clsx(styles.sidebarItemTitle, 'margin-bottom--md')}>
+        {sidebar.title}
       </div>
-
-      <div>
-        <h3 className={styles.sidebarItemTitle}>
-          Filter by tag
-        </h3>
-        {
-          <span>
-            {tags.map(({ title, url }) => (
-              <Link key={url} to={url} className={styles.tagLink}>
-                {title}
-              </Link>
-            ))}
-          </span>
-        }
-      </div>
+      <ul className={styles.sidebarItemList}>
+        {sidebar.items.map((item) => (
+          <li key={item.permalink} className={styles.sidebarItem}>
+            <Link
+              isNavLink
+              to={item.permalink}
+              className={styles.sidebarItemLink}
+              activeClassName={styles.sidebarItemLinkActive}
+            >
+              <div className={styles.docTag}>
+                {item.permalink.split('/')[5]}
+              </div>
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </nav>
   )
 }

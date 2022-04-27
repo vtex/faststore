@@ -25,14 +25,14 @@ function FastStore() {
                 title="Use the technologies you already know"
                 description="Explore your creativity building unique digital commerce storefronts with React."
               >
-                <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" viewBox="0 0 48 48"><title>code</title><g stroke-linecap="square" stroke-width="2" fill="none" stroke="var(--ifm-font-color-secondary)" stroke-linejoin="miter" class="nc-icon-wrapper" stroke-miterlimit="10"><polyline points="12,16 4,24 12,32 "></polyline> <polyline points="36,16 44,24 36,32 "></polyline> <line x1="20" y1="40" x2="28" y2="8" stroke="#f71963"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" viewBox="0 0 48 48"><title>code</title><g strokeLinecap="square" strokeWidth="2" fill="none" stroke="var(--ifm-font-color-secondary)" strokeLinejoin="miter" strokeMiterlimit="10"><polyline points="12,16 4,24 12,32 "></polyline> <polyline points="36,16 44,24 36,32 "></polyline> <line x1="20" y1="40" x2="28" y2="8" stroke="#f71963"></line></g></svg>
               </FeatureCard>
 
               <FeatureCard
                 title="Analyze your data with Google Analytics 4"
                 description="Understand your website traffic with Google Analytics 4 and make informed decisions."
               >
-                <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" viewBox="0 0 48 48"><title>ranking</title><g stroke-linecap="square" stroke-width="2" fill="none" stroke="var(--ifm-font-color-secondary)" stroke-linejoin="miter" class="nc-icon-wrapper" stroke-miterlimit="10"><polyline points="11 26 17 14 31 24 45 6"></polyline> <line x1="3" y1="42" x2="8" y2="32"></line> <polyline points="3 26 11 26 31 37 45 28" stroke="#f71963"></polyline></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" viewBox="0 0 48 48"><title>ranking</title><g strokeLinecap="square" strokeWidth="2" fill="none" stroke="var(--ifm-font-color-secondary)" strokeLinejoin="miter" strokeMiterlimit="10"><polyline points="11 26 17 14 31 24 45 6"></polyline> <line x1="3" y1="42" x2="8" y2="32"></line> <polyline points="3 26 11 26 31 37 45 28" stroke="#f71963"></polyline></g></svg>
               </FeatureCard>
             </div>
           </div>

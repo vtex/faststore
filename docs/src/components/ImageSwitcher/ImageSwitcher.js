@@ -2,10 +2,10 @@ import React from 'react';
 import {useColorMode} from '@docusaurus/theme-common';
 
 const ImageSwitcher = ({lightImageSrc, darkImageSrc, classes}) => {
-  const { isDarkTheme } = useColorMode();
+  const { colorMode } = useColorMode();
 
   return (
-    <img className={classes} src={isDarkTheme ? darkImageSrc : lightImageSrc} />
+    <img className={classes} src={colorMode === 'dark' ? darkImageSrc : lightImageSrc} />
   )
 }
 

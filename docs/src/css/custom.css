@@ -33,7 +33,6 @@
   --ifm-color-white-ice: #f8f7fc;
   --ifm-tag-highlight: #fff3f6;
   --ifm-color-details: #86868b;
-
   --ifm-hover-overlay: var(--ifm-color-white-ice);
 
   --ifm-breadcrumb-padding-horizontal: 0;
@@ -80,7 +79,7 @@
   --ifm-color-details: rgba(256, 256, 256, 0.7);
   --ifm-footer-link-hover-color: var(--ifm-link-color);
   --ifm-color-black: #fff;
-  --ifm-tag-highlight: rgba(247, 25, 99, 0.2);
+  --ifm-tag-highlight: #380b23;
   --ifm-background-color: #000711 !important;
   --ifm-background-surface-color: var(--ifm-color-secondary) !important;
   --docsearch-searchbox-background: var(

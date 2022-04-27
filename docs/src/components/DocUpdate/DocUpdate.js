@@ -56,8 +56,8 @@ const DocUpdate = () => {
               <div className="mb-2 leading-9">
                 {item.type === 'Fixed' && (
                   <svg className='inline-block align-middle mr-2' width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.13462 15.7692V15.7692C4.05585 15.7692 0.75 12.4634 0.75 8.38462V8.38462C0.75 4.30585 4.05585 1 8.13462 1V1C12.2134 1 15.5192 4.30585 15.5192 8.38462V8.38462C15.5192 12.4634 12.2134 15.7692 8.13462 15.7692Z" stroke="#142032" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M11.4166 6.74316L7.31408 10.8457L4.85254 8.38419" stroke="#142032" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8.13462 15.7692V15.7692C4.05585 15.7692 0.75 12.4634 0.75 8.38462V8.38462C0.75 4.30585 4.05585 1 8.13462 1V1C12.2134 1 15.5192 4.30585 15.5192 8.38462V8.38462C15.5192 12.4634 12.2134 15.7692 8.13462 15.7692Z" stroke="#142032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M11.4166 6.74316L7.31408 10.8457L4.85254 8.38419" stroke="#142032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 )}
                 {item.type === 'Removed' && (
@@ -68,8 +68,8 @@ const DocUpdate = () => {
                 )}
                 {item.type === 'Improved' && (
                   <svg className='inline-block align-middle mr-2' width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.13462 15.7692V15.7692C4.05585 15.7692 0.75 12.4634 0.75 8.38462V8.38462C0.75 4.30585 4.05585 1 8.13462 1V1C12.2134 1 15.5192 4.30585 15.5192 8.38462V8.38462C15.5192 12.4634 12.2134 15.7692 8.13462 15.7692Z" stroke="#142032" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M11.4166 6.74316L7.31408 10.8457L4.85254 8.38419" stroke="#142032" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8.13462 15.7692V15.7692C4.05585 15.7692 0.75 12.4634 0.75 8.38462V8.38462C0.75 4.30585 4.05585 1 8.13462 1V1C12.2134 1 15.5192 4.30585 15.5192 8.38462V8.38462C15.5192 12.4634 12.2134 15.7692 8.13462 15.7692Z" stroke="#142032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M11.4166 6.74316L7.31408 10.8457L4.85254 8.38419" stroke="#142032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 )}
                 {item.type === 'Added' && (
