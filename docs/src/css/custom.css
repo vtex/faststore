@@ -121,6 +121,10 @@
   @apply text-primary !important;
 }
 
+[class^='blogPostTitle'] {
+  @apply text-2xl font-normal !important;
+}
+
 [class^='DocSearch-Hits'] mark {
   @apply text-rebelPink !important;
 }
