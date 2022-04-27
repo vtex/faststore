@@ -39,9 +39,9 @@ module.exports = {
     announcementBar: {
       id: 'support_us',
       content:
-        `📢 <span style="color:var(--ifm-color-rebel-pink); background-color:var(--ifm-tag-highlight); padding:0.5em; margin:0.3em; border-radius:5px; font-weight: bold" >NEW WEBINAR</span> VTEX and Google on how to build blazing-fast storefronts. <a style="color:var(--ifm-link-color)" href="https://www.youtube.com/watch?v=CwBMVOwjghc">Join us on April 27th!</a>`,
+        `Hey! 👋🏼 Your feedback means the world to us!`,
       textColor: "var(--ifm-color-details)",
-      backgroundColor: "var(--ifm-background-color)",
+      backgroundColor: "var(--ifm-tag-highlight)",
       isCloseable: false,
     },
     navbar: {
@@ -192,7 +192,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         gtag: {
-          trackingID: 'G-MWFMZBZPHF',
+          trackingID: 'GTM-PKST2NM',
           anonymizeIP: true,
         },
         googleAnalytics: {
@@ -212,7 +212,7 @@ module.exports = {
         blog: {
           routeBasePath: 'releases',
           showReadingTime: true,
-          blogSidebarTitle: 'Updates',
+          blogSidebarTitle: 'All releases',
           blogSidebarCount: 'ALL',
           blogTitle: 'Release Notes'
         },
