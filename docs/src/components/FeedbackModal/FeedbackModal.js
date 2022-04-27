@@ -106,9 +106,6 @@ function Step1(props) {
   }
   return (
     <div>
-      <div data-action-container>
-        <button onClick={props.onClick}>✕</button>
-      </div>
       <h1 className="text-lg font-bold">Give your feedback!</h1>
       <form className={styles.FeedbackModal} onSubmit={props.onSubmit}>
         <p>

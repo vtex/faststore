@@ -52,8 +52,8 @@ module.exports = {
       },
       items: [
         {
-          href: '/quickstart',
-          label: 'Quickstart',
+          href: '/docs',
+          label: 'Docs',
           position: 'left',
         },
         {
@@ -61,24 +61,6 @@ module.exports = {
           docId: 'tutorials',
           position: 'left',
           label: 'Tutorials',
-        },
-        {
-          type: 'doc',
-          docId: 'how-to-guides',
-          position: 'left',
-          label: 'How-to Guides',
-        },
-        {
-          type: 'doc',
-          docId: 'reference',
-          position: 'left',
-          label: 'References',
-        },
-        {
-          type: 'doc',
-          docId: 'conceptual-guides',
-          position: 'left',
-          label: 'Concepts',
         },
         {
           href: "/faq",
@@ -136,10 +118,6 @@ module.exports = {
               to: 'quickstart',
             },
             {
-              label: 'Tutorials',
-              to: '/tutorials',
-            },
-            {
               label: 'How-to guides',
               to: '/how-to-guides',
             },
@@ -151,6 +129,10 @@ module.exports = {
               label: 'Concepts',
               to: '/conceptual-guides',
             },
+            {
+              label: 'Tutorials',
+              to: '/tutorials',
+            }
           ],
         },
         {
@@ -256,3 +238,4 @@ module.exports = {
     ]
   ],
 };
+
