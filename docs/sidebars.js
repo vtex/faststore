@@ -269,6 +269,7 @@
           link: { type: 'doc', id: 'conceptual-guides' },
           items: ['conceptual-guides/jamstack'],
         },
+        'faq',
       ],
     },
   ],
