@@ -47,7 +47,7 @@
 }
 
 .docTag:hover{
-  @apply text-secondary opacity-80;
+  @apply text-seriousBlack opacity-80;
   text-decoration: none;  
 }
 

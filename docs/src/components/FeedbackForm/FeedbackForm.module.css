@@ -1,5 +1,5 @@
 .submitMessage{
-  @apply mt-5 mb-10 text-secondary;
+  @apply mt-5 mb-10 text-seriousBlack;
 }
 
 .feedbackForm {
@@ -19,7 +19,7 @@
 }
 
 .formRadio label {
-  color: var(--ifm-font-color-secondary)
+  @apply text-text
 }
 
 .formText {
@@ -27,7 +27,7 @@
 }
 
 .formRadio {
-  @apply  my-5 text-secondary text-left;
+  @apply  my-5 text-seriousBlack text-left;
 }
 
 .formRadio label + label {

@@ -11,10 +11,10 @@ const StarterPage = () => {
   return (
     <div className={styles.StarterPage}>
       <div className={styles.header}>
-        <p className="uppercase text-sm text-seriousBlack font-bold">Quickly get up and running your next FastStore website</p>
-        <h1 className="text-5xl text-seriousBlack font-VTEXTrust pt-5 pb-0">FastStore Starter Library</h1>
+        <p className="uppercase text-sm text-fontSecondary font-bold">Quickly get up and running your next FastStore website</p>
+        <h1 className="text-5xl text-fontSecondary font-VTEXTrust pt-5 pb-0">FastStore Starter Library</h1>
         <p className='text-lg pt-3 text-details px-5 sm:w-2/5 pb-5 inline-block mx-auto'>Ranging from minimal to complex implementations, FastStore Starters are templates developers can use to create new ecommerce experiences straightaway.</p>
-        <Link className="hover:text-white mx-auto py-3 px-4 rounded text-white uppercase font-VTEXMedium text-sm bg-secondary inline-block" href="/starters/submissions">Submit your starter</Link>
+        <Link className="hover:text-white mx-auto py-3 px-4 rounded text-white uppercase font-VTEXMedium text-sm bg-seriousBlack inline-block" href="/starters/submissions">Submit your starter</Link>
       </div>
 
       <div className="w-6/12 mx-auto py-16">
