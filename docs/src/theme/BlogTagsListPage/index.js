@@ -18,8 +18,7 @@ import clsx from 'clsx';
 export default function BlogTagsListPage(props) {
   const {tags, sidebar} = props;
   const title = translateTagsPageTitle();
-  sidebar.tag=tags[0].label
-  
+  sidebar.tag=undefined
   return (
     <HtmlClassNameProvider
       className={clsx(
