@@ -270,6 +270,12 @@
           items: ['conceptual-guides/jamstack'],
         },
         'faq',
+        'resources',
+        {
+          type: 'link',
+          label: 'Github',
+          href: 'https://github.com/vtex/faststore',
+        },
       ],
     },
   ],
