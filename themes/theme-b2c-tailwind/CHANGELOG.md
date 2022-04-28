@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.43 (2022-04-28)
+
+
+### Bug Fixes
+
+* api schema ([#1254](https://github.com/vtex/faststore/issues/1254)) ([c901b3d](https://github.com/vtex/faststore/commit/c901b3db8e002558e14101339c817ca87db8f949))
+
+
+
+
+
 ## 1.7.42 (2022-04-28)
 
 
