@@ -16,10 +16,10 @@ This guide is for intermediate to advanced developers. For a comprehensive intro
 
 ### Step 1. Starting a new FastStore project
 
-Clone the [`base.store`](https://github.com/vtex-sites/base.store) project into your local files and change to the corresponding working directory.
+Clone the [`gatsby.store`](https://github.com/vtex-sites/gatsby.store) project into your local files and change to the corresponding working directory.
 
 ```sh
-npx degit vtex-sites/base.store mystore.store && cd mystore.store
+npx degit vtex-sites/gatsby.store mystore.store && cd mystore.store
 ```
 
 ### Step 2. Installing dependencies
