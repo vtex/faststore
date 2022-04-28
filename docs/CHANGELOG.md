@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.42 (2022-04-28)
+
+
+### Features
+
+* search suggestions ([#1198](https://github.com/vtex/faststore/issues/1198)) ([2b19413](https://github.com/vtex/faststore/commit/2b19413dd11249e4d967ac1c4c1aabdc3a8ec1bf))
+
+
+
+
+
 ## 1.7.41 (2022-04-27)
 
 **Note:** Version bump only for package docs
