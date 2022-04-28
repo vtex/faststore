@@ -1,17 +1,42 @@
 [
   {
-    "name": "Gatsby Store",
-    "imgPath": "/img/starters/base-store-thumbnail.png",
-    "url": "/starters/gatsby"
-  },
-  {
-    "name": "NextJS Store",
-    "imgPath": "/img/starters/base-store-thumbnail.png",
-    "url": "/starters/nextjs"
+    "name": "Base Store",
+    "imgThumbnail": "/img/starters/base-store-thumbnail.png",
+    "url": "/starters/base",
+    "owner": "VTEX",
+    "details": "Made for quick setup of standard B2C stores",
+    "description": "Kickoff your store with this boilerplate. This starter ships with the main FastStore configuration files you need to get up and running blazing fast.",
+    "features": [
+      "Landing page, PDP, and PLP",
+      "Intelligent search",
+      "Filters for categories",
+      "Optimistic shopping cart",
+      "Google Analytics"
+    ],
+    "demoURL": "https://gatsby.vtex.app/",
+    "gatsbyRepo": "https://github.com/vtex-sites/gatsby.store",
+    "nextRepo": "https://github.com/vtex-sites/nextjs.store",
+    "price": "Free",
+    "img": "/img/starters/base-starter.png"
   },
   {
     "name": "CMS Base Store",
-    "imgPath": "/img/starters/cms-base-starter.png",
-    "url": "/starters/storeframework"
+    "imgThumbnail": "/img/starters/base-store-thumbnail.png",
+    "url": "/starters/cms-base",
+    "owner": "VTEX",
+    "details": "Made for quick integration with VTEX Headless CMS",
+    "description": "This modern and clean starter integrates the Base store with VTEX Headless CMS, giving business users the autonomy to customize their stores.",
+    "features": [
+      "VTEX Headless CMS integration",
+      "Landing page, PDP, and PLP",
+      "Intelligent search",
+      "Filters for categories",
+      "Optimistic shopping cart",
+      "Google Analytics"
+    ],
+    "demoURL": "https://storeframework.vtex.app/",
+    "gatsbyRepo": "https://github.com/vtex-sites/storeframework.store",
+    "price": "Free",
+    "img": "/img/starters/base-starter.png"
   }
 ]
