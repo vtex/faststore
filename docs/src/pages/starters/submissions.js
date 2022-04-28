@@ -11,7 +11,7 @@ function Submissions() {
         <Layout title="Starter Community Submissions">
             <div className={styles.header}>
                 <div className='pt-10 sm:w-1/3 px-5'>
-                    <div className="text-seriousBlack"><Link href="/starters"><i className="fas fa-long-arrow-alt-left"></i> Back</Link></div>
+                    <div className="tracking-wider uppercase text-sm text-fontSecondary"><Link href="/starters">← Back</Link></div>
                     <p className="pt-20 uppercase text-sm text-seriousBlack font-bold">Starter Community</p>
                     <h1 className="text-5xl text-seriousBlack font-VTEXTrust py-5">Submit your starter</h1>
                     <p className='text-lg pt-3 text-[#4A596B]'>Submit your starter and get featured on the FastStore Community Starters Library! If your starter meets our basic standards, we'll add it as quickly as possible to the Library.</p>
