@@ -39,9 +39,15 @@ enum StoreFacetType {
   RANGE
 }
 
+type StoreSuggestions {
+  terms: [String!]
+  products: [StoreProduct!]
+}
+
 type StoreSearchResult {
-  products: StoreProductConnection!
-  facets: [StoreFacet!]!
+  products: StoreProductConnection
+  facets: [StoreFacet!]
+  suggestions: StoreSuggestions
 }
 
 type Query {
@@ -50,7 +56,7 @@ type Query {
   collection(slug: String!): StoreCollection!
 
   search(
-    first: Int!
+    first: Int
     after: String
     sort: StoreSort = score_desc
     term: String = ""

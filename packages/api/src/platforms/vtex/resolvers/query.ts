@@ -52,7 +52,7 @@ export const Query = {
 
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs = {
-      page: Math.ceil(after / first),
+      page: Math.ceil(after / first!),
       count: first,
       query: term,
       sort: SORT_MAP[sort ?? 'score_desc'],
