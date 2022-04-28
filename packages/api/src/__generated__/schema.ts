@@ -105,7 +105,7 @@ export type QueryProductArgs = {
 
 export type QuerySearchArgs = {
   after?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
+  first: Scalars['Int'];
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
@@ -329,9 +329,9 @@ export type StoreReviewRating = {
 
 export type StoreSearchResult = {
   __typename?: 'StoreSearchResult';
-  facets?: Maybe<Array<StoreFacet>>;
-  products?: Maybe<StoreProductConnection>;
-  suggestions?: Maybe<StoreSuggestions>;
+  facets: Array<StoreFacet>;
+  products: StoreProductConnection;
+  suggestions: StoreSuggestions;
 };
 
 export type StoreSeo = {
