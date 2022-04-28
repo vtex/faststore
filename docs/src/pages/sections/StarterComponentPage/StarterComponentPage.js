@@ -80,7 +80,7 @@ const StarterComponentPage = ({ data = {} }) => {
           </div>
         </div>
         <img
-          className="w-full lg:w-6/12 static lg:absolute lg:bottom-0 lg:right-0"
+          className="lg:pr-10 w-full lg:w-6/12 static lg:absolute lg:bottom-0 lg:right-0"
           src={data.img}
         ></img>
       </div>
