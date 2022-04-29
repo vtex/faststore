@@ -5,7 +5,7 @@ tags: [base store]
 
 # New Next.js starter available
 
-VTEX launched a new [Next.js based FasStore starter](https://github.com/vtex-sites/nextjs.store). It is actually a base store starter, identical in every way to the existing base store, which used Gatsby, except for the framework.
+We launched a [Next.js-based starter](https://github.com/vtex-sites/nextjs.store) that corresponds to the [Base Store](/starters/base) previously available only for Gatsby. This means you can now quickstart your FastStore project with your favorite framework: [Next.js](https://nextjs.org/) or [Gatsby](https://www.gatsbyjs.com/).
 
 ## What has changed?
 
