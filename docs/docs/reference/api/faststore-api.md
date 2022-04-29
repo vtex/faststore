@@ -17,7 +17,7 @@ Alongside the GraphQL type definitions, we provide standard implementations for 
 
 With the typedefs and resolvers, you can create an executable schema and deploy anywhere you want. For instance, one use case would be:
 1. Create an Apollo Server instane on Heroku
-2. Run the executable schema in a function on Next.JS
+2. Run the executable schema in a function on Next.js
 3. Run the executable schema during a Gatsby build.
 
 ## Install

@@ -181,7 +181,7 @@ As the name suggests, the components folder is where you'll store all your **reu
 
 Notice that these components are **non-routable**, i.e., they are not web pages by themselves. For example, it's not possible to navigate to the *Product* component. 
 
-Also, since you may have numerous reusable components in your project, we recommend as a good practice that you organize this folder using domain-specific subfolders. For example, in the [Base store](https://github.com/vtex-sites/base.store), you will find:
+Also, since you may have numerous reusable components in your project, we recommend as a good practice that you organize this folder using domain-specific subfolders. For example, in the [Base store](/starters/base), you will find:
 
 - `cart` - Contains cart-related components, such as a menu cart.
 - `common` - Contains components that are common to multiple pages, such as footer and navbar.
