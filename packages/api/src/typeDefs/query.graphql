@@ -98,6 +98,11 @@ type StoreSuggestions {
   products: [StoreProduct!]
 }
 
+type StoreTopSearchTerm {
+  term: String
+  occurrences: Int
+}
+
 """
 Search result.
 """
@@ -195,4 +200,6 @@ type Query {
   Person query.
   """
   person: StorePerson
+
+  topSearches: [StoreTopSearchTerm!]
 }

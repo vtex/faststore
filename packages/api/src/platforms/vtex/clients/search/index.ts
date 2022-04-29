@@ -6,6 +6,7 @@ import type { FacetSearchResult } from './types/FacetSearchResult'
 import type {
   ProductSearchResult,
   Suggestion,
+  Search,
 } from './types/ProductSearchResult'
 
 export type Sort =
@@ -137,6 +138,9 @@ export const IntelligentSearch = (
       `${base}/_v/api/intelligent-search/search_suggestions?query=${args.query}`
     )
 
+  const topSearches = (): Promise<{ searches: Search[] }> =>
+    fetchAPI(`${base}/_v/api/intelligent-search/top_searches`)
+
   const facets = (args: Omit<SearchArgs, 'type'>) =>
     search<FacetSearchResult>({ ...args, type: 'facets' })
 
@@ -145,5 +149,6 @@ export const IntelligentSearch = (
     products,
     suggestedTerms,
     suggestedProducts,
+    topSearches,
   }
 }
