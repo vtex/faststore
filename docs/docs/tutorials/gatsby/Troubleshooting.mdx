@@ -1,0 +1,31 @@
+# Troubleshooting
+
+Throughout this tutorial, you may come across common errors that have already tricked other FastStore users. This article is intended to help you troubleshoot some of these issues.
+
+## Part 1: Setting up your development environment
+
+### Error: command settings not found
+
+This error occurs because the `settings` plugin from the VTEX IO CLI is not installed. To fix this problem, please run the following command:
+
+```
+vtex plugins install settings
+```
+
+![](/img/tutorials/gatsby/settings-notfound.png)
+
+### Error: App has route conflict
+
+This error occurs because a version of the app with route conflict is already installed in your VTEX Account. To fix this problem, please use the `--force` flag after the app specification, for example:
+
+```shell
+vtex install vtex.store-sitemap@2.x --force
+```
+
+![](/img/tutorials/gatsby/route-conflict.png)
+
+### Error: API 403 Forbidden
+
+This error occurs because the user trying to set up the `enableOrderFormOptimization` setting doesn't have the necessary [User Role](https://help.vtex.com/en/tutorial/roles--7HKK5Uau2H6wxE1rH5oRbc?&utm_source=autocomplete) to perform this action. To fix this issue, please ask for a VTEX user with the **Owner (Admin Super)** role to run this command.
+
+![](/img/tutorials/gatsby/403-api.png)
