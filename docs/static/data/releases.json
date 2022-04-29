@@ -2,7 +2,7 @@
    {
     "title": "Base Store repository name changed",
     "product": "Base Store",
-    "fileName": "2022-04-22-basestore",
+    "fileName": "2022-04-30-basestore",
     "description": "The Base Store repository compatible with Gatsby was renamed due to the launch of the Base Store (Next.js)."
   },
   {
