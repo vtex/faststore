@@ -9,10 +9,10 @@ VTEX launched a new [Next.js based FasStore starter](https://github.com/vtex-sit
 
 ## What has changed?
 
-Now, developers that wish to use Next.js for their FastStore projects, have the opportunity of getting started with this 
+Now, developers that wish to use Next.js with FastStore, can leverage our base store starter to get their projects going.
 
 Also, because this is another base store starter, [the name of the repository formerly known as `basestore` was changed to `gatsby.store`](https://faststore.dev/releases/2022/04/29/basestore).
 
-
 ## What needs to be done?
 
+To learn more and start your FastStore project with Next.js, check the [Next.js store repository](https://github.com/vtex-sites/nextjs.store).
