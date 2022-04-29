@@ -53,6 +53,7 @@ const QUERIES = [
   'allProducts',
   'allCollections',
   'person',
+  'topSearches',
 ]
 
 const MUTATIONS = ['validateCart', 'updateSession']
