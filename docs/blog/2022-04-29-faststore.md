@@ -1,11 +1,11 @@
 ---
-description: New NextJs starter available. This starter's features are identical to the existing base store starter, which used Gatsby.
+description: New Next.js starter available. This starter's features are identical to the existing base store starter, which used Gatsby.
 tags: [faststore]
 ---
 
-# New NextJs starter available
+# New Next.js starter available
 
-
+VTEX launched a new Next.js 
 
 ## What has changed?
 

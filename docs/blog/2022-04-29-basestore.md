@@ -1,5 +1,5 @@
 ---
-description: Due to the launch of a NextJs base store starter, the repository of the existing base store - which used Gatsby - is now changed.
+description: Due to the launch of a Next.js base store starter, the repository of the existing base store - which used Gatsby - is now changed.
 tags: [basestore]
 ---
 
