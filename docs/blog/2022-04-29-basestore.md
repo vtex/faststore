@@ -1,9 +1,9 @@
 ---
-description: Due to the launch of a Next.js base store starter, the repository of the existing base store, which used Gatsby, has changed.
+description: Due to the launch of the Base Store (Next.js) starter, the repository of the existing Base Store, which used Gatsby, has changed.
 tags: [basestore]
 ---
 
-# Base store repository name changed
+# Base Store repository name changed
 
 The repository of the Base Store [starter](https://www.faststore.dev/starters), which uses Gatsby, has changed. It is now [gatsby.store](https://github.com/vtex-sites/gatsby.store).
 
