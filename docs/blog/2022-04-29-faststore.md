@@ -1,5 +1,5 @@
 ---
-description: New NextJs starter available.
+description: New NextJs starter available. This starter's features are identical to the existing base store starter, which used Gatsby.
 tags: [faststore]
 ---
 
