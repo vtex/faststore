@@ -1,6 +1,6 @@
 ---
 description: New NextJs starter available.
-tags: [faststore]
+tags: [basestore]
 ---
 
 # New NextJs starter available
