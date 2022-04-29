@@ -5,7 +5,7 @@ tags: [basestore]
 
 # Base store repository name changed
 
-The repository of the base store [starter](https://www.faststore.dev/starters), which uses Gatsby, has changed. It is now [gatsby.store](https://github.com/vtex-sites/gatsby.store).
+The repository of the Base Store [starter](https://www.faststore.dev/starters), which uses Gatsby, has changed. It is now [gatsby.store](https://github.com/vtex-sites/gatsby.store).
 
 ## Why did we make these changes?
 
