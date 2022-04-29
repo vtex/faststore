@@ -6,7 +6,7 @@ hide_table_of_contents: false
 
 # Gatsby 4 now available
 
-We updated our infrastructure to allow you to use site generators that support **server-side rendering** (SSR), such as [Next.JS](https://nextjs.org/) and [Gatsby 4](https://www.gatsbyjs.com/gatsby-4/).
+We updated our infrastructure to allow you to use site generators that support **server-side rendering** (SSR), such as [Next.js](https://nextjs.org/) and [Gatsby 4](https://www.gatsbyjs.com/gatsby-4/).
 
 ## What has changed?
 
