@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-04-29",
+    "type": "Added",
+    "menu": "Tutorials",
+    "category": "Creating storefronts with Gatsby",
+    "path": "/tutorials/gatsby-overview",
+    "docs": [
+      {
+        "path": "/tutorials/gatsby/Troubleshooting",
+        "title": "Troubleshooting"
+      }
+    ]
+  }, 
+  {
     "date": "2022-04-08",
     "type": "Added",
     "menu": "How-to Guides",

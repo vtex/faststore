@@ -1,4 +1,4 @@
-import type { LocatorParam, PromotionItem, PromotionParams } from './common'
+import type { PromotionItem, PromotionParams } from './common'
 
 export interface ViewPromotionItems<T extends PromotionItem = PromotionItem> {
   items?: T[]
@@ -10,5 +10,5 @@ export type ViewPromotionParams<
 
 export interface ViewPromotionEvent<T extends PromotionItem = PromotionItem> {
   name: 'view_promotion'
-  params: ViewPromotionParams<T> & LocatorParam
+  params: ViewPromotionParams<T>
 }

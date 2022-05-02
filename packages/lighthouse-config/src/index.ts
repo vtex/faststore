@@ -23,7 +23,7 @@ const lhConfig = ({ urls, server, assertions = {} }: Params) => {
           // Final Ligthouse score Budgets
           'categories:accessibility': ['error', { minScore: 1 }],
           'categories:best-practices': ['error', { minScore: 1 }],
-          'categories:performance': ['error', { minScore: 0.9 }],
+          'categories:performance': ['error', { minScore: 0.95 }],
           'categories:seo': ['error', { minScore: 1 }],
           'categories:pwa': 'off',
 

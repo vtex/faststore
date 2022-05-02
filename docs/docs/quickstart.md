@@ -2,25 +2,44 @@
 sidebar_position: 3
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Quickstart
 
 *Pick your favorite Static Site Generator and locally run your VTEX store in less than 5 minutes*
 
 ---
 
-:::note 
+:::info 
 This guide is for intermediate to advanced developers. For a comprehensive intro to FastStore, head to our [getting started tutorial](/tutorials/fundamentals/0)!
 :::
 
-## Start with Gatsby
+## Step by step 
 
 ### Step 1. Starting a new FastStore project
 
-Clone the [`base.store`](https://github.com/vtex-sites/base.store) project into your local files and change to the corresponding working directory.
+Clone the [Base Store](/starters/base) repository into your local files and change to the corresponding working directory.
+
+<Tabs groupId="chosen-framework">
+  <TabItem value="nextjs" label="Next.js" default>
 
 ```sh
-npx degit vtex-sites/base.store mystore.store && cd mystore.store
+npx degit vtex-sites/nextjs.store mystore.store && cd mystore.store
 ```
+
+  </TabItem>
+  <TabItem value="gatsby" label="Gatsby">
+
+```sh
+npx degit vtex-sites/gatsby.store mystore.store && cd mystore.store
+```
+
+
+  </TabItem>
+</Tabs>
+
+
 
 ### Step 2. Installing dependencies
 
@@ -47,8 +66,8 @@ Start a development server on port 8000.
 yarn develop
 ```
 
-![](/img/tutorials/gatsby/basestore.gif)
+<img className="rounded shadow-md" src="/img/tutorials/gatsby/yarndevelop.gif"/>
 
-Your store will start at a hot-reloading environment at [http://localhost:8000/](http://localhost:8000/), and you'll also have access to GraphiQL at [http://localhost:8000/___graphql](http://localhost:8000/___graphql), a tool that you can use to fetch data and build queries. 
+Your store will start at a hot-reloading environment at [http://localhost:8000/](http://localhost:8000/). You'll also have access to GraphiQL, a tool that you can use to fetch data and build queries, at [http://localhost:8000/___graphql](http://localhost:8000/___graphql).
 
-🎉 *That's all!* You're now ready to start making changes to your FastStore + Gatsby storefront.
+🎉 *That's all!* You're now ready to start making changes to your FastStore storefront.

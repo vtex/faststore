@@ -20,6 +20,7 @@ module.exports = {
     starters: require("./static/data/starters"),
   },
   themeConfig: {
+    image: "img/faststore_thumbnail.png",
     zoom: {
       selector: '.markdown :not(a) > img',
       config: {
@@ -32,14 +33,15 @@ module.exports = {
     },
     colorMode: {
       defaultMode: 'light',
-      disableSwitch: true,
+      disableSwitch: false,
       respectPrefersColorScheme: false
     },
     announcementBar: {
-      id: 'support_us',
+      id: 'csat',
       content:
-        `📢 <span style="color:#F71963; background-color:#FFF3F6; padding:0.5em; margin:0.3em; border-radius:5px; font-weight: bold" >NEW</span> <strong>VTEX Developers</strong> - YouTube channel with live demos, code walkthroughs, and interviews for developers. <a style="color:#F71963" href="https://www.youtube.com/channel/UCReNhDqLOVL4edqENJ4k7Fg">Subscribe now</a>`,
-      textColor: "#142032",
+        `Hey! 👋🏼 Your feedback means the world to us!`,
+      textColor: "var(--ifm-color-details)",
+      backgroundColor: "var(--ifm-tag-highlight)",
       isCloseable: false,
     },
     navbar: {
@@ -50,8 +52,8 @@ module.exports = {
       },
       items: [
         {
-          href: '/quickstart',
-          label: 'Quickstart',
+          href: '/docs',
+          label: 'Docs',
           position: 'left',
         },
         {
@@ -59,24 +61,6 @@ module.exports = {
           docId: 'tutorials',
           position: 'left',
           label: 'Tutorials',
-        },
-        {
-          type: 'doc',
-          docId: 'how-to-guides',
-          position: 'left',
-          label: 'How-to Guides',
-        },
-        {
-          type: 'doc',
-          docId: 'reference',
-          position: 'left',
-          label: 'References',
-        },
-        {
-          type: 'doc',
-          docId: 'conceptual-guides',
-          position: 'left',
-          label: 'Concepts',
         },
         {
           href: "/faq",
@@ -103,12 +87,14 @@ module.exports = {
             {
               href: 'https://community.vtex.com/',
               label: 'Community',
-            },
-            {
-              href: 'https://github.com/vtex/faststore',
-              label: 'GitHub',
-            },
+            }
           ],
+        },
+        {
+          href: 'https://github.com/vtex/faststore',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
         },
       ],
     },
@@ -132,10 +118,6 @@ module.exports = {
               to: 'quickstart',
             },
             {
-              label: 'Tutorials',
-              to: '/tutorials',
-            },
-            {
               label: 'How-to guides',
               to: '/how-to-guides',
             },
@@ -147,6 +129,10 @@ module.exports = {
               label: 'Concepts',
               to: '/conceptual-guides',
             },
+            {
+              label: 'Tutorials',
+              to: '/tutorials',
+            }
           ],
         },
         {
@@ -178,13 +164,14 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} FastStore Docs, Inc. Built with Docusaurus.`,
     },
     prism: {
-      theme: require('prism-react-renderer/themes/nightOwlLight')
+      theme: require('prism-react-renderer/themes/nightOwlLight'),
+      darkTheme: require('prism-react-renderer/themes/dracula')
     },
   },
 
   presets: [
     [
-      '@docusaurus/preset-classic',    
+      '@docusaurus/preset-classic',
       {
         gtag: {
           trackingID: 'GTM-PKST2NM',
@@ -207,7 +194,7 @@ module.exports = {
         blog: {
           routeBasePath: 'releases',
           showReadingTime: true,
-          blogSidebarTitle: 'Updates',
+          blogSidebarTitle: 'All releases',
           blogSidebarCount: 'ALL',
           blogTitle: 'Release Notes'
         },
@@ -251,3 +238,4 @@ module.exports = {
     ]
   ],
 };
+

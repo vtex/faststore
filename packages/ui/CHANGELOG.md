@@ -3,6 +3,221 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.49 (2022-05-02)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.48 (2022-04-29)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.47 (2022-04-29)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.46 (2022-04-29)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.45 (2022-04-29)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.44 (2022-04-28)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.43 (2022-04-28)
+
+
+### Bug Fixes
+
+* api schema ([#1254](https://github.com/vtex/faststore/issues/1254)) ([c901b3d](https://github.com/vtex/faststore/commit/c901b3db8e002558e14101339c817ca87db8f949))
+
+
+
+
+
+## 1.7.42 (2022-04-28)
+
+
+### Features
+
+* search suggestions ([#1198](https://github.com/vtex/faststore/issues/1198)) ([2b19413](https://github.com/vtex/faststore/commit/2b19413dd11249e4d967ac1c4c1aabdc3a8ec1bf))
+
+
+
+
+
+## 1.7.41 (2022-04-27)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.40 (2022-04-27)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.39 (2022-04-27)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.38 (2022-04-27)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.37 (2022-04-27)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.36 (2022-04-27)
+
+
+### Bug Fixes
+
+* **api:** Remove circular dependencies ([#1243](https://github.com/vtex/faststore/issues/1243)) ([e988621](https://github.com/vtex/faststore/commit/e988621c77b946e397ecc33b82be65b04fa119ec))
+
+
+
+
+
+## 1.7.35 (2022-04-26)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.34 (2022-04-25)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.33 (2022-04-25)
+
+
+### Bug Fixes
+
+* **api:** SearchResult send events ([#1242](https://github.com/vtex/faststore/issues/1242)) ([9cc7cc4](https://github.com/vtex/faststore/commit/9cc7cc4d55802ef0dc75e22d58c46da899674555))
+
+
+
+
+
+## 1.7.32 (2022-04-23)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.31 (2022-04-22)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.30 (2022-04-22)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.29 (2022-04-22)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.28 (2022-04-20)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.27 (2022-04-20)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
+## 1.7.26 (2022-04-19)
+
+
+### Reverts
+
+* Revert "feat: Add url to events (#1174)" (#1228) ([67ec438](https://github.com/vtex/faststore/commit/67ec4386b876a4de08bfd96df5147efa958d5496)), closes [#1174](https://github.com/vtex/faststore/issues/1174) [#1228](https://github.com/vtex/faststore/issues/1228)
+
+
+
+
+
+## 1.7.25 (2022-04-19)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
 ## 1.7.24 (2022-04-18)
 
 **Note:** Version bump only for package @faststore/ui

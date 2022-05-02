@@ -1,26 +1,26 @@
 [
   {
+    "title": "VTEX Headless CMS previews are now private by default",
+    "product": "CMS",
+    "fileName": "2022-05-02-cms",
+    "description": "In order to access CMS previews, users will need to authenticate to the myvtex.com domain of their accounts."
+  },
+  {
+    "title": "Base Store repository name changed",
+    "product": "Base Store",
+    "fileName": "2022-04-30-basestore",
+    "description": "The Base Store repository compatible with Gatsby was renamed due to the launch of the Base Store (Next.js)."
+  },
+  {
+    "title": "Base Store (Next.js) starter available.",
+    "product": "Base Store",
+    "fileName": "2022-04-29-basestore",
+    "description": "Choose your favorite framework: Gatsby or Next.js! The Base Store is now fully compatible with Next.js."
+  },
+  {
     "title": "WebOps updated to use Lighthouse 9",
     "product": "WebOps",
     "fileName": "2022-04-05-webops",
     "description": "The WebOps pipeline has been updated to use the newest Lighthouse version. As a result, newer audit reports may slightly differ from those previously issued."
-  },
-  {
-    "title": "Gatsby 4 now available",
-    "product": "FastStore",
-    "fileName": "2022-04-05-faststore",
-    "description": "Render pages at run-time with Gatsby 4. We updated our infrastructure to allow you to use site generators that support server-side rendering (SSR), such as Next.JS and Gatsby 4."
-  },
-  {
-    "title": "Base Store - Release Notes",
-    "product": "Base Store",
-    "fileName": "2022-04-01-basestore",
-    "description": "The Base Store now has new components: EmptyState, Suggestions and SearchHistory."
-  },
-  {
-    "title": "FastStore - Release Notes",
-    "product": "FastStore",
-    "fileName": "2022-04-01-faststore",
-    "description": "The FastStore API now includes an Express GraphQL Server, and the FastStore UI now has a new Dropdown component. Also, the performance of the useStorage hook has been improved."
   }
 ]

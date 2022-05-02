@@ -8,7 +8,8 @@
 }
 
 .changelogList a:hover {
-  background-color: rgba(248, 247, 252, 0.5);
+  @apply bg-code no-underline !important;
+  filter: brightness(101%);
 }
 
 .changelogTitle {
@@ -16,16 +17,16 @@
 }
 
 .changelogTitle h4 {
-  @apply inline-block mr-2 text-secondary text-lg leading-loose font-VTEXMedium;
+  @apply inline-block mr-2 text-lg font-VTEXMedium;
 }
 
 .changelogList li:first-child h4::after {
   content: "NEW";
-  @apply px-2 py-1 rounded-md uppercase tracking-widest bg-pink-50 text-primary text-xs ml-2;
+  @apply px-2 py-1 rounded-md uppercase tracking-widest bg-tagHighlight text-rebelPink text-xs ml-2;
 }
 
 .descriptionChangelog {
-  @apply text-justify col-span-3;
+  @apply col-span-3 text-details;
 }
 
 .changelogList time {
@@ -38,8 +39,8 @@
 .changelogList li {
   @apply list-none m-0 !important;
 }
-.changelogList li:first-child time {
-  @apply pt-4;
+.changelogList li time {
+  @apply pt-2;
 }
 
 .changelogList time svg {

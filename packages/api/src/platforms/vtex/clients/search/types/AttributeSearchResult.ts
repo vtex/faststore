@@ -1,61 +1,32 @@
-export interface AttributeSearchResult {
-  total: number
-  pagination: Pagination
-  sampling: boolean
-  translated: boolean
-  locale: string
-  query: string
-  operator: string
-  fuzzy: string
-  attributes: Attribute[] | null
+type FilterType = 'PRICERANGE' | 'TEXT' | 'NUMBER' | 'CATEGORYTREE'
+export interface FacetSearchResult {
+  facets: Facet[]
+  breadcrumb: Breadcrumb
 }
 
-export interface Attribute {
-  ids: string[]
-  visible: boolean
-  values: Value[]
-  active: boolean
+export interface Facet {
+  type: FilterType
+  name: string
+  hidden: boolean
+  values: FacetValue[]
+  quantity?: number
+}
+
+interface FacetValue {
+  quantity: number
+  name: string
   key: string
-  originalKey: string
-  label: string
-  originalLabel: string
-  type: string
-  minValue?: number
-  maxValue?: number
-  templateURL?: string
-  proxyURL?: string
-}
-
-export interface Value {
-  count: number
-  active: boolean
-  key?: string
-  label?: string
+  value: string
+  selected?: boolean
+  range?: {
+    from: number
+    to: number
+  }
+  children?: FacetValue[]
   id?: string
-  originalKey?: string
-  originalLabel?: string
-  proxyURL: string
-  from?: string
-  to?: string
 }
 
-export interface Pagination {
-  count: number
-  current: Current
-  before: any[]
-  after: any[]
-  perPage: number
-  next: First
-  previous: First
-  first: First
-  last: First
-}
-
-export interface Current {
-  index: number
-  proxyURL: string
-}
-
-export interface First {
-  index: number
+interface Breadcrumb {
+  href: string
+  name: string
 }

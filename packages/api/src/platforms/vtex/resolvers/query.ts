@@ -52,7 +52,7 @@ export const Query = {
 
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs = {
-      page: Math.ceil(after / first),
+      page: Math.ceil(after / first!),
       count: first,
       query: term,
       sort: SORT_MAP[sort ?? 'score_desc'],
@@ -77,7 +77,7 @@ export const Query = {
     })
 
     const skus = products.products
-      .map((product) => product.skus.map((sku) => enhanceSku(sku, product)))
+      .map((product) => product.items.map((sku) => enhanceSku(sku, product)))
       .flat()
       .filter((sku) => sku.sellers.length > 0)
 
@@ -86,8 +86,8 @@ export const Query = {
         hasNextPage: products.pagination.after.length > 0,
         hasPreviousPage: products.pagination.before.length > 0,
         startCursor: '0',
-        endCursor: products.total.toString(),
-        totalCount: products.total,
+        endCursor: products.recordsFiltered.toString(),
+        totalCount: products.recordsFiltered,
       },
       // after + index is bigger than after+first itself because of the array flat() above
       edges: skus.map((sku, index) => ({

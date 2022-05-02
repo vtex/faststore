@@ -1,9 +1,12 @@
-import type { Context, Options } from '../../index'
-import { fetchAPI } from '../fetch'
-import type { SelectedFacet } from '../../utils/facets'
-import type { ProductSearchResult } from './types/ProductSearchResult'
-import type { AttributeSearchResult } from './types/AttributeSearchResult'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
+import type { Context, Options } from '../../index'
+import type { SelectedFacet } from '../../utils/facets'
+import { fetchAPI } from '../fetch'
+import type { FacetSearchResult } from './types/FacetSearchResult'
+import type {
+  ProductSearchResult,
+  SuggestedTerms,
+} from './types/ProductSearchResult'
 
 export type Sort =
   | 'price:desc'
@@ -19,7 +22,7 @@ export interface SearchArgs {
   query?: string
   page: number
   count: number
-  type: 'product_search' | 'attribute_search'
+  type: 'product_search' | 'facets'
   sort?: Sort
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1'
@@ -35,7 +38,7 @@ export const IntelligentSearch = (
   { account, environment, hideUnavailableItems }: Options,
   ctx: Context
 ) => {
-  const base = `http://portal.${environment}.com.br/search-api/v1/${account}`
+  const base = `https://${account}.${environment}.com.br/api/io`
   const policyFacet: IStoreSelectedFacet = {
     key: 'trade-policy',
     value: ctx.storage.channel.salesChannel,
@@ -69,7 +72,7 @@ export const IntelligentSearch = (
     })
 
     if (hideUnavailableItems !== undefined) {
-      params.append('hide-unavailable-items', hideUnavailableItems.toString())
+      params.append('hideUnavailableItems', hideUnavailableItems.toString())
     }
 
     const pathname = addDefaultFacets(selectedFacets)
@@ -77,18 +80,30 @@ export const IntelligentSearch = (
       .join('/')
 
     return fetchAPI(
-      `${base}/api/split/${type}/${pathname}?${params.toString()}`
+      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
     )
   }
 
   const products = (args: Omit<SearchArgs, 'type'>) =>
     search<ProductSearchResult>({ ...args, type: 'product_search' })
 
+  const suggestedProducts = (
+    args: Omit<SearchArgs, 'type'>
+  ): Promise<ProductSearchResult> =>
+    fetchAPI(`${base}/api/suggestion_products/?term=${args.query}`)
+
+  const suggestedTerms = (
+    args: Omit<SearchArgs, 'type'>
+  ): Promise<SuggestedTerms> =>
+    fetchAPI(`${base}/api/split/suggestion_search/?q=${args.query}`)
+
   const facets = (args: Omit<SearchArgs, 'type'>) =>
-    search<AttributeSearchResult>({ ...args, type: 'attribute_search' })
+    search<FacetSearchResult>({ ...args, type: 'facets' })
 
   return {
     facets,
     products,
+    suggestedTerms,
+    suggestedProducts,
   }
 }

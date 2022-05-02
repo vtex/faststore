@@ -28,8 +28,8 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
     })
 
     const skuBySkuId = products.reduce((acc, product) => {
-      for (const sku of product.skus) {
-        acc[sku.id] = enhanceSku(sku, product)
+      for (const sku of product.items) {
+        acc[sku.itemId] = enhanceSku(sku, product)
       }
 
       return acc

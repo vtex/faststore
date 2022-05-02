@@ -331,6 +331,7 @@ export type StoreSearchResult = {
   __typename?: 'StoreSearchResult';
   facets: Array<StoreFacet>;
   products: StoreProductConnection;
+  suggestions: StoreSuggestions;
 };
 
 export type StoreSeo = {
@@ -363,4 +364,10 @@ export const enum StoreStatus {
   Error = 'ERROR',
   Info = 'INFO',
   Warning = 'WARNING'
+};
+
+export type StoreSuggestions = {
+  __typename?: 'StoreSuggestions';
+  products?: Maybe<Array<StoreProduct>>;
+  terms?: Maybe<Array<Scalars['String']>>;
 };

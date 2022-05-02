@@ -16,16 +16,17 @@
 
 .FaqDetails {
   @apply w-full my-0 mx-auto;
-  --parentWidth: 35vw;
+  --parentWidth: 75%;
 }
 
 .FaqDetails summary {
-  @apply relative cursor-pointer font-light text-lg border-b py-2 px-0 list-none;
+  @apply relative cursor-pointer font-light text-lg border-b border-border py-2 px-0 list-none;
   width: var(--parentWidth);
 }
 
 .FaqDetails summary:after {
-  @apply absolute text-black mt-3 font-extralight origin-center text-2xl;
+  @apply absolute mt-3 font-extralight origin-center text-2xl;
+  color: var(--ifm-font-color-base);
   content: '+';
   line-height: 0;
   left: 95%;
@@ -45,6 +46,6 @@
 
 @media screen and (max-width: 1220px) {
   .FaqDetails {
-    --parentWidth: 90vw;
+    --parentWidth: 100%;
   }
 }

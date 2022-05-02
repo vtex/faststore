@@ -15,12 +15,16 @@ theme: {
       background: infima('--ifm-background-color'),
       code: infima('--ifm-code-background'),    
       tag: infima('--ifm-tag-background'),    
-      link: infima('--ifm-link-color'),
+      tagHighlight: infima('--ifm-tag-highlight'),    
+      rebelPink: infima('--ifm-color-rebel-pink'),
+      seriousBlack: infima('--ifm-color-serious-black'),
       secondary: infima('--ifm-color-secondary'),     
+      fontSecondary: infima('--ifm-font-color-secondary'),     
       primary: infima('--ifm-color-primary'),
       softPink: infima('--ifm-color-soft-pink'),     
       text: infima('--ifm-font-color-base'),     
-      details: '#A1A8B3',     
+      details: infima('--ifm-color-details'),     
+      border: infima('--ifm-hr-border-color')
     }
   },
 },
