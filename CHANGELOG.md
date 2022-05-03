@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.51 (2022-05-03)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
 ## 1.7.50 (2022-05-03)
 
 **Note:** Version bump only for package faststore
