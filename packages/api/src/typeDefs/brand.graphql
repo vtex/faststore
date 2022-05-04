@@ -2,8 +2,8 @@
 Brand of a given product.
 """
 type StoreBrand {
-"""
-Brand name.
-"""
+  """
+  Brand name.
+  """
   name: String!
 }
