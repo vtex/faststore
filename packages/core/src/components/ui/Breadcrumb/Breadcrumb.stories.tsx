@@ -3,7 +3,7 @@ import Breadcrumb from '.'
 
 const story = {
   component: Breadcrumb,
-  title: 'Components/Breadcrumb',
+  title: 'Molecules/Breadcrumb',
 }
 
 const breadcrumbList = [

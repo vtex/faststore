@@ -4,7 +4,10 @@ import { Badge } from '.'
 
 const story = {
   component: Badge,
-  title: 'Components/Badge',
+  title: 'Molecules/Badge',
+  argTypes: {
+    onClose: { table: { disable: true } },
+  },
 }
 
 const Template = ({ children, ...args }: BadgeProps) => (
@@ -12,8 +15,16 @@ const Template = ({ children, ...args }: BadgeProps) => (
 )
 
 export const Default = Template.bind({})
+export const Interactive = Template.bind({})
 
 Default.args = {
+  children: 'New arrival',
+  big: false,
+  interactive: false,
+  variant: 'info',
+}
+
+Interactive.args = {
   children: 'New arrival',
   big: true,
   interactive: true,

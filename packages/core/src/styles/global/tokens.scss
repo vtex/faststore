@@ -120,6 +120,9 @@ body {
   --fs-text-weight-bold                : 700;
   --fs-text-weight-black               : 900;
 
+  // MAX LINES
+  --fs-text-max-lines                  : 2;
+
   // TYPOGRAPHY SCALE
   // Use a type scale to add rhythm to your typography and
   // ensure consistency throughout the project.
@@ -199,7 +202,7 @@ body {
   --fs-grid-max-width                  : var(--fs-grid-breakpoint-notebook);
 
   // GAPS
-  --fs-grid-gap-0                      : calc(var(--fs-spacing-0) / 2);
+  --fs-grid-gap-0                      : var(--fs-spacing-1);
   --fs-grid-gap-1                      : var(--fs-spacing-2);
   --fs-grid-gap-2                      : var(--fs-spacing-3);
   --fs-grid-gap-3                      : var(--fs-spacing-4);
@@ -253,7 +256,7 @@ body {
   --fs-border-color-default-active     : var(--fs-color-main-2);
   --fs-border-color-default-disabled   : var(--fs-color-neutral-6);
 
-  --fs-border-color-light              : var(--fs-color-neutral-3);
+  --fs-border-color-light              : var(--fs-color-neutral-2);
   --fs-border-color-light-hover        : var(--fs-color-neutral-3);
   --fs-border-color-light-active       : var(--fs-color-neutral-3);
   --fs-border-color-light-disabled     : var(--fs-color-neutral-5);

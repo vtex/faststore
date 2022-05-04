@@ -54,6 +54,7 @@ function ProductCard({
       data-fs-product-card
       data-fs-product-card-variant={variant}
       data-fs-product-card-bordered={bordered}
+      data-fs-product-card-actionabled={!!ButtonBuy}
       data-fs-product-card-sku={sku}
       {...otherProps}
     >
@@ -102,8 +103,12 @@ function ProductCard({
         ) : (
           <DiscountBadge listPrice={listPrice} spotPrice={spotPrice} />
         )}
+        {!!ButtonBuy && (
+          <UICardActions data-fs-product-card-actions>
+            {ButtonBuy}
+          </UICardActions>
+        )}
       </UICardContent>
-      {!!ButtonBuy && <UICardActions>{ButtonBuy}</UICardActions>}
     </UICard>
   )
 }

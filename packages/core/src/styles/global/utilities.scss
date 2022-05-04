@@ -57,13 +57,13 @@ $base: 16px !default;
   &:focus-visible { @include focus-ring; }
 }
 
-@mixin truncate-title {
+@mixin truncate-title($max-lines: var(--fs-text-max-lines)) {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -moz-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: $max-lines;
+  line-clamp: $max-lines;
   text-overflow: -o-ellipsis-lastline;
   text-overflow: ellipsis;
 }

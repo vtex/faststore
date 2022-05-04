@@ -15,4 +15,9 @@ export const parameters = {
   docs: {
     theme: SBTheme,
   },
+  options: {
+    storySort: {
+      order: ['Releases', 'Atoms', 'Molecules', 'Organisms'],
+    },
+  },
 }

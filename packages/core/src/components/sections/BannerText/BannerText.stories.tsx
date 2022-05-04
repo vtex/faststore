@@ -3,27 +3,10 @@ import BannerText from '.'
 
 const story = {
   component: BannerText,
-  title: 'Components/BannerText',
+  title: 'Organisms/BannerText',
   argTypes: {
-    variant: {
-      name: 'variant',
-      defaultValue: 'primary',
-    },
-    title: {
-      name: 'title',
-      type: { name: 'string', required: true },
-      control: {
-        type: 'text',
-      },
-    },
-    colorVariant: {
-      name: 'colorVariant',
-      defaultValue: 'main',
-      type: { name: 'string' },
-      control: {
-        type: 'text',
-      },
-    },
+    variant: { table: { disable: true } },
+    actionPath: { table: { disable: true } },
   },
 }
 
@@ -36,6 +19,7 @@ Primary.args = {
     'Receive our news and promotions in advance. Enjoy and get 10% off on your first purchase.',
   actionPath: '/',
   actionLabel: 'Call to action',
+  colorVariant: 'main',
 }
 
 export const Secondary = Template.bind({})
@@ -46,6 +30,7 @@ Secondary.args = {
   caption: 'Enjoy and get 10% off on your first purchase.',
   actionPath: '/',
   actionLabel: 'Call to action',
+  colorVariant: 'accent',
 }
 
 export default story

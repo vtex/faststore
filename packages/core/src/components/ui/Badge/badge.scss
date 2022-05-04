@@ -130,12 +130,13 @@
       top: 50%;
       right: 0;
       width: var(--button-hover-size);
-      height: var(--button-hover-size);
-      margin-top: calc(var(--button-hover-size) / 2 * -1);
+      height: 100%;
       content: "";
+      border-radius: 0 var(--fs-badge-border-radius) var(--fs-badge-border-radius) 0;
       /* stylelint-disable max-line-length */
       transition: var(--fs-badge-transition-property) var(--fs-badge-transition-timing) var(--fs-badge-transition-function);
       /* stylelint-enable max-line-length */
+      transform: translateY(-50%);
     }
   }
 }

@@ -7,7 +7,7 @@ import Hero from '.'
 
 const story = {
   component: Hero,
-  title: 'Components/Hero',
+  title: 'Organisms/Hero',
   argTypes: {
     link: { table: { disable: true } },
     imageAlt: { table: { disable: true } },
