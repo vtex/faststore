@@ -18,6 +18,7 @@
     "develop:no-server": "concurrently \"yarn generate -w\" \"tsdx watch\"",
     "build": "graphql-codegen --config codegen.yml && tsdx build",
     "build:server": "graphql-codegen --config codegen.yml && tsdx build --entry ./local/server.ts --target node",
+    "start": "node ./dist/index.js",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "generate": "graphql-codegen --config codegen.yml"
