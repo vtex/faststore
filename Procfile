@@ -1,1 +1,1 @@
-web: cd packages/api && yarn build:server && node ./dist/index.js
+web: node ./packages/api/dist/index.js
