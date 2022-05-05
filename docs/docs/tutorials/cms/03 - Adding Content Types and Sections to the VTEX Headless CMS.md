@@ -98,7 +98,7 @@ values={[
 </div>
   </TabItem>
   <TabItem value="CMS">
-  <img src="/img/tutorials/cms/contenttypes.png" width="40%" />
+  <img src="https://vtexhelp.vtexassets.com/assets/docs/src/contenttypes2___1747bd4670cc21204a6314053928c44f.png" width="40%" />
   </TabItem>
 </Tabs>
 

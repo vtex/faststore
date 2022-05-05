@@ -76,7 +76,7 @@ Next, let's configure the URLs of the webhooks used by the VTEX Headless CMS app
    
 8. Click on **Save.**
 
-![CMS Settings](/img/tutorials/cms/cms-settings.png)
+![CMS Settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-settings2___54ec9a22584b5aad09d0b403993cbee2.png)
 
 Now you're ready to start defining which Content Types and Sections will be editable via the VTEX Headless CMS. Let's get started!
 

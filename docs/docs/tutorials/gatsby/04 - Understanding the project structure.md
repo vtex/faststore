@@ -111,7 +111,7 @@ The `gatsby‑browser` file allows you to use the [Gatsby Browser API](https://w
 
 The `gatsby‑config` file allows you to use the [Gatsby Config API](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/). It is the main configuration file in a Gatsby website. You can use it to specify your site metadata and configure [Gatsby Plugins](https://www.gatsbyjs.com/docs/plugins/). 
 
-![](/img/tutorials/gatsby/gatsby-config.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/gatsby-config___c979d882de2c8d26beebdf56cb5992f4.png)
 
 :::note
 If you're not familiar with [Gatsby Plugins](https://www.gatsbyjs.com/docs/plugins/), don't worry. In the following sections, we'll explore how to add new functionalities to your store website using Gatsby plugins.
@@ -159,7 +159,7 @@ The `pages` folder works as a URL router for your website. In practice, this mea
 
 This is also where you'll fetch static data, such as your store metadata.
 
-![](/img/tutorials/gatsby/pages-folder.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/pages-folder___4ef3e096a7bec4c62eb01cf61e85824e.png)
 
 Within this folder, you'll already find some pre-defined subfolders and files, such as:
 
@@ -194,7 +194,7 @@ Also, since you may have numerous reusable components in your project, we recomm
 
 The `views` folder provides a functional storefront page by bringing together static data from `pages`, reusable components from `components`, and dynamic data. Ideally, you should use components within the `components/sections` folder for easier integration with CMS. 
 
-![](/img/tutorials/gatsby/views-folder.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/views-folder___ab065f3432d2a29e7d4b6219c744496e.png)
 
 Within the `views` folder, you'll find the [`Layout.tsx` file](#layouttsx) and [page-specific subfolders](#page-specific-subfolders), such as `collection`, `home`, `product`, and `search`. 
 
@@ -220,7 +220,7 @@ The `sdk` folder contains hooks responsible for controlling your application's l
 
 For example, when someone sends a request to your web application using the *Add to cart* button, the `useBuyButton.ts` SDK will handle this request and update the appropriate states of your store.
 
-![](/img/tutorials/gatsby/sdk-folder.gif)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/sdk-folder___0720414f88b6f43e13d223a9711fd21c.gif)
 
 Under the hood, the `sdk` folder works as a Controller between the Model and the View layers. After an SDK receives and treats a given input from the client, it sends commands to the View and Model layers. Commands sent to the View layer are responsible for updating user interface components, such as the number of items shown in the cart.  Meanwhile, commands sent to the Model layer are used to update data and states of your store.
 

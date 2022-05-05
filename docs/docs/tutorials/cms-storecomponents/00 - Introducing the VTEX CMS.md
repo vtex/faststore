@@ -57,7 +57,7 @@ Each page created with the VTEX Headless CMS is related to a specific URL and is
 
 Once you start creating or editing a page, you'll see that these are composed of a series of **Sections**. 
 
-![CMS Section](/img/tutorials/cms-storecomponents/cms-section.png)
+![CMS Section](https://vtexhelp.vtexassets.com/assets/docs/src/cms-section___d3211ca1a5752e2498b58970872d9aaf.png)
 
 A Section represents the structure of a React component that you, as a developer, chose to be available at the CMS. Check the following example of the Carousel Section being used:
 
