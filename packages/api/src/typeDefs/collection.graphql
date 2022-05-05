@@ -53,7 +53,7 @@ type StoreCollection {
   """
   id: ID!
   """
-  Collection corresponding URL slug.
+  Corresponding collection URL slug, with which to retrieve this entity.
   """
   slug: String!
   """
