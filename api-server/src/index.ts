@@ -3,7 +3,7 @@ import { graphqlHTTP } from 'express-graphql'
 import type { Options } from '@faststore/api'
 import { getSchema, getContextFactory } from '@faststore/api'
 
-const serverPort = '4000'
+const serverPort = process.env.PORT ?? '4000'
 
 const apiOptions = {
   platform: 'vtex',
