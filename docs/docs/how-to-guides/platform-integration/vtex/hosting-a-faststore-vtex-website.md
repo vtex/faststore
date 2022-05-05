@@ -45,7 +45,7 @@ Now you must set up your VTEX account to use the domains you configured in the p
 2. Go to **Account Settings > Account Management > Account**.
 3. Under the **Store** section, click on **Add new host**.
 4. Add both your main domain and subdomain to the list.
-   ![Host configuration](/img/how-to-guides/license-manager-hosts.png)
+   ![Host configuration](https://vtexhelp.vtexassets.com/assets/docs/src/LicenseManagerHosts___4ebe6f942380abc52834b193b58615c7.png)
 5. Click on **Save**.
 
 ### Step 3 - Updating your FastStore project

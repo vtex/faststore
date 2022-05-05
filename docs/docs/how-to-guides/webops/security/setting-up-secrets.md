@@ -36,7 +36,7 @@ Before proceeding any further with this guide, make sure you have:
 
 3. Run `vtex secrets` to ensure the installation of the Secrets plugin was successful and check its all three subcommands.
    
-   ![Secrets plugin](/img/how-to-guides/vtex-secrets.png)
+   ![Secrets plugin](https://vtexhelp.vtexassets.com/assets/docs/src/vtex-secrets___9f0057469565607863794da75b404d8c.png)
 
 ### Step 2 - Setting up your VTEX account to accept secrets
 

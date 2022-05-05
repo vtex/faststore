@@ -25,7 +25,7 @@ Take the following steps to guarantee shoppers will be redirected to the newest 
 
 1. Access the **VTEX Admin**.
 2. Go to **Store Setup > Checkout**.
-3. Click on the **gear button** <img class="inline w-8" src="/img/how-to-guides/gear-button.png"/> in the **Default** card.
+3. Click on the **gear button** <img class="inline w-8" src="https://vtexhelp.vtexassets.com/assets/docs/src/GearButton___321ecfa4cbfc643280bdb8334dafa486.png"/> in the **Default** card.
 4. Change to the **Code** tab. 
 5. Select `checkout-confirmation-custom.js` under **Files**. 
 6. Add the following JavaScript code in the editor:

@@ -34,7 +34,7 @@ First, we will install the **VTEX IO CLI**. The VTEX IO CLI will help you during
 
 Now, check if the installation of the VTEX Headless CMS plugin was successful by running `vtex cms`.
 
-   ![VTEX Headless CMS plugin](/img/tutorials/cms/cms-cli-plugin.png)
+   ![VTEX Headless CMS plugin](https://vtexhelp.vtexassets.com/assets/docs/src/CMSPluginCLI___63a1f4d454fd5d42353d5ee276028962.png)
 
 :::caution
 If you find any problems while installing the plugin, please refer to our [Troubleshooting](/tutorials/cms/Troubleshooting) article.

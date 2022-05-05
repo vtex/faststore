@@ -51,7 +51,7 @@ Each page created with the VTEX Headless CMS is related to a specific URL and is
 - **Last modified:** indicates the last time a given page was edited.
 - **Version:** identifies the state of a page, if it's *Draft*, *Publishing*, or *Published*. Notice that editors can have more than one version of the same page with distinct settings and content. 
 
-![CMS Settings](/img/tutorials/cms-storecomponents/cms-content-types.png)
+![CMS Settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-content-types___f74003dbbffde1d11b5d38800c31933b.png)
 
 ### Sections 
 

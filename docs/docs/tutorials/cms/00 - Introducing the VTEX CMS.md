@@ -53,7 +53,7 @@ Notice that each page created with the VTEX Headless CMS is related to a specifi
 
 Once editors click on **Create New** in the VTEX Headless CMS interface, they'll be able to select a type from a list of **Content Types** that you, the developer, established.
 
-![CMS Settings](/img/tutorials/cms/cms-content-types.png)
+![CMS Settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-content-types___f74003dbbffde1d11b5d38800c31933b.png)
 
 ### Sections
 
