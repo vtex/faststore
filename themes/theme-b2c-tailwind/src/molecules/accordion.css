@@ -3,7 +3,7 @@
   @apply hover:text-pink-600;
 }
 [data-store-icon] {
-  @apply align-top ml-2;
+  @apply align-middle ml-2;
 }
 [data-store-accordion-button][aria-expanded='true'] {
   @apply text-pink-600;

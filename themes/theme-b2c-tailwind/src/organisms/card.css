@@ -2,18 +2,22 @@
   @apply h-full max-w-xs;
 }
 
-[data-store-card-content] {
-  @apply pt-2 pl-2;
+[data-card-content] {
+  @apply mt-2 mb-5;
 }
 
-[data-store-card-content] [data-store-price] {
+[data-card-content] h3 {
+  @apply font-medium text-xl;
+}
+
+[data-card-content] [data-store-price] {
   @apply mr-1 text-gray-500;
 }
 
-[data-store-card-content] [data-store-badge] {
+[data-card-content] [data-store-badge] {
   @apply mt-2 text-xs rounded-full text-gray-800 bg-green-100;
 }
 
-[data-store-card-actions] [data-store-button] {
-  @apply mr-2 mt-2 text-sm float-right;
+[data-card-actions] a {
+  @apply p-2 border border-black rounded;
 }
