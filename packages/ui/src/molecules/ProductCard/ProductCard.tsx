@@ -9,22 +9,20 @@ export interface ProductCardProps extends HTMLAttributes<HTMLDivElement> {
   testId?: string
 }
 
-const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
-  function ProductCard(
-    { testId = 'store-product-card', children, ...otherProps },
-    ref
-  ) {
-    return (
-      <div
-        ref={ref}
-        data-store-product-card
-        data-testid={testId}
-        {...otherProps}
-      >
-        {children}
-      </div>
-    )
-  }
-)
+const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(function Card(
+  { testId = 'store-product-card', children, ...otherProps },
+  ref
+) {
+  return (
+    <article
+      ref={ref}
+      data-store-product-card
+      data-testid={testId}
+      {...otherProps}
+    >
+      {children}
+    </article>
+  )
+})
 
 export default ProductCard
