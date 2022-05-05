@@ -16,7 +16,7 @@ This documentation is currently under development.
 :::
 
 
-![](/img/tutorials/gatsby/technologies.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/technologies___95cb306645c9134458735e56eaace5d9.png)
 
 <br/>
 
@@ -67,7 +67,7 @@ To build its data layer, Gatsby uses GraphQL, a query language that allows you t
 
 The main advantage of using a GraphQL server is that, instead of fetching data from multiple endpoints with fixed data structures, you can send query requests for a single endpoint that responds precisely with the specific data you need. Take the following example in which we query for product details.
 
-![](/img/tutorials/gatsby/gatsby-graphql.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/gatsby-graphql___2cea67ed3d4f9bbbfbe34a287539d385.jpg)
 
 Notice how the query schema matches with the returned JSON. This is possible because we are querying against a schema that represents our available data. For this tutorial, you don't need to worry about where this schema comes from. Gatsby and VTEX make sure all the data you need to build your store's website is available and discoverable via a tool called GraphiQL.
 
@@ -75,7 +75,7 @@ Notice how the query schema matches with the returned JSON. This is possible bec
 
 Let's suppose you want to create a page that shows details of your store's products. For that, we will use a reusable **React** component called *Product Summary* that displays a card with a product's name, images, and price. As this data is dynamic and changes depending on the availability of the product and your store's campaigns, it resides in a database. You may assume, therefore, that the content for each product is available via some API endpoint. Hence, we may need to access this data in order to create a static HTML page that displays our Product Summary component with proper information about our product.
 
-![](/img/tutorials/gatsby/query-data.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/query-data___78db40b3170ec97845c3e9ff477e55d6.png)
 
 To this end, Gatsby will use **GraphQL** to query our store's products and data from **VTEX APIs**. Once Gatsby gathers the data we requested, we can use it inside our Product Summary component to display a card with the product information in a pleasing format.
 

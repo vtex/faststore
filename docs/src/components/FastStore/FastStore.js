@@ -2,8 +2,6 @@ import React from 'react'
 import styles from './FastStore.module.css'
 import ViewAll from '../ViewAll/ViewAll'
 import FeatureCard from '../FeatureCard/FeatureCard'
-import lightImg from '/img/performance.png'
-import darkImg from '/img/performanceDark.png'
 import SearchBar from '@theme/SearchBar'
 import ImageSwitcher from '../ImageSwitcher/ImageSwitcher'
 import Link from '@docusaurus/Link'
@@ -58,8 +56,8 @@ function FastStore() {
           </div>
         </div>
         <ImageSwitcher 
-          lightImageSrc={lightImg}
-          darkImageSrc={darkImg}
+          lightImageSrc="https://vtexhelp.vtexassets.com/assets/docs/src/performance___22b8f305649a26c629b59b51b7906409.png"
+          darkImageSrc="https://vtexhelp.vtexassets.com/assets/docs/src/performanceDark___72750ceb0ac806835ea961a31677ab0f.png"
           classes='block sm:w-1/3 sm:object-contain w-11/12'/>
       </div>
       <div className={styles.search}>

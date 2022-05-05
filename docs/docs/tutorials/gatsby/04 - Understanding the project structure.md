@@ -105,7 +105,7 @@ The `store.config.js` file stores the environment variables needed for accessing
 
 The `gatsby‑browser` file allows you to use the [Gatsby Browser API](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-browser/). You can use it to change and customize Gatsby's behavior in the browser and make components wrap around all your web pages. For example, you can use it to import global CSS styles and render components that are common to all your store pages. 
 
-![](/img/tutorials/gatsby/gatsby-browser.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/gatsby-browser___148097949626d1d7b9bf09979fe1aec7.png)
 
 ### `gatsby‑config.js`
 
@@ -121,13 +121,13 @@ If you're not familiar with [Gatsby Plugins](https://www.gatsbyjs.com/docs/plugi
 
 The `gatsby‑node.js` file is where you'll define and configure [Gatsby Node APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/). The code within this file runs once during the build process of your site, allowing you to customize and extend the Gatsby settings that affect the build.  
 
-![](/img/tutorials/gatsby/gatsby-node.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/gatsby-node___0379ab0017881624a571d1086af6d204.png)
 
 ### `gatsby‑ssr.js`
 
 The `gatsby‑ssr.js` file allows you to use the [Gatsby Server Rendering APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-ssr/). These enable customizing the content of static HTML files as they are Server-Side Rendered (SSR) by Gatsby and Node.js. 
 
-![](/img/tutorials/gatsby/gatsby-ssr.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/gatsby-ssr___2e4e57aafda0964f72e1a0e2e3b8091a.png)
 
 
 ## The `src` folder
@@ -177,7 +177,7 @@ Learn more about client-only routes [here.](https://www.gatsbyjs.com/docs/refere
 
 As the name suggests, the components folder is where you'll store all your **reusable React components**, such as the *Product* component illustrated in the following image. The components declared within this folder are supposed to be added to a page component and, together, make up the different parts of the UI.
 
-![](/img/tutorials/gatsby/components-folder.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/components-folder___681b5e8f626f5447bd2c4f43e1a821a7.jpg)
 
 Notice that these components are **non-routable**, i.e., they are not web pages by themselves. For example, it's not possible to navigate to the *Product* component. 
 

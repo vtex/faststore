@@ -153,7 +153,7 @@ const DynamicShelf: Schema = {
 
   </TabItem>
   <TabItem value="CMS">
-    <img src="/img/tutorials/cms-storecomponents/dynamicshelfschema.png"/>
+    <img src="https://vtexhelp.vtexassets.com/assets/docs/src/DynamicShelfSchema___3d88d38d7e326f48bf7b4d7dc1c20465.png"/>
   </TabItem>
 </Tabs>
 
