@@ -153,7 +153,7 @@ const DynamicShelf: Schema = {
 
   </TabItem>
   <TabItem value="CMS">
-    <img src="https://vtexhelp.vtexassets.com/assets/docs/src/DynamicShelfSchema___3d88d38d7e326f48bf7b4d7dc1c20465.png"/>
+    <img src="https://vtexhelp.vtexassets.com/assets/docs/src/DynamicShelfSection___d6e0092372529fb9ca6c4e7150ba8f72.png"/>
   </TabItem>
 </Tabs>
 
@@ -192,7 +192,7 @@ export const contentTypes: ContentTypes = {
 
   </TabItem>
   <TabItem value="CMS">
-  <img src="/img/tutorials/cms-storecomponents/contenttypes.png" width="40%" />
+  <img src="https://vtexhelp.vtexassets.com/assets/docs/src/contenttypes___115870550123bf6088805e4452be76e1.png" width="40%" />
   </TabItem>
 </Tabs>
 

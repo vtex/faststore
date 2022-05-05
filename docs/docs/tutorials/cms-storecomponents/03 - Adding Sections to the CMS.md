@@ -127,7 +127,7 @@ export const builderConfig: BuilderConfig = {
 
 Now, if you start creating a new **Home Page** in the VTEX Headless CMS app and click on the `+` sign, you will see your `AwesomeComponent` available.
 
-![](https://vtexhelp.vtexassets.com/assets/docs/src/cms-new-section___477682d7c0d871cea3540e26eb8df915.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/CMSNewSection___24c3dc6882a1707fe4509e0e183e9b33.png)
 
 ---
 
