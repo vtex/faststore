@@ -59,7 +59,7 @@ type StoreProduct {
   """
   isVariantOf: StoreProductGroup!
   """
-  Array with additional properties.
+  Array of additional properties.
   """
   additionalProperty: [StorePropertyValue!]!
 }
