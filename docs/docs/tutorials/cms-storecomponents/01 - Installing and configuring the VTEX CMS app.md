@@ -50,7 +50,7 @@ In this step, we'll use [ngrok](https://ngrok.com/) - an application that expose
 3. Start a development server by running `yarn develop`.
 4. Open a new window of the terminal and run `ngrok http 8000` to generate a public URL for your localhost.
 
-  ![ngrok](/img/tutorials/cms-storecomponents/ngrok.png)
+  ![ngrok](https://vtexhelp.vtexassets.com/assets/docs/src/ngrok___b18d12281f9b12918ab8efc2d1badecf.jpg)
 
 5. Copy the **Forwarding** link and save it for later usage. 
 

@@ -66,7 +66,7 @@ Start a development server on port 8000.
 yarn develop
 ```
 
-<img className="rounded shadow-md" src="/img/tutorials/gatsby/yarndevelop.gif"/>
+<img className="rounded shadow-md" src="https://vtexhelp.vtexassets.com/assets/docs/src/yarndevelop___e894f0c697aa7150b53791d8b5099255.gif"/>
 
 Your store will start at a hot-reloading environment at [http://localhost:8000/](http://localhost:8000/). You'll also have access to GraphiQL, a tool that you can use to fetch data and build queries, at [http://localhost:8000/___graphql](http://localhost:8000/___graphql).
 

@@ -54,7 +54,7 @@ Before proceeding any further with this guide, make sure you have:
     vtex secrets setup
     ```
 
-    ![Secrets Setup](/img/how-to-guides/secrets.gif)
+    ![Secrets Setup](https://vtexhelp.vtexassets.com/assets/docs/src/secrets___6b6c362a97aa2f1802703b86ab2128fa.gif)
 
 After running the `vtex secrets setup` command, the `secrets.revealed.json` file will be created in the root of your repository. Also, the `.gitignore` file will be updated with the `secrets.revealed.json` file to avoid any risks of exposing your Secrets by mistake on the remote repository.
 

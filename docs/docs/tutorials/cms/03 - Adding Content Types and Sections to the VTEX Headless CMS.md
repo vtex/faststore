@@ -116,7 +116,7 @@ Back to our example, notice that different from the Home Page, the **Institution
 
 For the **Institutional Page**, a custom section named SEO, which allows editors to change the site metadata, was created.
 
-![Configuration Schema Sets](/img/tutorials/cms/cms-global-seo.png)
+![Configuration Schema Sets](https://vtexhelp.vtexassets.com/assets/docs/src/cms-global-seo___5be7f2ef2198e850c639c288317a334f.png)
 
 Also, notice that the `configurationSchemaSets` object must contain a `name`, written in **camel case**, and `configurations`. In its turn, the `configurations` object must include a `name` for identification, written in camel case, and a `schema`, written in [JSON Schema v6](http://json-schema.org/) - a description language for creating forms. The `schema` defines the structure of the form used by editors to submit data.
 

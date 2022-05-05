@@ -35,7 +35,7 @@ By the end of this step, changes will be live to all end-users, meaning that onc
 
 6. Clean the `<body>` section to remove unnecessary code. By the end of this step, your Home file should look like the following:
 
-  ![Home Template](/img/how-to-guides/home-template.png)
+  ![Home Template](https://vtexhelp.vtexassets.com/assets/docs/src/home-template___a12a67566b69529d2a3f19c98f135060.png)
 
 7. Click on the **Save Template** button.
 

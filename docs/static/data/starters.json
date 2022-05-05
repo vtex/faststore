@@ -1,7 +1,7 @@
 [
   {
     "name": "Base Store",
-    "imgThumbnail": "/img/starters/base-store-thumbnail.png",
+    "imgThumbnail": "https://vtexhelp.vtexassets.com/assets/docs/src/base-store-thumbnail___9e33abb179b373981bafeaaa478746dd.png",
     "url": "/starters/base",
     "owner": "VTEX",
     "details": "Made for quick setup of standard B2C stores",
@@ -17,11 +17,11 @@
     "gatsbyRepo": "https://github.com/vtex-sites/gatsby.store",
     "nextRepo": "https://github.com/vtex-sites/nextjs.store",
     "price": "Free",
-    "img": "/img/starters/base-starter.png"
+    "img": "https://vtexhelp.vtexassets.com/assets/docs/src/base-starter___200e0e277da7a7fd7e5dcf2bacd01e13.png"
   },
   {
     "name": "CMS Base Store",
-    "imgThumbnail": "/img/starters/base-store-thumbnail.png",
+    "imgThumbnail": "https://vtexhelp.vtexassets.com/assets/docs/src/base-store-thumbnail___9e33abb179b373981bafeaaa478746dd.png",
     "url": "/starters/cms-base",
     "owner": "VTEX",
     "details": "Made for quick integration with VTEX Headless CMS",
@@ -37,6 +37,6 @@
     "demoURL": "https://storeframework.vtex.app/",
     "gatsbyRepo": "https://github.com/vtex-sites/storeframework.store",
     "price": "Free",
-    "img": "/img/starters/base-starter.png"
+    "img": "https://vtexhelp.vtexassets.com/assets/docs/src/base-starter___200e0e277da7a7fd7e5dcf2bacd01e13.png"
   }
 ]

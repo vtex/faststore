@@ -40,7 +40,7 @@ As with any other VTEX Admin app, you can install the VTEX Headless CMS in your 
 
 You'll then see a list of all web pages created with the VTEX Headless CMS. Notice that this list will be empty at first, but once editors start creating new pages, your interface will look similar to the following:
 
-![CMS Interface](/img/tutorials/cms/cms.png)
+![CMS Interface](https://vtexhelp.vtexassets.com/assets/docs/src/cms___37112353021879c47a4724d4a5cf67aa.png)
 
 Notice that each page created with the VTEX Headless CMS is related to a specific URL and is distinguished by the following properties:
 
@@ -59,8 +59,8 @@ Once editors click on **Create New** in the VTEX Headless CMS interface, they'll
 
 For each Content Type, different **Sections** will be available to compose that page. Sections represent the content structure of a React component, for example, a Carousel or a Dynamic Shelf. 
 
-![CMS Section](/img/tutorials/cms/cms-section.png)
+![CMS Section](https://vtexhelp.vtexassets.com/assets/docs/src/cms-section___d3211ca1a5752e2498b58970872d9aaf.png)
 
 Sections can be reused in different pages of an ecommerce. You are the one who will choose which Sections will be available at the CMS. Check the following example of the Carousel Section being used:
 
-![Carousel Section](/img/tutorials/cms/cms-carousel.png)
+![Carousel Section](https://vtexhelp.vtexassets.com/assets/docs/src/cms-carousel___e9a4053e9ec30ee94466150e82b9dc93.png)
