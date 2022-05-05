@@ -197,7 +197,7 @@ function Step2(props) {
   return (
     <div>
       <div className={styles.Feedback}>
-        <img src="img/thankYou.png" />
+        <img src="https://vtexhelp.vtexassets.com/assets/docs/src/thankYou___b4ba01a2ad384f246d3fc2bd5a96dc3a.jpg" />
         <h3 className="text-2xl font-bold text-center mt-12 mb-3">
           Thanks for sharing your feedback!
         </h3>
