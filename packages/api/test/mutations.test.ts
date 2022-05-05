@@ -7,11 +7,15 @@ import {
   ValidateCartMutation,
   InvalidCart,
   ValidCart,
+  ValidCartWithAddOns,
   checkoutOrderFormItemsValidFetch,
   checkoutOrderFormValidFetch,
   checkoutOrderFormInvalidFetch,
   checkoutOrderFormItemsInvalidFetch,
   productSearchPage1Count1Fetch,
+  checkoutOrderFormValidAssemblyOptionsFetch,
+  checkoutOrderFormItemsValidAssemblyOptionsFetch,
+  productSearchPage1Count1FetchAssemblyOptions,
 } from '../mocks/ValidateCartMutation'
 
 let schema: GraphQLSchema
@@ -106,6 +110,38 @@ test('`validateCart` mutation should return the full order when an invalid cart 
     null,
     context,
     { cart: InvalidCart }
+  )
+
+  expect(mockedFetch).toHaveBeenCalledTimes(3)
+
+  fetchAPICalls.forEach((fetchAPICall, index) => {
+    expect(mockedFetch).toHaveBeenNthCalledWith(
+      index + 1,
+      fetchAPICall.info,
+      fetchAPICall.init
+    )
+  })
+
+  expect(response).toMatchSnapshot()
+})
+
+test('`validateCart` mutation remount assembly options tree into addOn properties', async () => {
+  const fetchAPICalls = [
+    checkoutOrderFormValidAssemblyOptionsFetch,
+    checkoutOrderFormItemsValidAssemblyOptionsFetch,
+    productSearchPage1Count1FetchAssemblyOptions,
+  ]
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, fetchAPICalls)
+  )
+
+  const response = await execute(
+    schema,
+    parse(ValidateCartMutation),
+    null,
+    context,
+    { cart: ValidCartWithAddOns }
   )
 
   expect(mockedFetch).toHaveBeenCalledTimes(3)

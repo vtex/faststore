@@ -7,6 +7,7 @@ import { StoreFacet } from './resolvers/facet'
 import { StoreFacetValue } from './resolvers/facetValue'
 import { Mutation } from './resolvers/mutation'
 import { StoreOffer } from './resolvers/offer'
+import { StoreOrder } from './resolvers/order'
 import { StoreProduct } from './resolvers/product'
 import { StoreProductGroup } from './resolvers/productGroup'
 import { Query } from './resolvers/query'
@@ -57,6 +58,7 @@ const Resolvers = {
   StoreFacet,
   StoreFacetValue,
   StoreOffer,
+  StoreOrder,
   StoreAggregateRating,
   StoreReview,
   StoreProductGroup,

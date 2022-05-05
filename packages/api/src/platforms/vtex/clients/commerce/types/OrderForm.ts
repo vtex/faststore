@@ -48,6 +48,12 @@ export interface OrderFormItem {
     sellingPrices: SellingPrice[]
     total: number
   }
+  attachments: Attachment[]
+}
+
+export interface Attachment {
+  name: string
+  content: Record<keyof any, unknown>
 }
 
 export interface SKUSpecification {

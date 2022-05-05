@@ -11,7 +11,10 @@ import type { ArrayElementType } from '../../../typings'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
 
-type OrderFormProduct = OrderFormItem & { product: Promise<EnhancedSku> }
+type OrderFormProduct = OrderFormItem & {
+  product: Promise<EnhancedSku>
+  addOn?: OrderFormItem[]
+}
 type SearchProduct = ArrayElementType<
   ReturnType<typeof StoreAggregateOffer.offers>
 >
@@ -97,6 +100,17 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
     return null
   },
   itemOffered: ({ product }) => product,
+  addOn: (item) => {
+    if (isSearchItem(item)) {
+      return []
+    }
+
+    if (isOrderFormItem(item)) {
+      return item.addOn ?? []
+    }
+
+    return null
+  },
   quantity: (root) => {
     if (isSearchItem(root)) {
       return root.AvailableQuantity ?? 0

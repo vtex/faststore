@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`\`validateCart\` mutation remount assembly options tree into addOn properties 1`] = `
+Object {
+  "data": Object {
+    "validateCart": Object {
+      "messages": Array [],
+      "order": Object {
+        "acceptedOffer": Array [
+          Object {
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "itemOffered": Object {
+              "name": "Gold Bell",
+            },
+            "listPrice": 450.23,
+            "price": 450.23,
+            "priceCurrency": "",
+            "quantity": 1,
+            "seller": Object {
+              "identifier": "1",
+            },
+            "sellingPrice": 450.23,
+          },
+        ],
+        "orderNumber": "edbe3b03c8c94827a37ec5a6a4648fd2",
+      },
+    },
+  },
+}
+`;
+
 exports[`\`validateCart\` mutation should return the full order when an invalid cart is passed 1`] = `
 Object {
   "data": Object {

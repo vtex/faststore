@@ -90,7 +90,6 @@ export const validateCart = async (
   const { orderNumber, acceptedOffer } = order
   const {
     clients: { commerce },
-    loaders: { skuLoader },
   } = ctx
 
   // Step1: Get OrderForm from VTEX Commerce
@@ -151,13 +150,7 @@ export const validateCart = async (
 
   // Step6: There were changes, convert orderForm to StoreOrder
   return {
-    order: {
-      orderNumber: updatedOrderForm.orderFormId,
-      acceptedOffer: updatedOrderForm.items.map((item) => ({
-        ...item,
-        product: skuLoader.load([{ key: 'id', value: item.id }]), // TODO: add channel
-      })),
-    },
+    order: updatedOrderForm,
     messages: updatedOrderForm.messages.map(({ text, status }) => ({
       text,
       status: status.toUpperCase(),
