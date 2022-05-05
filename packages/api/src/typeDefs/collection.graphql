@@ -1,3 +1,6 @@
+"""
+Product collection type. Possible values are `Department`, `Category`, `Brand` or `Cluster`.
+"""
 enum StoreCollectionType {
   Department
   Category
@@ -5,22 +8,56 @@ enum StoreCollectionType {
   Cluster
 }
 
+"""
+Product collection facet, used for search.
+"""
 type StoreCollectionFacet {
+  """
+  Facet key.
+  """
   key: String!
+  """
+  Facet value.
+  """
   value: String!
 }
 
+"""
+Collection meta information. Used for search.
+"""
 type StoreCollectionMeta {
+  """
+  List of selected collection facets.
+  """
   selectedFacets: [StoreCollectionFacet!]!
 }
 
+"""
+Product collection information.
+"""
 type StoreCollection {
-  # Meta tag data
+  """
+  Meta tag data.
+  """
   seo: StoreSeo!
-  # location for structured data
+  """
+  List of items consisting of chain linked web pages, ending with the current page.
+  """
   breadcrumbList: StoreBreadcrumbList!
+  """
+  Collection meta information. Used for search.
+  """
   meta: StoreCollectionMeta!
+  """
+  Collection ID.
+  """
   id: ID!
+  """
+  Collection corresponding URL slug.
+  """
   slug: String!
+  """
+  Collection type.
+  """
   type: StoreCollectionType!
 }
