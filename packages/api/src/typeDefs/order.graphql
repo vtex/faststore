@@ -1,9 +1,27 @@
+"""
+Information of a specific order.
+"""
 type StoreOrder {
+  """
+  Order shopping cart ID, also known as `orderFormId`.
+  """
   orderNumber: String!
+  """
+  Array with information on each accepted offer.
+  """
   acceptedOffer: [StoreOffer!]!
 }
 
+"""
+Offer input.
+"""
 input IStoreOrder {
+  """
+  Order shopping cart ID, also known as `orderFormId`.
+  """
   orderNumber: String!
+  """
+  Array with information on each accepted offer.
+  """
   acceptedOffer: [IStoreOffer!]!
 }
