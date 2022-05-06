@@ -1,5 +1,7 @@
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
+# Badge
+
 Badges are status descriptors used to highlight a relevant content.
 
 ## Import
@@ -11,27 +13,7 @@ import { Badge } from '@faststore/ui'
 ## Usage
 
 ```tsx live
- <Badge>-25%</Badge>
-```
-### Use cases
-
-- On-sale products.
-- Product features, for example `vegan` or `cruelty-free`.
-- Product status, for example `new`,`only 1 left` and `back in stock`.
-
-```tsx live
-<Card>
-    <img
-      alt="A vintage camera"
-      src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
-    />
-    <div>
-    <Badge class="bg-green-500">
-                back in stock
-    </Badge>
-
-    </div>
-</Card>
+<Badge>-25%</Badge>
 ```
 
 ## Props
@@ -41,17 +23,3 @@ import { Badge } from '@faststore/ui'
 ## Customization
 
 `data-store-badge`
-
-## Best practices
-
-### Do's
-- Write clear and short texts.
-- Place the badge next to or on top of the product related to the badge.
-- Use a color palette to establish the relevance and status of the product and get the users' attention.
-
-### Don'ts
-- Avoid placing badges next to buttons. Although they look similar, a badge is not as interactive as a button.
-
-## Accessibility
-- [`id` attribute](https://dequeuniversity.com/rules/axe/4.3/duplicate-id?application=axeAPI) value must be unique.
-- Text elements must have [sufficient color contrast](https://dequeuniversity.com/rules/axe/4.3/color-contrast?application=axeAPI) between the text and the background.
