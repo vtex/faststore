@@ -4,7 +4,6 @@ module.exports = {
   tagline: 'Documentation Portal',
   url: 'https://faststore.dev',
   baseUrl: '/',
-  trailingSlash: false,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -189,7 +188,7 @@ module.exports = {
           routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
-            'https://github.com/vtex/faststore/edit/master/docs',
+            'https://github.com/vtex/faststore/edit/main/docs',
         },
         blog: {
           routeBasePath: 'releases',
