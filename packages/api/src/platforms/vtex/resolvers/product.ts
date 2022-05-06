@@ -73,10 +73,9 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     }
   },
   isVariantOf: (root) => root,
-  // TODO: get this value. Fix any type
-  additionalProperty: ({ attributes = [] }: any) =>
-    attributes.map((attribute: any) => ({
-      name: attribute.key,
-      value: attribute.value,
-    })),
+  additionalProperty: ({ variations = [] }) => {
+    return variations.flatMap(({ name, values }) =>
+      values.map((value) => ({ name, value }))
+    )
+  },
 }
