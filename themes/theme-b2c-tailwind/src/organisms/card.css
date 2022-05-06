@@ -1,23 +1,22 @@
 [data-store-card] {
-  @apply h-full max-w-xs;
+  max-width: 20rem;
+  height: 100%;
 }
 
 [data-card-content] {
-  @apply mt-2 mb-5;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
 }
 
 [data-card-content] h3 {
-  @apply font-medium text-xl;
-}
-
-[data-card-content] [data-store-price] {
-  @apply mr-1 text-gray-500;
-}
-
-[data-card-content] [data-store-badge] {
-  @apply mt-2 text-xs rounded-full text-gray-800 bg-green-100;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 500;
 }
 
 [data-card-actions] a {
-  @apply p-2 border border-black rounded;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  border-color: #171a1c;
 }
