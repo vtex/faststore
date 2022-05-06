@@ -5,7 +5,7 @@ import { fetchAPI } from '../fetch'
 import type { FacetSearchResult } from './types/FacetSearchResult'
 import type {
   ProductSearchResult,
-  SuggestedTerms,
+  Suggestion,
 } from './types/ProductSearchResult'
 
 export type Sort =
@@ -90,12 +90,16 @@ export const IntelligentSearch = (
   const suggestedProducts = (
     args: Omit<SearchArgs, 'type'>
   ): Promise<ProductSearchResult> =>
-    fetchAPI(`${base}/api/suggestion_products/?term=${args.query}`)
+    fetchAPI(
+      `${base}/_v/api/intelligent-search/product_search?query=${args.query}`
+    )
 
   const suggestedTerms = (
     args: Omit<SearchArgs, 'type'>
-  ): Promise<SuggestedTerms> =>
-    fetchAPI(`${base}/api/split/suggestion_search/?q=${args.query}`)
+  ): Promise<Suggestion> =>
+    fetchAPI(
+      `${base}/_v/api/intelligent-search/search_suggestions?query=${args.query}`
+    )
 
   const facets = (args: Omit<SearchArgs, 'type'>) =>
     search<FacetSearchResult>({ ...args, type: 'facets' })
