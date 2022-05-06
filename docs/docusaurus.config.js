@@ -4,7 +4,6 @@ module.exports = {
   tagline: 'Documentation Portal',
   url: 'https://faststore.dev',
   baseUrl: '/',
-  trailingSlash: false,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
