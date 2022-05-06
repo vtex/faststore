@@ -98,7 +98,7 @@ export interface Product {
   items: Item[]
   skuSpecifications?: SkuSpecification[]
   priceRange: PriceRange
-  specificationGroups: SpecificationGroup
+  specificationGroups: SpecificationGroup[]
   properties: Array<{ name: string; values: string[] }>
   selectedProperties: Array<{ key: string; value: string }>
 }
@@ -133,7 +133,10 @@ export interface Item {
   modalType: any | null
   images: Image[]
   Videos: string[]
-  variations: string[]
+  variations: Array<{
+    name: string
+    values: string[]
+  }>
   sellers: Seller[]
   attachments: Array<{
     id: number
@@ -214,5 +217,9 @@ interface PriceRange {
 interface SpecificationGroup {
   name: string
   originalName: string
-  specifications: { name: string; originalName: string; values: string[] }
+  specifications: Array<{
+    name: string
+    originalName: string
+    values: string[]
+  }>
 }
