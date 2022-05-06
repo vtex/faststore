@@ -37,8 +37,8 @@ const CardTemplate: Story<CardProps> = ({ testId }) => {
       <CardContent>
         <h3>Get to know our next release</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit
-          nisi, vehicula in turpis sit amet, posuere aliquam nisl.{' '}
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Evehicula in
+          turpis sit ametl.{' '}
         </p>
       </CardContent>
       <CardActions>
