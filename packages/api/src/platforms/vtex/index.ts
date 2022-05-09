@@ -42,12 +42,12 @@ export interface Context {
   headers: Record<string, string>
 }
 
-export type Resolver<R = unknown, A = unknown> = (
+export type Resolver<R = unknown, A = unknown, Return = any> = (
   root: R,
   args: A,
   ctx: Context,
   info: any
-) => any
+) => Return
 
 const Resolvers = {
   StoreCollection,

@@ -17,6 +17,7 @@ theme: {
       tag: infima('--ifm-tag-background'),    
       tagHighlight: infima('--ifm-tag-highlight'),    
       rebelPink: infima('--ifm-color-rebel-pink'),
+      seriousBlack: infima('--ifm-color-serious-black'),
       secondary: infima('--ifm-color-secondary'),     
       primary: infima('--ifm-color-primary'),
       softPink: infima('--ifm-color-soft-pink'),     

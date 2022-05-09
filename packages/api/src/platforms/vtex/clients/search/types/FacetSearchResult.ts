@@ -10,9 +10,10 @@ export interface Facet {
   hidden: boolean
   values: FacetValue[]
   quantity?: number
+  key?: string
 }
 
-interface FacetValue {
+export interface FacetValue {
   quantity: number
   name: string
   key: string

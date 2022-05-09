@@ -1,23 +1,35 @@
 import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
-import type { Attribute } from '../clients/search/types/AttributeSearchResult'
+import type { Facet } from '../clients/search/types/FacetSearchResult'
 
 type Root = Omit<SearchArgs, 'type'>
 
-const REMOVED_FACETS_FROM_COLLECTION_PAGE = ['departamento']
+const REMOVED_FACETS_FROM_COLLECTION_PAGE = ['departamento', 'Departamento']
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   products: async (searchArgs, _, ctx) => {
     const {
-      clients: { search },
+      clients: { search, sp },
     } = ctx
 
     const products = await search.products(searchArgs)
 
+    // Raise event on search's analytics API when performing
+    // a full text search.
+    if (searchArgs.query) {
+      sp.sendEvent({
+        type: 'search.query',
+        text: searchArgs.query,
+        misspelled: products.correction.misspelled,
+        match: products.recordsFiltered,
+        operator: products.operator,
+      }).catch(console.error)
+    }
+
     const skus = products.products
       .map((product) => {
-        const [maybeSku] = product.skus
+        const [maybeSku] = product.items
 
         return maybeSku && enhanceSku(maybeSku, product)
       })
@@ -28,8 +40,8 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         hasNextPage: products.pagination.after.length > 0,
         hasPreviousPage: products.pagination.before.length > 0,
         startCursor: '0',
-        endCursor: products.total.toString(),
-        totalCount: products.total,
+        endCursor: products.recordsFiltered.toString(),
+        totalCount: products.recordsFiltered,
       },
       edges: skus.map((sku, index) => ({
         node: sku,
@@ -42,12 +54,12 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       clients: { search: is },
     } = ctx
 
-    const facets = await is.facets(searchArgs)
+    const { facets } = await is.facets(searchArgs)
 
     const isCollectionPage = !searchArgs.query
-    const filteredFacets = facets?.attributes?.reduce((acc, currentFacet) => {
+    const filteredFacets = facets?.reduce((acc, currentFacet) => {
       const shouldFilterFacet = REMOVED_FACETS_FROM_COLLECTION_PAGE.includes(
-        currentFacet.key
+        currentFacet.name
       )
 
       const shouldRemoveFacetFromCollectionPage =
@@ -58,8 +70,8 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       }
 
       currentFacet.values.sort((a, b) => {
-        const firstItemLabel = a.label ?? ''
-        const secondItemLabel = b.label ?? ''
+        const firstItemLabel = a.name ?? ''
+        const secondItemLabel = b.name ?? ''
 
         return firstItemLabel.localeCompare(secondItemLabel)
       })
@@ -67,7 +79,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       acc.push(currentFacet)
 
       return acc
-    }, [] as Attribute[])
+    }, [] as Facet[])
 
     return filteredFacets ?? []
   },

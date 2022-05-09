@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.34 (2022-04-25)
+
+**Note:** Version bump only for package @vtex/lighthouse-config
+
+
+
+
+
+## 1.7.33 (2022-04-25)
+
+
+### Bug Fixes
+
+* **api:** SearchResult send events ([#1242](https://github.com/vtex/faststore/issues/1242)) ([9cc7cc4](https://github.com/vtex/faststore/commit/9cc7cc4d55802ef0dc75e22d58c46da899674555))
+
+
+
+
+
+## 1.7.32 (2022-04-23)
+
+**Note:** Version bump only for package @vtex/lighthouse-config
+
+
+
+
+
 ## 1.7.31 (2022-04-22)
 
 **Note:** Version bump only for package @vtex/lighthouse-config
