@@ -18,6 +18,9 @@ module.exports = {
     updatesData: require("./static/data/doc-update"),
     starters: require("./static/data/starters"),
   },
+  scripts:[
+    "/scripts/openReplay.js"
+  ],
   themeConfig: {
     image: "img/faststore_thumbnail.png",
     zoom: {
