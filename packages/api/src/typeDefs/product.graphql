@@ -39,7 +39,7 @@ type StoreProduct {
   """
   offers: StoreAggregateOffer!
   """
-  Stock keeping unit ID.
+  Stock Keeping Unit ID.
   """
   sku: String!
   """
