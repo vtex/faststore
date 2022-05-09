@@ -1,26 +1,83 @@
+"""
+Product information.
+"""
 type StoreProduct {
-  # Meta tag data
+  """
+  Meta tag data.
+  """
   seo: StoreSeo!
-  # Location for structured data
+  """
+  List of items consisting of chain linked web pages, ending with the current page.
+  """
   breadcrumbList: StoreBreadcrumbList!
-  # Where to retrieve this entity
+  """
+  Corresponding collection URL slug, with which to retrieve this entity.
+  """
   slug: String!
+  """
+  Product name.
+  """
   name: String!
+  """
+  Product ID.
+  """
   productID: String!
+  """
+  Product brand.
+  """
   brand: StoreBrand!
+  """
+  Product description.
+  """
   description: String!
+  """
+  Array of images.
+  """
   image: [StoreImage!]!
+  """
+  Aggregate offer information.
+  """
   offers: StoreAggregateOffer!
+  """
+  Stock Keeping Unit ID.
+  """
   sku: String!
+  """
+  Global Trade Item Number.
+  """
   gtin: String!
+  """
+  Array with review information.
+  """
   review: [StoreReview!]!
+  """
+  Aggregate ratings data.
+  """
   aggregateRating: StoreAggregateRating!
+  """
+  Indicates product group related to this product.
+  """
   isVariantOf: StoreProductGroup!
+  """
+  Array of additional properties.
+  """
   additionalProperty: [StorePropertyValue!]!
 }
 
+"""
+Product input.
+"""
 input IStoreProduct {
+  """
+  Stock Keeping Unit ID.
+  """
   sku: String!
+  """
+  Product name.
+  """
   name: String!
+  """
+  Array of product images.
+  """
   image: [IStoreImage!]!
 }

@@ -1,8 +1,25 @@
+"""
+Page information.
+"""
 type StorePageInfo {
+  """
+  Indicates whether next page exists.
+  """
   hasNextPage: Boolean!
+  """
+  Indicates whether previous page exists.
+  """
   hasPreviousPage: Boolean!
+  """
+  Page cursor start.
+  """
   startCursor: String!
+  """
+  Page cursor end.
+  """
   endCursor: String!
-  # Total number of items(products/collections), not pages
+  """
+  Total number of items (products or collections), not pages.
+  """
   totalCount: Int!
 }

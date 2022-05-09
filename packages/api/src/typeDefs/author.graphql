@@ -1,3 +1,9 @@
+"""
+information about the author of a product review or rating.
+"""
 type StoreAuthor {
+  """
+  Author name.
+  """
   name: String!
 }
