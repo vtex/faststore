@@ -11,7 +11,7 @@ type StoreAggregateOffer {
   """
   lowPrice: Float!
   """
-  Number of sellers selling this sku.
+  Number of sellers selling this SKU.
   """
   offerCount: Int!
   """
