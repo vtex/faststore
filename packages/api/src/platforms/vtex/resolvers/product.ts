@@ -69,7 +69,11 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   offers: (root) =>
     root.sellers
       .flatMap((seller) =>
-        enhanceCommercialOffer(seller.commertialOffer, seller, root)
+        enhanceCommercialOffer({
+          offer: seller.commertialOffer,
+          seller,
+          product: root,
+        })
       )
       .sort(bestOfferFirst),
   isVariantOf: (root) => root,

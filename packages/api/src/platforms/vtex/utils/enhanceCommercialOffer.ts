@@ -9,11 +9,15 @@ export type EnhancedCommercialOffer = CommertialOffer & {
   product: EnhancedSku
 }
 
-export const enhanceCommercialOffer = (
-  offer: CommertialOffer,
-  seller: Seller,
+export const enhanceCommercialOffer = ({
+  offer,
+  seller,
+  product,
+}: {
+  offer: CommertialOffer
+  seller: Seller
   product: EnhancedSku
-): EnhancedCommercialOffer => ({
+}): EnhancedCommercialOffer => ({
   ...offer,
   product,
   seller,
