@@ -1,6 +1,21 @@
+"""
+Search Engine Optimizaztion (SEO) tags data.
+"""
 type StoreSeo {
+  """
+  Title tag.
+  """
   title: String!
+  """
+  Title template tag.
+  """
   titleTemplate: String!
+  """
+  Description tag.
+  """
   description: String!
+  """
+  Canonical tag.
+  """
   canonical: String!
 }
