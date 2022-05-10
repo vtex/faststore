@@ -1,13 +1,13 @@
-import type { Resolver } from '..'
-import type { StoreAggregateOffer } from './aggregateOffer'
 import {
-  getFirstSeller,
+  availability,
   inStock,
   inStockOrderFormItem,
-  getItemPriceByKey,
+  price,
+  sellingPrice,
 } from '../utils/productStock'
+import type { Resolver } from '..'
+import type { StoreAggregateOffer } from './aggregateOffer'
 import type { ArrayElementType } from '../../../typings'
-import type { Item } from '../clients/search/types/ProductSearchResult'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
 
@@ -17,98 +17,93 @@ type SearchProduct = ArrayElementType<
 >
 type Root = SearchProduct | OrderFormProduct
 
-const isSearchItem = (item: any): item is Item => 'sellers' in item
-const isOrderFormItem = (item: any): item is OrderFormProduct =>
-  'skuName' in item
+const isSearchItem = (item: Root): item is SearchProduct =>
+  'seller' in item && 'product' in item
 
-const getAvailability = (available: boolean) =>
-  available ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
+const isOrderFormItem = (item: Root): item is OrderFormProduct =>
+  'skuName' in item
 
 export const StoreOffer: Record<string, Resolver<Root>> = {
   priceCurrency: () => '',
-  priceValidUntil: (item) => {
-    if (isSearchItem(item)) {
-      return getFirstSeller(item.sellers)?.commertialOffer.PriceValidUntil ?? ''
+  priceValidUntil: (root) => {
+    if (isSearchItem(root)) {
+      return root.PriceValidUntil ?? ''
     }
 
-    if (isOrderFormItem(item)) {
-      return item.priceValidUntil ?? ''
+    if (isOrderFormItem(root)) {
+      return root.priceValidUntil ?? ''
     }
 
     return null
   },
   itemCondition: () => 'https://schema.org/NewCondition',
-  availability: async (item) => {
-    if (isSearchItem(item)) {
-      return getAvailability(!!inStock(item))
+  availability: async (root) => {
+    if (isSearchItem(root)) {
+      return availability(inStock(root))
     }
 
-    if (isOrderFormItem(item)) {
-      return getAvailability(inStockOrderFormItem(item.availability))
+    if (isOrderFormItem(root)) {
+      return availability(inStockOrderFormItem(root.availability))
     }
 
     return null
   },
-  seller: (item) => {
-    if (isSearchItem(item)) {
+  seller: (root) => {
+    if (isSearchItem(root)) {
       return {
-        identifier: getFirstSeller(item.sellers)?.sellerId ?? '',
+        identifier: root.seller.sellerId ?? '',
       }
     }
 
-    if (isOrderFormItem(item)) {
+    if (isOrderFormItem(root)) {
       return {
-        identifier: item.seller,
+        identifier: root.seller,
       }
     }
 
     return null
   },
-  price: (item) => {
-    if (isSearchItem(item)) {
-      return getItemPriceByKey(item, 'spotPrice')
+  price: (root) => {
+    if (isSearchItem(root)) {
+      return price(root)
     }
 
-    if (isOrderFormItem(item)) {
-      return item.price / 1e2
-    }
-
-    return null
-  },
-  sellingPrice: (item) => {
-    if (isSearchItem(item)) {
-      return getItemPriceByKey(item, 'Price')
-    }
-
-    if (isOrderFormItem(item)) {
-      return item.sellingPrice / 1e2
+    if (isOrderFormItem(root)) {
+      return root.price / 1e2
     }
 
     return null
   },
-  listPrice: (item) => {
-    if (isSearchItem(item)) {
-      return getItemPriceByKey(item, 'ListPrice')
+  sellingPrice: (root) => {
+    if (isSearchItem(root)) {
+      return sellingPrice(root)
     }
 
-    if (isOrderFormItem(item)) {
-      return item.listPrice / 1e2
+    if (isOrderFormItem(root)) {
+      return root.sellingPrice / 1e2
+    }
+
+    return null
+  },
+  listPrice: (root) => {
+    if (isSearchItem(root)) {
+      return root.ListPrice
+    }
+
+    if (isOrderFormItem(root)) {
+      return root.listPrice / 1e2
     }
 
     return null
   },
   itemOffered: ({ product }) => product,
-  quantity: (item) => {
-    if (isSearchItem(item)) {
-      return item.sellers.reduce(
-        (quantity, seller) =>
-          quantity + seller.commertialOffer.AvailableQuantity,
-        0
-      )
+  quantity: (root) => {
+    if (isSearchItem(root)) {
+      return root.AvailableQuantity ?? 0
     }
 
-    if (isOrderFormItem(item)) {
-      return item.quantity
+    if (isOrderFormItem(root)) {
+      return root.quantity
     }
 
     return null

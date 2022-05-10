@@ -1,33 +1,24 @@
-import type {
-  Item,
-  Seller,
-  CommertialOffer,
-} from '../clients/search/types/ProductSearchResult'
+import type { CommertialOffer } from '../clients/search/types/ProductSearchResult'
 
-export const inStock = (item: Item) =>
-  item.sellers.find((seller) => seller.commertialOffer.AvailableQuantity > 0)
+export const inStock = (offer: CommertialOffer) => offer.AvailableQuantity > 0
 
-export const getFirstSeller = (sellers: Seller[]): Seller | undefined =>
-  sellers[0]
+export const price = (offer: CommertialOffer) => offer.spotPrice ?? 0
+export const sellingPrice = (offer: CommertialOffer) => offer.Price ?? 0
 
-export const getItemPriceByKey = (
-  item: Item,
-  key: keyof CommertialOffer
-): number => getFirstSeller(item.sellers)?.commertialOffer[key] ?? 0
+export const availability = (available: boolean) =>
+  available ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
 
 // Smallest Available Selling Price First
-export const sortOfferByPrice = (items: Item[]): Item[] =>
-  items.sort((a, b) => {
-    if (inStock(a) && !inStock(b)) {
-      return -1
-    }
+export const bestOfferFirst = (a: CommertialOffer, b: CommertialOffer) => {
+  if (inStock(a) && !inStock(b)) {
+    return -1
+  }
 
-    if (!inStock(a) && inStock(b)) {
-      return 1
-    }
+  if (!inStock(a) && inStock(b)) {
+    return 1
+  }
 
-    return getItemPriceByKey(a, 'Price') - getItemPriceByKey(b, 'Price')
-  })
+  return price(a) - price(b)
+}
 
-export const inStockOrderFormItem = (availability: string) =>
-  availability === 'available'
+export const inStockOrderFormItem = (item: string) => item === 'available'

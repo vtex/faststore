@@ -154,7 +154,7 @@ export interface CommertialOffer {
   ItemMetadataAttachment: any[]
   Price: number
   ListPrice: number
-  spotPrice?: number
+  spotPrice: number
   PriceWithoutDiscount: number
   RewardValue: number
   PriceValidUntil: string
