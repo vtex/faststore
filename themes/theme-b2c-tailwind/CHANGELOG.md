@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.2 (2022-05-09)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.1 (2022-05-09)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.55 (2022-05-06)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.54 (2022-05-06)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.53 (2022-05-06)
+
+
+### Bug Fixes
+
+* suggestions api url ([#1273](https://github.com/vtex/faststore/issues/1273)) ([6f8a961](https://github.com/vtex/faststore/commit/6f8a9613e4627f91815e669a007ec4ff4c54ffe5))
+
+
+
+
+
+## 1.7.52 (2022-05-06)
+
+
+### Bug Fixes
+
+* Release workflow ([#1271](https://github.com/vtex/faststore/issues/1271)) ([3b995a8](https://github.com/vtex/faststore/commit/3b995a82c956c13c4d6f9453ac4f44195c5ef543))
+
+
+
+
+
 ## 1.7.51 (2022-05-03)
 
 **Note:** Version bump only for package @vtex/theme-b2c-tailwind

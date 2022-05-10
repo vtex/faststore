@@ -1,7 +1,19 @@
+"""
+Organization.
+"""
 type StoreOrganization {
+  """
+  Organization ID.
+  """
   identifier: String!
 }
 
+"""
+Organization input.
+"""
 input IStoreOrganization {
+  """
+  Organization ID.
+  """
   identifier: String!
 }

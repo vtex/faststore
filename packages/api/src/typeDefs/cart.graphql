@@ -1,13 +1,37 @@
+"""
+Shopping cart message.
+"""
 type StoreCartMessage {
+  """
+  Shopping cart message text.
+  """
   text: String!
+  """
+  Shopping cart message status, which can be `INFO`, `WARNING` OR `ERROR`.
+  """
   status: StoreStatus!
 }
 
+"""
+Shopping cart information.
+"""
 type StoreCart {
+  """
+  Order information, including `orderNumber` and `acceptedOffer`.
+  """
   order: StoreOrder!
+  """
+  List of shopping cart messages.
+  """
   messages: [StoreCartMessage!]!
 }
 
+"""
+Shopping cart identification input.
+"""
 input IStoreCart {
+  """
+  Order information, including `orderNumber` and `acceptedOffer`.
+  """
   order: IStoreOrder!
 }

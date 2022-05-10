@@ -1,23 +1,62 @@
+"""
+Product pagination edge.
+"""
 type StoreProductEdge {
+  """
+  Product pagination node.
+  """
   node: StoreProduct!
+  """
+  Product pagination cursor.
+  """
   cursor: String!
 }
 
+"""
+Product connection pagination information.
+"""
 type StoreProductConnection {
+  """
+  Product connection page information.
+  """
   pageInfo: StorePageInfo!
+  """
+  Array with product connection page edges.
+  """
   edges: [StoreProductEdge!]!
 }
 
+"""
+Collection pagination edge.
+"""
 type StoreCollectionEdge {
+  """
+  Collection pagination node.
+  """
   node: StoreCollection!
+  """
+  Collection pagination cursor.
+  """
   cursor: String!
 }
 
+"""
+Collection connection pagination information.
+"""
 type StoreCollectionConnection {
+  """
+  Collection connection page information.
+  """
   pageInfo: StorePageInfo!
+  """
+  Array with collection connection page edges.
+  """
   edges: [StoreCollectionEdge!]!
 }
 
+"""
+Product sorting options used in search.
+"""
 enum StoreSort {
   price_desc
   price_asc
@@ -29,24 +68,51 @@ enum StoreSort {
   score_desc
 }
 
+"""
+Selected facet input.
+"""
 input IStoreSelectedFacet {
   key: String!
   value: String!
 }
 
+"""
+Search facet type.
+"""
 enum StoreFacetType {
   BOOLEAN
   RANGE
 }
 
+"""
+Suggestions information.
+"""
 type StoreSuggestions {
+  """
+  Array with suggestion terms.
+  """
   terms: [String!]
+  """
+  Array with suggestion products' information.
+  """
   products: [StoreProduct!]
 }
 
+"""
+Search result.
+"""
 type StoreSearchResult {
+  """
+  Search result products.
+  """
   products: StoreProductConnection!
+  """
+  Array of search result facets.
+  """
   facets: [StoreFacet!]!
+  """
+  Search result suggestions.
+  """
   suggestions: StoreSuggestions!
 }
 

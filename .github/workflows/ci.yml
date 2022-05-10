@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches-ignore:
+      - main
       - master
 
 jobs:

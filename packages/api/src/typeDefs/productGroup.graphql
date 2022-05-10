@@ -1,6 +1,21 @@
+"""
+Product group information.
+"""
 type StoreProductGroup {
+  """
+  Array of variants related to product group.
+  """
   hasVariant: [StoreProduct!]!
+  """
+  Product group ID.
+  """
   productGroupID: String!
+  """
+  Product group name.
+  """
   name: String!
+  """
+  Array of additional properties.
+  """
   additionalProperty: [StorePropertyValue!]!
 }

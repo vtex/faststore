@@ -24,9 +24,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       })
       .filter((sku) => !!sku)
 
-    const {
-      suggestion: { searches },
-    } = terms
+    const { searches } = terms
 
     return {
       terms: searches.map((item) => item.term),

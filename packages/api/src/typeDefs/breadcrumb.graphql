@@ -1,10 +1,31 @@
+"""
+Item of a list.
+"""
 type StoreListItem {
+  """
+  List item value.
+  """
   item: String!
+  """
+  Name of the list item.
+  """
   name: String!
+  """
+  Position of the item in the list.
+  """
   position: Int!
 }
 
+"""
+List of items consisting of chain linked web pages, ending with the current page.
+"""
 type StoreBreadcrumbList {
+  """
+  Array with breadcrumb elements.
+  """
   itemListElement: [StoreListItem!]!
+  """
+  Number of breadcrumbs in the list.
+  """
   numberOfItems: Int!
 }

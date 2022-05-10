@@ -1,10 +1,25 @@
+"""
+Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers.
+"""
 type StoreAggregateOffer {
-  # Highest spot price amongst all sellers
+  """
+  Highest price among all sellers.
+  """
   highPrice: Float!
-  # Lowest spot price amongst all sellers
+  """
+  Lowest price among all sellers.
+  """
   lowPrice: Float!
-  # Number of sellers selling this sku
+  """
+  Number of sellers selling this SKU.
+  """
   offerCount: Int!
+  """
+  ISO code of the currency used for the offer prices.
+  """
   priceCurrency: String!
+  """
+  Array with information on each available offer.
+  """
   offers: [StoreOffer!]!
 }
