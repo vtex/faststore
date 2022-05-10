@@ -42,19 +42,19 @@ describe('ProductCard', () => {
   })
 
   describe('Data attributes', () => {
-    it('`Card` component should have `data-store-product-card` attribute', () => {
+    it('`ProductCard` component should have `data-store-product-card` attribute', () => {
       expect(productCard).toHaveAttribute('data-store-product-card')
     })
 
-    it('`CardContent` component should have `data-product-card-content` attribute', () => {
+    it('`ProductCardContent` component should have `data-product-card-content` attribute', () => {
       expect(productCardContent).toHaveAttribute('data-product-card-content')
     })
 
-    it('`CardImage` component should have `data-product-card-image` attribute', () => {
+    it('`ProductCardImage` component should have `data-product-card-image` attribute', () => {
       expect(productCardImage).toHaveAttribute('data-product-card-image')
     })
 
-    it('`CardActions` component should have `data-product-card-actions` attribute', () => {
+    it('`ProductCardActions` component should have `data-product-card-actions` attribute', () => {
       expect(productCardActions).toHaveAttribute('data-product-card-actions')
     })
   })
