@@ -5,7 +5,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 
 function STARTERS() {
   const { siteConfig } = useDocusaurusContext()
-  const data = JSON.parse(JSON.stringify(siteConfig.customFields.starters))[1]
+  const data = JSON.parse(JSON.stringify(siteConfig.customFields.starters.official))[1]
   return (
     <Layout title="CMS Base Starter">
       <StarterComponentPage data={data} />
