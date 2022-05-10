@@ -41,7 +41,7 @@ module.exports = {
     announcementBar: {
       id: 'csat',
       content:
-        `Hey! 👋🏼 Your feedback means the world to us!`,
+        `📢  We’d love to hear about your experience with our Documentation Portal.`,
       textColor: "var(--ifm-color-details)",
       backgroundColor: "var(--ifm-tag-highlight)",
       isCloseable: false,
