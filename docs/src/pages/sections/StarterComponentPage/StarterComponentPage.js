@@ -10,13 +10,13 @@ const StarterComponentPage = ({ data = {} }) => {
       </div>
       <div className="w-full lg:w-9/12 lg:relative bg-code container mb-20 mx-auto rounded-lg justify-between">
         <div className="w-full lg:w-3/6 lg:px-16 p-6 py-12">
-          <h1 className="text-5xl font-VTEXMedium text-fontSecondary inline-block">
+          <h1 className="text-5xl font-VTEXMedium text-fontSecondary">
             {data.name}
           </h1>
-          <span className="ml-2 text-primary font-VTEXMedium">
-            by {data.owner}
-          </span>
-          <p className="text-details mt-3 text-lg" dangerouslySetInnerHTML={{__html: data.description}}/>
+          <div className="text-fontSecondary">
+            by <a href={data.ownerWebsite}>{data.owner}</a>
+          </div>
+          <p className="text-details mt-5 text-lg" dangerouslySetInnerHTML={{__html: data.description}}/>
 
           <ViewAll
             linkTo={data.demoURL}
@@ -24,7 +24,7 @@ const StarterComponentPage = ({ data = {} }) => {
           />
 
           <div>
-            <p className="text-sm font-VTEXMedium tracking-wider mt-6">
+            <p className="text-sm font-VTEXMedium tracking-wider mt-4">
               COMES WITH:
             </p>
             <ul>

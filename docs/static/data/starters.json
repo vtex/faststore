@@ -1,11 +1,12 @@
 {
   "community": [
     {
-      "name": "Beauty",
+      "name": "Beauty Store",
       "imgThumbnail": "https://vtexhelp.vtexassets.com/assets/docs/src/beautyThumbnail___785948b1d95f5c7b025ff430b6293f37.png",
       "url": "/starters/beauty",
       "owner": "m3",
-      "details": "Made for quick setup of product recommendation quizzes",
+      "ownerWebsite": "https://m3ecommerce.com/",
+      "details": "Beauty & Health ecommerce starter",
       "description": "Embrace a fresh and bright design and quickly set up a product suggestion quiz for your store. Developed at VTEX DAY 2022 Hackathon.",
       "features": [
         "VTEX Headless CMS integration",
@@ -21,11 +22,12 @@
       "img": "https://vtexhelp.vtexassets.com/assets/docs/src/beautyStore___3844435e792e7035287afd4e891788a2.png"
     },
     {
-      "name": "ToyStore",
+      "name": "Toy Store",
       "imgThumbnail": "https://vtexhelp.vtexassets.com/assets/docs/src/toystoreThumbnail___f0a340573a50ef182cbbc6fb077dc2c2.png",
       "url": "/starters/toy",
       "owner": "FRN³",
-      "details": "Made for easily calling shoppers to action",
+      "ownerWebsite": "https://frncomunicacao.com.br/",
+      "details": "Toys & Hobbies ecommerce starter",
       "description": "Catch shoppers attention with this fun and vibrant design. Developed at VTEX DAY 2022 Hackathon.",
       "features": [
         "VTEX Headless CMS integration",

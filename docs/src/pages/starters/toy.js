@@ -7,7 +7,7 @@ function STARTERS() {
   const { siteConfig } = useDocusaurusContext()
   const data = JSON.parse(JSON.stringify(siteConfig.customFields.starters.community))[1]
     return (
-    <Layout title="ToyStore Starter">
+    <Layout title="Toy Store Starter">
       <StarterComponentPage data={data} />
     </Layout>
   );
