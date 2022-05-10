@@ -26,4 +26,5 @@ export const bestOfferFirst = (
   return price(a) - price(b)
 }
 
-export const inStockOrderFormItem = (item: string) => item === 'available'
+export const inStockOrderFormItem = (itemAvailability: string) =>
+  itemAvailability === 'available'
