@@ -16,10 +16,10 @@ const StarterComponentPage = ({ data = {} }) => {
           <span className="ml-2 text-primary font-VTEXMedium">
             by {data.owner}
           </span>
-          <p className="text-details mt-3 text-lg">{data.description}</p>
+          <p className="text-details mt-3 text-lg" dangerouslySetInnerHTML={{__html: data.description}}/>
 
           <ViewAll
-            linkTo="https://vtexfaststore.com/"
+            linkTo={data.demoURL}
             message="View demo store"
           />
 
