@@ -18,7 +18,7 @@ type SearchProduct = ArrayElementType<
 type Root = SearchProduct | OrderFormProduct
 
 const isSearchItem = (item: Root): item is SearchProduct =>
-  'seller' in item && 'product' in item
+  'Price' in item && 'seller' in item && 'product' in item
 
 const isOrderFormItem = (item: Root): item is OrderFormProduct =>
   'skuName' in item
