@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.3](https://github.com/vtex/faststore/compare/v1.8.2...v1.8.3) (2022-05-10)
+
+
+### Bug Fixes
+
+* Offer availability ([#1282](https://github.com/vtex/faststore/issues/1282)) ([e91aa26](https://github.com/vtex/faststore/commit/e91aa26241c52c926d505b733f2127a809dd3f24))
+
+
+
+
+
 ## 1.8.2 (2022-05-09)
 
 **Note:** Version bump only for package @faststore/api
