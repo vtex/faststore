@@ -1,7 +1,8 @@
 import React from 'react';
 import Layout from '@theme/Layout';
-import StarterComponentPage from '../sections/StarterComponentPage/StarterComponentPage'
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import StarterComponentPage from '../sections/StarterComponentPage/StarterComponentPage';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Head from '@docusaurus/Head';
 
 function ToyStarter() {
   const { siteConfig } = useDocusaurusContext()
