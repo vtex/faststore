@@ -57,17 +57,6 @@ export interface First {
   index: number
 }
 
-export interface SuggestedTerms {
-  total: number
-  sampling: boolean
-  translated: boolean
-  locale: string
-  query: string
-  operator: string
-  suggestion: Suggestion
-  correction: Correction
-}
-
 export interface Suggestion {
   searches: Search[]
 }
@@ -98,7 +87,7 @@ export interface Product {
   items: Item[]
   skuSpecifications?: SkuSpecification[]
   priceRange: PriceRange
-  specificationGroups: SpecificationGroup
+  specificationGroups: SpecificationGroup[]
   properties: Array<{ name: string; values: string[] }>
   selectedProperties: Array<{ key: string; value: string }>
 }
@@ -133,7 +122,10 @@ export interface Item {
   modalType: any | null
   images: Image[]
   Videos: string[]
-  variations: string[]
+  variations: Array<{
+    name: string
+    values: string[]
+  }>
   sellers: Seller[]
   attachments: Array<{
     id: number
@@ -162,7 +154,7 @@ export interface CommertialOffer {
   ItemMetadataAttachment: any[]
   Price: number
   ListPrice: number
-  spotPrice?: number
+  spotPrice: number
   PriceWithoutDiscount: number
   RewardValue: number
   PriceValidUntil: string
@@ -214,5 +206,9 @@ interface PriceRange {
 interface SpecificationGroup {
   name: string
   originalName: string
-  specifications: { name: string; originalName: string; values: string[] }
+  specifications: Array<{
+    name: string
+    originalName: string
+    values: string[]
+  }>
 }

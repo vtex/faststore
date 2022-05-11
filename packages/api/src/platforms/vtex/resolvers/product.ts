@@ -1,9 +1,9 @@
+import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
+import { bestOfferFirst } from '../utils/productStock'
+import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import type { Resolver } from '..'
-import { sortOfferByPrice } from '../utils/productStock'
 import type { PromiseType } from '../../../typings'
 import type { Query } from './query'
-import type { Item } from '../clients/search/types/ProductSearchResult'
-import type { EnhancedSku } from '../utils/enhanceSku'
 
 type Root = PromiseType<ReturnType<typeof Query.product>>
 
@@ -19,7 +19,7 @@ const nonEmptyArray = <T>(array: T[] | null | undefined) =>
   Array.isArray(array) && array.length > 0 ? array : null
 
 export const StoreProduct: Record<string, Resolver<Root>> & {
-  offers: Resolver<Root, any, { items: Item[]; product: EnhancedSku }>
+  offers: Resolver<Root, any, EnhancedCommercialOffer[]>
   isVariantOf: Resolver<Root, any, Root>
 } = {
   productID: ({ itemId }) => itemId,
@@ -66,17 +66,20 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
   review: () => [],
   aggregateRating: () => ({}),
-  offers: (product): { items: Item[]; product: Root } => {
-    return {
-      items: sortOfferByPrice(product.isVariantOf.items),
-      product,
-    }
-  },
+  offers: (root) =>
+    root.sellers
+      .flatMap((seller) =>
+        enhanceCommercialOffer({
+          offer: seller.commertialOffer,
+          seller,
+          product: root,
+        })
+      )
+      .sort(bestOfferFirst),
   isVariantOf: (root) => root,
-  // TODO: get this value. Fix any type
-  additionalProperty: ({ attributes = [] }: any) =>
-    attributes.map((attribute: any) => ({
-      name: attribute.key,
-      value: attribute.value,
-    })),
+  additionalProperty: ({ variations = [] }) => {
+    return variations.flatMap(({ name, values }) =>
+      values.map((value) => ({ name, value }))
+    )
+  },
 }

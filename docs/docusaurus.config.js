@@ -4,7 +4,6 @@ module.exports = {
   tagline: 'Documentation Portal',
   url: 'https://faststore.dev',
   baseUrl: '/',
-  trailingSlash: false,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -19,6 +18,9 @@ module.exports = {
     updatesData: require("./static/data/doc-update"),
     starters: require("./static/data/starters"),
   },
+  scripts:[
+    "/scripts/openReplay.js"
+  ],
   themeConfig: {
     image: "img/faststore_thumbnail.png",
     zoom: {
@@ -39,7 +41,7 @@ module.exports = {
     announcementBar: {
       id: 'csat',
       content:
-        `Hey! 👋🏼 Your feedback means the world to us!`,
+        `📢  We’d love to hear about your experience with our Documentation Portal.`,
       textColor: "var(--ifm-color-details)",
       backgroundColor: "var(--ifm-tag-highlight)",
       isCloseable: false,
@@ -174,7 +176,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         gtag: {
-          trackingID: 'GTM-PKST2NM',
+          trackingID: 'G-MWFMZBZPHF',
           anonymizeIP: true,
         },
         googleAnalytics: {
@@ -189,7 +191,7 @@ module.exports = {
           routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
-            'https://github.com/vtex/faststore/edit/master/docs',
+            'https://github.com/vtex/faststore/edit/main/docs',
         },
         blog: {
           routeBasePath: 'releases',

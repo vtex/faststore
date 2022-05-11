@@ -71,7 +71,7 @@ When developing your store's website, you will use Git to push your code to the 
 We'll use the <a href="https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference">VTEX IO CLI</a> to set up your VTEX environment before you start developing your FastStore storefront.
 <ul>
 <li><a href="https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-install">Install VTEX IO CLI according to your operating system</a></li>
-<img src="/img/tutorials/gatsby/vtex-cli.png"/>
+<img src="https://vtexhelp.vtexassets.com/assets/docs/src/vtex-cli___e6ff3e37b7938e786cf47422deec0b72.png"/>
 <li>In the following, install the <code>settings</code> CLI plugin by running: </li>
 <pre>vtex plugins install settings</pre>
 </ul>
@@ -92,7 +92,7 @@ Although you might opt to use an alternative code editor, note that using VS Cod
 
 Contact us to manifest your interest in developing with FastStore and request to be added as a member of the [VTEX Sites](https://github.com/vtex-sites) GitHub organization.
 
-![VTEX Sites](/img/tutorials/gatsby/vtex-sites.png)
+![VTEX Sites](https://vtexhelp.vtexassets.com/assets/docs/src/vtex-sites___1e11aeacdb3e5202ad17dcb51c69e8ff.png)
 
 :::note
 If you don't have a GitHub account, first go [here](https://github.com/join) and sign up for a free one.
@@ -107,23 +107,23 @@ If you don't have a GitHub account, first go [here](https://github.com/join) and
     vtex login {account}
     ```
 
-![vtex login](/img/tutorials/gatsby/vtex-login.png)
+![vtex login](https://vtexhelp.vtexassets.com/assets/docs/src/vtex-login___a0f524b60e5045b0286e3c349361f7a9.png)
 
-2. Install all the necessary apps to start developing with FastStore.
+1. Install all the necessary apps to start developing with FastStore.
 
     ```shell
     vtex install vtex.admin-search@1.x vtex.search-resolver@1.x vtex.admin-cms@0.x vtex.graphql-gateway@0.x vtex.store-sitemap@2.x vtex.store@2.x vtex.messages@1.x vtex.cms-builder-sf-jamstack@0.x vtex.intelligent-search-api@0.x
     ```
 
-![vtex install](/img/tutorials/gatsby/vtex-install.png)
+![vtex install](https://vtexhelp.vtexassets.com/assets/docs/src/vtex-install___0f856b5cb4b86b874184b69283260d2a.png)
 
-3. Install the `settings` plugin from the VTEX IO CLI.
+1. Install the `settings` plugin from the VTEX IO CLI.
 
    ```shel
    vtex plugins install settings
    ```
 
-4. Set up your VTEX environment variables.
+2. Set up your VTEX environment variables.
    
    ```shell
    vtex settings set vtex.store enableOrderFormOptimization true && vtex settings set vtex.messages automaticTranslation false && vtex settings set vtex.search-resolver slugifyLinks true
@@ -133,7 +133,7 @@ If you don't have a GitHub account, first go [here](https://github.com/join) and
    If you find any problems while setting up your VTEX environment, please refer to our [Troubleshooting](/tutorials/gatsby/Troubleshooting) article.
    :::
 
-5. Access your account admin at `https://{account}.myvtex.com/admin`.
-6. Go to *Store Setup > Search > Integration Settings* and check if the [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search) app (`vtex.search-resolver@1.x`) [indexing](https://help.vtex.com/tracks/vtex-intelligent-search) has started. If not, click on **Start Integration**. [Check our docs for more info on the Intelligent Search.](https://help.vtex.com/tracks/vtex-intelligent-search)
+3. Access your account admin at `https://{account}.myvtex.com/admin`.
+4. Go to *Store Setup > Search > Integration Settings* and check if the [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search) app (`vtex.search-resolver@1.x`) [indexing](https://help.vtex.com/tracks/vtex-intelligent-search) has started. If not, click on **Start Integration**. [Check our docs for more info on the Intelligent Search.](https://help.vtex.com/tracks/vtex-intelligent-search)
 
-![Intelligent Search](/img/tutorials/gatsby/integration-settings.png)
+![Intelligent Search](https://vtexhelp.vtexassets.com/assets/docs/src/integration-settings___b4fd32dd26ffbdf6f90f4ce589f29adb.png)

@@ -1,18 +1,46 @@
+"""
+Session information.
+"""
 type StoreSession {
+  """
+  Session channel.
+  """
   channel: String
+  """
+  Session country.
+  """
   country: String
+  """
+  Session postal code.
+  """
   postalCode: String
 }
 
+"""
+Session input.
+"""
 input IStoreSession {
+  """
+  Session input channel.
+  """
   channel: String
+  """
+  Session input country.
+  """
   country: String
+  """
+  Session input postal code.
+  """
   postalCode: String
 }
 
 type Mutation {
-  # Returns the order if anything changed with the order. Null if the order is valid
+  """
+  Returns the order if anything has changed in it, or `null` if the order is valid.
+  """
   validateCart(cart: IStoreCart!): StoreCart
-
+  """
+  Update session information.
+  """
   updateSession(session: IStoreSession!): StoreSession!
 }

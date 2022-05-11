@@ -1,14 +1,43 @@
+"""
+Search facet information.
+"""
 type StoreFacet {
+  """
+  Facet key.
+  """
   key: String!
+  """
+  Facet label.
+  """
   label: String!
+  """
+  Array with information on each facet value.
+  """
   values: [StoreFacetValue!]!
+  """
+  Facet type. Possible values are `BOOLEAN` and `RANGE`.
+  """
   type: StoreFacetType!
 }
 
+"""
+Information of a specific facet value.
+"""
 type StoreFacetValue {
+  """
+  Facet value.
+  """
   value: String!
+  """
+  Facet value label.
+  """
   label: String!
+  """
+  Indicates whether facet is selected.
+  """
   selected: Boolean!
-  # Number of items with this facet
+  """
+  Number of items with this facet.
+  """
   quantity: Int!
 }

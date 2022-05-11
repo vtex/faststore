@@ -219,6 +219,10 @@ article footer svg {
   @apply list-disc ml-8;
 }
 
+[class^='tabs'] {
+  @apply m-0 !important;
+}
+
 [class^='docItemContainer'] {
   @apply mx-auto sm:mx-32;
   width: 78%;

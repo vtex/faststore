@@ -12,7 +12,7 @@
 [data-store-modal-content] {
   @apply bg-background p-10  !important;
   width: 500px;
-  min-height: 500px;
+  min-height: 360px;
 }
 [data-action-container] {
   @apply text-primary float-right inline-block;

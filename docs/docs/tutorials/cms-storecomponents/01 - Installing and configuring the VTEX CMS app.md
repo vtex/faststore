@@ -50,7 +50,7 @@ In this step, we'll use [ngrok](https://ngrok.com/) - an application that expose
 3. Start a development server by running `yarn develop`.
 4. Open a new window of the terminal and run `ngrok http 8000` to generate a public URL for your localhost.
 
-  ![ngrok](/img/tutorials/cms-storecomponents/ngrok.png)
+  ![ngrok](https://vtexhelp.vtexassets.com/assets/docs/src/ngrok___b18d12281f9b12918ab8efc2d1badecf.jpg)
 
 5. Copy the **Forwarding** link and save it for later usage. 
 
@@ -82,7 +82,7 @@ In this step, we'll learn how to configure the VTEX Headless CMS app to use that
   - **Content types URL:** {ngrokAddress}/page-data/_cms/content-types.json
   - **Translation keys URL:** {ngrokAddress}/page-data/_cms/translation-keys.json
 
-![CMS Settings](/img/tutorials/cms-storecomponents/cms-settings.png)
+![CMS Settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-settings___58d08fcee2200e3e9bb865a0d9e45ac9.png)
 
 Later, once you start defining **Content Types** and **Sections** in your local project, you will be able to see your changes in this workspace at the VTEX Headless CMS app (CMS (alpha) > Pages (alpha)).
 

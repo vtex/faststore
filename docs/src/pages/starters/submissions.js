@@ -1,10 +1,8 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import ImageSwitcher from '../../components/ImageSwitcher/ImageSwitcher'
 import StarterSubmissionForm from '../sections/StarterSubmissionForm/StarterSubmissionForm'
 import styles from "./Submissions.module.css"
-import lightImg from '/img/starter-submissions.png'
 
 function Submissions() {
     return (
@@ -16,10 +14,8 @@ function Submissions() {
                     <h1 className="text-5xl text-seriousBlack font-VTEXTrust py-5">Submit your starter</h1>
                     <p className='text-lg pt-3 text-[#4A596B]'>Submit your starter and get featured on the FastStore Community Starters Library! If your starter meets our basic standards, we'll add it as quickly as possible to the Library.</p>
                 </div>
-                <ImageSwitcher
-                    lightImageSrc={lightImg}
-                    darkImageSrc={lightImg}
-                    classes='block sm:w-1/3 sm:object-contain pt-12 sm:ml-10' />
+                <img src ="https://vtexhelp.vtexassets.com/assets/docs/src/starter-submissions___d566d94c0e7e97fe4393a8eee8f3eec0.png"
+                    className='block sm:w-1/3 sm:object-contain pt-12 sm:ml-10' />
             </div>
 
             <div className='bg-[#F8F7FC] px-5 py-16'>

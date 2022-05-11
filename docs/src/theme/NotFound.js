@@ -7,7 +7,6 @@
 import React from 'react'
 import Layout from '@theme/Layout'
 import Translate, { translate } from '@docusaurus/Translate'
-import errorImage from '/img/404.jpeg'
 import SectionImage from '../components/SectionImage/SectionImage'
 
 function NotFound() {
@@ -25,7 +24,7 @@ function NotFound() {
           description="Use the menu above to find what you need or contact us at the link below:"
           linkTo="https://docs.google.com/forms/d/e/1FAIpQLSfmnotPvPjw-SjiE7lt2Nt3RQgNUe10ixXZmuO2v9enOJReoQ/viewform?entry.1972292648=developers.vtex.com&entry.1799503232="
           message="Send a feedback"
-          img={errorImage}
+          img="https://vtexhelp.vtexassets.com/assets/docs/src/404___c3b871e2db018ce8f1b3d5fb1b2bda97.jpeg"
         />
       </main>
     </Layout>

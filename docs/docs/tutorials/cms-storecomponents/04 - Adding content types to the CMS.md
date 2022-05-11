@@ -72,7 +72,7 @@ Notice that, to define a content type, we must specify the following parameters:
 
 Back to the previous example, notice that we defined three different `contentTypes`: the Home Page, Product Listing Page (PLP), and Global SEO. Notice that the "Global SEO" content type has a custom section named SEO, which allows editors to change the `siteMetadata` and `facebook` sections. Take the following example of creating a Global SEO page.
 
-![Extra blocks](/img/tutorials/cms-storecomponents/cms-global-seo.png)
+![Extra blocks](https://vtexhelp.vtexassets.com/assets/docs/src/cms-global-seo___5be7f2ef2198e850c639c288317a334f.png)
 
 ## Exporting Content Types
 
