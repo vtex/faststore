@@ -7,7 +7,7 @@ import OutOfStock from 'src/components/product/OutOfStock'
 import { DiscountBadge } from 'src/components/ui/Badge'
 import Breadcrumb from 'src/components/ui/Breadcrumb'
 import { ButtonBuy } from 'src/components/ui/Button'
-import { Image } from 'src/components/ui/Image'
+import { ImageGallery } from 'src/components/ui/ImageGallery'
 import Price from 'src/components/ui/Price'
 import ProductTitle from 'src/components/ui/ProductTitle'
 import QuantitySelector from 'src/components/ui/QuantitySelector'
@@ -121,17 +121,7 @@ function ProductDetails({ product: staleProduct }: Props) {
           />
         </header>
 
-        <section className="product-details__image">
-          <Image
-            preload
-            loading="eager"
-            src={productImages[0].url}
-            alt={productImages[0].alternateName}
-            width={360}
-            height={270}
-            sizes="(max-width: 768px) 25vw, 50vw"
-          />
-        </section>
+        <ImageGallery images={productImages} />
 
         <section className="product-details__settings">
           <section className="product-details__values">

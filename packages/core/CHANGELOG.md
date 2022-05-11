@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Addded
 
+- `ImageGallery` to PDP ([#6](https://github.com/vtex-sites/nextjs.store/pull/6))
+
 ### Changed
+
+- `ImageGallery` now uses native scroll instead of `useSlider` ([#6](https://github.com/vtex-sites/nextjs.store/pull/6))
 
 ### Deprecated
 

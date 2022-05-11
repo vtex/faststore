@@ -1,121 +1,88 @@
-import { IconButton, useSlider } from '@faststore/ui'
-import { Children } from 'react'
-import type { HTMLAttributes, PropsWithChildren } from 'react'
+import { useRef } from 'react'
+import { Button, IconButton } from '@faststore/ui'
 
-import { BackwardArrowIcon, ForwardArrowIcon } from './Icons'
+import Icon from 'src/components/ui/Icon'
+import { Image } from 'src/components/ui/Image'
+import styles from 'src/components/ui/ImageGallery/image-gallery-selector.module.scss'
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  itemsPerPage: number
+import type { ImageElementData } from './ImageGallery'
+
+interface Props {
+  images: ImageElementData[]
+  onSelect: React.Dispatch<React.SetStateAction<number>>
+  currentImageIdx: number
 }
 
-function getTransformValue(
-  totalItems: number,
-  currentPage: number,
-  itemsPerPage: number
-) {
-  // We use 100 to represent the full width of the parent element
-  const slideWidth = 100 / totalItems
-
-  // slideWidth gives us the full width value for sliding through all elements.
-  // We then multiply the slideWidth by (currentPage * itemsPerPage) to calculate the
-  // transformValue for each page (the more we slide forward, the more we have to slide in total).
-  // It is negative so the transition slides the items to the left.
-  return -(slideWidth * currentPage * itemsPerPage)
+const moveScroll = (container: HTMLDivElement | null, value: number) => {
+  if (container) {
+    if (container.scrollHeight > container.clientHeight) {
+      container.scrollTop += value
+    } else {
+      container.scrollLeft += value
+    }
+  }
 }
 
-function ImageGallerySelector({
-  itemsPerPage,
-  children,
-  ...otherProps
-}: PropsWithChildren<Props>) {
-  const elements = Children.toArray(children)
-  const elementCount = elements.length
-
-  const { handlers, slide, sliderState, sliderDispatch } = useSlider({
-    totalItems: elementCount,
-    itemsPerPage,
-    infiniteMode: false,
-  })
-
-  if (!elementCount) {
-    return null
+const hasScroll = (container: HTMLDivElement | null): boolean => {
+  if (container) {
+    return (
+      container.scrollHeight > container.clientHeight ||
+      container.scrollWidth > container.clientWidth
+    )
   }
 
+  return false
+}
+
+function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
+  const elementsRef = useRef<HTMLDivElement>(null)
+
   return (
-    <section aria-roledescription="carousel" aria-label="Product images">
-      <IconButton
-        aria-label="backward slide image selector"
-        icon={<BackwardArrowIcon color="#323845" />}
-        onClick={() => {
-          if (sliderState.sliding) {
-            return
-          }
-
-          slide('previous', sliderDispatch)
-        }}
-      />
-      <IconButton
-        aria-label="forward slide image selector"
-        icon={<ForwardArrowIcon color="#323845" />}
-        onClick={() => {
-          if (sliderState.sliding) {
-            return
-          }
-
-          slide('next', sliderDispatch)
-        }}
-      />
-
-      <div {...otherProps} {...handlers}>
-        <div
-          data-carousel-track
-          style={{
-            display: 'flex',
-            transition: sliderState.sliding ? `transform 400ms` : undefined,
-            width: `${(elementCount * 100) / itemsPerPage}%`,
-            transform: `translate3d(${getTransformValue(
-              elementCount,
-              sliderState.currentPage,
-              itemsPerPage
-            )}%, 0, 0)`,
-          }}
-          onTransitionEnd={() => {
-            sliderDispatch({
-              type: 'STOP_SLIDE',
-            })
-
-            if (sliderState.currentItem >= elementCount) {
-              sliderDispatch({
-                type: 'GO_TO_PAGE',
-                payload: {
-                  pageIndex: 0,
-                  shouldSlide: false,
-                },
-              })
-            }
-
-            if (sliderState.currentItem < 0) {
-              sliderDispatch({
-                type: 'GO_TO_PAGE',
-                payload: {
-                  pageIndex: sliderState.totalPages - 1,
-                  shouldSlide: false,
-                },
-              })
-            }
-          }}
-        >
-          {elements.map((el, idx) => {
-            return (
-              <div key={idx} style={{ width: `${100 / elementCount}%` }}>
-                <div className="flex justify-center items-center w-full">
-                  {el}
-                </div>
-              </div>
-            )
-          })}
-        </div>
+    <section
+      data-fs-image-gallery-selector
+      className={styles['fs-image-gallery-selector']}
+      aria-roledescription="carousel"
+      aria-label="Product images"
+    >
+      {hasScroll(elementsRef.current) && (
+        <IconButton
+          aria-label="backward slide image selector"
+          icon={<Icon name="ArrowLeft" width={24} height={24} />}
+          onClick={() => moveScroll(elementsRef.current, -200)}
+        />
+      )}
+      <div data-fs-image-gallery-selector-elements ref={elementsRef}>
+        {images.map((image, idx) => {
+          return (
+            <Button
+              key={idx}
+              data-thumbnail-button={
+                idx === currentImageIdx ? 'selected' : 'true'
+              }
+              aria-label={`${image.alternateName} - Image ${idx + 1} of ${
+                images.length
+              }`}
+              onClick={() => onSelect(idx)}
+            >
+              <Image
+                src={image.url}
+                alt={image.alternateName}
+                loading={idx === 0 ? 'eager' : 'lazy'}
+                sizes="(max-width: 72px) 25vw, 30vw"
+                width={72}
+                height={72}
+              />
+            </Button>
+          )
+        })}
       </div>
+      {hasScroll(elementsRef.current) && (
+        <IconButton
+          aria-label="forward slide image selector"
+          icon={<Icon name="ArrowLeft" width={24} height={24} />}
+          onClick={() => moveScroll(elementsRef.current, +200)}
+        />
+      )}
     </section>
   )
 }

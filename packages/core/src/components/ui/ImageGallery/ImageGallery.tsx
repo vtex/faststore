@@ -1,7 +1,7 @@
-import { Button } from '@faststore/ui'
 import { useState } from 'react'
 
 import { Image } from 'src/components/ui/Image'
+import styles from 'src/components/ui/ImageGallery/image-gallery.module.scss'
 
 import { ImageGallerySelector, ImageZoom } from '.'
 
@@ -19,42 +19,25 @@ function ImageGallery({ images }: ImageGalleryProps) {
   const currentImage = images[selectedImageIdx]
 
   return (
-    <div>
+    <section data-fs-image-gallery className={styles['fs-image-gallery']}>
       <ImageZoom>
         <Image
           src={currentImage.url}
           alt={currentImage.alternateName}
-          width={250}
-          height={250}
+          sizes="(max-width: 804px) 25vw, 30vw"
+          width={804}
+          height={804 * (3 / 4)}
+          loading="eager"
         />
       </ImageZoom>
-      <ImageGallerySelector itemsPerPage={4}>
-        {images.map((image, idx) => {
-          return (
-            <Button
-              key={idx}
-              data-thumbnail-button={
-                idx === selectedImageIdx ? 'selected' : 'true'
-              }
-              aria-label={`Load ${image.alternateName} - Image ${idx + 1} of ${
-                images.length
-              }`}
-              onClick={() => {
-                setSelectedImageIdx(idx)
-              }}
-            >
-              <Image
-                src={image.url}
-                alt={image.alternateName}
-                loading={idx === 0 ? 'eager' : 'lazy'}
-                width={250}
-                height={250}
-              />
-            </Button>
-          )
-        })}
-      </ImageGallerySelector>
-    </div>
+      {images.length > 1 && (
+        <ImageGallerySelector
+          images={images}
+          currentImageIdx={selectedImageIdx}
+          onSelect={setSelectedImageIdx}
+        />
+      )}
+    </section>
   )
 }
 
