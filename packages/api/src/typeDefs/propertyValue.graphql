@@ -10,4 +10,11 @@ type StorePropertyValue {
   Property name.
   """
   name: String!
+  valueReference: ValueReference!
+}
+
+enum ValueReference {
+  ATTRIBUTE
+  ATTACHMENT
+  PROPERTY
 }

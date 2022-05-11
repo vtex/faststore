@@ -4,8 +4,16 @@ import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import type { Resolver } from '..'
 import type { PromiseType } from '../../../typings'
 import type { Query } from './query'
+import { VALUE_REFERENCES } from '../utils/propertyValue'
+import type { Attachment } from '../clients/commerce/types/OrderForm'
 
-type Root = PromiseType<ReturnType<typeof Query.product>>
+type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
+
+type Root = Omit<QueryProduct, 'attachments'> & {
+  attachments: AttachmentDefinition[] | Attachment[]
+}
+
+type AttachmentDefinition = QueryProduct['attachments'][number]
 
 const DEFAULT_IMAGE = {
   imageText: 'image',
@@ -17,6 +25,10 @@ const getSlug = (link: string, id: string) => `${link}-${id}`
 const getPath = (link: string, id: string) => `/${getSlug(link, id)}/p`
 const nonEmptyArray = <T>(array: T[] | null | undefined) =>
   Array.isArray(array) && array.length > 0 ? array : null
+
+const isAttachmentDefinition = (
+  attachment: Root['attachments'][number]
+): attachment is AttachmentDefinition => 'id' in attachment
 
 export const StoreProduct: Record<string, Resolver<Root>> & {
   offers: Resolver<Root, any, EnhancedCommercialOffer[]>
@@ -77,9 +89,27 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       )
       .sort(bestOfferFirst),
   isVariantOf: (root) => root,
-  additionalProperty: ({ variations = [] }) => {
-    return variations.flatMap(({ name, values }) =>
-      values.map((value) => ({ name, value }))
+  additionalProperty: ({ variations = [], attachments }) => {
+    const propertyValueVariations = variations.flatMap(({ name, values }) =>
+      values.map((value) => ({
+        name,
+        value,
+        valueReference: VALUE_REFERENCES.variation,
+      }))
     )
+
+    const propertyValueAttachments = attachments.map((attachment) => {
+      if (isAttachmentDefinition(attachment)) {
+        return
+      }
+
+      return {
+        name: attachment.name,
+        value: attachment.content,
+        valueReference: VALUE_REFERENCES.attachment,
+      }
+    })
+
+    return [...propertyValueVariations, ...propertyValueAttachments]
   },
 }
