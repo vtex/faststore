@@ -1,19 +1,38 @@
 [data-accordion-button] {
-  @apply bg-transparent text-gray-800;
-  @apply hover:text-pink-600;
+  color: #171a1c;
+  background-color: transparent;
 }
-[data-store-icon] {
-  @apply align-top ml-2;
+
+[data-accordion-button]:hover {
+  color: #db2777;
 }
+
+[data-accordion-button] [data-store-icon] {
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
 [data-accordion-button][aria-expanded='true'] {
-  @apply text-pink-600;
+  color: #db2777;
 }
+
 [data-accordion-button][aria-expanded='true'] [data-store-icon] {
-  @apply transform rotate-180;
+  transform: rotate(180deg);
+  transition: transform .8s ease-in-out;
 }
+
 [data-accordion-panel] > ul {
-  @apply list-none my-0 pl-10;
+  padding-left: 2.5rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  list-style-type: none;
 }
+
 [data-accordion-panel] a {
-  @apply text-gray-500 no-underline hover:text-blue-700;
+  text-decoration: none;
+  color: #74808b;
+}
+
+[data-accordion-panel] a:hover {
+  color: #00419e;
 }
