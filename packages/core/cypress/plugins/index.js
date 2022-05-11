@@ -20,6 +20,21 @@ const codeCoveragePlugin = require('@cypress/code-coverage/task')
 module.exports = (on, config) => {
   codeCoveragePlugin(on, config)
 
+  on('task', {
+    log(message) {
+      // eslint-disable-next-line no-console
+      console.log(message)
+
+      return null
+    },
+    table(message) {
+      // eslint-disable-next-line no-console
+      console.table(message)
+
+      return null
+    },
+  })
+
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   return config

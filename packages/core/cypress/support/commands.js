@@ -26,6 +26,27 @@
 
 import 'cypress-wait-until'
 
+function logToTerminal(violations) {
+  cy.task('log', `${violations.length} accessibility violation(s) detected`)
+  cy.task(
+    'table',
+    violations.map(({ id, impact, description, nodes }) => ({
+      id,
+      impact,
+      description,
+      nodes: nodes.length,
+    }))
+  )
+}
+
+Cypress.Commands.overwrite(
+  'checkA11y',
+  // eslint-disable-next-line max-params
+  (originalFn, context, options, callback) => {
+    return originalFn(context, options, callback ?? logToTerminal)
+  }
+)
+
 Cypress.Commands.add('getById', (selector, ...args) => {
   return cy.get(`[data-testid=${selector}]`, ...args)
 })
