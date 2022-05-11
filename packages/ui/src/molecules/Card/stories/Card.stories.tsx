@@ -54,7 +54,7 @@ export const Card = CardTemplate.bind({})
 Card.storyName = 'Card'
 
 export default {
-  title: 'molecules/Card',
+  title: 'Molecules/Card',
   parameters: {
     docs: {
       page: mdx,
