@@ -25,7 +25,7 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@builder.io/partytown": "^0.5.1",
+    "@builder.io/partytown": "^0.5.4",
     "@envelop/core": "^1.2.0",
     "@envelop/graphql-jit": "^1.1.1",
     "@envelop/parser-cache": "^2.2.0",
