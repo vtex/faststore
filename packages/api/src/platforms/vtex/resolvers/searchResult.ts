@@ -1,13 +1,36 @@
-import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
+import { enhanceSku } from '../utils/enhanceSku'
 
 type Root = Omit<SearchArgs, 'type'>
 
 const REMOVED_FACETS_FROM_COLLECTION_PAGE = ['departamento', 'Departamento']
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
+  suggestions: async (searchArgs, _, ctx) => {
+    const {
+      clients: { search },
+    } = ctx
+
+    const terms = await search.suggestedTerms(searchArgs)
+    const products = await search.suggestedProducts(searchArgs)
+
+    const skus = products.products
+      .map((product) => {
+        const [maybeSku] = product.items
+
+        return maybeSku && enhanceSku(maybeSku, product)
+      })
+      .filter((sku) => !!sku)
+
+    const { searches } = terms
+
+    return {
+      terms: searches.map((item) => item.term),
+      products: skus,
+    }
+  },
   products: async (searchArgs, _, ctx) => {
     const {
       clients: { search, sp },

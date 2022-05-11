@@ -36,7 +36,7 @@ Before proceeding any further with this guide, make sure you have:
 
 3. Run `vtex secrets` to ensure the installation of the Secrets plugin was successful and check its all three subcommands.
    
-   ![Secrets plugin](/img/how-to-guides/vtex-secrets.png)
+   ![Secrets plugin](https://vtexhelp.vtexassets.com/assets/docs/src/vtex-secrets___9f0057469565607863794da75b404d8c.png)
 
 ### Step 2 - Setting up your VTEX account to accept secrets
 
@@ -54,7 +54,7 @@ Before proceeding any further with this guide, make sure you have:
     vtex secrets setup
     ```
 
-    ![Secrets Setup](/img/how-to-guides/secrets.gif)
+    ![Secrets Setup](https://vtexhelp.vtexassets.com/assets/docs/src/secrets___6b6c362a97aa2f1802703b86ab2128fa.gif)
 
 After running the `vtex secrets setup` command, the `secrets.revealed.json` file will be created in the root of your repository. Also, the `.gitignore` file will be updated with the `secrets.revealed.json` file to avoid any risks of exposing your Secrets by mistake on the remote repository.
 

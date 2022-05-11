@@ -1,6 +1,21 @@
+"""
+Client profile data.
+"""
 type StorePerson {
+  """
+  Client ID.
+  """
   id: String!
+  """
+  Client email.
+  """
   email: String!
+  """
+  Client first name.
+  """
   givenName: String!
+  """
+  Client last name.
+  """
   familyName: String!
 }

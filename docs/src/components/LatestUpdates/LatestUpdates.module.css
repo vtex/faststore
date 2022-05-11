@@ -17,7 +17,7 @@
 }
 
 .changelogTitle h4 {
-  @apply inline-block mr-2 text-lg leading-loose font-VTEXMedium;
+  @apply inline-block mr-2 text-lg font-VTEXMedium;
 }
 
 .changelogList li:first-child h4::after {

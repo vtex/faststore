@@ -1,4 +1,13 @@
+"""
+Properties that can be associated with products and products groups.
+"""
 type StorePropertyValue {
+  """
+  Property value.
+  """
   value: String!
+  """
+  Property name.
+  """
   name: String!
 }

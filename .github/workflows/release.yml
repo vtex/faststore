@@ -4,6 +4,7 @@ name: CD
 on:
   push:
     branches:
+      - main
       - master
 
 jobs:

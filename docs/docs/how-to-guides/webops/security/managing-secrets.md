@@ -8,7 +8,7 @@ To manage your FastStore Secrets, you'll use the WebOps Secrets plugin to encryp
 
 After committing your code changes into the repository, VTEX IO WebOps will be able to access the `secrets.hidden.json` file, decrypt and consume your secrets as environment variables so the build process can proceed.
 
-![Hide and reveal secrets](/img/how-to-guides/hide-reveal-secrets.gif)
+![Hide and reveal secrets](https://vtexhelp.vtexassets.com/assets/docs/src/hide-reveal-secrets___32448837e60a842fa82f4bb4a5eff6a8.gif)
 
 ## Before you start
 

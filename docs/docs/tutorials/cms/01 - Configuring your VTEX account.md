@@ -34,7 +34,7 @@ First, we will install the **VTEX IO CLI**. The VTEX IO CLI will help you during
 
 Now, check if the installation of the VTEX Headless CMS plugin was successful by running `vtex cms`.
 
-   ![VTEX Headless CMS plugin](/img/tutorials/cms/cms-cli-plugin.png)
+   ![VTEX Headless CMS plugin](https://vtexhelp.vtexassets.com/assets/docs/src/CMSPluginCLI___63a1f4d454fd5d42353d5ee276028962.png)
 
 :::caution
 If you find any problems while installing the plugin, please refer to our [Troubleshooting](/tutorials/cms/Troubleshooting) article.
@@ -76,7 +76,7 @@ Next, let's configure the URLs of the webhooks used by the VTEX Headless CMS app
    
 8. Click on **Save.**
 
-![CMS Settings](/img/tutorials/cms/cms-settings.png)
+![CMS Settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-settings2___54ec9a22584b5aad09d0b403993cbee2.png)
 
 Now you're ready to start defining which Content Types and Sections will be editable via the VTEX Headless CMS. Let's get started!
 

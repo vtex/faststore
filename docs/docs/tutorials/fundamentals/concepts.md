@@ -29,5 +29,5 @@ This documentation is currently under development.
 
 ## Static Site Generators
 
-![](/img/concepts/static-site-generator.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/StaticSiteGenerator___8cbe91c9104700581f219dd6affeeb11.jpg)
 

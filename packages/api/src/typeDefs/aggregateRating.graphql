@@ -1,4 +1,13 @@
+"""
+Average rating, based on multiple ratings or reviews.
+"""
 type StoreAggregateRating {
+  """
+  Value of the aggregate rating.
+  """
   ratingValue: Float!
+  """
+  Total number of ratings.
+  """
   reviewCount: Int!
 }
