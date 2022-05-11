@@ -3,12 +3,12 @@ import Layout from '@theme/Layout';
 import StarterPage from './sections/StarterPage/StarterPage'
 
 
-function STARTERS() {
+function Starters() {
   return (
-    <Layout title="FastStore Starters">
+    <Layout title="FastStore Starters" description="Get your next FastStore website up and running with our starters!">
       <StarterPage />
     </Layout>
   );
 }
 
-export default STARTERS;
+export default Starters;

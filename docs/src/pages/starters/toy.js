@@ -3,14 +3,14 @@ import Layout from '@theme/Layout';
 import StarterComponentPage from '../sections/StarterComponentPage/StarterComponentPage'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 
-function STARTERS() {
+function ToyStarter() {
   const { siteConfig } = useDocusaurusContext()
   const data = JSON.parse(JSON.stringify(siteConfig.customFields.starters.community))[1]
     return (
-    <Layout title="Toy Store Starter">
+    <Layout title="Toy Store Starter" description="A FRN starter made for Toys & Hobbies ecommerce stores">
       <StarterComponentPage data={data} />
     </Layout>
   );
 }
 
-export default STARTERS;
+export default ToyStarter;
