@@ -65,7 +65,7 @@ describe('Table', () => {
       const tableCells = queryAllByTestId('store-table-cell')
 
       // Make sure 8 cells were rendered and all contain the
-      // data-store-table-cell attribute.
+      // data-table-cell attribute.
       expect(tableCells).toHaveLength(8)
       tableCells.forEach((row) => {
         expect(row).toHaveAttribute('data-table-cell')
