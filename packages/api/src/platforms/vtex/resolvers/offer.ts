@@ -69,7 +69,7 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
     }
 
     if (isOrderFormItem(root)) {
-      return root.price / 1e2
+      return root.sellingPrice / 1e2
     }
 
     return null
