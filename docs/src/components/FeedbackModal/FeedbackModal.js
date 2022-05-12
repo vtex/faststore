@@ -84,7 +84,6 @@ class FeedbackModal extends React.Component {
           onSubmit={this.handleShare}
           onClick={this.props.onClick}
           rate={this.state.rate}
-          message={this.state.message}
         />
         <Step2
           currentStep={this.state.currentStep}
@@ -93,6 +92,7 @@ class FeedbackModal extends React.Component {
           onClick={this.props.onClick}
           onSubmit={this.handleSubmit}
           showEmailForm={this.state.showEmailForm}
+          message={this.state.message}
           email={this.state.email}
         />
       </React.Fragment>
@@ -106,11 +106,11 @@ function Step1(props) {
   }
   return (
     <div>
-      <h1 className="text-lg font-bold">Give your feedback!</h1>
+      <h1 className="text-lg font-bold">Take the survey!</h1>
       <form className={styles.FeedbackModal} onSubmit={props.onSubmit}>
         <p>
           How would you rate your experience with
-          <br /> FastStore documentation?
+          <br /> FastStore documentation as a whole?
         </p>
         <div className={styles.Csat}>
           <label>
@@ -164,24 +164,12 @@ function Step1(props) {
             />
             <span className="far fa-grin"></span>
           </label>
-        </div>
-
-        <label>
-          Anything else you’d like to share?
-          <textarea
-            className={styles.formText}
-            name="message"
-            placeholder="(Optional)"
-            rows="3"
-            value={props.message}
-            onChange={props.handleChange}
-          />
-        </label>
+        </div>        
 
         <div>
           <input
             type="submit"
-            value="Share"
+            value="Submit"
             className="hover:text-white mx-auto py-3 px-4 rounded text-white uppercase font-VTEXMedium text-sm bg-seriousBlack inline-block"
           />
         </div>
@@ -198,10 +186,21 @@ function Step2(props) {
     <div>
       <div className={styles.Feedback}>
         <img src="https://vtexhelp.vtexassets.com/assets/docs/src/thankYou___b4ba01a2ad384f246d3fc2bd5a96dc3a.jpg" />
-        <h3 className="text-2xl font-bold text-center mt-12 mb-3">
-          Thanks for sharing your feedback!
+        <h3 className="text-2xl font-bold text-center mt-4 mb-4">
+          Thanks for your feedback!
         </h3>
         <form className={styles.FeedbackModal} onSubmit={props.onSubmit} >
+        <label>
+          Anything else you’d like to share?
+          <textarea
+            className={styles.formText}
+            name="message"
+            placeholder="(Optional)"
+            rows="3"
+            value={props.message}
+            onChange={props.handleChange}
+          />
+        </label>
           <label>
             Can we reach out to you if we have any questions?
             <div className={styles.FollowUp}>

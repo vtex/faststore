@@ -41,7 +41,7 @@ export default function AnnouncementBar() {
           }}
         />
         <div className="inline text-rebelPink">
-          <button onClick={() => setIsOpen(true)}>Share your opinion</button>
+          <button onClick={() => setIsOpen(true)}>Take the survey!</button>
           <Modal isOpen={isOpen} onDismiss={handleClose}>
             <FeedbackModal onClick={()=>{handleClose; close()}} />
           </Modal>
