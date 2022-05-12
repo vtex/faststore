@@ -1,5 +1,5 @@
 ---
-description: *Add a component description of 54 chacaraters maximum*
+description: *Add a component description of 54 characters maximum*
 keywords:
   - *Add Keyword*
   - *Add Keyword*
