@@ -63,5 +63,13 @@ describe('ProductCard', () => {
     it('should not have violations', async () => {
       expect(await axe(productCardContainer)).toHaveNoViolations()
     })
+
+    it('`ProductCard` component should be an `article`', () => {
+      expect(productCard.tagName).toEqual('ARTICLE')
+    })
+
+    it('`productCardContent` component should be an `section`', () => {
+      expect(productCardContent.tagName).toEqual('SECTION')
+    })
   })
 })
