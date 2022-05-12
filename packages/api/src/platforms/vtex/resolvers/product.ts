@@ -31,7 +31,12 @@ const isAttachmentDefinition = (
 ): attachment is AttachmentDefinition => 'id' in attachment
 
 export const StoreProduct: Record<string, Resolver<Root>> & {
-  offers: Resolver<Root, any, EnhancedCommercialOffer[]>
+  offers: Resolver<
+    Root,
+    any,
+    Array<EnhancedCommercialOffer<Root['sellers'][number], Root>>
+  >
+
   isVariantOf: Resolver<Root, any, Root>
 } = {
   productID: ({ itemId }) => itemId,
@@ -98,17 +103,22 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       }))
     )
 
-    const propertyValueAttachments = attachments.map((attachment) => {
-      if (isAttachmentDefinition(attachment)) {
-        return
-      }
+    // Typescript don't understand (A[] | B[]) as an array, only Array<A | B>
+    const propertyValueAttachments = (attachments as Array<
+      Root['attachments'][number]
+    >)
+      .map((attachment: Root['attachments'][number]) => {
+        if (isAttachmentDefinition(attachment)) {
+          return
+        }
 
-      return {
-        name: attachment.name,
-        value: attachment.content,
-        valueReference: VALUE_REFERENCES.attachment,
-      }
-    })
+        return {
+          name: attachment.name,
+          value: attachment.content,
+          valueReference: VALUE_REFERENCES.attachment,
+        }
+      })
+      .filter(Boolean)
 
     return [...propertyValueVariations, ...propertyValueAttachments]
   },

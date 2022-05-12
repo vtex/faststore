@@ -1,5 +1,4 @@
 import { inStock } from '../utils/productStock'
-import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import type { StoreProduct } from './product'
 import type { PromiseType } from '../../../typings'
 import type { Resolver } from '..'
@@ -7,7 +6,7 @@ import type { Resolver } from '..'
 type Root = PromiseType<ReturnType<typeof StoreProduct.offers>>
 
 export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
-  offers: Resolver<Root, any, EnhancedCommercialOffer[]>
+  offers: Resolver<Root, any, Root>
 } = {
   highPrice: (offers) => {
     const availableOffers = offers.filter(inStock)
