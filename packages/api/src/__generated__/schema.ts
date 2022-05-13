@@ -99,11 +99,17 @@ export type MutationValidateCartArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  /** All collections query. */
   allCollections: StoreCollectionConnection;
+  /** All products query. */
   allProducts: StoreProductConnection;
+  /** Collection query. */
   collection: StoreCollection;
+  /** Person query. */
   person?: Maybe<StorePerson>;
+  /** Product query. */
   product: StoreProduct;
+  /** Search query. */
   search: StoreSearchResult;
 };
 
@@ -458,15 +464,21 @@ export type StorePropertyValue = {
   value: Scalars['String'];
 };
 
+/** Information of a given review. */
 export type StoreReview = {
   __typename?: 'StoreReview';
+  /** Review author. */
   author: StoreAuthor;
+  /** Review rating information. */
   reviewRating: StoreReviewRating;
 };
 
+/** Information of a given review rating. */
 export type StoreReviewRating = {
   __typename?: 'StoreReviewRating';
+  /** Best rating value. */
   bestRating: Scalars['Float'];
+  /** Rating value. */
   ratingValue: Scalars['Float'];
 };
 
@@ -481,11 +493,16 @@ export type StoreSearchResult = {
   suggestions: StoreSuggestions;
 };
 
+/** Search Engine Optimization (SEO) tags data. */
 export type StoreSeo = {
   __typename?: 'StoreSeo';
+  /** Canonical tag. */
   canonical: Scalars['String'];
+  /** Description tag. */
   description: Scalars['String'];
+  /** Title tag. */
   title: Scalars['String'];
+  /** Title template tag. */
   titleTemplate: Scalars['String'];
 };
 
@@ -512,6 +529,7 @@ export const enum StoreSort {
   ScoreDesc = 'score_desc'
 };
 
+/** Status used to indicate type of message. For instance, in shopping cart messages. */
 export const enum StoreStatus {
   Error = 'ERROR',
   Info = 'INFO',
