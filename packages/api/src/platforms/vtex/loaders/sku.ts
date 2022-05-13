@@ -21,7 +21,10 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
       return maybeFacet.value
     })
 
+    const filteredFacets = facetsList.flat(1).filter(({ key }) => key !== 'id')
+
     const { products } = await clients.search.products({
+      selectedFacets: filteredFacets,
       query: `sku:${skuIds.join(';')}`,
       page: 0,
       count: skuIds.length,
