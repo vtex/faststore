@@ -20,6 +20,18 @@ import { ComponentName } from '@faststore/ui'
 ```tsx live
  <ComponentName> </ComponentName>
 ```
+### Variants
+
+> *Use this section only if the component has variants.*
+#### VariantName
+
+> Add a variant example
+
+```tsx live
+<ComponentName>
+    Add the variant example
+</ComponentName>
+```
 
 ### Use cases
 
@@ -46,7 +58,7 @@ Use the *ComponentName* component to hightlight:
 
 ### Do's
 
-> Begin the sentence with an imperative verb, eg.: `Use`, `Place`, `Add`, etc 
+> *Begin the sentence with an imperative verb, eg.: `Use`, `Place`, `Add`.* 
 
 - *Add the best practice - do*
 - *Add the best practice - do*
