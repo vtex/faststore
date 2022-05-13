@@ -10,6 +10,7 @@ import SkeletonElement from 'src/components/skeletons/SkeletonElement'
 import Button, { ButtonLink } from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import { mark } from 'src/sdk/tests/mark'
+import styles from 'src/components/sections/ProductGallery/product-gallery.module.scss'
 
 import Section from '../Section'
 import EmptyGallery from './EmptyGallery'
@@ -40,7 +41,8 @@ function ProductGallery({ title, searchTerm }: Props) {
     return (
       <Section
         data-testid="product-gallery"
-        className="product-listing layout__content"
+        className={`${styles['fs-product-listing']} layout__content`}
+        data-fs-product-listing
       >
         <EmptyGallery />
       </Section>
@@ -50,17 +52,18 @@ function ProductGallery({ title, searchTerm }: Props) {
   return (
     <Section
       data-testid="product-gallery"
-      className="product-listing layout__content-full"
+      className={`${styles['fs-product-listing']} layout__content-full`}
+      data-fs-product-listing
     >
       {searchTerm && (
-        <header className="product-listing__search-term layout__content">
+        <header data-fs-product-listing-search-term className="layout__content">
           <h1>
             Showing results for: <span>{searchTerm}</span>
           </h1>
         </header>
       )}
-      <div className="product-listing__content-grid layout__content">
-        <div className="product-listing__filters">
+      <div data-fs-product-listing-content-grid className="layout__content">
+        <div data-fs-product-listing-filters>
           <FilterSkeleton loading={facets?.length === 0}>
             <Filter
               isOpen={isFilterOpen}
@@ -70,13 +73,13 @@ function ProductGallery({ title, searchTerm }: Props) {
           </FilterSkeleton>
         </div>
 
-        <div className="product-listing__results-count" data-count={totalCount}>
+        <div data-fs-product-listing-results-count data-count={totalCount}>
           <SkeletonElement shimmer type="text" loading={!data}>
             <h2 data-testid="total-product-count">{totalCount} Results</h2>
           </SkeletonElement>
         </div>
 
-        <div className="product-listing__sort">
+        <div data-fs-product-listing-sort>
           <SkeletonElement shimmer type="text" loading={facets?.length === 0}>
             <Sort />
           </SkeletonElement>
@@ -95,10 +98,10 @@ function ProductGallery({ title, searchTerm }: Props) {
           </SkeletonElement>
         </div>
 
-        <div className="product-listing__results">
+        <div data-fs-product-listing-results>
           {/* Add link to previous page. This helps on SEO */}
           {prev !== false && (
-            <div className="product-listing__pagination product-listing__pagination--top">
+            <div data-fs-product-listing-pagination="top">
               <NextSeo
                 additionalLinkTags={[{ rel: 'prev', href: prev.link }]}
               />
@@ -139,7 +142,7 @@ function ProductGallery({ title, searchTerm }: Props) {
 
           {/* Add link to next page. This helps on SEO */}
           {next !== false && (
-            <div className="product-listing__pagination product-listing__pagination--bottom">
+            <div data-fs-product-listing-pagination="bottom">
               <NextSeo
                 additionalLinkTags={[{ rel: 'next', href: next.link }]}
               />

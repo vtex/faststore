@@ -1,41 +1,30 @@
 import { List as UIList } from '@faststore/ui'
-import { forwardRef } from 'react'
+import { gql } from '@vtex/graphql-utils'
+import { useEffect, useState } from 'react'
 import type { HTMLAttributes } from 'react'
 
+import styles from 'src/components/search/Suggestions/suggestions.module.scss'
 import Button from 'src/components/ui/Button'
-import Link from 'src/components/ui/Link'
+import { request } from 'src/sdk/graphql/request'
+import type {
+  SearchSuggestionsQueryQuery,
+  SearchSuggestionsQueryQueryVariables,
+} from '@generated/graphql'
 
 import SuggestionProductCard from '../SuggestionProductCard'
 
-const MAX_SUGGESTIONS = 10
-const MAX_SUGGESTIONS_WITH_PRODUCTS = 5
-const MAX_SUGGESTED_PRODUCTS = 4
-const SUGGESTED_PRODUCTS = [
-  {
-    name: 'Ergonomic Wooden Bacon',
-    listPrice: 72.06,
-    price: 46.26,
-    image: [
-      {
-        alternateName: 'rerum',
-        url: 'http://storeframework.vtexassets.com/arquivos/ids/167285/ut.jpg?v=637753017045600000',
-      },
-    ],
-  },
-  {
-    name: 'Handcrafted Rubber Sausages',
-    listPrice: 59.57,
-    price: 32.83,
-    image: [
-      {
-        alternateName: 'ea',
-        url: 'http://storeframework.vtexassets.com/arquivos/ids/155949/voluptas.jpg?v=637752878341070000',
-      },
-    ],
-  },
-]
-
-const SUGGESTIONS = ['Sony MX', 'Sony MV-100 Headphone', 'Sony M2000 Earbuds']
+const SearchSuggestionsQuery = gql`
+  query SearchSuggestionsQuery($term: String!) {
+    search(first: 10, term: $term) {
+      suggestions {
+        terms
+        products {
+          ...ProductSummary_product
+        }
+      }
+    }
+  }
+`
 
 function formatSearchTerm(
   indexSubstring: number,
@@ -66,7 +55,7 @@ function handleSuggestions(suggestion: string, searchTerm: string) {
       {suggestionSubstring.map((substring, indexSubstring) => (
         <>
           {substring.length > 0 && (
-            <b className="suggestions__item-bold">
+            <b data-fs-search-suggestion-item-bold>
               {indexSubstring === 0
                 ? substring.charAt(0).toUpperCase() + substring.slice(1)
                 : substring}
@@ -89,57 +78,89 @@ export interface SuggestionsProps extends HTMLAttributes<HTMLDivElement> {
    * Search term
    */
   term?: string
+  /**
+   * Callback to be executed when a suggestion is selected.
+   *
+   * @memberof SuggestionsProps
+   */
+  onSearch: (term: string) => void
 }
 
-const Suggestions = forwardRef<HTMLDivElement, SuggestionsProps>(
-  function Suggestions(
-    { testId = 'suggestions', term = '', ...otherProps },
-    ref
-  ) {
-    const suggestions =
-      SUGGESTED_PRODUCTS.length > 0
-        ? SUGGESTIONS.slice(0, MAX_SUGGESTIONS_WITH_PRODUCTS)
-        : SUGGESTIONS.slice(0, MAX_SUGGESTIONS)
+function useSuggestions(term: string) {
+  const [suggestions, setSuggestions] =
+    useState<SearchSuggestionsQueryQuery['search']['suggestions']>()
 
-    return (
-      <section
-        ref={ref}
-        data-testid={testId}
-        data-store-suggestions
-        className="suggestions"
-        {...otherProps}
-      >
-        {suggestions.length > 0 && (
-          <UIList data-suggestions-list className="suggestions__section">
-            {suggestions?.map((suggestion, index) => (
-              <li key={index} className="suggestions__item">
-                <Button onClick={() => null}>
-                  {handleSuggestions(suggestion, term)}
-                </Button>
+  const [loading, setLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (term.length > 0) {
+      setLoading(true)
+      request<
+        SearchSuggestionsQueryQuery,
+        SearchSuggestionsQueryQueryVariables
+      >(SearchSuggestionsQuery, { term })
+        .then((data) => {
+          setSuggestions(data.search.suggestions)
+        })
+        .finally(() => setLoading(false))
+    }
+  }, [term])
+
+  const terms = suggestions?.terms ?? []
+  const products = suggestions?.products ?? []
+
+  return { terms, products, loading }
+}
+
+function Suggestions({
+  testId = 'suggestions',
+  term = '',
+  onSearch,
+  ...otherProps
+}: SuggestionsProps) {
+  const { terms, products, loading } = useSuggestions(term)
+
+  if (term.length === 0 && !loading) {
+    return <p>Top Search List</p>
+  }
+
+  if (loading) {
+    return <p>Loading...</p>
+  }
+
+  return (
+    <section
+      data-testid={testId}
+      className={styles['fs-search-suggestions']}
+      data-fs-search-suggestions
+      {...otherProps}
+    >
+      {terms.length > 0 && (
+        <UIList data-fs-search-suggestion-section>
+          {terms?.map((suggestion) => (
+            <li key={suggestion} data-fs-search-suggestion-item>
+              <Button onClick={() => onSearch(suggestion)}>
+                {handleSuggestions(suggestion, term)}
+              </Button>
+            </li>
+          ))}
+        </UIList>
+      )}
+
+      {products.length > 0 && (
+        <div data-fs-search-suggestion-section>
+          <p data-fs-search-suggestion-title="small">Suggested Products</p>
+          <UIList>
+            {products.map((product, index) => (
+              <li key={product.name} data-fs-search-suggestion-item>
+                <SuggestionProductCard product={product} index={index} />
               </li>
             ))}
           </UIList>
-        )}
-
-        {SUGGESTED_PRODUCTS.length > 0 && (
-          <div className="suggestions__section">
-            <p className="suggestions__title">Suggested Products</p>
-            <UIList>
-              {SUGGESTED_PRODUCTS.slice(0, MAX_SUGGESTED_PRODUCTS).map(
-                (product, index) => (
-                  <li key={index} className="suggestions__item">
-                    <Link href="/" variant="display">
-                      <SuggestionProductCard product={product} />
-                    </Link>
-                  </li>
-                )
-              )}
-            </UIList>
-          </div>
-        )}
-      </section>
-    )
-  }
-)
+        </div>
+      )}
+    </section>
+  )
+}
 
 export default Suggestions

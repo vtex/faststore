@@ -1,7 +1,11 @@
 @import "src/styles/scaffold";
 
-.suggestion-product-card {
+.fs-suggestion-product-card[data-fs-suggestion-product-card] {
   padding: var(--fs-spacing-1) 0;
+
+  [data-card-image] {
+    display: flex;
+  }
 
   [data-card-content] {
     display: grid;
@@ -15,12 +19,12 @@
     border-radius: var(--fs-border-radius-default);
   }
 
-  [data-suggestion-product-card-summary] {
+  [data-fs-suggestion-product-card-summary] {
     flex-direction: column;
     grid-column: 2 / span 4;
   }
 
-  [data-suggestion-product-card-title] {
+  [data-fs-suggestion-product-card-title] {
     margin-bottom: var(--fs-spacing-0);
     line-height: 1.2;
     color: inherit;
@@ -30,7 +34,7 @@
     @include truncate-title;
   }
 
-  [data-suggestion-product-card-prices] {
+  [data-fs-suggestion-product-card-prices] {
     display: flex;
     align-items: baseline;
   }

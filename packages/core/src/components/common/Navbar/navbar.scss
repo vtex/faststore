@@ -5,7 +5,7 @@
   border-bottom: var(--fs-border-width-default) solid var(--fs-color-neutral-2);
   box-shadow: 0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%);
 
-  [data-store-search-input] {
+  [data-store-search-input-wrapper] {
     flex: 1 0 100%;
     order: 2;
 
@@ -59,13 +59,14 @@
     }
   }
 
-  [data-store-search-input] {
+  [data-store-search-input-wrapper] {
     display: none;
     transition: flex 0.3s ease-in;
 
     @include media("<notebook") {
-      display: inline-flex;
+      display: flex;
       flex: 0;
+      flex-direction: column;
       order: 0;
       width: min-content;
 
@@ -95,7 +96,7 @@
   &[data-store-search-expanded="true"] {
     width: 100%;
 
-    [data-store-search-input] {
+    [data-store-search-input-wrapper] {
       flex: 1 1;
       margin-right: 0.625rem;
       margin-left: var(--fs-spacing-9);
@@ -119,7 +120,7 @@
 .navbar__header {
   padding-top: var(--fs-spacing-1);
   padding-bottom: var(--fs-spacing-2);
-  overflow: hidden;
+  overflow-x: clip;
 
   @include media(">=notebook") {
     padding-top: var(--fs-spacing-1);
