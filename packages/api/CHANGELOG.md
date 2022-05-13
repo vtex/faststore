@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.17 (2022-05-13)
+
+
+### Features
+
+* **UI:** Add `ProductCard` component ([#1272](https://github.com/vtex/faststore/issues/1272)) ([ea62210](https://github.com/vtex/faststore/commit/ea6221080da8b3538551f7a77df61a14d8de297d))
+
+
+
+
+
 ## 1.8.16 (2022-05-13)
 
 **Note:** Version bump only for package @faststore/api
