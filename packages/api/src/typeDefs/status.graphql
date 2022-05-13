@@ -1,3 +1,6 @@
+"""
+Status used to indicate type of message. For instance, in shopping cart messages.
+"""
 enum StoreStatus {
   INFO
   WARNING
