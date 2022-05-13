@@ -54,6 +54,32 @@ export { default as Incentive } from './atoms/Incentive'
 export type { IncentiveProps } from './atoms/Incentive'
 
 // Molecules
+export {
+  default as ProductCard,
+  ProductCardImage,
+  ProductCardContent,
+  ProductCardActions,
+} from './molecules/ProductCard'
+export type {
+  ProductCardProps,
+  ProductCardImageProps,
+  ProductCardContentProps,
+  ProductCardActionsProps,
+} from './molecules/ProductCard'
+
+export {
+  default as Card,
+  CardImage,
+  CardContent,
+  CardActions,
+} from './molecules/Card'
+export type {
+  CardProps,
+  CardImageProps,
+  CardContentProps,
+  CardActionsProps,
+} from './molecules/Card'
+
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
 
@@ -150,18 +176,6 @@ export type {
 } from './molecules/Dropdown'
 
 // Organisms
-export {
-  default as Card,
-  CardImage,
-  CardContent,
-  CardActions,
-} from './organisms/Card'
-export type {
-  CardProps,
-  CardImageProps,
-  CardContentProps,
-  CardActionsProps,
-} from './organisms/Card'
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'

@@ -6,23 +6,23 @@ import Price from '../../../atoms/Price'
 import Badge from '../../../atoms/Badge'
 import Button from '../../../atoms/Button'
 // Card components
-import CardComponent from '../Card'
-import CardImage from '../CardImage'
-import CardContent from '../CardContent'
-import CardActions from '../CardActions'
-import type { CardProps } from '../Card'
-import mdx from './Card.mdx'
+import ProductCardComponent from '../ProductCard'
+import ProductCardImage from '../ProductCardImage'
+import ProductCardContent from '../ProductCardContent'
+import ProductCardActions from '../ProductCardActions'
+import type { ProductCardProps } from '../ProductCard'
+import mdx from './ProductCard.mdx'
 
-const CardTemplate: Story<CardProps> = ({ testId }) => {
+const ProductCardTemplate: Story<ProductCardProps> = ({ testId }) => {
   return (
-    <CardComponent testId={testId}>
-      <CardImage>
+    <ProductCardComponent testId={testId}>
+      <ProductCardImage>
         <img
           alt="A vintage camera"
           src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
         />
-      </CardImage>
-      <CardContent>
+      </ProductCardImage>
+      <ProductCardContent>
         <h3>Vintage Top Camera</h3>
         <div>
           <Price
@@ -34,11 +34,11 @@ const CardTemplate: Story<CardProps> = ({ testId }) => {
           <Price value={68.9} variant="selling" formatter={formatter} />
         </div>
         <Badge>15% OFF</Badge>
-      </CardContent>
-      <CardActions>
+      </ProductCardContent>
+      <ProductCardActions>
         <Button onClick={() => null}>Add to Cart</Button>
-      </CardActions>
-    </CardComponent>
+      </ProductCardActions>
+    </ProductCardComponent>
   )
 }
 
@@ -49,11 +49,11 @@ function formatter(price: number) {
   }).format(price)
 }
 
-export const Card = CardTemplate.bind({})
-Card.storyName = 'Card'
+export const ProductCard = ProductCardTemplate.bind({})
+ProductCard.storyName = 'ProductCard'
 
 export default {
-  title: 'Organisms/Card',
+  title: 'Molecules/ProductCard',
   parameters: {
     docs: {
       page: mdx,
