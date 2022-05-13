@@ -1,9 +1,9 @@
 ---
 description: *Add a component description of 54 characters maximum*
 keywords:
-  - *Add Keyword*
-  - *Add Keyword*
-  - *Add Keyword*
+  - UI library
+  - ecommerce
+  - react
 ---
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
