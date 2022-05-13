@@ -23,6 +23,20 @@ import { ComponentName } from '@faststore/ui'
  <ComponentName> </ComponentName>
 ```
 
+### Use cases
+
+Use the *ComponentName* component to hightlight:
+
+- *Use Case 1*
+- *Use Case 2*
+- *Use Case 3*
+
+```tsx live
+<ComponentName>
+    Add an Use Case example
+</ComponentName>
+```
+
 ## Variants
 
 ### VariantName
