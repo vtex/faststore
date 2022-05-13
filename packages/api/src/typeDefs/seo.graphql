@@ -1,5 +1,5 @@
 """
-Search Engine Optimizaztion (SEO) tags data.
+Search Engine Optimization (SEO) tags data.
 """
 type StoreSeo {
   """
