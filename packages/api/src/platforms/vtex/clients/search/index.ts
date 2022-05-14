@@ -47,7 +47,7 @@ export const IntelligentSearch = (
   const getPolicyFacet = (): IStoreSelectedFacet | null => {
     const { salesChannel } = ctx.storage.channel
 
-    if (typeof salesChannel !== 'string') {
+    if (!salesChannel) {
       return null
     }
 
@@ -60,7 +60,7 @@ export const IntelligentSearch = (
   const getRegionFacet = (): IStoreSelectedFacet | null => {
     const { regionId } = ctx.storage.channel
 
-    if (typeof regionId !== 'string') {
+    if (!regionId) {
       return null
     }
 
