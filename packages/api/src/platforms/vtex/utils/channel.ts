@@ -27,8 +27,5 @@ export default class ChannelMarshal {
 }
 
 export const mutateChannelContext = (ctx: Context, channelString: string) => {
-  ctx.storage = {
-    ...ctx.storage,
-    channel: ChannelMarshal.parse(channelString),
-  }
+  ctx.storage.channel = ChannelMarshal.parse(channelString)
 }
