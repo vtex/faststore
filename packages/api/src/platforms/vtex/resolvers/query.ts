@@ -27,7 +27,7 @@ export const Query = {
       loaders: { skuLoader },
     } = ctx
 
-    return skuLoader.load(locator.flatMap(transformSelectedFacet))
+    return skuLoader.load(locator)
   },
   collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
     const {

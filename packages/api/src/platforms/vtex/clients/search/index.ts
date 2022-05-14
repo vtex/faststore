@@ -1,7 +1,7 @@
+import { fetchAPI } from '../fetch'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import type { Context, Options } from '../../index'
 import type { SelectedFacet } from '../../utils/facets'
-import { fetchAPI } from '../fetch'
 import type { FacetSearchResult } from './types/FacetSearchResult'
 import type {
   ProductSearchResult,
@@ -34,24 +34,60 @@ export interface ProductLocator {
   value: string
 }
 
+const POLICY_KEY = 'trade-policy'
+const REGION_KEY = 'region-id'
+const CHANNEL_KEYS = new Set([POLICY_KEY, REGION_KEY])
+
 export const IntelligentSearch = (
   { account, environment, hideUnavailableItems }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br/api/io`
-  const policyFacet: IStoreSelectedFacet = {
-    key: 'trade-policy',
-    value: ctx.storage.channel.salesChannel,
+
+  const getPolicyFacet = (): IStoreSelectedFacet | null => {
+    const { salesChannel } = ctx.storage.channel
+
+    if (typeof salesChannel !== 'string') {
+      return null
+    }
+
+    return {
+      key: POLICY_KEY,
+      value: salesChannel,
+    }
+  }
+
+  const getRegionFacet = (): IStoreSelectedFacet | null => {
+    const { regionId } = ctx.storage.channel
+
+    if (typeof regionId !== 'string') {
+      return null
+    }
+
+    return {
+      key: REGION_KEY,
+      value: regionId,
+    }
   }
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
-    const facet = facets.find(({ key }) => key === policyFacet.key)
+    const withDefaltFacets = facets.filter(({ key }) => !CHANNEL_KEYS.has(key))
 
-    if (facet === undefined) {
-      return [...facets, policyFacet]
+    const policyFacet =
+      facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
+
+    const regionFacet =
+      facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet()
+
+    if (policyFacet !== null) {
+      withDefaltFacets.push(policyFacet)
     }
 
-    return facets
+    if (regionFacet !== null) {
+      withDefaltFacets.push(regionFacet)
+    }
+
+    return withDefaltFacets
   }
 
   const search = <T>({
