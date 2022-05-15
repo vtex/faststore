@@ -158,6 +158,7 @@ export const validateCart = async (
   { cart: { order } }: { cart: IStoreCart },
   ctx: Context
 ) => {
+  const { enableOrderFormSync } = ctx.storage.flags
   const { orderNumber, acceptedOffer } = order
   const {
     clients: { commerce },
@@ -169,16 +170,18 @@ export const validateCart = async (
     id: orderNumber,
   })
 
-  // Step1.5: Check if the user placed an order with this orderNumber
-  // If the user placed an order with this orderNumber, this means
-  // browser's cart is outdated and we should clear it returning a
-  // new, empty cart.
-  const isStale = isOrderFormStale(orderForm)
+  if (enableOrderFormSync) {
+    // Step1.5: Check if the user placed an order with this orderNumber
+    // If the user placed an order with this orderNumber, this means
+    // browser's cart is outdated and we should clear it returning a
+    // new, empty cart.
+    const isStale = isOrderFormStale(orderForm)
 
-  if (isStale && orderNumber) {
-    const newOrderForm = await setOrderFormEtag(orderForm, commerce)
+    if (isStale && orderNumber) {
+      const newOrderForm = await setOrderFormEtag(orderForm, commerce)
 
-    return orderFormToCart(newOrderForm, skuLoader)
+      return orderFormToCart(newOrderForm, skuLoader)
+    }
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape
