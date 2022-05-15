@@ -1,14 +1,14 @@
 import deepEquals from 'fast-deep-equal'
 
 import type {
-  IStoreOrder,
   IStoreCart,
   IStoreOffer,
+  IStoreOrder,
 } from '../../../__generated__/schema'
 import type {
   OrderForm,
-  OrderFormItem,
   OrderFormInputItem,
+  OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 import type { Context } from '..'
 
@@ -70,6 +70,34 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
 }
 
 /**
+ * @description
+ * Checks if any other system changed this orderForm or if the last change was done
+ * by `validateCart` function
+ */
+const isNewOrderForm = (form: OrderForm) => {
+  return form.clientProfileData !== null
+}
+
+const orderFormToResponse = (
+  form: OrderForm,
+  skuLoader: Context['loaders']['skuLoader']
+) => {
+  return {
+    order: {
+      orderNumber: form.orderFormId,
+      acceptedOffer: form.items.map((item) => ({
+        ...item,
+        product: skuLoader.load([{ key: 'id', value: item.id }]), // TODO: add channel
+      })),
+    },
+    messages: form.messages.map(({ text, status }) => ({
+      text,
+      status: status.toUpperCase(),
+    })),
+  }
+}
+
+/**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
  * the commerce platform. If the cart is valid, we return null, if the cart is
@@ -97,6 +125,14 @@ export const validateCart = async (
   const orderForm = await commerce.checkout.orderForm({
     id: orderNumber,
   })
+
+  // Step1.5: Check if the user placed an order with this orderNumber
+  // If the user placed an order with this orderNumber, this means
+  // browser's cart is outdated and we should clear it returning a
+  // new, empty cart.
+  if (isNewOrderForm(orderForm) && orderNumber) {
+    return orderFormToResponse(orderForm, skuLoader)
+  }
 
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)
@@ -150,17 +186,5 @@ export const validateCart = async (
   }
 
   // Step6: There were changes, convert orderForm to StoreOrder
-  return {
-    order: {
-      orderNumber: updatedOrderForm.orderFormId,
-      acceptedOffer: updatedOrderForm.items.map((item) => ({
-        ...item,
-        product: skuLoader.load([{ key: 'id', value: item.id }]), // TODO: add channel
-      })),
-    },
-    messages: updatedOrderForm.messages.map(({ text, status }) => ({
-      text,
-      status: status.toUpperCase(),
-    })),
-  }
+  return orderFormToResponse(updatedOrderForm, skuLoader)
 }
