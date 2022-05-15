@@ -73,12 +73,17 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
  * @description
  * Checks if any other system changed this orderForm or if the last change was done
  * by `validateCart` function
+ *
+ * TODO: Currently, I have no way of knowing if the orderForm is new or not.
+ * The only way I have on knowing it is by using the heuristics below.
+ * According to my tests, when the OF is new, `clientProfileData` is an object.
+ * When the OF was already been created, `clientProfileData` is null
  */
-const isNewOrderForm = (form: OrderForm) => {
+const isNewOrderForm = async (form: OrderForm) => {
   return form.clientProfileData !== null
 }
 
-const orderFormToResponse = (
+const orderFormToCart = (
   form: OrderForm,
   skuLoader: Context['loaders']['skuLoader']
 ) => {
@@ -130,8 +135,10 @@ export const validateCart = async (
   // If the user placed an order with this orderNumber, this means
   // browser's cart is outdated and we should clear it returning a
   // new, empty cart.
-  if (isNewOrderForm(orderForm) && orderNumber) {
-    return orderFormToResponse(orderForm, skuLoader)
+  const isNew = await isNewOrderForm(orderForm)
+
+  if (isNew && orderNumber) {
+    return orderFormToCart(orderForm, skuLoader)
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape
@@ -186,5 +193,5 @@ export const validateCart = async (
   }
 
   // Step6: There were changes, convert orderForm to StoreOrder
-  return orderFormToResponse(updatedOrderForm, skuLoader)
+  return orderFormToCart(updatedOrderForm, skuLoader)
 }
