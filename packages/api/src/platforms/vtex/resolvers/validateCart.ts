@@ -1,5 +1,6 @@
 import deepEquals from 'fast-deep-equal'
 
+import { md5 } from '../utils/md5'
 import type {
   IStoreCart,
   IStoreOffer,
@@ -69,20 +70,6 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
   return isSameOrder && orderItemsAreSync
 }
 
-/**
- * @description
- * Checks if any other system changed this orderForm or if the last change was done
- * by `validateCart` function
- *
- * TODO: Currently, I have no way of knowing if the orderForm is new or not.
- * The only way I have on knowing it is by using the heuristics below.
- * According to my tests, when the OF is new, `clientProfileData` is an object.
- * When the OF was already been created, `clientProfileData` is null
- */
-const isNewOrderForm = async (form: OrderForm) => {
-  return form.clientProfileData !== null
-}
-
 const orderFormToCart = (
   form: OrderForm,
   skuLoader: Context['loaders']['skuLoader']
@@ -100,6 +87,57 @@ const orderFormToCart = (
       status: status.toUpperCase(),
     })),
   }
+}
+
+const getOrderFormEtag = ({ items }: OrderForm) => md5(JSON.stringify(items))
+
+const setOrderFormEtag = async (
+  form: OrderForm,
+  commerce: Context['clients']['commerce']
+) => {
+  try {
+    const orderForm = await commerce.checkout.setCustomData({
+      id: form.orderFormId,
+      appId: 'faststore',
+      key: 'cartEtag',
+      value: getOrderFormEtag(form),
+    })
+
+    return orderForm
+  } catch (err) {
+    console.error(err)
+    console.error(
+      'Error while setting custom data to orderForm.\n Make sure to add the following custom app to the orderForm: \n{"fields":["cartEtag"],"id":"faststore","major":1}.\n More info at: https://developers.vtex.com/vtex-rest-api/docs/customizable-fields-with-checkout-api'
+    )
+
+    return form
+  }
+}
+
+/**
+ * @description
+ * Checks if any other system changed this orderForm or if the last change was done
+ * by `validateCart` function
+ *
+ * TODO: Currently, I have no way of knowing if the orderForm is new or not.
+ * The only way I have on knowing it is by using the heuristics below.
+ * According to my tests, when the OF is new, `clientProfileData` is an object.
+ * When the OF was already been created, `clientProfileData` is null
+ */
+const isOrderFormStale = (form: OrderForm) => {
+  const faststoreData = form.customData?.customApps.find(
+    (app) => app.id === 'faststore'
+  )
+
+  const oldEtag = faststoreData?.fields?.cartEtag
+
+  if (oldEtag == null) {
+    return true
+  }
+
+  const newEtag = getOrderFormEtag(form)
+
+  return newEtag !== oldEtag
 }
 
 /**
@@ -135,10 +173,12 @@ export const validateCart = async (
   // If the user placed an order with this orderNumber, this means
   // browser's cart is outdated and we should clear it returning a
   // new, empty cart.
-  const isNew = await isNewOrderForm(orderForm)
+  const isStale = isOrderFormStale(orderForm)
 
-  if (isNew && orderNumber) {
-    return orderFormToCart(orderForm, skuLoader)
+  if (isStale && orderNumber) {
+    const newOrderForm = await setOrderFormEtag(orderForm, commerce)
+
+    return orderFormToCart(newOrderForm, skuLoader)
   }
 
   // Step2: Process items from both browser and checkout so they have the same shape
@@ -182,16 +222,20 @@ export const validateCart = async (
   }
 
   // Step4: Apply delta changes to order form
-  const updatedOrderForm = await commerce.checkout.updateOrderFormItems({
-    id: orderForm.orderFormId,
-    orderItems: changes,
-  })
+  const updatedOrderForm = await commerce.checkout
+    // update orderForm items
+    .updateOrderFormItems({
+      id: orderForm.orderFormId,
+      orderItems: changes,
+    })
+    // update orderForm etag so we know last time we touched this orderForm
+    .then((form) => setOrderFormEtag(form, commerce))
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm)) {
     return null
   }
 
-  // Step6: There were changes, convert orderForm to StoreOrder
+  // Step6: There were changes, convert orderForm to StoreCart
   return orderFormToCart(updatedOrderForm, skuLoader)
 }
