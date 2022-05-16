@@ -28,8 +28,6 @@ import { ComponentName } from '@faststore/ui'
 > *Use this section only if the component has variants.*
 #### VariantName
 
-> Add a variant example
-
 ```tsx live
 <ComponentName>
     Add the variant example
