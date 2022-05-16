@@ -38,17 +38,11 @@ import { ComponentName } from '@faststore/ui'
 
 ### Use cases
 
-Use the *ComponentName* component to hightlight:
+Use the *ComponentName* component to:
 
-- *Use Case 1*
-- *Use Case 2*
-- *Use Case 3*
-
-```tsx live
-<ComponentName>
-    Add an Use Case example
-</ComponentName>
-```
+- *Add use case*
+- *Add use case*
+- *Add use case*
 
 ## Props
 
