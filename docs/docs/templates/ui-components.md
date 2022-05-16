@@ -8,7 +8,9 @@ keywords:
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
-*Add ComponentName* is *add component meaning* used to *add the component function*.
+Briefly describe the component and its functions. 
+
+Example: The *add component name* component are *add component meaning* used to *add the component function*.
 
 ## Import
 
