@@ -115,14 +115,9 @@ const setOrderFormEtag = async (
 }
 
 /**
- * @description
- * Checks if any other system changed this orderForm or if the last change was done
- * by `validateCart` function
- *
- * TODO: Currently, I have no way of knowing if the orderForm is new or not.
- * The only way I have on knowing it is by using the heuristics below.
- * According to my tests, when the OF is new, `clientProfileData` is an object.
- * When the OF was already been created, `clientProfileData` is null
+ * Checks if cartEtag stored on customData is up to date
+ * @description If cartEtag is not up to date, this means that
+ * another system changed the cart, like Checkout UI or Order Placed
  */
 const isOrderFormStale = (form: OrderForm) => {
   const faststoreData = form.customData?.customApps.find(
@@ -170,11 +165,10 @@ export const validateCart = async (
     id: orderNumber,
   })
 
+  // Step1.5: Check if another system changed the orderForm with this orderNumber
+  // If so, this means the user interacted with this cart elsewhere and expects
+  // to see this new cart state instead of what's stored on the user's browser.
   if (enableOrderFormSync) {
-    // Step1.5: Check if the user placed an order with this orderNumber
-    // If the user placed an order with this orderNumber, this means
-    // browser's cart is outdated and we should clear it returning a
-    // new, empty cart.
     const isStale = isOrderFormStale(orderForm)
 
     if (isStale && orderNumber) {
