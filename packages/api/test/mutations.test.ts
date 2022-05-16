@@ -3,10 +3,12 @@ import type { GraphQLSchema } from 'graphql'
 
 import {
   checkoutOrderFormCustomDataInvalidFetch,
+  checkoutOrderFormCustomDataStaleFetch,
   checkoutOrderFormCustomDataValidFetch,
   checkoutOrderFormInvalidFetch,
   checkoutOrderFormItemsInvalidFetch,
   checkoutOrderFormItemsValidFetch,
+  checkoutOrderFormStaleFetch,
   checkoutOrderFormValidFetch,
   InvalidCart,
   productSearchPage1Count1Fetch,
@@ -117,6 +119,38 @@ test('`validateCart` mutation should return the full order when an invalid cart 
   )
 
   expect(mockedFetch).toHaveBeenCalledTimes(4)
+
+  fetchAPICalls.forEach((fetchAPICall, index) => {
+    expect(mockedFetch).toHaveBeenNthCalledWith(
+      index + 1,
+      fetchAPICall.info,
+      fetchAPICall.init
+    )
+  })
+
+  expect(response).toMatchSnapshot()
+})
+
+test('`validateCart` mutation should return new cart when it etag is stale', async () => {
+  const fetchAPICalls = [
+    checkoutOrderFormStaleFetch,
+    checkoutOrderFormCustomDataStaleFetch,
+    productSearchPage1Count1Fetch,
+  ]
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, fetchAPICalls)
+  )
+
+  const response = await execute(
+    schema,
+    parse(ValidateCartMutation),
+    null,
+    context,
+    { cart: InvalidCart }
+  )
+
+  expect(mockedFetch).toHaveBeenCalledTimes(3)
 
   fetchAPICalls.forEach((fetchAPICall, index) => {
     expect(mockedFetch).toHaveBeenNthCalledWith(
