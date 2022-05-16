@@ -1,9 +1,9 @@
 [
   {
-    "title": "Optimized WebOps build time",
+    "title": "Faster builds with new WebOps caching system",
     "product": "WebOps",
     "fileName": "2022-05-11-webops",
-    "description": "The WebOps infrastructure building time was improved by providing a unified system for building and serving nodejs apps on WebOps."
+    "description": "Next.js projects deployed with WebOps can now benefit from faster builds as WebOps can now reuse outputs produced from previous builds."
   },
   {
     "title": "Base Store - April, 2022",
