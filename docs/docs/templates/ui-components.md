@@ -23,7 +23,7 @@ import { ComponentName } from '@faststore/ui'
 /* Replace ComponentName with the name of the component. */
 <ComponentName/>
 ```
-### Variants
+### Variants (Optional)
 
 > *Use this section only if the component has variants.*
 #### VariantName
