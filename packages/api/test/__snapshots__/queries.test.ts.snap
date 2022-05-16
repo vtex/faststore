@@ -1113,32 +1113,3 @@ Object {
   },
 }
 `;
-
-exports[`\`topSearches\` query 1`] = `
-Object {
-  "data": Object {
-    "topSearches": Array [
-      Object {
-        "occurrences": 7246,
-        "term": "what really happened with aaron swartz",
-      },
-      Object {
-        "occurrences": 6225,
-        "term": "whaaaat",
-      },
-      Object {
-        "occurrences": 4263,
-        "term": "salad",
-      },
-      Object {
-        "occurrences": 4068,
-        "term": "sleek woden",
-      },
-      Object {
-        "occurrences": 3789,
-        "term": "new search",
-      },
-    ],
-  },
-}
-`;

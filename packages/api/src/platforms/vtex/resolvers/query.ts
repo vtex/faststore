@@ -172,16 +172,4 @@ export const Query = {
       }
     )
   },
-  topSearches: async (_: unknown, __: unknown, ctx: Context) => {
-    const {
-      clients: { search },
-    } = ctx
-
-    const { searches } = await search.topSearches()
-
-    return searches.map((searchTermInfo) => ({
-      term: searchTermInfo.term,
-      occurrences: searchTermInfo.count,
-    }))
-  },
 }

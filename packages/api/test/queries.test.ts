@@ -29,7 +29,6 @@ import {
   productSearchCategory1Fetch,
   attributeSearchCategory1Fetch,
 } from '../mocks/SearchQuery'
-import { topSearchesFetch, TopSearchesQuery } from '../mocks/TopSearchesQuery'
 
 let schema: GraphQLSchema
 let context: Record<string, any>
@@ -205,27 +204,6 @@ test('`search` query', async () => {
   )
 
   expect(mockedFetch).toHaveBeenCalledTimes(2)
-
-  fetchAPICalls.forEach((fetchAPICall) => {
-    expect(mockedFetch).toHaveBeenCalledWith(
-      fetchAPICall.info,
-      fetchAPICall.init
-    )
-  })
-
-  expect(response).toMatchSnapshot()
-})
-
-test('`topSearches` query', async () => {
-  const fetchAPICalls = [topSearchesFetch]
-
-  mockedFetch.mockImplementation((info, init) =>
-    pickFetchAPICallResult(info, init, fetchAPICalls)
-  )
-
-  const response = await execute(schema, parse(TopSearchesQuery), null, context)
-
-  expect(mockedFetch).toHaveBeenCalledTimes(1)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
