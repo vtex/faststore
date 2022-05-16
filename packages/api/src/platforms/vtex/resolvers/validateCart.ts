@@ -91,28 +91,16 @@ const orderFormToCart = (
 
 const getOrderFormEtag = ({ items }: OrderForm) => md5(JSON.stringify(items))
 
-const setOrderFormEtag = async (
+const setOrderFormEtag = (
   form: OrderForm,
   commerce: Context['clients']['commerce']
-) => {
-  try {
-    const orderForm = await commerce.checkout.setCustomData({
-      id: form.orderFormId,
-      appId: 'faststore',
-      key: 'cartEtag',
-      value: getOrderFormEtag(form),
-    })
-
-    return orderForm
-  } catch (err) {
-    console.error(err)
-    console.error(
-      'Error while setting custom data to orderForm.\n Make sure to add the following custom app to the orderForm: \n{"fields":["cartEtag"],"id":"faststore","major":1}.\n More info at: https://developers.vtex.com/vtex-rest-api/docs/customizable-fields-with-checkout-api'
-    )
-
-    return form
-  }
-}
+) =>
+  commerce.checkout.setCustomData({
+    id: form.orderFormId,
+    appId: 'faststore',
+    key: 'cartEtag',
+    value: getOrderFormEtag(form),
+  })
 
 /**
  * Checks if cartEtag stored on customData is up to date
