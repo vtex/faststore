@@ -1,5 +1,5 @@
 ---
-description: *Add a component description of 54 characters maximum*
+description: Describe the component in 50-160 characters.
 keywords:
   - UI library
   - ecommerce
