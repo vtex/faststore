@@ -1,18 +1,20 @@
-import type { GraphQLSchema } from 'graphql'
 import { execute, parse } from 'graphql'
+import type { GraphQLSchema } from 'graphql'
 
-import type { Options } from '../src'
-import { getSchema, getContextFactory } from '../src'
 import {
-  ValidateCartMutation,
-  InvalidCart,
-  ValidCart,
-  checkoutOrderFormItemsValidFetch,
-  checkoutOrderFormValidFetch,
+  checkoutOrderFormCustomDataInvalidFetch,
+  checkoutOrderFormCustomDataValidFetch,
   checkoutOrderFormInvalidFetch,
   checkoutOrderFormItemsInvalidFetch,
+  checkoutOrderFormItemsValidFetch,
+  checkoutOrderFormValidFetch,
+  InvalidCart,
   productSearchPage1Count1Fetch,
+  ValidateCartMutation,
+  ValidCart,
 } from '../mocks/ValidateCartMutation'
+import { getContextFactory, getSchema } from '../src'
+import type { Options } from '../src'
 
 let schema: GraphQLSchema
 let context: Record<string, any>
@@ -23,6 +25,9 @@ const apiOptions = {
   environment: 'vtexcommercestable',
   channel: '{"salesChannel":"1"}',
   hideUnavailableItems: false,
+  flags: {
+    enableOrderFormSync: true,
+  },
 } as Options
 
 const mockedFetch = jest.fn()
@@ -44,7 +49,8 @@ function pickFetchAPICallResult(
 }
 
 jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
-  fetchAPI: (info: RequestInfo, init?: RequestInit) => mockedFetch(info, init),
+  fetchAPI: async (info: RequestInfo, init?: RequestInit) =>
+    mockedFetch(info, init),
 }))
 
 beforeAll(async () => {
@@ -63,6 +69,7 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
   const fetchAPICalls = [
     checkoutOrderFormValidFetch,
     checkoutOrderFormItemsValidFetch,
+    checkoutOrderFormCustomDataValidFetch,
   ]
 
   mockedFetch.mockImplementation((info, init) =>
@@ -77,7 +84,7 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
     { cart: ValidCart }
   )
 
-  expect(mockedFetch).toHaveBeenCalledTimes(2)
+  expect(mockedFetch).toHaveBeenCalledTimes(3)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
@@ -93,6 +100,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
   const fetchAPICalls = [
     checkoutOrderFormInvalidFetch,
     checkoutOrderFormItemsInvalidFetch,
+    checkoutOrderFormCustomDataInvalidFetch,
     productSearchPage1Count1Fetch,
   ]
 
@@ -108,7 +116,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
     { cart: InvalidCart }
   )
 
-  expect(mockedFetch).toHaveBeenCalledTimes(3)
+  expect(mockedFetch).toHaveBeenCalledTimes(4)
 
   fetchAPICalls.forEach((fetchAPICall, index) => {
     expect(mockedFetch).toHaveBeenNthCalledWith(

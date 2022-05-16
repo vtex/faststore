@@ -103,7 +103,7 @@ export const VtexCommerce = (
           }
         )
       },
-      setCustomData: async ({
+      setCustomData: ({
         id,
         appId,
         key,
