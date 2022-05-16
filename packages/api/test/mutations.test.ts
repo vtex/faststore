@@ -131,7 +131,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
   expect(response).toMatchSnapshot()
 })
 
-test('`validateCart` mutation should return new cart when it etag is stale', async () => {
+test('`validateCart` mutation should return new cart when etag is stale', async () => {
   const fetchAPICalls = [
     checkoutOrderFormStaleFetch,
     checkoutOrderFormCustomDataStaleFetch,
