@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`\`validateCart\` mutation should return new cart when it etag is stale 1`] = `
+exports[`\`validateCart\` mutation should return new cart when etag is stale 1`] = `
 Object {
   "data": Object {
     "validateCart": Object {
