@@ -29,9 +29,11 @@ import { ComponentName } from '@faststore/ui'
 #### VariantName
 
 ```tsx live
-<ComponentName>
-    Add the variant example
-</ComponentName>
+```tsx live
+/* Replace ComponentName and VariantName accordingly. */
+<ComponentName
+  variant="variantName"
+/>
 ```
 
 ### Use cases
