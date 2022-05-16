@@ -46,6 +46,8 @@ Use the *ComponentName* component to:
 
 ## Props
 
+*Replace `ComponentName` with the component name.*
+
 <PropsSection name="ComponentName" />
 
 ## Customization
