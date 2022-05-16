@@ -20,7 +20,8 @@ import { ComponentName } from '@faststore/ui'
 ## Usage
 
 ```tsx live
- <ComponentName> </ComponentName>
+/* Replace ComponentName with the name of the component. */
+<ComponentName/>
 ```
 ### Variants
 
