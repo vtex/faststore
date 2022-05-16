@@ -49,7 +49,8 @@ Use the *ComponentName* component to:
 <PropsSection name="ComponentName" />
 
 ## Customization
-`data-store-componentname`
+
+*Add CSS handles (e.g., `data-store-badge`).*
 
 ## Best practices
 
