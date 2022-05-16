@@ -54,21 +54,25 @@ Use the *ComponentName* component to:
 
 ## Best practices
 
+*List the component's best practices. Start each sentence with an imperative verb (e.g., `Use`, `Place`, `Add`.)*
+
 ### Do's
 
-> *Begin the sentence with an imperative verb, eg.: `Use`, `Place`, `Add`.* 
-
-- *Add the best practice - do*
-- *Add the best practice - do*
-- *Add the best practice - do*
+- *Add recommendation (e.g., Use tooltips only on elements that are keyboard-focusable and interactive.)*
+- *Add recommendation*
+- *Add recommendation*
 
 ### Don'ts
 
-- *Add the best practice - don't*
-- *Add the best practice - don't*
-- *Add the best practice - don't*
+- *Add recommendation (e.g., Don't use color alone to convey information.)*
+- *Add recommendation*
+- *Add recommendation*
 
 ## Accessibility
-- *Accessibility one*
-- *Accessibility two*
+
+*List the accessibility features of the component.*
+
+- *Add accessibility feature (e.g., Tab has role `tab`.)*
+- *Add accessibility feature*
+- *Add accessibility feature*
 
