@@ -137,6 +137,9 @@ export const IntelligentSearch = (
       `${base}/_v/api/intelligent-search/search_suggestions?query=${args.query}`
     )
 
+  const topSearches = (): Promise<Suggestion> =>
+    fetchAPI(`${base}/_v/api/intelligent-search/top_searches`)
+
   const facets = (args: Omit<SearchArgs, 'type'>) =>
     search<FacetSearchResult>({ ...args, type: 'facets' })
 
@@ -145,5 +148,6 @@ export const IntelligentSearch = (
     products,
     suggestedTerms,
     suggestedProducts,
+    topSearches,
   }
 }

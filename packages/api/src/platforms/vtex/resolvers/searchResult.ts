@@ -13,6 +13,16 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       clients: { search },
     } = ctx
 
+    // If there's no search query, suggest the most popular searches.
+    if (!searchArgs.query) {
+      const topSearches = await search.topSearches()
+
+      return {
+        terms: topSearches.searches.map((item) => item.term),
+        products: [],
+      }
+    }
+
     const terms = await search.suggestedTerms(searchArgs)
     const products = await search.suggestedProducts(searchArgs)
 
