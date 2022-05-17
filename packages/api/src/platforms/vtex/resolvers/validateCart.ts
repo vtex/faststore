@@ -24,6 +24,10 @@ const getAttachments = (item: IStoreOffer) =>
 const serializeAttachment = (item: IStoreOffer) => {
   const attachments = getAttachments(item)
 
+  if (attachments?.length === 0) {
+    return null
+  }
+
   return attachments
     ?.map(
       (attachment) => `${attachment.name}:${JSON.stringify(attachment.value)}`
@@ -37,7 +41,9 @@ const getId = (item: IStoreOffer) =>
     item.seller.identifier,
     item.price,
     serializeAttachment(item),
-  ].join('::')
+  ]
+    .filter(Boolean)
+    .join('::')
 
 const orderFormItemToOffer = (
   item: OrderFormItem,
