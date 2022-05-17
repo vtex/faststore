@@ -105,6 +105,7 @@
   --fs-button-buy-border-color-active              : var(--fs-button-action-border-color-hover);
   --fs-button-buy-shadow-hover                     : var(--fs-button-shadow-hover);
 
+  // Disabled
   --fs-button-disabled-bkg-color                   : var(--fs-color-disabled-bkg);
   --fs-button-disabled-text-color                  : var(--fs-color-disabled-text);
 
@@ -165,12 +166,10 @@
   }
 
   &[data-fs-button-size="small"] {
-    column-gap: var(--fs-button-small-gap);
+    --fs-control-tap-size: var(--fs-button-small-min-height);
 
-    @include media(">=notebook") {
-      padding: var(--fs-button-small-padding);
-      --fs-control-tap-size: var(--fs-button-small-min-height);
-    }
+    column-gap: var(--fs-button-small-gap);
+    padding: var(--fs-button-small-padding);
   }
 
   &[data-fs-button-variant="primary"] {

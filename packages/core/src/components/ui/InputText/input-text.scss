@@ -1,7 +1,50 @@
 @import "src/styles/scaffold";
 
 [data-fs-input-text] {
-  --fs-input-text-padding-horizontal: var(--fs-spacing-2);
+  // --------------------------------------------------------
+  // Design Tokens for Input Text
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-input-padding               : var(--fs-spacing-2) var(--fs-spacing-2) 0;
+  --fs-input-padding-label         : 0 var(--fs-spacing-2);
+  --fs-input-height                : var(--fs-control-tap-size);
+
+  --fs-input-box-shadow            : none;
+  --fs-input-box-shadow-hover      : 0 0 0 var(--fs-border-width-default) var(--fs-border-color-default-active);
+
+  --fs-input-border-radius         : var(--fs-border-radius-default);
+  --fs-input-border-width          : var(--fs-border-width-default);
+  --fs-input-border-color          : var(--fs-border-color-default);
+  --fs-input-border-color-hover    : var(--fs-border-color-default-active);
+
+  --fs-input-text-color            : var(--fs-color-text);
+  --fs-input-text-color-label      : var(--fs-color-text-light);
+  --fs-input-text-size             : var(--fs-text-size-body);
+  --fs-input-text-size-message     : var(--fs-text-size-legend);
+  --fs-input-text-size-label       : var(--fs-text-size-tiny);
+
+  --fs-input-line-height           : 1.25;
+  --fs-input-line-height-message   : 1.5;
+
+  --fs-input-transition-function   : var(--fs-transition-function);
+  --fs-input-transition-property   : var(--fs-transition-property);
+  --fs-input-transition-timing     : var(--fs-transition-timing);
+
+  // Error
+  --fs-input-error-border-color    : var(--fs-color-danger-border);
+  --fs-input-error-box-shadow      : 0 0 0 var(--fs-border-width-default) var(--fs-input-error-border-color);
+  --fs-input-error-focus-ring      : var(--fs-color-focus-ring-danger);
+
+  // Disabled
+  --fs-input-disabled-bkg-color    : var(--fs-color-disabled-bkg);
+  --fs-input-disabled-text-color   : var(--fs-color-disabled-text);
+  --fs-input-disabled-border-width : var(--fs-border-width-default);
+  --fs-input-disabled-border-color : var(--fs-border-color-default);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
 
   position: relative;
   display: flex;
@@ -9,19 +52,23 @@
 
   input,
   label {
-    transition: var(--fs-transition-property) var(--fs-transition-timing) var(--fs-transition-function);
+    transition: var(--fs-input-transition-property) var(--fs-input-transition-timing) var(--fs-input-transition-function);
   }
 
   input {
-    height: var(--fs-control-tap-size);
-    padding: var(--fs-spacing-2) var(--fs-input-text-padding-horizontal) 0;
-    font-size: var(--fs-text-size-body);
-    line-height: 1.25;
-    border: var(--fs-border-width-default) solid var(--fs-border-color-default);
-    border-radius: var(--fs-border-radius-default);
+    height: var(--fs-input-height);
+    padding: var(--fs-input-padding);
+    font-size: var(--fs-input-text-size);
+    line-height: var(--fs-input-line-height);
+    color: var(--fs-input-text-color);
+    border: var(--fs-input-border-width) solid var(--fs-input-border-color);
+    border-radius: var(--fs-input-border-radius);
+    box-shadow: var(--fs-input-box-shadow);
+
+    @include input-focus-ring;
 
     &:placeholder-shown + label {
-      top: calc(1.5 * (var(--fs-text-size-body) / 2));
+      top: calc(1.5 * (var(--fs-input-text-size) / 2));
       overflow: hidden;
     }
 
@@ -37,49 +84,51 @@
     &:not(:placeholder-shown) + label,
     &:focus + label {
       top: rem(6px);
-      font-size: var(--fs-text-size-tiny);
+      font-size: var(--fs-input-text-size-label);
     }
 
-    &:hover:not(:disabled) {
-      border-color: var(--fs-border-color-default-active);
-      box-shadow: 0 0 0 var(--fs-border-width-default) var(--fs-border-color-default-active);
+    &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+      border-color: var(--fs-input-border-color-hover);
+      box-shadow: var(--fs-input-box-shadow-hover);
     }
 
     &:disabled {
       cursor: not-allowed;
-      background-color: var(--fs-color-disabled-bkg);
-      border: 0;
+      background-color: var(--fs-input-disabled-bkg-color);
+      border: var(--fs-input-disabled-border-width) solid var(--fs-input-disabled-border-color);
       + label { cursor: not-allowed; }
     }
-
-    @include input-focus-ring;
   }
 
   label {
     position: absolute;
-    padding: 0 var(--fs-input-text-padding-horizontal);
-    font-size: var(--fs-text-size-body);
+    padding: var(--fs-input-padding-label);
+    font-size: var(--fs-input-text-size);
     line-height: 1.5;
-    color: var(--fs-color-text-light);
+    color: var(--fs-input-text-color-label);
   }
 }
 
 [data-fs-input-text-message] {
   margin-top: rem(2px);
-  font-size: var(--fs-text-size-legend);
-  line-height: 1.5;
+  font-size: var(--fs-input-text-size-message);
+  line-height: var(--fs-input-line-height-message);
 }
+
+// --------------------------------------------------------
+// Variants Styles
+// --------------------------------------------------------
 
 [data-fs-input-text-error="true"] {
   input {
-    border-color: var(--fs-color-danger-border);
+    border-color: var(--fs-input-error-border-color);
 
-    @include input-focus-ring($outline: #{var(--fs-color-focus-ring-danger)},
-    $border: #{var(--fs-color-danger-border)});
+    @include input-focus-ring($outline: #{var(--fs-input-error-focus-ring)},
+    $border: #{var(--fs-input-error-border-color)});
 
-    &:hover:not(:disabled) {
-      border-color: var(--fs-color-danger-border);
-      box-shadow: 0 0 0 var(--fs-border-width-default) var(--fs-color-danger-border);
+    &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+      border-color: var(--fs-input-error-border-color);
+      box-shadow: var(--fs-input-error-box-shadow);
     }
   }
 
@@ -89,8 +138,6 @@
 }
 
 [data-fs-input-text-actionable="true"] {
-  --fs-input-text-button-size: var(--fs-spacing-5); // 32px
-
   min-width: rem(250px);
 
   input {
@@ -101,8 +148,6 @@
     position: absolute;
     top: var(--fs-spacing-1);
     right: var(--fs-spacing-1);
-    min-height: var(--fs-input-text-button-size);
-    font-size: var(--fs-text-size-legend);
 
     &::before {
       position: absolute;
@@ -110,13 +155,13 @@
       width: 1px;
       height: 80%;
       content: "";
-      background-color: var(--fs-border-color-default);
+      background-color: var(--fs-input-border-color);
     }
   }
 
   [data-fs-button][data-store-icon-button] {
-    width: var(--fs-input-text-button-size);
-    height: var(--fs-input-text-button-size);
+    width: var(--fs-input-button-size);
+    height: var(--fs-input-button-size);
 
     &::before {
       left: calc(-1 * var(--fs-spacing-1));
