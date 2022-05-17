@@ -8,26 +8,29 @@
   row-gap: var(--fs-spacing-2);
   width: calc(100% + (2 * var(--fs-grid-padding)));
 
-  @include media(">=notebook") {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    column-gap: var(--fs-spacing-3);
-  }
-
-  > [data-store-image] {
-    @include media(">=tablet") {
-      grid-column: 2 / span 7;
-      border-radius: var(--fs-border-radius-default);
-    }
-  }
-
   @include media(">=tablet") {
     left: 0;
     grid-row: 1 / span 2;
     grid-column: span 7;
     width: 100%;
     margin-bottom: var(--fs-spacing-7);
+
+    > [data-store-image] {
+      grid-column: 2 / span 7;
+      border-radius: var(--fs-border-radius-default);
+    }
+
+    &[data-fs-image-gallery="without-selector"] {
+      > [data-store-image] {
+        grid-column: 1 / span 8;
+      }
+    }
   }
 
-  @include media(">=notebook") { grid-column: span 8; }
+  @include media(">=notebook") {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-column: span 8;
+    column-gap: var(--fs-spacing-3);
+  }
 }

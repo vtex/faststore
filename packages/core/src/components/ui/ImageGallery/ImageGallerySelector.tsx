@@ -40,7 +40,7 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
   return (
     <section
       data-fs-image-gallery-selector
-      className={styles['fs-image-gallery-selector']}
+      className={styles.fsImageGallerySelector}
       aria-roledescription="carousel"
       aria-label="Product images"
     >
