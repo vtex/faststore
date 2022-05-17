@@ -136,7 +136,7 @@ export interface OrderForm {
   giftRegistryData: any | null
   openTextField: any | null
   invoiceData: any | null
-  customData: any | null
+  customData: OrderFormCustomData | null
   itemMetadata: {
     items: MetadataItem[]
   }
@@ -147,6 +147,14 @@ export interface OrderForm {
   }
   subscriptionData: SubscriptionData | null
   itemsOrdination: any | null
+}
+
+export interface OrderFormCustomData {
+  customApps: Array<{
+    fields: Record<string, string>
+    id: string
+    major: number
+  }>
 }
 
 export interface OrderFormMarketingData {
