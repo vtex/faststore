@@ -47,6 +47,12 @@
     margin-left: calc(-1 * var(--fs-spacing-3));
   }
 
+  [data-fs-button-signin-link] + [data-fs-button-cart] {
+    @include media(">=notebook") {
+      margin-left: var(--fs-spacing-3);
+    }
+  }
+
   [data-fs-button-signin-link] {
     display: none;
   }

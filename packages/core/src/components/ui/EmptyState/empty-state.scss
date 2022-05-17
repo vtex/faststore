@@ -1,6 +1,6 @@
 @import "src/styles/scaffold";
 
-.empty-state[data-empty-state] {
+[data-fs-empty-state] {
   display: flex;
   flex-direction: column;
   row-gap: var(--fs-spacing-3);
@@ -8,13 +8,10 @@
   height: 100%;
   min-height: 50vh;
   padding: 0 var(--fs-spacing-8);
-  margin: var(--fs-spacing-3) 0;
   background-color: var(--fs-color-neutral-bkg);
-  border-radius: var(--fs-border-radius-default);
 
   @include media(">=notebook") {
     align-items: center;
-    margin: var(--fs-spacing-5) 0;
   }
 
   > header {
@@ -35,4 +32,8 @@
   a {
     min-width: rem(190px);
   }
+}
+
+[data-fs-empty-state-variant="rounded"] {
+  border-radius: var(--fs-border-radius-default);
 }

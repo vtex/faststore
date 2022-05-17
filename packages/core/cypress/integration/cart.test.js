@@ -34,7 +34,7 @@ describe('Cart Sidebar', () => {
       cy.getById('cart-sidebar').should('exist')
 
       // simulate touch scroll. Do not use window.scrollTo
-      cy.get('.empty-state')
+      cy.get('[data-fs-empty-state]')
         .trigger('touchstart', 0, 50)
         .trigger('touchmove', 0, 150)
         .trigger('touchend', 0, 150)

@@ -4,7 +4,7 @@ import Icon from 'src/components/ui/Icon'
 
 function EmptyGallery() {
   return (
-    <EmptyState>
+    <EmptyState variant="rounded">
       <header>
         <Icon name="CircleWavyWarning" width={56} height={56} weight="thin" />
 
