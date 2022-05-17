@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Addded
+
 - Uses new WebOps Incremental Static Builds ([#39](https://github.com/vtex-sites/nextjs.store/pull/39))
 - An initial integration of the search term & product suggestions ([#33](https://github.com/vtex-sites/nextjs.store/pull/33)).
 - `ImageGallery` to PDP ([#6](https://github.com/vtex-sites/nextjs.store/pull/6))
@@ -22,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+
+- Fixes Storybook build removing unused imports ([#40](https://github.com/vtex-sites/nextjs.store/pull/40))
 
 ### Security
 
