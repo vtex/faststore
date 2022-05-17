@@ -1,40 +1,49 @@
 ---
 title: Setting up a VTEX account for FastStore
+description: Set up your VTEX environment and install all the necessary apps to start developing with FastStore
 sidebar_position: 1
 ---
 
-In this guide, you will learn how to setup your **VTEX** account for developing your **FastStore** storefront.
+This guide is the first step in developing a **FastStore** website integrated with the **VTEX** Platform. In the following section, you will set up your VTEX environment and install all the necessary apps to start developing with FastStore.
 
-This guide must be done before developing your storefront at VTEX since this some crucial depedencies are installed and configured on this process, like VTEX Intelligent Search, etc.
+Notice that, because needed dependencies, such as [VTEX Intelligent Search](https://help.vtex.com/tracks/vtex-intelligent-search), will be installed and configured throughout this process, you must complete these steps before developing your storefront or hosting your FastStore website.
 
 ---
 
 ## Before you start
 
-Before proceeding any further, make sure you have access to a **VTEX** account and have already [developed your storefront project with **FastStore**.](/tutorials/gatsby-overview)
+Before proceeding any further, make sure you have:
+- Access to a **VTEX** account.
+- The **VTEX IO CLI** installed on your machine. Please refer to [this guide](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference) for more information.
 
 ---
 
-### Install dependencies to your account
-Setups and dependencies are a long and complicated process. To speedup the process, we offer an automatic script that installs and setups all dependencies for you. For running this script, you first need to install, on your local machine, the [VTEX toolbelt](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
+## Step by step
 
-After installing VTEX toolbelt, install the FastStore plugin by running:
-```
-vtex plugins install https://github.com/vtex/cli-plugin-faststore
-```
+In this step by step, you'll use the FastStore plugin for the VTEX IO CLI to install, with a single command, all dependencies needed for developing a FastStore website.
 
-After having it installed, login into the account you want to setup:
-```
-vtex login <account>
-```
+1. Install the FastStore plugin for the VTEX IO CLI:
 
-Then, run and follow the command instructions
-```
-vtex faststore setup
-```
+    ```
+    vtex plugins install faststore
+    ```
 
-In the end of the process you should see: 
-```Happy coding on FastStore 🎉```
+2. Log in to your VTEX account:
+   - *Remember to replace the values between curly brackets according to your scenario.*
+
+    ```
+    vtex login {account}
+    ```
+
+3. Set up your VTEX account for FastStore by running the following command:
+
+    ```
+    vtex faststore setup
+    ```
+
+Once the command completes, you should see the following message: ```Happy coding on FastStore 🎉```.
 
 ## Next steps
-The setup script does a big chunk of the setup work. However, some configurations still need manual assesement. Checkout our [hosting guides](/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website) for additional setup.
+
+- To start developing your storefront, check our [Tutorials](/tutorials).
+- To make your FastStore website publicly available to end-users, proceed to [Hosting a FastStore + VTEX website](/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website)
