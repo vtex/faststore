@@ -1430,10 +1430,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/api@^1.8.18":
-  version "1.8.18"
-  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-1.8.18.tgz#70b59ee6b587c0e0d1b4de6b82b94036d433a92e"
-  integrity sha512-o4YblrrHtRTWzo5WiXGPmHmvBR1nwwTjUTf/IoV5q9o1qMM82lB6i3iq5Yo6kAOGJIPVYJ3TfXQ00zoqkJOouA==
+"@faststore/api@^1.8.23":
+  version "1.8.23"
+  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-1.8.23.tgz#63c1399d0551c8bc5f72990fc1749a51e453315b"
+  integrity sha512-kYsg93fdZIOQXTcZAtG2P4658VCNDNw1i834FLfUXCR1LczRaXVbHEEeoSNB4TQ+VZ0DWAFZso4MsR41KhLxMQ==
   dependencies:
     "@graphql-tools/schema" "^8.2.0"
     "@rollup/plugin-graphql" "^1.0.0"
@@ -1442,17 +1442,17 @@
     isomorphic-unfetch "^3.1.0"
     p-limit "^3.1.0"
 
-"@faststore/sdk@^1.8.18":
-  version "1.8.18"
-  resolved "https://registry.yarnpkg.com/@faststore/sdk/-/sdk-1.8.18.tgz#1ff3501eb85d505aada0c484137ec26271e0024d"
-  integrity sha512-g8U5xalPI8bNb2ahvXnd+HblDrjrnAhpm8vJ5aDbON+w+FBtXozCt9Dik5Que+s6RcKPxYfXEnTBbRjha3ax6w==
+"@faststore/sdk@^1.8.23":
+  version "1.8.23"
+  resolved "https://registry.yarnpkg.com/@faststore/sdk/-/sdk-1.8.23.tgz#499d5d1e47e8cee99e107102af6bcdb3094953e6"
+  integrity sha512-sxeSc/EQ0soeUW+MBBW4tRkN2Os8Bc1/i11Tqls0q+iZ3kaYcjp7g7TSmpeR26Ja7SqKMcYW7wXk8TRVb4U6ng==
   dependencies:
     idb-keyval "^5.1.3"
 
-"@faststore/ui@^1.8.18":
-  version "1.8.18"
-  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.8.18.tgz#2aa31d3d845b2c82130287a19c553fabfec3c82a"
-  integrity sha512-2m1Cr8cYY1YpuY6+rI/c2LMWEtS8NL6wAnKLFJXWJd4d1N5x25asmf3/lfZIv79Y+mc3UzUh9BIhOtFV5FjCjQ==
+"@faststore/ui@^1.8.23":
+  version "1.8.23"
+  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.8.23.tgz#eab4f4fefdea2bfbeaa68c532b64df9343baedf8"
+  integrity sha512-VIk0J5g/rkVEZnInB8ErJwlLEymXz+blQ+TEsFZGTQ5uWmp1wXhVSvbKsVpqOtGC4dFXSLG47vMrAJeJ3lJXtg==
   dependencies:
     "@reach/popover" "^0.16.0"
     "@storybook/addon-a11y" "^6.4.4"
@@ -4049,20 +4049,20 @@
   resolved "https://registry.yarnpkg.com/@vtex/eslint-plugin-admin-ui/-/eslint-plugin-admin-ui-0.2.21.tgz#c78ad695ed3a14adfcee52ce786d4d975e6f0dd4"
   integrity sha512-cv2ZoDEoQ8uGy3A07qqHXLEiCxslbZT0LMbFou0g12iQQqJE5MmfP0KktL8dvrZqK8I+umkuzRdw8SBWBOvDBg==
 
-"@vtex/graphql-utils@^1.8.18":
-  version "1.8.18"
-  resolved "https://registry.yarnpkg.com/@vtex/graphql-utils/-/graphql-utils-1.8.18.tgz#129824822d5830741de73d619762df4f462c174c"
-  integrity sha512-Yb2wdThAcMSx9sCgcStJgpLCYlM+HfC/llpgYpcrgi+jNtPZAZYqcAjLVf52CZ3C/PzcuEyU2LLzzyU84hcjtw==
+"@vtex/graphql-utils@^1.8.23":
+  version "1.8.23"
+  resolved "https://registry.yarnpkg.com/@vtex/graphql-utils/-/graphql-utils-1.8.23.tgz#0a59c2b566d50903b636bb575a494dc64b844222"
+  integrity sha512-ZfBcKUDRY3LlC4MVpMIH018O86IftSjR6MfQAaGidOLsFgu6zKGdkwE3hgmCy4e7i8okqg32HCWs4rNpaWueRg==
   dependencies:
     "@babel/traverse" "^7.15.4"
     "@babel/types" "^7.15.6"
     "@graphql-codegen/plugin-helpers" "^2.2.0"
     "@graphql-tools/relay-operation-optimizer" "^6.4.0"
 
-"@vtex/lighthouse-config@^1.8.18":
-  version "1.8.18"
-  resolved "https://registry.yarnpkg.com/@vtex/lighthouse-config/-/lighthouse-config-1.8.18.tgz#3f5efaf658af963e5d2e59925082550aea03a1d5"
-  integrity sha512-/HJP96bQp/1yak+B/nSHRfQz7s4xdd0zu3bH0jxaLRAQ0Y12LpxoZigLi+1giR+Cgm2S+79wuVXSdYi10V59yA==
+"@vtex/lighthouse-config@^1.8.23":
+  version "1.8.23"
+  resolved "https://registry.yarnpkg.com/@vtex/lighthouse-config/-/lighthouse-config-1.8.23.tgz#99d71bc4452039f95d892061e0f681b6bec0da62"
+  integrity sha512-MNj8mIT/dFFcXFfMMeg7ESpXCu7FX20SatZnASfVYaGi7icnVRG8fe4VbvUCj8rrQteAuoIbFUj7KGjSKuouEQ==
 
 "@vtex/prettier-config@1.0.0":
   version "1.0.0"
