@@ -34,26 +34,6 @@ vtex faststore setup
 ```
 
 In the end of the process you should see: 
-```Happy coding on FastStore 🎉```### Step 0 - Install dependencies to your account
-FastStore has some dependencies that need to be installed on your VTEX account before you can proceed. 
-For this, we offer an automatic script that install all dependencies for you. For running this script, you first need to install, on your local machine, the [VTEX toolbelt](https://github.com/vtex/toolbelt#getting-started-installing-the-vtex-toolbelt).
-
-After installing VTEX toolbelt, install the FastStore plugin by running:
-```
-vtex plugins install https://github.com/vtex/cli-plugin-faststore
-```
-
-After having it installed, login into the account you want to setup:
-```
-vtex login <account>
-```
-
-Then, run and follow the command instructions
-```
-vtex faststore setup
-```
-
-In the end of the process you should see: 
 ```Happy coding on FastStore 🎉```
 
 ## Next steps
