@@ -6,6 +6,11 @@ export interface OrderFormInputItem {
   attachments?: Attachment[]
 }
 
+export interface Attachment {
+  name: string
+  content: Record<string, string>
+}
+
 export interface OrderFormItem {
   id: string
   name: string
