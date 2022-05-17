@@ -3,6 +3,7 @@ export interface OrderFormInputItem {
   quantity: number
   seller: string
   index?: number
+  attachments?: Attachment[]
 }
 
 export interface OrderFormItem {

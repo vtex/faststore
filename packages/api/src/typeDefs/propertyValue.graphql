@@ -10,6 +10,9 @@ type StorePropertyValue {
   Property name.
   """
   name: String!
+  """
+  Property value reference.
+  """
   valueReference: ValueReference!
 }
 
@@ -17,4 +20,21 @@ enum ValueReference {
   ATTRIBUTE
   ATTACHMENT
   PROPERTY
+}
+
+scalar Object
+
+input IStorePropertyValue {
+  """
+  Property value.
+  """
+  value: Object!
+  """
+  Property name.
+  """
+  name: String!
+  """
+  Property value reference.
+  """
+  valueReference: ValueReference!
 }
