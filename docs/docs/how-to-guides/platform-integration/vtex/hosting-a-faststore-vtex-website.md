@@ -11,7 +11,7 @@ Notice that we strongly recommend taking this guide as a first step when integra
 
 ## Before you start
 
-Before proceeding any further, make sure you have [setup your **VTEX** account](/how-to-guides/platform-integration/vtex/setting-up-an-account) and have already [developed your storefront project with **FastStore**.](/tutorials/gatsby-overview)
+Before proceeding any further, make sure you have [set up your **VTEX** account](/how-to-guides/platform-integration/vtex/setting-up-an-account) and have already [developed your storefront project with **FastStore**.](/tutorials/gatsby-overview)
 
 ---
 
