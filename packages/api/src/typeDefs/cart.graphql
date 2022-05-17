@@ -27,7 +27,7 @@ type StoreCart {
 }
 
 """
-Shopping cart identification input.
+Shopping cart input.
 """
 input IStoreCart {
   """

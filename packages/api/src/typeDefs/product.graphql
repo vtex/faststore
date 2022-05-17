@@ -1,5 +1,5 @@
 """
-Product information.
+Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on.
 """
 type StoreProduct {
   """
@@ -19,7 +19,7 @@ type StoreProduct {
   """
   name: String!
   """
-  Product ID.
+  Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs.
   """
   productID: String!
   """
@@ -39,7 +39,7 @@ type StoreProduct {
   """
   offers: StoreAggregateOffer!
   """
-  Stock Keeping Unit ID.
+  Stock Keeping Unit. Merchant-specific ID for the product.
   """
   sku: String!
   """
@@ -65,11 +65,11 @@ type StoreProduct {
 }
 
 """
-Product input.
+Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on.
 """
 input IStoreProduct {
   """
-  Stock Keeping Unit ID.
+  Stock Keeping Unit. Merchant-specific ID for the product.
   """
   sku: String!
   """
