@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Object: any;
 };
 
 /** Shopping cart identification input. */
@@ -55,12 +56,23 @@ export type IStoreOrganization = {
 
 /** Product input. */
 export type IStoreProduct = {
+  /** Custom Product Additional Properties. */
+  additionalProperty?: Maybe<Array<IStorePropertyValue>>;
   /** Array of product images. */
   image: Array<IStoreImage>;
   /** Product name. */
   name: Scalars['String'];
   /** Stock Keeping Unit ID. */
   sku: Scalars['String'];
+};
+
+export type IStorePropertyValue = {
+  /** Property name. */
+  name: Scalars['String'];
+  /** Property value. */
+  value: Scalars['Object'];
+  /** Property value reference. */
+  valueReference: ValueReference;
 };
 
 /** Selected facet input. */
@@ -323,6 +335,8 @@ export type StoreListItem = {
 /** Offer information. */
 export type StoreOffer = {
   __typename?: 'StoreOffer';
+  /** An additional offer that can only be obtained in combination with the first base offer (e.g. supplements and extensions that are available for a surcharge). */
+  addOn: Array<Maybe<StoreOffer>>;
   /** Offer item availability. */
   availability: Scalars['String'];
   /** Offer item condition. */
@@ -462,6 +476,8 @@ export type StorePropertyValue = {
   name: Scalars['String'];
   /** Property value. */
   value: Scalars['String'];
+  /** Property value reference. */
+  valueReference: ValueReference;
 };
 
 /** Information of a given review. */
@@ -543,4 +559,10 @@ export type StoreSuggestions = {
   products?: Maybe<Array<StoreProduct>>;
   /** Array with suggestion terms. */
   terms?: Maybe<Array<Scalars['String']>>;
+};
+
+export const enum ValueReference {
+  Attachment = 'ATTACHMENT',
+  Attribute = 'ATTRIBUTE',
+  Property = 'PROPERTY'
 };
