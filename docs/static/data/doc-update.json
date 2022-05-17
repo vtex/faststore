@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-05-17",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Platform Integration",
+    "path": "/how-to-guides/platform-integration",
+    "docs": [
+      {
+        "path": "/how-to-guides/platform-integration/vtex/setting-up-an-account",
+        "title": "Setting up a VTEX account for FastStore"
+      }
+    ]
+  },
+  {
     "date": "2022-04-29",
     "type": "Added",
     "menu": "Tutorials",
@@ -118,10 +131,6 @@
     "category": "Platform Integration",
     "path": "/how-to-guides/platform-integration",
     "docs": [
-      {
-        "path": "/how-to-guides/platform-integration/vtex/setting-up-an-account",
-        "title": "Setup a VTEX account for FastStor"
-      },
       {
         "path": "/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website",
         "title": "Hosting a FastStore + VTEX website"
