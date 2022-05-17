@@ -6,13 +6,13 @@ import Icon from 'src/components/ui/Icon'
 
 export type BadgeVariants = 'info' | 'highlighted' | 'success' | 'neutral'
 
-type InteractiveBadge =
+type ActionableBadge =
   | {
-      interactive: true
+      actionable: true
       onClose?: () => void
     }
   | {
-      interactive?: false
+      actionable?: false
       onClose?: never
     }
 
@@ -21,25 +21,25 @@ type Props = {
   variant?: BadgeVariants
   children: ReactNode
   onClose?: () => void
-  interactive?: boolean
-} & InteractiveBadge
+  actionable?: boolean
+} & ActionableBadge
 
 const Badge = ({
   variant = 'neutral',
   children,
   onClose,
   big = false,
-  interactive = false,
+  actionable = false,
   ...otherProps
 }: Props) => {
   return (
     <UIBadge
       data-fs-badge={big ? 'big' : ''}
       data-fs-badge-variant={variant}
-      data-fs-badge-interactive={interactive}
+      data-fs-badge-actionable={actionable}
       {...otherProps}
     >
-      {interactive && (
+      {actionable && (
         <Button
           data-fs-badge-button="true"
           aria-label="Remove"
