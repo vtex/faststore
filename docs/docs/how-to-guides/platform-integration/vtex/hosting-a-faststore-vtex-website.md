@@ -1,6 +1,6 @@
 ---
 title: Hosting a FastStore + VTEX website
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 In this guide, you will learn how to integrate your **FastStore** storefront project with **VTEX** and how to make it publicly available to end-users. Besides that, you'll have the VTEX Checkout functioning by the end of this guide.

@@ -11,7 +11,7 @@
         "title": "Troubleshooting"
       }
     ]
-  }, 
+  },
   {
     "date": "2022-04-08",
     "type": "Added",
@@ -24,7 +24,7 @@
         "title": "Troubleshooting problems in FastStore"
       }
     ]
-  }, 
+  },
   {
     "date": "2022-04-07",
     "type": "Added",
@@ -37,7 +37,7 @@
         "title": "Troubleshooting"
       }
     ]
-  }, 
+  },
   {
     "date": "2022-04-07",
     "type": "Added",
@@ -50,7 +50,7 @@
         "title": "Enabling private CMS previews"
       }
     ]
-  }, 
+  },
   {
     "date": "2022-04-05",
     "type": "Added",
@@ -118,6 +118,10 @@
     "category": "Platform Integration",
     "path": "/how-to-guides/platform-integration",
     "docs": [
+      {
+        "path": "/how-to-guides/platform-integration/vtex/setting-up-an-account",
+        "title": "Setup a VTEX account for FastStor"
+      },
       {
         "path": "/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website",
         "title": "Hosting a FastStore + VTEX website"
