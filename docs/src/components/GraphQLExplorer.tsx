@@ -9,7 +9,7 @@ var App = function () {
       <ApolloExplorerReact 
       className="h-[500px]"
       graphRef='faststore-api@current'
-      endpointUrl='http://localhost:4000/'
+      endpointUrl='https://faststore-api.herokuapp.com/graphql'
       persistExplorerState={false}
       initialState={{
         document: `query Node($first: Int!) {
