@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.23 (2022-05-17)
+
+
+### Features
+
+* Sync Cart with Checkout ([#1299](https://github.com/vtex/faststore/issues/1299)) ([62e8f56](https://github.com/vtex/faststore/commit/62e8f56b31c6bb6cf7260749a90ebef8aba9982b))
+
+
+
+
+
 ## 1.8.22 (2022-05-17)
 
 **Note:** Version bump only for package @faststore/sdk
