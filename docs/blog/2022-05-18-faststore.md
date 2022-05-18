@@ -17,7 +17,7 @@ When working on a FastStore project, you can run it locally and use **GraphiQL**
 To see these new docs follow these steps:
 1. Run `yarn` in your project to reinstall the `@faststore/api` dependency.
 2. Run `yarn develop` to start a local server.
-3. Go to this address:
+3. Access GraphiQL by going to this address:
 ```
 http://localhost:8000/__graphql
 ```
