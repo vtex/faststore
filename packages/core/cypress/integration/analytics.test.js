@@ -153,7 +153,7 @@ describe('select_item event', () => {
 
     let skuId
 
-    cy.getById('store-card').first().click()
+    cy.getById('store-product-card').first().click()
     cy.getById('buy-button')
       .then(($btn) => {
         skuId = $btn.attr('data-sku')

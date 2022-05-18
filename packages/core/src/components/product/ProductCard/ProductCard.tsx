@@ -1,8 +1,8 @@
 import {
-  Card as UICard,
-  CardActions as UICardActions,
-  CardContent as UICardContent,
-  CardImage as UICardImage,
+  ProductCard as UIProductCard,
+  ProductCardActions as UIProductCardActions,
+  ProductCardContent as UIProductCardContent,
+  ProductCardImage as UIProductCardImage,
 } from '@faststore/ui'
 import { gql } from '@vtex/graphql-utils'
 import { memo } from 'react'
@@ -50,15 +50,15 @@ function ProductCard({
   const outOfStock = availability !== 'https://schema.org/InStock'
 
   return (
-    <UICard
+    <UIProductCard
       data-fs-product-card
       data-fs-product-card-variant={variant}
       data-fs-product-card-bordered={bordered}
-      data-fs-product-card-actionabled={!!ButtonBuy}
+      data-fs-product-card-actionable={!!ButtonBuy}
       data-fs-product-card-sku={sku}
       {...otherProps}
     >
-      <UICardImage>
+      <UIProductCardImage>
         <Image
           src={img.url}
           alt={img.alternateName}
@@ -67,9 +67,9 @@ function ProductCard({
           sizes="(max-width: 768px) 25vw, 30vw"
           loading="lazy"
         />
-      </UICardImage>
+      </UIProductCardImage>
 
-      <UICardContent data-fs-product-card-content>
+      <UIProductCardContent data-fs-product-card-content>
         <div data-fs-product-card-heading>
           <h3 data-fs-product-card-title>
             <FrameworkLink {...linkProps} title={name}>
@@ -104,12 +104,12 @@ function ProductCard({
           <DiscountBadge listPrice={listPrice} spotPrice={spotPrice} />
         )}
         {!!ButtonBuy && (
-          <UICardActions data-fs-product-card-actions>
+          <UIProductCardActions data-fs-product-card-actions>
             {ButtonBuy}
-          </UICardActions>
+          </UIProductCardActions>
         )}
-      </UICardContent>
-    </UICard>
+      </UIProductCardContent>
+    </UIProductCard>
   )
 }
 

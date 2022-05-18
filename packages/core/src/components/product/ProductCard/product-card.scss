@@ -74,7 +74,7 @@
     }
   }
 
-  [data-card-image] {
+  [data-product-card-image] {
     position: relative;
     display: flex;
     justify-content: center;
@@ -172,13 +172,13 @@
   @include media(">=tablet") {
     grid-template-rows: 5fr 2fr;
 
-    &[data-fs-product-card-actionabled="true"] {
+    &[data-fs-product-card-actionable="true"] {
       grid-template-rows: 10fr 7fr;
     }
   }
 
   @include media(">=notebook") {
-    &[data-fs-product-card-actionabled="true"] {
+    &[data-fs-product-card-actionable="true"] {
       grid-template-rows: 6fr 3fr;
     }
 
@@ -194,7 +194,7 @@
     }
   }
 
-  [data-card-image] {
+  [data-product-card-image] {
     border-radius: var(--fs-product-card-border-radius) var(--fs-product-card-border-radius) 0 0;
   }
 
@@ -214,7 +214,7 @@
   gap: var(--fs-product-card-gap);
   min-width: calc(var(--fs-product-card-min-width) * 1.5);
 
-  [data-card-image] { grid-row: span 2; }
+  [data-product-card-image] { grid-row: span 2; }
 
   [data-fs-product-card-content] {
     display: grid;
