@@ -1,20 +1,20 @@
 ---
-description: The FastStore API types, queries and mutations have been documented. You can check it now by using GraphiQL.
+description: The FastStore API types, queries and mutations have been documented. You can check it now via the GraphiQL IDE.
 tags: [faststore]
 hide_table_of_contents: false
 ---
 
 # FastStore API documentation available on GraphiQL
 
-We have made available FastStore API reference documentation. You can check it now by using [GraphiQL](https://github.com/graphql/graphiql).
+FastStore API reference documentation is now available. You can check it now via the [GraphiQL](https://github.com/graphql/graphiql) IDE.
 
 ## What has changed?
 
-When working on a FastStore project, you can run it locally and use **GraphiQL** to explore the API. Now, when you do this you will see that each type, argument, querie and mutation has an associated description.
+While working on your FastStore website, you can run your project locally and use **GraphiQL** to explore the API. Now, when you do this you will see that each type, argument, query and mutation has an associated description.
 
 ## What needs to be done?
 
-To see these new docs follow these steps:
+To explore the FastStore API reference documentation, follow these steps:
 1. Run `yarn` in your project to reinstall the `@faststore/api` dependency.
 2. Run `yarn develop` to start a local server.
 3. Access GraphiQL by going to this address:
