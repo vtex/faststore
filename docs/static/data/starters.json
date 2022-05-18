@@ -40,6 +40,25 @@
       "gatsbyRepo": "https://github.com/vtex-sites/toys.store",
       "price": "Free",
       "img": "https://vtexhelp.vtexassets.com/assets/docs/src/toystore___7eb716d319423abc583f9590ecdb9e15.png"
+    },
+    {
+      "name": "Pets Store",
+      "imgThumbnail": "https://vtexhelp.vtexassets.com/assets/docs/src/petsThumbnail___d174107d6d69641c91d5ccc3ed6aaa23.png",
+      "url": "/starters/pets",
+      "owner": "Whirlpool",
+      "ownerWebsite": "http://www.whirlpoolcorp.com/",
+      "details": "Pet Supplies ecommerce starter",
+      "description": "Bring stories to life and provide a social media experience with this starter. Developed at VTEX DAY 2022 Hackathon.",
+      "features": [
+        "VTEX Headless CMS integration",
+        "Whatsapp button",
+        "Stories",
+        "Size guide helper"
+      ],
+      "demoURL": "https://pets.vtex.app/",
+      "gatsbyRepo": "https://github.com/vtex-sites/pets.store",
+      "price": "Free",
+      "img": "https://vtexhelp.vtexassets.com/assets/docs/src/petsStarter___acb853e53dc4e6cc802b9ab95d4ecf41.png"
     }
   ],
   "official": [
