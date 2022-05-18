@@ -4,7 +4,7 @@ tags: [faststore]
 hide_table_of_contents: false
 ---
 
-# FastStore API documentation updated
+# FastStore API documentation available on GraphiQL
 
 We have made available FastStore API reference documentation. You can check it now by using [GraphiQL](https://github.com/graphql/graphiql).
 
