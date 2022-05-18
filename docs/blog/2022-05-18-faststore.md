@@ -22,3 +22,6 @@ To see these new docs follow these steps:
 http://localhost:8000/__graphql
 ```
 4. Click on the `Docs` button on the upper right corner.
+5. On the docs tab you can browse through the definitions or search for types by name.
+
+![Screen capture of the procedure described above.](https://vtexhelp.vtexassets.com/assets/docs/src/viewing%20docs%20in%20graphiql%2018052022___8e00bfb24dcfc4c7cddcd45bc0863c8a.gif)
