@@ -10,11 +10,7 @@ export const ObjectOrString = new GraphQLScalarType({
   serialize: stringify,
   parseLiteral(ast) {
     if (ast.kind === Kind.STRING) {
-      try {
-        return JSON.parse(ast.value)
-      } catch (e) {
-        return ast.value
-      }
+      return getValueAsObjectOrString(ast.value)
     }
 
     return null
@@ -23,14 +19,18 @@ export const ObjectOrString = new GraphQLScalarType({
 
 function toObjectOrString(value: GraphQLScalarSerializer<any>) {
   if (typeof value === 'string') {
-    try {
-      return JSON.parse(value)
-    } catch (e) {
-      return value
-    }
+    return getValueAsObjectOrString(value)
   }
 
   return null
+}
+
+function getValueAsObjectOrString(value: string) {
+  try {
+    return JSON.parse(value)
+  } catch (e) {
+    return value
+  }
 }
 
 function stringify(value: GraphQLScalarSerializer<any>) {
