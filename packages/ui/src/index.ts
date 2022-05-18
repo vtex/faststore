@@ -176,6 +176,9 @@ export type {
 } from './molecules/Dropdown'
 
 // Organisms
+export { default as Hero } from './organisms/Hero'
+export type { HeroProps } from './organisms/Hero'
+
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
