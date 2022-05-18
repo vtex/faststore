@@ -5,9 +5,7 @@ import ThirdPartyScripts from 'src/components/ThirdPartyScripts'
 function Document() {
   return (
     <Html>
-      <Head>
-        <ThirdPartyScripts />
-      </Head>
+      <Head>{!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}</Head>
       <body>
         <Main />
         <NextScript />
