@@ -10,13 +10,15 @@ We have made available FastStore API reference documentation. You can check it n
 
 ## What has changed?
 
-When locally running a FastStore project, you can head to this address to use **GraphiQL** and explore the API:
-```
-http://localhost:4000/graphql
-```
-
-Now, when you do this you will see that each type, argument, querie and mutation has an associated description.
+When working on a FastStore project, you can run it locally and use **GraphiQL** to explore the API. Now, when you do this you will see that each type, argument, querie and mutation has an associated description.
 
 ## What needs to be done?
 
-In order to preview the descriptions via **GraphiQL**, you must install the latest version of the `@faststore/api` package.
+To see these new docs follow these steps:
+1. Run `yarn` in your project to reinstall the `@faststore/api` dependency.
+2. Run `yarn develop` to start a local server.
+3. Go to this address:
+```
+http://localhost:8000/__graphql
+```
+4. Click on the `Docs` button on the upper right corner.
