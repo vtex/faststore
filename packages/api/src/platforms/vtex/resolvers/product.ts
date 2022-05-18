@@ -9,11 +9,9 @@ import type { Attachment } from '../clients/commerce/types/OrderForm'
 
 type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
 
-type Root = Omit<QueryProduct, 'attachments'> & {
-  attachments: AttachmentDefinition[] | Attachment[]
+type Root = QueryProduct & {
+  attachmentsValues?: Attachment[]
 }
-
-type AttachmentDefinition = QueryProduct['attachments'][number]
 
 const DEFAULT_IMAGE = {
   imageText: 'image',
@@ -25,10 +23,6 @@ const getSlug = (link: string, id: string) => `${link}-${id}`
 const getPath = (link: string, id: string) => `/${getSlug(link, id)}/p`
 const nonEmptyArray = <T>(array: T[] | null | undefined) =>
   Array.isArray(array) && array.length > 0 ? array : null
-
-const isAttachmentDefinition = (
-  attachment: Root['attachments'][number]
-): attachment is AttachmentDefinition => 'id' in attachment
 
 export const StoreProduct: Record<string, Resolver<Root>> & {
   offers: Resolver<
@@ -94,7 +88,7 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       )
       .sort(bestOfferFirst),
   isVariantOf: (root) => root,
-  additionalProperty: ({ variations = [], attachments }) => {
+  additionalProperty: ({ variations = [], attachmentsValues }) => {
     const propertyValueVariations = variations.flatMap(({ name, values }) =>
       values.map((value) => ({
         name,
@@ -103,22 +97,13 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       }))
     )
 
-    // Typescript don't understand (A[] | B[]) as an array, only Array<A | B>
-    const propertyValueAttachments = (attachments as Array<
-      Root['attachments'][number]
-    >)
-      .map((attachment: Root['attachments'][number]) => {
-        if (isAttachmentDefinition(attachment)) {
-          return
-        }
-
-        return {
-          name: attachment.name,
-          value: attachment.content,
-          valueReference: VALUE_REFERENCES.attachment,
-        }
+    const propertyValueAttachments = (attachmentsValues ?? []).map(
+      (attachment) => ({
+        name: attachment.name,
+        value: attachment.content,
+        valueReference: VALUE_REFERENCES.attachment,
       })
-      .filter(Boolean)
+    )
 
     return [...propertyValueVariations, ...propertyValueAttachments]
   },

@@ -3,38 +3,30 @@ Properties that can be associated with products and products groups.
 """
 type StorePropertyValue {
   """
-  Property value.
+  Property value. May hold a string or the string representation of an object.
   """
-  value: String!
+  value: ObjectOrString!
   """
   Property name.
   """
   name: String!
   """
-  Property value reference.
+  Specifies the nature of the value
   """
-  valueReference: ValueReference!
+  valueReference: String!
 }
-
-enum ValueReference {
-  ATTRIBUTE
-  ATTACHMENT
-  PROPERTY
-}
-
-scalar Object
 
 input IStorePropertyValue {
   """
-  Property value.
+  Property value. May hold a string or the string representation of an object.
   """
-  value: Object!
+  value: ObjectOrString!
   """
   Property name.
   """
   name: String!
   """
-  Property value reference.
+  Specifies the nature of the value
   """
-  valueReference: ValueReference!
+  valueReference: String!
 }

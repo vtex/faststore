@@ -9,7 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  Object: any;
+  ObjectOrString: any;
 };
 
 /** Shopping cart identification input. */
@@ -69,10 +69,10 @@ export type IStoreProduct = {
 export type IStorePropertyValue = {
   /** Property name. */
   name: Scalars['String'];
-  /** Property value. */
-  value: Scalars['Object'];
-  /** Property value reference. */
-  valueReference: ValueReference;
+  /** Property value. May hold a string or the string representation of an object. */
+  value: Scalars['ObjectOrString'];
+  /** Specifies the nature of the value */
+  valueReference: Scalars['String'];
 };
 
 /** Selected facet input. */
@@ -335,8 +335,6 @@ export type StoreListItem = {
 /** Offer information. */
 export type StoreOffer = {
   __typename?: 'StoreOffer';
-  /** An additional offer that can only be obtained in combination with the first base offer (e.g. supplements and extensions that are available for a surcharge). */
-  addOn: Array<Maybe<StoreOffer>>;
   /** Offer item availability. */
   availability: Scalars['String'];
   /** Offer item condition. */
@@ -474,10 +472,10 @@ export type StorePropertyValue = {
   __typename?: 'StorePropertyValue';
   /** Property name. */
   name: Scalars['String'];
-  /** Property value. */
-  value: Scalars['String'];
-  /** Property value reference. */
-  valueReference: ValueReference;
+  /** Property value. May hold a string or the string representation of an object. */
+  value: Scalars['ObjectOrString'];
+  /** Specifies the nature of the value */
+  valueReference: Scalars['String'];
 };
 
 /** Information of a given review. */
@@ -559,10 +557,4 @@ export type StoreSuggestions = {
   products?: Maybe<Array<StoreProduct>>;
   /** Array with suggestion terms. */
   terms?: Maybe<Array<Scalars['String']>>;
-};
-
-export const enum ValueReference {
-  Attachment = 'ATTACHMENT',
-  Attribute = 'ATTRIBUTE',
-  Property = 'PROPERTY'
 };

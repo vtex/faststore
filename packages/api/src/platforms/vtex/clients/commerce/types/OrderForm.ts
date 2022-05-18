@@ -54,6 +54,7 @@ export interface OrderFormItem {
     sellingPrices: SellingPrice[]
     total: number
   }
+  attachments: Attachment[]
 }
 
 export interface SKUSpecification {
