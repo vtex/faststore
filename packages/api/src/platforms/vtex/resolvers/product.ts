@@ -1,5 +1,6 @@
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { bestOfferFirst } from '../utils/productStock'
+import { slugify } from '../utils/slugify'
 import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import type { Resolver } from '..'
 import type { PromiseType } from '../../../typings'
@@ -38,11 +39,13 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     return {
       itemListElement: [
         ...categories.reverse().map((categoryPath, index) => {
-          const categoryNames = categoryPath.split('/')
+          const splitted = categoryPath.split('/')
+          const name = splitted[splitted.length - 2]
+          const item = splitted.map(slugify).join('/')
 
           return {
-            name: categoryNames[categoryNames.length - 2],
-            item: categoryPath.toLowerCase(),
+            name,
+            item,
             position: index + 1,
           }
         }),

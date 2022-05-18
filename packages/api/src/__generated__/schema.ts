@@ -11,7 +11,7 @@ export type Scalars = {
   Float: number;
 };
 
-/** Shopping cart identification input. */
+/** Shopping cart input. */
 export type IStoreCart = {
   /** Order information, including `orderNumber` and `acceptedOffer`. */
   order: IStoreOrder;
@@ -43,7 +43,7 @@ export type IStoreOffer = {
 export type IStoreOrder = {
   /** Array with information on each accepted offer. */
   acceptedOffer: Array<IStoreOffer>;
-  /** Order shopping cart ID, also known as `orderFormId`. */
+  /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String'];
 };
 
@@ -53,13 +53,13 @@ export type IStoreOrganization = {
   identifier: Scalars['String'];
 };
 
-/** Product input. */
+/** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type IStoreProduct = {
   /** Array of product images. */
   image: Array<IStoreImage>;
   /** Product name. */
   name: Scalars['String'];
-  /** Stock Keeping Unit ID. */
+  /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String'];
 };
 
@@ -350,7 +350,7 @@ export type StoreOrder = {
   __typename?: 'StoreOrder';
   /** Array with information on each accepted offer. */
   acceptedOffer: Array<StoreOffer>;
-  /** Order shopping cart ID, also known as `orderFormId`. */
+  /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String'];
 };
 
@@ -389,7 +389,7 @@ export type StorePerson = {
   id: Scalars['String'];
 };
 
-/** Product information. */
+/** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type StoreProduct = {
   __typename?: 'StoreProduct';
   /** Array of additional properties. */
@@ -412,13 +412,13 @@ export type StoreProduct = {
   name: Scalars['String'];
   /** Aggregate offer information. */
   offers: StoreAggregateOffer;
-  /** Product ID. */
+  /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String'];
   /** Array with review information. */
   review: Array<StoreReview>;
   /** Meta tag data. */
   seo: StoreSeo;
-  /** Stock Keeping Unit ID. */
+  /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String'];
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String'];
@@ -442,12 +442,12 @@ export type StoreProductEdge = {
   node: StoreProduct;
 };
 
-/** Product group information. */
+/** Product group information. Product groups are catalog entities that may contain variants. They are equivalent to VTEX [Products](https://help.vtex.com/en/tutorial/what-is-a-product--2zrB2gFCHyQokCKKE8kuAw#), whereas each variant is equivalent to a VTEX [SKU](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type StoreProductGroup = {
   __typename?: 'StoreProductGroup';
   /** Array of additional properties. */
   additionalProperty: Array<StorePropertyValue>;
-  /** Array of variants related to product group. */
+  /** Array of variants related to product group. Variants are equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). */
   hasVariant: Array<StoreProduct>;
   /** Product group name. */
   name: Scalars['String'];
