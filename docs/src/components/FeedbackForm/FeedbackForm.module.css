@@ -32,7 +32,7 @@
   -webkit-transition: all 0.4s;
 }
 
-input[type='radio']:checked + span {
+.formRadio input[type='radio']:checked + span {
   @apply text-seriousBlack;
 }
 
