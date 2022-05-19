@@ -1,5 +1,4 @@
 ---
-id: 5
 description: Troubleshoot errors that have already tricked other FastStore users throughout the VTEX Headless CMS integration.
 ---
 
