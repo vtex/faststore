@@ -1,5 +1,6 @@
 ---
 sidebar_position: 3
+description: Pick your favorite Static Site Generator and locally run your VTEX store in less than 5 minutes.
 ---
 
 import Tabs from '@theme/Tabs';

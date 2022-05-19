@@ -1,5 +1,6 @@
 ---
 id: 2
+description: Set up the VTEX Headless CMS in your FastStore project.
 sidebar_label: "2. Setting up the VTEX Headless CMS in your FastStore project"
 ---
 
