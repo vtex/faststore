@@ -1,7 +1,7 @@
 import type { InputTextProps } from '.'
 import InputText from '.'
 
-export default {
+const story = {
   component: InputText,
   title: 'Atoms/InputText',
   argTypes: {
@@ -56,3 +56,5 @@ Disabled.args = {
   errorMessage: 'Please, add a valid email',
   disabled: true,
 }
+
+export default story
