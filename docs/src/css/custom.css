@@ -126,6 +126,10 @@
   @apply text-rebelPink !important;
 }
 
+[class^='blogPostTitle'] {
+  @apply text-2xl font-normal !important;
+}
+
 [class^='breadcrumbs__link'] {
   @apply bg-transparent !important;
 }
