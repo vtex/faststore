@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.27 (2022-05-19)
+
+**Note:** Version bump only for package @vtex/graphql-utils
+
+
+
+
+
 ## 1.8.26 (2022-05-18)
 
 **Note:** Version bump only for package @vtex/graphql-utils
