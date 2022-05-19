@@ -1,6 +1,9 @@
 import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
 
 import Hero from '../Hero'
+import HeroImage from '../HeroImage'
+import HeroContent from '../HeroContent'
+import HeroLink from '../HeroLink'
 
 # Hero
 
@@ -8,13 +11,46 @@ import Hero from '../Hero'
   <Story id="organisms-hero--hero" />
 </Canvas>
 
+## Components
+
+The `Hero` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
+
+- `Hero`: the wrapper component.
+- `HeroImage`: the component that wraps the image displayed in the component.
+- `HeroContent`: the component that can receive a title, description, and a `HeroLink`.
+- `HeroLink`: the hero's call-to-action link.
+
 ## Props
 
-<ArgsTable of={ Hero } />
+All hero-related components support all attributes also supported by the `<div>` tag.
+
+Besides those attributes, the following props are also supported:
+
+### `Hero`
+
+<ArgsTable of={Hero} />
+
+### `HeroImage`
+
+<ArgsTable of={HeroImage} />
+
+### `HeroContent`
+
+<ArgsTable of={HeroContent} />
+
+### `HeroLink`
+
+<ArgsTable of={HeroLink} />
 
 ## CSS Selectors
 
 ```css
 [data-store-hero] {
+}
+[data-hero-image] {
+}
+[data-hero-content] {
+}
+[data-hero-link] {
 }
 ```
