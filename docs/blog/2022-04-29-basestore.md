@@ -1,6 +1,6 @@
 ---
 description: New Next.js starter available. This starter's features are identical to the existing Base Store starter, which used Gatsby.
-tags: [base store]
+tags: [basestore]
 ---
 
 # New Next.js starter available

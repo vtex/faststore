@@ -19,40 +19,39 @@
 }
 
 .sidebarItemList {
-  @apply pb-5 pl-0 text-sm;
+  list-style: none;
+  font-size: 0.9rem;
+  padding-left: 0;
 }
 
 .sidebarItem {
-  @apply mt-2.5;
+  @apply flex;
+  margin-top: 0.7rem;
+}
+
+.sidebarItemLink {
+  color: var(--ifm-font-color-base);
 }
 
 .sidebarItemLink:hover {
   text-decoration: none;
 }
+
 .sidebarItemLinkActive {
-  @apply text-primary;
+  color: var(--ifm-color-primary) !important;
 }
 
-.tagLink {
-  @apply bg-tag text-primary inline-flex items-center my-3 mx-2 rounded-full py-0.5 px-3;
-}
-
-.tagLink:hover{
-  @apply opacity-50;
+@media (max-width: 996px) {
+  .sidebar {
+    display: none;
+  }
 }
 
 .docTag{
-  @apply capitalize mr-2 bg-code py-0.5 px-2 rounded-full;
+  @apply uppercase tracking-wider font-VTEXMedium bg-code rounded-full inline-block py-0.5 px-2 mr-2 flex-[0_0_95px] text-center self-start;
   font-size: 0.7rem;
 }
 
 .docTag:hover{
-  @apply text-seriousBlack opacity-80;
-  text-decoration: none;  
-}
-
-@media only screen and (max-width: 996px) {
-  .sidebar {
-    display: none;
-  }
+  @apply text-secondary opacity-80 no-underline;
 }

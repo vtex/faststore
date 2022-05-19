@@ -126,6 +126,10 @@
   @apply text-rebelPink !important;
 }
 
+[class^='blogPostTitle'] {
+  @apply text-2xl font-normal !important;
+}
+
 [class^='breadcrumbs__link'] {
   @apply bg-transparent !important;
 }
@@ -165,9 +169,8 @@ article {
   @apply mt-6;
 }
 
-main hr {
-  @apply my-5 border-border;
-  border-width: 0.5px;
+hr {
+  @apply h-[0.5px] my-5 border-border !important;
 }
 
 .markdown ol {

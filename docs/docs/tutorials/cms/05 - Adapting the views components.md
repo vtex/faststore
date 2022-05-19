@@ -1,5 +1,6 @@
 ---
 id: 5
+description: Promote your changes to production after integrating your project with the VTEX Headless CMS.
 sidebar_label: "5. Promoting your changes"
 ---
 
