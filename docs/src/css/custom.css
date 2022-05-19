@@ -169,9 +169,8 @@ article {
   @apply mt-6;
 }
 
-main hr {
-  @apply my-5 border-border;
-  border-width: 0.5px;
+hr {
+  @apply h-[0.5px] my-5 border-border !important;
 }
 
 .markdown ol {

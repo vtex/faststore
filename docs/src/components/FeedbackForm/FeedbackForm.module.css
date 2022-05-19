@@ -19,7 +19,7 @@
 }
 
 .formRadio label + label {
-  @apply cursor-pointer relative;
+  @apply cursor-pointer relative pl-1;
 }
 
 .formRadio input[type='radio'] {
@@ -27,15 +27,9 @@
 }
 
 .formRadio input[type='radio'] + span {
-  @apply text-gray-400 p-2 rounded-full;
-  transition: all 0.4s;
-  -webkit-transition: all 0.4s;
+  @apply text-gray-300 p-1 rounded-full;
 }
 
 .formRadio input[type='radio']:checked + span {
-  @apply text-seriousBlack;
-}
-
-.formRadio input[type='radio']:hover + span {
-  @apply opacity-60;
+  @apply text-rebelPink;
 }
