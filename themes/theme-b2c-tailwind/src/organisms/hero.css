@@ -1,3 +1,35 @@
 [data-store-hero] {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  min-height: 20rem;
+}
 
+[data-hero-content] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+}
+
+[data-hero-content] h1 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+[data-hero-image] {
+  height: 100%;
+  overflow: hidden;
+}
+
+[data-hero-link] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-top: 3rem;
+  min-width: 11.25rem;
+  width: fit-content;
+  border: 1px solid #171a1c;
 }
