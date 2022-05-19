@@ -32,6 +32,7 @@ function ImageGallery({ images }: ImageGalleryProps) {
           width={804}
           height={804 * (3 / 4)}
           loading="eager"
+          fetchpriority="high"
         />
       </ImageZoom>
       {hasSelector && (

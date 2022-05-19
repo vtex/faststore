@@ -46,6 +46,7 @@ const Hero = ({
           <Image
             preload
             loading="eager"
+            fetchpriority="high"
             src={imageSrc}
             alt={imageAlt}
             width={360}

@@ -9,6 +9,7 @@ import type { ImageOptions } from './useImage'
 declare module 'react' {
   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
     imageSizes?: string
+    fetchpriority?: string
   }
 }
 
@@ -17,7 +18,7 @@ interface Props extends ImageOptions {
 }
 
 // TODO: Replace this component by next/image
-function Image({ preload = false, ...otherProps }: Props) {
+function Image({ preload = false, fetchpriority, ...otherProps }: Props) {
   const imgProps = useImage(otherProps)
   const { src, sizes = '100vw', srcSet } = imgProps
 
@@ -31,11 +32,17 @@ function Image({ preload = false, ...otherProps }: Props) {
             href={src}
             imageSrcSet={srcSet}
             imageSizes={sizes}
+            fetchpriority={fetchpriority}
           />
         </Head>
       )}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img data-store-image {...imgProps} alt={imgProps.alt} />
+      <img
+        data-store-image
+        {...imgProps}
+        alt={imgProps.alt}
+        fetchpriority={fetchpriority}
+      />
     </>
   )
 }
