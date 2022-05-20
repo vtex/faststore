@@ -17,7 +17,7 @@
 
     > [data-store-image] {
       grid-column: 2 / span 7;
-      border-radius: var(--fs-border-radius-default);
+      border-radius: var(--fs-border-radius);
     }
 
     &[data-fs-image-gallery="without-selector"] {

@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- The `default` nomenclature from global tokens ([#51](https://github.com/vtex-sites/nextjs.store/pull/51))
+
 ### Fixed
 
 - A missing gap between the Sign In link and Cart button on desktop ([#11](https://github.com/vtex-sites/nextjs.store/pull/11)).

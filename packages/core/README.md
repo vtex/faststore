@@ -370,8 +370,8 @@ We also listed a couple of customizable tokens so you can easily change your bod
 If you feel the need to edit some of the color decisions, you can enter `tokens.scss` and update the semantical tokens. E.g.:
 
 ```scss
---fs-border-color-default: var(--fs-color-neutral-4); // Current
---fs-border-color-default: var(--fs-color-neutral-5); // Updated
+--fs-border-color: var(--fs-color-neutral-4); // Current
+--fs-border-color: var(--fs-color-neutral-5); // Updated
 ```
 
 #### <b>Typography</b>

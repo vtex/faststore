@@ -18,7 +18,7 @@
       display: flex;
       height: fit-content;
       padding: var(--fs-spacing-1);
-      background-color: var(--fs-control-bkg-default);
+      background-color: var(--fs-control-bkg);
       border-radius: var(--fs-border-radius-circle);
       box-shadow: var(--fs-shadow);
     }
@@ -73,21 +73,21 @@
       overflow: hidden;
       background-color: transparent;
       border: var(--fs-border-width-thick) solid transparent;
-      border-radius: var(--fs-border-radius-default);
+      border-radius: var(--fs-border-radius);
       transition: all var(--fs-transition-timing) var(--fs-transition-function);
 
       &:hover:not([data-thumbnail-button="selected"]) {
-        border-color: var(--fs-border-color-default-active);
+        border-color: var(--fs-border-color-active);
       }
 
       &[data-thumbnail-button="selected"] {
-        border-color: var(--fs-border-color-default-active);
+        border-color: var(--fs-border-color-active);
         box-shadow: 0 0 0 var(--fs-border-width-thickest) var(--fs-color-focus-ring-outline);
       }
 
       [data-store-image] {
         border: var(--fs-border-width-thick) solid var(--fs-color-body-bkg);
-        border-radius: var(--fs-border-radius-default);
+        border-radius: var(--fs-border-radius);
       }
 
       @include focus-ring-visible;

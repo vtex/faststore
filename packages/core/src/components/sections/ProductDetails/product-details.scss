@@ -34,7 +34,7 @@
     grid-row: 1;
     grid-column: 8 / span 5;
     border: 1px solid var(--fs-border-color-light);
-    border-radius: var(--fs-border-radius-default) var(--fs-border-radius-default) 0 0;
+    border-radius: var(--fs-border-radius) var(--fs-border-radius) 0 0;
   }
 
   @include media(">=notebook") { grid-column: 9 / span 4; }
@@ -65,7 +65,7 @@
     padding: var(--fs-spacing-5);
     border: 1px solid var(--fs-border-color-light);
     border-top: 0;
-    border-radius: 0 0 var(--fs-border-radius-default) var(--fs-border-radius-default);
+    border-radius: 0 0 var(--fs-border-radius) var(--fs-border-radius);
   }
 
   @include media(">=notebook") { grid-column: 9 / span 4; }

@@ -39,7 +39,7 @@
     background-color: var(--fs-color-neutral-0);
 
     &:not(:last-child) {
-      border-bottom: var(--fs-border-width-default) solid var(--fs-border-color-light);
+      border-bottom: var(--fs-border-width) solid var(--fs-border-color-light);
     }
   }
 

@@ -2,7 +2,7 @@
 
 .navbar {
   padding: 0;
-  border-bottom: var(--fs-border-width-default) solid var(--fs-color-neutral-2);
+  border-bottom: var(--fs-border-width) solid var(--fs-color-neutral-2);
   box-shadow: 0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%);
 
   [data-store-search-input-wrapper] {
@@ -205,7 +205,7 @@
   }
 
   @include media("<notebook") {
-    border-top: var(--fs-border-width-default) solid var(--fs-color-neutral-2);
-    border-bottom: var(--fs-border-width-default) solid var(--fs-color-neutral-2);
+    border-top: var(--fs-border-width) solid var(--fs-color-neutral-2);
+    border-bottom: var(--fs-border-width) solid var(--fs-color-neutral-2);
   }
 }

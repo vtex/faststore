@@ -67,7 +67,7 @@
     [data-breadcrumb-divider] {
       height: var(--fs-spacing-3);
       margin: var(--fs-spacing-1);
-      border-left: var(--fs-border-width-default) solid var(--fs-border-color-light);
+      border-left: var(--fs-border-width) solid var(--fs-border-color-light);
     }
 
     [data-store-link] {
@@ -116,7 +116,7 @@
   margin-top: var(--fs-spacing-0);
   overflow: hidden;
   background: var(--fs-color-tertiary-bkg);
-  border-radius: var(--fs-border-radius-default);
+  border-radius: var(--fs-border-radius);
   box-shadow: var(--fs-shadow);
 
   [data-store-dropdown-menu-item] {

@@ -228,7 +228,7 @@ body {
   }
 
   // STATES
-  --fs-control-bkg-default             : var(--fs-color-neutral-0);
+  --fs-control-bkg                     : var(--fs-color-neutral-0);
   --fs-control-bkg-hover               : var(--fs-control-tap-size);
   --fs-control-bkg-active              : var(--fs-control-tap-size);
   --fs-control-bkg-disabled            : var(--fs-color-disabled-bkg);
@@ -246,22 +246,23 @@ body {
   --fs-transition-function             : ease-in-out;
 
   // BORDERS
-  --fs-border-radius-circle            : 100%;
-  --fs-border-radius-pill              : 100px;
   --fs-border-radius-small             : .125rem;
-  --fs-border-radius-default           : .25rem;
+  --fs-border-radius                   : .25rem;
+  --fs-border-radius-medium            : .5rem;
+  --fs-border-radius-pill              : 100px;
+  --fs-border-radius-circle            : 100%;
 
-  --fs-border-color-default            : var(--fs-color-neutral-4);
-  --fs-border-color-default-hover      : var(--fs-color-main-2);
-  --fs-border-color-default-active     : var(--fs-color-main-2);
-  --fs-border-color-default-disabled   : var(--fs-color-neutral-6);
+  --fs-border-color                    : var(--fs-color-neutral-4);
+  --fs-border-color-hover              : var(--fs-color-main-3);
+  --fs-border-color-active             : var(--fs-color-main-2);
+  --fs-border-color-disabled           : var(--fs-color-neutral-6);
 
   --fs-border-color-light              : var(--fs-color-neutral-2);
   --fs-border-color-light-hover        : var(--fs-color-neutral-3);
   --fs-border-color-light-active       : var(--fs-color-neutral-3);
   --fs-border-color-light-disabled     : var(--fs-color-neutral-5);
 
-  --fs-border-width-default            : 1px;
+  --fs-border-width                    : 1px;
   --fs-border-width-thick              : 2px;
   --fs-border-width-thickest           : 3px;
 

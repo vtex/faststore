@@ -11,13 +11,13 @@
   [data-store-input] {
     width: 100%;
     padding: var(--fs-spacing-1) var(--fs-spacing-7) var(--fs-spacing-1) var(--fs-spacing-2);
-    border: var(--fs-border-width-default) solid var(--fs-border-color-default);
-    border-radius: var(--fs-border-radius-default);
+    border: var(--fs-border-width) solid var(--fs-border-color);
+    border-radius: var(--fs-border-radius);
     transition: box-shadow .2s ease, border .2s ease;
 
     &:hover {
-      border-color: var(--fs-border-color-default-active);
-      box-shadow: 0 0 0 var(--fs-border-width-default) var(--fs-border-color-default-active);
+      border-color: var(--fs-border-color-active);
+      box-shadow: 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
     }
 
     @include input-focus-ring;
@@ -69,7 +69,7 @@
 
 [data-store-search-input-dropdown-wrapper] {
   --navbar-header-padding-bottom: var(--fs-spacing-2);
-  --navbar-bottom-border: var(--fs-border-width-default);
+  --navbar-bottom-border: var(--fs-border-width);
   --collapse-search-bar-width: var(--fs-control-tap-size);
   /* stylelint-disable scss/operator-no-newline-after */
   --top:
@@ -100,9 +100,9 @@
     left: 0;
     width: 100%;
     overflow: hidden;
-    border: var(--fs-border-width-default) solid var(--fs-border-color-default);
+    border: var(--fs-border-width) solid var(--fs-border-color);
     border-top: none;
-    border-radius: 0 0 var(--fs-border-radius-default) var(--fs-border-radius-default);
+    border-radius: 0 0 var(--fs-border-radius) var(--fs-border-radius);
     box-shadow: var(--fs-shadow);
   }
 }

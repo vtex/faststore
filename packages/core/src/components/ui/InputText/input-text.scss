@@ -11,12 +11,12 @@
   --fs-input-height                : var(--fs-control-tap-size);
 
   --fs-input-box-shadow            : none;
-  --fs-input-box-shadow-hover      : 0 0 0 var(--fs-border-width-default) var(--fs-border-color-default-active);
+  --fs-input-box-shadow-hover      : 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
 
-  --fs-input-border-radius         : var(--fs-border-radius-default);
-  --fs-input-border-width          : var(--fs-border-width-default);
-  --fs-input-border-color          : var(--fs-border-color-default);
-  --fs-input-border-color-hover    : var(--fs-border-color-default-active);
+  --fs-input-border-radius         : var(--fs-border-radius);
+  --fs-input-border-width          : var(--fs-border-width);
+  --fs-input-border-color          : var(--fs-border-color);
+  --fs-input-border-color-hover    : var(--fs-border-color-active);
 
   --fs-input-text-color            : var(--fs-color-text);
   --fs-input-text-color-label      : var(--fs-color-text-light);
@@ -33,14 +33,14 @@
 
   // Error
   --fs-input-error-border-color    : var(--fs-color-danger-border);
-  --fs-input-error-box-shadow      : 0 0 0 var(--fs-border-width-default) var(--fs-input-error-border-color);
+  --fs-input-error-box-shadow      : 0 0 0 var(--fs-border-width) var(--fs-input-error-border-color);
   --fs-input-error-focus-ring      : var(--fs-color-focus-ring-danger);
 
   // Disabled
   --fs-input-disabled-bkg-color    : var(--fs-color-disabled-bkg);
   --fs-input-disabled-text-color   : var(--fs-color-disabled-text);
-  --fs-input-disabled-border-width : var(--fs-border-width-default);
-  --fs-input-disabled-border-color : var(--fs-border-color-default);
+  --fs-input-disabled-border-width : var(--fs-border-width);
+  --fs-input-disabled-border-color : var(--fs-border-color);
 
   // --------------------------------------------------------
   // Structural Styles

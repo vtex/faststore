@@ -8,8 +8,8 @@
   width: rem(20px);
   height: rem(20px);
   cursor: pointer;
-  border: var(--fs-border-width-default) solid var(--fs-border-color-default);
-  border-radius: var(--fs-border-radius-default);
+  border: var(--fs-border-width) solid var(--fs-border-color);
+  border-radius: var(--fs-border-radius);
   outline: none;
   transition: border .2s ease, background-color .2s ease, box-shadow .2s ease;
   appearance: none;
@@ -25,7 +25,7 @@
     border: var(--fs-border-width-thick) solid var(--fs-color-neutral-0);
     border-top: 0;
     border-left: 0;
-    border-radius: var(--fs-border-width-default);
+    border-radius: var(--fs-border-width);
     opacity: 0;
     transform: rotate(45deg);
   }
@@ -33,12 +33,12 @@
   &:hover {
     background-color: var(--fs-color-primary-bkg-light);
     border-color: var(--fs-color-text);
-    box-shadow: 0 0 0 var(--fs-border-width-default) var(--fs-border-color-default-active);
+    box-shadow: 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
   }
 
   &:checked {
     background-color: var(--fs-color-primary-bkg);
-    border-color: var(--fs-border-color-default-active);
+    border-color: var(--fs-border-color-active);
     border-width: 0;
 
     &::before {
@@ -53,7 +53,7 @@
 
   &[data-store-checkbox-partial="true"] {
     background-color: var(--fs-color-neutral-0);
-    border: var(--fs-border-width-default) solid var(--fs-color-primary-bkg);
+    border: var(--fs-border-width) solid var(--fs-color-primary-bkg);
 
     &::before {
       position: absolute;
@@ -63,7 +63,7 @@
       content: "";
       border-width: 0;
       border-bottom: var(--fs-border-width-thick) solid var(--fs-color-primary-bkg);
-      border-radius: var(--fs-border-width-default);
+      border-radius: var(--fs-border-width);
       opacity: 1;
       transform: rotate(0deg);
     }
@@ -82,18 +82,18 @@
   &:disabled {
     cursor: not-allowed;
     background-color: var(--fs-color-disabled-bkg);
-    border: var(--fs-border-width-default) solid var(--fs-border-color-default-disabled);
+    border: var(--fs-border-width) solid var(--fs-border-color-disabled);
 
     &::before {
-      border-color: var(--fs-border-color-default-disabled);
+      border-color: var(--fs-border-color-disabled);
     }
 
     &:hover {
       background-color: var(--fs-color-disabled-bkg);
-      border: var(--fs-border-width-default) solid var(--fs-border-color-default-disabled);
+      border: var(--fs-border-width) solid var(--fs-border-color-disabled);
 
       &::before {
-        border-color: var(--fs-border-color-default-disabled);
+        border-color: var(--fs-border-color-disabled);
       }
     }
 

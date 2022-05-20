@@ -17,7 +17,7 @@ $base: 16px !default;
   @return #{$rem}rem;
 }
 
-@mixin input-focus-ring($outline: #{var(--fs-color-focus-ring)}, $border: #{var(--fs-border-color-default-active)}) {
+@mixin input-focus-ring($outline: #{var(--fs-color-focus-ring)}, $border: #{var(--fs-border-color-active)}) {
   @media not all and (min-resolution: .001dpcm) { // Target only Safari browsers
     @supports (-webkit-appearance:none) {         // Use `focus` instead of `focus-visible`
       &:hover:focus,                              // due to Safari's lack of support
@@ -27,7 +27,7 @@ $base: 16px !default;
         box-shadow:
           0 0 0 1px var(--fs-color-body-bkg),
           0 0 0 var(--fs-border-width-thickest) $outline,
-          inset 0 0 0 var(--fs-border-width-default) $border;
+          inset 0 0 0 var(--fs-border-width) $border;
       }
     }
   }
@@ -39,7 +39,7 @@ $base: 16px !default;
     box-shadow:
       0 0 0 1px var(--fs-color-body-bkg),
       0 0 0 var(--fs-border-width-thickest) $outline,
-      inset 0 0 0 var(--fs-border-width-default) $border;
+      inset 0 0 0 var(--fs-border-width) $border;
   }
 }
 

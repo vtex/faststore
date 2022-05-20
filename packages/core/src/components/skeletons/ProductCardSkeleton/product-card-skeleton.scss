@@ -8,8 +8,8 @@
   height: 100%;
   padding: var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2);
   overflow: hidden;
-  border: var(--fs-border-width-default) solid transparent;
-  border-radius: var(--fs-border-radius-default);
+  border: var(--fs-border-width) solid transparent;
+  border-radius: var(--fs-border-radius);
 
   @include media(">=notebook") { min-width: 12rem; }
 
@@ -17,7 +17,7 @@
     border: none;
 
     @include media(">=notebook") {
-      border: var(--fs-border-width-default) solid var(--fs-border-color-light);
+      border: var(--fs-border-width) solid var(--fs-border-color-light);
     }
   }
 

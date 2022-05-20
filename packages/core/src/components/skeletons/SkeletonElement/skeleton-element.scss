@@ -7,7 +7,7 @@
   [data-skeleton-element-content] {
     overflow: hidden;
     background: var(--fs-color-disabled-bkg);
-    border-radius: var(--fs-border-radius-default);
+    border-radius: var(--fs-border-radius);
 
     &[data-element-variant="text"] {
       width: 100%;
@@ -18,11 +18,11 @@
       column-gap: var(--fs-spacing-2);
       width: var(--fs-spacing-13);
       min-height: var(--fs-spacing-5);
-      border-radius: var(--fs-border-radius-default);
+      border-radius: var(--fs-border-radius);
     }
 
     &[data-element-variant="image"] {
-      border-radius: var(--fs-border-radius-default);
+      border-radius: var(--fs-border-radius);
     }
 
     &[data-element-variant="badge"] {

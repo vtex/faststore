@@ -10,7 +10,7 @@
   --fs-qty-selector-height                    : calc(var(--fs-control-tap-size) + (var(--fs-qty-selector-border-width) * 2));
 
   --fs-qty-selector-shadow                    : none;
-  --fs-qty-selector-shadow-hover              : 0 0 0 var(--fs-border-width-default) var(--fs-border-color-default-active);
+  --fs-qty-selector-shadow-hover              : 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
 
   --fs-qty-selector-bkg-color                 : var(--fs-color-body-bkg);
   --fs-qty-selector-bkg-color-hover           : var(--fs-qty-selector-bkg-color);
@@ -20,13 +20,13 @@
   --fs-qty-selector-text-color-hover          : var(--fs-qty-selector-text-color);
 
   --fs-qty-selector-icon-color                : var(--fs-color-link);
-  --fs-qty-selector-icon-color-hover          : var(--fs-border-color-default-active);
+  --fs-qty-selector-icon-color-hover          : var(--fs-border-color-active);
 
-  --fs-qty-selector-border-radius             : var(--fs-border-radius-default);
-  --fs-qty-selector-border-width              : var(--fs-border-width-default);
-  --fs-qty-selector-border-width-hover        : var(--fs-border-width-default);
-  --fs-qty-selector-border-color              : var(--fs-border-color-default);
-  --fs-qty-selector-border-color-hover        : var(--fs-border-color-default-active);
+  --fs-qty-selector-border-radius             : var(--fs-border-radius);
+  --fs-qty-selector-border-width              : var(--fs-border-width);
+  --fs-qty-selector-border-width-hover        : var(--fs-border-width);
+  --fs-qty-selector-border-color              : var(--fs-border-color);
+  --fs-qty-selector-border-color-hover        : var(--fs-border-color-active);
 
   --fs-qty-selector-button-shadow             : none;
   --fs-qty-selector-button-shadow-hover       : none;

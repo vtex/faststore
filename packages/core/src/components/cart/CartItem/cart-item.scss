@@ -3,8 +3,8 @@
 .cart-item {
   padding: var(--fs-spacing-3);
   background-color: var(--fs-color-neutral-0);
-  border: var(--fs-border-width-default) solid var(--fs-border-color-light);
-  border-radius: var(--fs-border-radius-default);
+  border: var(--fs-border-width) solid var(--fs-border-color-light);
+  border-radius: var(--fs-border-radius);
 
   [data-card-content] {
     display: grid;
@@ -16,7 +16,7 @@
   [data-gatsby-image-wrapper] {
     flex-shrink: 0;
     margin-bottom: auto;
-    border-radius: var(--fs-border-radius-default);
+    border-radius: var(--fs-border-radius);
   }
 
   [data-cart-item-summary] {
