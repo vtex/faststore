@@ -6,6 +6,12 @@
     "description": "VTEX Headless CMS users must upgrade to version 1.x and set up the Releases app."
   },
   {
+    "title": "Improvement in page loading time with Incremental Static Build",
+    "product": "WebOps",
+    "fileName": "2022-05-19-webops",
+    "description": "Incremental static build capability is now available. Activate it to improve page loading time."
+  },
+  {
     "title": "FastStore API documentation available on GraphiQL",
     "product": "FastStore",
     "fileName": "2022-05-18-faststore",
@@ -16,11 +22,5 @@
     "product": "WebOps",
     "fileName": "2022-05-11-webops",
     "description": "FastStore projects deployed with WebOps can now benefit from faster builds as WebOps can now reuse outputs produced from previous builds."
-  },
-  {
-    "title": "Base Store - April, 2022",
-    "product": "Base Store",
-    "fileName": "2022-05-06-basestore",
-    "description": "The Base Store now has a new search API, components with a new theming structure, and a Storybook package to run locally. Also, check out the news for the starter framework-specific updates."
   }
 ]
