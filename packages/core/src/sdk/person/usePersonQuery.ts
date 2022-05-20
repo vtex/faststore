@@ -21,11 +21,20 @@ export const query = gql`
   }
 `
 
+const fallbackData = { person: undefined }
+
 const usePersonQuery = (options?: QueryOptions) => {
   const { data } = useQuery<PersonQueryQuery, PersonQueryQueryVariables>(
     query,
     {},
-    { ...options, fetchOptions: { ...options?.fetchOptions, method: 'POST' } }
+    {
+      ...options,
+      fallbackData:
+        options?.suspense && !options.fallbackData
+          ? fallbackData
+          : options?.fallbackData,
+      fetchOptions: { ...options?.fetchOptions, method: 'POST' },
+    }
   )
 
   const { setSession, user, ...session } = useSession()

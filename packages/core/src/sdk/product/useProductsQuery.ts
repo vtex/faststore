@@ -66,6 +66,8 @@ export const useLocalizedVariables = ({
   }, [first, after, sort, term, selectedFacets, channel])
 }
 
+const fallbackData = { search: undefined }
+
 /**
  * Use this hook for fetching a list of products, like in search results and shelves
  */
@@ -78,10 +80,16 @@ export const useProductsQuery = (
   const { data } = useQuery<ProductsQueryQuery, ProductsQueryQueryVariables>(
     query,
     localizedVariables,
-    options
+    {
+      ...options,
+      fallbackData:
+        options?.suspense && !options.fallbackData
+          ? fallbackData
+          : options?.fallbackData,
+    }
   )
 
-  return data?.search.products
+  return data?.search?.products
 }
 
 export const useProductsQueryPrefetch = (

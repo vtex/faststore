@@ -3,7 +3,7 @@ import usePersonQuery from 'src/sdk/person/usePersonQuery'
 import { ButtonLink } from 'src/components/ui/Button'
 
 const ButtonSignIn = () => {
-  const person = usePersonQuery()
+  const person = usePersonQuery({ suspense: true })
 
   return (
     <ButtonLink

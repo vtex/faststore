@@ -8,14 +8,16 @@ import Section from '../Section'
 interface ProductShelfProps extends Partial<ProductsQueryQueryVariables> {
   title: string | JSX.Element
   withDivisor?: boolean
+  suspense?: boolean
 }
 
 function ProductShelf({
   title,
   withDivisor = false,
+  suspense,
   ...variables
 }: ProductShelfProps) {
-  const products = useProductsQuery(variables)
+  const products = useProductsQuery(variables, { suspense })
 
   if (products?.edges.length === 0) {
     return null

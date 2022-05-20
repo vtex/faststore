@@ -1,5 +1,5 @@
 import { List as UIList } from '@faststore/ui'
-import { useRef, useState } from 'react'
+import { Suspense, useRef, useState } from 'react'
 import type { AnchorHTMLAttributes } from 'react'
 import type { SearchInputRef } from '@faststore/ui'
 
@@ -7,7 +7,11 @@ import CartToggle from 'src/components/cart/CartToggle'
 import LinkFramework from 'src/components/common/Link'
 import SearchInput from 'src/components/common/SearchInput'
 import RegionalizationButton from 'src/components/regionalization/RegionalizationButton'
-import { ButtonIcon, ButtonSignIn } from 'src/components/ui/Button'
+import {
+  ButtonIcon,
+  ButtonSignIn,
+  ButtonSignInFallback,
+} from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
@@ -116,46 +120,52 @@ function Navbar() {
               buttonTestId="store-input-mobile-button"
               onSearchClick={handlerExpandSearch}
             />
-            <ButtonSignIn />
+            <Suspense fallback={<ButtonSignInFallback />}>
+              <ButtonSignIn />
+            </Suspense>
             <CartToggle />
           </div>
         </section>
         <NavLinks />
       </div>
 
-      <SlideOver
-        isOpen={showMenu}
-        onDismiss={handleCloseSlideOver}
-        size="full"
-        direction="leftSide"
-        className="navbar__modal-content"
-      >
-        <div className="navbar__modal-body">
-          <header className="navbar__modal-header">
-            <LinkFramework
-              href="/"
-              onClick={onModalClose}
-              aria-label="Go to FastStore home"
-              title="Go to FastStore home"
-              className="navbar__logo"
-            >
-              <Logo />
-            </LinkFramework>
+      {showMenu && (
+        <SlideOver
+          isOpen={showMenu}
+          onDismiss={handleCloseSlideOver}
+          size="full"
+          direction="leftSide"
+          className="navbar__modal-content"
+        >
+          <div className="navbar__modal-body">
+            <header className="navbar__modal-header">
+              <LinkFramework
+                href="/"
+                onClick={onModalClose}
+                aria-label="Go to FastStore home"
+                title="Go to FastStore home"
+                className="navbar__logo"
+              >
+                <Logo />
+              </LinkFramework>
 
-            <ButtonIcon
-              aria-label="Close Menu"
-              icon={<Icon name="X" width={32} height={32} />}
-              onClick={onModalClose}
-            />
-          </header>
-          <div className="navlinks">
-            <NavLinks onClickLink={handleCloseSlideOver} />
-            <div className="navlinks__signin">
-              <ButtonSignIn />
+              <ButtonIcon
+                aria-label="Close Menu"
+                icon={<Icon name="X" width={32} height={32} />}
+                onClick={onModalClose}
+              />
+            </header>
+            <div className="navlinks">
+              <NavLinks onClickLink={handleCloseSlideOver} />
+              <div className="navlinks__signin">
+                <Suspense fallback={<ButtonSignInFallback />}>
+                  <ButtonSignIn />
+                </Suspense>
+              </div>
             </div>
           </div>
-        </div>
-      </SlideOver>
+        </SlideOver>
+      )}
     </header>
   )
 }

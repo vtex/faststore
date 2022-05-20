@@ -26,7 +26,15 @@ export const useQuery = <Data, Variables = Record<string, unknown>>(
   options?: QueryOptions
 ) =>
   useSWR<Data>(getKey(operationName, variables), {
-    fetcher: () => request<Data, Variables>(operationName, variables, options),
+    fetcher: () => {
+      return new Promise((resolve) => {
+        setTimeout(async () => {
+          resolve(
+            await request<Data, Variables>(operationName, variables, options)
+          )
+        })
+      })
+    },
     ...DEFAULT_OPTIONS,
     ...options,
   })
