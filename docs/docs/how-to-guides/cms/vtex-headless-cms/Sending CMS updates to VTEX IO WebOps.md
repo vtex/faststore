@@ -1,4 +1,8 @@
-# Sending CMS updates to VTEX IO WebOps
+---
+description: Configure the WebOps webhooks responsible for communicating with the VTEX Headless CMS.
+---
+
+# Communicating WebOps updates to the Headless CMS 
 
 If you are developing your FastStore project with WebOps and VTEX Headless CMS, you must ensure that WebOps is aware of every CMS update performed via the VTEX Admin. To do so, you must configure the WebOps webhooks responsible for communicating with the VTEX Headless CMS as in the following step by step.
 
