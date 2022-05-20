@@ -1,5 +1,5 @@
 ---
-description: A list of common terminology for FastStore, Headless CMS, WebOps and Base Store.
+description: A list of common terminologies for FastStore projects.
 keywords:
   - FastStore Glossary
   - ecommerce
