@@ -44,7 +44,7 @@ If you find any problems while installing the plugin, please refer to our [Troub
 
 ### Step 2 - Installing the Headless CMS app on your VTEX account
 
-In this step, let's install install the VTEX Headless CMS app and all its dependencies in your VTEX account by running the following command:
+Install the VTEX Headless CMS app and all its dependencies in your VTEX account by running the following command:
 
   ```
   vtex install vtex.admin-cms@1.x vtex.admin-cms-graphql@0.x vtex.admin-cms-graphql-rc@1.x vtex.admin-releases@0.x vtex.cms-builder-sf-jamstack@1.x
@@ -52,7 +52,7 @@ In this step, let's install install the VTEX Headless CMS app and all its depend
 
 Now you can check the VTEX Headless CMS interface by accessing the VTEX Admin and then going to **Store Setup > CMS (Alpha) > Pages (Alpha)**.
 
-### Step 3 - Configuring the VTEX Headless CMS
+### Step 3 - Configuring the Headless CMS
 
 Next, let's configure the URLs of the webhooks used by the VTEX Headless CMS app.
 
@@ -78,6 +78,26 @@ Next, let's configure the URLs of the webhooks used by the VTEX Headless CMS app
 8. Click on **Save.**
 
 ![CMS Settings](https://vtexhelp.vtexassets.com/assets/docs/src/cms-settings2___54ec9a22584b5aad09d0b403993cbee2.png)
+
+### Step 4 - Communicating WebOps updates to the Headless CMS 
+
+Now, if you are developing your FastStore project with WebOps and VTEX Headless CMS, you must ensure that WebOps is aware of every CMS update performed via the VTEX Admin. To do so, you must configure the WebOps webhooks responsible for communicating with the VTEX Headless CMS as in the following.
+
+1. Open your FastStore project in any code editor of your preference.
+2. Create the `cms-webhook-urls.json` file in the root directory of your project. 
+3. Add the webhooks corresponding to your store website as in the following:
+   ```json title="cms-webhook-urls.json"
+   {
+      "urls": [ "https://{account}.myvtex.com/cms-releases/webhook-releases"]
+   }
+   ```
+
+   :::caution
+   If applicable, specify the [production workspace](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-workspace) you are using to develop your FastStore project in the webhook URL as in the following: `https://{workspace}--{account}.myvtex.com/cms-releases/webhook-releases`
+   :::
+
+4. Open a Pull Request including the previous changes.
+5. Merge the Pull Request.
 
 Now you're ready to start defining which Content Types and Sections will be editable via the VTEX Headless CMS. Let's get started!
 

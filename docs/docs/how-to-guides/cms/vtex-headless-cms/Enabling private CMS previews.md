@@ -2,6 +2,8 @@
 
 By default, the VTEX Headless CMS already publishes previews of your store website to private URLs, accessible only through VTEX authentication. However, if, you have configured public previews for your store and would like to revert back to private previews, you can do so by following the steps outlined in this article.
 
+---
+
 ## Before you start
 
 To complete this guide, you must have the VTEX IO CLI installed in your machine. For more information, please refer to [this document](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-install).
