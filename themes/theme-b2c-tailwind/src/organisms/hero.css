@@ -3,13 +3,15 @@
   flex-direction: row-reverse;
   width: 100%;
   min-height: 20rem;
+  background-color: #001947;
+  color: #fff;
 }
 
 [data-hero-content] {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem;
+  padding: 0 4rem;
 }
 
 [data-hero-content] h1 {
@@ -28,8 +30,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
   min-width: 11.25rem;
   width: fit-content;
+  color: #001947;
   border: 1px solid #171a1c;
+  background-color: #fff;
 }
