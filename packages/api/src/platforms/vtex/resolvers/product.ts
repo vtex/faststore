@@ -1,11 +1,18 @@
+import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
+import { bestOfferFirst } from '../utils/productStock'
+import { slugify } from '../utils/slugify'
+import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import type { Resolver } from '..'
-import { sortOfferByPrice } from '../utils/productStock'
 import type { PromiseType } from '../../../typings'
 import type { Query } from './query'
-import type { Item } from '../clients/search/types/ProductSearchResult'
-import type { EnhancedSku } from '../utils/enhanceSku'
+import { VALUE_REFERENCES } from '../utils/propertyValue'
+import type { Attachment } from '../clients/commerce/types/OrderForm'
 
-type Root = PromiseType<ReturnType<typeof Query.product>>
+type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
+
+type Root = QueryProduct & {
+  attachmentsValues?: Attachment[]
+}
 
 const DEFAULT_IMAGE = {
   imageText: 'image',
@@ -19,7 +26,12 @@ const nonEmptyArray = <T>(array: T[] | null | undefined) =>
   Array.isArray(array) && array.length > 0 ? array : null
 
 export const StoreProduct: Record<string, Resolver<Root>> & {
-  offers: Resolver<Root, any, { items: Item[]; product: EnhancedSku }>
+  offers: Resolver<
+    Root,
+    any,
+    Array<EnhancedCommercialOffer<Root['sellers'][number], Root>>
+  >
+
   isVariantOf: Resolver<Root, any, Root>
 } = {
   productID: ({ itemId }) => itemId,
@@ -38,11 +50,13 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     return {
       itemListElement: [
         ...categories.reverse().map((categoryPath, index) => {
-          const categoryNames = categoryPath.split('/')
+          const splitted = categoryPath.split('/')
+          const name = splitted[splitted.length - 2]
+          const item = splitted.map(slugify).join('/')
 
           return {
-            name: categoryNames[categoryNames.length - 2],
-            item: categoryPath.toLowerCase(),
+            name,
+            item,
             position: index + 1,
           }
         }),
@@ -66,17 +80,34 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   gtin: ({ referenceId }) => referenceId[0]?.Value ?? '',
   review: () => [],
   aggregateRating: () => ({}),
-  offers: (product): { items: Item[]; product: Root } => {
-    return {
-      items: sortOfferByPrice(product.isVariantOf.items),
-      product,
-    }
-  },
+  offers: (root) =>
+    root.sellers
+      .flatMap((seller) =>
+        enhanceCommercialOffer({
+          offer: seller.commertialOffer,
+          seller,
+          product: root,
+        })
+      )
+      .sort(bestOfferFirst),
   isVariantOf: (root) => root,
-  // TODO: get this value. Fix any type
-  additionalProperty: ({ attributes = [] }: any) =>
-    attributes.map((attribute: any) => ({
-      name: attribute.key,
-      value: attribute.value,
-    })),
+  additionalProperty: ({ variations = [], attachmentsValues }) => {
+    const propertyValueVariations = variations.flatMap(({ name, values }) =>
+      values.map((value) => ({
+        name,
+        value,
+        valueReference: VALUE_REFERENCES.variation,
+      }))
+    )
+
+    const propertyValueAttachments = (attachmentsValues ?? []).map(
+      (attachment) => ({
+        name: attachment.name,
+        value: attachment.content,
+        valueReference: VALUE_REFERENCES.attachment,
+      })
+    )
+
+    return [...propertyValueVariations, ...propertyValueAttachments]
+  },
 }

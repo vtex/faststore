@@ -12,7 +12,7 @@ A **Secret** is an API object used to hold confidential data, such as credential
 
 Secrets are encrypted and saved directly in the FastStore project, guaranteeing the safe storage of your data. **VTEX IO WebOps** then decrypts and consumes your Secrets as environment variables to build your store.
 
-![](/img/how-to-guides/secrets-diagram.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/secrets-diagram___6a3b06208dca94abec86dd5b5d88aa01.png)
 
 To manage your Secrets, you'll use a **VTEX IO CLI** plugin called **WebOps Secrets (WOS)**, which allows you to:
 - Set up your **VTEX account** to save Secrets.

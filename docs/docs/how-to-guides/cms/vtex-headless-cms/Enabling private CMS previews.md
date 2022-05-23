@@ -1,6 +1,8 @@
 # Enabling private CMS previews
 
-By default, the VTEX Headless CMS publishes previews of your store website to public URLs. However, if, for privacy reasons, you prefer to keep your website previews hidden from the general public, you can do so by following the steps outlined in this article.
+By default, the VTEX Headless CMS already publishes previews of your store website to private URLs, accessible only through VTEX authentication. However, if, you have configured public previews for your store and would like to revert back to private previews, you can do so by following the steps outlined in this article.
+
+---
 
 ## Before you start
 

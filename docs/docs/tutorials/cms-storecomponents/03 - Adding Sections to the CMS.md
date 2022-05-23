@@ -96,7 +96,7 @@ const RichTextComponent: Schema = {
 
   </TabItem>
   <TabItem value="CMS">
-    <img src="/img/tutorials/cms-storecomponents/cms-widget.png"/>
+    <img src="https://vtexhelp.vtexassets.com/assets/docs/src/CMSWidget___222a61539dd9a127cd247ed4ce075b17.png"/>
   </TabItem>
 </Tabs>
 
@@ -127,7 +127,7 @@ export const builderConfig: BuilderConfig = {
 
 Now, if you start creating a new **Home Page** in the VTEX Headless CMS app and click on the `+` sign, you will see your `AwesomeComponent` available.
 
-![](/img/tutorials/cms-storecomponents/cms-new-section.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/CMSNewSection___24c3dc6882a1707fe4509e0e183e9b33.png)
 
 ---
 

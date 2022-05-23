@@ -1,3 +1,9 @@
+"""
+Brand of a given product.
+"""
 type StoreBrand {
+  """
+  Brand name.
+  """
   name: String!
 }

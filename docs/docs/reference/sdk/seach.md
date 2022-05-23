@@ -17,7 +17,7 @@ Faceted search helps shoppers quickly find what they need via facet filters that
 
 For example, when browsing your store for a laptop, shoppers could be presented with facets such as "Brand," "Operational System," "RAM capacity." You could imagine these facets as questions a salesman could make: "Which processor type do you need?", "Are you looking for a specific screen size?", "How much do you want to spend?", "Do you have a brand preference?".
 
-![Faceted Search](/img/references/faceted-search.png)
+![Faceted Search](https://vtexhelp.vtexassets.com/assets/docs/src/FacetedSearch___7d5958d80e6945f07dae5f9f7d2ac8d4.jpg)
 
 ## How the `Search` module works?
 

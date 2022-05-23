@@ -7,7 +7,7 @@ keywords: [cart, minicart, checkout]
 
 The Cart module offers all the functionalities necessary to handle your store's shopping cart. It supports large orders and complex ecommerce operations, such as the ones that provide marketplace, coupon, gift, and promotion options.  The Cart state is saved on the browser's [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) and is structured as in the following.
 
-![Cart SDK diagram](/img/references/Cart.png)
+![Cart SDK Architecture](https://vtexhelp.vtexassets.com/assets/docs/src/Cart___74c390e654f666b3a2adb7b6a0b5ecf7.png)
 
 
 The Cart module provides two modes: 

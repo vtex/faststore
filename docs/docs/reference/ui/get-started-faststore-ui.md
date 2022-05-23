@@ -8,12 +8,6 @@ Install `@faststore/ui` as a dependency of your FastStore project via the comman
 npm install @faststore/ui
 ```
 
-For styling, you can **optionally** install our default style theme developed with [Tailwind CSS](https://tailwindcss.com/):
-
-```bash npm2yarn
-npm install @vtex/theme-b2c-tailwind
-```
-
 ---
 
 ## Usage
@@ -22,7 +16,6 @@ Check our references and import the desired components to your page.
 
 ```tsx
 import { Button } from '@faststore/ui'
-import '@vtex/theme-b2c-tailwind/dist/index.css'
 ```
 
 ```tsx

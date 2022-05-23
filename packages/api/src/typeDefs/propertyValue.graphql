@@ -1,4 +1,32 @@
+"""
+Properties that can be associated with products and products groups.
+"""
 type StorePropertyValue {
-  value: String!
+  """
+  Property value. May hold a string or the string representation of an object.
+  """
+  value: ObjectOrString!
+  """
+  Property name.
+  """
   name: String!
+  """
+  Specifies the nature of the value
+  """
+  valueReference: String!
+}
+
+input IStorePropertyValue {
+  """
+  Property value. May hold a string or the string representation of an object.
+  """
+  value: ObjectOrString!
+  """
+  Property name.
+  """
+  name: String!
+  """
+  Specifies the nature of the value
+  """
+  valueReference: String!
 }

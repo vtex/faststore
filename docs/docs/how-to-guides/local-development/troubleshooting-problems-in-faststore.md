@@ -1,8 +1,12 @@
 ---
+description: Check if you are facing a bug from FastStore/WebOps or a mistake on your side.
 tags: 
     - performance
     - troubleshooting
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Troubleshooting problems in FastStore
 
@@ -12,14 +16,45 @@ Hence, before proceeding with any advanced troubleshooting, we recommend that yo
 
 ## Step by step
 
-1. Open the terminal and clone the [`base.store`](https://github.com/vtex-sites/base.store) repository.
-    ```
-    npx degit vtex-sites/base.store
-    ```
+1. Open the terminal and clone the [Base Store](/starters/base) repository.
+
+<Tabs groupId="chosen-framework">
+  <TabItem value="nextjs" label="Next.js" default>
+
+```sh
+npx degit vtex-sites/nextjs.store
+```
+
+  </TabItem>
+  <TabItem value="gatsby" label="Gatsby">
+
+```sh
+npx degit vtex-sites/gatsby.store
+```
+
+  </TabItem>
+</Tabs>
+
+
 2. Change to the cloned repository and run `yarn`.
-    ```
-    cd base.store && yarn
-    ```
+
+<Tabs groupId="chosen-framework">
+  <TabItem value="nextjs" label="Next.js" default>
+
+```sh
+cd nextjs.store && yarn
+```
+
+  </TabItem>
+  <TabItem value="gatsby" label="Gatsby">
+
+```sh
+cd gatsby.store && yarn
+```
+
+  </TabItem>
+</Tabs>
+
 3. Open the `store.config.js` file and update the value of the `storeId` field with the account name of your store.
     ```diff
      module.exports = {
@@ -37,4 +72,4 @@ Hence, before proceeding with any advanced troubleshooting, we recommend that yo
     ```
 5. Access [http://localhost:8000/](http://localhost:8000/) and test the features you are having trouble with.
 
-If the problem persists with the `base.store` starter, we recommend [opening an issue](https://github.com/vtex/faststore/issues/new/choose) and reporting the problem. However, if the error only occurs in your own project, please refer to recommended resources (*Comming Soon*) to dive deeper into your code and try to find the origin of the error.
+If the problem persists with the Base Store starter, we recommend [opening an issue](https://github.com/vtex/faststore/issues/new/choose) and reporting the problem. However, if the error only occurs in your own project, please refer to recommended resources (*Comming Soon*) to dive deeper into your code and try to find the origin of the error.

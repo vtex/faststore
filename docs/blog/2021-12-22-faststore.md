@@ -188,7 +188,7 @@ New FastStore Documentation Portal and enhanced contributing processes for FastS
 
     If you are developing new components for the FastStore UI, just run `yarn generate-ui-component` in the [FastStore project](https://github.com/vtex/faststore), give a name to your component and answer which component type you are developing to automatically create all the basic files your component will need.
 
-    ![Contributing](/img/releases/yarn-generate.gif)
+    ![Contributing](https://vtexhelp.vtexassets.com/assets/docs/src/yarn-generate___8bca378fc167c505fa09145a2eee80ca.gif)
     
     *For more information, please refer to our [Contribution guide](https://github.com/vtex/faststore/blob/master/CONTRIBUTING.MD#creating-components-on-the-faststoreui).*
 

@@ -3,11 +3,11 @@
 }
 
 .featureCard svg {
-  @apply w-7 mr-3 inline-block mb-2;
+  @apply w-7 mr-3 inline-block ;
 }
 
 .featureCard h2 {
-  @apply text-xl mb-1;
+  @apply text-xl;
 }
 
 .featureCard a {

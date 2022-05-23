@@ -1,5 +1,6 @@
 ---
 id: 2
+description: Set up the VTEX Headless CMS in your FastStore project.
 sidebar_label: "2. Setting up the VTEX Headless CMS in your FastStore project"
 ---
 
@@ -142,4 +143,4 @@ CMS synced successfully...
 
 You should now see the Content Type we created in the previous step available for use at the VTEX Headless CMS app. However, no sections or translation keys will be available yet. We'll learn more about this in the following part of this tutorial.
 
-![VTEX CMS Sync](/img/tutorials/cms/vtex-cms-sync.png)
+![VTEX CMS Sync](https://vtexhelp.vtexassets.com/assets/docs/src/vtex-cms-sync___6388c7ddf3d6891bf9d9dd4a09b45390.png)

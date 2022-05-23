@@ -14,15 +14,15 @@ Modern digital commerce requires composable pieces of **Packaged Business Capabi
 
 That means companies now have an open ecosystem with data coming from various sources. In this sense, an API gateway that adapts the incoming data for the frontend might be necessary.
 
-![](/img/introduction/arch1.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/EcommerceArchitecture1___bf531fc5cd12195c9c095c0478eac7bf.png)
 
 Once this gateway is set up, it is necessary to determine which technology you'll use for your store frontend. Independently from this choice, a frontend server that consumes the API gateway will always be required. Notice that, to present the dynamic data of your ecommerce (e.g., price, number of available items), you'll also need to handle Server-Side Rendering (SSR), which will also consume the API gateway. Hence, you'll end up with the following:
 
-![](/img/introduction/arch2.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/EcommerceArchitecture2___cec479467af853198ccd54642cc61c74.png)
 
 That's enough for the basics. However, to keep evolving an ecommerce, you'll need new deployments. Here is where we have a Control Plane - the part of the architecture that compiles and handles which version of the store is online.
 
-![](/img/introduction/arch3.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/EcommerceArchitecture3___fb7a3a63a0fe166493e651342e2ab490.png)
 
 ## How we help you
 
@@ -39,7 +39,7 @@ We understand, however, that freedom can be scary sometimes. That's why, to help
 
 Our architecture also gives developers full power over the API Gateway.  This layer is built with a Node.js server. In practice, this means that, as a technology-agnostic solution, you can choose your own communication protocol - GraphQL is no longer obligatory. Notice that here you are single-tenant, i.e., you have your own independent server instance.
 
-![](/img/introduction/arch4.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/EcommerceArchitecture4___187ce92a88e23837fc9cd8f4b41be36e.png)
 
 With so much creativity and freedom space, what we offer is a safe environment for experimenting. By connecting with a Git provider, it's possible to create a team of QA robots that run E2E tests, evaluate code quality, and measure the impact of each Pull Request on a store's performance.
 Don't forget: performance implies an increase in the store's SEO score, conversion rate, and navigation experience!
