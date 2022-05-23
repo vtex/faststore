@@ -2,7 +2,14 @@
 name: CI
 
 on:
+  # Allow run CI for forked repos
+  pull_request_target:
+    branches:
+      - main
+
   workflow_dispatch:
+
+  # Allow run CI for any branch different from main, master
   push:
     branches-ignore:
       - main
@@ -15,15 +22,14 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Use Node 14.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '14.x'
-
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
+          cache: 'yarn'
+        run: yarn install --lock-frozen
 
       - name: Lint
         run: yarn lint
@@ -34,15 +40,15 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Use Node 14.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '14.x'
+          cache: 'yarn'
+        run: yarn install --lock-frozen
 
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
 
       - name: Test
         run: yarn test --ci --maxWorkers=2
@@ -53,15 +59,14 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Use Node 14.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '14.x'
-
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
+          cache: 'yarn'
+        run: yarn install --lock-frozen
 
       - name: Build
         run: yarn build --scope "@vtex/gatsby-plugin-thumbor" --scope "@faststore/ui" --scope "@faststore/sdk" --ci
