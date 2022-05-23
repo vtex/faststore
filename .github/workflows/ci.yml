@@ -29,7 +29,8 @@ jobs:
         with:
           node-version: '14.x'
           cache: 'yarn'
-        run: yarn install --lock-frozen
+
+      - run: yarn install --lock-frozen
 
       - name: Lint
         run: yarn lint
@@ -47,7 +48,8 @@ jobs:
         with:
           node-version: '14.x'
           cache: 'yarn'
-        run: yarn install --lock-frozen
+
+      - run: yarn install --lock-frozen
 
 
       - name: Test
@@ -66,7 +68,8 @@ jobs:
         with:
           node-version: '14.x'
           cache: 'yarn'
-        run: yarn install --lock-frozen
+
+      - run: yarn install --lock-frozen
 
       - name: Build
         run: yarn build --scope "@vtex/gatsby-plugin-thumbor" --scope "@faststore/ui" --scope "@faststore/sdk" --ci
