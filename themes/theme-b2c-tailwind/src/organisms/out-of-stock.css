@@ -1,0 +1,28 @@
+[data-store-out-of-stock] [data-store-out-of-stock-form] {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+[data-store-out-of-stock-title] {
+  margin-bottom: .25rem;
+}
+
+[data-store-out-of-stock-message] {
+  display: flex;
+  -moz-column-gap: .25rem;
+       column-gap: .25rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+[data-store-out-of-stock-form] [data-store-button] {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+[data-store-out-of-stock-form] [data-store-input] {
+  width: 100%;
+  margin-top: 1rem;
+  max-width: initial;
+}
