@@ -75,6 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fix `ImageGallerySelector` arrow toggle according to scroll position ([#43](https://github.com/vtex-sites/nextjs.store/pull/43))
 - Fixes `ProductCard` bordered variant ([#5](https://github.com/vtex-sites/nextjs.store/pull/5))
 - Fix Storybook initialization ([#492](https://www.github.com/vtex-sites/base.store/pull/492))
 - Fix styling issue on Regionalization Modal by adding the missing imports in layout.scss ([#488](https://www.github.com/vtex-sites/base.store/pull/488))

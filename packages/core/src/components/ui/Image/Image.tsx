@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { forwardRef, memo } from 'react'
 import Head from 'next/head'
 
 import { useImage } from './useImage'
@@ -9,7 +9,7 @@ import type { ImageOptions } from './useImage'
 declare module 'react' {
   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
     imageSizes?: string
-    fetchpriority?: string
+    fetchPriority?: string
   }
 }
 
@@ -18,34 +18,37 @@ interface Props extends ImageOptions {
 }
 
 // TODO: Replace this component by next/image
-function Image({ preload = false, fetchpriority, ...otherProps }: Props) {
-  const imgProps = useImage(otherProps)
-  const { src, sizes = '100vw', srcSet } = imgProps
+const Image = forwardRef<HTMLImageElement, Props>(
+  ({ preload = false, fetchPriority, ...otherProps }, ref) => {
+    const imgProps = useImage(otherProps)
+    const { src, sizes = '100vw', srcSet } = imgProps
 
-  return (
-    <>
-      {preload && (
-        <Head>
-          <link
-            as="image"
-            rel="preload"
-            href={src}
-            imageSrcSet={srcSet}
-            imageSizes={sizes}
-            fetchpriority={fetchpriority}
-          />
-        </Head>
-      )}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        data-store-image
-        {...imgProps}
-        alt={imgProps.alt}
-        fetchpriority={fetchpriority}
-      />
-    </>
-  )
-}
+    return (
+      <>
+        {preload && (
+          <Head>
+            <link
+              as="image"
+              rel="preload"
+              href={src}
+              imageSrcSet={srcSet}
+              imageSizes={sizes}
+              fetchPriority={fetchPriority}
+            />
+          </Head>
+        )}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={ref}
+          data-store-image
+          {...imgProps}
+          alt={imgProps.alt}
+          fetchPriority={fetchPriority}
+        />
+      </>
+    )
+  }
+)
 
 Image.displayName = 'Image'
 export default memo(Image)

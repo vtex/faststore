@@ -62,7 +62,7 @@
   [data-fs-image-gallery-selector-elements] {
     display: flex;
     column-gap: var(--fs-spacing-1);
-    padding: var(--fs-spacing-0) var(--fs-spacing-6);
+    padding: var(--fs-spacing-0);
     overflow-x: auto;
     scroll-behavior: smooth;
 
@@ -100,7 +100,7 @@
     @include media(">=notebook") {
       flex-direction: column;
       row-gap: var(--fs-spacing-2);
-      padding: var(--fs-spacing-6) var(--fs-spacing-0);
+      padding: var(--fs-spacing-0);
       overflow-y: hidden;
     }
   }
