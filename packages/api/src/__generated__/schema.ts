@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  ObjectOrString: any;
 };
 
 /** Shopping cart input. */
@@ -55,12 +56,23 @@ export type IStoreOrganization = {
 
 /** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type IStoreProduct = {
+  /** Custom Product Additional Properties. */
+  additionalProperty?: Maybe<Array<IStorePropertyValue>>;
   /** Array of product images. */
   image: Array<IStoreImage>;
   /** Product name. */
   name: Scalars['String'];
   /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String'];
+};
+
+export type IStorePropertyValue = {
+  /** Property name. */
+  name: Scalars['String'];
+  /** Property value. May hold a string or the string representation of an object. */
+  value: Scalars['ObjectOrString'];
+  /** Specifies the nature of the value */
+  valueReference: Scalars['String'];
 };
 
 /** Selected facet input. */
@@ -460,8 +472,10 @@ export type StorePropertyValue = {
   __typename?: 'StorePropertyValue';
   /** Property name. */
   name: Scalars['String'];
-  /** Property value. */
-  value: Scalars['String'];
+  /** Property value. May hold a string or the string representation of an object. */
+  value: Scalars['ObjectOrString'];
+  /** Specifies the nature of the value */
+  valueReference: Scalars['String'];
 };
 
 /** Information of a given review. */

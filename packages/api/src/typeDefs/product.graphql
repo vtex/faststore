@@ -80,4 +80,8 @@ input IStoreProduct {
   Array of product images.
   """
   image: [IStoreImage!]!
+  """
+  Custom Product Additional Properties.
+  """
+  additionalProperty: [IStorePropertyValue!]
 }

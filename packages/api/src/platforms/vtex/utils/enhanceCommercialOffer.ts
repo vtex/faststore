@@ -1,23 +1,19 @@
-import type {
-  CommertialOffer,
-  Seller,
-} from '../clients/search/types/ProductSearchResult'
-import type { EnhancedSku } from './enhanceSku'
+import type { CommertialOffer } from '../clients/search/types/ProductSearchResult'
 
-export type EnhancedCommercialOffer = CommertialOffer & {
-  seller: Seller
-  product: EnhancedSku
+export type EnhancedCommercialOffer<S, P> = CommertialOffer & {
+  seller: S
+  product: P
 }
 
-export const enhanceCommercialOffer = ({
+export const enhanceCommercialOffer = <S, P>({
   offer,
   seller,
   product,
 }: {
   offer: CommertialOffer
-  seller: Seller
-  product: EnhancedSku
-}): EnhancedCommercialOffer => ({
+  seller: S
+  product: P
+}): EnhancedCommercialOffer<S, P> => ({
   ...offer,
   product,
   seller,
