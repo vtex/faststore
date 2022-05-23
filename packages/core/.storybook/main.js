@@ -26,6 +26,13 @@ module.exports = {
       }),
     ]
 
+    // SCSS import support
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: ['style-loader', 'css-loader', 'sass-loader'],
+      include: resolve(__dirname, '../'),
+    })
+
     return config
   },
 }
