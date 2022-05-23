@@ -9,12 +9,13 @@ import type { ImageOptions } from './useImage'
 declare module 'react' {
   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
     imageSizes?: string
-    fetchPriority?: string
+    fetchpriority?: string
   }
 }
 
 interface Props extends ImageOptions {
   preload?: boolean
+  fetchPriority?: string
 }
 
 // TODO: Replace this component by next/image
@@ -33,7 +34,7 @@ const Image = forwardRef<HTMLImageElement, Props>(
               href={src}
               imageSrcSet={srcSet}
               imageSizes={sizes}
-              fetchPriority={fetchPriority}
+              fetchpriority={fetchPriority}
             />
           </Head>
         )}
@@ -43,7 +44,7 @@ const Image = forwardRef<HTMLImageElement, Props>(
           data-store-image
           {...imgProps}
           alt={imgProps.alt}
-          fetchPriority={fetchPriority}
+          fetchpriority={fetchPriority}
         />
       </>
     )
