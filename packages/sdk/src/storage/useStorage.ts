@@ -57,10 +57,12 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
 
     setTimeout(effect, 0)
     document.addEventListener('visibilitychange', focusHandler)
+    window.addEventListener('focus', focusHandler)
 
     return () => {
       cancel = true
       document.removeEventListener('visibilitychange', focusHandler)
+      window.removeEventListener('focus', focusHandler)
     }
   }, [key])
 
