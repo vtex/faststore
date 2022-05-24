@@ -472,6 +472,8 @@ export type StorePropertyValue = {
   __typename?: 'StorePropertyValue';
   /** Property name. */
   name: Scalars['String'];
+  /** Property id. This propert changes according to the content of the object. */
+  propertyID: Scalars['String'];
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
