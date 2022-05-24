@@ -3,7 +3,7 @@ import React from 'react'
 
 import HeroComponent from '../Hero'
 import HeroImage from '../HeroImage'
-import HeroContent from '../HeroContent'
+import HeroHeading from '../HeroHeading'
 import HeroLink from '../HeroLink'
 import type { HeroProps } from '../Hero'
 import { Icon } from '../../..'
@@ -31,7 +31,7 @@ const HeroTemplate: Story<HeroProps> = ({ testId }) => (
         src="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
       />
     </HeroImage>
-    <HeroContent>
+    <HeroHeading>
       <h1>New Products Available</h1>
       <p>
         At BaseStore you can shop the best tech of 2022. Enjoy and get 10% off
@@ -41,7 +41,7 @@ const HeroTemplate: Story<HeroProps> = ({ testId }) => (
         <a href="/">See all</a>
         <Icon component={<RightArrow />} />
       </HeroLink>
-    </HeroContent>
+    </HeroHeading>
   </HeroComponent>
 )
 

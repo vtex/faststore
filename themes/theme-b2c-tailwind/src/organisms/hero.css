@@ -7,14 +7,14 @@
   color: #fff;
 }
 
-[data-hero-content] {
+[data-hero-heading] {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 4rem;
 }
 
-[data-hero-content] h1 {
+[data-hero-heading] h1 {
   font-size: 1.75rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
