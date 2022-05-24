@@ -1,0 +1,78 @@
+@import "src/styles/scaffold";
+
+.fs-select[data-fs-select] {
+  // --------------------------------------------------------
+  // Design Tokens for Select
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-select-height                      : var(--fs-spacing-6);
+  --fs-select-min-height                  : var(--fs-control-tap-size);
+  --fs-select-padding                     : var(--fs-spacing-1) var(--fs-spacing-5) var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-select-text-color                  : var(--fs-color-link);
+  --fs-select-border-radius               : var(--fs-border-radius);
+
+  --fs-select-bkg                         : transparent;
+  --fs-select-bkg-color-focus             : var(--fs-color-primary-bkg-light);
+  --fs-select-bkg-color-hover             : var(--fs-select-bkg-color-focus);
+
+  --fs-select-transition-timing           : var(--fs-transition-timing);
+  --fs-select-transition-property         : var(--fs-transition-property);
+  --fs-select-transition-function         : var(--fs-transition-function);
+
+  // Label
+  --fs-select-label-color                 : var(--fs-color-text-light);
+  --fs-select-label-margin-right          : var(--fs-spacing-1);
+
+  // Icon
+  --fs-select-icon-color                  : var(--fs-color-link);
+  --fs-select-icon-position-right         : var(--fs-spacing-2);
+
+  // Disabled
+  --fs-select-disabled-text-color         : var(--fs-color-disabled-text);
+  --fs-select-disabled-text-opacity       : 1;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  select {
+    padding: var(--fs-select-padding);
+    color: var(--fs-select-text-color);
+    background: var(--fs-select-bkg);
+    border: 0;
+    border-radius: var(--fs-select-border-radius);
+    box-shadow: 0;
+    transition: var(--fs-select-transition-property) var(--fs-select-transition-timing) var(--fs-select-transition-function);
+    appearance: none;
+
+    @include focus-ring-visible;
+
+    &:focus { background-color: var(--fs-select-bkg-color-focus); }
+
+    &:hover:not(:disabled) { background-color: var(--fs-select-bkg-color-hover); }
+
+    &:disabled {
+      color: var(--fs-select-disabled-text-color);
+      cursor: not-allowed;
+      opacity: var(--fs-select-disabled-text-opacity);
+      + [data-fs-select-icon] { display: none; }
+    }
+
+    @include media("<notebook") { min-height: var(--fs-select-min-height); }
+
+    @include media(">=notebook") { height: var(--fs-select-height); }
+  }
+
+  [data-fs-select-label] {
+    margin-right: var(--fs-select-label-margin-right);
+    color: var(--fs-select-label-color);
+  }
+
+  [data-fs-select-icon] {
+    position: absolute;
+    right: var(--fs-select-icon-position-right);
+    color: var(--fs-select-icon-color);
+    pointer-events: none;
+  }
+}

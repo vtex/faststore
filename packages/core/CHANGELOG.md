@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Applies new local tokens to `Select` ([#16](https://github.com/vtex-sites/nextjs.store/pull/16))
 - `Toggle` component ([#15](https://github.com/vtex-sites/nextjs.store/pull/15))
 - Break into new tasks the `useQuery` fetcher execution ([#45](https://github.com/vtex-sites/nextjs.store/pull/45))
 - Suspend queries in the `ButtonSignIn`, `ProductShelf` and `ProductTiles` ([#45](https://github.com/vtex-sites/nextjs.store/pull/45))
