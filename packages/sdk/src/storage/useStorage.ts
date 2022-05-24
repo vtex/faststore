@@ -6,7 +6,7 @@
  * between server/browser. When state is 'hydrated', the value in the heap
  * is the same as the value in IDB
  */
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { get, set } from 'idb-keyval'
 
 const getItem = async <T>(key: string) => {
@@ -49,10 +49,18 @@ export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
       }
     }
 
+    const focusHandler = () => {
+      if (document.visibilityState === 'visible') {
+        effect()
+      }
+    }
+
     setTimeout(effect, 0)
+    document.addEventListener('visibilitychange', focusHandler)
 
     return () => {
       cancel = true
+      document.removeEventListener('visibilitychange', focusHandler)
     }
   }, [key])
 
