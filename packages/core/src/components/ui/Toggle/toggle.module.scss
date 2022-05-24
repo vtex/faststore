@@ -1,0 +1,194 @@
+@import "src/styles/scaffold";
+
+.fs-toggle[data-fs-toggle] {
+  // --------------------------------------------------------
+  // Design Tokens for Toggle
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-toggle-height                           : calc(var(--fs-control-min-height) / 1.75);
+
+  --fs-toggle-bkg-color                        : var(--fs-control-bkg);
+  --fs-toggle-bkg-color-hover                  : var(--fs-color-primary-bkg-light);
+
+  --fs-toggle-shadow                           : var(--fs-shadow);
+  --fs-toggle-shadow-hover                     : var(--fs-shadow);
+
+  --fs-toggle-border-color                     : var(--fs-border-color);
+  --fs-toggle-border-color-hover               : var(--fs-border-color-hover);
+  --fs-toggle-border-radius                    : var(--fs-border-radius);
+  --fs-toggle-border-width                     : var(--fs-border-width);
+
+  --fs-toggle-transition-timing                : var(--fs-transition-timing);
+  --fs-toggle-transition-property              : var(--fs-transition-property);
+  --fs-toggle-transition-function              : var(--fs-transition-function);
+
+  --fs-toggle-knob-radius                      : var(--fs-border-radius-small);
+  --fs-toggle-knob-shadow                      : var(--fs-shadow);
+  --fs-toggle-knob-bkg-color                   : var(--fs-color-primary-bkg);
+  --fs-toggle-knob-bkg-color-hover             : var(--fs-toggle-border-color-hover);
+  --fs-toggle-knob-border-color                : var(--fs-color-main-4);
+  --fs-toggle-knob-border-color-hover          : var(--fs-toggle-border-color-hover);
+  --fs-toggle-knob-border-width                : var(--fs-border-width-thick);
+  --fs-toggle-knob-icon-color                  : transparent;
+
+  // Checked
+  --fs-toggle-checked-bkg-color                : var(--fs-color-primary-bkg-active);
+  --fs-toggle-checked-bkg-color-hover          : var(--fs-color-primary-bkg-hover);
+  --fs-toggle-checked-border-color             : var(--fs-border-color-active);
+  --fs-toggle-checked-border-color-hover       : var(--fs-toggle-checked-bkg-color-hover);
+  --fs-toggle-checked-knob-bkg-color           : var(--fs-control-bkg);
+  --fs-toggle-checked-knob-border-color        : var(--fs-toggle-checked-knob-bkg-color);
+  --fs-toggle-checked-knob-icon-color          : var(--fs-toggle-checked-bkg-color);
+  --fs-toggle-checked-knob-icon-color-disabled : var(--fs-toggle-knob-icon-color);
+  --fs-toggle-checked-knob-icon-color-hover    : var(--fs-toggle-checked-bkg-color-hover);
+
+  // Disabled
+  --fs-toggle-disabled-bkg-color               : var(--fs-color-disabled-bkg);
+  --fs-toggle-disabled-border-color            : var(--fs-border-color-disabled);
+  --fs-toggle-disabled-knob-bkg-color          : var(--fs-color-neutral-5);
+  --fs-toggle-disabled-knob-border-color       : var(--fs-toggle-disabled-knob-bkg-color);
+  --fs-toggle-disabled-knob-icon-color         : var(--fs-toggle-disabled-bkg-color);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  align-items: center;
+
+  [data-fs-toggle-container] {
+    position: relative;
+    overflow: visible;
+
+    input {
+      @include focus-ring-visible;
+
+      position: absolute;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background-color: var(--fs-toggle-bkg-color);
+      border: var(--fs-toggle-border-width) solid var(--fs-toggle-border-color);
+      border-radius: var(--fs-toggle-border-radius);
+      box-shadow: var(--fs-toggle-shadow);
+      transition: var(--fs-toggle-transition-property) var(--fs-toggle-transition-timing) var(--fs-toggle-transition-function);
+      appearance: none;
+
+      &:checked {
+        background-color: var(--fs-toggle-checked-bkg-color);
+        border: var(--fs-toggle-border-width) solid var(--fs-toggle-checked-border-color);
+
+        + [data-fs-toggle-knob] {
+          color: var(--fs-toggle-checked-knob-icon-color);
+          background-color: var(--fs-toggle-checked-knob-bkg-color);
+          border-color: var(--fs-toggle-checked-knob-border-color);
+        }
+
+        @media (hover: hover) {
+          &:hover:not(:disabled) {
+            background-color: var(--fs-toggle-checked-bkg-color-hover);
+            border: var(--fs-toggle-border-width) solid var(--fs-toggle-checked-border-color-hover);
+
+            + [data-fs-toggle-knob] {
+              color: var(--fs-toggle-checked-knob-icon-color-hover);
+            }
+          }
+        }
+      }
+
+      &:not(:checked) {
+        background-color: var(--fs-toggle-bkg-color);
+        border: var(--fs-toggle-border-width) solid var(--fs-toggle-border-color);
+
+        + [data-fs-toggle-knob] {
+          color: var(--fs-toggle-knob-icon-color);
+          background-color: var(--fs-toggle-knob-bkg-color);
+          border: var(--fs-toggle-border-width) solid var(--fs-toggle-knob-border-color);
+        }
+
+        @media (hover: hover) {
+          &:hover:not(:disabled) {
+            background-color: var(--fs-toggle-bkg-color-hover);
+            border-color: var(--fs-toggle-border-color-hover);
+            box-shadow: var(--fs-toggle-shadow-hover);
+
+            + [data-fs-toggle-knob] {
+              background-color: var(--fs-toggle-knob-bkg-color-hover);
+              border-color: var(--fs-toggle-knob-border-color-hover);
+            }
+          }
+        }
+      }
+
+      &:disabled {
+        pointer-events: none;
+        background-color: var(--fs-toggle-disabled-bkg-color);
+        border-color: var(--fs-toggle-disabled-border-color);
+
+        + [data-fs-toggle-knob] {
+          background-color: var(--fs-toggle-disabled-knob-bkg-color);
+          border-color: var(--fs-toggle-disabled-knob-border-color);
+        }
+
+        &:checked + [data-fs-toggle-knob] {
+          color: var(--fs-toggle-disabled-knob-icon-color);
+        }
+      }
+    }
+
+    [data-fs-toggle-knob] {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      border-radius: var(--fs-toggle-knob-radius);
+      box-shadow: var(--fs-toggle-knob-shadow);
+      transition: var(--fs-toggle-transition-property) var(--fs-toggle-transition-timing) var(--fs-toggle-transition-function);
+    }
+  }
+
+  [data-fs-label] {
+    margin-left: var(--fs-spacing-1);
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-toggle-variant="horizontal"] {
+    input:checked + [data-fs-toggle-knob] { left: calc(50% + var(--fs-toggle-border-width)); }
+
+    [data-fs-toggle-container] {
+      min-width: calc(var(--fs-toggle-height) * 1.75);
+      height: var(--fs-toggle-height);
+    }
+
+    [data-fs-toggle-knob] {
+      top: calc(var(--fs-toggle-border-width) * 4);
+      left: calc(var(--fs-toggle-border-width) * 4);
+      width: calc(50% - (var(--fs-toggle-border-width) * 5));
+      height: calc(100% - (var(--fs-toggle-border-width) * 8));
+    }
+  }
+
+  &[data-fs-toggle-variant="vertical"] {
+    input:checked + [data-fs-toggle-knob] { bottom: calc(50% + var(--fs-toggle-border-width)); }
+
+    [data-fs-toggle-container] {
+      min-width: var(--fs-toggle-height);
+      height: calc(var(--fs-toggle-height) * 1.75);
+    }
+
+    [data-fs-toggle-knob] {
+      bottom: calc(var(--fs-toggle-border-width) * 4);
+      left: calc(var(--fs-toggle-border-width) * 4);
+      width: calc(100% - (var(--fs-toggle-border-width) * 8));
+      height: calc(50% - (var(--fs-toggle-border-width) * 5));
+    }
+  }
+}

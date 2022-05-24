@@ -9,7 +9,7 @@
   --fs-product-card-gap                      : var(--fs-grid-gap-2);
   --fs-product-card-min-width                : 14rem;
 
-  --fs-product-card-shadow                   : none;
+  --fs-product-card-shadow                   : var(--fs-shadow);
   --fs-product-card-shadow-hover             : var(--fs-shadow-hover);
 
   --fs-product-card-bkg-color                : var(--fs-color-body-bkg);

@@ -267,7 +267,7 @@ body {
   --fs-border-width-thickest           : 3px;
 
   // SHADOW
-  --fs-shadow                          : 0 1px 4px rgb(0 0 0 / 10%), 0 6px 8px rgb(0 0 0 / 10%);
+  --fs-shadow                          : none;
   --fs-shadow-darker                   : 0 0 10px rgb(0 0 0 / 20%);
-  --fs-shadow-hover                    : var(--fs-shadow);
+  --fs-shadow-hover                    : 0 1px 4px rgb(0 0 0 / 10%), 0 6px 8px rgb(0 0 0 / 10%);
 }

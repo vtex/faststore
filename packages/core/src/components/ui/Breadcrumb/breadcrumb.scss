@@ -117,7 +117,7 @@
   overflow: hidden;
   background: var(--fs-color-tertiary-bkg);
   border-radius: var(--fs-border-radius);
-  box-shadow: var(--fs-shadow);
+  box-shadow: var(--fs-shadow-hover);
 
   [data-store-dropdown-menu-item] {
     display: flex;
