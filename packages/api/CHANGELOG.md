@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.33 (2022-05-24)
+
+
+### Features
+
+* useStorage update onFocus ([#1316](https://github.com/vtex/faststore/issues/1316)) ([c9874d4](https://github.com/vtex/faststore/commit/c9874d46a16a09159e6e1bd4da4e61ec25bd62d2))
+
+
+
+
+
 ## 1.8.32 (2022-05-23)
 
 **Note:** Version bump only for package @faststore/api
