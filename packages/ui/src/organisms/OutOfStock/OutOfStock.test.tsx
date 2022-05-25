@@ -99,7 +99,7 @@ describe('Accessibility', () => {
     expect(outOfStockMessage.tagName).toEqual('P')
   })
 
-  it('`outOfStockTitle` component should be an `paragraph`', () => {
+  it('`title` should be an `paragraph`', () => {
     render(<SimpleOutOfStock />)
     const outOfStockTitle = screen.getByTestId('store-out-of-stock-title')
 
