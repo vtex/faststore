@@ -1,0 +1,123 @@
+---
+hide_table_of_contents: true
+sidebar_position: 1
+---
+
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Product
+
+<div className="grid grid-cols-2 gap-20">
+
+<div>
+
+## `product`
+
+Returns the details of a product based on the specified locator.
+
+
+
+### Usage 
+
+#### Arguments
+
+<PropsComponent
+      name="locator"
+      type="IStoreSelectedFacet"
+      description="An array of selected search facets."
+      required="true"
+    />
+
+#### Response
+
+<PropsComponent
+      name="StoreProduct"
+      type="StoreProduct"
+      description="Product information."
+    />
+
+</div>
+<div>
+
+
+**Query**
+
+```graphql
+query Product($locator: [IStoreSelectedFacet!]!) {
+  product(locator: $locator) {
+    # StoreProduct fields    
+  }
+}
+```
+
+**Variables**
+
+```json
+{
+  "locator":  { 
+    "key": {id},
+    "value": {productID}
+  }
+}
+```
+</div>
+</div>
+
+---
+
+<div className="grid grid-cols-2 gap-20 pt-5">
+
+<div>
+
+## `allProducts`
+
+Returns information about all products.
+
+### Usage 
+
+#### Arguments
+
+<PropsComponent
+      name="first"
+      type="Int"
+      description="	Number of items that should return from the complete result list."
+      required="true"
+    />
+
+<PropsComponent
+      name="after"
+      type="String"
+      description="Product pagination argument, indicating the item after which the items should be fetched."
+    />    
+
+#### Response
+
+<PropsComponent
+      name="StoreProductConnection"
+      type="StoreProductConnection"
+      description="Product information."
+    />
+
+</div>
+<div>
+
+
+**Query**
+
+```graphql
+query($first: Int!){
+    allProducts(first: $first) {
+      # StoreProductConnection fields          
+    }
+}
+```
+
+**Variables**
+
+```json
+{
+  "first": {Int}
+}
+```
+</div>
+</div>

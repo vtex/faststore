@@ -118,17 +118,17 @@ type StoreSearchResult {
 
 type Query {
   """
-  Product query.
+  Returns the details of a product based on the specified locator.
   """
   product(
     """
-    Product query locator, which receives an array of selected search facets.
+    An array of selected search facets.
     """
     locator: [IStoreSelectedFacet!]!
   ): StoreProduct!
 
   """
-  Collection query.
+  Returns the details of a collection based on the collection slug.
   """
   collection(
     """
@@ -138,7 +138,7 @@ type Query {
   ): StoreCollection!
 
   """
-  Search query.
+  Returns the result of a product, facet, or suggestion search.
   """
   search(
     """
@@ -164,7 +164,7 @@ type Query {
   ): StoreSearchResult!
 
   """
-  All products query.
+  Returns information about all products.
   """
   allProducts(
     """
@@ -178,7 +178,7 @@ type Query {
   ): StoreProductConnection!
 
   """
-  All collections query.
+  Returns information about all collections.
   """
   allCollections(
     """
@@ -192,7 +192,7 @@ type Query {
   ): StoreCollectionConnection!
 
   """
-  Person query.
+  Returns a customer's data.
   """
   person: StorePerson
 }
