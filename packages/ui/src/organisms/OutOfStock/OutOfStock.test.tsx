@@ -85,7 +85,7 @@ describe('Accessibility', () => {
     expect(await axe(container)).toHaveNoIncompletes()
   })
 
-  it('`outOfStock` component should be an `section`', () => {
+  it('`outOfStock` component should be a `section`', () => {
     render(<SimpleOutOfStock />)
     const outOfStock = screen.getByTestId('store-out-of-stock')
 
