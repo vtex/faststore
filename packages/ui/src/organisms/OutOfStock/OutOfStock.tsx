@@ -29,7 +29,7 @@ export type OutOfStockProps = {
 
 function OutOfStock({
   testId = 'store-out-of-stock',
-  title = 'Out of Stock',
+  title,
   message,
   children,
   ...formProps
@@ -38,17 +38,14 @@ function OutOfStock({
     <section data-store-out-of-stock data-testid={testId} aria-live="polite">
       <Form
         data-store-out-of-stock-form
-        testId="store-out-of-stock-form"
+        testId={`${testId}-form`}
         {...formProps}
       >
-        <p data-store-out-of-stock-title data-testid="store-out-of-stock-title">
+        <p data-store-out-of-stock-title data-testid={`${testId}-title`}>
           {title}
         </p>
         {!!message && (
-          <p
-            data-store-out-of-stock-message
-            data-testid="store-out-of-stock-message"
-          >
+          <p data-store-out-of-stock-message data-testid={`${testId}-message`}>
             {message}
           </p>
         )}
