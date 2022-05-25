@@ -1,0 +1,35 @@
+import { Canvas, Props, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Newsletter from '../Newsletter'
+
+# Newsletter
+
+<Canvas>
+  <Story id="organisms-outofstock--out-of-stock" />
+</Canvas>
+
+The `Newsletter` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
+
+- `Newsletter`: the form wrapper of the out of stock component with title and message;
+
+## Props
+
+### `Newsletter`
+
+<ArgsTable of={ Newsletter } />
+
+## CSS Selectors
+
+```css
+[data-store-newsletter] {
+}
+
+[data-store-newsletter-form] {
+}
+
+[data-store-newsletter-title] {
+}
+
+[data-store-newsletter-message] {
+}
+```
