@@ -1,12 +1,12 @@
 import { gql } from '@vtex/graphql-utils'
 import type { CartItem as SDKCartItem, Cart as SDKCart } from '@faststore/sdk'
-import type { IStoreOffer } from '@faststore/api'
 
 import type {
   ValidateCartMutationMutation,
   ValidateCartMutationMutationVariables,
   CartItemFragment,
   CartMessageFragment,
+  IStoreOffer,
 } from '@generated/graphql'
 
 import { request } from '../graphql/request'
@@ -59,6 +59,12 @@ export const ValidateCartMutation = gql`
         name
       }
       gtin
+      additionalProperty {
+        propertyID
+        name
+        value
+        valueReference
+      }
     }
   }
 `
@@ -67,7 +73,17 @@ export const isGift = (item: CartItem) => item.price === 0
 
 export const getItemId = (
   item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>
-) => `${item.itemOffered.sku}:${item.seller.identifier}:${item.price}`
+) =>
+  [
+    item.itemOffered.sku,
+    item.seller.identifier,
+    item.price,
+    item.itemOffered.additionalProperty
+      ?.map(({ propertyID }) => propertyID)
+      .join('-'),
+  ]
+    .filter(Boolean)
+    .join('::')
 
 export const validateCart = async (cart: Cart): Promise<Cart | null> => {
   const { validateCart: validated = null } = await request<
@@ -93,6 +109,7 @@ export const validateCart = async (cart: Cart): Promise<Cart | null> => {
               sku: itemOffered.sku,
               image: itemOffered.image,
               name: itemOffered.name,
+              additionalProperty: itemOffered.additionalProperty,
             },
           })
         ),

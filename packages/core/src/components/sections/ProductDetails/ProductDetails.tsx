@@ -52,6 +52,7 @@ function ProductDetails({ product: staleProduct }: Props) {
         lowPrice,
       },
       breadcrumbList: breadcrumbs,
+      additionalProperty,
     },
   } = data
 
@@ -70,6 +71,7 @@ function ProductDetails({ product: staleProduct }: Props) {
       image: productImages,
       brand,
       isVariantOf,
+      additionalProperty,
     },
   })
 
@@ -280,6 +282,13 @@ export const fragment = gql`
         name
         position
       }
+    }
+
+    additionalProperty {
+      propertyID
+      name
+      value
+      valueReference
     }
   }
 `

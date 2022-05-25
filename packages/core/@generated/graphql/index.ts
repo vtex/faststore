@@ -16,9 +16,11 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
+  /** A string or the string representation of an object (a stringified object). */
+  ObjectOrString: any
 }
 
-/** Shopping cart identification input. */
+/** Shopping cart input. */
 export type IStoreCart = {
   /** Order information, including `orderNumber` and `acceptedOffer`. */
   order: IStoreOrder
@@ -50,7 +52,7 @@ export type IStoreOffer = {
 export type IStoreOrder = {
   /** Array with information on each accepted offer. */
   acceptedOffer: Array<IStoreOffer>
-  /** Order shopping cart ID, also known as `orderFormId`. */
+  /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String']
 }
 
@@ -60,14 +62,25 @@ export type IStoreOrganization = {
   identifier: Scalars['String']
 }
 
-/** Product input. */
+/** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type IStoreProduct = {
+  /** Custom Product Additional Properties. */
+  additionalProperty: InputMaybe<Array<IStorePropertyValue>>
   /** Array of product images. */
   image: Array<IStoreImage>
   /** Product name. */
   name: Scalars['String']
-  /** Stock Keeping Unit ID. */
+  /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String']
+}
+
+export type IStorePropertyValue = {
+  /** Property name. */
+  name: Scalars['String']
+  /** Property value. May hold a string or the string representation of an object. */
+  value: Scalars['ObjectOrString']
+  /** Specifies the nature of the value */
+  valueReference: Scalars['String']
 }
 
 /** Selected facet input. */
@@ -102,11 +115,17 @@ export type MutationValidateCartArgs = {
 }
 
 export type Query = {
+  /** All collections query. */
   allCollections: StoreCollectionConnection
+  /** All products query. */
   allProducts: StoreProductConnection
+  /** Collection query. */
   collection: StoreCollection
+  /** Person query. */
   person: Maybe<StorePerson>
+  /** Product query. */
   product: StoreProduct
+  /** Search query. */
   search: StoreSearchResult
 }
 
@@ -320,7 +339,7 @@ export type StoreOffer = {
 export type StoreOrder = {
   /** Array with information on each accepted offer. */
   acceptedOffer: Array<StoreOffer>
-  /** Order shopping cart ID, also known as `orderFormId`. */
+  /** ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#). */
   orderNumber: Scalars['String']
 }
 
@@ -356,7 +375,7 @@ export type StorePerson = {
   id: Scalars['String']
 }
 
-/** Product information. */
+/** Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type StoreProduct = {
   /** Array of additional properties. */
   additionalProperty: Array<StorePropertyValue>
@@ -378,13 +397,13 @@ export type StoreProduct = {
   name: Scalars['String']
   /** Aggregate offer information. */
   offers: StoreAggregateOffer
-  /** Product ID. */
+  /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']
   /** Array with review information. */
   review: Array<StoreReview>
   /** Meta tag data. */
   seo: StoreSeo
-  /** Stock Keeping Unit ID. */
+  /** Stock Keeping Unit. Merchant-specific ID for the product. */
   sku: Scalars['String']
   /** Corresponding collection URL slug, with which to retrieve this entity. */
   slug: Scalars['String']
@@ -406,11 +425,11 @@ export type StoreProductEdge = {
   node: StoreProduct
 }
 
-/** Product group information. */
+/** Product group information. Product groups are catalog entities that may contain variants. They are equivalent to VTEX [Products](https://help.vtex.com/en/tutorial/what-is-a-product--2zrB2gFCHyQokCKKE8kuAw#), whereas each variant is equivalent to a VTEX [SKU](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type StoreProductGroup = {
   /** Array of additional properties. */
   additionalProperty: Array<StorePropertyValue>
-  /** Array of variants related to product group. */
+  /** Array of variants related to product group. Variants are equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). */
   hasVariant: Array<StoreProduct>
   /** Product group name. */
   name: Scalars['String']
@@ -422,17 +441,27 @@ export type StoreProductGroup = {
 export type StorePropertyValue = {
   /** Property name. */
   name: Scalars['String']
-  /** Property value. */
-  value: Scalars['String']
+  /** Property id. This propert changes according to the content of the object. */
+  propertyID: Scalars['String']
+  /** Property value. May hold a string or the string representation of an object. */
+  value: Scalars['ObjectOrString']
+  /** Specifies the nature of the value */
+  valueReference: Scalars['String']
 }
 
+/** Information of a given review. */
 export type StoreReview = {
+  /** Review author. */
   author: StoreAuthor
+  /** Review rating information. */
   reviewRating: StoreReviewRating
 }
 
+/** Information of a given review rating. */
 export type StoreReviewRating = {
+  /** Best rating value. */
   bestRating: Scalars['Float']
+  /** Rating value. */
   ratingValue: Scalars['Float']
 }
 
@@ -446,10 +475,15 @@ export type StoreSearchResult = {
   suggestions: StoreSuggestions
 }
 
+/** Search Engine Optimization (SEO) tags data. */
 export type StoreSeo = {
+  /** Canonical tag. */
   canonical: Scalars['String']
+  /** Description tag. */
   description: Scalars['String']
+  /** Title tag. */
   title: Scalars['String']
+  /** Title template tag. */
   titleTemplate: Scalars['String']
 }
 
@@ -474,6 +508,7 @@ export type StoreSort =
   | 'release_desc'
   | 'score_desc'
 
+/** Status used to indicate type of message. For instance, in shopping cart messages. */
 export type StoreStatus = 'ERROR' | 'INFO' | 'WARNING'
 
 /** Suggestions information. */
@@ -578,6 +613,12 @@ export type ProductDetailsFragment_ProductFragment = {
   breadcrumbList: {
     itemListElement: Array<{ item: string; name: string; position: number }>
   }
+  additionalProperty: Array<{
+    propertyID: string
+    name: string
+    value: any
+    valueReference: string
+  }>
 }
 
 export type ProductGalleryQueryQueryVariables = Exact<{
@@ -652,6 +693,12 @@ export type ServerProductPageQueryQuery = {
       }>
     }
     isVariantOf: { productGroupID: string; name: string }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: string
+    }>
   }
 }
 
@@ -675,6 +722,12 @@ export type ValidateCartMutationMutation = {
           image: Array<{ url: string; alternateName: string }>
           brand: { name: string }
           isVariantOf: { productGroupID: string; name: string }
+          additionalProperty: Array<{
+            propertyID: string
+            name: string
+            value: any
+            valueReference: string
+          }>
         }
       }>
     }
@@ -696,6 +749,12 @@ export type CartItemFragment = {
     image: Array<{ url: string; alternateName: string }>
     brand: { name: string }
     isVariantOf: { productGroupID: string; name: string }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: string
+    }>
   }
 }
 
@@ -736,6 +795,12 @@ export type BrowserProductQueryQuery = {
     breadcrumbList: {
       itemListElement: Array<{ item: string; name: string; position: number }>
     }
+    additionalProperty: Array<{
+      propertyID: string
+      name: string
+      value: any
+      valueReference: string
+    }>
   }
 }
 
