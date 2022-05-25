@@ -12,7 +12,11 @@ import type {
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 import type { Context } from '..'
-import { VALUE_REFERENCES } from '../utils/propertyValue'
+import {
+  attachmentToPropertyValue,
+  getPropertyId,
+  VALUE_REFERENCES,
+} from '../utils/propertyValue'
 
 type Indexed<T> = T & { index?: number }
 
@@ -21,26 +25,12 @@ const getAttachments = (item: IStoreOffer) =>
     (i) => i.valueReference === VALUE_REFERENCES.attachment
   )
 
-const serializeAttachment = (item: IStoreOffer) => {
-  const attachments = getAttachments(item)
-
-  if (attachments?.length === 0) {
-    return null
-  }
-
-  return attachments
-    ?.map(
-      (attachment) => `${attachment.name}:${JSON.stringify(attachment.value)}`
-    )
-    .join('-')
-}
-
 const getId = (item: IStoreOffer) =>
   [
     item.itemOffered.sku,
     item.seller.identifier,
     item.price,
-    serializeAttachment(item),
+    item.itemOffered.additionalProperty?.map(getPropertyId).join('-'),
   ]
     .filter(Boolean)
     .join('::')
@@ -57,6 +47,7 @@ const orderFormItemToOffer = (
     sku: item.id,
     image: [],
     name: item.name,
+    additionalProperty: item.attachments.map(attachmentToPropertyValue),
   },
   index,
 })
@@ -68,7 +59,7 @@ const offerToOrderItemInput = (
   seller: offer.seller.identifier,
   id: offer.itemOffered.sku,
   index: offer.index,
-  attachments: getAttachments(offer)?.map((attachment) => ({
+  attachments: (getAttachments(offer) ?? []).map((attachment) => ({
     name: attachment.name,
     content: attachment.value,
   })),

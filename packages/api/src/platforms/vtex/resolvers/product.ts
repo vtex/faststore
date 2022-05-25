@@ -5,7 +5,10 @@ import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import type { Resolver } from '..'
 import type { PromiseType } from '../../../typings'
 import type { Query } from './query'
-import { VALUE_REFERENCES } from '../utils/propertyValue'
+import {
+  attachmentToPropertyValue,
+  VALUE_REFERENCES,
+} from '../utils/propertyValue'
 import type { Attachment } from '../clients/commerce/types/OrderForm'
 
 type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
@@ -91,23 +94,24 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       )
       .sort(bestOfferFirst),
   isVariantOf: (root) => root,
-  additionalProperty: ({ variations = [], attachmentsValues }) => {
-    const propertyValueVariations = variations.flatMap(({ name, values }) =>
-      values.map((value) => ({
-        name,
-        value,
-        valueReference: VALUE_REFERENCES.variation,
-      }))
+  additionalProperty: ({
+    // Search uses the name variations for specifications
+    variations: specifications = [],
+    attachmentsValues = [],
+  }) => {
+    const propertyValueSpecifications = specifications.flatMap(
+      ({ name, values }) =>
+        values.map((value) => ({
+          name,
+          value,
+          valueReference: VALUE_REFERENCES.specification,
+        }))
     )
 
-    const propertyValueAttachments = (attachmentsValues ?? []).map(
-      (attachment) => ({
-        name: attachment.name,
-        value: attachment.content,
-        valueReference: VALUE_REFERENCES.attachment,
-      })
+    const propertyValueAttachments = attachmentsValues.map(
+      attachmentToPropertyValue
     )
 
-    return [...propertyValueVariations, ...propertyValueAttachments]
+    return [...propertyValueSpecifications, ...propertyValueAttachments]
   },
 }

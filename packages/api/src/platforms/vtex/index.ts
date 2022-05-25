@@ -14,6 +14,7 @@ import { StoreReview } from './resolvers/review'
 import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
 import { ObjectOrString } from './resolvers/objectOrString'
+import { StorePropertyValue } from './resolvers/propertyValue'
 import type { Loaders } from './loaders'
 import type { Clients } from './clients'
 import type { Channel } from './utils/channel'
@@ -68,6 +69,7 @@ const Resolvers = {
   StoreReview,
   StoreProductGroup,
   StoreSearchResult,
+  StorePropertyValue,
   ObjectOrString,
   Query,
   Mutation,
