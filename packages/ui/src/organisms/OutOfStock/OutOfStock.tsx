@@ -3,75 +3,88 @@ import type { ReactNode, FormHTMLAttributes } from 'react'
 
 import Form from '../../molecules/Form'
 
-export type OutOfStockProps = {
+type OutOfStockBaseProps = {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress,
+   * testing-library, and jest).
+   */
+  testId?: string
+
+  /**
+   * Children for Out of Stock components.
+   */
+  children: string | ReactNode
+}
+
+export type OutOfStockProps = OutOfStockBaseProps & {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
    */
   testId?: string
   /**
-   * The Out of Stock Section's title.
-   */
-  title: string | ReactNode
-  /**
-   * Message describing when the user will be notified.
-   */
-  message?: string | ReactNode
-  /**
-   *
+   * Event emitted when form is submitted.
    */
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
-  /**
-   *
-   */
-  children: ReactNode
-} & Omit<FormHTMLAttributes<HTMLFormElement>, 'title'>
+} & FormHTMLAttributes<HTMLFormElement>
 
-function OutOfStock({
+export type OutOfStockTitleProps = {
+  /**
+   * Attribute used for polymorphic component.
+   */
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
+} & OutOfStockBaseProps
+
+export type OutOfStockMessageProps = {
+  /**
+   * Attribute used for polymorphic component.
+   */
+  as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'div' | 'span'
+} & OutOfStockBaseProps
+
+const OutOfStock = ({
   testId = 'store-out-of-stock',
-  title,
-  message,
   children,
   ...otherProps
-}: OutOfStockProps) {
+}: OutOfStockProps) => {
   return (
-    <section data-store-out-of-stock data-testid={testId} aria-live="polite">
+    <section data-store-out-of-stock data-testid={testId}>
       <Form
         data-store-out-of-stock-form
         testId={`${testId}-form`}
         {...otherProps}
       >
-        {typeof title === 'string' ? (
-          <p data-store-out-of-stock-title data-testid={`${testId}-title`}>
-            {title}
-          </p>
-        ) : (
-          <div data-store-out-of-stock-title data-testid={`${testId}-title`}>
-            {title}
-          </div>
-        )}
-
-        {!!message &&
-          (typeof title === 'string' ? (
-            <p
-              data-store-out-of-stock-message
-              data-testid={`${testId}-message`}
-            >
-              {message}
-            </p>
-          ) : (
-            <div
-              data-store-out-of-stock-message
-              data-testid={`${testId}-message`}
-            >
-              {message}
-            </div>
-          ))}
-
         {children}
       </Form>
     </section>
   )
 }
+
+const Title = ({
+  as: TitleComponent = 'h2',
+  testId = 'store-out-of-stock-title',
+  children,
+}: OutOfStockTitleProps) => {
+  return (
+    <TitleComponent data-store-out-of-stock-title data-testid={testId}>
+      {children}
+    </TitleComponent>
+  )
+}
+
+const Message = ({
+  as: MessageComponent = 'p',
+  testId = 'store-out-of-stock-message',
+  children,
+}: OutOfStockMessageProps) => {
+  return (
+    <MessageComponent data-store-out-of-stock-message data-testid={testId}>
+      {children}
+    </MessageComponent>
+  )
+}
+
+OutOfStock.Title = Title
+OutOfStock.Message = Message
 
 export default OutOfStock

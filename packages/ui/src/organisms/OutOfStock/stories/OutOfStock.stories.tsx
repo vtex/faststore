@@ -7,7 +7,16 @@ import type { OutOfStockProps } from '../OutOfStock'
 import Component from '../OutOfStock'
 import mdx from './OutOfStock.mdx'
 
-const OutOfStockTemplate: Story<OutOfStockProps> = ({ ...props }) => {
+type OutOfStockTemplateProps = {
+  title: string
+  message: string
+} & OutOfStockProps
+
+const OutOfStockTemplate: Story<OutOfStockTemplateProps> = ({
+  title,
+  message,
+  ...props
+}) => {
   const [value, setValue] = useState('')
 
   const handlerSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -19,6 +28,8 @@ const OutOfStockTemplate: Story<OutOfStockProps> = ({ ...props }) => {
 
   return (
     <Component onSubmit={handlerSubmitForm} {...props}>
+      <Component.Title>{title}</Component.Title>
+      <Component.Message>{message}</Component.Message>
       <Input value={value} onChange={(e) => setValue(e.target.value)} />
       <Button>Notify me</Button>
     </Component>

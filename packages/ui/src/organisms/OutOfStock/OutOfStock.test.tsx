@@ -9,20 +9,11 @@ import Label from '../../atoms/Label'
 import OutOfStock from './OutOfStock'
 
 const SimpleOutOfStock = () => (
-  <OutOfStock title="Out of Stock" message="Notify me when available">
-    <Label>
-      Email
-      <Input />
-    </Label>
-    <Button>Notify me</Button>
-  </OutOfStock>
-)
-
-const ComposingOutOfStock = () => (
-  <OutOfStock
-    title={<h1>Head Out Os Stock</h1>}
-    message={<span>Span Out of Stock</span>}
-  >
+  <OutOfStock>
+    <OutOfStock.Title>
+      Text <span>icon</span>
+    </OutOfStock.Title>
+    <OutOfStock.Message>Notify me when available</OutOfStock.Message>
     <Label>
       Email
       <Input />
@@ -50,7 +41,8 @@ describe('OutOfStock', () => {
     const onSubmitMock = jest.fn((e) => e.preventDefault())
 
     render(
-      <OutOfStock onSubmit={onSubmitMock} title="Out of Stock">
+      <OutOfStock onSubmit={onSubmitMock}>
+        <OutOfStock.Title>Out of Stock</OutOfStock.Title>
         <Input name="email" />
         <Button type="submit">Notify me</Button>
       </OutOfStock>
@@ -65,7 +57,8 @@ describe('OutOfStock', () => {
 
   it('Should not render message', () => {
     render(
-      <OutOfStock title="Out of Stock">
+      <OutOfStock>
+        <OutOfStock.Title>Out of Stock</OutOfStock.Title>
         <Input name="email" />
         <Button type="submit">Notify me</Button>
       </OutOfStock>
@@ -85,38 +78,44 @@ describe('Accessibility', () => {
     expect(await axe(container)).toHaveNoIncompletes()
   })
 
-  it('`outOfStock` component should be a `section`', () => {
+  it('Out of Stock component should be a `section`', () => {
     render(<SimpleOutOfStock />)
     const outOfStock = screen.getByTestId('store-out-of-stock')
 
     expect(outOfStock.tagName).toEqual('SECTION')
   })
 
-  it('`outOfStockMessage` component should be an `paragraph`', () => {
+  it('Out of Stock `title` component should be a `heading 2` as default', () => {
+    render(<SimpleOutOfStock />)
+    const outOfStockTitle = screen.getByTestId('store-out-of-stock-title')
+
+    expect(outOfStockTitle.tagName).toEqual('H2')
+  })
+
+  it('Out of Stock `message` should be a `paragraph` as default', () => {
     render(<SimpleOutOfStock />)
     const outOfStockMessage = screen.getByTestId('store-out-of-stock-message')
 
     expect(outOfStockMessage.tagName).toEqual('P')
   })
 
-  it('`title` should be an `paragraph`', () => {
-    render(<SimpleOutOfStock />)
-    const outOfStockTitle = screen.getByTestId('store-out-of-stock-title')
+  it('Out of Stock should render `title` as heading 1 and `message` as span', () => {
+    render(
+      <OutOfStock>
+        <OutOfStock.Title as="h1">Head Out Os Stock</OutOfStock.Title>
+        <OutOfStock.Message as="span">Head Out Os Stock</OutOfStock.Message>
+        <Label>
+          Email
+          <Input />
+        </Label>
+        <Button>Notify me</Button>
+      </OutOfStock>
+    )
 
-    expect(outOfStockTitle.tagName).toEqual('P')
-  })
-
-  it('`outOfStockMessage` component should be an `div`', () => {
-    render(<ComposingOutOfStock />)
     const outOfStockMessage = screen.getByTestId('store-out-of-stock-message')
-
-    expect(outOfStockMessage.tagName).toEqual('DIV')
-  })
-
-  it('`outOfStockTitle` component should be an `div`', () => {
-    render(<ComposingOutOfStock />)
     const outOfStockTitle = screen.getByTestId('store-out-of-stock-title')
 
-    expect(outOfStockTitle.tagName).toEqual('DIV')
+    expect(outOfStockTitle.tagName).toEqual('H1')
+    expect(outOfStockMessage.tagName).toEqual('SPAN')
   })
 })
