@@ -32,14 +32,14 @@ function OutOfStock({
   title,
   message,
   children,
-  ...formProps
+  ...otherProps
 }: OutOfStockProps) {
   return (
     <section data-store-out-of-stock data-testid={testId} aria-live="polite">
       <Form
         data-store-out-of-stock-form
         testId={`${testId}-form`}
-        {...formProps}
+        {...otherProps}
       >
         {typeof title === 'string' ? (
           <p data-store-out-of-stock-title data-testid={`${testId}-title`}>
