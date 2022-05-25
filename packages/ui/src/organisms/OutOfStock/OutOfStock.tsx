@@ -25,7 +25,7 @@ export type OutOfStockProps = {
    *
    */
   children: ReactNode
-} & FormHTMLAttributes<HTMLFormElement>
+} & Omit<FormHTMLAttributes<HTMLFormElement>, 'title'>
 
 function OutOfStock({
   testId = 'store-out-of-stock',
@@ -41,14 +41,33 @@ function OutOfStock({
         testId={`${testId}-form`}
         {...formProps}
       >
-        <p data-store-out-of-stock-title data-testid={`${testId}-title`}>
-          {title}
-        </p>
-        {!!message && (
-          <p data-store-out-of-stock-message data-testid={`${testId}-message`}>
-            {message}
+        {typeof title === 'string' ? (
+          <p data-store-out-of-stock-title data-testid={`${testId}-title`}>
+            {title}
           </p>
+        ) : (
+          <div data-store-out-of-stock-title data-testid={`${testId}-title`}>
+            {title}
+          </div>
         )}
+
+        {!!message &&
+          (typeof title === 'string' ? (
+            <p
+              data-store-out-of-stock-message
+              data-testid={`${testId}-message`}
+            >
+              {message}
+            </p>
+          ) : (
+            <div
+              data-store-out-of-stock-message
+              data-testid={`${testId}-message`}
+            >
+              {message}
+            </div>
+          ))}
+
         {children}
       </Form>
     </section>

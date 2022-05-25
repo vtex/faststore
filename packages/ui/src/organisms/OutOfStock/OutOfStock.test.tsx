@@ -18,6 +18,19 @@ const SimpleOutOfStock = () => (
   </OutOfStock>
 )
 
+const ComposingOutOfStock = () => (
+  <OutOfStock
+    title={<h1>Head Out Os Stock</h1>}
+    message={<span>Span Out of Stock</span>}
+  >
+    <Label>
+      Email
+      <Input />
+    </Label>
+    <Button>Notify me</Button>
+  </OutOfStock>
+)
+
 describe('OutOfStock', () => {
   it('`Out Of Stock` components should have corrects attributes', () => {
     render(<SimpleOutOfStock />)
@@ -91,5 +104,19 @@ describe('Accessibility', () => {
     const outOfStockTitle = screen.getByTestId('store-out-of-stock-title')
 
     expect(outOfStockTitle.tagName).toEqual('P')
+  })
+
+  it('`outOfStockMessage` component should be an `div`', () => {
+    render(<ComposingOutOfStock />)
+    const outOfStockMessage = screen.getByTestId('store-out-of-stock-message')
+
+    expect(outOfStockMessage.tagName).toEqual('DIV')
+  })
+
+  it('`outOfStockTitle` component should be an `div`', () => {
+    render(<ComposingOutOfStock />)
+    const outOfStockTitle = screen.getByTestId('store-out-of-stock-title')
+
+    expect(outOfStockTitle.tagName).toEqual('DIV')
   })
 })
