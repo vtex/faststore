@@ -1,0 +1,45 @@
+[data-store-newsletter] [data-store-newsletter-form] {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(30, 64, 175, 1);
+  color: white;
+}
+
+[data-store-newsletter-title] {
+  margin-bottom: .25rem;
+}
+
+[data-store-newsletter-message] {
+  display: flex;
+  -moz-column-gap: .25rem;
+  column-gap: .25rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+[data-store-newsletter-message] h1 b {
+  font-weight: bold;
+}
+
+[data-store-newsletter-message] h1 a {
+  text-decoration: underline;
+}
+
+[data-store-newsletter-form] [data-store-label] {
+  align-self: flex-start;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+[data-store-newsletter-form] [data-store-input] {
+  width: 100%;
+  max-width: initial;
+}
+
+[data-store-newsletter-form] [data-store-button] {
+  width: 100%;
+  margin-top: 1rem;
+  color: rgba(30, 64, 175, 1);
+  background-color: white;
+}

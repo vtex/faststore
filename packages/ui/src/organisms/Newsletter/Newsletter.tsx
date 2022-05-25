@@ -25,7 +25,7 @@ export type NewsletterProps = {
    *
    */
   children: ReactNode
-} & FormHTMLAttributes<HTMLFormElement>
+} & Omit<FormHTMLAttributes<HTMLFormElement>, 'title'>
 
 function Newsletter({
   testId = 'store-newsletter',
@@ -37,14 +37,29 @@ function Newsletter({
   return (
     <section data-store-newsletter data-testid={testId} aria-live="polite">
       <Form data-store-newsletter-form testId={`${testId}-form`} {...formProps}>
-        <p data-store-newsletter-title data-testid={`${testId}-title`}>
-          {title}
-        </p>
-        {!!message && (
-          <p data-store-newsletter-message data-testid={`${testId}-message`}>
-            {message}
+        {typeof title === 'string' ? (
+          <p data-store-newsletter-title data-testid={`${testId}-title`}>
+            {title}
           </p>
+        ) : (
+          <div data-store-newsletter-title data-testid={`${testId}-title`}>
+            {title}
+          </div>
         )}
+
+        {!!message &&
+          (typeof title === 'string' ? (
+            <p data-store-newsletter-message data-testid={`${testId}-message`}>
+              {message}
+            </p>
+          ) : (
+            <div
+              data-store-newsletter-message
+              data-testid={`${testId}-message`}
+            >
+              {message}
+            </div>
+          ))}
         {children}
       </Form>
     </section>

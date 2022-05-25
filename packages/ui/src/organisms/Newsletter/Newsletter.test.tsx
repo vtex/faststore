@@ -9,7 +9,20 @@ import Label from '../../atoms/Label'
 import Newsletter from './Newsletter'
 
 const SimpleNewsletter = () => (
-  <Newsletter title="Out of Stock" message="Notify me when available">
+  <Newsletter title="Newsletter" message="Notify me when available">
+    <Label>
+      Email
+      <Input />
+    </Label>
+    <Button>Notify me</Button>
+  </Newsletter>
+)
+
+const ComposingNewsletter = () => (
+  <Newsletter
+    title={<h1>Head Newsletter</h1>}
+    message={<span>Span Newsletter</span>}
+  >
     <Label>
       Email
       <Input />
@@ -19,40 +32,40 @@ const SimpleNewsletter = () => (
 )
 
 describe('Newsletter', () => {
-  it('`Out Of Stock` components should have corrects attributes', () => {
+  it('`Newsletter` components should have corrects attributes', () => {
     render(<SimpleNewsletter />)
 
-    const outOfStock = screen.getByTestId('store-newsletter')
-    const outOfStockTitle = screen.getByTestId('store-newsletter-title')
-    const outOfStockMessage = screen.getByTestId('store-newsletter-message')
-    const outOfStockForm = screen.getByTestId('store-newsletter-form')
+    const newsletter = screen.getByTestId('store-newsletter')
+    const newsletterTitle = screen.getByTestId('store-newsletter-title')
+    const newsletterMessage = screen.getByTestId('store-newsletter-message')
+    const newsletterForm = screen.getByTestId('store-newsletter-form')
 
-    expect(outOfStock).toHaveAttribute('data-store-newsletter')
-    expect(outOfStockForm).toHaveAttribute('data-store-newsletter-form')
-    expect(outOfStockTitle).toHaveAttribute('data-store-newsletter-title')
-    expect(outOfStockMessage).toHaveAttribute('data-store-newsletter-message')
+    expect(newsletter).toHaveAttribute('data-store-newsletter')
+    expect(newsletterForm).toHaveAttribute('data-store-newsletter-form')
+    expect(newsletterTitle).toHaveAttribute('data-store-newsletter-title')
+    expect(newsletterMessage).toHaveAttribute('data-store-newsletter-message')
   })
 
   it('Should emit event', () => {
     const onSubmitMock = jest.fn((e) => e.preventDefault())
 
     render(
-      <Newsletter onSubmit={onSubmitMock} title="Out of Stock">
+      <Newsletter onSubmit={onSubmitMock} title="Newsletter">
         <Input name="email" />
         <Button type="submit">Notify me</Button>
       </Newsletter>
     )
 
-    const outOfStockEventButton = screen.getByTestId('store-button')
+    const newsletterEventButton = screen.getByTestId('store-button')
 
-    userEvent.click(outOfStockEventButton)
+    userEvent.click(newsletterEventButton)
 
     expect(onSubmitMock).toHaveBeenCalledTimes(1)
   })
 
   it('Should not render message', () => {
     render(
-      <Newsletter title="Out of Stock">
+      <Newsletter title="Newsletter">
         <Input name="email" />
         <Button type="submit">Notify me</Button>
       </Newsletter>
@@ -72,24 +85,38 @@ describe('Accessibility', () => {
     expect(await axe(container)).toHaveNoIncompletes()
   })
 
-  it('`outOfStock` component should be an `section`', () => {
+  it('`newsletter` component should be an `section`', () => {
     render(<SimpleNewsletter />)
-    const outOfStock = screen.getByTestId('store-newsletter')
+    const newsletter = screen.getByTestId('store-newsletter')
 
-    expect(outOfStock.tagName).toEqual('SECTION')
+    expect(newsletter.tagName).toEqual('SECTION')
   })
 
-  it('`outOfStockMessage` component should be an `paragraph`', () => {
+  it('`newsletterMessage` component should be an `paragraph`', () => {
     render(<SimpleNewsletter />)
-    const outOfStockMessage = screen.getByTestId('store-newsletter-message')
+    const newsletterMessage = screen.getByTestId('store-newsletter-message')
 
-    expect(outOfStockMessage.tagName).toEqual('P')
+    expect(newsletterMessage.tagName).toEqual('P')
   })
 
-  it('`outOfStockTitle` component should be an `paragraph`', () => {
+  it('`newsletterTitle` component should be an `paragraph`', () => {
     render(<SimpleNewsletter />)
-    const outOfStockTitle = screen.getByTestId('store-newsletter-title')
+    const newsletterTitle = screen.getByTestId('store-newsletter-title')
 
-    expect(outOfStockTitle.tagName).toEqual('P')
+    expect(newsletterTitle.tagName).toEqual('P')
+  })
+
+  it('`newsletterMessage` component should be an `div`', () => {
+    render(<ComposingNewsletter />)
+    const newsletterMessage = screen.getByTestId('store-newsletter-message')
+
+    expect(newsletterMessage.tagName).toEqual('DIV')
+  })
+
+  it('`newsletterTitle` component should be an `div`', () => {
+    render(<ComposingNewsletter />)
+    const newsletterTitle = screen.getByTestId('store-newsletter-title')
+
+    expect(newsletterTitle.tagName).toEqual('DIV')
   })
 })

@@ -150,17 +150,14 @@ export type {
 } from './molecules/Dropdown'
 
 // Organisms
+export { default as Newsletter } from './organisms/Newsletter'
+export type { NewsletterProps } from './organisms/Newsletter'
+
 export {
   default as Card,
   CardImage,
   CardContent,
   CardActions,
-} from './organisms/Card'
-export type {
-  CardProps,
-  CardImageProps,
-  CardContentProps,
-  CardActionsProps,
 } from './organisms/Card'
 
 // Hooks
