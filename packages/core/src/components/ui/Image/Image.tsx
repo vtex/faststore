@@ -12,7 +12,7 @@ declare module 'react' {
   }
 
   interface LinkHTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    imagesizes?: string
+    imageSizes?: string
     fetchpriority?: string
   }
 }
@@ -37,7 +37,7 @@ const Image = forwardRef<HTMLImageElement, Props>(
               rel="preload"
               href={src}
               imageSrcSet={srcSet}
-              imagesizes={sizes}
+              imageSizes={sizes}
               fetchpriority={fetchPriority}
             />
           </Head>
