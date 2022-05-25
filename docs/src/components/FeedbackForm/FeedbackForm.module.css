@@ -1,37 +1,25 @@
 .submitMessage{
-  @apply mt-5 mb-10 text-secondary;
-}
-
-.feedbackForm {
-  @apply mb-5 text-text;
-}
-
-.feedbackForm p {
-  @apply text-lg;
+  @apply mt-5 mb-10 text-seriousBlack text-sm;
 }
 
 .submit {
-  @apply font-bold float-right py-1 px-3 mx-1 rounded-lg;
-}
-
-.submit:hover {
-  @apply bg-code;
+  @apply hover:text-rebelPink leading-6 mr-2 mt-2 px-3 rounded  uppercase font-VTEXMedium text-xs 
 }
 
 .formRadio label {
-  color: var(--ifm-font-color-secondary)
+  @apply text-text text-sm
 }
 
 .formText {
-  @apply w-full p-4 rounded-md shadow-lg my-4;
+  @apply w-full p-4 rounded-md shadow-md my-2 text-xs;
 }
 
 .formRadio {
-  @apply  my-5 text-secondary text-left;
+  @apply  mt-5 text-seriousBlack text-left;
 }
 
 .formRadio label + label {
-  @apply cursor-pointer relative;
+  @apply cursor-pointer relative pl-1;
 }
 
 .formRadio input[type='radio'] {
@@ -39,19 +27,9 @@
 }
 
 .formRadio input[type='radio'] + span {
-  @apply text-gray-400 p-2 rounded-full;
-  transition: all 0.4s;
-  -webkit-transition: all 0.4s;
+  @apply text-gray-300 p-1 rounded-full;
 }
 
-.yes input[type='radio']:checked + span {
-  @apply text-blue-600;
-}
-
-.no input[type='radio']:checked + span {
-  @apply text-red-600;
-}
-
-.formRadio input[type='radio']:hover + span {
-  @apply opacity-60;
+.formRadio input[type='radio']:checked + span {
+  @apply text-rebelPink;
 }

@@ -3,6 +3,457 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.33 (2022-05-24)
+
+
+### Features
+
+* useStorage update onFocus ([#1316](https://github.com/vtex/faststore/issues/1316)) ([c9874d4](https://github.com/vtex/faststore/commit/c9874d46a16a09159e6e1bd4da4e61ec25bd62d2))
+
+
+
+
+
+## 1.8.32 (2022-05-23)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.31 (2022-05-20)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.30 (2022-05-20)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.29 (2022-05-19)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.28 (2022-05-19)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.27 (2022-05-19)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.26 (2022-05-18)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.25 (2022-05-18)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.24 (2022-05-18)
+
+
+### Bug Fixes
+
+* Breadcrumb broken links ([#1306](https://github.com/vtex/faststore/issues/1306)) ([e1d74d4](https://github.com/vtex/faststore/commit/e1d74d49dc3f7cf90caa80e480a01346934c0d43))
+
+
+
+
+
+## 1.8.23 (2022-05-17)
+
+
+### Features
+
+* Sync Cart with Checkout ([#1299](https://github.com/vtex/faststore/issues/1299)) ([62e8f56](https://github.com/vtex/faststore/commit/62e8f56b31c6bb6cf7260749a90ebef8aba9982b))
+
+
+
+
+
+## 1.8.22 (2022-05-17)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.21 (2022-05-16)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.20 (2022-05-16)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.19 (2022-05-14)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.18 (2022-05-14)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.17 (2022-05-13)
+
+
+### Features
+
+* **UI:** Add `ProductCard` component ([#1272](https://github.com/vtex/faststore/issues/1272)) ([ea62210](https://github.com/vtex/faststore/commit/ea6221080da8b3538551f7a77df61a14d8de297d))
+
+
+
+
+
+## 1.8.16 (2022-05-13)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.15 (2022-05-13)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.14 (2022-05-13)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.13 (2022-05-13)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.12 (2022-05-12)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.11 (2022-05-12)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.10 (2022-05-12)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.9 (2022-05-12)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.8 (2022-05-11)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.7 (2022-05-11)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.6 (2022-05-10)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.5 (2022-05-10)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.4 (2022-05-10)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.2 (2022-05-09)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.8.1 (2022-05-09)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.55 (2022-05-06)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.54 (2022-05-06)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.53 (2022-05-06)
+
+
+### Bug Fixes
+
+* suggestions api url ([#1273](https://github.com/vtex/faststore/issues/1273)) ([6f8a961](https://github.com/vtex/faststore/commit/6f8a9613e4627f91815e669a007ec4ff4c54ffe5))
+
+
+
+
+
+## 1.7.52 (2022-05-06)
+
+
+### Bug Fixes
+
+* Release workflow ([#1271](https://github.com/vtex/faststore/issues/1271)) ([3b995a8](https://github.com/vtex/faststore/commit/3b995a82c956c13c4d6f9453ac4f44195c5ef543))
+
+
+
+
+
+## 1.7.51 (2022-05-03)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.50 (2022-05-03)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.49 (2022-05-02)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.48 (2022-04-29)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.47 (2022-04-29)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.46 (2022-04-29)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.45 (2022-04-29)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.44 (2022-04-28)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.43 (2022-04-28)
+
+
+### Bug Fixes
+
+* api schema ([#1254](https://github.com/vtex/faststore/issues/1254)) ([c901b3d](https://github.com/vtex/faststore/commit/c901b3db8e002558e14101339c817ca87db8f949))
+
+
+
+
+
+## 1.7.42 (2022-04-28)
+
+
+### Features
+
+* search suggestions ([#1198](https://github.com/vtex/faststore/issues/1198)) ([2b19413](https://github.com/vtex/faststore/commit/2b19413dd11249e4d967ac1c4c1aabdc3a8ec1bf))
+
+
+
+
+
+## 1.7.41 (2022-04-27)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.40 (2022-04-27)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.39 (2022-04-27)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.38 (2022-04-27)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.37 (2022-04-27)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
+## 1.7.36 (2022-04-27)
+
+
+### Bug Fixes
+
+* **api:** Remove circular dependencies ([#1243](https://github.com/vtex/faststore/issues/1243)) ([e988621](https://github.com/vtex/faststore/commit/e988621c77b946e397ecc33b82be65b04fa119ec))
+
+
+
+
+
+## 1.7.35 (2022-04-26)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
 ## 1.7.34 (2022-04-25)
 
 **Note:** Version bump only for package @vtex/theme-b2c-tailwind

@@ -19,6 +19,7 @@ theme: {
       rebelPink: infima('--ifm-color-rebel-pink'),
       seriousBlack: infima('--ifm-color-serious-black'),
       secondary: infima('--ifm-color-secondary'),     
+      fontSecondary: infima('--ifm-font-color-secondary'),     
       primary: infima('--ifm-color-primary'),
       softPink: infima('--ifm-color-soft-pink'),     
       text: infima('--ifm-font-color-base'),     

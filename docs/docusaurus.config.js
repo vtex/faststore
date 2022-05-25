@@ -4,7 +4,6 @@ module.exports = {
   tagline: 'Documentation Portal',
   url: 'https://faststore.dev',
   baseUrl: '/',
-  trailingSlash: false,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -19,6 +18,9 @@ module.exports = {
     updatesData: require("./static/data/doc-update"),
     starters: require("./static/data/starters"),
   },
+  scripts:[
+    "/scripts/openReplay.js"
+  ],
   themeConfig: {
     image: "img/faststore_thumbnail.png",
     zoom: {
@@ -37,11 +39,11 @@ module.exports = {
       respectPrefersColorScheme: false
     },
     announcementBar: {
-      id: 'support_us',
+      id: 'csat',
       content:
-        `📢 <span style="color:var(--ifm-color-rebel-pink); background-color:var(--ifm-tag-highlight); padding:0.5em; margin:0.3em; border-radius:5px; font-weight: bold" >NEW WEBINAR</span> VTEX and Google on how to build blazing-fast storefronts. <a style="color:var(--ifm-link-color)" href="https://www.youtube.com/watch?v=CwBMVOwjghc">Join us on April 27th!</a>`,
+        `📢  We’d love to hear about your experience with our Documentation Portal.`,
       textColor: "var(--ifm-color-details)",
-      backgroundColor: "var(--ifm-background-color)",
+      backgroundColor: "var(--ifm-tag-highlight)",
       isCloseable: false,
     },
     navbar: {
@@ -52,8 +54,8 @@ module.exports = {
       },
       items: [
         {
-          href: '/quickstart',
-          label: 'Quickstart',
+          href: '/docs',
+          label: 'Docs',
           position: 'left',
         },
         {
@@ -61,24 +63,6 @@ module.exports = {
           docId: 'tutorials',
           position: 'left',
           label: 'Tutorials',
-        },
-        {
-          type: 'doc',
-          docId: 'how-to-guides',
-          position: 'left',
-          label: 'How-to Guides',
-        },
-        {
-          type: 'doc',
-          docId: 'reference',
-          position: 'left',
-          label: 'References',
-        },
-        {
-          type: 'doc',
-          docId: 'conceptual-guides',
-          position: 'left',
-          label: 'Concepts',
         },
         {
           href: "/faq",
@@ -136,10 +120,6 @@ module.exports = {
               to: 'quickstart',
             },
             {
-              label: 'Tutorials',
-              to: '/tutorials',
-            },
-            {
               label: 'How-to guides',
               to: '/how-to-guides',
             },
@@ -151,6 +131,10 @@ module.exports = {
               label: 'Concepts',
               to: '/conceptual-guides',
             },
+            {
+              label: 'Tutorials',
+              to: '/tutorials',
+            }
           ],
         },
         {
@@ -192,7 +176,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         gtag: {
-          trackingID: 'GTM-PKST2NM',
+          trackingID: 'G-MWFMZBZPHF',
           anonymizeIP: true,
         },
         googleAnalytics: {
@@ -207,12 +191,12 @@ module.exports = {
           routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
-            'https://github.com/vtex/faststore/edit/master/docs',
+            'https://github.com/vtex/faststore/edit/main/docs',
         },
         blog: {
           routeBasePath: 'releases',
           showReadingTime: true,
-          blogSidebarTitle: 'Updates',
+          blogSidebarTitle: 'All releases',
           blogSidebarCount: 'ALL',
           blogTitle: 'Release Notes'
         },
@@ -256,3 +240,4 @@ module.exports = {
     ]
   ],
 };
+

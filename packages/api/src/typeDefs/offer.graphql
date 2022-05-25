@@ -1,21 +1,71 @@
+"""
+Offer information.
+"""
 type StoreOffer {
+  """
+  This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf.
+  """
   listPrice: Float!
+  """
+  Computed price before applying coupons, taxes or benefits. This may change before it reaches the shelf.
+  """
   sellingPrice: Float!
+  """
+  ISO code of the currency used for the offer prices.
+  """
   priceCurrency: String!
-  # Also known as spotPrice
+  """
+  Also known as spot price.
+  """
   price: Float!
+  """
+  Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time.
+  """
   priceValidUntil: String!
+  """
+  Offer item condition.
+  """
   itemCondition: String!
+  """
+  Offer item availability.
+  """
   availability: String!
+  """
+  Seller responsible for the offer.
+  """
   seller: StoreOrganization!
+  """
+  Information on the item being offered.
+  """
   itemOffered: StoreProduct!
+  """
+  Number of items offered.
+  """
   quantity: Int!
 }
 
+"""
+Offer input.
+"""
 input IStoreOffer {
+  """
+  Also known as spot price.
+  """
   price: Float!
+  """
+  This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf.
+  """
   listPrice: Float!
+  """
+  Seller responsible for the offer.
+  """
   seller: IStoreOrganization!
+  """
+  Information on the item being offered.
+  """
   itemOffered: IStoreProduct!
+  """
+  Number of items offered.
+  """
   quantity: Int!
 }

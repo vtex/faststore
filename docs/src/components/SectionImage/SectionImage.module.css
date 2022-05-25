@@ -22,7 +22,7 @@
 }
 
 .section img {
-  @apply w-1/3;
+  @apply w-2/5;
 }
 
 @media screen and (max-width: 1220px) {

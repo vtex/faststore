@@ -1,26 +1,87 @@
+"""
+Product information. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on.
+"""
 type StoreProduct {
-  # Meta tag data
+  """
+  Meta tag data.
+  """
   seo: StoreSeo!
-  # Location for structured data
+  """
+  List of items consisting of chain linked web pages, ending with the current page.
+  """
   breadcrumbList: StoreBreadcrumbList!
-  # Where to retrieve this entity
+  """
+  Corresponding collection URL slug, with which to retrieve this entity.
+  """
   slug: String!
+  """
+  Product name.
+  """
   name: String!
+  """
+  Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs.
+  """
   productID: String!
+  """
+  Product brand.
+  """
   brand: StoreBrand!
+  """
+  Product description.
+  """
   description: String!
+  """
+  Array of images.
+  """
   image: [StoreImage!]!
+  """
+  Aggregate offer information.
+  """
   offers: StoreAggregateOffer!
+  """
+  Stock Keeping Unit. Merchant-specific ID for the product.
+  """
   sku: String!
+  """
+  Global Trade Item Number.
+  """
   gtin: String!
+  """
+  Array with review information.
+  """
   review: [StoreReview!]!
+  """
+  Aggregate ratings data.
+  """
   aggregateRating: StoreAggregateRating!
+  """
+  Indicates product group related to this product.
+  """
   isVariantOf: StoreProductGroup!
+  """
+  Array of additional properties.
+  """
   additionalProperty: [StorePropertyValue!]!
 }
 
+"""
+Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on.
+"""
 input IStoreProduct {
+  """
+  Stock Keeping Unit. Merchant-specific ID for the product.
+  """
   sku: String!
+  """
+  Product name.
+  """
   name: String!
+  """
+  Array of product images.
+  """
   image: [IStoreImage!]!
+  """
+  Custom Product Additional Properties.
+  """
+  additionalProperty: [IStorePropertyValue!]
 }

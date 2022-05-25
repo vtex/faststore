@@ -103,6 +103,26 @@ export const VtexCommerce = (
           }
         )
       },
+      setCustomData: ({
+        id,
+        appId,
+        key,
+        value,
+      }: {
+        id: string
+        appId: string
+        key: string
+        value: string
+      }): Promise<OrderForm> => {
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
+          {
+            ...BASE_INIT,
+            body: JSON.stringify({ value }),
+            method: 'PUT',
+          }
+        )
+      },
       region: async ({
         postalCode,
         country,

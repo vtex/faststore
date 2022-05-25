@@ -1,9 +1,27 @@
+"""
+Image.
+"""
 type StoreImage {
+  """
+  Image URL.
+  """
   url: String!
+  """
+  Alias for the image.
+  """
   alternateName: String!
 }
 
+"""
+Image input.
+"""
 input IStoreImage {
+  """
+  Image input URL.
+  """
   url: String!
+  """
+  Alias for the input image.
+  """
   alternateName: String!
 }

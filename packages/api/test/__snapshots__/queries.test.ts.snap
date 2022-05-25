@@ -762,9 +762,9 @@ Object {
               },
               "name": "green",
               "offers": Object {
-                "highPrice": 264.63,
+                "highPrice": 129.09,
                 "lowPrice": 129.09,
-                "offerCount": 2,
+                "offerCount": 1,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -784,25 +784,6 @@ Object {
                       "identifier": "1",
                     },
                     "sellingPrice": 129.09,
-                  },
-                  Object {
-                    "availability": "https://schema.org/InStock",
-                    "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
-                        "canonical": "",
-                        "description": "Consequatur placeat optio adipisci aut voluptate excepturi.",
-                        "title": "Licensed Cotton Hat Licensed",
-                        "titleTemplate": "",
-                      },
-                    },
-                    "listPrice": 325.77,
-                    "price": 264.63,
-                    "quantity": 10000,
-                    "seller": Object {
-                      "identifier": "1",
-                    },
-                    "sellingPrice": 264.63,
                   },
                 ],
                 "priceCurrency": "",
@@ -853,9 +834,9 @@ Object {
               },
               "name": "red",
               "offers": Object {
-                "highPrice": 770,
+                "highPrice": 362.36,
                 "lowPrice": 362.36,
-                "offerCount": 2,
+                "offerCount": 1,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -875,25 +856,6 @@ Object {
                       "identifier": "1",
                     },
                     "sellingPrice": 362.36,
-                  },
-                  Object {
-                    "availability": "https://schema.org/InStock",
-                    "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
-                        "canonical": "",
-                        "description": "Ipsa in sequi incidunt dolores.",
-                        "title": "Handmade Granite Computer Unbranded",
-                        "titleTemplate": "",
-                      },
-                    },
-                    "listPrice": 881.98,
-                    "price": 770,
-                    "quantity": 10000,
-                    "seller": Object {
-                      "identifier": "1",
-                    },
-                    "sellingPrice": 770,
                   },
                 ],
                 "priceCurrency": "",
@@ -958,9 +920,9 @@ Object {
               },
               "name": "olive",
               "offers": Object {
-                "highPrice": 642.91,
+                "highPrice": 247.01,
                 "lowPrice": 247.01,
-                "offerCount": 3,
+                "offerCount": 1,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -980,44 +942,6 @@ Object {
                       "identifier": "1",
                     },
                     "sellingPrice": 247.01,
-                  },
-                  Object {
-                    "availability": "https://schema.org/InStock",
-                    "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
-                        "canonical": "",
-                        "description": "Dolor harum perferendis voluptatem tempora voluptatum ut et sapiente iure.",
-                        "title": "Small Cotton Cheese",
-                        "titleTemplate": "",
-                      },
-                    },
-                    "listPrice": 504.39,
-                    "price": 333.67,
-                    "quantity": 10000,
-                    "seller": Object {
-                      "identifier": "1",
-                    },
-                    "sellingPrice": 333.67,
-                  },
-                  Object {
-                    "availability": "https://schema.org/InStock",
-                    "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
-                        "canonical": "",
-                        "description": "Dolor harum perferendis voluptatem tempora voluptatum ut et sapiente iure.",
-                        "title": "Small Cotton Cheese",
-                        "titleTemplate": "",
-                      },
-                    },
-                    "listPrice": 955.48,
-                    "price": 642.91,
-                    "quantity": 10000,
-                    "seller": Object {
-                      "identifier": "1",
-                    },
-                    "sellingPrice": 642.91,
                   },
                 ],
                 "priceCurrency": "",
@@ -1068,9 +992,9 @@ Object {
               },
               "name": "fuchsia",
               "offers": Object {
-                "highPrice": 582.1,
+                "highPrice": 1.37,
                 "lowPrice": 1.37,
-                "offerCount": 2,
+                "offerCount": 1,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -1090,25 +1014,6 @@ Object {
                       "identifier": "1",
                     },
                     "sellingPrice": 1.37,
-                  },
-                  Object {
-                    "availability": "https://schema.org/InStock",
-                    "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
-                        "canonical": "",
-                        "description": "Recusandae dolores alias.",
-                        "title": "Tasty Frozen Tuna Handmade",
-                        "titleTemplate": "",
-                      },
-                    },
-                    "listPrice": 638.97,
-                    "price": 582.1,
-                    "quantity": 10000,
-                    "seller": Object {
-                      "identifier": "1",
-                    },
-                    "sellingPrice": 582.1,
                   },
                 ],
                 "priceCurrency": "",
@@ -1163,9 +1068,9 @@ Object {
               },
               "name": "olive",
               "offers": Object {
-                "highPrice": 517.54,
+                "highPrice": 175.38,
                 "lowPrice": 175.38,
-                "offerCount": 2,
+                "offerCount": 1,
                 "offers": Array [
                   Object {
                     "availability": "https://schema.org/InStock",
@@ -1185,25 +1090,6 @@ Object {
                       "identifier": "1",
                     },
                     "sellingPrice": 175.38,
-                  },
-                  Object {
-                    "availability": "https://schema.org/InStock",
-                    "itemCondition": "https://schema.org/NewCondition",
-                    "itemOffered": Object {
-                      "seo": Object {
-                        "canonical": "",
-                        "description": "Aliquam a cumque ratione voluptatem in.",
-                        "title": "Sleek Metal Pizza",
-                        "titleTemplate": "",
-                      },
-                    },
-                    "listPrice": 666.42,
-                    "price": 517.54,
-                    "quantity": 10000,
-                    "seller": Object {
-                      "identifier": "1",
-                    },
-                    "sellingPrice": 517.54,
                   },
                 ],
                 "priceCurrency": "",

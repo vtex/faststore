@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 # Implementing VTEX Order Placed and My Account
@@ -57,7 +57,7 @@ Before proceeding any further, make sure you already have:
 7. Now, open a new browser window and access `https://{workspace}--{account}.myvtex.com` to see your changes live. *Remember to replace the values between curly brackets according to your scenario.*
 8. Add items to your shopping cart and proceed to checkout. Place an order and observe if you are being taken to the Order Placed page:
 
-  ![Order Placed page](/img/how-to-guides/order-placed-page.png)
+  ![Order Placed page](https://vtexhelp.vtexassets.com/assets/docs/src/order-placed-page___1c8555354e041450be5fb90f7ba1f7d6.png)
 
 ### Step 2 - Updating the store logo
 

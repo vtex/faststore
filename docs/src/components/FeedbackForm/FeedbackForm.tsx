@@ -72,15 +72,10 @@ class FeedbackForm extends React.Component {
       })
   }
 
-  returnButton = () => (
-    <button className={styles.submit} onClick={this.handleReturnButton}>
-      Return
-    </button>
-  )
 
   render() {
     if (this.state.sendingMessage) {
-      return <div>Sending...</div>
+      return <div className={styles.submitMessage}>Sending...</div>
     }
 
     if (this.state.messageSent) {
@@ -89,7 +84,6 @@ class FeedbackForm extends React.Component {
           <div className={styles.submitMessage}>
             <h3>Thank you!</h3>
             <p>We appreciate your feedback.</p>
-            {this.returnButton()}
           </div>
         </React.Fragment>
       )
@@ -110,7 +104,7 @@ class FeedbackForm extends React.Component {
       <React.Fragment>
         <div className={styles.formRadio}>
           <label>Was this helpful?</label>
-          <label className={styles.yes}>
+          <label>
             <input
               id="yes"
               type="radio"
@@ -121,7 +115,7 @@ class FeedbackForm extends React.Component {
             />
             <span className="fa fa-thumbs-up" aria-hidden="true"></span>
           </label>
-          <label className={styles.no}>
+          <label>
             <input
               type="radio"
               name="helpful"
@@ -134,13 +128,12 @@ class FeedbackForm extends React.Component {
         </div>
 
         {this.state.showForm === true && (
-          <div className={styles.feedbackForm}>
-            <p>Additional feedback</p>
             <form onSubmit={this.handleSubmit}>
               <textarea
                 className={styles.formText}
                 name="message"
-                placeholder="How can we improve your documentation and learning experience?"
+                rows="4"
+                placeholder="Any thoughts you'd like to share?"
                 value={this.state.message}
                 onChange={this.handleChange}
               />
@@ -149,7 +142,6 @@ class FeedbackForm extends React.Component {
                 <button className={styles.submit}>Submit</button>
               </div>
             </form>
-          </div>
         )}
       </React.Fragment>
     )

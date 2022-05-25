@@ -13,6 +13,8 @@ import { Query } from './resolvers/query'
 import { StoreReview } from './resolvers/review'
 import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
+import { ObjectOrString } from './resolvers/objectOrString'
+import { StorePropertyValue } from './resolvers/propertyValue'
 import type { Loaders } from './loaders'
 import type { Clients } from './clients'
 import type { Channel } from './utils/channel'
@@ -25,6 +27,11 @@ export interface Options {
   // Default sales channel to use for fetching products
   channel: string
   hideUnavailableItems: boolean
+  flags?: FeatureFlags
+}
+
+interface FeatureFlags {
+  enableOrderFormSync?: boolean
 }
 
 export interface Context {
@@ -38,6 +45,7 @@ export interface Context {
    * */
   storage: {
     channel: Required<Channel>
+    flags: FeatureFlags
   }
   headers: Record<string, string>
 }
@@ -61,6 +69,8 @@ const Resolvers = {
   StoreReview,
   StoreProductGroup,
   StoreSearchResult,
+  StorePropertyValue,
+  ObjectOrString,
   Query,
   Mutation,
 }
@@ -68,6 +78,7 @@ const Resolvers = {
 export const getContextFactory = (options: Options) => (ctx: any): Context => {
   ctx.storage = {
     channel: ChannelMarshal.parse(options.channel),
+    flags: options.flags ?? {},
   }
   ctx.clients = getClients(options, ctx)
   ctx.loaders = getLoaders(options, ctx)

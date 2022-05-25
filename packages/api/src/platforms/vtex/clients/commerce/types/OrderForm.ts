@@ -3,6 +3,12 @@ export interface OrderFormInputItem {
   quantity: number
   seller: string
   index?: number
+  attachments?: Attachment[]
+}
+
+export interface Attachment {
+  name: string
+  content: Record<string, string>
 }
 
 export interface OrderFormItem {
@@ -48,6 +54,7 @@ export interface OrderFormItem {
     sellingPrices: SellingPrice[]
     total: number
   }
+  attachments: Attachment[]
 }
 
 export interface SKUSpecification {
@@ -136,7 +143,7 @@ export interface OrderForm {
   giftRegistryData: any | null
   openTextField: any | null
   invoiceData: any | null
-  customData: any | null
+  customData: OrderFormCustomData | null
   itemMetadata: {
     items: MetadataItem[]
   }
@@ -147,6 +154,14 @@ export interface OrderForm {
   }
   subscriptionData: SubscriptionData | null
   itemsOrdination: any | null
+}
+
+export interface OrderFormCustomData {
+  customApps: Array<{
+    fields: Record<string, string>
+    id: string
+    major: number
+  }>
 }
 
 export interface OrderFormMarketingData {

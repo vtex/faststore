@@ -2,30 +2,30 @@
   @apply table-auto divide-y divide-gray-200;
 }
 
-[data-store-table-head]{
+[data-table-head]{
   @apply bg-gray-50;
 }
 
-[data-store-table-body] {
+[data-table-body] {
   @apply bg-white divide-y divide-gray-200;
 }
 
-[data-store-table-cell="header"]{
+[data-table-cell="header"]{
   @apply px-6 py-3 text-left text-xs text-gray-900 font-bold uppercase tracking-wider;
 }
 
-[data-store-table-cell="data"]{
+[data-table-cell="data"]{
   @apply px-6 py-4;
 }
 
-[data-store-table-cell] > [data-store-price][data-selling] {
+[data-table-cell] > [data-store-price][data-selling] {
   @apply text-sm font-medium text-gray-900;
 }
 
-[data-store-table-footer]{
+[data-table-footer]{
   @apply bg-gray-50;
 }
 
-[data-store-table-footer] [data-store-table-cell="data"]{
+[data-table-footer] [data-table-cell="data"]{
   @apply px-6 py-3 text-left text-xs text-gray-900 font-bold uppercase tracking-wider;
 }

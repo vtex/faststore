@@ -30,7 +30,7 @@ Both Gatsby and FastStore are not strict to any React framework. If you prefer, 
 
 FastStore UI library follows the Atomic Design pattern. Atomic Design breaks user interfaces hierarchically into smaller and simpler components. There are five distinct levels in Atomic design: atoms, molecules, organisms, templates, and pages. This is why you can see these terms as headers in [FastStore UI Reference documentation](/reference/ui/faststore-ui). The image below can be used as a visual overview of how different UI elements are grouped together in Atomic Design:
 
-![atomic-design](/img/tutorials/gatsby/atomic-design.png)
+![atomic-design](https://vtexhelp.vtexassets.com/assets/docs/src/atomic-design___d96fa693d1e710f4cea33a4a2aa64d60.png)
 
 - **Atoms** are the smallest possible components, such as buttons, labels, icons, and badges. Atoms can't be broken down into smaller pieces without becoming completely useless.
 - **Molecules** are simple groups of two or more atoms functioning together as a unit. As an example, take a Search component comprising a text input and a button with an icon.
@@ -109,7 +109,7 @@ Now that we are familiar with the structure of FastStore UI components, let's ge
 
   By the end of this step, your page should look like the following image.
 
-  ![](/img/tutorials/gatsby/import-carousel.png)
+  ![](https://vtexhelp.vtexassets.com/assets/docs/src/import-carousel___c8d6badb71d9c9413f5b2e2099aa8720.png)
 
 Now, you're probably wondering how to add styles and make this carousel section more visually pleasant. Don't worry; we've got you covered in the following part of this tutorial.
 
