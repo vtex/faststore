@@ -25,23 +25,12 @@ const getAttachments = (item: IStoreOffer) =>
     (i) => i.valueReference === VALUE_REFERENCES.attachment
   )
 
-const serializeAdditionalProperty = (item: IStoreOffer) => {
-  if (
-    !item.itemOffered.additionalProperty ||
-    item.itemOffered.additionalProperty?.length === 0
-  ) {
-    return null
-  }
-
-  return item.itemOffered.additionalProperty.map(getPropertyId).join('-')
-}
-
 const getId = (item: IStoreOffer) =>
   [
     item.itemOffered.sku,
     item.seller.identifier,
     item.price,
-    serializeAdditionalProperty(item),
+    item.itemOffered.additionalProperty?.map(getPropertyId).join('-'),
   ]
     .filter(Boolean)
     .join('::')
