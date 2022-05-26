@@ -1,4 +1,5 @@
 import ChannelMarshal from './channel'
+import type { Maybe } from '../../../__generated__/schema'
 
 export interface SelectedFacet {
   key: string
@@ -24,7 +25,17 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
       return channelFacets
     }
 
+    case 'locale': {
+      return [] // remove this facet from search
+    }
+
     default:
       return { key, value }
   }
 }
+
+export const findLocale = (facets?: Maybe<SelectedFacet[]>) =>
+  facets?.find((x) => x.key === 'locale')?.value ?? null
+
+export const findChannel = (facets?: Maybe<SelectedFacet[]>) =>
+  facets?.find((facet) => facet.key === 'channel')?.value ?? null

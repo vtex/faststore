@@ -105,6 +105,7 @@ export const IntelligentSearch = (
       query,
       sort,
       fuzzy,
+      locale: ctx.storage.locale,
     })
 
     if (hideUnavailableItems !== undefined) {
@@ -125,20 +126,39 @@ export const IntelligentSearch = (
 
   const suggestedProducts = (
     args: Omit<SearchArgs, 'type'>
-  ): Promise<ProductSearchResult> =>
-    fetchAPI(
-      `${base}/_v/api/intelligent-search/product_search?query=${args.query}`
+  ): Promise<ProductSearchResult> => {
+    const params = new URLSearchParams({
+      query: args.query?.toString() ?? '',
+      locale: ctx.storage.locale,
+    })
+
+    return fetchAPI(
+      `${base}/_v/api/intelligent-search/product_search?${params.toString()}`
     )
+  }
 
   const suggestedTerms = (
     args: Omit<SearchArgs, 'type'>
-  ): Promise<Suggestion> =>
-    fetchAPI(
-      `${base}/_v/api/intelligent-search/search_suggestions?query=${args.query}`
-    )
+  ): Promise<Suggestion> => {
+    const params = new URLSearchParams({
+      query: args.query?.toString() ?? '',
+      locale: ctx.storage.locale,
+    })
 
-  const topSearches = (): Promise<Suggestion> =>
-    fetchAPI(`${base}/_v/api/intelligent-search/top_searches`)
+    return fetchAPI(
+      `${base}/_v/api/intelligent-search/search_suggestions?${params.toString()}`
+    )
+  }
+
+  const topSearches = (): Promise<Suggestion> => {
+    const params = new URLSearchParams({
+      locale: ctx.storage.locale,
+    })
+
+    return fetchAPI(
+      `${base}/_v/api/intelligent-search/top_searches?${params.toString()}`
+    )
+  }
 
   const facets = (args: Omit<SearchArgs, 'type'>) =>
     search<FacetSearchResult>({ ...args, type: 'facets' })

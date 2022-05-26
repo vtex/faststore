@@ -26,6 +26,7 @@ export interface Options {
   environment: 'vtexcommercestable' | 'vtexcommercebeta'
   // Default sales channel to use for fetching products
   channel: string
+  locale: string
   hideUnavailableItems: boolean
   flags?: FeatureFlags
 }
@@ -45,6 +46,7 @@ export interface Context {
    * */
   storage: {
     channel: Required<Channel>
+    locale: string
     flags: FeatureFlags
   }
   headers: Record<string, string>
@@ -79,6 +81,7 @@ export const getContextFactory = (options: Options) => (ctx: any): Context => {
   ctx.storage = {
     channel: ChannelMarshal.parse(options.channel),
     flags: options.flags ?? {},
+    locale: options.locale,
   }
   ctx.clients = getClients(options, ctx)
   ctx.loaders = getLoaders(options, ctx)
