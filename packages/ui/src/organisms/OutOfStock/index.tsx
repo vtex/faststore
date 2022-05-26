@@ -1,2 +1,6 @@
 export { default } from './OutOfStock'
-export type { OutOfStockProps } from './OutOfStock'
+export type {
+  OutOfStockProps,
+  OutOfStockMessageProps,
+  OutOfStockTitleProps,
+} from './OutOfStock'

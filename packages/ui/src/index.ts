@@ -177,7 +177,11 @@ export type {
 
 // Organisms
 export { default as OutOfStock } from './organisms/OutOfStock'
-export type { OutOfStockProps } from './organisms/OutOfStock'
+export type {
+  OutOfStockProps,
+  OutOfStockMessageProps,
+  OutOfStockTitleProps,
+} from './organisms/OutOfStock'
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'

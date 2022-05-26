@@ -9,7 +9,6 @@ type OutOfStockBaseProps = {
    * testing-library, and jest).
    */
   testId?: string
-
   /**
    * Children for Out of Stock components.
    */
@@ -17,11 +16,6 @@ type OutOfStockBaseProps = {
 }
 
 export type OutOfStockProps = OutOfStockBaseProps & {
-  /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
-   */
-  testId?: string
   /**
    * Event emitted when form is submitted.
    */
@@ -49,11 +43,7 @@ const OutOfStock = ({
 }: OutOfStockProps) => {
   return (
     <section data-store-out-of-stock data-testid={testId}>
-      <Form
-        data-store-out-of-stock-form
-        testId={`${testId}-form`}
-        {...otherProps}
-      >
+      <Form data-out-of-stock-form testId={`${testId}-form`} {...otherProps}>
         {children}
       </Form>
     </section>
@@ -66,7 +56,7 @@ const Title = ({
   children,
 }: OutOfStockTitleProps) => {
   return (
-    <TitleComponent data-store-out-of-stock-title data-testid={testId}>
+    <TitleComponent data-out-of-stock-title data-testid={testId}>
       {children}
     </TitleComponent>
   )
@@ -78,7 +68,7 @@ const Message = ({
   children,
 }: OutOfStockMessageProps) => {
   return (
-    <MessageComponent data-store-out-of-stock-message data-testid={testId}>
+    <MessageComponent data-out-of-stock-message data-testid={testId}>
       {children}
     </MessageComponent>
   )

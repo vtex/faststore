@@ -32,9 +32,9 @@ describe('OutOfStock', () => {
     const outOfStockForm = screen.getByTestId('store-out-of-stock-form')
 
     expect(outOfStock).toHaveAttribute('data-store-out-of-stock')
-    expect(outOfStockForm).toHaveAttribute('data-store-out-of-stock-form')
-    expect(outOfStockTitle).toHaveAttribute('data-store-out-of-stock-title')
-    expect(outOfStockMessage).toHaveAttribute('data-store-out-of-stock-message')
+    expect(outOfStockForm).toHaveAttribute('data-out-of-stock-form')
+    expect(outOfStockTitle).toHaveAttribute('data-out-of-stock-title')
+    expect(outOfStockMessage).toHaveAttribute('data-out-of-stock-message')
   })
 
   it('Should emit event', () => {
