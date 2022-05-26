@@ -1,14 +1,14 @@
 import type { Story, Meta } from '@storybook/react'
 import React, { useState } from 'react'
 
-import Button from '../../../atoms/Button'
-import Input from '../../../atoms/Input'
 import type {
   OutOfStockMessageProps,
-  OutOfStockProps,
   OutOfStockTitleProps,
-} from '../OutOfStock'
-import Component from '../OutOfStock'
+  OutOfStockProps,
+} from '..'
+import Component, { OutOfStockTitle, OutOfStockMessage } from '..'
+import Button from '../../../atoms/Button'
+import Input from '../../../atoms/Input'
 import mdx from './OutOfStock.mdx'
 
 type OutOfStockTemplateProps = {
@@ -36,8 +36,8 @@ const OutOfStockTemplate: Story<OutOfStockTemplateProps> = ({
 
   return (
     <Component onSubmit={handlerSubmitForm} {...props}>
-      <Component.Title as={titleAs}>{title}</Component.Title>
-      <Component.Message as={messageAs}>{message}</Component.Message>
+      <OutOfStockTitle as={titleAs}>{title}</OutOfStockTitle>
+      <OutOfStockMessage as={messageAs}>{message}</OutOfStockMessage>
       <Input value={value} onChange={(e) => setValue(e.target.value)} />
       <Button>Notify me</Button>
     </Component>

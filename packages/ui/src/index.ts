@@ -176,7 +176,11 @@ export type {
 } from './molecules/Dropdown'
 
 // Organisms
-export { default as OutOfStock } from './organisms/OutOfStock'
+export {
+  default as OutOfStock,
+  OutOfStockTitle,
+  OutOfStockMessage,
+} from './organisms/OutOfStock'
 export type {
   OutOfStockProps,
   OutOfStockMessageProps,

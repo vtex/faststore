@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import React from 'react'
 
+import { OutOfStockMessage, OutOfStockTitle } from '.'
 import Button from '../../atoms/Button'
 import Input from '../../atoms/Input'
 import Label from '../../atoms/Label'
@@ -10,10 +11,10 @@ import OutOfStock from './OutOfStock'
 
 const SimpleOutOfStock = () => (
   <OutOfStock>
-    <OutOfStock.Title>
+    <OutOfStockTitle>
       Text <span>icon</span>
-    </OutOfStock.Title>
-    <OutOfStock.Message>Notify me when available</OutOfStock.Message>
+    </OutOfStockTitle>
+    <OutOfStockMessage>Notify me when available</OutOfStockMessage>
     <Label>
       Email
       <Input />
@@ -42,7 +43,7 @@ describe('OutOfStock', () => {
 
     render(
       <OutOfStock onSubmit={onSubmitMock}>
-        <OutOfStock.Title>Out of Stock</OutOfStock.Title>
+        <OutOfStockTitle>Out of Stock</OutOfStockTitle>
         <Input name="email" />
         <Button type="submit">Notify me</Button>
       </OutOfStock>
@@ -58,7 +59,7 @@ describe('OutOfStock', () => {
   it('Should not render message', () => {
     render(
       <OutOfStock>
-        <OutOfStock.Title>Out of Stock</OutOfStock.Title>
+        <OutOfStockTitle>Out of Stock</OutOfStockTitle>
         <Input name="email" />
         <Button type="submit">Notify me</Button>
       </OutOfStock>
@@ -102,8 +103,8 @@ describe('Accessibility', () => {
   it('Out of Stock should render `title` as heading 1 and `message` as span', () => {
     render(
       <OutOfStock>
-        <OutOfStock.Title as="h1">Head Out Os Stock</OutOfStock.Title>
-        <OutOfStock.Message as="span">Head Out Os Stock</OutOfStock.Message>
+        <OutOfStockTitle as="h1">Head Out Os Stock</OutOfStockTitle>
+        <OutOfStockMessage as="span">Head Out Os Stock</OutOfStockMessage>
         <Label>
           Email
           <Input />
