@@ -65,11 +65,13 @@ export function QuantitySelector({
         onClick: decrease,
         disabled: isLeftDisabled || disabled,
         icon: <Icon name="Minus" width={16} height={16} weight="bold" />,
+        testId: 'store-quantity-selector-left',
       }}
       rightButtonProps={{
         onClick: increase,
         disabled: isRightDisabled || disabled,
         icon: <Icon name="Plus" width={16} height={16} weight="bold" />,
+        testId: 'store-quantity-selector-right',
       }}
       inputProps={{
         onChange: validateInput,

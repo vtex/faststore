@@ -40,24 +40,31 @@ const eventDataHasCurrencyProperty = () => {
 }
 
 describe('add_to_cart event', () => {
-  const testAddToCartEvent = (skuId) => {
+  const testAddToCartEvent = ({ skuId, numberOfEvents }) => {
     cy.window().then((window) => {
       const { dataLayer } = window
 
-      const event = dataLayer.find((e) => e.event === 'add_to_cart')
+      const addToCartEvents = [...dataLayer]
+        .reverse()
+        .filter((e) => e.event === 'add_to_cart')
 
-      expect(event).to.not.be.null
+      expect(addToCartEvents).to.have.length(numberOfEvents)
+
+      const [event] = addToCartEvents
+
+      expect(event).to.not.be.undefined
       expect(event.ecommerce).to.have.property('value')
 
       const item = event.ecommerce.items.find((i) => i.item_variant === skuId)
 
-      expect(item).to.not.be.null
+      expect(item).to.not.be.undefined
       expect(item).to.have.property('currency')
       expect(item).to.have.property('item_name')
+      expect(item).to.have.property('quantity').and.to.have.eq(1)
     })
   }
 
-  context('when adding a product to cart', () => {
+  context('when adding a product to the cart', () => {
     it('adds add_to_cart event in the data layer at product description page', () => {
       cy.visit(pages.pdp, options)
       cy.waitForHydration()
@@ -71,7 +78,36 @@ describe('add_to_cart event', () => {
           cy.itemsInCart(1)
           const skuId = $btn.attr('data-sku')
 
-          testAddToCartEvent(skuId)
+          testAddToCartEvent({ skuId, numberOfEvents: 1 })
+        })
+    })
+  })
+
+  context('when increasing product quantity', () => {
+    it('adds add_to_cart event in the data layer at quantity increase in the minicart', () => {
+      cy.visit(pages.pdp, options)
+      cy.waitForHydration()
+
+      cy.itemsInCart(0)
+
+      // Add to cart
+      cy.getById('buy-button')
+        .click()
+        .then(($btn) => {
+          cy.itemsInCart(1)
+          const skuId = $btn.attr('data-sku')
+
+          testAddToCartEvent({ skuId, numberOfEvents: 1 })
+
+          cy.get(
+            '[data-testid=cart-item] [data-testid=store-quantity-selector-right]'
+          )
+            .click()
+            .then(() => {
+              cy.itemsInCart(2)
+
+              testAddToCartEvent({ skuId, numberOfEvents: 2 })
+            })
         })
     })
   })
@@ -81,20 +117,27 @@ describe('remove_from_cart event', () => {
   beforeEach(() => {
     cy.clearIDB()
   })
-  const testRemoveFromCartEvent = (skuId) => {
+  const testRemoveFromCartEvent = ({ skuId, numberOfEvents, quantity }) => {
     cy.window().then((window) => {
       const { dataLayer } = window
 
-      const event = dataLayer.find((e) => e.event === 'remove_from_cart')
+      const removeFromCartEvents = [...dataLayer]
+        .reverse()
+        .filter((e) => e.event === 'remove_from_cart')
 
-      expect(event).to.not.be.null
+      expect(removeFromCartEvents).to.have.length(numberOfEvents)
+
+      const [event] = removeFromCartEvents
+
+      expect(event).to.not.be.undefined
       expect(event.ecommerce).to.have.property('value')
 
       const item = event.ecommerce.items.find((i) => i.item_variant === skuId)
 
-      expect(item).to.not.be.null
+      expect(item).to.not.be.undefined
       expect(item).to.have.property('currency')
       expect(item).to.have.property('item_name')
+      expect(item).to.have.property('quantity').and.to.have.eq(quantity)
     })
   }
 
@@ -124,7 +167,51 @@ describe('remove_from_cart event', () => {
               cy.itemsInCart(0)
               const skuId = $btn.attr('data-sku')
 
-              testRemoveFromCartEvent(skuId)
+              testRemoveFromCartEvent({
+                skuId,
+                numberOfEvents: 1,
+                quantity: 1,
+              })
+            })
+        })
+    })
+  })
+
+  context('when decreasing product quantity', () => {
+    it('adds remove_from_cart event in the data layer at quantity decrease in the minicart', () => {
+      cy.visit(pages.pdp, options)
+      cy.waitForHydration()
+
+      cy.itemsInCart(0)
+
+      // Add item to cart
+      cy.get('[data-testid=store-quantity-selector-right]')
+        .click()
+        .then(() => {
+          cy.getById('buy-button')
+            .click()
+            .then(($btn) => {
+              cy.itemsInCart(2)
+              cy.getById('checkout-button').should('be.enabled')
+              cy.itemsInCart(2)
+
+              // Remove the added item
+              cy.get(
+                '[data-testid=cart-item] [data-testid=store-quantity-selector-left]'
+              )
+                .click()
+                .then(() => {
+                  cy.itemsInCart(1)
+                  cy.getById('checkout-button').should('be.enabled')
+                  cy.itemsInCart(1)
+                  const skuId = $btn.attr('data-sku')
+
+                  testRemoveFromCartEvent({
+                    skuId,
+                    numberOfEvents: 1,
+                    quantity: 1,
+                  })
+                })
             })
         })
     })

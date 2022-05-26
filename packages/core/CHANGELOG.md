@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Adds tests for analytics events on `CartItem` ([#66](https://github.com/vtex-sites/nextjs.store/pull/66))
 - additionalProperty to CartItem id ([#47](https://github.com/vtex-sites/nextjs.store/pull/47))
 - Applies new local tokens to `Link` ([#17](https://github.com/vtex-sites/nextjs.store/pull/17))
 - Applies new local tokens to `Select` ([#16](https://github.com/vtex-sites/nextjs.store/pull/16))
