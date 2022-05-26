@@ -84,6 +84,11 @@ enum StoreFacetType {
   RANGE
 }
 
+type StoreSuggestionTerm {
+  value: String!
+  count: Int!
+}
+
 """
 Suggestions information.
 """
@@ -91,11 +96,11 @@ type StoreSuggestions {
   """
   Array with suggestion terms.
   """
-  terms: [String!]
+  terms: [StoreSuggestionTerm!]!
   """
   Array with suggestion products' information.
   """
-  products: [StoreProduct!]
+  products: [StoreProduct!]!
 }
 
 """
