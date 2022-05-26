@@ -1,5 +1,10 @@
+import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { enhanceSku } from '../utils/enhanceSku'
-import { transformSelectedFacet } from '../utils/facets'
+import {
+  findChannel,
+  findLocale,
+  transformSelectedFacet,
+} from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
 import { StoreCollection } from './collection'
 import type {
@@ -11,16 +16,19 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
-import { mutateChannelContext } from '../utils/channel'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
     // Insert channel in context for later usage
-    const channelString = locator.find((facet) => facet.key === 'channel')
-      ?.value
+    const channel = findChannel(locator)
+    const locale = findLocale(locator)
 
-    if (channelString) {
-      mutateChannelContext(ctx, channelString)
+    if (channel) {
+      mutateChannelContext(ctx, channel)
+    }
+
+    if (locale) {
+      mutateLocaleContext(ctx, locale)
     }
 
     const {
@@ -42,12 +50,15 @@ export const Query = {
     ctx: Context
   ) => {
     // Insert channel in context for later usage
-    const channelString = selectedFacets?.find(
-      (facet) => facet.key === 'channel'
-    )?.value
+    const channel = findChannel(selectedFacets)
+    const locale = findLocale(selectedFacets)
 
-    if (channelString) {
-      mutateChannelContext(ctx, channelString)
+    if (channel) {
+      mutateChannelContext(ctx, channel)
+    }
+
+    if (locale) {
+      mutateLocaleContext(ctx, locale)
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
