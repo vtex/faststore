@@ -18,6 +18,7 @@ module.exports = {
 
   // Default channel
   channel: '{"salesChannel":"1"}',
+  locale: 'en-US',
 
   // Production URLs
   storeUrl: 'https://vtexfaststore.com',

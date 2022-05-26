@@ -562,6 +562,7 @@ export type Filter_FacetsFragment = {
 
 export type SearchSuggestionsQueryQueryVariables = Exact<{
   term: Scalars['String']
+  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>
 }>
 
 export type SearchSuggestionsQueryQuery = {

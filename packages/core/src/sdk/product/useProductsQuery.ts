@@ -51,7 +51,7 @@ export const useLocalizedVariables = ({
   term,
   selectedFacets,
 }: Partial<ProductsQueryQueryVariables>) => {
-  const { channel } = useSession()
+  const { channel, locale } = useSession()
 
   return useMemo(() => {
     const facets = toArray(selectedFacets)
@@ -61,9 +61,13 @@ export const useLocalizedVariables = ({
       after: after ?? '0',
       sort: sort ?? ('score_desc' as const),
       term: term ?? '',
-      selectedFacets: [...facets, { key: 'channel', value: channel ?? '' }],
+      selectedFacets: [
+        ...facets,
+        { key: 'channel', value: channel ?? '' },
+        { key: 'locale', value: locale },
+      ],
     }
-  }, [first, after, sort, term, selectedFacets, channel])
+  }, [selectedFacets, first, after, sort, term, channel, locale])
 }
 
 const fallbackData = { search: undefined }

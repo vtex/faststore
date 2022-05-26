@@ -30,6 +30,7 @@ const apiOptions: APIOptions = {
   environment: storeConfig.api.environment as APIOptions['environment'],
   channel: storeConfig.channel,
   hideUnavailableItems: storeConfig.api.hideUnavailableItems,
+  locale: storeConfig.locale,
   flags: {
     enableOrderFormSync: true,
   },
