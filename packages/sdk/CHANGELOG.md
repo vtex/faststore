@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.36 (2022-05-26)
+
+
+### Bug Fixes
+
+* Top searches ([#1321](https://github.com/vtex/faststore/issues/1321)) ([e2ab99d](https://github.com/vtex/faststore/commit/e2ab99d4f443e013f3fd024fc83bb612fcb27f41))
+
+
+
+
+
 ## 1.8.35 (2022-05-26)
 
 
