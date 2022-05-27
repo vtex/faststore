@@ -49,7 +49,7 @@ A FastStore boilerplate to start a new ecommerce with pre-configured files and p
 ## J
 
 ### Jamstack
-A web architecture that uses JavaScript, APIs, and markup to build websites and apps focused on performance, higher security, lower cost of scaling, and developer experience.
+[Jamstack](https://jamstack.org/) is a web architecture that uses JavaScript, APIs, and markup to build websites and apps focused on performance, higher security, lower cost of scaling, and developer experience.
 
 ## K 
 *Coming soon*
