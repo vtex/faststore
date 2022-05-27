@@ -21,7 +21,9 @@ const SearchSuggestionsQuery = gql`
   ) {
     search(first: 5, term: $term, selectedFacets: $selectedFacets) {
       suggestions {
-        terms
+        terms {
+          value
+        }
         products {
           ...ProductSummary_product
         }
@@ -148,7 +150,7 @@ function Suggestions({
     >
       {terms.length > 0 && (
         <UIList data-fs-search-suggestion-section>
-          {terms?.map((suggestion) => (
+          {terms?.map(({ value: suggestion }) => (
             <li key={suggestion} data-fs-search-suggestion-item>
               <Button onClick={() => onSearch(suggestion)}>
                 {handleSuggestions(suggestion, term)}
