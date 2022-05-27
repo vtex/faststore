@@ -26,6 +26,7 @@
             type: 'generated-index',
             title: 'How-to Guides',
             slug: 'how-to-guides',
+            description: 'Solve real-world issues by following our goal-oriented step-by-step guides.'
           },
           items: [
             {

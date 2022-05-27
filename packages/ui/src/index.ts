@@ -176,9 +176,19 @@ export type {
 } from './molecules/Dropdown'
 
 // Organisms
+export {
+  default as OutOfStock,
+  OutOfStockTitle,
+  OutOfStockMessage,
+} from './organisms/OutOfStock'
+export type {
+  OutOfStockProps,
+  OutOfStockMessageProps,
+  OutOfStockTitleProps,
+} from './organisms/OutOfStock'
+
 export { default as Hero } from './organisms/Hero'
 export type { HeroProps } from './organisms/Hero'
-
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'

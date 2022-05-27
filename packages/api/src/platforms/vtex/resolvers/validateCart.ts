@@ -12,11 +12,28 @@ import type {
   OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 import type { Context } from '..'
+import {
+  attachmentToPropertyValue,
+  getPropertyId,
+  VALUE_REFERENCES,
+} from '../utils/propertyValue'
 
 type Indexed<T> = T & { index?: number }
 
+const getAttachments = (item: IStoreOffer) =>
+  item.itemOffered.additionalProperty?.filter(
+    (i) => i.valueReference === VALUE_REFERENCES.attachment
+  )
+
 const getId = (item: IStoreOffer) =>
-  [item.itemOffered.sku, item.seller.identifier, item.price].join('::')
+  [
+    item.itemOffered.sku,
+    item.seller.identifier,
+    item.price,
+    item.itemOffered.additionalProperty?.map(getPropertyId).join('-'),
+  ]
+    .filter(Boolean)
+    .join('::')
 
 const orderFormItemToOffer = (
   item: OrderFormItem,
@@ -30,6 +47,7 @@ const orderFormItemToOffer = (
     sku: item.id,
     image: [],
     name: item.name,
+    additionalProperty: item.attachments.map(attachmentToPropertyValue),
   },
   index,
 })
@@ -41,6 +59,10 @@ const offerToOrderItemInput = (
   seller: offer.seller.identifier,
   id: offer.itemOffered.sku,
   index: offer.index,
+  attachments: (getAttachments(offer) ?? []).map((attachment) => ({
+    name: attachment.name,
+    content: attachment.value,
+  })),
 })
 
 const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer> =>

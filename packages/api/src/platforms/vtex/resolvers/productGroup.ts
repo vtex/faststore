@@ -2,6 +2,7 @@ import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
 import type { PromiseType } from '../../../typings'
 import type { StoreProduct } from './product'
+import { VALUE_REFERENCES } from '../utils/propertyValue'
 
 type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
 
@@ -22,7 +23,11 @@ export const StoreProductGroup: Record<string, Resolver<Root>> = {
       // Transform specs back into product specs
       .flatMap(({ specifications }) =>
         specifications.flatMap(({ name, values }) =>
-          values.map((value) => ({ name, value }))
+          values.map((value) => ({
+            name,
+            value,
+            valueReference: VALUE_REFERENCES.specification,
+          }))
         )
       ),
 }

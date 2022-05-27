@@ -38,7 +38,11 @@ const apiOptions = {
   account: 'storeframework',
   environment: 'vtexcommercestable',
   channel: '{"salesChannel":"1"}',
+  locale: 'en-US',
   hideUnavailableItems: false,
+  flags: {
+    enableOrderFormSync: true,
+  },
 } as Options
 
 const mockedFetch = jest.fn()

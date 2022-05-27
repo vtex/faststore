@@ -5,7 +5,7 @@ import ViewAll from '../../../components/ViewAll/ViewAll'
 const StarterComponentPage = ({ data = {} }) => {
   return (
     <>
-      <div className="w-9/12 m-auto my-5 tracking-wider uppercase text-sm text-fontSecondary font-medium">
+      <div className="w-full lg:w-9/12 mx-auto my-5 tracking-wider uppercase text-sm text-fontSecondary font-medium">
         <Link href="/starters">← Back</Link>
       </div>
       <div className="w-full lg:w-9/12 lg:relative bg-code container mb-20 mx-auto rounded-lg justify-between">
