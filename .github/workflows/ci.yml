@@ -17,10 +17,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use Node 14.x
+      - name: Use Node 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: '16.x'
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
@@ -36,10 +36,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use Node 14.x
+      - name: Use Node 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: '16.x'
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
@@ -55,10 +55,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use Node 14.x
+      - name: Use Node 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: '16.x'
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
