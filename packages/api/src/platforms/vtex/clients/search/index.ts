@@ -124,19 +124,6 @@ export const IntelligentSearch = (
   const products = (args: Omit<SearchArgs, 'type'>) =>
     search<ProductSearchResult>({ ...args, type: 'product_search' })
 
-  const suggestedProducts = (
-    args: Omit<SearchArgs, 'type'>
-  ): Promise<ProductSearchResult> => {
-    const params = new URLSearchParams({
-      query: args.query?.toString() ?? '',
-      locale: ctx.storage.locale,
-    })
-
-    return fetchAPI(
-      `${base}/_v/api/intelligent-search/product_search?${params.toString()}`
-    )
-  }
-
   const suggestedTerms = (
     args: Omit<SearchArgs, 'type'>
   ): Promise<Suggestion> => {
@@ -167,7 +154,6 @@ export const IntelligentSearch = (
     facets,
     products,
     suggestedTerms,
-    suggestedProducts,
     topSearches,
   }
 }
