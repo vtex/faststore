@@ -45,6 +45,9 @@
     "tinytime": "^0.2.6",
     "url-loader": "^4.1.1"
   },
+  "resolutions": {
+    "@docusaurus/core": "@2.0.0-beta.17"
+  },
   "browserslist": {
     "production": [
       ">0.5%",
