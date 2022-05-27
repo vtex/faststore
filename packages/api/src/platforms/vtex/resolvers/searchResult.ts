@@ -24,7 +24,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
     }
 
     const terms = await search.suggestedTerms(searchArgs)
-    const products = await search.suggestedProducts(searchArgs)
+    const products = await search.products(searchArgs)
 
     const skus = products.products
       .map((product) => {
