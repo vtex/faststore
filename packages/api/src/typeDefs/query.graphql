@@ -85,17 +85,31 @@ enum StoreFacetType {
 }
 
 """
+Suggestion term.
+"""
+type StoreSuggestionTerm {
+  """
+  The term.
+  """
+  value: String!
+  """
+  Its occurrences count.
+  """
+  count: Int!
+}
+
+"""
 Suggestions information.
 """
 type StoreSuggestions {
   """
   Array with suggestion terms.
   """
-  terms: [String!]
+  terms: [StoreSuggestionTerm!]!
   """
   Array with suggestion products' information.
   """
-  products: [StoreProduct!]
+  products: [StoreProduct!]!
 }
 
 """

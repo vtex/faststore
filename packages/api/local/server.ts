@@ -1,14 +1,15 @@
 import express from 'express'
 import { graphqlHTTP } from 'express-graphql'
 
+import { getContextFactory, getSchema } from '../src'
 import type { Options } from '../src'
-import { getSchema, getContextFactory } from '../src'
 
 const serverPort = '4000'
 
 const apiOptions = {
   platform: 'vtex',
   account: 'storeframework',
+  locale: 'en-US',
   environment: 'vtexcommercestable',
   channel: '{"salesChannel":"1"}',
 } as Options
