@@ -84,8 +84,17 @@ enum StoreFacetType {
   RANGE
 }
 
+"""
+Suggestion term.
+"""
 type StoreSuggestionTerm {
+  """
+  The term.
+  """
   value: String!
+  """
+  Its occurrences count.
+  """
   count: Int!
 }
 
