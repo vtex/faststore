@@ -9,6 +9,7 @@
     "dev": "turbo run dev --parallel --no-cache",
     "lint": "turbo run lint",
     "test": "turbo run test",
+    "size": "turbo run size",
     "format": "prettier --write \"**/*.{ts,tsx,json}\"",
     "release": "lerna version minor --yes && lerna publish from-git --yes",
     "generate-ui-component": "yarn plop --plopfile generators/plopfile.ts"

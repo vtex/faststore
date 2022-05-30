@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build, Lint and Test
+    name: FastStore CI
     timeout-minutes: 15
     runs-on: ubuntu-latest
     # To use Remote Caching, uncomment the next lines and follow the steps below.
@@ -33,6 +33,9 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Size
+        run: yarn size
 
       - name: Lint
         run: yarn lint
