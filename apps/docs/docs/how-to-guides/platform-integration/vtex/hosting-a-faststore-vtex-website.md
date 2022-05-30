@@ -35,7 +35,7 @@ Take the following steps to make your website publicly available:
    Now look below the `Non-authoritative answer` message to see the IP addresses capable of hosting your website. 
    :::
 
-2. Add a subdomain called `secure` (`secure.{domain}.com`) pointing to `secure.{hostname}.cdn.vtex.com`. 
+2. Add a subdomain called `secure` (`secure.{domain}.com`) pointing to `secure.{hostname}.cdn.vtex.com`. This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
    - *Assume that `{hostname}` is the **complete** address of your store.*
 
 Take the following example:
@@ -46,8 +46,6 @@ Store address: secure.mystore.com.br
   - Type: CNAME
   - Destination: secure.mystore.com.br.cdn.vtex.com
 ```
-
-After this step, the **Checkout**, **Order Placed**, **Login**, and **My Account** pages will be able to work under the `secure` subdomain.
 
 ### Step 2 - Setting up your VTEX account
 
