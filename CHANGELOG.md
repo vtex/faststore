@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.47](https://github.com/vtex/faststore/compare/v1.8.46...v1.8.47) (2022-05-30)
+
+
+### Bug Fixes
+
+* Circular dependency ([#1333](https://github.com/vtex/faststore/issues/1333)) ([d38941a](https://github.com/vtex/faststore/commit/d38941a2896f8922dafb7b5d2ea4eb85fae4b84d))
+
+
+
+
+
 ## 1.8.46 (2022-05-30)
 
 
