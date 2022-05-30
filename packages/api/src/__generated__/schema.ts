@@ -69,6 +69,8 @@ export type IStoreProduct = {
 export type IStorePropertyValue = {
   /** Property name. */
   name: Scalars['String'];
+  /** Property id. This propert changes according to the content of the object. */
+  propertyID?: Maybe<Scalars['String']>;
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
