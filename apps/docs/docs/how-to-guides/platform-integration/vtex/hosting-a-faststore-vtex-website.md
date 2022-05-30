@@ -21,21 +21,33 @@ By the end of these steps, you'll host your FastStore website on the internet. H
 
 ### Step 1 - Configuring your website domain
 
-To make your website publicly available, you need to configure a domain that points to the IP address where your store is hosted. 
+Take the following steps to make your website publicly available:
 
-:::info
-To see which IP address corresponds to your store website (`{account}.vtex.app`), use the `nslookup` command as in the following:
+1. Configure a domain that points to the **IP address** where your store is hosted. Notice that, depending on which domain provider you use, the steps to configure your website domain may vary. *See the documentation of your domain provider for more information.*
 
-1. Open the terminal.
-2. Enter `nslookup {account}.vtex.app` (e.g., `nslookup base.vtex.app`).
-3. Hit Enter. 
+   :::info
+   To see which **IP address** corresponds to your store website (`{account}.vtex.app`), use the `nslookup` command as in the following:
 
-Now look below the `Non-authoritative answer` message to see the IP addresses capable of hosting your website. 
-:::
+   1. Open the terminal.
+   2. Enter `nslookup {account}.vtex.app` (e.g., `nslookup base.vtex.app`).
+   3. Hit Enter. 
 
-You must also add a subdomain called `secure` pointing to `{account}.vtexcommercestable.com.br`. This will allow the **Checkout**, **Order Placed**, **Login**, and **My Account** pages to work under that subdomain.
+   Now look below the `Non-authoritative answer` message to see the IP addresses capable of hosting your website. 
+   :::
 
-Notice that depending on which domain provider you use, the steps to configure your website domain may vary. *See the documentation of your domain provider for more information.*
+2. Add a subdomain called `secure` (`secure.{domain}.com`) pointing to `secure.{hostname}.cdn.vtex.com`. 
+   - *Assume that `{hostname}` is the **complete** address of your store.*
+
+Take the following example:
+
+```
+Store address: secure.mystore.com.br
+  - Entry (subdomain): secure
+  - Type: CNAME
+  - Destination: secure.mystore.com.br.cdn.vtex.com
+```
+
+After this step, the **Checkout**, **Order Placed**, **Login**, and **My Account** pages will be able to work under the `secure` subdomain.
 
 ### Step 2 - Setting up your VTEX account
 
@@ -92,3 +104,10 @@ To provide shoppers with a full checkout and post-purchase experience, make sure
 1. [Integrating your FastStore project with VTEX Login](/how-to-guides/platform-integration/vtex/integrating-the-vtex-login).
 2. [Integrating your FastStore project with VTEX Checkout](/how-to-guides/platform-integration/vtex/integrating-vtex-checkout).
 3. [Integrating your FastStore project with VTEX Order Placed and My Account](/how-to-guides/platform-integration/vtex/integrating-vtex-orderplaced-myaccount).
+
+---
+
+## Related resources
+
+- [Setting up DNS pointing to VTEX](https://help.vtex.com/en/tutorial/configuring-dns-pointing-to-vtex--tutorials_4280)
+- [How to insert a reverse proxy in front of VTEX services](https://help.vtex.com/en/tutorial/how-to-insert-a-reverse-proxy-in-front-of-vtex-services)
