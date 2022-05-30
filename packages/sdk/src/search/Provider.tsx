@@ -1,10 +1,11 @@
-import React, { createContext, useMemo } from 'react'
 import type { FC } from 'react'
+import React, { createContext, useMemo } from 'react'
 
-import { useSearchInfiniteState } from './useInfiniteSearchState'
-import { useSearchState } from './useSearchState'
+import type { State as SearchState } from '../types'
 import type { UseSearchInfiniteState } from './useInfiniteSearchState'
-import type { State as SearchState, UseSearchState } from './useSearchState'
+import { useSearchInfiniteState } from './useInfiniteSearchState'
+import type { UseSearchState } from './useSearchState'
+import { useSearchState } from './useSearchState'
 
 export interface SearchContext extends UseSearchInfiniteState, UseSearchState {
   itemsPerPage: number
