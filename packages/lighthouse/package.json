@@ -1,15 +1,15 @@
 {
-  "name": "@vtex/lighthouse-config",
+  "name": "@faststore/lighthouse",
   "version": "1.8.42",
   "author": "Emerson Laurentino",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/vtex/faststore",
-    "directory": "packages/lighthouse-config"
+    "directory": "packages/lighthouse"
   },
   "main": "dist/index.js",
-  "module": "dist/lighthouse-config.esm.js",
+  "module": "dist/lighthouse.esm.js",
   "typings": "dist/index.d.ts",
   "engines": {
     "node": ">=10"
