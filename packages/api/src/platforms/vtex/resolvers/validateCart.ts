@@ -5,6 +5,7 @@ import type {
   IStoreCart,
   IStoreOffer,
   IStoreOrder,
+  IStorePropertyValue,
 } from '../../../__generated__/schema'
 import type {
   OrderForm,
@@ -20,17 +21,18 @@ import {
 
 type Indexed<T> = T & { index?: number }
 
-const getAttachments = (item: IStoreOffer) =>
-  item.itemOffered.additionalProperty?.filter(
-    (i) => i.valueReference === VALUE_REFERENCES.attachment
-  )
+const isAttachment = (value: IStorePropertyValue) =>
+  value.valueReference === VALUE_REFERENCES.attachment
 
 const getId = (item: IStoreOffer) =>
   [
     item.itemOffered.sku,
     item.seller.identifier,
     item.price,
-    item.itemOffered.additionalProperty?.map(getPropertyId).join('-'),
+    item.itemOffered.additionalProperty
+      ?.filter(isAttachment)
+      .map(getPropertyId)
+      .join('-'),
   ]
     .filter(Boolean)
     .join('::')
@@ -59,7 +61,9 @@ const offerToOrderItemInput = (
   seller: offer.seller.identifier,
   id: offer.itemOffered.sku,
   index: offer.index,
-  attachments: (getAttachments(offer) ?? []).map((attachment) => ({
+  attachments: (
+    offer.itemOffered.additionalProperty?.filter(isAttachment) ?? []
+  ).map((attachment) => ({
     name: attachment.name,
     content: attachment.value,
   })),
