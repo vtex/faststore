@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.48](https://github.com/vtex/faststore/compare/v1.8.47...v1.8.48) (2022-05-30)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
 ## 1.8.46 (2022-05-30)
 
 
