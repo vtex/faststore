@@ -1,5 +1,5 @@
 {
-  "name": "@vtex/graphql-utils",
+  "name": "@faststore/graphql-utils",
   "version": "1.8.42",
   "description": "GraphQL utilities",
   "repository": {
