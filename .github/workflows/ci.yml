@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: FastStore CI
+    name: FastStore
     timeout-minutes: 15
     runs-on: ubuntu-latest
     # To use Remote Caching, uncomment the next lines and follow the steps below.

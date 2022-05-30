@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: FastStore CD
+    name: FastStore
     timeout-minutes: 15
     runs-on: ubuntu-latest
     # To use Remote Caching, uncomment the next lines and follow the steps below.
@@ -20,6 +20,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         with:
+          token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
           fetch-depth: 2
 
       - name: Setup Node.js environment
@@ -27,6 +28,12 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Configure CI Git User
+        run: |
+          git config user.name vtexgithubbot
+          git config user.email vtexgithubbot@github.com
 
       - name: Install dependencies
         run: yarn
@@ -43,10 +50,6 @@ jobs:
       - name: Test
         run: yarn test
 
-      - name: Configure CI Git User
-        run: |
-          git config user.name vtexgithubbot
-          git config user.email vtexgithubbot@github.com
       - name: Publish
         run: lerna publish patch --yes --no-verify-access --ignore-scripts --conventional-commits
         env:
