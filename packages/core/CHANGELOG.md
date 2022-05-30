@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ButtonSignInFallback` component ([#45](https://github.com/vtex-sites/nextjs.store/pull/45))
 
 ### Changed
+
+- `OutOfStock` component ([#72](https://github.com/vtex-sites/nextjs.store/pull/72))
 - Displays 5 products on product suggestion for better mobile experience ([#74](https://github.com/vtex-sites/nextjs.store/pull/74))
 - LCP images to be fetched with a higher priority and improve the score ([#49](https://github.com/vtex-sites/nextjs.store/pull/49)).
 - Uses `ProductCard` component from FSUI instead of `Card` ([#41](https://github.com/vtex-sites/nextjs.store/pull/41))

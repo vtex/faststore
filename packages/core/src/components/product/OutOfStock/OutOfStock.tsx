@@ -1,5 +1,9 @@
 import { useSession } from '@faststore/sdk'
-import { Form } from '@faststore/ui'
+import {
+  OutOfStock as UIOutOfStock,
+  OutOfStockTitle as UIOutOfStockTitle,
+  OutOfStockMessage as UIOutOfStockMessage,
+} from '@faststore/ui'
 import { useState } from 'react'
 import type { ReactElement, FormEvent } from 'react'
 
@@ -61,7 +65,6 @@ function OutOfStock(props: OutOfStockProps) {
       <Icon name={defaultIconName} width={16} height={16} />
     ),
     onSubmit,
-    testId = 'store-out-of-stock',
   } = props
 
   const reset = () => {
@@ -92,33 +95,29 @@ function OutOfStock(props: OutOfStockProps) {
   }
 
   return (
-    <section data-store-out-of-stock data-testid={testId} aria-live="polite">
-      <Form data-out-of-stock-form onSubmit={handleSubmit}>
-        <p className="text__title-subsection">{title}</p>
-        <p data-store-out-of-stock-subtitle>
-          {notificationMsgIcon} {notificationMsg}
-        </p>
-        <div>
-          <InputText
-            id="out-of-stock-email"
-            value={email}
-            label="Email"
-            aria-label="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Button
-            data-store-out-of-stock-button
-            type="submit"
-            disabled={disabled}
-            variant="primary"
-            icon={buttonIcon}
-            iconPosition="left"
-          >
-            {buttonText}
-          </Button>
-        </div>
-      </Form>
-    </section>
+    <UIOutOfStock onSubmit={handleSubmit}>
+      <UIOutOfStockTitle>{title}</UIOutOfStockTitle>
+      <UIOutOfStockMessage>
+        {notificationMsgIcon} {notificationMsg}
+      </UIOutOfStockMessage>
+      <InputText
+        id="out-of-stock-email"
+        value={email}
+        label="Email"
+        aria-label="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <Button
+        data-store-out-of-stock-button
+        type="submit"
+        disabled={disabled}
+        variant="primary"
+        icon={buttonIcon}
+        iconPosition="left"
+      >
+        {buttonText}
+      </Button>
+    </UIOutOfStock>
   )
 }
 

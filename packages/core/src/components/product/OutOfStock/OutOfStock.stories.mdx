@@ -1,0 +1,46 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { SessionProvider } from '@faststore/sdk'
+
+
+import OutOfStock from '.'
+
+<Meta
+  title="Organisms/OutOfStock"
+  argTypes={{
+    buttonIcon: { control: false, },
+    notificationMsgIcon: { control: false, },
+  }}
+  component={OutOfStock}
+/>
+
+<header>
+
+# Out of Stock
+
+Out of Stock are used to announce to users that the product is out of stock. And ask for their contact to let they know when the product arrives.
+
+</header>
+
+The `OutOfStock` component uses [FastStore UI OutOfStock](https://www.faststore.dev/reference/ui/organisms/OutOfStock) as base.
+
+### Import
+
+`import OutOfStock from '../components/product/OutOfStock'`
+
+### Usage
+
+<Canvas>
+  <Story
+    name="OutOfStock"
+    args={{
+      title:
+        'Out of Stock',
+      buttonText: 'Notify me',
+      notificationMsg: 'Notify me when available',
+    }}
+  >
+    {(args) => <SessionProvider initialState={{}}><OutOfStock {...args} /></SessionProvider>}
+  </Story>
+</Canvas>
+
+<ArgsTable story="OutOfStock" />
