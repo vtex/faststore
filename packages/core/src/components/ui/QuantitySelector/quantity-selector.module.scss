@@ -1,6 +1,6 @@
 @import "src/styles/scaffold";
 
-[data-fs-quantity-selector] {
+.fs-quantity-selector {
   // --------------------------------------------------------
   // Design Tokens for Quantity Selector
   // --------------------------------------------------------
@@ -145,16 +145,16 @@
       box-shadow: var(--fs-qty-selector-shadow-hover);
     }
   }
-}
 
-// --------------------------------------------------------
-// Variants Styles
-// --------------------------------------------------------
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
 
-[data-fs-quantity-selector="disabled"] {
-  [data-quantity-selector-input] {
-    background-color: var(--fs-qty-selector-disabled-bkg-color);
-    border-color: var(--fs-qty-selector-disabled-border-color);
+  &[data-fs-quantity-selector="disabled"] {
+    [data-quantity-selector-input] {
+      background-color: var(--fs-qty-selector-disabled-bkg-color);
+      border-color: var(--fs-qty-selector-disabled-border-color);
+    }
+    [data-quantity-selector-button]:hover [data-store-icon] { background-color: transparent; }
   }
-  [data-quantity-selector-button]:hover [data-store-icon] { background-color: transparent; }
 }
