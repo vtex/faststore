@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.40 (2022-05-30)
+
+
+### Bug Fixes
+
+* Cart item with additionalProperty ([#1325](https://github.com/vtex/faststore/issues/1325)) ([8fa6aa1](https://github.com/vtex/faststore/commit/8fa6aa1a88d3e3702a017e581cbcff4281c47f4f))
+
+
+
+
+
 ## 1.8.39 (2022-05-27)
 
 **Note:** Version bump only for package faststore
