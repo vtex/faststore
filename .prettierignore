@@ -4,5 +4,6 @@ public/
 coverage/
 .vscode/
 .cache/
+.turbo/
 __generated__/
-docs/
+apps/docs/
