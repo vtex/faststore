@@ -1,5 +1,6 @@
 var initOpts = {
-  projectKey: "zD4FbOMKWOBhUhpQaU8t",
+  projectKey: "lv2LyjY4TYueTUDSC2Wm",
+  ingestPoint: "https://openreplay.vtex.com/ingest",
   defaultInputMode: 0,
   obscureTextNumbers: false,
   obscureTextEmails: true,
@@ -18,4 +19,4 @@ var startOpts = { userID: "" };
   r.issue=function(k,p){r.push([6,k,p])};
   r.isActive=function(){return false};
   r.getSessionToken=function(){};
-})("//static.openreplay.com/latest/openreplay.js",1,0,initOpts,startOpts);
+})("//static.openreplay.com/3.5.10/openreplay.js",1,0,initOpts,startOpts);
