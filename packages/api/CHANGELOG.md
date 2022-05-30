@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.39 (2022-05-27)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.8.38 (2022-05-27)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.8.37 (2022-05-27)
+
+
+### Bug Fixes
+
+* Increase NodeJS version ([#1323](https://github.com/vtex/faststore/issues/1323)) ([3a6fbe7](https://github.com/vtex/faststore/commit/3a6fbe7c230b7056582c783464bfb45cc5717bed))
+
+
+
+
+
 ## 1.8.36 (2022-05-26)
 
 

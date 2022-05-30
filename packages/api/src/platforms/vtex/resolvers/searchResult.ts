@@ -18,13 +18,16 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       const topSearches = await search.topSearches()
 
       return {
-        terms: topSearches.searches.map((item) => item.term),
+        terms: topSearches.searches.map((item) => ({
+          value: item.term,
+          count: item.count,
+        })),
         products: [],
       }
     }
 
     const terms = await search.suggestedTerms(searchArgs)
-    const products = await search.suggestedProducts(searchArgs)
+    const products = await search.products(searchArgs)
 
     const skus = products.products
       .map((product) => {
@@ -37,7 +40,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
     const { searches } = terms
 
     return {
-      terms: searches.map((item) => item.term),
+      terms: searches.map((item) => ({ value: item.term, count: item.count })),
       products: skus,
     }
   },

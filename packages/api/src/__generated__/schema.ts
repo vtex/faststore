@@ -552,11 +552,20 @@ export const enum StoreStatus {
   Warning = 'WARNING'
 };
 
+/** Suggestion term. */
+export type StoreSuggestionTerm = {
+  __typename?: 'StoreSuggestionTerm';
+  /** Its occurrences count. */
+  count: Scalars['Int'];
+  /** The term. */
+  value: Scalars['String'];
+};
+
 /** Suggestions information. */
 export type StoreSuggestions = {
   __typename?: 'StoreSuggestions';
   /** Array with suggestion products' information. */
-  products?: Maybe<Array<StoreProduct>>;
+  products: Array<StoreProduct>;
   /** Array with suggestion terms. */
-  terms?: Maybe<Array<Scalars['String']>>;
+  terms: Array<StoreSuggestionTerm>;
 };
