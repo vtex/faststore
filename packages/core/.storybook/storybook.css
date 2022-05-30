@@ -1,0 +1,27 @@
+.sbdocs-content > header {
+  padding: var(--fs-spacing-4) 0 var(--fs-spacing-4) var(--fs-spacing-6);
+  margin-bottom: var(--fs-spacing-4);
+  color: var(--fs-color-text-inverse);
+  background-color: var(--fs-color-main-0);
+  border-radius: var(--fs-border-radius-default);
+}
+
+.sbdocs-content > header h1 { margin-bottom: 0; }
+.sbdocs-content > header .sbdocs-p { margin: var(--fs-spacing-1) 0 0; }
+
+.sbdocs-table {
+  width: 100%;
+}
+
+.sbdocs-table td {
+  width: 50%;
+}
+
+.sbdocs-table td > div {
+  float: left;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: .5rem;
+  border: 1px solid gray;
+  border-radius: 100%;
+}

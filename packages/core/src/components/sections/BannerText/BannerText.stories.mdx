@@ -1,0 +1,322 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import BannerText from '.'
+
+<Meta
+  title="Organisms/BannerText"
+  argTypes={{
+    actionPath: { table: { disable: true } },
+  }}
+  component={BannerText}
+/>
+
+export const Template = (args) => <BannerText {...args} />
+
+<header>
+
+# Banner Text
+
+Banners are used for advertising brands, products, and/or collections. They comprise a title, some description (only available for the `Secondary` variation), and a call-to-action button.
+
+</header>
+
+The `BannerText` component uses [FastStore UI Banner](https://www.faststore.dev/reference/ui/molecules/Banner) as base.
+
+### Import
+
+`import BannerText from '../components/sections/BannerText'`
+
+### Usage
+
+<Canvas>
+  <Story
+    name="BannerText"
+    args={{
+      title:
+        'Receive our news and promotions in advance. Enjoy and get 10% off on your first purchase.',
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'accent',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="BannerText" />
+
+| Local token                              | Default value/Global token linked    |
+| ---------------------------------------- | ------------------------------------ |
+| <code>--fs-banner-padding-mobile</code>  | <code>var(--fs-spacing-6) 5%</code>  |
+| <code>--fs-banner-padding-desktop</code> | <code>var(--fs-spacing-9) 15%</code> |
+
+<br />
+
+## Nested Elements
+
+### Link
+
+| Local token                              | Default value/Global token linked |
+| ---------------------------------------- | --------------------------------- |
+| <code>--fs-banner-link-min-width</code>  | <code>11.25rem</code>             |
+| <code>--fs-banner-link-margin-top</code> | <code>var(--fs-spacing-6)</code>  |
+
+### Title
+
+| Local token                                | Default value/Global token linked       |
+| ------------------------------------------ | --------------------------------------- |
+| <code>--fs-banner-title-size</code>        | <code>var(--fs-text-size-lead)</code>   |
+| <code>--fs-banner-title-weight</code>      | <code>var(--fs-text-weight-bold)</code> |
+| <code>--fs-banner-title-line-height</code> | <code>1.2</code>                        |
+
+<br />
+
+## Variants
+
+<br />
+
+### Primary
+
+<Canvas>
+  <Story
+    name="Primary"
+    args={{
+      title:
+        'Receive our news and promotions in advance. Enjoy and get 10% off on your first purchase.',
+      actionPath: '/',
+      actionLabel: 'Call to action',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+| Local token                                 | Default value/Global token linked           |
+| ------------------------------------------- | ------------------------------------------- |
+| <code>--fs-banner-primary-title-size</code> | <code>var(--fs-text-size-title-page)</code> |
+
+<br />
+
+### Secondary
+
+<Canvas>
+  <Story
+    name="Secondary"
+    args={{
+      variant: 'secondary',
+      title: 'Receive our news and promotions in advance.',
+      caption: 'Enjoy and get 10% off on your first purchase.',
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'main',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+| Local token                                            | Default value/Global token linked          |
+| ------------------------------------------------------ | ------------------------------------------ |
+| <code>--fs-banner-secondary-title-size</code>          | <code>var(--fs-text-size-4)</code>         |
+| <code>--fs-banner-secondary-caption-size</code>        | <code>var(--fs-text-size-base)</code>      |
+| <code>--fs-banner-secondary-caption-weight</code>      | <code>var(--fs-text-weight-regular)</code> |
+| <code>--fs-banner-secondary-caption-line-height</code> | <code>1.5</code>                           |
+
+<br />
+
+## Color Variants
+
+<br />
+
+### Main
+
+<Canvas isColumn>
+  <Story
+    name="Main"
+    args={{
+      title: 'Receive our news and promotions in advance.',
+      caption: 'Enjoy and get 10% off on your first purchase.',
+      actionPath: '/',
+      actionLabel: 'Call to action',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Secondary Main"
+    args={{
+      variant: 'secondary',
+      title: 'Receive our news and promotions in advance.',
+      caption: 'Enjoy and get 10% off on your first purchase.',
+      actionPath: '/',
+      actionLabel: 'Call to action',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-banner-main-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
+        <code>var(--fs-color-primary-bkg)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-banner-main-text-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-text)' }} />
+        <code>var(--fs-color-primary-text)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+### Light
+
+<Canvas isColumn>
+  <Story
+    name="Light"
+    args={{
+      title: 'Receive our news and promotions in advance.',
+      caption: 'Enjoy and get 10% off on your first purchase.',
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'light',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Secondary Light"
+    args={{
+      variant: 'secondary',
+      title: 'Receive our news and promotions in advance.',
+      caption: 'Enjoy and get 10% off on your first purchase.',
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'light',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-banner-light-bkg-color</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-color-secondary-bkg-light)' }}
+        />
+        <code>var(--fs-color-secondary-bkg-light)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-banner-light-text-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-secondary-text)' }} />
+        <code>var(--fs-color-secondary-text)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+### Accent
+
+<Canvas isColumn>
+  <Story
+    name="Accent"
+    args={{
+      title: 'Receive our news and promotions in advance.',
+      caption: 'Enjoy and get 10% off on your first purchase.',
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'accent',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Secondary Accent"
+    args={{
+      variant: 'secondary',
+      title: 'Receive our news and promotions in advance.',
+      caption: 'Enjoy and get 10% off on your first purchase.',
+      actionPath: '/',
+      actionLabel: 'Call to action',
+      colorVariant: 'accent',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-banner-accent-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-highlighted-bkg)' }} />
+        <code>var(--fs-color-highlighted-bkg)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-banner-accent-text-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-secondary-text)' }} />
+        <code>var(--fs-banner-light-text-color)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>

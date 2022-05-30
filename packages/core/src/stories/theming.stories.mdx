@@ -1,0 +1,73 @@
+import { Description } from '@storybook/addon-docs/blocks'
+import { Meta } from '@storybook/addon-docs'
+
+<Meta title="Theming" />
+
+<header>
+
+# Theming
+
+</header>
+
+This themeable structure is made of two complementary layers: a useful and assorted library of templates for the components and sections, alongside a comprehensive set of design tokens to further customize them.
+
+**Structural Styles**, the first layer, has foundational styles that lay things out in common design patterns for different use cases. It also covers a component's fundamental interactions, like showing/hiding a dropdown or moving a toggle’s knob to make it active.
+
+<img
+  src="https://user-images.githubusercontent.com/11613011/168693550-4db30284-2bc8-4b8a-a3e7-944009f328cc.png"
+  align="right"
+/>
+
+The second, **Theme**, is where the branding lives and what truly differentiates one UI from another. Graphic elements—like typography (and type scale), colors, imagery, borders, spacing, & more—are controlled by design tokens that a developer can easily tweak to create a unique look and feel.
+
+Additional styles can be added to overwrite what was set in the Structure and/or Theme, reaching a state of total flexibility and freedom. Lastly, the developer can throw away all existing FastStore CSS altogether and build it from scratch.
+
+<br />
+
+## Theming architecture
+
+Starting from the bottom up, we have the components: fully-featured UI blocks that belong to a larger whole system. The components have their own CSS that defines their overall appearance and how things are arranged; these scoped stylesheets are the Templates. The Templates' visual properties are tied to local variables—design tokens—that draw the final picture of the component; these local, scoped variables, on the other hand, are tied to global tokens, which form the Theme.
+
+<img
+  src="https://user-images.githubusercontent.com/11613011/168692966-bc95b863-8ef3-4a6a-be8b-2d6cc19bb810.png"
+  align="center"
+/>
+
+<br />
+
+## Design tokens naming scheme
+
+<br />
+
+### Scoped Tokens (components)
+
+All components' design tokens must follow a strict scheme to achieve predictability and cohesiveness. The tokens parts must tell:
+
+- **Namespacing**: Where this token is coming from (is it a global or a component's local part);
+- **Component**: Their semantic meaning;
+- **Type**: What property type it affects;
+- **Category** Which category of this type is going to be affected;
+- **State**: Their interactive state.
+
+![Naming scheme](https://user-images.githubusercontent.com/11613011/168681910-ecfdf685-33a0-431d-a317-d8ea2e223e1c.png)
+
+If needed, we can use other additional incrementation to the token's name, such as:
+
+- **Hierarchy**: Define its tier;
+- **Nested Element**: To sytle elements contained inside the component;
+- **Variant**: What differentiate it from the default;
+- **Situation**: When they should be used;
+
+![Naming scheme 2](https://user-images.githubusercontent.com/11613011/168690590-55b3d6ab-ccea-42d8-a970-ba6486825941.png)
+
+<br />
+
+### Theme (or global design tokens)
+
+Global design tokens are parameters that affect all UI look 'n' feel. They are the main configuration file of a Theme. It's constituted of three main groups:
+
+1. Branding Core
+2. UI Essentials
+3. Refinements
+
+![Theme architecture](https://user-images.githubusercontent.com/11613011/168880397-6be9b561-172c-47d3-9118-ca368e12e83a.png)

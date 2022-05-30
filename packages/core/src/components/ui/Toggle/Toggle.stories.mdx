@@ -1,0 +1,557 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Toggle from '.'
+
+<Meta
+  title="Atoms/Toggle"
+  argTypes={{
+    displayLabel: {
+      type: {
+        name: 'boolean',
+      },
+    },
+    disabled: {
+      type: {
+        name: 'boolean',
+      },
+      defaultValue: false,
+    },
+    variant: {
+      name: 'variant',
+      control: 'radio',
+    },
+  }}
+  component={Toggle}
+/>
+
+export const Template = (args) => <Toggle {...args} />
+
+<header>
+
+# Toggle
+
+An input checkbox styled to look like a switch button.
+
+</header>
+
+<br />
+
+### Import
+
+`import Toggle from '../components/ui/Toggle'`
+
+### Usage
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      id: 'toggle-default',
+      label: 'Label',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable story="default" />
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-toggle-height</code>
+      </td>
+      <td>
+        <code>calc(var(--fs-control-min-height) / 1.75)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-3)' }} />
+        <code>var(--fs-control-bkg-default)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-bkg-color-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-light)' }} />
+        <code>var(--fs-color-primary-bkg-light)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-shadow</code>
+      </td>
+      <td>
+        <code>var(--fs-shadow)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-shadow-hover</code>
+      </td>
+      <td>
+        <code>var(--fs-shadow)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-border-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-border-color-default)' }} />
+        <code>var(--fs-border-color-default)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-border-color-hover</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-border-color-default-hover)' }}
+        />
+        <code>var(--fs-border-color-default-hover)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-border-radius</code>
+      </td>
+      <td>
+        <code>var(--fs-border-radius-default)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-border-width</code>
+      </td>
+      <td>
+        <code>var(--fs-border-width-default)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-transition-timing</code>
+      </td>
+      <td>
+        <code>var(--fs-transition-timing)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-transition-property</code>
+      </td>
+      <td>
+        <code>var(--fs-transition-property)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-transition-function</code>
+      </td>
+      <td>
+        <code>var(--fs-transition-function)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+## Nested Elements
+
+<br />
+
+### Toggle Knob
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-shadow</code>
+      </td>
+      <td>
+        <code>var(--fs-shadow)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
+        <code>var(--fs-color-primary-bkg)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-bkg-color-hover</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-border-color-default-hover)' }}
+        />
+        <code>var(--fs-toggle-border-color-hover)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-border-radius</code>
+      </td>
+      <td>
+        <code>var(--fs-border-radius-small)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-border-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-4)' }} />
+        <code>var(--fs-color-main-4)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-border-color-hover</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-border-color-default-hover)' }}
+        />
+        <code>var(--fs-toggle-border-color-hover)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-border-width</code>
+      </td>
+      <td>
+        <code>var(--fs-toggle-border-width)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-checked-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-control-bkg-default)' }} />
+        <code>var(--fs-control-bkg-default)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-checked-border-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-control-bkg-default)' }} />
+        <code>var(--fs-toggle-knob-checked-bkg-color)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-disabled-bkg-color</code>
+      </td>
+      <td>
+        <div
+          style={{
+            backgroundColor: 'var(--fs-color-neutral-5)',
+          }}
+        />
+        <code>var(--fs-color-neutral-5)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-disabled-border-color</code>
+      </td>
+      <td>
+        <div
+          style={{
+            backgroundColor: 'var(--fs-color-neutral-5)',
+          }}
+        />
+        <code>var(--fs-toggle-knob-disabled-bkg-color)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Toggle Knob Icon
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-icon-color</code>
+      </td>
+      <td>
+        <code>transparent</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-icon-checked-color</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-color-primary-bkg-active)' }}
+        />
+        <code>var(--fs-toggle-checked-bkg-color)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-icon-checked-color-hover</code>
+      </td>
+      <td>
+        <div
+          style={{
+            backgroundColor: 'var(--fs-color-primary-bkg-hover)',
+          }}
+        />
+        <code>var(--fs-toggle-checked-bkg-color-hover)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-knob-icon-disabled-color</code>
+      </td>
+      <td>
+        <div
+          style={{
+            backgroundColor: 'var(--fs-color-disabled-bkg)',
+          }}
+        />
+        <code>var(--fs-toggle-disabled-bkg-color)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+## Variations
+
+<br />
+
+### Horizontal
+
+<Canvas>
+  <Story
+    name="horizontal"
+    args={{
+      id: 'toggle-horizontal',
+      label: 'Label',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Vertical
+
+<Canvas>
+  <Story
+    name="vertical"
+    args={{
+      id: 'toggle-vertical',
+      label: 'Label',
+      variant: 'vertical',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Checked
+
+<Canvas>
+  <Story
+    name="checked"
+    args={{
+      id: 'toggle-checked',
+      label: 'Label',
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>fs-toggle-checked-bkg-color</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-color-primary-bkg-active)' }}
+        />
+        <code>var(--fs-color-primary-bkg-active)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>fs-toggle-checked-bkg-color-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-hover)' }} />
+        <code>var(--fs-color-primary-bkg-hover)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>fs-toggle-checked-border-color</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-border-color-default-active' }}
+        />
+        <code>var(--fs-border-color-default-active)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>fs-toggle-checked-border-color-hover</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-toggle-checked-bkg-color-hover' }}
+        />
+        <code>var(--fs-toggle-checked-bkg-color-hover)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Disabled
+
+<Canvas>
+  <Story
+    name="disabled"
+    args={{
+      id: 'toggle-disabled',
+      label: 'Label',
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="disabled-checked"
+    args={{
+      id: 'toggle-disabled-checked',
+      label: 'Label',
+      disabled: true,
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-toggle-disabled-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-disabled-bkg)' }} />
+        <code>var(--fs-color-disabled-bkg)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-toggle-disabled-border-color</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-border-color-default-disabled)' }}
+        />
+        <code>var(--fs-border-color-default-disabled)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>

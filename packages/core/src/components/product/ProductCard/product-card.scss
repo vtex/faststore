@@ -5,6 +5,7 @@
   // Design Tokens for Product Card
   // --------------------------------------------------------
 
+  // Default properties
   --fs-product-card-padding                  : var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1);
   --fs-product-card-gap                      : var(--fs-grid-gap-2);
   --fs-product-card-min-width                : 14rem;
@@ -16,32 +17,41 @@
   --fs-product-card-bkg-color-hover          : var(--fs-product-card-bkg-color);
   --fs-product-card-bkg-color-focus          : var(--fs-product-card-bkg-color-hover);
 
-  --fs-product-card-img-radius               : var(--fs-border-radius);
-  --fs-product-card-content-padding          : var(--fs-spacing-2) 0 0 0;
-
   --fs-product-card-border-radius            : var(--fs-border-radius);
   --fs-product-card-border-width             : var(--fs-border-width);
 
   --fs-product-card-border-color             : var(--fs-border-color-light);
   --fs-product-card-border-color-hover       : var(--fs-border-color-light-hover);
 
-  --fs-product-card-text-title-color         : var(--fs-color-text);
-  --fs-product-card-text-title-size          : var(--fs-text-size-base);
-  --fs-product-card-text-title-weight        : var(--fs-text-weight-regular);
-  --fs-product-card-text-price-color         : var(--fs-color-text);
-  --fs-product-card-text-price-size          : var(--fs-text-size-base);
-  --fs-product-card-text-price-listing-color : var(--fs-color-text-light);
-  --fs-product-card-text-price-listing-size  : var(--fs-text-size-legend);
-  --fs-product-card-text-description-color   : var(--fs-color-text);
-  --fs-product-card-text-description-size    : var(--fs-text-size-legend);
-  --fs-product-card-text-subtitle-color      : var(--fs-color-text-light);
-  --fs-product-card-text-subtitle-size       : var(--fs-text-size-tiny);
-
-  --fs-product-card-text-max-lines           : var(--fs-text-max-lines);
-
   --fs-product-card-transition-function      : var(--fs-transition-function);
   --fs-product-card-transition-property      : var(--fs-transition-property);
   --fs-product-card-transition-timing        : var(--fs-transition-timing);
+
+  // Content
+  --fs-product-card-content-padding          : var(--fs-spacing-2) 0 0 0;
+
+  // Image
+  --fs-product-card-img-radius               : var(--fs-border-radius-default);
+
+  // Title
+  --fs-product-card-title-color         : var(--fs-color-text);
+  --fs-product-card-title-size          : var(--fs-text-size-base);
+  --fs-product-card-title-weight        : var(--fs-text-weight-regular);
+  --fs-product-card-title-max-lines     : var(--fs-text-max-lines);
+
+  // Price
+  --fs-product-card-price-color         : var(--fs-color-text);
+  --fs-product-card-price-size          : var(--fs-text-size-base);
+  --fs-product-card-price-listing-color : var(--fs-color-text-light);
+  --fs-product-card-price-listing-size  : var(--fs-text-size-legend);
+
+  // Description
+  --fs-product-card-description-color   : var(--fs-color-text);
+  --fs-product-card-description-size    : var(--fs-text-size-legend);
+
+  // Subtitle
+  --fs-product-card-subtitle-color      : var(--fs-color-text-light);
+  --fs-product-card-subtitle-size       : var(--fs-text-size-tiny);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -91,7 +101,7 @@
   a[href] {
     min-height: 100%;
     padding: 0;
-    color: var(--fs-product-card-text-title-color);
+    color: var(--fs-product-card-title-color);
     text-decoration: none;
     outline: none;
 
@@ -116,12 +126,12 @@
 }
 
 [data-fs-product-card-title] {
-  font-size: var(--fs-product-card-text-title-size);
-  font-weight: var(--fs-product-card-text-title-weight);
+  font-size: var(--fs-product-card-title-size);
+  font-weight: var(--fs-product-card-title-weight);
   line-height: 1.25;
-  color: var(--fs-product-card-text-title-color);
+  color: var(--fs-product-card-title-color);
 
-  @include truncate-title(var(--fs-product-card-text-max-lines));
+  @include truncate-title(var(--fs-product-card-title-max-lines));
 }
 
 [data-fs-product-card-prices] {
@@ -129,13 +139,13 @@
   align-content: center;
 
   [data-variant="spot"] {
-    font-size: var(--fs-product-card-text-price-size);
-    color: var(--fs-product-card-text-price-color);
+    font-size: var(--fs-product-card-price-size);
+    color: var(--fs-product-card-price-color);
   }
 
   [data-variant="listing"] {
-    font-size: var(--fs-product-card-text-price-listing-size);
-    color: var(--fs-product-card-text-price-listing-color);
+    font-size: var(--fs-product-card-price-listing-size);
+    color: var(--fs-product-card-price-listing-color);
   }
 }
 
@@ -148,8 +158,8 @@
 
   small {
     display: block;
-    font-size: var(--fs-product-card-text-subtitle-size);
-    color: var(--fs-product-card-text-subtitle-color);
+    font-size: var(--fs-product-card-subtitle-size);
+    color: var(--fs-product-card-subtitle-color);
   }
 }
 

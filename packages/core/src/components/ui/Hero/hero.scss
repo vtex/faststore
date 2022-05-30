@@ -6,10 +6,11 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-hero-title-line-height          : 1.1;
-
   --fs-hero-text-size                  : var(--fs-text-size-lead);
   --fs-hero-text-line-height           : 1.33;
+
+  // Title
+  --fs-hero-title-line-height          : 1.1;
 
   // Primary
   --fs-hero-primary-img-height-mob     : #{rem(240px)};

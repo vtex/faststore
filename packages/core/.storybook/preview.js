@@ -15,9 +15,23 @@ export const parameters = {
   docs: {
     theme: SBTheme,
   },
+  previewTabs: {
+    canvas: { hidden: true },
+  },
+  viewMode: 'docs',
   options: {
     storySort: {
-      order: ['Releases', 'Atoms', 'Molecules', 'Organisms'],
+      method: 'alphabetical',
+      order: [
+        'Getting Started',
+        'Theming',
+        'Fundamentals',
+        ['Colors', 'Typography', 'Icons'],
+        'Atoms',
+        'Molecules',
+        'Organisms',
+        'Releases',
+      ],
     },
   },
 }

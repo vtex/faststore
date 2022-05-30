@@ -1,0 +1,156 @@
+import { Canvas, Meta, Typeset } from '@storybook/addon-docs/blocks'
+
+<Meta title="Fundamentals/Typography" />
+
+export const typography = {
+  type: {
+    primary: '"Lato", -apple-system, system-ui, BlinkMacSystemFont, sans-serif',
+  },
+  weight: {
+    regular: '400',
+    bold: '700',
+    extrabold: '800',
+    black: '900',
+  },
+  sizeMob: {
+    s1: 12,
+    s2: 14,
+    s3: 16,
+    m1: 18,
+    m2: 20,
+    m3: 23,
+    l1: 26,
+    l2: 29,
+    l3: 33,
+  },
+  sizeDesk: {
+    s1: 12,
+    s2: 14,
+    s3: 16,
+    m1: 20,
+    m2: 25,
+    m3: 31,
+    l1: 39,
+    l2: 48,
+    l3: 61,
+  },
+}
+
+export const SampleText =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+
+<header>
+
+# Typography
+
+</header>
+
+<br />
+
+## Mobile Scale
+
+<Typeset
+  fontSizes={[
+    Number(typography.sizeMob.s1),
+    Number(typography.sizeMob.s2),
+    Number(typography.sizeMob.s3),
+    Number(typography.sizeMob.m1),
+    Number(typography.sizeMob.m2),
+    Number(typography.sizeMob.m3),
+    Number(typography.sizeMob.l1),
+    Number(typography.sizeMob.l2),
+    Number(typography.sizeMob.l3),
+  ]}
+  fontWeight={typography.weight.regular}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+/>
+
+## Desktop Scale
+
+<Typeset
+  fontSizes={[
+    Number(typography.sizeDesk.s1),
+    Number(typography.sizeDesk.s2),
+    Number(typography.sizeDesk.s3),
+    Number(typography.sizeDesk.m1),
+    Number(typography.sizeDesk.m2),
+    Number(typography.sizeDesk.m3),
+    Number(typography.sizeDesk.l1),
+    Number(typography.sizeDesk.l2),
+    Number(typography.sizeDesk.l3),
+  ]}
+  fontWeight={typography.weight.regular}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+/>
+
+### Font
+
+| Global Token                      | Value                                                                         |
+| --------------------------------- | ----------------------------------------------------------------------------- |
+| <code>--fs-text-face-body</code>  | <code>"Lato", -apple-system, system-ui, BlinkMacSystemFont, sans-serif</code> |
+| <code>--fs-text-face-title</code> | <code>var(--fs-text-face-body)</code>                                         |
+
+### Weights
+
+| Global Token                          | Value            |
+| ------------------------------------- | ---------------- |
+| <code>--fs-text-weight-light</code>   | <code>300</code> |
+| <code>--fs-text-weight-regular</code> | <code>400</code> |
+| <code>--fs-text-weight-bold</code>    | <code>700</code> |
+| <code>--fs-text-weight-black</code>   | <code>900</code> |
+
+<br />
+
+## Typography Scale
+
+Use a type scale to add rhythm to your typography and ensure consistency throughout the project.
+
+Access https://type-scale.com and pick a scale that suits the store's branding.
+
+<code>--fs-text-size-base</code>: <code>16px</code>
+
+<code>--fs-text-scale-desk</code> : <code>1.25</code>
+
+<code>--fs-text-scale-mobile</code> : <code>1.13</code>
+
+| Global Token                  | Value                                                       |
+| ----------------------------- | ----------------------------------------------------------- |
+| <code>--fs-text-size-0</code> | <code>12px</code>                                           |
+| <code>--fs-text-size-1</code> | <code>14px</code>                                           |
+| <code>--fs-text-size-2</code> | <code>var(--fs-text-size-base); </code>                     |
+| <code>--fs-text-size-3</code> | <code>calc(var(--fs-text-size-2) \* var(--fs-scale))</code> |
+| <code>--fs-text-size-4</code> | <code>calc(var(--fs-text-size-3) \* var(--fs-scale))</code> |
+| <code>--fs-text-size-5</code> | <code>calc(var(--fs-text-size-4) \* var(--fs-scale))</code> |
+| <code>--fs-text-size-6</code> | <code>calc(var(--fs-text-size-5) \* var(--fs-scale))</code> |
+| <code>--fs-text-size-7</code> | <code>calc(var(--fs-text-size-6) \* var(--fs-scale))</code> |
+| <code>--fs-text-size-8</code> | <code>calc(var(--fs-text-size-7) \* var(--fs-scale))</code> |
+
+<br />
+
+## Semantical tokens
+
+<br />
+
+### Sizes
+
+| Global Token                                 | Value                                 |
+| -------------------------------------------- | ------------------------------------- |
+| <code>--fs-text-size-title-huge</code>       | <code>var(--fs-text-size-7)</code>    |
+| <code>--fs-text-size-title-page</code>       | <code>var(--fs-text-size-6)</code>    |
+| <code>--fs-text-size-title-product</code>    | <code>var(--fs-text-size-4)</code>    |
+| <code>--fs-text-size-title-section</code>    | <code>var(--fs-text-size-4)</code>    |
+| <code>--fs-text-size-title-subsection</code> | <code>var(--fs-text-size-4)</code>    |
+| <code>--fs-text-size-title-mini</code>       | <code>var(--fs-text-size-4)</code>    |
+| <code>--fs-text-size-lead</code>             | <code>var(--fs-text-size-3)</code>    |
+| <code>--fs-text-size-menu</code>             | <code>var(--fs-text-size-base)</code> |
+| <code>--fs-text-size-body</code>             | <code>var(--fs-text-size-base)</code> |
+| <code>--fs-text-size-legend</code>           | <code>var(--fs-text-size-1)</code>    |
+| <code>--fs-text-size-tiny</code>             | <code>var(--fs-text-size-0)</code>    |
+
+### Max Lines
+
+| Global Token                     | Value          |
+| -------------------------------- | -------------- |
+| <code>--fs-text-max-lines</code> | <code>2</code> |

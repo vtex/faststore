@@ -10,7 +10,10 @@ export default create({
   // UI
   appBg: 'white',
   appContentBg: 'white',
-  appBorderRadius: 4,
+  appBorderRadius: 6,
+
+  // Typography
+  fontBase: '"Lato", -apple-system, system-ui, BlinkMacSystemFont, sans-serif',
 
   brandTitle: `BaseStore UI`,
   brandUrl: 'https://github.com/vtex-sites/nextjs.store',

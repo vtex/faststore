@@ -7,7 +7,6 @@
 
   // Default properties
   --fs-input-padding               : var(--fs-spacing-2) var(--fs-spacing-2) 0;
-  --fs-input-padding-label         : 0 var(--fs-spacing-2);
   --fs-input-height                : var(--fs-control-tap-size);
 
   --fs-input-box-shadow            : none;
@@ -19,17 +18,23 @@
   --fs-input-border-color-hover    : var(--fs-border-color-active);
 
   --fs-input-text-color            : var(--fs-color-text);
-  --fs-input-text-color-label      : var(--fs-color-text-light);
   --fs-input-text-size             : var(--fs-text-size-body);
-  --fs-input-text-size-message     : var(--fs-text-size-legend);
-  --fs-input-text-size-label       : var(--fs-text-size-tiny);
 
   --fs-input-line-height           : 1.25;
-  --fs-input-line-height-message   : 1.5;
 
   --fs-input-transition-function   : var(--fs-transition-function);
   --fs-input-transition-property   : var(--fs-transition-property);
   --fs-input-transition-timing     : var(--fs-transition-timing);
+
+  // Message
+  --fs-input-message-size          : var(--fs-text-size-legend);
+  --fs-input-message-line-height   : 1.5;
+  --fs-input-message-error-color   : var(--fs-color-danger-text);
+
+  // Label
+  --fs-input-label-padding         : 0 var(--fs-spacing-2);
+  --fs-input-label-color           : var(--fs-color-text-light);
+  --fs-input-label-size            : var(--fs-text-size-tiny);
 
   // Error
   --fs-input-error-border-color    : var(--fs-color-danger-border);
@@ -84,7 +89,7 @@
     &:not(:placeholder-shown) + label,
     &:focus + label {
       top: rem(6px);
-      font-size: var(--fs-input-text-size-label);
+      font-size: var(--fs-input-label-size);
     }
 
     &:hover:not(:disabled):not(:focus-visible):not(:focus) {
@@ -102,17 +107,17 @@
 
   label {
     position: absolute;
-    padding: var(--fs-input-padding-label);
+    padding: var(--fs-input-label-padding);
     font-size: var(--fs-input-text-size);
     line-height: 1.5;
-    color: var(--fs-input-text-color-label);
+    color: var(--fs-input-label-color);
   }
 }
 
 [data-fs-input-text-message] {
   margin-top: rem(2px);
-  font-size: var(--fs-input-text-size-message);
-  line-height: var(--fs-input-line-height-message);
+  font-size: var(--fs-input-message-size);
+  line-height: var(--fs-input-message-line-height);
 }
 
 // --------------------------------------------------------
@@ -133,7 +138,7 @@
   }
 
   [data-fs-input-text-message] {
-    color: var(--fs-color-danger-text);
+    color: var(--fs-input-message-error-color);
   }
 }
 

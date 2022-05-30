@@ -1,0 +1,651 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs'
+import '/.storybook/storybook.css'
+
+<Meta title="Fundamentals/Colors" />
+
+<header>
+
+# Colors
+
+</header>
+
+<br />
+
+<ColorPalette>
+  <ColorItem
+    title="Main"
+    colors={{
+      '--fs-color-main-0': '#ecf0ff',
+      '--fs-color-main-1': '#d8e2ff',
+      '--fs-color-main-2': '#00419e',
+      '--fs-color-main-3': '#002c71',
+      '--fs-color-main-4': '#001947',
+    }}
+  />
+  <ColorItem
+    title="Accent"
+    colors={{
+      '--fs-color-accent-0': '#ebdcff',
+      '--fs-color-accent-1': '#8d50fd',
+      '--fs-color-accent-2': '#732fe2',
+      '--fs-color-accent-3': '#5900c8',
+      '--fs-color-accent-4': '#4700a0',
+    }}
+  />
+  <ColorItem
+    title="Neutral"
+    colors={{
+      '--fs-color-neutral-0': '#ffffff',
+      '--fs-color-neutral-1': '#f1f2f3',
+      '--fs-color-neutral-2': '#e3e6e8',
+      '--fs-color-neutral-3': '#c7ccd1',
+      '--fs-color-neutral-4': '#9099a2',
+      '--fs-color-neutral-5': '#74808b',
+      '--fs-color-neutral-6': '#5d666f',
+      '--fs-color-neutral-7': '#171a1c',
+    }}
+  />
+</ColorPalette>
+
+## Semantical tokens
+
+<br />
+
+### Hierarchy
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Global Token</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-color-primary-text</code>
+      </td>
+      <td>
+        <div
+          style={{
+            backgroundColor: 'var(--fs-color-text-inverse)',
+          }}
+        />
+        <code>var(--fs-color-text-inverse)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-primary-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-4)' }} />
+        <code>var(--fs-color-main-4)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-primary-bkg-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-3)' }} />
+        <code>var(--fs-color-main-3)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-primary-bkg-active</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-2)' }} />
+        <code>var(--fs-color-main-2)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-primary-bkg-light</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-0)' }} />
+        <code>var(--fs-color-main-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-primary-bkg-light-active</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-1)' }} />
+        <code>var(--fs-color-main-1)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-secondary-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-4)' }} />
+        <code>var(--fs-color-main-4)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-secondary-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'transparent' }} />
+        <code>transparent</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-secondary-bkg-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-4)' }} />
+        <code>var(--fs-color-main-4)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-secondary-bkg-active</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-3)' }} />
+        <code>var(--fs-color-main-3)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-secondary-bkg-light</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-0)' }} />
+        <code>var(--fs-color-main-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-secondary-bkg-light-active</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-color-secondary-bkg-light)' }}
+        />
+        <code>var(--fs-color-secondary-bkg-light)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-tertiary-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-link)' }} />
+        <code>var(--fs-color-link)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-tertiary-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'transparent' }} />
+        <code>transparent</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-tertiary-bkg-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-0)' }} />
+        <code>var(--fs-color-main-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-tertiary-bkg-active</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-1)' }} />
+        <code>var(--fs-color-main-1)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-tertiary-bkg-light</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-0)' }} />
+        <code>var(--fs-color-neutral-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-tertiary-bkg-light-active</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-color-tertiary-bkg-light)' }}
+        />
+        <code>var(--fs-color-tertiary-bkg-light)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+### Components & States
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Global Token</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-color-body-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-0)' }} />
+        <code>var(--fs-color-neutral-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-action-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-text-inverse)' }} />
+        <code>var(--fs-color-text-inverse)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-action-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-accent-3)' }} />
+        <code>var(--fs-color-accent-3)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-action-bkg-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-accent-2)' }} />
+        <code>var(--fs-color-accent-2)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-action-bkg-active</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-accent-1)' }} />
+        <code>var(--fs-color-accent-1)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-action-bkg-light</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-0)' }} />
+        <code>var(--fs-color-neutral-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-action-bkg-light-active</code>
+      </td>
+      <td>
+        <div
+          style={{ backgroundColor: 'var(--fs-color-tertiary-bkg-light)' }}
+        />
+        <code>var(--fs-color-tertiary-bkg-light)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-link</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-2)' }} />
+        <code>var(--fs-color-main-2)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-link-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-2)' }} />
+        <code>var(--fs-color-main-2)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-link-active</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-4)' }} />
+        <code>var(--fs-color-main-4)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-link-visited</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: '#6058ba' }} />
+        <code>#6058ba</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-link-inverse</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-0)' }} />
+        <code>var(--fs-color-neutral-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-7)' }} />
+        <code>var(--fs-color-neutral-7)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-text-light</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-6)' }} />
+        <code>var(--fs-color-neutral-6)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-text-inverse</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-0)' }} />
+        <code>var(--fs-color-neutral-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-text-display</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-4)' }} />
+        <code>var(--fs-color-main-4)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-focus-ring</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: '#8db6fa' }} />
+        <code>#8db6fa</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-focus-ring-outline</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: '#8db6fa80' }} />
+        <code>#8db6fa80</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-focus-ring-danger</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: '#fee1e1' }} />
+        <code>#fee1e1</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+### Situations
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Global Token</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-color-success-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: '#368369' }} />
+        <code>#368369</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-success-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: '#cee8de' }} />
+        <code>#cee8de</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-success-border</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-success-text)' }} />
+        <code>var(--fs-color-success-text)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-warning-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-text)' }} />
+        <code>var(--fs-color-text)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-warning-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: '#f6e0ba' }} />
+        <code>#f6e0ba</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-warning-border</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-warning-text)' }} />
+        <code>var(--fs-color-warning-text)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-danger-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: '#cb4242' }} />
+        <code>#cb4242</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-danger-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-focus-ring-danger)' }} />
+        <code>var(--fs-color-focus-ring-danger)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-danger-border</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-danger-text)' }} />
+        <code>var(--fs-color-danger-text)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-info-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-text)' }} />
+        <code>var(--fs-color-text)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-info-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-main-1)' }} />
+        <code>var(--fs-color-main-1)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-highlighted-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-text)' }} />
+        <code>var(--fs-color-text)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-highlighted-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-accent-0)' }} />
+        <code>var(--fs-color-accent-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-neutral-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-text)' }} />
+        <code>var(--fs-color-text)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-neutral-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-1)' }} />
+        <code>var(--fs-color-neutral-1)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-disabled-text</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-6)' }} />
+        <code>var(--fs-color-neutral-6)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-color-disabled-bkg</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-2)' }} />
+        <code>var(--fs-color-neutral-2)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
