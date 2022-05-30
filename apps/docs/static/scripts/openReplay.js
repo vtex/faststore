@@ -1,5 +1,5 @@
 var initOpts = {
-  projectKey: "Pox963XPq4btfjf81Uvq",
+  projectKey: "zD4FbOMKWOBhUhpQaU8t",
   defaultInputMode: 0,
   obscureTextNumbers: false,
   obscureTextEmails: true,
