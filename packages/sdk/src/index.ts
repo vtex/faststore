@@ -75,16 +75,15 @@ export { sendAnalyticsEvent } from './analytics/sendAnalyticsEvent'
 export { useAnalyticsEvent } from './analytics/useAnalyticsEvent'
 
 // Faceted Search
-export {
-  parse as parseSearchState,
-  format as formatSearchState,
-} from './search/serializer'
+export { parse as parseSearchState } from './search/serializer'
+
+export { default as formatSearchState } from './utils/format'
 
 export { initialize as initSearchState } from './search/useSearchState'
 export { Provider as SearchProvider } from './search/Provider'
 export { useSearch } from './search/useSearch'
 export { usePagination } from './search/usePagination'
-export type { State as SearchState } from './search/useSearchState'
+export type { State as SearchState } from './types'
 
 // UI
 export { Provider as UIProvider, Context as UIContext } from './ui/Provider'
