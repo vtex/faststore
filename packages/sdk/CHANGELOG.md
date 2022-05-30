@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.42 (2022-05-30)
+
+
+### Bug Fixes
+
+* github release ([194413b](https://github.com/vtex/faststore/commit/194413ba0087c8283942108ab5fdd25964b8901b))
+
+
+
+
+
 ## 1.8.41 (2022-05-30)
 
 **Note:** Version bump only for package @faststore/sdk
