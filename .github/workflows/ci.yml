@@ -6,9 +6,6 @@ on:
     branches-ignore:
       - main
 
-  pull_request:
-    types: [opened, synchronize]
-
 jobs:
   build:
     name: Build and Test
