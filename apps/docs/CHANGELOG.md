@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.46 (2022-05-30)
+
+
+### Features
+
+* using cache ([#1330](https://github.com/vtex/faststore/issues/1330)) ([6f8a7a4](https://github.com/vtex/faststore/commit/6f8a7a4a593f7e82586d7e3d48f5254e011b8df6))
+
+
+
+
+
 ## 1.8.45 (2022-05-30)
 
 **Note:** Version bump only for package docs
