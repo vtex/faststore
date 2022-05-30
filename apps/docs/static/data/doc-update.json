@@ -1,5 +1,31 @@
 [
   {
+    "date": "2022-05-30",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Platform Integration",
+    "path": "/how-to-guides/platform-integration",
+    "docs": [
+      {
+        "path": "/how-to-guides/platform-integration/vtex/troubleshooting",
+        "title": "Troubleshooting - VTEX integration"
+      }
+    ]
+  },
+  {
+    "date": "2022-05-30",
+    "type": "Fixed",
+    "menu": "How-to Guides",
+    "category": "Platform Integration",
+    "path": "/how-to-guides/platform-integration",
+    "docs": [
+      {
+        "path": "/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website",
+        "title": "Hosting a FastStore + VTEX website"
+      }
+    ]
+  },
+  {
     "date": "2022-05-17",
     "type": "Added",
     "menu": "How-to Guides",

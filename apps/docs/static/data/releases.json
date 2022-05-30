@@ -1,5 +1,11 @@
 [
   {
+    "title": "Changes in the secure subdomain configuration",
+    "product": "FastStore",
+    "fileName": "2022-05-30-faststore",
+    "description": "Check the recent changes in the secure subdomain configuration."
+  },
+  {
     "title": "Required action for VTEX Headless CMS users",
     "product": "CMS",
     "fileName": "2022-05-19-cms",
@@ -16,11 +22,5 @@
     "product": "FastStore",
     "fileName": "2022-05-18-faststore",
     "description": "The FastStore API types, queries and mutations have been documented. You can check it now by using GraphiQL."
-  },
-  {
-    "title": "Faster builds with new WebOps caching system",
-    "product": "WebOps",
-    "fileName": "2022-05-11-webops",
-    "description": "FastStore projects deployed with WebOps can now benefit from faster builds as WebOps can now reuse outputs produced from previous builds."
   }
 ]
