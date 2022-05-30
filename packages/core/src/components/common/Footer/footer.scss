@@ -1,12 +1,8 @@
 @import "src/styles/scaffold";
 
 .footer {
+  padding-top: 0;
   background-color: var(--fs-color-neutral-bkg);
-
-  .incentives {
-    padding-top: 0;
-  }
-
   content-visibility: auto;
   contain-intrinsic-size: rem(860px);
 

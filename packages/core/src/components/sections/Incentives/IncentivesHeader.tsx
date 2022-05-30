@@ -15,7 +15,7 @@ interface Props {
 function IncentivesHeader({ incentives }: Props) {
   return (
     <Section>
-      <Incentives incentives={incentives} classes="incentives--colored" />
+      <Incentives incentives={incentives} colored />
     </Section>
   )
 }

@@ -1,0 +1,115 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import Incentives from '.'
+import IncentivesMock from './incentivesMock'
+
+<Meta title="Organisms/Incentives" component={Incentives} />
+
+export const Template = (args) => <Incentives {...args} />
+
+<header>
+
+# Incentives
+
+It's a component that displays a list of "incentives".
+
+</header>
+
+### Import
+
+`import Incentives from '../components/sections/Incentives'`
+
+### Usage
+
+<Canvas>
+  <Story
+    name="Incentives"
+    args={{
+      incentives: IncentivesMock,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable story="Incentives" />
+
+| Local token                                 | Default value/Global token linked              |
+| ------------------------------------------- | ---------------------------------------------- |
+| <code>--fs-incentives-bkg-color</code>      | <code>var(--fs-color-primary-bkg-light)</code> |
+| <code>--fs-incentives-gap</code>            | <code>var(--fs-spacing-4)</code>               |
+| <code>--fs-incentives-padding-top</code>    | <code>var(--fs-incentives-gap)</code>          |
+| <code>--fs-incentives-padding-bottom</code> | <code>var(--fs-incentives-gap)</code>          |
+| <code>--fs-incentives-border-color</code>   | <code>var(--fs-border-color-light)</code>      |
+| <code>--fs-incentives-border-width</code>   | <code>var(--fs-border-width)</code>            |
+
+<br />
+
+## Nested Elements
+
+### Title
+
+| Local token                                    | Default value/Global token linked       |
+| ---------------------------------------------- | --------------------------------------- |
+| <code>--fs-incentives-title-size</code>        | <code>var(--fs-text-size-1)</code>      |
+| <code>--fs-incentives-title-weight</code>      | <code>var(--fs-text-weight-bold)</code> |
+| <code>--fs-incentives-title-line-height</code> | <code>1.42</code>                       |
+| <code>--fs-incentives-title-color</code>       | <code>var(--fs-color-neutral-7)</code>  |
+
+### Description
+
+| Local token                                          | Default value/Global token linked             |
+| ---------------------------------------------------- | --------------------------------------------- |
+| <code>--fs-incentives-description-size</code>        | <code>var(--fs-incentives-title-size)</code>  |
+| <code>--fs-incentives-description-line-height</code> | <code>1.14</code>                             |
+| <code>--fs-incentives-description-color</code>       | <code>var(--fs-incentives-title-color)</code> |
+
+### Icon
+
+| Local token                             | Default value/Global token linked             |
+| --------------------------------------- | --------------------------------------------- |
+| <code>--fs-incentives-icon-color</code> | <code>var(--fs-incentives-title-color)</code> |
+
+<br />
+
+## Variants
+
+<br />
+
+### Colored
+
+<Canvas>
+  <Story
+    name="Colored"
+    args={{
+      incentives: IncentivesMock,
+      colored: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+| Local token                            | Default value/Global token linked              |
+| -------------------------------------- | ---------------------------------------------- |
+| <code>--fs-incentives-bkg-color</code> | <code>var(--fs-color-primary-bkg-light)</code> |
+
+<br />
+
+### Vertical
+
+<Canvas>
+  <Story
+    name="Vertical"
+    args={{
+      incentives: IncentivesMock,
+      variant: 'vertical',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<br />
