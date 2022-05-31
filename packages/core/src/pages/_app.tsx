@@ -15,6 +15,7 @@ import { validateCart } from 'src/sdk/cart/validate'
 import ErrorBoundary from 'src/sdk/error/ErrorBoundary'
 import { uiActions, uiEffects, uiInitialState } from 'src/sdk/ui'
 import { ModalProvider } from 'src/sdk/ui/modal'
+import { validateSession } from 'src/sdk/session/validate'
 
 import storeConfig from '../../store.config'
 
@@ -38,6 +39,7 @@ function App({ Component, pageProps }: AppProps) {
             channel: storeConfig.channel,
             locale: storeConfig.locale,
           }}
+          onValidateSession={validateSession}
         >
           <CartProvider mode="optimistic" onValidateCart={validateCart}>
             <ModalProvider>

@@ -1,9 +1,10 @@
-import Icon from 'src/components/ui/Icon'
-import usePersonQuery from 'src/sdk/person/usePersonQuery'
+import { useSession } from '@faststore/sdk'
+
 import { ButtonLink } from 'src/components/ui/Button'
+import Icon from 'src/components/ui/Icon'
 
 const ButtonSignIn = () => {
-  const person = usePersonQuery({ suspense: true })
+  const { person } = useSession()
 
   return (
     <ButtonLink

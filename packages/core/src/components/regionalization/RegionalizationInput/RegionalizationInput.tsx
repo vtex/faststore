@@ -1,26 +1,13 @@
 import { useSession } from '@faststore/sdk'
-import { gql } from '@vtex/graphql-utils'
 import { useRef, useState } from 'react'
 
-import { request } from 'src/sdk/graphql/request'
-import type {
-  UpdateSessionMutationMutation,
-  UpdateSessionMutationMutationVariables,
-} from '@generated/graphql'
 import InputText from 'src/components/ui/InputText'
+import { validateSession } from 'src/sdk/session/validate'
 import { useModal } from 'src/sdk/ui/modal/Provider'
-
-export const UpdateSessionMutation = gql`
-  mutation UpdateSessionMutation($session: IStoreSession!) {
-    updateSession(session: $session) {
-      channel
-    }
-  }
-`
 
 export default function RegionalizationInput() {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { country, setSession, ...partialSession } = useSession()
+  const { setSession, ...session } = useSession()
   const [errorMessage, setErrorMessage] = useState<string>('')
   const { onModalClose } = useModal()
 
@@ -34,23 +21,14 @@ export default function RegionalizationInput() {
     setErrorMessage('')
 
     try {
-      const {
-        updateSession: { channel },
-      } = await request<
-        UpdateSessionMutationMutation,
-        UpdateSessionMutationMutationVariables
-      >(UpdateSessionMutation, {
-        session: {
-          channel: partialSession.channel,
-          postalCode: value,
-          country,
-        },
+      const newSession = await validateSession({
+        ...session,
+        postalCode: value,
       })
 
-      setSession({
-        postalCode: value,
-        channel: channel ?? partialSession.channel,
-      })
+      if (newSession) {
+        setSession(newSession)
+      }
 
       onModalClose()
     } catch (error) {
