@@ -52,10 +52,9 @@ const QUERIES = [
   'search',
   'allProducts',
   'allCollections',
-  'person',
 ]
 
-const MUTATIONS = ['validateCart', 'updateSession']
+const MUTATIONS = ['validateCart', 'validateSession']
 
 let schema: GraphQLSchema
 

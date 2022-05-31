@@ -1,7 +1,8 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useMemo } from 'react'
 import type { PropsWithChildren } from 'react'
 
 import { useContext } from '../utils/useContext'
+import { createUseValidationHook } from '../utils/useValidation'
 import { Context as CartContext } from './Cart'
 import type { ContextValue as CartContextValue, Item } from './Cart'
 
@@ -14,49 +15,20 @@ export interface Props<T extends Item> {
 export const Context = createContext<boolean | undefined>(undefined)
 Context.displayName = 'StoreCartValidatorContext'
 
-const nullable = async () => null
-
-// Validation queue
-let queue = Promise.resolve()
+const useValidation = createUseValidationHook()
 
 export const OptimisticProvider = <T extends Item = Item>({
   children,
-  onValidateCart = nullable,
+  onValidateCart,
 }: PropsWithChildren<Props<T>>) => {
   const { items, id, setCart } = useContext(CartContext)
   const cart = useMemo(() => ({ id, items }), [id, items])
-  const [isValidating, setIsValidating] = useState(false)
 
-  useEffect(() => {
-    let cancel = false
-
-    const revalidate = async () => {
-      if (cancel) {
-        return
-      }
-
-      setIsValidating(true)
-      const newCart = await onValidateCart(cart as Cart<T>)
-
-      if (cancel) {
-        return
-      }
-
-      setIsValidating(false)
-      if (newCart != null) {
-        setCart(newCart)
-      }
-    }
-
-    // Enqueue validation
-    setTimeout(() => {
-      queue = queue.then(revalidate)
-    }, 0)
-
-    return () => {
-      cancel = true
-    }
-  }, [cart, onValidateCart, setCart])
+  const isValidating = useValidation({
+    onValidate: onValidateCart,
+    value: cart as Cart<T>,
+    setValue: setCart,
+  })
 
   return <Context.Provider value={isValidating}>{children}</Context.Provider>
 }

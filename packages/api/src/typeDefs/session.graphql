@@ -1,0 +1,84 @@
+"""
+Currency information.
+"""
+type StoreCurrency {
+  """
+  Currency code, e.g: USD
+  """
+  code: String!
+  """
+  Currency symbol, e.g: $
+  """
+  symbol: String!
+}
+
+input IStoreCurrency {
+  """
+  Currency code, e.g: USD
+  """
+  code: String!
+  """
+  Currency symbol, e.g: $
+  """
+  symbol: String!
+}
+
+"""
+Session information.
+"""
+type StoreSession {
+  """
+  Session locale.
+  """
+  locale: String!
+  """
+  Session currency.
+  """
+  currency: StoreCurrency!
+  """
+  Session country.
+  """
+  country: String!
+  """
+  Session channel.
+  """
+  channel: String
+  """
+  Session postal code.
+  """
+  postalCode: String
+  """
+  Session postal code.
+  """
+  person: StorePerson
+}
+
+"""
+Session input.
+"""
+input IStoreSession {
+  """
+  Session input locale.
+  """
+  locale: String!
+  """
+  Session input currency.
+  """
+  currency: IStoreCurrency!
+  """
+  Session input country.
+  """
+  country: String!
+  """
+  Session input channel.
+  """
+  channel: String
+  """
+  Session input postal code.
+  """
+  postalCode: String
+  """
+  Session input postal code.
+  """
+  person: IStorePerson
+}

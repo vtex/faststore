@@ -1,7 +1,7 @@
 import { validateCart } from './validateCart'
-import { updateSession } from './updateSession'
+import { validateSession } from './validateSession'
 
 export const Mutation = {
   validateCart,
-  updateSession,
+  validateSession,
 }

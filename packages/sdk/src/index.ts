@@ -95,15 +95,12 @@ export type {
 export { useGlobalUIState } from './ui/useGlobalUIState'
 
 // Session
-export {
-  Provider as SessionProvider,
-  Context as SessionContext,
-} from './session/Provider'
+export { Provider as SessionProvider } from './session/Provider'
 export type {
   Session,
   Currency as SessionCurrency,
-  User as SessionUser,
-} from './session/Provider'
+  Person as SessionPerson,
+} from './session/Session'
 export { useSession } from './session/useSession'
 
 // Cart
