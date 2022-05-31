@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.49 (2022-05-31)
+
+
+### Bug Fixes
+
+* remove docs from build on codesandbox ([#1334](https://github.com/vtex/faststore/issues/1334)) ([c9eabde](https://github.com/vtex/faststore/commit/c9eabdea8d951d42a9b3898572719e1f45294b33))
+
+
+
+
+
 ## 1.8.46 (2022-05-30)
 
 
