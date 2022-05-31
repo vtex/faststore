@@ -10,7 +10,7 @@ export type CheckboxProps = {
 function Checkbox({ partial, ...otherProps }: CheckboxProps) {
   return (
     <UICheckbox
-      className={`${styles['fs-checkbox']}`}
+      className={styles.fsCheckbox}
       data-fs-checkbox-partial={partial}
       {...otherProps}
     />
