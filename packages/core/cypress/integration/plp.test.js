@@ -59,7 +59,7 @@ describe('Search page Filters and Sorting options', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
-    const priceId = '.product-grid [data-testid="price"]'
+    const priceId = '[data-fs-product-grid] [data-testid="price"]'
 
     cy.getById('product-gallery').within(() => {
       cy.getById('search-sort')
@@ -83,7 +83,7 @@ describe('Search page Filters and Sorting options', () => {
   it('Sort products by price_desc', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
-    const priceId = '.product-grid [data-testid="price"]'
+    const priceId = '[data-fs-product-grid] [data-testid="price"]'
 
     cy.getById('product-gallery').within(() => {
       cy.getById('search-sort')

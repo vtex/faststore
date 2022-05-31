@@ -41,7 +41,7 @@ function ProductGallery({ title, searchTerm }: Props) {
     return (
       <Section
         data-testid="product-gallery"
-        className={`${styles['fs-product-listing']} layout__content`}
+        className={`${styles.fsProductListing} layout__content`}
         data-fs-product-listing
       >
         <EmptyGallery />
@@ -52,7 +52,7 @@ function ProductGallery({ title, searchTerm }: Props) {
   return (
     <Section
       data-testid="product-gallery"
-      className={`${styles['fs-product-listing']} layout__content-full`}
+      className={`${styles.fsProductListing} layout__content-full`}
       data-fs-product-listing
     >
       {searchTerm && (

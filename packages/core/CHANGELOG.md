@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Uses CSS Modules on `ProductCard` component [#61](https://github.com/vtex-sites/nextjs.store/pull/61)
+- Uses CSS Modules on `ProductGrid` component [#61](https://github.com/vtex-sites/nextjs.store/pull/61)
 - Uses CSS Modules on `QuantitySelector` component [#76](https://github.com/vtex-sites/nextjs.store/pull/76)
 - Added base files (`Getting Started`, `Theming`, `Colors`, `Typography` and `Icons`) to Storybook ([#67](https://github.com/vtex-sites/nextjs.store/pull/67))
 - Updated tokens' naming scheme ([#67](https://github.com/vtex-sites/nextjs.store/pull/67))

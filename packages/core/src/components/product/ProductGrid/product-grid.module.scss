@@ -1,6 +1,6 @@
 @import "src/styles/scaffold";
 
-.product-grid {
+.fs-product-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--fs-grid-gap-0);
