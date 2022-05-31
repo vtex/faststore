@@ -1,73 +1,23 @@
-import React, { createContext, useMemo } from 'react'
-import type { FC } from 'react'
+import React from 'react'
+import type { PropsWithChildren } from 'react'
 
-import { useStorage } from '../storage/useStorage'
+import { SessionProvider } from './Session'
+import { RevalidateProvider } from './Revalidate'
+import type { Props as SessionProps } from './Session'
+import type { Props as RevalidateProps } from './Revalidate'
 
-export interface Currency {
-  code: string // Ex: USD
-  symbol: string // Ex: $
-}
+interface Props extends SessionProps, RevalidateProps {}
 
-export interface User {
-  id: string
-  email: string
-  givenName: string
-  familyName: string
-}
-
-export interface Session {
-  locale: string // en-US
-  currency: Currency
-  country: string // BRA
-  channel: string | null
-  postalCode: string | null
-  user: User | null
-}
-
-export interface ContextValue extends Session {
-  setSession: (session: Partial<Session>) => void
-}
-
-export const Context = createContext<ContextValue | undefined>(undefined)
-Context.displayName = 'StoreSessionContext'
-
-const baseInitialState: Session = {
-  currency: {
-    code: 'USD',
-    symbol: '$',
-  },
-  country: 'USA',
-  locale: 'en',
-  postalCode: null,
-  channel: null,
-  user: null,
-}
-
-interface Props {
-  initialState?: Partial<Session>
-  namespace?: string
-}
-
-export const Provider: FC<Props> = ({
+export const Provider = ({
   children,
+  onValidateSession,
   initialState,
-  namespace = 'main',
-}) => {
-  const [session, setSession] = useStorage<Session>(
-    `${namespace}::store::session`,
-    () => ({
-      ...baseInitialState,
-      ...initialState,
-    })
+}: PropsWithChildren<Props>) => {
+  return (
+    <SessionProvider initialState={initialState}>
+      <RevalidateProvider onValidateSession={onValidateSession}>
+        {children}
+      </RevalidateProvider>
+    </SessionProvider>
   )
-
-  const value = useMemo<ContextValue>(
-    () => ({
-      ...session,
-      setSession: (data) => setSession({ ...session, ...data }),
-    }),
-    [session, setSession]
-  )
-
-  return <Context.Provider value={value}>{children}</Context.Provider>
 }
