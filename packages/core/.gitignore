@@ -73,3 +73,5 @@ public/~partytown
 
 # TypeScript
 tsconfig.tsbuildinfo
+
+storybook-static/

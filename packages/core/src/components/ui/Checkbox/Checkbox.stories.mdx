@@ -1,0 +1,353 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Checkbox from '.'
+
+<Meta
+  title="Atoms/Checkbox"
+  component={Checkbox}
+  argTypes={{
+    disabled: {
+      type: {
+        name: 'boolean',
+      },
+      description: '`boolean`',
+      defaultValue: false,
+    },
+    partial: {
+      type: {
+        name: 'boolean',
+      },
+      defaultValue: false,
+    },
+  }}
+/>
+
+export const Template = ({ id, ...args }) => (
+  <div style={{ display: 'flex' }}>
+    <Checkbox id={id} {...args} />
+    <label htmlFor={id} style={{ paddingLeft: '1rem' }}>
+      label
+    </label>
+  </div>
+)
+
+<header>
+
+# Checkbox
+
+An input Checkbox that is commonly used on Filter component.
+
+</header>
+
+The `Checkbox` component uses [FastStore UI Checkbox](https://www.faststore.dev/reference/ui/atoms/Checkbox) as base.
+
+### Import
+
+`import Checkbox from '../components/ui/Checkbox'`
+
+### Usage
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      id: 'checkbox-default',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable story="default" />
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-checkbox-width</code>
+      </td>
+      <td>
+        <code>1.25rem</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-height</code>
+      </td>
+      <td>
+        <code>var(--fs-checkbox-width)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-border-width</code>
+      </td>
+      <td>
+        <code>var(--fs-border-width)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-border-radius</code>
+      </td>
+      <td>
+        <code>var(--fs-border-radius)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-border-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-border-color)' }} />
+        <code>var(--fs-border-color)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-border-color-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-text)' }} />
+        <code>var(--fs-color-text)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-transition</code>
+      </td>
+      <td>
+        <pre
+          style={{
+            fontSize: '0.8125rem',
+            backgroundColor: '#F8F8F8',
+            color: '#333333',
+            padding: '3px 5px',
+            border: '1px solid #EEEEEE',
+            borderRadius: '3px',
+          }}
+        >
+          border var(--fs-transition-timing) var(--fs-transition-function),
+          background-color var(--fs-transition-timing)
+          var(--fs-transition-function), box-shadow var(--fs-transition-timing)
+          var(--fs-transition-function)
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-bkg-color-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-light)' }} />
+        <code>var(--fs-color-primary-bkg-light)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-shadow-hover</code>
+      </td>
+      <td>
+        <code>
+          0 0 0 var(--fs-checkbox-border-width) var(--fs-border-color-active)
+        </code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+
+## Variations
+
+<br />
+
+### Checked
+
+<Canvas>
+  <Story
+    name="checked"
+    args={{
+      id: 'checkbox-checked',
+      checked: true,
+      disabled: false,
+      partial: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<table>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-checkbox-checked-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
+        <code>var(--fs-color-primary-bkg)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-checked-bkg-color-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-hover)' }} />
+        <code>var(--fs-color-primary-bkg-hover)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-checked-border-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-border-color-active)' }} />
+        <code>var(--fs-border-color-active)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Disabled
+
+<Canvas>
+  <Story
+    name="disabled"
+    args={{
+      id: 'checkbox-disabled',
+      disabled: true,
+      checked: false,
+      partial: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<table>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-checkbox-disabled-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-disabled-bkg)' }} />
+        <code>var(--fs-color-disabled-bkg)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-disabled-border-width</code>
+      </td>
+      <td>
+        <code>var(--fs-checkbox-border-width)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-disabled-border-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-border-color-disabled)' }} />
+        <code>var(--fs-border-color-disabled)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-disabled-text-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-disabled-text)' }} />
+        <code>var(--fs-color-disabled-text)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Partial
+
+<Canvas>
+  <Story
+    name="partial"
+    args={{
+      id: 'checkbox-partial',
+      partial: true,
+      disabled: false,
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<table>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-checkbox-partial-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-neutral-0)' }} />
+        <code>var(--fs-color-neutral-0)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-partial-border-width</code>
+      </td>
+      <td>
+        <code>var(--fs-checkbox-border-width)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-partial-border-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
+        <code>var(--fs-color-primary-bkg)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-checkbox-partial-hover</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-light)' }} />
+        <code>var(--fs-color-primary-bkg-light)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
