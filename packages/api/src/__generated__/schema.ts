@@ -18,6 +18,13 @@ export type IStoreCart = {
   order: IStoreOrder;
 };
 
+export type IStoreCurrency = {
+  /** Currency code, e.g: USD */
+  code: Scalars['String'];
+  /** Currency symbol, e.g: $ */
+  symbol: Scalars['String'];
+};
+
 /** Image input. */
 export type IStoreImage = {
   /** Alias for the input image. */
@@ -54,6 +61,18 @@ export type IStoreOrganization = {
   identifier: Scalars['String'];
 };
 
+/** Client profile data. */
+export type IStorePerson = {
+  /** Client email. */
+  email: Scalars['String'];
+  /** Client last name. */
+  familyName: Scalars['String'];
+  /** Client first name. */
+  givenName: Scalars['String'];
+  /** Client ID. */
+  id: Scalars['String'];
+};
+
 /** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type IStoreProduct = {
   /** Custom Product Additional Properties. */
@@ -69,6 +88,8 @@ export type IStoreProduct = {
 export type IStorePropertyValue = {
   /** Property name. */
   name: Scalars['String'];
+  /** Property id. This propert changes according to the content of the object. */
+  propertyID?: Maybe<Scalars['String']>;
   /** Property value. May hold a string or the string representation of an object. */
   value: Scalars['ObjectOrString'];
   /** Specifies the nature of the value */
@@ -86,27 +107,34 @@ export type IStoreSession = {
   /** Session input channel. */
   channel?: Maybe<Scalars['String']>;
   /** Session input country. */
-  country?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  /** Session input currency. */
+  currency: IStoreCurrency;
+  /** Session input locale. */
+  locale: Scalars['String'];
+  /** Session input postal code. */
+  person?: Maybe<IStorePerson>;
   /** Session input postal code. */
   postalCode?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  /** Update session information. */
-  updateSession: StoreSession;
   /** Returns the order if anything has changed in it, or `null` if the order is valid. */
   validateCart?: Maybe<StoreCart>;
-};
-
-
-export type MutationUpdateSessionArgs = {
-  session: IStoreSession;
+  /** Validate session information. */
+  validateSession?: Maybe<StoreSession>;
 };
 
 
 export type MutationValidateCartArgs = {
   cart: IStoreCart;
+};
+
+
+export type MutationValidateSessionArgs = {
+  search: Scalars['String'];
+  session: IStoreSession;
 };
 
 export type Query = {
@@ -117,8 +145,6 @@ export type Query = {
   allProducts: StoreProductConnection;
   /** Collection query. */
   collection: StoreCollection;
-  /** Person query. */
-  person?: Maybe<StorePerson>;
   /** Product query. */
   product: StoreProduct;
   /** Search query. */
@@ -278,6 +304,15 @@ export const enum StoreCollectionType {
   Category = 'Category',
   Cluster = 'Cluster',
   Department = 'Department'
+};
+
+/** Currency information. */
+export type StoreCurrency = {
+  __typename?: 'StoreCurrency';
+  /** Currency code, e.g: USD */
+  code: Scalars['String'];
+  /** Currency symbol, e.g: $ */
+  symbol: Scalars['String'];
 };
 
 /** Search facet information. */
@@ -528,7 +563,13 @@ export type StoreSession = {
   /** Session channel. */
   channel?: Maybe<Scalars['String']>;
   /** Session country. */
-  country?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  /** Session currency. */
+  currency: StoreCurrency;
+  /** Session locale. */
+  locale: Scalars['String'];
+  /** Session postal code. */
+  person?: Maybe<StorePerson>;
   /** Session postal code. */
   postalCode?: Maybe<Scalars['String']>;
 };

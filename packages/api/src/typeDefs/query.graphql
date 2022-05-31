@@ -204,9 +204,4 @@ type Query {
     """
     after: String
   ): StoreCollectionConnection!
-
-  """
-  Person query.
-  """
-  person: StorePerson
 }

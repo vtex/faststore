@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 
-import { format } from './serializer'
+import type { State as SearchState } from '../types'
+import format from '../utils/format'
 import { useSearch } from './useSearch'
-import type { State as SearchState } from './useSearchState'
 
 const getLink = (state: SearchState) => {
   const { pathname, search } = format(state)

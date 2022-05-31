@@ -3,6 +3,74 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.49 (2022-05-31)
+
+
+### Bug Fixes
+
+* remove docs from build on codesandbox ([#1334](https://github.com/vtex/faststore/issues/1334)) ([c9eabde](https://github.com/vtex/faststore/commit/c9eabdea8d951d42a9b3898572719e1f45294b33))
+
+
+
+
+
+## 1.8.46 (2022-05-30)
+
+
+### Features
+
+* using cache ([#1330](https://github.com/vtex/faststore/issues/1330)) ([6f8a7a4](https://github.com/vtex/faststore/commit/6f8a7a4a593f7e82586d7e3d48f5254e011b8df6))
+
+
+
+
+
+## 1.8.45 (2022-05-30)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## [1.8.44](https://github.com/vtex/faststore/compare/v1.8.43...v1.8.44) (2022-05-30)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.8.42 (2022-05-30)
+
+
+### Bug Fixes
+
+* github release ([194413b](https://github.com/vtex/faststore/commit/194413ba0087c8283942108ab5fdd25964b8901b))
+
+
+
+
+
+## 1.8.41 (2022-05-30)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.8.40 (2022-05-30)
+
+
+### Bug Fixes
+
+* Cart item with additionalProperty ([#1325](https://github.com/vtex/faststore/issues/1325)) ([8fa6aa1](https://github.com/vtex/faststore/commit/8fa6aa1a88d3e3702a017e581cbcff4281c47f4f))
+
+
+
+
+
 ## 1.8.39 (2022-05-27)
 
 **Note:** Version bump only for package @faststore/api

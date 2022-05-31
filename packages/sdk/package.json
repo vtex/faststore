@@ -1,6 +1,6 @@
 {
   "name": "@faststore/sdk",
-  "version": "1.8.39",
+  "version": "1.8.49",
   "description": "Hooks for creating your next component library",
   "license": "MIT",
   "repository": {
@@ -24,7 +24,6 @@
     "develop": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },

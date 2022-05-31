@@ -1,6 +1,6 @@
 {
-  "name": "@vtex/graphql-utils",
-  "version": "1.8.39",
+  "name": "@faststore/graphql-utils",
+  "version": "1.8.49",
   "description": "GraphQL utilities",
   "repository": {
     "type": "git",

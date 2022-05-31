@@ -165,22 +165,4 @@ export const Query = {
         })),
     }
   },
-  person: async (_: unknown, __: unknown, ctx: Context) => {
-    const {
-      clients: { commerce },
-    } = ctx
-
-    const {
-      namespaces: { profile = null },
-    } = await commerce.session()
-
-    return (
-      profile && {
-        id: profile.id?.value ?? '',
-        email: profile.email?.value ?? '',
-        givenName: profile.firstName?.value ?? '',
-        familyName: profile.lastName?.value ?? '',
-      }
-    )
-  },
 }
