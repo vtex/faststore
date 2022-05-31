@@ -8,16 +8,16 @@
   // Default properties
   --fs-toggle-height                           : calc(var(--fs-control-min-height) / 1.75);
 
-  --fs-toggle-bkg-color                        : var(--fs-control-bkg-default);
+  --fs-toggle-bkg-color                        : var(--fs-control-bkg);
   --fs-toggle-bkg-color-hover                  : var(--fs-color-primary-bkg-light);
 
   --fs-toggle-shadow                           : var(--fs-shadow);
   --fs-toggle-shadow-hover                     : var(--fs-shadow);
 
-  --fs-toggle-border-color                     : var(--fs-border-color-default);
-  --fs-toggle-border-color-hover               : var(--fs-border-color-default-hover);
-  --fs-toggle-border-radius                    : var(--fs-border-radius-default);
-  --fs-toggle-border-width                     : var(--fs-border-width-default);
+  --fs-toggle-border-color                     : var(--fs-border-color);
+  --fs-toggle-border-color-hover               : var(--fs-border-color-hover);
+  --fs-toggle-border-radius                    : var(--fs-border-radius);
+  --fs-toggle-border-width                     : var(--fs-border-width);
 
   --fs-toggle-transition-timing                : var(--fs-transition-timing);
   --fs-toggle-transition-property              : var(--fs-transition-property);
@@ -32,7 +32,7 @@
   --fs-toggle-knob-border-color-hover          : var(--fs-toggle-border-color-hover);
   --fs-toggle-knob-border-width                : var(--fs-toggle-border-width);
 
-  --fs-toggle-knob-checked-bkg-color           : var(--fs-control-bkg-default);
+  --fs-toggle-knob-checked-bkg-color           : var(--fs-control-bkg);
   --fs-toggle-knob-checked-border-color        : var(--fs-toggle-knob-checked-bkg-color);
 
   --fs-toggle-knob-disabled-bkg-color          : var(--fs-color-neutral-5);
@@ -47,12 +47,12 @@
   // Checked
   --fs-toggle-checked-bkg-color                : var(--fs-color-primary-bkg-active);
   --fs-toggle-checked-bkg-color-hover          : var(--fs-color-primary-bkg-hover);
-  --fs-toggle-checked-border-color             : var(--fs-border-color-default-active);
+  --fs-toggle-checked-border-color             : var(--fs-border-color-active);
   --fs-toggle-checked-border-color-hover       : var(--fs-toggle-checked-bkg-color-hover);
 
   // Disabled
   --fs-toggle-disabled-bkg-color               : var(--fs-color-disabled-bkg);
-  --fs-toggle-disabled-border-color            : var(--fs-border-color-default-disabled);
+  --fs-toggle-disabled-border-color            : var(--fs-border-color-disabled);
 
   // --------------------------------------------------------
   // Structural Styles

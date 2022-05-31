@@ -3,7 +3,7 @@
   margin-bottom: var(--fs-spacing-4);
   color: var(--fs-color-text-inverse);
   background-color: var(--fs-color-main-0);
-  border-radius: var(--fs-border-radius-default);
+  border-radius: var(--fs-border-radius);
 }
 
 .sbdocs-content > header h1 { margin-bottom: 0; }

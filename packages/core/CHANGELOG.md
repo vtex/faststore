@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- Unused `-default` at css variables ([#78](https://github.com/vtex-sites/nextjs.store/pull/78))
 - The `default` nomenclature from global tokens ([#51](https://github.com/vtex-sites/nextjs.store/pull/51))
 
 ### Fixed
