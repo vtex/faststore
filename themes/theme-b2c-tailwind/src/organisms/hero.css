@@ -1,6 +1,6 @@
 [data-store-hero] {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
   width: 100%;
   min-height: 20rem;
   background-color: #001947;
@@ -11,11 +11,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 4rem;
+  padding: 2rem;
 }
 
 [data-hero-heading] h1 {
-  font-size: 1.75rem;
+  font-size: 1.81rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
 }
@@ -36,4 +36,16 @@
   color: #001947;
   border: 1px solid #171a1c;
   background-color: #fff;
+}
+
+@media only screen and (min-width: 769px) {
+  [data-store-hero] {
+    flex-direction: row-reverse;
+  }
+  [data-hero-heading] {
+    padding: 0 4rem;
+  }
+  [data-hero-heading] h1 {
+    font-size: 3rem;
+  }
 }
