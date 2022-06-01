@@ -20,12 +20,7 @@
   margin-bottom: 1.5rem;
 }
 
-[data-hero-image] {
-  height: 100%;
-  overflow: hidden;
-}
-
-[data-hero-link] {
+[data-hero-heading] a {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,6 +31,11 @@
   color: #001947;
   border: 1px solid #171a1c;
   background-color: #fff;
+}
+
+[data-hero-image] {
+  height: 100%;
+  overflow: hidden;
 }
 
 @media only screen and (min-width: 769px) {

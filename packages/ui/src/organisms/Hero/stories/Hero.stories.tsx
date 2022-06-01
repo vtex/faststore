@@ -4,7 +4,6 @@ import React from 'react'
 import HeroComponent from '../Hero'
 import HeroImage from '../HeroImage'
 import HeroHeading from '../HeroHeading'
-import HeroLink from '../HeroLink'
 import type { HeroProps } from '../Hero'
 import { Icon } from '../../..'
 import mdx from './Hero.mdx'
@@ -37,10 +36,9 @@ const HeroTemplate: Story<HeroProps> = ({ testId }) => (
         At BaseStore you can shop the best tech of 2022. Enjoy and get 10% off
         on your first purchase.
       </p>
-      <HeroLink>
-        <a href="/">See all</a>
-        <Icon component={<RightArrow />} />
-      </HeroLink>
+      <a href="/">
+        See all <Icon component={<RightArrow />} />
+      </a>
     </HeroHeading>
   </HeroComponent>
 )

@@ -187,8 +187,12 @@ export type {
   OutOfStockTitleProps,
 } from './organisms/OutOfStock'
 
-export { default as Hero } from './organisms/Hero'
-export type { HeroProps } from './organisms/Hero'
+export { default as Hero, HeroHeading, HeroImage } from './organisms/Hero'
+export type {
+  HeroProps,
+  HeroHeadingProps,
+  HeroImageProps,
+} from './organisms/Hero'
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'

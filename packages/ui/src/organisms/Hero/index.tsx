@@ -6,6 +6,3 @@ export type { HeroImageProps } from './HeroImage'
 
 export { default as HeroHeading } from './HeroHeading'
 export type { HeroHeadingProps } from './HeroHeading'
-
-export { default as HeroLink } from './HeroLink'
-export type { HeroLinkProps } from './HeroLink'

@@ -5,7 +5,6 @@ import React from 'react'
 import Hero from './Hero'
 import HeroImage from './HeroImage'
 import HeroHeading from './HeroHeading'
-import HeroLink from './HeroLink'
 
 const HeroTest = () => {
   return (
@@ -19,7 +18,7 @@ const HeroTest = () => {
       <HeroHeading>
         <h3>Get yo know our next release</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <HeroLink>Shop now</HeroLink>
+        <a href="/">Shop Now</a>
       </HeroHeading>
     </Hero>
   )
@@ -32,7 +31,6 @@ describe('Hero', () => {
     const hero = getByTestId('store-hero')
     const heroImage = getByTestId('store-hero-image')
     const heroHeading = getByTestId('store-hero-heading')
-    const heroLink = getByTestId('store-hero-link')
 
     it('`Hero` component should have `data-store-hero` attribute', () => {
       expect(hero).toHaveAttribute('data-store-hero')
@@ -48,10 +46,6 @@ describe('Hero', () => {
 
     it('`HeroHeading` component should have `data-hero-heading` attribute', () => {
       expect(heroHeading).toHaveAttribute('data-hero-heading')
-    })
-
-    it('`HeroLink` component should have `data-hero-link` attribute', () => {
-      expect(heroLink).toHaveAttribute('data-hero-link')
     })
   })
 
