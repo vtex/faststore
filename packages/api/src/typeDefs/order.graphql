@@ -13,7 +13,7 @@ type StoreOrder {
 }
 
 """
-Offer input.
+Order input.
 """
 input IStoreOrder {
   """
