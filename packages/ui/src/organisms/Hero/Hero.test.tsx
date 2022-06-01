@@ -17,10 +17,8 @@ const HeroTest = () => {
         />
       </HeroImage>
       <HeroHeading>
-        <div>
-          <h3>Get yo know our next release</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+        <h3>Get yo know our next release</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <HeroLink>Shop now</HeroLink>
       </HeroHeading>
     </Hero>
@@ -33,7 +31,7 @@ describe('Hero', () => {
 
     const hero = getByTestId('store-hero')
     const heroImage = getByTestId('store-hero-image')
-    const HeroHeading = getByTestId('store-hero-heading')
+    const heroHeading = getByTestId('store-hero-heading')
     const heroLink = getByTestId('store-hero-link')
 
     it('`Hero` component should have `data-store-hero` attribute', () => {
@@ -49,7 +47,7 @@ describe('Hero', () => {
     })
 
     it('`HeroHeading` component should have `data-hero-heading` attribute', () => {
-      expect(HeroHeading).toHaveAttribute('data-hero-heading')
+      expect(heroHeading).toHaveAttribute('data-hero-heading')
     })
 
     it('`HeroLink` component should have `data-hero-link` attribute', () => {
