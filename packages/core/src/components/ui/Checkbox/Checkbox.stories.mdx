@@ -39,13 +39,59 @@ An input Checkbox that is commonly used on Filter component.
 
 </header>
 
+## Overview
+
 The `Checkbox` component uses [FastStore UI Checkbox](https://www.faststore.dev/reference/ui/atoms/Checkbox) as base.
 
-### Import
+<Canvas>
+  <Story
+    name="overview-default"
+    args={{
+      id: 'overview-checkbox-default',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-checked"
+    args={{
+      id: 'overview-checkbox-checked',
+      checked: true,
+      disabled: false,
+      partial: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-partial"
+    args={{
+      id: 'overview-checkbox-partial',
+      partial: true,
+      disabled: false,
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-disabled"
+    args={{
+      id: 'overview-checkbox-disabled',
+      disabled: true,
+      checked: false,
+      partial: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
 
 `import Checkbox from '../components/ui/Checkbox'`
-
-### Usage
 
 <Canvas>
   <Story
@@ -57,8 +103,6 @@ The `Checkbox` component uses [FastStore UI Checkbox](https://www.faststore.dev/
     {Template.bind({})}
   </Story>
 </Canvas>
-
-### Props
 
 <ArgsTable story="default" />
 
@@ -168,11 +212,9 @@ The `Checkbox` component uses [FastStore UI Checkbox](https://www.faststore.dev/
   </tbody>
 </table>
 
-<br />
+---
 
-## Variations
-
-<br />
+## Variants
 
 ### Checked
 

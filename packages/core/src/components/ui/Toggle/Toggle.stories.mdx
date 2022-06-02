@@ -34,13 +34,66 @@ An input checkbox styled to look like a switch button.
 
 </header>
 
-<br />
+## Overview
 
-### Import
+<Canvas>
+  <Story
+    name="overview-vertical"
+    args={{
+      id: 'overview-toggle-vertical',
+      label: 'Label',
+      variant: 'vertical',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-default"
+    args={{
+      id: 'overview-toggle-default',
+      label: 'Label',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-checked"
+    args={{
+      id: 'overview-toggle-checked',
+      label: 'Label',
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-disabled"
+    args={{
+      id: 'overview-toggle-disabled',
+      label: 'Label',
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-disabled-checked"
+    args={{
+      id: 'overview-toggle-disabled-checked',
+      label: 'Label',
+      disabled: true,
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
 
 `import Toggle from '../components/ui/Toggle'`
-
-### Usage
 
 <Canvas>
   <Story
@@ -53,8 +106,6 @@ An input checkbox styled to look like a switch button.
     {Template.bind({})}
   </Story>
 </Canvas>
-
-### Props
 
 <ArgsTable story="default" />
 
@@ -189,11 +240,9 @@ An input checkbox styled to look like a switch button.
   </tbody>
 </table>
 
-<br />
+---
 
 ## Nested Elements
-
-<br />
 
 ### Toggle Knob
 
@@ -382,11 +431,9 @@ An input checkbox styled to look like a switch button.
   </tbody>
 </table>
 
-<br />
+---
 
-## Variations
-
-<br />
+## Variants
 
 ### Horizontal
 

@@ -1,13 +1,44 @@
 .sbdocs-content > header {
-  padding: var(--fs-spacing-4) 0 var(--fs-spacing-4) var(--fs-spacing-6);
+  padding: var(--fs-spacing-4) var(--fs-spacing-5);
   margin-bottom: var(--fs-spacing-4);
   color: var(--fs-color-text-inverse);
   background-color: var(--fs-color-main-0);
   border-radius: var(--fs-border-radius);
 }
 
-.sbdocs-content > header h1 { margin-bottom: 0; }
+.sbdocs-content > header h1 {
+  margin-bottom: 0;
+  font-size: var(--fs-text-size-5);
+}
 .sbdocs-content > header .sbdocs-p { margin: var(--fs-spacing-1) 0 0; }
+
+.sbdocs.sbdocs-h2 {
+  margin: 0 0 var(--fs-spacing-1);
+  font-size: var(--fs-text-size-title-section);
+  font-weight: var(--fs-text-weight-black);
+  border-bottom: none;
+}
+
+.sbdocs.sbdocs-h3.css-15iuals {
+  margin: var(--fs-spacing-6) 0 0;
+  font-size: var(--fs-text-size-lead);
+}
+
+.sbdocs.sbdocs-h2 + .sbdocs.sbdocs-h3 { margin-top: var(--fs-spacing-4); }
+
+.sbdocs.sbdocs-hr {
+  margin: var(--fs-spacing-7) 0 var(--fs-spacing-5);
+}
+
+.docblock-icongallery {
+  row-gap: var(--fs-grid-gap-3);
+  margin: var(--fs-spacing-4) 0 0;
+}
+
+.docblock-icongallery > div {
+  flex: 0 25%;
+  margin: 0;
+}
 
 .sbdocs-table {
   width: 100%;
