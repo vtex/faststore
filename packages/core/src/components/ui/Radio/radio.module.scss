@@ -1,0 +1,122 @@
+@import "src/styles/scaffold";
+
+.fs-radio {
+  // --------------------------------------------------------
+  // Design Tokens for radio
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-radio-width                        : 1.25rem;
+  --fs-radio-height                       : var(--fs-radio-width);
+
+  --fs-radio-border-width                 : var(--fs-border-width);
+  --fs-radio-border-radius                : var(--fs-border-radius-circle);
+  --fs-radio-border-color                 : var(--fs-border-color);
+  --fs-radio-border-color-hover           : var(--fs-border-color-hover);
+
+  --fs-radio-transition                   : border var(--fs-transition-timing) var(--fs-transition-function), background-color var(--fs-transition-timing) var(--fs-transition-function), box-shadow var(--fs-transition-timing) var(--fs-transition-function);
+
+  --fs-radio-bkg-color-hover              : var(--fs-color-primary-bkg-light);
+  --fs-radio-shadow-hover                 : 0 0 0 var(--fs-radio-border-width) var(--fs-border-color-active);
+
+  // Knob
+  --fs-radio-knob-width                   : var(--fs-spacing-1);
+  --fs-radio-knob-height                  : var(--fs-radio-knob-width);
+  --fs-radio-knob-bkg-color               : var(--fs-color-body-bkg);
+  --fs-radio-knob-disabled-bkg-color      : var(--fs-color-neutral-5);
+
+  // Checked
+  --fs-radio-checked-bkg-color            : var(--fs-color-primary-bkg);
+  --fs-radio-checked-bkg-color-hover      : var(--fs-color-primary-bkg-hover);
+
+  // Disabled
+  --fs-radio-disabled-bkg-color           : var(--fs-color-disabled-bkg);
+  --fs-radio-disabled-border-width        : var(--fs-radio-border-width);
+  --fs-radio-disabled-border-color        : var(--fs-border-color-disabled);
+  --fs-radio-disabled-text-color          : var(--fs-color-disabled-text);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  column-gap: var(--fs-spacing-1);
+  align-items: center;
+
+  label { width: 100%; }
+
+  input {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--fs-radio-width);
+    height: var(--fs-radio-height);
+    cursor: pointer;
+    border: var(--fs-radio-border-width) solid var(--fs-radio-border-color);
+    border-radius: var(--fs-radio-border-radius);
+    outline: none;
+    transition: var(--fs-radio-transition);
+    appearance: none;
+
+    @include input-focus-ring;
+
+    &::before {
+      width: var(--fs-radio-knob-width);
+      height: var(--fs-radio-knob-height);
+      pointer-events: none;
+      content: "";
+      background-color: var(--fs-radio-knob-bkg-color);
+      border-radius: var(--fs-radio-border-radius);
+      opacity: 0;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: var(--fs-radio-bkg-color-hover);
+    }
+
+    &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+      border-color: var(--fs-radio-border-color-hover);
+      box-shadow: var(--fs-radio-shadow-hover);
+    }
+
+    &:checked {
+      background-color: var(--fs-radio-checked-bkg-color);
+      border: none;
+
+      &::before {
+        opacity: 1;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: var(--fs-radio-checked-bkg-color-hover);
+      }
+
+      &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+        box-shadow: none;
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: var(--fs-radio-disabled-bkg-color);
+      border: var(--fs-radio-disabled-border-width) solid var(--fs-radio-disabled-border-color);
+
+      &::before {
+        background-color: var(--fs-radio-knob-disabled-bkg-color);
+      }
+
+      &:checked {
+        &::before {
+          background-color: var(--fs-radio-knob-disabled-bkg-color);
+        }
+      }
+
+      + label {
+        color: var(--fs-radio-disabled-text-color);
+        cursor: not-allowed;
+      }
+    }
+  }
+}

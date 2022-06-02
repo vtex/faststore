@@ -12,7 +12,7 @@
   --fs-checkbox-border-width                 : var(--fs-border-width);
   --fs-checkbox-border-radius                : var(--fs-border-radius);
   --fs-checkbox-border-color                 : var(--fs-border-color);
-  --fs-checkbox-border-color-hover           : var(--fs-color-text);
+  --fs-checkbox-border-color-hover           : var(--fs-border-color-active);
 
   --fs-checkbox-transition                   : border var(--fs-transition-timing) var(--fs-transition-function), background-color var(--fs-transition-timing) var(--fs-transition-function), box-shadow var(--fs-transition-timing) var(--fs-transition-function);
 
@@ -22,7 +22,8 @@
   // Checked
   --fs-checkbox-checked-bkg-color            : var(--fs-color-primary-bkg);
   --fs-checkbox-checked-bkg-color-hover      : var(--fs-color-primary-bkg-hover);
-  --fs-checkbox-checked-border-color         : var(--fs-border-color-active);
+  --fs-checkbox-checked-border-color-hover   : var(--fs-border-color-hover);
+  --fs-checkbox-checked-shadow-hover         : 0 0 0 var(--fs-checkbox-border-width) var(--fs-checkbox-checked-border-color-hover);
 
   // Disabled
   --fs-checkbox-disabled-bkg-color           : var(--fs-color-disabled-bkg);
@@ -31,10 +32,10 @@
   --fs-checkbox-disabled-text-color          : var(--fs-color-disabled-text);
 
   // Partial
-  --fs-checkbox-partial-bkg-color            : var(--fs-color-neutral-0);
+  --fs-checkbox-partial-bkg-color            : var(--fs-color-body-bkg);
   --fs-checkbox-partial-border-width         : var(--fs-checkbox-border-width);
   --fs-checkbox-partial-border-color         : var(--fs-color-primary-bkg);
-  --fs-checkbox-partial-hover                : var(--fs-color-primary-bkg-light);
+  --fs-checkbox-partial-bkg-color-hover      : var(--fs-color-primary-bkg-light);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -69,24 +70,30 @@
     transform: rotate(45deg);
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: var(--fs-checkbox-bkg-color-hover);
+  }
+
+  &:hover:not(:disabled):not(:focus-visible):not(:focus) {
     border-color: var(--fs-checkbox-border-color-hover);
     box-shadow: var(--fs-checkbox-shadow-hover);
   }
 
   &:checked {
     background-color: var(--fs-checkbox-checked-bkg-color);
-    border-color: var(--fs-checkbox-checked-border-color);
-    border-width: 0;
+    border: none;
 
     &::before {
       opacity: 1;
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(--fs-checkbox-checked-bkg-color-hover);
-      box-shadow: none;
+    }
+
+    &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+      border-color: var(--fs-checkbox-checked-border-color-hover);
+      box-shadow: var(--fs-checkbox-checked-shadow-hover);
     }
   }
 
@@ -133,12 +140,13 @@
 
     &:checked {
       &:hover:not(:disabled) {
-        background-color: var(--fs-checkbox-partial-hover);
+        background-color: var(--fs-checkbox-partial-bkg-color-hover);
       }
     }
 
     &:hover {
-      background-color: var(--fs-checkbox-partial-hover);
+      background-color: var(--fs-checkbox-partial-bkg-color-hover);
+      box-shadow: var(--fs-checkbox-shadow-hover);
     }
 
     &:disabled {

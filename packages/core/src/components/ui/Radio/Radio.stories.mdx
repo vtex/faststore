@@ -1,0 +1,237 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Radio from '.'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Atoms/Radio"
+  component={Radio}
+  argTypes={{
+    disabled: {
+      type: {
+        name: 'boolean',
+      },
+      description:
+        'Specifies that this input should be disabled. <br/> `boolean`',
+      defaultValue: false,
+    },
+  }}
+/>
+
+export const Template = (args) => <Radio {...args} />
+
+<header>
+
+# Radio
+
+Radios allow users to select one option from a set.
+
+</header>
+
+## Overview
+
+The `Radio` component uses [FastStore UI Radio](https://www.faststore.dev/reference/ui/atoms/Radio) as base.
+
+<Canvas>
+  <Story
+    name="overview-default-1"
+    args={{
+      id: 'overview-radio-default-1',
+      label: 'Label',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-default-2"
+    args={{
+      id: 'overview-radio-default-2',
+      label: 'Label',
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-default-3"
+    args={{
+      id: 'overview-radio-default-3',
+      label: 'Label',
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-default-4"
+    args={{
+      id: 'overview-radio-default-4',
+      label: 'Label',
+      disabled: true,
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import Radio from '../components/ui/Radio'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      id: 'radio-default',
+      label: 'Label',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow token="--fs-radio-width" value="1.25rem" />
+  <TokenRow token="--fs-radio-height" value="var(--fs-radio-width)" />
+  <TokenDivider />
+  <TokenRow token="--fs-radio-border-width" value="var(--fs-border-width)" />
+  <TokenRow
+    token="--fs-radio-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenRow
+    token="--fs-radio-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-border-color-hover"
+    value="var(--fs-border-color-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-radio-transition"
+    value="border var(--fs-transition-timing) var(--fs-transition-function), background-color var(--fs-transition-timing) var(--fs-transition-function), box-shadow var(--fs-transition-timing) var(--fs-transition-function)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-radio-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-shadow-hover"
+    value="0 0 0 var(--fs-radio-border-width) var(--fs-border-color-active)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Knob
+
+<TokenTable>
+  <TokenRow token="--fs-radio-knob-width" value="var(--fs-spacing-1)" />
+  <TokenRow token="--fs-radio-knob-height" value="var(--fs-radio-knob-width)" />
+  <TokenRow
+    token="--fs-radio-knob-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-knob-disabled-bkg-color"
+    value="var(--fs-color-neutral-5)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Checked
+
+<Canvas>
+  <Story
+    name="checked"
+    args={{
+      id: 'radio-checked',
+      label: 'Label',
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-radio-checked-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-checked-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+</TokenTable>
+
+### Disabled
+
+<Canvas>
+  <Story
+    name="disabled"
+    args={{
+      id: 'radio-disabled',
+      label: 'Label',
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="disabled-checked"
+    args={{
+      id: 'radio-disabled-checked',
+      label: 'Label',
+      disabled: true,
+      checked: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-radio-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-disabled-border-width"
+    value="var(--fs-radio-border-width)"
+  />
+  <TokenRow
+    token="--fs-radio-disabled-border-color"
+    value="var(--fs-border-color-disabled)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+</TokenTable>

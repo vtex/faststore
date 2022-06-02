@@ -2,6 +2,12 @@ import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 
 import Checkbox from '.'
 
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
 <Meta
   title="Atoms/Checkbox"
   component={Checkbox}
@@ -106,111 +112,41 @@ The `Checkbox` component uses [FastStore UI Checkbox](https://www.faststore.dev/
 
 <ArgsTable story="default" />
 
-<table
-  style={{
-    width: '100%',
-  }}
->
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-checkbox-width</code>
-      </td>
-      <td>
-        <code>1.25rem</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-height</code>
-      </td>
-      <td>
-        <code>var(--fs-checkbox-width)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-border-width</code>
-      </td>
-      <td>
-        <code>var(--fs-border-width)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-border-radius</code>
-      </td>
-      <td>
-        <code>var(--fs-border-radius)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-border-color</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-border-color)' }} />
-        <code>var(--fs-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-border-color-hover</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-color-text)' }} />
-        <code>var(--fs-color-text)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-transition</code>
-      </td>
-      <td>
-        <pre
-          style={{
-            fontSize: '0.8125rem',
-            backgroundColor: '#F8F8F8',
-            color: '#333333',
-            padding: '3px 5px',
-            border: '1px solid #EEEEEE',
-            borderRadius: '3px',
-          }}
-        >
-          border var(--fs-transition-timing) var(--fs-transition-function),
-          background-color var(--fs-transition-timing)
-          var(--fs-transition-function), box-shadow var(--fs-transition-timing)
-          var(--fs-transition-function)
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-bkg-color-hover</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-light)' }} />
-        <code>var(--fs-color-primary-bkg-light)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-shadow-hover</code>
-      </td>
-      <td>
-        <code>
-          0 0 0 var(--fs-checkbox-border-width) var(--fs-border-color-active)
-        </code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow token="--fs-checkbox-width" value="1.25rem" />
+  <TokenRow token="--fs-checkbox-height" value="var(--fs-checkbox-width)" />
+  <TokenDivider />
+  <TokenRow token="--fs-checkbox-border-width" value="var(--fs-border-width)" />
+  <TokenRow
+    token="--fs-checkbox-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-checkbox-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-border-color-hover"
+    value="var(--fs-border-color-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-checkbox-transition"
+    value="border var(--fs-transition-timing) var(--fs-transition-function), background-color var(--fs-transition-timing) var(--fs-transition-function), box-shadow var(--fs-transition-timing) var(--fs-transition-function)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-checkbox-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-shadow-hover"
+    value="0 0 0 var(--fs-checkbox-border-width) var(--fs-border-color-active)"
+  />
+</TokenTable>
 
 ---
 
@@ -232,43 +168,28 @@ The `Checkbox` component uses [FastStore UI Checkbox](https://www.faststore.dev/
   </Story>
 </Canvas>
 
-<table>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-checkbox-checked-bkg-color</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
-        <code>var(--fs-color-primary-bkg)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-checked-bkg-color-hover</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-hover)' }} />
-        <code>var(--fs-color-primary-bkg-hover)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-checked-border-color</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-border-color-active)' }} />
-        <code>var(--fs-border-color-active)</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-checkbox-checked-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-checked-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-checked-border-color-hover"
+    value="var((--fs-border-color-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-checked-shadow-hover"
+    value="0 0 0 var(--fs-checkbox-border-width)
+          var(--fs-checkbox-checked-border-color-hover)"
+  />
+</TokenTable>
 
 ### Disabled
 
@@ -286,51 +207,27 @@ The `Checkbox` component uses [FastStore UI Checkbox](https://www.faststore.dev/
   </Story>
 </Canvas>
 
-<table>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-checkbox-disabled-bkg-color</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-color-disabled-bkg)' }} />
-        <code>var(--fs-color-disabled-bkg)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-disabled-border-width</code>
-      </td>
-      <td>
-        <code>var(--fs-checkbox-border-width)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-disabled-border-color</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-border-color-disabled)' }} />
-        <code>var(--fs-border-color-disabled)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-disabled-text-color</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-color-disabled-text)' }} />
-        <code>var(--fs-color-disabled-text)</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-checkbox-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-disabled-border-width"
+    value="var(--fs-checkbox-border-width)"
+  />
+  <TokenRow
+    token="--fs-checkbox-disabled-border-color"
+    value="var(--fs-border-color-disabled)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+</TokenTable>
 
 ### Partial
 
@@ -348,48 +245,24 @@ The `Checkbox` component uses [FastStore UI Checkbox](https://www.faststore.dev/
   </Story>
 </Canvas>
 
-<table>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-checkbox-partial-bkg-color</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-color-neutral-0)' }} />
-        <code>var(--fs-color-neutral-0)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-partial-border-width</code>
-      </td>
-      <td>
-        <code>var(--fs-checkbox-border-width)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-partial-border-color</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
-        <code>var(--fs-color-primary-bkg)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-checkbox-partial-hover</code>
-      </td>
-      <td>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-light)' }} />
-        <code>var(--fs-color-primary-bkg-light)</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-checkbox-partial-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-partial-border-width"
+    value="var(--fs-checkbox-border-width)"
+  />
+  <TokenRow
+    token="--fs-checkbox-partial-border-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-checkbox-partial-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+</TokenTable>
