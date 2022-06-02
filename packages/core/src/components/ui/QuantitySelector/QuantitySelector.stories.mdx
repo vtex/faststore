@@ -1,0 +1,176 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import QuantitySelector from '.'
+import { TokenTable, TokenRow, TokenDivider } from 'src/../.storybook/components'
+
+<Meta
+  title="Molecules/QuantitySelector"
+  component={QuantitySelector}
+  argTypes={{
+    max: {
+      type: {
+        name: 'number',
+      },
+      defaultValue: 10,
+      description: "The maximum value the quantity selector can receive"
+    },
+    min: {
+      type: {
+        name: 'number',
+      },
+      defaultValue: 1,
+      description: "The minimum value the quantity selector can receive"
+    },
+    initial: {
+      type: {
+        name: 'number',
+      },
+      defaultValue: 5,
+      description: "The initial value for quantity selector"
+    },
+    disabled: {
+      type: {
+        name: 'boolean'
+      },
+      defaultValue: false,
+      description: "Specifies that the whole quantity selector component should be disabled."
+    },
+    onChange: {
+      description: "Event emitted when value is changed"
+    }
+  }}
+/>
+
+export const Template = (args) => <QuantitySelector {...args} />
+
+<header>
+
+# QuantitySelector
+
+It's a component that shows a quantity selector, commonly used to add a product to the shopping cart.
+
+</header>
+
+## Overview
+
+The `QuantitySelector` component uses [FastStore UI QuantitySelector](https://www.faststore.dev/reference/ui/molecules/QuantitySelector) as base.
+
+<Canvas>
+  <Story
+    name="Overview-QuantitySelector"
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Overview-Disabled"
+    args={{
+      disabled: true
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Usage
+
+`import QuantitySelector from '../components/sections/QuantitySelector'`
+
+<Canvas>
+  <Story
+    name="QuantitySelector"
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="QuantitySelector" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-qty-selector-width"
+    value="calc(var(--fs-control-tap-size) * 2.7)"/>
+  <TokenRow
+    token="--fs-qty-selector-height"
+    value="calc(var(--fs-control-tap-size) + (var(--fs-qty-selector-border-width) * 2))"/>
+  <TokenDivider/>
+  <TokenRow
+    token="--fs-qty-selector-shadow"
+    value="none"/>
+  <TokenRow
+    token="--fs-qty-selector-shadow-hover"
+    value="0 0 0 var(--fs-border-width) var(--fs-border-color-active)"/>
+  <TokenDivider/>
+  <TokenRow
+    token="--fs-qty-selector-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor/>
+  <TokenRow
+    token="--fs-qty-selector-bkg-color-hover"
+    value="var(--fs-qty-selector-bkg-color)"
+    isColor/>
+  <TokenDivider/>
+  <TokenRow token="--fs-qty-selector-border-radius"      value="var(--fs-border-radius)"/>
+  <TokenRow token="--fs-qty-selector-border-width"       value="var(--fs-border-width)"/>
+  <TokenRow token="--fs-qty-selector-border-width-hover" value="var(--fs-border-width)"/>
+  <TokenRow token="--fs-qty-selector-border-color"       value="var(--fs-border-color)" isColor/>
+  <TokenRow token="--fs-qty-selector-border-color-hover" value="var(--fs-border-color-active)" isColor/>
+  <TokenDivider/>
+  <TokenRow token="--fs-qty-selector-transition-function" value="var(--fs-transition-function)"/>
+  <TokenRow token="--fs-qty-selector-transition-property" value="var(--fs-transition-property)"/>
+  <TokenRow token="--fs-qty-selector-transition-timing  " value="var(--fs-transition-timing)"/>
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Text
+
+<TokenTable>
+  <TokenRow token="--fs-qty-selector-text-size" value="var(--fs-text-size-base)" />
+  <TokenRow token="--fs-qty-selector-text-color" value="var(--fs-color-text)" isColor />
+  <TokenRow token="--fs-qty-selector-text-color-hover" value="var(--fs-qty-selector-text-color)" isColor />
+</TokenTable>
+
+### Icon
+
+<TokenTable>
+  <TokenRow token="--fs-qty-selector-icon-color" value="var(--fs-color-link)" isColor />
+  <TokenRow token="--fs-qty-selector-icon-color-hover" value="var(--fs-border-color-active)" isColor />
+</TokenTable>
+
+### Button
+
+<TokenTable>
+  <TokenRow token="--fs-qty-selector-button-shadow" value="none"/>
+  <TokenRow token="--fs-qty-selector-button-shadow-hover" value="none"/>
+  <TokenRow token="--fs-qty-selector-button-bkg-color" value="transparent"/>
+  <TokenRow token="--fs-qty-selector-button-bkg-color-hover" value="var(--fs-color-primary-bkg-light)" isColor  />
+  <TokenRow token="--fs-qty-selector-button-bkg-color-focus" value="var(--fs-qty-selector-button-bkg-color-hover)" isColor/>
+  <TokenRow token="--fs-qty-selector-button-border-radius"   value="var(--fs-qty-selector-border-radius)"/>
+</TokenTable>
+
+---
+
+## Variations
+
+### Disabled
+
+<Canvas>
+  <Story
+    name="Disabled"
+    args={{
+      disabled: true
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-qty-selector-disabled-bkg-color" value="var(--fs-color-disabled-bkg)" isColor />
+  <TokenRow token="--fs-qty-selector-disabled-text-color" value="var(--fs-color-disabled-text)" isColor />
+  <TokenRow token="--fs-qty-selector-disabled-icon-color" value="var(--fs-border-color-light-disabled)" isColor />
+  <TokenRow token="--fs-qty-selector-disabled-border-color" value="var(--fs-qty-selector-disabled-bkg-color)" isColor />
+  <TokenRow token="--fs-qty-selector-disabled-button-bkg-color" value="var(--fs-qty-selector-button-bkg-color-hover)" isColor />
+</TokenTable>
