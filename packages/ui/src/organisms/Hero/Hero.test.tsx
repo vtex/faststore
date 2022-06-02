@@ -54,6 +54,7 @@ describe('Hero', () => {
       const { getByTestId } = render(<HeroTest />)
 
       expect(await axe(getByTestId('store-hero'))).toHaveNoViolations()
+      expect(await axe(getByTestId('store-hero'))).toHaveNoIncompletes()
     })
   })
 })
