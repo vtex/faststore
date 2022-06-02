@@ -155,13 +155,17 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   const id = params?.slug.split('-').pop() ?? ''
 
-  const { data } = await execute<
+  const { data, errors } = await execute<
     ServerProductPageQueryQueryVariables,
     ServerProductPageQueryQuery
   >({
     variables: { id },
     operationName: query,
   })
+
+  if (errors?.length > 0) {
+    throw new Error(`${errors[0]}`)
+  }
 
   if (data === null) {
     return {

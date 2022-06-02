@@ -166,13 +166,17 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   const slug = params?.slug.join('/') ?? ''
 
-  const { data } = await execute<
+  const { data, errors } = await execute<
     ServerCollectionPageQueryQueryVariables,
     ServerCollectionPageQueryQuery
   >({
     variables: { slug },
     operationName: query,
   })
+
+  if (errors?.length > 0) {
+    throw new Error(`${errors[0]}`)
+  }
 
   if (data === null) {
     return {
