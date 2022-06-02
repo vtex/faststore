@@ -51,6 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Lighthouse complaining about missing robots.txt ([#89](https://github.com/vtex-sites/nextjs.store/pull/89))
 - Search suggestions missing locale info ([#71](https://github.com/vtex-sites/nextjs.store/pull/71))
 - Limit custom props only for `img` and `link` tags ([#60](https://github.com/vtex-sites/nextjs.store/pull/60))
 - Warning related to `fetchPriority` prop not being recognized as `img` and `link`'s prop ([#54](https://github.com/vtex-sites/nextjs.store/pull/54))
