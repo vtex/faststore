@@ -55,24 +55,54 @@ type StoreCollectionConnection {
 }
 
 """
-Product sorting options used in search.
+Product search results sorting options.
 """
 enum StoreSort {
+  """
+  Sort by price, from highest to lowest.
+  """
   price_desc
+  """
+  Sort by price, from lowest to highest.
+  """
   price_asc
+  """
+  Sort by orders, from highest to lowest.
+  """
   orders_desc
+  """
+  Sort by name, in reverse alphabetical order.
+  """
   name_desc
+  """
+  Sort by name, in alphabetical order.
+  """
   name_asc
+  """
+  Sort by release date, from  highest to lowest.
+  """
   release_desc
+  """
+  Sort by discount value, from highest to lowest.
+  """
   discount_desc
+  """
+  Sort by product score, from highest to lowest.
+  """
   score_desc
 }
 
 """
-Selected facet input.
+Selected search facet input.
 """
 input IStoreSelectedFacet {
+  """
+  Selected search facet key.
+  """
   key: String!
+  """
+  Selected search facet value.
+  """
   value: String!
 }
 
@@ -80,7 +110,13 @@ input IStoreSelectedFacet {
 Search facet type.
 """
 enum StoreFacetType {
+  """
+  Indicates boolean search facet.
+  """
   BOOLEAN
+  """
+  Indicates range type search facet.
+  """
   RANGE
 }
 
