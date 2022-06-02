@@ -2,7 +2,7 @@
 
 Arguments must be provided by the user. 
 
-Arguments preeceded by an exclamation mark (`!`) cannot be nullable.
+Arguments preeceded by an exclamation mark (`!`) are not nullable.
 
 ## Product 
 
