@@ -1,5 +1,5 @@
 ---
-title: Base Store, May 2022
+title: Base Store - May 2022
 description: Base Store Release Notes 
 tags: [base store]
 hide_table_of_contents: false
