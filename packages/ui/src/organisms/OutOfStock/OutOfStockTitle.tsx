@@ -13,9 +13,14 @@ export const OutOfStockTitle = ({
   as: TitleComponent = 'h2',
   testId = 'store-out-of-stock-title',
   children,
+  ...otherProps
 }: OutOfStockTitleProps) => {
   return (
-    <TitleComponent data-out-of-stock-title data-testid={testId}>
+    <TitleComponent
+      data-out-of-stock-title
+      data-testid={testId}
+      {...otherProps}
+    >
       {children}
     </TitleComponent>
   )
