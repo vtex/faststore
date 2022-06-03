@@ -1,11 +1,9 @@
 ---
-title: April, 2022
+title: Base Store - April, 2022
 description: Base Store Release Notes 
 tags: [basestore]
 hide_table_of_contents: false
 ---
-
-# Base Store - April, 2022
 
 The Base Store now has a new search API, components with a new theming structure, and a Storybook package to run locally. Also, check out the news for the starter framework-specific updates.
 
