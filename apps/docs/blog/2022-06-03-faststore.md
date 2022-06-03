@@ -1,6 +1,6 @@
 ---
 title: FastStore, May 2022
-description: FastStoreStore Release Notes 
+description: FastStore Release Notes 
 tags: [faststore]
 hide_table_of_contents: false
 ---
