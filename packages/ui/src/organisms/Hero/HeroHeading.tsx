@@ -9,7 +9,7 @@ export interface HeroHeadingProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const HeroHeading = forwardRef<HTMLDivElement, HeroHeadingProps>(
-  function BannerContent(
+  function HeroHeading(
     { testId = 'store-hero-heading', children, ...otherProps },
     ref
   ) {
