@@ -1,5 +1,17 @@
 [
   {
+    "title": "May Base Store Release Notes",
+    "product": "Base Store",
+    "fileName": "2022-06-03-basestore",
+    "description": "The LCP score has been improved, and the CartItem now has analytics events. Also, see the components that now use the Base Store Theming Structure to use new tokens."
+  },
+  {
+    "title": "May FastStore Release Notes",
+    "product": "FastStore",
+    "fileName": "2022-06-03-faststore",
+    "description": "The FastStore UI has two new components: OutOfStock and ProductCard, and the Search API now receives selectedFacets. Also, check out the latest community starters."
+  },
+  {
     "title": "Changes in the secure subdomain configuration",
     "product": "FastStore",
     "fileName": "2022-05-30-faststore",
@@ -10,17 +22,5 @@
     "product": "CMS",
     "fileName": "2022-05-19-cms",
     "description": "VTEX Headless CMS users must upgrade to version 1.x and set up the Releases app."
-  },
-  {
-    "title": "Improvement in page loading time with Incremental Static Build",
-    "product": "WebOps",
-    "fileName": "2022-05-19-webops",
-    "description": "Incremental static build capability is now available. Activate it to improve page loading time."
-  },
-  {
-    "title": "FastStore API documentation available on GraphiQL",
-    "product": "FastStore",
-    "fileName": "2022-05-18-faststore",
-    "description": "The FastStore API types, queries and mutations have been documented. You can check it now by using GraphiQL."
   }
 ]
