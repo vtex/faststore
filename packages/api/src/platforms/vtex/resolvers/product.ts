@@ -1,11 +1,21 @@
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { bestOfferFirst } from '../utils/productStock'
+import { slugify } from '../utils/slugify'
 import type { EnhancedCommercialOffer } from '../utils/enhanceCommercialOffer'
 import type { Resolver } from '..'
 import type { PromiseType } from '../../../typings'
 import type { Query } from './query'
+import {
+  attachmentToPropertyValue,
+  VALUE_REFERENCES,
+} from '../utils/propertyValue'
+import type { Attachment } from '../clients/commerce/types/OrderForm'
 
-type Root = PromiseType<ReturnType<typeof Query.product>>
+type QueryProduct = PromiseType<ReturnType<typeof Query.product>>
+
+type Root = QueryProduct & {
+  attachmentsValues?: Attachment[]
+}
 
 const DEFAULT_IMAGE = {
   imageText: 'image',
@@ -19,7 +29,12 @@ const nonEmptyArray = <T>(array: T[] | null | undefined) =>
   Array.isArray(array) && array.length > 0 ? array : null
 
 export const StoreProduct: Record<string, Resolver<Root>> & {
-  offers: Resolver<Root, any, EnhancedCommercialOffer[]>
+  offers: Resolver<
+    Root,
+    any,
+    Array<EnhancedCommercialOffer<Root['sellers'][number], Root>>
+  >
+
   isVariantOf: Resolver<Root, any, Root>
 } = {
   productID: ({ itemId }) => itemId,
@@ -38,11 +53,13 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
     return {
       itemListElement: [
         ...categories.reverse().map((categoryPath, index) => {
-          const categoryNames = categoryPath.split('/')
+          const splitted = categoryPath.split('/')
+          const name = splitted[splitted.length - 2]
+          const item = splitted.map(slugify).join('/')
 
           return {
-            name: categoryNames[categoryNames.length - 2],
-            item: categoryPath.toLowerCase(),
+            name,
+            item,
             position: index + 1,
           }
         }),
@@ -77,9 +94,24 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
       )
       .sort(bestOfferFirst),
   isVariantOf: (root) => root,
-  additionalProperty: ({ variations = [] }) => {
-    return variations.flatMap(({ name, values }) =>
-      values.map((value) => ({ name, value }))
+  additionalProperty: ({
+    // Search uses the name variations for specifications
+    variations: specifications = [],
+    attachmentsValues = [],
+  }) => {
+    const propertyValueSpecifications = specifications.flatMap(
+      ({ name, values }) =>
+        values.map((value) => ({
+          name,
+          value,
+          valueReference: VALUE_REFERENCES.specification,
+        }))
     )
+
+    const propertyValueAttachments = attachmentsValues.map(
+      attachmentToPropertyValue
+    )
+
+    return [...propertyValueSpecifications, ...propertyValueAttachments]
   },
 }

@@ -69,7 +69,7 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
     }
 
     if (isOrderFormItem(root)) {
-      return root.price / 1e2
+      return root.sellingPrice / 1e2
     }
 
     return null
@@ -96,7 +96,17 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
 
     return null
   },
-  itemOffered: ({ product }) => product,
+  itemOffered: async (root) => {
+    if (isSearchItem(root)) {
+      return root.product
+    }
+
+    if (isOrderFormItem(root)) {
+      return { ...(await root.product), attachmentsValues: root.attachments }
+    }
+
+    return null
+  },
   quantity: (root) => {
     if (isSearchItem(root)) {
       return root.AvailableQuantity ?? 0

@@ -1,81 +1,56 @@
-# This Action should run on master and verify lint, test, and then publish the version on npm
+# This Action should run on main branch and verify lint, test, and then publish the version on npm
 name: CD
 
 on:
   push:
     branches:
       - main
-      - master
 
 jobs:
-  lint:
-    name: Lint
+  build:
+    name: FastStore
+    timeout-minutes: 15
     runs-on: ubuntu-latest
+    # To use Remote Caching, uncomment the next lines and follow the steps below.
+    env:
+     TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+     TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Use Node 14.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
-
-      - name: Lint
-        run: yarn lint
-
-  test:
-    needs: lint
-    name: Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Use Node 14.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
-
-      - name: Test
-        run: yarn test --ci --maxWorkers=2
-
-  publish:
-    needs: test
-    name: Publish
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
+      - name: Check out code
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
+          fetch-depth: 2
 
-      - name: Use Node 14.x
-        uses: actions/setup-node@v1
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: 16
+          cache: 'yarn'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
 
       - name: Configure CI Git User
         run: |
           git config user.name vtexgithubbot
           git config user.email vtexgithubbot@github.com
 
+      - name: Install dependencies
+        run: yarn
+
       - name: Build
         run: yarn build
 
-      - name: Publish package
+      - name: Size
+        run: yarn size
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Test
+        run: yarn test
+
+      - name: Publish
         run: lerna publish patch --yes --no-verify-access --ignore-scripts --conventional-commits
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

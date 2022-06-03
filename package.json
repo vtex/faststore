@@ -1,30 +1,22 @@
 {
   "name": "faststore",
-  "version": "0.0.0",
   "description": "Digital commerce toolkit for frontend developers.",
-  "main": "index.js",
   "repository": "git@github.com:vtex/faststore.git",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "lerna run build",
-    "build-themes": "lerna run build --scope '@vtex/theme-*' || true",
-    "build-docs": "lerna run build --include-dependencies --scope docs",
-    "build-storybook": "yarn build-themes && yarn workspace @faststore/ui build-storybook",
-    "storybook": "yarn workspace @faststore/ui storybook",
-    "clean": "lerna clean && lerna run clean",
-    "format": "prettier --write \"packages/**/*.{ts,tsx,json}\"",
-    "lint": "eslint packages/ --ext .ts,.tsx",
-    "test": "lerna run test --",
-    "bootstrap": "lerna bootstrap",
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel --no-cache",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "size": "turbo run size",
+    "format": "prettier --write \"**/*.{ts,tsx,json}\"",
     "release": "lerna version minor --yes && lerna publish from-git --yes",
-    "size": "lerna run size",
     "generate-ui-component": "yarn plop --plopfile generators/plopfile.ts"
   },
   "workspaces": [
     "packages/*",
-    "themes/*",
-    "docs"
+    "apps/*"
   ],
   "husky": {
     "hooks": {
@@ -53,6 +45,7 @@
     "lint-staged": "^10.5.1",
     "plop": "^2.7.6",
     "prettier": "^2.2.1",
+    "turbo": "latest",
     "typescript": "^4.1.2"
   },
   "resolutions": {

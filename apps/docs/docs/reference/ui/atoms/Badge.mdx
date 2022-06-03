@@ -1,0 +1,71 @@
+---
+description: Status descriptors used to emphasize an item's state.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+---
+
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+Badges are status descriptors used to emphasize an item's state.
+
+## Import
+
+```tsx
+import { Badge } from '@faststore/ui'
+```
+
+## Usage
+
+```tsx live
+ <Badge>-25%</Badge>
+```
+### Use cases
+
+Use the Badge component to highlight:
+
+- Promotional discounts.
+- Product features (e.g., `vegan` or `cruelty-free`).
+- Product availability statuses (e.g., `NEW`,`ONLY 1 LEFT` and `OUT OF STOCK`).
+
+```tsx live
+<Card>
+    <img
+      alt="A vintage camera"
+      src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
+    />
+    <div>
+    <Badge class="bg-green-500">
+                back in stock
+    </Badge>
+
+    </div>
+</Card>
+```
+
+## Props
+
+<PropsSection name="Badge" />
+
+## Customization
+
+`data-store-badge`
+
+## Best practices
+
+### Do's
+
+- Place the badge next to or on top of its related item.
+- Be cautious about the badge's positioning, writing, shape, and color to avoid any confusion with components similar in appearance.
+
+### Don'ts
+
+- Don't use long texts in badges. A reasonable character limit is 15.
+- Don't label badges with active verbs.
+- Don't use color alone to convey information. If color is needed to convey meaning, ensure there is a text alternative for that meaning as well.
+- Don't place badges next to buttons. Although badges and buttons are similar in appearance, badges are not interactive and may confuse users if not used in the proper context.
+
+## Accessibility
+- `id` attribute value must be unique.
+- Text elements must have sufficient color contrast against the background.

@@ -1,5 +1,6 @@
 {
+  "buildCommand": "turbo run build --ignore=\"apps/**/*\"",
   "packages": ["packages/*"],
   "sandboxes": ["store-ui-typescript-0gd9u"],
-  "node": "14"
+  "node": "16"
 }

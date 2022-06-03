@@ -3,11 +3,38 @@ Properties that can be associated with products and products groups.
 """
 type StorePropertyValue {
   """
-  Property value.
+  Property id. This propert changes according to the content of the object.
   """
-  value: String!
+  propertyID: String!
+  """
+  Property value. May hold a string or the string representation of an object.
+  """
+  value: ObjectOrString!
   """
   Property name.
   """
   name: String!
+  """
+  Specifies the nature of the value
+  """
+  valueReference: String!
+}
+
+input IStorePropertyValue {
+  """
+  Property id. This propert changes according to the content of the object.
+  """
+  propertyID: String
+  """
+  Property value. May hold a string or the string representation of an object.
+  """
+  value: ObjectOrString!
+  """
+  Property name.
+  """
+  name: String!
+  """
+  Specifies the nature of the value
+  """
+  valueReference: String!
 }

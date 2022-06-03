@@ -3,7 +3,7 @@ Information of a specific order.
 """
 type StoreOrder {
   """
-  Order shopping cart ID, also known as `orderFormId`.
+  ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#).
   """
   orderNumber: String!
   """
@@ -17,7 +17,7 @@ Offer input.
 """
 input IStoreOrder {
   """
-  Order shopping cart ID, also known as `orderFormId`.
+  ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#).
   """
   orderNumber: String!
   """

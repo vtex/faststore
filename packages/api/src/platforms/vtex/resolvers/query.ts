@@ -1,5 +1,10 @@
+import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { enhanceSku } from '../utils/enhanceSku'
-import { transformSelectedFacet } from '../utils/facets'
+import {
+  findChannel,
+  findLocale,
+  transformSelectedFacet,
+} from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
 import { StoreCollection } from './collection'
 import type {
@@ -11,23 +16,26 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
-import { mutateChannelContext } from '../utils/channel'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
     // Insert channel in context for later usage
-    const channelString = locator.find((facet) => facet.key === 'channel')
-      ?.value
+    const channel = findChannel(locator)
+    const locale = findLocale(locator)
 
-    if (channelString) {
-      mutateChannelContext(ctx, channelString)
+    if (channel) {
+      mutateChannelContext(ctx, channel)
+    }
+
+    if (locale) {
+      mutateLocaleContext(ctx, locale)
     }
 
     const {
       loaders: { skuLoader },
     } = ctx
 
-    return skuLoader.load(locator.flatMap(transformSelectedFacet))
+    return skuLoader.load(locator)
   },
   collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
     const {
@@ -42,12 +50,15 @@ export const Query = {
     ctx: Context
   ) => {
     // Insert channel in context for later usage
-    const channelString = selectedFacets?.find(
-      (facet) => facet.key === 'channel'
-    )?.value
+    const channel = findChannel(selectedFacets)
+    const locale = findLocale(selectedFacets)
 
-    if (channelString) {
-      mutateChannelContext(ctx, channelString)
+    if (channel) {
+      mutateChannelContext(ctx, channel)
+    }
+
+    if (locale) {
+      mutateLocaleContext(ctx, locale)
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
@@ -153,23 +164,5 @@ export const Query = {
           cursor: (after + index).toString(),
         })),
     }
-  },
-  person: async (_: unknown, __: unknown, ctx: Context) => {
-    const {
-      clients: { commerce },
-    } = ctx
-
-    const {
-      namespaces: { profile = null },
-    } = await commerce.session()
-
-    return (
-      profile && {
-        id: profile.id?.value ?? '',
-        email: profile.email?.value ?? '',
-        givenName: profile.firstName?.value ?? '',
-        familyName: profile.lastName?.value ?? '',
-      }
-    )
   },
 }

@@ -1,3 +1,6 @@
+.turbo
+.docusaurus
+
 # Logs
 logs
 *.log
@@ -34,6 +37,7 @@ build/Release
 
 # bundle
 dist/
+build/
 storybook-static/
 
 # Dependency directories

@@ -1,32 +1,7 @@
+import type { SearchSort, State } from '../types'
 import { initialize, reducer } from './useSearchState'
-import type { State as SearchState, SearchSort } from './useSearchState'
 
-export const format = (params: SearchState): URL => {
-  const url = new URL(params.base, 'http://localhost')
-  const { page, selectedFacets, sort, term } = params
-
-  if (term !== null) {
-    url.searchParams.set('q', term)
-  }
-
-  const facets = new Set<string>()
-
-  for (const facet of selectedFacets) {
-    url.searchParams.append(facet.key, facet.value)
-    facets.add(facet.key)
-  }
-
-  if (selectedFacets.length > 0) {
-    url.searchParams.set('facets', Array.from(facets).join(','))
-  }
-
-  url.searchParams.set('sort', sort)
-  url.searchParams.set('page', page.toString())
-
-  return url
-}
-
-export const parse = ({ pathname, searchParams }: URL): SearchState => {
+export const parse = ({ pathname, searchParams }: URL): State => {
   let state = initialize({
     base: pathname,
     term: searchParams.get('q') ?? null,

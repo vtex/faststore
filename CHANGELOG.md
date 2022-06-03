@@ -3,6 +3,397 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.50](https://github.com/vtex/faststore/compare/v1.8.49...v1.8.50) (2022-06-02)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.49 (2022-05-31)
+
+
+### Bug Fixes
+
+* remove docs from build on codesandbox ([#1334](https://github.com/vtex/faststore/issues/1334)) ([c9eabde](https://github.com/vtex/faststore/commit/c9eabdea8d951d42a9b3898572719e1f45294b33))
+
+
+
+
+
+## [1.8.48](https://github.com/vtex/faststore/compare/v1.8.47...v1.8.48) (2022-05-30)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## [1.8.47](https://github.com/vtex/faststore/compare/v1.8.46...v1.8.47) (2022-05-30)
+
+
+### Bug Fixes
+
+* Circular dependency ([#1333](https://github.com/vtex/faststore/issues/1333)) ([d38941a](https://github.com/vtex/faststore/commit/d38941a2896f8922dafb7b5d2ea4eb85fae4b84d))
+
+
+
+
+
+## 1.8.46 (2022-05-30)
+
+
+### Features
+
+* using cache ([#1330](https://github.com/vtex/faststore/issues/1330)) ([6f8a7a4](https://github.com/vtex/faststore/commit/6f8a7a4a593f7e82586d7e3d48f5254e011b8df6))
+
+
+
+
+
+## 1.8.45 (2022-05-30)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## [1.8.44](https://github.com/vtex/faststore/compare/v1.8.43...v1.8.44) (2022-05-30)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## [1.8.43](https://github.com/vtex/faststore/compare/v1.8.42...v1.8.43) (2022-05-30)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.42 (2022-05-30)
+
+
+### Bug Fixes
+
+* github release ([194413b](https://github.com/vtex/faststore/commit/194413ba0087c8283942108ab5fdd25964b8901b))
+
+
+
+
+
+## 1.8.41 (2022-05-30)
+
+
+### Bug Fixes
+
+* github release ([194413b](https://github.com/vtex/faststore/commit/194413ba0087c8283942108ab5fdd25964b8901b))
+
+
+
+
+
+## 1.8.40 (2022-05-30)
+
+
+### Bug Fixes
+
+* Cart item with additionalProperty ([#1325](https://github.com/vtex/faststore/issues/1325)) ([8fa6aa1](https://github.com/vtex/faststore/commit/8fa6aa1a88d3e3702a017e581cbcff4281c47f4f))
+
+
+
+
+
+## 1.8.39 (2022-05-27)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.38 (2022-05-27)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.37 (2022-05-27)
+
+
+### Bug Fixes
+
+* Increase NodeJS version ([#1323](https://github.com/vtex/faststore/issues/1323)) ([3a6fbe7](https://github.com/vtex/faststore/commit/3a6fbe7c230b7056582c783464bfb45cc5717bed))
+
+
+
+
+
+## 1.8.36 (2022-05-26)
+
+
+### Bug Fixes
+
+* Top searches ([#1321](https://github.com/vtex/faststore/issues/1321)) ([e2ab99d](https://github.com/vtex/faststore/commit/e2ab99d4f443e013f3fd024fc83bb612fcb27f41))
+
+
+
+
+
+## 1.8.35 (2022-05-26)
+
+
+### Features
+
+* Add OutOfStock component ([#1314](https://github.com/vtex/faststore/issues/1314)) ([37eac86](https://github.com/vtex/faststore/commit/37eac86ede448ef68aef426f65f2d224694b2cfc))
+
+
+
+
+
+## 1.8.34 (2022-05-25)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.33 (2022-05-24)
+
+
+### Features
+
+* useStorage update onFocus ([#1316](https://github.com/vtex/faststore/issues/1316)) ([c9874d4](https://github.com/vtex/faststore/commit/c9874d46a16a09159e6e1bd4da4e61ec25bd62d2))
+
+
+
+
+
+## 1.8.32 (2022-05-23)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.31 (2022-05-20)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.30 (2022-05-20)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.29 (2022-05-19)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.28 (2022-05-19)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.27 (2022-05-19)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.26 (2022-05-18)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.25 (2022-05-18)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.24 (2022-05-18)
+
+
+### Bug Fixes
+
+* Breadcrumb broken links ([#1306](https://github.com/vtex/faststore/issues/1306)) ([e1d74d4](https://github.com/vtex/faststore/commit/e1d74d49dc3f7cf90caa80e480a01346934c0d43))
+
+
+
+
+
+## 1.8.23 (2022-05-17)
+
+
+### Features
+
+* Sync Cart with Checkout ([#1299](https://github.com/vtex/faststore/issues/1299)) ([62e8f56](https://github.com/vtex/faststore/commit/62e8f56b31c6bb6cf7260749a90ebef8aba9982b))
+
+
+
+
+
+## 1.8.22 (2022-05-17)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.21 (2022-05-16)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.20 (2022-05-16)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.19 (2022-05-14)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.18 (2022-05-14)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.17 (2022-05-13)
+
+
+### Features
+
+* **UI:** Add `ProductCard` component ([#1272](https://github.com/vtex/faststore/issues/1272)) ([ea62210](https://github.com/vtex/faststore/commit/ea6221080da8b3538551f7a77df61a14d8de297d))
+
+
+
+
+
+## 1.8.16 (2022-05-13)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.15 (2022-05-13)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.14 (2022-05-13)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.13 (2022-05-13)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.12 (2022-05-12)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.11 (2022-05-12)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.10 (2022-05-12)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.9 (2022-05-12)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.8 (2022-05-11)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## 1.8.7 (2022-05-11)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
 ## 1.8.6 (2022-05-10)
 
 **Note:** Version bump only for package faststore

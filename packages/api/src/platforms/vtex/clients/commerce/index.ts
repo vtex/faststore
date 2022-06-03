@@ -103,6 +103,26 @@ export const VtexCommerce = (
           }
         )
       },
+      setCustomData: ({
+        id,
+        appId,
+        key,
+        value,
+      }: {
+        id: string
+        appId: string
+        key: string
+        value: string
+      }): Promise<OrderForm> => {
+        return fetchAPI(
+          `${base}/api/checkout/pub/orderForm/${id}/customData/${appId}/${key}`,
+          {
+            ...BASE_INIT,
+            body: JSON.stringify({ value }),
+            method: 'PUT',
+          }
+        )
+      },
       region: async ({
         postalCode,
         country,
@@ -115,17 +135,22 @@ export const VtexCommerce = (
         )
       },
     },
-    session: (): Promise<Session> =>
-      fetchAPI(
-        `${base}/api/sessions?items=profile.id,profile.email,profile.firstName,profile.lastName`,
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            cookie: ctx.headers.cookie,
-          },
-          body: '{}',
-        }
-      ),
+    session: (search: string): Promise<Session> => {
+      const params = new URLSearchParams(search)
+
+      params.set(
+        'items',
+        'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
+      )
+
+      return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          cookie: ctx.headers.cookie,
+        },
+        body: '{}',
+      })
+    },
   }
 }

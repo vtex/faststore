@@ -5,6 +5,7 @@ dist/
 coverage/
 .vscode/
 .cache/
+.turbo/
 
 # generated js files
 packages/gatsby-*/**/*.js
@@ -14,4 +15,4 @@ __generated__/
 # declaration files
 packages/gatsby-*/**/*.d.ts
 
-docs/*
+apps/docs/*

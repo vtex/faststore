@@ -22,6 +22,8 @@ import Cart from './cart.graphql'
 import Status from './status.graphql'
 import PropertyValue from './propertyValue.graphql'
 import Person from './person.graphql'
+import ObjectOrString from './objectOrString.graphql'
+import Session from './session.graphql'
 
 export const typeDefs = [
   Query,
@@ -46,6 +48,8 @@ export const typeDefs = [
   Status,
   PropertyValue,
   Person,
+  ObjectOrString,
+  Session,
 ]
   .map(print)
   .join('\n')

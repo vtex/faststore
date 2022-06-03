@@ -1,21 +1,41 @@
 import deepEquals from 'fast-deep-equal'
 
+import { md5 } from '../utils/md5'
 import type {
-  IStoreOrder,
   IStoreCart,
   IStoreOffer,
+  IStoreOrder,
+  IStorePropertyValue,
 } from '../../../__generated__/schema'
 import type {
   OrderForm,
-  OrderFormItem,
   OrderFormInputItem,
+  OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
 import type { Context } from '..'
+import {
+  attachmentToPropertyValue,
+  getPropertyId,
+  VALUE_REFERENCES,
+} from '../utils/propertyValue'
 
 type Indexed<T> = T & { index?: number }
 
+const isAttachment = (value: IStorePropertyValue) =>
+  value.valueReference === VALUE_REFERENCES.attachment
+
 const getId = (item: IStoreOffer) =>
-  [item.itemOffered.sku, item.seller.identifier, item.price].join('::')
+  [
+    item.itemOffered.sku,
+    item.seller.identifier,
+    item.price,
+    item.itemOffered.additionalProperty
+      ?.filter(isAttachment)
+      .map(getPropertyId)
+      .join('-'),
+  ]
+    .filter(Boolean)
+    .join('::')
 
 const orderFormItemToOffer = (
   item: OrderFormItem,
@@ -29,6 +49,7 @@ const orderFormItemToOffer = (
     sku: item.id,
     image: [],
     name: item.name,
+    additionalProperty: item.attachments.map(attachmentToPropertyValue),
   },
   index,
 })
@@ -40,6 +61,12 @@ const offerToOrderItemInput = (
   seller: offer.seller.identifier,
   id: offer.itemOffered.sku,
   index: offer.index,
+  attachments: (
+    offer.itemOffered.additionalProperty?.filter(isAttachment) ?? []
+  ).map((attachment) => ({
+    name: attachment.name,
+    content: attachment.value,
+  })),
 })
 
 const groupById = (offers: IStoreOffer[]): Map<string, IStoreOffer> =>
@@ -69,6 +96,70 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
   return isSameOrder && orderItemsAreSync
 }
 
+const orderFormToCart = (
+  form: OrderForm,
+  skuLoader: Context['loaders']['skuLoader']
+) => {
+  return {
+    order: {
+      orderNumber: form.orderFormId,
+      acceptedOffer: form.items.map((item) => ({
+        ...item,
+        product: skuLoader.load([{ key: 'id', value: item.id }]), // TODO: add channel
+      })),
+    },
+    messages: form.messages.map(({ text, status }) => ({
+      text,
+      status: status.toUpperCase(),
+    })),
+  }
+}
+
+const getOrderFormEtag = ({ items }: OrderForm) => md5(JSON.stringify(items))
+
+const setOrderFormEtag = async (
+  form: OrderForm,
+  commerce: Context['clients']['commerce']
+) => {
+  try {
+    const orderForm = await commerce.checkout.setCustomData({
+      id: form.orderFormId,
+      appId: 'faststore',
+      key: 'cartEtag',
+      value: getOrderFormEtag(form),
+    })
+
+    return orderForm
+  } catch (err) {
+    console.error(
+      'Error while setting custom data to orderForm.\n Make sure to add the following custom app to the orderForm: \n{"fields":["cartEtag"],"id":"faststore","major":1}.\n More info at: https://developers.vtex.com/vtex-rest-api/docs/customizable-fields-with-checkout-api'
+    )
+
+    throw err
+  }
+}
+
+/**
+ * Checks if cartEtag stored on customData is up to date
+ * @description If cartEtag is not up to date, this means that
+ * another system changed the cart, like Checkout UI or Order Placed
+ */
+const isOrderFormStale = (form: OrderForm) => {
+  const faststoreData = form.customData?.customApps.find(
+    (app) => app.id === 'faststore'
+  )
+
+  const oldEtag = faststoreData?.fields?.cartEtag
+
+  if (oldEtag == null) {
+    return true
+  }
+
+  const newEtag = getOrderFormEtag(form)
+
+  return newEtag !== oldEtag
+}
+
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
@@ -87,6 +178,7 @@ export const validateCart = async (
   { cart: { order } }: { cart: IStoreCart },
   ctx: Context
 ) => {
+  const { enableOrderFormSync } = ctx.storage.flags
   const { orderNumber, acceptedOffer } = order
   const {
     clients: { commerce },
@@ -97,6 +189,19 @@ export const validateCart = async (
   const orderForm = await commerce.checkout.orderForm({
     id: orderNumber,
   })
+
+  // Step1.5: Check if another system changed the orderForm with this orderNumber
+  // If so, this means the user interacted with this cart elsewhere and expects
+  // to see this new cart state instead of what's stored on the user's browser.
+  if (enableOrderFormSync === true) {
+    const isStale = isOrderFormStale(orderForm)
+
+    if (isStale === true && orderNumber) {
+      const newOrderForm = await setOrderFormEtag(orderForm, commerce)
+
+      return orderFormToCart(newOrderForm, skuLoader)
+    }
+  }
 
   // Step2: Process items from both browser and checkout so they have the same shape
   const browserItemsById = groupById(acceptedOffer)
@@ -139,28 +244,22 @@ export const validateCart = async (
   }
 
   // Step4: Apply delta changes to order form
-  const updatedOrderForm = await commerce.checkout.updateOrderFormItems({
-    id: orderForm.orderFormId,
-    orderItems: changes,
-  })
+  const updatedOrderForm = await commerce.checkout
+    // update orderForm items
+    .updateOrderFormItems({
+      id: orderForm.orderFormId,
+      orderItems: changes,
+    })
+    // update orderForm etag so we know last time we touched this orderForm
+    .then((form) =>
+      enableOrderFormSync ? setOrderFormEtag(form, commerce) : form
+    )
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm)) {
     return null
   }
 
-  // Step6: There were changes, convert orderForm to StoreOrder
-  return {
-    order: {
-      orderNumber: updatedOrderForm.orderFormId,
-      acceptedOffer: updatedOrderForm.items.map((item) => ({
-        ...item,
-        product: skuLoader.load([{ key: 'id', value: item.id }]), // TODO: add channel
-      })),
-    },
-    messages: updatedOrderForm.messages.map(({ text, status }) => ({
-      text,
-      status: status.toUpperCase(),
-    })),
-  }
+  // Step6: There were changes, convert orderForm to StoreCart
+  return orderFormToCart(updatedOrderForm, skuLoader)
 }

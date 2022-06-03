@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Changes in the secure subdomain configuration",
+    "product": "FastStore",
+    "fileName": "2022-05-30-faststore",
+    "description": "Check the recent changes in the secure subdomain configuration."
+  },
+  {
+    "title": "Required action for VTEX Headless CMS users",
+    "product": "CMS",
+    "fileName": "2022-05-19-cms",
+    "description": "VTEX Headless CMS users must upgrade to version 1.x and set up the Releases app."
+  },
+  {
+    "title": "Improvement in page loading time with Incremental Static Build",
+    "product": "WebOps",
+    "fileName": "2022-05-19-webops",
+    "description": "Incremental static build capability is now available. Activate it to improve page loading time."
+  },
+  {
+    "title": "FastStore API documentation available on GraphiQL",
+    "product": "FastStore",
+    "fileName": "2022-05-18-faststore",
+    "description": "The FastStore API types, queries and mutations have been documented. You can check it now by using GraphiQL."
+  }
+]

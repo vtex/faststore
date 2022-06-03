@@ -52,10 +52,9 @@ const QUERIES = [
   'search',
   'allProducts',
   'allCollections',
-  'person',
 ]
 
-const MUTATIONS = ['validateCart', 'updateSession']
+const MUTATIONS = ['validateCart', 'validateSession']
 
 let schema: GraphQLSchema
 
@@ -65,7 +64,11 @@ beforeAll(async () => {
     account: 'storeframework',
     environment: 'vtexcommercestable',
     channel: '{"salesChannel":"1"}',
+    locale: 'en-US',
     hideUnavailableItems: false,
+    flags: {
+      enableOrderFormSync: true,
+    },
   })
 })
 
