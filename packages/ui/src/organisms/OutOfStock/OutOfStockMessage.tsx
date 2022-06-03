@@ -13,9 +13,14 @@ export const OutOfStockMessage = ({
   as: MessageComponent = 'p',
   testId = 'store-out-of-stock-message',
   children,
+  ...otherProps
 }: OutOfStockMessageProps) => {
   return (
-    <MessageComponent data-out-of-stock-message data-testid={testId}>
+    <MessageComponent
+      data-out-of-stock-message
+      data-testid={testId}
+      {...otherProps}
+    >
       {children}
     </MessageComponent>
   )

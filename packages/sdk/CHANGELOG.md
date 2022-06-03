@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.51 (2022-06-03)
+
+
+### Features
+
+* **UI:** Add Hero component ([#1336](https://github.com/vtex/faststore/issues/1336)) ([767c0cd](https://github.com/vtex/faststore/commit/767c0cdc5eaf6bd56020d64fd7718b1379c09390))
+
+
+
+
+
 ## 1.8.49 (2022-05-31)
 
 
