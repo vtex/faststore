@@ -1,11 +1,9 @@
 ---
-title: April, 2022
+title: FastStore - April, 2022
 description: FastStore Release Notes 
 tags: [faststore]
 hide_table_of_contents: false
 ---
-
-# FastStore - April, 2022
 
 The FastStore API no longer includes unused Gatsby plugins and now handles `channel` as a facet for search and product queries. Also, check out the new Troubleshooting guides and the Starter submission form.
 
