@@ -1,0 +1,176 @@
+---
+description: Card with summarized information about a product.
+keywords:
+  - UI library
+  - ecommerce
+  - react
+---
+
+import PropsSection from "@site/src/components/PropsSection/PropsSection";
+
+ProductCard displays summarized information about a product.
+
+The `ProductCard` is a compound of the following:
+- `ProductCardImage`: wraps the product's image.
+- `ProductCardContent`: wraps the content's details.
+- `ProductCardActions`: wraps the call-to-action button of the product card.
+
+## Import
+
+```tsx
+import {
+  ProductCard,
+  ProductCardActions,
+  ProductCardContent,
+  ProductCardImage,
+} from '@faststore/ui'
+```
+
+## Usage
+
+### Default
+
+```tsx live
+ <LocationProvider>
+  <Provider$2
+    initialState={{
+      channel: '{"salesChannel":"1"}'
+    }}
+  >
+    <div
+      style={{
+        width: 300
+      }}
+    >
+      <ProductCard
+        ButtonBuy={null}
+        aspectRatio={1}
+        index={1}
+        product={{
+          brand: {
+            brandName: 'Brand',
+            name: 'Brand'
+          },
+          gtin: '5595633577807',
+          id: '15503951',
+          image: [
+            {
+              alternateName: 'est',
+              url: 'http://storeframework.vtexassets.com/arquivos/ids/190191/numquam.jpg?v=637755599170100000'
+            }
+          ],
+          isVariantOf: {
+            name: 'Handmade Steel Towels Practical',
+            productGroupID: '130742'
+          },
+          name: 'red',
+          offers: {
+            lowPrice: 181.71,
+            offers: [
+              {
+                availability: 'https://schema.org/InStock',
+                listPrice: 208.72,
+                price: 181.71,
+                quantity: 1,
+                seller: {
+                  identifier: '1'
+                }
+              }
+            ]
+          },
+          sku: '15503951',
+          slug: 'handmade-steel-towels-practical-15503951'
+        }}
+        variant="default"
+      />
+    </div>
+  </Provider$2>
+</LocationProvider>
+```
+
+### Wide
+```tsx live
+<LocationProvider>
+  <Provider$2
+    initialState={{
+      channel: '{"salesChannel":"1"}'
+    }}
+  >
+    <div
+      style={{
+        width: 400
+      }}
+    >
+      <ProductCard
+        ButtonBuy={null}
+        aspectRatio={1.5}
+        index={1}
+        product={{
+          brand: {
+            brandName: 'Brand',
+            name: 'Brand'
+          },
+          gtin: '5595633577807',
+          id: '15503951',
+          image: [
+            {
+              alternateName: 'est',
+              url: 'http://storeframework.vtexassets.com/arquivos/ids/190191/numquam.jpg?v=637755599170100000'
+            }
+          ],
+          isVariantOf: {
+            name: 'Handmade Steel Towels Practical',
+            productGroupID: '130742'
+          },
+          name: 'red',
+          offers: {
+            lowPrice: 181.71,
+            offers: [
+              {
+                availability: 'https://schema.org/InStock',
+                listPrice: 208.72,
+                price: 181.71,
+                quantity: 1,
+                seller: {
+                  identifier: '1'
+                }
+              }
+            ]
+          },
+          sku: '15503951',
+          slug: 'handmade-steel-towels-practical-15503951'
+        }}
+        variant="wide"
+      />
+    </div>
+  </Provider$2>
+</LocationProvider>
+```
+### Use cases
+Use the ProductCard to 
+
+## Props
+
+<PropsSection name="ProductCard" />
+
+## Customization
+`data-store-product-card`
+`data-product-card-content`
+`data-product-card-actions`
+`data-store-price`
+`data-store-badge`
+`data-store-button`
+
+
+## Best practices
+
+### Do's
+- Use high-quality images
+- Use the ProductCard to get the primary content of a product
+
+### Don'ts
+- For empty state, if the case use the `Skeleton` component.
+
+## Accessibility
+- The `img` elements must have an `alt` attribute. 
+- For images containing text, the alt description must includes the image's text. 
