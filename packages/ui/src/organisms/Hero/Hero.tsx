@@ -7,7 +7,6 @@ export interface HeroProps extends HTMLAttributes<HTMLDivElement> {
    * testing-library, and jest).
    */
   testId?: string
-  children: React.ReactNode
 }
 
 const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
