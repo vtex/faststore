@@ -8,13 +8,13 @@ hide_table_of_contents: false
 ## FastStore UI
 
 ### `OutOfStock`
-- <span role="img" aria-label="chores">🎉</span> **New `OutOfStock` component** - [#1314](https://github.com/vtex/faststore/pull/1314) 
+- <span role="img" aria-label="chores">🎉</span> <p><b>New `OutOfStock` component</b> - <a href="https://github.com/vtex/faststore/pull/1314">#1314</a></p>
 Use the `OutOfStock` component to display a subscription form for shoppers who want to be alerted when the product is back in stock.
 
 ![out-of-stock](https://user-images.githubusercontent.com/51174217/169893136-8834db12-af0b-4b64-9365-cce67368c094.png)
 
 ### `ProductCard`
-- <span role="img" aria-label="chores">🎉</span> **New `ProductCard` component** - [#1272](https://github.com/vtex/faststore/pull/1272) 
+- <span role="img" aria-label="chores">🎉</span>**New `ProductCard` component** - [#1272](https://github.com/vtex/faststore/pull/1272) 
 Use the `ProductCard` component to provide a general view of a product, including images, name, price, discount, and buy button.
 
 ![product-card](https://user-images.githubusercontent.com/3356699/167171222-01edef9e-fe53-4910-ac41-7fd5329fcdfd.png)
