@@ -8,8 +8,8 @@ hide_table_of_contents: false
 ## FastStore UI
 
 ### `OutOfStock`
-- <span role="img" aria-label="chores">🎉</span> <p><b>New `OutOfStock` component</b> - <a href="https://github.com/vtex/faststore/pull/1314">#1314</a></p>
-Use the `OutOfStock` component to display a subscription form for shoppers who want to be alerted when the product is back in stock.
+- <span role="img" aria-label="chores">🎉</span><p><b>New <code>OutOfStock</code> component</b> - <a href="https://github.com/vtex/faststore/pull/1314">#1314</a></p>
+Use the <code>OutOfStock</code> component to display a subscription form for shoppers who want to be alerted when the product is back in stock.
 
 ![out-of-stock](https://user-images.githubusercontent.com/51174217/169893136-8834db12-af0b-4b64-9365-cce67368c094.png)
 
