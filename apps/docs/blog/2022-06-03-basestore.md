@@ -4,7 +4,9 @@ description: Base Store Release Notes
 tags: [base store]
 hide_table_of_contents: false
 ---
+New cart-related events are now being tracked, and enhancements in the LCP score have been implemented. Also, more components have been updated to use the Base Store theming structure.
 
+<!--truncate-->
 ## <span role="img" aria-label="bug fix">🐛</span> Bug fix
 - **Fixed search suggestions locale issue** ([Gatsby #69](https://github.com/vtex-sites/gatsby.store/pull/69) | [Next.js #71](https://github.com/vtex-sites/nextjs.store/pull/71))
 All requests to the FastStore Search API now receive locale info so the search can return product suggestions according to the user locale.

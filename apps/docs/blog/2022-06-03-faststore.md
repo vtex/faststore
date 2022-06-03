@@ -5,6 +5,9 @@ tags: [faststore]
 hide_table_of_contents: false
 ---
 
+New OutOfStock and ProductCard components added to the FastStore UI. Also, improvements in the FastStore API now allow fetching additional properties of a product.
+
+<!--truncate-->
 ## FastStore UI
 
 ### `OutOfStock`
