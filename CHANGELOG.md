@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.52](https://github.com/vtex/faststore/compare/v1.8.51...v1.8.52) (2022-06-03)
+
+
+### Features
+
+* **ui:** Fix OutOfStock nested components ([#1341](https://github.com/vtex/faststore/issues/1341)) ([0bd85a6](https://github.com/vtex/faststore/commit/0bd85a6bd334c014559eced5a617a1476bfd8171))
+
+
+
+
+
 ## 1.8.51 (2022-06-03)
 
 
