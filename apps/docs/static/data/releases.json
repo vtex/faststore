@@ -1,9 +1,9 @@
 [
   {
-    "title": "May Base Store Release Notes",
+    "title": "Base Store - May, 2022",
     "product": "Base Store",
     "fileName": "2022-06-03-basestore",
-    "description": "The LCP score has been improved, and the CartItem now has analytics events. Also, see the components that now use the Base Store Theming Structure to use new tokens."
+    "description": "New cart-related events are now being tracked, and enhancements in the LCP score have been implemented. Also, more components have been updated to use the Base Store theming structure."
   },
   {
     "title": "May FastStore Release Notes",
