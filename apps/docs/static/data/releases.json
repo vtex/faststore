@@ -6,10 +6,10 @@
     "description": "New cart-related events are now being tracked, and enhancements in the LCP score have been implemented. Also, more components have been updated to use the Base Store theming structure."
   },
   {
-    "title": "May FastStore Release Notes",
+    "title": "FastStore - May , 2022",
     "product": "FastStore",
     "fileName": "2022-06-03-faststore",
-    "description": "The FastStore UI has two new components: OutOfStock and ProductCard, and the Search API now receives selectedFacets. Also, check out the latest community starters."
+    "description": "New OutOfStock and ProductCard components added to the FastStore UI. Also, improvements in the FastStore API now allow fetching additional properties of a product."
   },
   {
     "title": "Changes in the secure subdomain configuration",
