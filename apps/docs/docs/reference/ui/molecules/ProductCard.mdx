@@ -147,7 +147,10 @@ import {
 </LocationProvider>
 ```
 ### Use cases
-Use the ProductCard to 
+Use the `ProductCard` in the following context:
+- Product Collections on the home page.
+- Product availability statuses on the home pages, e.g., *Just Arrived*.
+- Carousel with product promotions.
 
 ## Props
 
@@ -165,12 +168,14 @@ Use the ProductCard to
 ## Best practices
 
 ### Do's
-- Use high-quality images
-- Use the ProductCard to get the primary content of a product
+- Use high-quality images.
+- Write the product's title in two lines.
+- For the call-to-action button, use action verbs such as *Buy*, *Save*, and *Add to cart*.
 
 ### Don'ts
-- For empty state, if the case use the `Skeleton` component.
+- Do not use the `ProductCard` for empty state scenarios. If the case, use the `Skeleton` component.
+- Do not use more than three badges (if necessary).
 
 ## Accessibility
-- The `img` elements must have an `alt` attribute. 
+- The `img` elements must have an `alt` attribute. 
 - For images containing text, the alt description must includes the image's text. 
