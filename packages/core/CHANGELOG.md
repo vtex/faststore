@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Applies new local tokens to `Price` ([#80](https://github.com/vtex-sites/nextjs.store/pull/80))
 - Creates `Radio` component ([#87](https://github.com/vtex-sites/nextjs.store/pull/87))
 - Add Storybook documentation for `QuantitySelector` component ([#81](https://github.com/vtex-sites/nextjs.store/pull/81))
 - Applies new local tokens to `Checkbox` ([#59](https://github.com/vtex-sites/nextjs.store/pull/59))
