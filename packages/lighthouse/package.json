@@ -20,12 +20,10 @@
   ],
   "scripts": {
     "develop": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests"
+    "build": "tsdx build"
   },
   "devDependencies": {
-    "@vtex/tsconfig": "^0.5.6",
-    "tsdx": "^0.14.1",
+    "tsconfig": "*",
     "typescript": "^4.2.4"
   }
 }
