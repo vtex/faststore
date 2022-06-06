@@ -20,14 +20,17 @@
 
 <em>You may erase this after checking them all ;)</em>
 
+**Changelog**
 - [ ] Added an entry in the `CHANGELOG.md` at the beginning of its due section. [The latest version should comes first](https://keepachangelog.com/en/1.0.0/#:~:text=The%20latest%20version%20comes%20first.).
 - [ ] Added the PR number with the PR link at the entry in the `CHANGELOG.md`. E.g., *New items in the `pull_request_template.md` ([#4](https://github.com/vtex-sites/nextjs.store/pull/4))* 
 
-
-- PR description
-- [ ] Updated the Storybook - *if applicable*.
+**PR Description**
 - [ ] Added a label according to the PR goal - `Breaking change`, `Enhancement`, `Bug` or `Chore`.
 - [ ] Added the component, hook, or pathname in-between backticks (``) *- If applicable*. E.g., *`ComponentName` component*.
 - [ ] Identified the function or parameter in the PR *- If applicable*. E.g., *`useWindowDimensions` hook*.
+
+**Documentation**
+- [ ] PR description
+- [ ] Added to/Updated the Storybook - *if applicable*.
 - [ ] For documentation changes, ping @ carolinamenezes, @ PedroAntunesCosta or @ Mariana-Caetano to review and update.
 
