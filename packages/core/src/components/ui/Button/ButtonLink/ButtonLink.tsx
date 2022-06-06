@@ -5,11 +5,12 @@ import type { FocusEvent } from 'react'
 
 import FrameworkLink from 'src/components/common/Link'
 
-import type { UIButtonProps } from './Button'
+import type { ButtonProps } from '../Button'
+import styles from '../button.module.scss'
 
 type Props = {
   disabled?: boolean
-} & UIButtonProps &
+} & ButtonProps &
   LinkProps<typeof FrameworkLink>
 
 function ButtonLink({
@@ -26,6 +27,7 @@ function ButtonLink({
   return (
     <UILink
       as={FrameworkLink}
+      className={styles.fsButton}
       data-fs-button
       data-fs-button-link
       data-fs-button-variant={variant}

@@ -61,3 +61,11 @@
   border: 1px solid gray;
   border-radius: 100%;
 }
+
+.sbdocs-content > section {
+  margin-top: var(--fs-spacing-4);
+}
+
+.sbdocs-content > section > article > div {
+  border-radius: var(--fs-border-radius);
+}

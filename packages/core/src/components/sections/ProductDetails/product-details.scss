@@ -48,7 +48,7 @@
     &:last-of-type { margin-bottom: var(--fs-spacing-7); }
   }
 
-  [data-store-buy-button] { width: 100%; }
+  [data-fs-button-buy] { width: 100%; }
 
   [data-fs-price] {
     display: block;
