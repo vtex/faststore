@@ -31,7 +31,7 @@ import {
 ### Default
 
 ```tsx live
-      <ProductCard
+      <ProductCard>
         ButtonBuy={null}
         aspectRatio={1}
         index={1}
@@ -71,12 +71,12 @@ import {
           slug: 'handmade-steel-towels-practical-15503951'
         }}
         variant="default"
-      />
+      <ProductCard/>
 ```
 
 ### Wide
 ```tsx live
-      <ProductCard
+      <ProductCard>
         ButtonBuy={null}
         aspectRatio={1.5}
         index={1}
@@ -116,7 +116,7 @@ import {
           slug: 'handmade-steel-towels-practical-15503951'
         }}
         variant="wide"
-      />
+       <ProductCard/>
 ```
 ### Use cases
 Use the `ProductCard` in the following context:
