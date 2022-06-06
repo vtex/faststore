@@ -1,0 +1,237 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Alert from '.'
+import Icon from '../Icon'
+
+<Meta
+  title="Molecules/Alert"
+  argTypes={{
+    icon: { control: { disable: true } },
+  }}
+  component={Alert}
+/>
+
+export const Template = (args) => (
+  <Alert {...args}>Free shipping starts at $300</Alert>
+)
+
+export const TemplateBig = (args) => (
+  <Alert {...args}>
+    Alert with a veeeery long description lorem ipsum dolor sit amet,
+    consectetur adipiscing elit. Donec sollicitudin erat non felis feugiat
+    porta. Nam vitae turpis metus. Maecenas feugiat justo tristique libero
+    ultricies
+  </Alert>
+)
+
+<header>
+
+# Alert
+
+Alerts display short messages related to the behavior of a system, feature or page.
+
+</header>
+
+## Overview
+
+The `Alert` component uses [FastStore UI Alert](https://www.faststore.dev/reference/ui/molecules/Alert) as base.
+
+<Canvas isColumn>
+  <Story
+    name="overview-default"
+    args={{
+      icon: <Icon name="Truck" width={24} height={24} />,
+      link: { text: 'Buy now', to: '/' },
+      dismissible: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story name="overview-clean">{Template.bind({})}</Story>
+  <Story
+    name="overview-big"
+    args={{
+      icon: <Icon name="ShieldCheck" width={24} height={24} />,
+      link: { text: 'Really long link to add here', to: '/' },
+      dismissible: true,
+    }}
+  >
+    {TemplateBig.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import Alert from '../components/ui/Alert'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      icon: <Icon name="Truck" width={24} height={24} />,
+      link: { text: 'Buy now', to: '/' },
+      dismissible: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-alert-height</code>
+      </td>
+      <td>
+        <code>var(--fs-spacing-7)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-alert-padding-left</code>
+      </td>
+      <td>
+        <code>var(--fs-spacing-3)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-alert-padding-right</code>
+      </td>
+      <td>
+        <code>var(--fs-alert-padding-left)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-alert-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-highlighted-bkg)' }} />
+        <code>var(--fs-color-highlighted-bkg)</code>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-alert-text-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-highlighted-text)' }} />
+        <code>var(--fs-color-highlighted-text)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-alert-text-size</code>
+      </td>
+      <td>
+        <code>var(--fs-text-size-1)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Nested Elements
+
+### Link
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-alert-link-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-highlighted-text)' }} />
+        <code>var(--fs-alert-text-color)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-alert-link-color-visited</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-highlighted-text)' }} />
+        <code>var(--fs-alert-text-color)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Button
+
+<table
+  style={{
+    width: '100%',
+  }}
+>
+  <thead>
+    <tr>
+      <th>Local token</th>
+      <th>Default value/Global token linked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--fs-alert-button-text-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-highlighted-text)' }} />
+        <code>var(--fs-alert-text-color)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-alert-button-bkg-color</code>
+      </td>
+      <td>
+        <div style={{ backgroundColor: 'var(--fs-color-highlighted-bkg)' }} />
+        <code>var(--fs-alert-bkg-color)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--fs-alert-button-border-radius</code>
+      </td>
+      <td>
+        <code>var(--fs-border-radius)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>

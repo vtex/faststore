@@ -1,0 +1,93 @@
+.fs-alert {
+  // --------------------------------------------------------
+  // Design Tokens for Toast
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-alert-height                       : var(--fs-spacing-7);
+  --fs-alert-padding-left                 : var(--fs-spacing-3);
+  --fs-alert-padding-right                : var(--fs-alert-padding-left);
+
+  --fs-alert-bkg-color                    : var(--fs-color-highlighted-bkg);
+
+  --fs-alert-text-color                   : var(--fs-color-highlighted-text);
+  --fs-alert-text-size                    : var(--fs-text-size-1);
+
+  // Link
+  --fs-alert-link-color                   : var(--fs-alert-text-color);
+  --fs-alert-link-color-visited           : var(--fs-alert-text-color);
+
+  // Button
+  --fs-alert-button-text-color            : var(--fs-alert-text-color);
+  --fs-alert-button-bkg-color             : var(--fs-alert-bkg-color);
+  --fs-alert-button-border-radius         : var(--fs-border-radius);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  align-items: center;
+  height: var(--fs-alert-height);
+  padding-right: var(--fs-alert-padding-right);
+  padding-left: var(--fs-alert-padding-left);
+  font-size: var(--fs-alert-text-size);
+  color: var(--fs-alert-text-color);
+  background-color: var(--fs-alert-bkg-color);
+
+  [data-store-icon] {
+    padding-right: var(--fs-spacing-1);
+    margin: 0;
+  }
+
+  [data-fs-alert-content] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  span { font-weight: var(--fs-text-weight-bold); }
+
+  [data-fs-alert-link] {
+    min-width: 0;
+    height: var(--fs-alert-height);
+    padding: 0 var(--fs-spacing-1);
+    overflow: hidden;
+    font-weight: var(--fs-text-weight-bold);
+    line-height: var(--fs-alert-height);
+    color: var(--fs-alert-link-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:visited { color: var(--fs-alert-link-color-visited); }
+  }
+
+  [data-fs-alert-button] {
+    min-width: var(--fs-control-tap-size);
+    height: 100%;
+    padding: var(--fs-spacing-0);
+    margin-left: auto;
+    color: var(--fs-alert-button-text-color);
+    background-color: var(--fs-alert-button-bkg-color);
+
+    > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background-color: var(--fs-alert-button-bkg-color);
+      border-radius: var(--fs-alert-button-border-radius);
+    }
+
+    &:hover span { filter: brightness(0.95); }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-alert-dismissible="true"] {
+    padding-right: 0;
+  }
+}
