@@ -1,6 +1,13 @@
 {
   "buildCommand": "turbo run build --ignore=\"apps/**/*\"",
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/api",
+    "packages/graphql-utils",
+    "packages/lighthouse",
+    "packages/sdk",
+    "packages/styles",
+    "packages/ui"
+  ],
   "sandboxes": ["store-ui-typescript-0gd9u"],
   "node": "16"
 }
