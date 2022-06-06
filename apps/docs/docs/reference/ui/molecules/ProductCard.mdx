@@ -31,17 +31,6 @@ import {
 ### Default
 
 ```tsx live
- <LocationProvider>
-  <Provider$2
-    initialState={{
-      channel: '{"salesChannel":"1"}'
-    }}
-  >
-    <div
-      style={{
-        width: 300
-      }}
-    >
       <ProductCard
         ButtonBuy={null}
         aspectRatio={1}
@@ -83,24 +72,10 @@ import {
         }}
         variant="default"
       />
-    </div>
-  </Provider$2>
-</LocationProvider>
 ```
 
 ### Wide
 ```tsx live
-<LocationProvider>
-  <Provider$2
-    initialState={{
-      channel: '{"salesChannel":"1"}'
-    }}
-  >
-    <div
-      style={{
-        width: 400
-      }}
-    >
       <ProductCard
         ButtonBuy={null}
         aspectRatio={1.5}
@@ -142,9 +117,6 @@ import {
         }}
         variant="wide"
       />
-    </div>
-  </Provider$2>
-</LocationProvider>
 ```
 ### Use cases
 Use the `ProductCard` in the following context:
