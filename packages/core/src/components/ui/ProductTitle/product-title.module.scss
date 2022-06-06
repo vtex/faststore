@@ -1,0 +1,46 @@
+@import "src/styles/scaffold";
+
+.fs-product-title {
+  // --------------------------------------------------------
+  // Design Tokens for ProductTitle
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-product-title-text-size           : var(--fs-text-size-title-product);
+  --fs-product-title-text-weight         : var(--fs-text-weight-regular);
+  --fs-product-title-line-height         : 1.12;
+
+  --fs-product-title-addendum-margin-top : var(--fs-spacing-3);
+  --fs-product-title-addendum-color      : var(--fs-color-text-light);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  @include media(">=tablet") { padding: var(--fs-spacing-4) var(--fs-spacing-5); }
+
+  [data-fs-product-title-header] {
+    display: flex;
+    column-gap: var(--fs-spacing-2);
+    justify-content: space-between;
+
+    // Title prop
+    &:first-child {
+      font-size: var(--fs-product-title-text-size);
+      font-weight: var(--fs-product-title-text-weight);
+      line-height: var(--fs-product-title-line-height);
+    }
+
+    [data-store-badge] { white-space: nowrap; }
+
+    @include media(">=tablet", "<notebook") {
+      flex-direction: column;
+      row-gap: var(--fs-spacing-3);
+    }
+  }
+
+  [data-fs-product-title-addendum] {
+    margin-top: var(--fs-product-title-addendum-margin-top);
+    color: var(--fs-product-title-addendum-color);
+  }
+}

@@ -1,0 +1,99 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { DiscountBadge } from 'src/components/ui/Badge'
+import ProductTitle from '.'
+import { TokenTable, TokenRow } from 'src/../.storybook/components'
+
+<Meta
+  title="Molecules/ProductTitle"
+  component={ProductTitle}
+  argTypes={{
+    title: {
+      control: { type: 'radio' },
+      options: [
+        '<h1>Apple Magic Mouse</h1>',
+        '<h2>Apple Magic Mouse</h2>',
+        '<h3>Apple Magic Mouse</h3>',
+      ],
+      mapping: {
+        '<h1>Apple Magic Mouse</h1>': <h1>Apple Magic Mouse</h1>,
+        '<h2>Apple Magic Mouse</h2>': <h2>Apple Magic Mouse</h2>,
+        '<h3>Apple Magic Mouse</h3>': <h3>Apple Magic Mouse</h3>,
+      },
+      defaultValue: '<h1>Apple Magic Mouse</h1>',
+    },
+    label: {
+      control: { type: 'radio' },
+      options: [
+        '<DiscountBadge listPrice={100} spotPrice={90} big />',
+        '<DiscountBadge listPrice={100} spotPrice={70} big />',
+        '<DiscountBadge listPrice={100} spotPrice={10} big />',
+      ],
+      mapping: {
+        '<DiscountBadge listPrice={100} spotPrice={90} big />': (
+          <DiscountBadge listPrice={100} spotPrice={90} big />
+        ),
+        '<DiscountBadge listPrice={100} spotPrice={70} big />': (
+          <DiscountBadge listPrice={100} spotPrice={70} big />
+        ),
+        '<DiscountBadge listPrice={100} spotPrice={10} big />': (
+          <DiscountBadge listPrice={100} spotPrice={10} big />
+        ),
+      },
+      defaultValue: '<DiscountBadge listPrice={100} spotPrice={90} big />',
+    },
+    refNumber: {
+      defaultValue: '99995945',
+    },
+  }}
+/>
+
+export const Template = (args) => <ProductTitle {...args} />
+
+<header>
+
+# ProductTitle
+
+The product title that is commonly used on Product Details Page (PDP).
+
+</header>
+
+## Usage
+
+`import ProductTitle from '../components/ui/ProductTitle'`
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-title-text-size"
+    value="var(--fs-text-size-title-product)"
+  />
+  <TokenRow
+    token="--fs-product-title-text-weight"
+    value="var(--fs-text-weight-regular)"
+  />
+  <TokenRow token="--fs-product-title-line-height" value="1.12" />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Addendum
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-title-addendum-margin-top"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-product-title-addendum-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+</TokenTable>
