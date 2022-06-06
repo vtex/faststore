@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
+    "tsconfig": "*",
     "typescript": "^4.2.4"
   },
   "dependencies": {
