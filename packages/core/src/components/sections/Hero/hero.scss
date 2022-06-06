@@ -49,7 +49,7 @@
   }
 }
 
-[data-fs-hero-content] {
+[data-fs-hero-heading] {
   width: 100%;
   padding: var(--fs-spacing-5) 0 var(--fs-spacing-6);
 
@@ -105,7 +105,7 @@
 
   h1 { font-size: var(--fs-hero-primary-title-size); }
 
-  [data-fs-hero-content] {
+  [data-fs-hero-heading] {
     @include media(">=tablet") {
       display: flex;
       align-items: center;
@@ -140,7 +140,7 @@
     }
   }
 
-  [data-fs-hero-content] {
+  [data-fs-hero-heading] {
     padding: var(--fs-spacing-4) 0 var(--fs-spacing-5);
 
     @include media(">=tablet") { padding: var(--fs-spacing-5) 0; }

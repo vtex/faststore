@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Uses `Hero` component from FSUI ([#98](https://github.com/vtex-sites/nextjs.store/pull/98))
 - Change Storybook prop descriptions for `QuantitySelector` component ([#92](https://github.com/vtex-sites/nextjs.store/pull/92))
 - Applied styles to `Toast` using CSS Modules ([#82](https://github.com/vtex-sites/nextjs.store/pull/82))
 - Tweaks CSS Modules pattern on `Checkbox` component [#79](https://github.com/vtex-sites/nextjs.store/pull/79)
@@ -49,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- `Hero` component from `components/ui` ([#98](https://github.com/vtex-sites/nextjs.store/pull/98))
 - Unused `-default` at css variables ([#78](https://github.com/vtex-sites/nextjs.store/pull/78))
 - The `default` nomenclature from global tokens ([#51](https://github.com/vtex-sites/nextjs.store/pull/51))
 
