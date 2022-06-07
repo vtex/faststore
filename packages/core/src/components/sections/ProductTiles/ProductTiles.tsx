@@ -8,7 +8,6 @@ import Section from '../Section'
 
 interface TilesProps extends Partial<ProductsQueryQueryVariables> {
   title: string | JSX.Element
-  suspense?: boolean
 }
 
 const NUMBER_ITEMS_TO_EXPAND_FIRST = 3
@@ -28,8 +27,8 @@ const getRatio = (products: number, idx: number) => {
   return 3 / 4
 }
 
-const ProductTiles = ({ title, suspense, ...variables }: TilesProps) => {
-  const products = useProductsQuery(variables, { suspense })
+const ProductTiles = ({ title, ...variables }: TilesProps) => {
+  const products = useProductsQuery(variables)
 
   if (products?.edges.length === 0) {
     return null
