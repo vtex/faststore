@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Improves storybook doc's table rows ([#106](https://github.com/vtex-sites/nextjs.store/pull/106))
 - Changes weird if logic in suspense hooks ([#96](https://github.com/vtex-sites/nextjs.store/pull/96))
 - Adjust `Alert` component for `CMS` ([#31](https://github.com/vtex-sites/nextjs.store/pull/31))
 - Refactors `Button` component and adds Storybook doc ([#99](https://github.com/vtex-sites/nextjs.store/pull/99))
