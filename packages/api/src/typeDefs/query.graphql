@@ -1,55 +1,55 @@
 """
-Product pagination edge.
+Each product edge contains a `node`, with product information, and a `cursor`, that can be used as a reference for pagination.
 """
 type StoreProductEdge {
   """
-  Product pagination node.
+  Each product node contains the information of a product returned by the query.
   """
   node: StoreProduct!
   """
-  Product pagination cursor.
+  Product cursor. Used as pagination reference.
   """
   cursor: String!
 }
 
 """
-Product connection pagination information.
+Product connections, including pagination information and products returned by the query.
 """
 type StoreProductConnection {
   """
-  Product connection page information.
+  Product pagination information.
   """
   pageInfo: StorePageInfo!
   """
-  Array with product connection page edges.
+  Array with product connection edges, each containing a product and a corresponding cursor.
   """
   edges: [StoreProductEdge!]!
 }
 
 """
-Collection pagination edge.
+Each collection edge contains a `node`, with product collection information, and a `cursor`, that can be used as a reference for pagination.
 """
 type StoreCollectionEdge {
   """
-  Collection pagination node.
+  Each collection node contains the information of a product collection returned by the query.
   """
   node: StoreCollection!
   """
-  Collection pagination cursor.
+  Collection cursor. Used as pagination reference.
   """
   cursor: String!
 }
 
 """
-Collection connection pagination information.
+Collection connections, including pagination information and collections returned by the query.
 """
 type StoreCollectionConnection {
   """
-  Collection connection page information.
+  Collection pagination information.
   """
   pageInfo: StorePageInfo!
   """
-  Array with collection connection page edges.
+  Array with collection connection page edges, each containing a collection and a corresponding cursor..
   """
   edges: [StoreCollectionEdge!]!
 }
@@ -196,7 +196,7 @@ type Query {
     """
     first: Int!
     """
-    Search pagination argument, indicating the item after which the results should be fetched.
+    Search pagination argument, indicating the cursor corresponding with the item after which the results should be fetched.
     """
     after: String
     """
@@ -222,7 +222,7 @@ type Query {
     """
     first: Int!,
     """
-    Product pagination argument, indicating the item after which the items should be fetched.
+    Product pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
     """
     after: String
   ): StoreProductConnection!
@@ -236,7 +236,7 @@ type Query {
     """
     first: Int!,
     """
-    Collection pagination argument, indicating the item after which the items should be fetched.
+    Collection pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
     """
     after: String
   ): StoreCollectionConnection!
