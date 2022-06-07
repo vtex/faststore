@@ -83,17 +83,27 @@ Returns information about all products.
 
 Below you can see a list of all fields that can be queried with `allProducts`. Click on the links to learn more details about each field.
 
-- <a>StoreProductConnection</a>
-  - pageInfo: <a href="/reference/api/objects/#StorePageInfo">StorePageInfo</a>
-    - hasNextPage: boolean!
-    - hasPreviousPage: boolean!
-    - startCursor: string!
-    - endCursor: string!
-    - totalCount: int!
-  - edges: [<a href="/reference/api/objects/#StoreProductEdge">StoreProductEdge</a>]!
-    - node: <a href="/reference/api/objects/#StoreProduct">StoreProduct</a>!
-      - Product information. Check <a href="/reference/api/objects/#StoreProduct">StoreProduct</a> to see all possible fields.
-    - cursor: string!
+<ul>
+<li>- <a>StoreProductConnection</a>
+  <ul>
+  <li>- pageInfo: <a href="/reference/api/objects/#StorePageInfo">StorePageInfo</a></li>
+    <ul>
+    <li>- hasNextPage: boolean!</li>
+    <li>- hasPreviousPage: boolean!</li>
+    <li>- startCursor: string!</li>
+    <li>- endCursor: string!</li>
+    <li>- totalCount: int!</li>
+    </ul>
+  <li>- edges: [<a href="/reference/api/objects/#StoreProductEdge">StoreProductEdge</a>]!</li>
+    <ul>
+    <li>- node: <a href="/reference/api/objects/#StoreProduct">StoreProduct</a>!</li>
+      <ul>
+      <li>- Product information. Check <a href="/reference/api/objects/#StoreProduct">StoreProduct</a> to see all possible fields.</li>
+      </ul>
+    <li>- cursor: string!</li>
+    </ul>
+  </ul>
+</ul>
 
 
 </div>
@@ -112,7 +122,7 @@ query($first: Int!){
 
 **Example**
 
-Getting the names, SKUs and cursors of the first five products after the product associated with cursor `"4"`. Also getting the last cursor on the list and whether there are more results for next page.
+Getting the names, SKUs and cursors of the first five products after the product associated with cursor `"4"`. Also getting the last cursor in the complete list and whether there are more results for next page.
 
 ```graphql
 query {
