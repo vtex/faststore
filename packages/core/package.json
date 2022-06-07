@@ -18,7 +18,7 @@
     "stylelint:fix": "stylelint \"**/*.scss\" --fix",
     "postinstall": "is-ci || husky install",
     "partytown": "partytown copylib ./public/~partytown",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook --docs -p 6006",
     "build-storybook": "build-storybook"
   },
   "engines": {
