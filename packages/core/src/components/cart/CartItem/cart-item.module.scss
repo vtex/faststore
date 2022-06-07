@@ -1,0 +1,68 @@
+@import "src/styles/scaffold";
+
+.fs-cart-item {
+  // --------------------------------------------------------
+  // Design Tokens for CartItem
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-cart-item-padding               : var(--fs-spacing-3);
+  --fs-cart-item-bkg-color             : var(--fs-control-bkg);
+
+  --fs-cart-item-border-width          : var(--fs-border-width);
+  --fs-cart-item-border-color          : var(--fs-border-color-light);
+  --fs-cart-item-border-radius         : var(--fs-border-radius);
+
+  // Image
+  --fs-cart-item-image-border-radius   : var(--fs-cart-item-border-radius);
+
+  // Title
+  --fs-cart-item-title-margin-bottom   : var(--fs-spacing-0);
+  --fs-cart-item-title-line-height     : 1.2;
+  --fs-cart-item-title-color           : var(--fs-color-text);
+
+  // Actions
+  --fs-cart-item-actions-margin-top    : var(--fs-spacing-3);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  padding: var(--fs-cart-item-padding);
+  background-color: var(--fs-cart-item-bkg-color);
+  border: var(--fs-cart-item-border-width) solid var(--fs-cart-item-border-color);
+  border-radius: var(--fs-cart-item-border-radius);
+
+  [data-fs-cart-item-content] {
+    display: grid;
+    grid-template-columns: rem(72px) repeat(4, 1fr);
+    column-gap: var(--fs-grid-gap-2);
+    align-items: center;
+  }
+
+  [data-fs-cart-item-summary] {
+    flex-direction: column;
+    grid-column: 2 / span 4;
+  }
+
+  [data-fs-cart-item-title] {
+    margin-bottom: var(--fs-cart-item-title-margin-bottom);
+    line-height: var(--fs-cart-item-title-line-height);
+    color: var(--fs-cart-item-title-color);
+    text-decoration: none;
+    outline: none;
+
+    @include truncate-title;
+  }
+
+  [data-fs-cart-item-prices] {
+    display: flex;
+    align-items: baseline;
+  }
+
+  [data-fs-cart-item-actions] {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--fs-cart-item-actions-margin-top);
+  }
+}
