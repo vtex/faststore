@@ -52,7 +52,7 @@ Product pagination argument, indicating how many items should be returned from t
 <td colspan="2" align="right" valign="top">after</td>
 <td valign="top"><a href="/reference/api/scalars/#string">String</a></td>
 <td>
-Product pagination argument, indicating the item after which the items should be fetched.
+Product pagination argument, indicating the cursor corresponding with the item after which the results should be fetched.
 </td>
 </tr>
 </tbody>
@@ -109,7 +109,7 @@ Collection pagination argument, indicating how many items should be returned fro
 <td colspan="2" align="right" valign="top">after</td>
 <td valign="top"><a href="/reference/api/scalars/#string">String</a></td>
 <td>
-Collection pagination argument, indicating the item after which the items should be fetched.
+Collection pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
 </td>
 </tr>
 </tbody>
@@ -133,7 +133,7 @@ Collection pagination argument, indicating the item after which the items should
 <td valign="top"><a href="/reference/api/objects/#storesearchresult">StoreSearchResult</a>!</td>
 <td>
 
-Returns the result of a **product, facet, or suggestion search.**
+Returns the result of a `product`, `facet`, or `suggestion` search.
 
 </td>
 </tr>
@@ -148,7 +148,7 @@ Search pagination argument, indicating how many results should be returned from 
 <td colspan="2" align="right" valign="top">after</td>
 <td valign="top"><a href="/reference/api/scalars/#string">String</a></td>
 <td>
-Search pagination argument, indicating the item after which the results should be fetched.
+Search pagination argument, indicating the cursor corresponding with the item after which the results should be fetched.
 </td>
 </tr>
 <tr>
