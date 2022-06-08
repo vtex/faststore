@@ -1,0 +1,151 @@
+---
+hide_table_of_contents: true
+sidebar_position: 2
+---
+
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
+# Product
+
+<div className="grid grid-cols-2 gap-20">
+
+<div>
+
+## `product`
+
+Returns the details of a product based on the specified locator.
+
+
+
+### Usage
+
+#### Arguments
+
+<PropsComponent
+      name="locator"
+      type="IStoreSelectedFacet"
+      description="An array of selected search facets."
+      required="true"
+    />
+
+#### Response
+
+<PropsComponent
+      name="StoreProduct"
+      type="StoreProduct"
+      description="Product information."
+    />
+
+</div>
+<div>
+
+
+**Query**
+
+```graphql
+query Product($locator: [IStoreSelectedFacet!]!) {
+  product(locator: $locator) {
+    # StoreProduct fields
+  }
+}
+```
+</div>
+</div>
+
+---
+
+<div className="grid grid-cols-2 gap-20 pt-5">
+
+<div>
+
+## `allProducts`
+
+Returns information about all products.
+
+### Usage
+
+#### Arguments
+
+<PropsComponent
+      name="first"
+      type="Int"
+      description="	Number of items that should return from the complete result list."
+      required="true"
+    />
+
+<PropsComponent
+      name="after"
+      type="String"
+      description="Product pagination argument, indicating the cursor corresponding with the item after which the results should be fetched."
+    />
+
+#### Fields
+
+Below you can see a list of all fields that can be queried with `allProducts`. Click on the links to learn more details about each field.
+
+<ul>
+  <li><a>StoreProductConnection</a>
+    <ul>
+    <li>pageInfo: <a href="/reference/api/objects/#StorePageInfo">storepageinfo</a>
+      <ul>
+      <li>hasNextPage: boolean!</li>
+      <li>hasPreviousPage: boolean!</li>
+      <li>startCursor: string!</li>
+      <li>endCursor: string!</li>
+      <li>totalCount: int!</li>
+      </ul>
+    </li>
+    <li>edges: [<a href="/reference/api/objects/#StoreProductEdge">storeproductedge</a>]!
+      <ul>
+      <li>node: <a href="/reference/api/objects/#StoreProduct">storeproduct</a>!
+        <ul>
+        <li>Product information. Check <a href="/reference/api/objects/#StoreProduct">storeproduct</a> to see all possible fields.</li>
+        </ul>
+      </li>
+      <li>cursor: string!</li>
+      </ul>
+    </li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+<div>
+
+
+**Query**
+
+```graphql
+query($first: Int!){
+    allProducts(first: $first) {
+      # StoreProductConnection fields
+    }
+}
+```
+
+**Example**
+
+Getting the names, SKUs and cursors of the first five products after the product associated with cursor `"4"`. Also getting the last cursor in the complete list and whether there are more results for next page.
+
+```graphql
+query {
+  allProducts (first:5, after:"4") {
+    pageInfo {
+      hasNextPage,
+      endCursor
+    },
+    edges {
+      node {
+        name,
+        sku
+      },
+      cursor
+    }
+  }
+}
+```
+
+
+</div>
+</div>
