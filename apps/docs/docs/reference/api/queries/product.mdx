@@ -55,5 +55,25 @@ query Product($locator: [IStoreSelectedFacet!]!) {
   }
 }
 ```
+
+**Example**
+
+Getting the name, description, brand name and image URL and alternate name of a product with SKU of `123`.
+
+```graphql
+query {
+  product (locator:[{key:"id", value:"123"}]) {
+    name,
+    description,
+    brand {
+      name
+    },
+    image{
+      url
+    }
+  }
+}
+```
+
 </div>
 </div>
