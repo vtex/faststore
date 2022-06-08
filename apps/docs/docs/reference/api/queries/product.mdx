@@ -20,22 +20,16 @@ Returns the details of a product based on the specified locator.
 <PropsComponent
       name="locator"
       type="IStoreSelectedFacet"
-      description="An array of selected search facets, each being an object with two properties `key` and `value`."
+      description="An array of selected search facets."
       required="true"
     />
 
-<PropsComponent
-      name="IStoreSelectedFacet.key"
-      type="String"
-      description="<a href="/reference/api/inputs#istoreselectedfacet">`ISelectedStoreFacet`</a> property. To query information of a product by its SKU ID, use `key:"id"`."
-      required="true"
-    />
+### Response
 
 <PropsComponent
-      name="IStoreSelectedFacet.value"
-      type="String"
-      description="<a href="/reference/api/inputs#istoreselectedfacet">`ISelectedStoreFacet`</a> property. To query information of a product that has SKU ID `123`, use `value:"123"`."
-      required="true"
+      name="StoreProduct"
+      type="StoreProduct"
+      description="Product information."
     />
 
 ### Fields
