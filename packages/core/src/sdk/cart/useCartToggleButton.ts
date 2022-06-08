@@ -1,19 +1,19 @@
 import { useCallback } from 'react'
 
-import { useUI } from '../ui'
+import { useUI } from '../ui/Provider'
 import { useCart } from './useCart'
 
 export const useCartToggleButton = () => {
   const { totalItems } = useCart()
-  const { displayMinicart, openMinicart, closeMinicart } = useUI()
+  const { cart: displayCart, openCart, closeCart } = useUI()
 
   const onClick = useCallback(() => {
-    if (displayMinicart) {
-      closeMinicart()
+    if (displayCart) {
+      closeCart()
     } else {
-      openMinicart()
+      openCart()
     }
-  }, [closeMinicart, displayMinicart, openMinicart])
+  }, [closeCart, displayCart, openCart])
 
   return {
     onClick,

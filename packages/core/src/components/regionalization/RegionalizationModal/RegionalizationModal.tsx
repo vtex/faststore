@@ -1,45 +1,27 @@
 import { Modal as UIModal } from '@faststore/ui'
-import { useEffect } from 'react'
 
 import RegionalizationInput from 'src/components/regionalization/RegionalizationInput'
 import { ButtonIcon } from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
-import { useModal } from 'src/sdk/ui/modal/Provider'
+import { useUI } from 'src/sdk/ui/Provider'
+import { useFadeEffect } from 'src/sdk/ui/useFadeEffect'
 
-interface RegionalizationModalProps {
-  isOpen: boolean
-  /**
-   * This function is called whenever the user clicks outside
-   * the modal content
-   */
-  onDismiss: () => void
-}
-
-function RegionalizationModal({
-  isOpen,
-  onDismiss,
-}: RegionalizationModalProps) {
-  const { fade, onModalOpen, onModalClose } = useModal()
-
-  useEffect(() => {
-    isOpen && onModalOpen()
-  }, [isOpen, onModalOpen])
+function RegionModal() {
+  const { closeModal } = useUI()
+  const { fade, fadeOut } = useFadeEffect()
 
   return (
     <UIModal
+      isOpen
       data-regionalization-modal
       data-regionalization-modal-state={fade}
-      isOpen={isOpen}
-      onDismiss={(e) => {
-        e.preventDefault()
-        onModalClose()
-      }}
-      onTransitionEnd={() => fade === 'out' && onDismiss()}
+      onDismiss={fadeOut}
+      onTransitionEnd={() => fade === 'out' && closeModal()}
     >
       <header className="regionalization-modal__header">
         <ButtonIcon
-          onClick={onModalClose}
+          onClick={fadeOut}
           data-fs-regionalization-modal-button
           aria-label="Close Regionalization Modal"
           data-testid="regionalization-modal-button-close"
@@ -55,7 +37,7 @@ function RegionalizationModal({
       <div className="regionalization-modal__body">
         {/* TODO: Remove this div when PostalCodeInput be styled */}
         <div data-regionalization-modal-input>
-          <RegionalizationInput />
+          <RegionalizationInput closeModal={fadeOut} />
         </div>
         <Link href="/">
           <span data-regionalization-modal-link>
@@ -68,4 +50,4 @@ function RegionalizationModal({
   )
 }
 
-export default RegionalizationModal
+export default RegionModal

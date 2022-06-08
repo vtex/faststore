@@ -5,12 +5,12 @@ import type { CurrencyCode, AddToCartEvent } from '@faststore/sdk'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
 import type { CartItem } from 'src/sdk/cart/validate'
 
-import { useUI } from '../ui'
+import { useUI } from '../ui/Provider'
 import { useCart } from './useCart'
 
 export const useBuyButton = (item: CartItem | null) => {
   const { addItem } = useCart()
-  const { openMinicart } = useUI()
+  const { openCart } = useUI()
   const {
     currency: { code },
   } = useSession()
@@ -48,9 +48,9 @@ export const useBuyButton = (item: CartItem | null) => {
       })
 
       addItem(item)
-      openMinicart()
+      openCart()
     },
-    [addItem, code, item, openMinicart]
+    [addItem, code, item, openCart]
   )
 
   return {

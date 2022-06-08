@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Merges UIProvider and ModalProvider into a single context provider ([#100](https://github.com/vtex-sites/nextjs.store/pull/100))
 - Synchronizes the components' code of both starters ([#103](https://github.com/vtex-sites/nextjs.store/pull/103))
 - Uses `--docs` option on storybook script ([#107](https://github.com/vtex-sites/nextjs.store/pull/107))
 - Improves storybook doc's table rows ([#106](https://github.com/vtex-sites/nextjs.store/pull/106))

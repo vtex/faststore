@@ -1,6 +1,4 @@
-import { UIProvider } from '@faststore/sdk'
-
-import { useUI, uiActions, uiEffects, uiInitialState } from 'src/sdk/ui'
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
 
 import Toast from '.'
 
@@ -40,11 +38,7 @@ const Template = () => {
 
 const TemplateWithProvider = () => {
   return (
-    <UIProvider
-      initialState={uiInitialState}
-      actions={uiActions}
-      effects={uiEffects}
-    >
+    <UIProvider>
       <Toast />
       <Template />
     </UIProvider>

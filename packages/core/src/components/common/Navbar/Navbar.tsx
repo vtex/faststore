@@ -17,7 +17,8 @@ import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import SlideOver from 'src/components/ui/SlideOver'
 import { mark } from 'src/sdk/tests/mark'
-import { useModal } from 'src/sdk/ui/modal/Provider'
+import { useUI } from 'src/sdk/ui/Provider'
+import { useFadeEffect } from 'src/sdk/ui/useFadeEffect'
 
 interface NavLinksProps {
   onClickLink?: AnchorHTMLAttributes<HTMLAnchorElement>['onClick']
@@ -61,17 +62,55 @@ function NavLinks({ onClickLink }: NavLinksProps) {
   )
 }
 
+function NavbarSlider() {
+  const { closeNavbar } = useUI()
+  const { fade, fadeOut } = useFadeEffect()
+
+  return (
+    <SlideOver
+      isOpen
+      fade={fade}
+      onDismiss={fadeOut}
+      size="full"
+      direction="leftSide"
+      className="navbar__modal-content"
+      onTransitionEnd={() => fade === 'out' && closeNavbar()}
+    >
+      <div className="navbar__modal-body">
+        <header className="navbar__modal-header">
+          <LinkFramework
+            href="/"
+            onClick={fadeOut}
+            aria-label="Go to FastStore home"
+            title="Go to FastStore home"
+            className="navbar__logo"
+          >
+            <Logo />
+          </LinkFramework>
+
+          <ButtonIcon
+            aria-label="Close Menu"
+            icon={<Icon name="X" width={32} height={32} />}
+            onClick={fadeOut}
+          />
+        </header>
+        <div className="navlinks">
+          <NavLinks onClickLink={fadeOut} />
+          <div className="navlinks__signin">
+            <Suspense fallback={<ButtonSignInFallback />}>
+              <ButtonSignIn />
+            </Suspense>
+          </div>
+        </div>
+      </div>
+    </SlideOver>
+  )
+}
+
 function Navbar() {
-  const { onModalClose } = useModal()
+  const { openNavbar, navbar: displayNavbar } = useUI()
   const searchMobileRef = useRef<SearchInputRef>(null)
-
-  const [showMenu, setShowMenu] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
-
-  const handleCloseSlideOver = () => {
-    onModalClose()
-    setShowMenu(false)
-  }
 
   const handlerExpandSearch = () => {
     setSearchExpanded(true)
@@ -88,7 +127,7 @@ function Navbar() {
                 data-fs-button-menu
                 aria-label="Open Menu"
                 icon={<Icon name="List" width={32} height={32} />}
-                onClick={() => setShowMenu(true)}
+                onClick={openNavbar}
               />
               <LinkFramework
                 href="/"
@@ -129,43 +168,7 @@ function Navbar() {
         <NavLinks />
       </div>
 
-      {showMenu && (
-        <SlideOver
-          isOpen={showMenu}
-          onDismiss={handleCloseSlideOver}
-          size="full"
-          direction="leftSide"
-          className="navbar__modal-content"
-        >
-          <div className="navbar__modal-body">
-            <header className="navbar__modal-header">
-              <LinkFramework
-                href="/"
-                onClick={onModalClose}
-                aria-label="Go to FastStore home"
-                title="Go to FastStore home"
-                className="navbar__logo"
-              >
-                <Logo />
-              </LinkFramework>
-
-              <ButtonIcon
-                aria-label="Close Menu"
-                icon={<Icon name="X" width={32} height={32} />}
-                onClick={onModalClose}
-              />
-            </header>
-            <div className="navlinks">
-              <NavLinks onClickLink={handleCloseSlideOver} />
-              <div className="navlinks__signin">
-                <Suspense fallback={<ButtonSignInFallback />}>
-                  <ButtonSignIn />
-                </Suspense>
-              </div>
-            </div>
-          </div>
-        </SlideOver>
-      )}
+      {displayNavbar && <NavbarSlider />}
     </header>
   )
 }

@@ -1,19 +1,16 @@
-import type { HTMLAttributes } from 'react'
 import { useSession } from '@faststore/sdk'
+import type { HTMLAttributes } from 'react'
 
 import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
-import { useModal } from 'src/sdk/ui/modal/Provider'
+import { useUI } from 'src/sdk/ui/Provider'
 
-interface RegionalizationButtonProps extends HTMLAttributes<HTMLDivElement> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   classes: string
 }
 
-export default function RegionalizationButton({
-  classes,
-  ...otherProps
-}: RegionalizationButtonProps) {
-  const { setIsRegionalizationModalOpen } = useModal()
+function RegionButton({ classes, ...otherProps }: Props) {
+  const { openModal } = useUI()
   const { postalCode } = useSession()
 
   return (
@@ -23,10 +20,12 @@ export default function RegionalizationButton({
         size="small"
         icon={<Icon name="MapPin" width={24} height={24} />}
         iconPosition="left"
-        onClick={() => setIsRegionalizationModalOpen(true)}
+        onClick={openModal}
       >
         <span>{postalCode ?? 'Set your location'}</span>
       </Button>
     </div>
   )
 }
+
+export default RegionButton

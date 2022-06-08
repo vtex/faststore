@@ -3,13 +3,15 @@ import { useRef, useState } from 'react'
 
 import InputText from 'src/components/ui/InputText'
 import { validateSession } from 'src/sdk/session/validate'
-import { useModal } from 'src/sdk/ui/modal/Provider'
 
-export default function RegionalizationInput() {
+interface Props {
+  closeModal: () => void
+}
+
+function RegionInput({ closeModal }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const { setSession, isValidating, ...session } = useSession()
   const [errorMessage, setErrorMessage] = useState<string>('')
-  const { onModalClose } = useModal()
 
   const handleSubmit = async () => {
     const value = inputRef.current?.value
@@ -30,7 +32,7 @@ export default function RegionalizationInput() {
         setSession(newSession)
       }
 
-      onModalClose()
+      closeModal()
     } catch (error) {
       setErrorMessage('You entered an invalid Zip Code')
     }
@@ -49,3 +51,5 @@ export default function RegionalizationInput() {
     </div>
   )
 }
+
+export default RegionInput
