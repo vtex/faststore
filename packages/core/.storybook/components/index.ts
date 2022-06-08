@@ -1,3 +1,5 @@
 export { default as TokenTable } from './TokenTable'
 export { default as TokenRow } from './TokenRow'
+export { default as BestPractices } from './BestPractices'
+export { default as BestPracticesRule } from './BestPracticesRule'
 export { default as TokenDivider } from './TokenDivider'

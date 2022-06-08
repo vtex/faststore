@@ -872,40 +872,26 @@ export const Usage = ({ inverse, ...args }) => {
 
 ## Related Components
 
-<section style={{ display: 'flex', justifyContent: 'space-between' }}>
-  <article style={{ width: '45%' }}>
-    <div
-      style={{
-        display: 'flex',
-        height: 160,
-        backgroundColor: '#f1f2f3',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+<section className="sbdocs-section">
+  <article>
+    <div>
       <ButtonBuy>Button Buy</ButtonBuy>
     </div>
-    <br />
-    <h3>Button Buy</h3>
-    <p>
-      A button with the intent of directly sending the user to the checkout/cart
-      step.
-    </p>
+    <article className="sbdocs-section-text">
+      <h3>Button Buy</h3>
+      <p>
+        A button with the intent of directly sending the user to the
+        checkout/cart step.
+      </p>
+    </article>
   </article>
-  <article style={{ width: '45%' }}>
-    <div
-      style={{
-        display: 'flex',
-        height: 160,
-        backgroundColor: '#f1f2f3',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+  <article>
+    <div>
       <ButtonLink href="/">Button Link</ButtonLink>
     </div>
-    <br />
-    <h3>Button Link</h3>
-    <p>A button that acts as a link to navigate users between pages.</p>
+    <article className="sbdocs-section-text">
+      <h3>Button Link</h3>
+      <p>A button that acts as a link to navigate users between pages.</p>
+    </article>
   </article>
 </section>
