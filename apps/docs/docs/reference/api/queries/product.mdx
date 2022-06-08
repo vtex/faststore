@@ -32,16 +32,9 @@ Returns the details of a product based on the specified locator.
       description="Product information."
     />
 
-### Fields
-
-Below you can see a list of all fields that can be queried with `product`. Click on the links to learn more details about each field.
-
-<ul>
-
-</ul>
-
 </div>
 <div>
+
 
 **Query**
 
@@ -52,25 +45,5 @@ query Product($locator: [IStoreSelectedFacet!]!) {
   }
 }
 ```
-
-**Example**
-
-Getting the name, description, brand name and image URL and alternate name of a product with SKU of `123`.
-
-```graphql
-query {
-  product (locator:[{key:"id", value:"123"}]) {
-    name,
-    description,
-    brand {
-      name
-    },
-    image{
-      url
-    }
-  }
-}
-```
-
 </div>
 </div>
