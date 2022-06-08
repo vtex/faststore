@@ -1,6 +1,12 @@
 @import "src/styles/scaffold";
 
-.product-details { margin-top: var(--fs-spacing-3); }
+.product-details {
+  margin-top: var(--fs-spacing-3);
+
+  [data-fs-out-of-stock] {
+    margin-top: var(--fs-spacing-4);
+  }
+}
 
 .product-details__body {
   display: flex;

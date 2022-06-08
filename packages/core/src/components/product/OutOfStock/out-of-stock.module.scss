@@ -1,0 +1,57 @@
+@import "src/styles/scaffold";
+
+.fs-out-of-stock {
+  // --------------------------------------------------------
+  // Design Tokens for Out of Stock
+  // --------------------------------------------------------
+
+  // Title
+  --fs-out-of-stock-title-margin-bottom   : var(--fs-spacing-0);
+  --fs-out-of-stock-title-line-height     : 1.15;
+  --fs-out-of-stock-title-size            : var(--fs-text-size-lead);
+  --fs-out-of-stock-title-weight          : var(--fs-text-weight-bold);
+  --fs-out-of-stock-title-color           : var(--fs-color-success-text);
+
+  // Message
+  --fs-out-of-stock-message-column-gap    : var(--fs-spacing-0);
+  --fs-out-of-stock-message-margin-bottom : var(--fs-spacing-3);
+  --fs-out-of-stock-message-line-height   : 1.15;
+  --fs-out-of-stock-message-size          : var(--fs-text-size-body);
+  --fs-out-of-stock-message-weight        : var(--fs-text-weight-regular);
+  --fs-out-of-stock-message-color         : var(--fs-color-neutral-text);
+
+  // Button
+  --fs-out-of-stock-button-width          : 100%;
+  --fs-out-of-stock-button-margin-top     : var(--fs-spacing-3);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+
+  [data-fs-out-of-stock-title] {
+    margin-bottom: var(--fs-out-of-stock-title-margin-bottom);
+    font-size: var(--fs-out-of-stock-title-size);
+    font-weight: var(--fs-out-of-stock-title-weight);
+    line-height: var(--fs-out-of-stock-title-line-height);
+    color: var(--fs-color-neutral-text);
+  }
+
+  [data-fs-out-of-stock-message] {
+    display: flex;
+    column-gap: var(--fs-out-of-stock-message-column-gap);
+    align-items: center;
+    margin-bottom: var(--fs-out-of-stock-message-margin-bottom);
+    font-size: var(--fs-out-of-stock-message-font-size);
+    font-weight: var(--fs-out-of-stock-message-weight);
+    line-height: var(--fs-out-of-stock-message-line-height);
+    color: var(--fs-out-of-stock-message-color);
+  }
+
+  [data-store-button] {
+    width: var(--fs-out-of-stock-button-width);
+    margin-top: var(--fs-out-of-stock-button-margin-top);
+  }
+}
