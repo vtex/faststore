@@ -7,7 +7,7 @@ import { useModal } from 'src/sdk/ui/modal/Provider'
 
 export default function RegionalizationInput() {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { setSession, ...session } = useSession()
+  const { setSession, isValidating, ...session } = useSession()
   const [errorMessage, setErrorMessage] = useState<string>('')
   const { onModalClose } = useModal()
 
