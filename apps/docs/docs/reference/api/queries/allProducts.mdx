@@ -5,55 +5,6 @@ sidebar_position: 2
 
 import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
 
-# Product
-
-<div className="grid grid-cols-2 gap-20">
-
-<div>
-
-## `product`
-
-Returns the details of a product based on the specified locator.
-
-
-
-### Usage
-
-#### Arguments
-
-<PropsComponent
-      name="locator"
-      type="IStoreSelectedFacet"
-      description="An array of selected search facets."
-      required="true"
-    />
-
-#### Response
-
-<PropsComponent
-      name="StoreProduct"
-      type="StoreProduct"
-      description="Product information."
-    />
-
-</div>
-<div>
-
-
-**Query**
-
-```graphql
-query Product($locator: [IStoreSelectedFacet!]!) {
-  product(locator: $locator) {
-    # StoreProduct fields
-  }
-}
-```
-</div>
-</div>
-
----
-
 <div className="grid grid-cols-2 gap-20 pt-5">
 
 <div>
