@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Synchronizes the components' code of both starters ([#103](https://github.com/vtex-sites/nextjs.store/pull/103))
 - Uses `--docs` option on storybook script ([#107](https://github.com/vtex-sites/nextjs.store/pull/107))
 - Improves storybook doc's table rows ([#106](https://github.com/vtex-sites/nextjs.store/pull/106))
 - Changes weird if logic in suspense hooks ([#96](https://github.com/vtex-sites/nextjs.store/pull/96))

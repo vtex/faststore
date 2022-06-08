@@ -1,5 +1,5 @@
-import Icon from '../Icon'
-import ButtonLink from './ButtonLink'
+import Icon from 'src/components/ui/Icon'
+import ButtonLink from 'src/components/ui/Button/ButtonLink'
 
 function ButtonSignInFallback() {
   return (

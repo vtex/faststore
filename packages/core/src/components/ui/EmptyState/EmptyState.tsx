@@ -7,8 +7,8 @@ interface Props {
 }
 
 function EmptyState({
-  variant = 'default',
   children,
+  variant = 'default',
 }: PropsWithChildren<Props>) {
   return (
     <section data-fs-empty-state data-fs-empty-state-variant={variant}>
