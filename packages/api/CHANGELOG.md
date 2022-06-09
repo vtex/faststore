@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.3](https://github.com/vtex/faststore/compare/v1.9.2...v1.9.3) (2022-06-09)
+
+
+### Bug Fixes
+
+* Spot pricing sort for lowPrice/highPrice ([#1350](https://github.com/vtex/faststore/issues/1350)) ([6836c6f](https://github.com/vtex/faststore/commit/6836c6f36a14e22eed3564e48a3eae63997b85b8))
+
+
+
+
+
 ## 1.9.1 (2022-06-09)
 
 **Note:** Version bump only for package @faststore/api
