@@ -65,12 +65,37 @@ Below you can see a list of all fields that can be queried with `allCollections`
 
 **Query**
 
-
+```graphql
+query($first: Int!) {
+  allCollections(first: $first) {
+    # StoreCollectionConnection fields
+  }
+}
+```
 
 **Example**
 
+Getting the type, slug, SEO description and corresponding cursor of the first five collections after the collection with cursor `"4"`. Also getting the total amount of collections and the value of the cursor corresponding with the last one in the complete list.
 
-
+```graphql
+allCollections (first:5, after:"4") {
+    pageInfo {
+      endCursor,
+      totalCount
+    },
+    edges {
+      node {
+        type,
+        slug,
+        seo {
+          description
+        }
+      },
+      cursor
+    }
+  }
+}
+```
 
 </div>
 </div>
