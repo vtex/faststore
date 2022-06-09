@@ -10,13 +10,14 @@ export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
 } = {
   highPrice: (offers) => {
     const availableOffers = offers.filter(inStock)
+    const highOffer = availableOffers[availableOffers.length - 1]
 
-    return price(availableOffers[availableOffers.length - 1]) ?? 0
+    return highOffer != null ? price(highOffer) : 0
   },
   lowPrice: (offers) => {
-    const availableOffers = offers.filter(inStock)
+    const [lowOffer] = offers.filter(inStock)
 
-    return price(availableOffers[0]) ?? 0
+    return lowOffer ? price(lowOffer) : 0
   },
   offerCount: (offers) => offers.length,
   priceCurrency: () => '',
