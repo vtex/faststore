@@ -10,7 +10,7 @@ export const sellingPrice = (offer: CommertialOffer) => offer.Price ?? 0
 export const availability = (available: boolean) =>
   available ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
 
-// Smallest Available Selling Price First
+// Smallest Available Spot Price First
 export const bestOfferFirst = (
   a: Pick<CommertialOffer, 'AvailableQuantity' | 'spotPrice'>,
   b: Pick<CommertialOffer, 'AvailableQuantity' | 'spotPrice'>
