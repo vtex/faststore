@@ -147,11 +147,11 @@ query {
 }
 ```
 
--
+- Getting terms' values, terms' counts, products' names and products' SKU IDs for the first five sugestions from a list sorted from higher to lower discount, searching by the term `"table awesome"`.
 
 ```graphql
 query {
-  search (first:10, term:"table awesome") {
+  search (first:5, sort: discount_desc, term:"table awesome") {
     suggestions {
       terms {
         value,
@@ -166,6 +166,53 @@ query {
 }
 ```
 
+- Getting information about facets, products and suggestions at once.
+
+```graphql
+query {
+  search (first:5, after:"5", term:"wooden", sort:score_desc) {
+    products {
+      pageInfo {
+        totalCount,
+        hasNextPage,
+        endCursor
+      },
+      edges {
+        node {
+          name,
+          sku,
+          slug,
+          image {
+            url,
+            alternateName
+          }
+        },
+        cursor
+      }
+    },
+    suggestions {
+      terms {
+        value,
+        count
+      },
+      products {
+        name,
+        slug,
+        description
+      }
+    },
+    facets {
+      key,
+      label,
+      values {
+        value,
+        selected
+      },
+      type
+    }
+  }
+}
+```
 
 
 </div>
