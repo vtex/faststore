@@ -49,7 +49,7 @@ The `product` query returns a `StoreProduct`. To learn more about each field tha
 **Query**
 
 ```graphql
-query Product($locator: [IStoreSelectedFacet!]!) {
+query ($locator: [IStoreSelectedFacet!]!) {
   product(locator: $locator) {
     # StoreProduct fields
   }

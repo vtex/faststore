@@ -34,7 +34,7 @@ The `collection` query returns a `StoreCollection`. To learn more about each fie
 **Query**
 
 ```graphql
-query Collection($slug: String!) {
+query ($slug: String!) {
   collection (slug: $slug) {
     # StoreCollection fields
   }
