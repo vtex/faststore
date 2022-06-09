@@ -5,9 +5,13 @@ const storageKey = 'main::store::searchHistory'
 const MAX_HISTORY_SIZE = 5
 
 export default function useSearchHistory(
+  history: string[] = [],
   maxHistorySize: number = MAX_HISTORY_SIZE
 ) {
-  const [searchHistory, setSearchHistory] = useStorage<string[]>(storageKey, [])
+  const [searchHistory, setSearchHistory] = useStorage<string[]>(
+    storageKey,
+    history
+  )
 
   function addToSearchHistory(term: string) {
     const newHistory = [...new Set([term, ...searchHistory])]

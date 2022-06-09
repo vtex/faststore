@@ -1,6 +1,6 @@
 @import "src/styles/scaffold";
 
-.fs-suggestion-product-card[data-fs-suggestion-product-card] {
+[data-fs-suggestion-product-card] {
   padding: var(--fs-spacing-1) 0;
 
   [data-card-image] {

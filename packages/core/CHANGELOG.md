@@ -34,6 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `SearchHistory`, `Suggestions`, and `SuggestionsTopSearch` components to reuse shared markup and styles ([#86](https://github.com/vtex-sites/nextjs.store/pull/86)).
+- Removed CSS Modules for the components `SuggestionProductCard` and `Suggestions` for now so they match what's currently on the Gatsby starter. It will be added again later ([#86](https://github.com/vtex-sites/nextjs.store/pull/86)).
 - Merges UIProvider and ModalProvider into a single context provider ([#100](https://github.com/vtex-sites/nextjs.store/pull/100))
 - Synchronizes the components' code of both starters ([#103](https://github.com/vtex-sites/nextjs.store/pull/103))
 - Uses `--docs` option on storybook script ([#107](https://github.com/vtex-sites/nextjs.store/pull/107))

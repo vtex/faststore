@@ -34,14 +34,15 @@ const SuggestionsTopSearch = forwardRef<
     <section
       ref={ref}
       data-testid={testId}
-      data-store-suggestions-top-search
-      className="suggestions__section"
+      data-fs-search-suggestion-section
       {...otherProps}
     >
-      <p className="suggestions__title">Top Search</p>
+      <div data-fs-search-suggestion-header>
+        <p data-fs-search-suggestion-title>Top Search</p>
+      </div>
       <UIList variant="ordered">
         {searchedItems.map((item, index) => (
-          <li key={index} className="suggestions__item">
+          <li key={item.name} data-fs-search-suggestion-item>
             <Link variant="display" href={item.href}>
               <Badge variant="info">{index + 1}</Badge>
               {item.name}

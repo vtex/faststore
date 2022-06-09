@@ -1,12 +1,13 @@
 import { formatSearchState, initSearchState } from '@faststore/sdk'
-import { Icon as UIIcon, List as UIList } from '@faststore/ui'
+import { List as UIList } from '@faststore/ui'
 
 import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 
-interface SearchHistoryProps {
+export interface SearchHistoryProps {
+  history?: string[]
   onClear: () => void
 }
 
@@ -21,36 +22,33 @@ const doSearch = (term: string) => {
   return `${pathname}${search}`
 }
 
-const SearchHistory = ({ onClear }: SearchHistoryProps) => {
-  const { searchHistory } = useSearchHistory()
+const SearchHistory = ({ history = [], onClear }: SearchHistoryProps) => {
+  const { searchHistory } = useSearchHistory(history)
 
   return (
-    <section data-store-search-history>
-      <div data-store-search-history-header>
-        <h4 data-store-search-history-title>History</h4>
+    <section data-fs-search-suggestion-section>
+      <div data-fs-search-suggestion-header>
+        <p data-fs-search-suggestion-title>History</p>
         <Button variant="tertiary" onClick={onClear}>
           Clear
         </Button>
       </div>
       <UIList variant="ordered">
-        {searchHistory.map((item, index) => (
-          <li data-store-search-history-item key={index}>
+        {searchHistory.map((item) => (
+          <li key={item} data-fs-search-suggestion-item>
             <Link
               variant="display"
               href={doSearch(item)}
               target="_blank"
               rel="noreferrer"
             >
-              <UIIcon
-                component={<Icon name="Clock" width={18} height={18} />}
+              <Icon
+                name="Clock"
+                width={18}
+                height={18}
+                data-fs-search-suggestion-item-icon
               />
               {item}
-              <UIIcon
-                data-store-search-history-arrow
-                component={
-                  <Icon name="ArrowUpRight" width={13.5} height={13.5} />
-                }
-              />
             </Link>
           </li>
         ))}

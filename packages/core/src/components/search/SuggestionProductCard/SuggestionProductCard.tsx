@@ -1,6 +1,5 @@
 import { Card, CardContent, CardImage } from '@faststore/ui'
 
-import styles from 'src/components/search/SuggestionProductCard/suggestion-product-card.module.scss'
 import { Image } from 'src/components/ui/Image'
 import Link from 'src/components/ui/Link'
 import Price from 'src/components/ui/Price'
@@ -25,11 +24,7 @@ function SuggestionProductCard({ product, index }: SuggestionProductCardProps) {
   } = product
 
   return (
-    <Card
-      className={styles['fs-suggestion-product-card']}
-      data-fs-suggestion-product-card
-      data-testid="suggestion-product-card"
-    >
+    <Card data-fs-suggestion-product-card data-testid="suggestion-product-card">
       <Link {...linkProps} title={name} variant="display">
         <CardContent>
           <CardImage>
