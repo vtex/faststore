@@ -47,7 +47,39 @@ This query can be used to fetch information about search facets, products and su
 
 ### Fields
 
-Below you can see a list of all fields that can be queried with `allProducts`. Click on the links to learn more details about each field.
+Below you can see a list of all fields that can be queried with `search`. Click on the links to learn more details about each field.
+
+<ul>
+  <li><a href="/reference/api/objects#storesearchresult"><code>StoreSearchResult</code></a>
+    <ul>
+      <li><a href="/reference/api/objects#storeproductconnection"><code>StoreProductConnection</code></a>
+        <ul>
+        <li><code>pageInfo</code>: <a href="/reference/api/objects/#storepageinfo">StorePageInfo</a>
+          <ul>
+          <li><code>hasNextPage</code>: boolean!</li>
+          <li><code>hasPreviousPage</code>: boolean!</li>
+          <li><code>startCursor</code>: string!</li>
+          <li><code>endCursor</code>: string!</li>
+          <li><code>totalCount</code>: int!</li>
+          </ul>
+        </li>
+        <li><code>edges</code>: [<a href="/reference/api/objects/#storeproductedge">StoreProductEdge</a>]!
+          <ul>
+          <li><code>node</code>: <a href="/reference/api/objects/#storeproduct">StoreProduct</a>!
+            <ul>
+            <li>Product information. Check <a href="/reference/api/objects/#storeproduct">StoreProduct</a> to see all possible fields.</li>
+            </ul>
+          </li>
+          <li><code>cursor</code>: string!</li>
+          </ul>
+        </li>
+        </ul>
+      </li>
+      <li><code>facets</code></li>
+      <li><code>StoreSuggestions</code></li>
+    </ul>
+  </li>
+</ul>
 
 
 </div>
