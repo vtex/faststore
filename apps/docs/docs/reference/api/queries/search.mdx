@@ -52,6 +52,8 @@ Below you can see a list of all fields that can be queried with `search`. Click 
 <ul>
   <li><a href="/reference/api/objects#storesearchresult"><code>StoreSearchResult</code></a>
     <ul>
+      <li><code>facets</code>: [<a href="/reference/api/objects/#storefacet">StoreFacet</a>!]!</li>
+      <li><code>StoreSuggestions</code>: <a href="/reference/api/objects/#storesuggestions">StoreSuggestions</a>!</li>
       <li><a href="/reference/api/objects#storeproductconnection"><code>StoreProductConnection</code></a>
         <ul>
         <li><code>pageInfo</code>: <a href="/reference/api/objects/#storepageinfo">StorePageInfo</a>
@@ -75,8 +77,6 @@ Below you can see a list of all fields that can be queried with `search`. Click 
         </li>
         </ul>
       </li>
-      <li><code>facets</code>: [<a href="/reference/api/objects/#storefacet">StoreFacet</a>!]!</li>
-      <li><code>StoreSuggestions</code>: <a href="/reference/api/objects/#storesuggestions">StoreSuggestions</a>!</li>
     </ul>
   </li>
 </ul>
@@ -89,6 +89,19 @@ Below you can see a list of all fields that can be queried with `search`. Click 
 **Query**
 
 ```graphql
+query ($first: Int!){
+  search (first: $first) {
+    product {
+      # StoreProductConnection fields
+    },
+    suggestions {
+      # StoreSuggestions fields
+    },
+    facets {
+      # StoreFacet fields
+    }
+  }
+}
 ```
 
 **Example**
