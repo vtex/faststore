@@ -68,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `default` nomenclature from global tokens ([#51](https://github.com/vtex-sites/nextjs.store/pull/51))
 
 ### Fixed
+- Use `SpotPrice` for low/high price on `aggretateOffer` ([#111](https://github.com/vtex-sites/nextjs.store/pull/111))
 - Fix Region Input's behavior when setting zipCode ([#108](https://github.com/vtex-sites/nextjs.store/pull/108))
 - Lighthouse complaining about missing robots.txt ([#89](https://github.com/vtex-sites/nextjs.store/pull/89))
 - Fix 404 being returned for existing pages when the server fails to fetch data ([#88](https://github.com/vtex-sites/nextjs.store/pull/88))
