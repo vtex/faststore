@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.9.1 (2022-06-09)
+
+**Note:** Version bump only for package @faststore/ui
+
+
+
+
+
 ## [1.8.52](https://github.com/vtex/faststore/compare/v1.8.51...v1.8.52) (2022-06-03)
 
 
