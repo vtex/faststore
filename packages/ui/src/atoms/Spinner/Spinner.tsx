@@ -1,3 +1,4 @@
+import type { PropsWithChildren } from 'react'
 import React, { forwardRef } from 'react'
 
 export type SpinnerProps = {
@@ -7,13 +8,12 @@ export type SpinnerProps = {
   testId?: string
 }
 
-const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(function Spinner(
-  { children, testId = 'store-spinner', ...otherProps },
-  ref
-) {
-  return (
-    <span ref={ref} data-store-spinner data-testid={testId} {...otherProps} />
-  )
-})
+const Spinner = forwardRef<HTMLDivElement, PropsWithChildren<SpinnerProps>>(
+  function Spinner({ children, testId = 'store-spinner', ...otherProps }, ref) {
+    return (
+      <span ref={ref} data-store-spinner data-testid={testId} {...otherProps} />
+    )
+  }
+)
 
 export default Spinner
