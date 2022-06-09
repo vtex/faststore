@@ -1,4 +1,4 @@
-import { inStock } from '../utils/productStock'
+import { inStock, price } from '../utils/productStock'
 import type { StoreProduct } from './product'
 import type { PromiseType } from '../../../typings'
 import type { Resolver } from '..'
@@ -10,13 +10,14 @@ export const StoreAggregateOffer: Record<string, Resolver<Root>> & {
 } = {
   highPrice: (offers) => {
     const availableOffers = offers.filter(inStock)
+    const highOffer = availableOffers[availableOffers.length - 1]
 
-    return availableOffers[availableOffers.length - 1]?.Price ?? 0
+    return highOffer != null ? price(highOffer) : 0
   },
   lowPrice: (offers) => {
-    const availableOffers = offers.filter(inStock)
+    const [lowOffer] = offers.filter(inStock)
 
-    return availableOffers[0]?.Price ?? 0
+    return lowOffer ? price(lowOffer) : 0
   },
   offerCount: (offers) => offers.length,
   priceCurrency: () => '',
