@@ -106,8 +106,67 @@ query ($first: Int!){
 
 **Example**
 
+- Getting the keys, labels, values' labels and values' quantities from the first three facets in the returned list, searching with the term `"wooden"`.
+
 ```graphql
+query {
+  search (first:3, term:"wooden") {
+    facets {
+      key,
+      label,
+      values {
+        quantity
+      }
+    }
+  }
+}
 ```
+
+- Getting cursors, names, SKU IDs, and image URLs for the first 10 products after the product with cursor `"10"`, searching by the term `"steel"`. Also getting the total quantity of results in the complete list and whether there are more results for next page.
+
+```graphql
+query {
+  search (first: 10, after: "10", term:"steel") {
+    products {
+      pageInfo {
+        hasNextPage,
+        totalCount
+      },
+      edges {
+        node {
+          name,
+          sku,
+          image {
+            url
+          }
+        },
+        cursor
+      }
+    }
+  }
+}
+```
+
+-
+
+```graphql
+query {
+  search (first:10, term:"table awesome") {
+    suggestions {
+      terms {
+        value,
+        count
+      },
+      products {
+        name,
+        sku
+      }
+    }
+  }
+}
+```
+
+
 
 </div>
 </div>
