@@ -1,8 +1,9 @@
 import { Radio as UIRadio, Label as UILabel } from '@faststore/ui'
+import type { RadioProps as UIRadioProps } from '@faststore/ui'
 
 import styles from './radio.module.scss'
 
-export interface RadioProps {
+export type RadioProps = {
   /**
    * ID to identify input and corresponding label.
    */
@@ -19,7 +20,7 @@ export interface RadioProps {
    * Identify radio in the same group.
    */
   name?: string
-}
+} & UIRadioProps
 
 function Radio({ id, label, value, name, ...otherProps }: RadioProps) {
   return (
