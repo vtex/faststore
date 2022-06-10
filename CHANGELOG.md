@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.9.4 (2022-06-10)
+
+
+### Bug Fixes
+
+* codesandbox ci ([#1357](https://github.com/vtex/faststore/issues/1357)) ([db07e1f](https://github.com/vtex/faststore/commit/db07e1fb02f28b0f082c361cb2c28250a687b760))
+
+
+
+
+
 ## [1.9.3](https://github.com/vtex/faststore/compare/v1.9.2...v1.9.3) (2022-06-09)
 
 
