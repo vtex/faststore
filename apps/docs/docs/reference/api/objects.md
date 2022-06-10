@@ -16,7 +16,7 @@ Aggregate offer information, for a given SKU that is available to be fulfilled b
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>highPrice</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 Highest price among all sellers.
@@ -25,7 +25,7 @@ Highest price among all sellers.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>lowPrice</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 Lowest price among all sellers.
@@ -34,7 +34,7 @@ Lowest price among all sellers.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>offerCount</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#int">Int</a>!</td>
 <td>
 
 Number of sellers selling this SKU.
@@ -43,7 +43,7 @@ Number of sellers selling this SKU.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>priceCurrency</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 ISO code of the currency used for the offer prices.
@@ -78,7 +78,7 @@ Average rating, based on multiple ratings or reviews.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>ratingValue</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 Value of the aggregate rating.
@@ -87,7 +87,7 @@ Value of the aggregate rating.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>reviewCount</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#int">Int</a>!</td>
 <td>
 
 Total number of ratings.
@@ -113,7 +113,7 @@ Information about the author of a product review or rating.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Author name.
@@ -139,7 +139,7 @@ Brand of a given product.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Brand name.
@@ -174,7 +174,7 @@ Array with breadcrumb elements.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>numberOfItems</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#int">Int</a>!</td>
 <td>
 
 Number of breadcrumbs in the list.
@@ -237,7 +237,7 @@ Shopping cart message.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>text</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Shopping cart message text.
@@ -301,7 +301,7 @@ Collection meta information. Used for search.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>id</strong></td>
-<td valign="top"><a href="#id">ID</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#id">ID</a>!</td>
 <td>
 
 Collection ID.
@@ -310,7 +310,7 @@ Collection ID.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>slug</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Corresponding collection URL slug, with which to retrieve this entity.
@@ -391,7 +391,7 @@ Collection pagination node.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>cursor</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Collection pagination cursor.
@@ -417,7 +417,7 @@ Product collection facet, used for search.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>key</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Facet key.
@@ -426,7 +426,7 @@ Facet key.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>value</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Facet value.
@@ -478,7 +478,7 @@ Currency information.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>code</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Currency code (e.g., USD)
@@ -487,7 +487,7 @@ Currency code (e.g., USD)
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>symbol</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Currency symbol (e.g., $)
@@ -513,7 +513,7 @@ Search facet information.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>key</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Facet key.
@@ -522,7 +522,7 @@ Facet key.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>label</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Facet label.
@@ -566,7 +566,7 @@ Information of a specific facet value.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>value</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Facet value.
@@ -575,7 +575,7 @@ Facet value.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>label</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Facet value label.
@@ -584,7 +584,7 @@ Facet value label.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>selected</strong></td>
-<td valign="top"><a href="#boolean">Boolean</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#boolean">Boolean</a>!</td>
 <td>
 
 Indicates whether facet is selected.
@@ -593,7 +593,7 @@ Indicates whether facet is selected.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>quantity</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#int">Int</a>!</td>
 <td>
 
 Number of items with this facet.
@@ -619,7 +619,7 @@ Image.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>url</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Image URL.
@@ -628,7 +628,7 @@ Image URL.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>alternateName</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Alias for the image.
@@ -654,7 +654,7 @@ Item of a list.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>item</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 List item value.
@@ -663,7 +663,7 @@ List item value.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Name of the list item.
@@ -672,7 +672,7 @@ Name of the list item.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>position</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#int">Int</a>!</td>
 <td>
 
 Position of the item in the list.
@@ -698,7 +698,7 @@ Offer information.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>listPrice</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf.
@@ -707,7 +707,7 @@ This is displayed as the "from" price in the context of promotions' price compar
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>sellingPrice</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 Computed price before applying coupons, taxes or benefits. This may change before it reaches the shelf.
@@ -716,7 +716,7 @@ Computed price before applying coupons, taxes or benefits. This may change befor
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>priceCurrency</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 ISO code of the currency used for the offer prices.
@@ -725,7 +725,7 @@ ISO code of the currency used for the offer prices.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>price</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 Also known as spot price.
@@ -734,7 +734,7 @@ Also known as spot price.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>priceValidUntil</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time.
@@ -743,7 +743,7 @@ Next date in which price is scheduled to change. If there is no scheduled change
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>itemCondition</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Offer item condition.
@@ -752,7 +752,7 @@ Offer item condition.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>availability</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Offer item availability.
@@ -779,7 +779,7 @@ Information on the item being offered.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>quantity</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#int">Int</a>!</td>
 <td>
 
 Number of items offered.
@@ -805,7 +805,7 @@ Information of a specific order.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>orderNumber</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#).
@@ -840,7 +840,7 @@ Organization.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>identifier</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Organization ID.
@@ -866,7 +866,7 @@ Page information.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>hasNextPage</strong></td>
-<td valign="top"><a href="#boolean">Boolean</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#boolean">Boolean</a>!</td>
 <td>
 
 Indicates whether next page exists.
@@ -875,7 +875,7 @@ Indicates whether next page exists.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>hasPreviousPage</strong></td>
-<td valign="top"><a href="#boolean">Boolean</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#boolean">Boolean</a>!</td>
 <td>
 
 Indicates whether previous page exists.
@@ -884,7 +884,7 @@ Indicates whether previous page exists.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>startCursor</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Page cursor start.
@@ -893,7 +893,7 @@ Page cursor start.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>endCursor</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Page cursor end.
@@ -902,7 +902,7 @@ Page cursor end.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>totalCount</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#int">Int</a>!</td>
 <td>
 
 Total number of items (products or collections), not pages.
@@ -928,7 +928,7 @@ Client profile data.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>id</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Client ID.
@@ -937,7 +937,7 @@ Client ID.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>email</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Client email.
@@ -946,7 +946,7 @@ Client email.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>givenName</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Client first name.
@@ -955,7 +955,7 @@ Client first name.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>familyName</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Client last name.
@@ -1001,7 +1001,7 @@ List of items consisting of chain linked web pages, ending with the current page
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>slug</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Corresponding collection URL slug, with which to retrieve this entity.
@@ -1010,7 +1010,7 @@ Corresponding collection URL slug, with which to retrieve this entity.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Product name.
@@ -1019,7 +1019,7 @@ Product name.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>productID</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs.
@@ -1037,7 +1037,7 @@ Product brand.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>description</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Product description.
@@ -1064,7 +1064,7 @@ Aggregate offer information.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>sku</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Stock Keeping Unit. Merchant-specific ID for the product.
@@ -1073,7 +1073,7 @@ Stock Keeping Unit. Merchant-specific ID for the product.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>gtin</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Global Trade Item Number.
@@ -1181,7 +1181,7 @@ Product pagination node.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>cursor</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Product pagination cursor.
@@ -1216,7 +1216,7 @@ Array of variants related to product group. Variants are equivalent to VTEX [SKU
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>productGroupID</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Product group ID.
@@ -1225,7 +1225,7 @@ Product group ID.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Product group name.
@@ -1260,7 +1260,7 @@ Properties that can be associated with products and products groups.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>propertyID</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Property id. This propert changes according to the content of the object.
@@ -1278,7 +1278,7 @@ Property value. May hold a string or the string representation of an object.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Property name.
@@ -1287,7 +1287,7 @@ Property name.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>valueReference</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Specifies the nature of the value
@@ -1348,7 +1348,7 @@ Information of a given review rating.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>ratingValue</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 Rating value.
@@ -1357,7 +1357,7 @@ Rating value.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>bestRating</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 Best rating value.
@@ -1429,7 +1429,7 @@ Search Engine Optimization (SEO) tags data.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>title</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Title tag.
@@ -1438,7 +1438,7 @@ Title tag.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>titleTemplate</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Title template tag.
@@ -1447,7 +1447,7 @@ Title template tag.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>description</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Description tag.
@@ -1456,7 +1456,7 @@ Description tag.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>canonical</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Canonical tag.
@@ -1484,7 +1484,7 @@ Mutated by [`updateSession`](/reference/api/mutations/session).
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>channel</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a></td>
 <td>
 
 Session channel.
@@ -1493,7 +1493,7 @@ Session channel.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>country</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a></td>
 <td>
 
 Session country.
@@ -1502,7 +1502,7 @@ Session country.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>postalCode</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a></td>
 <td>
 
 Session postal code.
@@ -1528,7 +1528,7 @@ Suggestion term.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>value</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 The term.
@@ -1537,7 +1537,7 @@ The term.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>count</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#int">Int</a>!</td>
 <td>
 
 Its occurrences count.
@@ -1563,7 +1563,7 @@ Suggestions information.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>terms</strong></td>
-<td valign="top">[<a href="#string">String</a>!]</td>
+<td valign="top">[<a href="/reference/api/scalars#string">String</a>!]</td>
 <td>
 
 Array with suggestion terms.
