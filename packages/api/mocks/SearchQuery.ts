@@ -100,7 +100,7 @@ export const SearchQueryFirst5Products = `query SearchQuery {
 
 export const productSearchCategory1Fetch = {
   info:
-    'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&locale=en-US&hideUnavailableItems=false',
+    'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
   init: undefined,
   result: {
     products: [
@@ -1327,7 +1327,7 @@ export const productSearchCategory1Fetch = {
     correction: {
       misspelled: true,
     },
-    fuzzy: '0',
+    fuzzy: 'auto',
     operator: 'and',
     translated: false,
     pagination: {
@@ -1335,36 +1335,36 @@ export const productSearchCategory1Fetch = {
       current: {
         index: 1,
         proxyUrl:
-          'search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&operator=and',
+          'search/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&operator=and',
       },
       before: [],
       after: [
         {
           index: 2,
           proxyUrl:
-            'search/category-1/office/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=0&operator=and',
+            'search/category-1/office/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=auto&operator=and',
         },
         {
           index: 3,
           proxyUrl:
-            'search/category-1/office/trade-policy/1?page=3&count=5&query=&sort=&fuzzy=0&operator=and',
+            'search/category-1/office/trade-policy/1?page=3&count=5&query=&sort=&fuzzy=auto&operator=and',
         },
         {
           index: 4,
           proxyUrl:
-            'search/category-1/office/trade-policy/1?page=4&count=5&query=&sort=&fuzzy=0&operator=and',
+            'search/category-1/office/trade-policy/1?page=4&count=5&query=&sort=&fuzzy=auto&operator=and',
         },
         {
           index: 5,
           proxyUrl:
-            'search/category-1/office/trade-policy/1?page=5&count=5&query=&sort=&fuzzy=0&operator=and',
+            'search/category-1/office/trade-policy/1?page=5&count=5&query=&sort=&fuzzy=auto&operator=and',
         },
       ],
       perPage: 5,
       next: {
         index: 2,
         proxyUrl:
-          'search/category-1/office/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=0&operator=and',
+          'search/category-1/office/trade-policy/1?page=2&count=5&query=&sort=&fuzzy=auto&operator=and',
       },
       previous: {
         index: 0,
@@ -1375,7 +1375,7 @@ export const productSearchCategory1Fetch = {
       last: {
         index: 50,
         proxyUrl:
-          'search/category-1/office/trade-policy/1?page=50&count=5&query=&sort=&fuzzy=0&operator=and',
+          'search/category-1/office/trade-policy/1?page=50&count=5&query=&sort=&fuzzy=auto&operator=and',
       },
     },
   },
@@ -1383,7 +1383,7 @@ export const productSearchCategory1Fetch = {
 
 export const attributeSearchCategory1Fetch = {
   info:
-    'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=0&locale=en-US&hideUnavailableItems=false',
+    'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/facets/category-1/office/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
   init: undefined,
   result: {
     facets: [

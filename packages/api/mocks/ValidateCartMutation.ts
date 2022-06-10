@@ -362,7 +362,7 @@ export const checkoutOrderFormCustomDataInvalidFetch = {
 
 export const productSearchPage1Count1Fetch = {
   info:
-    'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&fuzzy=0&locale=en-US&hideUnavailableItems=false',
+    'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=1&query=sku%3A2737806&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
   init: undefined,
   result: {
     products: [
@@ -529,7 +529,7 @@ export const productSearchPage1Count1Fetch = {
     correction: {
       misspelled: true,
     },
-    fuzzy: '0',
+    fuzzy: 'auto',
     operator: 'and',
     translated: false,
     pagination: {
@@ -537,7 +537,7 @@ export const productSearchPage1Count1Fetch = {
       current: {
         index: 1,
         proxyUrl:
-          'search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=&fuzzy=0&operator=and',
+          'search/trade-policy/1?page=1&count=1&query=sku:2737806&sort=&fuzzy=auto&operator=and',
       },
       before: [],
       after: [],
