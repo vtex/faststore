@@ -93,7 +93,7 @@
     "webpack": "^5.72.0"
   },
   "resolutions": {
-    "@types/react": "^17.x"
+    "@types/react": "^18.x"
   },
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [

@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import type { ErrorInfo } from 'react'
+import type { ErrorInfo, ReactNode } from 'react'
 
 const getReloads = () =>
   Number(window.sessionStorage.getItem('store:reloads') ?? '0')
@@ -15,7 +15,7 @@ if (typeof window !== 'undefined') {
   window.setInterval(() => setReloads(0), 30e3)
 }
 
-class ErrorBoundary extends Component {
+class ErrorBoundary extends Component<{ children: ReactNode }> {
   public state = { hasError: false, error: null }
 
   public static getDerivedStateFromError(error: Error) {

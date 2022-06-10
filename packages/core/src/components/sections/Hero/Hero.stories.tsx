@@ -1,5 +1,3 @@
-import { HelmetProvider } from 'react-helmet-async'
-
 import Icon from 'src/components/ui/Icon'
 
 import type { HeroProps } from '.'
@@ -15,11 +13,7 @@ const story = {
   },
 }
 
-const Template = ({ ...args }: HeroProps) => (
-  <HelmetProvider>
-    <Hero {...args} />
-  </HelmetProvider>
-)
+const Template = ({ ...args }: HeroProps) => <Hero {...args} />
 
 export const Primary = Template.bind({})
 
