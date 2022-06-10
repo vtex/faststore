@@ -1,7 +1,7 @@
 import DataLoader from 'dataloader'
 
-import { BadRequestError } from '../utils/errors'
 import { enhanceSku } from '../utils/enhanceSku'
+import { BadRequestError, NotFoundError } from '../../errors'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import type { Options } from '..'
 import type { Clients } from '../clients'
@@ -39,8 +39,8 @@ export const getSkuLoader = (_: Options, clients: Clients) => {
     const missingSkus = skus.filter((sku) => !sku)
 
     if (missingSkus.length > 0) {
-      throw new Error(
-        `Search API did not return the following skus: ${missingSkus.join(',')}`
+      throw new NotFoundError(
+        `Search API did not found the following skus: ${missingSkus.join(',')}`
       )
     }
 
