@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [22.23.0.beta] - 2022-06-10
+
+### Added
+
 - Creates new Storybook section `BestPractices` ([#101](https://github.com/vtex-sites/nextjs.store/pull/101))
 - Applies new local tokens to `OutOfStock` ([#97](https://github.com/vtex-sites/nextjs.store/pull/97))
 - Applies new local tokens to `CartItem` ([#102](https://github.com/vtex-sites/nextjs.store/pull/102))
@@ -60,8 +74,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Uses camelCase classes when using CSS Modules ([#42](https://github.com/vtex-sites/nextjs.store/pull/42))
 - `ImageGallery` now uses native scroll instead of `useSlider` ([#6](https://github.com/vtex-sites/nextjs.store/pull/6))
 
-### Deprecated
-
 ### Removed
 
 - Removes unnecessary logic in suspense hooks ([#96](https://github.com/vtex-sites/nextjs.store/pull/96))
@@ -70,6 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `default` nomenclature from global tokens ([#51](https://github.com/vtex-sites/nextjs.store/pull/51))
 
 ### Fixed
+
 - Use `SpotPrice` for low/high price on `aggretateOffer` ([#111](https://github.com/vtex-sites/nextjs.store/pull/111))
 - Fix Region Input's behavior when setting zipCode ([#108](https://github.com/vtex-sites/nextjs.store/pull/108))
 - Lighthouse complaining about missing robots.txt ([#89](https://github.com/vtex-sites/nextjs.store/pull/89))
@@ -81,8 +94,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A missing gap between the Sign In link and Cart button on desktop ([#11](https://github.com/vtex-sites/nextjs.store/pull/11)).
 - A bugged vertical gap with the `EmptyState` component inside the cart ([#11](https://github.com/vtex-sites/nextjs.store/pull/11)).
 - Fixes Storybook build removing unused imports ([#40](https://github.com/vtex-sites/nextjs.store/pull/40))
-
-### Security
 
 ## [22.19.0.beta] - 2022-05-06
 
