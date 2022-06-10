@@ -40,7 +40,7 @@ Order information, including `orderNumber` and `acceptedOffer`.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>code</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Currency code (e.g., USD)
@@ -49,7 +49,7 @@ Currency code (e.g., USD)
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>symbol</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Currency symbol (e.g., $)
@@ -74,7 +74,7 @@ Image input.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>url</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Image input URL.
@@ -83,7 +83,7 @@ Image input URL.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>alternateName</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Alias for the input image.
@@ -169,7 +169,7 @@ Order input.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>orderNumber</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 ID of the order in [VTEX order management](https://help.vtex.com/en/tutorial/license-manager-resources-oms--60QcBsvWeum02cFi3GjBzg#).
@@ -203,7 +203,7 @@ Organization input.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>identifier</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Organization ID.
@@ -228,7 +228,7 @@ Client profile data.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>id</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Client ID.
@@ -237,7 +237,7 @@ Client ID.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>email</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Client email.
@@ -246,7 +246,7 @@ Client email.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>givenName</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Client first name.
@@ -255,7 +255,7 @@ Client first name.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>familyName</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Client last name.
@@ -280,7 +280,7 @@ Product input. Products are variants within product groups, equivalent to VTEX [
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>sku</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Stock Keeping Unit. Merchant-specific ID for the product.
@@ -289,7 +289,7 @@ Stock Keeping Unit. Merchant-specific ID for the product.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Product name.
@@ -330,7 +330,7 @@ Custom Product Additional Properties.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>propertyID</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a></td>
 <td>
 
 Property id. This propert changes according to the content of the object.
@@ -348,7 +348,7 @@ Property value. May hold a string or the string representation of an object.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Property name.
@@ -357,7 +357,7 @@ Property name.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>valueReference</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Specifies the nature of the value
@@ -384,12 +384,12 @@ Used as input by [`product`](/reference/api/queries/product) and [`search`](/ref
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>key</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>value</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td></td>
 </tr>
 </tbody>
@@ -412,7 +412,7 @@ Used as input by [`updateSession`](/reference/api/mutations/session).
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>locale</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Session input locale.
@@ -430,7 +430,7 @@ Session input currency.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>country</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a>!</td>
 <td>
 
 Session input country.
@@ -439,7 +439,7 @@ Session input country.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>channel</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a></td>
 <td>
 
 Session input channel.
@@ -448,7 +448,7 @@ Session input channel.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>postalCode</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="/reference/api/scalars#string">String</a></td>
 <td>
 
 Session input postal code.
