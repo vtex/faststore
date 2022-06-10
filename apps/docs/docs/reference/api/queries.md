@@ -33,7 +33,7 @@ An array of selected search facets.
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong><a href="/reference/api/queries/product">allProducts</a></strong></td>
+<td colspan="2" valign="top"><strong><a href="/reference/api/queries/allProducts">allProducts</a></strong></td>
 <td valign="top"><a href="/reference/api/objects/#storeproductconnection">StoreProductConnection</a>!</td>
 <td>
 
