@@ -1,3 +1,4 @@
+import { canonicalFromProduct } from '../utils/canonical'
 import { enhanceCommercialOffer } from '../utils/enhanceCommercialOffer'
 import { bestOfferFirst } from '../utils/productStock'
 import { slugify } from '../utils/slugify'
@@ -41,9 +42,10 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   name: ({ isVariantOf, name }) => name ?? isVariantOf.productName,
   slug: ({ isVariantOf: { linkText }, itemId }) => getSlug(linkText, itemId),
   description: ({ isVariantOf: { description } }) => description,
-  seo: ({ isVariantOf: { description, productName } }) => ({
-    title: productName,
-    description,
+  seo: ({ isVariantOf }) => ({
+    title: isVariantOf.productName,
+    description: isVariantOf.description,
+    canonical: canonicalFromProduct(isVariantOf),
   }),
   brand: ({ isVariantOf: { brand } }) => ({ name: brand }),
   breadcrumbList: ({

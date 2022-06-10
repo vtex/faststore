@@ -1,5 +1,6 @@
-import type { Context, Options } from '../../index'
 import { fetchAPI } from '../fetch'
+import type { Product } from '../search/types/ProductSearchResult'
+import type { Context, Options } from '../../index'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
@@ -151,6 +152,20 @@ export const VtexCommerce = (
         },
         body: '{}',
       })
+    },
+    search: {
+      slug: (
+        slug: string,
+        options?: { simulation: boolean }
+      ): Promise<Product[]> => {
+        const params = new URLSearchParams({
+          simulation: `${options?.simulation ?? false}`, // skip simulation for faster queries
+        })
+
+        return fetchAPI(
+          `${base}/api/catalog_system/pub/products/search/${slug}/p?${params.toString()}`
+        )
+      },
     },
   }
 }

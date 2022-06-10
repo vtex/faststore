@@ -1,8 +1,11 @@
+import { BadRequestError } from '../../errors'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { enhanceSku } from '../utils/enhanceSku'
 import {
   findChannel,
   findLocale,
+  findSkuId,
+  findSlug,
   transformSelectedFacet,
 } from '../utils/facets'
 import { SORT_MAP } from '../utils/sort'
@@ -22,6 +25,8 @@ export const Query = {
     // Insert channel in context for later usage
     const channel = findChannel(locator)
     const locale = findLocale(locator)
+    const id = findSkuId(locator)
+    const slug = findSlug(locator)
 
     if (channel) {
       mutateChannelContext(ctx, channel)
@@ -33,9 +38,28 @@ export const Query = {
 
     const {
       loaders: { skuLoader },
+      clients: { commerce },
     } = ctx
 
-    return skuLoader.load(locator)
+    const skuIdFromSlug = async (s: string) => {
+      // Standard VTEX PDP routes does not contain skuIds.
+      const [product] = await commerce.search.slug(s).catch(() => [])
+
+      if (product) {
+        return product.items[0].itemId
+      }
+
+      // We are not in a standard VTEX PDP route, this means we are in a /slug-skuId/p route
+      return s?.split('-').pop() ?? ''
+    }
+
+    const skuId = slug ? await skuIdFromSlug(slug) : id
+
+    if (skuId !== null) {
+      return skuLoader.load(skuId)
+    }
+
+    throw new BadRequestError(`Missing slug or id`)
   },
   collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
     const {
