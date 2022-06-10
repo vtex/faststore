@@ -108,7 +108,7 @@ Offer input.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>price</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 Also known as spot price.
@@ -117,7 +117,7 @@ Also known as spot price.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>listPrice</strong></td>
-<td valign="top"><a href="#float">Float</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#float">Float</a>!</td>
 <td>
 
 This is displayed as the "from" price in the context of promotions' price comparison. This may change before it reaches the shelf.
@@ -144,7 +144,7 @@ Information on the item being offered.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>quantity</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="/reference/api/scalars#int">Int</a>!</td>
 <td>
 
 Number of items offered.
