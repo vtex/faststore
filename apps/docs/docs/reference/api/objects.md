@@ -333,7 +333,7 @@ Collection type.
 
 Collection connection pagination information.
 
-Queried by [`allCollections`](/reference/api/queries/allCollections).
+Queried by [`allCollections`](/reference/api/queries/collection).
 
 <table>
 <thead>
@@ -1123,7 +1123,7 @@ Array of additional properties.
 
 Product connection pagination information.
 
-Queried by [`allProducts`](/reference/api/queries/allProducts).
+Queried by [`allProducts`](/reference/api/queries/product).
 
 <table>
 <thead>
