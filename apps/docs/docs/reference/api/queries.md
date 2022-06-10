@@ -90,7 +90,7 @@ Collection slug.
 </tr>
 
 <tr>
-<td colspan="2" valign="top"><strong><a href="/reference/api/queries/collection">allCollections</a></strong></td>
+<td colspan="2" valign="top"><strong><a href="/reference/api/queries/allCollections">allCollections</a></strong></td>
 <td valign="top"><a href="/reference/api/objects/#storecollectionconnection">StoreCollectionConnection</a>!</td>
 <td>
 

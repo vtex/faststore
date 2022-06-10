@@ -333,7 +333,7 @@ Collection type.
 
 Collection connection pagination information.
 
-Queried by [`allCollections`](/reference/api/queries/collection).
+Queried by [`allCollections`](/reference/api/queries/allCollections).
 
 <table>
 <thead>
