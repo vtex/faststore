@@ -1,4 +1,4 @@
-import { BadRequestError } from '../../errors'
+import { NotFoundError, BadRequestError } from '../../errors'
 import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
 import { enhanceSku } from '../utils/enhanceSku'
 import {
@@ -19,6 +19,7 @@ import type {
 } from '../../../__generated__/schema'
 import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
 import type { Context } from '../index'
+import { isValidSkuId, pickBestSku } from '../utils/sku'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -38,28 +39,46 @@ export const Query = {
 
     const {
       loaders: { skuLoader },
-      clients: { commerce },
+      clients: { commerce, search },
     } = ctx
 
-    const skuIdFromSlug = async (s: string) => {
-      // Standard VTEX PDP routes does not contain skuIds.
-      const [product] = await commerce.search.slug(s).catch(() => [])
+    try {
+      const skuId = id ?? slug?.split('-').pop() ?? ''
 
-      if (product) {
-        return product.items[0].itemId
+      if (!isValidSkuId(skuId)) {
+        throw new Error('Invalid SkuId')
       }
 
-      // We are not in a standard VTEX PDP route, this means we are in a /slug-skuId/p route
-      return s?.split('-').pop() ?? ''
+      const sku = await skuLoader.load(skuId)
+
+      return sku
+    } catch (err) {
+      if (slug == null) {
+        throw new BadRequestError(`Missing slug or id`)
+      }
+
+      const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
+
+      if (route.pageType !== 'Product' || !route.id) {
+        throw new NotFoundError(`No product found for slug ${slug}`)
+      }
+
+      const {
+        products: [product],
+      } = await search.products({
+        page: 0,
+        count: 1,
+        query: `product:${route.id}`,
+      })
+
+      if (!product) {
+        throw new NotFoundError(`No product found for id ${route.id}`)
+      }
+
+      const sku = pickBestSku(product.items)
+
+      return enhanceSku(sku, product)
     }
-
-    const skuId = slug ? await skuIdFromSlug(slug) : id
-
-    if (skuId !== null) {
-      return skuLoader.load(skuId)
-    }
-
-    throw new BadRequestError(`Missing slug or id`)
   },
   collection: (_: unknown, { slug }: QueryCollectionArgs, ctx: Context) => {
     const {

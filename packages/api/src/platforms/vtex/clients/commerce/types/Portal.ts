@@ -6,7 +6,7 @@ export interface CollectionPageType {
   url: string
   title: string
   metaTagDescription: string
-  pageType: 'Brand' | 'Category' | 'Department' | 'Subcategory'
+  pageType: 'Brand' | 'Category' | 'Department' | 'Subcategory' | 'Product'
 }
 
 export interface FallbackPageType {

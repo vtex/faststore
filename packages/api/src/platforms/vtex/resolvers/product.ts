@@ -87,7 +87,7 @@ export const StoreProduct: Record<string, Resolver<Root>> & {
   aggregateRating: () => ({}),
   offers: (root) =>
     root.sellers
-      .flatMap((seller) =>
+      .map((seller) =>
         enhanceCommercialOffer({
           offer: seller.commertialOffer,
           seller,
