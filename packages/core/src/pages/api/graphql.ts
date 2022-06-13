@@ -1,3 +1,4 @@
+import { isFastStoreError } from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { execute } from '../../server'
@@ -46,8 +47,9 @@ const handler: NextApiHandler = async (request, response) => {
     )
 
     if (Array.isArray(result.errors)) {
-      // TODO: Return 400 on userError
-      response.status(500)
+      const error = result.errors.find(isFastStoreError)
+
+      response.status(error?.extensions.status ?? 500)
     }
 
     response.setHeader('cache-control', 'no-cache, no-store')

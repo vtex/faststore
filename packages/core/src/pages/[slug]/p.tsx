@@ -3,6 +3,7 @@ import { gql } from '@vtex/graphql-utils'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import { isNotFoundError } from '@faststore/api'
 
 import ProductDetails from 'src/components/sections/ProductDetails'
 import ProductShelf from 'src/components/sections/ProductShelf'
@@ -155,7 +156,7 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   const id = params?.slug.split('-').pop() ?? ''
 
-  const { data, errors } = await execute<
+  const { data, errors = [] } = await execute<
     ServerProductPageQueryQueryVariables,
     ServerProductPageQueryQuery
   >({
@@ -163,14 +164,16 @@ export const getStaticProps: GetStaticProps<
     operationName: query,
   })
 
-  if (errors?.length > 0) {
-    throw new Error(`${errors[0]}`)
-  }
+  const notFound = errors.find(isNotFoundError)
 
-  if (data === null) {
+  if (notFound) {
     return {
       notFound: true,
     }
+  }
+
+  if (errors.length > 0) {
+    throw errors[0]
   }
 
   return {

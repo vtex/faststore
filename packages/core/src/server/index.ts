@@ -9,7 +9,7 @@ import type { FormatErrorHandler } from '@envelop/core'
 import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
-import { getContextFactory, getSchema } from '@faststore/api'
+import { getContextFactory, getSchema, isFastStoreError } from '@faststore/api'
 import { GraphQLError } from 'graphql'
 import type { Options as APIOptions } from '@faststore/api'
 
@@ -40,16 +40,12 @@ export const apiSchema = getSchema(apiOptions)
 
 const apiContextFactory = getContextFactory(apiOptions)
 
-const isBadRequestError = (err: GraphQLError) => {
-  return err.originalError && err.originalError.name === 'BadRequestError'
-}
-
 const formatError: FormatErrorHandler = (err) => {
-  console.error(err)
-
-  if (err instanceof GraphQLError && isBadRequestError(err)) {
+  if (err instanceof GraphQLError && isFastStoreError(err.originalError)) {
     return err
   }
+
+  console.error(err)
 
   return new GraphQLError('Sorry, something went wrong.')
 }

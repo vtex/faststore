@@ -1,3 +1,4 @@
+import { isNotFoundError } from '@faststore/api'
 import {
   formatSearchState,
   parseSearchState,
@@ -166,7 +167,7 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   const slug = params?.slug.join('/') ?? ''
 
-  const { data, errors } = await execute<
+  const { data, errors = [] } = await execute<
     ServerCollectionPageQueryQueryVariables,
     ServerCollectionPageQueryQuery
   >({
@@ -174,14 +175,16 @@ export const getStaticProps: GetStaticProps<
     operationName: query,
   })
 
-  if (errors?.length > 0) {
-    throw new Error(`${errors[0]}`)
-  }
+  const notFound = errors.find(isNotFoundError)
 
-  if (data === null) {
+  if (notFound) {
     return {
       notFound: true,
     }
+  }
+
+  if (errors.length > 0) {
+    throw errors[0]
   }
 
   return {
