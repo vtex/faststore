@@ -31,11 +31,17 @@ import {
 ### Default
 
 ```tsx live
-     <OutOfStock onSubmit={onSubmitMock}>
-        <OutOfStockTitle>Out of Stock</OutOfStockTitle>
-        <Input name="email" />
-        <Button type="submit">Notify me</Button>
-      </OutOfStock>
+     <OutOfStock>
+    <OutOfStockTitle>
+      Text <span>icon</span>
+    </OutOfStockTitle>
+    <OutOfStockMessage>Notify me when available</OutOfStockMessage>
+    <Label>
+      Email
+      <Input />
+    </Label>
+    <Button>Notify me</Button>
+  </OutOfStock>
 ```
 
 ## Props
