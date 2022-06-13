@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.7](https://github.com/vtex/faststore/compare/v1.9.6...v1.9.7) (2022-06-13)
+
+
+### Features
+
+* Canonical PDP slugs ([#1338](https://github.com/vtex/faststore/issues/1338)) ([ec807bb](https://github.com/vtex/faststore/commit/ec807bb94dafaa72cdec82d53933ca0809bf01df))
+
+
+
+
+
 ## [1.9.6](https://github.com/vtex/faststore/compare/v1.9.5...v1.9.6) (2022-06-13)
 
 
