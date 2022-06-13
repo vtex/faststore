@@ -1,9 +1,8 @@
+import { isNotFoundError } from '@faststore/api'
 import { useSession } from '@faststore/sdk'
 import { gql } from '@vtex/graphql-utils'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
-import { useRouter } from 'next/router'
 import type { GetStaticPaths, GetStaticProps } from 'next'
-import { isNotFoundError } from '@faststore/api'
 
 import ProductDetails from 'src/components/sections/ProductDetails'
 import ProductShelf from 'src/components/sections/ProductShelf'
@@ -21,10 +20,10 @@ type Props = ServerProductPageQueryQuery
 
 function Page({ product }: Props) {
   const { currency } = useSession()
-  const router = useRouter()
-  const title = product?.seo.title ?? storeConfig.seo.title
-  const description = product?.seo.description ?? storeConfig.seo.description
-  const canonical = `${storeConfig.storeUrl}/${router.query.slug}/p`
+  const { seo } = product
+  const title = seo.title || storeConfig.seo.title
+  const description = seo.description || storeConfig.seo.description
+  const canonical = `${storeConfig.storeUrl}${seo.canonical}`
 
   return (
     <>
@@ -96,21 +95,20 @@ function Page({ product }: Props) {
 }
 
 const query = gql`
-  query ServerProductPageQuery($id: String!) {
-    product(locator: [{ key: "id", value: $id }]) {
+  query ServerProductPageQuery($slug: String!) {
+    product(locator: [{ key: "slug", value: $slug }]) {
       id: productID
-      slug
 
       seo {
         title
         description
+        canonical
       }
 
       brand {
         name
       }
 
-      slug
       sku
       gtin
       name
@@ -154,13 +152,11 @@ export const getStaticProps: GetStaticProps<
   ServerProductPageQueryQuery,
   { slug: string }
 > = async ({ params }) => {
-  const id = params?.slug.split('-').pop() ?? ''
-
   const { data, errors = [] } = await execute<
     ServerProductPageQueryQueryVariables,
     ServerProductPageQueryQuery
   >({
-    variables: { id },
+    variables: { slug: params?.slug ?? '' },
     operationName: query,
   })
 

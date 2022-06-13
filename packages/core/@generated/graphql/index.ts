@@ -702,18 +702,17 @@ export type ServerCollectionPageQueryQuery = {
 }
 
 export type ServerProductPageQueryQueryVariables = Exact<{
-  id: Scalars['String']
+  slug: Scalars['String']
 }>
 
 export type ServerProductPageQueryQuery = {
   product: {
-    slug: string
     sku: string
     gtin: string
     name: string
     description: string
     id: string
-    seo: { title: string; description: string }
+    seo: { title: string; description: string; canonical: string }
     brand: { name: string }
     breadcrumbList: {
       itemListElement: Array<{ item: string; name: string; position: number }>

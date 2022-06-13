@@ -165,13 +165,11 @@ export const getStaticProps: GetStaticProps<
   ServerCollectionPageQueryQuery,
   { slug: string[] }
 > = async ({ params }) => {
-  const slug = params?.slug.join('/') ?? ''
-
   const { data, errors = [] } = await execute<
     ServerCollectionPageQueryQueryVariables,
     ServerCollectionPageQueryQuery
   >({
-    variables: { slug },
+    variables: { slug: params?.slug.join('/') ?? '' },
     operationName: query,
   })
 
