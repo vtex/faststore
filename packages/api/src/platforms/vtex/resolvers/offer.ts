@@ -11,7 +11,7 @@ import type { ArrayElementType } from '../../../typings'
 import type { EnhancedSku } from '../utils/enhanceSku'
 import type { OrderFormItem } from '../clients/commerce/types/OrderForm'
 
-type OrderFormProduct = OrderFormItem & { product: Promise<EnhancedSku> }
+type OrderFormProduct = OrderFormItem & { product: EnhancedSku }
 type SearchProduct = ArrayElementType<
   ReturnType<typeof StoreAggregateOffer.offers>
 >
@@ -96,13 +96,16 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
 
     return null
   },
-  itemOffered: async (root) => {
+  itemOffered: (root) => {
     if (isSearchItem(root)) {
       return root.product
     }
 
     if (isOrderFormItem(root)) {
-      return { ...(await root.product), attachmentsValues: root.attachments }
+      return {
+        ...root.product,
+        attachmentsValues: root.attachments,
+      }
     }
 
     return null
