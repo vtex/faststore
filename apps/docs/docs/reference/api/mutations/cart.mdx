@@ -17,6 +17,27 @@ Checks for changes between the cart presented in the UI and the cart stored in t
 
 ### Arguments
 
+<PropsComponent
+      name="cart"
+      type="IStoreCart!"
+      description="Shopping cart that should be validated, which is `IStoreOrder`, containing `orderNumber` and `acceptedOffer`."
+      required="true"
+    />
+
+<PropsComponent
+      name="orderNumber"
+      type="String!"
+      description="ID of the order in the ecommerce platform."
+      required="true"
+    />
+
+<PropsComponent
+      name="acceptedOffer"
+      type="[IStoreOffer!]"
+      description="Array of `IStoreOffer` that are in the front-end cart."
+      required="true"
+    />
+
 ### Fields
 
 
