@@ -54,7 +54,7 @@ export const Query = {
       return sku
     } catch (err) {
       if (slug == null) {
-        throw new BadRequestError(`Missing slug or id`)
+        throw new BadRequestError('Missing slug or id')
       }
 
       const route = await commerce.catalog.portal.pagetype(`${slug}/p`)
