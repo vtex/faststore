@@ -1,5 +1,59 @@
+---
+hide_table_of_contents: true
+sidebar_position: 1
+---
+
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+
 # Cart
 
-:::caution WIP
-This documentation is currently under development.
-:::
+Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`.
+
+<div className="grid grid-cols-2 gap-20 pt-5">
+
+<div>
+
+## Usage
+
+### Arguments
+
+### Fields
+
+
+</div>
+<div>
+
+### Mutation structure
+
+```graphql
+mutation {
+  validateCart (
+    cart: {
+      order: {
+        orderNumber: # String!,
+        acceptedOffer: [
+          {
+            # IStoreOffer fields
+          }
+        ]
+      }
+    }
+  )
+  {
+    order {
+      orderNumber: # String!,
+      acceptedOffer: [
+        {
+          # IStoreOffer fields
+        }
+      ]
+    }
+  }
+}
+```
+
+### Example
+
+
+</div>
+</div>
