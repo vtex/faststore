@@ -355,6 +355,12 @@ export type StoreFacetValue = {
   value: Scalars['String'];
 };
 
+export type StoreFacetValueRange = {
+  __typename?: 'StoreFacetValueRange';
+  absolute: Scalars['Float'];
+  selected: Scalars['Float'];
+};
+
 /** Image. */
 export type StoreImage = {
   __typename?: 'StoreImage';

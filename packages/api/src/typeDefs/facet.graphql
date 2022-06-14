@@ -1,7 +1,9 @@
+union StoreFacet = StoreFacetRange | StoreFacetBoolean
+
 """
-Search facet information.
+Search facet range information.
 """
-type StoreFacet {
+type StoreFacetRange {
   """
   Facet key.
   """
@@ -13,17 +15,37 @@ type StoreFacet {
   """
   Array with information on each facet value.
   """
-  values: [StoreFacetValue!]!
+  min: StoreFacetValueRange!
+  max: StoreFacetValueRange!
+}
+
+"""
+Search facet boolean information.
+"""
+type StoreFacetBoolean {
   """
-  Facet type. Possible values are `BOOLEAN` and `RANGE`.
+  Facet key.
   """
-  type: StoreFacetType!
+  key: String!
+  """
+  Facet label.
+  """
+  label: String!
+  """
+  Array with information on each facet value.
+  """
+  values: [StoreFacetValueBoolean!]!
+}
+
+type StoreFacetValueRange {
+  absolute: Float!
+  selected: Float!
 }
 
 """
 Information of a specific facet value.
 """
-type StoreFacetValue {
+type StoreFacetValueBoolean {
   """
   Facet value.
   """

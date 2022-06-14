@@ -2,7 +2,11 @@ import { fetchAPI } from '../fetch'
 import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
 import type { Context, Options } from '../../index'
 import type { SelectedFacet } from '../../utils/facets'
-import type { FacetSearchResult } from './types/FacetSearchResult'
+import type {
+  Facet,
+  FacetValueBoolean,
+  FacetSearchResult,
+} from './types/FacetSearchResult'
 import type {
   ProductSearchResult,
   Suggestion,
@@ -37,6 +41,10 @@ export interface ProductLocator {
 const POLICY_KEY = 'trade-policy'
 const REGION_KEY = 'region-id'
 const CHANNEL_KEYS = new Set([POLICY_KEY, REGION_KEY])
+
+export const isFacetBoolean = (
+  facet: Facet
+): facet is Facet<FacetValueBoolean> => facet.type === 'TEXT'
 
 export const IntelligentSearch = (
   { account, environment, hideUnavailableItems }: Options,

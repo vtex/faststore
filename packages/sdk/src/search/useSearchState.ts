@@ -89,11 +89,7 @@ const removeFacet = (state: State, facet: Facet): State => {
   }
 }
 
-export const setFacet = (
-  state: State,
-  facet: Facet,
-  unique: boolean
-): State => {
+const setFacet = (state: State, facet: Facet, unique: boolean): State => {
   if (unique === true) {
     const index = state.selectedFacets.findIndex((f) => f.key === facet.key)
 

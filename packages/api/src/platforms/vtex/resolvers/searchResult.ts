@@ -1,11 +1,11 @@
+import { enhanceSku } from '../utils/enhanceSku'
 import type { Resolver } from '..'
 import type { SearchArgs } from '../clients/search'
 import type { Facet } from '../clients/search/types/FacetSearchResult'
-import { enhanceSku } from '../utils/enhanceSku'
 
 type Root = Omit<SearchArgs, 'type'>
 
-const REMOVED_FACETS_FROM_COLLECTION_PAGE = ['departamento', 'Departamento']
+const isRootFacet = (facet: Facet) => facet.key === 'category-1'
 
 export const StoreSearchResult: Record<string, Resolver<Root>> = {
   suggestions: async (searchArgs, _, ctx) => {
@@ -90,33 +90,16 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       clients: { search: is },
     } = ctx
 
-    const { facets } = await is.facets(searchArgs)
+    ctx.storage.searchArgs = searchArgs
+
+    const { facets = [] } = await is.facets(searchArgs)
 
     const isCollectionPage = !searchArgs.query
-    const filteredFacets = facets?.reduce((acc, currentFacet) => {
-      const shouldFilterFacet = REMOVED_FACETS_FROM_COLLECTION_PAGE.includes(
-        currentFacet.name
-      )
 
-      const shouldRemoveFacetFromCollectionPage =
-        isCollectionPage && shouldFilterFacet
+    const filteredFacets = facets
+      // Remove root facet on category pages
+      .filter((facet) => !isCollectionPage || !isRootFacet(facet))
 
-      if (shouldRemoveFacetFromCollectionPage) {
-        return acc
-      }
-
-      currentFacet.values.sort((a, b) => {
-        const firstItemLabel = a.name ?? ''
-        const secondItemLabel = b.name ?? ''
-
-        return firstItemLabel.localeCompare(secondItemLabel)
-      })
-
-      acc.push(currentFacet)
-
-      return acc
-    }, [] as Facet[])
-
-    return filteredFacets ?? []
+    return filteredFacets
   },
 }

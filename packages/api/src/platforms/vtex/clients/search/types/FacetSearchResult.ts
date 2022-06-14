@@ -4,27 +4,28 @@ export interface FacetSearchResult {
   breadcrumb: Breadcrumb
 }
 
-export interface Facet {
+export interface Facet<T = FacetValueBoolean | FacetValueRange> {
   type: FilterType
   name: string
   hidden: boolean
-  values: FacetValue[]
+  values: T[]
   quantity?: number
-  key?: string
+  key: string
 }
 
-export interface FacetValue {
+export interface FacetValueBoolean {
   quantity: number
   name: string
   key: string
   value: string
-  selected?: boolean
-  range?: {
+  selected: boolean
+}
+
+export interface FacetValueRange {
+  range: {
     from: number
     to: number
   }
-  children?: FacetValue[]
-  id?: string
 }
 
 interface Breadcrumb {

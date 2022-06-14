@@ -29,9 +29,27 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
       return [] // remove this facet from search
     }
 
+    case 'price': {
+      return { key, value: value.replace('-to-', ':') }
+    }
+
     default:
       return { key, value }
   }
+}
+
+export const parseRange = (range: string): [number, number] | null => {
+  const splitted = range.split(':').map(Number)
+
+  if (
+    splitted.length !== 2 ||
+    Number.isNaN(splitted[0]) ||
+    Number.isNaN(splitted[1])
+  ) {
+    return null
+  }
+
+  return splitted as [number, number]
 }
 
 export const findSlug = (facets?: Maybe<SelectedFacet[]>) =>
