@@ -260,7 +260,8 @@
               collapsed: true,
               link: { type: 'doc', id: 'reference/api/faststore-api' },
               items: [
-                {
+              'reference/api/get-started',
+              {
                   type: 'category',
                   label: 'Queries',
                   collapsed: true,
