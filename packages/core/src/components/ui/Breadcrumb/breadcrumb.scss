@@ -18,7 +18,7 @@
       align-items: center;
       padding: var(--fs-spacing-0);
 
-      &:first-child a {
+      &:first-child [data-fs-link] {
         display: flex;
         align-items: center;
         padding: var(--fs-spacing-1);
@@ -70,7 +70,7 @@
       border-left: var(--fs-border-width) solid var(--fs-border-color-light);
     }
 
-    [data-store-link] {
+    [data-fs-link] {
       padding: 0;
 
       &:visited {

@@ -1,6 +1,7 @@
 import { useSearch } from '@faststore/sdk'
 import { NextSeo } from 'next-seo'
 import { lazy, Suspense } from 'react'
+import type { MouseEvent } from 'react'
 
 import Filter from 'src/components/search/Filter'
 import Sort from 'src/components/search/Sort'
@@ -105,7 +106,7 @@ function ProductGallery({ title, searchTerm }: Props) {
                 additionalLinkTags={[{ rel: 'prev', href: prev.link }]}
               />
               <ButtonLink
-                onClick={(e) => {
+                onClick={(e: MouseEvent<HTMLElement>) => {
                   e.currentTarget.blur()
                   e.preventDefault()
                   addPrevPage()
@@ -147,7 +148,7 @@ function ProductGallery({ title, searchTerm }: Props) {
               />
               <ButtonLink
                 data-testid="show-more"
-                onClick={(e) => {
+                onClick={(e: MouseEvent<HTMLElement>) => {
                   e.currentTarget.blur()
                   e.preventDefault()
                   addNextPage()

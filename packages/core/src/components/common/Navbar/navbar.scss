@@ -186,7 +186,7 @@
     align-items: center;
   }
 
-  a {
+  [data-fs-link] {
     display: block;
     width: 100%;
   }
@@ -198,7 +198,7 @@
       padding-top: var(--fs-spacing-1);
     }
 
-    a {
+    [data-fs-link] {
       width: auto;
       padding: var(--fs-spacing-0) 0;
     }

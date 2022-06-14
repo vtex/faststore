@@ -8,7 +8,7 @@ import { gql } from '@vtex/graphql-utils'
 import { memo } from 'react'
 import type { ReactNode } from 'react'
 
-import FrameworkLink from 'src/components/common/Link'
+import Link from 'src/components/ui/Link'
 import { Badge, DiscountBadge } from 'src/components/ui/Badge'
 import { Image } from 'src/components/ui/Image'
 import Price from 'src/components/ui/Price'
@@ -74,9 +74,9 @@ function ProductCard({
       <UIProductCardContent data-fs-product-card-content>
         <div data-fs-product-card-heading>
           <h3 data-fs-product-card-title>
-            <FrameworkLink {...linkProps} title={name}>
+            <Link {...linkProps} title={name}>
               {name}
-            </FrameworkLink>
+            </Link>
           </h3>
           <div data-fs-product-card-prices>
             <Price

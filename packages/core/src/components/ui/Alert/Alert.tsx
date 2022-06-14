@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import type { ReactNode, MouseEvent } from 'react'
 import type { AlertProps } from '@faststore/ui'
 
-import FrameworkLink from 'src/components/common/Link'
+import Link from 'src/components/ui/Link'
 import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 
@@ -59,9 +59,9 @@ function Alert({
       <p data-fs-alert-content>{children}</p>
 
       {link && (
-        <FrameworkLink data-fs-alert-link href={link.to}>
+        <Link data-fs-alert-link variant="inline" href={link.to}>
           {link.text}
-        </FrameworkLink>
+        </Link>
       )}
 
       {dismissible && (

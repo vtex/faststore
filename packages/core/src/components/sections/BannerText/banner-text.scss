@@ -56,7 +56,7 @@
     align-items: center;
   }
 
-  [data-fs-banner-text-link] a {
+  [data-fs-banner-text-link] [data-fs-link] {
     min-width: var(--fs-banner-link-min-width);
     margin-top: var(--fs-banner-link-margin-top);
   }

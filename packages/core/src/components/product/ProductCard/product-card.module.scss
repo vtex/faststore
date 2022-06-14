@@ -96,7 +96,7 @@
     grid-template-rows: 1fr auto;
     padding: var(--fs-product-card-content-padding);
 
-    a[href] {
+    [data-fs-link] {
       min-height: 100%;
       padding: 0;
       color: var(--fs-product-card-title-color);
