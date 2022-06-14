@@ -27,8 +27,8 @@ The FastStore GraphQL API allows you to query and modify your store public data 
 
 Use the GraphQL playground in the following to test and explore the FastStore API.
 
-<GraphQLExplorer vars="{ first: 10 }" query="query Node($first: Int!) {
-          allProducts(first: $first) {
+<GraphQLExplorer query="query {
+          allProducts(first: 10) {
             edges {
               node {
                 name
