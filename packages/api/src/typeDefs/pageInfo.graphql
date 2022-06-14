@@ -1,21 +1,21 @@
 """
-Page information.
+Whenever you make a query that allows for pagination, such as `allProducts` or `allCollections`, you can check `StorePageInfo` to learn more about the complete set of items and use it to paginate your queries.
 """
 type StorePageInfo {
   """
-  Indicates whether next page exists.
+  Indicates whether there is at least one more page with items after the ones returned in the current query.
   """
   hasNextPage: Boolean!
   """
-  Indicates whether previous page exists.
+  Indicates whether there is at least one more page with items before the ones returned in the current query.
   """
   hasPreviousPage: Boolean!
   """
-  Page cursor start.
+  Cursor corresponding to the first possible item.
   """
   startCursor: String!
   """
-  Page cursor end.
+  Cursor corresponding to the last possible item.
   """
   endCursor: String!
   """

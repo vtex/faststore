@@ -7,7 +7,7 @@ type StoreCartMessage {
   """
   text: String!
   """
-  Shopping cart message status, which can be `INFO`, `WARNING` OR `ERROR`.
+  Shopping cart message status, which can be `INFO`, `WARNING` or `ERROR`.
   """
   status: StoreStatus!
 }

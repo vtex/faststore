@@ -19,7 +19,7 @@ const PropsComponent = ({
       {description && <div className={styles.propsDetails}>
         <div className={styles.propsDetailsTitle}>Description</div>
         <div className={styles.propsDetailsDescription}>
-          <p>{description}</p>
+          <p dangerouslySetInnerHTML={{ __html: description }} />
         </div>
       </div>}
       {defaultValue &&
