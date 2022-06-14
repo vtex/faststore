@@ -2,26 +2,18 @@ import React from 'react'
 import { ApolloExplorerReact } from '@apollo/explorer'
 import { useColorMode } from '@docusaurus/theme-common'
 
-var GraphQLExplorer = function () {
+var GraphQLExplorer = function ({ query, vars }) {
   const { isDarkTheme } = useColorMode()
   return (
     <div>
       <ApolloExplorerReact
-        className="h-[500px] mb-6"
+        className="h-[600px] mb-6"
         graphRef="faststore-api@current"
         endpointUrl="https://faststore-api.herokuapp.com/graphql"
         persistExplorerState={false}
         initialState={{
-          document: `query Node($first: Int!) {
-          allProducts(first: $first) {
-            edges {
-              node {
-                name
-              }
-            }
-          }
-        }`,
-          variables: { first: 10 },
+          document: query,
+          variables: vars,
           displayOptions: {
             showHeadersAndEnvVars: false,
             docsPanelState: 'closed',

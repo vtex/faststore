@@ -4,8 +4,11 @@ sidebar_position: 5
 ---
 
 import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GraphQLExplorer from '@site/src/components/GraphQLExplorer/GraphQLExplorer'
 
-# Search
+# search
 
 This query can be used to fetch information about search facets, products and suggestions according to a given search term.
 
@@ -15,7 +18,7 @@ This query can be used to fetch information about search facets, products and su
 
 <div>
 
-### Arguments
+<h3 className="mb-4">Arguments</h3>
 
 <PropsComponent
       name="first"
@@ -33,7 +36,7 @@ This query can be used to fetch information about search facets, products and su
 <PropsComponent
       name="sort"
       type="StoreSort"
-      description="Indicates search results sorting mode. StoreSort is an Enum with the possible values of: 'price_desc', 'price_asc', 'orders_desc', 'name_desc', 'name_asc', 'release_desc', 'discount_desc' and 'score_desc'."
+      description="Search result sorting mode, where <code>StoreSort</code> is an Enum with one of the possible values: <code>price_desc, price_asc, orders_desc, name_desc, name_asc, release_desc, discount_desc and score_desc<code/>."
     />
 
 <PropsComponent
@@ -45,10 +48,35 @@ This query can be used to fetch information about search facets, products and su
 <PropsComponent
       name="selectedFacets"
       type="IStoreSelectedFacet"
-      description="Array of search facets (IStoreSelectedFacet), each with key and value."
+      description="Array of search facets (<code>IStoreSelectedFacet</code>), each with key and value."
     />
 
-### Fields
+</div>
+<div>
+
+<Tabs>
+  <TabItem value="query" label="Query" default>
+
+```graphql
+query ($first: Int!){
+  search (first: $first) {
+    product {
+      # StoreProductConnection fields
+    },
+    suggestions {
+      # StoreSuggestions fields
+    },
+    facets {
+      # StoreFacet fields
+    }
+  }
+}
+```
+
+
+</TabItem>
+
+<TabItem value="response" label="Response">
 
 Below you can see a list of all fields that can be queried with `search`. Click on the links to learn more details about each field.
 
@@ -84,32 +112,17 @@ Below you can see a list of all fields that can be queried with `search`. Click 
   </li>
 </ul>
 
+</TabItem>
+</Tabs>
 
 </div>
-<div>
+</div>
 
 
-**Query**
 
-```graphql
-query ($first: Int!){
-  search (first: $first) {
-    product {
-      # StoreProductConnection fields
-    },
-    suggestions {
-      # StoreSuggestions fields
-    },
-    facets {
-      # StoreFacet fields
-    }
-  }
-}
-```
+## Example
 
-**Example**
-
-- Getting the keys, labels, values' labels and values' quantities from the first three facets in the returned list, searching with the term `"wooden"`.
+- Get the keys, labels, label values, and value amounts from the first three facets in the search result from the `wooden` term.
 
 ```graphql
 query {
@@ -125,7 +138,7 @@ query {
 }
 ```
 
-- Getting cursors, names, SKU IDs, and image URLs for the first 10 products after the product with cursor `"10"`, searching by the term `"steel"`. Also getting the total quantity of results in the complete list and whether there are more results for next page.
+- Get cursors, names, SKU IDs, and image URLs for the 10 products after the product with cursor `10` in the search from the `steel` term. Also, get the total quantity of results in the complete list and whether there are more results for next page.
 
 ```graphql
 query {
@@ -150,11 +163,11 @@ query {
 }
 ```
 
-- Getting terms' values, terms' counts, products' names and products' SKU IDs for the first five sugestions from a list sorted from higher to lower discount, searching by the term `"table awesome"`.
+- Get terms values, term counts, product names, and SKU IDs for the first five sugestions from a list sorted from higher to lower discount in the search result from the `table` term.
 
 ```graphql
 query {
-  search (first:5, sort: discount_desc, term:"table awesome") {
+  search (first:5, sort: discount_desc, term:"table") {
     suggestions {
       terms {
         value,
@@ -169,7 +182,7 @@ query {
 }
 ```
 
-- Getting information about facets, products and suggestions at once.
+- Get information about facets, products and suggestions at once.
 
 ```graphql
 query {
@@ -217,6 +230,3 @@ query {
 }
 ```
 
-
-</div>
-</div>

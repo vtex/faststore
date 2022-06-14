@@ -2,36 +2,33 @@
 hide_table_of_contents: true
 sidebar_position: 3
 ---
-
 import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GraphQLExplorer from '@site/src/components/GraphQLExplorer/GraphQLExplorer'
 
-# Collection
+# collection
 
 Returns the details of a product based on the specified locator.
 
-<div className="grid grid-cols-2 gap-20">
-
-<div>
-
 ## Usage
 
-### Arguments
+<div className="grid grid-cols-2 gap-20">
+  <div>
+    <h3 className="mb-4">Arguments</h3>
 
-<PropsComponent
+  <PropsComponent
       name="slug"
       type="String"
       description="Slug of the collection you want to query."
       required="true"
     />
 
-### Fields
-
-The `collection` query returns a `StoreCollection`. To learn more about each field that can be queried check the <a href="/reference/api/objects#storecollection">`StoreCollection`</a> reference.
-
 </div>
 <div>
 
-**Query**
+<Tabs>
+  <TabItem value="query" label="Query" default>
 
 ```graphql
 query ($slug: String!) {
@@ -41,12 +38,23 @@ query ($slug: String!) {
 }
 ```
 
-**Example**
+</TabItem>
 
-Getting the ID, type, SEO title and selected facets - with key and value - of the collection with slug `"office"`.
+<TabItem value="response" label="Response">
 
-```graphql
-query {
+The `collection` query returns a `StoreCollection`. To learn more about each field that can be queried check the <a href="/reference/api/objects#storecollection">`StoreCollection`</a> reference.
+
+</TabItem>
+</Tabs>
+</div>
+</div>
+
+
+## Example
+
+Get the ID, type, SEO title and selected facets - with key and value - of the collection with slug `office`.
+
+<GraphQLExplorer query='query {
   collection (slug:"office") {
     id,
     type,
@@ -60,8 +68,4 @@ query {
       }
     }
   }
-}
-```
-
-</div>
-</div>
+}'/>

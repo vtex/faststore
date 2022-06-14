@@ -4,18 +4,21 @@ sidebar_position: 4
 ---
 
 import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GraphQLExplorer from '@site/src/components/GraphQLExplorer/GraphQLExplorer'
 
-# All collections
+# allCollections
 
-Returns information about all products, with the possibility of pagination.
+Returns a paginated list with information about all the store collections.
+
+## Usage
 
 <div className="grid grid-cols-2 gap-20 pt-5">
 
 <div>
 
-## Usage
-
-### Arguments
+<h3 className="mb-4">Arguments</h3>
 
 <PropsComponent
       name="first"
@@ -30,40 +33,11 @@ Returns information about all products, with the possibility of pagination.
       description="Collection pagination argument, indicating the cursor corresponding to the item after which the results should be fetched."
     />
 
-### Fields
-
-Below you can see a list of all fields that can be queried with `allCollections`. Click on the links to learn more details about each field.
-
-<ul>
-  <li><a href="/reference/api/objects#storecollectionconnection"><code>StoreCollectionConnection</code></a>
-    <ul>
-    <li><code>pageInfo</code>: <a href="/reference/api/objects/#storepageinfo">StorePageInfo</a>
-      <ul>
-      <li><code>hasNextPage</code>: boolean!</li>
-      <li><code>hasPreviousPage</code>: boolean!</li>
-      <li><code>startCursor</code>: string!</li>
-      <li><code>endCursor</code>: string!</li>
-      <li><code>totalCount</code>: int!</li>
-      </ul>
-    </li>
-    <li><code>edges</code>: [<a href="/reference/api/objects#storecollectionedge">StoreCollectionEdge</a>]!
-      <ul>
-      <li><code>node</code>: <a href="/reference/api/objects#storecollection">StoreCollection</a>!
-        <ul>
-        <li>Collection information. Check <a href="/reference/api/objects#storecollection">StoreCollection</a> to see all possible fields.</li>
-        </ul>
-      </li>
-      <li><code>cursor</code>: string!</li>
-      </ul>
-    </li>
-    </ul>
-  </li>
-</ul>
-
 </div>
 <div>
 
-**Query**
+<Tabs>
+  <TabItem value="query" label="Query" default>
 
 ```graphql
 query($first: Int!) {
@@ -73,29 +47,51 @@ query($first: Int!) {
 }
 ```
 
-**Example**
+</TabItem>
 
-Getting the type, slug, SEO description and corresponding cursor of the first five collections after the collection with cursor `"4"`. Also getting the total amount of collections and the value of the cursor corresponding with the last one in the complete list.
+<TabItem value="response" label="Response">
 
-```graphql
-allCollections (first:5, after:"4") {
-    pageInfo {
-      endCursor,
-      totalCount
-    },
-    edges {
-      node {
-        type,
-        slug,
-        seo {
-          description
-        }
+Below you can see a list of all fields that can be queried with `allCollections`. 
+
+*Click on the links to learn more details about each field.*
+
+- [StoreCollectionConnection](/reference/api/objects#storecollectionconnection)
+  - `pageInfo`: [StorePageInfo](/reference/api/objects/#storepageinfo)
+  - `hasNextPage`: boolean!
+  - `hasPreviousPage`: boolean!
+  - `startCursor`: string!
+  - `endCursor`: string!
+  - `totalCount`: int!
+- `edges`: [[StoreCollectionEdge](/reference/api/objects#storecollectionedge)]!
+  - `node`: [StoreCollection](/reference/api/objects#storecollection)!
+  - Collection information. Check [StoreCollection](/reference/api/objects#storecollection) to see all possible fields.
+- `cursor`: string!
+
+</TabItem>
+</Tabs>
+</div>
+</div>
+
+## Example
+
+Get the type, slug, SEO description, and cursor of the five collections after the collection with the cursor `4`. Also, get the total amount of collections and the cursor corresponding to the list's last collection.
+
+<GraphQLExplorer query='query {
+  allCollections (first:5, after:"4") {
+      pageInfo {
+        endCursor,
+        totalCount
       },
-      cursor
+      edges {
+        node {
+          type,
+          slug,
+          seo {
+            description
+          }
+        },
+        cursor
+      }
     }
   }
-}
-```
-
-</div>
-</div>
+}'/>

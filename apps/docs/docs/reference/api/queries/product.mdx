@@ -4,49 +4,49 @@ sidebar_position: 1
 ---
 
 import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GraphQLExplorer from '@site/src/components/GraphQLExplorer/GraphQLExplorer'
 
-# Product
+# product
 
 Returns the details of a product based on the specified locator.
+
+## Usage
 
 <div className="grid grid-cols-2 gap-20">
 
 <div>
 
-## Usage
-
-### Arguments
+<h3 className="mb-4">Arguments</h3>
 
 <PropsComponent
       name="locator"
       type="IStoreSelectedFacet"
       description="An array of selected search facets."
       required="true"
-    />
+/>
 
 <PropsComponent
       name="key"
       type="String"
-      description="ISelectedStoreFacet property. property. To query information of a product by its SKU ID, use key:'id'."
+      description="<code>IStoreSelectedFacet</code> property. To query information of a product by its SKU ID, use <code>key:'id'</code>."
       required="true"
-    />
+/>
 
 <PropsComponent
       name="value"
       type="String"
-      description="ISelectedStoreFacet property. property. To query information of a product by its SKU ID, use value:'{sku}'."
+      description="<code>IStoreSelectedFacet</code> property. To query information of a product by its SKU ID, use <code>value:'{sku}'</code>."
       required="true"
-    />
-
-### Fields
-
-The `product` query returns a `StoreProduct`. To learn more about each field that can be queried check the <a href="/reference/api/objects#storeproduct">`StoreProduct`</a> reference.
+/>
 
 </div>
+
 <div>
 
-
-**Query**
+<Tabs>
+  <TabItem value="query" label="Query" default>
 
 ```graphql
 query ($locator: [IStoreSelectedFacet!]!) {
@@ -56,13 +56,27 @@ query ($locator: [IStoreSelectedFacet!]!) {
 }
 ```
 
-**Example**
+</TabItem>
 
-Getting the name, description, brand name, image URL and image alternate name of a product with SKU of `123`.
+<TabItem value="response" label="Response">
 
-```graphql
-query {
-  product (locator:[{key:"id", value:"123"}]) {
+The `product` query returns a `StoreProduct`. To learn more about each field that can be queried check the <a href="/reference/api/objects#storeproduct">`StoreProduct`</a> reference.
+
+</TabItem>
+
+</Tabs>
+
+</div>
+
+</div>
+
+
+## Example
+
+Get the name, description, brand, image URL, and image alternate name of the product with the `97730863` SKU.
+
+<GraphQLExplorer query='query {
+  product (locator:[{key:"id", value:"97730863"}]) {
     name,
     description,
     brand {
@@ -73,8 +87,4 @@ query {
       alternateName
     }
   }
-}
-```
-
-</div>
-</div>
+}'/>

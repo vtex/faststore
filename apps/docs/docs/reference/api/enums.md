@@ -51,47 +51,38 @@ Used to sort [`search`](/reference/api/queries/search) queries.
 <table>
 <thead>
 <th align="left">Value</th>
-<th align="left">Description</th>
 </thead>
 <tbody>
 <tr>
 <td valign="top"><strong>price_desc</strong></td>
-<td></td>
 </tr>
 <tr>
 <td valign="top"><strong>price_asc</strong></td>
-<td></td>
 </tr>
 <tr>
 <td valign="top"><strong>orders_desc</strong></td>
-<td></td>
 </tr>
 <tr>
 <td valign="top"><strong>name_desc</strong></td>
-<td></td>
 </tr>
 <tr>
 <td valign="top"><strong>name_asc</strong></td>
-<td></td>
 </tr>
 <tr>
 <td valign="top"><strong>release_desc</strong></td>
-<td></td>
 </tr>
 <tr>
 <td valign="top"><strong>discount_desc</strong></td>
-<td></td>
 </tr>
 <tr>
 <td valign="top"><strong>score_desc</strong></td>
-<td></td>
 </tr>
 </tbody>
 </table>
 
 ### StoreStatus
 
-Status used to indicate type of message. For instance, in shopping cart messages.
+Status used to indicate a message type. For instance, a shopping cart informative or error message.
 
 <table>
 <thead>

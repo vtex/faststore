@@ -4,18 +4,21 @@ sidebar_position: 2
 ---
 
 import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GraphQLExplorer from '@site/src/components/GraphQLExplorer/GraphQLExplorer'
 
-# All products
+# allProducts
 
-Returns information about all products, with the possibility of pagination.
+Returns a paginated list with information about all the store products.
+
+## Usage
 
 <div className="grid grid-cols-2 gap-20 pt-5">
 
 <div>
 
-## Usage
-
-### Arguments
+<h3 className="mb-4">Arguments</h3>
 
 <PropsComponent
       name="first"
@@ -30,7 +33,24 @@ Returns information about all products, with the possibility of pagination.
       description="Product pagination argument, indicating the cursor corresponding to the item after which the results should be fetched."
     />
 
-### Fields
+</div>
+<div>
+
+
+<Tabs>
+  <TabItem value="query" label="Query" default>
+
+```graphql
+query($first: Int!){
+  allProducts(first: $first) {
+    # StoreProductConnection fields
+  }
+}
+```
+
+</TabItem>
+
+<TabItem value="response" label="Response">
 
 Below you can see a list of all fields that can be queried with `allProducts`. Click on the links to learn more details about each field.
 
@@ -60,27 +80,16 @@ Below you can see a list of all fields that can be queried with `allProducts`. C
   </li>
 </ul>
 
-
+</TabItem>
+</Tabs>
 </div>
-<div>
+</div>
 
+## Example
 
-**Query**
+Get the names, SKUs, and cursors of the five products after the product associated with the cursor `4`. Also, get the last cursor in the complete list and whether there are more results for the next page.
 
-```graphql
-query($first: Int!){
-  allProducts(first: $first) {
-    # StoreProductConnection fields
-  }
-}
-```
-
-**Example**
-
-Getting the names, SKUs and cursors of the first five products after the product associated with cursor `"4"`. Also getting the last cursor in the complete list and whether there are more results for next page.
-
-```graphql
-query {
+<GraphQLExplorer query='query {
   allProducts (first:5, after:"4") {
     pageInfo {
       hasNextPage,
@@ -94,9 +103,4 @@ query {
       cursor
     }
   }
-}
-```
-
-
-</div>
-</div>
+}'/>

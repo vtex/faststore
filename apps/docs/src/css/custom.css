@@ -342,9 +342,6 @@ code {
   padding: 0 var(--ifm-pre-padding);
 }
 
-div[role='tabpanel'] p {
-  @apply ml-10;
-}
 
 .header-github-link:hover {
   @apply opacity-60;
