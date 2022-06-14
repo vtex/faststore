@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-06-14",
+    "type": "Added",
+    "menu": "Best practices",
+    "category": "Performance",
+    "path": "/best-practices",
+    "docs": [
+      {
+        "path": "/best-practices/performance",
+        "title": "Performance best practices"
+      }
+    ]
+  },
+  {
     "date": "2022-05-30",
     "type": "Added",
     "menu": "How-to Guides",

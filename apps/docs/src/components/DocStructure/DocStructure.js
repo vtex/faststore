@@ -27,6 +27,12 @@ let docs = [
       'Dive into our core concepts and build a comprehensive understanding of the project.',
     url: '/conceptual-guides',
   },
+  {
+    title: 'Best practices',
+    description:
+      'Guidelines on how to maintain the performance of your store',
+    url: '/best-practices',
+  },
 ]
 
 const DocStructure = () => {

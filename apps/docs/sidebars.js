@@ -270,6 +270,13 @@
           link: { type: 'doc', id: 'conceptual-guides' },
           items: ['conceptual-guides/jamstack'],
         },
+        {
+          type: 'category',
+          label: 'Best practices',
+          collapsed: true,
+          link: { type: 'doc', id: 'best-practices' },
+          items: ['best-practices/performance'],
+        },
         'faq',
         'resources',
         {

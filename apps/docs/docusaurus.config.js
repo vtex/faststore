@@ -132,6 +132,10 @@ module.exports = {
               to: '/conceptual-guides',
             },
             {
+              label: 'Best practices',
+              to: '/best-practices',
+            },
+            {
               label: 'Tutorials',
               to: '/tutorials',
             }
