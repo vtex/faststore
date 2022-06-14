@@ -1,0 +1,14 @@
+{
+  "name": "eslint-config-faststore",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "Emerson Laurentino",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "eslint": "^8.17.0",
+    "eslint-plugin-react": "^7.30.0"
+  }
+}
