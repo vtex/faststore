@@ -28,7 +28,8 @@ For more details on each of these metrics, visit [Google's Web Vitals](https://w
 
 ## Testing each deploy with integration tests
 
-:::caution The [VTEX IO WebOps](https://www.faststore.dev/how-to-guides/webops) platform automatically runs integration tests and Lighthouse audits for each PR on your FastStore project.:::
+:::caution 
+The [VTEX IO WebOps](https://www.faststore.dev/how-to-guides/webops) platform automatically runs integration tests and Lighthouse audits for each PR on your FastStore project.:::
 
 Each deployment to your code can impact the store's performance. Ensure to run integration tests into your FastStore project, to identify code smells, analyze performance and avoid regressions.
 
@@ -39,7 +40,8 @@ For example, an `add to cart` button and a `cart` item are two different element
 
 To run integration tests, you should combine a stack of technologies of an Integration testing tool/suite, such as [Cypress](https://www.cypress.io/) and a CI environment to run integration tests, such as [VTEX IO WebOps](https://www.faststore.dev/how-to-guides/webops).
 
-::: caution the [gastby.store](https://github.com/vtex-sites/gatsby.store) and [nextjs.store](https://github.com/vtex-sites/nextjs.store) starters already runs integration tests and use the WebOps as a CI environment. :::
+:::caution
+The [gastby.store](https://github.com/vtex-sites/gatsby.store) and [nextjs.store](https://github.com/vtex-sites/nextjs.store) starters already runs integration tests and use the WebOps as a CI environment.:::
 
 
 #### Integration testing tool
@@ -67,9 +69,8 @@ Analyzing the store bundle size is important to:
 - Find out what packages contribute the most code.
 - Improve the store load time by checking opportunities to decrease the bundle size.
 
-> ⚠️
->  
-> If you are using the [Base Store - Gatsby](https://github.com/vtex-sites/gatsby.store) starter, the `gatsby-plugin-bundle-stats` and `gatsby-plugin-webpack-bundle-analyser-v2` plugins are already set up. Otherwise, refer to the [Adding `gatsby-plugin-bundle-stats` and `Bundle Analyser`]() guide.
+:::caution
+ If you are using the [Base Store - Gatsby](https://github.com/vtex-sites/gatsby.store) starter, the `gatsby-plugin-bundle-stats` and `gatsby-plugin-webpack-bundle-analyser-v2` plugins are already set up. Otherwise, refer to the [Adding `gatsby-plugin-bundle-stats` and `Bundle Analyser`]() guide.:::
 
 ### `gatsby-plugin-bundle-stats`
 [`gatsby-plugin-bundle-stats`](https://www.npmjs.com/package/gatsby-plugin-bundle-stats) is a plugin to analyze webpack stats (bundle size, assets, modules, packages) and compare the results between different builds.
@@ -79,9 +80,8 @@ To see the bundle stats, you can access the following path:
 - `https://{accountName}.vtex.app/bundle-stats.html#/`
 
 ️
-> ⚠️
-> 
-> Remember to replace the values between the curly brackets according to your scenario.
+:::caution
+ Remember to replace the values between the curly brackets according to your scenario.:::
 
 You will see a similar page as below:
 
@@ -98,9 +98,8 @@ For analyzing you app's bundle, you can access the following:
 - `https://{accountName}.vtex.app/bundle-analyser.html`
 
 ️
-> ⚠️
-> 
-> Remember to replace the values between the curly brackets according to your scenario.
+:::caution
+ Remember to replace the values between the curly brackets according to your scenario.:::
 
 You will see a similar page as below:
 
