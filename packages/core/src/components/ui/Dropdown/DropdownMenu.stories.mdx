@@ -1,0 +1,115 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Dropdown, { DropdownButton, DropdownMenu, DropdownItem } from '.'
+import Icon from '../Icon'
+
+import style from 'src/components/ui/Button/button.module.scss'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta title="Molecules/Dropdown/DropdownMenu" component={DropdownMenu} />
+
+export const Template = (args) => (
+  <Dropdown>
+    <DropdownButton
+      className={style.fsButton}
+      data-fs-button-variant="tertiary"
+    >
+      <Icon name="CaretDown" width="18" height="18" weight="bold" />
+      <span>Dropdown Menu</span>
+    </DropdownButton>
+    <DropdownMenu {...args}>
+      <DropdownItem>Dropdown Item 1</DropdownItem>
+      <DropdownItem>Dropdown Item 2</DropdownItem>
+      <DropdownItem>Dropdown Item 3</DropdownItem>
+    </DropdownMenu>
+  </Dropdown>
+)
+
+export const TemplateSmall = (args) => (
+  <Dropdown>
+    <DropdownButton
+      className={style.fsButton}
+      data-fs-button-variant="tertiary"
+    >
+      <Icon name="CaretDown" width="18" height="18" weight="bold" />
+      <span>Dropdown Menu Small</span>
+    </DropdownButton>
+    <DropdownMenu size="small">
+      <DropdownItem>Dropdown Item 1</DropdownItem>
+      <DropdownItem>Dropdown Item 2</DropdownItem>
+      <DropdownItem>Dropdown Item 3</DropdownItem>
+    </DropdownMenu>
+  </Dropdown>
+)
+
+<header>
+
+# Dropdown Menu
+
+Displays a set of actions/items to the user, usually used to show a menu of options.
+
+</header>
+
+## Overview
+
+The `DropdownMenu` is part of [Dropdown](?path=/docs/molecules-dropdown-default--default-story) component.
+
+<Canvas>
+  <Story name="overview-default">{Template.bind({})}</Story>
+  <Story name="overview-small">{TemplateSmall.bind({})}</Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import Dropdown, { DropdownButton, DropdownMenu, DropdownItem } from '../components/ui/Dropdown'`
+
+<Canvas>
+  <Story name="default">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-dropdown-menu-bkg-color"
+    value="var(--fs-color-tertiary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-dropdown-menu-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-dropdown-menu-box-shadow"
+    value="var(--fs-shadow-hover)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Small
+
+<Canvas>
+  <Story name="dropdown-menu-small">{TemplateSmall.bind({})}</Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-dropdown-item-small-min-height" value="1.75rem" />
+  <TokenRow
+    token="--fs-dropdown-item-small-padding"
+    value="var(--fs-spacing-0) var(--fs-spacing-2) var(--fs-spacing-0) var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-dropdown-item-small-text-size"
+    value="var(--fs-text-size-1)"
+  />
+</TokenTable>

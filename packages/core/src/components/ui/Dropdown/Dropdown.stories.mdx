@@ -1,0 +1,232 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Dropdown, { DropdownButton, DropdownMenu, DropdownItem } from '.'
+import Icon from '../Icon'
+
+import style from 'src/components/ui/Button/button.module.scss'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta title="Molecules/Dropdown/Default" />
+
+export const Template = (args) => (
+  <Dropdown>
+    <DropdownButton
+      className={style.fsButton}
+      data-fs-button-variant="tertiary"
+    >
+      <Icon name="CaretDown" width="18" height="18" weight="bold" />
+      <span>Dropdown</span>
+    </DropdownButton>
+    <DropdownMenu {...args}>
+      <DropdownItem>Dropdown Item 1</DropdownItem>
+      <DropdownItem>Dropdown Item 2</DropdownItem>
+      <DropdownItem>Dropdown Item 3</DropdownItem>
+    </DropdownMenu>
+  </Dropdown>
+)
+
+export const TemplateWithIcon = (args) => (
+  <Dropdown>
+    <DropdownButton
+      className={style.fsButton}
+      data-fs-button-variant="tertiary"
+    >
+      <Icon name="CaretDown" width="18" height="18" weight="bold" />
+      <span>Dropdown Item w/ Icon</span>
+    </DropdownButton>
+    <DropdownMenu {...args}>
+      <DropdownItem icon={<Icon name="User" width={24} height={24} />}>
+        My Account
+      </DropdownItem>
+      <DropdownItem icon={<Icon name="Calendar" width={24} height={24} />}>
+        My Orders
+      </DropdownItem>
+      <DropdownItem icon={<Icon name="Gift" width={24} height={24} />}>
+        Gifts
+      </DropdownItem>
+    </DropdownMenu>
+  </Dropdown>
+)
+
+export const TemplateSmall = (args) => (
+  <Dropdown>
+    <DropdownButton
+      className={style.fsButton}
+      data-fs-button-variant="tertiary"
+    >
+      <Icon name="CaretDown" width="18" height="18" weight="bold" />
+      <span>Dropdown Small</span>
+    </DropdownButton>
+    <DropdownMenu size="small">
+      <DropdownItem>Dropdown Item 1</DropdownItem>
+      <DropdownItem>Dropdown Item 2</DropdownItem>
+      <DropdownItem>Dropdown Item 3</DropdownItem>
+    </DropdownMenu>
+  </Dropdown>
+)
+
+export const TemplateWithIconSmall = (args) => (
+  <Dropdown>
+    <DropdownButton
+      className={style.fsButton}
+      data-fs-button-variant="tertiary"
+    >
+      <Icon name="CaretDown" width="18" height="18" weight="bold" />
+      <span>Dropdown Small Item w/ Icon</span>
+    </DropdownButton>
+    <DropdownMenu size="small">
+      <DropdownItem
+        icon={<Icon name="ArrowElbowDownRight" width={18} height={18} />}
+      >
+        Item 1
+      </DropdownItem>
+      <DropdownItem
+        icon={<Icon name="ArrowElbowDownRight" width={18} height={18} />}
+      >
+        Item 2
+      </DropdownItem>
+      <DropdownItem
+        icon={<Icon name="ArrowElbowDownRight" width={18} height={18} />}
+      >
+        Item 3
+      </DropdownItem>
+    </DropdownMenu>
+  </Dropdown>
+)
+
+<header>
+
+# Dropdown
+
+Displays a set of actions/items to the user, usually used to show a menu of options.
+
+</header>
+
+## Overview
+
+The `Dropdown` component uses [FastStore UI Dropdown](https://www.faststore.dev/reference/ui/molecules) as base.
+
+<!-- Dropdown documentation is currently missing on faststore.dev -->
+
+<Canvas>
+  <Story name="overview-default">{Template.bind({})}</Story>
+  <Story name="overview-default-icon">{TemplateWithIcon.bind({})}</Story>
+  <Story name="overview-small">{TemplateSmall.bind({})}</Story>
+  <Story name="overview-small-icon">{TemplateWithIconSmall.bind({})}</Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import Dropdown, { DropdownButton, DropdownMenu, DropdownItem } from '../components/ui/Dropdown'`
+
+<Canvas>
+  <Story name="default">{Template.bind({})}</Story>
+</Canvas>
+
+---
+
+## Related Components
+
+<section className="sbdocs-section">
+  <article>
+    <div style={{ height: '225px' }}>
+      <a href="?path=/docs/molecules-dropdown-dropdownmenu--default-story"><img src="https://vtexhelp.vtexassets.com/assets/docs/src/dropdown-menu-example___04945d62ffacf3021e59361ccf558430.png"/></a>
+    </div>
+    <article className="sbdocs-section-text">
+      <h3>Dropdown Menu</h3>
+      <p>
+        Displays a set of actions/items to the user, usually used to show a menu of options.
+      </p>
+    </article>
+
+  </article>
+  <article>
+    <div style={{ height: '225px' }}>
+      <a href="?path=/docs/molecules-dropdown-dropdownitem--default-story"><img width="245px" src="https://vtexhelp.vtexassets.com/assets/docs/src/dropdown-item-example___30ebe9491ad7db1230ac9e3a7729d9be.png"/></a>
+    </div>
+    <article className="sbdocs-section-text">
+      <h3>Dropdown Item</h3>
+      <p>An item of a set of items on <code>DropdownMenu</code>.</p>
+    </article>
+  </article>
+</section>
+
+---
+
+## Accessibility
+
+### Keyboard Interactions
+
+<section>
+  <table className="sbdocs-table-free">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code>Enter</code>
+        </td>
+        <td>
+          When focusing on <code>DropdownButton</code>, the Dropdown menu opens
+          and focuses the first <code>DropdownItem</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>ArrowDown</code>
+        </td>
+        <td>
+          When focusing on an item, moves focus to the next{' '}
+          <code>DropdownItem</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>ArrowUp</code>
+        </td>
+        <td>
+          When focusing on an item, moves focus to the previous{' '}
+          <code>DropdownItem</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>Escape</code>
+        </td>
+        <td>
+          Closes <code>DropdownMenu</code> and moves focus to{' '}
+          <code>DropdownButton</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>Home</code>
+        </td>
+        <td>
+          When <code>DropdownMenu</code> is open, move focus to the first{' '}
+          <code>DropdownItem</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>End</code>
+        </td>
+        <td>
+          When <code>DropdownMenu</code> is open, move focus to the last{' '}
+          <code>DropdownItem</code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

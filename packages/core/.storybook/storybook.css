@@ -88,6 +88,10 @@ h3.sbdocs.sbdocs-h3 {
   border-radius: 100%;
 }
 
+.sbdocs-table-free td {
+  width: auto;
+}
+
 /*  Best Practices */
 
 .sbdocs-best-practices-rule {
