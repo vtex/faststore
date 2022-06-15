@@ -232,7 +232,7 @@ Object {
             "productID": "99988213",
             "review": Array [],
             "seo": Object {
-              "canonical": "",
+              "canonical": "/4k-philips-monitor/p",
               "description": "4k Philips Monitor 27\\"",
               "title": "4k Philips Monitor 27\\"",
               "titleTemplate": "",
@@ -290,7 +290,7 @@ Object {
             "productID": "99988211",
             "review": Array [],
             "seo": Object {
-              "canonical": "",
+              "canonical": "/aedle-vk1-headphone/p",
               "description": "Aedle VK-1 L Headphone",
               "title": "Aedle VK-1 L Headphone",
               "titleTemplate": "",
@@ -348,7 +348,7 @@ Object {
             "productID": "99988214",
             "review": Array [],
             "seo": Object {
-              "canonical": "",
+              "canonical": "/echo-dot-smart-speaker/p",
               "description": "Echo Dot Smart Speaker",
               "title": "Echo Dot Smart Speaker",
               "titleTemplate": "",
@@ -406,7 +406,7 @@ Object {
             "productID": "99988210",
             "review": Array [],
             "seo": Object {
-              "canonical": "",
+              "canonical": "/oculus-vr-headset/p",
               "description": "Virtual reality kit",
               "title": "Oculus VR Headset",
               "titleTemplate": "",
@@ -464,7 +464,7 @@ Object {
             "productID": "99988212",
             "review": Array [],
             "seo": Object {
-              "canonical": "",
+              "canonical": "/apple-magic-mouse/p",
               "description": "Apple Magic Mouse",
               "title": "Apple Magic Mouse",
               "titleTemplate": "",
@@ -601,7 +601,7 @@ Object {
       "productID": "64953394",
       "review": Array [],
       "seo": Object {
-        "canonical": "",
+        "canonical": "/unbranded-concrete-table-small/p",
         "description": "Aut omnis nobis tenetur.",
         "title": "Unbranded Concrete Table Small",
         "titleTemplate": "",
@@ -771,7 +771,7 @@ Object {
                     "itemCondition": "https://schema.org/NewCondition",
                     "itemOffered": Object {
                       "seo": Object {
-                        "canonical": "",
+                        "canonical": "/licensed-cotton-hat-licensed/p",
                         "description": "Consequatur placeat optio adipisci aut voluptate excepturi.",
                         "title": "Licensed Cotton Hat Licensed",
                         "titleTemplate": "",
@@ -843,7 +843,7 @@ Object {
                     "itemCondition": "https://schema.org/NewCondition",
                     "itemOffered": Object {
                       "seo": Object {
-                        "canonical": "",
+                        "canonical": "/handmade-granite-computer-unbranded/p",
                         "description": "Ipsa in sequi incidunt dolores.",
                         "title": "Handmade Granite Computer Unbranded",
                         "titleTemplate": "",
@@ -929,7 +929,7 @@ Object {
                     "itemCondition": "https://schema.org/NewCondition",
                     "itemOffered": Object {
                       "seo": Object {
-                        "canonical": "",
+                        "canonical": "/small-cotton-cheese-3325400227651/p",
                         "description": "Dolor harum perferendis voluptatem tempora voluptatum ut et sapiente iure.",
                         "title": "Small Cotton Cheese",
                         "titleTemplate": "",
@@ -1001,7 +1001,7 @@ Object {
                     "itemCondition": "https://schema.org/NewCondition",
                     "itemOffered": Object {
                       "seo": Object {
-                        "canonical": "",
+                        "canonical": "/tasty-frozen-tuna-handmade/p",
                         "description": "Recusandae dolores alias.",
                         "title": "Tasty Frozen Tuna Handmade",
                         "titleTemplate": "",
@@ -1077,7 +1077,7 @@ Object {
                     "itemCondition": "https://schema.org/NewCondition",
                     "itemOffered": Object {
                       "seo": Object {
-                        "canonical": "",
+                        "canonical": "/sleek-metal-pizza/p",
                         "description": "Aliquam a cumque ratione voluptatem in.",
                         "title": "Sleek Metal Pizza",
                         "titleTemplate": "",

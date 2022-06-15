@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.7](https://github.com/vtex/faststore/compare/v1.9.6...v1.9.7) (2022-06-13)
+
+
+### Features
+
+* Canonical PDP slugs ([#1338](https://github.com/vtex/faststore/issues/1338)) ([ec807bb](https://github.com/vtex/faststore/commit/ec807bb94dafaa72cdec82d53933ca0809bf01df))
+
+
+
+
+
+## [1.9.6](https://github.com/vtex/faststore/compare/v1.9.5...v1.9.6) (2022-06-13)
+
+
+### Features
+
+* Export API Errors ([#1361](https://github.com/vtex/faststore/issues/1361)) ([853035a](https://github.com/vtex/faststore/commit/853035aec1ad94cefaf9eae340b625fb6c920ec2))
+
+
+
+
+
+## [1.9.5](https://github.com/vtex/faststore/compare/v1.9.4...v1.9.5) (2022-06-10)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## 1.9.4 (2022-06-10)
+
+
+### Bug Fixes
+
+* codesandbox ci ([#1357](https://github.com/vtex/faststore/issues/1357)) ([db07e1f](https://github.com/vtex/faststore/commit/db07e1fb02f28b0f082c361cb2c28250a687b760))
+
+
+
+
+
 ## [1.9.3](https://github.com/vtex/faststore/compare/v1.9.2...v1.9.3) (2022-06-09)
 
 
