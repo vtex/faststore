@@ -1,5 +1,5 @@
 ---
-description: Card with summarized information about a product.
+description: ProductCard displays summarized information about a product.
 keywords:
   - UI library
   - ecommerce
@@ -8,7 +8,7 @@ keywords:
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
-ProductCard displays summarized information about a product.
+ProductCard displays summarized information about a product. They usually present a call-to-action button, as well as the product's name, price, and image.
 
 The `ProductCard` is a compound of the following:
 - `ProductCardImage`: wraps the product's image.
@@ -18,136 +18,73 @@ The `ProductCard` is a compound of the following:
 ## Import
 
 ```tsx
-import {
-  ProductCard,
-  ProductCardActions,
-  ProductCardContent,
-  ProductCardImage,
-} from '@faststore/ui'
+import { ProductCard, ProductCardActions, ProductCardContent, ProductCardImage } from '@faststore/ui'
 ```
 
 ## Usage
 
-### Default
-
 ```tsx live
-      <ProductCard>
-        ButtonBuy={null}
-        aspectRatio={1}
-        index={1}
-        product={{
-          brand: {
-            brandName: 'Brand',
-            name: 'Brand'
-          },
-          gtin: '5595633577807',
-          id: '15503951',
-          image: [
-            {
-              alternateName: 'est',
-              url: 'http://storeframework.vtexassets.com/arquivos/ids/190191/numquam.jpg?v=637755599170100000'
-            }
-          ],
-          isVariantOf: {
-            name: 'Handmade Steel Towels Practical',
-            productGroupID: '130742'
-          },
-          name: 'red',
-          offers: {
-            lowPrice: 181.71,
-            offers: [
-              {
-                availability: 'https://schema.org/InStock',
-                listPrice: 208.72,
-                price: 181.71,
-                quantity: 1,
-                seller: {
-                  identifier: '1'
-                }
-              }
-            ]
-          },
-          sku: '15503951',
-          slug: 'handmade-steel-towels-practical-15503951'
-        }}
-        variant="default"
-      </ProductCard>
+<ProductCard>
+    <ProductCardImage>
+        <img
+            alt="A vintage camera"
+            src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
+        />
+    </ProductCardImage>
+    <ProductCardContent>
+        <h3>Vintage Top Camera</h3>
+        <div>
+            <Price
+                value={89.9}
+                variant="selling"
+                style={{ textDecoration: 'line-through' }}
+            />
+            <Price value={68.9} variant="selling" />
+        </div>
+        <Badge>15% OFF</Badge>
+    </ProductCardContent>
+    <ProductCardActions>
+        <Button onClick={() => null}>Add to Cart</Button>
+    </ProductCardActions>
+</ProductCard>    
 ```
 
-### Wide
-```tsx live
-      <ProductCard>
-        ButtonBuy={null}
-        aspectRatio={1.5}
-        index={1}
-        product={{
-          brand: {
-            brandName: 'Brand',
-            name: 'Brand'
-          },
-          gtin: '5595633577807',
-          id: '15503951',
-          image: [
-            {
-              alternateName: 'est',
-              url: 'http://storeframework.vtexassets.com/arquivos/ids/190191/numquam.jpg?v=637755599170100000'
-            }
-          ],
-          isVariantOf: {
-            name: 'Handmade Steel Towels Practical',
-            productGroupID: '130742'
-          },
-          name: 'red',
-          offers: {
-            lowPrice: 181.71,
-            offers: [
-              {
-                availability: 'https://schema.org/InStock',
-                listPrice: 208.72,
-                price: 181.71,
-                quantity: 1,
-                seller: {
-                  identifier: '1'
-                }
-              }
-            ]
-          },
-          sku: '15503951',
-          slug: 'handmade-steel-towels-practical-15503951'
-        }}
-        variant="wide"
-       </ProductCard>
-```
 ### Use cases
-Use the `ProductCard` in the following context:
-- Product Collections on the home page.
-- Product availability statuses on the home pages, e.g., *Just Arrived*.
-- Carousel with product promotions.
+Use the `ProductCard` to:
+- Present a product collection on the home page.
+- Present product details on PLPs.
+- Build a product slider that showcases multiple products at once, making it easier for visitors to browse your online store.
 
 ## Props
 
 <PropsSection name="ProductCard" />
 
 ## Customization
-`data-store-product-card`
-`data-product-card-content`
-`data-product-card-actions`
-`data-store-price`
-`data-store-badge`
-`data-store-button`
 
+`data-store-product-card`
+
+`data-product-card-content`
+
+`data-product-card-actions`
+
+`data-store-price`
+
+`data-store-badge`
+
+`data-store-button`
 
 ## Best practices
 
 ### Do's
-- Use high-quality product images.
-- Write the product's title in two lines.
-- For the call-to-action button, use action verbs such as *Buy*, *Save*, and *Add to cart*.
+- Use high-quality and attractive product images to grab shoppers' attention.
+- Keep the product's title short.
+- Use action verbs (e.g., *Buy*, *Save*, *Add*) in the call-to-action button.
 
 ### Don'ts
-- Do not use the `ProductCard` for empty state scenarios. If the case, use the `Skeleton` component.
-- Do not use more than three badges (if necessary).
+- Don't use the `ProductCard` for empty state scenarios. Instead, use the `Skeleton` component.
+- Avoid cluttering your product card with too many badges.
 
 ## Accessibility
+
 - The `img` elements must have an `alt` attribute. 
 - For images containing text, the `alt` description must includes the image's text. 
