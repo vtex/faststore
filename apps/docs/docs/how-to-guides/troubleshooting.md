@@ -22,10 +22,10 @@ Thus, to begin debugging your project, we recommend using the approach outlined 
 
 ![Troubleshooting diagram](https://vtexhelp.vtexassets.com/assets/docs/src/troubleshooting___29553290ed113195a19062e7275e5cb7.png)
 
-**Check if the bug you are facing is a Starter bug**. Please refer to the [Identifying development errors and Starter bugs](/identifying-development-errors-and-starter-bugs) guide for more information. 
+**Check if the bug you are facing is a Starter bug**. Please refer to the [Identifying development errors and Starter bugs](/how-to-guides/troubleshooting/identifying-development-errors-and-starter-bugs) guide for more information. 
 
 If you detect that you are facing a Starter bug, report the problem by opening an issue at the Starter repository. Otherwise, **test if the API requests from your ecommerce provider are working as expected**. For instance, VTEX has a [list of REST APIs](https://developers.vtex.com/vtex-rest-api/docs/getting-started-list-of-rest-apis) where you can test if the request responses are as expected. 
 
-If you check the problem is not related to your ecommerce provider APIs, consider that the issue may be related to your own code. In this case, if your feature was working properly in the past, **use binary search to detect when, in time, the bug was introduced**. For more information, please refer to the [Tracing the error source](/tracing-the-error-source) guide.
+If you check the problem is not related to your ecommerce provider APIs, consider that the issue may be related to your own code. In this case, if your feature was working properly in the past, **use binary search to detect when, in time, the bug was introduced**. For more information, please refer to the [Tracing the error source](/how-to-guides/troubleshooting/tracing-the-error-source) guide.
 
 Finally, if this is a new issue and you are not sure your feature was working before, check [React docs](https://reactjs.org/docs/design-principles.html#debugging) to continue debugging your project. Also, consider checking [Gatsby troubleshooting guides](https://www.gatsbyjs.com/docs/how-to/local-development/troubleshooting-common-errors/) or [Next.js troubleshooting guides](https://nextjs.org/docs/advanced-features/debugging).
