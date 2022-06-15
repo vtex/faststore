@@ -321,17 +321,29 @@ export type StoreCurrency = {
   symbol: Scalars['String'];
 };
 
-/** Search facet information. */
-export type StoreFacet = {
-  __typename?: 'StoreFacet';
+export type StoreFacet = StoreFacetBoolean | StoreFacetRange;
+
+/** Search facet boolean information. */
+export type StoreFacetBoolean = {
+  __typename?: 'StoreFacetBoolean';
   /** Facet key. */
   key: Scalars['String'];
   /** Facet label. */
   label: Scalars['String'];
-  /** Facet type. Possible values are `BOOLEAN` and `RANGE`. */
-  type: StoreFacetType;
   /** Array with information on each facet value. */
-  values: Array<StoreFacetValue>;
+  values: Array<StoreFacetValueBoolean>;
+};
+
+/** Search facet range information. */
+export type StoreFacetRange = {
+  __typename?: 'StoreFacetRange';
+  /** Facet key. */
+  key: Scalars['String'];
+  /** Facet label. */
+  label: Scalars['String'];
+  max: StoreFacetValueRange;
+  /** Array with information on each facet value. */
+  min: StoreFacetValueRange;
 };
 
 /** Search facet type. */
@@ -343,8 +355,8 @@ export const enum StoreFacetType {
 };
 
 /** Information of a specific facet value. */
-export type StoreFacetValue = {
-  __typename?: 'StoreFacetValue';
+export type StoreFacetValueBoolean = {
+  __typename?: 'StoreFacetValueBoolean';
   /** Facet value label. */
   label: Scalars['String'];
   /** Number of items with this facet. */
