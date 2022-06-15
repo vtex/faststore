@@ -8,7 +8,7 @@ tags:
 
 # Time Machine
 
-This debugging process is usefull if you are sure the issue you are facing now didn't exist on the past and you want to find where in time and which changes to the code made this new bug emerge. 
+This debugging process is helpful if you are sure the issue you are facing now didn't exist in the past, and you want to find where in time and which changes to the code made this new bug emerge.
 
 ## How it works
 
