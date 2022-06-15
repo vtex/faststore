@@ -1,5 +1,5 @@
 ---
-description: Component that displays a subscription form to alert shoppers when the product is back in stock.
+description: OutOfStock displays a subscription form to alert shoppers when the product is back in stock.
 keywords:
   - UI library
   - ecommerce
@@ -8,46 +8,38 @@ keywords:
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
-`OutOfStock` displays a subscription form for shoppers who want to be alerted when the product is back in stock.
+`OutOfStock` displays a subscription form for shoppers who want to be alerted when a sold-out product is back in stock.
 
 The `OutOfStock` component is a compound of the following:
 
-- `OutOfStock`: wraps the out of stock component with title and message;
-- `OutOfStockTitle`: the main title component for out of stock component;
-- `OutOfStockMessage`: the message component for out of stock component;
+- `OutOfStock`: wraps the title and content of the OutOfStock component.
+- `OutOfStockTitle`: wraps the title of the OutOfStock component.
+- `OutOfStockMessage`: wraps the content of the OutOfStock component.
 
 ## Import
 
 ```tsx
-import {
-  OutOfStock,
-  OutOfStockTitle,
-  OutOfStockMessage,
-} from '@faststore/ui'
+import { OutOfStock, OutOfStockTitle, OutOfStockMessage } from '@faststore/ui'
 ```
 
 ## Usage
 
-### Default
-
 ```tsx live
-     <OutOfStock>
+<OutOfStock>
     <OutOfStockTitle>
-      Text <span>icon</span>
+        Out of Stock
     </OutOfStockTitle>
-    <OutOfStockMessage>Notify me when available</OutOfStockMessage>
-    <Label>
-      Email
-      <Input />
-    </Label>
-    <Button>Notify me</Button>
-  </OutOfStock>
+    <OutOfStockMessage>
+        <span className="far fa-bell"></span> Notify me when available
+        <Input type="email" placeholder="Email"/>
+        <Button>Notify me</Button>
+    </OutOfStockMessage>    
+</OutOfStock>
 ```
 
 ## Props
 
 <PropsSection name="OutOfStock" />
-
 
 ## Customization
 `data-store-out-of-stock`
@@ -58,17 +50,16 @@ import {
 
 `data-out-of-stock-message`
 
-
 ## Best practices
 
 ### Do's
-- Use the component in a PDP. 
-- Inform the user when their email is incorrect, e.g. *Please enter a valid email address*.
-- Place the component near the product and/or indicate to subscribed users that they will be notified when the item returns to stock.
+- Use the `OutOfStock` component in PDPs.
+- Specify the input type in your form to validate data (e.g., ` <Input type="email" placeholder="Email"/>`).
+- Handle the form submission by informing shoppers that they will be emailed when the item is back in stock.
 
 ### Don'ts
-- Don't use the `OutOfStock` for alert messages, instead use the [Alert component](https://www.faststore.dev/reference/ui/molecules/Alert).
-- Don't use the component in products that won't sell anymore.
+- Don't use the `OutOfStock` component for alert messages. Instead, use the [Alert component](https://www.faststore.dev/reference/ui/molecules/Alert).
+- Don't use the `OutOfStock` component in products that won't return to stock.
 
 ## Accessibility
 - Text elements and buttons must have sufficient color contrast against the background.

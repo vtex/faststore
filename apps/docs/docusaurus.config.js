@@ -11,7 +11,7 @@ module.exports = {
   projectName: 'faststore', // Usually your repo name.
   themes: ['@docusaurus/theme-live-codeblock'],
   stylesheets: [
-    "https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+    "https://use.fontawesome.com/releases/v5.15.4/css/all.css"
   ],
   customFields: {
     events: require("./static/data/releases"),
@@ -224,7 +224,7 @@ module.exports = {
       'docusaurus-plugin-react-docgen-typescript',
       {
         // pass in a single string or an array of strings
-        src: ['../packages/ui/src/**/*.tsx', '!../packages/ui/src/**/*.test.*', '!../packages/ui/src/**/*.stories.*'],
+        src: ['../../packages/ui/src/**/*.tsx', '!../../packages/ui/src/**/*.test.*', '!../../packages/ui/src/**/*.stories.*'],
         parserOptions: {
           // pass parserOptions to react-docgen-typescript
           // here is a good starting point which filters all .tsx files
