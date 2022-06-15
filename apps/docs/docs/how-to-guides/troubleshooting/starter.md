@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 
 # Starter vs My Code
 
-While developing with FastStore, you may run into errors. Some of these may require fixes in FastStore libraries, while others may require adjusting your code. 
+While developing with FastStore, you may run into errors. Some may require fixes in FastStore libraries, while others may require adjusting your code. 
 
 Hence, before proceeding with any advanced troubleshooting, we recommend that you first check if you are facing a bug from FastStore/WebOps or a mistake on your side.
 
