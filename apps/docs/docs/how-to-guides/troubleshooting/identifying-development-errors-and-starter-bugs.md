@@ -73,4 +73,4 @@ cd gatsby.store && yarn
     ```
 5. Access [http://localhost:8000/](http://localhost:8000/) and test the features you are having trouble with.
 
-If the problem persists with the Base Store starter, we recommend [opening an issue](https://github.com/vtex/faststore/issues/new/choose) and reporting the problem. However, if the error only occurs in your own project, please continue debugging with our [Time Machine](./binary-search) technique.
+If the problem persists with the Base Store starter, we recommend [opening an issue](https://github.com/vtex/faststore/issues/new/choose) and reporting the problem. However, if the error only occurs in your own project, please refer to the [Tracing the error source](/how-to-guides/troubleshooting/tracing-the-error-source) guide to continue debugging your store.
