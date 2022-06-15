@@ -1,129 +1,56 @@
+---
+description: Get to know the FastStore API, an interface between your ecommerce platform and your store's frontend.
+pagination_prev: null
+---
+
+import GraphQLExplorer from '@site/src/components/GraphQLExplorer/GraphQLExplorer'
+
 # FastStore API
 
-:::caution WIP
-This documentation is currently under development.
+**FastStore API** is an interface between your ecommerce platform and your store's frontend. It uses **[GraphQL](https://graphql.org/)**, a query language for APIs and a runtime for fulfilling queries, to expose structured data from everyday e-commerce tasks to frontend components. With the FastStore API, it's possible to:
+- Retrieve product data.
+- Add items to the cart.
+- Apply promotions to products.
+- Filter search results. 
+
+Also, thanks to a type-safe **GraphQL** protocol, the FastStore API allows developers to fetch only the strongly **typed data** needed for building robust and responsive solutions. In practice, developers can source the FastStore API to the [**Next.js**](https://nextjs.org/) or [**Gatsby**](https://www.gatsbyjs.com/) data layers and consume it on frontend components to create stores that use the [**Jamstack**](https://jamstack.org/) architecture.
+
+![FastStore API usage architecture](https://vtexhelp.vtexassets.com/assets/docs/src/faststoreAPI2___58c4a9c4d23539900ef8b1cce9769288.png)
+
+:::tip
+To learn more about GraphQL and its main concepts, visit the official [GraphQL website](https://graphql.org/).
 :::
 
-The only API you need for building your next ecommerce. 
+## Playground
 
-This package defines a front-end first, GraphQL API inspired by clean architecture and schema.org. 
+The FastStore GraphQL API allows you to query and modify your store public data in an efficient and flexible manner. 
 
-GraphQL types defined in this repo extends and simplifies schema.org. This makes it easier to make your frontend search friendly.
-Also, by using the clean architecture, all types defined on this schema are not platform specific, but created to resolve an specific business case on your frontend, like rendering listprices, sellers etc.
+Use the GraphQL playground in the following to test and explore the FastStore API.
 
-Alongside the GraphQL type definitions, we provide standard implementations for common ecommerce platforms. Currently we support:
-1. VTEX
-2. Maybe add yours? 
+<GraphQLExplorer query="query {
+          allProducts(first: 10) {
+            edges {
+              node {
+                name
+              }
+            }
+          }
+        }"/>
 
-With the typedefs and resolvers, you can create an executable schema and deploy anywhere you want. For instance, one use case would be:
-1. Create an Apollo Server instane on Heroku
-2. Run the executable schema in a function on Next.js
-3. Run the executable schema during a Gatsby build.
+## Key features
 
-## Install
+FastStore API is based on [**Schema.org**](https://schema.org/) and inspired by **clean architecture**. 
 
-```bash
-yarn add @faststore/api
-```
+### Improved brand's findability 
 
-## Usage
-GraphQL is very versatile and can run in many places. To setup the schema in an apollo server, just:
+FastStore API extends and simplifies [**Schema.org**](https://schema.org/), a set of agreed definitions for implementing structured data developed by Google, Microsoft, Yahoo, and Yandex.
 
-```ts
-import { getSchema } from '@faststore/api'
-import { ApolloServer } from 'apollo-server'
+The Schema markup aids search engines in understanding and displaying your content in a relevant way. It may improve your brand's findability by leading your website to a higher ranking in search results and, consequently, to more clicks and interactions with your store's website. 
 
-// Get the Store schema
-const schema = await getSchema({ platform: 'vtex', account: 'my-account', environment: 'vtexcommercestable' })
+### Flexible backend for frontend architecture
 
-// Setup Apollo Server
-const server = new ApolloServer({ schema });
+The FastStore API types and resolvers use a clean architecture to tackle specific ecommerce needs. The types specified in this schema are platform agnostic and may be used to build a wide range of custom frontend solutions. For instance:
 
-// The `listen` method launches a web server.
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
-```
-
-## Extending the schema
-GraphQL is a very versatile language. By using the exported `getSchema` function, you can not only extend the base schema but also redefine the whole resolvers implementation.
-
-To extend the schema, one can:
-```ts
-import { getSchema, getTypeDefs } from '@faststore/api'
-import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
-import { ApolloServer } from 'apollo-server'
-
-// Setup type extensions
-const typeDefs = `
-  extend type StoreProduct {
-    customField: String
-  }
-`
-
-// Setup custom resolvers
-const resolvers = {
-  StoreProduct: {
-    customField: async () => {
-      ...
-      // Your code goes here
-      ...
-    }
-  }
-}
-
-const storeApiSchema = getSchema({ platform: 'vtex', ...})
-
-// Merge custom TypeDefs with the ones from @faststore/api
-const mergedTypeDefs = mergeTypeDefs([getTypeDefs(), typeDefs])
-
-const getMergedSchemas = async () =>
-  mergeSchemas({
-    schemas: [
-      await storeApiSchema,
-      makeExecutableSchema({
-        resolvers,
-        typeDefs: mergedTypeDefs,
-      }),
-    ],
-  })
-
-// Merge schemas into a final schema
-const finalSchema = getMergedSchemas()
-
-// Setup Apollo Server
-const server = new ApolloServer({ finalSchema });
-
-// The `listen` method launches a web server.
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
-```
-
-## Inline platform
-If your ecommerce platform is not supported you have two options.
-1. Make a contribution
-2. Create inline resolvers for your platform
-
-Inline resolves means you are going to write all resolvers for the api schema in your project or in an external library. This is recommended if you are supporting a niche platform and want to have full control over how each field is processed.
-
-To create your own resolvers, you can:
-```ts
-import { getTypeDefs } from '@faststore/api'
-import { ApolloServer } from 'apollo-server'
-import { makeExecutableSchema } from '@graphql-tools/schema'
-
-// Get the Store API TypeDefs
-const typeDefs = getTypeDefs()
-
-const resolvers = {
-  ...
-  // add your resolvers
-  ...
-}
-
-// Create a runnable schema
-const schema = makeExecutableSchema({ resolvers, typeDefs })
-
-// You now have a runnable GraphQL schema, you can create a server or run queries locally.
-```
+1. Develop an ecommerce website with Next.js or Gatsby.
+2. Create an Apollo Server instance on Heroku.
+3. Run the executable schema in a function on Next.js.

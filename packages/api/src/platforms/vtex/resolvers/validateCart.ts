@@ -96,16 +96,16 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
   return isSameOrder && orderItemsAreSync
 }
 
-const orderFormToCart = (
+const orderFormToCart = async (
   form: OrderForm,
   skuLoader: Context['loaders']['skuLoader']
 ) => {
   return {
     order: {
       orderNumber: form.orderFormId,
-      acceptedOffer: form.items.map((item) => ({
+      acceptedOffer: form.items.map(async (item) => ({
         ...item,
-        product: skuLoader.load([{ key: 'id', value: item.id }]), // TODO: add channel
+        product: await skuLoader.load(item.id), // TODO: add channel
       })),
     },
     messages: form.messages.map(({ text, status }) => ({

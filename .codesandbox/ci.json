@@ -1,5 +1,5 @@
 {
-  "buildCommand": "turbo run build --ignore=\"apps/**/*\"",
+  "buildCommand": "turbo run build --filter=./packages/*",
   "packages": ["packages/*"],
   "sandboxes": ["store-ui-typescript-0gd9u"],
   "node": "16"
