@@ -1,5 +1,5 @@
+import type { PropsWithChildren } from 'react'
 import React, { createContext, useMemo } from 'react'
-import type { FC } from 'react'
 
 import { useStorage } from '../storage/useStorage'
 import { SDKError } from '../utils/error'
@@ -57,14 +57,14 @@ export interface Props {
   onItemRemove?: (item?: Item) => void
 }
 
-export const CartProvider: FC<Props> = ({
+export const CartProvider = ({
   children,
   onItemAdd,
   initialCart,
   onItemRemove,
   onItemUpdate,
   namespace: nspc = 'main',
-}) => {
+}: PropsWithChildren<Props>) => {
   const namespace = `${nspc}::store::cart`
   const [cart, setCart] = useStorage(namespace, () => ({
     ...initialState,

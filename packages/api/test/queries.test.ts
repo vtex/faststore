@@ -1,4 +1,3 @@
-import type { GraphQLSchema } from 'graphql'
 import { execute, parse } from 'graphql'
 
 import type { Options } from '../src'
@@ -30,9 +29,6 @@ import {
   attributeSearchCategory1Fetch,
 } from '../mocks/SearchQuery'
 
-let schema: GraphQLSchema
-let context: Record<string, any>
-
 const apiOptions = {
   platform: 'vtex',
   account: 'storeframework',
@@ -46,6 +42,18 @@ const apiOptions = {
 } as Options
 
 const mockedFetch = jest.fn()
+
+const createRunner = () => {
+  const schemaPromise = getSchema(apiOptions)
+  const contextFactory = getContextFactory(apiOptions)
+
+  return async (query: string, variables?: any) => {
+    const schema = await schemaPromise
+    const context = contextFactory({})
+
+    return execute(schema, parse(query), null, context, variables)
+  }
+}
 
 function pickFetchAPICallResult(
   info: RequestInfo,
@@ -67,17 +75,13 @@ jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
   fetchAPI: (info: RequestInfo, init?: RequestInit) => mockedFetch(info, init),
 }))
 
-beforeAll(async () => {
-  schema = await getSchema(apiOptions)
-
-  const contextFactory = getContextFactory(apiOptions)
-
-  context = contextFactory({})
-})
+const run = createRunner()
 
 // Always clear the mocked fetch before each test so we can count and validate
 // the calls performed by each query independently.
-beforeEach(() => mockedFetch.mockClear())
+beforeEach(() => {
+  mockedFetch.mockClear()
+})
 
 test('`collection` query', async () => {
   const fetchAPICalls = [
@@ -90,12 +94,7 @@ test('`collection` query', async () => {
     pickFetchAPICallResult(info, init, fetchAPICalls)
   )
 
-  const response = await execute(
-    schema,
-    parse(CollectionDesksQuery),
-    null,
-    context
-  )
+  const response = await run(CollectionDesksQuery)
 
   expect(mockedFetch).toHaveBeenCalledTimes(3)
 
@@ -116,7 +115,7 @@ test('`product` query', async () => {
     pickFetchAPICallResult(info, init, fetchAPICalls)
   )
 
-  const response = await execute(schema, parse(ProductByIdQuery), null, context)
+  const response = await run(ProductByIdQuery)
 
   expect(mockedFetch).toHaveBeenCalledTimes(1)
 
@@ -145,12 +144,7 @@ test('`allCollections` query', async () => {
     pickFetchAPICallResult(info, init, fetchAPICalls)
   )
 
-  const response = await execute(
-    schema,
-    parse(AllCollectionsQueryFirst5),
-    null,
-    context
-  )
+  const response = await run(AllCollectionsQueryFirst5)
 
   expect(mockedFetch).toHaveBeenCalledTimes(7)
 
@@ -171,12 +165,7 @@ test('`allProducts` query', async () => {
     pickFetchAPICallResult(info, init, fetchAPICalls)
   )
 
-  const response = await execute(
-    schema,
-    parse(AllProductsQueryFirst5),
-    null,
-    context
-  )
+  const response = await run(AllProductsQueryFirst5)
 
   expect(mockedFetch).toHaveBeenCalledTimes(1)
 
@@ -200,12 +189,7 @@ test('`search` query', async () => {
     pickFetchAPICallResult(info, init, fetchAPICalls)
   )
 
-  const response = await execute(
-    schema,
-    parse(SearchQueryFirst5Products),
-    null,
-    context
-  )
+  const response = await run(SearchQueryFirst5Products)
 
   expect(mockedFetch).toHaveBeenCalledTimes(2)
 

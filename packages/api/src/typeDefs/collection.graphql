@@ -2,9 +2,21 @@
 Product collection type. Possible values are `Department`, `Category`, `Brand` or `Cluster`.
 """
 enum StoreCollectionType {
+  """
+  First level of product categorization.
+  """
   Department
+  """
+  Second level of product categorization.
+  """
   Category
+  """
+  Product brand.
+  """
   Brand
+  """
+  Product cluster.
+  """
   Cluster
 }
 

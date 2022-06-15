@@ -3,22 +3,22 @@ Currency information.
 """
 type StoreCurrency {
   """
-  Currency code, e.g: USD
+  Currency code (e.g: USD).
   """
   code: String!
   """
-  Currency symbol, e.g: $
+  Currency symbol (e.g: $).
   """
   symbol: String!
 }
 
 input IStoreCurrency {
   """
-  Currency code, e.g: USD
+  Currency code (e.g: USD).
   """
   code: String!
   """
-  Currency symbol, e.g: $
+  Currency symbol (e.g: $).
   """
   symbol: String!
 }

@@ -1,5 +1,5 @@
-import type { Context, Options } from '../../index'
 import { fetchAPI } from '../fetch'
+import type { Context, Options } from '../../index'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
 import type { OrderForm, OrderFormInputItem } from './types/OrderForm'
