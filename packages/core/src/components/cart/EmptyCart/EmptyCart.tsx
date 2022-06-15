@@ -12,7 +12,7 @@ interface Props {
 function EmptyCart({ onDismiss }: Props) {
   return (
     <EmptyState>
-      <header data-empty-cart-title>
+      <header data-fs-empty-state-title>
         <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
         <p>Your Cart is empty</p>
       </header>

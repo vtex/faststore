@@ -1,0 +1,53 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import { TokenTable, TokenRow } from 'src/../.storybook/components'
+
+import EmptyGallery from 'src/components/sections/ProductGallery/EmptyGallery'
+
+<Meta component={EmptyGallery} title="Organisms/EmptyState/EmptyGallery" />
+
+export const Template = (args) => <EmptyGallery {...args}></EmptyGallery>
+
+<header>
+
+# EmptyGallery
+
+An implementation of the `EmptyState` that represents a Gallery with no items.
+
+</header>
+
+## Usage
+
+`import EmptyGallery from 'src/components/sections/ProductGallery/EmptyGallery'`
+
+<Canvas>
+  <Story name="default">{Template.bind({})}</Story>
+</Canvas>
+
+---
+
+## Nested Elements
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-empty-state-title-margin-bottom"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-empty-state-title-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-empty-state-title-text-size"
+    value="var(--fs-text-size-3)"
+  />
+</TokenTable>
+
+### Link
+
+<TokenTable>
+  <TokenRow token="--fs-empty-state-link-min-width" value="11.875rem" />
+</TokenTable>

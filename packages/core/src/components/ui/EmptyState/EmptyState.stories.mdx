@@ -1,0 +1,87 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import { TokenTable, TokenRow } from 'src/../.storybook/components'
+
+import EmptyState from '.'
+import EmptyGallery from 'src/components/sections/ProductGallery'
+import EmptyCart from 'src/components/cart/EmptyCart'
+
+<Meta component={EmptyState} title="Organisms/EmptyState/Default" />
+
+export const Template = (args) => (
+  <EmptyState {...args}>Nothing to display</EmptyState>
+)
+
+<header>
+
+# EmptyState
+
+This component represents an empty state, usually used on `EmptyCart` and `EmptyGallery` components.
+
+</header>
+
+## Usage
+
+`import EmptyState from 'src/components/ui/EmptyState'`
+
+<Canvas>
+  <Story name="default">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow token="--fs-empty-state-height" value="100%" />
+  <TokenRow token="--fs-empty-state-min-height" value="50vh" />
+  <TokenRow token="--fs-empty-state-padding" value="0 var(--fs-spacing-8)" />
+  <TokenRow
+    token="--fs-empty-state-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Rounded
+
+<TokenTable>
+  <TokenRow
+    token="--fs-empty-state-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+---
+
+## Related Components
+
+<section className="sbdocs-section">
+  <article>
+    <div style={{ height: '250px' }}>
+      <a href="?path=/docs/organisms-emptystate-emptycart--default-story">
+        <img width="190px" src="https://vtexhelp.vtexassets.com/assets/docs/src/empty-car___33a48f795ba03130f1bc81f1c075143d.png"/>
+      </a>
+    </div>
+    <article className="sbdocs-section-text">
+      <h3>Empty Cart</h3>
+      <p>
+        Displays the empty cart message along with the `Start Shopping` button.
+      </p>
+    </article>
+
+  </article>
+  <article>
+    <div style={{ height: '250px' }}>
+      <a href="?path=/docs/organisms-emptystate-emptygallery--default-story">
+        <img width="245px" src="https://vtexhelp.vtexassets.com/assets/docs/src/empty-gallery___ede63510d9b1d22e187b095ef04f70f7.png"/>
+      </a>
+    </div>
+    <article className="sbdocs-section-text">
+      <h3>Empty Gallery</h3>
+      <p>Displays the empty gallery message along with some button navigation options.</p>
+    </article>
+  </article>
+</section>
