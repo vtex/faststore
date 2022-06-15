@@ -1,8 +1,17 @@
+---
+description: Cards are used to present content and actions related to a single topic. 
+keywords:
+  - UI library
+  - ecommerce
+  - react
+---
+
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # Card
 
-Cards present summarized information of content with content title, image, and a `call-to-action` button. 
+Cards are used for grouping information related to a single topic. They usually present some summarized content, an image, and a call-to-action button.
+
 The `Card` component is a compound of the following:
 - `CardImage` - wraps the product image.
 - `CardContent` - wraps the product details.
@@ -21,33 +30,15 @@ import { Badge, Card, CardActions, CardImage, CardContent, Price } from '@fastst
   <CardImage>
     <img
       alt="A vintage camera"
-      src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
+      src="https://assets.vtex.app/unsafe/1080x720/center/middle/https%3A%2F%2Fstoreframework.vtexassets.com%2Farquivos%2Fids%2F190897%2FPhoto.jpg"
     />
   </CardImage>
   <CardContent>
-    <h3>
-      Vintage Top Camera
-    </h3>
-    <div>
-      <Price
-        style={{
-          textDecoration: 'line-through'
-        }}
-        value={89.9}
-        variant="selling"
-      />
-      <Price
-        value={68.9}
-        variant="selling"
-      />
-    </div>
-    <Badge>
-      15% OFF
-    </Badge>
+      At BaseStore you can shop the best tech of 2022. Enjoy and get 10% off on your first purchase.
   </CardContent>
   <CardActions>
     <Button onClick={function noRefCheck(){}}>
-      Add to Cart
+      LEARN MORE
     </Button>
   </CardActions>
 </Card>
@@ -82,3 +73,25 @@ All Card-related components support all attributes also supported by the `<div>`
 `data-store-card-content`
 
 `data-store-card-actions`
+
+## Best practices
+
+### Do's
+
+- Use attractive images to grab shoppers' attention.
+- Keep the card content short.
+- Keep a standard visual style. Otherwise, your design may look off-putting.
+- Use transparent-backgrounded images.
+- Use animation and visual hints to improve the user experience.
+- Use the most appropriate card size for each device type.
+- Make the entire card clickable to create larger touch zones.
+
+### Don'ts
+
+- Don't use the `Card` component for product cards. Instead, use the [`ProductCard` component](/reference/ui/molecules/ProductCard).
+- Avoid cluttering cards with too many buttons and content. 
+- Avoid inline links.
+
+## Accessibility
+
+- Text elements and buttons must have sufficient color contrast against the background.
