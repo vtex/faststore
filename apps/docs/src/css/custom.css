@@ -174,7 +174,7 @@ hr {
 }
 
 .markdown ol {
-  @apply list-decimal ml-8;
+  @apply list-decimal ml-8 my-4;
 }
 [class^='card'] {
   @apply bg-transparent border-border !important;
@@ -342,9 +342,6 @@ code {
   padding: 0 var(--ifm-pre-padding);
 }
 
-div[role='tabpanel'] p {
-  @apply ml-10;
-}
 
 .header-github-link:hover {
   @apply opacity-60;

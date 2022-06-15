@@ -1,5 +1,4 @@
 import { execute, parse } from 'graphql'
-import type { GraphQLSchema } from 'graphql'
 
 import {
   checkoutOrderFormCustomDataInvalidFetch,
@@ -18,9 +17,6 @@ import {
 import { getContextFactory, getSchema } from '../src'
 import type { Options } from '../src'
 
-let schema: GraphQLSchema
-let context: Record<string, any>
-
 const apiOptions = {
   platform: 'vtex',
   account: 'storeframework',
@@ -34,6 +30,18 @@ const apiOptions = {
 } as Options
 
 const mockedFetch = jest.fn()
+
+const createRunner = () => {
+  const schemaPromise = getSchema(apiOptions)
+  const contextFactory = getContextFactory(apiOptions)
+
+  return async (query: string, variables?: any) => {
+    const schema = await schemaPromise
+    const context = contextFactory({})
+
+    return execute(schema, parse(query), null, context, variables)
+  }
+}
 
 function pickFetchAPICallResult(
   info: RequestInfo,
@@ -56,17 +64,13 @@ jest.mock('../src/platforms/vtex/clients/fetch.ts', () => ({
     mockedFetch(info, init),
 }))
 
-beforeAll(async () => {
-  schema = await getSchema(apiOptions)
-
-  const contextFactory = getContextFactory(apiOptions)
-
-  context = contextFactory({})
-})
+const run = createRunner()
 
 // Always clear the mocked fetch before each test so we can count and validate
 // the calls performed by each query independently.
-beforeEach(() => mockedFetch.mockClear())
+beforeEach(() => {
+  mockedFetch.mockClear()
+})
 
 test('`validateCart` mutation should return `null` when a valid cart is passed', async () => {
   const fetchAPICalls = [
@@ -79,13 +83,7 @@ test('`validateCart` mutation should return `null` when a valid cart is passed',
     pickFetchAPICallResult(info, init, fetchAPICalls)
   )
 
-  const response = await execute(
-    schema,
-    parse(ValidateCartMutation),
-    null,
-    context,
-    { cart: ValidCart }
-  )
+  const response = await run(ValidateCartMutation, { cart: ValidCart })
 
   expect(mockedFetch).toHaveBeenCalledTimes(3)
 
@@ -111,13 +109,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
     pickFetchAPICallResult(info, init, fetchAPICalls)
   )
 
-  const response = await execute(
-    schema,
-    parse(ValidateCartMutation),
-    null,
-    context,
-    { cart: InvalidCart }
-  )
+  const response = await run(ValidateCartMutation, { cart: InvalidCart })
 
   expect(mockedFetch).toHaveBeenCalledTimes(4)
 
@@ -143,13 +135,7 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
     pickFetchAPICallResult(info, init, fetchAPICalls)
   )
 
-  const response = await execute(
-    schema,
-    parse(ValidateCartMutation),
-    null,
-    context,
-    { cart: InvalidCart }
-  )
+  const response = await run(ValidateCartMutation, { cart: InvalidCart })
 
   expect(mockedFetch).toHaveBeenCalledTimes(3)
 

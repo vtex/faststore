@@ -1,7 +1,7 @@
 import DataLoader from 'dataloader'
 import pLimit from 'p-limit'
 
-import { NotFoundError } from '../utils/errors'
+import { NotFoundError } from '../../errors'
 import type { CollectionPageType } from '../clients/commerce/types/Portal'
 import type { Options } from '..'
 import type { Clients } from '../clients'

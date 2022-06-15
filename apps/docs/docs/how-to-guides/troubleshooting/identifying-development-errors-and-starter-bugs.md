@@ -1,5 +1,6 @@
 ---
-description: Check if you are facing a bug from FastStore/WebOps or a mistake on your side.
+sidebar_position: 1
+description: Check if you are facing a bug from the Starter.
 tags: 
     - performance
     - troubleshooting
@@ -8,7 +9,7 @@ tags:
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Troubleshooting problems in FastStore
+# Identifying development errors and Starter bugs
 
 While developing with FastStore, you may run into errors. Some of these may require fixes in FastStore libraries, while others may require adjusting your code. 
 
@@ -72,4 +73,4 @@ cd gatsby.store && yarn
     ```
 5. Access [http://localhost:8000/](http://localhost:8000/) and test the features you are having trouble with.
 
-If the problem persists with the Base Store starter, we recommend [opening an issue](https://github.com/vtex/faststore/issues/new/choose) and reporting the problem. However, if the error only occurs in your own project, please refer to recommended resources (*Comming Soon*) to dive deeper into your code and try to find the origin of the error.
+If the problem persists with the Base Store starter, we recommend [opening an issue](https://github.com/vtex/faststore/issues/new/choose) and reporting the problem. However, if the error only occurs in your own project, please refer to the [Tracing the error source](/how-to-guides/troubleshooting/tracing-the-error-source) guide to continue debugging your store.

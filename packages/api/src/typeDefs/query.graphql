@@ -1,78 +1,108 @@
 """
-Product pagination edge.
+Each product edge contains a `node`, with product information, and a `cursor`, that can be used as a reference for pagination.
 """
 type StoreProductEdge {
   """
-  Product pagination node.
+  Each product node contains the information of a product returned by the query.
   """
   node: StoreProduct!
   """
-  Product pagination cursor.
+  Product cursor. Used as pagination reference.
   """
   cursor: String!
 }
 
 """
-Product connection pagination information.
+Product connections, including pagination information and products returned by the query.
 """
 type StoreProductConnection {
   """
-  Product connection page information.
+  Product pagination information.
   """
   pageInfo: StorePageInfo!
   """
-  Array with product connection page edges.
+  Array with product connection edges, each containing a product and a corresponding cursor.
   """
   edges: [StoreProductEdge!]!
 }
 
 """
-Collection pagination edge.
+Each collection edge contains a `node`, with product collection information, and a `cursor`, that can be used as a reference for pagination.
 """
 type StoreCollectionEdge {
   """
-  Collection pagination node.
+  Each collection node contains the information of a product collection returned by the query.
   """
   node: StoreCollection!
   """
-  Collection pagination cursor.
+  Collection cursor. Used as pagination reference.
   """
   cursor: String!
 }
 
 """
-Collection connection pagination information.
+Collection connections, including pagination information and collections returned by the query.
 """
 type StoreCollectionConnection {
   """
-  Collection connection page information.
+  Collection pagination information.
   """
   pageInfo: StorePageInfo!
   """
-  Array with collection connection page edges.
+  Array with collection connection page edges, each containing a collection and a corresponding cursor..
   """
   edges: [StoreCollectionEdge!]!
 }
 
 """
-Product sorting options used in search.
+Product search results sorting options.
 """
 enum StoreSort {
+  """
+  Sort by price, from highest to lowest.
+  """
   price_desc
+  """
+  Sort by price, from lowest to highest.
+  """
   price_asc
+  """
+  Sort by orders, from highest to lowest.
+  """
   orders_desc
+  """
+  Sort by name, in reverse alphabetical order.
+  """
   name_desc
+  """
+  Sort by name, in alphabetical order.
+  """
   name_asc
+  """
+  Sort by release date, from  highest to lowest.
+  """
   release_desc
+  """
+  Sort by discount value, from highest to lowest.
+  """
   discount_desc
+  """
+  Sort by product score, from highest to lowest.
+  """
   score_desc
 }
 
 """
-Selected facet input.
+Selected search facet input.
 """
 input IStoreSelectedFacet {
+  """
+  Selected search facet key.
+  """
   key: String!
+  """
+  Selected search facet value.
+  """
   value: String!
 }
 
@@ -80,7 +110,13 @@ input IStoreSelectedFacet {
 Search facet type.
 """
 enum StoreFacetType {
+  """
+  Indicates boolean search facet.
+  """
   BOOLEAN
+  """
+  Indicates range type search facet.
+  """
   RANGE
 }
 
@@ -132,17 +168,17 @@ type StoreSearchResult {
 
 type Query {
   """
-  Product query.
+  Returns the details of a product based on the specified locator.
   """
   product(
     """
-    Product query locator, which receives an array of selected search facets.
+    An array of selected search facets.
     """
     locator: [IStoreSelectedFacet!]!
   ): StoreProduct!
 
   """
-  Collection query.
+  Returns the details of a collection based on the collection slug.
   """
   collection(
     """
@@ -152,7 +188,7 @@ type Query {
   ): StoreCollection!
 
   """
-  Search query.
+  Returns the result of a product, facet, or suggestion search.
   """
   search(
     """
@@ -160,7 +196,7 @@ type Query {
     """
     first: Int!
     """
-    Search pagination argument, indicating the item after which the results should be fetched.
+    Search pagination argument, indicating the cursor corresponding with the item after which the results should be fetched.
     """
     after: String
     """
@@ -178,7 +214,7 @@ type Query {
   ): StoreSearchResult!
 
   """
-  All products query.
+  Returns information about all products.
   """
   allProducts(
     """
@@ -186,13 +222,13 @@ type Query {
     """
     first: Int!,
     """
-    Product pagination argument, indicating the item after which the items should be fetched.
+    Product pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
     """
     after: String
   ): StoreProductConnection!
 
   """
-  All collections query.
+  Returns information about all collections.
   """
   allCollections(
     """
@@ -200,7 +236,7 @@ type Query {
     """
     first: Int!,
     """
-    Collection pagination argument, indicating the item after which the items should be fetched.
+    Collection pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
     """
     after: String
   ): StoreCollectionConnection!

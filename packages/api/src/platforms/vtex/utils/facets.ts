@@ -34,6 +34,12 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
   }
 }
 
+export const findSlug = (facets?: Maybe<SelectedFacet[]>) =>
+  facets?.find((x) => x.key === 'slug')?.value ?? null
+
+export const findSkuId = (facets?: Maybe<SelectedFacet[]>) =>
+  facets?.find((x) => x.key === 'id')?.value ?? null
+
 export const findLocale = (facets?: Maybe<SelectedFacet[]>) =>
   facets?.find((x) => x.key === 'locale')?.value ?? null
 
