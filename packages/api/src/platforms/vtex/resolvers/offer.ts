@@ -87,7 +87,7 @@ export const StoreOffer: Record<string, Resolver<Root>> = {
   },
   listPrice: (root) => {
     if (isSearchItem(root)) {
-      return root.ListPrice
+      return root.ListPrice ?? 0
     }
 
     if (isOrderFormItem(root)) {
