@@ -14,7 +14,7 @@
 
 .playgroundEditor {
   @apply bg-code border border-border border-t-0 !important;
-  font: var(--ifm-code-font-size) / var(--ifm-pre-line-height)
+  font: 14px / var(--ifm-pre-line-height)
     var(--ifm-font-family-monospace) !important;
   /*rtl:ignore*/
   direction: ltr;

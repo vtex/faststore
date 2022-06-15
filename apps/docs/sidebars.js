@@ -222,7 +222,7 @@
                   link: {
                     type: 'generated-index',
                     title: 'Organisms',
-                    description: `Check out all FastStore UI organisms. Organisms are relatively complex components that form distinct sections of an interface.`,
+                    description: `Check out all FastStore UI organisms. Organisms are composed of multiple molecules, atoms, and/or other organisms.`,
                     slug: '/reference/ui/organisms',
                   },
                   collapsed: true,
