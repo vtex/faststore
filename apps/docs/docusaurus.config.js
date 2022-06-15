@@ -128,12 +128,12 @@ module.exports = {
               to: '/reference',
             },
             {
-              label: 'Concepts',
-              to: '/conceptual-guides',
-            },
-            {
               label: 'Best practices',
               to: '/best-practices',
+            },
+            {
+              label: 'Concepts',
+              to: '/conceptual-guides',
             },
             {
               label: 'Tutorials',
