@@ -54,16 +54,15 @@ To use GraphiQL in your FastStore project, follow these steps:
 http://localhost:8000/___graphql
 ```
 
-
 ## Key features
 
 FastStore API is based on [**Schema.org**](https://schema.org/) and inspired by **clean architecture**. 
 
-### Improved brand's findability 
+### Improved brand findability 
 
 FastStore API extends and simplifies [**Schema.org**](https://schema.org/), a set of agreed definitions for implementing structured data developed by Google, Microsoft, Yahoo, and Yandex.
 
-The Schema markup aids search engines in understanding and displaying your content in a relevant way. It may improve your brand's findability by leading your website to a higher ranking in search results and, consequently, to more clicks and interactions with your store's website. 
+The Schema markup aids search engines in understanding and displaying your content in a relevant way. It may improve your brand's findability by leading your website to a higher ranking in search results and, as a result, to more clicks and interactions with your store's website. 
 
 ### Flexible backend for frontend architecture
 
