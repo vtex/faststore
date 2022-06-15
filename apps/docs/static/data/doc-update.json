@@ -1,6 +1,32 @@
 [
   {
     "date": "2022-06-15",
+    "type": "Improved",
+    "menu": "References",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/molecules/Card",
+        "title": "Card"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-15",
+    "type": "Added",
+    "menu": "References",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/molecules/ProductCard",
+        "title": "ProductCard"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-15",
     "type": "Added",
     "menu": "References",
     "category": "FastStore UI",
