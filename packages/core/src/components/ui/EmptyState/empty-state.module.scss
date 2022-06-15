@@ -10,9 +10,9 @@
   --fs-empty-state-bkg-color            : var(--fs-color-neutral-bkg);
 
   // Title
-  --fs-empty-state-title-margin-bottom : var(--fs-spacing-2);
-  --fs-empty-state-title-color         : var(--fs-color-disabled-text);
-  --fs-empty-state-title-text-size     : var(--fs-text-size-lead);
+  --fs-empty-state-title-margin-bottom  : var(--fs-spacing-2);
+  --fs-empty-state-title-color          : var(--fs-color-disabled-text);
+  --fs-empty-state-title-size           : var(--fs-text-size-lead);
 
   // Link
   --fs-empty-state-link-min-width       : 11.875rem;
@@ -44,7 +44,7 @@
     color: var(--fs-empty-state-title-color);
 
     p {
-      font-size: var(--fs-empty-state-title-text-size);
+      font-size: var(--fs-empty-state-title-size);
       text-align: center;
     }
   }
