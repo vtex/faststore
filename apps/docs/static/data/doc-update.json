@@ -30,6 +30,56 @@
     ]
   },
   {
+    "date": "2022-06-14",
+    "type": "Improved",
+    "menu": "Reference",
+    "category": "FastStore API",
+    "path": "/reference/api/faststore-api",
+    "docs": [
+      {
+        "path": "/reference/api/faststore-api",
+        "title": "FastStore API"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-14",
+    "type": "Added",
+    "menu": "Reference",
+    "category": "FastStore API",
+    "path": "/reference/api/faststore-api",
+    "docs": [
+      {
+        "path": "/reference/api/get-started",
+        "title": "Get started"
+      },
+      {
+        "path": "/reference/api/queries",
+        "title": "Queries"
+      },
+      {
+        "path": "/reference/api/mutations",
+        "title": "Mutations"
+      },
+      {
+        "path": "/reference/api/objects",
+        "title": "Objects"
+      },
+      {
+        "path": "/reference/api/inputs",
+        "title": "Inputs"
+      },
+      {
+        "path": "/reference/api/enums",
+        "title": "Enums"
+      },
+      {
+        "path": "/reference/api/Scalars",
+        "title": "scalars"
+      }
+    ]
+  },
+  {
     "date": "2022-05-30",
     "type": "Added",
     "menu": "How-to Guides",
