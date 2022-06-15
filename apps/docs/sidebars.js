@@ -34,9 +34,8 @@
               label: 'Troubleshooting',
               collapsed: true,
               link: {
-                type: 'generated-index',
-                title: 'Troubleshooting',
-                slug: 'how-to-guides/general-guideliness',
+                type: 'doc',
+                id: 'how-to-guides/troubleshooting',
               },
               items: [
                 {
