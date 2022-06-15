@@ -23,37 +23,6 @@ Also, thanks to a type-safe **GraphQL** protocol, the FastStore API allows devel
 To learn more about GraphQL and its main concepts, visit the official [GraphQL website](https://graphql.org/).
 :::
 
-## Exploring the API
-
-It is a good idea to explore the FastStore API and get to know the data structure you can query and mutate from your store's frontend. There are a few different ways to do that, as described below.
-
-### Playground
-
-You can use the GraphQL playground below to test and explore the FastStore API.
-
-<GraphQLExplorer query="query {
-          allProducts(first: 10) {
-            edges {
-              node {
-                name
-              }
-            }
-          }
-        }"/>
-
-### GraphiQL
-
-GraphiQL is an IDE you can launch from your browser in order to run GraphQL queries and mutations. This option has the advantage of displaying the reference documentation for each type and field in the `Docs` tab.
-
-To use GraphiQL in your FastStore project, follow these steps:
-1. If you do not have the latest version installed, run `yarn` in your project to reinstall the `@faststore/api` dependency.
-2. Run `yarn develop` to start a local server.
-3. Access GraphiQL by going to this address:
-
-```
-http://localhost:8000/___graphql
-```
-
 ## Key features
 
 FastStore API is based on [**Schema.org**](https://schema.org/) and inspired by **clean architecture**. 
@@ -71,3 +40,19 @@ The FastStore API types and resolvers use a clean architecture to tackle specifi
 1. Develop an ecommerce website with Next.js or Gatsby.
 2. Create an Apollo Server instance on Heroku.
 3. Run the executable schema in a function on Next.js.
+
+## Playground
+
+You can use the GraphQL playground below to test and explore the FastStore API.
+
+<GraphQLExplorer query="query {
+          allProducts(first: 10) {
+            edges {
+              node {
+                name
+              }
+            }
+          }
+        }"/>
+
+You can also install the `@faststore/api` dependency in your project to start exploring the data layer by running a local server. Learn more in the [Get started guide](/reference/api/get-started).
