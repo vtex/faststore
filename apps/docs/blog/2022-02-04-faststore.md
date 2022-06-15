@@ -22,7 +22,7 @@ New Incentive, Link, Card and QuantitySelector components now available in the F
 
 ![link](https://user-images.githubusercontent.com/67270558/152562969-ed41b7a9-babb-482b-9007-a34832533439.gif)
 ### Card
-- 🎉 **New [Card](https://faststore.dev/reference/ui/organisms/Card) organism** - [#1079](https://github.com/vtex/faststore/pull/1079) Use the `Card` component to display summarized information about a product.
+- 🎉 **New [Card](https://faststore.dev/reference/ui/molecules/Card) organism** - [#1079](https://github.com/vtex/faststore/pull/1079) Use the `Card` component to display summarized information about a product.
 
 ![Card](https://user-images.githubusercontent.com/67270558/152563513-5dff3501-a385-4fd5-a09b-4336499b424a.svg)
 
