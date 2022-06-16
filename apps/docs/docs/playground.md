@@ -1,3 +1,7 @@
+---
+description: Explore our playground to grab an idea of the developer experience provided by FastStore.
+---
+
 # Playground
 
 Explore our playground to grab an idea of the **developer experience** provided by **FastStore**.
