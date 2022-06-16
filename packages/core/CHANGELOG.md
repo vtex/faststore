@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Replaces `EmptyState` Related Components with Use Cases section on storybook ([#126](https://github.com/vtex-sites/nextjs.store/pull/126))
 - Tweaks `EmptyState` token name ([#125](https://github.com/vtex-sites/nextjs.store/pull/125))
 - Storybook's version from 6.4.20 to 6.5.9 ([#120](https://github.com/vtex-sites/nextjs.store/pull/120))
 - Unifies `Link` component usage by adding support for both external and client-side links ([#117](https://github.com/vtex-sites/nextjs.store/pull/117))

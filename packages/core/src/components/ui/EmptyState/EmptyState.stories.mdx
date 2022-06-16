@@ -2,11 +2,13 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
 import { TokenTable, TokenRow } from 'src/../.storybook/components'
 
-import EmptyState from '.'
-import EmptyGallery from 'src/components/sections/ProductGallery'
-import EmptyCart from 'src/components/cart/EmptyCart'
+import Button from 'src/components/ui/Button'
+import Icon from 'src/components/ui/Icon'
+import { ButtonLink } from 'src/components/ui/Button'
 
-<Meta component={EmptyState} title="Organisms/EmptyState/Default" />
+import EmptyState from '.'
+
+<Meta component={EmptyState} title="Organisms/EmptyState" />
 
 export const Template = (args) => (
   <EmptyState {...args}>Nothing to display</EmptyState>
@@ -43,6 +45,34 @@ This component represents an empty state, usually used on `EmptyCart` and `Empty
 
 ---
 
+## Nested Elements
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-empty-state-title-margin-bottom"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-empty-state-title-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-empty-state-title-size"
+    value="var(--fs-text-size-lead)"
+  />
+</TokenTable>
+
+### Link
+
+<TokenTable>
+  <TokenRow token="--fs-empty-state-link-min-width" value="11.875rem" />
+</TokenTable>
+
+---
+
 ## Variants
 
 ### Rounded
@@ -56,32 +86,61 @@ This component represents an empty state, usually used on `EmptyCart` and `Empty
 
 ---
 
-## Related Components
+## Use Cases
 
-<section className="sbdocs-section">
-  <article>
-    <div style={{ height: '250px' }}>
-      <a href="?path=/docs/organisms-emptystate-emptycart--default-story">
-        <img width="190px" src="https://vtexhelp.vtexassets.com/assets/docs/src/empty-car___33a48f795ba03130f1bc81f1c075143d.png"/>
-      </a>
-    </div>
-    <article className="sbdocs-section-text">
-      <h3>Empty Cart</h3>
-      <p>
-        Displays the empty cart message along with the `Start Shopping` button.
-      </p>
-    </article>
+### EmptyCart
 
-  </article>
-  <article>
-    <div style={{ height: '250px' }}>
-      <a href="?path=/docs/organisms-emptystate-emptygallery--default-story">
-        <img width="245px" src="https://vtexhelp.vtexassets.com/assets/docs/src/empty-gallery___ede63510d9b1d22e187b095ef04f70f7.png"/>
-      </a>
-    </div>
-    <article className="sbdocs-section-text">
-      <h3>Empty Gallery</h3>
-      <p>Displays the empty gallery message along with some button navigation options.</p>
-    </article>
-  </article>
-</section>
+export const TemplateEmptyCart = () => (
+  <EmptyState>
+    <header data-fs-empty-state-title>
+      <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
+      <p>Your Cart is empty</p>
+    </header>
+    <Button variant="secondary">Start Shopping</Button>
+  </EmptyState>
+)
+
+An implementation of the `EmptyState` that represents the Cart with no items.
+
+<Canvas>
+  <Story name="default-empty-cart">{TemplateEmptyCart.bind({})}</Story>
+</Canvas>
+
+### EmptyGallery
+
+export const TemplateEmptyGallery = (args) => {
+  return (
+    <EmptyState variant="rounded">
+      <header data-fs-empty-state-title>
+        <Icon name="CircleWavyWarning" width={56} height={56} weight="thin" />
+        <p>Nothing matches with your search</p>
+      </header>
+      <ButtonLink
+        data-fs-empty-state-link
+        href="#"
+        variant="secondary"
+        icon={
+          <Icon name="CircleWavyWarning" width={18} height={18} weight="bold" />
+        }
+        iconPosition="left"
+      >
+        Browse Offers
+      </ButtonLink>
+      <ButtonLink
+        data-fs-empty-state-link
+        href="#"
+        variant="secondary"
+        icon={<Icon name="RocketLaunch" width={18} height={18} weight="bold" />}
+        iconPosition="left"
+      >
+        Just Arrived
+      </ButtonLink>
+    </EmptyState>
+  )
+}
+
+An implementation of the `EmptyState` that represents a Gallery with no items.
+
+<Canvas>
+  <Story name="default-empty-gallery">{TemplateEmptyGallery.bind({})}</Story>
+</Canvas>
