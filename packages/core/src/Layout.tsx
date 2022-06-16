@@ -13,7 +13,7 @@ const RegionModal = lazy(
   () => import('src/components/regionalization/RegionalizationModal')
 )
 
-function Layout({ children }: PropsWithChildren<unknown>) {
+function Layout({ children }: PropsWithChildren) {
   const { cart: displayCart, modal: displayModal } = useUI()
 
   return (

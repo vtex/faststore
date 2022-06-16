@@ -107,7 +107,7 @@ interface Context extends State {
 
 const UIContext = createContext<Context | undefined>(undefined)
 
-function UIProvider({ children }: PropsWithChildren<unknown>) {
+function UIProvider({ children }: PropsWithChildren) {
   const [ui, dispatch] = useReducer(reducer, undefined, initializer)
 
   const callbacks = useMemo(
