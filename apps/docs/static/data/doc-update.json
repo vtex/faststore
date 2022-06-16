@@ -2,9 +2,15 @@
   {
     "date": "2022-06-16",
     "type": "Added",
-    "menu": "Documentation",
-    "category": "Playground",
-    "path": "/playground"    
+    "menu": "Playground",
+    "category": "Documentation",
+    "path": "/playground",
+    "docs": [
+      {
+        "path": "/playground",
+        "title": "Playground"
+      }
+    ]
   },
   {
     "date": "2022-06-15",
