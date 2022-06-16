@@ -2,25 +2,29 @@ import { useStorage } from '@faststore/sdk'
 
 const storageKey = 'main::store::searchHistory'
 
-const MAX_HISTORY_SIZE = 5
+const MAX_HISTORY_SIZE = 4
+
+export interface History {
+  term: string
+  path: string
+}
 
 export default function useSearchHistory(
-  history: string[] = [],
+  history: History[] = [],
   maxHistorySize: number = MAX_HISTORY_SIZE
 ) {
-  const [searchHistory, setSearchHistory] = useStorage<string[]>(
+  const [searchHistory, setSearchHistory] = useStorage<History[]>(
     storageKey,
     history
   )
 
-  function addToSearchHistory(term: string) {
-    const newHistory = [...new Set([term, ...searchHistory])]
+  function addToSearchHistory(newHistory: History) {
+    const set = new Set<string>()
+    const newHistoryArray = [newHistory, ...searchHistory]
+      .slice(0, maxHistorySize)
+      .filter((item) => !set.has(item.term) && set.add(item.term), set)
 
-    setSearchHistory(
-      newHistory.length > maxHistorySize
-        ? newHistory.slice(0, maxHistorySize)
-        : newHistory
-    )
+    setSearchHistory(newHistoryArray)
   }
 
   function clearSearchHistory() {

@@ -4,6 +4,9 @@ import type { HTMLAttributes } from 'react'
 
 import { Badge } from 'src/components/ui/Badge'
 import Link from 'src/components/ui/Link'
+import useSearchInput, { formatSearchPath } from 'src/sdk/search/useSearchInput'
+import useTopSearch from 'src/sdk/search/useTopSearch'
+import type { StoreSuggestionTerm } from '@generated/graphql'
 
 export interface SuggestionsTopSearchProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -14,22 +17,27 @@ export interface SuggestionsTopSearchProps
   /**
    * List of top searched items
    */
-  // TODO: Adapts for the real received data type
-  searchedItems: LinkItem[]
-}
-
-type LinkItem = {
-  href: string
-  name: string
+  topTerms?: StoreSuggestionTerm[]
 }
 
 const SuggestionsTopSearch = forwardRef<
   HTMLDivElement,
   SuggestionsTopSearchProps
 >(function SuggestionsTopSearch(
-  { testId = 'top-search', searchedItems, ...otherProps },
+  { testId = 'top-search', topTerms, ...otherProps },
   ref
 ) {
+  const { onSearchInputSelection } = useSearchInput()
+  const { terms, isLoading } = useTopSearch(topTerms)
+
+  if (isLoading) {
+    return <p data-fs-search-input-loading-text>Loading...</p>
+  }
+
+  if (terms.length === 0) {
+    return null
+  }
+
   return (
     <section
       ref={ref}
@@ -41,11 +49,20 @@ const SuggestionsTopSearch = forwardRef<
         <p data-fs-search-suggestion-title>Top Search</p>
       </div>
       <UIList variant="ordered">
-        {searchedItems.map((item, index) => (
-          <li key={item.name} data-fs-search-suggestion-item>
-            <Link variant="display" href={item.href}>
+        {terms.map((term, index) => (
+          <li key={term.value} data-fs-search-suggestion-item>
+            <Link
+              variant="display"
+              href={formatSearchPath(term.value)}
+              onClick={() =>
+                onSearchInputSelection?.(
+                  term.value,
+                  formatSearchPath(term.value)
+                )
+              }
+            >
               <Badge variant="info">{index + 1}</Badge>
-              {item.name}
+              {term.value}
             </Link>
           </li>
         ))}

@@ -65,6 +65,10 @@
 
 [data-store-search-input-wrapper] {
   position: relative;
+
+  [data-fs-search-suggestion-section] + [data-fs-search-input-loading-text] {
+    padding-top: var(--fs-spacing-3);
+  }
 }
 
 [data-store-search-input-dropdown-wrapper] {
@@ -89,6 +93,10 @@
   width: 100vw;
   padding: var(--fs-spacing-3);
   background-color: var(--fs-color-neutral-0);
+
+  &:empty {
+    display: none;
+  }
 
   @include media(">=tablet") {
     top: calc(var(--top) - 1px);

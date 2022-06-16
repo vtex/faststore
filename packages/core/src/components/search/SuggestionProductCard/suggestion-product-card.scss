@@ -1,8 +1,6 @@
 @import "src/styles/scaffold";
 
 [data-fs-suggestion-product-card] {
-  padding: var(--fs-spacing-1) 0;
-
   [data-card-image] {
     display: flex;
   }
@@ -37,5 +35,11 @@
   [data-fs-suggestion-product-card-prices] {
     display: flex;
     align-items: baseline;
+  }
+
+  [data-store-link] {
+    padding: var(--fs-spacing-1) var(--fs-spacing-3);
+    color: inherit;
+    text-decoration: none;
   }
 }

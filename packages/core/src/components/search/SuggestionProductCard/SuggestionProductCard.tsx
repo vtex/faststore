@@ -5,6 +5,7 @@ import Link from 'src/components/ui/Link'
 import Price from 'src/components/ui/Price'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProductLink } from 'src/sdk/product/useProductLink'
+import useSearchInput from 'src/sdk/search/useSearchInput'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
 type SuggestionProductCardProps = {
@@ -13,7 +14,13 @@ type SuggestionProductCardProps = {
 }
 
 function SuggestionProductCard({ product, index }: SuggestionProductCardProps) {
-  const linkProps = useProductLink({ product, selectedOffer: 0, index })
+  const { onSearchInputSelection } = useSearchInput()
+  const { onClick, href, ...linkProps } = useProductLink({
+    product,
+    selectedOffer: 0,
+    index,
+  })
+
   const {
     isVariantOf: { name },
     image: [img],
@@ -25,7 +32,16 @@ function SuggestionProductCard({ product, index }: SuggestionProductCardProps) {
 
   return (
     <Card data-fs-suggestion-product-card data-testid="suggestion-product-card">
-      <Link {...linkProps} title={name} variant="display">
+      <Link
+        {...linkProps}
+        href={href}
+        title={name}
+        variant="display"
+        onClick={() => {
+          onClick()
+          onSearchInputSelection?.(name, href)
+        }}
+      >
         <CardContent>
           <CardImage>
             <Image

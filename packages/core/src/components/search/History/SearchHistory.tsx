@@ -1,46 +1,39 @@
-import { formatSearchState, initSearchState } from '@faststore/sdk'
 import { List as UIList } from '@faststore/ui'
 
 import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
+import useSearchInput from 'src/sdk/search/useSearchInput'
+import type { History } from 'src/sdk/search/useSearchHistory'
 
 export interface SearchHistoryProps {
-  history?: string[]
-  onClear: () => void
+  history?: History[]
 }
 
-const doSearch = (term: string) => {
-  const { pathname, search } = formatSearchState(
-    initSearchState({
-      term,
-      base: '/s',
-    })
-  )
+const SearchHistory = ({ history = [] }: SearchHistoryProps) => {
+  const { onSearchInputSelection } = useSearchInput()
+  const { searchHistory, clearSearchHistory } = useSearchHistory(history)
 
-  return `${pathname}${search}`
-}
-
-const SearchHistory = ({ history = [], onClear }: SearchHistoryProps) => {
-  const { searchHistory } = useSearchHistory(history)
+  if (!searchHistory.length) {
+    return null
+  }
 
   return (
     <section data-fs-search-suggestion-section>
       <div data-fs-search-suggestion-header>
         <p data-fs-search-suggestion-title>History</p>
-        <Button variant="tertiary" onClick={onClear}>
-          Clear
+        <Button variant="tertiary" onClick={clearSearchHistory}>
+          Clear History
         </Button>
       </div>
       <UIList variant="ordered">
         {searchHistory.map((item) => (
-          <li key={item} data-fs-search-suggestion-item>
+          <li key={item.term} data-fs-search-suggestion-item>
             <Link
               variant="display"
-              href={doSearch(item)}
-              target="_blank"
-              rel="noreferrer"
+              href={item.path}
+              onClick={() => onSearchInputSelection?.(item.term, item.path)}
             >
               <Icon
                 name="Clock"
@@ -48,7 +41,7 @@ const SearchHistory = ({ history = [], onClear }: SearchHistoryProps) => {
                 height={18}
                 data-fs-search-suggestion-item-icon
               />
-              {item}
+              {item.term}
             </Link>
           </li>
         ))}
