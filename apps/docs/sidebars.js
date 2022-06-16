@@ -18,6 +18,7 @@
       link: { type: 'generated-index', title: 'Docs', slug: 'docs' },
       items: [
         'quickstart',
+        'playground',
         {
           type: 'category',
           label: 'How-to Guides',
