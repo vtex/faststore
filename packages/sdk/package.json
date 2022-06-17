@@ -23,6 +23,7 @@
   "scripts": {
     "develop": "tsdx watch",
     "build": "tsdx build",
+    "lint": "eslint src/**/*.{ts,tsx}",
     "test": "tsdx test",
     "size": "size-limit",
     "analyze": "size-limit --why"
