@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.9.8 (2022-06-17)
+
+
+### Features
+
+* lint ([#1368](https://github.com/vtex/faststore/issues/1368)) ([66ce99f](https://github.com/vtex/faststore/commit/66ce99f310ec593245e3937daea5ed813e1630e6))
+
+
+
+
+
 ## [1.9.7](https://github.com/vtex/faststore/compare/v1.9.6...v1.9.7) (2022-06-13)
 
 
