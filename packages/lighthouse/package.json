@@ -19,8 +19,8 @@
     "src"
   ],
   "scripts": {
-    "develop": "tsdx watch",
-    "build": "tsdx build",
+    "develop": "tsc --watch",
+    "build": "tsc",
     "lint": "eslint src/**/*.ts",
     "test": "tsdx test --passWithNoTests"
   },
