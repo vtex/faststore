@@ -2,6 +2,7 @@
 id: 4
 title: "Part 3: Understanding the project structure"
 sidebar_label: "3. Understanding the project structure"
+pagination_label: Part 3
 ---
 
 *Find out how to organize your FastStore + Gatsby project and get to know our recommended conventions for naming files and folders.*

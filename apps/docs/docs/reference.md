@@ -1,6 +1,7 @@
 ---
 hide_table_of_contents: true
 pagination_next: null
+pagination_prev: null
 ---
 
 import IconGrid from "@site/src/components/IconGrid/IconGrid";

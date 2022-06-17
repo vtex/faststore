@@ -2,6 +2,7 @@
 id: 3
 description: Define which content of the storefront will be editable via the VTEX Headless CMS.
 sidebar_label: '3. Adding Content Types and Sections to the VTEX Headless CMS'
+pagination_label: Part 3
 ---
 
 import Tabs from '@theme/Tabs'

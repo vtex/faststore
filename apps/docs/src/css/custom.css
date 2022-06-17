@@ -327,6 +327,10 @@ code {
   background-color: var(--ifm-code-background) !important;
 }
 
+[class^='pagination-nav']{
+  @apply flex justify-between !important;
+}
+
 [class^='codeBlockTitle'] {
   @apply border-none bg-code !important;
 }
@@ -361,4 +365,16 @@ code {
 
 [class^='menu__link'] svg{
 @apply inline-block
+}
+
+.checklistList{
+  @apply flex items-start
+}
+
+.checklistList label {
+  @apply ml-3
+}
+
+.checklistDetails{
+  @apply my-1 ml-4 pl-3 block text-sm text-details
 }

@@ -2,6 +2,7 @@
 id: 1
 description: Set up all the necessary tools to integrate your FastStore project with the VTEX Headless CMS.
 sidebar_label: "1. Configuring your VTEX account"
+pagination_label: Part 1
 ---
 
 # Part 1: Configuring your VTEX account

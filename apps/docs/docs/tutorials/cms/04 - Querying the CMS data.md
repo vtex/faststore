@@ -2,6 +2,7 @@
 id: 4
 description: Adapt your storefront components to consume data from the VTEX Headless CMS.
 sidebar_label: "4. Querying the CMS data"
+pagination_label: Part 4
 ---
 
 # Part 4: Querying the CMS data
