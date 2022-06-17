@@ -12,6 +12,7 @@ const PropsSection = ({ name }) => {
 
   return Object.keys(props).map(key => (
     <PropsComponent
+      key={key}
       name={key}
       type={props[key].type?.name}
       defaultValue={props[key].defaultValue?.value ?? null}
