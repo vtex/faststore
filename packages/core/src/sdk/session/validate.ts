@@ -1,4 +1,4 @@
-import { gql } from '@vtex/graphql-utils'
+import { gql } from '@faststore/graphql-utils'
 import type { Session } from '@faststore/sdk'
 
 import type {

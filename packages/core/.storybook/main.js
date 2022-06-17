@@ -15,7 +15,7 @@ module.exports = {
   staticDirs: ['../public'],
   webpackFinal: async (config) => {
     config.module.rules[0].use[0].options.plugins.push(
-      require.resolve('@vtex/graphql-utils/babel')
+      require.resolve('@faststore/graphql-utils/babel')
     )
 
     config.resolve.plugins = [

@@ -1,5 +1,5 @@
-import { request as baseRequest } from '@vtex/graphql-utils'
-import type { RequestOptions as GraphQLRequestOptions } from '@vtex/graphql-utils'
+import { request as baseRequest } from '@faststore/graphql-utils'
+import type { RequestOptions as GraphQLRequestOptions } from '@faststore/graphql-utils'
 
 export type RequestOptions = Omit<
   GraphQLRequestOptions,

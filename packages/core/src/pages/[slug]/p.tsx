@@ -1,6 +1,6 @@
 import { isNotFoundError } from '@faststore/api'
 import { useSession } from '@faststore/sdk'
-import { gql } from '@vtex/graphql-utils'
+import { gql } from '@faststore/graphql-utils'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 

@@ -1,4 +1,4 @@
 {
   "presets": ["next/babel"],
-  "plugins": ["@vtex/graphql-utils/babel"]
+  "plugins": ["@faststore/graphql-utils/babel"]
 }

@@ -1,5 +1,5 @@
 import { useSearch } from '@faststore/sdk'
-import { gql } from '@vtex/graphql-utils'
+import { gql } from '@faststore/graphql-utils'
 
 import { useQuery } from 'src/sdk/graphql/useQuery'
 import type {

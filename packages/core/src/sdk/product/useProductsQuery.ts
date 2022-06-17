@@ -1,5 +1,5 @@
 import { useSession } from '@faststore/sdk'
-import { gql } from '@vtex/graphql-utils'
+import { gql } from '@faststore/graphql-utils'
 import { useCallback, useMemo } from 'react'
 
 import { ITEMS_PER_SECTION } from 'src/constants'

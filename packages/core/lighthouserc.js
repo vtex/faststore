@@ -1,8 +1,8 @@
-const VTEXLHConfig = require('@vtex/lighthouse-config').default
+const lhConfig = require('@faststore/lighthouse').default
 
 const { lighthouse: lh } = require('./store.config')
 
-module.exports = VTEXLHConfig({
+module.exports = lhConfig({
   urls: Object.values(lh.pages),
   server: lh.server,
   assertions: {

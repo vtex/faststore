@@ -18,4 +18,4 @@ generates:
       - typescript-operations
   ./@generated/graphql/persisted.json:
     plugins:
-      - '@vtex/graphql-utils/codegen'
+      - '@faststore/graphql-utils/codegen'
