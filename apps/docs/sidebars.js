@@ -13,9 +13,10 @@
   docsSidebar: [
     {
       type: 'category',
-      label: 'Docs',
+      label: 'Documentation',
       collapsed: false,
-      link: { type: 'generated-index', title: 'Docs', slug: 'docs' },
+      collapsible: false,
+      link: { type: 'generated-index', title: 'Documentation', slug: 'docs' },
       items: [
         'quickstart',
         'playground',
@@ -331,12 +332,13 @@
       type: 'category',
       label: 'Tutorials',
       collapsed: false,
+      collapsible: false,
       link: { type: 'doc', id: 'tutorials' },
       items: [
         {
           type: 'category',
           label: 'Fundamentals',
-          collapsed: false,
+          collapsed: true,
           items: [
             'tutorials/fundamentals/0',
             'tutorials/fundamentals/1',
@@ -346,7 +348,7 @@
         {
           type: 'category',
           label: 'Creating storefronts with Gatsby',
-          collapsed: false,
+          collapsed: true,
           link: { type: 'doc', id: 'tutorials/gatsby-overview' },
           items: [
             {
@@ -358,7 +360,7 @@
         {
           type: 'category',
           label: 'Integrating your storefront with VTEX Headless CMS',
-          collapsed: false,
+          collapsed: true,
           link: { type: 'doc', id: 'tutorials/cms-overview' },
           items: [
             {

@@ -2,6 +2,7 @@
 id: 5
 title: "Part 4: Using FastStore UI components"
 sidebar_label: "4. Using FastStore UI components"
+pagination_label: Part 4
 ---
 
 *Get to know FastStore UI - a lightweight, performant, and ecommerce-ready component library.*

@@ -55,7 +55,7 @@ module.exports = {
       items: [
         {
           href: '/docs',
-          label: 'Docs',
+          label: 'Documentation',
           position: 'left',
         },
         {
@@ -191,7 +191,7 @@ module.exports = {
           routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
-            'https://github.com/vtex/faststore/edit/main/docs',
+            'https://github.com/vtex/faststore/edit/main/apps/docs',
         },
         blog: {
           routeBasePath: 'releases',

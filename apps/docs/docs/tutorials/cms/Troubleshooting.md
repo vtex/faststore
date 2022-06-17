@@ -1,6 +1,7 @@
 ---
 description: Troubleshoot errors that have already tricked other FastStore users throughout the VTEX Headless CMS integration.
 sidebar_label: Troubleshooting
+pagination_next: null
 ---
 
 # Troubleshooting - VTEX Headless CMS integration 

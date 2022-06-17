@@ -3,6 +3,7 @@ id: 0
 description: Discover the advantages of integrating your FastStore project with a CMS and get to know the VTEX Headless CMS.
 sidebar_label: "0. Introducing the VTEX Headless CMS"
 toc_max_heading_level: 4
+pagination_label: Introduction
 ---
 
 # Part 0: Introducing the VTEX Headless CMS
