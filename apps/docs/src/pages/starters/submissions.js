@@ -12,7 +12,7 @@ function Submissions() {
                     <div className="tracking-wider uppercase text-sm text-fontSecondary"><Link href="/starters">← Back</Link></div>
                     <p className="pt-20 uppercase text-sm text-seriousBlack font-bold">Starter Community</p>
                     <h1 className="text-5xl text-seriousBlack font-VTEXTrust py-5">Submit your starter</h1>
-                    <p className='text-lg pt-3 text-[#4A596B]'>Submit your starter and get featured on the FastStore Community Starters Library! If your starter meets our basic standards, we'll add it as quickly as possible to the Library.</p>
+                    <p className='text-lg pt-3 text-[#4A596B]'>Submit your starter and get featured on the FastStore Community Starters Library! If your starter meets our basic standards, {"we'll"} add it as quickly as possible to the Library.</p>
                 </div>
                 <img src ="https://vtexhelp.vtexassets.com/assets/docs/src/starter-submissions___d566d94c0e7e97fe4393a8eee8f3eec0.png"
                     className='block sm:w-1/3 sm:object-contain pt-12 sm:ml-10' />
