@@ -2,7 +2,7 @@ import React from 'react'
 import { ApolloExplorerReact } from '@apollo/explorer'
 import { useColorMode } from '@docusaurus/theme-common'
 
-var GraphQLExplorer = function ({ query, vars }) {
+const GraphQLExplorer = function ({ query, vars }) {
   const { isDarkTheme } = useColorMode()
   return (
     <div>

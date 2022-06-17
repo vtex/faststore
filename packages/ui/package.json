@@ -24,6 +24,7 @@
   "scripts": {
     "develop": "tsdx watch",
     "build": "tsdx build",
+    "lint": "eslint src/**/*.{ts,tsx}",
     "test": "tsdx test --passWithNoTests",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
     "size": "size-limit",

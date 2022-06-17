@@ -21,6 +21,7 @@
   "scripts": {
     "develop": "tsdx watch",
     "build": "tsdx build",
+    "lint": "eslint src/**/*.ts",
     "test": "tsdx test --passWithNoTests"
   },
   "devDependencies": {

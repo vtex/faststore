@@ -3,8 +3,8 @@ import type { MouseEventHandler } from 'react'
 
 
 interface CodeBlockWrapperState {
-  isCodeBlockCollapsed: Boolean
-  isCollapsibleModeOn: Boolean
+  isCodeBlockCollapsed: boolean
+  isCollapsibleModeOn: boolean
 }
 
 interface CodeBlockWrapperProps {

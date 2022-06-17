@@ -30,7 +30,7 @@ function StarterSubmissionForm() {
         ).then(() => setIsSent(true))
         .catch(() => alert("There was an error, please try again"))
     }
-    const thankYouMessage = <p className="text-seriousBlack">Thank you for submitting your Starter! We'll get in touch with you as soon as possible!</p>
+    const thankYouMessage = <p className="text-seriousBlack">Thank you for submitting your Starter! {"We'll"} get in touch with you as soon as possible!</p>
     const form = <form className={styles.submissionForm} onSubmit={submitStarter}>
         <label htmlFor="ContactEmail">Contact Email</label>
         <input
@@ -71,7 +71,7 @@ function StarterSubmissionForm() {
         <label htmlFor="Description">Description of Starter ({textAreaCount}/200)</label>
         <textarea
             required
-            maxlength="200"
+            maxLength="200"
             placeholder="Description of Starter (Content limited to 200 characters)"
             name="Description"
             value={Description}
@@ -80,7 +80,7 @@ function StarterSubmissionForm() {
         <label htmlFor="Features">Significant features (1 per line)</label>
         <textarea
             required
-            maxlength="200"
+            maxLength="200"
             placeholder="Features"
             name="Features"
             value={Features}

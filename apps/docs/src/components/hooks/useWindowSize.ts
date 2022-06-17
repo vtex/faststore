@@ -11,9 +11,9 @@ export function useWindowSize(): WindowSizeInterface {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
   const [windowSize, setWindowSize] = useState<WindowSizeInterface>({
-    windowWidth: undefined,
-    windowHeight: undefined,
-    scrollHeight: undefined,
+    windowWidth: 0,
+    windowHeight: 0,
+    scrollHeight: 0,
   });
 
   // Return if running on server
@@ -21,6 +21,7 @@ export function useWindowSize(): WindowSizeInterface {
     return { windowWidth: 0, windowHeight: 0, scrollHeight: 0 };
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     function handleResize() {
       setWindowSize({

@@ -29,7 +29,7 @@ const StarterComponentPage = ({ data = {} }) => {
             </p>
             <ul>
               {data.features?.map((feature) => (
-                <li className=" ml-5 list-disc">{feature}</li>
+                <li key={feature} className=" ml-5 list-disc">{feature}</li>
               ))}
             </ul>
           </div>

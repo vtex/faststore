@@ -76,7 +76,7 @@ describe('Accordion', () => {
 
   it('should show panel specified by `indices`', () => {
     const { getAllByTestId } = render(
-      <Accordion indices={[1]} onChange={() => {}}>
+      <Accordion indices={[1]} onChange={() => null}>
         <AccordionItem>
           <AccordionButton />
           <AccordionPanel testId="store-accordion-panel-mock" />
@@ -97,13 +97,13 @@ describe('Accordion', () => {
   it('should prevent duplicate IDs when using the `prefixID` attribute', () => {
     const { getAllByTestId } = render(
       <>
-        <Accordion indices={[]} onChange={() => {}}>
+        <Accordion indices={[]} onChange={() => null}>
           <AccordionItem prefixId="filter">
             <AccordionButton testId="data-accordion-button" />
             <AccordionPanel testId="data-accordion-panel" />
           </AccordionItem>
         </Accordion>
-        <Accordion indices={[]} onChange={() => {}}>
+        <Accordion indices={[]} onChange={() => null}>
           <AccordionItem prefixId="footer">
             <AccordionButton testId="data-accordion-button" />
             <AccordionPanel testId="data-accordion-panel" />

@@ -7,7 +7,7 @@ import Bullets from './Bullets'
 describe('Bullets', () => {
   it('should have `data-store-bullets` attribute', () => {
     const { getByTestId } = render(
-      <Bullets totalQuantity={5} activeBullet={2} onClick={() => {}} />
+      <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
     )
 
     expect(getByTestId('store-bullets')).toHaveAttribute('data-store-bullets')
@@ -15,7 +15,7 @@ describe('Bullets', () => {
 
   it('should render 5 bullets with `data-bullet-item` attribute', () => {
     const { queryAllByTestId } = render(
-      <Bullets totalQuantity={5} activeBullet={2} onClick={() => {}} />
+      <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
     )
 
     const bulletItems = queryAllByTestId('store-bullets-item')
@@ -29,7 +29,7 @@ describe('Bullets', () => {
 
   it('should render only the currently active bullet with an `aria-selected` equal to true', () => {
     const { queryAllByTestId } = render(
-      <Bullets totalQuantity={5} activeBullet={2} onClick={() => {}} />
+      <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
     )
 
     const bulletItems = queryAllByTestId('store-bullets-item')
@@ -78,7 +78,7 @@ describe('Bullets', () => {
   describe('Accessibility', () => {
     it('should have no violations on a default use case', async () => {
       const { getByTestId } = render(
-        <Bullets totalQuantity={5} activeBullet={2} onClick={() => {}} />
+        <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
       )
 
       expect(await axe(getByTestId('store-bullets'))).toHaveNoViolations()
@@ -91,7 +91,7 @@ describe('Bullets', () => {
           <Bullets
             totalQuantity={1}
             activeBullet={0}
-            onClick={() => {}}
+            onClick={() => null}
             ariaControlsGenerator={(idx: number) => `item-${idx + 1}`}
           />
         </>
@@ -108,7 +108,7 @@ describe('Bullets', () => {
           <Bullets
             totalQuantity={2}
             activeBullet={0}
-            onClick={() => {}}
+            onClick={() => null}
             ariaControlsGenerator={(idx: number) => `item-${idx + 1}`}
           />
         </>
