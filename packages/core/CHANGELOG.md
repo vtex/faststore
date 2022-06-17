@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Displays the `Sandbox` tab on the storybook along with `Viewport` toolbar and `Accessibility` checks ([#129](https://github.com/vtex-sites/nextjs.store/pull/129))
 - The search input now includes the last 4 previously searched terms (`SearchHistory`) ([#112](https://github.com/vtex-sites/nextjs.store/pull/112)).
 - The top 5 searches (`SuggestionsTopSearch`) are now integrated into the search input ([#112](https://github.com/vtex-sites/nextjs.store/pull/112)).
 - Applies new local tokens to `EmptyState` ([#122](https://github.com/vtex-sites/nextjs.store/pull/122))
@@ -32,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Some console errors when running the storybook ([#129](https://github.com/vtex-sites/nextjs.store/pull/129))
 - The search input's dropdown not closing when a suggested product was selected ([#112](https://github.com/vtex-sites/nextjs.store/pull/112).
 - Status code when error occurs (404/500) ([#116](https://github.com/vtex-sites/nextjs.store/pull/116))
 

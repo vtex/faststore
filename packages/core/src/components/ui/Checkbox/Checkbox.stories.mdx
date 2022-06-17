@@ -30,7 +30,7 @@ import {
 
 export const Template = ({ id, ...args }) => (
   <div style={{ display: 'flex' }}>
-    <Checkbox id={id} {...args} />
+    <Checkbox id={id} {...args} onChange={() => {}} />
     <label htmlFor={id} style={{ paddingLeft: '1rem' }}>
       label
     </label>

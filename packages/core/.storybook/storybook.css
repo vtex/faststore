@@ -66,7 +66,7 @@ h3.sbdocs.sbdocs-h3 {
   background-color: var(--fs-color-neutral-1);
 }
 
-.sbdocs-table .token-divider td:first-child {
+.sbdocs-table .token-divider td:first-of-type {
   border-right: none;
 }
 
@@ -172,4 +172,24 @@ h3.sbdocs.sbdocs-h3 {
   height: 160px;
   background-color: var(--fs-color-neutral-1);
   border-radius: var(--fs-border-radius);
+}
+
+/* Callout */
+
+.sbdocs-callout {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--fs-spacing-2);
+  margin-top: var(--fs-spacing-4);
+  background-color: var(--fs-color-neutral-1);
+  border-radius: var(--fs-border-radius);
+}
+
+.sbdocs-callout span {
+  margin-right: var(--fs-spacing-2);
+  font-size: var(--fs-text-size-4);
+}
+
+.sbdocs-callout small {
+  font-size: var(--fs-text-size-1);
 }
