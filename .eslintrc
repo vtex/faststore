@@ -21,8 +21,15 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
-    "react/prop-types": ["error", { "skipUndeclared": true }],
-    "@typescript-eslint/no-non-null-assertion": "warn"
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "_+"
+      }
+    ],
+    "@typescript-eslint/no-non-null-assertion": "warn",
+    "react/prop-types": ["error", { "skipUndeclared": true }]
   },
   "settings": {
     "react": {
