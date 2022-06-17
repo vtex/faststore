@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.9.9 (2022-06-17)
+
+
+### Bug Fixes
+
+* add outdir to all tsconfig ([#1372](https://github.com/vtex/faststore/issues/1372)) ([8f847d9](https://github.com/vtex/faststore/commit/8f847d938b0ac66433a248bc77e77a21475b65db))
+* prettier format files ([#1369](https://github.com/vtex/faststore/issues/1369)) ([7f42ea9](https://github.com/vtex/faststore/commit/7f42ea913ee60333fe32434491f9be83c29a165d))
+
+
+
+
+
 ## 1.9.8 (2022-06-17)
 
 
