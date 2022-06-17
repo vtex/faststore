@@ -25,6 +25,22 @@ import { Button } from '@faststore/ui'
 ```
 
 ### Use cases
+- An *add to cart* type of button.
+- A *see more* type of button.
+- An *subscription* type of button.
+
+```tsx live
+<Card>
+    <img
+      alt="A vintage camera"
+      src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
+    />
+    <div>
+    <Button class="bg-green-500">ADD TO CART</Button>
+
+    </div>
+</Card>
+```
 
 ## Props
 
@@ -39,6 +55,7 @@ import { Button } from '@faststore/ui'
 ### Do's
 
 ### Don'ts
+- Don't place buttons next to badges. Although badges and buttons are similar in appearance, buttons interactive and may confuse users if not used in the proper context.
 
 ## Accessibility
 - Use `<button>` or `<input>` tags with `type="button"` to identify the element as a button.
