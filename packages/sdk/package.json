@@ -30,11 +30,7 @@
   },
   "size-limit": [
     {
-      "path": "dist/sdk.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/sdk.esm.js",
+      "path": "dist/index.js",
       "limit": "10 KB"
     }
   ],
@@ -42,11 +38,11 @@
     "react": "^17.0.2"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.10.2",
+    "@size-limit/preset-small-lib": "^7.0.8",
     "@testing-library/react-hooks": "^7.0.2",
     "fake-indexeddb": "^3.1.3",
     "react": "^17.0.2",
-    "size-limit": "^4.10.2",
+    "size-limit": "^7.0.8",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^4.6.2"
