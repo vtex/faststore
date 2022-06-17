@@ -24,6 +24,7 @@
   "scripts": {
     "develop": "tsdx watch",
     "build": "tsdx build",
+    "lint": "eslint src/**/*.{ts,tsx}",
     "test": "tsdx test --passWithNoTests",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
     "size": "size-limit",
@@ -79,6 +80,7 @@
     "@vtex/theme-b2c-tailwind": "^1.8.42",
     "@vtex/tsconfig": "^0.5.0",
     "chalk": "^5.0.0",
+    "eslint": "^8.17.0",
     "jest-axe": "^5.0.1",
     "jest-matcher-utils": "^27.4.2",
     "react": "^17.0.2",
