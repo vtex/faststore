@@ -16,11 +16,8 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
     { children, onClick, testId = 'store-dropdown-item', ...otherProps },
     ref
   ) {
-    const {
-      dropdownItemsRef,
-      selectedDropdownItemIndexRef,
-      close,
-    } = useDropdown()
+    const { dropdownItemsRef, selectedDropdownItemIndexRef, close } =
+      useDropdown()
 
     const [dropdownItemIndex, setDropdownItemIndex] = useState(0)
     const dropdownItemRef = useRef<HTMLButtonElement>()

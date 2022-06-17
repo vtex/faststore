@@ -19,20 +19,20 @@ To complete this guide, you must have the VTEX IO CLI installed in your machine.
 
 ### Step 1 - Uninstalling the deprecated plugin
 
-Before proceeding any further, make sure to uninstall the deprecated `gatsby-plugin-cms` from your FastStore project. 
+Before proceeding any further, make sure to uninstall the deprecated `gatsby-plugin-cms` from your FastStore project.
 
-1. Open the terminal and **change to the root directory of your FastStore project.** 
+1. Open the terminal and **change to the root directory of your FastStore project.**
 2. Remove the `gatsby-plugin-cms` plugin from your project by running the following command:
 
-    ```bash
-    yarn remove @vtex/gatsby-plugin-cms
-    ```
+   ```bash
+   yarn remove @vtex/gatsby-plugin-cms
+   ```
 
 3. Also, remove the files related to the deprecated `gatsby-plugin-cms` plugin:
 
-    ```bash
-    rm -rf ./src/@vtex/gatsby-plugin-cms/
-    ```
+   ```bash
+   rm -rf ./src/@vtex/gatsby-plugin-cms/
+   ```
 
 ### Step 2 - Installing the `gatsby-source-cms` plugin
 
@@ -46,31 +46,31 @@ Now that you have uninstalled the deprecated plugin, you're ready to install the
 
 2. Open the `gatsby-config.js` file and update it to fetch the CMS pages using the new Gatsby plugin as in the following:
 
-    ```diff
-    -{
-    -  resolve: '@vtex/gatsby-plugin-cms',
-    -  options: {
-    -    tenant: account,
-    -    workspace,
-    -    environment,
-    -  },
-    -},
+   ```diff
+   -{
+   -  resolve: '@vtex/gatsby-plugin-cms',
+   -  options: {
+   -    tenant: account,
+   -    workspace,
+   -    environment,
+   -  },
+   -},
 
-    +{
-    +  resolve: '@vtex/gatsby-source-cms',
-    +  options: {
-    +    workspace, // workspace you're using to develop or master
-    +    tenant: account, // the name of your VTEX account 
-    +  },
-    +},
-    ```
+   +{
+   +  resolve: '@vtex/gatsby-source-cms',
+   +  options: {
+   +    workspace, // workspace you're using to develop or master
+   +    tenant: account, // the name of your VTEX account
+   +  },
+   +},
+   ```
 
 ### Step 3 - Recovering Content Types, Sections and Translation Keys
 
 Now, it's time to set up the folder structure necessary for the `gatsby-source-cms` plugin to function and recover your Content Types, Sections, and Translation Keys definitions.
 
 1. Create a new folder called `cms` in the root directory of your project:
-   
+
    ```bash
    mkdir cms
    ```
@@ -114,6 +114,7 @@ wget https://{account}.vtex.app/page-data/_cms/sections.json -O ./cms/sections.j
 wget https://{account}.vtex.app/page-data/_cms/content-types.json -O ./cms/content-types.json
 wget https://{account}.vtex.app/page-data/_cms/translation-keys.json -O ./cms/translation-keys.json
 ```
+
 </TabItem>
 </Tabs>
 
@@ -124,7 +125,7 @@ Now, look for the `sections.json`, `content-types.json`, and `translation-keys.j
 Even though you can reuse most of your Content Type, Section, and Translation Key definitions, you might need to adapt some of your schemas and queries to guarantee that the migration will be successful.
 
 1. Open the terminal and run `yarn develop` to start a local development server.
-2. Open the Graph*i*QL IDE ([http://localhost:8000/__graphql](http://localhost:8000/__graphql)) and test your old queries, making sure they are compatible with the `gatsby-source-cms` plugin. Notice that you may need to adapt some queries to use `data` instead of `props`.
+2. Open the Graph*i*QL IDE ([http://localhost:8000/\_\_graphql](http://localhost:8000/__graphql)) and test your old queries, making sure they are compatible with the `gatsby-source-cms` plugin. Notice that you may need to adapt some queries to use `data` instead of `props`.
 3. If necessary, open your project and update the GraphQL queries used in your components.
 
 ### Step 4 - Syncing your changes
@@ -132,34 +133,36 @@ Even though you can reuse most of your Content Type, Section, and Translation Ke
 You can now sync your Content Type, Section, and Translation Key definitions with your VTEX account. This will allow you to see your definitions in the VTEX Headless CMS via the Admin interface.
 
 1. Open the terminal and log in to your VTEX account.
-   - *Replace the value between curly brackets according to your scenario.*
-   
-    ```bash
-    vtex login {account}
-    ```
+
+   - _Replace the value between curly brackets according to your scenario._
+
+   ```bash
+   vtex login {account}
+   ```
 
 2. Create a new development workspace to test your Content Types, Sections and Translation Keys locally.
-   - *Replace the value between curly brackets according to your scenario.*
 
-    ```bash
-    vtex use {workspace}
-    ```
+   - _Replace the value between curly brackets according to your scenario._
+
+   ```bash
+   vtex use {workspace}
+   ```
 
 3. Install the VTEX Headless CMS plugin for the VTEX IO CLI:
 
-    ```bash
-    vtex plugins install cms
-    ```
+   ```bash
+   vtex plugins install cms
+   ```
 
 4. Sync your changes in the `cms` folder with your VTEX workspace by running the following command:
 
-    ```bash
-    vtex cms sync
-    ```
+   ```bash
+   vtex cms sync
+   ```
 
-    :::info
-    Use the `--watch` argument to automatically sync your changes with the VTEX Headless CMS app while developing your schemas as in the following: `vtex cms sync --watch`.
-    :::
+   :::info
+   Use the `--watch` argument to automatically sync your changes with the VTEX Headless CMS app while developing your schemas as in the following: `vtex cms sync --watch`.
+   :::
 
 ---
 

@@ -34,6 +34,7 @@ From the command line in your project directory, run yarn add `@faststore/sdk`.
 ```cmd
 yarn add @faststore/sdk
 ```
+
 ## Usage
 
 ```tsx
@@ -53,4 +54,5 @@ function MyComponent {
 ```
 
 ## Docs
+
 For more information, please refer to our documentation: https://faststore.dev/reference/sdk/overview

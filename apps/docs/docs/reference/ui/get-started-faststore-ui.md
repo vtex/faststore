@@ -41,30 +41,21 @@ Check a live and interactive demo of the `Card` component.
     />
   </CardImage>
   <CardContent>
-    <h3>
-      Vintage Top Camera
-    </h3>
+    <h3>Vintage Top Camera</h3>
     <div>
       <Price
         style={{
-          textDecoration: 'line-through'
+          textDecoration: 'line-through',
         }}
         value={89.9}
         variant="selling"
       />
-      <Price
-        value={68.9}
-        variant="selling"
-      />
+      <Price value={68.9} variant="selling" />
     </div>
-    <Badge>
-      15% OFF
-    </Badge>
+    <Badge>15% OFF</Badge>
   </CardContent>
   <CardActions>
-    <Button onClick={function noRefCheck(){}}>
-      Add to Cart
-    </Button>
+    <Button onClick={function noRefCheck() {}}>Add to Cart</Button>
   </CardActions>
 </Card>
 ```

@@ -19,5 +19,4 @@ Launch our **CodeSandbox** to instantly run a FastStore website, play around wit
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
 
-
 [![Edit nextjs.store](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nextjs-store-5q6d95?fontsize=14&hidenavigation=1&theme=dark)

@@ -23,17 +23,17 @@ For more information, please refer to [Setting up the secrets file](/how-to-guid
 1. Open your FastStore project in any code editor of your choice.
 2. Open the `secrets.revealed.json` file. Notice that the `account` key-value pair is already defined in the `secrets.revealed.json` file.
 3. According to your scenario, add, modify or delete secrets in the `secrets.revealed.json` file. Keep in mind that secret names must obey the following javascript pattern: `^[a-zA-Z_][a-zA-Z0-9_]*$`. Also, remember that secrets must be defined as key-value items as in the following example:
-   
-    ```json
-    {
-        "account": "account-name",
-        "name_of_the_secret": "value of the secret"
-    }
-    ```
 
-    :::caution
-    Do not remove the `account` item from the `secrets.revealed.json` file since this information is necessary to build the store.
-    :::
+   ```json
+   {
+     "account": "account-name",
+     "name_of_the_secret": "value of the secret"
+   }
+   ```
+
+   :::caution
+   Do not remove the `account` item from the `secrets.revealed.json` file since this information is necessary to build the store.
+   :::
 
 ### Step 2 - Hiding your store secrets
 
@@ -43,8 +43,8 @@ To encrypt your secrets, run the following command:
 
 ```sh
 vtex secrets hide
-``` 
+```
 
-That's all! Now you can commit and push your changes to your remote repository. 
+That's all! Now you can commit and push your changes to your remote repository.
 
-Notice that whenever you need to update your Secrets, you must run `vtex secrets reveal` to first decrypt them. The Secrets file extension will change back to `secrets.revealed.json` and you'll be able to edit it. Once you finish your changes, you must run `vtex secrets hide` again. 
+Notice that whenever you need to update your Secrets, you must run `vtex secrets reveal` to first decrypt them. The Secrets file extension will change back to `secrets.revealed.json` and you'll be able to edit it. Once you finish your changes, you must run `vtex secrets hide` again.

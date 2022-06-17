@@ -77,16 +77,18 @@ const Resolvers = {
   Mutation,
 }
 
-export const getContextFactory = (options: Options) => (ctx: any): Context => {
-  ctx.storage = {
-    channel: ChannelMarshal.parse(options.channel),
-    flags: options.flags ?? {},
-    locale: options.locale,
-  }
-  ctx.clients = getClients(options, ctx)
-  ctx.loaders = getLoaders(options, ctx)
+export const getContextFactory =
+  (options: Options) =>
+  (ctx: any): Context => {
+    ctx.storage = {
+      channel: ChannelMarshal.parse(options.channel),
+      flags: options.flags ?? {},
+      locale: options.locale,
+    }
+    ctx.clients = getClients(options, ctx)
+    ctx.loaders = getLoaders(options, ctx)
 
-  return ctx
-}
+    return ctx
+  }
 
 export const getResolvers = (_: Options) => Resolvers

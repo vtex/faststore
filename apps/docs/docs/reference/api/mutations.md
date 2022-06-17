@@ -31,7 +31,6 @@ Shopping cart identifier.
 </tbody>
 </table>
 
-
 ## Session
 
 <table>
@@ -60,4 +59,3 @@ Web session identifier.
 </tr>
 </tbody>
 </table>
-

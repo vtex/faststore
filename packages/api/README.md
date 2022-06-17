@@ -28,9 +28,11 @@ From the command line in your project directory, run yarn add `@faststore/api`.
 ```cmd
 yarn add @faststore/api
 ```
+
 ## Usage
 
-With servers like express: 
+With servers like express:
+
 ```ts
 import { execute } from 'graphql'
 import { getSchema } from '@faststore/api'
@@ -45,7 +47,7 @@ app.get('/graphql', async (req, res) => {
   const result = await execute({
     schema: await getSchema(),
     variableValues: variables,
-    operationName
+    operationName,
   })
 
   res.status(200)
@@ -54,4 +56,5 @@ app.get('/graphql', async (req, res) => {
 ```
 
 ## Docs
+
 For more information, please refer to our documentation: https://faststore.dev/reference/api/faststore-api

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './FeedbackModal.module.css'
 import { v1 as uuidv1 } from 'uuid'
-import ReactGA from "react-ga4";
+import ReactGA from 'react-ga4'
 
 class FeedbackModal extends React.Component {
   constructor(props) {
@@ -54,16 +54,16 @@ class FeedbackModal extends React.Component {
       message: this.state.message,
       email: this.state.email,
     }
-    
-    ReactGA.initialize("G-MWFMZBZPHF");
+
+    ReactGA.initialize('G-MWFMZBZPHF')
     ReactGA.event({
-        category: "csat",
-        action: "csatVote",
-        label: "clickSubmitButton", // optional
-        value: Number(bodyContent.rate), // optional, must be a number
-        nonInteraction: false, // optional, true/false
-        transport: "xhr", // optional, beacon/xhr/image
-      });
+      category: 'csat',
+      action: 'csatVote',
+      label: 'clickSubmitButton', // optional
+      value: Number(bodyContent.rate), // optional, must be a number
+      nonInteraction: false, // optional, true/false
+      transport: 'xhr', // optional, beacon/xhr/image
+    })
 
     async function myFetch() {
       await fetch('https://hooks.zapier.com/hooks/catch/10752880/bz0vk36/', {
@@ -164,7 +164,7 @@ function Step1(props) {
             />
             <span className="far fa-grin"></span>
           </label>
-        </div>        
+        </div>
 
         <div>
           <input
@@ -189,18 +189,18 @@ function Step2(props) {
         <h3 className="text-2xl font-bold text-center mt-4 mb-4">
           Thanks for your feedback!
         </h3>
-        <form className={styles.FeedbackModal} onSubmit={props.onSubmit} >
-        <label>
-          Anything else you’d like to share?
-          <textarea
-            className={styles.formText}
-            name="message"
-            placeholder="(Optional)"
-            rows="3"
-            value={props.message}
-            onChange={props.handleChange}
-          />
-        </label>
+        <form className={styles.FeedbackModal} onSubmit={props.onSubmit}>
+          <label>
+            Anything else you’d like to share?
+            <textarea
+              className={styles.formText}
+              name="message"
+              placeholder="(Optional)"
+              rows="3"
+              value={props.message}
+              onChange={props.handleChange}
+            />
+          </label>
           <label>
             Can we reach out to you if we have any questions?
             <div className={styles.FollowUp}>
@@ -211,7 +211,7 @@ function Step2(props) {
                   type="radio"
                   name="followup"
                   value="Yes"
-                  onChange={(e)=>(props.showForm(e, true))}
+                  onChange={(e) => props.showForm(e, true)}
                 />
                 Yes
               </label>
@@ -220,7 +220,7 @@ function Step2(props) {
                   type="radio"
                   name="followup"
                   value="No"
-                  onChange={(e)=>(props.showForm(e, false))}
+                  onChange={(e) => props.showForm(e, false)}
                 />
                 No
               </label>
@@ -237,7 +237,7 @@ function Step2(props) {
                 name="email"
                 value={props.email}
                 onChange={props.handleChange}
-                />
+              />
             </label>
           )}
 

@@ -44,13 +44,8 @@ const DropdownMenu = ({
   style,
   ...otherProps
 }: PropsWithChildren<DropdownMenuProps>) => {
-  const {
-    isOpen,
-    close,
-    dropdownItemsRef,
-    selectedDropdownItemIndexRef,
-    id,
-  } = useDropdown()
+  const { isOpen, close, dropdownItemsRef, selectedDropdownItemIndexRef, id } =
+    useDropdown()
 
   const dropdownPosition = useDropdownPosition()
 

@@ -1,4 +1,4 @@
-# FastStore UI 
+# FastStore UI
 
 FastStore UI is an ecommerce-focused library that provides best-of-breed components, blazing-fast performance, and a frictionless development experience to create storefronts.
 

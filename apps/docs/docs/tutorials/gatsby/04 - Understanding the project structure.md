@@ -1,11 +1,11 @@
 ---
 id: 4
-title: "Part 3: Understanding the project structure"
-sidebar_label: "3. Understanding the project structure"
+title: 'Part 3: Understanding the project structure'
+sidebar_label: '3. Understanding the project structure'
 pagination_label: Part 3
 ---
 
-*Find out how to organize your FastStore + Gatsby project and get to know our recommended conventions for naming files and folders.*
+_Find out how to organize your FastStore + Gatsby project and get to know our recommended conventions for naming files and folders._
 
 ---
 
@@ -61,9 +61,9 @@ pagination_label: Part 3
 └── yarn.lock
 ```
 
-</div> 
+</div>
 
-## Overview 
+## Overview
 
 In the previous sections of this tutorial, you started your first FastStore + Gatsby store and learned how to run a local server. Now it's time to understand how our project is structured.
 
@@ -73,8 +73,7 @@ Let's start taking a look at the structure to the right that represents the sour
 
 Notice that some of these folders, such as `node_modules` and `public`, might be familiar to you. Others, however, are VTEX and Gatsby-specific and might be new to you. Let's investigate them.
 
-
-## Basic files and folders 
+## Basic files and folders
 
 ### `node_modules`
 
@@ -82,11 +81,11 @@ The **`node_modules`** folder is where [npm](https://www.npmjs.com/) saves and i
 
 ### `package.json` and `package.json`files
 
-Similar to the `node_modules` folder, the `package.json` and `package‑lock.json` files are vital to any JavaScript/Node project. They record all the metadata [npm](https://www.npmjs.com/) needs to identify the project and handle its dependencies and scripts. 
- 
+Similar to the `node_modules` folder, the `package.json` and `package‑lock.json` files are vital to any JavaScript/Node project. They record all the metadata [npm](https://www.npmjs.com/) needs to identify the project and handle its dependencies and scripts.
+
 ### `cache` and `public`
 
-The `cache` and `public` folders are *automatically generated* by Gatsby when you build your website. They are used to **expose the output assets created during the development and building processes**. It's important to know that the `cache` folder stores an internal cache and that the `public` folder is where the production‑ready version of your website lives. Remember that these two folders are not meant for modification and should be added to `.gitignore`. 
+The `cache` and `public` folders are _automatically generated_ by Gatsby when you build your website. They are used to **expose the output assets created during the development and building processes**. It's important to know that the `cache` folder stores an internal cache and that the `public` folder is where the production‑ready version of your website lives. Remember that these two folders are not meant for modification and should be added to `.gitignore`.
 
 ## Configuration files
 
@@ -95,7 +94,7 @@ You'll notice some VTEX and Gatsby-specific files responsible for your project s
 - [`store.config.js`](#storeconfigjs) - Configures environment variables to connect to your VTEX account.
 - [`gatsby‑browser.js`](#gatsbybrowserjs) - Changes the browser behavior and allows wrapping components around all your store pages.
 - [`gatsby‑config.js`](#gatsbyconfigjs) - Sets up your site metadata.
-- [`gatsby‑node.js`](#gatsbynodejs) - Runs Javascript code during build. 
+- [`gatsby‑node.js`](#gatsbynodejs) - Runs Javascript code during build.
 - [`gatsby‑ssr.js`](#gatsbyssrjs) - Customizes server-side rendering settings.
 
 ### `store.config.js`
@@ -104,13 +103,13 @@ The `store.config.js` file stores the environment variables needed for accessing
 
 ### `gatsby‑browser.js`
 
-The `gatsby‑browser` file allows you to use the [Gatsby Browser API](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-browser/). You can use it to change and customize Gatsby's behavior in the browser and make components wrap around all your web pages. For example, you can use it to import global CSS styles and render components that are common to all your store pages. 
+The `gatsby‑browser` file allows you to use the [Gatsby Browser API](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-browser/). You can use it to change and customize Gatsby's behavior in the browser and make components wrap around all your web pages. For example, you can use it to import global CSS styles and render components that are common to all your store pages.
 
 ![](https://vtexhelp.vtexassets.com/assets/docs/src/gatsby-browser___148097949626d1d7b9bf09979fe1aec7.png)
 
 ### `gatsby‑config.js`
 
-The `gatsby‑config` file allows you to use the [Gatsby Config API](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/). It is the main configuration file in a Gatsby website. You can use it to specify your site metadata and configure [Gatsby Plugins](https://www.gatsbyjs.com/docs/plugins/). 
+The `gatsby‑config` file allows you to use the [Gatsby Config API](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/). It is the main configuration file in a Gatsby website. You can use it to specify your site metadata and configure [Gatsby Plugins](https://www.gatsbyjs.com/docs/plugins/).
 
 ![](https://vtexhelp.vtexassets.com/assets/docs/src/gatsby-config___c979d882de2c8d26beebdf56cb5992f4.png)
 
@@ -120,16 +119,15 @@ If you're not familiar with [Gatsby Plugins](https://www.gatsbyjs.com/docs/plugi
 
 ### `gatsby‑node.js`
 
-The `gatsby‑node.js` file is where you'll define and configure [Gatsby Node APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/). The code within this file runs once during the build process of your site, allowing you to customize and extend the Gatsby settings that affect the build.  
+The `gatsby‑node.js` file is where you'll define and configure [Gatsby Node APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/). The code within this file runs once during the build process of your site, allowing you to customize and extend the Gatsby settings that affect the build.
 
 ![](https://vtexhelp.vtexassets.com/assets/docs/src/gatsby-node___0379ab0017881624a571d1086af6d204.png)
 
 ### `gatsby‑ssr.js`
 
-The `gatsby‑ssr.js` file allows you to use the [Gatsby Server Rendering APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-ssr/). These enable customizing the content of static HTML files as they are Server-Side Rendered (SSR) by Gatsby and Node.js. 
+The `gatsby‑ssr.js` file allows you to use the [Gatsby Server Rendering APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-ssr/). These enable customizing the content of static HTML files as they are Server-Side Rendered (SSR) by Gatsby and Node.js.
 
 ![](https://vtexhelp.vtexassets.com/assets/docs/src/gatsby-ssr___2e4e57aafda0964f72e1a0e2e3b8091a.png)
-
 
 ## The `src` folder
 
@@ -137,21 +135,21 @@ Now that you recognize your projects' most essential folders and files, let's ex
 
 To keep the source code well-organized, we adopted the [Model-view-controller architecture](https://developer.mozilla.org/en-US/docs/Glossary/MVC), splitting the code into several subfolders as presented in the following:
 
-- **Model** - The Model handles data fetching and manages data structure. Since this project uses Jamstack, we split where *static* and *dynamic* data are fetched.
-  
-  - [`pages`](#pages) - Used to automatically generate URL routes corresponding to the files created within this folder. It is also where you'll fetch **static data.** 
+- **Model** - The Model handles data fetching and manages data structure. Since this project uses Jamstack, we split where _static_ and _dynamic_ data are fetched.
+
+  - [`pages`](#pages) - Used to automatically generate URL routes corresponding to the files created within this folder. It is also where you'll fetch **static data.**
   - [`views`](#views) - Used to create the frontend content of a specific page by bringing together static data from `pages`, reusable components from `components`, and new **dynamic attributes.**
-  
+
 - **View** - The View creates your website's Look and Feel, determining how the user will see and interact with it.
-  
+
   - [`components`](#components) - Used to store **reusable React components.**
 
 - **Controller** - The Controller is responsible for updating the Model and View layers in response to user requests.
-  
-  - [`sdk`](#sdk) - Used to store **hooks and logical pieces of code.** 
+
+  - [`sdk`](#sdk) - Used to store **hooks and logical pieces of code.**
 
 :::note
-Remember that, because Gatsby is a React‑based framework, our main task will be to use, style, and create components that compose our storefront. Hence, **everything inside the `src` folder, including pages, will be mostly React components.** You will then find many `.tsx` files within this folder, which is the file format used by React to produce React components. `.tsx` stands for TypeScript XML, indicating the mix of TypeScript syntax with HTML. In other words, **`.tsx` is a TypeScript syntax extension that allows us to write HTML‑like syntax within React components.** 
+Remember that, because Gatsby is a React‑based framework, our main task will be to use, style, and create components that compose our storefront. Hence, **everything inside the `src` folder, including pages, will be mostly React components.** You will then find many `.tsx` files within this folder, which is the file format used by React to produce React components. `.tsx` stands for TypeScript XML, indicating the mix of TypeScript syntax with HTML. In other words, **`.tsx` is a TypeScript syntax extension that allows us to write HTML‑like syntax within React components.**
 :::
 
 ### `pages`
@@ -164,11 +162,11 @@ This is also where you'll fetch static data, such as your store metadata.
 
 Within this folder, you'll already find some pre-defined subfolders and files, such as:
 
-- `index.tsx` - Responsible for making your store's homepage available. 
+- `index.tsx` - Responsible for making your store's homepage available.
 - `{StoreCollection.slug}/[...].tsx` - Responsible for making Collection pages available at https://mystore.vtex.app/{collectionName}.
 - `s/[...].tsx` - Responsible for making Search Result pages available at https://mystore.vtex.app/s/{searchString}?map=term.
-- `{StoreProduct.slug}/p.tsx` - Responsible for making **static** Product pages available at  https://mystore.vtex.app/{productSlug}/p.
-- `[slug]/p.tsx` -  Responsible for making **client-only** routes available at  https://mystore.vtex.app/{productSlug}/p for **dynamic** Product pages, i.e., pages whose content isn't available at build time and is fetched on the client side.
+- `{StoreProduct.slug}/p.tsx` - Responsible for making **static** Product pages available at https://mystore.vtex.app/{productSlug}/p.
+- `[slug]/p.tsx` - Responsible for making **client-only** routes available at https://mystore.vtex.app/{productSlug}/p for **dynamic** Product pages, i.e., pages whose content isn't available at build time and is fetched on the client side.
 
 :::note
 Learn more about client-only routes [here.](https://www.gatsbyjs.com/docs/reference/routing/file-system-route-api/#creating-client-only-routes)
@@ -176,11 +174,11 @@ Learn more about client-only routes [here.](https://www.gatsbyjs.com/docs/refere
 
 ### `components`
 
-As the name suggests, the components folder is where you'll store all your **reusable React components**, such as the *Product* component illustrated in the following image. The components declared within this folder are supposed to be added to a page component and, together, make up the different parts of the UI.
+As the name suggests, the components folder is where you'll store all your **reusable React components**, such as the _Product_ component illustrated in the following image. The components declared within this folder are supposed to be added to a page component and, together, make up the different parts of the UI.
 
 ![](https://vtexhelp.vtexassets.com/assets/docs/src/components-folder___681b5e8f626f5447bd2c4f43e1a821a7.jpg)
 
-Notice that these components are **non-routable**, i.e., they are not web pages by themselves. For example, it's not possible to navigate to the *Product* component. 
+Notice that these components are **non-routable**, i.e., they are not web pages by themselves. For example, it's not possible to navigate to the _Product_ component.
 
 Also, since you may have numerous reusable components in your project, we recommend as a good practice that you organize this folder using domain-specific subfolders. For example, in the [Base store](/starters/base), you will find:
 
@@ -193,11 +191,11 @@ Also, since you may have numerous reusable components in your project, we recomm
 
 ### `views`
 
-The `views` folder provides a functional storefront page by bringing together static data from `pages`, reusable components from `components`, and dynamic data. Ideally, you should use components within the `components/sections` folder for easier integration with CMS. 
+The `views` folder provides a functional storefront page by bringing together static data from `pages`, reusable components from `components`, and dynamic data. Ideally, you should use components within the `components/sections` folder for easier integration with CMS.
 
 ![](https://vtexhelp.vtexassets.com/assets/docs/src/views-folder___ab065f3432d2a29e7d4b6219c744496e.png)
 
-Within the `views` folder, you'll find the [`Layout.tsx` file](#layouttsx) and [page-specific subfolders](#page-specific-subfolders), such as `collection`, `home`, `product`, and `search`. 
+Within the `views` folder, you'll find the [`Layout.tsx` file](#layouttsx) and [page-specific subfolders](#page-specific-subfolders), such as `collection`, `home`, `product`, and `search`.
 
 #### Page-specific subfolders
 
@@ -219,11 +217,11 @@ Within the `views` folder, you'll also find the `Layout.tsx` file. This file con
 
 The `sdk` folder contains hooks responsible for controlling your application's logic and handling incoming URL requests to your store (e.g., adding or removing items from the cart).
 
-For example, when someone sends a request to your web application using the *Add to cart* button, the `useBuyButton.ts` SDK will handle this request and update the appropriate states of your store.
+For example, when someone sends a request to your web application using the _Add to cart_ button, the `useBuyButton.ts` SDK will handle this request and update the appropriate states of your store.
 
 ![](https://vtexhelp.vtexassets.com/assets/docs/src/sdk-folder___0720414f88b6f43e13d223a9711fd21c.gif)
 
-Under the hood, the `sdk` folder works as a Controller between the Model and the View layers. After an SDK receives and treats a given input from the client, it sends commands to the View and Model layers. Commands sent to the View layer are responsible for updating user interface components, such as the number of items shown in the cart.  Meanwhile, commands sent to the Model layer are used to update data and states of your store.
+Under the hood, the `sdk` folder works as a Controller between the Model and the View layers. After an SDK receives and treats a given input from the client, it sends commands to the View and Model layers. Commands sent to the View layer are responsible for updating user interface components, such as the number of items shown in the cart. Meanwhile, commands sent to the Model layer are used to update data and states of your store.
 
 In summary, the `sdk` folder is responsible for controlling the application logic. Hence, if you ever need to write a custom business logic, this is the place where you should place your code.
 
@@ -240,4 +238,3 @@ Then, you could develop Campaign-specific React components, such as carousels an
 Then you would need to create a `blackfriday/index.tsx` file within `views` to develop your page's look and feel. In this file, we would import and bring together our recently created `components/sections` components, providing them with static data from `src/pages/blackfriday.tsx` and enriching them with dynamic attributes. Optionally, you could also develop new rules to handle SEO and include them in the `blackfriday/index.tsx` file.
 
 Finally, you would need to import the `src/views/blackfriday/index.tsx` file into the `src/pages/blackfriday.tsx` file to render the page.
-

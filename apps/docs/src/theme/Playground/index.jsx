@@ -28,7 +28,6 @@ function LivePreviewLoader() {
 }
 
 function ResultWithHeader() {
-
   return (
     <>
       <div className={styles.playgroundPreview}>
@@ -65,10 +64,10 @@ function EditorWithHeader(props) {
     <>
       {isCodeVisible && <ThemedLiveEditor />}
       <Header>
-      <div className={styles.playgroundControls}>
-        <ToggleCodeButton />
-        {isCodeVisible && <CopyCodeButton code={props.currentCode} />}
-        {isCodeVisible && (
+        <div className={styles.playgroundControls}>
+          <ToggleCodeButton />
+          {isCodeVisible && <CopyCodeButton code={props.currentCode} />}
+          {isCodeVisible && (
             <button
               onClick={props.onRefresh}
               className={styles.playgroundButton}
@@ -107,8 +106,8 @@ function EditorWithHeader(props) {
               </svg>
               Refresh code
             </button>
-        )}
-      </div>
+          )}
+        </div>
       </Header>
     </>
   )

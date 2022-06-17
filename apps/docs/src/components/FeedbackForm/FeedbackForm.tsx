@@ -72,7 +72,6 @@ class FeedbackForm extends React.Component {
       })
   }
 
-
   render() {
     if (this.state.sendingMessage) {
       return <div className={styles.submitMessage}>Sending...</div>
@@ -128,20 +127,20 @@ class FeedbackForm extends React.Component {
         </div>
 
         {this.state.showForm === true && (
-            <form onSubmit={this.handleSubmit}>
-              <textarea
-                className={styles.formText}
-                name="message"
-                rows="4"
-                placeholder="Any thoughts you'd like to share?"
-                value={this.state.message}
-                onChange={this.handleChange}
-              />
-              <div>
-                <button className={styles.submit}>Skip this</button>
-                <button className={styles.submit}>Submit</button>
-              </div>
-            </form>
+          <form onSubmit={this.handleSubmit}>
+            <textarea
+              className={styles.formText}
+              name="message"
+              rows="4"
+              placeholder="Any thoughts you'd like to share?"
+              value={this.state.message}
+              onChange={this.handleChange}
+            />
+            <div>
+              <button className={styles.submit}>Skip this</button>
+              <button className={styles.submit}>Submit</button>
+            </div>
+          </form>
         )}
       </React.Fragment>
     )

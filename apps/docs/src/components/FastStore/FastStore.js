@@ -12,12 +12,15 @@ function FastStore() {
       <div className="flex justify-between mb-8 flex-col sm:flex-row">
         <div className="w-full flex justify-between items-center sm:w-3/5">
           <div>
-            <h1 className="tracking-wider uppercase text-sm text-rebelPink font-VTEXMedium">FASTSTORE</h1>
+            <h1 className="tracking-wider uppercase text-sm text-rebelPink font-VTEXMedium">
+              FASTSTORE
+            </h1>
             <h2 className="text-5xl text-fontSecondary leading-tight">
-              The fullstack toolkit for building <strong>high-performance</strong> stores.
+              The fullstack toolkit for building{' '}
+              <strong>high-performance</strong> stores.
             </h2>
             <div className="mb-8 mt-6">
-              <div >
+              <div>
                 <Link
                   to="/tutorials"
                   className="hover:text-white hover:no-underline hover:brightness-105 py-2 px-3 rounded text-white font-VTEXMedium text-sm bg-secondary inline-block mr-3"
@@ -42,23 +45,20 @@ function FastStore() {
               <FeatureCard
                 title="Use the technologies you already know"
                 description="Explore your creativity building unique digital commerce storefronts with React."
-              >
-               
-              </FeatureCard>
+              ></FeatureCard>
 
               <FeatureCard
                 title="Analyze your data with Google Analytics 4"
                 description="Understand your website traffic with Google Analytics 4 and make informed decisions."
-              >
-               
-              </FeatureCard>
+              ></FeatureCard>
             </div>
           </div>
         </div>
-        <ImageSwitcher 
+        <ImageSwitcher
           lightImageSrc="https://vtexhelp.vtexassets.com/assets/docs/src/performance___22b8f305649a26c629b59b51b7906409.png"
           darkImageSrc="https://vtexhelp.vtexassets.com/assets/docs/src/performanceDark___72750ceb0ac806835ea961a31677ab0f.png"
-          classes='block sm:w-1/3 sm:object-contain w-11/12'/>
+          classes="block sm:w-1/3 sm:object-contain w-11/12"
+        />
       </div>
       <div className={styles.search}>
         <SearchBar />

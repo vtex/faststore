@@ -1,31 +1,30 @@
-import React from "react";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import styles from "./LatestUpdates.module.css";
+import React from 'react'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import styles from './LatestUpdates.module.css'
 import tinytime from 'tinytime'
 
 const LatestUpdates = () => {
   const formatDate = tinytime('{MM} {DD}, {YYYY}').render
-  const { siteConfig } = useDocusaurusContext();
-  const release = JSON.parse(JSON.stringify(siteConfig.customFields.events));
+  const { siteConfig } = useDocusaurusContext()
+  const release = JSON.parse(JSON.stringify(siteConfig.customFields.events))
 
   return (
     <section>
       <ul className={styles.changelogList}>
         {release.map((item, i) => (
           <li key={item.title}>
-            <a href={`/releases/${item.fileName.split("-")
-              .slice(0, 3)
-              .join("/")}/${item.fileName.split("-").slice(3).join("-")}`} >
+            <a
+              href={`/releases/${item.fileName
+                .split('-')
+                .slice(0, 3)
+                .join('/')}/${item.fileName.split('-').slice(3).join('-')}`}
+            >
               <div className={styles.changelogTitle}>
                 <h4>{item.title}</h4>
               </div>
-              <p className={styles.descriptionChangelog}>
-                {item.description}
-              </p>
+              <p className={styles.descriptionChangelog}>{item.description}</p>
               <time>
-                <svg
-                  viewBox="0 0 12 12"
-                >
+                <svg viewBox="0 0 12 12">
                   <circle cx="6" cy="6" r="6" fill="currentColor" />
                   {i === 0 && (
                     <circle
@@ -55,16 +54,13 @@ const LatestUpdates = () => {
                   )}
                 </svg>
                 {formatDate(new Date(item.fileName.slice(0, 10)))}
-                
               </time>
-
             </a>
-
           </li>
         ))}
       </ul>
     </section>
-  );
-};
+  )
+}
 
-export default LatestUpdates;
+export default LatestUpdates

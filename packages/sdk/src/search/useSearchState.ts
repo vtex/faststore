@@ -180,15 +180,14 @@ export const reducer = (state: State, action: Action) => {
   }
 }
 
-const dispatcher = (onChange: (url: URL) => void, state: State) => (
-  action: Action
-) => {
-  const newState = reducer(state, action)
+const dispatcher =
+  (onChange: (url: URL) => void, state: State) => (action: Action) => {
+    const newState = reducer(state, action)
 
-  if (!equals(newState, state)) {
-    onChange(format(newState))
+    if (!equals(newState, state)) {
+      onChange(format(newState))
+    }
   }
-}
 
 export const useSearchState = (
   initialState: Partial<State>,
