@@ -4,7 +4,7 @@ module.exports = {
   tagline: 'Documentation Portal',
   url: 'https://faststore.dev',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'vtex', // Usually your GitHub org/user name.
@@ -199,17 +199,17 @@ module.exports = {
         },
       },
     ],
-    [
-      'redocusaurus',
-      {
-        specs: [
-          {
-            spec: 'docs/openapi/headlesscms.yaml',
-            routePath: '/vtex-headless-cms-api',
-          },
-        ],
-      },
-    ],
+    // [
+    //   'redocusaurus',
+    //   {
+    //     specs: [
+    //       {
+    //         spec: 'docs/openapi/headlesscms.yaml',
+    //         routePath: '/vtex-headless-cms-api',
+    //       },
+    //     ],
+    //   },
+    // ],
   ],
   plugins: [
     'docusaurus-tailwindcss-loader',
