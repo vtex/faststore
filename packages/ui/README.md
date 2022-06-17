@@ -34,6 +34,7 @@ From the command line in your project directory, run yarn add `@faststore/ui`.
 ```cmd
 yarn add @faststore/ui
 ```
+
 ## Usage
 
 ```tsx
@@ -47,4 +48,5 @@ function MyComponent {
 ```
 
 ## Docs
+
 For more information, please refer to our documentation: https://faststore.dev/reference/ui/overview

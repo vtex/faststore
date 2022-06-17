@@ -21,10 +21,13 @@ Use the `nslookup` command as in the following to check which **IP address** cor
 
 1. Open the terminal.
 2. Check which IP addresses are capable of hosting your website by running the following command:
-  - Remember to replace `{URL}` with your automatic deployment URL (e.g., `base.vtex.app`, `base.netlify.app`, `base.vercel.app`).
-  ```
-  nslookup {URL}
-  ```
+
+- Remember to replace `{URL}` with your automatic deployment URL (e.g., `base.vtex.app`, `base.netlify.app`, `base.vercel.app`).
+
+```
+nslookup {URL}
+```
+
 4. Copy and save one of the IP addresses presented below the `Non-authoritative answer` message for further usage.
 
 ![Getting the IP address of your website via the terminal](https://vtexhelp.vtexassets.com/assets/docs/src/nslookup___388da0c4d31ac04a2979dd6435107f93.png)
@@ -37,9 +40,9 @@ Now, it's time to make your website publicly available on the internet.
 If you still need to configure other VTEX solutions, please **use a fictitious domain name** when taking the following steps. Then, once you set up all the desired integrations, repeat this guide using your final domain to make your website publicly available to end-users.
 :::
 
-1. Access your domain provider website. 
-2. Configure a **domain name** (for example, `vtexfaststore.com`) that points to the **IP address** you saved in the previous step. *Check the documentation of your domain provider for more information.*
-4. Now, configure a **subdomain** named `secure` that points to `secure.{rootDomain}.cdn.vtex.com`, where `{rootDomain}` is the **complete** address of your website. For example, `secure.vtexfaststore.com.cdn.vtex.com`. This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
+1. Access your domain provider website.
+2. Configure a **domain name** (for example, `vtexfaststore.com`) that points to the **IP address** you saved in the previous step. _Check the documentation of your domain provider for more information._
+3. Now, configure a **subdomain** named `secure` that points to `secure.{rootDomain}.cdn.vtex.com`, where `{rootDomain}` is the **complete** address of your website. For example, `secure.vtexfaststore.com.cdn.vtex.com`. This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
 
 ### Step 3 - Setting up your VTEX account
 
@@ -58,13 +61,14 @@ Back to your FastStore project, you must also configure your project to point to
 
 1. Open your FastStore project in any code editor of your preference.
 2. Open the `store.config.js` file.
-4. Update the `storeUrl`, `secureSubdomain`, `checkoutUrl`, `loginUrl`, and `accountUrl` properties as in the following:
+3. Update the `storeUrl`, `secureSubdomain`, `checkoutUrl`, `loginUrl`, and `accountUrl` properties as in the following:
+
    - **`storeUrl`**: https://{rootDomain}
    - **`secureSubdomain`**: https://{subdomain}.{rootDomain}
    - **`checkoutUrl`**: https://{subdomain}.{rootDomain}/checkout
    - **`loginUrl`**: https://{subdomain}.{rootDomain}/api/io/login
    - **`accountUrl`**: https://{subdomain}.{rootDomain}/api/io/account
-   Take the follwoing example of how this code block would look after configuring a store with the `vtexfaststore.com` root domain and `secure` subdomain:
+     Take the follwoing example of how this code block would look after configuring a store with the `vtexfaststore.com` root domain and `secure` subdomain:
 
    ```diff title="store.config.js"
       ...
@@ -84,8 +88,8 @@ Back to your FastStore project, you must also configure your project to point to
       ...
    ```
 
-5. Save your changes.
-6. Open a Pull Request and commit your changes.
+4. Save your changes.
+5. Open a Pull Request and commit your changes.
 
 ---
 

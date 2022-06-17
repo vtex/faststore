@@ -72,9 +72,8 @@ const AggregateRatingWithoutIconTemplate: Story<AggregateRatingProps> = ({
   )
 }
 
-export const AggregateRatingWithoutIcon = AggregateRatingWithoutIconTemplate.bind(
-  {}
-)
+export const AggregateRatingWithoutIcon =
+  AggregateRatingWithoutIconTemplate.bind({})
 AggregateRatingWithoutIcon.args = { value: 3 }
 
 const AggregateRatingWithCSSTemplate: Story<AggregateRatingProps> = ({

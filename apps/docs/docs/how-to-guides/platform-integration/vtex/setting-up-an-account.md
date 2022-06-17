@@ -13,6 +13,7 @@ Notice that, because needed dependencies, such as [VTEX Intelligent Search](http
 ## Before you start
 
 Before proceeding any further, make sure you have:
+
 - Access to a **VTEX** account.
 - The **VTEX IO CLI** installed on your machine. Please refer to [this guide](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference) for more information.
 
@@ -24,24 +25,25 @@ In this step by step, you'll use the FastStore plugin for the VTEX IO CLI to ins
 
 1. Install the FastStore plugin for the VTEX IO CLI:
 
-    ```
-    vtex plugins install faststore
-    ```
+   ```
+   vtex plugins install faststore
+   ```
 
 2. Log in to your VTEX account:
-   - *Remember to replace the values between curly brackets according to your scenario.*
 
-    ```
-    vtex login {account}
-    ```
+   - _Remember to replace the values between curly brackets according to your scenario._
+
+   ```
+   vtex login {account}
+   ```
 
 3. Set up your VTEX account for FastStore by running the following command:
 
-    ```
-    vtex faststore setup
-    ```
+   ```
+   vtex faststore setup
+   ```
 
-Once the command completes, you should see the following message: ```Happy coding on FastStore 🎉```.
+Once the command completes, you should see the following message: `Happy coding on FastStore 🎉`.
 
 ## Next steps
 

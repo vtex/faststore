@@ -1,39 +1,39 @@
 # How to [task to accomplish]
 
-Each **How to Guide** is a practical procedure that solves a question or problem. Each title can clearly be preceded by the words **“How to”**. Example: How to **create specifications** 
+Each **How to Guide** is a practical procedure that solves a question or problem. Each title can clearly be preceded by the words **“How to”**. Example: How to **create specifications**
 
-||
-|--|--|
-|**Type**|Procedural|
-|**Audience** [beginner/intermediary/advanced]|| 
-|**Objective (How do I...?)**|| 
-|**Keywords** [price/SEO/search/merchandising...]] || 
+|                                                   |
+| ------------------------------------------------- | ---------- |
+| **Type**                                          | Procedural |
+| **Audience** [beginner/intermediary/advanced]     |            |
+| **Objective (How do I...?)**                      |            |
+| **Keywords** [price/SEO/search/merchandising...]] |            |
 
 In a sentence or two, summarize what the user is going to accomplish after completing this guide. Example:
 
->*This guide covers how to create a specification for a product or an SKU.*
+> _This guide covers how to create a specification for a product or an SKU._
 
 Give an overview of the core concepts and information required for this guide. Be succint. Example:
 
->*Specifications are additional properties that can be added to your store's products or SKUs. A specification is used to create site browsing filters and to differentiate SKUs and products within the product page.*
+> _Specifications are additional properties that can be added to your store's products or SKUs. A specification is used to create site browsing filters and to differentiate SKUs and products within the product page._
 
 {Image or gif of the expected behavior after completing the guide}
 
---- 
+---
 
 ## Before you start
 
 List any steps the user should take before taking this guide. Example:
 
-> *Before you begin, you should already have:*
-> 
-> - *Configured the `.env` file in your project - (For more information, check [this guide](/).)*
+> _Before you begin, you should already have:_
+>
+> - _Configured the `.env` file in your project - (For more information, check [this guide](/).)_
 
 Include known issues, bugs or other important information in this section.
 
-> *You should also consider that:*
-> 
-> - *This guide uses the Base Store starter.*
+> _You should also consider that:_
+>
+> - _This guide uses the Base Store starter._
 
 ---
 

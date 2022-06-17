@@ -1,16 +1,16 @@
-import React from 'react';
-import clsx from 'clsx';
-import TOCItems from '@theme/TOCItems';
-import styles from './styles.module.css'; // Using a custom className
+import React from 'react'
+import clsx from 'clsx'
+import TOCItems from '@theme/TOCItems'
+import styles from './styles.module.css' // Using a custom className
 import FeedbackForm from '../../components/FeedbackForm/FeedbackForm'
 // This prevents TOCInline/TOCCollapsible getting highlighted by mistake
 
-const LINK_CLASS_NAME = 'table-of-contents__link toc-highlight';
-const LINK_ACTIVE_CLASS_NAME = 'table-of-contents__link--active';
-export default function TOC({className, ...props}) {
+const LINK_CLASS_NAME = 'table-of-contents__link toc-highlight'
+const LINK_ACTIVE_CLASS_NAME = 'table-of-contents__link--active'
+export default function TOC({ className, ...props }) {
   return (
     <div className={clsx(styles.tableOfContents, 'thin-scrollbar', className)}>
-      <p className='text-xs font-VTEXMedium mb-4'>ON THIS PAGE</p>
+      <p className="text-xs font-VTEXMedium mb-4">ON THIS PAGE</p>
       <TOCItems
         {...props}
         linkClassName={LINK_CLASS_NAME}
@@ -18,5 +18,5 @@ export default function TOC({className, ...props}) {
       />
       <FeedbackForm />
     </div>
-  );
+  )
 }

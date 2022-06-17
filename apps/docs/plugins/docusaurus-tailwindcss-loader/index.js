@@ -10,7 +10,7 @@ module.exports = function (context, options) {
             flexbox: 'no-2009',
           },
           stage: 4,
-        }),
+        })
       )
       return postcssOptions
     },

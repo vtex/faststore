@@ -48,11 +48,11 @@ const AwesomeComponent: Schema = {
 
 Notice that each component will present a unique structure. However, you'll always need to define at least the following values:
 
-|Key         |Description|
-|:-----------|:-----------------------------------------------------|
-|`title`     |The name that identifies your component in the CMS interface.|
-`description`|A brief description to help editors understand the behavior of your component.|
-|`type`      |The data type of your schema. Possible values are [`string`](https://json-schema.org/understanding-json-schema/reference/string.html), [`object`](https://json-schema.org/understanding-json-schema/reference/object.html), [`array`](https://json-schema.org/understanding-json-schema/reference/array.html), [`number`](https://json-schema.org/understanding-json-schema/reference/numeric.html#number), [`integer`](https://json-schema.org/understanding-json-schema/reference/string.html), [`boolean`](https://json-schema.org/understanding-json-schema/reference/boolean.html).|
+| Key           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`       | The name that identifies your component in the CMS interface.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `description` | A brief description to help editors understand the behavior of your component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `type`        | The data type of your schema. Possible values are [`string`](https://json-schema.org/understanding-json-schema/reference/string.html), [`object`](https://json-schema.org/understanding-json-schema/reference/object.html), [`array`](https://json-schema.org/understanding-json-schema/reference/array.html), [`number`](https://json-schema.org/understanding-json-schema/reference/numeric.html#number), [`integer`](https://json-schema.org/understanding-json-schema/reference/string.html), [`boolean`](https://json-schema.org/understanding-json-schema/reference/boolean.html). |
 
 Now, depending on the `type` of your schema, you may need to define particular fields related to your component structure. For example, for a schema of the `object` type, you'll need to determine `properties` that map key-value pairs. For a schema of the `array` type, you'll need to define the `items` of that array.
 
@@ -67,29 +67,29 @@ When defining your Schema, you can also use the [`uiSchema`](https://react-jsons
 Check the following example of the `draftjs-rich-text` component being used.
 
 <Tabs
-  defaultValue="code"
-  values={[
-    {label: 'Code', value: 'code'},
-    {label: 'CMS', value: 'CMS'},
-  ]}>
-  <TabItem value="code">
-  
+defaultValue="code"
+values={[
+{label: 'Code', value: 'code'},
+{label: 'CMS', value: 'CMS'},
+]}>
+<TabItem value="code">
+
 <div>
 
 ```ts title="/src/@vtex/gatsby-plugin-cms/index.ts"
 const RichTextComponent: Schema = {
-	title: 'Text',
-	type: 'object',
-	properties: {
-		content: {
-		  type: 'string',
-		  title: 'Text',
-		  widget: {
-		    'ui:widget': 'draftjs-rich-text', // custom widget to render the component
-		  },
-		},
-	},
-},
+  title: 'Text',
+  type: 'object',
+  properties: {
+    content: {
+      type: 'string',
+      title: 'Text',
+      widget: {
+        'ui:widget': 'draftjs-rich-text', // custom widget to render the component
+      },
+    },
+  },
+}
 ```
 
 </div>
@@ -110,7 +110,7 @@ import { Schema, BuilderConfig } from '@vtex/gatsby-plugin-cms'
 export const builderConfig: BuilderConfig = {
   blocks: {
     // your sections
-    AwesomeComponent
+    AwesomeComponent,
   },
   contentTypes: {
     // your content types

@@ -1,7 +1,7 @@
 ---
 id: 5
 sidebar_position: 7
-sidebar_label: "5. Defining translation keys"
+sidebar_label: '5. Defining translation keys'
 pagination_next: tutorials/cms-storecomponents/6
 ---
 
@@ -21,7 +21,7 @@ Now that we have created our Section schemas and Content Types, we will declare 
 
 Declare the translation keys directly inside `messages` in the `builderConfig` object as in the following example.
 
-```ts {1,20-41} title=src/@vtex/gatsby-plugin-cms/index.ts 
+```ts {1,20-41} title=src/@vtex/gatsby-plugin-cms/index.ts
 import type { Schema, ContentTypes, BuilderConfig } from '@vtex/gatsby-plugin-cms'
 import { PLP } from '@vtex/gatsby-plugin-cms'
 

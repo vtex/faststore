@@ -12,9 +12,9 @@ To complete this guide, you must have the VTEX IO CLI installed in your machine.
 
 ## Step by step
 
-1. Open the terminal and log in to your VTEX account. 
-   *Remember to replace the values between curly brackets according to your scenario.*
-    
+1. Open the terminal and log in to your VTEX account.
+   _Remember to replace the values between curly brackets according to your scenario._
+
    ```
    vtex login {account}
    ```
@@ -24,10 +24,11 @@ To complete this guide, you must have the VTEX IO CLI installed in your machine.
    :::
 
 2. Install the `vtex.faststore-auth` app in your account.
-    ```
-    vtex install vtex.faststore-auth
-    ```
+   ```
+   vtex install vtex.faststore-auth
+   ```
 3. Now, open your FastStore project in any code editor of your preference and add the following flag to your `vtex.env` file:
+
    ```diff {9} title="vtex.env"
      # configures Gatsby
      GATSBY_CPU_COUNT=4
@@ -38,7 +39,8 @@ To complete this guide, you must have the VTEX IO CLI installed in your machine.
      USE_GATSBY_CACHE=false
 
    + USE_CMS_PREVIEW_AUTH=true
-   ```    
+   ```
+
 4. Open a Pull Request including the previous changes.
 5. Merge the Pull Request.
 

@@ -5,18 +5,18 @@ keywords: [cart, minicart, checkout]
 
 # Cart
 
-The Cart module offers all the functionalities necessary to handle your store's shopping cart. It supports large orders and complex ecommerce operations, such as the ones that provide marketplace, coupon, gift, and promotion options.  The Cart state is saved on the browser's [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) and is structured as in the following.
+The Cart module offers all the functionalities necessary to handle your store's shopping cart. It supports large orders and complex ecommerce operations, such as the ones that provide marketplace, coupon, gift, and promotion options. The Cart state is saved on the browser's [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) and is structured as in the following.
 
 ![Cart SDK Architecture](https://vtexhelp.vtexassets.com/assets/docs/src/Cart___74c390e654f666b3a2adb7b6a0b5ecf7.png)
 
+The Cart module provides two modes:
 
-The Cart module provides two modes: 
-- **Pure** (default) -  works entirely on the client-side.
+- **Pure** (default) - works entirely on the client-side.
 - **Optimistic** - validates the cart state on the server-side using debounce requests to make the app more responsive and reduce data traffic on the users' device.
 
 ## Pure cart
 
-In the Pure mode, the shopping cart works entirely on the client-side. Hence, every time a user changes their shopping cart, the new cart's state is stored in the browser's IndexedDB. This way, the next time the user opens your store website, their cart will hydrate from its last state. 
+In the Pure mode, the shopping cart works entirely on the client-side. Hence, every time a user changes their shopping cart, the new cart's state is stored in the browser's IndexedDB. This way, the next time the user opens your store website, their cart will hydrate from its last state.
 
 Notice that, because of how it was built, the Pure cart can also work offline. However, the Pure cart is deterministic, meaning that, given an input, it always returns the same output. Hence, the Pure mode can't cause side effects on the commerce platform to correct undesired behaviors such as adding unavailable items to the cart.
 
@@ -26,14 +26,14 @@ To use the Pure cart, you must use the `CartProvider` component and call the `us
 import { CartProvider, useCart } from '@faststore/sdk'
 
 // In the App's root component:
-const App = ({children}) => {
+const App = ({ children }) => {
   return <CartProvider>{children}</CartProvider>
 }
 
 // In your component:
 const MyComponent = () => {
   const { items } = useCart()
-  
+
   return <div>Number of items on cart: {items.length}</div>
 }
 ```
@@ -52,7 +52,7 @@ import { CartProvider, useCart, Cart } from '@faststore/sdk'
 // In the App's root component:
 const validateCart = async (cart: Cart) => {
    const response = await fetch(...)
-   
+
    if (response) {
      return response
    }
@@ -67,7 +67,7 @@ const App = ({children}) => {
 // In your component:
 const MyComponent = () => {
   const { items, isValidating } = useCart()
-  
+
   if (isValidating) {
      return <div>Cart is validating</div>
   }

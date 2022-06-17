@@ -1,14 +1,14 @@
 ---
 sidebar_position: 2
 description: Find where in time the bug was introduced.
-tags: 
-    - performance
-    - troubleshooting
+tags:
+  - performance
+  - troubleshooting
 ---
 
 # Tracing the error source
 
-If the issue you are facing is new and didn't exist in the past, use the **Binary Search** debugging process presented in the following to find where in time and which changes to the code caused this new bug. 
+If the issue you are facing is new and didn't exist in the past, use the **Binary Search** debugging process presented in the following to find where in time and which changes to the code caused this new bug.
 
 Notice that the FastStore development workflow is **Git-based**, meaning developers must create a commit on the store's `main` branch for each new release. This action generates a release timeline which you can use to go back to previous versions of your store and test if the issue was already happening in the past.
 
@@ -26,17 +26,18 @@ To speed up the process of going back in time, checking version by version of yo
    ```
 2. Copy the hash of a commit that worked properly in the past.
 3. Use binary search to find the commit that introduced the bug:
-   - *Replace `{commitHash}` with the hash value you copied in the previous step.*
+   - _Replace `{commitHash}` with the hash value you copied in the previous step._
    ```
    git bisect start HEAD {commitHash}
    ```
-4. Start a local development server to test this previous version of your store: 
+4. Start a local development server to test this previous version of your store:
    ```
    yarn && yarn develop
    ```
 5. Access your localhost using the browser and test your features.
 
 If everything works as expected, bisect your project as in the following:
+
 ```
 git bisect good
 ```
@@ -47,7 +48,7 @@ Otherwise, if that version is broken, run the following command:
 git bisect bad
 ```
 
-After a few iterations, Git will find the bad version for you. Then, after identifying this version, use `git diff` to detect the changes that caused the issue. 
+After a few iterations, Git will find the bad version for you. Then, after identifying this version, use `git diff` to detect the changes that caused the issue.
 
 ---
 

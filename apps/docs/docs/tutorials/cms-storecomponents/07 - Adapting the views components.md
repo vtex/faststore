@@ -1,7 +1,7 @@
 ---
 id: 7
 sidebar_position: 9
-sidebar_label: "7. Adapting the views components"
+sidebar_label: '7. Adapting the views components'
 ---
 
 # Part 7: Adapting the `views` components
@@ -18,7 +18,7 @@ Finally, we need to update the `views` components. The `views` components bring 
 
 ## Updating the `views` components
 
-To update your `views` components, you must implement the logic that makes more sense for your scenario. Take the following example. 
+To update your `views` components, you must implement the logic that makes more sense for your scenario. Take the following example.
 
 ```tsx
 import type { ComponentPropsWithoutRef, FC } from 'react'

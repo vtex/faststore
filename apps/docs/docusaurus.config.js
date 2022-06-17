@@ -10,40 +10,35 @@ module.exports = {
   organizationName: 'vtex', // Usually your GitHub org/user name.
   projectName: 'faststore', // Usually your repo name.
   themes: ['@docusaurus/theme-live-codeblock'],
-  stylesheets: [
-    "https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-  ],
+  stylesheets: ['https://use.fontawesome.com/releases/v5.15.4/css/all.css'],
   customFields: {
-    events: require("./static/data/releases"),
-    updatesData: require("./static/data/doc-update"),
-    starters: require("./static/data/starters"),
+    events: require('./static/data/releases'),
+    updatesData: require('./static/data/doc-update'),
+    starters: require('./static/data/starters'),
   },
-  scripts:[
-    "/scripts/openReplay.js"
-  ],
+  scripts: ['/scripts/openReplay.js'],
   themeConfig: {
-    image: "img/faststore_thumbnail.png",
+    image: 'img/faststore_thumbnail.png',
     zoom: {
       selector: '.markdown :not(a) > img',
       config: {
         // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
         background: {
           light: 'rgb(255, 255, 255)',
-          dark: 'rgb(50, 50, 50)'
-        }
-      }
+          dark: 'rgb(50, 50, 50)',
+        },
+      },
     },
     colorMode: {
       defaultMode: 'light',
       disableSwitch: false,
-      respectPrefersColorScheme: false
+      respectPrefersColorScheme: false,
     },
     announcementBar: {
       id: 'csat',
-      content:
-        `📢  We’d love to hear about your experience with our Documentation Portal.`,
-      textColor: "var(--ifm-color-details)",
-      backgroundColor: "var(--ifm-tag-highlight)",
+      content: `📢  We’d love to hear about your experience with our Documentation Portal.`,
+      textColor: 'var(--ifm-color-details)',
+      backgroundColor: 'var(--ifm-tag-highlight)',
       isCloseable: false,
     },
     navbar: {
@@ -65,11 +60,11 @@ module.exports = {
           label: 'Tutorials',
         },
         {
-          href: "/faq",
-          label: "FAQ",
-          position: "right",
-          target: "_self",
-          className: "FAQbar"
+          href: '/faq',
+          label: 'FAQ',
+          position: 'right',
+          target: '_self',
+          className: 'FAQbar',
         },
         {
           label: 'Release Notes',
@@ -82,14 +77,14 @@ module.exports = {
           position: 'right',
           items: [
             {
-              href: "/starters",
-              label: "Starters",
-              target: "_self",
+              href: '/starters',
+              label: 'Starters',
+              target: '_self',
             },
             {
               href: 'https://community.vtex.com/',
               label: 'Community',
-            }
+            },
           ],
         },
         {
@@ -134,7 +129,7 @@ module.exports = {
             {
               label: 'Tutorials',
               to: '/tutorials',
-            }
+            },
           ],
         },
         {
@@ -167,7 +162,7 @@ module.exports = {
     },
     prism: {
       theme: require('prism-react-renderer/themes/nightOwlLight'),
-      darkTheme: require('prism-react-renderer/themes/dracula')
+      darkTheme: require('prism-react-renderer/themes/dracula'),
     },
   },
 
@@ -185,20 +180,19 @@ module.exports = {
         },
         docs: {
           remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
           ],
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/vtex/faststore/edit/main/apps/docs',
+          editUrl: 'https://github.com/vtex/faststore/edit/main/apps/docs',
         },
         blog: {
           routeBasePath: 'releases',
           showReadingTime: true,
           blogSidebarTitle: 'All releases',
           blogSidebarCount: 'ALL',
-          blogTitle: 'Release Notes'
+          blogTitle: 'Release Notes',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -224,7 +218,11 @@ module.exports = {
       'docusaurus-plugin-react-docgen-typescript',
       {
         // pass in a single string or an array of strings
-        src: ['../../packages/ui/src/**/*.tsx', '!../../packages/ui/src/**/*.test.*', '!../../packages/ui/src/**/*.stories.*'],
+        src: [
+          '../../packages/ui/src/**/*.tsx',
+          '!../../packages/ui/src/**/*.test.*',
+          '!../../packages/ui/src/**/*.stories.*',
+        ],
         parserOptions: {
           // pass parserOptions to react-docgen-typescript
           // here is a good starting point which filters all .tsx files
@@ -233,11 +231,10 @@ module.exports = {
               return prop.declarations[0].fileName.endsWith('.tsx')
             }
 
-            return false;
+            return false
           },
         },
       },
-    ]
+    ],
   ],
-};
-
+}

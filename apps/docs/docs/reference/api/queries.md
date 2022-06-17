@@ -1,10 +1,10 @@
 # Queries
 
-Arguments must be provided by the user. 
+Arguments must be provided by the user.
 
 Arguments preeceded by an exclamation mark (`!`) are not nullable.
 
-## Product 
+## Product
 
 <table>
 <thead>
@@ -57,7 +57,6 @@ Product pagination argument, indicating the cursor corresponding with the item a
 </tr>
 </tbody>
 </table>
-
 
 ## Collection
 
@@ -115,8 +114,7 @@ Collection pagination argument, indicating the cursor corresponding with the ite
 </tbody>
 </table>
 
-
-## Search 
+## Search
 
 <table>
 <thead>

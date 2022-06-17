@@ -10,7 +10,7 @@ We updated our infrastructure to allow you to use site generators that support *
 
 ## What has changed?
 
-Before, there were only two ways to render a FastStore website: either via client-side rendering (CSR) or static site generation (SSG). Now, you can also use server-side rendering. 
+Before, there were only two ways to render a FastStore website: either via client-side rendering (CSR) or static site generation (SSG). Now, you can also use server-side rendering.
 
 :::info
 Server-side rendering (SSR) is a method of rendering pages at run-time. It loads the website code on a server and returns a fully rendered HTML page to the client (browser).
@@ -18,7 +18,7 @@ Server-side rendering (SSR) is a method of rendering pages at run-time. It loads
 
 ## Why did we make these changes?
 
-We made these changes precisely to support Gatsby 4 and NextJS. With these frameworks, you will be able to choose the best way to generate the pages of your store website, opening up new possibilities for what you can create with FastStore. 
+We made these changes precisely to support Gatsby 4 and NextJS. With these frameworks, you will be able to choose the best way to generate the pages of your store website, opening up new possibilities for what you can create with FastStore.
 
 ## What needs to be done?
 

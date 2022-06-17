@@ -9,9 +9,9 @@ import FastStorePackages from "@site/src/components/FastStorePackages/FastStoreP
 
 # FastStore
 
-FastStore is a **light yet powerful set of libraries** made for developers who want to explore their knowledge and creativity building comprehensive ecommerce solutions. FastStore supports integration with **headless ecommerce platforms** and delivers all the necessary building blocks for creating custom ecommerce experiences. 
+FastStore is a **light yet powerful set of libraries** made for developers who want to explore their knowledge and creativity building comprehensive ecommerce solutions. FastStore supports integration with **headless ecommerce platforms** and delivers all the necessary building blocks for creating custom ecommerce experiences.
 
-FastStore architecture is **Jamstack-based**, meaning FastStore projects can be deployed with VTEX IO WebOps, Netlify, Vercel, or any other Jamstack platform in the market. 
+FastStore architecture is **Jamstack-based**, meaning FastStore projects can be deployed with VTEX IO WebOps, Netlify, Vercel, or any other Jamstack platform in the market.
 
 With FastStore and by following our recommended practices, you can achieve outstanding performance on your store website (**90+ on [Google PageSpeed Insights](https://pagespeed.web.dev/)**). In addition, FastStore also delivers:
 
@@ -33,12 +33,12 @@ FastStore encapsulates the following three main packages:
 
 </FastStorePackages>
 
-Besides these three main libraries, FastStore also counts with the following packages: 
+Besides these three main libraries, FastStore also counts with the following packages:
 
-- **`graphql-utils`** - Extracts and processes GraphQL queries. 
+- **`graphql-utils`** - Extracts and processes GraphQL queries.
 - **`lighthouse-config`** - An ecommerce focused [Lighthouse](https://developers.google.com/web/tools/lighthouse/) CI configuration.
 - **`renovate-config`** - Configuration of [Renovate](https://github.com/renovatebot/renovate), a bot responsible for updating dependencies automatically.
-  
+
 :::caution
 If you check FastStore repository on GitHub, you'll also find some Gatsby-specific plugins (`@vtex/gatsby-plugin-cms`, `@vtex/gatsby-plugin-nginx`, `@vtex/gatsby-source-store`, `@vtex/gatsby-source-vtex`. We aim to provide Gatsby-agnostic solutions for these plugins soon.
 :::

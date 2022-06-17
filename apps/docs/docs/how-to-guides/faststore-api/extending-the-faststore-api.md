@@ -7,6 +7,7 @@ This documentation is currently under development.
 GraphQL is a very versatile language. By using the exported `getSchema` function, you can not only extend the base schema but also redefine the whole resolvers implementation.
 
 To extend the schema, one can:
+
 ```ts
 import { getSchema, getTypeDefs } from '@faststore/api'
 import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'

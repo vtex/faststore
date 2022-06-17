@@ -10,9 +10,7 @@ function SectionImage({ tag, title, description, linkTo, message, img }) {
           <p className={styles.contentTag}>{tag}</p>
           <h3>{title}</h3>
           <p className={styles.contentDescription}>{description}</p>
-          <ViewAll 
-          message={message} 
-          linkTo={linkTo}/>
+          <ViewAll message={message} linkTo={linkTo} />
         </div>
       </div>
       <img src={img} />
