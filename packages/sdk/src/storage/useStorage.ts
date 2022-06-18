@@ -31,23 +31,33 @@ const setItem = async <T>(key: string, value: T | null) => {
 export const createStorageStore = <T>(
   key: string,
   initialValue?: T,
-) =>
-  createStore<T>((setter) => {
+) => {
+  const store = createStore<T>((setter) => {
     const handler = async () => {
-      try {
-        const payload = await get(key);
+      const payload = await getItem<T>(key);
 
+      if (payload !== null) {
         setter(payload);
-      } catch (err: any) {
-        setter(err, true);
       }
     };
 
-    handler();
+    if (typeof window !== "undefined") {
+      handler();
+    }
 
-    document.addEventListener("visibilitychange", handler);
-    window.addEventListener("focus", handler);
+    if (typeof document !== "undefined") {
+      document.addEventListener("visibilitychange", handler);
+    }
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("focus", handler);
+    }
   }, initialValue);
+
+  store.subscribe((val) => setItem(key, val));
+
+  return store;
+};
 
 export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
   const [init] = useState(initialValue);
