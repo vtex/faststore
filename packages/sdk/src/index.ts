@@ -95,21 +95,21 @@ export type {
 export { useGlobalUIState } from './ui/useGlobalUIState'
 
 // Session
-export { Provider as SessionProvider } from './session/Provider'
+export { createSessionStore } from './session'
+export { useSession } from './session/useSession'
 export type {
   Session,
   Currency as SessionCurrency,
   Person as SessionPerson,
-} from './session/Session'
-export { useSession } from './session/useSession'
+} from './session'
+
+// Storage
+export { createStorageStore } from './storage'
 
 // Cart
 export { useCart } from './cart/useCart'
-export { createCartStore } from './cart/store'
-export type { Item as CartItem, Cart } from './cart/store'
-
-// Storage
-export { useStorage } from './storage/useStorage'
+export { createCartStore } from './cart'
+export type { Item as CartItem, Cart } from './cart'
 
 // Store
 export { createStore } from './store'

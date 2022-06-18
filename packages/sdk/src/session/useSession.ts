@@ -1,13 +1,5 @@
-import { Context as SessionContext } from './Session'
-import { Context as ValidationContext } from './Revalidate'
-import { useContext } from '../utils/useContext'
+import { Store } from "../store";
+import { useStore } from "../store/useStore";
+import { Session } from ".";
 
-export const useSession = () => {
-  const session = useContext(SessionContext)
-  const isValidating = useContext(ValidationContext)
-
-  return {
-    ...session,
-    isValidating,
-  }
-}
+export const useSession = (store: Store<Session>) => useStore(store)

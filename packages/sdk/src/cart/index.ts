@@ -1,5 +1,5 @@
 import { Store } from "../store";
-import { createStorageStore } from "./../storage/useStorage";
+import { createStorageStore } from "../storage";
 
 export interface Item {
   id: string;
@@ -15,8 +15,8 @@ export type CartStore<I extends Item, C extends Cart<I>> = Store<C>;
 
 export const createCartStore = <I extends Item, C extends Cart<I>>({
   namespace = "main",
-  initialCart,
+  initialValue,
 }: {
   namespace?: string;
-  initialCart?: C;
-}) => createStorageStore(`${namespace}::store::cart`, initialCart);
+  initialValue?: C;
+}) => createStorageStore(`${namespace}::store::cart`, initialValue);

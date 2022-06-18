@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { useStore } from "../store/useStore";
 import { SDKError } from "../utils/error";
-import { Cart, CartStore, Item } from "./store";
+import { Cart, CartStore, Item } from ".";
 
 export const useCart = <I extends Item, C extends Cart<I>>(
   store: CartStore<I, C>,

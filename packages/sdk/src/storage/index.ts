@@ -6,7 +6,6 @@
  * between server/browser. When state is 'hydrated', the value in the heap
  * is the same as the value in IDB
  */
-import { useEffect, useState } from "react";
 import { get, set } from "idb-keyval";
 import { createStore } from "../store";
 
@@ -57,46 +56,4 @@ export const createStorageStore = <T>(
   store.subscribe((val) => setItem(key, val));
 
   return store;
-};
-
-export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
-  const [init] = useState(initialValue);
-  const [data, setData] = useState(init);
-
-  useEffect(() => {
-    // Avoids race condition between this and next effect hook.
-    if (data !== init) {
-      setItem(key, data);
-    }
-  }, [data, init, key]);
-
-  useEffect(() => {
-    let cancel = false;
-
-    const effect = async () => {
-      const item = await getItem<T>(key);
-
-      if (!cancel && item !== null) {
-        setData(item);
-      }
-    };
-
-    const focusHandler = () => {
-      if (document.visibilityState === "visible") {
-        effect();
-      }
-    };
-
-    setTimeout(effect, 0);
-    document.addEventListener("visibilitychange", focusHandler);
-    window.addEventListener("focus", focusHandler);
-
-    return () => {
-      cancel = true;
-      document.removeEventListener("visibilitychange", focusHandler);
-      window.removeEventListener("focus", focusHandler);
-    };
-  }, [key]);
-
-  return [data, setData] as const;
 };
