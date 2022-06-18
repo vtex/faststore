@@ -105,6 +105,7 @@ export type {
 
 // Storage
 export { createStorageStore } from './storage'
+export { useStorage } from './storage/useStorage'
 
 // Cart
 export { useCart } from './cart/useCart'
