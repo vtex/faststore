@@ -6,65 +6,87 @@
  * between server/browser. When state is 'hydrated', the value in the heap
  * is the same as the value in IDB
  */
-import { useEffect, useState } from 'react'
-import { get, set } from 'idb-keyval'
+import { useEffect, useState } from "react";
+import { get, set } from "idb-keyval";
+import { createStore } from "../store";
 
 const getItem = async <T>(key: string) => {
   try {
-    const value = await get<T>(key)
+    const value = await get<T>(key);
 
-    return value ?? null
+    return value ?? null;
   } catch (err) {
-    return null
+    return null;
   }
-}
+};
 
 const setItem = async <T>(key: string, value: T | null) => {
   try {
-    await set(key, value)
+    await set(key, value);
   } catch (err) {
     // noop
   }
-}
+};
+
+export const createStorageStore = <T>(
+  key: string,
+  initialValue?: T,
+) =>
+  createStore<T>((setter) => {
+    const handler = async () => {
+      try {
+        const payload = await get(key);
+
+        setter(payload);
+      } catch (err: any) {
+        setter(err, true);
+      }
+    };
+
+    handler();
+
+    document.addEventListener("visibilitychange", handler);
+    window.addEventListener("focus", handler);
+  }, initialValue);
 
 export const useStorage = <T>(key: string, initialValue: T | (() => T)) => {
-  const [init] = useState(initialValue)
-  const [data, setData] = useState(init)
+  const [init] = useState(initialValue);
+  const [data, setData] = useState(init);
 
   useEffect(() => {
     // Avoids race condition between this and next effect hook.
     if (data !== init) {
-      setItem(key, data)
+      setItem(key, data);
     }
-  }, [data, init, key])
+  }, [data, init, key]);
 
   useEffect(() => {
-    let cancel = false
+    let cancel = false;
 
     const effect = async () => {
-      const item = await getItem<T>(key)
+      const item = await getItem<T>(key);
 
       if (!cancel && item !== null) {
-        setData(item)
+        setData(item);
       }
-    }
+    };
 
     const focusHandler = () => {
-      if (document.visibilityState === 'visible') {
-        effect()
+      if (document.visibilityState === "visible") {
+        effect();
       }
-    }
+    };
 
-    setTimeout(effect, 0)
-    document.addEventListener('visibilitychange', focusHandler)
-    window.addEventListener('focus', focusHandler)
+    setTimeout(effect, 0);
+    document.addEventListener("visibilitychange", focusHandler);
+    window.addEventListener("focus", focusHandler);
 
     return () => {
-      cancel = true
-      document.removeEventListener('visibilitychange', focusHandler)
-      window.removeEventListener('focus', focusHandler)
-    }
-  }, [key])
+      cancel = true;
+      document.removeEventListener("visibilitychange", focusHandler);
+      window.removeEventListener("focus", focusHandler);
+    };
+  }, [key]);
 
-  return [data, setData] as const
-}
+  return [data, setData] as const;
+};

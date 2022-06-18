@@ -104,10 +104,14 @@ export type {
 export { useSession } from './session/useSession'
 
 // Cart
-export { Provider as CartProvider } from './cart/Provider'
 export { useCart } from './cart/useCart'
-export type { Item as CartItem } from './cart/Cart'
-export type { Cart } from './cart/Optimistic'
+export { createCartStore } from './cart/store'
+export type { Item as CartItem, Cart } from './cart/store'
 
 // Storage
 export { useStorage } from './storage/useStorage'
+
+// Store
+export { createStore } from './store'
+export { optimistic } from './store/optimistic'
+export { useStore } from './store/useStore'
