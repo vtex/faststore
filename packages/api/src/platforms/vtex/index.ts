@@ -1,24 +1,29 @@
 import { getClients } from './clients'
+import type { SearchArgs } from './clients/search'
 import { getLoaders } from './loaders'
 import { StoreAggregateOffer } from './resolvers/aggregateOffer'
 import { StoreAggregateRating } from './resolvers/aggregateRating'
 import { StoreCollection } from './resolvers/collection'
-import { StoreFacet } from './resolvers/facet'
-import { StoreFacetValue } from './resolvers/facetValue'
+import {
+  StoreFacet,
+  StoreFacetBoolean,
+  StoreFacetRange,
+} from './resolvers/facet'
+import { StoreFacetValueBoolean } from './resolvers/faceValue'
 import { Mutation } from './resolvers/mutation'
+import { ObjectOrString } from './resolvers/objectOrString'
 import { StoreOffer } from './resolvers/offer'
 import { StoreProduct } from './resolvers/product'
 import { StoreProductGroup } from './resolvers/productGroup'
+import { StorePropertyValue } from './resolvers/propertyValue'
 import { Query } from './resolvers/query'
 import { StoreReview } from './resolvers/review'
 import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
-import { ObjectOrString } from './resolvers/objectOrString'
-import { StorePropertyValue } from './resolvers/propertyValue'
+import ChannelMarshal from './utils/channel'
 import type { Loaders } from './loaders'
 import type { Clients } from './clients'
 import type { Channel } from './utils/channel'
-import ChannelMarshal from './utils/channel'
 
 export interface Options {
   platform: 'vtex'
@@ -48,6 +53,7 @@ export interface Context {
     channel: Required<Channel>
     locale: string
     flags: FeatureFlags
+    searchArgs?: Omit<SearchArgs, 'type'>
   }
   headers: Record<string, string>
 }
@@ -65,7 +71,9 @@ const Resolvers = {
   StoreProduct,
   StoreSeo,
   StoreFacet,
-  StoreFacetValue,
+  StoreFacetBoolean,
+  StoreFacetRange,
+  StoreFacetValueBoolean,
   StoreOffer,
   StoreAggregateRating,
   StoreReview,

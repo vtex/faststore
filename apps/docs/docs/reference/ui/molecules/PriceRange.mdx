@@ -21,9 +21,10 @@ function Component () {
 
   return (
     <PriceRange
-      max = "500"
-      min = "0"
+      max={500}
+      min={100}
       formatter={formatter}
+      onEnd={(value) => window.alert(`Min: ${formatter(value.min)}, Max: ${formatter(value.max)}`)}
     />
   )
 }

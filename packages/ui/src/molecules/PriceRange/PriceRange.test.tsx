@@ -13,8 +13,14 @@ function formatter(price: number) {
 
 const props = {
   formatter,
-  min: 0,
-  max: 100,
+  min: {
+    absolute: 0,
+    selected: 0,
+  },
+  max: {
+    absolute: 100,
+    selected: 100,
+  },
   ariaLabel: 'My price range',
 }
 
