@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import type { Facet, SearchSort, State } from '../types'
+import type { Facet, SearchSort, State } from './types'
 import { SDKError } from '../utils/error'
 import format from '../utils/format'
 

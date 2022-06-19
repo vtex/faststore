@@ -40,17 +40,10 @@ export const createStorageStore = <T>(
       }
     };
 
-    if (typeof window !== "undefined") {
-      handler();
-    }
+    handler();
 
-    if (typeof document !== "undefined") {
-      document.addEventListener("visibilitychange", handler);
-    }
-
-    if (typeof window !== "undefined") {
-      window.addEventListener("focus", handler);
-    }
+    globalThis.addEventListener?.("focus", handler);
+    globalThis.document?.addEventListener("visibilitychange", handler);
   }, initialValue);
 
   store.subscribe((val) => setItem(key, val));

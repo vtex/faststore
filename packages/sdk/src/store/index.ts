@@ -1,15 +1,20 @@
 type Subscriber<T> = (value: T) => void | Promise<void>;
 
+type Subscription<T> = (
+  setter: (val: T, error?: boolean) => void | Promise<void>,
+) => void;
+
 export interface Store<T> {
   set: (val: T, error?: boolean) => void;
   read: () => T;
   subscribe: (sub: Subscriber<T>) => () => void;
 }
 
+/**
+ * Creates a new Suspense ready Store
+ */
 export const createStore = <T>(
-  subscription: (
-    setter: (val: T, error?: boolean) => void | Promise<void>,
-  ) => void,
+  subscription: Subscription<T>,
   initialValue?: T,
 ): Store<T> => {
   const subscribers: Array<Subscriber<T>> = [];

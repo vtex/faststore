@@ -1,17 +1,33 @@
-import { useMemo } from "react";
-import { Store } from "../store";
-import { useStore } from "../store/useStore";
-import { Session } from "./index";
+import { useStorage } from "./../storage/useStorage";
 
-export const useSession = (store: Store<Session>) => {
-  const session = useStore(store);
+export interface Currency {
+  code: string; // Ex: USD
+  symbol: string; // Ex: $
+}
 
-  const actions = useMemo(() => ({
-    setSession: (session: Session) => store.set(session),
-  }), [store]);
+export interface Person {
+  id: string;
+  email: string;
+  givenName: string;
+  familyName: string;
+}
+
+export interface Session {
+  locale: string; // en-US
+  currency: Currency;
+  country: string; // BRA
+  channel: string | null;
+  postalCode: string | null;
+  person: Person | null;
+}
+
+const key = "faststore::session";
+
+export const useSession = (initialValue?: Session) => {
+  const [session, setSession] = useStorage(key, initialValue);
 
   return {
     ...session,
-    ...actions,
+    setSession,
   };
 };

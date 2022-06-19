@@ -1,4 +1,4 @@
-import type { State } from '../types'
+import type { State } from '../search/types'
 
 const format = (params: State): URL => {
   const url = new URL(params.base, 'http://localhost')

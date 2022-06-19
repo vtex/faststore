@@ -1,4 +1,4 @@
-import type { SearchSort, State } from '../types'
+import type { SearchSort, State } from './types'
 import { initialize, reducer } from './useSearchState'
 
 export const parse = ({ pathname, searchParams }: URL): State => {
