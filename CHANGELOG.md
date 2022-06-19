@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.11](https://github.com/vtex/faststore/compare/v1.9.10...v1.9.11) (2022-06-19)
+
+
+### Features
+
+* Price range filter on PLP ([#1364](https://github.com/vtex/faststore/issues/1364)) ([a4c3fa7](https://github.com/vtex/faststore/commit/a4c3fa79c32d1db7bc737f5221479e6db1488866))
+
+
+
+
+
 ## [1.9.10](https://github.com/vtex/faststore/compare/v1.9.9...v1.9.10) (2022-06-18)
 
 **Note:** Version bump only for package faststore
