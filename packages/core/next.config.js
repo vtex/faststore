@@ -9,7 +9,7 @@ const nextConfig = {
     locales: ['en-US'],
     defaultLocale: 'en-US',
   },
-  webpack: (config) => {
+  webpack: (config, { isServer, dev }) => {
     // https://github.com/vercel/next.js/discussions/11267#discussioncomment-2479112
     // camel-case style names from css modules
     config.module.rules
@@ -21,6 +21,12 @@ const nextConfig = {
           options.modules.exportLocalsConvention = 'camelCase'
         }
       })
+
+    // Reduce the number of chunks so we ship a smaller first bundle.
+    // This should help reducing TBT
+    if (!isServer && !dev && config.optimization?.splitChunks) {
+      config.optimization.splitChunks.maxInitialRequests = 1
+    }
 
     return config
   },

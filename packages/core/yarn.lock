@@ -1551,17 +1551,17 @@
   resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.9.4.tgz#4aa001769edb9dd4a8228874fe78f49029adce13"
   integrity sha512-M+ioC6JPO3XHQpXSfpIR9BYuzgl6hebLM4D6Ufp8HkQLxMMBaKh7GKEEBYGhjW+BgxgmG/id0TV/+NwzmgrPdQ==
 
-"@faststore/sdk@^1.9.4":
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/@faststore/sdk/-/sdk-1.9.4.tgz#fa041160e6f90d789866ee9176da2ff4336b9d8b"
-  integrity sha512-emdCI738A3IBY0hrsR+Gs63eg2/ZDSllHObdbJnMemodTTY3rEYKA00KvBz7zTkkFydkWYXs3tKO0NfM+kO8WA==
+"@faststore/sdk@1.9.10":
+  version "1.9.10"
+  resolved "https://registry.yarnpkg.com/@faststore/sdk/-/sdk-1.9.10.tgz#6a7a1a257d6bdce90536ad93421f43bb5ffc58e6"
+  integrity sha512-QePjgVdme6i7UVIL002CUpzByEmTtfAVGcEInmXSglSImWgGCPcTg178+ktGAKMidTvJ+s7lBvDpPTkYIk24eA==
   dependencies:
     idb-keyval "^5.1.3"
 
-"@faststore/ui@^1.9.4":
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.9.4.tgz#fb76491f476fc3a1dac0a5dbf7da013a8e9bd69b"
-  integrity sha512-IC8CzxiZU91UDV5FGdMrBD/HiMXS8JLZt0cJ2iCbJWHzpU0p40ja7GGP6DIxKCuauW++T5zeHg5rB4VF3T7/nQ==
+"@faststore/ui@1.9.10":
+  version "1.9.10"
+  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.9.10.tgz#89003ecb2f20573e01f3b70f54dbec0601ce5c2f"
+  integrity sha512-QV/G4BWvXBb0/2Tx82MyaAA0S6ScPEGSDzJgH0ZLH6bOw48xEPgOn5eLiyS+6kjUjpnOneotR03LWC0yunab/Q==
   dependencies:
     "@reach/popover" "^0.16.0"
     "@storybook/addon-a11y" "^6.4.4"
