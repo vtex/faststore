@@ -1,17 +1,31 @@
 import { Store } from ".";
 
-const queue = Promise.resolve();
+const trivial = async () => null;
 
-export const optimistic = <T>(
-  store: Store<T>,
-  onValidate: (value: T) => Promise<T | null>,
-) =>
-  store.subscribe(async (value) => {
-    const validated = await queue.then(
-      () => onValidate(value),
-    );
+type Validator<T> = (value: T) => Promise<T | null>;
 
-    if (validated !== null) {
-      store.set(validated);
-    }
-  });
+export const optimisticStore = <T>(onValidate: Validator<T> = trivial) => {
+  let queue = Promise.resolve();
+
+  return (store: Store<T>) => {
+    store.subscribe((value) => {
+      let cancel = false;
+
+      const handler = async () => {
+        const validated = await onValidate(value);
+
+        if (!cancel && validated !== null) {
+          store.set(validated);
+        }
+      };
+
+      queue = queue.then(handler);
+
+      return () => {
+        cancel = true;
+      };
+    });
+
+    return store;
+  };
+};

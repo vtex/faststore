@@ -98,22 +98,21 @@ export type {
 export { useGlobalUIState } from "./ui/useGlobalUIState";
 
 // Session
-export { useSession } from "./session/useSession";
+export { createSessionStore } from "./session";
 export type {
   Currency as SessionCurrency,
   Person as SessionPerson,
   Session,
-} from "./session/useSession";
+} from "./session";
 
 // Storage
 export { createStorageStore } from "./storage";
-export { useStorage } from "./storage/useStorage";
 
 // Cart
-export { useCart } from "./cart/useCart";
+export { createCartStore } from "./cart";
 export type { Cart, Item as CartItem } from "./cart";
 
 // Store
-export { createStore } from "./store";
-export { optimistic } from "./store/optimistic";
+export { createSingletonStore as createStore } from "./store/singleton";
+export { optimisticStore as optimistic } from "./store/optimistic";
 export { useStore } from "./store/useStore";

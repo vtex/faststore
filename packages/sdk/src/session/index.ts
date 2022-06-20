@@ -1,5 +1,5 @@
-import { useStorage } from "./../storage/useStorage";
-
+import { optimisticStore } from "./../store/optimistic";
+import { createStorageStore } from "./../storage/index";
 export interface Currency {
   code: string; // Ex: USD
   symbol: string; // Ex: $
@@ -21,13 +21,10 @@ export interface Session {
   person: Person | null;
 }
 
-const key = "faststore::session";
-
-export const useSession = (initialValue?: Session) => {
-  const [session, setSession] = useStorage(key, initialValue);
-
-  return {
-    ...session,
-    setSession,
-  };
-};
+export const createSessionStore = (
+  defaultSession: Session,
+  onValidate?: (value: Session) => Promise<Session | null>,
+) =>
+  optimisticStore(onValidate)(
+    createStorageStore("faststore::session", defaultSession),
+  );

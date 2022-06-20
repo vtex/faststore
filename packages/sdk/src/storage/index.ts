@@ -7,46 +7,31 @@
  * is the same as the value in IDB
  */
 import { get, set } from "idb-keyval";
-import { createStore } from "../store";
+import { createSingletonStore } from "../store/singleton";
 
-const getItem = async <T>(key: string) => {
-  try {
-    const value = await get<T>(key);
+export const createStorageStore = <T>(key: string, initialValue?: T) => {
+  const store = createSingletonStore<T>(key, initialValue);
 
-    return value ?? null;
-  } catch (err) {
-    return null;
-  }
-};
+  const handler = async () => {
+    try {
+      const payload = await get<T>(key);
 
-const setItem = async <T>(key: string, value: T | null) => {
-  try {
-    await set(key, value);
-  } catch (err) {
-    // noop
-  }
-};
+      payload !== undefined && store.set(payload);
+    } catch (err) {
+      // noop
+    }
+  };
 
-export const createStorageStore = <T>(
-  key: string,
-  initialValue?: T,
-) => {
-  const store = createStore<T>((setter) => {
-    const handler = async () => {
-      const payload = await getItem<T>(key);
+  handler();
+  globalThis.addEventListener?.("focus", handler);
+  globalThis.document?.addEventListener(
+    "visibilitychange",
+    () => document.visibilityState === "visible" && handler(),
+  );
 
-      if (payload !== null) {
-        setter(payload);
-      }
-    };
-
-    handler();
-
-    globalThis.addEventListener?.("focus", handler);
-    globalThis.document?.addEventListener("visibilitychange", handler);
-  }, initialValue);
-
-  store.subscribe((val) => setItem(key, val));
+  store.subscribe((value) => {
+    set(key, value).catch();
+  });
 
   return store;
 };

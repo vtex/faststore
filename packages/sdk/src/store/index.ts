@@ -1,11 +1,7 @@
-type Subscriber<T> = (value: T) => void | Promise<void>;
-
-type Subscription<T> = (
-  setter: (val: T, error?: boolean) => void | Promise<void>,
-) => void;
+type Subscriber<T> = (value: T) => (void | (() => void));
 
 export interface Store<T> {
-  set: (val: T, error?: boolean) => void;
+  set: (val: T) => void;
   read: () => T;
   subscribe: (sub: Subscriber<T>) => () => void;
 }
@@ -14,53 +10,36 @@ export interface Store<T> {
  * Creates a new Suspense ready Store
  */
 export const createStore = <T>(
-  subscription: Subscription<T>,
-  initialValue?: T,
+  initialValue: T,
 ): Store<T> => {
-  const subscribers: Array<Subscriber<T>> = [];
+  const subscribers: Array<{
+    send: Subscriber<T>;
+    cancel: ReturnType<Subscriber<T>>;
+  }> = [];
 
-  let resolve: undefined | (() => void);
-  const suspender = new Promise<void>((r) => resolve = r);
+  let value: T = initialValue;
 
-  let status: "pending" | "success" | "error" = "pending";
-  let value: T | undefined = initialValue;
+  const read = () => value;
 
-  const set = (val: T, error = false) => {
+  const set = (val: T) => {
     value = val;
 
-    for (const sub of subscribers) {
-      sub(value);
+    for (const subscriber of subscribers) {
+      subscriber.cancel?.();
+      subscriber.cancel = subscriber.send(val);
     }
-
-    if (status === "pending") {
-      resolve?.();
-    }
-    status = error ? "error" : "success";
   };
 
-  const read = (): T => {
-    if (value !== undefined) {
-      return value;
-    }
-
-    if (status === "pending") {
-      throw suspender;
-    }
-
-    throw value;
-  };
-
-  const subscribe = (sub: Subscriber<T>) => {
+  const subscribe = (send: Subscriber<T>) => {
     const index = subscribers.length;
 
-    subscribers.push(sub);
+    subscribers.push({ send, cancel: undefined });
 
     return () => {
+      subscribers[index]?.cancel?.();
       subscribers.splice(index, 1);
     };
   };
-
-  subscription(set);
 
   return {
     set,

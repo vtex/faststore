@@ -1,4 +1,5 @@
-import { Store } from "../store";
+import { optimisticStore } from "./../store/optimistic";
+import { createStorageStore } from "./../storage/index";
 import { SDKError } from "../utils/error";
 
 export interface Item {
@@ -11,10 +12,17 @@ export interface Cart<I extends Item> {
   items: I[];
 }
 
-export const createCart = <I extends Item, C extends Cart<I>>(
-  store: Store<C>,
+export const createCartStore = <C extends Cart<Item>>(
+  defaultCart: C,
+  onValidate?: (value: C) => Promise<C | null>,
 ) => {
-  const addItem = (item: I) => {
+  const store = optimisticStore(onValidate)(
+    createStorageStore("faststore::cart", defaultCart),
+  );
+
+  const addItem = (
+    item: Item,
+  ) => {
     if (!item.id) {
       throw new SDKError("You must provide an `id` for items");
     }
@@ -41,7 +49,10 @@ export const createCart = <I extends Item, C extends Cart<I>>(
     });
   };
 
-  const updateItemQuantity = (id: string, quantity: number) => {
+  const updateItemQuantity = (
+    id: string,
+    quantity: number,
+  ) => {
     const c = store.read();
     const currentItem = getItem(id);
 
@@ -60,7 +71,9 @@ export const createCart = <I extends Item, C extends Cart<I>>(
     });
   };
 
-  const removeItem = (id: string) => {
+  const removeItem = (
+    id: string,
+  ) => {
     const c = store.read();
     const removed = getItem(id);
 
@@ -72,21 +85,23 @@ export const createCart = <I extends Item, C extends Cart<I>>(
 
   const emptyCart = () => store.set({ ...store.read(), items: [] });
 
-  const getItem = (id: string) =>
-    store.read().items.find((item) => item.id === id);
+  const getItem = (
+    id: string,
+  ) => store.read().items.find((item) => item.id === id);
 
-  const inCart = (id: string) => Boolean(getItem(id));
+  const inCart = (
+    id: string,
+  ) => Boolean(getItem(id));
 
   const isEmpty = () => store.read().items.length === 0;
 
   return {
-    emptyCart,
-    isEmpty,
-    inCart,
-
+    ...store,
     addItem,
     updateItemQuantity,
     removeItem,
-    getItem,
+    emptyCart,
+    inCart,
+    isEmpty,
   };
 };
