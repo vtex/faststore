@@ -86,7 +86,7 @@ function Footer() {
           component={
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src="/BaseStore.svg"
+              src="/logo.svg"
               alt="BaseStore logo"
               width="124px"
               height="32px"
