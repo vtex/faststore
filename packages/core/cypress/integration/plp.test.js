@@ -22,7 +22,9 @@ describe('Search page Filters and Sorting options', () => {
     // Apply filters
     cy.getById('open-filter-button')
       .click()
-      .getById('mobile-store-filter-accordion-button')
+      .get(
+        `[data-testid=mobile-store-filter-accordion-item][data-type=StoreFacetBoolean]>[data-testid=mobile-store-filter-accordion-button]`
+      )
       .first()
       .click()
       .getById('mobile-store-filter-accordion-panel-checkbox')

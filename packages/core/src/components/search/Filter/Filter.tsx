@@ -1,4 +1,4 @@
-import { useSearch } from '@faststore/sdk'
+import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 import { gql } from '@faststore/graphql-utils'
 
 import Button, { ButtonIcon } from 'src/components/ui/Button'
@@ -30,10 +30,7 @@ function FilterSlider({
   const { closeFilter } = useUI()
   const { fade, fadeOut } = useFadeEffect()
 
-  const {
-    setFacets,
-    state: { selectedFacets },
-  } = useSearch()
+  const { resetInfiniteScroll, setState, state } = useSearch()
 
   return (
     <SlideOver
@@ -55,7 +52,7 @@ function FilterSlider({
             onClick={() => {
               dispatch({
                 type: 'selectFacets',
-                payload: selectedFacets,
+                payload: state.selectedFacets,
               })
 
               fadeOut()
@@ -66,8 +63,10 @@ function FilterSlider({
           facets={facets}
           testId={`mobile-${testId}`}
           indicesExpanded={expanded}
-          onFacetChange={(facet) =>
-            dispatch({ type: 'toggleFacet', payload: facet })
+          onFacetChange={(facet, type) =>
+            type === 'BOOLEAN'
+              ? dispatch({ type: 'toggleFacet', payload: facet })
+              : dispatch({ type: 'setFacet', payload: { facet, unique: true } })
           }
           onAccordionChange={(index) =>
             dispatch({ type: 'toggleExpanded', payload: index })
@@ -85,7 +84,13 @@ function FilterSlider({
           variant="primary"
           data-testid="filter-modal-button-apply"
           onClick={() => {
-            setFacets(selected)
+            resetInfiniteScroll(0)
+
+            setState({
+              ...state,
+              selectedFacets: selected,
+              page: 0,
+            })
             fadeOut()
           }}
         >
@@ -98,7 +103,7 @@ function FilterSlider({
 
 function Filter({ facets: allFacets, testId = 'store-filter' }: Props) {
   const filter = useFilter(allFacets)
-  const { toggleFacet } = useSearch()
+  const { resetInfiniteScroll, state, setState } = useSearch()
   const { filter: displayFilter } = useUI()
   const { facets, expanded, dispatch } = filter
 
@@ -109,7 +114,17 @@ function Filter({ facets: allFacets, testId = 'store-filter' }: Props) {
           facets={facets}
           testId={`desktop-${testId}`}
           indicesExpanded={expanded}
-          onFacetChange={toggleFacet}
+          onFacetChange={(facet, type) => {
+            setState({
+              ...state,
+              selectedFacets:
+                type === 'BOOLEAN'
+                  ? toggleFacet(state.selectedFacets, facet)
+                  : setFacet(state.selectedFacets, facet, true),
+              page: 0,
+            })
+            resetInfiniteScroll(0)
+          }}
           onAccordionChange={(index) =>
             dispatch({ type: 'toggleExpanded', payload: index })
           }
@@ -123,14 +138,33 @@ function Filter({ facets: allFacets, testId = 'store-filter' }: Props) {
 
 export const fragment = gql`
   fragment Filter_facets on StoreFacet {
-    key
-    label
-    type
-    values {
+    ... on StoreFacetRange {
+      key
       label
-      value
-      selected
-      quantity
+
+      min {
+        selected
+        absolute
+      }
+
+      max {
+        selected
+        absolute
+      }
+
+      __typename
+    }
+    ... on StoreFacetBoolean {
+      key
+      label
+      values {
+        label
+        value
+        selected
+        quantity
+      }
+
+      __typename
     }
   }
 `

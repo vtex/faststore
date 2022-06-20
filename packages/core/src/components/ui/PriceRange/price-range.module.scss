@@ -1,0 +1,92 @@
+@import "src/styles/scaffold";
+
+.fs-price-range {
+  // --------------------------------------------------------
+  // Design Tokens for Price Range
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-price-range-slider-height: .5rem;
+  --fs-price-range-slider-border-radius: var(--fs-border-radius);
+
+  // Slider
+  --fs-price-range-slider-bkg-color: var(--fs-color-primary-bkg-light);
+  --fs-price-range-slider-range-bkg-color: var(--fs-color-primary-bkg);
+
+  // Thumb
+  --fs-price-range-slider-thumb-bkg-color: var(--fs-color-tertiary-bkg-light);
+  --fs-price-range-slider-thumb-radius: var(--fs-border-radius-circle);
+  --fs-price-range-slider-thumb-size: 1rem;
+  --fs-price-range-slider-thumb-border-color: var(--fs-border-color);
+  --fs-price-range-slider-thumb-border-width: var(--fs-border-width);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+  [data-store-slider] {
+    position: relative;
+    width: 100%;
+    height: var(--fs-price-range-slider-height);
+    background-color: var(--fs-price-range-slider-bkg-color);
+    border-radius: var(--fs-price-range-slider-border-radius);
+  }
+
+  [data-slider-range] {
+    position: absolute;
+    height: var(--fs-price-range-slider-height);
+    background-color: var(--fs-price-range-slider-range-bkg-color);
+    border-radius: var(--fs-price-range-slider-border-radius);
+  }
+
+  // TODO: Figure out a way for not repeating all styles for both
+  // webkit and and mozilla
+
+  /* Thumb styles for Webkit based browsers (Chrome, Edge) */
+  [data-slider-thumb],
+  [data-slider-thumb]::-webkit-slider-thumb {
+    width: var(--fs-price-range-slider-thumb-size);
+    height: var(--fs-price-range-slider-thumb-size);
+    pointer-events: auto;
+    cursor: col-resize;
+    background-color: var(--fs-price-range-slider-thumb-bkg-color);
+    border: var(--fs-price-range-thumb-border-width) solid var(--fs-price-range-thumb-border-color);
+    border-radius: var(--fs-price-range-slider-thumb-radius);
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Thumb styles for Mozilla */
+  [data-slider-thumb]::-moz-range-thumb {
+    width: var(--fs-price-range-slider-thumb-size);
+    height: var(--fs-price-range-slider-thumb-size);
+    pointer-events: auto;
+    cursor: col-resize;
+    background-color: var(--fs-price-range-slider-thumb-bkg-color);
+    border: var(--fs-price-range-thumb-border-width) solid var(--fs-price-range-thumb-border-color);
+    border-radius: var(--fs-price-range-slider-thumb-radius);
+  }
+
+  [data-slider-thumb] {
+    position: absolute;
+    width: inherit;
+    height: 0;
+    margin: calc(var(--fs-price-range-slider-height) / 2) 0;
+    pointer-events: none;
+    border: none;
+  }
+
+  [data-slider-thumb="left"] {
+    z-index: 1;
+  }
+
+  [data-slider-thumb="right"] {
+    z-index: 2;
+  }
+
+  [data-price-range-values] {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--fs-spacing-3);
+    margin-bottom: var(--fs-spacing-3);
+  }
+}

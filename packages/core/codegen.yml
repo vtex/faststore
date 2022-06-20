@@ -13,6 +13,7 @@ generates:
       skipTypename: true
       allowEnumStringTypes: false
       namingConvention: 'change-case-all#pascalCase'
+      exportFragmentSpreadSubTypes: true
     plugins:
       - typescript
       - typescript-operations

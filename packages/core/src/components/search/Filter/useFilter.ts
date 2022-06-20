@@ -1,4 +1,4 @@
-import { useSearch } from '@faststore/sdk'
+import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
 import { useEffect, useMemo, useReducer } from 'react'
 import type { IStoreSelectedFacet } from '@faststore/api'
 
@@ -22,47 +22,56 @@ type Action =
       type: 'toggleFacet'
       payload: IStoreSelectedFacet
     }
+  | {
+      type: 'setFacet'
+      payload: { facet: IStoreSelectedFacet; unique?: boolean }
+    }
 
 const reducer = (state: State, action: Action) => {
   const { expanded, selected } = state
   const { type, payload } = action
 
-  if (type === 'toggleExpanded') {
-    if (expanded.has(payload)) {
-      expanded.delete(payload)
-    } else {
-      expanded.add(payload)
-    }
+  switch (type) {
+    case 'toggleExpanded': {
+      if (expanded.has(payload)) {
+        expanded.delete(payload)
+      } else {
+        expanded.add(payload)
+      }
 
-    return {
-      ...state,
-      expanded: new Set(expanded),
-    }
-  }
-
-  if (type === 'selectFacets' && payload !== selected) {
-    return {
-      ...state,
-      selected: payload,
-    }
-  }
-
-  if (type === 'toggleFacet') {
-    const index = state.selected.findIndex(
-      (facet) => facet.key === payload.key && facet.value === payload.value
-    )
-
-    if (index > -1) {
       return {
         ...state,
-        selected: state.selected.filter((_, idx) => idx !== index),
+        expanded: new Set(expanded),
       }
     }
 
-    return {
-      ...state,
-      selected: [...state.selected, payload],
+    case 'selectFacets': {
+      if (payload !== selected) {
+        return {
+          ...state,
+          selected: payload,
+        }
+      }
+
+      break
     }
+
+    case 'toggleFacet': {
+      return {
+        ...state,
+        selected: toggleFacet(state.selected, payload),
+      }
+    }
+
+    case 'setFacet': {
+      return {
+        ...state,
+        selected: setFacet(state.selected, payload.facet, payload.unique),
+      }
+    }
+
+    default:
+      throw new Error(`Action ${type} not implemented`)
   }
 
   return state
@@ -94,16 +103,20 @@ export const useFilter = (allFacets: Filter_FacetsFragment[]) => {
 
   const facets = useMemo(
     () =>
-      allFacets
-        .filter((facet) => facet.type === 'BOOLEAN')
-        .map((facet) => ({
-          ...facet,
-          values: facet.values.map(({ value, ...rest }) => ({
-            ...rest,
-            value,
-            selected: Boolean(selectedMap.get(facet.key)?.has(value)),
-          })),
-        })),
+      allFacets.map((facet) => {
+        if (facet.__typename === 'StoreFacetBoolean') {
+          return {
+            ...facet,
+            values: facet.values.map(({ value, ...rest }) => ({
+              ...rest,
+              value,
+              selected: Boolean(selectedMap.get(facet.key)?.has(value)),
+            })),
+          }
+        }
+
+        return facet
+      }),
     [allFacets, selectedMap]
   )
 

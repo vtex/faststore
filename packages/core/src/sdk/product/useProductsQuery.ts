@@ -1,6 +1,7 @@
 import { useSession } from '@faststore/sdk'
 import { gql } from '@faststore/graphql-utils'
 import { useCallback, useMemo } from 'react'
+import { useSWRConfig } from 'swr'
 
 import { ITEMS_PER_SECTION } from 'src/constants'
 import type {
@@ -97,9 +98,10 @@ export const useProductsQueryPrefetch = (
   options?: QueryOptions
 ) => {
   const localizedVariables = useLocalizedVariables(variables)
+  const { cache } = useSWRConfig()
 
   return useCallback(
-    () => prefetchQuery(query, localizedVariables, options),
-    [options, localizedVariables]
+    () => prefetchQuery(query, localizedVariables, { cache, ...options }),
+    [localizedVariables, cache, options]
   )
 }

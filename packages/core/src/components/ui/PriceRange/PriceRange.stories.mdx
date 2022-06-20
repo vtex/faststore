@@ -1,0 +1,104 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import { SessionProvider } from '@faststore/sdk'
+
+import PriceRange from '.'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  BestPractices,
+  BestPracticesRule,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Molecules/PriceRange"
+  argTypes={{
+    min: { control: { disable: true } },
+    max: { control: { disable: true } },
+  }}
+  component={PriceRange}
+/>
+
+export const defaultArgs = {
+  min: {
+    absolute: 0,
+    selected: 10,
+  },
+  max: {
+    selected: 90,
+    absolute: 100,
+  },
+}
+
+export const Template = (args) => {
+  return (
+    <SessionProvider>
+      <PriceRange {...defaultArgs} {...args} />
+    </SessionProvider>
+  )
+}
+
+<header>
+
+# PriceRange
+
+PriceRange allows you to implement filters on PLP so users have a high control over product prices.
+
+</header>
+
+## Overview
+
+The `PriceRange` component uses [FastStore UI PriceRange](https://www.faststore.dev/reference/ui/molecules/PriceRange) as base.
+
+---
+
+## Usage
+`import PriceRange from '../components/ui/PriceRange'`
+
+<Canvas isColumn>
+  <Story name="overview-default" args={defaultArgs}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="overview-default" />
+
+<TokenTable>
+  <TokenRow token="--fs-price-range-height" value=".5rem" />
+  <TokenRow
+    token="--fs-price-range-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-price-range-bkg-color"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-price-range-range-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-price-range-thumb-bkg-color"
+    value="var(--fs-color-tertiary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-price-range-thumb-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenRow token="--fs-price-range-thumb-size" value="1rem" />
+  <TokenRow
+    token="--fs-price-range-thumb-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-price-range-thumb-border-width"
+    value="var(--fs-border-width)"
+    isColor
+  />
+</TokenTable>

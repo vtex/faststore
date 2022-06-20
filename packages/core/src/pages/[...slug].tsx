@@ -7,7 +7,7 @@ import {
 import { gql } from '@faststore/graphql-utils'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import type { SearchState } from '@faststore/sdk'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 
@@ -33,34 +33,19 @@ type Props = ServerCollectionPageQueryQuery
 const useSearchParams = ({ collection }: Props): SearchState => {
   const selectedFacets = collection?.meta.selectedFacets
   const { asPath } = useRouter()
-  const [params, setParams] = useState<SearchState>(() => {
-    const state = parseSearchState(new URL(asPath, 'http://localhost'))
 
-    return {
-      ...state,
-      selectedFacets:
-        state.selectedFacets.length > 0 ? state.selectedFacets : selectedFacets,
-    }
-  })
-
-  useEffect(() => {
-    const url = new URL(asPath, 'http://localhost')
-    const newState = parseSearchState(url)
+  const hrefState = useMemo(() => {
+    const newState = parseSearchState(new URL(asPath, 'http://localhost'))
 
     // In case we are in an incomplete url
     if (newState.selectedFacets.length === 0) {
       newState.selectedFacets = selectedFacets
     }
 
-    setParams((oldState) => {
-      const newURL = formatSearchState(newState).href
-      const oldURL = formatSearchState(oldState).href
-
-      return newURL === oldURL ? oldState : newState
-    })
+    return formatSearchState(newState).href
   }, [asPath, selectedFacets])
 
-  return params
+  return useMemo(() => parseSearchState(new URL(hrefState)), [hrefState])
 }
 
 function Page(props: Props) {
