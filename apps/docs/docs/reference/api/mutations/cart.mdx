@@ -119,7 +119,45 @@ Note that sending an empty `acceptedOffer` array will not empty the cart. You mu
 - Adding the first item to the cart.
 
 <Tabs>
+
+<TabItem value="mutation" label="Mutation" default>
+
+```graphql
+mutation validateCart($cart: IStoreCart!) {
+  validateCart (
+    cart: $cart
+  ) {
+    order {
+      orderNumber,
+      acceptedOffer {
+        price,
+        quantity,
+        seller {
+          identifier
+        },
+        itemOffered {
+          name,
+          sku,
+          description,
+          image {
+            url,
+            alternateName
+          }
+        }
+      }
+    },
+    messages {
+      text,
+      status
+    }
+  }
+}
+```
+
+</TabItem>
+
 <TabItem value="variables" label="Variables" default>
+
 ```graphql
 {
   "cart": {
@@ -149,9 +187,11 @@ Note that sending an empty `acceptedOffer` array will not empty the cart. You mu
   }
 }
 ```
+
 </TabItem>
 
 <TabItem value="response" label="Response" default>
+
 ```graphql
 {
   "data": {
@@ -184,14 +224,53 @@ Note that sending an empty `acceptedOffer` array will not empty the cart. You mu
   }
 }
 ```
+
 </TabItem>
+
 </Tabs>
 
 - Removing item from the cart.
 
 <Tabs>
 
-<TabItem value="variables" label="Variables" default>
+<TabItem value="mutation2" label="Mutation" default>
+
+```graphql
+mutation validateCart($cart: IStoreCart!) {
+  validateCart (
+    cart: $cart
+  ) {
+    order {
+      orderNumber,
+      acceptedOffer {
+        price,
+        quantity,
+        seller {
+          identifier
+        },
+        itemOffered {
+          name,
+          sku,
+          description,
+          image {
+            url,
+            alternateName
+          }
+        }
+      }
+    },
+    messages {
+      text,
+      status
+    }
+  }
+}
+```
+
+</TabItem>
+
+<TabItem value="variables2" label="Variables" default>
+
 ```graphql
 {
   "cart": {
@@ -221,9 +300,11 @@ Note that sending an empty `acceptedOffer` array will not empty the cart. You mu
   }
 }
 ```
+
 </TabItem>
 
-<TabItem value="response" label="Response" default>
+<TabItem value="response2" label="Response" default>
+
 ```graphql
 {
   "data": {
@@ -237,5 +318,7 @@ Note that sending an empty `acceptedOffer` array will not empty the cart. You mu
   }
 }
 ```
+
 </TabItem>
+
 </Tabs>
