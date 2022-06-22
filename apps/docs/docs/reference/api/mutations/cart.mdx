@@ -116,4 +116,106 @@ Note that sending an empty `acceptedOffer` array will not empty the cart. You mu
 
 - Adding the first item to the cart.
 
+<Tabs>
+<TabItem value="mutation" label="Mutation" default>
+```graphql
+mutation validateCart($cart: IStoreCart!) {
+  validateCart (
+    cart: $cart
+  ) {
+    order {
+      orderNumber,
+      acceptedOffer {
+        price,
+        quantity,
+        seller {
+          identifier
+        },
+        itemOffered {
+          name,
+          sku,
+          description,
+          image {
+            url,
+            alternateName
+          }
+        }
+      }
+    },
+    messages {
+      text,
+      status
+    }
+  }
+}
+```
+</TabItem>
+
+<TabItem value="variables" label="Variables" default>
+```graphql
+{
+  "cart": {
+    "order": {
+      "orderNumber": "",
+      "acceptedOffer": [
+        {
+          "price": 130,
+          "listPrice": 150,
+          "seller": {
+            "identifier": "1"
+          },
+          "quantity": 1,
+          "itemOffered": {
+            "sku": "99988211",
+            "image": [
+              {
+                "url": "https://storeframework.vtexassets.com/arquivos/ids/190901/unsplash-headphone.jpg?v=637800115948430000",
+                "alternateName": "aedleheadphone"
+              }
+            ],
+            "name": "Leather"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+</TabItem>
+
+<TabItem value="response" label="Response" default>
+```graphql
+{
+  "data": {
+    "validateCart": {
+      "order": {
+        "orderNumber": "96fbf6fba3094a918c1f1552ca68f008",
+        "acceptedOffer": [
+          {
+            "price": 130,
+            "quantity": 1,
+            "seller": {
+              "identifier": "1"
+            },
+            "itemOffered": {
+              "name": "Leather",
+              "sku": "99988211",
+              "description": "Aedle VK-1 L Headphone",
+              "image": [
+                {
+                  "url": "https://storeframework.vtexassets.com/arquivos/ids/190901/unsplash-headphone.jpg?v=637800115948430000",
+                  "alternateName": "aedleheadphone"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "messages": []
+    }
+  }
+}
+```
+</TabItem>
+</Tabs>
 
