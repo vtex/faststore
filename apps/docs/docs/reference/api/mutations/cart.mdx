@@ -108,6 +108,10 @@ You will receive a new `orderNumber` in the response. Make sure to save it and u
 
 To remove an item from a cart, you should send the item in the `acceptedOffer` array, but with a `quantity` of `0`.
 
+:::caution
+Note that sending an empty `acceptedOffer` array will not empty the cart. You must send the array with the existing products, with `quantity: 0`.
+:::
+
 ### Examples
 
 - Adding the first item to the cart.
