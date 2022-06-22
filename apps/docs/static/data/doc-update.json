@@ -1,5 +1,31 @@
 [
   {
+    "date": "2022-06-22",
+    "type": "Added",
+    "menu": "Reference",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/organisms/Hero",
+        "title": "Hero"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-22",
+    "type": "Improved",
+    "menu": "Reference",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/atoms/Button",
+        "title": "Button"
+      }
+    ]
+  },
+  {
     "date": "2022-06-16",
     "type": "Added",
     "menu": "Documentation",

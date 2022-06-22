@@ -7,6 +7,8 @@ keywords:
 ---
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 `OutOfStock` displays a subscription form for shoppers who want to be alerted when a sold-out product is back in stock.
 
@@ -24,6 +26,9 @@ import { OutOfStock, OutOfStockTitle, OutOfStockMessage } from '@faststore/ui'
 
 ## Usage
 
+<Tabs>
+  <TabItem value="react" label="React" default>
+
 ```tsx live
 <OutOfStock>
     <OutOfStockTitle>
@@ -36,6 +41,42 @@ import { OutOfStock, OutOfStockTitle, OutOfStockMessage } from '@faststore/ui'
     </OutOfStockMessage>    
 </OutOfStock>
 ```
+
+  </TabItem>
+  <TabItem value="css" label="CSS">
+
+```css
+[data-store-out-of-stock] [data-out-of-stock-form] {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+[data-store-out-of-stock] [data-out-of-stock-title] {
+  margin-bottom: .25rem;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+[data-store-out-of-stock] [data-out-of-stock-message] {
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+[data-out-of-stock-form] [data-store-button] {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+[data-out-of-stock-form] [data-store-input] {
+  width: 100%;
+  margin-top: 0.25rem;
+  max-width: initial;
+}
+```
+
+  </TabItem>
+</Tabs>
 
 ## Props
 
