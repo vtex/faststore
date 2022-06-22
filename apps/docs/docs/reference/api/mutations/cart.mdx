@@ -4,6 +4,8 @@ sidebar_position: 1
 ---
 
 import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # validateCart
 
@@ -116,7 +118,6 @@ Note that sending an empty `acceptedOffer` array will not empty the cart. You mu
 
 - Adding the first item to the cart.
 
-<div>
 <Tabs>
 <TabItem value="mutation" label="Mutation" default>
 ```graphql
@@ -219,11 +220,9 @@ mutation validateCart($cart: IStoreCart!) {
 ```
 </TabItem>
 </Tabs>
-</div>
 
 - Removing item from the cart.
 
-<div>
 <Tabs>
 <TabItem value="mutation" label="Mutation" default>
 ```graphql
@@ -307,4 +306,3 @@ mutation validateCart($cart: IStoreCart!) {
 ```
 </TabItem>
 </Tabs>
-</div>
