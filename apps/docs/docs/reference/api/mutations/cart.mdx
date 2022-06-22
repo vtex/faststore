@@ -118,42 +118,7 @@ Note that sending an empty `acceptedOffer` array will not empty the cart. You mu
 
 - Adding the first item to the cart.
 
-<div>
 <Tabs>
-<TabItem value="mutation" label="Mutation" default>
-```graphql
-mutation validateCart($cart: IStoreCart!) {
-  validateCart (
-    cart: $cart
-  ) {
-    order {
-      orderNumber,
-      acceptedOffer {
-        price,
-        quantity,
-        seller {
-          identifier
-        },
-        itemOffered {
-          name,
-          sku,
-          description,
-          image {
-            url,
-            alternateName
-          }
-        }
-      }
-    },
-    messages {
-      text,
-      status
-    }
-  }
-}
-```
-</TabItem>
-
 <TabItem value="variables" label="Variables" default>
 ```graphql
 {
@@ -221,45 +186,10 @@ mutation validateCart($cart: IStoreCart!) {
 ```
 </TabItem>
 </Tabs>
-</div>
 
 - Removing item from the cart.
 
-<div>
 <Tabs>
-<TabItem value="mutation" label="Mutation" default>
-```graphql
-mutation validateCart($cart: IStoreCart!) {
-  validateCart (
-    cart: $cart
-  ) {
-    order {
-      orderNumber,
-      acceptedOffer {
-        price,
-        quantity,
-        seller {
-          identifier
-        },
-        itemOffered {
-          name,
-          sku,
-          description,
-          image {
-            url,
-            alternateName
-          }
-        }
-      }
-    },
-    messages {
-      text,
-      status
-    }
-  }
-}
-```
-</TabItem>
 
 <TabItem value="variables" label="Variables" default>
 ```graphql
@@ -309,4 +239,3 @@ mutation validateCart($cart: IStoreCart!) {
 ```
 </TabItem>
 </Tabs>
-</div>
