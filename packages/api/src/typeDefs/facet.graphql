@@ -40,8 +40,17 @@ type StoreFacetBoolean {
   values: [StoreFacetValueBoolean!]!
 }
 
+"""
+Search facet range value information. Used for minimum and maximum range values.
+"""
 type StoreFacetValueRange {
+  """
+  Search facet range absolute value.
+  """
   absolute: Float!
+  """
+  Search facet range selected value.
+  """
   selected: Float!
 }
 
