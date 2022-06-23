@@ -1,5 +1,113 @@
 [
   {
+    "date": "2022-06-22",
+    "type": "Added",
+    "menu": "Reference",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/organisms/Hero",
+        "title": "Hero"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-22",
+    "type": "Improved",
+    "menu": "Reference",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/atoms/Button",
+        "title": "Button"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-16",
+    "type": "Added",
+    "menu": "Documentation",
+    "category": "Playground",
+    "path": "/playground",
+    "docs": [
+      {
+        "path": "/playground",
+        "title": "Playground"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-15",
+    "type": "Improved",
+    "menu": "References",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/molecules/Card",
+        "title": "Card"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-15",
+    "type": "Added",
+    "menu": "References",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/molecules/ProductCard",
+        "title": "ProductCard"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-15",
+    "type": "Added",
+    "menu": "References",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/organisms/OutOfStock",
+        "title": "OutOfStock"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-15",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Troubleshooting",
+    "path": "/how-to-guides/troubleshooting",
+    "docs": [
+      {
+        "path": "/how-to-guides/troubleshooting",
+        "title": "Troubleshooting FastStore"
+      },
+      {
+        "path": "/how-to-guides/troubleshooting/tracing-the-error-source",
+        "title": "Tracing the error source"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-15",
+    "type": "Improved",
+    "menu": "How-to Guides",
+    "category": "Troubleshooting",
+    "path": "/how-to-guides/platform-integration",
+    "docs": [
+      {
+        "path": "/how-to-guides/troubleshooting/identifying-development-errors-and-starter-bugs",
+        "title": "Identifying development errors and Starter bugs"
+      }
+    ]
+  },
+  {
     "date": "2022-06-14",
     "type": "Improved",
     "menu": "Reference",

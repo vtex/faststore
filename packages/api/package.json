@@ -1,6 +1,6 @@
 {
   "name": "@faststore/api",
-  "version": "1.9.7",
+  "version": "1.9.14",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -17,6 +17,7 @@
     "develop": "tsdx watch --entry ./local/server.ts --target node --onSuccess \"node ./dist\"",
     "develop:no-server": "concurrently \"yarn generate -w\" \"tsdx watch\"",
     "build": "graphql-codegen --config codegen.yml && tsdx build",
+    "lint": "eslint src/**/*.ts",
     "test": "tsdx test",
     "generate": "graphql-codegen --config codegen.yml"
   },
@@ -36,6 +37,7 @@
     "express-graphql": "^0.12.0",
     "graphql": "^15.6.0",
     "jest-transform-graphql": "^2.1.0",
+    "shared": "^1.9.14",
     "ts-jest": "25.5.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",

@@ -6,7 +6,11 @@ import type { ComponentPropsWithoutRef } from 'react'
 import {
   formatSearchState,
   initSearchState,
+  removeFacet,
   SearchProvider,
+  setFacet,
+  toggleFacet,
+  toggleFacets,
   useSearch,
 } from '../../src'
 
@@ -34,7 +38,12 @@ test('SearchProvider: change sort ordering', async () => {
 
   expect(result.current.state.sort).toBe('score_desc')
 
-  act(() => result.current.setSort('name_asc'))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      sort: 'name_asc',
+    })
+  })
 
   expect(mock).toBeCalledWith(formatSearchState({ ...state, sort: 'name_asc' }))
 })
@@ -51,10 +60,20 @@ test('SearchProvider: Set full text term', async () => {
 
   expect(result.current.state.term).toBeNull()
 
-  act(() => result.current.setTerm(null))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      term: null,
+    })
+  })
   expect(mock).not.toHaveBeenCalled()
 
-  act(() => result.current.setTerm(fullTextTerm))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      term: fullTextTerm,
+    })
+  })
   expect(mock).toBeCalledWith(
     formatSearchState({ ...state, term: fullTextTerm })
   )
@@ -72,7 +91,12 @@ test('SearchProvider: Set current page', async () => {
 
   expect(result.current.state.page).toBe(0)
 
-  act(() => result.current.setPage(page))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      page,
+    })
+  })
   expect(mock).toBeCalledWith(formatSearchState({ ...state, page }))
 })
 
@@ -92,7 +116,12 @@ test('SearchProvider: selects a simple facet', async () => {
 
   expect(result.current.state.selectedFacets).toHaveLength(0)
 
-  act(() => result.current.setFacet(facet1))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: setFacet(result.current.state.selectedFacets, facet1),
+    })
+  })
   expect(mock).toBeCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet1] })
   )
@@ -120,7 +149,12 @@ test('SearchProvider: selects a simple facet when more facets are inside the sta
     ),
   })
 
-  act(() => result.current.setFacet(facet2))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: setFacet(result.current.state.selectedFacets, facet2),
+    })
+  })
   expect(mock).toBeCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet1, facet2] })
   )
@@ -148,10 +182,24 @@ test('SearchProvider: Facet uniqueness', async () => {
     ),
   })
 
-  act(() => result.current.setFacet(facet2, true))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: setFacet(
+        result.current.state.selectedFacets,
+        facet2,
+        true
+      ),
+    })
+  })
   expect(mock).not.toHaveBeenCalled()
 
-  act(() => result.current.setFacet(facet1))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: setFacet(result.current.state.selectedFacets, facet1),
+    })
+  })
   expect(mock).toBeCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet2, facet1] })
   )
@@ -179,7 +227,12 @@ test('SearchProvider: Remove facet selection', async () => {
     ),
   })
 
-  act(() => result.current.removeFacet(facet2))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: removeFacet(result.current.state.selectedFacets, facet2),
+    })
+  })
   expect(mock).toBeCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet1, facet2] })
   )
@@ -208,7 +261,12 @@ test('SearchProvider: Remove initial facet', async () => {
   })
 
   /** Cannot remove the first facet */
-  act(() => result.current.removeFacet(facet1))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: removeFacet(result.current.state.selectedFacets, facet1),
+    })
+  })
   expect(mock).not.toHaveBeenCalled()
 })
 
@@ -242,15 +300,30 @@ test('SearchProvider: Toggle Facet', async () => {
   expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
 
   /** Cannot remove the first facet */
-  act(() => result.current.toggleFacet(facet1))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: toggleFacet(result.current.state.selectedFacets, facet1),
+    })
+  })
   expect(mock).not.toHaveBeenCalled()
 
-  act(() => result.current.toggleFacet(facet2))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: toggleFacet(result.current.state.selectedFacets, facet2),
+    })
+  })
   expect(mock).toBeCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet1] })
   )
 
-  act(() => result.current.toggleFacet(facet3))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: toggleFacet(result.current.state.selectedFacets, facet3),
+    })
+  })
   expect(mock).toBeCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet1, facet2, facet3] })
   )
@@ -283,12 +356,28 @@ test('SearchProvider: Toggle Facets', async () => {
     ),
   })
 
-  act(() => result.current.toggleFacets([facet2, facet3]))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: toggleFacets(result.current.state.selectedFacets, [
+        facet2,
+        facet3,
+      ]),
+    })
+  })
   expect(mock).toBeCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet1] })
   )
 
-  act(() => result.current.toggleFacets([facet1, facet2]))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: toggleFacets(result.current.state.selectedFacets, [
+        facet1,
+        facet2,
+      ]),
+    })
+  })
   expect(mock).toBeCalledWith(
     formatSearchState({ ...state, selectedFacets: [facet1] })
   )
@@ -316,8 +405,26 @@ test('SearchProvider: onChange is called', async () => {
 
   expect(mock).toHaveBeenCalledTimes(0)
 
-  act(() => result.current.setSort('name_asc'))
-  act(() => result.current.setFacet({ key: 'size', value: 'xm' }))
-  act(() => result.current.setPage(10))
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      sort: 'name_asc',
+    })
+  })
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      selectedFacets: setFacet(result.current.state.selectedFacets, {
+        key: 'size',
+        value: 'xm',
+      }),
+    })
+  })
+  act(() => {
+    result.current.setState({
+      ...result.current.state,
+      page: 10,
+    })
+  })
   expect(mock).toHaveBeenCalledTimes(3)
 })

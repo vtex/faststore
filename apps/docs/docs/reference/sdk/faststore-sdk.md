@@ -12,7 +12,7 @@ FastStore SDK is a simple, framework-agnostic implementation of Commerce APIs to
 
 The analytics data layer is based on [the official GA4 specification](https://developers.google.com/gtagjs/reference/ga4-events).
 
-##  Get started
+## Get started
 
 ### Installation
 

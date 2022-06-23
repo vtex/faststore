@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "1.9.4",
+  "version": "1.9.14",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -10,8 +10,7 @@
     "directory": "packages/ui"
   },
   "browserslist": "supports es6-module and not dead and last 2 version",
-  "main": "dist/index.js",
-  "module": "dist/ui.esm.js",
+  "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "sideEffects": false,
   "engines": {
@@ -22,8 +21,9 @@
     "src"
   ],
   "scripts": {
-    "develop": "tsdx watch",
-    "build": "tsdx build",
+    "develop": "tsc --watch",
+    "build": "tsc",
+    "lint": "eslint src/**/*.{ts,tsx}",
     "test": "tsdx test --passWithNoTests",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
     "size": "size-limit",
@@ -42,11 +42,7 @@
   },
   "size-limit": [
     {
-      "path": "dist/ui.cjs.production.min.js",
-      "limit": "20 KB"
-    },
-    {
-      "path": "dist/ui.esm.js",
+      "path": "dist/index.js",
       "limit": "20 KB"
     }
   ],
@@ -61,7 +57,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.11.0",
+    "@size-limit/preset-small-lib": "^7.0.8",
     "@storybook/addon-actions": "^6.4.4",
     "@storybook/addon-docs": "^6.4.4",
     "@storybook/addon-essentials": "^6.4.4",
@@ -84,7 +80,8 @@
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^17.0.2",
-    "size-limit": "^4.11.0",
+    "shared": "^1.9.14",
+    "size-limit": "^7.0.8",
     "storybook-addon-themes": "^6.1.0",
     "tsdx": "^0.14.1",
     "typescript": "^4.2.4"

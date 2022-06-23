@@ -27,18 +27,19 @@ By the end of this step, changes will be live to all end-users, meaning that onc
 3. In the left-side navigation menu, click on **CMS**.
 4. Click on **HTML Templates** and open the **Home** file.
 5. Add the following script to the Home's `<head>`.
-   - *Replace the value between curly brackets with your store domain.*
-   
+
+   - _Replace the value between curly brackets with your store domain._
+
    ```xhtml
-   <meta http-equiv="refresh" content="0; URL='https://{maindomain}'"/>
+   <meta http-equiv="refresh" content="0; URL='https://{maindomain}'" />
    ```
 
 6. Clean the `<body>` section to remove unnecessary code. By the end of this step, your Home file should look like the following:
 
-  ![Home Template](https://vtexhelp.vtexassets.com/assets/docs/src/home-template___a12a67566b69529d2a3f19c98f135060.png)
+![Home Template](https://vtexhelp.vtexassets.com/assets/docs/src/home-template___a12a67566b69529d2a3f19c98f135060.png)
 
 7. Click on the **Save Template** button.
 
-### Step 2 - Setting the auth cookie root domain 
+### Step 2 - Setting the auth cookie root domain
 
 To authenticate client requests and maintain session information, you must ensure that the auth cookies are set up for the **Login** subdomain. To do that, [open a support ticket](https://help-tickets.vtex.com/smartlink/sso/login/zendesk) to the Identity team requesting to set up the auth cookie root domain for your FastStore URL.

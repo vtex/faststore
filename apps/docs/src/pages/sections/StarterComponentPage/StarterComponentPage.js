@@ -16,12 +16,12 @@ const StarterComponentPage = ({ data = {} }) => {
           <div className="text-fontSecondary">
             by <a href={data.ownerWebsite}>{data.owner}</a>
           </div>
-          <p className="text-details mt-5 text-lg" dangerouslySetInnerHTML={{__html: data.description}}/>
-
-          <ViewAll
-            linkTo={data.demoURL}
-            message="View demo store"
+          <p
+            className="text-details mt-5 text-lg"
+            dangerouslySetInnerHTML={{ __html: data.description }}
           />
+
+          <ViewAll linkTo={data.demoURL} message="View demo store" />
 
           <div>
             <p className="text-sm font-VTEXMedium tracking-wider mt-4">
@@ -29,13 +29,17 @@ const StarterComponentPage = ({ data = {} }) => {
             </p>
             <ul>
               {data.features?.map((feature) => (
-                <li className=" ml-5 list-disc">{feature}</li>
+                <li key={feature} className=" ml-5 list-disc">
+                  {feature}
+                </li>
               ))}
             </ul>
           </div>
 
           <div className="block mt-6">
-            <span className="text-sm font-VTEXMedium tracking-wider">START WITH:</span>
+            <span className="text-sm font-VTEXMedium tracking-wider">
+              START WITH:
+            </span>
             {data.gatsbyRepo && (
               <Link
                 className="w-5 h-5 ml-2 inline-block align-middle"

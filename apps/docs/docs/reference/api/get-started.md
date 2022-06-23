@@ -20,4 +20,4 @@ Explore the GraphQL data layer by running a local server of your FastStore proje
 1. Open the terminal and change to your FastStore project directory.
 2. Install dependencies using yarn (`yarn install`),
 3. Start a development server (`yarn develop`).
-4. Access [http://localhost:8000/___graphql](http://localhost:8000/___graphql) to fetch data and build queries.
+4. Access [http://localhost:8000/\_\_\_graphql](http://localhost:8000/___graphql) to fetch data and build queries.

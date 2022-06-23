@@ -5,7 +5,7 @@
 - **Checkout** - receives the shopper's information necessary to process an order.
 - **OrderPlaced** - displays a successful message right after the checkout process is completed.
 - **Login** - handles user login in a store.
-- **MyAccount** - allows customers to manage their orders and personal data (e.g., profile info, password, addresses, and credit cards) on a single page. 
+- **MyAccount** - allows customers to manage their orders and personal data (e.g., profile info, password, addresses, and credit cards) on a single page.
 
 Therefore, to provide shoppers with a full checkout and post-purchase experience, you, as a developer, must guarantee the integration between your FastStore project and VTEX solutions. In the following, we provide you with a go-live checklist which you can use to keep track of the whole integration process.
 
@@ -13,43 +13,101 @@ Therefore, to provide shoppers with a full checkout and post-purchase experience
 
 ### Storefront development
 
-<input type="checkbox" id="1" name="1"/>
-<label for="1"> Develop your storefront with FastStore. <i>See <a href="/tutorials/gatsby-overview">this tutorial</a> for more info.</i></label><br/>
+<div className="w-5/6 m-auto border p-5 rounded">
+  <div className="checklistList">
+    <div className="flex items-center">
+      &#8203;
+      <input type="checkbox" id="1" />
+    </div>
+    <label for="1"> Develop your storefront with FastStore.</label>
+  </div>
+  <div className="checklistDetails">
+      <i>Please refer to <a href="/tutorials/gatsby-overview">this tutorial</a> for more information.</i>
+  </div>
+</div>
 
 ### VTEX integration
 
-<input type="checkbox" id="2" name="2"/>
-<label for="2"> Configure your website's domain and subdomain. <i>See <a href="/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website">this doc</a> for more info.</i></label><br/>    
-<input type="checkbox" id="3" name="3"/>
-<label for="3"> Integrate the VTEX Login with your FastStore project. <i>See <a href="/how-to-guides/platform-integration/vtex/integrating-the-vtex-login">this doc</a> for more info.</i></label><br/> 
-    <ul className="pl-5">
-        <li>Open your store website and log into it. Check if you are indeed logged in and that you are redirected to your store's Home Page after logging in.</li>
+<div className="w-5/6 m-auto border p-5 rounded">
+  
+  <div className="checklistList">
+    <div className="flex items-center">
+      &#8203;
+      <input type="checkbox" id="2"/>
+    </div>
+    <label for="2"> Configure your website's domain and subdomain.</label>
+  </div>
+  <div className="checklistDetails"><i>Please refer to <a href="/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website">this doc</a> for more information.</i></div>
+
+  <div className="checklistList">
+    <div className="flex items-center">
+      &#8203;
+      <input type="checkbox" id="3"/>
+    </div>
+    <label for="3"> Integrate the VTEX Login with your FastStore project.</label><br />
+  </div>
+  <div className="checklistDetails"><i>Please refer to <a href="/how-to-guides/platform-integration/vtex/integrating-the-vtex-login">this doc</a> for more information.</i></div>
+  <div className="checklistDetails">Open your store website and log in to it. After logging in, verify if you are indeed logged in and are being redirected to your store's Home Page.</div>
+    <div className="checklistList">
+      <div className="flex items-center">
+      &#8203;
+      <input type="checkbox" id="4"/>
+    </div>
+    <label for="4"> Adjust the header by replacing the links to the Checkout and MyAccount pages with the proper paths.</label>
+  </div>
+
+  <div className="checklistDetails"><i>Please refer to <a href="/how-to-guides/platform-integration/vtex/integrating-vtex-checkout">this doc</a> for more information.</i></div>
+    <div className="checklistList">
+      <div className="flex items-center">
+      &#8203;
+      <input type="checkbox" id="5" />
+    </div>
+    <label for="5"> Clone, edit, and install the <a href="https://github.com/vtex/faststore-vtex-integrations/"><code>faststore-vtex-integrations</code></a> app on your VTEX account.</label>
+  </div>
+  <div className="checklistDetails"><i>Please refer to <a href="/how-to-guides/platform-integration/vtex/integrating-vtex-orderplaced-myaccount">this doc</a> for more information.</i></div>
+  <div className="checklistDetails">
+    <ul>
+      <li>Add an item to the shopping cart on your store's website. Then proceed to <strong>checkout</strong> and check if the products added to your shopping cart are the same as those shown in the checkout. Complete the checkout process and check if you are redirected to the <strong>Order Placed</strong> page.</li>
+      <li>Open your store website and click on <strong>My Orders</strong>. Check if you are redirected to the MyAccount page.</li>
     </ul>
-<input type="checkbox" id="4" name="4"/>
-<label for="4"> Adjust the Header links with the appropriate links to the Checkout and MyAccount pages. <i>See <a href="/how-to-guides/platform-integration/vtex/integrating-vtex-checkout">this doc</a> for more info.</i></label><br/>     
-<input type="checkbox" id="5" name="5"/>
-<label for="5"> Clone, edit, and install the <a href="https://github.com/vtex/faststore-vtex-integrations/"><code>faststore-vtex-integrations</code></a> app on your VTEX account. <i>See <a href="/how-to-guides/platform-integration/vtex/integrating-vtex-orderplaced-myaccount">this doc</a> for more info.</i></label><br/> 
-    <ul className="pl-5">
-        <li>Open your store website and add an item to the shopping cart. Then, go to the Checkout and check if:
-            <ol className="pl-5">
-                <li>The products added to your shopping cart are the same presented in the Checkout.</li>
-                <li>You are redirected to the Order Placed page once you complete the Checkout flow.</li>
-            </ol>
-        </li>
-        <li>Open your store website and click on <strong>My Orders</strong>. Check if you are redirected to the MyAccount page.</li>
-    </ul>
-<input type="checkbox" id="6" name="6"/>
-<label for="6"> Test your website links to pages being rendered in a subdomain, such as the Login, Checkout, My Account, and Order Placed pages.</label><br/> 
+  </div>
+    <div className="checklistList">
+      <div className="flex items-center">
+      &#8203;
+      <input type="checkbox" id="6" />
+    </div>
+    <label for="6"> Test your website links to pages being rendered in the secure subdomain, such as the Login, Checkout, My Account, and Order Placed pages.</label>
+  </div>
+</div>
 
 ### SSL configuration
 
-<input type="checkbox" id="7" name="7"/>
-<label for="7"> Check if all pages of your store have the correct SSL certificate configured.</label><br/> 
+<div className="w-5/6 m-auto border p-5 rounded">
+  <div className="checklistList">
+    <div className="flex items-center">
+    &#8203;
+    <input type="checkbox" id="7" />
+    </div>
+    <label for="7"> Check if all pages of your store have the correct SSL certificate configured.</label>
+  </div>
+</div>
 
 ### Testing and performance
 
-<input type="checkbox" id="8" name="8"/>
-<label for="8"> Run Lighthouse tests on your store's Home Page, Product Listing Page (PLP), Product Details Page (PDP), and custom pages to ensure that you are going live with great performance.</label><br/> 
-<input type="checkbox" id="9" name="9"/>
-<label for="9"> If you already have a live store, set up an A/B test to validate which version of your website is the best for your business needs.</label><br/> 
+<div className="w-5/6 m-auto border p-5 rounded">
+  <div className="checklistList">
+      <div className="flex items-center">
+        &#8203;
+        <input type="checkbox" id="8" />
+      </div>
+    <label for="8"> Run <strong>Lighthouse</strong> audits on your store's Home Page, Product Listing Page (PLP), Product Details Page (PDP), and custom pages to guarantee you are going live with great performance.</label> 
+  </div>
 
+  <div className="checklistList">
+    <div className="flex items-center">
+      &#8203;
+      <input type="checkbox" id="9" />
+    </div>
+    <label for="9"> If you already have a live store, <strong>set up an A/B test</strong> to validate which version of your website is the best for your business needs.</label>
+  </div>
+</div>

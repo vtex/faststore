@@ -1,11 +1,11 @@
 ---
 name: Bug report
-about: 'Thanks for reporting a bug. In case this report is not related to the FastStore,
+about:
+  'Thanks for reporting a bug. In case this report is not related to the FastStore,
   we recommend posting it on the VTEX community: https://community.vtex.com/'
 title: ''
 labels: bug
 assignees: ''
-
 ---
 
 **Describe the bug**
@@ -19,6 +19,7 @@ A clear and concise description of what is happening to cause the bug.
 
 **Steps to reproduce**
 A step-by-step on how to reproduce the bug behavior.
+
 1. ‘...’
 2. ‘...’
 3. ‘...’

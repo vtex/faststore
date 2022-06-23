@@ -20,38 +20,32 @@ export default (plop: NodePlopAPI) => {
       const actions = [
         {
           type: 'add',
-          path:
-            '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/{{pascalCase name}}.tsx',
+          path: '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/{{pascalCase name}}.tsx',
           templateFile: 'templates/Component.tsx.hbs',
         },
         {
           type: 'add',
-          path:
-            '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/index.tsx',
+          path: '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/index.tsx',
           templateFile: 'templates/index.tsx.hbs',
         },
         {
           type: 'add',
-          path:
-            '../themes/theme-b2c-tailwind/src/{{atomicGroup}}/{{kebabCase name}}.css',
+          path: '../themes/theme-b2c-tailwind/src/{{atomicGroup}}/{{kebabCase name}}.css',
           templateFile: 'templates/style.css.hbs',
         },
         {
           type: 'add',
-          path:
-            '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/{{pascalCase name}}.test.tsx',
+          path: '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/{{pascalCase name}}.test.tsx',
           templateFile: 'templates/test.tsx.hbs',
         },
         {
           type: 'add',
-          path:
-            '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/stories/{{pascalCase name}}.stories.tsx',
+          path: '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/stories/{{pascalCase name}}.stories.tsx',
           templateFile: 'templates/stories.tsx.hbs',
         },
         {
           type: 'add',
-          path:
-            '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/stories/{{pascalCase name}}.mdx',
+          path: '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/stories/{{pascalCase name}}.mdx',
           templateFile: 'templates/stories.mdx.hbs',
         },
       ]

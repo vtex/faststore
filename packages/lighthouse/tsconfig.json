@@ -1,5 +1,7 @@
 {
-  "extends": "@vtex/tsconfig",
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "extends": "shared/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["src"]
 }

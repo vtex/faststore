@@ -1,10 +1,10 @@
-import type { AriaAttributes } from 'react'
 import React, { useState } from 'react'
+import type { AriaAttributes } from 'react'
 
-import type { PriceProps } from '../../atoms/Price'
 import Price from '../../atoms/Price'
-import type { SliderProps } from '../../atoms/Slider'
 import Slider from '../../atoms/Slider'
+import type { PriceProps } from '../../atoms/Price'
+import type { SliderProps } from '../../atoms/Slider'
 
 export type PriceRangeProps = SliderProps & {
   /**
@@ -31,44 +31,36 @@ const PriceRange = ({
   max,
   min,
   onChange,
+  onEnd,
   testId = 'store-price-range',
   variant,
   'aria-label': ariaLabel,
 }: PriceRangeProps) => {
-  const [minVal, setMinVal] = useState(min)
-  const [maxVal, setMaxVal] = useState(max)
-
-  const handleChange: SliderProps['onChange'] = (values) => {
-    if (values.min !== minVal) {
-      setMinVal(values.min)
-    }
-
-    if (values.max !== maxVal) {
-      setMaxVal(values.max)
-    }
-
-    onChange?.(values)
-  }
+  const [edges, setEdges] = useState({ min: min.selected, max: max.selected })
 
   return (
     <div data-store-price-range data-testid={testId} className={className}>
       <Slider
         min={min}
         max={max}
-        onChange={handleChange}
+        onEnd={onEnd}
+        onChange={(value) => {
+          setEdges(value)
+          onChange?.(value)
+        }}
         aria-label={ariaLabel}
       />
       <div data-price-range-values>
         <Price
           formatter={formatter}
           data-price-range-value="min"
-          value={minVal}
+          value={edges.min}
           variant={variant}
         />
         <Price
           formatter={formatter}
           data-price-range-value="max"
-          value={maxVal}
+          value={edges.max}
           variant={variant}
         />
       </div>

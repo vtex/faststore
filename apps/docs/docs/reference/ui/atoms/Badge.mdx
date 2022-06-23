@@ -7,6 +7,8 @@ keywords:
 ---
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 Badges are status descriptors used to emphasize an item's state.
 
@@ -18,9 +20,30 @@ import { Badge } from '@faststore/ui'
 
 ## Usage
 
+<Tabs>
+  <TabItem value="react" label="React" default>
+
 ```tsx live
  <Badge>-25%</Badge>
 ```
+
+  </TabItem>
+  <TabItem value="css" label="CSS">
+
+```css
+[data-store-badge] {
+  background-color: #be185d;
+  color: #fff;
+  display: inline-block;
+  padding: 0.4rem;
+  border-radius: 0.2rem;
+  font-size: 0.9rem;
+}
+```
+
+  </TabItem>
+</Tabs>
+
 ### Use cases
 
 Use the Badge component to highlight:

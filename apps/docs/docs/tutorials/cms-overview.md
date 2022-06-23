@@ -7,11 +7,11 @@ import CardGrid from "@site/src/components/CardGrid/CardGrid"
 
 # Overview
 
-*In this tutorial you'll learn how to integrate your FastStore project with **VTEX Headless CMS**, our preferred solution for content management.*
+_In this tutorial you'll learn how to integrate your FastStore project with **VTEX Headless CMS**, our preferred solution for content management._
 
 ---
 
-> This tutorial is designed for those who prefer to learn by doing. For a deeper understanding of the concepts in this section, you can check the [Concepts](/conceptual-guides) section. Instead, if you want to solve real-world issues, check our [How-to guides](/how-to-guides). 
+> This tutorial is designed for those who prefer to learn by doing. For a deeper understanding of the concepts in this section, you can check the [Concepts](/conceptual-guides) section. Instead, if you want to solve real-world issues, check our [How-to guides](/how-to-guides).
 
 <CardGrid>
 

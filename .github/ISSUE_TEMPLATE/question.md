@@ -1,11 +1,11 @@
 ---
 name: Question
-about: 'Thanks for your question. In case this question is not related to the FastStore,
+about:
+  'Thanks for your question. In case this question is not related to the FastStore,
   we recommend posting it on the VTEX community: https://community.vtex.com/'
 title: ''
 labels: good first issue, question
 assignees: ''
-
 ---
 
 **What are you trying to accomplish? Please describe.**

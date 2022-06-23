@@ -2,6 +2,7 @@
 id: 3
 description: Define which content of the storefront will be editable via the VTEX Headless CMS.
 sidebar_label: '3. Adding Content Types and Sections to the VTEX Headless CMS'
+pagination_label: Part 3
 ---
 
 import Tabs from '@theme/Tabs'
@@ -126,7 +127,6 @@ For more information on how to write a `schema`, check the [`JSON Schema Referen
 :::
 
 After editing the `cms/content-types.json` file, remember to save your changes and check them live by accessing the VTEX Admin at **CMS (alpha) > Pages (alpha)**. Click on **Create New** and check the available Content Type options. Click on **Institutional Page** to create a new **Institutional Page** and check the SEO tab.
-
 
 <details>
 <summary>Try our generic Content Type definition.
@@ -492,7 +492,6 @@ values={[
     <img src="https://vtexhelp.vtexassets.com/assets/docs/src/DynamicShelfSchema___3d88d38d7e326f48bf7b4d7dc1c20465.png"/>
   </TabItem>
 </Tabs>
-
 
 #### The **`schema`** property
 
@@ -863,7 +862,6 @@ After creating our Section schemas and Content Types, we will declare the Transl
 </summary>
  
 Copy and paste the following code in the `cms/translation-keys.json` file to try our generic Translation Key definitions. Remember to save your changes.
-
 
 ```json title="cms/translation-keys.json"
 {

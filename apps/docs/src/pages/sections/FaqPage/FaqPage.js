@@ -43,7 +43,11 @@ const FaqPage = () => {
   return (
     <div>
       {data.map(({ question, answer }) => (
-        <FaqQuestion question={question} answer={answer}></FaqQuestion>
+        <FaqQuestion
+          key={question}
+          question={question}
+          answer={answer}
+        ></FaqQuestion>
       ))}
     </div>
   )

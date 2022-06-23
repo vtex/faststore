@@ -10,7 +10,7 @@ To set up your account, you will first need to install the WebOps Secrets (WOS) 
 
 ## Before you start
 
-Before proceeding any further with this guide, make sure you have: 
+Before proceeding any further with this guide, make sure you have:
 
 - Installed the VTEX IO CLI on your machine. Please refer to [this](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-install) document for more information.
 - Cloned your FastStore project into your local files.
@@ -20,41 +20,43 @@ Before proceeding any further with this guide, make sure you have:
 ### Step 1 - Installing the Secrets plugin
 
 1. Open the terminal and log in to your VTEX account using the VTEX IO CLI.
-    ```sh
-    $ vtex login {account-name}
-    ```
 
-    :::caution
-    ️Replace the value between curly braces according to your scenario.
-    :::
+   ```sh
+   $ vtex login {account-name}
+   ```
+
+   :::caution
+   ️Replace the value between curly braces according to your scenario.
+   :::
 
 2. Install the Secrets plugin by running the following command.
 
-    ```sh
-    vtex plugins install webops-secrets
-    ```
+   ```sh
+   vtex plugins install webops-secrets
+   ```
 
 3. Run `vtex secrets` to ensure the installation of the Secrets plugin was successful and check its all three subcommands.
-   
+
    ![Secrets plugin](https://vtexhelp.vtexassets.com/assets/docs/src/vtex-secrets___9f0057469565607863794da75b404d8c.png)
 
 ### Step 2 - Setting up your VTEX account to accept secrets
 
 1. Change the current directory to your FastStore’s repository root.
-2. In the root of your project, create the `vtex.env` file and keep it empty. 
+2. In the root of your project, create the `vtex.env` file and keep it empty.
+
    - Skip this step if your project already has the `vtex.env` file.
-   
+
    ```sh
    touch vtex.env
    ```
-   
+
 3. Now, run the following command to configure your VTEX account and your FastStore project to be able to save Secrets.
 
-    ```sh
-    vtex secrets setup
-    ```
+   ```sh
+   vtex secrets setup
+   ```
 
-    ![Secrets Setup](https://vtexhelp.vtexassets.com/assets/docs/src/secrets___6b6c362a97aa2f1802703b86ab2128fa.gif)
+   ![Secrets Setup](https://vtexhelp.vtexassets.com/assets/docs/src/secrets___6b6c362a97aa2f1802703b86ab2128fa.gif)
 
 After running the `vtex secrets setup` command, the `secrets.revealed.json` file will be created in the root of your repository. Also, the `.gitignore` file will be updated with the `secrets.revealed.json` file to avoid any risks of exposing your Secrets by mistake on the remote repository.
 

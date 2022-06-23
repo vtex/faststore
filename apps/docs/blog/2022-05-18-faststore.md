@@ -15,12 +15,15 @@ While working on your FastStore website, you can run your project locally and us
 ## What needs to be done?
 
 To explore the FastStore API reference documentation, follow these steps:
+
 1. Run `yarn` in your project to reinstall the `@faststore/api` dependency.
 2. Run `yarn develop` to start a local server.
 3. Access GraphiQL by going to this address:
+
 ```
 http://localhost:8000/__graphql
 ```
+
 4. Click on the `Docs` button on the upper right corner.
 5. On the docs tab you can browse through the definitions or search for types by name.
 

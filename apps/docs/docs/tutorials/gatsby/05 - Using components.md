@@ -1,10 +1,11 @@
 ---
 id: 5
-title: "Part 4: Using FastStore UI components"
-sidebar_label: "4. Using FastStore UI components"
+title: 'Part 4: Using FastStore UI components'
+sidebar_label: '4. Using FastStore UI components'
+pagination_label: Part 4
 ---
 
-*Get to know FastStore UI - a lightweight, performant, and ecommerce-ready component library.*
+_Get to know FastStore UI - a lightweight, performant, and ecommerce-ready component library._
 
 ---
 
@@ -19,7 +20,7 @@ Let's now discover and use some of the components of **FastStore UI**.
 ## Before you start
 
 In this tutorial, you'll use [**FastStore UI**](/reference/ui/faststore-ui). FastStore UI is already installed in your project and you can start using it straight away.
- 
+
 :::info
 Both Gatsby and FastStore are not strict to any React framework. If you prefer, you can uninstall `@faststore/ui` and pick any React library of your preference. Unfortunately, many component libraries out there are not built with performance as a priority. Components are bloated and framework-dependent, leading to larger bundle sizes and loading times. That's why we highly recommend using **FastStore UI**.
 :::
@@ -35,8 +36,8 @@ FastStore UI library follows the Atomic Design pattern. Atomic Design breaks use
 - **Atoms** are the smallest possible components, such as buttons, labels, icons, and badges. Atoms can't be broken down into smaller pieces without becoming completely useless.
 - **Molecules** are simple groups of two or more atoms functioning together as a unit. As an example, take a Search component comprising a text input and a button with an icon.
 - **Organisms** are relatively complex components that form distinct sections of an interface. Organisms can be composed of multiple molecules, atoms, and/or other organisms. For example, a Header component comprises a Search molecule, Logo atom and a list of links.
-- **Templates** provide context and create relationships between these relatively abstract molecules and organisms through positions, placements and patterns of the pages. Templates don't render any component and are the skeletal structure of what a page would look like. 
-- **Pages** are specific instances of templates. They render what an interface looks like with real representative content in place. 
+- **Templates** provide context and create relationships between these relatively abstract molecules and organisms through positions, placements and patterns of the pages. Templates don't render any component and are the skeletal structure of what a page would look like.
+- **Pages** are specific instances of templates. They render what an interface looks like with real representative content in place.
 
 The Atomic Design classifies components according to their level of abstraction and reusability. For example, a page is not reusable and does not appear more than once in an app. On the other hand, simpler components, such as atoms, molecules, and organisms may appear multiple times in the same app.
 
@@ -46,9 +47,10 @@ Check the documentation of all components availalble in the FastStore UI [here](
 
 ## Adding components to the Homepage
 
-Now that we are familiar with the structure of FastStore UI components, let's get back to our FastStore project and add a Carousel to the Homepage of our store website.  
+Now that we are familiar with the structure of FastStore UI components, let's get back to our FastStore project and add a Carousel to the Homepage of our store website.
 
 > If you haven’t already, start a development server:
+>
 > 1. Open the command line application.
 > 2. Change to your project directory.
 > 3. Run `yarn develop` to start a development server.
@@ -58,17 +60,17 @@ Now that we are familiar with the structure of FastStore UI components, let's ge
 2. Open your Homepage file `src/views/home/index.tsx`.
 3. Import the [`Button`](/reference/ui/atoms/Button) and [`Carousel`](/reference/ui/molecules/Carousel) components from `@faststore/ui` to your Homepage.
 
-  ```tsx {4} title="/src/views/home/index.tsx"
-    import React from 'react'
-    import type { Props as PageProps } from 'src/pages/index'
-    import Seo from './Seo'
-    import { Button, Carousel } from '@faststore/ui'
-  ```
+```tsx {4} title="/src/views/home/index.tsx"
+import React from 'react'
+import type { Props as PageProps } from 'src/pages/index'
+import Seo from './Seo'
+import { Button, Carousel } from '@faststore/ui'
+```
 
-4. Create a new `div` to present your carousel and some navigation buttons on your Homepage as in the following example: 
+4. Create a new `div` to present your carousel and some navigation buttons on your Homepage as in the following example:
 
-  ```tsx {10-34} title="/src/views/home/index.tsx"
-  function View(props: Props) {
+```tsx {10-34} title="/src/views/home/index.tsx"
+function View(props: Props) {
   const title = props.data.site?.siteMetadata?.title ?? ''
 
   return (
@@ -103,13 +105,13 @@ Now that we are familiar with the structure of FastStore UI components, let's ge
         </Carousel>
       </div>
     </>
-    )
-  }
-  ```
+  )
+}
+```
 
-  By the end of this step, your page should look like the following image.
+By the end of this step, your page should look like the following image.
 
-  ![](https://vtexhelp.vtexassets.com/assets/docs/src/import-carousel___c8d6badb71d9c9413f5b2e2099aa8720.png)
+![](https://vtexhelp.vtexassets.com/assets/docs/src/import-carousel___c8d6badb71d9c9413f5b2e2099aa8720.png)
 
 Now, you're probably wondering how to add styles and make this carousel section more visually pleasant. Don't worry; we've got you covered in the following part of this tutorial.
 

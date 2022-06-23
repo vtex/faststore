@@ -1,6 +1,13 @@
 {
-  "buildCommand": "turbo run build --filter=./packages/*",
-  "packages": ["packages/*"],
+  "buildCommand": "turbo run build --filter=./packages/* --filter=!./packages/shared",
+  "packages": [
+    "packages/api",
+    "packages/graphql-utils",
+    "packages/lighthouse",
+    "packages/sdk",
+    "packages/styles",
+    "packages/ui"
+  ],
   "sandboxes": ["store-ui-typescript-0gd9u"],
   "node": "16"
 }

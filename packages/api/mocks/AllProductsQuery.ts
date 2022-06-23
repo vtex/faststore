@@ -72,8 +72,7 @@ export const AllProductsQueryFirst5 = `query AllProducts {
 `
 
 export const productSearchPage1Count5Fetch = {
-  info:
-    'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/io/_v/api/intelligent-search/product_search/trade-policy/1?page=1&count=5&query=&sort=&fuzzy=auto&locale=en-US&hideUnavailableItems=false',
   init: undefined,
   result: {
     products: [
@@ -867,8 +866,7 @@ export const productSearchPage1Count5Fetch = {
 }
 
 export const checkoutSimulationFetch = {
-  info:
-    'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForms/simulation?sc=1',
+  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForms/simulation?sc=1',
   init: {
     method: 'POST',
     headers: {

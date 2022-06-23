@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from '@docusaurus/Link'
-import useBaseUrl from '@docusaurus/useBaseUrl'
+import baseUrl from '@docusaurus/useBaseUrl'
 
 let docs = [
   {
@@ -37,11 +37,14 @@ const DocStructure = () => {
       </h3>
       <div className="grid gap-6 grid-cols-1">
         {docs.map((item, i) => (
-          <Link key={i}
+          <Link
+            key={i}
             className="focus:no-underline hover:no-underline"
-            to={useBaseUrl(item.url)}
+            to={baseUrl(item.url)}
           >
-            <h4 className="block font-black  text-text hover:text-rebelPink">{item.title}</h4>
+            <h4 className="block font-black  text-text hover:text-rebelPink">
+              {item.title}
+            </h4>
             <p className="text-details">{item.description}</p>
           </Link>
         ))}

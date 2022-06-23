@@ -1,7 +1,7 @@
 ---
 id: 6
 sidebar_position: 8
-sidebar_label: "6. Querying the CMS data"
+sidebar_label: '6. Querying the CMS data'
 pagination_next: tutorials/cms-storecomponents/7
 ---
 
@@ -28,37 +28,38 @@ Before we query the CMS data in our `pages` components, let's verify how our dat
    ```
    yarn develop
    ```
-3. Open the GraphiQL IDE at [http://localhost:8000/__graphql](http://localhost:8000/__graphql). Notice that a corresponding type on the GraphQL data layer is available for each content type that you have defined (e.g., `cmsHome`, `cmsPlp`, `cmsSeo`).
+3. Open the GraphiQL IDE at [http://localhost:8000/\_\_graphql](http://localhost:8000/__graphql). Notice that a corresponding type on the GraphQL data layer is available for each content type that you have defined (e.g., `cmsHome`, `cmsPlp`, `cmsSeo`).
 4. Test some queries and check what they return. For example, for the `home` content type, try the following query:
-   
    ```gql
-  query MyQuery {
-    cmsHome {
-      sections {
-        name
-        props
-      }
-    }
-  }   
-  ```
+   query MyQuery {
+     cmsHome {
+       sections {
+         name
+         props
+       }
+     }
+   }
+   ```
 
-  This will return a JSON object as in the following example:
+````
 
-  ```json
-  {
-    "name": "DynamicShelf",
-    "props": {
-      "searchParams": {
-        "hideUnavailableItems": true,
-        "from": 0,
-        "to": 11,
-        "collection": "143",
-        "orderBy": "OrderByScoreDESC"
-      },
-      "title": "Special Offers"
-    }
-  },
-  ```
+This will return a JSON object as in the following example:
+
+```json
+{
+  "name": "DynamicShelf",
+  "props": {
+    "searchParams": {
+      "hideUnavailableItems": true,
+      "from": 0,
+      "to": 11,
+      "collection": "143",
+      "orderBy": "OrderByScoreDESC"
+    },
+    "title": "Special Offers"
+  }
+},
+````
 
 In the following, we'll see how we will query this structured data inside our React components.
 
@@ -74,40 +75,40 @@ Let's now query the CMS data in our `pages` so we can update our React component
 2. Open the corresponding page of your content type. For example, for the home page, open `/src/pages/index.tsx`.
 3. Update the GraphQL query of your content type to fetch the desired data from the CMS. Take the following example.
 
-  ```graphql {9-28} title=src/pages/index.tsx
-  export const query = graphql`
-    query HomePageQuery(
-      $from: Int!
-      $to: Int!
-      $collection: String!
-      $orderBy: String!
-      $hideUnavailableItems: Boolean!
-    ) {
-      cmsSeo {
-        seo {
-          facebook {
-            description
-            thumbnail
-            title
-          }
-          siteMetadata {
-            description
-            title
-            titleTemplate
-          }
+```graphql {9-28} title=src/pages/index.tsx
+export const query = graphql`
+  query HomePageQuery(
+    $from: Int!
+    $to: Int!
+    $collection: String!
+    $orderBy: String!
+    $hideUnavailableItems: Boolean!
+  ) {
+    cmsSeo {
+      seo {
+        facebook {
+          description
+          thumbnail
+          title
+        }
+        siteMetadata {
+          description
+          title
+          titleTemplate
         }
       }
-      cmsHome {
-        sections {
-          name
-          props
-        }
+    }
+    cmsHome {
+      sections {
+        name
+        props
       }
-      ...
-  `
-  ```
+    }
+    ...
+`
+```
 
-  ---
+---
 
 ## Related resources
 

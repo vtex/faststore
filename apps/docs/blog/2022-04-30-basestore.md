@@ -14,5 +14,6 @@ This change is due to the [launch of a Next.js base store starter](https://fasts
 ## What needs to be done?
 
 Whenever you need to access the Base Store repository, make sure you have the correct repository name and URL for the framework you are using:
+
 - [gatsby.store](https://github.com/vtex-sites/gatsby.store): former `basestore`
 - [nextjs.store](https://github.com/vtex-sites/nextjs.store): new starter

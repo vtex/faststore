@@ -1,44 +1,45 @@
-import { useEffect, useState } from 'react';
-import { onServer } from '../utils';
+import { useEffect, useState } from 'react'
+import { onServer } from '../utils'
 
 export interface WindowSizeInterface {
-  windowWidth: number;
-  windowHeight: number;
-  scrollHeight: number;
+  windowWidth: number
+  windowHeight: number
+  scrollHeight: number
 }
 
 export function useWindowSize(): WindowSizeInterface {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
   const [windowSize, setWindowSize] = useState<WindowSizeInterface>({
-    windowWidth: undefined,
-    windowHeight: undefined,
-    scrollHeight: undefined,
-  });
+    windowWidth: 0,
+    windowHeight: 0,
+    scrollHeight: 0,
+  })
 
   // Return if running on server
   if (onServer()) {
-    return { windowWidth: 0, windowHeight: 0, scrollHeight: 0 };
+    return { windowWidth: 0, windowHeight: 0, scrollHeight: 0 }
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     function handleResize() {
       setWindowSize({
         windowWidth: window.innerWidth,
         windowHeight: window.innerHeight,
         scrollHeight: document.documentElement.scrollHeight,
-      });
+      })
     }
 
     // Add event listener
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize)
 
     // Call handler right away so state gets updated with initial window size
-    handleResize();
+    handleResize()
 
     // Remove event listener on cleanup
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
-  return windowSize;
+  return windowSize
 }

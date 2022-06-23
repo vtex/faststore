@@ -51,9 +51,10 @@ const Bullets = forwardRef<HTMLDivElement, BulletsProps>(function Bullets(
   },
   ref
 ) {
-  const bulletIndexes = useMemo(() => Array(totalQuantity).fill(0), [
-    totalQuantity,
-  ])
+  const bulletIndexes = useMemo(
+    () => Array(totalQuantity).fill(0),
+    [totalQuantity]
+  )
 
   return (
     <div

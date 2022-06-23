@@ -15,8 +15,11 @@ interface CheckboxGroupProps {}
 
 const CheckboxGroup = ({ onChange, testId, ...props }: CheckboxGroupProps) => {
   return (
-    <div data-store-checkbox-group data-testid={testId}> {/* Pay attention to the data-attribute */}
-      <Checkbox data-checkbox-group onChange={onChange} {...props} /> {/* Pay attention to the data-attribute */}
+    <div data-store-checkbox-group data-testid={testId}>
+      {' '}
+      {/* Pay attention to the data-attribute */}
+      <Checkbox data-checkbox-group onChange={onChange} {...props} />{' '}
+      {/* Pay attention to the data-attribute */}
       <List data-list>
         <li data-list-item>
           <Checkbox data-checkbox onChange={onChange} />
@@ -57,7 +60,7 @@ const CheckboxGroup = ({ onChange, testId, disabled, ...props }: CheckboxGroupPr
 Styling the disabled state:
 
 ```css
-[data-checkbox][data-disabled] { 
+[data-checkbox][data-disabled] {
   /* your style here */
 }
 ```
@@ -65,9 +68,12 @@ Styling the disabled state:
 Another example for a carousel component:
 
 ```css
-[data-store-carousel] {}
-[data-store-carousel-arrows="left"] {}
-[data-store-carousel-arrows="right"] {}
+[data-store-carousel] {
+}
+[data-store-carousel-arrows='left'] {
+}
+[data-store-carousel-arrows='right'] {
+}
 ```
 
 For more information look at the [styling discussion](https://github.com/vtex/faststore/discussions/919).
@@ -102,15 +108,19 @@ Each component should have your test for each property, behavior, and data-attri
 
 Each component should have tests for accessibility using jest-axe. Also, implement tests to check the specifications for described components on [W3 best practices](https://www.w3.org/TR/wai-aria-practices-1.1).
 
-For example, tests for Modal Dialog component: 
+For example, tests for Modal Dialog component:
 
 ```tsx
 import { axe } from 'jest-axe'
 
 describe('Modal', () => {
   it('Accessibility test with AXE', async () => {
-    render(<Modal isOpen aria-label="Modal example">Modal example</Modal>)
-    
+    render(
+      <Modal isOpen aria-label="Modal example">
+        Modal example
+      </Modal>
+    )
+
     expect(await axe(document.body)).toHaveNoViolations()
   })
 
@@ -140,6 +150,7 @@ describe('Modal', () => {
 Don't use slots on organisms. It is desired that the organisms should be more like documentation about using atoms and molecules components.
 
 ### When use slots?
+
 TODO:
 
 ## Export hook vs export UI
@@ -183,32 +194,37 @@ export default {
   },
 } as Meta
 ```
+
 > Don't spread the props on the component template.
 
 A default template for the story `.mdx` file:
 
-```mdx
+````mdx
 # Component name Here
 
 <!--- if the component has more than one example add a h2 section with the name of your variation. The names of the variations can be anyone. -->
+
 ## Default
+
 <Canvas>
   <Story />
 </Canvas>
 
 ## Secondary
+
 <Canvas>
   <Story />
 </Canvas>
 
 ## Props
+
 <ArgsTable of={} />
 
 ## CSS Selectors
+
 <!--- Put all data-attributes related to styling here. Remember tu put into ```css ``` block-->
 
 [data-attribute] {}
-
-```
+````
 
 Write everything that's important for your component inside the `.mdx`.

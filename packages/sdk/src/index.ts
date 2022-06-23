@@ -80,6 +80,13 @@ export { parse as parseSearchState } from './search/serializer'
 export { default as formatSearchState } from './utils/format'
 
 export { initialize as initSearchState } from './search/useSearchState'
+export {
+  isSearchSort,
+  removeFacet,
+  setFacet,
+  toggleFacet,
+  toggleFacets,
+} from './search/facets'
 export { Provider as SearchProvider } from './search/Provider'
 export { useSearch } from './search/useSearch'
 export { usePagination } from './search/usePagination'

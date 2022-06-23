@@ -7,6 +7,7 @@ The analytics module lets you manage analytics events based on [Google Analytics
 Analytics events can be sent by using the `sendAnalyticsEvent` function and it's especially useful to send common ecommerce events such as `add_to_cart`. It enforces standard GA4 events via type check and IntelliSense suggestions, but this behavior can be altered via overriding the function's types.
 
 To fire a standard GA4 event:
+
 ```tsx
 import { useCallback } from 'react'
 import { sendAnalyticsEvent } from '@faststore/sdk'
@@ -14,14 +15,14 @@ import { sendAnalyticsEvent } from '@faststore/sdk'
 const MyComponent = () => {
   const addToCartCallback = useCallback(() => {
     /* ... */
-    
+
     const addToCartEvent = {
       type: 'add_to_cart',
       data: {
         items: [
           /* ... */
-        ]
-      }
+        ],
+      },
     }
 
     sendAnalyticsEvent(addToCartEvent)
@@ -40,7 +41,7 @@ import { useCallback } from 'react'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 
 interface CustomEvent {
-  type: 'custom_event',
+  type: 'custom_event'
   data: {
     customProperty?: string
   }
@@ -49,12 +50,12 @@ interface CustomEvent {
 const MyComponent = () => {
   const customEventCallback = useCallback(() => {
     /* ... */
-    
+
     const customEvent = {
       type: 'custom_event',
       data: {
-        customProperty: 'value'
-      }
+        customProperty: 'value',
+      },
     }
 
     sendAnalyticsEvent<CustomEvent>(customEvent)
@@ -76,22 +77,22 @@ import type { AnalyticsEvent } from '@faststore/sdk'
 
 /**
  *  Notice that we typed it as AnalyticsEvent, but there may be events that are not from this type.
- * 
+ *
  *  Since we're dealing with it on a switch and we are providing an empty default clause,
  *  we're not gonna have issues receiving custom events sent by other components or libraries.
  */
 function handler(event: AnalyticsEvent) {
-  switch(event.type) {
+  switch (event.type) {
     case 'add_to_cart': {
       /* ... */
     }
 
     /* ... */
-    
+
     default: {
       /* ... */
     }
-  } 
+  }
 }
 
 // In your component:

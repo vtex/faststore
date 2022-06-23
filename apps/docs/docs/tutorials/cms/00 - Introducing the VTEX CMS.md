@@ -1,15 +1,16 @@
 ---
 id: 0
 description: Discover the advantages of integrating your FastStore project with a CMS and get to know the VTEX Headless CMS.
-sidebar_label: "0. Introducing the VTEX Headless CMS"
+sidebar_label: '0. Introducing the VTEX Headless CMS'
 toc_max_heading_level: 4
+pagination_label: Introduction
 ---
 
 # Part 0: Introducing the VTEX Headless CMS
 
 ## Introduction
 
-As a developer, you are responsible not only for creating custom frontend solutions for your client's store but also for defining which content of the storefront will be editable via a Content Management System (CMS). A CMS allows others to edit the frontend content of your store without having to touch your code at all. 
+As a developer, you are responsible not only for creating custom frontend solutions for your client's store but also for defining which content of the storefront will be editable via a Content Management System (CMS). A CMS allows others to edit the frontend content of your store without having to touch your code at all.
 
 In this tutorial, you'll learn how to integrate your FastStore project with the **VTEX Headless CMS**, our preferred solution for content management. This will give editors the autonomy to create, edit, and publish web content via the VTEX Admin.
 
@@ -37,7 +38,7 @@ This tutorial covers how to integrate your **Gatsby + FastStore** project with t
 
 VTEX Headless CMS is a VTEX App and a no-code management system for storefront content. That means you can store your content as structured data in a layer decoupled from the frontend and then use the VTEX Headless CMS to access and deliver your content to your FastStore project.
 
-As with any other VTEX Admin app, you can install the VTEX Headless CMS in your VTEX account and access it via the Admin. Once installed in your account, you can access the VTEX Headless CMS at **Store Setup > CMS (alpha) > Pages (alpha)**. 
+As with any other VTEX Admin app, you can install the VTEX Headless CMS in your VTEX account and access it via the Admin. Once installed in your account, you can access the VTEX Headless CMS at **Store Setup > CMS (alpha) > Pages (alpha)**.
 
 You'll then see a list of all web pages created with the VTEX Headless CMS. Notice that this list will be empty at first, but once editors start creating new pages, your interface will look similar to the following:
 
@@ -45,10 +46,10 @@ You'll then see a list of all web pages created with the VTEX Headless CMS. Noti
 
 Notice that each page created with the VTEX Headless CMS is related to a specific URL and is distinguished by the following properties:
 
-- **Name:**  identifies a given page. This name is not available elsewhere and is used only internally in the VTEX Headless CMS for identification purposes.
+- **Name:** identifies a given page. This name is not available elsewhere and is used only internally in the VTEX Headless CMS for identification purposes.
 - **Type** (a.k.a., Content Type): determines the nature of a page. For example, the **Type** can be a Landing Page, a Product Listing Page (PLP), a Product Detail Page (PDP), etc. You, as a developer, are the one responsible for defining which content types will be available for the editors of your store.
 - **Last modified:** indicates the last time a given page was edited.
-- **Version:** identifies the state of a page, if it's *Draft*, *Publishing*, or *Published*. Notice that editors can have more than one version of the same page with distinct settings and content. 
+- **Version:** identifies the state of a page, if it's _Draft_, _Publishing_, or _Published_. Notice that editors can have more than one version of the same page with distinct settings and content.
 
 ### Content Types
 
@@ -58,7 +59,7 @@ Once editors click on **Create New** in the VTEX Headless CMS interface, they'll
 
 ### Sections
 
-For each Content Type, different **Sections** will be available to compose that page. Sections represent the content structure of a React component, for example, a Carousel or a Dynamic Shelf. 
+For each Content Type, different **Sections** will be available to compose that page. Sections represent the content structure of a React component, for example, a Carousel or a Dynamic Shelf.
 
 ![CMS Section](https://vtexhelp.vtexassets.com/assets/docs/src/cms-section___d3211ca1a5752e2498b58970872d9aaf.png)
 

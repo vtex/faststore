@@ -1,10 +1,9 @@
 import React from 'react'
 import type { MouseEventHandler } from 'react'
 
-
 interface CodeBlockWrapperState {
-  isCodeBlockCollapsed: Boolean
-  isCollapsibleModeOn: Boolean
+  isCodeBlockCollapsed: boolean
+  isCollapsibleModeOn: boolean
 }
 
 interface CodeBlockWrapperProps {
@@ -19,7 +18,7 @@ const CodeBlockWrapper = (props: CodeBlockWrapperProps) => {
   return (
     <div>
       {children}
-      {state.isCodeBlockCollapsed && <div/>}
+      {state.isCodeBlockCollapsed && <div />}
     </div>
   )
 }
