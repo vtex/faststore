@@ -1,6 +1,6 @@
 {
   "name": "shared",
-  "version": "0.0.0",
+  "version": "1.9.14",
   "private": true,
   "files": [
     "tsconfig.json"

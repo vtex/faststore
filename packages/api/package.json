@@ -1,6 +1,6 @@
 {
   "name": "@faststore/api",
-  "version": "1.9.11",
+  "version": "1.9.14",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -37,7 +37,7 @@
     "express-graphql": "^0.12.0",
     "graphql": "^15.6.0",
     "jest-transform-graphql": "^2.1.0",
-    "shared": "*",
+    "shared": "^1.9.14",
     "ts-jest": "25.5.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
