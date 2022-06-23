@@ -1,0 +1,182 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
+import Button from 'src/components/ui/Button'
+import { SessionProvider } from '@faststore/sdk'
+import RegionalizationModal, { RegionalizationModalContent } from '.'
+import RegionalizationButton from 'src/components/regionalization/RegionalizationButton'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Features/Regionalization/RegionalizationModal"
+  component={RegionalizationModal}
+/>
+
+export const ModalTemplate = () => {
+  const { modal, openModal } = useUI()
+  return (
+    <div>
+      <RegionalizationButton onClick={() => openModal()}>Open Regionalization Modal</RegionalizationButton>
+      {
+        modal && (
+        <RegionalizationModal />
+        )
+      }
+    </div>
+  )
+}
+
+export const Template = (args) => {
+  return (
+    <SessionProvider>
+      <UIProvider>
+        <ModalTemplate />
+      </UIProvider>
+    </SessionProvider>
+  )
+}
+
+export const RegionalizationModalContentTemplate = (args) => {
+  return (
+    <SessionProvider>
+      <UIProvider>
+        <RegionalizationModalContent onClose={() => {}} />
+      </UIProvider>
+    </SessionProvider>
+  )
+}
+
+<header>
+
+# RegionalizationModal
+
+This component calls a modal with some regionalization configurations.
+
+</header>
+
+## Overview
+
+This component uses [Modal](/docs/molecules-modal--overview) as a base.
+
+<Canvas  style={{ backgroundColor: 'var(--fs-color-neutral-1)' }}>
+  <Story
+    name="Overview"
+  >
+    {RegionalizationModalContentTemplate.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import RegionalizationModal from src/components/regionalization/RegionalizationModal`
+
+<Canvas>
+  <Story
+    name="RegionalizationModalContent"
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+<TokenTable>
+  <TokenRow
+    token="--fs-regionalization-modal-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-4) var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-background-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+### Header
+
+<TokenTable>
+  <TokenRow
+    token="--fs-regionalization-modal-header-padding"
+    value="var(--fs-spacing-4) var(--fs-spacing-7) var(--fs-spacing-4) var(--fs-spacing-4)"
+  />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-regionalization-modal-title-margin-bottom"
+    value=".625rem"
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-title-size"
+    value="var(--fs-text-size-lead)"
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-title-line-height"
+    value="1.2"
+  />
+</TokenTable>
+
+### Description
+
+<TokenTable>
+  <TokenRow
+    token="--fs-regionalization-modal-description-size"
+    value="var(--fs-text-size-body)"
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-description-line-height"
+    value="1.5"
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-description-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+</TokenTable>
+
+### Buttons
+
+<TokenTable>
+  <TokenRow
+    token="--fs-regionalization-modal-close-button-position-top"
+    value="0"
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-close-button-position-right"
+    value="0"
+  />
+</TokenTable>
+
+### Link
+
+<TokenTable>
+  <TokenRow
+    token="--fs-regionalization-modal-link-padding"
+    value="0"
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-link-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-regionalization-modal-link-margin-right"
+    value="var(--fs-spacing-0)"
+  />
+</TokenTable>

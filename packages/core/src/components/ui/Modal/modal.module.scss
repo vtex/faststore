@@ -1,0 +1,46 @@
+@import "src/styles/scaffold";
+
+.fs-modal {
+  // --------------------------------------------------------
+  // Design Tokens for Modal
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-modal-position-top                          : 30vh;
+  --fs-modal-position-right                        : var(--fs-spacing-4);
+  --fs-modal-position-left                         : var(--fs-spacing-4);
+  --fs-modal-max-width                             : calc(var(--fs-grid-breakpoint-desktop) / 3);
+  --fs-modal-min-height                            : var(--fs-spacing-5);
+  --fs-modal-margin                                : auto;
+
+  --fs-modal-width-tablet                          : calc(100vw / 3);
+  --fs-modal-min-width-tablet                      : calc(var(--fs-grid-breakpoint-desktop) / 3);
+
+  --fs-modal-transition-timing                     : var(--fs-transition-timing);
+  --fs-modal-transition-property                   : transform;
+  --fs-modal-transition-in-function                : ease-in;
+  --fs-modal-transition-out-function               : ease-in;
+
+  position: fixed;
+  top: var(--fs-modal-position-top);
+  right: var(--fs-modal-position-right);
+  left: var(--fs-modal-position-left);
+  max-width: var(--fs-modal-max-width);
+  min-height: var(--fs-modal-min-height);
+  margin: var(--fs-modal-margin);
+
+  @include media(">=tablet") {
+    width: var(--fs-modal-width-tablet);
+    min-width: var(--fs-modal-min-width-tablet);
+  }
+
+  &[data-fs-modal-state="in"] {
+    transition: var(--fs-modal-transition-property) var(--fs-modal-transition-timing) var(--fs-modal-transition-in-function);
+    transform: translate3d(0, 0, 0);
+  }
+
+  &[data-fs-modal-state="out"] {
+    transition: var(--fs-modal-transition-property) var(--fs-modal-transition-timing) var(--fs-modal-transition-in-function);
+    transform: translate3d(0, 50%, 0);
+  }
+}

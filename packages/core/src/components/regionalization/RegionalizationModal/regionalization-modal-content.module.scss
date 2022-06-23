@@ -1,0 +1,81 @@
+@import "src/styles/scaffold";
+
+.fs-regionalization-modal-content {
+  // --------------------------------------------------------
+  // Design Tokens for Regionalization Modal
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-regionalization-modal-padding                        : var(--fs-spacing-1) var(--fs-spacing-4) var(--fs-spacing-5);
+  --fs-regionalization-modal-background-color               : var(--fs-color-body-bkg);
+  --fs-regionalization-modal-border-radius                  : var(--fs-border-radius);
+
+  // Header
+  --fs-regionalization-modal-header-padding                 : var(--fs-spacing-4) var(--fs-spacing-7) var(--fs-spacing-4) var(--fs-spacing-4);
+
+  // Title
+  --fs-regionalization-modal-title-margin-bottom            : .625rem;
+  --fs-regionalization-modal-title-size                     : var(--fs-text-size-lead);
+  --fs-regionalization-modal-title-weight                   : var(--fs-text-weight-bold);
+  --fs-regionalization-modal-title-line-height              : 1.2;
+
+  // Description
+  --fs-regionalization-modal-description-size               : var(--fs-text-size-body);
+  --fs-regionalization-modal-description-line-height        : 1.5;
+  --fs-regionalization-modal-description-color              : var(--fs-color-text-light);
+
+  // Close Button
+  --fs-regionalization-modal-close-button-position-top      : 0;
+  --fs-regionalization-modal-close-button-position-right    : 0;
+
+  // Link
+  --fs-regionalization-modal-link-padding                   : 0;
+  --fs-regionalization-modal-link-color                     : var(--fs-color-link);
+  --fs-regionalization-modal-link-margin-right              : var(--fs-spacing-0);
+
+  position: relative;
+  background-color: var(--fs-regionalization-modal-background-color);
+  border-radius: var(--fs-regionalization-modal-border-radius);
+
+  [data-fs-regionalization-modal-header] {
+    padding: var(--fs-regionalization-modal-header-padding);
+
+    [data-fs-regionalization-modal-title] {
+      margin-bottom: var(--fs-regionalization-modal-title-margin-bottom);
+      font-size: var(--fs-regionalization-modal-title-size);
+      font-weight: var(--fs-regionalization-modal-title-weight);
+      line-height: var(--fs-regionalization-modal-title-line-height);
+    }
+
+    [data-fs-regionalization-modal-description] {
+      font-size: var(--fs-regionalization-modal-description-size);
+      line-height: var(--fs-regionalization-modal-description-line-height);
+      color: var(--fs-regionalization-modal-description-color);
+    }
+
+    [data-fs-regionalization-modal-button] {
+      position: absolute;
+      top: var(--fs-regionalization-modal-close-button-position-top);
+      right: var(--fs-regionalization-modal-close-button-position-right);
+    }
+  }
+
+  [data-fs-regionalization-modal-body] {
+    padding: var(--fs-regionalization-modal-padding);
+
+    [data-fs-regionalization-modal-input] {
+      margin-bottom: var(--fs-spacing-6);
+    }
+
+    [data-fs-regionalization-modal-link] {
+      display: flex;
+      flex-direction: row;
+      align-content: flex-start;
+      align-items: center;
+      justify-content: flex-start;
+      padding: var(--fs-regionalization-modal-link-padding);
+      margin-right: var(--fs-regionalization-modal-link-margin-right);
+      color: var(--fs-regionalization-modal-link-color);
+    }
+  }
+}
