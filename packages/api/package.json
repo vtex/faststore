@@ -37,6 +37,7 @@
     "express-graphql": "^0.12.0",
     "graphql": "^15.6.0",
     "jest-transform-graphql": "^2.1.0",
+    "shared": "*",
     "ts-jest": "25.5.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",

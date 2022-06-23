@@ -21,12 +21,10 @@
   "scripts": {
     "develop": "tsc --watch",
     "build": "tsc",
-    "lint": "eslint src/**/*.ts",
-    "test": "tsdx test --passWithNoTests"
+    "lint": "eslint src/**/*.ts"
   },
   "devDependencies": {
-    "@vtex/tsconfig": "^0.5.6",
-    "tsdx": "^0.14.1",
+    "shared": "*",
     "typescript": "^4.2.4"
   }
 }
