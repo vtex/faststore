@@ -67,85 +67,20 @@ Below you can see a list of fields that can be returned by the `validateSession`
 ### Mutation structure
 
 ```graphql
-mutation {
-  validateCart (
-    cart: {
-      order: {
-        orderNumber: # String!,
-        acceptedOffer: [
-          {
-            # IStoreOffer fields
-          }
-        ]
-      }
-    }
-  )
-  {
-    order {
-      orderNumber: # String!,
-      acceptedOffer: [
-        {
-          # IStoreOffer fields
-        }
-      ]
-    }
-  }
-}
+
 ```
 
 </div>
 </div>
 
-## Shopping cart flow
-
-When you use `validateCart` for the first interaction of a given user (e.g. adding the first product), you should send an empty `orderNumber` (`""`).
-
-You will receive a new `orderNumber` in the response. Make sure to save it and use it in the following requests for that same cart.
-
-To remove an item from a cart, you should send the item in the `acceptedOffer` array, but with a `quantity` of `0`.
-
-:::caution
-Note that sending an empty `acceptedOffer` array will not empty the cart. You must send the array with the existing products, with `quantity: 0`.
-:::
-
-### Examples
-
-- Adding the first item to the cart.
+## Example
 
 <Tabs>
 
 <TabItem value="mutation" label="Mutation" default>
 
 ```graphql
-mutation validateCart($cart: IStoreCart!) {
-  validateCart (
-    cart: $cart
-  ) {
-    order {
-      orderNumber,
-      acceptedOffer {
-        price,
-        quantity,
-        seller {
-          identifier
-        },
-        itemOffered {
-          name,
-          sku,
-          description,
-          image {
-            url,
-            alternateName
-          }
-        }
-      }
-    },
-    messages {
-      text,
-      status
-    }
-  }
-}
+
 ```
 
 </TabItem>
@@ -153,33 +88,7 @@ mutation validateCart($cart: IStoreCart!) {
 <TabItem value="variables" label="Variables" default>
 
 ```graphql
-{
-  "cart": {
-    "order": {
-      "orderNumber": "",
-      "acceptedOffer": [
-        {
-          "price": 130,
-          "listPrice": 150,
-          "seller": {
-            "identifier": "1"
-          },
-          "quantity": 1,
-          "itemOffered": {
-            "sku": "99988211",
-            "image": [
-              {
-                "url": "https://storeframework.vtexassets.com/arquivos/ids/190901/unsplash-headphone.jpg?v=637800115948430000",
-                "alternateName": "aedleheadphone"
-              }
-            ],
-            "name": "Leather"
-          }
-        }
-      ]
-    }
-  }
-}
+
 ```
 
 </TabItem>
@@ -187,130 +96,7 @@ mutation validateCart($cart: IStoreCart!) {
 <TabItem value="response" label="Response" default>
 
 ```graphql
-{
-  "data": {
-    "validateCart": {
-      "order": {
-        "orderNumber": "96fbf6fba3094a918c1f1552ca68f008",
-        "acceptedOffer": [
-          {
-            "price": 130,
-            "quantity": 1,
-            "seller": {
-              "identifier": "1"
-            },
-            "itemOffered": {
-              "name": "Leather",
-              "sku": "99988211",
-              "description": "Aedle VK-1 L Headphone",
-              "image": [
-                {
-                  "url": "https://storeframework.vtexassets.com/arquivos/ids/190901/unsplash-headphone.jpg?v=637800115948430000",
-                  "alternateName": "aedleheadphone"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "messages": []
-    }
-  }
-}
-```
 
-</TabItem>
-
-</Tabs>
-
-- Removing item from the cart.
-
-<Tabs>
-
-<TabItem value="mutation2" label="Mutation" default>
-
-```graphql
-mutation validateCart($cart: IStoreCart!) {
-  validateCart (
-    cart: $cart
-  ) {
-    order {
-      orderNumber,
-      acceptedOffer {
-        price,
-        quantity,
-        seller {
-          identifier
-        },
-        itemOffered {
-          name,
-          sku,
-          description,
-          image {
-            url,
-            alternateName
-          }
-        }
-      }
-    },
-    messages {
-      text,
-      status
-    }
-  }
-}
-```
-
-</TabItem>
-
-<TabItem value="variables2" label="Variables" default>
-
-```graphql
-{
-  "cart": {
-    "order": {
-      "orderNumber": "96fbf6fba3094a918c1f1552ca68f008",
-      "acceptedOffer": [
-        {
-          "price": 130,
-          "listPrice": 150,
-          "seller": {
-            "identifier": "1"
-          },
-          "quantity": 0,
-          "itemOffered": {
-            "sku": "99988211",
-            "image": [
-              {
-                "url": "https://storeframework.vtexassets.com/arquivos/ids/190901/unsplash-headphone.jpg?v=637800115948430000",
-                "alternateName": "aedleheadphone"
-              }
-            ],
-            "name": "Leather"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-</TabItem>
-
-<TabItem value="response2" label="Response" default>
-
-```graphql
-{
-  "data": {
-    "validateCart": {
-      "order": {
-        "orderNumber": "96fbf6fba3094a918c1f1552ca68f008",
-        "acceptedOffer": []
-      },
-      "messages": []
-    }
-  }
-}
 ```
 
 </TabItem>
