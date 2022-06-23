@@ -67,7 +67,17 @@ Below you can see a list of fields that can be returned by the `validateSession`
 ### Mutation structure
 
 ```graphql
-
+mutation {
+  validateSession (
+    session: {
+        # IStoreSession fields
+    },
+    search: ""
+  )
+  {
+    # StoreSession fields
+  }
+}
 ```
 
 </div>
@@ -80,7 +90,21 @@ Below you can see a list of fields that can be returned by the `validateSession`
 <TabItem value="mutation" label="Mutation" default>
 
 ```graphql
-
+mutation validateSession($session: IStoreSession!, $search: String!) {
+  validateSession (session: $session, search: $search)
+  {
+    locale,
+    country,
+    currency {
+      code,
+      symbol
+    },
+    person {
+      email,
+      givenName
+    }
+  }
+}
 ```
 
 </TabItem>
@@ -88,15 +112,46 @@ Below you can see a list of fields that can be returned by the `validateSession`
 <TabItem value="variables" label="Variables" default>
 
 ```graphql
-
+{
+    "session": {
+      "person": {
+        "email": "hal.jordan@examplemail.com",
+        "id": "123456789abc",
+        "givenName": "Hal",
+        "familyName": "Jordan"
+      },
+      "locale": "EN",
+      "currency": {
+        "code": "USD",
+        "symbol": "$"
+      },
+      "country": "USA"
+  },
+  "search": "computer"
+}
 ```
 
 </TabItem>
 
 <TabItem value="response" label="Response" default>
 
-```graphql
-
+```json
+{
+    data: {
+        "validateSession": {
+            "locale": "EN",
+            "country": "USA",
+            "currency": {
+                "code": "USD",
+                "symbol": "$"
+            },
+            "person": {
+                "email": "hal.jordan@examplemail.com",
+                "givenName": "Hal"
+            }
+        } 
+    }
+}
 ```
 
 </TabItem>
