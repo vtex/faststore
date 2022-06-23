@@ -38,24 +38,13 @@ Updates a web session with the specified values.
 Below you can see a list of fields that can be returned by the `validateSession` mutation. Click on the links to learn more details about each field.
 
 <ul>
-  <li><code>validateCart</code>: <a href="/reference/api/objects#storecart">StoreCart</a>
+  <li><code>validateSession</code>: <a href="/reference/api/objects#storesession">StoreSession</a>
   <ul>
-    <li><code>order</code>: <a href="/reference/api/objects#storeorder">StoreOrder</a>!
+    <li><code>locale</code>: <a href="/reference/api/scalars#string">String</a></li>
+    <li><code>currency</code>: <a href="/reference/api/objects#storecurrency"><code>StoreCurrency</code></a>!</li>
     <ul>
-      <li><code>orderNumber</code>: <a href="reference/api/scalars#string">String</a>!</li>
-      <li><code>acceptedOffer</code>: [<a href="/reference/api/objects#storeoffer">StoreOffer</a>!]!
-      <ul>
-        <li>Offer information. check <a href="/reference/api/objects#storeoffer">StoreOffer</a> to see all possible fields.</li>
-      </ul>
-      </li>
+      <li><code>code</code>:
     </ul>
-    </li>
-    <li><code>messages</code>: [<a href="/reference/api/objects#storecartmessage">StoreCartMessage</a>!]!
-    <ul>
-      <li><code>text</code>: <a href="/reference/api/scalars#string">String</a>!</li>
-      <li><code>status</code>: <a href="/reference/api/enums#storestatus">StoreStatus</a>!</li>
-    </ul>
-    </li>
   </ul>
   </li>
 </ul>
