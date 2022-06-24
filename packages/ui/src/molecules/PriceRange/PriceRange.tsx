@@ -35,6 +35,7 @@ const PriceRange = ({
   testId = 'store-price-range',
   variant,
   'aria-label': ariaLabel,
+  ...otherProps
 }: PriceRangeProps) => {
   const [edges, setEdges] = useState({ min: min.selected, max: max.selected })
 
@@ -49,6 +50,7 @@ const PriceRange = ({
           onChange?.(value)
         }}
         aria-label={ariaLabel}
+        {...otherProps}
       />
       <div data-price-range-values>
         <Price
