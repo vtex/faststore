@@ -66,6 +66,10 @@
     overflow-x: auto;
     scroll-behavior: smooth;
 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     > [data-store-button] {
       flex-shrink: 0;
       width: rem(56px);

@@ -14,10 +14,17 @@ interface Props {
   currentImageIdx: number
 }
 
+const SCROLL_MARGIN_VALUE = 400
+
 const moveScroll = (container: HTMLDivElement | null, value: number) => {
   if (container) {
     if (container.scrollHeight > container.clientHeight) {
-      container.scrollTop += value
+      // TODO: Temporary workaround for scroll-behavior with scrollTop – Safari 15.4) https://developer.apple.com/forums/thread/703294
+      container.style.overflow = 'auto'
+      window.requestAnimationFrame(() =>
+        container.scrollTo({ top: value, behavior: 'smooth' })
+      )
+      setTimeout(() => (container.style.overflow = 'hidden'), 2000)
     } else {
       container.scrollLeft += value
     }
@@ -57,7 +64,7 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
         <IconButton
           aria-label="backward slide image selector"
           icon={<Icon name="ArrowLeft" width={24} height={24} />}
-          onClick={() => moveScroll(elementsRef.current, -200)}
+          onClick={() => moveScroll(elementsRef.current, -SCROLL_MARGIN_VALUE)}
         />
       )}
       <div data-fs-image-gallery-selector-elements ref={elementsRef}>
@@ -97,7 +104,7 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
         <IconButton
           aria-label="forward slide image selector"
           icon={<Icon name="ArrowLeft" width={24} height={24} />}
-          onClick={() => moveScroll(elementsRef.current, +200)}
+          onClick={() => moveScroll(elementsRef.current, +SCROLL_MARGIN_VALUE)}
         />
       )}
     </section>
