@@ -1,11 +1,11 @@
-import { forwardRef } from 'react'
+import type { AccordionItemProps } from '@faststore/ui'
 import {
-  Icon as UIIcon,
+  AccordionButton as UIAccordionButton,
   AccordionItem as UIAccordionItem,
   AccordionPanel as UIAccordionPanel,
-  AccordionButton as UIAccordionButton,
+  Icon as UIIcon,
 } from '@faststore/ui'
-import type { AccordionItemProps } from '@faststore/ui'
+import { forwardRef } from 'react'
 
 import Icon from 'src/components/ui/Icon'
 
@@ -36,15 +36,18 @@ const AccordionItem = forwardRef<HTMLDivElement, Props>(function AccordionItem(
       ref={ref}
       index={index}
       data-testid={`${testId}-item`}
+      data-fs-accordion-item
       {...otherProps}
     >
       <UIAccordionButton
         className="text__title-subsection"
+        data-fs-accordion-item-button
         data-testid={`${testId}-button`}
       >
         {buttonLabel}
         <UIIcon
           data-testid={`${testId}-button-icon`}
+          data-fs-accordion-item-button-icon
           component={
             <>
               <Icon
@@ -63,7 +66,10 @@ const AccordionItem = forwardRef<HTMLDivElement, Props>(function AccordionItem(
           }
         />
       </UIAccordionButton>
-      <UIAccordionPanel data-testid={`${testId}-panel`}>
+      <UIAccordionPanel
+        data-testid={`${testId}-panel`}
+        data-fs-accordion-item-panel
+      >
         {children}
       </UIAccordionPanel>
     </UIAccordionItem>

@@ -1,0 +1,133 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import { List as UIList } from '@faststore/ui'
+import { useState } from 'react'
+
+import Accordion, { AccordionItem } from '.'
+
+import {
+  AccordionButton as UIAccordionButton,
+  AccordionItem as UIAccordionItem,
+  AccordionPanel as UIAccordionPanel,
+  Icon as UIIcon,
+} from '@faststore/ui'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Molecules/Accordion/AccordionItem"
+  component={AccordionItem}
+  argTypes={{
+    isExpanded: { control: 'boolean' },
+    buttonLabel: { defaultValue: 'Title 1' },
+  }}
+/>
+
+export const values = Array.from({ length: 5 }).map((_, i) => `Item ${i + 1}`)
+
+export const Template = (args) => {
+  const [indexes, setIndexes] = useState(new Set([]))
+  const onChange = (index) => {
+    if (indexes.has(index)) {
+      indexes.delete(index)
+      setIndexes(new Set(indexes))
+    } else {
+      setIndexes(new Set(indexes.add(index)))
+    }
+  }
+  return (
+    <Accordion expandedIndices={indexes} onChange={onChange}>
+      <AccordionItem {...args}>
+        <UIList>
+          {values.map((label) => {
+            return <li key={label}>{label}</li>
+          })}
+        </UIList>
+      </AccordionItem>
+    </Accordion>
+  )
+}
+
+<header>
+
+# Accordion Item
+
+An item of a set of items on `Accordion`.
+
+</header>
+
+## Overview
+
+The `AccordionItem` is part of [Accordion](?path=/docs/molecules-accordion-overview--default-story) component.
+
+---
+
+## Usage
+
+`import Accordion, { AccordionItem } from 'src/components/ui/Accordion'`
+
+<Canvas>
+  <Story name="default">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-item-border-bottom-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-accordion-item-border-bottom-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-item-button-padding"
+    value="var(--fs-spacing-3) 0"
+  />
+  <TokenRow
+    token="--fs-accordion-item-button-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow token="--fs-accordion-item-button-bkg-color" value="transparent" />
+  <TokenRow
+    token="--fs-accordion-item-button-padding-right-notebook"
+    value="var(--fs-spacing-4)"
+  />
+  <TokenRow
+    token="--fs-accordion-item-button-padding-left-notebook"
+    value="var(--fs-accordion-item-button-padding-right-notebook)"
+  />
+</TokenTable>
+
+### Panel
+
+<TokenTable>
+  <TokenRow
+    token="--fs-accordion-item-panel-padding-bottom"
+    value="var(--fs-spacing-4)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-accordion-item-panel-padding-right-notebook"
+    value="var(--fs-accordion-item-panel-padding-bottom)"
+  />
+  <TokenRow
+    token="--fs-accordion-item-panel-padding-left-notebook"
+    value="var(--fs-accordion-item-panel-padding-bottom)"
+  />
+</TokenTable>

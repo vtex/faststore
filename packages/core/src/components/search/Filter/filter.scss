@@ -12,7 +12,7 @@
     }
   }
 
-  [data-store-accordion] {
+  [data-fs-accordion] {
     [data-store-list] {
       padding-bottom: var(--fs-spacing-3);
 
@@ -27,7 +27,7 @@
     }
   }
 
-  [data-accordion-item] [data-store-button] {
+  [data-fs-accordion-item-button] {
     font-size: var(--fs-text-size-3);
     font-weight: var(--fs-text-weight-regular);
     line-height: 1.5;
@@ -35,18 +35,6 @@
     @include media(">=notebook") {
       font-size: var(--fs-text-size-2);
       line-height: 1.25;
-    }
-
-    [data-store-icon] [data-icon] {
-      display: none;
-    }
-
-    [data-store-icon] [data-icon="expanded"] {
-      display: initial;
-    }
-
-    [data-store-icon] [data-icon="collapsed"] {
-      display: initial;
     }
   }
 }

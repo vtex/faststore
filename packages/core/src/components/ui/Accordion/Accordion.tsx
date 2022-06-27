@@ -1,6 +1,8 @@
+import type { AccordionProps } from '@faststore/ui'
 import { Accordion as UIAccordion } from '@faststore/ui'
 import { forwardRef } from 'react'
-import type { AccordionProps } from '@faststore/ui'
+
+import styles from './accordion.module.scss'
 
 interface Props extends Omit<AccordionProps, 'indices'> {
   /**
@@ -21,8 +23,8 @@ const Accordion = forwardRef<HTMLDivElement, Props>(function Accordion(
 ) {
   return (
     <UIAccordion
-      className="accordion"
-      data-store-accordion
+      className={styles.fsAccordion}
+      data-fs-accordion
       ref={ref}
       onChange={onChange}
       data-testid={testId}

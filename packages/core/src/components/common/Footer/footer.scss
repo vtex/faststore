@@ -175,18 +175,6 @@
   @include media(">=notebook") {
     grid-column: span 8;
   }
-
-  [data-store-icon] [data-icon] {
-    display: none;
-  }
-
-  [data-store-icon] [data-icon="expanded"] {
-    display: initial;
-  }
-
-  [data-store-icon] [data-icon="collapsed"] {
-    display: initial;
-  }
 }
 
 .footer__links-columns {

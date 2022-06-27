@@ -1,0 +1,81 @@
+@import "src/styles/scaffold";
+
+.fs-accordion {
+  // --------------------------------------------------------
+  // Design Tokens for Accordion
+  // --------------------------------------------------------
+
+  // Item
+  --fs-accordion-item-border-bottom-width           : var(--fs-border-width);
+  --fs-accordion-item-border-bottom-color           : var(--fs-border-color-light);
+
+  // Item Button
+  --fs-accordion-item-button-padding                : var(--fs-spacing-3) 0;
+  --fs-accordion-item-button-color                  : var(--fs-color-text);
+  --fs-accordion-item-button-bkg-color              : transparent;
+
+  --fs-accordion-item-button-padding-right-notebook : var(--fs-spacing-4);
+  --fs-accordion-item-button-padding-left-notebook  : var(--fs-accordion-item-button-padding-right-notebook);
+
+  // Item Panel
+  --fs-accordion-item-panel-padding-bottom          : var(--fs-spacing-4);
+
+  --fs-accordion-item-panel-padding-right-notebook  : var(--fs-accordion-item-panel-padding-bottom);
+  --fs-accordion-item-panel-padding-left-notebook   : var(--fs-accordion-item-panel-padding-bottom);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  [data-fs-accordion-item] {
+    border-bottom: var(--fs-accordion-item-border-bottom-width) solid var(--fs-accordion-item-border-bottom-color);
+
+    @include media(">=notebook") {
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  [data-fs-accordion-item-button] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--fs-accordion-item-button-padding);
+    color: var(--fs-accordion-item-button-color);
+    cursor: pointer;
+    background-color: var(--fs-accordion-item-button-bkg-color);
+    border: 0;
+
+    @include media(">=notebook") {
+      padding-right: var(--fs-accordion-item-button-padding-right-notebook);
+      padding-left: var(--fs-accordion-item-button-padding-left-notebook);
+    }
+  }
+
+  [data-fs-accordion-item-button-icon] {
+    display: flex;
+
+    [data-icon] {
+      display: none;
+    }
+
+    [data-icon="expanded"], [data-icon="collapsed"] {
+      display: initial;
+    }
+  }
+
+  [data-fs-accordion-item-panel] {
+    padding-bottom: var(--fs-accordion-item-panel-padding-bottom);
+
+    @include media(">=notebook") {
+      padding-right: var(--fs-accordion-item-panel-padding-right-notebook);
+      padding-left: var(--fs-accordion-item-panel-padding-left-notebook);
+    }
+  }
+}

@@ -1,0 +1,180 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import { List as UIList } from '@faststore/ui'
+import { useState } from 'react'
+
+import Accordion, { AccordionItem } from '.'
+import ButtonLink from '../Button/ButtonLink'
+import Icon from '../Icon'
+
+<Meta
+  component={Accordion}
+  title="Molecules/Accordion/Overview"
+  argTypes={{
+    expandedIndices: { control: { disable: true } },
+  }}
+/>
+
+export const values = Array.from({ length: 3 }).map((_, i) => `Item ${i + 1}`)
+
+export const items = [
+  {
+    title: 'Title 1',
+    values: [...values],
+  },
+  {
+    title: 'Title 2',
+    values: [...values],
+  },
+  {
+    title: 'Title 3',
+    values: [...values],
+  },
+  {
+    title: 'Title 4',
+    values: [...values],
+  },
+]
+
+export const Template = () => {
+  const [indices, setIndices] = useState([])
+  const onChange = (index) => {
+    setIndices([index])
+  }
+  return (
+    <Accordion expandedIndices={indices} onChange={onChange}>
+      {items.map((item, index) => (
+        <AccordionItem
+          key={item.title}
+          isExpanded={indices.includes(index)}
+          buttonLabel={item.title}
+        >
+          <UIList>
+            {item.values.map((label) => {
+              return <li key={label}>{label}</li>
+            })}
+          </UIList>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  )
+}
+
+export const TemplateMultiple = () => {
+  const [indexes, setIndexes] = useState(new Set([]))
+  const onChange = (index) => {
+    if (indexes.has(index)) {
+      indexes.delete(index)
+      setIndexes(new Set(indexes))
+    } else {
+      setIndexes(new Set(indexes.add(index)))
+    }
+  }
+  return (
+    <Accordion expandedIndices={indexes} onChange={onChange}>
+      {items.map((item, index) => (
+        <AccordionItem
+          key={item.title}
+          isExpanded={indexes.has(index)}
+          buttonLabel={item.title}
+        >
+          <UIList>
+            {item.values.map((name) => (
+              <li key={name}>{name}</li>
+            ))}
+          </UIList>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  )
+}
+
+export const TemplateOneItem = () => {
+  const [indexes, setIndexes] = useState(new Set([0]))
+  const onChange = (index) => {
+    if (indexes.has(index)) {
+      indexes.delete(index)
+      setIndexes(new Set(indexes))
+    } else {
+      setIndexes(new Set(indexes.add(index)))
+    }
+  }
+  return (
+    <Accordion expandedIndices={indexes} onChange={onChange}>
+      <AccordionItem isExpanded={indexes.has(0)} buttonLabel="Title 1">
+        <UIList>
+          {values.map((label) => {
+            return <li key={label}>{label}</li>
+          })}
+        </UIList>
+      </AccordionItem>
+    </Accordion>
+  )
+}
+
+<header>
+
+# Accordion
+
+Accordion displays an expandable/collapsible list of items.
+
+</header>
+
+## Overview
+
+The `Accordion` component uses [FastStore UI Accordion](https://www.faststore.dev/reference/ui/molecules/Accordion) as base.
+
+---
+
+## Usage
+
+`import Accordion, { AccordionItem } from 'src/components/ui/Accordion'`
+
+<Canvas>
+  <Story name="default">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+---
+
+## Variants
+
+### Accordion Single Open
+
+<Canvas>
+  <Story name="overview-default">{Template.bind({})}</Story>
+</Canvas>
+
+### Accordion Multiple Open
+
+<Canvas>
+  <Story name="overview-multiple-expanded">{TemplateMultiple.bind({})}</Story>
+</Canvas>
+
+## Compound Components
+
+<section className="sbdocs-list">
+  <ul>
+    <li>
+      <div>
+        <div style={{ width: '50%', height: '180px', paddingTop: '20px' }}>
+          <TemplateOneItem />
+        </div>
+      </div>
+      <article className="sbdocs-list-text">
+        <h3>Accordion Item</h3>
+        <p>
+          An item of the <code>Accordion</code> component.
+        </p>
+        <ButtonLink
+          variant="tertiary"
+          href="../?path=/docs/molecules-accordion-accordionitem--default-story"
+          data-fs-button-size="small"
+        >
+          See more
+          <Icon name="ArrowRight" width="18" height="18" weight="bold" />
+        </ButtonLink>
+      </article>
+    </li>
+  </ul>
+</section>
