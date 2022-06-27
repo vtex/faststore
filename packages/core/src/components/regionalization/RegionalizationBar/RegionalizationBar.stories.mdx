@@ -1,0 +1,111 @@
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
+import { SessionProvider } from '@faststore/sdk'
+
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import RegionalizationBar from './RegionalizationBar'
+import RegionalizationModal from '../RegionalizationModal'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta title="Features/Regionalization/RegionalizationBar" />
+
+export const TemplateRegionalizationModal = () => {
+  const { modal: displayModal } = useUI()
+  return <>{displayModal && <RegionalizationModal />}</>
+}
+
+export const TemplateBarWithProvider = () => {
+  return (
+    <UIProvider>
+      <SessionProvider initialState={{}}>
+        <div
+          style={{ display: 'flex', alignItems: 'center', columnGap: '20px' }}
+        >
+          <p style={{ whiteSpace: 'nowrap' }}>Try me:</p>
+          <RegionalizationBar />
+          <TemplateRegionalizationModal />
+        </div>
+      </SessionProvider>
+    </UIProvider>
+  )
+}
+
+<header>
+
+# RegionalizationBar
+
+The Bar is a similar proposal for the button, usually used on mobile devices only. It also triggers <code>RegionalizationModal</code>.
+
+</header>
+
+## Overview
+
+The `RegionalizationBar` is part of [Regionalization](?path=/docs/features-regionalization-overview--default-button) feature.
+
+---
+
+## Usage
+
+`import RegionalizationBar from '../components/regionalization/RegionalizationBar'`
+
+<Canvas
+  className="no-code"
+  style={{ backgroundColor: 'var(--fs-color-neutral-1)' }}
+>
+  <Story name="Bar">{TemplateBarWithProvider.bind({})}</Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-regionalization-bar-width" value="100%" />
+  <TokenRow
+    token="--fs-regionalization-bar-padding"
+    value="var(--fs-spacing-0) var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-regionalization-bar-text-color"
+    value="var(--fs-color-text-display)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-regionalization-bar-background-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow token="--fs-regionalization-bar-border" value="none" />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### CTA (Call To Action)
+
+<TokenTable>
+  <TokenRow token="--fs-regionalization-bar-cta-margin-left" value="auto" />
+  <TokenRow
+    token="--fs-regionalization-bar-cta-text-decoration"
+    value="underline"
+  />
+</TokenTable>
+
+### Message
+
+<TokenTable>
+  <TokenRow
+    token="--fs-regionalization-bar-message-margin-right"
+    value="auto"
+  />
+</TokenTable>
+
+### Postal Code
+
+<TokenTable>
+  <TokenRow
+    token="--fs-regionalization-bar-postal-code-margin-right"
+    value="auto"
+  />
+</TokenTable>

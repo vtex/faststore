@@ -20,12 +20,10 @@ export const ModalTemplate = () => {
   const { modal, openModal } = useUI()
   return (
     <div>
-      <RegionalizationButton onClick={() => openModal()}>Open Regionalization Modal</RegionalizationButton>
-      {
-        modal && (
-        <RegionalizationModal />
-        )
-      }
+      <RegionalizationButton onClick={() => openModal()}>
+        Open Regionalization Modal
+      </RegionalizationButton>
+      {modal && <RegionalizationModal />}
     </div>
   )
 }
@@ -60,14 +58,10 @@ This component calls a modal with some regionalization configurations.
 
 ## Overview
 
-This component uses [Modal](/docs/molecules-modal--overview) as a base.
+The `RegionalizationModal` is part of [Regionalization](?path=/docs/features-regionalization-overview--default-button) feature and uses [Modal](/docs/molecules-modal--overview) as a base.
 
-<Canvas  style={{ backgroundColor: 'var(--fs-color-neutral-1)' }}>
-  <Story
-    name="Overview"
-  >
-    {RegionalizationModalContentTemplate.bind({})}
-  </Story>
+<Canvas style={{ backgroundColor: 'var(--fs-color-neutral-1)' }}>
+  <Story name="Overview">{RegionalizationModalContentTemplate.bind({})}</Story>
 </Canvas>
 
 ---
@@ -77,11 +71,7 @@ This component uses [Modal](/docs/molecules-modal--overview) as a base.
 `import RegionalizationModal from src/components/regionalization/RegionalizationModal`
 
 <Canvas>
-  <Story
-    name="RegionalizationModalContent"
-  >
-    {Template.bind({})}
-  </Story>
+  <Story name="RegionalizationModalContent">{Template.bind({})}</Story>
 </Canvas>
 
 ---
@@ -126,10 +116,7 @@ This component uses [Modal](/docs/molecules-modal--overview) as a base.
     token="--fs-regionalization-modal-title-weight"
     value="var(--fs-text-weight-bold)"
   />
-  <TokenRow
-    token="--fs-regionalization-modal-title-line-height"
-    value="1.2"
-  />
+  <TokenRow token="--fs-regionalization-modal-title-line-height" value="1.2" />
 </TokenTable>
 
 ### Description
@@ -166,10 +153,7 @@ This component uses [Modal](/docs/molecules-modal--overview) as a base.
 ### Link
 
 <TokenTable>
-  <TokenRow
-    token="--fs-regionalization-modal-link-padding"
-    value="0"
-  />
+  <TokenRow token="--fs-regionalization-modal-link-padding" value="0" />
   <TokenRow
     token="--fs-regionalization-modal-link-color"
     value="var(--fs-color-link)"

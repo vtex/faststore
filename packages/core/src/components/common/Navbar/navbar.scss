@@ -181,6 +181,9 @@
 }
 
 .navlinks__list {
+  display: flex;
+  align-items: center;
+
   li {
     display: flex;
     align-items: center;
@@ -191,16 +194,32 @@
     width: 100%;
   }
 
+  [data-fs-regionalization-button] {
+    margin-left: calc(-1 * var(--fs-spacing-1));
+
+    // TODO: remove this after navbar 2.0 is implemented
+    &[data-fs-button-variant="tertiary"] {
+      color: var(--fs-color-text-display);
+    }
+
+    @include media("<notebook") {
+      display: none;
+    }
+  }
+
   @include media(">=notebook") {
+    padding-top: var(--fs-spacing-1);
+
     ul {
       display: flex;
       column-gap: var(--fs-spacing-3);
-      padding-top: var(--fs-spacing-1);
+      padding-left: var(--fs-spacing-3);
+      margin-left: var(--fs-spacing-2);
+      border-left: var(--fs-border-width) solid var(--fs-border-color-light);
     }
 
     [data-fs-link] {
-      width: auto;
-      padding: var(--fs-spacing-0) 0;
+      padding: 0 var(--fs-spacing-0);
     }
   }
 

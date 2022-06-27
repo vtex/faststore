@@ -45,10 +45,8 @@ const collections = [
 function NavLinks({ onClickLink }: NavLinksProps) {
   return (
     <nav className="navlinks__list">
+      <RegionalizationButton />
       <UIList>
-        <li>
-          <RegionalizationButton classes="hidden-mobile" />
-        </li>
         {collections.map(({ href, name }) => (
           <li key={name}>
             <Link variant="display" href={href} onClick={onClickLink}>

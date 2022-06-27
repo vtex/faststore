@@ -1,0 +1,54 @@
+@import "src/styles/scaffold";
+
+.fs-regionalization-bar {
+  // --------------------------------------------------------
+  // Design Tokens for Regionalization Bar
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-regionalization-bar-width                    : 100%;
+  --fs-regionalization-bar-padding                  : var(--fs-spacing-0) var(--fs-spacing-3);
+  --fs-regionalization-bar-text-color               : var(--fs-color-text-display);
+  --fs-regionalization-bar-background-color         : var(--fs-color-body-bkg);
+  --fs-regionalization-bar-border                   : none;
+
+  // CTA
+  --fs-regionalization-bar-cta-margin-left          : auto;
+  --fs-regionalization-bar-cta-text-decoration      : underline;
+
+  // Message
+  --fs-regionalization-bar-message-margin-right     : auto;
+
+  // Postal Code
+  --fs-regionalization-bar-postal-code-margin-right : auto;
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  width: var(--fs-regionalization-bar-width);
+
+  [data-fs-button] {
+    width: var(--fs-regionalization-bar-width);
+    padding: var(--fs-regionalization-bar-padding);
+    color: var(--fs-regionalization-bar-text-color);
+    background-color: var(--fs-regionalization-bar-background-color);
+    border: var(--fs-regionalization-bar-border);
+    border-radius: 0;
+  }
+
+  [data-fs-regionalization-bar-cta] {
+    margin-left: var(--fs-regionalization-bar-cta-margin-left);
+    text-decoration: var(--fs-regionalization-bar-cta-text-decoration);
+  }
+
+  [data-fs-regionalization-bar-postal-code] {
+    margin-right: var(--fs-regionalization-bar-postal-code-margin-right);
+    font-weight: var(--fs-text-weight-regular);
+  }
+
+  [data-fs-regionalization-bar-message] {
+    margin-right: var(--fs-regionalization-bar-message-margin-right);
+    font-weight: var(--fs-text-weight-regular);
+  }
+}

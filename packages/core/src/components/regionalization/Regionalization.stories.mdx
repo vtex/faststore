@@ -1,0 +1,193 @@
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
+import { SessionProvider } from '@faststore/sdk'
+
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import RegionalizationButton from './RegionalizationButton'
+import ButtonLink from '../ui/Button/ButtonLink'
+import RegionalizationInput from './RegionalizationInput'
+import RegionalizationBar from './RegionalizationBar'
+import RegionalizationModal, {
+  RegionalizationModalContent,
+} from './RegionalizationModal'
+import Icon from '../ui/Icon'
+
+<Meta title="Features/Regionalization/Overview" />
+
+export const TemplateRegionalizationModal = () => {
+  const { modal, openModal } = useUI()
+  return <>{modal && <RegionalizationModal />}</>
+}
+
+export const TemplateButtonWithProvider = () => {
+  return (
+    <UIProvider>
+      <SessionProvider initialState={{}}>
+        <div
+          style={{ display: 'flex', alignItems: 'center', columnGap: '20px' }}
+        >
+          <p style={{ whiteSpace: 'nowrap' }}>Try me:</p>
+          <RegionalizationButton />
+          <TemplateRegionalizationModal />
+        </div>
+      </SessionProvider>
+    </UIProvider>
+  )
+}
+
+<header>
+
+# Regionalization
+
+This feature enables customers to set a location using a valid Postal Code.
+
+</header>
+
+## Overview
+
+Regionalization is a feature of [VTEX Intelligent Search](https://help.vtex.com/en/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/3qgT47zY08biLP3d5os3DG) that allows for the optimization of search results according to the availability of sellers in the customer's region.
+
+Regionalization uses a behavior from VTEX Intelligent Search called [Availability](https://help.vtex.com/en/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/7LMQbWK5nElIkXo0NK8Kux). It searches for products available in the inventory of sellers that serve a particular region.
+
+Stores that have more than one registered white label seller usually have specific inventories for each region. This is the case for supermarkets, for example.
+
+With the Regionalization feature enabled, if a customer enters their ZIP code while browsing the store (before checkout), only products available in the corresponding region will be displayed in the search results.
+
+### Steps
+
+1. Intentionally, a user Sets its location using a Postal Code
+2. Updates Product Catalog
+3. Gets notified if there's product conflict at minicart
+
+---
+
+## Components
+
+<section className="sbdocs-list">
+  <ul>
+    <li>
+      <div>
+        <SessionProvider>
+          <UIProvider>
+            <RegionalizationButton />
+            <TemplateRegionalizationModal />
+          </UIProvider>
+        </SessionProvider>
+      </div>
+      <article className="sbdocs-list-text">
+        <h3>RegionalizationButton</h3>
+        <p>
+          Using a{' '}
+          <a href="../?path=/docs/atoms-button--button#tertiary">
+            Tertiary Button
+          </a>{' '}
+          as base, this component is usually placed on the <code>Navbar</code>{' '}
+          and triggers
+          <code>RegionalizationModal</code>.
+        </p>
+      </article>
+    </li>
+    <li>
+      <div>
+        <SessionProvider>
+          <UIProvider>
+            <RegionalizationBar />
+            <TemplateRegionalizationModal />
+          </UIProvider>
+        </SessionProvider>
+      </div>
+      <article className="sbdocs-list-text">
+        <h3>RegionalizationBar</h3>
+        <p>
+          The Bar has a similar proposal for the button, usually used on mobile
+          devices only. It also triggers <code>RegionalizationModal</code>.
+        </p>
+        <ButtonLink
+          variant="tertiary"
+          href="../?path=/docs/features-regionalization-regionalizationbar--bar"
+          data-fs-button-size="small"
+        >
+          See more
+          <Icon name="ArrowRight" width="18" height="18" weight="bold" />
+        </ButtonLink>
+      </article>
+    </li>
+    <li>
+      <div>
+        <SessionProvider>
+          <UIProvider>
+            <RegionalizationInput />
+          </UIProvider>
+        </SessionProvider>
+      </div>
+      <article className="sbdocs-list-text">
+        <h3>RegionalizationInput</h3>
+        <p>
+          An actionable{' '}
+          <a href="../?path=/docs/atoms-inputtext--actionable">InputText</a>{' '}
+          able to check the Postal Code authenticity.
+        </p>
+      </article>
+    </li>
+    <li>
+      <div>
+        <SessionProvider>
+          <UIProvider>
+            <RegionalizationModalContent onClose={() => {}} />
+          </UIProvider>
+        </SessionProvider>
+      </div>
+      <article className="sbdocs-list-text">
+        <h3>RegionalizationModal</h3>
+        <p>
+          It's the modal that, trigged by <code>RegionalizationButton</code> or{' '}
+          <code>RegionalizationBar</code>, shows the user the{' '}
+          <code>RegionalizationInput</code> search.
+        </p>
+        <ButtonLink
+          variant="tertiary"
+          href="../?path=/docs/features-regionalization-regionalizationmodal--overview"
+          data-fs-button-size="small"
+        >
+          See more
+          <Icon name="ArrowRight" width="18" height="18" weight="bold" />
+        </ButtonLink>
+      </article>
+    </li>
+  </ul>
+</section>
+
+---
+
+## Usage
+
+On your `Layout.txt` file:
+
+```jsx
+import RegionalizationModal from '../components/regionalization/RegionalizationModal'
+import { useUI } from 'src/sdk/ui/Provider'
+```
+
+and inside your `Layout` component:
+
+```jsx
+const { modal: displayModal } = useUI()
+
+return (
+  <>
+    {OtherLayoutComponents}
+    {displayModal && <RegionalizationModal />}
+  </>
+)
+```
+
+Then, you can add your `<RegionalizationButton />` or `<RegionalizationBar />` whenever it's needed.
+
+It's suggested to add it on `Navbar`.
+
+<Canvas
+  className="no-code"
+  style={{ display: 'flex', justifyContent: 'center' }}
+>
+  <Story name="default-button">{TemplateButtonWithProvider.bind({})}</Story>
+</Canvas>

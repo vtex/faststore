@@ -1,49 +1,52 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 import UIProvider, { useUI } from 'src/sdk/ui/Provider'
 import Button from 'src/components/ui/Button'
+import ButtonLink from 'src/components/ui/Button/ButtonLink'
 import { RegionalizationModalContent } from 'src/components/regionalization/RegionalizationModal'
-import {  SessionProvider } from '@faststore/sdk'
+import { SessionProvider } from '@faststore/sdk'
 
 import Modal from '.'
+import Icon from '../Icon'
 import {
   TokenTable,
   TokenRow,
   TokenDivider,
 } from 'src/../.storybook/components'
 
-<Meta
-  title="Molecules/Modal"
-  component={Modal}
-/>
+<Meta title="Molecules/Modal" component={Modal} />
 
 export const ModalTemplate = (args) => {
   const { modal, openModal } = useUI()
   return (
     <div>
-      <Button variant="primary" onClick={() => openModal()}>Open Modal</Button>
-      {
-        modal && (
-          <Modal>
-            {({ fadeOut }) => (
-              <div style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  padding: "3rem",
-                  backgroundColor: "white",
-              }}>
-                <h1 style={{
-                  fontSize: "2rem",
-                  paddingBottom: "1rem",
-                }}>
-                  Hello, i'm a Modal!
-                </h1>
-                <Button onClick={fadeOut}>Close Modal</Button>
-              </div>
-            )}
-          </Modal>
-        )
-      }
+      <Button variant="primary" onClick={() => openModal()}>
+        Open Modal
+      </Button>
+      {modal && (
+        <Modal>
+          {({ fadeOut }) => (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                padding: '3rem',
+                backgroundColor: 'white',
+              }}
+            >
+              <h1
+                style={{
+                  fontSize: '2rem',
+                  paddingBottom: '1rem',
+                }}
+              >
+                Hello, i'm a Modal!
+              </h1>
+              <Button onClick={fadeOut}>Close Modal</Button>
+            </div>
+          )}
+        </Modal>
+      )}
     </div>
   )
 }
@@ -75,49 +78,24 @@ The `Modal` component uses [FastStore UI Modal](https://www.faststore.dev/refere
 `import Modal from 'src/components/ui/Modal'`
 
 <Canvas>
-  <Story
-    name="Overview"
-  >
-    {Template.bind({})}
-  </Story>
+  <Story name="Overview">{Template.bind({})}</Story>
 </Canvas>
 
 ---
 
 <TokenTable>
-  <TokenRow
-    token="--fs-modal-position-top"
-    value="30vh"
-  />
-  <TokenRow
-    token="--fs-modal-position-right"
-    value="var(--fs-spacing-4)"
-  />
-  <TokenRow
-    token="--fs-modal-position-left"
-    value="var(--fs-spacing-4)"
-  />
+  <TokenRow token="--fs-modal-position-top" value="30vh" />
+  <TokenRow token="--fs-modal-position-right" value="var(--fs-spacing-4)" />
+  <TokenRow token="--fs-modal-position-left" value="var(--fs-spacing-4)" />
   <TokenRow
     token="--fs-modal-max-width"
     value="calc(var(--fs-grid-breakpoint-desktop) / 3)"
   />
-  <TokenRow
-    token="--fs-modal-min-height"
-    value="var(--fs-spacing-5)"
-  />
-  <TokenRow
-    token="--fs-modal-margin"
-    value="auto"
-  />
-  <TokenRow
-    token="--fs-modal-border-radius"
-    value="var(--fs-spacing-0)"
-  />
+  <TokenRow token="--fs-modal-min-height" value="var(--fs-spacing-5)" />
+  <TokenRow token="--fs-modal-margin" value="auto" />
+  <TokenRow token="--fs-modal-border-radius" value="var(--fs-spacing-0)" />
   <TokenDivider />
-  <TokenRow
-    token="--fs-modal-width-tablet"
-    value="calc(100vw / 3)"
-  />
+  <TokenRow token="--fs-modal-width-tablet" value="calc(100vw / 3)" />
   <TokenRow
     token="--fs-modal-min-width-tablet"
     value="calc(var(--fs-grid-breakpoint-desktop) / 3)"
@@ -127,40 +105,41 @@ The `Modal` component uses [FastStore UI Modal](https://www.faststore.dev/refere
     token="--fs-modal-transition-timing"
     value="var(--fs-transition-timing)"
   />
-  <TokenRow
-    token="--fs-modal-transition-property"
-    value="transform"
-  />
-  <TokenRow
-    token="--fs-modal-transition-in-function"
-    value="ease-in"
-  />
-  <TokenRow
-    token="--fs-modal-transition-out-function"
-    value="ease-out"
-  />
+  <TokenRow token="--fs-modal-transition-property" value="transform" />
+  <TokenRow token="--fs-modal-transition-in-function" value="ease-in" />
+  <TokenRow token="--fs-modal-transition-out-function" value="ease-out" />
 </TokenTable>
 
 ---
 
 ## Use Cases
 
-<section className="sbdocs-section">
-  <article>
-    <div style={{ height: '280px' }}>
-      <SessionProvider>
-        <RegionalizationModalContent />
-      </SessionProvider>
-    </div>
-    <a href="?path=/docs/features-regionalization-regionalizationmodal--overview">
-      <article className="sbdocs-section-text">
-          <h3>Regionalization Modal Content</h3>
-          <p>
-            Displays a set of actions/items to the user, usually used to show a menu of options.
-          </p>
+<section className="sbdocs-list">
+  <ul>
+    <li>
+      <div>
+        <SessionProvider>
+          <UIProvider>
+            <RegionalizationModalContent onClose={() => {}} />
+          </UIProvider>
+        </SessionProvider>
+      </div>
+      <article className="sbdocs-list-text">
+        <h3>RegionalizationModal</h3>
+        <p>
+          It's the modal that, trigged by <code>RegionalizationButton</code> or{' '}
+          <code>RegionalizationBar</code>, shows the user the{' '}
+          <code>RegionalizationInput</code> search.
+        </p>
+        <ButtonLink
+          variant="tertiary"
+          href="../?path=/docs/features-regionalization-regionalizationmodal--overview"
+          data-fs-button-size="small"
+        >
+          See more
+          <Icon name="ArrowRight" width="18" height="18" weight="bold" />
+        </ButtonLink>
       </article>
-    </a>
-  </article>
+    </li>
+  </ul>
 </section>
-
----
