@@ -45,7 +45,7 @@ const Image = forwardRef<HTMLImageElement, Props>(
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={ref}
-          data-store-image
+          data-fs-image
           {...imgProps}
           alt={imgProps.alt}
           fetchpriority={fetchPriority}
