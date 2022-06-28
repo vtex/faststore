@@ -8,7 +8,7 @@ import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 # Select
 
-Select components allow users to pick an option from a predefined list. The Select component should be used when there are more than 5 options available. Otherwise, consider using the Radio Group component.
+Select components allow users to pick an option from a predefined list. The Select component should be used when there are more than 5 options available. Otherwise, consider using the [RadioGroup](/reference/ui/molecules/RadioGroup) component.
 
 ## Import
 
@@ -89,3 +89,12 @@ import { Select } from '@faststore/ui'
 ## Customization
 
 `data-store-select`
+
+## Best practices
+
+### ✅ Do's
+
+- Consider using a [`RadioGroup`](/reference/ui/molecules/RadioGroup) when few options are available. Doing so will prevent users from opening a dropdown box just to scan how many and which options are available.
+- Consider using an open text [`Input`](/reference/ui/atoms/Input) when several options are available and if the entries don’t need to be validated. Doing so will prevent users from having to read and understand all options before making a choice.
+- Consider using an autocomplete field when multiple options are available and if the inputs need to be validated.
+- Opt to grey out unavailable items instead of removing them completely.
