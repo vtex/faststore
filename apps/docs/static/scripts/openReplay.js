@@ -1,5 +1,5 @@
 var initOpts = {
-  projectKey: 'lv2LyjY4TYueTUDSC2Wm',
+  projectKey: 'z7EawiJEYhYvoq6t5S6D',
   ingestPoint: 'https://openreplay.vtex.com/ingest',
   defaultInputMode: 0,
   obscureTextNumbers: false,

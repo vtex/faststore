@@ -4,9 +4,13 @@ keywords:
   - UI library
   - ecommerce
   - react
+sidebar_custom_props: 
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Badge___bcedffeb307527c1606be224a7fb5ac1.png
 ---
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 Badges are status descriptors used to emphasize an item's state.
 
@@ -18,9 +22,30 @@ import { Badge } from '@faststore/ui'
 
 ## Usage
 
+<Tabs>
+  <TabItem value="react" label="React" default>
+
 ```tsx live
  <Badge>-25%</Badge>
 ```
+
+  </TabItem>
+  <TabItem value="css" label="CSS">
+
+```css
+[data-store-badge] {
+  background-color: #be185d;
+  color: #fff;
+  display: inline-block;
+  padding: 0.4rem;
+  border-radius: 0.2rem;
+  font-size: 0.9rem;
+}
+```
+
+  </TabItem>
+</Tabs>
+
 ### Use cases
 
 Use the Badge component to highlight:
@@ -54,12 +79,12 @@ Use the Badge component to highlight:
 
 ## Best practices
 
-### Do's
+### ✅ Do's
 
 - Place the badge next to or on top of its related item.
 - Be cautious about the badge's positioning, writing, shape, and color to avoid any confusion with components similar in appearance.
 
-### Don'ts
+### ❌ Don'ts
 
 - Don't use long texts in badges. A reasonable character limit is 15.
 - Don't label badges with active verbs.
