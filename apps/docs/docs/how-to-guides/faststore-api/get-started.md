@@ -1,8 +1,3 @@
----
-description: Install the FastStore API and start building blazing fast ecommerce websites.
-pagination_prev: null
----
-
 # Get started
 
 ## Install
