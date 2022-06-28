@@ -15,4 +15,4 @@ You may find the following error after trying to complete a purchase in your sto
 
 **Cause:** This error occurs when your browser is unable to verify whether a website is safe to visit. This usually happens when the browser notices a problem while creating an SSL connection or can’t verify the certificate.
 
-**Solution:** Follow the [**Hosting a FastStore + VTEX website**](/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website#step-2---setting-up-your-vtex-account) guide. If the issue persists, check if the `secure` subdomain of your website is pointing to `secure.{hostname}.cdn.vtex.com`, where `hostname` is the complete address of your store.
+**Solution:** Follow the [**Configuring external DNS for a custom domain**](/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website#step-2---setting-up-your-vtex-account) guide. If the issue persists, check if the `secure` subdomain of your website is pointing to `secure.{hostname}.cdn.vtex.com`, where `hostname` is the complete address of your store.

@@ -1,8 +1,9 @@
 ---
 sidebar_position: 3
+title: "Part 3: Integrating the VTEX Login"
+sidebar_label: "3. Integrating the VTEX Login"
+pagination_label: Part 3
 ---
-
-# Integrating the VTEX Login
 
 In this guide, you'll learn how to integrate the **VTEX Login** with your **FastStore** project.
 
@@ -12,7 +13,7 @@ The VTEX Login is provided by the `vtexcommercestable` environment and uses a su
 
 ## Before you start
 
-Before proceeding any further, make sure you are already [hosting your FastStore + VTEX website on the internet](/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website).
+Before proceeding any further, make sure you have already [configured the custom domain name of your FastStore website](/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website).
 
 ---
 

@@ -1,8 +1,9 @@
 ---
+title: "Part 5: Integrating the VTEX Order Placed and My Account"
+sidebar_label: "5. Integrating the VTEX Order Placed and My Account"
+pagination_label: Part 5
 sidebar_position: 5
 ---
-
-# Implementing VTEX Order Placed and My Account
 
 To create a complete digital commerce experience for your FastStore project, you need to provide shoppers with a Checkout and My Account space, for example. In this guide, we'll teach you how to implement the **Order Placed** page, which displays a successful message right after the checkout process is completed, and a **My Account** space, which allows customers to manage their orders and personal data (e.g., profile info, password, addresses, and credit cards) on a single page.
 
@@ -15,7 +16,7 @@ Notice that, since we're using a subdomain for these integrations that is unrela
 Before proceeding any further, make sure you already have:
 
 - Integrated your FastStore project with the VTEX Checkout. See [this](/how-to-guides/platform-integration/vtex/integrating-vtex-checkout) doc for more info.
-- The VTEX IO CLI installed on your machine. See [this](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference) doc for more info.
+- The VTEX IO CLI installed on your machine. Please refer to [this](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference) documentation for more information.
 - The `vtex.edition-store` `3.x` or greater app version installed on your VTEX account.
   - _Run `vtex edition get` to check if the `vtex.edition-store` app is installed on your account. If not, [open a support ticket](https://help.vtex.com/en/support) communicating you need the `vtex.edition-store@3.x` to be installed on your account so you can integrate your FastStore project with the VTEX platform._
 
@@ -140,9 +141,6 @@ That's all. Now, if you place an order in your store, you'll be presented with t
 
 ## Related resources
 
-- [My Account](https://github.com/vtex-apps/my-account)
-- [Order Placed](https://github.com/vtex-apps/order-placed)
-- [What is VTEX IO](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-what-is-vtex-io)
 - [Creating a Development workspace](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-creating-a-development-workspace)
 - [Linking an app](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-linking-an-app)
 - [Using CSS Handles for store customization](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-using-css-handles-for-store-customization)

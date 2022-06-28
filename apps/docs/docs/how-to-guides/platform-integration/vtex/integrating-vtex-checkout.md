@@ -1,8 +1,9 @@
 ---
+title: "Part 4: Integrating the VTEX Checkout"
+sidebar_label: "4. Integrating the VTEX Checkout"
+pagination_label: Part 4
 sidebar_position: 4
 ---
-
-# Integrating the VTEX Checkout
 
 In this guide, you'll learn how to integrate your **FastStore** project with the **VTEX Checkout**. The Checkout comprehends the pages responsible for receiving the shopper's information necessary to process an order.
 
@@ -13,9 +14,7 @@ To successfully integrate the VTEX Checkout with your FastStore project, you mus
 
 ## Before you start
 
-Before proceeding any further, make sure you already have:
-
-- [Your FastStore + VTEX website hosted on the internet](/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website).
+Before proceeding any further, make sure you have already [configured the custom domain name of your FastStore website](/how-to-guides/platform-integration/vtex/hosting-a-faststore-vtex-website).
 
 ---
 
