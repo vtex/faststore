@@ -1,0 +1,103 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import { SearchProvider, SessionProvider } from '@faststore/sdk'
+import storeConfig from 'store.config'
+import Sentinel from 'src/sdk/search/Sentinel'
+import { productGridItems } from 'src/../.storybook/mocks/productGridItems'
+
+import { useProducts } from '../../sections/ProductGallery/usePageProducts'
+
+import ProductGrid from '.'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  BestPractices,
+  BestPracticesRule,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Organisms/ProductGrid"
+  component={ProductGrid}
+  argTypes={{
+    /* TODO: Enable these after items per page is fixed */
+    page: {
+      table: {
+        disable: true,
+      },
+    },
+    pageSize: {
+      table: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <SessionProvider
+      initialstate={{
+        channel: storeConfig.channel,
+      }}
+    >
+      <ProductGrid {...args} />
+    </SessionProvider>
+  )
+}
+
+<header>
+
+# ProductGrid
+
+It's a section generally used on PLP pages to list the products available in the store.
+
+</header>
+
+## Usage
+
+`import ProductGrid from '../components/product/ProductGrid'`
+
+<Canvas isColumn>
+  <Story
+    name="default"
+    args={{
+      products: productGridItems,
+      page: 0,
+      pageSize: 4,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow token="--fs-product-grid-gap-mobile" value="var(--fs-grid-gap-0)" />
+  <TokenRow
+    token="--fs-product-grid-gap-desktop"
+    value="var(--fs-grid-gap-2)"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-product-grid-columns-mobile" value="2" />
+  <TokenRow token="--fs-product-grid-columns-desktop" value="4" />
+</TokenTable>
+
+---
+
+<BestPractices>
+  <BestPracticesRule
+    recommendedDescription={
+      <>
+        Respect <code>ProductCard</code> content's width considering the space
+        available on the page.
+      </>
+    }
+    discouragedDescription={
+      <>
+        Avoid using a lot of <code>ProductCards</code> on the same row, this
+        could lead to unwanted horizontal scroll.
+      </>
+    }
+  />
+</BestPractices>

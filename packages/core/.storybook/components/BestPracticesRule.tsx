@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react'
 
 type BestPracticesRuleProps = {
-  recommendedUsage: ReactNode
-  discouragedUsage: ReactNode
-  recommendedDescription: string
-  discouragedDescription: string
+  recommendedUsage?: ReactNode
+  discouragedUsage?: ReactNode
+  recommendedDescription: string | ReactNode
+  discouragedDescription: string | ReactNode
 }
 
 const BestPracticesRule = ({
@@ -16,7 +16,7 @@ const BestPracticesRule = ({
   return (
     <section className="sbdocs-best-practices-rule">
       <article>
-        <div>{recommendedUsage}</div>
+        {recommendedUsage && <div>{recommendedUsage}</div>}
         <article className="sbdocs-best-practices-text">
           <h3 className="sbdocs sbdocs-h3">
             <span role="img" aria-label="Check Mark">
@@ -28,7 +28,7 @@ const BestPracticesRule = ({
         </article>
       </article>
       <article>
-        <div>{discouragedUsage}</div>
+        {discouragedUsage && <div>{discouragedUsage}</div>}
         <article className="sbdocs-best-practices-text">
           <h3 className="sbdocs sbdocs-h3">
             <span aria-label="Cross Mark">&#10060;</span> Don't

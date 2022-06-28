@@ -7,7 +7,12 @@ type BestPracticesProps = {
 }
 
 const BestPractices = ({ children }: PropsWithChildren<BestPracticesProps>) => {
-  return <section className="sbdocs sbdocs-best-practices">{children}</section>
+  return (
+    <>
+      <h2 className="sbdocs sbdocs-h2">Best Practices</h2>
+      <section className="sbdocs sbdocs-best-practices">{children}</section>
+    </>
+  )
 }
 
 export default BestPractices
