@@ -1,5 +1,65 @@
 [
   {
+    "date": "2022-06-28",
+    "type": "Added",
+    "menu": "Reference",
+    "category": "FastStore API",
+    "path": "/reference/api/faststore-api",
+    "docs": [
+      {
+        "path": "/reference/api/mutations/cart",
+        "title": "validateCart"
+      },
+      {
+        "path": "/reference/api/mutations/session",
+        "title": "validateSession"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-28",
+    "type": "Added",
+    "menu": "Reference",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/components",
+        "title": "Components"
+      },
+      {
+        "path": "/reference/ui/molecules/Dropdown",
+        "title": "Dropdown"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-22",
+    "type": "Added",
+    "menu": "Reference",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/organisms/Hero",
+        "title": "Hero"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-22",
+    "type": "Improved",
+    "menu": "Reference",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/atoms/Button",
+        "title": "Button"
+      }
+    ]
+  },
+  {
     "date": "2022-06-16",
     "type": "Added",
     "menu": "Documentation",
