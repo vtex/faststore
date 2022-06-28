@@ -378,3 +378,15 @@ code {
 .checklistDetails{
   @apply my-1 ml-4 pl-3 block text-sm text-details
 }
+
+.fakeCategory [class^='menu__list-item-collapsible'] > a {
+  @apply pointer-events-none text-gray-400 uppercase font-VTEXMedium text-xs hover:bg-transparent tracking-wide pl-0
+}
+
+.fakeCategory [class^='menu__list-item-collapsible'] {
+  @apply hover:bg-transparent !important
+}
+
+.fakeCategory .menu__list{
+  @apply ml-0 pl-0 border-l !important
+}
