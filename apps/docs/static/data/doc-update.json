@@ -3,6 +3,23 @@
     "date": "2022-06-28",
     "type": "Added",
     "menu": "Reference",
+    "category": "FastStore API",
+    "path": "/reference/api/faststore-api",
+    "docs": [
+      {
+        "path": "/reference/api/mutations/cart",
+        "title": "validateCart"
+      },
+      {
+        "path": "/reference/api/mutations/session",
+        "title": "validateSession"
+      }
+    ]
+  },
+  {
+    "date": "2022-06-28",
+    "type": "Added",
+    "menu": "Reference",
     "category": "FastStore UI",
     "path": "/reference/ui/faststore-ui",
     "docs": [
