@@ -34,7 +34,7 @@ If you still need to configure other VTEX solutions, please **use a fictitious d
 
 1. Access your domain provider website.
 2. Create a **CNAME** DNS record for your domain that points to `{rootDomain}.cdn.vtex.com`, where `{rootDomain}` is the **complete** address of your website (e.g., `mystore.com`). _Check the documentation of your domain provider for more information._
-3. Now, create a **subdomain** record named `secure` that points to `secure.{rootDomain}.cdn.vtex.com`. For example, `secure.mystore.com.cdn.vtex.com`. This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
+3. Now, create a **subdomain** record named `secure` (for example, `secure.mystore.com`) that points to `secure.{rootDomain}.cdn.vtex.com`. This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
 
 :::info
 DNS pointing propagation takes 24-48 hours to occur completely, which means that the configured addresses may not be immediately available to everyone.
