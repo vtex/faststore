@@ -1,5 +1,11 @@
 [
   {
+    "title": "FastStore - June, 2022",
+    "product": "FastStore",
+    "fileName": "2022-07-01-faststore",
+    "description": "New Hero and Dropdown components. Also, enhancements in the FastStore API and SDK were implemented to allow page error handling and price range filtering on PLPs."
+  },
+  {
     "title": "Base Store - May, 2022",
     "product": "Base Store",
     "fileName": "2022-06-03-basestore",
@@ -16,11 +22,5 @@
     "product": "FastStore",
     "fileName": "2022-05-30-faststore",
     "description": "Check the recent changes in the secure subdomain configuration."
-  },
-  {
-    "title": "Required action for VTEX Headless CMS users",
-    "product": "CMS",
-    "fileName": "2022-05-19-cms",
-    "description": "VTEX Headless CMS users must upgrade to version 1.x and set up the Releases app."
   }
 ]
