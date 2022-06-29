@@ -33,8 +33,8 @@ If you still need to configure other VTEX solutions, please **use a fictitious d
 ### Step 1 - Creating the DNS records
 
 1. Access your domain provider website.
-2. Create a **CNAME** DNS record for your www domain (e.g., `www.mystore.com`) that points to `www.{domain}.com.cdn.vtex.com` (e.g., `www.mystore.com.cdn.vtex.com`). _Check the documentation of your domain provider for more information._
-3. Now, create a **CNAME** record for the `secure` subdomain (e.g., `secure.mystore.com`) that points to `secure.{domain}.cdn.vtex.com` (e.g., `secure.mystore.com.cdn.vtex.com`). This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
+2. Create a **CNAME** DNS record for your www domain (e.g., `www.mystore.com`) that points to `www.{rootDomain}.com.cdn.vtex.com` (e.g., `www.mystore.com.cdn.vtex.com`). _Check the documentation of your domain provider for more information._
+3. Now, create a **CNAME** record for the `secure` subdomain (e.g., `secure.mystore.com`) that points to `secure.{rootDomain}.cdn.vtex.com` (e.g., `secure.mystore.com.cdn.vtex.com`). This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
 
 :::info
 DNS pointing propagation takes 24-48 hours to occur completely, which means that the configured addresses may not be immediately available to everyone.
@@ -61,11 +61,11 @@ Back to your FastStore project, you must also configure your project to point to
 2. Open the `store.config.js` file.
 3. Update the `storeUrl`, `secureSubdomain`, `checkoutUrl`, `loginUrl`, and `accountUrl` properties as in the following:
 
-   - **`storeUrl`**: `https://{domain}`
-   - **`secureSubdomain`**: `https://{domain}.{rootDomain}`
-   - **`checkoutUrl`**: `https://{subdomain}.{domain}/checkout`
-   - **`loginUrl`**: `https://{subdomain}.{domain}/api/io/login`
-   - **`accountUrl`**: `https://{subdomain}.{domain}/api/io/account`
+   - **`storeUrl`**: `https://{rootDomain}`
+   - **`secureSubdomain`**: `https://{subdomain}.{rootDomain}`
+   - **`checkoutUrl`**: `https://{subdomain}.{rootDomain}/checkout`
+   - **`loginUrl`**: `https://{subdomain}.{rootDomain}/api/io/login`
+   - **`accountUrl`**: `https://{subdomain}.{rootDomain}/api/io/account`
      Take the following example of how this code block would look after configuring a store with the `mystore.com` domain and `secure` subdomain:
 
    ```diff title="store.config.js"
