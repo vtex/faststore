@@ -61,12 +61,12 @@ Back to your FastStore project, you must also configure your project to point to
 2. Open the `store.config.js` file.
 3. Update the `storeUrl`, `secureSubdomain`, `checkoutUrl`, `loginUrl`, and `accountUrl` properties as in the following:
 
-   - **`storeUrl`**: `https://{rootDomain}`
-   - **`secureSubdomain`**: `https://{subdomain}.{rootDomain}`
-   - **`checkoutUrl`**: `https://{subdomain}.{rootDomain}/checkout`
-   - **`loginUrl`**: `https://{subdomain}.{rootDomain}/api/io/login`
-   - **`accountUrl`**: `https://{subdomain}.{rootDomain}/api/io/account`
-     Take the follwoing example of how this code block would look after configuring a store with the `mystore.com` root domain and `secure` subdomain:
+   - **`storeUrl`**: `https://{domain}`
+   - **`secureSubdomain`**: `https://{domain}.{rootDomain}`
+   - **`checkoutUrl`**: `https://{subdomain}.{domain}/checkout`
+   - **`loginUrl`**: `https://{subdomain}.{domain}/api/io/login`
+   - **`accountUrl`**: `https://{subdomain}.{domain}/api/io/account`
+     Take the following example of how this code block would look after configuring a store with the `mystore.com` domain and `secure` subdomain:
 
    ```diff title="store.config.js"
       ...
