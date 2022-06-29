@@ -33,7 +33,7 @@ If you still need to configure other VTEX solutions, please **use a fictitious d
 ### Step 1 - Creating the DNS records
 
 1. Access your domain provider website.
-2. Create a **CNAME** DNS record for your www domain (e.g., `www.mystore.com`) that points to `{domain}.com.cdn.vtex.com` (e.g., `www.mystore.com.cdn.vtex.com`). _Check the documentation of your domain provider for more information._
+2. Create a **CNAME** DNS record for your www domain (e.g., `www.mystore.com`) that points to `www.{domain}.com.cdn.vtex.com` (e.g., `www.mystore.com.cdn.vtex.com`). _Check the documentation of your domain provider for more information._
 3. Now, create a **CNAME** record for the `secure` subdomain (e.g., `secure.mystore.com`) that points to `secure.{domain}.cdn.vtex.com` (e.g., `secure.mystore.com.cdn.vtex.com`). This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
 
 :::info
