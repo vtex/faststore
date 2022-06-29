@@ -1,0 +1,157 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  Callout,
+} from 'src/../.storybook/components'
+
+import { SessionProvider } from '@faststore/sdk'
+
+import { Image } from 'src/components/ui/Image'
+import ProductCard from 'src/components/product/ProductCard'
+
+import Tiles, { Tile } from '.'
+
+export const product = {
+  id: '15503951',
+  slug: 'handmade-steel-towels-practical-15503951',
+  sku: '15503951',
+  brand: { brandName: 'Brand', name: 'Brand' },
+  name: 'red',
+  gtin: '5595633577807',
+  isVariantOf: {
+    productGroupID: '130742',
+    name: 'Handmade Steel Towels Practical',
+  },
+  image: [
+    {
+      url: 'http://storeframework.vtexassets.com/arquivos/ids/190191/numquam.jpg?v=637755599170100000',
+      alternateName: 'est',
+    },
+  ],
+  offers: {
+    lowPrice: 181.71,
+    offers: [
+      {
+        availability: 'https://schema.org/InStock',
+        price: 181.71,
+        listPrice: 208.72,
+        quantity: 1,
+        seller: { identifier: '1' },
+      },
+    ],
+  },
+}
+
+export const MDXCustomImage = ({ aspectRatio = 3 / 4 }) => (
+  <Image
+    width={200}
+    height={200 / aspectRatio}
+    alt="Unsplash Monitor"
+    src="https://storeframework.vtexassets.com/arquivos/ids/190903/unsplash-monitor.jpg"
+  />
+)
+
+export const MDXProductCard = ({ product }) => (
+  <ProductCard variant="wide" index={0} product={product} aspectRatio={4 / 3} />
+)
+
+<Meta component={Tiles} title="Molecules/Tiles" />
+
+<header>
+
+# Tiles (WIP)
+
+This component works like layout boxes/cards, which can be arranged in different ways next to each other.
+
+</header>
+
+## Overview
+
+<code>Tiles</code> is a list of <code>Tile</code> components. According to the quantity
+of items to be displayed, the tiles will be arranged differently.
+
+<Callout>
+  The minimum number of items is 2, and the maximum is 4. In the future, this
+  component will be improved to accept different possibilities, for example,
+  using only one tile occupying the entire section space.
+</Callout>
+
+---
+
+## Usage
+
+`import Tiles, { Tile } from 'src/components/ui/Tiles'`
+
+<Canvas>
+  <Story name="Usage--2-Tiles">
+    <Tiles>
+      <Tile>
+        <MDXCustomImage aspectRatio={4 / 3} />
+      </Tile>
+      <Tile>
+        <MDXCustomImage aspectRatio={4 / 3} />
+      </Tile>
+    </Tiles>
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="Usage--3-Tiles">
+    <SessionProvider initialState={{}}>
+      <Tiles>
+        <Tile>
+          <MDXProductCard product={product} />
+        </Tile>
+        <Tile>
+          <MDXCustomImage />
+        </Tile>
+        <Tile>
+          <MDXCustomImage />
+        </Tile>
+      </Tiles>
+    </SessionProvider>
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="Usage--4-Tiles">
+    <Tiles>
+      <Tile>
+        <MDXCustomImage />
+      </Tile>
+      <Tile>
+        <MDXCustomImage />
+      </Tile>
+      <Tile>
+        <MDXCustomImage />
+      </Tile>
+      <Tile>
+        <MDXCustomImage />
+      </Tile>
+    </Tiles>
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-tiles-gap-mobile" value="var(--fs-grid-gap-2)" />
+  <TokenRow token="--fs-tiles-gap-tablet" value="var(--fs-grid-gap-3)" />
+</TokenTable>
+
+---
+
+## Compound Components
+
+### Tile
+
+<TokenTable>
+  <TokenRow token="--fs-tiles-tile-min-width" value="9rem" />
+  <TokenRow token="--fs-tiles-tile-height-mobile" value="24rem" />
+  <TokenRow token="--fs-tiles-tile-height-tablet" value="28rem" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-tiles-tile-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>

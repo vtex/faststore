@@ -1,4 +1,5 @@
 import { Description, Meta } from '@storybook/addon-docs'
+import { Callout } from 'src/../.storybook/components'
 
 <Meta
   title="Getting Started"
@@ -15,14 +16,11 @@ FastStore nextjs.store is an ecommerce-focused library that provides best-of-bre
 
 This product is designed and built following the **Atomic Design pattern**. Atomic Design breaks user interfaces hierarchically into smaller and simpler components. There are five distinct levels in Atomic design (atoms, molecules, organisms, templates, and pages), and that's how our components are classified.
 
-<section className="sbdocs-callout">
-  <span aria-label="Warning">&#x1F4A1;</span>
-  <small>
-    When trying to switch between
-    <code>Sandbox</code> and <code>Docs</code> tabs, the <code>Sandbox</code> tab
-    might not be working properly, try to refresh the page after switching tabs.
-    It seems to be a <a href="https://github.com/storybookjs/storybook/issues/17625">
-      bug in the storybook
-    </a>.
-  </small>
-</section>
+<Callout>
+  When trying to switch between
+  <code>Sandbox</code> and <code>Docs</code> tabs, the <code>Sandbox</code> tab might
+  not be working properly, try to refresh the page after switching tabs. It seems
+  to be a <a href="https://github.com/storybookjs/storybook/issues/17625">
+    bug in the storybook
+  </a>.
+</Callout>

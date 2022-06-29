@@ -2,6 +2,7 @@ import { Children, forwardRef } from 'react'
 import type { HTMLAttributes, ReactElement } from 'react'
 
 import Tile from './Tile'
+import styles from './tiles.module.scss'
 
 export interface TilesProps extends HTMLAttributes<HTMLUListElement> {
   /**
@@ -51,8 +52,10 @@ const Tiles = forwardRef<HTMLUListElement, TilesProps>(function Tiles(
   return (
     <ul
       ref={ref}
-      data-store-tiles={expandedClass}
+      data-fs-tiles
       data-testid={testId}
+      className={styles.fsTiles}
+      data-fs-tiles-variant={expandedClass}
       {...otherProps}
     >
       {children}

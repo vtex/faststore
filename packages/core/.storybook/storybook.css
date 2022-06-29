@@ -271,6 +271,7 @@ h3.sbdocs.sbdocs-h3 {
   align-items: center;
   padding: var(--fs-spacing-2);
   margin-top: var(--fs-spacing-4);
+  line-height: 1.7;
   background-color: var(--fs-color-neutral-1);
   border-radius: var(--fs-border-radius);
 }

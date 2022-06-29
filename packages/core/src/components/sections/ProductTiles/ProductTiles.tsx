@@ -6,7 +6,7 @@ import type { ProductsQueryQueryVariables } from '@generated/graphql'
 
 import Section from '../Section'
 
-interface TilesProps extends Partial<ProductsQueryQueryVariables> {
+interface ProductTilesProps extends Partial<ProductsQueryQueryVariables> {
   title: string | JSX.Element
 }
 
@@ -27,7 +27,7 @@ const getRatio = (products: number, idx: number) => {
   return 3 / 4
 }
 
-const ProductTiles = ({ title, ...variables }: TilesProps) => {
+const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
   const products = useProductsQuery(variables)
 
   if (products?.edges.length === 0) {
