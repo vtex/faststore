@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updates `facets` breakpoints tokens ([#150](https://github.com/vtex-sites/nextjs.store/pull/150))
 - Move logo's svg code from JS into static asset ([#135](https://github.com/vtex-sites/nextjs.store/pull/135))
 - Upgrade dependencies ([#131](https://github.com/vtex-sites/nextjs.store/pull/131))
 - Uses `[data-fs-dropdown-button]` instead of `[data-store-dropdown-button]` to select `DropdownButton` on breadcrumb stylesheet ([#123](https://github.com/vtex-sites/nextjs.store/pull/123))
