@@ -1,0 +1,232 @@
+import { SearchProvider, SessionProvider } from '@faststore/sdk'
+import { useSearch } from '@faststore/sdk'
+
+import storeConfig from 'store.config'
+
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
+import { validateSession } from 'src/sdk/session/validate'
+import { useFilter } from './useFilter'
+
+import Button from 'src/components/ui/Button'
+import Icon from 'src/components/ui/Icon'
+import FilterSlider from './FilterSlider'
+
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Organisms/Filter/FilterSlider"
+  component={FilterSlider}
+  argTypes={{
+    testId: {
+      table: {
+        disable: true,
+      },
+    },
+    selected: {
+      description: 'The selected facets.',
+      control: false,
+    },
+    expanded: {
+      description: 'An array of the expanded Accordion indexes from Facets.',
+      control: false,
+    },
+    dispatch: {
+      description: 'The dispatch function from useUI() hook.',
+      control: false,
+    },
+  }}
+/>
+
+export const facets = [
+  {
+    key: 'price',
+    label: 'Price',
+    min: {
+      selected: 1.67,
+      absolute: 1.67,
+    },
+    max: {
+      selected: 889.53,
+      absolute: 889.53,
+    },
+    __typename: 'StoreFacetRange',
+  },
+  {
+    key: 'category-2',
+    label: 'Category',
+    values: [
+      {
+        label: 'Chairs',
+        value: 'chairs',
+        selected: true,
+        quantity: 138,
+      },
+      {
+        label: 'Desks',
+        value: 'desks',
+        selected: false,
+        quantity: 125,
+      },
+    ],
+    __typename: 'StoreFacetBoolean',
+  },
+  {
+    key: 'brand',
+    label: 'Brand',
+    values: [
+      {
+        label: 'Acer',
+        value: 'acer',
+        selected: true,
+        quantity: 138,
+      },
+      {
+        label: 'Adidas',
+        value: 'adidas',
+        selected: false,
+        quantity: 121,
+      },
+      {
+        label: 'Nike',
+        value: 'nike',
+        selected: false,
+        quantity: 150,
+      },
+    ],
+    __typename: 'StoreFacetBoolean',
+  },
+]
+
+export const FilterTemplate = (args) => {
+  const filter = useFilter(args.facets)
+  const { state, setState } = useSearch()
+  const { filter: displayFilter, openFilter } = useUI()
+  const { facets, expanded, dispatch } = filter
+  return (
+    <>
+      <Button
+        variant="tertiary"
+        icon={<Icon name="FadersHorizontal" width={16} height={16} />}
+        iconPosition="left"
+        aria-label="Open Filters"
+        onClick={openFilter}
+      >
+        Open Filters
+      </Button>
+      {displayFilter && <FilterSlider {...filter} />}
+    </>
+  )
+}
+
+export const TemplateWithProvider = (args) => {
+  return (
+    <SessionProvider
+      initialstate={{
+        channel: storeConfig.channel,
+      }}
+    >
+      <UIProvider>
+        <SearchProvider onChange={() => ({})}>
+          <FilterTemplate {...args} />
+        </SearchProvider>
+      </UIProvider>
+    </SessionProvider>
+  )
+}
+
+<header>
+
+# FilterSlider
+
+The mobile `Filter` view that is rendered inside a `SlideOver` component.
+
+</header>
+
+## Overview
+
+The `FilterSlider` component uses the `SlideOver`, and [Facets](?path=/docs/organisms-filter-facets--default-story) components.
+
+---
+
+## Usage
+
+`import { FilterSlider } from 'src/components/search/Filter'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      facets: facets,
+    }}
+  >
+    {TemplateWithProvider.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+---
+
+## Nested Elements
+
+### Content
+
+<TokenTable>
+  <TokenRow
+    token="--fs-filter-slider-content-height"
+    value="calc(100vh - var(--fs-filter-slider-footer-height))"
+  />
+  <TokenRow
+    token="--fs-filter-slider-content-padding"
+    value="var(--fs-spacing-3) var(--fs-spacing-3) calc(var(--fs-filter-slider-footer-height) + var(--fs-spacing-3))"
+  />
+</TokenTable>
+
+### Header
+
+<TokenTable>
+  <TokenRow
+    token="--fs-filter-slider-header-icon-margin-right"
+    value="calc(-1 * var(--fs-spacing-1))"
+  />
+</TokenTable>
+
+### Footer
+
+<TokenTable>
+  <TokenRow token="--fs-filter-slider-footer-width" value="100%" />
+  <TokenRow token="--fs-filter-slider-footer-height" value="5rem" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-filter-slider-footer-padding"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-filter-slider-footer-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-filter-slider-footer-box-shadow"
+    value="0 0 6px rgb(0 0 0 / 20%)"
+  />
+</TokenTable>
+
+### Footer Buttons
+
+<TokenTable>
+  <TokenRow token="--fs-filter-slider-footer-button-clear-width" value="40%" />
+  <TokenRow
+    token="--fs-filter-slider-footer-button-clear-margin-right"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-filter-slider-footer-button-apply-width" value="60%" />
+</TokenTable>

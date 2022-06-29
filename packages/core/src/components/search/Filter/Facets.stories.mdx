@@ -1,0 +1,266 @@
+import { SearchProvider, SessionProvider } from '@faststore/sdk'
+import { useSearch } from '@faststore/sdk'
+
+import storeConfig from 'store.config'
+
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
+import { validateSession } from 'src/sdk/session/validate'
+import { useFilter } from './useFilter'
+
+import Facets from './Facets'
+
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Organisms/Filter/Facets"
+  component={Facets}
+  argTypes={{
+    testId: {
+      table: {
+        disable: true,
+      },
+    },
+    indicesExpanded: {
+      control: false,
+    },
+    onFacetChange: {
+      control: false,
+    },
+  }}
+/>
+
+export const facets = [
+  {
+    key: 'price',
+    label: 'Price',
+    min: {
+      selected: 1.67,
+      absolute: 1.67,
+    },
+    max: {
+      selected: 889.53,
+      absolute: 889.53,
+    },
+    __typename: 'StoreFacetRange',
+  },
+  {
+    key: 'category-2',
+    label: 'Category',
+    values: [
+      {
+        label: 'Chairs',
+        value: 'chairs',
+        selected: true,
+        quantity: 138,
+      },
+      {
+        label: 'Desks',
+        value: 'desks',
+        selected: false,
+        quantity: 125,
+      },
+    ],
+    __typename: 'StoreFacetBoolean',
+  },
+  {
+    key: 'brand',
+    label: 'Brand',
+    values: [
+      {
+        label: 'Acer',
+        value: 'acer',
+        selected: true,
+        quantity: 138,
+      },
+      {
+        label: 'Adidas',
+        value: 'adidas',
+        selected: false,
+        quantity: 121,
+      },
+      {
+        label: 'Nike',
+        value: 'nike',
+        selected: false,
+        quantity: 150,
+      },
+    ],
+    __typename: 'StoreFacetBoolean',
+  },
+]
+
+export const FacetsTemplate = (args) => {
+  const filter = useFilter(args.facets)
+  const { state, setState } = useSearch()
+  const { filter: displayFilter, openFilter } = useUI()
+  const { facets, expanded, dispatch } = filter
+  return (
+    <Facets
+      facets={facets}
+      indicesExpanded={expanded}
+      onFacetChange={(facet, type) =>
+        type === 'BOOLEAN'
+          ? dispatch({ type: 'toggleFacet', payload: facet })
+          : dispatch({ type: 'setFacet', payload: { facet, unique: true } })
+      }
+      onAccordionChange={(index) =>
+        dispatch({ type: 'toggleExpanded', payload: index })
+      }
+    />
+  )
+}
+
+export const TemplateWithProvider = (args) => {
+  return (
+    <SessionProvider
+      initialstate={{
+        channel: storeConfig.channel,
+      }}
+    >
+      <UIProvider>
+        <SearchProvider onChange={() => ({})}>
+          <FacetsTemplate {...args} />
+        </SearchProvider>
+      </UIProvider>
+    </SessionProvider>
+  )
+}
+
+<header>
+
+# Facets
+
+Facets represent the <code>Filter</code> details and allow users to refine their searches.
+
+</header>
+
+## Overview
+
+The `Facets` component uses the [Accordion](?path=/docs/molecules-accordion-overview--default-story), [Checkbox](?path=/docs/atoms-checkbox--overview-default), [PriceRange](?path=/docs/molecules-pricerange--overview-default), and [Badge](?path=/docs/molecules-badge--default) components.
+
+---
+
+## Usage
+
+`import Facets from 'src/components/search/Filter/Facets'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      facets: facets,
+    }}
+  >
+    {TemplateWithProvider.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+---
+
+## Nested Elements
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-facets-title-height"
+    value="var(--product-listing-row-height)"
+  />
+  <TokenRow
+    token="--fs-facets-title-margin-bottom"
+    value="var(--fs-spacing-0)"
+  />
+</TokenTable>
+
+### Accordion
+
+<TokenTable>
+  <TokenRow token="--fs-facets-accordion-notebook-border-width" value="1px" />
+  <TokenRow
+    token="--fs-facets-accordion-notebook-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-facets-accordion-notebook-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+### Accordion Item Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-facets-accordion-item-button-text-size"
+    value="var(--fs-text-size-lead)"
+  />
+  <TokenRow
+    token="--fs-facets-accordion-item-button-text-weight"
+    value="var(--fs-text-weight-regular)"
+  />
+  <TokenRow token="--fs-facets-accordion-item-button-line-height" value="1.5" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-facets-accordion-item-button-notebook-text-weight"
+    value="var(--fs-text-size-2)"
+  />
+  <TokenRow
+    token="--fs-facets-accordion-item-button-notebook-line-height"
+    value="1.25"
+  />
+</TokenTable>
+
+### Accordion Item List
+
+<TokenTable>
+  <TokenRow
+    token="--fs-facets-list-padding-bottom"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+### List Item
+
+<TokenTable>
+  <TokenRow
+    token="--fs-facets-list-item-not-last-margin-bottom"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+### List Item Checkbox
+
+<TokenTable>
+  <TokenRow token="--fs-facets-list-item-checkbox-width" value="1.25rem" />
+  <TokenRow
+    token="--fs-facets-list-item-checkbox-height"
+    value="var(--fs-facets-list-item-checkbox-width)"
+  />
+</TokenTable>
+
+### List Item Label
+
+<TokenTable>
+  <TokenRow token="--fs-facets-list-item-label-width" value="100%" />
+  <TokenRow
+    token="--fs-facets-list-item-label-margin-left"
+    value="var(--fs-spacing-1)"
+  />
+</TokenTable>
+
+### List Item Badge
+
+<TokenTable>
+  <TokenRow
+    token="--fs-facets-list-item-badge-margin-left"
+    value="var(--fs-spacing-1)"
+  />
+</TokenTable>

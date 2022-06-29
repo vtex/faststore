@@ -35,7 +35,7 @@ describe('Search page Filters and Sorting options', () => {
         const value = $checkbox.attr('data-value')
         // const quantity = $checkbox.attr('data-quantity')
 
-        cy.getById('filter-modal-button-apply')
+        cy.getById('filter-slider-button-apply')
           .click()
 
           .then(() => {
