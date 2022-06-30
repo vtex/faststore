@@ -2,7 +2,6 @@
  * This code is inspired by the work of [sandra-lewis](https://codesandbox.io/u/sandra-lewis)
  */
 import React, { useState, useMemo } from 'react'
-import type { MutableRefObject } from 'react'
 
 interface Range {
   absolute: number
@@ -40,14 +39,6 @@ export type SliderProps = {
    * Returns the value of element's class content attribute.
    */
   className?: string
-  /**
-   * Specifies a ref object for the min value
-   */
-  minValueRef?: MutableRefObject<HTMLInputElement | null>
-  /**
-   * Specifies a ref object for the max value
-   */
-  maxValueRef?: MutableRefObject<HTMLInputElement | null>
 }
 
 const percent = (value: number, min: number, max: number) =>
@@ -61,8 +52,6 @@ const Slider = ({
   testId = 'store-slider',
   getAriaValueText,
   className,
-  minValueRef,
-  maxValueRef,
 }: SliderProps) => {
   const [minPercent, setMinPercent] = useState(() =>
     percent(min.selected, min.absolute, max.absolute)
@@ -88,7 +77,6 @@ const Slider = ({
         data-slider-range
       />
       <input
-        ref={minValueRef}
         type="range"
         min={min.absolute}
         max={max.absolute}
@@ -109,7 +97,6 @@ const Slider = ({
         aria-labelledby={getAriaValueText?.(minVal, 'min')}
       />
       <input
-        ref={maxValueRef}
         type="range"
         min={min.absolute}
         max={max.absolute}

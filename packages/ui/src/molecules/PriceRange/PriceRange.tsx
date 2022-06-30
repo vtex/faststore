@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef, useImperativeHandle } from 'react'
 import type { AriaAttributes } from 'react'
 
 import Price from '../../atoms/Price'
@@ -25,19 +25,29 @@ export type PriceRangeProps = SliderProps & {
   'aria-label'?: AriaAttributes['aria-label']
 }
 
-const PriceRange = ({
-  className,
-  formatter,
-  max,
-  min,
-  onChange,
-  onEnd,
-  testId = 'store-price-range',
-  variant,
-  'aria-label': ariaLabel,
-  ...otherProps
-}: PriceRangeProps) => {
+type RefType = { setEdgeValues: (values: { min: number; max: number }) => void }
+
+const PriceRange = forwardRef<RefType, PriceRangeProps>(function PriceRange(
+  {
+    className,
+    formatter,
+    max,
+    min,
+    onChange,
+    onEnd,
+    testId = 'store-price-range',
+    variant,
+    'aria-label': ariaLabel,
+  },
+  ref
+) {
   const [edges, setEdges] = useState({ min: min.selected, max: max.selected })
+
+  useImperativeHandle(ref, () => ({ setEdgeValues }))
+
+  function setEdgeValues(values: { min: number; max: number }) {
+    setEdges(values)
+  }
 
   return (
     <div data-store-price-range data-testid={testId} className={className}>
@@ -50,7 +60,6 @@ const PriceRange = ({
           onChange?.(value)
         }}
         aria-label={ariaLabel}
-        {...otherProps}
       />
       <div data-price-range-values>
         <Price
@@ -68,6 +77,6 @@ const PriceRange = ({
       </div>
     </div>
   )
-}
+})
 
 export default PriceRange
