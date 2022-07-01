@@ -118,5 +118,3 @@ export type { Cart } from './cart/Optimistic'
 
 // Storage
 export { useStorage } from './storage/useStorage'
-
-export {useNewsletter} from './newsletter/useNewsletter'
