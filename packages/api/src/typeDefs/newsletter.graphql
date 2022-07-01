@@ -2,7 +2,7 @@
 Response after adding to newsletter.
 """
 
-input PersonNewsletter {
+type PersonNewsletter {
   """
   .
   """
@@ -12,7 +12,7 @@ input PersonNewsletter {
 """
 Person data input to newsletter.
 """
-type IPersonNewsletter {
+input IPersonNewsletter {
   """
   Person's name.
   """

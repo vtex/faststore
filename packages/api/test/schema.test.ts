@@ -56,7 +56,7 @@ const QUERIES = [
   'allCollections',
 ]
 
-const MUTATIONS = ['validateCart', 'validateSession']
+const MUTATIONS = ['validateCart', 'validateSession', 'addToNewsletter']
 
 let schema: GraphQLSchema
 
