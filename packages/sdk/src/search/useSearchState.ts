@@ -1,29 +1,29 @@
-import { useMemo } from 'react'
+import { useMemo } from "react";
 
-import format from '../utils/format'
-import type { State } from './types'
+import { format } from "./serializer";
+import type { State } from "./types";
 
 export const initialize = ({
-  sort = 'score_desc',
+  sort = "score_desc",
   selectedFacets = [],
   term = null,
-  base = '/',
+  base = "/",
   page = 0,
 }: Partial<State> | undefined = {}) => ({
   sort,
   selectedFacets,
   term,
-  base: base.endsWith('/') ? base : `${base}/`,
+  base: base.endsWith("/") ? base : `${base}/`,
   page,
-})
+});
 
-const equals = (s1: State, s2: State) => format(s1).href === format(s2).href
+const equals = (s1: State, s2: State) => format(s1).href === format(s2).href;
 
 export const useSearchState = (
   initialState: Partial<State>,
-  onChange: (url: URL) => void
+  onChange: (url: URL) => void,
 ) => {
-  const state = useMemo(() => initialize(initialState), [initialState])
+  const state = useMemo(() => initialize(initialState), [initialState]);
 
   return useMemo(
     () => ({
@@ -31,8 +31,8 @@ export const useSearchState = (
       setState: (newState: State) =>
         !equals(newState, state) && onChange(format(newState)),
     }),
-    [onChange, state]
-  )
-}
+    [onChange, state],
+  );
+};
 
-export type UseSearchState = ReturnType<typeof useSearchState>
+export type UseSearchState = ReturnType<typeof useSearchState>;

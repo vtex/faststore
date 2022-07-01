@@ -78,9 +78,10 @@ export { sendAnalyticsEvent } from "./analytics/sendAnalyticsEvent";
 export { useAnalyticsEvent } from "./analytics/useAnalyticsEvent";
 
 // Faceted Search
-export { parse as parseSearchState } from "./search/serializer";
-
-export { default as formatSearchState } from "./utils/format";
+export {
+  format as formatSearchState,
+  parse as parseSearchState,
+} from "./search/serializer";
 
 export { initialize as initSearchState } from "./search/useSearchState";
 export {
@@ -94,15 +95,6 @@ export { Provider as SearchProvider } from "./search/Provider";
 export { useSearch } from "./search/useSearch";
 export { usePagination } from "./search/usePagination";
 export type { State as SearchState } from "./search/types";
-
-// UI
-export { Context as UIContext, Provider as UIProvider } from "./ui/Provider";
-export type {
-  Actions as UIActions,
-  Effects as UIEffects,
-  InitialState as UIInitialState,
-} from "./ui/Provider";
-export { useGlobalUIState } from "./ui/useGlobalUIState";
 
 // Session
 export { createSessionStore } from "./session";
@@ -122,4 +114,4 @@ export { createStore } from "./store/composed";
 export { optimistic } from "./store/optimistic";
 export { persisted } from "./store/persisted";
 export { singleton } from "./store/singleton";
-export { compose } from './utils/compose'
+export { compose } from "./utils/compose";

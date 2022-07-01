@@ -1,21 +1,22 @@
-import { useMemo } from 'react'
+import { useMemo } from "react";
 
-import type { State as SearchState } from './types'
-import format from '../utils/format'
-import { useSearch } from './useSearch'
+import { format } from "./serializer";
+import { useSearch } from "./useSearch";
+
+import type { State as SearchState } from "./types";
 
 const getLink = (state: SearchState) => {
-  const { pathname, search } = format(state)
+  const { pathname, search } = format(state);
 
-  return `${pathname}${search}`
-}
+  return `${pathname}${search}`;
+};
 
 export const usePagination = (totalItems: number) => {
-  const { pages, itemsPerPage, state } = useSearch()
+  const { pages, itemsPerPage, state } = useSearch();
 
-  const total = Math.ceil(totalItems / itemsPerPage)
-  const next = Number(pages[pages.length - 1]) + 1
-  const prev = pages[0] - 1
+  const total = Math.ceil(totalItems / itemsPerPage);
+  const next = Number(pages[pages.length - 1]) + 1;
+  const prev = pages[0] - 1;
 
   return useMemo(
     () => ({
@@ -28,6 +29,6 @@ export const usePagination = (totalItems: number) => {
         link: getLink({ ...state, page: prev }),
       },
     }),
-    [next, prev, state, total]
-  )
-}
+    [next, prev, state, total],
+  );
+};
