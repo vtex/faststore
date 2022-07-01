@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Applies new local tokens to `Navbar` ([#142](https://github.com/vtex-sites/nextjs.store/pull/142))
 - Applies new local tokens to `Filter` ([#139](https://github.com/vtex-sites/nextjs.store/pull/139))
 - Applies new local tokens to `Tiles` ([#134](https://github.com/vtex-sites/nextjs.store/pull/134))
 - Applies new local tokens to `ProductGrid` ([#144](https://github.com/vtex-sites/nextjs.store/pull/144))

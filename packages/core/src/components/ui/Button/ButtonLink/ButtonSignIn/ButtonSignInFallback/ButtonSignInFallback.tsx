@@ -6,7 +6,7 @@ function ButtonSignInFallback() {
     <ButtonLink
       data-fs-button-signin-link
       href="/login"
-      className="text__title-mini signin-link"
+      className="text__title-mini"
       variant="tertiary"
     >
       <Icon name="User" width={18} height={18} weight="bold" />

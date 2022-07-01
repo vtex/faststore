@@ -1,0 +1,107 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { CartProvider, SessionProvider } from '@faststore/sdk'
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
+
+import { ButtonIcon } from 'src/components/ui/Button'
+import Icon from 'src/components/ui/Icon'
+
+import { NavbarSlider } from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta component={NavbarSlider} title="Organisms/Navbar/NavbarSlider" />
+
+export const TemplateNavbarSlider = () => {
+  const { openNavbar, navbar: displayNavbar } = useUI()
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <ButtonIcon
+        data-fs-navbar-button-menu
+        aria-label="Open Menu"
+        icon={<Icon name="List" width={32} height={32} />}
+        onClick={openNavbar}
+      />
+      <p style={{ marginLeft: '12px' }}>Open Menu</p>
+      {displayNavbar && <NavbarSlider />}
+    </div>
+  )
+}
+export const TemplateProvider = () => {
+  return (
+    <SessionProvider initialState={{}}>
+      <CartProvider>
+        <UIProvider>
+          <TemplateNavbarSlider />
+        </UIProvider>
+      </CartProvider>
+    </SessionProvider>
+  )
+}
+
+<header>
+
+# Navbar Slider
+
+Displays the <code>NavLinks</code> and some features using <code>SlideOver</code> component. It's usually used on mobile devices only.
+
+</header>
+
+## Usage
+
+`import { NavbarSlider } from 'src/components/common/Navbar'`
+
+<Canvas>
+  <Story name="overview-default">{TemplateProvider.bind({})}</Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-navbar-slider-padding" value="var(--fs-spacing-3)" />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Header
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navbar-slider-header-padding-bottom"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-navbar-slider-header-button-margin-right"
+    value="calc(-1 * var(--fs-spacing-1))"
+  />
+</TokenTable>
+
+### Logo
+
+<TokenTable>
+  <TokenRow token="--fs-navbar-slider-logo-height" value="2.375rem" />
+  <TokenDivider />
+  <TokenRow token="--fs-navbar-slider-logo-padding" value="0" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-slider-logo-margin-right"
+    value="var(--fs-spacing-5)"
+  />
+</TokenTable>
+
+### Footer
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navbar-slider-footer-padding-top"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-navbar-slider-footer-margin-top"
+    value="var(--fs-spacing-2)"
+  />
+</TokenTable>

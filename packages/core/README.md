@@ -287,27 +287,6 @@ function Button({ variant, ...props }: Props) {
 ```
 
 Now we have a styled Button component that accepts different variants!! 🎉
-The aforementioned guide works well for UI components. However, components like `Navbar` and `Footer` are more complex and usually don't have variants, since they usually serve a single responsibility on the page. For these cases, you can use [BEM-Style CSS Syntax in SCSS](https://en.bem.info/methodology/) like:
-
-```tsx
- // components/common/Navbar/Navbar.tsx
- ...
- function Navbar {
-   return (
-      <header className="navbar">
-        <div className="navbar__header">
-         <section className="navbar__row">
-           <Button
-               className="navbar__menu"
-               aria-label="Open Menu"
-           >
-             <ListIcon size={32} />
-           </Button>
-         </section>
-        </div>
-      </header>
-   )
-```
 
 ### Managing SVG Icons
 Icons help build web pages by illustrating concepts and improving website navigation. However, using icons can decrease the page's performance. One option to avoid the decrease of the page's performance is to use SVGs from a single SVG file, located in `/static/icons.svg`, and load them with the `ui/Icon` component.

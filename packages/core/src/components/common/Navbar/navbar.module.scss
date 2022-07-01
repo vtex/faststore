@@ -1,0 +1,190 @@
+@import "src/styles/scaffold";
+
+.fs-navbar {
+  // --------------------------------------------------------
+  // Design Tokens for Navbar
+  // --------------------------------------------------------
+
+  // Default properties
+
+  --fs-navbar-padding                                    : 0;
+
+  --fs-navbar-border-bottom-width                        : var(--fs-border-width);
+  --fs-navbar-border-bottom-color                        : var(--fs-border-color-light);
+
+  --fs-navbar-box-shadow                                 : 0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%);
+
+  --fs-navbar-transition-timing                          : var(--fs-transition-timing);
+  --fs-navbar-transition-function                        : var(--fs-transition-function);
+
+  // Search
+  --fs-navbar-search-button-icon-width-mobile            : var(--fs-spacing-5);
+  --fs-navbar-search-button-icon-height-mobile           : var(--fs-navbar-search-button-icon-width-mobile);
+
+  // Search Expanded
+  --fs-navbar-search-expanded-input-wrapper-margin-right : 0.625rem;
+  --fs-navbar-search-expanded-input-wrapper-margin-left  : var(--fs-spacing-9);
+
+  --fs-navbar-search-expanded-input-width                : calc(100% - var(--fs-spacing-7));
+
+  --fs-navbar-search-expanded-button-icon-margin-right   : -4.063rem;
+
+  // Header
+  --fs-navbar-header-padding-top                         : var(--fs-spacing-1);
+  --fs-navbar-header-padding-bottom                      : var(--fs-spacing-2);
+
+  --fs-navbar-header-padding-top-notebook                : var(--fs-spacing-1);
+  --fs-navbar-header-padding-bottom-notebook             : var(--fs-navbar-header-padding-top-notebook);
+
+  // Logo
+  --fs-navbar-logo-width                                 : 11rem;
+  --fs-navbar-logo-height                                : 2.375rem;
+  --fs-navbar-logo-min-height                            : var(--fs-navbar-logo-height);
+  --fs-navbar-logo-margin-right-mobile                   : var(--fs-spacing-5);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  padding: var(--fs-navbar-padding);
+  border-bottom: var(--fs-navbar-border-bottom-width) solid var(--fs-navbar-border-bottom-color);
+  box-shadow: var(--fs-navbar-box-shadow);
+
+  [data-store-search-input-wrapper] {
+    flex: 1 0 100%;
+    order: 2;
+
+    @include media("<notebook") {
+      display: none;
+    }
+  }
+
+  [data-fs-navbar-row] {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    @include media(">=notebook") {
+      display: grid;
+      grid-template-columns: 1fr minmax(auto, 37.5rem) 1fr;
+    }
+
+    [data-fs-navbar-button-menu] {
+      @include media(">=notebook") { display: none; }
+    }
+  }
+
+  [data-fs-navbar-buttons] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    [data-fs-button-collapse] {
+      margin-left: calc(-1 * var(--fs-spacing-3));
+    }
+
+    [data-fs-button-signin-link] + [data-fs-button-cart] {
+      @include media(">=notebook") {
+        margin-left: var(--fs-spacing-3);
+      }
+    }
+
+    [data-fs-button-signin-link] {
+      display: none;
+    }
+
+    @include media(">=notebook") {
+      order: 2;
+
+      [data-fs-button-signin-link] {
+        display: inline-flex;
+      }
+    }
+
+    [data-store-search-input-wrapper] {
+      display: none;
+      transition: flex var(--fs-navbar-transition-timing) var(--fs-navbar-transition-function);
+
+      @include media("<notebook") {
+        display: flex;
+        flex: 0;
+        flex-direction: column;
+        order: 0;
+        width: min-content;
+
+        &[data-store-search-input-dropdown-open="false"] [data-store-input] {
+          width: 0;
+          padding: 0;
+          border-width: 0;
+
+          &:hover, &:focus, &:focus-visible &:hover:focus-visible {
+            border-width: 0;
+            box-shadow: 0 0;
+          }
+        }
+
+        [data-store-icon] {
+          margin-right: 0;
+          line-height: 0;
+
+          svg {
+            width: var(--fs-navbar-search-button-icon-width-mobile);
+            height: var(--fs-navbar-search-button-icon-height-mobile);
+          }
+        }
+      }
+    }
+
+    &[data-fs-navbar-search-expanded="true"] {
+      width: 100%;
+
+      [data-store-search-input-wrapper] {
+        flex: 1 1;
+        margin-right: var(--fs-navbar-search-expanded-input-wrapper-margin-right);
+        margin-left: var(--fs-navbar-search-expanded-input-wrapper-margin-left);
+
+        [data-store-input] {
+          width: var(--fs-navbar-search-expanded-input-width);
+        }
+
+        [data-store-icon] {
+          margin-right: 0;
+        }
+      }
+
+      [data-fs-button-icon] {
+        margin-right: var(--fs-navbar-search-expanded-button-icon-margin-right);
+        transition: margin var(--fs-navbar-transition-timing) var(--fs-navbar-transition-function);
+      }
+    }
+  }
+
+  [data-fs-navbar-header] {
+    padding-top: var(--fs-spacing-1);
+    padding-bottom: var(--fs-spacing-2);
+    overflow-x: clip;
+
+    @include media(">=notebook") {
+      padding-top: var(--fs-spacing-1);
+      padding-bottom: var(--fs-spacing-1);
+    }
+  }
+
+  [data-fs-navbar-logo] {
+    width: var(--fs-navbar-logo-width);
+    height: var(--fs-navbar-logo-height);
+    min-height: var(--fs-navbar-logo-min-height);
+    padding: 0;
+
+    @include media("<tablet") {
+      margin-right: var(--fs-navbar-logo-margin-right-mobile);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

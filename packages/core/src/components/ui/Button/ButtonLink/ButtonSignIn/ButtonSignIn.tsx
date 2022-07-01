@@ -11,7 +11,7 @@ const ButtonSignIn = () => {
     <ButtonLink
       data-fs-button-signin-link
       href={person?.id ? '/account' : '/login'}
-      className={`${styles.fsButton} text__title-mini signin-link`}
+      className={`${styles.fsButton} text__title-mini`}
       variant="tertiary"
     >
       <Icon name="User" width={18} height={18} weight="bold" />

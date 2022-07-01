@@ -1,0 +1,105 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { CartProvider, SessionProvider } from '@faststore/sdk'
+import UIProvider from 'src/sdk/ui/Provider'
+
+import { NavLinks } from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta component={NavLinks} title="Organisms/Navbar/NavLinks" />
+
+export const TemplateProvider = () => {
+  return (
+    <SessionProvider initialState={{}}>
+      <CartProvider>
+        <UIProvider>
+          <NavLinks />
+        </UIProvider>
+      </CartProvider>
+    </SessionProvider>
+  )
+}
+
+<header>
+
+# NavLinks
+
+Displays a set navigation links and self adapts on mobile <code>NavbarSlider</code> or desktop screens.
+
+</header>
+
+## Usage
+
+`import { NavLinks } from 'src/components/common/Navbar'`
+
+<Canvas>
+  <Story name="overview-default">{TemplateProvider.bind({})}</Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navlinks-padding-top-notebook"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navlinks-border-top-width-mobile"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-navlinks-border-top-color-mobile"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navlinks-border-bottom-width-mobile"
+    value="var(--fs-navlinks-border-top-width-mobile)"
+  />
+  <TokenRow
+    token="--fs-navlinks-border-bottom-color-mobile"
+    value="var(--fs-navlinks-border-top-color-mobile)"
+    globalValue="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Link
+
+<TokenTable>
+  <TokenRow token="--fs-navlinks-link-width-notebook" value="auto" />
+  <TokenRow
+    token="--fs-navlinks-link-padding-notebook"
+    value="0 var(--fs-spacing-0)"
+  />
+</TokenTable>
+
+### List
+
+<TokenTable>
+  <TokenRow
+    token="--fs-navlinks-list-padding-left-notebook"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-navlinks-list-margin-left-notebook"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-navlinks-list-border-left-width-notebook"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-navlinks-list-border-left-color-notebook"
+    value="var(--fs-border-color-light)"
+  />
+</TokenTable>
