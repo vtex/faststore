@@ -117,7 +117,8 @@ export { createCartStore } from "./cart";
 export type { Cart, Item as CartItem } from "./cart";
 
 // Store
-export { createStore } from "./store/base";
+export { createStore as createBaseStore } from "./store/base";
+export { createStore } from "./store/composed";
 export { optimistic } from "./store/optimistic";
 export { persisted } from "./store/persisted";
 export { singleton } from "./store/singleton";

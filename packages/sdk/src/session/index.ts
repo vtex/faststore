@@ -1,8 +1,4 @@
-import { createStore } from "../store/base";
-import { persisted } from "../store/persisted";
-import { singleton } from "../store/singleton";
-import { optimistic } from "./../store/optimistic";
-import { compose } from "./../utils/compose";
+import { createStore } from "./../store/composed";
 
 export interface Currency {
   code: string; // Ex: USD
@@ -29,9 +25,4 @@ export const createSessionStore = (
   defaultSession: Session,
   onValidate?: (value: Session) => Promise<Session | null>,
   namespace = "fs::session",
-) =>
-  compose([
-    singleton(namespace),
-    persisted(namespace),
-    optimistic(onValidate),
-  ], createStore(defaultSession));
+) => createStore(defaultSession, namespace, onValidate);

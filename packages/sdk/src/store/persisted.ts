@@ -30,8 +30,8 @@ export const persisted = <T>(key: string) =>
     const handler = async () => {
       const payload = await getIDB<T>(key);
 
-      if (payload !== undefined) {
-        store.set(payload);
+      if (typeof document !== 'undefined') {
+        store.set(payload ?? store.readInitial());
       }
     };
 

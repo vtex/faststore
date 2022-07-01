@@ -1,9 +1,5 @@
-import { createStore } from "../store/base";
-import { singleton } from "../store/singleton";
 import { SDKError } from "../utils/error";
-import { optimistic } from "./../store/optimistic";
-import { persisted } from "./../store/persisted";
-import { compose } from "./../utils/compose";
+import { createStore } from "./../store/composed";
 
 export interface Item {
   id: string;
@@ -20,11 +16,7 @@ export const createCartStore = <C extends Cart<Item>>(
   onValidate?: (value: C) => Promise<C | null>,
   namespace = "fs::cart",
 ) => {
-  const store = compose([
-    singleton(namespace),
-    persisted(namespace),
-    optimistic(onValidate),
-  ], createStore(defaultCart));
+  const store = createStore(defaultCart, namespace, onValidate);
 
   const addItem = (
     item: Item,
