@@ -16,6 +16,7 @@ import type {
 import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
 import type { SalesChannel } from './types/SalesChannel'
+import { MasterDataResponse } from './types/Newsletter'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -176,6 +177,16 @@ export const VtexCommerce = (
           cookie: ctx.headers.cookie,
         },
         body: '{}',
+      })
+    },
+    addToNewsletter: (data: {
+      name: string
+      email: string
+    }): Promise<MasterDataResponse> => {
+      return fetchAPI(`${base}/api/dataentities/NL/documents/`, {
+        ...BASE_INIT,
+        body: JSON.stringify({ ...data, isNewsletterOptIn: true }),
+        method: 'PATCH',
       })
     },
   }

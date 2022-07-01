@@ -1,0 +1,24 @@
+"""
+Response after adding to newsletter.
+"""
+
+input PersonNewsletter {
+  """
+  .
+  """
+  id: String!
+}
+
+"""
+Person data input to newsletter.
+"""
+type IPersonNewsletter {
+  """
+  Person's name.
+  """
+  name: String!
+  """
+  Person's email.
+  """
+  email: String!
+}

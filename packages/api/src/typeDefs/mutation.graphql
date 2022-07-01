@@ -7,4 +7,8 @@ type Mutation {
   Updates a web session with the specified values.
   """
   validateSession(session: IStoreSession!, search: String!): StoreSession
+  """
+  Adds a user to the newsletter list.
+  """
+  addToNewsletter(data: IPersonNewsletter!): PersonNewsletter
 }

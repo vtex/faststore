@@ -24,6 +24,7 @@ import PropertyValue from './propertyValue.graphql'
 import Person from './person.graphql'
 import ObjectOrString from './objectOrString.graphql'
 import Session from './session.graphql'
+import Newsletter from './newsletter.graphql'
 
 export const typeDefs = [
   Query,
@@ -50,6 +51,7 @@ export const typeDefs = [
   Person,
   ObjectOrString,
   Session,
+  Newsletter
 ]
   .map(print)
   .join('\n')
