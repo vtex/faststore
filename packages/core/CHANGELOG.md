@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+## [22.26.0.beta] - 2022-07-01
+
+### Added
+
 - Applies new local tokens to `Navbar` ([#142](https://github.com/vtex-sites/nextjs.store/pull/142))
 - Applies new local tokens to `Filter` ([#139](https://github.com/vtex-sites/nextjs.store/pull/139))
 - Applies new local tokens to `Tiles` ([#134](https://github.com/vtex-sites/nextjs.store/pull/134))
@@ -40,18 +52,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Storybook's version from 6.4.20 to 6.5.9 ([#120](https://github.com/vtex-sites/nextjs.store/pull/120))
 - Unifies `Link` component usage by adding support for both external and client-side links ([#117](https://github.com/vtex-sites/nextjs.store/pull/117))
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 
 - `ImageGallerySelector` scroll that isn't working on Safari ([##132](https://github.com/vtex-sites/nextjs.store/pull/#132))
 - Some console errors when running the storybook ([#129](https://github.com/vtex-sites/nextjs.store/pull/129))
 - The search input's dropdown not closing when a suggested product was selected ([#112](https://github.com/vtex-sites/nextjs.store/pull/112).
 - Status code when error occurs (404/500) ([#116](https://github.com/vtex-sites/nextjs.store/pull/116))
-
-### Security
 
 ## [22.23.0.beta] - 2022-06-10
 
