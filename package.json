@@ -19,6 +19,9 @@
     "packages/*",
     "apps/*"
   ],
+  "resolutions": {
+    "@types/react": "^18.0.0"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",

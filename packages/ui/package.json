@@ -53,8 +53,8 @@
     "tabbable": "^5.2.1"
   },
   "peerDependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
@@ -77,9 +77,9 @@
     "chalk": "^5.0.0",
     "jest-axe": "^5.0.1",
     "jest-matcher-utils": "^27.4.2",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
     "react-docgen-typescript-loader": "^3.7.2",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.2.0",
     "shared": "^1.9.14",
     "size-limit": "^7.0.8",
     "storybook-addon-themes": "^6.1.0",

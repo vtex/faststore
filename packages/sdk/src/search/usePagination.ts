@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import type { State as SearchState } from '../types'
+import type { State as SearchState } from './types'
 import format from '../utils/format'
 import { useSearch } from './useSearch'
 

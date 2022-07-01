@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import React, { createContext, useMemo } from 'react'
 
-import type { State as SearchState } from '../types'
+import type { State as SearchState } from './types'
 import type { UseSearchInfiniteState } from './useInfiniteSearchState'
 import { useSearchInfiniteState } from './useInfiniteSearchState'
 import type { UseSearchState } from './useSearchState'

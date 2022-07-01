@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import format from '../utils/format'
-import type { State } from '../types'
+import type { State } from './types'
 
 export const initialize = ({
   sort = 'score_desc',

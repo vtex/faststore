@@ -1,5 +1,5 @@
 import { SDKError } from '../utils/error'
-import type { Facet, SearchSort } from '../types'
+import type { Facet, SearchSort } from './types'
 
 const sortKeys = new Set<SearchSort>([
   'price_desc',

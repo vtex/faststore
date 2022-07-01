@@ -1,7 +1,7 @@
 import { SDKError } from '../utils/error'
 import { isSearchSort, setFacet } from './facets'
 import { initialize } from './useSearchState'
-import type { SearchSort, State } from '../types'
+import type { SearchSort, State } from './types'
 
 export const parse = ({ pathname, searchParams }: URL): State => {
   const state = initialize({
