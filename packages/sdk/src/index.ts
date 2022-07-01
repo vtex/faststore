@@ -115,3 +115,4 @@ export { optimistic } from "./store/optimistic";
 export { persisted } from "./store/persisted";
 export { singleton } from "./store/singleton";
 export { compose } from "./utils/compose";
+export { useStore } from "./store/useStore";
