@@ -99,6 +99,7 @@ export const createCartStore = <C extends Cart<Item>>(
     updateItemQuantity,
     removeItem,
     emptyCart,
+    getItem,
     inCart,
     isEmpty,
   };

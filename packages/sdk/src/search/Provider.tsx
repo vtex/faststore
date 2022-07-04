@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from 'react'
 import React, { createContext, useMemo } from 'react'
+import { useContext } from '../utils/useContext'
 
 import type { State as SearchState } from './types'
 import type { UseSearchInfiniteState } from './useInfiniteSearchState'
@@ -40,3 +41,5 @@ export const Provider = ({
 
   return <Context.Provider value={value}>{children}</Context.Provider>
 }
+
+export const useSearch = () => useContext(Context)

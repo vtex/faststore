@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import { format } from "./serializer";
-import { useSearch } from "./useSearch";
+import { useSearch } from "./Provider";
 
 import type { State as SearchState } from "./types";
 

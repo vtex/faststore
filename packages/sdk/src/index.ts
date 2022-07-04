@@ -82,7 +82,6 @@ export {
   format as formatSearchState,
   parse as parseSearchState,
 } from "./search/serializer";
-
 export { initialize as initSearchState } from "./search/useSearchState";
 export {
   isSearchSort,
@@ -91,8 +90,7 @@ export {
   toggleFacet,
   toggleFacets,
 } from "./search/facets";
-export { Provider as SearchProvider } from "./search/Provider";
-export { useSearch } from "./search/useSearch";
+export { Provider as SearchProvider, useSearch } from "./search/Provider";
 export { usePagination } from "./search/usePagination";
 export type { State as SearchState } from "./search/types";
 
@@ -116,3 +114,4 @@ export { persisted } from "./store/persisted";
 export { singleton } from "./store/singleton";
 export { compose } from "./utils/compose";
 export { useStore } from "./store/useStore";
+export type { Store } from "./store/base";

@@ -1,7 +1,5 @@
-/* eslint-disable react/display-name */
 import { act, renderHook } from '@testing-library/react-hooks'
 import React from 'react'
-import type { ComponentPropsWithoutRef } from 'react'
 
 import {
   formatSearchState,
@@ -14,13 +12,17 @@ import {
   useSearch,
 } from '../../src'
 
+import type { ComponentPropsWithoutRef } from 'react'
+
 function Wrapper(
   props: Partial<ComponentPropsWithoutRef<typeof SearchProvider>>
 ) {
   return (
     <SearchProvider
       itemsPerPage={12}
-      onChange={() => {}}
+      onChange={() => {
+        /* noop */
+      }}
       {...initSearchState()}
       {...props}
     />
@@ -29,11 +31,9 @@ function Wrapper(
 
 test('SearchProvider: change sort ordering', async () => {
   const state = initSearchState()
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   expect(result.current.state.sort).toBe('score_desc')
@@ -51,11 +51,9 @@ test('SearchProvider: change sort ordering', async () => {
 test('SearchProvider: Set full text term', async () => {
   const fullTextTerm = 'Full Text Term'
   const state = initSearchState()
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   expect(result.current.state.term).toBeNull()
@@ -82,11 +80,9 @@ test('SearchProvider: Set full text term', async () => {
 test('SearchProvider: Set current page', async () => {
   const page = 10
   const state = initSearchState()
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   expect(result.current.state.page).toBe(0)
@@ -106,12 +102,10 @@ test('SearchProvider: selects a simple facet', async () => {
     value: '10:100',
   }
 
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const state = initSearchState()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   expect(result.current.state.selectedFacets).toHaveLength(0)
@@ -138,15 +132,13 @@ test('SearchProvider: selects a simple facet when more facets are inside the sta
     value: 'awesome',
   }
 
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const state = initSearchState({
     selectedFacets: [facet1],
   })
 
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   act(() => {
@@ -175,11 +167,9 @@ test('SearchProvider: Facet uniqueness', async () => {
     selectedFacets: [facet2],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   act(() => {
@@ -220,11 +210,9 @@ test('SearchProvider: Remove facet selection', async () => {
     selectedFacets: [facet1, facet2, facet2],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   act(() => {
@@ -253,11 +241,9 @@ test('SearchProvider: Remove initial facet', async () => {
     selectedFacets: [facet1, facet2],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   /** Cannot remove the first facet */
@@ -290,11 +276,9 @@ test('SearchProvider: Toggle Facet', async () => {
     selectedFacets: [facet1, facet2],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   expect(result.current.state.selectedFacets).toEqual([facet1, facet2])
@@ -349,11 +333,9 @@ test('SearchProvider: Toggle Facets', async () => {
     selectedFacets: [facet1, facet2, facet3],
   })
 
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => (
-      <Wrapper {...props} onChange={mock} {...state} />
-    ),
+    wrapper: () => <Wrapper onChange={mock} {...state} />,
   })
 
   act(() => {
@@ -398,9 +380,9 @@ test('SearchProvider: Infinite Scroll Pagination', async () => {
 })
 
 test('SearchProvider: onChange is called', async () => {
-  const mock = jest.fn(() => {})
+  const mock = jest.fn()
   const { result } = renderHook(useSearch, {
-    wrapper: ({ ...props }) => <Wrapper {...props} onChange={mock} />,
+    wrapper: () => <Wrapper onChange={mock} />,
   })
 
   expect(mock).toHaveBeenCalledTimes(0)

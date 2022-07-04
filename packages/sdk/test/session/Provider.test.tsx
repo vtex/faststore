@@ -1,29 +1,44 @@
 import { renderHook } from '@testing-library/react-hooks'
 import { set } from 'idb-keyval'
 
-import { SessionProvider, useSession } from '../../src'
+import { createSessionStore, useStore } from '../../src'
+
+const initialSession = {
+  currency: {
+    code: 'USD',
+    symbol: '$',
+  },
+  country: 'USA',
+  locale: 'en-US',
+  channel: 'test-channel',
+  postalCode: null,
+  person: null,
+}
 
 test('Session Provider: Set initial session values', async () => {
-  const { result } = renderHook(useSession, {
-    wrapper: SessionProvider,
-    initialProps: { initialState: { channel: 'test-channel' } },
+  const store = createSessionStore(initialSession)
+
+  const { result } = renderHook(useStore, {
+    initialProps: store,
   })
 
-  expect(result.current.channel).toBe('test-channel')
+  expect(result.current.channel).toBe(initialSession.channel)
 })
 
 test('Session Provider: Hydrate values from storage', async () => {
-  // Renders once with a custom initial state
-  const storedState = { channel: 'test-channel' }
+  const stored = { ...initialSession, channel: 'fake-channel' }
 
-  await set('main::store::session', storedState)
+  set('fs::session', stored)
+
+  // Renders once with a custom initial state
+  const store = createSessionStore(initialSession)
 
   // We should have stored the past session on storage and we should be able to hydrate from it
-  const run = renderHook(useSession, {
-    wrapper: SessionProvider,
+  const run = renderHook(useStore, {
+    initialProps: store,
   })
 
-  await run.waitForValueToChange(() => run.result.current.channel)
-
-  expect(run.result.current.channel).toBe(storedState.channel)
+  await run.waitFor(() =>
+    expect(run.result.current.channel).toBe('fake-channel')
+  )
 })

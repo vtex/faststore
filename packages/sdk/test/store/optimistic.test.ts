@@ -1,0 +1,55 @@
+import { act, renderHook } from "@testing-library/react-hooks/native";
+
+import { createBaseStore, optimistic, useStore } from "../../src";
+
+const getStore = <T>(initial: T, onValidate: (x: T) => Promise<T | null>) =>
+  optimistic<T>(onValidate)(createBaseStore(initial));
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+test("Optmistic Store: Calls validation function", async () => {
+  const onValidate = jest.fn(async (x) => {
+    await sleep(500);
+    return x < 2 ? x + 1 : null;
+  });
+
+  const store = getStore(0, onValidate);
+
+  const { waitFor, result } = renderHook(useStore, { initialProps: store });
+
+  act(() => {
+    store.set(1);
+  });
+
+  await waitFor(() => expect(result.current).toEqual(2));
+
+  expect(onValidate).toBeCalledTimes(2);
+});
+
+test("Optmistic Store: Debounces validation function calls", async () => {
+  const onValidate = jest.fn(async (x) => {
+    await sleep(500);
+    return x < 2 ? x + 1 : null;
+  });
+
+  const store = getStore(0, onValidate);
+
+  const { waitFor, result } = renderHook(useStore, { initialProps: store });
+
+  await act(async () => {
+    store.set(0);
+
+    await sleep(100);
+    store.set(0);
+
+    await sleep(100);
+    store.set(0);
+
+    await sleep(100);
+    store.set(1);
+  });
+
+  await waitFor(() => expect(result.current).toEqual(2));
+
+  expect(onValidate).toBeCalledTimes(3);
+});
