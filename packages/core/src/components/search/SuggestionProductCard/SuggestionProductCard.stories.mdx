@@ -1,0 +1,99 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { SearchInputProvider } from 'src/sdk/search/useSearchInput'
+import { SessionProvider } from '@faststore/sdk'
+import storeConfig from 'store.config'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+import { product } from 'src/../.storybook/mock'
+
+import SuggestionProductCard from '.'
+
+<Meta
+  title="Features/Search/SuggestionProductCard"
+  component={SuggestionProductCard}
+  args={{
+    product,
+    index: 1
+  }}
+/>
+
+export const Template = (args) => (
+    <SessionProvider initialState={{ channel: storeConfig.channel }}>
+      <SearchInputProvider>
+        <SuggestionProductCard {...args} />
+      </SearchInputProvider>
+    </SessionProvider>
+)
+
+<header>
+
+# Suggestion Product Card
+
+Card to show details of the product and suggest in search dropdown.
+
+</header>
+
+## Overview
+
+The `SuggestionProductCard` differs from `ProductCard` because it is used in the `Search` feature and is called by the `Suggestion` component.
+
+---
+
+## Usage
+
+`import SuggestionProductCard from '../components/search/SuggestionProductCard'`
+
+<Canvas>
+  <Story name="SuggestionProductCard">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="SuggestionProductCard" />
+
+## Nested Elements
+
+### Link
+
+<TokenTable>
+  <TokenRow
+    token="--fs-suggestion-product-card-link-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+### Image
+
+<TokenTable>
+  <TokenRow
+    token="--fs-suggestion-product-card-image-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-suggestion-product-card-image-margin-right"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-suggestion-product-card-image-height"
+    value="3.5rem"
+  />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-suggestion-product-card-title-margin-bottom"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-suggestion-product-card-title-line-height"
+    value="1.2"
+  />
+  <TokenRow
+    token="--fs-suggestion-product-card-title-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+</TokenTable>

@@ -7,7 +7,7 @@ import type { SuggestionsTopSearchProps } from '.'
 
 const meta = {
   component: SuggestionsTopSearch,
-  title: 'Organisms/Search/TopSearch',
+  title: 'Features/Search/TopSearch',
 }
 
 const Template = (props: SuggestionsTopSearchProps) => (

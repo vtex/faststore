@@ -8,8 +8,16 @@ import { useProductLink } from 'src/sdk/product/useProductLink'
 import useSearchInput from 'src/sdk/search/useSearchInput'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
+import styles from './suggestion-product-card.module.scss'
+
 type SuggestionProductCardProps = {
+  /**
+   * Product to be showed in `SuggestionProductCard`.
+   */
   product: ProductSummary_ProductFragment
+  /**
+   * Index to generate product link.
+   */
   index: number
 }
 
@@ -31,7 +39,11 @@ function SuggestionProductCard({ product, index }: SuggestionProductCardProps) {
   } = product
 
   return (
-    <Card data-fs-suggestion-product-card data-testid="suggestion-product-card">
+    <Card
+      data-fs-suggestion-product-card
+      className={styles.fsSuggestionProductCard}
+      data-testid="suggestion-product-card"
+    >
       <Link
         {...linkProps}
         href={href}
@@ -42,8 +54,8 @@ function SuggestionProductCard({ product, index }: SuggestionProductCardProps) {
           onSearchInputSelection?.(name, href)
         }}
       >
-        <CardContent>
-          <CardImage>
+        <CardContent data-fs-suggestion-product-card-content>
+          <CardImage data-fs-suggestion-product-card-image>
             <Image
               src={img.url}
               alt={img.alternateName}

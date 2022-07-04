@@ -246,9 +246,9 @@ body {
   --fs-transition-function             : ease-in-out;
 
   // BORDERS
-  --fs-border-radius-small             : .125rem;
-  --fs-border-radius                   : .25rem;
-  --fs-border-radius-medium            : .5rem;
+  --fs-border-radius-small             : .125rem; // 2px
+  --fs-border-radius                   : .25rem;  // 4px
+  --fs-border-radius-medium            : .5rem;   // 8px
   --fs-border-radius-pill              : 100px;
   --fs-border-radius-circle            : 100%;
 

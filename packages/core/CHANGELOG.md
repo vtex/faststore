@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Applies new local tokens to `SuggestionProductCard` ([#151](https://github.com/vtex-sites/nextjs.store/pull/151))
+
 ### Changed
 
 ### Deprecated

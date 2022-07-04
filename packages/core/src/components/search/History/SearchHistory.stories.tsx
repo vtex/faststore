@@ -5,7 +5,7 @@ import type { SearchHistoryProps } from '.'
 
 const meta = {
   component: SearchHistory,
-  title: 'Organisms/Search/History',
+  title: 'Features/Search/History',
 }
 
 const Template = (props: SearchHistoryProps) => {

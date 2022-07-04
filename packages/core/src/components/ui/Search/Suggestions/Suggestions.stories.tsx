@@ -38,7 +38,7 @@ const product = ({ id = '1', name = 'Handmade Steel Towels Practical' }) => ({
 
 const meta = {
   component: Suggestions,
-  title: 'Organisms/Search/Suggestions',
+  title: 'Features/Search/Suggestions',
 }
 
 const Template = (props: SuggestionsProps) => (
