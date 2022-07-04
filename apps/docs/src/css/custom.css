@@ -390,3 +390,15 @@ code {
 .fakeCategory .menu__list{
   @apply ml-0 pl-0 border-l !important
 }
+
+[data-store-aggregate-rating]{
+  @apply ml-0 mb-4  !important
+}
+
+[data-store-aggregate-rating] li{
+  @apply list-none mt-0 text-2xl !important
+}
+
+li[data-store-aggregate-rating-item] {
+  color: #ff6d75 !important
+}
