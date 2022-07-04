@@ -7,10 +7,6 @@
     "path": "/reference/ui/faststore-ui",
     "docs": [
       {
-        "path": "/reference/ui/components",
-        "title": "Components"
-      },
-      {
         "path": "/reference/ui/molecules/AggregateRating",
         "title": "AggregateRating"
       }
