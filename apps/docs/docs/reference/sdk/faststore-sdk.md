@@ -10,7 +10,7 @@ FastStore SDK is a simple, framework-agnostic implementation of Commerce APIs to
 
 ### Analytics
 
-The analytics data layer is based on [the official GA4 specification](https://developers.google.com/gtagjs/reference/ga4-events).
+The analytics module helps you create a simple and extensive event system to feed your data pool. It is biased towards Google Analytics 4, but supports any other analytics provider. Go to the [Analytics](/reference/sdk/analytics) page to learn more.
 
 ## Get started
 
