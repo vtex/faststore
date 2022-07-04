@@ -8,7 +8,7 @@ type Mutation {
   """
   validateSession(session: IStoreSession!, search: String!): StoreSession
   """
-  Adds a user to the newsletter list.
+  Adds a new person to the newsletter list.
   """
   addToNewsletter(data: IPersonNewsletter!): PersonNewsletter
 }

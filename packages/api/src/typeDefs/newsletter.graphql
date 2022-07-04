@@ -1,16 +1,16 @@
 """
-Response after adding to newsletter.
+Newsletter information.
 """
 
 type PersonNewsletter {
   """
-  .
+  Person's ID in the newsletter list.
   """
   id: String!
 }
 
 """
-Person data input to newsletter.
+Person data input to the newsletter.
 """
 input IPersonNewsletter {
   """
