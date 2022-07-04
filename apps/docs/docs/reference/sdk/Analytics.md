@@ -1,104 +1,17 @@
-# Analytics
+---
+id: analytics
+---
 
-The analytics module lets you manage analytics events based on [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events). The events are wrapped and then sent over standard `postMessage` calls, which share the event only with the website's origin. The events are received via event listeners. It also supports sending and receiving custom events as the types on the helper functions can be overridden.
+# Analytics module
 
-### Sending events
+The analytics module lets you manage events in a simple way. You send an event using this module, the event is wrapped and then sent to the window over standard `postMessage` calls, which share the event only with the website's origin. This module provides a React Hook so it's possible to intercept the fired events. can be received via event listeners.
 
-Analytics events can be sent by using the `sendAnalyticsEvent` function and it's especially useful to send common ecommerce events such as `add_to_cart`. It enforces standard GA4 events via type check and IntelliSense suggestions, but this behavior can be altered via overriding the function's types.
+It's important to note that events sent using the analytics module are not directly sent to any analytics provider such as Google Analytics. This has to be done manually by using the provided hook. 
 
-To fire a standard GA4 event:
+The analytics module supports sending and receiving events of any shape, so you can implement your own types and override default ones.
 
-```tsx
-import { useCallback } from 'react'
-import { sendAnalyticsEvent } from '@faststore/sdk'
+# Google Analytics support
 
-const MyComponent = () => {
-  const addToCartCallback = useCallback(() => {
-    /* ... */
+Google Analytics is by far the industry leading analytics solution that most ecommerce websites use, and the analytics module was built with it in mind. All helper functions and hooks use the [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events) by default, which means GA4 events will be suggested along with recommended properties and [IntelliSense](https://docs.microsoft.com/pt-br/visualstudio/ide/using-intellisense) support.
 
-    const addToCartEvent = {
-      type: 'add_to_cart',
-      data: {
-        items: [
-          /* ... */
-        ],
-      },
-    }
-
-    sendAnalyticsEvent(addToCartEvent)
-  }, [])
-
-  return <button onClick={addToCartCallback}>Add to cart</button>
-}
-```
-
-For custom events, define the type of the event and override the default type via `sendAnalyticsEvent` generics. Your custom event has to have a type and a data field of any kind.
-
-To fire a custom event:
-
-```tsx
-import { useCallback } from 'react'
-import { sendAnalyticsEvent } from '@faststore/sdk'
-
-interface CustomEvent {
-  type: 'custom_event'
-  data: {
-    customProperty?: string
-  }
-}
-
-const MyComponent = () => {
-  const customEventCallback = useCallback(() => {
-    /* ... */
-
-    const customEvent = {
-      type: 'custom_event',
-      data: {
-        customProperty: 'value',
-      },
-    }
-
-    sendAnalyticsEvent<CustomEvent>(customEvent)
-  }, [])
-
-  return <button onClick={customEventCallback}>Press here</button>
-}
-```
-
-### Receiving events
-
-It's possible to receive analytics events by using the `useAnalyticsEvent` hook. It accepts a handler that will be called every time an event sent by `sendAnalyticsEvent` arrives. For that reason, it can fire both for standard GA4 events and for custom events that a library or a component might be sending. To help users be aware of that possibility, the event received by the handler is, by default, typed as `UnknownEvent`. You can assume it has another type by simply typing the callback function as you wish, but be careful with the unexpected events that might come to this handler.
-
-To use the `useAnalyticsEvent` hook:
-
-```tsx
-import { useAnalyticsEvent } from '@faststore/sdk'
-import type { AnalyticsEvent } from '@faststore/sdk'
-
-/**
- *  Notice that we typed it as AnalyticsEvent, but there may be events that are not from this type.
- *
- *  Since we're dealing with it on a switch and we are providing an empty default clause,
- *  we're not gonna have issues receiving custom events sent by other components or libraries.
- */
-function handler(event: AnalyticsEvent) {
-  switch (event.type) {
-    case 'add_to_cart': {
-      /* ... */
-    }
-
-    /* ... */
-
-    default: {
-      /* ... */
-    }
-  }
-}
-
-// In your component:
-const MyComponent = () => {
-  useAnalyticsEvent(handler)
-
-  /* ... */
-}
-```
+To send the events to Google Analytics, you should listen to when they're sent - by using the [useAnalyticsEvent](/reference/sdk/analytics/useAnalyticsEvent) hook - and add them to the `dataLayer` in case you're using Google Tag Manager (recommended) or call the `gtag` function directly if you're using gtag's script directly. The analytics module doesn't do this automatically, so it has to be executed on the store.
