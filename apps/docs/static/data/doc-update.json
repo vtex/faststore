@@ -1,5 +1,22 @@
 [
   {
+    "date": "2022-07-04",
+    "type": "Added",
+    "menu": "Reference",
+    "category": "FastStore UI",
+    "path": "/reference/ui/faststore-ui",
+    "docs": [
+      {
+        "path": "/reference/ui/components",
+        "title": "Components"
+      },
+      {
+        "path": "/reference/ui/molecules/AggregateRating",
+        "title": "AggregateRating"
+      }
+    ]
+  },
+  {
     "date": "2022-06-29",
     "type": "Improved",
     "menu": "How-to Guides",
