@@ -341,8 +341,9 @@ export type StoreFacetRange = {
   key: Scalars['String'];
   /** Facet label. */
   label: Scalars['String'];
+  /** Maximum facet range value. */
   max: StoreFacetValueRange;
-  /** Array with information on each facet value. */
+  /** Minimum facet range value. */
   min: StoreFacetValueRange;
 };
 
@@ -367,9 +368,12 @@ export type StoreFacetValueBoolean = {
   value: Scalars['String'];
 };
 
+/** Search facet range value information. Used for minimum and maximum range values. */
 export type StoreFacetValueRange = {
   __typename?: 'StoreFacetValueRange';
+  /** Search facet range absolute value. */
   absolute: Scalars['Float'];
+  /** Search facet range selected value. */
   selected: Scalars['Float'];
 };
 
