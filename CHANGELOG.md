@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.4](https://github.com/vtex/faststore/compare/v1.10.3...v1.10.4) (2022-07-04)
+
+
+### Bug Fixes
+
+* @faststore/graphql-utils ([#1394](https://github.com/vtex/faststore/issues/1394)) ([ea4b483](https://github.com/vtex/faststore/commit/ea4b4832b25fe257d8c5c0c67bc09fb04dc693cf))
+
+
+
+
+
 ## [1.10.3](https://github.com/vtex/faststore/compare/v1.10.2...v1.10.3) (2022-07-04)
 
 **Note:** Version bump only for package faststore
