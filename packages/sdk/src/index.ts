@@ -102,19 +102,21 @@ export type {
 export { useGlobalUIState } from './ui/useGlobalUIState'
 
 // Session
-export { Provider as SessionProvider } from './session/Provider'
+export { createSessionStore } from "./session";
 export type {
-  Session,
   Currency as SessionCurrency,
   Person as SessionPerson,
-} from './session/Session'
-export { useSession } from './session/useSession'
+  Session,
+} from "./session";
 
 // Cart
-export { Provider as CartProvider } from './cart/Provider'
-export { useCart } from './cart/useCart'
-export type { Item as CartItem } from './cart/Cart'
-export type { Cart } from './cart/Optimistic'
+export { createCartStore } from "./cart";
+export type { Cart, Item as CartItem } from "./cart";
 
-// Storage
-export { useStorage } from './storage/useStorage'
+// Store
+export { createStore as createBaseStore } from "./store/base";
+export { createStore } from "./store/composed";
+export { optimistic } from "./store/optimistic";
+export { persisted } from "./store/persisted";
+export { singleton } from "./store/singleton";
+export { compose } from "./utils/compose";
