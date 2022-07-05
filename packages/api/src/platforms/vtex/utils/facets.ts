@@ -1,5 +1,6 @@
 import ChannelMarshal from './channel'
 import type { Maybe } from '../../../__generated__/schema'
+import { BadRequestError } from '../../errors'
 
 export interface SelectedFacet {
   key: string
@@ -80,8 +81,17 @@ export const isCrossSelling = (
 ): x is CrossSellingFacet['key'] =>
   typeof (FACET_CROSS_SELLING_MAP as Record<string, string>)[x] === "string"
 
-export const findCrossSelling = (facets?: Maybe<SelectedFacet[]>) =>
-  facets?.find((x): x is CrossSellingFacet => isCrossSelling(x.key)) ?? null
+export const findCrossSelling = (facets?: Maybe<SelectedFacet[]>) => {
+  const filtered = facets?.filter((x): x is CrossSellingFacet => isCrossSelling(x.key))
+
+  if (Array.isArray(filtered) && filtered.length > 1) {
+    throw new BadRequestError(
+      `You passed ${filtered.length} cross selling facets but only one is allowed. Please leave one of the following facet: ${filtered.map(x => x.key).join(',')}`
+    )
+  }
+
+  return filtered?.[0] ?? null
+}
 
 export const findSlug = (facets?: Maybe<SelectedFacet[]>) =>
   facets?.find((x) => x.key === 'slug')?.value ?? null
