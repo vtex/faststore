@@ -38,6 +38,10 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
       return [] // remove this facet from search
     }
 
+    case 'price': {
+      return { key, value: value.replace('-to-', ':') }
+    }
+
     case "buy":
     case "view":
     case "similars":
