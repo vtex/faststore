@@ -86,9 +86,19 @@ function Page({ product }: Props) {
 
       <ProductShelf
         first={ITEMS_PER_SECTION}
-        term={product.brand.name}
-        title="You might also like"
+        selectedFacets={[
+          { key: 'buy', value: product.isVariantOf.productGroupID },
+        ]}
+        title="People also bought"
         withDivisor
+      />
+
+      <ProductShelf
+        first={ITEMS_PER_SECTION}
+        selectedFacets={[
+          { key: 'view', value: product.isVariantOf.productGroupID },
+        ]}
+        title="People also view"
       />
     </>
   )
@@ -141,6 +151,10 @@ const query = gql`
             identifier
           }
         }
+      }
+
+      isVariantOf {
+        productGroupID
       }
 
       ...ProductDetailsFragment_product
