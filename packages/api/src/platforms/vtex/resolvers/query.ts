@@ -107,15 +107,7 @@ export const Query = {
       mutateLocaleContext(ctx, locale)
     }
 
-    const after = maybeAfter ? Number(maybeAfter) : 0
-    const searchArgs = {
-      page: Math.ceil(after / first),
-      count: first,
-      query: term,
-      sort: SORT_MAP[sort ?? 'score_desc'],
-      selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
-    }
-
+    let crossSellingTerm: string | undefined
     /**
      * In case we are using crossSelling, we need to modify the search
      * we will be performing on our search engine. The idea in here
@@ -131,11 +123,20 @@ export const Query = {
         productId: crossSelling.value,
       })
 
-      searchArgs.query = `product:${
+      crossSellingTerm = `product:${
         products.map((x) => x.productId).slice(0, first).join(";")
       }`
     }
 
+    const after = maybeAfter ? Number(maybeAfter) : 0
+    const searchArgs = {
+      page: Math.ceil(after / first),
+      count: first,
+      query: crossSellingTerm ?? term,
+      sort: SORT_MAP[sort ?? 'score_desc'],
+      selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+    }
+    
     return searchArgs
   },
   allProducts: async (
