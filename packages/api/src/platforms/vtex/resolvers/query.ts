@@ -132,7 +132,7 @@ export const Query = {
       })
 
       searchArgs.query = `product:${
-        products.map((x) => x.productId).join(";")
+        products.map((x) => x.productId).slice(0, first).join(";")
       }`
     }
 
