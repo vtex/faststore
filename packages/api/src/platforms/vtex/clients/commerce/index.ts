@@ -1,4 +1,6 @@
-import { fetchAPI } from '../fetch'
+import { FACET_CROSS_SELLING_MAP } from "../../utils/facets"
+import { fetchAPI } from "../fetch"
+import type { PortalProduct } from "./types/Product"
 import type { Context, Options } from '../../index'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
@@ -12,6 +14,8 @@ import type {
 } from './types/Simulation'
 import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
+
+type ValueOf<T> = T extends Record<string, infer K> ? K : never;
 
 const BASE_INIT = {
   method: 'POST',
@@ -39,6 +43,24 @@ export const VtexCommerce = (
       portal: {
         pagetype: (slug: string): Promise<PortalPagetype> =>
           fetchAPI(`${base}/api/catalog_system/pub/portal/pagetype/${slug}`),
+      },
+      products: {
+        crossselling: (
+          { type, productId, groupByProduct = true }: {
+            type: ValueOf<typeof FACET_CROSS_SELLING_MAP>;
+            productId: string;
+            groupByProduct?: boolean;
+          },
+        ): Promise<PortalProduct[]> => {
+          const params = new URLSearchParams({
+            sc: ctx.storage.channel.salesChannel,
+            groupByProduct: groupByProduct.toString(),
+          })
+
+          return fetchAPI(
+            `${base}/api/catalog_system/pub/products/crossselling/${type}/${productId}?${params}`,
+          )
+        },
       },
     },
     checkout: {
@@ -120,7 +142,7 @@ export const VtexCommerce = (
             ...BASE_INIT,
             body: JSON.stringify({ value }),
             method: 'PUT',
-          }
+          },
         )
       },
       region: async ({

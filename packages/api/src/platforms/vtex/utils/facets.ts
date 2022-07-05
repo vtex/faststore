@@ -6,6 +6,15 @@ export interface SelectedFacet {
   value: string
 }
 
+export const FACET_CROSS_SELLING_MAP = {
+  buy: "whoboughtalsobought",
+  view: "whosawalsosaw",
+  similars: "similars",
+  viewAndBought: "whosawalsobought",
+  accessories: "accessories",
+  suggestions: "suggestions",
+} as const
+
 /**
  * Transform facets from the store to VTEX platform facets.
  * For instance, the channel in Store becomes trade-policy and regionId in VTEX's realm
@@ -29,8 +38,13 @@ export const transformSelectedFacet = ({ key, value }: SelectedFacet) => {
       return [] // remove this facet from search
     }
 
-    case 'price': {
-      return { key, value: value.replace('-to-', ':') }
+    case "buy":
+    case "view":
+    case "similars":
+    case "viewAndBought":
+    case "accessories":
+    case "suggestions": {
+      return [] // remove this facet from search
     }
 
     default:
@@ -51,6 +65,18 @@ export const parseRange = (range: string): [number, number] | null => {
 
   return splitted as [number, number]
 }
+
+export const isCrossSelling = (
+  x: string,
+): x is keyof typeof FACET_CROSS_SELLING_MAP =>
+  typeof (FACET_CROSS_SELLING_MAP as Record<string, string>)[x] === "string"
+
+export const findCrossSelling = (facets?: Maybe<SelectedFacet[]>) =>
+  facets?.find((
+    x,
+  ): x is { key: keyof typeof FACET_CROSS_SELLING_MAP; value: string } =>
+    isCrossSelling(x.key)
+  ) ?? null
 
 export const findSlug = (facets?: Maybe<SelectedFacet[]>) =>
   facets?.find((x) => x.key === 'slug')?.value ?? null
