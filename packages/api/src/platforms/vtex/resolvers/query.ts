@@ -97,6 +97,7 @@ export const Query = {
     // Insert channel in context for later usage
     const channel = findChannel(selectedFacets)
     const locale = findLocale(selectedFacets)
+    const crossSelling = findCrossSelling(selectedFacets)
 
     if (channel) {
       mutateChannelContext(ctx, channel)
@@ -124,7 +125,6 @@ export const Query = {
      * selling with Search features, like pagination, internationalization
      * etc
      */
-    const crossSelling = findCrossSelling(selectedFacets)
     if (crossSelling) {
       const products = await ctx.clients.commerce.catalog.products.crossselling({
         type: FACET_CROSS_SELLING_MAP[crossSelling.key],

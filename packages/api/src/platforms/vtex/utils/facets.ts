@@ -6,6 +6,11 @@ export interface SelectedFacet {
   value: string
 }
 
+export interface CrossSellingFacet {
+  key: keyof typeof FACET_CROSS_SELLING_MAP
+  value: string
+}
+
 export const FACET_CROSS_SELLING_MAP = {
   buy: "whoboughtalsobought",
   view: "whosawalsosaw",
@@ -72,15 +77,11 @@ export const parseRange = (range: string): [number, number] | null => {
 
 export const isCrossSelling = (
   x: string,
-): x is keyof typeof FACET_CROSS_SELLING_MAP =>
+): x is CrossSellingFacet['key'] =>
   typeof (FACET_CROSS_SELLING_MAP as Record<string, string>)[x] === "string"
 
 export const findCrossSelling = (facets?: Maybe<SelectedFacet[]>) =>
-  facets?.find((
-    x,
-  ): x is { key: keyof typeof FACET_CROSS_SELLING_MAP; value: string } =>
-    isCrossSelling(x.key)
-  ) ?? null
+  facets?.find((x): x is CrossSellingFacet => isCrossSelling(x.key)) ?? null
 
 export const findSlug = (facets?: Maybe<SelectedFacet[]>) =>
   facets?.find((x) => x.key === 'slug')?.value ?? null
