@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Fix storybook mock structure ([#156](https://github.com/vtex-sites/nextjs.store/pull/156))
+
 ### Deprecated
 
 ### Removed
