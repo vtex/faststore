@@ -1,25 +1,27 @@
-import { NotFoundError, BadRequestError } from '../../errors'
-import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
-import { enhanceSku } from '../utils/enhanceSku'
+import { FACET_CROSS_SELLING_MAP } from "./../utils/facets"
+import { BadRequestError, NotFoundError } from "../../errors"
+import { mutateChannelContext, mutateLocaleContext } from "../utils/contex"
+import { enhanceSku } from "../utils/enhanceSku"
 import {
   findChannel,
+  findCrossSelling,
   findLocale,
   findSkuId,
   findSlug,
   transformSelectedFacet,
-} from '../utils/facets'
-import { SORT_MAP } from '../utils/sort'
-import { StoreCollection } from './collection'
+} from "../utils/facets"
+import { SORT_MAP } from "../utils/sort"
+import { StoreCollection } from "./collection"
 import type {
-  QueryProductArgs,
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
-  QuerySearchArgs,
   QueryCollectionArgs,
-} from '../../../__generated__/schema'
-import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
-import type { Context } from '../index'
-import { isValidSkuId, pickBestSku } from '../utils/sku'
+  QueryProductArgs,
+  QuerySearchArgs,
+} from "../../../__generated__/schema"
+import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
+import type { Context } from "../index"
+import { isValidSkuId, pickBestSku } from "../utils/sku"
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -95,6 +97,7 @@ export const Query = {
     // Insert channel in context for later usage
     const channel = findChannel(selectedFacets)
     const locale = findLocale(selectedFacets)
+    const crossSelling = findCrossSelling(selectedFacets)
 
     if (channel) {
       mutateChannelContext(ctx, channel)
@@ -104,11 +107,33 @@ export const Query = {
       mutateLocaleContext(ctx, locale)
     }
 
+    let query = term
+
+    /**
+     * In case we are using crossSelling, we need to modify the search
+     * we will be performing on our search engine. The idea in here
+     * is to use the cross selling API for fetching the productIds our
+     * search will return for us.
+     * Doing this two request workflow makes it possible to have cross
+     * selling with Search features, like pagination, internationalization
+     * etc
+     */
+    if (crossSelling) {
+      const products = await ctx.clients.commerce.catalog.products.crossselling({
+        type: FACET_CROSS_SELLING_MAP[crossSelling.key],
+        productId: crossSelling.value,
+      })
+
+      query = `product:${
+        products.map((x) => x.productId).slice(0, first).join(";")
+      }`
+    }
+
     const after = maybeAfter ? Number(maybeAfter) : 0
     const searchArgs = {
-      page: Math.ceil(after / first!),
+      page: Math.ceil(after / first),
       count: first,
-      query: term,
+      query,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
     }
