@@ -6,11 +6,10 @@ import { Clients } from "../clients";
 import type { SalesChannel } from "./../clients/commerce/types/SalesChannel";
 
 export const getSalesChannelLoader = (_: Options, clients: Clients) => {
-  const loader = async (items: readonly void[]) => {
-    const channel = await clients.commerce.catalog.salesChannel();
+  const loader = async (channels: readonly string[]) =>
+    Promise.all(
+      channels.map((sc) => clients.commerce.catalog.salesChannel(sc)),
+    );
 
-    return new Array(items.length).fill(channel);
-  };
-
-  return new DataLoader<void, SalesChannel>(loader);
+  return new DataLoader<string, SalesChannel>(loader);
 };

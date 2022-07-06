@@ -15,6 +15,7 @@ import {
   ValidCart,
 } from '../mocks/ValidateCartMutation'
 import { getContextFactory, getSchema } from '../src'
+import { salesChannelStaleFetch } from '../mocks/salesChannel'
 import type { Options } from '../src'
 
 const apiOptions = {
@@ -103,6 +104,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
     checkoutOrderFormItemsInvalidFetch,
     checkoutOrderFormCustomDataInvalidFetch,
     productSearchPage1Count1Fetch,
+    salesChannelStaleFetch,
   ]
 
   mockedFetch.mockImplementation((info, init) =>
@@ -111,7 +113,7 @@ test('`validateCart` mutation should return the full order when an invalid cart 
 
   const response = await run(ValidateCartMutation, { cart: InvalidCart })
 
-  expect(mockedFetch).toHaveBeenCalledTimes(4)
+  expect(mockedFetch).toHaveBeenCalledTimes(5)
 
   fetchAPICalls.forEach((fetchAPICall, index) => {
     expect(mockedFetch).toHaveBeenNthCalledWith(
@@ -129,6 +131,7 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
     checkoutOrderFormStaleFetch,
     checkoutOrderFormCustomDataStaleFetch,
     productSearchPage1Count1Fetch,
+    salesChannelStaleFetch,
   ]
 
   mockedFetch.mockImplementation((info, init) =>
@@ -137,7 +140,7 @@ test('`validateCart` mutation should return new cart when etag is stale', async 
 
   const response = await run(ValidateCartMutation, { cart: InvalidCart })
 
-  expect(mockedFetch).toHaveBeenCalledTimes(3)
+  expect(mockedFetch).toHaveBeenCalledTimes(4)
 
   fetchAPICalls.forEach((fetchAPICall, index) => {
     expect(mockedFetch).toHaveBeenNthCalledWith(

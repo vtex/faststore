@@ -28,6 +28,7 @@ import {
   productSearchCategory1Fetch,
   attributeSearchCategory1Fetch,
 } from '../mocks/SearchQuery'
+import { salesChannelStaleFetch } from '../mocks/salesChannel'
 
 const apiOptions = {
   platform: 'vtex',
@@ -159,7 +160,10 @@ test('`allCollections` query', async () => {
 })
 
 test('`allProducts` query', async () => {
-  const fetchAPICalls = [productSearchPage1Count5Fetch]
+  const fetchAPICalls = [
+    productSearchPage1Count5Fetch, 
+    salesChannelStaleFetch,
+  ]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -167,7 +171,7 @@ test('`allProducts` query', async () => {
 
   const response = await run(AllProductsQueryFirst5)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(1)
+  expect(mockedFetch).toHaveBeenCalledTimes(2)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(

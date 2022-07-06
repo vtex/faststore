@@ -219,7 +219,7 @@ Object {
                   },
                   "listPrice": 490,
                   "price": 420,
-                  "priceCurrency": "",
+                  "priceCurrency": "USD",
                   "quantity": 10000,
                   "seller": Object {
                     "identifier": "1",
@@ -277,7 +277,7 @@ Object {
                   },
                   "listPrice": 150,
                   "price": 130,
-                  "priceCurrency": "",
+                  "priceCurrency": "USD",
                   "quantity": 10000,
                   "seller": Object {
                     "identifier": "1",
@@ -335,7 +335,7 @@ Object {
                   },
                   "listPrice": 310,
                   "price": 280,
-                  "priceCurrency": "",
+                  "priceCurrency": "USD",
                   "quantity": 10000,
                   "seller": Object {
                     "identifier": "1",
@@ -393,7 +393,7 @@ Object {
                   },
                   "listPrice": 344,
                   "price": 315,
-                  "priceCurrency": "",
+                  "priceCurrency": "USD",
                   "quantity": 10000,
                   "seller": Object {
                     "identifier": "1",
@@ -451,7 +451,7 @@ Object {
                   },
                   "listPrice": 999,
                   "price": 950,
-                  "priceCurrency": "",
+                  "priceCurrency": "USD",
                   "quantity": 10000,
                   "seller": Object {
                     "identifier": "1",

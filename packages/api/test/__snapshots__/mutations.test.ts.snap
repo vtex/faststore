@@ -15,7 +15,7 @@ Object {
             },
             "listPrice": 557.57,
             "price": 349.12,
-            "priceCurrency": "",
+            "priceCurrency": "USD",
             "quantity": 2,
             "seller": Object {
               "identifier": "1",
@@ -45,7 +45,7 @@ Object {
             },
             "listPrice": 557.57,
             "price": 349.12,
-            "priceCurrency": "",
+            "priceCurrency": "USD",
             "quantity": 2,
             "seller": Object {
               "identifier": "1",

@@ -34,10 +34,8 @@ export const VtexCommerce = (
 
   return {
     catalog: {
-      salesChannel: (): Promise<SalesChannel> =>
-        fetchAPI(
-          `${base}/api/catalog_system/pub/saleschannel/${ctx.storage.channel.salesChannel}`,
-        ),
+      salesChannel: (sc: string): Promise<SalesChannel> =>
+        fetchAPI(`${base}/api/catalog_system/pub/saleschannel/${sc}`),
       brand: {
         list: (): Promise<Brand[]> =>
           fetchAPI(`${base}/api/catalog_system/pub/brand/list`),
