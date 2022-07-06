@@ -5,9 +5,9 @@ pagination_prev: null
 ---
 
 import IconGrid from "@site/src/components/IconGrid/IconGrid";
-import FastStorePackages from "@site/src/components/FastStorePackages/FastStorePackages";
+import CardGrid from "@site/src/components/CardGrid/CardGrid";
 
-# FastStore
+# APIs and References
 
 FastStore is a **light yet powerful set of libraries** made for developers who want to explore their knowledge and creativity building comprehensive ecommerce solutions. FastStore supports integration with **headless ecommerce platforms** and delivers all the necessary building blocks for creating custom ecommerce experiences.
 
@@ -23,7 +23,7 @@ With FastStore and by following our recommended practices, you can achieve outst
 
 FastStore encapsulates the following three main packages:
 
-<FastStorePackages>
+<CardGrid icon>
 
 [ <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" viewBox="0 0 48 48"><g stroke-linecap="square" stroke-width="2" fill="none" stroke="currentColor" stroke-linejoin="miter" stroke-miterlimit="10"><polyline points="44 21 44 4 4 4 4 44 21 44"></polyline> <line data-cap="butt" x1="45" y1="45" x2="29" y2="29" stroke-linecap="butt" stroke="#f71963"></line> <polyline points="29 44 29 29 44 29" stroke="#f71963"></polyline></g></svg> **FastStore UI** A React component library of basic UI primitives built on Atomic Design. FastStore UI complies with accessibility standards and is compatible with any CSS framework and preprocessor.](/reference/ui/get-started-faststore-ui)
 
@@ -31,7 +31,7 @@ FastStore encapsulates the following three main packages:
 
 [ <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" viewBox="0 0 48 48"><g stroke-linecap="square" stroke-width="2" fill="none" stroke="currentColor" stroke-linejoin="miter" class="nc-icon-wrapper" stroke-miterlimit="10"><path d="M14.2,26a14,14,0,1,1,19.6,0"></path><circle cx="24" cy="16" r="6"></circle><circle cx="24" cy="29" r="3" stroke="#f71963"></circle><circle cx="24" cy="43" r="3" stroke="#f71963"></circle><circle cx="13" cy="40" r="3" stroke="#f71963"></circle><line x1="24" y1="32" x2="24" y2="40" data-cap="butt" stroke-linecap="butt" stroke="#f71963"></line><polyline points="13 37 13 33 21 29" data-cap="butt" stroke-linecap="butt" stroke="#f71963"></polyline><circle cx="35" cy="40" r="3" stroke="#f71963"></circle><polyline points="35 37 35 33 27 29" data-cap="butt" stroke-linecap="butt" stroke="#f71963"></polyline></g></svg> **FastStore API** A GraphQL API layer between your store and your favorite ecommerce platform.](/reference/api/faststore-api)
 
-</FastStorePackages>
+</CardGrid>
 
 Besides these three main libraries, FastStore also counts with the following packages:
 

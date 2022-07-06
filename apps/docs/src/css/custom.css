@@ -25,6 +25,9 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  --ifm-menu-color-background-active: transparent;
+  --ifm-menu-color-background-hover: transparent;
+
   --ifm-color-black: #000;
   --ifm-background-color: #fff !important;
   --ifm-color-rebel-pink: #e31c58;
@@ -73,9 +76,6 @@
   --ifm-color-primary: rgba(256, 256, 256, 0.7) !important;
   --ifm-color-secondary: #142032 !important;
   --ifm-font-color-secondary: #E7E9EE;
-
-  --ifm-menu-color-background-hover: var(--ifm-color-secondary);
-
   --ifm-hr-border-color: var(--ifm-color-secondary);
   --ifm-color-details: rgba(256, 256, 256, 0.7);
   --ifm-footer-link-hover-color: var(--ifm-link-color);
@@ -134,8 +134,12 @@
   @apply bg-transparent !important;
 }
 
-[data-theme='dark'] code {
+code {
   @apply border-none;
+}
+
+.markdown img, .theme-code-block, .admonition {
+  @apply my-5
 }
 
 [data-theme='dark'] [class^='codeBlockLines'] {
@@ -163,10 +167,6 @@ nav {
 
 .FAQbar {
   @apply pl-4 border-l;
-}
-
-article {
-  @apply mt-6;
 }
 
 hr {
@@ -197,27 +197,6 @@ main a {
   @apply text-rebelPink;
 }
 
-article footer {
-  @apply max-w-2xl mx-auto;
-  color: var(--ifm-link-color);
-}
-
-[class^='navbar__item'] svg {
-  @apply mb-1 inline;
-}
-
-[class^='footer__item'] svg {
-  @apply mb-1 inline;
-}
-
-article footer svg {
-  @apply float-left;
-}
-
-.markdown img {
-  @apply my-5;
-}
-
 .markdown ul {
   @apply list-disc ml-8;
 }
@@ -241,23 +220,18 @@ article footer svg {
 }
 
 main h1 {
-  @apply text-3xl font-normal leading-10;
+  @apply text-4xl font-VTEXMedium text-fontSecondary;
 }
 main h2 {
-  @apply text-2xl font-normal leading-8;
+  @apply text-2xl font-VTEXMedium text-fontSecondary;
 }
 
 main h3 {
-  @apply text-lg font-bold leading-8;
-  font-family: 'VTEX Trust Medium';
+  @apply text-lg font-VTEXMedium text-fontSecondary;
 }
 
 main h4 {
-  @apply text-lg font-normal leading-8;
-}
-
-.admonition {
-  @apply my-7;
+  @apply text-lg font-normal text-fontSecondary;
 }
 
 code {
@@ -323,8 +297,7 @@ code {
 }
 
 [data-theme='dark'] [class^='codeBlockTitle'] {
-  @apply border-b border-gray-50;
-  background-color: var(--ifm-code-background) !important;
+  @apply border-b border-gray-50 bg-code;
 }
 
 [class^='pagination-nav']{
@@ -389,4 +362,40 @@ code {
 
 .fakeCategory .menu__list{
   @apply ml-0 pl-0 border-l !important
+}
+
+.theme-doc-sidebar-item-link .menu__link--active {
+  @apply relative;
+}
+.theme-doc-sidebar-item-link .menu__link--active:before {
+  @apply content-[''] absolute bottom-0 left-0 top-0 border-l border-primary;
+}
+
+.menu__link:hover, .menu__link--active {
+  @apply bg-transparent text-primary
+}
+.menu__list-item-collapsible:hover {
+  @apply bg-transparent
+}
+
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible .menu__link {
+  @apply font-bold font-VTEXMedium text-[0.9rem]
+}
+
+.menu__caret:before{
+  @apply hidden
+}
+
+.menu__caret:after, .menu__link--sublist-caret:after{
+  content: '';
+  background: url('../../static/img/caret-down.svg') 50%/1rem 1rem;
+  margin-left: auto;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  width: 1.25rem;
+  transform: rotateZ(180deg) 
+}
+
+.menu__list-item--collapsed .menu__caret:after, .menu__link--sublist-caret[aria-expanded="false"]:after{
+  transform: rotateZ(360deg) 
 }

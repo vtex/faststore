@@ -4,7 +4,7 @@ import DocStructure from '../../../components/DocStructure/DocStructure'
 
 const EducationSection = () => {
   return (
-    <section className="pt-20 text-text grid md:grid-cols-2 gap-10 sm:grid-cols-1">
+    <section className="container py-20 text-text grid md:grid-cols-2 gap-10 sm:grid-cols-1">
       <DocUpdate />
       <DocStructure />
     </section>

@@ -4,7 +4,7 @@ import ViewAll from '../../../components/ViewAll/ViewAll'
 
 const UpdatesSection = () => {
   return (
-    <section className="border-b border-border py-20 text-text">
+    <section className="container border-y border-border py-20 text-text">
       <div className="flex justify-between">
         <div className="flex items-center">
           <div>
@@ -14,7 +14,7 @@ const UpdatesSection = () => {
             <ViewAll message="View all" linkTo="/releases" />
           </div>
         </div>
-        <div className="hidden lg:block lg:w-10/12">
+        <div className="hidden lg:block lg:w-10/12 lg:pl-24">
           <LatestUpdates />
         </div>
       </div>

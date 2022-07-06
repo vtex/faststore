@@ -1,87 +1,42 @@
-/* Cards with icons */
-.homeGrid > * {
-  @apply relative m-0 border border-border;
-  border-radius: var(--ifm-pagination-nav-border-radius);
-}
-
-.homeGrid a {
-  @apply block;
-  color: var(--ifm-font-color-base);
-  padding: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
-  padding-left: 98px;
-}
-
-.homeGrid a:active,
-.homeGrid a:hover {
-  @apply no-underline;
-}
-
-.homeGrid a:active strong,
-.homeGrid a:hover strong {
-  @apply no-underline text-rebelPink;
-}
-
-.homeGrid a img,
-.homeGrid a svg {
-  @apply absolute border-0 bg-transparent rounded-none top-5 left-6 h-12 w-12;
-  box-shadow: none;
-}
-
-.cardGrid a strong,
-.homeGrid a strong {
-  @apply block mb-2;
-  color: var(--ifm-color-label);
-}
-
-/* Plain cards without icons */
 .cardGrid > * {
-  margin: 0;
-  position: relative;
-}
-
-.cardGrid a {
-  color: inherit;
-  display: block;
-  padding: 30px 30px;
-  @apply border-border rounded border;
-}
-
-.cardGrid a:active,
-.cardGrid a:hover {
-  @apply no-underline;
-}
-
-.cardGrid a:active strong,
-.cardGrid a:hover strong{
-  @apply text-rebelPink;
+  @apply relative m-0;
 }
 
 .cardGrid a strong {
   @apply block mb-2;
 }
 
-/* Make grids responsive*/
-@media only screen and (min-width: 1240px) {
-  .cardGrid,
-  .homeGrid {
-    @apply grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--ifm-spacing-vertical) var(--ifm-spacing-horizontal);
-  }
+.cardGrid a {
+  @apply border-border rounded border block text-text p-7 active:no-underline hover:no-underline;
 }
 
-/* Add spacing between grids and sections */
-h2 + .cardGrid,
-h2 + .homeGrid {
-  margin-top: var(--ifm-spacing-vertical);
+.iconGrid, .cardGrid {
+  @apply my-8 grid grid-rows-1 gap-4 sm:grid-cols-2;
 }
 
-.cardGrid + h2,
-.homeGrid + h2 {
-  @apply pt-5;
+.iconGrid > * {
+  @apply relative border border-border rounded-lg;
 }
 
-.cardGrid > p,
-.homeGrid > p {
-  margin-top: var(--ifm-spacing-vertical) !important;
+.iconGrid a {
+  @apply block pl-20 py-6 pr-8 text-text;
+}
+
+.iconGrid a:active,
+.iconGrid a:hover{
+  @apply no-underline;
+}
+
+.iconGrid a svg {
+  @apply absolute left-6 w-8 top-6;
+}
+
+.iconGrid a strong {
+  @apply block mb-2 text-xl;
+}
+
+.cardGrid a:active strong,
+.cardGrid a:hover strong,
+.iconGrid a:hover  strong{
+  @apply text-rebelPink;
 }
