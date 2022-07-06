@@ -26,7 +26,7 @@ export type PriceRangeProps = SliderProps & {
 }
 
 type PriceRangeRefType = {
-  setEdgeValues: (values: { min: number; max: number }) => void
+  setPriceRangeValues: (values: { min: number; max: number }) => void
 }
 
 const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
@@ -50,7 +50,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
     const [edges, setEdges] = useState({ min: min.selected, max: max.selected })
 
     useImperativeHandle(ref, () => ({
-      setEdgeValues: (values: { min: number; max: number }) => {
+      setPriceRangeValues: (values: { min: number; max: number }) => {
         setEdges(values)
         onChange?.(values)
         sliderRef.current?.setSliderValues(values)
