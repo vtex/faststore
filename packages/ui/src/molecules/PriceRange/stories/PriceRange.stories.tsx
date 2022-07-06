@@ -22,12 +22,12 @@ function formatter(price: number) {
 
 const argTypes: ComponentArgTypes<PriceRangeProps> = {
   min: {
-    control: { type: 'number', min: 0 },
-    defaultValue: 0,
+    control: { type: 'object' },
+    defaultValue: { selected: 10, absolute: 0 },
   },
   max: {
-    control: { type: 'number', min: 1 },
-    defaultValue: 500,
+    control: { type: 'object' },
+    defaultValue: { selected: 90, absolute: 100 },
   },
   formatter: {
     defaultValue: formatter,
