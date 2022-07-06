@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.7](https://github.com/vtex/faststore/compare/v1.10.6...v1.10.7) (2022-07-06)
+
+
+### Features
+
+* Supports update of `Slider` and `PriceRange` values ([#1380](https://github.com/vtex/faststore/issues/1380)) ([41dca35](https://github.com/vtex/faststore/commit/41dca35f0c320cf1659e8a74032cc2ee755a9f6f))
+
+
+
+
+
 ## 1.10.6 (2022-07-05)
 
 
