@@ -11,9 +11,7 @@ import type {
   Simulation,
   SimulationArgs,
   SimulationOptions,
-} from './types/Simulation'
-import type { Session } from './types/Session'
-import type { Channel } from '../../utils/channel'
+import type { SalesChannel } from "./types/SalesChannel";
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never;
 
@@ -32,6 +30,10 @@ export const VtexCommerce = (
 
   return {
     catalog: {
+      saleschannel: (): Promise<SalesChannel> =>
+        fetchAPI(
+          `${base}/api/catalog_system/pub/saleschannel/${ctx.storage.channel.salesChannel}`,
+        ),
       brand: {
         list: (): Promise<Brand[]> =>
           fetchAPI(`${base}/api/catalog_system/pub/brand/list`),
