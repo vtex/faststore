@@ -108,8 +108,12 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       <div data-store-slider data-testid={testId} className={className}>
         <div
           style={{
-            left: `${minPercent}%`,
-            width: `${maxPercent - minPercent}%`,
+            left: `${minPercent < min.absolute ? min.absolute : minPercent}%`,
+            width: `${
+              maxPercent - minPercent > 100
+                ? 100 - minPercent
+                : maxPercent - minPercent
+            }%`,
           }}
           data-slider-range
         />
