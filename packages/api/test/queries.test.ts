@@ -110,7 +110,10 @@ test('`collection` query', async () => {
 })
 
 test('`product` query', async () => {
-  const fetchAPICalls = [productSearchFetch]
+  const fetchAPICalls = [
+    productSearchFetch, 
+    salesChannelStaleFetch
+  ]
 
   mockedFetch.mockImplementation((info, init) =>
     pickFetchAPICallResult(info, init, fetchAPICalls)
@@ -118,7 +121,7 @@ test('`product` query', async () => {
 
   const response = await run(ProductByIdQuery)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(1)
+  expect(mockedFetch).toHaveBeenCalledTimes(2)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
@@ -187,6 +190,7 @@ test('`search` query', async () => {
   const fetchAPICalls = [
     productSearchCategory1Fetch,
     attributeSearchCategory1Fetch,
+    salesChannelStaleFetch
   ]
 
   mockedFetch.mockImplementation((info, init) =>
@@ -195,7 +199,7 @@ test('`search` query', async () => {
 
   const response = await run(SearchQueryFirst5Products)
 
-  expect(mockedFetch).toHaveBeenCalledTimes(2)
+  expect(mockedFetch).toHaveBeenCalledTimes(3)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(
