@@ -9,6 +9,48 @@ import '@faststore/styles'
 import React, { useEffect, useState } from 'react'
 import * as UI from '@faststore/ui'
 
+const value = 3
+const decimalValue = 3.5
+
+const FireIcon = (props) => {
+  const conditionalClass = props["data-store-aggregate-rating-item"] === "full" ? "text-orange-500" : "text-details"
+  return (
+    <i className={`fa fa-fire mr-1 text-2xl ${conditionalClass}`}></i>
+  )
+}
+
+const RatingIcon = (props) => {
+  const fillColor = {
+    empty: 'transparent',
+    partial: 'url(#partial)',
+    full: '#ffb100',
+  }
+
+  return (
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+      {...props}
+    >
+      <defs>
+        <linearGradient id="partial">
+          <stop offset="50%" stopColor="#ffb100" />
+          <stop offset="50%" stopColor="transparent" stopOpacity="1" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M20.388,10.918L32,12.118l-8.735,7.749L25.914,
+             31.4l-9.893-6.088L6.127,31.4l2.695-11.533L0,
+             12.118l11.547-1.2L16.026,0.6L20.388,10.918z"
+        fill={fillColor[props['data-store-aggregate-rating-item']!]}
+        strokeWidth="2"
+        stroke="#ffb100"
+      />
+    </svg>
+  )
+}
+
 const PlusIcon = (props) => {
   return (
     <svg
@@ -246,7 +288,11 @@ const ReactLiveScope = {
   React,
   ...React,
   ...UI,
+  value,
+  decimalValue,
   SafetyIcon,
+  RatingIcon,
+  FireIcon,
   MinusIcon,
   PlusIcon,
   RightArrow,
