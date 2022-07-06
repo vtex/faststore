@@ -1,7 +1,12 @@
 /**
  * This code is inspired by the work of [sandra-lewis](https://codesandbox.io/u/sandra-lewis)
  */
-import React, { useState, useMemo } from 'react'
+import React, {
+  useState,
+  useMemo,
+  useImperativeHandle,
+  forwardRef,
+} from 'react'
 
 interface Range {
   absolute: number
@@ -41,83 +46,105 @@ export type SliderProps = {
   className?: string
 }
 
+type SliderRefType = {
+  setSliderValues: (values: { min: number; max: number }) => void
+}
+
 const percent = (value: number, min: number, max: number) =>
   Math.round(((value - min) / (max - min)) * 100)
 
-const Slider = ({
-  min,
-  max,
-  onChange,
-  onEnd,
-  testId = 'store-slider',
-  getAriaValueText,
-  className,
-}: SliderProps) => {
-  const [minPercent, setMinPercent] = useState(() =>
-    percent(min.selected, min.absolute, max.absolute)
-  )
+const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
+  function Slider(
+    {
+      min,
+      max,
+      onChange,
+      onEnd,
+      testId = 'store-slider',
+      getAriaValueText,
+      className,
+    },
+    ref
+  ) {
+    const [minPercent, setMinPercent] = useState(() =>
+      percent(min.selected, min.absolute, max.absolute)
+    )
 
-  const [maxPercent, setMaxPercent] = useState(() =>
-    percent(max.selected, min.absolute, max.absolute)
-  )
+    const [maxPercent, setMaxPercent] = useState(() =>
+      percent(max.selected, min.absolute, max.absolute)
+    )
 
-  const { minVal, maxVal } = useMemo(() => {
-    const widthPercent = (max.absolute - min.absolute) / 100
+    const { minVal, maxVal } = useMemo(() => {
+      const widthPercent = (max.absolute - min.absolute) / 100
 
-    return {
-      minVal: min.absolute + minPercent * widthPercent,
-      maxVal: min.absolute + maxPercent * widthPercent,
-    }
-  }, [min, max, maxPercent, minPercent])
+      return {
+        minVal: min.absolute + minPercent * widthPercent,
+        maxVal: min.absolute + maxPercent * widthPercent,
+      }
+    }, [min, max, maxPercent, minPercent])
 
-  return (
-    <div data-store-slider data-testid={testId} className={className}>
-      <div
-        style={{ left: `${minPercent}%`, width: `${maxPercent - minPercent}%` }}
-        data-slider-range
-      />
-      <input
-        type="range"
-        min={min.absolute}
-        max={max.absolute}
-        value={minVal}
-        onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
-        onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
-        onChange={(event) => {
-          const minValue = Math.min(Number(event.target.value), maxVal)
+    useImperativeHandle(ref, () => ({
+      setSliderValues: (values: { min: number; max: number }) => {
+        const sliderMinValue = Math.min(Number(values.min), maxVal)
+        const sliderMaxValue = Math.max(Number(values.max), minVal)
 
-          setMinPercent(percent(minValue, min.absolute, max.absolute))
-          onChange?.({ min: minValue, max: maxVal })
-        }}
-        data-slider-thumb="left"
-        aria-valuemin={min.absolute}
-        aria-valuemax={max.absolute}
-        aria-valuenow={minVal}
-        aria-label={String(minVal)}
-        aria-labelledby={getAriaValueText?.(minVal, 'min')}
-      />
-      <input
-        type="range"
-        min={min.absolute}
-        max={max.absolute}
-        value={maxVal}
-        onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
-        onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
-        onChange={(event) => {
-          const maxValue = Math.max(Number(event.target.value), minVal)
+        setMinPercent(percent(sliderMinValue, min.absolute, max.absolute))
+        setMaxPercent(percent(sliderMaxValue, min.absolute, max.absolute))
+      },
+    }))
 
-          setMaxPercent(percent(maxValue, min.absolute, max.absolute))
-          onChange?.({ min: minVal, max: maxValue })
-        }}
-        data-slider-thumb="right"
-        aria-valuemin={min.absolute}
-        aria-valuemax={max.absolute}
-        aria-valuenow={maxVal}
-        aria-label={String(maxVal)}
-        aria-labelledby={getAriaValueText?.(maxVal, 'max')}
-      />
-    </div>
-  )
-}
+    return (
+      <div data-store-slider data-testid={testId} className={className}>
+        <div
+          style={{
+            left: `${minPercent}%`,
+            width: `${maxPercent - minPercent}%`,
+          }}
+          data-slider-range
+        />
+        <input
+          type="range"
+          min={min.absolute}
+          max={max.absolute}
+          value={minVal}
+          onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
+          onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
+          onChange={(event) => {
+            const minValue = Math.min(Number(event.target.value), maxVal)
+
+            setMinPercent(percent(minValue, min.absolute, max.absolute))
+            onChange?.({ min: minValue, max: maxVal })
+          }}
+          data-slider-thumb="left"
+          aria-valuemin={min.absolute}
+          aria-valuemax={max.absolute}
+          aria-valuenow={minVal}
+          aria-label={String(minVal)}
+          aria-labelledby={getAriaValueText?.(minVal, 'min')}
+        />
+        <input
+          type="range"
+          min={min.absolute}
+          max={max.absolute}
+          value={maxVal}
+          onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
+          onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
+          onChange={(event) => {
+            const maxValue = Math.max(Number(event.target.value), minVal)
+
+            setMaxPercent(percent(maxValue, min.absolute, max.absolute))
+            onChange?.({ min: minVal, max: maxValue })
+          }}
+          data-slider-thumb="right"
+          aria-valuemin={min.absolute}
+          aria-valuemax={max.absolute}
+          aria-valuenow={maxVal}
+          aria-label={String(maxVal)}
+          aria-labelledby={getAriaValueText?.(maxVal, 'max')}
+        />
+      </div>
+    )
+  }
+)
 
 export default Slider

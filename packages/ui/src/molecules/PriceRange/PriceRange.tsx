@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useImperativeHandle, forwardRef } from 'react'
 import type { AriaAttributes } from 'react'
 
 import Price from '../../atoms/Price'
@@ -25,47 +25,68 @@ export type PriceRangeProps = SliderProps & {
   'aria-label'?: AriaAttributes['aria-label']
 }
 
-const PriceRange = ({
-  className,
-  formatter,
-  max,
-  min,
-  onChange,
-  onEnd,
-  testId = 'store-price-range',
-  variant,
-  'aria-label': ariaLabel,
-}: PriceRangeProps) => {
-  const [edges, setEdges] = useState({ min: min.selected, max: max.selected })
-
-  return (
-    <div data-store-price-range data-testid={testId} className={className}>
-      <Slider
-        min={min}
-        max={max}
-        onEnd={onEnd}
-        onChange={(value) => {
-          setEdges(value)
-          onChange?.(value)
-        }}
-        aria-label={ariaLabel}
-      />
-      <div data-price-range-values>
-        <Price
-          formatter={formatter}
-          data-price-range-value="min"
-          value={edges.min}
-          variant={variant}
-        />
-        <Price
-          formatter={formatter}
-          data-price-range-value="max"
-          value={edges.max}
-          variant={variant}
-        />
-      </div>
-    </div>
-  )
+type PriceRangeRefType = {
+  setPriceRangeValues: (values: { min: number; max: number }) => void
 }
+
+const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
+  function PriceRange(
+    {
+      className,
+      formatter,
+      max,
+      min,
+      onChange,
+      onEnd,
+      testId = 'store-price-range',
+      variant,
+      'aria-label': ariaLabel,
+    },
+    ref
+  ) {
+    const sliderRef = useRef<{
+      setSliderValues: (values: { min: number; max: number }) => void
+    }>()
+    const [edges, setEdges] = useState({ min: min.selected, max: max.selected })
+
+    useImperativeHandle(ref, () => ({
+      setPriceRangeValues: (values: { min: number; max: number }) => {
+        setEdges(values)
+        onChange?.(values)
+        sliderRef.current?.setSliderValues(values)
+      },
+    }))
+
+    return (
+      <div data-store-price-range data-testid={testId} className={className}>
+        <Slider
+          ref={sliderRef}
+          min={min}
+          max={max}
+          onEnd={onEnd}
+          onChange={(value) => {
+            setEdges(value)
+            onChange?.(value)
+          }}
+          aria-label={ariaLabel}
+        />
+        <div data-price-range-values>
+          <Price
+            formatter={formatter}
+            data-price-range-value="min"
+            value={edges.min}
+            variant={variant}
+          />
+          <Price
+            formatter={formatter}
+            data-price-range-value="max"
+            value={edges.max}
+            variant={variant}
+          />
+        </div>
+      </div>
+    )
+  }
+)
 
 export default PriceRange
