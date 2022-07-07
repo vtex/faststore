@@ -1431,10 +1431,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/api@^1.10.6":
-  version "1.10.6"
-  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-1.10.6.tgz#ef01ebe2019d795a3b49291b9b3a96a328e51293"
-  integrity sha512-ZwOxEZ+eItI1dA1tPgG8lVZhBTlSpPIeVcOVKUNZEy/e6dkhMX5pz0RionidGVzMSR5aAawQ20xqYr4kXGJLzg==
+"@faststore/api@^1.10.8":
+  version "1.10.8"
+  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-1.10.8.tgz#be0d7297e4514e6d328b42cdf722cb6099b2c08b"
+  integrity sha512-os6ebn8j3N1lVekZLCenDwNJI+CR8JQ04Fz4CimYrQhD461q8Hl7BzfVe5FB+aERzHLBlrUm1OkE5IaCkKD7VA==
   dependencies:
     "@graphql-tools/schema" "^8.2.0"
     "@rollup/plugin-graphql" "^1.0.0"
@@ -1465,10 +1465,10 @@
   dependencies:
     idb-keyval "^5.1.3"
 
-"@faststore/ui@^1.10.6":
-  version "1.10.6"
-  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.10.6.tgz#dfd8462298a7989e45382f22c74f568fe88dd165"
-  integrity sha512-7p53CkcWl71kPHjoMCruREVT8lWeD/JBQBCTKQTokvqeejnmWobgkTDXa+LSbM3e1+ou6hvVI7Rprrg1fmzp2g==
+"@faststore/ui@^1.10.7":
+  version "1.10.7"
+  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.10.7.tgz#22d02df880c0ce62dff1ce0e9c75c377d01e13d5"
+  integrity sha512-MD9NHFFsOOg3Jlsl3cN4VfCd5CzPRRsvGbB0FyOoIWZQKyGw2oCC1Xcu7gqvrrKPm0AtwF2SP8IiD1CSyXoTeg==
   dependencies:
     "@reach/popover" "^0.16.0"
     "@storybook/addon-a11y" "^6.4.4"
