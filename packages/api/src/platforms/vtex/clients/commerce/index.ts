@@ -1,6 +1,7 @@
-import { FACET_CROSS_SELLING_MAP } from "../../utils/facets"
-import { fetchAPI } from "../fetch"
-import type { PortalProduct } from "./types/Product"
+import { FACET_CROSS_SELLING_MAP } from '../../utils/facets'
+import { fetchAPI } from '../fetch'
+
+import type { PortalProduct } from './types/Product'
 import type { Context, Options } from '../../index'
 import type { Brand } from './types/Brand'
 import type { CategoryTree } from './types/CategoryTree'
@@ -14,8 +15,9 @@ import type {
 } from './types/Simulation'
 import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
+import type { SalesChannel } from './types/SalesChannel'
 
-type ValueOf<T> = T extends Record<string, infer K> ? K : never;
+type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
 const BASE_INIT = {
   method: 'POST',
@@ -32,6 +34,8 @@ export const VtexCommerce = (
 
   return {
     catalog: {
+      salesChannel: (sc: string): Promise<SalesChannel> =>
+        fetchAPI(`${base}/api/catalog_system/pub/saleschannel/${sc}`),
       brand: {
         list: (): Promise<Brand[]> =>
           fetchAPI(`${base}/api/catalog_system/pub/brand/list`),
