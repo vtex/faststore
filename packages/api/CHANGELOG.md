@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.8](https://github.com/vtex/faststore/compare/v1.10.7...v1.10.8) (2022-07-07)
+
+
+### Features
+
+* Add priceCurrency to Offer ([#1399](https://github.com/vtex/faststore/issues/1399)) ([7ca846a](https://github.com/vtex/faststore/commit/7ca846af9b157707c71422b0d7e3e481edfbe5e6))
+
+
+
+
+
 ## 1.10.6 (2022-07-05)
 
 
