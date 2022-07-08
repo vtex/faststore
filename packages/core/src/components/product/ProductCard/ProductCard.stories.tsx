@@ -9,7 +9,7 @@ import ProductCard from '.'
 
 const story = {
   component: ProductCard,
-  title: 'Molecules/ProductCard',
+  title: 'Molecules/ProductCard ⚠️',
   argTypes: {
     variant: {
       defaultValue: 'default',

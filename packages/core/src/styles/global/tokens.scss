@@ -220,8 +220,8 @@ body {
   // --------------------------------------------------------
 
   // TAP
-  --fs-control-tap-size-smallest       : calc(var(--fs-control-tap-size) / 2);
   --fs-control-tap-size                : var(--fs-spacing-7); // 3rem = 48px
+  --fs-control-tap-size-smallest       : calc(var(--fs-control-tap-size) / 2);
 
   @include media(">=notebook") {
     --fs-control-tap-size              : var(--fs-spacing-7); // This value can be smaller on desktops
@@ -229,8 +229,6 @@ body {
 
   // STATES
   --fs-control-bkg                     : var(--fs-color-neutral-0);
-  --fs-control-bkg-hover               : var(--fs-control-tap-size);
-  --fs-control-bkg-active              : var(--fs-control-tap-size);
   --fs-control-bkg-disabled            : var(--fs-color-disabled-bkg);
 
   // SIZING
@@ -252,6 +250,10 @@ body {
   --fs-border-radius-pill              : 100px;
   --fs-border-radius-circle            : 100%;
 
+  --fs-border-width                    : 1px;
+  --fs-border-width-thick              : 2px;
+  --fs-border-width-thickest           : 3px;
+
   --fs-border-color                    : var(--fs-color-neutral-4);
   --fs-border-color-hover              : var(--fs-color-main-3);
   --fs-border-color-active             : var(--fs-color-main-2);
@@ -261,10 +263,6 @@ body {
   --fs-border-color-light-hover        : var(--fs-color-neutral-3);
   --fs-border-color-light-active       : var(--fs-color-neutral-3);
   --fs-border-color-light-disabled     : var(--fs-color-neutral-5);
-
-  --fs-border-width                    : 1px;
-  --fs-border-width-thick              : 2px;
-  --fs-border-width-thickest           : 3px;
 
   // SHADOW
   --fs-shadow                          : none;

@@ -4,7 +4,7 @@ import { Badge } from '.'
 
 const story = {
   component: Badge,
-  title: 'Molecules/Badge',
+  title: 'Molecules/Badge/Default ⚠️',
   argTypes: {
     onClose: { table: { disable: true } },
     children: {

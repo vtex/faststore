@@ -3,7 +3,7 @@ import Select from '.'
 
 const story = {
   component: Select,
-  title: 'Atoms/Select',
+  title: 'Atoms/Select ⚠️',
 }
 
 const Template = ({ ...args }: SelectProps) => <Select {...args} />

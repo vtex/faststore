@@ -7,6 +7,7 @@ import {
 } from '@storybook/addon-docs'
 
 import Icon from '../components/ui/Icon'
+import { Callout } from 'src/../.storybook/components'
 
 <Meta
   title="Fundamentals/Icons"
@@ -19,8 +20,19 @@ import Icon from '../components/ui/Icon'
 
 </header>
 
-We are using the Phospor Icons library for our icons.
-https://phosphoricons.com/
+This project uses SVGs from <a ahref="https://phosphoricons.com/">Phosphor icons</a>.
+
+<Callout>
+  Icons help build web pages by illustrating concepts and improving website
+  navigation. However, using icons can decrease the page's performance. One
+  option to avoid the decrease of the page's performance is to use SVGs from a
+  single SVG file, located in <code>/static/icons.svg</code>, and load them with
+  the <code>ui/Icon</code>.Please check the{' '}
+  <a href="https://github.com/vtex-sites/nextjs.store#managing-svg-icons">
+    Managing SVG Icons
+  </a>{' '}
+  section on our readme for further instructions.
+</Callout>
 
 | Weights                              |
 | ------------------------------------ |

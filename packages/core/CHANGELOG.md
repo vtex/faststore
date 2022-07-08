@@ -9,12 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Global tokens doc page on storybook ([#147](https://github.com/vtex-sites/nextjs.store/pull/147))
 - Adds [bun](https://bun.sh/) compatiblity ([#164](https://github.com/vtex-sites/nextjs.store/pull/164))
 - Uses new cross selling API on PDP ([#137](https://github.com/vtex-sites/gatsby.store/pull/137))
 - Applies new local tokens to `SuggestionProductCard` ([#151](https://github.com/vtex-sites/nextjs.store/pull/151))
 
 ### Changed
 
+- Updated Getting Started doc page and overall improvements ([#147](https://github.com/vtex-sites/nextjs.store/pull/147))
 - Fix storybook mock structure ([#156](https://github.com/vtex-sites/nextjs.store/pull/156))
 
 ### Deprecated

@@ -3,7 +3,7 @@ import InputText from '.'
 
 const story = {
   component: InputText,
-  title: 'Atoms/InputText',
+  title: 'Atoms/InputText ⚠️',
   argTypes: {
     inputRef: {
       table: {
