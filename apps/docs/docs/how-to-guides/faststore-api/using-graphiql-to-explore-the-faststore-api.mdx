@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 
 You can explore your store's GraphQL data layer by running a local server of your project.
 
-## Get started
+## Getting started
 
 Follow these steps to run a local server and access GraphiQL:
 1. Open the terminal and change to your FastStore project directory.
@@ -38,6 +38,10 @@ You can use the text box on the left side to type queries and mutations. When yo
 If you are not sure what arguments or fields are allowed or required by some query, press `Ctrl + space` to use autocomplete. It will show you all available options. You can also use the `Explorer` tab. Learn more about it in [Exploring queries interactively](#exploring-queries-interactively).
 :::
 
+:::danger
+If you are experiencing dificulties running queries in GraphiQL with [gatsby.store](https://github.com/vtex-sites/gatsby.store), try installing and using [graphql-playground]().
+:::
+
 ## Exploring queries interactively
 
 Click the `Explorer` button to open the GraphiQL Explorer and tick the desired fields and inputs to build queries interactively. By doing so, you may avoid the repetitive process of manually inputting these values.
@@ -50,7 +54,7 @@ Note that the FastStore API extends the data layer provided by the framework you
 Check your framework documentation and learn more about [how Gatsby deals with GraphQL query options](https://www.gatsbyjs.com/docs/graphql-reference/) or [Data fetching in Next.js](https://nextjs.org/docs/basic-features/data-fetching/overview).
 :::
 
-## Variables
+## Passing arguments
 
 You can click `QUERY VARIABLES` at the bottom of the screen to open another text box where you can organize the query variables in JSON format.
 
@@ -95,7 +99,7 @@ query ExampleWithVariables ($first: Int!, $after: String) {
 
 </Tabs>
 
-## Documentation
+## Consulting documentation
 
 You can also learn more about the types and fields available by opening up the `DOCS` tab in the upper right corner. There you can search or browse through FastStore API queries, mutations and types in order to read the corresponding descriptions.
 
@@ -104,3 +108,9 @@ You can also learn more about the types and fields available by opening up the `
 :::caution
 VTEX is continuously working to ensure that the FastStore API types and fields are documented and available via GraphiQL. However, other APIs and frameworks (e.g., Gatsby, Next.js) may not necessarily be documented this way.
 :::
+
+## Checking your query history
+
+ The **History** panel provides a list of all previously executed queries. Click the query summary presented on the **History** panel to view it in the editor.
+
+![graphiql history](https://vtexhelp.vtexassets.com/assets/docs/src/te6%20graphiql%20jun2022___c6de0eb13aa2c21637def56f3be650b4.png)
