@@ -22,6 +22,8 @@ There are three main steps to building your page code to fetch data from the Fas
 2. [Importing the generated query](#importing-the-generated-query).
 3. [Using the data](#Using-the-data).
 
+Below you can see more details about each step along with code examples.
+
 ## Building a query
 
 
