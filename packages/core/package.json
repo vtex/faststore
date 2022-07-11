@@ -77,6 +77,8 @@
     "husky": "^5.2.0",
     "is-ci": "^3.0.0",
     "lint-staged": "^10.5.4",
+    "msw": "^0.43.1",
+    "msw-storybook-addon": "^1.6.3",
     "postcss": "^8.4.4",
     "prettier": "^2.2.0",
     "sass-loader": "^12.6.0",
@@ -101,5 +103,8 @@
     "*.scss": [
       "stylelint --fix"
     ]
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

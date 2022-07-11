@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Adds [MSW Addon](https://storybook.js.org/addons/msw-storybook-addon) ([#166](https://github.com/vtex-sites/nextjs.store/pull/166))
 - Applies new local tokens to `Breadcrumb` ([#162](https://github.com/vtex-sites/nextjs.store/pull/162))
 - Applies new local tokens to `SlideOver` ([#145](https://github.com/vtex-sites/nextjs.store/pull/145))
 - Applies new local tokens to `CartSidebar` ([#145](https://github.com/vtex-sites/nextjs.store/pull/145))
