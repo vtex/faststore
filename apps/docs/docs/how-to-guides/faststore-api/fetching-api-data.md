@@ -28,7 +28,71 @@ Below you can see more details about each step along with code examples.
 
 First, you need to know what API data you want to use on your page and how to structure a GraphQL query to get it. It is a good idea to check the FastStore API reference on [queries](https://www.faststore.dev/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api). You can also [use GraphiQL to build and test queries](https://www.faststore.dev/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api) to make sure it works as expected.
 
-Once you have your query structure, you can pass that on to your code by using the `gql` tag, like in the following example.
+Once you have your query structure, you can pass that as a variable on your code by using the `gql` tag, like in the following example.
+
+```javascript
+const query = gql`
+  query ServerProductPageQuery($slug: String!) {
+    product(locator: [{ key: "slug", value: $slug }]) {
+      id: productID
+
+      seo {
+        title
+        description
+        canonical
+      }
+
+      brand {
+        name
+      }
+
+      sku
+      gtin
+      name
+      description
+
+      breadcrumbList {
+        itemListElement {
+          item
+          name
+          position
+        }
+      }
+
+      image {
+        url
+        alternateName
+      }
+
+      offers {
+        lowPrice
+        highPrice
+        priceCurrency
+        offers {
+          availability
+          price
+          priceValidUntil
+          priceCurrency
+          itemCondition
+          seller {
+            identifier
+          }
+        }
+      }
+
+      isVariantOf {
+        productGroupID
+      }
+
+      ...ProductDetailsFragment_product
+    }
+  }
+`
+```
+
+### Using Gatsby
+
+If you are building queries on a store that uses Gatsby, Keep in mind that you can also use the `graphql` tag besides the 
 
 ### 2. Importing the generated query
 
