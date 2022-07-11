@@ -31,8 +31,76 @@ Below you can see more details about each step along with code examples.
 
 First, you need to know what API data you want to use on your page and how to structure a GraphQL query to get it. It is a good idea to check the FastStore API reference on [queries](https://www.faststore.dev/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api). You can also [use GraphiQL to build and test queries](https://www.faststore.dev/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api) to make sure it works as expected.
 
-Once you have your query structure, you can pass that as a variable on your code by using the `gql` tag, like in the following example.
+Once you have your query structure, you can pass that as a variable on your code by using the `gql` tag, like in the example below.
 
+```javascript
+const query = gql`
+  query ServerProductPageQuery($slug: String!) {
+    product(locator: [{ key: "slug", value: $slug }]) {
+
+      seo {
+        title
+        description
+        canonical
+      }
+
+      brand {
+        name
+      }
+
+      sku
+      name
+      description
+    }
+  }
+`
+```
+
+Queries must be declared in this way on each page on which you wish to use their data. To reuse query snippets across multiple files, you may use [GraphQL fragments](https://graphql.org/learn/queries/#fragments). In the example below you can see an SEO fragment being used to build the same query as the example above.
+
+Declaring the fragment.
+```javascript
+export const fragment = gql`
+  fragment ProductSeoFragment_product on StoreProduct {
+    seo {
+      title
+      description
+      canonical
+    }
+  }
+`
+```
+
+Using the fragment, on the same file or a different one.
+```javascript
+const query = gql`
+  query ServerProductPageQuery($slug: String!) {
+    product(locator: [{ key: "slug", value: $slug }]) {
+
+      ...ProductSeoFragment_product
+
+      brand {
+        name
+      }
+
+      sku
+      name
+      description
+    }
+  }
+`
+```
+
+#### Using Gatsby
+
+If you are building queries on a store that uses Gatsby, keep in mind that you must also use the `graphql` tag in some contexts. Using `graphql` causes the query to be processed by Gatsby, while `gql` does not. Because of that, as a general rule, use `graphql` for queries that should be run during the page build and `gql` for the rest.
+
+Also, some queries may not run properly during the build. If you run into that issue, try using `gql`.
+
+See the code example to learn how one query from the [Next.js base store product page](https://github.com/vtex-sites/nextjs.store/blob/main/src/pages/%5Bslug%5D/p.tsx) is equivalent to two in the [corresponding page of the Gatsby base store](https://github.com/vtex-sites/gatsby.store/blob/main/src/pages/%5Bslug%5D/p.tsx).
+
+<Tabs>
+<TabItem value="next.js" label="Next.js" default>
 ```javascript
 const query = gql`
   query ServerProductPageQuery($slug: String!) {
@@ -92,10 +160,83 @@ const query = gql`
   }
 `
 ```
+</TabItem>
 
-### Using Gatsby
+<TabItem value="gatsby" label="Gatsby" default>
+```javascript
+export const querySSG = graphql`
+  query ProductPageQuery {
+    site {
+      siteMetadata {
+        title
+        description
+        titleTemplate
+        siteUrl
+      }
+    }
+  }
+`
 
-If you are building queries on a store that uses Gatsby, Keep in mind that you can also use the `graphql` tag besides the 
+export const querySSR = gql`
+  query ServerProductPageQuery($slug: String!) {
+    product(locator: [{ key: "slug", value: $slug }]) {
+      id: productID
+
+      seo {
+        title
+        description
+        canonical
+      }
+
+      brand {
+        name
+      }
+
+      sku
+      gtin
+      name
+      description
+
+      breadcrumbList {
+        itemListElement {
+          item
+          name
+          position
+        }
+      }
+
+      image {
+        url
+        alternateName
+      }
+
+      offers {
+        lowPrice
+        highPrice
+        priceCurrency
+        offers {
+          availability
+          price
+          priceValidUntil
+          priceCurrency
+          itemCondition
+          seller {
+            identifier
+          }
+        }
+      }
+
+      isVariantOf {
+        productGroupID
+      }
+
+      ...ProductDetailsFragment_product
+    }
+  }
+`
+```
+</TabItem>
+</Tabs>
 
 ### 2. Importing the generated query
 
