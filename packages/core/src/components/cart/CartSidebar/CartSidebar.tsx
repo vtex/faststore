@@ -13,6 +13,7 @@ import { useFadeEffect } from 'src/sdk/ui/useFadeEffect'
 import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
+import styles from './cart-sidebar.module.scss'
 
 function CartSidebar() {
   const btnProps = useCheckoutButton()
@@ -31,15 +32,18 @@ function CartSidebar() {
       onDismiss={fadeOut}
       size="partial"
       direction="rightSide"
-      className="cart-sidebar"
+      className={styles.fsCartSidebar}
       onTransitionEnd={() => fade === 'out' && closeCart()}
     >
-      <header data-testid="cart-sidebar">
-        <div className="cart-sidebar__title">
-          <p className="text__lead">Your Cart</p>
+      <header data-fs-cart-sidebar-header data-testid="cart-sidebar">
+        <div data-fs-cart-sidebar-title>
+          <p data-fs-cart-sidebar-title-text className="text__lead">
+            Your Cart
+          </p>
           <Badge variant="info">{totalItems}</Badge>
         </div>
         <ButtonIcon
+          data-fs-cart-sidebar-close-button
           data-testid="cart-sidebar-button-close"
           aria-label="Close Cart"
           icon={<Icon name="X" width={32} height={32} />}
@@ -54,7 +58,7 @@ function CartSidebar() {
         <EmptyCart onDismiss={fadeOut} />
       ) : (
         <>
-          <List>
+          <List data-fs-cart-sidebar-list>
             {items.map((item) => (
               <li key={item.id}>
                 <CartItem item={item} />
@@ -62,13 +66,14 @@ function CartSidebar() {
             ))}
           </List>
 
-          <footer>
+          <footer data-fs-cart-sidebar-footer>
             <OrderSummary
               subTotal={subTotal}
               total={total}
               numberOfItems={totalItems}
               checkoutButton={
                 <Button
+                  data-fs-cart-sidebar-checkout-button
                   variant="primary"
                   icon={
                     !isValidating && (

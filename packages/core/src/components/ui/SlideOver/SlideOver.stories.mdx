@@ -1,0 +1,293 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import {
+  CartProvider,
+  SessionProvider,
+  SearchProvider,
+  useSearch,
+} from '@faststore/sdk'
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
+import { useFadeEffect } from 'src/sdk/ui/useFadeEffect'
+import { useCart } from 'src/sdk/cart/useCart'
+
+import { NavbarSlider } from 'src/components/common/Navbar'
+
+import { ButtonIcon } from 'src/components/ui/Button'
+import Icon from 'src/components/ui/Icon'
+import CartToggle from 'src/components/cart/CartToggle'
+import CartSidebar from 'src/components/cart/CartSidebar'
+
+import { ButtonBuy } from 'src/components/ui/Button'
+
+import { cartItem } from 'src/../.storybook/mocks/cart-sidebar'
+import { facets as facetsMock } from 'src/../.storybook/mocks/filter-slider'
+
+import storeConfig from 'store.config'
+
+import { validateSession } from 'src/sdk/session/validate'
+import { useFilter } from 'src/components/search/Filter/useFilter'
+
+import Button from 'src/components/ui/Button'
+import { FilterSlider } from 'src/components/search/Filter'
+
+import SlideOver from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  SectionList,
+  SectionItem,
+} from 'src/../.storybook/components'
+
+<Meta component={SlideOver} title="Organisms/SlideOver" />
+
+export function SlideOverTemplate() {
+  const { cart: displayCart, closeCart } = useUI()
+  const { fade, fadeOut } = useFadeEffect()
+  return (
+    <SlideOver
+      fade={fade}
+      isOpen={displayCart}
+      onDismiss={fadeOut}
+      size="partial"
+      direction="rightSide"
+      onTransitionEnd={() => fade === 'out' && closeCart()}
+    >
+      <header
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '1rem',
+        }}
+      >
+        <div>
+          <p className="text__lead">SlideOver</p>
+        </div>
+        <ButtonIcon
+          aria-label="Close"
+          icon={<Icon name="X" width={32} height={32} />}
+          onClick={fadeOut}
+        />
+      </header>
+      <main
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '1rem',
+          height: '100%',
+        }}
+      >
+        <p
+          style={{
+            margin: 'auto',
+          }}
+        >
+          A generic <code>SlideOver</code> component.
+        </p>
+      </main>
+    </SlideOver>
+  )
+}
+
+export const Template = () => {
+  const { cart: displayCart, openCart } = useUI()
+  const { fade, fadeOut } = useFadeEffect()
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Button
+        variant="tertiary"
+        icon={<Icon name="List" width={16} height={16} />}
+        iconPosition="left"
+        aria-label="Open SlideOver"
+        onClick={openCart}
+      >
+        Open SlideOver
+      </Button>
+      {displayCart && <SlideOverTemplate />}
+    </div>
+  )
+}
+
+export const TemplateNavbarSlider = () => {
+  const { openNavbar, navbar: displayNavbar } = useUI()
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Button
+        variant="tertiary"
+        icon={<Icon name="List" width={16} height={16} />}
+        iconPosition="left"
+        aria-label="Open Menu"
+        onClick={openNavbar}
+      >
+        Open Menu
+      </Button>
+      {displayNavbar && <NavbarSlider />}
+    </div>
+  )
+}
+
+export const TemplateCartSidebar = () => {
+  const { cart: displayCart } = useUI()
+  const { addItem } = useCart()
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <CartToggle />
+      <ButtonBuy
+        style={{ marginLeft: '12px' }}
+        onClick={() => addItem(cartItem)}
+      >
+        Add item to Cart
+      </ButtonBuy>
+      {displayCart && <CartSidebar />}
+    </div>
+  )
+}
+
+export const TemplateFilter = () => {
+  const filter = useFilter(facetsMock)
+  const { state, setState } = useSearch()
+  const { filter: displayFilter, openFilter } = useUI()
+  const { facets, expanded, dispatch } = filter
+  return (
+    <>
+      <Button
+        variant="tertiary"
+        icon={<Icon name="FadersHorizontal" width={16} height={16} />}
+        iconPosition="left"
+        aria-label="Open Filters"
+        onClick={openFilter}
+      >
+        Open Filters
+      </Button>
+      {displayFilter && <FilterSlider {...filter} />}
+    </>
+  )
+}
+
+export const TemplateProvider = ({ children }) => {
+  return (
+    <SessionProvider
+      initialstate={{
+        channel: storeConfig.channel,
+      }}
+    >
+      <CartProvider>
+        <UIProvider>
+          <SearchProvider onChange={() => ({})}>{children}</SearchProvider>
+        </UIProvider>
+      </CartProvider>
+    </SessionProvider>
+  )
+}
+
+<header>
+
+# Slide Over
+
+This component represents an aditional session that complements the screen's information. Usually used on `NavbarSlider`, `FilterSlider`, and `CartSidebar` components.
+
+</header>
+
+## Usage
+
+`import SlideOver from 'src/components/ui/SlideOver'`
+
+<Canvas>
+  <Story name="default">
+    <TemplateProvider>
+      <Template />
+    </TemplateProvider>
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-slide-over-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-slide-over-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Partial
+
+<TokenTable>
+  <TokenRow
+    token="--fs-slide-over-partial-gap"
+    value="calc(2 * var(--fs-grid-padding))"
+  />
+  <TokenRow
+    token="--fs-slide-over-partial-width-mobile"
+    value="calc(100vw - var(--fs-slide-over-partial-gap))"
+  />
+  <TokenRow
+    token="--fs-slide-over-partial-width-notebook"
+    value="calc(100% / 3)"
+  />
+  <TokenRow
+    token="--fs-slide-over-partial-max-width-notebook"
+    value="calc(var(--fs-grid-breakpoint-notebook) / 3)"
+  />
+</TokenTable>
+
+---
+
+## Use Cases
+
+<SectionList>
+  <SectionItem
+    title="Navbar Slider"
+    actionPath="../?path=/docs/organisms-navbar-navbarslider--overview-default"
+    description={
+      <>
+        An implementation of the <code>SlideOver</code> that represents the
+        menu.
+      </>
+    }
+  >
+    <TemplateProvider>
+      <TemplateNavbarSlider />
+    </TemplateProvider>
+  </SectionItem>
+  <SectionItem
+    title="Cart Sidebar"
+    actionPath="../?path=/docs/organisms-cartsidebar--overview-default"
+    description={
+      <>
+        An implementation of the <code>SlideOver</code> that represents the
+        summary of items added to the cart along with detailed information, and
+        checkout option.
+      </>
+    }
+  >
+    <TemplateProvider>
+      <TemplateCartSidebar />
+    </TemplateProvider>
+  </SectionItem>
+  <SectionItem
+    title="Filter Slider"
+    actionPath="../?path=/docs/organisms-filter-filterslider--default-story"
+    description={
+      <>
+        An implementation of the <code>SlideOver</code> that represents the
+        mobile <code>Filter</code> view.
+      </>
+    }
+  >
+    <TemplateProvider>
+      <TemplateFilter />
+    </TemplateProvider>
+  </SectionItem>
+</SectionList>

@@ -1,0 +1,14 @@
+[data-modal-overlay] {
+  // --------------------------------------------------------
+  // Design Tokens for Overlay
+  // --------------------------------------------------------
+  --fs-overlay-bkg-color: rgb(0 0 0 / 20%);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  background-color: var(--fs-overlay-bkg-color);
+}

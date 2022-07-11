@@ -1,0 +1,118 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { CartProvider, SessionProvider } from '@faststore/sdk'
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
+import { useCart } from 'src/sdk/cart/useCart'
+
+import CartToggle from 'src/components/cart/CartToggle'
+import CartSidebar from '.'
+
+import { cartItem } from 'src/../.storybook/mocks/cart-sidebar'
+import { ButtonBuy } from 'src/components/ui/Button'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta component={CartSidebar} title="Organisms/CartSidebar" />
+
+export const Template = () => {
+  const { cart: displayCart } = useUI()
+  const { addItem } = useCart()
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <CartToggle />
+      <ButtonBuy
+        style={{ marginLeft: '12px' }}
+        onClick={() => addItem(cartItem)}
+      >
+        Add item to Cart
+      </ButtonBuy>
+      {displayCart && <CartSidebar />}
+    </div>
+  )
+}
+
+export const TemplateProvider = () => {
+  return (
+    <SessionProvider initialState={{}}>
+      <CartProvider>
+        <UIProvider>
+          <Template />
+        </UIProvider>
+      </CartProvider>
+    </SessionProvider>
+  )
+}
+
+<header>
+
+# Cart Sidebar
+
+The `CartSidebar` displays the summary of items added to the cart along with detailed information, and checkout option.
+
+</header>
+
+## Usage
+
+`import CartSidebar from 'src/components/cart/CartSidebar'`
+
+<Canvas>
+  <Story name="overview-default">{TemplateProvider.bind({})}</Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-sidebar-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Header
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-sidebar-header-padding"
+    value="var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-cart-sidebar-header-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-cart-sidebar-header-title-margin-right"
+    value="var(--fs-spacing-2)"
+  />
+</TokenTable>
+
+### List
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-sidebar-list-padding"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>
+
+### Footer
+
+<TokenTable>
+  <TokenRow
+    token="--fs-cart-sidebar-footer-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-cart-sidebar-footer-box-shadow"
+    value="0 0 6px rgb(0 0 0 / 20%)"
+  />
+</TokenTable>
