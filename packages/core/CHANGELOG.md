@@ -30,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - priceCurrency field on SEO meta data ([#161](https://github.com/vtex-sites/nextjs.store/pull/161))
 
+- Transfers responsibility of `InputText`'s main attributes and callbacks to the renderer ([#163](https://github.com/vtex-sites/nextjs.store/pull/163))
+
 ## [22.26.0.beta] - 2022-07-01
 
 ### Added

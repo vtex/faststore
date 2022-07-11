@@ -12,6 +12,7 @@ function RegionInput({ closeModal }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const { setSession, isValidating, ...session } = useSession()
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const [input, setInput] = useState<string>('')
 
   const handleSubmit = async () => {
     const value = inputRef.current?.value
@@ -43,10 +44,16 @@ function RegionInput({ closeModal }: Props) {
       <InputText
         inputRef={inputRef}
         id="postal-code-input"
-        errorMessage={errorMessage}
+        error={errorMessage}
         label="Zip Code"
         actionable
+        value={input}
+        onInput={(e) => {
+          errorMessage !== '' && setErrorMessage('')
+          setInput(e.currentTarget.value)
+        }}
         onSubmit={handleSubmit}
+        onClear={() => setInput('')}
       />
     </div>
   )

@@ -1,6 +1,5 @@
 import { Input as UIInput, Label as UILabel } from '@faststore/ui'
 import type { MutableRefObject } from 'react'
-import { useEffect, useState } from 'react'
 import type { InputProps } from '@faststore/ui'
 
 import Button from 'src/components/ui/Button'
@@ -19,7 +18,7 @@ type DefaultProps = {
   /**
    * The error message is displayed when an error occurs.
    */
-  errorMessage?: string
+  error?: string
   /**
    * Component's ref.
    */
@@ -32,98 +31,86 @@ type DefaultProps = {
 
 type ActionableInputText =
   | {
+      actionable?: never
+      onSubmit?: never
+      onClear?: never
+      buttonActionText?: string
+    }
+  | {
       /**
        * Adds a Button to the component.
        */
       actionable: true
       /**
-       * Callback function when button is clicked.
+       * Callback function when button is clicked. Required for actionable input.
        */
-      onSubmit: (value: string) => void
+      onSubmit: () => void
+      /**
+       * Callback function when clear button is clicked. Required for actionable input.
+       */
+      onClear: () => void
       /**
        * The text displayed on the Button. Suggestion: maximum 9 characters.
        */
       buttonActionText?: string
     }
-  | {
-      actionable?: false
-      onSubmit?: never
-      buttonActionText?: string
-    }
 
 export type InputTextProps = DefaultProps &
-  Omit<InputProps, 'disabled'> &
+  Omit<InputProps, 'disabled' | 'onSubmit'> &
   ActionableInputText
 
 const InputText = ({
   id,
   label,
   type = 'text',
-  errorMessage,
+  error,
   actionable,
   buttonActionText = 'Apply',
   onSubmit,
+  onClear,
   placeholder = ' ', // initializes with an empty space to style float label using `placeholder-shown`
-  value,
   inputRef,
   disabled,
+  value,
   ...otherProps
 }: InputTextProps) => {
-  const [inputValue, setInputValue] = useState<string>((value as string) ?? '')
-  const [hasError, setHasError] = useState<boolean>(!!errorMessage)
-
-  useEffect(() => {
-    errorMessage && setHasError(true)
-  }, [errorMessage])
-
-  const onClear = () => {
-    setInputValue('')
-    inputRef?.current?.focus()
-  }
+  const shouldDisplayError = !disabled && error && error !== ''
+  const shouldDisplayButton = actionable && !disabled && value !== ''
 
   return (
     <div
       data-fs-input-text
-      data-fs-input-text-error={hasError && inputValue !== ''}
       data-fs-input-text-actionable={actionable}
+      data-fs-input-text-error={error && error !== ''}
     >
       <UIInput
-        type={type}
         id={id}
+        type={type}
+        value={value}
         ref={inputRef}
-        placeholder={placeholder}
-        value={inputValue}
         disabled={disabled}
-        onInput={(e) => {
-          hasError && setHasError(false)
-          setInputValue(e.currentTarget.value)
-        }}
+        placeholder={placeholder}
         {...otherProps}
       />
       <UILabel htmlFor={id}>{label}</UILabel>
 
-      {actionable &&
-        !disabled &&
-        inputValue !== '' &&
-        (hasError ? (
+      {shouldDisplayButton &&
+        (error ? (
           <ButtonIcon
             data-fs-button-size="small"
             aria-label="Clear Field"
             icon={<Icon name="XCircle" width={20} height={20} />}
-            onClick={onClear}
+            onClick={() => {
+              onClear?.()
+              inputRef?.current?.focus()
+            }}
           />
         ) : (
-          <Button
-            variant="tertiary"
-            onClick={() => onSubmit(inputValue)}
-            size="small"
-          >
+          <Button variant="tertiary" size="small" onClick={onSubmit}>
             {buttonActionText}
           </Button>
         ))}
-      {hasError && !disabled && inputValue !== '' && (
-        <span data-fs-input-text-message>{errorMessage}</span>
-      )}
+      {shouldDisplayError && <span data-fs-input-text-message>{error}</span>}
     </div>
   )
 }
