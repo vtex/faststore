@@ -1,5 +1,5 @@
-import { DropdownItem as UIDropdownItem, Icon as UIIcon } from '@faststore/ui'
 import type { DropdownItemProps } from '@faststore/ui'
+import { DropdownItem as UIDropdownItem, Icon as UIIcon } from '@faststore/ui'
 import type { ReactNode } from 'react'
 
 export type Props = DropdownItemProps & {

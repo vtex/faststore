@@ -1,0 +1,197 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import Breadcrumb from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta component={Breadcrumb} title="Molecules/Breadcrumb" />
+
+export const breadcrumbList = [
+  { item: 'technology', name: 'Technology', position: 1 },
+  {
+    item: 'technology/electronics',
+    name: 'Electronics',
+    position: 2,
+  },
+  {
+    item: 'technology/electronics/audio-and-video',
+    name: 'Audio & Video',
+    position: 3,
+  },
+  {
+    item: 'technology/electronics/audio-and-video/headphones',
+    name: 'Headphones',
+    position: 4,
+  },
+]
+
+export const Template = (args) => <Breadcrumb {...args} />
+
+<header>
+
+# Breadcrumb
+
+Breadcrumbs indicate the user's location in a website hierarchy, facilitating the navigation to previous page levels.
+
+</header>
+
+## Overview
+
+The `Breadcrumb` component uses [FastStore UI Breadcrumb](https://www.faststore.dev/reference/ui/molecules/Breadcrumb) as base.
+
+<Canvas isColumn>
+  <Story name="overview" args={{ breadcrumbList }}>
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-with-dropdown"
+    args={{
+      breadcrumbList: [
+        ...breadcrumbList,
+        {
+          item: 'technology/electronics/audio-and-video/headphones/headphonesaedle-vk1-headphone',
+          name: 'Aedle VK-1 L Headphone',
+          position: 5,
+        },
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import Breadcrumb from 'src/components/ui/Breadcrumb'`
+
+<Canvas>
+  <Story name="default" args={{ breadcrumbList }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-margin-left"
+    value="calc(-1 * var(--fs-spacing-1))"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### List Item
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-list-item-padding"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-list-item-last-text-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-breadcrumb-list-item-max-width-mobile" value="30%" />
+</TokenTable>
+
+### Link
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-link-color-visited"
+    value="var(--fs-color-link)"
+    isColor
+  />
+</TokenTable>
+
+### Link Home
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-link-home-padding"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-link-home-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-link-home-hover-bkg-color"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-breadcrumb-link-home-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+</TokenTable>
+
+### Divider
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-divider-height"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-breadcrumb-divider-margin"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-divider-border-left-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-breadcrumb-divider-border-left-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+### Dropdown Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-margin-left"
+    value="var(--fs-breadcrumb-margin-left)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-border-radius"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-breadcrumb-dropdown-button-transition-function"
+    value="var(--fs-transition-function)"
+  />
+</TokenTable>

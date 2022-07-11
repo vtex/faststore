@@ -27,6 +27,7 @@
   // Icon
   --fs-dropdown-item-icon-min-width         : 1.125rem;
   --fs-dropdown-item-icon-margin-right      : var(--fs-spacing-0);
+  --fs-dropdown-item-icon-margin-top        : calc(-1 * var(--fs-spacing-1));
 
   // Small
   --fs-dropdown-item-small-min-height       : 1.75rem;
@@ -92,5 +93,9 @@
       padding: var(--fs-dropdown-item-small-padding);
       font-size: var(--fs-dropdown-item-small-text-size);
     }
+  }
+
+  [data-fs-breadcrumb-dropdown-item] [data-fs-dropdown-item-icon] {
+    margin-top: var(--fs-dropdown-item-icon-margin-top);
   }
 }

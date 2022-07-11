@@ -1,0 +1,142 @@
+@import "src/styles/scaffold";
+
+.fs-breadcrumb {
+  // --------------------------------------------------------
+  // Design Tokens for Breadcrumb
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-breadcrumb-margin-left                         : calc(-1 * var(--fs-spacing-1));
+
+  // List item
+  --fs-breadcrumb-list-item-padding                   : var(--fs-spacing-0);
+  --fs-breadcrumb-list-item-last-text-color           : var(--fs-color-text-light);
+  --fs-breadcrumb-list-item-max-width-mobile          : 30%;
+
+  // Link
+  --fs-breadcrumb-link-color-visited                  : var(--fs-color-link);
+
+  // Link Home
+  --fs-breadcrumb-link-home-padding                   : var(--fs-spacing-1);
+  --fs-breadcrumb-link-home-border-radius             : var(--fs-border-radius-circle);
+  --fs-breadcrumb-link-home-hover-bkg-color           : var(--fs-color-primary-bkg-light);
+  --fs-breadcrumb-link-home-color                     : var(--fs-color-text);
+
+  // Divider
+  --fs-breadcrumb-divider-height                      : var(--fs-spacing-3);
+  --fs-breadcrumb-divider-margin                      : var(--fs-spacing-1);
+  --fs-breadcrumb-divider-border-left-width           : var(--fs-border-width);
+  --fs-breadcrumb-divider-border-left-color           : var(--fs-border-color-light);
+
+  // Dropdown Button
+  --fs-breadcrumb-dropdown-button-margin-left         : var(--fs-breadcrumb-margin-left);
+  --fs-breadcrumb-dropdown-button-color               : var(--fs-color-link);
+  --fs-breadcrumb-dropdown-button-border-radius       : var(--fs-spacing-0);
+  --fs-breadcrumb-dropdown-button-transition-property : var(--fs-transition-property);
+  --fs-breadcrumb-dropdown-button-transition-timing   : var(--fs-transition-timing);
+  --fs-breadcrumb-dropdown-button-transition-function : var(--fs-transition-function);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  width: 100%;
+
+  @include media(">=notebook") {
+    width: 50%;
+  }
+
+  [data-breadcrumb-list] {
+    display: flex;
+    align-items: center;
+    margin-left: var(--fs-breadcrumb-margin-left);
+    overflow-x: hidden;
+  }
+
+  [data-breadcrumb-list-item] {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--fs-breadcrumb-list-item-padding);
+
+    &:not(:first-child) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include media("<=tablet") {
+        max-width: var(--fs-breadcrumb-list-item-max-width-mobile);
+      }
+    }
+
+    [data-fs-breadcrumb-link-home] {
+      display: flex;
+      align-items: center;
+      padding: var(--fs-breadcrumb-link-home-padding);
+      border-radius: var(--fs-breadcrumb-link-home-border-radius);
+
+      &:hover, &:focus {
+        background-color: var(--fs-breadcrumb-link-home-hover-bkg-color);
+      }
+
+      svg {
+        color: var(--fs-breadcrumb-link-home-color);
+      }
+    }
+
+    &:nth-child(2) {
+      overflow: visible;
+    }
+
+    &:last-child {
+      color: var(--fs-breadcrumb-list-item-last-text-color);
+    }
+
+    @include media(">=notebook") {
+      &:nth-child(3) {
+        overflow: visible;
+      }
+
+      &:nth-child(2) {
+        overflow: hidden;
+      }
+    }
+  }
+
+  [data-breadcrumb-item] {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-breadcrumb-divider] {
+    height: var(--fs-breadcrumb-divider-height);
+    margin: var(--fs-breadcrumb-divider-margin);
+    border-left: var(--fs-breadcrumb-divider-border-left-width) solid var(--fs-breadcrumb-divider-border-left-color);
+  }
+
+  [data-fs-breadcrumb-link] {
+    padding: 0;
+
+    &:visited {
+      color: var(--fs-breadcrumb-link-color-visited);
+    }
+  }
+
+  [data-fs-breadcrumb-dropdown-button] {
+    display: flex;
+    align-items: center;
+    margin-left: var(--fs-breadcrumb-dropdown-button-margin-left);
+    color: var(--fs-breadcrumb-dropdown-button-color);
+    cursor: pointer;
+    background-color: transparent;
+    border-width: 0;
+    border-radius: var(--fs-breadcrumb-dropdown-button-border-radius);
+    transition: var(--fs-breadcrumb-dropdown-button-transition-property) var(--fs-breadcrumb-dropdown-button-transition-timing) var(--fs-breadcrumb-dropdown-button-transition-function);
+
+    &:focus, &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}
