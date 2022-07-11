@@ -1,5 +1,5 @@
 import Incentives from './Incentives'
-import IncentivesMock from './incentivesMock'
+import { incentivesMockFooter as IncentivesMock } from './incentivesMock'
 
 function IncentivesFooter() {
   return <Incentives incentives={IncentivesMock} />

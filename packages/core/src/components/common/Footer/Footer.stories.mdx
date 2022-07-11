@@ -1,0 +1,161 @@
+import {
+  Icon as UIIcon,
+  List as UIList,
+  PaymentMethods as UIPaymentMethods,
+} from '@faststore/ui'
+
+import { Footer } from './Footer'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  SectionList,
+  SectionItem,
+} from 'src/../.storybook/components'
+
+import IncentivesFooter from '../../sections/Incentives/IncentivesFooter'
+import FooterLinks from './FooterLinks'
+
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+<Meta component={Footer} title="Organisms/Footer" />
+
+export const Template = (args) => {
+  return <Footer {...args} />
+}
+
+<header>
+
+# Footer
+
+The `Footer` is the final section of every page and has all the meaningful links of the store.
+
+</header>
+
+## Overview
+
+Footer section is made with `FooterLinks`, [Incentives](?path=/docs/organisms-incentives--incentives), [Links](?path=/docs/atoms-link--default), [Accordion](?path=/docs/molecules-accordion-overview--default-story), and [PaymentMethods](https://www.faststore.dev/reference/ui/molecules/PaymentMethods) (from FastStore UI).
+
+---
+
+## Usage
+
+`import Footer from 'src/components/common/Footer'`
+
+<Canvas>
+  <Story name="Footer">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="Footer" />
+
+<TokenTable>
+  <TokenRow token="--fs-footer-min-height-mobile" value="rem(860px)" />
+  <TokenRow token="--fs-footer-min-height-notebook" value="rem(486px)" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-footer-spacing-vertical-mobile"
+    value="var(--fs-spacing-4)"
+  />
+  <TokenRow
+    token="--fs-footer-spacing-vertical-notebook"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-footer-spacing-horizontal-notebook"
+    value="var(--fs-grid-gap-3)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-footer-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Divisor
+
+<TokenTable>
+  <TokenRow
+    token="--fs-footer-divisor-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-footer-divisor-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow token="--fs-footer-title-size" value="var(--fs-text-size-body)" />
+  <TokenRow token="--fs-footer-title-line-height" value="1.25" />
+  <TokenRow
+    token="--fs-footer-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow
+    token="--fs-footer-title-margin-bottom"
+    value="var(--fs-spacing-1)"
+  />
+</TokenTable>
+
+### Payment Methods
+
+<TokenTable>
+  <TokenRow
+    token="--fs-footer-payment-methods-flags-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-footer-payment-methods-flags-border-color"
+    value="var(--fs-color-neutral-3)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-footer-payment-methods-flags-border-radius"
+    value="var(--fs-border-radius-small)"
+  />
+</TokenTable>
+
+---
+
+## Compound Components
+
+<SectionList>
+  <SectionItem
+    title="Footer Links"
+    description={
+      <>
+        Sitemap listing all the meaningful links of the store. It's the most
+        essential part of the Footer.
+        <br />
+        Additionally, we use the{' '}
+        <a href="../?path=/docs/molecules-accordion-overview--default-story">
+          Accordion
+        </a>{' '}
+        for a better mobile experince.
+      </>
+    }
+  >
+    <FooterLinks />
+  </SectionItem>
+  <SectionItem
+    title="Incentives Footer"
+    description={
+      <>
+        A regular{' '}
+        <a href="../?path=/docs/organisms-incentives--incentives">Incentive</a>{' '}
+        with its own content.
+      </>
+    }
+  >
+    <IncentivesFooter />
+  </SectionItem>
+</SectionList>

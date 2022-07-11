@@ -1,7 +1,13 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
 import Incentives from '.'
-import IncentivesMock from './incentivesMock'
+import { incentivesMockHeader, incentivesMockFooter } from './incentivesMock'
 
 <Meta title="Organisms/Incentives" component={Incentives} />
 
@@ -23,7 +29,7 @@ It's a component that displays a list of "incentives".
   <Story
     name="Incentives"
     args={{
-      incentives: IncentivesMock,
+      incentives: incentivesMockHeader,
     }}
   >
     {Template.bind({})}
@@ -32,14 +38,33 @@ It's a component that displays a list of "incentives".
 
 <ArgsTable story="Incentives" />
 
-| Local token                                 | Default value/Global token linked              |
-| ------------------------------------------- | ---------------------------------------------- |
-| <code>--fs-incentives-bkg-color</code>      | <code>var(--fs-color-primary-bkg-light)</code> |
-| <code>--fs-incentives-gap</code>            | <code>var(--fs-spacing-4)</code>               |
-| <code>--fs-incentives-padding-top</code>    | <code>var(--fs-incentives-gap)</code>          |
-| <code>--fs-incentives-padding-bottom</code> | <code>var(--fs-incentives-gap)</code>          |
-| <code>--fs-incentives-border-color</code>   | <code>var(--fs-border-color-light)</code>      |
-| <code>--fs-incentives-border-width</code>   | <code>var(--fs-border-width)</code>            |
+<TokenTable>
+  <TokenRow
+    token="--fs-incentives-bkg-color"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-incentives-gap" value="var(--fs-spacing-4)" />
+  <TokenRow
+    token="--fs-incentives-padding-top"
+    value="var(--fs-incentives-gap)"
+  />
+  <TokenRow
+    token="--fs-incentives-padding-bottom"
+    value="var(--fs-incentives-gap)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-incentives-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-incentives-border-width"
+    value="var(--fs-border-width)"
+  />
+</TokenTable>
 
 ---
 
@@ -47,26 +72,41 @@ It's a component that displays a list of "incentives".
 
 ### Title
 
-| Local token                                    | Default value/Global token linked       |
-| ---------------------------------------------- | --------------------------------------- |
-| <code>--fs-incentives-title-size</code>        | <code>var(--fs-text-size-1)</code>      |
-| <code>--fs-incentives-title-weight</code>      | <code>var(--fs-text-weight-bold)</code> |
-| <code>--fs-incentives-title-line-height</code> | <code>1.42</code>                       |
-| <code>--fs-incentives-title-color</code>       | <code>var(--fs-color-neutral-7)</code>  |
+<TokenTable>
+  <TokenRow token="--fs-incentives-title-size" value="var(--fs-text-size-1)" />
+  <TokenRow
+    token="--fs-incentives-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow token="--fs-incentives-title-line-height" value="1.42" />
+  <TokenRow
+    token="--fs-incentives-title-color"
+    value="var(--fs-color-neutral-7)"
+  />
+</TokenTable>
 
 ### Description
 
-| Local token                                          | Default value/Global token linked             |
-| ---------------------------------------------------- | --------------------------------------------- |
-| <code>--fs-incentives-description-size</code>        | <code>var(--fs-incentives-title-size)</code>  |
-| <code>--fs-incentives-description-line-height</code> | <code>1.14</code>                             |
-| <code>--fs-incentives-description-color</code>       | <code>var(--fs-incentives-title-color)</code> |
+<TokenTable>
+  <TokenRow
+    token="--fs-incentives-description-size"
+    value="var(--fs-incentives-title-size)"
+  />
+  <TokenRow token="--fs-incentives-description-line-height" value="1.14" />
+  <TokenRow
+    token="--fs-incentives-description-color"
+    value="var(--fs-incentives-title-color)"
+  />
+</TokenTable>
 
 ### Icon
 
-| Local token                             | Default value/Global token linked             |
-| --------------------------------------- | --------------------------------------------- |
-| <code>--fs-incentives-icon-color</code> | <code>var(--fs-incentives-title-color)</code> |
+<TokenTable>
+  <TokenRow
+    token="--fs-incentives-icon-color"
+    value="var(--fs-incentives-title-color)"
+  />
+</TokenTable>
 
 ---
 
@@ -78,7 +118,7 @@ It's a component that displays a list of "incentives".
   <Story
     name="Colored"
     args={{
-      incentives: IncentivesMock,
+      incentives: incentivesMockHeader,
       colored: true,
     }}
   >
@@ -86,9 +126,26 @@ It's a component that displays a list of "incentives".
   </Story>
 </Canvas>
 
-| Local token                            | Default value/Global token linked              |
-| -------------------------------------- | ---------------------------------------------- |
-| <code>--fs-incentives-bkg-color</code> | <code>var(--fs-color-primary-bkg-light)</code> |
+<TokenTable>
+  <TokenRow
+    token="--fs-incentives-bkg-color"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+</TokenTable>
+
+### Description Only
+
+<Canvas>
+  <Story
+    name="Description Only"
+    args={{
+      incentives: incentivesMockFooter,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
 
 ### Vertical
 
@@ -96,7 +153,7 @@ It's a component that displays a list of "incentives".
   <Story
     name="Vertical"
     args={{
-      incentives: IncentivesMock,
+      incentives: incentivesMockHeader,
       variant: 'vertical',
     }}
   >

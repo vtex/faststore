@@ -1,0 +1,249 @@
+@import "src/styles/scaffold";
+
+.fs-footer {
+  // --------------------------------------------------------
+  // Design Tokens for Footer
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-footer-min-height-mobile                   : rem(860px);
+  --fs-footer-min-height-notebook                 : rem(486px);
+
+  --fs-footer-spacing-vertical-mobile             : var(--fs-spacing-4);
+  --fs-footer-spacing-vertical-notebook           : var(--fs-spacing-5);
+  --fs-footer-spacing-horizontal-notebook         : var(--fs-grid-gap-3);
+
+  --fs-footer-bkg-color                           : var(--fs-color-neutral-bkg);
+
+  // Divisor
+  --fs-footer-divisor-border-width                : var(--fs-border-width);
+  --fs-footer-divisor-border-color                : var(--fs-border-color-light);
+
+  // Title
+  --fs-footer-title-size                          : var(--fs-text-size-body);
+  --fs-footer-title-line-height                   : 1.25;
+  --fs-footer-title-weight                        : var(--fs-text-weight-bold);
+  --fs-footer-title-margin-bottom                 : var(--fs-spacing-1);
+
+  // Payment Methods
+  --fs-footer-payment-methods-flags-border-width  : var(--fs-border-width);
+  --fs-footer-payment-methods-flags-border-color  : var(--fs-color-neutral-3);
+  --fs-footer-payment-methods-flags-border-radius : var(--fs-border-radius-small);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  background-color: var(--fs-footer-bkg-color);
+  content-visibility: auto;
+  contain-intrinsic-size: var(--fs-footer-min-height-mobile);
+
+  @include media("<notebook") {
+    padding-top: 0;
+  }
+
+  @include media(">=notebook") {
+    contain-intrinsic-size: var(--fs-footer-min-height-notebook);
+  }
+
+  [data-fs-footer-title] {
+    margin-bottom: var(--fs-footer-title-margin-bottom);
+    font-size: var(--fs-footer-title-size);
+    font-weight: var(--fs-footer-title-weight);
+    line-height: var(--fs-footer-title-line-height);
+
+    @include media("<notebook") {
+      text-align: center;
+    }
+  }
+
+  [data-fs-footer-note],
+  [data-fs-footer-nav] {
+    position: relative;
+    display: flex;
+
+    @include media("<notebook") {
+      flex-direction: column;
+    }
+
+    @include media(">=notebook") {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: var(--fs-footer-spacing-horizontal-notebook);
+    }
+
+    &:not(:first-of-type)::before {
+      width: 100%;
+      content: "";
+      border-top: var(--fs-footer-divisor-border-width) solid var(--fs-footer-divisor-border-color);
+
+      @include media(">=notebook") {
+        grid-column: span 12;
+      }
+    }
+  }
+
+  [data-fs-footer-nav] {
+    @include media(">=notebook") {
+      row-gap: var(--fs-footer-spacing-vertical-notebook);
+      padding-bottom: var(--fs-footer-spacing-vertical-notebook);
+    }
+  }
+
+  [data-fs-footer-note] {
+    position: relative;
+
+    @include media("<notebook") {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+
+      &::before {
+        padding-bottom: var(--fs-footer-spacing-vertical-mobile);
+      }
+    }
+
+    @include media(">=notebook") {
+      row-gap: var(--fs-footer-spacing-vertical-notebook);
+      padding-top: 0;
+    }
+  }
+
+  [data-fs-footer-social],
+  [data-fs-footer-payment-methods] {
+    @include media(">=notebook") {
+      grid-column: 11 / span 2;
+      margin-left: calc(-1 * var(--fs-spacing-3));
+    }
+  }
+
+  [data-fs-footer-social] {
+    display: flex;
+    flex-direction: column;
+
+    @include media("<notebook") {
+      padding: var(--fs-footer-spacing-vertical-mobile) 0 var(--fs-spacing-3);
+    }
+
+    [data-store-list] {
+      display: flex;
+      justify-content: center;
+
+      @include media(">=notebook") {
+        justify-content: space-between;
+      }
+
+      [data-fs-link] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: var(--fs-control-tap-size);
+        min-height: var(--fs-control-tap-size);
+        padding: var(--fs-spacing-1);
+      }
+    }
+  }
+
+  [data-fs-footer-payment-methods] {
+    @include media("<notebook") {
+      margin: var(--fs-footer-spacing-vertical-mobile) auto;
+    }
+
+    @include media(">=notebook") {
+      order: 3;
+    }
+  }
+
+  [data-store-icon] {
+    @include media(">=notebook") {
+      grid-column: span 2;
+    }
+  }
+
+  [data-payment-methods-flags] {
+    svg {
+      border: var(--fs-footer-payment-methods-flags-border-width) solid var(--fs-footer-payment-methods-flags-border-color);
+      border-radius: var(--fs-footer-payment-methods-flags-border-radius);
+    }
+
+    [data-store-list] {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, max-content));
+      row-gap: var(--fs-spacing-1);
+      justify-content: space-between;
+      margin-top: var(--fs-spacing-3);
+
+      li { display: flex; }
+
+      @include media("<notebook") {
+        column-gap: var(--fs-grid-gap-2);
+      }
+    }
+  }
+
+  [data-fs-footer-copyright] {
+    p + p {
+      margin: var(--fs-spacing-2) auto;
+    }
+
+    address {
+      font-style: normal;
+    }
+
+    @include media(">=notebook") {
+      grid-column: span 6;
+    }
+  }
+
+  [data-fs-footer-links-columns] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, auto));
+    grid-gap: var(--fs-footer-spacing-horizontal-notebook);
+  }
+
+  &[data-fs-footer-links] {
+    [data-fs-link] {
+      display: inline-block;
+      padding-left: 0;
+    }
+
+    @include media(">=notebook") {
+      grid-column: span 9;
+    }
+
+    @include media(">=desktop") {
+      grid-column: span 8;
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-footer-incentives="true"] {
+    @include media(">=notebook") {
+      padding-top: 0;
+    }
+  }
+
+  &:not([data-fs-footer-social="true"]) {
+    [data-fs-footer-note]::before {
+      @include media("<notebook") {
+        border-color: transparent;
+      }
+    }
+
+    [data-fs-footer-links] {
+      @include media(">=notebook") {
+        grid-column: span 12;
+      }
+    }
+  }
+
+  &:not([data-fs-footer-payment-methods="true"]) [data-fs-footer-copyright] {
+    @include media(">=notebook") {
+      grid-column: span 10;
+    }
+  }
+}

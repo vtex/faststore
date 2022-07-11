@@ -20,7 +20,7 @@ const SectionItem = ({
       <div className="sbdocs-div">{children}</div>
       <article className="sbdocs-list-text">
         <h3 className="sbdocs sbdocs-h3">{title}</h3>
-        <p>{description}</p>
+        <p className="sbdocs sbdocs-p">{description}</p>
         {actionPath && (
           <ButtonLink
             variant="tertiary"
