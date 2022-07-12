@@ -34,8 +34,10 @@ First, you need to know what API data you want to use on your page and how to st
 Once you have your query structure, you can pass that as a variable on your code by using the `gql` tag, like in the example below.
 
 ```javascript
+import { gql } from '@faststore/graphql-utils'
+...
 const query = gql`
-  query ServerProductPageQuery($slug: String!) {
+  query ProductPageQuery($slug: String!) {
     product(locator: [{ key: "slug", value: $slug }]) {
 
       seo {
@@ -60,6 +62,8 @@ Queries must be declared in this way on each page on which you wish to use their
 
 Declaring the fragment.
 ```javascript
+import { gql } from '@faststore/graphql-utils'
+...
 export const fragment = gql`
   fragment ProductSeoFragment_product on StoreProduct {
     seo {
@@ -73,8 +77,10 @@ export const fragment = gql`
 
 Using the fragment, on the same file or a different one.
 ```javascript
+import { gql } from '@faststore/graphql-utils'
+...
 const query = gql`
-  query ServerProductPageQuery($slug: String!) {
+  query ProductPageQuery($slug: String!) {
     product(locator: [{ key: "slug", value: $slug }]) {
 
       ...ProductSeoFragment_product
@@ -104,6 +110,8 @@ See in the following example how the queries in the [Next.js base store product 
 <TabItem value="next.js" label="Next.js" default>
 
 ```javascript
+import { gql } from '@faststore/graphql-utils'
+...
 const query = gql`
   query ServerProductPageQuery($slug: String!) {
     product(locator: [{ key: "slug", value: $slug }]) {
@@ -168,6 +176,9 @@ const query = gql`
 <TabItem value="gatsby" label="Gatsby" default>
 
 ```javascript
+import { graphql } from 'gatsby'
+import { gql } from '@faststore/graphql-utils'
+...
 export const querySSG = graphql`
   query ProductPageQuery {
     site {
@@ -246,9 +257,39 @@ export const querySSR = gql`
 
 ### 2. Importing the generated query
 
+Once you have declared your query on the page code, you can trigger the generation of your query types by running this command:
+```
+yarn generate
+```
+
+:::warning
+Whenever you make changes to your declared queries you must regenerate the types with the command indicated above. Otherwise, you will not be able to import and use the data.
+:::
+
+Then you must import the types generated, like in this example:
+```javascript
+import { gql } from '@faststore/graphql-utils'
+import type { ProductPageQueryQuery } from '@generated/graphql'
+...
+const query = gql`
+  query ProductPageQuery($slug: String!) {
+    product(locator: [{ key: "slug", value: $slug }]) {
+      // Query fields
+    }
+  }
+`
+```
+
+:::info
+Note that, like in this example, the auto-generated query types will be named `{declaredQueryName}Query`.
+:::
 
 
 ### 3. Using the data
+
+
+
+### Complete code example
 
 
 
