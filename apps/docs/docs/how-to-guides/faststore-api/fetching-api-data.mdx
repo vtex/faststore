@@ -60,7 +60,7 @@ const query = gql`
 
 Queries must be declared in this way on each page on which you wish to use their data. To reuse query snippets across multiple files, you may use [GraphQL fragments](https://graphql.org/learn/queries/#fragments). In the example below you can see an SEO fragment being used to build the same query as the example above.
 
-Declaring the fragment.
+Declaring the fragment:
 ```javascript
 import { gql } from '@faststore/graphql-utils'
 ...
@@ -75,7 +75,7 @@ export const fragment = gql`
 `
 ```
 
-Using the fragment, on the same file or a different one.
+Using the fragment, on the same file or a different one:
 ```javascript
 import { gql } from '@faststore/graphql-utils'
 ...
@@ -97,7 +97,7 @@ const query = gql`
 `
 ```
 
-#### Using Gatsby
+#### Building queries on Gatsby
 
 If you are building queries on a store that uses Gatsby, keep in mind that you must also use the `graphql` tag in some contexts. Using `graphql` causes the query to be processed by Gatsby, while `gql` does not. Because of that, as a general rule, use `graphql` for queries that should be run during the page build and `gql` for the rest.
 
