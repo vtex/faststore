@@ -99,7 +99,150 @@ Also, some queries may not run properly during the build. If you run into that i
 
 See the code example to learn how one query from the [Next.js base store product page](https://github.com/vtex-sites/nextjs.store/blob/main/src/pages/%5Bslug%5D/p.tsx) is equivalent to two in the [corresponding page of the Gatsby base store](https://github.com/vtex-sites/gatsby.store/blob/main/src/pages/%5Bslug%5D/p.tsx).
 
+<Tabs>
 
+<TabItem value="next.js" label="Next.js" default>
+
+```javascript
+const query = gql`
+  query ServerProductPageQuery($slug: String!) {
+    product(locator: [{ key: "slug", value: $slug }]) {
+      id: productID
+
+      seo {
+        title
+        description
+        canonical
+      }
+
+      brand {
+        name
+      }
+
+      sku
+      gtin
+      name
+      description
+
+      breadcrumbList {
+        itemListElement {
+          item
+          name
+          position
+        }
+      }
+
+      image {
+        url
+        alternateName
+      }
+
+      offers {
+        lowPrice
+        highPrice
+        priceCurrency
+        offers {
+          availability
+          price
+          priceValidUntil
+          priceCurrency
+          itemCondition
+          seller {
+            identifier
+          }
+        }
+      }
+
+      isVariantOf {
+        productGroupID
+      }
+
+      ...ProductDetailsFragment_product
+    }
+  }
+`
+```
+
+</TabItem>
+
+<TabItem value="gatsby" label="Gatsby" default>
+
+```javascript
+export const querySSG = graphql`
+  query ProductPageQuery {
+    site {
+      siteMetadata {
+        title
+        description
+        titleTemplate
+        siteUrl
+      }
+    }
+  }
+`
+
+export const querySSR = gql`
+  query ServerProductPageQuery($slug: String!) {
+    product(locator: [{ key: "slug", value: $slug }]) {
+      id: productID
+
+      seo {
+        title
+        description
+        canonical
+      }
+
+      brand {
+        name
+      }
+
+      sku
+      gtin
+      name
+      description
+
+      breadcrumbList {
+        itemListElement {
+          item
+          name
+          position
+        }
+      }
+
+      image {
+        url
+        alternateName
+      }
+
+      offers {
+        lowPrice
+        highPrice
+        priceCurrency
+        offers {
+          availability
+          price
+          priceValidUntil
+          priceCurrency
+          itemCondition
+          seller {
+            identifier
+          }
+        }
+      }
+
+      isVariantOf {
+        productGroupID
+      }
+
+      ...ProductDetailsFragment_product
+    }
+  }
+`
+```
+
+</TabItem>
+
+</Tabs>
 
 ### 2. Importing the generated query
 
