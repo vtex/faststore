@@ -262,7 +262,7 @@ Once you have declared your query on the page code, you can trigger the generati
 yarn generate
 ```
 
-:::warning
+:::caution
 Whenever you make changes to your declared queries you must regenerate the types with the command indicated above. Otherwise, you will not be able to import and use the data.
 :::
 
@@ -274,14 +274,14 @@ import type { ProductPageQueryQuery } from '@generated/graphql'
 const query = gql`
   query ProductPageQuery($slug: String!) {
     product(locator: [{ key: "slug", value: $slug }]) {
-      // Query fields
+      ## Query fields
     }
   }
 `
 ```
 
 :::info
-Note that, like in this example, the auto-generated query types will be named `{declaredQueryName}Query`.
+Note that, like in this example, the auto-generated query types names are be formed by adding the word **"Query"** to the end of the query name you declared.
 :::
 
 
