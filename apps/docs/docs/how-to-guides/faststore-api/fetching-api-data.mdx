@@ -284,13 +284,68 @@ const query = gql`
 Note that, like in this example, the auto-generated query types names are formed by adding the word **"Query"** to the end of the query name you declared.
 :::
 
-
 ### 3. Using the data
 
+Having built a query and imported the generated type, you can effectively destructure and use the API data in your page function, like in the example:
 
+```javascript
+...
+type Props = ProductPageQueryQuery
+
+function Page({ product }: Props) {
+  const { seo } = product
+  const title = seo.title
+  const description = seo.description
+  ...
+}
+...
+```
 
 ### Complete code example
 
+After you have completed the steps described above, your code should look something like the example below.
 
+:::info
+It is also a good idea to see how data fetching is implemented in pages from [FastStore starters](https://www.faststore.dev/starters), such as:
+- [Next.js store product page](https://github.com/vtex-sites/nextjs.store/blob/main/src/pages/%5Bslug%5D/p.tsx)
+- [Gatsby store product page](https://github.com/vtex-sites/gatsby.store/blob/main/src/pages/%5Bslug%5D/p.tsx)
+:::
+
+```javascript
+import { gql } from '@faststore/graphql-utils'
+import type { ProductPageQueryQuery } from '@generated/graphql'
+...
+
+type Props = ProductPageQueryQuery
+
+function Page({ product }: Props) {
+  const { seo } = product
+  const title = seo.title
+  const description = seo.description
+  ...
+}
+...
+
+const query = gql`
+  query ProductPageQuery($slug: String!) {
+    product(locator: [{ key: "slug", value: $slug }]) {
+
+      seo {
+        title
+        description
+        canonical
+      }
+
+      brand {
+        name
+      }
+
+      sku
+      name
+      description
+    }
+  }
+`
+```
 
 
