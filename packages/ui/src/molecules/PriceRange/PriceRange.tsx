@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle, forwardRef } from 'react'
+import React, { useRef, useImperativeHandle, forwardRef } from 'react'
 import type { AriaAttributes } from 'react'
 
 import Price from '../../atoms/Price'
@@ -47,11 +47,9 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
     const sliderRef = useRef<{
       setSliderValues: (values: { min: number; max: number }) => void
     }>()
-    const [edges, setEdges] = useState({ min: min.selected, max: max.selected })
 
     useImperativeHandle(ref, () => ({
       setPriceRangeValues: (values: { min: number; max: number }) => {
-        setEdges(values)
         onChange?.(values)
         sliderRef.current?.setSliderValues(values)
       },
@@ -64,26 +62,33 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
           min={min}
           max={max}
           onEnd={onEnd}
-          onChange={(value) => {
-            setEdges(value)
-            onChange?.(value)
-          }}
           aria-label={ariaLabel}
+          onChange={(value) => onChange?.(value)}
+          minValueLabelComponent={(minValue) => (
+            <Price
+              value={minValue}
+              variant={variant}
+              formatter={formatter}
+              style={{
+                position: 'absolute',
+                left: `calc(${minValue}% + (${8 - minValue * 0.2}px))`,
+              }}
+              data-price-range-value-label="min"
+            />
+          )}
+          maxValueLabelComponent={(maxValue) => (
+            <Price
+              formatter={formatter}
+              variant={variant}
+              value={maxValue}
+              style={{
+                position: 'absolute',
+                left: `calc(${maxValue}% + (${8 - maxValue * 0.2}px))`,
+              }}
+              data-price-range-value-label="max"
+            />
+          )}
         />
-        <div data-price-range-values>
-          <Price
-            formatter={formatter}
-            data-price-range-value="min"
-            value={edges.min}
-            variant={variant}
-          />
-          <Price
-            formatter={formatter}
-            data-price-range-value="max"
-            value={edges.max}
-            variant={variant}
-          />
-        </div>
       </div>
     )
   }

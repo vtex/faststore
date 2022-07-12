@@ -7,6 +7,7 @@ import React, {
   useImperativeHandle,
   forwardRef,
 } from 'react'
+import type { ReactNode } from 'react'
 
 interface Range {
   absolute: number
@@ -44,6 +45,14 @@ export type SliderProps = {
    * Returns the value of element's class content attribute.
    */
   className?: string
+  /**
+   * Component that renders min value label above the left thumb.
+   */
+  minValueLabelComponent?: (minValue: number) => ReactNode
+  /**
+   * Component that renders max value label above the right thumb.
+   */
+  maxValueLabelComponent?: (maxValue: number) => ReactNode
 }
 
 type SliderRefType = {
@@ -63,6 +72,8 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       testId = 'store-slider',
       getAriaValueText,
       className,
+      minValueLabelComponent,
+      maxValueLabelComponent,
     },
     ref
   ) {
@@ -97,11 +108,16 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       <div data-store-slider data-testid={testId} className={className}>
         <div
           style={{
-            left: `${minPercent}%`,
-            width: `${maxPercent - minPercent}%`,
+            left: `${minPercent < min.absolute ? min.absolute : minPercent}%`,
+            width: `${
+              maxPercent - minPercent > 100
+                ? 100 - minPercent
+                : maxPercent - minPercent
+            }%`,
           }}
           data-slider-range
         />
+        {minValueLabelComponent && minValueLabelComponent(minVal)}
         <input
           type="range"
           min={min.absolute}
@@ -122,6 +138,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           aria-label={String(minVal)}
           aria-labelledby={getAriaValueText?.(minVal, 'min')}
         />
+        {maxValueLabelComponent && maxValueLabelComponent(maxVal)}
         <input
           type="range"
           min={min.absolute}
