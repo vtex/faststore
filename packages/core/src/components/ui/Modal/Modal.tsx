@@ -13,8 +13,10 @@ export type ModalChildrenProps = {
   fadeIn: () => void
 }
 
+type ModalChildrenFunction = (props: ModalChildrenProps) => ReactNode
+
 export type ModalProps = Omit<UIModalProps, 'isOpen' | 'children'> & {
-  children: (props: ModalChildrenProps) => ReactNode | ReactNode
+  children: ModalChildrenFunction | ReactNode
 }
 
 function Modal({ className, children, ...props }: ModalProps) {
