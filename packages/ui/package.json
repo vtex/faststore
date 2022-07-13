@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "1.10.12",
+  "version": "1.10.13",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
