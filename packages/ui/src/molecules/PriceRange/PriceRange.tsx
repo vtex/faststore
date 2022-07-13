@@ -64,30 +64,38 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
           onEnd={onEnd}
           aria-label={ariaLabel}
           onChange={(value) => onChange?.(value)}
-          minValueLabelComponent={(minValue) => (
-            <Price
-              value={minValue}
-              variant={variant}
-              formatter={formatter}
-              style={{
-                position: 'absolute',
-                left: `calc(${minValue}% + (${8 - minValue * 0.2}px))`,
-              }}
-              data-price-range-value-label="min"
-            />
-          )}
-          maxValueLabelComponent={(maxValue) => (
-            <Price
-              formatter={formatter}
-              variant={variant}
-              value={maxValue}
-              style={{
-                position: 'absolute',
-                left: `calc(${maxValue}% + (${8 - maxValue * 0.2}px))`,
-              }}
-              data-price-range-value-label="max"
-            />
-          )}
+          minValueLabelComponent={(minValue) => {
+            const minPercent = (minValue / max.absolute) * 100
+
+            return (
+              <Price
+                value={minValue}
+                variant={variant}
+                formatter={formatter}
+                data-price-range-value-label="min"
+                style={{
+                  position: 'absolute',
+                  left: `calc(${minPercent}% + (${8 - minPercent * 0.2}px))`,
+                }}
+              />
+            )
+          }}
+          maxValueLabelComponent={(maxValue) => {
+            const maxPercent = (maxValue / max.absolute) * 100
+
+            return (
+              <Price
+                formatter={formatter}
+                variant={variant}
+                value={maxValue}
+                data-price-range-value-label="max"
+                style={{
+                  position: 'absolute',
+                  left: `calc(${maxPercent}% + (${8 - maxPercent * 0.2}px))`,
+                }}
+              />
+            )
+          }}
         />
       </div>
     )
