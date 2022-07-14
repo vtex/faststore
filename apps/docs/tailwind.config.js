@@ -13,6 +13,7 @@ module.exports = {
       },
       colors: {
         background: infima('--ifm-background-color'),
+        whiteIce: infima('--ifm-color-white-ice'),
         code: infima('--ifm-code-background'),
         tag: infima('--ifm-tag-background'),
         tagHighlight: infima('--ifm-tag-highlight'),

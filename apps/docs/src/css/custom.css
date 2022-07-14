@@ -8,6 +8,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import url('https://use.fontawesome.com/releases/v5.15.4/css/all.css');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&display=swap');
 
 @font-face {
   font-family: 'VTEX Trust Regular';
@@ -28,6 +29,8 @@
   --ifm-menu-color-background-active: transparent;
   --ifm-menu-color-background-hover: transparent;
 
+  --docusaurus-highlighted-code-line-bg: #263448;
+
   --ifm-color-black: #000;
   --ifm-background-color: #fff !important;
   --ifm-color-rebel-pink: #e31c58;
@@ -35,13 +38,13 @@
   --ifm-color-serious-black: #142032;
   --ifm-color-white-ice: #f8f7fc;
   --ifm-tag-highlight: #fff3f6;
-  --ifm-color-details: #86868b;
+  --ifm-color-details: #4a596b;
 
   --ifm-hover-overlay: var(--ifm-color-white-ice);
 
   --ifm-breadcrumb-padding-horizontal: 0;
   --ifm-breadcrumb-size-multiplier: 0.8;
-  --ifm-font-size-base: 1.1rem;
+  --ifm-font-size-base: 1.125rem;
 
   --ifm-color-primary: var(--ifm-color-rebel-pink);
   --ifm-color-secondary: var(--ifm-color-rebel-pink);
@@ -57,7 +60,7 @@
   --ifm-global-shadow-lw: 0;
   --ifm-navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   --ifm-table-border-color: #e7e9ee;
-  --ifm-table-stripe-background: var(--ifm-color-white-ice);
+  --ifm-table-stripe-background: var(--ifm-background-color);
   --ifm-table-head-font-weight: normal;
   --ifm-table-head-color: #a1a8b3;
   --docusaurus-announcement-bar-height: 45px !important;
@@ -105,7 +108,7 @@
   --docsearch-primary-color: var(--ifm-background-surface-color) !important;
   
   --docsearch-highlight-color: var(--ifm-tag-highlight) !important;
-  
+  --ifm-color-white-ice: #060f1d !important;
   --ifm-code-background: #060f1d !important;
   --ifm-tag-background: #070f1d !important;
   --ifm-footer-background-color: var(--ifm-color-secondary);
@@ -114,7 +117,7 @@
   --ifm-font-color-base: #f5f5f7;
   --ifm-font-color-secondary: #f5f5f7;
   --ifm-table-border-color: var(--ifm-footer-background-color);
-  --ifm-table-stripe-background: var(--ifm-background-surface-color);
+  --ifm-table-stripe-background: var(--ifm-background-color) !important;
   --ifm-table-head-color: #a1a8b3;
 }
 
@@ -142,8 +145,9 @@ code {
   @apply my-5
 }
 
-[data-theme='dark'] [class^='codeBlockLines'] {
-  @apply bg-code border-none;
+[class^='codeBlockTitle'], [class^='codeBlockContent'] {
+  --prism-background-color: var(--ifm-code-background);
+  @apply bg-code;
 }
 
 body {
@@ -189,7 +193,7 @@ hr {
 }
 
 .markdown blockquote {
-  @apply my-6 pl-6 ml-4;
+  @apply my-5 pl-6 ml-4;
   border-left: 3px solid #e7e9ee;
 }
 
@@ -206,8 +210,11 @@ main a {
 }
 
 [class^='docItemContainer'] {
-  @apply mx-auto sm:mx-32;
-  width: 78%;
+  @apply mx-auto sm:max-w-4xl;
+}
+
+.docItemCol_src-theme-DocItem-styles-module [class^='docItemContainer'] {
+  @apply mx-auto sm:max-w-2xl;
 }
 
 [class^='generatedIndexPage'] {
@@ -219,19 +226,24 @@ main a {
   @apply mt-16;
 }
 
-main h1 {
-  @apply text-4xl font-VTEXMedium text-fontSecondary;
+main h1, h2, h3, h4 {
+  @apply font-VTEXMedium text-fontSecondary;
 }
+
+main h1 {
+  @apply text-4xl;
+}
+
 main h2 {
-  @apply text-2xl font-VTEXMedium text-fontSecondary;
+  @apply text-2xl mb-5;
 }
 
 main h3 {
-  @apply text-lg font-VTEXMedium text-fontSecondary;
+  @apply text-lg;
 }
 
 main h4 {
-  @apply text-lg font-normal text-fontSecondary;
+  @apply text-lg font-normal;
 }
 
 code {
@@ -297,26 +309,11 @@ code {
 }
 
 [data-theme='dark'] [class^='codeBlockTitle'] {
-  @apply border-b border-gray-50 bg-code;
+  @apply border-b border-gray-50 bg-[#1c2b3e];
 }
 
 [class^='pagination-nav']{
   @apply flex justify-between !important;
-}
-
-[class^='codeBlockTitle'] {
-  @apply border-none bg-code !important;
-}
-
-[class^='codeBlockLines'] {
-  @apply bg-code box-border border border-border;
-  font-size: 12px !important;
-}
-
-.docusaurus-highlight-code-line {
-  @apply bg-code brightness-125 !important;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
 }
 
 
@@ -336,7 +333,7 @@ code {
     no-repeat;
 }
 
-[class^='menu__link'] svg{
+a svg{
 @apply inline-block
 }
 
@@ -398,4 +395,20 @@ code {
 
 .menu__list-item--collapsed .menu__caret:after, .menu__link--sublist-caret[aria-expanded="false"]:after{
   transform: rotateZ(360deg) 
+}
+
+td {
+  @apply align-top;
+}
+
+[data-store-aggregate-rating]{
+  @apply ml-0 mb-4  !important
+}
+
+[data-store-aggregate-rating] li{
+  @apply list-none mt-0 text-2xl !important
+}
+
+li[data-store-aggregate-rating-item] {
+  color: #ff6d75 !important
 }

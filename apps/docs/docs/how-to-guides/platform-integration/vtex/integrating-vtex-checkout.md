@@ -55,7 +55,7 @@ We now need to update the links presented in the Header and Footer of the Checko
    ```diff title="checkout-header.js"
    <div class="container">
    -  <a href="/" title="Home Page">Your logo here!</a>
-   +  <a href="https://vtexfaststore.com" title="Home Page">FastStore</a>
+   +  <a href="https://www.vtexfaststore.com" title="Home Page">FastStore</a>
    <hr>
    </div>
    ```

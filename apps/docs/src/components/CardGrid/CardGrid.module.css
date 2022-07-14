@@ -7,7 +7,7 @@
 }
 
 .cardGrid a {
-  @apply border-border rounded border block text-text p-7 active:no-underline hover:no-underline;
+  @apply border-border rounded border block text-text p-5 active:no-underline hover:no-underline;
 }
 
 .iconGrid, .cardGrid {

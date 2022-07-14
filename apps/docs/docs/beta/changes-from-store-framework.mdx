@@ -1,0 +1,135 @@
+---
+sidebar_position: 3
+---
+
+# Changes from Store Framework
+
+## Main differences
+
+<table className="text-sm shadow-lg text-left rounded-lg">
+<thead >
+<tr className="font-VTEXMedium uppercase bg-rebelPink">
+<th className="text-white w-1/2">FASTSTORE</th>
+<th className="text-white w-1/2">STORE FRAMEWORK</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">Closed Beta.</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">General Availability.</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">Decoupled solution:</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">Coupled solution:</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">Open-source.</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">Mix of proprietary and open-source.</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">Extensible via external plugins and libraries.</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">Extensible via IO apps.</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">No native support for cross-border and multi-language stores yet.</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">Native support for cross-border and multi-language stores.</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+    <span className="text-rebelPink">Easier to add customizations without degrading performance.</span>
+    </td>
+    <td>
+    <span className="text-rebelPink">Harder to add customizations without degrading performance.</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">Performance-focused.:</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">Composability-focused.</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">Jamstack architecture.:</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">Server-side rendered.</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">Compatible with VTEX Headless CMS.</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">Compatible with Site Editor.</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">Deployed on WebOps.</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">Deployed as a VTEX IO app.</span>
+    </td>
+</tr>
+
+<tr>
+    <td className="bg-tagHighlight">
+        <span className="text-rebelPink">Improved deployment observability.</span>
+    </td>
+    <td>
+        <span className="text-rebelPink">Limited deployment observability.</span>
+    </td>
+</tr>
+
+</tbody>
+</table>
+
+> Both **Store Framework** and **FastStore** performance are above Google's Core Web Vitals baseline metric for high-performing websites.
+
+## FastStore
+
+Based on the **Jamstack architecture**, FastStore is an **open-source** toolkit for developing headless storefronts. It can therefore be integrated by anyone with any CMS and deployment platform. However, in order to benefit from the VTEX guarantee and support, enrollment in the **FastStore, Webops, and Headless CMS Beta Program** is required.
+
+FastStore was built with **performance** in mind. It leverages the Jamstack architecture to deliver fast, secure and reliable storefronts by default. In addition, it comes with several tools and resources designed for this purpose, including the WebOps pipeline and Starter packs optimized for performance.
+
+However, because FatsStore, WebOps and Headless CMS are still in beta, several essential features, such as My Account customizations and full integration with IO apps and Intelligent Search, are still lacking.
+
+## Store Framework
+
+Built on top of the VTEX IO platform, Store Framework is an **opinionated** React-based storefront framework and the most modern solution in **General Availability** for building storefronts at VTEX.
+
+Store Framework was designed with **composability** in mind and is extensible via globally available **IO apps**. In addition, Store Framework has native support for **multi-language** and **cross-border** stores. 
+
+The two main drawbacks of Store Framework are the requirement for understanding a **VTEX proprietary technology** and the **risk of harming performance** while adding customizations without deliberation.

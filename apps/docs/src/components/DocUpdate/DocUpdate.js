@@ -42,9 +42,9 @@ const DocUpdate = () => {
     comp = (
       <>
         <div className="mb-6">
-          <h3 className="inline-block mr-3 text-2xl font-VTEXRegular font-extralight align-middle">
+          <h2 className="inline-block mr-3 align-middle">
             Documentation Updates
-          </h3>
+          </h2>
           <p className="inline-block px-2 rounded-full bg-tagHighlight text-rebelPink">
             {totalUpdates}
           </p>
@@ -149,19 +149,19 @@ const DocUpdate = () => {
                 <p className="inline-block align-middle font-medium">
                   {item.type}
                 </p>
-                <p className="inline-block align-middle uppercase py-1 px-2 bg-code rounded-lg text-xs ml-3">
+                <p className="inline-block align-middle uppercase py-1 px-2 bg-whiteIce rounded-lg text-xs ml-3">
                   {item.menu}
                 </p>
               </div>
 
               <div className="pl-4 border-l border-border ml-2 mb-4">
                 <a
-                  className="text-lg font-bold text-text hover:no-underline"
+                  className="text-lg text-fontSecondary hover:no-underline"
                   href={item.path}
                 >
                   {item.category}
                 </a>
-                <p className="text-details mb-2">{item.diffDays} days ago</p>
+                <p className="text-details text-sm mb-2">{item.diffDays} days ago</p>
                 {item.docs.map((docItem, j) => (
                   <a
                     key={j}

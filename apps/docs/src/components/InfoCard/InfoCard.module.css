@@ -1,5 +1,5 @@
 .homeGrid > * {
-  @apply relative bg-code mb-4 hover:opacity-90;
+  @apply relative bg-whiteIce mb-4 hover:opacity-90;
 }
 
 .homeGrid a {

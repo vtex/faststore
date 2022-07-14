@@ -1,7 +1,7 @@
 import React from 'react'
 
 const DocFooter = () => (
-  <div className="bg-code text-text flex items-start justify-between flex-col sm:flex-row my-8 p-8 gap-4">
+  <div className="bg-whiteIce text-text flex items-start justify-between flex-col sm:flex-row my-8 p-8 gap-4">
     <div className="w-full sm:w-4/6 m-auto">
       <p>
         {"Didn't"} find your answers? Ask the Community. For documentation

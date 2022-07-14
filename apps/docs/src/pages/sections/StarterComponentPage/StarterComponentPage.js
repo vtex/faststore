@@ -8,7 +8,7 @@ const StarterComponentPage = ({ data = {} }) => {
       <div className="w-full lg:w-9/12 mx-auto my-5 tracking-wider uppercase text-sm text-fontSecondary font-medium">
         <Link href="/starters">← Back</Link>
       </div>
-      <div className="w-full lg:w-9/12 lg:relative bg-code container mb-20 mx-auto rounded-lg justify-between">
+      <div className="w-full lg:w-9/12 lg:relative bg-whiteIce container mb-20 mx-auto rounded-lg justify-between">
         <div className="w-full lg:w-3/6 lg:px-16 p-6 py-12">
           <h1 className="text-5xl font-VTEXMedium text-fontSecondary">
             {data.name}
