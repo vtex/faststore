@@ -323,7 +323,9 @@ module.exports = {
           label: 'Concepts',
           collapsed: true,
           link: { type: 'doc', id: 'conceptual-guides' },
-          items: ['conceptual-guides/jamstack'],
+          items: [
+            'conceptual-guides/analytics-on-faststore',
+          ],
         },
         'faq',
         'resources',
