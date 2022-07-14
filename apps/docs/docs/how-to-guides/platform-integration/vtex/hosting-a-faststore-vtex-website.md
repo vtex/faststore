@@ -7,7 +7,7 @@ pagination_label: Part 2
 
 To use an **external domain** for your **FastStore + VTEX** website, you'll need to:
 
- - Set up your external DNS provider to point your custom domain to your VTEX website. Custom domains can be purchased from any **domain registrar**.
+ - Set up your external DNS provider to point your custom domain to your VTEX website. Custom domains can be purchased from any **domain register**.
  - Configure your custom domains in **VTEX Account Management**.
  - Associate your custom domains with your **FastStore** project. 
 
@@ -30,7 +30,11 @@ Besides making your FastStore website accessible via a custom domain, the **VTEX
 If you still need to configure other VTEX solutions, please **use a fictitious domain name** while taking the following steps. Then, once you set up all the desired integrations, repeat this guide using your final domain to make your website publicly available to end-users.
 :::
 
-### Step 1 - Creating the DNS records
+### Step 1 - Secure routing
+
+If you have routing using ```/secure``` to use secure routes, you need make's change to use subdomain .secure for these routes.
+
+### Step 2 - Creating the DNS records
 
 1. Access your domain provider website.
 2. Create a **CNAME** DNS record for your www domain (e.g., `www.mystore.com`) that points to `www.{rootDomain}.com.cdn.vtex.com` (e.g., `www.mystore.com.cdn.vtex.com`). _Check the documentation of your domain provider for more information._
@@ -40,7 +44,7 @@ If you still need to configure other VTEX solutions, please **use a fictitious d
 DNS pointing propagation takes 24-48 hours to occur completely, which means that the configured addresses may not be immediately available to everyone.
 :::
 
-### Step 2 - Configuring domains in VTEX Account Management
+### Step 3 - Configuring domains in VTEX Account Management
 
 Now you must set up your VTEX account to use the DNS records created in the previous step. To proceed, make sure your store [is active and in production](https://help.vtex.com/en/tutorial/passando-a-loja-para-producao/).
 
@@ -53,7 +57,7 @@ Now you must set up your VTEX account to use the DNS records created in the prev
    ![Host configuration](https://vtexhelp.vtexassets.com/assets/docs/src/hostsConfig___cad00ec89023cd77c34f77898cda1b3e.png)
 7. Click the **Save** button.
 
-### Step 3 - Associating your custom domain with your FastStore project
+### Step 4 - Associating your custom domain with your FastStore project
 
 Back to your FastStore project, you must also configure your project to point to the right addresses and domains.
 
@@ -85,9 +89,13 @@ Back to your FastStore project, you must also configure your project to point to
       lighthouse: {
       ...
    ```
+4. Add the variable SITE_HOST with your host domain on the vtex.env file
+5. Save your changes.
+6. Open a Pull Request, commit your changes and do a deploy on main/master.
 
-4. Save your changes.
-5. Open a Pull Request and commit your changes.
+### Step 5 - Configure the CDN workflow
+
+Open one request to VTEX configure your domain to point to FastStore and your secure subdomain to point to IO.
 
 ---
 
