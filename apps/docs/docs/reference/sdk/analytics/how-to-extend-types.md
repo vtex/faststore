@@ -2,7 +2,7 @@
 
 One of the major features the analytics module offers are its types. They're all based on [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events), and they're especially focused on the [Enhanced Ecommerce](https://support.google.com/tagmanager/answer/6107169) capabilities.
 
-Although the recommended parameters by each analytics providers are often the most important ones, it's quite common to send additional properties to them in order to monitor specific behaviors that are uniquely valuable to a store or a store sectors.
+Although the recommended parameters by each analytics providers are often the most important ones, it's quite common to send additional properties to them in order to monitor specific behaviors that are uniquely valuable to a store or a store segment.
 
 The analytics module supports this behavior natively and offers ways to make it easy to incorporate it without losing code safety features. It does that by accepting custom types and exporting its own types so that users don't have the need to rewrite all of them to add minor additions. Also, these types are built with generics, which means you can rewrite only a small part of them if you really need to.
 
