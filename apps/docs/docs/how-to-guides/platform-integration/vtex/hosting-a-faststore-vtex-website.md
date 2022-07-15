@@ -7,7 +7,7 @@ pagination_label: Part 2
 
 To use an **external domain** for your **FastStore + VTEX** website, you'll need to:
 
- - Set up your external DNS provider to point your custom domain to your VTEX website. Custom domains can be purchased from any **domain register**.
+ - Set up your external DNS provider to point your custom domain to your VTEX website. Custom domains can be purchased from any **domain registrar**.
  - Configure your custom domains in **VTEX Account Management**.
  - Associate your custom domains with your **FastStore** project. 
 
