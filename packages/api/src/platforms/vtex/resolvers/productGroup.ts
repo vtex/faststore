@@ -239,7 +239,6 @@ export const StoreProductGroup: Record<string, Resolver<Root>> = {
 
   productGroupID: ({ isVariantOf }) => isVariantOf.productId,
   name: (root) => {
-    console.log(root)
     return root.isVariantOf.productName
   },
   additionalProperty: ({ isVariantOf: { specificationGroups } }) =>
