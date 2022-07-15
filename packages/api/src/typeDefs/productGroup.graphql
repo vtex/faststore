@@ -18,4 +18,19 @@ type StoreProductGroup {
   Array of additional properties.
   """
   additionalProperty: [StorePropertyValue!]!
+  
+  activeVariations: [SelectedVariants]
+  variantsByName: VariantsByName
+  slugsMap(dominantVariantProperty: String!): SlugsMap
+
+  filteredAvailableVariations(dominantVariantProperty: String!): VariantsByName
 }
+
+type SelectedVariants {
+  name: String
+  value: String
+}
+
+scalar VariantsByName
+
+scalar SlugsMap
