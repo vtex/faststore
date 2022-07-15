@@ -19,17 +19,14 @@ type StoreProductGroup {
   """
   additionalProperty: [StorePropertyValue!]!
   
-  activeVariations: [SelectedVariants]
+  activeVariations: SelectedVariants
   variantsByName: VariantsByName
   slugsMap(dominantVariantProperty: String!): SlugsMap
 
   filteredAvailableVariations(dominantVariantProperty: String!): VariantsByName
 }
 
-type SelectedVariants {
-  name: String
-  value: String
-}
+scalar SelectedVariants
 
 scalar VariantsByName
 

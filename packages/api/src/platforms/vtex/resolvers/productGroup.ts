@@ -70,27 +70,13 @@ function createSlugsMap(
 }
 
 function getActiveSkuVariations(root: Root) {
-  return root.variations.map((variation) => ({
-    name: variation.name,
-    value: variation.values[0],
-  }))
-}
+  const activeVariations: Record<string, string> = {}
 
-function getDominantVariantValue(
-  values: Array<{ name: string; value: string }>,
-  dominantVariantName: string
-) {
-  const dominantValue = values.find(
-    (variation) => variation.name === dominantVariantName
-  )?.value
+  root.variations.forEach((variation) => {
+    activeVariations[variation.name] = variation.values[0]
+  })
 
-  if (!dominantValue) {
-    throw new Error(
-      'SKU does not have a value set for its dominant variation property.'
-    )
-  }
-
-  return dominantValue
+  return activeVariations
 }
 
 function getVariantsByName(root: Root) {
@@ -217,10 +203,13 @@ export const StoreProductGroup: Record<string, Resolver<Root>> = {
     const activeVariations = getActiveSkuVariations(root)
     const dominantVariantName = (args as SlugsMapArgs).dominantVariantProperty
 
-    const activeDominantVariationValue = getDominantVariantValue(
-      activeVariations,
-      dominantVariantName
-    )
+    const activeDominantVariationValue = activeVariations[dominantVariantName]
+
+    if (!activeDominantVariationValue) {
+      throw new Error(
+        'SKU does not have a value set for its dominant variation property.'
+      )
+    }
 
     const filteredFormattedVariations = getFormattedVariations(
       root.isVariantOf.items,
