@@ -30,9 +30,9 @@ Besides making your FastStore website accessible via a custom domain, the **VTEX
 If you still need to configure other VTEX solutions, please **use a fictitious domain name** while taking the following steps. Then, once you set up all the desired integrations, repeat this guide using your final domain to make your website publicly available to end-users.
 :::
 
-### Step 1 - Secure routing
+### Step 1 - Requirements verification
 
-If you have routing using ```/secure``` to use secure routes, you need make's change to use subdomain .secure for these routes.
+You need to use Gatsby 4 or Next.js. If you are using Gatsby 3, please contact VTEX Support prior to the next steps.
 
 ### Step 2 - Creating the DNS records
 
