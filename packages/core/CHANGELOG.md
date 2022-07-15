@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added a new theme for testing purposes called midnight ([#119](https://github.com/vtex-sites/nextjs.store/pull/119))
+- Extracted all BaseStore visual to a new theme called soft-blue ([#119](https://github.com/vtex-sites/nextjs.store/pull/119))
 - Applies CSS Modules to `Incentives` ([#155](https://github.com/vtex-sites/nextjs.store/pull/155))
 - Applies new local tokens to `Footer` ([#155](https://github.com/vtex-sites/nextjs.store/pull/155))
 - Adds [MSW Addon](https://storybook.js.org/addons/msw-storybook-addon) ([#166](https://github.com/vtex-sites/nextjs.store/pull/166))
@@ -22,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updates global tokens to follow Brandless approach ([#119](https://github.com/vtex-sites/nextjs.store/pull/119))
 - Sync `ModalProps` children between starters ([#169](https://github.com/vtex-sites/nextjs.store/pull/169))
 - Updates `IncentivesFooter` content ([#155](https://github.com/vtex-sites/nextjs.store/pull/155))
 - Updated Getting Started doc page and overall improvements ([#147](https://github.com/vtex-sites/nextjs.store/pull/147))

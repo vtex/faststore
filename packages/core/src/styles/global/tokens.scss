@@ -5,25 +5,25 @@
 
 @import "../vendors/include-media";
 
-// --------------------------------------------------------
-// Colors (Branding Core)
-// --------------------------------------------------------
-
 body {
+  // --------------------------------------------------------
+  // Colors (Branding Core)
+  // --------------------------------------------------------
+
   // PALETTE
   // Tone values must range from lightest to darkest.
   // `0` is more suitable for backgrounds, and `4` for texts.
-  --fs-color-main-0                    : #ecf0ff;
-  --fs-color-main-1                    : #d8e2ff;
+  --fs-color-main-0                    : #f1f2f3;
+  --fs-color-main-1                    : #e3e6e8;
   --fs-color-main-2                    : #00419e;
   --fs-color-main-3                    : #002c71;
-  --fs-color-main-4                    : #001947;
+  --fs-color-main-4                    : #002155;
 
-  --fs-color-accent-0                  : #ebdcff;
-  --fs-color-accent-1                  : #8d50fd;
-  --fs-color-accent-2                  : #732fe2;
-  --fs-color-accent-3                  : #5900c8;
-  --fs-color-accent-4                  : #4700a0;
+  --fs-color-accent-0                  : #f1f2f3;
+  --fs-color-accent-1                  : #e3e6e8;
+  --fs-color-accent-2                  : #74808b;
+  --fs-color-accent-3                  : #5d666f;
+  --fs-color-accent-4                  : #171a1c;
 
   --fs-color-neutral-0                 : #ffffff;
   --fs-color-neutral-1                 : #f1f2f3;
@@ -36,15 +36,15 @@ body {
 
   // HIERARCHY
   --fs-color-primary-text              : var(--fs-color-text-inverse);
-  --fs-color-primary-bkg               : var(--fs-color-main-4);
+  --fs-color-primary-bkg               : var(--fs-color-main-2);
   --fs-color-primary-bkg-hover         : var(--fs-color-main-3);
-  --fs-color-primary-bkg-active        : var(--fs-color-main-2);
+  --fs-color-primary-bkg-active        : var(--fs-color-main-4);
   --fs-color-primary-bkg-light         : var(--fs-color-main-0);
   --fs-color-primary-bkg-light-active  : var(--fs-color-main-1);
 
-  --fs-color-secondary-text            : var(--fs-color-main-4);
+  --fs-color-secondary-text            : var(--fs-color-primary-bkg);
   --fs-color-secondary-bkg             : transparent;
-  --fs-color-secondary-bkg-hover       : var(--fs-color-main-4);
+  --fs-color-secondary-bkg-hover       : var(--fs-color-primary-bkg);
   --fs-color-secondary-bkg-active      : var(--fs-color-main-3);
   --fs-color-secondary-bkg-light       : var(--fs-color-main-0);
   --fs-color-secondary-bkg-light-active: var(--fs-color-secondary-bkg-light);
@@ -60,9 +60,9 @@ body {
   --fs-color-body-bkg                  : var(--fs-color-neutral-0);
 
   --fs-color-action-text               : var(--fs-color-text-inverse);
-  --fs-color-action-bkg                : var(--fs-color-accent-3);
-  --fs-color-action-bkg-hover          : var(--fs-color-accent-2);
-  --fs-color-action-bkg-active         : var(--fs-color-accent-1);
+  --fs-color-action-bkg                : var(--fs-color-accent-4);
+  --fs-color-action-bkg-hover          : var(--fs-color-accent-3);
+  --fs-color-action-bkg-active         : var(--fs-color-accent-2);
   --fs-color-action-bkg-light          : var(--fs-color-neutral-0);
   --fs-color-action-bkg-light-active   : var(--fs-color-tertiary-bkg-light);
 
@@ -75,7 +75,7 @@ body {
   --fs-color-text                      : var(--fs-color-neutral-7);
   --fs-color-text-light                : var(--fs-color-neutral-6);
   --fs-color-text-inverse              : var(--fs-color-neutral-0);
-  --fs-color-text-display              : var(--fs-color-main-4);
+  --fs-color-text-display              : var(--fs-color-neutral-7);
 
   --fs-color-focus-ring                : #8db6fa;
   --fs-color-focus-ring-outline        : #8db6fa80;
@@ -83,11 +83,11 @@ body {
 
   // SITUATIONS
   --fs-color-success-text              : #1e493b;
-  --fs-color-success-bkg               : #cee8de;
+  --fs-color-success-bkg               : #b3ebd5;
   --fs-color-success-border            : var(--fs-color-success-text);
 
   --fs-color-warning-text              : var(--fs-color-text);
-  --fs-color-warning-bkg               : #f6e0ba;
+  --fs-color-warning-bkg               : #fdec8d;
   --fs-color-warning-border            : var(--fs-color-warning-text);
 
   --fs-color-danger-text               : #cb4242;
@@ -97,7 +97,7 @@ body {
   --fs-color-info-text                 : var(--fs-color-text);
   --fs-color-info-bkg                  : var(--fs-color-main-1);
 
-  --fs-color-highlighted-text          : var(--fs-color-text);
+  --fs-color-highlighted-text          : var(--fs-color-text-display);
   --fs-color-highlighted-bkg           : var(--fs-color-accent-0);
 
   --fs-color-neutral-text              : var(--fs-color-text);
@@ -111,7 +111,7 @@ body {
   // --------------------------------------------------------
 
   // FACE
-  --fs-text-face-body                  : "Lato", -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+  --fs-text-face-body                  : -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
   --fs-text-face-title                 : var(--fs-text-face-body);
 
   // WEIGHT
@@ -222,6 +222,7 @@ body {
   // TAP
   --fs-control-tap-size                : var(--fs-spacing-7); // 3rem = 48px
   --fs-control-tap-size-smallest       : calc(var(--fs-control-tap-size) / 2);
+  --fs-control-min-height              : var(--fs-control-tap-size);
 
   @include media(">=notebook") {
     --fs-control-tap-size              : var(--fs-spacing-7); // This value can be smaller on desktops
@@ -230,9 +231,6 @@ body {
   // STATES
   --fs-control-bkg                     : var(--fs-color-neutral-0);
   --fs-control-bkg-disabled            : var(--fs-color-disabled-bkg);
-
-  // SIZING
-  --fs-control-min-height              : var(--fs-control-tap-size);
 
   // --------------------------------------------------------
   // Refinements
@@ -245,7 +243,7 @@ body {
 
   // BORDERS
   --fs-border-radius-small             : .125rem; // 2px
-  --fs-border-radius                   : .25rem;  // 4px
+  --fs-border-radius                   : .125rem; // 2px
   --fs-border-radius-medium            : .5rem;   // 8px
   --fs-border-radius-pill              : 100px;
   --fs-border-radius-circle            : 100%;
@@ -267,5 +265,5 @@ body {
   // SHADOW
   --fs-shadow                          : none;
   --fs-shadow-darker                   : 0 0 10px rgb(0 0 0 / 20%);
-  --fs-shadow-hover                    : 0 1px 4px rgb(0 0 0 / 10%), 0 6px 8px rgb(0 0 0 / 10%);
+  --fs-shadow-hover                    : 0 0 0 1px var(--fs-color-main-4);
 }

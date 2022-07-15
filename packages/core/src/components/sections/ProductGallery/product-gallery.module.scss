@@ -70,7 +70,7 @@
     width: 100%;
     min-height: rem(68px);
     padding: var(--fs-spacing-1) var(--fs-spacing-3) var(--fs-spacing-2);
-    background-color: var(--fs-color-neutral-0);
+    background-color: var(--fs-color-body-bkg);
 
     [data-element-variant="text"] {
       min-width: rem(225px);
@@ -137,7 +137,7 @@
   [data-fs-product-listing-sponsored] {
     padding: var(--fs-spacing-4) var(--fs-spacing-3);
     margin: var(--fs-spacing-1) calc(-1 * var(--padding));
-    background-color: var(--fs-color-neutral-0);
+    background-color: var(--fs-color-body-bkg);
 
     @include media(">=notebook") {
       padding: 0;
@@ -160,7 +160,7 @@
     padding: var(--fs-spacing-4);
     margin-right: calc(-1 * var(--padding));
     margin-left: calc(-1 * var(--padding));
-    background-color: var(--fs-color-neutral-0);
+    background-color: var(--fs-color-body-bkg);
 
     @include media(">=notebook") {
       padding: var(--fs-spacing-1) var(--fs-spacing-2);

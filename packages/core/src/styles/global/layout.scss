@@ -6,16 +6,18 @@
 @import "src/styles/scaffold";
 
 body {
+  --fs-body-bkg: var(--fs-color-body-bkg);
+
   min-height: 100vh;
   color: var(--fs-color-text);
-  background-color: var(--fs-color-body-bkg);
+  background: var(--fs-body-bkg);
 }
 
 main,
 .layout__main {
   display: flex;
   flex-wrap: wrap;
-  background-color: var(--fs-color-body-bkg);
+  background: var(--fs-body-bkg);
 }
 
 .layout__section {

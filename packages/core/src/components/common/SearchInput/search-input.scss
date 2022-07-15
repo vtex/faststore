@@ -11,6 +11,7 @@
   [data-store-input] {
     width: 100%;
     padding: var(--fs-spacing-1) var(--fs-spacing-7) var(--fs-spacing-1) var(--fs-spacing-2);
+    background-color: var(--fs-color-body-bkg);
     border: var(--fs-border-width) solid var(--fs-border-color);
     border-radius: var(--fs-border-radius);
     transition: box-shadow .2s ease, border .2s ease;

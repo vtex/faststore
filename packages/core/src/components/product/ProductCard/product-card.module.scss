@@ -20,7 +20,7 @@
   --fs-product-card-border-radius            : var(--fs-border-radius);
   --fs-product-card-border-width             : var(--fs-border-width);
   --fs-product-card-border-color             : var(--fs-border-color-light);
-  --fs-product-card-border-color-hover       : var(--fs-border-color-light-hover);
+  --fs-product-card-border-color-hover       : var(--fs-border-color-hover);
 
   --fs-product-card-transition-function      : var(--fs-transition-function);
   --fs-product-card-transition-property      : var(--fs-transition-property);
@@ -31,6 +31,7 @@
 
   // Image
   --fs-product-card-img-radius               : var(--fs-border-radius);
+  --fs-product-card-img-scale-hover          : 1;
 
   // Title
   --fs-product-card-title-color         : var(--fs-color-text);
@@ -80,15 +81,20 @@
       background-color: var(--fs-product-card-bkg-color-hover);
       border-color: var(--fs-product-card-border-color-hover);
       box-shadow: var(--fs-product-card-shadow-hover);
+      [data-fs-product-card-image] img { transform: scale(var(--fs-product-card-img-scale-hover)); }
     }
   }
 
-  [data-product-card-image] {
+  [data-fs-product-card-image] {
     position: relative;
     display: flex;
     justify-content: center;
     overflow: hidden;
     border-radius: var(--fs-product-card-img-radius);
+
+    img {
+      transition: var(--fs-product-card-transition-property) var(--fs-product-card-transition-timing) var(--fs-product-card-transition-function);
+    }
   }
 
   [data-fs-product-card-content] {
@@ -167,6 +173,12 @@
 
   &[data-fs-product-card-bordered="true"] {
     border: var(--fs-product-card-border-width) solid var(--fs-product-card-border-color);
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: var(--fs-product-card-border-color-hover);
+      }
+    }
   }
 
   &[data-fs-product-card-variant="wide"] {
@@ -203,7 +215,8 @@
     }
 
     [data-product-card-image] {
-      border-radius: var(--fs-product-card-border-radius) var(--fs-product-card-border-radius) 0 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
     }
 
     [data-store-badge] {

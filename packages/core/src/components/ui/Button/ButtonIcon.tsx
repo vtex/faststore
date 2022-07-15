@@ -11,8 +11,7 @@ function ButtonIcon({ icon, ...otherProps }: Props) {
       className={styles.fsButton}
       data-fs-button="true"
       data-fs-button-icon="true"
-      data-fs-button-variant="primary"
-      data-fs-button-inverse="true"
+      data-fs-button-variant="tertiary"
       icon={icon}
       {...otherProps}
     />

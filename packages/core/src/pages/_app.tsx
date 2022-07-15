@@ -1,9 +1,13 @@
-import '../styles/fonts.css'
 import '../styles/global/tokens.scss'
 import '../styles/global/resets.scss'
 import '../styles/global/typography.scss'
 import '../styles/global/layout.scss'
 import '../styles/global/components.scss'
+
+// Replace these with your theme style file
+import '../styles/themes/midnight.scss'
+import '../styles/themes/soft-blue.scss'
+import '../styles/themes/custom-theme.scss'
 
 import { CartProvider, SessionProvider } from '@faststore/sdk'
 import NextNProgress from 'nextjs-progressbar'

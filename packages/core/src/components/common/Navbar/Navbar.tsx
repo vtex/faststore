@@ -29,7 +29,10 @@ function Navbar() {
   }
 
   return (
-    <header className={`${styles.fsNavbar} layout__content-full`}>
+    <header
+      data-fs-navbar
+      className={`${styles.fsNavbar} layout__content-full`}
+    >
       <div className="layout__content" data-fs-navbar-header>
         <section data-fs-navbar-row>
           {!searchExpanded && (

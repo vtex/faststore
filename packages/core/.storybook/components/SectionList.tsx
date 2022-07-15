@@ -3,14 +3,16 @@ import type { PropsWithChildren } from 'react'
 
 type SectionListProps = {
   grid?: 'row' | 'grid'
+  classes: string
 }
 
 const SectionList = ({
   children,
+  classes,
   grid = 'row',
 }: PropsWithChildren<SectionListProps>) => {
   return (
-    <section className="sbdocs-list">
+    <section className={`${classes} sbdocs-list`}>
       <ul
         className={`sbdocs-ul ${
           grid === 'grid' ? 'sbdocs-ul-grid' : 'sbdocs-ul-row'

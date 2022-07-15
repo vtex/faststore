@@ -60,7 +60,7 @@ function ProductCard({
       className={styles.fsProductCard}
       {...otherProps}
     >
-      <UIProductCardImage>
+      <UIProductCardImage data-fs-product-card-image>
         <Image
           src={img.url}
           alt={img.alternateName}

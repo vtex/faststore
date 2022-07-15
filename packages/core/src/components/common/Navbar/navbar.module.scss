@@ -8,6 +8,7 @@
   // Default properties
 
   --fs-navbar-padding                                    : 0;
+  --fs-navbar-bkg-color                                  : var(--fs-color-body-bkg);
 
   --fs-navbar-border-bottom-width                        : var(--fs-border-width);
   --fs-navbar-border-bottom-color                        : var(--fs-border-color-light);
@@ -37,9 +38,6 @@
   --fs-navbar-header-padding-bottom-notebook             : var(--fs-navbar-header-padding-top-notebook);
 
   // Logo
-  --fs-navbar-logo-width                                 : 11rem;
-  --fs-navbar-logo-height                                : 2.375rem;
-  --fs-navbar-logo-min-height                            : var(--fs-navbar-logo-height);
   --fs-navbar-logo-margin-right-mobile                   : var(--fs-spacing-5);
 
   // --------------------------------------------------------
@@ -47,6 +45,7 @@
   // --------------------------------------------------------
 
   padding: var(--fs-navbar-padding);
+  background-color: var(--fs-navbar-bkg-color);
   border-bottom: var(--fs-navbar-border-bottom-width) solid var(--fs-navbar-border-bottom-color);
   box-shadow: var(--fs-navbar-box-shadow);
 
@@ -173,18 +172,13 @@
   }
 
   [data-fs-navbar-logo] {
-    width: var(--fs-navbar-logo-width);
-    height: var(--fs-navbar-logo-height);
-    min-height: var(--fs-navbar-logo-min-height);
+    flex: 0 0 auto;
+    align-self: stretch;
+    width: fit-content;
     padding: 0;
 
     @include media("<tablet") {
       margin-right: var(--fs-navbar-logo-margin-right-mobile);
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
     }
   }
 }

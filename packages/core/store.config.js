@@ -6,6 +6,9 @@ module.exports = {
     author: 'Store Framework',
   },
 
+  // Theming
+  theme: 'custom-theme',
+
   // Ecommerce Platform
   platform: 'vtex',
 

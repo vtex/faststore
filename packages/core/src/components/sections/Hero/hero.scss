@@ -12,6 +12,9 @@
   // Title
   --fs-hero-title-line-height          : 1.1;
 
+  // Img
+  --fs-hero-img-border-radius          : 0;
+
   // Primary
   --fs-hero-primary-img-height-mob     : #{rem(240px)};
   --fs-hero-primary-img-height-desk    : #{rem(464px)};
@@ -28,7 +31,7 @@
 
   // Light
   --fs-hero-light-bkg-color            : var(--fs-color-secondary-bkg-light);
-  --fs-hero-light-text-color           : var(--fs-color-secondary-text);
+  --fs-hero-light-text-color           : var(--fs-color-text-display);
 
   // Accent
   --fs-hero-accent-bkg-color           : var(--fs-color-highlighted-bkg);
@@ -87,6 +90,8 @@
 [data-fs-hero-icon] { color: var(--fs-hero-text-color); }
 
 [data-fs-hero-image] {
+  border-radius: var(--fs-hero-img-border-radius);
+
   @include media(">=tablet") {
     position: absolute;
     right: 0;

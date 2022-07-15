@@ -1,13 +1,13 @@
 import { Canvas, Meta, Typeset } from '@storybook/addon-docs'
 
 <Meta
-  title="Fundamentals/Typography"
+  title="Global Tokens/Typography"
   parameters={{ options: { showToolbar: false } }}
 />
 
 export const typography = {
   type: {
-    primary: '"Lato", -apple-system, system-ui, BlinkMacSystemFont, sans-serif',
+    primary: '-apple-system, system-ui, BlinkMacSystemFont, sans-serif',
   },
   weight: {
     regular: '400',
@@ -42,11 +42,40 @@ export const typography = {
 export const SampleText =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 
-<header>
+<header className="sbdocs-typography">
 
 # Typography
 
+A standard scale and basic definitions for your text: `font family`,`weight` and `sizes`.
+
 </header>
+
+## Add a custom font
+
+To set up a new font, follow the steps:
+
+1. Go to `src/fonts/WebFonts` and replace its content with the `<link>` of your font-family of choice
+
+```tsx
+function WebFonts() {
+  return (
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap"
+    />
+  )
+}
+```
+
+2. Overwrite the token `--fs-text-face-body` on your `new-theme.scss` theme file
+
+```scss
+--fs-text-face-body: 'Raleway', sans-serif;
+```
+
+We recommend the usage of [GoogleFonts](https://fonts.google.com/).
+
+---
 
 ## Mobile Scale
 
@@ -90,10 +119,10 @@ export const SampleText =
 
 ## Font
 
-| Global Token                      | Value                                                                         |
-| --------------------------------- | ----------------------------------------------------------------------------- |
-| <code>--fs-text-face-body</code>  | <code>"Lato", -apple-system, system-ui, BlinkMacSystemFont, sans-serif</code> |
-| <code>--fs-text-face-title</code> | <code>var(--fs-text-face-body)</code>                                         |
+| Global Token                      | Value                                                                 |
+| --------------------------------- | --------------------------------------------------------------------- |
+| <code>--fs-text-face-body</code>  | <code>-apple-system, system-ui, BlinkMacSystemFont, sans-serif</code> |
+| <code>--fs-text-face-title</code> | <code>var(--fs-text-face-body)</code>                                 |
 
 ---
 
@@ -157,3 +186,7 @@ Access https://type-scale.com and pick a scale that suits the store's branding.
 | Global Token                     | Value          |
 | -------------------------------- | -------------- |
 | <code>--fs-text-max-lines</code> | <code>2</code> |
+
+```
+
+```

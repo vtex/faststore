@@ -100,9 +100,9 @@
   --fs-button-buy-bkg-color                         : var(--fs-color-action-bkg);
   --fs-button-buy-bkg-color-hover                   : var(--fs-color-action-bkg-hover);
   --fs-button-buy-bkg-color-active                  : var(--fs-color-action-bkg-active);
-  --fs-button-buy-border-color                      : var(--fs-button-action-text-color);
-  --fs-button-buy-border-color-hover                : var(--fs-button-action-border-color);
-  --fs-button-buy-border-color-active               : var(--fs-button-action-border-color-hover);
+  --fs-button-buy-border-color                      : var(--fs-button-buy-bkg-color);
+  --fs-button-buy-border-color-hover                : var(--fs-button-buy-bkg-color-hover);
+  --fs-button-buy-border-color-active               : var(--fs-button-buy-bkg-color-active);
   --fs-button-buy-shadow-hover                      : var(--fs-button-shadow-hover);
 
   // Disabled

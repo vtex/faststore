@@ -1,5 +1,5 @@
 import { create } from '@storybook/theming/create'
-import Logo from '../public/logo.svg'
+import Logo from '../public/brandless-storybook.png'
 
 export default create({
   base: 'light',
@@ -8,14 +8,14 @@ export default create({
   colorSecondary: '#00419e',
 
   // UI
-  appBg: 'white',
+  appBg: '#f3f4ff',
   appContentBg: 'white',
   appBorderRadius: 6,
 
   // Typography
   fontBase: '"Lato", -apple-system, system-ui, BlinkMacSystemFont, sans-serif',
 
-  brandTitle: `BaseStore UI`,
+  brandTitle: `Brandless UI`,
   brandUrl: 'https://github.com/vtex-sites/nextjs.store',
   brandImage: Logo,
 })

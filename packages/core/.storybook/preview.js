@@ -1,4 +1,3 @@
-import '!style-loader!css-loader!sass-loader!../src/styles/fonts.css'
 import '!style-loader!css-loader!sass-loader!../src/styles/global/layout.scss'
 import '!style-loader!css-loader!sass-loader!../src/styles/global/resets.scss'
 import '!style-loader!css-loader!sass-loader!../src/styles/global/storybook-components.scss'
@@ -76,8 +75,9 @@ export const parameters = {
       order: [
         'Getting Started',
         'Theming',
-        'Fundamentals',
-        ['Colors', 'Typography', 'Icons'],
+        'Global Tokens',
+        'Media',
+        ['Colors', 'Typography', 'Spacing', 'Grid & Layout'],
         'Atoms',
         'Molecules',
         'Organisms',

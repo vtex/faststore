@@ -34,9 +34,11 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  background-color: var(--fs-footer-bkg-color);
-  content-visibility: auto;
-  contain-intrinsic-size: var(--fs-footer-min-height-mobile);
+  &[data-fs-footer] {
+    background-color: var(--fs-footer-bkg-color);
+    content-visibility: auto;
+    contain-intrinsic-size: var(--fs-footer-min-height-mobile);
+  }
 
   @include media("<notebook") {
     padding-top: 0;
@@ -44,6 +46,10 @@
 
   @include media(">=notebook") {
     contain-intrinsic-size: var(--fs-footer-min-height-notebook);
+  }
+
+  [data-fs-logo] {
+    background-position-y: var(--fs-spacing-0);
   }
 
   [data-fs-footer-title] {
