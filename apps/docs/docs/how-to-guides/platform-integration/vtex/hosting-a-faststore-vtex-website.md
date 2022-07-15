@@ -95,6 +95,10 @@ Back to your FastStore project, you must also configure your project to point to
 
 ### Step 5 - Configure the CDN workflow
 
+:::caution
+This is only applicable for new go lives.
+:::
+
 Open one request to VTEX configure your domain to point to FastStore and your secure subdomain to point to IO.
 
 ---
