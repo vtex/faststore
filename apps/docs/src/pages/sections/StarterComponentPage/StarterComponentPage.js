@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from '@docusaurus/Link'
-import ViewAll from '../../../components/ViewAll/ViewAll'
 
 const StarterComponentPage = ({ data = {} }) => {
   return (
@@ -21,7 +20,7 @@ const StarterComponentPage = ({ data = {} }) => {
             dangerouslySetInnerHTML={{ __html: data.description }}
           />
 
-          <ViewAll linkTo={data.demoURL} message="View demo store" />
+          <Link to={data.demoURL}>View demo store</Link>
 
           <div>
             <p className="text-sm font-VTEXMedium tracking-wider mt-4">

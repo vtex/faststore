@@ -29,7 +29,7 @@
   --ifm-menu-color-background-active: transparent;
   --ifm-menu-color-background-hover: transparent;
 
-  --docusaurus-highlighted-code-line-bg: #263448;
+  --docusaurus-highlighted-code-line-bg: #f5f3fb;
 
   --ifm-color-black: #000;
   --ifm-background-color: #fff !important;
@@ -109,6 +109,7 @@
   
   --docsearch-highlight-color: var(--ifm-tag-highlight) !important;
   --ifm-color-white-ice: #060f1d !important;
+  --docusaurus-highlighted-code-line-bg: #040b16;
   --ifm-code-background: #060f1d !important;
   --ifm-tag-background: #070f1d !important;
   --ifm-footer-background-color: var(--ifm-color-secondary);
@@ -308,10 +309,6 @@ code {
   content: '\f071';
 }
 
-[data-theme='dark'] [class^='codeBlockTitle'] {
-  @apply border-b border-gray-50 bg-[#1c2b3e];
-}
-
 [class^='pagination-nav']{
   @apply flex justify-between !important;
 }
@@ -411,4 +408,20 @@ td {
 
 li[data-store-aggregate-rating-item] {
   color: #ff6d75 !important
+}
+
+.button-primary{
+  @apply md:my-4 inline-block hover:text-white hover:no-underline hover:bg-[#c81e51] py-4 px-6 rounded bg-rebelPink text-white font-VTEXMedium text-sm  mr-3
+}
+
+.button-secondary{
+  @apply md:my-4 inline-block hover:text-white hover:no-underline hover:bg-[#000711] py-4 px-6 rounded bg-seriousBlack text-white font-VTEXMedium text-sm 
+}
+
+.button-tertiary{
+  @apply tracking-wider uppercase text-sm text-rebelPink relative inline-block pr-5 font-VTEXMedium hover:no-underline hover:text-fontSecondary;
+}
+
+.labelSidebar .menu__list-item-collapsible > .menu__link {
+  @apply text-xs text-details pl-6;
 }

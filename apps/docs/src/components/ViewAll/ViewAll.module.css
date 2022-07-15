@@ -1,8 +1,0 @@
-.viewAll {
-  @apply tracking-wider uppercase text-sm text-rebelPink relative inline-block pr-5 font-VTEXMedium hover:no-underline hover:brightness-125;
-}
-
-.viewAll svg {
-  @apply absolute right-0 cursor-pointer h-3;
-  top: 3px;
-}

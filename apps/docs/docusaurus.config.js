@@ -108,7 +108,7 @@ module.exports = {
       },
       links: [
         {
-          title: 'Docs',
+          title: 'Documentation',
           items: [
             {
               label: 'Quickstart',
