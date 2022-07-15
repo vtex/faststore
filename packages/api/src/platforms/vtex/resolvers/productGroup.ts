@@ -3,16 +3,245 @@ import type { Resolver } from '..'
 import type { PromiseType } from '../../../typings'
 import type { StoreProduct } from './product'
 import { VALUE_REFERENCES } from '../utils/propertyValue'
+import { StoreProduct as StoreProductType } from '../../..'
+import { Item } from '../clients/search/types/ProductSearchResult'
 
 type Root = PromiseType<ReturnType<typeof StoreProduct.isVariantOf>>
 
+export type SkuVariants = StoreProductType[]
+
+export type SkuVariantsByName = Record<
+  string,
+  Array<
+    | {
+        label: string
+        value: string
+      }
+    | { alt: string; src: string; label: string; value: string }
+  >
+>
+
+type SlugsMapArgs = {
+  dominantVariantProperty: string
+}
+
 const BLOCKED_SPECIFICATIONS = new Set(['allSpecifications'])
 
+function createSlugsMap(
+  variants: Item[],
+  mainVariant: string,
+  baseSlug: string
+) {
+  /**
+   * Maps property value combinations to their respective SKU's slug. Enables
+   * us to retrieve the slug for the SKU that matches the currently selected
+   * variations in O(1) time.
+   *
+   * Example: `'Color-Red-Size-40': 'classic-shoes-37'`
+   */
+  const slugsMap: Record<string, string> = {}
+
+  variants.forEach((variant) => {
+    const skuSpecificationProperties = variant.variations
+
+    if (skuSpecificationProperties.length === 0) {
+      return
+    }
+
+    // Make sure that the 'name-value' pair for the `mainVariant` variation
+    // is always the first one.
+    let skuVariantKey = `${mainVariant}-${
+      skuSpecificationProperties.find(
+        (variationDetails) => variationDetails.name === mainVariant
+      )?.values[0] ?? ''
+    }`
+
+    skuSpecificationProperties.forEach((property) => {
+      skuVariantKey +=
+        property.name !== mainVariant
+          ? `-${property.name}-${property.values[0]}`
+          : ''
+    })
+
+    slugsMap[skuVariantKey] = `${baseSlug}-${variant.itemId}`
+  })
+
+  return slugsMap
+}
+
+function getActiveSkuVariations(root: Root) {
+  return root.variations.map((variation) => ({
+    name: variation.name,
+    value: variation.values[0],
+  }))
+}
+
+function getDominantVariantValue(
+  values: Array<{ name: string; value: string }>,
+  dominantVariantName: string
+) {
+  const dominantValue = values.find(
+    (variation) => variation.name === dominantVariantName
+  )?.value
+
+  if (!dominantValue) {
+    throw new Error(
+      'SKU does not have a value set for its dominant variation property.'
+    )
+  }
+
+  return dominantValue
+}
+
+function getVariantsByName(root: Root) {
+  const { skuSpecifications } = root.isVariantOf
+  const variants: Record<string, string[]> = {}
+
+  skuSpecifications?.forEach((specification) => {
+    variants[specification.field.originalName ?? specification.field.name] =
+      specification.values.map((value) => value.originalName ?? value.name)
+  })
+
+  return variants
+}
+
+function findSkuVariantImage(availableImages: Item['images']) {
+  return (
+    availableImages.find(
+      (imageProperties) => imageProperties.imageLabel === 'skuvariation'
+    ) ?? availableImages[0]
+  )
+}
+
+function getFormattedVariations(
+  variants: Item[],
+  dominantVariant: string,
+  dominantVariantValue: string
+) {
+  /**
+   * SKU options already formatted and indexed by their property name.
+   *
+   * Ex: {
+   *   `Size`: [
+   *     { label: '42', value: '42' },
+   *     { label: '41', value: '41' },
+   *     { label: '39', value: '39' },
+   *   ]
+   * }
+   */
+  const variantsByName: SkuVariantsByName = {}
+
+  // Prevent duplicate entries.
+  const previouslySeenPropertyValues: Record<string, number> = {}
+
+  variants.forEach((variant) => {
+    if (variant.variations.length === 0) {
+      return
+    }
+
+    const variantImageToUse = findSkuVariantImage(variant.images)
+
+    const matchesDominantVariant =
+      variant.variations.find((variation) => variation.name === dominantVariant)
+        ?.values[0] === dominantVariantValue
+
+    if (!matchesDominantVariant) {
+      const dominantVariantEntry = variant.variations.find(
+        (variation) => variation.name === dominantVariant
+      )
+
+      if (
+        !dominantVariantEntry ||
+        dominantVariantEntry.values[0] in previouslySeenPropertyValues
+      ) {
+        return
+      }
+
+      previouslySeenPropertyValues[dominantVariantEntry.values[0]] = 1
+
+      const formattedVariant = {
+        src: variantImageToUse.imageUrl,
+        alt: variantImageToUse.imageLabel,
+        label: dominantVariantEntry.values[0],
+        value: dominantVariantEntry.values[0],
+      }
+
+      if (variantsByName[dominantVariantEntry.name]) {
+        variantsByName[dominantVariantEntry.name].push(formattedVariant)
+      } else {
+        variantsByName[dominantVariantEntry.name] = [formattedVariant]
+      }
+
+      return
+    }
+
+    variant.variations.forEach((variationProperty) => {
+      if (variationProperty.values[0] in previouslySeenPropertyValues) {
+        return
+      }
+
+      previouslySeenPropertyValues[variationProperty.values[0]] = 1
+
+      const formattedVariant = {
+        src: variantImageToUse.imageUrl,
+        alt: variantImageToUse.imageLabel,
+        label: variationProperty.values[0],
+        value: variationProperty.values[0],
+      }
+
+      if (variantsByName[variationProperty.name]) {
+        variantsByName[variationProperty.name].push(formattedVariant)
+      } else {
+        variantsByName[variationProperty.name] = [formattedVariant]
+      }
+    })
+  })
+
+  return variantsByName
+}
+
 export const StoreProductGroup: Record<string, Resolver<Root>> = {
-  hasVariant: (root) =>
-    root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
+  activeVariations: (root) => getActiveSkuVariations(root),
+  variantsByName: (root) => getVariantsByName(root),
+
+  slugsMap: (root, args) =>
+    createSlugsMap(
+      root.isVariantOf.items,
+      // Since `dominantVariantProperty` is a required argument, we can safely
+      // access it.
+      (args as SlugsMapArgs).dominantVariantProperty,
+      root.isVariantOf.linkText
+    ),
+
+  filteredAvailableVariations: (root, args) => {
+    const activeVariations = getActiveSkuVariations(root)
+    const dominantVariantName = (args as SlugsMapArgs).dominantVariantProperty
+
+    const activeDominantVariationValue = getDominantVariantValue(
+      activeVariations,
+      dominantVariantName
+    )
+
+    const filteredFormattedVariations = getFormattedVariations(
+      root.isVariantOf.items,
+      dominantVariantName,
+      activeDominantVariationValue
+    )
+
+    return filteredFormattedVariations
+  },
+
+  hasVariant: (root) => {
+    return root.isVariantOf.items.map((item) =>
+      enhanceSku(item, root.isVariantOf)
+    )
+  },
+
   productGroupID: ({ isVariantOf }) => isVariantOf.productId,
-  name: ({ isVariantOf }) => isVariantOf.productName,
+  name: (root) => {
+    console.log(root)
+    return root.isVariantOf.productName
+  },
   additionalProperty: ({ isVariantOf: { specificationGroups } }) =>
     specificationGroups
       // filter sku specifications so we dont mess sku with product specs
