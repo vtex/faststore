@@ -12,17 +12,11 @@ export type SkuVariants = StoreProductType[]
 
 export type SkuVariantsByName = Record<
   string,
-  Array<
-    | {
-        label: string
-        value: string
-      }
-    | { alt: string; src: string; label: string; value: string }
-  >
+  Array<{ alt: string; src: string; label: string; value: string }>
 >
 
 type SlugsMapArgs = {
-  dominantVariantProperty: string
+  dominantVariantName: string
 }
 
 const BLOCKED_SPECIFICATIONS = new Set(['allSpecifications'])
@@ -69,10 +63,10 @@ function createSlugsMap(
   return slugsMap
 }
 
-function getActiveSkuVariations(root: Root) {
+function getActiveSkuVariations(variations: Root['variations']) {
   const activeVariations: Record<string, string> = {}
 
-  root.variations.forEach((variation) => {
+  variations.forEach((variation) => {
     activeVariations[variation.name] = variation.values[0]
   })
 
@@ -127,15 +121,14 @@ function getFormattedVariations(
 
     const variantImageToUse = findSkuVariantImage(variant.images)
 
+    const dominantVariantEntry = variant.variations.find(
+      (variation) => variation.name === dominantVariant
+    )
+
     const matchesDominantVariant =
-      variant.variations.find((variation) => variation.name === dominantVariant)
-        ?.values[0] === dominantVariantValue
+      dominantVariantEntry?.values[0] === dominantVariantValue
 
     if (!matchesDominantVariant) {
-      const dominantVariantEntry = variant.variations.find(
-        (variation) => variation.name === dominantVariant
-      )
-
       if (
         !dominantVariantEntry ||
         dominantVariantEntry.values[0] in previouslySeenPropertyValues
@@ -147,7 +140,7 @@ function getFormattedVariations(
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
-        alt: variantImageToUse.imageLabel,
+        alt: variantImageToUse.imageLabel ?? '',
         label: dominantVariantEntry.values[0],
         value: dominantVariantEntry.values[0],
       }
@@ -170,7 +163,7 @@ function getFormattedVariations(
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
-        alt: variantImageToUse.imageLabel,
+        alt: variantImageToUse.imageLabel ?? '',
         label: variationProperty.values[0],
         value: variationProperty.values[0],
       }
@@ -187,23 +180,23 @@ function getFormattedVariations(
 }
 
 export const StoreProductGroup: Record<string, Resolver<Root>> = {
-  activeVariations: (root) => getActiveSkuVariations(root),
-  variantsByName: (root) => getVariantsByName(root),
+  activeVariations: (root) => getActiveSkuVariations(root.variations),
+  allVariantsByName: (root) => getVariantsByName(root),
 
   slugsMap: (root, args) =>
     createSlugsMap(
       root.isVariantOf.items,
       // Since `dominantVariantProperty` is a required argument, we can safely
       // access it.
-      (args as SlugsMapArgs).dominantVariantProperty,
+      (args as SlugsMapArgs).dominantVariantName,
       root.isVariantOf.linkText
     ),
 
-  filteredAvailableVariations: (root, args) => {
+  availableVariations: (root, args) => {
     // Since `dominantVariantProperty` is a required argument, we can safely
     // access it.
-    const dominantVariantName = (args as SlugsMapArgs).dominantVariantProperty
-    const activeVariations = getActiveSkuVariations(root)
+    const dominantVariantName = (args as SlugsMapArgs).dominantVariantName
+    const activeVariations = getActiveSkuVariations(root.variations)
 
     const activeDominantVariationValue = activeVariations[dominantVariantName]
 
@@ -222,16 +215,10 @@ export const StoreProductGroup: Record<string, Resolver<Root>> = {
     return filteredFormattedVariations
   },
 
-  hasVariant: (root) => {
-    return root.isVariantOf.items.map((item) =>
-      enhanceSku(item, root.isVariantOf)
-    )
-  },
-
+  hasVariant: (root) =>
+    root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
   productGroupID: ({ isVariantOf }) => isVariantOf.productId,
-  name: (root) => {
-    return root.isVariantOf.productName
-  },
+  name: (root) => root.isVariantOf.productName,
   additionalProperty: ({ isVariantOf: { specificationGroups } }) =>
     specificationGroups
       // Filter sku specifications so we don't mix them with product specs.
