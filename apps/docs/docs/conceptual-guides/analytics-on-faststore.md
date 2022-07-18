@@ -47,7 +47,7 @@ We're always perfecting our official starters to include everything you need to 
 
 We also use FastStore SDK's analytics module to send and intercept events, concentrating all analytics-related code in a single folder for better understanding and use.
 
-To understand more about some decisions we had to make and how it all works behind the scenes, read the Analytics on official starters companion blog post (coming soon). 
+To understand more about some decisions we had to make and how it all works behind the scenes, read the [Analytics on official starters](/conceptual-guides/analytics-on-official-starters) companion blog post (coming soon). 
 
 ## The future 
 
