@@ -325,7 +325,7 @@ module.exports = {
           link: { type: 'doc', id: 'conceptual-guides' },
           items: [
             'conceptual-guides/analytics-on-faststore',
-            'conceptual-guides/analytics-on-starters',
+            'conceptual-guides/analytics-on-official-starters',
           ],
         },
         'faq',
