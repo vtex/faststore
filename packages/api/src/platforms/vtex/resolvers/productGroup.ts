@@ -200,8 +200,10 @@ export const StoreProductGroup: Record<string, Resolver<Root>> = {
     ),
 
   filteredAvailableVariations: (root, args) => {
-    const activeVariations = getActiveSkuVariations(root)
+    // Since `dominantVariantProperty` is a required argument, we can safely
+    // access it.
     const dominantVariantName = (args as SlugsMapArgs).dominantVariantProperty
+    const activeVariations = getActiveSkuVariations(root)
 
     const activeDominantVariationValue = activeVariations[dominantVariantName]
 
@@ -232,12 +234,12 @@ export const StoreProductGroup: Record<string, Resolver<Root>> = {
   },
   additionalProperty: ({ isVariantOf: { specificationGroups } }) =>
     specificationGroups
-      // filter sku specifications so we dont mess sku with product specs
+      // Filter sku specifications so we don't mix them with product specs.
       .filter(
         (specificationGroup) =>
           !BLOCKED_SPECIFICATIONS.has(specificationGroup.name)
       )
-      // Transform specs back into product specs
+      // Transform specs back into product specs.
       .flatMap(({ specifications }) =>
         specifications.flatMap(({ name, values }) =>
           values.map((value) => ({
