@@ -67,7 +67,7 @@
     "autoprefixer": "^10.4.0",
     "axe-core": "^4.3.3",
     "css-loader": "^6.7.1",
-    "cypress": "6.6.0",
+    "cypress": "9.5.4",
     "cypress-axe": "^0.13.0",
     "cypress-wait-until": "^1.7.2",
     "dotenv": "^8.2.0",
