@@ -36,7 +36,7 @@ function FastStore() {
                 </Link>
               </div>
               <ViewAll
-                linkTo="https://vtexfaststore.com/"
+                linkTo="https://www.vtexfaststore.com/"
                 message="View live store"
               />
             </div>
