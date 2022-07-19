@@ -89,7 +89,7 @@ Back to your FastStore project, you must also configure your project to point to
       lighthouse: {
       ...
    ```
-4. Add the variable SITE_HOST with your host domain on the vtex.env file
+4. Add the variable SITE_HOST with your host domain on the vtex.env file, as specified on the license manager.
 5. Save your changes.
 6. Open a Pull Request, commit your changes and do a deploy on main/master.
 
