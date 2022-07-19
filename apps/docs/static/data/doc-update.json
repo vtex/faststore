@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-06-29",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "FastStore API",
+    "path": "/how-to-guides/faststore-api",
+    "docs": [
+      {
+        "path": "/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api",
+        "title": "Using GraphiQL to explore the FastStore API"
+      }
+    ]
+  },
+  {
     "date": "2022-07-04",
     "type": "Added",
     "menu": "Reference",

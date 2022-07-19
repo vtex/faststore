@@ -19,7 +19,7 @@ const DocFooter = () => (
       </p>
     </div>
     <a
-      href="https://community.vtex.com/c/faststore-beta/64"
+      href="https://docs.google.com/forms/d/e/1FAIpQLSd6H_lezvH831Bkkq8kRiHLPlcMigI-k3goSHlMXDJuIXGhdw/viewform"
       target="_blank"
       className="mr-auto whitespace-nowrap hover:text-white hover:no-underline hover:brightness-105 py-3 px-3 rounded text-white font-VTEXMedium text-sm bg-secondary"
       rel="noreferrer"
