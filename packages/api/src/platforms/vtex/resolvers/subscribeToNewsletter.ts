@@ -1,14 +1,14 @@
 import type { Context } from '..'
 import type {
-  MutationAddToNewsletterArgs,
+  MutationSubscribeToNewsletterArgs,
   PersonNewsletter,
 } from '../../../__generated__/schema'
 
-export const addToNewsletter = async (
+export const subscribeToNewsletter = async (
   _: any,
-  { data }: MutationAddToNewsletterArgs,
+  { data }: MutationSubscribeToNewsletterArgs,
   { clients: { commerce } }: Context
 ): Promise<PersonNewsletter | null> => {
-  const response = await commerce.addToNewsletter(data)
+  const response = await commerce.subscribeToNewsletter(data)
   return { id: response?.Id }
 }

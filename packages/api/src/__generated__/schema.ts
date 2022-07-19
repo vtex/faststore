@@ -12,9 +12,8 @@ export type Scalars = {
   ObjectOrString: any;
 };
 
-/** Person data input to newsletter. */
+/** Person data input to the newsletter. */
 export type IPersonNewsletter = {
-  __typename?: 'IPersonNewsletter';
   /** Person's email. */
   email: Scalars['String'];
   /** Person's name. */
@@ -131,8 +130,8 @@ export type IStoreSession = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  /** Adds a user to the newsletter list. */
-  addToNewsletter?: Maybe<PersonNewsletter>;
+  /** Subscribes a new person to the newsletter list. */
+  subscribeToNewsletter?: Maybe<PersonNewsletter>;
   /** Checks for changes between the cart presented in the UI and the cart stored in the ecommerce platform. If changes are detected, it returns the cart stored on the platform. Otherwise, it returns `null`. */
   validateCart?: Maybe<StoreCart>;
   /** Updates a web session with the specified values. */
@@ -140,7 +139,7 @@ export type Mutation = {
 };
 
 
-export type MutationAddToNewsletterArgs = {
+export type MutationSubscribeToNewsletterArgs = {
   data: IPersonNewsletter;
 };
 
@@ -155,9 +154,10 @@ export type MutationValidateSessionArgs = {
   session: IStoreSession;
 };
 
-/** Response after adding to newsletter. */
+/** Newsletter information. */
 export type PersonNewsletter = {
-  /** . */
+  __typename?: 'PersonNewsletter';
+  /** Person's ID in the newsletter list. */
   id: Scalars['String'];
 };
 

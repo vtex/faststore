@@ -1,9 +1,9 @@
-import { addToNewsletter } from './addToNewsletter'
+import { subscribeToNewsletter } from './subscribeToNewsletter'
 import { validateCart } from './validateCart'
 import { validateSession } from './validateSession'
 
 export const Mutation = {
   validateCart,
   validateSession,
-  addToNewsletter,
+  subscribeToNewsletter,
 }

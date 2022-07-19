@@ -179,7 +179,7 @@ export const VtexCommerce = (
         body: '{}',
       })
     },
-    addToNewsletter: (data: {
+    subscribeToNewsletter: (data: {
       name: string
       email: string
     }): Promise<MasterDataResponse> => {
