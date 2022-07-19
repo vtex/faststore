@@ -18,7 +18,8 @@ Besides making your FastStore website accessible via a custom domain, the **VTEX
 ## Before you start
 
 - [Set up your **VTEX** account.](/how-to-guides/platform-integration/vtex/setting-up-an-account)
-- Develop and deploy your FastStore project.
+- Develop your FastStore project with **Gatsby 4 or Next.js**. If you have already started with **Gatsby 3**, please contact [**VTEX Support**](https://help.vtex.com/en/support) before proceeding to the next steps.
+- Deploy your FastStore project.
 - Buy the desired domain.
 - [Redirect the **root domain** to the `www` subdomain.](https://help.vtex.com/en/tutorial/configuring-access-without-www--tutorials_4278#root-domain-redirect-without-www)
 
@@ -37,7 +38,7 @@ If you still need to configure other VTEX solutions, please **use a fictitious d
 3. Now, create a **CNAME** record for the `secure` subdomain (e.g., `secure.mystore.com`) that points to `secure.{rootDomain}.cdn.vtex.com` (e.g., `secure.mystore.com.cdn.vtex.com`). This subdomain will be used by the **Checkout**, **Order Placed**, **Login**, and **My Account** pages.
 
 :::info
-DNS pointing propagation takes 24-48 hours to occur completely, which means that the configured addresses may not be immediately available to everyone.
+Notice that the configured addresses may not be immediately available to everyone since DNS pointing propagation takes 24-48 hours to occur completely.
 :::
 
 ### Step 2 - Configuring domains in VTEX Account Management
@@ -85,9 +86,25 @@ Back to your FastStore project, you must also configure your project to point to
       lighthouse: {
       ...
    ```
-
 4. Save your changes.
-5. Open a Pull Request and commit your changes.
+5. Open the `vtex.env` file.
+6. Add the `SITE_HOST` key with the main domain specified in VTEX Account Management (step 2) as the value.
+   
+   ```diff title="vtex.env"
+   + SITE_HOST = mystore.com
+   ```
+
+7. Save your changes.
+8. Open a Pull Request, commit your changes, and deploy them to `main`/`master`.
+
+### Step 4 - Configuring the CDN workflow (Only for new go-lives)
+
+If your FastStore website is going live for the first time, [open a ticket with VTEX Support](https://help.vtex.com/en/support) and specify that you need to configure the CDN workflow for the secure and main domains of your store. Remember to include the following information in your ticket:
+
+- The account **name**.
+- The **secure** and **main** domains of your store.
+
+The VTEX team will evaluate your request and take the necessary actions to configure the CDN workflow for your account.
 
 ---
 
