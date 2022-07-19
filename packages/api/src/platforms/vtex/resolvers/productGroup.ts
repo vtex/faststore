@@ -41,9 +41,7 @@ export const StoreProductGroup: Record<string, Resolver<Root>> = {
     const activeDominantVariationValue = activeVariations[dominantVariantName]
 
     if (!activeDominantVariationValue) {
-      throw new Error(
-        'SKU does not have a value set for its dominant variation property.'
-      )
+      return null
     }
 
     const filteredFormattedVariations = getFormattedVariations(
