@@ -300,7 +300,7 @@ export type StoreCollectionMeta = {
   selectedFacets: Array<StoreCollectionFacet>;
 };
 
-/** Product collection type. Possible values are `Department`, `Category`, `Brand` or `Cluster`. */
+/** Product collection type. Possible values are `Department`, `Category`, `Brand`, `Cluster`, `SubCategory` or `Collection`. */
 export const enum StoreCollectionType {
   /** Product brand. */
   Brand = 'Brand',
@@ -308,8 +308,12 @@ export const enum StoreCollectionType {
   Category = 'Category',
   /** Product cluster. */
   Cluster = 'Cluster',
+  /** Product collection. */
+  Collection = 'Collection',
   /** First level of product categorization. */
-  Department = 'Department'
+  Department = 'Department',
+  /** Third level of product categorization. */
+  SubCategory = 'SubCategory'
 };
 
 /** Currency information. */
