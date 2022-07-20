@@ -1,5 +1,5 @@
 """
-Product collection type. Possible values are `Department`, `Category`, `Brand` or `Cluster`.
+Product collection type. Possible values are `Department`, `Category`, `Brand`, `Cluster`, `SubCategory` or `Collection`.
 """
 enum StoreCollectionType {
   """
