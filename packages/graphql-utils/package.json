@@ -1,6 +1,6 @@
 {
   "name": "@faststore/graphql-utils",
-  "version": "1.10.17",
+  "version": "1.10.18",
   "description": "GraphQL utilities",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "shared": "^1.10.17",
+    "shared": "^1.10.18",
     "typescript": "^4.2.4"
   },
   "dependencies": {

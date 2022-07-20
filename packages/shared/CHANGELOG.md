@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.10.18 (2022-07-20)
+
+
+### Bug Fixes
+
+* Add missing Catalog pageTypes to `@faststore/api` ([#1411](https://github.com/vtex/faststore/issues/1411)) ([e74890b](https://github.com/vtex/faststore/commit/e74890b8b3d3276970ed645bfc17381fc8e1c027))
+
+
+
+
+
 ## 1.10.17 (2022-07-20)
 
 **Note:** Version bump only for package shared
