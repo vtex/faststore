@@ -1,6 +1,6 @@
 {
   "name": "@faststore/ui",
-  "version": "1.10.13",
+  "version": "1.10.17",
   "description": "A lightweight, framework agnostic component library for React",
   "author": "emersonlaurentino",
   "license": "MIT",
@@ -80,7 +80,7 @@
     "react": "^17.0.2",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^17.0.2",
-    "shared": "^1.10.6",
+    "shared": "^1.10.17",
     "size-limit": "^7.0.8",
     "storybook-addon-themes": "^6.1.0",
     "tsdx": "^0.14.1",
