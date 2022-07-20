@@ -14,6 +14,8 @@ const collectionPageTypes = new Set([
   'category',
   'department',
   'subcategory',
+  'collection',
+  'cluster',
 ] as const)
 
 export const isCollectionPageType = (x: any): x is CollectionPageType =>

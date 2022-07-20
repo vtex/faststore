@@ -11,6 +11,10 @@ enum StoreCollectionType {
   """
   Category
   """
+  Third level of product categorization.
+  """
+  SubCategory
+  """
   Product brand.
   """
   Brand
@@ -18,6 +22,10 @@ enum StoreCollectionType {
   Product cluster.
   """
   Cluster
+  """
+  Product collection.
+  """
+  Collection
 }
 
 """
