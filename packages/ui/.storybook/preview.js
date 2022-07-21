@@ -17,12 +17,12 @@ export const parameters = {
   },
   themes: {
     clearable: false,
-    default: 'theme-b2c-tailwind',
+    default: 'styles',
     list: [
       { name: 'none', class: 'no-theme', color: '#FFFFFF' },
       {
-        name: 'theme-b2c-tailwind',
-        class: 'theme-b2c-tailwind',
+        name: 'styles',
+        class: 'styles',
         color: '#999999',
       },
     ],
@@ -39,7 +39,7 @@ export const parameters = {
         var theme = document.createElement('link')
         theme.rel = 'stylesheet'
         theme.type = 'text/css'
-        theme.href = `./${themeName}/dist/index.css`
+        theme.href = `./dist/index.css`
 
         document
           .getElementById('storybook-preview-iframe')

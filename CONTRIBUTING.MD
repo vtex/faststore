@@ -57,7 +57,7 @@ ComponentName
 ```
 ✔  ++ faststore/packages/ui/src/atoms/ComponentName/ComponentName.tsx
 ✔  ++ faststore/packages/ui/src/atoms/ComponentName/index.tsx
-✔  ++ faststore/themes/theme-b2c-tailwind/src/atoms/component-name.css
+✔  ++ faststore/packages/styles/src/atoms/component-name.css
 ✔  ++ faststore/packages/ui/src/atoms/ComponentName/ComponentName.test.tsx
 ✔  ++ faststore/packages/ui/src/atoms/ComponentName/stories/ComponentName.stories.tsx
 ✔  ++ faststore/packages/ui/src/atoms/ComponentName/stories/ComponentName.mdx
