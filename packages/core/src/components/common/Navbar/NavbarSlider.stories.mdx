@@ -3,7 +3,7 @@ import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 import { CartProvider, SessionProvider } from '@faststore/sdk'
 import UIProvider, { useUI } from 'src/sdk/ui/Provider'
 
-import { ButtonIcon } from 'src/components/ui/Button'
+import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 
 import { NavbarSlider } from '.'
@@ -20,7 +20,9 @@ export const TemplateNavbarSlider = () => {
   const { openNavbar, navbar: displayNavbar } = useUI()
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <ButtonIcon
+      <Button
+        variant="tertiary"
+        data-fs-button-icon
         data-fs-navbar-button-menu
         aria-label="Open Menu"
         icon={<Icon name="List" width={32} height={32} />}

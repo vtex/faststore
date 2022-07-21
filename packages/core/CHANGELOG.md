@@ -38,6 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- `ButtonIcon` component ([#181](https://github.com/vtex-sites/nextjs.store/pull/181))
+
 ### Fixed
 
 - priceCurrency field on SEO meta data ([#161](https://github.com/vtex-sites/nextjs.store/pull/161))

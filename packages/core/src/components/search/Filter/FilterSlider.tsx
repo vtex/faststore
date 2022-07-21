@@ -1,7 +1,7 @@
 import { useSearch } from '@faststore/sdk'
 
 import type { Filter_FacetsFragment } from '@generated/graphql'
-import Button, { ButtonIcon } from 'src/components/ui/Button'
+import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import SlideOver from 'src/components/ui/SlideOver'
 import { useUI } from 'src/sdk/ui/Provider'
@@ -48,7 +48,9 @@ function FilterSlider({
       <div data-fs-filter-slider-content>
         <header data-fs-filter-slider-header>
           <h2 className="text__lead">Filters</h2>
-          <ButtonIcon
+          <Button
+            variant="tertiary"
+            data-fs-button-icon
             data-fs-filter-slider-header-icon
             aria-label="Close Filters"
             icon={<Icon name="X" width={32} height={32} />}

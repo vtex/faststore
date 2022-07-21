@@ -51,6 +51,8 @@ function Button({
   disabled,
   ...props
 }: ButtonProps) {
+  const isButtonIcon = icon && !iconPosition
+
   return (
     <UIButton
       aria-label={ariaLabel}
@@ -62,7 +64,7 @@ function Button({
       disabled={disabled}
       {...props}
     >
-      {iconPosition === 'left' && <UIIcon component={icon} />}
+      {(isButtonIcon || iconPosition === 'left') && <UIIcon component={icon} />}
       {children}
       {iconPosition === 'right' && <UIIcon component={icon} />}
     </UIButton>

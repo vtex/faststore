@@ -1,5 +1,5 @@
 import RegionalizationInput from 'src/components/regionalization/RegionalizationInput'
-import { ButtonIcon } from 'src/components/ui/Button'
+import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 
@@ -19,7 +19,9 @@ function RegionalizationModalContent({
     >
       <header data-fs-regionalization-modal-header>
         {onClose && (
-          <ButtonIcon
+          <Button
+            variant="tertiary"
+            data-fs-button-icon
             onClick={() => onClose?.()}
             data-fs-regionalization-modal-button
             aria-label="Close Regionalization Modal"

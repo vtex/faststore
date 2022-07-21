@@ -12,12 +12,9 @@ import { useCart } from 'src/sdk/cart/useCart'
 
 import { NavbarSlider } from 'src/components/common/Navbar'
 
-import { ButtonIcon } from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import CartToggle from 'src/components/cart/CartToggle'
 import CartSidebar from 'src/components/cart/CartSidebar'
-
-import { ButtonBuy } from 'src/components/ui/Button'
 
 import { cartItem } from 'src/../.storybook/mocks/cart-sidebar'
 import { facets as facetsMock } from 'src/../.storybook/mocks/filter-slider'
@@ -27,7 +24,7 @@ import storeConfig from 'store.config'
 import { validateSession } from 'src/sdk/session/validate'
 import { useFilter } from 'src/components/search/Filter/useFilter'
 
-import Button from 'src/components/ui/Button'
+import Button, { ButtonBuy } from 'src/components/ui/Button'
 import { FilterSlider } from 'src/components/search/Filter'
 
 import SlideOver from '.'
@@ -65,7 +62,9 @@ export function SlideOverTemplate() {
         <div>
           <p className="text__lead">SlideOver</p>
         </div>
-        <ButtonIcon
+        <Button
+          variant="tertiary"
+          data-fs-button-icon
           aria-label="Close"
           icon={<Icon name="X" width={32} height={32} />}
           onClick={fadeOut}
