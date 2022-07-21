@@ -37,7 +37,6 @@ Besides these three main libraries, FastStore also counts with the following pac
 
 - **`graphql-utils`** - Extracts and processes GraphQL queries.
 - **`lighthouse`** - An ecommerce focused [Lighthouse](https://developers.google.com/web/tools/lighthouse/) CI configuration.
-- **`renovate-config`** - Configuration of [Renovate](https://github.com/renovatebot/renovate), a bot responsible for updating dependencies automatically.
 
 :::caution
 If you check FastStore repository on GitHub, you'll also find some Gatsby-specific plugins (`@vtex/gatsby-plugin-cms`, `@vtex/gatsby-plugin-nginx`, `@vtex/gatsby-source-store`, `@vtex/gatsby-source-vtex`. We aim to provide Gatsby-agnostic solutions for these plugins soon.
