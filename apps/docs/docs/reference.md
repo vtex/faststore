@@ -36,7 +36,7 @@ FastStore encapsulates the following three main packages:
 Besides these three main libraries, FastStore also counts with the following packages:
 
 - **`graphql-utils`** - Extracts and processes GraphQL queries.
-- **`lighthouse-config`** - An ecommerce focused [Lighthouse](https://developers.google.com/web/tools/lighthouse/) CI configuration.
+- **`lighthouse`** - An ecommerce focused [Lighthouse](https://developers.google.com/web/tools/lighthouse/) CI configuration.
 - **`renovate-config`** - Configuration of [Renovate](https://github.com/renovatebot/renovate), a bot responsible for updating dependencies automatically.
 
 :::caution
