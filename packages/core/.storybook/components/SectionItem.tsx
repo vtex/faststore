@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactNode } from 'react'
+import React, { CSSProperties, PropsWithChildren, ReactNode } from 'react'
 
 import ButtonLink from '../../src/components/ui/Button/ButtonLink'
 import Icon from '../../src/components/ui/Icon'
@@ -7,6 +7,7 @@ type SectionItemProps = {
   title: string
   description: string | ReactNode
   actionPath?: string
+  containerStyle?: CSSProperties
 }
 
 const SectionItem = ({
@@ -14,10 +15,14 @@ const SectionItem = ({
   description,
   children,
   actionPath,
+  containerStyle,
+  ...otherProps
 }: PropsWithChildren<SectionItemProps>) => {
   return (
-    <li className="sbdocs-li">
-      <div className="sbdocs-div">{children}</div>
+    <li className="sbdocs-li" {...otherProps}>
+      <div className="sbdocs-div" style={containerStyle}>
+        {children}
+      </div>
       <article className="sbdocs-list-text">
         <h3 className="sbdocs sbdocs-h3">{title}</h3>
         <p className="sbdocs sbdocs-p">{description}</p>

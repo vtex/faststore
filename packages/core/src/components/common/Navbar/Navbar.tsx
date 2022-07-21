@@ -2,7 +2,7 @@ import type { SearchInputRef } from '@faststore/ui'
 import { Suspense, useRef, useState } from 'react'
 
 import CartToggle from 'src/components/cart/CartToggle'
-import SearchInput from 'src/components/common/SearchInput'
+import SearchInput from 'src/components/search/SearchInput'
 import {
   ButtonIcon,
   ButtonSignIn,

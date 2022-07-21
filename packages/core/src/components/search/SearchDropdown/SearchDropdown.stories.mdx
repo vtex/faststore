@@ -1,0 +1,69 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import { SessionProvider } from '@faststore/sdk'
+import { rest } from 'msw'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+import { productGridItems, searchTerms, searchHistory } from 'src/../.storybook/mocks'
+import { SearchInputProvider } from 'src/sdk/search/useSearchInput'
+import { msw, products } from'../searchMock'
+
+import SearchDropdown from '.'
+
+<Meta
+  component={SearchDropdown}
+  title="Features/Search/SearchDropdown"
+/>
+
+export const Template = (args) => (
+  <div
+    style={{
+      maxWidth: '600px',
+      margin: '0 auto',
+      padding: '0 16px',
+      background: 'white',
+    }}
+  >
+    <SessionProvider>
+      <SearchInputProvider>
+        <SearchDropdown {...args} />
+      </SearchInputProvider>
+    </SessionProvider>
+  </div>
+)
+
+<header>
+
+# Search Dropdown
+
+Combine [SearchHistory](?path=/docs/features-search-searchhistory--default-story),
+[SearchTop](?path=/docs/features-search-searchtop--default-story) and
+[SearchSuggestions](?path=/docs/features-search-searchsuggestions--default-story)
+to show all options in [SearchInput](?path=/docs/features-search-searchinput--default-story).
+
+</header>
+
+## Usage
+
+`import SearchDropdown from 'src/components/search/SearchDropdown'`
+
+<Canvas>
+  <Story
+    name="default"
+    parameters={{
+      backgrounds: { default: 'dark' },
+      msw
+    }}
+    args={{
+      products,
+      history: searchHistory
+    }}
+  >
+  {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />

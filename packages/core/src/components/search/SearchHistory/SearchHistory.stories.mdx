@@ -1,0 +1,62 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+import { SearchInputProvider } from 'src/sdk/search/useSearchInput'
+import Button from 'src/components/ui/Button'
+
+import { SearchHistory } from '.'
+import { searchHistory } from 'src/../.storybook/mocks'
+
+<Meta
+  title="Features/Search/SearchHistory"
+  component={SearchHistory}
+/>
+
+export const Template = (args) => {
+  return (
+    <div
+      style={{
+        maxWidth: "600px",
+        margin: "0 auto",
+        padding: "0 16px",
+        background: "white",
+      }}
+    >
+      <SearchInputProvider>
+        <SearchHistory {...args} />
+      </SearchInputProvider>
+    </div>
+  )
+}
+
+<header>
+
+# Search History
+
+Responsible for showing the latest terms searched by the user.
+
+</header>
+
+## Usage
+
+`import { SearchHistory } from 'src/components/search/SearchHistory`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      history: searchHistory
+    }}
+    parameters={{
+      backgrounds: { default: 'dark' },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />

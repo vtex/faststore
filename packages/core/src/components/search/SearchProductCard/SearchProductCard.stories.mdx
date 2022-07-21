@@ -9,11 +9,11 @@ import {
 } from 'src/../.storybook/components'
 import { product } from 'src/../.storybook/mocks'
 
-import SuggestionProductCard from '.'
+import SearchProductCard from '.'
 
 <Meta
-  title="Features/Search/SuggestionProductCard"
-  component={SuggestionProductCard}
+  title="Features/Search/SearchProductCard"
+  component={SearchProductCard}
   args={{
     product,
     index: 1
@@ -23,34 +23,34 @@ import SuggestionProductCard from '.'
 export const Template = (args) => (
     <SessionProvider initialState={{ channel: storeConfig.channel }}>
       <SearchInputProvider>
-        <SuggestionProductCard {...args} />
+        <SearchProductCard {...args} />
       </SearchInputProvider>
     </SessionProvider>
 )
 
 <header>
 
-# Suggestion Product Card
+# Search Product Card
 
-Card to show details of the product and suggest in search dropdown.
+Card to show details of the product and suggest in `SearchDropdown`.
 
 </header>
 
 ## Overview
 
-The `SuggestionProductCard` differs from `ProductCard` because it is used in the `Search` feature and is called by the `Suggestion` component.
+The `SearchProductCard` differs from `ProductCard` because it is used in the `Search` feature and is called by the `SearchSuggestions` component.
 
 ---
 
 ## Usage
 
-`import SuggestionProductCard from '../components/search/SuggestionProductCard'`
+`import SearchProductCard from 'src/components/search/SearchProductCard'`
 
 <Canvas>
-  <Story name="SuggestionProductCard">{Template.bind({})}</Story>
+  <Story name="SearchProductCard">{Template.bind({})}</Story>
 </Canvas>
 
-<ArgsTable story="SuggestionProductCard" />
+<ArgsTable story="SearchProductCard" />
 
 ## Nested Elements
 

@@ -1,0 +1,54 @@
+@import "src/styles/scaffold";
+
+.fs-search-product-card {
+  // --------------------------------------------------------
+  // Design Tokens for Search Product Card
+  // --------------------------------------------------------
+
+  // Search Product Card Link
+  --fs-search-product-card-link-padding                   : var(--fs-spacing-1) var(--fs-spacing-3);
+
+  // Search Product Card Image
+  --fs-search-product-card-image-border-radius            : var(--fs-border-radius);
+  --fs-search-product-card-image-margin-right             : var(--fs-spacing-3);
+  --fs-search-product-card-image-size                     : 3.5rem;
+
+  // Search Product Card Title
+  --fs-search-product-card-title-margin-bottom            : var(--fs-spacing-0);
+  --fs-search-product-card-title-line-height              : 1.2;
+  --fs-search-product-card-title-color                    : var(--fs-color-text);
+
+  [data-fs-search-product-card-image] {
+    display: flex;
+    width: var(--fs-search-product-card-image-size);
+    height: var(--fs-search-product-card-image-size);
+    margin-right: var(--fs-search-product-card-image-margin-right);
+    overflow: hidden;
+    border-radius: var(--fs-search-product-card-image-border-radius);
+  }
+
+  [data-fs-search-product-card-content] {
+    display: flex;
+    align-items: center;
+  }
+
+  [data-fs-search-product-card-title] {
+    margin-bottom: var(--fs-search-product-card-title-margin-bottom);
+    line-height: var(--fs-search-product-card-title-line-height);
+    color: var(--fs-search-product-card-title-color);
+    text-decoration: none;
+    outline: none;
+
+    @include truncate-title;
+  }
+
+  [data-fs-search-product-card-prices] {
+    display: flex;
+    align-items: baseline;
+  }
+
+  [data-fs-search-product-card-link] {
+    padding: var(--fs-search-product-card-link-padding);
+    text-decoration: none;
+  }
+}
