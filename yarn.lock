@@ -8454,18 +8454,6 @@
     "@typescript-eslint/types" "5.28.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vtex/theme-b2c-tailwind@^1.8.42":
-  version "1.8.42"
-  resolved "https://registry.yarnpkg.com/@vtex/theme-b2c-tailwind/-/theme-b2c-tailwind-1.8.42.tgz#593a1eb9d7d03d1553203e4c10deb0f7ceb08a2c"
-  integrity sha512-JbgYXWvJM+tQ92rEnHbrGdH3gqQFnBBQXzKz2RjWtntvSiWR7K93xbeAQ4rVPrwUP3cp82aOlVFGtNz8QYF9lg==
-  dependencies:
-    postcss-cli "^8.3.1"
-
-"@vtex/tsconfig@^0.5.0":
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/@vtex/tsconfig/-/tsconfig-0.5.6.tgz#c0eb4222a75d1b8a4fefb1d85bbd9349880ddbe5"
-  integrity sha512-3pdtp0QiUjW3YqyA+2YPV3AsAJ68wHWELrg7JMlr7ULHNb4mUfmTBx31zbWG94K3OWp0KJFfF3ytQ+I68foqKA==
-
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"
@@ -24345,8 +24333,6 @@ ssri@^6.0.0, ssri@^6.0.1:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.2.tgz#157939134f20464e7301ddba3e90ffa8f7728ac5"
   integrity sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==
-  dependencies:
-    figgy-pudding "^3.5.1"
 
 ssri@^8.0.1:
   version "8.0.1"

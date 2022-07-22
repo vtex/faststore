@@ -30,7 +30,7 @@ export default (plop: NodePlopAPI) => {
         },
         {
           type: 'add',
-          path: '../themes/theme-b2c-tailwind/src/{{atomicGroup}}/{{kebabCase name}}.css',
+          path: '../packages/styles/src/{{atomicGroup}}/{{kebabCase name}}.css',
           templateFile: 'templates/style.css.hbs',
         },
         {

@@ -1,4 +1,4 @@
-# @vtex/graphql-utils
+# @faststore/graphql-utils
 
 GraphQL utilities to use GraphQL over HTTP with ZERO bundle sizes
 
@@ -31,7 +31,7 @@ Installing this plugin may vary depending on your setup. The instructions below 
 To install, just
 
 ```sh
-$ yarn add @vtex/graphql-utils
+$ yarn add @faststore/graphql-utils
 ```
 
 > Note. Also make sure to install [graphql codegen cli](https://www.graphql-code-generator.com/docs/getting-started/installation)
@@ -44,7 +44,7 @@ To generate the persisted query file, add this plugin to your codegen config. If
 generates:
 path/to/persisted.json:
  plugins:
-   - @vtex/graphql-utils/codegen
+   - @faststore/graphql-utils/codegen
 ```
 
 Now, open your terminal and run:
@@ -63,7 +63,7 @@ To use it on Gatsby, we need to setup the babel plugin. To do this, we can use G
 // ...
 exports.onCreateBabelConfig = ({ actions }) => {
   actions.setBabelPlugin({
-    name: `@vtex/graphql-utils/babel`,
+    name: `@faststore/graphql-utils/babel`,
     options: {},
   })
 }
@@ -76,7 +76,7 @@ Now you should be good to go and create your queries.
 Now that you have successfully installed and configured both babel and codegen plugins, you can start writing your queries. Let's start by declaring the following code:
 
 ```tsx
-import { gql, request } from '@vtex/graphql-utils'
+import { gql, request } from '@faststore/graphql-utils'
 
 const MyQuery = gql`
   query MyQuery { ... }
@@ -95,7 +95,7 @@ That's it! you can use this in most GraphQL Clients, like Apollo Client, SWR, an
 For instance, to use it with SWR, you can declare a useQuery hook:
 
 ```tsx
-import { request } from '@vtex/graphql-utils'
+import { request } from '@faststore/graphql-utils'
 
 const useQuery = ({ operationName, variables }) =>
   useSWR(`/graphql/${operationName}::${JSON.stringify(variables)}`, {
@@ -106,7 +106,7 @@ const useQuery = ({ operationName, variables }) =>
 and use it on your code like:
 
 ```tsx
-import { gql } from '@vtex/graphql-utils'
+import { gql } from '@faststore/graphql-utils'
 
 const MyQuery = qql`
   query MyQuery { ... }
