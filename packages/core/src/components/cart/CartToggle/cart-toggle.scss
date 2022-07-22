@@ -19,7 +19,7 @@
     font-weight: var(--fs-text-weight-bold);
     color: var(--fs-color-text-inverse);
     content: attr(data-items);
-    background: var(--fs-color-tertiary-text);
+    background: var(--fs-color-link);
     border-radius: var(--fs-border-radius-pill);
     box-shadow: 0 0 0 2px var(--fs-color-body-bkg);
     transition: var(--fs-transition-property) var(--fs-transition-timing) var(--fs-transition-function);

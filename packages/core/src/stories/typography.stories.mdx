@@ -1,5 +1,11 @@
 import { Canvas, Meta, Typeset } from '@storybook/addon-docs'
 
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
 <Meta
   title="Global Tokens/Typography"
   parameters={{ options: { showToolbar: false } }}
@@ -77,63 +83,26 @@ We recommend the usage of [GoogleFonts](https://fonts.google.com/).
 
 ---
 
-## Mobile Scale
+## Font Family
 
-<Typeset
-  fontSizes={[
-    Number(typography.sizeMob.s1),
-    Number(typography.sizeMob.s2),
-    Number(typography.sizeMob.s3),
-    Number(typography.sizeMob.m1),
-    Number(typography.sizeMob.m2),
-    Number(typography.sizeMob.m3),
-    Number(typography.sizeMob.l1),
-    Number(typography.sizeMob.l2),
-    Number(typography.sizeMob.l3),
-  ]}
-  fontWeight={typography.weight.regular}
-  sampleText={SampleText}
-  fontFamily={typography.type.primary}
-/>
-
-## Desktop Scale
-
-<Typeset
-  fontSizes={[
-    Number(typography.sizeDesk.s1),
-    Number(typography.sizeDesk.s2),
-    Number(typography.sizeDesk.s3),
-    Number(typography.sizeDesk.m1),
-    Number(typography.sizeDesk.m2),
-    Number(typography.sizeDesk.m3),
-    Number(typography.sizeDesk.l1),
-    Number(typography.sizeDesk.l2),
-    Number(typography.sizeDesk.l3),
-  ]}
-  fontWeight={typography.weight.regular}
-  sampleText={SampleText}
-  fontFamily={typography.type.primary}
-/>
-
----
-
-## Font
-
-| Global Token                      | Value                                                                 |
-| --------------------------------- | --------------------------------------------------------------------- |
-| <code>--fs-text-face-body</code>  | <code>-apple-system, system-ui, BlinkMacSystemFont, sans-serif</code> |
-| <code>--fs-text-face-title</code> | <code>var(--fs-text-face-body)</code>                                 |
+<TokenTable title="Global Token" description="Value">
+  <TokenRow
+    token="--fs-text-face-body"
+    value="-apple-system, system-ui, BlinkMacSystemFont, sans-serif"
+  />
+  <TokenRow token="--fs-text-face-title" value="var(--fs-text-face-body)" />
+</TokenTable>
 
 ---
 
 ## Weights
 
-| Global Token                          | Value            |
-| ------------------------------------- | ---------------- |
-| <code>--fs-text-weight-light</code>   | <code>300</code> |
-| <code>--fs-text-weight-regular</code> | <code>400</code> |
-| <code>--fs-text-weight-bold</code>    | <code>700</code> |
-| <code>--fs-text-weight-black</code>   | <code>900</code> |
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-weight-light" value="300" />
+  <TokenRow token="--fs-text-weight-regular" value="400" />
+  <TokenRow token="--fs-text-weight-bold" value="700" />
+  <TokenRow token="--fs-text-weight-black" value="900" />
+</TokenTable>
 
 ---
 
@@ -143,23 +112,80 @@ Use a type scale to add rhythm to your typography and ensure consistency through
 
 Access https://type-scale.com and pick a scale that suits the store's branding.
 
-<code>--fs-text-size-base</code>: <code>16px</code>
+<section className="sbdocs-section-text-scale">
+  <div>
+    <h3 className="sbdocs sbdocs-h3">Desktop Scale</h3>
+    <Typeset
+      fontSizes={[
+        Number(typography.sizeDesk.s1),
+        Number(typography.sizeDesk.s2),
+        Number(typography.sizeDesk.s3),
+        Number(typography.sizeDesk.m1),
+        Number(typography.sizeDesk.m2),
+        Number(typography.sizeDesk.m3),
+        Number(typography.sizeDesk.l1),
+        Number(typography.sizeDesk.l2),
+        Number(typography.sizeDesk.l3),
+      ]}
+      fontWeight={typography.weight.regular}
+      sampleText={SampleText}
+      fontFamily={typography.type.primary}
+    />
+  </div>
+  <div>
+    <h3 className="sbdocs sbdocs-h3">Mobile Scale</h3>
+    <Typeset
+      fontSizes={[
+        Number(typography.sizeMob.s1),
+        Number(typography.sizeMob.s2),
+        Number(typography.sizeMob.s3),
+        Number(typography.sizeMob.m1),
+        Number(typography.sizeMob.m2),
+        Number(typography.sizeMob.m3),
+        Number(typography.sizeMob.l1),
+        Number(typography.sizeMob.l2),
+        Number(typography.sizeMob.l3),
+      ]}
+      fontWeight={typography.weight.regular}
+      sampleText={SampleText}
+      fontFamily={typography.type.primary}
+    />
+  </div>
+</section>
 
-<code>--fs-text-scale-desk</code> : <code>1.25</code>
-
-<code>--fs-text-scale-mobile</code> : <code>1.13</code>
-
-| Global Token                  | Value                                                       |
-| ----------------------------- | ----------------------------------------------------------- |
-| <code>--fs-text-size-0</code> | <code>12px</code>                                           |
-| <code>--fs-text-size-1</code> | <code>14px</code>                                           |
-| <code>--fs-text-size-2</code> | <code>var(--fs-text-size-base); </code>                     |
-| <code>--fs-text-size-3</code> | <code>calc(var(--fs-text-size-2) \* var(--fs-scale))</code> |
-| <code>--fs-text-size-4</code> | <code>calc(var(--fs-text-size-3) \* var(--fs-scale))</code> |
-| <code>--fs-text-size-5</code> | <code>calc(var(--fs-text-size-4) \* var(--fs-scale))</code> |
-| <code>--fs-text-size-6</code> | <code>calc(var(--fs-text-size-5) \* var(--fs-scale))</code> |
-| <code>--fs-text-size-7</code> | <code>calc(var(--fs-text-size-6) \* var(--fs-scale))</code> |
-| <code>--fs-text-size-8</code> | <code>calc(var(--fs-text-size-7) \* var(--fs-scale))</code> |
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-size-base" value="16px" />
+  <TokenRow token="--fs-text-scale-desk" value="1.25" />
+  <TokenRow token="--fs-text-scale-mobile" value="1.13" />
+  <TokenDivider />
+  <TokenRow token="--fs-text-size-0" value="12px" />
+  <TokenRow token="--fs-text-size-1" value="14px" />
+  <TokenRow token="--fs-text-size-2" value="var(--fs-text-size-base)" />
+  <TokenRow
+    token="--fs-text-size-3"
+    value="calc(var(--fs-text-size-2) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-4"
+    value="calc(var(--fs-text-size-3) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-5"
+    value="calc(var(--fs-text-size-4) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-6"
+    value="calc(var(--fs-text-size-5) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-7"
+    value="calc(var(--fs-text-size-6) * var(--fs-scale))"
+  />
+  <TokenRow
+    token="--fs-text-size-8"
+    value="calc(var(--fs-text-size-7) * var(--fs-scale))"
+  />
+</TokenTable>
 
 ---
 
@@ -167,26 +193,32 @@ Access https://type-scale.com and pick a scale that suits the store's branding.
 
 ### Sizes
 
-| Global Token                                 | Value                                 |
-| -------------------------------------------- | ------------------------------------- |
-| <code>--fs-text-size-title-huge</code>       | <code>var(--fs-text-size-7)</code>    |
-| <code>--fs-text-size-title-page</code>       | <code>var(--fs-text-size-6)</code>    |
-| <code>--fs-text-size-title-product</code>    | <code>var(--fs-text-size-4)</code>    |
-| <code>--fs-text-size-title-section</code>    | <code>var(--fs-text-size-4)</code>    |
-| <code>--fs-text-size-title-subsection</code> | <code>var(--fs-text-size-4)</code>    |
-| <code>--fs-text-size-title-mini</code>       | <code>var(--fs-text-size-4)</code>    |
-| <code>--fs-text-size-lead</code>             | <code>var(--fs-text-size-3)</code>    |
-| <code>--fs-text-size-menu</code>             | <code>var(--fs-text-size-base)</code> |
-| <code>--fs-text-size-body</code>             | <code>var(--fs-text-size-base)</code> |
-| <code>--fs-text-size-legend</code>           | <code>var(--fs-text-size-1)</code>    |
-| <code>--fs-text-size-tiny</code>             | <code>var(--fs-text-size-0)</code>    |
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-size-title-huge" value="var(--fs-text-size-7)" />
+  <TokenRow token="--fs-text-size-title-page" value="var(--fs-text-size-6)" />
+  <TokenRow
+    token="--fs-text-size-title-product"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow
+    token="--fs-text-size-title-section"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow
+    token="--fs-text-size-title-subsection"
+    value="var(--fs-text-size-4)"
+  />
+  <TokenRow token="--fs-text-size-title-mini" value="var(--fs-text-size-4)" />
+  <TokenDivider />
+  <TokenRow token="--fs-text-size-lead" value="var(--fs-text-size-3)" />
+  <TokenRow token="--fs-text-size-menu" value="var(--fs-text-size-base)" />
+  <TokenRow token="--fs-text-size-body" value="var(--fs-text-size-base)" />
+  <TokenRow token="--fs-text-size-legend" value="var(--fs-text-size-1)" />
+  <TokenRow token="--fs-text-size-tiny" value="var(--fs-text-size-0)" />
+</TokenTable>
 
 ### Max Lines
 
-| Global Token                     | Value          |
-| -------------------------------- | -------------- |
-| <code>--fs-text-max-lines</code> | <code>2</code> |
-
-```
-
-```
+<TokenTable title="Global Token" description="Value">
+  <TokenRow token="--fs-text-max-lines" value="2" />
+</TokenTable>

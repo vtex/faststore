@@ -1,0 +1,56 @@
+import { Description, Meta } from '@storybook/addon-docs'
+
+import { SectionList, SectionItem } from 'src/../.storybook/components'
+
+<Meta
+  title="Theming/Themes/Midnight"
+  parameters={{ options: { showToolbar: false } }}
+/>
+
+<header>
+
+# Midnight
+
+A darkmode theme created for testing purposes.
+
+</header>
+
+<section className="sbdocs-section-theme">
+ <div className="sbdocs-section-theme-img">
+   <img
+    src="https://vtexhelp.vtexassets.com/assets/docs/src/midnight___2bb274e36a39ff9c2cfa3dcc740cbfab.png"
+  />
+ </div>
+
+  <article>
+
+## Use `midnight` as your theme
+
+1. Import `midnight.scss` file on `src/pages/_app.tsx`
+
+```jsx
+import '../styles/themes/midnight.scss'
+```
+
+2. Go to `store.config.js` and change the `theme` to your file's name:
+
+```js
+// Theming
+theme: 'midnight',
+```
+
+3. Add the [Raleway](https://fonts.google.com/specimen/Raleway?query=raleway) font on `src/fonts/WebFonts.tsx`
+
+```tsx
+function WebFonts() {
+  return (
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&display=swap"
+    />
+  )
+}
+```
+
+  </article>
+</section>

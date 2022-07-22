@@ -11,7 +11,7 @@ function Document() {
         {!process.env.DISABLE_3P_SCRIPTS && <ThirdPartyScripts />}
         <WebFonts />
       </Head>
-      <body className={`${storeConfig.theme}`}>
+      <body className={storeConfig.theme}>
         <Main />
         <NextScript />
       </body>

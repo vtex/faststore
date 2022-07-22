@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react'
 
 type SectionListProps = {
   grid?: 'row' | 'grid'
-  classes: string
+  classes?: string
 }
 
 const SectionList = ({

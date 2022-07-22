@@ -34,8 +34,11 @@
   [data-fs-tile] {
     min-width: var(--fs-tiles-tile-min-width);
     height: var(--fs-tiles-tile-height-mobile);
-    overflow: hidden;
-    border-radius: var(--fs-tiles-tile-border-radius);
+
+    > * {
+      overflow: hidden;
+      border-radius: var(--fs-tiles-tile-border-radius);
+    }
 
     @include media(">=tablet") { height: var(--fs-tiles-tile-height-tablet); }
   }

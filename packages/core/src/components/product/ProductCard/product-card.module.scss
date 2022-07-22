@@ -30,7 +30,7 @@
   --fs-product-card-content-padding          : var(--fs-spacing-2) 0 0 0;
 
   // Image
-  --fs-product-card-img-radius               : var(--fs-border-radius);
+  --fs-product-card-img-radius               : var(--fs-product-card-border-radius);
   --fs-product-card-img-scale-hover          : 1;
 
   // Title
@@ -215,8 +215,7 @@
     }
 
     [data-product-card-image] {
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
+      border-radius: 0;
     }
 
     [data-store-badge] {

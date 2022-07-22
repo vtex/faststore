@@ -160,7 +160,6 @@
     padding: var(--fs-spacing-4);
     margin-right: calc(-1 * var(--padding));
     margin-left: calc(-1 * var(--padding));
-    background-color: var(--fs-color-body-bkg);
 
     @include media(">=notebook") {
       padding: var(--fs-spacing-1) var(--fs-spacing-2);

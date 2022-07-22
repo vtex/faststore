@@ -4,9 +4,7 @@ import '../styles/global/typography.scss'
 import '../styles/global/layout.scss'
 import '../styles/global/components.scss'
 
-// Replace these with your theme style file
-import '../styles/themes/midnight.scss'
-import '../styles/themes/soft-blue.scss'
+// Replace this with your theme style file
 import '../styles/themes/custom-theme.scss'
 
 import { CartProvider, SessionProvider } from '@faststore/sdk'
