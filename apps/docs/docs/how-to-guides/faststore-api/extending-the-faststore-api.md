@@ -11,6 +11,7 @@ To extend the schema, one can:
 ```ts
 import { getSchema, getTypeDefs } from '@faststore/api'
 import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
+import { mergeTypeDefs } from '@graphql-tools/merge'
 import { ApolloServer } from 'apollo-server'
 
 // Setup type extensions
@@ -45,6 +46,7 @@ const getMergedSchemas = async () =>
         typeDefs: mergedTypeDefs,
       }),
     ],
+    resolvers,
   })
 
 // Merge schemas into a final schema
