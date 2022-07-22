@@ -24,6 +24,10 @@ export type SliderProps = {
    */
   max: Range
   /**
+   * Specifies the number interval to be used in the inputs.
+   */
+  step?: number
+  /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    *
    * @default 'store-slider'
@@ -72,6 +76,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       testId = 'store-slider',
       getAriaValueText,
       className,
+      step,
       minValueLabelComponent,
       maxValueLabelComponent,
     },
@@ -123,6 +128,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           min={min.absolute}
           max={max.absolute}
           value={minVal}
+          step={step}
           onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
           onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
           onChange={(event) => {
@@ -144,6 +150,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           min={min.absolute}
           max={max.absolute}
           value={maxVal}
+          step={step}
           onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
           onTouchEnd={() => onEnd?.({ min: minVal, max: maxVal })}
           onChange={(event) => {
