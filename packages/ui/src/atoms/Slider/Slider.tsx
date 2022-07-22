@@ -94,8 +94,8 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       const widthPercent = (max.absolute - min.absolute) / 100
 
       return {
-        minVal: min.absolute + minPercent * widthPercent,
-        maxVal: min.absolute + maxPercent * widthPercent,
+        minVal: Math.round(min.absolute + minPercent * widthPercent),
+        maxVal: Math.round(min.absolute + maxPercent * widthPercent),
       }
     }, [min, max, maxPercent, minPercent])
 
