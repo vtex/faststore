@@ -1,0 +1,24 @@
+"""
+Newsletter information.
+"""
+
+type PersonNewsletter {
+  """
+  Person's ID in the newsletter list.
+  """
+  id: String!
+}
+
+"""
+Person data input to the newsletter.
+"""
+input IPersonNewsletter {
+  """
+  Person's name.
+  """
+  name: String!
+  """
+  Person's email.
+  """
+  email: String!
+}
