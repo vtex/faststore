@@ -1,6 +1,10 @@
 import type { ComponentPropsWithRef, FormEvent, ReactNode } from 'react'
 import { forwardRef, useRef } from 'react'
-import { Form, Label, Input, Button } from '@faststore/ui'
+import { Form, Label, Input, LoadingButton } from '@faststore/ui'
+
+import { useNewsletter } from 'src/sdk/newsletter/useNewsletter'
+
+import Section from '../Section'
 
 export interface NewsletterProps
   extends Omit<ComponentPropsWithRef<'form'>, 'title' | 'onSubmit'> {
@@ -12,49 +16,63 @@ export interface NewsletterProps
    * A subtitle for the section.
    */
   subtitle?: ReactNode
-  /**
-   * Callback function when submitted.
-   */
-  onSubmit: (value: string) => void
 }
 
 const Newsletter = forwardRef<HTMLFormElement, NewsletterProps>(
-  function Newsletter({ title, subtitle, onSubmit, ...otherProps }, ref) {
+  function Newsletter({ title, subtitle, ...otherProps }, ref) {
+    const { subscribeUser, loading } = useNewsletter()
+    const nameInputRef = useRef<HTMLInputElement>(null)
     const emailInputRef = useRef<HTMLInputElement>(null)
 
     const handleSubmit = (event: FormEvent) => {
       event.preventDefault()
+      subscribeUser({
+        data: {
+          name: nameInputRef.current?.value ?? '',
+          email: emailInputRef.current?.value ?? '',
+        },
+      })
+      const formElement = event.currentTarget as HTMLFormElement
 
-      if (emailInputRef.current?.value !== '') {
-        onSubmit(emailInputRef.current?.value ?? '')
-      }
+      formElement.reset()
     }
 
     return (
-      <section data-store-newsletter>
+      <Section data-fs-newsletter>
         <Form
-          data-newsletter-form
+          data-fs-newsletter-form
           ref={ref}
           onSubmit={handleSubmit}
           {...otherProps}
         >
-          <div data-newsletter-header>
+          <div data-fs-newsletter-header>
             {title}
             {Boolean(subtitle) && subtitle}
           </div>
 
-          <div data-newsletter-controls>
+          <div data-fs-newsletter-controls>
+            <Label htmlFor="newsletter-name">Your name</Label>
+            <Input
+              id="newsletter-name"
+              type="text"
+              name="newsletter-name"
+              ref={nameInputRef}
+              required
+            />
             <Label htmlFor="newsletter-email">Your email</Label>
             <Input
               id="newsletter-email"
               type="email"
               name="newsletter-email"
               ref={emailInputRef}
+              required
             />
-            <Button type="submit">Subscribe</Button>
+            <LoadingButton type="submit" loading={loading}>
+              Subscribe
+            </LoadingButton>
           </div>
         </Form>
-      </section>
+      </Section>
     )
   }
 )
