@@ -82,6 +82,10 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
     },
     ref
   ) {
+    const widthPercent = useMemo(
+      () => (max.absolute - min.absolute) / 100,
+      [max.absolute, min.absolute]
+    )
     const [minPercent, setMinPercent] = useState(() =>
       percent(min.selected, min.absolute, max.absolute)
     )
@@ -90,21 +94,27 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
       percent(max.selected, min.absolute, max.absolute)
     )
 
-    const { minVal, maxVal } = useMemo(() => {
-      const widthPercent = (max.absolute - min.absolute) / 100
-
-      return {
-        minVal: Math.round(min.absolute + minPercent * widthPercent),
-        maxVal: Math.round(min.absolute + maxPercent * widthPercent),
-      }
-    }, [min, max, maxPercent, minPercent])
+    const [minVal, setMinVal] = useState(() =>
+      Math.round(min.absolute + minPercent * widthPercent)
+    )
+    const [maxVal, setMaxVal] = useState(() =>
+      Math.round(min.absolute + maxPercent * widthPercent)
+    )
 
     useImperativeHandle(ref, () => ({
       setSliderValues: (values: { min: number; max: number }) => {
         const sliderMinValue = Math.min(Number(values.min), maxVal)
-        const sliderMaxValue = Math.max(Number(values.max), minVal)
-
+        setMinVal(sliderMinValue)
         setMinPercent(percent(sliderMinValue, min.absolute, max.absolute))
+
+        if (values.max > max.absolute) {
+          setMaxVal(max.absolute)
+          setMaxPercent(percent(max.absolute, min.absolute, max.absolute))
+          return
+        }
+
+        const sliderMaxValue = Math.max(Number(values.max), minVal)
+        setMaxVal(sliderMaxValue)
         setMaxPercent(percent(sliderMaxValue, min.absolute, max.absolute))
       },
     }))
@@ -130,6 +140,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           onChange={(event) => {
             const minValue = Math.min(Number(event.target.value), maxVal)
 
+            setMinVal(minValue)
             setMinPercent(percent(minValue, min.absolute, max.absolute))
             onChange?.({ min: minValue, max: maxVal })
           }}
@@ -152,6 +163,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           onChange={(event) => {
             const maxValue = Math.max(Number(event.target.value), minVal)
 
+            setMaxVal(maxValue)
             setMaxPercent(percent(maxValue, min.absolute, max.absolute))
             onChange?.({ min: minVal, max: maxValue })
           }}
