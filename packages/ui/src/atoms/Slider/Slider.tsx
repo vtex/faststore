@@ -131,8 +131,8 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
         {minValueLabelComponent && minValueLabelComponent(minVal)}
         <input
           type="range"
-          min={min.absolute}
-          max={max.absolute}
+          min={Math.round(min.absolute)}
+          max={Math.round(max.absolute)}
           value={minVal}
           step={step}
           onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
@@ -154,8 +154,8 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
         {maxValueLabelComponent && maxValueLabelComponent(maxVal)}
         <input
           type="range"
-          min={min.absolute}
-          max={max.absolute}
+          min={Math.round(min.absolute)}
+          max={Math.round(max.absolute)}
           value={maxVal}
           step={step}
           onMouseUp={() => onEnd?.({ min: minVal, max: maxVal })}
