@@ -190,6 +190,11 @@ export type {
   OutOfStockTitleProps,
 } from './organisms/OutOfStock'
 
+export { Tile } from './organisms/Tiles'
+export type {
+  TileProps
+} from './organisms/Tiles'
+
 export { default as Hero, HeroHeading, HeroImage } from './organisms/Hero'
 export type {
   HeroProps,
