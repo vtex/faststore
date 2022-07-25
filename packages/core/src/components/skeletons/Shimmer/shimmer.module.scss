@@ -1,0 +1,43 @@
+.fs-shimmer {
+  // --------------------------------------------------------
+  // Design Tokens for Shimmer
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-shimmer-wrapper-transition-timing    : 850ms;
+  --fs-shimmer-wrapper-transition-function  : linear;
+  --fs-shimmer-wrapper-transition-iteration : infinite;
+
+  // Shimmer
+  --fs-shimmer-width                        : 50%;
+  --fs-shimmer-height                       : 100%;
+  --fs-shimmer-bkg-color                    : rgb(255 255 255 / 20%);
+  --fs-shimmer-box-shadow                   : 0 0 var(--fs-spacing-5) var(--fs-spacing-5) rgb(255 255 255 / 20%);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  /*
+   * Parent must have `position: relative` and `overflow: hidden`
+   * in order to the effect to work properly.
+   */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  animation: loading var(--fs-shimmer-wrapper-transition-timing) var(--fs-shimmer-wrapper-transition-iteration) var(--fs-shimmer-wrapper-transition-function);
+
+  [data-fs-shimmer] {
+    width: var(--fs-shimmer-width);
+    height: var(--fs-shimmer-height);
+    background: var(--fs-shimmer-bkg-color);
+    box-shadow: var(--fs-shimmer-box-shadow);
+  }
+}
+
+@keyframes loading {
+  0% { transform: translate3d(-50vw, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}

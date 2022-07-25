@@ -1,6 +1,6 @@
 @import "src/styles/scaffold";
 
-[data-fs-product-shelf] {
+.fs-product-shelf {
   // --------------------------------------------------------
   // Design Tokens for Product Shelf
   // --------------------------------------------------------
@@ -17,23 +17,25 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  min-height: var(--fs-product-shelf-min-height);
-}
-
-[data-fs-product-shelf-items] {
-  display: flex;
-  align-items: stretch;
-  overflow-x: scroll;
-
-  li {
-    width: 100%;
-    &:first-child { margin-left: var(--fs-product-shelf-first-item-margin-left); }
+  &[data-fs-product-shelf] {
+    min-height: var(--fs-product-shelf-min-height);
   }
 
-  @include media(">=tablet") {
-    column-gap: var(--fs-product-shelf-items-gap);
-    padding-top: var(--fs-product-shelf-items-padding-top);
-    padding-bottom: var(--fs-product-shelf-items-padding-bottom);
-    overflow-x: auto;
+  [data-fs-product-shelf-items] {
+    display: flex;
+    align-items: stretch;
+    overflow-x: scroll;
+
+    li {
+      width: 100%;
+      &:first-child { margin-left: var(--fs-product-shelf-first-item-margin-left); }
+    }
+
+    @include media(">=tablet") {
+      column-gap: var(--fs-product-shelf-items-gap);
+      padding-top: var(--fs-product-shelf-items-padding-top);
+      padding-bottom: var(--fs-product-shelf-items-padding-bottom);
+      overflow-x: auto;
+    }
   }
 }

@@ -402,6 +402,45 @@ h3.sbdocs.sbdocs-h3 {
   background-image: url("https://vtexhelp.vtexassets.com/assets/docs/src/refinements___ca4c7814b2771e84601f4a6d457612fd.png");
 }
 
+/* Skeletons */
+
+.canvas-skeletons [data-fs-skeleton-variant="text"] {
+  max-width: 300px;
+}
+
+.canvas-skeletons [data-fs-skeleton-variant="badge"] {
+  max-width: 100px;
+}
+
+.canvas-skeletons [data-fs-skeleton-variant="image"] {
+  max-width: 12.188rem;
+}
+
+.canvas-filter-skeleton [data-fs-filter-skeleton] {
+  max-width: 350px;
+}
+
+.canvas-product-card-skeleton [data-fs-product-card-skeleton] {
+  max-width: 280px;
+}
+
+.sbdocs-skeletons .sbdocs-li > .sbdocs-div {
+  min-height: 420px;
+  background-color: #f7f7f7;
+}
+
+.sbdocs-skeletons .sbdocs-li > .sbdocs-div [data-fs-skeleton] {
+  width: 200px;
+}
+
+.sbdocs-skeletons .sbdocs-li > .sbdocs-div [data-fs-skeleton-variant="badge"] {
+  width: 120px;
+}
+
+.sbdocs-skeletons .sbdocs-li > .sbdocs-div [data-fs-skeleton-variant="button"] {
+  width: 90px;
+}
+
 /* Hero Section */
 
 .sbdocs-content > header.sbdocs-hero {

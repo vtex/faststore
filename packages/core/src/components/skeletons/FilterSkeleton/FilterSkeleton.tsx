@@ -1,24 +1,28 @@
 import type { PropsWithChildren } from 'react'
 
 import Shimmer from '../Shimmer'
-import SkeletonElement from '../SkeletonElement'
+import Skeleton from '../Skeleton'
+import styles from './filter-skeleton.module.scss'
 
-interface Props {
+interface FilterSkeletonProps {
+  /**
+   * Control whether skeleton should be visible or not.
+   */
   loading?: boolean
 }
 
 function FilterSkeleton({
   children,
   loading = true,
-}: PropsWithChildren<Props>) {
+}: PropsWithChildren<FilterSkeletonProps>) {
   return loading ? (
-    <div data-store-filter-skeleton>
-      <SkeletonElement shimmer type="text" />
+    <div className={styles.fsFilterSkeleton} data-fs-filter-skeleton>
+      <Skeleton shimmer variant="text" />
 
-      <div data-filter-skeleton-content>
-        <SkeletonElement type="text" />
-        <SkeletonElement type="text" />
-        <SkeletonElement type="text" />
+      <div data-fs-filter-skeleton-content>
+        <Skeleton variant="text" />
+        <Skeleton variant="text" />
+        <Skeleton variant="text" />
         <Shimmer />
       </div>
     </div>

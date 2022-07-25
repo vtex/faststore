@@ -7,7 +7,7 @@ import Filter from 'src/components/search/Filter'
 import Sort from 'src/components/search/Sort'
 import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
-import SkeletonElement from 'src/components/skeletons/SkeletonElement'
+import Skeleton from 'src/components/skeletons/Skeleton'
 import Button, { ButtonLink } from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import { mark } from 'src/sdk/tests/mark'
@@ -74,17 +74,32 @@ function ProductGallery({ title, searchTerm }: Props) {
         </div>
 
         <div data-fs-product-listing-results-count data-count={totalCount}>
-          <SkeletonElement shimmer type="text" loading={!data}>
+          <Skeleton
+            shimmer
+            variant="text"
+            loading={!data}
+            data-fs-product-listing-results-count-skeleton
+          >
             <h2 data-testid="total-product-count">{totalCount} Results</h2>
-          </SkeletonElement>
+          </Skeleton>
         </div>
 
         <div data-fs-product-listing-sort>
-          <SkeletonElement shimmer type="text" loading={facets?.length === 0}>
+          <Skeleton
+            shimmer
+            variant="text"
+            loading={facets?.length === 0}
+            data-fs-product-listing-sort-skeleton
+          >
             <Sort />
-          </SkeletonElement>
+          </Skeleton>
 
-          <SkeletonElement shimmer type="button" loading={facets?.length === 0}>
+          <Skeleton
+            shimmer
+            variant="button"
+            loading={facets?.length === 0}
+            data-fs-product-listing-filter-button-skeleton
+          >
             <Button
               variant="tertiary"
               data-testid="open-filter-button"
@@ -95,7 +110,7 @@ function ProductGallery({ title, searchTerm }: Props) {
             >
               Filters
             </Button>
-          </SkeletonElement>
+          </Skeleton>
         </div>
 
         <div data-fs-product-listing-results>

@@ -1,0 +1,97 @@
+@import "src/styles/scaffold";
+
+.fs-product-card-skeleton {
+  // --------------------------------------------------------
+  // Design Tokens for Product Card Skeleton
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-product-card-skeleton-padding                   : var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-product-card-skeleton-border-width              : var(--fs-border-width);
+  --fs-product-card-skeleton-border-color              : transparent;
+  --fs-product-card-skeleton-border-radius             : var(--fs-border-radius);
+
+  // Content
+  --fs-product-card-skeleton-content-height            : 20%;
+  --fs-product-card-skeleton-content-margin-top        : var(--fs-spacing-2);
+
+  // Button
+  --fs-product-card-skeleton-button-margin-top         : var(--fs-spacing-4);
+
+  // Text
+  --fs-product-card-skeleton-text-margin-bottom        : var(--fs-product-card-skeleton-content-margin-top);
+
+  // Badge
+  --fs-product-card-skeleton-badge-min-height          : var(--fs-spacing-5);
+  --fs-product-card-skeleton-badge-margin-top          : var(--fs-product-card-skeleton-text-margin-top);
+  --fs-product-card-skeleton-badge-max-width           : var(--fs-product-card-skeleton-content-height);
+  --fs-product-card-skeleton-badge-min-width-mobile    : 30%;
+  --fs-product-card-skeleton-badge-min-width-tablet    : var(--fs-product-card-skeleton-content-height);
+
+  // Sectioned
+  --fs-product-card-skeleton-sectioned-image-min-width : 13rem;
+  --fs-product-card-skeleton-sectioned-image-height    : 12.188rem;
+
+  // Bordered
+  --fs-product-card-skeleton-bordered-mobile           : none;
+  --fs-product-card-skeleton-bordered-desktop          : var(--fs-border-width) solid var(--fs-border-color-light);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 14vw;
+  height: 100%;
+  padding: var(--fs-product-card-skeleton-padding);
+  overflow: hidden;
+  border: var(--fs-product-card-skeleton-border-width) solid var(--fs-product-card-skeleton-border-color);
+  border-radius: var(--fs-product-card-skeleton-border-radius);
+
+  @include media(">=notebook") { min-width: 12rem; }
+
+  [data-fs-product-card-skeleton-content] {
+    position: relative;
+    height: var(--fs-product-card-skeleton-content-height);
+    margin-top: var(--fs-product-card-skeleton-content-margin-top);
+
+    [data-fs-skeleton-variant="text"] { margin-bottom: var(--fs-product-card-skeleton-text-margin-bottom); }
+
+    [data-fs-skeleton-variant="button"] { margin-top: var(--fs-product-card-skeleton-button-margin-top); }
+
+    [data-fs-skeleton-variant="badge"] {
+      min-width: var(--fs-product-card-skeleton-badge-min-width-mobile);
+
+      @include media(">=notebook") {
+        min-height: var(--fs-product-card-skeleton-badge-min-height);
+        margin-top: var(--fs-product-card-skeleton-badge-margin-top);
+      }
+
+      @include media(">=tablet") {
+        min-width: var(--fs-product-card-skeleton-badge-min-width-tablet);
+        max-width: var(--fs-product-card-skeleton-badge-max-width);
+      }
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-product-card-skeleton-sectioned="true"] {
+    [data-fs-skeleton-variant="image"] {
+      min-width: var(--fs-product-card-skeleton-sectioned-image-min-width);
+      min-height: var(--fs-product-card-skeleton-sectioned-image-height);
+    }
+  }
+
+  &[data-fs-product-card-skeleton-bordered="true"] {
+    border: var(--fs-product-card-skeleton-bordered-mobile);
+
+    @include media(">=notebook") {
+      border: var(--fs-product-card-skeleton-bordered-desktop);
+    }
+  }
+}

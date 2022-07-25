@@ -1,0 +1,218 @@
+@import "src/styles/scaffold";
+
+.fs-product-tile-skeleton {
+  // --------------------------------------------------------
+  // Design Tokens for Product Tile Skeleton
+  // --------------------------------------------------------
+
+  // Image
+  --fs-product-tile-skeleton-image-height-mobile                : 60%;
+  --fs-product-tile-skeleton-image-min-height-mobile            : var(--fs-product-tile-skeleton-image-height-mobile);
+  --fs-product-tile-skeleton-image-height-tablet                : 70%;
+  --fs-product-tile-skeleton-image-min-height-tablet            : var(--fs-product-tile-skeleton-image-height-tablet);
+  --fs-product-tile-skeleton-image-height-desktop               : 80%;
+  --fs-product-tile-skeleton-image-min-height-desktop           : var(--fs-product-tile-skeleton-image-height-desktop);
+  --fs-product-tile-skeleton-image-border-radius                : var(--fs-border-radius) var(--fs-border-radius) 0 0;
+
+  // Content
+  --fs-product-tile-skeleton-content-height-mobile              : 40%;
+  --fs-product-tile-skeleton-content-height-tablet              : 30%;
+  --fs-product-tile-skeleton-content-height-desktop             : 20%;
+  --fs-product-tile-skeleton-content-padding                    : var(--fs-spacing-3);
+  --fs-product-tile-skeleton-content-border-bottom-left-radius  : var(--fs-border-radius);
+  --fs-product-tile-skeleton-content-border-bottom-right-radius : var(--fs-product-tile-skeleton-content-border-bottom-left-radius);
+
+  // Text
+  --fs-product-tile-skeleton-text-width-mobile                  : 70%;
+  --fs-product-tile-skeleton-text-width-tablet                  : 50%;
+  --fs-product-tile-skeleton-text-width-desktop                 : 60%;
+  --fs-product-tile-skeleton-text-margin-bottom                 : var(--fs-spacing-1);
+
+  // Price
+  --fs-product-tile-skeleton-price-width-mobile                 : 60%;
+  --fs-product-tile-skeleton-price-width-tablet                 : 100%;
+
+  // Badge
+  --fs-product-tile-skeleton-badge-width-mobile                 : 20%;
+  --fs-product-tile-skeleton-badge-width-tablet                 : var(--fs-product-tile-skeleton-badge-width-mobile);
+  --fs-product-tile-skeleton-badge-position-right               : var(--fs-product-tile-skeleton-text-margin-bottom);
+
+  // Wide
+  --fs-product-tile-skeleton-wide-padding                       : var(--fs-spacing-2) var(--fs-spacing-3) var(--fs-spacing-3);
+  --fs-product-tile-skeleton-wide-bkg-color                     : var(--fs-color-neutral-bkg);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+
+  &[data-fs-product-tile-skeleton-index="1"] {
+    min-width: 9rem;
+    height: 24rem;
+
+    @include media(">=tablet") { height: 28rem; }
+  }
+
+  [data-fs-product-tile-skeleton-image] {
+    height: var(--fs-product-tile-skeleton-image-height-mobile);
+    min-height: var(--fs-product-tile-skeleton-image-min-height-mobile);
+    border-radius: var(--fs-product-tile-skeleton-image-border-radius);
+
+    @include media(">=tablet") {
+      height: var(--fs-product-tile-skeleton-image-height-tablet);
+      min-height: var(--fs-product-tile-skeleton-image-min-height-tablet);
+    }
+
+    @include media(">=notebook") {
+      height: var(--fs-product-tile-skeleton-image-height-desktop);
+      min-height: var(--fs-product-tile-skeleton-image-min-height-desktop);
+    }
+
+    &[data-fs-product-tile-skeleton-index="1"] {
+      height: 80%;
+
+      @include media(">=tablet") {
+        height: 70%;
+        min-height: 70%;
+      }
+
+      @include media(">=notebook") {
+        height: 80%;
+        min-height: 80%;
+      }
+    }
+
+    [data-fs-skeleton-wrapper] { height: 100%; }
+
+    [data-fs-skeleton-variant="image"] {
+      width: 100%;
+      height: 100%;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  [data-fs-product-tile-skeleton-content] {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: var(--fs-product-tile-skeleton-content-height-mobile);
+    padding: var(--fs-product-tile-skeleton-content-padding);
+    border-bottom-right-radius: var(--fs-product-tile-skeleton-content-border-bottom-right-radius);
+    border-bottom-left-radius: var(--fs-product-tile-skeleton-content-border-bottom-left-radius);
+
+    @include media(">=tablet") {
+      flex-flow: row wrap;
+      height: var(--fs-product-tile-skeleton-content-height-tablet);
+    }
+
+    @include media(">=notebook") {
+      flex-flow: row wrap;
+      height: var(--fs-product-tile-skeleton-content-height-desktop);
+    }
+
+    &[data-fs-product-tile-skeleton-index="1"] {
+      height: 20%;
+      padding: var(--fs-spacing-2) var(--fs-spacing-3);
+
+      @include media(">=tablet") {
+        flex-flow: row wrap;
+        height: 30%;
+      }
+
+      @include media(">=notebook") { height: 20%; }
+    }
+
+    [data-fs-product-tile-skeleton-text] {
+      width: var(--fs-product-tile-skeleton-text-width-mobile);
+
+      @include media(">=tablet") {
+        width: var(--fs-product-tile-skeleton-text-width-tablet);
+
+        &[data-fs-product-tile-skeleton-index="2"],
+        &[data-fs-product-tile-skeleton-index="3"] { width: 100%; }
+      }
+
+      @include media(">=notebook") {
+        width: var(--fs-product-tile-skeleton-text-width-desktop);
+
+        &[data-fs-product-tile-skeleton-index="2"],
+        &[data-fs-product-tile-skeleton-index="3"] { width: 60%; }
+      }
+
+      [data-fs-skeleton-variant="text"] {
+        margin-bottom: var(--fs-product-tile-skeleton-text-margin-bottom);
+      }
+
+      [data-fs-product-tile-skeleton-price] {
+        width: var(--fs-product-tile-skeleton-price-width-mobile);
+
+        @include media(">=tablet") { width: var(--fs-product-tile-skeleton-price-width-tablet); }
+      }
+    }
+
+    [data-fs-product-tile-skeleton-badge] {
+      position: absolute;
+      right: var(--fs-product-tile-skeleton-badge-position-right);
+      width: var(--fs-product-tile-skeleton-badge-width-mobile);
+
+      @include media(">=tablet") { width: var(--fs-product-tile-skeleton-badge-width-tablet); }
+
+      &[data-fs-product-tile-skeleton-index="2"],
+      &[data-fs-product-tile-skeleton-index="3"] {
+        bottom: var(--fs-spacing-2);
+        left: var(--fs-spacing-3);
+        width: 30%;
+
+        @include media(">=tablet") {
+          position: relative;
+          bottom: 0;
+          left: var(--fs-spacing-2);
+          width: 50%;
+        }
+
+        @include media(">=notebook") {
+          position: absolute;
+          right: var(--fs-spacing-1);
+          bottom: unset;
+          left: unset;
+          width: 30%;
+        }
+      }
+
+      [data-fs-skeleton-variant="badge"] {
+        width: 100%;
+        height: var(--fs-spacing-4);
+
+        @include media(">=tablet") {
+          position: absolute;
+          right: var(--fs-spacing-1);
+        }
+
+        @include media(">=notebook") {
+          position: relative;
+          right: var(--fs-spacing-0);
+        }
+      }
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-product-tile-skeleton-variant="wide"] {
+    [data-fs-product-tile-skeleton-content] {
+      background-color: var(--fs-product-tile-skeleton-wide-bkg-color);
+
+      @include media(">=tablet") {
+        padding: var(--fs-product-tile-skeleton-wide-padding);
+      }
+    }
+  }
+}

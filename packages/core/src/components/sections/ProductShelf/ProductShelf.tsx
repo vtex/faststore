@@ -4,6 +4,7 @@ import type { ProductsQueryQueryVariables } from '@generated/graphql'
 
 import ProductCard from '../../product/ProductCard'
 import Section from '../Section'
+import styles from './product-shelf.module.scss'
 
 interface ProductShelfProps extends Partial<ProductsQueryQueryVariables> {
   title: string | JSX.Element
@@ -26,7 +27,7 @@ function ProductShelf({
       className={`layout__section ${withDivisor ? 'section__divisor' : ''}`}
     >
       <h2 className="text__title-section layout__content">{title}</h2>
-      <div data-fs-product-shelf>
+      <div className={styles.fsProductShelf} data-fs-product-shelf>
         <ProductShelfSkeleton loading={products === undefined}>
           <ul data-fs-product-shelf-items className="layout__content">
             {products?.edges.map((product, idx) => (

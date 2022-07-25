@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Applies new local tokens to `Skeleton` and its related components ([#171](https://github.com/vtex-sites/nextjs.store/pull/171))
 - The `useNewsletter` hook ([#154](https://github.com/vtex-sites/nextjs.store/pull/154))
 - Creates Themes doc pages on storybook ([#175](https://github.com/vtex-sites/nextjs.store/pull/175))
 - Applies new local tokens to `SearchHistory`, `SearchTop`, `SearchDropdown` and `SearchSuggestions` ([#173](https://github.com/vtex-sites/nextjs.store/pull/173))

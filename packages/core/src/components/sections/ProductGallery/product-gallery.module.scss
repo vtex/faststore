@@ -72,7 +72,7 @@
     padding: var(--fs-spacing-1) var(--fs-spacing-3) var(--fs-spacing-2);
     background-color: var(--fs-color-body-bkg);
 
-    [data-element-variant="text"] {
+    [data-fs-product-listing-sort-skeleton] {
       min-width: rem(225px);
       min-height: var(--fs-spacing-5);
     }
@@ -88,7 +88,7 @@
         display: none;
       }
 
-      [data-element-variant="button"] {
+      [data-fs-product-listing-filter-button-skeleton] {
         display: none;
       }
     }
@@ -112,7 +112,7 @@
       background-color: unset;
     }
 
-    [data-element-variant="text"] {
+    [data-fs-product-listing-results-count-skeleton] {
       min-width: rem(130px);
     }
   }

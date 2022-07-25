@@ -1,0 +1,176 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+import ProductCardSkeleton from '.'
+
+<Meta
+  component={ProductCardSkeleton}
+  title="Features/Skeletons/ProductCardSkeleton"
+  argTypes={{
+    bordered: {
+      control: 'boolean',
+      table: { type: 'boolean' },
+    },
+    sectioned: {
+      control: 'boolean',
+      table: { type: 'boolean' },
+    },
+    displayButton: {
+      control: 'boolean',
+      table: { type: 'boolean' },
+    },
+  }}
+/>
+
+export const TemplateProductCardSkeleton = ({ ...args }) => (
+  <ProductCardSkeleton {...args} />
+)
+
+<header>
+
+# Product Card Skeleton
+
+The loading placeholder for the <code>ProductCard</code> used in several sections of the store.
+
+</header>
+
+## Overview
+
+The `ProductCardSkeleton` component is part of [Skeletons](?path=/docs/features-skeletons-overview--usage) feature.
+
+---
+
+## Usage
+
+`import ProductCardSkeleton from 'src/components/skeletons/ProductCardSkeleton'`
+
+<Canvas className="canvas-product-card-skeleton">
+  <Story
+    name="Usage"
+    args={{
+      bordered: false,
+      sectioned: false,
+      variant: 'default',
+      displayButton: false,
+    }}
+  >
+    {TemplateProductCardSkeleton.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Usage" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-skeleton-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-product-card-skeleton-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-product-card-skeleton-border-color"
+    value="transparent"
+    isColor
+  />
+  <TokenRow
+    token="--fs-product-card-skeleton-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+### Content
+
+<TokenTable>
+  <TokenRow token="--fs-product-card-skeleton-content-height" value="20%" />
+  <TokenRow
+    token="--fs-product-card-skeleton-content-margin-top"
+    value="var(--fs-spacing-2)"
+  />
+</TokenTable>
+
+### Button
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-skeleton-button-margin-top"
+    value="var(--fs-spacing-4)"
+  />
+</TokenTable>
+
+### Text
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-skeleton-text-margin-bottom"
+    value="var(--fs-product-card-skeleton-content-margin-top)"
+  />
+</TokenTable>
+
+### Badge
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-skeleton-badge-min-height"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-product-card-skeleton-badge-margin-top"
+    value="var(--fs-product-card-skeleton-text-margin-top)"
+  />
+  <TokenRow
+    token="--fs-product-card-skeleton-badge-max-width"
+    value="var(--fs-product-card-skeleton-content-height)"
+  />
+  <TokenRow
+    token="--fs-product-card-skeleton-badge-min-width-mobile"
+    value="30%"
+  />
+  <TokenRow
+    token="--fs-product-card-skeleton-badge-min-width-tablet"
+    value="var(--fs-product-card-skeleton-content-height)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Sectioned
+
+<Canvas className="canvas-product-card-skeleton">
+  <Story name="Sectioned" args={{ sectioned: true }}>
+    {TemplateProductCardSkeleton.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-skeleton-sectioned-image-min-width"
+    value="13rem"
+  />
+  <TokenRow
+    token="--fs-product-card-skeleton-sectioned-image-height"
+    value="var(--fs-product-card-skeleton-image-height-desktop)"
+  />
+</TokenTable>
+
+### Bordered
+
+<Canvas className="canvas-product-card-skeleton">
+  <Story name="Bordered" args={{ bordered: true }}>
+    {TemplateProductCardSkeleton.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-product-card-skeleton-bordered-mobile" value="none" />
+  <TokenRow
+    token="--fs-product-card-skeleton-bordered-desktop"
+    value="var(--fs-border-width) solid var(--fs-border-color-light)"
+  />
+</TokenTable>

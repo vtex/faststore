@@ -1,0 +1,77 @@
+@import "src/styles/scaffold";
+
+.fs-skeleton {
+  // --------------------------------------------------------
+  // Design Tokens for Skeleton
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-skeleton-bkg-color            : var(--fs-color-disabled-bkg);
+  --fs-skeleton-border-radius        : var(--fs-border-radius);
+
+  // Text
+  --fs-skeleton-text-width           : 100%;
+  --fs-skeleton-text-height          : var(--fs-spacing-4);
+
+  // Button
+  --fs-skeleton-button-width         : var(--fs-spacing-13);
+  --fs-skeleton-button-height        : var(--fs-spacing-5);
+  --fs-skeleton-button-gap           : var(--fs-spacing-2);
+  --fs-skeleton-button-border-radius : var(--fs-skeleton-border-radius);
+
+  // Image
+  --fs-skeleton-image-height-mobile  : 45vw;
+  --fs-skeleton-image-height-desktop : 12.188rem;
+  --fs-skeleton-image-border-radius  : var(--fs-skeleton-border-radius);
+
+  // Badge
+  --fs-skeleton-badge-width          : 40%;
+  --fs-skeleton-badge-height         : var(--fs-spacing-5);
+  --fs-skeleton-badge-border-radius  : var(--fs-border-radius-pill);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  &[data-fs-skeleton-shimmer="true"] {
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-fs-skeleton] {
+    overflow: hidden;
+    background: var(--fs-skeleton-bkg-color);
+    border-radius: var(--fs-skeleton-border-radius);
+
+    // --------------------------------------------------------
+    // Variants Styles
+    // --------------------------------------------------------
+
+    &[data-fs-skeleton-variant="text"] {
+      width: var(--fs-skeleton-text-width);
+      height: var(--fs-skeleton-text-height);
+    }
+
+    &[data-fs-skeleton-variant="button"] {
+      column-gap: var(--fs-skeleton-button-gap);
+      width: var(--fs-skeleton-button-width);
+      height: var(--fs-skeleton-button-height);
+      border-radius: var(--fs-skeleton-button-border-radius);
+    }
+
+    &[data-fs-skeleton-variant="image"] {
+      height: var(--fs-skeleton-image-height-mobile);
+      border-radius: var(--fs-skeleton-image-border-radius);
+
+      @include media(">=notebook") {
+        height: var(--fs-skeleton-image-height-desktop);
+      }
+    }
+
+    &[data-fs-skeleton-variant="badge"] {
+      width: var(--fs-skeleton-badge-width);
+      height: var(--fs-skeleton-badge-height);
+      border-radius: var(--fs-skeleton-badge-border-radius);
+    }
+  }
+}
