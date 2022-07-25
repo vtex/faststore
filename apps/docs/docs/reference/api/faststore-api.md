@@ -20,7 +20,7 @@ Also, thanks to a type-safe **GraphQL** protocol, the FastStore API allows devel
 
 ![FastStore API usage architecture](https://vtexhelp.vtexassets.com/assets/docs/src/faststoreAPI2___58c4a9c4d23539900ef8b1cce9769288.png)
 
-:::tip
+:::info
 To learn more about GraphQL and its main concepts, visit the official [GraphQL website](https://graphql.org/).
 :::
 
