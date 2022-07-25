@@ -9,7 +9,7 @@ The callback function you provide receives the event that triggered its executio
 
 ```tsx
 import type { AnalyticsEvent } from '@faststore/sdk'
-import { useAnalyticsEvent } from '@faststore
+import { useAnalyticsEvent } from '@faststore/sdk'
 
 export const AnalyticsHandler = () => {
   useAnalyticsEvent((event: AnalyticsEvent) => {

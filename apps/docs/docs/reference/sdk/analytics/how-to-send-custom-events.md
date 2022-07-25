@@ -19,10 +19,9 @@ sendAnalyticsEvent<AddToCartExtended>({ name, params, foo })
 ```
 
 ### Send arbitrary event
-The `sendAnalyticsEvent` function demands that the event object contains two properties: `name` and `type`. These two properties can be of any type and value, and don't have to follow any event name conventions related to the natively supported events.
+The `sendAnalyticsEvent` function demands that the event object contains two properties: `name` and `params`. `name` has to be a string and don't have to follow any event name conventions related to the natively supported events, while `params` can be of any type and value.
 
 ```ts
-import type { AddToCartEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 
 interface ArbitraryEvent {
@@ -34,7 +33,7 @@ interface ArbitraryEvent {
 
 /* ... */
 
-sendAnalyticsEvent<AddToCartExtended>({ name, params, foo, bar })
+sendAnalyticsEvent<ArbitraryEvent>({ name, params, foo, bar })
 ```
 
 ### Override multiple types
