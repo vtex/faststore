@@ -36,6 +36,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
       formatter,
       max,
       min,
+      step,
       onChange,
       onEnd,
       testId = 'store-price-range',
@@ -61,6 +62,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
           ref={sliderRef}
           min={min}
           max={max}
+          step={step}
           onEnd={onEnd}
           aria-label={ariaLabel}
           onChange={(value) => onChange?.(value)}
