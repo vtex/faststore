@@ -91,7 +91,7 @@ Back to your FastStore project, you must also configure your project to point to
 6. Add the `SITE_HOST` key with the main domain specified in VTEX Account Management (step 2) as the value.
    
    ```diff title="vtex.env"
-   + SITE_HOST = mystore.com
+   + SITE_HOST=mystore.com
    ```
 
 7. Save your changes.
