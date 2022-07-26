@@ -15,68 +15,13 @@ type StoreProductGroup {
   """
   name: String!
   """
-  SKU property values for the current SKU.
-  """
-  activeVariations: ActiveVariations
-  """
-  All available options for each SKU variant property, indexed by their name.
-  """
-  allVariantsByName: VariantsByName
-  """
   Array of additional properties.
   """
   additionalProperty: [StorePropertyValue!]!
   """
-  Maps property value combinations to their respective SKU's slug. Enables
-  us to retrieve the slug for the SKU that matches the currently selected
-  variations in O(1) time.
+  Object containing data structures to facilitate handling different SKU
+  variant properties. Specially useful for implementing SKU selection 
+  components.
   """
-  slugsMap(dominantVariantName: String!): SlugsMap
-  """
-  Available options for each varying SKU property, taking into account the
-  `dominantVariantName` property. Returns all available options for the 
-  dominant property, and only options that can be combined with its current
-  value for other properties.
-  """
-  availableVariations(dominantVariantName: String!): FormattedVariants
+  skuVariants: SkuVariants
 }
-
-"""
-Example: { `'Color-Red-Size-40': 'classic-shoes-37'` }
-"""
-scalar SlugsMap
-"""
-Example: { `Color: 'Red'`, Size: '42' }
-"""
-scalar ActiveVariations
-"""
-Example: {
-  Color: [
-    { 
-      src: "https://storecomponents.vtexassets.com/...",
-      alt: "...",
-      label: "...",
-      value: "..."
-    },
-    { 
-      src: "https://storecomponents.vtexassets.com/...",
-      alt: "...",
-      label: "...",
-      value: "..."
-    }
-  ],
-  Size: [
-    { 
-      src: "https://storecomponents.vtexassets.com/...",
-      alt: "...",
-      label: "...",
-      value: "..."
-    }
-  ]
-}
-"""
-scalar FormattedVariants
-"""
-Example: { Color: [ "Red", "Blue", "Green" ], Size: [ "40", "41" ] }
-"""
-scalar VariantsByName
