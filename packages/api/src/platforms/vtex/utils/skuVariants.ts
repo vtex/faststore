@@ -99,8 +99,7 @@ export function getFormattedVariations(
    */
   const variantsByName: SkuVariantsByName = {}
 
-  // Prevent duplicate entries.
-  const previouslySeenPropertyValues: Record<string, number> = {}
+  const previouslySeenPropertyValues = new Set<string>()
 
   variants.forEach((variant) => {
     if (variant.variations.length === 0) {
@@ -117,14 +116,16 @@ export function getFormattedVariations(
       dominantVariantEntry?.values[0] === dominantVariantValue
 
     if (!matchesDominantVariant) {
+      const nameValueIdentifier = `${dominantVariant}-${dominantVariantEntry?.values[0]}`
+
       if (
         !dominantVariantEntry ||
-        dominantVariantEntry.values[0] in previouslySeenPropertyValues
+        previouslySeenPropertyValues.has(nameValueIdentifier)
       ) {
         return
       }
 
-      previouslySeenPropertyValues[dominantVariantEntry.values[0]] = 1
+      previouslySeenPropertyValues.add(nameValueIdentifier)
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
@@ -143,11 +144,13 @@ export function getFormattedVariations(
     }
 
     variant.variations.forEach((variationProperty) => {
-      if (variationProperty.values[0] in previouslySeenPropertyValues) {
+      const nameValueIdentifier = `${variationProperty.name}-${variationProperty.values[0]}`
+
+      if (previouslySeenPropertyValues.has(nameValueIdentifier)) {
         return
       }
 
-      previouslySeenPropertyValues[variationProperty.values[0]] = 1
+      previouslySeenPropertyValues.add(nameValueIdentifier)
 
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
