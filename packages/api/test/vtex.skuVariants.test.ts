@@ -11,7 +11,7 @@ import {
   getVariantsByName,
 } from '../src/platforms/vtex/utils/skuVariants'
 
-describe('slugsMap', () => {
+describe('createSlugsMap', () => {
   it('should return an empty object for a product that has no sku specification properties.', () => {
     expect(
       createSlugsMap(
@@ -113,19 +113,19 @@ describe('getFormattedVariations', () => {
         {
           src: 'https://storecomponents.vtexassets.com/arquivos/ids/155560/pink-cool-sku-variation.png?v=637063239809000000',
           alt: 'skuvariation',
-          label: 'Red',
+          label: 'Color: Red',
           value: 'Red',
         },
         {
           src: 'https://storecomponents.vtexassets.com/arquivos/ids/155559/pink-sku-variation.png?v=637087508159070000',
           alt: 'skuvariation',
-          label: 'Green',
+          label: 'Color: Green',
           value: 'Green',
         },
         {
           src: 'https://storecomponents.vtexassets.com/arquivos/ids/155561/white-sku-variation.png?v=637087507771770000',
           alt: 'skuvariation',
-          label: 'White',
+          label: 'Color: White',
           value: 'White',
         },
       ],
@@ -133,13 +133,13 @@ describe('getFormattedVariations', () => {
         {
           src: 'https://storecomponents.vtexassets.com/arquivos/ids/155561/white-sku-variation.png?v=637087507771770000',
           alt: 'skuvariation',
-          label: '42',
+          label: 'Size: 42',
           value: '42',
         },
         {
           src: 'https://storecomponents.vtexassets.com/arquivos/ids/155561/white-sku-variation.png?v=637087507771770000',
           alt: 'skuvariation',
-          label: '41',
+          label: 'Size: 41',
           value: '41',
         },
       ],
