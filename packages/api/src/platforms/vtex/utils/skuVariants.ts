@@ -3,10 +3,14 @@ import type { Product, Item } from '../clients/search/types/ProductSearchResult'
 
 export type SkuVariants = StoreProductType[]
 
-export type SkuVariantsByName = Record<
-  string,
-  Array<{ alt: string; src: string; label: string; value: string }>
->
+export type SkuVariantsByName = Record<string, Array<FormattedSkuVariant>>
+
+type FormattedSkuVariant = {
+  alt: string
+  src: string
+  label: string
+  value: string
+}
 
 function findSkuVariantImage(availableImages: Item['images']) {
   return (
@@ -82,6 +86,34 @@ export function getVariantsByName(
   })
 
   return variants
+}
+
+function compare(a: string, b: string) {
+  // Values are always represented as Strings, so we need to handle numbers
+  // in this special case.
+  if (!Number.isNaN(Number(a) - Number(b))) {
+    return Number(a) - Number(b)
+  }
+
+  if (a < b) {
+    return -1
+  }
+
+  if (a > b) {
+    return 1
+  }
+
+  return 0
+}
+
+function sortVariants(variantsByName: SkuVariantsByName) {
+  const sortedVariants = variantsByName
+
+  for (const variantProperty in variantsByName) {
+    variantsByName[variantProperty].sort((a, b) => compare(a.value, b.value))
+  }
+
+  return sortedVariants
 }
 
 export function getFormattedVariations(
@@ -170,5 +202,5 @@ export function getFormattedVariations(
     })
   })
 
-  return variantsByName
+  return sortVariants(variantsByName)
 }
