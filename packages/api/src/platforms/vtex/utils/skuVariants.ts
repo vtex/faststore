@@ -18,7 +18,7 @@ function findSkuVariantImage(availableImages: Item['images']) {
 
 export function createSlugsMap(
   variants: Item[],
-  mainVariant: string,
+  dominantVariantName: string,
   baseSlug: string
 ) {
   /**
@@ -37,20 +37,23 @@ export function createSlugsMap(
       return
     }
 
-    // Make sure that the 'name-value' pair for the `mainVariant` variation
+    // Make sure that the 'name-value' pair for the dominant variation
     // is always the first one.
-    let skuVariantKey = `${mainVariant}-${
+    const dominantNameValue = `${dominantVariantName}-${
       skuSpecificationProperties.find(
-        (variationDetails) => variationDetails.name === mainVariant
+        (variationDetails) => variationDetails.name === dominantVariantName
       )?.values[0] ?? ''
     }`
 
-    skuSpecificationProperties.forEach((property) => {
-      skuVariantKey +=
-        property.name !== mainVariant
-          ? `-${property.name}-${property.values[0]}`
-          : ''
-    })
+    const skuVariantKey = skuSpecificationProperties.reduce((acc, property) => {
+      const shouldIgnore = property.name === dominantVariantName
+
+      if (shouldIgnore) {
+        return acc
+      }
+
+      return acc + `-${property.name}-${property.values[0]}`
+    }, dominantNameValue)
 
     slugsMap[skuVariantKey] = `${baseSlug}-${variant.itemId}`
   })
@@ -83,7 +86,7 @@ export function getVariantsByName(
 
 export function getFormattedVariations(
   variants: Item[],
-  dominantVariant: string,
+  dominantVariantName: string,
   dominantVariantValue: string
 ) {
   /**
@@ -109,14 +112,14 @@ export function getFormattedVariations(
     const variantImageToUse = findSkuVariantImage(variant.images)
 
     const dominantVariantEntry = variant.variations.find(
-      (variation) => variation.name === dominantVariant
+      (variation) => variation.name === dominantVariantName
     )
 
     const matchesDominantVariant =
       dominantVariantEntry?.values[0] === dominantVariantValue
 
     if (!matchesDominantVariant) {
-      const nameValueIdentifier = `${dominantVariant}-${dominantVariantEntry?.values[0]}`
+      const nameValueIdentifier = `${dominantVariantName}-${dominantVariantEntry?.values[0]}`
 
       if (
         !dominantVariantEntry ||
@@ -130,7 +133,7 @@ export function getFormattedVariations(
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
         alt: variantImageToUse.imageLabel ?? '',
-        label: dominantVariantEntry.values[0],
+        label: `${dominantVariantName}: ${dominantVariantEntry.values[0]}`,
         value: dominantVariantEntry.values[0],
       }
 
@@ -155,7 +158,7 @@ export function getFormattedVariations(
       const formattedVariant = {
         src: variantImageToUse.imageUrl,
         alt: variantImageToUse.imageLabel ?? '',
-        label: variationProperty.values[0],
+        label: `${variationProperty.name}: ${variationProperty.values[0]}`,
         value: variationProperty.values[0],
       }
 
