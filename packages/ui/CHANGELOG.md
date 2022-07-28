@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.28](https://github.com/vtex/faststore/compare/v1.10.27...v1.10.28) (2022-07-28)
+
+
+### Bug Fixes
+
+* `Slider` thumb elements position ([#1423](https://github.com/vtex/faststore/issues/1423)) ([1207769](https://github.com/vtex/faststore/commit/12077694cde6d55ae30f76f277d5eaed20938f15))
+
+
+
+
+
 ## [1.10.24](https://github.com/vtex/faststore/compare/v1.10.23...v1.10.24) (2022-07-25)
 
 **Note:** Version bump only for package @faststore/ui
