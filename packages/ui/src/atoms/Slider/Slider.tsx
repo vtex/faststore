@@ -128,7 +128,6 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
             width: `${maxPercent - minPercent}%`,
           }}
         />
-        {minValueLabelComponent && minValueLabelComponent(minVal)}
         <input
           type="range"
           min={Math.round(min.absolute)}
@@ -151,7 +150,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           aria-label={String(minVal)}
           aria-labelledby={getAriaValueText?.(minVal, 'min')}
         />
-        {maxValueLabelComponent && maxValueLabelComponent(maxVal)}
+        {minValueLabelComponent && minValueLabelComponent(minVal)}
         <input
           type="range"
           min={Math.round(min.absolute)}
@@ -174,6 +173,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
           aria-label={String(maxVal)}
           aria-labelledby={getAriaValueText?.(maxVal, 'max')}
         />
+        {maxValueLabelComponent && maxValueLabelComponent(maxVal)}
       </div>
     )
   }
