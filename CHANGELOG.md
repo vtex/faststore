@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.29](https://github.com/vtex/faststore/compare/v1.10.28...v1.10.29) (2022-07-29)
+
+
+### Features
+
+* Add ProductTitle Molecule ([#1418](https://github.com/vtex/faststore/issues/1418)) ([184d0b9](https://github.com/vtex/faststore/commit/184d0b9399648e3cab25cd2348c17269ac549f49))
+
+
+
+
+
 ## [1.10.28](https://github.com/vtex/faststore/compare/v1.10.27...v1.10.28) (2022-07-28)
 
 
