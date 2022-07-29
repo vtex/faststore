@@ -1,0 +1,40 @@
+# This Action should run on main branch and verify lint, test, and then publish the version on npm
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    if: github.repository == 'vtex-sites/nextjs.store' && !startsWith(github.event.head_commit.message, 'chore(release):')
+
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Configure CI Git User
+        run: |
+          git config user.name vtexgithubbot
+          git config user.email vtexgithubbot@github.com
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Release
+        run: yarn release

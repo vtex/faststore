@@ -1,7 +1,7 @@
 {
   "name": "nextjs.store",
   "private": true,
-  "version": "0.221.0",
+  "version": "22.29.0",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
   "scripts": {
@@ -19,7 +19,8 @@
     "postinstall": "is-ci || husky install",
     "partytown": "partytown copylib ./public/~partytown",
     "storybook": "start-storybook --docs -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "release": "release-it --ci"
   },
   "engines": {
     "node": ">=14"
@@ -46,12 +47,14 @@
     "swr": "^1.3.0"
   },
   "devDependencies": {
+    "@csmith/release-it-calver-plugin": "^2022.5.13",
     "@cypress/code-coverage": "^3.9.10",
     "@faststore/lighthouse": "^1.10.6",
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.5.1",
     "@graphql-codegen/typescript-operations": "^2.4.2",
     "@lhci/cli": "^0.9.0",
+    "@release-it/conventional-changelog": "^5.0.0",
     "@storybook/addon-a11y": "^6.5.9",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
@@ -81,6 +84,7 @@
     "msw-storybook-addon": "^1.6.3",
     "postcss": "^8.4.4",
     "prettier": "^2.2.0",
+    "release-it": "^15.2.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "stylelint": "^14.6.0",
