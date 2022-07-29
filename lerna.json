@@ -7,7 +7,19 @@
       "message": "Release: %v"
     }
   },
-  "changelogPreset": "angular",
+  "changelogPreset": {
+    "name": "conventionalcommits",
+    "types": [
+      { "type": "feat", "section": "Features" },
+      { "type": "fix", "section": "Bug Fixes" },
+      { "type": "chore", "section": "Chores" },
+      { "type": "docs", "section": "Documentation" },
+      { "type": "style", "section": "Style changes" },
+      { "type": "refactor", "section": "Refactoring" },
+      { "type": "perf", "section": "Performance" },
+      { "type": "test", "section": "Tests" }
+    ]
+  },
   "packages": [
     "packages/*",
     "apps/*"
