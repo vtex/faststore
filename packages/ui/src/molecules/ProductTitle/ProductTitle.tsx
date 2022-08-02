@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { forwardRef, HTMLAttributes } from 'react'
 import type { ReactNode } from 'react'
 
 export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
@@ -24,21 +24,23 @@ export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   testId?: string
 }
 
-function ProductTitle({ title, label, refTag= "Ref.: ",refNumber, testId= 'store-product-title', ...otherProps }: ProductTitleProps) {
-  return (
-    <header data-fs-product-title data-testid={testId} {...otherProps}>
-      <div data-fs-product-title-header>
-        {title}
-        {!!label && label}
-      </div>
+const ProductTitle = forwardRef<HTMLDivElement, ProductTitleProps>(
+  function ProductTitle({ title, label, refTag= "Ref.: ",refNumber, testId= 'store-product-title', ...otherProps }, ref) {
+    return (
+      <header ref={ref} data-fs-product-title data-testid={testId} {...otherProps}>
+        <div data-fs-product-title-header>
+          {title}
+          {!!label && label}
+        </div>
 
-      {refNumber && (
-        <p data-fs-product-title-addendum>
-          {refTag}{refNumber}
-        </p>
-      )}
-    </header>
-  )
-}
+        {refNumber && (
+          <p data-fs-product-title-addendum>
+            {refTag}{refNumber}
+          </p>
+        )}
+      </header>
+    )
+  }
+)
 
 export default ProductTitle
