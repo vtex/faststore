@@ -1,5 +1,5 @@
 {
-  "version": "1.10.29",
+  "version": "1.10.30",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -10,15 +10,46 @@
   "changelogPreset": {
     "name": "conventionalcommits",
     "types": [
-      { "type": "feat", "section": "Features" },
-      { "type": "fix", "section": "Bug Fixes" },
-      { "type": "chore", "section": "Chores" },
-      { "type": "docs", "section": "Documentation" },
-      { "type": "style", "section": "Style changes" },
-      { "type": "refactor", "section": "Refactoring" },
-      { "type": "perf", "section": "Performance" },
-      { "type": "test", "section": "Tests" }
-    ]
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "section": "Chores"
+      },
+      {
+        "type": "docs",
+        "section": "Documentation"
+      },
+      {
+        "type": "style",
+        "section": "Style changes"
+      },
+      {
+        "type": "refactor",
+        "section": "Refactoring"
+      },
+      {
+        "type": "perf",
+        "section": "Performance"
+      },
+      {
+        "type": "test",
+        "section": "Tests"
+      }
+    ],
+    "issuePrefixes": [
+      "#"
+    ],
+    "issueUrlFormat": "{{host}}/{{owner}}/{{repository}}/issues/{{id}}",
+    "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}",
+    "compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}",
+    "userUrlFormat": "{{host}}/{{user}}"
   },
   "packages": [
     "packages/*",

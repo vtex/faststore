@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.10.30 (2022-08-02)
+
+
+### Chores
+
+* Attempt to fix the publishing ([#1426](https://github.com/vtex/faststore/issues/1426)) ([3b8e124](https://github.com/vtex/faststore/commit/3b8e124e5bd371b23d427503ae130a52602a8e8c))
+* Updates documentation link ([#1424](https://github.com/vtex/faststore/issues/1424)) ([04e518a](https://github.com/vtex/faststore/commit/04e518a92038259bda212024b85c1a807ebf0e1a))
+
+
+
 ## [1.10.29](https://github.com/vtex/faststore/compare/v1.10.28...v1.10.29) (2022-07-29)
 
 

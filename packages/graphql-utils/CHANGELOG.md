@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.10.30 (2022-08-02)
+
+
+### Chores
+
+* Updates documentation link ([#1424](https://github.com/vtex/faststore/issues/1424)) ([04e518a](https://github.com/vtex/faststore/commit/04e518a92038259bda212024b85c1a807ebf0e1a))
+
+
+
 ## [1.10.20](https://github.com/vtex/faststore/compare/v1.10.19...v1.10.20) (2022-07-22)
 
 **Note:** Version bump only for package @faststore/graphql-utils
