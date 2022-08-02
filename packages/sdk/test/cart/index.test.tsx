@@ -28,7 +28,7 @@ describe('CartStore', () => {
     expect(store.read()).toEqual(initialCart)
   })
 
-  it('initial cart meta state is set', async () => {
+  it('initial cart meta state is set', () => {
     expect(store.isEmpty()).toBe(true)
   })
 })
@@ -44,7 +44,7 @@ describe('addItem', () => {
     expect(store.read().items).toHaveLength(1)
   })
 
-  it('increments existing item quantity in the cart', () => {
+  it('should not increment existing item quantity in the cart', () => {
     store.addItem(item)
     store.addItem(item)
 
@@ -119,7 +119,7 @@ describe('inCart', () => {
 })
 
 describe('getItem', () => {
-  it('get items from cart', () => {
+  it('should not get non existing items from cart', () => {
     store.addItem(item)
     expect(store.getItem('notInCart')).toBeUndefined()
   })
