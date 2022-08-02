@@ -1,6 +1,9 @@
 .turbo
 .docusaurus
 
+# VSCode
+.vscode
+
 # Logs
 logs
 *.log
