@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.32](https://github.com/vtex/faststore/compare/v1.10.31...v1.10.32) (2022-08-02)
+
+
+### Features
+
+* useEffect is not for effects ([#1392](https://github.com/vtex/faststore/issues/1392)) ([caa85f6](https://github.com/vtex/faststore/commit/caa85f643832001b59f2095b2ecc50b7dadfabab))
+
+
+
 ## 1.10.30 (2022-08-02)
 
 
