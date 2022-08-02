@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.31](https://github.com/vtex/faststore/compare/v1.10.30...v1.10.31) (2022-08-02)
+
+
+### Features
+
+* Add fowardRef to `ProductTitle` ([#1427](https://github.com/vtex/faststore/issues/1427)) ([5f622f3](https://github.com/vtex/faststore/commit/5f622f3a28a32228aa457c0b1bd141969f541262))
+
+
+
 ## 1.10.30 (2022-08-02)
 
 
