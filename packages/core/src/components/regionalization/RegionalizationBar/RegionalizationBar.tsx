@@ -1,8 +1,8 @@
-import { useSession } from '@faststore/sdk'
 import type { HTMLAttributes } from 'react'
 
 import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
+import { useSession } from 'src/sdk/session'
 import { useUI } from 'src/sdk/ui/Provider'
 
 import styles from './regionalization-bar.module.scss'

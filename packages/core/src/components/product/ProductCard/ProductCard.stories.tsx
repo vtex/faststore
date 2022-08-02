@@ -1,7 +1,3 @@
-import { SessionProvider } from '@faststore/sdk'
-
-import storeConfig from 'store.config'
-
 import type { ProductCardProps } from '.'
 import Icon from '../../ui/Icon'
 import Button from '../../ui/Button'
@@ -75,11 +71,9 @@ const Template = ({ ButtonBuy, ...args }: ProductCardProps) => {
   ) : null
 
   return (
-    <SessionProvider initialState={{ channel: storeConfig.channel }}>
-      <div style={{ width: 300 }}>
-        <ProductCard ButtonBuy={button} {...args} />
-      </div>
-    </SessionProvider>
+    <div style={{ width: 300 }}>
+      <ProductCard ButtonBuy={button} {...args} />
+    </div>
   )
 }
 
@@ -96,11 +90,9 @@ const TemplateWide = ({ ButtonBuy, ...args }: ProductCardProps) => {
   ) : null
 
   return (
-    <SessionProvider initialState={{ channel: storeConfig.channel }}>
-      <div style={{ width: 400 }}>
-        <ProductCard ButtonBuy={button} {...args} />
-      </div>
-    </SessionProvider>
+    <div style={{ width: 400 }}>
+      <ProductCard ButtonBuy={button} {...args} />
+    </div>
   )
 }
 

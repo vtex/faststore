@@ -1,17 +1,13 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
-import { SessionProvider } from '@faststore/sdk'
 import { rest } from 'msw'
 
 import { SearchInputProvider } from 'src/sdk/search/useSearchInput'
 import { searchTerms } from 'src/../.storybook/mocks'
 
 import SearchTop from './SearchTop'
-import { msw } from'../searchMock'
+import { msw } from '../searchMock'
 
-<Meta
-  component={SearchTop}
-  title="Features/Search/SearchTop"
-/>
+<Meta component={SearchTop} title="Features/Search/SearchTop" />
 
 export const Template = (args) => (
   <div
@@ -22,11 +18,9 @@ export const Template = (args) => (
       background: 'white',
     }}
   >
-    <SessionProvider initialState={{}}>
-      <SearchInputProvider>
-        <SearchTop {...args} />
-      </SearchInputProvider>
-    </SessionProvider>
+    <SearchInputProvider>
+      <SearchTop {...args} />
+    </SearchInputProvider>
   </div>
 )
 
@@ -47,7 +41,7 @@ This section displays the most searched terms by customers.
     name="default"
     parameters={{
       backgrounds: { default: 'dark' },
-      msw
+      msw,
     }}
     argTypes={{
       testId: {
@@ -57,7 +51,7 @@ This section displays the most searched terms by customers.
       },
     }}
   >
-  {Template.bind({})}
+    {Template.bind({})}
   </Story>
 </Canvas>
 

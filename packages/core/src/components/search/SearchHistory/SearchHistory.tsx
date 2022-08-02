@@ -5,29 +5,19 @@ import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
 import useSearchInput from 'src/sdk/search/useSearchInput'
-import type { History } from 'src/sdk/search/useSearchHistory'
 
 import styles from '../search.module.scss'
 
-export interface SearchHistoryProps {
-  /**
-   * Array with history options.
-   */
-  history?: History[]
-}
-
-const SearchHistory = ({ history = [], ...otherProps }: SearchHistoryProps) => {
+const SearchHistory = () => {
   const { onSearchInputSelection } = useSearchInput()
-  const { searchHistory, clearSearchHistory } = useSearchHistory(history)
+  const { searchHistory, clearSearchHistory } = useSearchHistory()
 
-  const historyMap = searchHistory.length ? searchHistory : history
-
-  if (!historyMap.length) {
+  if (!searchHistory.length) {
     return null
   }
 
   return (
-    <section data-fs-search-section className={styles.fsSearch} {...otherProps}>
+    <section data-fs-search-section className={styles.fsSearch}>
       <div data-fs-search-header>
         <p data-fs-search-title>History</p>
         <Button variant="tertiary" onClick={clearSearchHistory}>
@@ -35,7 +25,7 @@ const SearchHistory = ({ history = [], ...otherProps }: SearchHistoryProps) => {
         </Button>
       </div>
       <UIList variant="ordered">
-        {historyMap.map((item) => (
+        {searchHistory.map((item) => (
           <li key={item.term} data-fs-search-item>
             <Link
               data-fs-search-item-link

@@ -1,7 +1,6 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 import UIProvider, { useUI } from 'src/sdk/ui/Provider'
 import Button from 'src/components/ui/Button'
-import { SessionProvider } from '@faststore/sdk'
 import RegionalizationModal, { RegionalizationModalContent } from '.'
 import RegionalizationButton from 'src/components/regionalization/RegionalizationButton'
 
@@ -30,21 +29,17 @@ export const ModalTemplate = () => {
 
 export const Template = (args) => {
   return (
-    <SessionProvider>
-      <UIProvider>
-        <ModalTemplate />
-      </UIProvider>
-    </SessionProvider>
+    <UIProvider>
+      <ModalTemplate />
+    </UIProvider>
   )
 }
 
 export const RegionalizationModalContentTemplate = (args) => {
   return (
-    <SessionProvider>
-      <UIProvider>
-        <RegionalizationModalContent onClose={() => {}} />
-      </UIProvider>
-    </SessionProvider>
+    <UIProvider>
+      <RegionalizationModalContent onClose={() => {}} />
+    </UIProvider>
   )
 }
 

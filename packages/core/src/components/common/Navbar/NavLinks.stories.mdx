@@ -1,6 +1,5 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 
-import { CartProvider, SessionProvider } from '@faststore/sdk'
 import UIProvider from 'src/sdk/ui/Provider'
 
 import { NavLinks } from '.'
@@ -15,13 +14,9 @@ import {
 
 export const TemplateProvider = () => {
   return (
-    <SessionProvider initialState={{}}>
-      <CartProvider>
-        <UIProvider>
-          <NavLinks />
-        </UIProvider>
-      </CartProvider>
-    </SessionProvider>
+    <UIProvider>
+      <NavLinks />
+    </UIProvider>
   )
 }
 

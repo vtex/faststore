@@ -1,5 +1,4 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
-import { SessionProvider } from '@faststore/sdk'
 import {
   TokenTable,
   TokenRow,
@@ -7,14 +6,11 @@ import {
 } from 'src/../.storybook/components'
 import { SearchInputProvider } from 'src/sdk/search/useSearchInput'
 import { productGridItems, searchTerms } from 'src/../.storybook/mocks'
-import { products } from'../searchMock'
+import { products } from '../searchMock'
 
 import SearchSuggestions from '.'
 
-<Meta
-  component={SearchSuggestions}
-  title="Features/Search/SearchSuggestions"
-/>
+<Meta component={SearchSuggestions} title="Features/Search/SearchSuggestions" />
 
 export const Template = (args) => (
   <div
@@ -25,11 +21,9 @@ export const Template = (args) => (
       background: 'white',
     }}
   >
-    <SessionProvider>
-      <SearchInputProvider>
-        <SearchSuggestions {...args} />
-      </SearchInputProvider>
-    </SessionProvider>
+    <SearchInputProvider>
+      <SearchSuggestions {...args} />
+    </SearchInputProvider>
   </div>
 )
 
@@ -57,7 +51,7 @@ Displays a set of navigation links that self-adapts on mobile or desktop screens
       products,
     }}
   >
-  {Template.bind({})}
+    {Template.bind({})}
   </Story>
 </Canvas>
 

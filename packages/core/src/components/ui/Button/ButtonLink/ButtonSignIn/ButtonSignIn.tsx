@@ -1,8 +1,7 @@
-import { useSession } from '@faststore/sdk'
-
-import Icon from 'src/components/ui/Icon'
 import { ButtonLink } from 'src/components/ui/Button'
 import styles from 'src/components/ui/Button/button.module.scss'
+import Icon from 'src/components/ui/Icon'
+import { useSession } from 'src/sdk/session'
 
 const ButtonSignIn = () => {
   const { person } = useSession()

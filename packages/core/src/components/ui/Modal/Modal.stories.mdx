@@ -3,7 +3,6 @@ import UIProvider, { useUI } from 'src/sdk/ui/Provider'
 import Button from 'src/components/ui/Button'
 import ButtonLink from 'src/components/ui/Button/ButtonLink'
 import { RegionalizationModalContent } from 'src/components/regionalization/RegionalizationModal'
-import { SessionProvider } from '@faststore/sdk'
 
 import Modal from '.'
 import Icon from '../Icon'
@@ -118,11 +117,9 @@ The `Modal` component uses [FastStore UI Modal](https://www.faststore.dev/refere
   <ul className="sbdocs-ul-row">
     <li>
       <div>
-        <SessionProvider>
-          <UIProvider>
-            <RegionalizationModalContent onClose={() => {}} />
-          </UIProvider>
-        </SessionProvider>
+        <UIProvider>
+          <RegionalizationModalContent onClose={() => {}} />
+        </UIProvider>
       </div>
       <article className="sbdocs-list-text">
         <h3>RegionalizationModal</h3>

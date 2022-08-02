@@ -1,4 +1,3 @@
-import { useSession } from '@faststore/sdk'
 import { gql } from '@faststore/graphql-utils'
 import { useCallback, useMemo } from 'react'
 import { useSWRConfig } from 'swr'
@@ -11,6 +10,7 @@ import type {
 
 import { prefetchQuery } from '../graphql/prefetchQuery'
 import { useQuery } from '../graphql/useQuery'
+import { useSession } from '../session'
 import type { QueryOptions } from '../graphql/useQuery'
 
 export const query = gql`

@@ -1,7 +1,6 @@
-import { useSession } from '@faststore/sdk'
-
 import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
+import { useSession } from 'src/sdk/session'
 import { useUI } from 'src/sdk/ui/Provider'
 
 function RegionButton() {

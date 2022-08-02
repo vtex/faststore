@@ -6,8 +6,6 @@ import {
   Callout,
 } from 'src/../.storybook/components'
 
-import { SessionProvider } from '@faststore/sdk'
-
 import { Image } from 'src/components/ui/Image'
 import ProductCard from 'src/components/product/ProductCard'
 
@@ -99,19 +97,17 @@ of items to be displayed, the tiles will be arranged differently.
 
 <Canvas>
   <Story name="Usage--3-Tiles">
-    <SessionProvider initialState={{}}>
-      <Tiles>
-        <Tile>
-          <MDXProductCard product={product} />
-        </Tile>
-        <Tile>
-          <MDXCustomImage />
-        </Tile>
-        <Tile>
-          <MDXCustomImage />
-        </Tile>
-      </Tiles>
-    </SessionProvider>
+    <Tiles>
+      <Tile>
+        <MDXProductCard product={product} />
+      </Tile>
+      <Tile>
+        <MDXCustomImage />
+      </Tile>
+      <Tile>
+        <MDXCustomImage />
+      </Tile>
+    </Tiles>
   </Story>
 </Canvas>
 

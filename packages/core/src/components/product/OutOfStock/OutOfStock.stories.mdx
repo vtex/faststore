@@ -1,5 +1,4 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { SessionProvider } from '@faststore/sdk'
 import {
   TokenTable,
   TokenRow,
@@ -31,9 +30,7 @@ import OutOfStock from '.'
 />
 
 export const Template = (args) => (
-  <SessionProvider initialState={{}}>
-    <OutOfStock {...args} />
-  </SessionProvider>
+  <OutOfStock {...args} />
 )
 
 <header>

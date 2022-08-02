@@ -1,5 +1,5 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
-import { SearchProvider, SessionProvider } from '@faststore/sdk'
+import { SearchProvider } from '@faststore/sdk'
 import storeConfig from 'store.config'
 import Sentinel from 'src/sdk/search/Sentinel'
 import { productGridItems } from 'src/../.storybook/mocks'
@@ -35,13 +35,7 @@ import {
 
 export const Template = (args) => {
   return (
-    <SessionProvider
-      initialstate={{
-        channel: storeConfig.channel,
-      }}
-    >
-      <ProductGrid {...args} />
-    </SessionProvider>
+    <ProductGrid {...args} />
   )
 }
 

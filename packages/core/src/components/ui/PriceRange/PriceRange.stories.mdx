@@ -1,5 +1,4 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
-import { SessionProvider } from '@faststore/sdk'
 
 import PriceRange from '.'
 import {
@@ -56,9 +55,7 @@ export const defaultArgs = {
 
 export const Template = (args) => {
   return (
-    <SessionProvider>
-      <PriceRange {...defaultArgs} {...args} />
-    </SessionProvider>
+    <PriceRange {...defaultArgs} {...args} />
   )
 }
 

@@ -1,5 +1,4 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { CartProvider, SessionProvider } from '@faststore/sdk'
 
 import CartItem from '.'
 import {
@@ -65,13 +64,9 @@ The `CartItem` component uses [FastStore UI Card](https://www.faststore.dev/refe
     }}
   >
     {(args) => (
-      <SessionProvider initialState={{}}>
-        <CartProvider>
-          <div style={{ width: '400px' }}>
-            <CartItem {...args} />
-          </div>
-        </CartProvider>
-      </SessionProvider>
+      <div style={{ width: '400px' }}>
+        <CartItem {...args} />
+      </div>
     )}
   </Story>
 </Canvas>

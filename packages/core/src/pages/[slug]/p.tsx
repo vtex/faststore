@@ -1,5 +1,4 @@
 import { isNotFoundError } from '@faststore/api'
-import { useSession } from '@faststore/sdk'
 import { gql } from '@faststore/graphql-utils'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { GetStaticPaths, GetStaticProps } from 'next'
@@ -7,6 +6,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 import ProductDetails from 'src/components/sections/ProductDetails'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import { ITEMS_PER_SECTION } from 'src/constants'
+import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
 import type {

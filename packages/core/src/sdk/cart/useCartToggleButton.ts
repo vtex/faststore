@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { useUI } from '../ui/Provider'
-import { useCart } from './useCart'
+import { useCart } from './index'
 
 export const useCartToggleButton = () => {
   const { totalItems } = useCart()

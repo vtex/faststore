@@ -1,14 +1,9 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 
-import {
-  CartProvider,
-  SessionProvider,
-  SearchProvider,
-  useSearch,
-} from '@faststore/sdk'
+import { SearchProvider, useSearch } from '@faststore/sdk'
 import UIProvider, { useUI } from 'src/sdk/ui/Provider'
 import { useFadeEffect } from 'src/sdk/ui/useFadeEffect'
-import { useCart } from 'src/sdk/cart/useCart'
+import { useCart } from 'src/sdk/cart'
 
 import { NavbarSlider } from 'src/components/common/Navbar'
 
@@ -21,7 +16,7 @@ import { facets as facetsMock } from 'src/../.storybook/mocks/filter-slider'
 
 import storeConfig from 'store.config'
 
-import { validateSession } from 'src/sdk/session/validate'
+import { validateSession } from 'src/sdk/session'
 import { useFilter } from 'src/components/search/Filter/useFilter'
 
 import Button, { ButtonBuy } from 'src/components/ui/Button'
@@ -168,17 +163,9 @@ export const TemplateFilter = () => {
 
 export const TemplateProvider = ({ children }) => {
   return (
-    <SessionProvider
-      initialstate={{
-        channel: storeConfig.channel,
-      }}
-    >
-      <CartProvider>
-        <UIProvider>
-          <SearchProvider onChange={() => ({})}>{children}</SearchProvider>
-        </UIProvider>
-      </CartProvider>
-    </SessionProvider>
+    <UIProvider>
+      <SearchProvider onChange={() => ({})}>{children}</SearchProvider>
+    </UIProvider>
   )
 }
 

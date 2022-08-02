@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react'
-import { useSession } from '@faststore/sdk'
+
+import { useSession } from '../session'
 
 interface PriceFormatterOptions {
   decimals?: boolean

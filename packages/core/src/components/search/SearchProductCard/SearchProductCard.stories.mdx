@@ -1,6 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { SearchInputProvider } from 'src/sdk/search/useSearchInput'
-import { SessionProvider } from '@faststore/sdk'
 import storeConfig from 'store.config'
 import {
   TokenTable,
@@ -21,11 +20,9 @@ import SearchProductCard from '.'
 />
 
 export const Template = (args) => (
-    <SessionProvider initialState={{ channel: storeConfig.channel }}>
-      <SearchInputProvider>
-        <SearchProductCard {...args} />
-      </SearchInputProvider>
-    </SessionProvider>
+  <SearchInputProvider>
+    <SuggestionProductCard {...args} />
+  </SearchInputProvider>
 )
 
 <header>

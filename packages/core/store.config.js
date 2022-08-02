@@ -19,9 +19,18 @@ module.exports = {
     hideUnavailableItems: true,
   },
 
-  // Default channel
-  channel: '{"salesChannel":"1","regionId":""}',
-  locale: 'en-US',
+  // Default session
+  session: {
+    currency: {
+      code: 'USD',
+      symbol: '$',
+    },
+    locale: 'en-US',
+    channel: '{"salesChannel":"1","regionId":""}',
+    country: 'USA',
+    postalCode: null,
+    person: null,
+  },
 
   // Production URLs
   storeUrl: 'https://vtexfaststore.com',

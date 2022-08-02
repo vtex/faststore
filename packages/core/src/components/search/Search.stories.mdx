@@ -8,21 +8,17 @@ import {
 } from 'src/../.storybook/components'
 import { SearchInputProvider } from 'src/sdk/search/useSearchInput'
 import { rest } from 'msw'
-import { SessionProvider } from '@faststore/sdk'
 import SearchDropdown from './SearchDropdown'
 import SearchInput from './SearchInput'
 import SearchProductCard from './SearchProductCard'
 import SearchSuggestions from './SearchSuggestions'
 import { SearchTop } from './SearchTop'
 import { SearchHistory } from './SearchHistory'
-import { product, searchTerms, searchHistory } from 'src/../.storybook/mocks'
-import { msw, products } from'./searchMock.ts'
-import SearchSharedTokenTable from'./SearchSharedTokenTable.mdx'
+import { product, searchTerms } from 'src/../.storybook/mocks'
+import { msw, products } from './searchMock.ts'
+import SearchSharedTokenTable from './SearchSharedTokenTable.mdx'
 
-<Meta
-  title='Features/Search/Overview'
-  parameters={{msw}}
-/>
+<Meta title="Features/Search/Overview" parameters={{ msw }} />
 
 export const Template = (props) => (
   <div
@@ -34,12 +30,9 @@ export const Template = (props) => (
       background: 'white',
     }}
   >
-    <SessionProvider>
-      <SearchInput {...props} />
-    </SessionProvider>
+    <SearchInput {...props} />
   </div>
 )
-
 
 <header>
 
@@ -82,13 +75,13 @@ import SearchInput from 'src/components/search/SearchInput'
     name="Overview"
     parameters={{
       backgrounds: { default: 'dark' },
-      msw
+      msw,
     }}
     args={{
-      products
+      products,
     }}
   >
-  {Template.bind({})}
+    {Template.bind({})}
   </Story>
 </Canvas>
 
@@ -97,81 +90,80 @@ import SearchInput from 'src/components/search/SearchInput'
 ---
 
 ## Components
-<SessionProvider>
-  <SearchInputProvider>
-    <SectionList grid="grid">
-      <SectionItem
-        title="SearchSuggestions"
-        actionPath="../?path=/docs/features-search-searchsuggestions--default-story"
-        description={
-          <>
-            Displays a set of navigation links that self-adapts on mobile{' '}
-            or desktop screens.
-          </>
-        }
-        containerStyle={{ overflowY: "scroll", alignItems: "flex-start" }}
-      >
-        <SearchSuggestions term="Ste" products={products.slice(0, 3)} terms={searchTerms} style={{ width: "100%" }} />
-      </SectionItem>
-      <SectionItem
-        title="SearchProductCard"
-        actionPath="../?path=/docs/features-search-searchproductcard--search-product-card"
-        description={
-          <>
-            Card to show details of the product and suggestions in <code>SearchDropdown</code>.
-          </>
-        }
-      >
-        <SearchProductCard product={product} style={{ width: "100%" }} />
-      </SectionItem>
-      <SectionItem
-        title="SearchTop"
-        actionPath="../?path=/docs/features-search-searchtop--default-story"
-        description={
-          <>
-            This section displays the most searched terms by customers.
-          </>
-        }
-      >
-        <SearchTop style={{ width: "100%" }} />
-      </SectionItem>
-    </SectionList>
-    <SectionList grid="grid">
-      <SectionItem
-        title="SearchHistory"
-        actionPath="../?path=/docs/features-search-searchhistory--default-story"
-        description={
-          <>
-            Responsible for showing the latest terms searched by the user.
-          </>
-        }
-      >
-        <SearchHistory history={searchHistory} style={{ width: "100%" }} />
-      </SectionItem>
-      <SectionItem
-        title="SearchDropdown"
-        actionPath="../?path=/docs/features-search-searchdropdown--default-story"
-        description={
-          <>
-            Combine <code>SearchHistory</code>, <code>SearchTop</code>, and <code>SearchSuggestions</code> to show all options in <code>SearchInput</code>.
-          </>
-        }
-        containerStyle={{ display: "flex", flexDirection: "column", overflowY: "scroll", justifyContent: "start" }}
-      >
-        <SearchDropdown history={searchHistory} />
-      </SectionItem>
-      <SectionItem
-        title="SearchInput"
-        actionPath="../?path=/docs/features-search-searchinput--default-story"
-        description={
-          <>
-            Responsible to receive, search and display suggestions.
-          </>
-        }
-        containerStyle={{ overflowY: "scroll" }}
-      >
-        <SearchInput containerStyle={{ width: "100%" }} />
-      </SectionItem>
-    </SectionList>
-  </SearchInputProvider>
-</SessionProvider>
+
+<SearchInputProvider>
+  <SectionList grid="grid">
+    <SectionItem
+      title="SearchSuggestions"
+      actionPath="../?path=/docs/features-search-searchsuggestions--default-story"
+      description={
+        <>
+          Displays a set of navigation links that self-adapts on mobile{' '}
+          or desktop screens.
+        </>
+      }
+      containerStyle={{ overflowY: "scroll", alignItems: "flex-start" }}
+    >
+      <SearchSuggestions term="Ste" products={products.slice(0, 3)} terms={searchTerms} style={{ width: "100%" }} />
+    </SectionItem>
+    <SectionItem
+      title="SearchProductCard"
+      actionPath="../?path=/docs/features-search-searchproductcard--search-product-card"
+      description={
+        <>
+          Card to show details of the product and suggestions in <code>SearchDropdown</code>.
+        </>
+      }
+    >
+      <SearchProductCard product={product} style={{ width: "100%" }} />
+    </SectionItem>
+    <SectionItem
+      title="SearchTop"
+      actionPath="../?path=/docs/features-search-searchtop--default-story"
+      description={
+        <>
+          This section displays the most searched terms by customers.
+        </>
+      }
+    >
+      <SearchTop style={{ width: "100%" }} />
+    </SectionItem>
+  </SectionList>
+  <SectionList grid="grid">
+    <SectionItem
+      title="SearchHistory"
+      actionPath="../?path=/docs/features-search-searchhistory--default-story"
+      description={
+        <>
+          Responsible for showing the latest terms searched by the user.
+        </>
+      }
+    >
+      <SearchHistory style={{ width: "100%" }} />
+    </SectionItem>
+    <SectionItem
+      title="SearchDropdown"
+      actionPath="../?path=/docs/features-search-searchdropdown--default-story"
+      description={
+        <>
+          Combine <code>SearchHistory</code>, <code>SearchTop</code>, and <code>SearchSuggestions</code> to show all options in <code>SearchInput</code>.
+        </>
+      }
+      containerStyle={{ display: "flex", flexDirection: "column", overflowY: "scroll", justifyContent: "start" }}
+    >
+      <SearchDropdown />
+    </SectionItem>
+    <SectionItem
+      title="SearchInput"
+      actionPath="../?path=/docs/features-search-searchinput--default-story"
+      description={
+        <>
+          Responsible to receive, search and display suggestions.
+        </>
+      }
+      containerStyle={{ overflowY: "scroll" }}
+    >
+      <SearchInput containerStyle={{ width: "100%" }} />
+    </SectionItem>
+  </SectionList>
+</SearchInputProvider>
