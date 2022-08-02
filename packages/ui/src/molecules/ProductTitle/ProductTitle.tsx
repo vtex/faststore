@@ -24,7 +24,7 @@ export type ProductTitleProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
   testId?: string
 }
 
-const ProductTitle = forwardRef<HTMLDivElement, ProductTitleProps>(
+const ProductTitle = forwardRef<HTMLElement, ProductTitleProps>(
   function ProductTitle({ title, label, refTag= "Ref.: ",refNumber, testId= 'store-product-title', ...otherProps }, ref) {
     return (
       <header ref={ref} data-fs-product-title data-testid={testId} {...otherProps}>
