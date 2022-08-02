@@ -6,12 +6,14 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-product-title-text-size           : var(--fs-text-size-title-product);
-  --fs-product-title-text-weight         : var(--fs-text-weight-regular);
-  --fs-product-title-line-height         : 1.12;
+  --fs-product-title-text-size            : var(--fs-text-size-title-product);
+  --fs-product-title-text-weight          : var(--fs-text-weight-regular);
+  --fs-product-title-line-height          : 1.12;
 
-  --fs-product-title-addendum-margin-top : var(--fs-spacing-3);
-  --fs-product-title-addendum-color      : var(--fs-color-text-light);
+  --fs-product-title-addendum-margin-top  : var(--fs-spacing-3);
+  --fs-product-title-addendum-color       : var(--fs-color-text-light);
+  --fs-product-title-addendum-size        : var(--fs-text-size-1);
+  --fs-product-title-addendum-line-height : 1.7;
 
   // --------------------------------------------------------
   // Structural Styles
@@ -41,6 +43,8 @@
 
   [data-fs-product-title-addendum] {
     margin-top: var(--fs-product-title-addendum-margin-top);
+    font-size: var(--fs-product-title-addendum-size);
+    line-height: var(--fs-product-title-addendum-line-height);
     color: var(--fs-product-title-addendum-color);
   }
 }
