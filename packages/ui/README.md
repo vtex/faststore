@@ -49,4 +49,4 @@ function MyComponent {
 
 ## Docs
 
-For more information, please refer to our documentation: https://faststore.dev/reference/ui/overview
+For more information, please refer to our documentation: https://faststore.dev/reference/ui/faststore-ui
