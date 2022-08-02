@@ -50,13 +50,6 @@ describe('addItem', () => {
 
     expect(store.read().items).toHaveLength(1)
   })
-
-  it('has gifts', () => {
-    store.addItem({ ...item, quantity: 0 })
-
-    expect(store.read().items).toHaveLength(1)
-    expect(store.isEmpty()).toBe(false)
-  })
 })
 
 describe('updateItemQuantity', () => {
@@ -122,17 +115,5 @@ describe('getItem', () => {
   it('should not get non existing items from cart', () => {
     store.addItem(item)
     expect(store.getItem('notInCart')).toBeUndefined()
-  })
-})
-
-describe('gifts', () => {
-  it('should allow adding gifts', () => {
-    store.addItem({ ...item, quantity: 0 })
-
-    expect(store.read().items).toHaveLength(1)
-
-    store.removeItem(item.id)
-
-    expect(store.read().items).toEqual([])
   })
 })

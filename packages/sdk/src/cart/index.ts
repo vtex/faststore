@@ -29,7 +29,7 @@ export const createCartStore = <C extends Cart<Item>>(
       throw new SDKError("Item quantity needs to be higher than zero");
     }
 
-    const c = store.read();
+    const cart = store.read();
     const currentItem = getItem(item.id);
 
     const newItem = currentItem
@@ -40,10 +40,10 @@ export const createCartStore = <C extends Cart<Item>>(
       : item;
 
     store.set({
-      ...c,
+      ...cart,
       items: currentItem
-        ? c.items.map((item) => item === currentItem ? newItem : item)
-        : [...c.items, newItem],
+        ? cart.items.map((item) => item === currentItem ? newItem : item)
+        : [...cart.items, newItem],
     });
   };
 
@@ -51,7 +51,7 @@ export const createCartStore = <C extends Cart<Item>>(
     id: string,
     quantity: number,
   ) => {
-    const c = store.read();
+    const cart = store.read();
     const currentItem = getItem(id);
 
     if (!currentItem) {
@@ -64,8 +64,8 @@ export const createCartStore = <C extends Cart<Item>>(
     };
 
     store.set({
-      ...c,
-      items: c.items
+      ...cart,
+      items: cart.items
         .map((item) => item === currentItem ? newItem : item) // update item quantity
         .filter((item) => item.quantity > 0), // remove items if quantity is <= 0
     });
@@ -74,12 +74,12 @@ export const createCartStore = <C extends Cart<Item>>(
   const removeItem = (
     id: string,
   ) => {
-    const c = store.read();
+    const cart = store.read();
     const removed = getItem(id);
 
     store.set({
-      ...c,
-      items: c.items.filter((item) => item !== removed),
+      ...cart,
+      items: cart.items.filter((item) => item !== removed),
     });
   };
 
