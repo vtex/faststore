@@ -15,6 +15,30 @@ import {
   argTypes={{
     min: { control: { disable: true } },
     max: { control: { disable: true } },
+    testId: {
+      table: {
+        disable: true,
+      },
+    },
+    className: {
+      table: {
+        disable: true,
+      },
+    },
+    onChange: {
+      table: {
+        disable: true,
+      },
+    },
+    variant: {
+      table: {
+        disable: true,
+      },
+    },
+    step: {
+      control: 'number',
+      table: { type: 'number', summary: 10 },
+    },
   }}
   component={PriceRange}
 />
@@ -22,11 +46,11 @@ import {
 export const defaultArgs = {
   min: {
     absolute: 0,
-    selected: 10,
+    selected: 0,
   },
   max: {
-    selected: 90,
-    absolute: 100,
+    absolute: 12400,
+    selected: 12400,
   },
 }
 
@@ -48,7 +72,7 @@ PriceRange allows you to implement filters on PLP so users have a high control o
 
 ## Overview
 
-The `PriceRange` component uses [FastStore UI PriceRange](https://www.faststore.dev/reference/ui/molecules/PriceRange) as base.
+The `PriceRange` component uses [FastStore UI Price Range](https://www.faststore.dev/reference/ui/molecules/PriceRange) as base.
 
 ---
 
@@ -65,41 +89,107 @@ The `PriceRange` component uses [FastStore UI PriceRange](https://www.faststore.
 <ArgsTable story="overview-default" />
 
 <TokenTable>
-  <TokenRow token="--fs-price-range-height" value=".5rem" />
+  <TokenRow token="--fs-price-range-height" value="var(--fs-spacing-2)" />
   <TokenRow
     token="--fs-price-range-border-radius"
-    value="var(--fs-border-radius)"
+    value="var(--fs-border-radius-pill)"
+  />
+  <TokenRow
+    token="--fs-price-range-margin-bottom"
+    value="var(--fs-spacing-3)"
   />
   <TokenDivider />
   <TokenRow
-    token="--fs-price-range-bkg-color"
-    value="var(--fs-color-primary-bkg-light)"
+    token="--fs-price-range-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-price-range-transition-property"
+    value="varvar(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-price-range-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Slider
+
+<TokenTable>
+  <TokenRow
+    token="--fs-price-range-slider-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
     isColor
   />
   <TokenRow
-    token="--fs-price-range-range-bkg-color"
-    value="var(--fs-color-primary-bkg)"
+    token="--fs-price-range-slider-selection-bkg-color"
+    value="var(--fs-color-primary-bkg-light-active)"
     isColor
   />
+</TokenTable>
+
+### Value Label
+
+<TokenTable>
+  <TokenRow
+    token="--fs-price-range-value-label-bottom"
+    value="var(--fs-spacing-3)"
+  />
+  <TokenRow
+    token="--fs-price-range-value-label-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Absolute Values
+
+<TokenTable>
+  <TokenRow
+    token="--fs-price-range-absolute-values-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+</TokenTable>
+
+### Thumb
+
+<TokenTable>
+  <TokenRow token="--fs-price-range-thumb-size" value="var(--fs-spacing-4)" />
   <TokenDivider />
   <TokenRow
     token="--fs-price-range-thumb-bkg-color"
-    value="var(--fs-color-tertiary-bkg-light)"
+    value="var(--fs-color-primary-bkg)"
     isColor
   />
   <TokenRow
-    token="--fs-price-range-thumb-radius"
+    token="--fs-price-range-thumb-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-price-range-thumb-border-radius"
     value="var(--fs-border-radius-circle)"
   />
-  <TokenRow token="--fs-price-range-thumb-size" value="1rem" />
   <TokenRow
     token="--fs-price-range-thumb-border-color"
-    value="var(--fs-border-color)"
+    value="var(--fs-price-range-thumb-bkg-color)"
+    globalValue="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-price-range-thumb-border-color-hover"
+    value="var(--fs-price-range-thumb-bkg-color-hover)"
+    globalValue="var(--fs-color-primary-bkg-hover)"
     isColor
   />
   <TokenRow
     token="--fs-price-range-thumb-border-width"
     value="var(--fs-border-width)"
-    isColor
   />
 </TokenTable>

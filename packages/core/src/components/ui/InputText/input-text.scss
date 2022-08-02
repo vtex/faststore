@@ -28,8 +28,9 @@
 
   // Message
   --fs-input-message-size          : var(--fs-text-size-legend);
-  --fs-input-message-line-height   : 1.5;
+  --fs-input-message-line-height   : 1.1;
   --fs-input-message-error-color   : var(--fs-color-danger-text);
+  --fs-input-message-margin-top    : var(--fs-spacing-0);
 
   // Label
   --fs-input-label-padding         : 0 var(--fs-spacing-2);
@@ -115,7 +116,7 @@
 }
 
 [data-fs-input-text-message] {
-  margin-top: rem(2px);
+  margin-top: var(--fs-input-message-margin-top);
   font-size: var(--fs-input-message-size);
   line-height: var(--fs-input-message-line-height);
 }
