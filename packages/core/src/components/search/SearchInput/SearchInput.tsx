@@ -9,11 +9,12 @@ import {
   useRef,
   useState,
   useDeferredValue,
+  useImperativeHandle,
 } from 'react'
 import type { SearchEvent } from '@faststore/sdk'
 import type {
   SearchInputProps as UISearchInputProps,
-  SearchInputRef,
+  SearchInputRef as UISearchInputRef,
 } from '@faststore/ui'
 
 import Icon from 'src/components/ui/Icon'
@@ -34,6 +35,8 @@ export type SearchInputProps = {
   buttonTestId?: string
   containerStyle?: CSSProperties
 } & Omit<UISearchInputProps, 'onSubmit'>
+
+export type SearchInputRef = UISearchInputRef & { resetSearchInput: () => void }
 
 const sendAnalytics = async (term: string) => {
   sendAnalyticsEvent<SearchEvent>({
@@ -58,6 +61,10 @@ const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const searchRef = useRef<HTMLDivElement>(null)
     const { addToSearchHistory } = useSearchHistory()
     const router = useRouter()
+
+    useImperativeHandle(ref, () => ({
+      resetSearchInput: () => setSearchQuery(''),
+    }))
 
     const onSearchInputSelection: SearchInputContextValue['onSearchInputSelection'] =
       (term, path) => {
