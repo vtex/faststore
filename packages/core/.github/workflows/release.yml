@@ -21,11 +21,12 @@ jobs:
           token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
           fetch-depth: 2
 
-      - name: Setup Bun environment
-        uses: xhyrom/setup-bun@v0.1.7
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
         with:
-          bun-version: latest
-          github-token: ${{ secrets.VTEX_GITHUB_BOT_TOKEN }}
+          node-version: 16
+          cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Configure CI Git User
         run: |
@@ -33,7 +34,7 @@ jobs:
           git config user.email vtexgithubbot@github.com
 
       - name: Install dependencies
-        run: bun install
+        run: yarn install --verbose
 
       - name: Release
-        run: bun release
+        run: yarn release
