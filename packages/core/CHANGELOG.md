@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### 22.29.1 (2022-08-03)
+
+
+### Bug Fixes
+
+* Attempt to fix automated changelog update ([#195](https://github.com/vtex-sites/nextjs.store/issues/195)) ([0d8e616](https://github.com/vtex-sites/nextjs.store/commit/0d8e61665811c03f99b0a03dd49e96f57ed489e4))
+* Attempt to fix the automated changelog update ([#196](https://github.com/vtex-sites/nextjs.store/issues/196)) ([c4b6091](https://github.com/vtex-sites/nextjs.store/commit/c4b609130bbeac5c7cd769814bcb76d49121f51e)), closes [/github.com/vtex-sites/gatsby.store/blob/8d1b1a5d668b11578784c29a9b257c78c86a1a65/.github/workflows/release.yml#L24-L29](https://github.com/vtex-sites//github.com/vtex-sites/gatsby.store/blob/8d1b1a5d668b11578784c29a9b257c78c86a1a65/.github/workflows/release.yml/issues/L24-L29)
+
 ### Features
 * Applies new local tokens to `Skeleton` and its related components ([#171](https://github.com/vtex-sites/nextjs.store/pull/171))
 * The `useNewsletter` hook ([#154](https://github.com/vtex-sites/nextjs.store/pull/154))
