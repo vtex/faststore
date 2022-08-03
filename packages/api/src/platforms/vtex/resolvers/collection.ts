@@ -11,8 +11,11 @@ const isBrand = (x: any): x is Brand | CollectionPageType =>
   x.type === 'brand' ||
   (isCollectionPageType(x) && x.pageType.toLowerCase() === 'brand')
 
+const isCollection = (x: Root): x is CollectionPageType =>
+  isCollectionPageType(x) && x.pageType.toLowerCase() === 'collection'
+
 const slugifyRoot = (root: Root) => {
-  if (isBrand(root)) {
+  if (isBrand(root) || isCollection(root)) {
     return slugify(root.name)
   }
 
