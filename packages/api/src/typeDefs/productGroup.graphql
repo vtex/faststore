@@ -18,4 +18,10 @@ type StoreProductGroup {
   Array of additional properties.
   """
   additionalProperty: [StorePropertyValue!]!
+  """
+  Object containing data structures to facilitate handling different SKU
+  variant properties. Specially useful for implementing SKU selection 
+  components.
+  """
+  skuVariants: SkuVariants
 }

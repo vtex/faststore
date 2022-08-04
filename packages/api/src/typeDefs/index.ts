@@ -25,6 +25,7 @@ import Person from './person.graphql'
 import ObjectOrString from './objectOrString.graphql'
 import Session from './session.graphql'
 import Newsletter from './newsletter.graphql'
+import SkuVariants from './skuVariants.graphql'
 
 export const typeDefs = [
   Query,
@@ -51,7 +52,8 @@ export const typeDefs = [
   Person,
   ObjectOrString,
   Session,
-  Newsletter
+  Newsletter,
+  SkuVariants,
 ]
   .map(print)
   .join('\n')

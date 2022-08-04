@@ -12,15 +12,16 @@ export const StoreProductGroup: Record<string, Resolver<Root>> = {
   hasVariant: (root) =>
     root.isVariantOf.items.map((item) => enhanceSku(item, root.isVariantOf)),
   productGroupID: ({ isVariantOf }) => isVariantOf.productId,
-  name: ({ isVariantOf }) => isVariantOf.productName,
+  name: (root) => root.isVariantOf.productName,
+  skuVariants: (root) => root,
   additionalProperty: ({ isVariantOf: { specificationGroups } }) =>
     specificationGroups
-      // filter sku specifications so we dont mess sku with product specs
+      // Filter sku specifications so we don't mix them with product specs.
       .filter(
         (specificationGroup) =>
           !BLOCKED_SPECIFICATIONS.has(specificationGroup.name)
       )
-      // Transform specs back into product specs
+      // Transform specs back into product specs.
       .flatMap(({ specifications }) =>
         specifications.flatMap(({ name, values }) =>
           values.map((value) => ({
