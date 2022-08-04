@@ -79,7 +79,7 @@ function Page() {
       </Suspense>
 
       <BannerText
-        title="Receive our news and promotions in advance. Enjoy and get 10% off on your first purchase."
+        title="The sun has set on our Summer Sale! Save up to 50% off. Don't miss out!"
         actionPath="/"
         actionLabel="Call to action"
         colorVariant="light"
