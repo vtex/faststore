@@ -98,8 +98,8 @@
     &:checked + span { background-color: var(--fs-color-primary-bkg-light); }
   }
 
-  &[data-variant="color"] {
-    [data-sku-selector-color] {
+  &[data-variant="image"] {
+    [data-sku-selector-image] {
       width: var(--fs-spacing-6);
       height: var(--fs-spacing-6);
       border-radius: var(--fs-border-radius-small);
@@ -108,8 +108,8 @@
     }
 
     input {
-      &:hover:not(:disabled):not(:checked) + span [data-sku-selector-color] { transform: scale(.95); }
-      &:checked + span [data-sku-selector-color] { transform: scale(.85); }
+      &:hover:not(:disabled):not(:checked) + span [data-sku-selector-image] { transform: scale(.95); }
+      &:checked + span [data-sku-selector-image] { transform: scale(.85); }
     }
   }
 }
