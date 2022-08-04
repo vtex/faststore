@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.29.3](https://github.com/vtex-sites/nextjs.store/compare/22.29.2...22.29.3) (2022-08-04)
+
+
+### Chores
+
+* Updates `BannerText` content example ([#198](https://github.com/vtex-sites/nextjs.store/issues/198)) ([9501aee](https://github.com/vtex-sites/nextjs.store/commit/9501aeef875b5ca0f6dfd960841b2adf71c65d54))
+
 ### [22.29.2](https://github.com/vtex-sites/nextjs.store/compare/22.29.1...22.29.2) (2022-08-03)
 
 
