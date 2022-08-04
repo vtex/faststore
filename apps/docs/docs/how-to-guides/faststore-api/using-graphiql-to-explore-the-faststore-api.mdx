@@ -7,11 +7,17 @@ import TabItem from '@theme/TabItem';
 
 # Using GraphiQL to explore the FastStore API
 
-[GraphiQL](https://github.com/graphql/graphiql) is an Integrated Development Environment (IDE) for [GraphQL](https://graphql.org/). You can run GraphiQL on your browser in order to try out queries and mutations in a GraphQL API.
+[GraphiQL](https://github.com/graphql/graphiql) is an Integrated Development Environment (IDE) for [GraphQL](https://graphql.org/). You can run GraphiQL on your browser to try out queries and mutations in a GraphQL API.
 
 You can explore your store's GraphQL data layer by running a local server of your project.
 
 ## Getting started
+
+The first steps to getting GraphiQL up and running are different depending on the framework you are using on your project:
+- [Next.js](#nextjs)
+- [Gatsby](#gatsby)
+
+### Next.js
 
 Follow these steps to run a local server and access GraphiQL:
 1. Open the terminal and change to your FastStore project directory.
@@ -28,18 +34,30 @@ http://localhost:8000/__graphql
 If these steps do not work for you, you may not have the latest version of the `@faststore/api` dependency installed. You can reinstall it by running the command `yarn` in your project.
 :::
 
+### Gatsby
+
+Follow these steps to run a local server and access GraphiQL:
+1. Clone the [graphql-playground repository](https://github.com/graphql/graphql-playground).
+2. Open the terminal and change to the `graphql-playground` root directory.
+3. Install dependencies by running the command `yarn`.
+4. Change the directory to the `packages/graphql-playground-react` folder.
+5. Run the command `yarn` to install dependencies.
+6. Run the command `yarn start` to start running `graphql-playground`. Once it is running, it will open a new browser tab with the `graphql-playground` interface on `http://localhost:3000/v2/new`. 
+![graphql playground interface with endpoint prompt](https://vtexhelp.vtexassets.com/assets/docs/src/8%20graphiql%20gatsby%20workaround___7ce1dd5fcfcd3a3f844e4fad09288512.png)
+7. Change the directory to the root of your FastStore project.
+8. Run the command `yarn develop`.
+9. Enter `http://localhost:8000/api/graphql` in the endpoint URL field.
+10. Click `USE ENDPOINT`.
+![graphql playground interface](https://vtexhelp.vtexassets.com/assets/docs/src/7%20graphiql%20gatsby%20workaround___dc8d4ebfc6cd476bdea1c9d4c746b2d2.png)
+
 ## Building queries
 
 You can use the text box on the left side to type queries and mutations. When you are done, click the <img alt="Execute query" className="inline w-6" src="https://vtexhelp.vtexassets.com/assets/docs/src/executeQuery___7272503777684ec305975f94ff9f3698.png"/> **Execute Query** button or press `Ctrl + Enter` to submit your request.
 
-:::danger
-If you are experiencing dificulties running queries in GraphiQL with [gatsby.store](https://github.com/vtex-sites/gatsby.store), try installing and using [graphql-playground](https://github.com/graphql/graphql-playground).
-:::
-
 ![graphiql query](https://vtexhelp.vtexassets.com/assets/docs/src/t2%20graphiql%20jun2022___6d2398d64e34bdacd154f807df1ddf97.png)
 
 :::info
-If you are not sure what arguments or fields are allowed or required by some query, press `Ctrl + space` to use autocomplete. It will show you all available options. You can also use the `Explorer` tab. Learn more about it in [Exploring queries interactively](#exploring-queries-interactively).
+If you are not sure what arguments or fields are allowed or required by some query, press `Ctrl + space` to use autocomplete. It will show you all the available options. You can also use the `Explorer` tab. Learn more about it in [Exploring queries interactively](#exploring-queries-interactively).
 :::
 
 ## Exploring queries interactively
