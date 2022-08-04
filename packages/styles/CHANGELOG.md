@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.10.34 (2022-08-04)
+
+
+### Features
+
+* Add skuSelector-related properties to ProductGroup type ([#1407](https://github.com/vtex/faststore/issues/1407)) ([3f9f33f](https://github.com/vtex/faststore/commit/3f9f33f05b47d266465f349edb7645ad06ff7b27))
+
+
+
 ## 1.10.30 (2022-08-02)
 
 
