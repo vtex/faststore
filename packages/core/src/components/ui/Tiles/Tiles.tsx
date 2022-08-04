@@ -1,66 +1,14 @@
-import { Children, forwardRef } from 'react'
-import type { HTMLAttributes, ReactElement } from 'react'
+import { Tiles as UITiles } from '@faststore/ui'
 
-import Tile from './Tile'
+import type { TilesProps } from '.'
 import styles from './tiles.module.scss'
 
-export interface TilesProps extends HTMLAttributes<HTMLUListElement> {
-  /**
-   * ID to find this component in testing tools (e.g.: cypress,
-   * testing-library, and jest).
-   */
-  testId?: string
-}
-
-const MIN_CHILDREN = 2
-const MAX_CHILDREN = 4
-const NUMBER_ITEMS_TO_EXPAND_FIRST_TWO = 2
-const NUMBER_ITEMS_TO_EXPAND_FIRST = 3
-
-const Tiles = forwardRef<HTMLUListElement, TilesProps>(function Tiles(
-  { testId = 'store-tiles', children, ...otherProps },
-  ref
-) {
-  const childrenCount = Children.count(children)
-
-  if (process.env.NODE_ENV === 'development') {
-    const isOutOfBounds =
-      childrenCount < MIN_CHILDREN || childrenCount > MAX_CHILDREN
-
-    if (isOutOfBounds) {
-      throw new Error(
-        `Tiles cannot receive less than ${MIN_CHILDREN} or more than ${MAX_CHILDREN} children.`
-      )
-    }
-  }
-
-  if (process.env.NODE_ENV === 'development') {
-    Children.forEach(children as ReactElement, (child) => {
-      if (child.type !== Tile) {
-        throw new Error('Only Tile components allowed as children.')
-      }
-    })
-  }
-
-  const expandedClass =
-    childrenCount === NUMBER_ITEMS_TO_EXPAND_FIRST
-      ? 'expanded-first'
-      : childrenCount === NUMBER_ITEMS_TO_EXPAND_FIRST_TWO
-      ? 'expanded-first-two'
-      : ''
-
+const Tiles = ({ children, ...otherProps }: TilesProps) => {
   return (
-    <ul
-      ref={ref}
-      data-fs-tiles
-      data-testid={testId}
-      className={styles.fsTiles}
-      data-fs-tiles-variant={expandedClass}
-      {...otherProps}
-    >
+    <UITiles className={styles.fsTiles} {...otherProps}>
       {children}
-    </ul>
+    </UITiles>
   )
-})
+}
 
 export default Tiles
