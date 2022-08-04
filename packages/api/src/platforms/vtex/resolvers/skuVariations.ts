@@ -36,10 +36,6 @@ export const SkuVariants: Record<string, Resolver<Root>> = {
 
     const activeDominantVariationValue = activeVariations[dominantVariantName]
 
-    if (!activeDominantVariationValue) {
-      return null
-    }
-
     const filteredFormattedVariations = getFormattedVariations(
       root.isVariantOf.items,
       dominantVariantName,
