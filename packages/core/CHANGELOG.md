@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [22.30.0](https://github.com/vtex-sites/nextjs.store/compare/22.29.3...22.30.0) (2022-08-04)
+
+
+### Features
+
+* Working `SkuSelector` component ([#158](https://github.com/vtex-sites/nextjs.store/issues/158)) ([1853f57](https://github.com/vtex-sites/nextjs.store/commit/1853f5750ea5c54e1afb225126dec8f4469da331))
+
 ### [22.29.3](https://github.com/vtex-sites/nextjs.store/compare/22.29.2...22.29.3) (2022-08-04)
 
 
