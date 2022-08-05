@@ -1,5 +1,11 @@
 [
   {
+    "title": "FastStore - July, 2022",
+    "product": "FastStore",
+    "fileName": "2022-08-05-faststore",
+    "description": "The search query has been enhanced to allow cross-selling and upselling of products. Also, the new subscribeToNewsletter mutation is now available in the FastStore API."
+  },
+  {
     "title": "Additional WebOps variable required to launch new FastStore websites",
     "product": "WebOps",
     "fileName": "2022-07-19-webops",
@@ -10,11 +16,5 @@
     "product": "Base Store",
     "fileName": "2022-07-01-basestore",
     "description": "PLPs now support price range filtering, and nonexistent PDPs can now handle 404 errors. Also, more components have been updated to conform to the new Base Store Theming architecture."
-  },
-  {
-    "title": "FastStore - June, 2022",
-    "product": "FastStore",
-    "fileName": "2022-07-01-faststore",
-    "description": "New Hero and Dropdown components. Also, enhancements in the FastStore API and SDK were implemented to allow page error handling and price range filtering on PLPs."
   }
 ]
