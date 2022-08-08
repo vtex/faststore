@@ -1,6 +1,12 @@
 import deepEquals from "fast-deep-equal";
 
 import { md5 } from "../utils/md5";
+import {
+  attachmentToPropertyValue,
+  getPropertyId,
+  VALUE_REFERENCES,
+} from "../utils/propertyValue";
+
 import type {
   IStoreCart,
   IStoreOffer,
@@ -13,12 +19,6 @@ import type {
   OrderFormItem,
 } from "../clients/commerce/types/OrderForm";
 import type { Context } from "..";
-import {
-  attachmentToPropertyValue,
-  getPropertyId,
-  VALUE_REFERENCES,
-} from "../utils/propertyValue";
-
 type Indexed<T> = T & { index?: number };
 
 const isAttachment = (value: IStorePropertyValue) =>
@@ -97,6 +97,39 @@ const equals = (storeOrder: IStoreOrder, orderForm: OrderForm) => {
   const orderItemsAreSync = deepEquals(orderFormItems, storeOrderItems);
 
   return isSameOrder && orderItemsAreSync;
+};
+
+const joinItems = (form: OrderForm) => {
+  const itemsById = form.items
+    .reduce((acc, item) => {
+      const id = getId(orderFormItemToOffer(item));
+
+      if (!acc[id]) {
+        acc[id] = [];
+      }
+
+      acc[id].push(item);
+
+      return acc;
+    }, {} as Record<string, OrderFormItem[]>);
+
+  return {
+    ...form,
+    items: Object.values(itemsById).map((items) => {
+      const [item] = items;
+      const quantity = items.reduce((acc, i) => acc + i.quantity, 0);
+      const totalPrice = items.reduce(
+        (acc, i) => acc + i.quantity * i.sellingPrice,
+        0,
+      );
+
+      return {
+        ...item,
+        quantity,
+        sellingPrice: totalPrice / quantity,
+      };
+    }),
+  };
 };
 
 const orderFormToCart = async (
@@ -200,7 +233,9 @@ export const validateCart = async (
     const isStale = isOrderFormStale(orderForm);
 
     if (isStale === true && orderNumber) {
-      const newOrderForm = await setOrderFormEtag(orderForm, commerce);
+      const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
+        joinItems,
+      );
 
       return orderFormToCart(newOrderForm, skuLoader);
     }
@@ -273,7 +308,8 @@ export const validateCart = async (
     // update orderForm etag so we know last time we touched this orderForm
     .then((form) =>
       enableOrderFormSync ? setOrderFormEtag(form, commerce) : form
-    );
+    )
+    .then(joinItems);
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated
   if (equals(order, updatedOrderForm)) {
