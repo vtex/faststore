@@ -1,0 +1,153 @@
+@import "src/styles/scaffold";
+
+.fs-search-input {
+  // --------------------------------------------------------
+  // Design Tokens for Search Input
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-search-input-padding                       : var(--fs-spacing-1) var(--fs-spacing-7) var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-search-input-bkg-color                     : var(--fs-color-body-bkg);
+  --fs-search-input-box-shadow                    : 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
+
+  --fs-search-input-height-mobile                 : var(--fs-control-tap-size);
+  --fs-search-input-height-desktop                : var(--fs-spacing-6);
+
+  --fs-search-input-border-width                  : var(--fs-border-width);
+  --fs-search-input-border-radius                 : var(--fs-border-radius);
+  --fs-search-input-border-color                  : var(--fs-border-color);
+  --fs-search-input-border-color-hover            : var(--fs-border-color-active);
+
+  --fs-search-input-transition-timing             : var(--fs-transition-timing);
+  --fs-search-input-transition-function           : ease;
+
+  // Button
+  --fs-search-input-button-width                  : var(--fs-spacing-7);
+  --fs-search-input-button-min-height             : var(--fs-search-input-height-desktop);
+  --fs-search-input-button-bkg-color              : transparent;
+
+  --fs-search-input-button-height-mobile          : var(--fs-search-input-button-width);
+  --fs-search-input-button-height-desktop         : var(--fs-search-input-height-desktop);
+
+  // Icon
+  --fs-search-input-icon-width                    : var(--fs-spacing-4);
+  --fs-search-input-icon-height                   : var(--fs-search-input-icon-width);
+  --fs-search-input-icon-color                    : var(--fs-color-neutral-7);
+
+  // Dropdown
+  --fs-search-input-dropdown-padding              : var(--fs-spacing-3);
+  --fs-search-input-dropdown-bkg-color            : var(--fs-color-neutral-0);
+  --fs-search-input-dropdown-box-shadow           : var(--fs-shadow);
+
+  --fs-search-input-dropdown-width-mobile         : 100vw;
+  --fs-search-input-dropdown-width-desktop        : 100%;
+
+  --fs-search-input-dropdown-border-width         : var(--fs-border-width);
+  --fs-search-input-dropdown-border-color         : var(--fs-border-color);
+  --fs-search-input-dropdown-border-radius        : 0 0 var(--fs-border-radius) var(--fs-border-radius);
+
+  --fs-search-input-dropdown-position-left-mobile : calc(-1 * var(--fs-control-tap-size));
+  --fs-search-input-dropdown-position-left-tablet : calc(var(--fs-search-input-dropdown-position-left-mobile) - var(--fs-spacing-1));
+  --fs-search-input-dropdown-position-top-tablet  : calc(var(--fs-control-tap-size) + var(--fs-spacing-2) + var(--fs-border-width));
+  --fs-search-input-dropdown-position-top-mobile  : calc(var(--fs-search-input-dropdown-position-top-tablet) + 1px);
+  --fs-search-input-dropdown-position-top-desktop : var(--fs-search-input-height-desktop);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+
+  [data-store-search-input] {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    height: var(--fs-search-input-height-mobile);
+
+    @include media(">=notebook") { height: var(--fs-search-input-height-desktop); }
+
+    [data-fs-search-input] {
+      width: 100%;
+      padding: var(--fs-search-input-padding);
+      background-color: var(--fs-search-input-bkg-color);
+      border: var(--fs-search-input-border-width) solid var(--fs-search-input-border-color);
+      border-radius: var(--fs-search-input-border-radius);
+      transition: box-shadow var(--fs-search-input-transition-timing) var(--fs-search-input-transition-timing), border var(--fs-search-input-transition-timing) var(--fs-search-input-transition-function);
+
+      &:hover {
+        border-color: var(--fs-search-input-border-color-hover);
+        box-shadow: var(--fs-search-input-box-shadow);
+      }
+
+      @include input-focus-ring;
+
+      [data-fs-search-input-dropdown-visible="true"] & {
+        @include media(">=notebook") {
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+    }
+
+    [data-store-button] {
+      position: absolute;
+      right: 0;
+      width: var(--fs-search-input-button-width);
+      height: var(--fs-search-input-button-height-mobile);
+      padding: 0;
+      background-color: var(--fs-search-input-button-bkg-color);
+      border: 0;
+
+      @include media(">=notebook") {
+        height: var(--fs-search-input-button-height-desktop);
+        min-height: var(--fs-search-input-button-min-height);
+      }
+    }
+
+    [data-store-icon] { display: block; }
+
+    [data-store-button] svg {
+      width: var(--fs-search-input-icon-width);
+      height: var(--fs-search-input-icon-height);
+      color: var(--fs-search-input-icon-color);
+    }
+  }
+
+  [data-fs-search-product-card-link] {
+    color: var(--fs-color-neutral-7);
+    text-decoration: none;
+
+    &:hover { text-decoration: none; }
+  }
+
+  [data-fs-search-input-dropdown-wrapper] {
+    position: absolute;
+    top: var(--fs-search-input-dropdown-position-top-mobile);
+    left: var(--fs-search-input-dropdown-position-left-mobile);
+    z-index: 1;
+    width: var(--fs-search-input-dropdown-width-mobile);
+    padding: var(--fs-search-input-dropdown-padding);
+    padding-top: 0;
+    background-color: var(--fs-search-input-dropdown-bkg-color);
+
+    &:empty { display: none; }
+
+    @include media(">=tablet") {
+      top: var(--fs-search-input-dropdown-position-top-tablet);
+      left: var(--fs-search-input-dropdown-position-left-tablet);
+    }
+
+    @include media(">=notebook") {
+      top: var(--fs-search-input-dropdown-position-top-desktop);
+      left: 0;
+      width: var(--fs-search-input-dropdown-width-desktop);
+      overflow: hidden;
+      border: var(--fs-search-input-dropdown-border-width) solid var(--fs-search-input-dropdown-border-color);
+      border-top: none;
+      border-radius: var(--fs-search-input-dropdown-border-radius);
+      box-shadow: var(--fs-search-input-dropdown-box-shadow);
+    }
+
+    [data-fs-search-input-loading-text] { padding-top: var(--fs-spacing-3); }
+  }
+}
