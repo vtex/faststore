@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [22.31.0](https://github.com/vtex-sites/nextjs.store/compare/22.30.1...22.31.0) (2022-08-08)
+
+
+### Features
+
+* Add new tokens to `SearchInput` [FS-496] ([#189](https://github.com/vtex-sites/nextjs.store/issues/189)) ([f682090](https://github.com/vtex-sites/nextjs.store/commit/f682090dc7102cba6ee37bd38c66b88f332e805d))
+
 ### [22.30.1](https://github.com/vtex-sites/nextjs.store/compare/22.30.0...22.30.1) (2022-08-04)
 
 
