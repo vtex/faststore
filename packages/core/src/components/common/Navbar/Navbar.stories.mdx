@@ -45,21 +45,10 @@ Uses [NavLinks](?path=/docs/organisms-navbar-navlinks--overview-default) and [Na
 </Canvas>
 
 <TokenTable>
-  <TokenRow token="--fs-navbar-padding" value="0" />
-  <TokenDivider />
   <TokenRow
-    token="--fs-navbar-border-bottom-width"
-    value="var(--fs-border-width)"
-  />
-  <TokenRow
-    token="--fs-navbar-border-bottom-color"
-    value="var(--fs-border-color-light)"
+    token="--fs-navbar-bkg-color"
+    value="rgb(255 255 255 / 90%)"
     isColor
-  />
-  <TokenDivider />
-  <TokenRow
-    token="--fs-navbar-box-shadow"
-    value="0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%)"
   />
   <TokenDivider />
   <TokenRow
@@ -69,6 +58,21 @@ Uses [NavLinks](?path=/docs/organisms-navbar-navlinks--overview-default) and [Na
   <TokenRow
     token="--fs-navbar-transition-function"
     value="var(--fs-transition-function)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-box-shadow"
+    value="0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-navbar-border-bottom-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-navbar-border-bottom-color"
+    value="var(--fs-border-color-light)"
+    isColor
   />
 </TokenTable>
 
@@ -115,14 +119,7 @@ Uses [NavLinks](?path=/docs/organisms-navbar-navlinks--overview-default) and [Na
 ### Header
 
 <TokenTable>
-  <TokenRow
-    token="--fs-navbar-header-padding-top"
-    value="var(--fs-spacing-1)"
-  />
-  <TokenRow
-    token="--fs-navbar-header-padding-bottom"
-    value="var(--fs-spacing-2)"
-  />
+  <TokenRow token="--fs-navbar-header-padding" value="0 var(--fs-spacing-0)" />
   <TokenDivider />
   <TokenRow
     token="--fs-navbar-header-padding-top-notebook"
@@ -138,8 +135,13 @@ Uses [NavLinks](?path=/docs/organisms-navbar-navlinks--overview-default) and [Na
 
 <TokenTable>
   <TokenRow
-    token="--fs-navbar-logo-margin-right-mobile"
-    value="var(--fs-spacing-5)"
+    token="--fs-navbar-logo-border-left-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-navbar-logo-border-left-color"
+    value="var(--fs-border-color-light)"
+    isColor
   />
 </TokenTable>
 

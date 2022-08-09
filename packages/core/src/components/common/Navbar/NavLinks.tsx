@@ -34,21 +34,23 @@ const collections = [
 function NavLinks({ onClickLink, classes = '' }: NavLinksProps) {
   return (
     <nav className={`${styles.fsNavlinks} ${classes}`}>
-      <RegionalizationButton />
-      <UIList data-fs-navlinks-list>
-        {collections.map(({ href, name }) => (
-          <li key={name} data-fs-navlinks-list-item>
-            <Link
-              data-fs-navlinks-link
-              variant="display"
-              href={href}
-              onClick={onClickLink}
-            >
-              {name}
-            </Link>
-          </li>
-        ))}
-      </UIList>
+      <div className="layout__content">
+        <RegionalizationButton />
+        <UIList data-fs-navlinks-list>
+          {collections.map(({ href, name }) => (
+            <li key={name} data-fs-navlinks-list-item>
+              <Link
+                data-fs-navlinks-link
+                variant="display"
+                href={href}
+                onClick={onClickLink}
+              >
+                {name}
+              </Link>
+            </li>
+          ))}
+        </UIList>
+      </div>
     </nav>
   )
 }

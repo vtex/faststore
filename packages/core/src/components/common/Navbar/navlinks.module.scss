@@ -6,6 +6,13 @@
   // --------------------------------------------------------
 
   --fs-navlinks-padding-top-notebook             : var(--fs-spacing-1);
+  --fs-navlinks-padding-bottom-notebook          : var(--fs-navlinks-padding-top-notebook);
+
+  --fs-navlinks-bkg-color                        : var(--fs-color-body-bkg);
+
+  --fs-navlinks-transition-property              : var(--fs-transition-property);
+  --fs-navlinks-transition-timing                : var(--fs-transition-timing);
+  --fs-navlinks-transition-function              : var(--fs-transition-function);
 
   --fs-navlinks-border-top-width-mobile          : var(--fs-border-width);
   --fs-navlinks-border-top-color-mobile          : var(--fs-border-color-light);
@@ -26,9 +33,18 @@
   // Structural Styles
   // --------------------------------------------------------
 
+  position: relative;
+  z-index: var(--fs-z-index-default);
+  background-color: var(--fs-navlinks-bkg-color);
+  transition: var(--fs-navlinks-transition-property) var(--fs-navlinks-transition-timing) var(--fs-navlinks-transition-function);
+
+  @include media("<notebook") { padding: 0; }
+
   @include media(">=notebook") {
-    display: flex;
-    align-items: center;
+    > div {
+      display: flex;
+      align-items: center;
+    }
   }
 
   [data-fs-navlinks-list-item] {
@@ -56,6 +72,7 @@
 
   @include media(">=notebook") {
     padding-top: var(--fs-navlinks-padding-top-notebook);
+    padding-bottom: var(--fs-navlinks-padding-bottom-notebook);
 
     [data-fs-navlinks-list] {
       display: flex;

@@ -198,6 +198,13 @@ body {
     --fs-grid-padding                  : var(--fs-spacing-5);
   }
 
+  // Z-INDEX
+  --fs-z-index-below                   : -1;
+  --fs-z-index-default                 : 0;
+  --fs-z-index-top                     : 1;
+  --fs-z-index-high                    : 2;
+  --fs-z-index-highest                 : 3;
+
   // CONTAINER
   --fs-grid-max-width                  : var(--fs-grid-breakpoint-notebook);
 

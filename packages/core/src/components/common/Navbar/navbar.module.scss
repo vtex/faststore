@@ -7,16 +7,12 @@
 
   // Default properties
 
-  --fs-navbar-padding                                    : 0;
-  --fs-navbar-bkg-color                                  : var(--fs-color-body-bkg);
-
-  --fs-navbar-border-bottom-width                        : var(--fs-border-width);
-  --fs-navbar-border-bottom-color                        : var(--fs-border-color-light);
-
-  --fs-navbar-box-shadow                                 : 0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%);
+  --fs-navbar-bkg-color                                  : rgb(255 255 255 / 90%);
 
   --fs-navbar-transition-timing                          : var(--fs-transition-timing);
   --fs-navbar-transition-function                        : var(--fs-transition-function);
+
+  --fs-navbar-box-shadow                                 : 0 var(--fs-spacing-0) var(--fs-spacing-3) rgb(0 0 0 / 5%);
 
   // Search
   --fs-navbar-search-button-icon-width-mobile            : var(--fs-spacing-5);
@@ -31,23 +27,41 @@
   --fs-navbar-search-expanded-button-icon-margin-right   : -4.063rem;
 
   // Header
-  --fs-navbar-header-padding-top                         : var(--fs-spacing-1);
-  --fs-navbar-header-padding-bottom                      : var(--fs-spacing-2);
+  --fs-navbar-header-padding                              : 0 var(--fs-spacing-0);
 
   --fs-navbar-header-padding-top-notebook                : var(--fs-spacing-1);
   --fs-navbar-header-padding-bottom-notebook             : var(--fs-navbar-header-padding-top-notebook);
 
   // Logo
-  --fs-navbar-logo-margin-right-mobile                   : var(--fs-spacing-5);
+  --fs-navbar-logo-border-left-width                     : var(--fs-border-width);
+  --fs-navbar-logo-border-left-color                     : var(--fs-border-color-light);
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
-  padding: var(--fs-navbar-padding);
-  background-color: var(--fs-navbar-bkg-color);
-  border-bottom: var(--fs-navbar-border-bottom-width) solid var(--fs-navbar-border-bottom-color);
+  position: sticky;
+  top: 0;
+  z-index: var(--fs-z-index-high);
+  padding: 0;
   box-shadow: var(--fs-navbar-box-shadow);
+  transition: top var(--fs-navbar-transition-timing) var(--fs-navbar-transition-function);
+
+  &[data-fs-navbar-scroll="down"] {
+    > nav {
+      top: calc(-1 * var(--fs-spacing-3));
+      height: 0;
+      padding: 0;
+      opacity: 0;
+    }
+  }
+
+  &[data-fs-navbar-scroll="up"] {
+    > nav {
+      top: 0;
+      opacity: 1;
+    }
+  }
 
   [data-fs-search-input-wrapper] {
     flex: 1 0 100%;
@@ -64,6 +78,10 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+
+    @include media("<notebook") {
+      padding: 0;
+    }
 
     @include media(">=notebook") {
       display: grid;
@@ -161,24 +179,20 @@
   }
 
   [data-fs-navbar-header] {
-    padding-top: var(--fs-spacing-1);
-    padding-bottom: var(--fs-spacing-2);
+    padding: var(--fs-navbar-header-padding);
     overflow-x: clip;
-
-    @include media(">=notebook") {
-      padding-top: var(--fs-spacing-1);
-      padding-bottom: var(--fs-spacing-1);
-    }
+    background-color: var(--fs-navbar-bkg-color);
+    backdrop-filter: blur(10px);
   }
 
   [data-fs-navbar-logo] {
-    flex: 0 0 auto;
     align-self: stretch;
-    width: fit-content;
-    padding: 0;
 
-    @include media("<tablet") {
-      margin-right: var(--fs-navbar-logo-margin-right-mobile);
+    @include media("<notebook") {
+      padding: var(--fs-spacing-1) 0 var(--fs-spacing-1) var(--fs-spacing-3);
+      margin-right: auto;
+      margin-left: var(--fs-spacing-0);
+      border-left: var(--fs-navbar-logo-border-left-width) solid var(--fs-navbar-logo-border-left-color);
     }
   }
 }

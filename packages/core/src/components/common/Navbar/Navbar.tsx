@@ -12,12 +12,14 @@ import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
 import { mark } from 'src/sdk/tests/mark'
 import { useUI } from 'src/sdk/ui/Provider'
+import useScrollDirection from 'src/sdk/ui/useScrollDirection'
 
 import styles from './navbar.module.scss'
 import NavbarSlider from './NavbarSlider'
 import NavLinks from './NavLinks'
 
 function Navbar() {
+  const scrollDirection = useScrollDirection()
   const { openNavbar, navbar: displayNavbar } = useUI()
   const searchMobileRef = useRef<SearchInputRef>(null)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -30,10 +32,11 @@ function Navbar() {
   return (
     <header
       data-fs-navbar
+      data-fs-navbar-scroll={scrollDirection}
       className={`${styles.fsNavbar} layout__content-full`}
     >
-      <div className="layout__content" data-fs-navbar-header>
-        <section data-fs-navbar-row>
+      <section data-fs-navbar-header>
+        <div className="layout__content" data-fs-navbar-row>
           {!searchExpanded && (
             <>
               <Button
@@ -84,9 +87,9 @@ function Navbar() {
             </Suspense>
             <CartToggle />
           </div>
-        </section>
-        <NavLinks classes="hidden-mobile" />
-      </div>
+        </div>
+      </section>
+      <NavLinks classes="hidden-mobile" />
 
       {displayNavbar && <NavbarSlider />}
     </header>
