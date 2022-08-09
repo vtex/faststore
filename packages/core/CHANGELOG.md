@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.31.1](https://github.com/vtex-sites/nextjs.store/compare/22.31.0...22.31.1) (2022-08-09)
+
+
+### Features
+
+* Refinements on `Navbar` and `Navlinks` ([#191](https://github.com/vtex-sites/nextjs.store/issues/191)) ([f950d19](https://github.com/vtex-sites/nextjs.store/commit/f950d1987e0ee212f5cec8391798e120b82a62e5))
+
 ## [22.31.0](https://github.com/vtex-sites/nextjs.store/compare/22.30.1...22.31.0) (2022-08-08)
 
 
