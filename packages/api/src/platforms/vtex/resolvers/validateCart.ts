@@ -28,6 +28,7 @@ const getId = (item: IStoreOffer) =>
   [
     item.itemOffered.sku,
     item.seller.identifier,
+    item.price < 0.01 ? 'Gift' : undefined,
     item.itemOffered.additionalProperty
       ?.filter(isAttachment)
       .map(getPropertyId)
