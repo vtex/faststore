@@ -48,26 +48,30 @@ export const ValidateCartMutation = gql`
     price
     listPrice
     itemOffered {
-      sku
+      ...CartProductItem
+    }
+  }
+
+  fragment CartProductItem on StoreProduct {
+    sku
+    name
+    image {
+      url
+      alternateName
+    }
+    brand {
       name
-      image {
-        url
-        alternateName
-      }
-      brand {
-        name
-      }
-      isVariantOf {
-        productGroupID
-        name
-      }
-      gtin
-      additionalProperty {
-        propertyID
-        name
-        value
-        valueReference
-      }
+    }
+    isVariantOf {
+      productGroupID
+      name
+    }
+    gtin
+    additionalProperty {
+      propertyID
+      name
+      value
+      valueReference
     }
   }
 `
@@ -78,7 +82,6 @@ const getItemId = (item: Pick<CartItem, 'itemOffered' | 'seller' | 'price'>) =>
   [
     item.itemOffered.sku,
     item.seller.identifier,
-    item.price,
     item.itemOffered.additionalProperty
       ?.map(({ propertyID }) => propertyID)
       .join('-'),

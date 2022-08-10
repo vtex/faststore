@@ -21,7 +21,7 @@ function CartSidebar() {
   const { cart: displayCart, closeCart } = useUI()
   const { fade, fadeOut } = useFadeEffect()
 
-  const { items, totalItems, isValidating, subTotal, total } = cart
+  const { items, gifts, totalItems, isValidating, subTotal, total } = cart
 
   const isEmpty = items.length === 0
 
@@ -67,6 +67,21 @@ function CartSidebar() {
               </li>
             ))}
           </List>
+
+          {gifts.length > 0 && (
+            <>
+              <Alert icon={<Icon name="Gift" width={24} height={24} />}>
+                Gifts
+              </Alert>
+              <List data-fs-cart-sidebar-list>
+                {gifts.map((item) => (
+                  <li key={item.id}>
+                    <CartItem gift item={item} />
+                  </li>
+                ))}
+              </List>
+            </>
+          )}
 
           <footer data-fs-cart-sidebar-footer>
             <OrderSummary

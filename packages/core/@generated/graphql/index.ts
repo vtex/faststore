@@ -960,6 +960,21 @@ export type CartItemFragment = {
   }
 }
 
+export type CartProductItemFragment = {
+  sku: string
+  name: string
+  gtin: string
+  image: Array<{ url: string; alternateName: string }>
+  brand: { name: string }
+  isVariantOf: { productGroupID: string; name: string }
+  additionalProperty: Array<{
+    propertyID: string
+    name: string
+    value: any
+    valueReference: string
+  }>
+}
+
 export type SubscribeToNewsletterMutationVariables = Exact<{
   data: IPersonNewsletter
 }>

@@ -64,9 +64,10 @@ function useCartItemEvent() {
 
 interface Props {
   item: ICartItem
+  gift?: boolean
 }
 
-function CartItem({ item }: Props) {
+function CartItem({ item, gift = false }: Props) {
   const btnProps = useRemoveButton(item)
 
   const { sendCartItemEvent } = useCartItemEvent()
@@ -100,44 +101,48 @@ function CartItem({ item }: Props) {
           <p className="text__body" data-fs-cart-item-title>
             {item.itemOffered.isVariantOf.name}
           </p>
-          <span data-fs-cart-item-prices>
-            <Price
-              value={item.listPrice}
-              formatter={useFormattedPrice}
-              testId="list-price"
-              data-value={item.listPrice}
-              variant="listing"
-              classes="text__legend"
-              SRText="Original price:"
-            />
-            <Price
-              value={item.price}
-              formatter={useFormattedPrice}
-              testId="price"
-              data-value={item.price}
-              variant="spot"
-              classes="text__title-subsection"
-              SRText="Price:"
-            />
-          </span>
+          {!gift && (
+            <span data-fs-cart-item-prices>
+              <Price
+                value={item.listPrice}
+                formatter={useFormattedPrice}
+                testId="list-price"
+                data-value={item.listPrice}
+                variant="listing"
+                classes="text__legend"
+                SRText="Original price:"
+              />
+              <Price
+                value={item.price}
+                formatter={useFormattedPrice}
+                testId="price"
+                data-value={item.price}
+                variant="spot"
+                classes="text__title-subsection"
+                SRText="Price:"
+              />
+            </span>
+          )}
         </div>
       </CardContent>
 
-      <CardActions data-fs-cart-item-actions>
-        <Button
-          variant="tertiary"
-          icon={<Icon name="XCircle" width={18} height={18} />}
-          iconPosition="left"
-          {...btnProps}
-        >
-          Remove
-        </Button>
-        <QuantitySelector
-          min={1}
-          initial={item.quantity}
-          onChange={onQuantityChange}
-        />
-      </CardActions>
+      {!gift && (
+        <CardActions data-fs-cart-item-actions>
+          <Button
+            variant="tertiary"
+            icon={<Icon name="XCircle" width={18} height={18} />}
+            iconPosition="left"
+            {...btnProps}
+          >
+            Remove
+          </Button>
+          <QuantitySelector
+            min={1}
+            initial={item.quantity}
+            onChange={onQuantityChange}
+          />
+        </CardActions>
+      )}
     </Card>
   )
 }
