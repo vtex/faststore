@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.3](https://github.com/vtex/faststore/compare/v1.11.2...v1.11.3) (2022-08-10)
+
+
+### Bug Fixes
+
+* Join cart items  ([#1434](https://github.com/vtex/faststore/issues/1434)) ([990b6a9](https://github.com/vtex/faststore/commit/990b6a920703f9004f7e0d6be6c2a316610db5c6))
+
+
+
 ## [1.11.2](https://github.com/vtex/faststore/compare/v1.11.1...v1.11.2) (2022-08-10)
 
 **Note:** Version bump only for package faststore
