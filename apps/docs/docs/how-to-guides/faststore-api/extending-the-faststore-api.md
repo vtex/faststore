@@ -38,9 +38,25 @@ import { mergeTypeDefs } from '@graphql-tools/merge'
 
 ### Create type definitions
 
-Type definitions
+Your new type definitions set the data structure for your new fields, extended from the existing FastStore GraphQL queries and types.
+
+See the following code example of adding a new string field called `customField` to the existing type [StoreProduct](https://www.faststore.dev/reference/api/objects#storeproduct).
+
+```ts
+const typeDefs = `
+  extend type StoreProduct {
+    customField: String
+  }
+`
+```
 
 ### Create resolvers
+
+Resolvers are the functions that give meaning to the data you have structured in the type definitions. This means a resolver will be executed when the corresponding piece of information is queried.
+
+A resolver can perform an operation on an existing field or fetch data from a proprietary API, for example.
+
+
 
 ### Merge executable schemas
 
@@ -71,7 +87,7 @@ import { getSchema, getTypeDefs } from '@faststore/api'
 import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 
-// Setup type extensions
+// Setup type definitions
 const typeDefs = `
   extend type StoreProduct {
     customField: String
