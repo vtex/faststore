@@ -19,13 +19,9 @@ To do this, there are a few steps you must follow:
 
 ### Prepare files
 
-The FastStore executable schema is exported by the `src/server/intex.ts` file of your FastStore project. This means you must edit that same file to merge the existing schema with the one you create.
+The FastStore executable schema is exported by the `src/server/intex.ts` file of your project. This means you must edit that same file to merge the existing schema with the one you create.
 
 However, you have the option of creating other folders and files to organize your new [type definitions](#create-type-definitions) and [resolvers](#create-resolvers). This may be a good idea, especially if you wish to add a large number of new fields to the schema.
-
-:::info
-The examples in this tutorial assume all extension code is added to the `src/server/index.ts` file. 
-:::
 
 #### Importing tools
 
@@ -80,7 +76,7 @@ For instance, in the example above the resolver can use whatever information is 
 
 To get the existing FastStore API schema, use the imported `getSchema` function. This function takes arguments in the form of the imported `APIOptions` type.
 
-It is likely that your `src/server/index.ts` file already has this implemented, like in the example below.
+It is likely that your `src/server/index.ts` file already has this implemented like in the example below.
 
 ```ts
 import { getSchema } from '@faststore/api'
@@ -186,7 +182,7 @@ const apiOptions: APIOptions = {
   },
 }
 
-export const nativeApiSchema = getSchema(apiOptions)
+const nativeApiSchema = getSchema(apiOptions)
 
 // Merging your custom type definitions with the ones from @faststore/api
 const mergedTypeDefs = mergeTypeDefs([getTypeDefs(), typeDefs])
