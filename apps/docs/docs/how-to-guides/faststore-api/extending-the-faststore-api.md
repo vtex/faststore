@@ -40,7 +40,7 @@ import { mergeTypeDefs } from '@graphql-tools/merge'
 
 Your new type definitions set the data structure for your new fields, extended from the existing FastStore GraphQL queries and types.
 
-See the following code example of adding a new string field called `customField` to the existing type [StoreProduct](https://www.faststore.dev/reference/api/objects#storeproduct).
+See the following code example of adding a new field called `customField`, which is a string, to the existing type [StoreProduct](https://www.faststore.dev/reference/api/objects#storeproduct).
 
 ```ts
 const typeDefs = `
