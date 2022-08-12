@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.373.50 (2022-08-12)
+
+**Note:** Version bump only for package @vtex/theme-b2c-tailwind
+
+
+
+
+
 ## 0.373.49 (2022-02-18)
 
 
