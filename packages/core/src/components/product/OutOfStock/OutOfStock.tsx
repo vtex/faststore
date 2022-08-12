@@ -56,6 +56,7 @@ function OutOfStock(props: OutOfStockProps) {
   const [buttonIconName, setButtonIconName] = useState(defaultIconName)
   const [disabled, setDisabled] = useState(false)
   const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
 
   const {
     title = postalCode ? 'Unavailable in Your Location' : 'Out of Stock',
@@ -74,6 +75,7 @@ function OutOfStock(props: OutOfStockProps) {
     setDisabled(false)
 
     setEmail('')
+    setError('')
   }
 
   const handleSubmit = (event: FormEvent) => {
@@ -87,8 +89,7 @@ function OutOfStock(props: OutOfStockProps) {
       setButtonIconName('Checked')
       setBtnText('Subscribed successfully')
     } catch (err) {
-      // TODO: Display error below Input component when Input is ready for that
-      console.error(err.message)
+      setError(err.message)
     } finally {
       // Return to original state after 2s
       setTimeout(reset, 2000)
@@ -110,7 +111,11 @@ function OutOfStock(props: OutOfStockProps) {
         value={email}
         label="Email"
         aria-label="Email"
-        onChange={(e) => setEmail(e.target.value)}
+        error={error}
+        onChange={(e) => {
+          setError('')
+          setEmail(e.target.value)
+        }}
       />
       <Button
         data-store-out-of-stock-button
