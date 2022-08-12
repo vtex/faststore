@@ -164,7 +164,7 @@ function generateNginxConfiguration({
               children: [
                 ...serverOptions.map((cmd) => ({ cmd })),
                 { cmd: ['listen', '0.0.0.0:$PORT', 'default_server'] },
-                { cmd: ['large_client_header_buffers',·'4',·'128k'] },
+                { cmd: ['large_client_header_buffers', '4', '128k'] },
                 // https://www.gatsbyjs.com/docs/how-to/adding-common-features/add-404-page/
                 { cmd: ['error_page', '404', '/404.html'] },
 
