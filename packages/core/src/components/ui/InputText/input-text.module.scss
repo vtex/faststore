@@ -1,0 +1,168 @@
+@import "src/styles/scaffold";
+
+.fs-input-text {
+  // --------------------------------------------------------
+  // Design Tokens for Input Text
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-input-padding                     : var(--fs-spacing-2) var(--fs-spacing-2) 0;
+  --fs-input-height                      : var(--fs-control-tap-size);
+
+  --fs-input-box-shadow                  : none;
+  --fs-input-box-shadow-hover            : 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
+
+  --fs-input-border-radius               : var(--fs-border-radius);
+  --fs-input-border-width                : var(--fs-border-width);
+  --fs-input-border-color                : var(--fs-border-color);
+  --fs-input-border-color-hover          : var(--fs-border-color-active);
+
+  --fs-input-text-color                  : var(--fs-color-text);
+  --fs-input-text-size                   : var(--fs-text-size-body);
+
+  --fs-input-line-height                 : 1.25;
+
+  --fs-input-transition-function         : var(--fs-transition-function);
+  --fs-input-transition-property         : var(--fs-transition-property);
+  --fs-input-transition-timing           : var(--fs-transition-timing);
+
+  // Label
+  --fs-input-label-padding               : 0 var(--fs-spacing-2);
+  --fs-input-label-color                 : var(--fs-color-text-light);
+  --fs-input-label-size                  : var(--fs-text-size-tiny);
+
+  // Error
+  --fs-input-error-message-size          : var(--fs-text-size-legend);
+  --fs-input-error-message-line-height   : 1.1;
+  --fs-input-error-message-margin-top    : var(--fs-spacing-0);
+  --fs-input-error-message-color         : var(--fs-color-danger-text);
+  --fs-input-error-border-color          : var(--fs-color-danger-border);
+  --fs-input-error-box-shadow            : 0 0 0 var(--fs-border-width) var(--fs-input-error-border-color);
+  --fs-input-error-focus-ring            : var(--fs-color-focus-ring-danger);
+
+  // Disabled
+  --fs-input-disabled-bkg-color          : var(--fs-color-disabled-bkg);
+  --fs-input-disabled-text-color         : var(--fs-color-disabled-text);
+  --fs-input-disabled-border-width       : var(--fs-border-width);
+  --fs-input-disabled-border-color       : var(--fs-border-color);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: flex;
+  flex-flow: column;
+
+  input,
+  label {
+    transition: var(--fs-input-transition-property) var(--fs-input-transition-timing) var(--fs-input-transition-function);
+  }
+
+  input {
+    height: var(--fs-input-height);
+    padding: var(--fs-input-padding);
+    font-size: var(--fs-input-text-size);
+    line-height: var(--fs-input-line-height);
+    color: var(--fs-input-text-color);
+    border: var(--fs-input-border-width) solid var(--fs-input-border-color);
+    border-radius: var(--fs-input-border-radius);
+    box-shadow: var(--fs-input-box-shadow);
+
+    @include input-focus-ring;
+
+    &:placeholder-shown + label {
+      top: calc(1.5 * (var(--fs-input-text-size) / 2));
+      overflow: hidden;
+    }
+
+    &::placeholder {
+      opacity: 0;
+      transition: inherit;
+    }
+
+    &:focus::placeholder {
+      opacity: 1;
+    }
+
+    &:not(:placeholder-shown) + label,
+    &:focus + label {
+      top: rem(6px);
+      font-size: var(--fs-input-label-size);
+    }
+
+    &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+      border-color: var(--fs-input-border-color-hover);
+      box-shadow: var(--fs-input-box-shadow-hover);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: var(--fs-input-disabled-bkg-color);
+      border: var(--fs-input-disabled-border-width) solid var(--fs-input-disabled-border-color);
+      + label { cursor: not-allowed; }
+    }
+  }
+
+  label {
+    position: absolute;
+    padding: var(--fs-input-label-padding);
+    font-size: var(--fs-input-text-size);
+    line-height: 1.5;
+    color: var(--fs-input-label-color);
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-input-text-error="true"] {
+    input {
+      border-color: var(--fs-input-error-border-color);
+
+      @include input-focus-ring($outline: #{var(--fs-input-error-focus-ring)},
+      $border: #{var(--fs-input-error-border-color)});
+
+      &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+        border-color: var(--fs-input-error-border-color);
+        box-shadow: var(--fs-input-error-box-shadow);
+      }
+    }
+
+    [data-fs-input-text-error-message] {
+      margin-top: var(--fs-input-error-message-margin-top);
+      font-size: var(--fs-input-error-message-size);
+      line-height: var(--fs-input-error-message-line-height);
+      color: var(--fs-input-error-message-color);
+    }
+  }
+
+  &[data-fs-input-text-actionable="true"] {
+    min-width: rem(250px);
+
+    input {
+      padding-right: var(--fs-spacing-13);
+    }
+
+    [data-fs-button] {
+      position: absolute;
+      top: var(--fs-spacing-1);
+      right: var(--fs-spacing-1);
+
+      &::before {
+        position: absolute;
+        left: calc(-1 * var(--fs-spacing-1));
+        width: 1px;
+        height: 80%;
+        content: "";
+        background-color: var(--fs-input-border-color);
+      }
+    }
+
+    [data-fs-button][data-store-icon-button] {
+      &::before {
+        left: calc(-1 * var(--fs-spacing-1));
+      }
+    }
+  }
+}

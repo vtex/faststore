@@ -1,0 +1,311 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import InputText from '.'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  BestPractices,
+  BestPracticesRule,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Atoms/InputText"
+  component={InputText}
+  argTypes={{
+    actionable: {
+      type: { name: 'boolean' },
+    },
+    disabled: {
+      type: { name: 'boolean' },
+    },
+    id: {
+      type: { name: 'string', required: true },
+    },
+    inputRef: {
+      control: { disable: true },
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  return <InputText {...args} />
+}
+
+<header>
+
+# Input Text
+
+Input Text are text fields used to get user inputs.
+
+</header>
+
+## Overview
+
+The `InputText` component uses [FastStore UI Input Text](https://www.faststore.dev/reference/ui/atoms/Input) as base.
+
+<Canvas isColumn>
+  <Story
+    name="overview-default"
+    args={{
+      id: 'overview-default',
+      label: 'Label',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-error"
+    args={{
+      id: 'overview-error',
+      label: 'Input w/ Error Message',
+      error: 'Error Message',
+      disabled: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-actionable"
+    args={{
+      id: 'overview-actionable',
+      label: 'Input w/ Action',
+      actionable: true,
+      disabled: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-actionable-error"
+    args={{
+      id: 'overview-actionable-error',
+      label: 'Input w/ Action and Error',
+      actionable: true,
+      error: 'Error Message',
+      disabled: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-disabled"
+    args={{
+      id: 'overview-disabled',
+      label: 'Input Disabled',
+      actionable: false,
+      disabled: true,
+      value: 'Input Text',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import InputText from '../components/ui/InputText'`
+
+<Canvas>
+  <Story
+    name="input-default"
+    args={{
+      id: 'input-default',
+      label: 'Label',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="input-default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-input-padding"
+    value="var(--fs-spacing-2) var(--fs-spacing-2) 0"
+  />
+  <TokenRow token="--fs-input-height" value="var(--fs-control-tap-size)" />
+  <TokenDivider />
+  <TokenRow token="--fs-input-box-shadow" value="none" />
+  <TokenRow
+    token="--fs-input-box-shadow-hover"
+    value="0 0 0 var(--fs-border-width) var(--fs-border-color-active)"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-input-border-radius" value="var(--fs-border-radius)" />
+  <TokenRow token="--fs-input-border-width" value="var(--fs-border-width)" />
+  <TokenRow
+    token="--fs-input-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-border-color-hover"
+    value="var(--fs-border-color-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-input-text-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow token="--fs-input-text-size" value="var(--fs-text-size-body)" />
+  <TokenDivider />
+  <TokenRow token="--fs-input-line-height" value="1.25" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-input-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-input-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-input-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Label
+
+<TokenTable>
+  <TokenRow token="--fs-input-label-padding" value="0 var(--fs-spacing-2)" />
+  <TokenRow
+    token="--fs-input-label-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow token="--fs-input-label-size" value="var(--fs-text-size-tiny)" />
+</TokenTable>
+
+---
+
+## Variants
+
+### Actionable
+
+<Canvas>
+  <Story
+    name="input-actionable"
+    args={{
+      id: 'input-actionable',
+      disabled: false,
+      label: 'Input w/ Action',
+      actionable: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Actionable w/ Error
+
+<Canvas>
+  <Story
+    name="input-actionable-error"
+    args={{
+      id: 'input-actionable-error',
+      disabled: false,
+      label: 'Input w/ Action and Error',
+      error: 'Error Message',
+      actionable: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Error
+
+<Canvas>
+  <Story
+    name="input-error"
+    args={{
+      id: 'input-error',
+      disabled: false,
+      label: 'Input w/ Error Message',
+      error: 'Error Message',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+   <TokenRow
+    token="--fs-input-error-message-margin-top"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-input-error-message-size"
+    value="var(--fs-text-size-legend)"
+  />
+  <TokenRow token="--fs-input-error-message-line-height" value="1.1" />
+  <TokenRow
+    token="--fs-input-error-message-color"
+    value="var(--fs-color-danger-text)"
+    isColor
+  />
+
+  <TokenDivider />
+  <TokenRow
+    token="--fs-input-error-border-color"
+    value="var(--fs-color-danger-border)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-error-box-shadow"
+    value="0 0 0 var(--fs-border-width) var(--fs-input-error-border-color)"
+  />
+  <TokenRow
+    token="--fs-input-error-focus-ring"
+    value="var(--fs-color-focus-ring-danger)"
+    isColor
+  />
+</TokenTable>
+
+### Disabled
+
+<Canvas>
+  <Story
+    name="input-disabled"
+    args={{
+      id: 'input-disabled',
+      disabled: true,
+      label: 'Disabled Input',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-input-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-disabled-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-input-disabled-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+</TokenTable>
