@@ -54,7 +54,7 @@ function Page({ product }: Props) {
         ]}
       />
       <BreadcrumbJsonLd
-        itemListElements={product.breadcrumbList.itemListElement ?? []}
+        itemListElements={product.breadcrumbList.itemListElement}
       />
       <ProductJsonLd
         productName={product.name}
@@ -62,11 +62,13 @@ function Page({ product }: Props) {
         brand={product.brand.name}
         sku={product.sku}
         gtin={product.gtin}
+        releaseDate={product.releaseDate}
         images={product.image.map((img) => img.url)} // Somehow, Google does not understand this valid Schema.org schema, so we need to do conversions
         offersType="AggregateOffer"
         offers={{
           ...product.offers,
-          price: product.offers.offers[0].price.toString(),
+          ...product.offers.offers[0],
+          url: canonical,
         }}
       />
 
@@ -123,6 +125,7 @@ const query = gql`
       gtin
       name
       description
+      releaseDate
 
       breadcrumbList {
         itemListElement {

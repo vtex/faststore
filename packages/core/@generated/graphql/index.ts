@@ -577,6 +577,8 @@ export type StoreProduct = {
   offers: StoreAggregateOffer
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String']
+  /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
+  releaseDate: Scalars['String']
   /** Array with review information. */
   review: Array<StoreReview>
   /** Meta tag data. */
@@ -865,6 +867,7 @@ export type ServerProductPageQueryQuery = {
     gtin: string
     name: string
     description: string
+    releaseDate: string
     id: string
     seo: { title: string; description: string; canonical: string }
     brand: { name: string }
