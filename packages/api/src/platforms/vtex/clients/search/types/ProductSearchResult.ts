@@ -90,6 +90,7 @@ export interface Product {
   specificationGroups: SpecificationGroup[]
   properties: Array<{ name: string; values: string[] }>
   selectedProperties: Array<{ key: string; value: string }>
+  releaseDate: string
 }
 
 interface Image {
