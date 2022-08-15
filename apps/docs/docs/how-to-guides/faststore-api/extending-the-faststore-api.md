@@ -19,7 +19,7 @@ To do this, there are a few steps you must follow:
 
 ### Prepare files
 
-The FastStore executable schema is exported by the `src/server/intex.ts` file of your project. This means you must edit that same file to merge the existing schema with the one you create.
+The FastStore executable schema is exported by the `src/server/index.ts` file of your project. This means you must edit that same file to merge the existing schema with the one you create.
 
 However, you have the option of creating other folders and files to organize your new [type definitions](#create-type-definitions) and [resolvers](#create-resolvers). This may be a good idea, especially if you wish to add a large number of new fields to the schema.
 
