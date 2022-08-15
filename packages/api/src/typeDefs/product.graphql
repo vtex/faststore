@@ -62,6 +62,10 @@ type StoreProduct {
   Array of additional properties.
   """
   additionalProperty: [StorePropertyValue!]!
+  """
+  The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601
+  """
+  releaseDate: String!
 }
 
 """
