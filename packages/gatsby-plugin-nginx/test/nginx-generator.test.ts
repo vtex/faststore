@@ -314,6 +314,7 @@ describe('generateNginxConfiguration', () => {
         gzip_types text/plain text/css text/xml application/javascript application/x-javascript application/xml application/xml+rss application/emacscript application/json image/svg+xml;
         server {
           listen 0.0.0.0:$PORT default_server;
+          large_client_header_buffers 4 32k;
           error_page 404 /404.html;
           location /nginx.conf {
             deny all;
