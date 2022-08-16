@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.34.1](https://github.com/vtex-sites/nextjs.store/compare/22.34.0...22.34.1) (2022-08-16)
+
+
+### Features
+
+* [Refinements] Creates `ShippingSimulation` ([#183](https://github.com/vtex-sites/nextjs.store/issues/183)) ([35aca51](https://github.com/vtex-sites/nextjs.store/commit/35aca51bbc3c1a85b3bb08a69ea47fd4cda069a7))
+
 ## [22.34.0](https://github.com/vtex-sites/nextjs.store/compare/22.33.0...22.34.0) (2022-08-16)
 
 
