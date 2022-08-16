@@ -6,8 +6,17 @@ import { navigateToSku } from './skuVariants'
 import type { SkuVariantsByName } from './skuVariants'
 
 interface Props {
+  /**
+   * Maps property value combinations to their respective SKU's slug
+   */
   slugsMap: Record<string, string>
+  /**
+   * Available options for each varying SKU property, taking into account the `dominantVariantName` property.
+   */
   availableVariations: SkuVariantsByName
+  /**
+   * SKU property values for the current SKU.
+   */
   activeVariations: Record<string, string>
 }
 

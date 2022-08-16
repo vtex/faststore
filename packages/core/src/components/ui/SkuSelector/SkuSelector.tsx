@@ -3,6 +3,8 @@ import type { ChangeEventHandler } from 'react'
 
 import { Image } from 'src/components/ui/Image'
 
+import styles from './sku-selector.module.scss'
+
 interface SkuProps {
   /**
    * Alternative text description of the image.
@@ -26,7 +28,8 @@ interface SkuProps {
   disabled?: boolean
 }
 
-type Variant = 'color' | 'label' | 'image'
+// TODO: Add the 'color' variant back once the store supports naturally handling color SKUs.
+type Variant = 'label' | 'image'
 
 export interface SkuSelectorProps {
   /**
@@ -35,6 +38,10 @@ export interface SkuSelectorProps {
    */
   testId?: string
   /**
+   * ID of the current instance of the component.
+   */
+  id?: string
+  /**
    * Specify which variant the component should handle.
    */
   variant: Variant
@@ -42,10 +49,6 @@ export interface SkuSelectorProps {
    * SKU options that should be rendered.
    */
   options: SkuProps[]
-  /**
-   * Default SKU option.
-   */
-  defaultSku?: string
   /**
    * Section label for the SKU selector.
    */
@@ -61,6 +64,7 @@ export interface SkuSelectorProps {
 }
 
 function SkuSelector({
+  id,
   label,
   variant,
   options,
@@ -68,16 +72,23 @@ function SkuSelector({
   testId = 'store-sku-selector',
   activeValue,
 }: SkuSelectorProps) {
+  const radioGroupId = id ? `-${id}` : ''
+
   return (
-    <div data-store-sku-selector data-testid={testId} data-variant={variant}>
+    <div
+      data-fs-sku-selector
+      data-testid={testId}
+      className={styles.fsSkuSelector}
+      data-fs-sku-selector-variant={variant}
+    >
       {label && (
-        <Label data-sku-selector-label>
+        <Label data-fs-sku-selector-title>
           {label}: <strong>{activeValue}</strong>
         </Label>
       )}
       <RadioGroup
         selectedValue={activeValue}
-        name={`sku-selector-${variant}`}
+        name={`sku-selector-${variant}${radioGroupId}`}
         onChange={(e) => {
           onChange?.(e)
         }}
@@ -85,6 +96,7 @@ function SkuSelector({
         {options.map((option, index) => {
           return (
             <RadioOption
+              data-fs-sku-selector-option
               key={String(index)}
               label={option.label}
               value={option.value}
@@ -95,12 +107,12 @@ function SkuSelector({
               {variant === 'image' && 'src' in option && (
                 <span>
                   <Image
-                    data-sku-selector-image
                     src={option.src}
                     alt={option.alt}
                     width={20}
                     height={20}
                     loading="lazy"
+                    data-fs-sku-selector-option-image
                   />
                 </span>
               )}

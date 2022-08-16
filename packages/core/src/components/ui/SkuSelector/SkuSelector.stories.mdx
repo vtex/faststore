@@ -1,0 +1,345 @@
+import { useState } from 'react'
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { SkuSelector } from '.'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Molecules/SkuSelector/Overview"
+  component={SkuSelector}
+  argTypes={{
+    testId: {
+      table: {
+        disable: true,
+      },
+    },
+    onChange: {
+      control: false,
+    },
+  }}
+/>
+
+export const Template = ({ activeValue, ...args }) => {
+  const [option, setOption] = useState(activeValue ?? null)
+  return (
+    <SkuSelector
+      {...args}
+      activeValue={option}
+      onChange={(e) => setOption(e.currentTarget.value)}
+    />
+  )
+}
+
+<header>
+
+# Sku Selector
+
+The `SkuSelector` component is mainly used in Product Details Pages (PDPs) to display all the available variants for a given product.
+
+</header>
+
+## Overview
+
+The `SkuSelector` component is directly related to the [Selectors](?path=/docs/molecules-skuselector-selectors--overview) component, the latter being responsible for handling the behavior (e.g., navigating between SKUs) and rendering of the former.
+
+<Canvas>
+  <Story
+    name="overview-default-1"
+    args={{
+      label: 'Size',
+      variant: 'label',
+      activeValue: '41',
+      options: [
+        {
+          src: '/',
+          alt: 'skuvariation',
+          label: '41',
+          value: '41',
+        },
+        {
+          src: '/',
+          alt: 'skuvariation',
+          label: '42',
+          value: '42',
+        },
+        {
+          src: '/',
+          alt: 'skuvariation',
+          label: '43',
+          value: '43',
+          disabled: true,
+        },
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-default-2"
+    args={{
+      label: 'Color',
+      variant: 'image',
+      activeValue: 'Pink',
+      options: [
+        {
+          src: 'https://storecomponents.vtexassets.com/arquivos/ids/155560/pink-cool-sku-variation.png?v=637063239809000000',
+          alt: 'skuvariation',
+          label: 'Pink',
+          value: 'Pink',
+        },
+        {
+          src: 'https://storecomponents.vtexassets.com/arquivos/ids/155561/white-sku-variation.png?v=637087507771770000',
+          alt: 'skuvariation',
+          label: 'White',
+          value: 'White',
+        },
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import { SkuSelector } from 'src/components/ui/SkuSelector'`
+
+<Canvas>
+  <Story
+    name="usage"
+    args={{
+      id: 'letter-size',
+      label: 'Size',
+      variant: 'label',
+      activeValue: 'M',
+      options: [
+        {
+          src: '/',
+          alt: 'skuvariation',
+          label: 'P',
+          value: 'P',
+        },
+        {
+          src: '/',
+          alt: 'skuvariation',
+          label: 'M',
+          value: 'M',
+        },
+        {
+          src: '/',
+          alt: 'skuvariation',
+          label: 'G',
+          value: 'G',
+        },
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="usage" />
+
+---
+
+<TokenTable>
+  <TokenRow token="--fs-sku-selector-row-gap" value="var(--fs-spacing-1)" />
+  <TokenRow
+    token="--fs-sku-selector-column-gap"
+    value="var(--fs-sku-selector-row-gap)"
+  />
+  <TokenRow token="--fs-sku-selector-text-size" value="var(--fs-text-size-1)" />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-sku-selector-title-margin-bottom"
+    value="var(--fs-spacing-0)"
+  />
+</TokenTable>
+
+### Option
+
+<TokenTable>
+  <TokenRow
+    token="--fs-sku-selector-option-width"
+    value="var(--fs-spacing-7)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-height"
+    value="var(--fs-sku-selector-option-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-sku-selector-option-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow token="--fs-sku-selector-option-transition-function" value="ease" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-sku-selector-option-border-width"
+    value="var(--fs-border-width-thick)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-border-color"
+    value="var(--fs-color-neutral-7)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-border-color-hover"
+    value="var(--fs-border-color-active)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-sku-selector-option-checked-border-width"
+    value="var(--fs-sku-selector-option-border-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-checked-border-color"
+    value="var(--fs-sku-selector-option-border-color-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-checked-box-shadow"
+    value="0 0 0 var(--fs-border-width-thickest) var(--fs-color-focus-ring-outline)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-checked-bkg-color"
+    value="var(--fs-sku-selector-option-bkg-color-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-sku-selector-option-disabled-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-disabled-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-disabled-border-color"
+    value="var(--fs-border-color-disabled)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-sku-selector-option-disabled-bkg-color"
+    value="var(--fs-sku-selector-option-disabled-border-color)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Image
+
+<Canvas className="no-code">
+  <Story
+    name="variant-image"
+    args={{
+      id: 'magic-mouse',
+      variant: 'image',
+      activeValue: 'Magic Box',
+      options: [
+        {
+          src: 'https://storeframework.vtexassets.com/arquivos/ids/190902/unsplash-magic-mouse.jpg?v=637800136963870000',
+          alt: 'Magicwhite',
+          value: 'Magic White',
+          label: 'Magic White',
+        },
+        {
+          src: 'https://storeframework.vtexassets.com/arquivos/ids/190923/lena-de-fanti-nQ_j5d-klVU-unsplash.jpg?v=637867501523500000',
+          alt: 'magicbox',
+          value: 'Magic Box',
+          label: 'Magic Box',
+        },
+        {
+          src: 'https://storeframework.vtexassets.com/arquivos/ids/190924/anthony-choren-e7dG26YCrZU-unsplash.jpg?v=637867501835430000',
+          alt: 'magicblackwhite',
+          value: 'Magic Black White',
+          label: 'Magic Black White',
+        },
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-sku-selector-image-width" value="var(--fs-spacing-6)" />
+  <TokenRow
+    token="--fs-sku-selector-image-height"
+    value="var(--fs-sku-selector-image-width)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-image-border-radius"
+    value="var(--fs-border-radius-small)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-sku-selector-image-transition-timing"
+    value="var(--fs-sku-selector-option-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-sku-selector-image-transition-function"
+    value="var(--fs-sku-selector-option-transition-function)"
+  />
+</TokenTable>
+
+### Label
+
+<Canvas className="no-code">
+  <Story
+    name="variant-label"
+    args={{
+      id: 'number-size',
+      label: 'Size',
+      variant: 'label',
+      activeValue: '41',
+      options: [
+        {
+          src: '/',
+          alt: 'skuvariation',
+          label: '40',
+          value: '40',
+        },
+        {
+          src: '/',
+          alt: 'skuvariation',
+          label: '41',
+          value: '41',
+        },
+        {
+          src: '/',
+          alt: 'skuvariation',
+          label: '42',
+          value: '42',
+        },
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
