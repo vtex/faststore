@@ -1,0 +1,111 @@
+@import "src/styles/scaffold";
+
+.fs-shipping-simulation {
+  // --------------------------------------------------------
+  // Design Tokens for Shipping Simulation
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-shipping-simulation-font-size                : var(--fs-text-size-legend);
+
+  --fs-shipping-simulation-padding                  : var(--fs-spacing-5);
+
+  --fs-shipping-simulation-border-width             : var(--fs-border-width);
+  --fs-shipping-simulation-border-color             : var(--fs-border-color-light);
+  --fs-shipping-simulation-border-radius-bottom     : var(--fs-border-radius);
+
+  // Title
+  --fs-shipping-simulation-title-padding-bottom     : var(--fs-spacing-2);
+
+  // Link
+  --fs-shipping-simulation-link-padding-top         : var(--fs-spacing-1);
+  --fs-shipping-simulation-link-padding-bottom      : var(--fs-spacing-4);
+
+  // Subtitle
+  --fs-shipping-simulation-subtitle-text-size       : var(--fs-text-size-2);
+  --fs-shipping-simulation-subtitle-text-weight     : var(--fs-text-weight-bold);
+  --fs-shipping-simulation-subtitle-line-height     : 1.5;
+
+  // Location
+  --fs-shipping-simulation-location-padding-bottom  : var(--fs-spacing-2);
+
+  // Table
+  --fs-shipping-simulation-table-row-bkg-color      : var(--fs-color-main-0);
+  --fs-shipping-simulation-table-row-even-bkg-color : transparent;
+
+  --fs-shipping-simulation-table-cell-padding       : var(--fs-spacing-2);
+  --fs-shipping-simulation-table-cell-text-size     : var(--fs-text-size-2);
+  --fs-shipping-simulation-table-cell-border-radius : .25rem;
+
+  font-size: var(--fs-shipping-simulation-font-size);
+
+  @include media(">=tablet") {
+    grid-row: 3 / span 2;
+    grid-column: 8 / span 5;
+    padding: var(--fs-shipping-simulation-padding);
+    border: var(--fs-shipping-simulation-border-width) solid var(--fs-shipping-simulation-border-color);
+    border-top: 0;
+    border-bottom-right-radius: var(--fs-shipping-simulation-border-radius-bottom);
+    border-bottom-left-radius: var(--fs-shipping-simulation-border-radius-bottom);
+  }
+
+  @include media(">=notebook") { grid-column: 9 / span 4; }
+
+  &[data-fs-shipping-simulation-empty="true"] {
+    grid-row: 3;
+  }
+
+  [data-fs-shipping-simulation-title] {
+    padding-bottom: var(--fs-shipping-simulation-title-padding-bottom);
+  }
+
+  [data-fs-shipping-simulation-link] {
+    display: flex;
+    align-items: center;
+    padding-top: var(--fs-shipping-simulation-link-padding-top);
+    padding-bottom: var(--fs-shipping-simulation-link-padding-bottom);
+
+    svg {
+      margin-left: var(--fs-spacing-0);
+    }
+  }
+
+  [data-fs-shipping-simulation-subtitle] {
+    font-size: var(--fs-shipping-simulation-subtitle-text-size);
+    font-weight: var(--fs-shipping-simulation-subtitle-text-weight);
+    line-height: var(--fs-shipping-simulation-subtitle-line-height);
+  }
+
+  [data-fs-shipping-simulation-location] {
+    padding-bottom: var(--fs-shipping-simulation-location-padding-bottom);
+  }
+
+  [data-fs-shipping-simulation-table] {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  [data-fs-shipping-simulation-table-row] {
+    background-color: var(--fs-shipping-simulation-table-row-bkg-color);
+
+    &:nth-child(even) {
+      background-color: var(--fs-shipping-simulation-table-row-even-bkg-color);
+    }
+  }
+
+  [data-fs-shipping-simulation-table-cell] {
+    padding: var(--fs-shipping-simulation-table-cell-padding);
+    font-size: var(--fs-shipping-simulation-table-cell-text-size);
+
+    &:first-child {
+      border-top-left-radius: var(--fs-shipping-simulation-table-cell-border-radius);
+      border-bottom-left-radius: var(--fs-shipping-simulation-table-cell-border-radius);
+    }
+
+    &:last-child {
+      text-align: right;
+      border-top-right-radius: var(--fs-shipping-simulation-table-cell-border-radius);
+      border-bottom-right-radius: var(--fs-shipping-simulation-table-cell-border-radius);
+    }
+  }
+}

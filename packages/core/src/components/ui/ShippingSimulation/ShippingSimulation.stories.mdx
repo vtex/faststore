@@ -1,0 +1,153 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import ShippingSimulation from '.'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Features/ShippingSimulation"
+  component={ShippingSimulation}
+  argTypes={{
+    testId: {
+      table: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const TemplateProvider = (args) => {
+  return <ShippingSimulation {...args} style={{ border: 0 }} />
+}
+
+<header>
+
+# Shipping Simulation
+
+This feature lets customers set the `PostalCode` and see the shipping options in the `PDP`.
+
+</header>
+
+## Overview
+
+The `ShippingSimulation` component uses [FastStore UI Table](https://www.faststore.dev/reference/ui/molecules/Table), and [InputText](/docs/atoms-inputtext-⚠%EF%B8%8F--default) as base.
+
+### Steps
+
+1. First, the available `ShippingSimulation` loads if any `PostalCode` is set using the [Regionalization](/docs/features-regionalization-overview--default-button).
+2. If there is no `PostalCode` in the [Regionalization](/docs/features-regionalization-overview--default-button), the user can set the desired shipping `PostalCode`.
+3. Updates `ShippingSimulation`.
+4. Gets notified if there are no available options.
+
+---
+
+## Usage
+
+`import ShippingSimulation from 'src/components/ui/ShippingSimulation'`
+
+<Canvas>
+  <Story name="default">{TemplateProvider.bind({})}</Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-shipping-simulation-font-size"
+    value="var(--fs-text-size-legend)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-shipping-simulation-padding"
+    value="var(--fs-spacing-5)"
+  />
+  <TokenRow
+    token="--fs-shipping-simulation-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-shipping-simulation-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-shipping-simulation-border-radius-bottom"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-shipping-simulation-title-padding-bottom"
+    value="var(--fs-spacing-2)"
+  />
+</TokenTable>
+
+### Link
+
+<TokenTable>
+  <TokenRow
+    token="--fs-shipping-simulation-link-padding-top"
+    value="var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-shipping-simulation-link-padding-bottom"
+    value="var(--fs-spacing-4)"
+  />
+</TokenTable>
+
+### Subtitle
+
+<TokenTable>
+  <TokenRow
+    token="--fs-shipping-simulation-subtitle-text-size"
+    value="var(--fs-text-size-2)"
+  />
+  <TokenRow
+    token="--fs-shipping-simulation-subtitle-text-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow token="--fs-shipping-simulation-subtitle-line-height" value="1.5" />
+</TokenTable>
+
+### Location
+
+<TokenTable>
+  <TokenRow
+    token="--fs-shipping-simulation-location-padding-bottom"
+    value="var(--fs-spacing-2)"
+  />
+</TokenTable>
+
+### Table
+
+<TokenTable>
+  <TokenRow
+    token="--fs-shipping-simulation-table-row-bkg-color"
+    value="var(--fs-color-main-0)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-shipping-simulation-table-row-even-bkg-color"
+    value="transparent"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-shipping-simulation-table-cell-padding"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-shipping-simulation-table-cell-text-size"
+    value="var(--fs-text-size-2)"
+  />
+  <TokenRow
+    token="--fs-shipping-simulation-table-cell-border-radius"
+    value=".25rem"
+  />
+</TokenTable>

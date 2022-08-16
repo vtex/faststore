@@ -11,6 +11,7 @@ import { ImageGallery } from 'src/components/ui/ImageGallery'
 import Price from 'src/components/ui/Price'
 import ProductTitle from 'src/components/ui/ProductTitle'
 import QuantitySelector from 'src/components/ui/QuantitySelector'
+import ShippingSimulation from 'src/components/ui/ShippingSimulation'
 import { useBuyButton } from 'src/sdk/cart/useBuyButton'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import { useProduct } from 'src/sdk/product/useProduct'
@@ -182,6 +183,8 @@ function ProductDetails({ product: staleProduct }: Props) {
             />
           )}
         </section>
+
+        <ShippingSimulation />
 
         <section className="product-details__content">
           <article className="product-details__description">

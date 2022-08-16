@@ -24,7 +24,7 @@
 
   @include media(">=tablet") {
     left: 0;
-    grid-row: 1 / span 2;
+    grid-row: 1 / span 3;
     grid-column: span 7;
     width: 100%;
     margin-bottom: var(--fs-spacing-7);
