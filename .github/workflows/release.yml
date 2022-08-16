@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - plugins-v1x
 
 jobs:
   lint:
