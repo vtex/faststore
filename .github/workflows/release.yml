@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - v1.5.20/nginx-headers-avon
 
 jobs:
   lint:
@@ -75,6 +76,6 @@ jobs:
         run: yarn build
 
       - name: Publish package
-        run: lerna publish patch --yes --no-verify-access --ignore-scripts --conventional-commits
+        run: lerna publish prepatch --preid avon --yes --no-verify-access --ignore-scripts --conventional-commits
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
