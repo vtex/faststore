@@ -1,7 +1,7 @@
 """
 Shipping Simulation item.
 """
-type ShippingItem {
+input IShippingItem {
   id: String!
   quantity: Int!
   seller: String!
@@ -11,11 +11,91 @@ type ShippingItem {
 Shipping Simulation information.
 """
 type ShippingData {
-  logisticsInfo: [LogisticItem]
+  items: [LogisticsItem]
+  logisticsInfo: [LogisticsInfo]
+  messages: [MessageInfo]
 }
 """
 Shipping Simulation Logistic Item.
 """
-type LogisticItem {
-  regionId: String
+type LogisticsItem {
+  id: String
+  requestIndex: Int
+  quantity: Int
+  seller: String
+  sellerChain: [String]
+  tax: Int
+  priceValidUntil: String
+  price: Int
+  listPrice: Int
+  rewardValue: Int
+  sellingPrice: Int
+  measurementUnit: String
+  unitMultiplier: Int
+  availability: String
+}
+
+type LogisticsInfo {
+  itemIndex: String
+  selectedSla: String
+  slas: [ShippingSLA]
+}
+
+type ShippingSLA {
+  id: String
+  name: String
+  price: Float
+  shippingEstimate: String
+  shippingEstimateDate: String
+  deliveryIds: [DeliveryIds]
+  deliveryChannel: String
+  friendlyName: String
+  pickupPointId: String
+  pickupStoreInfo: PickupStoreInfo
+  pickupDistance: Float
+}
+
+type DeliveryIds {
+  courierId: String
+  warehouseId: String
+  dockId: String
+  courierName: String
+  quantity: Int
+}
+
+type PickupStoreInfo {
+  friendlyName: String
+  address: PickupAddress
+  additionalInfo: String
+  dockId: String
+  isPickupStore: Boolean
+}
+
+type PickupAddress {
+  addressType: String
+  receiverName: String
+  addressId: String
+  postalCode: String
+  city: String
+  state: String
+  country: String
+  street: String
+  number: String
+  neighborhood: String
+  complement: String
+  reference: String
+  geoCoordinates: [Float]
+}
+
+type MessageInfo {
+  code: String
+  text: String
+  status: String
+  fields: MessageFields
+}
+
+type MessageFields {
+  itemIndex: String
+  ean: String
+  skuName: String
 }

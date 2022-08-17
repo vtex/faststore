@@ -248,7 +248,7 @@ type Query {
     """
     List of SKU products
     """
-    items: [ShippingItem!]!
+    items: [IShippingItem!]!
     """
     Postal code to freight calculator
     """

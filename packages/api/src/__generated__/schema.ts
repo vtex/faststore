@@ -74,12 +74,28 @@ export type Scalars = {
   VariantsByName: any;
 };
 
+export type DeliveryIds = {
+  __typename?: 'DeliveryIds';
+  courierId?: Maybe<Scalars['String']>;
+  courierName?: Maybe<Scalars['String']>;
+  dockId?: Maybe<Scalars['String']>;
+  quantity?: Maybe<Scalars['Int']>;
+  warehouseId?: Maybe<Scalars['String']>;
+};
+
 /** Person data input to the newsletter. */
 export type IPersonNewsletter = {
   /** Person's email. */
   email: Scalars['String'];
   /** Person's name. */
   name: Scalars['String'];
+};
+
+/** Shipping Simulation item. */
+export type IShippingItem = {
+  id: Scalars['String'];
+  quantity: Scalars['Int'];
+  seller: Scalars['String'];
 };
 
 /** Shopping cart input. */
@@ -190,10 +206,45 @@ export type IStoreSession = {
   postalCode?: Maybe<Scalars['String']>;
 };
 
+export type LogisticsInfo = {
+  __typename?: 'LogisticsInfo';
+  itemIndex?: Maybe<Scalars['String']>;
+  selectedSla?: Maybe<Scalars['String']>;
+  slas?: Maybe<Array<Maybe<ShippingSla>>>;
+};
+
 /** Shipping Simulation Logistic Item. */
-export type LogisticItem = {
-  __typename?: 'LogisticItem';
-  regionId?: Maybe<Scalars['String']>;
+export type LogisticsItem = {
+  __typename?: 'LogisticsItem';
+  availability?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  listPrice?: Maybe<Scalars['Int']>;
+  measurementUnit?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+  priceValidUntil?: Maybe<Scalars['String']>;
+  quantity?: Maybe<Scalars['Int']>;
+  requestIndex?: Maybe<Scalars['Int']>;
+  rewardValue?: Maybe<Scalars['Int']>;
+  seller?: Maybe<Scalars['String']>;
+  sellerChain?: Maybe<Array<Maybe<Scalars['String']>>>;
+  sellingPrice?: Maybe<Scalars['Int']>;
+  tax?: Maybe<Scalars['Int']>;
+  unitMultiplier?: Maybe<Scalars['Int']>;
+};
+
+export type MessageFields = {
+  __typename?: 'MessageFields';
+  ean?: Maybe<Scalars['String']>;
+  itemIndex?: Maybe<Scalars['String']>;
+  skuName?: Maybe<Scalars['String']>;
+};
+
+export type MessageInfo = {
+  __typename?: 'MessageInfo';
+  code?: Maybe<Scalars['String']>;
+  fields?: Maybe<MessageFields>;
+  status?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -227,6 +278,32 @@ export type PersonNewsletter = {
   __typename?: 'PersonNewsletter';
   /** Person's ID in the newsletter list. */
   id: Scalars['String'];
+};
+
+export type PickupAddress = {
+  __typename?: 'PickupAddress';
+  addressId?: Maybe<Scalars['String']>;
+  addressType?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  complement?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  neighborhood?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  receiverName?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+};
+
+export type PickupStoreInfo = {
+  __typename?: 'PickupStoreInfo';
+  additionalInfo?: Maybe<Scalars['String']>;
+  address?: Maybe<PickupAddress>;
+  dockId?: Maybe<Scalars['String']>;
+  friendlyName?: Maybe<Scalars['String']>;
+  isPickupStore?: Maybe<Scalars['Boolean']>;
 };
 
 export type Query = {
@@ -279,22 +356,31 @@ export type QuerySearchArgs = {
 
 export type QueryShippingArgs = {
   country?: Maybe<Scalars['String']>;
-  items: Array<ShippingItem>;
+  items: Array<IShippingItem>;
   postalCode?: Maybe<Scalars['String']>;
 };
 
 /** Shipping Simulation information. */
 export type ShippingData = {
   __typename?: 'ShippingData';
-  logisticsInfo?: Maybe<Array<Maybe<LogisticItem>>>;
+  items?: Maybe<Array<Maybe<LogisticsItem>>>;
+  logisticsInfo?: Maybe<Array<Maybe<LogisticsInfo>>>;
+  messages?: Maybe<Array<Maybe<MessageInfo>>>;
 };
 
-/** Shipping Simulation item. */
-export type ShippingItem = {
-  __typename?: 'ShippingItem';
-  id: Scalars['String'];
-  quantity: Scalars['Int'];
-  seller: Scalars['String'];
+export type ShippingSla = {
+  __typename?: 'ShippingSLA';
+  deliveryChannel?: Maybe<Scalars['String']>;
+  deliveryIds?: Maybe<Array<Maybe<DeliveryIds>>>;
+  friendlyName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  pickupDistance?: Maybe<Scalars['Float']>;
+  pickupPointId?: Maybe<Scalars['String']>;
+  pickupStoreInfo?: Maybe<PickupStoreInfo>;
+  price?: Maybe<Scalars['Float']>;
+  shippingEstimate?: Maybe<Scalars['String']>;
+  shippingEstimateDate?: Maybe<Scalars['String']>;
 };
 
 export type SkuVariants = {
