@@ -1,0 +1,21 @@
+"""
+Shipping Simulation item.
+"""
+type ShippingItem {
+  id: String!
+  quantity: Int!
+  seller: String!
+}
+
+"""
+Shipping Simulation information.
+"""
+type ShippingData {
+  logisticsInfo: [LogisticItem]
+}
+"""
+Shipping Simulation Logistic Item.
+"""
+type LogisticItem {
+  regionId: String
+}

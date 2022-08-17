@@ -190,6 +190,12 @@ export type IStoreSession = {
   postalCode?: Maybe<Scalars['String']>;
 };
 
+/** Shipping Simulation Logistic Item. */
+export type LogisticItem = {
+  __typename?: 'LogisticItem';
+  regionId?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /** Subscribes a new person to the newsletter list. */
@@ -235,6 +241,8 @@ export type Query = {
   product: StoreProduct;
   /** Returns the result of a product, facet, or suggestion search. */
   search: StoreSearchResult;
+  /** Returns information about shipping simulation. */
+  shipping?: Maybe<ShippingData>;
 };
 
 
@@ -266,6 +274,27 @@ export type QuerySearchArgs = {
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryShippingArgs = {
+  country?: Maybe<Scalars['String']>;
+  items: Array<ShippingItem>;
+  postalCode?: Maybe<Scalars['String']>;
+};
+
+/** Shipping Simulation information. */
+export type ShippingData = {
+  __typename?: 'ShippingData';
+  logisticsInfo?: Maybe<Array<Maybe<LogisticItem>>>;
+};
+
+/** Shipping Simulation item. */
+export type ShippingItem = {
+  __typename?: 'ShippingItem';
+  id: Scalars['String'];
+  quantity: Scalars['Int'];
+  seller: Scalars['String'];
 };
 
 export type SkuVariants = {
@@ -610,6 +639,8 @@ export type StoreProduct = {
   offers: StoreAggregateOffer;
   /** Product ID, such as [ISBN](https://www.isbn-international.org/content/what-isbn) or similar global IDs. */
   productID: Scalars['String'];
+  /** The product's release date. Formatted using https://en.wikipedia.org/wiki/ISO_8601 */
+  releaseDate: Scalars['String'];
   /** Array with review information. */
   review: Array<StoreReview>;
   /** Meta tag data. */

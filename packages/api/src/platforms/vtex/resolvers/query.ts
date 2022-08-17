@@ -18,6 +18,7 @@ import type {
   QueryCollectionArgs,
   QueryProductArgs,
   QuerySearchArgs,
+  QueryShippingArgs,
 } from "../../../__generated__/schema"
 import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
 import type { Context } from "../index"
@@ -232,5 +233,12 @@ export const Query = {
           cursor: (after + index).toString(),
         })),
     }
+  },
+  shipping: (_: unknown, { items }: QueryShippingArgs, ctx: Context) => {
+    const {
+      loaders: { simulationLoader },
+    } = ctx
+
+    return simulationLoader.load(items)
   },
 }

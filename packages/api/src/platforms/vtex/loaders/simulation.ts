@@ -2,7 +2,7 @@ import DataLoader from 'dataloader'
 import pLimit from 'p-limit'
 
 import type {
-  PayloadItem,
+  ShippingItem,
   Simulation,
 } from '../clients/commerce/types/Simulation'
 import type { Options } from '..'
@@ -14,7 +14,7 @@ const CONCURRENT_REQUESTS_MAX = 1
 export const getSimulationLoader = (_: Options, clients: Clients) => {
   const limit = pLimit(CONCURRENT_REQUESTS_MAX)
 
-  const loader = async (allItems: readonly PayloadItem[][]) => {
+  const loader = async (allItems: readonly ShippingItem[][]) => {
     const items = [...allItems.flat()]
     const simulation = await clients.commerce.checkout.simulation({
       items,
@@ -45,10 +45,10 @@ export const getSimulationLoader = (_: Options, clients: Clients) => {
     }))
   }
 
-  const limited = async (allItems: readonly PayloadItem[][]) =>
+  const limited = async (allItems: readonly ShippingItem[][]) =>
     limit(loader, allItems)
 
-  return new DataLoader<PayloadItem[], Simulation>(limited, {
+  return new DataLoader<ShippingItem[], Simulation>(limited, {
     maxBatchSize: 50,
   })
 }

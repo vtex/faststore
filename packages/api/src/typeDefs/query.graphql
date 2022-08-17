@@ -240,4 +240,22 @@ type Query {
     """
     after: String
   ): StoreCollectionConnection!
+
+  """
+  Returns information about shipping simulation.
+  """
+  shipping(
+    """
+    List of SKU products
+    """
+    items: [ShippingItem!]!
+    """
+    Postal code to freight calculator
+    """
+    postalCode: String
+    """
+    Country of postal code
+    """
+    country: String
+  ): ShippingData
 }
