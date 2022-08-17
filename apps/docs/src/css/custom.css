@@ -38,7 +38,7 @@
   --ifm-color-serious-black: #142032;
   --ifm-color-white-ice: #f8f7fc;
   --ifm-tag-highlight: #fff3f6;
-  --ifm-color-details: #4a596b;
+  --ifm-color-details: #717786;
 
   --ifm-hover-overlay: var(--ifm-color-white-ice);
 
@@ -50,9 +50,10 @@
   --ifm-color-secondary: var(--ifm-color-rebel-pink);
   --ifm-font-color-secondary: var(--ifm-color-serious-black);
 
-  --ifm-font-color-base: #4a4a4a;
-  --ifm-hr-border-color: #e6e9ed;
-  --ifm-color-border: #e6e9ed;
+  --ifm-font-color-base: #4a596b;
+  --ifm-hr-border-color: #e7e9ee;
+  --ifm-hr-background-color: #e7e9ee;
+  --ifm-color-border: #e7e9ee;
   --ifm-heading-font-family: 'VTEX Trust Regular', -apple-system, system-ui,
     BlinkMacSystemFont, sans-serif;
   --ifm-font-family-base: 'VTEX Trust Regular', -apple-system, system-ui,

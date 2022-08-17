@@ -42,7 +42,7 @@ const DocUpdate = () => {
     comp = (
       <>
         <div className="mb-6">
-          <h2 className="inline-block mr-3 align-middle">
+          <h2 className="inline-block mr-3">
             Documentation Updates
           </h2>
           <p className="inline-block px-2 rounded-full bg-tagHighlight text-rebelPink">

@@ -339,8 +339,8 @@ module.exports = {
       collapsed: false,
       collapsible: false,
       items: [
-        'beta/customer-invitation',
-        'beta/feedback-and-issue-tracking'
+        'beta/feedback-and-issue-tracking',
+        'beta/customer-invitation'
       ],
     },
     {
@@ -350,8 +350,8 @@ module.exports = {
       collapsed: false,
       collapsible: false,
       items: [
-        'beta/changes-from-store-framework',
-        'beta/features-and-capabilities'
+        'beta/features-and-capabilities',
+        'beta/changes-from-store-framework'
       ],
     }
   ],

@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        VTEXTrust: ['VTEX Trust', 'sans-serif'],
+        VTEXTrust: ['VTEX Trust Regular', 'sans-serif'],
         VTEXRegular: ['VTEX Trust Regular', 'sans-serif'],
         VTEXMedium: ['VTEX Trust Medium', 'sans-serif'],
       },
