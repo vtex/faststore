@@ -234,11 +234,15 @@ export const Query = {
         })),
     }
   },
-  shipping: (_: unknown, { items }: QueryShippingArgs, ctx: Context) => {
+  shipping: (
+    _: unknown,
+    { country, items, postalCode }: QueryShippingArgs,
+    ctx: Context
+  ) => {
     const {
       loaders: { simulationLoader },
     } = ctx
 
-    return simulationLoader.load(items)
+    return simulationLoader.load({ country, items, postalCode })
   },
 }

@@ -252,10 +252,10 @@ type Query {
     """
     Postal code to freight calculator
     """
-    postalCode: String
+    postalCode: String!
     """
     Country of postal code
     """
-    country: String
+    country: String!
   ): ShippingData
 }

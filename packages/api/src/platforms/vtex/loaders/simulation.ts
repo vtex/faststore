@@ -1,12 +1,13 @@
 import DataLoader from 'dataloader'
 import pLimit from 'p-limit'
 
+import type { Options } from '..'
+import type { Clients } from '../clients'
 import type {
   ShippingItem,
   Simulation,
+  SimulationArgs,
 } from '../clients/commerce/types/Simulation'
-import type { Options } from '..'
-import type { Clients } from '../clients'
 
 // Limits concurrent requests to the API per request cycle
 const CONCURRENT_REQUESTS_MAX = 1
@@ -14,9 +15,15 @@ const CONCURRENT_REQUESTS_MAX = 1
 export const getSimulationLoader = (_: Options, clients: Clients) => {
   const limit = pLimit(CONCURRENT_REQUESTS_MAX)
 
-  const loader = async (allItems: readonly ShippingItem[][]) => {
+  const loader = async (simulationArgs: readonly SimulationArgs[]) => {
+    const allItems = simulationArgs.reduce((acc, { items }: SimulationArgs) => {
+      return [...acc, items]
+    }, [] as ShippingItem[][])
+
     const items = [...allItems.flat()]
     const simulation = await clients.commerce.checkout.simulation({
+      country: simulationArgs[0].country,
+      postalCode: simulationArgs[0].postalCode,
       items,
     })
 
@@ -45,10 +52,10 @@ export const getSimulationLoader = (_: Options, clients: Clients) => {
     }))
   }
 
-  const limited = async (allItems: readonly ShippingItem[][]) =>
+  const limited = async (allItems: readonly SimulationArgs[]) =>
     limit(loader, allItems)
 
-  return new DataLoader<ShippingItem[], Simulation>(limited, {
+  return new DataLoader<SimulationArgs, Simulation>(limited, {
     maxBatchSize: 50,
   })
 }

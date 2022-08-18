@@ -355,9 +355,9 @@ export type QuerySearchArgs = {
 
 
 export type QueryShippingArgs = {
-  country?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
   items: Array<IShippingItem>;
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
 };
 
 /** Shipping Simulation information. */
