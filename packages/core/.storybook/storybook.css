@@ -521,3 +521,10 @@ header.sbdocs-hero + .sbdocs-callout {
   flex-direction: column;
   width: 49%;
 }
+
+/* Navlinks - workaround to display on stories */
+/* stylelint-disable-next-line selector-id-pattern */
+#story--organisms-navbar-navlinks--overview-default {
+  position: relative;
+  z-index: 0;
+}

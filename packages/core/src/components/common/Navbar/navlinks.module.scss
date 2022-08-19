@@ -34,7 +34,7 @@
   // --------------------------------------------------------
 
   position: relative;
-  z-index: var(--fs-z-index-default);
+  z-index: var(--fs-z-index-below);
   background-color: var(--fs-navlinks-bkg-color);
   transition: var(--fs-navlinks-transition-property) var(--fs-navlinks-transition-timing) var(--fs-navlinks-transition-function);
 
