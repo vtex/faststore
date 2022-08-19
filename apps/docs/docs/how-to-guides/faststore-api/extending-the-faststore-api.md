@@ -1,24 +1,27 @@
 # Extending the GraphQL schema
 
-Although the [FastStore API](https://www.faststore.dev/reference/api/faststore-api) provides a complete [GraphQL schema for ecommerce](https://www.faststore.dev/reference/api/queries), some stores may need to access other, more specific, information.
+Although the [FastStore API](/reference/api/faststore-api) provides a complete [GraphQL schema for ecommerce](/reference/api/queries), some stores may need to access other, more specific, information.
 
-For those cases, it is possible to extend the FastStore API schema, adding new data to the existing [queries](https://www.faststore.dev/reference/api/queries).
+For those cases, it is possible to extend the FastStore API schema, adding new data to the existing [queries](/reference/api/queries).
+
+In this guide you will learn how to implement this in your project. You can also view a [summary](#summary) of the expected behavior and a [complete code example](#complete-code-example).
 
 :::info
 Once you have implemented the schema extension in your code, you can run a local [test with GraphiQL](/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api).
 :::
 
-## Implementation
+## Step by step
 
-To do this, there are a few steps you must follow:
+To extend the GraphQL schema of your FastStore project, there are a few steps you must follow:
 
-1. [Prepare files](#prepare-files).
-2. [Create type definitions](#create-type-definitions).
-3. [Create resolvers](#create-resolvers).
-4. [Get FastStore API schema](#get-faststore-api-schema).
-5. [Merge executable schemas](#merge-executable-schemas).
+1. [Prepare files](#step-1-prepare-files).
+2. [Create type definitions](#step-2-create-type-definitions).
+3. [Create resolvers](#step-3-create-resolvers).
+4. [Get FastStore API schema](#step-4-get-faststore-api-schema).
+5. [Merge executable schemas](#step-5-merge-executable-schemas).
+6. [Integrate with the GraphQL layer](#step-6-integrate-with-the-graphql-layer).
 
-### Prepare files
+### Step 1 - Prepare files
 
 The FastStore executable schema is exported by the `src/server/index.ts` file of your project. This means you must edit that same file to merge the existing schema with the one you create.
 
@@ -35,11 +38,11 @@ import { mergeTypeDefs } from '@graphql-tools/merge'
 import type { Options as APIOptions } from '@faststore/api'
 ```
 
-### Create type definitions
+### Step 2 - Create type definitions
 
 Your new type definitions set the data structure for your new fields, extended from the existing FastStore GraphQL queries and types.
 
-See the following code example of adding a new field called `customField`, which is a string, to the existing type [StoreProduct](https://www.faststore.dev/reference/api/objects#storeproduct).
+See the following code example of adding a new field called `customField`, which is a string, to the existing type [StoreProduct](/reference/api/objects#storeproduct).
 
 ```ts
 const typeDefs = `
@@ -49,7 +52,7 @@ const typeDefs = `
 `
 ```
 
-### Create resolvers
+### Step 3 - Create resolvers
 
 Resolvers are the functions that give meaning to the data you have structured in the type definitions. This means a resolver will be executed when the corresponding piece of information is queried.
 
@@ -71,9 +74,9 @@ const resolvers = {
 
 It is important to note that every resolver has [implicit arguments](https://graphql.org/learn/execution/#root-fields-resolvers) aside from what you define when writing your function. This includes the `root` of the type, which means your resolver has access to all information in that type.
 
-For instance, in the example above the resolver can use whatever information is contained in the existing [StoreProduct](https://www.faststore.dev/reference/api/objects#storeproduct) type definition.
+For instance, in the example above the resolver can use whatever information is contained in the existing [StoreProduct](/reference/api/objects#storeproduct) type definition.
 
-### Get FastStore API schema
+### Step 4 - Get FastStore API schema
 
 To get the existing FastStore API schema, use the imported `getSchema` function. This function takes arguments in the form of the imported `APIOptions` type.
 
@@ -100,7 +103,7 @@ const apiOptions: APIOptions = {
 export const apiSchema = getSchema(apiOptions)
 ```
 
-### Merge executable schemas
+### Step 5 - Merge executable schemas
 
 Now it is time to make an executable schema from your newly created type definitions and resolvers and then merge that with the existing FastStore API schema.
 
@@ -136,11 +139,11 @@ export const finalSchema = getMergedSchemas()
 Note that the final merged schema in the example above has a different name than the existing exported one. You must make sure that all instances in which it is used have the correct name. For instance, you can change the name of the unextended native schema to `nativeApiSchema` and the final one to `apiSchema` which is already used in the rest of the project. An example of this is in the [complete example](#complete-implementation-below) below.
 :::
 
-### Integrate with the GraphQL layer
+### Step 6 - Integrate with the GraphQL layer
 
 If you are already using the FastStore API with its native schema, it is likely that this is already coded on your `src/server/index.ts` file. The main goal at this point is to make sure you are passing the extended schema, not the native one.
 
-The example below is based on the [Base store starters](https://www.faststore.dev/starters/base) which use [Envelop](https://www.envelop.dev/).
+The example below is based on the [Base store starters](/starters/base) which use [Envelop](https://www.envelop.dev/).
 
 ```ts
 const getEnvelop = async () =>
@@ -158,7 +161,7 @@ const getEnvelop = async () =>
 
 However, there are different ways to enrich your GraphQL execution layer, such as using [Apollo](https://www.apollographql.com/) instead of Envelop, each with its implementation specification. Whatever technology you decide to use, ensure you are passing the extended schema.
 
-## Complete implementation example
+### Complete code example
 
 The example below contains all code described in the sections above as it might be implemented in a single file, `src/server/index.ts`. It covers the consolidated code you have seen above, which are modifications and additions to the existing code, not the complete resulting file.
 
@@ -243,3 +246,7 @@ const getEnvelop = async () =>
 ...
 
 ```
+
+## Summary
+
+After completing the steps above, the FastStore GraphQL API schema of your project will be extended and you will be able to use your custom API fields in your store. See these other guides to learn how to [test your schema using GraphiQL](/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api) and [fetch API information in your storefront](/how-to-guides/faststore-api/fetching-api-data).
