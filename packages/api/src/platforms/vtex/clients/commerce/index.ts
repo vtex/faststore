@@ -17,6 +17,7 @@ import type { Session } from './types/Session'
 import type { Channel } from '../../utils/channel'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
+import type { Address, AddressInput } from './types/Address'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -159,6 +160,14 @@ export const VtexCommerce = (
           `${base}/api/checkout/pub/regions/?postalCode=${postalCode}&country=${country}&sc=${
             salesChannel ?? ''
           }`
+        )
+      },
+      address: async ({
+        postalCode,
+        country,
+      }: AddressInput): Promise<Address> => {
+        return fetchAPI(
+          `${base}/api/checkout/pub/postal-code/${country}/${postalCode}`
         )
       },
     },

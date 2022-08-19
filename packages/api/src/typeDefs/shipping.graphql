@@ -14,6 +14,7 @@ type ShippingData {
   items: [LogisticsItem]
   logisticsInfo: [LogisticsInfo]
   messages: [MessageInfo]
+  address: Address
 }
 """
 Shipping Simulation Logistic Item.

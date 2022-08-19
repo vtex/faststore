@@ -1,5 +1,6 @@
 import { print } from 'graphql'
 
+import Address from './address.graphql'
 import AggregateOffer from './aggregateOffer.graphql'
 import AggregateRating from './aggregateRating.graphql'
 import Author from './author.graphql'
@@ -31,6 +32,7 @@ import Status from './status.graphql'
 export const typeDefs = [
   Query,
   Mutation,
+  Address,
   Brand,
   Breadcrumb,
   Collection,

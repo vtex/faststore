@@ -74,6 +74,20 @@ export type Scalars = {
   VariantsByName: any;
 };
 
+export type Address = {
+  __typename?: 'Address';
+  city?: Maybe<Scalars['String']>;
+  complement?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  geoCoordinates?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  neighborhood?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+};
+
 export type DeliveryIds = {
   __typename?: 'DeliveryIds';
   courierId?: Maybe<Scalars['String']>;
@@ -363,6 +377,7 @@ export type QueryShippingArgs = {
 /** Shipping Simulation information. */
 export type ShippingData = {
   __typename?: 'ShippingData';
+  address?: Maybe<Address>;
   items?: Maybe<Array<Maybe<LogisticsItem>>>;
   logisticsInfo?: Maybe<Array<Maybe<LogisticsInfo>>>;
   messages?: Maybe<Array<Maybe<MessageInfo>>>;

@@ -234,15 +234,24 @@ export const Query = {
         })),
     }
   },
-  shipping: (
+  shipping: async (
     _: unknown,
     { country, items, postalCode }: QueryShippingArgs,
     ctx: Context
   ) => {
     const {
       loaders: { simulationLoader },
+      clients: { commerce },
     } = ctx
 
-    return simulationLoader.load({ country, items, postalCode })
+    const [simulation, address] = await Promise.all([
+      simulationLoader.load({ country, items, postalCode }),
+      commerce.checkout.address({ postalCode, country }),
+    ])
+
+    return {
+      ...simulation,
+      address,
+    }
   },
 }
