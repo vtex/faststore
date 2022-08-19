@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.34.3](https://github.com/vtex-sites/nextjs.store/compare/22.34.2...22.34.3) (2022-08-19)
+
+
+### Bug Fixes
+
+* Display `SearchDropdown` correctly ([#212](https://github.com/vtex-sites/nextjs.store/issues/212)) ([33667f8](https://github.com/vtex-sites/nextjs.store/commit/33667f83807639456e08088b84e55fc2295449ed))
+
 ### [22.34.2](https://github.com/vtex-sites/nextjs.store/compare/22.34.1...22.34.2) (2022-08-19)
 
 
