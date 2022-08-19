@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.34.2](https://github.com/vtex-sites/nextjs.store/compare/22.34.1...22.34.2) (2022-08-19)
+
+
+### Chores
+
+* Renames/Updates border tokens ([#208](https://github.com/vtex-sites/nextjs.store/issues/208)) ([0d4928f](https://github.com/vtex-sites/nextjs.store/commit/0d4928fa821b9d77d2fd3318a228310bef89f03a))
+
 ### [22.34.1](https://github.com/vtex-sites/nextjs.store/compare/22.34.0...22.34.1) (2022-08-16)
 
 
