@@ -14,12 +14,12 @@ Once you have implemented the schema extension in your code, you can run a local
 
 To extend the GraphQL schema of your FastStore project, there are a few steps you must follow:
 
-1. [Prepare files](#step-1-prepare-files).
-2. [Create type definitions](#step-2-create-type-definitions).
-3. [Create resolvers](#step-3-create-resolvers).
-4. [Get FastStore API schema](#step-4-get-faststore-api-schema).
-5. [Merge executable schemas](#step-5-merge-executable-schemas).
-6. [Integrate with the GraphQL layer](#step-6-integrate-with-the-graphql-layer).
+1. [Prepare files](#step-1--prepare-files).
+2. [Create type definitions](#step-2--create-type-definitions).
+3. [Create resolvers](#step-3--create-resolvers).
+4. [Get FastStore API schema](#step-4--get-faststore-api-schema).
+5. [Merge executable schemas](#step-5--merge-executable-schemas).
+6. [Integrate with the GraphQL layer](#step-6--integrate-with-the-graphql-layer).
 
 ### Step 1 - Prepare files
 
