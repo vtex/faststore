@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.34.5](https://github.com/vtex-sites/nextjs.store/compare/22.34.4...22.34.5) (2022-08-19)
+
+
+### Features
+
+* integrate with client-cms ([#205](https://github.com/vtex-sites/nextjs.store/issues/205)) ([edb1139](https://github.com/vtex-sites/nextjs.store/commit/edb113942b1163875b4c2d97d7cd88b85c42fbfe))
+
 ### [22.34.4](https://github.com/vtex-sites/nextjs.store/compare/22.34.3...22.34.4) (2022-08-19)
 
 
