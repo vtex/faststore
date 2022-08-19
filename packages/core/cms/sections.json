@@ -66,6 +66,18 @@
         "actionLabel": {
           "type": "string",
           "title": "Action label"
+        },
+        "colorVariant": {
+          "type": "string",
+          "title": "Color Variant",
+          "enumNames": ["Main", "Light", "Accent"],
+          "enum": ["main", "light", "accent"]
+        },
+        "variant": {
+          "type": "string",
+          "title": "Variant",
+          "enumNames": ["Primary", "Secondary"],
+          "enum": ["primary", "secondary"]
         }
       }
     }
@@ -110,16 +122,17 @@
     "schema": {
       "title": "Incentives Header",
       "description": "Add Incentives to your shopper",
-      "required": ["firstLineText", "icon"],
       "type": "object",
       "properties": {
         "incentives": {
+          "title": "Incentives",
           "type": "array",
           "minItems": 3,
           "maxItems": 5,
           "items": {
             "title": "Incentive",
             "type": "object",
+            "required": ["title", "firstLineText", "icon"],
             "properties": {
               "title": {
                 "type": "string",
