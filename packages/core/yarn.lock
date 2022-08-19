@@ -3919,6 +3919,14 @@
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
+"@vtex/client-cms@^0.2.10":
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/@vtex/client-cms/-/client-cms-0.2.10.tgz#d2e3dee0b9a38b0ee3de3e4cec0d31349f4c8cf5"
+  integrity sha512-z9pg0srPxdL5lZ+tgWsnYvsHm2IcNEOukVnjJ1+8GqWDFiaJkPskuJhhuJhA7cAa4pLpDUONYnDlALT1BTNnFg==
+  dependencies:
+    fetch-retry "^4.1.1"
+    isomorphic-unfetch "^3.1.0"
+
 "@vtex/eslint-plugin-admin-ui@^0.2.9":
   version "0.2.21"
   resolved "https://registry.yarnpkg.com/@vtex/eslint-plugin-admin-ui/-/eslint-plugin-admin-ui-0.2.21.tgz#c78ad695ed3a14adfcee52ce786d4d975e6f0dd4"
@@ -8658,6 +8666,11 @@ fetch-blob@^3.1.2, fetch-blob@^3.1.4:
   dependencies:
     node-domexception "^1.0.0"
     web-streams-polyfill "^3.0.3"
+
+fetch-retry@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/fetch-retry/-/fetch-retry-4.1.1.tgz#fafe0bb22b54f4d0a9c788dff6dd7f8673ca63f3"
+  integrity sha512-e6eB7zN6UBSwGVwrbWVH+gdLnkW9WwHhmq2YDK1Sh30pzx1onRVGBvogTlUeWxwTa+L86NYdo4hFkh7O8ZjSnA==
 
 fetch-retry@^5.0.2:
   version "5.0.2"

@@ -35,6 +35,7 @@
     "@faststore/graphql-utils": "^1.10.34",
     "@faststore/sdk": "^1.10.34",
     "@faststore/ui": "^1.11.2",
+    "@vtex/client-cms": "^0.2.10",
     "graphql": "^15.0.0",
     "include-media": "^1.4.10",
     "next": "^12.2.0",
