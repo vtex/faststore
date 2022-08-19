@@ -35,7 +35,7 @@
 
   --fs-shipping-simulation-table-cell-padding       : var(--fs-spacing-2);
   --fs-shipping-simulation-table-cell-text-size     : var(--fs-text-size-2);
-  --fs-shipping-simulation-table-cell-border-radius : .25rem;
+  --fs-shipping-simulation-table-cell-border-radius : var(--fs-border-radius);
 
   font-size: var(--fs-shipping-simulation-font-size);
 
