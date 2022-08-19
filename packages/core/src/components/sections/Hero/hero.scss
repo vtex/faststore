@@ -6,36 +6,36 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-hero-text-size                  : var(--fs-text-size-lead);
-  --fs-hero-text-line-height           : 1.33;
+  --fs-hero-text-size                    : var(--fs-text-size-lead);
+  --fs-hero-text-line-height             : 1.33;
 
   // Title
-  --fs-hero-title-line-height          : 1.1;
+  --fs-hero-title-line-height            : 1.1;
 
   // Img
-  --fs-hero-img-border-radius          : 0;
+  --fs-hero-img-border-radius            : 0;
 
   // Primary
-  --fs-hero-primary-img-height-mob     : #{rem(240px)};
-  --fs-hero-primary-img-height-desk    : #{rem(464px)};
-  --fs-hero-primary-title-size         : var(--fs-text-size-title-huge);
+  --fs-hero-primary-img-height-mobile    : #{rem(240px)};
+  --fs-hero-primary-img-height-desktop   : #{rem(464px)};
+  --fs-hero-primary-title-size           : var(--fs-text-size-title-huge);
 
   // Secondary
-  --fs-hero-secondary-img-height-mob   : #{rem(180px)};
-  --fs-hero-secondary-img-height-desk  : #{rem(227px)};
-  --fs-hero-secondary-title-size       : var(--fs-text-size-title-page);
+  --fs-hero-secondary-img-height-mobile  : #{rem(180px)};
+  --fs-hero-secondary-img-height-desktop : #{rem(227px)};
+  --fs-hero-secondary-title-size         : var(--fs-text-size-title-page);
 
   // Main
-  --fs-hero-main-bkg-color             : var(--fs-color-primary-bkg);
-  --fs-hero-main-text-color            : var(--fs-color-primary-text);
+  --fs-hero-main-bkg-color               : var(--fs-color-primary-bkg);
+  --fs-hero-main-text-color              : var(--fs-color-primary-text);
 
   // Light
-  --fs-hero-light-bkg-color            : var(--fs-color-secondary-bkg-light);
-  --fs-hero-light-text-color           : var(--fs-color-text-display);
+  --fs-hero-light-bkg-color              : var(--fs-color-secondary-bkg-light);
+  --fs-hero-light-text-color             : var(--fs-color-text-display);
 
   // Accent
-  --fs-hero-accent-bkg-color           : var(--fs-color-highlighted-bkg);
-  --fs-hero-accent-text-color          : var(--fs-hero-light-text-color);
+  --fs-hero-accent-bkg-color             : var(--fs-color-highlighted-bkg);
+  --fs-hero-accent-text-color            : var(--fs-hero-light-text-color);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -106,7 +106,7 @@
 // --------------------------------------------------------
 
 [data-fs-hero-variant="primary"] {
-  @include media(">=tablet") { min-height: var(--fs-hero-primary-img-height-desk); }
+  @include media(">=tablet") { min-height: var(--fs-hero-primary-img-height-desktop); }
 
   h1 { font-size: var(--fs-hero-primary-title-size); }
 
@@ -123,7 +123,7 @@
   }
 
   [data-fs-hero-image] {
-    @include media("<tablet") { height: var(--fs-hero-primary-img-height-mob); }
+    @include media("<tablet") { height: var(--fs-hero-primary-img-height-mobile); }
   }
 
   [data-fs-hero-info] {
@@ -135,7 +135,7 @@
 }
 
 [data-fs-hero-variant="secondary"] {
-  @include media(">=tablet") { min-height: var(--fs-hero-secondary-img-height-desk); }
+  @include media(">=tablet") { min-height: var(--fs-hero-secondary-img-height-desktop); }
 
   h1 { font-size: var(--fs-hero-secondary-title-size); }
 
@@ -152,7 +152,7 @@
   }
 
   [data-fs-hero-image] {
-    @include media("<tablet") { height: var(--fs-hero-secondary-img-height-mob); }
+    @include media("<tablet") { height: var(--fs-hero-secondary-img-height-mobile); }
   }
 }
 
