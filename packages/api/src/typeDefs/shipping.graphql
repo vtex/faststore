@@ -1,9 +1,18 @@
 """
-Shipping Simulation item.
+Shipping Simulation item input.
 """
 input IShippingItem {
+  """
+  ShippingItem ID / Sku.
+  """
   id: String!
+  """
+  Number of items.
+  """
   quantity: Int!
+  """
+  Seller responsible for the ShippingItem.
+  """
   seller: String!
 }
 
@@ -11,92 +20,276 @@ input IShippingItem {
 Shipping Simulation information.
 """
 type ShippingData {
+  """
+  List of LogisticsItem.
+  """
   items: [LogisticsItem]
+  """
+  List of LogisticsInfo.
+  """
   logisticsInfo: [LogisticsInfo]
+  """
+  List of MessageInfo.
+  """
   messages: [MessageInfo]
+  """
+  Address information.
+  """
   address: Address
 }
+
 """
 Shipping Simulation Logistic Item.
 """
 type LogisticsItem {
+  """
+  LogisticsItem ID / Sku.
+  """
   id: String
   requestIndex: Int
+  """
+  Number of items.
+  """
   quantity: Int
+  """
+  Seller responsible for the ShippingItem.
+  """
   seller: String
+  """
+  List of Sellers.
+  """
   sellerChain: [String]
+  """
+  LogisticsItem tax.
+  """
   tax: Int
+  """
+  Next date in which price is scheduled to change. If there is no scheduled change, this will be set a year in the future from current time.
+  """
   priceValidUntil: String
+  """
+  LogisticsItem price.
+  """
   price: Int
+  """
+  LogisticsItem listPrice.
+  """
   listPrice: Int
+  """
+  LogisticsItem rewardValue.
+  """
   rewardValue: Int
+  """
+  LogisticsItem sellingPrice.
+  """
   sellingPrice: Int
+  """
+  LogisticsItem measurementUnit.
+  """
   measurementUnit: String
+  """
+  LogisticsItem unitMultiplier.
+  """
   unitMultiplier: Int
+  """
+  LogisticsItem availability.
+  """
   availability: String
 }
 
 type LogisticsInfo {
+  """
+  LogisticsInfo itemIndex.
+  """
   itemIndex: String
+  """
+  LogisticsInfo selectedSla.
+  """
   selectedSla: String
+  """
+  List of LogisticsInfo ShippingSLA.
+  """
   slas: [ShippingSLA]
 }
 
 type ShippingSLA {
+  """
+  ShippingSLA id.
+  """
   id: String
+  """
+  ShippingSLA name.
+  """
   name: String
+  """
+  ShippingSLA price.
+  """
   price: Float
+  """
+  ShippingSLA shipping estimate.
+  """
   shippingEstimate: String
+  """
+  ShippingSLA shipping estimate date.
+  """
   shippingEstimateDate: String
+  """
+  List of ShippingSLA delivery ids.
+  """
   deliveryIds: [DeliveryIds]
+  """
+  ShippingSLA delivery channel.
+  """
   deliveryChannel: String
+  """
+  ShippingSLA friendly name.
+  """
   friendlyName: String
+  """
+  ShippingSLA pickup point id.
+  """
   pickupPointId: String
+  """
+  ShippingSLA pickup store info.
+  """
   pickupStoreInfo: PickupStoreInfo
+  """
+  ShippingSLA pickup distance.
+  """
   pickupDistance: Float
 }
 
 type DeliveryIds {
+  """
+  DeliveryIds courier id
+  """
   courierId: String
+  """
+  DeliveryIds warehouse id
+  """
   warehouseId: String
+  """
+  DeliveryIds dock id
+  """
   dockId: String
+  """
+  DeliveryIds courier name
+  """
   courierName: String
+  """
+  DeliveryIds quantity
+  """
   quantity: Int
 }
 
 type PickupStoreInfo {
+  """
+  PickupStoreInfo friendly name.
+  """
   friendlyName: String
+  """
+  PickupStoreInfo address.
+  """
   address: PickupAddress
+  """
+  PickupStoreInfo additional information.
+  """
   additionalInfo: String
+  """
+  PickupStoreInfo dock id.
+  """
   dockId: String
+  """
+  Information if the store has pickup enable.
+  """
   isPickupStore: Boolean
 }
 
 type PickupAddress {
+  """
+  PickupAddress address type.
+  """
   addressType: String
+  """
+  PickupAddress receiver name.
+  """
   receiverName: String
+  """
+  PickupAddress address id.
+  """
   addressId: String
+  """
+  PickupAddress postal code.
+  """
   postalCode: String
+  """
+  PickupAddress city.
+  """
   city: String
+  """
+  PickupAddress state.
+  """
   state: String
+  """
+  PickupAddress country.
+  """
   country: String
+  """
+  PickupAddress street.
+  """
   street: String
+  """
+  PickupAddress number.
+  """
   number: String
+  """
+  PickupAddress neighborhood.
+  """
   neighborhood: String
+  """
+  PickupAddress complement.
+  """
   complement: String
+  """
+  PickupAddress reference.
+  """
   reference: String
+  """
+  PickupAddress geo coordinates.
+  """
   geoCoordinates: [Float]
 }
 
 type MessageInfo {
+  """
+  MessageInfo code.
+  """
   code: String
+  """
+  MessageInfo text.
+  """
   text: String
+  """
+  MessageInfo status.
+  """
   status: String
+  """
+  MessageInfo fields.
+  """
   fields: MessageFields
 }
 
 type MessageFields {
+  """
+  MessageFields item index.
+  """
   itemIndex: String
+  """
+  MessageFields ean.
+  """
   ean: String
+  """
+  MessageFields sku name.
+  """
   skuName: String
 }
