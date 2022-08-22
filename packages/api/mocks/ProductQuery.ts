@@ -253,17 +253,3 @@ export const productSearchFetch = {
     },
   },
 }
-
-export const checkoutSimulationFetch = {
-  info: 'https://storeframework.vtexcommercestable.com.br/api/checkout/pub/orderForms/simulation?sc=1',
-  init: {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-    },
-    body: '{"items":[{"quantity":1,"seller":"1","id":"64953394"}]}',
-  },
-  result: JSON.parse(
-    '{"items":[{"id":"64953394","requestIndex":0,"quantity":1,"seller":"1","sellerChain":["1"],"tax":0,"priceValidUntil":"2023-03-29T13:55:09Z","price":20064,"listPrice":29770,"rewardValue":0,"sellingPrice":20064,"offerings":[],"priceTags":[],"measurementUnit":"un","unitMultiplier":1,"parentItemIndex":null,"parentAssemblyBinding":null,"availability":"available","catalogProvider":"vrn:vtex.catalog-api-proxy:-:storeframework:master:/proxy/authenticated/catalog/pvt/sku/stockkeepingunitbyid/64953394","priceDefinition":{"calculatedSellingPrice":20064,"total":20064,"sellingPrices":[{"value":20064,"quantity":1}]}}],"ratesAndBenefitsData":{"rateAndBenefitsIdentifiers":[],"teaser":[]},"paymentData":{"installmentOptions":[{"paymentSystem":"6","bin":null,"paymentName":"Boleto Bancário","paymentGroupName":"bankInvoicePaymentGroup","value":20064,"installments":[{"count":1,"hasInterestRate":false,"interestRate":0,"value":20064,"total":20064,"sellerMerchantInstallments":[{"id":"STOREFRAMEWORK","count":1,"hasInterestRate":false,"interestRate":0,"value":20064,"total":20064}]}]},{"paymentSystem":"201","bin":null,"paymentName":"Free","paymentGroupName":"custom201PaymentGroupPaymentGroup","value":20064,"installments":[{"count":1,"hasInterestRate":false,"interestRate":0,"value":20064,"total":20064,"sellerMerchantInstallments":[{"id":"STOREFRAMEWORK","count":1,"hasInterestRate":false,"interestRate":0,"value":20064,"total":20064}]}]}],"paymentSystems":[{"id":6,"name":"Boleto Bancário","groupName":"bankInvoicePaymentGroup","validator":null,"stringId":"6","template":"bankInvoicePaymentGroup-template","requiresDocument":false,"isCustom":false,"description":null,"requiresAuthentication":false,"dueDate":"2022-04-05T13:45:49.1075749Z","availablePayments":null},{"id":201,"name":"Free","groupName":"custom201PaymentGroupPaymentGroup","validator":null,"stringId":"201","template":"custom201PaymentGroupPaymentGroup-template","requiresDocument":false,"isCustom":true,"description":"Free pay to test checkout payments","requiresAuthentication":false,"dueDate":"2022-04-05T13:45:49.1075749Z","availablePayments":null}],"payments":[],"giftCards":[],"giftCardMessages":[],"availableAccounts":[],"availableTokens":[],"availableAssociations":{}},"selectableGifts":[],"marketingData":null,"postalCode":null,"country":null,"logisticsInfo":[{"itemIndex":0,"addressId":null,"selectedSla":null,"selectedDeliveryChannel":null,"quantity":1,"shipsTo":["BRA","USA"],"slas":[],"deliveryChannels":[{"id":"delivery"}]}],"messages":[],"purchaseConditions":{"itemPurchaseConditions":[{"id":"64953394","seller":"1","sellerChain":["1"],"slas":[],"price":20064,"listPrice":29770}]},"pickupPoints":[],"subscriptionData":null,"totals":[{"id":"Items","name":"Items Total","value":20064}],"itemMetadata":null}'
-  ),
-}
