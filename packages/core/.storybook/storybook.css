@@ -12,6 +12,10 @@
 
 /* Text */
 
+.sbdocs {
+  font-family: Lato, -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
+}
+
 .sbdocs-content > header h1 {
   margin-bottom: 0;
   font-size: var(--fs-text-size-5);

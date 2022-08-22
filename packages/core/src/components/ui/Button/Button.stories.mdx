@@ -3,6 +3,16 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import Button, { ButtonBuy, ButtonLink } from '.'
 import Icon from 'src/components/ui/Icon'
 
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  SectionList,
+  SectionItem,
+  BestPractices,
+  BestPracticesRule,
+} from 'src/../.storybook/components'
+
 <Meta
   argTypes={{
     icon: { control: { disable: true } },
@@ -77,25 +87,43 @@ export const Usage = ({ inverse, ...args }) => {
 
 <ArgsTable story="Button" />
 
-| Local token                                  | Default value/Global token linked                                                                 |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| <code>--fs-button-padding</code>             | <code>calc(var(--fs-spacing-1) - (var(--fs-button-border-width) \* 2)) var(--fs-spacing-3)</code> |
-| <code>--fs-button-height</code>              | <code>var(--fs-control-tap-size)</code>                                                           |
-| <code>--fs-button-gap</code>                 | <code>var(--fs-spacing-2)</code>                                                                  |
-|                                              |                                                                                                   |
-| <code>--fs-button-shadow</code>              | <code>none</code>                                                                                 |
-| <code>--fs-button-shadow-hover</code>        | <code>none</code>                                                                                 |
-|                                              |                                                                                                   |
-| <code>--fs-button-border-radius</code>       | <code>var(--fs-border-radius)</code>                                                              |
-| <code>--fs-button-border-width</code>        | <code>var(--fs-border-width-thick)</code>                                                         |
-| <code>--fs-button-border-color</code>        | <code>transparent</code>                                                                          |
-|                                              |                                                                                                   |
-| <code>--fs-button-text-size</code>           | <code>var(--fs-text-size-base)</code>                                                             |
-| <code>--fs-button-text-weight</code>         | <code>var(--fs-text-weight-bold)</code>                                                           |
-|                                              |                                                                                                   |
-| <code>--fs-button-transition-function</code> | <code>var(--fs-transition-function)</code>                                                        |
-| <code>--fs-button-transition-property</code> | <code>var(--fs-transition-property)</code>                                                        |
-| <code>--fs-button-transition-timing</code>   | <code>var(--fs-transition-timing)</code>                                                          |
+<TokenTable>
+  <TokenRow
+    token="--fs-button-padding"
+    value="calc(var(--fs-spacing-1) - (var(--fs-button-border-width) * 2)) var(--fs-spacing-3)"
+  />
+  <TokenRow token="--fs-button-height" value="var(--fs-control-tap-size)" />
+  <TokenRow token="--fs-button-gap" value="var(--fs-spacing-2)" />
+  <TokenDivider />
+  <TokenRow token="--fs-button-shadow" value="var(--fs-shadow)" />
+  <TokenRow token="--fs-button-shadow-hover" value="var(--fs-button-shadow)" />
+  <TokenDivider />
+  <TokenRow token="--fs-button-border-radius" value="var(--fs-border-radius)" />
+  <TokenRow
+    token="--fs-button-border-width"
+    value="var(--fs-border-width-thick)"
+  />
+  <TokenRow token="--fs-button-border-color" value="transparent" isColor />
+  <TokenDivider />
+  <TokenRow token="--fs-button-text-size" value="var(--fs-text-size-base)" />
+  <TokenRow
+    token="--fs-button-text-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-button-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-button-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
 
 ---
 
@@ -116,9 +144,9 @@ export const Usage = ({ inverse, ...args }) => {
   </Story>
 </Canvas>
 
-| Local token                           | Default value/Global token linked  |
-| ------------------------------------- | ---------------------------------- |
-| <code>--fs-button-icon-padding</code> | <code>0 var(--fs-spacing-1)</code> |
+<TokenTable>
+  <TokenRow token="--fs-button-icon-padding" value="0 var(--fs-spacing-1)" />
+</TokenTable>
 
 ---
 
@@ -132,104 +160,59 @@ export const Usage = ({ inverse, ...args }) => {
   </Story>
 </Canvas>
 
-<table style={{ width: '100%' }}>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-button-primary-text-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-primary-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-text-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-primary-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-text-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-color-primary-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-bkg-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-primary-bkg)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-bkg-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-primary-bkg-hover)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-hover)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-bkg-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-color-primary-bkg-active)</code>
-        <div
-          style={{ backgroundColor: 'var(--fs-color-primary-bkg-active)' }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-border-color</code>
-      </td>
-      <td>
-        <code>transparent</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-border-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-border-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-shadow-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-shadow-hover)</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-button-primary-text-color"
+    value="var(--fs-color-primary-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-text-color-hover"
+    value="var(--fs-button-primary-text-color)"
+    isColor
+    globalValue="var(--fs-color-primary-text)"
+  />
+  <TokenRow
+    token="--fs-button-primary-text-color-active"
+    value="var(--fs-button-primary-text-color)"
+    isColor
+    globalValue="var(--fs-color-primary-text)"
+  />
+  <TokenRow
+    token="--fs-button-primary-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-bkg-color-active"
+    value="var(--fs-color-primary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-border-color"
+    value="transparent"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-border-color-hover"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-border-color-active"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
 
 ### Primary Inverse
 
@@ -239,106 +222,61 @@ export const Usage = ({ inverse, ...args }) => {
   </Story>
 </Canvas>
 
-<table style={{ width: '100%' }}>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-text-color</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-bkg-color)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-text-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-bkg-color)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-text-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-bkg-color)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-bkg-color</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-text-color)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-bkg-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-primary-bkg-light)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg-light)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-bkg-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-color-primary-bkg-light-active)</code>
-        <div
-          style={{
-            backgroundColor: 'var(--fs-color-primary-bkg-light-active)',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-border-color</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-border-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-border-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-primary-inverse-shadow-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-shadow-hover)</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-button-primary-inverse-text-color"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-text-color-hover"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-text-color-active"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-bkg-color"
+    value="var(--fs-button-primary-text-color)"
+    isColor
+    globalValue="var(--fs-color-primary-text)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-bkg-color-active"
+    value="var(--fs-color-primary-bkg-light-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-border-color"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-border-color-hover"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-border-color-active"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
 
 ### Secondary
 
@@ -348,117 +286,61 @@ export const Usage = ({ inverse, ...args }) => {
   </Story>
 </Canvas>
 
-<table style={{ width: '100%' }}>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-text-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-secondary-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-secondary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-text-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-text-inverse)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-text-inverse)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-text-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-color-text-inverse)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-text-inverse)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-bkg-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-secondary-bkg)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-secondary-bkg)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-bkg-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-secondary-bkg-hover)</code>
-        <div
-          style={{ backgroundColor: 'var(--fs-color-secondary-bkg-hover)' }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-bkg-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-color-secondary-bkg-active)</code>
-        <div
-          style={{ backgroundColor: 'var(--fs-color-secondary-bkg-active)' }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-border-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-secondary-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-secondary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-border-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-secondary-bkg-color-hover)</code>
-        <div
-          style={{
-            backgroundColor: '--fs-color-secondary-bkg-hover',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-border-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-button-secondary-bkg-color-active)</code>
-        <div
-          style={{
-            backgroundColor: 'var(--fs-color-secondary-bkg-active)',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-shadow-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-shadow-hover)</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-button-secondary-text-color"
+    value="var(--fs-color-secondary-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-text-color-hover"
+    value="var(--fs-color-text-inverse)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-text-color-active"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-bkg-color"
+    value="var(--fs-color-secondary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-bkg-color-hover"
+    value="var(--fs-color-secondary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-bkg-color-active"
+    value="var(--fs-color-secondary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-border-color"
+    value="var(--fs-button-secondary-text-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-text)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-border-color-hover"
+    value="var(--fs-button-secondary-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg-hover)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-border-color-active"
+    value="var(--fs-button-secondary-bkg-color-active)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg-active)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
 
 ### Secondary Inverse
 
@@ -471,121 +353,65 @@ export const Usage = ({ inverse, ...args }) => {
   </Story>
 </Canvas>
 
-<table style={{ width: '100%' }}>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-text-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-text-inverse)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-text-inverse)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-text-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-secondary-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-secondary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-text-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-color-secondary-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-secondary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-bkg-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-secondary-bkg)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-secondary-bkg)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-bkg-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-text-inverse)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-text-inverse)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-bkg-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-color-secondary-bkg-light)</code>
-        <div
-          style={{
-            backgroundColor: 'var(--fs-color-secondary-bkg-light)',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-border-color</code>
-      </td>
-      <td>
-        <code>var(--fs-button-secondary-inverse-text-color)</code>
-        <div
-          style={{
-            backgroundColor: 'var(--fs-color-text-inverse)',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-border-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-secondary-inverse-bkg-color-hover)</code>
-        <div
-          style={{
-            backgroundColor: 'var(--fs-color-text-inverse)',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-border-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-button-secondary-inverse-bkg-color-active)</code>
-        <div
-          style={{
-            backgroundColor: 'var(--fs-color-secondary-bkg-light)',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-secondary-inverse-shadow-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-shadow-hover)</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-button-secondary-inverse-text-color"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-text-color-hover"
+    value="var(--fs-button-secondary-text-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-text)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-text-color-active"
+    value="var(--fs-button-secondary-inverse-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-secondary-text)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-bkg-color"
+    value="var(--fs-button-secondary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-bkg-color-hover"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-bkg-color-active"
+    value="var(--fs-color-secondary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-border-color"
+    value="var(--fs-button-secondary-inverse-text-color)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-border-color-hover"
+    value="var(--fs-button-secondary-inverse-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-border-color-active"
+    value="var(--fs-button-secondary-inverse-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg-light)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
 
 ### Tertiary
 
@@ -595,106 +421,59 @@ export const Usage = ({ inverse, ...args }) => {
   </Story>
 </Canvas>
 
-<table style={{ width: '100%' }}>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-text-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-tertiary-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-tertiary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-text-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-tertiary-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-tertiary-text)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-text-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-bkg-color)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-primary-bkg)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-bkg-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-tertiary-bkg)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-tertiary-bkg)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-bkg-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-tertiary-bkg-hover)</code>
-        <div
-          style={{ backgroundColor: 'var(--fs-color-tertiary-bkg-hover)' }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-bkg-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-color-tertiary-bkg-active)</code>
-        <div
-          style={{ backgroundColor: 'var(--fs-color-tertiary-bkg-active)' }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-border-color</code>
-      </td>
-      <td>
-        <code>transparent</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-border-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-tertiary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-border-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-button-tertiary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-shadow-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-shadow-hover)</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-button-tertiary-text-color"
+    value="var(--fs-color-tertiary-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-text-color-hover"
+    value="var(--fs-button-tertiary-text-color)"
+    isColor
+    globalValue="var(--fs-color-tertiary-text)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-text-color-active"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-bkg-color"
+    value="var(--fs-color-tertiary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-bkg-color-hover"
+    value="var(--fs-color-tertiary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-bkg-color-active"
+    value="var(--fs-color-tertiary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-border-color"
+    value="transparent"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-border-color-hover"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-border-color-active"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
 
 ### Tertiary Inverse
 
@@ -704,114 +483,63 @@ export const Usage = ({ inverse, ...args }) => {
   </Story>
 </Canvas>
 
-<table style={{ width: '100%' }}>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-text-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-text-inverse)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-text-inverse)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-text-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-color-text-inverse)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-text-inverse)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-text-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-color-text-inverse)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-text-inverse)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-bkg-color</code>
-      </td>
-      <td>
-        <code>var(--fs-button-secondary-inverse-bkg-color)</code>
-        <div
-          style={{
-            backgroundColor: 'var(--fs-color-secondary-bkg)',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-bkg-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-bkg-color-hover)</code>
-        <div
-          style={{
-            backgroundColor: 'var(--fs-color-primary-bkg-hover)',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-bkg-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-button-primary-bkg-color-active)</code>
-        <div
-          style={{
-            backgroundColor: 'var(--fs-color-primary-bkg-active)',
-          }}
-        />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-border-color</code>
-      </td>
-      <td>
-        <code>var(--fs-button-tertiary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-border-color-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-tertiary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-border-color-active</code>
-      </td>
-      <td>
-        <code>var(--fs-button-tertiary-border-color)</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-tertiary-inverse-shadow-hover</code>
-      </td>
-      <td>
-        <code>var(--fs-button-shadow-hover)</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-button-tertiary-inverse-text-color"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-text-color-hover"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-text-color-active"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-bkg-color"
+    value="var(--fs-button-secondary-inverse-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-bkg-color-hover"
+    value="var(--fs-button-primary-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg-hover)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-bkg-color-active"
+    value="var(--fs-button-primary-bkg-color-active)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg-active)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-border-color"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-border-color-hover"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-border-color-active"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
 
 ---
 
@@ -825,34 +553,18 @@ export const Usage = ({ inverse, ...args }) => {
   </Story>
 </Canvas>
 
-<table style={{ width: '100%' }}>
-  <thead>
-    <tr>
-      <th>Local token</th>
-      <th>Default value/Global token linked</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>--fs-button-disabled-bkg-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-disabled-bkg)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-disabled-bkg)' }} />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>--fs-button-disabled-text-color</code>
-      </td>
-      <td>
-        <code>var(--fs-color-disabled-text)</code>
-        <div style={{ backgroundColor: 'var(--fs-color-disabled-text)' }} />
-      </td>
-    </tr>
-  </tbody>
-</table>
+<TokenTable>
+  <TokenRow
+    token="--fs-button-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+</TokenTable>
 
 ### Small
 
@@ -862,36 +574,73 @@ export const Usage = ({ inverse, ...args }) => {
   </Story>
 </Canvas>
 
-| Local token                               | Default value/Global token linked                    |
-| ----------------------------------------- | ---------------------------------------------------- |
-| <code>--fs-button-small-padding</code>    | <code>var(--fs-spacing-0) var(--fs-spacing-1)</code> |
-| <code>--fs-button-small-min-height</code> | <code>var(--fs-spacing-5)</code>                     |
-| <code>--fs-button-small-gap</code>        | <code>var(--fs-spacing-1)</code>                     |
+<TokenTable>
+  <TokenRow
+    token="--fs-button-small-padding"
+    value="var(--fs-spacing-0) var(--fs-spacing-1)"
+  />
+  <TokenRow token="--fs-button-small-min-height" value="var(--fs-spacing-5)" />
+  <TokenRow token="--fs-button-small-gap" value="var(--fs-spacing-1)" />
+</TokenTable>
 
 ---
 
 ## Related Components <a id="related-components" />
 
-<section className="sbdocs-section">
-  <article>
-    <div>
-      <ButtonBuy>Button Buy</ButtonBuy>
+<SectionList grid="grid">
+  <SectionItem
+    title="Button Icon"
+    description="A button which content is only an icon, without any label."
+  >
+    <div data-fs-button style={{ backgroundColor: 'white', borderRadius: 2 }}>
+      <Button
+        variant="tertiary"
+        data-fs-button-icon
+        aria-label="Set location"
+        icon={<Icon name="MapPin" width={32} height={32} color="black" />}
+      />
     </div>
-    <article className="sbdocs-section-text">
-      <h3>Button Buy</h3>
-      <p>
-        A button with the intent of directly sending the user to the
-        checkout/cart step.
-      </p>
-    </article>
-  </article>
-  <article>
-    <div>
-      <ButtonLink href="/">Button Link</ButtonLink>
-    </div>
-    <article className="sbdocs-section-text">
-      <h3>Button Link</h3>
-      <p>A button that acts as a link to navigate users between pages.</p>
-    </article>
-  </article>
-</section>
+  </SectionItem>
+  <SectionItem
+    title="Button Buy"
+    description="A button with the intent of directly sending the user to the checkout/cart step."
+  >
+    <ButtonBuy>Button Buy</ButtonBuy>
+  </SectionItem>
+  <SectionItem
+    title="Button Link"
+    description="A button that acts as a link to navigate users between pages."
+  >
+    <ButtonLink href="/">Button Link</ButtonLink>
+  </SectionItem>
+</SectionList>
+
+---
+
+<BestPractices>
+  <BestPracticesRule
+    recommendedUsage={
+      <div data-fs-button style={{ backgroundColor: 'white', borderRadius: 2 }}>
+        <Button
+          variant="tertiary"
+          data-fs-button-icon
+          aria-label="Open menu"
+          icon={<Icon name="List" width={32} height={32} color="black" />}
+        />
+      </div>
+    }
+    recommendedDescription={
+      <>
+        For cases when the button doesn't have label, use{' '}
+        <code>aria-label</code> to describe its action for accessibility
+        purposes.
+      </>
+    }
+    discouragedUsage={<Button variant="primary">Button</Button>}
+    discouragedDescription={
+      <>
+        Avoid using <code>aria-label</code> when the button already has a label.
+      </>
+    }
+  />
+</BestPractices>

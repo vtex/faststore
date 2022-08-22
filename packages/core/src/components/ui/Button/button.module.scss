@@ -10,8 +10,8 @@
   --fs-button-height                                : var(--fs-control-tap-size);
   --fs-button-gap                                   : var(--fs-spacing-2);
 
-  --fs-button-shadow                                : none;
-  --fs-button-shadow-hover                          : none;
+  --fs-button-shadow                                : var(--fs-shadow);
+  --fs-button-shadow-hover                          : var(--fs-button-shadow);
 
   --fs-button-border-radius                         : var(--fs-border-radius);
   --fs-button-border-width                          : var(--fs-border-width-thick);
@@ -26,8 +26,8 @@
 
   // Primary
   --fs-button-primary-text-color                    : var(--fs-color-primary-text);
-  --fs-button-primary-text-color-hover              : var(--fs-color-primary-text);
-  --fs-button-primary-text-color-active             : var(--fs-color-primary-text);
+  --fs-button-primary-text-color-hover              : var(--fs-button-primary-text-color);
+  --fs-button-primary-text-color-active             : var(--fs-button-primary-text-color);
   --fs-button-primary-bkg-color                     : var(--fs-color-primary-bkg);
   --fs-button-primary-bkg-color-hover               : var(--fs-color-primary-bkg-hover);
   --fs-button-primary-bkg-color-active              : var(--fs-color-primary-bkg-active);
@@ -50,20 +50,20 @@
   // Secondary
   --fs-button-secondary-text-color                  : var(--fs-color-secondary-text);
   --fs-button-secondary-text-color-hover            : var(--fs-color-text-inverse);
-  --fs-button-secondary-text-color-active           : var(--fs-color-text-inverse);
+  --fs-button-secondary-text-color-active           : var(--fs-button-secondary-text-color-hover);
   --fs-button-secondary-bkg-color                   : var(--fs-color-secondary-bkg);
   --fs-button-secondary-bkg-color-hover             : var(--fs-color-secondary-bkg-hover);
   --fs-button-secondary-bkg-color-active            : var(--fs-color-secondary-bkg-active);
-  --fs-button-secondary-border-color                : var(--fs-color-secondary-text);
+  --fs-button-secondary-border-color                : var(--fs-button-secondary-text-color);
   --fs-button-secondary-border-color-hover          : var(--fs-button-secondary-bkg-color-hover);
   --fs-button-secondary-border-color-active         : var(--fs-button-secondary-bkg-color-active);
   --fs-button-secondary-shadow-hover                : var(--fs-button-shadow-hover);
 
-  --fs-button-secondary-inverse-text-color          : var(--fs-color-text-inverse);
-  --fs-button-secondary-inverse-text-color-hover    : var(--fs-color-secondary-text);
-  --fs-button-secondary-inverse-text-color-active   : var(--fs-color-secondary-text);
-  --fs-button-secondary-inverse-bkg-color           : var(--fs-color-secondary-bkg);
-  --fs-button-secondary-inverse-bkg-color-hover     : var(--fs-color-text-inverse);
+  --fs-button-secondary-inverse-text-color          : var(--fs-button-secondary-text-color-hover);
+  --fs-button-secondary-inverse-text-color-hover    : var(--fs-button-secondary-text-color);
+  --fs-button-secondary-inverse-text-color-active   : var(--fs-button-secondary-inverse-text-color-hover);
+  --fs-button-secondary-inverse-bkg-color           : var(--fs-button-secondary-bkg-color);
+  --fs-button-secondary-inverse-bkg-color-hover     : var(--fs-button-secondary-text-color-hover);
   --fs-button-secondary-inverse-bkg-color-active    : var(--fs-color-secondary-bkg-light);
   --fs-button-secondary-inverse-border-color        : var(--fs-button-secondary-inverse-text-color);
   --fs-button-secondary-inverse-border-color-hover  : var(--fs-button-secondary-inverse-bkg-color-hover);
@@ -72,7 +72,7 @@
 
   // Tertiary
   --fs-button-tertiary-text-color                   : var(--fs-color-tertiary-text);
-  --fs-button-tertiary-text-color-hover             : var(--fs-color-tertiary-text);
+  --fs-button-tertiary-text-color-hover             : var(--fs-button-tertiary-text-color);
   --fs-button-tertiary-text-color-active            : var(--fs-button-primary-bkg-color);
   --fs-button-tertiary-bkg-color                    : var(--fs-color-tertiary-bkg);
   --fs-button-tertiary-bkg-color-hover              : var(--fs-color-tertiary-bkg-hover);
@@ -82,9 +82,9 @@
   --fs-button-tertiary-border-color-active          : var(--fs-button-tertiary-border-color);
   --fs-button-tertiary-shadow-hover                 : var(--fs-button-shadow-hover);
 
-  --fs-button-tertiary-inverse-text-color           : var(--fs-color-text-inverse);
-  --fs-button-tertiary-inverse-text-color-hover     : var(--fs-color-text-inverse);
-  --fs-button-tertiary-inverse-text-color-active    : var(--fs-color-text-inverse);
+  --fs-button-tertiary-inverse-text-color           : var(--fs-button-secondary-text-color-hover);
+  --fs-button-tertiary-inverse-text-color-hover     : var(--fs-button-secondary-text-color-hover);
+  --fs-button-tertiary-inverse-text-color-active    : var(--fs-button-secondary-text-color-hover);
   --fs-button-tertiary-inverse-bkg-color            : var(--fs-button-secondary-inverse-bkg-color);
   --fs-button-tertiary-inverse-bkg-color-hover      : var(--fs-button-primary-bkg-color-hover);
   --fs-button-tertiary-inverse-bkg-color-active     : var(--fs-button-primary-bkg-color-active);
