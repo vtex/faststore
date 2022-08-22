@@ -29,6 +29,7 @@ import {
   attributeSearchCategory1Fetch,
 } from '../mocks/SearchQuery'
 import { salesChannelStaleFetch } from '../mocks/salesChannel'
+import { shippingSimulationFetch, addressFetch, ShippingSimulationQueryResult, } from '../mocks/ShippingQuery'
 
 const apiOptions = {
   platform: 'vtex',
@@ -200,6 +201,27 @@ test('`search` query', async () => {
   const response = await run(SearchQueryFirst5Products)
 
   expect(mockedFetch).toHaveBeenCalledTimes(3)
+
+  fetchAPICalls.forEach((fetchAPICall) => {
+    expect(mockedFetch).toHaveBeenCalledWith(
+      fetchAPICall.info,
+      fetchAPICall.init
+    )
+  })
+
+  expect(response).toMatchSnapshot()
+})
+
+test('`shipping` query', async () => {
+  const fetchAPICalls = [addressFetch, shippingSimulationFetch]
+
+  mockedFetch.mockImplementation((info, init) =>
+    pickFetchAPICallResult(info, init, fetchAPICalls)
+  )
+
+  const response = await run(ShippingSimulationQueryResult)
+
+  expect(mockedFetch).toHaveBeenCalledTimes(2)
 
   fetchAPICalls.forEach((fetchAPICall) => {
     expect(mockedFetch).toHaveBeenCalledWith(

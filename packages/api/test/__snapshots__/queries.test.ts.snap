@@ -1090,3 +1090,14 @@ Object {
   },
 }
 `;
+
+exports[`\`shipping\` query 1`] = `
+Object {
+  "data": Object {
+    "shipping": null,
+  },
+  "errors": Array [
+    [GraphQLError: Cannot read property 'reduce' of undefined],
+  ],
+}
+`;

@@ -46,6 +46,16 @@ const TYPES = [
   'StoreReview',
   'StoreSeo',
   'StoreStatus',
+  'IShippingItem',
+  'ShippingData',
+  'LogisticsItem',
+  'LogisticsInfo',
+  'ShippingSLA',
+  'DeliveryIds',
+  'PickupStoreInfo',
+  'PickupAddress',
+  'MessageInfo',
+  'MessageFields',
 ]
 
 const QUERIES = [
