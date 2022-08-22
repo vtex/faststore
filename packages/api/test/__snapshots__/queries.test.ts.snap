@@ -1094,10 +1094,76 @@ Object {
 exports[`\`shipping\` query 1`] = `
 Object {
   "data": Object {
-    "shipping": null,
+    "shipping": Object {
+      "address": Object {
+        "city": null,
+        "complement": null,
+        "country": null,
+        "geoCoordinates": null,
+        "neighborhood": null,
+        "number": null,
+        "postalCode": null,
+        "reference": null,
+        "state": null,
+        "street": null,
+      },
+      "items": Array [
+        Object {
+          "availability": "available",
+          "id": "99988211",
+          "listPrice": 15000,
+          "measurementUnit": "un",
+          "price": 13000,
+          "priceValidUntil": "2023-08-22T18:22:43Z",
+          "quantity": 1,
+          "requestIndex": 0,
+          "rewardValue": 0,
+          "seller": "1",
+          "sellerChain": Array [
+            "1",
+          ],
+          "sellingPrice": 13000,
+          "tax": 0,
+          "unitMultiplier": 1,
+        },
+      ],
+      "logisticsInfo": Array [
+        Object {
+          "itemIndex": "0",
+          "selectedSla": null,
+          "slas": Array [
+            Object {
+              "deliveryChannel": "delivery",
+              "deliveryIds": Array [
+                Object {
+                  "courierId": "1",
+                  "courierName": "Transportadora",
+                  "dockId": "1",
+                  "quantity": 1,
+                  "warehouseId": "1_1",
+                },
+              ],
+              "friendlyName": null,
+              "id": "Normal",
+              "name": "Normal",
+              "pickupDistance": 0,
+              "pickupPointId": null,
+              "pickupStoreInfo": Object {
+                "additionalInfo": null,
+                "address": null,
+                "dockId": null,
+                "friendlyName": null,
+                "isPickupStore": false,
+              },
+              "price": 0,
+              "shippingEstimate": "3bd",
+              "shippingEstimateDate": null,
+            },
+          ],
+        },
+      ],
+      "messages": Array [],
+    },
   },
-  "errors": Array [
-    [GraphQLError: Cannot read property 'reduce' of undefined],
-  ],
 }
 `;
