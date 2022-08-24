@@ -228,10 +228,7 @@ export const validateCart = async (
     await commerce.checkout.shippingData({ 
       id: orderForm.orderFormId, 
       body: { 
-        selectedAddresses: [{ 
-          postalCode: session.postalCode, 
-          country: 'FRA' 
-        }]
+        selectedAddresses: [session]
       }
     })
   }
