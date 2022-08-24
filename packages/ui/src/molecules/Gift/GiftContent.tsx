@@ -10,7 +10,7 @@ export interface GiftContentProps extends HTMLAttributes<HTMLElement> {
 
 const GiftContent = forwardRef<HTMLElement, GiftContentProps>(
   function GiftContent(
-    { testId = 'store-card-content', children, ...otherProps },
+    { testId = 'store-gift-content', children, ...otherProps },
     ref
   ) {
     return (

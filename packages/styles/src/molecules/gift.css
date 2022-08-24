@@ -1,3 +1,47 @@
 [data-fs-gift] {
+  display: grid;
+  grid-template-columns: 96px repeat(4,1fr);
+  align-items: center;
+  column-gap: 12px;
+  height: 96px;
+  overflow: hidden;
+  border: 1px solid #c7ccd1;
+  border-radius: 4px;
+}
 
+[data-fs-gift-content] {
+  display: grid;
+  grid-column: 2 / span 4;
+  padding: 12px 12px 12px 0;
+}
+
+[data-fs-gift-content] h3 {
+  margin-bottom: 4px;
+  font-size: 16px;
+  color: #171a1c;
+}
+
+[data-fs-gift-content] [data-store-price] {
+  margin-right: 6px;
+  color: #5d666f;
+  text-decoration: line-through;
+}
+
+[data-fs-gift-content] [data-store-badge] {
+  padding: 4px 12px;
+  color: #171a1c;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 100px;
+  background: #f1f2f3;
+}
+
+[data-fs-gift-image] {
+  height: 100%;
+}
+
+[data-fs-gift-image] img {
+  object-fit:cover;
+  width: 100%;
+  height: 100%;
 }
