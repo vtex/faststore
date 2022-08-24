@@ -54,6 +54,9 @@ export { default as Incentive } from './atoms/Incentive'
 export type { IncentiveProps } from './atoms/Incentive'
 
 // Molecules
+export { default as Gift } from './molecules/Gift'
+export type { GiftProps } from './molecules/Gift'
+
 export { default as ProductTitle } from './molecules/ProductTitle'
 export type { ProductTitleProps } from './molecules/ProductTitle'
 
