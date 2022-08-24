@@ -1,17 +1,14 @@
-import deepEquals from 'fast-deep-equal'
+import deepEquals from "fast-deep-equal";
 
-import { md5 } from '../utils/md5'
-import {
-  attachmentToPropertyValue,
-  getPropertyId,
-  VALUE_REFERENCES,
-} from '../utils/propertyValue'
+import { md5 } from "../utils/md5";
+import { attachmentToPropertyValue, getPropertyId, VALUE_REFERENCES } from "../utils/propertyValue";
 
 import type {
-  IStoreCart,
+
   IStoreOffer,
   IStoreOrder,
   IStorePropertyValue,
+  MutationValidateCartArgs,
 } from '../../../__generated__/schema'
 import type {
   OrderForm,
@@ -212,7 +209,7 @@ const isOrderFormStale = (form: OrderForm) => {
  */
 export const validateCart = async (
   _: unknown,
-  { cart: { order } }: { cart: IStoreCart },
+  { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context,
 ) => {
   const { enableOrderFormSync } = ctx.storage.flags
@@ -226,6 +223,18 @@ export const validateCart = async (
   const orderForm = await commerce.checkout.orderForm({
     id: orderNumber,
   })
+
+  if (session?.postalCode) {
+    await commerce.checkout.shippingData({ 
+      id: orderForm.orderFormId, 
+      body: { 
+        selectedAddresses: [{ 
+          postalCode: session.postalCode, 
+          country: 'FRA' 
+        }]
+      }
+    })
+  }
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
