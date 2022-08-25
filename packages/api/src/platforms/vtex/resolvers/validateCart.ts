@@ -4,10 +4,11 @@ import { md5 } from "../utils/md5";
 import { attachmentToPropertyValue, getPropertyId, VALUE_REFERENCES } from "../utils/propertyValue";
 
 import type {
-
+  IStoreSession, 
   IStoreOffer,
   IStoreOrder,
   IStorePropertyValue,
+  Maybe,
   MutationValidateCartArgs,
 } from '../../../__generated__/schema'
 import type {
@@ -194,6 +195,31 @@ const isOrderFormStale = (form: OrderForm) => {
   return newEtag !== oldEtag
 }
 
+// Returns the regionalized orderForm
+const getOrderForm = async (
+  id: string,
+  session: Maybe<IStoreSession> | undefined,
+  { clients: { commerce } }: Context,
+) => {
+  const orderForm = await commerce.checkout.orderForm({
+    id,
+  });
+
+  const shouldUpdateShippiggData =
+    orderForm.shippingData?.address?.postalCode != session?.postalCode;
+
+  if (shouldUpdateShippiggData) {
+    return commerce.checkout.shippingData({
+      id: orderForm.orderFormId,
+      body: {
+        selectedAddresses: [session],
+      },
+    });
+  }
+
+  return orderForm;
+};
+
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
@@ -220,18 +246,7 @@ export const validateCart = async (
   } = ctx
 
   // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await commerce.checkout.orderForm({
-    id: orderNumber,
-  })
-
-  if (session?.postalCode) {
-    await commerce.checkout.shippingData({ 
-      id: orderForm.orderFormId, 
-      body: { 
-        selectedAddresses: [session]
-      }
-    })
-  }
+  const orderForm = await getOrderForm(orderNumber, session, ctx)
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
