@@ -26,7 +26,7 @@ const Gift = forwardRef<HTMLDivElement, GiftProps>(function Gift(
   return (
     <div ref={ref} data-fs-gift data-testid={testId} {...otherProps}>
       {icon && <Icon component={icon} data-fs-gift-icon />}
-      {children}
+      <div data-fs-gift-wrapper>{children}</div>
     </div>
   )
 })

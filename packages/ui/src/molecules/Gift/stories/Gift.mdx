@@ -8,6 +8,14 @@ import Gift from '../Gift'
   <Story id="molecules-gift--gift" />
 </Canvas>
 
+## Components
+
+The `Gift` uses the [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) pattern, its components are:
+
+- `Gift`: the wrapper component, it can receive a `Icon` prop and `aria-label` for the Icon.
+- `GiftImage`: the component's that display the product image.
+- `GiftContent`: the component that can display the product's title, price, and a badge.
+
 ## Props
 
 <ArgsTable of={Gift} />
@@ -16,6 +24,9 @@ import Gift from '../Gift'
 
 ```css
 [data-fs-gift] {
+}
+
+[data-fs-gift-wrapper] {
 }
 
 [data-fs-gift-icon] {

@@ -1,12 +1,16 @@
 [data-fs-gift] {
+  position: relative;
+}
+
+[data-fs-gift-wrapper] {
   display: grid;
   grid-template-columns: 96px repeat(4,1fr);
   align-items: center;
   column-gap: 12px;
   height: 96px;
-  overflow: hidden;
   border: 1px solid #c7ccd1;
   border-radius: 4px;
+  overflow: hidden;
 }
 
 [data-fs-gift-content] {
@@ -39,6 +43,7 @@
 
 [data-fs-gift-image] {
   height: 100%;
+  overflow: hidden;
 }
 
 [data-fs-gift-image] img {
@@ -49,8 +54,8 @@
 
 [data-fs-gift-icon] {
   position: absolute;
-  top: 4px;
-  left: -4px;
+  top: -14px;
+  left: -20px;
   width: 28px;
   height: 28px;
   padding: 4px;
