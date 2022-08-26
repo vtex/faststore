@@ -1,5 +1,5 @@
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
 # Fetching API data on the storefront
 
@@ -14,6 +14,7 @@ The FastStore API extends the data layer of your preferred static site generatio
 This means that updating a given product's information on your ecommerce platform does not automatically update the information displayed on a previously built product page. Whenever you wish to update the information displayed on your website according to your ecommerce platform data, you should redeploy your website, which will trigger page re-generation.
 
 We also recommend that you take the time to learn more about data fetching in the context of the framework you are using, by checking the corresponding article:
+
 - [Next.js Data fetching overview](https://nextjs.org/docs/basic-features/data-fetching/overview)
 - [Querying data in pages with Gatsby](https://www.gatsbyjs.com/docs/how-to/querying-data/page-query/)
 
@@ -29,7 +30,7 @@ Below you can see more details about each step along with code examples.
 
 ### 1. Building a query
 
-First, you need to know what API data you want to use on your page and how to structure a GraphQL query to get it. It is a good idea to check the [FastStore API reference on queries](https://www.faststore.dev/reference/api/queries). You can also [use GraphiQL to build and test queries](https://www.faststore.dev/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api) to make sure it works as expected.
+First, you need to know what API data you want to use on your page and how to structure a GraphQL query to get it. It is a good idea to check the [FastStore API reference on queries](https://www.faststore.dev/reference/api/queries). You can also [use a GraphQL IDE to build and test queries](https://www.faststore.dev/how-to-guides/faststore-api/explore-the-faststore-api) to make sure it works as expected.
 
 Once you have your query structure, you can pass that as a variable on your code by using the `gql` tag, like in the example below.
 
@@ -61,6 +62,7 @@ const query = gql`
 Queries must be declared in this way on each page on which you wish to use their data. To reuse query snippets across multiple files, you may use [GraphQL fragments](https://graphql.org/learn/queries/#fragments). In the example below you can see an SEO fragment being used to build the same query as the example above.
 
 Declaring the fragment:
+
 ```javascript
 import { gql } from '@faststore/graphql-utils'
 ...
@@ -76,6 +78,7 @@ export const fragment = gql`
 ```
 
 Using the fragment, on the same file or a different one:
+
 ```javascript
 import { gql } from '@faststore/graphql-utils'
 ...
@@ -258,6 +261,7 @@ export const querySSR = gql`
 ### 2. Importing the generated query
 
 Once you have declared your query on the page code, you can trigger the generation of your query types by running this command:
+
 ```
 yarn generate
 ```
@@ -267,6 +271,7 @@ Whenever you make changes to your declared queries you must regenerate the types
 :::
 
 Then you must import the types generated, like in this example:
+
 ```javascript
 import { gql } from '@faststore/graphql-utils'
 import type { ProductPageQueryQuery } from '@generated/graphql'
@@ -307,9 +312,10 @@ After completing the steps described above, your code should look like the examp
 
 :::info
 It is also a good idea to see how data fetching is implemented in pages from [FastStore starters](https://www.faststore.dev/starters), such as:
+
 - [Next.js store product page](https://github.com/vtex-sites/nextjs.store/blob/main/src/pages/%5Bslug%5D/p.tsx)
 - [Gatsby store product page](https://github.com/vtex-sites/gatsby.store/blob/main/src/pages/%5Bslug%5D/p.tsx)
-:::
+  :::
 
 ```javascript
 import { gql } from '@faststore/graphql-utils'
@@ -347,5 +353,3 @@ const query = gql`
   }
 `
 ```
-
-
