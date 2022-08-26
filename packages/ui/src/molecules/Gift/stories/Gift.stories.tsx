@@ -10,6 +10,21 @@ import GiftImage from '../GiftImage'
 import type { GiftProps } from '../Gift'
 import mdx from './Gift.mdx'
 
+const Tag = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+    <path fill="none" d="M0 0h256v256H0z" />
+    <path
+      d="M122.7 25.9 42 42l-16.1 80.7a8 8 0 0 0 2.2 7.2l104.4 104.4a7.9 7.9 0 0 0 11.3 0l90.5-90.5a7.9 7.9 0 0 0 0-11.3L129.9 28.1a8 8 0 0 0-7.2-2.2Z"
+      fill="none"
+      stroke="#000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <circle cx="84" cy="84" r="12" />
+  </svg>
+)
+
 function useIntlFormatter(price: number) {
   return useMemo(() => {
     const formattedPrice = new Intl.NumberFormat('en-GB', {
@@ -22,7 +37,7 @@ function useIntlFormatter(price: number) {
 }
 
 const GiftTemplate: Story<GiftProps> = ({ testId }) => (
-  <GiftComponent testId={testId}>
+  <GiftComponent testId={testId} icon={<Tag />}>
     <GiftImage>
       <img
         alt="Aedle VK-1 L Headphone"
