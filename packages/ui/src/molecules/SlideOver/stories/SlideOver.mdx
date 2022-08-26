@@ -1,0 +1,25 @@
+import { ArgsTable, Canvas, Story } from '@storybook/addon-docs';
+
+import Component from '..';
+
+# Slide Over
+
+<Canvas>
+  <Story id="molecules-slideover--default" />
+</Canvas>
+
+## Props
+
+<ArgsTable of={Component} />
+
+## CSS Selectors
+
+```css
+[data-fs-slide-over] {}
+
+[data-fs-slide-over-direction="rightSide|leftSide"] {}
+
+[data-fs-slide-over-size="full|partial"] {}
+
+[data-fs-slide-over-state="in|out"] {}
+```
