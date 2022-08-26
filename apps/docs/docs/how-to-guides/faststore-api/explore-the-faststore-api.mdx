@@ -2,10 +2,10 @@
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-# Using GraphiQL to explore the FastStore API
+# Using a GraphQL IDE to explore the FastStore API
 
 [GraphiQL](https://github.com/graphql/graphiql) is an Integrated Development Environment (IDE) for [GraphQL](https://graphql.org/). You can run GraphiQL on your browser to try out queries and mutations in a GraphQL API.
 
@@ -14,16 +14,19 @@ You can explore your store's GraphQL data layer by running a local server of you
 ## Getting started
 
 The first steps to getting GraphiQL up and running are different depending on the framework you are using on your project:
+
 - [Next.js](#nextjs)
 - [Gatsby](#gatsby)
 
 ### Gatsby
 
 Follow these steps to run a local server and access GraphiQL:
+
 1. Open the terminal and change to your FastStore project directory.
 2. Install dependencies by running the command `yarn`.
-1. Run the command `yarn develop`.
-2. Once the local server is up and running, access this address on your browser:
+3. Run the command `yarn develop`.
+4. Once the local server is up and running, access this address on your browser:
+
 ```
 http://localhost:8000/__graphql
 ```
@@ -37,18 +40,19 @@ If these steps do not work for you, you may not have the latest version of the `
 ### Next.js
 
 Follow these steps to run a local server and access GraphQL Playground:
+
 1. Clone the [graphql-playground repository](https://github.com/graphql/graphql-playground).
 2. Open the terminal and change to the `graphql-playground` root directory.
 3. Install dependencies by running the command `yarn`.
 4. Change the directory to the `packages/graphql-playground-react` folder.
 5. Run the command `yarn` to install dependencies.
-6. Run the command `yarn start` to start running `graphql-playground`. Once it is running, it will open a new browser tab with the `graphql-playground` interface on `http://localhost:3000/v2/new`. 
-![graphql playground interface with endpoint prompt](https://vtexhelp.vtexassets.com/assets/docs/src/7%20graphiql%20gatsby%20workaround___dc8d4ebfc6cd476bdea1c9d4c746b2d2.png)
+6. Run the command `yarn start` to start running `graphql-playground`. Once it is running, it will open a new browser tab with the `graphql-playground` interface on `http://localhost:3000/v2/new`.
+   ![graphql playground interface with endpoint prompt](https://vtexhelp.vtexassets.com/assets/docs/src/7%20graphiql%20gatsby%20workaround___dc8d4ebfc6cd476bdea1c9d4c746b2d2.png)
 7. Change the directory to the root of your FastStore project.
 8. Run the command `yarn develop`.
 9. Enter `http://localhost:3000/api/graphql` in the endpoint URL field.
 10. Click `USE ENDPOINT`.
-![graphql playground interface](https://vtexhelp.vtexassets.com/assets/docs/src/8%20graphiql%20gatsby%20workaround___7ce1dd5fcfcd3a3f844e4fad09288512.png)
+    ![graphql playground interface](https://vtexhelp.vtexassets.com/assets/docs/src/8%20graphiql%20gatsby%20workaround___7ce1dd5fcfcd3a3f844e4fad09288512.png)
 
 ## Building queries
 
@@ -76,7 +80,7 @@ Check your framework documentation and learn more about [how Gatsby deals with G
 
 You can click `QUERY VARIABLES` at the bottom of the screen to open another text box where you can organize the query variables in JSON format.
 
-Setting the **Query Variables** section is recommended when a query has multiple arguments. Inside the query/mutation parentheses, define the names and types of the variables. Note that the variable names must be preceded by a dollar sign (`$`). 
+Setting the **Query Variables** section is recommended when a query has multiple arguments. Inside the query/mutation parentheses, define the names and types of the variables. Note that the variable names must be preceded by a dollar sign (`$`).
 
 In the following example, `MyFirstQuery` accepts two variables: `$first` of type `Int` and `$after` of type `String`. The exclamation mark after the type indicates that the corresponding variable is required.
 
@@ -91,8 +95,8 @@ See an example of how to code this:
 <TabItem value="query" label="Query" default>
 
 ```graphql
-query ExampleWithVariables ($first: Int!, $after: String) {
-  allProducts (first: $first, after: $after) {
+query ExampleWithVariables($first: Int!, $after: String) {
+  allProducts(first: $first, after: $after) {
     edges {
       node {
         name
@@ -129,6 +133,6 @@ VTEX is continuously working to ensure that the FastStore API types and fields a
 
 ## Checking your query history
 
- The **History** panel provides a list of all previously executed queries. Click the query summary presented on the **History** panel to view it in the editor.
+The **History** panel provides a list of all previously executed queries. Click the query summary presented on the **History** panel to view it in the editor.
 
 ![graphiql history](https://vtexhelp.vtexassets.com/assets/docs/src/te6%20graphiql%20jun2022___c6de0eb13aa2c21637def56f3be650b4.png)
