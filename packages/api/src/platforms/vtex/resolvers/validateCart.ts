@@ -1,7 +1,7 @@
-import deepEquals from "fast-deep-equal";
+import deepEquals from 'fast-deep-equal'
 
-import { md5 } from "../utils/md5";
-import { attachmentToPropertyValue, getPropertyId, VALUE_REFERENCES } from "../utils/propertyValue";
+import { md5 } from '../utils/md5'
+import { attachmentToPropertyValue, getPropertyId, VALUE_REFERENCES } from '../utils/propertyValue'
 
 import type {
   IStoreSession, 
@@ -205,10 +205,10 @@ const getOrderForm = async (
     id,
   });
 
-  const shouldUpdateShippiggData =
+  const shouldUpdateShippingData =
     orderForm.shippingData?.address?.postalCode != session?.postalCode;
 
-  if (shouldUpdateShippiggData) {
+  if (shouldUpdateShippingData) {
     return commerce.checkout.shippingData({
       id: orderForm.orderFormId,
       body: {

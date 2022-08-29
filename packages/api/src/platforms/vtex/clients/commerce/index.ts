@@ -85,14 +85,16 @@ export const VtexCommerce = (
           }
         )
       },
-      shippingData: ({id, body}: {id: string, body: unknown}): Promise<OrderForm> => {
+      shippingData: (
+        { id, body }: { id: string; body: unknown },
+      ): Promise<OrderForm> => {
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
-            ...BASE_INIT, 
-            body: JSON.stringify(body)
-          }
-        )
+            ...BASE_INIT,
+            body: JSON.stringify(body),
+          },
+        );
       },
       orderForm: ({
         id,
