@@ -7,7 +7,7 @@ For those cases, it is possible to extend the FastStore API schema, adding new d
 In this guide you will learn how to implement this in your project. You can also view a [summary](#summary) of the expected behavior and a [complete code example](#complete-code-example).
 
 :::info
-Once you have implemented the schema extension in your code, you can run a local [test with GraphiQL](/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api).
+Once you have implemented the schema extension in your code, you can run a local [test with a GraphQL IDE](/how-to-guides/faststore-api/explore-the-faststore-api).
 :::
 
 ## Step by step
@@ -249,4 +249,4 @@ const getEnvelop = async () =>
 
 ## Summary
 
-After completing the steps above, the FastStore GraphQL API schema of your project will be extended and you will be able to use your custom API fields in your store. See these other guides to learn how to [test your schema using GraphiQL](/how-to-guides/faststore-api/using-graphiql-to-explore-the-faststore-api) and [fetch API information in your storefront](/how-to-guides/faststore-api/fetching-api-data).
+After completing the steps above, the FastStore GraphQL API schema of your project will be extended and you will be able to use your custom API fields in your store. See these other guides to learn how to [test your schema using a GraphQL IDE](/how-to-guides/faststore-api/explore-the-faststore-api) and [fetch API information in your storefront](/how-to-guides/faststore-api/fetching-api-data).
