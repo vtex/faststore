@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.6](https://github.com/vtex/faststore/compare/v1.11.5...v1.11.6) (2022-08-29)
+
+
+### Documentation
+
+* Fix NextJS and Gatsby sections on using a GraphQL IDE ([#1445](https://github.com/vtex/faststore/issues/1445)) ([5cc642c](https://github.com/vtex/faststore/commit/5cc642ca042eb93c0789c7f5ea1c1b610f0c0478))
+
+
+
 ## [1.11.5](https://github.com/vtex/faststore/compare/v1.11.4...v1.11.5) (2022-08-19)
 
 **Note:** Version bump only for package faststore
