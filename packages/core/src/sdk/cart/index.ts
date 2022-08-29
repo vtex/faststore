@@ -12,6 +12,7 @@ import type {
 } from '@generated/graphql'
 
 import { request } from '../graphql/request'
+import { sessionStore } from '../session'
 import { createValidationStore, useStore } from '../useStore'
 
 export interface CartItem extends SDKCartItem, CartItemFragment {}
@@ -21,8 +22,8 @@ export interface Cart extends SDKCart<CartItem> {
 }
 
 export const ValidateCartMutation = gql`
-  mutation ValidateCartMutation($cart: IStoreCart!) {
-    validateCart(cart: $cart) {
+  mutation ValidateCartMutation($cart: IStoreCart!, $session: IStoreSession!) {
+    validateCart(cart: $cart, session: $session) {
       order {
         orderNumber
         acceptedOffer {
@@ -94,6 +95,7 @@ const validateCart = async (cart: Cart): Promise<Cart | null> => {
     ValidateCartMutationMutation,
     ValidateCartMutationMutationVariables
   >(ValidateCartMutation, {
+    session: sessionStore.read(),
     cart: {
       order: {
         orderNumber: cart.id,
