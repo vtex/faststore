@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [22.35.0](https://github.com/vtex-sites/nextjs.store/compare/22.34.8...22.35.0) (2022-08-29)
+
+
+### Features
+
+* Cart with session info ([#218](https://github.com/vtex-sites/nextjs.store/issues/218)) ([0f56058](https://github.com/vtex-sites/nextjs.store/commit/0f5605826840839c3091e91daf428b10a7ea9081))
+
 ### [22.34.8](https://github.com/vtex-sites/nextjs.store/compare/22.34.7...22.34.8) (2022-08-23)
 
 ### [22.34.7](https://github.com/vtex-sites/nextjs.store/compare/22.34.6...22.34.7) (2022-08-22)
