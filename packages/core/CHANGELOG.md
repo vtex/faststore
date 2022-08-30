@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.35.1](https://github.com/vtex-sites/nextjs.store/compare/22.35.0...22.35.1) (2022-08-30)
+
+
+### Chores
+
+* Revisit `Hero` documentation (Storybook) ([#217](https://github.com/vtex-sites/nextjs.store/issues/217)) ([397046f](https://github.com/vtex-sites/nextjs.store/commit/397046f94bd2e38181a3aeef572338d65cb0eb99))
+
 ## [22.35.0](https://github.com/vtex-sites/nextjs.store/compare/22.34.8...22.35.0) (2022-08-29)
 
 
