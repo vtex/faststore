@@ -7,7 +7,7 @@ const StarterComponent = ({ starter }) => {
       <div>
         <Link href={starter.url}>
           <img
-            className="bg-code hover:opacity-95"
+            className="bg-whiteIce hover:opacity-95"
             src={starter.imgThumbnail}
           />
         </Link>

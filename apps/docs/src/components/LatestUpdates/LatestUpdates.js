@@ -1,7 +1,7 @@
 import React from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-import styles from './LatestUpdates.module.css'
 import tinytime from 'tinytime'
+import Link from '@docusaurus/Link'
 
 const LatestUpdates = () => {
   const formatDate = tinytime('{MM} {DD}, {YYYY}').render
@@ -10,55 +10,29 @@ const LatestUpdates = () => {
 
   return (
     <section>
-      <ul className={styles.changelogList}>
+      <h2 className="mb-6">
+        Release Notes
+      </h2>
+      <div className="h-96 overflow-y-auto mb-10 sm:mb-0">
         {release.map((item, i) => (
-          <li key={item.title}>
-            <a
-              href={`/releases/${item.fileName
+          <>
+            <time className='text-details text-sm'>
+              {formatDate(new Date(item.fileName.slice(0, 10)))}
+            </time>
+            <Link
+              className="hover:no-underline group"
+              to={`/releases/${item.fileName
                 .split('-')
                 .slice(0, 3)
                 .join('/')}/${item.fileName.split('-').slice(3).join('-')}`}
             >
-              <div className={styles.changelogTitle}>
-                <h4>{item.title}</h4>
+              <div className='border-l pl-4 pb-3 ml-5'>
+                <h4 className='pt-3 text-fontSecondary font-VTEXTrust  group-hover:text-rebelPink leading-8'>{item.title}</h4>
+                <p className="col-span-3 text-details leading-7">{item.description}</p>
               </div>
-              <p className={styles.descriptionChangelog}>{item.description}</p>
-              <time>
-                <svg viewBox="0 0 12 12">
-                  <circle cx="6" cy="6" r="6" fill="currentColor" />
-                  {i === 0 && (
-                    <circle
-                      cx="6"
-                      cy="6"
-                      r="11"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    />
-                  )}
-                  {i !== 0 && (
-                    <path
-                      d="M 6 -6 V -200"
-                      fill="none"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    />
-                  )}
-                  {i !== release.length - 1 && (
-                    <path
-                      d="M 6 18 V 300"
-                      fill="none"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    />
-                  )}
-                </svg>
-                {formatDate(new Date(item.fileName.slice(0, 10)))}
-              </time>
-            </a>
-          </li>
+            </Link></>
         ))}
-      </ul>
+      </div>
     </section>
   )
 }

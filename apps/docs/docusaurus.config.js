@@ -49,15 +49,15 @@ module.exports = {
       },
       items: [
         {
+          type: 'doc',
+          docId: 'beta/about',
+          position: 'left',
+          label: 'Beta program',
+        },
+        {
           href: '/docs',
           label: 'Documentation',
           position: 'left',
-        },
-        {
-          type: 'doc',
-          docId: 'tutorials',
-          position: 'left',
-          label: 'Tutorials',
         },
         {
           href: '/faq',
@@ -108,15 +108,11 @@ module.exports = {
       },
       links: [
         {
-          title: 'Docs',
+          title: 'Documentation',
           items: [
             {
               label: 'Quickstart',
               to: 'quickstart',
-            },
-            {
-              label: 'How-to guides',
-              to: '/how-to-guides',
             },
             {
               label: 'References',
@@ -128,7 +124,7 @@ module.exports = {
             },
             {
               label: 'Tutorials',
-              to: '/tutorials',
+              to: '/tutorials/gatsby-overview',
             },
           ],
         },

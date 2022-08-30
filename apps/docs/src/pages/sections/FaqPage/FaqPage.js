@@ -41,7 +41,7 @@ For styling, consider using a static CSS solution, such as Tailwind, Less, or ra
 
 const FaqPage = () => {
   return (
-    <div>
+    <div className='max-w-2xl'>
       {data.map(({ question, answer }) => (
         <FaqQuestion
           key={question}
