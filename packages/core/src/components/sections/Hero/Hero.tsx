@@ -9,6 +9,7 @@ import Icon from 'src/components/ui/Icon'
 import Image from 'src/components/ui/Image/Image'
 
 import Section from '../Section'
+import styles from './hero.module.scss'
 
 type Variant = 'primary' | 'secondary'
 type ColorVariant = 'main' | 'light' | 'accent'
@@ -39,6 +40,7 @@ const Hero = ({
   return (
     <Section>
       <UIHero
+        className={styles.fsHero}
         data-fs-hero
         data-fs-hero-variant={variant}
         data-fs-hero-color-variant={colorVariant}
@@ -58,15 +60,15 @@ const Hero = ({
         <UIHeroHeading data-fs-hero-heading aria-labelledby="hero-heading">
           <div data-fs-hero-wrapper className="layout__content">
             <div data-fs-hero-info>
-              <h1 id="hero-heading">{title}</h1>
-              <p data-fs-hero-text-body>{subtitle}</p>
+              <h1 data-fs-hero-title>{title}</h1>
+              <p data-fs-hero-subtitle>{subtitle}</p>
               {!!link && (
                 <ButtonLink href={link} inverse={colorVariant === 'main'}>
                   {linkText} <Icon name="ArrowRight" width={24} height={24} />
                 </ButtonLink>
               )}
             </div>
-            {variant === 'secondary' && icon && (
+            {icon && variant === 'secondary' && (
               <div data-fs-hero-icon>{icon}</div>
             )}
           </div>

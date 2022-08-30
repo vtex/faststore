@@ -1,0 +1,180 @@
+@import "src/styles/scaffold";
+
+.fs-hero {
+  // --------------------------------------------------------
+  // Design Tokens for Hero Section
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-hero-text-size                      : var(--fs-text-size-lead);
+  --fs-hero-text-line-height               : 1.33;
+
+  // Image
+  --fs-hero-image-border-radius            : 0;
+
+  // Title
+  --fs-hero-title-padding                  : var(--fs-spacing-5) 0 var(--fs-spacing-6);
+  --fs-hero-title-weight                   : var(--fs-text-weight-black);
+  --fs-hero-title-line-height              : 1.1;
+
+  // Subtitle
+  --fs-hero-subtitle-margin-top-mobile     : var(--fs-spacing-2);
+  --fs-hero-subtitle-margin-top-tablet     : var(--fs-spacing-4);
+  --fs-hero-subtitle-size                  : var(--fs-hero-text-size);
+  --fs-hero-subtitle-line-height           : var(--fs-hero-text-line-height);
+
+  // Primary
+  --fs-hero-primary-image-height-mobile    : 15rem; // 240px
+  --fs-hero-primary-image-height-desktop   : 29rem; // 464px
+  --fs-hero-primary-title-size             : var(--fs-text-size-title-huge);
+
+  // Secondary
+  --fs-hero-secondary-image-height-mobile  : 11.25rem;  // 180px
+  --fs-hero-secondary-image-height-desktop : 14.188rem; // 227px
+  --fs-hero-secondary-title-size           : var(--fs-text-size-title-page);
+
+  // Main
+  --fs-hero-main-bkg-color                 : var(--fs-color-primary-bkg);
+  --fs-hero-main-text-color                : var(--fs-color-primary-text);
+
+  // Light
+  --fs-hero-light-bkg-color                : var(--fs-color-secondary-bkg-light);
+  --fs-hero-light-text-color               : var(--fs-color-text-display);
+
+  // Accent
+  --fs-hero-accent-bkg-color               : var(--fs-color-highlighted-bkg);
+  --fs-hero-accent-text-color              : var(--fs-hero-light-text-color);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @include media(">=tablet") {
+    position: relative;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  [data-fs-hero-image] {
+    border-radius: var(--fs-hero-image-border-radius);
+
+    @include media(">=tablet") {
+      position: absolute;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+
+  [data-fs-hero-heading] {
+    width: 100%;
+    padding: var(--fs-hero-title-padding);
+  }
+
+  [data-fs-hero-wrapper] {
+    display: flex;
+    gap: var(--fs-spacing-3);
+    justify-content: space-between;
+
+    @include media(">=tablet") {
+      gap: var(--fs-spacing-1);
+      justify-content: flex-start;
+    }
+  }
+
+  [data-fs-hero-title] {
+    font-weight: var(--fs-hero-title-weight);
+    line-height: var(--fs-hero-title-line-height);
+  }
+
+  [data-fs-hero-subtitle] {
+    margin-top: var(--fs-hero-subtitle-margin-top-mobile);
+    font-size: var(--fs-hero-subtitle-size);
+    line-height: var(--fs-hero-subtitle-line-height);
+
+    @include media(">=tablet") { margin-top: var(--fs-hero-subtitle-margin-top-tablet); }
+  }
+
+  [data-fs-button] {
+    justify-content: space-between;
+    min-width: 11.25rem;
+    margin-top: var(--fs-spacing-6);
+  }
+
+  [data-fs-hero-icon] { color: var(--fs-hero-text-color); }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-hero-variant="primary"] {
+    @include media(">=tablet") { min-height: var(--fs-hero-primary-image-height-desktop); }
+
+    [data-fs-hero-title] { font-size: var(--fs-hero-primary-title-size); }
+
+    [data-fs-hero-heading] {
+      @include media(">=tablet") {
+        display: flex;
+        align-items: center;
+        padding: var(--fs-spacing-9) 0;
+      }
+    }
+
+    [data-fs-button] {
+      @include media(">=tablet") { margin-top: var(--fs-spacing-8); }
+    }
+
+    [data-fs-hero-image] {
+      @include media("<tablet") { height: var(--fs-hero-primary-image-height-mobile); }
+    }
+
+    [data-fs-hero-info] {
+      @include media(">=tablet") {
+        width: 46%;
+        padding-right: var(--fs-spacing-9);
+      }
+    }
+  }
+
+  &[data-fs-hero-variant="secondary"] {
+    @include media(">=tablet") { min-height: var(--fs-hero-secondary-image-height-desktop); }
+
+    [data-fs-hero-title] { font-size: var(--fs-hero-secondary-title-size); }
+
+    [data-fs-hero-info] {
+      @include media(">=tablet") {
+        width: 42%;
+      }
+    }
+
+    [data-fs-hero-heading] {
+      padding: var(--fs-spacing-4) 0 var(--fs-spacing-5);
+
+      @include media(">=tablet") { padding: var(--fs-spacing-5) 0; }
+    }
+
+    [data-fs-hero-image] {
+      @include media("<tablet") { height: var(--fs-hero-secondary-image-height-mobile); }
+    }
+  }
+
+  &[data-fs-hero-color-variant="main"] {
+    color: var(--fs-hero-main-text-color);
+    background-color: var(--fs-hero-main-bkg-color);
+  }
+
+  &[data-fs-hero-color-variant="light"] {
+    color: var(--fs-hero-light-text-color);
+    background-color: var(--fs-hero-light-bkg-color);
+  }
+
+  &[data-fs-hero-color-variant="accent"] {
+    color: var(--fs-hero-accent-text-color);
+    background-color: var(--fs-hero-accent-bkg-color);
+  }
+}

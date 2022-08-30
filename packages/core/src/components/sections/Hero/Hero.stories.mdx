@@ -1,0 +1,277 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { TokenTable, TokenRow } from 'src/../.storybook/components'
+
+import Hero from '.'
+import Icon from 'src/components/ui/Icon'
+
+<Meta
+  title="Organisms/Hero"
+  component={Hero}
+  argTypes={{
+    imageAlt: {
+      control: {
+        disable: true,
+      },
+    },
+    imageSrc: {
+      control: {
+        disable: true,
+      },
+    },
+    variant: {
+      defaultValue: 'primary',
+    },
+    colorVariant: {
+      defaultValue: 'main',
+    },
+    icon: {
+      control: { disable: true },
+    },
+  }}
+/>
+
+export const Template = (args) => <Hero {...args} />
+
+<header>
+
+# Hero
+
+The `Hero` component is a full-width banner presented on the above-the-fold section of a web page with the intent to show the brand's identity and messaging.
+
+</header>
+
+## Overview
+
+The `Hero` component uses [FastStore UI Hero](https://www.faststore.dev/reference/ui/organisms/Hero) as base.
+
+---
+
+## Usage
+
+`import Hero from 'src/components/sections/Hero'`
+
+<Canvas>
+  <Story
+    name="usage"
+    args={{
+      title: 'Explore more about our amazing products',
+      subtitle: 'All the amazing products from the brands we partner with.',
+      imageSrc:
+        'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
+      imageAlt: 'Quest 2 Controller on a table',
+      link: '/',
+      linkText: 'See more',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="usage" />
+
+<TokenTable>
+  <TokenRow token="--fs-hero-text-size" value="var(--fs-text-size-lead)" />
+  <TokenRow token="--fs-hero-text-line-height" value="1.33" />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Image
+
+<TokenTable>
+  <TokenRow token="--fs-hero-image-border-radius" value="0" />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-title-padding"
+    value="var(--fs-spacing-5) 0 var(--fs-spacing-6)"
+  />
+  <TokenRow
+    token="--fs-hero-title-weight"
+    value="var(--fs-text-weight-black)"
+  />
+  <TokenRow token="--fs-hero-title-line-height" value="1.1" />
+</TokenTable>
+
+### Subtitle
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-subtitle-margin-top-mobile"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-hero-subtitle-margin-top-tablet"
+    value="var(--fs-spacing-4)"
+  />
+  <TokenRow token="--fs-hero-subtitle-size" value="var(--fs-hero-text-size)" />
+  <TokenRow
+    token="--fs-hero-subtitle-line-height"
+    value="var(--fs-hero-text-line-height)"
+  />
+</TokenTable>
+
+---
+
+## Hierarchy
+
+### Primary
+
+<Canvas>
+  <Story
+    name="primary"
+    args={{
+      variant: 'primary',
+      title: 'Explore more about our amazing products',
+      subtitle: 'All the amazing products from the brands we partner with.',
+      imageSrc:
+        'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
+      imageAlt: 'Quest 2 Controller on a table',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-hero-primary-image-height-mobile" value="15rem" />
+  <TokenRow token="--fs-hero-primary-image-height-desktop" value="29rem" />
+  <TokenRow
+    token="--fs-hero-primary-title-size"
+    value="var(--fs-text-size-title-huge)"
+  />
+</TokenTable>
+
+### Secondary
+
+<Canvas>
+  <Story
+    name="secondary"
+    args={{
+      variant: 'secondary',
+      title: 'Explore more about our amazing products',
+      subtitle: 'All the amazing products from the brands we partner with.',
+      imageSrc:
+        'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
+      imageAlt: 'Quest 2 Controller on a table',
+      icon: <Icon name="House" width="40" height="40" />,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-hero-secondary-image-height-mobile" value="11.25rem" />
+  <TokenRow
+    token="--fs-hero-secondary-image-height-desktop"
+    value="14.188rem"
+  />
+  <TokenRow
+    token="--fs-hero-secondary-title-size"
+    value="var(--fs-text-size-title-page)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Main
+
+<Canvas>
+  <Story
+    name="main"
+    args={{
+      colorVariant: 'main',
+      title: 'Explore more about our amazing products',
+      subtitle: 'All the amazing products from the brands we partner with.',
+      imageSrc:
+        'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
+      imageAlt: 'Quest 2 Controller on a table',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-main-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-hero-main-text-color"
+    value="var(--fs-color-primary-text)"
+    isColor
+  />
+</TokenTable>
+
+### Light
+
+<Canvas>
+  <Story
+    name="light"
+    args={{
+      colorVariant: 'light',
+      title: 'Explore more about our amazing products',
+      subtitle: 'All the amazing products from the brands we partner with.',
+      imageSrc:
+        'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
+      imageAlt: 'Quest 2 Controller on a table',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-light-bkg-color"
+    value="var(--fs-color-secondary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-hero-light-text-color"
+    value="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+### Accent
+
+<Canvas>
+  <Story
+    name="accent"
+    args={{
+      colorVariant: 'accent',
+      title: 'Explore more about our amazing products',
+      subtitle: 'All the amazing products from the brands we partner with.',
+      imageSrc:
+        'https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg',
+      imageAlt: 'Quest 2 Controller on a table',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-accent-bkg-color"
+    value="var(--fs-color-highlighted-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-hero-accent-text-color"
+    value="var(--fs-hero-light-text-color)"
+    globalValue="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
