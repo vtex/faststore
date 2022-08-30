@@ -8,7 +8,7 @@ const StarterPage = () => {
   const starter = JSON.parse(JSON.stringify(siteConfig.customFields.starters))
   return (
     <div>
-      <div className="pt-20 py-16 text-center flex justify-center flex-col bg-code">
+      <div className="pt-20 py-16 text-center flex justify-center flex-col bg-whiteIce">
         <p className="uppercase text-sm text-fontSecondary font-bold">
           Quickly get your next FastStore website up and running
         </p>

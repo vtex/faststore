@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from '@docusaurus/Link'
-import ViewAll from '../../../components/ViewAll/ViewAll'
 
 const StarterComponentPage = ({ data = {} }) => {
   return (
@@ -8,22 +7,22 @@ const StarterComponentPage = ({ data = {} }) => {
       <div className="w-full lg:w-9/12 mx-auto my-5 tracking-wider uppercase text-sm text-fontSecondary font-medium">
         <Link href="/starters">← Back</Link>
       </div>
-      <div className="w-full lg:w-9/12 lg:relative bg-code container mb-20 mx-auto rounded-lg justify-between">
+      <div className="w-full lg:w-9/12 lg:relative bg-whiteIce container mb-20 mx-auto rounded-lg justify-between">
         <div className="w-full lg:w-3/6 lg:px-16 p-6 py-12">
           <h1 className="text-5xl font-VTEXMedium text-fontSecondary">
             {data.name}
           </h1>
-          <div className="text-fontSecondary">
-            by <a href={data.ownerWebsite}>{data.owner}</a>
+          <div className="text-fontSecondary tracking-wide text-sm font-VTEXMedium ml-1 mt-1">
+            DEVELOPED BY <a href={data.ownerWebsite}>{data.owner}</a>
           </div>
           <p
             className="text-details mt-5 text-lg"
             dangerouslySetInnerHTML={{ __html: data.description }}
           />
 
-          <ViewAll linkTo={data.demoURL} message="View demo store" />
+          <Link to={data.demoURL} className="button-secondary my-5">VIEW DEMO STORE</Link>
 
-          <div>
+          <div className='text-fontSecondary'>
             <p className="text-sm font-VTEXMedium tracking-wider mt-4">
               COMES WITH:
             </p>
@@ -42,7 +41,7 @@ const StarterComponentPage = ({ data = {} }) => {
             </span>
             {data.gatsbyRepo && (
               <Link
-                className="w-5 h-5 ml-2 inline-block align-middle"
+                className="w-5 h-5 ml-2 inline-block align-baseline"
                 href={data.gatsbyRepo}
               >
                 <svg
@@ -69,7 +68,7 @@ const StarterComponentPage = ({ data = {} }) => {
             )}
             {data.nextRepo && (
               <Link
-                className="w-5 h-5 ml-2 inline-block align-middle"
+                className="w-5 h-5 ml-2 inline-block align-baseline"
                 href={data.nextRepo}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">

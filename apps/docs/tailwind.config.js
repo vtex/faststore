@@ -7,12 +7,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        VTEXTrust: ['VTEX Trust', 'sans-serif'],
+        VTEXTrust: ['VTEX Trust Regular', 'sans-serif'],
         VTEXRegular: ['VTEX Trust Regular', 'sans-serif'],
         VTEXMedium: ['VTEX Trust Medium', 'sans-serif'],
       },
       colors: {
         background: infima('--ifm-background-color'),
+        whiteIce: infima('--ifm-color-white-ice'),
         code: infima('--ifm-code-background'),
         tag: infima('--ifm-tag-background'),
         tagHighlight: infima('--ifm-tag-highlight'),
