@@ -2,7 +2,7 @@
 id: analytics
 ---
 
-# Analytics module
+# Analytics
 
 The analytics module lets you manage events in a simple way. You send an event using this module, the event is wrapped and then sent to the window over standard `postMessage` calls, which share the event only with the website's origin. This module provides a React Hook so it's possible to intercept the fired events. can be received via event listeners.
 

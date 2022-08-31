@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-08-19",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "FastStore API",
+    "path": "/how-to-guides/faststore-api",
+    "docs": [
+      {
+        "path": "/how-to-guides/faststore-api/extending-the-faststore-api",
+        "title": "Extending the GraphQL schema"
+      }
+    ]
+  },
+  {
     "date": "2022-06-29",
     "type": "Added",
     "menu": "How-to Guides",

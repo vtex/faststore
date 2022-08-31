@@ -9,7 +9,7 @@
  Create as many sidebars as you want.
  */
 
- module.exports = {
+module.exports = {
   docsSidebar: [
     {
       type: 'category',
@@ -126,10 +126,13 @@
     },
     {
       type: 'category',
-      label: 'Concepts',
+      label: 'Advanced guides',
       collapsed: true,
       link: { type: 'doc', id: 'conceptual-guides' },
-      items: ['conceptual-guides/jamstack'],
+      items: [
+        'conceptual-guides/analytics-on-faststore',
+        'conceptual-guides/analytics-on-official-starters',
+      ],
     },
     {
       type: 'category',
@@ -259,8 +262,8 @@
                 'reference/api/inputs',
                 'reference/api/enums',
                 'reference/api/scalars',
-              ]
-            }
+              ],
+            },
           ],
         },
         {
@@ -295,10 +298,10 @@
                 },
               ],
             },
-          ]
-        }
+          ],
+        },
       ],
-    }
+    },
   ],
   cmsStoreComponents: [
     {
@@ -327,8 +330,9 @@
         {
           type: 'link',
           label: 'Waiting list',
-          href: 'https://docs.google.com/forms/d/e/1FAIpQLSfmNyT5BepQw2AFyHnrI9-4fqvkOTWvdeBLdkQgxhQ2r0-g4A/viewform'
-        }
+          href:
+            'https://docs.google.com/forms/d/e/1FAIpQLSfmNyT5BepQw2AFyHnrI9-4fqvkOTWvdeBLdkQgxhQ2r0-g4A/viewform',
+        },
       ],
     },
     {
@@ -337,10 +341,7 @@
       className: 'pb-5 mb-5 border-b labelSidebar',
       collapsed: false,
       collapsible: false,
-      items: [
-        'beta/feedback-and-issue-tracking',
-        'beta/customer-invitation'
-      ],
+      items: ['beta/feedback-and-issue-tracking', 'beta/customer-invitation'],
     },
     {
       type: 'category',
@@ -350,8 +351,8 @@
       collapsible: false,
       items: [
         'beta/features-and-capabilities',
-        'beta/changes-from-store-framework'
+        'beta/changes-from-store-framework',
       ],
-    }
-  ]
+    },
+  ],
 }
