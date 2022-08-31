@@ -1,7 +1,7 @@
 {
   "name": "nextjs.store",
   "private": true,
-  "version": "22.35.1",
+  "version": "22.35.2",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
   "scripts": {
