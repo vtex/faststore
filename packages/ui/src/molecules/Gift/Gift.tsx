@@ -3,6 +3,7 @@ import type { HTMLAttributes } from 'react'
 import type { ReactNode } from 'react'
 
 import Icon from '../../atoms/Icon'
+
 export interface GiftProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
