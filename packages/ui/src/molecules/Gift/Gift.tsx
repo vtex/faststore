@@ -14,10 +14,6 @@ export interface GiftProps extends HTMLAttributes<HTMLDivElement> {
    * A React component that will be rendered as an icon.
    */
   icon?: ReactNode
-  /**
-   * Label to be required for accessibility for the Icon.
-   */
-  'aria-label'?: string
 }
 
 const Gift = forwardRef<HTMLDivElement, GiftProps>(function Gift(
