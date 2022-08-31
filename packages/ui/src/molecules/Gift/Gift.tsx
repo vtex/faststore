@@ -15,7 +15,7 @@ export interface GiftProps extends HTMLAttributes<HTMLDivElement> {
    */
   icon?: ReactNode
   /**
-   * Label to be required for accessibility.
+   * Label to be required for accessibility for the Icon.
    */
   'aria-label'?: string
 }
