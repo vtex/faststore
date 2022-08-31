@@ -315,10 +315,9 @@
     },
   ],
   betaProgram: [
-
     {
       type: 'category',
-      label: 'ABOUT THE PROGRAM',
+      label: 'About the program',
       className: 'pb-5 mb-5 border-b labelSidebar',
       collapsed: false,
       collapsible: false,
@@ -328,13 +327,13 @@
         {
           type: 'link',
           label: 'Waiting list',
-          href: 'https://content.vtex.com/vtexio-headless-cms-closed-beta/'
+          href: 'https://docs.google.com/forms/d/e/1FAIpQLSfmNyT5BepQw2AFyHnrI9-4fqvkOTWvdeBLdkQgxhQ2r0-g4A/viewform'
         }
       ],
     },
     {
       type: 'category',
-      label: 'BETA ACTIVITIES',
+      label: 'Beta activities',
       className: 'pb-5 mb-5 border-b labelSidebar',
       collapsed: false,
       collapsible: false,
@@ -345,7 +344,7 @@
     },
     {
       type: 'category',
-      label: 'BEHAVIOR ASPECTS',
+      label: 'Behavior aspects',
       className: 'labelSidebar',
       collapsed: false,
       collapsible: false,
@@ -354,5 +353,5 @@
         'beta/changes-from-store-framework'
       ],
     }
-  ],
+  ]
 }
