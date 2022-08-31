@@ -34,13 +34,14 @@
   // --------------------------------------------------------
 
   position: relative;
-  z-index: var(--fs-z-index-below);
   background-color: var(--fs-navlinks-bkg-color);
   transition: var(--fs-navlinks-transition-property) var(--fs-navlinks-transition-timing) var(--fs-navlinks-transition-function);
 
   @include media("<notebook") { padding: 0; }
 
   @include media(">=notebook") {
+    z-index: var(--fs-z-index-below);
+
     > div {
       display: flex;
       align-items: center;
