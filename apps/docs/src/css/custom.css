@@ -180,7 +180,7 @@
  }
  
  .markdown ol {
-   @apply list-decimal ml-8 my-4;
+   @apply list-decimal pl-8 my-4;
  }
  [class^='card'] {
    @apply bg-transparent border-border !important;
@@ -204,7 +204,7 @@
  }
  
  .markdown ul {
-   @apply list-disc ml-8;
+   @apply list-disc pl-8;
  }
  
  [class^='tabs'] {
@@ -424,5 +424,5 @@
  }
  
  .labelSidebar .menu__list-item-collapsible > .menu__link {
-   @apply text-xs text-details pl-6;
+   @apply text-xs text-details pl-6 uppercase;
  }

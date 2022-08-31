@@ -23,7 +23,7 @@ function Hero() {
                   VIEW LIVE DEMO
                 </Link>
                 <Link
-                  to="https://content.vtex.com/vtexio-headless-cms-closed-beta/"
+                  to="https://docs.google.com/forms/d/e/1FAIpQLSfmNyT5BepQw2AFyHnrI9-4fqvkOTWvdeBLdkQgxhQ2r0-g4A/viewform"
                   className="button-tertiary">
                   Join the waiting list
                 </Link>
