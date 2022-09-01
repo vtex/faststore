@@ -1,8 +1,11 @@
 import React from 'react'
 import Link from '@docusaurus/Link'
 
-const BackgroundCard = ({ linkTo, title, description, button, bgImage }) => (
-  <Link to={linkTo} className="p-6 rounded-lg bg-tag overflow-hidden relative inline-flex">
+const BackgroundCard = ({ linkTo, title, description, button }) => (
+  <Link
+    to={linkTo}
+    className="p-6 rounded-lg bg-tag overflow-hidden relative inline-flex"
+  >
     <div>
       <h2 className="text-lg font-VTEXMedium">{title}</h2>
       <p className=" w-2/3">{description}</p>
