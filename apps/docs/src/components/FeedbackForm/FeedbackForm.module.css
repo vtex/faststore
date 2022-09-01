@@ -1,9 +1,9 @@
-.submitMessage{
+.submitMessage {
   @apply mt-5 mb-10 text-seriousBlack text-sm;
 }
 
 .submit {
-  @apply hover:text-rebelPink leading-6 mr-2 mt-2 px-3 rounded  uppercase font-VTEXMedium text-xs 
+  @apply hover:text-rebelPink leading-6 mr-2 mt-2 px-3 rounded  uppercase font-VTEXMedium text-xs
 }
 
 .formRadio label {

@@ -1,5 +1,85 @@
 [
   {
+    "date": "2022-09-01",
+    "type": "Improved",
+    "menu": "Reference",
+    "category": "Analytics",
+    "path": "/reference/sdk/analytics",
+    "docs": [
+      {
+        "path": "/reference/sdk/analytics",
+        "title": "Analytics"
+      },
+      {
+        "path": "/reference/sdk/analytics/sendAnalyticsEvent",
+        "title": "sendAnalyticsEvent"
+      },
+      {
+        "path": "/reference/sdk/analytics/useAnalyticsEvent",
+        "title": "useAnalyticsEvent"
+      },
+      {
+        "path": "/reference/sdk/analytics/how-to-extend-types",
+        "title": "Extending and customizing native types"
+      },
+      {
+        "path": "/reference/sdk/analytics/how-to-send-custom-events",
+        "title": "Sending custom events"
+      }
+    ]
+  },
+  {
+    "date": "2022-09-01",
+    "type": "Improved",
+    "menu": "Advanced Guides",
+    "category": "Analytics",
+    "path": "/conceptual-guides/analytics-on-faststore",
+    "docs": [
+      {
+        "path": "/conceptual-guides/analytics-on-faststore",
+        "title": "Analytics on FastStore"
+      },
+      {
+        "path": "/conceptual-guides/analytics-on-official-starters",
+        "title": "Analytics on official starters"
+      },
+      {
+        "path": "/conceptual-guides/analytics-store-framework",
+        "title": "Analytics on Store Framework and FastStore comparison"
+      }
+    ]
+  },
+  {
+    "date": "2022-09-01",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Performance",
+    "path": "/how-to-guides/performance",
+    "docs": [
+      {
+        "path": "/how-to-guides/performance",
+        "title": "Performance"
+      },
+      {
+        "path": "/how-to-guides/performance/testing-the-server-side-rendering",
+        "title": "Testing the server-side rendering"
+      }
+    ]
+  },
+  {
+    "date": "2022-09-01",
+    "type": "Added",
+    "menu": "Introduction",
+    "category": "Glossary",
+    "path": "/glossary",
+    "docs": [
+      {
+        "path": "/glossary",
+        "title": "Glossary"
+      }
+    ]
+  },
+  {
     "date": "2022-08-19",
     "type": "Added",
     "menu": "How-to Guides",
