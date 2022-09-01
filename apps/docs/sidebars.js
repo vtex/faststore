@@ -148,7 +148,6 @@
       items: [
         'conceptual-guides/analytics-on-faststore',
         'conceptual-guides/analytics-on-official-starters',
-        'conceptual-guides/analytics-store-framework',
       ],
     },
     {
