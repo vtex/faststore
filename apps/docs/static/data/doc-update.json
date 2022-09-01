@@ -1,5 +1,35 @@
 [
   {
+    "date": "2022-09-01",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Performance",
+    "path": "/how-to-guides/performance",
+    "docs": [
+      {
+        "path": "/how-to-guides/performance",
+        "title": "Performance"
+      },
+      {
+        "path": "/how-to-guides/performance/testing-the-server-side-rendering",
+        "title": "Testing the server-side rendering"
+      }
+    ]
+  },
+  {
+    "date": "2022-09-01",
+    "type": "Added",
+    "menu": "Introduction",
+    "category": "Glossary",
+    "path": "/glossary",
+    "docs": [
+      {
+        "path": "/glossary",
+        "title": "Glossary"
+      }
+    ]
+  },
+  {
     "date": "2022-06-29",
     "type": "Added",
     "menu": "How-to Guides",
