@@ -17,4 +17,4 @@ Previously, the [GraphQL IDE guide](/how-to-guides/faststore-api/explore-the-fas
 
 Now, you can still run your FastStore project locally and, although the new guide contains specific instructions for using [graphql-playground](https://github.com/graphql/graphql-playground), you may use your preferred GraphQL IDE.
 
-Also, now you can find more precise instructions and code examples of how to use the FastStore API in your storefront with the guides [Fetching API data on the storefront](/how-to-guides/faststore-api/fetching-api-data) and [Extending the GraphQL schema](/how-to-guides/faststore-api/extending-the-faststore-api).
+In addition, now you can find more precise instructions and code examples of how to use the FastStore API in your storefront with the guides [Fetching API data on the storefront](/how-to-guides/faststore-api/fetching-api-data) and [Extending the GraphQL schema](/how-to-guides/faststore-api/extending-the-faststore-api).
