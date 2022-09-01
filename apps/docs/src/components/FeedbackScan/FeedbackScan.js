@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import FeedbackScanModal from '../../components/FeedbackScanModal/FeedbackScanModal'
 import clsx from 'clsx'
 
@@ -9,11 +9,14 @@ class FeedbackScan extends React.Component {
     selectedDiv: '',
   }
 
-  showModal = (e) => {
+  showModal = () => {
     const tooltip = document.getElementById('tooltip')
     const hiddenModal = document.getElementById('hidden-modal')
     this.setState({ isOpen: true })
-    this.handleModalPosition(hiddenModal, this.state.selectedDiv.getBoundingClientRect().top)
+    this.handleModalPosition(
+      hiddenModal,
+      this.state.selectedDiv.getBoundingClientRect().top
+    )
     this.state.selectedDiv.classList.add('bg-tagHighlight')
     tooltip.style.visibility = 'hidden'
   }
@@ -22,9 +25,11 @@ class FeedbackScan extends React.Component {
   handleModalPosition = (divElement, Ypos) => {
     const container = document.getElementsByClassName('theme-doc-markdown')[0]
     const width = divElement.offsetWidth
-    const Xpos = container.getBoundingClientRect().left + container.getBoundingClientRect().width
+    const Xpos =
+      container.getBoundingClientRect().left +
+      container.getBoundingClientRect().width
     const height = divElement.offsetHeight
-    
+
     if (Ypos + height > window.innerHeight) {
       divElement.style.bottom = '2%'
     } else {
@@ -64,10 +69,7 @@ class FeedbackScan extends React.Component {
     if (acceptedDivTypes.includes(target.nodeName)) {
       target.classList.add('bg-code')
       this.setState({
-        Ypos:
-          target.offsetTop +
-          target.offsetHeight / 2 -
-          12,
+        Ypos: target.offsetTop + target.offsetHeight / 2 - 12,
       })
       this.handleDivPosition(feedbackScanner, this.state.Ypos)
       this.setState({
@@ -94,7 +96,7 @@ class FeedbackScan extends React.Component {
     divElement.style.top = Ypos + 'px'
   }
 
-  handleFeature = (e) => {
+  handleFeature = () => {
     const article = document.getElementsByTagName('article')[0]
     const markdown = document.getElementsByClassName('theme-doc-markdown')[0]
     const hiddenButton = document.getElementById('hidden-button')
@@ -107,9 +109,8 @@ class FeedbackScan extends React.Component {
 
     const feedbackScanner = document.getElementById('feedback-scan')
     article.classList.add('relative')
-    article.appendChild(feedbackScanner);
+    article.appendChild(feedbackScanner)
     feedbackScanner.classList.remove('hidden')
-
   }
 
   disableFeature = () => {
@@ -127,7 +128,7 @@ class FeedbackScan extends React.Component {
   render() {
     return (
       <div>
-        <div id="feedback-scan" className='absolute hidden -right-10 top-0'>
+        <div id="feedback-scan" className="absolute hidden -right-10 top-0">
           <Modal
             isOpen={this.state.isOpen}
             handleClose={this.hideModal}
