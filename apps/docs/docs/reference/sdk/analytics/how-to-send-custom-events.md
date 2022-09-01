@@ -10,6 +10,8 @@ Even though the Analytics module supports [GA's Enhanced Ecommerce](https://supp
 We strongly recommend using the Analytics module to send custom events. This will help you centralize all tracking-related events in a single tool and, consequently, write more consistent, readable, and maintainable code.
 :::
 
+In the following step by step, you'll learn how to define and send custom events.
+
 ## Step by step 
 
 ### Step 1 - Declaring an interface for your custom event

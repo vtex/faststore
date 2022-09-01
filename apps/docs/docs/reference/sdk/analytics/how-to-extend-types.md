@@ -1,22 +1,20 @@
-# How to extend and customize native types
+---
+sidebar_position: 3
+---
 
-One of the major features the analytics module offers are its types. They're all based on [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events), and they're especially focused on the [Enhanced Ecommerce](https://support.google.com/tagmanager/answer/6107169) capabilities.
+# Extending and customizing native types
 
-Although the recommended parameters by each analytics providers are often the most important ones, it's quite common to send additional properties to them in order to monitor specific behaviors that are uniquely valuable to a store or a store segment.
+The Analytics module offers multiple types based on the [Google Analytics 4 (GA4) Enhanced Ecommerce](https://support.google.com/tagmanager/answer/6107169) [data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events). Yet, although these are often the most used parameters on online stores, sending them additional properties is usually desirable in order to monitor specific behaviors that are only valuable to particular business models.
 
-The analytics module supports this behavior natively and offers ways to make it easy to incorporate it without losing code safety features. It does that by accepting custom types and exporting its own types so that users don't have the need to rewrite all of them to add minor additions. Also, these types are built with generics, which means you can rewrite only a small part of them if you really need to.
+Extending and customizing native types from the Analytics SDK is natively supported by FastStore. The Analytics module can accept new types and also export its native types. This means you don't need to rewrite all the code of an event interface to add minor additions to it. Also, because the Analytics module is built with [generics](https://www.typescriptlang.org/docs/handbook/2/generics.html), you can rewrite only a tiny portion of a type if necessary.
 
-## Available types
+In the following step by step, you'll learn how to extend and customize native types from the Analytics module.
 
-The types for all events are available for use and extension. Here's the list of the events the analytics module natively supports: `add_payment_info`, `purchase`, `signup`, `add_shipping_info`, `refund`, `add_to_cart`, `remove_from_cart`, `view_cart`, `add_to_wishlist`, `search`, `view_item`, `begin_checkout`, `select_item`, `view_item_list`, `select_promotion`, `view_promotion`, `login`, `share`. For each of these events, at least two types are exported: one being the type of the event params and the other being the event type itself.
+## Step by step
 
-As an example, the `add_to_cart` has two exported types: `AddToCartParams<T extends Item = Item>` and `AddToCartEvent<T extends Item = Item>`.
+Check the list of [Available types](/reference/sdk/analytics#available-types) that you can extend. Then, use [Type Aliases or Extended Interfaces](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces) TypeScript techniques to extend the desired type.
 
-Also, there are types there are common to all events, such as the `Item` type. These types are particulary useful when overriding `Item` properties or a whole `Item` itself (usually via generics).
-
-## Extending types
-
-You can extend the available types by using common TS techniques such as [Type Aliases or Extended Interfaces](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces).
+Take the following example where the `AddToCartEvent` interface is extended to also accept the `foo` property:
 
 ```ts
 import type { AddToCartEvent } from '@faststore/sdk'
@@ -29,8 +27,7 @@ interface AddToCartExtended extends AddToCartEvent {
 }
 ```
 
-Also, when available, you can use [generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) to override the Item property in events.
-
+Also, when available, you can use [generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) to override the `Item` property in events.
 
 ```ts
 import type { AddToCartEvent, Item } from '@faststore/sdk'
