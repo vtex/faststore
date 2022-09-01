@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.9](https://github.com/vtex/faststore/compare/v1.11.8...v1.11.9) (2022-09-01)
+
+
+### Documentation
+
+* Add glossary ([#1452](https://github.com/vtex/faststore/issues/1452)) ([49a25d1](https://github.com/vtex/faststore/commit/49a25d18b324079db3e6aad046ee6ceef347fb49))
+
+
+
 ## 1.11.8 (2022-09-01)
 
 
