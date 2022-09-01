@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './FeedbackModal.module.css'
 import { v1 as uuidv1 } from 'uuid'
 
@@ -20,7 +20,7 @@ class FeedbackScanModal extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.isOpen !== this.props.isOpen) {
       this.setState(() => this.initialState)
-      this.setState({id: uuidv1()})
+      this.setState({ id: uuidv1() })
     }
   }
 
@@ -64,14 +64,11 @@ class FeedbackScanModal extends React.Component {
     }
 
     async function myFetch() {
-      await fetch(
-        'https://vtexhelp.myvtex.com/feedbackDatabase',
-        {
-          mode: 'no-cors',
-          body: JSON.stringify(bodyContent),
-          method: 'POST',
-        }
-      )
+      await fetch('https://vtexhelp.myvtex.com/feedbackDatabase', {
+        mode: 'no-cors',
+        body: JSON.stringify(bodyContent),
+        method: 'POST',
+      })
     }
 
     myFetch()
@@ -107,7 +104,7 @@ function Step1(props) {
     return null
   }
   return (
-    <div className='w-80 overflow-auto h-max'>
+    <div className="w-80 overflow-auto h-max">
       <form onSubmit={props.onSubmit}>
         <p>What is the issue with this section?</p>
         <ul className="text-xs">
@@ -126,7 +123,8 @@ function Step1(props) {
                 htmlFor="option-imprecise"
                 className="w-full rounded mt-2 p-3 cursor-pointer border peer-checked:border-rebelPink peer-checked:text-rebelPink peer-checked:bg-tagHighlight hover:text-gray-600 hover:bg-gray-100"
               >
-                <strong>Imprecise</strong> - doesn't match what's in my screen.
+                <strong>Imprecise</strong> - doesn&rsquo;t match what&rsquo;s in
+                my screen.
               </label>
             </div>
           </li>
@@ -145,7 +143,8 @@ function Step1(props) {
                 htmlFor="option-hard-to-understand"
                 className="w-full rounded mt-2 p-3 cursor-pointer border peer-checked:border-rebelPink peer-checked:text-rebelPink peer-checked:bg-tagHighlight hover:text-gray-600 hover:bg-gray-100"
               >
-                <strong>Hard to understand</strong> - unclear or difficult to comprehend.
+                <strong>Hard to understand</strong> - unclear or difficult to
+                comprehend.
               </label>
             </div>
           </li>
@@ -164,7 +163,8 @@ function Step1(props) {
                 htmlFor="option-insufficient-info"
                 className="w-full rounded mt-2 p-3 cursor-pointer border peer-checked:border-rebelPink peer-checked:text-rebelPink peer-checked:bg-tagHighlight hover:text-gray-600 hover:bg-gray-100"
               >
-                <strong>Insufficient information</strong> - pertinent but incomplete.
+                <strong>Insufficient information</strong> - pertinent but
+                incomplete.
               </label>
             </div>
           </li>
@@ -183,7 +183,8 @@ function Step1(props) {
                 htmlFor="option-unrelated"
                 className="w-full rounded mt-2 p-3 cursor-pointer border peer-checked:border-rebelPink peer-checked:text-rebelPink peer-checked:bg-tagHighlight hover:text-gray-600 hover:bg-gray-100"
               >
-                <strong>Unrelated</strong> - doesn't match the title or my expectations.
+                <strong>Unrelated</strong> - doesn&rsquo;t match the title or my
+                expectations.
               </label>
             </div>
           </li>
@@ -202,7 +203,8 @@ function Step1(props) {
                 htmlFor="option-minor-errors"
                 className="w-full rounded mt-2 p-3 cursor-pointer border peer-checked:border-rebelPink peer-checked:text-rebelPink peer-checked:bg-tagHighlight hover:text-gray-600 hover:bg-gray-100"
               >
-                <strong>Minor errors</strong> - grammatical and/or formatting issues.
+                <strong>Minor errors</strong> - grammatical and/or formatting
+                issues.
               </label>
             </div>
           </li>
@@ -244,7 +246,7 @@ function Step2(props) {
     return null
   }
   return (
-    <div className='w-80 h-max overflow-auto'>
+    <div className="w-80 h-max overflow-auto">
       <div>
         <form className={styles.FeedbackModal} onSubmit={props.onSubmit}>
           <label>
