@@ -1,5 +1,11 @@
 [
   {
+    "title": "New and improved FastStore API guides",
+    "product": "FastStore",
+    "fileName": "2022-09-01-faststore",
+    "description": "There are new and improved guides available on our documentation portal."
+  },
+  {
     "title": "FastStore - July, 2022",
     "product": "FastStore",
     "fileName": "2022-08-05-faststore",
@@ -10,11 +16,5 @@
     "product": "WebOps",
     "fileName": "2022-07-19-webops",
     "description": "To go live, FastStore projects developed with Gatsby 4 and Next.js require a new environment variable."
-  },
-  {
-    "title": "Base Store - June, 2022",
-    "product": "Base Store",
-    "fileName": "2022-07-01-basestore",
-    "description": "PLPs now support price range filtering, and nonexistent PDPs can now handle 404 errors. Also, more components have been updated to conform to the new Base Store Theming architecture."
   }
 ]
