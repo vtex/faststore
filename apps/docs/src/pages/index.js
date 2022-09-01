@@ -4,6 +4,20 @@ import Hero from '@site/src/components/Hero/Hero'
 import PlaygroundPreview from '@site/src/components/Hero/PlaygroundPreview'
 import Link from '@docusaurus/Link'
 
+function CheckIcon() {
+  return (
+    <svg
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="#e31c58"
+      className="w-5 h-5 inline-block mr-2"
+      viewBox="0 0 28 28"
+    >
+      <path d="M14 0C6.3 0 0 6.3 0 14C0 21.7 6.3 28 14 28C21.7 28 28 21.7 28 14C28 6.3 21.7 0 14 0ZM12.25 19.95L6.3 14L8.75 11.55L12.25 15.05L19.25 8.05L21.7 10.5L12.25 19.95Z" />
+    </svg>
+  )
+}
+
 function Home() {
   return (
     <Layout title="FastStore Documentation">
@@ -185,59 +199,23 @@ function Home() {
               <div className="lg:flex lg:flex-row items-center leading-loose">
                 <div className="lg:grid lg:gap-4">
                   <div>
-                    <svg
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#e31c58"
-                      className="w-5 h-5 inline-block mr-2"
-                      viewBox="0 0 28 28"
-                    >
-                      {' '}
-                      <path d="M14 0C6.3 0 0 6.3 0 14C0 21.7 6.3 28 14 28C21.7 28 28 21.7 28 14C28 6.3 21.7 0 14 0ZM12.25 19.95L6.3 14L8.75 11.55L12.25 15.05L19.25 8.05L21.7 10.5L12.25 19.95Z" />{' '}
-                    </svg>
+                    <CheckIcon />
                     <p className="inline mr-10">
                       Develop with any CSS framework
                     </p>
                   </div>
                   <div>
-                    <svg
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#e31c58"
-                      className="w-5 h-5 inline-block mr-2"
-                      viewBox="0 0 28 28"
-                    >
-                      {' '}
-                      <path d="M14 0C6.3 0 0 6.3 0 14C0 21.7 6.3 28 14 28C21.7 28 28 21.7 28 14C28 6.3 21.7 0 14 0ZM12.25 19.95L6.3 14L8.75 11.55L12.25 15.05L19.25 8.05L21.7 10.5L12.25 19.95Z" />{' '}
-                    </svg>
+                    <CheckIcon />
                     <p className="inline">Integrate with any headless CMS</p>
                   </div>
                 </div>
                 <div className="lg:grid lg:gap-4">
                   <div>
-                    <svg
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#e31c58"
-                      className="w-5 h-5 inline-block mr-2"
-                      viewBox="0 0 28 28"
-                    >
-                      {' '}
-                      <path d="M14 0C6.3 0 0 6.3 0 14C0 21.7 6.3 28 14 28C21.7 28 28 21.7 28 14C28 6.3 21.7 0 14 0ZM12.25 19.95L6.3 14L8.75 11.55L12.25 15.05L19.25 8.05L21.7 10.5L12.25 19.95Z" />{' '}
-                    </svg>
+                    <CheckIcon />
                     <p className="inline">Build with any site generator</p>
                   </div>
                   <div>
-                    <svg
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#e31c58"
-                      className="w-5 h-5 inline-block mr-2"
-                      viewBox="0 0 28 28"
-                    >
-                      {' '}
-                      <path d="M14 0C6.3 0 0 6.3 0 14C0 21.7 6.3 28 14 28C21.7 28 28 21.7 28 14C28 6.3 21.7 0 14 0ZM12.25 19.95L6.3 14L8.75 11.55L12.25 15.05L19.25 8.05L21.7 10.5L12.25 19.95Z" />{' '}
-                    </svg>
+                    <CheckIcon />
                     <p className="inline">
                       Launch with any deployment platform
                     </p>
