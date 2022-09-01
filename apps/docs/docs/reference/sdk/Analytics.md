@@ -19,7 +19,7 @@ The Analytics module supports sending and receiving events of any shape, so you 
 
 Another central feature of the Analytics module is [Enhanced Ecommerce](https://support.google.com/tagmanager/answer/6107169)-focused types based on [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events).
 
-## Available types
+## List of types
 
 The Analytics SDK comes with native types based on Enhance Ecommerce. All event types are available for use and extension. Here's the list of the events the analytics module natively supports: 
 
@@ -49,7 +49,7 @@ As an example, the `add_to_cart` has two exported types: `AddToCartParams<T exte
 
 Also, some types are [common](https://github.com/vtex/faststore/blob/main/packages/sdk/src/analytics/events/common.ts) to all events, such as the `Item` type. These types are particularly useful when overriding `Item` properties or a whole `Item` itself.
 
-## Google Analytics 4 support
+## Google Analytics 4
 
 Google Analytics is by far the industry-leading analytics solution that most ecommerce websites use, and the Analytics module was built with it in mind. All the module's helper functions and hooks use the [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events) by default. This way, you can use a [code hinting](#code-hinting) tool to receive suggestions of GA4 events along with their recommended properties while coding.
 
