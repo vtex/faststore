@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import {
   Hero as UIHero,
   HeroHeading as UIHeroHeading,
@@ -15,14 +16,41 @@ type Variant = 'primary' | 'secondary'
 type ColorVariant = 'main' | 'light' | 'accent'
 
 export interface HeroProps {
+  /**
+   * Content for the h1 tag.
+   */
   title: string
+  /**
+   * Content for the p tag.
+   */
   subtitle: string
+  /**
+   * Specifies the component variant.
+   */
   variant?: Variant
+  /**
+   * Specifies the component's color variant combination.
+   */
   colorVariant?: ColorVariant
-  linkText?: string
+  /**
+   * Specifies the URL the action button goes to.
+   */
   link?: string
-  icon?: JSX.Element
+  /**
+   * Specifies the action button's content.
+   */
+  linkText?: string
+  /**
+   * Icon component for additional customization.
+   */
+  icon?: ReactNode
+  /**
+   * Specifies the image URL.
+   */
   imageSrc: string
+  /**
+   * Alternative description of the image.
+   */
   imageAlt: string
 }
 
