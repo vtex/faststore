@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.11](https://github.com/vtex/faststore/compare/v1.11.10...v1.11.11) (2022-09-02)
+
+
+### Documentation
+
+* add analyzing a projects bundle size ([#1453](https://github.com/vtex/faststore/issues/1453)) ([e7e74fd](https://github.com/vtex/faststore/commit/e7e74fd4c0ed7fbb6fa53d2c5ddc178c685f487c))
+
+
+
 ## [1.11.10](https://github.com/vtex/faststore/compare/v1.11.9...v1.11.10) (2022-09-01)
 
 
