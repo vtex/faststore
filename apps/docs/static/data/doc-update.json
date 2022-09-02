@@ -1,4 +1,26 @@
 [
+
+  {
+    "date": "2022-09-01",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Performance",
+    "path": "/how-to-guides/performance",
+    "docs": [
+      {
+        "path": "/how-to-guides/performance",
+        "title": "Performance"
+      },
+      {
+        "path": "/how-to-guides/performance/analyzing-a-projects-bundle-size",
+        "title": "Analyzing a project's bundle size"
+      },
+      {
+        "path": "/how-to-guides/performance/testing-the-server-side-rendering",
+        "title": "Testing the server-side rendering"
+      }
+    ]
+  },
   {
     "date": "2022-09-01",
     "type": "Improved",
@@ -46,23 +68,6 @@
       {
         "path": "/conceptual-guides/analytics-store-framework",
         "title": "Analytics on Store Framework and FastStore comparison"
-      }
-    ]
-  },
-  {
-    "date": "2022-09-01",
-    "type": "Added",
-    "menu": "How-to Guides",
-    "category": "Performance",
-    "path": "/how-to-guides/performance",
-    "docs": [
-      {
-        "path": "/how-to-guides/performance",
-        "title": "Performance"
-      },
-      {
-        "path": "/how-to-guides/performance/testing-the-server-side-rendering",
-        "title": "Testing the server-side rendering"
       }
     ]
   },
