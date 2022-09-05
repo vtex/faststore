@@ -33,4 +33,4 @@ In this step by step, you'll install the FastStore Admin app in your account via
 
 2. Open the Admin app at `https://{workspace}--{account}.myvtex.com/admin/faststore` and follow the setup steps.
 
-Once the setup completes, all dependencies needed for developing a FastStore website will have been created: `Happy coding on FastStore 🎉`.
+Once the setup completes, all dependencies needed for developing a FastStore website will have been installed: `Happy coding on FastStore 🎉`.
