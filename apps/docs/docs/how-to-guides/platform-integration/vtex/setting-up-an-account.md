@@ -23,26 +23,14 @@ Before proceeding any further, make sure you have:
 
 ## Step by step
 
-In this step by step, you'll use the FastStore plugin for the VTEX IO CLI to install, with a single command, all dependencies needed for developing a FastStore website.
+In this step by step, you'll install the FastStore Admin app in your account via the VTEX IO CLI.
 
-1. Install the FastStore plugin for the VTEX IO CLI:
-
-   ```
-   vtex plugins install faststore
-   ```
-
-2. Log in to your VTEX account:
-
-   - _Remember to replace the values between curly brackets according to your scenario._
+1. Install the FastStore Admin app in your account:
 
    ```
-   vtex login {account}
+   vtex install vtex.admin-faststore
    ```
 
-3. Set up your VTEX account for FastStore by running the following command:
+2. Open the Admin app at `https://{workspace}--{account}.myvtex.com/admin/faststore` and follow the setup steps.
 
-   ```
-   vtex faststore setup
-   ```
-
-Once the command completes, you should see the following message: `Happy coding on FastStore 🎉`.
+Once the setup completes, all dependencies needed for developing a FastStore website will have been created: `Happy coding on FastStore 🎉`.
