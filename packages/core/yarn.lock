@@ -1467,10 +1467,10 @@
     "@graphql-codegen/plugin-helpers" "^2.2.0"
     "@graphql-tools/relay-operation-optimizer" "^6.4.0"
 
-"@faststore/lighthouse@^1.10.34":
-  version "1.10.34"
-  resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.10.34.tgz#69ceed648659bdaf48382e93b54a2850b6e047fb"
-  integrity sha512-UmolViAhzMNDpnWki7i9eCC7NbpOZU7Dcx6UdWoqYpBw7pwaoUcsbfa5Y1wOif4V8sScdwBXGxRr65U9gCrZYA==
+"@faststore/lighthouse@^1.11.8":
+  version "1.11.8"
+  resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.11.8.tgz#c4a23b96640acbff326111436b82b4bedf3180ce"
+  integrity sha512-Mk1C2/zxhMdd66UfenIDgglfJ9SXUsTCHgpwzw32RN8OcLVwyyeSr4DmRvXnyRwkD7ziR/xTDuTAS8o0nmIsXw==
 
 "@faststore/sdk@^1.10.34":
   version "1.10.34"
@@ -1479,10 +1479,10 @@
   dependencies:
     idb-keyval "^5.1.3"
 
-"@faststore/ui@^1.11.2":
-  version "1.11.2"
-  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.11.2.tgz#71f13227f86118b4849b68da546b481ba17c3768"
-  integrity sha512-86gxlXmhouz5xYijpGB/KK0gvaACaalo+45d7NDw02gnrH5g1ZmssgCxfCzRhv/cVo23xecU99HQJ0MK9gPchQ==
+"@faststore/ui@^1.11.8":
+  version "1.11.8"
+  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.11.8.tgz#b9ed0d59831750239a5fdf20434b6c82ec606f28"
+  integrity sha512-n/rr9wgKsfom+O0I16lF6raMtV2Engt0nd9IVekzeX50fIeiIu5VyobZR7kryUYcr+mtXPo8/8FpxQvCkuntvg==
   dependencies:
     "@reach/popover" "^0.16.0"
     "@storybook/addon-a11y" "^6.4.4"

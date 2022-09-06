@@ -34,7 +34,7 @@
     "@faststore/api": "^1.11.7",
     "@faststore/graphql-utils": "^1.10.34",
     "@faststore/sdk": "^1.10.34",
-    "@faststore/ui": "^1.11.2",
+    "@faststore/ui": "^1.11.8",
     "@vtex/client-cms": "^0.2.10",
     "graphql": "^15.0.0",
     "include-media": "^1.4.10",
@@ -50,7 +50,7 @@
   "devDependencies": {
     "@csmith/release-it-calver-plugin": "^2022.5.13",
     "@cypress/code-coverage": "^3.9.10",
-    "@faststore/lighthouse": "^1.10.34",
+    "@faststore/lighthouse": "^1.11.8",
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.5.1",
     "@graphql-codegen/typescript-operations": "^2.4.2",

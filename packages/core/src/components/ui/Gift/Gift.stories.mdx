@@ -1,0 +1,99 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Gift from '.'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+import { product } from 'src/../.storybook/mocks'
+
+<Meta
+  title="Molecules/Gift"
+  argTypes={{
+    icon: { control: { disable: true } },
+  }}
+  component={Gift}
+/>
+
+export const Template = (args) => <Gift product={product} {...args} />
+
+<header>
+
+# Gift
+
+It displays an additional item to purchase as a gift.
+
+</header>
+
+## Overview
+
+The `Gift` component uses [FastStore UI Gift](https://www.faststore.dev/reference/ui/molecules) as base.
+
+---
+
+## Usage
+
+`import Gift from '../components/ui/Gift'`
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+<TokenTable>
+  <TokenRow token="--fs-gift-height" value="var(--fs-spacing-12)" />
+  <TokenDivider />
+  <TokenRow token="--fs-gift-border-width" value="var(--fs-border-width)" />
+  <TokenRow
+    token="--fs-gift-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+  <TokenRow token="--fs-gift-border-radius" value="var(--fs-border-radius)" />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Content
+
+<TokenTable>
+  <TokenRow
+    token="--fs-gift-content-padding"
+    value="var(--fs-gift-gap) var(--fs-gift-gap) var(--fs-gift-gap) 0"
+  />
+  <TokenRow token="--fs-gift-content-row-gap" value="var(--fs-spacing-0)" />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow token="--fs-gift-title-line-height" value="1.25" />
+  <TokenRow token="--fs-gift-title-size" value="var(--fs-text-size-body)" />
+  <TokenRow
+    token="--fs-gift-title-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+</TokenTable>
+
+### Icon
+
+<TokenTable>
+  <TokenRow token="--fs-gift-icon-size" value="1.75rem" />
+  <TokenRow token="--fs-gift-icon-padding" value="var(--fs-spacing-0)" />
+  <TokenRow
+    token="--fs-gift-icon-color"
+    value="var(--fs-gift-title-color)"
+    globalValue="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-gift-icon-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+</TokenTable>
