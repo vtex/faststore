@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [22.36.0](https://github.com/vtex-sites/nextjs.store/compare/22.35.3...22.36.0) (2022-09-06)
+
+
+### Features
+
+* Adds `Gift` component ([#234](https://github.com/vtex-sites/nextjs.store/issues/234)) ([ef78f5d](https://github.com/vtex-sites/nextjs.store/commit/ef78f5d78d29d4ece856c0cb4fdcfa16853e3d75))
+
 ### [22.35.3](https://github.com/vtex-sites/nextjs.store/compare/22.35.2...22.35.3) (2022-09-02)
 
 
