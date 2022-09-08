@@ -1,5 +1,11 @@
 [
   {
+    "title": "Preview deploys are now on GitHub environments",
+    "product": "WebOps",
+    "fileName": "2022-09-08-faststore",
+    "description": "The automatic previews of your FastStore project's pull requests are now deployed with GitHub environments."
+  },
+  {
     "title": "New and improved FastStore API guides",
     "product": "FastStore",
     "fileName": "2022-09-01-faststore",
@@ -10,11 +16,5 @@
     "product": "FastStore",
     "fileName": "2022-08-05-faststore",
     "description": "The search query has been enhanced to allow cross-selling and upselling of products. Also, the new subscribeToNewsletter mutation is now available in the FastStore API."
-  },
-  {
-    "title": "Additional WebOps variable required to launch new FastStore websites",
-    "product": "WebOps",
-    "fileName": "2022-07-19-webops",
-    "description": "To go live, FastStore projects developed with Gatsby 4 and Next.js require a new environment variable."
   }
 ]
