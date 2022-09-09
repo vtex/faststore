@@ -2,7 +2,7 @@
   {
     "title": "Preview deploys are now on GitHub environments",
     "product": "WebOps",
-    "fileName": "2022-09-08-faststore",
+    "fileName": "2022-09-08-webops",
     "description": "The automatic previews of your FastStore project's pull requests are now deployed with GitHub environments."
   },
   {
