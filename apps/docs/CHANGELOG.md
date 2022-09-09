@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.15](https://github.com/vtex/faststore/compare/v1.11.14...v1.11.15) (2022-09-09)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
 ## [1.11.14](https://github.com/vtex/faststore/compare/v1.11.13...v1.11.14) (2022-09-09)
 
 **Note:** Version bump only for package docs
