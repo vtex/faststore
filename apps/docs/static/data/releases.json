@@ -1,5 +1,11 @@
 [
   {
+    "title": "FastStore - July, 2022",
+    "product": "WebOps",
+    "fileName": "2022-09-10-webops",
+    "description": "WebOps can now reuse pull requests' cache for new commit deploys."
+  },
+  {
     "title": "Preview deploys are now on GitHub environments",
     "product": "WebOps",
     "fileName": "2022-09-08-webops",
@@ -10,11 +16,5 @@
     "product": "FastStore",
     "fileName": "2022-09-01-faststore",
     "description": "There are new and improved FastStore API guides available on our documentation portal."
-  },
-  {
-    "title": "FastStore - July, 2022",
-    "product": "FastStore",
-    "fileName": "2022-08-05-faststore",
-    "description": "The search query has been enhanced to allow cross-selling and upselling of products. Also, the new subscribeToNewsletter mutation is now available in the FastStore API."
   }
 ]
