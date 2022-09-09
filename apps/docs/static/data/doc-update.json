@@ -1,5 +1,17 @@
 [
-
+  {
+    "date": "2022-09-08",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Performance",
+    "path": "/how-to-guides/performance",
+    "docs": [
+      {
+        "path": "/how-to-guides/performance/lighthouse",
+        "title": "Getting starterd with Lighthouse"
+      }
+    ]
+  },
   {
     "date": "2022-09-01",
     "type": "Added",
