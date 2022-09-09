@@ -6,17 +6,17 @@ interface SkuProps {
   /**
    * Alternative text description of the image.
    */
-  alt: string
+  alt?: string
   /**
    * Image URL.
    */
-  src: string
+  src?: string
   /**
-   * Label to describe the image when selected.
+   * Label to describe the option when selected.
    */
   label: string
   /**
-   * Current value for this SKU.
+   * Current value for this option.
    */
   value: string
   /**
@@ -90,7 +90,6 @@ const SkuSelector = forwardRef<HTMLDivElement, SkuSelectorProps>(
           </Label>
         )}
         <RadioGroup
-          // data-fs-sku-selector-options
           selectedValue={activeValue}
           name={`sku-selector-${variant}${radioGroupId}`}
           onChange={(e) => {
