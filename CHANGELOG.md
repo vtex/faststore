@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.13](https://github.com/vtex/faststore/compare/v1.11.12...v1.11.13) (2022-09-09)
+
+
+### Documentation
+
+* getting started with lighthouse ([#1458](https://github.com/vtex/faststore/issues/1458)) ([c52d97e](https://github.com/vtex/faststore/commit/c52d97e811000587af34888fe5df1d74f030b1b6))
+
+
+
 ## [1.11.12](https://github.com/vtex/faststore/compare/v1.11.11...v1.11.12) (2022-09-08)
 
 **Note:** Version bump only for package faststore
