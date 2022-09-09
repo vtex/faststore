@@ -5,7 +5,7 @@ tags:
     - performance
 ---
 
-# Getting starterd with Lighthouse
+# Getting started with Lighthouse
 
 <img className="float-right" src="https://user-images.githubusercontent.com/60782333/100936269-02d09c80-34d0-11eb-9990-c0b7b910f60e.png"/>
 
@@ -15,7 +15,7 @@ In this article, you will learn how Google Lighthouse works and how you can use 
 
 ---
 
-## What is Lighthouse
+## What is Lighthouse?
 
 Lighthouse is a free, open-source tool developed by Google that identifies issues and provides insights into a web page's performance, usability, and overall quality. 
 
