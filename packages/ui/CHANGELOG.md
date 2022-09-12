@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.18](https://github.com/vtex/faststore/compare/v1.11.17...v1.11.18) (2022-09-12)
+
+
+### Features
+
+* Adds OrderSummary component to FastStore UI ([#1456](https://github.com/vtex/faststore/issues/1456)) ([f1d983c](https://github.com/vtex/faststore/commit/f1d983cf5684053ad810455d2b6f6ac77bfc7b76))
+
+
+
 ## 1.11.8 (2022-09-01)
 
 
