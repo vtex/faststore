@@ -7,10 +7,10 @@ import Component from '../SkuSelector'
 import mdx from './SkuSelector.mdx'
 
 const SkuSelectorTemplate: Story<SkuSelectorProps> = ({ testId }) => {
-  const activeValue = 'Square'
+  const activeValue = 'Pink'
   const options = [
-    { label: 'Option round', value: 'Round' },
-    { label: 'Option square', value: 'Square' },
+    { label: 'Color Pink', value: 'Pink' },
+    { label: 'Color White', value: 'White' },
   ]
   const variant = 'label'
 
@@ -20,7 +20,7 @@ const SkuSelectorTemplate: Story<SkuSelectorProps> = ({ testId }) => {
       variant={variant}
       options={options}
       activeValue={activeValue}
-      label='Option'
+      label='Color'
     >
       {options.map((option, index) => {
         return (
