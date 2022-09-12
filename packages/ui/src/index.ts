@@ -99,6 +99,25 @@ export type {
   CardActionsProps,
 } from './molecules/Card'
 
+export {
+  default as CartItem,
+  CartItemActions,
+  CartItemContent,
+  CartItemImage,
+  CartItemPrices,
+  CartItemSummary,
+  CartItemTitle,
+} from './molecules/CartItem'
+export type {
+  CartItemProps,
+  CartItemActionsProps,
+  CartItemContentProps,
+  CartItemImageProps,
+  CartItemPricesProps,
+  CartItemSummaryProps,
+  CartItemTitleProps,
+} from './molecules/CartItem'
+
 export { default as Bullets } from './molecules/Bullets'
 export type { BulletsProps } from './molecules/Bullets'
 
