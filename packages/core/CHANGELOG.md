@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.36.1](https://github.com/vtex-sites/nextjs.store/compare/22.36.0...22.36.1) (2022-09-12)
+
+
+### Chores
+
+* move OrderSummary to FastStore UI ([#238](https://github.com/vtex-sites/nextjs.store/issues/238)) ([055ff8b](https://github.com/vtex-sites/nextjs.store/commit/055ff8b308adc63587661f379927e276e23cca8c))
+
 ## [22.36.0](https://github.com/vtex-sites/nextjs.store/compare/22.35.3...22.36.0) (2022-09-06)
 
 
