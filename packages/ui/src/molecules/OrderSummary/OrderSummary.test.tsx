@@ -7,7 +7,7 @@ import OrderSummary from './OrderSummary'
 const ELEMENT_NOT_FOUND_MESSAGE = 'Unable to find an element by:'
 
 describe('OrderSummary', () => {
-  it('should have `data-store-order-summary` attribute', () => {
+  it('should have `data-fs-order-summary` attribute', () => {
     const { getByTestId } = render(<OrderSummary />)
 
     expect(getByTestId('store-order-summary')).toHaveAttribute(
