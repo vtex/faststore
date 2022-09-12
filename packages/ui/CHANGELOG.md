@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.19](https://github.com/vtex/faststore/compare/v1.11.18...v1.11.19) (2022-09-12)
+
+
+### Refactoring
+
+* Extract `SkuSelector` component from the starter ([#1462](https://github.com/vtex/faststore/issues/1462)) ([98a68ea](https://github.com/vtex/faststore/commit/98a68ea40cd64e2880b3b4a3f75dbd355463369f))
+
+
+
 ## [1.11.18](https://github.com/vtex/faststore/compare/v1.11.17...v1.11.18) (2022-09-12)
 
 
