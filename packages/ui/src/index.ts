@@ -64,6 +64,9 @@ export type {
 export { default as ProductTitle } from './molecules/ProductTitle'
 export type { ProductTitleProps } from './molecules/ProductTitle'
 
+export { default as OrderSummary } from './molecules/OrderSummary'
+export type { OrderSummaryProps } from './molecules/OrderSummary'
+
 export { default as AggregateRating } from './molecules/AggregateRating'
 export type { AggregateRatingProps } from './molecules/AggregateRating'
 
