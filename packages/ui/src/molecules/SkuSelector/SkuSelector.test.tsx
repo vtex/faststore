@@ -4,16 +4,37 @@ import React from 'react'
 
 import SkuSelector from './SkuSelector'
 
-describe('SkuSelector', () => {
-  it('should have `data-fs-sku-selector` attribute', () => {
-    const { getByTestId } = render(<SkuSelector variant={'label'} options={[]} activeValue={''}>Testing</SkuSelector>)
+const SkuSelectorTest = () => {
+  const options = [
+    { label: 'Option round', value: 'Round' },
+    { label: 'Option square', value: 'Square' },
+  ]
 
-    expect(getByTestId('store-sku-selector')).toHaveAttribute('data-fs-sku-selector')
+  return <SkuSelector variant="label" options={options} activeValue="Square" />
+}
+
+describe('SkuSelector', () => {
+  describe('Data attributes', () => {
+    it('should have `data-fs-sku-selector` attribute', () => {
+      const { getByTestId } = render(<SkuSelectorTest />)
+
+      expect(getByTestId('store-sku-selector')).toHaveAttribute(
+        'data-fs-sku-selector'
+      )
+    })
+
+    it('should have `data-fs-sku-selector-variant` attribute', () => {
+      const { getByTestId } = render(<SkuSelectorTest />)
+
+      expect(getByTestId('store-sku-selector')).toHaveAttribute(
+        'data-fs-sku-selector-variant'
+      )
+    })
   })
 
   describe('Accessibility', () => {
     it('should have no violations', async () => {
-      const { getByTestId } = render(<SkuSelector variant={'label'} options={[]} activeValue={''}>Testing</SkuSelector>)
+      const { getByTestId } = render(<SkuSelectorTest />)
 
       expect(await axe(getByTestId('store-sku-selector'))).toHaveNoViolations()
     })
