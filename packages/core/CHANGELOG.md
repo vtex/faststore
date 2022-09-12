@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.36.2](https://github.com/vtex-sites/nextjs.store/compare/22.36.1...22.36.2) (2022-09-12)
+
+
+### Refactoring
+
+* Extract `CartItem` from the starter to `@faststore/ui` ([#239](https://github.com/vtex-sites/nextjs.store/issues/239)) ([0319076](https://github.com/vtex-sites/nextjs.store/commit/0319076f0dd99b5d4757dd61ce64659ad9d86792))
+
 ### [22.36.1](https://github.com/vtex-sites/nextjs.store/compare/22.36.0...22.36.1) (2022-09-12)
 
 
