@@ -54,6 +54,9 @@ export { default as Incentive } from './atoms/Incentive'
 export type { IncentiveProps } from './atoms/Incentive'
 
 // Molecules
+export { default as SkuSelector } from './molecules/SkuSelector'
+export type { SkuSelectorProps } from './molecules/SkuSelector'
+
 export { default as Gift, GiftContent, GiftImage } from './molecules/Gift'
 export type {
   GiftProps,
