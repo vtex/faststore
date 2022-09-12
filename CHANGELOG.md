@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.20](https://github.com/vtex/faststore/compare/v1.11.19...v1.11.20) (2022-09-12)
+
+
+### Refactoring
+
+* Extract `CartItem` component from the starter ([#1461](https://github.com/vtex/faststore/issues/1461)) ([ff70925](https://github.com/vtex/faststore/commit/ff70925abc123a9b6c66de248cdaf3541da66d41))
+
+
+
 ## [1.11.19](https://github.com/vtex/faststore/compare/v1.11.18...v1.11.19) (2022-09-12)
 
 
