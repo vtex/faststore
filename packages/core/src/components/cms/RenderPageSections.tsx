@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ComponentType } from 'react'
 
 import BannerText from 'src/components/sections/BannerText'
@@ -19,7 +20,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
 }
 
 interface Props {
-  sections?: Array<{ name: string; data: unknown }>
+  sections?: Array<{ name: string; data: any }>
 }
 
 function RenderPageSections({ sections }: Props) {
@@ -36,7 +37,7 @@ function RenderPageSections({ sections }: Props) {
           return <></>
         }
 
-        return <Component key={`cms-section-${index}`} {...(data as any)} />
+        return <Component key={`cms-section-${index}`} {...data} />
       })}
     </>
   )
