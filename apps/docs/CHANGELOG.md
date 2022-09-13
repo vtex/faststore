@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.2](https://github.com/vtex/faststore/compare/v1.12.1...v1.12.2) (2022-09-13)
+
+
+### Documentation
+
+* handling-the-impact-of-third-party-scripts ([#1467](https://github.com/vtex/faststore/issues/1467)) ([8cb707e](https://github.com/vtex/faststore/commit/8cb707ec1e980365f3502d7b21aba3857550d272))
+
+
+
 ## [1.12.1](https://github.com/vtex/faststore/compare/v1.12.0...v1.12.1) (2022-09-13)
 
 **Note:** Version bump only for package docs
