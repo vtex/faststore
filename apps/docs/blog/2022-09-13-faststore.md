@@ -5,7 +5,7 @@ tags: [faststore]
 hide_table_of_contents: false
 ---
 
-`Gift`, `OrderSummary`, `SkuSelector`, and `CartItem` components are now available in the FastStore UI. Also, update to the FastStore API improves the shopping cart UX and allow adding user's session information to the `orderForm`.
+`Gift`, `OrderSummary`, `SkuSelector`, and `CartItem` components are now available in the FastStore UI. Also, updates to the FastStore API improve the shopping cart UX and allow adding user's session information to the `orderForm`.
 
 ## FastStore UI
 
