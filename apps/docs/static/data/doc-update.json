@@ -1,5 +1,18 @@
 [
   {
+    "date": "2022-09-13",
+    "type": "Added",
+    "menu": "How-to Guides",
+    "category": "Performance",
+    "path": "/how-to-guides/performance",
+    "docs": [
+      {
+        "path": "/how-to-guides/performance/handling-the-impact-of-third-party-scripts",
+        "title": "Handling the impact of third-party scripts"
+      }
+    ]
+  },
+  {
     "date": "2022-09-08",
     "type": "Added",
     "menu": "How-to Guides",
@@ -8,7 +21,7 @@
     "docs": [
       {
         "path": "/how-to-guides/performance/lighthouse",
-        "title": "Getting starterd with Lighthouse"
+        "title": "Getting started with Lighthouse"
       }
     ]
   },
