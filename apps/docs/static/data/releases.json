@@ -1,5 +1,11 @@
 [
   {
+    "title": "FastStore - August, 2022",
+    "product": "FastStore",
+    "fileName": "2022-09-13-faststore",
+    "description": "Gift, OrderSummary, SkuSelector, and CartItem components are now available in the FastStore UI. Also, update to the FastStore API improves the shopping cart UX and allow adding user's session information to the orderForm."
+  },
+  {
     "title": "Preview deploys are now on GitHub environments",
     "product": "WebOps",
     "fileName": "2022-09-08-webops",
