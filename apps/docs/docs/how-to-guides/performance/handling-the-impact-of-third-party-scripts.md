@@ -2,6 +2,10 @@
 description: Learn how to handle the impact of third-party scripts in your FastStore project.
 tags: 
     - performance
+    - partytown
+    - third-party
+    - gtm
+    - google tag manager
 ---
 
 import Tabs from '@theme/Tabs';
@@ -27,18 +31,19 @@ Still, some third-party scripts, such as the ones responsible for injecting anal
 
 In the following section, you'll learn how to move your essential third-party scripts into a Web Worker using [Partytown](https://partytown.builder.io/).
 
-*"Partytown is a lazy-loaded library to help relocate resource intensive scripts into a **web worker**, and off of the **main thread**."*
-![Partytown](https://i.imgur.com/mTkLLtf.png)
+*"Partytown is a lazy-loaded library to help relocate resource intensive scripts into a **web worker**, and off of the **main thread**."* Notice that Partytown is a beta project. Therefore, there are [limitations and trade-offs](https://partytown.builder.io/trade-offs), you should check before proceeding any further. 
 
-:::caution
-Partytown is a beta project. Therefore, there are [limitations and trade-offs](https://partytown.builder.io/trade-offs), you should check before proceeding any further. 
-:::
+![Partytown](https://i.imgur.com/mTkLLtf.png)
 
 ---
 
 ## Step by step
 
-In the following step by step, you'll learn how to use Partytown and organize your third-party scripts. We will use the Google Tag Manager script as an example. However, notice that if you quick started your FastStore project from one of our official Starters, the Google Tag Manager script is already set up.
+In the following step by step, you'll learn how to use Partytown and organize your third-party scripts. We will use the Google Tag Manager script as an example. 
+
+:::caution
+Notice that if you quick started your FastStore project from one of our official Starters, the Google Tag Manager script is already set up.
+:::
 
 ### Step 1 - Installing Partytown
 1. Open your FastStore project in any code editor of your preference.
@@ -156,7 +161,7 @@ For additional examples, please refer to our Official Starters implementations (
 
 ### Step 4 - Running the `ThirdyPartyScripts` function
 
-10. Import and run the `ThirdyPartyScripts` function in your page's `Head` as in the following. For Next.js projects, use the `src/pages/_document.tsx` file. For Gatsby project, use the `gatsby-ssr.tsx` file.
+10. Import and run the `ThirdyPartyScripts` function in your page's `Head` as in the following. For Next.js projects, use the `src/pages/_document.tsx` file. For Gatsby projects, use the `gatsby-ssr.tsx` file.
 
 <Tabs groupId="chosen-framework">
   <TabItem value="nextjs" label="Next.js" default>
