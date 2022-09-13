@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.36.5](https://github.com/vtex-sites/nextjs.store/compare/22.36.4...22.36.5) (2022-09-13)
+
+
+### Refactoring
+
+* Extract `SkuSelector` component to `@faststore/ui` ([#240](https://github.com/vtex-sites/nextjs.store/issues/240)) ([b446979](https://github.com/vtex-sites/nextjs.store/commit/b446979695f4eb0aa952d500bb2cae4ccfd8bf28))
+
 ### [22.36.4](https://github.com/vtex-sites/nextjs.store/compare/22.36.3...22.36.4) (2022-09-13)
 
 ### [22.36.3](https://github.com/vtex-sites/nextjs.store/compare/22.36.2...22.36.3) (2022-09-13)
