@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.21](https://github.com/vtex/faststore/compare/v1.11.20...v1.11.21) (2022-09-13)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## [1.11.20](https://github.com/vtex/faststore/compare/v1.11.19...v1.11.20) (2022-09-12)
+
+
+### Refactoring
+
+* Extract `CartItem` component from the starter ([#1461](https://github.com/vtex/faststore/issues/1461)) ([ff70925](https://github.com/vtex/faststore/commit/ff70925abc123a9b6c66de248cdaf3541da66d41))
+
+
+
+## [1.11.19](https://github.com/vtex/faststore/compare/v1.11.18...v1.11.19) (2022-09-12)
+
+
+### Refactoring
+
+* Extract `SkuSelector` component from the starter ([#1462](https://github.com/vtex/faststore/issues/1462)) ([98a68ea](https://github.com/vtex/faststore/commit/98a68ea40cd64e2880b3b4a3f75dbd355463369f))
+
+
+
+## [1.11.18](https://github.com/vtex/faststore/compare/v1.11.17...v1.11.18) (2022-09-12)
+
+
+### Features
+
+* Adds OrderSummary component to FastStore UI ([#1456](https://github.com/vtex/faststore/issues/1456)) ([f1d983c](https://github.com/vtex/faststore/commit/f1d983cf5684053ad810455d2b6f6ac77bfc7b76))
+
+
+
+## [1.11.17](https://github.com/vtex/faststore/compare/v1.11.16...v1.11.17) (2022-09-12)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## [1.11.16](https://github.com/vtex/faststore/compare/v1.11.15...v1.11.16) (2022-09-12)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
 ## [1.11.15](https://github.com/vtex/faststore/compare/v1.11.14...v1.11.15) (2022-09-09)
 
 **Note:** Version bump only for package faststore

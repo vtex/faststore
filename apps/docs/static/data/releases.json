@@ -4,6 +4,12 @@
     "product": "FastStore",
     "fileName": "2022-09-13-faststore",
     "description": "Gift, OrderSummary, SkuSelector, and CartItem components are now available in the FastStore UI. Also, update to the FastStore API improves the shopping cart UX and allow adding user's session information to the orderForm."
+    },
+    {
+      "title": "New environment flag improves deploy cache use",
+      "product": "WebOps",
+      "fileName": "2022-09-10-webops",
+      "description": "WebOps can now reuse cache from previous commits in newer deploy previews. This is because of a new environment flag you can set in the `vtex.env` file of your FastStore project: `USE_BUILD_CACHE`."
   },
   {
     "title": "Preview deploys are now on GitHub environments",
@@ -16,11 +22,5 @@
     "product": "FastStore",
     "fileName": "2022-09-01-faststore",
     "description": "There are new and improved FastStore API guides available on our documentation portal."
-  },
-  {
-    "title": "FastStore - July, 2022",
-    "product": "FastStore",
-    "fileName": "2022-08-05-faststore",
-    "description": "The search query has been enhanced to allow cross-selling and upselling of products. Also, the new subscribeToNewsletter mutation is now available in the FastStore API."
   }
 ]

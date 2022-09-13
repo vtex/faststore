@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.21](https://github.com/vtex/faststore/compare/v1.11.20...v1.11.21) (2022-09-13)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.20](https://github.com/vtex/faststore/compare/v1.11.19...v1.11.20) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.19](https://github.com/vtex/faststore/compare/v1.11.18...v1.11.19) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.18](https://github.com/vtex/faststore/compare/v1.11.17...v1.11.18) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.17](https://github.com/vtex/faststore/compare/v1.11.16...v1.11.17) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.16](https://github.com/vtex/faststore/compare/v1.11.15...v1.11.16) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
 ## [1.11.15](https://github.com/vtex/faststore/compare/v1.11.14...v1.11.15) (2022-09-09)
 
 **Note:** Version bump only for package docs
