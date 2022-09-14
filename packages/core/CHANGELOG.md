@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.36.6](https://github.com/vtex-sites/nextjs.store/compare/22.36.5...22.36.6) (2022-09-14)
+
+
+### Bug Fixes
+
+* `view_item_list` event being fired without products ([#242](https://github.com/vtex-sites/nextjs.store/issues/242)) ([5bb098b](https://github.com/vtex-sites/nextjs.store/commit/5bb098b900596f3aaec77a4d1137adc90c1d767a))
+
 ### [22.36.5](https://github.com/vtex-sites/nextjs.store/compare/22.36.4...22.36.5) (2022-09-13)
 
 
