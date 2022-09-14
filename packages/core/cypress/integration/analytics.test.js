@@ -259,7 +259,7 @@ describe('select_item event', () => {
 })
 
 describe('view_item_list event', () => {
-  it('view_item_list event', () => {
+  it('is sent when viewing the PLP', () => {
     cy.visit(pages.collection, options)
     cy.waitForHydration()
 
@@ -268,9 +268,55 @@ describe('view_item_list event', () => {
         cy.scrollTo('top', { duration: 500 }).then(() => {
           dataLayerHasEvent('view_item_list')
           eventDataHasCurrencyProperty()
+
+          cy.window().then((window) => {
+            const event = window.dataLayer.find(
+              (evt) => evt.event === 'view_item_list'
+            )
+
+            expect(event.ecommerce.items.length).to.eq(12)
+          })
         })
       })
     })
+  })
+
+  it('is sent when viewing a products shelf', () => {
+    cy.visit(pages.home, options)
+    cy.waitForHydration()
+
+    cy.get('[data-fs-product-shelf]:last')
+      .scrollIntoView()
+      .then(() => {
+        dataLayerHasEvent('view_item_list')
+
+        cy.window().then((window) => {
+          const event = window.dataLayer.find(
+            (evt) => evt.event === 'view_item_list'
+          )
+
+          expect(event.ecommerce.items.length).to.eq(5)
+        })
+      })
+  })
+
+  it('is sent when viewing a product tiles', () => {
+    cy.visit(pages.home, options)
+    cy.waitForHydration()
+
+    cy.get('[data-fs-tiles]:last')
+      .scrollIntoView()
+      .then(() => {
+        dataLayerHasEvent('view_item_list')
+
+        cy.window().then((window) => {
+          const event = window.dataLayer.find(
+            (evt) => evt.event === 'view_item_list'
+          )
+
+          expect(event.ecommerce.items.length).to.eq(3)
+        })
+      })
   })
 })
 

@@ -59,11 +59,18 @@ function Sentinel({ page, pageSize, products, title }: Props) {
       replacePagination(page.toString(), router)
     }
 
-    if (inView && !viewedRef.current) {
+    if (inView && !viewedRef.current && products.length) {
       sendViewItemListEvent()
       viewedRef.current = true
     }
-  }, [pages.length, inView, page, router, sendViewItemListEvent])
+  }, [
+    pages.length,
+    inView,
+    page,
+    router,
+    sendViewItemListEvent,
+    products.length,
+  ])
 
   return <div ref={ref} />
 }
