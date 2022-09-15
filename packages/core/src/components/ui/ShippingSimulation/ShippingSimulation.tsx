@@ -69,10 +69,12 @@ function ShippingSimulation({
 
       {hasShippingOptions && (
         <>
-          <h3 data-fs-shipping-simulation-subtitle>Shipping options</h3>
-          <p className="text__body" data-fs-shipping-simulation-location>
-            {shippingLocation}
-          </p>
+          <header data-fs-shipping-simulation-header>
+            <h3 data-fs-shipping-simulation-subtitle>Shipping options</h3>
+            <p className="text__body" data-fs-shipping-simulation-location>
+              {shippingLocation}
+            </p>
+          </header>
 
           <Table data-fs-shipping-simulation-table>
             <TableBody>

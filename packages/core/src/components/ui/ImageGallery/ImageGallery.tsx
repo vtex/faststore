@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type { HTMLAttributes } from 'react'
 
 import { Image } from 'src/components/ui/Image'
 import styles from 'src/components/ui/ImageGallery/image-gallery.module.scss'
@@ -10,19 +11,20 @@ export interface ImageElementData {
   alternateName: string
 }
 
-interface ImageGalleryProps {
+interface ImageGalleryProps extends HTMLAttributes<HTMLDivElement> {
   images: ImageElementData[]
 }
 
-function ImageGallery({ images }: ImageGalleryProps) {
+function ImageGallery({ images, ...otherProps }: ImageGalleryProps) {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0)
   const currentImage = images[selectedImageIdx]
   const hasSelector = images.length > 1
 
   return (
     <section
-      data-fs-image-gallery={!hasSelector ? 'without-selector' : ''}
+      data-fs-image-gallery={hasSelector ? 'with-selector' : 'without-selector'}
       className={styles.fsImageGallery}
+      {...otherProps}
     >
       <ImageZoom>
         <Image

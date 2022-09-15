@@ -89,10 +89,6 @@ According to the quantity of `Image` to be displayed, the `ImageGallerySelector`
     token="--fs-image-gallery-width"
     value="calc(100% + (2 * var(--fs-grid-padding)))"
   />
-  <TokenRow
-    token="--fs-image-gallery-image-border-radius"
-    value="var(--fs-border-radius)"
-  />
   <TokenDivider />
   <TokenRow token="--fs-image-gallery-gap-mobile" value="var(--fs-spacing-2)" />
   <TokenRow
@@ -104,6 +100,16 @@ According to the quantity of `Image` to be displayed, the `ImageGallerySelector`
 ---
 
 ## Nested Elements
+
+### Current Selected Image
+
+<TokenTable>
+  <TokenRow token="--fs-image-gallery-current-max-height" value="33.125rem" />
+  <TokenRow
+    token="--fs-image-gallery-current-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
 
 ### Selector
 

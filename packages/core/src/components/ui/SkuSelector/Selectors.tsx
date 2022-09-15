@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
-import type { ChangeEvent } from 'react'
+import type { ChangeEvent, HTMLAttributes } from 'react'
 
 import SkuSelector from './SkuSelector'
 import { navigateToSku } from './skuVariants'
 import type { SkuVariantsByName } from './skuVariants'
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   /**
    * Maps property value combinations to their respective SKU's slug
    */
@@ -30,7 +30,12 @@ interface Props {
  */
 const DOMINANT_SKU_SELECTOR_PROPERTY = 'Color'
 
-function Selectors({ slugsMap, availableVariations, activeVariations }: Props) {
+function Selectors({
+  slugsMap,
+  availableVariations,
+  activeVariations,
+  ...otherProps
+}: Props) {
   const router = useRouter()
 
   // 'Color' variants are singled-out here because they will always be rendered
@@ -54,7 +59,7 @@ function Selectors({ slugsMap, availableVariations, activeVariations }: Props) {
   }
 
   return (
-    <section>
+    <section {...otherProps}>
       {colorOptions && (
         <SkuSelector
           label="Color"
