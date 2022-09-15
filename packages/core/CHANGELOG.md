@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.36.7](https://github.com/vtex-sites/nextjs.store/compare/22.36.6...22.36.7) (2022-09-15)
+
+
+### Bug Fixes
+
+* Product Details Grid ([#236](https://github.com/vtex-sites/nextjs.store/issues/236)) ([61970cc](https://github.com/vtex-sites/nextjs.store/commit/61970cc64aacc60f1d1ca042ef0e2db16bffb438))
+
 ### [22.36.6](https://github.com/vtex-sites/nextjs.store/compare/22.36.5...22.36.6) (2022-09-14)
 
 
