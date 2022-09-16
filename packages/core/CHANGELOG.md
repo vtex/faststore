@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [22.37.0](https://github.com/vtex-sites/nextjs.store/compare/22.36.9...22.37.0) (2022-09-16)
+
+
+### Features
+
+* Fire `view_cart` event when the minicart is opened ([#247](https://github.com/vtex-sites/nextjs.store/issues/247)) ([b9c2f61](https://github.com/vtex-sites/nextjs.store/commit/b9c2f6190368d9c4200e13b697a842fce7221378))
+
 ### [22.36.9](https://github.com/vtex-sites/nextjs.store/compare/22.36.8...22.36.9) (2022-09-16)
 
 
