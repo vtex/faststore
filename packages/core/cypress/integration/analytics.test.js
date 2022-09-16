@@ -339,3 +339,43 @@ describe('search event', () => {
       })
   })
 })
+
+describe('view_cart event', () => {
+  it('is fired when the minicart is opened (without items)', () => {
+    cy.visit(pages.pdp, options)
+    cy.waitForHydration()
+
+    cy.getById('cart-toggle').click()
+    cy.getById('cart-sidebar').should('be.visible')
+
+    dataLayerHasEvent('view_cart')
+
+    cy.window().then((window) => {
+      const event = window.dataLayer.find(
+        ({ event: eventName }) => eventName === 'view_cart'
+      )
+
+      expect(event.ecommerce.value).to.equal(0)
+      expect(event.ecommerce.items.length).to.equal(0)
+    })
+  })
+
+  it('is fired when the minicart is opened (with items)', () => {
+    cy.visit(pages.pdp, options)
+    cy.waitForHydration()
+
+    cy.getById('buy-button').click()
+    cy.getById('cart-sidebar').should('be.visible')
+
+    dataLayerHasEvent('view_cart')
+
+    cy.window().then((window) => {
+      const event = window.dataLayer.find(
+        ({ event: eventName }) => eventName === 'view_cart'
+      )
+
+      expect(event.ecommerce.value).to.equal(950)
+      expect(event.ecommerce.items.length).to.equal(1)
+    })
+  })
+})
