@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.36.9](https://github.com/vtex-sites/nextjs.store/compare/22.36.8...22.36.9) (2022-09-16)
+
+
+### Bug Fixes
+
+* A regression with CLS on the Home page ([#251](https://github.com/vtex-sites/nextjs.store/issues/251)) ([85bb9ce](https://github.com/vtex-sites/nextjs.store/commit/85bb9ce0b85f9ca2045a73acb5cb24857ba794f7))
+
 ### [22.36.8](https://github.com/vtex-sites/nextjs.store/compare/22.36.7...22.36.8) (2022-09-15)
 
 
