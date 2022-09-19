@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import type { FormatErrorHandler } from '@envelop/core'
 import {
   envelop,
   useAsyncSchema,
@@ -8,10 +9,9 @@ import {
 import { useGraphQlJit } from '@envelop/graphql-jit'
 import { useParserCache } from '@envelop/parser-cache'
 import { useValidationCache } from '@envelop/validation-cache'
+import type { Maybe, Options as APIOptions } from '@faststore/api'
 import { getContextFactory, getSchema, isFastStoreError } from '@faststore/api'
 import { GraphQLError } from 'graphql'
-import type { FormatErrorHandler } from '@envelop/core'
-import type { Options as APIOptions } from '@faststore/api'
 
 import persisted from '../../@generated/graphql/persisted.json'
 import storeConfig from '../../store.config'
@@ -64,7 +64,7 @@ const getEnvelop = async () =>
 
 const envelopPromise = getEnvelop()
 
-export const execute = async <V, D>(
+export const execute = async <V extends Maybe<{ [key: string]: unknown }>, D>(
   options: ExecuteOptions<V>,
   envelopContext = { req: { headers: {} } }
 ): Promise<{ data: D; errors: unknown[] }> => {
