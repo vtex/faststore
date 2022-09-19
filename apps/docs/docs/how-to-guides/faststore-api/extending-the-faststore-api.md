@@ -128,7 +128,6 @@ const getMergedSchemas = async () =>
         typeDefs: mergedTypeDefs,
       }),
     ],
-    resolvers,
   })
 
 // Merging schemas into a final schema
@@ -222,7 +221,6 @@ const getMergedSchemas = async () =>
         typeDefs: mergedTypeDefs,
       }),
     ],
-    resolvers,
   })
 
 // Merging schemas into a final schema
