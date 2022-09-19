@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.3](https://github.com/vtex/faststore/compare/v1.12.2...v1.12.3) (2022-09-19)
+
+
+### Documentation
+
+* fix extending graphql example ([#1468](https://github.com/vtex/faststore/issues/1468)) ([2c75c8f](https://github.com/vtex/faststore/commit/2c75c8f36c352b270820fc4ba7f3f11ac3e27c2a))
+
+
+
 ## [1.12.2](https://github.com/vtex/faststore/compare/v1.12.1...v1.12.2) (2022-09-13)
 
 
