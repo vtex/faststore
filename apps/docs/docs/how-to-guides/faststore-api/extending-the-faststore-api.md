@@ -54,7 +54,6 @@ const typeDefs = `
 
 ### Step 3 - Create resolvers
 
-
 Resolvers are the functions that give meaning to the data you have structured in the type definitions. This means a resolver will be executed when the corresponding piece of information is queried.
 
 A resolver can perform an operation on an existing field or fetch data from a proprietary API, for example.
