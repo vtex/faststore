@@ -30,6 +30,14 @@ export default function BlogSidebarDesktop({ sidebar, tag }) {
       title: 'Base Store ',
       url: '/releases/tags/basestore',
     },
+    {
+      title: 'CMS ',
+      url: '/releases/tags/cms',
+    },
+    {
+      title: 'Releases ',
+      url: '/releases/tags/releases',
+    }
   ]
 
   return (
