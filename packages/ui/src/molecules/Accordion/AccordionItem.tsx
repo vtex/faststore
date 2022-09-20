@@ -1,5 +1,6 @@
-import type { HTMLAttributes } from 'react'
 import React, { useContext, forwardRef, createContext } from 'react'
+import type { ElementType, FC, HTMLAttributes, ReactElement } from 'react'
+import type { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../../typings'
 
 interface AccordionItemContext {
   index: number
@@ -12,7 +13,7 @@ const AccordionItemContext = createContext<AccordionItemContext | undefined>(
   undefined
 )
 
-export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -29,17 +30,30 @@ export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {
   prefixId?: string
 }
 
-const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
-  function AccordionItem(
+export type AccordionItemProps<C extends ElementType> = PolymorphicComponentPropsWithRef<
+  C,
+  Props
+>
+
+type AccordionItemComponent = <C extends ElementType = 'div'>(
+  props: AccordionItemProps<C>
+) => ReactElement | null
+
+
+const AccordionItem: AccordionItemComponent = forwardRef(
+  function AccordionItem<C extends ElementType = 'div'>(
     {
       testId = 'store-accordion-item',
       children,
       prefixId = '',
       index = 0,
+      as: MaybeComponent,
       ...otherProps
-    },
-    ref
+    }: AccordionItemProps<C>,
+    ref: PolymorphicRef<C>
   ) {
+    const Component = MaybeComponent ?? 'div'
+
     const context = {
       index,
       prefixId,
@@ -49,9 +63,9 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
 
     return (
       <AccordionItemContext.Provider value={context}>
-        <div ref={ref} data-accordion-item data-testid={testId} {...otherProps}>
+        <Component ref={ref} data-accordion-item data-testid={testId} {...otherProps}>
           {children}
-        </div>
+        </Component>
       </AccordionItemContext.Provider>
     )
   }
@@ -68,5 +82,12 @@ export function useAccordionItem() {
 
   return context
 }
+
+/**
+ * This is only being exported to make it easier to use in Storybook.
+ * **DON'T** import this directly to use this component, use the default export
+ * instead.
+ */
+ export const StorybookAccordionItem = AccordionItem as FC<Props>
 
 export default AccordionItem
