@@ -1,16 +1,25 @@
 # FastStore SDK
 
-:::caution WIP
-This documentation is currently under development.
-:::
+FastStore SDK provides tools that help you deal with key ecommerce features:
 
-FastStore SDK is a simple, framework-agnostic implementation of Commerce APIs to help you create your next React-based store with world-class performance in record time.
+- [Shopping cart](#shopping-cart)
+- [Session](#session)
+- [Search](#search)
+- [Analytics](#analytics)
 
-## Key features
+Note that the SDK manages these aspects of your store in the context of shoppers' browsers. This means, for example, that functions related to cart and session, do not necessarily send requests to the [FastStore API](https://www.faststore.dev/reference/api/faststore-api). In this case, the goal is to manage information in the browser, that can then be compared to information in the platform with the appropriate [mutations](https://www.faststore.dev/reference/api/mutations).
 
-### Analytics
+Below you can learn more about how each of the main SDK features.
 
-The analytics module helps you create a simple and extensive event system to feed your data pool. It is biased towards Google Analytics 4, but supports any other analytics provider. Go to the [Analytics](/reference/sdk/analytics) page to learn more.
+## shopping cart
+
+## Session
+
+## Search
+
+## Analytics
+
+The analytics module helps you create a simple and extensive event system to feed your data pool. It is biased towards Google Analytics 4 but supports any other analytics provider. Go to the [Analytics](/reference/sdk/analytics) page to learn more.
 
 ## Get started
 
@@ -18,8 +27,8 @@ The analytics module helps you create a simple and extensive event system to fee
 
 Install `@faststore/sdk` as a dependency of your FastStore project via the command line:
 
-```bash npm2yarn
-npm install @faststore/sdk
+```bash
+yarn add @faststore/sdk
 ```
 
 ### Usage
