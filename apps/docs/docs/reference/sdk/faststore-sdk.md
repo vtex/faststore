@@ -11,7 +11,7 @@ FastStore SDK provides tools that help you deal with key ecommerce features:
 Note that the SDK manages these aspects of your store in the context of shoppers' browsers. This means, for example, that functions related to cart and session, do not necessarily send requests to the [FastStore API](/reference/api/faststore-api). In this case, the goal is to manage information in the browser, that can then be validated in the platform with the appropriate [mutations](/reference/api/mutations).
 :::
 
-Each of the features above has different properties and behaviors. Below you can learn more about each of them.
+Each of the features mentioned above has different properties and behaviors. Below you can learn more about each of them.
 
 ## Shopping cart
 
