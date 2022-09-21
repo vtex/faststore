@@ -13,7 +13,7 @@ const AccordionItemContext = createContext<AccordionItemContext | undefined>(
   undefined
 )
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress,
    * testing-library, and jest).
@@ -38,7 +38,6 @@ export type AccordionItemProps<C extends ElementType> = PolymorphicComponentProp
 type AccordionItemComponent = <C extends ElementType = 'div'>(
   props: AccordionItemProps<C>
 ) => ReactElement | null
-
 
 const AccordionItem: AccordionItemComponent = forwardRef(
   function AccordionItem<C extends ElementType = 'div'>(
@@ -88,6 +87,6 @@ export function useAccordionItem() {
  * **DON'T** import this directly to use this component, use the default export
  * instead.
  */
- export const StorybookAccordionItem = AccordionItem as FC<Props>
+export const StorybookAccordionItem = AccordionItem as FC<Props>
 
 export default AccordionItem
