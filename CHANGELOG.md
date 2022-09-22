@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.5](https://github.com/vtex/faststore/compare/v1.12.4...v1.12.5) (2022-09-22)
+
+
+### Bug Fixes
+
+* fixes tsconfig.json to exclude storybook types inside .d.ts file ([#1472](https://github.com/vtex/faststore/issues/1472)) ([97274b5](https://github.com/vtex/faststore/commit/97274b58b79849cb670e87052130b2ed00bb53f4))
+
+
+
 ## [1.12.4](https://github.com/vtex/faststore/compare/v1.12.3...v1.12.4) (2022-09-21)
 
 
