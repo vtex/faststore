@@ -1445,10 +1445,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/api@^1.11.7":
-  version "1.11.7"
-  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-1.11.7.tgz#1fcdafd6bced638f3afbb1b21c86ff674f8603fb"
-  integrity sha512-4fyALSdMWChN696sz+r74fG0YtFxgYCBKncvahXNTR5Q51As6nPzwVcNC0KwtsKEpezMVI/DdxiGqofqGpKXWA==
+"@faststore/api@^1.12.6":
+  version "1.12.6"
+  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-1.12.6.tgz#58c8896c8d999bd21b02df40ac6496b4806769b7"
+  integrity sha512-g/+iHjbb/ambbOE4DRe7/TqPWom6opv6f3v/dxfPBr66/8zyAhVpbPDWKYBCVGM94QC2jqNmpEVIBLmDRIq27A==
   dependencies:
     "@graphql-tools/schema" "^8.2.0"
     "@rollup/plugin-graphql" "^1.0.0"
@@ -17330,10 +17330,8 @@ watchpack@^1.7.4:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"

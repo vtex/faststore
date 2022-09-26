@@ -1,4 +1,4 @@
-import { isFastStoreError } from '@faststore/api'
+import { isFastStoreError, stringifyCacheControl } from '@faststore/api'
 import type { NextApiHandler, NextApiRequest } from 'next'
 
 import { execute } from '../../server'
@@ -37,24 +37,31 @@ const handler: NextApiHandler = async (request, response) => {
   const { operationName, variables, query } = parseRequest(request)
 
   try {
-    const result = await execute(
+    const { data, errors, extensions } = await execute(
       {
         operationName,
         variables,
         query,
       },
-      { req: request }
+      { headers: request.headers }
     )
 
-    if (Array.isArray(result.errors)) {
-      const error = result.errors.find(isFastStoreError)
+    const hasErrors = Array.isArray(errors)
+
+    if (hasErrors) {
+      const error = errors.find(isFastStoreError)
 
       response.status(error?.extensions.status ?? 500)
     }
 
-    response.setHeader('cache-control', 'no-cache, no-store')
+    const cacheControl =
+      !hasErrors && extensions.cacheControl
+        ? stringifyCacheControl(extensions.cacheControl)
+        : 'no-cache, no-store'
+
+    response.setHeader('cache-control', cacheControl)
     response.setHeader('content-type', 'application/json')
-    response.send(JSON.stringify(result))
+    response.send(JSON.stringify({ data, errors }))
   } catch (err) {
     console.error(err)
 
