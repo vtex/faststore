@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [22.38.0](https://github.com/vtex-sites/nextjs.store/compare/22.37.1...22.38.0) (2022-09-26)
+
+
+### Features
+
+* add [@cache](https://github.com/cache)Control directive to GraphQL schema ([#259](https://github.com/vtex-sites/nextjs.store/issues/259)) ([f93597d](https://github.com/vtex-sites/nextjs.store/commit/f93597d0008f2459ba0816119298f6c067f13d23))
+
 ### [22.37.1](https://github.com/vtex-sites/nextjs.store/compare/22.37.0...22.37.1) (2022-09-19)
 
 
