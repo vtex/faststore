@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.6](https://github.com/vtex/faststore/compare/v1.12.5...v1.12.6) (2022-09-26)
+
+
+### Features
+
+* Add CacheControl GraphQL directive ([#1473](https://github.com/vtex/faststore/issues/1473)) ([b9fd889](https://github.com/vtex/faststore/commit/b9fd889fda56ea409266c56478adcd49fa34d46a))
+
+
+
 ## [1.12.5](https://github.com/vtex/faststore/compare/v1.12.4...v1.12.5) (2022-09-22)
 
 
