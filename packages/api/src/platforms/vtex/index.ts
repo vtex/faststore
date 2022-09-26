@@ -1,5 +1,4 @@
 import { getClients } from './clients'
-import type { SearchArgs } from './clients/search'
 import { getLoaders } from './loaders'
 import { StoreAggregateOffer } from './resolvers/aggregateOffer'
 import { StoreAggregateRating } from './resolvers/aggregateRating'
@@ -25,6 +24,8 @@ import ChannelMarshal from './utils/channel'
 import type { Loaders } from './loaders'
 import type { Clients } from './clients'
 import type { Channel } from './utils/channel'
+import type { CacheControl } from '../../directives/cacheControl'
+import type { SearchArgs } from './clients/search'
 
 export interface Options {
   platform: 'vtex'
