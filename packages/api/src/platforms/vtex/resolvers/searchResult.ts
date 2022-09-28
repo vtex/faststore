@@ -57,7 +57,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
       sp.sendEvent({
         type: 'search.query',
         text: searchArgs.query,
-        misspelled: products.correction.misspelled,
+        misspelled: products.correction?.misspelled ?? false,
         match: products.recordsFiltered,
         operator: products.operator,
       }).catch(console.error)
