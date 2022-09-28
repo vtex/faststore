@@ -80,7 +80,7 @@ According to the quantity of `Image` to be displayed, the `ImageGallerySelector`
 
 `import { ImageGallery } from 'src/components/ui/ImageGallery'`
 
-<Canvas>
+<Canvas className="sbdocs-image-gallery">
   <Story name="default">{Template.bind({})}</Story>
 </Canvas>
 
@@ -104,7 +104,7 @@ According to the quantity of `Image` to be displayed, the `ImageGallerySelector`
 ### Current Selected Image
 
 <TokenTable>
-  <TokenRow token="--fs-image-gallery-current-max-height" value="33.125rem" />
+  <TokenRow token="--fs-image-gallery-current-height" value="33.125rem" />
   <TokenRow
     token="--fs-image-gallery-current-border-radius"
     value="var(--fs-border-radius)"
@@ -162,12 +162,12 @@ According to the quantity of `Image` to be displayed, the `ImageGallerySelector`
 
 ### With Selector (More than 1 Image)
 
-<Canvas>
+<Canvas className="sbdocs-image-gallery">
   <Story name="overview-default">{Template.bind({})}</Story>
 </Canvas>
 
 ### Without Selector
 
-<Canvas>
+<Canvas className="sbdocs-image-gallery">
   <Story name="overview-default-2">{TemplateWithoutSelector.bind({})}</Story>
 </Canvas>

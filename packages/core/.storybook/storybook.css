@@ -532,3 +532,9 @@ header.sbdocs-hero + .sbdocs-callout {
   position: relative;
   z-index: 0;
 }
+
+@media screen and (min-width: 756px) {
+  .sbdocs-image-gallery > div > div:first-child {
+    padding: 1rem 13%;
+  }
+}

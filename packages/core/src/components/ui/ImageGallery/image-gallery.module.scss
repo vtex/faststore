@@ -12,8 +12,8 @@
   --fs-image-gallery-gap-notebook              : var(--fs-spacing-3);
 
   // Current Selected Image
-  --fs-image-gallery-current-border-radius       : var(--fs-border-radius);
-  --fs-image-gallery-current-max-height          : 33.125rem;   // 530px
+  --fs-image-gallery-current-border-radius     : var(--fs-border-radius);
+  --fs-image-gallery-current-height            : 33.125rem;   // 530px
 
   // --------------------------------------------------------
   // Structural Styles
@@ -38,7 +38,7 @@
 
   @include media(">=notebook") {
     >[data-fs-image] {
-      max-height: var(--fs-image-gallery-current-max-height);
+      height: var(--fs-image-gallery-current-height);
     }
   }
 
