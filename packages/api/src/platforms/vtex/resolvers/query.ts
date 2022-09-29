@@ -53,6 +53,22 @@ export const Query = {
 
       const sku = await skuLoader.load(skuId)
 
+      /**
+       * Here be dragons 🦄🦄🦄
+       *
+       * In some cases, the slug has a valid skuId for a different
+       * product. This condition makes sure that the fetched sku 
+       * is the one we actually asked for
+       * */
+      if (
+        slug && sku.isVariantOf.linkText &&
+        !slug.startsWith(sku.isVariantOf.linkText)
+      ) {
+        throw new Error(
+          `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`,
+        )
+      }
+
       return sku
     } catch (err) {
       if (slug == null) {
