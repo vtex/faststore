@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.38.2](https://github.com/vtex-sites/nextjs.store/compare/22.38.1...22.38.2) (2022-09-29)
+
+
+### Bug Fixes
+
+* Wrong sku being returned for slug ([#261](https://github.com/vtex-sites/nextjs.store/issues/261)) ([b4c6911](https://github.com/vtex-sites/nextjs.store/commit/b4c6911fadac42a12f935e606f6f812316840d39))
+
 ### [22.38.1](https://github.com/vtex-sites/nextjs.store/compare/22.38.0...22.38.1) (2022-09-28)
 
 
