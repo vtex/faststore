@@ -1,15 +1,18 @@
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
-import type { ContentData } from '@vtex/client-cms'
+import type { GetStaticProps } from 'next'
+import type { ContentData, Locator } from '@vtex/client-cms'
 
 import RenderPageSections from 'src/components/cms/RenderPageSections'
 import { mark } from 'src/sdk/tests/mark'
-import { getCMSPageDataByContentType } from 'src/cms/client'
+import { clientCMS } from 'src/server/cms'
 
 import storeConfig from '../../store.config'
 
-export type Props = { cmsHome: ContentData }
+interface Props {
+  sections: ContentData['sections']
+}
 
-function Page({ cmsHome }: Props) {
+function Page({ sections }: Props) {
   return (
     <>
       {/* SEO */}
@@ -46,16 +49,28 @@ function Page({ cmsHome }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderPageSections sections={cmsHome.sections} />
+      <RenderPageSections sections={sections} />
     </>
   )
 }
 
-export async function getStaticProps() {
-  const cmsHome = await getCMSPageDataByContentType('home')
+export const getStaticProps: GetStaticProps<
+  Props,
+  Record<string, string>,
+  Locator
+> = async (context) => {
+  const contentType = 'home'
+  const page =
+    context.preview && context.previewData?.contentType === contentType
+      ? await clientCMS.getCMSPage(context.previewData)
+      : await clientCMS
+          .getCMSPagesByContentType(contentType)
+          .then((pages) => pages.data[0])
 
   return {
-    props: { cmsHome },
+    props: {
+      sections: page?.sections ?? [],
+    },
   }
 }
 
