@@ -152,15 +152,11 @@ const defaultSliderState = (
 
 const slide = (page: SlideDirection | number, dispatch: Dispatch<Action>) => {
   if (page === 'next') {
-    dispatch({
-      type: 'NEXT_PAGE',
-    })
+    dispatch({ type: 'NEXT_PAGE' })
   }
 
   if (page === 'previous') {
-    dispatch({
-      type: 'PREVIOUS_PAGE',
-    })
+    dispatch({ type: 'PREVIOUS_PAGE' })
   }
 
   if (typeof page === 'number') {
@@ -181,12 +177,15 @@ export interface UseSliderArgs extends SwipeableProps {
   itemsPerPage?: number
   /** Whether or not the slider is infinite. */
   infiniteMode?: boolean
+  /**  Whether or not the slider should slide after swiping left/right. */
+  shouldSlideOnSwipe?: boolean
 }
 
 export default function useSlider({
   totalItems,
   itemsPerPage = 1,
   infiniteMode = false,
+  shouldSlideOnSwipe = true,
   ...swipeableConfigOverrides
 }: UseSliderArgs) {
   const [sliderState, sliderDispatch] = useReducer(reducer, undefined, () =>
@@ -194,9 +193,10 @@ export default function useSlider({
   )
 
   const handlers = useSwipeable({
-    onSwipedRight: () => slide('previous', sliderDispatch),
-    onSwipedLeft: () => slide('next', sliderDispatch),
-    preventDefaultTouchmoveEvent: true,
+    onSwipedRight: () =>
+      shouldSlideOnSwipe && slide('previous', sliderDispatch),
+    onSwipedLeft: () => shouldSlideOnSwipe && slide('next', sliderDispatch),
+    preventScrollOnSwipe: true,
     trackMouse: true,
     ...swipeableConfigOverrides,
   })
