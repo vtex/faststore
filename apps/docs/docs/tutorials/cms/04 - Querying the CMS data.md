@@ -61,46 +61,44 @@ Before we query the CMS data in our `pages` components, let's verify how our dat
    ```
 3. Open the GraphiQL IDE at [http://localhost:8000/\_\_graphql](http://localhost:8000/__graphql). Notice that a corresponding type on the GraphQL data layer is available for each content type that you have defined (e.g., `cmsHome`, `cmsInstitutionalPage`).
 4. Test some queries and check what they return. For example, for the `home` content type, try the following query:
-   ```gql
-   query MyQuery {
-     cmsHome {
-       sections {
-         name
-         data
-       }
+  ```gql
+  query MyQuery {
+   cmsHome {
+     sections {
+       name
+       data
      }
    }
-   ```
-
-````
-
-This will return a JSON object as in the following example:
-
-```json
-{
-  "data": {
-    "cmsHome": {
-      "sections": [
-        {
-          "name": "DynamicShelf",
-          "props": {
-            "searchParams": {
-              "hideUnavailableItems": true,
-              "from": 0,
-              "to": 11,
-              "collection": "143"
-            },
-            "title": "Special Offers"
-          }
-        }
-      ]
-    }
-  },
-  "extensions": {
-    "enableRefresh": "true"
   }
-}
-````
+  ```
+
+  This will return a JSON object as in the following example:
+
+  ```json
+  {
+    "data": {
+      "cmsHome": {
+        "sections": [
+          {
+            "name": "DynamicShelf",
+            "props": {
+              "searchParams": {
+                "hideUnavailableItems": true,
+                "from": 0,
+                "to": 11,
+                "collection": "143"
+              },
+              "title": "Special Offers"
+            }
+          }
+        ]
+      }
+    },
+    "extensions": {
+      "enableRefresh": "true"
+    }
+  }
+  ```
 
 Next, we'll query this data inside our React components and use it to update their contents.
 
