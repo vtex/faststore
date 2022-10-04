@@ -54,6 +54,10 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
       ? {
           selectedFacets: [{ key: 'brand', value: slug }],
         }
+      : isCollection(root)
+      ? {
+          selectedFacets: [{ key: 'productclusterids', value: root.id }],
+        }
       : {
           selectedFacets: slug.split('/').map((segment, index) => ({
             key: `category-${index + 1}`,
@@ -79,13 +83,22 @@ export const StoreCollection: Record<string, Resolver<Root>> = {
       segments.slice(0, index + 1).join('/')
     )
 
-    const collections = await Promise.all(
-      slugs.map((s) => collectionLoader.load(s))
+    const collections: (CollectionPageType & {
+      slug: string
+    })[] = await Promise.all(
+      slugs.map(async (s) => {
+        const collection = await collectionLoader.load(s)
+        return { slug: s, ...collection }
+      })
     )
 
     return {
       itemListElement: collections.map((collection, index) => ({
-        item: new URL(`https://${collection.url}`).pathname.toLowerCase(),
+        item: isCollection(collection)
+          ? `/${collection.slug}`
+          : new URL(
+              `https://${(collection as CollectionPageType).url}`
+            ).pathname.toLowerCase(),
         name: collection.name,
         position: index + 1,
       })),
