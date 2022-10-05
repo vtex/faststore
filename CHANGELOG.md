@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.10](https://github.com/vtex/faststore/compare/v1.12.9...v1.12.10) (2022-10-05)
+
+
+### Documentation
+
+* RN CMS preview ([#1479](https://github.com/vtex/faststore/issues/1479)) ([f072c1b](https://github.com/vtex/faststore/commit/f072c1b6febdd147f906d353080d9738277b5fe2))
+
+
+
 ## [1.12.9](https://github.com/vtex/faststore/compare/v1.12.8...v1.12.9) (2022-10-04)
 
 **Note:** Version bump only for package faststore
