@@ -1,5 +1,11 @@
 [
   {
+    "title": "VTEX Headless CMS previews now available for Base Store (Next.js)",
+    "product": "CMS",
+    "fileName": "2022-10-05-cms",
+    "description": "Use the Preview option while writing a draft on VTEX Headless CMS to preview content changes immediately and whenever you want."
+    },
+  {
     "title": "FastStore - August, 2022",
     "product": "FastStore",
     "fileName": "2022-09-13-faststore",
