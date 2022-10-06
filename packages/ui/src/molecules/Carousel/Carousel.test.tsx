@@ -10,7 +10,7 @@ const wait = (amount = 0) =>
 const SLIDING_TRANSITION_DURATION = 100
 
 describe('Carousel component', () => {
-  it('should have `data-store-carousel` attribute in the section tag', () => {
+  it('should have `data-fs-carousel` attribute in the section tag', () => {
     const { getByTestId } = render(
       <Carousel>
         <div>Slide 1</div>
@@ -21,7 +21,7 @@ describe('Carousel component', () => {
 
     const carouselSection = getByTestId('store-carousel')
 
-    expect(carouselSection).toHaveAttribute('data-store-carousel')
+    expect(carouselSection).toHaveAttribute('data-fs-carousel')
   })
 
   it('should have `data-carousel-track-container` and `data-carousel-track` attributes', () => {

@@ -17,7 +17,7 @@ const fillCheck = (value: number) => {
 }
 
 describe('AggregateRating', () => {
-  it('`data-store-aggregate-rating` is present', () => {
+  it('`data-fs-aggregate-rating` is present', () => {
     const { getByTestId } = render(
       <AggregateRating value={2}>
         <span />
@@ -29,7 +29,7 @@ describe('AggregateRating', () => {
     )
 
     expect(getByTestId('store-aggregate-rating')).toHaveAttribute(
-      'data-store-aggregate-rating'
+      'data-fs-aggregate-rating'
     )
   })
 
@@ -64,7 +64,7 @@ describe('AggregateRating', () => {
         currentItemNumber += 1
       ) {
         expect(ratingItems[currentItemNumber]).toHaveAttribute(
-          'data-store-aggregate-rating-item',
+          'data-fs-aggregate-rating-item',
           fillCheck(value - currentItemNumber)
         )
       }

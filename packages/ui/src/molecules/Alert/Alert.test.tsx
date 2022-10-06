@@ -6,10 +6,10 @@ import Alert from './Alert'
 
 describe('Alert', () => {
   describe('Data attributes', () => {
-    it('should have `data-store-alert` attribute', () => {
+    it('should have `data-fs-alert` attribute', () => {
       const { getByTestId } = render(<Alert>Testing</Alert>)
 
-      expect(getByTestId('store-alert')).toHaveAttribute('data-store-alert')
+      expect(getByTestId('store-alert')).toHaveAttribute('data-fs-alert')
     })
   })
 

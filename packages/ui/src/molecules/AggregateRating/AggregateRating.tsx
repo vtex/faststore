@@ -16,7 +16,7 @@ export interface AggregateRatingProps extends ListProps<HTMLUListElement> {
 }
 
 export interface RatingItemProps {
-  'data-store-aggregate-rating-item'?: 'full' | 'partial' | 'empty'
+  'data-fs-aggregate-rating-item'?: 'full' | 'partial' | 'empty'
   'data-testid'?: string
 }
 
@@ -56,7 +56,7 @@ const AggregateRating = forwardRef<HTMLUListElement, AggregateRatingProps>(
 
     return (
       <List
-        data-store-aggregate-rating
+        data-fs-aggregate-rating
         variant={variant}
         ref={ref}
         data-testid={testId}
@@ -69,7 +69,7 @@ const AggregateRating = forwardRef<HTMLUListElement, AggregateRatingProps>(
           return (
             <RatingItem
               key={`aggregate-rating-${index}`}
-              data-store-aggregate-rating-item={fill}
+              data-fs-aggregate-rating-item={fill}
               data-testid={`${testId}-item`}
             >
               {child}

@@ -25,11 +25,11 @@ const props = {
 }
 
 describe('PriceRange', () => {
-  it('`data-store-price-range` is present', () => {
+  it('`data-fs-price-range` is present', () => {
     const { getByTestId } = render(<PriceRange {...props} />)
 
     expect(getByTestId('store-price-range')).toHaveAttribute(
-      'data-store-price-range'
+      'data-fs-price-range'
     )
   })
 

@@ -7,7 +7,7 @@ import List from './List'
 const optionsArray = ['Great', 'Ok', 'Bad']
 
 describe('List', () => {
-  it('should have `data-store-list` attribute', () => {
+  it('should have `data-fs-list` attribute', () => {
     const { getByTestId } = render(
       <List>
         {optionsArray.map((value) => {
@@ -16,7 +16,7 @@ describe('List', () => {
       </List>
     )
 
-    expect(getByTestId('store-list')).toHaveAttribute('data-store-list')
+    expect(getByTestId('store-list')).toHaveAttribute('data-fs-list')
   })
 
   it('should be empty if no children are provided', () => {
@@ -35,7 +35,7 @@ describe('List', () => {
     )
 
     expect(getByTestId('store-list')).toHaveAttribute(
-      'data-store-list',
+      'data-fs-list',
       'ordered'
     )
 
@@ -48,7 +48,7 @@ describe('List', () => {
     )
 
     expect(getByTestId('store-list')).toHaveAttribute(
-      'data-store-list',
+      'data-fs-list',
       'unordered'
     )
 
@@ -61,7 +61,7 @@ describe('List', () => {
     )
 
     expect(getByTestId('store-list')).toHaveAttribute(
-      'data-store-list',
+      'data-fs-list',
       'description'
     )
   })

@@ -51,7 +51,7 @@ export const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
     return (
       <Component
         ref={ref}
-        data-store-price
+        data-fs-price
         data-testid={testId}
         data-variant={variant}
         {...otherProps}

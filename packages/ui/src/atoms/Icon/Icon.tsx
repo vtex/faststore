@@ -17,7 +17,7 @@ const Icon = forwardRef<HTMLSpanElement, IconProps>(function Button(
   ref
 ) {
   return (
-    <span ref={ref} data-store-icon data-testid={testId} {...otherProps}>
+    <span ref={ref} data-fs-icon data-testid={testId} {...otherProps}>
       {component}
     </span>
   )

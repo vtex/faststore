@@ -399,15 +399,15 @@
    @apply align-top;
  }
  
- [data-store-aggregate-rating]{
+ [data-fs-aggregate-rating]{
    @apply ml-0 mb-4  !important
  }
  
- [data-store-aggregate-rating] li{
+ [data-fs-aggregate-rating] li{
    @apply list-none mt-0 text-2xl !important
  }
  
- li[data-store-aggregate-rating-item] {
+ li[data-fs-aggregate-rating-item] {
    color: #ff6d75 !important
  }
  

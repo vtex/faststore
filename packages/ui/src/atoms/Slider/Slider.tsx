@@ -120,7 +120,7 @@ const Slider = forwardRef<SliderRefType | undefined, SliderProps>(
     }))
 
     return (
-      <div data-store-slider data-testid={testId} className={className}>
+      <div data-fs-slider data-testid={testId} className={className}>
         <div
           data-slider-range
           style={{

@@ -4,9 +4,9 @@ import React from 'react'
 import Spinner from './Spinner'
 
 describe('Spinner', () => {
-  it('`data-store-spinner` is present', () => {
+  it('`data-fs-spinner` is present', () => {
     const { getByTestId } = render(<Spinner />)
 
-    expect(getByTestId('store-spinner')).toHaveAttribute('data-store-spinner')
+    expect(getByTestId('store-spinner')).toHaveAttribute('data-fs-spinner')
   })
 })

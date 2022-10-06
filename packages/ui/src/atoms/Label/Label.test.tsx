@@ -5,10 +5,10 @@ import React from 'react'
 import Label from '.'
 
 describe('Label', () => {
-  it('`data-store-label` is present', () => {
+  it('`data-fs-label` is present', () => {
     const { getByTestId } = render(<Label />)
 
-    expect(getByTestId('store-label')).toHaveAttribute('data-store-label')
+    expect(getByTestId('store-label')).toHaveAttribute('data-fs-label')
   })
 
   describe('Accessibility', () => {

@@ -21,10 +21,10 @@ const PopoverTemplate = (props: any) => {
 }
 
 describe('Popover', () => {
-  it('`data-store-popover` is present', () => {
+  it('`data-fs-popover` is present', () => {
     const { getByTestId } = render(<PopoverTemplate />)
 
-    expect(getByTestId('store-popover')).toHaveAttribute('data-store-popover')
+    expect(getByTestId('store-popover')).toHaveAttribute('data-fs-popover')
   })
 
   describe('Accessibility', () => {

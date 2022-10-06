@@ -26,7 +26,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     return (
       <textarea
         ref={ref}
-        data-store-textarea
+        data-fs-textarea
         data-testid={testId}
         {...variants}
         {...otherProps}

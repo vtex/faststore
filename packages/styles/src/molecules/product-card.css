@@ -1,4 +1,4 @@
-[data-store-product-card] {
+[data-fs-product-card] {
   max-width: 20rem;
   height: 100%;
 }
@@ -7,17 +7,17 @@
   padding: 0.5rem;
 }
 
-[data-product-card-content] [data-store-price] {
+[data-product-card-content] [data-fs-price] {
   margin-right: 0.25rem;
   color: #5d666f;
   font-size: 0.875rem;
 }
 
-[data-product-card-content] [data-store-price] + [data-store-price] {
+[data-product-card-content] [data-fs-price] + [data-fs-price] {
   font-weight: bold;
 }
 
-[data-product-card-content] [data-store-badge] {
+[data-product-card-content] [data-fs-badge] {
   color: #171a1c;
   margin-top: 0.5rem;
   border-radius: 100px;
@@ -26,7 +26,7 @@
   line-height: 1rem;
 }
 
-[data-product-card-actions] [data-store-button] {
+[data-product-card-actions] [data-fs-button] {
   float: right;
   margin: 0.5rem;
   font-size: 0.875rem;

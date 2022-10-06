@@ -19,7 +19,7 @@ const mapPairToOption = (value: string, label: string) => {
 }
 
 describe('Select', () => {
-  it('`data-store-select` is present', () => {
+  it('`data-fs-select` is present', () => {
     const { getByTestId } = render(
       <Select testId="store-select">
         {optionsArray.map(([value, label]) => {
@@ -28,7 +28,7 @@ describe('Select', () => {
       </Select>
     )
 
-    expect(getByTestId('store-select')).toHaveAttribute('data-store-select')
+    expect(getByTestId('store-select')).toHaveAttribute('data-fs-select')
   })
 
   it('select is empty when no options are given', () => {

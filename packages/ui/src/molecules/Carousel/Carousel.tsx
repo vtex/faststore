@@ -141,7 +141,7 @@ function Carousel({
   return (
     <section
       id={id}
-      data-store-carousel
+      data-fs-carousel
       data-testid={testId}
       aria-label="carousel"
       aria-roledescription="carousel"

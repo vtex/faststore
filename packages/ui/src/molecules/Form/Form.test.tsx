@@ -37,10 +37,10 @@ const TestForm = ({ onSubmit }: Pick<FormProps, 'onSubmit'>) => (
 )
 
 describe('Form', () => {
-  it('should have `data-store-form` attribute', () => {
+  it('should have `data-fs-form` attribute', () => {
     const { getByTestId } = render(<TestForm />)
 
-    expect(getByTestId('store-form')).toHaveAttribute('data-store-form')
+    expect(getByTestId('store-form')).toHaveAttribute('data-fs-form')
   })
 
   describe('Accessibility', () => {

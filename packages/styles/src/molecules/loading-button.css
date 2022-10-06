@@ -1,8 +1,8 @@
-[data-store-loading-button] {
+[data-fs-loading-button] {
   @apply h-11 w-60 items-center justify-center flex;
 }
 
-[data-store-loading-button] [data-store-spinner] {
+[data-fs-loading-button] [data-fs-spinner] {
   border-top: 0.2em solid rgba(255, 255, 255, 0.2);
   border-right: 0.2em solid rgba(255, 255, 255, 0.2);
   border-bottom: 0.2em solid rgba(255, 255, 255, 0.2);

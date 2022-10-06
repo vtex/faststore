@@ -2,15 +2,15 @@
   height: calc(100vh + 150px);
 }
 
-[data-store-overlay] {
+[data-fs-overlay] {
   @apply z-50 fixed inset-0;
   @apply flex justify-center items-center;
 }
 
-[data-store-overlay][data-green] {
+[data-fs-overlay][data-green] {
   @apply bg-green-500 bg-opacity-50;
 }
 
-[data-store-overlay][data-black], [data-modal-overlay] {
+[data-fs-overlay][data-black], [data-modal-overlay] {
   @apply bg-gray-500 bg-opacity-50;
 }

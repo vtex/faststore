@@ -23,8 +23,8 @@ describe('Incentive', () => {
   })
 
   describe('Data attributes', () => {
-    it('should have `data-store-incentive` attribute', () => {
-      expect(incentive).toHaveAttribute('data-store-incentive')
+    it('should have `data-fs-incentive` attribute', () => {
+      expect(incentive).toHaveAttribute('data-fs-incentive')
     })
   })
 

@@ -31,14 +31,14 @@ describe('Link', () => {
     )
 
     expect(getByTestId('custom-anchor')).toHaveAttribute('href', '/')
-    expect(getByTestId('store-link')).toHaveAttribute('data-store-link')
+    expect(getByTestId('store-link')).toHaveAttribute('data-fs-link')
   })
 
   describe('Data Attributes', () => {
-    it('should have `data-store-link` attribute', () => {
+    it('should have `data-fs-link` attribute', () => {
       const { getByTestId } = render(<TestLink />)
 
-      expect(getByTestId('store-link')).toHaveAttribute('data-store-link')
+      expect(getByTestId('store-link')).toHaveAttribute('data-fs-link')
     })
   })
 

@@ -14,7 +14,7 @@
     font-weight: 400;
     line-height: 1.12;
 }
-[data-fs-product-title] [data-fs-product-title-header] [data-store-badge] {
+[data-fs-product-title] [data-fs-product-title-header] [data-fs-badge] {
     white-space: nowrap;
 }
 [data-fs-product-title] [data-fs-product-title-addendum] {

@@ -17,8 +17,8 @@ describe('Payment methods', () => {
     paymentMethodsData = getByTestId('store-payment-methods')
   })
 
-  it('should have `data-store-payment-methods` attribute', () => {
-    expect(paymentMethodsData).toHaveAttribute('data-store-payment-methods')
+  it('should have `data-fs-payment-methods` attribute', () => {
+    expect(paymentMethodsData).toHaveAttribute('data-fs-payment-methods')
   })
 
   it('Should render PaymentMethods Children', () => {

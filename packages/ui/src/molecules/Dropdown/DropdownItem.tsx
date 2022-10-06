@@ -49,7 +49,7 @@ const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
 
     return (
       <button
-        data-store-dropdown-item
+        data-fs-dropdown-item
         data-testid={testId}
         ref={addToRefs}
         onFocus={onFocusItem}
