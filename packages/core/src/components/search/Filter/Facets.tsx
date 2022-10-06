@@ -51,7 +51,7 @@ function Facets({
   onAccordionChange,
 }: FacetsProps) {
   return (
-    <div className={styles.fsFacets} data-store-filter data-testid={testId}>
+    <div className={styles.fsFacets} data-fs-filter data-testid={testId}>
       <h2 className="text__title-mini-alt" data-fs-facets-title>
         Filters
       </h2>

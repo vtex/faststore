@@ -120,7 +120,7 @@
       }
     }
 
-    [data-store-badge],
+    [data-fs-badge],
     [data-fs-product-card-actions] { margin-top: var(--fs-spacing-2); }
   }
 
@@ -218,7 +218,7 @@
       border-radius: 0;
     }
 
-    [data-store-badge] {
+    [data-fs-badge] {
       @include media(">=notebook") {
         grid-row: 1;
         grid-column: 2;
@@ -242,7 +242,7 @@
       gap: calc(var(--fs-product-card-gap) / 2);
     }
 
-    [data-store-badge] { align-self: end; }
+    [data-fs-badge] { align-self: end; }
     [data-fs-product-card-prices] { margin-bottom: 0; }
   }
 }

@@ -38,7 +38,7 @@
   padding-top: var(--fs-incentives-padding-top);
   padding-bottom: var(--fs-incentives-padding-bottom);
 
-  [data-store-list] {
+  [data-fs-list] {
     display: flex;
     width: fit-content;
     overflow-x: auto;
@@ -49,7 +49,7 @@
     }
   }
 
-  [data-store-incentive] {
+  [data-fs-incentive] {
     display: flex;
     flex-direction: column;
     align-items: center;

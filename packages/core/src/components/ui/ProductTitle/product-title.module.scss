@@ -31,7 +31,7 @@
       line-height: var(--fs-product-title-line-height);
     }
 
-    [data-store-badge] { white-space: nowrap; }
+    [data-fs-badge] { white-space: nowrap; }
 
     @include media(">=tablet", "<notebook") {
       flex-direction: column;

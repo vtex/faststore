@@ -159,7 +159,7 @@
       }
     }
 
-    [data-fs-button][data-store-icon-button] {
+    [data-fs-button][data-fs-icon-button] {
       &::before {
         left: calc(-1 * var(--fs-spacing-1));
       }

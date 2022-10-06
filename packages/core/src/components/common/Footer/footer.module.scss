@@ -132,7 +132,7 @@
       padding: var(--fs-footer-spacing-vertical-mobile) 0 var(--fs-spacing-3);
     }
 
-    [data-store-list] {
+    [data-fs-list] {
       display: flex;
       justify-content: center;
 
@@ -161,7 +161,7 @@
     }
   }
 
-  [data-store-icon] {
+  [data-fs-icon] {
     @include media(">=notebook") {
       grid-column: span 2;
     }
@@ -173,7 +173,7 @@
       border-radius: var(--fs-footer-payment-methods-flags-border-radius);
     }
 
-    [data-store-list] {
+    [data-fs-list] {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, max-content));
       row-gap: var(--fs-spacing-1);

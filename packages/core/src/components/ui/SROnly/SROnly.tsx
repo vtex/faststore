@@ -8,7 +8,7 @@ interface Props {
 function SROnly({ text, as }: Props) {
   const Component = as ?? 'span'
 
-  return <Component data-store-sr-only>{text}</Component>
+  return <Component data-fs-sr-only>{text}</Component>
 }
 
 export default SROnly

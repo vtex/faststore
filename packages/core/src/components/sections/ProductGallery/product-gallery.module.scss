@@ -165,7 +165,7 @@
       padding: var(--fs-spacing-1) var(--fs-spacing-2);
     }
 
-    [data-store-button] {
+    [data-fs-button] {
       width: 100%;
 
       @include media(">=notebook") {

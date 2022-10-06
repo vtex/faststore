@@ -5,7 +5,7 @@
   // List
   // -----------------------------
 
-  [data-fs-product-details-highlights] [data-store-list="unordered"] {
+  [data-fs-product-details-highlights] [data-fs-list="unordered"] {
     list-style: initial;
     list-style-position: inside;
   }
@@ -14,14 +14,14 @@
   // Table
   // -----------------------------
 
-  [data-fs-product-details-about] [data-store-table] {
+  [data-fs-product-details-about] [data-fs-table] {
     width: 100%;
 
     [data-fs-accordion-item-button-icon] {
       height: 18px;
     }
 
-    [data-store-icon] {
+    [data-fs-icon] {
       margin-right: var(--fs-spacing-2);
     }
 

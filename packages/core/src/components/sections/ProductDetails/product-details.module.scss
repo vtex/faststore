@@ -39,7 +39,7 @@
   [data-fs-product-details-section] {
     height: fit-content;
 
-    [data-store-sku-selector] {
+    [data-fs-sku-selector] {
       margin-bottom: var(--fs-product-details-vertical-spacing);
       &:last-of-type { margin-bottom: var(--fs-spacing-7); }
     }
