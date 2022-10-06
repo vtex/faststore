@@ -3,19 +3,12 @@ import { readFileSync } from 'fs'
 import { Readable } from 'stream'
 import { resolve as resolvePath, sep } from 'path'
 import chokidar from 'chokidar'
+import getRoot from '../utils/getRoot'
 
 export interface ChangeToSend {
   path: string | null
   content: string | Readable | Buffer | NodeJS.ReadableStream
   byteSize: number
-}
-
-const getRoot = () => {
-  if (process.env.OCLIF_COMPILATION) {
-    return ''
-  }
-
-  return process.cwd()
 }
 
 const stabilityThreshold = process.platform === 'darwin' ? 100 : 200
