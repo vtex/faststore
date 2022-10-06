@@ -1,4 +1,4 @@
-[data-store-carousel] {
+[data-fs-carousel] {
   @apply relative flex items-center;
 }
 
@@ -6,7 +6,7 @@
   @apply absolute bottom-0 w-full flex justify-center;
 }
 
-[data-store-button][data-arrow] {
+[data-fs-button][data-arrow] {
   @apply bg-transparent absolute text-black;
 }
 

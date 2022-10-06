@@ -7,7 +7,7 @@
   color: #db2777;
 }
 
-[data-accordion-button] [data-store-icon] {
+[data-accordion-button] [data-fs-icon] {
   margin-left: 0.5rem;
   vertical-align: middle;
 }
@@ -16,7 +16,7 @@
   color: #db2777;
 }
 
-[data-accordion-button][aria-expanded='true'] [data-store-icon] {
+[data-accordion-button][aria-expanded='true'] [data-fs-icon] {
   transform: rotate(180deg);
   transition: transform .8s ease-in-out;
 }

@@ -1,4 +1,4 @@
-[data-store-spinner] {
+[data-fs-spinner] {
   @apply block animate-spin text-xs relative;
 
   border-top: 0.2em solid rgba(0, 0, 0, 0.2);
@@ -7,7 +7,7 @@
   border-left: 0.2em solid #000000;
 }
 
-[data-store-spinner], [data-store-spinner]:after {
+[data-fs-spinner], [data-fs-spinner]:after {
   @apply h-4 w-4;
   border-radius: 50%;
 }

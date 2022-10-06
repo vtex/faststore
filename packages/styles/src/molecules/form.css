@@ -1,23 +1,23 @@
-[data-store-form] {
+[data-fs-form] {
   @apply bg-pink-100 max-w-xl p-10 text-center rounded-lg;
 }
 
-[data-store-form] > h2 {
+[data-fs-form] > h2 {
   @apply text-sm;
 }
 
-[data-store-form] [data-store-label] {
+[data-fs-form] [data-fs-label] {
   @apply px-4;
 }
 
-[data-store-form] [data-store-input] {
+[data-fs-form] [data-fs-input] {
   @apply max-w-min;
 }
 
-[data-store-form] [data-store-checkbox] {
+[data-fs-form] [data-fs-checkbox] {
   @apply my-4;
 }
 
-[data-store-form] [data-store-button] {
+[data-fs-form] [data-fs-button] {
   @apply bg-pink-700;
 }

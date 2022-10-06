@@ -26,13 +26,13 @@
   line-height: 20px;
 }
 
-[data-fs-gift-content] [data-store-price] {
+[data-fs-gift-content] [data-fs-price] {
   margin-right: 6px;
   color: #5d666f;
   text-decoration: line-through;
 }
 
-[data-fs-gift-content] [data-store-badge] {
+[data-fs-gift-content] [data-fs-badge] {
   padding: 4px 12px;
   color: #171a1c;
   text-transform: uppercase;
