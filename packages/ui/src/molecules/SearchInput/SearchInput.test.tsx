@@ -10,11 +10,11 @@ const Wrapper = (props: Partial<SearchInputProps>) => (
 )
 
 describe('SearchInput', () => {
-  it('`data-store-search-input` is present', () => {
+  it('`data-fs-search-input` is present', () => {
     const { getByTestId } = render(<Wrapper />)
 
     expect(getByTestId('search-input')).toHaveAttribute(
-      'data-store-search-input'
+      'data-fs-search-input'
     )
   })
 

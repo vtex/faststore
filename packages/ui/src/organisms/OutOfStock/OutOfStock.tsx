@@ -28,7 +28,7 @@ const OutOfStock = ({
   ...otherProps
 }: OutOfStockProps) => {
   return (
-    <section data-store-out-of-stock data-testid={testId}>
+    <section data-fs-out-of-stock data-testid={testId}>
       <Form data-out-of-stock-form testId={`${testId}-form`} {...otherProps}>
         {children}
       </Form>

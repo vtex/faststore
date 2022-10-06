@@ -14,7 +14,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
   ref
 ) {
   return (
-    <table ref={ref} data-store-table data-testid={testId} {...otherProps}>
+    <table ref={ref} data-fs-table data-testid={testId} {...otherProps}>
       {children}
     </table>
   )

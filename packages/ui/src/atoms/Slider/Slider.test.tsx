@@ -16,10 +16,10 @@ const props = {
 }
 
 describe('Slider', () => {
-  it('`data-store-slider` is present', () => {
+  it('`data-fs-slider` is present', () => {
     const { getByTestId } = render(<Slider {...props} />)
 
-    expect(getByTestId('store-slider')).toHaveAttribute('data-store-slider')
+    expect(getByTestId('store-slider')).toHaveAttribute('data-fs-slider')
   })
 
   describe('Accessibility', () => {

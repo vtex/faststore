@@ -41,7 +41,7 @@ describe('Table', () => {
 
       const table = getByTestId('store-table')
 
-      expect(table).toHaveAttribute('data-store-table')
+      expect(table).toHaveAttribute('data-fs-table')
 
       const tableHead = getByTestId('store-table-head')
 

@@ -23,12 +23,12 @@ const ShoppingCart = () => (
 )
 
 describe('Icon', () => {
-  it('`data-store-icon` is present', () => {
+  it('`data-fs-icon` is present', () => {
     const { getByTestId } = render(
       <Icon data-testid="store-icon" component={<ShoppingCart />} />
     )
 
-    expect(getByTestId('store-icon')).toHaveAttribute('data-store-icon')
+    expect(getByTestId('store-icon')).toHaveAttribute('data-fs-icon')
   })
 
   describe('Accessibility', () => {

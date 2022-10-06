@@ -59,7 +59,7 @@ const Bullets = forwardRef<HTMLDivElement, BulletsProps>(function Bullets(
   return (
     <div
       ref={ref}
-      data-store-bullets
+      data-fs-bullets
       data-testid={testId}
       role="tablist"
       {...otherProps}

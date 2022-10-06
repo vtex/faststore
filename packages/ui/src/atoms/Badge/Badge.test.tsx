@@ -5,12 +5,12 @@ import { axe } from 'jest-axe'
 import Badge from './Badge'
 
 describe('Badge', () => {
-  it('should have `data-store-badge` attribute', () => {
+  it('should have `data-fs-badge` attribute', () => {
     const { getByText } = render(<Badge>-25%</Badge>)
 
     const renderedBadge = getByText('-25%')
 
-    expect(renderedBadge).toHaveAttribute('data-store-badge')
+    expect(renderedBadge).toHaveAttribute('data-fs-badge')
   })
 
   describe('Accessibility', () => {

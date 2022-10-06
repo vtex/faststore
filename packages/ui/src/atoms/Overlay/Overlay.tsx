@@ -15,7 +15,7 @@ const Overlay = forwardRef<HTMLDivElement, Props>(function Overlay(
   return (
     <div
       role="presentation"
-      data-store-overlay
+      data-fs-overlay
       data-testid={testId}
       ref={ref}
       {...otherProps}

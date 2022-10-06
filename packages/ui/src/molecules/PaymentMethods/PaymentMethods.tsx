@@ -38,7 +38,7 @@ const PaymentMethods = forwardRef<HTMLDivElement, PaymentMethodsProps>(
     return (
       <div
         ref={ref}
-        data-store-payment-methods
+        data-fs-payment-methods
         data-testid={testId}
         {...otherProps}
       >

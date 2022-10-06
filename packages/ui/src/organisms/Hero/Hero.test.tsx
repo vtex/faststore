@@ -32,8 +32,8 @@ describe('Hero', () => {
     const heroImage = getByTestId('store-hero-image')
     const heroHeading = getByTestId('store-hero-heading')
 
-    it('`Hero` component should have `data-store-hero` attribute', () => {
-      expect(hero).toHaveAttribute('data-store-hero')
+    it('`Hero` component should have `data-fs-hero` attribute', () => {
+      expect(hero).toHaveAttribute('data-fs-hero')
     })
 
     it('`Hero` component should have custom data attribute `data-custom-attribute`', () => {

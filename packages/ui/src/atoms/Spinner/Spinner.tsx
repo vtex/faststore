@@ -11,7 +11,7 @@ export type SpinnerProps = {
 const Spinner = forwardRef<HTMLDivElement, PropsWithChildren<SpinnerProps>>(
   function Spinner({ children, testId = 'store-spinner', ...otherProps }, ref) {
     return (
-      <span ref={ref} data-store-spinner data-testid={testId} {...otherProps} />
+      <span ref={ref} data-fs-spinner data-testid={testId} {...otherProps} />
     )
   }
 )

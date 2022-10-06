@@ -41,7 +41,7 @@ const TestModal = ({
 }
 
 describe('Modal', () => {
-  it('The attribute data-store-modal-content should be present', () => {
+  it('The attribute data-fs-modal-content should be present', () => {
     const { getByTestId } = render(
       <Modal aria-label="test modal" testId="store-modal" isOpen>
         Foo
@@ -49,7 +49,7 @@ describe('Modal', () => {
     )
 
     expect(getByTestId('store-modal')).toHaveAttribute(
-      'data-store-modal-content'
+      'data-fs-modal-content'
     )
   })
 

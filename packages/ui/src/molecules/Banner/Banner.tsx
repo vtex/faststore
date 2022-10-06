@@ -19,7 +19,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
   return (
     <article
       ref={ref}
-      data-store-banner={variant}
+      data-fs-banner={variant}
       data-testid={testId}
       {...otherProps}
     >

@@ -13,7 +13,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   ref
 ) {
   return (
-    <select ref={ref} data-store-select data-testid={testId} {...otherProps}>
+    <select ref={ref} data-fs-select data-testid={testId} {...otherProps}>
       {children}
     </select>
   )

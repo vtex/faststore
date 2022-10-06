@@ -26,7 +26,7 @@ const IconButton = forwardRef<HTMLButtonElement, Props>(function IconButton(
   ref
 ) {
   return (
-    <Button ref={ref} data-store-icon-button testId={testId} {...buttonProps}>
+    <Button ref={ref} data-fs-icon-button testId={testId} {...buttonProps}>
       <Icon component={icon} />
     </Button>
   )

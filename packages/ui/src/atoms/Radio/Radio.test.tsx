@@ -5,10 +5,10 @@ import { axe } from 'jest-axe'
 import Radio from './Radio'
 
 describe('Radio', () => {
-  it('data-store-radio is present', () => {
+  it('data-fs-radio is present', () => {
     const { getByTestId } = render(<Radio testId="store-radio" />)
 
-    expect(getByTestId('store-radio')).toHaveAttribute('data-store-radio')
+    expect(getByTestId('store-radio')).toHaveAttribute('data-fs-radio')
   })
 
   it('type radio is present', () => {

@@ -115,14 +115,14 @@ const DropdownMenu = ({
     ? createPortal(
         <div
           role="presentation"
-          data-store-dropdown-overlay
+          data-fs-dropdown-overlay
           onKeyDown={handleBackdropKeyDown}
           data-testid={`${testId}-overlay`}
         >
           <div
             role="menu"
             aria-orientation="vertical"
-            data-store-dropdown-menu
+            data-fs-dropdown-menu
             data-testid={testId}
             style={{ ...dropdownPosition, ...style }}
             id={id}
