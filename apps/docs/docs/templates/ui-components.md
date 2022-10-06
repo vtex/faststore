@@ -55,7 +55,7 @@ _Replace `ComponentName` with the component name._
 
 ## Customization
 
-_Add CSS handles (e.g., `data-store-badge`)._
+_Add CSS handles (e.g., `data-fs-badge`)._
 
 ## Best practices
 

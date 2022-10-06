@@ -86,7 +86,7 @@ import { Price } from '@faststore/ui'
         .formatToParts(price)
         .map((part) => {
           const props = {
-            [`data-store-price-${part.type}`]: true,
+            [`data-fs-price-${part.type}`]: true,
           }
 
           if (part.type === 'integer') {
@@ -146,7 +146,7 @@ import { Price } from '@faststore/ui'
 
 ## Customization
 
-`data-store-price`
+`data-fs-price`
 
 `data-variant`
 

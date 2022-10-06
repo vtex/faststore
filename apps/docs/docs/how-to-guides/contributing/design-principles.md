@@ -6,7 +6,7 @@ This documentation is currently under development.
 
 ## Data Attributes for styling
 
-We decided to use data attributes for styling with this pattern: `data-store-component-kebab-case-name`.
+We decided to use data attributes for styling with this pattern: `data-fs-component-kebab-case-name`.
 
 Creating a new molecule component called CheckboxGroup:
 
@@ -15,7 +15,7 @@ interface CheckboxGroupProps {}
 
 const CheckboxGroup = ({ onChange, testId, ...props }: CheckboxGroupProps) => {
   return (
-    <div data-store-checkbox-group data-testid={testId}>
+    <div data-fs-checkbox-group data-testid={testId}>
       {' '}
       {/* Pay attention to the data-attribute */}
       <Checkbox data-checkbox-group onChange={onChange} {...props} />{' '}
@@ -68,11 +68,11 @@ Styling the disabled state:
 Another example for a carousel component:
 
 ```css
-[data-store-carousel] {
+[data-fs-carousel] {
 }
-[data-store-carousel-arrows='left'] {
+[data-fs-carousel-arrows='left'] {
 }
-[data-store-carousel-arrows='right'] {
+[data-fs-carousel-arrows='right'] {
 }
 ```
 
