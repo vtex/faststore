@@ -37,6 +37,7 @@ export type SearchEvent = {
   misspelled: boolean
   match: number
   operator: 'and' | 'or'
+  locale: string
   session?: string
   anonymous?: string
 }
@@ -50,10 +51,8 @@ export const SP = ({ account }: Options, _: Context) => {
       body: JSON.stringify({
         ...options,
         agent: '@faststore/api',
-        anonymous: user.anonymous(),
-        session: user.session(),
-        // session: 'zZlNhqz1vFJP6iPG5Oqtt',
-        // anonymous: 'Om1TNluGvgmSgU5OOTvkkd',
+        anonymous: user.anonymous(), // 'zZlNhqz1vFJP6iPG5Oqtt'
+        session: user.session(), // 'Om1TNluGvgmSgU5OOTvkkd'
       }),
       headers: {
         'content-type': 'application/json',
