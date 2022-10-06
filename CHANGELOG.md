@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.11](https://github.com/vtex/faststore/compare/v1.12.10...v1.12.11) (2022-10-06)
+
+
+### Bug Fixes
+
+* using data-fs instead data-store ([#1482](https://github.com/vtex/faststore/issues/1482)) ([883d4f1](https://github.com/vtex/faststore/commit/883d4f139edc10aeeea1277b17b2674c94b0f777))
+
+
+
 ## [1.12.10](https://github.com/vtex/faststore/compare/v1.12.9...v1.12.10) (2022-10-05)
 
 
