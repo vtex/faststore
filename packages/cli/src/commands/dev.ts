@@ -3,6 +3,7 @@ import { readFileSync } from 'fs'
 import { Readable } from 'stream'
 import { resolve as resolvePath, sep } from 'path'
 import chokidar from 'chokidar'
+import getRoot from '../utils/getRoot'
 
 import { getRoot } from '../utils/root'
 
