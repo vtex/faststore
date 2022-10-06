@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.39.1](https://github.com/vtex-sites/nextjs.store/compare/22.39.0...22.39.1) (2022-10-06)
+
+
+### Bug Fixes
+
+* using data-fs instead data-store ([#265](https://github.com/vtex-sites/nextjs.store/issues/265)) ([0aebcd7](https://github.com/vtex-sites/nextjs.store/commit/0aebcd7fcc3a9a41278f082b1fdbdadbd2d6b9fe))
+
 ## [22.39.0](https://github.com/vtex-sites/nextjs.store/compare/22.38.3...22.39.0) (2022-09-29)
 
 
