@@ -53,7 +53,7 @@ const INTLFormattedToPartsTemplate: Story<PriceProps> = ({
         .formatToParts(price)
         .map((part) => {
           const props = {
-            [`data-store-price-${part.type}`]: true,
+            [`data-fs-price-${part.type}`]: true,
           } as Record<string, unknown>
 
           if (part.type === 'integer') {

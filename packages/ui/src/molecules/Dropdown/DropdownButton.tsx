@@ -24,7 +24,7 @@ const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
 
     return (
       <button
-        data-store-dropdown-button
+        data-fs-dropdown-button
         onClick={toggle}
         data-testid={testId}
         ref={dropdownButtonRef}

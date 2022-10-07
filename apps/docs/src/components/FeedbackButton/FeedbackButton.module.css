@@ -9,7 +9,7 @@
   @apply brightness-150;
 }
 
-[data-store-modal-content] {
+[data-fs-modal-content] {
   @apply bg-background p-10  !important;
   width: 500px;
   min-height: 360px;

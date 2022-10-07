@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.8](https://github.com/vtex/faststore/compare/v1.12.7...v1.12.8) (2022-09-29)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## [1.12.7](https://github.com/vtex/faststore/compare/v1.12.6...v1.12.7) (2022-09-28)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## [1.12.6](https://github.com/vtex/faststore/compare/v1.12.5...v1.12.6) (2022-09-26)
+
+
+### Features
+
+* Add CacheControl GraphQL directive ([#1473](https://github.com/vtex/faststore/issues/1473)) ([b9fd889](https://github.com/vtex/faststore/commit/b9fd889fda56ea409266c56478adcd49fa34d46a))
+
+
+
+## 1.11.8 (2022-09-01)
+
+
+### Bug Fixes
+
+* Lint issues ([#1450](https://github.com/vtex/faststore/issues/1450)) ([139de34](https://github.com/vtex/faststore/commit/139de346d5d8f094caff4cc58f340f85043e1fb4))
+
+
+
 ## [1.11.7](https://github.com/vtex/faststore/compare/v1.11.6...v1.11.7) (2022-08-29)
 
 

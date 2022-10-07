@@ -32,7 +32,7 @@ describe('OutOfStock', () => {
     const outOfStockMessage = screen.getByTestId('store-out-of-stock-message')
     const outOfStockForm = screen.getByTestId('store-out-of-stock-form')
 
-    expect(outOfStock).toHaveAttribute('data-store-out-of-stock')
+    expect(outOfStock).toHaveAttribute('data-fs-out-of-stock')
     expect(outOfStockForm).toHaveAttribute('data-out-of-stock-form')
     expect(outOfStockTitle).toHaveAttribute('data-out-of-stock-title')
     expect(outOfStockMessage).toHaveAttribute('data-out-of-stock-message')

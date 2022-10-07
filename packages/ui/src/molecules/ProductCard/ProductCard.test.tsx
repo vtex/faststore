@@ -42,8 +42,8 @@ describe('ProductCard', () => {
   })
 
   describe('Data attributes', () => {
-    it('`ProductCard` component should have `data-store-product-card` attribute', () => {
-      expect(productCard).toHaveAttribute('data-store-product-card')
+    it('`ProductCard` component should have `data-fs-product-card` attribute', () => {
+      expect(productCard).toHaveAttribute('data-fs-product-card')
     })
 
     it('`ProductCardContent` component should have `data-product-card-content` attribute', () => {

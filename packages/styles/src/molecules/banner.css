@@ -1,20 +1,20 @@
-[data-store-banner='vertical'] {
+[data-fs-banner='vertical'] {
   @apply flex flex-col;
 }
 
-[data-store-banner='vertical'] [data-banner-link] {
+[data-fs-banner='vertical'] [data-banner-link] {
   @apply ml-auto;
 }
 
-[data-store-banner='horizontal'] {
+[data-fs-banner='horizontal'] {
   @apply grid grid-cols-2;
 }
 
-[data-store-banner='horizontal'] [data-banner-content] {
+[data-fs-banner='horizontal'] [data-banner-content] {
   @apply flex-col justify-between;
 }
 
-[data-store-banner='horizontal'] [data-banner-link] {
+[data-fs-banner='horizontal'] [data-banner-link] {
   @apply mr-auto;
 }
 
@@ -40,6 +40,6 @@
   @apply text-lg;
 }
 
-[data-banner-link] [data-store-icon] {
+[data-banner-link] [data-fs-icon] {
   @apply m-auto ml-2 align-middle;
 }

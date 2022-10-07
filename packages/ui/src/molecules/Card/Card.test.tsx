@@ -43,8 +43,8 @@ describe('Card', () => {
   })
 
   describe('Data attributes', () => {
-    it('`Card` component should have `data-store-card` attribute', () => {
-      expect(card).toHaveAttribute('data-store-card')
+    it('`Card` component should have `data-fs-card` attribute', () => {
+      expect(card).toHaveAttribute('data-fs-card')
     })
 
     it('`CardContent` component should have `data-card-content` attribute', () => {

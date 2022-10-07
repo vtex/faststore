@@ -18,7 +18,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
     <div
       ref={ref}
       role="alert"
-      data-store-alert
+      data-fs-alert
       data-testid={testId}
       {...otherProps}
     >

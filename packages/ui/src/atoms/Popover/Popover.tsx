@@ -23,7 +23,7 @@ const Popover = ({
 }: PopoverProps) => {
   return (
     <ReachPopover
-      data-store-popover
+      data-fs-popover
       data-testid={testId}
       position={positionDefault}
       targetRef={targetRef}

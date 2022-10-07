@@ -14,7 +14,7 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
   ref
 ) {
   return (
-    <div ref={ref} data-store-badge data-testid={testId} {...otherProps}>
+    <div ref={ref} data-fs-badge data-testid={testId} {...otherProps}>
       {children}
     </div>
   )

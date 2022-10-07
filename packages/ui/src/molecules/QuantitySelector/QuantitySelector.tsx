@@ -50,7 +50,7 @@ const QuantitySelector = forwardRef<HTMLDivElement, QuantitySelectorProps>(
   ) {
     return (
       <div
-        data-store-quantity-selector
+        data-fs-quantity-selector
         data-testid={testId}
         ref={ref}
         {...otherProps}

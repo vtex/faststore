@@ -29,9 +29,9 @@ const RadioOption = forwardRef<HTMLInputElement, RadioOptionProps>(
     const { name, selectedValue, onChange } = useRadioGroup()
 
     return (
-      <label aria-label={label} data-store-radio-option>
+      <label aria-label={label} data-fs-radio-option>
         <Radio
-          data-store-radio-option-item
+          data-fs-radio-option-item
           ref={ref}
           name={name}
           checked={value === selectedValue}

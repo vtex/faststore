@@ -1,4 +1,4 @@
-[data-store-payment-methods] {
+[data-fs-payment-methods] {
     @apply mt-1 flex-col justify-between text-center;
 }
 

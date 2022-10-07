@@ -5,13 +5,13 @@ import React from 'react'
 import Input from '.'
 
 describe('Input', () => {
-  it('`data-store-input` is present', () => {
+  it('`data-fs-input` is present', () => {
     const { getByPlaceholderText } = render(
       <Input placeholder="Hello World!" />
     )
 
     expect(getByPlaceholderText('Hello World!')).toHaveAttribute(
-      'data-store-input'
+      'data-fs-input'
     )
   })
 

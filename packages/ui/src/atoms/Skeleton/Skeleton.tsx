@@ -13,7 +13,7 @@ const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton(
   ref
 ) {
   return (
-    <div ref={ref} data-store-skeleton data-testid={testId} {...otherProps} />
+    <div ref={ref} data-fs-skeleton data-testid={testId} {...otherProps} />
   )
 })
 

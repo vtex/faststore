@@ -16,7 +16,6 @@
 
 .FaqDetails {
   @apply w-full my-0 mx-auto;
-  --parentWidth: 75%;
 }
 
 .FaqDetails summary {

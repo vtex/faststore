@@ -7,10 +7,10 @@ import TextArea from './TextArea'
 const testId = 'store-textarea'
 
 describe('TextArea', () => {
-  it('data-store-textarea is present', () => {
+  it('data-fs-textarea is present', () => {
     const { getByTestId } = render(<TextArea testId={testId} />)
 
-    expect(getByTestId(testId)).toHaveAttribute('data-store-textarea')
+    expect(getByTestId(testId)).toHaveAttribute('data-fs-textarea')
   })
 
   it('state is error', () => {

@@ -48,7 +48,7 @@
 }
 
 .docTag{
-  @apply uppercase tracking-wider font-VTEXMedium bg-code rounded-full inline-block py-0.5 px-2 mr-2 flex-[0_0_95px] text-center self-start;
+  @apply uppercase tracking-wider font-VTEXMedium bg-whiteIce rounded-full inline-block py-0.5 px-2 mr-2 flex-[0_0_95px] text-center self-start;
   font-size: 0.7rem;
 }
 

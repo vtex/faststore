@@ -7,10 +7,10 @@ import Overlay from './Overlay'
 describe('Overlay', () => {
   const testId = 'store-overlay'
 
-  it('data-store-overlay is present', () => {
+  it('data-fs-overlay is present', () => {
     const { getByTestId } = render(<Overlay testId={testId} />)
 
-    expect(getByTestId(testId)).toHaveAttribute('data-store-overlay')
+    expect(getByTestId(testId)).toHaveAttribute('data-fs-overlay')
   })
 
   describe('Accessibility', () => {

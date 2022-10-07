@@ -1,11 +1,11 @@
-a[data-store-link] {
+a[data-fs-link] {
   @apply underline;
 }
 
-div[data-store-link] {
+div[data-fs-link] {
   @apply flex flex-col;
 }
 
-[data-store-link] a {
+[data-fs-link] a {
   @apply whitespace-nowrap max-w-min px-2 py-1 mt-2 underline;
 }

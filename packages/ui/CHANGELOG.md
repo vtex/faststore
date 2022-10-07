@@ -3,6 +3,69 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.11](https://github.com/vtex/faststore/compare/v1.12.10...v1.12.11) (2022-10-06)
+
+
+### Bug Fixes
+
+* using data-fs instead data-store ([#1482](https://github.com/vtex/faststore/issues/1482)) ([883d4f1](https://github.com/vtex/faststore/commit/883d4f139edc10aeeea1277b17b2674c94b0f777))
+
+
+
+## [1.12.5](https://github.com/vtex/faststore/compare/v1.12.4...v1.12.5) (2022-09-22)
+
+
+### Bug Fixes
+
+* fixes tsconfig.json to exclude storybook types inside .d.ts file ([#1472](https://github.com/vtex/faststore/issues/1472)) ([97274b5](https://github.com/vtex/faststore/commit/97274b58b79849cb670e87052130b2ed00bb53f4))
+
+
+
+## [1.12.4](https://github.com/vtex/faststore/compare/v1.12.3...v1.12.4) (2022-09-21)
+
+
+### Features
+
+* **ui:** improve extensibility of table and accordion molecules ([#1470](https://github.com/vtex/faststore/issues/1470)) ([2abf78c](https://github.com/vtex/faststore/commit/2abf78c36ce446f6e5b213738a359fb1b37e98a5))
+
+
+
+## [1.11.20](https://github.com/vtex/faststore/compare/v1.11.19...v1.11.20) (2022-09-12)
+
+
+### Refactoring
+
+* Extract `CartItem` component from the starter ([#1461](https://github.com/vtex/faststore/issues/1461)) ([ff70925](https://github.com/vtex/faststore/commit/ff70925abc123a9b6c66de248cdaf3541da66d41))
+
+
+
+## [1.11.19](https://github.com/vtex/faststore/compare/v1.11.18...v1.11.19) (2022-09-12)
+
+
+### Refactoring
+
+* Extract `SkuSelector` component from the starter ([#1462](https://github.com/vtex/faststore/issues/1462)) ([98a68ea](https://github.com/vtex/faststore/commit/98a68ea40cd64e2880b3b4a3f75dbd355463369f))
+
+
+
+## [1.11.18](https://github.com/vtex/faststore/compare/v1.11.17...v1.11.18) (2022-09-12)
+
+
+### Features
+
+* Adds OrderSummary component to FastStore UI ([#1456](https://github.com/vtex/faststore/issues/1456)) ([f1d983c](https://github.com/vtex/faststore/commit/f1d983cf5684053ad810455d2b6f6ac77bfc7b76))
+
+
+
+## 1.11.8 (2022-09-01)
+
+
+### Bug Fixes
+
+* Lint issues ([#1450](https://github.com/vtex/faststore/issues/1450)) ([139de34](https://github.com/vtex/faststore/commit/139de346d5d8f094caff4cc58f340f85043e1fb4))
+
+
+
 ## [1.11.2](https://github.com/vtex/faststore/compare/v1.11.1...v1.11.2) (2022-08-10)
 
 **Note:** Version bump only for package @faststore/ui

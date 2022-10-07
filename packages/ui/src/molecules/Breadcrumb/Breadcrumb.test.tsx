@@ -5,11 +5,11 @@ import React from 'react'
 import Breadcrumb from './Breadcrumb'
 
 describe('Breadcrumb', () => {
-  it('`data-store-breadcrumb` is present', () => {
+  it('`data-fs-breadcrumb` is present', () => {
     const { getByTestId } = render(<Breadcrumb />)
 
     expect(getByTestId('store-breadcrumb')).toHaveAttribute(
-      'data-store-breadcrumb'
+      'data-fs-breadcrumb'
     )
   })
 

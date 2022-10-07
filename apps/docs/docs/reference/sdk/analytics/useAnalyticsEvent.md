@@ -1,11 +1,23 @@
+---
+sidebar_position: 1
+---
+
 # useAnalyticsEvent
 
-To intercept events that were fired using the analytics module, you should use the `useAnalyticsEvent` hook. It automatically detects which events were sent using the [sendAnalyticsEvent](/reference/sdk/analytics/sendAnalyticsEvent) function and provides a way to react to those events. The `useAnalyticsEvent` hook can be used to intercept both native and custom events.
+The `useAnalyticsEvent` hook is responsible for intercepting both native and custom events fired by the [`sendAnalyticsEvent`](/reference/sdk/analytics/sendAnalyticsEvent) function. The hook automatically detects which events were sent by [`sendAnalyticsEvent`](/reference/sdk/analytics/sendAnalyticsEvent) and provides a way to respond to those events.
 
-## How to use
-The `useAnalyticsEvent` hook accepts a callback function that runs whenever an event is fired.
+## Import
 
-The callback function you provide receives the event that triggered its execution as an argument. Ideally, this is the place you actually send the event to the analytics provider of you choice. 
+```tsx
+import type { AnalyticsEvent } from '@faststore/sdk'
+import { useAnalyticsEvent } from '@faststore/sdk'
+```
+
+## Usage
+
+The `useAnalyticsEvent` hook accepts a callback function that runs whenever the `sendAnalyticsEvent` is fired. The callback function you provide receives the event that triggered its execution as an argument. 
+
+Ideally, you should use the `useAnalyticsEvent` hook to transmit events to the analytics provider of your choice (e.g., Google Analytics).
 
 ```tsx
 import type { AnalyticsEvent } from '@faststore/sdk'
@@ -25,6 +37,6 @@ export const AnalyticsHandler = () => {
 }
 ```
 
-## External libraries
+## Events from external libraries
 
-External libraries can also send events using the analytics module. This means that you might come across unexpected events being intercepted by `useAnalyticsEvent`. This is usually not a problem, since most common analytics providers don't break if you send additional (irrelevant) data to them. If you're using one that does, make sure to filter the events by name, so only the expected events are sent to the provider.
+External libraries can also send events via the Analytics module. This means that you might come across unexpected events being intercepted by `useAnalyticsEvent`. This is usually not a problem since most common analytics providers don't break if you send them meaningless data. However, if you face this issue, filter the events by name to ensure that only the desired events are sent to the provider.

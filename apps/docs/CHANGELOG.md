@@ -3,6 +3,191 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.11](https://github.com/vtex/faststore/compare/v1.12.10...v1.12.11) (2022-10-06)
+
+
+### Bug Fixes
+
+* using data-fs instead data-store ([#1482](https://github.com/vtex/faststore/issues/1482)) ([883d4f1](https://github.com/vtex/faststore/commit/883d4f139edc10aeeea1277b17b2674c94b0f777))
+
+
+
+## [1.12.10](https://github.com/vtex/faststore/compare/v1.12.9...v1.12.10) (2022-10-05)
+
+
+### Documentation
+
+* RN CMS preview ([#1479](https://github.com/vtex/faststore/issues/1479)) ([f072c1b](https://github.com/vtex/faststore/commit/f072c1b6febdd147f906d353080d9738277b5fe2))
+
+
+
+## [1.12.9](https://github.com/vtex/faststore/compare/v1.12.8...v1.12.9) (2022-10-04)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.12.5](https://github.com/vtex/faststore/compare/v1.12.4...v1.12.5) (2022-09-22)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.12.4](https://github.com/vtex/faststore/compare/v1.12.3...v1.12.4) (2022-09-21)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.12.3](https://github.com/vtex/faststore/compare/v1.12.2...v1.12.3) (2022-09-19)
+
+
+### Documentation
+
+* fix extending graphql example ([#1468](https://github.com/vtex/faststore/issues/1468)) ([2c75c8f](https://github.com/vtex/faststore/commit/2c75c8f36c352b270820fc4ba7f3f11ac3e27c2a))
+
+
+
+## [1.12.2](https://github.com/vtex/faststore/compare/v1.12.1...v1.12.2) (2022-09-13)
+
+
+### Documentation
+
+* handling-the-impact-of-third-party-scripts ([#1467](https://github.com/vtex/faststore/issues/1467)) ([8cb707e](https://github.com/vtex/faststore/commit/8cb707ec1e980365f3502d7b21aba3857550d272))
+
+
+
+## [1.12.1](https://github.com/vtex/faststore/compare/v1.12.0...v1.12.1) (2022-09-13)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.21](https://github.com/vtex/faststore/compare/v1.11.20...v1.11.21) (2022-09-13)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.20](https://github.com/vtex/faststore/compare/v1.11.19...v1.11.20) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.19](https://github.com/vtex/faststore/compare/v1.11.18...v1.11.19) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.18](https://github.com/vtex/faststore/compare/v1.11.17...v1.11.18) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.17](https://github.com/vtex/faststore/compare/v1.11.16...v1.11.17) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.16](https://github.com/vtex/faststore/compare/v1.11.15...v1.11.16) (2022-09-12)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.15](https://github.com/vtex/faststore/compare/v1.11.14...v1.11.15) (2022-09-09)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.14](https://github.com/vtex/faststore/compare/v1.11.13...v1.11.14) (2022-09-09)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.13](https://github.com/vtex/faststore/compare/v1.11.12...v1.11.13) (2022-09-09)
+
+
+### Documentation
+
+* getting started with lighthouse ([#1458](https://github.com/vtex/faststore/issues/1458)) ([c52d97e](https://github.com/vtex/faststore/commit/c52d97e811000587af34888fe5df1d74f030b1b6))
+
+
+
+## [1.11.12](https://github.com/vtex/faststore/compare/v1.11.11...v1.11.12) (2022-09-08)
+
+**Note:** Version bump only for package docs
+
+
+
+
+
+## [1.11.11](https://github.com/vtex/faststore/compare/v1.11.10...v1.11.11) (2022-09-02)
+
+
+### Documentation
+
+* add analyzing a projects bundle size ([#1453](https://github.com/vtex/faststore/issues/1453)) ([e7e74fd](https://github.com/vtex/faststore/commit/e7e74fd4c0ed7fbb6fa53d2c5ddc178c685f487c))
+
+
+
+## [1.11.10](https://github.com/vtex/faststore/compare/v1.11.9...v1.11.10) (2022-09-01)
+
+
+### Documentation
+
+* review analytics on faststore ([#1449](https://github.com/vtex/faststore/issues/1449)) ([c3a9aab](https://github.com/vtex/faststore/commit/c3a9aabeae181e24c68bab2ea887053eacbdabe3))
+
+
+
+## [1.11.9](https://github.com/vtex/faststore/compare/v1.11.8...v1.11.9) (2022-09-01)
+
+
+### Documentation
+
+* Add glossary ([#1452](https://github.com/vtex/faststore/issues/1452)) ([49a25d1](https://github.com/vtex/faststore/commit/49a25d18b324079db3e6aad046ee6ceef347fb49))
+
+
+
+## 1.11.8 (2022-09-01)
+
+
+### Bug Fixes
+
+* Lint issues ([#1450](https://github.com/vtex/faststore/issues/1450)) ([139de34](https://github.com/vtex/faststore/commit/139de346d5d8f094caff4cc58f340f85043e1fb4))
+
+
+
 ## [1.11.6](https://github.com/vtex/faststore/compare/v1.11.5...v1.11.6) (2022-08-29)
 
 

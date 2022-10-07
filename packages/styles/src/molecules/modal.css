@@ -1,13 +1,13 @@
-[data-store-overlay][data-modal-overlay] {
+[data-fs-overlay][data-modal-overlay] {
   z-index: 999;
 }
 
-[data-store-modal-content] {
+[data-fs-modal-content] {
   @apply bg-white w-96 font-sans;
   @apply p-5 rounded;
 }
 
-[data-store-modal-content] > [data-action-container] {
+[data-fs-modal-content] > [data-action-container] {
   @apply flex justify-end;
 }
 

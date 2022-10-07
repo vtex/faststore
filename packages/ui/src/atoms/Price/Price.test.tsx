@@ -5,10 +5,10 @@ import React from 'react'
 import Price from './Price'
 
 describe('Price', () => {
-  it('`data-store-price` is present', () => {
+  it('`data-fs-price` is present', () => {
     const { getByTestId } = render(<Price value={32.5} />)
 
-    expect(getByTestId('store-price')).toHaveAttribute('data-store-price')
+    expect(getByTestId('store-price')).toHaveAttribute('data-fs-price')
   })
 
   it('`data-variant` is equal to `selling` if no variant is defined', () => {

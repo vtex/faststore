@@ -14,7 +14,7 @@ const Incentive = forwardRef<HTMLDivElement, IncentiveProps>(function Incentive(
   ref
 ) {
   return (
-    <div ref={ref} data-store-incentive data-testid={testId} {...otherProps}>
+    <div ref={ref} data-fs-incentive data-testid={testId} {...otherProps}>
       {children}
     </div>
   )

@@ -16,7 +16,7 @@ const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(function Card(
   return (
     <article
       ref={ref}
-      data-store-product-card
+      data-fs-product-card
       data-testid={testId}
       {...otherProps}
     >
