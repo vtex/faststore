@@ -60,6 +60,7 @@ export const StoreSearchResult: Record<string, Resolver<Root>> = {
         misspelled: products.correction?.misspelled ?? false,
         match: products.recordsFiltered,
         operator: products.operator,
+        locale: ctx.storage.locale,
       }).catch(console.error)
     }
 
