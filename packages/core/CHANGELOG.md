@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.39.3](https://github.com/vtex-sites/nextjs.store/compare/22.39.2...22.39.3) (2022-10-10)
+
+
+### Bug Fixes
+
+* Top searches locale ([#264](https://github.com/vtex-sites/nextjs.store/issues/264)) ([ea3fd29](https://github.com/vtex-sites/nextjs.store/commit/ea3fd2961b40c04e3421ca3e24e3f89c7f402154))
+
 ### [22.39.2](https://github.com/vtex-sites/nextjs.store/compare/22.39.1...22.39.2) (2022-10-10)
 
 ### [22.39.1](https://github.com/vtex-sites/nextjs.store/compare/22.39.0...22.39.1) (2022-10-06)
