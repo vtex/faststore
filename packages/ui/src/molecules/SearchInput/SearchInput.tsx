@@ -85,7 +85,7 @@ const SearchInput = forwardRef<SearchInputRef | null, SearchInputProps>(
     return (
       <Form
         ref={formRef}
-        data-fs-search-input
+        data-fs-search-input-form
         data-testid={testId}
         onSubmit={handleSubmit}
         role="search"
