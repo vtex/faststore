@@ -6,9 +6,6 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-footer-min-height-mobile                   : rem(860px);
-  --fs-footer-min-height-notebook                 : rem(486px);
-
   --fs-footer-spacing-vertical-mobile             : var(--fs-spacing-4);
   --fs-footer-spacing-vertical-notebook           : var(--fs-spacing-5);
   --fs-footer-spacing-horizontal-notebook         : var(--fs-grid-gap-3);
@@ -36,16 +33,10 @@
 
   &[data-fs-footer] {
     background-color: var(--fs-footer-bkg-color);
-    content-visibility: auto;
-    contain-intrinsic-size: var(--fs-footer-min-height-mobile);
   }
 
   @include media("<notebook") {
     padding-top: 0;
-  }
-
-  @include media(">=notebook") {
-    contain-intrinsic-size: var(--fs-footer-min-height-notebook);
   }
 
   [data-fs-logo] {

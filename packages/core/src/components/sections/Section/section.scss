@@ -2,8 +2,6 @@
 
 .section {
   width: 100%;
-  content-visibility: auto;
-  contain-intrinsic-size: rem(2px) rem(1024px);
 
   .text__title-section {
     margin-bottom: var(--fs-spacing-3);
