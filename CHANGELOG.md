@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.13](https://github.com/vtex/faststore/compare/v1.12.12...v1.12.13) (2022-10-11)
+
+
+### Bug Fixes
+
+* Rename `SearchInput`'s form data-attribute ([#1485](https://github.com/vtex/faststore/issues/1485)) ([c065646](https://github.com/vtex/faststore/commit/c065646948e32d3474f13b79a50090b6ed0bda28))
+
+
+
 ## [1.12.12](https://github.com/vtex/faststore/compare/v1.12.11...v1.12.12) (2022-10-10)
 
 **Note:** Version bump only for package faststore
