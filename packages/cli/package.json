@@ -21,12 +21,14 @@
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-not-found": "^2.3.3",
     "chokidar": "^3.5.3",
+    "fs-extra": "^10.1.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
     "@faststore/shared": "^1.12.20",
     "@types/chai": "^4",
     "@types/node": "^16.11.63",
+    "@types/fs-extra": "^9.0.13",
     "chai": "^4",
     "oclif": "^3",
     "shx": "^0.3.3",

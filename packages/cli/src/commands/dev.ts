@@ -1,9 +1,8 @@
 import { Command } from '@oclif/core'
-import { readFileSync } from 'fs'
 import { Readable } from 'stream'
-import { resolve as resolvePath, sep } from 'path'
 import chokidar from 'chokidar'
 import getRoot from '../utils/getRoot'
+import { generate } from '../utils/generate'
 
 import { getRoot } from '../utils/root'
 
@@ -67,9 +66,9 @@ export default class Dev extends Command {
 
     await new Promise((resolve, reject) => {
       watcher
-        .on('add', (file) => queueChange(file))
-        .on('change', (file) => queueChange(file))
-        .on('unlink', (file) => queueChange(file, true))
+        .on('add', () => generate())
+        .on('change', () => generate())
+        .on('unlink', () => generate())
         .on('error', reject)
         .on('ready', resolve)
     })
