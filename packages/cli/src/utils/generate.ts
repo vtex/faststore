@@ -1,73 +1,83 @@
 import fse from 'fs-extra'
 import fs from 'fs'
-import util from "util"
-import glob from "glob""
-import path from "path"
-import storeConfig from "./store.config"
 import getRoot from './getRoot'
 
-const tmpFolderName = ".tmp"
-const tmpDir = `${getRoot()}/${tmpFolderName}`;
+const repoDir = getRoot()
+const faststoreDir = `${repoDir}/node_modules/@faststore`
 
-const coreDir = `${getRoot()}/core`
+const tmpFolderName = ".faststore"
+const tmpDir = `${repoDir}/${tmpFolderName}`;
 
-const customSrcDir = `${getRoot()}/src`;
+const coreDir = `${faststoreDir}/core`
+
+const customSrcDir = `${repoDir}/src`;
 
 const customizationsFolderName = "customizations"
-const customizationsDir = `${tmpDir}/${customizationsFolderName}`
+const customizationsDir = `${tmpDir}/src/${customizationsFolderName}`
 
-const themeFileName = storeConfig.theme
-const themesFileDir = `${customSrcDir}/themes/${themeFileName}.scss`
+const themesFileDir = `${customSrcDir}/themes`
 const themeCustomizationsFileDir = `${customizationsDir}/index.scss`
 
 const CMSTmpDir = `${tmpDir}/cms`
 const CMSCoreDir = `${coreDir}/cms`
-const CMSCustomDir = `${getRoot()}/cms`
+const CMSCustomDir = `${repoDir}/cms`
 
-const storeConfigFileDir = `${getRoot()}/store.config.js`
+const storeConfigFileDir = `${repoDir}/store.config.js`
 const storeConfigTmpFileDir = `${tmpDir}/store.config.js`
 
+const ignoredDirs = ["cms", "node_modules"]
 
-
-
-
-const ignoredDirs = ["node_modules", "cms"]
-
-// async function overrideTmpFolder() {
-//   const dirs = await glob("*/", { cwd: srcDir, absolute: true, ignore: tmpFolderName }
-//   const proms = dirs.map((file) => {
-//     const basename = path.basename(file);
-//     const dest = path.join(srcDir, ".tmp", basename);
-//     return fse.copySync(file, dest, { overwrite: true, filter(srcDir) {
-//       return ignoredDirs.indexOf(srcDir) > 1
-//     }});
-//   });
-//   return Promise.all(proms);
-// }
+async function importStoreConfig() {
+  const { default: storeConfig } = await import(`${repoDir}/store.config.js`)
+  return storeConfig
+}
 
 function createTmpFolder() {
   try{
-    fs.mkdirSync(tmpDir)
-  }catch{
+    fse.mkdirsSync(tmpDir)
+  }catch(err){
+    console.error(err)
+  }finally {
+    console.log(`Temporary folder ${tmpFolderName} created`)
   }
 }
 
 function copyCoreFiles() {
-  return fse.copySync(coreDir, tmpDir, { filter(src) {
-    const splittedSrc = src.split("/")
-    return ignoredDirs.indexOf(splittedSrc[splittedSrc.length-1]) > -1
-  }});
+  try {
+    fse.copySync(coreDir, tmpDir, { filter(src) {
+      const splittedSrc = src.split("/")
+      return ignoredDirs.indexOf(splittedSrc[splittedSrc.length-1]) === -1
+    }});
+  } catch (e) {
+    console.error(e);
+  }finally {
+    console.log(`Core files copied`)
+  }
 }
 
 function copyCustomSrcToCustomizations () {
-  return fse.copySync(customSrcDir, customizationsDir);
+  try {
+    fse.copySync(customSrcDir, customizationsDir);
+  }catch(err){
+    console.error(err);
+  }finally {
+    console.log("Copied custom files")
+  }
 }
 
-function copyTheme () {
-  fs.copyFile(themesFileDir, themeCustomizationsFileDir, (err) => {});
+async function copyTheme () {
+  const storeConfig = await importStoreConfig()
+
+  try{
+    fs.copyFileSync(`${themesFileDir}/${storeConfig.theme}.scss`, themeCustomizationsFileDir);
+  }catch(err){
+    console.error(err)
+  }finally{
+    console.log("Copied custom styles")
+  }
 }
 
-function mergeCMSFile (fileName) {
+function mergeCMSFile (fileName: string) {
 
   const coreContentTypes = fs.readFileSync(`${CMSCoreDir}/${fileName}`, 'utf8')
   const customContentTypes = fs.readFileSync(`${CMSCustomDir}/${fileName}`, 'utf8')
@@ -76,18 +86,32 @@ function mergeCMSFile (fileName) {
 
   const mergeContentTypes = [...coreContentTypesJSON, ...customContentTypesJSON]
 
-
-  fs.writeFile(`${CMSTmpDir}/${fileName}`, JSON.stringify(mergeContentTypes), () => {});
+  try{
+    fs.writeFileSync(`${CMSTmpDir}/${fileName}`, JSON.stringify(mergeContentTypes));
+  }catch(err){
+    console.error(err)
+  }finally{
+    console.log(`CMS file ${fileName} created`)
+  }
 }
 
 function copyStoreConfig() {
-  fs.copyFile(storeConfigFileDir, storeConfigTmpFileDir, (err) => {});
+  try{
+    fs.copyFileSync(storeConfigFileDir, storeConfigTmpFileDir);
+  }catch(err){
+    console.error(err)
+  }finally{
+    console.log(`File store.config.js copied`)
+  }
 }
 
 function mergeCMSFiles () {
   try{
-    fs.mkdirSync(`${tmpDir}/cms`)
-  } catch {
+    fse.mkdirsSync(`${tmpDir}/cms`)
+  } catch(err) {
+    console.error(err)
+  }finally {
+    console.log(`CMS file created`)
   }
 
   mergeCMSFile("content-types.json")
@@ -95,14 +119,11 @@ function mergeCMSFiles () {
 }
 
 
-function generate() {
+export async function generate() {
   createTmpFolder()
   copyCoreFiles()
   copyCustomSrcToCustomizations()
   copyTheme()
   mergeCMSFiles()
   copyStoreConfig()
-}
-
-generate()
-                                 
+}                                 
