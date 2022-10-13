@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.14](https://github.com/vtex/faststore/compare/v1.12.13...v1.12.14) (2022-10-13)
+
+
+### Bug Fixes
+
+* checks for session existance before trying to update shipping data ([#1487](https://github.com/vtex/faststore/issues/1487)) ([8edced3](https://github.com/vtex/faststore/commit/8edced304ccdc804c7c9eb215955cec6f7c621ca))
+
+
+
 ## [1.12.12](https://github.com/vtex/faststore/compare/v1.12.11...v1.12.12) (2022-10-10)
 
 **Note:** Version bump only for package @faststore/api
