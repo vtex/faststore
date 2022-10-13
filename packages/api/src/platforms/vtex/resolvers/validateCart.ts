@@ -205,8 +205,17 @@ const getOrderForm = async (
     id,
   });
 
+  // Stores that are not yet providing the session while validating the cart
+  // should not be able to update the shipping data
+  //
+  // This was causing errors while validating regionalizated carts
+  // because the following code was trying to change the shippingData to an undefined address/session
+  if(!session) {
+    return orderForm
+  }
+
   const shouldUpdateShippingData =
-    orderForm.shippingData?.address?.postalCode != session?.postalCode;
+    orderForm.shippingData?.address?.postalCode != session.postalCode;
 
   if (shouldUpdateShippingData) {
     return commerce.checkout.shippingData({
