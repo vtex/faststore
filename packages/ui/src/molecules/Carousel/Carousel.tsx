@@ -64,8 +64,9 @@ function Carousel({
   navigationIcons = undefined,
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
-  const trackRef = useRef<HTMLDivElement>(null)
+  const carouselTrackRef = useRef<HTMLDivElement>(null)
   const isSlideCarousel = variant === 'slide'
+  const isScrollCarousel = variant === 'scroll'
   const childrenArray = React.Children.toArray(children)
   const childrenCount = childrenArray.length
   const numberOfSlides = infiniteMode ? childrenCount + 2 : childrenCount
@@ -103,32 +104,37 @@ function Carousel({
     postRenderedSlides
   )
 
-  const trackStyle: CSSProperties = useMemo(
-    () =>
-      isSlideCarousel
-        ? {
-            display: 'flex',
-            width: `${numberOfSlides * 100}%`,
-            transition: sliderState.sliding ? slidingTransition : undefined,
-            transform: `translate3d(${
-              transformValues[sliderState.currentPage]
-            }%, 0, 0)`,
-          }
-        : {
-            width: '100%',
-            display: 'block',
-            overflowX: 'scroll',
-            whiteSpace: 'nowrap',
-          },
+  const slideCarouselTrackStyle: CSSProperties = useMemo(
+    () => ({
+      display: 'flex',
+      width: `${numberOfSlides * 100}%`,
+      transition: sliderState.sliding ? slidingTransition : undefined,
+      transform: `translate3d(${
+        transformValues[sliderState.currentPage]
+      }%, 0, 0)`,
+    }),
     [
       numberOfSlides,
-      isSlideCarousel,
       transformValues,
       slidingTransition,
       sliderState.sliding,
       sliderState.currentPage,
     ]
   )
+
+  const scrollCarouselTrackStyle: CSSProperties = useMemo(
+    () => ({
+      width: '100%',
+      display: 'block',
+      overflowX: 'scroll',
+      whiteSpace: 'nowrap',
+    }),
+    []
+  )
+
+  const carouselTrackStyle =
+    ((isSlideCarousel && slideCarouselTrackStyle) as CSSProperties) ||
+    ((isScrollCarousel && scrollCarouselTrackStyle) as CSSProperties)
 
   const slidePrevious = () => {
     if (
@@ -152,47 +158,20 @@ function Carousel({
     slide('next', sliderDispatch)
   }
 
-  // accessible behavior for tablist
-  const handleBulletsKeyDown = (event: KeyboardEvent) => {
-    switch (event.key) {
-      case 'ArrowLeft': {
-        slidePrevious()
-        break
-      }
-
-      case 'ArrowRight': {
-        slideNext()
-        break
-      }
-
-      case 'Home': {
-        slide(0, sliderDispatch)
-        break
-      }
-
-      case 'End': {
-        slide(childrenCount - 1, sliderDispatch)
-        break
-      }
-
-      default:
-    }
-  }
-
-  const onScroll = (e: UIEvent) => {
-    if (isSlideCarousel) {
+  const onScrollTrack = (event: UIEvent) => {
+    if (isSlideCarousel || itemsPerPage > 1) {
       return
     }
 
-    const itemWidth = Number(e.currentTarget.firstElementChild?.scrollWidth)
-    const scrollOffset = e.currentTarget?.scrollLeft
+    const itemWidth = Number(event.currentTarget.firstElementChild?.scrollWidth)
+    const scrollOffset = event.currentTarget?.scrollLeft
     const formatter = scrollOffset > itemWidth / 2 ? Math.round : Math.floor
     const page = formatter(scrollOffset / itemWidth)
 
     slide(page, sliderDispatch)
   }
 
-  const onTransition = () => {
+  const onTransitionTrackEnd = () => {
     sliderDispatch({
       type: 'STOP_SLIDE',
     })
@@ -218,103 +197,158 @@ function Carousel({
     }
   }
 
+  const onScrollPagination = async (
+    index: number,
+    slideDirection?: 'previous' | 'next'
+  ) => {
+    if (slideDirection === 'previous' && sliderState.currentPage === 0) {
+      return
+    }
+
+    if (
+      slideDirection === 'next' &&
+      sliderState.currentPage === sliderState.totalPages - 1
+    ) {
+      return
+    }
+
+    let scrollOffset
+    const carouselItemsWidth = Number(
+      carouselTrackRef.current?.firstElementChild?.clientWidth
+    )
+
+    if (itemsPerPage > 1) {
+      scrollOffset = index * carouselItemsWidth * itemsPerPage
+    } else {
+      scrollOffset = index * carouselItemsWidth - carouselItemsWidth * 0.125
+    }
+
+    carouselTrackRef.current?.scrollTo({
+      left: scrollOffset,
+      behavior: 'smooth',
+    })
+
+    slide(index, sliderDispatch)
+  }
+
+  // accessible behavior for tablist
+  const handleBulletsKeyDown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case 'ArrowLeft': {
+        isSlideCarousel && slidePrevious()
+        isScrollCarousel &&
+          onScrollPagination(sliderState.currentPage - 1, 'previous')
+        break
+      }
+
+      case 'ArrowRight': {
+        isSlideCarousel && slideNext()
+        isScrollCarousel &&
+          onScrollPagination(sliderState.currentPage + 1, 'next')
+        break
+      }
+
+      case 'Home': {
+        slide(0, sliderDispatch)
+        break
+      }
+
+      case 'End': {
+        slide(childrenCount - 1, sliderDispatch)
+        break
+      }
+
+      default:
+    }
+  }
+
   return (
     <section
       id={id}
+      data-fs-carousel
       className={className}
-      data-store-carousel
       data-testid={testId}
       aria-label="carousel"
       aria-roledescription="carousel"
     >
       <div
-        data-carousel-track-container
+        data-fs-carousel-track-container
         style={{
           width: '100%',
           overflow: 'hidden',
-          display: isSlideCarousel ? undefined : 'block',
+          display: isScrollCarousel ? 'block' : undefined,
         }}
         {...handlers}
       >
         <div
-          ref={trackRef}
-          style={trackStyle}
+          ref={carouselTrackRef}
+          style={carouselTrackStyle}
           aria-live="polite"
-          data-carousel-track
-          onScroll={onScroll}
-          onTransitionEnd={onTransition}
+          data-fs-carousel-track
+          onScroll={onScrollTrack}
+          onTransitionEnd={onTransitionTrackEnd}
         >
           {slides.map((currentSlide, idx) => (
             <CarouselItem
               index={idx}
               key={String(idx)}
               state={sliderState}
-              item={currentSlide}
               totalItems={childrenCount}
               infiniteMode={infiniteMode}
-              isSlideCarousel={isSlideCarousel}
-            />
+              isScrollCarousel={isScrollCarousel}
+            >
+              {currentSlide}
+            </CarouselItem>
           ))}
         </div>
       </div>
 
-      <div data-carousel-navigation>
-        {showNavigationArrows && (
-          <div data-carousel-controls>
-            <IconButton
-              aria-label="previous"
-              data-arrow="left"
-              aria-controls={id}
-              onClick={slidePrevious}
-              icon={navigationIcons?.left ?? <LeftArrowIcon />}
-            />
-            <IconButton
-              aria-label="next"
-              data-arrow="right"
-              aria-controls={id}
-              onClick={slideNext}
-              icon={navigationIcons?.right ?? <RightArrowIcon />}
-            />
-          </div>
-        )}
+      {showNavigationArrows && (
+        <div data-fs-carousel-controls>
+          <IconButton
+            data-arrow="left"
+            aria-controls={id}
+            aria-label="previous"
+            icon={navigationIcons?.left ?? <LeftArrowIcon />}
+            onClick={() => {
+              isSlideCarousel && slidePrevious()
+              isScrollCarousel &&
+                onScrollPagination(sliderState.currentPage - 1, 'previous')
+            }}
+          />
+          <IconButton
+            data-arrow="right"
+            aria-controls={id}
+            aria-label="next"
+            icon={navigationIcons?.right ?? <RightArrowIcon />}
+            onClick={() => {
+              isSlideCarousel && slideNext()
+              isScrollCarousel &&
+                onScrollPagination(sliderState.currentPage + 1, 'next')
+            }}
+          />
+        </div>
+      )}
 
-        {showPaginationBullets && (
-          <div data-carousel-bullets>
-            <Bullets
-              tabIndex={0}
-              totalQuantity={Math.ceil(
-                childrenCount / sliderState.itemsPerPage
-              )}
-              activeBullet={sliderState.currentPage}
-              onClick={(_, idx) => {
-                // Scroll Carousel
-                if (!isSlideCarousel) {
-                  const carouselItemsWidth = Number(
-                    trackRef.current?.firstElementChild?.clientWidth
-                  )
-                  const scrollOffset =
-                    idx * carouselItemsWidth - carouselItemsWidth * 0.125
-
-                  // Scroll and center the current item
-                  return trackRef.current?.scroll({ left: scrollOffset })
-                }
-
-                // Slide Carousel
-                if (sliderState.sliding) {
-                  return
-                }
-
+      {showPaginationBullets && (
+        <div data-fs-carousel-bullets>
+          <Bullets
+            tabIndex={0}
+            activeBullet={sliderState.currentPage}
+            totalQuantity={Math.ceil(childrenCount / sliderState.itemsPerPage)}
+            onKeyDown={handleBulletsKeyDown}
+            onClick={async (_, idx) => {
+              isSlideCarousel &&
+                !sliderState.sliding &&
                 slide(idx, sliderDispatch)
-              }}
-              ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
-              onKeyDown={handleBulletsKeyDown}
-              onFocus={(event) => {
-                event.currentTarget.focus()
-              }}
-            />
-          </div>
-        )}
-      </div>
+
+              isScrollCarousel && onScrollPagination(idx)
+            }}
+            onFocus={(event) => event.currentTarget.focus()}
+            ariaControlsGenerator={(idx) => `carousel-item-${idx}`}
+          />
+        </div>
+      )}
     </section>
   )
 }

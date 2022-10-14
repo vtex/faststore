@@ -1,57 +1,53 @@
-import React, { useMemo } from 'react'
-import type { ReactNode, CSSProperties } from 'react'
+import React from 'react'
+import type { CSSProperties, PropsWithChildren } from 'react'
 import type { SliderState } from '../../hooks/useSlider/useSlider'
 
 import useSlideVisibility from './hooks/useSlideVisibility'
 
 interface CarouselItemProps {
   index: number
-  item: ReactNode
   totalItems: number
   state: SliderState
   infiniteMode: boolean
-  isSlideCarousel: boolean
+  isScrollCarousel: boolean
 }
 
 function CarouselItem({
-  item,
   index,
   state,
+  children,
   totalItems,
   infiniteMode,
-  isSlideCarousel,
-}: CarouselItemProps) {
+  isScrollCarousel,
+}: PropsWithChildren<CarouselItemProps>) {
   const { isItemVisible, shouldRenderItem } = useSlideVisibility({
     totalItems,
     currentSlide: state.currentItem,
     itemsPerPage: state.itemsPerPage,
   })
 
-  const style: CSSProperties = useMemo(
-    () =>
-      isSlideCarousel
-        ? { width: '100%' }
-        : {
-            maxWidth: '80%',
-            display: 'inline-block',
-            opacity: isItemVisible(index - Number(infiniteMode)) ? 1 : 0.2,
-          },
-    [index, infiniteMode, isItemVisible, isSlideCarousel]
-  )
+  const style =
+    ((!isScrollCarousel && { width: '100%' }) as CSSProperties) ||
+    ((isScrollCarousel && {
+      maxWidth: '80%',
+      display: 'inline-block',
+    }) as CSSProperties)
 
   const shouldDisplayItem =
-    !isSlideCarousel || shouldRenderItem(index - Number(infiniteMode))
+    isScrollCarousel || shouldRenderItem(index - Number(infiniteMode))
 
   return (
     <div
       style={style}
       role="tabpanel"
-      data-carousel-item
+      data-fs-carousel-item
       aria-roledescription="slide"
       id={`carousel-item-${index}`}
-      data-visible={isItemVisible(index - Number(infiniteMode)) || undefined}
+      data-fs-carousel-item-visible={
+        isItemVisible(index - Number(infiniteMode)) || undefined
+      }
     >
-      {shouldDisplayItem ? item : null}
+      {shouldDisplayItem ? children : null}
     </div>
   )
 }
