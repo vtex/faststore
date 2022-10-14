@@ -1,5 +1,3 @@
-@import "src/styles/scaffold";
-
 .fs-search {
   // --------------------------------------------------------
   // Design Tokens for Search
@@ -56,6 +54,12 @@
 
   [data-fs-search-item-link] {
     color: var(--fs-search-item-link-color);
+
+    > span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   [data-fs-search-item] {
@@ -72,9 +76,8 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      width: 100%;
-      padding-right: var(--fs-search-item-link-padding-right);
       padding-left: var(--fs-search-item-link-padding-left);
+      margin-right: var(--fs-search-item-link-padding-right);
     }
 
     [data-fs-search-badge] {
@@ -82,6 +85,8 @@
     }
 
     [data-fs-search-item-icon] {
+      flex-grow: 0;
+      flex-shrink: 0;
       margin-right: var(--fs-search-item-icon-margin-right);
       color: var(--fs-search-item-icon-color);
     }

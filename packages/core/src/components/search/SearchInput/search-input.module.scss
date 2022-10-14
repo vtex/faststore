@@ -58,7 +58,7 @@
 
   position: relative;
 
-  [data-fs-search-input] {
+  [data-fs-search-input-form] {
     position: relative;
     display: inline-flex;
     width: 100%;
@@ -91,7 +91,7 @@
 
     [data-fs-button] {
       position: absolute;
-      right: 0;
+      right: var(--fs-spacing-0);
       width: var(--fs-search-input-button-width);
       height: var(--fs-search-input-button-height-mobile);
       padding: 0;

@@ -22,6 +22,7 @@ import {
 />
 
 export const Template = (args) => <Button {...args}>Button</Button>
+export const TemplateIcon = (args) => <Button {...args} />
 
 <header>
 
@@ -78,7 +79,7 @@ export const Usage = ({ inverse, ...args }) => {
     args={{
       variant: 'primary',
       iconPosition: 'right',
-      icon: <Icon name="ShoppingCart" width="18" height="18" />,
+      icon: <Icon name="ShoppingCart" width="18" height="18" weight="bold" />,
     }}
   >
     {Usage.bind({})}
@@ -137,7 +138,7 @@ export const Usage = ({ inverse, ...args }) => {
     args={{
       variant: 'primary',
       iconPosition: 'right',
-      icon: <Icon name="User" width="18" height="18" />,
+      icon: <Icon name="User" width="18" height="18" weight="bold" />,
     }}
   >
     {Template.bind({})}
@@ -146,6 +147,48 @@ export const Usage = ({ inverse, ...args }) => {
 
 <TokenTable>
   <TokenRow token="--fs-button-icon-padding" value="0 var(--fs-spacing-1)" />
+</TokenTable>
+
+### Counter
+
+<Canvas>
+  <Story
+    name="Counter"
+    args={{
+      icon: <Icon name="User" width="18" height="18" weight="bold" />,
+      counter: 3,
+    }}
+  >
+    {TemplateIcon.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-button-counter-size" value="var(--fs-spacing-3)" />
+  <TokenRow token="--fs-button-counter-padding" value="var(--fs-spacing-0)" />
+  <TokenRow
+    token="--fs-button-counter-text-size"
+    value="var(--fs-text-size-0)"
+  />
+  <TokenRow
+    token="--fs-button-counter-text-color"
+    value="var(--fs-color-text-inverse)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-counter-bkg-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-counter-border-radius"
+    value="var(--fs-border-radius-pill)"
+  />
+  <TokenRow
+    token="--fs-button-counter-border-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
 </TokenTable>
 
 ---
@@ -594,8 +637,6 @@ export const Usage = ({ inverse, ...args }) => {
   >
     <div data-fs-button style={{ backgroundColor: 'white', borderRadius: 2 }}>
       <Button
-        variant="tertiary"
-        data-fs-button-icon
         aria-label="Set location"
         icon={<Icon name="MapPin" width={32} height={32} color="black" />}
       />
@@ -622,8 +663,6 @@ export const Usage = ({ inverse, ...args }) => {
     recommendedUsage={
       <div data-fs-button style={{ backgroundColor: 'white', borderRadius: 2 }}>
         <Button
-          variant="tertiary"
-          data-fs-button-icon
           aria-label="Open menu"
           icon={<Icon name="List" width={32} height={32} color="black" />}
         />

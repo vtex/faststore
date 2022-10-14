@@ -20,9 +20,6 @@ export const TemplateNavbarSlider = () => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Button
-        variant="tertiary"
-        data-fs-button-icon
-        data-fs-navbar-button-menu
         aria-label="Open Menu"
         icon={<Icon name="List" width={32} height={32} />}
         onClick={openNavbar}
@@ -32,6 +29,7 @@ export const TemplateNavbarSlider = () => {
     </div>
   )
 }
+
 export const TemplateProvider = () => {
   return (
     <UIProvider>

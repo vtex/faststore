@@ -31,6 +31,10 @@ export interface ButtonProps
    */
   iconPosition?: IconPosition
   /**
+   * Specifies counter badge. Only for button icons
+   */
+  counter?: number
+  /**
    * For accessibility purposes, defines an ARIA label to the element when no label is provided
    */
   'aria-label'?: AriaAttributes['aria-label']
@@ -47,11 +51,12 @@ function Button({
   icon,
   iconPosition,
   children,
+  counter = 0,
   'aria-label': ariaLabel,
   disabled,
   ...props
 }: ButtonProps) {
-  const isButtonIcon = icon && !iconPosition
+  const isButtonIcon = icon && !iconPosition && !children
 
   return (
     <UIButton
@@ -60,11 +65,17 @@ function Button({
       data-fs-button
       data-fs-button-inverse={inverse}
       data-fs-button-size={size}
-      data-fs-button-variant={variant}
+      data-fs-button-icon={isButtonIcon}
+      data-fs-button-variant={isButtonIcon ? 'tertiary' : variant}
       disabled={disabled}
       {...props}
     >
-      {(isButtonIcon || iconPosition === 'left') && <UIIcon component={icon} />}
+      {(isButtonIcon || iconPosition === 'left') && (
+        <>
+          {counter > 0 && <span data-fs-button-counter>{counter}</span>}
+          <UIIcon component={icon} />
+        </>
+      )}
       {children}
       {iconPosition === 'right' && <UIIcon component={icon} />}
     </UIButton>

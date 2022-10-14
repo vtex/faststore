@@ -16,7 +16,7 @@
   // Structural Styles
   // --------------------------------------------------------
 
-  margin-top: var(--fs-spacing-3);
+  margin-top: 0;
 
   [data-fs-out-of-stock] {
     margin-top: var(--fs-product-details-vertical-spacing);
@@ -26,7 +26,6 @@
     display: flex;
     flex-direction: column;
     row-gap: var(--fs-product-details-vertical-spacing);
-    margin-top: var(--fs-spacing-3);
 
     @include media(">=tablet") {
       display: grid;

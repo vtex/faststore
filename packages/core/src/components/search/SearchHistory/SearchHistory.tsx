@@ -39,7 +39,7 @@ const SearchHistory = () => {
                 height={18}
                 data-fs-search-item-icon
               />
-              {item.term}
+              <span>{item.term}</span>
             </Link>
           </li>
         ))}

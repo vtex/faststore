@@ -15,7 +15,7 @@ function Breadcrumb({ breadcrumbList, name }: BreadcrumbWrapperProps) {
   const list = breadcrumbList ?? fallback
 
   return (
-    <Section className="breadcrumb layout__content">
+    <Section className="layout__content">
       <UIBreadcrumb breadcrumbList={list} />
     </Section>
   )

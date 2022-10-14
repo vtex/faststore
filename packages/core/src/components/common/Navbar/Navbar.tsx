@@ -40,8 +40,6 @@ function Navbar() {
           {!searchExpanded && (
             <>
               <Button
-                variant="tertiary"
-                data-fs-button-icon
                 data-fs-navbar-button-menu
                 aria-label="Open Menu"
                 icon={<Icon name="List" width={32} height={32} />}
@@ -64,8 +62,6 @@ function Navbar() {
           >
             {searchExpanded && (
               <Button
-                variant="tertiary"
-                data-fs-button-icon
                 data-fs-button-collapse
                 aria-label="Collapse search bar"
                 icon={<Icon name="CaretLeft" width={32} height={32} />}

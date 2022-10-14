@@ -7,6 +7,7 @@
 
   // Default properties
   --fs-breadcrumb-margin-left                         : calc(-1 * var(--fs-spacing-1));
+  --fs-breadcrumb-padding                             : var(--fs-spacing-2) 0;
 
   // List item
   --fs-breadcrumb-list-item-padding                   : var(--fs-spacing-0);
@@ -41,6 +42,7 @@
   // --------------------------------------------------------
 
   width: 100%;
+  padding: var(--fs-breadcrumb-padding);
 
   @include media(">=notebook") {
     width: 50%;

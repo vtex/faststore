@@ -20,8 +20,6 @@ function RegionalizationModalContent({
       <header data-fs-regionalization-modal-header>
         {onClose && (
           <Button
-            variant="tertiary"
-            data-fs-button-icon
             onClick={() => onClose?.()}
             data-fs-regionalization-modal-button
             aria-label="Close Regionalization Modal"

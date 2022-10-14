@@ -20,9 +20,7 @@ export const TemplateRegionalizationModal = () => {
 export const TemplateBarWithProvider = () => {
   return (
     <UIProvider>
-      <div
-        style={{ display: 'flex', alignItems: 'center', columnGap: '20px' }}
-      >
+      <div style={{ display: 'flex', alignItems: 'center', columnGap: '20px' }}>
         <p style={{ whiteSpace: 'nowrap' }}>Try me:</p>
         <RegionalizationBar />
         <TemplateRegionalizationModal />
@@ -47,7 +45,7 @@ The `RegionalizationBar` is part of [Regionalization](?path=/docs/features-regio
 
 ## Usage
 
-`import RegionalizationBar from '../components/regionalization/RegionalizationBar'`
+`import RegionalizationBar from 'src/components/regionalization/RegionalizationBar'`
 
 <Canvas
   className="no-code"
@@ -62,17 +60,27 @@ The `RegionalizationBar` is part of [Regionalization](?path=/docs/features-regio
     token="--fs-regionalization-bar-padding"
     value="var(--fs-spacing-0) var(--fs-spacing-3)"
   />
+  <TokenDivider />
   <TokenRow
     token="--fs-regionalization-bar-text-color"
     value="var(--fs-color-text-display)"
     isColor
   />
+  <TokenDivider />
   <TokenRow
-    token="--fs-regionalization-bar-background-color"
+    token="--fs-regionalization-bar-bkg-color"
     value="var(--fs-color-body-bkg)"
     isColor
   />
-  <TokenRow token="--fs-regionalization-bar-border" value="none" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-regionalization-bar-border-bottom-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-regionalization-bar-border-bottom-color"
+    value="var(--fs-border-color-light)"
+  />
 </TokenTable>
 
 ---

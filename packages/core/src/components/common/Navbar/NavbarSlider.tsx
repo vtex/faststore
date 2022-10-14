@@ -41,8 +41,6 @@ function NavbarSlider() {
         </Link>
 
         <Button
-          variant="tertiary"
-          data-fs-button-icon
           data-fs-navbar-slider-button
           aria-label="Close Menu"
           icon={<Icon name="X" width={32} height={32} />}

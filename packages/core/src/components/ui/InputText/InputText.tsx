@@ -105,8 +105,6 @@ const InputText = ({
       {shouldDisplayButton &&
         (displayClearButton || error ? (
           <Button
-            variant="tertiary"
-            data-fs-button-icon
             data-fs-button-size="small"
             aria-label="Clear Field"
             icon={<Icon name="XCircle" width={20} height={20} />}

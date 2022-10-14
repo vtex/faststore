@@ -3,6 +3,7 @@ import Icon from 'src/components/ui/Icon'
 import Button from '../../ui/Button'
 import Section from '../Section'
 import type { ButtonProps } from '../../ui/Button'
+import styles from './scroll-to-top-button.module.scss'
 
 interface ScrollToTopButtonProps {
   /**
@@ -28,7 +29,7 @@ function ScrollToTopButton({
   iconPosition = 'left',
 }: ScrollToTopButtonProps) {
   return (
-    <Section className="scroll-to-top-button">
+    <Section className={styles.fsScrollToTopButton}>
       <Button
         variant="secondary"
         icon={icon}

@@ -49,8 +49,6 @@ function FilterSlider({
         <header data-fs-filter-slider-header>
           <h2 className="text__lead">Filters</h2>
           <Button
-            variant="tertiary"
-            data-fs-button-icon
             data-fs-filter-slider-header-icon
             aria-label="Close Filters"
             icon={<Icon name="X" width={32} height={32} />}

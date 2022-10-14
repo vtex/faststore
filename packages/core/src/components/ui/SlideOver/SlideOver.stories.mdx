@@ -58,8 +58,6 @@ export function SlideOverTemplate() {
           <p className="text__lead">SlideOver</p>
         </div>
         <Button
-          variant="tertiary"
-          data-fs-button-icon
           aria-label="Close"
           icon={<Icon name="X" width={32} height={32} />}
           onClick={fadeOut}
@@ -93,7 +91,7 @@ export const Template = () => {
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Button
         variant="tertiary"
-        icon={<Icon name="List" width={16} height={16} />}
+        icon={<Icon name="List" width={16} height={16} weight="bold" />}
         iconPosition="left"
         aria-label="Open SlideOver"
         onClick={openCart}
@@ -111,7 +109,7 @@ export const TemplateNavbarSlider = () => {
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Button
         variant="tertiary"
-        icon={<Icon name="List" width={16} height={16} />}
+        icon={<Icon name="List" width={16} height={16} weight="bold" />}
         iconPosition="left"
         aria-label="Open Menu"
         onClick={openNavbar}
@@ -149,7 +147,9 @@ export const TemplateFilter = () => {
     <>
       <Button
         variant="tertiary"
-        icon={<Icon name="FadersHorizontal" width={16} height={16} />}
+        icon={
+          <Icon name="FadersHorizontal" width={16} height={16} weight="bold" />
+        }
         iconPosition="left"
         aria-label="Open Filters"
         onClick={openFilter}

@@ -1,6 +1,6 @@
 @import "src/styles/scaffold";
 
-[data-fs-banner-text] {
+.fs-banner-text {
   // --------------------------------------------------------
   // Design Tokens for Banner Text
   // --------------------------------------------------------
@@ -60,65 +60,65 @@
     min-width: var(--fs-banner-link-min-width);
     margin-top: var(--fs-banner-link-margin-top);
   }
-}
 
-// --------------------------------------------------------
-// Variants Styles
-// --------------------------------------------------------
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
 
-[data-fs-banner-text-variant="primary"] {
-  h2 {
-    font-size: var(--fs-banner-title-size);
-    font-weight: var(--fs-banner-title-weight);
-    line-height: var(--fs-banner-title-line-height);
+  &[data-fs-banner-text-variant="primary"] {
+    h2 {
+      font-size: var(--fs-banner-title-size);
+      font-weight: var(--fs-banner-title-weight);
+      line-height: var(--fs-banner-title-line-height);
 
-    @include media(">=notebook") {
-      display: block;
-      font-size: var(--fs-banner-primary-title-size);
-    }
-  }
-}
-
-[data-fs-banner-text-variant="secondary"] {
-  h2 {
-    margin-bottom: var(--fs-spacing-2);
-    font-size: var(--fs-banner-title-size);
-    font-weight: var(--fs-banner-title-weight);
-    line-height: var(--fs-banner-title-line-height);
-
-    @include media(">=notebook") {
-      display: block;
-      font-size: var(--fs-banner-secondary-title-size);
+      @include media(">=notebook") {
+        display: block;
+        font-size: var(--fs-banner-primary-title-size);
+      }
     }
   }
 
-  p {
-    font-size: var(--fs-banner-secondary-caption-size);
-    font-weight: var(--fs-banner-secondary-caption-weight);
-    line-height: var(--fs-banner-secondary-caption-line-height);
+  &[data-fs-banner-text-variant="secondary"] {
+    h2 {
+      margin-bottom: var(--fs-spacing-2);
+      font-size: var(--fs-banner-title-size);
+      font-weight: var(--fs-banner-title-weight);
+      line-height: var(--fs-banner-title-line-height);
+
+      @include media(">=notebook") {
+        display: block;
+        font-size: var(--fs-banner-secondary-title-size);
+      }
+    }
+
+    p {
+      font-size: var(--fs-banner-secondary-caption-size);
+      font-weight: var(--fs-banner-secondary-caption-weight);
+      line-height: var(--fs-banner-secondary-caption-line-height);
+    }
   }
-}
 
-[data-fs-banner-text-color-variant="main"] {
-  background-color: var(--fs-banner-main-bkg-color);
+  &[data-fs-banner-text-color-variant="main"] {
+    background-color: var(--fs-banner-main-bkg-color);
 
-  [data-fs-banner-text-heading] {
-    color: var(--fs-banner-main-text-color);
+    [data-fs-banner-text-heading] {
+      color: var(--fs-banner-main-text-color);
+    }
   }
-}
 
-[data-fs-banner-text-color-variant="light"] {
-  background-color: var(--fs-banner-light-bkg-color);
+  &[data-fs-banner-text-color-variant="light"] {
+    background-color: var(--fs-banner-light-bkg-color);
 
-  [data-fs-banner-text-heading] {
-    color: var(--fs-banner-light-text-color);
+    [data-fs-banner-text-heading] {
+      color: var(--fs-banner-light-text-color);
+    }
   }
-}
 
-[data-fs-banner-text-color-variant="accent"] {
-  background-color: var(--fs-banner-accent-bkg-color);
+  &[data-fs-banner-text-color-variant="accent"] {
+    background-color: var(--fs-banner-accent-bkg-color);
 
-  [data-fs-banner-text-heading] {
-    color: var(--fs-banner-accent-text-color);
+    [data-fs-banner-text-heading] {
+      color: var(--fs-banner-accent-text-color);
+    }
   }
 }

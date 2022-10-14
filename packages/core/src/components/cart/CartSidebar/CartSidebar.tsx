@@ -71,8 +71,6 @@ function CartSidebar() {
           <Badge variant="info">{totalItems}</Badge>
         </div>
         <Button
-          variant="tertiary"
-          data-fs-button-icon
           data-fs-cart-sidebar-close-button
           data-testid="cart-sidebar-button-close"
           aria-label="Close Cart"

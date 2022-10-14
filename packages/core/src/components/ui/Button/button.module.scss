@@ -112,6 +112,15 @@
   // Icon
   --fs-button-icon-padding                          : 0 var(--fs-spacing-1);
 
+  // Counter
+  --fs-button-counter-size                          : var(--fs-spacing-3);
+  --fs-button-counter-padding                       : var(--fs-spacing-0);
+  --fs-button-counter-text-size                     : var(--fs-text-size-0);
+  --fs-button-counter-text-color                    : var(--fs-color-text-inverse);
+  --fs-button-counter-bkg-color                     : var(--fs-color-link);
+  --fs-button-counter-border-radius                 : var(--fs-border-radius-pill);
+  --fs-button-counter-border-color                  : var(--fs-color-body-bkg);
+
   // Small
   --fs-button-small-padding                         : var(--fs-spacing-0) var(--fs-spacing-1);
   --fs-button-small-min-height                      : var(--fs-spacing-5);
@@ -341,7 +350,32 @@
     }
   }
 
-  &[data-fs-button-icon] {
+  &[data-fs-button-icon="true"] {
+    position: relative;
+
+    [data-fs-button-counter] {
+      position: absolute;
+      top: .375rem;
+      left: 1.625rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: var(--fs-button-counter-size);
+      height: var(--fs-button-counter-size);
+      padding: var(--fs-button-counter-padding);
+      font-size: var(--fs-button-counter-text-size);
+      font-weight: var(--fs-text-weight-bold);
+      color: var(--fs-button-counter-text-color);
+      background: var(--fs-button-counter-bkg-color);
+      border-radius: var(--fs-button-counter-border-radius);
+      box-shadow: 0 0 0 var(--fs-button-border-width) var(--fs-button-counter-border-color);
+      transition: var(--fs-button-transition-property) var(--fs-button-transition-timing) var(--fs-button-transition-function);
+    }
+
+    &:hover, &:active, &:focus, &:focus-visible {
+      [data-fs-button-counter] { box-shadow: 0 0 0 var(--fs-button-border-width) var(--fs-button-tertiary-bkg-color-hover); }
+    }
+
     &[data-fs-button-variant] {
       width: var(--fs-button-height);
       height: var(--fs-button-height);
