@@ -69,7 +69,7 @@ const Bullets = forwardRef<HTMLDivElement, BulletsProps>(function Bullets(
 
         return (
           <Button
-            data-bullet-item
+            data-fs-bullet-item
             role="tab"
             tabIndex={-1}
             key={idx}
