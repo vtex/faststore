@@ -5,6 +5,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 
 import ProductDetails from 'src/components/sections/ProductDetails'
 import ProductShelf from 'src/components/sections/ProductShelf'
+import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
 import { ITEMS_PER_SECTION } from 'src/constants'
 import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
@@ -102,6 +103,8 @@ function Page({ product }: Props) {
         ]}
         title="People also view"
       />
+
+      <BannerNewsletter />
     </>
   )
 }

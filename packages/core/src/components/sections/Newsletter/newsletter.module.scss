@@ -1,0 +1,135 @@
+@import "src/styles/scaffold";
+
+.fs-newsletter {
+  // --------------------------------------------------------
+  // Design Tokens for Newsletter
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-newsletter-padding                           : var(--fs-spacing-4) var(--fs-spacing-1) var(--fs-spacing-5) var(--fs-spacing-1);
+  --fs-newsletter-bkg                               : var(--fs-color-primary-bkg);
+  --fs-newsletter-text-color                        : var(--fs-color-text-inverse);
+
+  // Title
+  --fs-newsletter-title-size                        : var(--fs-text-size-title-section);
+  --fs-newsletter-title-weight                      : var(--fs-text-weight-bold);
+
+  // Card
+  --fs-newsletter-card-border-radius                : var(--fs-border-radius);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: var(--fs-newsletter-padding);
+  color: var(--fs-newsletter-text-color);
+  background-color: var(--fs-newsletter-bkg);
+
+  [data-fs-newsletter-form] {
+    @include media(">=notebook") {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: var(--fs-spacing-8);
+      padding-top: var(--fs-spacing-6);
+      padding-bottom: var(--fs-spacing-6);
+
+      [data-fs-newsletter-header] {
+        align-content: flex-start;
+      }
+    }
+
+    [data-fs-newsletter-controls] {
+      @include media(">=notebook") {
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 0;
+
+        [data-fs-input-text] {
+          grid-column: 1 / span 3;
+        }
+
+        [data-fs-button-inverse] {
+          grid-column: 3;
+        }
+
+        [data-fs-newsletter-addendum] {
+          grid-column: 1 / span 3;
+        }
+      }
+    }
+  }
+
+  [data-fs-newsletter-header] {
+    display: grid;
+    row-gap: var(--fs-spacing-2);
+    line-height: 1.5;
+    text-align: center;
+
+    @include media(">=notebook") {
+      text-align: left;
+    }
+  }
+
+  [data-fs-newsletter-header] h3 {
+    display: grid;
+    grid-template-columns: var(--fs-spacing-5) auto;
+    column-gap: var(--fs-spacing-1);
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-newsletter-title-size);
+    font-weight: var(--fs-newsletter-title-weight);
+    color: var(--fs-newsletter-text-color);
+
+    @include media(">=notebook") {
+      justify-content: left;
+    }
+  }
+
+  [data-fs-newsletter-controls] {
+    display: grid;
+    row-gap: var(--fs-spacing-3);
+    margin-top: var(--fs-spacing-4);
+
+    [data-fs-button-inverse] {
+      margin-top: var(--fs-spacing-3);
+    }
+  }
+
+  [data-fs-newsletter-addendum] {
+    text-align: center;
+
+    @include media(">=notebook") {
+      text-align: left;
+    }
+  }
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-newsletter="card"] {
+    text-align: center;
+    border-radius: var(--fs-newsletter-card-border-radius);
+
+    [data-fs-newsletter-header] {
+      text-align: center;
+    }
+
+    @include media(">=notebook") {
+      [data-fs-newsletter-form] {
+        display: block;
+      }
+
+      [data-fs-newsletter-controls] {
+        margin-top: var(--fs-spacing-4);
+      }
+    }
+
+    [data-fs-newsletter-header] h3 {
+      justify-content: center;
+    }
+  }
+}

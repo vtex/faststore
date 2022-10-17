@@ -1,0 +1,162 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+import UIProvider, { useUI } from 'src/sdk/ui/Provider'
+
+import Toast from '.'
+import Button from 'src/components/ui/Button'
+
+<Meta title="Atoms/Toast" component={Toast} />
+
+export const Template = () => {
+  const { pushToast } = useUI()
+  return (
+    <Button
+      variant="tertiary"
+      onClick={() => {
+        pushToast({
+          title: 'Your cart was updated!',
+          message: 'Some additional info here.',
+          status: 'INFO',
+          icon: 'ArrowsClockwise',
+        })
+      }}
+    >
+      Display Toast
+    </Button>
+  )
+}
+
+export const TemplateWithProvider = () => {
+  return (
+    <UIProvider>
+      <Toast />
+      <Template />
+    </UIProvider>
+  )
+}
+
+<header>
+
+# Toast
+
+Toasts are used to display notifications. They appear temporarily, and should contain a single line of text directly related to the operation performed.
+
+</header>
+
+---
+
+## Usage
+
+`import Toast from 'src/components/ui/Toast'`
+
+<Canvas>
+  <Story name="default">{TemplateWithProvider.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-toast-width"
+    value="calc(100% - (2 * var(--fs-spacing-3)))"
+  />
+  <TokenRow token="--fs-toast-min-height" value="var(--fs-spacing-9)" />
+  <TokenRow
+    token="--fs-toast-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-3) var(--fs-spacing-1) var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-toast-margin"
+    value="var(--fs-spacing-3) var(--fs-spacing-3) 0 var(--fs-spacing-3)"
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-toast-top-mobile" value="3.125rem" />
+  <TokenRow token="--fs-toast-top-tablet" value="6.25rem" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toast-border-radius"
+    value="var(--fs-border-radius-medium)"
+  />
+  <TokenRow token="--fs-toast-border-width" value="var(--fs-border-width)" />
+  <TokenRow token="--fs-toast-border-color" value="transparent" isColor />
+  <TokenDivider />
+  <TokenRow token="--fs-toast-shadow" value="var(--fs-shadow-hover)" />
+  <TokenRow
+    token="--fs-toast-bkg-color"
+    value="var(--fs-color-neutral-0)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toast-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-toast-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-toast-transition-function"
+    value="var(--fs-transition-function)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Icon
+
+<TokenTable>
+  <TokenRow
+    token="--fs-toast-icon-container-min-width"
+    value="var(--fs-spacing-7)"
+  />
+  <TokenRow
+    token="--fs-toast-icon-container-height"
+    value="var(--fs-toast-icon-container-min-width)"
+  />
+  <TokenRow
+    token="--fs-toast-icon-container-bkg-color"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toast-icon-container-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow token="--fs-toast-title-size" value="var(--fs-text-size-body)" />
+  <TokenRow
+    token="--fs-toast-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenRow token="--fs-toast-title-line-height" value="var(--fs-scale)" />
+  <TokenRow token="--fs-toast-title-margin-left" value="var(--fs-spacing-3)" />
+</TokenTable>
+
+### Message
+
+<TokenTable>
+  <TokenRow
+    token="--fs-toast-message-size"
+    value="var(--fs-toast-title-size)"
+  />
+  <TokenRow
+    token="--fs-toast-message-line-height"
+    value="var(--fs-toast-title-line-height)"
+  />
+  <TokenRow
+    token="--fs-toast-message-margin-left"
+    value="var(--fs-spacing-3)"
+  />
+</TokenTable>

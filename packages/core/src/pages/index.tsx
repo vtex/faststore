@@ -4,6 +4,7 @@ import type { ContentData, Locator } from '@vtex/client-cms'
 
 import RenderPageSections from 'src/components/cms/RenderPageSections'
 import { mark } from 'src/sdk/tests/mark'
+import Newsletter from 'src/components/sections/Newsletter'
 import { clientCMS } from 'src/server/cms'
 
 import storeConfig from '../../store.config'
@@ -50,6 +51,10 @@ function Page({ sections }: Props) {
         (not the HTML tag) before rendering it here.
       */}
       <RenderPageSections sections={sections} />
+      <Newsletter
+        title="Get News and Special Offers!"
+        description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
+      />
     </>
   )
 }

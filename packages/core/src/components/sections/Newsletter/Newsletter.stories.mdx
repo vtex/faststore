@@ -1,0 +1,139 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { TokenTable, TokenRow } from 'src/../.storybook/components'
+
+import UIProvider from 'src/sdk/ui/Provider'
+
+import Newsletter from '.'
+
+<Meta title="Organisms/Newsletter" component={Newsletter} />
+
+export const Template = (args) => (
+  <UIProvider>
+    <Newsletter {...args} />
+  </UIProvider>
+)
+
+<header>
+
+# Newsletter
+
+The Newsletter component is a section with at least one input text with an action which its value could be submitted.
+
+</header>
+
+---
+
+## Usage
+
+`import Newsletter from 'src/components/sections/Newsletter'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      title: 'Get News and Special Offers!',
+      description:
+        'Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here.',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-padding"
+    value="var(--fs-spacing-4) var(--fs-spacing-1) var(--fs-spacing-5) var(--fs-spacing-1)"
+  />
+  <TokenRow
+    token="--fs-newsletter-bkg"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-newsletter-text-color"
+    value="var(--fs-color-text-inverse)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-newsletter-title-size"
+    value="var(--fs-text-size-title-section)"
+  />
+  <TokenRow
+    token="--fs-newsletter-title-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Lite
+
+<Canvas>
+  <Story
+    name="Lite"
+    args={{
+      title: 'Get News and Special Offers!',
+      description:
+        'Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here.',
+      lite: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Card
+
+<Canvas>
+  <Story
+    name="Card"
+    args={{
+      title: 'Get News and Special Offers!',
+      description:
+        'Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here.',
+      card: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-newsletter-card-width" value="23.438rem" />
+  <TokenRow token="--fs-newsletter-card-width-notebook" value="33.125rem" />
+  <TokenRow
+    token="--fs-newsletter-card-border-radius"
+    value="var(--fs-border-radius)"
+  />
+</TokenTable>
+
+### Card & Lite
+
+<Canvas>
+  <Story
+    name="Card-Lite"
+    args={{
+      title: 'Get News and Special Offers!',
+      description:
+        'Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here.',
+      card: true,
+      lite: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
