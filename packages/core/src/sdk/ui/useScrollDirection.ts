@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 
 export default function useScrollDirection() {
   const [scrollDirection, setScrollDirection] = useState<string>('')
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => {
     let lastScrollY = window.scrollY
@@ -11,10 +12,11 @@ export default function useScrollDirection() {
       const direction = scrollY > lastScrollY ? 'down' : 'up'
 
       if (
+        !isPending &&
         direction !== scrollDirection &&
         (scrollY - lastScrollY > 10 || scrollY - lastScrollY < -10)
       ) {
-        setScrollDirection(direction)
+        startTransition(() => setScrollDirection(direction))
       }
 
       lastScrollY = scrollY > 0 ? scrollY : 0
