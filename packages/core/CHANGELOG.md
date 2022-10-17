@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.40.1](https://github.com/vtex-sites/nextjs.store/compare/22.40.0...22.40.1) (2022-10-17)
+
+
+### Features
+
+* Adjust Newsletter to match new designs ([#252](https://github.com/vtex-sites/nextjs.store/issues/252)) ([3fc67a7](https://github.com/vtex-sites/nextjs.store/commit/3fc67a755f3bb6ef396fb8580843066964de35dd))
+
 ## [22.40.0](https://github.com/vtex-sites/nextjs.store/compare/22.39.6...22.40.0) (2022-10-14)
 
 
