@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [22.41.0](https://github.com/vtex-sites/nextjs.store/compare/22.40.2...22.41.0) (2022-10-18)
+
+
+### Features
+
+* CMS Error Boundaries ([#277](https://github.com/vtex-sites/nextjs.store/issues/277)) ([87d8236](https://github.com/vtex-sites/nextjs.store/commit/87d8236f762414071af2baa4338f164730bbea1f))
+
 ### [22.40.2](https://github.com/vtex-sites/nextjs.store/compare/22.40.1...22.40.2) (2022-10-17)
 
 
