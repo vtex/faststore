@@ -25,7 +25,7 @@ export default function useScrollDirection() {
     window.addEventListener('scroll', updateScrollDirection)
 
     return () => window.removeEventListener('scroll', updateScrollDirection)
-  }, [scrollDirection])
+  }, [isPending, scrollDirection])
 
   return scrollDirection
 }

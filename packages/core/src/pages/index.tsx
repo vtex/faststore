@@ -3,9 +3,9 @@ import type { GetStaticProps } from 'next'
 import type { ContentData, Locator } from '@vtex/client-cms'
 
 import RenderPageSections from 'src/components/cms/RenderPageSections'
-import { mark } from 'src/sdk/tests/mark'
 import Newsletter from 'src/components/sections/Newsletter'
-import { clientCMS } from 'src/server/cms'
+import { mark } from 'src/sdk/tests/mark'
+import { getPageSections } from 'src/server/cms'
 
 import storeConfig from '../../store.config'
 
@@ -64,17 +64,11 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const contentType = 'home'
-  const page =
-    context.preview && context.previewData?.contentType === contentType
-      ? await clientCMS.getCMSPage(context.previewData)
-      : await clientCMS
-          .getCMSPagesByContentType(contentType)
-          .then((pages) => pages.data[0])
+  const sections = await getPageSections(context.previewData ?? 'home')
 
   return {
     props: {
-      sections: page?.sections ?? [],
+      sections: sections ?? [],
     },
   }
 }
