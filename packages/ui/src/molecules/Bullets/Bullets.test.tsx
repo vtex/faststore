@@ -18,7 +18,7 @@ describe('Bullets', () => {
       <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
     )
 
-    const bulletItems = queryAllByTestId('store-bullets-item')
+    const bulletItems = queryAllByTestId('store-bullets-bullet')
 
     expect(bulletItems).toHaveLength(5)
 
@@ -32,7 +32,7 @@ describe('Bullets', () => {
       <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
     )
 
-    const bulletItems = queryAllByTestId('store-bullets-item')
+    const bulletItems = queryAllByTestId('store-bullets-bullet')
 
     // eslint-disable-next-line prefer-destructuring
     const expectedActiveBullet = bulletItems[2]
@@ -59,7 +59,7 @@ describe('Bullets', () => {
       />
     )
 
-    const bulletItems = queryAllByTestId('store-bullets-item')
+    const bulletItems = queryAllByTestId('store-bullets-bullet')
 
     expect(bulletItems).toHaveLength(5)
 

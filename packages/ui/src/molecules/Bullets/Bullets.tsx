@@ -73,7 +73,7 @@ const Bullets = forwardRef<HTMLDivElement, BulletsProps>(function Bullets(
             role="tab"
             tabIndex={-1}
             data-fs-bullet
-            testId={`${testId}-bullet-${idx}`}
+            testId={`${testId}-bullet`}
             onClick={(e) => onClick(e, idx)}
             aria-label={ariaLabelGenerator(idx, isActive)}
             aria-controls={ariaControlsGenerator?.(idx)}
