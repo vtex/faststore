@@ -208,7 +208,7 @@ describe('Carousel component', () => {
     )
 
     const carouselSection = getByTestId('store-carousel')
-    const bullets = queryAllByTestId('store-bullets-item')
+    const bullets = queryAllByTestId('store-bullets-bullet')
     const carouselTrack = carouselSection.querySelector(
       '[data-fs-carousel-track]'
     )
