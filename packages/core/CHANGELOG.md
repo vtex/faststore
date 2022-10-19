@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.42.1](https://github.com/vtex-sites/nextjs.store/compare/22.42.0...22.42.1) (2022-10-19)
+
+
+### Bug Fixes
+
+* Bad postal code on shipping data  ([#279](https://github.com/vtex-sites/nextjs.store/issues/279)) ([3d71613](https://github.com/vtex-sites/nextjs.store/commit/3d71613130815768f72538c830e78650ae1babf4))
+
 ## [22.42.0](https://github.com/vtex-sites/nextjs.store/compare/22.41.1...22.42.0) (2022-10-19)
 
 
