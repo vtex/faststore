@@ -3919,10 +3919,10 @@
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
-"@vtex/client-cms@^0.2.10":
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@vtex/client-cms/-/client-cms-0.2.10.tgz#d2e3dee0b9a38b0ee3de3e4cec0d31349f4c8cf5"
-  integrity sha512-z9pg0srPxdL5lZ+tgWsnYvsHm2IcNEOukVnjJ1+8GqWDFiaJkPskuJhhuJhA7cAa4pLpDUONYnDlALT1BTNnFg==
+"@vtex/client-cms@^0.2.12":
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/@vtex/client-cms/-/client-cms-0.2.12.tgz#c75777ff3cfa37e1d9904074b9b0fa63f93f081e"
+  integrity sha512-Eg5AWsWZzz8ddhSnpI4dQrXzsf+DUbfxERbiKS5mssb/nlBEXoVAeabWzlJrkMjdHQiQn7BSllNLeocoRkXJBA==
   dependencies:
     fetch-retry "^4.1.1"
     isomorphic-unfetch "^3.1.0"

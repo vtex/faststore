@@ -327,5 +327,24 @@
         }
       }
     }
+  },
+  {
+    "name": "Newsletter",
+    "schema": {
+      "title": "Newsletter",
+      "description": "Allow users to subscribe to your updates",
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description"
+        }
+      }
+    }
   }
 ]

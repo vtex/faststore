@@ -1,32 +1,30 @@
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { GetStaticProps } from 'next'
-import type { ContentData, Locator } from '@vtex/client-cms'
+import type { Locator } from '@vtex/client-cms'
 
 import RenderPageSections from 'src/components/cms/RenderPageSections'
-import Newsletter from 'src/components/sections/Newsletter'
+import type { PageContentType } from 'src/server/cms'
+import { getPage } from 'src/server/cms'
 import { mark } from 'src/sdk/tests/mark'
-import { getPageSections } from 'src/server/cms'
 
 import storeConfig from '../../store.config'
 
-interface Props {
-  sections: ContentData['sections']
-}
+type Props = PageContentType
 
-function Page({ sections }: Props) {
+function Page({ sections, settings }: Props) {
   return (
     <>
       {/* SEO */}
       <NextSeo
-        title={storeConfig.seo.title}
-        description={storeConfig.seo.description}
+        title={settings.seo.title}
+        description={settings.seo.description}
         titleTemplate={storeConfig.seo.titleTemplate}
-        canonical={storeConfig.storeUrl}
+        canonical={settings.seo.canonical ?? storeConfig.storeUrl}
         openGraph={{
           type: 'website',
           url: storeConfig.storeUrl,
-          title: storeConfig.seo.title,
-          description: storeConfig.seo.description,
+          title: settings.seo.title,
+          description: settings.seo.description,
         }}
       />
       <SiteLinksSearchBoxJsonLd
@@ -51,10 +49,6 @@ function Page({ sections }: Props) {
         (not the HTML tag) before rendering it here.
       */}
       <RenderPageSections sections={sections} />
-      <Newsletter
-        title="Get News and Special Offers!"
-        description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
-      />
     </>
   )
 }
@@ -64,12 +58,13 @@ export const getStaticProps: GetStaticProps<
   Record<string, string>,
   Locator
 > = async (context) => {
-  const sections = await getPageSections(context.previewData ?? 'home')
+  const page = await getPage<PageContentType>({
+    ...(context.previewData ?? { filters: { 'settings.seo.slug': '/' } }),
+    contentType: 'page',
+  })
 
   return {
-    props: {
-      sections: sections ?? [],
-    },
+    props: page,
   }
 }
 
