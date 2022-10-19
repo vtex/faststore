@@ -107,7 +107,7 @@
     align-items: center;
     justify-content: flex-end;
 
-    [data-fs-button-signin-link] + [data-fs-button-cart] {
+    [data-fs-button-signin-link] + [data-fs-cart-toggle] {
       @include media(">=notebook") {
         margin-left: var(--fs-spacing-3);
       }

@@ -8,7 +8,7 @@ function CartToggle() {
 
   return (
     <Button
-      data-fs-button-cart
+      data-fs-cart-toggle
       counter={totalItems}
       aria-label={`Cart with ${totalItems} items`}
       icon={<Icon name="ShoppingCart" width={32} height={32} />}
