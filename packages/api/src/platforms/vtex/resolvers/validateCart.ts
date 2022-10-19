@@ -215,6 +215,7 @@ const getOrderForm = async (
   }
 
   const shouldUpdateShippingData =
+    typeof session.postalCode === 'string' &&
     orderForm.shippingData?.address?.postalCode != session.postalCode;
 
   if (shouldUpdateShippingData) {
