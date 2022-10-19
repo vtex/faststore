@@ -177,7 +177,7 @@ export interface UseSliderArgs extends SwipeableProps {
   itemsPerPage?: number
   /** Whether or not the slider is infinite. */
   infiniteMode?: boolean
-  /**  Whether or not the slider should slide after swiping left/right. */
+  /**  Whether or not slide after swiping left/right. */
   shouldSlideOnSwipe?: boolean
 }
 
