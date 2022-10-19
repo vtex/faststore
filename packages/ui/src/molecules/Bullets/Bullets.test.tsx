@@ -13,7 +13,7 @@ describe('Bullets', () => {
     expect(getByTestId('store-bullets')).toHaveAttribute('data-fs-bullets')
   })
 
-  it('should render 5 bullets with `data-fs-bullet-item` attribute', () => {
+  it('should render 5 bullets with `data-fs-bullet` attribute', () => {
     const { queryAllByTestId } = render(
       <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
     )
@@ -23,7 +23,7 @@ describe('Bullets', () => {
     expect(bulletItems).toHaveLength(5)
 
     bulletItems.forEach((bullet) =>
-      expect(bullet).toHaveAttribute('data-fs-bullet-item')
+      expect(bullet).toHaveAttribute('data-fs-bullet')
     )
   })
 
