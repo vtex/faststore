@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.42.2](https://github.com/vtex-sites/nextjs.store/compare/22.42.1...22.42.2) (2022-10-20)
+
+
+### Features
+
+* Storybook Updates ([#271](https://github.com/vtex-sites/nextjs.store/issues/271)) ([176139a](https://github.com/vtex-sites/nextjs.store/commit/176139a3290330e2626d22f3ca23e2a1722883f3))
+
 ### [22.42.1](https://github.com/vtex-sites/nextjs.store/compare/22.42.0...22.42.1) (2022-10-19)
 
 
