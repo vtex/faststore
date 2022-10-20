@@ -127,8 +127,8 @@ describe('Accordion', () => {
   })
 
   describe('Data attributes', () => {
-    it('`Accordion` component should have `data-store-accordion` attribute', () => {
-      expect(accordion).toHaveAttribute('data-store-accordion')
+    it('`Accordion` component should have `data-fs-accordion` attribute', () => {
+      expect(accordion).toHaveAttribute('data-fs-accordion')
     })
 
     it('`AccordionItem` component should have `data-accordion-item` attribute', () => {

@@ -13,7 +13,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
   ref
 ) {
   return (
-    <article ref={ref} data-store-card data-testid={testId} {...otherProps}>
+    <article ref={ref} data-fs-card data-testid={testId} {...otherProps}>
       {children}
     </article>
   )

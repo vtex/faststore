@@ -5,12 +5,12 @@ import React from 'react'
 import Bullets from './Bullets'
 
 describe('Bullets', () => {
-  it('should have `data-store-bullets` attribute', () => {
+  it('should have `data-fs-bullets` attribute', () => {
     const { getByTestId } = render(
       <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
     )
 
-    expect(getByTestId('store-bullets')).toHaveAttribute('data-store-bullets')
+    expect(getByTestId('store-bullets')).toHaveAttribute('data-fs-bullets')
   })
 
   it('should render 5 bullets with `data-bullet-item` attribute', () => {

@@ -3,6 +3,90 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.17](https://github.com/vtex/faststore/compare/v1.12.16...v1.12.17) (2022-10-20)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## [1.12.16](https://github.com/vtex/faststore/compare/v1.12.15...v1.12.16) (2022-10-19)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## [1.12.15](https://github.com/vtex/faststore/compare/v1.12.14...v1.12.15) (2022-10-15)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## [1.12.14](https://github.com/vtex/faststore/compare/v1.12.13...v1.12.14) (2022-10-13)
+
+
+### Bug Fixes
+
+* checks for session existance before trying to update shipping data ([#1487](https://github.com/vtex/faststore/issues/1487)) ([8edced3](https://github.com/vtex/faststore/commit/8edced304ccdc804c7c9eb215955cec6f7c621ca))
+
+
+
+## [1.12.12](https://github.com/vtex/faststore/compare/v1.12.11...v1.12.12) (2022-10-10)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## [1.12.8](https://github.com/vtex/faststore/compare/v1.12.7...v1.12.8) (2022-09-29)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## [1.12.7](https://github.com/vtex/faststore/compare/v1.12.6...v1.12.7) (2022-09-28)
+
+**Note:** Version bump only for package @faststore/api
+
+
+
+
+
+## [1.12.6](https://github.com/vtex/faststore/compare/v1.12.5...v1.12.6) (2022-09-26)
+
+
+### Features
+
+* Add CacheControl GraphQL directive ([#1473](https://github.com/vtex/faststore/issues/1473)) ([b9fd889](https://github.com/vtex/faststore/commit/b9fd889fda56ea409266c56478adcd49fa34d46a))
+
+
+
+## 1.11.8 (2022-09-01)
+
+
+### Bug Fixes
+
+* Lint issues ([#1450](https://github.com/vtex/faststore/issues/1450)) ([139de34](https://github.com/vtex/faststore/commit/139de346d5d8f094caff4cc58f340f85043e1fb4))
+
+
+
+## [1.11.7](https://github.com/vtex/faststore/compare/v1.11.6...v1.11.7) (2022-08-29)
+
+
+### Features
+
+* Cart with session info ([#1444](https://github.com/vtex/faststore/issues/1444)) ([e36ad6f](https://github.com/vtex/faststore/commit/e36ad6f6e1af1a03c0dd47c4263e96bc9d0b7b8d))
+
+
+
 ## [1.11.4](https://github.com/vtex/faststore/compare/v1.11.3...v1.11.4) (2022-08-15)
 
 

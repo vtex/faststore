@@ -23,7 +23,7 @@ const LoadingButton = forwardRef<HTMLButtonElement, LoadingButtonProps>(
     return (
       <Button
         ref={ref}
-        data-store-loading-button
+        data-fs-loading-button
         testId={testId}
         {...otherProps}
       >

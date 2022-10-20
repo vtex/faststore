@@ -9,6 +9,7 @@ import TOCCollapsible from '@theme/TOCCollapsible'
 import Heading from '@theme/Heading'
 import styles from './styles.module.css'
 import DocFooter from '../../components/DocFooter/DocFooter'
+import FeedbackScan from '@site/src/components/FeedbackScan/FeedbackScan'
 import {
   PageMetadata,
   HtmlClassNameProvider,
@@ -62,7 +63,10 @@ function DocItemContent(props) {
         <DocVersionBanner />
         <div className={styles.docItemContainer}>
           <article>
+            <div className='flex flex-row justify-between'>
             <DocBreadcrumbs />
+            <FeedbackScan/>
+            </div>
             <DocVersionBadge />
 
             {canRenderTOC && (

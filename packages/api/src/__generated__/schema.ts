@@ -321,6 +321,7 @@ export type MutationSubscribeToNewsletterArgs = {
 
 export type MutationValidateCartArgs = {
   cart: IStoreCart;
+  session?: Maybe<IStoreSession>;
 };
 
 

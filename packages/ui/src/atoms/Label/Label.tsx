@@ -13,7 +13,7 @@ const Label = forwardRef<HTMLLabelElement, LabelProps>(function Label(
   ref
 ) {
   return (
-    <label ref={ref} data-store-label data-testid={testId} {...otherProps}>
+    <label ref={ref} data-fs-label data-testid={testId} {...otherProps}>
       {children}
     </label>
   )

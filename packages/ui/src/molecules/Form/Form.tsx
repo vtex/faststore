@@ -14,7 +14,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>(function Form(
   ref
 ) {
   return (
-    <form ref={ref} data-store-form data-testid={testId} {...otherProps}>
+    <form ref={ref} data-fs-form data-testid={testId} {...otherProps}>
       {children}
     </form>
   )

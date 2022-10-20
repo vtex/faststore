@@ -176,6 +176,7 @@ type Query {
     """
     locator: [IStoreSelectedFacet!]!
   ): StoreProduct!
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns the details of a collection based on the collection slug.
@@ -186,6 +187,7 @@ type Query {
     """
     slug: String!
   ): StoreCollection!
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns the result of a product, facet, or suggestion search.
@@ -212,6 +214,7 @@ type Query {
     """
     selectedFacets: [IStoreSelectedFacet!]
   ): StoreSearchResult!
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns information about all products.
@@ -220,12 +223,13 @@ type Query {
     """
     Product pagination argument, indicating how many items should be returned from the complete result list.
     """
-    first: Int!,
+    first: Int!
     """
     Product pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
     """
     after: String
   ): StoreProductConnection!
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns information about all collections.
@@ -234,12 +238,13 @@ type Query {
     """
     Collection pagination argument, indicating how many items should be returned from the complete result list.
     """
-    first: Int!,
+    first: Int!
     """
     Collection pagination argument, indicating the cursor corresponding with the item after which the items should be fetched.
     """
     after: String
   ): StoreCollectionConnection!
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 
   """
   Returns information about shipping simulation.
@@ -258,4 +263,5 @@ type Query {
     """
     country: String!
   ): ShippingData
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }

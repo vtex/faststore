@@ -16,7 +16,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
   return (
     <input
       ref={ref}
-      data-store-checkbox
+      data-fs-checkbox
       data-testid={testId}
       type="checkbox"
       {...otherProps}

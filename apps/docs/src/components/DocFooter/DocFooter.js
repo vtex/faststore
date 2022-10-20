@@ -1,7 +1,7 @@
 import React from 'react'
 
 const DocFooter = () => (
-  <div className="bg-code text-text flex items-start justify-between flex-col sm:flex-row my-8 p-8 gap-4">
+  <div className="bg-whiteIce text-text flex items-start justify-between flex-col sm:flex-row my-8 p-8 gap-4">
     <div className="w-full sm:w-4/6 m-auto">
       <p>
         {"Didn't"} find your answers? Ask the Community. For documentation
@@ -19,7 +19,7 @@ const DocFooter = () => (
       </p>
     </div>
     <a
-      href="https://docs.google.com/forms/d/e/1FAIpQLSd6H_lezvH831Bkkq8kRiHLPlcMigI-k3goSHlMXDJuIXGhdw/viewform"
+      href="https://community.vtex.com/c/faststore-beta/64"
       target="_blank"
       className="mr-auto whitespace-nowrap hover:text-white hover:no-underline hover:brightness-105 py-3 px-3 rounded text-white font-VTEXMedium text-sm bg-secondary"
       rel="noreferrer"

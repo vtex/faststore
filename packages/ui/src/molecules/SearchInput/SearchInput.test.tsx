@@ -6,16 +6,22 @@ import type { SearchInputProps } from './SearchInput'
 import SearchInput from './SearchInput'
 
 const Wrapper = (props: Partial<SearchInputProps>) => (
-  <SearchInput {...props} onSubmit={(value) => value} testId="search-input" />
+  <SearchInput testId="search-input" onSubmit={(value) => value} {...props} />
 )
 
 describe('SearchInput', () => {
-  it('`data-store-search-input` is present', () => {
+  it('`data-fs-search-input-form` is present', () => {
     const { getByTestId } = render(<Wrapper />)
 
     expect(getByTestId('search-input')).toHaveAttribute(
-      'data-store-search-input'
+      'data-fs-search-input-form'
     )
+  })
+
+  it('`data-fs-search-input` is present and applied to `Input`', () => {
+    const { getByTestId } = render(<Wrapper data-fs-search-input />)
+
+    expect(getByTestId('store-input')).toHaveAttribute('data-fs-search-input')
   })
 
   describe('Accessibility', () => {

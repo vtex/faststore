@@ -57,7 +57,7 @@ const PriceRange = forwardRef<PriceRangeRefType | undefined, PriceRangeProps>(
     }))
 
     return (
-      <div data-store-price-range data-testid={testId} className={className}>
+      <div data-fs-price-range data-testid={testId} className={className}>
         <Slider
           ref={sliderRef}
           min={min}

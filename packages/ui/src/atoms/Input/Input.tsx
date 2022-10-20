@@ -25,7 +25,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   return (
     <input
       ref={ref}
-      data-store-input
+      data-fs-input
       data-testid={testId}
       {...variants}
       {...otherProps}

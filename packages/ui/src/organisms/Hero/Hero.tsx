@@ -14,7 +14,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
   ref
 ) {
   return (
-    <article ref={ref} data-store-hero data-testid={testId} {...otherProps}>
+    <article ref={ref} data-fs-hero data-testid={testId} {...otherProps}>
       {children}
     </article>
   )

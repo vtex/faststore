@@ -5,10 +5,10 @@ import { axe } from 'jest-axe'
 import Checkbox from './Checkbox'
 
 describe('Checkbox', () => {
-  it('data-store-checkbox is present', () => {
+  it('data-fs-checkbox is present', () => {
     const { getByTestId } = render(<Checkbox testId="store-checkbox" />)
 
-    expect(getByTestId('store-checkbox')).toHaveAttribute('data-store-checkbox')
+    expect(getByTestId('store-checkbox')).toHaveAttribute('data-fs-checkbox')
   })
 
   it('type checkbox is present', () => {

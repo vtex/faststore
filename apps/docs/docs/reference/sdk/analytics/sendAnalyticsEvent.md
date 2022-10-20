@@ -1,12 +1,28 @@
+---
+sidebar_position: 0
+---
+
 # sendAnalyticsEvent
 
-The analytics module provides the `sendAnalyticsEvent` function as the way to fire events in the browser. These events are often related to ecommerce tracking capabilities. By default, the `sendAnalyticsEvent` suggests (via IntelliSense) and inforces (via TypeScript) [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events).
+The `sendAnalyticsEvent` function is responsible for firing events in the browser. These events enforce [Google Analytics 4 (GA4) data model](https://developers.google.com/analytics/devguides/collection/ga4/reference/events) and are often related to ecommerce-tracking capabilities.
 
-`sendAnalyticsEvent` does not send events to any analytics provider. It is merely a way to centralize and aggregate tracking events. To intercept events fired with this function, use the hook [useAnalyticsEvent](/reference/sdk/analytics/useAnalyticsEvent). This function also supports [sending custom events](/reference/sdk/analytics/how-to-send-custom-events).
+The `sendAnalyticsEvent` function centralizes and aggregates tracking events and also supports [custom events](/reference/sdk/analytics/how-to-send-custom-events).
 
-## How to use
+:::caution
+`sendAnalyticsEvent` does not send events to any analytics provider. To intercept events fired by this function, use the [`useAnalyticsEvent`](/reference/sdk/analytics/useAnalyticsEvent) hook. 
+:::
 
-To fire a supported GA4 event:
+## Import
+
+```tsx
+import { sendAnalyticsEvent } from '@faststore/sdk'
+```
+
+## Usage
+
+In the component related to the event, declare a callback function. In this function, define an event object with the desired event type (e.g., `add_to_cart`) and call the `sendAnalyticsEvent`. Then, pass the related event as an argument. Finally, call the callback function in the event trigger (e.g., `onClick`).
+
+Take the following example of an `add_to_cart` event triggered by the `button` component:
 
 ```tsx
 import { useCallback } from 'react'
@@ -32,11 +48,13 @@ const MyComponent = () => {
 }
 ```
 
+Check the list of Available types [here](/reference/sdk/analytics#available-types).
+
 ## Generics
 
-The `sendAnalyticsEvent` function was built using [generics](https://www.typescriptlang.org/docs/handbook/2/generics.html), which means you can extend default types and override the default ones, obtaining the same suggestions and enforcements as you would with a natively supported event.
+The `sendAnalyticsEvent` function was built using [generics](https://www.typescriptlang.org/docs/handbook/2/generics.html). That means it's possible to extend default types and override the native ones, obtaining the same suggestions and enforcements as you would with a natively supported event.
 
-To provide a custom type referecence for `sendAnalyticsEvent`, do the following
+Take the following example of providing a custom type reference for `sendAnalyticsEvent`:
 
 ```tsx
 import { sendAnalyticsEvent } from '@faststore/sdk'
@@ -54,4 +72,4 @@ interface CustomEvent {
 sendAnalyticsEvent<CustomEvent>(/* ... */)
 ```
 
-This is most commonly used to fire custom events or native events with custom properties in it. For more details, read the [How to extend and customize native types](/reference/sdk/analytics/how-to-extend-types) and [How to send custom events](/reference/sdk/analytics/how-to-send-custom-events) docs.
+This is most commonly used to fire custom or native events with custom properties in it. For more details, please refer to the [Extending and customizing native types](/reference/sdk/analytics/how-to-extend-types) and [Sending custom events](/reference/sdk/analytics/how-to-send-custom-events) guides.

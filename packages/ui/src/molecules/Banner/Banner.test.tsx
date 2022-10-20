@@ -36,8 +36,8 @@ describe('Banner', () => {
     const bannerContent = getByTestId('store-banner-content')
     const bannerLink = getByTestId('store-banner-link')
 
-    it('`Banner` component should have `data-store-banner` attribute', () => {
-      expect(banner).toHaveAttribute('data-store-banner')
+    it('`Banner` component should have `data-fs-banner` attribute', () => {
+      expect(banner).toHaveAttribute('data-fs-banner')
     })
 
     it('`Banner` component should have custom data attribute `data-custom-attribute`', () => {

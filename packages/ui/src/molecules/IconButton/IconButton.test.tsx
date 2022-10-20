@@ -6,7 +6,7 @@ import IconButton from './IconButton'
 describe('IconButton', () => {
   const testId = 'store-icon-button'
 
-  it('data-store-icon-button is present', () => {
+  it('data-fs-icon-button is present', () => {
     const { getByTestId } = render(
       <IconButton testId={testId} aria-label="foo" icon={<div>foo</div>} />
     )
@@ -14,7 +14,7 @@ describe('IconButton', () => {
     const iconButton = getByTestId(testId)
 
     expect(iconButton).toBeInTheDocument()
-    expect(iconButton).toHaveAttribute('data-store-icon-button')
+    expect(iconButton).toHaveAttribute('data-fs-icon-button')
   })
 
   it('icon is present', () => {

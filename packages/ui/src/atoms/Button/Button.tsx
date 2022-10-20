@@ -14,7 +14,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   ref
 ) {
   return (
-    <button ref={ref} data-store-button data-testid={testId} {...otherProps}>
+    <button ref={ref} data-fs-button data-testid={testId} {...otherProps}>
       {children}
     </button>
   )

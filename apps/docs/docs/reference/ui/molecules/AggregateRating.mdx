@@ -37,16 +37,16 @@ import { AggregateRating } from '@faststore/ui'
 <TabItem value="css" label="CSS">
 
 ```css
-[data-store-aggregate-rating] {
+[data-fs-aggregate-rating] {
   display: flex;
 }
 
-[data-store-aggregate-rating] svg[data-store-aggregate-rating-item] {
+[data-fs-aggregate-rating] svg[data-fs-aggregate-rating-item] {
   width: 1.5rem;
   margin-right: 0.5rem;
 }
 
-li[data-store-aggregate-rating-item] {
+li[data-fs-aggregate-rating-item] {
   color: #ffb100;
 }
 ```
@@ -95,32 +95,32 @@ li[data-store-aggregate-rating-item] {
 <TabItem value="css" label="CSS">
 
 ```css
-[data-store-aggregate-rating] {
+[data-fs-aggregate-rating] {
   display: flex;
 }
 
-[data-store-aggregate-rating] svg[data-store-aggregate-rating-item] {
+[data-fs-aggregate-rating] svg[data-fs-aggregate-rating-item] {
   width: 1.5rem;
   margin-right: 0.5rem;
 }
 
 /* Unicode symbols */
-li[data-store-aggregate-rating-item] {
+li[data-fs-aggregate-rating-item] {
   color: #ff6d75;
 }
 
 /* Unicode symbols with CSS */
-span[data-store-aggregate-rating-item] {
+span[data-fs-aggregate-rating-item] {
   color: #ffb100;
 }
 
-[data-store-aggregate-rating] span[data-store-aggregate-rating-item="full"]:after,
-[data-store-aggregate-rating] span[data-store-aggregate-rating-item="partial"]:after {
+[data-fs-aggregate-rating] span[data-fs-aggregate-rating-item="full"]:after,
+[data-fs-aggregate-rating] span[data-fs-aggregate-rating-item="partial"]:after {
   content: "★";
   display: block;
 }
 
-[data-store-aggregate-rating] span[data-store-aggregate-rating-item="empty"]:after {
+[data-fs-aggregate-rating] span[data-fs-aggregate-rating-item="empty"]:after {
   content: "☆";
   display: block;
 }
@@ -149,6 +149,6 @@ span[data-store-aggregate-rating-item] {
 
 ## Customization
 
-`data-store-aggregate-rating`
+`data-fs-aggregate-rating`
 
 `data-aggregate-rating-item=(full|partial|empty)`

@@ -1,17 +1,15 @@
 import deepEquals from 'fast-deep-equal'
 
 import { md5 } from '../utils/md5'
-import {
-  attachmentToPropertyValue,
-  getPropertyId,
-  VALUE_REFERENCES,
-} from '../utils/propertyValue'
+import { attachmentToPropertyValue, getPropertyId, VALUE_REFERENCES } from '../utils/propertyValue'
 
 import type {
-  IStoreCart,
+  IStoreSession, 
   IStoreOffer,
   IStoreOrder,
   IStorePropertyValue,
+  Maybe,
+  MutationValidateCartArgs,
 } from '../../../__generated__/schema'
 import type {
   OrderForm,
@@ -197,6 +195,41 @@ const isOrderFormStale = (form: OrderForm) => {
   return newEtag !== oldEtag
 }
 
+// Returns the regionalized orderForm
+const getOrderForm = async (
+  id: string,
+  session: Maybe<IStoreSession> | undefined,
+  { clients: { commerce } }: Context,
+) => {
+  const orderForm = await commerce.checkout.orderForm({
+    id,
+  });
+
+  // Stores that are not yet providing the session while validating the cart
+  // should not be able to update the shipping data
+  //
+  // This was causing errors while validating regionalizated carts
+  // because the following code was trying to change the shippingData to an undefined address/session
+  if(!session) {
+    return orderForm
+  }
+
+  const shouldUpdateShippingData =
+    typeof session.postalCode === 'string' &&
+    orderForm.shippingData?.address?.postalCode != session.postalCode;
+
+  if (shouldUpdateShippingData) {
+    return commerce.checkout.shippingData({
+      id: orderForm.orderFormId,
+      body: {
+        selectedAddresses: [session],
+      },
+    });
+  }
+
+  return orderForm;
+};
+
 /**
  * This resolver implements the optimistic cart behavior. The main idea in here
  * is that we receive a cart from the UI (as query params) and we validate it with
@@ -212,7 +245,7 @@ const isOrderFormStale = (form: OrderForm) => {
  */
 export const validateCart = async (
   _: unknown,
-  { cart: { order } }: { cart: IStoreCart },
+  { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context,
 ) => {
   const { enableOrderFormSync } = ctx.storage.flags
@@ -223,9 +256,7 @@ export const validateCart = async (
   } = ctx
 
   // Step1: Get OrderForm from VTEX Commerce
-  const orderForm = await commerce.checkout.orderForm({
-    id: orderNumber,
-  })
+  const orderForm = await getOrderForm(orderNumber, session, ctx)
 
   // Step1.5: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects

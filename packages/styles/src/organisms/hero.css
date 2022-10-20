@@ -1,4 +1,4 @@
-[data-store-hero] {
+[data-fs-hero] {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -39,7 +39,7 @@
 }
 
 @media only screen and (min-width: 769px) {
-  [data-store-hero] {
+  [data-fs-hero] {
     flex-direction: row-reverse;
   }
   [data-hero-heading] {

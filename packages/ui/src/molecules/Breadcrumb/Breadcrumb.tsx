@@ -81,7 +81,7 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
         aria-label="Breadcrumb"
         role="navigation"
         ref={ref}
-        data-store-breadcrumb
+        data-fs-breadcrumb
         data-testid={testId}
         {...otherProps}
       >
