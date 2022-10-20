@@ -6,6 +6,7 @@ import Hero from 'src/components/sections/Hero'
 import IncentivesHeader from 'src/components/sections/Incentives/IncentivesHeader'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
+import Newsletter from 'src/components/sections/Newsletter'
 
 import SectionBoundary from './SectionBoundary'
 
@@ -19,6 +20,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   IncentivesHeader,
   ProductShelf,
   ProductTiles,
+  Newsletter,
 }
 
 interface Props {
