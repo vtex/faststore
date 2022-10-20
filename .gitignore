@@ -102,3 +102,12 @@ packages/gatsby-**/**/*.json
 docs/build
 docs/.docusaurus
 docs/.cache-loader
+
+# CLI
+*-debug.log
+*-error.log
+/.nyc_output
+/lib
+/package-lock.json
+/tmp
+oclif.manifest.json

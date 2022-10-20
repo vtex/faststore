@@ -1,0 +1,60 @@
+{
+  "name": "@faststore/cli",
+  "version": "0.2.0",
+  "description": "FastStore CLI",
+  "author": "Emerson Laurentino @emersonlaurentino",
+  "bin": {
+    "faststore": "./bin/run"
+  },
+  "homepage": "https://github.com/vtex/faststore",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "vtex/faststore",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^1.16.4",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-not-found": "^2.3.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4",
+    "@types/node": "^16.11.63",
+    "chai": "^4",
+    "oclif": "^3",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.8.4"
+  },
+  "oclif": {
+    "bin": "faststore",
+    "dirname": "faststore",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found"
+    ],
+    "topicSeparator": " "
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint src/**/*.ts",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bugs": "https://github.com/vtex/faststore/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
+}
