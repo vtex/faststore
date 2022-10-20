@@ -1143,7 +1143,7 @@ Object {
                   "warehouseId": "1_1",
                 },
               ],
-              "friendlyName": null,
+              "friendlyName": "Normal",
               "id": "Normal",
               "name": "Normal",
               "pickupDistance": 0,

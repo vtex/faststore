@@ -19,6 +19,7 @@ import { Query } from './resolvers/query'
 import { StoreReview } from './resolvers/review'
 import { StoreSearchResult } from './resolvers/searchResult'
 import { StoreSeo } from './resolvers/seo'
+import { ShippingSLA } from './resolvers/shippingSLA'
 import { SkuVariants } from './resolvers/skuVariations'
 import ChannelMarshal from './utils/channel'
 import type { Loaders } from './loaders'
@@ -82,6 +83,7 @@ const Resolvers = {
   StoreSearchResult,
   StorePropertyValue,
   SkuVariants,
+  ShippingSLA,
   ObjectOrString,
   Query,
   Mutation,

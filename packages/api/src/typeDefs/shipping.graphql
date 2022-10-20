@@ -130,6 +130,10 @@ type ShippingSLA {
   """
   shippingEstimate: String
   """
+  ShippingSLA friendly shipping estimate.
+  """
+  friendlyShippingEstimate: String
+  """
   ShippingSLA shipping estimate date.
   """
   shippingEstimateDate: String
