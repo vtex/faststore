@@ -1,0 +1,191 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { DiscountBadge } from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta title="Molecules/Badge/DiscountBadge" component={DiscountBadge} />
+
+export const Template = (args) => <DiscountBadge {...args} />
+
+<header>
+
+# Discount Badge
+
+A custom `Badge` that display product's discounts. You can see its usage on [ProductCard](?path=/docs/molecules-productcard--overview-default).
+
+</header>
+
+## Overview
+
+The `DiscountBadge` component uses [Badge](?path=/docs/molecules-badge-default--overview-neutral) as base.
+
+<Canvas>
+  <Story
+    name="overview-default"
+    args={{
+      big: false,
+      listPrice: 45,
+      spotPrice: 40,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-discount-medium"
+    args={{
+      big: false,
+      listPrice: 65,
+      spotPrice: 40,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-discount-high"
+    args={{
+      big: false,
+      listPrice: 80,
+      spotPrice: 40,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import DiscountBadge from '../components/ui/DiscountBadge'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      big: false,
+      listPrice: 45,
+      spotPrice: 40,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+---
+
+## Variants
+
+### Low Discount
+
+<Canvas>
+  <Story
+    name="badge-discount-low"
+    args={{
+      big: false,
+      listPrice: 45,
+      spotPrice: 40,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-discount-low-bkg-color"
+    value="var(--fs-badge-success-bkg-color)"
+    globalValue="var(--fs-color-success-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-discount-low-text-color"
+    value="var(--fs-badge-success-text-color)"
+    globalValue="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-discount-low-border-color"
+    value="var(--fs-badge-success-border-color)"
+    globalValue="var(--fs-color-success-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Medium Discount
+
+<Canvas>
+  <Story
+    name="badge-discount-medium"
+    args={{
+      big: false,
+      listPrice: 65,
+      spotPrice: 40,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-discount-medium-bkg-color"
+    value="var(--fs-badge-warning-bkg-color)"
+    globalValue="var(--fs-color-warning-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-discount-medium-text-color"
+    value="var(--fs-badge-warning-text-color)"
+    globalValue="var(--fs-color-warning-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-discount-medium-border-color"
+    value="var(--fs-badge-warning-border-color)"
+    globalValue="var(--fs-color-warning-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### High Discount
+
+<Canvas>
+  <Story
+    name="badge-discount-high"
+    args={{
+      big: false,
+      listPrice: 80,
+      spotPrice: 40,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-discount-high-bkg-color"
+    value="var(--fs-badge-danger-bkg-color)"
+    globalValue="var(--fs-color-danger-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-discount-high-text-color"
+    value="var(--fs-badge-danger-text-color)"
+    globalValue="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-discount-high-border-color"
+    value="var(--fs-badge-danger-border-color)"
+    globalValue="var(--fs-color-danger-bkg)"
+    isColor
+  />
+</TokenTable>

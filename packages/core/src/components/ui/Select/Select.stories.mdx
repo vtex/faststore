@@ -1,0 +1,168 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+import Select from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta title="Atoms/Select" component={Select} />
+
+export const Template = (args) => <Select {...args} />
+
+<header>
+
+# Select
+
+Select components allow users to pick an option from a predefined list.
+
+</header>
+
+## Overview
+
+The `Select` component uses [FastStore UI Select](https://www.faststore.dev/reference/ui/atoms/Select) as base.
+
+<Canvas>
+  <Story
+    name="overview-default"
+    args={{
+      id: 'overview-default',
+      options: {
+        name_asc: 'Name, A-Z',
+        name_desc: 'Name, Z-A',
+      },
+      label: 'Order by:',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-disabled"
+    args={{
+      id: 'overview-disabled',
+      options: {
+        name_asc: 'Name, A-Z',
+        name_desc: 'Name, Z-A',
+      },
+      label: 'Order by:',
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import Select from '../components/ui/Select'`
+
+<Canvas>
+  <Story
+    name="select-default"
+    args={{
+      id: 'select-default',
+      options: {
+        name_asc: 'Name, A-Z',
+        name_desc: 'Name, Z-A',
+      },
+      label: 'Order by:',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="select-default" />
+
+<TokenTable>
+  <TokenRow token="--fs-select-height" value="var(--fs-spacing-6)" />
+  <TokenRow token="--fs-select-min-height" value="var(--fs-control-tap-size)" />
+  <TokenRow
+    token="--fs-select-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-5) var(--fs-spacing-1) var(--fs-spacing-2)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-select-text-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-select-border-radius" value="var(--fs-border-radius)" />
+  <TokenDivider />
+  <TokenRow token="--fs-select-bkg" value="transparent" />
+  <TokenRow
+    token="--fs-select-bkg-color-focus"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-select-bkg-color-hover"
+    value="var(--fs-select-bkg-color-focus)"
+    globalValue="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-select-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-select-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-select-transition-function"
+    value="var(--fs-transition-function)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Label
+
+<TokenTable>
+  <TokenRow
+    token="--fs-select-label-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-select-label-margin-right"
+    value="var(--fs-spacing-1)"
+  />
+</TokenTable>
+
+### Icon
+
+<TokenTable>
+  <TokenRow
+    token="--fs-select-icon-color"
+    value="var(--fs-color-link)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-select-icon-position-right"
+    value="var(--fs-spacing-2)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Disabled
+
+<TokenTable>
+  <TokenRow
+    token="--fs-select-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow token="--fs-select-disabled-text-opacity" value="1" />
+</TokenTable>

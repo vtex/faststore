@@ -1,0 +1,465 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { Badge } from '.'
+import { DiscountBadge } from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+  SectionList,
+  SectionItem,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Molecules/Badge/Default"
+  component={Badge}
+  argTypes={{
+    onClose: { table: { disable: true } },
+    children: {
+      name: 'content',
+    },
+    variant: {
+      options: [
+        'info',
+        'highlighted',
+        'success',
+        'neutral',
+        'warning',
+        'danger',
+      ],
+      control: { type: 'radio' },
+    },
+  }}
+/>
+
+export const Template = ({ children, ...args }) => (
+  <Badge {...args}>{children}</Badge>
+)
+
+<header>
+
+# Badge
+
+Badges are status descriptors used to emphasize an item's state.
+
+</header>
+
+## Overview
+
+The `Badge` component uses [FastStore UI Badge](https://www.faststore.dev/reference/ui/atoms/Badge) as base.
+
+<Canvas className="sbdocs-vertically-center">
+  <Story
+    name="overview-neutral"
+    args={{
+      children: 'Neutral',
+      big: false,
+      actionable: false,
+      variant: 'neutral',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-info"
+    args={{
+      children: 'Info',
+      big: false,
+      actionable: false,
+      variant: 'info',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-highlighted"
+    args={{
+      children: 'Highlighted',
+      big: false,
+      actionable: false,
+      variant: 'highlighted',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-success"
+    args={{
+      children: 'Success',
+      big: false,
+      actionable: false,
+      variant: 'success',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-warning"
+    args={{
+      children: 'Warning',
+      big: false,
+      actionable: false,
+      variant: 'warning',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-danger"
+    args={{
+      children: 'Danger',
+      big: false,
+      actionable: false,
+      variant: 'danger',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-actionable"
+    args={{
+      children: 'Big & Actionable',
+      big: true,
+      actionable: true,
+      variant: 'success',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+`import Badge from '../components/ui/Badge'`
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      children: 'New arrival',
+      big: false,
+      actionable: false,
+      variant: 'info',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-padding"
+    value="var(--fs-spacing-0) var(--fs-spacing-2)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-badge-border-radius"
+    value="var(--fs-border-radius-pill)"
+  />
+  <TokenRow token="--fs-badge-border-width" value="var(--fs-border-width)" />
+  <TokenRow token="--fs-badge-border-color" value="transparent" isColor />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-badge-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-badge-text-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow token="--fs-badge-text-size" value="var(--fs-text-size-tiny)" />
+  <TokenRow token="--fs-badge-text-weight" value="var(--fs-text-weight-bold)" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-badge-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-badge-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-badge-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Actionable
+
+<Canvas>
+  <Story
+    name="badge-actionable"
+    args={{
+      children: 'Badge Actionable',
+      big: true,
+      actionable: true,
+      variant: 'neutral',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Big
+
+<Canvas>
+  <Story
+    name="badge-big"
+    args={{
+      children: 'Badge Big',
+      big: true,
+      actionable: false,
+      variant: 'neutral',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-big-text-size"
+    value="var(--fs-text-size-legend)"
+  />
+  <TokenRow
+    token="--fs-badge-big-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-2)"
+  />
+</TokenTable>
+
+### Neutral
+
+<Canvas>
+  <Story
+    name="badge-neutral"
+    args={{
+      children: 'Badge Neutral',
+      big: false,
+      actionable: false,
+      variant: 'neutral',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-neutral-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-neutral-text-color"
+    value="var(--fs-badge-text-color)"
+    globalValue="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-neutral-border-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Success
+
+<Canvas>
+  <Story
+    name="badge-success"
+    args={{
+      children: 'Badge Success',
+      big: false,
+      actionable: false,
+      variant: 'success',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-success-bkg-color"
+    value="var(--fs-color-success-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-success-text-color"
+    value="var(--fs-badge-text-color)"
+    globalValue="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-success-border-color"
+    value="var(--fs-color-success-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Highlighted
+
+<Canvas>
+  <Story
+    name="badge-highlighted"
+    args={{
+      children: 'Badge Highlighted',
+      big: false,
+      actionable: false,
+      variant: 'highlighted',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-highlighted-bkg-color"
+    value="var(--fs-color-highlighted-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-highlighted-text-color"
+    value="var(--fs-color-highlighted-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-highlighted-border-color"
+    value="var(--fs-color-highlighted-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Info
+
+<Canvas>
+  <Story
+    name="badge-info"
+    args={{
+      children: 'Badge Info',
+      big: false,
+      actionable: false,
+      variant: 'info',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-info-bkg-color"
+    value="var(--fs-color-info-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-info-text-color"
+    value="var(--fs-color-info-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-info-border-color"
+    value="var(--fs-color-info-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Warning
+
+<Canvas>
+  <Story
+    name="badge-warning"
+    args={{
+      children: 'Badge Warning',
+      big: false,
+      actionable: false,
+      variant: 'warning',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-warning-bkg-color"
+    value="var(--fs-color-warning-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-warning-text-color"
+    value="var(--fs-color-warning-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-warning-border-color"
+    value="var(--fs-color-warning-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Danger
+
+<Canvas>
+  <Story
+    name="badge-danger"
+    args={{
+      children: 'Badge Danger',
+      big: false,
+      actionable: false,
+      variant: 'danger',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-badge-danger-bkg-color"
+    value="var(--fs-color-danger-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-danger-text-color"
+    value="var(--fs-badge-text-color)"
+    globalValue="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-badge-danger-border-color"
+    value="var(--fs-color-danger-bkg)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+## Related Components
+
+<SectionList>
+  <SectionItem
+    title="Discount Badge"
+    actionPath="../?path=/docs/molecules-badge-discountbadge--overview-default"
+    description={
+      <>
+        A <code>Badge</code> used to show product discounts.
+      </>
+    }
+  >
+    <DiscountBadge listPrice="45" spotPrice="40" />
+  </SectionItem>
+</SectionList>

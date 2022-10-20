@@ -1,0 +1,412 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import Icon from '../../ui/Icon'
+import Button from '../../ui/Button'
+import ProductCard from '.'
+
+import {
+  TokenTable,
+  TokenRow,
+  TokenDivider,
+} from 'src/../.storybook/components'
+
+<Meta
+  title="Molecules/ProductCard"
+  component={ProductCard}
+  argTypes={{
+    variant: {
+      defaultValue: 'default',
+      table: { defaultValue: 'default' },
+    },
+    product: { table: { disable: true } },
+    index: { table: { disable: true } },
+    aspectRatio: {
+      options: [0.75, 1.5, 1],
+      control: { type: 'radio' },
+      table: { defaultValue: '1' },
+    },
+    ButtonBuy: {
+      control: 'boolean',
+      table: { defaultValue: false },
+    },
+  }}
+/>
+
+export const product = {
+  id: '15503951',
+  slug: 'handmade-steel-towels-practical-15503951',
+  sku: '15503951',
+  brand: { brandName: 'Brand', name: 'Brand' },
+  name: 'red',
+  gtin: '5595633577807',
+  isVariantOf: {
+    productGroupID: '130742',
+    name: 'Handmade Steel Towels Practical',
+  },
+  image: [
+    {
+      url: 'http://storeframework.vtexassets.com/arquivos/ids/190191/numquam.jpg?v=637755599170100000',
+      alternateName: 'est',
+    },
+  ],
+  offers: {
+    lowPrice: 181.71,
+    offers: [
+      {
+        availability: 'https://schema.org/InStock',
+        price: 181.71,
+        listPrice: 208.72,
+        quantity: 1,
+        seller: { identifier: '1' },
+      },
+    ],
+  },
+}
+
+export const Template = ({ ButtonBuy, ...args }) => {
+  const button = ButtonBuy ? (
+    <Button
+      variant="primary"
+      data-fs-button-size="small"
+      icon={<Icon name="ShoppingCart" width={18} height={18} />}
+      iconPosition="left"
+    >
+      Add
+    </Button>
+  ) : null
+  return (
+    <div style={{ width: 300 }}>
+      <ProductCard ButtonBuy={button} {...args} />
+    </div>
+  )
+}
+
+export const TemplateWide = ({ ButtonBuy, ...args }) => {
+  const button = ButtonBuy ? (
+    <Button
+      variant="primary"
+      data-fs-button-size="small"
+      icon={<Icon name="ShoppingCart" width={18} height={18} />}
+      iconPosition="left"
+    >
+      Add
+    </Button>
+  ) : null
+  return (
+    <div style={{ width: 400 }}>
+      <ProductCard ButtonBuy={button} {...args} />
+    </div>
+  )
+}
+
+<header>
+
+# Product Card
+
+ProductCard displays summarized information about a product. They usually present a call-to-action button, as well as the product's name, price, and image.
+
+</header>
+
+## Overview
+
+The `ProductCard` component uses [FastStore UI ProductCard](https://www.faststore.dev/reference/ui/molecules/ProductCard).
+
+<Canvas className="sbdocs-vertically-center">
+  <Story
+    name="overview-default"
+    args={{
+      product: product,
+      index: 1,
+      variant: 'default',
+      bordered: false,
+      aspectRatio: 1,
+      ButtonBuy: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-bordered"
+    args={{
+      product: product,
+      index: 1,
+      variant: 'default',
+      bordered: true,
+      aspectRatio: 1,
+      ButtonBuy: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-wide"
+    args={{
+      product: product,
+      index: 1,
+      variant: 'wide',
+      bordered: false,
+      aspectRatio: 1.5,
+      ButtonBuy: false,
+    }}
+  >
+    {TemplateWide.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      product: product,
+      index: 1,
+      variant: 'default',
+      bordered: false,
+      aspectRatio: 1,
+      ButtonBuy: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-padding"
+    value="var(--fs-spacing-1) var(--fs-spacing-1) var(--fs-spacing-2) var(--fs-spacing-1)"
+  />
+  <TokenRow token="--fs-product-card-gap" value="var(--fs-grid-gap-2)" />
+  <TokenRow token="--fs-product-card-min-width" value="10rem" />
+  <TokenDivider />
+  <TokenRow token="--fs-product-card-shadow" value="var(--fs-shadow)" />
+  <TokenRow
+    token="--fs-product-card-shadow-hover"
+    value="var(--fs-shadow-hover)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-product-card-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-product-card-bkg-color-hover"
+    value="var(--fs-product-card-bkg-color)"
+    globalValue="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-product-card-bkg-color-focus"
+    value="var(--fs-product-card-bkg-color-hover)"
+    globalValue="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-product-card-border-radius"
+    value="var(--fs-border-radius)"
+  />
+  <TokenRow
+    token="--fs-product-card-border-color-hover"
+    value="var(--fs-border-color-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-product-card-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-product-card-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-product-card-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+---
+
+## Nested Elements
+
+### Content
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-content-padding"
+    value="var(--fs-spacing-2) 0 0 0"
+  />
+</TokenTable>
+
+### Image
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-img-radius"
+    value="var(--fs-product-card-border-radius)"
+  />
+  <TokenRow token="--fs-product-card-img-scale-hover" value="1" />
+</TokenTable>
+
+### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-title-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-product-card-title-size"
+    value="var(--fs-text-size-base)"
+  />
+  <TokenRow
+    token="--fs-product-card-title-weight"
+    value="var(--fs-text-weight-regular)"
+  />
+  <TokenRow
+    token="--fs-product-card-title-max-lines"
+    value="var(--fs-text-max-lines)"
+  />
+</TokenTable>
+
+### Price
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-price-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-product-card-price-size"
+    value="var(--fs-text-size-base)"
+  />
+  <TokenRow
+    token="--fs-product-card-price-listing-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-product-card-price-listing-size"
+    value="var(--fs-text-size-legend)"
+  />
+</TokenTable>
+
+### Description
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-description-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-product-card-description-size"
+    value="var(--fs-text-size-legend)"
+  />
+</TokenTable>
+
+### Subtitle
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-subtitle-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-product-card-subtitle-size"
+    value="var(--fs-text-size-tiny)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Default
+
+<Canvas>
+  <Story
+    name="product-card-default"
+    args={{
+      product: product,
+      index: 1,
+      variant: 'default',
+      bordered: false,
+      aspectRatio: 1,
+      ButtonBuy: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Bordered
+
+<Canvas>
+  <Story
+    name="product-card-bordered"
+    args={{
+      product: product,
+      index: 1,
+      variant: 'default',
+      bordered: true,
+      aspectRatio: 1,
+      ButtonBuy: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow
+    token="--fs-product-card-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-product-card-border-color"
+    value="var(--fs-border-color-light)"
+    isColor
+  />
+</TokenTable>
+
+### Wide
+
+<Canvas>
+  <Story
+    name="product-card-wide"
+    args={{
+      product: product,
+      index: 1,
+      variant: 'wide',
+      bordered: false,
+      aspectRatio: 1.5,
+      ButtonBuy: false,
+    }}
+  >
+    {TemplateWide.bind({})}
+  </Story>
+</Canvas>
+
+<TokenTable>
+  <TokenRow token="--fs-product-card-wide-padding" value="0" />
+  <TokenRow
+    token="--fs-product-card-wide-content-padding"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-product-card-wide-bkg-color"
+    value="var(--fs-color-neutral-bkg)"
+    isColor
+  />
+  <TokenRow token="--fs-product-card-wide-min-width" value="9rem" />
+</TokenTable>

@@ -22,9 +22,21 @@ type Variant = 'wide' | 'default'
 export interface ProductCardProps {
   product: ProductSummary_ProductFragment
   index: number
+  /**
+   * Sets a border to the component.
+   */
   bordered?: boolean
+  /**
+   * Sets the component's size.
+   */
   variant?: Variant
+  /**
+   * Specifies the ProductCard image's aspect ratio.
+   */
   aspectRatio?: number
+  /**
+   * Enables a ButtonBuy to the component.
+   */
   ButtonBuy?: ReactNode
 }
 

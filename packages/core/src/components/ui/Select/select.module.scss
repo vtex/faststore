@@ -9,7 +9,9 @@
   --fs-select-height                      : var(--fs-spacing-6);
   --fs-select-min-height                  : var(--fs-control-tap-size);
   --fs-select-padding                     : var(--fs-spacing-1) var(--fs-spacing-5) var(--fs-spacing-1) var(--fs-spacing-2);
+
   --fs-select-text-color                  : var(--fs-color-link);
+
   --fs-select-border-radius               : var(--fs-border-radius);
 
   --fs-select-bkg                         : transparent;
@@ -32,9 +34,14 @@
   --fs-select-disabled-text-color         : var(--fs-color-disabled-text);
   --fs-select-disabled-text-opacity       : 1;
 
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
   position: relative;
   display: flex;
   align-items: center;
+  width: fit-content;
 
   select {
     padding: var(--fs-select-padding);

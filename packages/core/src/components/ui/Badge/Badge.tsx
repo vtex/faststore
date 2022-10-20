@@ -6,7 +6,13 @@ import Icon from 'src/components/ui/Icon'
 
 import styles from './badge.module.scss'
 
-export type BadgeVariants = 'info' | 'highlighted' | 'success' | 'neutral'
+export type BadgeVariants =
+  | 'info'
+  | 'highlighted'
+  | 'success'
+  | 'neutral'
+  | 'warning'
+  | 'danger'
 
 type ActionableBadge =
   | {
@@ -18,11 +24,20 @@ type ActionableBadge =
       onClose?: never
     }
 
-type Props = {
+export type BadgeProps = {
+  /**
+   * Sets the component's size.
+   */
   big?: boolean
+  /**
+   * Specifies the component variant.
+   */
   variant?: BadgeVariants
   children: ReactNode
   onClose?: () => void
+  /**
+   * Adds a Close Button to the component.
+   */
   actionable?: boolean
 } & ActionableBadge
 
@@ -33,7 +48,7 @@ const Badge = ({
   big = false,
   actionable = false,
   ...otherProps
-}: Props) => {
+}: BadgeProps) => {
   return (
     <UIBadge
       className={styles.fsBadge}

@@ -5,12 +5,25 @@ import { useDiscountPercent } from 'src/sdk/product/useDiscountPercent'
 import Badge from './Badge'
 
 export type DiscountBadgeProps = {
+  /**
+   * Specifies price without discount applied.
+   */
   listPrice: number
+  /**
+   * Specifies current price with discount applied.
+   */
   spotPrice: number
+  /**
+   * Sets the component size as big.
+   */
   big?: boolean
-  // Set limit percentage value to consider a low discount.
+  /**
+   * Sets the limit percentage value to consider a low discount.
+   */
   thresholdLow?: number
-  // Set limit percentage value to consider a high discount
+  /**
+   * Sets the limit percentage value to consider a high discount.
+   */
   thresholdHigh?: number
 }
 
