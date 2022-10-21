@@ -58,6 +58,7 @@ type Root = {
 
 export const ShippingSLA: Record<string, Resolver<Root>> = {
   friendlyName: (root) => root?.friendlyName ?? root?.name ?? '',
+  price: (root) => root?.price ? root.price / 100 : root?.price,
   friendlyShippingEstimate: (root) =>
     root?.shippingEstimate ? getFriendlyEstimate(root.shippingEstimate) : '',
 }
