@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [22.42.6](https://github.com/vtex-sites/nextjs.store/compare/22.42.5...22.42.6) (2022-10-24)
+
 ### [22.42.5](https://github.com/vtex-sites/nextjs.store/compare/22.42.4...22.42.5) (2022-10-24)
 
 ### [22.42.4](https://github.com/vtex-sites/nextjs.store/compare/22.42.3...22.42.4) (2022-10-21)
