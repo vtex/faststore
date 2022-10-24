@@ -196,7 +196,6 @@ export default function useSlider({
     onSwipedRight: () =>
       shouldSlideOnSwipe && slide('previous', sliderDispatch),
     onSwipedLeft: () => shouldSlideOnSwipe && slide('next', sliderDispatch),
-    preventScrollOnSwipe: true,
     trackMouse: true,
     ...swipeableConfigOverrides,
   })
