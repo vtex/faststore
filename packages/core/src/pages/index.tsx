@@ -1,13 +1,33 @@
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import type { ComponentType } from 'react'
 import type { GetStaticProps } from 'next'
 import type { Locator } from '@vtex/client-cms'
 
 import RenderPageSections from 'src/components/cms/RenderPageSections'
-import type { PageContentType } from 'src/server/cms'
-import { getPage } from 'src/server/cms'
+import BannerText from 'src/components/sections/BannerText'
+import Hero from 'src/components/sections/Hero'
+import IncentivesHeader from 'src/components/sections/Incentives/IncentivesHeader'
+import Newsletter from 'src/components/sections/Newsletter'
+import ProductShelf from 'src/components/sections/ProductShelf'
+import ProductTiles from 'src/components/sections/ProductTiles'
 import { mark } from 'src/sdk/tests/mark'
+import { getPage } from 'src/server/cms'
+import type { PageContentType } from 'src/server/cms'
 
 import storeConfig from '../../store.config'
+
+/**
+ * Sections: Components imported from '../components/sections' only.
+ * Do not import or render components from any other folder in here.
+ */
+const COMPONENTS: Record<string, ComponentType<any>> = {
+  Hero,
+  BannerText,
+  IncentivesHeader,
+  ProductShelf,
+  ProductTiles,
+  Newsletter,
+}
 
 type Props = PageContentType
 
@@ -48,7 +68,7 @@ function Page({ sections, settings }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-      <RenderPageSections sections={sections} />
+      <RenderPageSections sections={sections} components={COMPONENTS} />
     </>
   )
 }
@@ -59,7 +79,9 @@ export const getStaticProps: GetStaticProps<
   Locator
 > = async (context) => {
   const page = await getPage<PageContentType>({
-    ...(context.previewData ?? { filters: { 'settings.seo.slug': '/' } }),
+    ...(context.previewData?.contentType === 'page'
+      ? context.previewData
+      : { filters: { 'settings.seo.slug': '/' } }),
     contentType: 'page',
   })
 

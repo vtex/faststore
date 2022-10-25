@@ -1,36 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ComponentType } from 'react'
 
-import BannerText from 'src/components/sections/BannerText'
-import Hero from 'src/components/sections/Hero'
-import IncentivesHeader from 'src/components/sections/Incentives/IncentivesHeader'
-import ProductShelf from 'src/components/sections/ProductShelf'
-import ProductTiles from 'src/components/sections/ProductTiles'
-import Newsletter from 'src/components/sections/Newsletter'
-
 import SectionBoundary from './SectionBoundary'
 
-/**
- * Sections: Components imported from '../components/sections' only.
- * Do not import or render components from any other folder in here.
- */
-const COMPONENTS: Record<string, ComponentType<any>> = {
-  Hero,
-  BannerText,
-  IncentivesHeader,
-  ProductShelf,
-  ProductTiles,
-  Newsletter,
-}
-
 interface Props {
-  sections?: Array<{ name: string; data: any }>
+  components: Record<string, ComponentType<any>>
+  sections: Array<{ name: string; data: any }>
+  context?: unknown
 }
 
-const RenderPageSections = ({ sections }: Props) => (
+const RenderPageSections = ({ sections = [], context, components }: Props) => (
   <>
-    {sections?.map(({ name, data }, index) => {
-      const Component = COMPONENTS[name]
+    {sections.map(({ name, data }, index) => {
+      const Component = components[name]
 
       if (!Component) {
         console.info(
@@ -42,7 +24,7 @@ const RenderPageSections = ({ sections }: Props) => (
 
       return (
         <SectionBoundary key={`cms-section-${index}`} name={name}>
-          <Component {...data} />
+          <Component {...data} context={context} />
         </SectionBoundary>
       )
     })}

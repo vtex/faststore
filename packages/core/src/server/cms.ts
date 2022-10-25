@@ -1,5 +1,5 @@
 import ClientCMS from '@vtex/client-cms'
-import type { Locator, ContentData } from '@vtex/client-cms'
+import type { ContentData, Locator } from '@vtex/client-cms'
 
 import config from '../../store.config'
 
@@ -53,6 +53,8 @@ export const getPage = async <T extends ContentData>(options: Options) => {
 
   return pages[0] as T
 }
+
+export type PDPContentType = ContentData
 
 export type PageContentType = ContentData & {
   settings: {

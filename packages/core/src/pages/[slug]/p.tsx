@@ -2,14 +2,18 @@ import { isNotFoundError } from '@faststore/api'
 import { gql } from '@faststore/graphql-utils'
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import type { ComponentType } from 'react'
+import type { Locator } from '@vtex/client-cms'
 
-import ProductDetails from 'src/components/sections/ProductDetails'
-import ProductShelf from 'src/components/sections/ProductShelf'
+import RenderPageSections from 'src/components/cms/RenderPageSections'
 import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import { ITEMS_PER_SECTION } from 'src/constants'
+import CrossSellingShelf from 'src/components/sections/CrossSellingShelf'
+import ProductDetails from 'src/components/sections/ProductDetails'
 import { useSession } from 'src/sdk/session'
 import { mark } from 'src/sdk/tests/mark'
 import { execute } from 'src/server'
+import { getPage } from 'src/server/cms'
+import type { PDPContentType } from 'src/server/cms'
 import type {
   ServerProductPageQueryQuery,
   ServerProductPageQueryQueryVariables,
@@ -17,9 +21,19 @@ import type {
 
 import storeConfig from '../../../store.config'
 
-type Props = ServerProductPageQueryQuery
+/**
+ * Sections: Components imported from '../components/sections' only.
+ * Do not import or render components from any other folder in here.
+ */
+const COMPONENTS: Record<string, ComponentType<any>> = {
+  ProductDetails,
+  BannerNewsletter,
+  CrossSellingShelf,
+}
 
-function Page({ product }: Props) {
+type Props = ServerProductPageQueryQuery & PDPContentType
+
+function Page({ product, sections }: Props) {
   const { currency } = useSession()
   const { seo } = product
   const title = seo.title || storeConfig.seo.title
@@ -84,27 +98,11 @@ function Page({ product }: Props) {
         If needed, wrap your component in a <Section /> component
         (not the HTML tag) before rendering it here.
       */}
-
-      <ProductDetails product={product} />
-
-      <ProductShelf
-        first={ITEMS_PER_SECTION}
-        selectedFacets={[
-          { key: 'buy', value: product.isVariantOf.productGroupID },
-        ]}
-        title="People also bought"
-        withDivisor
+      <RenderPageSections
+        context={product}
+        sections={sections}
+        components={COMPONENTS}
       />
-
-      <ProductShelf
-        first={ITEMS_PER_SECTION}
-        selectedFacets={[
-          { key: 'view', value: product.isVariantOf.productGroupID },
-        ]}
-        title="People also view"
-      />
-
-      <BannerNewsletter />
     </>
   )
 }
@@ -169,16 +167,23 @@ const query = gql`
 `
 
 export const getStaticProps: GetStaticProps<
-  ServerProductPageQueryQuery,
-  { slug: string }
-> = async ({ params }) => {
-  const { data, errors = [] } = await execute<
-    ServerProductPageQueryQueryVariables,
-    ServerProductPageQueryQuery
-  >({
-    variables: { slug: params?.slug ?? '' },
-    operationName: query,
-  })
+  Props,
+  { slug: string },
+  Locator
+> = async ({ params, previewData }) => {
+  const slug = params?.slug ?? ''
+  const [cmsPage, searchResult] = await Promise.all([
+    getPage<PDPContentType>({
+      ...(previewData?.contentType === 'pdp' ? previewData : null),
+      contentType: 'pdp',
+    }),
+    execute<ServerProductPageQueryQueryVariables, ServerProductPageQueryQuery>({
+      variables: { slug },
+      operationName: query,
+    }),
+  ])
+
+  const { data, errors = [] } = searchResult
 
   const notFound = errors.find(isNotFoundError)
 
@@ -193,7 +198,10 @@ export const getStaticProps: GetStaticProps<
   }
 
   return {
-    props: data,
+    props: {
+      ...data,
+      ...cmsPage,
+    },
   }
 }
 

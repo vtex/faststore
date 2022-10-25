@@ -48,5 +48,10 @@
         ]
       }
     ]
+  },
+  {
+    "id": "pdp",
+    "name": "Product Page",
+    "configurationSchemaSets": []
   }
 ]

@@ -250,6 +250,34 @@
     }
   },
   {
+    "name": "CrossSellingShelf",
+    "schema": {
+      "title": "Cross Selling Shelf",
+      "description": "Add cross selling product data to your users",
+      "type": "object",
+      "required": ["title", "items", "kind"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "items": {
+          "type": "integer",
+          "title": "First",
+          "default": 5,
+          "description": "Number of items to display"
+        },
+        "kind": {
+          "title": "Kind",
+          "description": "Change cross selling types",
+          "default": "buy",
+          "enum": ["buy", "view"],
+          "enumNames": ["Who bought also bought", "Who saw also saw"]
+        }
+      }
+    }
+  },
+  {
     "name": "ProductTiles",
     "schema": {
       "title": "Product Tiles",
@@ -345,6 +373,25 @@
           "title": "Description"
         }
       }
+    }
+  },
+  {
+    "name": "BannerNewsletter",
+    "schema": {
+      "title": "Banner Newsletter",
+      "description": "Add newsletter with a banner",
+      "type": "object",
+      "required": [],
+      "properties": {}
+    }
+  },
+  {
+    "name": "ProductDetails",
+    "schema": {
+      "title": "Product Details",
+      "description": "Display product gallery with buy button and shipping",
+      "type": "object",
+      "properties": {}
     }
   }
 ]
