@@ -1,7 +1,6 @@
 {
-  "name": "nextjs.store",
-  "private": true,
-  "version": "22.42.6",
+  "name": "@faststore/core",
+  "version": "0.0.0",
   "license": "MIT",
   "browserslist": "supports es6-module and not dead",
   "scripts": {
@@ -48,7 +47,6 @@
     "swr": "^1.3.0"
   },
   "devDependencies": {
-    "@csmith/release-it-calver-plugin": "^2022.5.13",
     "@cypress/code-coverage": "^3.9.10",
     "@faststore/lighthouse": "^1.11.8",
     "@graphql-codegen/cli": "^2.6.2",

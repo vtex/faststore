@@ -3,7 +3,10 @@
     "commitMessage": "chore(release): ${version}"
   },
   "npm": {
-    "publish": false
+    "publish": true
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "plugins": {
     "@release-it/conventional-changelog": {
@@ -22,10 +25,6 @@
       },
       "infile": "CHANGELOG.md",
       "header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),\nand this project adheres to [Calendar Versioning](https://calver.org/)."
-    },
-    "@csmith/release-it-calver-plugin": {
-      "format": "yy.0w.minor",
-      "increment": "calendar"
     }
   }
 }
