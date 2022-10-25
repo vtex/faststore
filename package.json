@@ -31,5 +31,10 @@
     "plop": "^2.7.6",
     "prettier": "^2.7.0",
     "turbo": "latest"
+  },
+  "version": "0.0.0",
+  "volta": {
+    "node": "16.18.0",
+    "yarn": "1.19.1"
   }
 }
