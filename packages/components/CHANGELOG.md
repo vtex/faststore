@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.12.19 (2022-10-25)
+
+
+### Bug Fixes
+
+* yarn ([#1490](https://github.com/vtex/faststore/issues/1490)) ([52756b1](https://github.com/vtex/faststore/commit/52756b1ec66d9b70ae4899ed373a180749f8e5cd))
+
+
+
 ## [1.12.18](https://github.com/vtex/faststore/compare/v1.12.17...v1.12.18) (2022-10-25)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "1.12.17",
+  "version": "1.12.19",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
@@ -22,7 +22,7 @@
     "@oclif/plugin-not-found": "^2.3.3"
   },
   "devDependencies": {
-    "@faststore/shared": "*",
+    "@faststore/shared": "^1.12.19",
     "@types/chai": "^4",
     "@types/node": "^16.11.63",
     "chai": "^4",
