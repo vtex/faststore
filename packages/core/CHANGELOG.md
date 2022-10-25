@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [0.2.0](https://github.com/vtex-sites/nextjs.store/compare/0.1.1...0.2.0) (2022-10-25)
+
+
+### Features
+
+* Integrate CMS with PDP ([#283](https://github.com/vtex-sites/nextjs.store/issues/283)) ([e3c3ec8](https://github.com/vtex-sites/nextjs.store/commit/e3c3ec889cb76b185488ba8f8fa9e1007ffc99d5))
+
 ### [0.1.1](https://github.com/vtex-sites/nextjs.store/compare/0.1.0...0.1.1) (2022-10-25)
 
 ## 0.1.0 (2022-10-25)
