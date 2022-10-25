@@ -31,8 +31,8 @@ function Page({ sections, settings }: Props) {
         url={storeConfig.storeUrl}
         potentialActions={[
           {
-            target: `${storeConfig.storeUrl}/s/?q={search_term_string}`,
-            queryInput: 'required name=search_term_string',
+            target: `${storeConfig.storeUrl}/s/?q`,
+            queryInput: 'search_term_string',
           },
         ]}
       />
