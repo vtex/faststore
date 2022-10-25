@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## 0.1.0 (2022-10-25)
+
+
+### Features
+
+* publish @faststore/core to npm ([#286](https://github.com/vtex-sites/nextjs.store/issues/286)) ([6d1e277](https://github.com/vtex-sites/nextjs.store/commit/6d1e277806f5b0afd3ca48f2f599f5b47f3b71b5))
+
+
+### Bug Fixes
+
+* release-it to npm ([#287](https://github.com/vtex-sites/nextjs.store/issues/287)) ([c783f0c](https://github.com/vtex-sites/nextjs.store/commit/c783f0cf8de7f13dac90a0fbfe67db737401574c))
+
 ### 0.0.2 (2022-10-25)
 
 ### 0.0.1 (2022-10-25)
