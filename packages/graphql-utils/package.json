@@ -21,8 +21,8 @@
     "graphql": "^15.6.1"
   },
   "devDependencies": {
+    "@faststore/shared": "*",
     "cross-env": "^7.0.2",
-    "shared": "^1.12.17",
     "typescript": "^4.2.4"
   },
   "dependencies": {
