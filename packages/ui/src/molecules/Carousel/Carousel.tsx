@@ -95,7 +95,7 @@ function Carousel({
   navigationIcons = undefined,
   ...swipeableConfigOverrides
 }: PropsWithChildren<CarouselProps>) {
-  const carouselTrackRef = useRef<HTMLDivElement>(null)
+  const carouselTrackRef = useRef<HTMLUListElement>(null)
   const isSlideCarousel = variant === 'slide'
   const isScrollCarousel = variant === 'scroll'
   const childrenArray = React.Children.toArray(children)
@@ -311,7 +311,7 @@ function Carousel({
         }}
         {...handlers}
       >
-        <div
+        <ul
           ref={carouselTrackRef}
           style={carouselTrackStyle}
           aria-live="polite"
@@ -331,13 +331,13 @@ function Carousel({
               {currentSlide}
             </CarouselItem>
           ))}
-        </div>
+        </ul>
       </div>
 
       {showNavigationArrows && (
         <div data-fs-carousel-controls>
           <IconButton
-            data-arrow="left"
+            data-fs-carousel-control="left"
             aria-controls={id}
             aria-label="previous"
             icon={navigationIcons?.left ?? <LeftArrowIcon />}
@@ -348,7 +348,7 @@ function Carousel({
             }}
           />
           <IconButton
-            data-arrow="right"
+            data-fs-carousel-control="right"
             aria-controls={id}
             aria-label="next"
             icon={navigationIcons?.right ?? <RightArrowIcon />}

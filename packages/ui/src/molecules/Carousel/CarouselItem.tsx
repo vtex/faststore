@@ -37,7 +37,7 @@ function CarouselItem({
     isScrollCarousel || shouldRenderItem(index - Number(infiniteMode))
 
   return (
-    <div
+    <li
       style={style}
       role="tabpanel"
       data-fs-carousel-item
@@ -48,7 +48,7 @@ function CarouselItem({
       }
     >
       {shouldDisplayItem ? children : null}
-    </div>
+    </li>
   )
 }
 
