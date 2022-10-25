@@ -3,10 +3,12 @@
     "commitMessage": "chore(release): ${version}"
   },
   "npm": {
-    "publish": true
+    "publish": true,
+    "skipChecks": true
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "registry.npmjs.org"
   },
   "plugins": {
     "@release-it/conventional-changelog": {
