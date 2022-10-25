@@ -15,6 +15,7 @@ export const validateSession = async (
   const channel = ChannelMarshal.parse(oldSession.channel ?? '')
   const postalCode = String(oldSession.postalCode ?? '').replace(/\D/g, '')
   const country = oldSession.country ?? ''
+  console.log("🚀 ~ oldSession", oldSession)
 
   const params = new URLSearchParams(search)
 
@@ -29,6 +30,7 @@ export const validateSession = async (
 
   const profile = sessionData?.namespaces.profile ?? null
   const store = sessionData?.namespaces.store ?? null
+  console.log("🚀 ~ store", store)
 
   const newSession = {
     ...oldSession,
@@ -52,7 +54,11 @@ export const validateSession = async (
       : null,
   }
 
-  if (deepEquals(oldSession, newSession)) {
+  console.log("🚀 ~ newSession", newSession)
+
+  const equalsResult = deepEquals(oldSession, newSession)
+  console.log("🚀 ~ equalsResult", equalsResult)
+  if (equalsResult) {
     return null
   }
 
