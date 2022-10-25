@@ -1,10 +1,10 @@
 import React from 'react'
-import type { CSSProperties, PropsWithChildren } from 'react'
+import type { CSSProperties, PropsWithChildren, HTMLAttributes } from 'react'
 import type { SliderState } from '../../hooks/useSlider/useSlider'
 
 import useSlideVisibility from './hooks/useSlideVisibility'
 
-interface CarouselItemProps {
+interface CarouselItemProps extends HTMLAttributes<HTMLLIElement> {
   index: number
   totalItems: number
   state: SliderState
@@ -39,7 +39,6 @@ function CarouselItem({
   return (
     <li
       style={style}
-      role="tabpanel"
       data-fs-carousel-item
       aria-roledescription="slide"
       id={`carousel-item-${index}`}

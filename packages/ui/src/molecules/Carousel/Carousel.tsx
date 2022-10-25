@@ -312,9 +312,9 @@ function Carousel({
         {...handlers}
       >
         <ul
+          aria-live="polite"
           ref={carouselTrackRef}
           style={carouselTrackStyle}
-          aria-live="polite"
           data-fs-carousel-track
           onScroll={onScrollTrack}
           onTransitionEnd={onTransitionTrackEnd}

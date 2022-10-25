@@ -309,7 +309,6 @@ describe('Carousel component', () => {
       expect(getAllByRole('tablist')).toHaveLength(1)
       expect(getAllByRole('tab')).toHaveLength(3)
       expect(getAllByRole('tab', { selected: true })).toHaveLength(1)
-      expect(getAllByRole('tabpanel')).toHaveLength(3)
 
       // Check bullets aria-controls
       expect(
