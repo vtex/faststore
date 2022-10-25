@@ -22,6 +22,7 @@
     "@oclif/plugin-not-found": "^2.3.3"
   },
   "devDependencies": {
+    "@faststore/shared": "*",
     "@types/chai": "^4",
     "@types/node": "^16.11.63",
     "chai": "^4",

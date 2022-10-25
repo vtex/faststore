@@ -1,5 +1,5 @@
 {
-  "name": "shared",
+  "name": "@faststore/shared",
   "version": "1.12.17",
   "private": true,
   "files": [
