@@ -37,6 +37,7 @@ export const validateSession = async (
       symbol: store?.currencySymbol.value ?? oldSession.currency.symbol,
     },
     country: store?.countryCode.value ?? oldSession.country,
+    postalCode: store?.postalCode?.value ?? oldSession.postalCode,
     channel: ChannelMarshal.stringify({
       salesChannel: store?.channel?.value ?? channel.salesChannel,
       regionId: regionData?.[0]?.id ?? channel.regionId,

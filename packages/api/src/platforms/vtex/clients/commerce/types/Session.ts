@@ -15,6 +15,7 @@ export interface Value {
 export interface Store {
   channel: Value
   countryCode: Value
+  postalCode: Value
   cultureInfo: Value
   currencyCode: Value
   currencySymbol: Value
