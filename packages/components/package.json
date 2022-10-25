@@ -1,7 +1,27 @@
 {
   "name": "@faststore/components",
   "version": "1.12.20",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "author": "Emerson Laurentino @emersonlaurentino",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "develop": "tsc --watch",
+    "build": "tsc",
+    "lint": "eslint src/**/*.{ts,tsx}"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vtex/faststore",
+    "directory": "packages/components"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "devDependencies": {
+    "@faststore/shared": "*",
+    "typescript": "^4.8.4"
+  }
 }
