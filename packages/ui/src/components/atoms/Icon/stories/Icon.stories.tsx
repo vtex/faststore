@@ -5,7 +5,7 @@ import Component from '../Icon'
 import type { IconProps } from '../Icon'
 import mdx from './Icon.mdx'
 import ShoppingCart from './assets/ShoppingCart'
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 
 const IconTemplate: Story<IconProps> = ({ style }) => (
   <Component style={style} component={<ShoppingCart />} />

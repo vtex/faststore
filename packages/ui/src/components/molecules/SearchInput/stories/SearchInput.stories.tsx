@@ -5,7 +5,7 @@ import type { SearchInputProps } from '../SearchInput'
 import Component from '../SearchInput'
 import mdx from './SearchInput.mdx'
 import Icon from './assets/CustomIcon'
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 
 const DefaultTemplate: Story<SearchInputProps> = ({
   onSubmit,

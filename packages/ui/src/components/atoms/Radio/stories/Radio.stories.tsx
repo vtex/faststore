@@ -1,7 +1,7 @@
 import type { Story, Meta } from '@storybook/react'
 import React from 'react'
 
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 import type { RadioProps } from '../Radio'
 import Component from '../Radio'
 import mdx from './Radio.mdx'

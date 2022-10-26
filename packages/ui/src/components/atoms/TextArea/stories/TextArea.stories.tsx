@@ -4,7 +4,7 @@ import type { Story, Meta } from '@storybook/react'
 import Component from '../TextArea'
 import type { TextAreaProps } from '../TextArea'
 import mdx from './TextArea.mdx'
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 
 const TextAreaTemplate: Story<TextAreaProps> = (props) => (
   <Component {...props} aria-label="Textarea" />

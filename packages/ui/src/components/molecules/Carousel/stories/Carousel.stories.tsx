@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Story } from '@storybook/react'
 
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 import Component from '../Carousel'
 import type { CarouselProps } from '../Carousel'
 import mdx from './Carousel.mdx'

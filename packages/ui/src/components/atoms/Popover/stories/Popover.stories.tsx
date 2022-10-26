@@ -5,7 +5,7 @@ import Component from '../Popover'
 import Input from '../../Input'
 import type { PopoverProps } from '../Popover'
 import mdx from './Popover.mdx'
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 
 const PopoverTemplate: Story<PopoverProps> = ({ children }) => {
   const ref = useRef(null)

@@ -1,7 +1,7 @@
 import type { Meta, Story } from '@storybook/react'
 import React from 'react'
 
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 import type { SliderProps } from '../Slider'
 import Component from '../Slider'
 import mdx from './Slider.mdx'

@@ -1,7 +1,7 @@
 import type { Story } from '@storybook/react'
 import React from 'react'
 
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 import type { BreadcrumbProps } from '../Breadcrumb'
 import Component from '../Breadcrumb'
 import mdx from './Breadcrumb.mdx'
