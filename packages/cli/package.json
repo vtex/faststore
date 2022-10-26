@@ -19,7 +19,9 @@
   "dependencies": {
     "@oclif/core": "^1.16.4",
     "@oclif/plugin-help": "^5",
-    "@oclif/plugin-not-found": "^2.3.3"
+    "@oclif/plugin-not-found": "^2.3.3",
+    "chokidar": "^3.5.3",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@faststore/shared": "^1.12.19",
