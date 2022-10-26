@@ -5,7 +5,7 @@ import HeroComponent from '../Hero'
 import HeroImage from '../HeroImage'
 import HeroHeading from '../HeroHeading'
 import type { HeroProps } from '../Hero'
-import { Icon } from '../../..'
+import { Icon } from '../../../../'
 import mdx from './Hero.mdx'
 
 const RightArrow = () => (

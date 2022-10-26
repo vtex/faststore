@@ -7,7 +7,7 @@ import AccordionButton from '../AccordionButton'
 import AccordionPanel from '../AccordionPanel'
 import type { AccordionProps } from '..'
 import mdx from './Accordion.mdx'
-import { Icon } from '../../..'
+import { Icon } from '../../../../'
 
 const Caret = () => (
   <svg

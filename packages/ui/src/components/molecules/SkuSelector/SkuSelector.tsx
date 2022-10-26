@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import type { HTMLAttributes, ChangeEventHandler } from 'react'
-import { Label, RadioGroup } from '../../..'
+import { Label, RadioGroup } from '../../../../'
 
 interface SkuProps {
   /**

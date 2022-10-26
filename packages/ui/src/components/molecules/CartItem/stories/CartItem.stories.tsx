@@ -8,7 +8,7 @@ import CartItem, {
   CartItemSummary,
   CartItemTitle,
 } from '../'
-import { Button, Price, QuantitySelector } from '../../../'
+import { Button, Price, QuantitySelector } from '../../../../'
 import mdx from './CartItem.mdx'
 
 import type { Meta, Story } from '@storybook/react'
