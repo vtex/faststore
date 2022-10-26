@@ -37,6 +37,8 @@
   ],
   "dependencies": {
     "@reach/popover": "^0.16.0",
+    "include-media": "^1.4.10",
+    "modern-normalize": "^1.1.0",
     "react-swipeable": "^6.1.2",
     "tabbable": "^5.2.1"
   },
