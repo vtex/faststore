@@ -4,7 +4,7 @@ import type { FC, ElementType, ReactElement } from 'react'
 import type {
   PolymorphicRef,
   PolymorphicComponentPropsWithRef,
-} from '../../typings'
+} from '../../../typings'
 
 interface Props {
   /**

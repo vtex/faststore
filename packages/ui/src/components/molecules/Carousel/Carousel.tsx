@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import type { SwipeableProps } from 'react-swipeable'
 
 import { RightArrowIcon, LeftArrowIcon } from './Arrows'
-import useSlider from '../../hooks/useSlider/useSlider'
+import useSlider from '../../../hooks/useSlider/useSlider'
 import useSlideVisibility from './hooks/useSlideVisibility'
 import Bullets from '../Bullets'
 import IconButton from '../IconButton'

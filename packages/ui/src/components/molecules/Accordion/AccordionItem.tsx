@@ -1,6 +1,6 @@
 import React, { useContext, forwardRef, createContext } from 'react'
 import type { ElementType, FC, HTMLAttributes, ReactElement } from 'react'
-import type { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../../typings'
+import type { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../../../typings'
 
 interface AccordionItemContext {
   index: number
