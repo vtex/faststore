@@ -36,7 +36,6 @@
   ],
   "dependencies": {
     "@reach/popover": "^0.16.0",
-    "@storybook/addon-a11y": "^6.4.4",
     "react-swipeable": "^6.1.2",
     "tabbable": "^5.2.1"
   },
@@ -48,12 +47,6 @@
     "@faststore/shared": "^1.12.20",
     "@faststore/styles": "^1.12.20",
     "@size-limit/preset-small-lib": "^7.0.8",
-    "@storybook/addon-actions": "^6.4.4",
-    "@storybook/addon-docs": "^6.4.4",
-    "@storybook/addon-essentials": "^6.4.4",
-    "@storybook/addon-links": "^6.4.4",
-    "@storybook/addons": "^6.4.4",
-    "@storybook/react": "^6.4.4",
     "@types/tabbable": "^3.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
