@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.12.20 (2022-10-26)
+
+
+### Chores
+
+* git blame ignore modification by data-fs ([#1494](https://github.com/vtex/faststore/issues/1494)) ([783079e](https://github.com/vtex/faststore/commit/783079e7095b39270bbb60e79063b774056dc5d4))
+
+
+
 ## 1.12.19 (2022-10-25)
 
 

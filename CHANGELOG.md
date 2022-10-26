@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.12.20 (2022-10-26)
+
+
+### Features
+
+* Add watch capability to cli dev command ([#1483](https://github.com/vtex/faststore/issues/1483)) ([ac34aad](https://github.com/vtex/faststore/commit/ac34aad74411118b73a53329978810083856fcaa))
+
+
+### Chores
+
+* git blame ignore modification by data-fs ([#1494](https://github.com/vtex/faststore/issues/1494)) ([783079e](https://github.com/vtex/faststore/commit/783079e7095b39270bbb60e79063b774056dc5d4))
+
+
+
 ## 1.12.19 (2022-10-25)
 
 
