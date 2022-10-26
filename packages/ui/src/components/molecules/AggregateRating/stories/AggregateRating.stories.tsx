@@ -2,7 +2,7 @@ import type { Story } from '@storybook/react'
 import type { FC } from 'react'
 import React from 'react'
 
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 import type { AggregateRatingProps, RatingItemProps } from '../AggregateRating'
 import Component from '../AggregateRating'
 import mdx from './AggregateRating.mdx'

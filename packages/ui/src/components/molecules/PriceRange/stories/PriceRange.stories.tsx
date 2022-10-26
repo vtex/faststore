@@ -1,7 +1,7 @@
 import type { Meta, Story } from '@storybook/react'
 import React from 'react'
 
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 import type { PriceRangeProps } from '../PriceRange'
 import Component from '../PriceRange'
 import mdx from './PriceRange.mdx'

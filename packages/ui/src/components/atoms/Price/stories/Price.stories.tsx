@@ -4,7 +4,7 @@ import type { Story } from '@storybook/react'
 import Component from '../Price'
 import type { PriceProps } from '../Price'
 import mdx from './Price.mdx'
-import type { ComponentArgTypes } from '../../../typings/utils'
+import type { ComponentArgTypes } from '../../../../typings/utils'
 
 const priceValue = 62.5
 

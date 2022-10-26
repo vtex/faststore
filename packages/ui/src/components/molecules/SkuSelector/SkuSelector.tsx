@@ -1,6 +1,7 @@
+import type { ChangeEventHandler, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
-import type { HTMLAttributes, ChangeEventHandler } from 'react'
-import { Label, RadioGroup } from '../../../../'
+import Label from '../../atoms/Label'
+import RadioGroup from '../RadioGroup'
 
 interface SkuProps {
   /**
