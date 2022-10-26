@@ -36,6 +36,7 @@
     }
   ],
   "dependencies": {
+    "@faststore/components": "*",
     "@reach/popover": "^0.16.0",
     "include-media": "^1.4.10",
     "modern-normalize": "^1.1.0",
@@ -48,7 +49,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
-    "@faststore/components": "*",
     "@faststore/shared": "^1.12.20",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@storybook/addon-actions": "^6.5.13",
