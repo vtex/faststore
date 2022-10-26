@@ -1,6 +1,6 @@
 import fse from 'fs-extra'
 import fs from 'fs'
-import getRoot from './getRoot'
+import { getRoot } from './root'
 
 const repoDir = getRoot()
 const faststoreDir = `${repoDir}/node_modules/@faststore`

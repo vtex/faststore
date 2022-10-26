@@ -1,8 +1,9 @@
 import { Command } from '@oclif/core'
 import { Readable } from 'stream'
 import chokidar from 'chokidar'
-import getRoot from '../utils/getRoot'
+import { readFileSync } from 'fs-extra'
 import { generate } from '../utils/generate'
+import { resolve as resolvePath, sep } from 'path'
 
 import { getRoot } from '../utils/root'
 
