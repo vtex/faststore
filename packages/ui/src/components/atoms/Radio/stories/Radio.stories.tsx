@@ -1,9 +1,8 @@
-import type { Story, Meta } from '@storybook/react'
+import type { Meta, Story } from '@storybook/react'
 import React from 'react'
 
+import { Radio as Component, RadioProps } from '@faststore/components'
 import type { ComponentArgTypes } from '../../../../typings/utils'
-import type { RadioProps } from '../Radio'
-import Component from '../Radio'
 import mdx from './Radio.mdx'
 
 const RadioTemplate: Story<RadioProps> = (props) => (

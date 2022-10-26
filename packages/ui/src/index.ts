@@ -1,3 +1,5 @@
+export * from '@faststore/components'
+
 // Atoms
 export { default as Link } from './components/atoms/Link'
 export type { LinkProps } from './components/atoms/Link'
@@ -28,9 +30,6 @@ export type { OverlayProps } from './components/atoms/Overlay'
 
 export { default as Select } from './components/atoms/Select'
 export type { SelectProps } from './components/atoms/Select'
-
-export { default as Radio } from './components/atoms/Radio'
-export type { RadioProps } from './components/atoms/Radio'
 
 export { default as Badge } from './components/atoms/Badge'
 export type { BadgeProps } from './components/atoms/Badge'
