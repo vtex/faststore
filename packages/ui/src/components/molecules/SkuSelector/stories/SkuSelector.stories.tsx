@@ -1,6 +1,6 @@
 import type { Story, Meta } from '@storybook/react'
 import React from 'react'
-import { RadioOption } from '../../..'
+import { RadioOption } from '../../../../'
 
 import type { SkuSelectorProps } from '../SkuSelector'
 import Component from '../SkuSelector'

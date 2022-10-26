@@ -6,7 +6,7 @@ import BannerImage from '../BannerImage'
 import BannerContent from '../BannerContent'
 import BannerLink from '../BannerLink'
 import type { BannerProps } from '../Banner'
-import { Icon } from '../../..'
+import { Icon } from '../../../../'
 import mdx from './Banner.mdx'
 
 const RightArrow = () => (
