@@ -1,6 +1,6 @@
 import React from 'react'
 import type { CSSProperties, PropsWithChildren, HTMLAttributes } from 'react'
-import type { SliderState } from '../../hooks/useSlider/useSlider'
+import type { SliderState } from '../../../hooks/useSlider/useSlider'
 
 import useSlideVisibility from './hooks/useSlideVisibility'
 
