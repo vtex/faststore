@@ -40,6 +40,8 @@ export default class Dev extends Command {
       usePolling: process.platform === 'win32',
     })
 
+    queueChange()
+
     await new Promise((resolve, reject) => {
       watcher
         .on('add', (/*file*/) => queueChange(/*file, false*/))
