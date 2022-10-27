@@ -2,7 +2,6 @@ import { Command } from '@oclif/core'
 import chokidar from 'chokidar'
 
 import { generate } from '../utils/generate'
-import { pathToChange } from '../utils/pathToChange'
 import { getRoot } from '../utils/root'
 
 const stabilityThreshold = process.platform === 'darwin' ? 100 : 200
@@ -43,9 +42,9 @@ export default class Dev extends Command {
 
     await new Promise((resolve, reject) => {
       watcher
-        .on('add', (file) => queueChange(file, false))
-        .on('change', (file) => queueChange(file, false))
-        .on('unlink', (file) => queueChange(file, false))
+        .on('add', (/*file*/) => queueChange(/*file, false*/))
+        .on('change', (/*file*/) => queueChange(/*file, false*/))
+        .on('unlink', (/*file*/) => queueChange(/*file, true*/))
         .on('error', reject)
         .on('ready', resolve)
     })
