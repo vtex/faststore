@@ -16,7 +16,7 @@ const customizationsFolderName = 'customizations'
 const customizationsDir = `${tmpDir}/src/${customizationsFolderName}`
 
 const themesFileDir = `${customSrcDir}/themes`
-const themeCustomizationsFileDir = `${customizationsDir}/index.scss`
+const themeCustomizationsFileDir = `${customizationsDir}/themes/index.scss`
 
 const CMSTmpDir = `${tmpDir}/cms`
 const CMSCoreDir = `${coreDir}/cms`
