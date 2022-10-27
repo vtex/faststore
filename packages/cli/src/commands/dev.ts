@@ -49,10 +49,6 @@ export default class Dev extends Command {
       generate()
     }
 
-    const copyChanges = () => {
-      /** copy changes to .faststore */
-    }
-
     const watcher = chokidar.watch([...defaultPatterns], {
       atomic: stabilityThreshold,
       awaitWriteFinish: {
