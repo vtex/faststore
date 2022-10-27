@@ -1,16 +1,9 @@
 import { Command } from '@oclif/core'
-import { Readable } from 'stream'
 import chokidar from 'chokidar'
-import { readFileSync } from 'fs-extra'
+
 import { generate } from '../utils/generate'
-import { resolve as resolvePath, sep } from 'path'
-
+import { pathToChange } from '../utils/pathToChange'
 import { getRoot } from '../utils/root'
-
-export interface ChangeToCopy {
-  path: string | null
-  content: string | Readable | Buffer | NodeJS.ReadableStream
-}
 
 const stabilityThreshold = process.platform === 'darwin' ? 100 : 200
 
@@ -30,21 +23,8 @@ const defaultIgnored = [
 
 export default class Dev extends Command {
   async run() {
-    const root = getRoot()
-
-    const pathToChange = (path: string, remove?: boolean): ChangeToCopy => {
-      const content = remove
-        ? ''
-        : readFileSync(resolvePath(root, path)).toString('base64')
-
-      return {
-        content,
-        path: path.split(sep).join('/'),
-      }
-    }
-
-    const queueChange = (path: string, remove: boolean) => {
-      pathToChange(path, remove)
+    const queueChange = (/* path: string, remove: boolean */) => {
+      // pathToChange(path, remove)
 
       generate()
     }
@@ -54,7 +34,7 @@ export default class Dev extends Command {
       awaitWriteFinish: {
         stabilityThreshold,
       },
-      cwd: root,
+      cwd: getRoot(),
       ignoreInitial: true,
       ignored: defaultIgnored,
       persistent: true,
