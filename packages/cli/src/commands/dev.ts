@@ -43,10 +43,10 @@ export default class Dev extends Command {
       }
     }
 
-    const queueChange = (path: string, remove?: boolean) => {
+    const queueChange = (path: string, remove: boolean) => {
       pathToChange(path, remove)
 
-      copyChanges()
+      generate()
     }
 
     const copyChanges = () => {
@@ -67,9 +67,9 @@ export default class Dev extends Command {
 
     await new Promise((resolve, reject) => {
       watcher
-        .on('add', () => generate())
-        .on('change', () => generate())
-        .on('unlink', () => generate())
+        .on('add', (file) => queueChange(file, false))
+        .on('change', (file) => queueChange(file, false))
+        .on('unlink', (file) => queueChange(file, false))
         .on('error', reject)
         .on('ready', resolve)
     })
