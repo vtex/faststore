@@ -66,31 +66,33 @@ export const IntelligentSearch = (
   }
 
   const getRegionFacet = (): IStoreSelectedFacet | null => {
-    const { regionId } = ctx.storage.channel
+    const { regionId, seller } = ctx.storage.channel
+    const sellerRegionId = seller ? btoa(`SW#${seller}`) : null
+    const facet = sellerRegionId ?? regionId
 
-    if (!regionId) {
+    if (!facet) {
       return null
     }
 
     return {
       key: REGION_KEY,
-      value: regionId,
+      value: facet,
     }
   }
 
   const addDefaultFacets = (facets: SelectedFacet[]) => {
     const withDefaltFacets = facets.filter(({ key }) => !CHANNEL_KEYS.has(key))
 
-    const policyFacet =
+    const policyFacet = 
       facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
 
-    const regionFacet =
+    const regionFacet = 
       facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet()
-
+    
     if (policyFacet !== null) {
       withDefaltFacets.push(policyFacet)
     }
-
+    
     if (regionFacet !== null) {
       withDefaltFacets.push(regionFacet)
     }
