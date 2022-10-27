@@ -83,16 +83,16 @@ export const IntelligentSearch = (
   const addDefaultFacets = (facets: SelectedFacet[]) => {
     const withDefaltFacets = facets.filter(({ key }) => !CHANNEL_KEYS.has(key))
 
-    const policyFacet = 
+    const policyFacet =
       facets.find(({ key }) => key === POLICY_KEY) ?? getPolicyFacet()
 
-    const regionFacet = 
+    const regionFacet =
       facets.find(({ key }) => key === REGION_KEY) ?? getRegionFacet()
-    
+
     if (policyFacet !== null) {
       withDefaltFacets.push(policyFacet)
     }
-    
+
     if (regionFacet !== null) {
       withDefaltFacets.push(regionFacet)
     }
