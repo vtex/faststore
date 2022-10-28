@@ -1,4 +1,3 @@
-import './styles/global.scss'
 export * from '@faststore/components'
 
 // Atoms
