@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.2.2](https://github.com/vtex-sites/nextjs.store/compare/0.2.1...0.2.2) (2022-10-28)
+
+
+### Bug Fixes
+
+* Setting postal code a 2nd time doesn't work ([#291](https://github.com/vtex-sites/nextjs.store/issues/291)) ([bc7e834](https://github.com/vtex-sites/nextjs.store/commit/bc7e8344305dc3f9a00a58da6913e6694630aba1))
+
 ### [0.2.1](https://github.com/vtex-sites/nextjs.store/compare/0.2.0...0.2.1) (2022-10-28)
 
 
