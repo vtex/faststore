@@ -15,7 +15,7 @@
     "lint": "eslint --ext js,ts,jsx,tsx .",
     "stylelint": "stylelint \"**/*.scss\"",
     "stylelint:fix": "stylelint \"**/*.scss\" --fix",
-    "postinstall": "is-ci || husky install",
+    "postinstall": "node postinstall.js && (is-ci || husky install) || echo Skipped postinstall step for @faststore/core",
     "partytown": "partytown copylib ./public/~partytown",
     "storybook": "start-storybook --docs -p 6006",
     "build-storybook": "build-storybook",

@@ -13,11 +13,12 @@ import ProductTiles from 'src/components/sections/ProductTiles'
 import { mark } from 'src/sdk/tests/mark'
 import { getPage } from 'src/server/cms'
 import type { PageContentType } from 'src/server/cms'
+import CUSTOM_SECTIONS from 'src/customizations'
 
 import storeConfig from '../../store.config'
 
 /**
- * Sections: Components imported from '../components/sections' only.
+ * Sections: Components imported from each store's custom components and '../components/sections'.
  * Do not import or render components from any other folder in here.
  */
 const COMPONENTS: Record<string, ComponentType<any>> = {
@@ -27,6 +28,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductShelf,
   ProductTiles,
   Newsletter,
+  ...CUSTOM_SECTIONS,
 }
 
 type Props = PageContentType
