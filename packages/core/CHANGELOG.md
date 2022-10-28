@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.2.1](https://github.com/vtex-sites/nextjs.store/compare/0.2.0...0.2.1) (2022-10-28)
+
+
+### Chores
+
+* make store extendable ([#293](https://github.com/vtex-sites/nextjs.store/issues/293)) ([f8c3632](https://github.com/vtex-sites/nextjs.store/commit/f8c3632740d263c8d435033678ed1591f23f0359))
+
 ## [0.2.0](https://github.com/vtex-sites/nextjs.store/compare/0.1.1...0.2.0) (2022-10-25)
 
 
