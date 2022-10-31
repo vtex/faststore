@@ -2,7 +2,7 @@ import { Command } from '@oclif/core'
 import chokidar from 'chokidar'
 
 import { generate } from '../utils/generate'
-import { getRoot } from '../utils/root'
+import { getRoot } from '../utils/directory'
 
 const stabilityThreshold = process.platform === 'darwin' ? 100 : 200
 
@@ -40,7 +40,7 @@ export default class Dev extends Command {
       usePolling: process.platform === 'win32',
     })
 
-    queueChange()
+    await generate({ setup: true })
 
     await new Promise((resolve, reject) => {
       watcher

@@ -1,31 +1,29 @@
 import fse from 'fs-extra'
 import fs from 'fs'
-import { getRoot } from './root'
+import deepmerge from 'deepmerge'
 
-const repoDir = getRoot()
-const faststoreDir = `${repoDir}/node_modules/@faststore`
+import {
+  CMSCoreDir,
+  CMSCustomDir,
+  CMSTmpDir,
+  coreDir,
+  customizationsDir,
+  customSrcDir,
+  repoDir,
+  storeConfigCoreFileDir,
+  storeConfigFileDir,
+  storeConfigTmpFileDir,
+  themeCustomizationsFileDir,
+  themesFileDir,
+  tmpDir,
+  tmpFolderName,
+} from './directory'
 
-const tmpFolderName = '.faststore'
-const tmpDir = `${repoDir}/${tmpFolderName}`
+interface GenerateOptions {
+  setup?: boolean
+}
 
-const coreDir = `${faststoreDir}/core`
-
-const customSrcDir = `${repoDir}/src`
-
-const customizationsFolderName = 'customizations'
-const customizationsDir = `${tmpDir}/src/${customizationsFolderName}`
-
-const themesFileDir = `${customSrcDir}/themes`
-const themeCustomizationsFileDir = `${customizationsDir}/themes/index.scss`
-
-const CMSTmpDir = `${tmpDir}/cms`
-const CMSCoreDir = `${coreDir}/cms`
-const CMSCustomDir = `${repoDir}/cms`
-
-const storeConfigFileDir = `${repoDir}/store.config.js`
-const storeConfigTmpFileDir = `${tmpDir}/store.config.js`
-
-const ignoredDirs = ['cms', 'node_modules']
+const ignoredDirs = ['node_modules']
 
 async function importStoreConfig() {
   const { default: storeConfig } = await import(`${repoDir}/store.config.js`)
@@ -105,9 +103,24 @@ function mergeCMSFile(fileName: string) {
   }
 }
 
-function copyStoreConfig() {
+function generateStoreConfigFile(content: any) {
+  return `module.exports = ${JSON.stringify(content)}\n`
+}
+
+async function copyStoreConfig() {
   try {
-    fs.copyFileSync(storeConfigFileDir, storeConfigTmpFileDir)
+    const storeConfigFromStore = await import(storeConfigFileDir)
+    const storeConfigFromCore = await import(storeConfigCoreFileDir)
+
+    const mergedStoreConfig = deepmerge(
+      storeConfigFromCore,
+      storeConfigFromStore
+    )
+
+    fs.writeFileSync(
+      storeConfigTmpFileDir,
+      generateStoreConfigFile(mergedStoreConfig)
+    )
   } catch (err) {
     console.error(err)
   } finally {
@@ -128,11 +141,20 @@ function mergeCMSFiles() {
   mergeCMSFile('sections.json')
 }
 
-export async function generate() {
-  createTmpFolder()
-  copyCoreFiles()
-  copyCustomSrcToCustomizations()
-  copyTheme()
-  mergeCMSFiles()
-  copyStoreConfig()
+export async function generate(options?: GenerateOptions) {
+  const { setup = false } = options ?? {}
+
+  let setupPromise: Promise<unknown> | null = null
+
+  if (setup) {
+    setupPromise = Promise.all([createTmpFolder(), copyCoreFiles()])
+  }
+
+  await Promise.all([
+    setupPromise,
+    copyCustomSrcToCustomizations(),
+    copyTheme(),
+    mergeCMSFiles(),
+    copyStoreConfig(),
+  ])
 }

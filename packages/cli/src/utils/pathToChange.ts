@@ -2,7 +2,7 @@
 import { resolve as resolvePath, sep } from 'path'
 import { Readable } from 'stream'
 import { readFileSync } from 'fs-extra'
-import { getRoot } from './root'
+import { getRoot } from './directory'
 
 export interface ChangeToCopy {
   path: string | null
