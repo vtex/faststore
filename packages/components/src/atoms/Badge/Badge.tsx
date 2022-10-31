@@ -1,6 +1,14 @@
 import type { ReactNode, HTMLAttributes, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
+export type BadgeVariants =
+  | 'info'
+  | 'highlighted'
+  | 'success'
+  | 'neutral'
+  | 'warning'
+  | 'danger'
+
 export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
@@ -10,6 +18,10 @@ export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
    * Sets the component's size.
    */
   size?: 'small' | 'big'
+  /**
+   * Specifies the component variant.
+   */
+  variant?: BadgeVariants
   /**
    * Enables counter badge.
    */
@@ -25,6 +37,7 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
   {
     testId = 'store-badge',
     size = 'small',
+    variant = 'neutral',
     counter = false,
     'aria-label': ariaLabel,
     children,
@@ -39,6 +52,7 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
       data-testid={testId}
       aria-label={ariaLabel}
       data-fs-badge-size={size}
+      data-fs-badge-variant={variant}
       data-fs-badge-counter={counter}
       {...otherProps}
     >
