@@ -1,8 +1,7 @@
 import React from 'react'
 import type { Story } from '@storybook/react'
 
-import Component from '../Icon'
-import type { IconProps } from '../Icon'
+import { Icon as Component, IconProps } from '@faststore/components'
 import mdx from './Icon.mdx'
 import ShoppingCart from './assets/ShoppingCart'
 import type { ComponentArgTypes } from '../../../../typings/utils'

@@ -10,9 +10,6 @@ export type { ButtonProps } from './components/atoms/Button'
 export { default as Input } from './components/atoms/Input'
 export type { InputProps } from './components/atoms/Input'
 
-export { default as Icon } from './components/atoms/Icon'
-export type { IconProps } from './components/atoms/Icon'
-
 export { default as Popover } from './components/atoms/Popover'
 export type { PopoverProps } from './components/atoms/Popover'
 
