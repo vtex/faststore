@@ -6,7 +6,9 @@
     "packages/lighthouse",
     "packages/sdk",
     "packages/styles",
-    "packages/ui"
+    "packages/ui",
+    "packages/components",
+    "packages/cli"
   ],
   "sandboxes": ["store-ui-typescript-0gd9u"],
   "node": "16"
