@@ -1,8 +1,9 @@
 import { Command } from '@oclif/core'
 import chokidar from 'chokidar'
+import { spawn } from 'child_process'
 
 import { generate } from '../utils/generate'
-import { getRoot } from '../utils/directory'
+import { getRoot, tmpDir } from '../utils/directory'
 
 /**
  * Taken from toolbelt
@@ -25,6 +26,21 @@ const defaultIgnored = [
   '**/.faststore/**',
 ]
 
+const devAbortController = new AbortController()
+
+async function storeDev() {
+  const bunDevProcess = spawn('bun develop', {
+    shell: true,
+    cwd: tmpDir,
+    signal: devAbortController.signal,
+    stdio: 'inherit',
+  })
+
+  bunDevProcess.on('close', (code) => {
+    console.log(`Development server closed with code ${code}`)
+  })
+}
+
 export default class Dev extends Command {
   async run() {
     const queueChange = (/* path: string, remove: boolean */) => {
@@ -46,14 +62,19 @@ export default class Dev extends Command {
     })
 
     await generate({ setup: true })
+    storeDev()
 
-    await new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       watcher
         .on('add', (/*file*/) => queueChange(/*file, false*/))
         .on('change', (/*file*/) => queueChange(/*file, false*/))
         .on('unlink', (/*file*/) => queueChange(/*file, true*/))
-        .on('error', reject)
+        .on('error', () => {
+          devAbortController.abort()
+          reject()
+        })
         .on('ready', resolve)
+        .on('close', resolve)
     })
   }
 }
