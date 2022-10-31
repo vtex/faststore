@@ -7,8 +7,7 @@
     "packages/sdk",
     "packages/styles",
     "packages/ui",
-    "packages/components",
-    "packages/cli"
+    "packages/components"
   ],
   "sandboxes": ["store-ui-typescript-0gd9u"],
   "node": "16"
