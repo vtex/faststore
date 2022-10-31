@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.21](https://github.com/vtex/faststore/compare/v1.12.20...v1.12.21) (2022-10-31)
+
+
+### Bug Fixes
+
+* Takes sales channel in consideration when getting region ([#1499](https://github.com/vtex/faststore/issues/1499)) ([6827c39](https://github.com/vtex/faststore/commit/6827c396a43e025e5bafb726471fdd212baba330))
+
+
+
 ## 1.12.20 (2022-10-26)
 
 
