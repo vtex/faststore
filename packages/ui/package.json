@@ -57,6 +57,7 @@
     "@storybook/addon-links": "^6.5.13",
     "@storybook/builder-webpack5": "^6.5.13",
     "@storybook/manager-webpack5": "^6.5.13",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.5.13",
     "@storybook/testing-library": "^0.0.13",
     "@types/tabbable": "^3.1.1",
