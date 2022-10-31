@@ -31,9 +31,6 @@ export type { OverlayProps } from './components/atoms/Overlay'
 export { default as Select } from './components/atoms/Select'
 export type { SelectProps } from './components/atoms/Select'
 
-export { default as Badge } from './components/atoms/Badge'
-export type { BadgeProps } from './components/atoms/Badge'
-
 export { default as Slider } from './components/atoms/Slider'
 export type { SliderProps } from './components/atoms/Slider'
 

@@ -1,8 +1,8 @@
 import type { Story } from '@storybook/react'
 import React from 'react'
 
+import { Badge as Component, BadgeProps } from '@faststore/components'
 import type { ComponentArgTypes } from '../../../../typings/utils'
-import Component from '../Badge'
 import mdx from './Badge.mdx'
 
 interface StoryControls {
