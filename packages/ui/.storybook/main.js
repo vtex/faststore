@@ -1,3 +1,4 @@
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const { resolve } = require('path')
 
 module.exports = {
@@ -23,6 +24,17 @@ module.exports = {
     builder: '@storybook/builder-webpack5',
   },
   webpackFinal: async (config) => {
+    config.module.rules[0].use[0].options.plugins.push(
+      require.resolve('@faststore/graphql-utils/babel')
+    )
+
+    config.resolve.plugins = [
+      ...(config.resolve.plugins || []),
+      new TsconfigPathsPlugin({
+        extensions: config.resolve.extensions,
+        configFile: resolve(__dirname, '../tsconfig.json'),
+      }),
+    ]
 
     // SCSS import and camelCase support for CSS files
     config.module.rules.push({
