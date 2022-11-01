@@ -1,9 +1,9 @@
-import type { Story, Meta } from '@storybook/react'
+import type { Meta, Story } from '@storybook/react'
 import React, { useEffect, useState } from 'react'
 
 import type { ComponentArgTypes } from '../../../../typings/utils'
-import type { CheckboxProps } from '../Checkbox'
-import Component from '../Checkbox'
+
+import { Checkbox as Component, CheckboxProps } from '@faststore/components'
 import mdx from './Checkbox.mdx'
 
 const CheckboxTemplate: Story<CheckboxProps> = ({
