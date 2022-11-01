@@ -1,3 +1,5 @@
+const { resolve } = require('path')
+
 module.exports = {
   stories: [
     '../src/**/*.stories.mdx',
@@ -19,5 +21,31 @@ module.exports = {
   framework: '@storybook/react',
   core: {
     builder: '@storybook/builder-webpack5',
+  },
+  webpackFinal: async (config) => {
+
+    // SCSS import and camelCase support for CSS files
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: [
+        {
+          loader: 'style-loader',
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            modules: {
+              exportLocalsConvention: 'camelCase',
+            },
+          },
+        },
+        {
+          loader: 'sass-loader',
+        },
+      ],
+      include: resolve(__dirname, '../'),
+    })
+
+    return config
   },
 }
