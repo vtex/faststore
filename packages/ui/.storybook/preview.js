@@ -50,4 +50,8 @@ export const parameters = {
   viewport: {
     viewports: customViewports,
   },
+  previewTabs: {
+    'storybook/docs/panel': {},
+    canvas: { title: 'Sandbox' },
+  },
 }
