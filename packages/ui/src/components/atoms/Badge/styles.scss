@@ -91,16 +91,6 @@
     }
   }
 
-  //Todo: remove
-  [data-fs-badge-button] {
-    position: absolute;
-    right: 0;
-    z-index: 1;
-    background-color: transparent;
-    &:hover + [data-fs-badge-wrapper]::after { filter: brightness(0.95); }
-    > span { display: flex; }
-  }
-
   // --------------------------------------------------------
   // Variants Styles
   // --------------------------------------------------------
