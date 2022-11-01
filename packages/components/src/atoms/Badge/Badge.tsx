@@ -35,7 +35,7 @@ export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
 
 const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
   {
-    testId = 'store-badge',
+    testId = 'fs-badge',
     size = 'small',
     variant = 'neutral',
     counter = false,
