@@ -17,11 +17,16 @@ import { Badge } from '@faststore/components'
         'neutral',
         'warning',
         'danger',
+        '',
       ],
       control: { type: 'select' },
     },
     size: {
       options: ['small', 'big'],
+      control: { type: 'radio' },
+    },
+    counter: {
+      options: ['true', 'false'],
       control: { type: 'radio' },
     },
   }}
@@ -108,6 +113,16 @@ Badges are status descriptors used to emphasize an item's state.
       children: 'Big',
       size: 'big',
       variant: 'success',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-counter"
+    args={{
+      children: '3',
+      size: 'false',
+      counter: 'true',
     }}
   >
     {Template.bind({})}

@@ -64,8 +64,17 @@
   --fs-badge-discount-high-border-color   : var(--fs-badge-danger-border-color);
 
   // Big
-  --fs-badge-big-text-size              : var(--fs-text-size-legend);
-  --fs-badge-big-padding                : var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-badge-big-text-size                : var(--fs-text-size-legend);
+  --fs-badge-big-padding                  : var(--fs-spacing-1) var(--fs-spacing-2);
+
+  // Counter
+  --fs-badge-counter-size                : var(--fs-spacing-3);
+  --fs-badge-counter-padding             : var(--fs-spacing-0);
+  --fs-badge-counter-text-size           : var(--fs-text-size-0);
+  --fs-badge-counter-text-color          : var(--fs-color-text-inverse);
+  --fs-badge-counter-bkg-color           : var(--fs-color-link);
+  --fs-badge-counter-border-radius       : var(--fs-border-radius-pill);
+  --fs-badge-counter-border-color        : var(--fs-color-body-bkg);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -100,6 +109,24 @@
 
     [data-fs-badge-wrapper] {
       padding: var(--fs-badge-big-padding);
+    }
+  }
+
+  &[data-fs-badge-counter="true"] {
+    font-size: var(--fs-badge-counter-text-size);
+    color: var(--fs-badge-counter-text-color);
+    border-radius: var(--fs-badge-counter-border-radius);
+    border-color: var(--fs-badge-counter-border-color);
+
+    [data-fs-badge-wrapper] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: var(--fs-badge-counter-size);
+      height: var(--fs-badge-counter-size);
+      padding: var(--fs-badge-counter-padding);
+      background-color: var(--fs-badge-counter-bkg-color);
+      border-radius: var(--fs-badge-counter-border-radius);
     }
   }
 
