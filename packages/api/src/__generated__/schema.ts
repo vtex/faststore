@@ -82,6 +82,14 @@ export type IPersonNewsletter = {
   name: Scalars['String'];
 };
 
+/** Search Optimization Input. Settings to improve search performance. */
+export type ISearchOptimization = {
+  /** Defines which price should be displayed when different installments are available. */
+  installmentCriteria?: Maybe<InstallmentCriteria>;
+  /** Refines the SKUs returned for each product in the query. The fewer returned SKUs, the more performant your query will be. */
+  skusFilter?: Maybe<SkusFilter>;
+};
+
 /** Shopping cart input. */
 export type IStoreCart = {
   /** Order information, including `orderNumber` and `acceptedOffer`. */
@@ -190,6 +198,13 @@ export type IStoreSession = {
   postalCode?: Maybe<Scalars['String']>;
 };
 
+export const enum InstallmentCriteria {
+  /** Displays the maximum installment option with no interest attached to it. */
+  MaxWithoutInterest = 'MAX_WITHOUT_INTEREST',
+  /** Displays the maximum installment option whether it has interest attached to it or not. */
+  MaxWithInterest = 'MAX_WITH_INTEREST'
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /** Subscribes a new person to the newsletter list. */
@@ -264,6 +279,7 @@ export type QueryProductArgs = {
 export type QuerySearchArgs = {
   after?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
+  optimization?: Maybe<ISearchOptimization>;
   selectedFacets?: Maybe<Array<IStoreSelectedFacet>>;
   sort?: Maybe<StoreSort>;
   term?: Maybe<Scalars['String']>;
@@ -298,6 +314,15 @@ export type SkuVariantsAvailableVariationsArgs = {
 
 export type SkuVariantsSlugsMapArgs = {
   dominantVariantName: Scalars['String'];
+};
+
+export const enum SkusFilter {
+  /** Returns all product's SKUs. */
+  All = 'ALL',
+  /** Returns all available SKUs. */
+  AllAvailable = 'ALL_AVAILABLE',
+  /** Returns only the first available SKU. */
+  FirstAvailable = 'FIRST_AVAILABLE'
 };
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */

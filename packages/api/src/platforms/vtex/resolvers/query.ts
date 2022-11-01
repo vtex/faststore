@@ -1,7 +1,7 @@
-import { FACET_CROSS_SELLING_MAP } from "./../utils/facets"
-import { BadRequestError, NotFoundError } from "../../errors"
-import { mutateChannelContext, mutateLocaleContext } from "../utils/contex"
-import { enhanceSku } from "../utils/enhanceSku"
+import { FACET_CROSS_SELLING_MAP } from './../utils/facets'
+import { BadRequestError, NotFoundError } from '../../errors'
+import { mutateChannelContext, mutateLocaleContext } from '../utils/contex'
+import { enhanceSku } from '../utils/enhanceSku'
 import {
   findChannel,
   findCrossSelling,
@@ -9,19 +9,19 @@ import {
   findSkuId,
   findSlug,
   transformSelectedFacet,
-} from "../utils/facets"
-import { SORT_MAP } from "../utils/sort"
-import { StoreCollection } from "./collection"
+} from '../utils/facets'
+import { SORT_MAP } from '../utils/sort'
+import { StoreCollection } from './collection'
 import type {
   QueryAllCollectionsArgs,
   QueryAllProductsArgs,
   QueryCollectionArgs,
   QueryProductArgs,
   QuerySearchArgs,
-} from "../../../__generated__/schema"
-import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
-import type { Context } from "../index"
-import { isValidSkuId, pickBestSku } from "../utils/sku"
+} from '../../../__generated__/schema'
+import type { CategoryTree } from '../clients/commerce/types/CategoryTree'
+import type { Context } from '../index'
+import { isValidSkuId, pickBestSku } from '../utils/sku'
 
 export const Query = {
   product: async (_: unknown, { locator }: QueryProductArgs, ctx: Context) => {
@@ -57,15 +57,16 @@ export const Query = {
        * Here be dragons 🦄🦄🦄
        *
        * In some cases, the slug has a valid skuId for a different
-       * product. This condition makes sure that the fetched sku 
+       * product. This condition makes sure that the fetched sku
        * is the one we actually asked for
        * */
       if (
-        slug && sku.isVariantOf.linkText &&
+        slug &&
+        sku.isVariantOf.linkText &&
         !slug.startsWith(sku.isVariantOf.linkText)
       ) {
         throw new Error(
-          `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`,
+          `Slug was set but the fetched sku does not satisfy the slug condition. slug: ${slug}, linkText: ${sku.isVariantOf.linkText}`
         )
       }
 
@@ -107,7 +108,14 @@ export const Query = {
   },
   search: async (
     _: unknown,
-    { first, after: maybeAfter, sort, term, selectedFacets }: QuerySearchArgs,
+    {
+      first,
+      after: maybeAfter,
+      sort,
+      term,
+      selectedFacets,
+      optimization,
+    }: QuerySearchArgs,
     ctx: Context
   ) => {
     // Insert channel in context for later usage
@@ -135,14 +143,17 @@ export const Query = {
      * etc
      */
     if (crossSelling) {
-      const products = await ctx.clients.commerce.catalog.products.crossselling({
-        type: FACET_CROSS_SELLING_MAP[crossSelling.key],
-        productId: crossSelling.value,
-      })
+      const products = await ctx.clients.commerce.catalog.products.crossselling(
+        {
+          type: FACET_CROSS_SELLING_MAP[crossSelling.key],
+          productId: crossSelling.value,
+        }
+      )
 
-      query = `product:${
-        products.map((x) => x.productId).slice(0, first).join(";")
-      }`
+      query = `product:${products
+        .map((x) => x.productId)
+        .slice(0, first)
+        .join(';')}`
     }
 
     const after = maybeAfter ? Number(maybeAfter) : 0
@@ -152,6 +163,7 @@ export const Query = {
       query,
       sort: SORT_MAP[sort ?? 'score_desc'],
       selectedFacets: selectedFacets?.flatMap(transformSelectedFacet) ?? [],
+      optimization,
     }
 
     return searchArgs

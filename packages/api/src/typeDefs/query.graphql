@@ -166,6 +166,46 @@ type StoreSearchResult {
   suggestions: StoreSuggestions!
 }
 
+enum SkusFilter {
+  """
+  Returns only the first available SKU.
+  """
+  FIRST_AVAILABLE
+  """
+  Returns all available SKUs.
+  """
+  ALL_AVAILABLE
+  """
+  Returns all product's SKUs.
+  """
+  ALL
+}
+
+enum InstallmentCriteria {
+  """
+  Displays the maximum installment option with no interest attached to it.
+  """
+  MAX_WITHOUT_INTEREST
+  """
+  Displays the maximum installment option whether it has interest attached to it or not.
+  """
+  MAX_WITH_INTEREST
+}
+
+"""
+Search Optimization Input. Settings to improve search performance.
+"""
+input ISearchOptimization {
+  """
+  Refines the SKUs returned for each product in the query. The fewer returned SKUs, the more performant your query will be.
+  """
+  skusFilter: SkusFilter
+  """
+  Defines which price should be displayed when different installments are available.
+  """
+  installmentCriteria: InstallmentCriteria
+}
+
 type Query {
   """
   Returns the details of a product based on the specified locator.
@@ -213,6 +253,10 @@ type Query {
     Array of selected search facets.
     """
     selectedFacets: [IStoreSelectedFacet!]
+    """
+    Settings to improve search performance.
+    """
+    optimization: ISearchOptimization
   ): StoreSearchResult!
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 

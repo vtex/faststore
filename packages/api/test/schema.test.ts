@@ -46,6 +46,7 @@ const TYPES = [
   'StoreReview',
   'StoreSeo',
   'StoreStatus',
+  'ISearchOptimization'
 ]
 
 const QUERIES = [

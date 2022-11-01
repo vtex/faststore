@@ -1,5 +1,8 @@
 import { fetchAPI } from '../fetch'
-import type { IStoreSelectedFacet } from '../../../../__generated__/schema'
+import type {
+  ISearchOptimization,
+  IStoreSelectedFacet,
+} from '../../../../__generated__/schema'
 import type { Context, Options } from '../../index'
 import type { SelectedFacet } from '../../utils/facets'
 import type {
@@ -31,6 +34,7 @@ export interface SearchArgs {
   selectedFacets?: SelectedFacet[]
   fuzzy?: '0' | '1' | 'auto'
   hideUnavailableItems?: boolean
+  optimization?: ISearchOptimization
 }
 
 export interface ProductLocator {
@@ -106,6 +110,7 @@ export const IntelligentSearch = (
     selectedFacets = [],
     type,
     fuzzy = 'auto',
+    optimization,
   }: SearchArgs): Promise<T> => {
     const params = new URLSearchParams({
       page: (page + 1).toString(),
@@ -118,6 +123,14 @@ export const IntelligentSearch = (
 
     if (hideUnavailableItems !== undefined) {
       params.append('hideUnavailableItems', hideUnavailableItems.toString())
+    }
+
+    if (optimization?.skusFilter) {
+      params.append('skusFilter', optimization.skusFilter)
+    }
+
+    if (optimization?.installmentCriteria) {
+      params.append('installmentCriteria', optimization.installmentCriteria)
     }
 
     const pathname = addDefaultFacets(selectedFacets)
