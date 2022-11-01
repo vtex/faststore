@@ -22,9 +22,6 @@ export type { PriceProps } from './components/atoms/Price'
 export { default as TextArea } from './components/atoms/TextArea'
 export type { TextAreaProps } from './components/atoms/TextArea'
 
-export { default as Checkbox } from './components/atoms/Checkbox'
-export type { CheckboxProps } from './components/atoms/Checkbox'
-
 export { default as Overlay } from './components/atoms/Overlay'
 export type { OverlayProps } from './components/atoms/Overlay'
 
