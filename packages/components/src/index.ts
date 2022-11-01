@@ -1,3 +1,5 @@
+export { default as Checkbox } from './atoms/Checkbox'
+export type { CheckboxProps } from './atoms/Checkbox'
 export { default as Icon } from './atoms/Icon'
 export type { IconProps } from './atoms/Icon'
 export { default as Radio } from './atoms/Radio'
