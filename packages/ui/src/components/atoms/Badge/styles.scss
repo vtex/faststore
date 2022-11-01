@@ -91,6 +91,7 @@
     }
   }
 
+  //Todo: remove
   [data-fs-badge-button] {
     position: absolute;
     right: 0;
@@ -104,7 +105,7 @@
   // Variants Styles
   // --------------------------------------------------------
 
-  &[data-fs-badge="big"] {
+  &[data-fs-badge-size="big"] {
     font-size: var(--fs-badge-big-text-size);
 
     [data-fs-badge-wrapper] {
@@ -112,47 +113,7 @@
     }
   }
 
-  &[data-fs-badge-actionable="true"] {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: var(--fs-control-tap-size);
-    padding-right: var(--fs-spacing-1);
-
-    [data-fs-badge-wrapper] {
-      position: relative;
-      padding-right: var(--fs-spacing-6);
-
-      &::after {
-        --button-hover-size: var(--fs-spacing-5);
-
-        position: absolute;
-        top: 50%;
-        right: 0;
-        width: var(--button-hover-size);
-        height: 100%;
-        content: "";
-        border-radius: 0 var(--fs-badge-border-radius) var(--fs-badge-border-radius) 0;
-        transition: var(--fs-badge-transition-property) var(--fs-badge-transition-timing) var(--fs-badge-transition-function);
-        transform: translateY(-50%);
-      }
-    }
-  }
-
-  &[data-fs-badge-variant="neutral"] {
-    color: var(--fs-badge-neutral-text-color);
-
-    [data-fs-badge-wrapper] {
-      background-color: var(--fs-badge-neutral-bkg-color);
-      border-color: var(--fs-badge-neutral-border-color);
-
-      &::after {
-        background-color: var(--fs-badge-neutral-bkg-color);
-      }
-    }
-  }
-
-  &[data-fs-badge-variant="success"] {
+  &[variant="success"] {
     color: var(--fs-badge-success-text-color);
 
     [data-fs-badge-wrapper] {
@@ -165,7 +126,20 @@
     }
   }
 
-  &[data-fs-badge-variant="highlighted"] {
+  &[variant="neutral"] {
+    color: var(--fs-badge-neutral-text-color);
+
+    [data-fs-badge-wrapper] {
+      background-color: var(--fs-badge-neutral-bkg-color);
+      border-color: var(--fs-badge-neutral-border-color);
+
+      &::after {
+        background-color: var(--fs-badge-neutral-bkg-color);
+      }
+    }
+  }
+
+  &[variant="highlighted"] {
     color: var(--fs-badge-highlighted-text-color);
 
     [data-fs-badge-wrapper] {
@@ -178,7 +152,7 @@
     }
   }
 
-  &[data-fs-badge-variant="info"] {
+  &[variant="info"] {
     color: var(--fs-badge-info-text-color);
 
     [data-fs-badge-wrapper] {
@@ -191,7 +165,7 @@
     }
   }
 
-  &[data-fs-badge-variant="warning"] {
+  &[variant="warning"] {
     color: var(--fs-badge-warning-text-color);
 
     [data-fs-badge-wrapper] {
@@ -204,7 +178,7 @@
     }
   }
 
-  &[data-fs-badge-variant="danger"] {
+  &[variant="danger"] {
     color: var(--fs-badge-danger-text-color);
 
     [data-fs-badge-wrapper] {
@@ -214,39 +188,6 @@
       &::after {
         background-color: var(--fs-badge-danger-bkg-color);
       }
-    }
-  }
-
-  &[data-fs-discount-badge-variant="low"] {
-    color: var(--fs-badge-discount-low-text-color);
-
-    [data-fs-badge-wrapper] {
-      background-color: var(--fs-badge-discount-low-bkg-color);
-      border-color: var(--fs-badge-discount-low-border-color);
-
-      &::after {
-        background-color: var(--fs-badge-discount-low-bkg-color);
-      }
-    }
-  }
-
-  &[data-fs-discount-badge-variant="medium"] {
-    color: var(--fs-badge-discount-medium-text-color);
-
-    [data-fs-badge-wrapper] {
-      background-color: var(--fs-badge-discount-medium-bkg-color);
-      border-color: var(--fs-badge-discount-medium-border-color);
-      &::after { background-color: var(--fs-badge-discount-medium-bkg-color); }
-    }
-  }
-
-  &[data-fs-discount-badge-variant="high"] {
-    color: var(--fs-badge-discount-high-text-color);
-
-    [data-fs-badge-wrapper] {
-      background-color: var(--fs-badge-discount-high-bkg-color);
-      border-color: var(--fs-badge-discount-high-border-color);
-      &::after { background-color: var(--fs-badge-discount-high-bkg-color); }
     }
   }
 }

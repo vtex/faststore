@@ -51,8 +51,8 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
       data-fs-badge
       data-testid={testId}
       aria-label={ariaLabel}
+      data-fs-variant={variant}
       data-fs-badge-size={size}
-      data-fs-badge-variant={variant}
       data-fs-badge-counter={counter}
       {...otherProps}
     >
