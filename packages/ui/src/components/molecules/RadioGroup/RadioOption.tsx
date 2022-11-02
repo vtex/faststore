@@ -1,7 +1,7 @@
 import type { InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import Radio from '../../atoms/Radio'
+import { Radio } from '@faststore/components'
 import { useRadioGroup } from './useRadioGroup'
 
 export interface RadioOptionProps
