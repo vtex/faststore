@@ -51,6 +51,7 @@
     "@babel/core": "^7.19.6",
     "@faststore/shared": "^1.12.20",
     "@size-limit/preset-small-lib": "^7.0.8",
+    "@storybook/addon-a11y": "^6.5.13",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",
