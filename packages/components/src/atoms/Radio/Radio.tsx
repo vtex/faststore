@@ -3,11 +3,14 @@ import type { InputHTMLAttributes } from 'react'
 
 export interface RadioProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
   testId?: string
 }
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
-  { testId = 'store-radio', ...otherProps }: RadioProps,
+  { testId = 'fs-radio', ...otherProps }: RadioProps,
   ref
 ) {
   return (
