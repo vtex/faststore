@@ -5,8 +5,14 @@ module.exports = {
   ],
   addons: [
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        backgrounds: false,
+        outline: false,
+      },
+    },
+    '@storybook/addon-a11y',
     {
       name: '@storybook/preset-scss',
       options: {
