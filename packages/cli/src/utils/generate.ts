@@ -4,6 +4,9 @@ import {
   mkdirsSync,
   readFileSync,
   writeFileSync,
+  existsSync,
+  removeSync,
+  symlinkSync,
 } from 'fs-extra'
 import deepmerge from 'deepmerge'
 
@@ -21,6 +24,8 @@ import {
   userThemesFileDir,
   tmpDir,
   tmpFolderName,
+  userNodeModulesDir,
+  tmpNodeModulesDir,
 } from './directory'
 
 interface GenerateOptions {
@@ -31,6 +36,10 @@ const ignorePaths = ['node_modules']
 
 function createTmpFolder() {
   try {
+    if (existsSync(tmpDir)) {
+      removeSync(tmpDir)
+    }
+
     mkdirsSync(tmpDir)
   } catch (err) {
     console.error(err)
@@ -138,13 +147,29 @@ function mergeCMSFiles() {
   mergeCMSFile('sections.json')
 }
 
+function createNodeModulesSymbolicLink() {
+  try {
+    symlinkSync(userNodeModulesDir, tmpNodeModulesDir)
+  } catch (err) {
+    console.error(err)
+  }
+
+  console.log(
+    `node_modules symbolic link created from ${userNodeModulesDir} to ${tmpNodeModulesDir}`
+  )
+}
+
 export async function generate(options?: GenerateOptions) {
   const { setup = false } = options ?? {}
 
   let setupPromise: Promise<unknown> | null = null
 
   if (setup) {
-    setupPromise = Promise.all([createTmpFolder(), copyCoreFiles()])
+    setupPromise = Promise.all([
+      createTmpFolder(),
+      copyCoreFiles(),
+      createNodeModulesSymbolicLink(),
+    ])
   }
 
   await Promise.all([
