@@ -29,15 +29,15 @@ const defaultIgnored = [
 const devAbortController = new AbortController()
 
 async function storeDev() {
-  const bunDevProcess = spawn('bun develop', {
+  const devProcess = spawn('yarn develop', {
     shell: true,
     cwd: tmpDir,
     signal: devAbortController.signal,
     stdio: 'inherit',
   })
 
-  bunDevProcess.on('close', (code) => {
-    console.log(`Development server closed with code ${code}`)
+  devProcess.on('close', () => {
+    devAbortController.abort()
   })
 }
 
@@ -61,6 +61,10 @@ export default class Dev extends Command {
       usePolling: process.platform === 'win32',
     })
 
+    devAbortController.signal.addEventListener('abort', () => {
+      watcher.close()
+    })
+
     await generate({ setup: true })
     storeDev()
 
@@ -74,7 +78,6 @@ export default class Dev extends Command {
           reject()
         })
         .on('ready', resolve)
-        .on('close', resolve)
     })
   }
 }
