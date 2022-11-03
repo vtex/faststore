@@ -1,8 +1,7 @@
 {
   "extends": "@faststore/shared/tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "baseUrl": "./",
+    "outDir": "dist"
   },
   "include": ["src"],
   "exclude": [
