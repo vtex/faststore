@@ -7,10 +7,14 @@ export interface CheckboxProps
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
+  /**
+   * Boolean that represents a partial state.
+   */
+  partial?: boolean
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
-  { testId = 'fs-checkbox', ...otherProps }: CheckboxProps,
+  { testId = 'fs-checkbox', partial, ...otherProps }: CheckboxProps,
   ref
 ) {
   return (
@@ -18,6 +22,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
       ref={ref}
       data-fs-checkbox
       data-testid={testId}
+      data-fs-checkbox-partial={partial}
       type="checkbox"
       {...otherProps}
     />
