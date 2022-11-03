@@ -1,9 +1,9 @@
+import type { ElementType, ReactElement } from 'react'
 import React, { forwardRef } from 'react'
-import type { FC, ElementType, ReactElement } from 'react'
 
 import type {
-  PolymorphicRef,
   PolymorphicComponentPropsWithRef,
+  PolymorphicRef,
 } from '../../typings'
 
 interface Props {
@@ -36,12 +36,5 @@ const Link: LinkComponent = forwardRef(function Link<
     </Component>
   )
 })
-
-/**
- * This is only being exported to make it easier to use in Storybook.
- * **DON'T** import this directly to use this component, use the default export
- * instead.
- */
-export const StorybookLink = Link as FC<Props>
 
 export default Link

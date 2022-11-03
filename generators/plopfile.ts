@@ -38,16 +38,6 @@ export default (plop: NodePlopAPI) => {
           path: '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/{{pascalCase name}}.test.tsx',
           templateFile: 'templates/test.tsx.hbs',
         },
-        {
-          type: 'add',
-          path: '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/stories/{{pascalCase name}}.stories.tsx',
-          templateFile: 'templates/stories.tsx.hbs',
-        },
-        {
-          type: 'add',
-          path: '../packages/ui/src/{{atomicGroup}}/{{pascalCase name}}/stories/{{pascalCase name}}.mdx',
-          templateFile: 'templates/stories.mdx.hbs',
-        },
       ]
 
       actions.push({

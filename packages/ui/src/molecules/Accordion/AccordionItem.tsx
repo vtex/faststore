@@ -1,5 +1,5 @@
-import React, { useContext, forwardRef, createContext } from 'react'
-import type { ElementType, FC, HTMLAttributes, ReactElement } from 'react'
+import type { ElementType, HTMLAttributes, ReactElement } from 'react'
+import React, { createContext, forwardRef, useContext } from 'react'
 import type { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../../typings'
 
 interface AccordionItemContext {
@@ -81,12 +81,5 @@ export function useAccordionItem() {
 
   return context
 }
-
-/**
- * This is only being exported to make it easier to use in Storybook.
- * **DON'T** import this directly to use this component, use the default export
- * instead.
- */
-export const StorybookAccordionItem = AccordionItem as FC<Props>
 
 export default AccordionItem
