@@ -38,4 +38,15 @@ Below you can see details of the session data managed by the session SDK module.
 | `givenName`  | String   | Shopper given name.                                     |
 | `familyName` | String   | Shopper family name.                                    |
 
+## Function
+
+The SDK exports the `createSessionStore` function, which you can use to manage session data. See below an example of how it is used in the [Next.js store](https://github.com/vtex-sites/nextjs.store) to create other functions
+
 ## Usage
+
+You can import the `createSessionStore()` and `Session` type like this:
+
+```
+import { createSessionStore } from '@faststore/sdk'
+import type { Session } from '@faststore/sdk'
+```
