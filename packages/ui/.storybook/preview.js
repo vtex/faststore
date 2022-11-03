@@ -1,4 +1,4 @@
-import '!style-loader!css-loader!sass-loader!../src/styles/global.scss'
+import '../src/styles/global.scss'
 
 // Viewports from src/styles/utilities.scss
 const customViewports = {
