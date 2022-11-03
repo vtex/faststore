@@ -37,3 +37,5 @@ Below you can see details of the session data managed by the session SDK module.
 | `email`      | String   | Email address provided by the shopper.                  |
 | `givenName`  | String   | Shopper given name.                                     |
 | `familyName` | String   | Shopper family name.                                    |
+
+## Usage
