@@ -1,6 +1,6 @@
 import type { ChangeEventHandler, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
-import Label from '../../atoms/Label'
+import Label from '@faststore/components'
 import RadioGroup from '../RadioGroup'
 
 interface SkuProps {
