@@ -1,6 +1,6 @@
 ---
-id: cart
-keywords: [cart, minicart, checkout]
+id: session
+keywords: [session, regionalization]
 ---
 
-# Cart
+# Session
