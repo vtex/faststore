@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.22](https://github.com/vtex/faststore/compare/v1.12.21...v1.12.22) (2022-11-04)
+
+
+### Documentation
+
+* Debugging Releases and CMS publishing ([#1505](https://github.com/vtex/faststore/issues/1505)) ([e1f6ea7](https://github.com/vtex/faststore/commit/e1f6ea7236e1ba69930fd4ccad5396a007e49236))
+
+
+
 ## [1.12.21](https://github.com/vtex/faststore/compare/v1.12.20...v1.12.21) (2022-10-31)
 
 
