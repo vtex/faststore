@@ -1,5 +1,7 @@
 .tokenDivider td {
   background-color: var(--fs-color-neutral-1);
+  padding: 0;
+  height: 12px;
 }
 
 .tokenDivider td:first-of-type {

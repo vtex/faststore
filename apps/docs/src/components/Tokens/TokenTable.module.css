@@ -2,9 +2,14 @@
   width: 100%;
 }
 
+.tokenTable th {
+  color: var(--fs-color-text);
+}
+
 .tokenTable td {
   width: 50%;
   background-color: white;
+  padding: var(--fs-spacing-1);
 }
 
 .tokenTable td code {
