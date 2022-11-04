@@ -39,7 +39,7 @@ For futher customization, use the data-attr below:
 
 `data-fs-radio`
 
-## Tokens
+## Design Tokens
 
 <TokenTable>
   <TokenRow token="--fs-radio-width" value="1.25rem" />
@@ -74,5 +74,77 @@ For futher customization, use the data-attr below:
   <TokenRow
     token="--fs-radio-shadow-hover"
     value="0 0 0 var(--fs-radio-border-width) var(--fs-border-color-active)"
+  />
+</TokenTable>
+
+---
+
+### Nested Elements
+
+#### Knob
+
+<TokenTable>
+  <TokenRow token="--fs-radio-knob-width" value="var(--fs-spacing-1)" />
+  <TokenRow token="--fs-radio-knob-height" value="var(--fs-radio-knob-width)" />
+  <TokenRow
+    token="--fs-radio-knob-bkg-color"
+    value="var(--fs-color-body-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-knob-disabled-bkg-color"
+    value="var(--fs-color-neutral-5)"
+    isColor
+  />
+</TokenTable>
+
+---
+
+### Variants
+
+#### Checked
+
+```tsx live
+<Radio checked />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-radio-checked-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-checked-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+</TokenTable>
+
+#### Disabled
+
+```tsx live
+<Radio checked disabled />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-radio-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-disabled-border-width"
+    value="var(--fs-radio-border-width)"
+  />
+  <TokenRow
+    token="--fs-radio-disabled-border-color"
+    value="var(--fs-border-color-disabled)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
   />
 </TokenTable>
