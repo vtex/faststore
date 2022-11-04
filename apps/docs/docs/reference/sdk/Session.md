@@ -127,7 +127,7 @@ export const useSession = () => {
 
 Because of this, if you use one of the [Base Store starters](https://www.faststore.dev/starters/base), you have access to `sessionStore`, `useSession` and `validateSession`.
 
-See the example below to learn more about how these are used in the [Next.js store](https://github.com/vtex-sites/nextjs.store) to update session according to shopper regionalization input.
+See the example below to learn more about how these are used in the [Next.js store](https://github.com/vtex-sites/nextjs.store) to update session data according to shopper regionalization input.
 
 ```ts
 //src/components/regionalization/RegionalizationInput/RegionalizationInput.tsx
