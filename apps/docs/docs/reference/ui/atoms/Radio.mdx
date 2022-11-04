@@ -1,10 +1,12 @@
 ---
 description: Radios allow users to select one option from a set.
-sidebar_custom_props: 
+sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Radio___4bdff3538eb6a18e99c6f5a9c1043468.png
 ---
 
-import PropsSection from "@site/src/components/PropsSection/PropsSection";
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
+import TokenTable from '@site/src/components/Tokens/TokenTable'
+import TokenRow from '@site/src/components/Tokens/TokenRow'
 
 # Radio
 
@@ -16,10 +18,16 @@ Radios allow users to select one option from a set.
 import { Radio } from '@faststore/ui'
 ```
 
+### Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Radio/styles.scss'
+```
+
 ## Usage
 
 ```tsx live
-<Radio/>
+<Radio />
 ```
 
 ## Props
@@ -28,4 +36,44 @@ import { Radio } from '@faststore/ui'
 
 ## Customization
 
+For futher customization, use the data-attr below:
+
 `data-fs-radio`
+
+## Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-radio-width" value="1.25rem" />
+  <TokenRow token="--fs-radio-height" value="var(--fs-radio-width)" />
+  <TokenDivider />
+  <TokenRow token="--fs-radio-border-width" value="var(--fs-border-width)" />
+  <TokenRow
+    token="--fs-radio-border-radius"
+    value="var(--fs-border-radius-circle)"
+  />
+  <TokenRow
+    token="--fs-radio-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-border-color-hover"
+    value="var(--fs-border-color-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-radio-transition"
+    value="border var(--fs-transition-timing) var(--fs-transition-function), background-color var(--fs-transition-timing) var(--fs-transition-function), box-shadow var(--fs-transition-timing) var(--fs-transition-function)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-radio-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-radio-shadow-hover"
+    value="0 0 0 var(--fs-radio-border-width) var(--fs-border-color-active)"
+  />
+</TokenTable>
