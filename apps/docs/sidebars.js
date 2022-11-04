@@ -328,9 +328,7 @@ module.exports = {
             },
             {
               type: 'doc',
-              label: 'Session',
-              collapsed: true,
-              link: { type: 'doc', id: 'reference/sdk/session' },
+              id: 'reference/sdk/session',
             },
           ],
         },
