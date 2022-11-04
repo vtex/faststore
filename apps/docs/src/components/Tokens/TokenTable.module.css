@@ -20,17 +20,3 @@
   border: 1px solid gray;
   border-radius: 100%;
 }
-
-
-/* TODO: Fix  */
-.tokenTable .token-divider td {
-  background-color: var(--fs-color-neutral-1);
-}
-
-.tokenTable .token-divider td:first-of-type {
-  border-right: none;
-}
-
-.tokenTable .token-divider td:last-child {
-  border-left: none;
-}
