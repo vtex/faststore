@@ -1,8 +1,7 @@
+import type { HTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
-import type { HTMLAttributes } from 'react'
-import type { ReactNode } from 'react'
 
-import Icon from '../../atoms/Icon'
+import { Icon } from '@faststore/components'
 
 export interface GiftProps extends HTMLAttributes<HTMLDivElement> {
   /**
