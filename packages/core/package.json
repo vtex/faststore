@@ -33,7 +33,7 @@
     "@faststore/api": "^1.12.17",
     "@faststore/graphql-utils": "^1.11.8",
     "@faststore/sdk": "^1.11.8",
-    "@faststore/ui": "^1.12.13",
+    "@faststore/ui": "^1.12.23",
     "@vtex/client-cms": "^0.2.12",
     "graphql": "^15.0.0",
     "include-media": "^1.4.10",

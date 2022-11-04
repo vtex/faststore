@@ -1455,14 +1455,14 @@
   dependencies:
     idb-keyval "^5.1.3"
 
-"@faststore/ui@^1.12.13":
-  version "1.12.13"
-  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.12.13.tgz#0467b83fc820827319873dcef33ba00efe42f8c1"
-  integrity sha512-x3Fy7+NZb1BjpigmInk521uP7aqrzlK3/U8CfKHrX433WS7aBDMOMBL3XnnW5ddAJ3oA9h/Be8iw5yH83nC1ig==
+"@faststore/ui@^1.12.23":
+  version "1.12.23"
+  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.12.23.tgz#8c1f05e87896f938e58df330739245d92ff6f223"
+  integrity sha512-tkxVhgL+YctrIt2WQEUszi8Ze8AdX/t7f6RUe1fyP9IWKYyPsTPJ5wvp4JRu1eBh4sQic7wcrgpTuRH+jbw5dw==
   dependencies:
     "@reach/popover" "^0.16.0"
     "@storybook/addon-a11y" "^6.4.4"
-    react-swipeable "^6.1.2"
+    react-swipeable "^7.0.0"
     tabbable "^5.2.1"
 
 "@gar/promisify@^1.0.1":
@@ -14245,10 +14245,10 @@ react-sizeme@^3.0.1:
     shallowequal "^1.1.0"
     throttle-debounce "^3.0.1"
 
-react-swipeable@^6.1.2:
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-6.2.2.tgz#52ba570f3a7a90db7093094ec476f3d151f727d1"
-  integrity sha512-Oz7nSFrssvq2yvy05aNL3F+yBUqSvLsK6x1mu+rQFOpMdQVnt4izKt1vyjvvTb70q6GQOaSpaB6qniROW2MAzQ==
+react-swipeable@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-7.0.0.tgz#7a12570ee435d35ac700511de338384aa78d12cd"
+  integrity sha512-NI7KGfQ6gwNFN0Hor3vytYW3iRfMMaivGEuxcADOOfBCx/kqwXE8IfHFxEcxSUkxCYf38COLKYd9EMYZghqaUA==
 
 react-syntax-highlighter@^15.4.5:
   version "15.5.0"
