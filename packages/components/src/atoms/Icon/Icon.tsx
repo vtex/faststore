@@ -13,7 +13,7 @@ export interface IconProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const Icon = forwardRef<HTMLSpanElement, IconProps>(function Button(
-  { component, testId = 'store-icon', ...otherProps }: IconProps,
+  { component, testId = 'fs-icon', ...otherProps }: IconProps,
   ref
 ) {
   return (
