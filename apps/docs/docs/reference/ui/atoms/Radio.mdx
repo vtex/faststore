@@ -11,13 +11,26 @@ import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
 Radios allow users to select one option from a set.
 
+## Overview
+
+```tsx live
+<div style={{ display: 'flex', columnGap: '16px' }}>
+  <Radio />
+  <Radio checked />
+  <Radio disabled />
+  <Radio checked disabled />
+</div>
+```
+
 ## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
 import { Radio } from '@faststore/ui'
 ```
 
-### Import Styles
+Import Styles
 
 ```tsx
 import '@faststore/ui/src/components/atoms/Radio/styles.scss'
@@ -32,12 +45,6 @@ import '@faststore/ui/src/components/atoms/Radio/styles.scss'
 ## Props
 
 <PropsSection name="Radio" />
-
-## Customization
-
-For futher customization, use the data-attr below:
-
-`data-fs-radio`
 
 ## Design Tokens
 
@@ -148,3 +155,9 @@ For futher customization, use the data-attr below:
     isColor
   />
 </TokenTable>
+
+## Customization
+
+For futher customization, use the data-attr below:
+
+`data-fs-radio`
