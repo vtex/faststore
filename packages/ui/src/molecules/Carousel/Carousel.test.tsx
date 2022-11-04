@@ -24,7 +24,7 @@ describe('Carousel component', () => {
     expect(carouselSection).toHaveAttribute('data-fs-carousel')
   })
 
-  it('should have `data-carousel-track-container` and `data-carousel-track` attributes', () => {
+  it('should have `data-fs-carousel-track-container` and `data-fs-carousel-track` attributes', () => {
     const { getByTestId } = render(
       <Carousel>
         <div>Slide 1</div>
@@ -38,10 +38,10 @@ describe('Carousel component', () => {
     const carouselSection = getByTestId('store-carousel')
 
     const trackContainer = carouselSection.querySelectorAll(
-      '[data-carousel-track-container]'
+      '[data-fs-carousel-track-container]'
     )
 
-    const track = carouselSection.querySelectorAll('[data-carousel-track]')
+    const track = carouselSection.querySelectorAll('[data-fs-carousel-track]')
 
     expect(trackContainer).toHaveLength(1)
     expect(trackContainer[0]).toBeInTheDocument()
@@ -50,7 +50,7 @@ describe('Carousel component', () => {
     expect(track[0]).toBeInTheDocument()
   })
 
-  it('should have `data-carousel-controls` and `data-carousel-bullets` attributes', () => {
+  it('should have `data-fs-carousel-controls` and `data-fs-carousel-bullets` attributes', () => {
     const { getByTestId } = render(
       <Carousel>
         <div>Slide 1</div>
@@ -62,11 +62,11 @@ describe('Carousel component', () => {
     const carouselSection = getByTestId('store-carousel')
 
     const controls = carouselSection.querySelectorAll(
-      '[data-carousel-controls]'
+      '[data-fs-carousel-controls]'
     )
 
     const bulletsContainer = carouselSection.querySelectorAll(
-      '[data-carousel-bullets]'
+      '[data-fs-carousel-bullets]'
     )
 
     expect(controls).toHaveLength(1)
@@ -76,7 +76,7 @@ describe('Carousel component', () => {
     expect(bulletsContainer[0]).toBeInTheDocument()
   })
 
-  it('should render 5 slides with `data-carousel-item` attributes', () => {
+  it('should render 5 slides with `data-fs-carousel-item` attributes', () => {
     const { getByTestId } = render(
       <Carousel infiniteMode={false}>
         <div>Slide 1</div>
@@ -88,12 +88,12 @@ describe('Carousel component', () => {
     )
 
     const carouselSection = getByTestId('store-carousel')
-    const items = carouselSection.querySelectorAll('[data-carousel-item]')
+    const items = carouselSection.querySelectorAll('[data-fs-carousel-item]')
 
     expect(items).toHaveLength(5)
   })
 
-  it('should add `data-visible` attribute to currently visible carousel items', () => {
+  it('should add `data-fs-carousel-item-visible` attribute to currently visible carousel items', () => {
     const { getByTestId } = render(
       <Carousel>
         <div>Slide 1</div>
@@ -106,18 +106,18 @@ describe('Carousel component', () => {
 
     const carouselSection = getByTestId('store-carousel')
 
-    const items = carouselSection.querySelectorAll('[data-carousel-item]')
+    const items = carouselSection.querySelectorAll('[data-fs-carousel-item]')
 
     expect(items).toHaveLength(7)
 
-    // Only the first item should have `data-visible` attributes
-    expect(items[0]).not.toHaveAttribute('data-visible')
-    expect(items[1]).toHaveAttribute('data-visible')
-    expect(items[2]).not.toHaveAttribute('data-visible')
-    expect(items[3]).not.toHaveAttribute('data-visible')
-    expect(items[4]).not.toHaveAttribute('data-visible')
-    expect(items[5]).not.toHaveAttribute('data-visible')
-    expect(items[6]).not.toHaveAttribute('data-visible')
+    // Only the first item should have `data-fs-carousel-item-visible` attributes
+    expect(items[0]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[1]).toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[2]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[3]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[4]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[5]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[6]).not.toHaveAttribute('data-fs-carousel-item-visible')
   })
 
   it('should allow users to navigate through pages using the `Arrows` controls', async () => {
@@ -140,7 +140,9 @@ describe('Carousel component', () => {
     const carouselSection = getByTestId('store-carousel')
     const goToNextPageButton = getByLabelText('next')
     const goToPreviousPageButton = getByLabelText('previous')
-    const carouselTrack = carouselSection.querySelector('[data-carousel-track]')
+    const carouselTrack = carouselSection.querySelector(
+      '[data-fs-carousel-track]'
+    )
 
     expect(goToNextPageButton).toBeInTheDocument()
     expect(goToPreviousPageButton).toBeInTheDocument()
@@ -150,14 +152,14 @@ describe('Carousel component', () => {
       fireEvent.click(goToNextPageButton)
     })
 
-    let items = carouselSection.querySelectorAll('[data-carousel-item]')
+    let items = carouselSection.querySelectorAll('[data-fs-carousel-item]')
 
     // Only the second item should be visible
-    expect(items[0]).not.toHaveAttribute('data-visible')
-    expect(items[1]).toHaveAttribute('data-visible')
-    expect(items[2]).not.toHaveAttribute('data-visible')
-    expect(items[3]).not.toHaveAttribute('data-visible')
-    expect(items[4]).not.toHaveAttribute('data-visible')
+    expect(items[0]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[1]).toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[2]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[3]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[4]).not.toHaveAttribute('data-fs-carousel-item-visible')
 
     // Go from page 1 back to 0
     await act(async () => {
@@ -178,14 +180,14 @@ describe('Carousel component', () => {
       fireEvent.click(goToPreviousPageButton)
     })
 
-    items = carouselSection.querySelectorAll('[data-carousel-item]')
+    items = carouselSection.querySelectorAll('[data-fs-carousel-item]')
 
     // Only the first item should be visible
-    expect(items[0]).toHaveAttribute('data-visible')
-    expect(items[1]).not.toHaveAttribute('data-visible')
-    expect(items[2]).not.toHaveAttribute('data-visible')
-    expect(items[3]).not.toHaveAttribute('data-visible')
-    expect(items[4]).not.toHaveAttribute('data-visible')
+    expect(items[0]).toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[1]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[2]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[3]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[4]).not.toHaveAttribute('data-fs-carousel-item-visible')
   })
 
   it('should allow users to navigate through pages by clicking on a pagination bullet', async () => {
@@ -206,8 +208,10 @@ describe('Carousel component', () => {
     )
 
     const carouselSection = getByTestId('store-carousel')
-    const bullets = queryAllByTestId('store-bullets-item')
-    const carouselTrack = carouselSection.querySelector('[data-carousel-track]')
+    const bullets = queryAllByTestId('store-bullets-bullet')
+    const carouselTrack = carouselSection.querySelector(
+      '[data-fs-carousel-track]'
+    )
 
     expect(bullets).toHaveLength(5)
 
@@ -217,14 +221,14 @@ describe('Carousel component', () => {
       fireEvent.click(secondPageBullet)
     })
 
-    let items = carouselSection.querySelectorAll('[data-carousel-item]')
+    let items = carouselSection.querySelectorAll('[data-fs-carousel-item]')
 
     // Only the second item should be visible
-    expect(items[0]).not.toHaveAttribute('data-visible')
-    expect(items[1]).toHaveAttribute('data-visible')
-    expect(items[2]).not.toHaveAttribute('data-visible')
-    expect(items[3]).not.toHaveAttribute('data-visible')
-    expect(items[4]).not.toHaveAttribute('data-visible')
+    expect(items[0]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[1]).toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[2]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[3]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[4]).not.toHaveAttribute('data-fs-carousel-item-visible')
 
     const thirdPageBullet = getByLabelText('Go to page 3')
 
@@ -246,14 +250,14 @@ describe('Carousel component', () => {
       fireEvent.click(thirdPageBullet)
     })
 
-    items = carouselSection.querySelectorAll('[data-carousel-item]')
+    items = carouselSection.querySelectorAll('[data-fs-carousel-item]')
 
     // Only the 3rd item should be visible
-    expect(items[0]).not.toHaveAttribute('data-visible')
-    expect(items[1]).not.toHaveAttribute('data-visible')
-    expect(items[2]).toHaveAttribute('data-visible')
-    expect(items[3]).not.toHaveAttribute('data-visible')
-    expect(items[4]).not.toHaveAttribute('data-visible')
+    expect(items[0]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[1]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[2]).toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[3]).not.toHaveAttribute('data-fs-carousel-item-visible')
+    expect(items[4]).not.toHaveAttribute('data-fs-carousel-item-visible')
   })
 
   describe('Accessibility', () => {
@@ -305,7 +309,6 @@ describe('Carousel component', () => {
       expect(getAllByRole('tablist')).toHaveLength(1)
       expect(getAllByRole('tab')).toHaveLength(3)
       expect(getAllByRole('tab', { selected: true })).toHaveLength(1)
-      expect(getAllByRole('tabpanel')).toHaveLength(3)
 
       // Check bullets aria-controls
       expect(
@@ -351,7 +354,7 @@ describe('Carousel component', () => {
           )
 
           const carouselTrack = getByTestId('store-carousel').querySelector(
-            '[data-carousel-track]'
+            '[data-fs-carousel-track]'
           ) as Element
 
           const tabs = getAllByRole('tab')
@@ -391,7 +394,7 @@ describe('Carousel component', () => {
           )
 
           const carouselTrack = getByTestId('store-carousel').querySelector(
-            '[data-carousel-track]'
+            '[data-fs-carousel-track]'
           ) as Element
 
           const tabs = getAllByRole('tab')
@@ -430,7 +433,7 @@ describe('Carousel component', () => {
           )
 
           const carouselTrack = getByTestId('store-carousel').querySelector(
-            '[data-carousel-track]'
+            '[data-fs-carousel-track]'
           ) as Element
 
           const tabs = getAllByRole('tab')
@@ -466,7 +469,7 @@ describe('Carousel component', () => {
           )
 
           const carouselTrack = getByTestId('store-carousel').querySelector(
-            '[data-carousel-track]'
+            '[data-fs-carousel-track]'
           ) as Element
 
           const tabs = getAllByRole('tab')
@@ -501,7 +504,7 @@ describe('Carousel component', () => {
           )
 
           const carouselTrack = getByTestId('store-carousel').querySelector(
-            '[data-carousel-track]'
+            '[data-fs-carousel-track]'
           ) as Element
 
           const tabs = getAllByRole('tab')
@@ -539,7 +542,7 @@ describe('Carousel component', () => {
           )
 
           const carouselTrack = getByTestId('store-carousel').querySelector(
-            '[data-carousel-track]'
+            '[data-fs-carousel-track]'
           ) as Element
 
           const tabs = getAllByRole('tab')

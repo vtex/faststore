@@ -13,17 +13,17 @@ describe('Bullets', () => {
     expect(getByTestId('store-bullets')).toHaveAttribute('data-fs-bullets')
   })
 
-  it('should render 5 bullets with `data-bullet-item` attribute', () => {
+  it('should render 5 bullets with `data-fs-bullet` attribute', () => {
     const { queryAllByTestId } = render(
       <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
     )
 
-    const bulletItems = queryAllByTestId('store-bullets-item')
+    const bulletItems = queryAllByTestId('store-bullets-bullet')
 
     expect(bulletItems).toHaveLength(5)
 
     bulletItems.forEach((bullet) =>
-      expect(bullet).toHaveAttribute('data-bullet-item')
+      expect(bullet).toHaveAttribute('data-fs-bullet')
     )
   })
 
@@ -32,7 +32,7 @@ describe('Bullets', () => {
       <Bullets totalQuantity={5} activeBullet={2} onClick={() => null} />
     )
 
-    const bulletItems = queryAllByTestId('store-bullets-item')
+    const bulletItems = queryAllByTestId('store-bullets-bullet')
 
     // eslint-disable-next-line prefer-destructuring
     const expectedActiveBullet = bulletItems[2]
@@ -59,7 +59,7 @@ describe('Bullets', () => {
       />
     )
 
-    const bulletItems = queryAllByTestId('store-bullets-item')
+    const bulletItems = queryAllByTestId('store-bullets-bullet')
 
     expect(bulletItems).toHaveLength(5)
 
