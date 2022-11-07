@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [0.3.0](https://github.com/vtex-sites/nextjs.store/compare/0.2.2...0.3.0) (2022-11-07)
+
+
+### Features
+
+* Adds `Carousel` component ([#273](https://github.com/vtex-sites/nextjs.store/issues/273)) ([cbc0107](https://github.com/vtex-sites/nextjs.store/commit/cbc0107d5ef7b435c7a9e52756d0edc8cae03fe1))
+
 ### [0.2.2](https://github.com/vtex-sites/nextjs.store/compare/0.2.1...0.2.2) (2022-10-28)
 
 
