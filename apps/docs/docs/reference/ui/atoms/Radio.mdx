@@ -16,11 +16,15 @@ Radios allow users to select one option from a set.
 ```tsx live
 <div style={{ display: 'flex', columnGap: '16px' }}>
   <Radio />
-  <Radio checked />
+  <Radio checked readOnly />
   <Radio disabled />
-  <Radio checked disabled />
+  <Radio checked disabled readOnly />
 </div>
 ```
+
+<small>
+  You can remove <code>readOnly</code> prop when using.
+</small>
 
 ## Import
 
@@ -112,7 +116,7 @@ import '@faststore/ui/src/components/atoms/Radio/styles.scss'
 #### Checked
 
 ```tsx live
-<Radio checked />
+<Radio checked readOnly />
 ```
 
 <TokenTable>
@@ -131,7 +135,7 @@ import '@faststore/ui/src/components/atoms/Radio/styles.scss'
 #### Disabled
 
 ```tsx live
-<Radio checked disabled />
+<Radio checked disabled readOnly />
 ```
 
 <TokenTable>
