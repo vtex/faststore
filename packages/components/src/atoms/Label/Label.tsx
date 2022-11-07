@@ -9,7 +9,7 @@ export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 }
 
 const Label = forwardRef<HTMLLabelElement, LabelProps>(function Label(
-  { testId = 'fs-label', children, ...otherProps },
+  { testId = 'fs-label', children, ...otherProps }: LabelProps,
   ref
 ) {
   return (
