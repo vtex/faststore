@@ -1,14 +1,14 @@
-import type { Story, Meta } from '@storybook/react'
+import type { Meta, Story } from '@storybook/react'
 import React from 'react'
 
 // Atoms
-import Icon from '../../../atoms/Icon'
+import { Icon } from '@faststore/components'
 // Card components
-import CardComponent from '../Card'
-import CardImage from '../CardImage'
-import CardContent from '../CardContent'
-import CardActions from '../CardActions'
 import type { CardProps } from '../Card'
+import CardComponent from '../Card'
+import CardActions from '../CardActions'
+import CardContent from '../CardContent'
+import CardImage from '../CardImage'
 import mdx from './Card.mdx'
 
 const RightArrow = () => (

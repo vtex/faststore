@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.23](https://github.com/vtex/faststore/compare/v1.12.22...v1.12.23) (2022-11-04)
+
+
+### Features
+
+* Revisit `Carousel` component ([#1476](https://github.com/vtex/faststore/issues/1476)) ([5bf8662](https://github.com/vtex/faststore/commit/5bf86628e04fd5cf47c10071e66058de035d8023))
+
+
+
+## [1.12.22](https://github.com/vtex/faststore/compare/v1.12.21...v1.12.22) (2022-11-04)
+
+
+### Documentation
+
+* Debugging Releases and CMS publishing ([#1505](https://github.com/vtex/faststore/issues/1505)) ([e1f6ea7](https://github.com/vtex/faststore/commit/e1f6ea7236e1ba69930fd4ccad5396a007e49236))
+
+
+
+## [1.12.21](https://github.com/vtex/faststore/compare/v1.12.20...v1.12.21) (2022-10-31)
+
+
+### Bug Fixes
+
+* Takes sales channel in consideration when getting region ([#1499](https://github.com/vtex/faststore/issues/1499)) ([6827c39](https://github.com/vtex/faststore/commit/6827c396a43e025e5bafb726471fdd212baba330))
+
+
+
 ## 1.12.20 (2022-10-26)
 
 
