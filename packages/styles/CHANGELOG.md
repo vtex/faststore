@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.23](https://github.com/vtex/faststore/compare/v1.12.22...v1.12.23) (2022-11-04)
+
+
+### Features
+
+* Revisit `Carousel` component ([#1476](https://github.com/vtex/faststore/issues/1476)) ([5bf8662](https://github.com/vtex/faststore/commit/5bf86628e04fd5cf47c10071e66058de035d8023))
+
+
+
 ## 1.12.20 (2022-10-26)
 
 

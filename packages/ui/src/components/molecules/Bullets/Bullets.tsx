@@ -69,11 +69,11 @@ const Bullets = forwardRef<HTMLDivElement, BulletsProps>(function Bullets(
 
         return (
           <Button
-            data-bullet-item
+            key={idx}
             role="tab"
             tabIndex={-1}
-            key={idx}
-            testId={`${testId}-item`}
+            data-fs-bullet
+            testId={`${testId}-bullet`}
             onClick={(e) => onClick(e, idx)}
             aria-label={ariaLabelGenerator(idx, isActive)}
             aria-controls={ariaControlsGenerator?.(idx)}

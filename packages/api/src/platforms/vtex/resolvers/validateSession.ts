@@ -17,12 +17,13 @@ export const validateSession = async (
   const country = oldSession.country ?? ''
 
   const params = new URLSearchParams(search)
+  const salesChannel = params.get('sc') ?? channel.salesChannel
 
-  params.set('sc', params.get('sc') ?? channel.salesChannel)
+  params.set('sc', salesChannel)
 
   const [regionData, sessionData] = await Promise.all([
     postalCode
-      ? clients.commerce.checkout.region({ postalCode, country })
+      ? clients.commerce.checkout.region({ postalCode, country, salesChannel })
       : Promise.resolve(null),
     clients.commerce.session(params.toString()).catch(() => null),
   ])
