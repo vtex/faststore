@@ -14230,6 +14230,13 @@ docusaurus-plugin-redoc@^0.9.0:
     joi "^17.5.0"
     yaml "^1.10.2"
 
+docusaurus-plugin-sass@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/docusaurus-plugin-sass/-/docusaurus-plugin-sass-0.2.2.tgz#9b7f8c6fbe833677064ec05b09b98d90b50be324"
+  integrity sha512-ZZBpj3PrhGpYE2kAnkZB9NRwy/CDi4rGun1oec6PYR8YvGzqxYGtXvLgHi6FFbu8/N483klk8udqyYMh6Ted+A==
+  dependencies:
+    sass-loader "^10.1.1"
+
 "docusaurus-tailwindcss-loader@file:apps/docs/plugins/docusaurus-tailwindcss-loader":
   version "0.0.0"
 
@@ -25765,6 +25772,17 @@ sane@^4.0.3:
     micromatch "^3.1.4"
     minimist "^1.1.1"
     walker "~1.0.5"
+
+sass-loader@^10.1.1:
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-10.3.1.tgz#a45f0d1dd7ea90de7eb099239a18c83dea6e6341"
+  integrity sha512-y2aBdtYkbqorVavkC3fcJIUDGIegzDWPn3/LAFhsf3G+MzPKTJx37sROf5pXtUeggSVbNbmfj8TgRaSLMelXRA==
+  dependencies:
+    klona "^2.0.4"
+    loader-utils "^2.0.0"
+    neo-async "^2.6.2"
+    schema-utils "^3.0.0"
+    semver "^7.3.2"
 
 sass-loader@^13.1.0:
   version "13.1.0"
