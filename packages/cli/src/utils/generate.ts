@@ -25,11 +25,6 @@ interface GenerateOptions {
 
 const ignorePaths = ['node_modules']
 
-async function importStoreConfig() {
-  const { default: storeConfig } = await import(`${userDir}/store.config.js`)
-  return storeConfig
-}
-
 function createTmpFolder() {
   try {
     fse.mkdirsSync(tmpDir)
@@ -66,7 +61,7 @@ function copyUserSrcToCustomizations() {
 }
 
 async function copyTheme() {
-  const storeConfig = await importStoreConfig()
+  const storeConfig = await import(userStoreConfigFileDir)
 
   try {
     fs.copyFileSync(
