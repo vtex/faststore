@@ -8,8 +8,6 @@ keywords:
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
-# Component Name
-
 Briefly describe the component and its functions.
 
 Example: The _add component name_ component are _add component meaning_ used to _add the component function_.
