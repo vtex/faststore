@@ -101,7 +101,7 @@ function mergeCMSFile(fileName: string) {
 }
 
 function generateStoreConfigFile(content: any) {
-  return `module.exports = ${JSON.stringify(content)}\n`
+  return `module.exports = ${JSON.stringify(content, null, 2)}\n`
 }
 
 async function copyStoreConfig() {
