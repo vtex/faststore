@@ -4,6 +4,11 @@ import chokidar from 'chokidar'
 import { generate } from '../utils/generate'
 import { getRoot } from '../utils/directory'
 
+/**
+ * Taken from toolbelt
+ * 
+ * https://github.com/vtex/toolbelt/pull/442
+ */
 const stabilityThreshold = process.platform === 'darwin' ? 100 : 200
 
 const defaultPatterns = ['*/**', '**']
