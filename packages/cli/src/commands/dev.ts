@@ -28,7 +28,7 @@ const defaultIgnored = [
 export default class Dev extends Command {
   async run() {
     const queueChange = (/* path: string, remove: boolean */) => {
-      // pathToChange(path, remove)
+      // getContentFromPath(path, remove)
 
       generate()
     }

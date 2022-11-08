@@ -4,12 +4,12 @@ import { Readable } from 'stream'
 import { readFileSync } from 'fs-extra'
 import { getRoot } from './directory'
 
-export interface ChangeToCopy {
+export interface ContentFromPath {
   path: string | null
   content: string | Readable | Buffer | NodeJS.ReadableStream
 }
 
-const pathToChange = (path: string, remove?: boolean): ChangeToCopy => {
+const getContentFromPath = (path: string, remove?: boolean): ContentFromPath => {
   const content = remove
     ? ''
     : readFileSync(resolvePath(getRoot(), path)).toString('base64')
@@ -20,4 +20,4 @@ const pathToChange = (path: string, remove?: boolean): ChangeToCopy => {
   }
 }
 
-export { pathToChange }
+export { getContentFromPath }

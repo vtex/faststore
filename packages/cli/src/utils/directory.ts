@@ -6,26 +6,30 @@ export const getRoot = () => {
   return process.cwd()
 }
 
-export const repoDir = getRoot()
-export const faststoreDir = `${repoDir}/node_modules/@faststore`
+export const userDir = getRoot()
+export const faststoreDir = `${userDir}/node_modules/@faststore`
 
 export const tmpFolderName = '.faststore'
-export const tmpDir = `${repoDir}/${tmpFolderName}`
+export const tmpDir = `${userDir}/${tmpFolderName}`
 
-export const coreDir = `${faststoreDir}/core`
+export const coreFolderName = 'core'
+export const coreDir = `${faststoreDir}/${coreFolderName}`
 
-export const customSrcDir = `${repoDir}/src`
+export const srcFolderName = 'src'
+export const userSrcDir = `${userDir}/${srcFolderName}`
 
 export const customizationsFolderName = 'customizations'
-export const customizationsDir = `${tmpDir}/src/${customizationsFolderName}`
+export const tmpCustomizationsDir = `${tmpDir}/src/${customizationsFolderName}`
 
-export const themesFileDir = `${customSrcDir}/themes`
-export const themeCustomizationsFileDir = `${customizationsDir}/themes/index.scss`
+export const userThemesFileDir = `${userSrcDir}/themes`
+export const tmpThemesCustomizationsFileDir = `${tmpCustomizationsDir}/themes/index.scss`
 
-export const CMSTmpDir = `${tmpDir}/cms`
-export const CMSCoreDir = `${coreDir}/cms`
-export const CMSCustomDir = `${repoDir}/cms`
+export const cmsFolderName = 'cms'
+export const tmpCMSDir = `${tmpDir}/${cmsFolderName}`
+export const coreCMSDir = `${coreDir}/${cmsFolderName}`
+export const userCMSDir = `${userDir}/${cmsFolderName}`
 
-export const storeConfigFileDir = `${repoDir}/store.config.js`
-export const storeConfigCoreFileDir = `${coreDir}/store.config.js`
-export const storeConfigTmpFileDir = `${tmpDir}/store.config.js`
+export const storeConfigFileName = 'store.config.js'
+export const userStoreConfigFileDir = `${userDir}/${storeConfigFileName}`
+export const coreStoreConfigFileDir = `${coreDir}/${storeConfigFileName}`
+export const tmpStoreConfigFileDir = `${tmpDir}/${storeConfigFileName}`
