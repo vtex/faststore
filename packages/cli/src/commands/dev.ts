@@ -66,6 +66,7 @@ export default class Dev extends Command {
     })
 
     await generate({ setup: true })
+    
     storeDev()
 
     return await new Promise((resolve, reject) => {
