@@ -39,8 +39,10 @@ function copyCoreFiles() {
   try {
     fse.copySync(coreDir, tmpDir, {
       filter(src) {
-        const splittedSrc = src.split('/')
-        return ignorePaths.indexOf(splittedSrc[splittedSrc.length - 1]) === -1
+        const fileOrDirName = src.split('/').pop()
+        const shouldCopy = fileOrDirName ? !ignorePaths.includes(fileOrDirName) : true
+        
+        return shouldCopy
       },
     })
   } catch (e) {
