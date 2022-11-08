@@ -1,5 +1,5 @@
-import type { LabelHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
+import type { LabelHTMLAttributes } from 'react'
 
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   /**
@@ -9,7 +9,7 @@ export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 }
 
 const Label = forwardRef<HTMLLabelElement, LabelProps>(function Label(
-  { testId = 'store-label', children, ...otherProps },
+  { testId = 'fs-label', children, ...otherProps }: LabelProps,
   ref
 ) {
   return (
