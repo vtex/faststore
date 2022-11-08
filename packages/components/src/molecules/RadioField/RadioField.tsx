@@ -1,4 +1,4 @@
-import { Radio, Label } from '@faststore/components'
+import { Radio, Label } from '../../index'
 import React, { forwardRef } from 'react'
 
 export type RadioFieldProps = {
