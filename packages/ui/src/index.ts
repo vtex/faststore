@@ -40,9 +40,6 @@ export type { SkeletonProps } from './components/atoms/Skeleton'
 export { default as Spinner } from './components/atoms/Spinner'
 export type { SpinnerProps } from './components/atoms/Spinner'
 
-export { default as Label } from './components/atoms/Label'
-export type { LabelProps } from './components/atoms/Label'
-
 export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'
 
