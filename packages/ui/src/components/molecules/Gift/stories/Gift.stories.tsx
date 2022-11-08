@@ -1,7 +1,7 @@
 import type { Story, Meta } from '@storybook/react'
 import React, { useMemo } from 'react'
 
-import Badge from '../../../atoms/Badge/Badge'
+import Badge from '@faststore/components'
 import Price from '../../../atoms/Price/Price'
 // Gift components
 import GiftComponent from '../Gift'
