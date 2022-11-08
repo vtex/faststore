@@ -1,5 +1,10 @@
-import fse from 'fs-extra'
-import fs from 'fs'
+import {
+  copyFileSync,
+  copySync,
+  mkdirsSync,
+  readFileSync,
+  writeFileSync,
+} from 'fs-extra'
 import deepmerge from 'deepmerge'
 
 import {
@@ -9,7 +14,6 @@ import {
   coreDir,
   tmpCustomizationsDir,
   userSrcDir,
-  userDir,
   userStoreConfigFileDir,
   coreStoreConfigFileDir,
   tmpStoreConfigFileDir,
@@ -27,7 +31,7 @@ const ignorePaths = ['node_modules']
 
 function createTmpFolder() {
   try {
-    fse.mkdirsSync(tmpDir)
+    mkdirsSync(tmpDir)
   } catch (err) {
     console.error(err)
   } finally {
@@ -37,11 +41,13 @@ function createTmpFolder() {
 
 function copyCoreFiles() {
   try {
-    fse.copySync(coreDir, tmpDir, {
+    copySync(coreDir, tmpDir, {
       filter(src) {
         const fileOrDirName = src.split('/').pop()
-        const shouldCopy = fileOrDirName ? !ignorePaths.includes(fileOrDirName) : true
-        
+        const shouldCopy = fileOrDirName
+          ? !ignorePaths.includes(fileOrDirName)
+          : true
+
         return shouldCopy
       },
     })
@@ -54,7 +60,7 @@ function copyCoreFiles() {
 
 function copyUserSrcToCustomizations() {
   try {
-    fse.copySync(userSrcDir, tmpCustomizationsDir)
+    copySync(userSrcDir, tmpCustomizationsDir)
   } catch (err) {
     console.error(err)
   } finally {
@@ -66,7 +72,7 @@ async function copyTheme() {
   const storeConfig = await import(userStoreConfigFileDir)
 
   try {
-    fs.copyFileSync(
+    copyFileSync(
       `${userThemesFileDir}/${storeConfig.theme}.scss`,
       tmpThemesCustomizationsFileDir
     )
@@ -78,21 +84,15 @@ async function copyTheme() {
 }
 
 function mergeCMSFile(fileName: string) {
-  const coreContentTypes = fs.readFileSync(`${coreCMSDir}/${fileName}`, 'utf8')
-  const customContentTypes = fs.readFileSync(
-    `${userCMSDir}/${fileName}`,
-    'utf8'
-  )
+  const coreContentTypes = readFileSync(`${coreCMSDir}/${fileName}`, 'utf8')
+  const customContentTypes = readFileSync(`${userCMSDir}/${fileName}`, 'utf8')
   const coreContentTypesJSON = JSON.parse(coreContentTypes)
   const customContentTypesJSON = JSON.parse(customContentTypes)
 
   const mergeContentTypes = [...coreContentTypesJSON, ...customContentTypesJSON]
 
   try {
-    fs.writeFileSync(
-      `${tmpCMSDir}/${fileName}`,
-      JSON.stringify(mergeContentTypes)
-    )
+    writeFileSync(`${tmpCMSDir}/${fileName}`, JSON.stringify(mergeContentTypes))
   } catch (err) {
     console.error(err)
   } finally {
@@ -114,7 +114,7 @@ async function copyStoreConfig() {
       storeConfigFromStore
     )
 
-    fs.writeFileSync(
+    writeFileSync(
       tmpStoreConfigFileDir,
       generateStoreConfigFile(mergedStoreConfig)
     )
@@ -127,7 +127,7 @@ async function copyStoreConfig() {
 
 function mergeCMSFiles() {
   try {
-    fse.mkdirsSync(`${tmpDir}/cms`)
+    mkdirsSync(`${tmpDir}/cms`)
   } catch (err) {
     console.error(err)
   } finally {
