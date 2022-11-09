@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.28](https://github.com/vtex/faststore/compare/v1.12.27...v1.12.28) (2022-11-09)
+
+
+### Features
+
+* adds start command to serve stores ([#1511](https://github.com/vtex/faststore/issues/1511)) ([9ef30b5](https://github.com/vtex/faststore/commit/9ef30b5e83c3518240d65235c4f84394ab0fc4cd))
+
+
+
 ## [1.12.27](https://github.com/vtex/faststore/compare/v1.12.26...v1.12.27) (2022-11-09)
 
 
