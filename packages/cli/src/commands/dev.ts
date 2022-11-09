@@ -1,16 +1,14 @@
 import { Command } from '@oclif/core'
-import { readFileSync } from 'fs'
-import { Readable } from 'stream'
-import { resolve as resolvePath, sep } from 'path'
 import chokidar from 'chokidar'
 
-import { getRoot } from '../utils/root'
+import { generate } from '../utils/generate'
+import { getRoot } from '../utils/directory'
 
-export interface ChangeToCopy {
-  path: string | null
-  content: string | Readable | Buffer | NodeJS.ReadableStream
-}
-
+/**
+ * Taken from toolbelt
+ * 
+ * https://github.com/vtex/toolbelt/pull/442
+ */
 const stabilityThreshold = process.platform === 'darwin' ? 100 : 200
 
 const defaultPatterns = ['*/**', '**']
@@ -29,27 +27,10 @@ const defaultIgnored = [
 
 export default class Dev extends Command {
   async run() {
-    const root = getRoot()
+    const queueChange = (/* path: string, remove: boolean */) => {
+      // getContentFromPath(path, remove)
 
-    const pathToChange = (path: string, remove?: boolean): ChangeToCopy => {
-      const content = remove
-        ? ''
-        : readFileSync(resolvePath(root, path)).toString('base64')
-
-      return {
-        content,
-        path: path.split(sep).join('/'),
-      }
-    }
-
-    const queueChange = (path: string, remove?: boolean) => {
-      pathToChange(path, remove)
-
-      copyChanges()
-    }
-
-    const copyChanges = () => {
-      /** copy changes to .faststore */
+      generate()
     }
 
     const watcher = chokidar.watch([...defaultPatterns], {
@@ -57,18 +38,20 @@ export default class Dev extends Command {
       awaitWriteFinish: {
         stabilityThreshold,
       },
-      cwd: root,
+      cwd: getRoot(),
       ignoreInitial: true,
       ignored: defaultIgnored,
       persistent: true,
       usePolling: process.platform === 'win32',
     })
 
+    await generate({ setup: true })
+
     await new Promise((resolve, reject) => {
       watcher
-        .on('add', (file) => queueChange(file))
-        .on('change', (file) => queueChange(file))
-        .on('unlink', (file) => queueChange(file, true))
+        .on('add', (/*file*/) => queueChange(/*file, false*/))
+        .on('change', (/*file*/) => queueChange(/*file, false*/))
+        .on('unlink', (/*file*/) => queueChange(/*file, true*/))
         .on('error', reject)
         .on('ready', resolve)
     })
