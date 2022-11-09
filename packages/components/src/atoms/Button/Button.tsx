@@ -1,0 +1,23 @@
+import type { ButtonHTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
+
+export interface ButtonProps<T = HTMLButtonElement>
+  extends ButtonHTMLAttributes<T> {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+}
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { children, testId = 'fs-button', ...otherProps },
+  ref
+) {
+  return (
+    <button ref={ref} data-fs-button data-testid={testId} {...otherProps}>
+      {children}
+    </button>
+  )
+})
+
+export default Button
