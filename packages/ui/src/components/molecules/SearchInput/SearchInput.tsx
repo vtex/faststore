@@ -6,8 +6,7 @@ import type {
 } from 'react'
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 
-import { Icon } from '@faststore/components'
-import Button from '../../atoms/Button'
+import { Icon, Button } from '@faststore/components'
 import Input from '../../atoms/Input'
 import Form from '../Form'
 

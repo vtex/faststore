@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react'
 import type { Meta, Story } from '@storybook/react'
 
 import { Caret } from './assets/Caret'
-import Button from '../../../atoms/Button'
+import { Button } from '@faststore/components'
 import type { DropdownProps } from '..'
 import Dropdown, { DropdownButton, DropdownItem, DropdownMenu } from '..'
 import mdx from './Dropdown.mdx'

@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 
-import Button from '../../atoms/Button'
-import type { ButtonProps } from '../../atoms/Button'
+import { Button } from '@faststore/components'
+import type { ButtonProps } from '@faststore/components'
 import Spinner from '../../atoms/Spinner'
 
 export interface LoadingButtonProps extends ButtonProps {
@@ -21,12 +21,7 @@ const LoadingButton = forwardRef<HTMLButtonElement, LoadingButtonProps>(
     ref
   ) {
     return (
-      <Button
-        ref={ref}
-        data-fs-loading-button
-        testId={testId}
-        {...otherProps}
-      >
+      <Button ref={ref} data-fs-loading-button testId={testId} {...otherProps}>
         {loading ? <Spinner /> : children}
       </Button>
     )

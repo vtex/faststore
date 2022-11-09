@@ -1,7 +1,7 @@
 import type { HTMLAttributes, MouseEvent } from 'react'
 import React, { forwardRef, useMemo } from 'react'
 
-import Button from '../../atoms/Button'
+import { Button } from '@faststore/components'
 
 export interface BulletsProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick' | 'role'> {
