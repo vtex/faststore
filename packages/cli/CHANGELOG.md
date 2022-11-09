@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.27](https://github.com/vtex/faststore/compare/v1.12.26...v1.12.27) (2022-11-09)
+
+
+### Features
+
+* add build command ([#1506](https://github.com/vtex/faststore/issues/1506)) ([f9dfa41](https://github.com/vtex/faststore/commit/f9dfa41998935e839b172cba5ec2eee760b06fb0))
+
+
+
 ## [1.12.26](https://github.com/vtex/faststore/compare/v1.12.25...v1.12.26) (2022-11-09)
 
 
