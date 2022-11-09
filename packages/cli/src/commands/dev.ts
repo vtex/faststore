@@ -1,8 +1,9 @@
 import { Command } from '@oclif/core'
 import chokidar from 'chokidar'
+import { spawn } from 'child_process'
 
 import { generate } from '../utils/generate'
-import { getRoot } from '../utils/directory'
+import { getRoot, tmpDir } from '../utils/directory'
 
 /**
  * Taken from toolbelt
@@ -25,6 +26,21 @@ const defaultIgnored = [
   '**/.faststore/**',
 ]
 
+const devAbortController = new AbortController()
+
+async function storeDev() {
+  const devProcess = spawn('yarn develop', {
+    shell: true,
+    cwd: tmpDir,
+    signal: devAbortController.signal,
+    stdio: 'inherit',
+  })
+
+  devProcess.on('close', () => {
+    devAbortController.abort()
+  })
+}
+
 export default class Dev extends Command {
   async run() {
     const queueChange = (/* path: string, remove: boolean */) => {
@@ -45,14 +61,23 @@ export default class Dev extends Command {
       usePolling: process.platform === 'win32',
     })
 
-    await generate({ setup: true })
+    devAbortController.signal.addEventListener('abort', () => {
+      watcher.close()
+    })
 
-    await new Promise((resolve, reject) => {
+    await generate({ setup: true })
+    
+    storeDev()
+
+    return await new Promise((resolve, reject) => {
       watcher
         .on('add', (/*file*/) => queueChange(/*file, false*/))
         .on('change', (/*file*/) => queueChange(/*file, false*/))
         .on('unlink', (/*file*/) => queueChange(/*file, true*/))
-        .on('error', reject)
+        .on('error', () => {
+          devAbortController.abort()
+          reject()
+        })
         .on('ready', resolve)
     })
   }

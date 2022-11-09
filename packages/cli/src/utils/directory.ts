@@ -33,3 +33,6 @@ export const storeConfigFileName = 'store.config.js'
 export const userStoreConfigFileDir = `${userDir}/${storeConfigFileName}`
 export const coreStoreConfigFileDir = `${coreDir}/${storeConfigFileName}`
 export const tmpStoreConfigFileDir = `${tmpDir}/${storeConfigFileName}`
+
+export const userNodeModulesDir = `${userDir}/node_modules`
+export const tmpNodeModulesDir = `${tmpDir}/node_modules`
