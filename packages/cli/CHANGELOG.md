@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.26](https://github.com/vtex/faststore/compare/v1.12.25...v1.12.26) (2022-11-09)
+
+
+### Features
+
+* adds develop command when running faststore dev ([#1500](https://github.com/vtex/faststore/issues/1500)) ([ff6bad5](https://github.com/vtex/faststore/commit/ff6bad5abfd674eec62aee5ad1f467dbcbaa51b0))
+
+
+
 ## [1.12.25](https://github.com/vtex/faststore/compare/v1.12.24...v1.12.25) (2022-11-09)
 
 **Note:** Version bump only for package @faststore/cli
