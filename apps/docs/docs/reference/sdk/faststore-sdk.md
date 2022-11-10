@@ -23,7 +23,7 @@ Learn more about how to validate the cart in the shopper's browser against the i
 
 ## Session
 
-The session module manages the state of session information in the shopper's browser. This includes currency, channel, localization and shopper data. Learn more about the [session SDK module](/reference/sdk/session).
+The session module manages the state of session information in the shopper's browser. This includes currency, channel, localization and shopper data. Learn more about the [session SDK module](/reference/sdk/session) data structure and usage.
 
 :::info
 Learn more about how to validate session data in the shopper's browser against the data in the platform with [FastStore API mutations](/reference/api/mutations).
