@@ -1,0 +1,33 @@
+# Midnight
+
+A darkmode theme created for testing purposes.
+
+![](https://vtexhelp.vtexassets.com/assets/docs/src/midnight___2bb274e36a39ff9c2cfa3dcc740cbfab.png)
+
+## Use `midnight` as your theme
+
+1. Import `midnight.scss` file on `src/pages/_app.tsx`
+
+```jsx
+import '../styles/themes/midnight.scss'
+```
+
+2. Go to `store.config.js` and change the `theme` to your file's name:
+
+```js
+// Theming
+theme: 'midnight',
+```
+
+3. Add the [Raleway](https://fonts.google.com/specimen/Raleway?query=raleway) font on `src/fonts/WebFonts.tsx`
+
+```tsx
+function WebFonts() {
+  return (
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&display=swap"
+    />
+  )
+}
+```

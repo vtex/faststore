@@ -1,0 +1,80 @@
+---
+hide_table_of_contents: true
+---
+
+import Link from '@docusaurus/Link'
+
+# Customizing
+
+**Design tokens** are parameters that affect all UI look 'n' feel and they are the **main configuration** file of a Theme. Component-specific tokens often inherit from global tokens but are named specifically to apply those tokens in component development.
+
+## Global Tokens
+
+FastStore uses a default theme called `Brandless`, which provides structural styles for your components and pages. Please read <a href="../?path=/docs/theming-brandless--page">Brandless's page</a> to further information about our themeable architecture.
+
+Its presets are defined on `src/styles/global/tokens.scss` and it's separated in these main areas:
+
+<div className="flex flex-row flex-wrap justify-between">
+<Link to="/how-to-guides/styling/global-tokens/colors" className="w-1/3 hover:no-underline text-text">
+<div className="h-36 w-full rounded-md mb-4 customizingCard">
+<img className="block mx-auto py-4 w-2/6 notClickable" src='https://vtexhelp.vtexassets.com/assets/docs/src/colors___038effcf345acf3d037bc63ed8671455.png'/>
+</div>
+<h3>Colors</h3>
+<p>The store palette with all the tones needed.</p>
+</Link>
+<Link to="/how-to-guides/styling/global-tokens/typography" className="w-1/3 px-4 hover:no-underline text-text">
+<div className="h-36 w-full rounded-md mb-4 bg-whiteIce">
+<img className="block mx-auto py-4 w-2/6 notClickable" src='https://vtexhelp.vtexassets.com/assets/docs/src/typography___318fbc78202402728a2113e63b47241f.png'/>
+</div>
+<h3>Typography</h3>
+<p>A standard scale and basic definitions for your text: <code>font family</code>,<code>weight</code> and <code>sizes</code>.</p>
+</Link>
+<Link to="/how-to-guides/styling/global-tokens/spacing" className="w-1/3 hover:no-underline text-text">
+<div className="h-36 w-full rounded-md mb-4 customizingCard">
+<img className="block mx-auto py-4 w-2/6 notClickable" src='https://vtexhelp.vtexassets.com/assets/docs/src/spacing___ca1d02b0bcc238811347eddc66a807ad.png'/>
+</div>
+<h3>Spacing</h3>
+<p>All tokens used for spacings on the store: <code>padding</code>, <code>margins</code> and <code>sizes</code>. It's also used as base for grid tokens.</p>
+</Link>
+<Link to="/how-to-guides/styling/global-tokens/grid-and-layout" className="w-1/3 hover:no-underline text-text">
+<div className="h-36 w-full rounded-md mb-4 bg-whiteIce">
+<img className="block mx-auto py-4 w-2/6 notClickable" src="https://vtexhelp.vtexassets.com/assets/docs/src/grid___6dfb4949712be94273bc119b7945babf.png"/>
+</div>
+<h3>Grid & Layout</h3>
+<p><code>Padding</code>, <code>Container</code>, <code>Gaps</code> and <code>Breakpoints</code> definitions.</p>
+</Link>
+<Link to="/how-to-guides/styling/global-tokens/interactive-controls" className="w-1/3 hover:no-underline px-4 text-text">
+<div className="h-36 w-full rounded-md mb-4 customizingCard">
+<img className="block mx-auto py-4 w-2/6 notClickable" src="https://vtexhelp.vtexassets.com/assets/docs/src/controls___a8302bd539d61653e60cb0aacd1c18e7.png"/>
+</div>
+<h3>Interactive Controls</h3>
+<p><code>Tap</code>, <code>States</code> and <code>Sizing</code> definitions.</p>
+</Link>
+<Link to="/how-to-guides/styling/global-tokens/refinements" className="w-1/3 hover:no-underline text-text">
+<div className="h-36 w-full rounded-md mb-4 bg-whiteIce">
+<img className="block mx-auto py-4 w-2/6 notClickable" src="https://vtexhelp.vtexassets.com/assets/docs/src/refinements___ca4c7814b2771e84601f4a6d457612fd.png"/>
+</div>
+<h3>Refinements</h3>
+<p><code>Transition</code>, <code>Borders</code> and <code>Shadow</code> definitions.</p>
+</Link>
+</div>
+
+---
+
+## Build your new theme
+
+1. Create a new `.scss` file on `src/styles/themes` and overwrite the tokens you want: e.g. `my-theme.scss`
+2. Import `my-theme.scss` file on `src/pages/_app.tsx`
+
+```jsx
+import '../styles/themes/my-theme.scss'
+```
+
+3. Go to `store.config.js` and change the `theme` to your file's name:
+
+```js
+// Theming
+theme: 'my-theme',
+```
+
+If you want, you can work on `custom-theme.scss` file that's ready to use. Also, we provide two themes as examples: [soft-blue](?path=/docs/theming-themes-soft-blue--page) and [midnight](?path=/docs/theming-themes-midnight--page).

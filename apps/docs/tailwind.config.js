@@ -26,6 +26,7 @@ module.exports = {
         text: infima('--ifm-font-color-base'),
         details: infima('--ifm-color-details'),
         border: infima('--ifm-hr-border-color'),
+        brandlessBlue: '#00419e'
       },
     },
   },

@@ -1,0 +1,33 @@
+# Soft Blue
+
+A basic theme created for testing purposes.
+
+![](https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___b51efd8dd7623f9493efd77180ffc618.png)
+
+## Use `soft-blue` as your theme
+
+1. Import `soft-blue.scss` file on `src/pages/_app.tsx`
+
+```jsx
+import '../styles/themes/soft-blue.scss'
+```
+
+2. Go to `store.config.js` and change the `theme` to your file's name:
+
+```js
+// Theming
+theme: 'soft-blue',
+```
+
+3. Add the [Lato](https://fonts.google.com/specimen/Lato?query=lato) font on `src/fonts/WebFonts.tsx`
+
+```tsx
+function WebFonts() {
+  return (
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
+    />
+  )
+}
+```
