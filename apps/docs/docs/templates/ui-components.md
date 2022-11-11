@@ -15,7 +15,7 @@ Example: The _add component name_ component are _add component meaning_ used to 
 ## Overview
 
 ```tsx live
-<div>List components variants/types here if applicable</div>
+<div>List component variants/types here if applicable</div>
 ```
 
 ## Import
