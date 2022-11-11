@@ -21,6 +21,10 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * Defines the use of inverted colors.
    */
   inverse?: boolean
+  /**
+   * Specifies that this button should be disabled
+   */
+  disabled?: boolean
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -30,6 +34,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     inverse,
     size = 'regular',
     testId = 'fs-button',
+    disabled,
     ...otherProps
   },
   ref
@@ -42,6 +47,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       data-fs-button-inverse={inverse}
       data-fs-button-size={size}
       data-fs-button-variant={variant}
+      disabled={disabled}
       {...otherProps}
     >
       {children}
