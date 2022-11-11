@@ -31,17 +31,501 @@ Buttons indicate actions that users can take, such as adding an item to the cart
 
 ## Import
 
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
 ```tsx
 import { Button } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Button/styles.scss'
 ```
 
 ## Usage
 
 ```tsx live
-<Button>Hello</Button>
+<Button variant="primary">Add to Cart</Button>
 ```
 
-### Use cases
+## Props
+
+<PropsSection name="Button" />
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-padding"
+    value="calc(var(--fs-spacing-1) - (var(--fs-button-border-width) * 2)) var(--fs-spacing-3)"
+  />
+  <TokenRow token="--fs-button-height" value="var(--fs-control-tap-size)" />
+  <TokenRow token="--fs-button-gap" value="var(--fs-spacing-2)" />
+  <TokenDivider />
+  <TokenRow token="--fs-button-shadow" value="var(--fs-shadow)" />
+  <TokenRow token="--fs-button-shadow-hover" value="var(--fs-button-shadow)" />
+  <TokenDivider />
+  <TokenRow token="--fs-button-border-radius" value="var(--fs-border-radius)" />
+  <TokenRow
+    token="--fs-button-border-width"
+    value="var(--fs-border-width-thick)"
+  />
+  <TokenRow token="--fs-button-border-color" value="transparent" isColor />
+  <TokenDivider />
+  <TokenRow token="--fs-button-text-size" value="var(--fs-text-size-base)" />
+  <TokenRow
+    token="--fs-button-text-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-button-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-button-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-button-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+---
+
+## Hierarchy
+
+### Primay
+
+```tsx live
+<Button variant="primay">Button</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-primary-text-color"
+    value="var(--fs-color-primary-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-text-color-hover"
+    value="var(--fs-button-primary-text-color)"
+    isColor
+    globalValue="var(--fs-color-primary-text)"
+  />
+  <TokenRow
+    token="--fs-button-primary-text-color-active"
+    value="var(--fs-button-primary-text-color)"
+    isColor
+    globalValue="var(--fs-color-primary-text)"
+  />
+  <TokenRow
+    token="--fs-button-primary-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-bkg-color-active"
+    value="var(--fs-color-primary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-border-color"
+    value="transparent"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-border-color-hover"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-border-color-active"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+### Primary Inverse
+
+```tsx live
+<div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
+  <Button inverse variant="primary">
+    Button
+  </Button>
+</div>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-primary-inverse-text-color"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-text-color-hover"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-text-color-active"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-bkg-color"
+    value="var(--fs-button-primary-text-color)"
+    isColor
+    globalValue="var(--fs-color-primary-text)"
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-bkg-color-active"
+    value="var(--fs-color-primary-bkg-light-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-border-color"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-border-color-hover"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-border-color-active"
+    value="var(--fs-button-primary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-primary-inverse-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+### Secondary
+
+```tsx live
+<Button variant="secondary">Button</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-secondary-text-color"
+    value="var(--fs-color-secondary-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-text-color-hover"
+    value="var(--fs-color-text-inverse)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-text-color-active"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-bkg-color"
+    value="var(--fs-color-secondary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-bkg-color-hover"
+    value="var(--fs-color-secondary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-bkg-color-active"
+    value="var(--fs-color-secondary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-border-color"
+    value="var(--fs-button-secondary-text-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-text)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-border-color-hover"
+    value="var(--fs-button-secondary-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg-hover)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-border-color-active"
+    value="var(--fs-button-secondary-bkg-color-active)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg-active)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+### Secondary Inverse
+
+```tsx live
+<div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
+  <Button inverse variant="secondary">
+    Button
+  </Button>
+</div>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-secondary-inverse-text-color"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-text-color-hover"
+    value="var(--fs-button-secondary-text-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-text)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-text-color-active"
+    value="var(--fs-button-secondary-inverse-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-secondary-text)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-bkg-color"
+    value="var(--fs-button-secondary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-bkg-color-hover"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-bkg-color-active"
+    value="var(--fs-color-secondary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-border-color"
+    value="var(--fs-button-secondary-inverse-text-color)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-border-color-hover"
+    value="var(--fs-button-secondary-inverse-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-border-color-active"
+    value="var(--fs-button-secondary-inverse-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg-light)"
+  />
+  <TokenRow
+    token="--fs-button-secondary-inverse-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+### Tertiary
+
+```tsx live
+<Button variant="tertiary">Button</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-tertiary-text-color"
+    value="var(--fs-color-tertiary-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-text-color-hover"
+    value="var(--fs-button-tertiary-text-color)"
+    isColor
+    globalValue="var(--fs-color-tertiary-text)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-text-color-active"
+    value="var(--fs-button-primary-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-bkg-color"
+    value="var(--fs-color-tertiary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-bkg-color-hover"
+    value="var(--fs-color-tertiary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-bkg-color-active"
+    value="var(--fs-color-tertiary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-border-color"
+    value="transparent"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-border-color-hover"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-border-color-active"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+### Tertiary Inverse
+
+```tsx live
+<div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
+  <Button inverse variant="tertiary">
+    Button
+  </Button>
+</div>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-tertiary-inverse-text-color"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-text-color-hover"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-text-color-active"
+    value="var(--fs-button-secondary-text-color-hover)"
+    isColor
+    globalValue="var(--fs-color-text-inverse)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-bkg-color"
+    value="var(--fs-button-secondary-inverse-bkg-color)"
+    isColor
+    globalValue="var(--fs-color-secondary-bkg)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-bkg-color-hover"
+    value="var(--fs-button-primary-bkg-color-hover)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg-hover)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-bkg-color-active"
+    value="var(--fs-button-primary-bkg-color-active)"
+    isColor
+    globalValue="var(--fs-color-primary-bkg-active)"
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-border-color"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-border-color-hover"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-border-color-active"
+    value="var(--fs-button-tertiary-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-tertiary-inverse-shadow-hover"
+    value="var(--fs-button-shadow-hover)"
+  />
+</TokenTable>
+
+---
+
+## Variants
+
+### Disabled
+
+```tsx live
+<Button variant="primary" disabled>
+  Button
+</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-button-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+</TokenTable>
+
+### Small
+
+```tsx live
+<Button variant="primary" size="small">
+  Button
+</Button>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-button-small-padding"
+    value="var(--fs-spacing-0) var(--fs-spacing-1)"
+  />
+  <TokenRow token="--fs-button-small-min-height" value="var(--fs-spacing-5)" />
+  <TokenRow token="--fs-button-small-gap" value="var(--fs-spacing-1)" />
+</TokenTable>
+
+## Use cases
 
 Use the `Button` component to communicate user actions on the following components:
 
@@ -50,23 +534,9 @@ Use the `Button` component to communicate user actions on the following componen
 - Submit and/or withdraw actions on [Forms](/reference/ui/molecules/Form)
 - Submit and/or withdraw actions on [Modal](/reference/ui/molecules/Modal) windows.
 
-```tsx live
-<Card>
-  <img
-    alt="A vintage camera"
-    src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
-  />
-  <div>
-    <Button class="bg-green-500">ADD TO CART</Button>
-  </div>
-</Card>
-```
-
-## Props
-
-<PropsSection name="Button" />
-
 ## Customization
+
+For further customization, you can use the following data attributes:
 
 `data-fs-button`
 
