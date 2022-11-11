@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import '@faststore/styles'
+// import '../../../../../packages/styles'
 
 import React, { useEffect, useState } from 'react'
 import * as UI from '@faststore/ui'
@@ -13,10 +13,11 @@ const value = 3
 const decimalValue = 3.5
 
 const FireIcon = (props) => {
-  const conditionalClass = props["data-fs-aggregate-rating-item"] === "full" ? "text-orange-500" : "text-details"
-  return (
-    <i className={`fa fa-fire mr-1 text-2xl ${conditionalClass}`}></i>
-  )
+  const conditionalClass =
+    props['data-fs-aggregate-rating-item'] === 'full'
+      ? 'text-orange-500'
+      : 'text-details'
+  return <i className={`fa fa-fire mr-1 text-2xl ${conditionalClass}`}></i>
 }
 
 const RatingIcon = (props) => {
