@@ -1,4 +1,5 @@
-import { Radio, Label } from '../../index'
+import Label from '../../atoms/Label'
+import Radio from '../../atoms/Radio'
 import React, { forwardRef } from 'react'
 
 export type RadioFieldProps = {
