@@ -10,12 +10,12 @@ import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 Briefly describe the component and its functions.
 
-Example: The _add component name_ component are _add component meaning_ used to _add the component function_.
+Example: The _add component name_ component is _add component meaning_ used to _add the component function_.
 
 ## Overview
 
 ```tsx live
-<div>List components variants/types here if applicable</div>
+<div>List component variants/types here if applicable</div>
 ```
 
 ## Import
