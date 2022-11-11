@@ -124,7 +124,7 @@
   // Variants Styles
   // --------------------------------------------------------
 
-  &[data-fs-button-color] {
+  &[data-fs-button-variant] {
     @include focus-ring-visible;
 
     &:disabled, &[data-button-disabled="true"] {
@@ -149,7 +149,7 @@
     padding: var(--fs-button-small-padding);
   }
 
-  &[data-fs-button-color="primary"] {
+  &[data-fs-button-variant="primary"] {
     color: var(--fs-button-primary-text-color);
     background-color: var(--fs-button-primary-bkg-color);
     border: var(--fs-button-border-width) solid var(--fs-button-primary-border-color);
@@ -197,7 +197,7 @@
     }
   }
 
-  &[data-fs-button-color="secondary"] {
+  &[data-fs-button-variant="secondary"] {
     color: var(--fs-button-secondary-text-color);
     background-color: var(--fs-button-secondary-bkg-color);
     border: var(--fs-button-border-width) solid var(--fs-button-secondary-border-color);
@@ -245,7 +245,7 @@
     }
   }
 
-  &[data-fs-button-color="tertiary"] {
+  &[data-fs-button-variant="tertiary"] {
     color: var(--fs-button-tertiary-text-color);
     background-color: var(--fs-button-tertiary-bkg-color);
     border: var(--fs-button-border-width) solid var(--fs-button-tertiary-border-color);
@@ -291,11 +291,5 @@
         border-color: var(--fs-button-tertiary-inverse-border-color-active);
       }
     }
-  }
-
-  &[data-fs-button-variant="link"] {
-    &:hover { text-decoration: none; }
-
-    &[data-button-disabled="true"] { pointer-events: none; }
   }
 }

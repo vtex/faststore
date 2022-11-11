@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-export type Color = 'primary' | 'secondary' | 'tertiary'
+export type Variant = 'primary' | 'secondary' | 'tertiary'
 export type Size = 'small' | 'regular'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,7 +12,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Specifies the component color variant.
    */
-  color?: Color
+  variant?: Variant
   /**
    * Specifies the size variant.
    */
@@ -26,7 +26,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     children,
-    color,
+    variant,
     inverse,
     size = 'regular',
     testId = 'fs-button',
@@ -41,7 +41,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       data-fs-button
       data-fs-button-inverse={inverse}
       data-fs-button-size={size}
-      data-fs-button-color={color}
+      data-fs-button-variant={variant}
       {...otherProps}
     >
       {children}
