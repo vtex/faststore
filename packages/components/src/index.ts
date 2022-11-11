@@ -1,3 +1,4 @@
+// Atoms
 export { default as Icon } from './atoms/Icon'
 export type { IconProps } from './atoms/Icon'
 export { default as Radio } from './atoms/Radio'
@@ -6,3 +7,7 @@ export { default as Badge } from './atoms/Badge'
 export type { BadgeProps } from './atoms/Badge'
 export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
+
+// Molecules
+export { default as RadioField } from './molecules/RadioField'
+export type { RadioFieldProps } from './molecules/RadioField'
