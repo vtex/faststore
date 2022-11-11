@@ -27,7 +27,7 @@ export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
    */
   counter?: boolean
   /**
-   * For accessibility purposes, defines an ARIA label to the element when counter badge
+   * For accessibility purposes, adds an ARIA label to the element when `counter` is set to `true`.
    */
   'aria-label'?: AriaAttributes['aria-label']
   children?: ReactNode
