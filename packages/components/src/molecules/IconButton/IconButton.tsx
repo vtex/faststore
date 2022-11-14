@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Icon, Button } from '@faststore/components'
-import type { ButtonProps } from '@faststore/components'
+import { Icon, Button } from '../../index'
+import type { ButtonProps } from '../../index'
 
 export type IconPosition = 'left' | 'right'
 

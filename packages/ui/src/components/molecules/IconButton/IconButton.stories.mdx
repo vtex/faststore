@@ -1,0 +1,39 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { IconButton } from '@faststore/components'
+import ShoppingCartIcon from '../../../assets/ShoppingCart.tsx'
+
+<Meta title="Molecules/IconButton" component={IconButton} argTypes={{}} />
+
+export const Template = (args) => (
+  <IconButton icon={<ShoppingCartIcon />} aria-label="Buy" />
+)
+
+<header>
+
+# IconButton
+
+</header>
+
+## Usage
+
+```jsx
+import { IconButton } from '@faststore/ui'
+// Styles
+import '@faststore/ui/src/components/molecules/IconButton/styles.scss'
+```
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      id: 'icon-button-default',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />
+
+This component inherits [Button](?path=/docs/atoms-button--button#css-selectors) css selectors.

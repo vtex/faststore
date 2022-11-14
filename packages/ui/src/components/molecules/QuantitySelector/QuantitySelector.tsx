@@ -3,8 +3,8 @@ import React, { forwardRef } from 'react'
 
 import type { InputProps } from '../../atoms/Input'
 import Input from '../../atoms/Input'
-import type { IconButtonProps } from '../IconButton'
-import IconButton from '../IconButton'
+import type { IconButtonProps } from '../../../index'
+import { IconButton } from '../../../index'
 
 export interface QuantitySelectorProps
   extends InputHTMLAttributes<HTMLDivElement> {
