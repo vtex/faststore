@@ -1,0 +1,45 @@
+"""
+Address information.
+"""
+type Address {
+  """
+  Address postal code
+  """
+  postalCode: String
+  """
+  Address city
+  """
+  city: String
+  """
+  Address state
+  """
+  state: String
+  """
+  Address country
+  """
+  country: String
+  """
+  Address street
+  """
+  street: String
+  """
+  Address number
+  """
+  number: String
+  """
+  Address neighborhood
+  """
+  neighborhood: String
+  """
+  Address complement
+  """
+  complement: String
+  """
+  Address reference
+  """
+  reference: String
+  """
+  Address geoCoordinates
+  """
+  geoCoordinates: [Float]
+}
