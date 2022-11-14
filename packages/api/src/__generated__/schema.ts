@@ -456,6 +456,8 @@ export type ShippingSla = {
   deliveryChannel?: Maybe<Scalars['String']>;
   /** List of ShippingSLA delivery ids. */
   deliveryIds?: Maybe<Array<Maybe<DeliveryIds>>>;
+  /** ShippingSLA friendly name. */
+  friendlyName?: Maybe<Scalars['String']>;
   /** ShippingSLA id. */
   id?: Maybe<Scalars['String']>;
   /**

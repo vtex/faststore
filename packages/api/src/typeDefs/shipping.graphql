@@ -147,6 +147,10 @@ type ShippingSLA {
   """
   deliveryChannel: String
   """
+  ShippingSLA friendly name.
+  """
+  friendlyName: String
+  """
   ShippingSLA carrier.
   """
   carrier: String
