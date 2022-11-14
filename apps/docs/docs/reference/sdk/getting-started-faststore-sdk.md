@@ -26,3 +26,13 @@ const MyStoreComponent: FC = () => {
   return <MyComponent props>Hello Commerce</MyComponent>
 }
 ```
+
+You can also check browser data managed by the SDK when running your project locally. To do that, follow these steps:
+
+1. Run the command `yarn run develop` on the root of your FastStore project.
+2. Go to the local project preview at `http://localhost:3000`.
+3. Open the browser's console and run the command `faststore_sdk_stores.get("fs::session").read()` for session data or `faststore_sdk_stores.get("fs::session").read()` for shopping cart data.
+
+:::info
+This method only works for checking session and shopping cart browser data. Learn more about the [analytics](/reference/sdk/analytics) and [search](/reference/sdk/search) modules.
+:::
