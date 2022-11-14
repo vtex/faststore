@@ -10,7 +10,7 @@ yarn add @faststore/sdk
 
 ## Usage
 
-The FastStore SDK makes available different functions that help you manage key [ecommerce features](/reference/sdk/faststore-sdk). To use them, simply import them from `@faststore/sdk`.
+The FastStore SDK makes available different functions that help you manage key [ecommerce features](/reference/sdk/faststore-sdk). To use them, import them from `@faststore/sdk`.
 
 Below you can see a generic example of how to import and use a hypothetic SDK hook called `useHook`.
 
