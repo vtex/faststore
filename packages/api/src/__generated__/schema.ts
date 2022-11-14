@@ -450,16 +450,19 @@ export type ShippingData = {
 
 export type ShippingSla = {
   __typename?: 'ShippingSLA';
+  /** ShippingSLA carrier. */
+  carrier?: Maybe<Scalars['String']>;
   /** ShippingSLA delivery channel. */
   deliveryChannel?: Maybe<Scalars['String']>;
   /** List of ShippingSLA delivery ids. */
   deliveryIds?: Maybe<Array<Maybe<DeliveryIds>>>;
-  /** ShippingSLA friendly name. */
-  friendlyName?: Maybe<Scalars['String']>;
-  /** ShippingSLA friendly shipping estimate. */
-  friendlyShippingEstimate?: Maybe<Scalars['String']>;
   /** ShippingSLA id. */
   id?: Maybe<Scalars['String']>;
+  /**
+   * ShippingSLA localized shipping estimate.
+   * Note: this will always return a localized string for locale `en-US`.
+   */
+  localizedEstimates?: Maybe<Scalars['String']>;
   /** ShippingSLA name. */
   name?: Maybe<Scalars['String']>;
   /** ShippingSLA pickup distance. */

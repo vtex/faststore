@@ -130,9 +130,10 @@ type ShippingSLA {
   """
   shippingEstimate: String
   """
-  ShippingSLA friendly shipping estimate.
+  ShippingSLA localized shipping estimate.
+  Note: this will always return a localized string for locale `en-US`.
   """
-  friendlyShippingEstimate: String
+  localizedEstimates: String
   """
   ShippingSLA shipping estimate date.
   """
@@ -146,9 +147,9 @@ type ShippingSLA {
   """
   deliveryChannel: String
   """
-  ShippingSLA friendly name.
+  ShippingSLA carrier.
   """
-  friendlyName: String
+  carrier: String
   """
   ShippingSLA pickup point id.
   """
