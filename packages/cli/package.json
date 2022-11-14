@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "1.12.20",
+  "version": "1.12.28",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
@@ -21,11 +21,14 @@
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-not-found": "^2.3.3",
     "chokidar": "^3.5.3",
+    "deepmerge": "^4.2.2",
+    "fs-extra": "^10.1.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
     "@faststore/shared": "^1.12.20",
     "@types/chai": "^4",
+    "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.63",
     "chai": "^4",
     "oclif": "^3",
@@ -53,7 +56,7 @@
     "version": "oclif readme && git add README.md"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16.0.0"
   },
   "bugs": "https://github.com/vtex/faststore/issues",
   "keywords": [
