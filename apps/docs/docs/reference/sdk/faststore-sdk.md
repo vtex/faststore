@@ -8,14 +8,14 @@ FastStore SDK provides tools that help you deal with key ecommerce features:
 - [Analytics](#analytics)
 
 :::info
-Note that the SDK manages these aspects of your store in the context of shoppers' browsers. This means, for example, that functions related to cart and session, do not necessarily send requests to the [FastStore API](/reference/api/faststore-api). In this case, the goal is to manage information in the browser, that can then be validated in the platform with the appropriate [mutations](/reference/api/mutations).
+Note that because these aspects are managed within the browser context, SDK functions do not necessarily send requests to the [FastStore API](/reference/api/faststore-api). To send information from the browser to the VTEX platform, it is necessary to use the appropriate [mutations](/reference/api/mutations).
 :::
 
 Each of the features mentioned above has different properties and behaviors. Below you can learn more about each of them.
 
 ## Shopping cart
 
-The SDK Cart module controls the state of the shopping cart data structure in the shopper's browser. You can use them to add items to the cart, remove items, and clear the cart, among other tasks. Learn more about [shopping cart functions](/reference/sdk/cart/useCart).
+The Cart module controls the state of the shopping cart data structure in the shopper's browser. You can use them to add items to the cart, remove items, and clear the cart, among other tasks. Learn more about [shopping cart functions](/reference/sdk/cart/useCart).
 
 :::info
 Learn more about how to validate the cart in the shopper's browser against the information in the platform with [FastStore API mutations](/reference/api/mutations).
