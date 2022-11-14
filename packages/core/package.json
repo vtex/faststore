@@ -30,7 +30,7 @@
     "@envelop/graphql-jit": "^1.1.1",
     "@envelop/parser-cache": "^2.2.0",
     "@envelop/validation-cache": "^2.2.0",
-    "@faststore/api": "^1.12.17",
+    "@faststore/api": "^1.12.29",
     "@faststore/graphql-utils": "^1.11.8",
     "@faststore/sdk": "^1.11.8",
     "@faststore/ui": "^1.12.23",

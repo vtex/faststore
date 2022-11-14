@@ -1,3 +1,4 @@
+import type { IShippingItem } from '@faststore/api'
 import { Table, TableBody, TableCell, TableRow } from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
@@ -16,14 +17,19 @@ interface ShippingSimulationProps extends HTMLAttributes<HTMLDivElement> {
    * testing-library, and jest).
    */
   testId?: string
+  /**
+   * Object used for simulating shippings
+   */
+  shippingItem: IShippingItem
 }
 
 function ShippingSimulation({
   testId = 'store-shipping-simulation',
+  shippingItem,
   ...otherProps
 }: ShippingSimulationProps) {
   const { dispatch, input, shippingSimulation, handleSubmit, handleOnInput } =
-    useShippingSimulation()
+    useShippingSimulation(shippingItem)
 
   const {
     postalCode: shippingPostalCode,
@@ -87,14 +93,16 @@ function ShippingSimulation({
                     {option.carrier}
                   </TableCell>
                   <TableCell data-fs-shipping-simulation-table-cell>
-                    {option.estimate}
+                    {option.localizedEstimates}
                   </TableCell>
                   <TableCell data-fs-shipping-simulation-table-cell>
-                    <Price
-                      formatter={formatter}
-                      value={option.price}
-                      SRText="price"
-                    />
+                    {option.price && (
+                      <Price
+                        formatter={formatter}
+                        value={option.price}
+                        SRText="price"
+                      />
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
