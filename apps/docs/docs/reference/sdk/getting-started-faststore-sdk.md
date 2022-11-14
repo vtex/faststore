@@ -34,5 +34,5 @@ You can also check browser data managed by the SDK when running your project loc
 3. Open the browser's console and run the command `faststore_sdk_stores.get("fs::session").read()` for session data or `faststore_sdk_stores.get("fs::session").read()` for shopping cart data.
 
 :::info
-This method only works for checking session and shopping cart browser data. Learn more about the [analytics](/reference/sdk/analytics) and [search](/reference/sdk/search) modules.
+This method only works for checking session and shopping cart browser data. Learn more about the [Analytics](/reference/sdk/analytics) and [Search](/reference/sdk/search) modules.
 :::
