@@ -6,8 +6,7 @@ import type { ButtonProps } from '../../index'
 
 export type IconPosition = 'left' | 'right'
 
-export interface IconButtonProps
-  extends Omit<ButtonProps, 'children' | 'aria-label'> {
+export interface IconButtonProps extends Omit<ButtonProps, 'aria-label'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -33,12 +32,21 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       testId = 'fs-icon-button',
       iconPosition = 'left',
       children,
-      ...buttonProps
+      'aria-label': ariaLabel,
+      ...otherProps
     },
     ref
   ) {
+    const isButtonIcon = icon && !children
     return (
-      <Button ref={ref} data-fs-icon-button testId={testId} {...buttonProps}>
+      <Button
+        ref={ref}
+        data-fs-button
+        data-fs-icon-button
+        data-fs-button-icon={isButtonIcon}
+        testId={testId}
+        {...otherProps}
+      >
         {iconPosition === 'left' && <Icon component={icon} />}
         {children}
         {iconPosition === 'right' && <Icon component={icon} />}

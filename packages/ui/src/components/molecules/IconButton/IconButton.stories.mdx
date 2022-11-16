@@ -5,8 +5,10 @@ import ShoppingCartIcon from '../../../assets/ShoppingCart.tsx'
 
 <Meta title="Molecules/IconButton" component={IconButton} argTypes={{}} />
 
-export const Template = (args) => (
-  <IconButton icon={<ShoppingCartIcon />} aria-label="Buy" />
+export const Template = ({ args, children }) => (
+  <IconButton icon={<ShoppingCartIcon />} aria-label="Buy" iconPosition="right">
+    {children}
+  </IconButton>
 )
 
 <header>
@@ -28,6 +30,7 @@ import '@faststore/ui/src/components/molecules/IconButton/styles.scss'
     name="default"
     args={{
       id: 'icon-button-default',
+      children: '',
     }}
   >
     {Template.bind({})}
@@ -36,4 +39,4 @@ import '@faststore/ui/src/components/molecules/IconButton/styles.scss'
 
 <ArgsTable story="default" />
 
-This component inherits [Button](?path=/docs/atoms-button--button#css-selectors) css selectors.
+This component inherits [Button](?path=/docs/atoms-button--button#css-selectors) css selectors & styles.
