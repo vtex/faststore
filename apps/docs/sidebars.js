@@ -290,6 +290,10 @@ module.exports = {
           link: { type: 'doc', id: 'reference/sdk/faststore-sdk' },
           items: [
             {
+              type: 'doc',
+              id: 'reference/sdk/getting-started-faststore-sdk',
+            },
+            {
               type: 'category',
               label: 'Analytics',
               link: { type: 'doc', id: 'reference/sdk/analytics' },
