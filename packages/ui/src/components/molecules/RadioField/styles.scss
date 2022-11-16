@@ -1,0 +1,12 @@
+[data-fs-radio-field] {
+  // --------------------------------------------------------
+  // Design Tokens for Radio Field
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-radio-field-gap                    : var(--fs-spacing-1);
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--fs-radio-field-gap);
+};

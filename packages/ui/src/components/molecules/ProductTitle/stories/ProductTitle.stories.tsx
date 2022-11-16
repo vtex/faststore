@@ -4,12 +4,12 @@ import React from 'react'
 import type { ProductTitleProps } from '../ProductTitle'
 import Component from '../ProductTitle'
 import mdx from './ProductTitle.mdx'
-import Badge from '../../../atoms/Badge'
+import Badge from '@faststore/components'
 
 const ProductTitleTemplate: Story<ProductTitleProps> = () => (
-  <Component 
+  <Component
     title={<h1>Apple Magic Mouse</h1>}
-    refNumber='99995945'
+    refNumber="99995945"
     label={<Badge>90%</Badge>}
   />
 )

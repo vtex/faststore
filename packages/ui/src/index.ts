@@ -10,9 +10,6 @@ export type { ButtonProps } from './components/atoms/Button'
 export { default as Input } from './components/atoms/Input'
 export type { InputProps } from './components/atoms/Input'
 
-export { default as Icon } from './components/atoms/Icon'
-export type { IconProps } from './components/atoms/Icon'
-
 export { default as Popover } from './components/atoms/Popover'
 export type { PopoverProps } from './components/atoms/Popover'
 
@@ -28,9 +25,6 @@ export type { OverlayProps } from './components/atoms/Overlay'
 export { default as Select } from './components/atoms/Select'
 export type { SelectProps } from './components/atoms/Select'
 
-export { default as Badge } from './components/atoms/Badge'
-export type { BadgeProps } from './components/atoms/Badge'
-
 export { default as Slider } from './components/atoms/Slider'
 export type { SliderProps } from './components/atoms/Slider'
 
@@ -42,9 +36,6 @@ export type { SkeletonProps } from './components/atoms/Skeleton'
 
 export { default as Spinner } from './components/atoms/Spinner'
 export type { SpinnerProps } from './components/atoms/Spinner'
-
-export { default as Label } from './components/atoms/Label'
-export type { LabelProps } from './components/atoms/Label'
 
 export { default as Incentive } from './components/atoms/Incentive'
 export type { IncentiveProps } from './components/atoms/Incentive'

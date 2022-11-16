@@ -4,10 +4,10 @@ import type {
   InputHTMLAttributes,
   ReactNode,
 } from 'react'
-import React, { useImperativeHandle, forwardRef, useRef } from 'react'
+import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 
+import { Icon } from '@faststore/components'
 import Button from '../../atoms/Button'
-import Icon from '../../atoms/Icon'
 import Input from '../../atoms/Input'
 import Form from '../Form'
 

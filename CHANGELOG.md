@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.28](https://github.com/vtex/faststore/compare/v1.12.27...v1.12.28) (2022-11-09)
+
+
+### Features
+
+* adds start command to serve stores ([#1511](https://github.com/vtex/faststore/issues/1511)) ([9ef30b5](https://github.com/vtex/faststore/commit/9ef30b5e83c3518240d65235c4f84394ab0fc4cd))
+
+
+
+## [1.12.27](https://github.com/vtex/faststore/compare/v1.12.26...v1.12.27) (2022-11-09)
+
+
+### Features
+
+* add build command ([#1506](https://github.com/vtex/faststore/issues/1506)) ([f9dfa41](https://github.com/vtex/faststore/commit/f9dfa41998935e839b172cba5ec2eee760b06fb0))
+
+
+
+## [1.12.26](https://github.com/vtex/faststore/compare/v1.12.25...v1.12.26) (2022-11-09)
+
+
+### Features
+
+* adds develop command when running faststore dev ([#1500](https://github.com/vtex/faststore/issues/1500)) ([ff6bad5](https://github.com/vtex/faststore/commit/ff6bad5abfd674eec62aee5ad1f467dbcbaa51b0))
+
+
+
+## [1.12.25](https://github.com/vtex/faststore/compare/v1.12.24...v1.12.25) (2022-11-09)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## [1.12.24](https://github.com/vtex/faststore/compare/v1.12.23...v1.12.24) (2022-11-08)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## [1.12.23](https://github.com/vtex/faststore/compare/v1.12.22...v1.12.23) (2022-11-04)
+
+
+### Features
+
+* Revisit `Carousel` component ([#1476](https://github.com/vtex/faststore/issues/1476)) ([5bf8662](https://github.com/vtex/faststore/commit/5bf86628e04fd5cf47c10071e66058de035d8023))
+
+
+
+## [1.12.22](https://github.com/vtex/faststore/compare/v1.12.21...v1.12.22) (2022-11-04)
+
+
+### Documentation
+
+* Debugging Releases and CMS publishing ([#1505](https://github.com/vtex/faststore/issues/1505)) ([e1f6ea7](https://github.com/vtex/faststore/commit/e1f6ea7236e1ba69930fd4ccad5396a007e49236))
+
+
+
+## [1.12.21](https://github.com/vtex/faststore/compare/v1.12.20...v1.12.21) (2022-10-31)
+
+
+### Bug Fixes
+
+* Takes sales channel in consideration when getting region ([#1499](https://github.com/vtex/faststore/issues/1499)) ([6827c39](https://github.com/vtex/faststore/commit/6827c396a43e025e5bafb726471fdd212baba330))
+
+
+
 ## 1.12.20 (2022-10-26)
 
 

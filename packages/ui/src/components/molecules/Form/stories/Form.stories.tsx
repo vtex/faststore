@@ -1,11 +1,11 @@
 import type { Story } from '@storybook/react'
 import React, { useState } from 'react'
 
-import { Checkbox } from '@faststore/components'
-import { Button, Input, Label } from '../../../../'
+import { Button, Input } from '../../../../'
 import type { FormProps } from '../Form'
 import Component from '../Form'
 import mdx from './Form.mdx'
+import { Checkbox, Label } from '@faststore/components'
 
 const FormTemplate: Story<FormProps> = ({ testId }) => {
   const [name, setName] = useState<string>()

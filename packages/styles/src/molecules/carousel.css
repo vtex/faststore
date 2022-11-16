@@ -2,18 +2,18 @@
   @apply relative flex items-center;
 }
 
-[data-carousel-bullets] {
+[data-fs-carousel-bullets] {
   @apply absolute bottom-0 w-full flex justify-center;
 }
 
-[data-fs-button][data-arrow] {
+[data-fs-carousel-controls][data-fs-carousel-control] {
   @apply bg-transparent absolute text-black;
 }
 
-[data-arrow="left"] {
-  @apply left-0;
+[data-fs-carousel-control="left"] {
+  @apply absolute left-0;
 }
 
-[data-arrow="right"] {
-  @apply right-0;
+[data-fs-carousel-control="right"] {
+  @apply absolute right-0;
 }
