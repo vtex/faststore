@@ -3,10 +3,24 @@ import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 import { IconButton } from '@faststore/components'
 import ShoppingCartIcon from '../../../assets/ShoppingCart.tsx'
 
-<Meta title="Molecules/IconButton" component={IconButton} argTypes={{}} />
+<Meta
+  title="Molecules/IconButton"
+  component={IconButton}
+  argTypes={{
+    iconPosition: {
+      options: ['left', 'right'],
+      control: { type: 'radio' },
+    },
+  }}
+/>
 
-export const Template = ({ args, children }) => (
-  <IconButton icon={<ShoppingCartIcon />} aria-label="Buy" iconPosition="right">
+export const Template = ({ children, ...args }) => (
+  <IconButton
+    icon={<ShoppingCartIcon />}
+    aria-label="Buy"
+    variant="tertiary"
+    {...args}
+  >
     {children}
   </IconButton>
 )
@@ -22,17 +36,11 @@ export const Template = ({ args, children }) => (
 ```jsx
 import { IconButton } from '@faststore/ui'
 // Styles
-import '@faststore/ui/src/components/molecules/IconButton/styles.scss'
+import '@faststore/ui/src/components/atoms/Button/styles.scss'
 ```
 
 <Canvas>
-  <Story
-    name="default"
-    args={{
-      id: 'icon-button-default',
-      children: '',
-    }}
-  >
+  <Story name="default" args={{ id: 'icon-button-default', children: '' }}>
     {Template.bind({})}
   </Story>
 </Canvas>
