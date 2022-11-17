@@ -11,5 +11,7 @@ export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
 
 // Molecules
+export { default as CheckboxField } from './molecules/CheckboxField'
+export type { CheckboxFieldProps } from './molecules/CheckboxField'
 export { default as RadioField } from './molecules/RadioField'
 export type { RadioFieldProps } from './molecules/RadioField'

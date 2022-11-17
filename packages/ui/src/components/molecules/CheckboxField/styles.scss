@@ -1,0 +1,12 @@
+[data-fs-checkbox-field] {
+  // --------------------------------------------------------
+  // Design Tokens for Checkbox Field
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-checkbox-field-gap : var(--fs-spacing-1);
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--fs-checkbox-field-gap);
+};
