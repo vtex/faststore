@@ -9,7 +9,7 @@
  Create as many sidebars as you want.
  */
 
- module.exports = {
+module.exports = {
   docsSidebar: [
     {
       type: 'category',
@@ -325,6 +325,10 @@
                   dirName: 'reference/sdk/search',
                 },
               ],
+            },
+            {
+              type: 'doc',
+              id: 'reference/sdk/session',
             },
           ],
         },
