@@ -3,8 +3,7 @@ import React from 'react'
 
 // Atoms
 import Price from '../../../atoms/Price'
-import Badge from '@faststore/components'
-import Button from '../../../atoms/Button'
+import { Badge, Button } from '@faststore/components'
 // Card components
 import ProductCardComponent from '../ProductCard'
 import ProductCardImage from '../ProductCardImage'

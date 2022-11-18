@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react'
 import type { Meta, Story } from '@storybook/react'
 
 import type { ModalProps } from '..'
-import Button from '../../../atoms/Button'
+import { Button } from '@faststore/components'
 import Component from '../Modal'
 import mdx from './Modal.mdx'
 

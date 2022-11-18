@@ -7,7 +7,7 @@ import type {
   OutOfStockProps,
 } from '..'
 import Component, { OutOfStockTitle, OutOfStockMessage } from '..'
-import Button from '../../../atoms/Button'
+import { Button } from '@faststore/components'
 import Input from '../../../atoms/Input'
 import mdx from './OutOfStock.mdx'
 
