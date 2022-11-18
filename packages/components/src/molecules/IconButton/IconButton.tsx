@@ -18,7 +18,7 @@ export interface IconButtonProps extends Omit<ButtonProps, 'aria-label'> {
   /**
    * Accessible name should be provided when using only icon.
    */
-  'aria-label': string
+  'aria-label'?: string
   /**
    * Specifies where the icon should be positioned
    */
@@ -47,7 +47,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         data-fs-icon-button-unlabelled={isButtonIcon}
         data-fs-button-variant={variant}
         testId={testId}
-        aria-label={ariaLabel}
+        aria-label={isButtonIcon ? ariaLabel : undefined}
         {...otherProps}
       >
         {iconPosition === 'left' && <Icon component={icon} />}
