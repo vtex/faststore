@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-import { Icon } from '@faststore/components'
-import type { ButtonProps } from '../../atoms/Button'
-import Button from '../../atoms/Button'
+import { Icon, Button } from '@faststore/components'
+import type { ButtonProps } from '@faststore/components'
 
 export interface Props extends Omit<ButtonProps, 'children' | 'aria-label'> {
   /**

@@ -1,12 +1,12 @@
-import type { ButtonHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import Button from '../../atoms/Button'
 import { useAccordion } from './Accordion'
 import { useAccordionItem } from './AccordionItem'
 
-export interface AccordionButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+import { Button } from '@faststore/components'
+import type { ButtonProps } from '@faststore/components'
+
+export interface AccordionButtonProps extends ButtonProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */

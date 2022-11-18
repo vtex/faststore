@@ -4,9 +4,6 @@ export * from '@faststore/components'
 export { default as Link } from './components/atoms/Link'
 export type { LinkProps } from './components/atoms/Link'
 
-export { default as Button } from './components/atoms/Button'
-export type { ButtonProps } from './components/atoms/Button'
-
 export { default as Input } from './components/atoms/Input'
 export type { InputProps } from './components/atoms/Input'
 
