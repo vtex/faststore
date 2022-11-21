@@ -22,8 +22,8 @@ Buttons indicate actions that users can take, such as adding an item to the cart
   <Button variant="primary">Primary</Button>
   <Button variant="secondary">Secondary</Button>
   <Button variant="tertiary">Tertiary</Button>
-  <Button variant="primary" disabled>
-    Disabled
+  <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+    Button w/ Icon
   </Button>
   <Button variant="primary" size="small">
     Small
@@ -96,6 +96,20 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 </TokenTable>
 
 ---
+
+## Nested Elements
+
+### Icon
+
+```tsx live
+<Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+  Add to Cart
+</Button>
+```
+
+<TokenTable>
+  <TokenRow token="--fs-button-icon-padding" value="0 var(--fs-spacing-1)" />
+</TokenTable>
 
 ## Hierarchy
 
