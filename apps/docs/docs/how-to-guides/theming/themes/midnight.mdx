@@ -6,28 +6,26 @@ A darkmode theme created for testing purposes.
 
 ## Usage
 
-1. Import `midnight.scss` file on `src/pages/_app.tsx`
-
+1. Import the `midnight.scss` file to the `src/pages/_app.tsx` file.
 ```jsx
 import '../styles/themes/midnight.scss'
 ```
-
-2. Go to `store.config.js` and change the `theme` to your file's name:
-
-```js
-// Theming
-theme: 'midnight',
-```
-
-3. Add the [Raleway](https://fonts.google.com/specimen/Raleway?query=raleway) font on `src/fonts/WebFonts.tsx`
-
-```tsx
-function WebFonts() {
-  return (
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&display=swap"
-    />
-  )
-}
-```
+2. Save your changes and go to the `store.config.js` file.
+3. Replace the value of `theme` with `midnight`:
+   ```js
+   // Theming
+   theme: 'midnight',
+   ```
+4. Save your changes and go to `src/fonts/WebFonts.tsx`.
+5. Add the [Raleway](https://fonts.google.com/specimen/Raleway?query=raleway) font to `WebFonts` as in the following:
+   ```tsx
+   function WebFonts() {
+     return (
+       <link
+         rel="stylesheet"
+         href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;900&display=swap"
+       />
+     )
+   }
+   ```
+6. Save your changes.

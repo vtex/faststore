@@ -71,17 +71,18 @@ Themes are CSS stylesheets consisting of configurable design tokens. You can cre
      }
    }
    ```
-6. Save your changes.
-7. Open the `src/pages/_app.tsx` file and import the `my-theme.scss` stylesheet.
+5. Save your changes.
+6. Open the `src/pages/_app.tsx` file and import the `my-theme.scss` stylesheet.
 
    ```jsx
    import '../styles/themes/my-theme.scss'
    ```
 
-8. Go to `store.config.js` and change the `theme` to your file's name (e.g., `my-theme`):
+7. Go to `store.config.js` and change the `theme` to your file's name (e.g., `my-theme`):
 
    ```diff
    // Theming
    -theme: 'soft-blue',
    +theme: 'my-theme',
    ```
+8. Save your changes.

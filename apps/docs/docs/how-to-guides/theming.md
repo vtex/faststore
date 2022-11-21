@@ -6,7 +6,7 @@ toc_max_heading_level: 4
 
 ## Overview 
 
-A Theme is what makes it possible to change the look-and-feel of a FastStore **official Starter**. It is what differentiates one UI from another and where the store branding lives. In practice, Themes are CSS stylesheets consisting of **configurable design tokens**. 
+A Theme is what makes it possible to change the look and feel of a FastStore **official Starter**. It is what differentiates one UI from another and where the store branding lives. In practice, Themes are CSS stylesheets consisting of **configurable design tokens**. 
 
 Design tokens can be classified as global or local, as presented in the following:
 
@@ -19,15 +19,19 @@ Design tokens can be classified as global or local, as presented in the followin
 
 ## Usage
 
-By default, every FastStore project comes with the **Brandless** theme. You may wish, however, to use a different color palette, grid layout, or font style. 
+By default, every FastStore Starter comes with the **Brandless** theme.
 
-To set up a custom theme, change the `theme` property in the `store.config.js` file:
+:::info
+The Brandless theme does not specify any local tokens. It is composed only of structural styles defined by global tokens.
+:::
+
+You may wish, however, to use a different color palette, grid layout, or font style. To use a custom theme, change the `theme` property in the `store.config.js` file:
 
 ```js title="store.config.js"
 theme: 'midnight',
 ```
 
-Notice that you can either use one of the available themes, extend an existing theme with additional styles or [create a new custom theme from scratch](/how-to-guides/theming/creating-a-theme).
+You can either use one of the [available themes](#list-of-themes), [extend an existing theme with additional styles](/how-to-guides/theming/extending-a-theme) or [create a new custom theme from scratch](/how-to-guides/theming/creating-a-theme).
 
 ---
 
@@ -44,11 +48,11 @@ FastStore available themes include:
 </thead>
 <tbody>
 <tr>
-<td align="left"><a className=" whitespace-nowrap" href="/how-to-guides/styling/themes/soft-blue">Soft Blue</a></td>
+<td align="left"><a className=" whitespace-nowrap" href="/how-to-guides/theming/themes/soft-blue">Soft Blue</a></td>
 <td align="center"><img className="w-1/2" src="https://vtexhelp.vtexassets.com/assets/docs/src/soft-blue___17c37d94c9840b6d761cb4247be7fd9f.webp"/> </td>
 </tr>
 <tr>
-<td align="left"><a href="/how-to-guides/styling/themes/midnight">Midnight</a></td>
+<td align="left"><a href="/how-to-guides/theming/themes/midnight">Midnight</a></td>
 <td align="center"><img className="w-1/2" src="https://vtexhelp.vtexassets.com/assets/docs/src/midnight___23f91a5508d29e7e8a7ec7a209b81fe6.webp"/> </td>
 </tr>
 </tbody>
@@ -58,17 +62,37 @@ FastStore available themes include:
 
 ## Theming architecture
 
-Starting from the bottom up, we have the **components**: fully-featured UI blocks that belong to a larger system. Each component has its own CSS stylesheet scoped into a Template responsible for defining the component's overall appearance.
+Starting from the bottom up, we have the **components**. Each component has its own CSS stylesheet scoped into a template that controls the component's final appearance.
 
-The Templates' visual properties are related to **local** variables or **local design tokens**. Local design tokens draw the final picture of the component and are tied to **global tokens**, defined by the Theme layer.
+Each template specifies **local design tokens** using **global tokens** as variable values. Take the following example of local design tokens defined within the template of the `OutOfStock` component:
 
-![Theming architecture](https://vtexhelp.vtexassets.com/assets/docs/src/theming-architecture___f965569346d8d7d6a3de1f020f06ac99.png)
+```scss
+  // Title
+  --fs-out-of-stock-title-margin-bottom   : var(--fs-spacing-0);
+  --fs-out-of-stock-title-size            : var(--fs-text-size-lead);
+  --fs-out-of-stock-title-weight          : var(--fs-text-weight-bold);
+  --fs-out-of-stock-title-color           : var(--fs-color-success-text);
+```
 
 ---
 
-## Design tokens naming scheme
+## Token naming scheme
 
-## Local tokens
+### Global tokens
+
+Global design tokens are parameters that affect the whole UI's look and feel. They are the main configuration file of a Theme. 
+
+Global design tokens are divided into three main groups:
+
+- **Branding core** - colors and typography.
+- **UI essentials** - spacing, grid, and interactive controls.
+- **Refinements** - transitions, borders, and shadows.
+
+The naming scheme for global tokens is presented in the following:
+
+![Theme architecture](https://vtexhelp.vtexassets.com/assets/docs/src/theming-global-tokens___e4e339f287113ecae974234ecbad1bff.png)
+
+### Local tokens
 
 Local design tokens follow a strict naming scheme as presented in the following:
 
@@ -96,15 +120,3 @@ In some cases, some optional values can also be added to the token's name:
 - **Situation**: Usage case (e.g., `warning`).
 
 ![Naming scheme 2](https://vtexhelp.vtexassets.com/assets/docs/src/theming-naming-2___4668c9e8da8bec361681d41b6a2e7266.png)
-
-## Global tokens
-
-Global design tokens are parameters that affect the whole UI's look-and-feel. They are the main configuration file of a Theme. 
-
-Global design tokens are comprised of three main groups:
-
-- Branding core - colors and typography.
-- UI essentials - spacing, grid, and interactive controls.
-- Refinements - transitions, borders, and shadows.
-
-![Theme architecture](https://vtexhelp.vtexassets.com/assets/docs/src/theming-global-tokens___e4e339f287113ecae974234ecbad1bff.png)

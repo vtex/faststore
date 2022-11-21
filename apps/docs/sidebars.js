@@ -47,6 +47,7 @@
       link: { type: 'doc', id: 'how-to-guides/theming' },
       items: [
         'how-to-guides/theming/creating-a-theme',
+        'how-to-guides/theming/extending-a-theme',
         {
           type: 'category',
           label: 'Global tokens',
