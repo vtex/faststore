@@ -1,5 +1,5 @@
 ---
-description: Icon Buttons are buttons that use icons and could be unlabelled or not.
+description: Icon Buttons are buttons that use icons instead of labels.
 sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/IconButton___a815b0a38dda52d079b3f73784c92c6b.png
 ---
@@ -8,16 +8,14 @@ import PropsSection from '@site/src/components/PropsSection/PropsSection'
 
 # IconButton
 
-Icon Buttons wraps a [Button](/reference/ui/atoms/Button) with and [Icon](/reference/ui/atoms/Icon). It can be icons that trigger some sort of action, such as adding an item to the cart.
+Icon Buttons are icons that trigger some sort of action, such as adding an item to the cart.
 
 ## Overview
 
 ```tsx live
 <div style={{ display: 'flex', columnGap: '22px' }}>
   <IconButton icon={<ShoppingCart />} aria-label="Buy" />
-  <IconButton icon={<ShoppingCart />} variant="primary">
-    Buy Now
-  </IconButton>
+  <IconButton icon={<ShoppingCart />} aria-label="Buy" variant="primary" />
 </div>
 ```
 
@@ -69,4 +67,3 @@ This component inherits [Button](/reference/ui/atoms/Button) css selectors and s
 ### ❌ Don'ts
 
 - Don't rely on icons to communicate complex actions.
-- Avoid using `aria-label` when the button already has a label.

@@ -1,12 +1,11 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, AriaAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
 import { Icon, Button } from '../../index'
 import type { ButtonProps } from '../../index'
 
-export type IconPosition = 'left' | 'right'
-
-export interface IconButtonProps extends Omit<ButtonProps, 'aria-label'> {
+export interface IconButtonProps
+  extends Omit<ButtonProps, 'children' | 'aria-label'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -16,13 +15,9 @@ export interface IconButtonProps extends Omit<ButtonProps, 'aria-label'> {
    */
   icon: ReactNode
   /**
-   * Accessible name should be provided when using only icon.
+   * A Label should be provided.
    */
-  'aria-label'?: string
-  /**
-   * Specifies where the icon should be positioned
-   */
-  iconPosition?: IconPosition
+  'aria-label'?: AriaAttributes['aria-label']
 }
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -30,29 +25,23 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     {
       icon,
       testId = 'fs-icon-button',
-      iconPosition = 'left',
-      children,
-      variant = 'tertiary',
       'aria-label': ariaLabel,
+      variant = 'tertiary',
       ...otherProps
     },
     ref
   ) {
-    const isButtonIcon = icon && !children
     return (
       <Button
         ref={ref}
         data-fs-button
         data-fs-icon-button
-        data-fs-icon-button-unlabelled={isButtonIcon}
-        data-fs-button-variant={variant}
         testId={testId}
-        aria-label={isButtonIcon ? ariaLabel : undefined}
+        variant={variant}
+        aria-label={ariaLabel}
         {...otherProps}
       >
-        {iconPosition === 'left' && <Icon component={icon} />}
-        {children}
-        {iconPosition === 'right' && <Icon component={icon} />}
+        <Icon component={icon} />
       </Button>
     )
   }
