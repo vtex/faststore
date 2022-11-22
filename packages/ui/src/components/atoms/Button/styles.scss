@@ -304,6 +304,7 @@
 
   &[data-fs-icon-button="true"] {
     position: relative;
+    column-gap: 0;
 
     &[data-fs-button-variant] {
       width: var(--fs-button-height);

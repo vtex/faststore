@@ -4,8 +4,7 @@ import React, { forwardRef } from 'react'
 import { Icon, Button } from '../../index'
 import type { ButtonProps } from '../../index'
 
-export interface IconButtonProps
-  extends Omit<ButtonProps, 'children' | 'aria-label'> {
+export interface IconButtonProps extends Omit<ButtonProps, 'aria-label'> {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
@@ -24,6 +23,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   function IconButton(
     {
       icon,
+      children,
       testId = 'fs-icon-button',
       'aria-label': ariaLabel,
       variant = 'tertiary',
@@ -41,6 +41,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         aria-label={ariaLabel}
         {...otherProps}
       >
+        {children}
         <Icon component={icon} />
       </Button>
     )
