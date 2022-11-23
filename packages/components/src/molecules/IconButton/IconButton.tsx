@@ -16,7 +16,7 @@ export interface IconButtonProps extends Omit<ButtonProps, 'aria-label'> {
   /**
    * A Label should be provided.
    */
-  'aria-label'?: AriaAttributes['aria-label']
+  'aria-label': AriaAttributes['aria-label']
 }
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(

@@ -118,8 +118,8 @@
     left: 1.625rem;
     font-size: var(--fs-badge-counter-text-size);
     color: var(--fs-badge-counter-text-color);
-    border-radius: var(--fs-badge-counter-border-radius);
     border-color: var(--fs-badge-counter-border-color);
+    border-radius: var(--fs-badge-counter-border-radius);
 
     [data-fs-badge-wrapper] {
       display: flex;
