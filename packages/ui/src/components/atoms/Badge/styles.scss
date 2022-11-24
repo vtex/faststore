@@ -113,10 +113,13 @@
   }
 
   &[data-fs-badge-counter="true"] {
-    font-size: var(--fs-badge-counter-text-size);
+    position: absolute;
+    top: .375rem;
+    left: 1.625rem;
+    font-size: 10px;
     color: var(--fs-badge-counter-text-color);
-    border-radius: var(--fs-badge-counter-border-radius);
     border-color: var(--fs-badge-counter-border-color);
+    border-radius: var(--fs-badge-counter-border-radius);
 
     [data-fs-badge-wrapper] {
       display: flex;

@@ -100,6 +100,9 @@
   --fs-button-small-min-height                      : var(--fs-spacing-5);
   --fs-button-small-gap                             : var(--fs-spacing-1);
 
+  // Icon
+  --fs-button-icon-padding                          : 0 var(--fs-spacing-1);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -119,6 +122,12 @@
   outline: none;
   box-shadow: var(--fs-button-shadow);
   transition: var(--fs-button-transition-property) var(--fs-button-transition-timing) var(--fs-button-transition-function);
+
+  [data-fs-icon] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   // --------------------------------------------------------
   // Variants Styles
@@ -290,6 +299,18 @@
         background-color: var(--fs-button-tertiary-inverse-bkg-color-active);
         border-color: var(--fs-button-tertiary-inverse-border-color-active);
       }
+    }
+  }
+
+  &[data-fs-icon-button="true"] {
+    position: relative;
+    column-gap: 0;
+
+    &[data-fs-button-variant] {
+      width: var(--fs-button-height);
+      height: var(--fs-button-height);
+      padding: var(--fs-button-icon-padding);
+      border-width: 0;
     }
   }
 }

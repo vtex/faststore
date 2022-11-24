@@ -22,8 +22,8 @@ Buttons indicate actions that users can take, such as adding an item to the cart
   <Button variant="primary">Primary</Button>
   <Button variant="secondary">Secondary</Button>
   <Button variant="tertiary">Tertiary</Button>
-  <Button variant="primary" disabled>
-    Disabled
+  <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+    Button w/ Icon
   </Button>
   <Button variant="primary" size="small">
     Small
@@ -96,6 +96,20 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 </TokenTable>
 
 ---
+
+## Nested Elements
+
+### Icon
+
+```tsx live
+<Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
+  Add to Cart
+</Button>
+```
+
+<TokenTable>
+  <TokenRow token="--fs-button-icon-padding" value="0 var(--fs-spacing-1)" />
+</TokenTable>
 
 ## Hierarchy
 
@@ -566,3 +580,12 @@ For further customization, you can use the following data attributes:
 - Avoid using disabled buttons, if possible. Instead, give preference to hiding the unavailable option.
 - Don't place buttons next to [Badges](/reference/ui/atoms/Badge). Although badges and buttons are similar in appearance, badges are not interactive and may confuse users if not used in the proper context.
 - Don't use Buttons as [Links](/reference/ui/atoms/Link). Links are not intended to invite users to take action. Instead, they redirect users somewhere.
+- Avoid using `aria-label` when the button already has a label.
+
+## Related components
+
+```tsx live
+<IconButton icon={<ShoppingCart />} aria-label="Buy" />
+```
+
+[IconButton](/reference/ui/molecules/IconButton) is a button which content is only an icon, without any label.
