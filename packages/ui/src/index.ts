@@ -118,9 +118,6 @@ export type {
 export { default as Carousel } from './components/molecules/Carousel'
 export type { CarouselProps } from './components/molecules/Carousel'
 
-export { default as IconButton } from './components/molecules/IconButton'
-export type { IconButtonProps } from './components/molecules/IconButton'
-
 export { default as Modal } from './components/molecules/Modal'
 export type { ModalProps } from './components/molecules/Modal'
 
