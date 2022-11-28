@@ -1,0 +1,60 @@
+[data-fs-tag] {
+  // --------------------------------------------------------
+  // Design Tokens for Tag
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-tag-text-color                     : var(--fs-color-text);
+  --fs-tag-button-hover-size              : var(--fs-spacing-5);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--fs-control-tap-size);
+  padding-right: var(--fs-spacing-1);
+
+  [data-fs-badge-wrapper] {
+    position: relative;
+    padding-right: var(--fs-spacing-6);
+  }
+
+  [data-fs-badge-wrapper] > span {
+    display: flex;
+    align-items: center;
+  }
+
+  [data-fs-tag-label]::after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: var(--fs-tag-button-hover-size);
+    height: 100%;
+    content: "";
+    border-radius: 0 var(--fs-badge-border-radius) var(--fs-badge-border-radius) 0;
+    transform: translateY(-50%);
+  }
+
+  [data-fs-tag-icon-button] {
+    color: var(--fs-tag-text-color);
+    position: absolute;
+    right: calc(-1 * var(--fs-spacing-1));
+    z-index: 1;
+    background-color: transparent;
+
+    &:hover + [data-fs-tag-label]::after {
+      background-color: var(--fs-color-neutral-7);
+      filter: opacity(0.10);
+    }
+
+    &:hover, &:active, &:focus, &:focus-visible {
+      color: var(--fs-tag-text-color);
+      background-color: transparent;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 24px;
+    }
+  }
+}

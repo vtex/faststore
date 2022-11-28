@@ -95,7 +95,7 @@
     overflow: hidden;
     border-radius: var(--fs-badge-border-radius);
 
-    span {
+    > span {
       display: block;
     }
   }
