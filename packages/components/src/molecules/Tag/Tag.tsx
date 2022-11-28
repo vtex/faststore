@@ -18,13 +18,17 @@ export interface TagProps extends BadgeProps {
    */
   icon?: ReactNode
   /**
+   * For accessibility purposes, provide an ARIA label to the Icon button
+   */
+  iconButtonLabel?: string
+  /**
    * Function called when Icon button is clicked.
    */
   onClose?: () => void
 }
 
 const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
-  { testId = 'fs-tag', label, icon, onClose, ...otherProps },
+  { testId = 'fs-tag', label, icon, iconButtonLabel, onClose, ...otherProps },
   ref
 ) {
   return (
@@ -32,7 +36,7 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
       <IconButton
         data-fs-tag-icon-button
         icon={icon ? icon : <X />}
-        aria-label="remove"
+        aria-label={iconButtonLabel ? iconButtonLabel : 'remove'}
         onClick={onClose}
         variant={undefined}
       />
