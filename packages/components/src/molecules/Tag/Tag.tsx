@@ -24,18 +24,19 @@ export interface TagProps extends BadgeProps {
 }
 
 const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
-  { testId = 'fs-radio-field', label, icon, onClose, ...otherProps },
+  { testId = 'fs-tag', label, icon, onClose, ...otherProps },
   ref
 ) {
   return (
     <Badge ref={ref} data-fs-tag data-testid={testId} {...otherProps}>
-      {label}
       <IconButton
         data-fs-tag-icon-button
         icon={icon ? icon : <X />}
         aria-label="remove"
         onClick={onClose}
+        variant={undefined}
       />
+      <span data-fs-tag-label>{label}</span>
     </Badge>
   )
 })
