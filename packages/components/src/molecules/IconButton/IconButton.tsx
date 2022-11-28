@@ -26,7 +26,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       children,
       testId = 'fs-icon-button',
       'aria-label': ariaLabel,
-      variant = 'tertiary',
+      variant,
       ...otherProps
     },
     ref
@@ -37,7 +37,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         data-fs-button
         data-fs-icon-button
         testId={testId}
-        variant={variant}
+        variant={variant ? variant : 'tertiary'}
         aria-label={ariaLabel}
         {...otherProps}
       >
