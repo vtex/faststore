@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react'
 import type { ReactNode } from 'react'
-import IconButton from '../../molecules/IconButton'
-import Badge, { BadgeProps } from '../../atoms/Badge'
-import { X } from '../../../../ui/src/assets'
+import { IconButton } from '../..'
+import { Badge, BadgeProps } from '../..'
+import { X } from '@faststore/ui/src/assets'
 
 export interface TagProps extends BadgeProps {
   /**
