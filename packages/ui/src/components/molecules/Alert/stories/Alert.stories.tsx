@@ -3,7 +3,7 @@ import React from 'react'
 
 import type { AlertProps } from '../Alert'
 import Component from '../Alert'
-import ShoppingCartIcon from '../../../../assets/ShoppingCart.tsx'
+import { ShoppingCart } from '@faststore/ui/src/assets'
 import mdx from './Alert.mdx'
 import { Icon } from '../../../../'
 
@@ -20,7 +20,7 @@ export const AlertWithIcon = AlertTemplate.bind({})
 AlertWithIcon.args = {
   children: (
     <>
-      <Icon component={<ShoppingCartIcon />} />
+      <Icon component={<ShoppingCart />} />
       <span>Alert</span>
     </>
   ),
