@@ -7,6 +7,10 @@
   --fs-tag-text-color                     : var(--fs-color-text);
   --fs-tag-button-hover-size              : var(--fs-spacing-5);
 
+  // Icon
+  --fs-tag-icon-size                      : var(--fs-spacing-3);
+  --fs-tag-icon-stroke-width              : var(--fs-spacing-4);
+
   position: relative;
   display: flex;
   align-items: center;
@@ -49,9 +53,9 @@
     }
 
     svg {
-      width: 18px;
-      height: 18px;
-      stroke-width: 24px;
+      width: var(--fs-tag-icon-size);
+      height: var(--fs-tag-icon-size);
+      stroke-width: var(--fs-tag-icon-stroke-width);
     }
   }
 

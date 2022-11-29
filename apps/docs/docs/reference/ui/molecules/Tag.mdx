@@ -9,7 +9,7 @@ sidebar_custom_props:
 ---
 
 import PropsSection from '@site/src/components/PropsSection/PropsSection'
-import { TokenTable, TokenRow } from '@site/src/components/Tokens'
+import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
 Tags are an interactive `Badge.` By default, its have a close button.
 
@@ -53,6 +53,9 @@ import '@faststore/ui/src/components/molecules/Tag/styles.scss'
 <TokenTable>
   <TokenRow token="--fs-tag-text-color" value="var(--fs-color-text)" />
   <TokenRow token="--fs-tag-button-hover-size" value="var(--fs-spacing-5)" />
+  <TokenDiver />
+  <TokenRow token="--fs-tag-icon-size" value="var(--fs-spacing-3)" />
+  <TokenRow token="--fs-tag-icon-stroke-width" value="var(--fs-spacing-4)" />
 </TokenTable>
 
 ---
