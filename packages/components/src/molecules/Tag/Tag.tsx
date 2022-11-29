@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import type { ReactNode } from 'react'
-import { IconButton } from '../..'
+import { Icon } from '../..'
 import { Badge, BadgeProps } from '../..'
 import { X } from '@faststore/ui/src/assets'
 
@@ -39,14 +39,14 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
       size="big"
       {...otherProps}
     >
-      <IconButton
+      <span data-fs-tag-label>{label}</span>
+      <button
         data-fs-tag-icon-button
-        icon={icon ? icon : <X />}
         aria-label={iconButtonLabel ? iconButtonLabel : 'remove'}
         onClick={onClose}
-        variant={undefined}
-      />
-      <span data-fs-tag-label>{label}</span>
+      >
+        <Icon component={icon ? icon : <X />} />
+      </button>
     </Badge>
   )
 })

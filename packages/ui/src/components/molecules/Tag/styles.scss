@@ -5,16 +5,14 @@
 
   // Default properties
   --fs-tag-text-color                     : var(--fs-color-text);
-  --fs-tag-button-hover-size              : var(--fs-spacing-5);
 
   // Icon
-  --fs-tag-icon-size                      : 1.125rem;
+  --fs-tag-icon-size                      : var(--fs-spacing-3);
   --fs-tag-icon-stroke-width              : var(--fs-spacing-4);
 
   position: relative;
   display: flex;
   align-items: center;
-  height: var(--fs-control-tap-size);
 
   [data-fs-badge-wrapper] {
     position: relative;
@@ -24,42 +22,42 @@
     line-height: initial;
   }
 
-  [data-fs-tag-label]::after {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: var(--fs-tag-button-hover-size);
-    height: 100%;
-    content: "";
-    border-radius: 0 var(--fs-badge-border-radius) var(--fs-badge-border-radius) 0;
-    transform: translateY(-50%);
-  }
-
   [data-fs-tag-icon-button] {
-    color: var(--fs-tag-text-color);
     position: absolute;
-    right: calc(-1 * var(--fs-spacing-1));
     z-index: 1;
-    background-color: transparent;
+    right: calc(-1 * var(--fs-spacing-1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--fs-control-tap-size);
+    height: var(--fs-control-tap-size);
+    color: var(--fs-tag-text-color);
 
-    &:hover + [data-fs-tag-label]::after {
-      background-color: var(--fs-color-neutral-7);
-      filter: opacity(0.10);
+    > span {
+      border-radius: var(--fs-border-radius-circle);
+      padding: 3px;
+      transition: var(--fs-badge-transition-property) var(--fs-badge-transition-timing) var(--fs-badge-transition-function);
     }
 
-    &:hover, &:active, &:focus, &:focus-visible {
-      color: var(--fs-tag-text-color);
-      background-color: transparent;
+    &:hover > span, &:focus > span {
+      background-color: var(--fs-color-neutral-0);
+    }
+
+    &:focus > span {
+      outline: var(--fs-border-width) solid var(--fs-tag-text-color);
     }
 
     svg {
       width: var(--fs-tag-icon-size);
       height: var(--fs-tag-icon-size);
       stroke-width: var(--fs-tag-icon-stroke-width);
+      color: var(--fs-tag-text-color);
+      vertical-align: middle;
     }
   }
 
   &[data-fs-badge-size="big"] [data-fs-tag-label] {
-    margin-right: var(--fs-tag-button-hover-size);
+    padding-top: 1px;
+    margin-right: var(--fs-spacing-4);
   }
 }
