@@ -24,7 +24,7 @@ export interface TagProps extends BadgeProps {
   /**
    * Function called when Icon button is clicked.
    */
-  onClose?: () => void
+  onClose: () => void
 }
 
 const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
@@ -32,7 +32,13 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(function Tag(
   ref
 ) {
   return (
-    <Badge ref={ref} data-fs-tag data-testid={testId} {...otherProps}>
+    <Badge
+      ref={ref}
+      data-fs-tag
+      data-testid={testId}
+      size="big"
+      {...otherProps}
+    >
       <IconButton
         data-fs-tag-icon-button
         icon={icon ? icon : <X />}

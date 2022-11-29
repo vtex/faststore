@@ -4,7 +4,9 @@ import { Tag } from '@faststore/components'
 
 <Meta title="Molecules/Tag" component={Tag} argTypes={{}} />
 
-export const Template = (args) => <Tag label="Label" variant="warning" />
+export const Template = (args) => (
+  <Tag label="Label" variant="warning" onClose={() => {}} />
+)
 
 <header>
 

@@ -17,10 +17,10 @@ Tags are an interactive `Badge.` By default, its have a close button.
 
 ```tsx live
 <div style={{ display: 'flex', columnGap: '16px', alignItems: 'center' }}>
-  <Tag variant="neutral" label="Tag" />
-  <Tag variant="warning" label="Warning Tag" />
-  <Tag variant="danger" label="Danger Tag" />
-  <Tag variant="neutral" size="big" label="Neutral & Big" />
+  <Tag variant="neutral" label="Tag" onClose={() => {}} />
+  <Tag variant="warning" label="Warning Tag" onClose={() => {}} />
+  <Tag variant="danger" label="Danger Tag" onClose={() => {}} />
+  <Tag variant="neutral" size="big" label="Neutral & Big" onClose={() => {}} />
 </div>
 ```
 
@@ -41,7 +41,7 @@ import '@faststore/ui/src/components/molecules/Tag/styles.scss'
 ## Usage
 
 ```tsx live
-<Tag variant="info" label="Summer Sale" />
+<Tag variant="info" label="Summer Sale" onClose={() => {}} />
 ```
 
 ## Props
@@ -54,7 +54,7 @@ import '@faststore/ui/src/components/molecules/Tag/styles.scss'
   <TokenRow token="--fs-tag-text-color" value="var(--fs-color-text)" />
   <TokenRow token="--fs-tag-button-hover-size" value="var(--fs-spacing-5)" />
   <TokenDiver />
-  <TokenRow token="--fs-tag-icon-size" value="var(--fs-spacing-3)" />
+  <TokenRow token="--fs-tag-icon-size" value="1.125rem" />
   <TokenRow token="--fs-tag-icon-stroke-width" value="var(--fs-spacing-4)" />
 </TokenTable>
 
