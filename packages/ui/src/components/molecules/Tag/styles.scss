@@ -11,7 +11,6 @@
   display: flex;
   align-items: center;
   height: var(--fs-control-tap-size);
-  padding-right: var(--fs-spacing-1);
 
   [data-fs-badge-wrapper] {
     position: relative;
@@ -21,6 +20,7 @@
   [data-fs-badge-wrapper] > span {
     display: flex;
     align-items: center;
+    line-height: initial;
   }
 
   [data-fs-tag-label]::after {
@@ -56,5 +56,9 @@
       height: 18px;
       stroke-width: 24px;
     }
+  }
+
+  &[data-fs-badge-size="big"] [data-fs-tag-label] {
+    margin-right: var(--fs-tag-button-hover-size);
   }
 }
