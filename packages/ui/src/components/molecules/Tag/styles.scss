@@ -14,12 +14,9 @@
 
   [data-fs-badge-wrapper] {
     position: relative;
-    padding-right: var(--fs-spacing-6);
-  }
-
-  [data-fs-badge-wrapper] > span {
     display: flex;
     align-items: center;
+    padding-right: var(--fs-spacing-6);
     line-height: initial;
   }
 
