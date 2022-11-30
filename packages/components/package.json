@@ -1,6 +1,6 @@
 {
   "name": "@faststore/components",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.1-alpha.0",
   "main": "index.js",
   "author": "Emerson Laurentino @emersonlaurentino",
   "license": "MIT"
