@@ -1,6 +1,6 @@
 {
   "name": "@faststore/cli",
-  "version": "2.0.1-alpha.0",
+  "version": "1.12.32",
   "description": "FastStore CLI",
   "author": "Emerson Laurentino @emersonlaurentino",
   "bin": {
@@ -26,7 +26,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "@faststore/shared": "^2.0.1-alpha.0",
+    "@faststore/shared": "^1.12.32",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.63",
