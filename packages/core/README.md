@@ -391,7 +391,7 @@ $ yarn generate
 
 That's it! you have just regenerated all graphql queries/fragments for your application and the new data you requested should be available to your component.
 
-> Pro tip: Pass `-w` to the `yarn generate` command so it watches for changes and you don't need to run this command multiple times
+> Pro tip: Pass `-w` to the `yarn generate` command so it watches for changes and you don't need to run this command multiple times.
 
 ## CMS Integration
 
