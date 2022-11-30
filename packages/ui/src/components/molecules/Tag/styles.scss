@@ -24,7 +24,6 @@
 
   [data-fs-tag-icon-button] {
     position: absolute;
-    z-index: 1;
     right: calc(-1 * var(--fs-spacing-1));
     display: flex;
     align-items: center;
@@ -34,6 +33,7 @@
     color: var(--fs-tag-text-color);
 
     > span {
+      border: var(--fs-border-width) solid transparent;
       border-radius: var(--fs-border-radius-circle);
       padding: 3px;
       transition: var(--fs-badge-transition-property) var(--fs-badge-transition-timing) var(--fs-badge-transition-function);
@@ -44,7 +44,7 @@
     }
 
     &:focus > span {
-      outline: var(--fs-border-width) solid var(--fs-tag-text-color);
+      border: var(--fs-border-width) solid var(--fs-tag-text-color);
     }
 
     svg {
