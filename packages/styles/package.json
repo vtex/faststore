@@ -1,6 +1,6 @@
 {
   "name": "@faststore/styles",
-  "version": "2.0.0-alpha",
+  "version": "2.0.0-alpha.1",
   "description": "Basic theme for our Store UI components.",
   "author": "VTEX <gabriel.antiqueira@vtex.com.br>",
   "license": "MIT",
