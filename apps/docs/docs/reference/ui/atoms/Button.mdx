@@ -4,11 +4,11 @@ keywords:
   - UI library
   - ecommerce
   - react
-sidebar_custom_props: 
+sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Button___6d6b16886d5d7e2a05dba8c45c075796.png
 ---
 
-import PropsSection from "@site/src/components/PropsSection/PropsSection";
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
 
 # Button
 
@@ -23,7 +23,7 @@ import { Button } from '@faststore/ui'
 ## Usage
 
 ```tsx live
-<Button>Hello</Button>
+<Button>Hello0</Button>
 ```
 
 ### Use cases
@@ -37,14 +37,13 @@ Use the `Button` component to communicate user actions on the following componen
 
 ```tsx live
 <Card>
-    <img
-      alt="A vintage camera"
-      src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
-    />
-    <div>
+  <img
+    alt="A vintage camera"
+    src="https://storecomponents.vtex.app/assets/fit-in/480x480/center/middle/https%3A%2F%2Fstorecomponents.vtexassets.com%2Farquivos%2Fids%2F155481%2FFrame-3.jpg%3Fv%3D636793814536230000"
+  />
+  <div>
     <Button class="bg-green-500">ADD TO CART</Button>
-
-    </div>
+  </div>
 </Card>
 ```
 
@@ -65,8 +64,8 @@ Use the `Button` component to communicate user actions on the following componen
 - Make buttons **finger-friendly** for mobile users and large enough for **reliable interactions**. Generally, touch targets are at least 44 by 44 CSS pixels.
 - Use **task-specific** words to write button labels.
 - Place the buttons in an **order that reflects a conversation between the user and the system**.
-- Provide visual or audio **feedback on interactions**. Whenever a user interacts with a button, the button should change its state and let the user know that something is happening as a consequence. 
-- Define a style system for your **button states** (i.e., normal, focus, hover, active, pressed, disabled). 
+- Provide visual or audio **feedback on interactions**. Whenever a user interacts with a button, the button should change its state and let the user know that something is happening as a consequence.
+- Define a style system for your **button states** (i.e., normal, focus, hover, active, pressed, disabled).
 - Use icon-only buttons only for widespread actions with highly standardized icons, such as a cross for close.
 - Use the `aria-label` attribute to provide a textual alternative for icon-only buttons.
 
@@ -79,4 +78,4 @@ Use the `Button` component to communicate user actions on the following componen
 - Avoid having more than one Primary action button on the screen at a time.
 - Avoid using disabled buttons, if possible. Instead, give preference to hiding the unavailable option.
 - Don't place buttons next to [Badges](/reference/ui/atoms/Badge). Although badges and buttons are similar in appearance, badges are not interactive and may confuse users if not used in the proper context.
-- Don't use Buttons as [Links](/reference/ui/atoms/Link). Links are not intended to invite users to take action. Instead, they redirect users somewhere. 
+- Don't use Buttons as [Links](/reference/ui/atoms/Link). Links are not intended to invite users to take action. Instead, they redirect users somewhere.
