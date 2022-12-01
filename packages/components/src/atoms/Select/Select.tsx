@@ -1,5 +1,5 @@
-import type { SelectHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
+import type { SelectHTMLAttributes } from 'react'
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   /**
@@ -9,13 +9,15 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { children, testId = 'store-select', ...otherProps },
+  { children, testId = 'fs-select', ...otherProps }: SelectProps,
   ref
 ) {
   return (
-    <select ref={ref} data-fs-select data-testid={testId} {...otherProps}>
-      {children}
-    </select>
+    <div>
+      <select ref={ref} data-fs-select data-testid={testId} {...otherProps}>
+        {children}
+      </select>
+    </div>
   )
 })
 

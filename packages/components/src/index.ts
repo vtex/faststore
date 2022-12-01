@@ -11,6 +11,8 @@ export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
 export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
+export { default as Select } from './atoms/Select'
+export type { SelectProps } from './atoms/Select'
 
 // Molecules
 export { default as CheckboxField } from './molecules/CheckboxField'
