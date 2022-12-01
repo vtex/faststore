@@ -24,6 +24,12 @@
   --fs-input-transition-property         : var(--fs-transition-property);
   --fs-input-transition-timing           : var(--fs-transition-timing);
 
+  // Disabled properties
+  --fs-input-disabled-bkg-color          : var(--fs-color-disabled-bkg);
+  --fs-input-disabled-text-color         : var(--fs-color-disabled-text);
+  --fs-input-disabled-border-width       : var(--fs-border-width);
+  --fs-input-disabled-border-color       : var(--fs-border-color);
+
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
@@ -48,6 +54,7 @@
 
   &:disabled {
     cursor: not-allowed;
+    color: var(--fs-input-disabled-text-color);
     background-color: var(--fs-input-disabled-bkg-color);
     border: var(--fs-input-disabled-border-width) solid var(--fs-input-disabled-border-color);
   }
