@@ -19,9 +19,6 @@ export type { TextAreaProps } from './components/atoms/TextArea'
 export { default as Overlay } from './components/atoms/Overlay'
 export type { OverlayProps } from './components/atoms/Overlay'
 
-export { default as Select } from './components/atoms/Select'
-export type { SelectProps } from './components/atoms/Select'
-
 export { default as Slider } from './components/atoms/Slider'
 export type { SliderProps } from './components/atoms/Slider'
 
