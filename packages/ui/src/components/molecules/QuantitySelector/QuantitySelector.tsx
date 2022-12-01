@@ -1,10 +1,8 @@
 import type { InputHTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
-import type { InputProps } from '../../atoms/Input'
-import Input from '../../atoms/Input'
-import type { IconButtonProps } from '../../../index'
-import { IconButton } from '../../../index'
+import type { IconButtonProps, InputProps } from '@faststore/components'
+import { IconButton, Input } from '@faststore/components'
 
 export interface QuantitySelectorProps
   extends InputHTMLAttributes<HTMLDivElement> {
