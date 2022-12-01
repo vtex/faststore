@@ -1,0 +1,53 @@
+[data-fs-input] {
+  // --------------------------------------------------------
+  // Design Tokens for Input
+  // --------------------------------------------------------
+
+  // Default properties
+  --fs-input-padding                     : var(--fs-spacing-1) var(--fs-spacing-2);
+  --fs-input-height                      : var(--fs-control-tap-size);
+
+  --fs-input-box-shadow                  : none;
+  --fs-input-box-shadow-hover            : 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
+
+  --fs-input-border-radius               : var(--fs-border-radius);
+  --fs-input-border-width                : var(--fs-border-width);
+  --fs-input-border-color                : var(--fs-border-color);
+  --fs-input-border-color-hover          : var(--fs-border-color-active);
+
+  --fs-input-text-color                  : var(--fs-color-text);
+  --fs-input-text-size                   : var(--fs-text-size-body);
+
+  --fs-input-line-height                 : 1.25;
+
+  --fs-input-transition-function         : var(--fs-transition-function);
+  --fs-input-transition-property         : var(--fs-transition-property);
+  --fs-input-transition-timing           : var(--fs-transition-timing);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  width: 100%;
+  height: var(--fs-input-height);
+  padding: var(--fs-input-padding);
+  font-size: var(--fs-input-text-size);
+  line-height: var(--fs-input-line-height);
+  color: var(--fs-input-text-color);
+  border: var(--fs-input-border-width) solid var(--fs-input-border-color);
+  border-radius: var(--fs-input-border-radius);
+  box-shadow: var(--fs-input-box-shadow);
+
+  @include input-focus-ring;
+
+  &:hover:not(:disabled):not(:focus-visible):not(:focus) {
+    border-color: var(--fs-input-border-color-hover);
+    box-shadow: var(--fs-input-box-shadow-hover);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--fs-input-disabled-bkg-color);
+    border: var(--fs-input-disabled-border-width) solid var(--fs-input-disabled-border-color);
+  }
+}
