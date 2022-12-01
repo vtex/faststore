@@ -37,6 +37,7 @@
   border: var(--fs-input-border-width) solid var(--fs-input-border-color);
   border-radius: var(--fs-input-border-radius);
   box-shadow: var(--fs-input-box-shadow);
+  transition: var(--fs-input-transition-property) var(--fs-input-transition-timing) var(--fs-input-transition-function);
 
   @include input-focus-ring;
 
