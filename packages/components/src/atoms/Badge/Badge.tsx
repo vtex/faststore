@@ -56,9 +56,7 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(function Badge(
       data-fs-badge-counter={counter}
       {...otherProps}
     >
-      <div data-fs-badge-wrapper>
-        <span>{children}</span>
-      </div>
+      <div data-fs-badge-wrapper>{children}</div>
     </div>
   )
 })

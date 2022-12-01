@@ -1,7 +1,7 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 
 import { IconButton } from '@faststore/components'
-import ShoppingCartIcon from '../../../assets/ShoppingCart.tsx'
+import { ShoppingCart } from '@faststore/ui/src/assets'
 
 <Meta
   title="Molecules/IconButton"
@@ -16,7 +16,7 @@ import ShoppingCartIcon from '../../../assets/ShoppingCart.tsx'
 />
 
 export const Template = ({ args }) => (
-  <IconButton icon={<ShoppingCartIcon />} aria-label="Buy" />
+  <IconButton icon={<ShoppingCart />} aria-label="Buy" />
 )
 
 <header>
