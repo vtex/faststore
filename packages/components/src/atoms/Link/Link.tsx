@@ -31,7 +31,7 @@ type LinkComponent = <C extends ElementType = 'a'>(
 const Link: LinkComponent = forwardRef(function Link<
   C extends ElementType = 'a'
 >(
-  { as, children, variant, inverse, testId = 'store-link', ...otherProps }: LinkProps<C>,
+  { as, children, variant = 'default', inverse, testId = 'store-link', ...otherProps }: LinkProps<C>,
   ref?: PolymorphicRef<C>
 ) {
   const Component = as ?? 'a'
