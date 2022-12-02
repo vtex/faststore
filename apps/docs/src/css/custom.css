@@ -176,7 +176,9 @@
  }
 
  hr {
-   @apply h-[0.5px] my-5 border-border !important;
+   @apply h-[1px] border-border !important;
+   margin-top: 60px !important;
+   margin-bottom: 50px !important;
  }
 
  .markdown ol {
@@ -234,6 +236,7 @@
 
  main h1 {
    @apply text-4xl;
+   margin-top: 30px;
  }
 
  main h2 {
