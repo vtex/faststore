@@ -1,9 +1,6 @@
 import React from 'react'
 import type { FC } from 'react'
 
-/**
- * Icon from Phosphor Icons
- */
 const ShoppingCart: FC = () => (
   <svg
     id="ShoppingCart"

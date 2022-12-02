@@ -1,15 +1,13 @@
 import React from 'react'
 import type { FC } from 'react'
 
-/**
- * Icon from Phosphor Icons
- */
 const X: FC = () => (
   <svg
     id="X"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
     viewBox="0 0 256 256"
+    x
     strokeWidth="16"
     width={24}
     height={24}
