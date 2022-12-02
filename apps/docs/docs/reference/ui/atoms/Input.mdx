@@ -50,7 +50,11 @@ import '@faststore/ui/src/components/atoms/Input/styles.scss'
     value="0 0 0 var(--fs-border-width) var(--fs-border-color-active)"
   />
   <TokenDivider />
-  <TokenRow token="--fs-input-text-color" value="var(--fs-color-text)" />
+  <TokenRow
+    token="--fs-input-text-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
   <TokenRow token="--fs-input-text-size" value="var(--fs-text-size-body)" />
   <TokenDivider />
   <TokenRow token="--fs-input-line-height" value="1.25" />
@@ -66,6 +70,39 @@ import '@faststore/ui/src/components/atoms/Input/styles.scss'
   <TokenRow
     token="--fs-input-transition-timing"
     value="var(--fs-transition-timing)"
+  />
+</TokenTable>
+
+---
+
+### Variants
+
+#### Disabled
+
+```tsx live
+<Input placeholder="Input" disabled />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-input-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-disabled-border-width"
+    value="var(--fs-border-width)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-disabled-border-color"
+    value="var(--fs-border-color)"
+    isColor
   />
 </TokenTable>
 
