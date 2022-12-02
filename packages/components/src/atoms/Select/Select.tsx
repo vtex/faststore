@@ -1,5 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { SelectHTMLAttributes } from 'react'
+import { Icon } from '../..'
+import { CaretDown } from '@faststore/ui/src/assets'
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   /**
@@ -13,10 +15,11 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   ref
 ) {
   return (
-    <div>
-      <select ref={ref} data-fs-select data-testid={testId} {...otherProps}>
+    <div data-fs-select>
+      <select ref={ref} data-testid={testId} {...otherProps}>
         {children}
       </select>
+      <Icon data-fs-select-icon component={<CaretDown />}/>
     </div>
   )
 })
