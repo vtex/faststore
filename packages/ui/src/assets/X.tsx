@@ -1,7 +1,9 @@
 import React from 'react'
 import type { FC } from 'react'
 
-// Icon from Phosphor Icons
+/**
+ * Icon from Phosphor Icons
+ */
 const X: FC = () => (
   <svg
     id="X"
