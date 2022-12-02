@@ -20,13 +20,11 @@
   --fs-select-transition-property         : var(--fs-transition-property);
   --fs-select-transition-function         : var(--fs-transition-function);
 
-  // Label
-  --fs-select-label-color                 : var(--fs-color-text-light);
-  --fs-select-label-margin-right          : var(--fs-spacing-1);
-
   // Icon
   --fs-select-icon-color                  : var(--fs-color-link);
-  --fs-select-icon-position-right         : var(--fs-spacing-2);
+  --fs-select-icon-position-right         : var(--fs-spacing-1);
+  --fs-select-icon-width                  : var(--fs-spacing-3);
+  --fs-select-icon-height                 : var(--fs-select-icon-width);
 
   // Disabled
   --fs-select-disabled-text-color         : var(--fs-color-disabled-text);
@@ -40,35 +38,33 @@
   display: flex;
   align-items: center;
   width: fit-content;
-  padding: var(--fs-select-padding);
-  color: var(--fs-select-text-color);
-  background: var(--fs-select-bkg);
-  border: 0;
-  border-radius: var(--fs-select-border-radius);
-  box-shadow: 0;
-  transition: var(--fs-select-transition-property) var(--fs-select-transition-timing) var(--fs-select-transition-function);
-  appearance: none;
 
-  @include focus-ring-visible;
+  select {
+    padding: var(--fs-select-padding);
+    color: var(--fs-select-text-color);
+    background: var(--fs-select-bkg);
+    border: 0;
+    border-radius: var(--fs-select-border-radius);
+    box-shadow: 0;
+    transition: var(--fs-select-transition-property) var(--fs-select-transition-timing) var(--fs-select-transition-function);
+    appearance: none;
 
-  &:focus { background-color: var(--fs-select-bkg-color-focus); }
+    @include focus-ring-visible;
 
-  &:hover:not(:disabled) { background-color: var(--fs-select-bkg-color-hover); }
+    &:focus { background-color: var(--fs-select-bkg-color-focus); }
 
-  &:disabled {
-    color: var(--fs-select-disabled-text-color);
-    cursor: not-allowed;
-    opacity: var(--fs-select-disabled-text-opacity);
-    + [data-fs-select-icon] { display: none; }
-  }
+    &:hover:not(:disabled) { background-color: var(--fs-select-bkg-color-hover); }
 
-  @include media("<notebook") { min-height: var(--fs-select-min-height); }
+    &:disabled {
+      color: var(--fs-select-disabled-text-color);
+      cursor: not-allowed;
+      opacity: var(--fs-select-disabled-text-opacity);
+      + [data-fs-select-icon] { display: none; }
+    }
 
-  @include media(">=notebook") { height: var(--fs-select-height); }
+    @include media("<notebook") { min-height: var(--fs-select-min-height); }
 
-  [data-fs-select-label] {
-    margin-right: var(--fs-select-label-margin-right);
-    color: var(--fs-select-label-color);
+    @include media(">=notebook") { height: var(--fs-select-height); }
   }
 
   [data-fs-select-icon] {
@@ -76,5 +72,7 @@
     right: var(--fs-select-icon-position-right);
     color: var(--fs-select-icon-color);
     pointer-events: none;
+    width: var(--fs-select-icon-width);
+    height: var(--fs-select-icon-height);
   }
 }
