@@ -1,8 +1,7 @@
 import React from 'react'
-import type { FC } from 'react'
 
 // Icon from Phosphor Icons
-const X: FC = () => (
+const X = () => (
   <svg
     id="X"
     xmlns="http://www.w3.org/2000/svg"
