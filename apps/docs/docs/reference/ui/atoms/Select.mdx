@@ -19,16 +19,23 @@ Select components allow users to pick an option from a predefined list. The Sele
 
 ```tsx live
 <div style={{ display: 'flex', columnGap: '16px', alignItems: 'center' }}>
-  <Select>
-    <option value="great">Great</option>
-    <option value="ok">Ok</option>
-    <option value="bad">Bad</option>
-  </Select>
-  <Select disabled>
-    <option value="great">Great</option>
-    <option value="ok">Ok</option>
-    <option value="bad">Bad</option>
-  </Select>
+  <Select
+    id="select-overview-default"
+    options={{
+      great: 'Great',
+      ok: 'Ok',
+      bad: 'Bad',
+    }}
+  />
+  <Select
+    id="select-overview-disabled"
+    options={{
+      great: 'Great',
+      ok: 'Ok',
+      bad: 'Bad',
+    }}
+    disabled
+  />
 </div>
 ```
 
@@ -53,11 +60,13 @@ import '@faststore/ui/src/components/atoms/Select/styles.scss'
 ## Usage
 
 ```tsx live
-<Select>
-  <option value="great">Great</option>
-  <option value="ok">Ok</option>
-  <option value="bad">Bad</option>
-</Select>
+<Select
+  options={{
+    great: 'Great',
+    ok: 'Ok',
+    bad: 'Bad',
+  }}
+/>
 ```
 
 ### Props
@@ -139,11 +148,15 @@ import '@faststore/ui/src/components/atoms/Select/styles.scss'
 ### Disabled
 
 ```tsx live
-<Select disabled>
-  <option value="great">Great</option>
-  <option value="ok">Ok</option>
-  <option value="bad">Bad</option>
-</Select>
+<Select
+  id="select-disabled"
+  options={{
+    great: 'Great',
+    ok: 'Ok',
+    bad: 'Bad',
+  }}
+  disabled
+/>
 ```
 
 <TokenTable>
@@ -173,3 +186,21 @@ For further customization, you can use the following data attributes:
 - Consider using an open text [`Input`](/reference/ui/atoms/Input) when several options are available and if the entries don’t need to be validated. Doing so will prevent users from having to read and understand all options before making a choice.
 - Consider using an autocomplete field when multiple options are available and if the inputs need to be validated.
 - Opt to grey out unavailable items instead of removing them completely.
+
+---
+
+## Related components
+
+```tsx live
+<SelectField
+  id="select-order-by"
+  label="Order by:"
+  options={{
+    name_asc: 'Name, A-Z',
+    name_desc: 'Name, Z-A',
+    top_sales: 'Top Sales',
+  }}
+/>
+```
+
+[SelectField](/reference/ui/molecules/SelectField) wraps a [Select](/reference/ui/atoms/Select) input and its corresponding [Label](/reference/ui/atoms/Label). It allows users to select one option from a set.
