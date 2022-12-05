@@ -6,7 +6,7 @@ import Label from '../../atoms/Label'
 
 export interface SelectFieldProps extends SelectProps {
   /**
-   * Specifies the text that will be displayed in the label right next to the Select.
+   * Defines the text displayed in the label right next to the Select.
    */
   label: string
 }
