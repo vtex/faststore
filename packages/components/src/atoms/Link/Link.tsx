@@ -19,17 +19,19 @@ interface Props {
   inverse?: boolean
 }
 
-export type LinkProps<C extends ElementType> = PolymorphicComponentPropsWithRef<
+export type LinkElementType = ElementType
+
+export type LinkProps<C extends LinkElementType> = PolymorphicComponentPropsWithRef<
   C,
   Props
 >
 
-type LinkComponent = <C extends ElementType = 'a'>(
+type LinkComponent = <C extends LinkElementType>(
   props: LinkProps<C>
 ) => ReactElement | null
 
 const Link: LinkComponent = forwardRef(function Link<
-  C extends ElementType = 'a'
+  C extends LinkElementType = 'a'
 >(
   { as, children, variant = 'default', inverse, testId = 'store-link', ...otherProps }: LinkProps<C>,
   ref?: PolymorphicRef<C>
