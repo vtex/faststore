@@ -177,8 +177,8 @@
 
  hr {
    @apply h-[1px] border-border !important;
-   margin-top: 60px !important;
-   margin-bottom: 50px !important;
+   margin-top: 50px !important;
+   margin-bottom: 40px !important;
  }
 
  .markdown ol {
