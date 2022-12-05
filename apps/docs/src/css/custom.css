@@ -244,7 +244,7 @@
  }
 
  main h3 {
-   @apply text-lg;
+   @apply text-xl;
  }
 
  main h4 {
