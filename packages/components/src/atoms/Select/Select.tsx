@@ -5,8 +5,7 @@ import { CaretDown } from '@faststore/ui/src/assets'
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   /**
-   * Redefines the id property to be required when using the Select component. The
-   * id will be used to link the UISelect component and its label.
+   * Assigns an identifier to link the UISelect component and its label.
    */
   id: string
   /**
