@@ -18,6 +18,7 @@ import type {
   QueryCollectionArgs,
   QueryProductArgs,
   QuerySearchArgs,
+  QueryShippingArgs,
 } from "../../../__generated__/schema"
 import type { CategoryTree } from "../clients/commerce/types/CategoryTree"
 import type { Context } from "../index"
@@ -247,6 +248,26 @@ export const Query = {
           node,
           cursor: (after + index).toString(),
         })),
+    }
+  },
+  shipping: async (
+    _: unknown,
+    { country, items, postalCode }: QueryShippingArgs,
+    ctx: Context
+  ) => {
+    const {
+      loaders: { simulationLoader },
+      clients: { commerce },
+    } = ctx
+
+    const [simulation, address] = await Promise.all([
+      simulationLoader.load({ country, items, postalCode }),
+      commerce.checkout.address({ postalCode, country }),
+    ])
+
+    return {
+      ...simulation,
+      address,
     }
   },
 }

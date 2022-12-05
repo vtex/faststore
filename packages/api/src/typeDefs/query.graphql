@@ -245,4 +245,23 @@ type Query {
     after: String
   ): StoreCollectionConnection!
     @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
+
+  """
+  Returns information about shipping simulation.
+  """
+  shipping(
+    """
+    List of SKU products
+    """
+    items: [IShippingItem!]!
+    """
+    Postal code to freight calculator
+    """
+    postalCode: String!
+    """
+    Country of postal code
+    """
+    country: String!
+  ): ShippingData
+    @cacheControl(scope: "public", sMaxAge: 120, staleWhileRevalidate: 3600)
 }

@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.3-alpha.0 (2022-11-30)
+
+
+### Bug Fixes
+
+* CD's Publish step ([#1524](https://github.com/vtex/faststore/issues/1524)) ([9785e8e](https://github.com/vtex/faststore/commit/9785e8e4846fdc3d24297c820328ad3cc4d516da))
+
+
+### Chores
+
+* Change from `patch` to `prepatch` release (alpha) ([#1523](https://github.com/vtex/faststore/issues/1523)) ([2f2c5b7](https://github.com/vtex/faststore/commit/2f2c5b77d2d71f887dad64a9488fabc4e6a29e07))
+
+
+
+## [1.12.31](https://github.com/vtex/faststore/compare/v1.12.30...v1.12.31) (2022-11-16)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## [1.12.30](https://github.com/vtex/faststore/compare/v1.12.29...v1.12.30) (2022-11-16)
+
+**Note:** Version bump only for package faststore
+
+
+
+
+
+## [1.12.29](https://github.com/vtex/faststore/compare/v1.12.28...v1.12.29) (2022-11-14)
+
+
+### Features
+
+* Shipping Simulation Integration ([#1440](https://github.com/vtex/faststore/issues/1440)) ([8eacba4](https://github.com/vtex/faststore/commit/8eacba46a40f53be7fdca72dc04ff838dbf449c7))
+
+
+
 ## [1.12.28](https://github.com/vtex/faststore/compare/v1.12.27...v1.12.28) (2022-11-09)
 
 

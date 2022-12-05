@@ -1,4 +1,4 @@
-export interface PayloadItem {
+export interface ShippingItem {
   id: string
   quantity: number
   seller: string
@@ -12,7 +12,7 @@ export interface ShippingData {
 
 export interface SimulationArgs {
   country?: string
-  items: PayloadItem[]
+  items: ShippingItem[]
   postalCode?: string
   isCheckedIn?: boolean
   priceTables?: string[]

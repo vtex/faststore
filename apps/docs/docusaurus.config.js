@@ -20,7 +20,7 @@ module.exports = {
   themeConfig: {
     image: 'img/faststore_thumbnail.png',
     zoom: {
-      selector: '.markdown :not(a) > img',
+      selector: '.markdown :not(.notClickable)',
       config: {
         // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
         background: {
@@ -98,6 +98,7 @@ module.exports = {
     algolia: {
       apiKey: 'b569ca818413cccb8e41edbcb1dd5161',
       indexName: 'devportal',
+      contextualSearch: true,
       appId: 'OAXP53H7GY',
     },
     footer: {

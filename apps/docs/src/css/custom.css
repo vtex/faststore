@@ -212,7 +212,7 @@
  }
 
  [class^='docItemContainer'] {
-   @apply mx-auto sm:max-w-4xl;
+   @apply mx-auto sm:max-w-5xl;
  }
 
  .docItemCol_src-theme-DocItem-styles-module [class^='docItemContainer'] {
@@ -425,4 +425,8 @@
 
  .labelSidebar .menu__list-item-collapsible > .menu__link {
    @apply text-xs text-details pl-6 uppercase;
+ }
+
+ .customizingCard{
+  @apply bg-brandlessBlue
  }
