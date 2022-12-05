@@ -12,7 +12,7 @@ export type { LabelProps } from './atoms/Label'
 export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
 export { default as Link } from './atoms/Link'
-export type { LinkProps } from './atoms/Link'
+export type { LinkProps, LinkElementType } from './atoms/Link'
 
 // Molecules
 export { default as CheckboxField } from './molecules/CheckboxField'
