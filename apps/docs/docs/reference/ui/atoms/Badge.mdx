@@ -16,16 +16,20 @@ Badges are status descriptors used to emphasize an item's state.
 ## Overview
 
 ```tsx live
-<div style={{ display: 'flex', columnGap: '16px', alignItems: 'center' }}>
-  <Badge variant="neutral">Neutral</Badge>
-  <Badge variant="info">Info</Badge>
-  <Badge variant="highlighted">Highlighted</Badge>
-  <Badge variant="success">Success</Badge>
-  <Badge variant="warning">Warning</Badge>
-  <Badge variant="danger">Danger</Badge>
-  <Badge variant="neutral" size="big">
-    Neutral & Big
-  </Badge>
+<div className="overviewSectionColumn">
+  <div className="overviewSection">
+    <Badge variant="neutral">Neutral</Badge>
+    <Badge variant="info">Info</Badge>
+    <Badge variant="highlighted">Highlighted</Badge>
+    <Badge variant="neutral" size="big">
+      Neutral & Big
+    </Badge>
+  </div>
+  <div className="overviewSection">
+    <Badge variant="success">Success</Badge>
+    <Badge variant="warning">Warning</Badge>
+    <Badge variant="danger">Danger</Badge>
+  </div>
 </div>
 ```
 
