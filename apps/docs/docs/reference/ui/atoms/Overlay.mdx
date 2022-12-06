@@ -5,6 +5,7 @@ sidebar_custom_props:
 ---
 
 import PropsSection from '@site/src/components/PropsSection/PropsSection'
+import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
 # Overlay
 
@@ -20,7 +21,6 @@ function Component() {
       height: '8rem',
     },
     overlay: {
-      backgroundColor: 'rgba(107,114,128,0.3)',
       position: 'absolute',
     },
   }
@@ -44,6 +44,12 @@ Import the component from <a href="https://www.faststore.dev/reference/ui/get-st
 import { Overlay } from '@faststore/ui'
 ```
 
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Overlay/styles.scss'
+```
+
 ---
 
 ## Usage
@@ -56,7 +62,6 @@ function Component() {
       height: '8rem',
     },
     overlay: {
-      backgroundColor: 'rgba(107,114,128,0.3)',
       position: 'absolute',
     },
   }
@@ -75,6 +80,14 @@ function Component() {
 ## Props
 
 <PropsSection name="Overlay" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-overlay-bkg-color" value="rgb(0 0 0 / 20%)" isColor />
+</TokenTable>
 
 ---
 

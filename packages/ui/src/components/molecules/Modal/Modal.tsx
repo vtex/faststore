@@ -67,7 +67,6 @@ const Modal = ({
   return isOpen
     ? createPortal(
         <Overlay
-          data-modal-overlay
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
         >
