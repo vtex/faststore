@@ -3,7 +3,7 @@ import React from 'react'
 // Icon from Phosphor Icons
 const XCircle = () => {
   return (
-    <symbol
+    <svg
       id="XCircle"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
@@ -38,7 +38,7 @@ const XCircle = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
       ></line>
-    </symbol>
+    </svg>
   )
 }
 
