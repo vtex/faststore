@@ -28,6 +28,7 @@ InputField wraps a [Input](/reference/ui/atoms/Input) input and its correspondin
     actionable
     error="Error Message"
   />
+  <InputField label="Input Disabled" id="inputfield-disabled" disabled />
 </div>
 ```
 
@@ -66,7 +67,138 @@ import '@faststore/ui/src/components/molecules/InputField/styles.scss'
 ## Design Tokens
 
 <TokenTable>
+  <TokenRow
+    token="--fs-input-field-padding"
+    value="var(--fs-spacing-2) var(--fs-spacing-2) 0"
+  />
+  <TokenRow
+    token="--fs-input-field-color"
+    value="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow token="--fs-input-field-size" value="var(--fs-text-size-body)" />
+  <TokenRow
+    token="--fs-input-field-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-input-field-transition-function"
+    value="var(--fs-transition-function)"
+  />
+  <TokenRow
+    token="--fs-input-field-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-input-field-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+</TokenTable>
 
+### Nested Elements
+
+#### Label
+
+<TokenTable>
+  <TokenRow token="--fs-input-label-padding" value="0 var(--fs-spacing-2)" />
+  <TokenRow
+    token="--fs-input-label-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow token="--fs-input-label-size" value="var(--fs-text-size-tiny)" />
+</TokenTable>
+
+### Variants
+
+#### Actionable
+
+```tsx live
+<InputField label="Input w/ Action" id="inputfield-action" actionable />
+```
+
+#### Actionable w/ Error
+
+```tsx live
+<InputField
+  label="Input w/ Error Message"
+  id="inputfield-error"
+  error="Error Message"
+/>
+```
+
+#### Error
+
+```tsx live
+<InputField
+  label="Input w/ Action and Error"
+  id="inputfield-action-error"
+  actionable
+  error="Error Message"
+/>
+```
+
+<TokenTable>
+   <TokenRow
+    token="--fs-input-error-message-margin-top"
+    value="var(--fs-spacing-0)"
+  />
+  <TokenRow
+    token="--fs-input-error-message-size"
+    value="var(--fs-text-size-legend)"
+  />
+  <TokenRow token="--fs-input-error-message-line-height" value="1.1" />
+  <TokenRow
+    token="--fs-input-error-message-color"
+    value="var(--fs-color-danger-text)"
+    isColor
+  />
+
+  <TokenDivider />
+  <TokenRow
+    token="--fs-input-error-border-color"
+    value="var(--fs-color-danger-border)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-error-box-shadow"
+    value="0 0 0 var(--fs-border-width) var(--fs-input-error-border-color)"
+  />
+  <TokenRow
+    token="--fs-input-error-focus-ring"
+    value="var(--fs-color-focus-ring-danger)"
+    isColor
+  />
+</TokenTable>
+
+#### Disabled
+
+```tsx live
+<InputField label="Input Disabled" id="inputfield-disabled" disabled />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-input-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-disabled-text-color"
+    value="var(--fs-color-disabled-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-input-disabled-border-width"
+    value="var(--fs-border-width)"
+  />
+  <TokenRow
+    token="--fs-input-disabled-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
 </TokenTable>
 
 ---

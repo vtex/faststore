@@ -5,10 +5,9 @@
 
   // Default properties
   --fs-input-field-padding                     : var(--fs-spacing-2) var(--fs-spacing-2) 0;
-  --fs-input-field-border-color                : var(--fs-border-color);
-
   --fs-input-field-color                       : var(--fs-color-text);
   --fs-input-field-size                        : var(--fs-text-size-body);
+  --fs-input-field-border-color                : var(--fs-border-color);
 
   --fs-input-field-transition-function         : var(--fs-transition-function);
   --fs-input-field-transition-property         : var(--fs-transition-property);
