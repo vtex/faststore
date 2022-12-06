@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import type { Story } from '@storybook/react'
 
 import Component from '../Popover'
-import Input from '../../Input'
+import { Input } from '@faststore/components'
 import type { PopoverProps } from '../Popover'
 import mdx from './Popover.mdx'
 import type { ComponentArgTypes } from '../../../../typings/utils'
