@@ -431,8 +431,16 @@
   @apply bg-brandlessBlue
  }
 
+/* Overview section */
+
  .overviewSection {
   display: flex;
   column-gap: 16px;
   align-items: center;
+ }
+
+ .overviewSectionColumn {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
  }
