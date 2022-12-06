@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react'
 import type { ReactNode } from 'react'
 import { Icon } from '../..'
-import { Badge, BadgeProps, X } from '../..'
+import { Badge, BadgeProps } from '../..'
+import X from '../../atoms/X'
 
 export interface TagProps extends BadgeProps {
   /**
