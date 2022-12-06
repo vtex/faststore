@@ -430,3 +430,9 @@
  .customizingCard{
   @apply bg-brandlessBlue
  }
+
+ .overviewSection {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+ }
