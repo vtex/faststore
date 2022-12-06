@@ -1,0 +1,78 @@
+---
+description: InputFields are text fields used to get user inputs.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Input___77d0e7a8079b7d310e8223dd9e1994f6.png
+---
+
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
+import { TokenTable, TokenRow } from '@site/src/components/Tokens'
+
+# InputField
+
+InputField wraps a [Input](/reference/ui/atoms/Input) input and its corresponding [Label](/reference/ui/atoms/Label).
+
+## Overview
+
+```tsx live
+<div style={{ display: 'flex', flexDirection: 'column', rowGap: '22px' }}>
+  <InputField label="Label" id="inputfield-default" />
+  <InputField
+    label="Input w/ Error Message"
+    id="inputfield-error"
+    error="Error Message"
+  />
+  <InputField label="Input w/ Action" id="inputfield-action" actionable />
+  <InputField
+    label="Input w/ Action and Error"
+    id="inputfield-action-error"
+    actionable
+    error="Error Message"
+  />
+</div>
+```
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { InputField } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/InputField/styles.scss'
+```
+
+---
+
+## Usage
+
+```tsx live
+<InputField label="Label" id="inputfield-label" />
+```
+
+---
+
+## Props
+
+<PropsSection name="InputField" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+
+</TokenTable>
+
+---
+
+## Customization
+
+For futher customization, use the data-attr below:
+
+`data-fs-input-field`
