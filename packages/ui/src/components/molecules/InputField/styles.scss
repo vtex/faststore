@@ -4,20 +4,20 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-input-field-padding                : var(--fs-spacing-2) var(--fs-spacing-2) 0;
-  --fs-input-field-border-color           : var(--fs-border-color);
+  --fs-input-field-padding                     : var(--fs-spacing-2) var(--fs-spacing-2) 0;
+  --fs-input-field-border-color                : var(--fs-border-color);
 
-  --fs-input-field-color                  : var(--fs-color-text);
-  --fs-input-field-size                   : var(--fs-text-size-body);
+  --fs-input-field-color                       : var(--fs-color-text);
+  --fs-input-field-size                        : var(--fs-text-size-body);
 
-  --fs-input-field-transition-function    : var(--fs-transition-function);
-  --fs-input-field-transition-property    : var(--fs-transition-property);
-  --fs-input-field-transition-timing      : var(--fs-transition-timing);
+  --fs-input-field-transition-function         : var(--fs-transition-function);
+  --fs-input-field-transition-property         : var(--fs-transition-property);
+  --fs-input-field-transition-timing           : var(--fs-transition-timing);
 
   // Label
-  --fs-input-field-label-padding          : 0 var(--fs-spacing-2);
-  --fs-input-field-label-color            : var(--fs-color-text-light);
-  --fs-input-field-label-size             : var(--fs-text-size-tiny);
+  --fs-input-field-label-padding               : 0 var(--fs-spacing-2);
+  --fs-input-field-label-color                 : var(--fs-color-text-light);
+  --fs-input-field-label-size                  : var(--fs-text-size-tiny);
 
   // Error
   --fs-input-field-error-message-size          : var(--fs-text-size-legend);
@@ -132,13 +132,6 @@
     }
 
     [data-fs-button][data-fs-icon-button] {
-      svg {
-        width: var(--fs-tag-icon-size);
-        height: var(--fs-tag-icon-size);
-        stroke-width: var(--fs-tag-icon-stroke-width);
-        color: var(--fs-tag-text-color);
-        vertical-align: middle;
-      }
       &::before {
         left: calc(-1 * var(--fs-spacing-1));
       }
