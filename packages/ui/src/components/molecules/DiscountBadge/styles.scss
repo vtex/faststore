@@ -1,0 +1,57 @@
+[data-fs-discount-badge] {
+  // --------------------------------------------------------
+  // Design Tokens for Discount Badge
+  // --------------------------------------------------------
+
+  // Low
+  --fs-badge-discount-low-bkg-color       : var(--fs-badge-success-bkg-color);
+  --fs-badge-discount-low-text-color      : var(--fs-badge-success-text-color);
+  --fs-badge-discount-low-border-color    : var(--fs-badge-success-border-color);
+
+  // Medium
+  --fs-badge-discount-medium-bkg-color    : var(--fs-badge-warning-bkg-color);
+  --fs-badge-discount-medium-text-color   : var(--fs-badge-warning-text-color);
+  --fs-badge-discount-medium-border-color : var(--fs-badge-warning-border-color);
+
+  // High
+  --fs-badge-discount-high-bkg-color      : var(--fs-badge-danger-bkg-color);
+  --fs-badge-discount-high-text-color     : var(--fs-badge-danger-text-color);
+  --fs-badge-discount-high-border-color   : var(--fs-badge-danger-border-color);
+
+  // --------------------------------------------------------
+  // Variants Styles
+  // --------------------------------------------------------
+
+  &[data-fs-discount-badge-variant="low"] {
+    color: var(--fs-badge-discount-low-text-color);
+
+    [data-fs-badge-wrapper] {
+      background-color: var(--fs-badge-discount-low-bkg-color);
+      border-color: var(--fs-badge-discount-low-border-color);
+
+      &::after {
+        background-color: var(--fs-badge-discount-low-bkg-color);
+      }
+    }
+  }
+
+  &[data-fs-discount-badge-variant="medium"] {
+    color: var(--fs-badge-discount-medium-text-color);
+
+    [data-fs-badge-wrapper] {
+      background-color: var(--fs-badge-discount-medium-bkg-color);
+      border-color: var(--fs-badge-discount-medium-border-color);
+      &::after { background-color: var(--fs-badge-discount-medium-bkg-color); }
+    }
+  }
+
+  &[data-fs-discount-badge-variant="high"] {
+    color: var(--fs-badge-discount-high-text-color);
+
+    [data-fs-badge-wrapper] {
+      background-color: var(--fs-badge-discount-high-bkg-color);
+      border-color: var(--fs-badge-discount-high-border-color);
+      &::after { background-color: var(--fs-badge-discount-high-bkg-color); }
+    }
+  }
+}
