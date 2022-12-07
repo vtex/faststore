@@ -17,6 +17,8 @@ export { default as Price } from './atoms/Price'
 export type { PriceProps } from './atoms/Price'
 export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
+export { default as Link } from './atoms/Link'
+export type { LinkProps, LinkElementType } from './atoms/Link'
 
 // Molecules
 export { default as BuyButton } from './molecules/BuyButton'
