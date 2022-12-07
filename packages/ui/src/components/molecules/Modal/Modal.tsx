@@ -7,9 +7,9 @@ import type {
 import React from 'react'
 import { createPortal } from 'react-dom'
 
-import Overlay from '../../atoms/Overlay'
-import ModalContent from './ModalContent'
+import { Overlay } from '@faststore/components'
 import type { ModalContentProps } from './ModalContent'
+import ModalContent from './ModalContent'
 
 export interface ModalProps extends ModalContentProps {
   /**
@@ -67,7 +67,6 @@ const Modal = ({
   return isOpen
     ? createPortal(
         <Overlay
-          data-modal-overlay
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropKeyDown}
         >
