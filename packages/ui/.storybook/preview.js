@@ -1,53 +1,57 @@
-import { withThemes } from 'storybook-addon-themes/react'
-import SBTheme from './theme'
+import '../src/styles/global.scss'
 
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    theme: SBTheme,
-  },
-  docs: {
-    theme: SBTheme,
-  },
-  options: {
-    theme: SBTheme,
-    storySort: {
-      order: ['Getting Started', 'Atoms', 'Molecules', 'Organisms', 'Releases'],
+// Viewports from src/styles/utilities.scss
+const customViewports = {
+  phone: {
+    name: 'Phone',
+    styles: {
+      width: '320px',
+      height: '480px',
     },
   },
-  themes: {
-    clearable: false,
-    default: 'styles',
-    list: [
-      { name: 'none', class: 'no-theme', color: '#FFFFFF' },
-      {
-        name: 'styles',
-        class: 'styles',
-        color: '#999999',
-      },
-    ],
-    onChange: ({ class: themeName }) => {
-      const currentTheme = document
-        .getElementById('storybook-preview-iframe')
-        .contentDocument.querySelector('link[rel=stylesheet]')
-
-      if (currentTheme) {
-        currentTheme.remove()
-      }
-
-      if (themeName !== 'no-theme') {
-        var theme = document.createElement('link')
-        theme.rel = 'stylesheet'
-        theme.type = 'text/css'
-        theme.href = `./dist/index.css`
-
-        document
-          .getElementById('storybook-preview-iframe')
-          .contentDocument.querySelector('head')
-          .appendChild(theme)
-      }
+  phonemid: {
+    name: 'PhoneMid',
+    styles: {
+      width: '375px',
+      height: '667px',
+    },
+  },
+  tablet: {
+    name: 'Tablet',
+    styles: {
+      width: '768px',
+      height: '1024px',
+    },
+  },
+  notebook: {
+    name: 'Notebook',
+    styles: {
+      width: '1280px',
+      height: '960px',
+    },
+  },
+  desktop: {
+    name: 'Desktop',
+    styles: {
+      width: '1440px',
+      height: '1024px',
     },
   },
 }
 
-export const decorators = [withThemes]
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+  viewport: {
+    viewports: customViewports,
+  },
+  previewTabs: {
+    'storybook/docs/panel': {},
+    canvas: { title: 'Sandbox' },
+  },
+}

@@ -10,7 +10,13 @@ import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
 Briefly describe the component and its functions.
 
-Example: The _add component name_ component are _add component meaning_ used to _add the component function_.
+Example: The _add component name_ component is _add component meaning_ used to _add the component function_.
+
+## Overview
+
+```tsx live
+<div>List component variants/types here if applicable</div>
+```
 
 ## Import
 
@@ -24,6 +30,16 @@ import { ComponentName } from '@faststore/ui'
 /* Replace ComponentName with the name of the component. */
 <ComponentName />
 ```
+
+## Props
+
+_Replace `ComponentName` with the component name._
+
+<PropsSection name="ComponentName" />
+
+## Design Tokens
+
+> _Use this section to list components design tokens._
 
 ### Variants (Optional)
 
@@ -46,12 +62,6 @@ Use the _ComponentName_ component to:
 - _Add use case_
 - _Add use case_
 - _Add use case_
-
-## Props
-
-_Replace `ComponentName` with the component name._
-
-<PropsSection name="ComponentName" />
 
 ## Customization
 

@@ -1,5 +1,5 @@
-import type { ArgType } from '@storybook/react'
+import type { ArgTypes } from '@storybook/react'
 
 export type ComponentArgTypes<T> = {
-  [K in keyof T]: ArgType
+  [K in keyof T]: ArgTypes
 }

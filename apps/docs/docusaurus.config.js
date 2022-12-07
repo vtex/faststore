@@ -192,7 +192,10 @@ module.exports = {
           blogTitle: 'Release Notes',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: [
+            require.resolve('./src/css/custom.css'),
+            require.resolve('./../../packages/ui/src/styles/global.scss'),
+          ],
         },
       },
     ],
@@ -210,6 +213,7 @@ module.exports = {
   ],
   plugins: [
     'docusaurus-tailwindcss-loader',
+    'docusaurus-plugin-sass',
     require.resolve('docusaurus-plugin-image-zoom'),
     [
       'docusaurus-plugin-react-docgen-typescript',

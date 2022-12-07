@@ -1,103 +1,91 @@
+export * from '@faststore/components'
+
 // Atoms
-export { default as Link } from './atoms/Link'
-export type { LinkProps } from './atoms/Link'
+export { default as Link } from './components/atoms/Link'
+export type { LinkProps } from './components/atoms/Link'
 
-export { default as Button } from './atoms/Button'
-export type { ButtonProps } from './atoms/Button'
+export { default as Input } from './components/atoms/Input'
+export type { InputProps } from './components/atoms/Input'
 
-export { default as Input } from './atoms/Input'
-export type { InputProps } from './atoms/Input'
+export { default as Popover } from './components/atoms/Popover'
+export type { PopoverProps } from './components/atoms/Popover'
 
-export { default as Icon } from './atoms/Icon'
-export type { IconProps } from './atoms/Icon'
+export { default as Price } from './components/atoms/Price'
+export type { PriceProps } from './components/atoms/Price'
 
-export { default as Popover } from './atoms/Popover'
-export type { PopoverProps } from './atoms/Popover'
+export { default as TextArea } from './components/atoms/TextArea'
+export type { TextAreaProps } from './components/atoms/TextArea'
 
-export { default as Price } from './atoms/Price'
-export type { PriceProps } from './atoms/Price'
+export { default as Overlay } from './components/atoms/Overlay'
+export type { OverlayProps } from './components/atoms/Overlay'
 
-export { default as TextArea } from './atoms/TextArea'
-export type { TextAreaProps } from './atoms/TextArea'
+export { default as Select } from './components/atoms/Select'
+export type { SelectProps } from './components/atoms/Select'
 
-export { default as Checkbox } from './atoms/Checkbox'
-export type { CheckboxProps } from './atoms/Checkbox'
+export { default as Slider } from './components/atoms/Slider'
+export type { SliderProps } from './components/atoms/Slider'
 
-export { default as Overlay } from './atoms/Overlay'
-export type { OverlayProps } from './atoms/Overlay'
+export { default as List } from './components/atoms/List'
+export type { ListProps } from './components/atoms/List'
 
-export { default as Select } from './atoms/Select'
-export type { SelectProps } from './atoms/Select'
+export { default as Skeleton } from './components/atoms/Skeleton'
+export type { SkeletonProps } from './components/atoms/Skeleton'
 
-export { default as Radio } from './atoms/Radio'
-export type { RadioProps } from './atoms/Radio'
+export { default as Spinner } from './components/atoms/Spinner'
+export type { SpinnerProps } from './components/atoms/Spinner'
 
-export { default as Badge } from './atoms/Badge'
-export type { BadgeProps } from './atoms/Badge'
-
-export { default as Slider } from './atoms/Slider'
-export type { SliderProps } from './atoms/Slider'
-
-export { default as List } from './atoms/List'
-export type { ListProps } from './atoms/List'
-
-export { default as Skeleton } from './atoms/Skeleton'
-export type { SkeletonProps } from './atoms/Skeleton'
-
-export { default as Spinner } from './atoms/Spinner'
-export type { SpinnerProps } from './atoms/Spinner'
-
-export { default as Label } from './atoms/Label'
-export type { LabelProps } from './atoms/Label'
-
-export { default as Incentive } from './atoms/Incentive'
-export type { IncentiveProps } from './atoms/Incentive'
+export { default as Incentive } from './components/atoms/Incentive'
+export type { IncentiveProps } from './components/atoms/Incentive'
 
 // Molecules
-export { default as SkuSelector } from './molecules/SkuSelector'
-export type { SkuSelectorProps } from './molecules/SkuSelector'
+export { default as SkuSelector } from './components/molecules/SkuSelector'
+export type { SkuSelectorProps } from './components/molecules/SkuSelector'
 
-export { default as Gift, GiftContent, GiftImage } from './molecules/Gift'
+export {
+  default as Gift,
+  GiftContent,
+  GiftImage,
+} from './components/molecules/Gift'
 export type {
   GiftProps,
   GiftContentProps,
   GiftImageProps,
-} from './molecules/Gift'
+} from './components/molecules/Gift'
 
-export { default as ProductTitle } from './molecules/ProductTitle'
-export type { ProductTitleProps } from './molecules/ProductTitle'
+export { default as ProductTitle } from './components/molecules/ProductTitle'
+export type { ProductTitleProps } from './components/molecules/ProductTitle'
 
-export { default as OrderSummary } from './molecules/OrderSummary'
-export type { OrderSummaryProps } from './molecules/OrderSummary'
+export { default as OrderSummary } from './components/molecules/OrderSummary'
+export type { OrderSummaryProps } from './components/molecules/OrderSummary'
 
-export { default as AggregateRating } from './molecules/AggregateRating'
-export type { AggregateRatingProps } from './molecules/AggregateRating'
+export { default as AggregateRating } from './components/molecules/AggregateRating'
+export type { AggregateRatingProps } from './components/molecules/AggregateRating'
 
 export {
   default as ProductCard,
   ProductCardImage,
   ProductCardContent,
   ProductCardActions,
-} from './molecules/ProductCard'
+} from './components/molecules/ProductCard'
 export type {
   ProductCardProps,
   ProductCardImageProps,
   ProductCardContentProps,
   ProductCardActionsProps,
-} from './molecules/ProductCard'
+} from './components/molecules/ProductCard'
 
 export {
   default as Card,
   CardImage,
   CardContent,
   CardActions,
-} from './molecules/Card'
+} from './components/molecules/Card'
 export type {
   CardProps,
   CardImageProps,
   CardContentProps,
   CardActionsProps,
-} from './molecules/Card'
+} from './components/molecules/Card'
 
 export {
   default as CartItem,
@@ -107,7 +95,7 @@ export {
   CartItemPrices,
   CartItemSummary,
   CartItemTitle,
-} from './molecules/CartItem'
+} from './components/molecules/CartItem'
 export type {
   CartItemProps,
   CartItemActionsProps,
@@ -116,63 +104,69 @@ export type {
   CartItemPricesProps,
   CartItemSummaryProps,
   CartItemTitleProps,
-} from './molecules/CartItem'
+} from './components/molecules/CartItem'
 
-export { default as Bullets } from './molecules/Bullets'
-export type { BulletsProps } from './molecules/Bullets'
+export { default as Bullets } from './components/molecules/Bullets'
+export type { BulletsProps } from './components/molecules/Bullets'
 
-export { default as SearchInput } from './molecules/SearchInput'
-export type { SearchInputProps, SearchInputRef } from './molecules/SearchInput'
+export { default as SearchInput } from './components/molecules/SearchInput'
+export type {
+  SearchInputProps,
+  SearchInputRef,
+} from './components/molecules/SearchInput'
 
-export { default as Carousel } from './molecules/Carousel'
-export type { CarouselProps } from './molecules/Carousel'
+export { default as Carousel } from './components/molecules/Carousel'
+export type { CarouselProps } from './components/molecules/Carousel'
 
-export { default as IconButton } from './molecules/IconButton'
-export type { IconButtonProps } from './molecules/IconButton'
-
-export { default as Modal } from './molecules/Modal'
-export type { ModalProps } from './molecules/Modal'
+export { default as Modal } from './components/molecules/Modal'
+export type { ModalProps } from './components/molecules/Modal'
 
 export {
   default as Banner,
   BannerContent,
   BannerImage,
   BannerLink,
-} from './molecules/Banner'
+} from './components/molecules/Banner'
 export type {
   BannerProps,
   BannerContentProps,
   BannerImageProps,
   BannerLinkProps,
-} from './molecules/Banner'
+} from './components/molecules/Banner'
 
-export { default as PaymentMethods } from './molecules/PaymentMethods'
-export type { PaymentMethodsProps } from './molecules/PaymentMethods'
+export { default as PaymentMethods } from './components/molecules/PaymentMethods'
+export type { PaymentMethodsProps } from './components/molecules/PaymentMethods'
 
-export { default as Breadcrumb } from './molecules/Breadcrumb'
-export type { BreadcrumbProps } from './molecules/Breadcrumb'
+export { default as Breadcrumb } from './components/molecules/Breadcrumb'
+export type { BreadcrumbProps } from './components/molecules/Breadcrumb'
 
-export { default as LoadingButton } from './molecules/LoadingButton'
-export type { LoadingButtonProps } from './molecules/LoadingButton'
+export { default as LoadingButton } from './components/molecules/LoadingButton'
+export type { LoadingButtonProps } from './components/molecules/LoadingButton'
 
-export { default as PriceRange } from './molecules/PriceRange'
-export type { PriceRangeProps } from './molecules/PriceRange'
+export { default as PriceRange } from './components/molecules/PriceRange'
+export type { PriceRangeProps } from './components/molecules/PriceRange'
 
-export { default as RadioGroup, RadioOption } from './molecules/RadioGroup'
-export type { RadioGroupProps, RadioOptionProps } from './molecules/RadioGroup'
+export {
+  default as RadioGroup,
+  RadioOption,
+} from './components/molecules/RadioGroup'
+export type {
+  RadioGroupProps,
+  RadioOptionProps,
+} from './components/molecules/RadioGroup'
 
 export {
   default as Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-} from './molecules/Accordion'
+} from './components/molecules/Accordion'
 export type {
   AccordionProps,
   AccordionItemProps,
   AccordionButtonProps,
   AccordionPanelProps,
-} from './molecules/Accordion'
+} from './components/molecules/Accordion'
 
 export {
   Table,
@@ -181,7 +175,7 @@ export {
   TableFooter,
   TableHead,
   TableRow,
-} from './molecules/Table'
+} from './components/molecules/Table'
 export type {
   TableProps,
   TableBodyProps,
@@ -189,51 +183,55 @@ export type {
   TableFooterProps,
   TableHeadProps,
   TableRowProps,
-} from './molecules/Table'
+} from './components/molecules/Table'
 
-export { default as Form } from './molecules/Form'
-export type { FormProps } from './molecules/Form'
+export { default as Form } from './components/molecules/Form'
+export type { FormProps } from './components/molecules/Form'
 
-export { default as Alert } from './molecules/Alert'
-export type { AlertProps } from './molecules/Alert'
+export { default as Alert } from './components/molecules/Alert'
+export type { AlertProps } from './components/molecules/Alert'
 
-export { default as QuantitySelector } from './molecules/QuantitySelector'
-export type { QuantitySelectorProps } from './molecules/QuantitySelector'
+export { default as QuantitySelector } from './components/molecules/QuantitySelector'
+export type { QuantitySelectorProps } from './components/molecules/QuantitySelector'
 
 export {
   default as Dropdown,
   DropdownButton,
   DropdownItem,
   DropdownMenu,
-} from './molecules/Dropdown'
+} from './components/molecules/Dropdown'
 export type {
   DropdownProps,
   DropdownButtonProps,
   DropdownItemProps,
   DropdownMenuProps,
-} from './molecules/Dropdown'
+} from './components/molecules/Dropdown'
 
 // Organisms
 export {
   default as OutOfStock,
   OutOfStockTitle,
   OutOfStockMessage,
-} from './organisms/OutOfStock'
+} from './components/organisms/OutOfStock'
 export type {
   OutOfStockProps,
   OutOfStockMessageProps,
   OutOfStockTitleProps,
-} from './organisms/OutOfStock'
+} from './components/organisms/OutOfStock'
 
-export { Tiles, Tile } from './organisms/Tiles'
-export type { TilesProps, TileProps } from './organisms/Tiles'
+export { Tiles, Tile } from './components/organisms/Tiles'
+export type { TilesProps, TileProps } from './components/organisms/Tiles'
 
-export { default as Hero, HeroHeading, HeroImage } from './organisms/Hero'
+export {
+  default as Hero,
+  HeroHeading,
+  HeroImage,
+} from './components/organisms/Hero'
 export type {
   HeroProps,
   HeroHeadingProps,
   HeroImageProps,
-} from './organisms/Hero'
+} from './components/organisms/Hero'
 
 // Hooks
 export { default as useSlider } from './hooks/useSlider'

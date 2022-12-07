@@ -1,6 +1,3 @@
-@import "./badge.css";
-@import "./button.css";
-@import "./icon.css";
 @import "./input.css";
 @import "./overlay.css";
 @import "./popover.css";
@@ -9,6 +6,5 @@
 @import "./skeleton.css";
 @import "./spinner.css";
 @import "./textarea.css";
-@import "./label.css";
 @import "./link.css";
 @import "./incentive.css";

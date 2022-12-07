@@ -1,0 +1,110 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { Button } from '@faststore/components'
+
+<Meta
+  title="Atoms/Button/Default"
+  component={Button}
+  argTypes={{
+    children: {
+      name: 'content',
+    },
+    variant: {
+      options: ['primary', 'secondary', 'tertiary'],
+      control: { type: 'select' },
+      description: 'Specifies the component color variant.',
+    },
+    size: {
+      options: ['small', 'regular'],
+      control: { type: 'radio' },
+      description: 'Specifies the component size variant. ',
+    },
+    iconPosition: {
+      options: ['left', 'right'],
+      control: { type: 'radio' },
+    },
+  }}
+/>
+
+export const Template = ({ children, ...args }) => (
+  <Button {...args}>{children}</Button>
+)
+
+<header>
+
+# Button
+
+This component allows users to take actions, make choices or trigger an event with a single tap.
+
+</header>
+
+## Overview
+
+<Canvas>
+  <Story
+    name="overview-primary"
+    args={{
+      children: 'Primary',
+      size: 'regular',
+      variant: 'primary',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-secondary"
+    args={{
+      children: 'Secondary',
+      size: 'regular',
+      variant: 'secondary',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-tertiary"
+    args={{
+      children: 'Tertiary',
+      size: 'regular',
+      variant: 'tertiary',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="overview-small"
+    args={{
+      children: 'Small',
+      size: 'small',
+      variant: 'secondary',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+---
+
+## Usage
+
+```jsx
+import Button from '@faststore/ui'
+
+// Styles
+import @faststore/ui/src/components/atoms/Button/styles.scss
+```
+
+<Canvas>
+  <Story
+    name="default"
+    args={{
+      children: 'Buy Now',
+      size: 'regular',
+      variant: 'primary',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="default" />

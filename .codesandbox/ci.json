@@ -7,7 +7,8 @@
     "packages/lighthouse",
     "packages/sdk",
     "packages/styles",
-    "packages/ui"
+    "packages/ui",
+    "packages/components"
   ],
   "sandboxes": ["store-ui-typescript-0gd9u"],
   "node": "16"

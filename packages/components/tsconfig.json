@@ -1,0 +1,14 @@
+{
+  "extends": "@faststore/shared/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["src"],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.ts",
+    "src/**/*.stories.tsx",
+    "src/typings/utils.d.ts",
+  ]
+}
