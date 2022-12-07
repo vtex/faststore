@@ -7,9 +7,6 @@ export type { LinkProps } from './components/atoms/Link'
 export { default as Popover } from './components/atoms/Popover'
 export type { PopoverProps } from './components/atoms/Popover'
 
-export { default as Price } from './components/atoms/Price'
-export type { PriceProps } from './components/atoms/Price'
-
 export { default as TextArea } from './components/atoms/TextArea'
 export type { TextAreaProps } from './components/atoms/TextArea'
 
