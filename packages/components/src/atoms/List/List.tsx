@@ -1,40 +1,44 @@
 import React, { forwardRef } from 'react'
-import type { ElementType, HTMLAttributes } from 'react'
+import type { ElementType, ReactElement } from 'react'
 
-const variantToElement = {
-  unordered: 'ul',
-  ordered: 'ol',
-}
+import type {
+  PolymorphicRef,
+  PolymorphicComponentPropsWithRef,
+} from '../../typings'
 
-export interface ListProps<T = HTMLElement> extends HTMLAttributes<T> {
+interface BaseProps {
   /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
-  as?: ElementType
-  variant?: 'ordered' | 'unordered'
+  /**
+   * Specify whether or not this component should display the list's markers (bullets or numbers).
+   */
   marker?: boolean
 }
 
-const List = forwardRef<HTMLUListElement, ListProps>(function List(
-  {
-    testId = 'fs-list',
-    as: MaybeComponent,
-    variant = 'unordered',
-    marker = false,
-    ...otherProps
-  },
-  ref
-) {
+export type ListProps<T extends ElementType> = PolymorphicComponentPropsWithRef<
+  T,
+  BaseProps
+>
 
-  const Component = MaybeComponent ?? variantToElement[variant] ?? 'ul'
+type ListComponent = <T extends ElementType = 'ul'>(
+  props: ListProps<T>
+) => ReactElement | null
+
+const List: ListComponent = forwardRef(function List<
+  T extends ElementType = 'ul'
+>(
+  { as, marker, testId = 'fs-list', ...otherProps }: ListProps<T>,
+  ref: PolymorphicRef<T>
+) {
+  const Component = as ?? 'ul'
 
   return (
     <Component
       ref={ref}
       data-fs-list
       data-testid={testId}
-      data-fs-list-variant={variant}
       data-fs-list-marker={marker}
       {...otherProps}
     />
