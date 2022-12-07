@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { SelectHTMLAttributes } from 'react'
 import { Icon } from '../..'
-import { CaretDown } from '@faststore/ui/src/assets'
+import { CaretDown } from '../../assets'
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   /**
