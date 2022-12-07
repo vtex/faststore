@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4-alpha.0](https://github.com/vtex/faststore/compare/v2.0.3-alpha.0...v2.0.4-alpha.0) (2022-12-07)
+
+
+### Chores
+
+* config faststore ui ([#1495](https://github.com/vtex/faststore/issues/1495)) ([ed5aa8f](https://github.com/vtex/faststore/commit/ed5aa8f83ab3d929dd47f30b1e171240e1c3c459))
+
+
+
 ## 2.0.3-alpha.0 (2022-11-30)
 
 
