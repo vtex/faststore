@@ -1,3 +1,6 @@
+// Assets
+export * from './assets'
+
 // Atoms
 export { default as Badge } from './atoms/Badge'
 export type { BadgeProps } from './atoms/Badge'
