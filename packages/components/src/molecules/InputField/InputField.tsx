@@ -3,7 +3,7 @@ import type { MutableRefObject } from 'react'
 
 import { Input, Label, IconButton, Button } from '../../index'
 import type { InputProps } from '../../index'
-import { XCircle } from '@faststore/ui/src/assets'
+import { XCircle } from '../../assets'
 
 type DefaultProps = {
   /**
