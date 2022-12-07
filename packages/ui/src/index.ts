@@ -16,9 +16,6 @@ export type { SelectProps } from './components/atoms/Select'
 export { default as Slider } from './components/atoms/Slider'
 export type { SliderProps } from './components/atoms/Slider'
 
-export { default as List } from './components/atoms/List'
-export type { ListProps } from './components/atoms/List'
-
 export { default as Skeleton } from './components/atoms/Skeleton'
 export type { SkeletonProps } from './components/atoms/Skeleton'
 

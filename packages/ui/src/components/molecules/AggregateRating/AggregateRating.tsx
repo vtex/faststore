@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react'
 import type { FC, PropsWithChildren } from 'react'
 
-import List from '../../atoms/List'
-import type { ListProps } from '../../atoms/List'
+import List from '../../../../../components/src/atoms/List'
+import type { ListProps } from '../../../../../components/src/atoms/List'
 
 export interface AggregateRatingProps extends ListProps<HTMLUListElement> {
   /**
