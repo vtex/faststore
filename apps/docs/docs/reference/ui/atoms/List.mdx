@@ -1,83 +1,100 @@
 ---
 description: Lists group related content. They can be ordered or unordered.
-sidebar_custom_props: 
+sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Lists___30f86e23fa668d02441cd1173fc000a9.png
 ---
 
-import PropsSection from "@site/src/components/PropsSection/PropsSection";
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
 
 # List
 
 Lists group related content. They can be ordered or unordered.
 
+## Overview
+
+```tsx live
+<div style={{ display: 'flex', columnGap: '60px' }}>
+  <List marker>
+    <li>Great</li>
+    <li>Ok</li>
+    <li>Bad</li>
+  </List>
+
+  <List variant="ordered" marker>
+    <li>Great</li>
+    <li>Ok</li>
+    <li>Bad</li>
+  </List>
+
+  <List>
+    <li>Great</li>
+    <li>Ok</li>
+    <li>Bad</li>
+  </List>
+</div>
+```
+
+---
+
 ## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
 import { List } from '@faststore/ui'
 ```
 
-## Variants
+Import Styles
 
-### Unordered
+```tsx
+import '@faststore/ui/src/components/atoms/List/styles.scss'
+```
+
+---
+
+## Usage
+
+### Props
+
+<PropsSection name="List" />
+
+---
+
+## Design Tokens
+
+### Variants
+
+#### Unordered
 
 ```tsx live
-<List variant="unordered">
-  <li>
-    Great
-  </li>
-  <li>
-    Ok
-  </li>
-  <li>
-    Bad
-  </li>
+<List marker>
+  <li>Great</li>
+  <li>Ok</li>
+  <li>Bad</li>
 </List>
 ```
 
-### Ordered
+#### Ordered
+
+```tsx live
+<List variant="ordered" marker>
+  <li>Great</li>
+  <li>Ok</li>
+  <li>Bad</li>
+</List>
+```
+
+#### Without marker
 
 ```tsx live
 <List variant="ordered">
-  <li>
-    Great
-  </li>
-  <li>
-    Ok
-  </li>
-  <li>
-    Bad
-  </li>
+  <li>Great</li>
+  <li>Ok</li>
+  <li>Bad</li>
 </List>
 ```
 
-### Description
-
-```tsx live
-<List variant="description">
-  <dt>
-    Ok
-  </dt>
-  <dd>
-    An ok item
-  </dd>
-  <dt>
-    Good
-  </dt>
-  <dd>
-    A good item
-  </dd>
-  <dt>
-    Bad
-  </dt>
-  <dd>
-    A bad item
-  </dd>
-</List>
-```
-
-## Props
-
-<PropsSection name="List" />
+---
 
 ## Customization
 
@@ -86,5 +103,3 @@ import { List } from '@faststore/ui'
 `data-unordered`
 
 `data-ordered`
-
-`data-description`
