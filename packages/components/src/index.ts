@@ -9,6 +9,8 @@ export { default as Icon } from './atoms/Icon'
 export type { IconProps } from './atoms/Icon'
 export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
+export { default as List } from './atoms/List'
+export type { ListProps } from './atoms/List'
 export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
 

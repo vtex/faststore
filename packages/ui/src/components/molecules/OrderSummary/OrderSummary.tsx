@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import List, { ListProps } from '../../atoms/List'
+import List, { ListProps } from '../../../../../components/src/atoms/List'
 
 export interface OrderSummaryProps<T = HTMLElement> extends Omit<ListProps<T>, 'variant'> {
   /**
