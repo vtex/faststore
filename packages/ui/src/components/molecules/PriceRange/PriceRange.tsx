@@ -1,9 +1,10 @@
 import React, { useRef, useImperativeHandle, forwardRef } from 'react'
 import type { AriaAttributes } from 'react'
 
-import Price from '../../atoms/Price'
+import { Price } from '@faststore/components'
+import type { PriceProps } from '@faststore/components'
+
 import Slider from '../../atoms/Slider'
-import type { PriceProps } from '../../atoms/Price'
 import type { SliderProps } from '../../atoms/Slider'
 
 export type PriceRangeProps = SliderProps & {
