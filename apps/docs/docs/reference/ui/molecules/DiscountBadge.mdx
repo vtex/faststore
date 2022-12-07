@@ -16,7 +16,7 @@ A custom `Badge` that display product's discounts.
 ## Overview
 
 ```tsx live
-<div style={{ display: 'flex', columnGap: '16px', alignItems: 'center' }}>
+<div className="overviewSection">
   <DiscountBadge listPrice={45} spotPrice={40} />
   <DiscountBadge listPrice={65} spotPrice={40} />
   <DiscountBadge listPrice={80} spotPrice={40} />
@@ -46,3 +46,94 @@ import '@faststore/ui/src/components/molecules/DiscountBadge/styles.scss'
 ## Props
 
 <PropsSection name="DiscountBadge" />
+
+## Variants
+
+### Low Discount
+
+```tsx live
+<DiscountBadge listPrice={45} spotPrice={40} />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-discount-badge-low-bkg-color"
+    value="var(--fs-badge-success-bkg-color)"
+    globalValue="var(--fs-color-success-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-discount-badge-low-text-color"
+    value="var(--fs-badge-success-text-color)"
+    globalValue="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-discount-badge-low-border-color"
+    value="var(--fs-badge-success-border-color)"
+    globalValue="var(--fs-color-success-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Medium Discount
+
+```tsx live
+<DiscountBadge listPrice={65} spotPrice={40} />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-discount-badge-medium-bkg-color"
+    value="var(--fs-badge-warning-bkg-color)"
+    globalValue="var(--fs-color-warning-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-discount-badge-medium-text-color"
+    value="var(--fs-badge-warning-text-color)"
+    globalValue="var(--fs-color-warning-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-discount-badge-medium-border-color"
+    value="var(--fs-badge-warning-border-color)"
+    globalValue="var(--fs-color-warning-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### High Discount
+
+```tsx live
+<DiscountBadge listPrice={80} spotPrice={40} />
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-discount-badge-high-bkg-color"
+    value="var(--fs-badge-danger-bkg-color)"
+    globalValue="var(--fs-color-danger-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-discount-badge-high-text-color"
+    value="var(--fs-badge-danger-text-color)"
+    globalValue="var(--fs-color-text)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-discount-badge-high-border-color"
+    value="var(--fs-badge-danger-border-color)"
+    globalValue="var(--fs-color-danger-bkg)"
+    isColor
+  />
+</TokenTable>
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-discount-badge`
+
+This component inherits [Badge](/reference/ui/atoms/Badge) css selectors and styles.
