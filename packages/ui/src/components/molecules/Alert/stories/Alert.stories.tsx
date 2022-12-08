@@ -3,7 +3,7 @@ import React from 'react'
 
 import type { AlertProps } from '../Alert'
 import Component from '../Alert'
-import { ShoppingCart } from '../../../../assets'
+import { ShoppingCart } from '@faststore/components/src/assets'
 import mdx from './Alert.mdx'
 import { Icon } from '../../../../'
 
