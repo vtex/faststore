@@ -4,9 +4,6 @@ export * from '@faststore/components'
 export { default as Link } from './components/atoms/Link'
 export type { LinkProps } from './components/atoms/Link'
 
-export { default as Input } from './components/atoms/Input'
-export type { InputProps } from './components/atoms/Input'
-
 export { default as Popover } from './components/atoms/Popover'
 export type { PopoverProps } from './components/atoms/Popover'
 
@@ -15,9 +12,6 @@ export type { PriceProps } from './components/atoms/Price'
 
 export { default as TextArea } from './components/atoms/TextArea'
 export type { TextAreaProps } from './components/atoms/TextArea'
-
-export { default as Overlay } from './components/atoms/Overlay'
-export type { OverlayProps } from './components/atoms/Overlay'
 
 export { default as Select } from './components/atoms/Select'
 export type { SelectProps } from './components/atoms/Select'
