@@ -1,10 +1,11 @@
 [data-fs-list] {
   // --------------------------------------------------------
-  // Design Tokens for Checkbox
+  // Design Tokens for List
   // --------------------------------------------------------
 
   // Default properties
-
+  --fs-list-style-unordered                    : initial;
+  --fs-list-style-ordered                      : decimal;
 
   // --------------------------------------------------------
   // Structural Styles
@@ -13,9 +14,14 @@
   margin: 0;
   padding: 0;
 
-  &[data-fs-list-variant="unordered"] {
-    list-style: initial;
+  &[data-fs-list-marker="true"] {
+    list-style: var(--fs-list-style-unordered);
     list-style-position: inside;
+
+    @at-root ol#{&} {
+      list-style: var(--fs-list-style-ordered);
+      list-style-position: inside;
+    }
   }
 
 }

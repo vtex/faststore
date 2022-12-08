@@ -5,6 +5,7 @@ sidebar_custom_props:
 ---
 
 import PropsSection from '@site/src/components/PropsSection/PropsSection'
+import { TokenTable, TokenRow } from '@site/src/components/Tokens'
 
 # List
 
@@ -15,15 +16,15 @@ Lists group related content. They can be ordered or unordered.
 ```tsx live
 <div style={{ display: 'flex', columnGap: '60px' }}>
   <List marker>
-    <li>Great</li>
-    <li>Ok</li>
-    <li>Bad</li>
+    <li>Great Unordered List</li>
+    <li>Ok Unordered List</li>
+    <li>Bad Unordered List</li>
   </List>
 
-  <List variant="ordered" marker>
-    <li>Great</li>
-    <li>Ok</li>
-    <li>Bad</li>
+  <List as="ol" marker>
+    <li>Great Ordered List</li>
+    <li>Ok Ordered List</li>
+    <li>Bad Ordered List</li>
   </List>
 
   <List>
@@ -62,32 +63,37 @@ import '@faststore/ui/src/components/atoms/List/styles.scss'
 
 ## Design Tokens
 
+<TokenTable>
+  <TokenRow token="--fs-list-style-unordered" value="initial" />
+  <TokenRow token="--fs-list-style-ordered" value="decimal" />
+</TokenTable>
+
 ### Variants
 
 #### Unordered
 
 ```tsx live
 <List marker>
-  <li>Great</li>
-  <li>Ok</li>
-  <li>Bad</li>
+  <li>Great Unordered List</li>
+  <li>Ok Unordered List</li>
+  <li>Bad Unordered List</li>
 </List>
 ```
 
 #### Ordered
 
 ```tsx live
-<List variant="ordered" marker>
-  <li>Great</li>
-  <li>Ok</li>
-  <li>Bad</li>
+<List as="ol" marker>
+  <li>Great Ordered List</li>
+  <li>Ok Ordered List</li>
+  <li>Bad Ordered List</li>
 </List>
 ```
 
 #### Without marker
 
 ```tsx live
-<List variant="ordered">
+<List as="ol">
   <li>Great</li>
   <li>Ok</li>
   <li>Bad</li>
@@ -100,6 +106,4 @@ import '@faststore/ui/src/components/atoms/List/styles.scss'
 
 `data-fs-list`
 
-`data-unordered`
-
-`data-ordered`
+`data-fs-marker="true"`
