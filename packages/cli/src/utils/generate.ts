@@ -1,32 +1,34 @@
+import deepmerge from 'deepmerge'
 import {
   copyFileSync,
   copySync,
+  existsSync,
   mkdirsSync,
   readFileSync,
-  writeFileSync,
-  existsSync,
   removeSync,
   symlinkSync,
+  writeFileSync,
 } from 'fs-extra'
-import deepmerge from 'deepmerge'
 
 import {
   coreCMSDir,
-  userCMSDir,
-  tmpCMSDir,
   coreDir,
-  tmpCustomizationsDir,
-  userSrcDir,
-  userStoreConfigFileDir,
   coreStoreConfigFileDir,
-  tmpStoreConfigFileDir,
-  tmpThemesCustomizationsFileDir,
-  userThemesFileDir,
+  tmpCMSDir,
+  tmpCustomizationsDir,
   tmpDir,
   tmpFolderName,
-  userNodeModulesDir,
   tmpNodeModulesDir,
+  tmpStoreConfigFileDir,
+  tmpThemesCustomizationsFileDir,
+  userCMSDir,
+  userNodeModulesDir,
+  userSrcDir,
+  userStoreConfigFileDir,
+  userThemesFileDir,
 } from './directory'
+
+import chalk from 'chalk'
 
 interface GenerateOptions {
   setup?: boolean
