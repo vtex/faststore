@@ -11,6 +11,8 @@ export { default as Input } from './atoms/Input'
 export type { InputProps } from './atoms/Input'
 export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
+export { default as Overlay } from './atoms/Overlay'
+export type { OverlayProps } from './atoms/Overlay'
 export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
 
