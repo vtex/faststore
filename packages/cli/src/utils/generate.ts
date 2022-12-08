@@ -44,9 +44,13 @@ function createTmpFolder() {
 
     mkdirsSync(tmpDir)
   } catch (err) {
-    console.error(err)
+    console.error(`${chalk.red('error')} - ${err}`)
   } finally {
-    console.log(`Temporary folder ${tmpFolderName} created`)
+    console.log(
+      `${chalk.green('success')} - Temporary folder ${chalk.dim(
+        tmpFolderName
+      )} created`
+    )
   }
 }
 
@@ -65,7 +69,7 @@ function copyCoreFiles() {
   } catch (e) {
     console.error(e)
   } finally {
-    console.log(`Core files copied`)
+    console.log(`${chalk.green('success')} - Core files copied`)
   }
 }
 
@@ -73,9 +77,9 @@ function copyUserSrcToCustomizations() {
   try {
     copySync(userSrcDir, tmpCustomizationsDir)
   } catch (err) {
-    console.error(err)
+    console.error(`${chalk.red('error')} - ${err}`)
   } finally {
-    console.log('Copied custom files')
+    console.log(`${chalk.green('success')} - Custom files copied`)
   }
 }
 
@@ -88,9 +92,9 @@ async function copyTheme() {
       tmpThemesCustomizationsFileDir
     )
   } catch (err) {
-    console.error(err)
+    console.error(`${chalk.red('error')} - ${err}`)
   } finally {
-    console.log('Copied custom styles')
+    console.log(`${chalk.green('success')} - Custom styles copied`)
   }
 }
 
@@ -105,9 +109,11 @@ function mergeCMSFile(fileName: string) {
   try {
     writeFileSync(`${tmpCMSDir}/${fileName}`, JSON.stringify(mergeContentTypes))
   } catch (err) {
-    console.error(err)
+    console.error(`${chalk.red('error')} - ${err}`)
   } finally {
-    console.log(`CMS file ${fileName} created`)
+    console.log(
+      `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
+    )
   }
 }
 
@@ -130,9 +136,11 @@ async function copyStoreConfig() {
       generateStoreConfigFile(mergedStoreConfig)
     )
   } catch (err) {
-    console.error(err)
+    console.error(`${chalk.red('error')} - ${err}`)
   } finally {
-    console.log(`File store.config.js copied`)
+    console.log(
+      `${chalk.green('success')} - File ${chalk.dim('store.config.js')} copied`
+    )
   }
 }
 
@@ -140,9 +148,9 @@ function mergeCMSFiles() {
   try {
     mkdirsSync(`${tmpDir}/cms`)
   } catch (err) {
-    console.error(err)
+    console.error(`${chalk.red('error')} - ${err}`)
   } finally {
-    console.log(`CMS file created`)
+    console.log(`${chalk.green('success')} - CMS folder created`)
   }
 
   mergeCMSFile('content-types.json')
@@ -153,11 +161,15 @@ function createNodeModulesSymbolicLink() {
   try {
     symlinkSync(userNodeModulesDir, tmpNodeModulesDir)
   } catch (err) {
-    console.error(err)
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 
   console.log(
-    `node_modules symbolic link created from ${userNodeModulesDir} to ${tmpNodeModulesDir}`
+    `${chalk.green('success')} - Symbolic ${chalk.dim(
+      'node_modules'
+    )} link created from ${chalk.dim(userNodeModulesDir)} to ${chalk.dim(
+      tmpNodeModulesDir
+    )}`
   )
 }
 
