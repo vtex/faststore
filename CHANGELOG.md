@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6-alpha.0](https://github.com/vtex/faststore/compare/v2.0.5-alpha.0...v2.0.6-alpha.0) (2022-12-08)
+
+
+### Features
+
+* Adds `Input` & `InputField` components  ([#1545](https://github.com/vtex/faststore/issues/1545)) ([f89ec49](https://github.com/vtex/faststore/commit/f89ec4930dbcc7179f0fac484e16b0981540b6df))
+
+
+
 ## [2.0.5-alpha.0](https://github.com/vtex/faststore/compare/v2.0.4-alpha.0...v2.0.5-alpha.0) (2022-12-07)
 
 
