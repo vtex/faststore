@@ -5,7 +5,7 @@ sidebar_custom_props:
 ---
 
 import PropsSection from '@site/src/components/PropsSection/PropsSection'
-import { TokenTable, TokenRow } from '@site/src/components/Tokens'
+import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
 # Price
 
@@ -23,10 +23,12 @@ Prices are used to display the price of a given product, discount and total valu
 </div>
 ```
 
+---
+
 ## Import
 
 ```tsx
-import { Price } from '@faststore/components'
+import { Price } from '@faststore/ui'
 ```
 
 ## Usage
@@ -125,7 +127,7 @@ import { Price } from '@faststore/components'
 
 ```tsx live
 <Price
-  formatter={function customFormatter(price: number) {
+  formatter={function customFormatter(price) {
     const unformattedPrice = `${price}`
     const formattedPrice = `${unformattedPrice.replace('.', ',')} reais`
 
@@ -146,9 +148,10 @@ import { Price } from '@faststore/components'
   <TokenRow
     token="--fs-price-listing-color"
     value="var(--fs-color-text-light)"
+    isColor
   />
   <TokenRow token="--fs-price-listing-text-decoration" value="line-through" />
-  <TokenDiver />
+  <TokenDivider />
   <TokenRow token="--fs-price-spot-margin-left" value="var(--fs-spacing-1)" />
   <TokenRow
     token="--fs-price-spot-font-weight"
