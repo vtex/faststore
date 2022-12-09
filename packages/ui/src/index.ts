@@ -1,12 +1,6 @@
 export * from '@faststore/components'
 
 // Atoms
-export { default as Link } from './components/atoms/Link'
-export type { LinkProps } from './components/atoms/Link'
-
-export { default as Input } from './components/atoms/Input'
-export type { InputProps } from './components/atoms/Input'
-
 export { default as Popover } from './components/atoms/Popover'
 export type { PopoverProps } from './components/atoms/Popover'
 
