@@ -18,6 +18,14 @@ import { Link } from '@faststore/components'
       ],
       control: { type: 'select' },
     },
+    size: {
+      options: [
+        'regular',
+        'small',
+      ],
+      control: { type: 'select' },
+      defaultValue: 'regular',
+    },
     inverse: {
       type: {
         name: 'boolean',
@@ -71,19 +79,20 @@ Link performs the same behavior of a regular anchor tag (`a`), but can be used a
     {Template.bind({})}
   </Story>
   <Story
-    name="overview-filter"
+    name="overview-inline"
     args={{
-      children: 'Filter',
-      variant: 'filter',
+      children: 'Inline',
+      variant: 'inline',
     }}
   >
     {Template.bind({})}
   </Story>
   <Story
-    name="overview-inline"
+    name="overview-small"
     args={{
-      children: 'Inline',
-      variant: 'inline',
+      children: 'Small',
+      variant: 'display',
+      size: "small",
     }}
   >
     {Template.bind({})}

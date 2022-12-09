@@ -33,10 +33,9 @@
   --fs-link-inline-text-decoration     : underline;
   --fs-link-inline-text-color          : var(--fs-link-text-color);
 
-  // Footer
-  --fs-link-footer-text-size           : var(--fs-text-size-1);
-  --fs-link-footer-text-color          : var(--fs-color-info-text);
-  --fs-link-footer-padding             : var(--fs-spacing-1) var(--fs-spacing-0);
+  // Small
+  --fs-link-small-text-size           : var(--fs-text-size-1);
+  --fs-link-small-padding             : var(--fs-spacing-1) var(--fs-spacing-0);
 
   // --------------------------------------------------------
   // Structural Styles
@@ -51,7 +50,7 @@
 
   &:visited { color: var(--fs-link-text-color-visited); }
 
-  a, [data-fs-link] {
+  a {
     border-radius: var(--fs-link-border-radius);
     transition: var(--fs-link-transition-property) var(--fs-link-transition-timing) var(--fs-link-transition-function);
 
@@ -81,11 +80,10 @@
     text-decoration: var(--fs-link-inline-text-decoration);
   }
 
-  &[data-fs-link-variant="footer"] {
-    font-size: var(--fs-link-footer-text-size);
-    color: var(--fs-link-footer-text-color);
+  &[data-fs-link-size="small"] {
+    font-size: var(--fs-link-small-text-size);
 
-    @include media(">=notebook") { padding: var(--fs-link-footer-padding); }
+    @include media(">=notebook") { padding: var(--fs-link-small-padding); }
   }
 
   &[data-fs-link-inverse="true"] {

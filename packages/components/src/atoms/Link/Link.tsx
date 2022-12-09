@@ -17,6 +17,10 @@ interface Props {
   * Defines use of inverted color.
   */
   inverse?: boolean
+  /**
+   * Defines size os element
+   */
+  size?: 'small' | 'regular'
 }
 
 export type LinkElementType = ElementType
@@ -33,7 +37,7 @@ type LinkComponent = <C extends LinkElementType>(
 const Link: LinkComponent = forwardRef(function Link<
   C extends LinkElementType = 'a'
 >(
-  { as, children, variant = 'default', inverse, testId = 'store-link', ...otherProps }: LinkProps<C>,
+  { as, children, variant = 'default', size="regular", inverse, testId = 'store-link', ...otherProps }: LinkProps<C>,
   ref?: PolymorphicRef<C>
 ) {
   const Component = as ?? 'a'
@@ -44,6 +48,7 @@ const Link: LinkComponent = forwardRef(function Link<
       data-fs-link 
       data-fs-link-variant={variant}
       data-fs-link-inverse={inverse}
+      data-fs-link-size={size}
       data-testid={testId} 
       {...otherProps}
     >
