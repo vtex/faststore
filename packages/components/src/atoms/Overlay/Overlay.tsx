@@ -9,7 +9,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Overlay = forwardRef<HTMLDivElement, Props>(function Overlay(
-  { testId = 'store-overlay', ...otherProps },
+  { testId = 'fs-overlay', ...otherProps },
   ref
 ) {
   return (
