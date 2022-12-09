@@ -7,17 +7,22 @@
   --fs-button-buy-text-color                        : var(--fs-color-action-text);
   --fs-button-buy-text-color-hover                  : var(--fs-color-action-text);
   --fs-button-buy-text-color-active                 : var(--fs-color-action-text);
+
   --fs-button-buy-bkg-color                         : var(--fs-color-action-bkg);
   --fs-button-buy-bkg-color-hover                   : var(--fs-color-action-bkg-hover);
   --fs-button-buy-bkg-color-active                  : var(--fs-color-action-bkg-active);
+
   --fs-button-buy-border-color                      : var(--fs-button-buy-bkg-color);
   --fs-button-buy-border-color-hover                : var(--fs-button-buy-bkg-color-hover);
   --fs-button-buy-border-color-active               : var(--fs-button-buy-bkg-color-active);
+
   --fs-button-buy-shadow-hover                      : var(--fs-button-shadow-hover);
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
+
+  @include focus-ring-visible;
 
   color: var(--fs-button-buy-text-color);
   background-color: var(--fs-button-buy-bkg-color);
