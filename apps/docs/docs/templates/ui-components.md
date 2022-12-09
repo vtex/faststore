@@ -8,6 +8,10 @@ keywords:
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
+_If applicable, adds the import below._
+
+import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
+
 Briefly describe the component and its functions.
 
 Example: The _add component name_ component is _add component meaning_ used to _add the component function_.
@@ -54,6 +58,18 @@ _Replace `ComponentName` with the component name._
 ## Design Tokens
 
 > _Use this section to list components design tokens._
+
+<TokenTable>
+  <TokenRow
+    token="--fs-component-property"
+    value="var(--fs-global-property)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-component-property"
+    value="var(--fs-global-property)"
+  />
+</TokenTable>
 
 ### Variants (Optional)
 
