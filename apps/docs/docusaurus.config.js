@@ -223,6 +223,7 @@ module.exports = {
           '../../packages/ui/src/**/*.tsx',
           '!../../packages/ui/src/**/*.test.*',
           '!../../packages/ui/src/**/*.stories.*',
+          '../../packages/components/src/**/*.tsx',
         ],
         parserOptions: {
           // pass parserOptions to react-docgen-typescript
