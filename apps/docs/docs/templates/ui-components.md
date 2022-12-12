@@ -8,6 +8,10 @@ keywords:
 
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 
+_If applicable, adds the import below._
+
+import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
+
 Briefly describe the component and its functions.
 
 Example: The _add component name_ component is _add component meaning_ used to _add the component function_.
@@ -18,11 +22,23 @@ Example: The _add component name_ component is _add component meaning_ used to _
 <div>List component variants/types here if applicable</div>
 ```
 
+---
+
 ## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
 import { ComponentName } from '@faststore/ui'
 ```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/{folder}/{ComponentName}/styles.scss'
+```
+
+---
 
 ## Usage
 
@@ -31,15 +47,29 @@ import { ComponentName } from '@faststore/ui'
 <ComponentName />
 ```
 
-## Props
+### Props
 
 _Replace `ComponentName` with the component name._
 
 <PropsSection name="ComponentName" />
 
+---
+
 ## Design Tokens
 
 > _Use this section to list components design tokens._
+
+<TokenTable>
+  <TokenRow
+    token="--fs-component-property"
+    value="var(--fs-global-property)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-component-property"
+    value="var(--fs-global-property)"
+  />
+</TokenTable>
 
 ### Variants (Optional)
 
@@ -63,9 +93,13 @@ Use the _ComponentName_ component to:
 - _Add use case_
 - _Add use case_
 
+---
+
 ## Customization
 
 _Add CSS handles (e.g., `data-fs-badge`)._
+
+---
 
 ## Best practices
 
@@ -82,6 +116,8 @@ _List the component's best practices. Start each sentence with an imperative ver
 - _Add recommendation (e.g., Don't use color alone to convey information.)_
 - _Add recommendation_
 - _Add recommendation_
+
+---
 
 ## Accessibility
 
