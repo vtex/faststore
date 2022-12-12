@@ -6,7 +6,7 @@ import { ShoppingCart } from '../../assets'
 
 type Props = ButtonProps
 
-function ButtonBuy({ icon, children, ...otherProps }: Props) {
+function BuyButton({ icon, children, ...otherProps }: Props) {
   return (
     <Button data-fs-button-buy {...otherProps}>
       <Icon component={<ShoppingCart />} />
@@ -15,4 +15,4 @@ function ButtonBuy({ icon, children, ...otherProps }: Props) {
   )
 }
 
-export default ButtonBuy
+export default BuyButton
