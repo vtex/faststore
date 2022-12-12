@@ -37,9 +37,11 @@ type LinkComponent = <C extends LinkElementType>(
 const Link: LinkComponent = forwardRef(function Link<
   C extends LinkElementType = 'a'
 >(
-  { as: Component = "a", children, variant = 'default', size="regular", inverse, testId = 'fs-link', ...otherProps }: LinkProps<C>,
+  { as, children, variant = 'default', size="regular", inverse, testId = 'fs-link', ...otherProps }: LinkProps<C>,
   ref?: PolymorphicRef<C>
 ) {
+
+  const Component = as ?? 'a'
 
   return (
     <Component 
