@@ -6,6 +6,7 @@ export interface Session {
 export interface Namespaces {
   profile?: Profile
   store?: Store
+  public?: Public
 }
 
 export interface Value {
@@ -18,6 +19,12 @@ export interface Store {
   cultureInfo: Value
   currencyCode: Value
   currencySymbol: Value
+}
+
+export interface Public {
+  [key: string]: {
+    value: string
+  }
 }
 
 export interface Profile {

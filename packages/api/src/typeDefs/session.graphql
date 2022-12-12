@@ -12,6 +12,31 @@ type StoreCurrency {
   symbol: String!
 }
 
+"""
+Public information.
+"""
+type StorePublic {
+  """
+  Public key name (e.g: utm_campaign).
+  """
+  key: String
+  """
+  Public key value (e.g: outlet).
+  """
+  value: String
+}
+
+input IStorePublic {
+  """
+  Public key name (e.g: utm_campaign).
+  """
+  key: String!
+  """
+  Public key value (e.g: outlet).
+  """
+  value: String!
+}
+
 input IStoreCurrency {
   """
   Currency code (e.g: USD).
@@ -51,6 +76,10 @@ type StoreSession {
   Session postal code.
   """
   person: StorePerson
+  """
+  Session public fields.
+  """
+  public: [StorePublic]
 }
 
 """
@@ -81,4 +110,8 @@ input IStoreSession {
   Session input postal code.
   """
   person: IStorePerson
+  """
+  Session input public field.
+  """
+  public: [IStorePublic]
 }

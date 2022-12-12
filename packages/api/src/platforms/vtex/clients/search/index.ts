@@ -125,7 +125,9 @@ export const IntelligentSearch = (
       .join('/')
 
     return fetchAPI(
-      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`
+      `${base}/_v/api/intelligent-search/${type}/${pathname}?${params.toString()}`, {
+        credentials: "include",
+      }
     )
   }
 

@@ -185,16 +185,20 @@ export const VtexCommerce = (
     session: (search: string): Promise<Session> => {
       const params = new URLSearchParams(search)
 
+      const items = params.get('items')
+
       params.set(
         'items',
-        'profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol'
+        `${items},profile.id,profile.email,profile.firstName,profile.lastName,store.channel,store.countryCode,store.cultureInfo,store.currencyCode,store.currencySymbol`
       )
+
+      console.log("PARAMS session: ", params)
 
       return fetchAPI(`${base}/api/sessions?${params.toString()}`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
-          cookie: ctx.headers.cookie,
+          cookie: ctx.headers?.cookie,
         },
         body: '{}',
       })

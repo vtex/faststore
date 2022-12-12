@@ -72,6 +72,7 @@ export type Scalars = {
    * ```
    */
   VariantsByName: any;
+  PublicFields: any;
 };
 
 /** Address information. */
@@ -192,6 +193,19 @@ export type IStorePerson = {
   id: Scalars['String'];
 };
 
+/** Public field data. */
+export type IStorePublic = {
+  [key: string]: {
+    value: string
+  }
+} 
+
+export type StorePublic = {
+  [key: string]: {
+    value: string
+  }
+} 
+
 /** Product input. Products are variants within product groups, equivalent to VTEX [SKUs](https://help.vtex.com/en/tutorial/what-is-an-sku--1K75s4RXAQyOuGUYKMM68u#). For example, you may have a **Shirt** product group with associated products such as **Blue shirt size L**, **Green shirt size XL** and so on. */
 export type IStoreProduct = {
   /** Custom Product Additional Properties. */
@@ -237,6 +251,8 @@ export type IStoreSession = {
   person?: Maybe<IStorePerson>;
   /** Session input postal code. */
   postalCode?: Maybe<Scalars['String']>;
+  /** Session public fields  */
+  public?: [IStorePublic]
 };
 
 export type LogisticsInfo = {
@@ -942,6 +958,8 @@ export type StoreSession = {
   person?: Maybe<StorePerson>;
   /** Session postal code. */
   postalCode?: Maybe<Scalars['String']>;
+  /** Session public fields  */
+  public?: Maybe<Scalars['PublicFields']>
 };
 
 /** Product search results sorting options. */
