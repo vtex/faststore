@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.10-alpha.0](https://github.com/vtex/faststore/compare/v2.0.9-alpha.0...v2.0.10-alpha.0) (2022-12-12)
+
+
+### Features
+
+* Adds `ButtonBuy` component ([#1551](https://github.com/vtex/faststore/issues/1551)) ([cf48bc8](https://github.com/vtex/faststore/commit/cf48bc803f0537e1a32eb87ff18e8328646939a5))
+
+
+
 ## [2.0.9-alpha.0](https://github.com/vtex/faststore/compare/v2.0.8-alpha.0...v2.0.9-alpha.0) (2022-12-12)
 
 
