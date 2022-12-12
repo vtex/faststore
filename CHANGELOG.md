@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.8-alpha.0](https://github.com/vtex/faststore/compare/v2.0.7-alpha.0...v2.0.8-alpha.0) (2022-12-12)
+
+
+### Documentation
+
+* Updates `ui-component` template file ([#1552](https://github.com/vtex/faststore/issues/1552)) ([2ac33a3](https://github.com/vtex/faststore/commit/2ac33a30fd9fc2425610967c86baf52ff20dc9c1))
+
+
+
 ## [2.0.7-alpha.0](https://github.com/vtex/faststore/compare/v2.0.6-alpha.0...v2.0.7-alpha.0) (2022-12-09)
 
 
