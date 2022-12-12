@@ -48,3 +48,19 @@ export { default as Toggle } from './molecules/Toggle'
 export type { ToggleProps } from './molecules/Toggle'
 export { default as ToggleField } from './molecules/ToggleField'
 export type { ToggleFieldProps } from './molecules/ToggleField'
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableRow,
+} from './/molecules/Table'
+export type {
+  TableProps,
+  TableBodyProps,
+  TableCellProps,
+  TableFooterProps,
+  TableHeadProps,
+  TableRowProps,
+} from './/molecules/Table'
