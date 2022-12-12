@@ -12,11 +12,11 @@ export interface TableFooterProps
 
 const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(
   function TableFooter(
-    { children, testId = 'store-table-footer', ...otherProps },
+    { children, testId = 'fs-table-footer', ...otherProps },
     ref
   ) {
     return (
-      <tfoot ref={ref} data-testid={testId} data-table-footer {...otherProps}>
+      <tfoot ref={ref} data-testid={testId} data-fs-table-footer {...otherProps}>
         {children}
       </tfoot>
     )

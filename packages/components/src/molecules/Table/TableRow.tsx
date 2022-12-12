@@ -11,11 +11,11 @@ export interface TableRowProps extends HTMLAttributes<HTMLTableRowElement> {
 
 const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
   function TableRow(
-    { testId = 'store-table-row', children, ...otherProps },
+    { testId = 'fs-table-row', children, ...otherProps },
     ref
   ) {
     return (
-      <tr ref={ref} data-table-row data-testid={testId} {...otherProps}>
+      <tr ref={ref} data-fs-table-row data-testid={testId} {...otherProps}>
         {children}
       </tr>
     )

@@ -12,11 +12,11 @@ export interface TableHeadProps
 
 const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
   function TableHead(
-    { children, testId = 'store-table-head', ...otherProps },
+    { children, testId = 'fs-table-head', ...otherProps },
     ref
   ) {
     return (
-      <thead ref={ref} data-testid={testId} data-table-head {...otherProps}>
+      <thead ref={ref} data-testid={testId} data-fs-table-head {...otherProps}>
         {children}
       </thead>
     )

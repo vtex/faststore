@@ -12,11 +12,11 @@ export interface TableBodyProps
 
 const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
   function TableBody(
-    { children, testId = 'store-table-body', ...otherProps },
+    { children, testId = 'fs-table-body', ...otherProps },
     ref
   ) {
     return (
-      <tbody ref={ref} data-testid={testId} data-table-body {...otherProps}>
+      <tbody ref={ref} data-testid={testId} data-fs-table-body {...otherProps}>
         {children}
       </tbody>
     )
