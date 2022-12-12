@@ -11,7 +11,7 @@ sidebar_custom_props:
 import PropsSection from "@site/src/components/PropsSection/PropsSection";
 import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
-Link performs the same behavior of a regular anchor tag (`a`), but can be used as any HTML tag and component, including spacific Frameworks link components.
+Link performs the same behavior of a regular anchor tag (`a`), but can be used as any HTML tag and component, including specific Frameworks link components.
 
 ## Overview
 
@@ -24,7 +24,6 @@ Link performs the same behavior of a regular anchor tag (`a`), but can be used a
   <Link inverse={true}>Inverse</Link>
 </div>
 ```
-
 
 ---
 
@@ -61,6 +60,8 @@ Besides those attributes, the following props are also supported:
 
 <PropsSection name="Link" />
 
+---
+
 ## Design Tokens
 
 <TokenTable>
@@ -96,11 +97,9 @@ Besides those attributes, the following props are also supported:
   />
 </TokenTable>
 
----
+### Variants
 
-## Variants
-
-### Inverse
+#### Inverse
 
 ```tsx live
 <Link inverse={true}>Inverse Link</Link>
@@ -120,7 +119,7 @@ Besides those attributes, the following props are also supported:
   />
 </TokenTable>
 
-### Display
+#### Display
 
 ```tsx live
 <Link variant="display">Display Link</Link>
@@ -144,7 +143,7 @@ Besides those attributes, the following props are also supported:
   />
 </TokenTable>
 
-### Inline
+#### Inline
 
 ```tsx live
 <Link variant="inline">Inline Link</Link>
@@ -161,9 +160,9 @@ Besides those attributes, the following props are also supported:
   />
 </TokenTable>
 
-## Size
+### Size
 
-### Small
+#### Small
 
 ```tsx live
 <Link size="small">Small Link</Link>
@@ -176,3 +175,11 @@ Besides those attributes, the following props are also supported:
     value="var(--fs-spacing-1) var(--fs-spacing-0)"
   />
 </TokenTable>
+
+---
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-link`
