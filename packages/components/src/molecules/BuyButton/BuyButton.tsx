@@ -8,7 +8,7 @@ type Props = ButtonProps
 
 function BuyButton({ icon, children, ...otherProps }: Props) {
   return (
-    <Button data-fs-button-buy {...otherProps}>
+    <Button data-fs-buy-button {...otherProps}>
       <Icon component={<ShoppingCart />} />
       {children}
     </Button>
