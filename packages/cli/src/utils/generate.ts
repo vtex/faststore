@@ -43,14 +43,13 @@ function createTmpFolder() {
     }
 
     mkdirsSync(tmpDir)
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  } finally {
     console.log(
       `${chalk.green('success')} - Temporary folder ${chalk.dim(
         tmpFolderName
       )} created`
     )
+  } catch (err) {
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -66,20 +65,18 @@ function copyCoreFiles() {
         return shouldCopy
       },
     })
+    console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
     console.error(e)
-  } finally {
-    console.log(`${chalk.green('success')} - Core files copied`)
   }
 }
 
 function copyUserSrcToCustomizations() {
   try {
     copySync(userSrcDir, tmpCustomizationsDir)
+    console.log(`${chalk.green('success')} - Custom files copied`)
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
-  } finally {
-    console.log(`${chalk.green('success')} - Custom files copied`)
   }
 }
 
@@ -91,10 +88,9 @@ async function copyTheme() {
       `${userThemesFileDir}/${storeConfig.theme}.scss`,
       tmpThemesCustomizationsFileDir
     )
+    console.log(`${chalk.green('success')} - Custom styles copied`)
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
-  } finally {
-    console.log(`${chalk.green('success')} - Custom styles copied`)
   }
 }
 
@@ -108,12 +104,11 @@ function mergeCMSFile(fileName: string) {
 
   try {
     writeFileSync(`${tmpCMSDir}/${fileName}`, JSON.stringify(mergeContentTypes))
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  } finally {
     console.log(
       `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
     )
+  } catch (err) {
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -135,22 +130,20 @@ async function copyStoreConfig() {
       tmpStoreConfigFileDir,
       generateStoreConfigFile(mergedStoreConfig)
     )
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  } finally {
     console.log(
       `${chalk.green('success')} - File ${chalk.dim('store.config.js')} copied`
     )
+  } catch (err) {
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
 function mergeCMSFiles() {
   try {
     mkdirsSync(`${tmpDir}/cms`)
+    console.log(`${chalk.green('success')} - CMS folder created`)
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
-  } finally {
-    console.log(`${chalk.green('success')} - CMS folder created`)
   }
 
   mergeCMSFile('content-types.json')
