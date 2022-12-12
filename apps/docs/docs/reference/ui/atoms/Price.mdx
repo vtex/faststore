@@ -31,11 +31,48 @@ Prices are used to display the price of a given product, discount and total valu
 import { Price } from '@faststore/ui'
 ```
 
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/atoms/Price/styles.scss'
+```
+
 ## Usage
 
 ```tsx live
 <Price value={62.5} />
 ```
+
+## Props
+
+<PropsSection name="Price" />
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-price-listing-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow token="--fs-price-listing-text-decoration" value="line-through" />
+  <TokenDivider />
+  <TokenRow token="--fs-price-spot-margin-left" value="var(--fs-spacing-1)" />
+  <TokenRow
+    token="--fs-price-spot-font-weight"
+    value="var(--fs-text-weight-bold)"
+  />
+</TokenTable>
+
+## Customization
+
+For further customization, you can use the following data attributes:
+
+`data-fs-price`
+
+`data-fs-price-variant`
+
+---
 
 ## Variants
 
@@ -137,34 +174,3 @@ import { Price } from '@faststore/ui'
   variant="spot"
 />
 ```
-
-## Props
-
-<PropsSection name="Price" />
-
-## Design Tokens
-
-<TokenTable>
-  <TokenRow
-    token="--fs-price-listing-color"
-    value="var(--fs-color-text-light)"
-    isColor
-  />
-  <TokenRow token="--fs-price-listing-text-decoration" value="line-through" />
-  <TokenDivider />
-  <TokenRow token="--fs-price-spot-margin-left" value="var(--fs-spacing-1)" />
-  <TokenRow
-    token="--fs-price-spot-font-weight"
-    value="var(--fs-text-weight-bold)"
-  />
-</TokenTable>
-
----
-
-## Customization
-
-For further customization, you can use the following data attributes:
-
-`data-fs-price`
-
-`data-fs-variant`

@@ -53,7 +53,7 @@ const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
         ref={ref}
         data-fs-price
         data-testid={testId}
-        data-fs-variant={variant}
+        data-fs-price-variant={variant}
         {...otherProps}
       >
         {formattedPrice}

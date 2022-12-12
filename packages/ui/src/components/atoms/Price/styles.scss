@@ -15,12 +15,12 @@
   // Variants Styles
   // --------------------------------------------------------
 
-  &[data-fs-variant="listing"] {
+  &[data-fs-price-variant="listing"] {
     color: var(--fs-price-listing-color);
     text-decoration: var(--fs-price-listing-text-decoration);
   }
 
-  &[data-fs-variant="spot"] {
+  &[data-fs-price-variant="spot"] {
     margin-left: var(--fs-price-spot-margin-left);
     font-weight: var(--fs-price-spot-font-weight);
   }

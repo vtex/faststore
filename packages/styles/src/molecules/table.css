@@ -18,7 +18,7 @@
   @apply px-6 py-4;
 }
 
-[data-table-cell] > [data-fs-price][data-fs-variant="selling"] {
+[data-table-cell] > [data-fs-price][data-fs-price-variant="selling"] {
   @apply text-sm font-medium text-gray-900;
 }
 
