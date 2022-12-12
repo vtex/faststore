@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { FC, HTMLAttributes, ReactNode } from 'react'
 
-import List from '../../../../../components/src/atoms/List'
+import { List } from '@faststore/components'
 
 export interface BreadcrumbProps extends HTMLAttributes<HTMLDivElement> {
   /**

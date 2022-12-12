@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react'
-import List, { ListProps } from '../../../../../components/src/atoms/List'
+import { List } from '@faststore/components'
+import type { ListProps } from '@faststore/components'
 
 export interface OrderSummaryProps extends ListProps<'ul'> {
   /**
