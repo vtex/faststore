@@ -13,6 +13,8 @@ export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
 export { default as Overlay } from './atoms/Overlay'
 export type { OverlayProps } from './atoms/Overlay'
+export { default as Price } from './atoms/Price'
+export type { PriceProps } from './atoms/Price'
 export { default as Radio } from './atoms/Radio'
 export type { RadioProps } from './atoms/Radio'
 

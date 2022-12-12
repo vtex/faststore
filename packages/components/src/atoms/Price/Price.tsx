@@ -34,14 +34,14 @@ export interface PriceProps
   variant?: PriceVariant
 }
 
-export const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
+const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
   function Price(
     {
-      as: Component = 'span',
-      testId = 'store-price',
       value,
-      formatter = (price) => price,
+      as: Component = 'span',
       variant = 'selling',
+      testId = 'fs-price',
+      formatter = (price) => price,
       ...otherProps
     },
     ref
@@ -53,7 +53,7 @@ export const Price = forwardRef<Omit<HTMLSpanElement, 'children'>, PriceProps>(
         ref={ref}
         data-fs-price
         data-testid={testId}
-        data-variant={variant}
+        data-fs-price-variant={variant}
         {...otherProps}
       >
         {formattedPrice}

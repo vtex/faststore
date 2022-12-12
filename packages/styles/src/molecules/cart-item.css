@@ -34,12 +34,12 @@
   margin-left: 16px;
 }
 
-[data-fs-cart-item-prices] [data-fs-price][data-variant="listing"] {
+[data-fs-cart-item-prices] [data-fs-price][data-fs-price-variant="listing"] {
   font-size: 0.875rem;
   color: #5d666f;
 }
 
-[data-fs-cart-item-prices] [data-fs-price][data-variant="spot"] {
+[data-fs-cart-item-prices] [data-fs-price][data-fs-price-variant="spot"] {
   font-size: 1.25rem;
 }
 

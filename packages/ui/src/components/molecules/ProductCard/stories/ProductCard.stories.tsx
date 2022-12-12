@@ -2,8 +2,7 @@ import type { Story, Meta } from '@storybook/react'
 import React from 'react'
 
 // Atoms
-import Price from '../../../atoms/Price'
-import { Badge, Button } from '@faststore/components'
+import { Badge, Button, Price } from '@faststore/components'
 // Card components
 import ProductCardComponent from '../ProductCard'
 import ProductCardImage from '../ProductCardImage'
