@@ -1,7 +1,25 @@
 import React, { forwardRef } from 'react'
 import type { ElementType, ReactElement } from 'react'
 import { PolymorphicComponentPropsWithRef, PolymorphicRef } from '../../typings'
-import { LinkBaseProps } from '.'
+
+type LinkBaseProps = {
+  /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+  /**
+ * Specifies the component variant.
+ */
+  variant?: 'default' | 'display' | 'footer' | 'inline'
+  /**
+  * Defines use of inverted color.
+  */
+  inverse?: boolean
+  /**
+   * Defines size os element
+   */
+  size?: 'small' | 'regular'
+}
 
 export type LinkElementType = ElementType
 

@@ -8,7 +8,7 @@ sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Link___ae95650d3842207e2d790446c3418086.png
 ---
 
-import PropsSection from "@site/src/components/PropsSection/PropsSection";
+import PropsComponent from "@site/src/components/PropsComponent/PropsComponent";
 import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
 Link performs the same behavior of a regular anchor tag (`a`), but can be used as any HTML tag and component, including specific Frameworks link components.
@@ -58,7 +58,34 @@ For example, if someone wants to use a wrapper for any external link component (
 
 Besides those attributes, the following props are also supported:
 
-<PropsSection name="LinkBaseProps" />
+<PropsComponent
+  name={'testId'}
+  type={'string'}
+  defaultValue={'fs-link'}
+  description={'ID to find this component in testing tools (e.g.: cypress, testing library, and jest).'}
+  required={false}
+/>
+<PropsComponent
+  name={'variant'}
+  type={'"default" | "display" | "footer" | "inline"'}
+  defaultValue={'default'}
+  description={'Specifies the component variant.'}
+  required={false}
+/>
+<PropsComponent
+  name={'inverse'}
+  type={'boolean'}
+  defaultValue={false}
+  description={'Defines use of inverted color.'}
+  required={false}
+/>
+<PropsComponent
+  name={'size'}
+  type={'"small" | "regular"'}
+  defaultValue={'regular'}
+  description={'Defines size of element'}
+  required={false}
+/>
 
 ---
 
