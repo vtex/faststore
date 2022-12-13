@@ -50,3 +50,11 @@ export { default as Toggle } from './molecules/Toggle'
 export type { ToggleProps } from './molecules/Toggle'
 export { default as ToggleField } from './molecules/ToggleField'
 export type { ToggleFieldProps } from './molecules/ToggleField'
+
+// Organisms
+export { default as Hero } from './organisms/Hero'
+export type { HeroProps } from './organisms/Hero'
+export { default as HeroImage } from './organisms/Hero/HeroImage'
+export type { HeroImageProps } from './organisms/Hero/HeroImage'
+export { default as HeroHeading } from './organisms/Hero/HeroHeading'
+export type { HeroHeadingProps } from './organisms/Hero/HeroHeading'
