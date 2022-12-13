@@ -9,13 +9,26 @@ import { TokenTable, TokenRow } from '@site/src/components/Tokens'
 
 # Toggle
 
-Toggle is a customized checkbox input styled to look like a switch button.
+The Toggle is a customized checkbox input styled to look like a switch button.
 
 ## Overview
 
 ```tsx live
 <div className="overviewSection">
-  <Toggle id="toggle-default" />
+  <Toggle id="toggle-default" label="Toggle" />
+  <Toggle id="toggle-default-labeless" label="Toggle" displayLabel={false} />
+  <Toggle
+    id="toggle-default-checked"
+    label="Toggle"
+    displayLabel={false}
+    checked
+  />
+  <Toggle
+    id="toggle-default-checked"
+    label="Toggle"
+    displayLabel={false}
+    disabled
+  />
 </div>
 ```
 
@@ -40,7 +53,7 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
 ## Usage
 
 ```tsx live
-<Toggle id="toggle-example" />
+<Toggle id="toggle-example" label="Toggle" />
 ```
 
 ---
@@ -52,6 +65,188 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
 ---
 
 ## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-toggle-height"
+    value="calc(var(--fs-control-min-height) / 1.75)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-bkg-color"
+    value="var(--fs-control-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-light)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow token="--fs-toggle-shadow" value="var(--fs-shadow)" />
+  <TokenRow token="--fs-toggle-shadow-hover" value="var(--fs-shadow)" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-border-color"
+    value="var(--fs-border-color)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-border-color-hover"
+    value="var(--fs-border-color-hover)"
+    isColor
+  />
+  <TokenRow token="--fs-toggle-border-radius" value="var(--fs-border-radius)" />
+  <TokenRow token="--fs-toggle-border-width" value="var(--fs-border-width)" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-transition-timing"
+    value="var(--fs-transition-timing)"
+  />
+  <TokenRow
+    token="--fs-toggle-transition-property"
+    value="var(--fs-transition-property)"
+  />
+  <TokenRow
+    token="--fs-toggle-transition-function"
+    value="var(--fs-transition-function)"
+  />
+</TokenTable>
+
+### Nested Elements
+
+#### Knob
+
+<TokenTable>
+  <TokenRow token="--fs-toggle-knob-shadow" value="var(--fs-shadow)" />
+  <TokenRow
+    token="--fs-toggle-knob-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-bkg-color-hover"
+    value="var(--fs-border-color-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-border-radius"
+    value="var(--fs-border-radius-small)"
+  />
+  <TokenRow
+    token="--fs-toggle-knob-border-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-border-color-hover"
+    value="var(--fs-toggle-border-color-hover)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-border-width"
+    value="var(--fs-border-width-thick)"
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-knob-checked-bkg-color"
+    value="var(--fs-control-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-checked-border-color"
+    value="var(--fs-control-bkg)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-knob-disabled-bkg-color"
+    value="var(--fs-color-neutral-5)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-disabled-border-color"
+    value="var(--fs-color-neutral-5)"
+    isColor
+  />
+</TokenTable>
+
+#### Icon
+
+<TokenTable>
+  <TokenRow token="--fs-toggle-knob-icon-color" value="transparent" />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-knob-icon-checked-color"
+    value="var(--fs-color-primary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-icon-checked-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenDivider />
+  <TokenRow
+    token="--fs-toggle-knob-icon-disabled-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+</TokenTable>
+
+### Variants
+
+#### Checked
+
+```tsx live
+<div className="overviewSection">
+  <Toggle id="toggle-checked" label="Checked" checked />
+</div>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-toggle-checked-bkg-color"
+    value="var(--fs-color-primary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-checked-bkg-color-hover"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+  <TokenRow
+    token="---fs-toggle-checked-border-color"
+    value="var(--fs-color-primary-bkg-active)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-toggle-knob-icon-disabled-color"
+    value="var(--fs-color-primary-bkg-hover)"
+    isColor
+  />
+</TokenTable>
+
+#### Disabled
+
+```tsx live
+<div className="overviewSection">
+  <Toggle id="toggle-disabled" label="Disabled" disabled />
+</div>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-toggle-disabled-bkg-color"
+    value="var(--fs-color-disabled-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="---fs-toggle-disabled-border-color"
+    value="var(--fs-border-color-disabled)"
+    isColor
+  />
+</TokenTable>
 
 ---
 
