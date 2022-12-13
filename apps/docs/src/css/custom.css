@@ -143,7 +143,7 @@
    @apply border-none;
  }
 
- .markdown img, .theme-code-block, .admonition {
+ .markdown > img, .theme-code-block, .admonition {
    @apply my-5
  }
 
@@ -231,24 +231,24 @@
    @apply mt-16;
  }
 
- main h1, h2, h3, h4 {
+ main .markdown header > h1, .markdown > h2, .markdown > h3, .markdown > h4 {
    @apply font-VTEXMedium text-fontSecondary;
  }
 
- main h1 {
+ main .markdown header > h1 {
    @apply text-4xl;
    margin-top: 30px;
  }
 
- main h2 {
+ main .markdown > h2 {
    @apply text-2xl mb-5;
  }
 
- main h3 {
-   @apply text-xl;
+ main .markdown > h3 {
+   @apply text-lg;
  }
 
- main h4 {
+ main .markdown > h4 {
    @apply text-base font-normal;
  }
 

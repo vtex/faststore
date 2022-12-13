@@ -3,7 +3,7 @@
 @import "../components/atoms/Button/styles";
 @import "../components/atoms/Checkbox/styles";
 @import "../components/atoms/Icon/styles";
-@import "../components/atoms/Link/styles";   
+@import "../components/atoms/Link/styles";
 @import "../components/atoms/Input/styles";
 @import "../components/atoms/List/styles";
 @import "../components/atoms/Overlay/styles";
@@ -23,3 +23,6 @@
 @import "../components/molecules/Tag/styles";
 @import "../components/molecules/Toggle/styles";
 @import "../components/molecules/ToggleField/styles";
+
+// Organisms
+@import "../components/organisms/Hero/styles";
