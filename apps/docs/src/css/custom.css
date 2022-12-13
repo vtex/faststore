@@ -445,3 +445,8 @@
   flex-direction: column;
   row-gap: 16px;
  }
+
+ .overviewSectionItem > div > div {
+  display: flex;
+  justify-content: center;
+ }

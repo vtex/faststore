@@ -31,6 +31,8 @@ Buttons indicate actions that users can take, such as adding an item to the cart
 </div>
 ```
 
+---
+
 ## Import
 
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
@@ -45,15 +47,19 @@ Import Styles
 import '@faststore/ui/src/components/atoms/Button/styles.scss'
 ```
 
+---
+
 ## Usage
 
 ```tsx live
 <Button variant="primary">Add to Cart</Button>
 ```
 
-## Props
+### Props
 
 <PropsSection name="Button" />
+
+---
 
 ## Design Tokens
 
@@ -95,11 +101,9 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   />
 </TokenTable>
 
----
+### Nested Elements
 
-## Nested Elements
-
-### Icon
+#### Icon
 
 ```tsx live
 <Button variant="primary" icon={<ShoppingCart />} iconPosition="left">
@@ -111,9 +115,9 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   <TokenRow token="--fs-button-icon-padding" value="0 var(--fs-spacing-1)" />
 </TokenTable>
 
-## Hierarchy
+### Hierarchy
 
-### Primary
+#### Primary
 
 ```tsx live
 <Button variant="primary">Button</Button>
@@ -173,7 +177,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   />
 </TokenTable>
 
-### Primary Inverse
+#### Primary Inverse
 
 ```tsx live
 <div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
@@ -239,7 +243,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   />
 </TokenTable>
 
-### Secondary
+#### Secondary
 
 ```tsx live
 <Button variant="secondary">Button</Button>
@@ -301,7 +305,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   />
 </TokenTable>
 
-### Secondary Inverse
+#### Secondary Inverse
 
 ```tsx live
 <div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
@@ -371,7 +375,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   />
 </TokenTable>
 
-### Tertiary
+#### Tertiary
 
 ```tsx live
 <Button variant="tertiary">Button</Button>
@@ -431,7 +435,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   />
 </TokenTable>
 
-### Tertiary Inverse
+#### Tertiary Inverse
 
 ```tsx live
 <div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
@@ -501,9 +505,9 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
 
 ---
 
-## Variants
+### Variants
 
-### Disabled
+#### Disabled
 
 ```tsx live
 <Button variant="primary" disabled>
@@ -524,7 +528,7 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   />
 </TokenTable>
 
-### Small
+#### Small
 
 ```tsx live
 <Button variant="primary" size="small">
@@ -541,6 +545,8 @@ import '@faststore/ui/src/components/atoms/Button/styles.scss'
   <TokenRow token="--fs-button-small-gap" value="var(--fs-spacing-1)" />
 </TokenTable>
 
+---
+
 ## Use cases
 
 Use the `Button` component to communicate user actions on the following components:
@@ -550,11 +556,15 @@ Use the `Button` component to communicate user actions on the following componen
 - Submit and/or withdraw actions on [Forms](/reference/ui/molecules/Form)
 - Submit and/or withdraw actions on [Modal](/reference/ui/molecules/Modal) windows.
 
+---
+
 ## Customization
 
 For further customization, you can use the following data attributes:
 
 `data-fs-button`
+
+---
 
 ## Best practices
 
@@ -582,10 +592,28 @@ For further customization, you can use the following data attributes:
 - Don't use Buttons as [Links](/reference/ui/atoms/Link). Links are not intended to invite users to take action. Instead, they redirect users somewhere.
 - Avoid using `aria-label` when the button already has a label.
 
+---
+
 ## Related components
+
+<section className="overviewSection">
+  <section className="overviewSectionItem">
 
 ```tsx live
 <IconButton icon={<ShoppingCart />} aria-label="Buy" />
 ```
 
-[IconButton](/reference/ui/molecules/IconButton) is a button which content is only an icon, without any label.
+[IconButton](/reference/ui/molecules/IconButton) is a button which content is only
+an icon, without any label.
+
+  </section>
+  <section className="overviewSectionItem">
+
+```tsx live
+<BuyButton>Buy Now</BuyButton>
+```
+
+[BuyButton](/reference/ui/molecules/BuyButton) intends to send the user to the checkout/cart step directly.
+
+  </section>
+</section>
