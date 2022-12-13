@@ -1,27 +1,31 @@
 ---
 description: Tables display information in a friendly way, allowing users to scan for details quickly.
-sidebar_custom_props: 
+sidebar_custom_props:
   image: https://vtexhelp.vtexassets.com/assets/docs/src/Table___06dbb666025a4d64540fb91d22b54ba6.png
 ---
 
-import PropsSection from "@site/src/components/PropsSection/PropsSection";
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
 
 # Table
 
 Tables display information in a friendly way, allowing users to scan for details quickly. The Table component is a compound of the following:
 
-- `Table` -  renders a `<table>` tag.
+- `Table` - renders a `<table>` tag.
 - `TableBody` - renders a `<tbody>` tag.
 - `TableHead` - renders a `<thead>` tag.
 - `TableRow` - renders a `<tr>` tag.
 - `TableFooter` - renders a `<tfoot>` tag.
 - `TableCell` - renders a `<th>` or `<td>` tag depending on the value of the `variant` prop.
 
+---
+
 ## Import
 
 ```tsx
 import { Table } from '@faststore/ui'
 ```
+
+---
 
 ## Usage
 
@@ -55,46 +59,79 @@ function(){
     },
   ]
 
-    return(
+    return (
+      <div className="overviewSection">
         <Table>
-            <TableHead>
-                <TableRow>
-                <TableCell scope="col" variant="header">
-                    Installments
-                </TableCell>
-                <TableCell scope="col" variant="header">
-                    Amount
-                </TableCell>
-                <TableCell scope="col" variant="header">
-                    Total
-                </TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {options.map((option) => (
-                <TableRow key={option.numberOfInstallments}>
-                    <TableCell>{option.numberOfInstallments}x</TableCell>
-                    <TableCell>
-                    <Price formatter={priceFormatter} value={option.monthlyPayment} />
-                    </TableCell>
-                    <TableCell>
-                    <Price formatter={priceFormatter} value={option.total} />
-                    </TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-            <TableFooter>
-                <TableRow>
-                <TableCell>Installments</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Total</TableCell>
-                </TableRow>
-            </TableFooter>
+          <TableHead>
+            <TableRow>
+              <TableCell scope="col" variant="header">
+                Installments
+              </TableCell>
+              <TableCell scope="col" variant="header">
+                Amount
+              </TableCell>
+              <TableCell scope="col" variant="header">
+                Total
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {options.map((option) => (
+            <TableRow key={option.numberOfInstallments}>
+              <TableCell>{option.numberOfInstallments}x</TableCell>
+              <TableCell>
+                <Price formatter={priceFormatter} value={option.monthlyPayment} />
+              </TableCell>
+              <TableCell>
+                <Price formatter={priceFormatter} value={option.total} />
+              </TableCell>
+            </TableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell>Installments</TableCell>
+              <TableCell>Amount</TableCell>
+              <TableCell>Total</TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
+
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell scope="col" variant="header">
+                Amount
+              </TableCell>
+              <TableCell scope="col" variant="header">
+                Total
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {options.map((option) => (
+            <TableRow key={option.numberOfInstallments}>
+              <TableCell>
+                <Price formatter={priceFormatter} value={option.monthlyPayment} />
+              </TableCell>
+              <TableCell>
+                <Price formatter={priceFormatter} value={option.total} />
+              </TableCell>
+            </TableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell>Amount</TableCell>
+              <TableCell>Total</TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </div>
 )}
 ```
 
-## Props
+### Props
 
 All table-related components support all attributes also supported by their respective HTML tags. Besides those attributes, the following props are also supported:
 
@@ -102,34 +139,36 @@ All table-related components support all attributes also supported by their resp
 
 <PropsSection name="Table" />
 
-### TableBody
+#### TableBody
 
 <PropsSection name="TableBody" />
 
-### TableRow
+#### TableRow
 
 <PropsSection name="TableRow" />
 
-### TableFooter
+#### TableFooter
 
 <PropsSection name="TableFooter" />
 
-### TableCell
+#### TableCell
 
 <PropsSection name="TableCell" />
+
+---
 
 ## Customization
 
 `data-fs-table`
 
-`data-table-head`
+`data-fs-table-head`
 
 `data-fs-table-row`
 
-`data-table-footer`
+`data-fs-table-footer`
 
-`data-table-body`
+`data-fs-table-body`
 
-`data-table-cell='head'`
+`data-fs-table-cell='head'`
 
-`data-table-cell='data'`
+`data-fs-table-cell='data'`
