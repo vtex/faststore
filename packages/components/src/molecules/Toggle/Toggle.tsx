@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import type { InputHTMLAttributes } from 'react'
-import { Input, Label, Icon } from './../../'
+import { Input, Label, Icon, SROnly } from './../../'
 import { Checked } from '../../assets'
 
 export interface ToggleProps
@@ -53,10 +53,12 @@ const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
           <Icon component={<Checked />} />
         </span>
       </div>
-      {displayLabel ?? (
+      {displayLabel ? (
         <Label data-fs-label htmlFor={id}>
           {label}
         </Label>
+      ) : (
+        <SROnly text={label} />
       )}
     </div>
   )
