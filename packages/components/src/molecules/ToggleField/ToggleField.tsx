@@ -1,9 +1,7 @@
 import React from 'react'
-import type { InputHTMLAttributes } from 'react'
 import { Label, SROnly, Toggle } from './../../'
 
-export interface ToggleFieldProps
-  extends InputHTMLAttributes<Omit<HTMLInputElement, 'disabled' | 'type'>> {
+export type ToggleFieldProps = {
   /**
    * ID to identify input and corresponding label.
    */
@@ -36,7 +34,7 @@ const ToggleField = ({
 }: ToggleFieldProps) => {
   return (
     <div data-fs-toggle-field>
-      <Toggle id={id} {...otherProps} />
+      <Toggle id={id} variant={variant} {...otherProps} />
       {displayLabel ? (
         <Label data-fs-toggle-field-label htmlFor={id}>
           {label}
