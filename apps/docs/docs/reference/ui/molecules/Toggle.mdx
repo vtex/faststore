@@ -127,7 +127,8 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
   />
   <TokenRow
     token="--fs-toggle-knob-bkg-color-hover"
-    value="var(--fs-border-color-hover)"
+    value="var(--fs-toggle-border-color-hover)"
+    globalValue="var(--fs-border-color-hover)"
     isColor
   />
   <TokenRow
@@ -136,12 +137,14 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
   />
   <TokenRow
     token="--fs-toggle-knob-border-color"
-    value="var(--fs-color-primary-bkg)"
+    value="var(--fs-toggle-knob-bkg-color)"
+    globalValue="var(--fs-color-primary-bkg)"
     isColor
   />
   <TokenRow
     token="--fs-toggle-knob-border-color-hover"
-    value="var(--fs-toggle-border-color-hover)"
+    value="var(--fs-toggle-knob-bkg-color-hover)"
+    globalValue="var(--fs-border-color-hover)"
     isColor
   />
   <TokenRow
@@ -156,7 +159,8 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
   />
   <TokenRow
     token="--fs-toggle-knob-checked-border-color"
-    value="var(--fs-control-bkg)"
+    value="var(--fs-toggle-knob-checked-bkg-color)"
+    globalValue="var(--fs-control-bkg)"
     isColor
   />
   <TokenDivider />
@@ -167,7 +171,8 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
   />
   <TokenRow
     token="--fs-toggle-knob-disabled-border-color"
-    value="var(--fs-color-neutral-5)"
+    value="var(--fs-toggle-knob-disabled-bkg-color)"
+    globalValue="var(--fs-color-neutral-5)"
     isColor
   />
 </TokenTable>
@@ -179,18 +184,21 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
   <TokenDivider />
   <TokenRow
     token="--fs-toggle-knob-icon-checked-color"
-    value="var(--fs-color-primary-bkg-active)"
+    value="var(--fs-toggle-checked-bkg-color)"
+    globalValue="var(--fs-color-primary-bkg-active)"
     isColor
   />
   <TokenRow
     token="--fs-toggle-knob-icon-checked-color-hover"
-    value="var(--fs-color-primary-bkg-hover)"
+    value="var(--fs-toggle-checked-bkg-color-hover)"
+    globalValue="var(--fs-color-primary-bkg-hover)"
     isColor
   />
   <TokenDivider />
   <TokenRow
     token="--fs-toggle-knob-icon-disabled-color"
-    value="var(--fs-color-disabled-bkg)"
+    value="var(--fs-toggle-disabled-bkg-color)"
+    globalValue="var(--fs-color-disabled-bkg)"
     isColor
   />
 </TokenTable>
@@ -218,12 +226,14 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
   />
   <TokenRow
     token="---fs-toggle-checked-border-color"
-    value="var(--fs-color-primary-bkg-active)"
+    value="var(--fs-toggle-checked-bkg-color)"
+    globalValue="var(--fs-color-primary-bkg-active)"
     isColor
   />
   <TokenRow
     token="--fs-toggle-knob-icon-disabled-color"
-    value="var(--fs-color-primary-bkg-hover)"
+    value="var(--fs-toggle-checked-bkg-color-hover)"
+    globalValue="var(--fs-color-primary-bkg-hover)"
     isColor
   />
 </TokenTable>
