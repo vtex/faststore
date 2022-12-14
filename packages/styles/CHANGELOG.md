@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.14-alpha.0](https://github.com/vtex/faststore/compare/v2.0.13-alpha.0...v2.0.14-alpha.0) (2022-12-14)
+
+
+### Features
+
+* Adds `Link` component ([#1543](https://github.com/vtex/faststore/issues/1543)) ([9c219eb](https://github.com/vtex/faststore/commit/9c219eba996fc6fec90edd1383a4abf8dbe0a7ef))
+
+
+
 ## [2.0.9-alpha.0](https://github.com/vtex/faststore/compare/v2.0.8-alpha.0...v2.0.9-alpha.0) (2022-12-12)
 
 
