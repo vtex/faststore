@@ -6,15 +6,11 @@
   // Default properties
   --fs-list-style-unordered                    : initial;
   --fs-list-style-ordered                      : decimal;
-  --fs-list-row-gap                            : 0;
 
   // --------------------------------------------------------
   // Structural Styles
   // --------------------------------------------------------
 
-  display: flex;
-  flex-direction: column;
-  row-gap: var(--fs-list-row-gap);
   margin: 0;
   padding: 0;
 
