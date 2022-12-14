@@ -1,0 +1,13 @@
+[data-fs-toggle-field] {
+  // --------------------------------------------------------
+  // Design Tokens for Toggle Field
+  // --------------------------------------------------------
+
+  // Default properties
+  display: flex;
+  align-items: center;
+
+  [data-fs-toggle-field-label] {
+    margin-left: var(--fs-spacing-1);
+  }
+}
