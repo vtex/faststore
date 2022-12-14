@@ -10,7 +10,7 @@ type LinkBaseProps = {
   /**
  * Specifies the component variant.
  */
-  variant?: 'default' | 'display' | 'footer' | 'inline'
+  variant?: 'default' | 'display' | 'inline'
   /**
   * Defines use of inverted color.
   */

@@ -1,0 +1,21 @@
+[data-fs-select-field] {
+  // --------------------------------------------------------
+  // Design Tokens for Select Field
+  // --------------------------------------------------------
+
+  // Label
+  --fs-select-field-label-margin-right          : var(--fs-spacing-1);
+  --fs-select-field-label-color                 : var(--fs-color-text-light);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  display: flex;
+  align-items: center;
+
+  [data-fs-select-field-label] {
+    margin-right: var(--fs-select-field-label-margin-right);
+    color: var(--fs-select-field-label-color);
+  }
+};

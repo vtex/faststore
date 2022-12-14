@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.13-alpha.0](https://github.com/vtex/faststore/compare/v2.0.12-alpha.0...v2.0.13-alpha.0) (2022-12-14)
+
+
+### Features
+
+* Adds `Select` and `SelectField` components ([#1547](https://github.com/vtex/faststore/issues/1547)) ([7c4beb0](https://github.com/vtex/faststore/commit/7c4beb085c893ad540e1a4440cc7b902fa36a75c))
+
+
+
 ## [2.0.12-alpha.0](https://github.com/vtex/faststore/compare/v2.0.11-alpha.0...v2.0.12-alpha.0) (2022-12-13)
 
 
