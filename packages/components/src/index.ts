@@ -1,3 +1,6 @@
+// Assets
+export * from './assets'
+
 // Atoms
 export { default as Badge } from './atoms/Badge'
 export type { BadgeProps } from './atoms/Badge'
@@ -11,6 +14,8 @@ export { default as Input } from './atoms/Input'
 export type { InputProps } from './atoms/Input'
 export { default as Label } from './atoms/Label'
 export type { LabelProps } from './atoms/Label'
+export { default as Link } from './atoms/Link'
+export type { LinkProps, LinkElementType } from './atoms/Link'
 export { default as Overlay } from './atoms/Overlay'
 export type { OverlayProps } from './atoms/Overlay'
 export { default as Price } from './atoms/Price'
