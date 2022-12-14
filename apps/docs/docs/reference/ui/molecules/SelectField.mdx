@@ -1,0 +1,98 @@
+---
+description: SelectField grouped a Select input and its corresponding Label.
+sidebar_custom_props:
+  image: https://vtexhelp.vtexassets.com/assets/docs/src/Select___8842f3b6522c3e8db0a887b3f216a6ab.png
+---
+
+import PropsSection from '@site/src/components/PropsSection/PropsSection'
+import { TokenTable, TokenRow } from '@site/src/components/Tokens'
+
+# SelectField
+
+SelectField wraps a [Select](/reference/ui/atoms/Select) input and its corresponding [Label](/reference/ui/atoms/Label). It allows users to select one option from a set.
+
+## Overview
+
+```tsx live
+<div className="overviewSection">
+  <SelectField
+    id="select-overview-default"
+    label="Select a Status:"
+    options={{
+      great: 'Great',
+      ok: 'Ok',
+      bad: 'Bad',
+    }}
+  />
+  <SelectField
+    id="select-overview-disabled"
+    label="Select a Status:"
+    options={{
+      great: 'Great',
+      ok: 'Ok',
+      bad: 'Bad',
+    }}
+    disabled
+  />
+</div>
+```
+
+---
+
+## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
+
+```tsx
+import { SelectField } from '@faststore/ui'
+```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/SelectField/styles.scss'
+```
+
+---
+
+## Usage
+
+```tsx live
+<SelectField
+  id="select-order-by"
+  label="Order by:"
+  options={{
+    name_asc: 'Name, A-Z',
+    name_desc: 'Name, Z-A',
+    top_sales: 'Top Sales',
+  }}
+/>
+```
+
+### Props
+
+<PropsSection name="SelectField" />
+
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow
+    token="--fs-select-label-color"
+    value="var(--fs-color-text-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-select-label-margin-right"
+    value="var(--fs-spacing-1)"
+  />
+</TokenTable>
+
+---
+
+## Customization
+
+For further customization, use the data-attr below:
+
+`data-fs-select-field`

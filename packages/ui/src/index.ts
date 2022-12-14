@@ -1,17 +1,11 @@
 export * from '@faststore/components'
 
 // Atoms
-export { default as Link } from './components/atoms/Link'
-export type { LinkProps } from './components/atoms/Link'
-
 export { default as Popover } from './components/atoms/Popover'
 export type { PopoverProps } from './components/atoms/Popover'
 
 export { default as TextArea } from './components/atoms/TextArea'
 export type { TextAreaProps } from './components/atoms/TextArea'
-
-export { default as Select } from './components/atoms/Select'
-export type { SelectProps } from './components/atoms/Select'
 
 export { default as Slider } from './components/atoms/Slider'
 export type { SliderProps } from './components/atoms/Slider'
