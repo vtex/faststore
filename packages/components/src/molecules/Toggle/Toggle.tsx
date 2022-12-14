@@ -6,6 +6,10 @@ import { Checked } from '../../assets'
 export interface ToggleProps
   extends InputHTMLAttributes<Omit<HTMLInputElement, 'disabled' | 'type'>> {
   /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+  /**
    * ID to identify input and corresponding label.
    */
   id: string
@@ -20,11 +24,17 @@ export interface ToggleProps
 }
 
 const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
-  { id, disabled, variant = 'horizontal', ...otherProps }: ToggleProps,
+  {
+    testId = 'fs-toggle',
+    id,
+    disabled,
+    variant = 'horizontal',
+    ...otherProps
+  }: ToggleProps,
   ref
 ) {
   return (
-    <div data-fs-toggle data-fs-toggle-variant={variant}>
+    <div data-fs-toggle data-fs-toggle-variant={variant} data-testid={testId}>
       <Input
         id={id}
         ref={ref}

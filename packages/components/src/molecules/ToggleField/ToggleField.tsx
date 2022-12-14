@@ -3,6 +3,10 @@ import { Label, SROnly, Toggle } from './../../'
 
 export type ToggleFieldProps = {
   /**
+   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
+   */
+  testId?: string
+  /**
    * ID to identify input and corresponding label.
    */
   id: string
@@ -25,6 +29,7 @@ export type ToggleFieldProps = {
 }
 
 const ToggleField = ({
+  testId = 'fs-toggle-field',
   id,
   label,
   disabled,
@@ -33,8 +38,8 @@ const ToggleField = ({
   ...otherProps
 }: ToggleFieldProps) => {
   return (
-    <div data-fs-toggle-field>
-      <Toggle id={id} variant={variant} {...otherProps} />
+    <div data-fs-toggle-field data-testid={testId}>
+      <Toggle id={id} variant={variant} disabled={disabled} {...otherProps} />
       {displayLabel ? (
         <Label data-fs-toggle-field-label htmlFor={id}>
           {label}
