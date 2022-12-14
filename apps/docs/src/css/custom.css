@@ -181,9 +181,14 @@
    margin-bottom: 40px !important;
  }
 
- .markdown ol {
+ .markdown > ol {
    @apply list-decimal pl-8 my-4;
  }
+
+.markdown > ul {
+   @apply list-disc pl-8;
+ }
+
  [class^='card'] {
    @apply bg-transparent border-border !important;
  }
@@ -203,10 +208,6 @@
 
  main a {
    @apply text-rebelPink;
- }
-
- .markdown ul {
-   @apply list-disc pl-8;
  }
 
  [class^='tabs'] {

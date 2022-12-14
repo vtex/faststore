@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import type { FC, HTMLAttributes, ReactNode } from 'react'
 
-import List from '../../atoms/List'
+import { List } from '@faststore/components'
 
 export interface BreadcrumbProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -85,7 +85,7 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
         data-testid={testId}
         {...otherProps}
       >
-        <List data-breadcrumb-list variant="ordered">
+        <List as="ol" data-breadcrumb-list>
           {React.Children.toArray(children).map(
             (child, index, childrenArray) => {
               const isLastItem = index === childrenArray.length - 1
