@@ -55,7 +55,7 @@ export {
   TableFooter,
   TableHead,
   TableRow,
-} from './/molecules/Table'
+} from './molecules/Table'
 export type {
   TableProps,
   TableBodyProps,
@@ -63,4 +63,4 @@ export type {
   TableFooterProps,
   TableHeadProps,
   TableRowProps,
-} from './/molecules/Table'
+} from './molecules/Table'
