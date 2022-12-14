@@ -33,6 +33,8 @@ Badges are status descriptors used to emphasize an item's state.
 </div>
 ```
 
+---
+
 ## Import
 
 Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
@@ -47,15 +49,19 @@ Import Styles
 import '@faststore/ui/src/components/atoms/Badge/styles.scss'
 ```
 
+---
+
 ## Usage
 
 ```tsx live
 <Badge variant="info">New arrival</Badge>
 ```
 
-## Props
+### Props
 
 <PropsSection name="Badge" />
+
+---
 
 ## Design Tokens
 
@@ -100,11 +106,9 @@ import '@faststore/ui/src/components/atoms/Badge/styles.scss'
   />
 </TokenTable>
 
----
+### Variants
 
-## Variants
-
-### Big
+#### Big
 
 ```tsx live
 <Badge size="big">Big Badge</Badge>
@@ -121,7 +125,7 @@ import '@faststore/ui/src/components/atoms/Badge/styles.scss'
   />
 </TokenTable>
 
-### Neutral
+#### Neutral
 
 ```tsx live
 <Badge variant="neutral">Neutral Badge</Badge>
@@ -146,7 +150,7 @@ import '@faststore/ui/src/components/atoms/Badge/styles.scss'
   />
 </TokenTable>
 
-### Success
+#### Success
 
 ```tsx live
 <Badge variant="success">Success Badge</Badge>
@@ -171,7 +175,7 @@ import '@faststore/ui/src/components/atoms/Badge/styles.scss'
   />
 </TokenTable>
 
-### Highlighted
+#### Highlighted
 
 ```tsx live
 <Badge variant="highlighted">Highlighted Badge</Badge>
@@ -195,7 +199,7 @@ import '@faststore/ui/src/components/atoms/Badge/styles.scss'
   />
 </TokenTable>
 
-### Info
+#### Info
 
 ```tsx live
 <Badge variant="info">Info Badge</Badge>
@@ -219,7 +223,7 @@ import '@faststore/ui/src/components/atoms/Badge/styles.scss'
   />
 </TokenTable>
 
-### Warning
+#### Warning
 
 ```tsx live
 <Badge variant="warning">Warning Badge</Badge>
@@ -243,7 +247,7 @@ import '@faststore/ui/src/components/atoms/Badge/styles.scss'
   />
 </TokenTable>
 
-### Danger
+#### Danger
 
 ```tsx live
 <Badge variant="danger">Danger Badge</Badge>
@@ -290,11 +294,15 @@ Use the Badge component to highlight:
 </Card>
 ```
 
+---
+
 ## Customization
 
 For further customization, you can use the following data attributes:
 
 `data-fs-badge`
+
+---
 
 ## Best practices
 
@@ -309,6 +317,8 @@ For further customization, you can use the following data attributes:
 - Don't label badges with active verbs.
 - Don't use color alone to convey information. If color is needed to convey meaning, ensure there is a text alternative for that meaning as well.
 - Don't place badges next to buttons. Although badges and buttons are similar in appearance, badges are not interactive and may confuse users if not used in the proper context.
+
+---
 
 ## Accessibility
 
