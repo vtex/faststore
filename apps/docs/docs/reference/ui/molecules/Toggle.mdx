@@ -16,9 +16,9 @@ The Toggle is a customized checkbox input styled to look like a switch button.
 ```tsx live
 <div className="overviewSection">
   <Toggle id="toggle-default" />
-  <Toggle id="toggle-default-labeless" />
   <Toggle id="toggle-default-checked" checked readOnly />
-  <Toggle id="toggle-default-checked" disabled />
+  <Toggle id="toggle-default-disabled" disabled />
+  <Toggle id="toggle-default-checked-disabled" disabled checked readOnly />
 </div>
 ```
 
@@ -262,6 +262,12 @@ import '@faststore/ui/src/components/molecules/Toggle/styles.scss'
 For futher customization, use the data-attr below:
 
 `data-fs-toggle`
+
+`data-fs-toggle-variant="horizontal"`
+
+`data-fs-toggle-variant="vertical"`
+
+`data-fs-toggle-knob`
 
 ---
 
