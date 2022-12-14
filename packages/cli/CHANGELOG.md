@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.12-alpha.0](https://github.com/vtex/faststore/compare/v2.0.11-alpha.0...v2.0.12-alpha.0) (2022-12-13)
+
+
+### Features
+
+* Beautify CLI messages with chalk ([#1550](https://github.com/vtex/faststore/issues/1550)) ([6c4c32c](https://github.com/vtex/faststore/commit/6c4c32c3ac0a97b55364b7251f2d90dc70f08952))
+
+
+
 ## 2.0.3-alpha.0 (2022-11-30)
 
 

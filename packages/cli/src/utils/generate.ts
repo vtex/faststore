@@ -1,32 +1,34 @@
+import deepmerge from 'deepmerge'
 import {
   copyFileSync,
   copySync,
+  existsSync,
   mkdirsSync,
   readFileSync,
-  writeFileSync,
-  existsSync,
   removeSync,
   symlinkSync,
+  writeFileSync,
 } from 'fs-extra'
-import deepmerge from 'deepmerge'
 
 import {
   coreCMSDir,
-  userCMSDir,
-  tmpCMSDir,
   coreDir,
-  tmpCustomizationsDir,
-  userSrcDir,
-  userStoreConfigFileDir,
   coreStoreConfigFileDir,
-  tmpStoreConfigFileDir,
-  tmpThemesCustomizationsFileDir,
-  userThemesFileDir,
+  tmpCMSDir,
+  tmpCustomizationsDir,
   tmpDir,
   tmpFolderName,
-  userNodeModulesDir,
   tmpNodeModulesDir,
+  tmpStoreConfigFileDir,
+  tmpThemesCustomizationsFileDir,
+  userCMSDir,
+  userNodeModulesDir,
+  userSrcDir,
+  userStoreConfigFileDir,
+  userThemesFileDir,
 } from './directory'
+
+import chalk from 'chalk'
 
 interface GenerateOptions {
   setup?: boolean
@@ -41,10 +43,13 @@ function createTmpFolder() {
     }
 
     mkdirsSync(tmpDir)
+    console.log(
+      `${chalk.green('success')} - Temporary folder ${chalk.dim(
+        tmpFolderName
+      )} created`
+    )
   } catch (err) {
-    console.error(err)
-  } finally {
-    console.log(`Temporary folder ${tmpFolderName} created`)
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -60,20 +65,18 @@ function copyCoreFiles() {
         return shouldCopy
       },
     })
+    console.log(`${chalk.green('success')} - Core files copied`)
   } catch (e) {
     console.error(e)
-  } finally {
-    console.log(`Core files copied`)
   }
 }
 
 function copyUserSrcToCustomizations() {
   try {
     copySync(userSrcDir, tmpCustomizationsDir)
+    console.log(`${chalk.green('success')} - Custom files copied`)
   } catch (err) {
-    console.error(err)
-  } finally {
-    console.log('Copied custom files')
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -85,10 +88,9 @@ async function copyTheme() {
       `${userThemesFileDir}/${storeConfig.theme}.scss`,
       tmpThemesCustomizationsFileDir
     )
+    console.log(`${chalk.green('success')} - Custom styles copied`)
   } catch (err) {
-    console.error(err)
-  } finally {
-    console.log('Copied custom styles')
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -102,10 +104,11 @@ function mergeCMSFile(fileName: string) {
 
   try {
     writeFileSync(`${tmpCMSDir}/${fileName}`, JSON.stringify(mergeContentTypes))
+    console.log(
+      `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
+    )
   } catch (err) {
-    console.error(err)
-  } finally {
-    console.log(`CMS file ${fileName} created`)
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
@@ -127,20 +130,20 @@ async function copyStoreConfig() {
       tmpStoreConfigFileDir,
       generateStoreConfigFile(mergedStoreConfig)
     )
+    console.log(
+      `${chalk.green('success')} - File ${chalk.dim('store.config.js')} copied`
+    )
   } catch (err) {
-    console.error(err)
-  } finally {
-    console.log(`File store.config.js copied`)
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
 function mergeCMSFiles() {
   try {
     mkdirsSync(`${tmpDir}/cms`)
+    console.log(`${chalk.green('success')} - CMS folder created`)
   } catch (err) {
-    console.error(err)
-  } finally {
-    console.log(`CMS file created`)
+    console.error(`${chalk.red('error')} - ${err}`)
   }
 
   mergeCMSFile('content-types.json')
@@ -150,13 +153,16 @@ function mergeCMSFiles() {
 function createNodeModulesSymbolicLink() {
   try {
     symlinkSync(userNodeModulesDir, tmpNodeModulesDir)
+    console.log(
+      `${chalk.green('success')} - Symbolic ${chalk.dim(
+        'node_modules'
+      )} link created from ${chalk.dim(userNodeModulesDir)} to ${chalk.dim(
+        tmpNodeModulesDir
+      )}`
+    )
   } catch (err) {
-    console.error(err)
+    console.error(`${chalk.red('error')} - ${err}`)
   }
-
-  console.log(
-    `node_modules symbolic link created from ${userNodeModulesDir} to ${tmpNodeModulesDir}`
-  )
 }
 
 export async function generate(options?: GenerateOptions) {
