@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { Label, SROnly, Toggle } from './../../'
 
 export type ToggleFieldProps = {
@@ -28,27 +28,32 @@ export type ToggleFieldProps = {
   variant?: 'horizontal' | 'vertical'
 }
 
-const ToggleField = ({
-  testId = 'fs-toggle-field',
-  id,
-  label,
-  disabled,
-  displayLabel = true,
-  variant = 'horizontal',
-  ...otherProps
-}: ToggleFieldProps) => {
-  return (
-    <div data-fs-toggle-field data-testid={testId}>
-      <Toggle id={id} variant={variant} disabled={disabled} {...otherProps} />
-      {displayLabel ? (
-        <Label data-fs-toggle-field-label htmlFor={id}>
-          {label}
-        </Label>
-      ) : (
-        <SROnly text={label} />
-      )}
-    </div>
-  )
-}
+const ToggleField = forwardRef<HTMLDivElement, ToggleFieldProps>(
+  function ToggleField(
+    {
+      testId = 'fs-toggle-field',
+      id,
+      label,
+      disabled,
+      displayLabel = true,
+      variant = 'horizontal',
+      ...otherProps
+    },
+    ref
+  ) {
+    return (
+      <div ref={ref} data-fs-toggle-field data-testid={testId}>
+        <Toggle id={id} variant={variant} disabled={disabled} {...otherProps} />
+        {displayLabel ? (
+          <Label data-fs-toggle-field-label htmlFor={id}>
+            {label}
+          </Label>
+        ) : (
+          <SROnly text={label} />
+        )}
+      </div>
+    )
+  }
+)
 
 export default ToggleField
