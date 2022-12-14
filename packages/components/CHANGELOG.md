@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.15-alpha.0](https://github.com/vtex/faststore/compare/v2.0.14-alpha.0...v2.0.15-alpha.0) (2022-12-14)
+
+
+### Features
+
+* Adds `List` component ([#1549](https://github.com/vtex/faststore/issues/1549)) ([55858fe](https://github.com/vtex/faststore/commit/55858fe39c254786e7c7a1e1dd3da96ed3be0d16))
+
+
+
 ## [2.0.14-alpha.0](https://github.com/vtex/faststore/compare/v2.0.13-alpha.0...v2.0.14-alpha.0) (2022-12-14)
 
 
