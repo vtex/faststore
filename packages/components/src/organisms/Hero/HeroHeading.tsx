@@ -42,19 +42,19 @@ const HeroHeading = forwardRef<HTMLDivElement, HeroHeadingProps>(
           <div data-fs-hero-info>
             <h1 data-fs-hero-title>{title}</h1>
             <p data-fs-hero-subtitle>{subtitle}</p>
+            {!!link && (
+              <LinkButton
+                href={link}
+                inverse={colorVariant === 'main'}
+                icon={<ShoppingCart />}
+                iconPosition="right"
+              >
+                {linkText}
+              </LinkButton>
+            )}
           </div>
           {icon && variant === 'secondary' && (
             <Icon data-fs-hero-icon component={icon} />
-          )}
-          {!!link && (
-            <LinkButton
-              href={link}
-              inverse={colorVariant === 'main'}
-              icon={<ShoppingCart />}
-              iconPosition="right"
-            >
-              {linkText}
-            </LinkButton>
           )}
         </div>
       </header>
