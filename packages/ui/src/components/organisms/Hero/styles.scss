@@ -4,44 +4,44 @@
   // --------------------------------------------------------
 
   // Default properties
-  --fs-hero-text-size: var(--fs-text-size-lead);
-  --fs-hero-text-line-height: 1.33;
+  --fs-hero-text-size                      : var(--fs-text-size-lead);
+  --fs-hero-text-line-height               : 1.33;
 
   // Image
-  --fs-hero-image-border-radius: 0;
+  --fs-hero-image-border-radius            : 0;
 
   // Title
-  --fs-hero-title-padding: var(--fs-spacing-5) 0 var(--fs-spacing-6);
-  --fs-hero-title-weight: var(--fs-text-weight-black);
-  --fs-hero-title-line-height: 1.1;
+  --fs-hero-title-padding                  : var(--fs-spacing-5) 0 var(--fs-spacing-6);
+  --fs-hero-title-weight                   : var(--fs-text-weight-black);
+  --fs-hero-title-line-height              : 1.1;
 
   // Subtitle
-  --fs-hero-subtitle-margin-top-mobile: var(--fs-spacing-2);
-  --fs-hero-subtitle-margin-top-tablet: var(--fs-spacing-4);
-  --fs-hero-subtitle-size: var(--fs-hero-text-size);
-  --fs-hero-subtitle-line-height: var(--fs-hero-text-line-height);
+  --fs-hero-subtitle-margin-top-mobile     : var(--fs-spacing-2);
+  --fs-hero-subtitle-margin-top-tablet     : var(--fs-spacing-4);
+  --fs-hero-subtitle-size                  : var(--fs-hero-text-size);
+  --fs-hero-subtitle-line-height           : var(--fs-hero-text-line-height);
 
   // Primary
-  --fs-hero-primary-image-height-mobile: 15rem; // 240px
-  --fs-hero-primary-image-height-desktop: 29rem; // 464px
-  --fs-hero-primary-title-size: var(--fs-text-size-title-huge);
+  --fs-hero-primary-image-height-mobile    : 15rem; // 240px
+  --fs-hero-primary-image-height-desktop   : 29rem; // 464px
+  --fs-hero-primary-title-size             : var(--fs-text-size-title-huge);
 
   // Secondary
-  --fs-hero-secondary-image-height-mobile: 11.25rem; // 180px
-  --fs-hero-secondary-image-height-desktop: 14.188rem; // 227px
-  --fs-hero-secondary-title-size: var(--fs-text-size-title-page);
+  --fs-hero-secondary-image-height-mobile  : 11.25rem;  // 180px
+  --fs-hero-secondary-image-height-desktop : 14.188rem; // 227px
+  --fs-hero-secondary-title-size           : var(--fs-text-size-title-page);
 
   // Main
-  --fs-hero-main-bkg-color: var(--fs-color-primary-bkg);
-  --fs-hero-main-text-color: var(--fs-color-primary-text);
+  --fs-hero-main-bkg-color                 : var(--fs-color-primary-bkg);
+  --fs-hero-main-text-color                : var(--fs-color-primary-text);
 
   // Light
-  --fs-hero-light-bkg-color: var(--fs-color-secondary-bkg-light);
-  --fs-hero-light-text-color: var(--fs-color-text-display);
+  --fs-hero-light-bkg-color                : var(--fs-color-secondary-bkg-light);
+  --fs-hero-light-text-color               : var(--fs-color-text-display);
 
   // Accent
-  --fs-hero-accent-bkg-color: var(--fs-color-highlighted-bkg);
-  --fs-hero-accent-text-color: var(--fs-hero-light-text-color);
+  --fs-hero-accent-bkg-color               : var(--fs-color-highlighted-bkg);
+  --fs-hero-accent-text-color              : var(--fs-hero-light-text-color);
 
   // --------------------------------------------------------
   // Structural Styles

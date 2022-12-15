@@ -1,8 +1,10 @@
 import type { ReactNode, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
-import { Icon } from '../../index'
+import { Icon, LinkButton } from '../..'
+import { ShoppingCart } from '../../assets'
+import type { HeroProps } from '../..'
 
-export interface HeroHeadingProps extends HTMLAttributes<HTMLDivElement> {
+export type HeroHeadingProps = HTMLAttributes<HTMLDivElement> & Pick<HeroProps, 'colorVariant' | 'variant'> & {
   /**
    * Content for the h1 tag.
    */
@@ -16,6 +18,14 @@ export interface HeroHeadingProps extends HTMLAttributes<HTMLDivElement> {
    */
   icon?: ReactNode
   /**
+   * Specifies the URL the action button goes to.
+   */
+  link?: string
+  /**
+   * Specifies the action button's content.
+   */
+  linkText?: string
+  /**
    * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
    */
   testId?: string
@@ -23,7 +33,7 @@ export interface HeroHeadingProps extends HTMLAttributes<HTMLDivElement> {
 
 const HeroHeading = forwardRef<HTMLDivElement, HeroHeadingProps>(
   function HeroHeading(
-    { title, subtitle, icon, testId = 'fs-hero-heading', children, ...otherProps },
+    { title, link, linkText, colorVariant, variant, subtitle, icon, testId = 'fs-hero-heading', children, ...otherProps },
     ref
   ) {
     return (
@@ -33,8 +43,18 @@ const HeroHeading = forwardRef<HTMLDivElement, HeroHeadingProps>(
             <h1 data-fs-hero-title>{title}</h1>
             <p data-fs-hero-subtitle>{subtitle}</p>
           </div>
-          {icon && (
+          {icon && variant === 'secondary' && (
             <Icon data-fs-hero-icon component={icon} />
+          )}
+          {!!link && (
+            <LinkButton
+              href={link}
+              inverse={colorVariant === 'main'}
+              icon={<ShoppingCart />}
+              iconPosition="right"
+            >
+              {linkText}
+            </LinkButton>
           )}
         </div>
       </header>
