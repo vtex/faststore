@@ -4,7 +4,7 @@ name: CD
 on:
   push:
     branches:
-      - main
+      - evergreen
 
 jobs:
   release:
