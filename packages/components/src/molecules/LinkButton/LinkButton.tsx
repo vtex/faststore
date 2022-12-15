@@ -12,6 +12,7 @@ function LinkButton({
   children,
   disabled,
   iconPosition,
+  size = 'regular',
   variant = 'primary',
   testId = 'fs-link-button',
   ...otherProps
@@ -33,6 +34,7 @@ function LinkButton({
       data-fs-button
       data-fs-link-button
       data-testid={testId}
+      data-fs-button-size={size}
       data-fs-button-variant={variant}
       data-fs-button-inverse={inverse}
       data-fs-button-disabled={disabled}

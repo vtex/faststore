@@ -50,6 +50,103 @@ import '@faststore/ui/src/components/molecules/LinkButton/styles.scss'
 
 ---
 
+## Design Tokens
+
+This component inherits [Button](/reference/ui/atoms/Button) design tokens.
+
+### Nested Elements
+
+#### Icon
+
+```tsx live
+<div className="overviewSection">
+  <LinkButton href="#" icon={<ShoppingCart />} iconPosition="left">
+    Go to Cart
+  </LinkButton>
+  <LinkButton href="#" icon={<ShoppingCart />} iconPosition="right">
+    Go to Cart
+  </LinkButton>
+</div>
+```
+
+---
+
+### Variants
+
+This component inherits [Button](/reference/ui/atoms/Button) variants.
+
+#### Primary
+
+```tsx live
+<LinkButton href="#" variant="primary">
+  Link Button
+</LinkButton>
+```
+
+#### Primary Inverse
+
+```tsx live
+<div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
+  <LinkButton href="#" variant="primary" inverse>
+    Link Button
+  </LinkButton>
+</div>
+```
+
+#### Secondary
+
+```tsx live
+<LinkButton href="#" variant="secondary">
+  Link Button
+</LinkButton>
+```
+
+#### Secondary Inverse
+
+```tsx live
+<div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
+  <LinkButton href="#" variant="secondary" inverse>
+    Link Button
+  </LinkButton>
+</div>
+```
+
+#### Tertiary
+
+```tsx live
+<LinkButton href="#" variant="tertiary">
+  Link Button
+</LinkButton>
+```
+
+#### Tertiary Inverse
+
+```tsx live
+<div style={{ backgroundColor: '#171a1c', padding: '1rem' }}>
+  <LinkButton href="#" variant="tertiary" inverse>
+    Link Button
+  </LinkButton>
+</div>
+```
+
+#### Disabled
+
+```tsx live
+<LinkButton href="#" disabled>
+  Link Button
+</LinkButton>
+```
+
+#### Small
+
+```tsx live
+<LinkButton variant="primary" size="small">
+  Link Button
+</LinkButton>
+```
+
+---
+
 ## Customization
 
 For further customization, you can use the following data attributes:
