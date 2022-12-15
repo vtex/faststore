@@ -136,7 +136,7 @@
   &[data-fs-button-variant] {
     @include focus-ring-visible;
 
-    &:disabled, &[data-button-disabled="true"] {
+    &:disabled, &[data-fs-button-disabled="true"] {
       color: var(--fs-button-disabled-text-color);
       cursor: not-allowed;
       background-color: var(--fs-button-disabled-bkg-color);
