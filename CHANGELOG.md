@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.16-alpha.0](https://github.com/vtex/faststore/compare/v2.0.15-alpha.0...v2.0.16-alpha.0) (2022-12-15)
+
+
+### Features
+
+* Adds `Toggle` & `ToggleField` & `SROnly` components ([#1555](https://github.com/vtex/faststore/issues/1555)) ([b055c0a](https://github.com/vtex/faststore/commit/b055c0aa67291ad88e865b60e96b8a898a97db14))
+
+
+
 ## [2.0.15-alpha.0](https://github.com/vtex/faststore/compare/v2.0.14-alpha.0...v2.0.15-alpha.0) (2022-12-14)
 
 
