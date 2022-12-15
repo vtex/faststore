@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.3.6](https://github.com/vtex-sites/nextjs.store/compare/0.3.5...0.3.6) (2022-12-15)
+
+
+### Chores
+
+* creating a branch intermediate to evergreen ([dd99e1d](https://github.com/vtex-sites/nextjs.store/commit/dd99e1d157c8f27b7d015edb6675676718e65c8d))
+
 ### [0.3.5](https://github.com/vtex-sites/nextjs.store/compare/0.3.4...0.3.5) (2022-11-30)
 
 ### [0.3.4](https://github.com/vtex-sites/nextjs.store/compare/0.3.3...0.3.4) (2022-11-23)
