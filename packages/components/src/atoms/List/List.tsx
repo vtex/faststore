@@ -17,10 +17,8 @@ interface BaseProps {
   marker?: boolean
 }
 
-export type ListProps<T extends ElementType> = PolymorphicComponentPropsWithRef<
-  T,
-  BaseProps
->
+export type ListProps<T extends ElementType = 'ul'> =
+  PolymorphicComponentPropsWithRef<T, BaseProps>
 
 type ListComponent = <T extends ElementType = 'ul'>(
   props: ListProps<T>
