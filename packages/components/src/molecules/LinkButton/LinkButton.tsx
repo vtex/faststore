@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
-import type { FocusEvent } from 'react'
+import type { FocusEvent, HTMLAttributes } from 'react'
 
-import { Icon, Link } from '../..'
-import type { LinkProps, ButtonProps } from '../..'
+import { Icon } from '../..'
+import type { ButtonProps } from '../..'
 
-export type LinkButtonProps = ButtonProps & Omit<LinkProps, 'variant'>
+export type LinkButtonProps = HTMLAttributes<HTMLAnchorElement> & ButtonProps
 
 function LinkButton({
   icon,
@@ -27,21 +27,21 @@ function LinkButton({
   }
 
   return (
-    <Link
+    <a
       ref={linkRef}
-      data-testid={testId}
+      onFocus={onFocus}
       data-fs-button
       data-fs-link-button
+      data-testid={testId}
       data-fs-button-variant={variant}
       data-fs-button-inverse={inverse}
       data-fs-button-disabled={disabled}
-      onFocus={onFocus}
       {...otherProps}
     >
       {iconPosition === 'left' && <Icon component={icon} />}
       {children}
       {iconPosition === 'right' && <Icon component={icon} />}
-    </Link>
+    </a>
   )
 }
 
