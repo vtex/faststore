@@ -1,0 +1,9 @@
+[data-fs-link-button] {
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  &:hover { text-decoration: none; }
+    
+  &:disabled, &[data-fs-button-disabled="true"] { pointer-events: none; }
+}
