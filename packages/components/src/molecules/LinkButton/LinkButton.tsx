@@ -1,10 +1,11 @@
 import React, { useRef } from 'react'
-import type { FocusEvent, HTMLAttributes } from 'react'
+import type { FocusEvent, AnchorHTMLAttributes } from 'react'
 
 import { Icon } from '../..'
 import type { ButtonProps } from '../..'
 
-export type LinkButtonProps = HTMLAttributes<HTMLAnchorElement> & ButtonProps
+export type LinkButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> &
+  ButtonProps
 
 function LinkButton({
   icon,
