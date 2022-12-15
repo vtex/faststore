@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.18-alpha.0](https://github.com/vtex/faststore/compare/v2.0.17-alpha.0...v2.0.18-alpha.0) (2022-12-15)
+
+
+### Bug Fixes
+
+* Starter's Integration tests ([#1559](https://github.com/vtex/faststore/issues/1559)) ([d597d98](https://github.com/vtex/faststore/commit/d597d981079448ca46588a8e32964c4e5dcc84f8)), closes [#323](https://github.com/vtex/faststore/issues/323)
+
+
+
 ## [2.0.17-alpha.0](https://github.com/vtex/faststore/compare/v2.0.16-alpha.0...v2.0.17-alpha.0) (2022-12-15)
 
 
