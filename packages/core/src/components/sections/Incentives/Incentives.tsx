@@ -35,7 +35,7 @@ function Incentives({
       data-fs-incentives-variant={variant}
       className={styles.fsIncentives}
     >
-      <UIList variant="unordered" className="layout__content">
+      <UIList className="layout__content">
         {incentives.map((incentive, index) => (
           <li key={String(index)}>
             <UIIncentive>

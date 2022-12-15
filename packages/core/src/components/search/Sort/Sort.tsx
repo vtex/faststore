@@ -1,6 +1,5 @@
 import { useSearch } from '@faststore/sdk'
-
-import Select from 'src/components/ui/Select'
+import { SelectField } from '@faststore/ui'
 
 const OptionsMap = {
   price_desc: 'Price, descending',
@@ -19,7 +18,7 @@ function Sort() {
   const { state, setState } = useSearch()
 
   return (
-    <Select
+    <SelectField
       id="sort-select"
       className="sort / text__title-mini-alt"
       label="Sort by"

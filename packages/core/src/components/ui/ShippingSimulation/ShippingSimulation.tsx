@@ -1,12 +1,17 @@
 import type { IShippingItem } from '@faststore/api'
-import { Table, TableBody, TableCell, TableRow } from '@faststore/ui'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  InputField as UIInputField,
+} from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
 import Price from 'src/components/ui/Price'
 import { usePriceFormatter } from 'src/sdk/product/useFormattedPrice'
 
 import Icon from '../Icon'
-import InputText from '../InputText'
 import Link from '../Link'
 import styles from './shipping-simulation.module.scss'
 import { useShippingSimulation } from './useShippingSimulation'
@@ -56,7 +61,7 @@ function ShippingSimulation({
         Shipping
       </h2>
 
-      <InputText
+      <UIInputField
         actionable
         error={errorMessage}
         id="shipping-postal-code"

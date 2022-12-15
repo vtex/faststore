@@ -1,12 +1,10 @@
 import { Suspense, useRef, useState } from 'react'
+import { IconButton as UIIconButton } from '@faststore/ui'
 
 import CartToggle from 'src/components/cart/CartToggle'
 import SearchInput from 'src/components/search/SearchInput'
 import type { SearchInputRef } from 'src/components/search/SearchInput'
-import Button, {
-  ButtonSignIn,
-  ButtonSignInFallback,
-} from 'src/components/ui/Button'
+import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
@@ -39,7 +37,7 @@ function Navbar() {
         <div className="layout__content" data-fs-navbar-row>
           {!searchExpanded && (
             <>
-              <Button
+              <UIIconButton
                 data-fs-navbar-button-menu
                 aria-label="Open Menu"
                 icon={<Icon name="List" width={32} height={32} />}
@@ -61,7 +59,7 @@ function Navbar() {
             data-fs-navbar-search-expanded={searchExpanded}
           >
             {searchExpanded && (
-              <Button
+              <UIIconButton
                 data-fs-button-collapse
                 aria-label="Collapse search bar"
                 icon={<Icon name="CaretLeft" width={32} height={32} />}

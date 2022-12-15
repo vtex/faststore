@@ -8,15 +8,9 @@
   // Default properties
   --fs-search-input-padding                       : var(--fs-spacing-1) var(--fs-spacing-7) var(--fs-spacing-1) var(--fs-spacing-2);
   --fs-search-input-bkg-color                     : var(--fs-color-body-bkg);
-  --fs-search-input-box-shadow                    : 0 0 0 var(--fs-border-width) var(--fs-border-color-active);
 
   --fs-search-input-height-mobile                 : var(--fs-control-tap-size);
   --fs-search-input-height-desktop                : var(--fs-spacing-6);
-
-  --fs-search-input-border-width                  : var(--fs-border-width);
-  --fs-search-input-border-radius                 : var(--fs-border-radius);
-  --fs-search-input-border-color                  : var(--fs-border-color);
-  --fs-search-input-border-color-hover            : var(--fs-border-color-active);
 
   --fs-search-input-transition-timing             : var(--fs-transition-timing);
   --fs-search-input-transition-function           : ease;
@@ -67,17 +61,10 @@
     @include media(">=notebook") { height: var(--fs-search-input-height-desktop); }
 
     [data-fs-search-input] {
-      width: 100%;
+      height: auto;
       padding: var(--fs-search-input-padding);
       background-color: var(--fs-search-input-bkg-color);
-      border: var(--fs-search-input-border-width) solid var(--fs-search-input-border-color);
-      border-radius: var(--fs-search-input-border-radius);
       transition: box-shadow var(--fs-search-input-transition-timing) var(--fs-search-input-transition-timing), border var(--fs-search-input-transition-timing) var(--fs-search-input-transition-function);
-
-      &:hover {
-        border-color: var(--fs-search-input-border-color-hover);
-        box-shadow: var(--fs-search-input-box-shadow);
-      }
 
       @include input-focus-ring;
 

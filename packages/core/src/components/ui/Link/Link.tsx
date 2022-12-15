@@ -1,29 +1,16 @@
 import { forwardRef, useMemo } from 'react'
-import type { Ref, ElementType, AnchorHTMLAttributes } from 'react'
+import type { Ref, AnchorHTMLAttributes } from 'react'
 import NextLink from 'next/link'
 import type { LinkProps as FrameworkLinkProps } from 'next/link'
 import { Link as UILink } from '@faststore/ui'
-import type { LinkProps as UILinkProps } from '@faststore/ui'
+import type { LinkProps as UILinkProps, LinkElementType } from '@faststore/ui'
 
-import styles from './link.module.scss'
-
-type Variant = 'default' | 'display' | 'footer' | 'inline'
-
-export type LinkProps<T extends ElementType = 'a'> = UILinkProps<T> &
+export type LinkProps<T extends LinkElementType = 'a'> = UILinkProps<T> &
   FrameworkLinkProps &
-  AnchorHTMLAttributes<HTMLAnchorElement> & {
-    /**
-     * Specifies the component variant.
-     */
-    variant?: Variant
-    /**
-     * Defines use of inverted color.
-     */
-    inverse?: boolean
-  }
+  AnchorHTMLAttributes<HTMLAnchorElement>
 
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
-  T extends ElementType = 'a'
+  T extends LinkElementType = 'a'
 >(
   { href, inverse, children, variant = 'default', ...otherProps }: LinkProps<T>,
   ref: Ref<HTMLAnchorElement> | undefined
@@ -35,18 +22,18 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
 
   if (isInternalLink) {
     return (
-      <NextLink passHref href={href}>
-        <UILink
-          ref={ref}
-          data-fs-link
-          data-fs-link-variant={variant}
-          data-fs-link-inverse={inverse}
-          className={styles.fsLink}
-          {...otherProps}
-        >
-          {children}
-        </UILink>
-      </NextLink>
+      <UILink
+        as={NextLink}
+        ref={ref}
+        variant={variant}
+        inverse={inverse}
+        passHref
+        href={href}
+        legacyBehavior={false}
+        {...otherProps}
+      >
+        <>{children}</>
+      </UILink>
     )
   }
 
@@ -54,10 +41,8 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link<
     <UILink
       ref={ref}
       href={href}
-      data-fs-link
-      data-fs-link-variant={variant}
-      data-fs-link-inverse={inverse}
-      className={styles.fsLink}
+      variant={variant}
+      inverse={inverse}
       {...otherProps}
     >
       {children}

@@ -1,11 +1,14 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import { List } from '@faststore/ui'
+import {
+  List as UIList,
+  IconButton as UIIconButton,
+  Button as UIButton,
+  Badge as UIBadge,
+} from '@faststore/ui'
 import { useEffect } from 'react'
 import type { ViewCartEvent, CurrencyCode } from '@faststore/sdk'
 
 import Alert from 'src/components/ui/Alert'
-import { Badge } from 'src/components/ui/Badge'
-import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import SlideOver from 'src/components/ui/SlideOver'
 import { useCart } from 'src/sdk/cart'
@@ -68,9 +71,9 @@ function CartSidebar() {
           <p data-fs-cart-sidebar-title-text className="text__lead">
             Your Cart
           </p>
-          <Badge variant="info">{totalItems}</Badge>
+          <UIBadge variant="info">{totalItems}</UIBadge>
         </div>
-        <Button
+        <UIIconButton
           data-fs-cart-sidebar-close-button
           data-testid="cart-sidebar-button-close"
           aria-label="Close Cart"
@@ -86,26 +89,26 @@ function CartSidebar() {
         <EmptyCart onDismiss={fadeOut} />
       ) : (
         <>
-          <List data-fs-cart-sidebar-list>
+          <UIList data-fs-cart-sidebar-list>
             {items.map((item) => (
               <li key={item.id}>
                 <CartItem item={item} />
               </li>
             ))}
-          </List>
+          </UIList>
 
           {gifts.length > 0 && (
             <>
               <Alert icon={<Icon name="Gift" width={24} height={24} />}>
                 Gifts
               </Alert>
-              <List data-fs-cart-sidebar-list>
+              <UIList data-fs-cart-sidebar-list>
                 {gifts.map((item) => (
                   <li key={item.id}>
                     <CartItem gift item={item} />
                   </li>
                 ))}
-              </List>
+              </UIList>
             </>
           )}
 
@@ -115,7 +118,7 @@ function CartSidebar() {
               total={total}
               numberOfItems={totalItems}
               checkoutButton={
-                <Button
+                <UIButton
                   data-fs-cart-sidebar-checkout-button
                   variant="primary"
                   icon={
@@ -127,7 +130,7 @@ function CartSidebar() {
                   {...btnProps}
                 >
                   {isValidating ? 'Loading...' : 'Checkout'}
-                </Button>
+                </UIButton>
               }
             />
           </footer>

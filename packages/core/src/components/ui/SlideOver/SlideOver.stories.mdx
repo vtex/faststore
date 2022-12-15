@@ -19,7 +19,7 @@ import storeConfig from 'store.config'
 import { validateSession } from 'src/sdk/session'
 import { useFilter } from 'src/components/search/Filter/useFilter'
 
-import Button, { ButtonBuy } from 'src/components/ui/Button'
+import { Button, BuyButton } from '@faststore/ui'
 import { FilterSlider } from 'src/components/search/Filter'
 
 import SlideOver from '.'
@@ -127,12 +127,12 @@ export const TemplateCartSidebar = () => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <CartToggle />
-      <ButtonBuy
+      <BuyButton
         style={{ marginLeft: '12px' }}
         onClick={() => addItem(cartItem)}
       >
         Add item to Cart
-      </ButtonBuy>
+      </BuyButton>
       {displayCart && <CartSidebar />}
     </div>
   )

@@ -1,6 +1,5 @@
-import { List as UIList } from '@faststore/ui'
+import { List as UIList, Button as UIButton } from '@faststore/ui'
 
-import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
@@ -20,11 +19,11 @@ const SearchHistory = () => {
     <section data-fs-search-section className={styles.fsSearch}>
       <div data-fs-search-header>
         <p data-fs-search-title>History</p>
-        <Button variant="tertiary" onClick={clearSearchHistory}>
+        <UIButton variant="tertiary" onClick={clearSearchHistory}>
           Clear History
-        </Button>
+        </UIButton>
       </div>
-      <UIList variant="ordered">
+      <UIList as="ol">
         {searchHistory.map((item) => (
           <li key={item.term} data-fs-search-item>
             <Link

@@ -1,6 +1,3 @@
-export { default } from './Button'
-export type { ButtonProps } from './Button'
-export { default as ButtonBuy } from './ButtonBuy'
 export { default as ButtonLink } from './ButtonLink'
 export { default as ButtonSignIn } from './ButtonLink/ButtonSignIn'
 export { default as ButtonSignInFallback } from './ButtonLink/ButtonSignIn/ButtonSignInFallback'

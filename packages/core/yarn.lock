@@ -1421,10 +1421,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faststore/api@^1.12.29":
-  version "1.12.29"
-  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-1.12.29.tgz#c49d6e0876f9263aff66fa317b073023324bdd1f"
-  integrity sha512-rhz+R957MpHPfMYOmBgwC57R62qfnh7lkEUbTWmZFkrcqW1p/fasOW+j0bpfwJRNXjLTfBjiHePfuCtbFKMMvA==
+"@faststore/api@^2.0.3-alpha.0":
+  version "2.0.3-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/api/-/api-2.0.3-alpha.0.tgz#e2728eb91612d8418764f028086a3f427416293a"
+  integrity sha512-25GftG7yxGQ2ja+Qyx1B7wbBol6qH3XTuM0Yyy1ou+GASRQG7cE08VY5duYZhQHl9fIS5KKahSoE/pM63l7Q+w==
   dependencies:
     "@graphql-tools/schema" "^8.2.0"
     "@rollup/plugin-graphql" "^1.0.0"
@@ -1433,35 +1433,47 @@
     isomorphic-unfetch "^3.1.0"
     p-limit "^3.1.0"
 
-"@faststore/graphql-utils@^1.11.8":
-  version "1.12.17"
-  resolved "https://registry.yarnpkg.com/@faststore/graphql-utils/-/graphql-utils-1.12.17.tgz#352455eb7425a74be3273137329624bb722cb3cf"
-  integrity sha512-c+CLk69hpY+Qm+t1u0SZRV0ntyFQJvnzoyD9UWumueYQGmLcSWfHctV2fDurGn60QWPMkertfzFeojcSsL3hMA==
+"@faststore/components@*":
+  version "1.12.32"
+  resolved "https://registry.yarnpkg.com/@faststore/components/-/components-1.12.32.tgz#2c50bf528fe92b394b533034f30091f462812880"
+  integrity sha512-XVtWCp4RKpD0umr40vNYw0myh06wwIJ77i8MwfhWqzBEzZm9ht1E3nBoPcfYvAk73WFDHrHcdokiqBVfpPMRnA==
+
+"@faststore/components@^2.0.16-alpha.0":
+  version "2.0.16-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/components/-/components-2.0.16-alpha.0.tgz#7962506c1d11c68fdc24fe7b06705007bb8caa29"
+  integrity sha512-v9tVaL0ZPatbeHyou4A7RTYwwOYBlpdsdbcWaH7qcVM9G+vasWR7KOOTXZBau7tfAxxP7pxpYRupHDvqsbuyvg==
+
+"@faststore/graphql-utils@^2.0.3-alpha.0":
+  version "2.0.3-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/graphql-utils/-/graphql-utils-2.0.3-alpha.0.tgz#1d70065f5fcaafc51e9399b11b1b117a28a89f38"
+  integrity sha512-+kOX1fOHWMp/GqY9ooYuOwQbvHREoIoIm3CA/B6twPtwU/3G4W7+NZVYPUK1InVDxBQIEWfqPNSxgVTXvGfrFg==
   dependencies:
     "@babel/traverse" "^7.15.4"
     "@babel/types" "^7.15.6"
     "@graphql-codegen/plugin-helpers" "^2.2.0"
     "@graphql-tools/relay-operation-optimizer" "^6.4.0"
 
-"@faststore/lighthouse@^1.11.8":
-  version "1.12.17"
-  resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.12.17.tgz#c4d94096718e7f71175746830c23bb45a8db7b99"
-  integrity sha512-NekQ91VN2vD9AOPJa4wxgbFsPH0MkQgmZZuis3D9yKUqOd3dExbZTUFN8U8qJZK5WZ0xMhoGTCdT2h7SOtQSOg==
+"@faststore/lighthouse@^1.12.32":
+  version "1.12.32"
+  resolved "https://registry.yarnpkg.com/@faststore/lighthouse/-/lighthouse-1.12.32.tgz#840096bc88ce80041217c764df97d9f0b4968658"
+  integrity sha512-65IiCPRfjdtKyGXSvLXjug46J8z8e7dJr7Otxezjmn8N0F9tWh8IvrEAEAquXZXvg6sjVEjJnQ3S6fYuiqW4iw==
 
-"@faststore/sdk@^1.11.8":
-  version "1.12.17"
-  resolved "https://registry.yarnpkg.com/@faststore/sdk/-/sdk-1.12.17.tgz#2acb6e27a80944d534859fb4a92803afd33ce31a"
-  integrity sha512-1ijxrFHyYF71U737VHgCEm2R+hr1bXN3nNuUl9xyTa3NtDj46klcpl//Z8D9WvazfapuRrAyMVRk0S33KOutug==
+"@faststore/sdk@^2.0.3-alpha.0":
+  version "2.0.3-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/sdk/-/sdk-2.0.3-alpha.0.tgz#755eb9ec133aa0d53b566fc3f03c05eed59e78a5"
+  integrity sha512-LlHh4OCEP/gYx3WYRvqA/x7UDmKr0E/3Ny33z512T3WfwfBivmcoGuBVnqxJl2/iT7fVyL86MvS/mBkdXPwMGw==
   dependencies:
     idb-keyval "^5.1.3"
 
-"@faststore/ui@^1.12.23":
-  version "1.12.23"
-  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-1.12.23.tgz#8c1f05e87896f938e58df330739245d92ff6f223"
-  integrity sha512-tkxVhgL+YctrIt2WQEUszi8Ze8AdX/t7f6RUe1fyP9IWKYyPsTPJ5wvp4JRu1eBh4sQic7wcrgpTuRH+jbw5dw==
+"@faststore/ui@^2.0.16-alpha.0":
+  version "2.0.16-alpha.0"
+  resolved "https://registry.yarnpkg.com/@faststore/ui/-/ui-2.0.16-alpha.0.tgz#7198eb472a7c936e8687d3d6f567e2042639af2d"
+  integrity sha512-45YNMfuVwbaqzvU8clDreIKS82CqpF7pckNI2k/gVdKs9yX2dksMNg9dEIvebp1rZ5Q8175vdo8Dsx27/7j8wg==
   dependencies:
+    "@faststore/components" "*"
     "@reach/popover" "^0.16.0"
-    "@storybook/addon-a11y" "^6.4.4"
+    include-media "^1.4.10"
+    modern-normalize "^1.1.0"
     react-swipeable "^7.0.0"
     tabbable "^5.2.1"
 
@@ -2442,7 +2454,7 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-5.3.0.tgz#0ec9264cf54a527671d990eb874e030b55b70dcc"
   integrity sha512-CX6t4SYQ37lzxicAqsBtxA3OseeoVrh9cSJ5PFYam0GksYlupRfy1A+Q4aYD3zvcfECLc0zO2u+ZnR2UYKvCrw==
 
-"@storybook/addon-a11y@^6.4.4", "@storybook/addon-a11y@^6.5.9":
+"@storybook/addon-a11y@^6.5.9":
   version "6.5.9"
   resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-6.5.9.tgz#191fb8ea9be4feee67fd11553b98ab56ecfc1295"
   integrity sha512-jRiuJ2xlN8quVq2lOqpxqyuwAj8xLcgVBPy+Mf220u7AZmmbS/0sONyHKROfEBjJoHQAQYqn2vSAeuQZuTWyVA==
@@ -5702,9 +5714,9 @@ caniuse-lite@^1.0.30001317:
   integrity sha512-10T30NYOEQtN6C11YGg411yebhvpnC6Z102+B95eAsN0oB6KUs01ivE8u+G6FMIRtIrVlYXhL+LUwQ3/hXwDWw==
 
 caniuse-lite@^1.0.30001406:
-  version "1.0.30001422"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001422.tgz#f2d7c6202c49a8359e6e35add894d88ef93edba1"
-  integrity sha512-hSesn02u1QacQHhaxl/kNMZwqVG35Sz/8DgvmgedxSH8z9UUpcDYSPYgsj3x5dQNRcNp6BwpSfQfVzYUTm+fog==
+  version "1.0.30001418"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001418.tgz#5f459215192a024c99e3e3a53aac310fc7cf24e6"
+  integrity sha512-oIs7+JL3K9JRQ3jPZjlH6qyYDp+nBTCais7hjh0s+fuBwufc7uZ7hPYMXrDOJhV360KGMTcczMRObk0/iMqZRg==
 
 capital-case@^1.0.4:
   version "1.0.4"
@@ -12366,6 +12378,11 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
+modern-normalize@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/modern-normalize/-/modern-normalize-1.1.0.tgz#da8e80140d9221426bd4f725c6e11283d34f90b7"
+  integrity sha512-2lMlY1Yc1+CUy0gw4H95uNN7vjbpoED7NNRSBHE25nWfLBdmMzFCsPshlzbxHz+gYMcBEUN8V4pU16prcdPSgA==
+
 modify-values@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
@@ -15519,6 +15536,8 @@ ssri@^6.0.1:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.2.tgz#157939134f20464e7301ddba3e90ffa8f7728ac5"
   integrity sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==
+  dependencies:
+    figgy-pudding "^3.5.1"
 
 ssri@^8.0.1:
   version "8.0.1"

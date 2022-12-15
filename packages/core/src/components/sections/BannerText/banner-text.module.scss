@@ -9,9 +9,9 @@
   --fs-banner-padding-mobile                : var(--fs-spacing-6) 5%;
   --fs-banner-padding-desktop               : var(--fs-spacing-9) 15%;
 
-  // Link
-  --fs-banner-link-min-width                : 11.25rem;
-  --fs-banner-link-margin-top               : var(--fs-spacing-6);
+  // Button Link
+  --fs-banner-button-link-min-width         : 11.25rem;
+  --fs-banner-button-link-margin-top        : var(--fs-spacing-6);
 
   // Title
   --fs-banner-title-size                    : var(--fs-text-size-lead);
@@ -59,9 +59,9 @@
     height: 100%;
   }
 
-  [data-fs-banner-text-link] [data-fs-link] {
-    min-width: var(--fs-banner-link-min-width);
-    margin-top: var(--fs-banner-link-margin-top);
+  [data-fs-banner-text-link] [data-fs-button-link] {
+    min-width: var(--fs-banner-button-link-min-width);
+    margin-top: var(--fs-banner-button-link-margin-top);
   }
 
   // --------------------------------------------------------

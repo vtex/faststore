@@ -49,10 +49,11 @@ export function Footer({
         {sectionSocial && (
           <section data-fs-footer-social>
             <p data-fs-footer-title>Follow us</p>
-            <UIList variant="unordered">
+            <UIList>
               <li>
                 <Link
-                  variant="footer"
+                  variant="display"
+                  size="small"
                   href="https://www.facebook.com/"
                   title="Facebook"
                   target="_blank"
@@ -63,7 +64,8 @@ export function Footer({
               </li>
               <li>
                 <Link
-                  variant="footer"
+                  variant="display"
+                  size="small"
                   href="https://www.instagram.com/"
                   title="Instagram"
                   target="_blank"
@@ -74,7 +76,8 @@ export function Footer({
               </li>
               <li>
                 <Link
-                  variant="footer"
+                  variant="display"
+                  size="small"
                   href="https://www.pinterest.com/"
                   title="Pinterest"
                   target="_blank"
@@ -85,7 +88,8 @@ export function Footer({
               </li>
               <li>
                 <Link
-                  variant="footer"
+                  variant="display"
+                  size="small"
                   href="https://twitter.com/"
                   title="Twitter"
                   target="_blank"

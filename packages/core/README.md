@@ -70,7 +70,7 @@ As of Sep, 2022, this starter is still far from covering most basic cases found 
 
    Your site is now running at `http://localhost:3000`!
 
-    Open the `awesome.store` directory in your code editor of choice and edit `src/pages/index.tsx`. Save your changes and the browser will update in real-time!
+   Open the `awesome.store` directory in your code editor of choice and edit `src/pages/index.tsx`. Save your changes and the browser will update in real-time!
 
 ## :technologist: Contributing
 
@@ -120,9 +120,9 @@ A quick look at the top-level files and directories you'll see in a NextJS proje
 
 7.  **`yarn.lock`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
 
-8. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+8.  **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
 
-9. **`tsconfig.json`**: The configuration file for the typescript compiler. This will statically analyze your code for errors and bugs before releasing them into production
+9.  **`tsconfig.json`**: The configuration file for the typescript compiler. This will statically analyze your code for errors and bugs before releasing them into production
 
 10. **`store.config.js`**: Configure your e-commerce platform, default sales channel etc.
 
@@ -219,20 +219,20 @@ touch src/components/ui/Button/button.scss
 Now, on `button.scss`:
 
 ```css
-[data-store-button] {
+[data-fs-button] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 ```
 
-This `data-store-button` is a CSS data attribute selector. To know which selectors are available, check [FastStore UI docs](https://faststoreui.netlify.app/).
+This `data-fs-button` is a CSS data attribute selector. To know which selectors are available, check [FastStore UI docs](https://faststoreui.netlify.app/).
 
 Now, include the component's CSS into the Store's CSS. Open `src/styles/global/components.scss` and import this CSS with:
 
 ```scss
 // ...
-@import "src/components/ui/Button/button.scss";
+@import 'src/components/ui/Button/button.scss';
 // ...
 ```
 
@@ -256,11 +256,11 @@ export default Button
 and then, on `button.scss`:
 
 ```css
-[data-store-button][data-button-variant='primary'] {
+[data-fs-button][data-button-variant='primary'] {
   background: blue;
 }
 
-[data-store-button][data-button-variant='secondary'] {
+[data-fs-button][data-button-variant='secondary'] {
   background: pink;
 }
 ```
@@ -274,11 +274,11 @@ function Button({ variant, ...props }: Props) {
 ```
 
 ```css
-.primary[data-store-button] {
+.primary[data-fs-button] {
   background: blue;
 }
 
-.secondary[data-store-button] {
+.secondary[data-fs-button] {
   background: pink;
 }
 ```
@@ -286,6 +286,7 @@ function Button({ variant, ...props }: Props) {
 Now we have a styled Button component that accepts different variants!! 🎉
 
 ### Managing SVG Icons
+
 Icons help build web pages by illustrating concepts and improving website navigation. However, using icons can decrease the page's performance. One option to avoid the decrease of the page's performance is to use SVGs from a single SVG file, located in `/static/icons.svg`, and load them with the `ui/Icon` component.
 
 In the following steps, learn how to add and use a new SVG icon and avoid decreasing page performance while using an icon.
@@ -295,6 +296,7 @@ In the following steps, learn how to add and use a new SVG icon and avoid decrea
 > This is a recommendation while using icons on a web page. Evaluate if this fits in your project.
 
 #### Adding an SVG icon
+
 1. In the SVG file, change the `svg` tag to `symbol`.
 2. Add an `id` to the symbol. Remember to use an unique `id` and do not replicate it.
 3. Remove unnecessary HTML/SVG properties to allow you to style and decrease the final file size, such as `fill`, `stroke-width`, `width`, `height`, and `color`.
@@ -395,7 +397,7 @@ That's it! you have just regenerated all graphql queries/fragments for your appl
 
 ## CMS Integration
 
-This store is integrated with [VTEX headless CMS](https://www.faststore.dev/tutorials/cms/0). 
+This store is integrated with [VTEX headless CMS](https://www.faststore.dev/tutorials/cms/0).
 
 The page rendered with CMS is:
 

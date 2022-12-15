@@ -3,13 +3,14 @@ import {
   ProductCardActions as UIProductCardActions,
   ProductCardContent as UIProductCardContent,
   ProductCardImage as UIProductCardImage,
+  Badge as UIBadge,
+  DiscountBadge as UIDiscountBadge,
 } from '@faststore/ui'
 import { gql } from '@faststore/graphql-utils'
 import { memo } from 'react'
 import type { ReactNode } from 'react'
 
 import Link from 'src/components/ui/Link'
-import { Badge, DiscountBadge } from 'src/components/ui/Badge'
 import { Image } from 'src/components/ui/Image'
 import Price from 'src/components/ui/Price'
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
@@ -35,9 +36,9 @@ export interface ProductCardProps {
    */
   aspectRatio?: number
   /**
-   * Enables a ButtonBuy to the component.
+   * Enables a BuyButton to the component.
    */
-  ButtonBuy?: ReactNode
+  BuyButton?: ReactNode
 }
 
 function ProductCard({
@@ -46,7 +47,7 @@ function ProductCard({
   variant = 'default',
   bordered = false,
   aspectRatio = 1,
-  ButtonBuy,
+  BuyButton,
   ...otherProps
 }: ProductCardProps) {
   const {
@@ -67,7 +68,7 @@ function ProductCard({
       data-fs-product-card
       data-fs-product-card-variant={variant}
       data-fs-product-card-bordered={bordered}
-      data-fs-product-card-actionable={!!ButtonBuy}
+      data-fs-product-card-actionable={!!BuyButton}
       data-fs-product-card-sku={sku}
       className={styles.fsProductCard}
       {...otherProps}
@@ -113,13 +114,13 @@ function ProductCard({
         </div>
 
         {outOfStock ? (
-          <Badge>Out of stock</Badge>
+          <UIBadge>Out of stock</UIBadge>
         ) : (
-          <DiscountBadge listPrice={listPrice} spotPrice={spotPrice} />
+          <UIDiscountBadge listPrice={listPrice} spotPrice={spotPrice} />
         )}
-        {!!ButtonBuy && (
+        {!!BuyButton && (
           <UIProductCardActions data-fs-product-card-actions>
-            {ButtonBuy}
+            {BuyButton}
           </UIProductCardActions>
         )}
       </UIProductCardContent>

@@ -1,5 +1,8 @@
 import { useState, useRef } from 'react'
-import { PriceRange as UIPriceRange } from '@faststore/ui'
+import {
+  PriceRange as UIPriceRange,
+  InputField as UIInputField,
+} from '@faststore/ui'
 import type { PriceRangeProps } from '@faststore/ui'
 
 import {
@@ -8,7 +11,6 @@ import {
 } from 'src/sdk/product/useFormattedPrice'
 
 import styles from './price-range.module.scss'
-import InputText from '../InputText'
 
 type Props = Omit<
   PriceRangeProps,
@@ -102,7 +104,7 @@ function PriceRange({ min, max, onEnd, step = 10, ...otherProps }: Props) {
         {...otherProps}
       />
       <div data-fs-price-range-inputs>
-        <InputText
+        <UIInputField
           id="price-range-min"
           step={step}
           label="Min"
@@ -116,7 +118,7 @@ function PriceRange({ min, max, onEnd, step = 10, ...otherProps }: Props) {
           onChange={(e) => onChangeInputMin(e.target.value)}
           onBlur={() => !inputMinError && onEnd?.(priceRange)}
         />
-        <InputText
+        <UIInputField
           id="price-range-max"
           label="Max"
           step={step}

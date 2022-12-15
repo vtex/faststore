@@ -1,5 +1,6 @@
+import { IconButton as UIIconButton } from '@faststore/ui'
+
 import RegionalizationInput from 'src/components/regionalization/RegionalizationInput'
-import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 
@@ -19,7 +20,7 @@ function RegionalizationModalContent({
     >
       <header data-fs-regionalization-modal-header>
         {onClose && (
-          <Button
+          <UIIconButton
             onClick={() => onClose?.()}
             data-fs-regionalization-modal-button
             aria-label="Close Regionalization Modal"

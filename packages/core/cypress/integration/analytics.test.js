@@ -331,7 +331,7 @@ describe('search event', () => {
       .click()
       .type('shirt')
       .within(() => {
-        cy.getById('store-button')
+        cy.getById('fs-button')
           .click()
           .then(() => {
             dataLayerHasEvent('search')

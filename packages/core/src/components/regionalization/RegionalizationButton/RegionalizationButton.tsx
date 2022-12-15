@@ -1,4 +1,5 @@
-import Button from 'src/components/ui/Button'
+import { Button as UIButton } from '@faststore/ui'
+
 import Icon from 'src/components/ui/Icon'
 import { useSession } from 'src/sdk/session'
 import { useUI } from 'src/sdk/ui/Provider'
@@ -8,7 +9,7 @@ function RegionButton() {
   const { postalCode } = useSession()
 
   return (
-    <Button
+    <UIButton
       data-fs-regionalization-button
       variant="tertiary"
       size="small"
@@ -17,7 +18,7 @@ function RegionButton() {
       onClick={openModal}
     >
       <span>{postalCode ?? 'Set your location'}</span>
-    </Button>
+    </UIButton>
   )
 }
 

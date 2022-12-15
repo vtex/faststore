@@ -218,7 +218,7 @@ function ProductDetailsContent({
           data-fs-product-details-highlights
           prefixId="product-details-content"
         >
-          <UIList>
+          <UIList marker>
             <li>
               Industry-leading noise canceling with Dual Noise Sensor technology
             </li>

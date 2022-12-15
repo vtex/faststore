@@ -47,7 +47,7 @@
         grid-template-columns: repeat(3, 1fr);
         margin-top: 0;
 
-        [data-fs-input-text] {
+        [data-fs-input-field] {
           grid-column: 1 / span 3;
         }
 

@@ -1,10 +1,13 @@
-import { Alert as UIAlert, Icon as UIIcon } from '@faststore/ui'
+import {
+  Alert as UIAlert,
+  Icon as UIIcon,
+  Button as UIButton,
+} from '@faststore/ui'
 import { useCallback } from 'react'
 import type { ReactNode, MouseEvent } from 'react'
 import type { AlertProps } from '@faststore/ui'
 
 import Link from 'src/components/ui/Link'
-import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 
 import styles from './alert.module.scss'
@@ -65,11 +68,11 @@ function Alert({
       )}
 
       {dismissible && (
-        <Button data-fs-alert-button aria-label="Close" onClick={handleClose}>
+        <UIButton data-fs-alert-button aria-label="Close" onClick={handleClose}>
           <span>
             <Icon name="X" width={18} height={18} weight="bold" />
           </span>
-        </Button>
+        </UIButton>
       )}
     </UIAlert>
   )

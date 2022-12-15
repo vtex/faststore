@@ -7,7 +7,7 @@ import CartToggle from 'src/components/cart/CartToggle'
 import CartSidebar from '.'
 
 import { cartItem } from 'src/../.storybook/mocks/cart-sidebar'
-import { ButtonBuy } from 'src/components/ui/Button'
+import { BuyButton } from '@faststore/ui'
 
 import {
   TokenTable,
@@ -23,12 +23,12 @@ export const Template = () => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <CartToggle />
-      <ButtonBuy
+      <BuyButton
         style={{ marginLeft: '12px' }}
         onClick={() => addItem(cartItem)}
       >
         Add item to Cart
-      </ButtonBuy>
+      </BuyButton>
       {displayCart && <CartSidebar />}
     </div>
   )

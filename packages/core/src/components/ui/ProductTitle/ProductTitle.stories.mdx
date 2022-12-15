@@ -1,6 +1,6 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 
-import { DiscountBadge } from 'src/components/ui/Badge'
+import { DiscountBadge } from '@faststore/ui'
 import ProductTitle from '.'
 import { TokenTable, TokenRow } from 'src/../.storybook/components'
 
@@ -25,22 +25,23 @@ import { TokenTable, TokenRow } from 'src/../.storybook/components'
     label: {
       control: { type: 'radio' },
       options: [
-        '<DiscountBadge listPrice={100} spotPrice={90} big />',
-        '<DiscountBadge listPrice={100} spotPrice={70} big />',
-        '<DiscountBadge listPrice={100} spotPrice={10} big />',
+        '<DiscountBadge listPrice={100} spotPrice={90} size="big" />',
+        '<DiscountBadge listPrice={100} spotPrice={70} size="big" />',
+        '<DiscountBadge listPrice={100} spotPrice={10} size="big" />',
       ],
       mapping: {
-        '<DiscountBadge listPrice={100} spotPrice={90} big />': (
-          <DiscountBadge listPrice={100} spotPrice={90} big />
+        '<DiscountBadge listPrice={100} spotPrice={90} size="big" />': (
+          <DiscountBadge listPrice={100} spotPrice={90} size="big" />
         ),
-        '<DiscountBadge listPrice={100} spotPrice={70} big />': (
-          <DiscountBadge listPrice={100} spotPrice={70} big />
+        '<DiscountBadge listPrice={100} spotPrice={70} size="big" />': (
+          <DiscountBadge listPrice={100} spotPrice={70} size="big" />
         ),
-        '<DiscountBadge listPrice={100} spotPrice={10} big />': (
-          <DiscountBadge listPrice={100} spotPrice={10} big />
+        '<DiscountBadge listPrice={100} spotPrice={10} size="big" />': (
+          <DiscountBadge listPrice={100} spotPrice={10} size="big" />
         ),
       },
-      defaultValue: '<DiscountBadge listPrice={100} spotPrice={90} big />',
+      defaultValue:
+        '<DiscountBadge listPrice={100} spotPrice={90} size="big" />',
     },
     refNumber: {
       defaultValue: '99995945',
@@ -100,8 +101,5 @@ The product title that is commonly used on Product Details Page (PDP).
     token="--fs-product-title-addendum-size"
     value="var(--fs-text-size-1)"
   />
-  <TokenRow
-    token="--fs-product-title-addendum-line-height"
-    value="1.7"
-  />
+  <TokenRow token="--fs-product-title-addendum-line-height" value="1.7" />
 </TokenTable>

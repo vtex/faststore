@@ -2,13 +2,13 @@ import {
   OutOfStock as UIOutOfStock,
   OutOfStockTitle as UIOutOfStockTitle,
   OutOfStockMessage as UIOutOfStockMessage,
+  Button as UIButton,
+  InputField as UIInputField,
 } from '@faststore/ui'
 import { useState } from 'react'
 import type { ReactElement, FormEvent } from 'react'
 
-import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
-import InputText from 'src/components/ui/InputText'
 import styles from 'src/components/product/OutOfStock/out-of-stock.module.scss'
 import { useSession } from 'src/sdk/session'
 
@@ -106,7 +106,7 @@ function OutOfStock(props: OutOfStockProps) {
       <UIOutOfStockMessage data-fs-out-of-stock-message>
         {notificationMsgIcon} {notificationMsg}
       </UIOutOfStockMessage>
-      <InputText
+      <UIInputField
         id="out-of-stock-email"
         value={email}
         label="Email"
@@ -117,7 +117,7 @@ function OutOfStock(props: OutOfStockProps) {
           setEmail(e.target.value)
         }}
       />
-      <Button
+      <UIButton
         data-fs-out-of-stock-button
         type="submit"
         disabled={disabled}
@@ -126,7 +126,7 @@ function OutOfStock(props: OutOfStockProps) {
         iconPosition="left"
       >
         {buttonText}
-      </Button>
+      </UIButton>
     </UIOutOfStock>
   )
 }

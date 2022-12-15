@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react'
+import { Button as UIButton } from '@faststore/ui'
 
-import Button from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import { useSession } from 'src/sdk/session'
 import { useUI } from 'src/sdk/ui/Provider'
@@ -21,7 +21,7 @@ function RegionBar({ classes, ...otherProps }: Props) {
       className={`${classes} ${styles.fsRegionalizationBar}`}
       {...otherProps}
     >
-      <Button onClick={openModal}>
+      <UIButton onClick={openModal}>
         <Icon name="MapPin" width={24} height={24} />
         {postalCode ? (
           <>
@@ -32,7 +32,7 @@ function RegionBar({ classes, ...otherProps }: Props) {
           <span data-fs-regionalization-bar-message>Set your location</span>
         )}
         <Icon name="CaretRight" width={24} height={24} />
-      </Button>
+      </UIButton>
     </div>
   )
 }

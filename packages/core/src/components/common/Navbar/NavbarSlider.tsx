@@ -1,9 +1,7 @@
 import { Suspense } from 'react'
+import { IconButton as UIIconButton } from '@faststore/ui'
 
-import Button, {
-  ButtonSignIn,
-  ButtonSignInFallback,
-} from 'src/components/ui/Button'
+import { ButtonSignIn, ButtonSignInFallback } from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Link from 'src/components/ui/Link'
 import Logo from 'src/components/ui/Logo'
@@ -40,7 +38,7 @@ function NavbarSlider() {
           <Logo />
         </Link>
 
-        <Button
+        <UIIconButton
           data-fs-navbar-slider-button
           aria-label="Close Menu"
           icon={<Icon name="X" width={32} height={32} />}

@@ -27,7 +27,7 @@ describe('Search input', () => {
         .click()
         .type(term)
         .within(() => {
-          cy.getById('store-button').click()
+          cy.getById('fs-button').click()
         })
 
       cy.location('search').should((loc) => {

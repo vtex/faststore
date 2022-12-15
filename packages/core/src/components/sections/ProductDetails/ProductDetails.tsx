@@ -2,12 +2,14 @@ import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import { useEffect, useState } from 'react'
+import {
+  BuyButton as UIBuyButton,
+  DiscountBadge as UIDiscountBadge,
+} from '@faststore/ui'
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'
-import { DiscountBadge } from 'src/components/ui/Badge'
 import Breadcrumb from 'src/components/ui/Breadcrumb'
-import { ButtonBuy } from 'src/components/ui/Button'
 import { ImageGallery } from 'src/components/ui/ImageGallery'
 import Price from 'src/components/ui/Price'
 import ProductTitle from 'src/components/ui/ProductTitle'
@@ -123,7 +125,11 @@ function ProductDetails({ context: staleProduct }: Props) {
           <ProductTitle
             title={<h1>{name}</h1>}
             label={
-              <DiscountBadge listPrice={listPrice} spotPrice={lowPrice} big />
+              <UIDiscountBadge
+                listPrice={listPrice}
+                spotPrice={lowPrice}
+                size="big"
+              />
             }
             refNumber={productId}
           />
@@ -178,9 +184,9 @@ function ProductDetails({ context: staleProduct }: Props) {
             {isValidating ? (
               <AddToCartLoadingSkeleton />
             ) : (
-              <ButtonBuy disabled={buyDisabled} {...buyProps}>
+              <UIBuyButton disabled={buyDisabled} {...buyProps}>
                 Add to Cart
-              </ButtonBuy>
+              </UIBuyButton>
             )}
             {!availability && (
               <OutOfStock

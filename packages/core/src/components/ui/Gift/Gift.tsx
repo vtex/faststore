@@ -2,13 +2,13 @@ import {
   Gift as UIGift,
   GiftImage as UIGiftImage,
   GiftContent as UIGiftContent,
+  Badge as UIBadge,
 } from '@faststore/ui'
 import type { GiftProps } from '@faststore/ui'
 
 import { useFormattedPrice } from 'src/sdk/product/useFormattedPrice'
 import Icon from 'src/components/ui/Icon'
 import Price from 'src/components/ui/Price'
-import { Badge } from 'src/components/ui/Badge'
 import { Image } from 'src/components/ui/Image'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
@@ -66,7 +66,7 @@ function Gift({
             classes="text__legend"
             SRText="Original price:"
           />
-          <Badge>{badgeLabel}</Badge>
+          <UIBadge>{badgeLabel}</UIBadge>
         </span>
       </UIGiftContent>
     </UIGift>

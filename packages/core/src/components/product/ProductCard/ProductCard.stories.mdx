@@ -25,7 +25,7 @@ import {
       control: { type: 'radio' },
       table: { defaultValue: '1' },
     },
-    ButtonBuy: {
+    BuyButton: {
       control: 'boolean',
       table: { defaultValue: false },
     },
@@ -63,8 +63,8 @@ export const product = {
   },
 }
 
-export const Template = ({ ButtonBuy, ...args }) => {
-  const button = ButtonBuy ? (
+export const Template = ({ BuyButton, ...args }) => {
+  const button = BuyButton ? (
     <Button
       variant="primary"
       data-fs-button-size="small"
@@ -76,13 +76,13 @@ export const Template = ({ ButtonBuy, ...args }) => {
   ) : null
   return (
     <div style={{ width: 300 }}>
-      <ProductCard ButtonBuy={button} {...args} />
+      <ProductCard BuyButton={button} {...args} />
     </div>
   )
 }
 
-export const TemplateWide = ({ ButtonBuy, ...args }) => {
-  const button = ButtonBuy ? (
+export const TemplateWide = ({ BuyButton, ...args }) => {
+  const button = BuyButton ? (
     <Button
       variant="primary"
       data-fs-button-size="small"
@@ -94,7 +94,7 @@ export const TemplateWide = ({ ButtonBuy, ...args }) => {
   ) : null
   return (
     <div style={{ width: 400 }}>
-      <ProductCard ButtonBuy={button} {...args} />
+      <ProductCard BuyButton={button} {...args} />
     </div>
   )
 }
@@ -120,7 +120,7 @@ The `ProductCard` component uses [FastStore UI ProductCard](https://www.faststor
       variant: 'default',
       bordered: false,
       aspectRatio: 1,
-      ButtonBuy: false,
+      BuyButton: false,
     }}
   >
     {Template.bind({})}
@@ -133,7 +133,7 @@ The `ProductCard` component uses [FastStore UI ProductCard](https://www.faststor
       variant: 'default',
       bordered: true,
       aspectRatio: 1,
-      ButtonBuy: false,
+      BuyButton: false,
     }}
   >
     {Template.bind({})}
@@ -146,7 +146,7 @@ The `ProductCard` component uses [FastStore UI ProductCard](https://www.faststor
       variant: 'wide',
       bordered: false,
       aspectRatio: 1.5,
-      ButtonBuy: false,
+      BuyButton: false,
     }}
   >
     {TemplateWide.bind({})}
@@ -166,7 +166,7 @@ The `ProductCard` component uses [FastStore UI ProductCard](https://www.faststor
       variant: 'default',
       bordered: false,
       aspectRatio: 1,
-      ButtonBuy: false,
+      BuyButton: false,
     }}
   >
     {Template.bind({})}
@@ -342,7 +342,7 @@ The `ProductCard` component uses [FastStore UI ProductCard](https://www.faststor
       variant: 'default',
       bordered: false,
       aspectRatio: 1,
-      ButtonBuy: false,
+      BuyButton: false,
     }}
   >
     {Template.bind({})}
@@ -360,7 +360,7 @@ The `ProductCard` component uses [FastStore UI ProductCard](https://www.faststor
       variant: 'default',
       bordered: true,
       aspectRatio: 1,
-      ButtonBuy: false,
+      BuyButton: false,
     }}
   >
     {Template.bind({})}
@@ -390,7 +390,7 @@ The `ProductCard` component uses [FastStore UI ProductCard](https://www.faststor
       variant: 'wide',
       bordered: false,
       aspectRatio: 1.5,
-      ButtonBuy: false,
+      BuyButton: false,
     }}
   >
     {TemplateWide.bind({})}

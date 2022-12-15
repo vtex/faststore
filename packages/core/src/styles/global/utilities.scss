@@ -1,12 +1,19 @@
-// ----------------------------------------------------------
-// GLOBAL STYLES
-// Utilities
-// ----------------------------------------------------------
-
 /* SQ-DISABLE */
 @use "sass:math";
 
 /* SQ-ENABLE */
+/* stylelint-disable-next-line no-invalid-position-at-import-rule */
+@import "~include-media/dist/include-media";
+
+// Include Media Overwrites //////////////////////////
+
+$breakpoints: (
+  "phone":         320px,
+  "phonemid":      375px,
+  "tablet":        768px,
+  "notebook":      1280px,
+  "desktop":       1440px,
+);
 
 // Px to rem.
 $base: 16px !default;

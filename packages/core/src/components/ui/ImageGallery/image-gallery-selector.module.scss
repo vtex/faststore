@@ -86,9 +86,15 @@
   [data-fs-image-gallery-selector-control-button] {
     position: absolute;
     z-index: 1;
+    color: var(--fs-color-text-display);
     background: linear-gradient(90deg, var(--fs-color-body-bkg) 55%, transparent);
     background-color: transparent;
     border: none;
+    border-radius: var(--fs-border-radius-circle);
+
+    &:hover {
+      color: var(--fs-color-text-display);
+    }
 
     span {
       display: flex;

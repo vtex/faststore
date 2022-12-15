@@ -1,6 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
-import Button, { ButtonBuy, ButtonLink } from '.'
+import { ButtonLink } from '.'
+import { Button, BuyButton } from '@faststore/ui'
 import Icon from 'src/components/ui/Icon'
 
 import {
@@ -147,48 +148,6 @@ export const Usage = ({ inverse, ...args }) => {
 
 <TokenTable>
   <TokenRow token="--fs-button-icon-padding" value="0 var(--fs-spacing-1)" />
-</TokenTable>
-
-### Counter
-
-<Canvas>
-  <Story
-    name="Counter"
-    args={{
-      icon: <Icon name="User" width="18" height="18" weight="bold" />,
-      counter: 3,
-    }}
-  >
-    {TemplateIcon.bind({})}
-  </Story>
-</Canvas>
-
-<TokenTable>
-  <TokenRow token="--fs-button-counter-size" value="var(--fs-spacing-3)" />
-  <TokenRow token="--fs-button-counter-padding" value="var(--fs-spacing-0)" />
-  <TokenRow
-    token="--fs-button-counter-text-size"
-    value="var(--fs-text-size-0)"
-  />
-  <TokenRow
-    token="--fs-button-counter-text-color"
-    value="var(--fs-color-text-inverse)"
-    isColor
-  />
-  <TokenRow
-    token="--fs-button-counter-bkg-color"
-    value="var(--fs-color-link)"
-    isColor
-  />
-  <TokenRow
-    token="--fs-button-counter-border-radius"
-    value="var(--fs-border-radius-pill)"
-  />
-  <TokenRow
-    token="--fs-button-counter-border-color"
-    value="var(--fs-color-body-bkg)"
-    isColor
-  />
 </TokenTable>
 
 ---
@@ -646,7 +605,7 @@ export const Usage = ({ inverse, ...args }) => {
     title="Button Buy"
     description="A button with the intent of directly sending the user to the checkout/cart step."
   >
-    <ButtonBuy>Button Buy</ButtonBuy>
+    <BuyButton>Button Buy</BuyButton>
   </SectionItem>
   <SectionItem
     title="Button Link"

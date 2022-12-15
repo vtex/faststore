@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
+import { InputField as UIInputField } from '@faststore/ui'
 
-import InputText from 'src/components/ui/InputText'
 import { sessionStore, useSession, validateSession } from 'src/sdk/session'
 
 interface Props {
@@ -40,7 +40,7 @@ function RegionInput({ closeModal }: Props) {
 
   return (
     <div className="regionalization-input">
-      <InputText
+      <UIInputField
         inputRef={inputRef}
         id="postal-code-input"
         error={errorMessage}

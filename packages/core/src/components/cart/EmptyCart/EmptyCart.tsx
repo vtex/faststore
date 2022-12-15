@@ -1,4 +1,5 @@
-import Button from 'src/components/ui/Button'
+import { Button as UIButton } from '@faststore/ui'
+
 import EmptyState from 'src/components/ui/EmptyState'
 import Icon from 'src/components/ui/Icon'
 
@@ -16,9 +17,9 @@ function EmptyCart({ onDismiss }: Props) {
         <Icon name="ShoppingCart" width={56} height={56} weight="thin" />
         <p>Your Cart is empty</p>
       </header>
-      <Button onClick={onDismiss} variant="secondary">
+      <UIButton onClick={onDismiss} variant="secondary">
         Start Shopping
-      </Button>
+      </UIButton>
     </EmptyState>
   )
 }

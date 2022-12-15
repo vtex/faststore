@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Button, IconButton } from '@faststore/ui'
+import { Button as UIButton, IconButton as UIIconButton } from '@faststore/ui'
 import { useInView } from 'react-intersection-observer'
 
 import Icon from 'src/components/ui/Icon'
@@ -61,7 +61,7 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
       aria-label="Product images"
     >
       {elementHasScroll && !firstImageInView && (
-        <IconButton
+        <UIIconButton
           data-fs-image-gallery-selector-control-button
           aria-label="backward slide image selector"
           icon={<Icon name="ArrowLeft" width={24} height={24} />}
@@ -78,7 +78,7 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
               : null
 
           return (
-            <Button
+            <UIButton
               key={idx}
               aria-label={`${image.alternateName} - Image ${idx + 1} of ${
                 images.length
@@ -97,12 +97,12 @@ function ImageGallerySelector({ images, onSelect, currentImageIdx }: Props) {
                 width={72}
                 height={72}
               />
-            </Button>
+            </UIButton>
           )
         })}
       </div>
       {elementHasScroll && !lastImageInView && (
-        <IconButton
+        <UIIconButton
           data-fs-image-gallery-selector-control-button
           aria-label="forward slide image selector"
           icon={<Icon name="ArrowLeft" width={24} height={24} />}

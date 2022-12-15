@@ -2,13 +2,14 @@ import { useSearch } from '@faststore/sdk'
 import { NextSeo } from 'next-seo'
 import { lazy, Suspense } from 'react'
 import type { MouseEvent } from 'react'
+import { Button as UIButton } from '@faststore/ui'
 
 import Filter from 'src/components/search/Filter'
 import Sort from 'src/components/search/Sort'
 import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import Skeleton from 'src/components/skeletons/Skeleton'
-import Button, { ButtonLink } from 'src/components/ui/Button'
+import { ButtonLink } from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import { mark } from 'src/sdk/tests/mark'
 import { useUI } from 'src/sdk/ui/Provider'
@@ -100,7 +101,7 @@ function ProductGallery({ title, searchTerm }: Props) {
             loading={facets?.length === 0}
             data-fs-product-listing-filter-button-skeleton
           >
-            <Button
+            <UIButton
               variant="tertiary"
               data-testid="open-filter-button"
               icon={<Icon name="FadersHorizontal" width={16} height={16} />}
@@ -109,7 +110,7 @@ function ProductGallery({ title, searchTerm }: Props) {
               onClick={openFilter}
             >
               Filters
-            </Button>
+            </UIButton>
           </Skeleton>
         </div>
 
