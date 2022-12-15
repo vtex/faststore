@@ -9,8 +9,7 @@ sidebar_custom_props:
 ---
 
 import PropsSection from '@site/src/components/PropsSection/PropsSection'
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import { TokenTable, TokenRow, TokenDivider } from '@site/src/components/Tokens'
 
 The `Hero` component is a full-width banner presented on the above-the-fold section of a web page. It serves as the first glimpse of your brand's identity and messaging.
 
@@ -19,11 +18,23 @@ The `Hero` component is a compound of the following:
 - `HeroImage`: wraps the Hero image.
 - `HeroHeading`: wraps the Hero textual content. It may contain a title, description, and a call-to-action button.
 
+---
+
 ## Import
+
+Import the component from <a href="https://www.faststore.dev/reference/ui/get-started-faststore-ui">@faststore/ui</a>
 
 ```tsx
 import { Hero, HeroImage, HeroHeading } from '@faststore/ui'
 ```
+
+Import Styles
+
+```tsx
+import '@faststore/ui/src/components/molecules/Hero/styles.scss'
+```
+
+---
 
 ## Usage
 
@@ -37,6 +48,7 @@ import { Hero, HeroImage, HeroHeading } from '@faststore/ui'
     title="Explore more about our amazing products"
     subtitle="All the amazing products from the brands we partner with."
     link="/"
+    linkText="See more"
   />
 </Hero>
 ```
@@ -61,6 +73,207 @@ All hero-related components support all attributes also supported by the `<div>`
 
 <PropsSection name="HeroHeading" />
 
+---
+
+## Design Tokens
+
+<TokenTable>
+  <TokenRow token="--fs-hero-text-size" value="var(--fs-text-size-lead)" />
+  <TokenRow token="--fs-hero-text-line-height" value="1.33" />
+</TokenTable>
+
+### Nested Elements
+
+#### Image
+
+<TokenTable>
+  <TokenRow token="--fs-hero-image-border-radius" value="0" />
+</TokenTable>
+
+#### Title
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-title-padding"
+    value="var(--fs-spacing-5) 0 var(--fs-spacing-6)"
+  />
+  <TokenRow
+    token="--fs-hero-title-weight"
+    value="var(--fs-text-weight-black)"
+  />
+  <TokenRow token="--fs-hero-title-line-height" value="1.1" />
+</TokenTable>
+
+#### Subtitle
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-subtitle-margin-top-mobile"
+    value="var(--fs-spacing-2)"
+  />
+  <TokenRow
+    token="--fs-hero-subtitle-margin-top-tablet"
+    value="var(--fs-spacing-4)"
+  />
+  <TokenRow token="--fs-hero-subtitle-size" value="var(--fs-hero-text-size)" />
+  <TokenRow
+    token="--fs-hero-subtitle-line-height"
+    value="var(--fs-hero-text-line-height)"
+  />
+</TokenTable>
+
+### Hierarchy
+
+#### Primary
+
+```tsx live
+<Hero>
+  <HeroImage
+    imageAlt="Controller on a table"
+    imageSrc="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+  />
+  <HeroHeading
+    title="Explore more about our amazing products"
+    subtitle="All the amazing products from the brands we partner with."
+    link="/"
+    linkText="See more"
+  />
+</Hero>
+```
+
+<TokenTable>
+  <TokenRow token="--fs-hero-primary-image-height-mobile" value="15rem" />
+  <TokenRow token="--fs-hero-primary-image-height-desktop" value="29rem" />
+  <TokenRow
+    token="--fs-hero-primary-title-size"
+    value="var(--fs-text-size-title-huge)"
+  />
+</TokenTable>
+
+#### Secondary
+
+```tsx live
+<Hero variant="secondary">
+  <HeroImage
+    imageAlt="Controller on a table"
+    imageSrc="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+  />
+  <HeroHeading
+    title="Explore more about our amazing products"
+    subtitle="All the amazing products from the brands we partner with."
+    link="/"
+    linkText="See more"
+  />
+</Hero>
+```
+
+<TokenTable>
+  <TokenRow token="--fs-hero-secondary-image-height-mobile" value="11.25rem" />
+  <TokenRow
+    token="--fs-hero-secondary-image-height-desktop"
+    value="14.188rem"
+  />
+  <TokenRow
+    token="--fs-hero-secondary-title-size"
+    value="var(--fs-text-size-title-page)"
+  />
+</TokenTable>
+
+### Variants
+
+#### Main
+
+```tsx live
+<Hero>
+  <HeroImage
+    imageAlt="Controller on a table"
+    imageSrc="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+  />
+  <HeroHeading
+    title="Explore more about our amazing products"
+    subtitle="All the amazing products from the brands we partner with."
+    link="/"
+    linkText="See more"
+  />
+</Hero>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-main-bkg-color"
+    value="var(--fs-color-primary-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-hero-main-text-color"
+    value="var(--fs-color-primary-text)"
+    isColor
+  />
+</TokenTable>
+
+#### Light
+
+```tsx live
+<Hero colorVariant="light">
+  <HeroImage
+    imageAlt="Controller on a table"
+    imageSrc="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+  />
+  <HeroHeading
+    title="Explore more about our amazing products"
+    subtitle="All the amazing products from the brands we partner with."
+    link="/"
+    linkText="See more"
+  />
+</Hero>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-light-bkg-color"
+    value="var(--fs-color-secondary-bkg-light)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-hero-light-text-color"
+    value="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+#### Accent
+
+```tsx live
+<Hero colorVariant="accent">
+  <HeroImage
+    imageAlt="Controller on a table"
+    imageSrc="https://storeframework.vtexassets.com/arquivos/ids/190897/Photo.jpg"
+  />
+  <HeroHeading
+    title="Explore more about our amazing products"
+    subtitle="All the amazing products from the brands we partner with."
+    link="/"
+    linkText="See more"
+  />
+</Hero>
+```
+
+<TokenTable>
+  <TokenRow
+    token="--fs-hero-accent-bkg-color"
+    value="var(--fs-color-highlighted-bkg)"
+    isColor
+  />
+  <TokenRow
+    token="--fs-hero-accent-text-color"
+    value="var(--fs-hero-light-text-color)"
+    globalValue="var(--fs-color-text-display)"
+    isColor
+  />
+</TokenTable>
+
+---
+
 ## Customization
 
 `data-fs-hero`
@@ -68,6 +281,28 @@ All hero-related components support all attributes also supported by the `<div>`
 `data-fs-hero-image`
 
 `data-fs-hero-heading`
+
+`data-fs-hero-wrapper`
+
+`data-fs-hero-title`
+
+`data-fs-hero-subtitle`
+
+`data-fs-hero-icon`
+
+`data-fs-hero-heading`
+
+`data-fs-hero-info`
+
+`data-fs-hero-variant="primary"`
+
+`data-fs-hero-variant="secondary"`
+
+`data-fs-hero-color-variant="main"`
+
+`data-fs-hero-color-variant="light"`
+
+`data-fs-hero-color-variant="accent"`
 
 ## Best practices
 
