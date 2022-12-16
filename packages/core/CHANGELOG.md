@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.3.9](https://github.com/vtex-sites/nextjs.store/compare/0.3.8...0.3.9) (2022-12-16)
+
+
+### Chores
+
+* Replaces `LinkButton` UI ([#322](https://github.com/vtex-sites/nextjs.store/issues/322)) ([532f20d](https://github.com/vtex-sites/nextjs.store/commit/532f20d96611254f2453bf0b29e610cb6052daa2))
+
 ### [0.3.8](https://github.com/vtex-sites/nextjs.store/compare/0.3.7...0.3.8) (2022-12-16)
 
 
