@@ -7,23 +7,18 @@ import {
 } from 'src/../.storybook/components'
 
 import { SearchInputProvider } from 'src/sdk/search/useSearchInput'
-import Button from 'src/components/ui/Button'
-
 import { SearchHistory } from '.'
 
-<Meta
-  title="Features/Search/SearchHistory"
-  component={SearchHistory}
-/>
+<Meta title="Features/Search/SearchHistory" component={SearchHistory} />
 
 export const Template = (args) => {
   return (
     <div
       style={{
-        maxWidth: "600px",
-        margin: "0 auto",
-        padding: "0 16px",
-        background: "white",
+        maxWidth: '600px',
+        margin: '0 auto',
+        padding: '0 16px',
+        background: 'white',
       }}
     >
       <SearchInputProvider>

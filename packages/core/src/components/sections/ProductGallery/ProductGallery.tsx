@@ -2,14 +2,13 @@ import { useSearch } from '@faststore/sdk'
 import { NextSeo } from 'next-seo'
 import { lazy, Suspense } from 'react'
 import type { MouseEvent } from 'react'
-import { Button as UIButton } from '@faststore/ui'
+import { Button as UIButton, LinkButton as UILinkButton } from '@faststore/ui'
 
 import Filter from 'src/components/search/Filter'
 import Sort from 'src/components/search/Sort'
 import FilterSkeleton from 'src/components/skeletons/FilterSkeleton'
 import ProductGridSkeleton from 'src/components/skeletons/ProductGridSkeleton'
 import Skeleton from 'src/components/skeletons/Skeleton'
-import { ButtonLink } from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import { mark } from 'src/sdk/tests/mark'
 import { useUI } from 'src/sdk/ui/Provider'
@@ -121,7 +120,7 @@ function ProductGallery({ title, searchTerm }: Props) {
               <NextSeo
                 additionalLinkTags={[{ rel: 'prev', href: prev.link }]}
               />
-              <ButtonLink
+              <UILinkButton
                 onClick={(e: MouseEvent<HTMLElement>) => {
                   e.currentTarget.blur()
                   e.preventDefault()
@@ -136,7 +135,7 @@ function ProductGallery({ title, searchTerm }: Props) {
                 }
               >
                 Previous Page
-              </ButtonLink>
+              </UILinkButton>
             </div>
           )}
 
@@ -162,8 +161,8 @@ function ProductGallery({ title, searchTerm }: Props) {
               <NextSeo
                 additionalLinkTags={[{ rel: 'next', href: next.link }]}
               />
-              <ButtonLink
-                data-testid="show-more"
+              <UILinkButton
+                testId="show-more"
                 onClick={(e: MouseEvent<HTMLElement>) => {
                   e.currentTarget.blur()
                   e.preventDefault()
@@ -174,7 +173,7 @@ function ProductGallery({ title, searchTerm }: Props) {
                 variant="secondary"
               >
                 Load more products
-              </ButtonLink>
+              </UILinkButton>
             </div>
           )}
         </div>

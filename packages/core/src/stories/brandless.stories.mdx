@@ -1,6 +1,7 @@
 import { Description, Meta } from '@storybook/addon-docs'
 
-import ButtonLink from '../components/ui/Button/ButtonLink'
+import { LinkButton } from '@faststore/ui'
+
 import Icon from '../components/ui/Icon'
 
 <Meta
@@ -14,14 +15,15 @@ import Icon from '../components/ui/Icon'
 
 This themeable structure is made of two complementary layers: a useful and assorted library of templates for the components and sections, alongside a comprehensive set of design tokens to further customize them.
 
-<ButtonLink
+<LinkButton
+  size="small"
   variant="tertiary"
   href="../?path=/docs/theming-customizing--page"
-  data-fs-button-size="small"
+  icon={<Icon name="ArrowRight" width="18" height="18" weight="bold" />}
+  iconPosition="right"
 >
   Customizing your store
-  <Icon name="ArrowRight" width="18" height="18" weight="bold" />
-</ButtonLink>
+</LinkButton>
 
 </header>
 

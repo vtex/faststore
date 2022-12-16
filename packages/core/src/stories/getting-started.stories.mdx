@@ -1,7 +1,8 @@
 import { Description, Meta } from '@storybook/addon-docs'
 import { Callout } from 'src/../.storybook/components'
 
-import ButtonLink from '../components/ui/Button/ButtonLink'
+import { LinkButton } from '@faststore/ui'
+
 import Icon from '../components/ui/Icon'
 
 <Meta
@@ -15,23 +16,25 @@ import Icon from '../components/ui/Icon'
 
 FastStore NextJS Starter's components library is an ecommerce-focused library **created by VTEX** that provides best-of-breed components, blazing-fast performance, and a frictionless development experience to create storefronts using FastStore UI library as base.
 
-<ButtonLink
+<LinkButton
+  size="small"
   variant="tertiary"
   href="https://nextjs.vtex.app/"
-  data-fs-button-size="small"
+  icon={<Icon name="ArrowRight" width="18" height="18" weight="bold" />}
+  iconPosition="right"
 >
   NextJS Store Starter
-  <Icon name="ArrowRight" width="18" height="18" weight="bold" />
-</ButtonLink>
+</LinkButton>
 
-<ButtonLink
+<LinkButton
+  size="small"
   variant="tertiary"
   href="https://www.faststore.dev/reference/ui/faststore-ui"
-  data-fs-button-size="small"
+  icon={<Icon name="ArrowRight" width="18" height="18" weight="bold" />}
+  iconPosition="right"
 >
   FastStore UI library
-  <Icon name="ArrowRight" width="18" height="18" weight="bold" />
-</ButtonLink>
+</LinkButton>
 
 </header>
 

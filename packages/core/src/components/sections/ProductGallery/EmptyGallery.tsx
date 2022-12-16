@@ -1,4 +1,5 @@
-import { ButtonLink } from 'src/components/ui/Button'
+import { LinkButton } from '@faststore/ui'
+
 import EmptyState from 'src/components/ui/EmptyState'
 import Icon from 'src/components/ui/Icon'
 
@@ -11,7 +12,7 @@ function EmptyGallery() {
         <p>Nothing matches with your search</p>
       </header>
 
-      <ButtonLink
+      <LinkButton
         data-fs-empty-state-link
         href="/office"
         variant="secondary"
@@ -21,8 +22,8 @@ function EmptyGallery() {
         iconPosition="left"
       >
         Browse Offers
-      </ButtonLink>
-      <ButtonLink
+      </LinkButton>
+      <LinkButton
         data-fs-empty-state-link
         href="/technology"
         variant="secondary"
@@ -30,7 +31,7 @@ function EmptyGallery() {
         iconPosition="left"
       >
         Just Arrived
-      </ButtonLink>
+      </LinkButton>
     </EmptyState>
   )
 }

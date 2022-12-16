@@ -1,6 +1,7 @@
 import React, { CSSProperties, PropsWithChildren, ReactNode } from 'react'
 
-import ButtonLink from '../../src/components/ui/Button/ButtonLink'
+import { LinkButton } from '@faststore/ui'
+
 import Icon from '../../src/components/ui/Icon'
 
 type SectionItemProps = {
@@ -27,14 +28,17 @@ const SectionItem = ({
         <h3 className="sbdocs sbdocs-h3">{title}</h3>
         <p className="sbdocs sbdocs-p">{description}</p>
         {actionPath && (
-          <ButtonLink
+          <LinkButton
+            size="small"
             variant="tertiary"
             href={actionPath}
-            data-fs-button-size="small"
+            icon={
+              <Icon name="ArrowRight" width="18" height="18" weight="bold" />
+            }
+            iconPosition="right"
           >
             See more
-            <Icon name="ArrowRight" width="18" height="18" weight="bold" />
-          </ButtonLink>
+          </LinkButton>
         )}
       </article>
     </li>

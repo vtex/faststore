@@ -2,9 +2,9 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
 import { TokenTable, TokenRow } from 'src/../.storybook/components'
 
-import Button from 'src/components/ui/Button'
+import { Button, LinkButton } from '@faststore/ui'
+
 import Icon from 'src/components/ui/Icon'
-import { ButtonLink } from 'src/components/ui/Button'
 
 import EmptyState from '.'
 
@@ -115,7 +115,7 @@ export const TemplateEmptyGallery = (args) => {
         <Icon name="CircleWavyWarning" width={56} height={56} weight="thin" />
         <p>Nothing matches with your search</p>
       </header>
-      <ButtonLink
+      <LinkButton
         data-fs-empty-state-link
         href="#"
         variant="secondary"
@@ -125,8 +125,8 @@ export const TemplateEmptyGallery = (args) => {
         iconPosition="left"
       >
         Browse Offers
-      </ButtonLink>
-      <ButtonLink
+      </LinkButton>
+      <LinkButton
         data-fs-empty-state-link
         href="#"
         variant="secondary"
@@ -134,7 +134,7 @@ export const TemplateEmptyGallery = (args) => {
         iconPosition="left"
       >
         Just Arrived
-      </ButtonLink>
+      </LinkButton>
     </EmptyState>
   )
 }

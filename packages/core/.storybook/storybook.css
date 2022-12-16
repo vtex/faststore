@@ -460,7 +460,7 @@ header.sbdocs-hero + .sbdocs-callout {
   margin-bottom: var(--fs-spacing-5);
 }
 
-.sbdocs-content > header.sbdocs-hero [data-fs-button-link]:first-of-type {
+.sbdocs-content > header.sbdocs-hero [data-fs-link-button]:first-of-type {
   margin-left: calc(-1 * var(--fs-spacing-1));
 }
 

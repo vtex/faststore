@@ -2,8 +2,9 @@ import UIProvider, { useUI } from 'src/sdk/ui/Provider'
 
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
 
+import { LinkButton } from '@faststore/ui'
+
 import RegionalizationButton from './RegionalizationButton'
-import ButtonLink from '../ui/Button/ButtonLink'
 import RegionalizationInput from './RegionalizationInput'
 import RegionalizationBar from './RegionalizationBar'
 import RegionalizationModal, {
@@ -93,14 +94,15 @@ With the Regionalization feature enabled, if a customer enters their Postal Code
           The Bar has a similar proposal for the button, usually used on mobile
           devices only. It also triggers <code>RegionalizationModal</code>.
         </p>
-        <ButtonLink
+        <LinkButton
+          size="small"
           variant="tertiary"
           href="../?path=/docs/features-regionalization-regionalizationbar--bar"
-          data-fs-button-size="small"
+          icon={<Icon name="ArrowRight" width="18" height="18" weight="bold" />}
+          iconPosition="right"
         >
           See more
-          <Icon name="ArrowRight" width="18" height="18" weight="bold" />
-        </ButtonLink>
+        </LinkButton>
       </article>
     </li>
     <li>
@@ -129,14 +131,15 @@ With the Regionalization feature enabled, if a customer enters their Postal Code
           <code>RegionalizationBar</code>, shows the user the{' '}
           <code>RegionalizationInput</code> search.
         </p>
-        <ButtonLink
+        <LinkButton
+          size="small"
           variant="tertiary"
           href="../?path=/docs/features-regionalization-regionalizationmodal--overview"
-          data-fs-button-size="small"
+          icon={<Icon name="ArrowRight" width="18" height="18" weight="bold" />}
+          iconPosition="right"
         >
           See more
-          <Icon name="ArrowRight" width="18" height="18" weight="bold" />
-        </ButtonLink>
+        </LinkButton>
       </article>
     </li>
   </ul>

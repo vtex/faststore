@@ -1,7 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
-import { ButtonLink } from '.'
-import { Button, BuyButton } from '@faststore/ui'
+import { Button, BuyButton, LinkButton } from '@faststore/ui'
 import Icon from 'src/components/ui/Icon'
 
 import {
@@ -611,7 +610,7 @@ export const Usage = ({ inverse, ...args }) => {
     title="Button Link"
     description="A button that acts as a link to navigate users between pages."
   >
-    <ButtonLink href="/">Button Link</ButtonLink>
+    <LinkButton href="/">Button Link</LinkButton>
   </SectionItem>
 </SectionList>
 

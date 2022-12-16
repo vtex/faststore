@@ -3,9 +3,9 @@ import {
   Hero as UIHero,
   HeroHeading as UIHeroHeading,
   HeroImage as UIHeroImage,
+  LinkButton as UILinkButton,
 } from '@faststore/ui'
 
-import { ButtonLink } from 'src/components/ui/Button'
 import Icon from 'src/components/ui/Icon'
 import Image from 'src/components/ui/Image/Image'
 
@@ -91,9 +91,14 @@ const Hero = ({
               <h1 data-fs-hero-title>{title}</h1>
               <p data-fs-hero-subtitle>{subtitle}</p>
               {!!link && (
-                <ButtonLink href={link} inverse={colorVariant === 'main'}>
-                  {linkText} <Icon name="ArrowRight" width={24} height={24} />
-                </ButtonLink>
+                <UILinkButton
+                  href={link}
+                  inverse={colorVariant === 'main'}
+                  icon={<Icon name="ArrowRight" width={24} height={24} />}
+                  iconPosition="right"
+                >
+                  {linkText}
+                </UILinkButton>
               )}
             </div>
             {icon && variant === 'secondary' && (

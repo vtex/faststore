@@ -1,7 +1,8 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs'
+
+import { Button, LinkButton } from '@faststore/ui'
+
 import UIProvider, { useUI } from 'src/sdk/ui/Provider'
-import Button from 'src/components/ui/Button'
-import ButtonLink from 'src/components/ui/Button/ButtonLink'
 import { RegionalizationModalContent } from 'src/components/regionalization/RegionalizationModal'
 
 import Modal from '.'
@@ -128,14 +129,15 @@ The `Modal` component uses [FastStore UI Modal](https://www.faststore.dev/refere
           <code>RegionalizationBar</code>, shows the user the{' '}
           <code>RegionalizationInput</code> search.
         </p>
-        <ButtonLink
+        <LinkButton
+          size="small"
           variant="tertiary"
           href="../?path=/docs/features-regionalization-regionalizationmodal--overview"
-          data-fs-button-size="small"
+          icon={<Icon name="ArrowRight" width="18" height="18" weight="bold" />}
+          iconPosition="right"
         >
           See more
-          <Icon name="ArrowRight" width="18" height="18" weight="bold" />
-        </ButtonLink>
+        </LinkButton>
       </article>
     </li>
   </ul>
