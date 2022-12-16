@@ -17,7 +17,7 @@ export interface HeroImageProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const HeroImage = forwardRef<HTMLDivElement, HeroImageProps>(function HeroImage(
-  { imageAlt, imageSrc, testId = 'fs-hero-image', children, ...otherProps },
+  { imageAlt, imageSrc, children, testId = 'fs-hero-image', ...otherProps },
   ref
 ) {
   return (

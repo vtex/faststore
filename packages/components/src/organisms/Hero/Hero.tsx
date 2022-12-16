@@ -1,8 +1,15 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useContext, createContext } from 'react'
 import type { HTMLAttributes } from 'react'
 
 type Variant = 'primary' | 'secondary'
 type ColorVariant = 'main' | 'light' | 'accent'
+
+interface HeroContext {
+  variant: Variant
+  colorVariant: ColorVariant
+}
+
+const HeroContext = createContext<HeroContext | undefined>(undefined)
 
 export interface HeroProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -20,20 +27,42 @@ export interface HeroProps extends HTMLAttributes<HTMLDivElement> {
   testId?: string
 }
 
-const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero({
-  variant = 'primary',
-  colorVariant = 'main',
-  testId = 'fs-hero',
-  children,
-  ...otherProps},
+const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
+  {
+    children,
+    testId = 'fs-hero',
+    variant = 'primary',
+    colorVariant = 'main',
+    ...otherProps
+  },
   ref
 ) {
+  const context = { variant, colorVariant }
+
   return (
-    <article ref={ref} data-fs-hero-variant={variant}
-        data-fs-hero-color-variant={colorVariant} data-fs-hero data-testid={testId} {...otherProps}>
-      {children}
-    </article>
+    <HeroContext.Provider value={context}>
+      <article
+        ref={ref}
+        data-fs-hero
+        data-fs-hero-variant={variant}
+        data-fs-hero-color-variant={colorVariant}
+        data-testid={testId}
+        {...otherProps}
+      >
+        {children}
+      </article>
+    </HeroContext.Provider>
   )
 })
+
+export function useHero() {
+  const context = useContext(HeroContext)
+
+  if (context === undefined) {
+    throw new Error('Do not use Hero components outside the Hero context.')
+  }
+
+  return context
+}
 
 export default Hero

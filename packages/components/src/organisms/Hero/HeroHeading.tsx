@@ -2,9 +2,10 @@ import type { ReactNode, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { Icon, LinkButton } from '../..'
 import { ShoppingCart } from '../../assets'
-import type { HeroProps } from '../..'
 
-export type HeroHeadingProps = HTMLAttributes<HTMLDivElement> & Pick<HeroProps, 'colorVariant' | 'variant'> & {
+import { useHero } from './Hero'
+
+export interface HeroHeadingProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Content for the h1 tag.
    */
@@ -33,11 +34,27 @@ export type HeroHeadingProps = HTMLAttributes<HTMLDivElement> & Pick<HeroProps, 
 
 const HeroHeading = forwardRef<HTMLDivElement, HeroHeadingProps>(
   function HeroHeading(
-    { title, link, linkText, colorVariant, variant, subtitle, icon, testId = 'fs-hero-heading', children, ...otherProps },
+    {
+      icon,
+      link,
+      title,
+      linkText,
+      subtitle,
+      children,
+      testId = 'fs-hero-heading',
+      ...otherProps
+    },
     ref
   ) {
+    const { variant, colorVariant } = useHero()
+
     return (
-      <header ref={ref} data-fs-hero-heading data-testid={testId} {...otherProps}>
+      <header
+        ref={ref}
+        data-fs-hero-heading
+        data-testid={testId}
+        {...otherProps}
+      >
         <div data-fs-hero-wrapper className="layout__content">
           <div data-fs-hero-info>
             <h1 data-fs-hero-title>{title}</h1>
