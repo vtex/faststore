@@ -22,15 +22,18 @@ const HeroImage = forwardRef<HTMLDivElement, HeroImageProps>(function HeroImage(
 ) {
   return (
     <div ref={ref} data-fs-hero-image data-testid={testId} {...otherProps}>
-      <img
-        data-fs-image
-        loading="eager"
-        src={imageSrc}
-        alt={imageAlt}
-        width={360}
-        height={240}
-        sizes="(max-width: 768px) 70vw, 50vw"
-      />
+      <picture>
+        <source srcSet={imageSrc} type="image/webp" />
+        <img
+          data-fs-image
+          loading="eager"
+          src={imageSrc}
+          alt={imageAlt}
+          width={360}
+          height={240}
+          sizes="(max-width: 768px) 70vw, 50vw"
+        />
+      </picture>
     </div>
   )
 })
