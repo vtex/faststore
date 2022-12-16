@@ -204,17 +204,6 @@ export type {
 export { Tiles, Tile } from './components/organisms/Tiles'
 export type { TilesProps, TileProps } from './components/organisms/Tiles'
 
-export {
-  default as Hero,
-  HeroHeading,
-  HeroImage,
-} from './components/organisms/Hero'
-export type {
-  HeroProps,
-  HeroHeadingProps,
-  HeroImageProps,
-} from './components/organisms/Hero'
-
 // Hooks
 export { default as useSlider } from './hooks/useSlider'
 export type {
