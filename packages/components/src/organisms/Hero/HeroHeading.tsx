@@ -1,7 +1,7 @@
 import type { ReactNode, HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 import { Icon, LinkButton } from '../..'
-import { ShoppingCart } from '../../assets'
+import { ArrowRight } from '../../assets'
 
 import { useHero } from './Hero'
 
@@ -63,7 +63,7 @@ const HeroHeading = forwardRef<HTMLDivElement, HeroHeadingProps>(
               <LinkButton
                 href={link}
                 inverse={colorVariant === 'main'}
-                icon={<ShoppingCart />}
+                icon={<ArrowRight />}
                 iconPosition="right"
               >
                 {linkText}

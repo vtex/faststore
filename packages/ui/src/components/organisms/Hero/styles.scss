@@ -108,6 +108,11 @@
 
   [data-fs-hero-icon] {
     color: var(--fs-hero-text-color);
+    height: fit-content;
+    > * {
+      height: var(--fs-spacing-6);
+      width: var(--fs-spacing-6);
+    }
   }
 
   // --------------------------------------------------------
