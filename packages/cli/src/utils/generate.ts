@@ -101,9 +101,9 @@ async function copyTheme() {
       console.info(
         `${chalk.blue('info')} - The ${
           storeConfig.theme
-        } theme was added to config file but the ${
+        } theme was added to the config file but the ${
           storeConfig.theme
-        }.scss file does not exist in the themes folder.`
+        }.scss file does not exist in the themes folder`
       )
     }
   } else if (
@@ -114,7 +114,7 @@ async function copyTheme() {
     console.info(
       `${chalk.blue(
         'info'
-      )} - Theme needs to be added in config file to be applied.`
+      )} - The theme needs to be added to the config file to be applied`
     )
   }
 }
