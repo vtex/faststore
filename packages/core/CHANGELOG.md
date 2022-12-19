@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.3.12](https://github.com/vtex-sites/nextjs.store/compare/0.3.11...0.3.12) (2022-12-19)
+
+
+### Bug Fixes
+
+* next tsconfig ([#329](https://github.com/vtex-sites/nextjs.store/issues/329)) ([d2b4fc5](https://github.com/vtex-sites/nextjs.store/commit/d2b4fc5f33c5613eefa151088a7e8a9a899b6d24))
+
 ### [0.3.11](https://github.com/vtex-sites/nextjs.store/compare/0.3.10...0.3.11) (2022-12-19)
 
 
