@@ -165,13 +165,6 @@ async function copyStoreConfig() {
 }
 
 function mergeCMSFiles() {
-  try {
-    mkdirsSync(`${tmpDir}/cms`)
-    console.log(`${chalk.green('success')} - CMS folder created`)
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
-  }
-
   mergeCMSFile('content-types.json')
   mergeCMSFile('sections.json')
 }
