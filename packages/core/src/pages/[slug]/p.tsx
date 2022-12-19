@@ -1,24 +1,24 @@
 import { isNotFoundError } from '@faststore/api'
 import { gql } from '@faststore/graphql-utils'
-import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
-import type { GetStaticPaths, GetStaticProps } from 'next'
-import type { ComponentType } from 'react'
 import type { Locator } from '@vtex/client-cms'
+import type { GetStaticPaths, GetStaticProps } from 'next'
+import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo'
+import type { ComponentType } from 'react'
 
-import RenderPageSections from 'src/components/cms/RenderPageSections'
-import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
-import CrossSellingShelf from 'src/components/sections/CrossSellingShelf'
-import ProductDetails from 'src/components/sections/ProductDetails'
-import { useSession } from 'src/sdk/session'
-import { mark } from 'src/sdk/tests/mark'
-import { execute } from 'src/server'
-import { getPage } from 'src/server/cms'
-import type { PDPContentType } from 'src/server/cms'
-import CUSTOM_SECTIONS from 'src/customizations'
 import type {
   ServerProductPageQueryQuery,
   ServerProductPageQueryQueryVariables,
 } from '@generated/graphql'
+import RenderPageSections from 'src/components/cms/RenderPageSections'
+import BannerNewsletter from 'src/components/sections/BannerNewsletter/BannerNewsletter'
+import CrossSellingShelf from 'src/components/sections/CrossSellingShelf'
+import ProductDetails from 'src/components/sections/ProductDetails'
+import CUSTOM_COMPONENTS from 'src/customizations/components'
+import { useSession } from 'src/sdk/session'
+import { mark } from 'src/sdk/tests/mark'
+import { execute } from 'src/server'
+import type { PDPContentType } from 'src/server/cms'
+import { getPage } from 'src/server/cms'
 
 import storeConfig from '../../../store.config'
 
@@ -30,7 +30,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductDetails,
   BannerNewsletter,
   CrossSellingShelf,
-  ...CUSTOM_SECTIONS,
+  ...CUSTOM_COMPONENTS,
 }
 
 type Props = ServerProductPageQueryQuery & PDPContentType

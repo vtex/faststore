@@ -1,7 +1,7 @@
+import type { Locator } from '@vtex/client-cms'
+import type { GetStaticProps } from 'next'
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import type { ComponentType } from 'react'
-import type { GetStaticProps } from 'next'
-import type { Locator } from '@vtex/client-cms'
 
 import RenderPageSections from 'src/components/cms/RenderPageSections'
 import BannerText from 'src/components/sections/BannerText'
@@ -10,17 +10,14 @@ import IncentivesHeader from 'src/components/sections/Incentives/IncentivesHeade
 import Newsletter from 'src/components/sections/Newsletter'
 import ProductShelf from 'src/components/sections/ProductShelf'
 import ProductTiles from 'src/components/sections/ProductTiles'
+import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { mark } from 'src/sdk/tests/mark'
-import { getPage } from 'src/server/cms'
 import type { PageContentType } from 'src/server/cms'
-import CUSTOM_SECTIONS from 'src/customizations'
+import { getPage } from 'src/server/cms'
 
 import storeConfig from '../../store.config'
 
-/**
- * Sections: Components imported from each store's custom components and '../components/sections'.
- * Do not import or render components from any other folder in here.
- */
+/* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Hero,
   BannerText,
@@ -28,7 +25,7 @@ const COMPONENTS: Record<string, ComponentType<any>> = {
   ProductShelf,
   ProductTiles,
   Newsletter,
-  ...CUSTOM_SECTIONS,
+  ...CUSTOM_COMPONENTS,
 }
 
 type Props = PageContentType
