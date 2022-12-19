@@ -2,6 +2,7 @@ import deepmerge from 'deepmerge'
 import {
   copyFileSync,
   copySync,
+  readdirSync,
   existsSync,
   mkdirsSync,
   readFileSync,
@@ -82,15 +83,39 @@ function copyUserSrcToCustomizations() {
 
 async function copyTheme() {
   const storeConfig = await import(userStoreConfigFileDir)
-
-  try {
-    copyFileSync(
-      `${userThemesFileDir}/${storeConfig.theme}.scss`,
-      tmpThemesCustomizationsFileDir
+  if (storeConfig.theme) {
+    const customTheme = `${userThemesFileDir}/${storeConfig.theme}.scss`
+    if (existsSync(customTheme)) {
+      try {
+        copyFileSync(customTheme, tmpThemesCustomizationsFileDir)
+        console.log(
+          `${chalk.green('success')} - ${
+            storeConfig.theme
+          } theme has been applied`
+        )
+      } catch (err) {
+        console.error(`${chalk.red('error')} - ${err}`)
+      }
+    } else {
+      // TODO: add link to our doc about creating a custom theme on faststore evergreen
+      console.info(
+        `${chalk.blue('info')} - The ${
+          storeConfig.theme
+        } theme was added to the config file but the ${
+          storeConfig.theme
+        }.scss file does not exist in the themes folder`
+      )
+    }
+  } else if (
+    existsSync(userThemesFileDir) &&
+    readdirSync(userThemesFileDir).length > 0
+  ) {
+    // TODO: add link to our doc about creating a custom theme on faststore evergreen
+    console.info(
+      `${chalk.blue(
+        'info'
+      )} - The theme needs to be added to the config file to be applied`
     )
-    console.log(`${chalk.green('success')} - Custom styles copied`)
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
   }
 }
 
