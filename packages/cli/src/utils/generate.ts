@@ -74,11 +74,13 @@ function copyCoreFiles() {
 }
 
 function copyUserSrcToCustomizations() {
-  try {
-    copySync(userSrcDir, tmpCustomizationsDir)
-    console.log(`${chalk.green('success')} - Custom files copied`)
-  } catch (err) {
-    console.error(`${chalk.red('error')} - ${err}`)
+  if (existsSync(userSrcDir) && readdirSync(userSrcDir).length > 0) {
+    try {
+      copySync(userSrcDir, tmpCustomizationsDir)
+      console.log(`${chalk.green('success')} - Custom files copied`)
+    } catch (err) {
+      console.error(`${chalk.red('error')} - ${err}`)
+    }
   }
 }
 
