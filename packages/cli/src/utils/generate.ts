@@ -2,9 +2,9 @@ import deepmerge from 'deepmerge'
 import {
   copyFileSync,
   copySync,
-  readdirSync,
   existsSync,
   mkdirsSync,
+  readdirSync,
   readFileSync,
   removeSync,
   symlinkSync,
@@ -12,6 +12,7 @@ import {
 } from 'fs-extra'
 
 import {
+  configFileName,
   coreCMSDir,
   coreDir,
   coreStoreConfigFileDir,
@@ -156,7 +157,7 @@ async function copyStoreConfig() {
       generateStoreConfigFile(mergedStoreConfig)
     )
     console.log(
-      `${chalk.green('success')} - File ${chalk.dim('store.config.js')} copied`
+      `${chalk.green('success')} - File ${chalk.dim(configFileName)} copied`
     )
   } catch (err) {
     console.error(`${chalk.red('error')} - ${err}`)
