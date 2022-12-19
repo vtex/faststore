@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.22-alpha.0](https://github.com/vtex/faststore/compare/v2.0.21-alpha.0...v2.0.22-alpha.0) (2022-12-19)
+
+
+### Bug Fixes
+
+* cli cms merge ([#1565](https://github.com/vtex/faststore/issues/1565)) ([2e5bd93](https://github.com/vtex/faststore/commit/2e5bd93c0ee5f1b6ab3afa39a2eae79c5ebea210))
+
+
+
 ## [2.0.21-alpha.0](https://github.com/vtex/faststore/compare/v2.0.20-alpha.0...v2.0.21-alpha.0) (2022-12-19)
 
 
