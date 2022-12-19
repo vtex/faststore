@@ -1,17 +1,16 @@
 import { gql } from '@faststore/graphql-utils'
+import type { Session } from '@faststore/sdk'
 import { createSessionStore } from '@faststore/sdk'
 import { useMemo } from 'react'
-import type { Session } from '@faststore/sdk'
 
-import storeConfig from 'store.config'
-
-import { cartStore } from '../cart'
-import { request } from '../graphql/request'
-import { createValidationStore, useStore } from '../useStore'
 import type {
   ValidateSessionMutation,
   ValidateSessionMutationVariables,
 } from '../../../@generated/graphql/index'
+import storeConfig from '../../../faststore.config'
+import { cartStore } from '../cart'
+import { request } from '../graphql/request'
+import { createValidationStore, useStore } from '../useStore'
 
 export const mutation = gql`
   mutation ValidateSession($session: IStoreSession!, $search: String!) {

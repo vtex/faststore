@@ -11,7 +11,7 @@ import { ITEMS_PER_PAGE } from 'src/constants'
 import { useApplySearchState } from 'src/sdk/search/state'
 import { mark } from 'src/sdk/tests/mark'
 
-import storeConfig from '../../store.config'
+import storeConfig from '../../faststore.config'
 
 const useSearchParams = () => {
   const [params, setParams] = useState<SearchState | null>(null)

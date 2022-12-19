@@ -1,6 +1,6 @@
 const lhConfig = require('@faststore/lighthouse').default
 
-const { lighthouse: lh } = require('./store.config')
+const { lighthouse: lh } = require('./faststore.config')
 
 module.exports = lhConfig({
   urls: Object.values(lh.pages),

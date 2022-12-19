@@ -1,4 +1,4 @@
-import storeConfig from '../store.config'
+import storeConfig from '../faststore.config'
 
 export const { pages } = storeConfig.cypress
 

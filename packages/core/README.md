@@ -43,7 +43,7 @@ As of Sep, 2022, this starter is still far from covering most basic cases found 
    yarn
    ```
 
-2. **Setup store.config.js**
+2. **Setup faststore.config.js**
 
    Choose the ecommerce platform provider of your choice in the `store.config` file and set the corresponding options. For instance, to connect to the VTEX platform on the store `fashioneurope`:
 
@@ -94,7 +94,7 @@ A quick look at the top-level files and directories you'll see in a NextJS proje
     └── yarn.lock
     ├── package.json
     ├── tsconfig.json
-    ├── store.config.js
+    ├── faststore.config.js
     ├── README.md
     ├── CHANGELOG.md
     ├── __generated__
@@ -124,7 +124,7 @@ A quick look at the top-level files and directories you'll see in a NextJS proje
 
 9.  **`tsconfig.json`**: The configuration file for the typescript compiler. This will statically analyze your code for errors and bugs before releasing them into production
 
-10. **`store.config.js`**: Configure your e-commerce platform, default sales channel etc.
+10. **`faststore.config.js`**: Configure your e-commerce platform, default sales channel etc.
 
 11. **`README.md`**: A text file containing useful reference information about your project.
 
@@ -405,7 +405,7 @@ The page rendered with CMS is:
 
 ### CMS configs
 
-It's possible to change the CMS tenant and workspace at `store.config.js`.
+It's possible to change the CMS tenant and workspace at `faststore.config.js`.
 
 ## 🎓 Learning the Frameworks
 

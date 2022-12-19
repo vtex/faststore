@@ -4,7 +4,7 @@
  * Cypress tests for a11y (accessibility)
  */
 
-import { cypress } from '../../store.config'
+import { cypress } from '../../faststore.config'
 
 const { pages } = cypress
 

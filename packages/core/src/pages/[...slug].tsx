@@ -26,7 +26,7 @@ import type {
   ServerCollectionPageQueryQueryVariables,
 } from '@generated/graphql'
 
-import storeConfig from '../../store.config'
+import storeConfig from '../../faststore.config'
 
 type Props = ServerCollectionPageQueryQuery
 

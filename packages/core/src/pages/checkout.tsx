@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { NextSeo } from 'next-seo'
 
-import storeConfig from '../../store.config'
+import storeConfig from '../../faststore.config'
 
 function Page() {
   useEffect(() => {

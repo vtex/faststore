@@ -1,6 +1,6 @@
 import { Partytown } from '@builder.io/partytown/react'
 
-import storeConfig from '../../../store.config'
+import storeConfig from '../../../faststore.config'
 import GoogleTagManager from './GoogleTagManager'
 import VTEX from './vtex'
 
@@ -13,7 +13,7 @@ const includeVTEX = storeConfig.platform === 'vtex'
 
 if (process.env.NODE_ENV === 'development' && !includeGTM) {
   console.warn(
-    'No GTM container id found. Check the analytics section on your store.config.js file for enhanced observability of your store.'
+    'No GTM container id found. Check the analytics section on your faststore.config.js file for enhanced observability of your store.'
   )
 }
 

@@ -15,7 +15,7 @@ import { mark } from 'src/sdk/tests/mark'
 import type { PageContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
-import storeConfig from '../../store.config'
+import storeConfig from '../../faststore.config'
 
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {

@@ -7,7 +7,7 @@
  */
 
 import { options } from '../global'
-import { cypress, storeUrl } from '../../store.config'
+import { cypress, storeUrl } from '../../faststore.config'
 
 const { pages } = cypress
 

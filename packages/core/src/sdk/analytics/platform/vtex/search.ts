@@ -3,7 +3,7 @@
  */
 import type { AnalyticsEvent } from '@faststore/sdk'
 
-import config from '../../../../../store.config'
+import config from '../../../../../faststore.config'
 import type { SearchSelectItemEvent } from '../../types'
 
 const THIRTY_MINUTES_S = 30 * 60

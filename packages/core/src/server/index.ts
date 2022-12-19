@@ -14,7 +14,7 @@ import { GraphQLError } from 'graphql'
 import type { Maybe, Options as APIOptions, CacheControl } from '@faststore/api'
 
 import persisted from '../../@generated/graphql/persisted.json'
-import storeConfig from '../../store.config'
+import storeConfig from '../../faststore.config'
 
 interface ExecuteOptions<V = Record<string, unknown>> {
   operationName: string

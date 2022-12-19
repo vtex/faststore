@@ -20,7 +20,7 @@ import { execute } from 'src/server'
 import type { PDPContentType } from 'src/server/cms'
 import { getPage } from 'src/server/cms'
 
-import storeConfig from '../../../store.config'
+import storeConfig from '../../../faststore.config'
 
 /**
  * Sections: Components imported from each store's custom components and '../components/sections' only.

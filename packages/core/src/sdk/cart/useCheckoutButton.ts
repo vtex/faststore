@@ -1,7 +1,5 @@
+import storeConfig from '../../../faststore.config'
 import { useCart } from './index'
-import * as storeConfig from '../../../store.config'
-
-const { checkoutUrl } = storeConfig
 
 export const useCheckoutButton = () => {
   const { isValidating, id } = useCart()
@@ -10,7 +8,7 @@ export const useCheckoutButton = () => {
     e.preventDefault()
 
     if (!isValidating && id) {
-      window.location.href = `${checkoutUrl}?orderFormId=${id}`
+      window.location.href = `${storeConfig.checkoutUrl}?orderFormId=${id}`
     }
   }
 

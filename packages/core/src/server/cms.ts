@@ -1,7 +1,7 @@
 import ClientCMS from '@vtex/client-cms'
 import type { ContentData, Locator } from '@vtex/client-cms'
 
-import config from '../../store.config'
+import config from '../../faststore.config'
 
 export const clientCMS = new ClientCMS({
   workspace: config.api.workspace,
