@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.3.10](https://github.com/vtex-sites/nextjs.store/compare/0.3.9...0.3.10) (2022-12-19)
+
+
+### Bug Fixes
+
+* custom components on home page ([#325](https://github.com/vtex-sites/nextjs.store/issues/325)) ([c7fbdec](https://github.com/vtex-sites/nextjs.store/commit/c7fbdecd9c2730d4f474444ee086a7099fa2843f)), closes [#326](https://github.com/vtex-sites/nextjs.store/issues/326)
+
 ### [0.3.9](https://github.com/vtex-sites/nextjs.store/compare/0.3.8...0.3.9) (2022-12-16)
 
 
