@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog),
 and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [0.3.13](https://github.com/vtex-sites/nextjs.store/compare/0.3.12...0.3.13) (2022-12-19)
+
+
+### Chores
+
+* using faststore.config avoid store.config ([#330](https://github.com/vtex-sites/nextjs.store/issues/330)) ([6f8ef30](https://github.com/vtex-sites/nextjs.store/commit/6f8ef30ec7c6a32ce29088fa7e506cc3b6b429bc))
+
 ### [0.3.12](https://github.com/vtex-sites/nextjs.store/compare/0.3.11...0.3.12) (2022-12-19)
 
 
