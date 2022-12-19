@@ -1,5 +1,4 @@
 {
-  "extends": "@vtex/tsconfig",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",

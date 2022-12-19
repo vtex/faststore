@@ -37,7 +37,6 @@
     "@faststore/ui": "^2.0.17-alpha.0",
     "@types/react": "^18.0.14",
     "@vtex/client-cms": "^0.2.12",
-    "@vtex/tsconfig": "0.6.0",
     "autoprefixer": "^10.4.0",
     "css-loader": "^6.7.1",
     "eslint": "^7.22.0",
